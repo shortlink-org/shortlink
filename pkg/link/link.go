@@ -1,9 +1,17 @@
 package link
 
-func (l *Link) Get(link string) {}
+func (l *LinkList) Get(link Link) (*Link, error) {
+	return nil, nil
+}
 
-func (l *Link) Add(link string) {}
+func (l *LinkList) Add(link Link) error {
+	return nil
+}
 
-func (l *Link) Update() {}
+func (l *LinkList) Update(link Link) (*Link, error) {
+	return nil, nil
+}
 
-func (l *Link) Delete() {}
+func (l *LinkList) Delete(link Link) error {
+	return nil
+}

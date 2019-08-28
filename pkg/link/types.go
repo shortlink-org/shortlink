@@ -7,6 +7,6 @@ type Link struct {
 }
 
 type LinkList struct {
-	links []Link
+	links map[string]Link
 	mu    sync.Mutex
 }
