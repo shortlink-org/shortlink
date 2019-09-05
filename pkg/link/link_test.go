@@ -3,13 +3,18 @@ package link
 import "testing"
 
 func TestLink(t *testing.T) {
-	linkList := LinkList{
-		links: make(map[string]Link),
+	linkList, err := Init()
+	if err != nil {
+		t.Errorf("Error  create a new link list: %s", err)
 	}
-	newLink := Link{Url: "example.com"}
+
+	newLink, err := NewURL("example.com")
+	if err != nil {
+		t.Errorf("Error  create a new link: %s", err)
+	}
 
 	// test add new a link
-	err := linkList.Add(newLink)
+	err = linkList.Add(newLink)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
@@ -29,20 +34,13 @@ func TestLink(t *testing.T) {
 	// delete link
 	err = linkList.Delete(newLink)
 	if err != nil {
-		t.Errorf("Error %s", err)
+		t.Errorf("Error delete item %s", err)
 	}
 	link, err = linkList.Get(newLink)
-	if err == nil {
-		t.Errorf("Get %s, assert error: %s", link.Url, err)
+	if err != nil {
+		t.Errorf("Error %s", err)
 	}
-}
-
-func TestGetLink(t *testing.T) {
-	linkList := LinkList{}
-	link := Link{Url: "example.com"}
-
-	linkList.Get(link)
-	if len(linkList.links) != 1 {
-		t.Errorf("Assert links: 1; Get %d", len(linkList.links))
+	if link.Url != "" {
+		t.Errorf("Get %s, assert get nil", link.Url)
 	}
 }
