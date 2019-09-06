@@ -37,10 +37,7 @@ func TestLink(t *testing.T) {
 		t.Errorf("Error delete item %s", err)
 	}
 	link, err = linkList.Get(newLink)
-	if err != nil {
+	if err == nil {
 		t.Errorf("Error %s", err)
-	}
-	if link.Url != "" {
-		t.Errorf("Get %s, assert get nil", link.Url)
 	}
 }
