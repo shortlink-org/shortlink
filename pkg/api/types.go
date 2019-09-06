@@ -1,11 +1,13 @@
 package api
 
 type addRequest struct {
-	Url string
+	Url      string
+	Describe string
 }
 
 type getRequest struct {
-	Url string
+	Url      string
+	Describe string
 }
 
 type deleteRequest struct {

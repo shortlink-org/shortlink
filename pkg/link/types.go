@@ -3,7 +3,8 @@ package link
 import "sync"
 
 type Link struct {
-	Url string
+	Url      string
+	Describe string
 }
 
 type LinkList struct {
