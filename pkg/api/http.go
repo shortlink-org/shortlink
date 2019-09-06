@@ -85,14 +85,8 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	response, err := linkList.Get(getLink)
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
-	}
-
-	if response.Url == "" {
 		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte(`{}`))
+		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
 		return
 	}
 
