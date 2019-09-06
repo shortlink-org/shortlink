@@ -19,7 +19,7 @@ func (l *LinkList) Get(link Link) (*Link, error) {
 	l.mu.Unlock()
 
 	if response.Url == "" {
-		return nil, errors.New(fmt.Sprintf("Not found link: %s", link.Url))
+		return nil, &NotFoundError{Link: link, Err: errors.New(fmt.Sprintf("Not found link: %s", link.Url))}
 	}
 
 	return &response, nil
