@@ -15,6 +15,7 @@ func Routes() chi.Router {
 
 	r.Post("/", Add)
 	r.Get("/{url}", Get)
+	r.Get("/s/{url}", Redirect)
 	r.Delete("/", Delete)
 
 	return r
@@ -149,4 +150,39 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(`{}`))
+}
+
+func Redirect(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-type", "application/json")
+
+	var url = chi.URLParam(r, "url")
+
+	// Parse request
+	var request = &getRequest{
+		Url: url,
+	}
+
+	getLink, err := link.NewURL(request.Url)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		return
+	}
+
+	linkList, err := link.Init()
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		return
+	}
+
+	response, err := linkList.Get(getLink)
+	var errorLink *link.NotFoundError
+	if errors.As(err, &errorLink) {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		return
+	}
+
+	http.Redirect(w, r, response.Url, http.StatusMovedPermanently)
 }
