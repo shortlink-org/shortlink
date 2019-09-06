@@ -33,11 +33,9 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newLink, err := link.NewURL(request.Url)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
+	newLink := link.Link{
+		Url:      request.Url,
+		Describe: request.Describe,
 	}
 
 	linkList, err := link.Init()
@@ -54,8 +52,15 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	res, err := json.Marshal(newLink)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		return
+	}
+
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(`{"url": "` + newLink.Url + `"}`))
+	w.Write(res)
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {
@@ -90,8 +95,15 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	res, err := json.Marshal(response)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(`{"url": "` + response.Url + `"}`))
+	w.Write(res)
 }
 
 func Delete(w http.ResponseWriter, r *http.Request) {
