@@ -1,20 +1,26 @@
 package link
 
-func NewURL(link string) (Link, error) {
-	newLink := Link{Url: link}
-	return newLink, nil
+import (
+	"errors"
+	"fmt"
+)
+
+var linkList = LinkList{
+	links: make(map[string]Link),
 }
 
 func Init() (*LinkList, error) {
-	return &LinkList{
-		links: make(map[string]Link),
-	}, nil
+	return &linkList, nil
 }
 
 func (l *LinkList) Get(link Link) (*Link, error) {
 	l.mu.Lock()
 	response := l.links[link.Url]
 	l.mu.Unlock()
+
+	if response.Url == "" {
+		return nil, errors.New(fmt.Sprintf("Not found link: %s", link.Url))
+	}
 
 	return &response, nil
 }
@@ -37,4 +43,9 @@ func (l *LinkList) Delete(link Link) error {
 	l.mu.Unlock()
 
 	return nil
+}
+
+func NewURL(link string) (Link, error) {
+	newLink := Link{Url: link}
+	return newLink, nil
 }

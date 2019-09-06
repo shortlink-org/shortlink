@@ -1,0 +1,62 @@
+{
+	"variables": [],
+	"info": {
+		"name": "shortlink",
+		"_postman_id": "5d98aa60-78d6-f8b7-c3ef-b96441ce3f6c",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get url",
+			"request": {
+				"url": "localhost:7070/example.com",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "add url",
+			"request": {
+				"url": "localhost:7070",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"url\":\"example.com\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "delete url",
+			"request": {
+				"url": "localhost:7070",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"url\":\"example.com\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
