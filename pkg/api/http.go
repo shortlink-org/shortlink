@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/go-chi/chi"
 	"io/ioutil"
@@ -82,14 +83,17 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response, err := linkList.Get(getLink)
-	if err != nil {
+	var errorLink *link.NotFoundError
+	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
 		return
 	}
 
 	if response.Url == "" {
-
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte(`{}`))
+		return
 	}
 
 	w.WriteHeader(http.StatusOK)
