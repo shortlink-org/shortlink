@@ -1,6 +1,9 @@
 package link
 
 import (
+	"crypto/hmac"
+	"crypto/sha512"
+	"encoding/hex"
 	"errors"
 	"fmt"
 )
@@ -15,7 +18,7 @@ func Init() (*LinkList, error) {
 
 func (l *LinkList) Get(link Link) (*Link, error) {
 	l.mu.Lock()
-	response := l.links[link.Url]
+	response := l.links[link.Hash]
 	l.mu.Unlock()
 
 	if response.Url == "" {
@@ -25,12 +28,15 @@ func (l *LinkList) Get(link Link) (*Link, error) {
 	return &response, nil
 }
 
-func (l *LinkList) Add(link Link) error {
+func (l *LinkList) Add(link Link) (*Link, error) {
+	hash := getHash([]byte(link.Url), []byte("secret"))
+	link.Hash = hash[:7]
+
 	l.mu.Lock()
-	l.links[link.Url] = link
+	l.links[link.Hash] = link
 	l.mu.Unlock()
 
-	return nil
+	return &link, nil
 }
 
 func (l *LinkList) Update(link Link) (*Link, error) {
@@ -39,7 +45,7 @@ func (l *LinkList) Update(link Link) (*Link, error) {
 
 func (l *LinkList) Delete(link Link) error {
 	l.mu.Lock()
-	delete(l.links, link.Url)
+	delete(l.links, link.Hash)
 	l.mu.Unlock()
 
 	return nil
@@ -48,4 +54,11 @@ func (l *LinkList) Delete(link Link) error {
 func NewURL(link string) (Link, error) {
 	newLink := Link{Url: link}
 	return newLink, nil
+}
+
+func getHash(str, secret []byte) string {
+	h := hmac.New(sha512.New, secret)
+	h.Write(str)
+	sha := hex.EncodeToString(h.Sum(nil))
+	return sha
 }

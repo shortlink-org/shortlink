@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "shortlink",
-		"_postman_id": "5d98aa60-78d6-f8b7-c3ef-b96441ce3f6c",
+		"_postman_id": "48b42660-f891-057b-e9d4-1d30d59f15a4",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -10,7 +10,7 @@
 		{
 			"name": "Get url",
 			"request": {
-				"url": "localhost:7070/example.com",
+				"url": "localhost:7070/{{hash}}",
 				"method": "GET",
 				"header": [],
 				"body": {},
@@ -20,6 +20,19 @@
 		},
 		{
 			"name": "add url",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"postman.setEnvironmentVariable(\"hash\", jsonData.Hash);"
+						]
+					}
+				}
+			],
 			"request": {
 				"url": "localhost:7070",
 				"method": "POST",
@@ -32,7 +45,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"url\":\"example.com\",\"describe\":\"example link\"}"
+					"raw": "{\"url\":\"https://example.com\",\"describe\":\"example link\"}"
 				},
 				"description": ""
 			},
@@ -52,7 +65,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"url\":\"example.com\"}"
+					"raw": "{\"url\":\"{{hash}}\"}"
 				},
 				"description": ""
 			},
@@ -61,7 +74,7 @@
 		{
 			"name": "redirect",
 			"request": {
-				"url": "localhost:7070/s/example.com",
+				"url": "localhost:7070/s/{{hash}}",
 				"method": "GET",
 				"header": [],
 				"body": {},
