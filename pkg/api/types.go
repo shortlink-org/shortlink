@@ -6,10 +6,10 @@ type addRequest struct {
 }
 
 type getRequest struct {
-	Url      string
+	Hash     string
 	Describe string
 }
 
 type deleteRequest struct {
-	Url string
+	Hash string
 }

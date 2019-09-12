@@ -14,8 +14,8 @@ func Routes() chi.Router {
 	r := chi.NewRouter()
 
 	r.Post("/", Add)
-	r.Get("/{url}", Get)
-	r.Get("/s/{url}", Redirect)
+	r.Get("/{hash}", Get)
+	r.Get("/s/{hash}", Redirect)
 	r.Delete("/", Delete)
 
 	return r
@@ -34,7 +34,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newLink := link.Link{
+	newLink := &link.Link{
 		Url:      request.Url,
 		Describe: request.Describe,
 	}
@@ -46,7 +46,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = linkList.Add(newLink)
+	newLink, err = linkList.Add(*newLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
@@ -67,18 +67,11 @@ func Add(w http.ResponseWriter, r *http.Request) {
 func Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
-	var url = chi.URLParam(r, "url")
+	var hash = chi.URLParam(r, "hash")
 
 	// Parse request
 	var request = &getRequest{
-		Url: url,
-	}
-
-	getLink, err := link.NewURL(request.Url)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
+		Hash: hash,
 	}
 
 	linkList, err := link.Init()
@@ -88,7 +81,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response, err := linkList.Get(getLink)
+	response, err := linkList.Get(link.Link{Hash: request.Hash})
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
@@ -127,13 +120,6 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newLink, err := link.NewURL(request.Url)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
-	}
-
 	linkList, err := link.Init()
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -141,7 +127,9 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = linkList.Delete(newLink)
+	err = linkList.Delete(link.Link{
+		Hash: request.Hash,
+	})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
@@ -155,18 +143,11 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 func Redirect(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
-	var url = chi.URLParam(r, "url")
+	var hash = chi.URLParam(r, "hash")
 
 	// Parse request
 	var request = &getRequest{
-		Url: url,
-	}
-
-	getLink, err := link.NewURL(request.Url)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
+		Hash: hash,
 	}
 
 	linkList, err := link.Init()
@@ -176,7 +157,7 @@ func Redirect(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response, err := linkList.Get(getLink)
+	response, err := linkList.Get(link.Link{Hash: request.Hash})
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)

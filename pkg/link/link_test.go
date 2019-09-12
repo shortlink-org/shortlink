@@ -14,7 +14,7 @@ func TestLink(t *testing.T) {
 	}
 
 	// test add new a link
-	err = linkList.Add(newLink)
+	link, err := linkList.Add(newLink)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
@@ -23,7 +23,7 @@ func TestLink(t *testing.T) {
 	}
 
 	// test get link
-	link, err := linkList.Get(newLink)
+	link, err = linkList.Get(*link)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}

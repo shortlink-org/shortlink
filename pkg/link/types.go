@@ -4,6 +4,7 @@ import "sync"
 
 type Link struct {
 	Url      string
+	Hash     string
 	Describe string
 }
 
