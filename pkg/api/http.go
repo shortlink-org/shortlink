@@ -138,7 +138,7 @@ func Redirect(w http.ResponseWriter, r *http.Request) {
 		Hash: hash,
 	}
 
-	response, _ := s.Get(request.Hash)
+	response, err := s.Get(request.Hash)
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)

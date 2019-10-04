@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "shortlink",
-		"_postman_id": "48b42660-f891-057b-e9d4-1d30d59f15a4",
+		"_postman_id": "2693f77d-17af-1523-9c86-4a845dad7da6",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -13,7 +13,10 @@
 				"url": "localhost:7070/{{hash}}",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -65,7 +68,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"url\":\"{{hash}}\"}"
+					"raw": "{\"hash\":\"{{hash}}\"}"
 				},
 				"description": ""
 			},
@@ -77,7 +80,10 @@
 				"url": "localhost:7070/s/{{hash}}",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
