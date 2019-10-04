@@ -2,6 +2,7 @@ package link
 
 import "testing"
 
+//TODO: Fix test
 func TestLink(t *testing.T) {
 	linkList, err := Init()
 	if err != nil {
