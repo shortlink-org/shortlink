@@ -13,9 +13,23 @@ type DB interface {
 
 type Store struct{}
 
-func (s Store) Use() DB {
-	store := RedisLinkList{}
-	store.Init()
+func (s *Store) Use() DB {
+	var store DB
 
-	return &store
+	typeStore := "redis"
+
+	switch typeStore {
+	case "redis":
+		store = &RedisLinkList{}
+	case "ram":
+		store = &RamLinkList{}
+	default:
+		store = &RamLinkList{}
+	}
+
+	if err := store.Init(); err != nil {
+		panic(err)
+	}
+
+	return store
 }
