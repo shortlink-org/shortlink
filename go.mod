@@ -6,5 +6,6 @@ require (
 	github.com/go-chi/chi v4.0.2+incompatible
 	github.com/go-chi/cors v1.0.0
 	github.com/go-chi/render v1.0.1
+	github.com/go-redis/redis v6.15.5+incompatible
 	golang.org/x/net v0.0.0-20191003171128-d98b1b443823 // indirect
 )
