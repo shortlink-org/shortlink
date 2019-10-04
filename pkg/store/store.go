@@ -5,6 +5,9 @@ import (
 )
 
 type Store interface {
+  Connect(conf interface) error
+  Close() error
+  
   Get(id string) (link.Link, error)
   Add(link link.Link) (link.Link, error)
   Update(link link.Link) (link.Link, error)
