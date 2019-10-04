@@ -19,7 +19,7 @@ func (l *RamLinkList) Init() error {
 	return nil
 }
 
-func (l RamLinkList) Get(id string) (*link.Link, error) {
+func (l *RamLinkList) Get(id string) (*link.Link, error) {
 	l.mu.Lock()
 	response := l.links[id]
 	l.mu.Unlock()
@@ -31,7 +31,7 @@ func (l RamLinkList) Get(id string) (*link.Link, error) {
 	return &response, nil
 }
 
-func (l RamLinkList) Add(data link.Link) (*link.Link, error) {
+func (l *RamLinkList) Add(data link.Link) (*link.Link, error) {
 	hash := data.GetHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
@@ -42,11 +42,11 @@ func (l RamLinkList) Add(data link.Link) (*link.Link, error) {
 	return &data, nil
 }
 
-func (l RamLinkList) Update(data link.Link) (*link.Link, error) {
+func (l *RamLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
-func (l RamLinkList) Delete(id string) error {
+func (l *RamLinkList) Delete(id string) error {
 	l.mu.Lock()
 	delete(l.links, id)
 	l.mu.Unlock()
