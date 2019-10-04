@@ -13,7 +13,10 @@ type RamLinkList struct {
 }
 
 func (l *RamLinkList) Init() error {
+	l.mu.Lock()
 	l.links = make(map[string]link.Link)
+	l.links["test"] = link.Link{Url: "test"}
+	l.mu.Unlock()
 	return nil
 }
 
@@ -23,7 +26,7 @@ func (l RamLinkList) Get(id string) (*link.Link, error) {
 	l.mu.Unlock()
 
 	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Hash: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
 	}
 
 	return &response, nil
@@ -34,10 +37,6 @@ func (l RamLinkList) Add(data link.Link) (*link.Link, error) {
 	data.Hash = hash[:7]
 
 	l.mu.Lock()
-	// TODO: fix Init method
-	if l.links == nil {
-		l.Init()
-	}
 	l.links[data.Hash] = data
 	l.mu.Unlock()
 
