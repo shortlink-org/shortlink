@@ -4,10 +4,21 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/store"
 	"github.com/go-chi/chi"
 	"io/ioutil"
 	"net/http"
 )
+
+var (
+	//TODO: refactoring
+	st store.Store
+	s  store.DB
+)
+
+func init() {
+	s = st.Use()
+}
 
 // Routes creates a REST router
 func Routes() chi.Router {
@@ -39,14 +50,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		Describe: request.Describe,
 	}
 
-	linkList, err := link.Init()
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
-	}
-
-	newLink, err = linkList.Add(*newLink)
+	newLink, err = s.Add(*newLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
@@ -74,14 +78,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		Hash: hash,
 	}
 
-	linkList, err := link.Init()
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
-	}
-
-	response, err := linkList.Get(link.Link{Hash: request.Hash})
+	response, err := s.Get(request.Hash)
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
@@ -120,16 +117,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	linkList, err := link.Init()
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
-	}
-
-	err = linkList.Delete(link.Link{
-		Hash: request.Hash,
-	})
+	err = s.Delete(request.Hash)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
@@ -150,14 +138,7 @@ func Redirect(w http.ResponseWriter, r *http.Request) {
 		Hash: hash,
 	}
 
-	linkList, err := link.Init()
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
-	}
-
-	response, err := linkList.Get(link.Link{Hash: request.Hash})
+	response, _ := s.Get(request.Hash)
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
