@@ -15,7 +15,6 @@ type RamLinkList struct {
 func (l *RamLinkList) Init() error {
 	l.mu.Lock()
 	l.links = make(map[string]link.Link)
-	l.links["test"] = link.Link{Url: "test"}
 	l.mu.Unlock()
 	return nil
 }

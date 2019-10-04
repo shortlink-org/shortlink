@@ -14,7 +14,7 @@ type DB interface {
 type Store struct{}
 
 func (s Store) Use() DB {
-	store := RamLinkList{}
+	store := RedisLinkList{}
 	store.Init()
 
 	return &store
