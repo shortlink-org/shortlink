@@ -8,7 +8,8 @@ type Link struct {
 	Describe string
 }
 
+// TODO: private fields?
 type LinkList struct {
-	links map[string]Link
-	mu    sync.Mutex
+	Links map[string]Link
+	Mu    sync.Mutex
 }
