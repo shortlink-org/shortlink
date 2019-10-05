@@ -1,30 +1,31 @@
-package link
+package store
 
-import "testing"
+import (
+	"github.com/batazor/shortlink/pkg/link"
+	"testing"
+)
 
-//TODO: Fix test
 func TestLink(t *testing.T) {
-	linkList, err := Init()
-	if err != nil {
+	var st Store
+	s := st.Use()
+
+	if err := s.Init(); err != nil {
 		t.Errorf("Error  create a new link list: %s", err)
 	}
 
-	newLink, err := NewURL("example.com")
+	newLink, err := link.NewURL("example.com")
 	if err != nil {
 		t.Errorf("Error  create a new link: %s", err)
 	}
 
 	// test add new a link
-	link, err := linkList.Add(newLink)
+	link, err := s.Add(newLink)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
-	if len(linkList.links) != 1 {
-		t.Errorf("Assert links: 1; Get %d", len(linkList.links))
-	}
 
 	// test get link
-	link, err = linkList.Get(*link)
+	link, err = s.Get(link.Hash)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
@@ -33,12 +34,12 @@ func TestLink(t *testing.T) {
 	}
 
 	// delete link
-	err = linkList.Delete(newLink)
+	err = s.Delete(newLink.Hash)
 	if err != nil {
 		t.Errorf("Error delete item %s", err)
 	}
-	link, err = linkList.Get(newLink)
+	link, err = s.Get(newLink.Hash)
 	if err == nil {
-		t.Errorf("Error %s", err)
+		t.Errorf("Assert 'Not founr' but get nil")
 	}
 }
