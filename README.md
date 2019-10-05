@@ -21,3 +21,4 @@ docker-compose up -d
 
 + RAM
 + Redis
++ MongoDB

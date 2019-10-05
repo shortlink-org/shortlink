@@ -9,3 +9,30 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+
+  mongo: &mongo
+    image: mongo:4.2
+    init: true
+    restart: on-failure
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: shortlink
+
+  mongo_initial_state:
+    <<: *mongo
+    container_name: mongo_initial_state
+    depends_on:
+      - mongo
+    command: >
+      bash -c "mongoimport \
+                -h=mongo:27017 \
+                -d auth \
+                -c users \
+                --mode merge \
+                --file /initialState/links.json"
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./initialState:/initialState
