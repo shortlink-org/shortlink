@@ -36,3 +36,17 @@ services:
       - "27018:27017"
     volumes:
       - ./initialState:/initialState
+
+  postgres:
+    image: postgres:alpine
+    init: true
+    restart: on-failure
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: shortlink
+      POSTGRES_PASSWORD: shortlink
+      POSTGRES_DB: shortlink
+    volumes:
+      - ./initialState/init-postgres.sql:/docker-entrypoint-initdb.d/init.sql

@@ -16,9 +16,11 @@ type Store struct{}
 func (s *Store) Use() DB {
 	var store DB
 
-	typeStore := "mongo"
+	typeStore := "postgres"
 
 	switch typeStore {
+	case "postgres":
+		store = &PostgresLinkList{}
 	case "mongo":
 		store = &MongoLinkList{}
 	case "redis":
