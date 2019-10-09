@@ -16,7 +16,7 @@ type Store struct{}
 func (s *Store) Use() DB {
 	var store DB
 
-	typeStore := "postgres"
+	typeStore := "dgraph"
 
 	switch typeStore {
 	case "postgres":
@@ -25,6 +25,8 @@ func (s *Store) Use() DB {
 		store = &MongoLinkList{}
 	case "redis":
 		store = &RedisLinkList{}
+	case "dgraph":
+		store = &DGraphLinkList{}
 	case "ram":
 		store = &RamLinkList{}
 	default:

@@ -1,15 +1,7 @@
 package link
 
-import "sync"
-
 type Link struct {
-	Url      string
-	Hash     string
-	Describe string
-}
-
-// TODO: private fields?
-type LinkList struct {
-	Links map[string]Link
-	Mu    sync.Mutex
+	Url      string `json:"url,omitempty"`
+	Hash     string `json:"hash,omitempty"`
+	Describe string `json:"describe,omitempty"`
 }
