@@ -6,10 +6,6 @@ import (
 	"encoding/hex"
 )
 
-var linkList = LinkList{
-	Links: make(map[string]Link),
-}
-
 func NewURL(link string) (Link, error) {
 	newLink := Link{Url: link}
 	return newLink, nil

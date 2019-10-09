@@ -5,7 +5,19 @@ Shortlink service
 ### Run
 
 ```
-docker-compose up -d
+docker-compose \
+    -f docker-compose.yaml \
+    -f ops/docker-compose/database/[DATABASE_NAME] \
+    up -d 
+```
+
+##### As example
+
+```
+docker-compose \
+    -f docker-compose.yaml \
+    -f ops/docker-compose/database/dgraph.yaml \
+    up -d 
 ```
 
 ### HTTP API
@@ -23,3 +35,4 @@ docker-compose up -d
 + Redis
 + MongoDB
 + Postgres
++ DGraph
