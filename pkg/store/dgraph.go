@@ -117,6 +117,9 @@ func (dg *DGraphLinkList) Add(data link.Link) (*link.Link, error) {
 	mu := &api.Mutation{
 		SetJson:   pb,
 		CommitNow: true,
+		// TODO: Add condition
+		//Cond: `@if(eq(len(hash), 1))`,
+		//SetNquads: []byte(fmt.Sprintf(`uid(hash) <hash> "%s" .`, data.Hash)),
 	}
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
