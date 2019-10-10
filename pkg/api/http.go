@@ -85,6 +85,11 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
 		return
 	}
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		return
+	}
 
 	res, err := json.Marshal(response)
 	if err != nil {
