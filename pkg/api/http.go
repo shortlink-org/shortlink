@@ -3,8 +3,8 @@ package api
 import (
 	"encoding/json"
 	"errors"
-	"github.com/batazor/shortlink/pkg/link"
-	"github.com/batazor/shortlink/pkg/store"
+	"github.com/batazor/shortlink/pkg/internal/link"
+	"github.com/batazor/shortlink/pkg/internal/store"
 	"github.com/go-chi/chi"
 	"io/ioutil"
 	"net/http"

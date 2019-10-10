@@ -1,7 +1,7 @@
 package store
 
 import (
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/internal/link"
 	"testing"
 )
 
