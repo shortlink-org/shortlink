@@ -1,6 +1,6 @@
 package store
 
-import "github.com/batazor/shortlink/pkg/link"
+import "github.com/batazor/shortlink/pkg/internal/link"
 
 type DB interface {
 	Init() error
@@ -16,7 +16,7 @@ type Store struct{}
 func (s *Store) Use() DB {
 	var store DB
 
-	typeStore := "dgraph"
+	typeStore := "ram"
 
 	switch typeStore {
 	case "postgres":
