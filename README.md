@@ -36,3 +36,4 @@ docker-compose \
 + MongoDB
 + Postgres
 + DGraph
++ LevelDB

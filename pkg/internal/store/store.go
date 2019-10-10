@@ -1,6 +1,8 @@
 package store
 
-import "github.com/batazor/shortlink/pkg/internal/link"
+import (
+	"github.com/batazor/shortlink/pkg/internal/link"
+)
 
 type DB interface {
 	Init() error
@@ -16,7 +18,7 @@ type Store struct{}
 func (s *Store) Use() DB {
 	var store DB
 
-	typeStore := "ram"
+	typeStore := "leveldb"
 
 	switch typeStore {
 	case "postgres":
@@ -27,6 +29,8 @@ func (s *Store) Use() DB {
 		store = &RedisLinkList{}
 	case "dgraph":
 		store = &DGraphLinkList{}
+	case "leveldb":
+		store = &LevelDBLinkList{}
 	case "ram":
 		store = &RamLinkList{}
 	default:
