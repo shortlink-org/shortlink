@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"github.com/batazor/shortlink/pkg/api"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
@@ -19,7 +20,8 @@ func main() {
 	// Logger
 	logger, _ := zap.NewProduction()
 	defer logger.Sync() // flushes buffer, if any
-	sugar := logger.Sugar()
+
+	ctx := context.WithValue(context.Background(), "logger", logger)
 
 	r := chi.NewRouter()
 
@@ -49,14 +51,14 @@ func main() {
 	r.NotFound(NotFoundHandler)
 
 	r.Mount("/", api.Routes())
-	sugar.Info(fmt.Sprintf("Run on port %s", PORT))
+	logger.Info(fmt.Sprintf("Run on port %s", PORT))
 
-	srv := http.Server{Addr: ":" + PORT, Handler: r}
+	srv := http.Server{Addr: ":" + PORT, Handler: chi.ServerBaseContext(ctx, r)}
 
 	// start HTTP-server
 	err := srv.ListenAndServe()
 	if err != nil {
-		fmt.Println(err.Error())
+		logger.Panic(err.Error())
 	}
 }
 
