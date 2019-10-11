@@ -32,11 +32,6 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 		}
 
 		err = item.Value(func(val []byte) error {
-			// This func with val would only be called if item.Value encounters no error.
-
-			// Accessing val here is valid.
-			fmt.Printf("The answer is: %s\n", val)
-
 			// Copying or parsing val is valid.
 			valCopy = append([]byte{}, val...)
 
@@ -51,7 +46,6 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 		if err != nil {
 			return err
 		}
-		fmt.Printf("The answer is: %s\n", valCopy)
 
 		return nil
 	})
