@@ -1,5 +1,7 @@
 # shortlink
 
+[![codecov](https://codecov.io/gh/batazor/shortlink/branch/master/graph/badge.svg)](https://codecov.io/gh/batazor/shortlink)
+
 Shortlink service
 
 ### Run
