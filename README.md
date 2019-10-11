@@ -37,3 +37,4 @@ docker-compose \
 + Postgres
 + DGraph
 + LevelDB
++ Badger
