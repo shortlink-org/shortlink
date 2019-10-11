@@ -9,7 +9,6 @@ import (
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"google.golang.org/grpc"
-	"log"
 )
 
 type DGraphLink struct {
@@ -60,14 +59,12 @@ query all($a: string) {
 
 	val, err := txn.QueryWithVars(ctx, q, map[string]string{"$a": id})
 	if err != nil {
-		fmt.Println("Err: ", err)
 		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
 	}
 
 	var response DGraphLinkResponse
 
 	if err = json.Unmarshal(val.Json, &response); err != nil {
-		fmt.Println("Err: ", err)
 		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Failed parse link: %s", id))}
 	}
 
@@ -111,7 +108,7 @@ func (dg *DGraphLinkList) Add(data link.Link) (*link.Link, error) {
 
 	pb, err := json.Marshal(item)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	mu := &api.Mutation{
@@ -156,7 +153,6 @@ func (dg *DGraphLinkList) Delete(id string) error {
 
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		fmt.Println(err)
 		return &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
 	}
 
