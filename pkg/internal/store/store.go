@@ -31,6 +31,8 @@ func (s *Store) Use() DB {
 		store = &DGraphLinkList{}
 	case "leveldb":
 		store = &LevelDBLinkList{}
+	case "badger":
+		store = &BadgerLinkList{}
 	case "ram":
 		store = &RamLinkList{}
 	default:
