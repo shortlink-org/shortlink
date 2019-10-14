@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/batazor/shortlink/pkg/api"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
+	log "github.com/batazor/shortlink/pkg/logger"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
@@ -21,7 +22,9 @@ func main() {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync() // flushes buffer, if any
 
-	ctx := context.WithValue(context.Background(), "logger", logger)
+	// Add context
+	ctx := context.Background()
+	ctx = log.WithLogger(ctx, logger)
 
 	r := chi.NewRouter()
 
