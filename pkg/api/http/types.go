@@ -1,4 +1,4 @@
-package api
+package http
 
 type addRequest struct {
 	Url      string
