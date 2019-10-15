@@ -93,7 +93,7 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 }
 
 func (dg *DGraphLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.GetHash([]byte(data.Url), []byte("secret"))
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
 	ctx := context.Background()
