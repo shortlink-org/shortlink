@@ -52,7 +52,7 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 }
 
 func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.GetHash([]byte(data.Url), []byte("secret"))
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
 	err := p.client.QueryRow("INSERT INTO links(url,hash,describe) VALUES($1,$2,$3) ON CONFLICT (hash) DO NOTHING;", data.Url, data.Hash, data.Describe)

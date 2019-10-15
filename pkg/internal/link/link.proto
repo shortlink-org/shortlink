@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package link;
+
+message Link {
+    string url = 1;
+    string hash = 2;
+    string describe = 3;
+}

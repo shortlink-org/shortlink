@@ -68,7 +68,7 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 }
 
 func (b *BadgerLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.GetHash([]byte(data.Url), []byte("secret"))
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
 	payload, err := json.Marshal(data)
