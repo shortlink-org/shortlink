@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/batazor/shortlink/pkg/api/http"
+	"github.com/batazor/shortlink/pkg/api/http-chi"
 	log "github.com/batazor/shortlink/pkg/logger"
 	"go.uber.org/zap"
 )
@@ -17,7 +17,7 @@ func main() {
 	ctx = log.WithLogger(ctx, *logger)
 
 	// start HTTP-server
-	err := http.Run(ctx)
+	err := http_chi.Run(ctx)
 	if err != nil {
 		logger.Panic(err.Error())
 	}
