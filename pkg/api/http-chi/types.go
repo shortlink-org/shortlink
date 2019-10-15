@@ -1,4 +1,4 @@
-package http
+package http_chi
 
 type addRequest struct {
 	Url      string

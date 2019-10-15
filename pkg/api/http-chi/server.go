@@ -1,9 +1,9 @@
-package http
+package http_chi
 
 import (
 	"context"
 	"fmt"
-	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http/middleware"
+	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
 	"github.com/batazor/shortlink/pkg/logger"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
