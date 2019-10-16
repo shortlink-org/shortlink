@@ -6,8 +6,5 @@
   "major": {
     "automerge": false
   },
-  "gitSignOff": {
-    "description": "Append git Signed-off-by signature to git commits.",
-    "commitBody": "Signed-off-by: {{{gitAuthor}}}"
-  }
+  "commitBody": "Signed-off-by: {{{gitAuthor}}}"
 }
