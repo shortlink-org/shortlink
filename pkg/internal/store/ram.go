@@ -3,7 +3,7 @@ package store
 import (
 	"errors"
 	"fmt"
-	"github.com/batazor/shortlink/pkg/internal/link"
+	"github.com/batazor/shortlink/pkg/link"
 	"sync"
 )
 

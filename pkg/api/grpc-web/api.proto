@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package grpc_web;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "pkg/link/link.proto";
+
+service Link {
+    rpc GetLink(GetLinkRequest) returns (link.Link) {
+        option(google.api.http) = {
+			get: "/{hash}"
+		};
+    };
+
+    rpc CreateLink(link.Link) returns (link.Link) {
+        option(google.api.http) = {
+			post: "/v1"
+			body: "*"
+		};
+    };
+
+    rpc DeleteLink(DeleteLinkRequest) returns (DeleteLinkResponse) {
+        option(google.api.http) = {
+			delete: "/v1"
+			body: "*"
+		};
+    };
+
+    rpc RedirectLink(RedirectLinkRequest) returns (RedirectLinkResponse) {
+        option(google.api.http) = {
+			get: "/s/{hash}"
+		};
+    };
+}
+
+message GetLinkRequest {
+    string hash = 1;
+}
+
+message DeleteLinkRequest {
+    string hash = 1;
+}
+
+message DeleteLinkResponse {
+    google.protobuf.Empty link = 1;
+}
+
+message RedirectLinkRequest {
+    string hash = 1;
+}
+
+message RedirectLinkResponse {
+    google.protobuf.Empty link = 1;
+}

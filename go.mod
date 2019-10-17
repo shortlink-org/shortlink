@@ -12,6 +12,7 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
+	github.com/grpc-ecosystem/grpc-gateway v1.11.3
 	github.com/lib/pq v1.2.0
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/tidwall/pretty v1.0.0 // indirect
@@ -23,5 +24,6 @@ require (
 	go.uber.org/zap v1.10.0
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
+	google.golang.org/genproto v0.0.0-20190425155659-357c62f0e4bb
 	google.golang.org/grpc v1.24.0
 )

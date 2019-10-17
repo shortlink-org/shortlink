@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
+	"github.com/batazor/shortlink/pkg/internal/store"
 	"github.com/batazor/shortlink/pkg/logger"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -13,7 +14,12 @@ import (
 )
 
 // Run HTTP-server
-func Run(ctx context.Context) error {
+func (api *API) Run(ctx context.Context) error {
+	var st store.Store
+
+	api.ctx = ctx
+	api.store = st.Use()
+
 	PORT := "7070"
 
 	logger := logger.GetLogger(ctx)
@@ -44,7 +50,7 @@ func Run(ctx context.Context) error {
 
 	r.NotFound(NotFoundHandler)
 
-	r.Mount("/", Routes())
+	r.Mount("/", api.Routes())
 
 	logger.Info(fmt.Sprintf("Run on port %s", PORT))
 	srv := http.Server{Addr: ":" + PORT, Handler: chi.ServerBaseContext(ctx, r)}
