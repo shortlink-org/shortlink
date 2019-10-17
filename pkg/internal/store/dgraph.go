@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/batazor/shortlink/pkg/internal/link"
+	"github.com/batazor/shortlink/pkg/link"
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"google.golang.org/grpc"

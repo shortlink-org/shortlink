@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/batazor/shortlink/pkg/internal/link"
+	"github.com/batazor/shortlink/pkg/link"
 	"github.com/syndtr/goleveldb/leveldb"
 )
 

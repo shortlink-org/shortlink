@@ -3,36 +3,25 @@ package http_chi
 import (
 	"encoding/json"
 	"errors"
-	"github.com/batazor/shortlink/pkg/internal/link"
-	"github.com/batazor/shortlink/pkg/internal/store"
+	"github.com/batazor/shortlink/pkg/link"
 	"github.com/go-chi/chi"
 	"io/ioutil"
 	"net/http"
 )
 
-var (
-	//TODO: refactoring
-	st store.Store
-	s  store.DB
-)
-
-func init() {
-	s = st.Use()
-}
-
 // Routes creates a REST router
-func Routes() chi.Router {
+func (api *API) Routes() chi.Router {
 	r := chi.NewRouter()
 
-	r.Post("/", Add)
-	r.Get("/{hash}", Get)
-	r.Get("/s/{hash}", Redirect)
-	r.Delete("/", Delete)
+	r.Post("/", api.Add)
+	r.Get("/{hash}", api.Get)
+	r.Get("/s/{hash}", api.Redirect)
+	r.Delete("/", api.Delete)
 
 	return r
 }
 
-func Add(w http.ResponseWriter, r *http.Request) {
+func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Parse request
@@ -50,7 +39,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		Describe: request.Describe,
 	}
 
-	newLink, err = s.Add(*newLink)
+	newLink, err = api.store.Add(*newLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
@@ -68,7 +57,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
-func Get(w http.ResponseWriter, r *http.Request) {
+func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	var hash = chi.URLParam(r, "hash")
@@ -78,7 +67,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		Hash: hash,
 	}
 
-	response, err := s.Get(request.Hash)
+	response, err := api.store.Get(request.Hash)
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
@@ -102,7 +91,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	w.Write(res)
 }
 
-func Delete(w http.ResponseWriter, r *http.Request) {
+func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Parse request
@@ -122,7 +111,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = s.Delete(request.Hash)
+	err = api.store.Delete(request.Hash)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
@@ -133,7 +122,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(`{}`))
 }
 
-func Redirect(w http.ResponseWriter, r *http.Request) {
+func (api *API) Redirect(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	var hash = chi.URLParam(r, "hash")
@@ -143,7 +132,7 @@ func Redirect(w http.ResponseWriter, r *http.Request) {
 		Hash: hash,
 	}
 
-	response, err := s.Get(request.Hash)
+	response, err := api.store.Get(request.Hash)
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
