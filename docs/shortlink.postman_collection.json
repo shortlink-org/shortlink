@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "shortlink",
-		"_postman_id": "2693f77d-17af-1523-9c86-4a845dad7da6",
+		"_postman_id": "05be74e3-cd68-932e-ecbb-cc94bde1d0d9",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -31,18 +31,19 @@
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);",
 							"",
-							"postman.setEnvironmentVariable(\"hash\", jsonData.Hash);"
+							"",
+							"postman.setGlobalVariable(\"hash\", jsonData.hash);"
 						]
 					}
 				}
 			],
 			"request": {
-				"url": "localhost:7070",
+				"url": "localhost:7070/v1",
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json",
+						"value": "application/x-www-form-urlencoded",
 						"description": ""
 					}
 				],
