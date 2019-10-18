@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 import "pkg/link/link.proto";
 
 service Link {
-    rpc GetLink(GetLinkRequest) returns (link.Link) {
+    rpc GetLink(link.Link) returns (link.Link) {
         option(google.api.http) = {
 			get: "/api/{hash}"
 		};
@@ -26,22 +26,4 @@ service Link {
 			body: "*"
 		};
     };
-
-    rpc RedirectLink(RedirectLinkRequest) returns (RedirectLinkResponse) {
-        option(google.api.http) = {
-			get: "/api/s/{hash}"
-		};
-    };
-}
-
-message GetLinkRequest {
-    string hash = 1;
-}
-
-message RedirectLinkRequest {
-    string hash = 1;
-}
-
-message RedirectLinkResponse {
-    google.protobuf.Empty link = 1;
 }

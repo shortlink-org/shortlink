@@ -15,7 +15,6 @@ func (api *API) Routes() chi.Router {
 
 	r.Post("/", api.Add)
 	r.Get("/{hash}", api.Get)
-	r.Get("/s/{hash}", api.Redirect)
 	r.Delete("/", api.Delete)
 
 	return r
@@ -120,25 +119,4 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(`{}`))
-}
-
-func (api *API) Redirect(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
-
-	var hash = chi.URLParam(r, "hash")
-
-	// Parse request
-	var request = &getRequest{
-		Hash: hash,
-	}
-
-	response, err := api.store.Get(request.Hash)
-	var errorLink *link.NotFoundError
-	if errors.As(err, &errorLink) {
-		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte(`{"error": "` + err.Error() + `"}`))
-		return
-	}
-
-	http.Redirect(w, r, response.Url, http.StatusMovedPermanently)
 }
