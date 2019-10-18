@@ -6,7 +6,7 @@
 
 Shortlink service
 
-![logo](./docs/go.png)
+<img src="https://raw.githubusercontent.com/batazor/shortlink/master/docs/go.png" width=300 align=middle>
 
 ### Run
 
