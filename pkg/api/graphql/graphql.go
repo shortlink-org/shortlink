@@ -2,6 +2,8 @@ package graphql
 
 import (
 	"context"
+	"github.com/batazor/shortlink/pkg/api/graphql/resolver"
+	"github.com/batazor/shortlink/pkg/api/graphql/schema"
 	"github.com/batazor/shortlink/pkg/internal/store"
 	"github.com/batazor/shortlink/pkg/logger"
 	graphql "github.com/graph-gophers/graphql-go"
@@ -15,10 +17,6 @@ type API struct {
 	ctx   context.Context
 }
 
-type query struct{}
-
-func (_ *query) Hello() string { return "Hello, world!" }
-
 func (api *API) Run(ctx context.Context) error {
 	var st store.Store
 
@@ -28,16 +26,8 @@ func (api *API) Run(ctx context.Context) error {
 	logger := logger.GetLogger(ctx)
 	logger.Info("Run GraphQL API")
 
-	s := `
-                schema {
-                        query: Query
-                }
-                type Query {
-                        hello: String!
-                }
-        `
-	schema := graphql.MustParseSchema(s, &query{})
-	http.Handle("/query", &relay.Handler{Schema: schema})
+	s := graphql.MustParseSchema(schema.GetRootSchema(), &resolver.Resolver{})
+	http.Handle("/query", &relay.Handler{Schema: s})
 	log.Fatal(http.ListenAndServe(":7070", nil))
 
 	return nil
