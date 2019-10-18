@@ -13,8 +13,10 @@ type DB interface {
 	Delete(id string) error
 }
 
+// Store abstract type
 type Store struct{}
 
+// Use return implementation of store
 func (s *Store) Use() DB {
 	var store DB
 

@@ -17,3 +17,6 @@ generate:
 	--grpc-gateway_out=logtostderr=true,allow_delete_body=true:. \
 	pkg/api/grpc-web/api.proto
 	@mv pkg/api/grpc-web/api.swagger.json docs/api.swagger.json
+
+golint:
+	@for d in $$(go list ./... | grep -v /vendor/); do golint $${d}; done
