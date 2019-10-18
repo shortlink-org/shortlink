@@ -8,10 +8,10 @@ generate:
 	pkg/link/link.proto
 
 	@echo "proto generation gRPC-web"
-	@protoc \
-	-I $(shell pwd) \
+	@protoc -I/usr/local/include -I. \
 	-I=pkg/api/grpc-web \
 	-I=third_party/googleapis \
-	--go_out=plugins=grpc:pkg/api/grpc-web \
-	--grpc-gateway_out=logtostderr=true:pkg/api/grpc-web \
+	--plugin=protoc-gen-grpc-gateway=${GOPATH}/bin/protoc-gen-grpc-gateway \
+	--go_out=plugins=grpc:. \
+	--grpc-gateway_out=logtostderr=true,allow_delete_body=true:. \
 	pkg/api/grpc-web/api.proto

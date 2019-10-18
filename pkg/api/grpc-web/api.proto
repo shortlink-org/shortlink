@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package grpc_web;
 
+option go_package = "github.com/batazor/shortlink/pkg/api/grpc-web";
+
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "pkg/link/link.proto";
@@ -23,7 +25,6 @@ service Link {
     rpc DeleteLink(DeleteLinkRequest) returns (DeleteLinkResponse) {
         option(google.api.http) = {
 			delete: "/v1"
-			body: "*"
 		};
     };
 
