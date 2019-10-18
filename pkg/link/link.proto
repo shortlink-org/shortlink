@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package link;
 
+option go_package = "github.com/batazor/shortlink/pkg/link";
+
 message Link {
     string url = 1;
     string hash = 2;
