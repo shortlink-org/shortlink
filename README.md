@@ -6,6 +6,8 @@
 
 Shortlink service
 
+![logo](./docs/go.png)
+
 ### Run
 
 ```
