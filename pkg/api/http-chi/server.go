@@ -20,9 +20,11 @@ func (api *API) Run(ctx context.Context) error {
 	api.ctx = ctx
 	api.store = st.Use()
 
+	logger := logger.GetLogger(ctx)
+	logger.Info("Run HTTP-CHI API")
+
 	PORT := "7070"
 
-	logger := logger.GetLogger(ctx)
 	r := chi.NewRouter()
 
 	// CORS

@@ -22,9 +22,10 @@ func (api *API) Run(ctx context.Context) error {
 	api.ctx = ctx
 	api.store = st.Use()
 
-	PORT := "7070"
-
 	logger := logger.GetLogger(ctx)
+	logger.Info("Run gRPC-GateWay API")
+
+	PORT := "7070"
 
 	// Rug gRPC
 	go func() {
