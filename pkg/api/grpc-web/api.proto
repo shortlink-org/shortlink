@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package grpc_web;
 
-option go_package = "github.com/batazor/shortlink/pkg/api/grpc-web";
-
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "pkg/link/link.proto";
@@ -11,40 +9,33 @@ import "pkg/link/link.proto";
 service Link {
     rpc GetLink(GetLinkRequest) returns (link.Link) {
         option(google.api.http) = {
-			get: "/{hash}"
+			get: "/api/{hash}"
 		};
     };
 
     rpc CreateLink(link.Link) returns (link.Link) {
         option(google.api.http) = {
-			post: "/v1"
+			post: "/api"
 			body: "*"
 		};
     };
 
-    rpc DeleteLink(DeleteLinkRequest) returns (DeleteLinkResponse) {
+    rpc DeleteLink(link.Link) returns (google.protobuf.Empty) {
         option(google.api.http) = {
-			delete: "/v1"
+			delete: "/api"
+			body: "*"
 		};
     };
 
     rpc RedirectLink(RedirectLinkRequest) returns (RedirectLinkResponse) {
         option(google.api.http) = {
-			get: "/s/{hash}"
+			get: "/api/s/{hash}"
 		};
     };
 }
 
 message GetLinkRequest {
     string hash = 1;
-}
-
-message DeleteLinkRequest {
-    string hash = 1;
-}
-
-message DeleteLinkResponse {
-    google.protobuf.Empty link = 1;
 }
 
 message RedirectLinkRequest {

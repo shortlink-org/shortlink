@@ -3,6 +3,7 @@ package grpc_web
 import (
 	"context"
 	"github.com/batazor/shortlink/pkg/link"
+	"github.com/golang/protobuf/ptypes/empty"
 )
 
 func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*link.Link, error) {
@@ -13,8 +14,9 @@ func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, err
 	return api.store.Add(*req)
 }
 
-func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*DeleteLinkResponse, error) {
-	return nil, api.store.Delete(req.Hash)
+func (api *API) DeleteLink(ctx context.Context, req *link.Link) (*empty.Empty, error) {
+	response := empty.Empty{}
+	return &response, api.store.Delete(req.Hash)
 }
 
 func (api *API) RedirectLink(ctx context.Context, req *RedirectLinkRequest) (*RedirectLinkResponse, error) {
