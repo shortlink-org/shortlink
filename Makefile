@@ -13,5 +13,7 @@ generate:
 	-I=third_party/googleapis \
 	--plugin=protoc-gen-grpc-gateway=${GOPATH}/bin/protoc-gen-grpc-gateway \
 	--go_out=plugins=grpc:. \
+	--swagger_out=logtostderr=true,allow_delete_body=true:. \
 	--grpc-gateway_out=logtostderr=true,allow_delete_body=true:. \
 	pkg/api/grpc-web/api.proto
+	@mv pkg/api/grpc-web/api.swagger.json docs/api.swagger.json
