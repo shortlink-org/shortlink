@@ -26,7 +26,7 @@ make
 docker-compose \
     -f docker-compose.yaml \
     -f ops/docker-compose/database/[DATABASE_NAME] \
-    up -d 
+    up -d
 ```
 
 ##### As example
@@ -35,17 +35,18 @@ docker-compose \
 docker-compose \
     -f docker-compose.yaml \
     -f ops/docker-compose/database/dgraph.yaml \
-    up -d 
+    up -d
 ```
 
 ### HTTP API
 
-+ Import [Postman link](./docs/shortlink.postman_collection.json) for test HTTP API
+- Import [Postman link](./docs/shortlink.postman_collection.json) for test HTTP
+  API
 
-- GET /:URL #=> 200 or 404
-- POST / {"url":"example.com"} #=> 201
-- DELETE / {"url":"example.com"} #=> 200
-- GET /s/:URL #=> 301
+* GET /:URL #=> 200 or 404
+* POST / {"url":"example.com"} #=> 201
+* DELETE / {"url":"example.com"} #=> 200
+* GET /s/:URL #=> 301
 
 ###### Support HTTP REST API:
 
@@ -55,10 +56,10 @@ docker-compose \
 
 ### Store provider
 
-+ RAM
-+ Redis
-+ MongoDB
-+ Postgres
-+ DGraph
-+ LevelDB
-+ Badger
+- RAM
+- Redis
+- MongoDB
+- Postgres
+- DGraph
+- LevelDB
+- Badger
