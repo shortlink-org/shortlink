@@ -11,6 +11,15 @@ Shortlink service
 
 <img src="https://raw.githubusercontent.com/batazor/shortlink/master/docs/go.png" width=300 align=middle>
 
+##### Install dependencies
+
+```
+go get -u moul.io/protoc-gen-gotemplate
+go get -u github.com/jteeuwen/go-bindata
+
+make
+```
+
 ### Run
 
 ```
@@ -38,9 +47,11 @@ docker-compose \
 - DELETE / {"url":"example.com"} #=> 200
 - GET /s/:URL #=> 301
 
-###### Support 2 HTTP REST API:
+###### Support HTTP REST API:
+
 - HTTP (chi)
 - gRPC-gateway
+- GraphQL
 
 ### Store provider
 

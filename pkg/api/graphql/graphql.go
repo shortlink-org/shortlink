@@ -26,8 +26,8 @@ func (api *API) Run(ctx context.Context) error {
 	logger := logger.GetLogger(ctx)
 	logger.Info("Run GraphQL API")
 
-	s := graphql.MustParseSchema(schema.GetRootSchema(), &resolver.Resolver{})
-	http.Handle("/query", &relay.Handler{Schema: s})
+	s := graphql.MustParseSchema(schema.GetRootSchema(), &resolver.Resolver{Store: api.store})
+	http.Handle("/api/query", &relay.Handler{Schema: s})
 	log.Fatal(http.ListenAndServe(":7070", nil))
 
 	return nil

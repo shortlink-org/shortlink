@@ -52,7 +52,7 @@ func (api *API) Run(ctx context.Context) error {
 
 	r.NotFound(NotFoundHandler)
 
-	r.Mount("/", api.Routes())
+	r.Mount("/api", api.Routes())
 
 	logger.Info(fmt.Sprintf("Run on port %s", PORT))
 	srv := http.Server{Addr: ":" + PORT, Handler: chi.ServerBaseContext(ctx, r)}
