@@ -18,5 +18,8 @@ generate:
 	pkg/api/grpc-web/api.proto
 	@mv pkg/api/grpc-web/api.swagger.json docs/api.swagger.json
 
+	@echo "Generate go static"
+	@go generate pkg/api/graphql/schema/schema.go
+
 golint:
 	@for d in $$(go list ./... | grep -v /vendor/); do golint $${d}; done

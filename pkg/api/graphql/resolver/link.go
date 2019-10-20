@@ -3,21 +3,17 @@ package resolver
 import "github.com/batazor/shortlink/pkg/link"
 
 type LinkResolver struct {
-	link.Link
-}
-
-func (_ *Resolver) Link() (*LinkResolver, error) {
-	return &LinkResolver{}, nil
+	*link.Link
 }
 
 func (r *LinkResolver) Url() string {
-	return ""
+	return r.Link.Url
 }
 
 func (r *LinkResolver) Hash() string {
-	return ""
+	return r.Link.Hash
 }
 
 func (r *LinkResolver) Describe() string {
-	return ""
+	return r.Link.Describe
 }
