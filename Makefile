@@ -23,3 +23,13 @@ generate:
 
 golint:
 	@for d in $$(go list ./... | grep -v /vendor/); do golint $${d}; done
+
+run:
+	@docker-compose \
+         -f docker-compose.yaml \
+         -f ops/docker-compose/database/redis.yaml \
+         -f ops/docker-compose/gataway/traefik.yaml \
+         up -d
+
+down:
+	@docker-compose down --remove-orphans

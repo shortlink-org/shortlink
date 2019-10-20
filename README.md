@@ -28,6 +28,7 @@ make
 docker-compose \
     -f docker-compose.yaml \
     -f ops/docker-compose/database/[DATABASE_NAME] \
+    -f ops/docker-compose/gateway/[GATEWAY_NAME] \
     up -d 
 ```
 
@@ -37,6 +38,7 @@ docker-compose \
 docker-compose \
     -f docker-compose.yaml \
     -f ops/docker-compose/database/dgraph.yaml \
+    -f ops/docker-compose/gateway/traefik.yaml \
     up -d 
 ```
 
