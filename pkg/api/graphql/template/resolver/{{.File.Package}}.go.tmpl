@@ -3,7 +3,7 @@
 {{ $MyType := upperFirst .File.Package }}{{ $myType := lowerFirst .File.Package }}
 package resolver
 
-import "github.com/batazor/shortlink/pkg/link"
+import "{{.File.Options.GoPackage}}"
 
 type {{ $MyType }}Resolver struct {
 	*{{ $myType }}.{{ $MyType }}
@@ -12,7 +12,7 @@ type {{ $MyType }}Resolver struct {
 
 {{- range .File.MessageType}}
   {{- range .Field}}
-func (r *LinkResolver) {{ upperFirst .Name }}() string {
+func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() string {
 	return r.{{ $MyType }}.{{ upperFirst .Name }}
 }
 {{ print "" }}
