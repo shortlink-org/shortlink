@@ -146,7 +146,7 @@ func typesGraphqls() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "types.graphqls", size: 182, mode: os.FileMode(436), modTime: time.Unix(1571527392, 0)}
+	info := bindataFileInfo{name: "types.graphqls", size: 182, mode: os.FileMode(436), modTime: time.Unix(1571547189, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

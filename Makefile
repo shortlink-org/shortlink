@@ -3,7 +3,7 @@
 generate:
 	@echo "proto generation link entity"
 	@protoc -I/usr/local/include -I. \
-	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql/schema \
+	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
 	--go_out=plugins=grpc:. \
 	pkg/link/link.proto
 
