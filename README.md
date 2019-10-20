@@ -11,6 +11,8 @@ Shortlink service
 
 <img src="https://raw.githubusercontent.com/batazor/shortlink/master/docs/go.png" width=300 align=middle>
 
+### High Level Architecture
+
 ![shortlink-arhitecture](./docs/shortlink-arhitecture.png)
 
 ##### Install dependencies
