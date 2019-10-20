@@ -2,9 +2,9 @@
 
 generate:
 	@echo "proto generation link entity"
-	@protoc \
-	-I=. \
-	--go_out=. \
+	@protoc -I/usr/local/include -I. \
+	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
+	--go_out=plugins=grpc:. \
 	pkg/link/link.proto
 
 	@echo "proto generation gRPC-web"
@@ -17,6 +17,9 @@ generate:
 	--grpc-gateway_out=logtostderr=true,allow_delete_body=true:. \
 	pkg/api/grpc-web/api.proto
 	@mv pkg/api/grpc-web/api.swagger.json docs/api.swagger.json
+
+	@echo "Generate go static"
+	@go generate pkg/api/graphql/schema/schema.go
 
 golint:
 	@for d in $$(go list ./... | grep -v /vendor/); do golint $${d}; done

@@ -1,0 +1,5 @@
+# The Query type represents all of the entry points into the API.
+type Query {
+    link(hash: String): Link!
+    links: [Link!]
+}

@@ -2,78 +2,195 @@
 	"variables": [],
 	"info": {
 		"name": "shortlink",
-		"_postman_id": "2111ddd1-921e-52c1-1c68-20ebb900b0ee",
+		"_postman_id": "9d8c970a-3915-8809-04c6-a392e86c1daf",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Get url",
-			"request": {
-				"url": "localhost:7070/api/{{hash}}",
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "add url",
-			"event": [
+			"name": "HTTP",
+			"description": "",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"type": "text/javascript",
-						"exec": [
-							"var jsonData = JSON.parse(responseBody);",
-							"",
-							"",
-							"postman.setGlobalVariable(\"hash\", jsonData.hash);"
-						]
-					}
-				}
-			],
-			"request": {
-				"url": "localhost:7070/api",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
+					"name": "Get link",
+					"request": {
+						"url": "localhost:7070/api/{{hash}}",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"url\":\"https://example.com\",\"describe\":\"example link\"}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
+				{
+					"name": "Get links",
+					"request": {
+						"url": "localhost:7070/api/links",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "add link",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"",
+									"postman.setGlobalVariable(\"hash\", jsonData.hash);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:7070/api",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"url\":\"https://example.com\",\"describe\":\"example link\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete link",
+					"request": {
+						"url": "localhost:7070/api",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"hash\":\"{{hash}}\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		},
 		{
-			"name": "delete url",
-			"request": {
-				"url": "localhost:7070/api",
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
+			"name": "GraphQL",
+			"description": "",
+			"item": [
+				{
+					"name": "Get link",
+					"request": {
+						"url": "localhost:7070/api/query",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"query\": \"{ link(hash: \\\"{{hash}}\\\") {url} }\"}"
+						},
 						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"hash\":\"{{hash}}\"}"
+					},
+					"response": []
 				},
-				"description": ""
-			},
-			"response": []
+				{
+					"name": "Get links",
+					"request": {
+						"url": "localhost:7070/api/query",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"query\": \"{ links { url } }\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "add link",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"",
+									"",
+									"postman.setGlobalVariable(\"hash\", jsonData.data.createLink.hash);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "localhost:7070/api/query",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"query\":\"mutation createLink { createLink( url: \\\"https://example.com\\\", hash: \\\"\\\", describe: \\\"\\\" ) { url hash describe } }\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete link",
+					"request": {
+						"url": "localhost:7070/api/query",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"query\":\"mutation deleteLink { deleteLink( hash: \\\"{{hash}}\\\" ) { } }\"}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
