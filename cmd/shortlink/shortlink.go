@@ -7,6 +7,7 @@ import (
 	"github.com/batazor/shortlink/pkg/api/grpc-web"
 	"github.com/batazor/shortlink/pkg/api/http-chi"
 	log "github.com/batazor/shortlink/pkg/logger"
+	"github.com/batazor/shortlink/pkg/traicing"
 	"go.uber.org/zap"
 )
 
@@ -22,6 +23,17 @@ func main() {
 
 	// Add logger
 	ctx = log.WithLogger(ctx, *logger)
+
+	// Add Tracer
+	tracer, closer, err := traicing.Init("hello-world")
+	defer closer.Close()
+	if err != nil {
+		logger.Error(err.Error())
+	}
+	ctx = traicing.WithTraicer(ctx, tracer)
+
+	// Test Event
+	tracer.StartSpan("test").Finish()
 
 	// start HTTP-server
 	var api api.API
