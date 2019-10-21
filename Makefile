@@ -29,6 +29,7 @@ run:
          -f docker-compose.yaml \
          -f ops/docker-compose/database/redis.yaml \
          -f ops/docker-compose/gataway/traefik.yaml \
+         -f ops/docker-compose/tooling/opentracing.yaml \
          up -d
 
 down:

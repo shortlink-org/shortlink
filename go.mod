@@ -15,8 +15,11 @@ require (
 	github.com/graph-gophers/graphql-go v0.0.0-20190917030536-38a077bc812d
 	github.com/grpc-ecosystem/grpc-gateway v1.11.3
 	github.com/lib/pq v1.2.0
+	github.com/opentracing/opentracing-go v1.1.0
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/tidwall/pretty v1.0.0 // indirect
+	github.com/uber/jaeger-client-go v2.19.0+incompatible
+	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
 	github.com/xdg/stringprep v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.1.2

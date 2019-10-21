@@ -39,6 +39,7 @@ docker-compose \
     -f docker-compose.yaml \
     -f ops/docker-compose/database/dgraph.yaml \
     -f ops/docker-compose/gateway/traefik.yaml \
+    -f ops/docker-compose/tooling/opentracing.yaml \
     up -d 
 ```
 
