@@ -9,7 +9,7 @@ import (
 )
 
 // initJaeger returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
-func Init(service string) (opentracing.Tracer, io.Closer, error) {
+func Init() (opentracing.Tracer, io.Closer, error) {
 	cfg := &config.Configuration{
 		ServiceName: "ShortLink",
 		RPCMetrics:  true,
@@ -22,7 +22,7 @@ func Init(service string) (opentracing.Tracer, io.Closer, error) {
 			LocalAgentHostPort: "localhost:6831",
 		},
 	}
-	tracer, closer, err := cfg.New(service, config.Logger(jaeger.StdLogger))
+	tracer, closer, err := cfg.NewTracer(config.Logger(jaeger.StdLogger))
 	if err != nil {
 		return nil, nil, err
 	}

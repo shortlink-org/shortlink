@@ -3,7 +3,6 @@ package store
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/dgraph-io/dgo/v2"
@@ -45,7 +44,9 @@ func (dg *DGraphLinkList) Init() error {
 func (dg *DGraphLinkList) get(id string) (*DGraphLinkResponse, error) {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
-	defer txn.Discard(ctx)
+	defer func() {
+		_ = txn.Discard(ctx)
+	}()
 
 	q := `
 query all($a: string) {
@@ -59,13 +60,13 @@ query all($a: string) {
 
 	val, err := txn.QueryWithVars(ctx, q, map[string]string{"$a": id})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response DGraphLinkResponse
 
 	if err = json.Unmarshal(val.Json, &response); err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Failed parse link: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
 	return &response, nil
@@ -74,19 +75,21 @@ query all($a: string) {
 func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
-	defer txn.Discard(ctx)
+	defer func() {
+		_ = txn.Discard(ctx)
+	}()
 
 	response, err := dg.get(id)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	if len(response.Link) == 0 {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	if response.Link[0].Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response.Link[0].Link, nil
@@ -98,7 +101,9 @@ func (dg *DGraphLinkList) Add(data link.Link) (*link.Link, error) {
 
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
-	defer txn.Discard(ctx)
+	defer func() {
+		_ = txn.Discard(ctx)
+	}()
 
 	item := DGraphLink{
 		Uid:   fmt.Sprintf(`_:%s`, data.Hash),
@@ -120,7 +125,7 @@ func (dg *DGraphLinkList) Add(data link.Link) (*link.Link, error) {
 	}
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: errors.New(fmt.Sprintf("Failed save link: %s", data.Url))}
+		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
 	}
 
 	return &data, nil
@@ -133,11 +138,13 @@ func (dg *DGraphLinkList) Update(data link.Link) (*link.Link, error) {
 func (dg *DGraphLinkList) Delete(id string) error {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
-	defer txn.Discard(ctx)
+	defer func() {
+		_ = txn.Discard(ctx)
+	}()
 
 	links, err := dg.get(id)
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	if len(links.Link) == 0 {
@@ -153,7 +160,7 @@ func (dg *DGraphLinkList) Delete(id string) error {
 
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return nil
@@ -162,7 +169,9 @@ func (dg *DGraphLinkList) Delete(id string) error {
 func (dg *DGraphLinkList) migration() error {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
-	defer txn.Discard(ctx)
+	defer func() {
+		_ = txn.Discard(ctx)
+	}()
 
 	op := &api.Operation{
 		Schema: `

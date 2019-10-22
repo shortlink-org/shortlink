@@ -1,7 +1,6 @@
 package store
 
 import (
-	"errors"
 	"fmt"
 	"github.com/batazor/shortlink/pkg/link"
 	"sync"
@@ -25,7 +24,7 @@ func (l *RamLinkList) Get(id string) (*link.Link, error) {
 	l.mu.Unlock()
 
 	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil

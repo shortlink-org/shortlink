@@ -20,7 +20,7 @@ type Store struct{}
 func (s *Store) Use() DB {
 	var store DB
 
-	typeStore := "leveldb"
+	typeStore := "ram"
 
 	switch typeStore {
 	case "postgres":

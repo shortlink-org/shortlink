@@ -14,7 +14,9 @@ import (
 func main() {
 	// Logger
 	logger, _ := zap.NewProduction()
-	defer logger.Sync() // flushes buffer, if any
+	defer func() {
+		_ = logger.Sync() // flushes buffer, if any
+	}()
 
 	// Add context
 	ctx := context.Background()
@@ -25,8 +27,10 @@ func main() {
 	ctx = log.WithLogger(ctx, *logger)
 
 	// Add Tracer
-	tracer, closer, err := traicing.Init("hello-world")
-	defer closer.Close()
+	tracer, closer, err := traicing.Init()
+	defer func() {
+		closer.Close()
+	}()
 	if err != nil {
 		logger.Error(err.Error())
 	}
@@ -36,21 +40,21 @@ func main() {
 	tracer.StartSpan("test").Finish()
 
 	// start HTTP-server
-	var api api.API
+	var API api.API
 	serverType := "graphql"
 
 	switch serverType {
 	case "http-chi":
-		api = &http_chi.API{}
+		API = &http_chi.API{}
 	case "gRPC-web":
-		api = &grpc_web.API{}
+		API = &grpc_web.API{}
 	case "graphql":
-		api = &graphql.API{}
+		API = &graphql.API{}
 	default:
-		api = &http_chi.API{}
+		API = &http_chi.API{}
 	}
 
-	if err := api.Run(ctx); err != nil {
+	if err := API.Run(ctx); err != nil {
 		logger.Panic(err.Error())
 	}
 }

@@ -38,8 +38,8 @@ func TestLink(t *testing.T) {
 	if err != nil {
 		t.Errorf("Error delete item %s", err)
 	}
-	link, err = s.Get(newLink.Hash)
+	_, err = s.Get(newLink.Hash)
 	if err == nil {
-		t.Errorf("Assert 'Not founr' but get nil")
+		t.Errorf("Assert 'Not found' but get nil")
 	}
 }
