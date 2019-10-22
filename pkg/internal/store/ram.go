@@ -6,32 +6,36 @@ import (
 	"sync"
 )
 
-type RamLinkList struct {
+// RAMLinkList implementation of store interface
+type RAMLinkList struct {
 	links map[string]link.Link
 	mu    sync.Mutex
 }
 
-func (l *RamLinkList) Init() error {
+// Init ...
+func (l *RAMLinkList) Init() error {
 	l.mu.Lock()
 	l.links = make(map[string]link.Link)
 	l.mu.Unlock()
 	return nil
 }
 
-func (l *RamLinkList) Get(id string) (*link.Link, error) {
+// Get ...
+func (l *RAMLinkList) Get(id string) (*link.Link, error) {
 	l.mu.Lock()
 	response := l.links[id]
 	l.mu.Unlock()
 
-	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	if response.URL == "" {
+		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
-func (l *RamLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
+// Add ...
+func (l *RAMLinkList) Add(data link.Link) (*link.Link, error) {
+	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
 	data.Hash = hash[:7]
 
 	l.mu.Lock()
@@ -41,11 +45,13 @@ func (l *RamLinkList) Add(data link.Link) (*link.Link, error) {
 	return &data, nil
 }
 
-func (l *RamLinkList) Update(data link.Link) (*link.Link, error) {
+// Update ...
+func (l *RAMLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
-func (l *RamLinkList) Delete(id string) error {
+// Delete ...
+func (l *RAMLinkList) Delete(id string) error {
 	l.mu.Lock()
 	delete(l.links, id)
 	l.mu.Unlock()

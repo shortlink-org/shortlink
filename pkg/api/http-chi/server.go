@@ -1,4 +1,4 @@
-package http_chi
+package httpchi
 
 import (
 	"context"
@@ -62,6 +62,7 @@ func (api *API) Run(ctx context.Context) error {
 	return err
 }
 
+// NotFoundHandler - default handler for don't existing routers
 func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusNotFound)

@@ -4,6 +4,7 @@ import (
 	"context"
 )
 
+// Link ...
 func (r *Resolver) Link(ctx context.Context, args struct {
 	Hash *string
 }) (*LinkResolver, error) {
@@ -13,6 +14,7 @@ func (r *Resolver) Link(ctx context.Context, args struct {
 	}, err
 }
 
+// Links ...
 func (r *Resolver) Links() (*[]*LinkResolver, error) {
 	return &[]*LinkResolver{}, nil
 }

@@ -21,7 +21,7 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type Link struct {
-	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	URL                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
 	Hash                 string   `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
 	Describe             string   `protobuf:"bytes,3,opt,name=describe,proto3" json:"describe,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -54,9 +54,9 @@ func (m *Link) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Link proto.InternalMessageInfo
 
-func (m *Link) GetUrl() string {
+func (m *Link) GetURL() string {
 	if m != nil {
-		return m.Url
+		return m.URL
 	}
 	return ""
 }

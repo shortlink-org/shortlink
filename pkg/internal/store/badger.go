@@ -7,10 +7,12 @@ import (
 	"github.com/dgraph-io/badger"
 )
 
+// BadgerLinkList implementation of store interface
 type BadgerLinkList struct {
 	client *badger.DB
 }
 
+// Init ...
 func (b *BadgerLinkList) Init() error {
 	var err error
 	b.client, err = badger.Open(badger.DefaultOptions("/tmp/links.badger"))
@@ -21,6 +23,7 @@ func (b *BadgerLinkList) Init() error {
 	return nil
 }
 
+// Get ...
 func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 	var valCopy []byte
 
@@ -49,7 +52,7 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -59,15 +62,16 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 		return nil, err
 	}
 
-	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
+	if response.URL == "" {
+		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
+// Add ...
 func (b *BadgerLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
+	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
 	data.Hash = hash[:7]
 
 	payload, err := json.Marshal(data)
@@ -86,10 +90,12 @@ func (b *BadgerLinkList) Add(data link.Link) (*link.Link, error) {
 	return &data, nil
 }
 
+// Update ...
 func (b *BadgerLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
+// Delete ...
 func (b *BadgerLinkList) Delete(id string) error {
 	err := b.client.Update(func(txn *badger.Txn) error {
 		err := txn.Delete([]byte(id))

@@ -10,7 +10,7 @@ type LinkResolver struct {
 }
 
 func (r *LinkResolver) Url() string {
-	return r.Link.Url
+	return r.Link.URL
 }
 
 func (r *LinkResolver) Hash() string {

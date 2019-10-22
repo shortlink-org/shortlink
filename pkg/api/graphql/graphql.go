@@ -11,11 +11,13 @@ import (
 	"net/http"
 )
 
+// API ...
 type API struct {
 	store store.DB
 	ctx   context.Context
 }
 
+// GetHandler ...
 func (api *API) GetHandler() (*relay.Handler, error) {
 	s := graphql.MustParseSchema(schema.GetRootSchema(), &resolver.Resolver{Store: api.store})
 	handler := relay.Handler{Schema: s}
@@ -23,6 +25,7 @@ func (api *API) GetHandler() (*relay.Handler, error) {
 	return &handler, nil
 }
 
+// Run ...
 func (api *API) Run(ctx context.Context) error {
 	var st store.Store
 

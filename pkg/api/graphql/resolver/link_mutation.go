@@ -5,13 +5,14 @@ import (
 	"github.com/batazor/shortlink/pkg/link"
 )
 
+// CreateLink ...
 func (r *Resolver) CreateLink(ctx context.Context, args *struct {
-	Url      *string
+	URL      *string
 	Hash     *string
 	Describe *string
 }) (*LinkResolver, error) {
 	res, error := r.Store.Add(link.Link{
-		Url:      *args.Url,
+		URL:      *args.URL,
 		Hash:     *args.Hash,
 		Describe: *args.Describe,
 	})
@@ -20,14 +21,16 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct {
 	}, error
 }
 
-func (_ *Resolver) UpdateLink(ctx context.Context, args *struct {
-	Url      *string
+// UpdateLink ...
+func (*Resolver) UpdateLink(ctx context.Context, args *struct {
+	URL      *string
 	Hash     *string
 	Describe *string
 }) (*bool, error) {
 	return nil, nil
 }
 
+// DeleteLink ...
 func (r *Resolver) DeleteLink(ctx context.Context, args *struct {
 	Hash *string
 }) (*bool, error) {

@@ -4,6 +4,7 @@ import (
 	"github.com/batazor/shortlink/pkg/link"
 )
 
+// DB - common interface of store
 type DB interface {
 	Init() error
 
@@ -36,9 +37,9 @@ func (s *Store) Use() DB {
 	case "badger":
 		store = &BadgerLinkList{}
 	case "ram":
-		store = &RamLinkList{}
+		store = &RAMLinkList{}
 	default:
-		store = &RamLinkList{}
+		store = &RAMLinkList{}
 	}
 
 	if err := store.Init(); err != nil {
