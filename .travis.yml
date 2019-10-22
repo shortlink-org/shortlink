@@ -1,3 +1,8 @@
+dist: xenial
+
+services:
+  - docker
+
 language: go
 
 # Force-enable Go modules. Also force go to use the code in vendor/
@@ -9,6 +14,12 @@ env: GO111MODULE=on GOFLAGS='-mod vendor'
 go:
   - 1.13.x
   - tip
+
+cache:
+  directories:
+    - $GOPATH/pkg/mod
+
+go_import_path: github.com/batazor/shortlink
 
 # Only clone the most recent commit.
 git:
@@ -39,6 +50,14 @@ script:
   - make golint
   - golangci-lint run
   - go test -race -coverprofile=coverage.txt -covermode=atomic
+# In the Travis VM-based build environment, IPv6 networking is not
+# enabled by default. The sysctl operations below enable IPv6.
+# IPv6 is needed by some of the CoreDNS test cases.
+  - cat /proc/net/if_inet6
+  - uname -a
+  - sudo bash -c 'if [ `cat /proc/net/if_inet6 | wc -l` = "0" ]; then echo "Enabling IPv6" ; sysctl net.ipv6.conf.all.disable_ipv6=0 ; sysctl net.ipv6.conf.default.disable_ipv6=0 ; sysctl net.ipv6.conf.lo.disable_ipv6=0 ; fi'
+  - cat /proc/net/if_inet6
+  - env
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
