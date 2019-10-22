@@ -13,7 +13,7 @@ func NewURL(link string) (Link, error) {
 
 func (l *Link) CreateHash(str, secret []byte) string {
 	h := hmac.New(sha512.New, secret)
-	h.Write(str)
+	_, _ = h.Write(str)
 	sha := hex.EncodeToString(h.Sum(nil))
 	return sha
 }

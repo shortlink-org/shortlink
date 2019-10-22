@@ -2,7 +2,6 @@ package store
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	"github.com/batazor/shortlink/pkg/link"
 	_ "github.com/lib/pq"
@@ -36,7 +35,7 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 	rows, err := p.client.Query("SELECT url, hash, describe FROM links LIMIT 1")
 
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -44,7 +43,7 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
 		if err != nil {
-			return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+			return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 		}
 	}
 
@@ -61,7 +60,7 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 		return &data, nil
 	}
 	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: errors.New(fmt.Sprintf("Failed save link: %s", data.Url))}
+		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
 	}
 
 	return &data, nil
@@ -74,12 +73,12 @@ func (p *PostgresLinkList) Update(data link.Link) (*link.Link, error) {
 func (p *PostgresLinkList) Delete(id string) error {
 	stmt, err := p.client.Prepare("delete from links where hash=$1")
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Failed save link: %s", id))}
+		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 
 	_, err = stmt.Exec(id)
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Failed save link: %s", id))}
+		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 
 	return nil

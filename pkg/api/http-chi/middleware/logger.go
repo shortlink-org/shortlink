@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -37,7 +36,6 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 		fields := []zapcore.Field{
 			zap.Int("status", ww.Status()),
 			zap.Duration("took", latency),
-			zap.Int64(fmt.Sprintf("measure#%s.latency"), latency.Nanoseconds()),
 			zap.String("remote", r.RemoteAddr),
 			zap.String("request", r.RequestURI),
 			zap.String("method", r.Method),

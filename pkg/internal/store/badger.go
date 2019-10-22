@@ -2,7 +2,6 @@ package store
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/dgraph-io/badger"
@@ -50,7 +49,7 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -61,7 +60,7 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 	}
 
 	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: errors.New(fmt.Sprintf("Not found id: %s", id))}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
