@@ -7,10 +7,12 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 )
 
+// LevelDBLinkList implementation of store interface
 type LevelDBLinkList struct {
 	client *leveldb.DB
 }
 
+// Init ...
 func (l *LevelDBLinkList) Init() error {
 	var err error
 	l.client, err = leveldb.OpenFile("/tmp/links.db", nil)
@@ -21,10 +23,11 @@ func (l *LevelDBLinkList) Init() error {
 	return nil
 }
 
+// Get ...
 func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -34,15 +37,16 @@ func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 		return nil, err
 	}
 
-	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	if response.URL == "" {
+		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
+// Add ...
 func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
+	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
 	data.Hash = hash[:7]
 
 	payload, err := json.Marshal(data)
@@ -58,10 +62,12 @@ func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
 	return &data, nil
 }
 
+// Update ...
 func (l *LevelDBLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
+// Delete ...
 func (l *LevelDBLinkList) Delete(id string) error {
 	err := l.client.Delete([]byte(id), nil)
 	return err

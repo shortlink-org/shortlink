@@ -7,7 +7,7 @@ import (
 )
 
 func NewURL(link string) (Link, error) {
-	newLink := Link{Url: link}
+	newLink := Link{URL: link}
 	return newLink, nil
 }
 

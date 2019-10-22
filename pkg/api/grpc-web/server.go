@@ -1,4 +1,4 @@
-package grpc_web
+package grpcweb
 
 import (
 	"context"
@@ -10,6 +10,7 @@ import (
 	"net/http"
 )
 
+// API ...
 type API struct {
 	store store.DB
 	ctx   context.Context
@@ -53,6 +54,7 @@ func (api *API) Run(ctx context.Context) error {
 	return err
 }
 
+// runGRPC ...
 func (api *API) runGRPC() error {
 	lis, err := net.Listen("tcp", "localhost:9090")
 	if err != nil {

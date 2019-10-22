@@ -1,12 +1,13 @@
+package schema
+
 // Use `go generate` to pack all *.graphql files under this directory (and sub-directories) into
 // a binary format.
 //
 //go:generate go-bindata -ignore=\.go -pkg=schema -o=bindata.go ./...
-package schema
 
 import "bytes"
 
-// String reads the .graphql schema files from the generated _bindata.go file, concatenating the
+// GetRootSchema - string reads the .graphql schema files from the generated _bindata.go file, concatenating the
 // files together into one string.
 //
 // If this method complains about not finding functions AssetNames() or MustAsset(),

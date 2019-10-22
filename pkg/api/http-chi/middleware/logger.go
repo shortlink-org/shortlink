@@ -14,7 +14,7 @@ type chilogger struct {
 	logZ *zap.Logger
 }
 
-// NewZapMiddleware returns a new Zap Middleware handler.
+// Logger returns a new Zap Middleware handler.
 func Logger(logger *zap.Logger) func(next http.Handler) http.Handler {
 	return chilogger{
 		logZ: logger,

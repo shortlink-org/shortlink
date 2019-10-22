@@ -45,13 +45,13 @@ func main() {
 
 	switch serverType {
 	case "http-chi":
-		API = &http_chi.API{}
+		API = &httpchi.API{}
 	case "gRPC-web":
-		API = &grpc_web.API{}
+		API = &grpcweb.API{}
 	case "graphql":
 		API = &graphql.API{}
 	default:
-		API = &http_chi.API{}
+		API = &httpchi.API{}
 	}
 
 	if err := API.Run(ctx); err != nil {

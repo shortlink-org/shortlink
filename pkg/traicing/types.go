@@ -3,5 +3,5 @@ package traicing
 type key int
 
 const (
-	KeyTraicer key = iota
+	keyTraicer key = iota
 )

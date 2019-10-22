@@ -8,7 +8,7 @@ import (
 	"io"
 )
 
-// initJaeger returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
+// Init returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
 func Init() (opentracing.Tracer, io.Closer, error) {
 	cfg := &config.Configuration{
 		ServiceName: "ShortLink",
@@ -29,12 +29,12 @@ func Init() (opentracing.Tracer, io.Closer, error) {
 	return tracer, closer, nil
 }
 
-// WithLogger set logger
+// WithTraicer set logger
 func WithTraicer(ctx context.Context, traicer opentracing.Tracer) context.Context {
-	return context.WithValue(ctx, KeyTraicer, traicer)
+	return context.WithValue(ctx, keyTraicer, traicer)
 }
 
-// GetLogger return logger
+// GetTraicer return logger
 func GetTraicer(ctx context.Context) opentracing.Tracer {
-	return ctx.Value(KeyTraicer).(opentracing.Tracer)
+	return ctx.Value(keyTraicer).(opentracing.Tracer)
 }

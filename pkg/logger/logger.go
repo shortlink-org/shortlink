@@ -7,10 +7,10 @@ import (
 
 // WithLogger set logger
 func WithLogger(ctx context.Context, logger zap.Logger) context.Context {
-	return context.WithValue(ctx, KeyLogger, logger)
+	return context.WithValue(ctx, keyLogger, logger)
 }
 
 // GetLogger return logger
 func GetLogger(ctx context.Context) zap.Logger {
-	return ctx.Value(KeyLogger).(zap.Logger)
+	return ctx.Value(keyLogger).(zap.Logger)
 }

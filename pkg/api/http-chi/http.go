@@ -1,4 +1,4 @@
-package http_chi
+package httpchi
 
 import (
 	"encoding/json"
@@ -20,6 +20,7 @@ func (api *API) Routes() chi.Router {
 	return r
 }
 
+// Add ...
 func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -34,7 +35,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	newLink := &link.Link{
-		Url:      request.Url,
+		URL:      request.URL,
 		Describe: request.Describe,
 	}
 
@@ -56,6 +57,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res)
 }
 
+// Get ...
 func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -90,6 +92,7 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res)
 }
 
+// Delete ...
 func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 

@@ -5,16 +5,18 @@ import (
 	"fmt"
 	"github.com/batazor/shortlink/pkg/link"
 	"go.mongodb.org/mongo-driver/bson"
-	. "go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
 )
 
+// MongoLinkList implementation of store interface
 type MongoLinkList struct {
 	client *mongo.Client
 }
 
+// Init ...
 func (m *MongoLinkList) Init() error {
 	var err error
 
@@ -34,33 +36,35 @@ func (m *MongoLinkList) Init() error {
 	return nil
 }
 
+// Get ...
 func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
-	val := collection.FindOne(ctx, bson.D{E{Key: "hash", Value: id}})
+	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 
 	if val.Err() != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
 
 	if err := val.Decode(&response); err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
-	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	if response.URL == "" {
+		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
+// Add ...
 func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
+	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
 	data.Hash = hash[:7]
 
 	collection := m.client.Database("shortlink").Collection("links")
@@ -70,25 +74,27 @@ func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
 
 	_, err := collection.InsertOne(ctx, data)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
+		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.URL)}
 	}
 
 	return &data, nil
 }
 
+// Update ...
 func (m *MongoLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
+// Delete ...
 func (m *MongoLinkList) Delete(id string) error {
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
-	_, err := collection.DeleteOne(ctx, bson.D{E{Key: "hash", Value: id}})
+	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
+		return &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 
 	return nil

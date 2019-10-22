@@ -2,11 +2,11 @@
 // source: pkg/api/grpc-web/api.proto
 
 /*
-Package grpc_web is a reverse proxy.
+Package grpcweb is a reverse proxy.
 
 It translates gRPC into RESTful JSON APIs.
 */
-package grpc_web
+package grpcweb
 
 import (
 	"context"
