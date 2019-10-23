@@ -22,6 +22,7 @@ generate:
 	@go generate pkg/api/graphql/schema/schema.go
 
 golint:
+	@golangci-lint run
 	@for d in $$(go list ./... | grep -v /vendor/); do golint $${d}; done
 
 run:
