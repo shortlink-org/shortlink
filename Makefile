@@ -4,9 +4,11 @@ dep:
 	@echo "install protoc"
 	@sudo ./ops/scripts/install-protobuf.sh
 	@echo "install protoc addons"
-	@go get -u github.com/golang/protobuf/{proto,protoc-gen-go}
+	@go get -u github.com/golang/protobuf/proto
+	@go get -u github.com/golang/protobuf/protoc-gen-go
 	@go get -u moul.io/protoc-gen-gotemplate
-	@go get -u github.com/grpc-ecosystem/grpc-gateway/{protoc-gen-grpc-gateway,protoc-gen-swagger}
+	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 
 generate:
 	@echo "proto generation link entity"
