@@ -1,23 +1,26 @@
+language: go
+go: 1.13.x
+
 # use the latest ubuntu environment (18.04) available on travis
 #dist: xenial
 #
 #services:
 #  - docker
 
-language: go
+# language: go
 
 # Force-enable Go modules. Also force go to use the code in vendor/
 # These will both be unnecessary when Go 1.14 lands.
-env: GO111MODULE=on GOFLAGS='-mod vendor'
+# env: GO111MODULE=on GOFLAGS='-mod vendor'
 
 # You don't need to test on very old versions of the Go compiler. It's the user's
 # responsibility to keep their compiler up to date.
-go:
-  - 1.12.x
+# go:
+#   - 1.12.x
 
-cache:
-  directories:
-    - $GOPATH/pkg/mod
+# cache:
+#   directories:
+#     - $GOPATH/pkg/mod
 
 #go_import_path: github.com/batazor/shortlink
 
@@ -30,8 +33,8 @@ cache:
 #install: true
 
 # Don't email me the results of the test runs.
-notifications:
-  email: false
+# notifications:
+#   email: false
 
 # Anything in before_script that returns a nonzero exit code will flunk the
 # build and immediately stop. It's sorta like having set -e enabled in bash.
@@ -58,5 +61,5 @@ notifications:
 #  - make golint
 #  - go test -race -coverprofile=coverage.txt -covermode=atomic
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+# after_success:
+#   - bash <(curl -s https://codecov.io/bash)
