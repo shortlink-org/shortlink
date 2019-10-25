@@ -16,7 +16,7 @@ before_install:
 
 # Force-enable Go modules. Also force go to use the code in vendor/
 # These will both be unnecessary when Go 1.14 lands.
-env: GO111MODULE=on GOFLAGS='-mod vendor'
+#env: GO111MODULE=on GOFLAGS='-mod vendor'
 
 # You don't need to test on very old versions of the Go compiler. It's the user's
 # responsibility to keep their compiler up to date.
@@ -38,16 +38,6 @@ git:
 # Don't email me the results of the test runs.
 notifications:
   email: false
-
-#before_script:
-## In the Travis VM-based build environment, IPv6 networking is not
-## enabled by default. The sysctl operations below enable IPv6.
-## IPv6 is needed by some of the CoreDNS test cases.
-#  - cat /proc/net/if_inet6
-#  - uname -a
-#  - sudo bash -c 'if [ `cat /proc/net/if_inet6 | wc -l` = "0" ]; then echo "Enabling IPv6" ; sysctl net.ipv6.conf.all.disable_ipv6=0 ; sysctl net.ipv6.conf.default.disable_ipv6=0 ; sysctl net.ipv6.conf.lo.disable_ipv6=0 ; fi'
-#  - cat /proc/net/if_inet6
-#  - env
 
 # script always runs to completion (set +e). If we have linter issues AND a
 # failing test, we want to see both. Configure golangci-lint with a
