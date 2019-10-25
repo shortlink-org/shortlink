@@ -35,7 +35,8 @@ golint:
 	@golangci-lint run
 
 test:
-	@go test -race -coverprofile=coverage.txt -covermode=atomic
+	@echo "run test"
+	@sh ./ops/scripts/coverage.sh
 
 run:
 	@docker-compose \
