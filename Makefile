@@ -33,7 +33,9 @@ generate:
 
 golint:
 	@golangci-lint run
-	@for d in $$(go list ./... | grep -v /vendor/); do golint $${d}; done
+
+test:
+	@go test -race -coverprofile=coverage.txt -covermode=atomic
 
 run:
 	@docker-compose \
