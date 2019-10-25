@@ -1,32 +1,20 @@
-language: go
-
-go: 1.13.x
-
-before_install:
-  - make dep
-
-# use the latest ubuntu environment (18.04) available on travis
-#dist: xenial
-#
 #services:
 #  - docker
 
-# language: go
+language: go
 
 # Force-enable Go modules. Also force go to use the code in vendor/
 # These will both be unnecessary when Go 1.14 lands.
-# env: GO111MODULE=on GOFLAGS='-mod vendor'
+env: GO111MODULE=on GOFLAGS='-mod vendor'
 
 # You don't need to test on very old versions of the Go compiler. It's the user's
 # responsibility to keep their compiler up to date.
-# go:
-#   - 1.12.x
+go:
+  - 1.13.x
 
-# cache:
-#   directories:
-#     - $GOPATH/pkg/mod
-
-#go_import_path: github.com/batazor/shortlink
+cache:
+  directories:
+   - $GOPATH/pkg/mod
 
 # Only clone the most recent commit.
 git:
@@ -34,7 +22,7 @@ git:
 
 # Skip the install step. Don't `go get` dependencies. Only build with the code
 # in vendor/
-#install: true
+install: true
 
 # Don't email me the results of the test runs.
 notifications:
@@ -47,23 +35,24 @@ notifications:
 #   GO111MODULE=on go get github.com/golangci/golangci-lint@v1.21.0
 # You should see this line in your go.mod file:
 #   github.com/golangci/golangci-lint v1.21.0
-#before_script:
-#  - go install github.com/golangci/golangci-lint/cmd/golangci-lint
-## In the Travis VM-based build environment, IPv6 networking is not
-## enabled by default. The sysctl operations below enable IPv6.
-## IPv6 is needed by some of the CoreDNS test cases.
-#  - cat /proc/net/if_inet6
-#  - uname -a
-#  - sudo bash -c 'if [ `cat /proc/net/if_inet6 | wc -l` = "0" ]; then echo "Enabling IPv6" ; sysctl net.ipv6.conf.all.disable_ipv6=0 ; sysctl net.ipv6.conf.default.disable_ipv6=0 ; sysctl net.ipv6.conf.lo.disable_ipv6=0 ; fi'
-#  - cat /proc/net/if_inet6
-#  - env
+before_script:
+  - make dep
+  - go install github.com/golangci/golangci-lint/cmd/golangci-lint
+# In the Travis VM-based build environment, IPv6 networking is not
+# enabled by default. The sysctl operations below enable IPv6.
+# IPv6 is needed by some of the CoreDNS test cases.
+  - cat /proc/net/if_inet6
+  - uname -a
+  - sudo bash -c 'if [ `cat /proc/net/if_inet6 | wc -l` = "0" ]; then echo "Enabling IPv6" ; sysctl net.ipv6.conf.all.disable_ipv6=0 ; sysctl net.ipv6.conf.default.disable_ipv6=0 ; sysctl net.ipv6.conf.lo.disable_ipv6=0 ; fi'
+  - cat /proc/net/if_inet6
+  - env
 
 # script always runs to completion (set +e). If we have linter issues AND a
 # failing test, we want to see both. Configure golangci-lint with a
 # .golangci.yml file at the top level of your repo.
-#script:
-#  - make golint
-#  - go test -race -coverprofile=coverage.txt -covermode=atomic
+script:
+  - make golint
+  - go test -race -coverprofile=coverage.txt -covermode=atomic
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
