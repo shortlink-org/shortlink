@@ -37,8 +37,8 @@ git:
 #install: true
 
 # Don't email me the results of the test runs.
-# notifications:
-#   email: false
+notifications:
+  email: false
 
 # Anything in before_script that returns a nonzero exit code will flunk the
 # build and immediately stop. It's sorta like having set -e enabled in bash.
@@ -65,5 +65,5 @@ git:
 #  - make golint
 #  - go test -race -coverprofile=coverage.txt -covermode=atomic
 
-# after_success:
-#   - bash <(curl -s https://codecov.io/bash)
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
