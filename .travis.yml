@@ -1,5 +1,9 @@
 language: go
+
 go: 1.13.x
+
+before_install:
+  - ./ops/scripts/install-protobuf.sh
 
 # use the latest ubuntu environment (18.04) available on travis
 #dist: xenial
