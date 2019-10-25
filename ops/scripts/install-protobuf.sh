@@ -1,5 +1,9 @@
 #!/bin/sh
 set -ex
-wget https://protobuf.googlecode.com/files/protobuf-2.4.1.tar.gz
-tar -xzvf protobuf-2.4.1.tar.gz
-cd protobuf-2.4.1 && ./configure --prefix=/usr && make && sudo make install
+
+PROTOBUF_VERSION=3.10.0
+basename=protobuf-$PROTOBUF_VERSION
+
+wget https://github.com/google/protobuf/releases/download/v$PROTOBUF_VERSION/$basename.tar.gz
+tar -xzvf $basename.tar.gz
+cd protobuf-$PROTOBUF_VERSION && ./configure --prefix=/usr && make -j2 && sudo make install
