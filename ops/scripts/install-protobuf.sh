@@ -2,8 +2,8 @@
 set -ex
 
 PROTOBUF_VERSION=3.10.0
-basename=protobuf-all-$PROTOBUF_VERSION
+basename=protoc-$PROTOBUF_VERSION-linux-x86_64.zip
 
-wget https://github.com/google/protobuf/releases/download/v$PROTOBUF_VERSION/$basename.tar.gz
-tar -xzvf $basename.tar.gz
-cd protobuf-$PROTOBUF_VERSION && ./configure --prefix=/usr && make -j2 && sudo make install
+wget https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOBUF_VERSION/$basename
+unzip $basename
+mv bin/protoc /use/bin/protoc
