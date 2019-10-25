@@ -13,7 +13,7 @@ require (
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/golangci/golangci-lint v1.21.0 // indirect
-	github.com/graph-gophers/graphql-go v0.0.0-20190917030536-38a077bc812d
+	github.com/graph-gophers/graphql-go v0.0.0-20191024035216-0a9cfbec35a1
 	github.com/grpc-ecosystem/grpc-gateway v1.11.3
 	github.com/lib/pq v1.2.0
 	github.com/opentracing/opentracing-go v1.1.0
