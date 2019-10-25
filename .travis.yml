@@ -3,13 +3,6 @@
 
 language: go
 
-# Anything in before_script that returns a nonzero exit code will flunk the
-# build and immediately stop. It's sorta like having set -e enabled in bash.
-# Make sure you've pinned the version of golangci-lint by running this command
-# in your project directory:
-#   GO111MODULE=on go get github.com/golangci/golangci-lint@v1.21.0
-# You should see this line in your go.mod file:
-#   github.com/golangci/golangci-lint v1.21.0
 before_install:
   - make dep
   - go install github.com/golangci/golangci-lint/cmd/golangci-lint
@@ -42,9 +35,9 @@ notifications:
 # script always runs to completion (set +e). If we have linter issues AND a
 # failing test, we want to see both. Configure golangci-lint with a
 # .golangci.yml file at the top level of your repo.
-#script:
-#  - make golint
-#  - go test -race -coverprofile=coverage.txt -covermode=atomic
+script:
+  - make golint
+  - make test
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
