@@ -12,15 +12,19 @@ import "bytes"
 //
 // If this method complains about not finding functions AssetNames() or MustAsset(),
 // run `go generate` against this package to generate the functions.
-func GetRootSchema() string {
+func GetRootSchema() string { // nolint unused
 	buf := bytes.Buffer{}
 	for _, name := range AssetNames() {
 		b := MustAsset(name)
-		buf.Write(b)
+		if _, err := buf.Write(b); err != nil {
+			panic(err)
+		}
 
 		// Add a newline if the file does not end in a newline.
 		if len(b) > 0 && b[len(b)-1] != '\n' {
-			buf.WriteByte('\n')
+			if err := buf.WriteByte('\n'); err != nil {
+				panic(err)
+			}
 		}
 	}
 

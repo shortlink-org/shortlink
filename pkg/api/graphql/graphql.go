@@ -12,17 +12,17 @@ import (
 )
 
 // API ...
-type API struct {
+type API struct { // nolint unused
 	store store.DB
 	ctx   context.Context
 }
 
 // GetHandler ...
-func (api *API) GetHandler() (*relay.Handler, error) {
+func (api *API) GetHandler() *relay.Handler {
 	s := graphql.MustParseSchema(schema.GetRootSchema(), &resolver.Resolver{Store: api.store})
 	handler := relay.Handler{Schema: s}
 
-	return &handler, nil
+	return &handler
 }
 
 // Run ...
@@ -35,13 +35,10 @@ func (api *API) Run(ctx context.Context) error {
 	log := logger.GetLogger(ctx)
 	log.Info("Run GraphQL API")
 
-	handler, err := api.GetHandler()
-	if err != nil {
-		return err
-	}
+	handler := api.GetHandler()
 
 	http.Handle("/api/query", handler)
-	err = http.ListenAndServe(":7070", nil)
+	err := http.ListenAndServe(":7070", nil)
 
 	return err
 }

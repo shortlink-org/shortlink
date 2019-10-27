@@ -80,8 +80,7 @@ func (b *BadgerLinkList) Add(data link.Link) (*link.Link, error) {
 	}
 
 	err = b.client.Update(func(txn *badger.Txn) error {
-		err := txn.Set([]byte(data.Hash), payload)
-		return err
+		return txn.Set([]byte(data.Hash), payload)
 	})
 	if err != nil {
 		return nil, err

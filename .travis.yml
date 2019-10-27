@@ -5,7 +5,6 @@ language: go
 
 before_install:
   - make dep
-  - go install github.com/golangci/golangci-lint/cmd/golangci-lint
 
 # Force-enable Go modules. Also force go to use the code in vendor/
 # These will both be unnecessary when Go 1.14 lands.
@@ -16,12 +15,15 @@ before_install:
 go:
   - 1.13.x
 
+#go_import_path:
+
 cache:
   directories:
    - $GOPATH/pkg/mod
 
 # Only clone the most recent commit.
 git:
+  submodules: false
   depth: 1
 
 # Skip the install step. Don't `go get` dependencies. Only build with the code
@@ -32,12 +34,20 @@ install: true
 notifications:
   email: false
 
-# script always runs to completion (set +e). If we have linter issues AND a
-# failing test, we want to see both. Configure golangci-lint with a
-# .golangci.yml file at the top level of your repo.
-script:
-  - make golint
-  - make test
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+jobs:
+  include:
+    - os: linux
+      name: golint
+      # script always runs to completion (set +e). If we have linter issues AND a
+      # failing test, we want to see both. Configure golangci-lint with a
+      # .golangci.yml file at the top level of your repo.
+      script:
+        - make golint
+    - os: linux
+      name: test
+      before_install:
+        - go install github.com/golangci/golangci-lint/cmd/golangci-lint
+      script:
+        - make test
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)

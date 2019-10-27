@@ -6,7 +6,7 @@ import (
 )
 
 // CreateLink ...
-func (r *Resolver) CreateLink(ctx context.Context, args *struct {
+func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unused
 	URL      *string
 	Hash     *string
 	Describe *string
@@ -22,7 +22,7 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct {
 }
 
 // UpdateLink ...
-func (*Resolver) UpdateLink(ctx context.Context, args *struct {
+func (*Resolver) UpdateLink(ctx context.Context, args *struct { //nolint unused
 	URL      *string
 	Hash     *string
 	Describe *string
@@ -31,9 +31,11 @@ func (*Resolver) UpdateLink(ctx context.Context, args *struct {
 }
 
 // DeleteLink ...
-func (r *Resolver) DeleteLink(ctx context.Context, args *struct {
+func (r *Resolver) DeleteLink(ctx context.Context, args *struct { //nolint unused
 	Hash *string
-}) (*bool, error) {
-	error := r.Store.Delete(*args.Hash)
-	return nil, error
+}) (bool, error) {
+	if error := r.Store.Delete(*args.Hash); error != nil {
+		return false, error
+	}
+	return true, nil
 }

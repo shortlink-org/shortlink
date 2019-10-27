@@ -6,24 +6,24 @@ import (
 )
 
 // API ...
-type API struct {
+type API struct { // nolint unused
 	store store.DB
 	ctx   context.Context
 }
 
 // addRequest ...
-type addRequest struct {
+type addRequest struct { // nolint unused
 	URL      string
 	Describe string
 }
 
 // getRequest ...
-type getRequest struct {
+type getRequest struct { // nolint unused
 	Hash     string
 	Describe string
 }
 
 // deleteRequest ...
-type deleteRequest struct {
+type deleteRequest struct { // nolint unused
 	Hash string
 }

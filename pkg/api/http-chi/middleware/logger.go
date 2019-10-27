@@ -10,12 +10,12 @@ import (
 	"go.uber.org/zap"
 )
 
-type chilogger struct {
+type chilogger struct { // nolint unused
 	logZ *zap.Logger
 }
 
 // Logger returns a new Zap Middleware handler.
-func Logger(logger *zap.Logger) func(next http.Handler) http.Handler {
+func Logger(logger *zap.Logger) func(next http.Handler) http.Handler { // nolint unused
 	return chilogger{
 		logZ: logger,
 	}.middleware
@@ -26,7 +26,7 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 		start := time.Now()
 		var requestID string
 		if reqID := r.Context().Value(middleware.RequestIDKey); reqID != nil {
-			requestID = reqID.(string)
+			requestID = reqID.(string) // nolint errcheck
 		}
 		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
 		next.ServeHTTP(ww, r)

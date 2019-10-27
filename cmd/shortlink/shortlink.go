@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/batazor/shortlink/pkg/api"
 	"github.com/batazor/shortlink/pkg/api/graphql"
 	"github.com/batazor/shortlink/pkg/api/grpc-web"
@@ -13,9 +14,16 @@ import (
 
 func main() {
 	// Logger
-	logger, _ := zap.NewProduction()
+	logger, err := zap.NewProduction()
+	if err != nil {
+		panic(err)
+	}
 	defer func() {
-		_ = logger.Sync() // flushes buffer, if any
+		// flushes buffer, if any
+		if error := logger.Sync(); error != nil {
+			// TODO: use logger
+			fmt.Println(error.Error())
+		}
 	}()
 
 	// Add context
@@ -29,7 +37,10 @@ func main() {
 	// Add Tracer
 	tracer, closer, err := traicing.Init()
 	defer func() {
-		closer.Close()
+		// TODO: use logger
+		if error := closer.Close(); error != nil {
+			fmt.Println(error.Error())
+		}
 	}()
 	if err != nil {
 		logger.Error(err.Error())

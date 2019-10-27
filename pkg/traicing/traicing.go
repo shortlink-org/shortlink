@@ -9,7 +9,7 @@ import (
 )
 
 // Init returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
-func Init() (opentracing.Tracer, io.Closer, error) {
+func Init() (opentracing.Tracer, io.Closer, error) { // nolint unused
 	cfg := &config.Configuration{
 		ServiceName: "ShortLink",
 		RPCMetrics:  true,
@@ -30,11 +30,11 @@ func Init() (opentracing.Tracer, io.Closer, error) {
 }
 
 // WithTraicer set logger
-func WithTraicer(ctx context.Context, traicer opentracing.Tracer) context.Context {
+func WithTraicer(ctx context.Context, traicer opentracing.Tracer) context.Context { // nolint unused
 	return context.WithValue(ctx, keyTraicer, traicer)
 }
 
 // GetTraicer return logger
-func GetTraicer(ctx context.Context) opentracing.Tracer {
+func GetTraicer(ctx context.Context) opentracing.Tracer { // nolint unused
 	return ctx.Value(keyTraicer).(opentracing.Tracer)
 }

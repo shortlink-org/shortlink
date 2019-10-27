@@ -30,7 +30,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
@@ -42,19 +42,19 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	newLink, err = api.store.Add(*newLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
 	res, err := json.Marshal(newLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res)
+	_, _ = w.Write(res) // nolint errcheck
 }
 
 // Get ...
@@ -72,24 +72,24 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
 	res, err := json.Marshal(response)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res)
+	_, _ = w.Write(res) // nolint errcheck
 }
 
 // Delete ...
@@ -99,11 +99,11 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 	// Parse request
 	b, err := ioutil.ReadAll(r.Body)
 	defer func() {
-		_ = r.Body.Close()
+		_ = r.Body.Close() // nolint errcheck
 	}()
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
@@ -111,17 +111,17 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 	err = json.Unmarshal(b, &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
 	err = api.store.Delete(request.Hash)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`))
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`))
+	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
