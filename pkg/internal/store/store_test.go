@@ -5,7 +5,8 @@ import (
 	"testing"
 )
 
-func TestLink(t *testing.T) {
+// TestLink ...
+func TestLink(t *testing.T) { //nolint unused
 	var st Store
 	s := st.Use()
 

@@ -5,7 +5,7 @@ import (
 )
 
 // Link ...
-func (r *Resolver) Link(ctx context.Context, args struct {
+func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 	Hash *string
 }) (*LinkResolver, error) {
 	response, err := r.Store.Get(*args.Hash)
@@ -15,6 +15,6 @@ func (r *Resolver) Link(ctx context.Context, args struct {
 }
 
 // Links ...
-func (r *Resolver) Links() (*[]*LinkResolver, error) {
+func (r *Resolver) Links() (*[]*LinkResolver, error) { // nolint unused
 	return &[]*LinkResolver{}, nil
 }

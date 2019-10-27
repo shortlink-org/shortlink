@@ -50,7 +50,10 @@ func (dg *DGraphLinkList) get(id string) (*DGraphLinkResponse, error) {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {
-		_ = txn.Discard(ctx)
+		if err := txn.Discard(ctx); err != nil {
+			// TODO: use logger
+			fmt.Println(err.Error())
+		}
 	}()
 
 	q := `
@@ -82,7 +85,10 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {
-		_ = txn.Discard(ctx)
+		if err := txn.Discard(ctx); err != nil {
+			// TODO: use logger
+			fmt.Println(err.Error())
+		}
 	}()
 
 	response, err := dg.get(id)
@@ -109,7 +115,10 @@ func (dg *DGraphLinkList) Add(data link.Link) (*link.Link, error) {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {
-		_ = txn.Discard(ctx)
+		if err := txn.Discard(ctx); err != nil {
+			// TODO: use logger
+			fmt.Println(err.Error())
+		}
 	}()
 
 	item := DGraphLink{
@@ -148,7 +157,10 @@ func (dg *DGraphLinkList) Delete(id string) error {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {
-		_ = txn.Discard(ctx)
+		if err := txn.Discard(ctx); err != nil {
+			// TODO: use logger
+			fmt.Println(err.Error())
+		}
 	}()
 
 	links, err := dg.get(id)
@@ -180,7 +192,10 @@ func (dg *DGraphLinkList) migration() error {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {
-		_ = txn.Discard(ctx)
+		if err := txn.Discard(ctx); err != nil {
+			// TODO: use logger
+			fmt.Println(err.Error())
+		}
 	}()
 
 	op := &api.Operation{

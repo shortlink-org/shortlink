@@ -63,7 +63,7 @@ func (api *API) Run(ctx context.Context) error {
 }
 
 // NotFoundHandler - default handler for don't existing routers
-func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
+func NotFoundHandler(w http.ResponseWriter, r *http.Request) { // nolint unused
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusNotFound)
 }

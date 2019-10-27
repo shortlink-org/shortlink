@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type NotFoundError struct {
+type NotFoundError struct { // nolint unused
 	Link Link
 	Err  error
 }
