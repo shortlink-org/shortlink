@@ -4,20 +4,19 @@ import (
 	"net/http"
 	"time"
 
-	"go.uber.org/zap/zapcore"
+	"github.com/batazor/shortlink/pkg/logger"
 
 	"github.com/go-chi/chi/middleware"
-	"go.uber.org/zap"
 )
 
 type chilogger struct { // nolint unused
-	logZ *zap.Logger
+	logZ logger.Logger
 }
 
 // Logger returns a new Zap Middleware handler.
-func Logger(logger *zap.Logger) func(next http.Handler) http.Handler { // nolint unused
+func Logger(log logger.Logger) func(next http.Handler) http.Handler { // nolint unused
 	return chilogger{
-		logZ: logger,
+		log,
 	}.middleware
 }
 
@@ -33,17 +32,17 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 
 		latency := time.Since(start)
 
-		fields := []zapcore.Field{
-			zap.Int("status", ww.Status()),
-			zap.Duration("took", latency),
-			zap.String("remote", r.RemoteAddr),
-			zap.String("request", r.RequestURI),
-			zap.String("method", r.Method),
+		var fields = logger.Field{
+			"status":  ww.Status(),
+			"took":    latency,
+			"remote":  r.RemoteAddr,
+			"request": r.RequestURI,
+			"method":  r.Method,
 		}
 		if requestID != "" {
-			fields = append(fields, zap.String("request-id", requestID))
+			fields["request-id"] = requestID
 		}
-		c.logZ.Info("request completed", fields...)
+		c.logZ.Info("request completed", fields)
 	}
 	return http.HandlerFunc(fn)
 }

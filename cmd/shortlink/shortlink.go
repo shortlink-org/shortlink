@@ -7,23 +7,19 @@ import (
 	"github.com/batazor/shortlink/pkg/api/graphql"
 	"github.com/batazor/shortlink/pkg/api/grpc-web"
 	"github.com/batazor/shortlink/pkg/api/http-chi"
-	log "github.com/batazor/shortlink/pkg/logger"
+	"github.com/batazor/shortlink/pkg/logger"
 	"github.com/batazor/shortlink/pkg/traicing"
-	"go.uber.org/zap"
 )
 
 func main() {
 	// Logger
-	logger, err := zap.NewProduction()
+	log, err := logger.NewLogger(logger.Configuration{}, logger.Zap)
 	if err != nil {
 		panic(err)
 	}
 	defer func() {
 		// flushes buffer, if any
-		if error := logger.Sync(); error != nil {
-			// TODO: use logger
-			fmt.Println(error.Error())
-		}
+		log.Close()
 	}()
 
 	// Add context
@@ -32,7 +28,7 @@ func main() {
 	defer cancel()
 
 	// Add logger
-	ctx = log.WithLogger(ctx, *logger)
+	ctx = logger.WithLogger(ctx, log)
 
 	// Add Tracer
 	tracer, closer, err := traicing.Init()
@@ -43,7 +39,7 @@ func main() {
 		}
 	}()
 	if err != nil {
-		logger.Error(err.Error())
+		log.Error(err.Error())
 	}
 	ctx = traicing.WithTraicer(ctx, tracer)
 
@@ -52,7 +48,7 @@ func main() {
 
 	// start HTTP-server
 	var API api.API
-	serverType := "graphql"
+	serverType := "http-chi"
 
 	switch serverType {
 	case "http-chi":
@@ -66,6 +62,6 @@ func main() {
 	}
 
 	if err := API.Run(ctx); err != nil {
-		logger.Panic(err.Error())
+		log.Fatal(err.Error())
 	}
 }

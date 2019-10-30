@@ -2,7 +2,6 @@ package logger
 
 import (
 	"context"
-	"go.uber.org/zap"
 )
 
 func NewLogger(config Configuration, loggerInstance int) (Logger, error) { // nolint unused
@@ -19,11 +18,11 @@ func NewLogger(config Configuration, loggerInstance int) (Logger, error) { // no
 }
 
 // WithLogger set logger
-func WithLogger(ctx context.Context, logger zap.Logger) context.Context { //nolint unused
+func WithLogger(ctx context.Context, logger Logger) context.Context { //nolint unused
 	return context.WithValue(ctx, keyLogger, logger)
 }
 
 // GetLogger return logger
-func GetLogger(ctx context.Context) zap.Logger { //nolint unused
-	return ctx.Value(keyLogger).(zap.Logger)
+func GetLogger(ctx context.Context) Logger { //nolint unused
+	return ctx.Value(keyLogger).(Logger)
 }
