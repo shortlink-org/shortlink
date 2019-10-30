@@ -48,7 +48,7 @@ func (api *API) Run(ctx context.Context) error {
 	r.Use(middleware.Recoverer)
 
 	// Additional middleware
-	r.Use(additionalMiddleware.Logger(&logger))
+	r.Use(additionalMiddleware.Logger(logger))
 
 	r.NotFound(NotFoundHandler)
 
