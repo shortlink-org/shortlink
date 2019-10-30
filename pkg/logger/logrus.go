@@ -2,7 +2,7 @@ package logger
 
 import "fmt"
 
-type logrusLogger struct{}
+type logrusLogger struct{} // nolint unused
 
 func (log *logrusLogger) Info(msg string, fields ...Field) {
 	fmt.Println(msg)
