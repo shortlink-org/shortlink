@@ -2,7 +2,7 @@ package logger
 
 import "fmt"
 
-type zapLogger struct{}
+type zapLogger struct{} // nolint unused
 
 func (log *zapLogger) Info(msg string, fields ...Field) {
 	fmt.Println(msg)
