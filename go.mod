@@ -13,7 +13,7 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/golang/protobuf v1.3.2
 	github.com/golang/snappy v0.0.1 // indirect
-	github.com/graph-gophers/graphql-go v0.0.0-20191030215134-a5bf8047ea05
+	github.com/graph-gophers/graphql-go v0.0.0-20191031132832-445056544e78
 	github.com/grpc-ecosystem/grpc-gateway v1.11.3
 	github.com/lib/pq v1.2.0
 	github.com/onsi/ginkgo v1.10.1 // indirect
