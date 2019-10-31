@@ -2,8 +2,10 @@ package logger
 
 import (
 	"context"
+	"errors"
 )
 
+// NewLogger - return new instance logger
 func NewLogger(config Configuration, loggerInstance int) (Logger, error) { // nolint unused
 	var log Logger
 
@@ -12,6 +14,13 @@ func NewLogger(config Configuration, loggerInstance int) (Logger, error) { // no
 		log = &zapLogger{}
 	case Logrus:
 		return &logrusLogger{}, nil
+	default:
+		return nil, errors.New("Invalid logger instance")
+	}
+
+	// Init logger
+	if err := log.Init(); err != nil {
+		return nil, err
 	}
 
 	return log, nil

@@ -32,7 +32,7 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 
 		latency := time.Since(start)
 
-		var fields = logger.Field{
+		var fields = logger.Fields{
 			"status":  ww.Status(),
 			"took":    latency,
 			"remote":  r.RemoteAddr,
