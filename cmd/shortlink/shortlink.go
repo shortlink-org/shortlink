@@ -18,6 +18,10 @@ func main() {
 		panic(err)
 	}
 	defer func() {
+		if r := recover(); r != nil {
+			log.Error(r.(string))
+		}
+
 		// flushes buffer, if any
 		log.Close()
 	}()
