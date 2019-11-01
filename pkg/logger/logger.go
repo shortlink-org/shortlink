@@ -13,7 +13,7 @@ func NewLogger(config Configuration, loggerInstance int) (Logger, error) { // no
 	case Zap:
 		log = &zapLogger{}
 	case Logrus:
-		return &logrusLogger{}, nil
+		log = &logrusLogger{}
 	default:
 		return nil, errors.New("Invalid logger instance")
 	}
