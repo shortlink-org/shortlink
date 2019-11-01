@@ -3,17 +3,27 @@ package logger
 import (
 	"fmt"
 	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"os"
+	"time"
 )
 
 type zapLogger struct { // nolint unused
 	logger *zap.Logger
 }
 
-func (log *zapLogger) Init() error {
-	var err error
-	if log.logger, err = zap.NewProduction(); err != nil {
-		return err
-	}
+func (log *zapLogger) init(config Configuration) error {
+	logLevel := log.setLogLevel(config.Level)
+
+	// To keep the example deterministic, disable timestamps in the output.
+	encoderCfg := zap.NewProductionEncoderConfig()
+
+	log.logger = zap.New(zapcore.NewCore(
+		zapcore.NewJSONEncoder(encoderCfg),
+		zapcore.Lock(os.Stdout),
+		logLevel,
+	))
+
 	return nil
 }
 
@@ -40,6 +50,20 @@ func (log *zapLogger) Fatal(msg string, fields ...Fields) {
 	log.logger.Fatal(msg)
 }
 
+func (log *zapLogger) SetConfig(config Configuration) error {
+	var err error
+	logLevel := log.setLogLevel(config.Level)
+
+	cfg := zap.Config{
+		Level: logLevel,
+	}
+	if log.logger, err = cfg.Build(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (log *zapLogger) Close() {
 	_ = log.logger.Sync() // nolint errcheck
 }
@@ -54,6 +78,8 @@ func (log *zapLogger) converter(fields ...Fields) ([]zap.Field, error) {
 				zapFields = append(zapFields, zap.String(k, v))
 			case int:
 				zapFields = append(zapFields, zap.Int(k, v))
+			case time.Duration:
+				zapFields = append(zapFields, zap.Duration(k, v))
 			default:
 				return nil, fmt.Errorf("Don't support type field: %T", v)
 			}
@@ -61,4 +87,19 @@ func (log *zapLogger) converter(fields ...Fields) ([]zap.Field, error) {
 	}
 
 	return zapFields, nil
+}
+
+func (log *zapLogger) setLogLevel(logLevel int) zap.AtomicLevel {
+	atom := zap.NewAtomicLevel()
+
+	switch logLevel {
+	case LOG_LEVEL_DEBUG:
+		atom.SetLevel(zap.DebugLevel)
+	case LOG_LEVEL_INFO:
+		atom.SetLevel(zap.InfoLevel)
+	default:
+		atom.SetLevel(zap.InfoLevel)
+	}
+
+	return atom
 }

@@ -19,7 +19,7 @@ func NewLogger(config Configuration, loggerInstance int) (Logger, error) { // no
 	}
 
 	// Init logger
-	if err := log.Init(); err != nil {
+	if err := log.init(config); err != nil {
 		return nil, err
 	}
 

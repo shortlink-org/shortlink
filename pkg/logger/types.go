@@ -16,7 +16,7 @@ type Fields map[string]interface{} //nolint unused
 
 //Logger is our contract for the logger
 type Logger interface { //nolint unused
-	Init() error
+	init(Configuration) error
 
 	Info(msg string, fields ...Fields)
 
@@ -26,8 +26,18 @@ type Logger interface { //nolint unused
 
 	Fatal(msg string, fields ...Fields)
 
+	SetConfig(Configuration) error
+
 	Close()
 }
 
+// level config
+const (
+	LOG_LEVEL_INFO  int = iota // nolint unused
+	LOG_LEVEL_DEBUG            // nolint unused
+)
+
 // Configuration - options for logger
-type Configuration struct{} // nolint unused
+type Configuration struct { // nolint unused
+	Level int
+}

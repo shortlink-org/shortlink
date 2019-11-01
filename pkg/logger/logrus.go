@@ -4,7 +4,7 @@ import "fmt"
 
 type logrusLogger struct{} // nolint unused
 
-func (log *logrusLogger) Init() error {
+func (log *logrusLogger) init(config Configuration) error {
 	return nil
 }
 
@@ -22,6 +22,10 @@ func (log *logrusLogger) Error(msg string, fields ...Fields) {
 
 func (log *logrusLogger) Fatal(msg string, fields ...Fields) {
 	fmt.Println(msg)
+}
+
+func (log *logrusLogger) SetConfig(config Configuration) error {
+	return nil
 }
 
 func (log *logrusLogger) Close() {}
