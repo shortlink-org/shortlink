@@ -15,7 +15,6 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/graph-gophers/graphql-go v0.0.0-20191031232829-adde0d0f76a3
 	github.com/grpc-ecosystem/grpc-gateway v1.11.3
-	github.com/jonboulle/clockwork v0.1.0
 	github.com/lib/pq v1.2.0
 	github.com/onsi/ginkgo v1.10.1 // indirect
 	github.com/onsi/gomega v1.7.0 // indirect
