@@ -16,7 +16,7 @@ func TestLink(t *testing.T) { //nolint unused
 
 	newLink, err := link.NewURL("example.com")
 	if err != nil {
-		t.Errorf("Error  create a new link: %s", err)
+		t.Errorf("Error create a new link: %s", err)
 	}
 
 	// test add new a link
