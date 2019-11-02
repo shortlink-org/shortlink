@@ -32,7 +32,7 @@ func (log *zapLogger) init(config Configuration) error {
 		zapcore.NewJSONEncoder(encoderCfg),
 		zapcore.Lock(zapcore.AddSync(config.Writer)),
 		logLevel,
-	))
+	), zap.AddCaller(), zap.AddCallerSkip(1))
 
 	return nil
 }

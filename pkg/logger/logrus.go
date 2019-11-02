@@ -25,7 +25,7 @@ func (log *logrusLogger) init(config Configuration) error {
 		},
 	}
 
-	log.logger.SetReportCaller(true)
+	log.logger.SetReportCaller(false) // TODO: https://github.com/sirupsen/logrus/pull/973
 	log.logger.SetOutput(config.Writer)
 	log.setLogLevel(config.Level)
 
