@@ -7,7 +7,7 @@ import (
 )
 
 // RAMLinkList implementation of store interface
-type RAMLinkList struct {
+type RAMLinkList struct { // nolint unused
 	links map[string]link.Link
 	mu    sync.Mutex
 }

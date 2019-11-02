@@ -8,7 +8,7 @@ import (
 )
 
 // PostgresLinkList implementation of store interface
-type PostgresLinkList struct {
+type PostgresLinkList struct { // nolint unused
 	client *sql.DB
 }
 

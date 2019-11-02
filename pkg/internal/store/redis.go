@@ -8,7 +8,7 @@ import (
 )
 
 // RedisLinkList implementation of store interface
-type RedisLinkList struct {
+type RedisLinkList struct { // nolint unused
 	client *redis.Client
 }
 
