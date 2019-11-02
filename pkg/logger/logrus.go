@@ -15,7 +15,14 @@ func (log *logrusLogger) init(config Configuration) error {
 	// Setup the logger backend using sirupsen/logrus and configure
 	// it to use a custom JSONFormatter. See the logrus docs for how to
 	// configure the backend at github.com/sirupsen/logrus
-	log.logger.Formatter = &logrus.JSONFormatter{}
+	log.logger.Formatter = &logrus.JSONFormatter{
+		FieldMap: logrus.FieldMap{
+			logrus.FieldKeyTime:  "@timestamp",
+			logrus.FieldKeyLevel: "@level",
+			logrus.FieldKeyMsg:   "@message",
+			logrus.FieldKeyFunc:  "@caller",
+		},
+	}
 
 	log.logger.SetReportCaller(true)
 
@@ -63,10 +70,18 @@ func (log *logrusLogger) converter(fields ...Fields) *logrus.Entry {
 
 func (log *logrusLogger) setLogLevel(logLevel int) {
 	switch logLevel {
-	case LOG_LEVEL_DEBUG:
-		log.logger.SetLevel(logrus.DebugLevel)
-	case LOG_LEVEL_INFO:
+	case PANIC_LEVEL:
+		log.logger.SetLevel(logrus.PanicLevel)
+	case FATAL_LEVEL:
+		log.logger.SetLevel(logrus.FatalLevel)
+	case ERROR_LEVEL:
+		log.logger.SetLevel(logrus.ErrorLevel)
+	case WARN_LEVEL:
+		log.logger.SetLevel(logrus.WarnLevel)
+	case INFO_LEVEL:
 		log.logger.SetLevel(logrus.InfoLevel)
+	case DEBUG_LEVEL:
+		log.logger.SetLevel(logrus.DebugLevel)
 	default:
 		log.logger.SetLevel(logrus.InfoLevel)
 	}

@@ -39,15 +39,36 @@ func (log *zapLogger) Info(msg string, fields ...Fields) {
 }
 
 func (log *zapLogger) Warn(msg string, fields ...Fields) {
-	log.logger.Warn(msg)
+	var err error
+	zapFields, err := log.converter(fields...)
+	if err != nil {
+		log.Error(err.Error(), nil)
+		return
+	}
+
+	log.logger.Warn(msg, zapFields...)
 }
 
 func (log *zapLogger) Error(msg string, fields ...Fields) {
-	log.logger.Error(msg)
+	var err error
+	zapFields, err := log.converter(fields...)
+	if err != nil {
+		log.Error(err.Error(), nil)
+		return
+	}
+
+	log.logger.Error(msg, zapFields...)
 }
 
 func (log *zapLogger) Fatal(msg string, fields ...Fields) {
-	log.logger.Fatal(msg)
+	var err error
+	zapFields, err := log.converter(fields...)
+	if err != nil {
+		log.Error(err.Error(), nil)
+		return
+	}
+
+	log.logger.Fatal(msg, zapFields...)
 }
 
 func (log *zapLogger) SetConfig(config Configuration) error {
@@ -93,10 +114,18 @@ func (log *zapLogger) setLogLevel(logLevel int) zap.AtomicLevel {
 	atom := zap.NewAtomicLevel()
 
 	switch logLevel {
-	case LOG_LEVEL_DEBUG:
-		atom.SetLevel(zap.DebugLevel)
-	case LOG_LEVEL_INFO:
+	case PANIC_LEVEL:
+		atom.SetLevel(zap.PanicLevel)
+	case FATAL_LEVEL:
+		atom.SetLevel(zap.FatalLevel)
+	case ERROR_LEVEL:
+		atom.SetLevel(zap.ErrorLevel)
+	case WARN_LEVEL:
+		atom.SetLevel(zap.WarnLevel)
+	case INFO_LEVEL:
 		atom.SetLevel(zap.InfoLevel)
+	case DEBUG_LEVEL:
+		atom.SetLevel(zap.DebugLevel)
 	default:
 		atom.SetLevel(zap.InfoLevel)
 	}
