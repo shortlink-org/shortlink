@@ -8,7 +8,7 @@ import (
 )
 
 // LevelDBLinkList implementation of store interface
-type LevelDBLinkList struct {
+type LevelDBLinkList struct { // nolint unused
 	client *leveldb.DB
 }
 
