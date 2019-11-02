@@ -5,7 +5,7 @@ import (
 )
 
 // DB - common interface of store
-type DB interface {
+type DB interface { // nolint unused
 	Init() error
 
 	Get(id string) (*link.Link, error)
@@ -15,7 +15,7 @@ type DB interface {
 }
 
 // Store abstract type
-type Store struct{}
+type Store struct{} // nolint unused
 
 // Use return implementation of store
 func (s *Store) Use() DB {

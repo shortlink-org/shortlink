@@ -1,71 +1,27 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"github.com/batazor/shortlink/pkg/api"
-	"github.com/batazor/shortlink/pkg/api/graphql"
-	"github.com/batazor/shortlink/pkg/api/grpc-web"
-	"github.com/batazor/shortlink/pkg/api/http-chi"
-	log "github.com/batazor/shortlink/pkg/logger"
-	"github.com/batazor/shortlink/pkg/traicing"
-	"go.uber.org/zap"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
-	// Logger
-	logger, err := zap.NewProduction()
-	if err != nil {
-		panic(err)
-	}
+	// Init a new service
+	s := Service{}
+	go s.Start()
+
 	defer func() {
-		// flushes buffer, if any
-		if error := logger.Sync(); error != nil {
-			// TODO: use logger
-			fmt.Println(error.Error())
+		if r := recover(); r != nil {
+			s.log.Error(r.(string))
 		}
 	}()
 
-	// Add context
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
+	// Handle SIGINT and SIGTERM.
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+	<-sigs
 
-	// Add logger
-	ctx = log.WithLogger(ctx, *logger)
-
-	// Add Tracer
-	tracer, closer, err := traicing.Init()
-	defer func() {
-		// TODO: use logger
-		if error := closer.Close(); error != nil {
-			fmt.Println(error.Error())
-		}
-	}()
-	if err != nil {
-		logger.Error(err.Error())
-	}
-	ctx = traicing.WithTraicer(ctx, tracer)
-
-	// Test Event
-	tracer.StartSpan("test").Finish()
-
-	// start HTTP-server
-	var API api.API
-	serverType := "graphql"
-
-	switch serverType {
-	case "http-chi":
-		API = &httpchi.API{}
-	case "gRPC-web":
-		API = &grpcweb.API{}
-	case "graphql":
-		API = &graphql.API{}
-	default:
-		API = &httpchi.API{}
-	}
-
-	if err := API.Run(ctx); err != nil {
-		logger.Panic(err.Error())
-	}
+	// Stop the service gracefully.
+	s.Stop()
 }

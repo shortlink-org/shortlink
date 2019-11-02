@@ -8,7 +8,7 @@ import (
 )
 
 // BadgerLinkList implementation of store interface
-type BadgerLinkList struct {
+type BadgerLinkList struct { // nolint unused
 	client *badger.DB
 }
 

@@ -20,8 +20,8 @@ func (api *API) Run(ctx context.Context) error {
 	api.ctx = ctx
 	api.store = st.Use()
 
-	logger := logger.GetLogger(ctx)
-	logger.Info("Run HTTP-CHI API")
+	log := logger.GetLogger(ctx)
+	log.Info("Run HTTP-CHI API")
 
 	PORT := "7070"
 
@@ -48,13 +48,13 @@ func (api *API) Run(ctx context.Context) error {
 	r.Use(middleware.Recoverer)
 
 	// Additional middleware
-	r.Use(additionalMiddleware.Logger(&logger))
+	r.Use(additionalMiddleware.Logger(log))
 
 	r.NotFound(NotFoundHandler)
 
 	r.Mount("/api", api.Routes())
 
-	logger.Info(fmt.Sprintf("Run on port %s", PORT))
+	log.Info(fmt.Sprintf("Run on port %s", PORT))
 	srv := http.Server{Addr: ":" + PORT, Handler: chi.ServerBaseContext(ctx, r)}
 
 	// start HTTP-server

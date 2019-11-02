@@ -12,7 +12,7 @@ import (
 )
 
 // MongoLinkList implementation of store interface
-type MongoLinkList struct {
+type MongoLinkList struct { // nolint unused
 	client *mongo.Client
 }
 
