@@ -13,9 +13,9 @@ import (
 
 func main() {
 	// Logger
-	log, err := logger.NewLogger(logger.Configuration{
+	log, err := logger.NewLogger(logger.Zap, logger.Configuration{
 		Level: logger.INFO_LEVEL,
-	}, logger.Logrus)
+	})
 	if err != nil {
 		panic(err)
 	}

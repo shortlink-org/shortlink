@@ -5,8 +5,8 @@ import (
 	"errors"
 )
 
-// NewLogger - return new instance logger
-func NewLogger(config Configuration, loggerInstance int) (Logger, error) { // nolint unused
+// NewLogger - return new an instance of logger
+func NewLogger(loggerInstance int, config Configuration) (Logger, error) { // nolint unused
 	var log Logger
 
 	switch loggerInstance {
