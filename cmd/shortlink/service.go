@@ -24,7 +24,7 @@ func (s *Service) initLogger() {
 		Level: logger.INFO_LEVEL,
 	}
 
-	if s.log, err = logger.NewLogger(logger.Logrus, conf); err != nil {
+	if s.log, err = logger.NewLogger(logger.Zap, conf); err != nil {
 		panic(err)
 	}
 }

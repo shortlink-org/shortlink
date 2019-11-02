@@ -2,17 +2,19 @@ package logger
 
 import (
 	"bytes"
-	"fmt"
+	"strings"
 	"testing"
+	"time"
 )
 
 // TestOutput ...
-func TestOutput(t *testing.T) { //nolint unused
+func TestOutputZap(t *testing.T) { //nolint unused
 	var b bytes.Buffer
 
 	conf := Configuration{
-		Level:  INFO_LEVEL,
-		Writer: &b,
+		Level:      INFO_LEVEL,
+		Writer:     &b,
+		TimeFormat: time.RFC822,
 	}
 
 	log, err := NewLogger(Zap, conf)
@@ -20,27 +22,136 @@ func TestOutput(t *testing.T) { //nolint unused
 		t.Errorf("Error init a logger: %s", err)
 	}
 
-	log.Info("Run HTTP-CHI API")
+	log.Info("Hello World")
 
-	fmt.Println(b.String())
-	fmt.Println(b.String())
+	expectedTime := time.Now().Format(time.RFC822)
+	expectedStr := `{"@level":"info","@timestamp":"` + expectedTime + `","@caller":"logger/logger_test.go:25","@msg":"Hello World"}`
+
+	if strings.TrimRight(b.String(), "\n") != expectedStr {
+		t.Errorf("Expected: %sgot: %s", expectedStr, b.String())
+	}
 }
 
-// Test input/output
-// -> log.Info("Run HTTP-CHI API")
-// -> {"level":"info","msg":"Run HTTP-CHI API","time":"2019-11-02T14:29:24+03:00"}
+func TestOutputLogrus(t *testing.T) { //nolint unused
+	var b bytes.Buffer
 
-// Test setlevel
-// setLevel error
-// -> log.Info("Run HTTP-CHI API")
-// -> ...
-// setLevel info
-// -> log.Info("Run HTTP-CHI API")
-// -> {"level":"info","msg":"Run HTTP-CHI API","time":"2019-11-02T14:29:24+03:00"}
+	conf := Configuration{
+		Level:      INFO_LEVEL,
+		Writer:     &b,
+		TimeFormat: time.RFC822,
+	}
 
-// Test fields
-//var fields = logger.Fields{
-//	"hello": "world",
-//}
-// -> log.Info("Run HTTP-CHI API", fields)
-// -> {"level":"info","msg":"Run HTTP-CHI API","time":"2019-11-02T14:29:24+03:00", "hello": "world"}
+	log, err := NewLogger(Logrus, conf)
+	if err != nil {
+		t.Errorf("Error init a logger: %s", err)
+	}
+
+	log.Info("Hello World")
+
+	expectedTime := time.Now().Format(time.RFC822)
+	expectedStr := `{"@level":"info","@msg":"Hello World","@timestamp":"` + expectedTime + `"}`
+
+	if strings.TrimRight(b.String(), "\n") != expectedStr {
+		t.Errorf("Expected: %s\ngot: %s", expectedStr, b.String())
+	}
+}
+
+func TestSetLevelZap(t *testing.T) { //nolint unused
+	var b bytes.Buffer
+
+	conf := Configuration{
+		Level:      FATAL_LEVEL,
+		Writer:     &b,
+		TimeFormat: time.RFC822,
+	}
+
+	log, err := NewLogger(Zap, conf)
+	if err != nil {
+		t.Errorf("Error init a logger: %s", err)
+	}
+
+	log.Info("Hello World")
+
+	expectedStr := ``
+
+	if strings.TrimRight(b.String(), "\n") != expectedStr {
+		t.Errorf("Expected: %sgot: %s", expectedStr, b.String())
+	}
+}
+
+func TestSetLevelLogrus(t *testing.T) { //nolint unused
+	var b bytes.Buffer
+
+	conf := Configuration{
+		Level:      FATAL_LEVEL,
+		Writer:     &b,
+		TimeFormat: time.RFC822,
+	}
+
+	log, err := NewLogger(Logrus, conf)
+	if err != nil {
+		t.Errorf("Error init a logger: %s", err)
+	}
+
+	log.Info("Hello World")
+
+	expectedStr := ``
+
+	if strings.TrimRight(b.String(), "\n") != expectedStr {
+		t.Errorf("Expected: %sgot: %s", expectedStr, b.String())
+	}
+}
+
+func TestFieldZap(t *testing.T) { //nolint unused
+	var b bytes.Buffer
+
+	conf := Configuration{
+		Level:      INFO_LEVEL,
+		Writer:     &b,
+		TimeFormat: time.RFC822,
+	}
+
+	log, err := NewLogger(Zap, conf)
+	if err != nil {
+		t.Errorf("Error init a logger: %s", err)
+	}
+
+	log.Info("Hello World", Fields{
+		"hello": "world",
+		"first": 1,
+	})
+
+	expectedTime := time.Now().Format(time.RFC822)
+	expectedStr := `{"@level":"info","@timestamp":"` + expectedTime + `","@caller":"logger/logger_test.go:119","@msg":"Hello World","hello":"world","first":1}`
+
+	if strings.TrimRight(b.String(), "\n") != expectedStr {
+		t.Errorf("Expected: %s\ngot: %s", expectedStr, b.String())
+	}
+}
+
+func TestFieldLogrus(t *testing.T) { //nolint unused
+	var b bytes.Buffer
+
+	conf := Configuration{
+		Level:      INFO_LEVEL,
+		Writer:     &b,
+		TimeFormat: time.RFC822,
+	}
+
+	log, err := NewLogger(Logrus, conf)
+	if err != nil {
+		t.Errorf("Error init a logger: %s", err)
+	}
+
+	log.Info("Hello World", Fields{
+		"hello": "world",
+		"first": 1,
+	})
+
+	expectedTime := time.Now().Format(time.RFC822)
+	expectedStr := `{"@level":"info","@msg":"Hello World","@timestamp":"` + expectedTime + `","first":1,"hello":"world"}`
+
+	if strings.TrimRight(b.String(), "\n") != expectedStr {
+		t.Errorf("Expected: %s\ngot: %s", expectedStr, b.String())
+	}
+}
