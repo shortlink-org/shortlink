@@ -1,3 +1,32 @@
+# PROJECT_NAME defaults to name of the current directory.
+# should not to be changed if you follow GitOps operating procedures.
+PROJECT_NAME := shortlink
+
+CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
+CI_COMMIT_TAG := 0.1.0
+
+DOCKER_LOGIN := "batazor"
+
+# export such that its passed to shell functions for Docker to pick up.
+export PROJECT_NAME
+export CI_REGISTRY_IMAGE
+export CI_COMMIT_TAG
+
+# Regular Makefile part for buildpypi itself
+help:
+	@echo ''
+	@echo 'Usage: make [TARGET] [EXTRA_ARGUMENTS]'
+	@echo 'Targets:'
+	@echo '  dep			install dependencies for this project'
+	@echo '  generate		code generation'
+	@echo '  golint		linter for golang'
+	@echo '  test			run all test'
+	@echo '  run  			run thisproject in docker-compose'
+	@echo '  down			down docker-compose'
+	@echo '  docker-login		docker login'
+	@echo '  docker-build		docker build'
+	@echo '  docker-push		docker push'
+
 .: generate
 
 dep:
@@ -48,3 +77,15 @@ run:
 
 down:
 	@docker-compose down --remove-orphans
+
+docker-login:
+	@echo docker login as ${DOCKER_LOGIN}
+	@docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASS}
+
+docker-build:
+	@echo docker build image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} .
+
+docker-push:
+	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+	@docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
