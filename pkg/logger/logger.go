@@ -3,6 +3,8 @@ package logger
 import (
 	"context"
 	"errors"
+	"os"
+	"time"
 )
 
 // NewLogger - return new an instance of logger
@@ -19,11 +21,22 @@ func NewLogger(loggerInstance int, config Configuration) (Logger, error) { // no
 	}
 
 	// Init logger
+	validateConfig(&config)
 	if err := log.init(config); err != nil {
 		return nil, err
 	}
 
 	return log, nil
+}
+
+func validateConfig(config *Configuration) { // nolint unused
+	if config.Writer == nil {
+		config.Writer = os.Stdout
+	}
+
+	if config.TimeFormat == "" {
+		config.TimeFormat = time.RFC3339Nano
+	}
 }
 
 // WithLogger set logger

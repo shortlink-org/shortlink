@@ -16,6 +16,7 @@ func (log *logrusLogger) init(config Configuration) error {
 	// it to use a custom JSONFormatter. See the logrus docs for how to
 	// configure the backend at github.com/sirupsen/logrus
 	log.logger.Formatter = &logrus.JSONFormatter{
+		TimestampFormat: config.TimeFormat,
 		FieldMap: logrus.FieldMap{
 			logrus.FieldKeyTime:  "@timestamp",
 			logrus.FieldKeyLevel: "@level",

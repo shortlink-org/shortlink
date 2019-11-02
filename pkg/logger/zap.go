@@ -3,6 +3,7 @@ package logger
 import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+	"time"
 )
 
 type zapLogger struct { // nolint unused
@@ -22,7 +23,7 @@ func (log *zapLogger) init(config Configuration) error {
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
 		EncodeLevel:    zapcore.LowercaseLevelEncoder,
-		EncodeTime:     zapcore.RFC3339TimeEncoder,
+		EncodeTime:     log.timeEncoder(config.TimeFormat),
 		EncodeDuration: zapcore.SecondsDurationEncoder,
 		EncodeCaller:   zapcore.ShortCallerEncoder,
 	}
@@ -115,4 +116,10 @@ func (log *zapLogger) setLogLevel(logLevel int) zap.AtomicLevel {
 	}
 
 	return atom
+}
+
+func (log *zapLogger) timeEncoder(format string) func(time.Time, zapcore.PrimitiveArrayEncoder) {
+	return func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
+		enc.AppendString(t.Format(format))
+	}
 }
