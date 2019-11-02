@@ -19,7 +19,7 @@ func (log *logrusLogger) init(config Configuration) error {
 		FieldMap: logrus.FieldMap{
 			logrus.FieldKeyTime:  "@timestamp",
 			logrus.FieldKeyLevel: "@level",
-			logrus.FieldKeyMsg:   "@message",
+			logrus.FieldKeyMsg:   "@msg",
 			logrus.FieldKeyFunc:  "@caller",
 		},
 	}

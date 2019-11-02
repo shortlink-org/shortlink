@@ -1,11 +1,9 @@
 package logger
 
 import (
-	"fmt"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"
-	"time"
 )
 
 type zapLogger struct { // nolint unused
@@ -16,7 +14,19 @@ func (log *zapLogger) init(config Configuration) error {
 	logLevel := log.setLogLevel(config.Level)
 
 	// To keep the example deterministic, disable timestamps in the output.
-	encoderCfg := zap.NewProductionEncoderConfig()
+	encoderCfg := zapcore.EncoderConfig{
+		TimeKey:        "@timestamp",
+		LevelKey:       "@level",
+		NameKey:        "logger",
+		CallerKey:      "@caller",
+		MessageKey:     "@msg",
+		StacktraceKey:  "stacktrace",
+		LineEnding:     zapcore.DefaultLineEnding,
+		EncodeLevel:    zapcore.LowercaseLevelEncoder,
+		EncodeTime:     zapcore.EpochTimeEncoder,
+		EncodeDuration: zapcore.SecondsDurationEncoder,
+		EncodeCaller:   zapcore.ShortCallerEncoder,
+	}
 
 	log.logger = zap.New(zapcore.NewCore(
 		zapcore.NewJSONEncoder(encoderCfg),
@@ -28,45 +38,25 @@ func (log *zapLogger) init(config Configuration) error {
 }
 
 func (log *zapLogger) Info(msg string, fields ...Fields) {
-	var err error
-	zapFields, err := log.converter(fields...)
-	if err != nil {
-		log.Error(err.Error(), nil)
-		return
-	}
+	zapFields := log.converter(fields...)
 
 	log.logger.Info(msg, zapFields...)
 }
 
 func (log *zapLogger) Warn(msg string, fields ...Fields) {
-	var err error
-	zapFields, err := log.converter(fields...)
-	if err != nil {
-		log.Error(err.Error(), nil)
-		return
-	}
+	zapFields := log.converter(fields...)
 
 	log.logger.Warn(msg, zapFields...)
 }
 
 func (log *zapLogger) Error(msg string, fields ...Fields) {
-	var err error
-	zapFields, err := log.converter(fields...)
-	if err != nil {
-		log.Error(err.Error(), nil)
-		return
-	}
+	zapFields := log.converter(fields...)
 
 	log.logger.Error(msg, zapFields...)
 }
 
 func (log *zapLogger) Fatal(msg string, fields ...Fields) {
-	var err error
-	zapFields, err := log.converter(fields...)
-	if err != nil {
-		log.Error(err.Error(), nil)
-		return
-	}
+	zapFields := log.converter(fields...)
 
 	log.logger.Fatal(msg, zapFields...)
 }
@@ -89,25 +79,16 @@ func (log *zapLogger) Close() {
 	_ = log.logger.Sync() // nolint errcheck
 }
 
-func (log *zapLogger) converter(fields ...Fields) ([]zap.Field, error) {
+func (log *zapLogger) converter(fields ...Fields) []zap.Field {
 	var zapFields []zap.Field
 
 	for _, field := range fields {
 		for k, v := range field {
-			switch v := v.(type) {
-			case string:
-				zapFields = append(zapFields, zap.String(k, v))
-			case int:
-				zapFields = append(zapFields, zap.Int(k, v))
-			case time.Duration:
-				zapFields = append(zapFields, zap.Duration(k, v))
-			default:
-				return nil, fmt.Errorf("Don't support type field: %T", v)
-			}
+			zapFields = append(zapFields, zap.Any(k, v))
 		}
 	}
 
-	return zapFields, nil
+	return zapFields
 }
 
 func (log *zapLogger) setLogLevel(logLevel int) zap.AtomicLevel {

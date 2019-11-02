@@ -11,10 +11,10 @@ const (
 	Logrus            // nolint unused
 )
 
-//Fields Type to pass when we want to call WithFields for structured logging
+// Fields Type to pass when we want to call WithFields for structured logging
 type Fields map[string]interface{} //nolint unused
 
-//Logger is our contract for the logger
+// Logger is our contract for the logger
 type Logger interface { //nolint unused
 	init(Configuration) error
 
