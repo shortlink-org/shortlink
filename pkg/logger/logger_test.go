@@ -2,7 +2,8 @@ package logger
 
 import (
 	"bytes"
-	"strings"
+	"encoding/json"
+	"reflect"
 	"testing"
 	"time"
 )
@@ -25,10 +26,19 @@ func TestOutputZap(t *testing.T) { //nolint unused
 	log.Info("Hello World")
 
 	expectedTime := time.Now().Format(time.RFC822)
-	expectedStr := `{"@level":"info","@timestamp":"` + expectedTime + `","@caller":"logger/logger_test.go:25","@msg":"Hello World"}`
+	expected := map[string]interface{}{
+		"@level":     "info",
+		"@timestamp": expectedTime,
+		"@caller":    "logger/logger_test.go:26",
+		"@msg":       "Hello World",
+	}
+	var response map[string]interface{}
+	if err := json.Unmarshal(b.Bytes(), &response); err != nil {
+		t.Errorf("Error unmarshalling %s", err.Error())
+	}
 
-	if strings.TrimRight(b.String(), "\n") != expectedStr {
-		t.Errorf("Expected: %sgot: %s", expectedStr, b.String())
+	if !reflect.DeepEqual(expected, response) {
+		t.Errorf("Expected: %s\ngot: %s", expected, response)
 	}
 }
 
@@ -49,60 +59,22 @@ func TestOutputLogrus(t *testing.T) { //nolint unused
 	log.Info("Hello World")
 
 	expectedTime := time.Now().Format(time.RFC822)
-	expectedStr := `{"@level":"info","@msg":"Hello World","@timestamp":"` + expectedTime + `"}`
+	expected := map[string]interface{}{
+		"@level":     "info",
+		"@timestamp": expectedTime,
+		"@msg":       "Hello World",
+	}
+	var response map[string]interface{}
+	if err := json.Unmarshal(b.Bytes(), &response); err != nil {
+		t.Errorf("Error unmarshalling %s", err.Error())
+	}
 
-	if strings.TrimRight(b.String(), "\n") != expectedStr {
-		t.Errorf("Expected: %s\ngot: %s", expectedStr, b.String())
+	if !reflect.DeepEqual(expected, response) {
+		t.Errorf("Expected: %s\ngot: %s", expected, response)
 	}
 }
 
-func TestSetLevelZap(t *testing.T) { //nolint unused
-	var b bytes.Buffer
-
-	conf := Configuration{
-		Level:      FATAL_LEVEL,
-		Writer:     &b,
-		TimeFormat: time.RFC822,
-	}
-
-	log, err := NewLogger(Zap, conf)
-	if err != nil {
-		t.Errorf("Error init a logger: %s", err)
-	}
-
-	log.Info("Hello World")
-
-	expectedStr := ``
-
-	if strings.TrimRight(b.String(), "\n") != expectedStr {
-		t.Errorf("Expected: %sgot: %s", expectedStr, b.String())
-	}
-}
-
-func TestSetLevelLogrus(t *testing.T) { //nolint unused
-	var b bytes.Buffer
-
-	conf := Configuration{
-		Level:      FATAL_LEVEL,
-		Writer:     &b,
-		TimeFormat: time.RFC822,
-	}
-
-	log, err := NewLogger(Logrus, conf)
-	if err != nil {
-		t.Errorf("Error init a logger: %s", err)
-	}
-
-	log.Info("Hello World")
-
-	expectedStr := ``
-
-	if strings.TrimRight(b.String(), "\n") != expectedStr {
-		t.Errorf("Expected: %sgot: %s", expectedStr, b.String())
-	}
-}
-
-func TestFieldZap(t *testing.T) { //nolint unused
+func TestFieldsZap(t *testing.T) { //nolint unused
 	var b bytes.Buffer
 
 	conf := Configuration{
@@ -122,14 +94,25 @@ func TestFieldZap(t *testing.T) { //nolint unused
 	})
 
 	expectedTime := time.Now().Format(time.RFC822)
-	expectedStr := `{"@level":"info","@timestamp":"` + expectedTime + `","@caller":"logger/logger_test.go:119","@msg":"Hello World","hello":"world","first":1}`
+	expected := map[string]interface{}{
+		"@level":     "info",
+		"@timestamp": expectedTime,
+		"@msg":       "Hello World",
+		"@caller":    "logger/logger_test.go:91",
+		"first":      float64(1),
+		"hello":      "world",
+	}
+	var response map[string]interface{}
+	if err := json.Unmarshal(b.Bytes(), &response); err != nil {
+		t.Errorf("Error unmarshalling %s", err.Error())
+	}
 
-	if strings.TrimRight(b.String(), "\n") != expectedStr {
-		t.Errorf("Expected: %s\ngot: %s", expectedStr, b.String())
+	if !reflect.DeepEqual(expected, response) {
+		t.Errorf("Expected: %s\ngot: %s", expected, response)
 	}
 }
 
-func TestFieldLogrus(t *testing.T) { //nolint unused
+func TestFieldsLogrus(t *testing.T) { //nolint unused
 	var b bytes.Buffer
 
 	conf := Configuration{
@@ -149,9 +132,46 @@ func TestFieldLogrus(t *testing.T) { //nolint unused
 	})
 
 	expectedTime := time.Now().Format(time.RFC822)
-	expectedStr := `{"@level":"info","@msg":"Hello World","@timestamp":"` + expectedTime + `","first":1,"hello":"world"}`
+	expected := map[string]interface{}{
+		"@level":     "info",
+		"@timestamp": expectedTime,
+		"@msg":       "Hello World",
+		"first":      float64(1),
+		"hello":      "world",
+	}
+	var response map[string]interface{}
+	if err := json.Unmarshal(b.Bytes(), &response); err != nil {
+		t.Errorf("Error unmarshalling %s", err.Error())
+	}
 
-	if strings.TrimRight(b.String(), "\n") != expectedStr {
-		t.Errorf("Expected: %s\ngot: %s", expectedStr, b.String())
+	if !reflect.DeepEqual(expected, response) {
+		t.Errorf("Expected: %s\ngot: %s", expected, response)
+	}
+}
+
+func TestSetLevel(t *testing.T) { //nolint unused
+	loggerList := []int{Zap, Logrus}
+
+	for _, logger := range loggerList {
+		var b bytes.Buffer
+
+		conf := Configuration{
+			Level:      FATAL_LEVEL,
+			Writer:     &b,
+			TimeFormat: time.RFC822,
+		}
+
+		log, err := NewLogger(logger, conf)
+		if err != nil {
+			t.Errorf("Error init a logger: %s", err)
+		}
+
+		log.Info("Hello World")
+
+		expectedStr := ``
+
+		if b.String() != expectedStr {
+			t.Errorf("Expected: %sgot: %s", expectedStr, b.String())
+		}
 	}
 }
