@@ -33,8 +33,22 @@ type Logger interface { //nolint unused
 
 // level config
 const (
-	LOG_LEVEL_INFO  int = iota // nolint unused
-	LOG_LEVEL_DEBUG            // nolint unused
+	// PanicLevel level, highest level of severity. Logs and then calls panic with the
+	// message passed to Debug, Info, ...
+	PANIC_LEVEL int = iota // nolint unused
+	// FatalLevel level. Logs and then calls `logger.Exit(1)`. It will exit even if the
+	// logging level is set to Panic.
+	FATAL_LEVEL // nolint unused
+	// ErrorLevel level. Logs. Used for errors that should definitely be noted.
+	// Commonly used for hooks to send errors to an error tracking service.
+	ERROR_LEVEL // nolint unused
+	// WarnLevel level. Non-critical entries that deserve eyes.
+	WARN_LEVEL // nolint unused
+	// InfoLevel level. General operational entries about what's going on inside the
+	// application.
+	INFO_LEVEL // nolint unused
+	// DebugLevel level. Usually only enabled when debugging. Very verbose logging.
+	DEBUG_LEVEL // nolint unused
 )
 
 // Configuration - options for logger
