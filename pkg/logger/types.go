@@ -18,27 +18,26 @@ type Fields map[string]interface{} //nolint unused
 type Logger interface { //nolint unused
 	init(Configuration) error
 
-	Info(msg string, fields ...Fields)
-
-	Warn(msg string, fields ...Fields)
+	Fatal(msg string, fields ...Fields)
 
 	Error(msg string, fields ...Fields)
 
-	Fatal(msg string, fields ...Fields)
+	Warn(msg string, fields ...Fields)
+
+	Info(msg string, fields ...Fields)
+
+	Debug(msg string, fields ...Fields)
 
 	SetConfig(Configuration) error
 
 	Close()
 }
 
-// level config
+// The severity levels. Higher values are more considered more important.
 const (
-	// PanicLevel level, highest level of severity. Logs and then calls panic with the
-	// message passed to Debug, Info, ...
-	PANIC_LEVEL int = iota // nolint unused
 	// FatalLevel level. Logs and then calls `logger.Exit(1)`. It will exit even if the
 	// logging level is set to Panic.
-	FATAL_LEVEL // nolint unused
+	FATAL_LEVEL int = iota // nolint unused
 	// ErrorLevel level. Logs. Used for errors that should definitely be noted.
 	// Commonly used for hooks to send errors to an error tracking service.
 	ERROR_LEVEL // nolint unused
