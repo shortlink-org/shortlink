@@ -3,7 +3,6 @@ package logger
 import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"os"
 )
 
 type zapLogger struct { // nolint unused
@@ -30,7 +29,7 @@ func (log *zapLogger) init(config Configuration) error {
 
 	log.logger = zap.New(zapcore.NewCore(
 		zapcore.NewJSONEncoder(encoderCfg),
-		zapcore.Lock(os.Stdout),
+		zapcore.Lock(zapcore.AddSync(config.Writer)),
 		logLevel,
 	))
 
