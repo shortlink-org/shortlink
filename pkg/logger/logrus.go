@@ -25,7 +25,7 @@ func (log *logrusLogger) init(config Configuration) error {
 	}
 
 	log.logger.SetReportCaller(true)
-
+	log.logger.SetOutput(config.Writer)
 	log.setLogLevel(config.Level)
 
 	return nil
