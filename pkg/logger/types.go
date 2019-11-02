@@ -1,6 +1,8 @@
 package logger
 
-import "io"
+import (
+	"io"
+)
 
 type key int
 
@@ -54,6 +56,7 @@ const (
 
 // Configuration - options for logger
 type Configuration struct { // nolint unused
-	Level  int
-	Writer io.Writer
+	Level      int
+	Writer     io.Writer
+	TimeFormat string
 }

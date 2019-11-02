@@ -10,7 +10,6 @@ import (
 	"github.com/batazor/shortlink/pkg/traicing"
 	"github.com/opentracing/opentracing-go"
 	"io"
-	"os"
 )
 
 type Service struct {
@@ -22,11 +21,10 @@ type Service struct {
 func (s *Service) initLogger() {
 	var err error
 	conf := logger.Configuration{
-		Level:  logger.INFO_LEVEL,
-		Writer: os.Stdout,
+		Level: logger.INFO_LEVEL,
 	}
 
-	if s.log, err = logger.NewLogger(logger.Zap, conf); err != nil {
+	if s.log, err = logger.NewLogger(logger.Logrus, conf); err != nil {
 		panic(err)
 	}
 }
