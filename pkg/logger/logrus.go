@@ -8,10 +8,6 @@ type logrusLogger struct { // nolint unused
 	logger *logrus.Logger
 }
 
-type logrusLogEntry struct { // nolint unused
-	entry *logrus.Entry
-}
-
 func (log *logrusLogger) init(config Configuration) error {
 	log.logger = logrus.New()
 
@@ -19,7 +15,9 @@ func (log *logrusLogger) init(config Configuration) error {
 	// Setup the logger backend using sirupsen/logrus and configure
 	// it to use a custom JSONFormatter. See the logrus docs for how to
 	// configure the backend at github.com/sirupsen/logrus
-	log.logger.Formatter = new(logrus.JSONFormatter)
+	log.logger.Formatter = &logrus.JSONFormatter{}
+
+	log.logger.SetReportCaller(true)
 
 	log.setLogLevel(config.Level)
 
@@ -27,19 +25,19 @@ func (log *logrusLogger) init(config Configuration) error {
 }
 
 func (log *logrusLogger) Info(msg string, fields ...Fields) {
-	log.converter(fields...).logger.Info(msg)
+	log.converter(fields...).Info(msg)
 }
 
 func (log *logrusLogger) Warn(msg string, fields ...Fields) {
-	log.logger.Warn(msg)
+	log.converter(fields...).Warn(msg)
 }
 
 func (log *logrusLogger) Error(msg string, fields ...Fields) {
-	log.logger.Error(msg)
+	log.converter(fields...).Error(msg)
 }
 
 func (log *logrusLogger) Fatal(msg string, fields ...Fields) {
-	log.logger.Fatal(msg)
+	log.converter(fields...).Fatal(msg)
 }
 
 func (log *logrusLogger) SetConfig(config Configuration) error {
@@ -50,8 +48,8 @@ func (log *logrusLogger) SetConfig(config Configuration) error {
 
 func (log *logrusLogger) Close() {}
 
-func (log *logrusLogger) converter(fields ...Fields) *logrusLogger {
-	var logrusFields logrus.Fields
+func (log *logrusLogger) converter(fields ...Fields) *logrus.Entry {
+	logrusFields := logrus.Fields{}
 
 	for _, field := range fields {
 		for k, v := range field {
@@ -59,9 +57,8 @@ func (log *logrusLogger) converter(fields ...Fields) *logrusLogger {
 		}
 	}
 
-	log.logger.WithFields(logrusFields)
-
-	return log
+	entryLog := log.logger.WithFields(logrusFields)
+	return entryLog
 }
 
 func (log *logrusLogger) setLogLevel(logLevel int) {
