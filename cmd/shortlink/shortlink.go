@@ -12,29 +12,30 @@ import (
 )
 
 func main() {
+	// Add context
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
 	// Logger
+	// TODO: get arg - ctx;
 	log, err := logger.NewLogger(logger.Zap, logger.Configuration{
 		Level: logger.INFO_LEVEL,
 	})
 	if err != nil {
 		panic(err)
 	}
+	ctx = logger.WithLogger(ctx, log) // Add logger
+
 	defer func() {
 		if r := recover(); r != nil {
 			log.Error(r.(string))
 		}
 
 		// flushes buffer, if any
+		// TODO: use ctx.Close ???
 		log.Close()
 	}()
-
-	// Add context
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-
-	// Add logger
-	ctx = logger.WithLogger(ctx, log)
 
 	// Add Tracer
 	tracer, closer, err := traicing.Init()

@@ -31,29 +31,33 @@ func (log *logrusLogger) init(config Configuration) error {
 	return nil
 }
 
-func (log *logrusLogger) Info(msg string, fields ...Fields) {
-	log.converter(fields...).Info(msg)
-}
-
-func (log *logrusLogger) Warn(msg string, fields ...Fields) {
-	log.converter(fields...).Warn(msg)
+func (log *logrusLogger) Fatal(msg string, fields ...Fields) {
+	log.converter(fields...).Fatal(msg)
 }
 
 func (log *logrusLogger) Error(msg string, fields ...Fields) {
 	log.converter(fields...).Error(msg)
 }
 
-func (log *logrusLogger) Fatal(msg string, fields ...Fields) {
-	log.converter(fields...).Fatal(msg)
+func (log *logrusLogger) Warn(msg string, fields ...Fields) {
+	log.converter(fields...).Warn(msg)
 }
+
+func (log *logrusLogger) Info(msg string, fields ...Fields) {
+	log.converter(fields...).Info(msg)
+}
+
+func (log *logrusLogger) Debug(msg string, fields ...Fields) {
+	log.converter(fields...).Debug(msg)
+}
+
+func (log *logrusLogger) Close() {}
 
 func (log *logrusLogger) SetConfig(config Configuration) error {
 	log.setLogLevel(config.Level)
 
 	return nil
 }
-
-func (log *logrusLogger) Close() {}
 
 func (log *logrusLogger) converter(fields ...Fields) *logrus.Entry {
 	logrusFields := logrus.Fields{}
@@ -70,8 +74,6 @@ func (log *logrusLogger) converter(fields ...Fields) *logrus.Entry {
 
 func (log *logrusLogger) setLogLevel(logLevel int) {
 	switch logLevel {
-	case PANIC_LEVEL:
-		log.logger.SetLevel(logrus.PanicLevel)
 	case FATAL_LEVEL:
 		log.logger.SetLevel(logrus.FatalLevel)
 	case ERROR_LEVEL:

@@ -23,7 +23,7 @@ func (log *zapLogger) init(config Configuration) error {
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
 		EncodeLevel:    zapcore.LowercaseLevelEncoder,
-		EncodeTime:     zapcore.EpochTimeEncoder,
+		EncodeTime:     zapcore.RFC3339TimeEncoder,
 		EncodeDuration: zapcore.SecondsDurationEncoder,
 		EncodeCaller:   zapcore.ShortCallerEncoder,
 	}
@@ -37,10 +37,10 @@ func (log *zapLogger) init(config Configuration) error {
 	return nil
 }
 
-func (log *zapLogger) Info(msg string, fields ...Fields) {
+func (log *zapLogger) Fatal(msg string, fields ...Fields) {
 	zapFields := log.converter(fields...)
 
-	log.logger.Info(msg, zapFields...)
+	log.logger.Fatal(msg, zapFields...)
 }
 
 func (log *zapLogger) Warn(msg string, fields ...Fields) {
@@ -55,10 +55,20 @@ func (log *zapLogger) Error(msg string, fields ...Fields) {
 	log.logger.Error(msg, zapFields...)
 }
 
-func (log *zapLogger) Fatal(msg string, fields ...Fields) {
+func (log *zapLogger) Info(msg string, fields ...Fields) {
 	zapFields := log.converter(fields...)
 
-	log.logger.Fatal(msg, zapFields...)
+	log.logger.Info(msg, zapFields...)
+}
+
+func (log *zapLogger) Debug(msg string, fields ...Fields) {
+	zapFields := log.converter(fields...)
+
+	log.logger.Debug(msg, zapFields...)
+}
+
+func (log *zapLogger) Close() {
+	_ = log.logger.Sync() // nolint errcheck
 }
 
 func (log *zapLogger) SetConfig(config Configuration) error {
@@ -73,10 +83,6 @@ func (log *zapLogger) SetConfig(config Configuration) error {
 	}
 
 	return nil
-}
-
-func (log *zapLogger) Close() {
-	_ = log.logger.Sync() // nolint errcheck
 }
 
 func (log *zapLogger) converter(fields ...Fields) []zap.Field {
@@ -95,8 +101,6 @@ func (log *zapLogger) setLogLevel(logLevel int) zap.AtomicLevel {
 	atom := zap.NewAtomicLevel()
 
 	switch logLevel {
-	case PANIC_LEVEL:
-		atom.SetLevel(zap.PanicLevel)
 	case FATAL_LEVEL:
 		atom.SetLevel(zap.FatalLevel)
 	case ERROR_LEVEL:
