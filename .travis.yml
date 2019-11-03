@@ -34,9 +34,14 @@ install: true
 notifications:
   email: false
 
+stages:
+  - test
+  - deploy
+
 jobs:
   include:
-    - os: linux
+    - stage: test
+      os: linux
       name: golint
       # script always runs to completion (set +e). If we have linter issues AND a
       # failing test, we want to see both. Configure golangci-lint with a
@@ -45,9 +50,15 @@ jobs:
         - go install github.com/golangci/golangci-lint/cmd/golangci-lint
       script:
         - make golint
-    - os: linux
+    - stage: test
+      os: linux
       name: test
       script:
         - make test
       after_success:
         - bash <(curl -s https://codecov.io/bash)
+deploy:
+  - provider: script
+    script: make docker
+    on:
+      tags: true
