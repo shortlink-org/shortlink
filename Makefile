@@ -80,7 +80,7 @@ down:
 
 docker-login:
 	@echo docker login as ${DOCKER_USERNAME}
-	@echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+	@echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
 
 docker-build:
 	@echo docker build image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
