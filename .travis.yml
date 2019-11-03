@@ -64,10 +64,8 @@ jobs:
         - docker
       before_deploy:
         - make docker-login
-      deploy:
-        provider: script
-        script:
-          - make docker-build
-          - make docker-push
-      on:
-        branch: master
+      script:
+        - make docker-build
+        - make docker-push
+#      on:
+#        branch: master
