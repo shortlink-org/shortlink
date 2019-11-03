@@ -62,9 +62,8 @@ jobs:
       name: docker:build
       services:
         - docker
-      before_deploy:
-        - make docker-login
       script:
+        - make docker-login
         - make docker-build
         - make docker-push
 #      on:

@@ -5,7 +5,7 @@ PROJECT_NAME := shortlink
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := 0.1.0
 
-DOCKER_LOGIN := "batazor"
+DOCKER_USERNAME := "batazor"
 
 # export such that its passed to shell functions for Docker to pick up.
 export PROJECT_NAME
@@ -79,8 +79,8 @@ down:
 	@docker-compose down --remove-orphans
 
 docker-login:
-	@echo docker login as ${DOCKER_LOGIN}
-	@docker login -u ${DOCKER_LOGIN} -p ${DOCKER_PASS}
+	@echo docker login as ${DOCKER_USERNAME}
+	@echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 docker-build:
 	@echo docker build image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
