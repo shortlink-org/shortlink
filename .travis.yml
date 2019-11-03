@@ -66,5 +66,5 @@ jobs:
         - make docker-login
         - make docker-build
         - make docker-push
-#      on:
-#        branch: master
+      on:
+        tags: true

@@ -7,29 +7,20 @@ CI_COMMIT_TAG := 0.1.0
 
 DOCKER_USERNAME := "batazor"
 
-# export such that its passed to shell functions for Docker to pick up.
+# Export such that its passed to shell functions for Docker to pick up.
 export PROJECT_NAME
-export CI_REGISTRY_IMAGE
-export CI_COMMIT_TAG
 
-# Regular Makefile part for buildpypi itself
-help:
-	@echo ''
-	@echo 'Usage: make [TARGET] [EXTRA_ARGUMENTS]'
+# HELP
+# This will output the help for each task
+# thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+.PHONY: help
+
+help: ## This help
+	@echo 'Usage: make [TARGET]'
 	@echo 'Targets:'
-	@echo '  dep			install dependencies for this project'
-	@echo '  generate		code generation'
-	@echo '  golint		linter for golang'
-	@echo '  test			run all test'
-	@echo '  run  			run thisproject in docker-compose'
-	@echo '  down			down docker-compose'
-	@echo '  docker-login		docker login'
-	@echo '  docker-build		docker build'
-	@echo '  docker-push		docker push'
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-.: generate
-
-dep:
+dep: ## Install dependencies for this project
 	@echo "install protoc"
 	@sudo ./ops/scripts/install-protobuf.sh
 	@echo "install protoc addons"
@@ -39,7 +30,7 @@ dep:
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 
-generate:
+generate: ## Code generation
 	@echo "proto generation link entity"
 	@protoc -I/usr/local/include -I. \
 	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
@@ -60,14 +51,14 @@ generate:
 	@echo "Generate go static"
 	@go generate pkg/api/graphql/schema/schema.go
 
-golint:
+golint: ## Linter for golang
 	@golangci-lint run
 
-test:
+test: ## Run all test
 	@echo "run test"
 	@sh ./ops/scripts/coverage.sh
 
-run:
+run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
          -f ops/docker-compose/database/redis.yaml \
@@ -75,17 +66,19 @@ run:
          -f ops/docker-compose/tooling/opentracing.yaml \
          up -d
 
-down:
+down: ## Down docker-compose
 	@docker-compose down --remove-orphans
 
-docker-login:
+# DOCKER TASKS
+docker-login: ## Docker login
 	@echo docker login as ${DOCKER_USERNAME}
 	@echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
 
-docker-build:
+# Build the container
+docker-build: ## Build the container
 	@echo docker build image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} .
 
-docker-push:
+docker-push: ## Publish the container
 	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 	@docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
