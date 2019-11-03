@@ -57,14 +57,8 @@ jobs:
         - make test
       after_success:
         - bash <(curl -s https://codecov.io/bash)
-    - stage: deploy
-      os: linux
-      name: docker:build
-      services:
-        - docker
-      script:
-        - make docker-login
-        - make docker-build
-        - make docker-push
-      on:
-        tags: true
+deploy:
+  - provider: script
+    script: make docker
+    on:
+      tags: true

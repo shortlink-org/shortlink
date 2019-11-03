@@ -70,6 +70,8 @@ down: ## Down docker-compose
 	@docker-compose down --remove-orphans
 
 # DOCKER TASKS
+docker: docker-login docker-build docker-push ## docker login > build > push
+
 docker-login: ## Docker login
 	@echo docker login as ${DOCKER_USERNAME}
 	@echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
