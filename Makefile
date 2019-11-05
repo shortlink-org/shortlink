@@ -54,6 +54,9 @@ generate: ## Code generation
 golint: ## Linter for golang
 	@golangci-lint run
 
+gosec: ## Golang security checker
+	@gosec ./...
+
 test: ## Run all test
 	@echo "run test"
 	@sh ./ops/scripts/coverage.sh
