@@ -52,6 +52,13 @@ jobs:
         - make golint
     - stage: test
       os: linux
+      name: gosec
+      before_install:
+        - go install github.com/securego/gosec/cmd/gosec
+      script:
+        - make gosec
+    - stage: test
+      os: linux
       name: test
       script:
         - make test
