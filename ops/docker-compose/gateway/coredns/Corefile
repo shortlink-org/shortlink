@@ -1,0 +1,24 @@
+. {
+    log
+    errors
+    auto
+    reload 10s
+    forward . 8.8.8.8 1.1.1.1:53
+    # If you wish to use a standard ZONE File format, uncomment the following line and customize the specified file
+    file /etc/coredns/db.example.com example.com
+
+    # If you wish to use a standard Hosts File format, uncomment the following line and customize the specified file
+    # hosts /etc/coredns/example.com.hosts example.com
+}
+
+################################ Comment and Version ################################
+# This Corefile will check for changes every 10 seconds
+#
+# Changes to a hosts file will be detected and reloaded automatically.
+#
+# Changes to a Zone file will be detected and reloaded automatically
+#   if you increment the serial number in the zone definition
+#
+# Version: 1.0
+#
+#####################################################################################
