@@ -1,11 +1,19 @@
-. {
+# define a snippet
+(snip) {
+    prometheus localhost:9153
     log
     errors
+}
+
+. {
+    whoami
+    import snip
+    debug
     auto
     reload 10s
-    forward . 8.8.8.8 1.1.1.1:53
+    proxy . 8.8.8.8:53
     # If you wish to use a standard ZONE File format, uncomment the following line and customize the specified file
-    # file /etc/coredns/db.example.com example.com
+    file /etc/coredns/db.example.com example.com
 
     # If you wish to use a standard Hosts File format, uncomment the following line and customize the specified file
     # hosts /etc/coredns/example.com.hosts example.com
