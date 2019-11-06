@@ -66,12 +66,16 @@ run: ## Run this project in docker-compose
          -f docker-compose.yaml \
          -f ops/docker-compose/database/redis.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
-         -f ops/docker-compose/tooling/coredns.yaml \
+         -f ops/docker-compose/tooling/prometheus.yaml \
          -f ops/docker-compose/tooling/opentracing.yaml \
+         -f ops/docker-compose/tooling/coredns.yaml \
          up -d
 
 down: ## Down docker-compose
 	@docker-compose down --remove-orphans
+
+clean: ## Remove docker artifacts
+	@docker network rm simple
 
 # DOCKER TASKS
 docker: docker-login docker-build docker-push ## docker login > build > push
