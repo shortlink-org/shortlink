@@ -1,4 +1,4 @@
-version: '3.7'
+version: '2.4'
 
 services:
 
@@ -13,5 +13,10 @@ services:
       POSTGRES_USER: shortlink
       POSTGRES_PASSWORD: shortlink
       POSTGRES_DB: shortlink
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
     volumes:
       - ./initialState/init-postgres.sql:/docker-entrypoint-initdb.d/init.sql

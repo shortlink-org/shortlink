@@ -1,4 +1,19 @@
-version: '3.7'
+version: '2.4'
+
+networks:
+  simple:
+    name: simple
+    # use the bridge driver, but enable IPv6
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    # Using the ipam you can define a specific CIDR block for the new network, and then,
+    # attaching every container to that network, you can specify its IP address on that range.
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
 
 volumes:
   database:
