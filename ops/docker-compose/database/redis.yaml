@@ -1,4 +1,4 @@
-version: '3.7'
+version: '2.4'
 
 services:
 
@@ -9,3 +9,8 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns

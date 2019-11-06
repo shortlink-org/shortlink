@@ -1,14 +1,15 @@
-version: '3.7'
+version: '2.4'
 
 services:
   coredns:
-    image: coredns
+    image: coredns/coredns
+    container_name: coredns
     restart: always
     expose:
       - '53'
       - '53/udp'
-    ports:
-      - '53:53'
-      - '53:53/udp'
+    networks:
+      simple:
+        ipv4_address: 10.5.0.2
     volumes:
       - ./ops/docker-compose/gateway/coredns/:/etc/coredns

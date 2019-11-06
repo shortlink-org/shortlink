@@ -1,9 +1,10 @@
-version: '3.7'
+version: '2.4'
 
 services:
   jaeger-collector:
     image: jaegertracing/jaeger-collector
     command: ["--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra", "--collector.zipkin.http-port=9411"]
+    container_name: jaeger-collector
     ports:
       - "14269"
       - "14268:14268"
@@ -13,20 +14,32 @@ services:
     restart: on-failure
     depends_on:
       - cassandra-schema
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
 
   jaeger-query:
     image: jaegertracing/jaeger-query
     command: ["--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra"]
+    container_name: jaeger-query
     ports:
       - "16686:16686"
       - "16687"
     restart: on-failure
     depends_on:
       - cassandra-schema
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
 
   jaeger-agent:
     image: jaegertracing/jaeger-agent
     command: ["--reporter.grpc.host-port=jaeger-collector:14250"]
+    container_name: jaeger-agent
     ports:
       - "5775:5775/udp"
       - "6831:6831/udp"
@@ -35,11 +48,28 @@ services:
     restart: on-failure
     depends_on:
       - jaeger-collector
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
 
   cassandra:
     image: cassandra:3.9
+    container_name: jaeger-cassandra
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
 
   cassandra-schema:
     image: jaegertracing/jaeger-cassandra-schema
+    container_name: jaeger-cassandra-schema
     depends_on:
       - cassandra
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
