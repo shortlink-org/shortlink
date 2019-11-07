@@ -1,8 +1,9 @@
 package store
 
 import (
-	"github.com/batazor/shortlink/pkg/link"
 	"testing"
+
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // TestLink ...

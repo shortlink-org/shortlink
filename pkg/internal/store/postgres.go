@@ -3,6 +3,7 @@ package store
 import (
 	"database/sql"
 	"fmt"
+
 	"github.com/batazor/shortlink/pkg/link"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 )
