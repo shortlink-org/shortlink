@@ -109,7 +109,7 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (b *DGraphLinkList) List() ([]*link.Link, error) {
+func (dg *DGraphLinkList) List() ([]*link.Link, error) {
 	panic("implement me")
 }
 

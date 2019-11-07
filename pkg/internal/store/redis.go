@@ -50,7 +50,7 @@ func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (b *RedisLinkList) List() ([]*link.Link, error) {
+func (r *RedisLinkList) List() ([]*link.Link, error) {
 	panic("implement me")
 }
 
