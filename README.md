@@ -6,6 +6,8 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/batazor/shortlink)](https://goreportcard.com/report/github.com/batazor/shortlink)
 [![Releases](https://img.shields.io/github/release-pre/batazor/shortlink.svg)](https://github.com/batazor/shortlink/releases)
 [![LICENSE](https://img.shields.io/github/license/batazor/shortlink.svg)](https://github.com/batazor/shortlink/blob/master/LICENSE)
+![GitHub last commit](https://img.shields.io/github/last-commit/batazor/shortlink)
+![GitHub contributors](https://img.shields.io/github/contributors/batazor/shortlink)
 
 Shortlink service
 
