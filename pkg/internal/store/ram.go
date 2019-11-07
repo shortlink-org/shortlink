@@ -2,8 +2,9 @@ package store
 
 import (
 	"fmt"
-	"github.com/batazor/shortlink/pkg/link"
 	"sync"
+
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // RAMLinkList implementation of store interface
