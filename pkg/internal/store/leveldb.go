@@ -64,7 +64,7 @@ func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
 }
 
 // List ...
-func (b *LevelDBLinkList) List() ([]*link.Link, error) {
+func (l *LevelDBLinkList) List() ([]*link.Link, error) {
 	panic("implement me")
 }
 

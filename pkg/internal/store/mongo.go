@@ -82,7 +82,7 @@ func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
 }
 
 // List ...
-func (b *MongoLinkList) List() ([]*link.Link, error) {
+func (m *MongoLinkList) List() ([]*link.Link, error) {
 	panic("implement me")
 }
 

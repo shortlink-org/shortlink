@@ -72,7 +72,7 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 }
 
 // List ...
-func (b *PostgresLinkList) List() ([]*link.Link, error) {
+func (p *PostgresLinkList) List() ([]*link.Link, error) {
 	panic("implement me")
 }
 
