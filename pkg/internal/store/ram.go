@@ -40,8 +40,12 @@ func (ram *RAMLinkList) List() ([]*link.Link, error) {
 
 	ram.mu.Lock()
 	// copy map by assigning elements to new map
-	for _, link := range ram.links {
-		links = append(links, &link)
+	for key := range ram.links {
+		links = append(links, &link.Link{
+			URL:      ram.links[key].URL,
+			Hash:     ram.links[key].Hash,
+			Describe: ram.links[key].Describe,
+		})
 	}
 	ram.mu.Unlock()
 
