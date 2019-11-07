@@ -33,6 +33,11 @@ func (l *RAMLinkList) Get(id string) (*link.Link, error) {
 	return &response, nil
 }
 
+// List ...
+func (b *RAMLinkList) List() ([]*link.Link, error) {
+	panic("implement me")
+}
+
 // Add ...
 func (l *RAMLinkList) Add(data link.Link) (*link.Link, error) {
 	hash := data.CreateHash([]byte(data.URL), []byte("secret"))

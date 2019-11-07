@@ -80,6 +80,11 @@ func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
 	return &data, nil
 }
 
+// List ...
+func (b *MongoLinkList) List() ([]*link.Link, error) {
+	panic("implement me")
+}
+
 // Update ...
 func (m *MongoLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil

@@ -107,6 +107,11 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 	return &response.Link[0].Link, nil
 }
 
+// List ...
+func (b *DGraphLinkList) List() ([]*link.Link, error) {
+	panic("implement me")
+}
+
 // Add ...
 func (dg *DGraphLinkList) Add(data link.Link) (*link.Link, error) {
 	hash := data.CreateHash([]byte(data.URL), []byte("secret"))

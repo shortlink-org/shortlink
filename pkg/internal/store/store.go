@@ -9,6 +9,7 @@ type DB interface { // nolint unused
 	Init() error
 
 	Get(id string) (*link.Link, error)
+	List() ([]*link.Link, error)
 	Add(data link.Link) (*link.Link, error)
 	Update(data link.Link) (*link.Link, error)
 	Delete(id string) error
