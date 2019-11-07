@@ -14,6 +14,7 @@ func (api *API) Routes() chi.Router {
 	r := chi.NewRouter()
 
 	r.Post("/", api.Add)
+	r.Get("/links", api.List)
 	r.Get("/{hash}", api.Get)
 	r.Delete("/", api.Delete)
 
@@ -69,6 +70,34 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response, err := api.store.Get(request.Hash)
+	var errorLink *link.NotFoundError
+	if errors.As(err, &errorLink) {
+		w.WriteHeader(http.StatusNotFound)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	res, err := json.Marshal(response)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(res) // nolint errcheck
+}
+
+// List ...
+func (api *API) List(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-type", "application/json")
+
+	response, err := api.store.List()
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)

@@ -104,7 +104,7 @@ func (b *BadgerLinkList) List() ([]*link.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("not found links")}
+		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("not found links: %s", err)}
 	}
 
 	response := make([]*link.Link, len(list))
