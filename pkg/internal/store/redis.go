@@ -48,6 +48,11 @@ func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 	return &response, nil
 }
 
+// List ...
+func (b *RedisLinkList) List() ([]*link.Link, error) {
+	panic("implement me")
+}
+
 // Add ...
 func (r *RedisLinkList) Add(data link.Link) (*link.Link, error) {
 	hash := data.CreateHash([]byte(data.URL), []byte("secret"))

@@ -70,6 +70,11 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 	return &data, nil
 }
 
+// List ...
+func (b *PostgresLinkList) List() ([]*link.Link, error) {
+	panic("implement me")
+}
+
 // Update ...
 func (p *PostgresLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil
