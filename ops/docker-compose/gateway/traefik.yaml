@@ -10,7 +10,7 @@ services:
       # The HTTP port
       - "80:80"
       # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
+      - "8060:8080"
     environment:
       TRAEFIK_ACCESSLOG: "true"
       TRAEFIK_ACCESSLOG_FORMAT: json

@@ -42,16 +42,29 @@ func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
-	if response.URL == "" {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
-	}
-
 	return &response, nil
 }
 
 // List ...
 func (r *RedisLinkList) List() ([]*link.Link, error) {
-	panic("implement me")
+	keys := r.client.Keys("*")
+	links := []*link.Link{}
+
+	for _, key := range keys.Val() {
+		var response link.Link
+		val, err := r.client.Get(key).Result()
+		if err != nil {
+			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		}
+
+		if err = json.Unmarshal([]byte(val), &response); err != nil {
+			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		}
+
+		links = append(links, &response)
+	}
+
+	return links, nil
 }
 
 // Add ...

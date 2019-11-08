@@ -56,10 +56,6 @@ func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
-	if response.URL == "" {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
-	}
-
 	return &response, nil
 }
 
@@ -83,7 +79,42 @@ func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
 
 // List ...
 func (m *MongoLinkList) List() ([]*link.Link, error) {
-	panic("implement me")
+	collection := m.client.Database("shortlink").Collection("links")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
+	// Passing bson.D{{}} as the filter matches all documents in the collection
+	cur, err := collection.Find(ctx, bson.D{})
+	if err != nil {
+		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+	}
+
+	if cur.Err() != nil {
+		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+	}
+
+	// Here's an array in which you can store the decoded documents
+	var response []*link.Link
+
+	// Finding multiple documents returns a cursor
+	// Iterating through the cursor allows us to decode documents one at a time
+	for cur.Next(context.TODO()) {
+
+		// create a value into which the single document can be decoded
+		var elem link.Link
+		err := cur.Decode(&elem)
+		if err != nil {
+			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		}
+
+		response = append(response, &elem)
+	}
+
+	// Close the cursor once finished
+	cur.Close(context.TODO()) // nolint gosec
+
+	return response, nil
 }
 
 // Update ...

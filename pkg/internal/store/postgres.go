@@ -36,7 +36,7 @@ func (p *PostgresLinkList) Init() error {
 
 // Get ...
 func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
-	rows, err := p.client.Query("SELECT url, hash, describe FROM links LIMIT 1")
+	rows, err := p.client.Query("SELECT url, hash, describe FROM links WHERE hash=$1", id)
 
 	if err != nil {
 		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -73,7 +73,25 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 
 // List ...
 func (p *PostgresLinkList) List() ([]*link.Link, error) {
-	panic("implement me")
+	rows, err := p.client.Query("SELECT url, hash, describe describe FROM links")
+
+	if err != nil {
+		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+	}
+
+	var response []*link.Link
+
+	for rows.Next() {
+		var result link.Link
+		err = rows.Scan(&result.URL, &result.Hash, &result.Describe)
+		if err != nil {
+			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		}
+
+		response = append(response, &result)
+	}
+
+	return response, nil
 }
 
 // Update ...

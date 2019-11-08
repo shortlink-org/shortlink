@@ -65,7 +65,31 @@ func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
 
 // List ...
 func (l *LevelDBLinkList) List() ([]*link.Link, error) {
-	panic("implement me")
+	links := []*link.Link{}
+	iterator := l.client.NewIterator(nil, nil)
+
+	for iterator.Next() {
+		// Remember that the contents of the returned slice should not be modified, and
+		// only valid until the next call to Next.
+		value := iterator.Value()
+
+		var response link.Link
+
+		err := json.Unmarshal(value, &response)
+		if err != nil {
+			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		}
+
+		links = append(links, &response)
+	}
+
+	iterator.Release()
+	err := iterator.Error()
+	if err != nil {
+		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+	}
+
+	return links, nil
 }
 
 // Update ...
