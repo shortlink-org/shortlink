@@ -16,5 +16,13 @@ func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 
 // Links ...
 func (r *Resolver) Links() (*[]*LinkResolver, error) { // nolint unused
-	return &[]*LinkResolver{}, nil
+	links := []*LinkResolver{}
+	items, err := r.Store.List()
+	for _, item := range items {
+		links = append(links, &LinkResolver{
+			Link: item,
+		})
+	}
+
+	return &links, err
 }
