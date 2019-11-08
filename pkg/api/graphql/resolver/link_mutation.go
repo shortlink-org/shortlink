@@ -12,7 +12,7 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unuse
 	Describe *string
 }) (*LinkResolver, error) {
 	res, error := r.Store.Add(link.Link{
-		URL:      *args.URL,
+		Url:      *args.URL,
 		Hash:     *args.Hash,
 		Describe: *args.Describe,
 	})
@@ -34,8 +34,8 @@ func (*Resolver) UpdateLink(ctx context.Context, args *struct { //nolint unused
 func (r *Resolver) DeleteLink(ctx context.Context, args *struct { //nolint unused
 	Hash *string
 }) (bool, error) {
-	if error := r.Store.Delete(*args.Hash); error != nil {
-		return false, error
+	if err := r.Store.Delete(*args.Hash); err != nil {
+		return false, err
 	}
 	return true, nil
 }

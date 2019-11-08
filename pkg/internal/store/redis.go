@@ -3,6 +3,7 @@ package store
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/go-redis/redis"
 )
@@ -32,34 +33,52 @@ func (r *RedisLinkList) Init() error {
 func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 	val, err := r.client.Get(id).Result()
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
 
 	if err = json.Unmarshal([]byte(val), &response); err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
-	}
-
-	if response.URL == "" {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
 	return &response, nil
 }
 
+// List ...
+func (r *RedisLinkList) List() ([]*link.Link, error) {
+	keys := r.client.Keys("*")
+	links := []*link.Link{}
+
+	for _, key := range keys.Val() {
+		var response link.Link
+		val, err := r.client.Get(key).Result()
+		if err != nil {
+			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		}
+
+		if err = json.Unmarshal([]byte(val), &response); err != nil {
+			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		}
+
+		links = append(links, &response)
+	}
+
+	return links, nil
+}
+
 // Add ...
 func (r *RedisLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
 	val, err := json.Marshal(data)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.URL)}
+		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
 	}
 
 	if err = r.client.Set(data.Hash, val, 0).Err(); err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.URL)}
+		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
 	}
 
 	return &data, nil
@@ -73,7 +92,7 @@ func (r *RedisLinkList) Update(data link.Link) (*link.Link, error) {
 // Delete ...
 func (r *RedisLinkList) Delete(id string) error {
 	if err := r.client.Del(id).Err(); err != nil {
-		return &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Failed save link: %s", id)}
+		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 
 	return nil
