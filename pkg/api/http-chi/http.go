@@ -36,7 +36,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	newLink := &link.Link{
-		URL:      request.URL,
+		Url:      request.URL,
 		Describe: request.Describe,
 	}
 

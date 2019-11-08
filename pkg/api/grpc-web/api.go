@@ -11,6 +11,21 @@ func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error)
 	return api.store.Get(req.Hash)
 }
 
+// GetLinks ...
+func (api *API) GetLinks(ctx context.Context, req *link.Link) (*link.Links, error) {
+	links, err := api.store.List()
+	if err != nil {
+		return nil, err
+	}
+
+	response := link.Links{}
+	for _, link := range links {
+		response.Link = append(response.Link, link)
+	}
+
+	return &response, nil
+}
+
 // CreateLink ...
 func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, error) {
 	return api.store.Add(*req)

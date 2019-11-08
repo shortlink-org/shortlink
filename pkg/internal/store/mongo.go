@@ -47,13 +47,13 @@ func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 
 	if val.Err() != nil {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
 
 	if err := val.Decode(&response); err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
 	return &response, nil
@@ -61,7 +61,7 @@ func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 
 // Add ...
 func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
 	collection := m.client.Database("shortlink").Collection("links")
@@ -71,7 +71,7 @@ func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
 
 	_, err := collection.InsertOne(ctx, data)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.URL)}
+		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
 	}
 
 	return &data, nil
@@ -131,7 +131,7 @@ func (m *MongoLinkList) Delete(id string) error {
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Failed save link: %s", id)}
+		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 
 	return nil

@@ -27,8 +27,8 @@ func (ram *RAMLinkList) Get(id string) (*link.Link, error) {
 	response := ram.links[id]
 	ram.mu.Unlock()
 
-	if response.URL == "" {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	if response.Url == "" {
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -42,7 +42,7 @@ func (ram *RAMLinkList) List() ([]*link.Link, error) {
 	// copy map by assigning elements to new map
 	for key := range ram.links {
 		links = append(links, &link.Link{
-			URL:      ram.links[key].URL,
+			Url:      ram.links[key].Url,
 			Hash:     ram.links[key].Hash,
 			Describe: ram.links[key].Describe,
 		})
@@ -54,7 +54,7 @@ func (ram *RAMLinkList) List() ([]*link.Link, error) {
 
 // Add ...
 func (ram *RAMLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
 	ram.mu.Lock()

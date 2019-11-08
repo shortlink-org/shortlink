@@ -53,7 +53,7 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -63,8 +63,8 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 		return nil, err
 	}
 
-	if response.URL == "" {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("not found id: %s", id)}
+	if response.Url == "" {
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -121,7 +121,7 @@ func (b *BadgerLinkList) List() ([]*link.Link, error) {
 
 // Add ...
 func (b *BadgerLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
 	payload, err := json.Marshal(data)
