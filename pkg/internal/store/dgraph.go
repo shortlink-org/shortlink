@@ -26,11 +26,6 @@ type DGraphLinkResponse struct { // nolint unused
 	}
 }
 
-// DGraphLinksResponse ...
-type DGraphLinksResponse struct { // nolint unused
-	Links []DGraphLinkResponse
-}
-
 // DGraphLinkList ...
 type DGraphLinkList struct { // nolint unused
 	client *dgo.Dgraph
@@ -109,9 +104,65 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 	return &response.Link[0].Link, nil
 }
 
+// get - private `get` method
+func (dg *DGraphLinkList) list() (*DGraphLinkResponse, error) {
+	ctx := context.Background()
+	txn := dg.client.NewTxn()
+	defer func() {
+		if err := txn.Discard(ctx); err != nil {
+			// TODO: use logger
+			fmt.Println(err.Error())
+		}
+	}()
+
+	q := `
+query all {
+	Link(func: has(hash)) {
+		UID
+		url
+		hash
+		describe
+	}
+}`
+
+	val, err := txn.QueryWithVars(ctx, q, map[string]string{})
+	if err != nil {
+		return nil, err
+	}
+
+	var response DGraphLinkResponse
+
+	if err = json.Unmarshal(val.Json, &response); err != nil {
+		return nil, err
+	}
+
+	return &response, nil
+}
+
 // List ...
 func (dg *DGraphLinkList) List() ([]*link.Link, error) {
-	links := []*link.Link{}
+	ctx := context.Background()
+	txn := dg.client.NewTxn()
+	defer func() {
+		if err := txn.Discard(ctx); err != nil {
+			// TODO: use logger
+			fmt.Println(err.Error())
+		}
+	}()
+
+	responses, err := dg.list()
+	if err != nil {
+		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+	}
+
+	var links []*link.Link
+	for _, response := range responses.Link {
+		links = append(links, &link.Link{
+			Url:      response.Url,
+			Hash:     response.Hash,
+			Describe: response.Describe,
+		})
+	}
 
 	return links, nil
 }
