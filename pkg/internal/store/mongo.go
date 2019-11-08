@@ -112,7 +112,10 @@ func (m *MongoLinkList) List() ([]*link.Link, error) {
 	}
 
 	// Close the cursor once finished
-	cur.Close(context.TODO()) // nolint gosec
+	err = cur.Close(context.TODO())
+	if err != nil {
+		return nil, err
+	}
 
 	return response, nil
 }
