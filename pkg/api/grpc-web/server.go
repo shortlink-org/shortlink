@@ -12,7 +12,7 @@ import (
 )
 
 // API ...
-type API struct {
+type API struct { // nolint unused
 	store store.DB
 	ctx   context.Context
 }
