@@ -19,8 +19,8 @@ func (api *API) GetLinks(ctx context.Context, req *link.Link) (*link.Links, erro
 	}
 
 	response := link.Links{}
-	for _, link := range links {
-		response.Link = append(response.Link, link)
+	for key := range links {
+		response.Link = append(response.Link, links[key])
 	}
 
 	return &response, nil
