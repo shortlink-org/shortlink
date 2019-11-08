@@ -31,8 +31,8 @@ func TestLink(t *testing.T) { //nolint unused
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
-	if link.URL != newLink.URL {
-		t.Errorf("Assert links: %s; Get %s", newLink.URL, link.URL)
+	if link.Url != newLink.Url {
+		t.Errorf("Assert links: %s; Get %s", newLink.Url, link.Url)
 	}
 
 	// test get links

@@ -12,7 +12,7 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unuse
 	Describe *string
 }) (*LinkResolver, error) {
 	res, error := r.Store.Add(link.Link{
-		URL:      *args.URL,
+		Url:      *args.URL,
 		Hash:     *args.Hash,
 		Describe: *args.Describe,
 	})

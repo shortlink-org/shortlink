@@ -67,12 +67,12 @@
     },
     "/api/{hash}": {
       "get": {
-        "operationId": "GetLink",
+        "operationId": "GetLinks",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/linkLink"
+              "$ref": "#/definitions/linkLinks"
             }
           }
         },
@@ -114,6 +114,17 @@
         },
         "describe": {
           "type": "string"
+        }
+      }
+    },
+    "linkLinks": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/linkLink"
+          }
         }
       }
     }

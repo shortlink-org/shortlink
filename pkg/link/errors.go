@@ -11,5 +11,5 @@ type NotFoundError struct { // nolint unused
 }
 
 func (e *NotFoundError) Error() string {
-	return fmt.Sprintf("Not found link: %s", e.Link.URL)
+	return fmt.Sprintf("Not found link: %s", e.Link.Url)
 }

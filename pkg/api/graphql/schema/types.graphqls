@@ -8,3 +8,6 @@ type Link {
     hash:  String! 
     describe:  String! 
 }
+type Links {
+    link:  Link! 
+}
