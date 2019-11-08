@@ -29,6 +29,7 @@ dep: ## Install dependencies for this project
 	@go get -u moul.io/protoc-gen-gotemplate
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+	@go get -u github.com/securego/gosec/cmd/gosec
 
 generate: ## Code generation
 	@echo "proto generation link entity"
