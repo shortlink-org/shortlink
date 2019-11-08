@@ -22,7 +22,7 @@ type Store struct{} // nolint unused
 func (s *Store) Use() DB {
 	var store DB
 
-	typeStore := "ram"
+	typeStore := "postgres"
 
 	switch typeStore {
 	case "postgres":
