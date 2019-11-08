@@ -100,11 +100,9 @@ func (m *MongoLinkList) List() ([]*link.Link, error) {
 	// Finding multiple documents returns a cursor
 	// Iterating through the cursor allows us to decode documents one at a time
 	for cur.Next(context.TODO()) {
-
 		// create a value into which the single document can be decoded
 		var elem link.Link
-		err := cur.Decode(&elem)
-		if err != nil {
+		if errDecode := cur.Decode(&elem); errDecode != nil {
 			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
