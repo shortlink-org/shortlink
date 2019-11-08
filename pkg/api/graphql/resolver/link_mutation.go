@@ -33,9 +33,9 @@ func (*Resolver) UpdateLink(ctx context.Context, args *struct { //nolint unused
 // DeleteLink ...
 func (r *Resolver) DeleteLink(ctx context.Context, args *struct { //nolint unused
 	Hash *string
-}) (*bool, error) {
-	if error := r.Store.Delete(*args.Hash); error != nil {
-		return nil, error
+}) (bool, error) {
+	if err := r.Store.Delete(*args.Hash); err != nil {
+		return false, err
 	}
-	return nil, nil
+	return true, nil
 }
