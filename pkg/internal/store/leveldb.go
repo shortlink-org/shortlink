@@ -3,6 +3,7 @@ package store
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/syndtr/goleveldb/leveldb"
 )
@@ -27,7 +28,7 @@ func (l *LevelDBLinkList) Init() error {
 func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -37,8 +38,8 @@ func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 		return nil, err
 	}
 
-	if response.URL == "" {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	if response.Url == "" {
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -46,7 +47,7 @@ func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 
 // Add ...
 func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
 	payload, err := json.Marshal(data)
@@ -60,6 +61,35 @@ func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
 	}
 
 	return &data, nil
+}
+
+// List ...
+func (l *LevelDBLinkList) List() ([]*link.Link, error) {
+	links := []*link.Link{}
+	iterator := l.client.NewIterator(nil, nil)
+
+	for iterator.Next() {
+		// Remember that the contents of the returned slice should not be modified, and
+		// only valid until the next call to Next.
+		value := iterator.Value()
+
+		var response link.Link
+
+		err := json.Unmarshal(value, &response)
+		if err != nil {
+			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		}
+
+		links = append(links, &response)
+	}
+
+	iterator.Release()
+	err := iterator.Error()
+	if err != nil {
+		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+	}
+
+	return links, nil
 }
 
 // Update ...

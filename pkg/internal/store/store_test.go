@@ -1,8 +1,9 @@
 package store
 
 import (
-	"github.com/batazor/shortlink/pkg/link"
 	"testing"
+
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // TestLink ...
@@ -30,8 +31,17 @@ func TestLink(t *testing.T) { //nolint unused
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
-	if link.URL != newLink.URL {
-		t.Errorf("Assert links: %s; Get %s", newLink.URL, link.URL)
+	if link.Url != newLink.Url {
+		t.Errorf("Assert links: %s; Get %s", newLink.Url, link.Url)
+	}
+
+	// test get links
+	links, err := s.List()
+	if err != nil {
+		t.Errorf("Error %s", err)
+	}
+	if len(links) != 1 {
+		t.Errorf("Assert 1 links; Get %d link(s)", len(links))
 	}
 
 	// delete link

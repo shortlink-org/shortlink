@@ -1,5 +1,5 @@
 type Mutation {
     updateLink(url: String, hash: String, describe: String): Boolean
     createLink(url: String, hash: String, describe: String): Link!
-    deleteLink(hash: String): Boolean
+    deleteLink(hash: String): Boolean!
 }

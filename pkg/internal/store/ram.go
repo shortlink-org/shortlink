@@ -2,8 +2,9 @@ package store
 
 import (
 	"fmt"
-	"github.com/batazor/shortlink/pkg/link"
 	"sync"
+
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // RAMLinkList implementation of store interface
@@ -13,48 +14,66 @@ type RAMLinkList struct { // nolint unused
 }
 
 // Init ...
-func (l *RAMLinkList) Init() error {
-	l.mu.Lock()
-	l.links = make(map[string]link.Link)
-	l.mu.Unlock()
+func (ram *RAMLinkList) Init() error {
+	ram.mu.Lock()
+	ram.links = make(map[string]link.Link)
+	ram.mu.Unlock()
 	return nil
 }
 
 // Get ...
-func (l *RAMLinkList) Get(id string) (*link.Link, error) {
-	l.mu.Lock()
-	response := l.links[id]
-	l.mu.Unlock()
+func (ram *RAMLinkList) Get(id string) (*link.Link, error) {
+	ram.mu.Lock()
+	response := ram.links[id]
+	ram.mu.Unlock()
 
-	if response.URL == "" {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	if response.Url == "" {
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
+// List ...
+func (ram *RAMLinkList) List() ([]*link.Link, error) {
+	links := []*link.Link{}
+
+	ram.mu.Lock()
+	// copy map by assigning elements to new map
+	for key := range ram.links {
+		links = append(links, &link.Link{
+			Url:      ram.links[key].Url,
+			Hash:     ram.links[key].Hash,
+			Describe: ram.links[key].Describe,
+		})
+	}
+	ram.mu.Unlock()
+
+	return links, nil
+}
+
 // Add ...
-func (l *RAMLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.URL), []byte("secret"))
+func (ram *RAMLinkList) Add(data link.Link) (*link.Link, error) {
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
-	l.mu.Lock()
-	l.links[data.Hash] = data
-	l.mu.Unlock()
+	ram.mu.Lock()
+	ram.links[data.Hash] = data
+	ram.mu.Unlock()
 
 	return &data, nil
 }
 
 // Update ...
-func (l *RAMLinkList) Update(data link.Link) (*link.Link, error) {
+func (ram *RAMLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (l *RAMLinkList) Delete(id string) error {
-	l.mu.Lock()
-	delete(l.links, id)
-	l.mu.Unlock()
+func (ram *RAMLinkList) Delete(id string) error {
+	ram.mu.Lock()
+	delete(ram.links, id)
+	ram.mu.Unlock()
 
 	return nil
 }

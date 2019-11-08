@@ -2,16 +2,17 @@ package grpcweb
 
 import (
 	"context"
+	"net"
+	"net/http"
+
 	"github.com/batazor/shortlink/pkg/internal/store"
 	"github.com/batazor/shortlink/pkg/logger"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
-	"net"
-	"net/http"
 )
 
 // API ...
-type API struct {
+type API struct { // nolint unused
 	store store.DB
 	ctx   context.Context
 }

@@ -8,7 +8,7 @@ import (
 
 // NewURL return new link
 func NewURL(link string) (Link, error) { // nolint unparam
-	newLink := Link{URL: link}
+	newLink := Link{Url: link}
 	return newLink, nil
 }
 
