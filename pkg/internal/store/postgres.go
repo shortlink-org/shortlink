@@ -1,16 +1,17 @@
 package store
 
 import (
-	"database/sql"
+	"context"
 	"fmt"
 
 	"github.com/batazor/shortlink/pkg/link"
+	"github.com/jackc/pgx/v4"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 )
 
 // PostgresLinkList implementation of store interface
 type PostgresLinkList struct { // nolint unused
-	client *sql.DB
+	client *pgx.Conn
 }
 
 // Init ...
@@ -24,10 +25,8 @@ func (p *PostgresLinkList) Init() error {
 	var err error
 
 	// Connect to Postgres
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
-		DbUser, DbPassword, DbName)
-	p.client, err = sql.Open("postgres", dbinfo)
-	if err != nil {
+	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", DbUser, DbPassword, DbName)
+	if p.client, err = pgx.Connect(context.Background(), dbinfo); err != nil {
 		panic(err)
 	}
 
@@ -36,7 +35,7 @@ func (p *PostgresLinkList) Init() error {
 
 // Get ...
 func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
-	rows, err := p.client.Query("SELECT url, hash, describe FROM links WHERE hash=$1", id)
+	rows, err := p.client.Query(context.Background(), "SELECT url, hash, describe FROM links WHERE hash=$1", id)
 
 	if err != nil {
 		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -59,7 +58,7 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
-	err := p.client.QueryRow("INSERT INTO links(url,hash,describe) VALUES($1,$2,$3) ON CONFLICT (hash) DO NOTHING;", data.Url, data.Hash, data.Describe)
+	err := p.client.QueryRow(context.Background(), "INSERT INTO links(url,hash,describe) VALUES($1,$2,$3) ON CONFLICT (hash) DO NOTHING;", data.Url, data.Hash, data.Describe)
 
 	if err.Scan().Error() == "sql: no rows in result set" {
 		return &data, nil
@@ -73,7 +72,7 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 
 // List ...
 func (p *PostgresLinkList) List() ([]*link.Link, error) {
-	rows, err := p.client.Query("SELECT url, hash, describe describe FROM links")
+	rows, err := p.client.Query(context.Background(), "SELECT url, hash, describe describe FROM links")
 
 	if err != nil {
 		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
@@ -101,12 +100,7 @@ func (p *PostgresLinkList) Update(data link.Link) (*link.Link, error) {
 
 // Delete ...
 func (p *PostgresLinkList) Delete(id string) error {
-	stmt, err := p.client.Prepare("delete from links where hash=$1")
-	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
-	}
-
-	_, err = stmt.Exec(id)
+	_, err := p.client.Exec(context.Background(), "", "delete from links where hash=$1", id)
 	if err != nil {
 		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}

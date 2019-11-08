@@ -66,7 +66,24 @@ github.com/graph-gophers/graphql-go/trace
 github.com/grpc-ecosystem/grpc-gateway/internal
 github.com/grpc-ecosystem/grpc-gateway/runtime
 github.com/grpc-ecosystem/grpc-gateway/utilities
-# github.com/konsorten/go-windows-terminal-sequences v1.0.1
+# github.com/jackc/chunkreader/v2 v2.0.0
+github.com/jackc/chunkreader/v2
+# github.com/jackc/pgconn v1.1.0
+github.com/jackc/pgconn
+github.com/jackc/pgconn/internal/ctxwatch
+github.com/jackc/pgconn/stmtcache
+# github.com/jackc/pgio v1.0.0
+github.com/jackc/pgio
+# github.com/jackc/pgpassfile v1.0.0
+github.com/jackc/pgpassfile
+# github.com/jackc/pgproto3/v2 v2.0.0
+github.com/jackc/pgproto3/v2
+# github.com/jackc/pgtype v1.0.2
+github.com/jackc/pgtype
+# github.com/jackc/pgx/v4 v4.1.2
+github.com/jackc/pgx/v4
+github.com/jackc/pgx/v4/internal/sanitize
+# github.com/konsorten/go-windows-terminal-sequences v1.0.2
 github.com/konsorten/go-windows-terminal-sequences
 # github.com/lib/pq v1.2.0
 github.com/lib/pq
@@ -176,10 +193,19 @@ golang.org/x/sync/semaphore
 # golang.org/x/sys v0.0.0-20190922100055-0a153f010e69
 golang.org/x/sys/unix
 # golang.org/x/text v0.3.2
+golang.org/x/text/cases
+golang.org/x/text/internal
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/tag
+golang.org/x/text/language
+golang.org/x/text/runes
 golang.org/x/text/secure/bidirule
+golang.org/x/text/secure/precis
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
+golang.org/x/text/width
 # golang.org/x/tools v0.0.0-20191029190741-b9c20aec41a5
 golang.org/x/tools/go/analysis
 golang.org/x/tools/go/analysis/passes/inspect
@@ -196,6 +222,9 @@ golang.org/x/tools/internal/fastwalk
 golang.org/x/tools/internal/gopathwalk
 golang.org/x/tools/internal/semver
 golang.org/x/tools/internal/span
+# golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7
+golang.org/x/xerrors
+golang.org/x/xerrors/internal
 # google.golang.org/genproto v0.0.0-20191108220845-16a3f7862a1a
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
