@@ -26,6 +26,11 @@ type DGraphLinkResponse struct { // nolint unused
 	}
 }
 
+// DGraphLinksResponse ...
+type DGraphLinksResponse struct { // nolint unused
+	Links []DGraphLinkResponse
+}
+
 // DGraphLinkList ...
 type DGraphLinkList struct { // nolint unused
 	client *dgo.Dgraph
@@ -101,16 +106,14 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
-	if response.Link[0].URL == "" {
-		return nil, &link.NotFoundError{Link: link.Link{URL: id}, Err: fmt.Errorf("Not found id: %s", id)}
-	}
-
 	return &response.Link[0].Link, nil
 }
 
 // List ...
 func (dg *DGraphLinkList) List() ([]*link.Link, error) {
-	panic("implement me")
+	links := []*link.Link{}
+
+	return links, nil
 }
 
 // Add ...
