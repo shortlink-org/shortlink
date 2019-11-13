@@ -14,7 +14,7 @@ require (
 	github.com/go-redis/redis v6.15.6+incompatible
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/golang/protobuf v1.3.2
-	github.com/graph-gophers/graphql-go v0.0.0-20191031232829-adde0d0f76a3
+	github.com/graph-gophers/graphql-go v0.0.0-20191113173545-5ef3e23df847
 	github.com/grpc-ecosystem/grpc-gateway v1.12.1
 	github.com/jackc/pgx/v4 v4.1.2
 	github.com/lib/pq v1.2.0
