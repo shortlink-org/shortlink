@@ -39,7 +39,7 @@ func (s *Service) initTracer() {
 // runAPIServer - start HTTP-server
 func (s *Service) runAPIServer(ctx context.Context) {
 	var API api.API
-	serverType := "graphql"
+	serverType := "http-chi"
 
 	switch serverType {
 	case "http-chi":

@@ -3,6 +3,7 @@ module github.com/batazor/shortlink
 go 1.13
 
 require (
+	github.com/Masterminds/squirrel v1.1.0
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/dgraph-io/badger v1.6.0
 	github.com/dgraph-io/badger/v2 v2.0.0 // indirect
@@ -11,18 +12,19 @@ require (
 	github.com/go-chi/cors v1.0.0
 	github.com/go-chi/render v1.0.1
 	github.com/go-redis/redis v6.15.6+incompatible
-	github.com/go-stack/stack v1.8.0 // indirect
+	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/golang/protobuf v1.3.2
 	github.com/graph-gophers/graphql-go v0.0.0-20191031232829-adde0d0f76a3
 	github.com/grpc-ecosystem/grpc-gateway v1.12.1
+	github.com/jackc/pgx/v4 v4.1.2
 	github.com/lib/pq v1.2.0
+	github.com/mattn/go-sqlite3 v1.11.0 // indirect
 	github.com/onsi/ginkgo v1.10.1 // indirect
 	github.com/onsi/gomega v1.7.0 // indirect
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/sirupsen/logrus v1.4.2
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/tidwall/pretty v1.0.0 // indirect
-	github.com/uber-go/atomic v1.4.0 // indirect
 	github.com/uber/jaeger-client-go v2.20.1+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
