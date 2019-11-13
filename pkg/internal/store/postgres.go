@@ -4,21 +4,26 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/Masterminds/squirrel"
 	"github.com/batazor/shortlink/pkg/link"
-	"github.com/jackc/pgx/v4"
+	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
+)
+
+var (
+	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
 
 // PostgresLinkList implementation of store interface
 type PostgresLinkList struct { // nolint unused
-	client *pgx.Conn
+	client *pgxpool.Pool
 }
 
 // Init ...
 func (p *PostgresLinkList) Init() error {
 	const (
-		DbUser     = "shortlink"
-		DbPassword = "shortlink"
+		DbUser     = "postgres"
+		DbPassword = "postgres"
 		DbName     = "shortlink"
 	)
 
@@ -26,7 +31,7 @@ func (p *PostgresLinkList) Init() error {
 
 	// Connect to Postgres
 	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", DbUser, DbPassword, DbName)
-	if p.client, err = pgx.Connect(context.Background(), dbinfo); err != nil {
+	if p.client, err = pgxpool.Connect(context.Background(), dbinfo); err != nil {
 		panic(err)
 	}
 
@@ -35,7 +40,16 @@ func (p *PostgresLinkList) Init() error {
 
 // Get ...
 func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
-	rows, err := p.client.Query(context.Background(), "SELECT url, hash, describe FROM links WHERE hash=$1", id)
+	// query builder
+	links := psql.Select("url, hash, describe").
+		From("links").
+		Where(squirrel.Eq{"hash": id})
+	query, args, err := links.ToSql()
+	if err != nil {
+		return nil, err
+	}
+
+	rows, err := p.client.Query(context.Background(), query, args...)
 
 	if err != nil {
 		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -58,12 +72,23 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
-	err := p.client.QueryRow(context.Background(), "INSERT INTO links(url,hash,describe) VALUES($1,$2,$3) ON CONFLICT (hash) DO NOTHING;", data.Url, data.Hash, data.Describe)
+	// query builder
+	links := psql.Insert("links").
+		Columns("url", "hash", "describe").
+		Values(data.Url, data.Hash, data.Describe)
 
-	if err.Scan().Error() == "sql: no rows in result set" {
+	query, args, err := links.ToSql()
+	if err != nil {
+		return nil, err
+	}
+
+	row := p.client.QueryRow(context.Background(), query, args...)
+
+	errScan := row.Scan(&data.Url, &data.Hash, &data.Describe).Error()
+	if errScan == "no rows in result set" {
 		return &data, nil
 	}
-	if err != nil {
+	if errScan != "" {
 		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
 	}
 
@@ -72,8 +97,15 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 
 // List ...
 func (p *PostgresLinkList) List() ([]*link.Link, error) {
-	rows, err := p.client.Query(context.Background(), "SELECT url, hash, describe describe FROM links")
+	// query builder
+	links := psql.Select("url, hash, describe").
+		From("links")
+	query, args, err := links.ToSql()
+	if err != nil {
+		return nil, err
+	}
 
+	rows, err := p.client.Query(context.Background(), query, args...)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
@@ -100,7 +132,15 @@ func (p *PostgresLinkList) Update(data link.Link) (*link.Link, error) {
 
 // Delete ...
 func (p *PostgresLinkList) Delete(id string) error {
-	_, err := p.client.Exec(context.Background(), "", "delete from links where hash=$1", id)
+	// query builder
+	links := psql.Delete("links").
+		Where(squirrel.Eq{"hash": id})
+	query, args, err := links.ToSql()
+	if err != nil {
+		return err
+	}
+
+	_, err = p.client.Exec(context.Background(), query, args...)
 	if err != nil {
 		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
