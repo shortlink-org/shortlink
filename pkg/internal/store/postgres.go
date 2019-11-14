@@ -67,34 +67,6 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 	return &response, nil
 }
 
-// Add ...
-func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
-
-	// query builder
-	links := psql.Insert("links").
-		Columns("url", "hash", "describe").
-		Values(data.Url, data.Hash, data.Describe)
-
-	query, args, err := links.ToSql()
-	if err != nil {
-		return nil, err
-	}
-
-	row := p.client.QueryRow(context.Background(), query, args...)
-
-	errScan := row.Scan(&data.Url, &data.Hash, &data.Describe).Error()
-	if errScan == "no rows in result set" {
-		return &data, nil
-	}
-	if errScan != "" {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
-	}
-
-	return &data, nil
-}
-
 // List ...
 func (p *PostgresLinkList) List() ([]*link.Link, error) {
 	// query builder
@@ -125,6 +97,34 @@ func (p *PostgresLinkList) List() ([]*link.Link, error) {
 	return response, nil
 }
 
+// Add ...
+func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
+	data.Hash = hash[:7]
+
+	// query builder
+	links := psql.Insert("links").
+		Columns("url", "hash", "describe").
+		Values(data.Url, data.Hash, data.Describe)
+
+	query, args, err := links.ToSql()
+	if err != nil {
+		return nil, err
+	}
+
+	row := p.client.QueryRow(context.Background(), query, args...)
+
+	errScan := row.Scan(&data.Url, &data.Hash, &data.Describe).Error()
+	if errScan == "no rows in result set" {
+		return &data, nil
+	}
+	if errScan != "" {
+		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
+	}
+
+	return &data, nil
+}
+
 // Update ...
 func (p *PostgresLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil
@@ -142,7 +142,7 @@ func (p *PostgresLinkList) Delete(id string) error {
 
 	_, err = p.client.Exec(context.Background(), query, args...)
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
+		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
 
 	return nil
