@@ -5,8 +5,8 @@ import (
 	"net"
 	"net/http"
 
+	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/internal/store"
-	"github.com/batazor/shortlink/pkg/logger"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 )
