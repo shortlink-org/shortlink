@@ -1,38 +1,48 @@
 {
-	"variables": [],
 	"info": {
+		"_postman_id": "57c4f7c5-785f-4db1-b479-ed96467b152d",
 		"name": "shortlink",
-		"_postman_id": "9d8c970a-3915-8809-04c6-a392e86c1daf",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "HTTP",
-			"description": "",
 			"item": [
 				{
 					"name": "Get link",
 					"request": {
-						"url": "localhost:7070/api/{{hash}}",
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
+						"url": {
+							"raw": "localhost:7070/api/{{hash}}",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api",
+								"{{hash}}"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get links",
 					"request": {
-						"url": "localhost:7070/api/links",
 						"method": "GET",
 						"header": [],
-						"body": {},
-						"description": ""
+						"url": {
+							"raw": "localhost:7070/api/links",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api",
+								"links"
+							]
+						}
 					},
 					"response": []
 				},
@@ -53,86 +63,116 @@
 						}
 					],
 					"request": {
-						"url": "localhost:7070/api",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"description": ""
+								"value": "application/x-www-form-urlencoded"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"url\":\"https://example.com\",\"describe\":\"example link\"}"
 						},
-						"description": ""
+						"url": {
+							"raw": "localhost:7070/api",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "delete link",
 					"request": {
-						"url": "localhost:7070/api",
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"hash\":\"{{hash}}\"}"
 						},
-						"description": ""
+						"url": {
+							"raw": "localhost:7070/api",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
 		},
 		{
 			"name": "GraphQL",
-			"description": "",
 			"item": [
 				{
 					"name": "Get link",
 					"request": {
-						"url": "localhost:7070/api/query",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"query\": \"{ link(hash: \\\"{{hash}}\\\") {url} }\"}"
 						},
-						"description": ""
+						"url": {
+							"raw": "localhost:7070/api/query",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api",
+								"query"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "Get links",
 					"request": {
-						"url": "localhost:7070/api/query",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"query\": \"{ links { url } }\"}"
 						},
-						"description": ""
+						"url": {
+							"raw": "localhost:7070/api/query",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api",
+								"query"
+							]
+						}
 					},
 					"response": []
 				},
@@ -153,44 +193,123 @@
 						}
 					],
 					"request": {
-						"url": "localhost:7070/api/query",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"query\":\"mutation createLink { createLink( url: \\\"https://example.com\\\", hash: \\\"\\\", describe: \\\"\\\" ) { url hash describe } }\"}"
 						},
-						"description": ""
+						"url": {
+							"raw": "localhost:7070/api/query",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api",
+								"query"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "delete link",
 					"request": {
-						"url": "localhost:7070/api/query",
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
+								"value": "application/json"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\"query\":\"mutation deleteLink { deleteLink( hash: \\\"{{hash}}\\\" ) { } }\"}"
 						},
-						"description": ""
+						"url": {
+							"raw": "localhost:7070/api/query",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api",
+								"query"
+							]
+						}
 					},
 					"response": []
 				}
-			]
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Monitoring",
+			"item": [
+				{
+					"name": "liveness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9090/live",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"live"
+							]
+						},
+						"description": "liveness endpoint (HTTP 200 if healthy, HTTP 503 if unhealthy)"
+					},
+					"response": []
+				},
+				{
+					"name": "readiness",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9090/ready",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"ready"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "prometheus metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:9090/metrics",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"metrics"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }

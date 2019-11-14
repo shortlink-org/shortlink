@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/batazor/shortlink/pkg/logger"
+	"github.com/batazor/shortlink/internal/logger"
 
 	"github.com/go-chi/chi/middleware"
 )
