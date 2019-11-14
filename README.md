@@ -64,3 +64,9 @@ docker-compose \
 + DGraph
 + LevelDB
 + Badger
+
+### Cloud-Native
+
++ Prometheus
++ HealthCheck
++ Support K8S (Helm Chart)

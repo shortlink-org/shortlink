@@ -1,5 +1,14 @@
 apiVersion: v1
 appVersion: "1.0"
-description: A Helm chart for Kubernetes
 name: shortlink
-version: 0.1.0
+description: Shortlink service
+version: 0.2.0
+keywords:
+  - example
+home: https://batazor.github.io/shortlink/
+sources:
+  - https://github.com/batazor/shortlink
+maintainers:
+  - email: batazor111@gmail.com
+    name: Login Victor
+engine: gotpl

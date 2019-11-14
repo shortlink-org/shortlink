@@ -2,10 +2,10 @@ package graphql
 
 import (
 	"context"
+	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/api/graphql/resolver"
 	"github.com/batazor/shortlink/pkg/api/graphql/schema"
 	"github.com/batazor/shortlink/pkg/internal/store"
-	"github.com/batazor/shortlink/pkg/logger"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 	"net/http"
