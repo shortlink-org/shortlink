@@ -2,16 +2,81 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
-
-image:
-  repository: nginx
-  tag: stable
-  pullPolicy: IfNotPresent
-
-imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+deploy:
+  replicaCount: 3
+
+  imagePullSecrets: []
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  terminationGracePeriodSeconds: 90
+  podAnnotations: {}
+
+  image:
+    repository: batazor/shortlink
+    tag: 0.1.0
+    ## Global imagePullPolicy
+    ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    ## Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    pullPolicy: IfNotPresent
+
+  ## Node labels and tolerations for pod assignment
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+  # nodeSelector:
+  #  shortlink: "true"
+  tolerations: []
+
+  affinity: []
+
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 7070
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      successThreshold: 1
+
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 7070
+      initialDelaySeconds: 5
+      periodSeconds: 5
+      successThreshold: 1
+
+  # volumes:
+  #  hostPath: /data/carenda/upload
+
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  podSecurityContext: {}
+  # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -20,20 +85,9 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
 service:
   type: ClusterIP
-  port: 80
+  port: 7070
 
 ingress:
   enabled: false
@@ -48,21 +102,3 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
