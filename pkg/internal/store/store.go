@@ -33,6 +33,8 @@ func (s *Store) Use() DB {
 		store = &RedisLinkList{}
 	case "dgraph":
 		store = &DGraphLinkList{}
+	case "sqlite":
+		store = &SQLiteLinkList{}
 	case "leveldb":
 		store = &LevelDBLinkList{}
 	case "badger":
