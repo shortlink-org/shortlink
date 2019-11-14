@@ -3,7 +3,7 @@
 PROJECT_NAME := shortlink
 
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
-CI_COMMIT_TAG := 0.1.0
+CI_COMMIT_TAG := latest
 
 DOCKER_USERNAME := "batazor"
 
