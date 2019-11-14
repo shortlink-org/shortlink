@@ -69,10 +69,8 @@ func (s *Service) initMonitoring() *http.ServeMux {
 	// The healthcheck related metrics will be prefixed with the provided namespace
 	health := healthcheck.NewMetricsHandler(registry, "common")
 
-	// Add a liveness check that always succeeds
-	health.AddLivenessCheck("successful-check", func() error {
-		return nil
-	})
+	// Our app is not happy if we've got more than 100 goroutines running.
+	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100))
 
 	// Create an "common" listener
 	commonMux := http.NewServeMux()
