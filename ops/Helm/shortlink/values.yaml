@@ -36,18 +36,20 @@ deploy:
 
   affinity: []
 
+  # define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
-      path: /
-      port: 7070
+      path: /live
+      port: 9090
       initialDelaySeconds: 5
       periodSeconds: 5
       successThreshold: 1
 
+  # define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
-      path: /
-      port: 7070
+      path: /ready
+      port: 9090
       initialDelaySeconds: 5
       periodSeconds: 5
       successThreshold: 1
