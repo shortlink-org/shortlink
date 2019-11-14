@@ -253,7 +253,7 @@
 			"name": "Monitoring",
 			"item": [
 				{
-					"name": "localhost:9090/live",
+					"name": "liveness",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -272,18 +272,18 @@
 					"response": []
 				},
 				{
-					"name": "localhost:9090/read",
+					"name": "readiness",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:9090/read",
+							"raw": "localhost:9090/ready",
 							"host": [
 								"localhost"
 							],
 							"port": "9090",
 							"path": [
-								"read"
+								"ready"
 							]
 						}
 					},
