@@ -71,3 +71,12 @@ docker-compose \
 + Prometheus
 + HealthCheck
 + Support K8S (Helm Chart)
+
+### Configuration
+
+##### [12 factors: ENV](https://12factor.net/config)
+
+| Name               | Default                                   | Description                                              |
+|--------------------|-------------------------------------------|----------------------------------------------------------|
+| STORE_TYPE         | ram                                       | Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram |
+| STORE_MONGODB_URI  | mongodb://localhost:27017                 | MongoDB URI                                              |

@@ -1,7 +1,10 @@
 package store
 
 import (
+	"context"
+	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/link"
+	"github.com/spf13/viper"
 )
 
 // DB - common interface of store
@@ -17,15 +20,19 @@ type DB interface { // nolint unused
 }
 
 // Store abstract type
-type Store struct{} // nolint unused
+type Store struct { // nolint unused
+	typeStore string
+}
 
 // Use return implementation of store
-func (s *Store) Use() DB {
+func (s *Store) Use(ctx context.Context) DB {
 	var store DB
+	log := logger.GetLogger(ctx)
 
-	typeStore := "ram"
+	// Get configuration
+	s.getConfig()
 
-	switch typeStore {
+	switch s.typeStore {
 	case "postgres":
 		store = &PostgresLinkList{}
 	case "mongo":
@@ -50,5 +57,16 @@ func (s *Store) Use() DB {
 		panic(err)
 	}
 
+	log.Info("run store", logger.Fields{
+		"store": s.typeStore,
+	})
+
 	return store
+}
+
+// getConfig - get configuration
+func (s *Store) getConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_TYPE", "ram")
+	s.typeStore = viper.GetString("STORE_TYPE")
 }

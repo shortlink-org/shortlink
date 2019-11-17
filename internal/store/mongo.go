@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"fmt"
+	"github.com/spf13/viper"
 	"time"
 
 	"github.com/batazor/shortlink/pkg/link"
@@ -15,14 +16,18 @@ import (
 // MongoLinkList implementation of store interface
 type MongoLinkList struct { // nolint unused
 	client *mongo.Client
+	uri    string
 }
 
 // Init ...
 func (m *MongoLinkList) Init() error {
 	var err error
 
+	// Get configuration
+	m.getConfig()
+
 	// Connect to MongoDB
-	m.client, err = mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+	m.client, err = mongo.NewClient(options.Client().ApplyURI(m.uri))
 	if err != nil {
 		panic(err)
 	}
@@ -141,4 +146,11 @@ func (m *MongoLinkList) Delete(id string) error {
 	}
 
 	return nil
+}
+
+// getConfig - get configuration
+func (m *MongoLinkList) getConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_MONGODB_URI", "mongodb://localhost:27017")
+	m.uri = viper.GetString("STORE_MONGODB_URI")
 }
