@@ -2,7 +2,7 @@ package api
 
 import (
 	"context"
-	"github.com/batazor/shortlink/pkg/store"
+	"github.com/batazor/shortlink/internal/store"
 )
 
 // API - general describe of API

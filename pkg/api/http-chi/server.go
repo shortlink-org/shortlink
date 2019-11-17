@@ -3,9 +3,9 @@ package httpchi
 import (
 	"context"
 	"fmt"
+	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/store"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
-	"github.com/batazor/shortlink/pkg/logger"
-	"github.com/batazor/shortlink/pkg/store"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"

@@ -40,7 +40,8 @@ func (p *PostgresLinkList) Init() error {
 
 // Close ...
 func (p *PostgresLinkList) Close() error {
-	return p.client.Close()
+	p.client.Close()
+	return nil
 }
 
 // Get ...
