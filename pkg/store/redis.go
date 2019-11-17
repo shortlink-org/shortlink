@@ -29,6 +29,11 @@ func (r *RedisLinkList) Init() error {
 	return nil
 }
 
+// Close ...
+func (r *RedisLinkList) Close() error {
+	return r.client.Close()
+}
+
 // Get ...
 func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 	val, err := r.client.Get(id).Result()

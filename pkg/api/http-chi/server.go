@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
-	"github.com/batazor/shortlink/pkg/internal/store"
 	"github.com/batazor/shortlink/pkg/logger"
+	"github.com/batazor/shortlink/pkg/store"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
@@ -14,11 +14,9 @@ import (
 )
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context) error {
-	var st store.Store
-
+func (api *API) Run(ctx context.Context, db store.DB) error {
 	api.ctx = ctx
-	api.store = st.Use()
+	api.store = db
 
 	log := logger.GetLogger(ctx)
 	log.Info("Run HTTP-CHI API")

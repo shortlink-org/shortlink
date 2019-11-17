@@ -7,6 +7,7 @@ import (
 	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
 	httpchi "github.com/batazor/shortlink/pkg/api/http-chi"
 	"github.com/batazor/shortlink/pkg/logger"
+	"github.com/batazor/shortlink/pkg/store"
 	"github.com/batazor/shortlink/pkg/traicing"
 	"github.com/opentracing/opentracing-go"
 	"io"
@@ -16,6 +17,7 @@ type Service struct {
 	log         logger.Logger
 	tracer      opentracing.Tracer
 	tracerClose io.Closer
+	db          store.DB
 }
 
 func (s *Service) initLogger() {
@@ -52,7 +54,7 @@ func (s *Service) runAPIServer(ctx context.Context) {
 		API = &httpchi.API{}
 	}
 
-	if err := API.Run(ctx); err != nil {
+	if err := API.Run(ctx, s.db); err != nil {
 		s.log.Fatal(err.Error())
 	}
 }
@@ -70,12 +72,22 @@ func (s *Service) Start() {
 	s.initTracer()
 	ctx = traicing.WithTraicer(ctx, s.tracer) // Add tracer to context
 
+	// Add Store
+	var st store.Store
+	s.db = st.Use()
+
 	// Run API server
 	s.runAPIServer(ctx)
 }
 
 // Stop - stop this a service
 func (s *Service) Stop() {
+	// close DB
+	if err := s.db.Close(); err != nil {
+		s.log.Error(err.Error())
+	}
+
+	// close tracer
 	if err := s.tracerClose.Close(); err != nil {
 		s.log.Error(err.Error())
 	}

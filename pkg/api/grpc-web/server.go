@@ -5,8 +5,8 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/batazor/shortlink/pkg/internal/store"
 	"github.com/batazor/shortlink/pkg/logger"
+	"github.com/batazor/shortlink/pkg/store"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc"
 )
@@ -18,11 +18,9 @@ type API struct { // nolint unused
 }
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context) error {
-	var st store.Store
-
+func (api *API) Run(ctx context.Context, db store.DB) error {
 	api.ctx = ctx
-	api.store = st.Use()
+	api.store = db
 
 	logger := logger.GetLogger(ctx)
 	logger.Info("Run gRPC-GateWay API")

@@ -11,7 +11,7 @@ func TestLink(t *testing.T) { //nolint unused
 	var st Store
 	s := st.Use()
 
-	if err := s.Init(); err != nil {
+	if err := Init(); err != nil {
 		t.Errorf("Error  create a new link list: %s", err)
 	}
 
@@ -21,13 +21,13 @@ func TestLink(t *testing.T) { //nolint unused
 	}
 
 	// test add new a link
-	link, err := s.Add(newLink)
+	link, err := Add(newLink)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
 
 	// test get link
-	link, err = s.Get(link.Hash)
+	link, err = Get(link.Hash)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
@@ -36,7 +36,7 @@ func TestLink(t *testing.T) { //nolint unused
 	}
 
 	// test get links
-	links, err := s.List()
+	links, err := List()
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
@@ -45,11 +45,11 @@ func TestLink(t *testing.T) { //nolint unused
 	}
 
 	// delete link
-	err = s.Delete(newLink.Hash)
+	err = Delete(newLink.Hash)
 	if err != nil {
 		t.Errorf("Error delete item %s", err)
 	}
-	_, err = s.Get(newLink.Hash)
+	_, err = Get(newLink.Hash)
 	if err == nil {
 		t.Errorf("Assert 'Not found' but get nil")
 	}
