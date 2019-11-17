@@ -37,6 +37,11 @@ func (lite *SQLiteLinkList) Init() error {
 	return nil
 }
 
+// Close ...
+func (lite *SQLiteLinkList) Close() error {
+	return lite.client.Close()
+}
+
 // Get ...
 func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
 	// query builder

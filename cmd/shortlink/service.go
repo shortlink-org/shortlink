@@ -2,19 +2,20 @@ package main
 
 import (
 	"context"
+	"io"
+	"net/http"
+
+	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/store"
+	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/batazor/shortlink/pkg/api"
 	"github.com/batazor/shortlink/pkg/api/graphql"
 	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
 	httpchi "github.com/batazor/shortlink/pkg/api/http-chi"
-	"github.com/batazor/shortlink/pkg/logger"
-	"github.com/batazor/shortlink/pkg/store"
-	"github.com/batazor/shortlink/pkg/traicing"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing/opentracing-go"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"io"
-	"net/http"
 )
 
 type Service struct {
