@@ -17,6 +17,11 @@ FROM alpine:latest
 RUN addgroup -S 997 && adduser -S -g 997 997
 USER 997
 
+HEALTHCHECK \
+  --interval=3s \
+  --timeout=3s \
+  CMD curl -f http://localhost:9090/ready || exit 1
+
 WORKDIR /app/
 COPY --from=builder /go/src/github/batazor/shortlink/app .
 CMD ["./app"]

@@ -2,6 +2,12 @@
 github.com/AndreasBriese/bbloom
 # github.com/BurntSushi/toml v0.3.1
 github.com/BurntSushi/toml
+# github.com/Masterminds/squirrel v1.1.0
+github.com/Masterminds/squirrel
+# github.com/beorn7/perks v1.0.1
+github.com/beorn7/perks/quantile
+# github.com/cespare/xxhash/v2 v2.1.0
+github.com/cespare/xxhash/v2
 # github.com/dgraph-io/badger v1.6.0
 github.com/dgraph-io/badger
 github.com/dgraph-io/badger/options
@@ -47,7 +53,7 @@ github.com/golang/protobuf/ptypes/timestamp
 github.com/golang/protobuf/ptypes/wrappers
 # github.com/golang/snappy v0.0.1
 github.com/golang/snappy
-# github.com/graph-gophers/graphql-go v0.0.0-20191031232829-adde0d0f76a3
+# github.com/graph-gophers/graphql-go v0.0.0-20191115155744-f33e81362277
 github.com/graph-gophers/graphql-go
 github.com/graph-gophers/graphql-go/errors
 github.com/graph-gophers/graphql-go/internal/common
@@ -66,18 +72,62 @@ github.com/graph-gophers/graphql-go/trace
 github.com/grpc-ecosystem/grpc-gateway/internal
 github.com/grpc-ecosystem/grpc-gateway/runtime
 github.com/grpc-ecosystem/grpc-gateway/utilities
-# github.com/konsorten/go-windows-terminal-sequences v1.0.1
+# github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
+github.com/heptiolabs/healthcheck
+# github.com/jackc/chunkreader/v2 v2.0.0
+github.com/jackc/chunkreader/v2
+# github.com/jackc/pgconn v1.1.0
+github.com/jackc/pgconn
+github.com/jackc/pgconn/internal/ctxwatch
+github.com/jackc/pgconn/stmtcache
+# github.com/jackc/pgio v1.0.0
+github.com/jackc/pgio
+# github.com/jackc/pgpassfile v1.0.0
+github.com/jackc/pgpassfile
+# github.com/jackc/pgproto3/v2 v2.0.0
+github.com/jackc/pgproto3/v2
+# github.com/jackc/pgtype v1.0.2
+github.com/jackc/pgtype
+# github.com/jackc/pgx/v4 v4.1.2
+github.com/jackc/pgx/v4
+github.com/jackc/pgx/v4/internal/sanitize
+github.com/jackc/pgx/v4/pgxpool
+# github.com/jackc/puddle v1.0.0
+github.com/jackc/puddle
+# github.com/konsorten/go-windows-terminal-sequences v1.0.2
 github.com/konsorten/go-windows-terminal-sequences
+# github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
+github.com/lann/builder
+# github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0
+github.com/lann/ps
 # github.com/lib/pq v1.2.0
 github.com/lib/pq
 github.com/lib/pq/oid
 github.com/lib/pq/scram
+# github.com/mattn/go-sqlite3 v1.12.0
+github.com/mattn/go-sqlite3
+# github.com/matttproud/golang_protobuf_extensions v1.0.1
+github.com/matttproud/golang_protobuf_extensions/pbutil
 # github.com/opentracing/opentracing-go v1.1.0
 github.com/opentracing/opentracing-go
 github.com/opentracing/opentracing-go/ext
 github.com/opentracing/opentracing-go/log
 # github.com/pkg/errors v0.8.1
 github.com/pkg/errors
+# github.com/prometheus/client_golang v1.2.1
+github.com/prometheus/client_golang/prometheus
+github.com/prometheus/client_golang/prometheus/internal
+github.com/prometheus/client_golang/prometheus/promhttp
+# github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4
+github.com/prometheus/client_model/go
+# github.com/prometheus/common v0.7.0
+github.com/prometheus/common/expfmt
+github.com/prometheus/common/internal/bitbucket.org/ww/goautoneg
+github.com/prometheus/common/model
+# github.com/prometheus/procfs v0.0.5
+github.com/prometheus/procfs
+github.com/prometheus/procfs/internal/fs
+github.com/prometheus/procfs/internal/util
 # github.com/sirupsen/logrus v1.4.2
 github.com/sirupsen/logrus
 # github.com/syndtr/goleveldb v1.0.0
@@ -152,7 +202,7 @@ go.uber.org/atomic
 go.uber.org/multierr
 # go.uber.org/tools v0.0.0-20190618225709-2cfd321de3ee
 go.uber.org/tools/update-license
-# go.uber.org/zap v1.12.0
+# go.uber.org/zap v1.13.0
 go.uber.org/zap
 go.uber.org/zap/buffer
 go.uber.org/zap/internal/bufferpool
@@ -173,13 +223,23 @@ golang.org/x/net/internal/timeseries
 golang.org/x/net/trace
 # golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e
 golang.org/x/sync/semaphore
-# golang.org/x/sys v0.0.0-20190922100055-0a153f010e69
+# golang.org/x/sys v0.0.0-20191010194322-b09406accb47
 golang.org/x/sys/unix
+golang.org/x/sys/windows
 # golang.org/x/text v0.3.2
+golang.org/x/text/cases
+golang.org/x/text/internal
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/tag
+golang.org/x/text/language
+golang.org/x/text/runes
 golang.org/x/text/secure/bidirule
+golang.org/x/text/secure/precis
 golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
+golang.org/x/text/width
 # golang.org/x/tools v0.0.0-20191029190741-b9c20aec41a5
 golang.org/x/tools/go/analysis
 golang.org/x/tools/go/analysis/passes/inspect
@@ -196,7 +256,10 @@ golang.org/x/tools/internal/fastwalk
 golang.org/x/tools/internal/gopathwalk
 golang.org/x/tools/internal/semver
 golang.org/x/tools/internal/span
-# google.golang.org/genproto v0.0.0-20191108220845-16a3f7862a1a
+# golang.org/x/xerrors v0.0.0-20190717185122-a985d3407aa7
+golang.org/x/xerrors
+golang.org/x/xerrors/internal
+# google.golang.org/genproto v0.0.0-20191115221424-83cc0476cb11
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
 google.golang.org/genproto/googleapis/rpc/status

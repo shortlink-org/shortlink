@@ -104,7 +104,7 @@ func (r *helloWorldResolver) Hello(ctx context.Context) (string, error) {
 
 Errors returned by resolvers can include custom extensions by implementing the `ResolverError` interface:
 
-```
+```go
 type ResolverError interface {
 	error
 	Extensions() map[string]interface{}
@@ -113,7 +113,7 @@ type ResolverError interface {
 
 Example of a simple custom error:
 
-```
+```go
 type droidNotFoundError struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
@@ -133,7 +133,7 @@ func (e droidNotFoundError) Extensions() map[string]interface{} {
 
 Which could produce a GraphQL error such as:
 
-```
+```go
 {
   "errors": [
     {
@@ -155,6 +155,8 @@ Which could produce a GraphQL error such as:
 
 [tonyghita/graphql-go-example](https://github.com/tonyghita/graphql-go-example) - A more "productionized" version of the Star Wars API example given in this repository.
 
-[deltaskelta/graphql-go-pets-example](https://github.com/deltaskelta/graphql-go-pets-example) - graphql-go resolving against a sqlite database
+[deltaskelta/graphql-go-pets-example](https://github.com/deltaskelta/graphql-go-pets-example) - graphql-go resolving against a sqlite database.
 
-[OscarYuen/go-graphql-starter](https://github.com/OscarYuen/go-graphql-starter) - a starter application integrated with dataloader, psql and basic authentication
+[OscarYuen/go-graphql-starter](https://github.com/OscarYuen/go-graphql-starter) - A starter application integrated with dataloader, psql and basic authentication.
+
+[zaydek/graphql-go-walkthrough](https://github.com/ZAYDEK/graphql-go-walkthrough) - A beginner friendly walkthrough for prospective developers.

@@ -9,8 +9,12 @@ import (
 	"github.com/batazor/shortlink/pkg/logger"
 	"github.com/batazor/shortlink/pkg/store"
 	"github.com/batazor/shortlink/pkg/traicing"
+	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing/opentracing-go"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"io"
+	"net/http"
 )
 
 type Service struct {
@@ -41,7 +45,7 @@ func (s *Service) initTracer() {
 // runAPIServer - start HTTP-server
 func (s *Service) runAPIServer(ctx context.Context) {
 	var API api.API
-	serverType := "graphql"
+	serverType := "http-chi"
 
 	switch serverType {
 	case "http-chi":
@@ -57,6 +61,32 @@ func (s *Service) runAPIServer(ctx context.Context) {
 	if err := API.Run(ctx, s.db); err != nil {
 		s.log.Fatal(err.Error())
 	}
+}
+
+func (s *Service) initMonitoring() *http.ServeMux {
+	// Create a new Prometheus registry
+	registry := prometheus.NewRegistry()
+
+	// Create a metrics-exposing Handler for the Prometheus registry
+	// The healthcheck related metrics will be prefixed with the provided namespace
+	health := healthcheck.NewMetricsHandler(registry, "common")
+
+	// Our app is not happy if we've got more than 100 goroutines running.
+	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100))
+
+	// Create an "common" listener
+	commonMux := http.NewServeMux()
+
+	// Expose prometheus metrics on /metrics
+	commonMux.Handle("/metrics", promhttp.HandlerFor(registry, promhttp.HandlerOpts{}))
+
+	// Expose a liveness check on /live
+	commonMux.HandleFunc("/live", health.LiveEndpoint)
+
+	// Expose a readiness check on /ready
+	commonMux.HandleFunc("/ready", health.ReadyEndpoint)
+
+	return commonMux
 }
 
 // Start - run this a service
@@ -75,6 +105,10 @@ func (s *Service) Start() {
 	// Add Store
 	var st store.Store
 	s.db = st.Use()
+
+	// Monitoring endpoints
+	monitoringServer := s.initMonitoring()
+	go http.ListenAndServe("0.0.0.0:9090", monitoringServer) // nolint errcheck
 
 	// Run API server
 	s.runAPIServer(ctx)
