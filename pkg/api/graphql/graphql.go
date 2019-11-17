@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/batazor/shortlink/pkg/api/graphql/resolver"
 	"github.com/batazor/shortlink/pkg/api/graphql/schema"
-	"github.com/batazor/shortlink/pkg/internal/store"
 	"github.com/batazor/shortlink/pkg/logger"
+	"github.com/batazor/shortlink/pkg/store"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 	"net/http"
@@ -26,11 +26,9 @@ func (api *API) GetHandler() *relay.Handler {
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context) error {
-	var st store.Store
-
+func (api *API) Run(ctx context.Context, db store.DB) error {
 	api.ctx = ctx
-	api.store = st.Use()
+	api.store = db
 
 	log := logger.GetLogger(ctx)
 	log.Info("Run GraphQL API")

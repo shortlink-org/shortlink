@@ -34,6 +34,11 @@ func (p *PostgresLinkList) Init() error {
 	return nil
 }
 
+// Close ...
+func (p *PostgresLinkList) Close() error {
+	return p.client.Close()
+}
+
 // Get ...
 func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 	rows, err := p.client.Query("SELECT url, hash, describe FROM links WHERE hash=$1", id)

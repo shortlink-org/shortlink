@@ -2,7 +2,7 @@ package httpchi
 
 import (
 	"context"
-	"github.com/batazor/shortlink/pkg/internal/store"
+	"github.com/batazor/shortlink/pkg/store"
 )
 
 // API ...

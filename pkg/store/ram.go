@@ -21,6 +21,11 @@ func (ram *RAMLinkList) Init() error {
 	return nil
 }
 
+// Close ...
+func (ram *RAMLinkList) Close() error {
+	return nil
+}
+
 // Get ...
 func (ram *RAMLinkList) Get(id string) (*link.Link, error) {
 	ram.mu.Lock()

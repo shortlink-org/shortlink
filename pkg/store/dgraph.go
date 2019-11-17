@@ -46,6 +46,11 @@ func (dg *DGraphLinkList) Init() error {
 	return nil
 }
 
+// Close ...
+func (dg *DGraphLinkList) Close() error {
+	return nil
+}
+
 // get - private `get` method
 func (dg *DGraphLinkList) get(id string) (*DGraphLinkResponse, error) {
 	ctx := context.Background()

@@ -7,6 +7,7 @@ import (
 // DB - common interface of store
 type DB interface { // nolint unused
 	Init() error
+	Close() error
 
 	Get(id string) (*link.Link, error)
 	List() ([]*link.Link, error)

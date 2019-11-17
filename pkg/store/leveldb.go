@@ -24,6 +24,11 @@ func (l *LevelDBLinkList) Init() error {
 	return nil
 }
 
+// Close ...
+func (l *LevelDBLinkList) Close() error {
+	return l.client.Close()
+}
+
 // Get ...
 func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)

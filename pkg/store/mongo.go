@@ -37,6 +37,11 @@ func (m *MongoLinkList) Init() error {
 	return nil
 }
 
+// Close ...
+func (m *MongoLinkList) Close() error {
+	return m.client.Disconnect(context.Background())
+}
+
 // Get ...
 func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 	collection := m.client.Database("shortlink").Collection("links")
