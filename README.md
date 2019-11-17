@@ -64,6 +64,7 @@ docker-compose \
 + DGraph
 + LevelDB
 + Badger
++ SQLite
 
 ### Cloud-Native
 
