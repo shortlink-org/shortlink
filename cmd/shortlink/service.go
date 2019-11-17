@@ -105,7 +105,7 @@ func (s *Service) Start() {
 
 	// Add Store
 	var st store.Store
-	s.db = st.Use()
+	s.db = st.Use(ctx)
 
 	// Monitoring endpoints
 	monitoringServer := s.initMonitoring()
