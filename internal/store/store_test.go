@@ -4,15 +4,26 @@ import (
 	"context"
 	"testing"
 
+	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/link"
 )
 
 // TestLink ...
 func TestLink(t *testing.T) { //nolint unused
-	var st Store
-	s := st.Use(context.Background())
+	ctx := context.Background()
 
-	if err := s.Init(); err != nil {
+	// Init logger
+	conf := logger.Configuration{}
+	log, err := logger.NewLogger(logger.Zap, conf)
+	if err != nil {
+		t.Errorf("Error init a logger: %s", err)
+	}
+	ctx = logger.WithLogger(ctx, log)
+
+	var st Store
+	s := st.Use(ctx)
+
+	if err = s.Init(); err != nil {
 		t.Errorf("Error  create a new link list: %s", err)
 	}
 
