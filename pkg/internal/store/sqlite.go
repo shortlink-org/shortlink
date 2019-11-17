@@ -1,50 +1,44 @@
 package store
 
 import (
-	"context"
+	"database/sql"
 	"fmt"
-
 	"github.com/Masterminds/squirrel"
 	"github.com/batazor/shortlink/pkg/link"
-	"github.com/jackc/pgx/v4/pgxpool"
-	_ "github.com/lib/pq" // need for init PostgreSQL interface
+	_ "github.com/mattn/go-sqlite3"
 )
 
-var (
-	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
-)
-
-// PostgresLinkList implementation of store interface
-type PostgresLinkList struct { // nolint unused
-	client *pgxpool.Pool
+// SQLiteLinkList implementation of store interface
+type SQLiteLinkList struct { // nolint unused
+	client *sql.DB
 }
 
 // Init ...
-func (p *PostgresLinkList) Init() error {
-	const (
-		DbUser     = "postgres"
-		DbPassword = "postgres"
-		DbName     = "shortlink"
-	)
-
+func (lite *SQLiteLinkList) Init() error {
 	var err error
 
-	// Connect to Postgres
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", DbUser, DbPassword, DbName)
-	if p.client, err = pgxpool.Connect(context.Background(), dbinfo); err != nil {
+	if lite.client, err = sql.Open("sqlite3", "/tmp/links.sqlite"); err != nil {
+		return err
+	}
+
+	sqlStmt := `
+		CREATE TABLE IF NOT EXISTS links (
+			id integer not null primary key,
+			url      varchar(255) not null,
+			hash     varchar(255) not null,
+			describe text
+		);
+	`
+
+	if _, err = lite.client.Exec(sqlStmt); err != nil {
 		panic(err)
 	}
 
 	return nil
 }
 
-// Close ...
-func (p *PostgresLinkList) Close() error {
-	return p.client.Close()
-}
-
 // Get ...
-func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
+func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links").
@@ -54,26 +48,23 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 		return nil, err
 	}
 
-	rows, err := p.client.Query(context.Background(), query, args...)
-
+	stmt, err := lite.client.Prepare(query)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
+	defer stmt.Close() // nolint errcheck
 
 	var response link.Link
-
-	for rows.Next() {
-		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
-		if err != nil {
-			return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
-		}
+	err = stmt.QueryRow(args...).Scan(&response.Url, &response.Hash, &response.Describe)
+	if err != nil {
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
 // List ...
-func (p *PostgresLinkList) List() ([]*link.Link, error) {
+func (lite *SQLiteLinkList) List() ([]*link.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links")
@@ -82,10 +73,11 @@ func (p *PostgresLinkList) List() ([]*link.Link, error) {
 		return nil, err
 	}
 
-	rows, err := p.client.Query(context.Background(), query, args...)
+	rows, err := lite.client.Query(query, args...)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
+	defer rows.Close() // nolint errcheck
 
 	var response []*link.Link
 
@@ -103,7 +95,7 @@ func (p *PostgresLinkList) List() ([]*link.Link, error) {
 }
 
 // Add ...
-func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
+func (lite *SQLiteLinkList) Add(data link.Link) (*link.Link, error) {
 	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
@@ -117,13 +109,8 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 		return nil, err
 	}
 
-	row := p.client.QueryRow(context.Background(), query, args...)
-
-	errScan := row.Scan(&data.Url, &data.Hash, &data.Describe).Error()
-	if errScan == "no rows in result set" {
-		return &data, nil
-	}
-	if errScan != "" {
+	_, err = lite.client.Exec(query, args...)
+	if err != nil {
 		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
 	}
 
@@ -131,12 +118,12 @@ func (p *PostgresLinkList) Add(data link.Link) (*link.Link, error) {
 }
 
 // Update ...
-func (p *PostgresLinkList) Update(data link.Link) (*link.Link, error) {
+func (lite *SQLiteLinkList) Update(data link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (p *PostgresLinkList) Delete(id string) error {
+func (lite *SQLiteLinkList) Delete(id string) error {
 	// query builder
 	links := psql.Delete("links").
 		Where(squirrel.Eq{"hash": id})
@@ -145,7 +132,7 @@ func (p *PostgresLinkList) Delete(id string) error {
 		return err
 	}
 
-	_, err = p.client.Exec(context.Background(), query, args...)
+	_, err = lite.client.Exec(query, args...)
 	if err != nil {
 		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
