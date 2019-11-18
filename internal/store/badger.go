@@ -3,6 +3,7 @@ package store
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/dgraph-io/badger"
@@ -11,12 +12,17 @@ import (
 // BadgerLinkList implementation of store interface
 type BadgerLinkList struct { // nolint unused
 	client *badger.DB
+	path   string
 }
 
 // Init ...
 func (b *BadgerLinkList) Init() error {
 	var err error
-	b.client, err = badger.Open(badger.DefaultOptions("/tmp/links.badger"))
+
+	// Get configuration
+	b.getConfig()
+
+	b.client, err = badger.Open(badger.DefaultOptions(b.path))
 	if err != nil {
 		return err
 	}
@@ -156,4 +162,11 @@ func (b *BadgerLinkList) Delete(id string) error {
 		return err
 	})
 	return err
+}
+
+// getConfig - get configuration
+func (b *BadgerLinkList) getConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_BADGER_PATH", "/tmp/links.badger")
+	b.path = viper.GetString("STORE_BADGER_PATH")
 }
