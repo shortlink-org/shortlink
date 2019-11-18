@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/store"
+	"github.com/batazor/shortlink/pkg/api"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -14,14 +15,12 @@ import (
 )
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, db store.DB) error {
+func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 	api.ctx = ctx
 	api.store = db
 
 	log := logger.GetLogger(ctx)
 	log.Info("Run HTTP-CHI API")
-
-	PORT := "7070"
 
 	r := chi.NewRouter()
 
@@ -52,8 +51,8 @@ func (api *API) Run(ctx context.Context, db store.DB) error {
 
 	r.Mount("/api", api.Routes())
 
-	log.Info(fmt.Sprintf("Run on port %s", PORT))
-	srv := http.Server{Addr: ":" + PORT, Handler: chi.ServerBaseContext(ctx, r)}
+	log.Info(fmt.Sprintf("Run on port %s", config.Port))
+	srv := http.Server{Addr: fmt.Sprintf(":%s", config.Port), Handler: chi.ServerBaseContext(ctx, r)}
 
 	// start HTTP-server
 	err := srv.ListenAndServe()
