@@ -2,6 +2,8 @@ package grpcweb
 
 import (
 	"context"
+	"fmt"
+	"github.com/batazor/shortlink/pkg/api"
 	"net"
 	"net/http"
 
@@ -18,14 +20,12 @@ type API struct { // nolint unused
 }
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, db store.DB) error {
+func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 	api.ctx = ctx
 	api.store = db
 
 	logger := logger.GetLogger(ctx)
 	logger.Info("Run gRPC-GateWay API")
-
-	PORT := "7070"
 
 	// Rug gRPC
 	go func() {
@@ -46,7 +46,7 @@ func (api *API) Run(ctx context.Context, db store.DB) error {
 		return err
 	}
 
-	srv := http.Server{Addr: ":" + PORT, Handler: gw}
+	srv := http.Server{Addr: fmt.Sprintf(":%s", config.Port), Handler: gw}
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
 	err = srv.ListenAndServe()

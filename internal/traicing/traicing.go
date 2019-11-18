@@ -9,9 +9,9 @@ import (
 )
 
 // Init returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
-func Init() (opentracing.Tracer, io.Closer, error) { // nolint unused
+func Init(cnf Config) (opentracing.Tracer, io.Closer, error) { // nolint unused
 	cfg := &config.Configuration{
-		ServiceName: "ShortLink",
+		ServiceName: cnf.ServiceName,
 		RPCMetrics:  true,
 		Sampler: &config.SamplerConfig{
 			Type:  "const",
@@ -19,7 +19,7 @@ func Init() (opentracing.Tracer, io.Closer, error) { // nolint unused
 		},
 		Reporter: &config.ReporterConfig{
 			LogSpans:           true,
-			LocalAgentHostPort: "localhost:6831",
+			LocalAgentHostPort: cnf.URI,
 		},
 	}
 	tracer, closer, err := cfg.NewTracer(config.Logger(jaeger.StdLogger))

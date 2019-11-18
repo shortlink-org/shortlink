@@ -1,10 +1,16 @@
 package main
 
 import (
+	"github.com/spf13/viper"
 	"os"
 	"os/signal"
 	"syscall"
 )
+
+func init() {
+	// Read ENV variables
+	viper.AutomaticEnv()
+}
 
 func main() {
 	// Init a new service
