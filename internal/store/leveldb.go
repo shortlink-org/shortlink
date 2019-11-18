@@ -9,18 +9,23 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 )
 
+// DGraphConfig ...
+type LevelDBConfig struct { // nolint unused
+	Path string
+}
+
 // LevelDBLinkList implementation of store interface
 type LevelDBLinkList struct { // nolint unused
 	client *leveldb.DB
-	path   string
+	config LevelDBConfig
 }
 
 // Init ...
 func (l *LevelDBLinkList) Init() error {
 	var err error
 
-	// Get configuration
-	l.getConfig()
+	// Set configuration
+	l.setConfig()
 
 	l.client, err = leveldb.OpenFile("/tmp/links.db", nil)
 	if err != nil {
@@ -114,9 +119,12 @@ func (l *LevelDBLinkList) Delete(id string) error {
 	return err
 }
 
-// getConfig - get configuration
-func (l *LevelDBLinkList) getConfig() {
+// setConfig - set configuration
+func (l *LevelDBLinkList) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_LEVELDB_PATH", "/tmp/links.db")
-	l.path = viper.GetString("STORE_LEVELDB_PATH")
+
+	l.config = LevelDBConfig{
+		Path: viper.GetString("STORE_LEVELDB_PATH"),
+	}
 }
