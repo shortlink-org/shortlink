@@ -6,18 +6,28 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/batazor/shortlink/pkg/link"
 	_ "github.com/mattn/go-sqlite3"
+	"github.com/spf13/viper"
 )
+
+// RedisConfig ...
+type SQLiteConfig struct { // nolint unused
+	Path string
+}
 
 // SQLiteLinkList implementation of store interface
 type SQLiteLinkList struct { // nolint unused
 	client *sql.DB
+	config SQLiteConfig
 }
 
 // Init ...
 func (lite *SQLiteLinkList) Init() error {
 	var err error
 
-	if lite.client, err = sql.Open("sqlite3", "/tmp/links.sqlite"); err != nil {
+	// Set configuration
+	lite.setConfig()
+
+	if lite.client, err = sql.Open("sqlite3", lite.config.Path); err != nil {
 		return err
 	}
 
@@ -143,4 +153,14 @@ func (lite *SQLiteLinkList) Delete(id string) error {
 	}
 
 	return nil
+}
+
+// setConfig - set configuration
+func (lite *SQLiteLinkList) setConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_SQLITE_PATH", "/tmp/links.sqlite")
+
+	lite.config = SQLiteConfig{
+		Path: viper.GetString("STORE_SQLITE_PATH"),
+	}
 }

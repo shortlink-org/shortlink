@@ -2,8 +2,10 @@ package graphql
 
 import (
 	"context"
+	"fmt"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/store"
+	"github.com/batazor/shortlink/pkg/api"
 	"github.com/batazor/shortlink/pkg/api/graphql/resolver"
 	"github.com/batazor/shortlink/pkg/api/graphql/schema"
 	"github.com/graph-gophers/graphql-go"
@@ -26,7 +28,7 @@ func (api *API) GetHandler() *relay.Handler {
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context, db store.DB) error {
+func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 	api.ctx = ctx
 	api.store = db
 
@@ -36,7 +38,7 @@ func (api *API) Run(ctx context.Context, db store.DB) error {
 	handler := api.GetHandler()
 
 	http.Handle("/api/query", handler)
-	err := http.ListenAndServe(":7070", nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", config.Port), nil)
 
 	return err
 }
