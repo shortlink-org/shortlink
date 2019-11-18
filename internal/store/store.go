@@ -25,7 +25,7 @@ type Store struct { // nolint unused
 }
 
 // Use return implementation of store
-func (s *Store) Use(ctx context.Context) DB {
+func (s *Store) Use(ctx context.Context) DB { // nolint unused
 	var store DB
 	log := logger.GetLogger(ctx)
 
@@ -65,7 +65,7 @@ func (s *Store) Use(ctx context.Context) DB {
 }
 
 // setConfig - set configuration
-func (s *Store) setConfig() {
+func (s *Store) setConfig() { // nolint unused
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram")
 	s.typeStore = viper.GetString("STORE_TYPE")
