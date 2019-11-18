@@ -27,7 +27,7 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.1.2
 	github.com/lib/pq v1.2.0
-	github.com/mattn/go-sqlite3 v1.12.0
+	github.com/mattn/go-sqlite3 v1.13.0
 	github.com/onsi/ginkgo v1.10.1 // indirect
 	github.com/onsi/gomega v1.7.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
