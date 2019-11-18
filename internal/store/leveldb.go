@@ -3,6 +3,7 @@ package store
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/syndtr/goleveldb/leveldb"
@@ -11,11 +12,16 @@ import (
 // LevelDBLinkList implementation of store interface
 type LevelDBLinkList struct { // nolint unused
 	client *leveldb.DB
+	path   string
 }
 
 // Init ...
 func (l *LevelDBLinkList) Init() error {
 	var err error
+
+	// Get configuration
+	l.getConfig()
+
 	l.client, err = leveldb.OpenFile("/tmp/links.db", nil)
 	if err != nil {
 		return err
@@ -106,4 +112,11 @@ func (l *LevelDBLinkList) Update(data link.Link) (*link.Link, error) {
 func (l *LevelDBLinkList) Delete(id string) error {
 	err := l.client.Delete([]byte(id), nil)
 	return err
+}
+
+// getConfig - get configuration
+func (l *LevelDBLinkList) getConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_LEVELDB_PATH", "/tmp/links.db")
+	l.path = viper.GetString("STORE_LEVELDB_PATH")
 }

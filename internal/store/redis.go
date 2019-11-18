@@ -3,6 +3,7 @@ package store
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/go-redis/redis"
@@ -11,13 +12,17 @@ import (
 // RedisLinkList implementation of store interface
 type RedisLinkList struct { // nolint unused
 	client *redis.Client
+	uri    string
 }
 
 // Init ...
 func (r *RedisLinkList) Init() error {
+	// Get configuration
+	r.getConfig()
+
 	// Connect to Redis
 	r.client = redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     r.uri,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
@@ -101,4 +106,11 @@ func (r *RedisLinkList) Delete(id string) error {
 	}
 
 	return nil
+}
+
+// getConfig - get configuration
+func (r *RedisLinkList) getConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_REDIS_URI", "localhost:6379")
+	r.uri = viper.GetString("STORE_REDIS_URI")
 }

@@ -76,7 +76,13 @@ docker-compose \
 
 ##### [12 factors: ENV](https://12factor.net/config)
 
-| Name               | Default                                   | Description                                              |
-|--------------------|-------------------------------------------|----------------------------------------------------------|
-| STORE_TYPE         | ram                                       | Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram |
-| STORE_MONGODB_URI  | mongodb://localhost:27017                 | MongoDB URI                                              |
+| Name               | Default                                               | Description                                              |
+|--------------------|-------------------------------------------------------|----------------------------------------------------------|
+| STORE_TYPE         | ram                                                   | Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram |
+| STORE_MONGODB_URI  | mongodb://localhost:27017                             | MongoDB URI                                              |
+| STORE_BADGER_PATH  | /tmp/links.badger                                     | Badger path to file                                      |
+| STORE_DGRAPH_URI   | localhost:9080                                        | DGRAPH link                                              |
+| STORE_LEVELDB_PATH | /tmp/links.db                                         | LevelDB path to file                                     |
+| STORE_POSTGRES_URI | postgres://postgres:postgres@localhost:5432/shortlink | Postgres URI                                             |
+| STORE_REDIS_URI    | localhost:6379                                        | Redis URI                                                |
+| STORE_SQLITE_PATH  | /tmp/links.sqlite                                     | SQLite URI                                               |
