@@ -9,20 +9,25 @@ import (
 	"github.com/dgraph-io/badger"
 )
 
+// BadgerConfig ...
+type BadgerConfig struct { // nolint unused
+	Path string
+}
+
 // BadgerLinkList implementation of store interface
 type BadgerLinkList struct { // nolint unused
 	client *badger.DB
-	path   string
+	config BadgerConfig
 }
 
 // Init ...
 func (b *BadgerLinkList) Init() error {
 	var err error
 
-	// Get configuration
-	b.getConfig()
+	// Set configuration
+	b.setConfig()
 
-	b.client, err = badger.Open(badger.DefaultOptions(b.path))
+	b.client, err = badger.Open(badger.DefaultOptions(b.config.Path))
 	if err != nil {
 		return err
 	}
@@ -164,9 +169,12 @@ func (b *BadgerLinkList) Delete(id string) error {
 	return err
 }
 
-// getConfig - get configuration
-func (b *BadgerLinkList) getConfig() {
+// setConfig - set configuration
+func (b *BadgerLinkList) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_BADGER_PATH", "/tmp/links.badger")
-	b.path = viper.GetString("STORE_BADGER_PATH")
+
+	b.config = BadgerConfig{
+		Path: viper.GetString("STORE_BADGER_PATH"),
+	}
 }

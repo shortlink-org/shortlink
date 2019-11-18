@@ -9,20 +9,25 @@ import (
 	"github.com/go-redis/redis"
 )
 
+// RedisConfig ...
+type RedisConfig struct { // nolint unused
+	URI string
+}
+
 // RedisLinkList implementation of store interface
 type RedisLinkList struct { // nolint unused
 	client *redis.Client
-	uri    string
+	config RedisConfig
 }
 
 // Init ...
 func (r *RedisLinkList) Init() error {
-	// Get configuration
-	r.getConfig()
+	// Set configuration
+	r.setConfig()
 
 	// Connect to Redis
 	r.client = redis.NewClient(&redis.Options{
-		Addr:     r.uri,
+		Addr:     r.config.URI,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
@@ -108,9 +113,12 @@ func (r *RedisLinkList) Delete(id string) error {
 	return nil
 }
 
-// getConfig - get configuration
-func (r *RedisLinkList) getConfig() {
+// setConfig - set configuration
+func (r *RedisLinkList) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_REDIS_URI", "localhost:6379")
-	r.uri = viper.GetString("STORE_REDIS_URI")
+
+	r.config = RedisConfig{
+		URI: viper.GetString("STORE_REDIS_URI"),
+	}
 }

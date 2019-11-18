@@ -29,8 +29,8 @@ func (s *Store) Use(ctx context.Context) DB {
 	var store DB
 	log := logger.GetLogger(ctx)
 
-	// Get configuration
-	s.getConfig()
+	// Set configuration
+	s.setConfig()
 
 	switch s.typeStore {
 	case "postgres":
@@ -64,8 +64,8 @@ func (s *Store) Use(ctx context.Context) DB {
 	return store
 }
 
-// getConfig - get configuration
-func (s *Store) getConfig() {
+// setConfig - set configuration
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram")
 	s.typeStore = viper.GetString("STORE_TYPE")

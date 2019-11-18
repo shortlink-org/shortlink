@@ -27,18 +27,23 @@ type DGraphLinkResponse struct { // nolint unused
 	}
 }
 
+// DGraphConfig ...
+type DGraphConfig struct { // nolint unused
+	URL string
+}
+
 // DGraphLinkList ...
 type DGraphLinkList struct { // nolint unused
 	client *dgo.Dgraph
-	uri    string
+	config DGraphConfig
 }
 
 // Init ...
 func (dg *DGraphLinkList) Init() error {
-	// Get configuration
-	dg.getConfig()
+	// Set configuration
+	dg.setConfig()
 
-	conn, err := grpc.Dial(dg.uri, grpc.WithInsecure())
+	conn, err := grpc.Dial(dg.config.URL, grpc.WithInsecure())
 	if err != nil {
 		return err
 	}
@@ -283,9 +288,12 @@ hash: string @index(term) @lang .
 	return dg.client.Alter(ctx, op)
 }
 
-// getConfig - get configuration
-func (dg *DGraphLinkList) getConfig() {
+// setConfig - set configuration
+func (dg *DGraphLinkList) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_DGRAPH_URI", "localhost:9080")
-	dg.uri = viper.GetString("STORE_DGRAPH_URI")
+
+	dg.config = DGraphConfig{
+		URL: viper.GetString("STORE_DGRAPH_URI"),
+	}
 }

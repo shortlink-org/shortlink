@@ -15,21 +15,26 @@ var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
 
+// PostgresConfig ...
+type PostgresConfig struct { // nolint unused
+	URI string
+}
+
 // PostgresLinkList implementation of store interface
 type PostgresLinkList struct { // nolint unused
 	client *pgxpool.Pool
-	uri    string
+	config PostgresConfig
 }
 
 // Init ...
 func (p *PostgresLinkList) Init() error {
 	var err error
 
-	// Get configuration
-	p.getConfig()
+	// Set configuration
+	p.setConfig()
 
 	// Connect to Postgres
-	if p.client, err = pgxpool.Connect(context.Background(), p.uri); err != nil {
+	if p.client, err = pgxpool.Connect(context.Background(), p.config.URI); err != nil {
 		panic(err)
 	}
 
@@ -152,11 +157,14 @@ func (p *PostgresLinkList) Delete(id string) error {
 	return nil
 }
 
-// getConfig - get configuration
-func (p *PostgresLinkList) getConfig() {
+// setConfig - set configuration
+func (p *PostgresLinkList) setConfig() {
 	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", "postgres", "postgres", "shortlink")
 
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)
-	p.uri = viper.GetString("STORE_POSTGRES_URI")
+
+	p.config = PostgresConfig{
+		URI: viper.GetString("STORE_POSTGRES_URI"),
+	}
 }
