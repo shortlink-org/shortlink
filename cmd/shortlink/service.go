@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"github.com/spf13/viper"
 	"io"
 	"net/http"
 	"time"
@@ -18,6 +17,7 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/spf13/viper"
 )
 
 type Service struct {
@@ -30,7 +30,6 @@ type Service struct {
 func (s *Service) initLogger() {
 	var err error
 
-	viper.AutomaticEnv()
 	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
 	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
 
@@ -46,7 +45,16 @@ func (s *Service) initLogger() {
 
 func (s *Service) initTracer() {
 	var err error
-	if s.tracer, s.tracerClose, err = traicing.Init(); err != nil {
+
+	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink")
+	viper.SetDefault("TRACER_URI", "localhost:6831")
+
+	config := traicing.Config{
+		ServiceName: viper.GetString("TRACER_SERVICE_NAME"),
+		URI:         viper.GetString("TRACER_URI"),
+	}
+
+	if s.tracer, s.tracerClose, err = traicing.Init(config); err != nil {
 		s.log.Error(err.Error())
 	}
 }
