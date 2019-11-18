@@ -1,17 +1,29 @@
 package store
 
 import (
+	"context"
 	"testing"
 
+	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/link"
 )
 
 // TestLink ...
 func TestLink(t *testing.T) { //nolint unused
-	var st Store
-	s := st.Use()
+	ctx := context.Background()
 
-	if err := Init(); err != nil {
+	// Init logger
+	conf := logger.Configuration{}
+	log, err := logger.NewLogger(logger.Zap, conf)
+	if err != nil {
+		t.Errorf("Error init a logger: %s", err)
+	}
+	ctx = logger.WithLogger(ctx, log)
+
+	var st Store
+	s := st.Use(ctx)
+
+	if err = s.Init(); err != nil {
 		t.Errorf("Error  create a new link list: %s", err)
 	}
 
@@ -21,13 +33,13 @@ func TestLink(t *testing.T) { //nolint unused
 	}
 
 	// test add new a link
-	link, err := Add(newLink)
+	link, err := s.Add(newLink)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
 
 	// test get link
-	link, err = Get(link.Hash)
+	link, err = s.Get(link.Hash)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
@@ -36,7 +48,7 @@ func TestLink(t *testing.T) { //nolint unused
 	}
 
 	// test get links
-	links, err := List()
+	links, err := s.List()
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
@@ -45,11 +57,11 @@ func TestLink(t *testing.T) { //nolint unused
 	}
 
 	// delete link
-	err = Delete(newLink.Hash)
+	err = s.Delete(newLink.Hash)
 	if err != nil {
 		t.Errorf("Error delete item %s", err)
 	}
-	_, err = Get(newLink.Hash)
+	_, err = s.Get(newLink.Hash)
 	if err == nil {
 		t.Errorf("Assert 'Not found' but get nil")
 	}

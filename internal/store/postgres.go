@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"fmt"
+	"github.com/spf13/viper"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/batazor/shortlink/pkg/link"
@@ -14,24 +15,26 @@ var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
 
+// PostgresConfig ...
+type PostgresConfig struct { // nolint unused
+	URI string
+}
+
 // PostgresLinkList implementation of store interface
 type PostgresLinkList struct { // nolint unused
 	client *pgxpool.Pool
+	config PostgresConfig
 }
 
 // Init ...
 func (p *PostgresLinkList) Init() error {
-	const (
-		DbUser     = "postgres"
-		DbPassword = "postgres"
-		DbName     = "shortlink"
-	)
-
 	var err error
 
+	// Set configuration
+	p.setConfig()
+
 	// Connect to Postgres
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", DbUser, DbPassword, DbName)
-	if p.client, err = pgxpool.Connect(context.Background(), dbinfo); err != nil {
+	if p.client, err = pgxpool.Connect(context.Background(), p.config.URI); err != nil {
 		panic(err)
 	}
 
@@ -152,4 +155,16 @@ func (p *PostgresLinkList) Delete(id string) error {
 	}
 
 	return nil
+}
+
+// setConfig - set configuration
+func (p *PostgresLinkList) setConfig() {
+	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", "postgres", "postgres", "shortlink")
+
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)
+
+	p.config = PostgresConfig{
+		URI: viper.GetString("STORE_POSTGRES_URI"),
+	}
 }
