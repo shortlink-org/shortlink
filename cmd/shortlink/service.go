@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"github.com/spf13/viper"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/store"
@@ -27,8 +29,14 @@ type Service struct {
 
 func (s *Service) initLogger() {
 	var err error
+
+	viper.AutomaticEnv()
+	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
+	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
+
 	conf := logger.Configuration{
-		Level: logger.INFO_LEVEL,
+		Level:      viper.GetInt("LOG_LEVEL"),
+		TimeFormat: viper.GetString("LOG_TIME_FORMAT"),
 	}
 
 	if s.log, err = logger.NewLogger(logger.Zap, conf); err != nil {
