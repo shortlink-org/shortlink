@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/dgraph-io/dgo/v2"
@@ -26,14 +27,23 @@ type DGraphLinkResponse struct { // nolint unused
 	}
 }
 
+// DGraphConfig ...
+type DGraphConfig struct { // nolint unused
+	URL string
+}
+
 // DGraphLinkList ...
 type DGraphLinkList struct { // nolint unused
 	client *dgo.Dgraph
+	config DGraphConfig
 }
 
 // Init ...
 func (dg *DGraphLinkList) Init() error {
-	conn, err := grpc.Dial("localhost:9080", grpc.WithInsecure())
+	// Set configuration
+	dg.setConfig()
+
+	conn, err := grpc.Dial(dg.config.URL, grpc.WithInsecure())
 	if err != nil {
 		return err
 	}
@@ -276,4 +286,14 @@ hash: string @index(term) @lang .
 	}
 
 	return dg.client.Alter(ctx, op)
+}
+
+// setConfig - set configuration
+func (dg *DGraphLinkList) setConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_DGRAPH_URI", "localhost:9080")
+
+	dg.config = DGraphConfig{
+		URL: viper.GetString("STORE_DGRAPH_URI"),
+	}
 }
