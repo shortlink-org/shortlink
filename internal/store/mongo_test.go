@@ -69,7 +69,7 @@ func TestMongo(t *testing.T) {
 			t.Error(err)
 		}
 
-		if len(links) == 1 {
+		if len(links) != 1 {
 			t.Errorf("Assert 1 links; Get %d link(s)", len(links))
 		}
 	})

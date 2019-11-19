@@ -256,7 +256,7 @@ func (dg *DGraphLinkList) Delete(id string) error {
 
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil
 	}
 
 	return nil

@@ -103,13 +103,18 @@ func TestDgraph(t *testing.T) {
 			t.Error(err)
 		}
 
-		if len(links) == 1 {
+		if len(links) != 1 {
 			t.Errorf("Assert 1 links; Get %d link(s)", len(links))
 		}
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		err := store.Delete(getLink.Hash)
+		link, err := store.Add(addLink)
+		if err != nil {
+			t.Error(err)
+		}
+
+		err = store.Delete(link.Hash)
 		if err != nil {
 			t.Error(err)
 		}
