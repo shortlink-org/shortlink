@@ -11,7 +11,9 @@ const (
 )
 
 const (
+	// Zap implementation
 	Zap    int = iota // nolint unused
+	// Logrus implementation
 	Logrus            // nolint unused
 )
 
