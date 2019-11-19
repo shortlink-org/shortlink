@@ -7,8 +7,8 @@ import (
 	"testing"
 )
 
-func TestMongo(t *testing.T) {
-	store := MongoLinkList{}
+func TestPostgres(t *testing.T) {
+	store := PostgresLinkList{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -17,8 +17,17 @@ func TestMongo(t *testing.T) {
 	}
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("mongo", "latest", nil)
+	resource, err := pool.Run("postgres", "latest", []string{
+		"POSTGRES_USER=postgres",
+		"POSTGRES_PASSWORD=postgres",
+		"POSTGRES_DB=shortlink",
+	})
 	if err != nil {
+		// When you're done, kill and remove the container
+		if err := pool.Purge(resource); err != nil {
+			t.Fatalf("Could not purge resource: %s", err)
+		}
+
 		t.Fatalf("Could not start resource: %s", err)
 	}
 
@@ -26,7 +35,7 @@ func TestMongo(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s", resource.GetPort("27017/tcp")))
+		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:postgres@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 		if err != nil {
 			t.Fatalf("Cannot set ENV: %s", err)
 		}
@@ -38,19 +47,13 @@ func TestMongo(t *testing.T) {
 
 		return nil
 	}); err != nil {
+		// When you're done, kill and remove the container
+		if err := pool.Purge(resource); err != nil {
+			t.Fatalf("Could not purge resource: %s", err)
+		}
+
 		t.Fatalf("Could not connect to docker: %s", err)
 	}
-
-	t.Run("Create", func(t *testing.T) {
-		link, err := store.Add(addLink)
-		if err != nil {
-			t.Error(err)
-		}
-
-		if link.Hash != getLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", getLink.Hash, link.Hash)
-		}
-	})
 
 	// When you're done, kill and remove the container
 	if err := pool.Purge(resource); err != nil {

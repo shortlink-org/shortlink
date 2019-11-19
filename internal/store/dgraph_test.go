@@ -47,7 +47,7 @@ func TestDgraph(t *testing.T) {
 		NetworkID:  network.ID,
 	})
 	if err != nil {
-		// You can't defer this because os.Exit doesn't care for defer
+		// When you're done, kill and remove the container
 		if errPurge := pool.Purge(ZERO); errPurge != nil {
 			t.Errorf("Could not purge resource: %s", errPurge)
 		}
@@ -86,12 +86,12 @@ func TestDgraph(t *testing.T) {
 		}
 	})
 
-	// You can't defer this because os.Exit doesn't care for defer
+	// When you're done, kill and remove the container
 	if err := pool.Purge(ALPHA); err != nil {
 		t.Errorf("Could not purge resource: %s", err)
 	}
 
-	// You can't defer this because os.Exit doesn't care for defer
+	// When you're done, kill and remove the container
 	if err := pool.Purge(ZERO); err != nil {
 		t.Errorf("Could not purge resource: %s", err)
 	}
