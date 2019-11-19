@@ -20,6 +20,7 @@ import (
 	"github.com/spf13/viper"
 )
 
+// Service - heplers
 type Service struct {
 	log         logger.Logger
 	tracer      opentracing.Tracer

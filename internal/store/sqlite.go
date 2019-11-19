@@ -3,9 +3,10 @@ package store
 import (
 	"database/sql"
 	"fmt"
+
 	"github.com/Masterminds/squirrel"
 	"github.com/batazor/shortlink/pkg/link"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 	"github.com/spf13/viper"
 )
 
