@@ -23,3 +23,10 @@ comment:
   layout: "reach,diff,flags,tree"
   behavior: default
   require_changes: no
+
+flags:
+  # filter the folder(s) you wish to measure by that flag
+  backend:
+    paths:
+     - pkg/
+     - internal/
