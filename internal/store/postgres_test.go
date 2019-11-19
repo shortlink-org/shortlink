@@ -24,8 +24,8 @@ func TestPostgres(t *testing.T) {
 	})
 	if err != nil {
 		// When you're done, kill and remove the container
-		if err := pool.Purge(resource); err != nil {
-			t.Fatalf("Could not purge resource: %s", err)
+		if errPurge := pool.Purge(resource); errPurge != nil {
+			t.Fatalf("Could not purge resource: %s", errPurge)
 		}
 
 		t.Fatalf("Could not start resource: %s", err)
@@ -48,8 +48,8 @@ func TestPostgres(t *testing.T) {
 		return nil
 	}); err != nil {
 		// When you're done, kill and remove the container
-		if err := pool.Purge(resource); err != nil {
-			t.Fatalf("Could not purge resource: %s", err)
+		if errPurge := pool.Purge(resource); errPurge != nil {
+			t.Fatalf("Could not purge resource: %s", errPurge)
 		}
 
 		t.Fatalf("Could not connect to docker: %s", err)
