@@ -35,7 +35,7 @@ func (p *PostgresLinkList) Init() error {
 
 	// Connect to Postgres
 	if p.client, err = pgxpool.Connect(context.Background(), p.config.URI); err != nil {
-		panic(err)
+		return err
 	}
 
 	return nil
