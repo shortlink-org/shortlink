@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// RedisConfig ...
+// SQLiteConfig ...
 type SQLiteConfig struct { // nolint unused
 	Path string
 }

@@ -9,7 +9,7 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 )
 
-// DGraphConfig ...
+// LevelDBConfig ...
 type LevelDBConfig struct { // nolint unused
 	Path string
 }
