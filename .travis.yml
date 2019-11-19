@@ -40,26 +40,27 @@ stages:
 
 jobs:
   include:
-    - stage: test
+    - name: golint
+      stage: test
       os: linux
-      name: golint
       # script always runs to completion (set +e). If we have linter issues AND a
       # failing test, we want to see both. Configure golangci-lint with a
       # .golangci.yml file at the top level of your repo.
       before_install:
-        - wget -O - -q https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.21.0
+        # binary will be $(go env GOPATH)/bin/golangci-lint
+        - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.21.0
       script:
         - make golint
-    - stage: test
+    - name: gosec
+      stage: test
       os: linux
-      name: gosec
       before_install:
         - go get github.com/securego/gosec/cmd/gosec
       script:
         - make gosec
-    - stage: test
+    - name: test
+      stage: test
       os: linux
-      name: test
       script:
         - make test
       after_success:
