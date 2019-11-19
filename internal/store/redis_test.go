@@ -52,7 +52,7 @@ func TestRedis(t *testing.T) {
 		}
 	})
 
-	// You can't defer this because os.Exit doesn't care for defer
+	// When you're done, kill and remove the container
 	if err := pool.Purge(resource); err != nil {
 		t.Fatalf("Could not purge resource: %s", err)
 	}
