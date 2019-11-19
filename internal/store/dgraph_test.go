@@ -2,9 +2,11 @@ package store
 
 import (
 	"fmt"
-	"github.com/ory/dockertest"
 	"os"
 	"testing"
+
+	"github.com/ory/dockertest"
+	"github.com/ory/dockertest/docker"
 )
 
 func TestDgraph(t *testing.T) {
@@ -16,13 +18,40 @@ func TestDgraph(t *testing.T) {
 		t.Fatalf("Could not connect to docker: %s", err)
 	}
 
-	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.RunWithOptions(&dockertest.RunOptions{
-		Repository: "dgraph/dgraph",
-		Tag:        "latest",
-		Cmd:        []string{"dgraph", "alpha"},
+	// create a network with Client.CreateNetwork()
+	network, err := pool.Client.CreateNetwork(docker.CreateNetworkOptions{
+		Name: "shortlink-test",
 	})
 	if err != nil {
+		t.Errorf("Error create docker network: %s", err)
+		os.Exit(1)
+	}
+
+	// pulls an image, creates a container based on it and runs it
+	ZERO, err := pool.RunWithOptions(&dockertest.RunOptions{
+		Repository:   "dgraph/dgraph",
+		Tag:          "latest",
+		Cmd:          []string{"dgraph", "zero", "--my=test-dgraph-zero:5080"},
+		ExposedPorts: []string{"5080"},
+		Name:         "test-dgraph-zero",
+		NetworkID:    network.ID,
+	})
+	if err != nil {
+		t.Fatalf("Could not start resource: %s", err)
+	}
+
+	ALPHA, err := pool.RunWithOptions(&dockertest.RunOptions{
+		Repository: "dgraph/dgraph",
+		Tag:        "latest",
+		Cmd:        []string{"dgraph", "alpha", "--my=localhost:7080", "--lru_mb=2048", fmt.Sprintf("--zero=%s:%s", "test-dgraph-zero", "5080")},
+		NetworkID:  network.ID,
+	})
+	if err != nil {
+		// You can't defer this because os.Exit doesn't care for defer
+		if errPurge := pool.Purge(ZERO); errPurge != nil {
+			t.Errorf("Could not purge resource: %s", errPurge)
+		}
+
 		t.Fatalf("Could not start resource: %s", err)
 	}
 
@@ -30,9 +59,10 @@ func TestDgraph(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_DGRAPH_URI", fmt.Sprintf("localhost:%s", resource.GetPort("5080/tcp")))
+		err = os.Setenv("STORE_DGRAPH_URI", fmt.Sprintf("localhost:%s", ALPHA.GetPort("9080/tcp")))
 		if err != nil {
-			t.Fatalf("Cannot set ENV: %s", err)
+			t.Errorf("Cannot set ENV: %s", err)
+			return nil
 		}
 
 		err = store.Init()
@@ -42,7 +72,7 @@ func TestDgraph(t *testing.T) {
 
 		return nil
 	}); err != nil {
-		t.Fatalf("Could not connect to docker: %s", err)
+		t.Errorf("Could not connect to docker: %s", err)
 	}
 
 	t.Run("Create", func(t *testing.T) {
@@ -57,7 +87,12 @@ func TestDgraph(t *testing.T) {
 	})
 
 	// You can't defer this because os.Exit doesn't care for defer
-	if err := pool.Purge(resource); err != nil {
-		t.Fatalf("Could not purge resource: %s", err)
+	if err := pool.Purge(ALPHA); err != nil {
+		t.Errorf("Could not purge resource: %s", err)
+	}
+
+	// You can't defer this because os.Exit doesn't care for defer
+	if err := pool.Purge(ZERO); err != nil {
+		t.Errorf("Could not purge resource: %s", err)
 	}
 }
