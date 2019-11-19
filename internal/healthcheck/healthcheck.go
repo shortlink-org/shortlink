@@ -2,9 +2,11 @@ package healthcheck
 
 import (
 	"context"
+
 	"github.com/heptiolabs/healthcheck"
 )
 
+// Init ...
 // Package healthcheck helps you implement Kubernetes liveness and readiness checks for your application.
 // It supports synchronous and asynchronous (background) checks.
 func Init() healthcheck.Handler { // nolint unused

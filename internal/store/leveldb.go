@@ -3,8 +3,8 @@ package store
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/spf13/viper"
 
+	"github.com/spf13/viper"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/syndtr/goleveldb/leveldb"
 )
