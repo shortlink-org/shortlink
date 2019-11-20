@@ -46,7 +46,7 @@ func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 		return err
 	}
 
-	srv := http.Server{Addr: fmt.Sprintf(":%s", config.Port), Handler: gw}
+	srv := http.Server{Addr: fmt.Sprintf(":%d", config.Port), Handler: gw}
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
 	err = srv.ListenAndServe()

@@ -51,8 +51,8 @@ func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 
 	r.Mount("/api", api.Routes())
 
-	log.Info(fmt.Sprintf("Run on port %s", config.Port))
-	srv := http.Server{Addr: fmt.Sprintf(":%s", config.Port), Handler: chi.ServerBaseContext(ctx, r)}
+	log.Info(fmt.Sprintf("Run on port %d", config.Port))
+	srv := http.Server{Addr: fmt.Sprintf(":%d", config.Port), Handler: chi.ServerBaseContext(ctx, r)}
 
 	// start HTTP-server
 	err := srv.ListenAndServe()

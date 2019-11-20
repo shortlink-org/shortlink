@@ -10,6 +10,7 @@ import (
 	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/batazor/shortlink/pkg/api"
+	"github.com/batazor/shortlink/pkg/api/cloudevents"
 	"github.com/batazor/shortlink/pkg/api/graphql"
 	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
 	httpchi "github.com/batazor/shortlink/pkg/api/http-chi"
@@ -65,10 +66,10 @@ func (s *Service) runAPIServer(ctx context.Context) {
 	var API api.API
 
 	viper.SetDefault("API_TYPE", "http-chi")
-	viper.SetDefault("API_PORT", "7070")
+	viper.SetDefault("API_PORT", 7070)
 
 	config := api.Config{
-		Port: viper.GetString("API_PORT"),
+		Port: viper.GetInt("API_PORT"),
 	}
 
 	serverType := viper.GetString("API_TYPE")
@@ -80,6 +81,8 @@ func (s *Service) runAPIServer(ctx context.Context) {
 		API = &grpcweb.API{}
 	case "graphql":
 		API = &graphql.API{}
+	case "cloudevents":
+		API = &cloudevents.API{}
 	default:
 		API = &httpchi.API{}
 	}

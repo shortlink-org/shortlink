@@ -12,5 +12,5 @@ type API interface { // nolint unused
 
 // Config - base configuration for API
 type Config struct { // nolint unused
-	Port string
+	Port int
 }
