@@ -1,0 +1,22 @@
+version: '2.4'
+
+services:
+
+  shortlink:
+    build: .
+    ports:
+      # API
+      - "7070:7070"
+      # Metrics
+      - "9090:9090"
+    restart: on-failure
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=7070"
+      - "traefik.http.routers.shortlink.rule=Host(`shortlink.local`)"
+#      - "traefik.http.routers.shortlink.tls=true"
+#      - "traefik.http.routers.shortlink.entrypoints=shortlink"
+#      - "traefik.http.services.shortlink.loadbalancer.server.port=7070"
+      - "traefik.backend.healthcheck.path=/ready"
+      - "traefik.backend.healthcheck.port=9090"
+
