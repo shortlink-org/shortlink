@@ -54,6 +54,7 @@ docker-compose \
 - HTTP (chi)
 - gRPC-gateway
 - GraphQL
+- [CloudEvents](https://cloudevents.io/)
 
 ### Store provider
 
@@ -90,5 +91,5 @@ docker-compose \
 | LOG_TIME_FORMAT     | 2006-01-02T15:04:05.999999999Z07:00                   | Log time format (golang time format)                     |
 | TRACER_SERVICE_NAME | ShortLink                                             | Service Name                                             |
 | TRACER_URI          | localhost:6831                                        | Tracing addr:host                                        |
-| API_TYPE            | http-chi                                              | Select: http-chi, gRPC-web, graphql                      |
+| API_TYPE            | http-chi                                              | Select: http-chi, gRPC-web, graphql, cloudevents         |
 | API_PORT            | 7070                                                  | API port                                                 |
