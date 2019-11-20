@@ -12,9 +12,9 @@ const (
 
 const (
 	// Zap implementation
-	Zap    int = iota // nolint unused
+	Zap int = iota // nolint unused
 	// Logrus implementation
-	Logrus            // nolint unused
+	Logrus // nolint unused
 )
 
 // Fields Type to pass when we want to call WithFields for structured logging
