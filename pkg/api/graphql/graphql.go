@@ -38,7 +38,7 @@ func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 	handler := api.GetHandler()
 
 	http.Handle("/api/query", handler)
-	err := http.ListenAndServe(fmt.Sprintf(":%s", config.Port), nil)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil)
 
 	return err
 }
