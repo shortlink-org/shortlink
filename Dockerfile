@@ -5,7 +5,7 @@ ARG CI_COMMIT_TAG
 # Build project
 WORKDIR /go/src/github/batazor/shortlink
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux \
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
   go build \
   -a \
   -mod vendor \
@@ -13,6 +13,10 @@ RUN CGO_ENABLED=0 GOOS=linux \
   -installsuffix cgo -o app ./cmd/shortlink
 
 FROM alpine:latest
+
+# 7070: API
+# 9090: metrics
+EXPOSE 7070 9090
 
 RUN addgroup -S 997 && adduser -S -g 997 997
 USER 997

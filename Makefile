@@ -66,6 +66,14 @@ test: ## Run all test
 run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
+         -f ops/docker-compose/gateway/traefik.yaml \
+         -f ops/docker-compose/application/shortlink.yaml \
+         -f ops/docker-compose/tooling/opentracing.yaml \
+         up -d --force-recreate
+
+run-dep: ## Run only dep for this project in docker-compose
+	@docker-compose \
+         -f docker-compose.yaml \
          -f ops/docker-compose/database/postgres.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
          -f ops/docker-compose/tooling/opentracing.yaml \
@@ -73,6 +81,9 @@ run: ## Run this project in docker-compose
 
 down: ## Down docker-compose
 	@docker-compose down --remove-orphans
+
+clean: ## Clean artifacts
+	@docker rmi -f shortlink_shortlink
 
 # DOCKER TASKS =========================================================================================================
 docker: docker-login docker-build docker-push ## docker login > build > push
