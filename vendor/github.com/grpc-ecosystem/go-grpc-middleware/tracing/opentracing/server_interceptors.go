@@ -4,13 +4,14 @@
 package grpc_opentracing
 
 import (
+	"context"
+
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	"github.com/opentracing/opentracing-go/log"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 )
@@ -62,7 +63,8 @@ func newServerSpanFromInbound(ctx context.Context, tracer opentracing.Tracer, fu
 		ext.RPCServerOption(parentSpanContext),
 		grpcTag,
 	)
-	hackyInjectOpentracingIdsToTags(serverSpan, grpc_ctxtags.Extract(ctx))
+
+	injectOpentracingIdsToTags(serverSpan, grpc_ctxtags.Extract(ctx))
 	return opentracing.ContextWithSpan(ctx, serverSpan), serverSpan
 }
 
