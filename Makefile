@@ -66,6 +66,7 @@ test: ## Run all test
 run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
+         -f ops/docker-compose/database/cassandra.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
          -f ops/docker-compose/application/shortlink.yaml \
          -f ops/docker-compose/tooling/opentracing.yaml \

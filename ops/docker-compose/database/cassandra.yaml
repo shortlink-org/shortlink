@@ -1,0 +1,14 @@
+version: '2.4'
+
+services:
+
+  cassandra:
+    image: cassandra:3.11
+    restart: on-failure
+    container_name: cassandra
+    ports:
+      - 7000:7000
+      - 9042:9042
+    environment:
+      - CASSANDRA_BROADCAST_ADDRESS=host.docker.internal
+      - CASSANDRA_SEEDS=host.docker.internal
