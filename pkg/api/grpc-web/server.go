@@ -4,20 +4,20 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/batazor/shortlink/internal/traicing"
-	"github.com/opentracing/opentracing-go/ext"
-	"google.golang.org/grpc/status"
 	"net"
 	"net/http"
 
 	"github.com/batazor/shortlink/internal/freeport"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/store"
+	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/batazor/shortlink/pkg/api"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/opentracing/opentracing-go"
+	"github.com/opentracing/opentracing-go/ext"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/status"
 )
 
 // API ...
