@@ -3,6 +3,7 @@ package grpcweb
 import (
 	"context"
 	"fmt"
+	"github.com/batazor/shortlink/internal/freeport"
 	"github.com/batazor/shortlink/pkg/api"
 	"net"
 	"net/http"
@@ -24,14 +25,19 @@ func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 	api.ctx = ctx
 	api.store = db
 
-	logger := logger.GetLogger(ctx)
-	logger.Info("Run gRPC-GateWay API")
+	// Get free port
+	port, err := freeport.GetFreePort()
+	if err != nil {
+		return err
+	}
+
+	log := logger.GetLogger(ctx)
+	log.Info(fmt.Sprintf("Run gRPC-GateWay on localhost:%d", port))
 
 	// Rug gRPC
 	go func() {
-		err := api.runGRPC()
-		if err != nil {
-			logger.Fatal(err.Error())
+		if errRunGRPC := api.runGRPC(port); errRunGRPC != nil {
+			log.Fatal(errRunGRPC.Error())
 		}
 	}()
 
@@ -41,7 +47,7 @@ func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 		runtime.WithProtoErrorHandler(runtime.DefaultHTTPProtoErrorHandler),
 	)
 	opts := []grpc.DialOption{grpc.WithInsecure()}
-	err := RegisterLinkHandlerFromEndpoint(ctx, gw, "localhost:9090", opts)
+	err = RegisterLinkHandlerFromEndpoint(ctx, gw, fmt.Sprintf("localhost:%d", port), opts)
 	if err != nil {
 		return err
 	}
@@ -54,8 +60,8 @@ func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 }
 
 // runGRPC ...
-func (api *API) runGRPC() error {
-	lis, err := net.Listen("tcp", "localhost:9090")
+func (api *API) runGRPC(port int) error {
+	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))
 	if err != nil {
 		return err
 	}
