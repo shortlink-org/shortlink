@@ -86,7 +86,7 @@ func mutationGraphqls() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "mutation.graphqls", size: 193, mode: os.FileMode(436), modTime: time.Unix(1573247933, 0)}
+	info := bindataFileInfo{name: "mutation.graphqls", size: 193, mode: os.FileMode(436), modTime: time.Unix(1573731608, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -106,7 +106,7 @@ func queryGraphqls() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "query.graphqls", size: 130, mode: os.FileMode(436), modTime: time.Unix(1571565241, 0)}
+	info := bindataFileInfo{name: "query.graphqls", size: 130, mode: os.FileMode(436), modTime: time.Unix(1571668496, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -126,7 +126,7 @@ func schemaGraphqls() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "schema.graphqls", size: 53, mode: os.FileMode(436), modTime: time.Unix(1571565241, 0)}
+	info := bindataFileInfo{name: "schema.graphqls", size: 53, mode: os.FileMode(436), modTime: time.Unix(1571668496, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -146,7 +146,7 @@ func typesGraphqls() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "types.graphqls", size: 215, mode: os.FileMode(436), modTime: time.Unix(1573249958, 0)}
+	info := bindataFileInfo{name: "types.graphqls", size: 215, mode: os.FileMode(436), modTime: time.Unix(1574342184, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
