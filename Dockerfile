@@ -18,13 +18,20 @@ FROM alpine:latest
 # 9090: metrics
 EXPOSE 7070 9090
 
+# Install dependencies
+RUN \
+    apk update && \
+    apk add curl && \
+    rm -rf /var/cache/apk/*
+
 RUN addgroup -S 997 && adduser -S -g 997 997
 USER 997
 
 HEALTHCHECK \
-  --interval=3s \
-  --timeout=3s \
-  CMD curl -f http://localhost:9090/ready || exit 1
+  --interval=5s \
+  --timeout=5s \
+  --retries=3 \
+  CMD curl -f localhost:9090/ready || exit 1
 
 WORKDIR /app/
 COPY --from=builder /go/src/github/batazor/shortlink/app .
