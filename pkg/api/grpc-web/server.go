@@ -2,9 +2,11 @@ package grpcweb
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/opentracing/opentracing-go/ext"
+	"google.golang.org/grpc/status"
 	"net"
 	"net/http"
 
@@ -57,6 +59,9 @@ func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 		runtime.WithProtoErrorHandler(runtime.DefaultHTTPProtoErrorHandler),
 	)
 
+	// Register custom error handler
+	runtime.HTTPError = api.CustomHTTPError
+
 	opts := []grpc.DialOption{
 		grpc.WithInsecure(),
 		grpc.WithUnaryInterceptor(
@@ -107,4 +112,19 @@ func (api *API) tracingWrapper(h http.Handler) http.Handler {
 		}
 		h.ServeHTTP(w, r)
 	})
+}
+
+func (api *API) CustomHTTPError(ctx context.Context, _ *runtime.ServeMux, marshaler runtime.Marshaler, w http.ResponseWriter, _ *http.Request, err error) {
+	const fallback = `{"error": "failed to marshal error message"}`
+
+	w.Header().Set("Content-type", marshaler.ContentType())
+	w.WriteHeader(runtime.HTTPStatusFromCode(status.Code(err)))
+
+	jErr := json.NewEncoder(w).Encode(customError{
+		Error: status.Convert(err).Message(),
+	})
+
+	if jErr != nil {
+		w.Write([]byte(fallback)) // nolint gosec
+	}
 }
