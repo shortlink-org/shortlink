@@ -26,6 +26,10 @@ func Init(cnf Config) (opentracing.Tracer, io.Closer, error) { // nolint unused
 	if err != nil {
 		return nil, nil, err
 	}
+
+	// Set the singleton opentracing.Tracer with the Jaeger tracer.
+	opentracing.SetGlobalTracer(tracer)
+
 	return tracer, closer, nil
 }
 
