@@ -30,21 +30,22 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 func init() { proto.RegisterFile("pkg/api/grpc-web/api.proto", fileDescriptor_54d0e997a1f3c768) }
 
 var fileDescriptor_54d0e997a1f3c768 = []byte{
-	// 222 bytes of a gzipped FileDescriptorProto
+	// 232 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2a, 0xc8, 0x4e, 0xd7,
 	0x4f, 0x2c, 0xc8, 0xd4, 0x4f, 0x2f, 0x2a, 0x48, 0xd6, 0x2d, 0x4f, 0x4d, 0x02, 0x71, 0xf4, 0x0a,
 	0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0xd8, 0x41, 0x62, 0xe5, 0xa9, 0x49, 0x52, 0x32, 0xe9, 0xf9, 0xf9,
 	0xe9, 0x39, 0xa9, 0x60, 0x75, 0x89, 0x79, 0x79, 0xf9, 0x25, 0x89, 0x25, 0x99, 0xf9, 0x79, 0xc5,
 	0x10, 0x65, 0x52, 0xd2, 0x50, 0x59, 0x30, 0x2f, 0xa9, 0x34, 0x4d, 0x3f, 0x35, 0xb7, 0xa0, 0xa4,
-	0x12, 0x2a, 0x29, 0x0c, 0x32, 0x3f, 0x27, 0x33, 0x2f, 0x1b, 0x4c, 0x40, 0x04, 0x8d, 0x3e, 0x31,
-	0x72, 0xb1, 0xf8, 0x64, 0xe6, 0x65, 0x0b, 0x99, 0x71, 0xb1, 0xbb, 0xa7, 0x96, 0x80, 0x99, 0x5c,
-	0x7a, 0x60, 0x05, 0x20, 0xb6, 0x14, 0x12, 0x5b, 0x49, 0xb8, 0xe9, 0xf2, 0x93, 0xc9, 0x4c, 0xbc,
-	0x42, 0xdc, 0x60, 0xdb, 0xab, 0x33, 0x12, 0x8b, 0x33, 0x6a, 0x85, 0x2c, 0xb8, 0x38, 0xa0, 0xfa,
-	0x8a, 0x51, 0x34, 0x72, 0x23, 0xd8, 0xc5, 0xd8, 0x75, 0x9a, 0x72, 0x71, 0x39, 0x17, 0xa5, 0x26,
-	0x96, 0xa4, 0xe2, 0xb5, 0x94, 0x1f, 0xac, 0x95, 0x53, 0x89, 0x05, 0xa4, 0xd5, 0x8a, 0x51, 0x4b,
-	0xc8, 0x91, 0x8b, 0xcb, 0x25, 0x35, 0x27, 0x15, 0x8b, 0x36, 0x31, 0x3d, 0x88, 0xf7, 0xf5, 0x60,
-	0xde, 0xd7, 0x73, 0x05, 0x79, 0x1f, 0x66, 0x84, 0x16, 0xcc, 0x88, 0x24, 0x36, 0xb0, 0x02, 0x63,
-	0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x0f, 0x25, 0xd3, 0xb3, 0x72, 0x01, 0x00, 0x00,
+	0x12, 0x2a, 0x29, 0x0c, 0x32, 0x3f, 0x27, 0x33, 0x2f, 0x1b, 0x4c, 0x40, 0x04, 0x8d, 0x3e, 0x32,
+	0x72, 0xb1, 0xf8, 0x64, 0xe6, 0x65, 0x0b, 0x99, 0x73, 0x71, 0xb8, 0xa7, 0x96, 0x80, 0x98, 0xc5,
+	0x42, 0x5c, 0x7a, 0x60, 0x15, 0x20, 0x8e, 0x14, 0x37, 0x82, 0x5d, 0xac, 0x24, 0xd4, 0x74, 0xf9,
+	0xc9, 0x64, 0x26, 0x1e, 0x21, 0x2e, 0xb0, 0xfd, 0x39, 0x60, 0xc5, 0x66, 0x5c, 0xec, 0x50, 0x8d,
+	0x28, 0xfa, 0x90, 0xd8, 0x4a, 0xc2, 0x60, 0x6d, 0xbc, 0x42, 0xdc, 0x60, 0x6d, 0xd5, 0x19, 0x89,
+	0xc5, 0x19, 0xb5, 0x42, 0xa6, 0x5c, 0x5c, 0xce, 0x45, 0xa9, 0x89, 0x25, 0xa9, 0x78, 0xb5, 0xf2,
+	0x83, 0xb5, 0x72, 0x2a, 0xb1, 0x80, 0xb4, 0x5a, 0x31, 0x6a, 0x09, 0x39, 0x72, 0x71, 0xb9, 0xa4,
+	0xe6, 0xa4, 0x62, 0xd1, 0x26, 0xa6, 0x07, 0xf1, 0xbd, 0x1e, 0xcc, 0xf7, 0x7a, 0xae, 0x20, 0xdf,
+	0xc3, 0x8c, 0xd0, 0x82, 0x19, 0x91, 0xc4, 0x06, 0x56, 0x60, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff,
+	0x84, 0x18, 0xa2, 0x2f, 0x71, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -59,8 +60,8 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LinkClient interface {
-	GetLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
 	GetLinks(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Links, error)
+	GetLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
 	CreateLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
 	DeleteLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*empty.Empty, error)
 }
@@ -73,18 +74,18 @@ func NewLinkClient(cc *grpc.ClientConn) LinkClient {
 	return &linkClient{cc}
 }
 
-func (c *linkClient) GetLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error) {
-	out := new(link.Link)
-	err := c.cc.Invoke(ctx, "/grpcweb.Link/GetLink", in, out, opts...)
+func (c *linkClient) GetLinks(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Links, error) {
+	out := new(link.Links)
+	err := c.cc.Invoke(ctx, "/grpcweb.Link/GetLinks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *linkClient) GetLinks(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Links, error) {
-	out := new(link.Links)
-	err := c.cc.Invoke(ctx, "/grpcweb.Link/GetLinks", in, out, opts...)
+func (c *linkClient) GetLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error) {
+	out := new(link.Link)
+	err := c.cc.Invoke(ctx, "/grpcweb.Link/GetLink", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -111,8 +112,8 @@ func (c *linkClient) DeleteLink(ctx context.Context, in *link.Link, opts ...grpc
 
 // LinkServer is the server API for Link service.
 type LinkServer interface {
-	GetLink(context.Context, *link.Link) (*link.Link, error)
 	GetLinks(context.Context, *link.Link) (*link.Links, error)
+	GetLink(context.Context, *link.Link) (*link.Link, error)
 	CreateLink(context.Context, *link.Link) (*link.Link, error)
 	DeleteLink(context.Context, *link.Link) (*empty.Empty, error)
 }
@@ -121,11 +122,11 @@ type LinkServer interface {
 type UnimplementedLinkServer struct {
 }
 
-func (*UnimplementedLinkServer) GetLink(ctx context.Context, req *link.Link) (*link.Link, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetLink not implemented")
-}
 func (*UnimplementedLinkServer) GetLinks(ctx context.Context, req *link.Link) (*link.Links, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLinks not implemented")
+}
+func (*UnimplementedLinkServer) GetLink(ctx context.Context, req *link.Link) (*link.Link, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLink not implemented")
 }
 func (*UnimplementedLinkServer) CreateLink(ctx context.Context, req *link.Link) (*link.Link, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLink not implemented")
@@ -136,24 +137,6 @@ func (*UnimplementedLinkServer) DeleteLink(ctx context.Context, req *link.Link) 
 
 func RegisterLinkServer(s *grpc.Server, srv LinkServer) {
 	s.RegisterService(&_Link_serviceDesc, srv)
-}
-
-func _Link_GetLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(link.Link)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LinkServer).GetLink(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/grpcweb.Link/GetLink",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServer).GetLink(ctx, req.(*link.Link))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Link_GetLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -170,6 +153,24 @@ func _Link_GetLinks_Handler(srv interface{}, ctx context.Context, dec func(inter
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LinkServer).GetLinks(ctx, req.(*link.Link))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Link_GetLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(link.Link)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LinkServer).GetLink(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpcweb.Link/GetLink",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LinkServer).GetLink(ctx, req.(*link.Link))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -215,12 +216,12 @@ var _Link_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*LinkServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetLink",
-			Handler:    _Link_GetLink_Handler,
-		},
-		{
 			MethodName: "GetLinks",
 			Handler:    _Link_GetLinks_Handler,
+		},
+		{
+			MethodName: "GetLink",
+			Handler:    _Link_GetLink_Handler,
 		},
 		{
 			MethodName: "CreateLink",
