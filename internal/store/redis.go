@@ -44,6 +44,11 @@ func (r *RedisLinkList) Close() error {
 	return r.client.Close()
 }
 
+// Migrate ...
+func (r *RedisLinkList) migrate() error {
+	return nil
+}
+
 // Get ...
 func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 	val, err := r.client.Get(id).Result()

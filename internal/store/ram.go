@@ -26,6 +26,11 @@ func (ram *RAMLinkList) Close() error {
 	return nil
 }
 
+// Migrate ...
+func (ram *RAMLinkList) migrate() error {
+	return nil
+}
+
 // Get ...
 func (ram *RAMLinkList) Get(id string) (*link.Link, error) {
 	ram.mu.Lock()
