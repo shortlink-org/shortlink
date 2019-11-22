@@ -24,14 +24,14 @@ func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
 	api.ctx = ctx
 	api.store = db
 
-	logger := logger.GetLogger(ctx)
-	logger.Info("Run gRPC-GateWay API")
+	log := logger.GetLogger(ctx)
+	log.Info("Run gRPC-GateWay API")
 
 	// Rug gRPC
 	go func() {
 		err := api.runGRPC()
 		if err != nil {
-			logger.Fatal(err.Error())
+			log.Fatal(err.Error())
 		}
 	}()
 
