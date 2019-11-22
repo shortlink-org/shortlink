@@ -44,9 +44,18 @@ func (c *CassandraLinkList) Close() error {
 
 // Get ...
 func (c *CassandraLinkList) Get(id string) (*link.Link, error) {
-	panic("implement me")
+	iter := c.client.Query(`SELECT url, hash, describe FROM links`).Iter()
 
-	return nil, nil
+	// Here's an array in which you can store the decoded documents
+	var response *link.Link
+
+	iter.Scan(&response)
+
+	if err := iter.Close(); err != nil {
+		return nil, err
+	}
+
+	return response, nil
 }
 
 // Add ...
@@ -87,9 +96,8 @@ func (c *CassandraLinkList) Update(data link.Link) (*link.Link, error) {
 
 // Delete ...
 func (c *CassandraLinkList) Delete(id string) error {
-	panic("implement me")
-
-	return nil
+	err := c.client.Query(`DELETE FROM links WHERE hash = ?`, id).Exec()
+	return err
 }
 
 // setConfig - set configuration
