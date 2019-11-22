@@ -23,11 +23,8 @@ func TestCassandra(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = store.Init()
-		if err != nil {
-			return err
+		if errInit := store.Init(); errInit != nil {
+			return errInit
 		}
 
 		return nil

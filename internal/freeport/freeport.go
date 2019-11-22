@@ -3,7 +3,7 @@ package freeport
 import "net"
 
 // GetFreePort asks the kernel for a free open port that is ready to use.
-func GetFreePort() (int, error) {
+func GetFreePort() (int, error) { // nolint unused
 	addr, err := net.ResolveTCPAddr("tcp", "localhost:0")
 	if err != nil {
 		return 0, err
