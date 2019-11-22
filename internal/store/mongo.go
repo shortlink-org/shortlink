@@ -52,6 +52,29 @@ func (m *MongoLinkList) Close() error {
 	return m.client.Disconnect(context.Background())
 }
 
+// Migrate ...
+func (m *MongoLinkList) migrate() error {
+	return nil
+}
+
+// Add ...
+func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
+	data.Hash = hash[:7]
+
+	collection := m.client.Database("shortlink").Collection("links")
+
+	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	defer cancel()
+
+	_, err := collection.InsertOne(ctx, data)
+	if err != nil {
+		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
+	}
+
+	return &data, nil
+}
+
 // Get ...
 func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 	collection := m.client.Database("shortlink").Collection("links")
@@ -72,24 +95,6 @@ func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 	}
 
 	return &response, nil
-}
-
-// Add ...
-func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
-
-	collection := m.client.Database("shortlink").Collection("links")
-
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
-	defer cancel()
-
-	_, err := collection.InsertOne(ctx, data)
-	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
-	}
-
-	return &data, nil
 }
 
 // List ...

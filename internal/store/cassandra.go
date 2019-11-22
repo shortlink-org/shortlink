@@ -1,8 +1,11 @@
 package store
 
 import (
+	"fmt"
+
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/gocql/gocql"
+	"github.com/scylladb/gocqlx/qb"
 	"github.com/spf13/viper"
 )
 
@@ -26,10 +29,14 @@ func (c *CassandraLinkList) Init() error {
 
 	// Connect to CassandraDB
 	cluster := gocql.NewCluster(c.config.URI)
-	cluster.Keyspace = "shortlink"
 
 	c.client, err = cluster.CreateSession()
 	if err != nil {
+		panic(err)
+	}
+
+	// Migration
+	if err = c.migrate(); err != nil {
 		panic(err)
 	}
 
@@ -42,17 +49,69 @@ func (c *CassandraLinkList) Close() error {
 	return nil
 }
 
+// Migrate ...
+// TODO: ddd -> describe
+func (c *CassandraLinkList) migrate() error {
+	infoSchemas := []string{`
+CREATE KEYSPACE IF NOT EXISTS shortlink
+	WITH REPLICATION = {
+		'class' : 'SimpleStrategy',
+		'replication_factor': 1
+	};`, `
+CREATE TABLE IF NOT EXISTS shortlink.links (
+	url text,
+	hash text,
+	ddd text,
+	PRIMARY KEY(hash)
+)`}
+
+	for _, schema := range infoSchemas {
+		if err := c.client.Query(schema).Exec(); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // Get ...
 func (c *CassandraLinkList) Get(id string) (*link.Link, error) {
-	iter := c.client.Query(`SELECT url, hash, describe FROM links`).Iter()
+	stmt, values := qb.Select("shortlink.links").Columns("url", "hash", "ddd").Where(qb.EqNamed("hash", id)).ToCql()
+	iter, err := c.client.Query(stmt, values[0]).Consistency(gocql.One).Iter().SliceMap()
+	if err != nil {
+		return nil, err
+	}
+
+	if len(iter) == 0 {
+		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	}
 
 	// Here's an array in which you can store the decoded documents
-	var response *link.Link
+	response := &link.Link{
+		Url:      iter[0]["url"].(string),
+		Hash:     iter[0]["hash"].(string),
+		Describe: iter[0]["ddd"].(string),
+	}
 
-	iter.Scan(&response)
+	return response, nil
+}
 
-	if err := iter.Close(); err != nil {
+// List ...
+func (c *CassandraLinkList) List() ([]*link.Link, error) {
+	iter, err := c.client.Query(`SELECT url, hash, ddd FROM shortlink.links`).Iter().SliceMap()
+	if err != nil {
 		return nil, err
+	}
+
+	// Here's an array in which you can store the decoded documents
+	var response []*link.Link
+
+	for index := range iter {
+		response = append(response, &link.Link{
+			Url:      iter[index]["url"].(string),
+			Hash:     iter[index]["hash"].(string),
+			Describe: iter[index]["ddd"].(string),
+		})
 	}
 
 	return response, nil
@@ -63,30 +122,11 @@ func (c *CassandraLinkList) Add(data link.Link) (*link.Link, error) {
 	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
-	if err := c.client.Query(`INSERT INTO links (url hash describe) VALUES (?, ?, ?)`, data.Url, data.Hash, data.Describe).Exec(); err != nil {
+	if err := c.client.Query(`INSERT INTO shortlink.links (url, hash, ddd) VALUES (?, ?, ?)`, data.Url, data.Hash, data.Describe).Exec(); err != nil {
 		return nil, err
 	}
 
 	return &data, nil
-}
-
-// List ...
-func (c *CassandraLinkList) List() ([]*link.Link, error) {
-	iter := c.client.Query(`SELECT url, hash, describe FROM links`).Iter()
-
-	// Here's an array in which you can store the decoded documents
-	var response []*link.Link
-	var link link.Link
-
-	for iter.Scan(&link) {
-		response = append(response, &link)
-	}
-
-	if err := iter.Close(); err != nil {
-		return nil, err
-	}
-
-	return response, nil
 }
 
 // Update ...
@@ -96,7 +136,7 @@ func (c *CassandraLinkList) Update(data link.Link) (*link.Link, error) {
 
 // Delete ...
 func (c *CassandraLinkList) Delete(id string) error {
-	err := c.client.Query(`DELETE FROM links WHERE hash = ?`, id).Exec()
+	err := c.client.Query(`DELETE FROM shortlink.links WHERE hash = ?`, id).Exec()
 	return err
 }
 
