@@ -11,6 +11,7 @@ import (
 type DB interface { // nolint unused
 	Init() error
 	Close() error
+	migrate() error
 
 	Get(id string) (*link.Link, error)
 	List() ([]*link.Link, error)
@@ -47,6 +48,8 @@ func (s *Store) Use(ctx context.Context) DB { // nolint unused
 		store = &LevelDBLinkList{}
 	case "badger":
 		store = &BadgerLinkList{}
+	case "cassandra":
+		store = &CassandraLinkList{}
 	case "ram":
 		store = &RAMLinkList{}
 	default:
