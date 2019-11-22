@@ -1,0 +1,26 @@
+sudo: true
+language: go
+go:
+  - 1.11.x
+
+env:
+  global:
+    - SCYLLA_OPTS="--developer-mode 1 --log-to-stdout 1 --default-log-level info"
+  matrix:
+    - DB="scylla"
+    - DB="cassandra"
+
+dist: trusty
+addons:
+  apt:
+    packages:
+      - moreutils
+
+before_install:
+  - ./.travis_start_db.sh
+
+install:
+  - make get-deps get-tools
+
+script:
+  - make
