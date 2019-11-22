@@ -47,6 +47,11 @@ func (p *PostgresLinkList) Close() error {
 	return nil
 }
 
+// Migrate ...
+func (p *PostgresLinkList) migrate() error {
+	return nil
+}
+
 // Get ...
 func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 	// query builder
