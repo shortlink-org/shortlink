@@ -7,6 +7,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/store/badger"
+	"github.com/batazor/shortlink/internal/store/cassandra"
 	"github.com/batazor/shortlink/internal/store/dgraph"
 	"github.com/batazor/shortlink/internal/store/leveldb"
 	"github.com/batazor/shortlink/internal/store/mongo"

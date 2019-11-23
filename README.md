@@ -78,20 +78,20 @@ docker-compose \
 
 ##### [12 factors: ENV](https://12factor.net/config)
 
-| Name                | Default                                               | Description                                              |
-|---------------------|-------------------------------------------------------|----------------------------------------------------------|
-| STORE_TYPE          | ram                                                   | Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram, cassandra |
-| STORE_MONGODB_URI   | mongodb://localhost:27017                             | MongoDB URI                                              |
-| STORE_BADGER_PATH   | /tmp/links.badger                                     | Badger path to file                                      |
-| STORE_DGRAPH_URI    | localhost:9080                                        | DGRAPH link                                              |
-| STORE_LEVELDB_PATH  | /tmp/links.db                                         | LevelDB path to file                                     |
-| STORE_POSTGRES_URI  | postgres://postgres:postgres@localhost:5432/shortlink | Postgres URI                                             |
-| STORE_REDIS_URI     | localhost:6379                                        | Redis URI                                                |
-| STORE_SQLITE_PATH   | /tmp/links.sqlite                                     | SQLite URI                                               |
-| STORE_CASSANDRA_URI | localhost                                             | Cassandra URI                                            |
-| LOG_LEVEL           | 3                                                     | Log level. Select 0-4 (Fatal->Debug)                     |
-| LOG_TIME_FORMAT     | 2006-01-02T15:04:05.999999999Z07:00                   | Log time format (golang time format)                     |
-| TRACER_SERVICE_NAME | ShortLink                                             | Service Name                                             |
-| TRACER_URI          | localhost:6831                                        | Tracing addr:host                                        |
-| API_TYPE            | http-chi                                              | Select: http-chi, gRPC-web, graphql, cloudevents         |
-| API_PORT            | 7070                                                  | API port                                                 |
+| Name                | Default                                                 | Description                                              |
+|---------------------|---------------------------------------------------------|----------------------------------------------------------|
+| STORE_TYPE          | ram                                                     | Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram, cassandra |
+| STORE_MONGODB_URI   | mongodb://localhost:27017                               | MongoDB URI                                              |
+| STORE_BADGER_PATH   | /tmp/links.badger                                       | Badger path to file                                      |
+| STORE_DGRAPH_URI    | localhost:9080                                          | DGRAPH link                                              |
+| STORE_LEVELDB_PATH  | /tmp/links.db                                           | LevelDB path to file                                     |
+| STORE_POSTGRES_URI  | postgres://shortlink:shortlink@localhost:5432/shortlink | Postgres URI                                             |
+| STORE_REDIS_URI     | localhost:6379                                          | Redis URI                                                |
+| STORE_SQLITE_PATH   | /tmp/links.sqlite                                       | SQLite URI                                               |
+| STORE_CASSANDRA_URI | localhost                                               | Cassandra URI                                            |
+| LOG_LEVEL           | 3                                                       | Log level. Select 0-4 (Fatal->Debug)                     |
+| LOG_TIME_FORMAT     | 2006-01-02T15:04:05.999999999Z07:00                     | Log time format (golang time format)                     |
+| TRACER_SERVICE_NAME | ShortLink                                               | Service Name                                             |
+| TRACER_URI          | localhost:6831                                          | Tracing addr:host                                        |
+| API_TYPE            | http-chi                                                | Select: http-chi, gRPC-web, graphql, cloudevents         |
+| API_PORT            | 7070                                                    | API port                                                 |

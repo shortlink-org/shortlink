@@ -34,7 +34,7 @@ func (p *PostgresLinkList) Init() error {
 }
 
 // Close ...
-func (p *PostgresLinkList) Close() error {
+func (p *PostgresLinkList) Close() error { // nolint unparam
 	p.client.Close()
 	return nil
 }
@@ -157,7 +157,7 @@ func (p *PostgresLinkList) Delete(id string) error {
 
 // setConfig - set configuration
 func (p *PostgresLinkList) setConfig() {
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", "postgres", "postgres", "shortlink")
+	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", "shortlink", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)

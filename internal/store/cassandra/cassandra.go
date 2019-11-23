@@ -1,8 +1,9 @@
-package store
+package cassandra
 
 import (
 	"fmt"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/gocql/gocql"
 	"github.com/scylladb/gocqlx/qb"
@@ -97,7 +98,7 @@ func (c *CassandraLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (c *CassandraLinkList) List() ([]*link.Link, error) {
+func (c *CassandraLinkList) List(filter *query.Filter) ([]*link.Link, error) {
 	iter, err := c.client.Query(`SELECT url, hash, ddd FROM shortlink.links`).Iter().SliceMap()
 	if err != nil {
 		return nil, err
