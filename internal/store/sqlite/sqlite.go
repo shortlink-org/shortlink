@@ -55,6 +55,11 @@ func (lite *SQLiteLinkList) Close() error {
 	return lite.client.Close()
 }
 
+// Migrate ...
+func (lite *SQLiteLinkList) migrate() error {
+	return nil
+}
+
 // Get ...
 func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
 	// query builder

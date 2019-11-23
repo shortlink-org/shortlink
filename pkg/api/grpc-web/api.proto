@@ -7,13 +7,13 @@ import "google/protobuf/empty.proto";
 import "pkg/link/link.proto";
 
 service Link {
-    rpc GetLink(link.Link) returns (link.Link) {
+    rpc GetLinks(link.Link) returns (link.Links) {
         option(google.api.http) = {
-			get: "/api/{hash}"
+			get: "/api/links"
 		};
     };
 
-    rpc GetLinks(link.Link) returns (link.Links) {
+    rpc GetLink(link.Link) returns (link.Link) {
         option(google.api.http) = {
 			get: "/api/{hash}"
 		};

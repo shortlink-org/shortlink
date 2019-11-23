@@ -6,7 +6,7 @@ services:
     build: .
     ports:
       # API
-      - "7070:7070"
+      - "7080:7070"
       # Metrics
       - "9090:9090"
     restart: on-failure

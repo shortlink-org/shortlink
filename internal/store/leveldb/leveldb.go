@@ -41,6 +41,29 @@ func (l *LevelDBLinkList) Close() error {
 	return l.client.Close()
 }
 
+// Migrate ...
+func (l *LevelDBLinkList) migrate() error {
+	return nil
+}
+
+// Add ...
+func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
+	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
+	data.Hash = hash[:7]
+
+	payload, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+
+	err = l.client.Put([]byte(data.Hash), payload, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return &data, nil
+}
+
 // Get ...
 func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
@@ -60,24 +83,6 @@ func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 	}
 
 	return &response, nil
-}
-
-// Add ...
-func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
-
-	payload, err := json.Marshal(data)
-	if err != nil {
-		return nil, err
-	}
-
-	err = l.client.Put([]byte(data.Hash), payload, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return &data, nil
 }
 
 // List ...

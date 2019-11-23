@@ -70,6 +70,11 @@ github.com/go-redis/redis/internal/proto
 github.com/go-redis/redis/internal/util
 # github.com/go-stack/stack v1.8.0
 github.com/go-stack/stack
+# github.com/gocql/gocql v0.0.0-20191106222750-ae2f7fc85f32
+github.com/gocql/gocql
+github.com/gocql/gocql/internal/lru
+github.com/gocql/gocql/internal/murmur
+github.com/gocql/gocql/internal/streams
 # github.com/golang/protobuf v1.3.2
 github.com/golang/protobuf/descriptor
 github.com/golang/protobuf/jsonpb
@@ -101,10 +106,17 @@ github.com/graph-gophers/graphql-go/introspection
 github.com/graph-gophers/graphql-go/log
 github.com/graph-gophers/graphql-go/relay
 github.com/graph-gophers/graphql-go/trace
+# github.com/grpc-ecosystem/go-grpc-middleware v1.1.0
+github.com/grpc-ecosystem/go-grpc-middleware
+github.com/grpc-ecosystem/go-grpc-middleware/tags
+github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing
+github.com/grpc-ecosystem/go-grpc-middleware/util/metautils
 # github.com/grpc-ecosystem/grpc-gateway v1.12.1
 github.com/grpc-ecosystem/grpc-gateway/internal
 github.com/grpc-ecosystem/grpc-gateway/runtime
 github.com/grpc-ecosystem/grpc-gateway/utilities
+# github.com/hailocab/go-hostpool v0.0.0-20160125115350-e80d13ce29ed
+github.com/hailocab/go-hostpool
 # github.com/hashicorp/golang-lru v0.5.1
 github.com/hashicorp/golang-lru/simplelru
 # github.com/hashicorp/hcl v1.0.0
@@ -213,6 +225,8 @@ github.com/prometheus/common/model
 github.com/prometheus/procfs
 github.com/prometheus/procfs/internal/fs
 github.com/prometheus/procfs/internal/util
+# github.com/scylladb/gocqlx v1.3.1
+github.com/scylladb/gocqlx/qb
 # github.com/sirupsen/logrus v1.4.2
 github.com/sirupsen/logrus
 # github.com/spf13/afero v1.1.2
@@ -413,6 +427,8 @@ google.golang.org/grpc/serviceconfig
 google.golang.org/grpc/stats
 google.golang.org/grpc/status
 google.golang.org/grpc/tap
+# gopkg.in/inf.v0 v0.9.1
+gopkg.in/inf.v0
 # gopkg.in/yaml.v2 v2.2.4
 gopkg.in/yaml.v2
 # honnef.co/go/tools v0.0.1-2019.2.3
