@@ -14,25 +14,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/ram"
 	"github.com/batazor/shortlink/internal/store/redis"
 	"github.com/batazor/shortlink/internal/store/sqlite"
-	"github.com/batazor/shortlink/pkg/link"
 )
-
-// DB - common interface of store
-type DB interface { // nolint unused
-	Init() error
-	Close() error
-
-	Get(id string) (*link.Link, error)
-	List() ([]*link.Link, error)
-	Add(data link.Link) (*link.Link, error)
-	Update(data link.Link) (*link.Link, error)
-	Delete(id string) error
-}
-
-// Store abstract type
-type Store struct { // nolint unused
-	typeStore string
-}
 
 // Use return implementation of store
 func (s *Store) Use(ctx context.Context) DB { // nolint unused

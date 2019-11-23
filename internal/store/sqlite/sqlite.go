@@ -8,6 +8,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 )
 
@@ -81,7 +82,7 @@ func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (lite *SQLiteLinkList) List() ([]*link.Link, error) {
+func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) {
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")

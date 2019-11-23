@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/go-redis/redis"
 )
@@ -61,7 +62,7 @@ func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (r *RedisLinkList) List() ([]*link.Link, error) {
+func (r *RedisLinkList) List(filter *query.Filter) ([]*link.Link, error) {
 	keys := r.client.Keys("*")
 	links := []*link.Link{}
 

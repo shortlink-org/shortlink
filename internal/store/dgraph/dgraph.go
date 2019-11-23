@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
@@ -155,7 +156,7 @@ query all {
 }
 
 // List ...
-func (dg *DGraphLinkList) List() ([]*link.Link, error) {
+func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {

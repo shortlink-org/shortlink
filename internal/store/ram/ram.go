@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 )
 
@@ -40,7 +41,7 @@ func (ram *RAMLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (ram *RAMLinkList) List() ([]*link.Link, error) {
+func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) {
 	links := []*link.Link{}
 
 	ram.mu.Lock()

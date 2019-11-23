@@ -3,28 +3,20 @@ package postgres
 import (
 	"context"
 	"fmt"
+
 	"github.com/spf13/viper"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
+
+	"github.com/batazor/shortlink/internal/store/query"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
-
-// PostgresConfig ...
-type PostgresConfig struct { // nolint unused
-	URI string
-}
-
-// PostgresLinkList implementation of store interface
-type PostgresLinkList struct { // nolint unused
-	client *pgxpool.Pool
-	config PostgresConfig
-}
 
 // Init ...
 func (p *PostgresLinkList) Init() error {
@@ -77,10 +69,11 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (p *PostgresLinkList) List() ([]*link.Link, error) {
+func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
-		From("links")
+		From("links").
+		Where(p.buildFilter(filter))
 	query, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
@@ -167,4 +160,32 @@ func (p *PostgresLinkList) setConfig() {
 	p.config = PostgresConfig{
 		URI: viper.GetString("STORE_POSTGRES_URI"),
 	}
+}
+
+func (p *PostgresLinkList) buildFilter(filter *query.Filter) interface{} {
+	if filter != nil {
+		clauses := squirrel.Eq{}
+
+		if filter.Url != nil {
+			if filter.Url.Eq != nil {
+				clauses["url"] = filter.Url.Eq
+			}
+		}
+
+		if filter.Hash != nil {
+			if filter.Hash.Eq != nil {
+				clauses["url"] = filter.Hash.Eq
+			}
+		}
+
+		if filter.Describe != nil {
+			if filter.Describe.Eq != nil {
+				clauses["url"] = filter.Describe.Eq
+			}
+		}
+
+		return clauses
+	}
+
+	return nil
 }

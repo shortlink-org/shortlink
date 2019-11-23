@@ -13,7 +13,7 @@ func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error)
 
 // GetLinks ...
 func (api *API) GetLinks(ctx context.Context, req *link.Link) (*link.Links, error) {
-	links, err := api.store.List()
+	links, err := api.store.List(nil)
 	if err != nil {
 		return nil, err
 	}

@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/viper"
 	"time"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -93,7 +94,7 @@ func (m *MongoLinkList) Add(data link.Link) (*link.Link, error) {
 }
 
 // List ...
-func (m *MongoLinkList) List() ([]*link.Link, error) {
+func (m *MongoLinkList) List(filter *query.Filter) ([]*link.Link, error) {
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
