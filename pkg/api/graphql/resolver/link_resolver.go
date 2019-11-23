@@ -17,7 +17,7 @@ func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 }
 
 // Links ...
-func (r *Resolver) Links(ctx context.Context, args struct {
+func (r *Resolver) Links(ctx context.Context, args struct { // nolint unused
 	Filter *query.Filter
 }) (*[]*LinkResolver, error) { // nolint unused
 	links := []*LinkResolver{}

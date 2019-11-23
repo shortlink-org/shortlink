@@ -63,7 +63,7 @@ func (dg *DGraphLinkList) Close() error {
 }
 
 // Migrate ...
-func (dg *DGraphLinkList) migrate() error {
+func (dg *DGraphLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -161,7 +161,7 @@ query all {
 }
 
 // List ...
-func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) {
+func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {

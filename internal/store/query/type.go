@@ -1,12 +1,12 @@
 package query
 
-type Filter struct {
+type Filter struct { // nolint unused
 	Url      *StringFilterInput
 	Hash     *StringFilterInput
 	Describe *StringFilterInput
 }
 
-type StringFilterInput struct {
+type StringFilterInput struct { // nolint unused
 	Ne          *string
 	Eq          *string
 	Le          *string

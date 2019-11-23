@@ -46,7 +46,7 @@ func (r *RedisLinkList) Close() error {
 }
 
 // Migrate ...
-func (r *RedisLinkList) migrate() error {
+func (r *RedisLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -67,7 +67,7 @@ func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (r *RedisLinkList) List(filter *query.Filter) ([]*link.Link, error) {
+func (r *RedisLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	keys := r.client.Keys("*")
 	links := []*link.Link{}
 

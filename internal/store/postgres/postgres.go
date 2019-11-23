@@ -40,7 +40,7 @@ func (p *PostgresLinkList) Close() error { // nolint unparam
 }
 
 // Migrate ...
-func (p *PostgresLinkList) migrate() error {
+func (p *PostgresLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -74,7 +74,7 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) {
+func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links").
