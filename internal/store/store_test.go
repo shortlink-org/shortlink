@@ -48,7 +48,7 @@ func TestLink(t *testing.T) { //nolint unused
 	}
 
 	// test get links
-	links, err := s.List()
+	links, err := s.List(nil)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
