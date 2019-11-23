@@ -37,7 +37,7 @@ func TestRAM(t *testing.T) {
 	})
 
 	t.Run("Get list", func(t *testing.T) {
-		links, err := store.List()
+		links, err := store.List(nil)
 		if err != nil {
 			t.Error(err)
 		}

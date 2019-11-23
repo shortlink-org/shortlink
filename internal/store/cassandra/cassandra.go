@@ -2,6 +2,8 @@ package cassandra
 
 import (
 	"fmt"
+	"net/url"
+	"strconv"
 
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
@@ -28,8 +30,19 @@ func (c *CassandraLinkList) Init() error {
 	// Set configuration
 	c.setConfig()
 
+	uri, err := url.ParseRequestURI(c.config.URI)
+	if err != nil {
+		return err
+	}
+
 	// Connect to CassandraDB
 	cluster := gocql.NewCluster(c.config.URI)
+	cluster.ProtoVersion = 1
+	cluster.Port, err = strconv.Atoi(uri.Opaque)
+
+	if err != nil {
+		return err
+	}
 
 	c.client, err = cluster.CreateSession()
 	if err != nil {
@@ -144,7 +157,7 @@ func (c *CassandraLinkList) Delete(id string) error {
 // setConfig - set configuration
 func (c *CassandraLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_CASSANDRA_URI", "localhost")
+	viper.SetDefault("STORE_CASSANDRA_URI", "localhost:9042")
 	c.config = CassandraConfig{
 		URI: viper.GetString("STORE_CASSANDRA_URI"),
 	}
