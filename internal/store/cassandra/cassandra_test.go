@@ -24,7 +24,7 @@ func TestCassandra(t *testing.T) {
 	}
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
-	if err := pool.Retry(func() error {
+	if err = pool.Retry(func() error {
 		err = os.Setenv("STORE_CASSANDRA_URI", fmt.Sprintf("localhost:%s", resource.GetPort("9042/tcp")))
 		if err != nil {
 			t.Fatalf("Cannot set ENV: %s", err)

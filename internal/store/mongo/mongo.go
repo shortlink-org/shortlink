@@ -54,7 +54,7 @@ func (m *MongoLinkList) Close() error {
 }
 
 // Migrate ...
-func (m *MongoLinkList) migrate() error {
+func (m *MongoLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -99,7 +99,7 @@ func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (m *MongoLinkList) List(filter *query.Filter) ([]*link.Link, error) {
+func (m *MongoLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)

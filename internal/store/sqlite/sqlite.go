@@ -56,7 +56,7 @@ func (lite *SQLiteLinkList) Close() error {
 }
 
 // Migrate ...
-func (lite *SQLiteLinkList) migrate() error {
+func (lite *SQLiteLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -87,7 +87,7 @@ func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) {
+func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")

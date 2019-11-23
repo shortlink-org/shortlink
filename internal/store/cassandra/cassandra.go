@@ -58,14 +58,14 @@ func (c *CassandraLinkList) Init() error {
 }
 
 // Close ...
-func (c *CassandraLinkList) Close() error {
+func (c *CassandraLinkList) Close() error { // nolint unparam
 	c.client.Close()
 	return nil
 }
 
 // Migrate ...
 // TODO: ddd -> describe
-func (c *CassandraLinkList) migrate() error {
+func (c *CassandraLinkList) migrate() error { // nolint unused
 	infoSchemas := []string{`
 CREATE KEYSPACE IF NOT EXISTS shortlink
 	WITH REPLICATION = {
@@ -111,7 +111,7 @@ func (c *CassandraLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (c *CassandraLinkList) List(filter *query.Filter) ([]*link.Link, error) {
+func (c *CassandraLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	iter, err := c.client.Query(`SELECT url, hash, ddd FROM shortlink.links`).Iter().SliceMap()
 	if err != nil {
 		return nil, err

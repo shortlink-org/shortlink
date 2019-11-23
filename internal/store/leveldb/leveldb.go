@@ -42,7 +42,7 @@ func (l *LevelDBLinkList) Close() error {
 }
 
 // Migrate ...
-func (l *LevelDBLinkList) migrate() error {
+func (l *LevelDBLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -86,7 +86,7 @@ func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (l *LevelDBLinkList) List(filter *query.Filter) ([]*link.Link, error) {
+func (l *LevelDBLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	links := []*link.Link{}
 	iterator := l.client.NewIterator(nil, nil)
 
