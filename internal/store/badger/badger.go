@@ -41,6 +41,11 @@ func (b *BadgerLinkList) Close() error {
 	return b.client.Close()
 }
 
+// Migrate ...
+func (b *BadgerLinkList) migrate() error {
+	return nil
+}
+
 // Get ...
 func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 	var valCopy []byte

@@ -39,6 +39,8 @@ func (s *Store) Use(ctx context.Context) DB { // nolint unused
 		store = &leveldb.LevelDBLinkList{}
 	case "badger":
 		store = &badger.BadgerLinkList{}
+	case "cassandra":
+		store = &cassandra.CassandraLinkList{}
 	case "ram":
 		store = &ram.RAMLinkList{}
 	default:
