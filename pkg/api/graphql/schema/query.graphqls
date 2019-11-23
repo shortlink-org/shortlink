@@ -1,5 +1,18 @@
 # The Query type represents all of the entry points into the API.
 type Query {
     link(hash: String): Link!
-    links: [Link!]
+    links(filter: LinkFilterInput): [Link!]
+}
+
+input StringFilterInput {
+    ne: String
+    eq: String
+    le: String
+    lt: String
+    ge: String
+    gt: String
+    contains: String
+    notContains: String
+    between: [String]
+    beginsWith: String
 }
