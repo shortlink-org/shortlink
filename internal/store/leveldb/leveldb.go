@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/spf13/viper"
 	"github.com/syndtr/goleveldb/leveldb"
@@ -80,7 +81,7 @@ func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
 }
 
 // List ...
-func (l *LevelDBLinkList) List() ([]*link.Link, error) {
+func (l *LevelDBLinkList) List(filter *query.Filter) ([]*link.Link, error) {
 	links := []*link.Link{}
 	iterator := l.client.NewIterator(nil, nil)
 
