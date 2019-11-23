@@ -2,9 +2,19 @@ package store
 
 import (
 	"context"
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/pkg/link"
+
 	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/store/badger"
+	"github.com/batazor/shortlink/internal/store/dgraph"
+	"github.com/batazor/shortlink/internal/store/leveldb"
+	"github.com/batazor/shortlink/internal/store/mongo"
+	"github.com/batazor/shortlink/internal/store/postgres"
+	"github.com/batazor/shortlink/internal/store/ram"
+	"github.com/batazor/shortlink/internal/store/redis"
+	"github.com/batazor/shortlink/internal/store/sqlite"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // DB - common interface of store
@@ -34,23 +44,23 @@ func (s *Store) Use(ctx context.Context) DB { // nolint unused
 
 	switch s.typeStore {
 	case "postgres":
-		store = &PostgresLinkList{}
+		store = &postgres.PostgresLinkList{}
 	case "mongo":
-		store = &MongoLinkList{}
+		store = &mongo.MongoLinkList{}
 	case "redis":
-		store = &RedisLinkList{}
+		store = &redis.RedisLinkList{}
 	case "dgraph":
-		store = &DGraphLinkList{}
+		store = &dgraph.DGraphLinkList{}
 	case "sqlite":
-		store = &SQLiteLinkList{}
+		store = &sqlite.SQLiteLinkList{}
 	case "leveldb":
-		store = &LevelDBLinkList{}
+		store = &leveldb.LevelDBLinkList{}
 	case "badger":
-		store = &BadgerLinkList{}
+		store = &badger.BadgerLinkList{}
 	case "ram":
-		store = &RAMLinkList{}
+		store = &ram.RAMLinkList{}
 	default:
-		store = &RAMLinkList{}
+		store = &ram.RAMLinkList{}
 	}
 
 	if err := store.Init(); err != nil {

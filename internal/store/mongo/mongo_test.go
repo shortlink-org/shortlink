@@ -1,14 +1,17 @@
-package store
+package mongo
 
 import (
 	"fmt"
-	"github.com/ory/dockertest"
 	"os"
 	"testing"
+
+	"github.com/ory/dockertest"
+
+	"github.com/batazor/shortlink/internal/store/mock"
 )
 
-func TestRedis(t *testing.T) {
-	store := RedisLinkList{}
+func TestMongo(t *testing.T) {
+	store := MongoLinkList{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -17,7 +20,7 @@ func TestRedis(t *testing.T) {
 	}
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("redis", "latest", nil)
+	resource, err := pool.Run("mongo", "latest", nil)
 	if err != nil {
 		t.Fatalf("Could not start resource: %s", err)
 	}
@@ -26,7 +29,7 @@ func TestRedis(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
+		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s", resource.GetPort("27017/tcp")))
 		if err != nil {
 			t.Fatalf("Cannot set ENV: %s", err)
 		}
@@ -42,24 +45,24 @@ func TestRedis(t *testing.T) {
 	}
 
 	t.Run("Create", func(t *testing.T) {
-		link, err := store.Add(addLink)
+		link, err := store.Add(mock.AddLink)
 		if err != nil {
 			t.Error(err)
 		}
 
-		if link.Hash != getLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", getLink.Hash, link.Hash)
+		if link.Hash != mock.GetLink.Hash {
+			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
 		}
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		link, err := store.Get(getLink.Hash)
+		link, err := store.Get(mock.GetLink.Hash)
 		if err != nil {
 			t.Error(err)
 		}
 
-		if link.Hash != getLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", getLink.Hash, link.Hash)
+		if link.Hash != mock.GetLink.Hash {
+			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
 		}
 	})
 
@@ -75,7 +78,7 @@ func TestRedis(t *testing.T) {
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		err := store.Delete(getLink.Hash)
+		err := store.Delete(mock.GetLink.Hash)
 		if err != nil {
 			t.Error(err)
 		}

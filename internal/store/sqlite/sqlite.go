@@ -1,13 +1,14 @@
-package store
+package sqlite
 
 import (
 	"database/sql"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/batazor/shortlink/pkg/link"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // SQLiteConfig ...
@@ -56,7 +57,7 @@ func (lite *SQLiteLinkList) Close() error {
 // Get ...
 func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
 	// query builder
-	links := psql.Select("url, hash, describe").
+	links := squirrel.Select("url, hash, describe").
 		From("links").
 		Where(squirrel.Eq{"hash": id})
 	query, args, err := links.ToSql()
@@ -82,7 +83,7 @@ func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
 // List ...
 func (lite *SQLiteLinkList) List() ([]*link.Link, error) {
 	// query builder
-	links := psql.Select("url, hash, describe").
+	links := squirrel.Select("url, hash, describe").
 		From("links")
 	query, args, err := links.ToSql()
 	if err != nil {
@@ -116,7 +117,7 @@ func (lite *SQLiteLinkList) Add(data link.Link) (*link.Link, error) {
 	data.Hash = hash[:7]
 
 	// query builder
-	links := psql.Insert("links").
+	links := squirrel.Insert("links").
 		Columns("url", "hash", "describe").
 		Values(data.Url, data.Hash, data.Describe)
 
@@ -141,7 +142,7 @@ func (lite *SQLiteLinkList) Update(data link.Link) (*link.Link, error) {
 // Delete ...
 func (lite *SQLiteLinkList) Delete(id string) error {
 	// query builder
-	links := psql.Delete("links").
+	links := squirrel.Delete("links").
 		Where(squirrel.Eq{"hash": id})
 	query, args, err := links.ToSql()
 	if err != nil {

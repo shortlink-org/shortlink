@@ -1,4 +1,4 @@
-package store
+package badger
 
 import (
 	"encoding/json"
