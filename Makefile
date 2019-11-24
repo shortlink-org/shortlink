@@ -53,6 +53,9 @@ generate: ## Code generation
 	@echo "Generate go static"
 	@go generate pkg/api/graphql/schema/schema.go
 
+	@echo "Generate from .go code"
+	@go generate internal/store/postgres/postgres.go
+
 golint: ## Linter for golang
 	@golangci-lint run
 
