@@ -1,3 +1,4 @@
+//go:generate protoc -I../../../pkg/link --gotemplate_out=all=true,template_dir=template:. link.proto
 package postgres
 
 import (
@@ -165,32 +166,4 @@ func (p *PostgresLinkList) setConfig() {
 	p.config = PostgresConfig{
 		URI: viper.GetString("STORE_POSTGRES_URI"),
 	}
-}
-
-func (p *PostgresLinkList) buildFilter(filter *query.Filter) interface{} {
-	if filter != nil {
-		clauses := squirrel.Eq{}
-
-		if filter.Url != nil {
-			if filter.Url.Eq != nil {
-				clauses["url"] = filter.Url.Eq
-			}
-		}
-
-		if filter.Hash != nil {
-			if filter.Hash.Eq != nil {
-				clauses["url"] = filter.Hash.Eq
-			}
-		}
-
-		if filter.Describe != nil {
-			if filter.Describe.Eq != nil {
-				clauses["url"] = filter.Describe.Eq
-			}
-		}
-
-		return clauses
-	}
-
-	return nil
 }
