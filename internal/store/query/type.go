@@ -15,6 +15,4 @@ type StringFilterInput struct { // nolint unused
 	Gt          *string
 	Contains    *string
 	NotContains *string
-	Between     *[]*string
-	BeginsWith  *string
 }
