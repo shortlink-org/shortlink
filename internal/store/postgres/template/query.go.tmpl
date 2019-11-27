@@ -4,9 +4,9 @@
 package postgres
 
 import (
-    "github.com/Masterminds/squirrel"
+	"github.com/Masterminds/squirrel"
 
-    "github.com/batazor/shortlink/internal/store/query"
+	"github.com/batazor/shortlink/internal/store/query"
 )
 
 func (p *PostgresLinkList) buildFilter(filter *query.Filter) interface{} {
@@ -19,13 +19,11 @@ func (p *PostgresLinkList) buildFilter(filter *query.Filter) interface{} {
 
 		if filter.{{ upperFirst $field.Name }} != nil {
 			if filter.{{ upperFirst $field.Name }}.{{$command}} != nil {
-				clauses["{{$field.Name}}"] = filter.{{ upperFirst $field.Name }}.Eq
+				clauses["{{$field.Name}}"] = filter.{{ upperFirst $field.Name }}.{{$command}}
 			}
 		}
 		{{- end}}{{- end}}{{- end}}{{- end}}
-
-		return clauses
 	}
 
-	return nil
+	return clauses
 }
