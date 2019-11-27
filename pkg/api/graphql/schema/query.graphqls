@@ -13,6 +13,4 @@ input StringFilterInput {
     gt: String
     contains: String
     notContains: String
-    between: [String]
-    beginsWith: String
 }

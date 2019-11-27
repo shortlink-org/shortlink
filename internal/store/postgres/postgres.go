@@ -79,7 +79,7 @@ func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { //
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links").
-		Where(p.buildFilter(filter))
+		Where("", p.buildFilter(filter)...)
 	query, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
