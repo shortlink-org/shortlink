@@ -9,7 +9,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/query"
 )
 
-func (p *PostgresLinkList) buildFilter(links squirrel.SelectBuilder, filter *query.Filter) squirrel.SelectBuilder {
+func (p *PostgresLinkList) buildFilter(query squirrel.SelectBuilder, filter *query.Filter) squirrel.SelectBuilder {
 	if filter != nil {
 		clausesEq := squirrel.Eq{}
 		clausesNotEq := squirrel.NotEq{}
@@ -163,15 +163,15 @@ func (p *PostgresLinkList) buildFilter(links squirrel.SelectBuilder, filter *que
 				clausesNotLike["describe"] = filter.Describe.NotContains
 			}
 		}
-		links = links.Where(clausesEq)
-		links = links.Where(clausesNotEq)
-		links = links.Where(clausesLt)
-		links = links.Where(clausesLtOrEq)
-		links = links.Where(clausesGt)
-		links = links.Where(clausesGtOrEq)
-		links = links.Where(clausesLike)
-		links = links.Where(clausesNotLike)
+		query = query.Where(clausesEq)
+		query = query.Where(clausesNotEq)
+		query = query.Where(clausesLt)
+		query = query.Where(clausesLtOrEq)
+		query = query.Where(clausesGt)
+		query = query.Where(clausesGtOrEq)
+		query = query.Where(clausesLike)
+		query = query.Where(clausesNotLike)
 	}
 
-	return links
+	return query
 }

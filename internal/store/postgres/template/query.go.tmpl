@@ -9,7 +9,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/query"
 )
 
-func (p *PostgresLinkList) buildFilter(links squirrel.SelectBuilder, filter *query.Filter) squirrel.SelectBuilder {
+func (p *PostgresLinkList) buildFilter(query squirrel.SelectBuilder, filter *query.Filter) squirrel.SelectBuilder {
 	if filter != nil {
 
 {{- range $command := $sqlCommands }}
@@ -28,9 +28,9 @@ func (p *PostgresLinkList) buildFilter(links squirrel.SelectBuilder, filter *que
 		{{- end}}{{- end}}{{- end}}{{- end}}
 
 	{{- range $command := $sqlCommands }}
-		links = links.Where(clauses{{$command}})
+		query = query.Where(clauses{{$command}})
 	{{- end}}
 	}
 
-	return links
+	return query
 }
