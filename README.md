@@ -53,6 +53,10 @@ docker-compose \
 - GraphQL
 - [CloudEvents](https://cloudevents.io/)
 
+### MQ
+
++ [Kafka](https://kafka.apache.org/)
+
 ### Store provider
 
 + RAM
