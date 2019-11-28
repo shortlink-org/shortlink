@@ -21,38 +21,38 @@ func (p *PostgresLinkList) buildFilter(query squirrel.SelectBuilder, filter *que
 		clausesNotLike := squirrel.NotLike{}
 
 		if filter.Url != nil {
-			if filter.Url.Ne != nil {
-				clausesEq["url"] = filter.Url.Ne
-			}
-		}
-
-		if filter.Url != nil {
 			if filter.Url.Eq != nil {
-				clausesNotEq["url"] = filter.Url.Eq
+				clausesEq["url"] = filter.Url.Eq
 			}
 		}
 
 		if filter.Url != nil {
-			if filter.Url.Le != nil {
-				clausesLt["url"] = filter.Url.Le
+			if filter.Url.Ne != nil {
+				clausesNotEq["url"] = filter.Url.Ne
 			}
 		}
 
 		if filter.Url != nil {
 			if filter.Url.Lt != nil {
-				clausesLtOrEq["url"] = filter.Url.Lt
+				clausesLt["url"] = filter.Url.Lt
 			}
 		}
 
 		if filter.Url != nil {
-			if filter.Url.Ge != nil {
-				clausesGt["url"] = filter.Url.Ge
+			if filter.Url.Le != nil {
+				clausesLtOrEq["url"] = filter.Url.Le
 			}
 		}
 
 		if filter.Url != nil {
 			if filter.Url.Gt != nil {
-				clausesGtOrEq["url"] = filter.Url.Gt
+				clausesGt["url"] = filter.Url.Gt
+			}
+		}
+
+		if filter.Url != nil {
+			if filter.Url.Ge != nil {
+				clausesGtOrEq["url"] = filter.Url.Ge
 			}
 		}
 
@@ -69,38 +69,38 @@ func (p *PostgresLinkList) buildFilter(query squirrel.SelectBuilder, filter *que
 		}
 
 		if filter.Hash != nil {
-			if filter.Hash.Ne != nil {
-				clausesEq["hash"] = filter.Hash.Ne
-			}
-		}
-
-		if filter.Hash != nil {
 			if filter.Hash.Eq != nil {
-				clausesNotEq["hash"] = filter.Hash.Eq
+				clausesEq["hash"] = filter.Hash.Eq
 			}
 		}
 
 		if filter.Hash != nil {
-			if filter.Hash.Le != nil {
-				clausesLt["hash"] = filter.Hash.Le
+			if filter.Hash.Ne != nil {
+				clausesNotEq["hash"] = filter.Hash.Ne
 			}
 		}
 
 		if filter.Hash != nil {
 			if filter.Hash.Lt != nil {
-				clausesLtOrEq["hash"] = filter.Hash.Lt
+				clausesLt["hash"] = filter.Hash.Lt
 			}
 		}
 
 		if filter.Hash != nil {
-			if filter.Hash.Ge != nil {
-				clausesGt["hash"] = filter.Hash.Ge
+			if filter.Hash.Le != nil {
+				clausesLtOrEq["hash"] = filter.Hash.Le
 			}
 		}
 
 		if filter.Hash != nil {
 			if filter.Hash.Gt != nil {
-				clausesGtOrEq["hash"] = filter.Hash.Gt
+				clausesGt["hash"] = filter.Hash.Gt
+			}
+		}
+
+		if filter.Hash != nil {
+			if filter.Hash.Ge != nil {
+				clausesGtOrEq["hash"] = filter.Hash.Ge
 			}
 		}
 
@@ -117,38 +117,38 @@ func (p *PostgresLinkList) buildFilter(query squirrel.SelectBuilder, filter *que
 		}
 
 		if filter.Describe != nil {
-			if filter.Describe.Ne != nil {
-				clausesEq["describe"] = filter.Describe.Ne
-			}
-		}
-
-		if filter.Describe != nil {
 			if filter.Describe.Eq != nil {
-				clausesNotEq["describe"] = filter.Describe.Eq
+				clausesEq["describe"] = filter.Describe.Eq
 			}
 		}
 
 		if filter.Describe != nil {
-			if filter.Describe.Le != nil {
-				clausesLt["describe"] = filter.Describe.Le
+			if filter.Describe.Ne != nil {
+				clausesNotEq["describe"] = filter.Describe.Ne
 			}
 		}
 
 		if filter.Describe != nil {
 			if filter.Describe.Lt != nil {
-				clausesLtOrEq["describe"] = filter.Describe.Lt
+				clausesLt["describe"] = filter.Describe.Lt
 			}
 		}
 
 		if filter.Describe != nil {
-			if filter.Describe.Ge != nil {
-				clausesGt["describe"] = filter.Describe.Ge
+			if filter.Describe.Le != nil {
+				clausesLtOrEq["describe"] = filter.Describe.Le
 			}
 		}
 
 		if filter.Describe != nil {
 			if filter.Describe.Gt != nil {
-				clausesGtOrEq["describe"] = filter.Describe.Gt
+				clausesGt["describe"] = filter.Describe.Gt
+			}
+		}
+
+		if filter.Describe != nil {
+			if filter.Describe.Ge != nil {
+				clausesGtOrEq["describe"] = filter.Describe.Ge
 			}
 		}
 

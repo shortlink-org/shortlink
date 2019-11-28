@@ -50,13 +50,10 @@ generate: ## Code generation
 	pkg/api/grpc-web/api.proto
 	@mv pkg/api/grpc-web/api.swagger.json docs/api.swagger.json
 
-	@echo "Generate go static"
-	@go generate pkg/api/graphql/schema/schema.go
-
 	@echo "Generate from .go code"
 	@go generate internal/store/postgres/postgres.go
 
-	@echo "Generate static blob"
+	@echo "Generate go static"
 	@pkger -o cmd/shortlink
 
 golint: ## Linter for golang
