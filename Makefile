@@ -56,6 +56,9 @@ generate: ## Code generation
 	@echo "Generate from .go code"
 	@go generate internal/store/postgres/postgres.go
 
+	@echo "Generate static blob"
+	@pkger -o cmd/shortlink
+
 golint: ## Linter for golang
 	@golangci-lint run
 
