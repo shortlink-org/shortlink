@@ -86,7 +86,7 @@ func linkGraphqls() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "link.graphqls", size: 387, mode: os.FileMode(420), modTime: time.Unix(1574930979, 0)}
+	info := bindataFileInfo{name: "link.graphqls", size: 387, mode: os.FileMode(420), modTime: time.Unix(1574931431, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }

@@ -25,8 +25,7 @@ func (p *PostgresLinkList) buildFilter(links squirrel.SelectBuilder, filter *que
 				clauses{{ index $sqlCommands $index }}["{{$field.Name}}"] = filter.{{ upperFirst $field.Name }}.{{$command}}
 			}
 		}
-		{{- end}}{{- end}}
-		{{- end}}{{- end}}
+		{{- end}}{{- end}}{{- end}}{{- end}}
 
 	{{- range $command := $sqlCommands }}
 		links = links.Where(clauses{{$command}})
