@@ -1,13 +1,17 @@
-package store
+package redis
 
 import (
+	"fmt"
+	"os"
 	"testing"
 
 	"github.com/ory/dockertest"
+
+	"github.com/batazor/shortlink/internal/store/mock"
 )
 
-func TestCassandra(t *testing.T) {
-	store := CassandraLinkList{}
+func TestRedis(t *testing.T) {
+	store := RedisLinkList{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -16,15 +20,23 @@ func TestCassandra(t *testing.T) {
 	}
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("cassandra", "latest", nil)
+	resource, err := pool.Run("redis", "latest", nil)
 	if err != nil {
 		t.Fatalf("Could not start resource: %s", err)
 	}
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		if errInit := store.Init(); errInit != nil {
-			return errInit
+		var err error
+
+		err = os.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
+		if err != nil {
+			t.Fatalf("Cannot set ENV: %s", err)
+		}
+
+		err = store.Init()
+		if err != nil {
+			return err
 		}
 
 		return nil
@@ -33,29 +45,29 @@ func TestCassandra(t *testing.T) {
 	}
 
 	t.Run("Create", func(t *testing.T) {
-		link, err := store.Add(addLink)
+		link, err := store.Add(mock.AddLink)
 		if err != nil {
 			t.Error(err)
 		}
 
-		if link.Hash != getLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", getLink.Hash, link.Hash)
+		if link.Hash != mock.GetLink.Hash {
+			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
 		}
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		link, err := store.Get(getLink.Hash)
+		link, err := store.Get(mock.GetLink.Hash)
 		if err != nil {
 			t.Error(err)
 		}
 
-		if link.Hash != getLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", getLink.Hash, link.Hash)
+		if link.Hash != mock.GetLink.Hash {
+			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
 		}
 	})
 
 	t.Run("Get list", func(t *testing.T) {
-		links, err := store.List()
+		links, err := store.List(nil)
 		if err != nil {
 			t.Error(err)
 		}
@@ -66,7 +78,7 @@ func TestCassandra(t *testing.T) {
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		err := store.Delete(getLink.Hash)
+		err := store.Delete(mock.GetLink.Hash)
 		if err != nil {
 			t.Error(err)
 		}

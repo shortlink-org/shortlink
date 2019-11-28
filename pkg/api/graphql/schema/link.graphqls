@@ -3,11 +3,23 @@
 
 # Types
 # -------
+
 type Link {
     url:  String! 
     hash:  String! 
     describe:  String! 
 }
+
+input LinkFilterInput {
+    url: StringFilterInput
+    hash: StringFilterInput
+    describe: StringFilterInput
+}
+
 type Links {
     link:  Link! 
+}
+
+input LinksFilterInput {
+    link: StringFilterInput
 }

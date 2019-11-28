@@ -1,9 +1,10 @@
-package store
+package leveldb
 
 import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/spf13/viper"
 	"github.com/syndtr/goleveldb/leveldb"
@@ -41,7 +42,7 @@ func (l *LevelDBLinkList) Close() error {
 }
 
 // Migrate ...
-func (l *LevelDBLinkList) migrate() error {
+func (l *LevelDBLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -85,7 +86,7 @@ func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (l *LevelDBLinkList) List() ([]*link.Link, error) {
+func (l *LevelDBLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	links := []*link.Link{}
 	iterator := l.client.NewIterator(nil, nil)
 

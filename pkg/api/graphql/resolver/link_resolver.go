@@ -2,6 +2,8 @@ package resolver
 
 import (
 	"context"
+
+	"github.com/batazor/shortlink/internal/store/query"
 )
 
 // Link ...
@@ -15,9 +17,11 @@ func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 }
 
 // Links ...
-func (r *Resolver) Links() (*[]*LinkResolver, error) { // nolint unused
+func (r *Resolver) Links(ctx context.Context, args struct { // nolint unused
+	Filter *query.Filter
+}) (*[]*LinkResolver, error) { // nolint unused
 	links := []*LinkResolver{}
-	items, err := r.Store.List()
+	items, err := r.Store.List(args.Filter)
 	for _, item := range items {
 		links = append(links, &LinkResolver{
 			Link: item,

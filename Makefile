@@ -53,6 +53,9 @@ generate: ## Code generation
 	@echo "Generate go static"
 	@go generate pkg/api/graphql/schema/schema.go
 
+	@echo "Generate from .go code"
+	@go generate internal/store/postgres/postgres.go
+
 golint: ## Linter for golang
 	@golangci-lint run
 
@@ -66,7 +69,7 @@ test: ## Run all test
 run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
-         -f ops/docker-compose/database/cassandra.yaml \
+         -f ops/docker-compose/database/postgres.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
          -f ops/docker-compose/application/shortlink.yaml \
          -f ops/docker-compose/tooling/opentracing.yaml \

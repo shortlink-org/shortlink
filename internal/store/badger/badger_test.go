@@ -1,7 +1,9 @@
-package store
+package badger
 
 import (
 	"testing"
+
+	"github.com/batazor/shortlink/internal/store/mock"
 )
 
 func TestBadger(t *testing.T) {
@@ -13,29 +15,29 @@ func TestBadger(t *testing.T) {
 	}
 
 	t.Run("Create", func(t *testing.T) {
-		link, err := store.Add(addLink)
+		link, err := store.Add(mock.AddLink)
 		if err != nil {
 			t.Error(err)
 		}
 
-		if link.Hash != getLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", getLink.Hash, link.Hash)
+		if link.Hash != mock.GetLink.Hash {
+			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
 		}
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		link, err := store.Get(getLink.Hash)
+		link, err := store.Get(mock.GetLink.Hash)
 		if err != nil {
 			t.Error(err)
 		}
 
-		if link.Hash != getLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", getLink.Hash, link.Hash)
+		if link.Hash != mock.GetLink.Hash {
+			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
 		}
 	})
 
 	t.Run("Get list", func(t *testing.T) {
-		links, err := store.List()
+		links, err := store.List(nil)
 		if err != nil {
 			t.Error(err)
 		}
@@ -46,7 +48,7 @@ func TestBadger(t *testing.T) {
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		err := store.Delete(getLink.Hash)
+		err := store.Delete(mock.GetLink.Hash)
 		if err != nil {
 			t.Error(err)
 		}

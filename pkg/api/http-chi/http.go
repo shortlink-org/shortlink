@@ -97,7 +97,7 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 func (api *API) List(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
-	response, err := api.store.List()
+	response, err := api.store.List(nil)
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)

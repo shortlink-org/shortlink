@@ -1,10 +1,11 @@
-package store
+package postgres
 
 import (
 	"fmt"
-	"github.com/ory/dockertest"
 	"os"
 	"testing"
+
+	"github.com/ory/dockertest"
 )
 
 func TestPostgres(t *testing.T) {

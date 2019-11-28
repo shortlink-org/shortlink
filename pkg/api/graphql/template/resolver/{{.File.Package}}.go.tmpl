@@ -18,3 +18,8 @@ func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() string {
 {{- end}}
 {{- end}}
 {{- end}}
+type {{ $MyType }}FilterInput struct {
+{{- range .File.MessageType}}{{- range .Field}}{{ if ne (upperFirst .Name) $MyType }}
+	{{ upperFirst .Name }} *StringFilterInput
+{{- end}}{{- end}}{{- end}}
+}

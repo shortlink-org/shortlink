@@ -1,9 +1,10 @@
-package store
+package ram
 
 import (
 	"fmt"
 	"sync"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 )
 
@@ -14,7 +15,7 @@ type RAMLinkList struct { // nolint unused
 }
 
 // Init ...
-func (ram *RAMLinkList) Init() error {
+func (ram *RAMLinkList) Init() error { // nolint unparam
 	ram.mu.Lock()
 	ram.links = make(map[string]link.Link)
 	ram.mu.Unlock()
@@ -27,7 +28,7 @@ func (ram *RAMLinkList) Close() error {
 }
 
 // Migrate ...
-func (ram *RAMLinkList) migrate() error {
+func (ram *RAMLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -45,7 +46,7 @@ func (ram *RAMLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (ram *RAMLinkList) List() ([]*link.Link, error) {
+func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	links := []*link.Link{}
 
 	ram.mu.Lock()
@@ -63,7 +64,7 @@ func (ram *RAMLinkList) List() ([]*link.Link, error) {
 }
 
 // Add ...
-func (ram *RAMLinkList) Add(data link.Link) (*link.Link, error) {
+func (ram *RAMLinkList) Add(data link.Link) (*link.Link, error) { // nolint unused
 	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
 
@@ -80,7 +81,7 @@ func (ram *RAMLinkList) Update(data link.Link) (*link.Link, error) {
 }
 
 // Delete ...
-func (ram *RAMLinkList) Delete(id string) error {
+func (ram *RAMLinkList) Delete(id string) error { // nolint unused
 	ram.mu.Lock()
 	delete(ram.links, id)
 	ram.mu.Unlock()

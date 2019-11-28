@@ -3,6 +3,8 @@ package graphql
 import (
 	"context"
 	"fmt"
+	"net/http"
+
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/pkg/api"
@@ -10,7 +12,6 @@ import (
 	"github.com/batazor/shortlink/pkg/api/graphql/schema"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-	"net/http"
 )
 
 // API ...

@@ -8,19 +8,6 @@ import (
 	"github.com/batazor/shortlink/pkg/link"
 )
 
-var (
-	addLink = link.Link{
-		Url:      "https://example.com",
-		Hash:     "",
-		Describe: "example link",
-	}
-	getLink = link.Link{
-		Url:      "https://example.com",
-		Hash:     "5888cab",
-		Describe: "example link",
-	}
-)
-
 // TestLink ...
 func TestLink(t *testing.T) { //nolint unused
 	ctx := context.Background()
@@ -61,7 +48,7 @@ func TestLink(t *testing.T) { //nolint unused
 	}
 
 	// test get links
-	links, err := s.List()
+	links, err := s.List(nil)
 	if err != nil {
 		t.Errorf("Error %s", err)
 	}
