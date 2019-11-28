@@ -10,7 +10,7 @@ insert_final_newline = true
 charset = utf-8
 
 # Tab indentation (no size specified)
-[{Makefile,go.mod,go.sum,*.go}]
+[{Makefile,go.mod,go.sum,*.go,*.go.tmpl}]
 indent_style = tab
 indent_size = 8
 

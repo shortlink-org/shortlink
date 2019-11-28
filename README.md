@@ -15,14 +15,11 @@ Shortlink service
 
 ![shortlink-arhitecture](./docs/shortlink-arhitecture.png)
 
-##### Install dependencies
+##### Requirements
 
-```
-go get -u moul.io/protoc-gen-gotemplate
-go get -u github.com/jteeuwen/go-bindata
-
-make
-```
+- docker
+- docker-compose
+- protoc 3.7.1+
 
 ### Run
 

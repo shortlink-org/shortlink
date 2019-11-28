@@ -37,7 +37,7 @@ func (c *CassandraLinkList) Init() error {
 
 	// Connect to CassandraDB
 	cluster := gocql.NewCluster(c.config.URI)
-	cluster.ProtoVersion = 1
+	cluster.ProtoVersion = 4
 	cluster.Port, err = strconv.Atoi(uri.Opaque)
 
 	if err != nil {

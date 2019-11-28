@@ -9,154 +9,169 @@ import (
 	"github.com/batazor/shortlink/internal/store/query"
 )
 
-func (p *PostgresLinkList) buildFilter(filter *query.Filter) interface{} {
+func (p *PostgresLinkList) buildFilter(links squirrel.SelectBuilder, filter *query.Filter) squirrel.SelectBuilder {
 	if filter != nil {
-		clauses := squirrel.Eq{}
+		clausesEq := squirrel.Eq{}
+		clausesNotEq := squirrel.NotEq{}
+		clausesLt := squirrel.Lt{}
+		clausesLtOrEq := squirrel.LtOrEq{}
+		clausesGt := squirrel.Gt{}
+		clausesGtOrEq := squirrel.GtOrEq{}
+		clausesLike := squirrel.Like{}
+		clausesNotLike := squirrel.NotLike{}
 
 		if filter.Url != nil {
-			if filter.Url.Eq != nil {
-				clauses["url"] = filter.Url.Eq
+			if filter.Url.Ne != nil {
+				clausesEq["url"] = filter.Url.Ne
 			}
 		}
 
 		if filter.Url != nil {
-			if filter.Url.NotEq != nil {
-				clauses["url"] = filter.Url.NotEq
+			if filter.Url.Eq != nil {
+				clausesNotEq["url"] = filter.Url.Eq
+			}
+		}
+
+		if filter.Url != nil {
+			if filter.Url.Le != nil {
+				clausesLt["url"] = filter.Url.Le
 			}
 		}
 
 		if filter.Url != nil {
 			if filter.Url.Lt != nil {
-				clauses["url"] = filter.Url.Lt
+				clausesLtOrEq["url"] = filter.Url.Lt
 			}
 		}
 
 		if filter.Url != nil {
-			if filter.Url.LtOrEq != nil {
-				clauses["url"] = filter.Url.LtOrEq
+			if filter.Url.Ge != nil {
+				clausesGt["url"] = filter.Url.Ge
 			}
 		}
 
 		if filter.Url != nil {
 			if filter.Url.Gt != nil {
-				clauses["url"] = filter.Url.Gt
+				clausesGtOrEq["url"] = filter.Url.Gt
 			}
 		}
 
 		if filter.Url != nil {
-			if filter.Url.GtOrEq != nil {
-				clauses["url"] = filter.Url.GtOrEq
+			if filter.Url.Contains != nil {
+				clausesLike["url"] = filter.Url.Contains
 			}
 		}
 
 		if filter.Url != nil {
-			if filter.Url.Like != nil {
-				clauses["url"] = filter.Url.Like
+			if filter.Url.NotContains != nil {
+				clausesNotLike["url"] = filter.Url.NotContains
 			}
 		}
 
-		if filter.Url != nil {
-			if filter.Url.NotLike != nil {
-				clauses["url"] = filter.Url.NotLike
+		if filter.Hash != nil {
+			if filter.Hash.Ne != nil {
+				clausesEq["hash"] = filter.Hash.Ne
 			}
 		}
 
 		if filter.Hash != nil {
 			if filter.Hash.Eq != nil {
-				clauses["hash"] = filter.Hash.Eq
+				clausesNotEq["hash"] = filter.Hash.Eq
 			}
 		}
 
 		if filter.Hash != nil {
-			if filter.Hash.NotEq != nil {
-				clauses["hash"] = filter.Hash.NotEq
+			if filter.Hash.Le != nil {
+				clausesLt["hash"] = filter.Hash.Le
 			}
 		}
 
 		if filter.Hash != nil {
 			if filter.Hash.Lt != nil {
-				clauses["hash"] = filter.Hash.Lt
+				clausesLtOrEq["hash"] = filter.Hash.Lt
 			}
 		}
 
 		if filter.Hash != nil {
-			if filter.Hash.LtOrEq != nil {
-				clauses["hash"] = filter.Hash.LtOrEq
+			if filter.Hash.Ge != nil {
+				clausesGt["hash"] = filter.Hash.Ge
 			}
 		}
 
 		if filter.Hash != nil {
 			if filter.Hash.Gt != nil {
-				clauses["hash"] = filter.Hash.Gt
+				clausesGtOrEq["hash"] = filter.Hash.Gt
 			}
 		}
 
 		if filter.Hash != nil {
-			if filter.Hash.GtOrEq != nil {
-				clauses["hash"] = filter.Hash.GtOrEq
+			if filter.Hash.Contains != nil {
+				clausesLike["hash"] = filter.Hash.Contains
 			}
 		}
 
 		if filter.Hash != nil {
-			if filter.Hash.Like != nil {
-				clauses["hash"] = filter.Hash.Like
+			if filter.Hash.NotContains != nil {
+				clausesNotLike["hash"] = filter.Hash.NotContains
 			}
 		}
 
-		if filter.Hash != nil {
-			if filter.Hash.NotLike != nil {
-				clauses["hash"] = filter.Hash.NotLike
+		if filter.Describe != nil {
+			if filter.Describe.Ne != nil {
+				clausesEq["describe"] = filter.Describe.Ne
 			}
 		}
 
 		if filter.Describe != nil {
 			if filter.Describe.Eq != nil {
-				clauses["describe"] = filter.Describe.Eq
+				clausesNotEq["describe"] = filter.Describe.Eq
 			}
 		}
 
 		if filter.Describe != nil {
-			if filter.Describe.NotEq != nil {
-				clauses["describe"] = filter.Describe.NotEq
+			if filter.Describe.Le != nil {
+				clausesLt["describe"] = filter.Describe.Le
 			}
 		}
 
 		if filter.Describe != nil {
 			if filter.Describe.Lt != nil {
-				clauses["describe"] = filter.Describe.Lt
+				clausesLtOrEq["describe"] = filter.Describe.Lt
 			}
 		}
 
 		if filter.Describe != nil {
-			if filter.Describe.LtOrEq != nil {
-				clauses["describe"] = filter.Describe.LtOrEq
+			if filter.Describe.Ge != nil {
+				clausesGt["describe"] = filter.Describe.Ge
 			}
 		}
 
 		if filter.Describe != nil {
 			if filter.Describe.Gt != nil {
-				clauses["describe"] = filter.Describe.Gt
+				clausesGtOrEq["describe"] = filter.Describe.Gt
 			}
 		}
 
 		if filter.Describe != nil {
-			if filter.Describe.GtOrEq != nil {
-				clauses["describe"] = filter.Describe.GtOrEq
+			if filter.Describe.Contains != nil {
+				clausesLike["describe"] = filter.Describe.Contains
 			}
 		}
 
 		if filter.Describe != nil {
-			if filter.Describe.Like != nil {
-				clauses["describe"] = filter.Describe.Like
+			if filter.Describe.NotContains != nil {
+				clausesNotLike["describe"] = filter.Describe.NotContains
 			}
 		}
-
-		if filter.Describe != nil {
-			if filter.Describe.NotLike != nil {
-				clauses["describe"] = filter.Describe.NotLike
-			}
-		}
+		links = links.Where(clausesEq)
+		links = links.Where(clausesNotEq)
+		links = links.Where(clausesLt)
+		links = links.Where(clausesLtOrEq)
+		links = links.Where(clausesGt)
+		links = links.Where(clausesGtOrEq)
+		links = links.Where(clausesLike)
+		links = links.Where(clausesNotLike)
 	}
 
-	return clauses
+	return links
 }

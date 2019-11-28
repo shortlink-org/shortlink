@@ -78,8 +78,8 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	// query builder
 	links := psql.Select("url, hash, describe").
-		From("links").
-		Where(p.buildFilter(filter))
+		From("links")
+	links = p.buildFilter(links, filter)
 	query, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
