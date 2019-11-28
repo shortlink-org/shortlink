@@ -1,30 +1,23 @@
-package store
+//go:generate protoc -I../../../pkg/link --gotemplate_out=all=true,template_dir=template:. link.proto
+package postgres
 
 import (
 	"context"
 	"fmt"
+
 	"github.com/spf13/viper"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
+
+	"github.com/batazor/shortlink/internal/store/query"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
-
-// PostgresConfig ...
-type PostgresConfig struct { // nolint unused
-	URI string
-}
-
-// PostgresLinkList implementation of store interface
-type PostgresLinkList struct { // nolint unused
-	client *pgxpool.Pool
-	config PostgresConfig
-}
 
 // Init ...
 func (p *PostgresLinkList) Init() error {
@@ -42,13 +35,13 @@ func (p *PostgresLinkList) Init() error {
 }
 
 // Close ...
-func (p *PostgresLinkList) Close() error {
+func (p *PostgresLinkList) Close() error { // nolint unparam
 	p.client.Close()
 	return nil
 }
 
 // Migrate ...
-func (p *PostgresLinkList) migrate() error {
+func (p *PostgresLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -82,10 +75,11 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (p *PostgresLinkList) List() ([]*link.Link, error) {
+func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links")
+	links = p.buildFilter(links, filter)
 	query, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
@@ -164,7 +158,7 @@ func (p *PostgresLinkList) Delete(id string) error {
 
 // setConfig - set configuration
 func (p *PostgresLinkList) setConfig() {
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", "postgres", "postgres", "shortlink")
+	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", "shortlink", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)

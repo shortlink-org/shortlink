@@ -1,10 +1,11 @@
-package store
+package redis
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/go-redis/redis"
 )
@@ -45,7 +46,7 @@ func (r *RedisLinkList) Close() error {
 }
 
 // Migrate ...
-func (r *RedisLinkList) migrate() error {
+func (r *RedisLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -66,7 +67,7 @@ func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (r *RedisLinkList) List() ([]*link.Link, error) {
+func (r *RedisLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	keys := r.client.Keys("*")
 	links := []*link.Link{}
 

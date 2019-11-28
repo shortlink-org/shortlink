@@ -1,10 +1,11 @@
-package store
+package badger
 
 import (
 	"encoding/json"
 	"fmt"
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/dgraph-io/badger"
 )
@@ -41,7 +42,7 @@ func (b *BadgerLinkList) Close() error {
 }
 
 // Migrate ...
-func (b *BadgerLinkList) migrate() error {
+func (b *BadgerLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -92,7 +93,7 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (b *BadgerLinkList) List() ([]*link.Link, error) {
+func (b *BadgerLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {

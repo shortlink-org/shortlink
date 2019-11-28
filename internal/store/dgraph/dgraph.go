@@ -1,4 +1,4 @@
-package store
+package dgraph
 
 import (
 	"context"
@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
@@ -62,7 +63,7 @@ func (dg *DGraphLinkList) Close() error {
 }
 
 // Migrate ...
-func (dg *DGraphLinkList) migrate() error {
+func (dg *DGraphLinkList) migrate() error { // nolint unused
 	return nil
 }
 
@@ -160,7 +161,7 @@ query all {
 }
 
 // List ...
-func (dg *DGraphLinkList) List() ([]*link.Link, error) {
+func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {

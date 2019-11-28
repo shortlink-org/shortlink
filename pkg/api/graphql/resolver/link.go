@@ -20,3 +20,9 @@ func (r *LinkResolver) Hash() string {
 func (r *LinkResolver) Describe() string {
 	return r.Link.Describe
 }
+
+type LinkFilterInput struct {
+	Url      *StringFilterInput
+	Hash     *StringFilterInput
+	Describe *StringFilterInput
+}
