@@ -14,7 +14,7 @@ type Kafka struct { // nolint unused
 	client *kafka.Conn
 }
 
-func (mq *Kafka) Init() error {
+func (mq *Kafka) Init(ctx context.Context) error {
 	var err error
 
 	// to produce messages
