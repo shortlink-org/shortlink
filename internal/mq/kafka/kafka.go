@@ -38,22 +38,22 @@ func (mq *Kafka) Close() error {
 
 func (mq *Kafka) Send(message []byte) error {
 	_, err := mq.client.WriteMessages(
-		kafka.Message{Value: message},
+		kafka.Message{
+			Key:   []byte("TEST"),
+			Value: message,
+		},
 	)
 
 	return err
 }
 
-func (mq *Kafka) Subscribe(message chan []byte) {
-	batch := mq.client.ReadBatch(10e3, 1e6) // fetch 10KB min, 1MB max
-	b := make([]byte, 10e3)                 // 10KB max per message
+func (mq *Kafka) Subscribe(message chan []byte) error {
+	msg, err := mq.client.ReadMessage(10e3) // fetch 10KB max
+	if err != nil {
+		return err
+	}
 
 	for {
-		_, err := batch.Read(b)
-		if err != nil {
-			break
-		}
-
-		message <- b
+		message <- msg.Value
 	}
 }

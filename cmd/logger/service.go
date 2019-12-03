@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/batazor/shortlink/internal/logger"
@@ -37,6 +38,8 @@ func (s *Service) initMQ(ctx context.Context) {
 	if err := s.mq.Init(ctx); err != nil {
 		panic(err)
 	}
+
+	s.log.Info("Run MQ")
 }
 
 // Start - run this a service
@@ -50,6 +53,22 @@ func (s *Service) Start() {
 
 	// Add MQ
 	s.initMQ(ctx)
+	if err := s.mq.Send([]byte("Hello World")); err != nil {
+		s.log.Error(err.Error())
+	}
+
+	test := make(chan []byte)
+
+	if err := s.mq.Subscribe(test); err != nil {
+		s.log.Error(err.Error())
+	}
+
+	go func() {
+		select {
+		case msg := <-test:
+			s.log.Info(fmt.Sprintf("GET: %s", string(msg)))
+		}
+	}()
 }
 
 // Stop - stop this a service

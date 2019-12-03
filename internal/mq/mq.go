@@ -9,5 +9,5 @@ type MQ interface { // nolint unused
 	Close() error
 
 	Send(message []byte) error
-	Subscribe(message chan []byte)
+	Subscribe(message chan []byte) error
 }
