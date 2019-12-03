@@ -1,7 +1,11 @@
 package mq
 
-type MQ interface {
-	Init() error
+import (
+	"context"
+)
+
+type MQ interface { // nolint unused
+	Init(ctx context.Context) error
 	Close() error
 
 	Send(message []byte) error

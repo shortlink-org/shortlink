@@ -40,3 +40,51 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  lenses:
+    image: lensesio/lenses
+    environment:
+      LENSES_PORT: 9991
+      LENSES_KAFKA_BROKERS: "PLAINTEXT://kafka:9092"
+
+      # # If you have enabled JMX for your brokers, set the port here
+      # LENSES_KAFKA_METRICS_DEFAULT_PORT: 9581
+
+      # # If you use AVRO, configure the Schema Registry
+      # LENSES_SCHEMA_REGISTRY_URLS: |
+      #   [
+      #     {url:"http://schema.registry.1.url:8081"},
+      #     {url:"http://schema.registry.2.url:8081"}
+      #   ]
+
+      # # If you use Kafka Connect, configure the workers.
+      # LENSES_KAFKA_CONNECT_CLUSTERS: |
+      #   [
+      #     {
+      #       name:"data_science",
+      #       urls: [
+      #         {url:"http://connect.worker.1.url:8083"},
+      #         {url:"http://connect.worker.2.url:8083"}
+      #       ],
+      #       statuses:"connect-statuses-cluster-a",
+      #       configs:"connect-configs-cluster-a",
+      #       offsets:"connect-offsets-cluster-a"
+      #     }
+      #   ]
+
+      # Zookeeper access is optional
+      LENSES_ZOOKEEPER_HOSTS: |
+        [
+         {url:"zookeeper:2181"}
+        ]
+
+      # # Users are managed within Lenses. Here you can change the superuser username:
+      LENSES_SECURITY_USER: admin
+      # # Users are managed within Lenses. Here you can change the superuser password:
+      LENSES_SECURITY_PASSWORD: admin
+    ports:
+      - 9991:9991
+      - 9102:9102
+    volumes:
+      - ./ops/docker-compose/mq/license.json:/license.json
+    network_mode: host
