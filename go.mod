@@ -31,7 +31,7 @@ require (
 	github.com/jackc/pgx/v4 v4.1.2
 	github.com/lib/pq v1.2.0
 	github.com/markbates/pkger v0.12.8
-	github.com/mattn/go-sqlite3 v1.13.0
+	github.com/mattn/go-sqlite3/v2/v2 v2.0.1
 	github.com/onsi/ginkgo v1.10.1 // indirect
 	github.com/onsi/gomega v1.7.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
