@@ -7,6 +7,8 @@ import (
 	"time"
 
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/mq"
+	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/batazor/shortlink/pkg/api"
@@ -27,6 +29,7 @@ type Service struct {
 	tracer      opentracing.Tracer
 	tracerClose io.Closer
 	db          store.DB
+	mq          mq.MQ
 }
 
 func (s *Service) initLogger() {
@@ -118,6 +121,15 @@ func (s *Service) initMonitoring() *http.ServeMux {
 	return commonMux
 }
 
+func (s *Service) initMQ(ctx context.Context) {
+	s.mq = &kafka.Kafka{}
+	if err := s.mq.Init(ctx); err != nil {
+		panic(err)
+	}
+
+	s.log.Info("Run MQ")
+}
+
 // Start - run this a service
 func (s *Service) Start() {
 	// Create a new context
@@ -134,6 +146,9 @@ func (s *Service) Start() {
 	// Add Store
 	var st store.Store
 	s.db = st.Use(ctx)
+
+	// Add MQ
+	s.initMQ(ctx)
 
 	// Monitoring endpoints
 	monitoringServer := s.initMonitoring()

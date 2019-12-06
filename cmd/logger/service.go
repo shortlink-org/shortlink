@@ -59,9 +59,11 @@ func (s *Service) Start() {
 
 	test := make(chan []byte)
 
-	if err := s.mq.Subscribe(test); err != nil {
-		s.log.Error(err.Error())
-	}
+	go func() {
+		if err := s.mq.Subscribe(test); err != nil {
+			s.log.Error(err.Error())
+		}
+	}()
 
 	go func() {
 		select {
