@@ -42,7 +42,7 @@ require (
 	github.com/prometheus/client_golang v1.2.1
 	github.com/scylladb/gocqlx v1.3.1
 	github.com/sirupsen/logrus v1.4.2
-	github.com/spf13/viper v1.5.0
+	github.com/spf13/viper v1.6.1
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/tidwall/pretty v1.0.0 // indirect
 	github.com/uber/jaeger-client-go v2.20.1+incompatible
