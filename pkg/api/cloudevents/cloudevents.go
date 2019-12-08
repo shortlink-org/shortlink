@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/store"
-	"github.com/batazor/shortlink/pkg/api"
+	api_type "github.com/batazor/shortlink/pkg/api/type"
+
 	cloudevents "github.com/cloudevents/sdk-go"
 )
 
@@ -32,7 +33,7 @@ func Receive(ctx context.Context, event cloudevents.Event) error {
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
+func (api *API) Run(ctx context.Context, db store.DB, config api_type.Config) error {
 	api.ctx = ctx
 	api.store = db
 

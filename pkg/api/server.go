@@ -7,6 +7,9 @@ import (
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/store"
+	"github.com/batazor/shortlink/pkg/api/cloudevents"
+	"github.com/batazor/shortlink/pkg/api/graphql"
+	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
 	httpchi "github.com/batazor/shortlink/pkg/api/http-chi"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
@@ -30,12 +33,12 @@ func (*Server) RunAPIServer(ctx context.Context, db store.DB) {
 	switch serverType {
 	case "http-chi":
 		API = &httpchi.API{}
-	// case "gRPC-web":
-	// 	API = &grpcweb.API{}
-	// case "graphql":
-	// 	API = &graphql.API{}
-	// case "cloudevents":
-	// 	API = &cloudevents.API{}
+	case "gRPC-web":
+		API = &grpcweb.API{}
+	case "graphql":
+		API = &graphql.API{}
+	case "cloudevents":
+		API = &cloudevents.API{}
 	default:
 		API = &httpchi.API{}
 	}
