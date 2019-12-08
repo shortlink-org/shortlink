@@ -43,7 +43,7 @@ require (
 	github.com/scylladb/gocqlx v1.3.1
 	github.com/segmentio/kafka-go v0.3.4
 	github.com/sirupsen/logrus v1.4.2
-	github.com/spf13/viper v1.5.0
+	github.com/spf13/viper v1.6.1
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/tidwall/pretty v1.0.0 // indirect
 	github.com/uber/jaeger-client-go v2.20.1+incompatible
@@ -53,7 +53,7 @@ require (
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
-	google.golang.org/genproto v0.0.0-20191115221424-83cc0476cb11
+	google.golang.org/genproto v0.0.0-20191205163323-51378566eb59
 	google.golang.org/grpc v1.25.1
 	gotest.tools v2.2.0+incompatible // indirect
 )
