@@ -6,18 +6,27 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/notify"
 	"github.com/batazor/shortlink/internal/store/ram"
+	api_type "github.com/batazor/shortlink/pkg/api/type"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // Use return implementation of store
-func (s *Store) Use(ctx context.Context) DB { // nolint unused
-	var store DB
+func (store *Store) Use(ctx context.Context) DB { // nolint unused
 	log := logger.GetLogger(ctx)
 
 	// Set configuration
-	s.setConfig()
+	store.setConfig()
 
-	switch s.typeStore {
+	// Subscribe to Event
+	notify.Subscribe(api_type.METHOD_ADD, store)
+	notify.Subscribe(api_type.METHOD_GET, store)
+	notify.Subscribe(api_type.METHOD_LIST, store)
+	notify.Subscribe(api_type.METHOD_UPDATE, store)
+	notify.Subscribe(api_type.METHOD_DELETE, store)
+
+	switch store.typeStore {
 	// case "postgres":
 	// 	store = &postgres.PostgresLinkList{}
 	// case "mongo":
@@ -35,20 +44,20 @@ func (s *Store) Use(ctx context.Context) DB { // nolint unused
 	// case "cassandra":
 	// 	store = &cassandra.CassandraLinkList{}
 	case "ram":
-		store = &ram.RAMLinkList{}
+		store.store = &ram.RAMLinkList{}
 	default:
-		store = &ram.RAMLinkList{}
+		store.store = &ram.RAMLinkList{}
 	}
 
-	if err := store.Init(); err != nil {
+	if err := store.store.Init(); err != nil {
 		panic(err)
 	}
 
 	log.Info("run store", logger.Fields{
-		"store": s.typeStore,
+		"store": store.typeStore,
 	})
 
-	return store
+	return store.store
 }
 
 // setConfig - set configuration
@@ -56,4 +65,42 @@ func (s *Store) setConfig() { // nolint unused
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram")
 	s.typeStore = viper.GetString("STORE_TYPE")
+}
+
+// Notify ...
+func (s *Store) Notify(event int, payload interface{}) *notify.Response { // nolint unused
+	switch event {
+	case api_type.METHOD_ADD:
+		payload, err := s.store.Add(payload.(link.Link))
+		return &notify.Response{
+			Payload: payload,
+			Error:   err,
+		}
+	case api_type.METHOD_GET:
+		payload, err := s.store.Get(payload.(string))
+		return &notify.Response{
+			Payload: payload,
+			Error:   err,
+		}
+	case api_type.METHOD_LIST:
+		payload, err := s.store.List(nil)
+		return &notify.Response{
+			Payload: payload,
+			Error:   err,
+		}
+	case api_type.METHOD_UPDATE:
+		payload, err := s.store.Update(payload.(link.Link))
+		return &notify.Response{
+			Payload: payload,
+			Error:   err,
+		}
+	case api_type.METHOD_DELETE:
+		err := s.store.Delete(payload.(string))
+		return &notify.Response{
+			Payload: nil,
+			Error:   err,
+		}
+	}
+
+	return nil
 }
