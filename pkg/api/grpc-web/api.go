@@ -2,38 +2,112 @@ package grpcweb
 
 import (
 	"context"
+	"fmt"
 
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/golang/protobuf/ptypes/empty"
+
+	"github.com/batazor/shortlink/internal/notify"
+	api_type "github.com/batazor/shortlink/pkg/api/type"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // GetLink ...
 func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error) {
-	return api.store.Get(req.Hash)
+	responseCh := make(chan interface{})
+
+	go notify.Publish(api_type.METHOD_GET, req.Hash, responseCh)
+
+	c := <-responseCh
+	switch r := c.(type) {
+	case nil:
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		return nil, err
+	case notify.Response:
+		err := r.Error
+		if err != nil {
+			return nil, err
+		}
+		response := r.Payload.(*link.Link)
+		return response, nil
+	default:
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		return nil, err
+	}
 }
 
 // GetLinks ...
 func (api *API) GetLinks(ctx context.Context, req *link.Link) (*link.Links, error) {
-	links, err := api.store.List(nil)
-	if err != nil {
+	responseCh := make(chan interface{})
+
+	go notify.Publish(api_type.METHOD_LIST, nil, responseCh)
+
+	c := <-responseCh
+	switch r := c.(type) {
+	case nil:
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		return nil, err
+	case notify.Response:
+		err := r.Error
+		if err != nil {
+			return nil, err
+		}
+		links := r.Payload.([]*link.Link)
+
+		response := link.Links{}
+		for key := range links {
+			response.Link = append(response.Link, links[key])
+		}
+
+		return &response, nil
+	default:
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
 		return nil, err
 	}
-
-	response := link.Links{}
-	for key := range links {
-		response.Link = append(response.Link, links[key])
-	}
-
-	return &response, nil
 }
 
 // CreateLink ...
 func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, error) {
-	return api.store.Add(*req)
+	responseCh := make(chan interface{})
+
+	go notify.Publish(api_type.METHOD_ADD, *req, responseCh)
+
+	c := <-responseCh
+	switch r := c.(type) {
+	case nil:
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		return nil, err
+	case notify.Response:
+		err := r.Error
+		if err != nil {
+			return nil, err
+		}
+		response := r.Payload.(*link.Link)
+		return response, nil
+	default:
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		return nil, err
+	}
 }
 
 // DeleteLink ...
 func (api *API) DeleteLink(ctx context.Context, req *link.Link) (*empty.Empty, error) {
-	response := empty.Empty{}
-	return &response, api.store.Delete(req.Hash)
+	responseCh := make(chan interface{})
+
+	go notify.Publish(api_type.METHOD_DELETE, req.Hash, responseCh)
+
+	c := <-responseCh
+	switch r := c.(type) {
+	case nil:
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		return &empty.Empty{}, err
+	case notify.Response:
+		err := r.Error
+		if err != nil {
+			return nil, err
+		}
+		return &empty.Empty{}, nil
+	default:
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		return &empty.Empty{}, err
+	}
 }

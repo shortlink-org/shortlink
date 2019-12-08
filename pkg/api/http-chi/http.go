@@ -49,17 +49,21 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 
 	go notify.Publish(api_type.METHOD_ADD, *newLink, responseCh)
 
-	select {
-	case c := <-responseCh:
-		switch r := c.(type) {
-		case nil:
-			err = errors.New(fmt.Sprintf("Not found subscribe to event %s", "METHOD_ADD"))
-		case notify.Response:
-			err = r.Error
-			if err == nil {
-				newLink = r.Payload.(*link.Link)
-			}
+	c := <-responseCh
+	switch r := c.(type) {
+	case nil:
+		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
+	case notify.Response:
+		err = r.Error
+		if err == nil {
+			newLink = r.Payload.(*link.Link) // nolint errcheck
 		}
+	}
+
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
 	}
 
 	res, err := json.Marshal(newLink)
@@ -93,16 +97,14 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 
 	go notify.Publish(api_type.METHOD_GET, request.Hash, responseCh)
 
-	select {
-	case c := <-responseCh:
-		switch r := c.(type) {
-		case nil:
-			err = errors.New(fmt.Sprintf("Not found subscribe to event %s", "METHOD_GET"))
-		case notify.Response:
-			err = r.Error
-			if err == nil {
-				response = r.Payload.(*link.Link)
-			}
+	c := <-responseCh
+	switch r := c.(type) {
+	case nil:
+		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+	case notify.Response:
+		err = r.Error
+		if err == nil {
+			response = r.Payload.(*link.Link) // nolint errcheck
 		}
 	}
 
@@ -142,16 +144,14 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 
 	go notify.Publish(api_type.METHOD_LIST, nil, responseCh)
 
-	select {
-	case c := <-responseCh:
-		switch r := c.(type) {
-		case nil:
-			err = errors.New(fmt.Sprintf("Not found subscribe to event %s", "METHOD_LIST"))
-		case notify.Response:
-			err = r.Error
-			if err == nil {
-				response = r.Payload.([]*link.Link)
-			}
+	c := <-responseCh
+	switch r := c.(type) {
+	case nil:
+		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_LIST")
+	case notify.Response:
+		err = r.Error
+		if err == nil {
+			response = r.Payload.([]*link.Link) // nolint errcheck
 		}
 	}
 
@@ -205,14 +205,12 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 
 	go notify.Publish(api_type.METHOD_DELETE, request.Hash, responseCh)
 
-	select {
-	case c := <-responseCh:
-		switch r := c.(type) {
-		case nil:
-			err = errors.New(fmt.Sprintf("Not found subscribe to event %s", "METHOD_DELETE"))
-		case notify.Response:
-			err = r.Error
-		}
+	c := <-responseCh
+	switch r := c.(type) {
+	case nil:
+		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
+	case notify.Response:
+		err = r.Error
 	}
 
 	if err != nil {
