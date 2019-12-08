@@ -3,10 +3,15 @@ package httpchi
 import (
 	"encoding/json"
 	"errors"
-	"github.com/batazor/shortlink/pkg/link"
-	"github.com/go-chi/chi"
+	"fmt"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/go-chi/chi"
+
+	"github.com/batazor/shortlink/internal/notify"
+	api_type "github.com/batazor/shortlink/pkg/api/type"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // Routes creates a REST router
@@ -40,11 +45,21 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 		Describe: request.Describe,
 	}
 
-	newLink, err = api.store.Add(*newLink)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
-		return
+	responseCh := make(chan interface{})
+
+	go notify.Publish(api_type.METHOD_ADD, *newLink, responseCh)
+
+	select {
+	case c := <-responseCh:
+		switch r := c.(type) {
+		case nil:
+			err = errors.New(fmt.Sprintf("Not found subscribe to event %s", "METHOD_ADD"))
+		case notify.Response:
+			err = r.Error
+			if err == nil {
+				newLink = r.Payload.(*link.Link)
+			}
+		}
 	}
 
 	res, err := json.Marshal(newLink)
@@ -69,7 +84,28 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 		Hash: hash,
 	}
 
-	response, err := api.store.Get(request.Hash)
+	var (
+		response *link.Link
+		err      error
+	)
+
+	responseCh := make(chan interface{})
+
+	go notify.Publish(api_type.METHOD_GET, request.Hash, responseCh)
+
+	select {
+	case c := <-responseCh:
+		switch r := c.(type) {
+		case nil:
+			err = errors.New(fmt.Sprintf("Not found subscribe to event %s", "METHOD_GET"))
+		case notify.Response:
+			err = r.Error
+			if err == nil {
+				response = r.Payload.(*link.Link)
+			}
+		}
+	}
+
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
@@ -97,7 +133,28 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 func (api *API) List(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
-	response, err := api.store.List(nil)
+	var (
+		response []*link.Link
+		err      error
+	)
+
+	responseCh := make(chan interface{})
+
+	go notify.Publish(api_type.METHOD_LIST, nil, responseCh)
+
+	select {
+	case c := <-responseCh:
+		switch r := c.(type) {
+		case nil:
+			err = errors.New(fmt.Sprintf("Not found subscribe to event %s", "METHOD_LIST"))
+		case notify.Response:
+			err = r.Error
+			if err == nil {
+				response = r.Payload.([]*link.Link)
+			}
+		}
+	}
+
 	var errorLink *link.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
@@ -144,7 +201,20 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = api.store.Delete(request.Hash)
+	responseCh := make(chan interface{})
+
+	go notify.Publish(api_type.METHOD_DELETE, request.Hash, responseCh)
+
+	select {
+	case c := <-responseCh:
+		switch r := c.(type) {
+		case nil:
+			err = errors.New(fmt.Sprintf("Not found subscribe to event %s", "METHOD_DELETE"))
+		case notify.Response:
+			err = r.Error
+		}
+	}
+
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
