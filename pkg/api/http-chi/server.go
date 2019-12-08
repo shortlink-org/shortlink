@@ -11,15 +11,13 @@ import (
 	"github.com/go-chi/render"
 
 	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/store"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, db store.DB, config api_type.Config) error {
+func (api *API) Run(ctx context.Context, config api_type.Config) error {
 	api.ctx = ctx
-	api.store = db
 
 	log := logger.GetLogger(ctx)
 	log.Info("Run HTTP-CHI API")
