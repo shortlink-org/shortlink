@@ -43,7 +43,7 @@ func (*Server) RunAPIServer(ctx context.Context, db store.DB) {
 		API = &httpchi.API{}
 	}
 
-	if err := API.Run(ctx, db, config); err != nil {
+	if err := API.Run(ctx, config); err != nil {
 		log.Fatal(err.Error())
 	}
 }
