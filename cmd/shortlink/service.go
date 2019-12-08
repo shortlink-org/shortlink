@@ -6,21 +6,18 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/heptiolabs/healthcheck"
+	"github.com/opentracing/opentracing-go"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/spf13/viper"
+
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
 	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/batazor/shortlink/pkg/api"
-	"github.com/batazor/shortlink/pkg/api/cloudevents"
-	"github.com/batazor/shortlink/pkg/api/graphql"
-	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
-	httpchi "github.com/batazor/shortlink/pkg/api/http-chi"
-	"github.com/heptiolabs/healthcheck"
-	"github.com/opentracing/opentracing-go"
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/spf13/viper"
 )
 
 // Service - heplers
@@ -30,6 +27,7 @@ type Service struct {
 	tracerClose io.Closer
 	db          store.DB
 	mq          mq.MQ
+	api         api.Server
 }
 
 func (s *Service) initLogger() {
@@ -61,37 +59,6 @@ func (s *Service) initTracer() {
 
 	if s.tracer, s.tracerClose, err = traicing.Init(config); err != nil {
 		s.log.Error(err.Error())
-	}
-}
-
-// runAPIServer - start HTTP-server
-func (s *Service) runAPIServer(ctx context.Context) {
-	var API api.API
-
-	viper.SetDefault("API_TYPE", "http-chi")
-	viper.SetDefault("API_PORT", 7070)
-
-	config := api.Config{
-		Port: viper.GetInt("API_PORT"),
-	}
-
-	serverType := viper.GetString("API_TYPE")
-
-	switch serverType {
-	case "http-chi":
-		API = &httpchi.API{}
-	case "gRPC-web":
-		API = &grpcweb.API{}
-	case "graphql":
-		API = &graphql.API{}
-	case "cloudevents":
-		API = &cloudevents.API{}
-	default:
-		API = &httpchi.API{}
-	}
-
-	if err := API.Run(ctx, s.db, config); err != nil {
-		s.log.Fatal(err.Error())
 	}
 }
 
@@ -155,7 +122,7 @@ func (s *Service) Start() {
 	go http.ListenAndServe("0.0.0.0:9090", monitoringServer) // nolint errcheck
 
 	// Run API server
-	s.runAPIServer(ctx)
+	s.api.RunAPIServer(ctx, s.db)
 }
 
 // Stop - stop this a service
