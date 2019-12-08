@@ -27,7 +27,7 @@ func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error)
 		if err != nil {
 			return nil, err
 		}
-		response := r.Payload.(*link.Link)
+		response := r.Payload.(*link.Link) // nolint errcheck
 		return response, nil
 	default:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
@@ -44,14 +44,14 @@ func (api *API) GetLinks(ctx context.Context, req *link.Link) (*link.Links, erro
 	c := <-responseCh
 	switch r := c.(type) {
 	case nil:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_LIST")
 		return nil, err
 	case notify.Response:
 		err := r.Error
 		if err != nil {
 			return nil, err
 		}
-		links := r.Payload.([]*link.Link)
+		links := r.Payload.([]*link.Link) // nolint errcheck
 
 		response := link.Links{}
 		for key := range links {
@@ -74,17 +74,17 @@ func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, err
 	c := <-responseCh
 	switch r := c.(type) {
 	case nil:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
 		return nil, err
 	case notify.Response:
 		err := r.Error
 		if err != nil {
 			return nil, err
 		}
-		response := r.Payload.(*link.Link)
+		response := r.Payload.(*link.Link) // nolint errcheck
 		return response, nil
 	default:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
 		return nil, err
 	}
 }
@@ -98,7 +98,7 @@ func (api *API) DeleteLink(ctx context.Context, req *link.Link) (*empty.Empty, e
 	c := <-responseCh
 	switch r := c.(type) {
 	case nil:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
 		return &empty.Empty{}, err
 	case notify.Response:
 		err := r.Error
@@ -107,7 +107,7 @@ func (api *API) DeleteLink(ctx context.Context, req *link.Link) (*empty.Empty, e
 		}
 		return &empty.Empty{}, nil
 	default:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
 		return &empty.Empty{}, err
 	}
 }
