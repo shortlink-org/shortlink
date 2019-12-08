@@ -2,9 +2,13 @@ package mq
 
 import (
 	"context"
+
+	"github.com/batazor/shortlink/internal/notify"
 )
 
 type MQ interface { // nolint unused
+	notify.Subscriber // Observer interface
+
 	Init(ctx context.Context) error
 	Close() error
 

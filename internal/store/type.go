@@ -8,7 +8,6 @@ import (
 
 // DB - common interface of store
 type DB interface { // nolint unused
-
 	Init() error
 	Close() error
 
