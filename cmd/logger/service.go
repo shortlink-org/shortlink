@@ -53,9 +53,6 @@ func (s *Service) Start() {
 
 	// Add MQ
 	s.initMQ(ctx)
-	if err := s.mq.Send([]byte("Hello World")); err != nil {
-		s.log.Error(err.Error())
-	}
 
 	test := make(chan []byte)
 
@@ -66,9 +63,8 @@ func (s *Service) Start() {
 	}()
 
 	go func() {
-		select {
-		case msg := <-test:
-			s.log.Info(fmt.Sprintf("GET: %s", string(msg)))
+		for {
+			s.log.Info(fmt.Sprintf("GET: %s", string(<-test)))
 		}
 	}()
 }
