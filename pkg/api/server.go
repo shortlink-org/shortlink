@@ -6,7 +6,6 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/pkg/api/cloudevents"
 	"github.com/batazor/shortlink/pkg/api/graphql"
 	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
@@ -15,8 +14,8 @@ import (
 )
 
 // runAPIServer - start HTTP-server
-func (*Server) RunAPIServer(ctx context.Context, db store.DB) {
-	var API API
+func (*Server) RunAPIServer(ctx context.Context) {
+	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi")
 	viper.SetDefault("API_PORT", 7070)
@@ -32,18 +31,18 @@ func (*Server) RunAPIServer(ctx context.Context, db store.DB) {
 
 	switch serverType {
 	case "http-chi":
-		API = &httpchi.API{}
+		server = &httpchi.API{}
 	case "gRPC-web":
-		API = &grpcweb.API{}
+		server = &grpcweb.API{}
 	case "graphql":
-		API = &graphql.API{}
+		server = &graphql.API{}
 	case "cloudevents":
-		API = &cloudevents.API{}
+		server = &cloudevents.API{}
 	default:
-		API = &httpchi.API{}
+		server = &httpchi.API{}
 	}
 
-	if err := API.Run(ctx, config); err != nil {
+	if err := server.Run(ctx, config); err != nil {
 		log.Fatal(err.Error())
 	}
 }

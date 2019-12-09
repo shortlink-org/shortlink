@@ -122,7 +122,7 @@ func (s *Service) Start() {
 	go http.ListenAndServe("0.0.0.0:9090", monitoringServer) // nolint errcheck
 
 	// Run API server
-	s.api.RunAPIServer(ctx, s.db)
+	s.api.RunAPIServer(ctx)
 }
 
 // Stop - stop this a service

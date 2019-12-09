@@ -10,6 +10,15 @@ func Subscribe(event int, subscriber Subscriber) { // nolint unused
 	subsribers.subsribers[event] = append(subsribers.subsribers[event], subscriber)
 }
 
+func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
+	for i, v := range subsribers.subsribers[event] {
+		if subscriber == v {
+			subsribers.subsribers[event] = append(subsribers.subsribers[event][:i], subsribers.subsribers[event][i+1:]...)
+			break
+		}
+	}
+}
+
 func Publish(event int, payload interface{}, cb chan<- interface{}) { // nolint unused
 	var responses []*Response
 
