@@ -19,6 +19,7 @@ func (ram *RAMLinkList) Init() error { // nolint unparam
 	ram.mu.Lock()
 	ram.links = make(map[string]link.Link)
 	ram.mu.Unlock()
+
 	return nil
 }
 

@@ -1,6 +1,7 @@
 package store
 
 import (
+	"github.com/batazor/shortlink/internal/notify"
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 )
@@ -19,5 +20,8 @@ type DB interface { // nolint unused
 
 // Store abstract type
 type Store struct { // nolint unused
+	notify.Subscriber // Observer interface
+
 	typeStore string
+	store     DB
 }

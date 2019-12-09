@@ -7,13 +7,14 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/store"
-	"github.com/batazor/shortlink/pkg/api"
-	"github.com/batazor/shortlink/pkg/api/graphql/resolver"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 	"github.com/markbates/pkger"
+
+	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/store"
+	"github.com/batazor/shortlink/pkg/api/graphql/resolver"
+	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 // API ...
@@ -32,14 +33,18 @@ func (api *API) GetHandler() *relay.Handler {
 		}
 
 		if !info.IsDir() {
-			file, _ := pkger.Open(path)
+			file, err := pkger.Open(path)
+			if err != nil {
+				return err
+			}
+
 			f := make([]byte, info.Size())
-			_, err := file.Read(f)
+			_, err = file.Read(f)
 
 			// Add a newline if the file does not end in a newline.
 			if len(f) > 0 && f[len(f)-1] != '\n' {
-				if err := buf.WriteByte('\n'); err != nil {
-					panic(err)
+				if errWriteByte := buf.WriteByte('\n'); err != nil {
+					panic(errWriteByte)
 				}
 			}
 
@@ -65,9 +70,8 @@ func (api *API) GetHandler() *relay.Handler {
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
+func (api *API) Run(ctx context.Context, config api_type.Config) error {
 	api.ctx = ctx
-	api.store = db
 
 	log := logger.GetLogger(ctx)
 	log.Info("Run GraphQL API")
