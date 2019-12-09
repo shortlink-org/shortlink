@@ -53,6 +53,10 @@ docker-compose \
 - GraphQL
 - [CloudEvents](https://cloudevents.io/)
 
+### MQ
+
++ [Kafka](https://kafka.apache.org/)
+
 ### Store provider
 
 + RAM
@@ -92,3 +96,5 @@ docker-compose \
 | TRACER_URI          | localhost:6831                                          | Tracing addr:host                                        |
 | API_TYPE            | http-chi                                                | Select: http-chi, gRPC-web, graphql, cloudevents         |
 | API_PORT            | 7070                                                    | API port                                                 |
+
+## -~- THE END -~-

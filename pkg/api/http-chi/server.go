@@ -3,21 +3,21 @@ package httpchi
 import (
 	"context"
 	"fmt"
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/store"
-	"github.com/batazor/shortlink/pkg/api"
-	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
+	"net/http"
+
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/render"
-	"net/http"
+
+	"github.com/batazor/shortlink/internal/logger"
+	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
+	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
+func (api *API) Run(ctx context.Context, config api_type.Config) error {
 	api.ctx = ctx
-	api.store = db
 
 	log := logger.GetLogger(ctx)
 	log.Info("Run HTTP-CHI API")

@@ -3,19 +3,15 @@ package cloudevents
 import (
 	"context"
 	"fmt"
+
 	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/store"
-	"github.com/batazor/shortlink/pkg/api"
+	api_type "github.com/batazor/shortlink/pkg/api/type"
+
 	cloudevents "github.com/cloudevents/sdk-go"
 )
 
-type Example struct {
-	Sequence int    `json:"id"`
-	Message  string `json:"message"`
-}
-
 // Receive ...
-func Receive(ctx context.Context, event cloudevents.Event) error {
+func Receive(ctx context.Context, event cloudevents.Event) error { // nolint unused
 	// do something with event.Context and event.Data (via event.DataAs(foo)
 	data := &Example{}
 
@@ -32,9 +28,8 @@ func Receive(ctx context.Context, event cloudevents.Event) error {
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
+func (api *API) Run(ctx context.Context, config api_type.Config) error {
 	api.ctx = ctx
-	api.store = db
 
 	log := logger.GetLogger(ctx)
 	log.Info("Run Cloud-Events API")

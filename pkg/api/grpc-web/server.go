@@ -9,9 +9,9 @@ import (
 
 	"github.com/batazor/shortlink/internal/freeport"
 	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
-	"github.com/batazor/shortlink/pkg/api"
+	api_type "github.com/batazor/shortlink/pkg/api/type"
+
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/opentracing/opentracing-go"
@@ -22,16 +22,14 @@ import (
 
 // API ...
 type API struct { // nolint unused
-	store store.DB
-	ctx   context.Context
+	ctx context.Context
 }
 
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, db store.DB, config api.Config) error {
+func (api *API) Run(ctx context.Context, config api_type.Config) error {
 	api.ctx = ctx
-	api.store = db
 
 	// Get free port
 	port, err := freeport.GetFreePort()
