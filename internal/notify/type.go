@@ -2,6 +2,7 @@ package notify
 
 type Publisher interface { // nolint unused
 	Subscribe(event int, subscriber Subscriber)
+	UnSubscribe(subscriber Subscriber)
 }
 
 type Subscriber interface {

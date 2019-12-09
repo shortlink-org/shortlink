@@ -11,4 +11,4 @@ type API interface { // nolint unused
 	Run(ctx context.Context, config api_type.Config) error
 }
 
-type Server struct{}
+type Server struct{} // nolint unused
