@@ -89,13 +89,13 @@ func TestDelete(t *testing.T) {
 
 	t.Run("correct payload", func(t *testing.T) {
 		payload, err := json.Marshal(deleteRequest{
-			Hash: "http://test.com",
+			Hash: "hash",
 		})
 		if err != nil {
 			t.Error(err)
 		}
-		response := `{"error": "Not found subscribe to event METHOD_LIST"}`
-		if _, body := testRequest(t, ts, "DELETE", "/hash", bytes.NewReader(payload)); body != response { // nolint bodyclose
+		response := `{"error": "Not found subscribe to event METHOD_DELETE"}`
+		if _, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)); body != response { // nolint bodyclose
 			t.Errorf(`Assert: %s. Got %s`, response, body)
 		}
 	})
@@ -120,5 +120,6 @@ func testRequest(t *testing.T, ts *httptest.Server, method, path string, body io
 		return nil, ""
 	}
 
+	defer resp.Body.Close()
 	return resp, string(respBody)
 }
