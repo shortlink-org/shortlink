@@ -21,14 +21,14 @@ func TestAdd(t *testing.T) {
 	ts := httptest.NewServer(r)
 	defer ts.Close()
 
-	t.Run("Test with empty payload", func(t *testing.T) {
+	t.Run("empty payload", func(t *testing.T) {
 		response := `{"error": "EOF"}`
 		if _, body := testRequest(t, ts, "POST", "/", nil); body != response {
 			t.Errorf(`Assert: %s. Got %s`, response, body)
 		}
 	})
 
-	t.Run("Test with correct payload", func(t *testing.T) {
+	t.Run("correct payload", func(t *testing.T) {
 		payload, err := json.Marshal(addRequest{
 			URL:      "http://test.com",
 			Describe: "",
@@ -44,6 +44,23 @@ func TestAdd(t *testing.T) {
 
 }
 
+func TestGet(t *testing.T) {
+	server := &API{}
+
+	r := chi.NewRouter()
+	r.Mount("/", server.Routes())
+
+	ts := httptest.NewServer(r)
+	defer ts.Close()
+
+	t.Run("correct payload", func(t *testing.T) {
+		response := `{"error": "Not found subscribe to event METHOD_GET"}`
+		if _, body := testRequest(t, ts, "GET", "/hash", nil); body != response {
+			t.Errorf(`Assert: %s. Got %s`, response, body)
+		}
+	})
+}
+
 func TestList(t *testing.T) {
 	server := &API{}
 
@@ -53,9 +70,32 @@ func TestList(t *testing.T) {
 	ts := httptest.NewServer(r)
 	defer ts.Close()
 
-	t.Run("Test with correct payload", func(t *testing.T) {
+	t.Run("correct payload", func(t *testing.T) {
 		response := `{"error": "Not found subscribe to event METHOD_LIST"}`
 		if _, body := testRequest(t, ts, "GET", "/links", nil); body != response {
+			t.Errorf(`Assert: %s. Got %s`, response, body)
+		}
+	})
+}
+
+func TestDelete(t *testing.T) {
+	server := &API{}
+
+	r := chi.NewRouter()
+	r.Mount("/", server.Routes())
+
+	ts := httptest.NewServer(r)
+	defer ts.Close()
+
+	t.Run("correct payload", func(t *testing.T) {
+		payload, err := json.Marshal(deleteRequest{
+			Hash: "http://test.com",
+		})
+		if err != nil {
+			t.Error(err)
+		}
+		response := `{"error": "Not found subscribe to event METHOD_LIST"}`
+		if _, body := testRequest(t, ts, "DELETE", "/hash", bytes.NewReader(payload)); body != response {
 			t.Errorf(`Assert: %s. Got %s`, response, body)
 		}
 	})
