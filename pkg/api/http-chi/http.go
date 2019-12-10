@@ -82,6 +82,11 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	var hash = chi.URLParam(r, "hash")
+	if hash == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint errcheck
+		return
+	}
 
 	// Parse request
 	var request = &getRequest{
