@@ -23,7 +23,7 @@ func TestAdd(t *testing.T) {
 
 	t.Run("empty payload", func(t *testing.T) {
 		response := `{"error": "EOF"}`
-		if _, body := testRequest(t, ts, "POST", "/", nil); body != response {
+		if _, body := testRequest(t, ts, "POST", "/", nil); body != response { // nolint bodyclose
 			t.Errorf(`Assert: %s. Got %s`, response, body)
 		}
 	})
@@ -37,7 +37,7 @@ func TestAdd(t *testing.T) {
 			t.Error(err)
 		}
 		response := `{"error": "Not found subscribe to event METHOD_ADD"}`
-		if _, body := testRequest(t, ts, "POST", "/", bytes.NewReader(payload)); body != response {
+		if _, body := testRequest(t, ts, "POST", "/", bytes.NewReader(payload)); body != response { // nolint bodyclose
 			t.Errorf(`Assert: %s. Got %s`, response, body)
 		}
 	})
@@ -55,7 +55,7 @@ func TestGet(t *testing.T) {
 
 	t.Run("correct payload", func(t *testing.T) {
 		response := `{"error": "Not found subscribe to event METHOD_GET"}`
-		if _, body := testRequest(t, ts, "GET", "/hash", nil); body != response {
+		if _, body := testRequest(t, ts, "GET", "/hash", nil); body != response { // nolint bodyclose
 			t.Errorf(`Assert: %s. Got %s`, response, body)
 		}
 	})
@@ -72,7 +72,7 @@ func TestList(t *testing.T) {
 
 	t.Run("correct payload", func(t *testing.T) {
 		response := `{"error": "Not found subscribe to event METHOD_LIST"}`
-		if _, body := testRequest(t, ts, "GET", "/links", nil); body != response {
+		if _, body := testRequest(t, ts, "GET", "/links", nil); body != response { // nolint bodyclose
 			t.Errorf(`Assert: %s. Got %s`, response, body)
 		}
 	})
@@ -95,13 +95,13 @@ func TestDelete(t *testing.T) {
 			t.Error(err)
 		}
 		response := `{"error": "Not found subscribe to event METHOD_LIST"}`
-		if _, body := testRequest(t, ts, "DELETE", "/hash", bytes.NewReader(payload)); body != response {
+		if _, body := testRequest(t, ts, "DELETE", "/hash", bytes.NewReader(payload)); body != response { // nolint bodyclose
 			t.Errorf(`Assert: %s. Got %s`, response, body)
 		}
 	})
 }
 
-func testRequest(t *testing.T, ts *httptest.Server, method, path string, body io.Reader) (*http.Response, string) {
+func testRequest(t *testing.T, ts *httptest.Server, method, path string, body io.Reader) (*http.Response, string) { // nolint unparam
 	req, err := http.NewRequest(method, ts.URL+path, body)
 	if err != nil {
 		t.Fatal(err)
@@ -119,7 +119,6 @@ func testRequest(t *testing.T, ts *httptest.Server, method, path string, body io
 		t.Fatal(err)
 		return nil, ""
 	}
-	defer resp.Body.Close()
 
 	return resp, string(respBody)
 }
