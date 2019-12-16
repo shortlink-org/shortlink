@@ -53,7 +53,7 @@ require (
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
-	google.golang.org/genproto v0.0.0-20191216164720-4f79533eabd1
+	google.golang.org/genproto v0.0.0-20191216205247-b31c10ee225f
 	google.golang.org/grpc v1.25.1
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
