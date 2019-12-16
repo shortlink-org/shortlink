@@ -4,6 +4,7 @@ services:
   coredns:
     image: coredns/coredns
     container_name: coredns
+    command: -conf /etc/coredns/Corefile
     restart: always
     expose:
       - '53'
@@ -12,4 +13,4 @@ services:
       simple:
         ipv4_address: 10.5.0.2
     volumes:
-      - ./ops/docker-compose/gateway/coredns/:/etc/coredns
+      - ./ops/docker-compose/tooling/coredns/:/etc/coredns
