@@ -30,7 +30,7 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.1.2
 	github.com/lib/pq v1.2.0
-	github.com/markbates/pkger v0.12.8
+	github.com/markbates/pkger v0.12.10
 	github.com/mattn/go-sqlite3 v1.13.0
 	github.com/onsi/ginkgo v1.10.1 // indirect
 	github.com/onsi/gomega v1.7.0 // indirect
@@ -48,7 +48,7 @@ require (
 	github.com/tidwall/pretty v1.0.0 // indirect
 	github.com/uber/jaeger-client-go v2.20.1+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	go.mongodb.org/mongo-driver v1.1.3
+	go.mongodb.org/mongo-driver v1.2.0
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
