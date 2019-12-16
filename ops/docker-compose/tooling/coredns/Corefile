@@ -1,28 +1,41 @@
 # define a snippet
-(snip) {
-    prometheus localhost:9153
-    log
-    errors
-}
+# (snip) {
+#     prometheus localhost:9153
+#     log
+#     errors
+# }
 
-. {
-    whoami
-    import snip
-    debug
-    auto
-    reload 10s
-    proxy . 8.8.8.8:53
-    # If you wish to use a standard ZONE File format, uncomment the following line and customize the specified file
-    file /etc/coredns/db.example.com example.com
+# . {
+
+#     import snip
+#     debug
+#     auto
+#     reload 10s
+#     proxy . 8.8.8.8:53
+#     # If you wish to use a standard ZONE File format, uncomment the following line and customize the specified file
+#     file /etc/coredns/db.example.com example.com
 
     # If you wish to use a standard Hosts File format, uncomment the following line and customize the specified file
     # hosts /etc/coredns/example.com.hosts example.com
 
-    trace zipkin jaeger-collector:9411 {
-        every 1
-        service coredns
-        client_server
-    }
+
+# }
+
+. {
+  whoami
+  forward . 8.8.8.8 8.8.4.4
+  cache 3600
+  errors
+
+  log {
+    class all "{proto} Request: {name} {type} {>id}"
+  }
+
+  trace zipkin jaeger-collector:9411 {
+    every 1
+    service coredns
+    client_server
+  }
 }
 
 ################################ Comment and Version ################################
