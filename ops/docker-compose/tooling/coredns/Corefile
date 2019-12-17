@@ -1,34 +1,29 @@
 # define a snippet
-# (snip) {
-#     prometheus localhost:9153
-#     log
-#     errors
-# }
-
-# . {
-
-#     import snip
-#     debug
-#     auto
-#     reload 10s
-#     proxy . 8.8.8.8:53
-#     # If you wish to use a standard ZONE File format, uncomment the following line and customize the specified file
-#     file /etc/coredns/db.example.com example.com
-
-    # If you wish to use a standard Hosts File format, uncomment the following line and customize the specified file
-    # hosts /etc/coredns/example.com.hosts example.com
-
-
-# }
+(snip) {
+  prometheus localhost:9153
+}
 
 . {
+  import snip
+
+  # any gives a minimal response to ANY queries.
+  any
+
+  reload 10s
+
+  # nsid adds an identifier of this server to each reply.
+  nsid Use The Force and shortlink ;-)
+
   whoami
   forward . 8.8.8.8 8.8.4.4
   cache 3600
   errors
 
+  # loop detects simple forwarding loops and halts the server.
+  loop
+
   log {
-    class all "{proto} Request: {name} {type} {>id}"
+    class all
   }
 
   trace zipkin jaeger-collector:9411 {
@@ -36,6 +31,12 @@
     service coredns
     client_server
   }
+
+  # If you wish to use a standard ZONE File format, uncomment the following line and customize the specified file
+  # file /etc/coredns/db.example.com example.com
+
+  # If you wish to use a standard Hosts File format, uncomment the following line and customize the specified file
+  # hosts /etc/coredns/example.com.hosts example.com
 }
 
 ################################ Comment and Version ################################
