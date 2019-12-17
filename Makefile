@@ -82,12 +82,14 @@ run-dep: ## Run only dep for this project in docker-compose
          -f ops/docker-compose/database/postgres.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
          -f ops/docker-compose/tooling/opentracing.yaml \
+         -f ops/docker-compose/tooling/coredns.yaml \
          up -d
 
 down: ## Down docker-compose
 	@docker-compose down --remove-orphans
 
 clean: ## Clean artifacts
+	@docker network rm simple
 	@docker rmi -f shortlink_shortlink
 
 # DOCKER TASKS =========================================================================================================
