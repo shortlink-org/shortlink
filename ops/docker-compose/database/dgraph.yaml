@@ -15,6 +15,11 @@ services:
       - "6080:6080"
     restart: on-failure
     command: dgraph zero --my=zero:5080
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
 
   server:
     image: dgraph/dgraph:latest
@@ -29,6 +34,11 @@ services:
       - "9080:9080"
     restart: on-failure
     command: dgraph alpha --my=server:7080 --lru_mb=2048 --zero=zero:5080
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
 
   ratel:
     image: dgraph/dgraph:latest
@@ -41,3 +51,8 @@ services:
     ports:
       - "8000:8000"
     command: dgraph-ratel
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
