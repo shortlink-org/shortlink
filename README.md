@@ -97,4 +97,8 @@ docker-compose \
 | API_TYPE            | http-chi                                                | Select: http-chi, gRPC-web, graphql, cloudevents         |
 | API_PORT            | 7070                                                    | API port                                                 |
 
+### Optional
+
+- CoreDNS
+
 ## -~- THE END -~-
