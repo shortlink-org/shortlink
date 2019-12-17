@@ -1,0 +1,11 @@
+version: '2.4'
+
+services:
+
+  cassandra:
+    image: cassandra:3.11
+    restart: on-failure
+    container_name: cassandra
+    ports:
+      - "7000:7000"
+      - "9042:9042"

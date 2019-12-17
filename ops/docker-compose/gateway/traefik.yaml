@@ -4,14 +4,17 @@ services:
   traefik:
     # The official v2.0 Traefik docker image
     image: traefik:v2.0
-    # Enables the web UI and tells Traefik to listen to docker
-    command: --api.insecure=true --providers.docker
     ports:
       # The HTTP port
       - "80:80"
+      # Docker sends requests on port 443 to Traefik on port 443
+      - "443:443"
       # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
+      - "8060:8080"
     environment:
+      TRAEFIK_API_INSECURE: "true" # Don't do that in production
+      TRAEFIK_PROVIDERS_DOCKER: "true"
+      TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT: "false"
       TRAEFIK_ACCESSLOG: "true"
       TRAEFIK_ACCESSLOG_FORMAT: json
       TRAEFIK_METRICS_PROMETHEUS: "true"
@@ -27,4 +30,5 @@ services:
     dns_search: coredns
     volumes:
       # So that Traefik can listen to the Docker events
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./ops/docker-compose/gateway/traefik/dyn-traefik.toml:/dyn-traefik.toml

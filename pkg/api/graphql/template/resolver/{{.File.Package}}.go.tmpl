@@ -8,13 +8,18 @@ import "{{.File.Options.GoPackage}}"
 type {{ $MyType }}Resolver struct {
 	*{{ $myType }}.{{ $MyType }}
 }
-{{ print "" }}
 
 {{- range .File.MessageType}}
-  {{- range .Field}}
+{{- range .Field}}
+{{ if ne (upperFirst .Name) $MyType }}
 func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() string {
 	return r.{{ $MyType }}.{{ upperFirst .Name }}
 }
-{{ print "" }}
-  {{- end}}
 {{- end}}
+{{- end}}
+{{- end}}
+type {{ $MyType }}FilterInput struct {
+{{- range .File.MessageType}}{{- range .Field}}{{ if ne (upperFirst .Name) $MyType }}
+	{{ upperFirst .Name }} *StringFilterInput
+{{- end}}{{- end}}{{- end}}
+}

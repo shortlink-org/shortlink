@@ -10,7 +10,7 @@ type LinkResolver struct {
 }
 
 func (r *LinkResolver) Url() string {
-	return r.Link.URL
+	return r.Link.Url
 }
 
 func (r *LinkResolver) Hash() string {
@@ -19,4 +19,10 @@ func (r *LinkResolver) Hash() string {
 
 func (r *LinkResolver) Describe() string {
 	return r.Link.Describe
+}
+
+type LinkFilterInput struct {
+	Url      *StringFilterInput
+	Hash     *StringFilterInput
+	Describe *StringFilterInput
 }
