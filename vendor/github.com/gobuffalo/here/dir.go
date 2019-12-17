@@ -2,14 +2,13 @@ package here
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"path/filepath"
 )
 
 // Dir attempts to gather info for the requested directory.
-func Dir(p string) (Info, error) {
-	i, err := Cache(p, func(p string) (Info, error) {
+func (h Here) Dir(p string) (Info, error) {
+	i, err := h.cache(p, func(p string) (Info, error) {
 		var i Info
 
 		fi, err := os.Stat(p)
@@ -38,7 +37,7 @@ func Dir(p string) (Info, error) {
 			if nonGoDirRx.MatchString(err.Error()) {
 				return fromNonGoDir(p)
 			}
-			return i, fmt.Errorf("%w %s", err, p)
+			return i, err
 		}
 
 		if err := json.Unmarshal(b, &i); err != nil {
@@ -52,10 +51,14 @@ func Dir(p string) (Info, error) {
 		return i, err
 	}
 
-	return Cache(i.ImportPath, func(p string) (Info, error) {
+	return h.cache(i.ImportPath, func(p string) (Info, error) {
 		return i, nil
 	})
+}
 
+// Dir attempts to gather info for the requested directory.
+func Dir(p string) (Info, error) {
+	return New().Dir(p)
 }
 
 func fromNonGoDir(dir string) (Info, error) {
@@ -66,6 +69,9 @@ func fromNonGoDir(dir string) (Info, error) {
 
 	b, err := run("go", "list", "-json", "-m")
 	if err != nil {
+		if nonGoDirRx.MatchString(err.Error()) {
+			return i, nil
+		}
 		return i, err
 	}
 
