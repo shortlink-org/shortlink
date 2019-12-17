@@ -1,9 +1,14 @@
 # define a snippet
 (snip) {
-  prometheus localhost:9153
+  prometheus
+  log {
+    class all
+  }
+  errors
 }
 
 . {
+  whoami
   import snip
 
   # any gives a minimal response to ANY queries.
@@ -14,17 +19,11 @@
   # nsid adds an identifier of this server to each reply.
   nsid Use The Force and shortlink ;-)
 
-  whoami
   forward . 8.8.8.8 8.8.4.4
   cache 3600
-  errors
 
   # loop detects simple forwarding loops and halts the server.
   loop
-
-  log {
-    class all
-  }
 
   trace zipkin jaeger-collector:9411 {
     every 1
