@@ -1,0 +1,56 @@
+.job_template_build: &job_build
+  type: build
+  except:
+    - branches
+  when: on_success
+  retry: 2
+
+.job_template_deploy: &job_deploy
+  type: deploy
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - helm --kube-context $KUBE_CONTEXT upgrade $RELEASE_NAME $HELM_PATH
+      --install
+      --force
+      --wait
+      --namespace=$PROJECT_NAMESPACE
+      --set CI_PROJECT_NAME=$CI_PROJECT_NAME;
+  except:
+    - branches
+  when: manual
+
+variables:
+  PROJECT_NAMESPACE: rightcar
+
+stages:
+  - build
+  - deploy
+
+# QUEUES STAGING ======================================================================
+
+deploy:staging:
+  <<: *job_deploy
+  variables:
+    KUBE_CONTEXT: production
+    RELEASE_NAME: $CI_PROJECT_NAME
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
+  environment:
+    name: Production
+    url: stage.example.com
+  only:
+    - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
+
+# PRODUCTION =======================================================================
+
+deploy:production:
+  <<: *job_deploy
+  variables:
+    KUBE_CONTEXT: production
+    RELEASE_NAME: $CI_PROJECT_NAME
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
+  environment:
+    name: Production
+    url: prod.example.com
+  only:
+    - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/

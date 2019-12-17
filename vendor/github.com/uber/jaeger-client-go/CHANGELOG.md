@@ -1,6 +1,55 @@
 Changes by Version
 ==================
 
+2.20.1 (2019-11-08)
+-------------------
+
+Minor patch via https://github.com/jaegertracing/jaeger-client-go/pull/468
+
+- Make `AdaptiveSamplerUpdater` usable with default values; Resolves #467
+- Create `OperationNameLateBinding` sampler option and config option
+- Make `SamplerOptions` var of public type, so that its functions are discoverable via godoc
+
+
+2.20.0 (2019-11-06)
+-------------------
+
+## New Features
+
+- Allow all in-process spans of a trace to share sampling state (#443) -- Prithvi Raj
+
+  Sampling state is shared between all spans of the trace that are still in memory.
+  This allows implementation of delayed sampling decisions (see below).
+
+- Support delayed sampling decisions (#449) -- Yuri Shkuro
+
+  This is a large structural change to how the samplers work.
+  It allows some samplers to be executed multiple times on different
+  span events (like setting a tag) and make a positive sampling decision
+  later in the span life cycle, or even based on children spans.
+  See [README](./README.md#delayed-sampling) for more details.
+
+  There is a related minor change in behavior of the adaptive (per-operation) sampler,
+  which will no longer re-sample the trace when `span.SetOperation()` is called, i.e. the
+  operation used to make the sampling decision is always the one provided at span creation.
+
+- Add experimental tag matching sampler (#452) -- Yuri Shkuro
+
+  A sampler that can sample a trace based on a certain tag added to the root
+  span or one of its local (in-process) children. The sampler can be used with
+  another experimental `PrioritySampler` that allows multiple samplers to try
+  to make a sampling decision, in a certain priority order.
+
+- [log/zap] Report whether a trace was sampled (#445) -- Abhinav Gupta
+- Allow config.FromEnv() to enrich an existing config object (#436) -- Vineeth Reddy
+
+## Minor patches
+
+- Expose Sampler on Tracer and accept sampler options via Configuration (#460) -- Yuri Shkuro
+- Fix github.com/uber-go/atomic import (#464) -- Yuri Shkuro
+- Add nodejs to crossdock tests (#441) -- Bhavin Gandhi
+- Bump Go compiler version to 1.13 (#453) -- Yuri Shkuro
+
 2.19.0 (2019-09-23)
 -------------------
 

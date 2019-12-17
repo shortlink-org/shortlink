@@ -65,6 +65,42 @@
         ]
       }
     },
+    "/api/links": {
+      "get": {
+        "operationId": "GetLinks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/linkLinks"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "hash",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "describe",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Link"
+        ]
+      }
+    },
     "/api/{hash}": {
       "get": {
         "operationId": "GetLink",
@@ -114,6 +150,17 @@
         },
         "describe": {
           "type": "string"
+        }
+      }
+    },
+    "linkLinks": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/linkLink"
+          }
         }
       }
     }

@@ -5,7 +5,7 @@ metadata:
   labels:
 {{ include "shortlink.labels" . | indent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.deploy.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "shortlink.name" . }}
@@ -16,42 +16,38 @@ spec:
         app.kubernetes.io/name: {{ include "shortlink.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-    {{- with .Values.imagePullSecrets }}
+    {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       serviceAccountName: {{ template "shortlink.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.deploy.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            {{- toYaml .Values.deploy.securityContext | nindent 12 }}
+          image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
+          imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 7070
               protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+                {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
+                {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
+            {{- toYaml .Values.deploy.resources | nindent 12 }}
+      {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- with .Values.affinity }}
+    {{- with .Values.deploy.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with .Values.tolerations }}
+    {{- with .Values.deploy.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}

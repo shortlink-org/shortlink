@@ -3,14 +3,14 @@
 PROJECT_NAME := shortlink
 
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
-CI_COMMIT_TAG := 0.1.0
+CI_COMMIT_TAG := latest
 
 DOCKER_USERNAME := "batazor"
 
 # Export such that its passed to shell functions for Docker to pick up.
 export PROJECT_NAME
 
-# HELP
+# HELP =================================================================================================================
 # This will output the help for each task
 # thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
@@ -20,6 +20,7 @@ help: ## This help
 	@echo 'Targets:'
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
+# APPLICATION ==========================================================================================================
 dep: ## Install dependencies for this project
 	@echo "install protoc"
 	@sudo ./ops/scripts/install-protobuf.sh
@@ -29,6 +30,7 @@ dep: ## Install dependencies for this project
 	@go get -u moul.io/protoc-gen-gotemplate
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+	@go get -u github.com/securego/gosec/cmd/gosec
 
 generate: ## Code generation
 	@echo "proto generation link entity"
@@ -48,8 +50,11 @@ generate: ## Code generation
 	pkg/api/grpc-web/api.proto
 	@mv pkg/api/grpc-web/api.swagger.json docs/api.swagger.json
 
+	@echo "Generate from .go code"
+	@go generate internal/store/postgres/postgres.go
+
 	@echo "Generate go static"
-	@go generate pkg/api/graphql/schema/schema.go
+	@pkger -o cmd/shortlink
 
 golint: ## Linter for golang
 	@golangci-lint run
@@ -64,9 +69,18 @@ test: ## Run all test
 run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
-         -f ops/docker-compose/database/redis.yaml \
+         -f ops/docker-compose/mq/kafka.yaml \
+         -f ops/docker-compose/application/shortlink.yaml \
+         -f ops/docker-compose/tooling/opentracing.yaml \
+         up -d --force-recreate
+
+run-dep: ## Run only dep for this project in docker-compose
+	@docker-compose \
+         -f docker-compose.yaml \
+         -f ops/docker-compose/mq/kafka.yaml \
+         -f ops/docker-compose/application/shortlink.yaml \
+         -f ops/docker-compose/database/postgres.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
-         -f ops/docker-compose/tooling/prometheus.yaml \
          -f ops/docker-compose/tooling/opentracing.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
          up -d
@@ -74,10 +88,11 @@ run: ## Run this project in docker-compose
 down: ## Down docker-compose
 	@docker-compose down --remove-orphans
 
-clean: ## Remove docker artifacts
+clean: ## Clean artifacts
 	@docker network rm simple
+	@docker rmi -f shortlink_shortlink
 
-# DOCKER TASKS
+# DOCKER TASKS =========================================================================================================
 docker: docker-login docker-build docker-push ## docker login > build > push
 
 docker-login: ## Docker login
@@ -92,3 +107,17 @@ docker-build: ## Build the container
 docker-push: ## Publish the container
 	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 	@docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+
+# KUBERNETES ===========================================================================================================
+helm-lint: ## Check Helm chart
+	@helm lint ops/Helm/shortlink
+
+helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
+	@echo helm install/update ${PROJECT_NAME}
+	@helm upgrade ${PROJECT_NAME} ops/Helm/shortlink \
+		--install \
+		--force \
+		--wait
+
+helm-clean: ## Clean artifact from K8S
+	@helm del --purge ${PROJECT_NAME}
