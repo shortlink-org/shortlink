@@ -6,21 +6,21 @@ import (
 
 // Info represents details about the directory/package
 type Info struct {
-	Dir        string
-	ImportPath string
-	Name       string
-	Module     Module
-}
-
-func (i Info) MarshalJSON() ([]byte, error) {
-	mm := map[string]interface{}{
-		"ImportPath": i.ImportPath,
-		"Name":       i.Name,
-		"Module":     i.Module,
-		"Dir":        i.Dir,
-	}
-
-	return json.Marshal(mm)
+	Dir         string
+	ImportPath  string
+	Name        string
+	Doc         string
+	Target      string
+	Root        string
+	Match       []string
+	Stale       bool
+	StaleReason string
+	GoFiles     []string
+	Imports     []string
+	Deps        []string
+	TestGoFiles []string
+	TestImports []string
+	Module      Module
 }
 
 // IsZero checks if the type has been filled
