@@ -2,21 +2,3 @@
 // source: google/protobuf/timestamp.proto
 
 package resolver
-
-import "github.com/golang/protobuf/ptypes/timestamp"
-
-type Google.protobufResolver struct {
-	*google.protobuf.Google.protobuf
-}
-
-func (r *Google.protobufResolver) Seconds() string {
-	return r.Google.protobuf.Seconds
-}
-
-func (r *Google.protobufResolver) Nanos() string {
-	return r.Google.protobuf.Nanos
-}
-type Google.protobufFilterInput struct {
-	Seconds *StringFilterInput
-	Nanos *StringFilterInput
-}

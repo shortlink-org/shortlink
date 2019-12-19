@@ -1,9 +1,11 @@
 package query
 
 type Filter struct { // nolint unused
-	Url      *StringFilterInput
-	Hash     *StringFilterInput
-	Describe *StringFilterInput
+	Url        *StringFilterInput
+	Hash       *StringFilterInput
+	Describe   *StringFilterInput
+	Created_at *StringFilterInput
+	Updated_at *StringFilterInput
 }
 
 type StringFilterInput struct { // nolint unused
