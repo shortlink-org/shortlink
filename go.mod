@@ -9,7 +9,7 @@ require (
 	github.com/Microsoft/go-winio v0.4.14 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
-	github.com/cloudevents/sdk-go v0.10.1
+	github.com/cloudevents/sdk-go v0.10.2
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/containerd/continuity v0.0.0-20190827140505-75bee3e2ccb6 // indirect
 	github.com/dgraph-io/badger v1.6.0
@@ -29,8 +29,8 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.12.1
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.1.2
-	github.com/lib/pq v1.2.0
-	github.com/markbates/pkger v0.12.10
+	github.com/lib/pq v1.3.0
+	github.com/markbates/pkger v0.13.0
 	github.com/mattn/go-sqlite3 v1.13.0
 	github.com/onsi/ginkgo v1.10.1 // indirect
 	github.com/onsi/gomega v1.7.0 // indirect
@@ -53,8 +53,8 @@ require (
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
-	google.golang.org/genproto v0.0.0-20191206224255-0243a4be9c8f
-	google.golang.org/grpc v1.25.1
+	google.golang.org/genproto v0.0.0-20191216205247-b31c10ee225f
+	google.golang.org/grpc v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gotest.tools v2.2.0+incompatible // indirect

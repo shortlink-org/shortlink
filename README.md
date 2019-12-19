@@ -8,6 +8,7 @@
 [![LICENSE](https://img.shields.io/github/license/batazor/shortlink.svg)](https://github.com/batazor/shortlink/blob/master/LICENSE)
 ![GitHub last commit](https://img.shields.io/github/last-commit/batazor/shortlink)
 ![GitHub contributors](https://img.shields.io/github/contributors/batazor/shortlink)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3510/badge)](https://bestpractices.coreinfrastructure.org/projects/3510)
 
 Shortlink service
 
@@ -96,5 +97,9 @@ docker-compose \
 | TRACER_URI          | localhost:6831                                          | Tracing addr:host                                        |
 | API_TYPE            | http-chi                                                | Select: http-chi, gRPC-web, graphql, cloudevents         |
 | API_PORT            | 7070                                                    | API port                                                 |
+
+### Optional
+
+- CoreDNS
 
 ## -~- THE END -~-
