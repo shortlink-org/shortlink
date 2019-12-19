@@ -83,6 +83,10 @@ func TestDgraph(t *testing.T) {
 			t.Error(err)
 		}
 
+		if link == nil {
+			t.Fatalf("Assert link; Get nil")
+		}
+
 		if link.Hash != mock.GetLink.Hash {
 			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
 		}
