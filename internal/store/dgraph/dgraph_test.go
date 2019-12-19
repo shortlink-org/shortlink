@@ -124,6 +124,10 @@ func TestDgraph(t *testing.T) {
 			t.Error(err)
 		}
 
+		if link == nil {
+			t.Fatalf("Assert link; Get nil")
+		}
+
 		err = store.Delete(link.Hash)
 		if err != nil {
 			t.Error(err)
