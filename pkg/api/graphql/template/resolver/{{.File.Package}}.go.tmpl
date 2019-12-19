@@ -3,7 +3,10 @@
 {{ $MyType := upperFirst .File.Package }}{{ $myType := lowerFirst .File.Package }}
 package resolver
 {{ if ne $MyType "Google.protobuf" }}
-import "{{.File.Options.GoPackage}}"
+import (
+	"github.com/batazor/shortlink/pkg/link"
+	"github.com/golang/protobuf/ptypes/timestamp"
+)
 
 type {{ $MyType }}Resolver struct {
 	*{{ $myType }}.{{ $MyType }}
@@ -12,8 +15,8 @@ type {{ $MyType }}Resolver struct {
 {{- range .File.MessageType}}
 {{- range .Field}}
 {{ if ne (upperFirst .Name) $MyType }}
-func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() string {
-	return r.{{ $MyType }}.{{ upperFirst .Name }}
+func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() {{ if eq (string .Type) "TYPE_STRING" }} string {{ else if eq (string .Type) "TYPE_MESSAGE" }} *timestamp.Timestamp {{ else }} string {{end}} {
+	return r.{{ $MyType }}.{{ camelCase .Name }}
 }
 {{- end}}
 {{- end}}

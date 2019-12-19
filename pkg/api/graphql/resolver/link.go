@@ -3,7 +3,10 @@
 
 package resolver
 
-import "github.com/batazor/shortlink/pkg/link"
+import (
+	"github.com/batazor/shortlink/pkg/link"
+	"github.com/golang/protobuf/ptypes/timestamp"
+)
 
 type LinkResolver struct {
 	*link.Link
@@ -21,12 +24,12 @@ func (r *LinkResolver) Describe() string {
 	return r.Link.Describe
 }
 
-func (r *LinkResolver) Created_at() string {
-	return r.Link.Created_at
+func (r *LinkResolver) Created_at() *timestamp.Timestamp {
+	return r.Link.CreatedAt
 }
 
-func (r *LinkResolver) Updated_at() string {
-	return r.Link.Updated_at
+func (r *LinkResolver) Updated_at() *timestamp.Timestamp {
+	return r.Link.UpdatedAt
 }
 
 type LinkFilterInput struct {
