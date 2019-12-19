@@ -21,5 +21,9 @@ func (i Module) String() string {
 }
 
 func (i Module) IsZero() bool {
+	const cla = "command-line-arguments"
+	if i.Path == cla {
+		i.Path = ""
+	}
 	return i.String() == Module{}.String()
 }

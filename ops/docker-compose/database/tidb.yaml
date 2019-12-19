@@ -16,6 +16,12 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd0.log
     restart: on-failure
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+
   pd1:
     image: pingcap/pd:latest
     ports:
@@ -31,6 +37,12 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd1.log
     restart: on-failure
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+
   pd2:
     image: pingcap/pd:latest
     ports:
@@ -46,6 +58,12 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd2.log
     restart: on-failure
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+
   tikv0:
     image: pingcap/tikv:latest
     command:
@@ -60,6 +78,12 @@ services:
       - "pd1"
       - "pd2"
     restart: on-failure
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+
   tikv1:
     image: pingcap/tikv:latest
     command:
@@ -74,6 +98,12 @@ services:
       - "pd1"
       - "pd2"
     restart: on-failure
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+
   tikv2:
     image: pingcap/tikv:latest
     command:
@@ -88,6 +118,11 @@ services:
       - "pd1"
       - "pd2"
     restart: on-failure
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
 
   tidb:
     image: pingcap/tidb:latest
@@ -104,6 +139,12 @@ services:
       - "tikv1"
       - "tikv2"
     restart: on-failure
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+
   tispark-master:
     image: pingcap/tispark:latest
     command:
@@ -119,6 +160,12 @@ services:
       - "tikv1"
       - "tikv2"
     restart: on-failure
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+
   tispark-slave0:
     image: pingcap/tispark:latest
     command:
@@ -131,6 +178,11 @@ services:
     depends_on:
       - tispark-master
     restart: on-failure
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
 
   tidb-vision:
     image: pingcap/tidb-vision:latest
@@ -139,4 +191,8 @@ services:
     ports:
       - "8010:8010"
     restart: on-failure
-
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
