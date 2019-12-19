@@ -2,7 +2,7 @@
 // source: {{.File.Name}}
 {{ $MyType := upperFirst .File.Package }}{{ $myType := lowerFirst .File.Package }}
 package resolver
-
+{{ if ne $MyType "Google.protobuf" }}
 import "{{.File.Options.GoPackage}}"
 
 type {{ $MyType }}Resolver struct {
@@ -23,3 +23,4 @@ type {{ $MyType }}FilterInput struct {
 	{{ upperFirst .Name }} *StringFilterInput
 {{- end}}{{- end}}{{- end}}
 }
+{{- end}}
