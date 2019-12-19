@@ -8,12 +8,16 @@ type Link {
     url:  String! 
     hash:  String! 
     describe:  String! 
+    created_at:  Timestamp! 
+    updated_at:  Timestamp! 
 }
 
 input LinkFilterInput {
     url: StringFilterInput
     hash: StringFilterInput
     describe: StringFilterInput
+    created_at: StringFilterInput
+    updated_at: StringFilterInput
 }
 
 type Links {

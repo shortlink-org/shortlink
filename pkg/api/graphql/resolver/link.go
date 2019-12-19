@@ -21,8 +21,18 @@ func (r *LinkResolver) Describe() string {
 	return r.Link.Describe
 }
 
+func (r *LinkResolver) Created_at() string {
+	return r.Link.Created_at
+}
+
+func (r *LinkResolver) Updated_at() string {
+	return r.Link.Updated_at
+}
+
 type LinkFilterInput struct {
-	Url      *StringFilterInput
-	Hash     *StringFilterInput
-	Describe *StringFilterInput
+	Url        *StringFilterInput
+	Hash       *StringFilterInput
+	Describe   *StringFilterInput
+	Created_at *StringFilterInput
+	Updated_at *StringFilterInput
 }
