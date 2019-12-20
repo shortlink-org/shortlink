@@ -6,6 +6,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
+	"github.com/golang/protobuf/ptypes"
 )
 
 // RAMLinkList implementation of store interface
@@ -54,9 +55,11 @@ func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 	// copy map by assigning elements to new map
 	for key := range ram.links {
 		links = append(links, &link.Link{
-			Url:      ram.links[key].Url,
-			Hash:     ram.links[key].Hash,
-			Describe: ram.links[key].Describe,
+			Url:       ram.links[key].Url,
+			Hash:      ram.links[key].Hash,
+			Describe:  ram.links[key].Describe,
+			CreatedAt: ram.links[key].CreatedAt,
+			UpdatedAt: ram.links[key].UpdatedAt,
 		})
 	}
 	ram.mu.Unlock()
@@ -68,6 +71,10 @@ func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 func (ram *RAMLinkList) Add(data link.Link) (*link.Link, error) { // nolint unused
 	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
 	data.Hash = hash[:7]
+
+	// Add timestamp
+	data.CreatedAt = ptypes.TimestampNow()
+	data.UpdatedAt = ptypes.TimestampNow()
 
 	ram.mu.Lock()
 	ram.links[data.Hash] = data
