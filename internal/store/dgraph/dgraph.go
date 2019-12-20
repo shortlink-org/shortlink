@@ -86,6 +86,8 @@ query all($a: string) {
 		url
 		hash
 		describe
+		created_at
+		updated_at
 	}
 }`
 
@@ -144,6 +146,8 @@ query all {
 		url
 		hash
 		describe
+		created_at
+		updated_at
 	}
 }`
 
@@ -210,6 +214,9 @@ func (dg *DGraphLinkList) Add(source link.Link) (*link.Link, error) {
 		Link:  data,
 		DType: []string{"Link"},
 	}
+
+	item.Link.CreatedAt = nil
+	item.Link.UpdatedAt = nil
 
 	pb, err := json.Marshal(item)
 	if err != nil {
@@ -288,6 +295,8 @@ type Link {
     url: string
     hash: string
     describe: string
+    created_at: datetime
+    updated_at: datetime
 }
 
 hash: string @index(term) @lang .

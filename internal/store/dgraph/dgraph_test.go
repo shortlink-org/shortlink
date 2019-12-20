@@ -7,13 +7,8 @@ import (
 
 	"github.com/ory/dockertest"
 	"github.com/ory/dockertest/docker"
-	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/store/mock"
-)
-
-var (
-	IS_TRAVIS = viper.GetBool("TRAVIS")
 )
 
 func TestDgraph(t *testing.T) {
@@ -37,7 +32,7 @@ func TestDgraph(t *testing.T) {
 	// pulls an image, creates a container based on it and runs it
 	ZERO, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository:   "dgraph/dgraph",
-		Tag:          "latest",
+		Tag:          "v1.1.0",
 		Cmd:          []string{"dgraph", "zero", "--my=test-dgraph-zero:5080"},
 		ExposedPorts: []string{"5080"},
 		Name:         "test-dgraph-zero",
@@ -49,7 +44,7 @@ func TestDgraph(t *testing.T) {
 
 	ALPHA, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository: "dgraph/dgraph",
-		Tag:        "latest",
+		Tag:        "v1.1.0",
 		Cmd:        []string{"dgraph", "alpha", "--my=localhost:7080", "--lru_mb=2048", fmt.Sprintf("--zero=%s:%s", "test-dgraph-zero", "5080")},
 		NetworkID:  network.ID,
 	})
@@ -88,10 +83,6 @@ func TestDgraph(t *testing.T) {
 			t.Error(err)
 		}
 
-		if IS_TRAVIS {
-			return
-		}
-
 		if link == nil {
 			t.Fatalf("Assert link; Get nil")
 		}
@@ -105,10 +96,6 @@ func TestDgraph(t *testing.T) {
 		link, err := store.Get(mock.GetLink.Hash)
 		if err != nil {
 			t.Error(err)
-		}
-
-		if IS_TRAVIS {
-			return
 		}
 
 		if link == nil {
@@ -135,10 +122,6 @@ func TestDgraph(t *testing.T) {
 		link, err := store.Add(mock.AddLink)
 		if err != nil {
 			t.Error(err)
-		}
-
-		if IS_TRAVIS {
-			return
 		}
 
 		if link == nil {
