@@ -39,7 +39,7 @@ require (
 	github.com/opencontainers/runc v0.1.1 // indirect
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/ory/dockertest v3.3.5+incompatible
-	github.com/prometheus/client_golang v1.2.1
+	github.com/prometheus/client_golang v1.3.0
 	github.com/scylladb/gocqlx v1.3.1
 	github.com/segmentio/kafka-go v0.3.4
 	github.com/sirupsen/logrus v1.4.2
@@ -53,7 +53,6 @@ require (
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413 // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
-	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	google.golang.org/genproto v0.0.0-20191220175831-5c49e3ecc1c1
 	google.golang.org/grpc v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
