@@ -199,9 +199,9 @@ func (dg *DGraphLinkList) Add(source link.Link) (*link.Link, error) {
 	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {
-		if err := txn.Discard(ctx); err != nil {
+		if errTxn := txn.Discard(ctx); errTxn != nil {
 			// TODO: use logger
-			fmt.Println(err.Error())
+			fmt.Println(errTxn.Error())
 		}
 	}()
 
