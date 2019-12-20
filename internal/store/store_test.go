@@ -6,6 +6,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/link"
+	"github.com/stretchr/testify/assert"
 )
 
 // TestLink ...
@@ -15,54 +16,37 @@ func TestLink(t *testing.T) { //nolint unused
 	// Init logger
 	conf := logger.Configuration{}
 	log, err := logger.NewLogger(logger.Zap, conf)
-	if err != nil {
-		t.Errorf("Error init a logger: %s", err)
-	}
+	assert.Nil(t, err, "Error init a logger")
 	ctx = logger.WithLogger(ctx, log)
 
 	var st Store
 	s := st.Use(ctx)
 
-	if err = s.Init(); err != nil {
-		t.Errorf("Error  create a new link list: %s", err)
-	}
+	// Init store
+	assert.Nil(t, s.Init(), "Error  create a new link list")
 
 	newLink, err := link.NewURL("example.com")
-	if err != nil {
-		t.Errorf("Error create a new link: %s", err)
-	}
+	assert.Nil(t, err, "Error create a new link")
 
 	// test add new a link
 	link, err := s.Add(newLink)
-	if err != nil {
-		t.Errorf("Error %s", err)
-	}
+	assert.Nil(t, err)
 
 	// test get link
 	link, err = s.Get(link.Hash)
-	if err != nil {
-		t.Errorf("Error %s", err)
-	}
-	if link.Url != newLink.Url {
-		t.Errorf("Assert links: %s; Get %s", newLink.Url, link.Url)
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, link.Url, newLink.Url)
 
 	// test get links
 	links, err := s.List(nil)
-	if err != nil {
-		t.Errorf("Error %s", err)
-	}
-	if len(links) != 1 {
-		t.Errorf("Assert 1 links; Get %d link(s)", len(links))
-	}
+	assert.Nil(t, err)
+	assert.Equal(t, len(links), 1)
 
 	// delete link
 	err = s.Delete(newLink.Hash)
-	if err != nil {
-		t.Errorf("Error delete item %s", err)
-	}
+	assert.Nil(t, err, "Error delete item")
+
+	// check get after deleted
 	_, err = s.Get(newLink.Hash)
-	if err == nil {
-		t.Errorf("Assert 'Not found' but get nil")
-	}
+	assert.NotNil(t, err, "Assert 'Not found' but get nil")
 }

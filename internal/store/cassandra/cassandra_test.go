@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/ory/dockertest"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCassandra(t *testing.T) {
@@ -13,22 +14,16 @@ func TestCassandra(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	if err != nil {
-		t.Fatalf("Could not connect to docker: %s", err)
-	}
+	assert.Nil(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("cassandra", "latest", nil)
-	if err != nil {
-		t.Fatalf("Could not start resource: %s", err)
-	}
+	assert.Nil(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err = pool.Retry(func() error {
 		err = os.Setenv("STORE_CASSANDRA_URI", fmt.Sprintf("localhost:%s", resource.GetPort("9042/tcp")))
-		if err != nil {
-			t.Fatalf("Cannot set ENV: %s", err)
-		}
+		assert.Nil(t, err, "Cannot set ENV")
 
 		// if errInit := store.Init(); errInit != nil {
 		// 	return errInit
@@ -36,54 +31,33 @@ func TestCassandra(t *testing.T) {
 
 		return nil
 	}); err != nil {
-		t.Fatalf("Could not connect to docker: %s", err)
+		assert.Nil(t, err, "Could not connect to docker")
 	}
 
 	// t.Run("Create", func(t *testing.T) {
 	// 	link, err := store.Add(mock.AddLink)
-	// 	if err != nil {
-	// 		t.Error(err)
-	// 	}
-	//
-	// 	if link.Hash != mock.GetLink.Hash {
-	// 		t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
-	// 	}
+	// 	assert.Nil(t, err)
+	// 	assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	// })
 	//
 	// t.Run("Get", func(t *testing.T) {
 	// 	link, err := store.Get(mock.GetLink.Hash)
-	// 	if err != nil {
-	// 		t.Error(err)
-	// 	}
-	//
-	// 	if link.Hash != mock.GetLink.Hash {
-	// 		t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
-	// 	}
+	// 	assert.Nil(t, err)
+	// 	assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	// })
 	//
 	// t.Run("Get list", func(t *testing.T) {
 	// 	links, err := store.List(nil)
-	// 	if err != nil {
-	// 		t.Error(err)
-	// 	}
-	//
-	// 	if len(links) != 1 {
-	// 		t.Errorf("Assert 1 links; Get %d link(s)", len(links))
-	// 	}
+	// 	assert.Nil(t, err)
+	// 	assert.Equal(t, len(links), 1)
 	// })
 	//
 	// t.Run("Delete", func(t *testing.T) {
-	// 	err := store.Delete(mock.GetLink.Hash)
-	// 	if err != nil {
-	// 		t.Error(err)
-	// 	}
+	// 	assert.Nil(t, store.Delete(mock.GetLink.Hash))
 	// })
 	//
 	// t.Run("Close", func(t *testing.T) {
-	// 	err := store.Close()
-	// 	if err != nil {
-	// 		t.Error(err)
-	// 	}
+	// 	assert.Nil(t, store.Close())
 	// })
 
 	// When you're done, kill and remove the container
