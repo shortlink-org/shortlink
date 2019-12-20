@@ -37,14 +37,22 @@ type ResponseLink struct {
 }
 
 func (l ResponseLink) MarshalJSON() ([]byte, error) {
-	createdAt, err := ptypes.Timestamp(l.CreatedAt)
-	if err != nil {
-		return nil, err
+	var err error
+
+	var createdAt time.Time
+	if l.CreatedAt != nil {
+		createdAt, err = ptypes.Timestamp(l.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	updatedAt, err := ptypes.Timestamp(l.CreatedAt)
-	if err != nil {
-		return nil, err
+	var updatedAt time.Time
+	if l.CreatedAt != nil {
+		updatedAt, err = ptypes.Timestamp(l.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return json.Marshal(&struct {
