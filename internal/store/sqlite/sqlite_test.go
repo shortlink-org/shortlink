@@ -4,60 +4,38 @@ import (
 	"testing"
 
 	"github.com/batazor/shortlink/internal/store/mock"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSQLite(t *testing.T) {
 	store := SQLiteLinkList{}
 
 	err := store.Init()
-	if err != nil {
-		t.Errorf("Get error: %s", err)
-	}
+	assert.Nil(t, err)
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(mock.AddLink)
-		if err != nil {
-			t.Error(err)
-		}
-
-		if link.Hash != mock.GetLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
-		}
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(mock.GetLink.Hash)
-		if err != nil {
-			t.Error(err)
-		}
-
-		if link.Hash != mock.GetLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
-		}
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(nil)
-		if err != nil {
-			t.Error(err)
-		}
-
-		if len(links) != 1 {
-			t.Errorf("Assert 1 links; Get %d link(s)", len(links))
-		}
+		assert.Nil(t, err)
+		assert.Equal(t, len(links), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		err := store.Delete(mock.GetLink.Hash)
-		if err != nil {
-			t.Error(err)
-		}
+		assert.Nil(t, store.Delete(mock.GetLink.Hash))
 	})
 
 	t.Run("Close", func(t *testing.T) {
-		err := store.Close()
-		if err != nil {
-			t.Error(err)
-		}
+		assert.Nil(t, store.Close())
 	})
 }

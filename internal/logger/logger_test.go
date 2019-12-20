@@ -6,6 +6,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 // TestOutput ...
@@ -19,9 +21,7 @@ func TestOutputZap(t *testing.T) { //nolint unused
 	}
 
 	log, err := NewLogger(Zap, conf)
-	if err != nil {
-		t.Errorf("Error init a logger: %s", err)
-	}
+	assert.Nil(t, err, "Error init a logger")
 
 	log.Info("Hello World")
 
@@ -33,12 +33,10 @@ func TestOutputZap(t *testing.T) { //nolint unused
 		"@msg":       "Hello World",
 	}
 	var response map[string]interface{}
-	if err := json.Unmarshal(b.Bytes(), &response); err != nil {
-		t.Errorf("Error unmarshalling %s", err.Error())
-	}
+	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
-		t.Errorf("Expected: %s\ngot: %s", expected, response)
+		assert.Fail(t, "Expected: %s\ngot: %s", expected, response)
 	}
 }
 
@@ -52,9 +50,7 @@ func TestOutputLogrus(t *testing.T) { //nolint unused
 	}
 
 	log, err := NewLogger(Logrus, conf)
-	if err != nil {
-		t.Errorf("Error init a logger: %s", err)
-	}
+	assert.Nil(t, err, "Error init a logger")
 
 	log.Info("Hello World")
 
@@ -65,12 +61,10 @@ func TestOutputLogrus(t *testing.T) { //nolint unused
 		"@msg":       "Hello World",
 	}
 	var response map[string]interface{}
-	if err := json.Unmarshal(b.Bytes(), &response); err != nil {
-		t.Errorf("Error unmarshalling %s", err.Error())
-	}
+	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
-		t.Errorf("Expected: %s\ngot: %s", expected, response)
+		assert.Fail(t, "Expected: %s\ngot: %s", expected, response)
 	}
 }
 
@@ -84,9 +78,7 @@ func TestFieldsZap(t *testing.T) { //nolint unused
 	}
 
 	log, err := NewLogger(Zap, conf)
-	if err != nil {
-		t.Errorf("Error init a logger: %s", err)
-	}
+	assert.Nil(t, err, "Error init a logger")
 
 	log.Info("Hello World", Fields{
 		"hello": "world",
@@ -98,17 +90,15 @@ func TestFieldsZap(t *testing.T) { //nolint unused
 		"@level":     "info",
 		"@timestamp": expectedTime,
 		"@msg":       "Hello World",
-		"@caller":    "logger/logger_test.go:91",
+		"@caller":    "logger/logger_test.go:83",
 		"first":      float64(1),
 		"hello":      "world",
 	}
 	var response map[string]interface{}
-	if err := json.Unmarshal(b.Bytes(), &response); err != nil {
-		t.Errorf("Error unmarshalling %s", err.Error())
-	}
+	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
-		t.Errorf("Expected: %s\ngot: %s", expected, response)
+		assert.Errorf(t, err, "Expected: %s\ngot: %s", expected, response)
 	}
 }
 
@@ -122,9 +112,7 @@ func TestFieldsLogrus(t *testing.T) { //nolint unused
 	}
 
 	log, err := NewLogger(Logrus, conf)
-	if err != nil {
-		t.Errorf("Error init a logger: %s", err)
-	}
+	assert.Nil(t, err, "Error init a logger")
 
 	log.Info("Hello World", Fields{
 		"hello": "world",
@@ -140,12 +128,10 @@ func TestFieldsLogrus(t *testing.T) { //nolint unused
 		"hello":      "world",
 	}
 	var response map[string]interface{}
-	if err := json.Unmarshal(b.Bytes(), &response); err != nil {
-		t.Errorf("Error unmarshalling %s", err.Error())
-	}
+	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
-		t.Errorf("Expected: %s\ngot: %s", expected, response)
+		assert.Errorf(t, err, "Expected: %s\ngot: %s", expected, response)
 	}
 }
 
@@ -162,16 +148,14 @@ func TestSetLevel(t *testing.T) { //nolint unused
 		}
 
 		log, err := NewLogger(logger, conf)
-		if err != nil {
-			t.Errorf("Error init a logger: %s", err)
-		}
+		assert.Nil(t, err, "Error init a logger")
 
 		log.Info("Hello World")
 
 		expectedStr := ``
 
 		if b.String() != expectedStr {
-			t.Errorf("Expected: %sgot: %s", expectedStr, b.String())
+			assert.Errorf(t, err, "Expected: %sgot: %s", expectedStr, b.String())
 		}
 	}
 }

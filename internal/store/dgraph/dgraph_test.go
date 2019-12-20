@@ -7,6 +7,7 @@ import (
 
 	"github.com/ory/dockertest"
 	"github.com/ory/dockertest/docker"
+	"github.com/stretchr/testify/assert"
 
 	"github.com/batazor/shortlink/internal/store/mock"
 )
@@ -16,16 +17,14 @@ func TestDgraph(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	if err != nil {
-		t.Fatalf("Could not connect to docker: %s", err)
-	}
+	assert.Nil(t, err, "Could not connect to docker")
 
 	// create a network with Client.CreateNetwork()
 	network, err := pool.Client.CreateNetwork(docker.CreateNetworkOptions{
 		Name: "shortlink-test",
 	})
 	if err != nil {
-		t.Errorf("Error create docker network: %s", err)
+		assert.Errorf(t, err, "Error create docker network")
 		os.Exit(1)
 	}
 
@@ -38,9 +37,7 @@ func TestDgraph(t *testing.T) {
 		Name:         "test-dgraph-zero",
 		NetworkID:    network.ID,
 	})
-	if err != nil {
-		t.Fatalf("Could not start resource: %s", err)
-	}
+	assert.Nil(t, err, "Could not start resource")
 
 	ALPHA, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository: "dgraph/dgraph",
@@ -51,7 +48,7 @@ func TestDgraph(t *testing.T) {
 	if err != nil {
 		// When you're done, kill and remove the container
 		if errPurge := pool.Purge(ZERO); errPurge != nil {
-			t.Errorf("Could not purge resource: %s", errPurge)
+			assert.Errorf(t, errPurge, "Could not purge resource")
 		}
 
 		t.Fatalf("Could not start resource: %s", err)
@@ -63,7 +60,7 @@ func TestDgraph(t *testing.T) {
 
 		err = os.Setenv("STORE_DGRAPH_URI", fmt.Sprintf("localhost:%s", ALPHA.GetPort("9080/tcp")))
 		if err != nil {
-			t.Errorf("Cannot set ENV: %s", err)
+			assert.Errorf(t, err, "Cannot set ENV")
 			return nil
 		}
 
@@ -74,80 +71,42 @@ func TestDgraph(t *testing.T) {
 
 		return nil
 	}); err != nil {
-		t.Errorf("Could not connect to docker: %s", err)
+		assert.Errorf(t, err, "Could not connect to docker")
 	}
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(mock.AddLink)
-		if err != nil {
-			t.Error(err)
-		}
-
-		if link == nil {
-			t.Fatalf("Assert link; Get nil")
-		}
-
-		if link.Hash != mock.GetLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
-		}
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(mock.GetLink.Hash)
-		if err != nil {
-			t.Error(err)
-		}
-
-		if link == nil {
-			t.Fatalf("Assert link; Get nil")
-		}
-
-		if link.Hash != mock.GetLink.Hash {
-			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
-		}
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(nil)
-		if err != nil {
-			t.Error(err)
-		}
-
-		if len(links) != 1 {
-			t.Errorf("Assert 1 links; Get %d link(s)", len(links))
-		}
+		assert.Nil(t, err)
+		assert.Equal(t, len(links), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		link, err := store.Add(mock.AddLink)
-		if err != nil {
-			t.Error(err)
-		}
-
-		if link == nil {
-			t.Fatalf("Assert link; Get nil")
-		}
-
-		err = store.Delete(link.Hash)
-		if err != nil {
-			t.Error(err)
-		}
+		assert.Nil(t, store.Delete(mock.GetLink.Hash))
 	})
 
 	t.Run("Close", func(t *testing.T) {
-		err := store.Close()
-		if err != nil {
-			t.Error(err)
-		}
+		assert.Nil(t, store.Close())
 	})
 
 	// When you're done, kill and remove the container
 	if err := pool.Purge(ALPHA); err != nil {
-		t.Errorf("Could not purge resource: %s", err)
+		assert.Errorf(t, err, "Could not purge resource")
 	}
 
 	// When you're done, kill and remove the container
 	if err := pool.Purge(ZERO); err != nil {
-		t.Errorf("Could not purge resource: %s", err)
+		assert.Errorf(t, err, "Could not purge resource")
 	}
 }
