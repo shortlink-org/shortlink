@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/store/query"
@@ -189,9 +190,11 @@ func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) { // 
 }
 
 // Add ...
-func (dg *DGraphLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
+func (dg *DGraphLinkList) Add(source link.Link) (*link.Link, error) {
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
 
 	ctx := context.Background()
 	txn := dg.client.NewTxn()

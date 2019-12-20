@@ -4,16 +4,26 @@ import (
 	"crypto/hmac"
 	"crypto/sha512"
 	"encoding/hex"
+
+	"github.com/golang/protobuf/ptypes"
 )
 
 // NewURL return new link
 func NewURL(link string) (Link, error) { // nolint unparam
-	newLink := Link{Url: link}
+	hash := CreateHash([]byte(link), []byte("secret"))
+
+	newLink := Link{
+		Url:       link,
+		Hash:      hash[:7],
+		CreatedAt: ptypes.TimestampNow(),
+		UpdatedAt: ptypes.TimestampNow(),
+	}
+
 	return newLink, nil
 }
 
 // CreateHash return hash by getting link
-func (l *Link) CreateHash(str, secret []byte) string { // nolint unused
+func CreateHash(str, secret []byte) string { // nolint unused
 	h := hmac.New(sha512.New, secret)
 	_, _ = h.Write(str) // nolint errcheck
 	sha := hex.EncodeToString(h.Sum(nil))
