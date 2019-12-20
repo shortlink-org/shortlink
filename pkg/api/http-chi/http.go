@@ -94,8 +94,9 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		response *link.Link
-		err      error
+		response     *link.Link
+		responseLink ResponseLink // for custom JSON parsing
+		err          error
 	)
 
 	responseCh := make(chan interface{})
@@ -125,7 +126,10 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := json.Marshal(response)
+	responseLink = ResponseLink{
+		response,
+	}
+	res, err := json.Marshal(responseLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -141,8 +145,9 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	var (
-		response []*link.Link
-		err      error
+		response     []*link.Link
+		responseLink []ResponseLink // for custom JSON parsing
+		err          error
 	)
 
 	responseCh := make(chan interface{})
@@ -172,7 +177,11 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := json.Marshal(response)
+	for l := range response {
+		responseLink = append(responseLink, ResponseLink{response[l]})
+	}
+
+	res, err := json.Marshal(responseLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
