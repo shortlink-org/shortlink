@@ -79,21 +79,40 @@
         "parameters": [
           {
             "name": "url",
+            "description": "URL.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "hash",
+            "description": "Hash by URL + salt.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "describe",
+            "description": "Describe of link.",
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "created_at",
+            "description": "Create at.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "updated_at",
+            "description": "Update at.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
           }
         ],
         "tags": [
@@ -115,21 +134,40 @@
         "parameters": [
           {
             "name": "hash",
+            "description": "Hash by URL + salt",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
             "name": "url",
+            "description": "URL.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
             "name": "describe",
+            "description": "Describe of link.",
             "in": "query",
             "required": false,
             "type": "string"
+          },
+          {
+            "name": "created_at",
+            "description": "Create at.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "updated_at",
+            "description": "Update at.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
           }
         ],
         "tags": [
@@ -143,13 +181,26 @@
       "type": "object",
       "properties": {
         "url": {
-          "type": "string"
+          "type": "string",
+          "title": "URL"
         },
         "hash": {
-          "type": "string"
+          "type": "string",
+          "title": "Hash by URL + salt"
         },
         "describe": {
-          "type": "string"
+          "type": "string",
+          "title": "Describe of link"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Create at"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Update at"
         }
       }
     },

@@ -32,7 +32,7 @@ func TestDgraph(t *testing.T) {
 	// pulls an image, creates a container based on it and runs it
 	ZERO, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository:   "dgraph/dgraph",
-		Tag:          "latest",
+		Tag:          "v1.1.0",
 		Cmd:          []string{"dgraph", "zero", "--my=test-dgraph-zero:5080"},
 		ExposedPorts: []string{"5080"},
 		Name:         "test-dgraph-zero",
@@ -44,7 +44,7 @@ func TestDgraph(t *testing.T) {
 
 	ALPHA, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository: "dgraph/dgraph",
-		Tag:        "latest",
+		Tag:        "v1.1.0",
 		Cmd:        []string{"dgraph", "alpha", "--my=localhost:7080", "--lru_mb=2048", fmt.Sprintf("--zero=%s:%s", "test-dgraph-zero", "5080")},
 		NetworkID:  network.ID,
 	})
@@ -98,6 +98,10 @@ func TestDgraph(t *testing.T) {
 			t.Error(err)
 		}
 
+		if link == nil {
+			t.Fatalf("Assert link; Get nil")
+		}
+
 		if link.Hash != mock.GetLink.Hash {
 			t.Errorf("Assert hash - %s; Get %s hash", mock.GetLink.Hash, link.Hash)
 		}
@@ -118,6 +122,10 @@ func TestDgraph(t *testing.T) {
 		link, err := store.Add(mock.AddLink)
 		if err != nil {
 			t.Error(err)
+		}
+
+		if link == nil {
+			t.Fatalf("Assert link; Get nil")
 		}
 
 		err = store.Delete(link.Hash)

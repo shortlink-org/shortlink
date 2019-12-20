@@ -8,6 +8,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/gocql/gocql"
+	"github.com/golang/protobuf/ptypes"
 	"github.com/scylladb/gocqlx/qb"
 	"github.com/spf13/viper"
 )
@@ -132,9 +133,15 @@ func (c *CassandraLinkList) List(filter *query.Filter) ([]*link.Link, error) { /
 }
 
 // Add ...
-func (c *CassandraLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
+func (c *CassandraLinkList) Add(source link.Link) (*link.Link, error) {
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
+
+	// Add timestamp
+	data.CreatedAt = ptypes.TimestampNow()
+	data.UpdatedAt = ptypes.TimestampNow()
 
 	if err := c.client.Query(`INSERT INTO shortlink.links (url, hash, ddd) VALUES (?, ?, ?)`, data.Url, data.Hash, data.Describe).Exec(); err != nil {
 		return nil, err

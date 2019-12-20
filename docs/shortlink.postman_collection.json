@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "57c4f7c5-785f-4db1-b479-ed96467b152d",
+		"_postman_id": "194e8458-a108-459d-a37b-a1007abdda53",
 		"name": "shortlink",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -131,8 +131,11 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\"query\": \"{ link(hash: \\\"{{hash}}\\\") {url} }\"}"
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ link(hash: \"{{hash}}\") {url} }",
+								"variables": ""
+							}
 						},
 						"url": {
 							"raw": "localhost:7070/api/query",
@@ -159,8 +162,11 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\"query\": \"{ links { url } }\"}"
+							"mode": "graphql",
+							"graphql": {
+								"query": "{ links { url created_at } }",
+								"variables": ""
+							}
 						},
 						"url": {
 							"raw": "localhost:7070/api/query",
@@ -182,13 +188,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
+								"id": "d1818d45-7022-40d7-98e5-e0dbd95ee6cd",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"",
 									"",
-									"postman.setGlobalVariable(\"hash\", jsonData.data.createLink.hash);"
-								]
+									"postman.setGlobalVariable(\"hash\", jsonData.data.createLink.hash);",
+									"postman.setEnvironmentVariable(\"hash\", jsonData.data.createLink.hash);"
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -201,8 +209,11 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\"query\":\"mutation createLink { createLink( url: \\\"https://example.com\\\", hash: \\\"\\\", describe: \\\"\\\" ) { url hash describe } }\"}"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation createLink { createLink( url: \"https://example.com\", hash: \"\", describe: \"\" ) { url hash describe created_at } }",
+								"variables": ""
+							}
 						},
 						"url": {
 							"raw": "localhost:7070/api/query",
@@ -229,8 +240,11 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\"query\":\"mutation deleteLink { deleteLink( hash: \\\"{{hash}}\\\" ) { } }\"}"
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation deleteLink { deleteLink( hash: \"{{hash}}\" ) { } }",
+								"variables": ""
+							}
 						},
 						"url": {
 							"raw": "localhost:7070/api/query",

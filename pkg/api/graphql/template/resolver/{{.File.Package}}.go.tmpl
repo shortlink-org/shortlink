@@ -2,8 +2,14 @@
 // source: {{.File.Name}}
 {{ $MyType := upperFirst .File.Package }}{{ $myType := lowerFirst .File.Package }}
 package resolver
+{{ if ne $MyType "Google.protobuf" }}
+import (
+	"time"
 
-import "{{.File.Options.GoPackage}}"
+	"github.com/batazor/shortlink/pkg/link"
+	"github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/graph-gophers/graphql-go"
+)
 
 type {{ $MyType }}Resolver struct {
 	*{{ $myType }}.{{ $MyType }}
@@ -12,8 +18,12 @@ type {{ $MyType }}Resolver struct {
 {{- range .File.MessageType}}
 {{- range .Field}}
 {{ if ne (upperFirst .Name) $MyType }}
-func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() string {
-	return r.{{ $MyType }}.{{ upperFirst .Name }}
+func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() {{ if eq (string .Type) "TYPE_STRING" }} string {{ else if eq (string .Type) "TYPE_MESSAGE" }} graphql.Time {{ else }} string {{end}} {
+	{{ if eq (string .Type) "TYPE_MESSAGE" }}var cr time.Time
+	if r.{{ $MyType }}.{{ camelCase .Name }} != nil {
+		cr = time.Unix(r.{{ $MyType }}.{{ camelCase .Name }}.Seconds, int64(r.{{ $MyType }}.{{ camelCase .Name }}.Nanos))
+	}
+	return graphql.Time{Time: cr}{{ else }}return r.{{ $MyType }}.{{ camelCase .Name }}{{end}}
 }
 {{- end}}
 {{- end}}
@@ -23,3 +33,4 @@ type {{ $MyType }}FilterInput struct {
 	{{ upperFirst .Name }} *StringFilterInput
 {{- end}}{{- end}}{{- end}}
 }
+{{- end}}

@@ -8,7 +8,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	link "github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 type Config struct{} // nolint unused

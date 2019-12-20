@@ -3,6 +3,7 @@ package redis
 import (
 	"encoding/json"
 	"fmt"
+
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/store/query"
@@ -89,9 +90,11 @@ func (r *RedisLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Add ...
-func (r *RedisLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
+func (r *RedisLinkList) Add(source link.Link) (*link.Link, error) {
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
 
 	val, err := json.Marshal(data)
 	if err != nil {
