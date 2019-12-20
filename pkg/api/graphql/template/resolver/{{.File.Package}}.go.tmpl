@@ -20,8 +20,7 @@ type {{ $MyType }}Resolver struct {
 {{ if ne (upperFirst .Name) $MyType }}
 func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() {{ if eq (string .Type) "TYPE_STRING" }} string {{ else if eq (string .Type) "TYPE_MESSAGE" }} graphql.Time {{ else }} string {{end}} {
 	{{ if eq (string .Type) "TYPE_MESSAGE" }}cr := time.Unix(r.{{ $MyType }}.{{ camelCase .Name }}.Seconds, int64(r.{{ $MyType }}.{{ camelCase .Name }}.Nanos))
-	return graphql.Time{Time: cr}
-	{{ else }}return r.{{ $MyType }}.{{ camelCase .Name }}{{end}}
+	return graphql.Time{Time: cr}{{ else }}return r.{{ $MyType }}.{{ camelCase .Name }}{{end}}
 }
 {{- end}}
 {{- end}}
