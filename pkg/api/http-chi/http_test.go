@@ -24,7 +24,7 @@ func TestAdd(t *testing.T) {
 
 	t.Run("empty payload", func(t *testing.T) {
 		response := `{"error": "EOF"}`
-		_, body := testRequest(t, ts, "POST", "/", nil)
+		_, body := testRequest(t, ts, "POST", "/", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
 
@@ -35,7 +35,7 @@ func TestAdd(t *testing.T) {
 		})
 		assert.Nil(t, err)
 		response := `{"error": "Not found subscribe to event METHOD_ADD"}`
-		_, body := testRequest(t, ts, "POST", "/", bytes.NewReader(payload))
+		_, body := testRequest(t, ts, "POST", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
 
@@ -52,7 +52,7 @@ func TestGet(t *testing.T) {
 
 	t.Run("correct payload", func(t *testing.T) {
 		response := `{"error": "Not found subscribe to event METHOD_GET"}`
-		_, body := testRequest(t, ts, "GET", "/hash", nil)
+		_, body := testRequest(t, ts, "GET", "/hash", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
 }
@@ -68,7 +68,7 @@ func TestList(t *testing.T) {
 
 	t.Run("correct payload", func(t *testing.T) {
 		response := `{"error": "Not found subscribe to event METHOD_LIST"}`
-		_, body := testRequest(t, ts, "GET", "/links", nil)
+		_, body := testRequest(t, ts, "GET", "/links", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
 }
@@ -88,7 +88,7 @@ func TestDelete(t *testing.T) {
 		})
 		assert.Nil(t, err)
 		response := `{"error": "Not found subscribe to event METHOD_DELETE"}`
-		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload))
+		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
 }

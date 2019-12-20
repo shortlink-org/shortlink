@@ -32,7 +32,7 @@ type deleteRequest struct { // nolint unused
 }
 
 // ResponseLink for custom JSON parsing
-type ResponseLink struct {
+type ResponseLink struct { // nolint unused
 	*link.Link
 }
 
