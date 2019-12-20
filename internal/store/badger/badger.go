@@ -3,6 +3,7 @@ package badger
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/golang/protobuf/ptypes"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/store/query"
@@ -142,9 +143,15 @@ func (b *BadgerLinkList) List(filter *query.Filter) ([]*link.Link, error) { // n
 }
 
 // Add ...
-func (b *BadgerLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
+func (b *BadgerLinkList) Add(source link.Link) (*link.Link, error) {
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
+
+	// Add timestamp
+	data.CreatedAt = ptypes.TimestampNow()
+	data.UpdatedAt = ptypes.TimestampNow()
 
 	payload, err := json.Marshal(data)
 	if err != nil {

@@ -6,7 +6,6 @@ import (
 
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
-	"github.com/golang/protobuf/ptypes"
 )
 
 // RAMLinkList implementation of store interface
@@ -68,13 +67,11 @@ func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Add ...
-func (ram *RAMLinkList) Add(data link.Link) (*link.Link, error) { // nolint unused
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
-
-	// Add timestamp
-	data.CreatedAt = ptypes.TimestampNow()
-	data.UpdatedAt = ptypes.TimestampNow()
+func (ram *RAMLinkList) Add(source link.Link) (*link.Link, error) { // nolint unused
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
 
 	ram.mu.Lock()
 	ram.links[data.Hash] = data
