@@ -27,12 +27,18 @@ func (r *LinkResolver) Describe() string {
 }
 
 func (r *LinkResolver) Created_at() graphql.Time {
-	cr := time.Unix(r.Link.CreatedAt.Seconds, int64(r.Link.CreatedAt.Nanos))
+	var cr time.Time
+	if r.Link.CreatedAt != nil {
+		cr = time.Unix(r.Link.CreatedAt.Seconds, int64(r.Link.CreatedAt.Nanos))
+	}
 	return graphql.Time{Time: cr}
 }
 
 func (r *LinkResolver) Updated_at() graphql.Time {
-	cr := time.Unix(r.Link.UpdatedAt.Seconds, int64(r.Link.UpdatedAt.Nanos))
+	var cr time.Time
+	if r.Link.UpdatedAt != nil {
+		cr = time.Unix(r.Link.UpdatedAt.Seconds, int64(r.Link.UpdatedAt.Nanos))
+	}
 	return graphql.Time{Time: cr}
 }
 
