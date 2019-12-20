@@ -163,6 +163,102 @@ func (p *PostgresLinkList) buildFilter(query squirrel.SelectBuilder, filter *que
 				clausesNotLike["describe"] = filter.Describe.NotContains
 			}
 		}
+
+		if filter.Created_at != nil {
+			if filter.Created_at.Eq != nil {
+				clausesEq["created_at"] = filter.Created_at.Eq
+			}
+		}
+
+		if filter.Created_at != nil {
+			if filter.Created_at.Ne != nil {
+				clausesNotEq["created_at"] = filter.Created_at.Ne
+			}
+		}
+
+		if filter.Created_at != nil {
+			if filter.Created_at.Lt != nil {
+				clausesLt["created_at"] = filter.Created_at.Lt
+			}
+		}
+
+		if filter.Created_at != nil {
+			if filter.Created_at.Le != nil {
+				clausesLtOrEq["created_at"] = filter.Created_at.Le
+			}
+		}
+
+		if filter.Created_at != nil {
+			if filter.Created_at.Gt != nil {
+				clausesGt["created_at"] = filter.Created_at.Gt
+			}
+		}
+
+		if filter.Created_at != nil {
+			if filter.Created_at.Ge != nil {
+				clausesGtOrEq["created_at"] = filter.Created_at.Ge
+			}
+		}
+
+		if filter.Created_at != nil {
+			if filter.Created_at.Contains != nil {
+				clausesLike["created_at"] = filter.Created_at.Contains
+			}
+		}
+
+		if filter.Created_at != nil {
+			if filter.Created_at.NotContains != nil {
+				clausesNotLike["created_at"] = filter.Created_at.NotContains
+			}
+		}
+
+		if filter.Updated_at != nil {
+			if filter.Updated_at.Eq != nil {
+				clausesEq["updated_at"] = filter.Updated_at.Eq
+			}
+		}
+
+		if filter.Updated_at != nil {
+			if filter.Updated_at.Ne != nil {
+				clausesNotEq["updated_at"] = filter.Updated_at.Ne
+			}
+		}
+
+		if filter.Updated_at != nil {
+			if filter.Updated_at.Lt != nil {
+				clausesLt["updated_at"] = filter.Updated_at.Lt
+			}
+		}
+
+		if filter.Updated_at != nil {
+			if filter.Updated_at.Le != nil {
+				clausesLtOrEq["updated_at"] = filter.Updated_at.Le
+			}
+		}
+
+		if filter.Updated_at != nil {
+			if filter.Updated_at.Gt != nil {
+				clausesGt["updated_at"] = filter.Updated_at.Gt
+			}
+		}
+
+		if filter.Updated_at != nil {
+			if filter.Updated_at.Ge != nil {
+				clausesGtOrEq["updated_at"] = filter.Updated_at.Ge
+			}
+		}
+
+		if filter.Updated_at != nil {
+			if filter.Updated_at.Contains != nil {
+				clausesLike["updated_at"] = filter.Updated_at.Contains
+			}
+		}
+
+		if filter.Updated_at != nil {
+			if filter.Updated_at.NotContains != nil {
+				clausesNotLike["updated_at"] = filter.Updated_at.NotContains
+			}
+		}
 		query = query.Where(clausesEq)
 		query = query.Where(clausesNotEq)
 		query = query.Where(clausesLt)

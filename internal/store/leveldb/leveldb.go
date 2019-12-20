@@ -47,9 +47,11 @@ func (l *LevelDBLinkList) migrate() error { // nolint unused
 }
 
 // Add ...
-func (l *LevelDBLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
+func (l *LevelDBLinkList) Add(source link.Link) (*link.Link, error) {
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
 
 	payload, err := json.Marshal(data)
 	if err != nil {

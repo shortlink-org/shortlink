@@ -7,7 +7,7 @@
 
 type {{.Name}} {
   {{- range .Field}}
-    {{.Name}}: {{ if eq (string .Type) "TYPE_STRING" }} String! {{ else if eq (string .Type) "TYPE_MESSAGE" }} {{.TypeName | splitArray "." | last}}! {{ else }} String! {{end}}
+    {{.Name}}: {{ if eq (string .Type) "TYPE_STRING" }} String! {{ else if eq (string .Type) "TYPE_MESSAGE" }} Time! {{ else if eq (string .Type) "TYPE_MESSAGE" }} {{.TypeName | splitArray "." | last}}! {{ else }} String! {{end}}
   {{- end}}
 }
 

@@ -118,9 +118,11 @@ func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) { /
 }
 
 // Add ...
-func (lite *SQLiteLinkList) Add(data link.Link) (*link.Link, error) {
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
+func (lite *SQLiteLinkList) Add(source link.Link) (*link.Link, error) {
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
 
 	// query builder
 	links := squirrel.Insert("links").

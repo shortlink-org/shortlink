@@ -54,9 +54,11 @@ func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 	// copy map by assigning elements to new map
 	for key := range ram.links {
 		links = append(links, &link.Link{
-			Url:      ram.links[key].Url,
-			Hash:     ram.links[key].Hash,
-			Describe: ram.links[key].Describe,
+			Url:       ram.links[key].Url,
+			Hash:      ram.links[key].Hash,
+			Describe:  ram.links[key].Describe,
+			CreatedAt: ram.links[key].CreatedAt,
+			UpdatedAt: ram.links[key].UpdatedAt,
 		})
 	}
 	ram.mu.Unlock()
@@ -65,9 +67,11 @@ func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Add ...
-func (ram *RAMLinkList) Add(data link.Link) (*link.Link, error) { // nolint unused
-	hash := data.CreateHash([]byte(data.Url), []byte("secret"))
-	data.Hash = hash[:7]
+func (ram *RAMLinkList) Add(source link.Link) (*link.Link, error) { // nolint unused
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
 
 	ram.mu.Lock()
 	ram.links[data.Hash] = data

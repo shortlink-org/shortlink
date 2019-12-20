@@ -39,6 +39,10 @@ generate: ## Code generation
 	--go_out=plugins=grpc:. \
 	pkg/link/link.proto
 
+	@protoc -I/usr/local/include -I. \
+    	--gotemplate_out=all=true,template_dir=internal/store/query/template:internal/store/query \
+    	pkg/link/link.proto
+
 	@echo "proto generation gRPC-web"
 	@protoc -I/usr/local/include -I. \
 	-I=pkg/api/grpc-web \
@@ -56,8 +60,15 @@ generate: ## Code generation
 	@echo "Generate go static"
 	@pkger -o cmd/shortlink
 
+	@make fmt
+
 golint: ## Linter for golang
 	@golangci-lint run
+
+.PHONY: fmt
+fmt: ## Format source using gofmt
+	@echo Apply go fmt
+	@gofmt -l -s -w cmd pkg internal
 
 gosec: ## Golang security checker
 	@gosec ./...
