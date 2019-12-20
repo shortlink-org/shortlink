@@ -4,8 +4,11 @@
 package resolver
 {{ if ne $MyType "Google.protobuf" }}
 import (
+	"time"
+
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/graph-gophers/graphql-go"
 )
 
 type {{ $MyType }}Resolver struct {
@@ -15,8 +18,10 @@ type {{ $MyType }}Resolver struct {
 {{- range .File.MessageType}}
 {{- range .Field}}
 {{ if ne (upperFirst .Name) $MyType }}
-func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() {{ if eq (string .Type) "TYPE_STRING" }} string {{ else if eq (string .Type) "TYPE_MESSAGE" }} *timestamp.Timestamp {{ else }} string {{end}} {
-	return r.{{ $MyType }}.{{ camelCase .Name }}
+func (r *{{ $MyType }}Resolver) {{ upperFirst .Name }}() {{ if eq (string .Type) "TYPE_STRING" }} string {{ else if eq (string .Type) "TYPE_MESSAGE" }} graphql.Time {{ else }} string {{end}} {
+	{{ if eq (string .Type) "TYPE_MESSAGE" }}cr := time.Unix(r.{{ $MyType }}.{{ camelCase .Name }}.Seconds, int64(r.{{ $MyType }}.{{ camelCase .Name }}.Nanos))
+	return graphql.Time{Time: cr}
+	{{ else }}return r.{{ $MyType }}.{{ camelCase .Name }}{{end}}
 }
 {{- end}}
 {{- end}}

@@ -8,8 +8,8 @@ type Link {
     url:  String! 
     hash:  String! 
     describe:  String! 
-    created_at:  Timestamp! 
-    updated_at:  Timestamp! 
+    created_at:  Time! 
+    updated_at:  Time! 
 }
 
 input LinkFilterInput {
@@ -21,7 +21,7 @@ input LinkFilterInput {
 }
 
 type Links {
-    link:  Link! 
+    link:  Time! 
 }
 
 input LinksFilterInput {

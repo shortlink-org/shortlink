@@ -4,8 +4,10 @@
 package resolver
 
 import (
+	"time"
+
 	"github.com/batazor/shortlink/pkg/link"
-	"github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/graph-gophers/graphql-go"
 )
 
 type LinkResolver struct {
@@ -24,12 +26,16 @@ func (r *LinkResolver) Describe() string {
 	return r.Link.Describe
 }
 
-func (r *LinkResolver) Created_at() *timestamp.Timestamp {
-	return r.Link.CreatedAt
+func (r *LinkResolver) Created_at() graphql.Time {
+	cr := time.Unix(r.Link.CreatedAt.Seconds, int64(r.Link.CreatedAt.Nanos))
+	return graphql.Time{Time: cr}
+
 }
 
-func (r *LinkResolver) Updated_at() *timestamp.Timestamp {
-	return r.Link.UpdatedAt
+func (r *LinkResolver) Updated_at() graphql.Time {
+	cr := time.Unix(r.Link.UpdatedAt.Seconds, int64(r.Link.UpdatedAt.Nanos))
+	return graphql.Time{Time: cr}
+
 }
 
 type LinkFilterInput struct {
