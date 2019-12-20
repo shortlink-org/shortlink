@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing/opentracing-go"
 	"github.com/prometheus/client_golang/prometheus"
@@ -14,7 +15,6 @@ import (
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
-	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/batazor/shortlink/pkg/api"
@@ -89,12 +89,19 @@ func (s *Service) initMonitoring() *http.ServeMux {
 }
 
 func (s *Service) initMQ(ctx context.Context) {
-	s.mq = &kafka.Kafka{}
-	if err := s.mq.Init(ctx); err != nil {
-		panic(err)
+	viper.SetDefault("MQ_ENABLED", "false")
+
+	if viper.GetBool("MQ_ENABLED") {
+		s.mq = &kafka.Kafka{}
+		if err := s.mq.Init(ctx); err != nil {
+			panic(err)
+		}
+
+		s.log.Info("Run MQ")
+		return
 	}
 
-	s.log.Info("Run MQ")
+	s.log.Info("MQ Disabled")
 }
 
 // Start - run this a service
