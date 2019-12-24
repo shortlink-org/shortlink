@@ -3,43 +3,39 @@ package main
 import (
 	"context"
 	"fmt"
-	"time"
 
+	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
-	"github.com/batazor/shortlink/internal/mq/kafka"
-	"github.com/spf13/viper"
 )
 
 // Service - heplers
 type Service struct {
 	log logger.Logger
-	mq  mq.MQ
+	mq  *mq.MQ
 }
 
 func (s *Service) initLogger() {
-	var err error
-
-	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
-	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
-
-	conf := logger.Configuration{
-		Level:      viper.GetInt("LOG_LEVEL"),
-		TimeFormat: viper.GetString("LOG_TIME_FORMAT"),
-	}
-
-	if s.log, err = logger.NewLogger(logger.Zap, conf); err != nil {
+	log, err := di.InitLogger()
+	if err != nil {
 		panic(err)
 	}
+
+	s.log = *log
 }
 
 func (s *Service) initMQ(ctx context.Context) {
-	s.mq = &kafka.Kafka{}
-	if err := s.mq.Init(ctx); err != nil {
+	service, err := di.InitMQ(ctx)
+	if err != nil {
 		panic(err)
 	}
 
-	s.log.Info("Run MQ")
+	if service != nil {
+		s.mq = service
+		return
+	}
+
+	s.log.Info("MQ Disabled")
 }
 
 // Start - run this a service
@@ -57,8 +53,11 @@ func (s *Service) Start() {
 	test := make(chan []byte)
 
 	go func() {
-		if err := s.mq.Subscribe(test); err != nil {
-			s.log.Error(err.Error())
+		if s.mq != nil {
+			service := *s.mq
+			if err := service.Subscribe(test); err != nil {
+				s.log.Error(err.Error())
+			}
 		}
 	}()
 
