@@ -1,7 +1,7 @@
 ---
 name: Add store
 about: Use this template for tracking new store.
-title: "[DATE]: [FEATURE NAME]"
+title: "[STORE]: [TITLE]"
 labels: feature_request
 ---
 
