@@ -1,7 +1,7 @@
 ---
 name: Add feature
 about: Use this template for tracking new features.
-title: "[DATE]: [FEATURE NAME]"
+title: "[FEATURE NAME]"
 labels: feature_request
 ---
 
