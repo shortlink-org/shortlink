@@ -2,17 +2,11 @@ package main
 
 import (
 	"context"
-	"io"
 	"net/http"
-	"time"
 
-	"github.com/batazor/shortlink/internal/mq/kafka"
-	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing/opentracing-go"
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
 	"github.com/batazor/shortlink/internal/store"
@@ -24,80 +18,45 @@ import (
 type Service struct {
 	log         logger.Logger
 	tracer      opentracing.Tracer
-	tracerClose io.Closer
+	tracerClose func() error
 	db          store.DB
-	mq          mq.MQ
+	mq          *mq.MQ
 	api         api.Server
 }
 
 func (s *Service) initLogger() {
-	var err error
-
-	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
-	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
-
-	conf := logger.Configuration{
-		Level:      viper.GetInt("LOG_LEVEL"),
-		TimeFormat: viper.GetString("LOG_TIME_FORMAT"),
-	}
-
-	if s.log, err = logger.NewLogger(logger.Zap, conf); err != nil {
+	log, err := di.InitLogger()
+	if err != nil {
 		panic(err)
 	}
+
+	s.log = *log
 }
 
 func (s *Service) initTracer() {
-	var err error
-
-	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink")
-	viper.SetDefault("TRACER_URI", "localhost:6831")
-
-	config := traicing.Config{
-		ServiceName: viper.GetString("TRACER_SERVICE_NAME"),
-		URI:         viper.GetString("TRACER_URI"),
+	tracer, tracerClose, err := di.InitTracer()
+	if err != nil {
+		panic(err)
 	}
 
-	if s.tracer, s.tracerClose, err = traicing.Init(config); err != nil {
-		s.log.Error(err.Error())
-	}
+	s.tracer = *tracer
+	s.tracerClose = tracerClose
 }
 
 func (s *Service) initMonitoring() *http.ServeMux {
-	// Create a new Prometheus registry
-	registry := prometheus.NewRegistry()
-
-	// Create a metrics-exposing Handler for the Prometheus registry
-	// The healthcheck related metrics will be prefixed with the provided namespace
-	health := healthcheck.NewMetricsHandler(registry, "common")
-
-	// Our app is not happy if we've got more than 100 goroutines running.
-	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100))
-
-	// Create an "common" listener
-	commonMux := http.NewServeMux()
-
-	// Expose prometheus metrics on /metrics
-	commonMux.Handle("/metrics", promhttp.HandlerFor(registry, promhttp.HandlerOpts{}))
-
-	// Expose a liveness check on /live
-	commonMux.HandleFunc("/live", health.LiveEndpoint)
-
-	// Expose a readiness check on /ready
-	commonMux.HandleFunc("/ready", health.ReadyEndpoint)
+	commonMux := di.InitMonitoring()
 
 	return commonMux
 }
 
 func (s *Service) initMQ(ctx context.Context) {
-	viper.SetDefault("MQ_ENABLED", "false")
+	service, err := di.InitMQ(ctx)
+	if err != nil {
+		panic(err)
+	}
 
-	if viper.GetBool("MQ_ENABLED") {
-		s.mq = &kafka.Kafka{}
-		if err := s.mq.Init(ctx); err != nil {
-			panic(err)
-		}
-
-		s.log.Info("Run MQ")
+	if service != nil {
+		s.mq = service
 		return
 	}
 
@@ -140,7 +99,7 @@ func (s *Service) Stop() {
 	}
 
 	// close tracer
-	if err := s.tracerClose.Close(); err != nil {
+	if err := s.tracerClose(); err != nil {
 		s.log.Error(err.Error())
 	}
 

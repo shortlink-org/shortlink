@@ -23,6 +23,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/gocql/gocql v0.0.0-20191224103530-b7facab47581
 	github.com/golang/protobuf v1.3.2
+	github.com/google/wire v0.4.0
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
 	github.com/graph-gophers/graphql-go v0.0.0-20191115155744-f33e81362277
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0
@@ -53,6 +54,7 @@ require (
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413 // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
+	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
 	google.golang.org/genproto v0.0.0-20191223191004-3caeed10a8bf
 	google.golang.org/grpc v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
