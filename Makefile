@@ -24,13 +24,17 @@ help: ## This help
 dep: ## Install dependencies for this project
 	@echo "install protoc"
 	@sudo ./ops/scripts/install-protobuf.sh
+
 	@echo "install protoc addons"
 	@go get -u github.com/golang/protobuf/proto
 	@go get -u github.com/golang/protobuf/protoc-gen-go
-	@go get -u moul.io/protoc-gen-gotemplate
+	@go get -u github.com/batazor/protoc-gen-gotemplate
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 	@go get -u github.com/securego/gosec/cmd/gosec
+
+	@echo "install wire"
+	@go get -u github.com/google/wire/cmd/wire
 
 generate: ## Code generation
 	@echo "proto generation link entity"
@@ -56,6 +60,7 @@ generate: ## Code generation
 
 	@echo "Generate from .go code"
 	@go generate internal/store/postgres/postgres.go
+	@go generate internal/di/wire.go
 
 	@echo "Generate go static"
 	@pkger -o cmd/shortlink
