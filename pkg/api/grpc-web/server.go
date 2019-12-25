@@ -9,7 +9,6 @@ import (
 
 	"github.com/batazor/shortlink/internal/freeport"
 	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/traicing"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
@@ -28,7 +27,7 @@ type API struct { // nolint unused
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger) error {
+func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
 	api.ctx = ctx
 
 	// Get free port
@@ -45,9 +44,6 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 			log.Fatal(errRunGRPC.Error())
 		}
 	}()
-
-	// Get tracer
-	tracer := traicing.GetTraicer(ctx)
 
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible

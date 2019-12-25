@@ -33,7 +33,7 @@ func main() {
 
 	// Run API server
 	var API api.Server
-	API.RunAPIServer(ctx, s.Log)
+	API.RunAPIServer(ctx, s.Log, s.Tracer)
 
 	defer func() {
 		if r := recover(); r != nil {

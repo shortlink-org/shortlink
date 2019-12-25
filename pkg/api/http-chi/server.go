@@ -9,6 +9,7 @@ import (
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/render"
+	"github.com/opentracing/opentracing-go"
 
 	"github.com/batazor/shortlink/internal/logger"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
@@ -16,7 +17,7 @@ import (
 )
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger) error {
+func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
 	api.ctx = ctx
 
 	log.Info("Run HTTP-CHI API")
