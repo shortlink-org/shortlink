@@ -140,3 +140,7 @@ helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 
 helm-clean: ## Clean artifact from K8S
 	@helm del --purge ${PROJECT_NAME}
+
+# BAZEL ================================================================================================================
+bazel-run: ## Update dep
+	@bazel run //:gazelle -- update-repos -from_file=go.mod
