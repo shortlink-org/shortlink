@@ -44,7 +44,7 @@ func Publish(event int, payload interface{}, cb chan<- interface{}) { // nolint 
 	}
 }
 
-func Clean() {
+func Clean() { // nolint unused
 	subsribers = Notify{
 		subsribers: map[int][]Subscriber{},
 	}
