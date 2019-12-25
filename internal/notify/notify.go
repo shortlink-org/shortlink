@@ -2,6 +2,7 @@ package notify
 
 var (
 	subsribers = Notify{
+		// TODO: use mutex?
 		subsribers: map[int][]Subscriber{},
 	}
 )
@@ -40,5 +41,11 @@ func Publish(event int, payload interface{}, cb chan<- interface{}) { // nolint 
 	// TODO: Send only first success response for simple implementation
 	if len(responses) > 0 {
 		cb <- *responses[0]
+	}
+}
+
+func Clean() {
+	subsribers = Notify{
+		subsribers: map[int][]Subscriber{},
 	}
 }
