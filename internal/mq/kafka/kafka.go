@@ -21,8 +21,6 @@ type Kafka struct { // nolint unused
 }
 
 func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
-	//var err error
-
 	// to produce messages
 	topic := "shortlink"
 	partition := 0
