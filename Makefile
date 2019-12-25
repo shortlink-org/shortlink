@@ -82,6 +82,9 @@ test: ## Run all test
 	@echo "run test"
 	@sh ./ops/scripts/coverage.sh
 
+bench: ## Run benchmark tests
+	go test -bench ./...
+
 run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
