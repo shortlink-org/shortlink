@@ -1,6 +1,8 @@
 package store
 
 import (
+	"io"
+
 	"github.com/batazor/shortlink/internal/notify"
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
@@ -8,8 +10,10 @@ import (
 
 // DB - common interface of store
 type DB interface { // nolint unused
+	// Closer is the interface that wraps the basic Close method.
+	io.Closer
+
 	Init() error
-	Close() error
 
 	Get(id string) (*link.Link, error)
 	List(filter *query.Filter) ([]*link.Link, error)
