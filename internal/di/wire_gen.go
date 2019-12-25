@@ -40,7 +40,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	db, err := InitStore(ctx, logger)
+	db, cleanup3, err := InitStore(ctx, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -48,11 +48,13 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 	}
 	service, err := NewFullService(logger, mq, serveMux, tracer, db)
 	if err != nil {
+		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	return service, func() {
+		cleanup3()
 		cleanup2()
 		cleanup()
 	}, nil
@@ -91,10 +93,17 @@ type Service struct {
 }
 
 // InitStore return store
-func InitStore(ctx context.Context, log logger.Logger) (store.DB, error) {
+func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error) {
 	var st store.Store
 	db := st.Use(ctx, log)
-	return db, nil
+
+	cleanup := func() {
+		if err := db.Close(); err != nil {
+			log.Error(err.Error())
+		}
+	}
+
+	return db, cleanup, nil
 }
 
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
