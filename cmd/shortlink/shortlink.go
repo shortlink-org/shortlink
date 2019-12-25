@@ -30,8 +30,8 @@ func main() {
 
 	// Monitoring endpoints
 	go http.ListenAndServe("0.0.0.0:9090", s.Monitoring) // nolint errcheck
-	var profiling *http.ServeMux
-	profiling = s.PprofEndpoint
+	//var profiling *http.ServeMux
+	var profiling *http.ServeMux = s.PprofEndpoint
 	go http.ListenAndServe("0.0.0.0:7071", profiling) // nolint errcheck
 
 	// Run API server
