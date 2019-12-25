@@ -52,7 +52,9 @@ func (log *logrusLogger) Debug(msg string, fields ...Fields) {
 	log.converter(fields...).Debug(msg)
 }
 
-func (log *logrusLogger) Close() {}
+func (log *logrusLogger) Close() error {
+	return nil
+}
 
 func (log *logrusLogger) SetConfig(config Configuration) error {
 	log.setLogLevel(config.Level)

@@ -67,8 +67,9 @@ func (log *zapLogger) Debug(msg string, fields ...Fields) {
 	log.logger.Debug(msg, zapFields...)
 }
 
-func (log *zapLogger) Close() {
-	_ = log.logger.Sync() // nolint errcheck
+func (log *zapLogger) Close() error {
+	err := log.logger.Sync()
+	return err
 }
 
 func (log *zapLogger) SetConfig(config Configuration) error {
