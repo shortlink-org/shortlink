@@ -17,7 +17,7 @@ import (
 )
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
+func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error { // nolint unparam
 	api.ctx = ctx
 
 	log.Info("Run HTTP-CHI API")

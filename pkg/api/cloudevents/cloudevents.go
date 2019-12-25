@@ -30,7 +30,7 @@ func Receive(ctx context.Context, event cloudevents.Event) error { // nolint unu
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
+func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error { // nolint unparam
 	api.ctx = ctx
 
 	log.Info("Run Cloud-Events API")
