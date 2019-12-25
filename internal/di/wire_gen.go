@@ -142,8 +142,6 @@ func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, fun
 		return nil, nil, err
 	}
 
-	ctx = traicing.WithTraicer(ctx, tracer)
-
 	cleanup := func() {
 		if err := tracerClose.Close(); err != nil {
 			log.Error(err.Error())

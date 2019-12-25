@@ -78,14 +78,10 @@ func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, fun
 		URI:         viper.GetString("TRACER_URI"),
 	}
 
-	// TODO: add close func to return
 	tracer, tracerClose, err := traicing.Init(config)
 	if err != nil {
 		return nil, nil, err
 	}
-
-	// Add tracer to context
-	ctx = traicing.WithTraicer(ctx, tracer)
 
 	cleanup := func() {
 		if err := tracerClose.Close(); err != nil {
