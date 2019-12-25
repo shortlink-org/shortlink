@@ -40,6 +40,22 @@ func TestOutputZap(t *testing.T) { //nolint unused
 	}
 }
 
+func BenchmarkOutputZap(bench *testing.B) {
+	var b bytes.Buffer
+
+	conf := Configuration{
+		Level:      INFO_LEVEL,
+		Writer:     &b,
+		TimeFormat: time.RFC822,
+	}
+
+	log, _ := NewLogger(Zap, conf)
+
+	for i := 0; i < bench.N; i++ {
+		log.Info("Hello World")
+	}
+}
+
 func TestOutputLogrus(t *testing.T) { //nolint unused
 	var b bytes.Buffer
 
@@ -68,6 +84,22 @@ func TestOutputLogrus(t *testing.T) { //nolint unused
 	}
 }
 
+func BenchmarkOutputLogrus(bench *testing.B) {
+	var b bytes.Buffer
+
+	conf := Configuration{
+		Level:      INFO_LEVEL,
+		Writer:     &b,
+		TimeFormat: time.RFC822,
+	}
+
+	log, _ := NewLogger(Logrus, conf)
+
+	for i := 0; i < bench.N; i++ {
+		log.Info("Hello World")
+	}
+}
+
 func TestFieldsZap(t *testing.T) { //nolint unused
 	var b bytes.Buffer
 
@@ -90,7 +122,7 @@ func TestFieldsZap(t *testing.T) { //nolint unused
 		"@level":     "info",
 		"@timestamp": expectedTime,
 		"@msg":       "Hello World",
-		"@caller":    "logger/logger_test.go:83",
+		"@caller":    "logger/logger_test.go:115",
 		"first":      float64(1),
 		"hello":      "world",
 	}
