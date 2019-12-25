@@ -1,10 +1,16 @@
 package main
 
 import (
-	"github.com/spf13/viper"
+	"context"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/pkg/api"
 )
 
 func init() {
@@ -13,13 +19,25 @@ func init() {
 }
 
 func main() {
+	// Create a new context
+	ctx := context.Background()
+
 	// Init a new service
-	s := Service{}
-	go s.Start()
+	s, cleanup, err := di.InitializeFullService(ctx)
+	if err != nil {
+		panic(err)
+	}
+
+	// Monitoring endpoints
+	go http.ListenAndServe("0.0.0.0:9090", s.Monitoring) // nolint errcheck
+
+	// Run API server
+	var API api.Server
+	API.RunAPIServer(ctx, s.Log, s.Tracer)
 
 	defer func() {
 		if r := recover(); r != nil {
-			s.log.Error(r.(string))
+			s.Log.Error(r.(string))
 		}
 	}()
 
@@ -29,5 +47,10 @@ func main() {
 	<-sigs
 
 	// Stop the service gracefully.
-	s.Stop()
+	// close DB
+	if err := s.DB.Close(); err != nil {
+		s.Log.Error(err.Error())
+	}
+
+	cleanup()
 }

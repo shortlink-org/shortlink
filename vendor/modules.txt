@@ -97,6 +97,8 @@ github.com/golang/protobuf/ptypes/wrappers
 github.com/golang/snappy
 # github.com/google/uuid v1.1.1
 github.com/google/uuid
+# github.com/google/wire v0.4.0
+github.com/google/wire
 # github.com/graph-gophers/graphql-go v0.0.0-20191115155744-f33e81362277
 github.com/graph-gophers/graphql-go
 github.com/graph-gophers/graphql-go/errors
@@ -173,9 +175,13 @@ github.com/magiconair/properties
 # github.com/markbates/pkger v0.13.0
 github.com/markbates/pkger
 github.com/markbates/pkger/internal/maps
+github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa
+github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa/filters
 github.com/markbates/pkger/pkging
+github.com/markbates/pkger/pkging/embed
+github.com/markbates/pkger/pkging/mem
 github.com/markbates/pkger/pkging/stdos
-# github.com/mattn/go-sqlite3 v1.13.0
+# github.com/mattn/go-sqlite3 v2.0.2+incompatible
 github.com/mattn/go-sqlite3
 # github.com/matttproud/golang_protobuf_extensions v1.0.1
 github.com/matttproud/golang_protobuf_extensions/pbutil

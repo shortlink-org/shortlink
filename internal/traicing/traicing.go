@@ -1,11 +1,11 @@
 package traicing
 
 import (
-	"context"
+	"io"
+
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
 	"github.com/uber/jaeger-client-go/config"
-	"io"
 )
 
 // Init returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
@@ -31,14 +31,4 @@ func Init(cnf Config) (opentracing.Tracer, io.Closer, error) { // nolint unused
 	opentracing.SetGlobalTracer(tracer)
 
 	return tracer, closer, nil
-}
-
-// WithTraicer set logger
-func WithTraicer(ctx context.Context, traicer opentracing.Tracer) context.Context { // nolint unused
-	return context.WithValue(ctx, keyTraicer, traicer)
-}
-
-// GetTraicer return logger
-func GetTraicer(ctx context.Context) opentracing.Tracer { // nolint unused
-	return ctx.Value(keyTraicer).(opentracing.Tracer)
 }
