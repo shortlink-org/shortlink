@@ -40,7 +40,7 @@ func InitStore(ctx context.Context, log logger.Logger) (store.DB, error) {
 	return db, nil
 }
 
-func InitLogger(ctx context.Context) (logger.Logger, error) {
+func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
 	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
 	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
 
@@ -51,13 +51,18 @@ func InitLogger(ctx context.Context) (logger.Logger, error) {
 
 	log, err := logger.NewLogger(logger.Zap, conf)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	return log, nil
+	cleanup := func() {
+		// flushes buffer, if any
+		log.Close()
+	}
+
+	return log, cleanup, nil
 }
 
-func InitTracer(ctx context.Context) (opentracing.Tracer, error) {
+func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, func(), error) {
 	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink")
 	viper.SetDefault("TRACER_URI", "localhost:6831")
 
@@ -67,15 +72,21 @@ func InitTracer(ctx context.Context) (opentracing.Tracer, error) {
 	}
 
 	// TODO: add close func to return
-	tracer, _, err := traicing.Init(config)
+	tracer, tracerClose, err := traicing.Init(config)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	// Add tracer to context
 	ctx = traicing.WithTraicer(ctx, tracer)
 
-	return tracer, nil
+	cleanup := func() {
+		if err := tracerClose.Close(); err != nil {
+			log.Error(err.Error())
+		}
+	}
+
+	return tracer, cleanup, nil
 }
 
 func InitMonitoring() *http.ServeMux {
@@ -121,6 +132,12 @@ func InitMQ(ctx context.Context) (mq.MQ, error) {
 	return nil, nil
 }
 
+// Default =============================================================================================================
+var DefaultSet = wire.NewSet(InitLogger, InitTracer)
+
+// FullService =========================================================================================================
+var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitMQ)
+
 func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB) (*Service, error) {
 	return &Service{
 		Log:    log,
@@ -132,6 +149,13 @@ func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, trac
 	}, nil
 }
 
+func InitializeFullService(ctx context.Context) (*Service, func(), error) {
+	panic(wire.Build(FullSet))
+}
+
+// LoggerService =======================================================================================================
+var LoggerSet = wire.NewSet(DefaultSet, NewLoggerService, InitMQ)
+
 func NewLoggerService(log logger.Logger, mq mq.MQ) (*Service, error) {
 	return &Service{
 		Log: log,
@@ -139,13 +163,6 @@ func NewLoggerService(log logger.Logger, mq mq.MQ) (*Service, error) {
 	}, nil
 }
 
-var FullSet = wire.NewSet(NewFullService, InitLogger, InitStore, InitTracer, InitMonitoring, InitMQ)
-var LoggerSet = wire.NewSet(NewLoggerService, InitLogger, InitMQ)
-
-func InitializeFullService(ctx context.Context) (*Service, error) {
-	panic(wire.Build(FullSet))
-}
-
-func InitializeLoggerService(ctx context.Context) (*Service, error) {
+func InitializeLoggerService(ctx context.Context) (*Service, func(), error) {
 	panic(wire.Build(LoggerSet))
 }
