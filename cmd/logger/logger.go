@@ -22,7 +22,7 @@ func main() {
 	ctx := context.Background()
 
 	// Init a new service
-	s, err := di.InitializeLoggerService(ctx)
+	s, cleanup, err := di.InitializeLoggerService(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -55,6 +55,7 @@ func main() {
 	<-sigs
 
 	// Stop the service gracefully.
+	cleanup()
 	// flushes buffer, if any
 	s.Log.Close()
 }

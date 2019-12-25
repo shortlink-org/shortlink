@@ -23,7 +23,7 @@ func main() {
 	ctx := context.Background()
 
 	// Init a new service
-	s, err := di.InitializeFullService(ctx)
+	s, cleanup, err := di.InitializeFullService(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -58,5 +58,6 @@ func main() {
 	// }
 
 	// flushes buffer, if any
+	cleanup()
 	s.Log.Close()
 }
