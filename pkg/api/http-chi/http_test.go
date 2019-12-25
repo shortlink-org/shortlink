@@ -14,6 +14,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/notify"
 	"github.com/batazor/shortlink/internal/store"
 )
 
@@ -62,6 +63,9 @@ func TestAdd(t *testing.T) {
 
 		_, body := testRequest(t, ts, "POST", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.NotNil(t, body)
+
+		// clean store subscribe
+		notify.Clean()
 	})
 }
 
@@ -95,6 +99,9 @@ func TestGet(t *testing.T) {
 		response := `{"error": "Not found link: hash"}`
 		_, body := testRequest(t, ts, "GET", "/hash", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
+
+		// clean store subscribe
+		notify.Clean()
 	})
 }
 
@@ -128,6 +135,9 @@ func TestList(t *testing.T) {
 		response := `null`
 		_, body := testRequest(t, ts, "GET", "/links", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
+
+		// clean store subscribe
+		notify.Clean()
 	})
 }
 
@@ -169,6 +179,9 @@ func TestDelete(t *testing.T) {
 		response := `{}`
 		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.Equal(t, body, response)
+
+		// clean store subscribe
+		notify.Clean()
 	})
 }
 
