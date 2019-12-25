@@ -19,6 +19,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/viper"
 	"net/http"
+	"net/http/pprof"
 	"time"
 )
 
@@ -46,7 +47,8 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewFullService(logger, mq, serveMux, tracer, db)
+	pprofEndpoint := InitProfiling()
+	service, err := NewFullService(logger, mq, serveMux, tracer, db, pprofEndpoint)
 	if err != nil {
 		cleanup3()
 		cleanup2()
@@ -87,10 +89,13 @@ type Service struct {
 	Log    logger.Logger
 	Tracer opentracing.Tracer
 	// TracerClose func()
-	DB         store.DB
-	MQ         mq.MQ
-	Monitoring *http.ServeMux
+	DB            store.DB
+	MQ            mq.MQ
+	Monitoring    *http.ServeMux
+	PprofEndpoint PprofEndpoint
 }
+
+type PprofEndpoint *http.ServeMux
 
 // InitStore return store
 func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error) {
@@ -151,6 +156,23 @@ func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, fun
 	return tracer, cleanup, nil
 }
 
+func InitMQ(ctx context.Context) (mq.MQ, error) {
+	viper.SetDefault("MQ_ENABLED", "false")
+
+	if viper.GetBool("MQ_ENABLED") {
+		var service mq.MQ
+		service = &kafka.Kafka{}
+
+		if err := service.Init(ctx); err != nil {
+			return nil, err
+		}
+
+		return service, nil
+	}
+
+	return nil, nil
+}
+
 func InitMonitoring() *http.ServeMux {
 
 	registry := prometheus.NewRegistry()
@@ -170,37 +192,34 @@ func InitMonitoring() *http.ServeMux {
 	return commonMux
 }
 
-func InitMQ(ctx context.Context) (mq.MQ, error) {
-	viper.SetDefault("MQ_ENABLED", "false")
+func InitProfiling() PprofEndpoint {
 
-	if viper.GetBool("MQ_ENABLED") {
-		var service mq.MQ
-		service = &kafka.Kafka{}
+	pprofMux := http.NewServeMux()
 
-		if err := service.Init(ctx); err != nil {
-			return nil, err
-		}
+	pprofMux.HandleFunc("/debug/pprof/", pprof.Index)
+	pprofMux.HandleFunc("/debug/pprof/cmdline", pprof.Cmdline)
+	pprofMux.HandleFunc("/debug/pprof/profile", pprof.Profile)
+	pprofMux.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
+	pprofMux.HandleFunc("/debug/pprof/trace", pprof.Trace)
 
-		return service, nil
-	}
-
-	return nil, nil
+	return pprofMux
 }
 
 // Default =============================================================================================================
 var DefaultSet = wire.NewSet(InitLogger, InitTracer)
 
 // FullService =========================================================================================================
-var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitMQ)
+var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ)
 
-func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB) (*Service, error) {
+func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint) (*Service, error) {
 	return &Service{
 		Log:    log,
 		MQ:     mq2,
 		Tracer: tracer,
 
-		Monitoring: monitoring,
-		DB:         db,
+		Monitoring:    monitoring,
+		DB:            db,
+		PprofEndpoint: pprofHTTP,
 	}, nil
 }
 
