@@ -56,6 +56,4 @@ func main() {
 
 	// Stop the service gracefully.
 	cleanup()
-	// flushes buffer, if any
-	s.Log.Close()
 }

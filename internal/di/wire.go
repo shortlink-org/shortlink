@@ -34,10 +34,17 @@ type Service struct {
 }
 
 // InitStore return store
-func InitStore(ctx context.Context, log logger.Logger) (store.DB, error) {
+func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error) {
 	var st store.Store
 	db := st.Use(ctx, log)
-	return db, nil
+
+	cleanup := func() {
+		if err := db.Close(); err != nil {
+			log.Error(err.Error())
+		}
+	}
+
+	return db, cleanup, nil
 }
 
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {

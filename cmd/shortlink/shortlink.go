@@ -52,12 +52,5 @@ func main() {
 		s.Log.Error(err.Error())
 	}
 
-	// close tracer
-	// if err := s.tracerClose(); err != nil {
-	// 	s.Log.Error(err.Error())
-	// }
-
-	// flushes buffer, if any
 	cleanup()
-	s.Log.Close()
 }
