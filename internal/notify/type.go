@@ -1,5 +1,7 @@
 package notify
 
+import "sync"
+
 type Publisher interface { // nolint unused
 	Subscribe(event int, subscriber Subscriber)
 	UnSubscribe(subscriber Subscriber)
@@ -11,6 +13,7 @@ type Subscriber interface {
 
 type Notify struct {
 	subsribers map[int][]Subscriber
+	mux        sync.RWMutex
 }
 
 type Response struct {

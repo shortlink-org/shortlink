@@ -2,19 +2,24 @@ package notify
 
 var (
 	subsribers = Notify{
-		// TODO: use mutex?
 		subsribers: map[int][]Subscriber{},
 	}
 )
 
 func Subscribe(event int, subscriber Subscriber) { // nolint unused
+	subsribers.mux.Lock()
+	defer subsribers.mux.Unlock()
+
 	subsribers.subsribers[event] = append(subsribers.subsribers[event], subscriber)
 }
 
 func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
-	for i, v := range subsribers.subsribers[event] {
+	subsribers.mux.Lock()
+	defer subsribers.mux.Unlock()
+
+	for _, v := range subsribers.subsribers[event] {
 		if subscriber == v {
-			subsribers.subsribers[event] = append(subsribers.subsribers[event][:i], subsribers.subsribers[event][i+1:]...)
+			delete(subsribers.subsribers, event)
 			break
 		}
 	}
@@ -22,6 +27,8 @@ func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
 
 func Publish(event int, payload interface{}, cb chan<- interface{}) { // nolint unused
 	var responses []*Response
+	subsribers.mux.Lock()
+	defer subsribers.mux.Unlock()
 
 	if len(subsribers.subsribers[event]) == 0 {
 		cb <- nil
