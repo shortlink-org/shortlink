@@ -1,11 +1,15 @@
 package main
 
 import (
+	"context"
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
 
 	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/internal/di"
 )
 
 func init() {
@@ -14,13 +18,34 @@ func init() {
 }
 
 func main() {
+	// Create a new context
+	ctx := context.Background()
+
 	// Init a new service
-	s := Service{}
-	go s.Start()
+	s, cleanup, err := di.InitializeLoggerService(ctx)
+	if err != nil {
+		panic(err)
+	}
+
+	test := make(chan []byte)
+
+	go func() {
+		if s.MQ != nil {
+			if err := s.MQ.Subscribe(test); err != nil {
+				s.Log.Error(err.Error())
+			}
+		}
+	}()
+
+	go func() {
+		for {
+			s.Log.Info(fmt.Sprintf("GET: %s", string(<-test)))
+		}
+	}()
 
 	defer func() {
 		if r := recover(); r != nil {
-			s.log.Error(r.(string))
+			s.Log.Error(r.(string))
 		}
 	}()
 
@@ -30,5 +55,5 @@ func main() {
 	<-sigs
 
 	// Stop the service gracefully.
-	s.Stop()
+	cleanup()
 }

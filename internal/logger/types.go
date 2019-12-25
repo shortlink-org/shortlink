@@ -4,12 +4,6 @@ import (
 	"io"
 )
 
-type key int
-
-const (
-	keyLogger key = iota
-)
-
 const (
 	// Zap implementation
 	Zap int = iota // nolint unused

@@ -6,8 +6,9 @@ package resolver
 import (
 	"time"
 
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/graph-gophers/graphql-go"
+
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 type LinkResolver struct {

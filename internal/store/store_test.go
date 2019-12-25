@@ -17,10 +17,9 @@ func TestLink(t *testing.T) { //nolint unused
 	conf := logger.Configuration{}
 	log, err := logger.NewLogger(logger.Zap, conf)
 	assert.Nil(t, err, "Error init a logger")
-	ctx = logger.WithLogger(ctx, log)
 
 	var st Store
-	s := st.Use(ctx)
+	s := st.Use(ctx, log)
 
 	// Init store
 	assert.Nil(t, s.Init(), "Error  create a new link list")

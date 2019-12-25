@@ -23,6 +23,7 @@ require (
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
 	github.com/gocql/gocql v0.0.0-20191224103530-b7facab47581
 	github.com/golang/protobuf v1.3.2
+	github.com/google/wire v0.4.0
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
 	github.com/graph-gophers/graphql-go v0.0.0-20191115155744-f33e81362277
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0
@@ -31,7 +32,7 @@ require (
 	github.com/jackc/pgx/v4 v4.1.2
 	github.com/lib/pq v1.3.0
 	github.com/markbates/pkger v0.13.0
-	github.com/mattn/go-sqlite3 v1.13.0
+	github.com/mattn/go-sqlite3 v2.0.2+incompatible
 	github.com/onsi/ginkgo v1.10.1 // indirect
 	github.com/onsi/gomega v1.7.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
