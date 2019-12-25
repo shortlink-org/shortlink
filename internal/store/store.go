@@ -21,9 +21,7 @@ import (
 )
 
 // Use return implementation of store
-func (store *Store) Use(ctx context.Context) DB { // nolint unused
-	log := logger.GetLogger(ctx)
-
+func (store *Store) Use(ctx context.Context, log logger.Logger) DB { // nolint unused
 	// Set configuration
 	store.setConfig()
 

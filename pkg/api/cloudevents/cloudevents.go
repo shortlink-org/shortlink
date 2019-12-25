@@ -28,10 +28,9 @@ func Receive(ctx context.Context, event cloudevents.Event) error { // nolint unu
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context, config api_type.Config) error {
+func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger) error {
 	api.ctx = ctx
 
-	log := logger.GetLogger(ctx)
 	log.Info("Run Cloud-Events API")
 
 	// New endpoint (HTTP)

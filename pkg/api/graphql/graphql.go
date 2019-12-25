@@ -70,10 +70,9 @@ func (api *API) GetHandler() *relay.Handler {
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context, config api_type.Config) error {
+func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger) error {
 	api.ctx = ctx
 
-	log := logger.GetLogger(ctx)
 	log.Info("Run GraphQL API")
 
 	handler := api.GetHandler()

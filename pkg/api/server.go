@@ -14,14 +14,11 @@ import (
 )
 
 // runAPIServer - start HTTP-server
-func (*Server) RunAPIServer(ctx context.Context) {
+func (*Server) RunAPIServer(ctx context.Context, log logger.Logger) {
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi")
 	viper.SetDefault("API_PORT", 7070)
-
-	// Logger
-	log := logger.GetLogger(ctx)
 
 	config := api_type.Config{
 		Port: viper.GetInt("API_PORT"),
@@ -42,7 +39,7 @@ func (*Server) RunAPIServer(ctx context.Context) {
 		server = &httpchi.API{}
 	}
 
-	if err := server.Run(ctx, config); err != nil {
+	if err := server.Run(ctx, config, log); err != nil {
 		log.Fatal(err.Error())
 	}
 }

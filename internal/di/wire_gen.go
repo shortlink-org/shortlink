@@ -12,42 +12,79 @@ import (
 	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
-	"github.com/batazor/shortlink/pkg/api"
+	"github.com/google/wire"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing/opentracing-go"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/viper"
-	"io"
 	"net/http"
 	"time"
 )
 
 // Injectors from wire.go:
 
-func InitializeService() (*logger.Logger, error) {
-	loggerLogger, err := InitLogger()
+func InitializeFullService(ctx context.Context) (*Service, error) {
+	logger, err := InitLogger(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return loggerLogger, nil
+	mq, err := InitMQ(ctx)
+	if err != nil {
+		return nil, err
+	}
+	serveMux := InitMonitoring()
+	tracer, err := InitTracer(ctx)
+	if err != nil {
+		return nil, err
+	}
+	db, err := InitStore(ctx, logger)
+	if err != nil {
+		return nil, err
+	}
+	service, err := NewFullService(logger, mq, serveMux, tracer, db)
+	if err != nil {
+		return nil, err
+	}
+	return service, nil
+}
+
+func InitializeLoggerService(ctx context.Context) (*Service, error) {
+	logger, err := InitLogger(ctx)
+	if err != nil {
+		return nil, err
+	}
+	mq, err := InitMQ(ctx)
+	if err != nil {
+		return nil, err
+	}
+	service, err := NewLoggerService(logger, mq)
+	if err != nil {
+		return nil, err
+	}
+	return service, nil
 }
 
 // wire.go:
 
 // Service - heplers
 type Service struct {
-	log         logger.Logger
-	tracer      opentracing.Tracer
-	tracerClose io.Closer
-	db          store.DB
-	mq          mq.MQ
-	api         api.Server
+	Log    logger.Logger
+	Tracer opentracing.Tracer
+	// TracerClose func()
+	DB         store.DB
+	MQ         mq.MQ
+	Monitoring *http.ServeMux
 }
 
-func CloseFn(c io.Closer) func() error { return func() error { return c.Close() } }
+// InitStore return store
+func InitStore(ctx context.Context, log logger.Logger) (store.DB, error) {
+	var st store.Store
+	db := st.Use(ctx, log)
+	return db, nil
+}
 
-func InitLogger() (*logger.Logger, error) {
+func InitLogger(ctx context.Context) (logger.Logger, error) {
 	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
 	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
 
@@ -61,10 +98,10 @@ func InitLogger() (*logger.Logger, error) {
 		return nil, err
 	}
 
-	return &log, nil
+	return log, nil
 }
 
-func InitTracer() (*opentracing.Tracer, func() error, error) {
+func InitTracer(ctx context.Context) (opentracing.Tracer, error) {
 	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink")
 	viper.SetDefault("TRACER_URI", "localhost:6831")
 
@@ -73,12 +110,14 @@ func InitTracer() (*opentracing.Tracer, func() error, error) {
 		URI:         viper.GetString("TRACER_URI"),
 	}
 
-	tracer, tracerClose, err := traicing.Init(config)
+	tracer, _, err := traicing.Init(config)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	return &tracer, CloseFn(tracerClose), nil
+	ctx = traicing.WithTraicer(ctx, tracer)
+
+	return tracer, nil
 }
 
 func InitMonitoring() *http.ServeMux {
@@ -100,7 +139,7 @@ func InitMonitoring() *http.ServeMux {
 	return commonMux
 }
 
-func InitMQ(ctx context.Context) (*mq.MQ, error) {
+func InitMQ(ctx context.Context) (mq.MQ, error) {
 	viper.SetDefault("MQ_ENABLED", "false")
 
 	if viper.GetBool("MQ_ENABLED") {
@@ -111,8 +150,30 @@ func InitMQ(ctx context.Context) (*mq.MQ, error) {
 			return nil, err
 		}
 
-		return &service, nil
+		return service, nil
 	}
 
 	return nil, nil
 }
+
+func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB) (*Service, error) {
+	return &Service{
+		Log:    log,
+		MQ:     mq2,
+		Tracer: tracer,
+
+		Monitoring: monitoring,
+		DB:         db,
+	}, nil
+}
+
+func NewLoggerService(log logger.Logger, mq2 mq.MQ) (*Service, error) {
+	return &Service{
+		Log: log,
+		MQ:  mq2,
+	}, nil
+}
+
+var FullSet = wire.NewSet(NewFullService, InitLogger, InitStore, InitTracer, InitMonitoring, InitMQ)
+
+var LoggerSet = wire.NewSet(NewLoggerService, InitLogger, InitMQ)

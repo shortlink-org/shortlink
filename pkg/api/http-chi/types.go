@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/golang/protobuf/ptypes"
+
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // API ...
