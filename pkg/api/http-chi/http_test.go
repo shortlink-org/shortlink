@@ -2,6 +2,7 @@ package httpchi
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"io"
 	"io/ioutil"
@@ -11,6 +12,9 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/store"
 )
 
 func TestAdd(t *testing.T) {
@@ -21,6 +25,13 @@ func TestAdd(t *testing.T) {
 
 	ts := httptest.NewServer(r)
 	defer ts.Close()
+
+	ctx := context.Background()
+
+	// Init logger
+	conf := logger.Configuration{}
+	log, err := logger.NewLogger(logger.Zap, conf)
+	assert.Nil(t, err, "Error init a logger")
 
 	t.Run("empty payload", func(t *testing.T) {
 		response := `{"error": "EOF"}`
@@ -39,6 +50,19 @@ func TestAdd(t *testing.T) {
 		assert.Equal(t, body, response)
 	})
 
+	t.Run("with store", func(t *testing.T) {
+		// add store
+		var st store.Store
+		st.Use(ctx, log)
+
+		payload, err := json.Marshal(addRequest{
+			Describe: "",
+		})
+		assert.Nil(t, err)
+
+		_, body := testRequest(t, ts, "POST", "/", bytes.NewReader(payload)) // nolint bodyclose
+		assert.NotNil(t, body)
+	})
 }
 
 func TestGet(t *testing.T) {
@@ -50,8 +74,25 @@ func TestGet(t *testing.T) {
 	ts := httptest.NewServer(r)
 	defer ts.Close()
 
+	ctx := context.Background()
+
+	// Init logger
+	conf := logger.Configuration{}
+	log, err := logger.NewLogger(logger.Zap, conf)
+	assert.Nil(t, err, "Error init a logger")
+
 	t.Run("correct payload", func(t *testing.T) {
 		response := `{"error": "Not found subscribe to event METHOD_GET"}`
+		_, body := testRequest(t, ts, "GET", "/hash", nil) // nolint bodyclose
+		assert.Equal(t, body, response)
+	})
+
+	t.Run("with store", func(t *testing.T) {
+		// add store
+		var st store.Store
+		st.Use(ctx, log)
+
+		response := `{"error": "Not found link: hash"}`
 		_, body := testRequest(t, ts, "GET", "/hash", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
@@ -66,8 +107,25 @@ func TestList(t *testing.T) {
 	ts := httptest.NewServer(r)
 	defer ts.Close()
 
+	ctx := context.Background()
+
+	// Init logger
+	conf := logger.Configuration{}
+	log, err := logger.NewLogger(logger.Zap, conf)
+	assert.Nil(t, err, "Error init a logger")
+
 	t.Run("correct payload", func(t *testing.T) {
 		response := `{"error": "Not found subscribe to event METHOD_LIST"}`
+		_, body := testRequest(t, ts, "GET", "/links", nil) // nolint bodyclose
+		assert.Equal(t, body, response)
+	})
+
+	t.Run("with store", func(t *testing.T) {
+		// add store
+		var st store.Store
+		st.Use(ctx, log)
+
+		response := `null`
 		_, body := testRequest(t, ts, "GET", "/links", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
@@ -82,12 +140,33 @@ func TestDelete(t *testing.T) {
 	ts := httptest.NewServer(r)
 	defer ts.Close()
 
+	ctx := context.Background()
+
+	// Init logger
+	conf := logger.Configuration{}
+	log, err := logger.NewLogger(logger.Zap, conf)
+	assert.Nil(t, err, "Error init a logger")
+
 	t.Run("correct payload", func(t *testing.T) {
 		payload, err := json.Marshal(deleteRequest{
 			Hash: "hash",
 		})
 		assert.Nil(t, err)
 		response := `{"error": "Not found subscribe to event METHOD_DELETE"}`
+		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)) // nolint bodyclose
+		assert.Equal(t, body, response)
+	})
+
+	t.Run("with store", func(t *testing.T) {
+		// add store
+		var st store.Store
+		st.Use(ctx, log)
+
+		payload, err := json.Marshal(deleteRequest{
+			Hash: "hash",
+		})
+		assert.Nil(t, err)
+		response := `{}`
 		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
