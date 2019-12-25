@@ -63,7 +63,7 @@ func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
 
 	cleanup := func() {
 		// flushes buffer, if any
-		log.Close()
+		_ = log.Close() // nolint errcheck
 	}
 
 	return log, cleanup, nil

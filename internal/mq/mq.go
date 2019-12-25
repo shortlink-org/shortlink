@@ -10,8 +10,7 @@ import (
 type MQ interface { // nolint unused
 	notify.Subscriber // Observer interface
 
-	// Closer is the interface that wraps the basic Close method.
-	io.Closer
+	io.Closer // Closer is the interface that wraps the basic Close method.
 
 	Init(ctx context.Context) error
 

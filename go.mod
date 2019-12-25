@@ -33,8 +33,6 @@ require (
 	github.com/lib/pq v1.3.0
 	github.com/markbates/pkger v0.13.0
 	github.com/mattn/go-sqlite3 v2.0.2+incompatible
-	github.com/onsi/ginkgo v1.10.1 // indirect
-	github.com/onsi/gomega v1.7.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/opencontainers/runc v0.1.1 // indirect
@@ -42,6 +40,7 @@ require (
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/prometheus/client_golang v1.3.0
 	github.com/scylladb/gocqlx v1.3.1
+	github.com/securego/gosec v0.0.0-20191219224501-5d613739e150 // indirect
 	github.com/segmentio/kafka-go v0.3.4
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.6.1
@@ -54,9 +53,9 @@ require (
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413 // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
+	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
 	google.golang.org/genproto v0.0.0-20191223191004-3caeed10a8bf
 	google.golang.org/grpc v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
-	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gotest.tools v2.2.0+incompatible // indirect
 )

@@ -30,7 +30,8 @@ type Logger interface { //nolint unused
 
 	SetConfig(Configuration) error
 
-	Close()
+	// Closer is the interface that wraps the basic Close method.
+	io.Closer
 }
 
 // The severity levels. Higher values are more considered more important.
