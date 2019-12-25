@@ -28,7 +28,7 @@ type API struct { // nolint unused
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, config api_type.Config) error {
+func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger) error {
 	api.ctx = ctx
 
 	// Get free port
@@ -37,8 +37,6 @@ func (api *API) Run(ctx context.Context, config api_type.Config) error {
 		return err
 	}
 
-	// Get logger
-	log := logger.GetLogger(ctx)
 	log.Info(fmt.Sprintf("Run gRPC-GateWay on localhost:%d", port))
 
 	// Rug gRPC

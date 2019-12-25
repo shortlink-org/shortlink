@@ -1,7 +1,6 @@
 package logger
 
 import (
-	"context"
 	"errors"
 	"os"
 	"time"
@@ -37,14 +36,4 @@ func validateConfig(config *Configuration) { // nolint unused
 	if config.TimeFormat == "" {
 		config.TimeFormat = time.RFC3339Nano
 	}
-}
-
-// WithLogger set logger
-func WithLogger(ctx context.Context, logger Logger) context.Context { //nolint unused
-	return context.WithValue(ctx, keyLogger, logger)
-}
-
-// GetLogger return logger
-func GetLogger(ctx context.Context) Logger { //nolint unused
-	return ctx.Value(keyLogger).(Logger)
 }

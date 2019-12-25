@@ -6,7 +6,6 @@ package di
 
 import (
 	"context"
-	"io"
 	"net/http"
 	"time"
 
@@ -22,22 +21,26 @@ import (
 	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
-	"github.com/batazor/shortlink/pkg/api"
 )
 
 // Service - heplers
 type Service struct {
-	log         logger.Logger
-	tracer      opentracing.Tracer
-	tracerClose io.Closer
-	db          store.DB
-	mq          mq.MQ
-	api         api.Server
+	Log    logger.Logger
+	Tracer opentracing.Tracer
+	// TracerClose func()
+	DB         store.DB
+	MQ         mq.MQ
+	Monitoring *http.ServeMux
 }
 
-func CloseFn(c io.Closer) func() error { return func() error { return c.Close() } }
+// InitStore return store
+func InitStore(ctx context.Context, log logger.Logger) (store.DB, error) {
+	var st store.Store
+	db := st.Use(ctx, log)
+	return db, nil
+}
 
-func InitLogger() (*logger.Logger, error) {
+func InitLogger(ctx context.Context) (logger.Logger, error) {
 	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
 	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
 
@@ -51,10 +54,10 @@ func InitLogger() (*logger.Logger, error) {
 		return nil, err
 	}
 
-	return &log, nil
+	return log, nil
 }
 
-func InitTracer() (*opentracing.Tracer, func() error, error) {
+func InitTracer(ctx context.Context) (opentracing.Tracer, error) {
 	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink")
 	viper.SetDefault("TRACER_URI", "localhost:6831")
 
@@ -63,12 +66,16 @@ func InitTracer() (*opentracing.Tracer, func() error, error) {
 		URI:         viper.GetString("TRACER_URI"),
 	}
 
-	tracer, tracerClose, err := traicing.Init(config)
+	// TODO: add close func to return
+	tracer, _, err := traicing.Init(config)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
-	return &tracer, CloseFn(tracerClose), nil
+	// Add tracer to context
+	ctx = traicing.WithTraicer(ctx, tracer)
+
+	return tracer, nil
 }
 
 func InitMonitoring() *http.ServeMux {
@@ -97,7 +104,7 @@ func InitMonitoring() *http.ServeMux {
 	return commonMux
 }
 
-func InitMQ(ctx context.Context) (*mq.MQ, error) {
+func InitMQ(ctx context.Context) (mq.MQ, error) {
 	viper.SetDefault("MQ_ENABLED", "false")
 
 	if viper.GetBool("MQ_ENABLED") {
@@ -108,14 +115,37 @@ func InitMQ(ctx context.Context) (*mq.MQ, error) {
 			return nil, err
 		}
 
-		return &service, nil
+		return service, nil
 	}
 
 	return nil, nil
 }
 
-func InitializeService() (*logger.Logger, error) {
-	wire.Build(InitLogger)
+func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB) (*Service, error) {
+	return &Service{
+		Log:    log,
+		MQ:     mq,
+		Tracer: tracer,
+		// TracerClose: cleanup,
+		Monitoring: monitoring,
+		DB:         db,
+	}, nil
+}
 
-	return nil, nil
+func NewLoggerService(log logger.Logger, mq mq.MQ) (*Service, error) {
+	return &Service{
+		Log: log,
+		MQ:  mq,
+	}, nil
+}
+
+var FullSet = wire.NewSet(NewFullService, InitLogger, InitStore, InitTracer, InitMonitoring, InitMQ)
+var LoggerSet = wire.NewSet(NewLoggerService, InitLogger, InitMQ)
+
+func InitializeFullService(ctx context.Context) (*Service, error) {
+	panic(wire.Build(FullSet))
+}
+
+func InitializeLoggerService(ctx context.Context) (*Service, error) {
+	panic(wire.Build(LoggerSet))
 }
