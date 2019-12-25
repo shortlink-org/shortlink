@@ -1,8 +1,6 @@
 package healthcheck
 
 import (
-	"context"
-
 	"github.com/heptiolabs/healthcheck"
 )
 
@@ -18,14 +16,4 @@ func Init() healthcheck.Handler { // nolint unused
 	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100))
 
 	return health
-}
-
-// WithHealtCheck set healthcheck
-func WithHealtCheck(ctx context.Context, healtCheck healthcheck.Handler) context.Context { // nolint unused
-	return context.WithValue(ctx, keyHealthCheck, healtCheck)
-}
-
-// GetHealtCheck return healthcheck
-func GetHealtCheck(ctx context.Context) healthcheck.Handler { // nolint unused
-	return ctx.Value(keyHealthCheck).(healthcheck.Handler)
 }
