@@ -143,4 +143,10 @@ helm-clean: ## Clean artifact from K8S
 
 # BAZEL ================================================================================================================
 bazel-run: ## Update dep
-	@bazel run //:gazelle -- update-repos -from_file=go.mod
+	@bazel-2.0.0 run //:gazelle -- update-repos -from_file=go.mod
+
+bazel-build: ## Build all project
+	@bazel-2.0.0 build //...
+
+bazel-test: ## Test all project
+	@bazel-2.0.0 test //...
