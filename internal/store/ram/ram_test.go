@@ -39,3 +39,20 @@ func TestRAM(t *testing.T) {
 		assert.Nil(t, store.Close())
 	})
 }
+
+func BenchmarkRAM(b *testing.B) {
+	store := RAMLinkList{}
+
+	err := store.Init()
+	assert.Nil(b, err)
+
+	b.Run("Create", func(b *testing.B) {
+		data := mock.AddLink
+
+		for i := 0; i < b.N; i++ {
+			data.Url = data.Url + "/" + string(i)
+			_, err := store.Add(mock.AddLink)
+			assert.Nil(b, err)
+		}
+	})
+}
