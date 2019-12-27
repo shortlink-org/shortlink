@@ -11,7 +11,7 @@ import (
 // RAMLinkList implementation of store interface
 type RAMLinkList struct { // nolint unused
 	links map[string]link.Link
-	mu    sync.Mutex
+	mu    sync.RWMutex
 }
 
 // Init ...
@@ -73,9 +73,9 @@ func (ram *RAMLinkList) Add(source link.Link) (*link.Link, error) { // nolint un
 		return nil, err
 	}
 
-	ram.mu.Lock()
+	ram.mu.RLock()
 	ram.links[data.Hash] = data
-	ram.mu.Unlock()
+	ram.mu.RUnlock()
 
 	return &data, nil
 }
