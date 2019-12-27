@@ -36,8 +36,12 @@ func (ram *RAMLinkList) Get(hash string) (*link.Link, error) {
 		return nil, &link.NotFoundError{Link: link.Link{Url: hash}, Err: fmt.Errorf("Not found id: %s", hash)}
 	}
 
-	link := response.(link.Link)
-	return &link, nil
+	v, ok := response.(link.Link)
+	if !ok {
+		return nil, &link.NotFoundError{Link: link.Link{Url: hash}, Err: fmt.Errorf("Not found id: %s", hash)}
+	}
+
+	return &v, nil
 }
 
 // List ...
@@ -45,7 +49,12 @@ func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 	links := []*link.Link{}
 
 	ram.links.Range(func(key interface{}, value interface{}) bool {
-		link := value.(link.Link)
+		link, ok := value.(link.Link)
+
+		if !ok {
+			return false
+		}
+
 		links = append(links, &link)
 		return true
 	})
