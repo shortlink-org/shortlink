@@ -12,7 +12,7 @@ require (
 	github.com/cloudevents/sdk-go v0.10.2
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/containerd/continuity v0.0.0-20190827140505-75bee3e2ccb6 // indirect
-	github.com/dgraph-io/badger/v2/v2 v2.0.0
+	github.com/dgraph-io/badger v1.6.0
 	github.com/dgraph-io/dgo/v2 v2.1.0
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
@@ -33,14 +33,15 @@ require (
 	github.com/lib/pq v1.3.0
 	github.com/markbates/pkger v0.13.0
 	github.com/mattn/go-sqlite3 v2.0.2+incompatible
+	github.com/onsi/ginkgo v1.10.3 // indirect
+	github.com/onsi/gomega v1.7.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/opencontainers/runc v0.1.1 // indirect
 	github.com/opentracing/opentracing-go v1.1.0
-	github.com/ory/dockertest v3.5.2+incompatible
+	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/prometheus/client_golang v1.3.0
 	github.com/scylladb/gocqlx v1.3.1
-	github.com/securego/gosec v0.0.0-20191219224501-5d613739e150 // indirect
 	github.com/segmentio/kafka-go v0.3.4
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.6.1
@@ -57,5 +58,6 @@ require (
 	google.golang.org/genproto v0.0.0-20191223191004-3caeed10a8bf
 	google.golang.org/grpc v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gotest.tools v2.2.0+incompatible // indirect
 )
