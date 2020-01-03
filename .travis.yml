@@ -48,7 +48,7 @@ jobs:
       # .golangci.yml file at the top level of your repo.
       before_install:
         # binary will be $(go env GOPATH)/bin/golangci-lint
-        - curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b $(go env GOPATH)/bin v1.21.0
+        - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.22.2
       script:
         - make golint
     - name: gosec
