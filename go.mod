@@ -41,7 +41,7 @@ require (
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/prometheus/client_golang v1.3.0
-	github.com/scylladb/gocqlx v1.3.1
+	github.com/scylladb/gocqlx v1.3.2
 	github.com/segmentio/kafka-go v0.3.4
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.6.1
