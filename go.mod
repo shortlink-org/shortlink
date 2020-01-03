@@ -21,7 +21,7 @@ require (
 	github.com/go-chi/render v1.0.1
 	github.com/go-redis/redis v6.15.6+incompatible
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
-	github.com/gocql/gocql v0.0.0-20191224103530-b7facab47581
+	github.com/gocql/gocql v0.0.0-20200103014340-68f928edb90a
 	github.com/golang/protobuf v1.3.2
 	github.com/google/wire v0.4.0
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
