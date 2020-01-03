@@ -713,6 +713,9 @@ func unmarshalIntlike(info TypeInfo, int64Val int64, data []byte, value interfac
 		return nil
 	case *uint:
 		unitVal := uint64(int64Val)
+		if ^uint(0) == math.MaxUint32 && unitVal > math.MaxUint32 {
+			return unmarshalErrorf("unmarshal int: value %d out of range for %T", unitVal, *v)
+		}
 		switch info.Type() {
 		case TypeInt:
 			*v = uint(unitVal) & 0xFFFFFFFF
@@ -721,9 +724,6 @@ func unmarshalIntlike(info TypeInfo, int64Val int64, data []byte, value interfac
 		case TypeTinyInt:
 			*v = uint(unitVal) & 0xFF
 		default:
-			if ^uint(0) == math.MaxUint32 && (int64Val < 0 || int64Val > math.MaxUint32) {
-				return unmarshalErrorf("unmarshal int: value %d out of range for %T", unitVal, *v)
-			}
 			*v = uint(unitVal)
 		}
 		return nil
@@ -749,17 +749,15 @@ func unmarshalIntlike(info TypeInfo, int64Val int64, data []byte, value interfac
 		*v = int32(int64Val)
 		return nil
 	case *uint32:
+		if int64Val > math.MaxUint32 {
+			return unmarshalErrorf("unmarshal int: value %d out of range for %T", int64Val, *v)
+		}
 		switch info.Type() {
-		case TypeInt:
-			*v = uint32(int64Val) & 0xFFFFFFFF
 		case TypeSmallInt:
 			*v = uint32(int64Val) & 0xFFFF
 		case TypeTinyInt:
 			*v = uint32(int64Val) & 0xFF
 		default:
-			if int64Val < 0 || int64Val > math.MaxUint32 {
-				return unmarshalErrorf("unmarshal int: value %d out of range for %T", int64Val, *v)
-			}
 			*v = uint32(int64Val) & 0xFFFFFFFF
 		}
 		return nil
@@ -770,15 +768,13 @@ func unmarshalIntlike(info TypeInfo, int64Val int64, data []byte, value interfac
 		*v = int16(int64Val)
 		return nil
 	case *uint16:
+		if int64Val > math.MaxUint16 {
+			return unmarshalErrorf("unmarshal int: value %d out of range for %T", int64Val, *v)
+		}
 		switch info.Type() {
-		case TypeSmallInt:
-			*v = uint16(int64Val) & 0xFFFF
 		case TypeTinyInt:
 			*v = uint16(int64Val) & 0xFF
 		default:
-			if int64Val < 0 || int64Val > math.MaxUint16 {
-				return unmarshalErrorf("unmarshal int: value %d out of range for %T", int64Val, *v)
-			}
 			*v = uint16(int64Val) & 0xFFFF
 		}
 		return nil
@@ -789,7 +785,7 @@ func unmarshalIntlike(info TypeInfo, int64Val int64, data []byte, value interfac
 		*v = int8(int64Val)
 		return nil
 	case *uint8:
-		if info.Type() != TypeTinyInt && (int64Val < 0 || int64Val > math.MaxUint8) {
+		if int64Val > math.MaxUint8 {
 			return unmarshalErrorf("unmarshal int: value %d out of range for %T", int64Val, *v)
 		}
 		*v = uint8(int64Val) & 0xFF
@@ -837,69 +833,34 @@ func unmarshalIntlike(info TypeInfo, int64Val int64, data []byte, value interfac
 		rv.SetInt(int64Val)
 		return nil
 	case reflect.Uint:
-		unitVal := uint64(int64Val)
-		switch info.Type() {
-		case TypeInt:
-			rv.SetUint(unitVal & 0xFFFFFFFF)
-		case TypeSmallInt:
-			rv.SetUint(unitVal & 0xFFFF)
-		case TypeTinyInt:
-			rv.SetUint(unitVal & 0xFF)
-		default:
-			if ^uint(0) == math.MaxUint32 && (int64Val < 0 || int64Val > math.MaxUint32) {
-				return unmarshalErrorf("unmarshal int: value %d out of range for %s", unitVal, rv.Type())
-			}
-			rv.SetUint(unitVal)
+		if int64Val < 0 || (^uint(0) == math.MaxUint32 && int64Val > math.MaxUint32) {
+			return unmarshalErrorf("unmarshal int: value %d out of range", int64Val)
 		}
+		rv.SetUint(uint64(int64Val))
 		return nil
 	case reflect.Uint64:
-		unitVal := uint64(int64Val)
-		switch info.Type() {
-		case TypeInt:
-			rv.SetUint(unitVal & 0xFFFFFFFF)
-		case TypeSmallInt:
-			rv.SetUint(unitVal & 0xFFFF)
-		case TypeTinyInt:
-			rv.SetUint(unitVal & 0xFF)
-		default:
-			rv.SetUint(unitVal)
+		if int64Val < 0 {
+			return unmarshalErrorf("unmarshal int: value %d out of range", int64Val)
 		}
+		rv.SetUint(uint64(int64Val))
 		return nil
 	case reflect.Uint32:
-		unitVal := uint64(int64Val)
-		switch info.Type() {
-		case TypeInt:
-			rv.SetUint(unitVal & 0xFFFFFFFF)
-		case TypeSmallInt:
-			rv.SetUint(unitVal & 0xFFFF)
-		case TypeTinyInt:
-			rv.SetUint(unitVal & 0xFF)
-		default:
-			if int64Val < 0 || int64Val > math.MaxUint32 {
-				return unmarshalErrorf("unmarshal int: value %d out of range for %s", int64Val, rv.Type())
-			}
-			rv.SetUint(unitVal & 0xFFFFFFFF)
+		if int64Val < 0 || int64Val > math.MaxUint32 {
+			return unmarshalErrorf("unmarshal int: value %d out of range", int64Val)
 		}
+		rv.SetUint(uint64(int64Val))
 		return nil
 	case reflect.Uint16:
-		unitVal := uint64(int64Val)
-		switch info.Type() {
-		case TypeSmallInt:
-			rv.SetUint(unitVal & 0xFFFF)
-		case TypeTinyInt:
-			rv.SetUint(unitVal & 0xFF)
-		default:
-			if int64Val < 0 || int64Val > math.MaxUint16 {
-				return unmarshalErrorf("unmarshal int: value %d out of range for %s", int64Val, rv.Type())
-			}
-			rv.SetUint(unitVal & 0xFFFF)
+		if int64Val < 0 || int64Val > math.MaxUint16 {
+			return unmarshalErrorf("unmarshal int: value %d out of range", int64Val)
 		}
+		rv.SetUint(uint64(int64Val))
 		return nil
 	case reflect.Uint8:
-		if info.Type() != TypeTinyInt && (int64Val < 0 || int64Val > math.MaxUint8) {
-			return unmarshalErrorf("unmarshal int: value %d out of range for %s", int64Val, rv.Type())
+		if int64Val < 0 || int64Val > math.MaxUint8 {
+			return unmarshalErrorf("unmarshal int: value %d out of range", int64Val)
 		}
-		rv.SetUint(uint64(int64Val) & 0xff)
+		rv.SetUint(uint64(int64Val))
 		return nil
 	}
 	return unmarshalErrorf("can not unmarshal %s into %T", info, value)
@@ -1301,15 +1262,15 @@ func unmarshalDate(info TypeInfo, data []byte, value interface{}) error {
 		*v = time.Unix(0, timestamp*int64(time.Millisecond)).In(time.UTC)
 		return nil
 	case *string:
-		if len(data) == 0 {
-			*v = ""
-			return nil
-		}
-		var origin uint32 = 1 << 31
-		var current uint32 = binary.BigEndian.Uint32(data)
-		timestamp := (int64(current) - int64(origin)) * 86400000
+                if len(data) == 0 {
+                        *v = ""
+                        return nil
+                }
+                var origin uint32 = 1 << 31
+                var current uint32 = binary.BigEndian.Uint32(data)
+                timestamp := (int64(current) - int64(origin)) * 86400000
 		*v = time.Unix(0, timestamp*int64(time.Millisecond)).In(time.UTC).Format("2006-01-02")
-		return nil
+                return nil
 	}
 	return unmarshalErrorf("can not unmarshal %s into %T", info, value)
 }
