@@ -13,7 +13,7 @@ type Subscriber interface {
 
 type Notify struct {
 	subsribers map[int][]Subscriber
-	mux        sync.RWMutex
+	mx         sync.RWMutex
 }
 
 type Response struct {
