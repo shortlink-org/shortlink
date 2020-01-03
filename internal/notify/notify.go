@@ -7,15 +7,14 @@ var (
 )
 
 func Subscribe(event int, subscriber Subscriber) { // nolint unused
-	subsribers.mux.Lock()
-	defer subsribers.mux.Unlock()
-
+	subsribers.mx.Lock()
 	subsribers.subsribers[event] = append(subsribers.subsribers[event], subscriber)
+	subsribers.mx.Unlock()
 }
 
 func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
-	subsribers.mux.Lock()
-	defer subsribers.mux.Unlock()
+	subsribers.mx.Lock()
+	defer subsribers.mx.Unlock()
 
 	for _, v := range subsribers.subsribers[event] {
 		if subscriber == v {
@@ -27,8 +26,8 @@ func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
 
 func Publish(event int, payload interface{}, cb chan<- interface{}) { // nolint unused
 	var responses []*Response
-	subsribers.mux.Lock()
-	defer subsribers.mux.Unlock()
+	subsribers.mx.Lock()
+	defer subsribers.mx.Unlock()
 
 	if len(subsribers.subsribers[event]) == 0 {
 		cb <- nil
