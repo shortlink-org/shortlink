@@ -13,6 +13,7 @@ type op byte
 
 const (
 	eq op = iota
+	ne
 	lt
 	leq
 	gt
@@ -35,6 +36,8 @@ func (c Cmp) writeCql(cql *bytes.Buffer) (names []string) {
 	switch c.op {
 	case eq:
 		cql.WriteByte('=')
+	case ne:
+		cql.WriteString("!=")
 	case lt:
 		cql.WriteByte('<')
 	case leq:
@@ -100,6 +103,54 @@ func EqLit(column, literal string) Cmp {
 func EqFunc(column string, fn *Func) Cmp {
 	return Cmp{
 		op:     eq,
+		column: column,
+		value:  fn,
+	}
+}
+
+// Ne produces column!=?.
+func Ne(column string) Cmp {
+	return Cmp{
+		op:     ne,
+		column: column,
+		value:  param(column),
+	}
+}
+
+// NeTuple produces column!=(?,?,...) with count number of placeholders.
+func NeTuple(column string, count int) Cmp {
+	return Cmp{
+		op:     ne,
+		column: column,
+		value: tupleParam{
+			param: param(column),
+			count: count,
+		},
+	}
+}
+
+// NeNamed produces column!=? with a custom parameter name.
+func NeNamed(column, name string) Cmp {
+	return Cmp{
+		op:     ne,
+		column: column,
+		value:  param(name),
+	}
+}
+
+// NeLit produces column!=literal and does not add a parameter to the query.
+func NeLit(column, literal string) Cmp {
+	return Cmp{
+		op:     ne,
+		column: column,
+		value:  lit(literal),
+	}
+}
+
+// NeFunc produces column!=someFunc(?...).
+func NeFunc(column string, fn *Func) Cmp {
+	return Cmp{
+		op:     ne,
 		column: column,
 		value:  fn,
 	}
