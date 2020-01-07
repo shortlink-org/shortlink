@@ -21,7 +21,7 @@ require (
 	github.com/go-chi/render v1.0.1
 	github.com/go-redis/redis v6.15.6+incompatible
 	github.com/go-sql-driver/mysql v1.4.1 // indirect
-	github.com/gocql/gocql v0.0.0-20190423091413-b99afaf3b163
+	github.com/gocql/gocql v0.0.0-20200103014340-68f928edb90a
 	github.com/golang/protobuf v1.3.2
 	github.com/google/wire v0.4.0
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
@@ -41,7 +41,7 @@ require (
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/prometheus/client_golang v1.3.0
-	github.com/scylladb/gocqlx v1.3.1
+	github.com/scylladb/gocqlx v1.3.3
 	github.com/segmentio/kafka-go v0.3.4
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/viper v1.6.1
