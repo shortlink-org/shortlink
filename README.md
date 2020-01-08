@@ -9,6 +9,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/batazor/shortlink)
 ![GitHub contributors](https://img.shields.io/github/contributors/batazor/shortlink)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3510/badge)](https://bestpractices.coreinfrastructure.org/projects/3510)
+[![Mergify Status][mergify-status]][mergify]
 
 Shortlink service
 
@@ -104,3 +105,6 @@ docker-compose \
 - CoreDNS
 
 ## -~- THE END -~-
+
+[mergify]: https://mergify.io
+[mergify-status]: https://img.shields.io/endpoint.svg?url=https://dashboard.mergify.io/badges/batazor/shortlink&style=flat
