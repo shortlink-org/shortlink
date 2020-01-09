@@ -31,7 +31,7 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.1.2
 	github.com/lib/pq v1.3.0
-	github.com/markbates/pkger v0.13.0
+	github.com/markbates/pkger v0.14.0
 	github.com/mattn/go-sqlite3 v2.0.2+incompatible
 	github.com/onsi/ginkgo v1.10.3 // indirect
 	github.com/onsi/gomega v1.7.1 // indirect
