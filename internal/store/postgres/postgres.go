@@ -115,6 +115,9 @@ func (p *PostgresLinkList) Add(source link.Link) (*link.Link, error) {
 
 	// save as JSON. it doesn't make sense
 	dataJson, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
 
 	// query builder
 	links := psql.Insert("links").
