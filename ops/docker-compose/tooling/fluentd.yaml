@@ -1,0 +1,22 @@
+version: '2.4'
+
+services:
+
+  fluentd:
+    image: grafana/fluent-plugin-loki:master
+    container_name: fluent-plugin-loki
+    restart: on-failure
+    environment:
+      - VIRTUAL_HOST=loki.loc
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    depends_on:
+      - loki
+    volumes:
+      - ./ops/docker-compose/tooling/fluentd/fluentd.conf:/fluentd/etc/fluentd.conf

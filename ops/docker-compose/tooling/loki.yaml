@@ -1,0 +1,26 @@
+version: '2.4'
+
+services:
+
+  loki:
+    image: grafana/loki:master
+    container_name: loki
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: on-failure
+    environment:
+      - VIRTUAL_HOST=loki.loc
+      - GF_LOG_CONSOLE_FORMAT=json
+    ports:
+      - 3100:3100
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    volumes:
+      - /var/log:/var/log
+    command: -config.file=/etc/promtail/docker-config.yaml
