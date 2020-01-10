@@ -1,0 +1,19 @@
+version: '2.4'
+
+services:
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: on-failure
+    environment:
+      - GF_LOG_CONSOLE_FORMAT=json
+    ports:
+      - 3030:3000
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    volumes:
+      - ./ops/docker-compose/tooling/grafana/provisioning:/etc/grafana/provisioning/
