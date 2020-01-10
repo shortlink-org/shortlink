@@ -24,3 +24,11 @@ scrape_configs:
     scrape_interval: 5s
     static_configs:
       - targets: ['coredns:9153']
+
+  - job_name: 'grafana'
+    dns_sd_configs:
+      - names:
+          - 'grafana'
+        type: 'A'
+        port: 3000
+        refresh_interval: 10s
