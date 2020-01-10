@@ -4,6 +4,7 @@ datasources:
   - name: Prometheus
     type: prometheus
     access: proxy
+    isDefault: true
     url: http://prometheus:9090
     jsonData:
       timeInterval: 10s
