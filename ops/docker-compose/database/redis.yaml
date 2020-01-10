@@ -14,6 +14,8 @@ services:
     dns:
       - "10.5.0.2"
     dns_search: coredns
+    depends_on:
+      - fluentd
     logging:
       driver: "fluentd"
       options:
