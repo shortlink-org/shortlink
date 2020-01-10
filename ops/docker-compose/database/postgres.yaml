@@ -21,3 +21,7 @@ services:
     volumes:
       - ./initialState/init-postgres.sql:/docker-entrypoint-initdb.d/init.sql
       - ./ops/docker-compose/database/conf/postgresql.conf:/etc/postgresql/postgresql.conf
+    logging:
+      driver: "fluentd"
+      options:
+        tag: postgres
