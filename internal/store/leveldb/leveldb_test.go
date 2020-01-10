@@ -3,8 +3,9 @@ package leveldb
 import (
 	"testing"
 
-	"github.com/batazor/shortlink/internal/store/mock"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/batazor/shortlink/internal/store/mock"
 )
 
 func TestLevelDB(t *testing.T) {
