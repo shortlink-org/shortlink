@@ -7,9 +7,14 @@ import (
 
 	"github.com/ory/dockertest"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/goleak"
 
 	"github.com/batazor/shortlink/internal/store/mock"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestMongo(t *testing.T) {
 	store := MongoLinkList{}

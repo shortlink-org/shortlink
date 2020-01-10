@@ -9,3 +9,9 @@ services:
     ports:
       - "7000:7000"
       - "9042:9042"
+    depends_on:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        tag: cassandra

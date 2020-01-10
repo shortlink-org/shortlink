@@ -8,7 +8,12 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/goleak"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 // TestOutput ...
 func TestOutputZap(t *testing.T) { //nolint unused
@@ -29,14 +34,14 @@ func TestOutputZap(t *testing.T) { //nolint unused
 	expected := map[string]interface{}{
 		"@level":     "info",
 		"@timestamp": expectedTime,
-		"@caller":    "logger/logger_test.go:26",
+		"@caller":    "logger/logger_test.go:31",
 		"@msg":       "Hello World",
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
-		assert.Fail(t, "Expected: %s\ngot: %s", expected, response)
+		assert.Equal(t, expected, response)
 	}
 }
 
@@ -122,7 +127,7 @@ func TestFieldsZap(t *testing.T) { //nolint unused
 		"@level":     "info",
 		"@timestamp": expectedTime,
 		"@msg":       "Hello World",
-		"@caller":    "logger/logger_test.go:115",
+		"@caller":    "logger/logger_test.go:120",
 		"first":      float64(1),
 		"hello":      "world",
 	}
@@ -130,7 +135,7 @@ func TestFieldsZap(t *testing.T) { //nolint unused
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
-		assert.Errorf(t, err, "Expected: %s\ngot: %s", expected, response)
+		assert.Equal(t, expected, response)
 	}
 }
 
