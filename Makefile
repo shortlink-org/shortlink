@@ -90,6 +90,8 @@ run: ## Run this project in docker-compose
          -f docker-compose.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
          -f ops/docker-compose/tooling/grafana.yaml \
+         -f ops/docker-compose/tooling/loki.yaml \
+         -f ops/docker-compose/tooling/fluentd.yaml \
          -f ops/docker-compose/tooling/prometheus.yaml \
          -f ops/docker-compose/database/postgres.yaml \
          up -d --force-recreate
