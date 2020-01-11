@@ -37,26 +37,26 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := InitMonitoring()
-	tracer, cleanup2, err := InitTracer(ctx, logger)
+	handler, cleanup2, err := InitSentry()
 	if err != nil {
 		cleanup()
 		return nil, nil, err
 	}
-	db, cleanup3, err := InitStore(ctx, logger)
+	serveMux := InitMonitoring(handler)
+	tracer, cleanup3, err := InitTracer(ctx, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := InitProfiling()
-	handler, cleanup4, err := InitSentry()
+	db, cleanup4, err := InitStore(ctx, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
+	pprofEndpoint := InitProfiling()
 	service, err := NewFullService(logger, mq, serveMux, tracer, db, pprofEndpoint, handler)
 	if err != nil {
 		cleanup4()
@@ -185,7 +185,7 @@ func InitMQ(ctx context.Context) (mq.MQ, error) {
 	return nil, nil
 }
 
-func InitMonitoring() *http.ServeMux {
+func InitMonitoring(sentryHandler *sentryhttp.Handler) *http.ServeMux {
 
 	registry := prometheus.NewRegistry()
 
@@ -195,11 +195,11 @@ func InitMonitoring() *http.ServeMux {
 
 	commonMux := http.NewServeMux()
 
-	commonMux.Handle("/metrics", promhttp.HandlerFor(registry, promhttp.HandlerOpts{}))
+	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.HandlerFor(registry, promhttp.HandlerOpts{})))
 
-	commonMux.HandleFunc("/live", health.LiveEndpoint)
+	commonMux.HandleFunc("/live", sentryHandler.HandleFunc(health.LiveEndpoint))
 
-	commonMux.HandleFunc("/ready", health.ReadyEndpoint)
+	commonMux.HandleFunc("/ready", sentryHandler.HandleFunc(health.ReadyEndpoint))
 
 	return commonMux
 }
