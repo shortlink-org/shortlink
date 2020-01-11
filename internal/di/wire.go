@@ -116,7 +116,7 @@ func InitMQ(ctx context.Context) (mq.MQ, error) {
 	return nil, nil
 }
 
-func InitMonitoring() *http.ServeMux {
+func InitMonitoring(sentryHandler *sentryhttp.Handler) *http.ServeMux {
 	// Create a new Prometheus registry
 	registry := prometheus.NewRegistry()
 
@@ -131,13 +131,13 @@ func InitMonitoring() *http.ServeMux {
 	commonMux := http.NewServeMux()
 
 	// Expose prometheus metrics on /metrics
-	commonMux.Handle("/metrics", promhttp.HandlerFor(registry, promhttp.HandlerOpts{}))
+	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.HandlerFor(registry, promhttp.HandlerOpts{})))
 
 	// Expose a liveness check on /live
-	commonMux.HandleFunc("/live", health.LiveEndpoint)
+	commonMux.HandleFunc("/live", sentryHandler.HandleFunc(health.LiveEndpoint))
 
 	// Expose a readiness check on /ready
-	commonMux.HandleFunc("/ready", health.ReadyEndpoint)
+	commonMux.HandleFunc("/ready", sentryHandler.HandleFunc(health.ReadyEndpoint))
 
 	return commonMux
 }
@@ -146,7 +146,7 @@ func InitProfiling() PprofEndpoint {
 	// Create an "common" listener
 	pprofMux := http.NewServeMux()
 
-	// REgistration pprof-handlers
+	// Registration pprof-handlers
 	pprofMux.HandleFunc("/debug/pprof/", pprof.Index)
 	pprofMux.HandleFunc("/debug/pprof/cmdline", pprof.Cmdline)
 	pprofMux.HandleFunc("/debug/pprof/profile", pprof.Profile)

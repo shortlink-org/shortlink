@@ -16,6 +16,7 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.1.0
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
+	github.com/getsentry/sentry-go v0.4.0
 	github.com/go-chi/chi v4.0.3+incompatible
 	github.com/go-chi/cors v1.0.0
 	github.com/go-chi/render v1.0.1
@@ -33,8 +34,6 @@ require (
 	github.com/lib/pq v1.3.0
 	github.com/markbates/pkger v0.14.0
 	github.com/mattn/go-sqlite3 v2.0.2+incompatible
-	github.com/onsi/ginkgo v1.10.3 // indirect
-	github.com/onsi/gomega v1.7.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/opencontainers/runc v0.1.1 // indirect
