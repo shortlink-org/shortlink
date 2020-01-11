@@ -10,6 +10,8 @@ import (
 	"net/http/pprof"
 	"time"
 
+	"github.com/getsentry/sentry-go"
+	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing/opentracing-go"
@@ -29,6 +31,7 @@ type Service struct {
 	Log    logger.Logger
 	Tracer opentracing.Tracer
 	// TracerClose func()
+	Sentry        *sentryhttp.Handler
 	DB            store.DB
 	MQ            mq.MQ
 	Monitoring    *http.ServeMux
@@ -153,13 +156,37 @@ func InitProfiling() PprofEndpoint {
 	return pprofMux
 }
 
+func InitSentry() (*sentryhttp.Handler, func(), error) {
+	viper.SetDefault("SENTRY_DSN", "___DSN___")
+
+	err := sentry.Init(sentry.ClientOptions{
+		Dsn: viper.GetString("SENTRY_DSN"),
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+
+	cleanup := func() {
+
+		// Since sentry emits events in the background we need to make sure
+		// they are sent before we shut down
+		sentry.Flush(time.Second * 5)
+		sentry.Recover()
+	}
+
+	// Create an instance of sentryhttp
+	sentryHandler := sentryhttp.New(sentryhttp.Options{})
+
+	return sentryHandler, cleanup, nil
+}
+
 // Default =============================================================================================================
 var DefaultSet = wire.NewSet(InitLogger, InitTracer)
 
 // FullService =========================================================================================================
-var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ)
+var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry)
 
-func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint) (*Service, error) {
+func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler) (*Service, error) {
 	return &Service{
 		Log:    log,
 		MQ:     mq,
@@ -168,6 +195,7 @@ func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, trac
 		Monitoring:    monitoring,
 		DB:            db,
 		PprofEndpoint: pprofHTTP,
+		Sentry:        sentryHandler,
 	}, nil
 }
 
