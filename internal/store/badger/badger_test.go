@@ -3,9 +3,15 @@ package badger
 import (
 	"testing"
 
-	"github.com/batazor/shortlink/internal/store/mock"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/goleak"
+
+	"github.com/batazor/shortlink/internal/store/mock"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestBadger(t *testing.T) {
 	store := BadgerLinkList{}

@@ -1,0 +1,23 @@
+version: '2.4'
+
+services:
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: on-failure
+    environment:
+      - VIRTUAL_HOST=grafana.loc
+      - GF_SERVER_ROOT_URL=http://grafana.loc
+      - GF_SERVER_ROUTER_LOGGING=true
+      - GF_LOG_CONSOLE_FORMAT=json
+      - GF_LOG_FILTERS=alerting.notifier:debug,alerting.notifier.slack:debug,auth:debug
+    ports:
+      - 3030:3000
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    volumes:
+      - ./ops/docker-compose/tooling/grafana/provisioning:/etc/grafana/provisioning/

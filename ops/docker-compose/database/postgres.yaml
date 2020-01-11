@@ -8,7 +8,7 @@ services:
     restart: on-failure
     container_name: postgres
     ports:
-      - "5432:5432"
+      - "5434:5432"
     environment:
       POSTGRES_USER: shortlink
       POSTGRES_PASSWORD: shortlink
@@ -20,3 +20,28 @@ services:
     dns_search: coredns
     volumes:
       - ./initialState/init-postgres.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+    depends_on:
+      - fluentd
+    logging:
+      driver: "fluentd"
+      options:
+        tag: postgres
+
+  postgres-exporter:
+    image: wrouesnel/postgres_exporter:v0.8.0
+    restart: on-failure
+    container_name: postgres-exporter
+    ports:
+      - 9187:9187
+    environment:
+      - DATA_SOURCE_NAME=postgres://shortlink:shortlink@postgres:5432/?sslmode=disable
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+
+  prometheus:
+    volumes:
+      - ./ops/docker-compose/database/postgres/postgres-server.json:/etc/prometheus/targets/postgres-server.json

@@ -5,7 +5,12 @@ import (
 
 	"github.com/batazor/shortlink/internal/store/mock"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/goleak"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestRAM(t *testing.T) {
 	store := RAMLinkList{}

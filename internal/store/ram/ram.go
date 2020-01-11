@@ -9,7 +9,7 @@ import (
 )
 
 // RAMLinkList implementation of store interface
-type RAMLinkList struct {
+type RAMLinkList struct { // nolint unused
 	// sync.Map solver problem with cache contention
 	links sync.Map
 }
