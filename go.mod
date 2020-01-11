@@ -16,8 +16,7 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.1.0
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
-	github.com/getsentry/sentry-go v0.4.0
-	github.com/go-chi/chi v4.0.2+incompatible
+	github.com/go-chi/chi v4.0.3+incompatible
 	github.com/go-chi/cors v1.0.0
 	github.com/go-chi/render v1.0.1
 	github.com/go-redis/redis v6.15.6+incompatible
@@ -32,8 +31,10 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.1.2
 	github.com/lib/pq v1.3.0
-	github.com/markbates/pkger v0.13.0
+	github.com/markbates/pkger v0.14.0
 	github.com/mattn/go-sqlite3 v2.0.2+incompatible
+	github.com/onsi/ginkgo v1.10.3 // indirect
+	github.com/onsi/gomega v1.7.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/opencontainers/runc v0.1.1 // indirect
@@ -49,12 +50,13 @@ require (
 	github.com/tidwall/pretty v1.0.0 // indirect
 	github.com/uber/jaeger-client-go v2.21.1+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	go.mongodb.org/mongo-driver v1.2.0
+	go.mongodb.org/mongo-driver v1.2.1
+	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.13.0
-	golang.org/x/crypto v0.0.0-20191227163750-53104e6ec876 // indirect
+	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413 // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
-	golang.org/x/tools v0.0.0-20200107184032-11e9d9cc0042 // indirect
-	google.golang.org/genproto v0.0.0-20191230161307-f3c370f40bfb
+	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
+	google.golang.org/genproto v0.0.0-20200108215221-bd8f9a0ef82f
 	google.golang.org/grpc v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect

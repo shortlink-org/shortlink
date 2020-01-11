@@ -57,10 +57,7 @@ github.com/docker/go-units
 github.com/dustin/go-humanize
 # github.com/fsnotify/fsnotify v1.4.7
 github.com/fsnotify/fsnotify
-# github.com/getsentry/sentry-go v0.4.0
-github.com/getsentry/sentry-go
-github.com/getsentry/sentry-go/http
-# github.com/go-chi/chi v4.0.2+incompatible
+# github.com/go-chi/chi v4.0.3+incompatible
 github.com/go-chi/chi
 github.com/go-chi/chi/middleware
 # github.com/go-chi/cors v1.0.0
@@ -175,7 +172,7 @@ github.com/lib/pq/oid
 github.com/lib/pq/scram
 # github.com/magiconair/properties v1.8.1
 github.com/magiconair/properties
-# github.com/markbates/pkger v0.13.0
+# github.com/markbates/pkger v0.14.0
 github.com/markbates/pkger
 github.com/markbates/pkger/internal/maps
 github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa
@@ -306,7 +303,7 @@ github.com/uber/jaeger-lib/metrics
 github.com/xdg/scram
 # github.com/xdg/stringprep v1.0.0
 github.com/xdg/stringprep
-# go.mongodb.org/mongo-driver v1.2.0
+# go.mongodb.org/mongo-driver v1.2.1
 go.mongodb.org/mongo-driver/bson
 go.mongodb.org/mongo-driver/bson/bsoncodec
 go.mongodb.org/mongo-driver/bson/bsonoptions
@@ -354,6 +351,9 @@ go.opencensus.io/trace/internal
 go.opencensus.io/trace/tracestate
 # go.uber.org/atomic v1.5.0
 go.uber.org/atomic
+# go.uber.org/goleak v1.0.0
+go.uber.org/goleak
+go.uber.org/goleak/internal/stack
 # go.uber.org/multierr v1.3.0
 go.uber.org/multierr
 # go.uber.org/tools v0.0.0-20190618225709-2cfd321de3ee
@@ -365,7 +365,7 @@ go.uber.org/zap/internal/bufferpool
 go.uber.org/zap/internal/color
 go.uber.org/zap/internal/exit
 go.uber.org/zap/zapcore
-# golang.org/x/crypto v0.0.0-20191227163750-53104e6ec876
+# golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413
 golang.org/x/crypto/pbkdf2
 # golang.org/x/lint v0.0.0-20190930215403-16217165b5de
 golang.org/x/lint
@@ -397,7 +397,7 @@ golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/width
-# golang.org/x/tools v0.0.0-20200107184032-11e9d9cc0042
+# golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40
 golang.org/x/tools/go/analysis
 golang.org/x/tools/go/analysis/passes/inspect
 golang.org/x/tools/go/ast/astutil
@@ -415,7 +415,7 @@ golang.org/x/tools/internal/semver
 # golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898
 golang.org/x/xerrors
 golang.org/x/xerrors/internal
-# google.golang.org/genproto v0.0.0-20191230161307-f3c370f40bfb
+# google.golang.org/genproto v0.0.0-20200108215221-bd8f9a0ef82f
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
 google.golang.org/genproto/googleapis/rpc/status

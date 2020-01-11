@@ -24,3 +24,7 @@ services:
       KAFKA_CREATE_TOPICS: "shortlink:1:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    logging:
+      driver: "fluentd"
+      options:
+        tag: kafka

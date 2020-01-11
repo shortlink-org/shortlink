@@ -3,6 +3,7 @@ package postgres
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/spf13/viper"
@@ -112,10 +113,16 @@ func (p *PostgresLinkList) Add(source link.Link) (*link.Link, error) {
 		return nil, err
 	}
 
+	// save as JSON. it doesn't make sense
+	dataJson, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+
 	// query builder
 	links := psql.Insert("links").
-		Columns("url", "hash", "describe").
-		Values(data.Url, data.Hash, data.Describe)
+		Columns("url", "hash", "describe", "json").
+		Values(data.Url, data.Hash, data.Describe, dataJson)
 
 	query, args, err := links.ToSql()
 	if err != nil {

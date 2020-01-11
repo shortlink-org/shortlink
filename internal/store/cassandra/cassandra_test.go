@@ -7,7 +7,12 @@ import (
 
 	"github.com/ory/dockertest"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/goleak"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestCassandra(t *testing.T) {
 	// store := CassandraLinkList{}
