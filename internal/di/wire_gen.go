@@ -12,6 +12,8 @@ import (
 	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
+	"github.com/getsentry/sentry-go"
+	"github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing/opentracing-go"
@@ -48,14 +50,23 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		return nil, nil, err
 	}
 	pprofEndpoint := InitProfiling()
-	service, err := NewFullService(logger, mq, serveMux, tracer, db, pprofEndpoint)
+	handler, cleanup4, err := InitSentry()
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewFullService(logger, mq, serveMux, tracer, db, pprofEndpoint, handler)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -89,6 +100,7 @@ type Service struct {
 	Log    logger.Logger
 	Tracer opentracing.Tracer
 	// TracerClose func()
+	Sentry        *sentryhttp.Handler
 	DB            store.DB
 	MQ            mq.MQ
 	Monitoring    *http.ServeMux
@@ -205,13 +217,33 @@ func InitProfiling() PprofEndpoint {
 	return pprofMux
 }
 
+func InitSentry() (*sentryhttp.Handler, func(), error) {
+	viper.SetDefault("SENTRY_DSN", "___DSN___")
+
+	err := sentry.Init(sentry.ClientOptions{
+		Dsn: viper.GetString("SENTRY_DSN"),
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+
+	cleanup := func() {
+		sentry.Flush(time.Second * 5)
+		sentry.Recover()
+	}
+
+	sentryHandler := sentryhttp.New(sentryhttp.Options{})
+
+	return sentryHandler, cleanup, nil
+}
+
 // Default =============================================================================================================
 var DefaultSet = wire.NewSet(InitLogger, InitTracer)
 
 // FullService =========================================================================================================
-var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ)
+var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry)
 
-func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint) (*Service, error) {
+func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler) (*Service, error) {
 	return &Service{
 		Log:    log,
 		MQ:     mq2,
@@ -220,6 +252,7 @@ func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tra
 		Monitoring:    monitoring,
 		DB:            db,
 		PprofEndpoint: pprofHTTP,
+		Sentry:        sentryHandler,
 	}, nil
 }
 
