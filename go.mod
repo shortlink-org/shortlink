@@ -30,7 +30,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0
 	github.com/grpc-ecosystem/grpc-gateway v1.12.1
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
-	github.com/jackc/pgx/v4 v4.1.2
+	github.com/jackc/pgx/v4 v4.2.1
 	github.com/lib/pq v1.3.0
 	github.com/markbates/pkger v0.14.0
 	github.com/mattn/go-sqlite3 v2.0.2+incompatible
