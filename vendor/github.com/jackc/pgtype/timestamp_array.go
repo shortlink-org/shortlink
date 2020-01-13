@@ -43,6 +43,18 @@ func (dst *TimestampArray) Set(src interface{}) error {
 			}
 		}
 
+	case []Timestamp:
+		if value == nil {
+			*dst = TimestampArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = TimestampArray{Status: Present}
+		} else {
+			*dst = TimestampArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

@@ -42,6 +42,18 @@ func (dst *TextArray) Set(src interface{}) error {
 			}
 		}
 
+	case []Text:
+		if value == nil {
+			*dst = TextArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = TextArray{Status: Present}
+		} else {
+			*dst = TextArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

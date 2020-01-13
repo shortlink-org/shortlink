@@ -42,6 +42,18 @@ func (dst *ByteaArray) Set(src interface{}) error {
 			}
 		}
 
+	case []Bytea:
+		if value == nil {
+			*dst = ByteaArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = ByteaArray{Status: Present}
+		} else {
+			*dst = ByteaArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

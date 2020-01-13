@@ -40,6 +40,18 @@ func (dst *EnumArray) Set(src interface{}) error {
 			}
 		}
 
+	case []GenericText:
+		if value == nil {
+			*dst = EnumArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = EnumArray{Status: Present}
+		} else {
+			*dst = EnumArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

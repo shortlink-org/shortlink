@@ -43,6 +43,18 @@ func (dst *DateArray) Set(src interface{}) error {
 			}
 		}
 
+	case []Date:
+		if value == nil {
+			*dst = DateArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = DateArray{Status: Present}
+		} else {
+			*dst = DateArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

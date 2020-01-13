@@ -42,6 +42,18 @@ func (dst *HstoreArray) Set(src interface{}) error {
 			}
 		}
 
+	case []Hstore:
+		if value == nil {
+			*dst = HstoreArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = HstoreArray{Status: Present}
+		} else {
+			*dst = HstoreArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

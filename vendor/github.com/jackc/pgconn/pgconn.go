@@ -1,7 +1,6 @@
 package pgconn
 
 import (
-	"bytes"
 	"context"
 	"crypto/md5"
 	"crypto/tls"
@@ -10,7 +9,6 @@ import (
 	"io"
 	"math"
 	"net"
-	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -362,17 +360,19 @@ func (pgConn *PgConn) SendBytes(ctx context.Context, buf []byte) error {
 	}
 	defer pgConn.unlock()
 
-	select {
-	case <-ctx.Done():
-		return &contextAlreadyDoneError{err: ctx.Err()}
-	default:
+	if ctx != context.Background() {
+		select {
+		case <-ctx.Done():
+			return &contextAlreadyDoneError{err: ctx.Err()}
+		default:
+		}
+		pgConn.contextWatcher.Watch(ctx)
+		defer pgConn.contextWatcher.Unwatch()
 	}
-	pgConn.contextWatcher.Watch(ctx)
-	defer pgConn.contextWatcher.Unwatch()
 
 	n, err := pgConn.conn.Write(buf)
 	if err != nil {
-		pgConn.hardClose()
+		pgConn.asyncClose()
 		return &writeError{err: err, safeToRetry: n == 0}
 	}
 
@@ -392,13 +392,15 @@ func (pgConn *PgConn) ReceiveMessage(ctx context.Context) (pgproto3.BackendMessa
 	}
 	defer pgConn.unlock()
 
-	select {
-	case <-ctx.Done():
-		return nil, &contextAlreadyDoneError{err: ctx.Err()}
-	default:
+	if ctx != context.Background() {
+		select {
+		case <-ctx.Done():
+			return nil, &contextAlreadyDoneError{err: ctx.Err()}
+		default:
+		}
+		pgConn.contextWatcher.Watch(ctx)
+		defer pgConn.contextWatcher.Unwatch()
 	}
-	pgConn.contextWatcher.Watch(ctx)
-	defer pgConn.contextWatcher.Unwatch()
 
 	msg, err := pgConn.receiveMessage()
 	if err != nil {
@@ -429,7 +431,7 @@ func (pgConn *PgConn) receiveMessage() (pgproto3.BackendMessage, error) {
 	if err != nil {
 		// Close on anything other than timeout error - everything else is fatal
 		if err, ok := err.(net.Error); !(ok && err.Timeout()) {
-			pgConn.hardClose()
+			pgConn.asyncClose()
 		}
 
 		return nil, err
@@ -442,7 +444,7 @@ func (pgConn *PgConn) receiveMessage() (pgproto3.BackendMessage, error) {
 		pgConn.parameterStatuses[msg.Name] = msg.Value
 	case *pgproto3.ErrorResponse:
 		if msg.Severity == "FATAL" {
-			pgConn.hardClose()
+			pgConn.asyncClose()
 			return nil, ErrorResponseToPgError(msg)
 		}
 	case *pgproto3.NoticeResponse:
@@ -489,30 +491,45 @@ func (pgConn *PgConn) Close(ctx context.Context) error {
 
 	defer pgConn.conn.Close()
 
-	pgConn.contextWatcher.Watch(ctx)
-	defer pgConn.contextWatcher.Unwatch()
-
-	_, err := pgConn.conn.Write([]byte{'X', 0, 0, 0, 4})
-	if err != nil {
-		return err
+	if ctx != context.Background() {
+		pgConn.contextWatcher.Watch(ctx)
+		defer pgConn.contextWatcher.Unwatch()
 	}
 
-	_, err = pgConn.conn.Read(make([]byte, 1))
-	if err != io.EOF {
-		return err
-	}
+	// Ignore any errors sending Terminate message and waiting for server to close connection.
+	// This mimics the behavior of libpq PQfinish. It calls closePGconn which calls sendTerminateConn which purposefully
+	// ignores errors.
+	//
+	// See https://github.com/jackc/pgx/issues/637
+	pgConn.conn.Write([]byte{'X', 0, 0, 0, 4})
+	pgConn.conn.Read(make([]byte, 1))
 
 	return pgConn.conn.Close()
 }
 
-// hardClose closes the underlying connection without sending the exit message.
-func (pgConn *PgConn) hardClose() error {
+// asyncClose marks the connection as closed and asynchronously sends a cancel query message and closes the underlying
+// connection.
+func (pgConn *PgConn) asyncClose() {
 	if pgConn.status == connStatusClosed {
-		return nil
+		return
 	}
 	pgConn.status = connStatusClosed
 
-	return pgConn.conn.Close()
+	go func() {
+		defer pgConn.conn.Close()
+
+		deadline := time.Now().Add(time.Second * 15)
+
+		ctx, cancel := context.WithDeadline(context.Background(), deadline)
+		defer cancel()
+
+		pgConn.CancelRequest(ctx)
+
+		pgConn.conn.SetDeadline(deadline)
+
+		pgConn.conn.Write([]byte{'X', 0, 0, 0, 4})
+		pgConn.conn.Read(make([]byte, 1))
+	}()
 }
 
 // IsClosed reports if the connection has been closed.
@@ -561,16 +578,74 @@ type CommandTag []byte
 // RowsAffected returns the number of rows affected. If the CommandTag was not
 // for a row affecting command (e.g. "CREATE TABLE") then it returns 0.
 func (ct CommandTag) RowsAffected() int64 {
-	idx := bytes.LastIndexByte([]byte(ct), ' ')
+	// Find last non-digit
+	idx := -1
+	for i := len(ct) - 1; i >= 0; i-- {
+		if ct[i] >= '0' && ct[i] <= '9' {
+			idx = i
+		} else {
+			break
+		}
+	}
+
 	if idx == -1 {
 		return 0
 	}
-	n, _ := strconv.ParseInt(string([]byte(ct)[idx+1:]), 10, 64)
+
+	var n int64
+	for _, b := range ct[idx:] {
+		n = n*10 + int64(b-'0')
+	}
+
 	return n
 }
 
 func (ct CommandTag) String() string {
 	return string(ct)
+}
+
+// Insert is true if the command tag starts with "INSERT".
+func (ct CommandTag) Insert() bool {
+	return len(ct) >= 6 &&
+		ct[0] == 'I' &&
+		ct[1] == 'N' &&
+		ct[2] == 'S' &&
+		ct[3] == 'E' &&
+		ct[4] == 'R' &&
+		ct[5] == 'T'
+}
+
+// Update is true if the command tag starts with "UPDATE".
+func (ct CommandTag) Update() bool {
+	return len(ct) >= 6 &&
+		ct[0] == 'U' &&
+		ct[1] == 'P' &&
+		ct[2] == 'D' &&
+		ct[3] == 'A' &&
+		ct[4] == 'T' &&
+		ct[5] == 'E'
+}
+
+// Delete is true if the command tag starts with "DELETE".
+func (ct CommandTag) Delete() bool {
+	return len(ct) >= 6 &&
+		ct[0] == 'D' &&
+		ct[1] == 'E' &&
+		ct[2] == 'L' &&
+		ct[3] == 'E' &&
+		ct[4] == 'T' &&
+		ct[5] == 'E'
+}
+
+// Select is true if the command tag starts with "SELECT".
+func (ct CommandTag) Select() bool {
+	return len(ct) >= 6 &&
+		ct[0] == 'S' &&
+		ct[1] == 'E' &&
+		ct[2] == 'L' &&
+		ct[3] == 'E' &&
+		ct[4] == 'C' &&
+		ct[5] == 'T'
 }
 
 type StatementDescription struct {
@@ -588,13 +663,15 @@ func (pgConn *PgConn) Prepare(ctx context.Context, name, sql string, paramOIDs [
 	}
 	defer pgConn.unlock()
 
-	select {
-	case <-ctx.Done():
-		return nil, &contextAlreadyDoneError{err: ctx.Err()}
-	default:
+	if ctx != context.Background() {
+		select {
+		case <-ctx.Done():
+			return nil, &contextAlreadyDoneError{err: ctx.Err()}
+		default:
+		}
+		pgConn.contextWatcher.Watch(ctx)
+		defer pgConn.contextWatcher.Unwatch()
 	}
-	pgConn.contextWatcher.Watch(ctx)
-	defer pgConn.contextWatcher.Unwatch()
 
 	buf := pgConn.wbuf
 	buf = (&pgproto3.Parse{Name: name, Query: sql, ParameterOIDs: paramOIDs}).Encode(buf)
@@ -603,7 +680,7 @@ func (pgConn *PgConn) Prepare(ctx context.Context, name, sql string, paramOIDs [
 
 	n, err := pgConn.conn.Write(buf)
 	if err != nil {
-		pgConn.hardClose()
+		pgConn.asyncClose()
 		return nil, &pgconnError{msg: "write failed", err: err, safeToRetry: n == 0}
 	}
 
@@ -615,7 +692,7 @@ readloop:
 	for {
 		msg, err := pgConn.receiveMessage()
 		if err != nil {
-			pgConn.hardClose()
+			pgConn.asyncClose()
 			return nil, err
 		}
 
@@ -681,12 +758,14 @@ func (pgConn *PgConn) CancelRequest(ctx context.Context) error {
 	}
 	defer cancelConn.Close()
 
-	contextWatcher := ctxwatch.NewContextWatcher(
-		func() { cancelConn.SetDeadline(time.Date(1, 1, 1, 1, 1, 1, 1, time.UTC)) },
-		func() { cancelConn.SetDeadline(time.Time{}) },
-	)
-	contextWatcher.Watch(ctx)
-	defer contextWatcher.Unwatch()
+	if ctx != context.Background() {
+		contextWatcher := ctxwatch.NewContextWatcher(
+			func() { cancelConn.SetDeadline(time.Date(1, 1, 1, 1, 1, 1, 1, time.UTC)) },
+			func() { cancelConn.SetDeadline(time.Time{}) },
+		)
+		contextWatcher.Watch(ctx)
+		defer contextWatcher.Unwatch()
+	}
 
 	buf := make([]byte, 16)
 	binary.BigEndian.PutUint32(buf[0:4], 16)
@@ -714,14 +793,16 @@ func (pgConn *PgConn) WaitForNotification(ctx context.Context) error {
 	}
 	defer pgConn.unlock()
 
-	select {
-	case <-ctx.Done():
-		return ctx.Err()
-	default:
-	}
+	if ctx != context.Background() {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		default:
+		}
 
-	pgConn.contextWatcher.Watch(ctx)
-	defer pgConn.contextWatcher.Unwatch()
+		pgConn.contextWatcher.Watch(ctx)
+		defer pgConn.contextWatcher.Unwatch()
+	}
 
 	for {
 		msg, err := pgConn.receiveMessage()
@@ -754,23 +835,24 @@ func (pgConn *PgConn) Exec(ctx context.Context, sql string) *MultiResultReader {
 		ctx:    ctx,
 	}
 	multiResult := &pgConn.multiResultReader
-
-	select {
-	case <-ctx.Done():
-		multiResult.closed = true
-		multiResult.err = &contextAlreadyDoneError{err: ctx.Err()}
-		pgConn.unlock()
-		return multiResult
-	default:
+	if ctx != context.Background() {
+		select {
+		case <-ctx.Done():
+			multiResult.closed = true
+			multiResult.err = &contextAlreadyDoneError{err: ctx.Err()}
+			pgConn.unlock()
+			return multiResult
+		default:
+		}
+		pgConn.contextWatcher.Watch(ctx)
 	}
-	pgConn.contextWatcher.Watch(ctx)
 
 	buf := pgConn.wbuf
 	buf = (&pgproto3.Query{String: sql}).Encode(buf)
 
 	n, err := pgConn.conn.Write(buf)
 	if err != nil {
-		pgConn.hardClose()
+		pgConn.asyncClose()
 		pgConn.contextWatcher.Unwatch()
 		multiResult.closed = true
 		multiResult.err = &writeError{err: err, safeToRetry: n == 0}
@@ -810,7 +892,7 @@ func (pgConn *PgConn) ExecParams(ctx context.Context, sql string, paramValues []
 	buf = (&pgproto3.Parse{Query: sql, ParameterOIDs: paramOIDs}).Encode(buf)
 	buf = (&pgproto3.Bind{ParameterFormatCodes: paramFormats, Parameters: paramValues, ResultFormatCodes: resultFormats}).Encode(buf)
 
-	pgConn.execExtendedSuffix(ctx, buf, result)
+	pgConn.execExtendedSuffix(buf, result)
 
 	return result
 }
@@ -836,7 +918,7 @@ func (pgConn *PgConn) ExecPrepared(ctx context.Context, stmtName string, paramVa
 	buf := pgConn.wbuf
 	buf = (&pgproto3.Bind{PreparedStatement: stmtName, ParameterFormatCodes: paramFormats, Parameters: paramValues, ResultFormatCodes: resultFormats}).Encode(buf)
 
-	pgConn.execExtendedSuffix(ctx, buf, result)
+	pgConn.execExtendedSuffix(buf, result)
 
 	return result
 }
@@ -861,27 +943,29 @@ func (pgConn *PgConn) execExtendedPrefix(ctx context.Context, paramValues [][]by
 		return result
 	}
 
-	select {
-	case <-ctx.Done():
-		result.concludeCommand(nil, &contextAlreadyDoneError{err: ctx.Err()})
-		result.closed = true
-		pgConn.unlock()
-		return result
-	default:
+	if ctx != context.Background() {
+		select {
+		case <-ctx.Done():
+			result.concludeCommand(nil, &contextAlreadyDoneError{err: ctx.Err()})
+			result.closed = true
+			pgConn.unlock()
+			return result
+		default:
+		}
+		pgConn.contextWatcher.Watch(ctx)
 	}
-	pgConn.contextWatcher.Watch(ctx)
 
 	return result
 }
 
-func (pgConn *PgConn) execExtendedSuffix(ctx context.Context, buf []byte, result *ResultReader) {
+func (pgConn *PgConn) execExtendedSuffix(buf []byte, result *ResultReader) {
 	buf = (&pgproto3.Describe{ObjectType: 'P'}).Encode(buf)
 	buf = (&pgproto3.Execute{}).Encode(buf)
 	buf = (&pgproto3.Sync{}).Encode(buf)
 
 	n, err := pgConn.conn.Write(buf)
 	if err != nil {
-		pgConn.hardClose()
+		pgConn.asyncClose()
 		result.concludeCommand(nil, &writeError{err: err, safeToRetry: n == 0})
 		pgConn.contextWatcher.Unwatch()
 		result.closed = true
@@ -895,14 +979,16 @@ func (pgConn *PgConn) CopyTo(ctx context.Context, w io.Writer, sql string) (Comm
 		return nil, err
 	}
 
-	select {
-	case <-ctx.Done():
-		pgConn.unlock()
-		return nil, &contextAlreadyDoneError{err: ctx.Err()}
-	default:
+	if ctx != context.Background() {
+		select {
+		case <-ctx.Done():
+			pgConn.unlock()
+			return nil, &contextAlreadyDoneError{err: ctx.Err()}
+		default:
+		}
+		pgConn.contextWatcher.Watch(ctx)
+		defer pgConn.contextWatcher.Unwatch()
 	}
-	pgConn.contextWatcher.Watch(ctx)
-	defer pgConn.contextWatcher.Unwatch()
 
 	// Send copy to command
 	buf := pgConn.wbuf
@@ -910,7 +996,7 @@ func (pgConn *PgConn) CopyTo(ctx context.Context, w io.Writer, sql string) (Comm
 
 	n, err := pgConn.conn.Write(buf)
 	if err != nil {
-		pgConn.hardClose()
+		pgConn.asyncClose()
 		pgConn.unlock()
 		return nil, &writeError{err: err, safeToRetry: n == 0}
 	}
@@ -921,7 +1007,7 @@ func (pgConn *PgConn) CopyTo(ctx context.Context, w io.Writer, sql string) (Comm
 	for {
 		msg, err := pgConn.receiveMessage()
 		if err != nil {
-			pgConn.hardClose()
+			pgConn.asyncClose()
 			return nil, err
 		}
 
@@ -930,7 +1016,7 @@ func (pgConn *PgConn) CopyTo(ctx context.Context, w io.Writer, sql string) (Comm
 		case *pgproto3.CopyData:
 			_, err := w.Write(msg.Data)
 			if err != nil {
-				pgConn.hardClose()
+				pgConn.asyncClose()
 				return nil, err
 			}
 		case *pgproto3.ReadyForQuery:
@@ -954,13 +1040,15 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 	}
 	defer pgConn.unlock()
 
-	select {
-	case <-ctx.Done():
-		return nil, &contextAlreadyDoneError{err: ctx.Err()}
-	default:
+	if ctx != context.Background() {
+		select {
+		case <-ctx.Done():
+			return nil, &contextAlreadyDoneError{err: ctx.Err()}
+		default:
+		}
+		pgConn.contextWatcher.Watch(ctx)
+		defer pgConn.contextWatcher.Unwatch()
 	}
-	pgConn.contextWatcher.Watch(ctx)
-	defer pgConn.contextWatcher.Unwatch()
 
 	// Send copy to command
 	buf := pgConn.wbuf
@@ -968,7 +1056,7 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 
 	n, err := pgConn.conn.Write(buf)
 	if err != nil {
-		pgConn.hardClose()
+		pgConn.asyncClose()
 		return nil, &writeError{err: err, safeToRetry: n == 0}
 	}
 
@@ -979,7 +1067,7 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 	for pendingCopyInResponse {
 		msg, err := pgConn.receiveMessage()
 		if err != nil {
-			pgConn.hardClose()
+			pgConn.asyncClose()
 			return nil, err
 		}
 
@@ -1008,7 +1096,7 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 
 			_, err = pgConn.conn.Write(buf)
 			if err != nil {
-				pgConn.hardClose()
+				pgConn.asyncClose()
 				return nil, err
 			}
 		}
@@ -1017,13 +1105,15 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 		case <-signalMessageChan:
 			msg, err := pgConn.receiveMessage()
 			if err != nil {
-				pgConn.hardClose()
+				pgConn.asyncClose()
 				return nil, err
 			}
 
 			switch msg := msg.(type) {
 			case *pgproto3.ErrorResponse:
 				pgErr = ErrorResponseToPgError(msg)
+			default:
+				signalMessageChan = pgConn.signalMessage()
 			}
 		default:
 		}
@@ -1039,7 +1129,7 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 	}
 	_, err = pgConn.conn.Write(buf)
 	if err != nil {
-		pgConn.hardClose()
+		pgConn.asyncClose()
 		return nil, err
 	}
 
@@ -1047,7 +1137,7 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 	for {
 		msg, err := pgConn.receiveMessage()
 		if err != nil {
-			pgConn.hardClose()
+			pgConn.asyncClose()
 			return nil, err
 		}
 
@@ -1092,7 +1182,7 @@ func (mrr *MultiResultReader) receiveMessage() (pgproto3.BackendMessage, error) 
 		mrr.pgConn.contextWatcher.Unwatch()
 		mrr.err = err
 		mrr.closed = true
-		mrr.pgConn.hardClose()
+		mrr.pgConn.asyncClose()
 		return nil, mrr.err
 	}
 
@@ -1281,7 +1371,7 @@ func (rr *ResultReader) receiveMessage() (msg pgproto3.BackendMessage, err error
 		rr.pgConn.contextWatcher.Unwatch()
 		rr.closed = true
 		if rr.multiResultReader == nil {
-			rr.pgConn.hardClose()
+			rr.pgConn.asyncClose()
 		}
 
 		return nil, rr.err
@@ -1345,15 +1435,17 @@ func (pgConn *PgConn) ExecBatch(ctx context.Context, batch *Batch) *MultiResultR
 	}
 	multiResult := &pgConn.multiResultReader
 
-	select {
-	case <-ctx.Done():
-		multiResult.closed = true
-		multiResult.err = &contextAlreadyDoneError{err: ctx.Err()}
-		pgConn.unlock()
-		return multiResult
-	default:
+	if ctx != context.Background() {
+		select {
+		case <-ctx.Done():
+			multiResult.closed = true
+			multiResult.err = &contextAlreadyDoneError{err: ctx.Err()}
+			pgConn.unlock()
+			return multiResult
+		default:
+		}
+		pgConn.contextWatcher.Watch(ctx)
 	}
-	pgConn.contextWatcher.Watch(ctx)
 
 	batch.buf = (&pgproto3.Sync{}).Encode(batch.buf)
 

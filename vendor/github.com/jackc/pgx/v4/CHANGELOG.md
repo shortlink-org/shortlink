@@ -1,3 +1,16 @@
+# 4.2.1 (January 13, 2020)
+
+* Update pgconn to v1.2.1 (fixes context cancellation data race introduced in v1.2.0))
+
+# 4.2.0 (January 11, 2020)
+
+* Update pgconn to v1.2.0.
+* Update pgtype to v1.1.0.
+* Return error instead of panic when wrong number of arguments passed to Exec. (malstoun)
+* Fix large objects functionality when PreferSimpleProtocol = true.
+* Restore GetDefaultDriver which existed in v3. (Johan Brandhorst)
+* Add RegisterConnConfig to stdlib which replaces the removed RegisterDriverConfig from v3.
+
 # 4.1.2 (October 22, 2019)
 
 * Fix dbSavepoint.Begin recursive self call

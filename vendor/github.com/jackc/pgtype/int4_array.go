@@ -23,7 +23,26 @@ func (dst *Int4Array) Set(src interface{}) error {
 
 	switch value := src.(type) {
 
-	case []int:
+	case []int16:
+		if value == nil {
+			*dst = Int4Array{Status: Null}
+		} else if len(value) == 0 {
+			*dst = Int4Array{Status: Present}
+		} else {
+			elements := make([]Int4, len(value))
+			for i := range value {
+				if err := elements[i].Set(value[i]); err != nil {
+					return err
+				}
+			}
+			*dst = Int4Array{
+				Elements:   elements,
+				Dimensions: []ArrayDimension{{Length: int32(len(elements)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
+
+	case []uint16:
 		if value == nil {
 			*dst = Int4Array{Status: Null}
 		} else if len(value) == 0 {
@@ -80,6 +99,94 @@ func (dst *Int4Array) Set(src interface{}) error {
 			}
 		}
 
+	case []int64:
+		if value == nil {
+			*dst = Int4Array{Status: Null}
+		} else if len(value) == 0 {
+			*dst = Int4Array{Status: Present}
+		} else {
+			elements := make([]Int4, len(value))
+			for i := range value {
+				if err := elements[i].Set(value[i]); err != nil {
+					return err
+				}
+			}
+			*dst = Int4Array{
+				Elements:   elements,
+				Dimensions: []ArrayDimension{{Length: int32(len(elements)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
+
+	case []uint64:
+		if value == nil {
+			*dst = Int4Array{Status: Null}
+		} else if len(value) == 0 {
+			*dst = Int4Array{Status: Present}
+		} else {
+			elements := make([]Int4, len(value))
+			for i := range value {
+				if err := elements[i].Set(value[i]); err != nil {
+					return err
+				}
+			}
+			*dst = Int4Array{
+				Elements:   elements,
+				Dimensions: []ArrayDimension{{Length: int32(len(elements)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
+
+	case []int:
+		if value == nil {
+			*dst = Int4Array{Status: Null}
+		} else if len(value) == 0 {
+			*dst = Int4Array{Status: Present}
+		} else {
+			elements := make([]Int4, len(value))
+			for i := range value {
+				if err := elements[i].Set(value[i]); err != nil {
+					return err
+				}
+			}
+			*dst = Int4Array{
+				Elements:   elements,
+				Dimensions: []ArrayDimension{{Length: int32(len(elements)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
+
+	case []uint:
+		if value == nil {
+			*dst = Int4Array{Status: Null}
+		} else if len(value) == 0 {
+			*dst = Int4Array{Status: Present}
+		} else {
+			elements := make([]Int4, len(value))
+			for i := range value {
+				if err := elements[i].Set(value[i]); err != nil {
+					return err
+				}
+			}
+			*dst = Int4Array{
+				Elements:   elements,
+				Dimensions: []ArrayDimension{{Length: int32(len(elements)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
+
+	case []Int4:
+		if value == nil {
+			*dst = Int4Array{Status: Null}
+		} else if len(value) == 0 {
+			*dst = Int4Array{Status: Present}
+		} else {
+			*dst = Int4Array{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)
@@ -106,6 +213,24 @@ func (src *Int4Array) AssignTo(dst interface{}) error {
 	case Present:
 		switch v := dst.(type) {
 
+		case *[]int16:
+			*v = make([]int16, len(src.Elements))
+			for i := range src.Elements {
+				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
+					return err
+				}
+			}
+			return nil
+
+		case *[]uint16:
+			*v = make([]uint16, len(src.Elements))
+			for i := range src.Elements {
+				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
+					return err
+				}
+			}
+			return nil
+
 		case *[]int32:
 			*v = make([]int32, len(src.Elements))
 			for i := range src.Elements {
@@ -117,6 +242,42 @@ func (src *Int4Array) AssignTo(dst interface{}) error {
 
 		case *[]uint32:
 			*v = make([]uint32, len(src.Elements))
+			for i := range src.Elements {
+				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
+					return err
+				}
+			}
+			return nil
+
+		case *[]int64:
+			*v = make([]int64, len(src.Elements))
+			for i := range src.Elements {
+				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
+					return err
+				}
+			}
+			return nil
+
+		case *[]uint64:
+			*v = make([]uint64, len(src.Elements))
+			for i := range src.Elements {
+				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
+					return err
+				}
+			}
+			return nil
+
+		case *[]int:
+			*v = make([]int, len(src.Elements))
+			for i := range src.Elements {
+				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
+					return err
+				}
+			}
+			return nil
+
+		case *[]uint:
+			*v = make([]uint, len(src.Elements))
 			for i := range src.Elements {
 				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
 					return err

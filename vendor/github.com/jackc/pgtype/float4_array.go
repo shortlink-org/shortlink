@@ -42,6 +42,18 @@ func (dst *Float4Array) Set(src interface{}) error {
 			}
 		}
 
+	case []Float4:
+		if value == nil {
+			*dst = Float4Array{Status: Null}
+		} else if len(value) == 0 {
+			*dst = Float4Array{Status: Present}
+		} else {
+			*dst = Float4Array{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

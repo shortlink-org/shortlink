@@ -62,6 +62,18 @@ func (dst *InetArray) Set(src interface{}) error {
 			}
 		}
 
+	case []Inet:
+		if value == nil {
+			*dst = InetArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = InetArray{Status: Present}
+		} else {
+			*dst = InetArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)
