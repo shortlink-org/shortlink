@@ -42,6 +42,18 @@ func (dst *BoolArray) Set(src interface{}) error {
 			}
 		}
 
+	case []Bool:
+		if value == nil {
+			*dst = BoolArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = BoolArray{Status: Present}
+		} else {
+			*dst = BoolArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

@@ -80,6 +80,18 @@ func (dst *UUIDArray) Set(src interface{}) error {
 			}
 		}
 
+	case []UUID:
+		if value == nil {
+			*dst = UUIDArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = UUIDArray{Status: Present}
+		} else {
+			*dst = UUIDArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

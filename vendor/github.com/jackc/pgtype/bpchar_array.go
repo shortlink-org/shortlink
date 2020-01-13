@@ -42,6 +42,18 @@ func (dst *BPCharArray) Set(src interface{}) error {
 			}
 		}
 
+	case []BPChar:
+		if value == nil {
+			*dst = BPCharArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = BPCharArray{Status: Present}
+		} else {
+			*dst = BPCharArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)

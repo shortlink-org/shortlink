@@ -42,6 +42,18 @@ func (dst *VarcharArray) Set(src interface{}) error {
 			}
 		}
 
+	case []Varchar:
+		if value == nil {
+			*dst = VarcharArray{Status: Null}
+		} else if len(value) == 0 {
+			*dst = VarcharArray{Status: Present}
+		} else {
+			*dst = VarcharArray{
+				Elements:   value,
+				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
+				Status:     Present,
+			}
+		}
 	default:
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)
