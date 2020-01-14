@@ -2,9 +2,13 @@
   export default {
     render(h) {
       return (
-        <div>
+        <el-main>
           <h1>About</h1>
-        </div>
+
+          <p>
+            GitHub URL: <a href="https://github.com/batazor/shortlink">https://github.com/batazor/shortlink</a>
+          </p>
+        </el-main>
       )
     },
     head: {

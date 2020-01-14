@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'spa',
-  
+
   /*
    ** Build configuration
    */
@@ -18,6 +18,8 @@ module.exports = {
     { src: 'assets/main.css', lang: 'css' },
     { src: 'vue-material/dist/vue-material.min.css', lang: 'css' },
     { src: '~/assets/theme.scss', lang: 'scss' }, // include vue-material theme engine
+    { src: 'element-ui/lib/theme-chalk/reset.css', lang: 'css' },
+    { src: 'element-ui/lib/theme-chalk/index.css', lang: 'css' },
   ],
 
   /*
@@ -41,5 +43,6 @@ module.exports = {
    */
   plugins: [
     { src: '~/plugins/vue-material' },
+    { src: '@/plugins/element-ui' },
   ],
 }
