@@ -18,6 +18,7 @@ services:
     dns_search: coredns
     depends_on:
       - fluentd
+      - coredns
     logging:
       driver: "fluentd"
       options:
