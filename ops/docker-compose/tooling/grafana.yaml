@@ -14,6 +14,8 @@ services:
       - GF_LOG_FILTERS=alerting.notifier:debug,alerting.notifier.slack:debug,auth:debug
     ports:
       - 3030:3000
+    depends_on:
+      - coredns
     networks:
       - simple
     dns:

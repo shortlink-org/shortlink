@@ -12,6 +12,8 @@ services:
       - GF_LOG_CONSOLE_FORMAT=json
     ports:
       - 3100:3100
+    depends_on:
+      - coredns
     networks:
       - simple
     dns:
@@ -24,3 +26,5 @@ services:
     volumes:
       - /var/log:/var/log
     command: -config.file=/etc/promtail/docker-config.yaml
+    depends_on:
+      - coredns

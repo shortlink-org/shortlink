@@ -14,6 +14,7 @@ services:
     restart: on-failure
     depends_on:
       - cassandra-schema
+      - coredns
     networks:
       - simple
     dns:
@@ -30,6 +31,7 @@ services:
     restart: on-failure
     depends_on:
       - cassandra-schema
+      - coredns
     networks:
       - simple
     dns:

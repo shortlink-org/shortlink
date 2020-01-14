@@ -109,6 +109,7 @@ run-dep: ## Run only dep for this project in docker-compose
 
 down: ## Down docker-compose
 	@docker-compose down --remove-orphans
+	@docker network rm simple shortlink_default
 
 clean: ## Clean artifacts
 	@docker network rm simple
