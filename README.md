@@ -77,6 +77,10 @@ docker-compose \
 + HealthCheck
 + Support K8S (Helm Chart)
 
+### UI
+
++ Nuxt: [demo UI](http://shortlink.surge.sh/)
+
 ### Configuration
 
 ##### [12 factors: ENV](https://12factor.net/config)
@@ -100,11 +104,6 @@ docker-compose \
 | API_PORT            | 7070                                                    | API port                                                 |
 | MQ_ENABLED          | false                                                   | Enabled MQ-service                                       |
 | SENTRY_DSN          | ___DSN___                                               | key for sentry                                           | 
-
-### Optional
-
-- CoreDNS
-- Sentry
 
 ### CoreDNS IP table
 
