@@ -7,6 +7,8 @@ CI_COMMIT_TAG := latest
 
 DOCKER_USERNAME := "batazor"
 
+PATH_TO_UI_NUXT := pkg/ui/nuxt
+
 # Export such that its passed to shell functions for Docker to pick up.
 export PROJECT_NAME
 
@@ -144,3 +146,8 @@ helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 
 helm-clean: ## Clean artifact from K8S
 	@helm del --purge ${PROJECT_NAME}
+
+# UI ===================================================================================================================
+nuxt_deploy: ## Deploy nuxt UI
+	@npm --prefix ${PATH_TO_UI_NUXT} run generate
+	@surge ${PATH_TO_UI_NUXT}/dist/
