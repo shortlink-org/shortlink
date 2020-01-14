@@ -11,6 +11,13 @@ services:
       - "9042:9042"
     depends_on:
       - fluentd
+      - coredns
+    networks:
+      simple:
+        ipv4_address: 10.5.0.100
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
     logging:
       driver: "fluentd"
       options:

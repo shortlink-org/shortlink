@@ -10,12 +10,14 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.100
     dns:
       - "10.5.0.2"
     dns_search: coredns
     depends_on:
       - fluentd
+      - coredns
     logging:
       driver: "fluentd"
       options:

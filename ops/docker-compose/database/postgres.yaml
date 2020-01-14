@@ -14,7 +14,8 @@ services:
       POSTGRES_PASSWORD: shortlink
       POSTGRES_DB: shortlink
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.100
     dns:
       - "10.5.0.2"
     dns_search: coredns
@@ -23,6 +24,7 @@ services:
       - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
     depends_on:
       - fluentd
+      - coredns
     logging:
       driver: "fluentd"
       options:
@@ -34,6 +36,10 @@ services:
     container_name: postgres-exporter
     ports:
       - 9187:9187
+    depends_on:
+      - postgres
+      - fluentd
+      - coredns
     environment:
       - DATA_SOURCE_NAME=postgres://shortlink:shortlink@postgres:5432/?sslmode=disable
     networks:
