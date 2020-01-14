@@ -13,7 +13,7 @@
       )
     },
     head: {
-      title: 'Links'
+      title: 'About of project'
     }
   }
 </script>
