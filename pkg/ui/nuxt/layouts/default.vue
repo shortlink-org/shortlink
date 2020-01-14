@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content">
     <Nav />
     <nuxt/>
   </div>
@@ -14,3 +14,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.content {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+</style>
