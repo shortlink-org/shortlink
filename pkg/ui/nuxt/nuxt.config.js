@@ -2,6 +2,11 @@ module.exports = {
   mode: 'spa',
 
   /*
+  ** Environment Variables
+  */
+  env: {},
+
+  /*
    ** Build configuration
    */
   build: {
@@ -36,6 +41,23 @@ module.exports = {
       { rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Roboto' },
       { rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons' },
     ],
+  },
+
+  /*
+   ** Nuxt.js modules
+   */
+  modules: [
+    '@nuxtjs/axios',
+  ],
+
+  /*
+   ** Axios module configuration
+   */
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'http://localhost:7070',
+    proxyHeaders: false,
+    credentials: false
   },
 
   /*

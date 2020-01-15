@@ -1,6 +1,8 @@
 <script>
   export default {
     data() {
+      let links = this.$store;
+      console.warn('store', links)
       const item = {
         url: 'http://example.com',
         hash: 'sh35f5',
@@ -30,6 +32,9 @@
     },
     head: {
       title: 'Links'
+    },
+    async fetch ({ store, params }) {
+      await store.dispatch('GET_LINKS');
     }
   }
 </script>
