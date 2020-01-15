@@ -218,10 +218,14 @@ func InitProfiling() PprofEndpoint {
 }
 
 func InitSentry() (*sentryhttp.Handler, func(), error) {
-	viper.SetDefault("SENTRY_DSN", "___DSN___")
+	DSN := viper.GetString("SENTRY_DSN")
+
+	if DSN != "" {
+		return nil, nil, nil
+	}
 
 	err := sentry.Init(sentry.ClientOptions{
-		Dsn: viper.GetString("SENTRY_DSN"),
+		Dsn: viper.GetString("DSN"),
 	})
 	if err != nil {
 		return nil, nil, err
