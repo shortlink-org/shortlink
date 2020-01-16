@@ -1,18 +1,12 @@
 <script>
+  import { mapGetters, mapActions } from 'vuex'
+
   export default {
     data() {
-      let links = this.$store;
-      console.warn('store', links)
-      const item = {
-        url: 'http://example.com',
-        hash: 'sh35f5',
-        describe: 'No. 189, Grove St, Los Angeles',
-        create_at: '30/12/2020',
-        update_at: '30/12/2020',
-      }
+      let { links } = this.$store.state;
 
       return {
-        tableData: Array(20).fill(item),
+        links,
       }
     },
     render(h) {
@@ -20,12 +14,12 @@
         <el-main>
           <h1>Links</h1>
 
-          <el-table data={this.tableData} height="100%">
-            <el-table-column fixed prop="url" label="URL" width="240"></el-table-column>
-            <el-table-column prop="hash" label="Hash" width="140"></el-table-column>
-            <el-table-column prop="describe" label="Describe"></el-table-column>
-            <el-table-column prop="create_at" label="Create at" width="140"></el-table-column>
-            <el-table-column prop="update_at" label="Update at" width="140"></el-table-column>
+          <el-table data={this.links} height="100%">
+            <el-table-column fixed prop="Url" label="URL" width="240"></el-table-column>
+            <el-table-column prop="Hash" label="Hash" width="140"></el-table-column>
+            <el-table-column prop="Describe" label="Describe"></el-table-column>
+            <el-table-column prop="CreatedAt" label="Create at" width="140" formatter={ this.formatterTime }></el-table-column>
+            <el-table-column prop="UpdatedAt" label="Update at" width="140" formatter={ this.formatterTime }></el-table-column>
           </el-table>
         </el-main>
       )
@@ -35,6 +29,11 @@
     },
     async fetch ({ store, params }) {
       await store.dispatch('GET_LINKS');
-    }
+    },
+    methods: {
+      formatterTime(row, prop, value) {
+        return this.$dateFns.format(new Date(value))
+      }
+    },
   }
 </script>
