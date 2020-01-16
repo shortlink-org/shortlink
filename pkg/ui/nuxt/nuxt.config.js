@@ -18,10 +18,17 @@ module.exports = {
 
   buildModules: [
     '@nuxtjs/date-fns',
+    '@nuxtjs/router',
   ],
 
   dateFns: {
     format: 'yyyy-MM-dd',
+  },
+
+  generate: {
+    routes: [
+      '/'
+    ]
   },
 
   /*
