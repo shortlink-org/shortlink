@@ -43,7 +43,7 @@ require (
 	github.com/scylladb/gocqlx v1.3.3
 	github.com/segmentio/kafka-go v0.3.4
 	github.com/sirupsen/logrus v1.4.2
-	github.com/spf13/viper v1.6.1
+	github.com/spf13/viper v1.6.2
 	github.com/stretchr/testify v1.4.0
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/tidwall/pretty v1.0.0 // indirect
