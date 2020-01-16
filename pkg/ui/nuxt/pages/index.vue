@@ -21,6 +21,18 @@
             <el-table-column prop="CreatedAt" label="Create at" width="140" formatter={ this.formatterTime }></el-table-column>
             <el-table-column prop="UpdatedAt" label="Update at" width="140" formatter={ this.formatterTime }></el-table-column>
           </el-table>
+
+          <md-speed-dial md-direction="top">
+            <md-speed-dial-target>
+              <md-icon>add</md-icon>
+            </md-speed-dial-target>
+
+            <md-speed-dial-content>
+              <md-button class="md-icon-button">
+                <md-icon>link</md-icon>
+              </md-button>
+            </md-speed-dial-content>
+          </md-speed-dial>
         </el-main>
       )
     },
