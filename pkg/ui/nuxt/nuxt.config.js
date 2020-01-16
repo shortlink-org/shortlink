@@ -16,6 +16,14 @@ module.exports = {
     vendor: ['axios', 'vue-material'],
   },
 
+  buildModules: [
+    '@nuxtjs/date-fns',
+  ],
+
+  dateFns: {
+    format: 'yyyy-MM-dd',
+  },
+
   /*
    ** Global CSS
    */

@@ -8,13 +8,12 @@ const store = () => new Vuex.Store({
     links: []
   },
   mutations: {
-    GET_LINKS (links) {
-      console.warn('GET_LINKS', links)
+    GET_LINKS(state, links) {
       state.links = links
     }
   },
   actions: {
-    async GET_LINKS ({ commit }) {
+    async GET_LINKS({ commit }) {
       const data = await this.$axios.$get('/api/links')
       commit('GET_LINKS', data)
     }
