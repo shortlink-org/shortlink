@@ -85,6 +85,9 @@ matrix:
         - npm install -g surge
         - make nuxt_generate
 
+      script:
+        - echo "Skip test"
+
       deploy:
         - provider: surge
           project: ./pkg/ui/nuxt/dist
