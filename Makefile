@@ -148,7 +148,6 @@ helm-clean: ## Clean artifact from K8S
 	@helm del --purge ${PROJECT_NAME}
 
 # UI ===================================================================================================================
-nuxt_deploy: ## Deploy nuxt UI
+nuxt_generate: ## Deploy nuxt UI
 	@npm --prefix ${PATH_TO_UI_NUXT} install
 	@npm --prefix ${PATH_TO_UI_NUXT} run generate
-	@surge ${PATH_TO_UI_NUXT}/dist/
