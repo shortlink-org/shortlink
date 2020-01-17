@@ -66,11 +66,6 @@ matrix:
             after_success:
               - bash <(curl -s https://codecov.io/bash)
 
-      deploy:
-        - provider: script
-          script: make CI_COMMIT_TAG=$TRAVIS_TAG docker
-          on:
-            tags: true
 
     - language: node_js
 
@@ -88,9 +83,13 @@ matrix:
       script:
         - echo "Skip test"
 
-      deploy:
-        - provider: surge
-          project: ./pkg/ui/nuxt/dist
-          domain: shortlink.surge.sh
-#          on:
-#            tags: true
+deploy:
+  - provider: script
+    script: make CI_COMMIT_TAG=$TRAVIS_TAG docker
+    on:
+      tags: true
+  - provider: surge
+    project: ./pkg/ui/nuxt/dist
+    domain: shortlink.surge.sh
+    on:
+      all_branches: true
