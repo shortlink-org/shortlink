@@ -86,10 +86,9 @@ matrix:
 
       install:
         - npm install -g surge
-        - make nuxt_generate
 
       script:
-        - echo "Skip test"
+        - make nuxt_generate
 
       deploy:
         - provider: surge
