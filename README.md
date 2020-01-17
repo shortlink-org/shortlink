@@ -116,6 +116,12 @@ docker-compose \
 Sometimes a container without a specified ip may occupy a binding address of another service, 
 which will result in `Address already in use`.
 
+### TRAVIS CI
+
+- DOCKER_PASSWORD
+- SURGE_LOGIN
+- SURGE_TOKEN
+
 ## -~- THE END -~-
 
 [mergify]: https://mergify.io
