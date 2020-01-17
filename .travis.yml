@@ -6,19 +6,17 @@ git:
   submodules: false
   depth: 1
 
-# Skip the install step. Don't `go get` dependencies. Only build with the code
-# in vendor/
-install: true
-
 # Don't email me the results of the test runs.
 notifications:
   email: false
 
 matrix:
   include:
-    - language: go
+    - name: backend
+      language: go
       before_install:
         - make dep
+
       # Force-enable Go modules. Also force go to use the code in vendor/
       # These will both be unnecessary when Go 1.14 lands.
       #env: GO111MODULE=on GOFLAGS='-mod vendor'
@@ -29,6 +27,10 @@ matrix:
         - 1.13.x
 
       #go_import_path:
+
+      # Skip the install step. Don't `go get` dependencies. Only build with the code
+      # in vendor/
+      install: true
 
       cache:
         directories:
@@ -66,8 +68,14 @@ matrix:
             after_success:
               - bash <(curl -s https://codecov.io/bash)
 
+      deploy:
+        - provider: script
+          script: make CI_COMMIT_TAG=$TRAVIS_TAG docker
+          on:
+            tags: true
 
-    - language: node_js
+    - name: frontend
+      language: node_js
 
       node_js:
         - v13.6.0
@@ -83,13 +91,9 @@ matrix:
       script:
         - echo "Skip test"
 
-deploy:
-  - provider: script
-    script: make CI_COMMIT_TAG=$TRAVIS_TAG docker
-    on:
-      tags: true
-  - provider: surge
-    project: ./pkg/ui/nuxt/dist
-    domain: shortlink.surge.sh
-    on:
-      all_branches: true
+      deploy:
+        - provider: surge
+          project: ./pkg/ui/nuxt/dist
+          domain: shortlink.surge.sh
+          on:
+            all_branches: true
