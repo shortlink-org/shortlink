@@ -77,6 +77,10 @@ docker-compose \
 + HealthCheck
 + Support K8S (Helm Chart)
 
+### UI
+
++ Nuxt: [demo UI](http://shortlink.surge.sh/)
+
 ### Configuration
 
 ##### [12 factors: ENV](https://12factor.net/config)
@@ -101,11 +105,6 @@ docker-compose \
 | MQ_ENABLED          | false                                                   | Enabled MQ-service                                       |
 | SENTRY_DSN          | ___DSN___                                               | key for sentry                                           | 
 
-### Optional
-
-- CoreDNS
-- Sentry
-
 ### CoreDNS IP table
 
 | Service           | Ip address     | Description                                    |
@@ -116,6 +115,12 @@ docker-compose \
 
 Sometimes a container without a specified ip may occupy a binding address of another service, 
 which will result in `Address already in use`.
+
+### TRAVIS CI
+
+- DOCKER_PASSWORD
+- SURGE_LOGIN
+- SURGE_TOKEN
 
 ## -~- THE END -~-
 

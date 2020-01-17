@@ -1,0 +1,85 @@
+module.exports = {
+  mode: 'spa',
+
+  /*
+  ** Environment Variables
+  */
+  env: {},
+
+  /*
+   ** Build configuration
+   */
+  build: {
+    babel: {
+      plugins: ['transform-vue-jsx'],
+    },
+    vendor: ['axios', 'vue-material'],
+  },
+
+  buildModules: [
+    '@nuxtjs/date-fns',
+    '@nuxtjs/router',
+  ],
+
+  dateFns: {
+    format: 'yyyy-MM-dd',
+  },
+
+  generate: {
+    routes: [
+      '/'
+    ]
+  },
+
+  /*
+   ** Global CSS
+   */
+  css: [
+    { src: 'assets/main.css', lang: 'css' },
+    { src: 'vue-material/dist/vue-material.min.css', lang: 'css' },
+    { src: '~/assets/theme.scss', lang: 'scss' }, // include vue-material theme engine
+    { src: 'element-ui/lib/theme-chalk/reset.css', lang: 'css' },
+    { src: 'element-ui/lib/theme-chalk/index.css', lang: 'css' },
+  ],
+
+  /*
+   ** Headers of the page
+   */
+  head: {
+    titleTemplate: '%s - Shortlink',
+    meta: [
+      { charset: 'utf-8' },
+      { hid: 'description', name: 'description', content: 'Shortlink service' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    ],
+    link: [
+      { rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Roboto' },
+      { rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons' },
+    ],
+  },
+
+  /*
+   ** Nuxt.js modules
+   */
+  modules: [
+    '@nuxtjs/axios',
+  ],
+
+  /*
+   ** Axios module configuration
+   */
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+    baseURL: 'http://localhost:7070',
+    proxyHeaders: false,
+    credentials: false
+  },
+
+  /*
+   ** Plugins to load before mounting the App
+   */
+  plugins: [
+    { src: '~/plugins/vue-material' },
+    { src: '@/plugins/element-ui' },
+  ],
+}
