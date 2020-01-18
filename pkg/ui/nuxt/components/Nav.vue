@@ -1,18 +1,8 @@
 <script>
 export default {
   data() {
-    let activeIndex = 'links'
-
-    switch (this.$route.path) {
-      case '/about':
-        activeIndex = 'about'
-        break
-      default:
-        activeIndex = 'links'
-    }
 
     return {
-      activeIndex,
       title: this.$route.name,
       drawer: null,
       items: [
@@ -100,10 +90,15 @@ export default {
       </div>
     )
   },
+  watch: {
+    '$route' (val) {
+      this.title = val.name
+    }
+  },
   methods: {
     changeDrawer: async (state) => {
       state.$data.drawer = !state.$data.drawer
     }
-  }
+  },
 }
 </script>
