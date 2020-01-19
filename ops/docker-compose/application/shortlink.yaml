@@ -4,11 +4,12 @@ services:
 
   shortlink:
     build: .
+    container_name: shortlink
     ports:
       # API
       - "7080:7070"
       # Metrics
-      - "9090:9090"
+      - "9091:9090"
     restart: on-failure
     labels:
       - "traefik.enable=true"
@@ -19,8 +20,15 @@ services:
 #      - "traefik.http.services.shortlink.loadbalancer.server.port=7070"
       - "traefik.backend.healthcheck.path=/ready"
       - "traefik.backend.healthcheck.port=9090"
-    logging:
-      driver: "fluentd"
-      options:
-        tag: shortlink
-
+    depends_on:
+      - fluentd
+      - coredns
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    # logging:
+    #   driver: fluentd
+    #   options:
+    #     tag: shortlink
