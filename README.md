@@ -77,6 +77,11 @@ docker-compose \
 + HealthCheck
 + Support K8S (Helm Chart)
 
+### Gateway
+
++ Traefik
++ Nginx
+
 ### UI
 
 + Nuxt: [demo UI](http://shortlink.surge.sh/)
