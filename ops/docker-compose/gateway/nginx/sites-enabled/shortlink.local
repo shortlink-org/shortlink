@@ -1,0 +1,85 @@
+upstream backend {
+  ip_hash;
+  server shortlink:7070;
+}
+
+# upstream backend_socket {
+#   ip_hash;
+#   server shortlink-sockets:8000;
+# }
+
+server {
+  listen 80 default_server;
+  server_name _;
+
+  include templates/default.conf;
+
+  # return 301 https://$host$request_uri;
+  location / {
+    proxy_set_header        Upgrade $http_upgrade;
+    proxy_set_header        Connection "upgrade";
+    proxy_set_header        Host $host;
+    proxy_set_header        X-Real-IP $remote_addr;
+    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header        X-Forwarded-Proto $scheme;
+
+    proxy_http_version 1.1;
+
+    proxy_pass http://backend;
+  }
+}
+
+# server {
+#     listen 443 ssl;
+#
+#     server_name _;
+#
+#     include templates/default.conf;
+#
+#     # ssl_certificate           /etc/nginx/cert/shortlink.local.ssl-bundle.crt;
+#     # ssl_certificate_key       /etc/nginx/cert/shortlink.local.private.key;
+#
+#     # include templates/ssl.conf;
+#
+#     # location /ws {
+#     #   proxy_set_header        Upgrade $http_upgrade;
+#     #   proxy_set_header        Connection "upgrade";
+#     #   proxy_set_header        Host $host;
+#     #   proxy_set_header        X-Real-IP $remote_addr;
+#     #   proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+#     #   proxy_set_header        X-Forwarded-Proto $scheme;
+#     #   proxy_set_header        X-shortlink-Sockets-External "true";
+#     #
+#     #   proxy_http_version 1.1;
+#     #
+#     #   proxy_pass http://backend_socket;
+#     # }
+#
+#     location / {
+#       proxy_set_header        Upgrade $http_upgrade;
+#       proxy_set_header        Connection "upgrade";
+#       proxy_set_header        Host $host;
+#       proxy_set_header        X-Real-IP $remote_addr;
+#       proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+#       proxy_set_header        X-Forwarded-Proto $scheme;
+#
+#       proxy_http_version 1.1;
+#
+#       proxy_pass http://backend;
+#     }
+#
+#     # TODO: Custom error
+#     # error_page 413 /errors/413.json;
+#     # error_page 429 /errors/429.json;
+#     # error_page 500 /errors/500.json;
+#     # error_page 501 /errors/501.json;
+#     # error_page 502 /errors/502.json;
+#     # error_page 503 /errors/503.json;
+#     # error_page 504 /errors/504.json;
+#     #
+#     # location ^~ /errors/ {
+#     #   internal;
+#     #
+#     #   root /etc/nginx/static-files/;
+#     # }
+# }

@@ -19,6 +19,6 @@ services:
       - fluentd
       - coredns
     logging:
-      driver: "fluentd"
+      driver: fluentd
       options:
         tag: redis
