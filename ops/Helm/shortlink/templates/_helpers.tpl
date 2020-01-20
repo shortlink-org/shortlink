@@ -42,6 +42,8 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/component: {{ .Chart.Name }}
+app.kubernetes.io/part-of: shortlink
 {{- end -}}
 
 {{/*
