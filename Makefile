@@ -150,9 +150,9 @@ helm-clean: ## Clean artifact from K8S
 	@helm del --purge ${PROJECT_NAME}
 
 # MINIKUBE =============================================================================================================
-minikube-run: docker-build ## run minikube for dev mode
-	@minikube start              # Start minikube
-	@eval $(minikube docker-env) # Set docker env
+minikube-init: docker-build ## run minikube for dev mode
+	@minikube start --cpus 4 --memory "12288mb" # Start minikube
+	@eval $(minikube docker-env)                # Set docker env
 
 minikube-update: ## update image to last version
 	@make docker-build
