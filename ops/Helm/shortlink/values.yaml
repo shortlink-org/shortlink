@@ -106,3 +106,10 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+chaosMesh:
+  podChaos:
+    enabled: true
+    labelSelectors:
+      app.kubernetes.io/part-of: shortlink
+    scheduler: "@every 1m"
