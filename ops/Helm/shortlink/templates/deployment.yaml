@@ -18,36 +18,50 @@ spec:
     spec:
     {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml . | indent 8 }}
     {{- end }}
       serviceAccountName: {{ template "shortlink.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.deploy.podSecurityContext | nindent 8 }}
+        {{- toYaml .Values.deploy.podSecurityContext | indent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
-          securityContext:
-            {{- toYaml .Values.deploy.securityContext | nindent 12 }}
-          image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
-          imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: 7070
-              protocol: TCP
-          livenessProbe:
-                {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
-          readinessProbe:
-                {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
-          resources:
-            {{- toYaml .Values.deploy.resources | nindent 12 }}
+      - name: {{ .Chart.Name }}
+        securityContext:
+          {{- toYaml .Values.deploy.securityContext | indent 12 }}
+        image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
+        imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: 7070
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.deploy.livenessProbe.httpGet.path }}
+            port: {{ .Values.deploy.livenessProbe.httpGet.port }}
+          initialDelaySeconds: {{ .Values.deploy.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.deploy.livenessProbe.periodSeconds }}
+          successThreshold: {{ .Values.deploy.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.deploy.livenessProbe.failureThreshold }}
+          periodSeconds: {{ .Values.deploy.livenessProbe.periodSeconds }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.deploy.readinessProbe.httpGet.path }}
+            port: {{ .Values.deploy.readinessProbe.httpGet.port }}
+          initialDelaySeconds: {{ .Values.deploy.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.deploy.readinessProbe.periodSeconds }}
+          successThreshold: {{ .Values.deploy.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.deploy.readinessProbe.failureThreshold }}
+          periodSeconds: {{ .Values.deploy.readinessProbe.periodSeconds }}
+        resources:
+          {{- toYaml .Values.deploy.resources | indent 10 }}
       {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml . | indent 8 }}
       {{- end }}
     {{- with .Values.deploy.affinity }}
       affinity:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml . | indent 8 }}
     {{- end }}
     {{- with .Values.deploy.tolerations }}
       tolerations:
-        {{- toYaml . | nindent 8 }}
+        {{- toYaml . | indent 8 }}
     {{- end }}

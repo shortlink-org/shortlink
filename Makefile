@@ -149,6 +149,15 @@ helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 helm-clean: ## Clean artifact from K8S
 	@helm del --purge ${PROJECT_NAME}
 
+# MINIKUBE =============================================================================================================
+minikube-init: docker-build ## run minikube for dev mode
+	@minikube start --cpus 4 --memory "12288mb" # Start minikube
+	@eval $(minikube docker-env)                # Set docker env
+
+minikube-update: ## update image to last version
+	@make docker-build
+	@make helm-deploy
+
 # UI ===================================================================================================================
 nuxt_generate: ## Deploy nuxt UI
 	@npm --prefix ${PATH_TO_UI_NUXT} install
