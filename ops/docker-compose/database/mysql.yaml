@@ -1,0 +1,29 @@
+version: '2.4'
+
+services:
+
+  mysql:
+    image: mysql:8
+    init: true
+    restart: on-failure
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: 'shortlink'
+      MYSQL_USER: 'shortlink'
+      MYSQL_PASSWORD: 'shortlink'
+      MYSQL_ROOT_PASSWORD: 'shortlink'
+    networks:
+      simple:
+        ipv4_address: 10.5.0.100
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    depends_on:
+      - fluentd
+      - coredns
+    logging:
+      driver: "fluentd"
+      options:
+        tag: mysql
