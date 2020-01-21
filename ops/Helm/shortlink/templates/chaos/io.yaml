@@ -1,0 +1,127 @@
+{{- if .Values.chaosMesh.IoChaos.enabled -}}
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: chaosfs-{{ include "shortlink.fullname" . }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+  labels:
+    app.kubernetes.io/component: webhook
+data:
+  chaosfs-shortlink.yaml: |
+    name: chaosfs-{{ include "shortlink.fullname" . }}
+    selector:
+      labelSelectors:
+        app.kubernetes.io/instance: shortlink #TODO: use variable
+    initContainers:
+    - name: inject-scripts
+      image: pingcap/chaos-scripts:latest
+      imagePullpolicy: Always
+      command: ["sh", "-c", "/scripts/init.sh -d /var/lib/{{ include "shortlink.fullname" . }}/data -f /var/lib/{{ include "shortlink.fullname" . }}/fuse-data"]
+    containers:
+    - name: chaosfs
+      image: pingcap/chaos-fs:latest
+      imagePullpolicy: Always
+      ports:
+      - containerPort: 65534
+      securityContext:
+        privileged: true
+      command:
+        - /usr/local/bin/chaosfs
+        - -addr=:65534
+        - -pidfile=/tmp/fuse/pid
+        - -original=/var/lib/{{ include "shortlink.fullname" . }}/fuse-data
+        - -mountpoint=/var/lib/{{ include "shortlink.fullname" . }}/data
+      volumeMounts:
+        - name: {{ include "shortlink.fullname" . }}
+          mountPath: /var/lib/{{ include "shortlink.fullname" . }}
+          mountPropagation: Bidirectional
+    volumeMounts:
+    - name: {{ include "shortlink.fullname" . }}
+      mountPath: /var/lib/{{ include "shortlink.fullname" . }}
+      mountPropagation: HostToContainer
+    - name: scripts
+      mountPath: /tmp/scripts
+    - name: fuse
+      mountPath: /tmp/fuse
+    volumes:
+    - name: scripts
+      emptyDir: {}
+    - name: fuse
+      emptyDir: {}
+    postStart:
+      {{ include "shortlink.fullname" . }}:
+        command:
+          - /tmp/scripts/wait-fuse.sh
+
+---
+
+apiVersion: pingcap.com/v1alpha1
+kind: IoChaos
+metadata:
+  name: io-mixed-chaos-{{ .Release.Name }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+spec:
+  action: mixed
+  mode: one
+  duration: "400s"
+  configName: chaosfs-{{ include "shortlink.fullname" . }}
+  path: ""
+  selector:
+    namespaces:
+      - {{ .Release.Namespace }}
+    labelSelectors:
+      app.kubernetes.io/instance: shortlink #TODO: use variable
+  layer: "fs"
+  percent: "50"
+  delay: "1ms"
+  scheduler:
+    cron: "@every 10m"
+
+---
+
+apiVersion: pingcap.com/v1alpha1
+kind: IoChaos
+metadata:
+  name: io-errno-chaos-{{ .Release.Name }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+spec:
+  action: errno
+  mode: one
+  duration: "400s"
+  configName: chaosfs-{{ include "shortlink.fullname" . }}
+  path: ""
+  selector:
+    namespaces:
+      - {{ .Release.Namespace }}
+    labelSelectors:
+      app.kubernetes.io/instance: shortlink #TODO: use variable
+  layer: "fs"
+  percent: "50"
+  scheduler:
+    cron: "@every 10m"
+
+---
+
+apiVersion: pingcap.com/v1alpha1
+kind: IoChaos
+metadata:
+  name: io-delay-chaos-{{ .Release.Name }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+spec:
+  action: delay
+  mode: one
+  duration: "400s"
+  configName: "chaosfs-tikv"
+  path: ""
+  selector:
+    namespaces:
+      - {{ .Release.Namespace }}
+    labelSelectors:
+      app.kubernetes.io/instance: shortlink #TODO: use variable
+  layer: "fs"
+  delay: "10ms"
+  scheduler:
+    cron: "@every 10m"
+
+{{- end }}

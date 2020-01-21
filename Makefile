@@ -147,7 +147,7 @@ helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 		--wait
 
 helm-clean: ## Clean artifact from K8S
-	@helm del --purge ${PROJECT_NAME}
+	@helm del ${PROJECT_NAME}
 
 # MINIKUBE =============================================================================================================
 minikube-init: docker-build ## run minikube for dev mode

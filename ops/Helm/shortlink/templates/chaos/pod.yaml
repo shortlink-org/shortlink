@@ -3,16 +3,36 @@ apiVersion: pingcap.com/v1alpha1
 kind: PodChaos
 metadata:
   name: pod-kill-chaos-{{ .Release.Name }}
-  # namespace: chaos-testing
+  namespace: {{ .Values.chaosMesh.namespace }}
 spec:
   action: pod-kill         # the specific chaos action to inject; supported actions: pod-kill/pod-failure
   mode: one                # the mode to run chaos action; supported modes are one/all/fixed/fixed-percent/random-max-percent
   duration: "60s"          # duration for the injected chaos experiment
   selector:                # pods where to inject chaos actions
     namespaces:            # the namespace of the system under test (SUT) you've deployed
-      - default
+      - {{ .Release.Namespace }}
     labelSelectors:        # the label of the pod for chaos injection
       app.kubernetes.io/instance: shortlink #TODO: use variable
   scheduler:               # scheduler rules for the running time of the chaos experiments about pods.
     cron: {{- toYaml .Values.chaosMesh.podChaos.scheduler | indent 4 }}
+
+---
+
+apiVersion: pingcap.com/v1alpha1
+kind: PodChaos
+metadata:
+  name: pod-failure-chaos-{{ .Release.Name }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+spec:
+  action: pod-failure
+  mode: one
+  duration: "30s"
+  selector:
+    namespaces:
+      - {{ .Release.Namespace }}
+    labelSelectors:
+      app.kubernetes.io/instance: shortlink #TODO: use variable
+  scheduler:
+    cron: {{- toYaml .Values.chaosMesh.podChaos.scheduler | indent 4 }}
+
 {{- end }}
