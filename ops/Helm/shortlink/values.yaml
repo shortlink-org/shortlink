@@ -108,8 +108,13 @@ ingress:
   #      - chart-example.local
 
 chaosMesh:
+  namespace: default
   podChaos:
     enabled: true
     labelSelectors:
       app.kubernetes.io/part-of: shortlink
-    scheduler: "@every 1m"
+    scheduler: "@every 5m"
+  NetworkChaos:
+    enabled: true
+  IoChaos:
+    enabled: true
