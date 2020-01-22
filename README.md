@@ -98,7 +98,7 @@ docker-compose \
 |---------------------|---------------------------------------------------------|----------------------------------------------------------|
 | STORE_TYPE          | ram                                                     | Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram, cassandra |
 | STORE_MONGODB_URI   | mongodb://localhost:27017                               | MongoDB URI                                              |
-| STORE_MYSQL_URI     | mysql://shortlink:shortlink@localhost:3306/shortlink    | MySQL URI                                                |
+| STORE_MYSQL_URI     | shortlink:shortlink@localhost:3306/shortlink    | MySQL URI                                                |
 | STORE_BADGER_PATH   | /tmp/links.badger                                       | Badger path to file                                      |
 | STORE_DGRAPH_URI    | localhost:9080                                          | DGRAPH link                                              |
 | STORE_LEVELDB_PATH  | /tmp/links.db                                           | LevelDB path to file                                     |

@@ -7,6 +7,8 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/spf13/viper"
 
+	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 )
@@ -23,13 +25,12 @@ func (m *MySQLLinkList) Init() error {
 	}
 
 	sqlStmt := `
-		DROP TABLE IF EXISTS 'links';
 		CREATE TABLE IF NOT EXISTS links (
-			id integer NOT NULL AUTO_INCREMENT,
-			url      varchar(255) NOT NULL,
-			hash     varchar(255) NOT NULL,
-			describe text,
-			PRIMARY KEY ('id')
+			id          int NOT NULL AUTO_INCREMENT,
+			url         varchar(255) NOT NULL,
+			hash        varchar(255) NOT NULL,
+			description text NULL,
+			PRIMARY KEY (id)
 		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 	`
 
@@ -53,7 +54,7 @@ func (m *MySQLLinkList) migrate() error { // nolint unused
 // Get ...
 func (m *MySQLLinkList) Get(id string) (*link.Link, error) {
 	// query builder
-	links := squirrel.Select("url, hash, describe").
+	links := squirrel.Select("url, hash, description").
 		From("links").
 		Where(squirrel.Eq{"hash": id})
 	query, args, err := links.ToSql()
@@ -79,7 +80,7 @@ func (m *MySQLLinkList) Get(id string) (*link.Link, error) {
 // List ...
 func (m *MySQLLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	// query builder
-	links := squirrel.Select("url, hash, describe").
+	links := squirrel.Select("url, hash, description").
 		From("links")
 	query, args, err := links.ToSql()
 	if err != nil {
@@ -116,7 +117,7 @@ func (m *MySQLLinkList) Add(source link.Link) (*link.Link, error) {
 
 	// query builder
 	links := squirrel.Insert("links").
-		Columns("url", "hash", "describe").
+		Columns("url", "hash", "description").
 		Values(data.Url, data.Hash, data.Describe)
 
 	query, args, err := links.ToSql()
@@ -158,7 +159,7 @@ func (m *MySQLLinkList) Delete(id string) error {
 // setConfig - set configuration
 func (m *MySQLLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MYSQL_URI", "mysql://shortlink:shortlink@localhost:3306/shortlink")
+	viper.SetDefault("STORE_MYSQL_URI", "shortlink:shortlink@(localhost:3306)/shortlink")
 
 	m.config = MySQLConfig{
 		URI: viper.GetString("STORE_MYSQL_URI"),
