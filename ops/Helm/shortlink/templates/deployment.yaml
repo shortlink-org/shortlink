@@ -41,7 +41,6 @@ spec:
           periodSeconds: {{ .Values.deploy.livenessProbe.periodSeconds }}
           successThreshold: {{ .Values.deploy.livenessProbe.successThreshold }}
           failureThreshold: {{ .Values.deploy.livenessProbe.failureThreshold }}
-          periodSeconds: {{ .Values.deploy.livenessProbe.periodSeconds }}
         readinessProbe:
           httpGet:
             path: {{ .Values.deploy.readinessProbe.httpGet.path }}
@@ -50,7 +49,6 @@ spec:
           periodSeconds: {{ .Values.deploy.readinessProbe.periodSeconds }}
           successThreshold: {{ .Values.deploy.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.deploy.readinessProbe.failureThreshold }}
-          periodSeconds: {{ .Values.deploy.readinessProbe.periodSeconds }}
         resources:
           {{- toYaml .Values.deploy.resources | indent 10 }}
       {{- with .Values.deploy.nodeSelector }}
