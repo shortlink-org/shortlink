@@ -54,7 +54,7 @@ module.exports = {
     ],
     htmlAttrs: {
       lang: 'en',
-      dir: 'auto' // The dir attribute specifies the text direction of the element's content.
+      dir: 'auto', // The dir attribute specifies the text direction of the element's content.
     },
   },
 
