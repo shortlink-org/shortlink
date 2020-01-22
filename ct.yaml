@@ -1,8 +1,5 @@
 # See https://github.com/helm/chart-testing#configuration
 remote: origin
 chart-dirs:
-  - charts
-chart-repos:
-  - incubator=https://kubernetes-charts-incubator.storage.googleapis.com
-  - elastic=https://helm.elastic.co
+  - ops/Helm/shortlink
 helm-extra-args: --timeout=500
