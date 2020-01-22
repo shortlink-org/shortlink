@@ -1,14 +1,20 @@
-apiVersion: v2
-appVersion: "1.0"
-name: shortlink
-description: Shortlink service
-version: 0.2.2
-keywords:
+apiVersion: v1                                   # The chart API version (required)
+appVersion: "1.0.0"                              # The version of the app that this contains (optional)
+name: shortlink                                  # The name of the chart (required)
+description: Shortlink service                   # A single-sentence description of this project (optional)
+version: 0.2.4                                   # A SemVer 2 version (required)
+kubeVersion: ">= 1.12.0"                         # A SemVer range of compatible Kubernetes versions (optional)
+keywords:                                        # A list of keywords about this project (optional)
   - example
-home: https://batazor.github.io/shortlink/
-sources:
+  - shortlink
+home: https://batazor.github.io/shortlink/       # The URL of this project's home page (optional)
+sources:                                         # A list of URLs to source code for this project (optional)
   - https://github.com/batazor/shortlink
 maintainers:
   - email: batazor111@gmail.com
-    name: Login Victor
+    name: batazor
+    url: batazor.ru
 engine: gotpl
+type: application                                # It is the type of chart (optional)
+deprecated: false                                # Whether this chart is deprecated (optional, boolean)
+dependencies: []
