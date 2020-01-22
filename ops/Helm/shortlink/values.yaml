@@ -110,11 +110,11 @@ ingress:
 chaosMesh:
   namespace: default
   podChaos:
-    enabled: true
+    enabled: false
     labelSelectors:
       app.kubernetes.io/part-of: shortlink
     scheduler: "@every 5m"
   NetworkChaos:
-    enabled: true
+    enabled: false
   IoChaos:
-    enabled: true
+    enabled: false
