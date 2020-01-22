@@ -24,14 +24,14 @@ func TestMongo(t *testing.T) {
 	assert.Nil(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("mysql", "latest", nil)
+	resource, err := pool.Run("mysql", "latest", []string{"MYSQL_ROOT_PASSWORD=secret"})
 	assert.Nil(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_MYSQL_URI", fmt.Sprintf("mysql://localhost:%s", resource.GetPort("3306/tcp")))
+		err = os.Setenv("STORE_MYSQL_URI", fmt.Sprintf("root:secret@(localhost:%s)/mysql?parseTime=true", resource.GetPort("3306/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
 		err = store.Init()
