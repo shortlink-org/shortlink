@@ -52,6 +52,10 @@ module.exports = {
       { rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' },
       { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css' },
     ],
+    htmlAttrs: {
+      lang: 'en',
+      dir: 'auto' // The dir attribute specifies the text direction of the element's content.
+    },
   },
 
   /*
