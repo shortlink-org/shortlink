@@ -1,50 +1,104 @@
 <script>
 export default {
   data() {
-    let activeIndex = 'links'
-
-    switch (this.$route.path) {
-      case '/about':
-        activeIndex = 'about'
-        break
-      default:
-        activeIndex = 'links'
-    }
 
     return {
-      activeIndex,
+      title: this.$route.name,
+      drawer: null,
+      items: [
+        { title: 'Links', icon: 'mdi-account', path: "/" },
+        { title: 'About', icon: 'mdi-account', path: "/about" },
+      ],
     }
   },
   render(h) {
     return (
-      <md-toolbar class="md-medium md-primary">
-        <div class="md-toolbar-row">
-          <div class="md-toolbar-section-start">
-            <md-button class="md-icon-button">
-              <md-icon>menu</md-icon>
-            </md-button>
-            <h3 class="md-title">Shortlink</h3>
-          </div>
+      <div>
+        <v-app-bar
+          id="core-toolbar"
+          app
+          dense
+          fixed
+          flat
+          dense
+          tile
+          collapse-on-scroll
+          color="grey lighten-3"
+        >
+          <v-app-bar-nav-icon
+            color="grey"
+            onClick={() => this.changeDrawer(this)}
+          />
 
-          <div class="md-toolbar-section-end">
-            <div class="md-toolbar-row md-toolbar-offset">
-              <md-tabs class="md-primary" md-alignment="fixed" md-active-tab={this.activeIndex}>
-                <md-tab id="links" md-label="Links" href="/"></md-tab>
-                <md-tab id="about" md-label="About" href="/about"></md-tab>
-              </md-tabs>
-            </div>
+          <v-toolbar-title light>
+            { this.title }
+          </v-toolbar-title>
 
-            <md-button class="md-icon-button">
-              <md-icon>refresh</md-icon>
-            </md-button>
+          <v-spacer />
 
-            <md-button class="md-icon-button">
-              <md-icon>more_vert</md-icon>
-            </md-button>
-          </div>
-        </div>
-      </md-toolbar>
+          <v-toolbar-items>
+            <v-flex
+              align-center
+              layout
+              py-2
+            >
+              <v-text-field
+                label="Search..."
+                hide-details
+                color="grey"
+              />
+
+              <v-icon color="tertiary">mdi-account</v-icon>
+            </v-flex>
+          </v-toolbar-items>
+        </v-app-bar>
+
+        <v-navigation-drawer
+          v-model={this.drawer}
+          absolute
+          temporary
+          light
+        >
+          <v-list-item>
+            <v-list-item-avatar>
+              <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>John Leider</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
+          <v-divider></v-divider>
+
+          {
+            this.items.map(item => (
+              <nuxt-link to={item.path}>
+                <v-list-item link key={ item.icon }>
+                  <v-list-item-icon>
+                    <v-icon>{ item.icon }</v-icon>
+                  </v-list-item-icon>
+
+                  <v-list-item-content>
+                    <v-list-item-title>{ item.title }</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </nuxt-link>
+            ))
+          }
+        </v-navigation-drawer>
+      </div>
     )
+  },
+  watch: {
+    '$route' (val) {
+      this.title = val.name
+    }
+  },
+  methods: {
+    changeDrawer: async (state) => {
+      state.$data.drawer = !state.$data.drawer
+    }
   },
 }
 </script>

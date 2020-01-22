@@ -1,8 +1,15 @@
 <template>
-  <div class="content">
+  <v-app>
     <Nav />
-    <nuxt/>
-  </div>
+
+    <!-- Sizes your content based upon application components -->
+    <v-content>
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+        <nuxt/>
+      </v-container>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
@@ -15,9 +22,11 @@ export default {
 }
 </script>
 
-<style>
-.content {
-  display: grid;
-  grid-template-rows: auto 1fr;
+<style lang="scss">
+@import '@/styles/index.scss';
+
+/* Remove in 1.2 */
+.v-datatable thead th.column.sortable i {
+  vertical-align: unset;
 }
 </style>

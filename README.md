@@ -76,7 +76,15 @@ docker-compose \
 
 + Prometheus
 + HealthCheck
-+ Support K8S (Helm Chart)
++ Support K8S
+  + Helm Chart
+    + [pingcap/chaos-meshh](https://github.com/pingcap/chaos-mesh)
+  + Minikube
+
+### Gateway
+
++ Traefik
++ Nginx
 
 ### UI
 

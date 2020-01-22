@@ -1,0 +1,117 @@
+{{- if .Values.chaosMesh.NetworkChaos.enabled -}}
+
+apiVersion: pingcap.com/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-partition-chaos-{{ .Release.Name }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+spec:
+  action: partition
+  mode: one
+  selector:
+    namespaces:
+      - {{ .Release.Namespace }}
+    labelSelectors:
+      app.kubernetes.io/instance: shortlink #TODO: use variable
+  direction: to
+  target:
+    selector:
+      namespaces:
+        - {{ .Release.Namespace }} #TODO: Set DB/MQ service
+      labelSelectors:
+        app.kubernetes.io/instance: shortlink #TODO: use variable
+    mode: one
+  duration: "10s"
+  scheduler:
+    cron: "@every 15s"
+
+---
+
+apiVersion: pingcap.com/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-loss-chaos-{{ .Release.Name }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+spec:
+  action: loss
+  mode: one
+  selector:
+    namespaces:
+      - {{ .Release.Namespace }}
+    labelSelectors:
+      app.kubernetes.io/instance: shortlink #TODO: use variable
+  loss:
+    loss: "25"
+    correlation: "25"
+  duration: "10s"
+  scheduler:
+    cron: "@every 15s"
+
+---
+
+apiVersion: pingcap.com/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-duplicate-chaos-{{ .Release.Name }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+spec:
+  action: duplicate
+  mode: one
+  selector:
+    namespaces:
+      - {{ .Release.Namespace }}
+    labelSelectors:
+      app.kubernetes.io/instance: shortlink #TODO: use variable
+  duplicate:
+    duplicate: "40"
+    correlation: "25"
+  duration: "10s"
+  scheduler:
+    cron: "@every 15s"
+
+---
+
+apiVersion: pingcap.com/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-delay-chaos-{{ .Release.Name }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+spec:
+  action: delay
+  mode: one
+  selector:
+    namespaces:
+      - {{ .Release.Namespace }}
+    labelSelectors:
+      app.kubernetes.io/instance: shortlink #TODO: use variable
+  delay:
+    latency: "90ms"
+    correlation: "25"
+    jitter: "90ms"
+  duration: "10s"
+  scheduler:
+    cron: "@every 15s"
+
+---
+
+apiVersion: pingcap.com/v1alpha1
+kind: NetworkChaos
+metadata:
+  name: network-corrupt-chaos-{{ .Release.Name }}
+  namespace: {{ .Values.chaosMesh.namespace }}
+spec:
+  action: corrupt
+  mode: one
+  selector:
+    namespaces:
+      - {{ .Release.Namespace }}
+    labelSelectors:
+      app.kubernetes.io/instance: shortlink #TODO: use variable
+  corrupt:
+    corrupt: "40"
+    correlation: "25"
+  duration: "10s"
+  scheduler:
+    cron: "@every 15s"
+
+{{- end }}

@@ -12,10 +12,12 @@ export function createRouter() {
     routes: [
       {
         path: '/',
+        name: 'Links',
         component: LinksPage
       },
       {
         path: '/about',
+        name: 'About',
         component: AboutPage
       }
     ]

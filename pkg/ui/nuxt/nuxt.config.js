@@ -13,7 +13,7 @@ module.exports = {
     babel: {
       plugins: ['transform-vue-jsx'],
     },
-    vendor: ['axios', 'vue-material'],
+    vendor: ['axios'],
   },
 
   buildModules: [
@@ -36,10 +36,6 @@ module.exports = {
    */
   css: [
     { src: 'assets/main.css', lang: 'css' },
-    { src: 'vue-material/dist/vue-material.min.css', lang: 'css' },
-    { src: '~/assets/theme.scss', lang: 'scss' }, // include vue-material theme engine
-    { src: 'element-ui/lib/theme-chalk/reset.css', lang: 'css' },
-    { src: 'element-ui/lib/theme-chalk/index.css', lang: 'css' },
   ],
 
   /*
@@ -53,8 +49,8 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     ],
     link: [
-      { rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Roboto' },
-      { rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons' },
+      { rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' },
+      { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css' },
     ],
   },
 
@@ -63,7 +59,12 @@ module.exports = {
    */
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/vuetify',
   ],
+
+  vuetify: {
+    optionsPath: './vuetify.options.js'
+  },
 
   /*
    ** Axios module configuration
@@ -78,8 +79,5 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    { src: '~/plugins/vue-material' },
-    { src: '@/plugins/element-ui' },
-  ],
+  plugins: [],
 }
