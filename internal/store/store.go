@@ -12,6 +12,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/dgraph"
 	"github.com/batazor/shortlink/internal/store/leveldb"
 	"github.com/batazor/shortlink/internal/store/mongo"
+	"github.com/batazor/shortlink/internal/store/mysql"
 	"github.com/batazor/shortlink/internal/store/postgres"
 	"github.com/batazor/shortlink/internal/store/ram"
 	"github.com/batazor/shortlink/internal/store/redis"
@@ -37,6 +38,8 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) DB { // nolint u
 		store.store = &postgres.PostgresLinkList{}
 	case "mongo":
 		store.store = &mongo.MongoLinkList{}
+	case "mysql":
+		store.store = &mysql.MySQLLinkList{}
 	case "redis":
 		store.store = &redis.RedisLinkList{}
 	case "dgraph":
