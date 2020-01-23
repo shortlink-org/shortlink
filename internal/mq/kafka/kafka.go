@@ -6,7 +6,7 @@ import (
 	"github.com/golang/protobuf/proto"
 	"github.com/segmentio/kafka-go"
 
-	"github.com/batazor/shortlink/internal/mq"
+	"github.com/batazor/shortlink/internal/mq/query"
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/link"
@@ -104,26 +104,26 @@ func (mq *Kafka) Close() error {
 	return err
 }
 
-func (mq *Kafka) Publish(message []byte) error {
-	err := mq.writer.WriteMessages(
+func (k *Kafka) Publish(message query.Message) error {
+	err := k.writer.WriteMessages(
 		context.Background(),
 		kafka.Message{
-			Key:   []byte("TEST"),
-			Value: message,
+			Key:   message.Key,
+			Value: message.Payload,
 		},
 	)
 
 	return err
 }
 
-func (mq *Kafka) Subscribe(message chan []byte) error {
+func (mq *Kafka) Subscribe(message query.Response) error {
 	for {
 		msg, err := mq.reader.ReadMessage(context.Background())
 		if err != nil {
 			return err
 		}
 
-		message <- msg.Value
+		message.Chan <- msg.Value
 	}
 }
 
@@ -143,7 +143,10 @@ func (mq *Kafka) Notify(event int, payload interface{}) *notify.Response { // no
 			}
 		}
 
-		err = mq.Publish(data)
+		err = mq.Publish(query.Message{
+			Key:     nil,
+			Payload: data,
+		})
 		return &notify.Response{
 			Payload: nil,
 			Error:   err,
@@ -160,5 +163,3 @@ func (mq *Kafka) Notify(event int, payload interface{}) *notify.Response { // no
 
 	return nil
 }
-
-var _ mq.MQ = (*Kafka)(nil)

@@ -2,21 +2,30 @@ package mq
 
 import (
 	"context"
-	"io"
 
-	"github.com/batazor/shortlink/internal/notify"
+	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/mq/kafka"
+	"github.com/batazor/shortlink/internal/mq/nats"
 )
 
-type MQ interface { // nolint unused
-	// setting
-	Init(ctx context.Context) error
-	io.Closer // Closer is the interface that wraps the basic Close method.
+// Use return implementation of MQ
+func (m *DataBus) Use(ctx context.Context, log logger.Logger) MQ { // nolint unused
+	switch m.typeMQ {
+	case "nats":
+		m.Databus = &kafka.Kafka{}
+	case "kafka":
+		m.Databus = &nats.NATS{}
+	default:
+		m.Databus = &kafka.Kafka{}
+	}
 
-	// system event
-	notify.Subscriber // Observer interface for subscribe on system event
+	if err := m.Databus.Init(ctx); err != nil {
+		panic(err)
+	}
 
-	// Pub/Sub a pattern
-	Publish(message []byte) error
-	Subscribe(message chan []byte) error
-	UnSubscribe() error
+	log.Info("run mq", logger.Fields{
+		"mq": m.typeMQ,
+	})
+
+	return m.Databus
 }
