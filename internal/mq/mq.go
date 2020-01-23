@@ -15,7 +15,7 @@ type MQ interface { // nolint unused
 	// system event
 	notify.Subscriber // Observer interface for subscribe on system event
 
-	// mq methods
-	Send(message []byte) error
+	// Pub/Sub a pattern
+	Publish(message []byte) error
 	Subscribe(message chan []byte) error
 }
