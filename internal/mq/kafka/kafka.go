@@ -127,6 +127,10 @@ func (mq *Kafka) Subscribe(message chan []byte) error {
 	}
 }
 
+func (mq *Kafka) UnSubscribe() error {
+	panic("implement me!")
+}
+
 func (mq *Kafka) Notify(event int, payload interface{}) *notify.Response { // nolint unused
 	switch event {
 	case api_type.METHOD_ADD:
