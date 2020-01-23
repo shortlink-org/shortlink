@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/internal/mq/query"
 )
 
 func init() {
@@ -27,7 +28,9 @@ func main() {
 		panic(err)
 	}
 
-	test := make(chan []byte)
+	test := query.Response{
+		Chan: make(chan []byte),
+	}
 
 	go func() {
 		if s.MQ != nil {
@@ -39,7 +42,7 @@ func main() {
 
 	go func() {
 		for {
-			s.Log.Info(fmt.Sprintf("GET: %s", string(<-test)))
+			s.Log.Info(fmt.Sprintf("GET: %s", string(<-test.Chan)))
 		}
 	}()
 
