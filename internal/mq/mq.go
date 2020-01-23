@@ -18,4 +18,5 @@ type MQ interface { // nolint unused
 	// Pub/Sub a pattern
 	Publish(message []byte) error
 	Subscribe(message chan []byte) error
+	UnSubscribe() error
 }
