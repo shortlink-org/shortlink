@@ -9,7 +9,6 @@ import (
 	"context"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
-	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/getsentry/sentry-go"
@@ -32,25 +31,28 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	mq, err := InitMQ(ctx)
+	mq, cleanup2, err := InitMQ(ctx, logger)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
 	}
-	handler, cleanup2, err := InitSentry()
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	serveMux := InitMonitoring(handler)
-	tracer, cleanup3, err := InitTracer(ctx, logger)
+	handler, cleanup3, err := InitSentry()
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	db, cleanup4, err := InitStore(ctx, logger)
+	serveMux := InitMonitoring(handler)
+	tracer, cleanup4, err := InitTracer(ctx, logger)
 	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	db, cleanup5, err := InitStore(ctx, logger)
+	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -59,6 +61,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 	pprofEndpoint := InitProfiling()
 	service, err := NewFullService(logger, mq, serveMux, tracer, db, pprofEndpoint, handler)
 	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -66,6 +69,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		return nil, nil, err
 	}
 	return service, func() {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -78,17 +82,19 @@ func InitializeLoggerService(ctx context.Context) (*Service, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	mq, err := InitMQ(ctx)
+	mq, cleanup2, err := InitMQ(ctx, logger)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
 	}
 	service, err := NewLoggerService(logger, mq)
 	if err != nil {
+		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	return service, func() {
+		cleanup2()
 		cleanup()
 	}, nil
 }
@@ -168,21 +174,23 @@ func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, fun
 	return tracer, cleanup, nil
 }
 
-func InitMQ(ctx context.Context) (mq.MQ, error) {
+func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
 	viper.SetDefault("MQ_ENABLED", "false")
 
 	if viper.GetBool("MQ_ENABLED") {
-		var service mq.MQ
-		service = &kafka.Kafka{}
+		var service mq.DataBus
+		dataBus := service.Use(ctx, log)
 
-		if err := service.Init(ctx); err != nil {
-			return nil, err
+		cleanup := func() {
+			if err := dataBus.Close(); err != nil {
+				log.Error(err.Error())
+			}
 		}
 
-		return service, nil
+		return dataBus, cleanup, nil
 	}
 
-	return nil, nil
+	return nil, nil, nil
 }
 
 func InitMonitoring(sentryHandler *sentryhttp.Handler) *http.ServeMux {

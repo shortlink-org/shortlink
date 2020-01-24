@@ -23,7 +23,7 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unuse
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_ADD, *newLink, responseCh)
+	go notify.Publish(api_type.METHOD_ADD, *newLink, responseCh, "RESPONSE_STORE_ADD")
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -64,7 +64,7 @@ func (r *Resolver) DeleteLink(ctx context.Context, args *struct { //nolint unuse
 }) (bool, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_DELETE, *args.Hash, responseCh)
+	go notify.Publish(api_type.METHOD_DELETE, *args.Hash, responseCh, "RESPONSE_STORE_DELETE")
 
 	c := <-responseCh
 	switch r := c.(type) {
