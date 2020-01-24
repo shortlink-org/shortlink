@@ -113,6 +113,8 @@ docker-compose \
 | API_TYPE            | http-chi                                                    | Select: http-chi, gRPC-web, graphql, cloudevents         |
 | API_PORT            | 7070                                                        | API port                                                 |
 | MQ_ENABLED          | false                                                       | Enabled MQ-service                                       |
+| MQ_TYPE             | kafka                                                       | Select: kafka, nats                                      |
+| MQ_KAFKA_URI        | localhost:9092                                              | Kafka URI                                                |
 | SENTRY_DSN          | ___DSN___                                                   | key for sentry                                           | 
 
 ### CoreDNS IP table

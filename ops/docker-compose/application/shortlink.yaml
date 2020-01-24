@@ -3,7 +3,9 @@ version: '2.4'
 services:
 
   shortlink:
-    build: .
+    build:
+      context: .
+      dockerfile: shortlink.Dockerfile
     container_name: shortlink
     ports:
       # API

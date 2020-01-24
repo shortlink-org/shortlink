@@ -5,6 +5,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 	"github.com/segmentio/kafka-go"
+	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/mq/query"
 	"github.com/batazor/shortlink/internal/notify"
@@ -12,7 +13,9 @@ import (
 	"github.com/batazor/shortlink/pkg/link"
 )
 
-type Config struct{} // nolint unused
+type Config struct { // nolint unused
+	URI string
+}
 
 type Kafka struct { // nolint unused
 	*Config
@@ -34,7 +37,7 @@ func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
 	//}
 
 	mq.writer = kafka.NewWriter(kafka.WriterConfig{
-		Brokers: []string{"192.168.0.108:9092"},
+		Brokers: []string{"127.0.0.1:9092"},
 		Topic:   topic,
 		//Dialer:            nil,
 		//Balancer:          &kafka.LeastBytes{},
@@ -55,7 +58,7 @@ func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
 	})
 
 	mq.reader = kafka.NewReader(kafka.ReaderConfig{
-		Brokers:                []string{"192.168.0.108:9092"},
+		Brokers:                []string{"127.0.0.1:9092"},
 		GroupID:                "",
 		Topic:                  topic,
 		Partition:              partition,
@@ -162,4 +165,13 @@ func (mq *Kafka) Notify(event int, payload interface{}) *notify.Response { // no
 	}
 
 	return nil
+}
+
+// setConfig - set configuration
+func (mq *Kafka) setConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("MQ_KAFKA_URI", "localhost:9092")
+	mq.Config = &Config{
+		URI: viper.GetString("MQ_KAFKA_URI"),
+	}
 }
