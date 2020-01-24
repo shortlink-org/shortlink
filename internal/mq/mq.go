@@ -71,7 +71,7 @@ func (mq *DataBus) Notify(event int, payload interface{}) *notify.Response { // 
 		})
 		return &notify.Response{
 			Name:    "RESPONSE_MQ_ADD",
-			Payload: &msg,
+			Payload: nil,
 			Error:   err,
 		}
 	case api_type.METHOD_GET:

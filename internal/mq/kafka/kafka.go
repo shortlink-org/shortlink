@@ -21,6 +21,8 @@ type Kafka struct { // nolint unused
 }
 
 func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
+	var err error
+
 	// Set configuration
 	mq.setConfig()
 
@@ -28,10 +30,9 @@ func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
 	topic := "shortlink"
 	partition := 0
 
-	// TODO: refactoring
-	//if mq.client, err = kafka.DialLeader(context.Background(), "tcp", "localhost:9092", topic, partition); err != nil {
-	//	return err
-	//}
+	if mq.client, err = kafka.DialLeader(context.Background(), "tcp", mq.Config.URI, topic, partition); err != nil {
+		return err
+	}
 
 	mq.writer = kafka.NewWriter(kafka.WriterConfig{
 		Brokers: []string{mq.Config.URI},
@@ -48,11 +49,6 @@ func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
 		MinBytes:      10e3, // 10KB
 		MaxBytes:      10e6, // 10MB
 	})
-
-	// TODO: refactoring
-	//if err = mq.client.SetWriteDeadline(time.Now().Add(10 * time.Second)); err != nil {
-	//	return err
-	//}
 
 	return nil
 }
@@ -72,8 +68,7 @@ func (mq *Kafka) Close() error {
 }
 
 func (k *Kafka) Publish(message query.Message) error {
-	err := k.writer.WriteMessages(
-		context.Background(),
+	_, err := k.client.WriteMessages(
 		kafka.Message{
 			Key:   message.Key,
 			Value: message.Payload,
