@@ -8,13 +8,11 @@ import (
 	"github.com/batazor/shortlink/internal/notify"
 )
 
+// MQ - common interface of DataBus
 type MQ interface { // nolint unused
 	// setting
 	Init(ctx context.Context) error
 	io.Closer // Closer is the interface that wraps the basic Close method.
-
-	// system event
-	notify.Subscriber // Observer interface for subscribe on system event
 
 	// Pub/Sub a pattern
 	Publish(message query.Message) error
@@ -22,8 +20,11 @@ type MQ interface { // nolint unused
 	UnSubscribe() error
 }
 
-// MQ abstract type
+// DataBus abstract type
 type DataBus struct { // nolint unused
-	Databus MQ
-	typeMQ  string
+	mq     MQ
+	typeMQ string
+
+	// system event
+	notify.Subscriber // Observer interface for subscribe on system event
 }

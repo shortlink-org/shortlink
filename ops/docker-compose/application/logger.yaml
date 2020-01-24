@@ -8,6 +8,9 @@ services:
       dockerfile: logger.Dockerfile
     container_name: logger
     restart: on-failure
+    environment:
+      MQ_ENABLED: "true"
+      MQ_KAFKA_URI: kafka:9092
     labels:
       - "traefik.enable=true"
       - "traefik.port=7070"

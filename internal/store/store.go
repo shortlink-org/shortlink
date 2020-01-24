@@ -82,30 +82,35 @@ func (s *Store) Notify(event int, payload interface{}) *notify.Response { // nol
 	case api_type.METHOD_ADD:
 		payload, err := s.store.Add(payload.(link.Link))
 		return &notify.Response{
+			Name:    "RESPONSE_STORE_ADD",
 			Payload: payload,
 			Error:   err,
 		}
 	case api_type.METHOD_GET:
 		payload, err := s.store.Get(payload.(string))
 		return &notify.Response{
+			Name:    "RESPONSE_STORE_GET",
 			Payload: payload,
 			Error:   err,
 		}
 	case api_type.METHOD_LIST:
 		payload, err := s.store.List(nil)
 		return &notify.Response{
+			Name:    "RESPONSE_STORE_LIST",
 			Payload: payload,
 			Error:   err,
 		}
 	case api_type.METHOD_UPDATE:
 		payload, err := s.store.Update(payload.(link.Link))
 		return &notify.Response{
+			Name:    "RESPONSE_STORE_UPDATE",
 			Payload: payload,
 			Error:   err,
 		}
 	case api_type.METHOD_DELETE:
 		err := s.store.Delete(payload.(string))
 		return &notify.Response{
+			Name:    "RESPONSE_STORE_DELETE",
 			Payload: nil,
 			Error:   err,
 		}

@@ -13,6 +13,9 @@ services:
       # Metrics
       - "9091:9090"
     restart: on-failure
+    environment:
+      MQ_ENABLED: "true"
+      MQ_KAFKA_URI: kafka:9092
     labels:
       - "traefik.enable=true"
       - "traefik.port=7070"
