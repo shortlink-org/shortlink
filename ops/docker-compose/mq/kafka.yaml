@@ -6,13 +6,20 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+    networks:
+      simple:
+        ipv4_address: 10.5.0.100
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    depends_on:
+      - fluentd
+      - coredns
 
   kafka:
     image: wurstmeister/kafka
     restart: on-failure
     container_name: kafka
-    depends_on:
-      - zookeeper
     ports:
       - '9092:9092'
     environment:
@@ -24,6 +31,15 @@ services:
       KAFKA_CREATE_TOPICS: "shortlink:1:1"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    depends_on:
+      - zookeeper
+      - fluentd
+      - coredns
     logging:
       driver: fluentd
       options:
