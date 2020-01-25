@@ -7,6 +7,7 @@ package di
 
 import (
 	"context"
+	"fmt"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
 	"github.com/batazor/shortlink/internal/store"
@@ -19,6 +20,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/viper"
+	"go.uber.org/automaxprocs/maxprocs"
 	"net/http"
 	"net/http/pprof"
 	"time"
@@ -59,7 +61,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		return nil, nil, err
 	}
 	pprofEndpoint := InitProfiling()
-	service, err := NewFullService(logger, mq, serveMux, tracer, db, pprofEndpoint, handler)
+	diDiAutoMaxPro, cleanup6, err := InitAutoMaxProcs(logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -68,7 +70,18 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewFullService(logger, mq, serveMux, tracer, db, pprofEndpoint, handler, diDiAutoMaxPro)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -87,13 +100,21 @@ func InitializeLoggerService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLoggerService(logger, mq)
+	diDiAutoMaxPro, cleanup3, err := InitAutoMaxProcs(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewLoggerService(logger, mq, diDiAutoMaxPro)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup3()
 		cleanup2()
 		cleanup()
 	}, nil
@@ -114,6 +135,24 @@ type Service struct {
 }
 
 type PprofEndpoint *http.ServeMux
+
+type diAutoMaxPro *string
+
+// InitAutoMaxProcs - Automatically set GOMAXPROCS to match Linux container CPU quota
+func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
+	undo, err := maxprocs.Set(maxprocs.Logger(func(s string, args ...interface{}) {
+		log.Info(fmt.Sprintf(s, args))
+	}))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	cleanup := func() {
+		undo()
+	}
+
+	return nil, cleanup, nil
+}
 
 // InitStore return store
 func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error) {
@@ -250,12 +289,12 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(InitLogger, InitTracer)
+var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry)
 
-func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler) (*Service, error) {
+func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
 	return &Service{
 		Log:    log,
 		MQ:     mq2,
@@ -271,7 +310,7 @@ func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tra
 // LoggerService =======================================================================================================
 var LoggerSet = wire.NewSet(DefaultSet, NewLoggerService, InitMQ)
 
-func NewLoggerService(log logger.Logger, mq2 mq.MQ) (*Service, error) {
+func NewLoggerService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
 	return &Service{
 		Log: log,
 		MQ:  mq2,
