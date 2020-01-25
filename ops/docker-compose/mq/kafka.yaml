@@ -40,7 +40,7 @@ services:
       - zookeeper
       - fluentd
       - coredns
-    logging:
-      driver: fluentd
-      options:
-        tag: kafka
+#    logging:
+#      driver: fluentd
+#      options:
+#        tag: kafka

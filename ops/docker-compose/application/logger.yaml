@@ -28,7 +28,9 @@ services:
     dns:
       - "10.5.0.2"
     dns_search: coredns
+    cpu_quota: 20000
+    mem_limit: 500m
     # logging:
     #   driver: fluentd
     #   options:
-    #     tag: shortlink
+    #     tag: logger

@@ -3,7 +3,7 @@ package kafka
 import (
 	"context"
 
-	"github.com/segmentio/kafka-go"
+	"github.com/Shopify/sarama"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/mq/query"
@@ -15,9 +15,9 @@ type Config struct { // nolint unused
 
 type Kafka struct { // nolint unused
 	*Config
-	client *kafka.Conn
-	writer *kafka.Writer
-	reader *kafka.Reader
+	client   sarama.Client
+	producer sarama.AsyncProducer
+	consumer sarama.Consumer
 }
 
 func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
@@ -26,29 +26,19 @@ func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
 	// Set configuration
 	mq.setConfig()
 
-	// to produce messages
-	topic := "shortlink"
-	partition := 0
+	config := sarama.NewConfig()
 
-	if mq.client, err = kafka.DialLeader(context.Background(), "tcp", mq.Config.URI, topic, partition); err != nil {
+	if mq.client, err = sarama.NewClient([]string{mq.Config.URI}, config); err != nil {
 		return err
 	}
 
-	mq.writer = kafka.NewWriter(kafka.WriterConfig{
-		Brokers: []string{mq.Config.URI},
-		Topic:   topic,
-	})
+	if mq.producer, err = sarama.NewAsyncProducerFromClient(mq.client); err != nil {
+		return err
+	}
 
-	mq.reader = kafka.NewReader(kafka.ReaderConfig{
-		Brokers:       []string{mq.Config.URI},
-		GroupID:       "",
-		Topic:         topic,
-		Partition:     partition,
-		Dialer:        nil,
-		QueueCapacity: 0,
-		MinBytes:      10e3, // 10KB
-		MaxBytes:      10e6, // 10MB
-	})
+	if mq.consumer, err = sarama.NewConsumerFromClient(mq.client); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -60,32 +50,40 @@ func (mq *Kafka) Close() error {
 		err = mq.client.Close()
 	}
 
-	if mq.writer != nil {
-		err = mq.writer.Close()
+	if mq.producer != nil {
+		err = mq.producer.Close()
+	}
+
+	if mq.consumer != nil {
+		err = mq.consumer.Close()
 	}
 
 	return err
 }
 
 func (k *Kafka) Publish(message query.Message) error {
-	_, err := k.client.WriteMessages(
-		kafka.Message{
-			Key:   message.Key,
-			Value: message.Payload,
-		},
-	)
+	k.producer.Input() <- &sarama.ProducerMessage{
+		Topic: "shortlink",
+		Key:   sarama.StringEncoder(message.Key),
+		Value: sarama.ByteEncoder(message.Payload),
+	}
 
-	return err
+	return nil
 }
 
 func (mq *Kafka) Subscribe(message query.Response) error {
-	for {
-		msg, err := mq.reader.ReadMessage(context.Background())
-		if err != nil {
-			return err
-		}
+	consumer, err := mq.consumer.ConsumePartition("shortlink", 1, sarama.OffsetOldest)
+	if err != nil {
+		return err
+	}
 
-		message.Chan <- msg.Value
+	for {
+		select {
+		case err := <-consumer.Errors():
+			message.Chan <- []byte(err.Error())
+		case msg := <-consumer.Messages():
+			message.Chan <- msg.Value
+		}
 	}
 }
 

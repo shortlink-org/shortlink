@@ -6,6 +6,7 @@ package di
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"net/http/pprof"
 	"time"
@@ -18,6 +19,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/viper"
+	"go.uber.org/automaxprocs/maxprocs"
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
@@ -38,6 +40,24 @@ type Service struct {
 }
 
 type PprofEndpoint *http.ServeMux
+
+type diAutoMaxPro *string
+
+// InitAutoMaxProcs - Automatically set GOMAXPROCS to match Linux container CPU quota
+func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
+	undo, err := maxprocs.Set(maxprocs.Logger(func(s string, args ...interface{}) {
+		log.Info(fmt.Sprintf(s, args))
+	}))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	cleanup := func() {
+		undo()
+	}
+
+	return nil, cleanup, nil
+}
 
 // InitStore return store
 func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error) {
@@ -186,12 +206,12 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(InitLogger, InitTracer)
+var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry)
 
-func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler) (*Service, error) {
+func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
 	return &Service{
 		Log:    log,
 		MQ:     mq,
@@ -211,7 +231,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 // LoggerService =======================================================================================================
 var LoggerSet = wire.NewSet(DefaultSet, NewLoggerService, InitMQ)
 
-func NewLoggerService(log logger.Logger, mq mq.MQ) (*Service, error) {
+func NewLoggerService(log logger.Logger, mq mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
 	return &Service{
 		Log: log,
 		MQ:  mq,
