@@ -15,6 +15,8 @@ services:
     depends_on:
       - fluentd
       - coredns
+    volumes:
+      - ./ops/docker-compose/mq/kafka/zookeeper.conf:/opt/zookeeper-3.4.13/conf/zoo.cfg
 
   kafka:
     image: wurstmeister/kafka
@@ -26,8 +28,10 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_CREATE_TOPICS: "shortlink:1:1"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+#      - ./ops/docker-compose/mq/kafka/kafka.conf:/opt/kafka/config/server.properties
     networks:
       - simple
     dns:
