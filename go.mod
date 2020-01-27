@@ -46,7 +46,7 @@ require (
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/prometheus/client_golang v1.3.0
+	github.com/prometheus/client_golang v1.4.0
 	github.com/russross/blackfriday v2.0.0+incompatible // indirect
 	github.com/scylladb/gocqlx v1.3.3
 	github.com/segmentio/kafka-go v0.3.5
@@ -66,12 +66,10 @@ require (
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413 // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
-	golang.org/x/sys v0.0.0-20200121082415-34d275377bf9 // indirect
 	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
 	google.golang.org/genproto v0.0.0-20200127141224-2548664c049f
 	google.golang.org/grpc v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
-	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gotest.tools v2.2.0+incompatible // indirect
 )
