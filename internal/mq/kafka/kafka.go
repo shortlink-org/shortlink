@@ -70,7 +70,7 @@ func (k *Kafka) Publish(message query.Message) error {
 		Headers:   nil,
 		Metadata:  nil,
 		Offset:    0,
-		Partition: 1,
+		Partition: 0,
 		Timestamp: time.Time{},
 	})
 

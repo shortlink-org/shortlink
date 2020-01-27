@@ -3,9 +3,17 @@ version: '2.4'
 services:
 
   zookeeper:
-    image: wurstmeister/zookeeper
+    image: confluentinc/cp-zookeeper:5.4.0
+    hostname: zookeeper
+    container_name: zookeeper
     ports:
       - "2181:2181"
+    environment:
+      # Support ENV - https://github.com/confluentinc/cp-docker-images/blob/5.4-preview/debian/zookeeper/include/etc/confluent/docker/zookeeper.properties.template
+      ZOOKEEPER_CLIENT_PORT: 2181 # the port at which the clients will connect
+      ZOOKEEPER_TICK_TIME: 2000   # the number of milliseconds of each tick
+      ZOOKEEPER_INIT_LIMIT: 10    # the number of ticks that the initial synchronization phase can take
+      ZOOKEEPER_SYNC_LIMIT: 5     # the number of ticks that can pass between sending a request and getting an acknowledgement
     networks:
       simple:
         ipv4_address: 10.5.0.100
@@ -15,23 +23,25 @@ services:
     depends_on:
       - fluentd
       - coredns
-    volumes:
-      - ./ops/docker-compose/mq/kafka/zookeeper.conf:/opt/zookeeper-3.4.13/conf/zoo.cfg
 
   kafka:
-    image: wurstmeister/kafka
+    image: confluentinc/cp-kafka:5.4.0
     restart: on-failure
+    hostname: kafka
     container_name: kafka
     ports:
       - '9092:9092'
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_CREATE_TOPICS: "shortlink:1:1"
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9094,OUTSIDE://localhost:9092
+      KAFKA_LISTENERS: INSIDE://:9094,OUTSIDE://:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_BROKER_ID: 0
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-#      - ./ops/docker-compose/mq/kafka/kafka.conf:/opt/kafka/config/server.properties
+      KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
     networks:
       - simple
     dns:
@@ -45,3 +55,25 @@ services:
 #      driver: fluentd
 #      options:
 #        tag: kafka
+
+  kafka-client:
+    image: confluentinc/cp-kafka:5.4.0
+    restart: on-failure
+    hostname: kafka-client
+    container_name: kafka-client
+    environment:
+      # The following settings are listed here only to satisfy the image's requirements.
+      # We override the image's `command` anyways, hence this container will not start a broker.
+      KAFKA_BROKER_ID: ignored
+      KAFKA_ZOOKEEPER_CONNECT: ignored
+      KAFKA_ADVERTISED_LISTENERS: ignored
+    command: "bash -c 'echo Waiting for Kafka to be ready... && \
+                       cub kafka-ready -b kafka:9094 1 60 && \
+                       kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1 --topic shortlink'"
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    depends_on:
+      - kafka
