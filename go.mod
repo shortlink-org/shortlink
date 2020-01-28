@@ -5,11 +5,10 @@ go 1.13
 require (
 	github.com/Azure/go-ansiterm v0.0.0-20170929234023-d6e3b3328b78 // indirect
 	github.com/DataDog/zstd v1.4.1 // indirect
-	github.com/MakeNowJust/heredoc v1.0.0 // indirect
-	github.com/Masterminds/semver v1.5.0 // indirect
 	github.com/Masterminds/squirrel v1.2.0
 	github.com/Microsoft/go-winio v0.4.14 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
+	github.com/Shopify/sarama v1.19.0
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/cloudevents/sdk-go v0.11.0
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
@@ -31,14 +30,13 @@ require (
 	github.com/graph-gophers/graphql-go v0.0.0-20191115155744-f33e81362277
 	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0
 	github.com/grpc-ecosystem/grpc-gateway v1.12.2
-	github.com/hashicorp/go-retryablehttp v0.6.4 // indirect
-	github.com/helm/chart-testing/v3 v3.0.0-beta.1 // indirect
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.3.0
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.3.0
 	github.com/markbates/pkger v0.14.0
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
+	github.com/nats-io/nats.go v1.9.1
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/opencontainers/runc v0.1.1 // indirect
@@ -47,9 +45,7 @@ require (
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.4.0
-	github.com/russross/blackfriday v2.0.0+incompatible // indirect
 	github.com/scylladb/gocqlx v1.3.3
-	github.com/segmentio/kafka-go v0.3.5
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
@@ -61,7 +57,10 @@ require (
 	github.com/tidwall/pretty v1.0.0 // indirect
 	github.com/uber/jaeger-client-go v2.22.1+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
+	github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c // indirect
+	github.com/xdg/stringprep v1.0.0 // indirect
 	go.mongodb.org/mongo-driver v1.2.1
+	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.13.0
 	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413 // indirect

@@ -114,6 +114,7 @@ func (mq *Kafka) setConfig() *sarama.Config {
 	config.Producer.RequiredAcks = sarama.WaitForAll
 	config.Producer.Retry.Max = 5
 	config.Producer.Return.Successes = true
+	config.Producer.Compression = sarama.CompressionSnappy
 
 	config.Consumer.Return.Errors = true
 
