@@ -114,7 +114,7 @@ down: ## Down docker-compose
 	@docker network rm simple shortlink_default
 
 clean: ## Clean artifacts
-	@docker network rm simple
+	-@docker network rm simple shortlink_default
 	@docker rmi -f shortlink_shortlink
 
 # DOCKER TASKS =========================================================================================================
