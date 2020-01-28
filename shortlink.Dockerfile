@@ -26,8 +26,8 @@ RUN \
     apk add curl && \
     rm -rf /var/cache/apk/*
 
-RUN addgroup -S 997 && adduser -S -g 997 997
-USER 997
+RUN addgroup -S shortlink && adduser -S -g shortlink shortlink
+USER shortlink
 
 HEALTHCHECK \
   --interval=5s \

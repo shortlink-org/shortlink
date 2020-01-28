@@ -26,8 +26,8 @@ RUN \
     apk add curl && \
     rm -rf /var/cache/apk/*
 
-RUN addgroup -S 997 && adduser -S -g 997 997
-USER 997
+RUN addgroup -S logger && adduser -S -g logger logger
+USER logger
 
 HEALTHCHECK \
   --interval=5s \
