@@ -97,7 +97,7 @@ func (mq *Kafka) UnSubscribe() error {
 	panic("implement me!")
 }
 
-// setConfig - set configuration
+// setConfig - Construct a new Sarama configuration.
 func (mq *Kafka) setConfig() *sarama.Config {
 	viper.AutomaticEnv()
 	viper.SetDefault("MQ_KAFKA_URI", "localhost:9092")
