@@ -5,6 +5,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
+
+	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 func TestMain(m *testing.M) {
@@ -55,7 +57,7 @@ func TestPublish(t *testing.T) {
 	responseCh := make(chan interface{})
 
 	// Publish
-	go Publish(0, "hello world", responseCh)
+	go Publish(api_type.METHOD_ADD, "hello world", responseCh, "RESPONSE_STORE_ADD")
 
 	c := <-responseCh
 	switch r := c.(type) {

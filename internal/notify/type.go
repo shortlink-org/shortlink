@@ -17,6 +17,7 @@ type Notify struct {
 }
 
 type Response struct {
+	Name    string
 	Payload interface{}
 	Error   error
 }

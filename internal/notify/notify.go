@@ -24,8 +24,8 @@ func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
 	}
 }
 
-func Publish(event int, payload interface{}, cb chan<- interface{}) { // nolint unused
-	var responses []*Response
+func Publish(event int, payload interface{}, cb chan<- interface{}, responseFilter string) { // nolint unused
+	responses := map[string]*Response{}
 	subsribers.mx.Lock()
 	defer subsribers.mx.Unlock()
 
@@ -41,12 +41,12 @@ func Publish(event int, payload interface{}, cb chan<- interface{}) { // nolint 
 			return
 		}
 
-		responses = append(responses, response)
+		responses[response.Name] = response
 	}
 
 	// TODO: Send only first success response for simple implementation
-	if len(responses) > 0 {
-		cb <- *responses[0]
+	if responses[responseFilter] != nil {
+		cb <- *responses[responseFilter]
 	}
 }
 

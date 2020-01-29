@@ -15,7 +15,7 @@ import (
 func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_GET, req.Hash, responseCh)
+	go notify.Publish(api_type.METHOD_GET, req.Hash, responseCh, "RESPONSE_STORE_GET")
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -39,7 +39,7 @@ func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error)
 func (api *API) GetLinks(ctx context.Context, req *link.Link) (*link.Links, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_LIST, nil, responseCh)
+	go notify.Publish(api_type.METHOD_LIST, nil, responseCh, "RESPONSE_STORE_LIST")
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -69,7 +69,7 @@ func (api *API) GetLinks(ctx context.Context, req *link.Link) (*link.Links, erro
 func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_ADD, *req, responseCh)
+	go notify.Publish(api_type.METHOD_ADD, *req, responseCh, "RESPONSE_STORE_ADD")
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -93,7 +93,7 @@ func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, err
 func (api *API) DeleteLink(ctx context.Context, req *link.Link) (*empty.Empty, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_DELETE, req.Hash, responseCh)
+	go notify.Publish(api_type.METHOD_DELETE, req.Hash, responseCh, "RESPONSE_STORE_DELETE")
 
 	c := <-responseCh
 	switch r := c.(type) {
