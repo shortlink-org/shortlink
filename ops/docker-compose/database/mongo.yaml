@@ -1,8 +1,16 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - "10.5.0.2"
+  dns_search: coredns
+
 services:
 
   mongo: &mongo
+    <<: *network
     image: mongo:4.2
     init: true
     restart: on-failure
@@ -11,11 +19,6 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_DATABASE: shortlink
-    networks:
-      - simple
-    dns:
-      - "10.5.0.2"
-    dns_search: coredns
     depends_on:
       - fluentd
       - coredns
@@ -25,6 +28,7 @@ services:
         tag: mongo
 
   mongo_initial_state:
+    <<: *network
     <<: *mongo
     container_name: mongo_initial_state
     depends_on:
@@ -38,10 +42,5 @@ services:
                 --file /initialState/links.json"
     ports:
       - "27018:27017"
-    networks:
-      - simple
-    dns:
-      - "10.5.0.2"
-    dns_search: coredns
     volumes:
       - ./initialState:/initialState
