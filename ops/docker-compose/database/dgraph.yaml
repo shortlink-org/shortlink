@@ -1,8 +1,16 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - "10.5.0.2"
+  dns_search: coredns
+
 services:
 
   zero:
+    <<: *network
     image: dgraph/dgraph:latest
     volumes:
       - type: volume
@@ -18,13 +26,9 @@ services:
       - coredns
     restart: on-failure
     command: dgraph zero --my=zero:5080
-    networks:
-      - simple
-    dns:
-      - "10.5.0.2"
-    dns_search: coredns
 
   server:
+    <<: *network
     image: dgraph/dgraph:latest
     volumes:
       - type: volume
@@ -40,13 +44,9 @@ services:
       - coredns
     restart: on-failure
     command: dgraph alpha --my=server:7080 --lru_mb=2048 --zero=zero:5080
-    networks:
-      - simple
-    dns:
-      - "10.5.0.2"
-    dns_search: coredns
 
   ratel:
+    <<: *network
     image: dgraph/dgraph:latest
     volumes:
       - type: volume
@@ -60,8 +60,3 @@ services:
       - fluentd
       - coredns
     command: dgraph-ratel
-    networks:
-      - simple
-    dns:
-      - "10.5.0.2"
-    dns_search: coredns

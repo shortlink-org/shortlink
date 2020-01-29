@@ -1,8 +1,16 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - "10.5.0.2"
+  dns_search: coredns
+
 services:
 
   postgres:
+    <<: *network
     image: postgres:alpine
     init: true
     restart: on-failure
@@ -16,9 +24,6 @@ services:
     networks:
       simple:
         ipv4_address: 10.5.0.100
-    dns:
-      - "10.5.0.2"
-    dns_search: coredns
     volumes:
       - ./initialState/init-postgres.sql:/docker-entrypoint-initdb.d/init.sql
       - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
@@ -31,6 +36,7 @@ services:
         tag: postgres
 
   postgres-exporter:
+    <<: *network
     image: wrouesnel/postgres_exporter:v0.8.0
     restart: on-failure
     container_name: postgres-exporter
@@ -42,11 +48,6 @@ services:
       - coredns
     environment:
       - DATA_SOURCE_NAME=postgres://shortlink:shortlink@postgres:5432/?sslmode=disable
-    networks:
-      - simple
-    dns:
-      - "10.5.0.2"
-    dns_search: coredns
 
   prometheus:
     volumes:

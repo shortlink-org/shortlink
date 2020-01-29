@@ -10,6 +10,7 @@ x-network: &network
 services:
 
   zookeeper:
+    <<: *network
     image: confluentinc/cp-zookeeper:5.4.0
     hostname: zookeeper
     container_name: zookeeper
@@ -21,12 +22,12 @@ services:
       ZOOKEEPER_TICK_TIME: 2000   # the number of milliseconds of each tick
       ZOOKEEPER_INIT_LIMIT: 10    # the number of ticks that the initial synchronization phase can take
       ZOOKEEPER_SYNC_LIMIT: 5     # the number of ticks that can pass between sending a request and getting an acknowledgement
-    <<: *network
     depends_on:
       - fluentd
       - coredns
 
   kafka-1: &kafka-1
+    <<: *network
     image: confluentinc/cp-kafka:5.4.0
     restart: on-failure
     container_name: kafka_1
@@ -46,7 +47,6 @@ services:
       KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
 
       KAFKA_LOG_RETENTION_HOURS: 48
-    <<: *network
     depends_on:
       - zookeeper
       - fluentd
@@ -118,6 +118,7 @@ services:
       - kafka-3
 
   schema-registry:
+    <<: *network
     image: confluentinc/cp-schema-registry:5.4.0
     hostname: schema-registry
     container_name: schema-registry
@@ -132,4 +133,3 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka_1:9092,kafka_2:9095'
       KAFKA_ADVERTISED_LISTENERS: INSIDE://:9099,OUTSIDE://localhost:9098
-    <<: *network
