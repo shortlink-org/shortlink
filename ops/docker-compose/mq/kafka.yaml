@@ -24,11 +24,10 @@ services:
       - fluentd
       - coredns
 
-  kafka:
+  kafka-1: &kafka-1
     image: confluentinc/cp-kafka:5.4.0
     restart: on-failure
-    hostname: kafka
-    container_name: kafka
+    container_name: kafka_1
     ports:
       - '9092:9092'
     environment:
@@ -38,7 +37,7 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
 
-      KAFKA_BROKER_ID: 0
+      KAFKA_BROKER_ID: 1
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
@@ -59,11 +58,52 @@ services:
 #      options:
 #        tag: kafka
 
+  kafka-2:
+    <<: *kafka-1
+    container_name: kafka_2
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9097,OUTSIDE://localhost:9095
+      KAFKA_LISTENERS: INSIDE://:9097,OUTSIDE://:9095
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+
+      KAFKA_BROKER_ID: 2
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
+
+      KAFKA_LOG_RETENTION_HOURS: 48
+    ports:
+      - '9095:9095'
+
+  kafka-3:
+    <<: *kafka-1
+    container_name: kafka_3
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9099,OUTSIDE://localhost:9098
+      KAFKA_LISTENERS: INSIDE://:9099,OUTSIDE://:9098
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+
+      KAFKA_BROKER_ID: 3
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
+      KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
+
+      KAFKA_LOG_RETENTION_HOURS: 48
+    ports:
+      - '9098:9098'
+
   kafka-client:
-    image: confluentinc/cp-kafka:5.4.0
-    restart: on-failure
+    <<: *kafka-1
     hostname: kafka-client
     container_name: kafka-client
+    ports:
+      - "9092"
     environment:
       # The following settings are listed here only to satisfy the image's requirements.
       # We override the image's `command` anyways, hence this container will not start a broker.
@@ -71,7 +111,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: ignored
       KAFKA_ADVERTISED_LISTENERS: ignored
     command: "bash -c 'echo Waiting for Kafka to be ready... && \
-                       cub kafka-ready -b kafka:9094 1 60 && \
+                       cub kafka-ready -b kafka_1:9094 1 60 && \
                        kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1 --topic shortlink'"
     networks:
       - simple
@@ -79,4 +119,7 @@ services:
       - "10.5.0.2"
     dns_search: coredns
     depends_on:
-      - kafka
+      - coredns
+      - kafka-1
+      - kafka-2
+      - kafka-3
