@@ -24,8 +24,9 @@ type DB interface { // nolint unused
 
 // Store abstract type
 type Store struct { // nolint unused
-	notify.Subscriber // Observer interface
-
 	typeStore string
 	store     DB
+
+	// system event
+	notify.Subscriber // Observer interface for subscribe on system event
 }

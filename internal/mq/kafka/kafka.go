@@ -2,89 +2,44 @@ package kafka
 
 import (
 	"context"
+	"time"
 
-	"github.com/golang/protobuf/proto"
-	"github.com/segmentio/kafka-go"
+	"github.com/Shopify/sarama"
+	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/notify"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/internal/mq/query"
 )
 
-type Config struct{} // nolint unused
+type Config struct { // nolint unused
+	URI []string // addresses of available kafka brokers
+}
 
 type Kafka struct { // nolint unused
 	*Config
-	client *kafka.Conn
-	writer *kafka.Writer
-	reader *kafka.Reader
+	client   sarama.Client
+	producer sarama.SyncProducer
+	consumer sarama.Consumer
 }
 
 func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
-	// to produce messages
-	topic := "shortlink"
-	partition := 0
+	var err error
 
-	// Subscribe to Event
-	notify.Subscribe(api_type.METHOD_ADD, mq)
+	// Set configuration
+	config := mq.setConfig()
 
-	//if mq.client, err = kafka.DialLeader(context.Background(), "tcp", "localhost:9092", topic, partition); err != nil {
-	//	return err
-	//}
+	if mq.client, err = sarama.NewClient(mq.Config.URI, config); err != nil {
+		return err
+	}
 
-	mq.writer = kafka.NewWriter(kafka.WriterConfig{
-		Brokers: []string{"192.168.0.108:9092"},
-		Topic:   topic,
-		//Dialer:            nil,
-		//Balancer:          &kafka.LeastBytes{},
-		//MaxAttempts:       0,
-		//QueueCapacity:     0,
-		//BatchSize:         0,
-		//BatchBytes:        0,
-		//BatchTimeout:      0,
-		//ReadTimeout:       0,
-		//WriteTimeout:      0,
-		//RebalanceInterval: 0,
-		//IdleConnTimeout:   0,
-		//RequiredAcks:      0,
-		//Async:             false,
-		//CompressionCodec:  nil,
-		//Logger:            nil,
-		//ErrorLogger:       nil,
-	})
+	// Create new producer
+	if mq.producer, err = sarama.NewSyncProducerFromClient(mq.client); err != nil {
+		return err
+	}
 
-	mq.reader = kafka.NewReader(kafka.ReaderConfig{
-		Brokers:                []string{"192.168.0.108:9092"},
-		GroupID:                "",
-		Topic:                  topic,
-		Partition:              partition,
-		Dialer:                 nil,
-		QueueCapacity:          0,
-		MinBytes:               10e3, // 10KB
-		MaxBytes:               10e6, // 10MB
-		MaxWait:                0,
-		ReadLagInterval:        0,
-		GroupBalancers:         nil,
-		HeartbeatInterval:      0,
-		CommitInterval:         0,
-		PartitionWatchInterval: 0,
-		WatchPartitionChanges:  false,
-		SessionTimeout:         0,
-		RebalanceTimeout:       0,
-		JoinGroupBackoff:       0,
-		RetentionTime:          0,
-		StartOffset:            0,
-		ReadBackoffMin:         0,
-		ReadBackoffMax:         0,
-		Logger:                 nil,
-		ErrorLogger:            nil,
-		IsolationLevel:         0,
-		MaxAttempts:            0,
-	})
-
-	//if err = mq.client.SetWriteDeadline(time.Now().Add(10 * time.Second)); err != nil {
-	//	return err
-	//}
+	// Create new consumer
+	if mq.consumer, err = sarama.NewConsumerFromClient(mq.client); err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -96,62 +51,72 @@ func (mq *Kafka) Close() error {
 		err = mq.client.Close()
 	}
 
-	if mq.writer != nil {
-		err = mq.writer.Close()
+	if mq.producer != nil {
+		err = mq.producer.Close()
+	}
+
+	if mq.consumer != nil {
+		err = mq.consumer.Close()
 	}
 
 	return err
 }
 
-func (mq *Kafka) Send(message []byte) error {
-	err := mq.writer.WriteMessages(
-		context.Background(),
-		kafka.Message{
-			Key:   []byte("TEST"),
-			Value: message,
-		},
-	)
+func (k *Kafka) Publish(message query.Message) error {
+	_, _, err := k.producer.SendMessage(&sarama.ProducerMessage{
+		Topic:     "shortlink",
+		Key:       sarama.StringEncoder(message.Key),
+		Value:     sarama.ByteEncoder(message.Payload),
+		Headers:   nil,
+		Metadata:  nil,
+		Offset:    0,
+		Partition: 0,
+		Timestamp: time.Time{},
+	})
 
 	return err
 }
 
-func (mq *Kafka) Subscribe(message chan []byte) error {
+func (mq *Kafka) Subscribe(message query.Response) error {
+	consumer, err := mq.consumer.ConsumePartition("shortlink", 0, sarama.OffsetOldest)
+	if err != nil {
+		return err
+	}
+
 	for {
-		msg, err := mq.reader.ReadMessage(context.Background())
-		if err != nil {
-			return err
+		select {
+		case err := <-consumer.Errors():
+			message.Chan <- []byte(err.Error())
+		case msg := <-consumer.Messages():
+			message.Chan <- msg.Value
 		}
-
-		message <- msg.Value
 	}
 }
 
-func (mq *Kafka) Notify(event int, payload interface{}) *notify.Response { // nolint unused
-	switch event {
-	case api_type.METHOD_ADD:
-		msg := payload.(link.Link) // nolint errcheck
-		data, err := proto.Marshal(&msg)
-		if err != nil {
-			return &notify.Response{
-				Payload: nil,
-				Error:   err,
-			}
-		}
+func (mq *Kafka) UnSubscribe() error {
+	panic("implement me!")
+}
 
-		err = mq.Send(data)
-		return &notify.Response{
-			Payload: nil,
-			Error:   err,
-		}
-	case api_type.METHOD_GET:
-		panic("implement me")
-	case api_type.METHOD_LIST:
-		panic("implement me")
-	case api_type.METHOD_UPDATE:
-		panic("implement me")
-	case api_type.METHOD_DELETE:
-		panic("implement me")
+// setConfig - Construct a new Sarama configuration.
+func (mq *Kafka) setConfig() *sarama.Config {
+	viper.AutomaticEnv()
+	viper.SetDefault("MQ_KAFKA_URI", "localhost:9092")
+	mq.Config = &Config{
+		URI: []string{
+			viper.GetString("MQ_KAFKA_URI"),
+		},
 	}
 
-	return nil
+	// sarama config
+	config := sarama.NewConfig()
+
+	config.Producer.Partitioner = sarama.NewRandomPartitioner
+	config.Producer.RequiredAcks = sarama.WaitForAll
+	config.Producer.Retry.Max = 5
+	config.Producer.Return.Successes = true
+	config.Producer.Compression = sarama.CompressionSnappy
+
+	config.Consumer.Return.Errors = true
+
+	return config
 }
