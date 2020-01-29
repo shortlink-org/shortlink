@@ -62,6 +62,7 @@ generate: ## Code generation
 
 	@echo "Generate from .go code"
 	@go generate internal/store/postgres/postgres.go
+	@go generate pkg/link/link.go
 	@go generate internal/di/wire.go
 
 	@echo "Generate go static"

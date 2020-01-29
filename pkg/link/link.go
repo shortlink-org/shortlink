@@ -1,3 +1,4 @@
+//go:generate protoc -I. --gotemplate_out=all=true,template_dir=template:. link.proto
 package link
 
 import (

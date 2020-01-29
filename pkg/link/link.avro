@@ -1,0 +1,11 @@
+{
+	"type": "record",
+	"name": "link",
+	"fields": [
+		{"name": "url",        "type": "string"},
+		{"name": "describe",   "type": "string"},
+		{"name": "hash",       "type": "string"},
+		{"name": "created_at", "type": "string"},
+		{"name": "updated_at", "type": "string"}
+	]
+}
