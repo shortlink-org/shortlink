@@ -154,7 +154,16 @@ func (txn *Txn) Do(ctx context.Context, req *api.Request) (*api.Response, error)
 		resp, err = txn.dc.Query(ctx, req)
 	}
 
-	if err != nil {
+	if err == nil {
+		if req.CommitNow {
+			txn.finished = true
+		}
+
+		err = txn.mergeContext(resp.GetTxn())
+		return resp, err
+	}
+
+	if len(req.Mutations) > 0 {
 		// Ignore error, user should see the original error.
 		_ = txn.Discard(ctx)
 
@@ -163,16 +172,9 @@ func (txn *Txn) Do(ctx context.Context, req *api.Request) (*api.Response, error)
 		if s, ok := status.FromError(err); ok && s.Code() == codes.Aborted {
 			err = ErrAborted
 		}
-
-		return nil, err
 	}
 
-	if req.CommitNow {
-		txn.finished = true
-	}
-
-	err = txn.mergeContext(resp.GetTxn())
-	return resp, err
+	return nil, err
 }
 
 // Commit commits any mutations that have been made in the transaction.

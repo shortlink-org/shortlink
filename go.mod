@@ -14,7 +14,7 @@ require (
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/containerd/continuity v0.0.0-20190827140505-75bee3e2ccb6 // indirect
 	github.com/dgraph-io/badger v1.6.0
-	github.com/dgraph-io/dgo/v2 v2.1.0
+	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/getsentry/sentry-go v0.4.0
