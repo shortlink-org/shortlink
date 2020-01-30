@@ -11,6 +11,8 @@ import (
 
 	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/mq/query"
+	"github.com/batazor/shortlink/internal/transform"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 func init() {
@@ -42,7 +44,16 @@ func main() {
 
 	go func() {
 		for {
-			s.Log.Info(fmt.Sprintf("GET: %s", string(<-test.Chan)))
+			msg := <-test.Chan
+			response, err := transform.Deserialize(msg, &link.Link{})
+			if err != nil {
+				s.Log.Error(err.Error())
+				continue
+			}
+
+			link := response.(*link.Link)
+
+			s.Log.Info(fmt.Sprintf("GET Url: %s", link.Url))
 		}
 	}()
 

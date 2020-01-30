@@ -3,7 +3,6 @@ package mq
 import (
 	"context"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/logger"
@@ -11,6 +10,7 @@ import (
 	"github.com/batazor/shortlink/internal/mq/nats"
 	"github.com/batazor/shortlink/internal/mq/query"
 	"github.com/batazor/shortlink/internal/notify"
+	"github.com/batazor/shortlink/internal/transform"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/link"
 )
@@ -56,7 +56,7 @@ func (mq *DataBus) Notify(event int, payload interface{}) *notify.Response { // 
 	case api_type.METHOD_ADD:
 		// TODO: send []byte
 		msg := payload.(link.Link) // nolint errcheck
-		data, err := proto.Marshal(&msg)
+		data, err := transform.Serialize(&msg)
 		if err != nil {
 			return &notify.Response{
 				Name:    "RESPONSE_MQ_ADD",

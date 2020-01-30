@@ -115,7 +115,15 @@ docker-compose \
 | MQ_ENABLED          | false                                                       | Enabled MQ-service                                       |
 | MQ_TYPE             | kafka                                                       | Select: kafka, nats                                      |
 | MQ_KAFKA_URI        | localhost:9092                                              | Kafka URI                                                |
+| TRANSPORT_TYPE      | protobuf                                                    | Select: protobuf, avro                                   |
 | SENTRY_DSN          | ___DSN___                                                   | key for sentry                                           | 
+
+### TRANSPORT_TYPE
+
+Data type for cross-service communication:
+
++ Payload
++ avro
 
 ### CoreDNS IP table
 
