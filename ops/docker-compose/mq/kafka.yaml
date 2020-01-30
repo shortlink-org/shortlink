@@ -35,7 +35,7 @@ services:
       - '9092:9092'
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9094,OUTSIDE://:9092
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9094,OUTSIDE://localhost:9092
       KAFKA_LISTENERS: INSIDE://:9094,OUTSIDE://:9092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
@@ -51,17 +51,17 @@ services:
       - zookeeper
       - fluentd
       - coredns
-#    logging:
-#      driver: fluentd
-#      options:
-#        tag: kafka
+  #    logging:
+  #      driver: fluentd
+  #      options:
+  #        tag: kafka
 
   kafka-2:
     <<: *kafka-1
     container_name: kafka_2
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9097,OUTSIDE://:9095
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9097,OUTSIDE://localhost:9095
       KAFKA_LISTENERS: INSIDE://:9097,OUTSIDE://:9095
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
@@ -81,7 +81,7 @@ services:
     container_name: kafka_3
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9099,OUTSIDE://:9098
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9099,OUTSIDE://localhost:9098
       KAFKA_LISTENERS: INSIDE://:9099,OUTSIDE://:9098
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
@@ -117,19 +117,19 @@ services:
       - kafka-2
       - kafka-3
 
-  schema-registry:
-    <<: *network
-    image: confluentinc/cp-schema-registry:5.4.0
-    hostname: schema-registry
-    container_name: schema-registry
-    depends_on:
-      - zookeeper
-      - kafka-1
-      - kafka-2
-      - kafka-3
-    ports:
-      - "8081:8081"
-    environment:
-      SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka_1:9092,kafka_2:9095'
-      KAFKA_ADVERTISED_LISTENERS: INSIDE://:9099,OUTSIDE://localhost:9098
+# TODO: How it work? ;-)
+#  schema-registry:
+#    <<: *network
+#    image: confluentinc/cp-schema-registry:5.4.0
+#    hostname: schema-registry
+#    container_name: schema-registry
+#    depends_on:
+#      - zookeeper
+#      - kafka-1
+#      - kafka-2
+#      - kafka-3
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+#      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka_1:9092,kafka_2:9095'
