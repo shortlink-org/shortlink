@@ -1,3 +1,7 @@
+/*
+Store package
+*/
+
 package store
 
 import (

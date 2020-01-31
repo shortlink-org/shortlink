@@ -1,3 +1,7 @@
+/*
+Logger application
+*/
+
 package main
 
 import (

@@ -1,3 +1,7 @@
+/*
+Notify system
+*/
+
 package notify
 
 var (
