@@ -23,7 +23,7 @@
   # nsid adds an identifier of this server to each reply.
   nsid Use The Force and shortlink ;-)
 
-  forward . tls://8.8.8.8 tls://9.9.9.9
+  forward . 8.8.8.8:53
   cache 3600
 
   # loop detects simple forwarding loops and halts the server.
