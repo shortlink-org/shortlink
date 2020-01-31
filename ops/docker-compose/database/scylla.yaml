@@ -1,0 +1,20 @@
+version: '2.4'
+
+services:
+
+  scylla:
+    image: scylladb/scylla
+    container_name: scylla
+    restart: on-failure
+    command: "--smp 1 --memory 256M"
+    networks:
+      simple:
+        ipv4_address: 10.5.0.100
+    ports:
+    - "9042:9042"
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    depends_on:
+      - fluentd
+      - coredns

@@ -16,6 +16,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/postgres"
 	"github.com/batazor/shortlink/internal/store/ram"
 	"github.com/batazor/shortlink/internal/store/redis"
+	"github.com/batazor/shortlink/internal/store/scylla"
 	"github.com/batazor/shortlink/internal/store/sqlite"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/link"
@@ -52,6 +53,8 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) DB { // nolint u
 		store.store = &badger.BadgerLinkList{}
 	case "cassandra":
 		store.store = &cassandra.CassandraLinkList{}
+	case "scylla":
+		store.store = &scylla.ScyllaLinkList{}
 	case "ram":
 		store.store = &ram.RAMLinkList{}
 	default:

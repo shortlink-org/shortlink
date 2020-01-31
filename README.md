@@ -70,7 +70,8 @@ docker-compose \
 + LevelDB
 + Badger
 + SQLite
-+ Сassandra
++ Scylla
++ Сassandra (via: Scylla driver)
 
 ### Cloud-Native
 
@@ -96,7 +97,7 @@ docker-compose \
 
 | Name                | Default                                                     | Description                                              |
 |---------------------|-------------------------------------------------------------|----------------------------------------------------------|
-| STORE_TYPE          | ram                                                         | Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram, cassandra |
+| STORE_TYPE          | ram                                                         | Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram, scylla, cassandra |
 | STORE_MONGODB_URI   | mongodb://localhost:27017                                   | MongoDB URI                                              |
 | STORE_MYSQL_URI     | shortlink:shortlink@localhost:3306/shortlink?parseTime=true | MySQL URI                                                |
 | STORE_BADGER_PATH   | /tmp/links.badger                                           | Badger path to file                                      |
@@ -106,6 +107,7 @@ docker-compose \
 | STORE_REDIS_URI     | localhost:6379                                              | Redis URI                                                |
 | STORE_SQLITE_PATH   | /tmp/links.sqlite                                           | SQLite URI                                               |
 | STORE_CASSANDRA_URI | localhost:9042                                              | Cassandra URI                                            |
+| STORE_SCYLLA_URI    | localhost:9042                                              | Scylla URI                                               |
 | LOG_LEVEL           | 3                                                           | Log level. Select 0-4 (Fatal->Debug)                     |
 | LOG_TIME_FORMAT     | 2006-01-02T15:04:05.999999999Z07:00                         | Log time format (golang time format)                     |
 | TRACER_SERVICE_NAME | ShortLink                                                   | Service Name                                             |
