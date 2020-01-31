@@ -1,3 +1,7 @@
+/*
+Logger
+*/
+
 package logger
 
 import (

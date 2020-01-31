@@ -35,8 +35,10 @@ require (
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.3.0
 	github.com/markbates/pkger v0.14.0
+	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/nats-io/nats.go v1.9.1
+	github.com/oligot/go-mod-upgrade v0.1.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0-rc1 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/opencontainers/runc v0.1.1 // indirect
@@ -61,8 +63,9 @@ require (
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.13.0
-	golang.org/x/crypto v0.0.0-20191206172530-e9b2fee46413 // indirect
+	golang.org/x/crypto v0.0.0-20200128174031-69ecbb4d6d5d // indirect
 	golang.org/x/net v0.0.0-20191009170851-d66e71096ffb // indirect
+	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect
 	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
 	google.golang.org/genproto v0.0.0-20200128133413-58ce757ed39b
 	google.golang.org/grpc v1.27.0

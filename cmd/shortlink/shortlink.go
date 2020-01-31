@@ -1,3 +1,7 @@
+/*
+Shortlink application
+*/
+
 package main
 
 import (
