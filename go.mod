@@ -28,7 +28,7 @@ require (
 	github.com/google/wire v0.4.0
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
 	github.com/graph-gophers/graphql-go v0.0.0-20191115155744-f33e81362277
-	github.com/grpc-ecosystem/go-grpc-middleware v1.1.0
+	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway v1.12.2
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.3.0
