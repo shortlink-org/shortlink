@@ -124,10 +124,12 @@ docker-login: ## Docker login
 	@echo docker login as ${DOCKER_USERNAME}
 	@echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
 
-# Build the container
 docker-build: ## Build the container
 	@echo docker build image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
-	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} .
+	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f shortlink.Dockerfile .
+
+	@echo docker build image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
+	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG} -f shortlink.Dockerfile .
 
 docker-push: ## Publish the container
 	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
@@ -148,13 +150,25 @@ helm-clean: ## Clean artifact from K8S
 	@helm del ${PROJECT_NAME}
 
 # MINIKUBE =============================================================================================================
-minikube-init: docker-build ## run minikube for dev mode
-	@minikube start --cpus 4 --memory "12288mb" # Start minikube
-	@eval $(minikube docker-env)                # Set docker env
+minikube-init: ## run minikube for dev mode
+	@minikube start \
+		--cpus 4 \
+		--memory "16384" \
+		--extra-config=apiserver.enable-admission-plugins=PodSecurityPolicy\
+		--extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
+	@eval $(minikube docker-env) # Set docker env
 
 minikube-update: ## update image to last version
-	@make docker-build
-	@make helm-deploy
+	@eval $(minikube docker-env) # Set docker env
+	@make docker-build           # Build docker images on remote host (minikube)
+	@make helm-deploy            # Deploy shortlink HELM-chart
+
+minikube-down: ## minikube delete
+	@minikube delete
+
+# ISTIO ================================================================================================================
+istio-run: ## Run istio
+	@istioctl manifest apply --set profile=demo
 
 # UI ===================================================================================================================
 nuxt_generate: ## Deploy nuxt UI

@@ -2,8 +2,8 @@ apiVersion: v1                                   # The chart API version (requir
 appVersion: "1.0.0"                              # The version of the app that this contains (optional)
 name: shortlink                                  # The name of the chart (required)
 description: Shortlink service                   # A single-sentence description of this project (optional)
-version: 0.2.5                                   # A SemVer 2 version (required)
-kubeVersion: ">= 1.12.0"                         # A SemVer range of compatible Kubernetes versions (optional)
+version: 0.3.0                                   # A SemVer 2 version (required)
+kubeVersion: ">= 1.16.0"                         # A SemVer range of compatible Kubernetes versions (optional)
 keywords:                                        # A list of keywords about this project (optional)
   - example
   - shortlink

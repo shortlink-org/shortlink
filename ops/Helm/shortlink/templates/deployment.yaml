@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "shortlink.fullname" . }}
   labels:
-{{ include "shortlink.labels" . | indent 4 }}
+    {{ include "shortlink.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.deploy.replicaCount }}
   selector:
@@ -34,21 +34,9 @@ spec:
           containerPort: 7070
           protocol: TCP
         livenessProbe:
-          httpGet:
-            path: {{ .Values.deploy.livenessProbe.httpGet.path }}
-            port: {{ .Values.deploy.livenessProbe.httpGet.port }}
-          initialDelaySeconds: {{ .Values.deploy.livenessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.deploy.livenessProbe.periodSeconds }}
-          successThreshold: {{ .Values.deploy.livenessProbe.successThreshold }}
-          failureThreshold: {{ .Values.deploy.livenessProbe.failureThreshold }}
+          {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
         readinessProbe:
-          httpGet:
-            path: {{ .Values.deploy.readinessProbe.httpGet.path }}
-            port: {{ .Values.deploy.readinessProbe.httpGet.port }}
-          initialDelaySeconds: {{ .Values.deploy.readinessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.deploy.readinessProbe.periodSeconds }}
-          successThreshold: {{ .Values.deploy.readinessProbe.successThreshold }}
-          failureThreshold: {{ .Values.deploy.readinessProbe.failureThreshold }}
+          {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
         resources:
           {{- toYaml .Values.deploy.resources | indent 10 }}
       {{- with .Values.deploy.nodeSelector }}
