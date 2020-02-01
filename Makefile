@@ -7,8 +7,6 @@ CI_COMMIT_TAG := latest
 
 DOCKER_USERNAME := "batazor"
 
-PATH_TO_UI_NUXT := pkg/ui/nuxt
-
 # Export such that its passed to shell functions for Docker to pick up.
 export PROJECT_NAME
 
@@ -171,6 +169,8 @@ istio-run: ## Run istio
 	@istioctl manifest apply --set profile=demo
 
 # UI ===================================================================================================================
+PATH_TO_UI_NUXT := pkg/ui/nuxt
+
 nuxt_generate: ## Deploy nuxt UI
 	@npm --prefix ${PATH_TO_UI_NUXT} install
 	@npm --prefix ${PATH_TO_UI_NUXT} run generate
