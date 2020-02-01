@@ -81,6 +81,7 @@ docker-compose \
   + Helm Chart
     + [pingcap/chaos-meshh](https://github.com/pingcap/chaos-mesh)
   + Minikube
++ Istio
 
 ### Gateway
 
