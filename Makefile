@@ -126,10 +126,10 @@ docker-login: ## Docker login
 
 docker-build: ## Build the container
 	@echo docker build image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
-	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f shortlink.Dockerfile .
+	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ops/dockerfile/shortlink.Dockerfile .
 
 	@echo docker build image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
-	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG} -f shortlink.Dockerfile .
+	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG} -f ops/dockerfile/shortlink.Dockerfile .
 
 docker-push: ## Publish the container
 	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}

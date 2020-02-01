@@ -5,7 +5,7 @@ services:
   logger:
     build:
       context: .
-      dockerfile: logger.Dockerfile
+      dockerfile: ops/dockerfile/logger.dockerfile
     container_name: logger
     restart: on-failure
     environment:
