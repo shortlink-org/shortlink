@@ -3,7 +3,7 @@ kind: NetworkPolicy
 metadata:
   name: {{ include "shortlink.fullname" . }}
   labels:
-{{ include "shortlink.labels" . | indent 4 }}
+    {{ include "shortlink.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:

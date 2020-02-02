@@ -2,7 +2,6 @@
 # should not to be changed if you follow GitOps operating procedures.
 PROJECT_NAME := shortlink
 
-CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
 
 DOCKER_USERNAME := "batazor"
@@ -116,6 +115,8 @@ clean: ## Clean artifacts
 	@docker rmi -f shortlink_shortlink
 
 # DOCKER TASKS =========================================================================================================
+CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
+
 docker: docker-login docker-build docker-push ## docker login > build > push
 
 docker-login: ## Docker login
@@ -127,22 +128,33 @@ docker-build: ## Build the container
 	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ops/dockerfile/shortlink.Dockerfile .
 
 	@echo docker build image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
-	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG} -f ops/dockerfile/shortlink.Dockerfile .
+	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG} -f ops/dockerfile/logger.Dockerfile .
+
+	@echo docker build image ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
+	@docker build -t ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG} -f ops/dockerfile/ui-nuxt.Dockerfile .
 
 docker-push: ## Publish the container
 	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 	@docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 
 # KUBERNETES ===========================================================================================================
+PATH_TO_HELM_CHART := ops/Helm/shortlink
+
 helm-lint: ## Check Helm chart
-	@helm lint ops/Helm/shortlink
+	@helm lint ${PATH_TO_HELM_CHART} \
+		-f ${PATH_TO_HELM_CHART}/shortlink-value.yaml \
+		-f ${PATH_TO_HELM_CHART}/logger-value.yaml \
+		-f ${PATH_TO_HELM_CHART}/ui-value.yaml
 
 helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 	@echo helm install/update ${PROJECT_NAME}
-	@helm upgrade ${PROJECT_NAME} ops/Helm/shortlink \
+	@helm upgrade ${PROJECT_NAME} ${PATH_TO_HELM_CHART} \
 		--install \
 		--force \
-		--wait
+		--wait \
+		-f ${PATH_TO_HELM_CHART}/shortlink-value.yaml \
+		-f ${PATH_TO_HELM_CHART}/logger-value.yaml \
+		-f ${PATH_TO_HELM_CHART}/ui-value.yaml
 
 helm-clean: ## Clean artifact from K8S
 	@helm del ${PROJECT_NAME}

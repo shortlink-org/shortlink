@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "shortlink.fullname" . }}-logger
+  labels:
+    {{ include "shortlink.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.logger.deploy.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "shortlink.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: logger
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "shortlink.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: logger
+    spec:
+    {{- with .Values.logger.deploy.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | indent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "shortlink.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.logger.deploy.podSecurityContext | indent 8 }}
+      containers:
+      - name: {{ .Chart.Name }}
+        securityContext:
+          {{- toYaml .Values.logger.deploy.securityContext | indent 12 }}
+        image: "{{ .Values.logger.deploy.image.repository }}:{{ .Values.logger.deploy.image.tag }}"
+        imagePullPolicy: {{ .Values.logger.deploy.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: 7070
+          protocol: TCP
+        {{- if .Values.logger.deploy.livenessProbe }}
+        livenessProbe:
+          {{- toYaml .Values.logger.deploy.livenessProbe | nindent 12 }}
+        {{- end }}
+        {{- if .Values.logger.deploy.readinessProbe }}
+        readinessProbe:
+          {{- toYaml .Values.logger.deploy.readinessProbe | nindent 12 }}
+        {{- end }}
+        resources:
+          {{- toYaml .Values.logger.deploy.resources | indent 10 }}
+      {{- with .Values.logger.deploy.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | indent 8 }}
+      {{- end }}
+    {{- with .Values.logger.deploy.affinity }}
+      affinity:
+        {{- toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.logger.deploy.tolerations }}
+      tolerations:
+        {{- toYaml . | indent 8 }}
+    {{- end }}
