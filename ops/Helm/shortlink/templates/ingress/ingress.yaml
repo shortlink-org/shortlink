@@ -1,9 +1,8 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "shortlink.fullname" . -}}
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ include "shortlink.fullname" . }}
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}

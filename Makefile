@@ -158,7 +158,7 @@ helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 helm-clean: ## Clean artifact from K8S
 	@helm del ${PROJECT_NAME}
 
-minikube-common: ## run common service for
+helm-common: ## run common service for
 	@echo helm install/update common service
 	@helm upgrade common ${PATH_TO_COMMON_CHART} \
 		--install \
