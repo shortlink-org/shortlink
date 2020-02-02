@@ -15,9 +15,7 @@ export PROJECT_NAME
 .PHONY: help
 
 help: ## This help
-	@echo 'Usage: make [TARGET]'
-	@echo 'Targets:'
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 # APPLICATION ==========================================================================================================
 dep: ## Install dependencies for this project
@@ -138,26 +136,34 @@ docker-push: ## Publish the container
 	@docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 
 # KUBERNETES ===========================================================================================================
-PATH_TO_HELM_CHART := ops/Helm/shortlink
+PATH_TO_SHORTLINK_CHART := ops/Helm/shortlink
+PATH_TO_COMMON_CHART := ops/Helm/common
 
 helm-lint: ## Check Helm chart
-	@helm lint ${PATH_TO_HELM_CHART} \
-		-f ${PATH_TO_HELM_CHART}/shortlink-value.yaml \
-		-f ${PATH_TO_HELM_CHART}/logger-value.yaml \
-		-f ${PATH_TO_HELM_CHART}/ui-value.yaml
+	@helm lint ${PATH_TO_SHORTLINK_CHART} \
+		-f ${PATH_TO_SHORTLINK_CHART}/shortlink-value.yaml \
+		-f ${PATH_TO_SHORTLINK_CHART}/logger-value.yaml \
+		-f ${PATH_TO_SHORTLINK_CHART}/ui-value.yaml
 
 helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 	@echo helm install/update ${PROJECT_NAME}
-	@helm upgrade ${PROJECT_NAME} ${PATH_TO_HELM_CHART} \
+	@helm upgrade ${PROJECT_NAME} ${PATH_TO_SHORTLINK_CHART} \
 		--install \
 		--force \
 		--wait \
-		-f ${PATH_TO_HELM_CHART}/shortlink-value.yaml \
-		-f ${PATH_TO_HELM_CHART}/logger-value.yaml \
-		-f ${PATH_TO_HELM_CHART}/ui-value.yaml
+		-f ${PATH_TO_SHORTLINK_CHART}/shortlink-value.yaml \
+		-f ${PATH_TO_SHORTLINK_CHART}/logger-value.yaml \
+		-f ${PATH_TO_SHORTLINK_CHART}/ui-value.yaml
 
 helm-clean: ## Clean artifact from K8S
 	@helm del ${PROJECT_NAME}
+
+minikube-common: ## run common service for
+	@echo helm install/update common service
+	@helm upgrade common ${PATH_TO_COMMON_CHART} \
+		--install \
+		--force \
+		--wait
 
 # MINIKUBE =============================================================================================================
 minikube-init: ## run minikube for dev mode
@@ -166,6 +172,7 @@ minikube-init: ## run minikube for dev mode
 		--memory "16384" \
 		--extra-config=apiserver.enable-admission-plugins=PodSecurityPolicy\
 		--extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
+	@minikube addons enable ingress
 	@eval $(minikube docker-env) # Set docker env
 
 minikube-update: ## update image to last version
