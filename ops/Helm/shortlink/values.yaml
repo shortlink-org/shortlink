@@ -32,7 +32,7 @@ ingress:
   #      - chart-example.local
 
 istio:
-  enabled: true
+  enabled: false
 
 chaosMesh:
   namespace: default
