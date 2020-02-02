@@ -1,12 +1,6 @@
 name: Lint and Test Charts
 
-on:
-  pull_request
-  push:
-    branches:
-      - master
-    tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
+on: pull_request
 
 jobs:
   lint-test:
