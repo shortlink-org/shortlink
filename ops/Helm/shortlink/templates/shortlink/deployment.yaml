@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "shortlink.fullname" . }}
+  labels:
+    {{ include "shortlink.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.shortlink.deploy.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "shortlink.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: shortlink
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "shortlink.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: shortlink
+    spec:
+    {{- with .Values.shortlink.deploy.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | indent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "shortlink.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.shortlink.deploy.podSecurityContext | indent 8 }}
+      containers:
+      - name: {{ .Chart.Name }}
+        securityContext:
+          {{- toYaml .Values.shortlink.deploy.securityContext | indent 12 }}
+        image: "{{ .Values.shortlink.deploy.image.repository }}:{{ .Values.shortlink.deploy.image.tag }}"
+        imagePullPolicy: {{ .Values.shortlink.deploy.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: 7070
+          protocol: TCP
+        livenessProbe:
+          {{- toYaml .Values.shortlink.deploy.livenessProbe | nindent 12 }}
+        readinessProbe:
+          {{- toYaml .Values.shortlink.deploy.readinessProbe | nindent 12 }}
+        resources:
+          {{- toYaml .Values.shortlink.deploy.resources | indent 10 }}
+      {{- with .Values.shortlink.deploy.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | indent 8 }}
+      {{- end }}
+    {{- with .Values.shortlink.deploy.affinity }}
+      affinity:
+        {{- toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.shortlink.deploy.tolerations }}
+      tolerations:
+        {{- toYaml . | indent 8 }}
+    {{- end }}
