@@ -1,0 +1,14 @@
+server {
+    listen      80;
+    server_name _;
+
+    root   /usr/share/nginx/html;
+
+    location ~* \.(?:ico|gif|jpe?g|png|woff2?|eot|otf|ttf|svg|js|css)$ {
+      try_files $uri $uri/;
+    }
+
+    location / {
+      try_files $uri $uri/ /index.html =404;
+    }
+}

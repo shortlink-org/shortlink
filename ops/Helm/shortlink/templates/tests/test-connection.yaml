@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: "{{ include "shortlink.fullname" . }}-test-connection"
   labels:
-{{ include "shortlink.labels" . | indent 4 }}
+    {{ include "shortlink.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test-success
 spec:
@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "shortlink.fullname" . }}:{{ .Values.service.port }}/api/links']
+      args:  ['{{ include "shortlink.fullname" . }}:{{ .Values.shortlink.service.port }}/api/links']
   restartPolicy: Never

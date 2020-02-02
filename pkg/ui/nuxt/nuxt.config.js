@@ -1,6 +1,10 @@
 module.exports = {
   mode: 'spa',
 
+  render: {
+    csp: true
+  },
+
   /*
   ** Environment Variables
   */
@@ -49,8 +53,8 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
     ],
     link: [
-      { rel: 'stylesheet', href: '//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' },
-      { rel: 'stylesheet', href: '//cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' },
+      { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css' },
     ],
     htmlAttrs: {
       lang: 'en',

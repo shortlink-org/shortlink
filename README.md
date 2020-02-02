@@ -81,6 +81,7 @@ docker-compose \
   + Helm Chart
     + [pingcap/chaos-meshh](https://github.com/pingcap/chaos-mesh)
   + Minikube
++ Istio
 
 ### Gateway
 
@@ -129,6 +130,21 @@ docker-compose \
 
 Sometimes a container without a specified ip may occupy a binding address of another service, 
 which will result in `Address already in use`.
+
+### Kubernetes
+
+##### HELM
+
++ common - run common tools (ingress)
++ shortlink - run shortlink applications (shortlink, logger, ui)
+
+##### DNS
+
++ `ui-nuxt.shortlink.minikube`
++ `api.shortlink.minikube`
++ `grafana.minikube`
++ `jaeger.minikube`
++ `prometheus.minikube`
 
 ### TRAVIS CI
 

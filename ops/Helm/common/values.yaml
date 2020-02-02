@@ -1,0 +1,48 @@
+# Default values for common.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+ingress:
+  enabled: false
+istio:
+  enabled: true
+
+nginx-ingress:
+  ## nginx configuration
+  ## Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
+  ##
+  controller:
+
+    # Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
+    config:
+      enable-opentracing: "true"
+      jaeger-collector-host: devops-init-jaeger-collector
+      jaeger-service-name: nginx-ingress
+      zipkin-collector-host: devops-init-jaeger-collector
+
+    # Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
+    # since CNI and hostport don't mix yet. Can be deprecated once https://github.com/kubernetes/kubernetes/issues/23920
+    # is merged
+    hostNetwork: true
+
+    ## Use host ports 80 and 443
+    daemonset:
+      useHostPort: true
+
+      hostPorts:
+        http: 80
+        https: 443
+
+    ## DaemonSet or Deployment
+    ##
+    kind: DaemonSet
+
+    metrics:
+      # if this port is changed, change healthz-port: in extraArgs: accordingly
+      enabled: true
+
+      serviceMonitor:
+        enabled: true
+
+      prometheusRule:
+        enabled: true
