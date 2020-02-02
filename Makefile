@@ -140,20 +140,15 @@ PATH_TO_SHORTLINK_CHART := ops/Helm/shortlink
 PATH_TO_COMMON_CHART := ops/Helm/common
 
 helm-lint: ## Check Helm chart
-	@helm lint ${PATH_TO_SHORTLINK_CHART} \
-		-f ${PATH_TO_SHORTLINK_CHART}/shortlink-value.yaml \
-		-f ${PATH_TO_SHORTLINK_CHART}/logger-value.yaml \
-		-f ${PATH_TO_SHORTLINK_CHART}/ui-value.yaml
+	@helm lint ${PATH_TO_SHORTLINK_CHART}
+	@helm lint ${PATH_TO_COMMON_CHART}
 
 helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 	@echo helm install/update ${PROJECT_NAME}
 	@helm upgrade ${PROJECT_NAME} ${PATH_TO_SHORTLINK_CHART} \
 		--install \
 		--force \
-		--wait \
-		-f ${PATH_TO_SHORTLINK_CHART}/shortlink-value.yaml \
-		-f ${PATH_TO_SHORTLINK_CHART}/logger-value.yaml \
-		-f ${PATH_TO_SHORTLINK_CHART}/ui-value.yaml
+		--wait
 
 helm-clean: ## Clean artifact from K8S
 	@helm del ${PROJECT_NAME}
