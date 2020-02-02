@@ -1,0 +1,46 @@
+{{- if .Values.istio.enabled -}}
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ include "shortlink.fullname" . }}
+  labels:
+    {{ include "shortlink.labels" . | nindent 4 }}
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: ui
+        protocol: HTTP
+      hosts:
+        - "*"
+
+    - port:
+        number: 7070
+        name: api
+        protocol: HTTP
+      hosts:
+        - "*"
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ include "shortlink.fullname" . }}
+  labels:
+    {{ include "shortlink.labels" . | nindent 4 }}
+spec:
+  hosts:
+  - ui-nuxt.shortlink.minikube
+  gateways:
+    - {{ include "shortlink.fullname" . }}
+  http:
+  - name: "ui-nuxt"
+    route:
+    - destination:
+        host: shortlink-ui
+        port:
+          number: 80
+{{- end }}

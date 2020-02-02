@@ -2,12 +2,9 @@
 # should not to be changed if you follow GitOps operating procedures.
 PROJECT_NAME := shortlink
 
-CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
 
 DOCKER_USERNAME := "batazor"
-
-PATH_TO_UI_NUXT := pkg/ui/nuxt
 
 # Export such that its passed to shell functions for Docker to pick up.
 export PROJECT_NAME
@@ -18,9 +15,7 @@ export PROJECT_NAME
 .PHONY: help
 
 help: ## This help
-	@echo 'Usage: make [TARGET]'
-	@echo 'Targets:'
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 # APPLICATION ==========================================================================================================
 dep: ## Install dependencies for this project
@@ -118,28 +113,39 @@ clean: ## Clean artifacts
 	@docker rmi -f shortlink_shortlink
 
 # DOCKER TASKS =========================================================================================================
+CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
+
 docker: docker-login docker-build docker-push ## docker login > build > push
 
 docker-login: ## Docker login
 	@echo docker login as ${DOCKER_USERNAME}
 	@echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
 
-# Build the container
 docker-build: ## Build the container
 	@echo docker build image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
-	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} .
+	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ops/dockerfile/shortlink.Dockerfile .
+
+	@echo docker build image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
+	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG} -f ops/dockerfile/logger.Dockerfile .
+
+	@echo docker build image ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
+	@docker build -t ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG} -f ops/dockerfile/ui-nuxt.Dockerfile .
 
 docker-push: ## Publish the container
 	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 	@docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 
 # KUBERNETES ===========================================================================================================
+PATH_TO_SHORTLINK_CHART := ops/Helm/shortlink
+PATH_TO_COMMON_CHART := ops/Helm/common
+
 helm-lint: ## Check Helm chart
-	@helm lint ops/Helm/shortlink
+	@helm lint ${PATH_TO_SHORTLINK_CHART}
+	@helm lint ${PATH_TO_COMMON_CHART}
 
 helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 	@echo helm install/update ${PROJECT_NAME}
-	@helm upgrade ${PROJECT_NAME} ops/Helm/shortlink \
+	@helm upgrade ${PROJECT_NAME} ${PATH_TO_SHORTLINK_CHART} \
 		--install \
 		--force \
 		--wait
@@ -147,16 +153,38 @@ helm-deploy: ## Deploy Helm chart to default kube-context and default namespace
 helm-clean: ## Clean artifact from K8S
 	@helm del ${PROJECT_NAME}
 
+helm-common: ## run common service for
+	@echo helm install/update common service
+	@helm upgrade common ${PATH_TO_COMMON_CHART} \
+		--install \
+		--force \
+		--wait
+
 # MINIKUBE =============================================================================================================
-minikube-init: docker-build ## run minikube for dev mode
-	@minikube start --cpus 4 --memory "12288mb" # Start minikube
-	@eval $(minikube docker-env)                # Set docker env
+minikube-init: ## run minikube for dev mode
+	@minikube start \
+		--cpus 4 \
+		--memory "16384" \
+		--extra-config=apiserver.enable-admission-plugins=PodSecurityPolicy\
+		--extra-config=apiserver.enable-admission-plugins="LimitRanger,NamespaceExists,NamespaceLifecycle,ResourceQuota,ServiceAccount,DefaultStorageClass,MutatingAdmissionWebhook"
+	@minikube addons enable ingress
+	@eval $(minikube docker-env) # Set docker env
 
 minikube-update: ## update image to last version
-	@make docker-build
-	@make helm-deploy
+	@eval $(minikube docker-env) # Set docker env
+	@make docker-build           # Build docker images on remote host (minikube)
+	@make helm-deploy            # Deploy shortlink HELM-chart
+
+minikube-down: ## minikube delete
+	@minikube delete
+
+# ISTIO ================================================================================================================
+istio-run: ## Run istio
+	@istioctl manifest apply --set profile=demo
 
 # UI ===================================================================================================================
+PATH_TO_UI_NUXT := pkg/ui/nuxt
+
 nuxt_generate: ## Deploy nuxt UI
 	@npm --prefix ${PATH_TO_UI_NUXT} install
 	@npm --prefix ${PATH_TO_UI_NUXT} run generate

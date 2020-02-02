@@ -5,7 +5,7 @@ services:
   shortlink:
     build:
       context: .
-      dockerfile: shortlink.Dockerfile
+      dockerfile: ops/dockerfile/shortlink.dockerfile
     container_name: shortlink
     ports:
       # API
