@@ -135,6 +135,12 @@ docker-push: ## Publish the container
 	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 	@docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 
+	@echo docker push image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
+	@docker push ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
+
+	@echo docker push image ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
+	@docker push ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
+
 # KUBERNETES ===========================================================================================================
 PATH_TO_SHORTLINK_CHART := ops/Helm/shortlink
 PATH_TO_COMMON_CHART := ops/Helm/common
