@@ -1,25 +1,19 @@
-apiVersion: v1
-name: common
-description: A Helm chart for Kubernetes
-
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
-type: application
-
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-version: 0.1.4
-
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application.
-appVersion: 1.0.0
-
+apiVersion: v1                                   # The chart API version (required)
+appVersion: "1.0.0"                              # The version of the app that this contains (optional)
+name: common                                     # The name of the chart (required)
+description: Shortlink infrastructure            # A single-sentence description of this project (optional)
+version: 0.1.5                                   # A SemVer 2 version (required)
+kubeVersion: ">= 1.16.0"                         # A SemVer range of compatible Kubernetes versions (optional)
+home: https://batazor.github.io/shortlink/       # The URL of this project's home page (optional)
+sources:                                         # A list of URLs to source code for this project (optional)
+  - https://github.com/batazor/shortlink
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application                                # It is the type of chart (optional)
+deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: nginx-ingress
     version: 1.29.6
