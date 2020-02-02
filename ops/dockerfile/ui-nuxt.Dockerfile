@@ -8,6 +8,9 @@ RUN npm i && \
 
 FROM nginx:1.17-alpine
 
+# Delete default config
+RUN rm /etc/nginx/conf.d/default.conf
+
 WORKDIR /usr/share/nginx/html
 
 COPY --from=builder /app/dist ./

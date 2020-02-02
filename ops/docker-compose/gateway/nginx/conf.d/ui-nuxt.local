@@ -2,13 +2,22 @@ server {
     listen      80;
     server_name _;
 
-    location / {
-      root   /usr/share/nginx/html;
-      index  index.html;
-      try_files $uri $uri/ /index.html?$args;
+    root   /usr/share/nginx/html;
+
+    location ~* \.(?:ico|gif|jpe?g|png|woff2?|eot|otf|ttf|svg|js|css)$ {
+      rewrite ^/(.*)$ /$1 last;
+
+      add_header Pragma public;
+      add_header Cache-Control "public";
+
+      try_files $uri $uri/;
     }
 
-    location = /50x.html {
-        root   /usr/share/nginx/html;
+    location / {
+      add_header Content-Security-Policy "default-src 'self' 'unsafe-inline';";
+      add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+      add_header X-Frame-Options "SAMEORIGIN";
+
+      try_files $uri $uri/ /index.html =404;
     }
 }
