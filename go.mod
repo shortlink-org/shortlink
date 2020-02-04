@@ -5,7 +5,7 @@ go 1.13
 require (
 	github.com/DataDog/zstd v1.4.1 // indirect
 	github.com/Masterminds/squirrel v1.2.0
-	github.com/Shopify/sarama v1.26.0
+	github.com/Shopify/sarama v1.26.1
 	github.com/cloudevents/sdk-go v1.0.0
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
@@ -52,8 +52,6 @@ require (
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.13.0
-	golang.org/x/crypto v0.0.0-20200128174031-69ecbb4d6d5d // indirect
-	golang.org/x/net v0.0.0-20200114155413-6afb5195e5aa // indirect
 	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect
 	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
 	google.golang.org/genproto v0.0.0-20200203223152-ff9e8190c2f5
