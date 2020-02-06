@@ -94,6 +94,9 @@ docker-compose \
 
 ### Configuration
 
+<details><summary>DETAILS</summary>
+<p>
+
 ##### [12 factors: ENV](https://12factor.net/config)
 
 | Name                | Default                                                     | Description                                              |
@@ -120,6 +123,10 @@ docker-compose \
 | MQ_KAFKA_URI        | localhost:9092                                              | Kafka URI                                                |
 | SENTRY_DSN          | ___DSN___                                                   | key for sentry                                           | 
 
+
+</p>
+</details>
+
 ### CoreDNS IP table
 
 | Service           | Ip address     | Description                                    |
@@ -130,6 +137,15 @@ docker-compose \
 
 Sometimes a container without a specified ip may occupy a binding address of another service, 
 which will result in `Address already in use`.
+
+### Ansible
+
+##### Vagrant
+
+```
+cd ops/vagrant
+vagrant up
+```
 
 ### Kubernetes
 
