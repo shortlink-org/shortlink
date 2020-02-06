@@ -1,0 +1,13 @@
+- name: Configure webserver with Nginx
+  hosts: webservers
+  become: True
+  tasks:
+    - name: install nginx
+      apt: name=nginx update_cache=yes
+
+    - name: copy nginx config file
+      copy: src=../docker-compose/gateway/nginx/* dest=/etc/nginx/
+
+    - name: restart nginx
+      service: name=nginx state=restarted
+
