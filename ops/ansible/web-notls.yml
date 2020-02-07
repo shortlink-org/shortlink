@@ -1,13 +1,40 @@
 - name: Configure webserver with Nginx
-  hosts: webservers
+  hosts: gateway
   become: True
   tasks:
     - name: install nginx
-      apt: name=nginx update_cache=yes
+      apt: name=nginx update_cache=yes state=latest
 
     - name: copy nginx config file
-      copy: src=../docker-compose/gateway/nginx/* dest=/etc/nginx/
+      synchronize:
+        src: ../docker-compose/gateway/nginx # Copy from remote directory for easy sync configuration for difficult platform
+        dest: /etc/
+        rsync_opts:
+          - "--exclude=shortlink.local"
+
+    - name: delete nginx preset
+      file:
+        state: absent
+        path: /var/log/nginx/access.log # TODO: Fix `nginx: [emerg] open() "/dev/stdout" failed (6: No such device or address)`
+
+    - name: create a `nginx` user
+      user:
+        name: nginx
+        shell: /bin/bash
+        password: "{{ 'user_password' | password_hash('sha512') }}"
+        groups:
+          - www-data
+          - sudo
+
+    - name: add `shortlink` service
+      lineinfile:
+        dest: /etc/hosts
+        regexp: '.*shortlink$'
+        line: "127.0.0.1 shortlink"
+        state: present
 
     - name: restart nginx
-      service: name=nginx state=restarted
+      service:
+        name: nginx
+        state: restarted
 
