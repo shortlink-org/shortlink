@@ -1,4 +1,29 @@
 # Setting
 
+core-01 ansible_host=127.0.0.1 ansible_ssh_port=2222 private_key_file=../vagrant/.vagrant/machines/core-01/virtualbox/private_key
+core-02 ansible_host=127.0.0.1 ansible_ssh_port=2200 private_key_file=../vagrant/.vagrant/machines/core-02/virtualbox/private_key
+core-03 ansible_host=127.0.0.1 ansible_ssh_port=2201 private_key_file=../vagrant/.vagrant/machines/core-03/virtualbox/private_key
+
 [gateway]
-vagrant ansible_host=127.0.0.1 ansible_port=2222
+core-01
+
+[store]
+core-02
+
+[mq]
+core-02
+
+[ui]
+core-03
+
+[shortlink]
+core-03
+
+[logger]
+core-[01-03] # Include 01,02,03
+
+# Group with subgroup services
+[service]
+ui
+shortlink
+logger

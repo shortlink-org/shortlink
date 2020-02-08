@@ -16,7 +16,7 @@
 
     - name: copy nginx config file
       synchronize:
-        src: ../docker-compose/gateway/nginx # Copy from remote directory for easy sync configuration for difficult platform
+        src: ../../docker-compose/gateway/nginx # Copy from remote directory for easy sync configuration for difficult platform
         dest: /etc/
         rsync_opts:
           - "--exclude=shortlink.local"
