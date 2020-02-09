@@ -1,0 +1,6 @@
+---
+# handlers file for ui-nuxt
+- name: restart nginx
+  service:
+    name: nginx
+    state: reloaded
