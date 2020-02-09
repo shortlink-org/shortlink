@@ -14,7 +14,7 @@ jobs:
       - name: Lint Ansible Playbook
         # replace "master" with any valid ref
         uses: ansible/ansible-lint-action@master
-        working-directory: ops/ansible
+        working-directory: ./ops/ansible
         with:
           # [required]
           # Paths to ansible files (i.e., playbooks, tasks, handlers etc..)
