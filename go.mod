@@ -21,7 +21,7 @@ require (
 	github.com/golang/protobuf v1.3.3
 	github.com/google/wire v0.4.0
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
-	github.com/graph-gophers/graphql-go v0.0.0-20191115155744-f33e81362277
+	github.com/graph-gophers/graphql-go v0.0.0-20200207002730-8334863f2c8b
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway v1.12.2
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
@@ -35,7 +35,7 @@ require (
 	github.com/ory/dockertest/v3 v3.5.4
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/prometheus/client_golang v1.4.0
+	github.com/prometheus/client_golang v1.4.1
 	github.com/scylladb/gocqlx v1.3.3
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/afero v1.2.2 // indirect
@@ -53,7 +53,7 @@ require (
 	go.uber.org/zap v1.13.0
 	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect
 	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
-	google.golang.org/genproto v0.0.0-20200205142000-a86caf926a67
+	google.golang.org/genproto v0.0.0-20200207204624-4f3edf09f4f6
 	google.golang.org/grpc v1.27.1
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
