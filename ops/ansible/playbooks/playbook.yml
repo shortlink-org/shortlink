@@ -1,0 +1,8 @@
+- name: Install common dependencies
+  hosts: all
+  become: True
+  roles:
+    - common
+    - docker
+    - nginx
+    - ui-nuxt

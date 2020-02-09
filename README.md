@@ -142,19 +142,35 @@ use`.
 
 ### Ansible
 
+<details><summary>DETAILS</summary>
+<p>
+
 ##### Vagrant
 
 ```
 cd ops/vagrant
 vagrant up
+
+cd ops/ansible
+ansible-playbook playbooks/playbook.yml
 ```
+
+##### DNS/HTTP
+
++ `ui-nuxt.shortlink.vagrant:8081`
+
+</p>
+</details>
 
 ### Kubernetes
 
+<details><summary>DETAILS</summary>
+<p>
+
 ##### HELM
 
-+ common - run common tools (ingress)
-+ shortlink - run shortlink applications (shortlink, logger, ui)
++ **common** - run common tools (ingress)
++ **shortlink** - run shortlink applications (shortlink, logger, ui)
 
 ##### DNS
 
@@ -163,6 +179,9 @@ vagrant up
 + `grafana.minikube`
 + `jaeger.minikube`
 + `prometheus.minikube`
+
+</p>
+</details>
 
 ### TRAVIS CI
 
