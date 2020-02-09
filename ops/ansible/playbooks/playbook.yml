@@ -1,0 +1,11 @@
+- name: Install common dependencies
+  hosts: all
+  become: True
+  vars:
+    pip_install_packages:
+      - name: docker
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+    - nginx
+    - ui-nuxt

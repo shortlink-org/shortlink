@@ -1,0 +1,17 @@
+server {
+	listen 443 ssl;
+
+	root   /usr/share/nginx/html;
+
+	server_name {{ server_name }};
+	ssl_certificate {{ cert_file }};
+	ssl_certificate_key {{ key_file }};
+
+	location ~* \.(?:ico|gif|jpe?g|png|woff2?|eot|otf|ttf|svg|js|css)$ {
+    try_files $uri $uri/;
+  }
+
+  location / {
+    try_files $uri $uri/ /index.html =404;
+  }
+}

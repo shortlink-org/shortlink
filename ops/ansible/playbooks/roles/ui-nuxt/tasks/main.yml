@@ -1,0 +1,16 @@
+---
+# tasks file for ui-nuxt
+- name: deploy UI by NUXT
+  docker_container:
+    name: ui
+    image: batazor/shortlink-ui-nuxt
+    ports:
+      - "5080:80"
+  when: inventory_hostname in groups['ui']
+
+- name: copy nginx config file for shortlink-ui-nuxt
+  template:
+    src: templates/ui-nuxt.shortlink.vagrant.j2
+    dest: /etc/nginx/conf.d/ui-nuxt.shortlink.vagrant
+  notify: restart nginx
+  when: inventory_hostname in groups['gateway']
