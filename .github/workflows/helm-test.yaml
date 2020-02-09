@@ -12,15 +12,17 @@ jobs:
       - name: Run chart-testing (lint)
         id: lint
         uses: helm/chart-testing-action@v1.0.0-alpha.3
-        working-directory: ./ops/Helm
         with:
           command: lint
+          targets: |
+            ./ops/Helm
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.0.0-alpha.3
-        working-directory: ./ops/Helm
         with:
           install_local_path_provisioner: true
+          targets: |
+            ./ops/Helm
         # Only build a kind cluster if there are chart changes to test.
         if: steps.lint.outputs.changed == 'true'
 
@@ -29,3 +31,5 @@ jobs:
         working-directory: ./ops/Helm
         with:
           command: install
+          targets: |
+            ./ops/Helm
