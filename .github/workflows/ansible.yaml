@@ -14,6 +14,7 @@ jobs:
       - name: Lint Ansible Playbook
         # replace "master" with any valid ref
         uses: ansible/ansible-lint-action@master
+        working-directory: ops/ansible
         with:
           # [required]
           # Paths to ansible files (i.e., playbooks, tasks, handlers etc..)
@@ -23,8 +24,7 @@ jobs:
           # targets: |
           #   playbook_1.yml
           #   playbook_2.yml
-          targets: |
-            ops/ansible
+          targets: ""
           # [optional]
           # Arguments to be passed to the ansible-lint
 
