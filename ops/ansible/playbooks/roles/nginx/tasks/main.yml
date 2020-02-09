@@ -2,7 +2,7 @@
 - name: install nginx
   apt:
     name: nginx
-    state: latest
+    state: 1.14.0
     update_cache: yes
     cache_valid_time: 3600
   when: inventory_hostname in groups['gateway']
