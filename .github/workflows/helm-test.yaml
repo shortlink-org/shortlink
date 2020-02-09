@@ -28,7 +28,6 @@ jobs:
 
       - name: Run chart-testing (install)
         uses: helm/chart-testing-action@v1.0.0-alpha.3
-        working-directory: ./ops/Helm
         with:
           command: install
           targets: |
