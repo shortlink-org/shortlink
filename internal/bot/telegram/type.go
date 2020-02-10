@@ -1,5 +1,4 @@
 package telegram
 
-type Config {
-
+type Config struct {
 }

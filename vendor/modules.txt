@@ -87,6 +87,8 @@ github.com/go-redis/redis/internal/util
 github.com/go-sql-driver/mysql
 # github.com/go-stack/stack v1.8.0
 github.com/go-stack/stack
+# github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
+github.com/go-telegram-bot-api/telegram-bot-api
 # github.com/gobuffalo/here v0.6.0
 github.com/gobuffalo/here
 # github.com/gocql/gocql v0.0.0-20200203083758-81b8263d9fe5
@@ -202,7 +204,11 @@ github.com/magiconair/properties
 # github.com/markbates/pkger v0.14.0
 github.com/markbates/pkger
 github.com/markbates/pkger/internal/maps
+github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa
+github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa/filters
 github.com/markbates/pkger/pkging
+github.com/markbates/pkger/pkging/embed
+github.com/markbates/pkger/pkging/mem
 github.com/markbates/pkger/pkging/stdos
 # github.com/mattn/go-sqlite3 v2.0.3+incompatible
 github.com/mattn/go-sqlite3
@@ -314,6 +320,8 @@ github.com/syndtr/goleveldb/leveldb/opt
 github.com/syndtr/goleveldb/leveldb/storage
 github.com/syndtr/goleveldb/leveldb/table
 github.com/syndtr/goleveldb/leveldb/util
+# github.com/technoweenie/multipartstreamer v1.0.1
+github.com/technoweenie/multipartstreamer
 # github.com/uber/jaeger-client-go v2.22.1+incompatible
 github.com/uber/jaeger-client-go
 github.com/uber/jaeger-client-go/config
