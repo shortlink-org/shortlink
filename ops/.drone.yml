@@ -9,6 +9,6 @@ platform:
 
 steps:
   - name: test
-    image: golang:1.13.0
+    image: golang:1.13.7
     commands:
       - go test ./...
