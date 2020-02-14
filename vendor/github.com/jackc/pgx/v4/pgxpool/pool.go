@@ -13,7 +13,9 @@ import (
 )
 
 var defaultMaxConns = int32(4)
+var defaultMinConns = int32(0)
 var defaultMaxConnLifetime = time.Hour
+var defaultMaxConnIdleTime = time.Minute * 30
 var defaultHealthCheckPeriod = time.Minute
 
 type connResource struct {
@@ -70,7 +72,9 @@ type Pool struct {
 	afterConnect      func(context.Context, *pgx.Conn) error
 	beforeAcquire     func(context.Context, *pgx.Conn) bool
 	afterRelease      func(*pgx.Conn) bool
+	minConns          int32
 	maxConnLifetime   time.Duration
+	maxConnIdleTime   time.Duration
 	healthCheckPeriod time.Duration
 	closeChan         chan struct{}
 }
@@ -92,11 +96,18 @@ type Config struct {
 	// return the connection to the pool or false to destroy the connection.
 	AfterRelease func(*pgx.Conn) bool
 
-	// MaxConnLifetime is the duration after which a connection will be automatically closed.
+	// MaxConnLifetime is the duration since creation after which a connection will be automatically closed.
 	MaxConnLifetime time.Duration
+
+	// MaxConnIdleTime is the duration after which an idle connection will be automatically closed by the health check.
+	MaxConnIdleTime time.Duration
 
 	// MaxConns is the maximum size of the pool.
 	MaxConns int32
+
+	// MinConns is the minimum size of the pool. The health check will increase the number of connections to this
+	// amount if it had dropped below.
+	MinConns int32
 
 	// HealthCheckPeriod is the duration between checks of the health of idle connections.
 	HealthCheckPeriod time.Duration
@@ -128,7 +139,9 @@ func ConnectConfig(ctx context.Context, config *Config) (*Pool, error) {
 		afterConnect:      config.AfterConnect,
 		beforeAcquire:     config.BeforeAcquire,
 		afterRelease:      config.AfterRelease,
+		minConns:          config.MinConns,
 		maxConnLifetime:   config.MaxConnLifetime,
+		maxConnIdleTime:   config.MaxConnIdleTime,
 		healthCheckPeriod: config.HealthCheckPeriod,
 		closeChan:         make(chan struct{}),
 	}
@@ -184,7 +197,9 @@ func ConnectConfig(ctx context.Context, config *Config) (*Pool, error) {
 // addition of the following variables:
 //
 // pool_max_conns: integer greater than 0
+// pool_min_conns: integer 0 or greater
 // pool_max_conn_lifetime: duration string
+// pool_max_conn_idle_time: duration string
 // pool_health_check_period: duration string
 //
 // See Config for definitions of these arguments.
@@ -222,6 +237,17 @@ func ParseConfig(connString string) (*Config, error) {
 		}
 	}
 
+	if s, ok := config.ConnConfig.Config.RuntimeParams["pool_min_conns"]; ok {
+		delete(connConfig.Config.RuntimeParams, "pool_min_conns")
+		n, err := strconv.ParseInt(s, 10, 32)
+		if err != nil {
+			return nil, errors.Errorf("cannot parse pool_min_conns: %w", err)
+		}
+		config.MinConns = int32(n)
+	} else {
+		config.MinConns = defaultMinConns
+	}
+
 	if s, ok := config.ConnConfig.Config.RuntimeParams["pool_max_conn_lifetime"]; ok {
 		delete(connConfig.Config.RuntimeParams, "pool_max_conn_lifetime")
 		d, err := time.ParseDuration(s)
@@ -231,6 +257,17 @@ func ParseConfig(connString string) (*Config, error) {
 		config.MaxConnLifetime = d
 	} else {
 		config.MaxConnLifetime = defaultMaxConnLifetime
+	}
+
+	if s, ok := config.ConnConfig.Config.RuntimeParams["pool_max_conn_idle_time"]; ok {
+		delete(connConfig.Config.RuntimeParams, "pool_max_conn_idle_time")
+		d, err := time.ParseDuration(s)
+		if err != nil {
+			return nil, errors.Errorf("invalid pool_max_conn_idle_time: %w", err)
+		}
+		config.MaxConnIdleTime = d
+	} else {
+		config.MaxConnIdleTime = defaultMaxConnIdleTime
 	}
 
 	if s, ok := config.ConnConfig.Config.RuntimeParams["pool_health_check_period"]; ok {
@@ -264,6 +301,7 @@ func (p *Pool) backgroundHealthCheck() {
 			return
 		case <-ticker.C:
 			p.checkIdleConnsHealth()
+			p.checkMinConns()
 		}
 	}
 }
@@ -275,9 +313,21 @@ func (p *Pool) checkIdleConnsHealth() {
 	for _, res := range resources {
 		if now.Sub(res.CreationTime()) > p.maxConnLifetime {
 			res.Destroy()
+		} else if res.IdleDuration() > p.maxConnIdleTime {
+			res.Destroy()
 		} else {
-			res.Release()
+			res.ReleaseUnused()
 		}
+	}
+}
+
+func (p *Pool) checkMinConns() {
+	for i := p.minConns - p.Stat().TotalConns(); i > 0; i-- {
+		go func() {
+			ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+			defer cancel()
+			p.p.CreateResource(ctx)
+		}()
 	}
 }
 

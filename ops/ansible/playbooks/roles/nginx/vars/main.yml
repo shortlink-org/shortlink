@@ -1,0 +1,6 @@
+---
+# vars file for nginx
+key_file: /etc/nginx/ssl/nginx.key
+cert_file: /etc/nginx/ssl/nginx.crt
+conf_file: /etc/nginx/conf.d/ui-nuxt-ssl.local
+server_name: localhost

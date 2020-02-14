@@ -1,0 +1,46 @@
+---
+# tasks file for nginx
+- name: install nginx
+  apt:
+    name: nginx
+    state: 1.14.0
+    update_cache: yes
+    cache_valid_time: 3600
+  when: inventory_hostname in groups['gateway']
+
+- name: copy nginx config file
+  copy:
+    src: files/nginx.conf
+    dest: /etc/nginx/nginx.conf
+  when: inventory_hostname in groups['gateway']
+  notify: restart nginx
+
+- name: copy TLS key
+  copy:
+    src: files/nginx.key
+    dest: "{{ key_file }}"
+    owner: root
+    mode: "0600"
+  when: inventory_hostname in groups['gateway']
+  notify: restart nginx
+
+- name: copy TLS certificate
+  copy:
+    src: files/nginx.crt
+    dest: "{{ cert_file }}"
+  when: inventory_hostname in groups['gateway']
+  notify: restart nginx
+
+- name: copy nginx config file for TLS
+  template:
+    src: templates/ui-nuxt-ssl.local.j2
+    dest: "{{ conf_file }}"
+  when: inventory_hostname in groups['gateway']
+  notify: restart nginx
+
+- name: delete nginx preset
+  file:
+    state: absent
+    path: /var/log/nginx/access.log # TODO: Fix `nginx: [emerg] open() "/dev/stdout" failed (6: No such device or address)`
+  when: inventory_hostname in groups['gateway']
+  notify: restart nginx

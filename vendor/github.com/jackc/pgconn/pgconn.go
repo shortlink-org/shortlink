@@ -1084,26 +1084,47 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 	}
 
 	// Send copy data
-	buf = make([]byte, 0, 65536)
-	buf = append(buf, 'd')
-	sp := len(buf)
-	var readErr error
+	abortCopyChan := make(chan struct{})
+	copyErrChan := make(chan error, 1)
 	signalMessageChan := pgConn.signalMessage()
-	for readErr == nil && pgErr == nil {
-		var n int
-		n, readErr = r.Read(buf[5:cap(buf)])
-		if n > 0 {
-			buf = buf[0 : n+5]
-			pgio.SetInt32(buf[sp:], int32(n+4))
 
-			_, err = pgConn.conn.Write(buf)
-			if err != nil {
-				pgConn.asyncClose()
-				return nil, err
+	go func() {
+		buf := make([]byte, 0, 65536)
+		buf = append(buf, 'd')
+		sp := len(buf)
+
+		for {
+			n, readErr := r.Read(buf[5:cap(buf)])
+			if n > 0 {
+				buf = buf[0 : n+5]
+				pgio.SetInt32(buf[sp:], int32(n+4))
+
+				_, writeErr := pgConn.conn.Write(buf)
+				if writeErr != nil {
+					// Write errors are always fatal, but we can't use asyncClose because we are in a different goroutine.
+					pgConn.conn.Close()
+
+					copyErrChan <- writeErr
+					return
+				}
+			}
+			if readErr != nil {
+				copyErrChan <- readErr
+				return
+			}
+
+			select {
+			case <-abortCopyChan:
+				return
+			default:
 			}
 		}
+	}()
 
+	var copyErr error
+	for copyErr == nil && pgErr == nil {
 		select {
+		case copyErr = <-copyErrChan:
 		case <-signalMessageChan:
 			msg, err := pgConn.receiveMessage()
 			if err != nil {
@@ -1120,13 +1141,14 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 		default:
 		}
 	}
+	close(abortCopyChan)
 
 	buf = buf[:0]
-	if readErr == io.EOF || pgErr != nil {
+	if copyErr == io.EOF || pgErr != nil {
 		copyDone := &pgproto3.CopyDone{}
 		buf = copyDone.Encode(buf)
 	} else {
-		copyFail := &pgproto3.CopyFail{Message: readErr.Error()}
+		copyFail := &pgproto3.CopyFail{Message: copyErr.Error()}
 		buf = copyFail.Encode(buf)
 	}
 	_, err = pgConn.conn.Write(buf)
