@@ -41,13 +41,13 @@ require (
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.6.2
 	github.com/stretchr/testify v1.4.0
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/tidwall/pretty v1.0.0 // indirect
 	github.com/uber/jaeger-client-go v2.22.1+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
+	github.com/uber/prototool v1.9.1-0.20191206200454-388b2337c0b0 // indirect
 	go.mongodb.org/mongo-driver v1.2.1
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.0.0
