@@ -8,11 +8,14 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 charset = utf-8
+indent_style = space
+indent_size = 2
+insert_final_newline = true
 
 # Tab indentation (no size specified)
 [{Makefile,go.mod,go.sum,*.go,*.go.tmpl}]
 indent_style = tab
-indent_size = 8
+indent_size = 4
 
 # Indentation override for all JS under lib directory
 [**.js]

@@ -3,7 +3,6 @@ module github.com/batazor/shortlink
 go 1.13
 
 require (
-	github.com/DataDog/zstd v1.4.1 // indirect
 	github.com/Masterminds/squirrel v1.2.0
 	github.com/Shopify/sarama v1.26.1
 	github.com/cloudevents/sdk-go v1.0.0
@@ -16,7 +15,6 @@ require (
 	github.com/go-chi/cors v1.0.0
 	github.com/go-chi/render v1.0.1
 	github.com/go-redis/redis v6.15.7+incompatible
-	github.com/go-redis/redis/v7 v7.0.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocql/gocql v0.0.0-20200203083758-81b8263d9fe5
 	github.com/golang/protobuf v1.3.3
