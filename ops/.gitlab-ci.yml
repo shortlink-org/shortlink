@@ -39,16 +39,16 @@ gosec:
   type: test
   image: golang:1.14-alpine
   before_script:
-    - apk add --update git
+    - apk add --update git make curl
     - go get -u github.com/securego/gosec/cmd/gosec
   script:
     - make gosec
 
-test:
+gotest:
   type: test
   image: golang:1.14-alpine
   before_script:
-    - apk add --update git
+    - apk add --update git make curl
     - go get -u github.com/securego/gosec/cmd/gosec
   script:
     - make test
