@@ -20,6 +20,9 @@
     - branches
   when: manual
 
+services:
+  - docker:19.03-dind
+
 variables:
   PROJECT_NAMESPACE: rightcar
 
