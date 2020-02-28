@@ -97,7 +97,7 @@ func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) { /
 	}
 
 	rows, err := lite.client.Query(query, args...)
-	if err != nil {
+	if err != nil || rows.Err() != nil {
 		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 	defer rows.Close() // nolint errcheck
