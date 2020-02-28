@@ -35,6 +35,24 @@ golint:
   script:
     - make golint
 
+gosec:
+  type: test
+  image: golang:1.14-alpine
+  before_script:
+    - apk add --update git
+    - go get -u github.com/securego/gosec/cmd/gosec
+  script:
+    - make gosec
+
+test:
+  type: test
+  image: golang:1.14-alpine
+  before_script:
+    - apk add --update git
+    - go get -u github.com/securego/gosec/cmd/gosec
+  script:
+    - make test
+
 # QUEUES STAGING ======================================================================
 
 deploy:staging:
