@@ -3,12 +3,13 @@ package badger
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/dgraph-io/badger/v2"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
-	"github.com/dgraph-io/badger"
 )
 
 // BadgerConfig ...
