@@ -10,5 +10,11 @@ platform:
 steps:
   - name: test
     image: golang:1.14.0
+    privileged: true
     commands:
       - go test ./...
+
+services:
+  docker:
+    image: docker:19.03-dind
+    privileged: true
