@@ -15,6 +15,4 @@ steps:
       - go test ./...
 
 services:
-  docker:
-    image: docker:19.03-dind
-    privileged: true
+  - docker
