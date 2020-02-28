@@ -40,18 +40,16 @@ golint:
 
 gosec:
   type: test
-  image: golang:1.14-alpine
+  image: golang:1.14-buster
   before_script:
-    - apk add --update git make curl
     - go get -u github.com/securego/gosec/cmd/gosec
   script:
     - make gosec
 
 gotest:
   type: test
-  image: golang:1.14-alpine
+  image: golang:1.14-buster
   before_script:
-    - apk add --update git make curl build-base
     - go get -u github.com/securego/gosec/cmd/gosec
   script:
     - make test
