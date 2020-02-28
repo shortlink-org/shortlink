@@ -31,7 +31,7 @@ func TestDgraph(t *testing.T) {
 	// pulls an image, creates a container based on it and runs it
 	ZERO, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository:   "dgraph/dgraph",
-		Tag:          "v2.0.0-beta",
+		Tag:          "v1.1.0",
 		Cmd:          []string{"dgraph", "zero", "--my=test-dgraph-zero:5080"},
 		ExposedPorts: []string{"5080"},
 		Name:         "test-dgraph-zero",
