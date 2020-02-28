@@ -24,7 +24,9 @@ services:
   - docker:19.03-dind
 
 variables:
-  PROJECT_NAMESPACE: rightcar
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375
+  PROJECT_NAMESPACE: shortlink
 
 stages:
   - test
