@@ -28,6 +28,13 @@ stages:
   - build
   - deploy
 
+# COMMON ======================================================================
+golint:
+  type: test
+  image: golangci/golangci-lint:v1.23.6
+  script:
+    - make golint
+
 # QUEUES STAGING ======================================================================
 
 deploy:staging:
