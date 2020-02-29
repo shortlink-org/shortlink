@@ -25,7 +25,7 @@ services:
 
 variables:
   DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://localhost:2375
+  DOCKER_HOST: tcp://docker:2375
   PROJECT_NAMESPACE: shortlink
 
 stages:

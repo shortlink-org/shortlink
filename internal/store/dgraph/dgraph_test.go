@@ -42,7 +42,7 @@ func TestDgraph(t *testing.T) {
 	ALPHA, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository: "dgraph/dgraph",
 		Tag:        "v2.0.0-beta",
-		Cmd:        []string{"dgraph", "alpha", "--my=localhost:7080", "--lru_mb=2048", fmt.Sprintf("--zero=%s:%s", "test-dgraph-zero", "5080")},
+		Cmd:        []string{"dgraph", "alpha", "--my=127.0.0.1:7080", "--lru_mb=2048", fmt.Sprintf("--zero=%s:%s", "test-dgraph-zero", "5080")},
 		NetworkID:  network.ID,
 	})
 	if err != nil {
@@ -58,7 +58,7 @@ func TestDgraph(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_DGRAPH_URI", fmt.Sprintf("localhost:%s", ALPHA.GetPort("9080/tcp")))
+		err = os.Setenv("STORE_DGRAPH_URI", fmt.Sprintf("127.0.0.1:%s", ALPHA.GetPort("9080/tcp")))
 		if err != nil {
 			assert.Errorf(t, err, "Cannot set ENV")
 			return nil
