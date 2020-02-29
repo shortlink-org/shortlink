@@ -16,16 +16,16 @@ import (
 
 // DGraphLink implementation of store interface
 type DGraphLink struct { // nolint unused
-	UID string `json:"UID,omitempty"`
-	link.Link
-	DType []string `json:"dgraph.type,omitempty"`
+	Uid       string `json:"uid,omitempty"`
+	link.Link `json:"link,omitempty"`
+	DType     []string `json:"dgraph.type,omitempty"`
 }
 
 // DGraphLinkResponse ...
 type DGraphLinkResponse struct { // nolint unused
 	Link []struct {
 		link.Link
-		UID string
+		Uid string `json:"uid,omitempty"`
 	}
 }
 
@@ -36,22 +36,25 @@ type DGraphConfig struct { // nolint unused
 
 // DGraphLinkList ...
 type DGraphLinkList struct { // nolint unused
+	conn   *grpc.ClientConn
 	client *dgo.Dgraph
 	config DGraphConfig
 }
 
 // Init ...
 func (dg *DGraphLinkList) Init() error {
+	var err error
+
 	// Set configuration
 	dg.setConfig()
 
-	conn, err := grpc.Dial(dg.config.URL, grpc.WithInsecure())
+	dg.conn, err = grpc.Dial(dg.config.URL, grpc.WithInsecure())
 	if err != nil {
 		return err
 	}
-	dg.client = dgo.NewDgraphClient(api.NewDgraphClient(conn))
+	dg.client = dgo.NewDgraphClient(api.NewDgraphClient(dg.conn))
 
-	if err = dg.migration(); err != nil {
+	if err = dg.migrate(); err != nil {
 		return err
 	}
 
@@ -60,12 +63,39 @@ func (dg *DGraphLinkList) Init() error {
 
 // Close ...
 func (dg *DGraphLinkList) Close() error {
-	return nil
+	return dg.conn.Close()
 }
 
-// Migrate ...
+// Migrate - init structure
 func (dg *DGraphLinkList) migrate() error { // nolint unused
-	return nil
+	ctx := context.Background()
+	txn := dg.client.NewTxn()
+	defer func() {
+		if err := txn.Discard(ctx); err != nil {
+			// TODO: use logger
+			fmt.Println(err.Error())
+		}
+	}()
+
+	op := &api.Operation{
+		Schema: `
+type Link {
+    url: string
+    hash: string
+    describe: string
+    created_at: datetime
+    updated_at: datetime
+}
+
+url: string @index(term) @lang .
+hash: string @index(term) @lang .
+describe: string @index(term) @lang .
+created_at: datetime .
+updated_at: datetime .
+`,
+	}
+
+	return dg.client.Alter(ctx, op)
 }
 
 // get - private `get` method
@@ -82,7 +112,7 @@ func (dg *DGraphLinkList) get(id string) (*DGraphLinkResponse, error) {
 	q := `
 query all($a: string) {
 	link(func: eq(hash, $a)) {
-		UID
+		uid
 		url
 		hash
 		describe
@@ -142,7 +172,7 @@ func (dg *DGraphLinkList) list() (*DGraphLinkResponse, error) {
 	q := `
 query all {
 	Link(func: has(hash)) {
-		UID
+		uid
 		url
 		hash
 		describe
@@ -210,7 +240,7 @@ func (dg *DGraphLinkList) Add(source link.Link) (*link.Link, error) {
 	}()
 
 	item := DGraphLink{
-		UID:   fmt.Sprintf(`_:%s`, data.Hash),
+		Uid:   fmt.Sprintf(`_:%s`, data.Hash),
 		Link:  data,
 		DType: []string{"Link"},
 	}
@@ -228,7 +258,7 @@ func (dg *DGraphLinkList) Add(source link.Link) (*link.Link, error) {
 		CommitNow: true,
 		// TODO: Add condition
 		//Cond: `@if(eq(len(hash), 1))`,
-		//SetNquads: []byte(fmt.Sprintf(`UID(hash) <hash> "%s" .`, data.Hash)),
+		//SetNquads: []byte(fmt.Sprintf(`uid(hash) <hash> "%s" .`, data.Hash)),
 	}
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
@@ -267,7 +297,7 @@ func (dg *DGraphLinkList) Delete(id string) error {
 		CommitNow: true,
 	}
 	for _, link := range links.Link {
-		dgo.DeleteEdges(mu, link.UID, "hash")
+		dgo.DeleteEdges(mu, link.Uid, "hash")
 	}
 
 	_, err = txn.Mutate(ctx, mu)
@@ -276,34 +306,6 @@ func (dg *DGraphLinkList) Delete(id string) error {
 	}
 
 	return nil
-}
-
-// migration - init structure
-func (dg *DGraphLinkList) migration() error {
-	ctx := context.Background()
-	txn := dg.client.NewTxn()
-	defer func() {
-		if err := txn.Discard(ctx); err != nil {
-			// TODO: use logger
-			fmt.Println(err.Error())
-		}
-	}()
-
-	op := &api.Operation{
-		Schema: `
-type Link {
-    url: string
-    hash: string
-    describe: string
-    created_at: datetime
-    updated_at: datetime
-}
-
-hash: string @index(term) @lang .
-`,
-	}
-
-	return dg.client.Alter(ctx, op)
 }
 
 // setConfig - set configuration
