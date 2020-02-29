@@ -22,7 +22,7 @@
 
 services:
   - name: docker:19.03-dind
-    alias: localhost
+    alias: localhost # necessary for correct addressing to services running in docker
 
 variables:
   DOCKER_DRIVER: overlay2
