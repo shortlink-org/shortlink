@@ -21,7 +21,8 @@
   when: manual
 
 services:
-  - docker:19.03-dind
+  - name: docker:19.03-dind
+    alias: localhost
 
 variables:
   DOCKER_DRIVER: overlay2
