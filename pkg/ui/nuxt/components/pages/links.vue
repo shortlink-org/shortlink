@@ -34,6 +34,9 @@
       )
     },
     head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
       title: 'Links'
     },
     async fetch ({ store, params }) {
