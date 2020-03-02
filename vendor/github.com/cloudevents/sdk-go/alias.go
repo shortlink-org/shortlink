@@ -95,11 +95,12 @@ var (
 
 	// Client Options
 
-	WithEventDefaulter  = client.WithEventDefaulter
-	WithUUIDs           = client.WithUUIDs
-	WithTimeNow         = client.WithTimeNow
-	WithConverterFn     = client.WithConverterFn
-	WithDataContentType = client.WithDataContentType
+	WithEventDefaulter      = client.WithEventDefaulter
+	WithUUIDs               = client.WithUUIDs
+	WithTimeNow             = client.WithTimeNow
+	WithConverterFn         = client.WithConverterFn
+	WithDataContentType     = client.WithDataContentType
+	WithoutTracePropagation = client.WithoutTracePropagation
 
 	// Event Creation
 
@@ -142,9 +143,11 @@ var (
 	WithMiddleware           = http.WithMiddleware
 	WithLongPollTarget       = http.WithLongPollTarget
 	WithListener             = http.WithListener
+	WithHTTPTransport        = http.WithHTTPTransport
 
 	// HTTP Context
 
 	HTTPTransportContextFrom = http.TransportContextFrom
 	ContextWithHeader        = http.ContextWithHeader
+	SetContextHeaders        = http.SetContextHeaders
 )
