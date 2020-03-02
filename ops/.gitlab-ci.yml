@@ -37,7 +37,7 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_HOST: tcp://docker:2375
   PROJECT_NAMESPACE: shortlink
-  a11y_urls: "https://shortlink.surge.sh/" # https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html#configure-accessibility-testing
+  PRODUCTION_HOST: "https://shortlink.surge.sh/" # https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html#configure-accessibility-testing
 
 include:
   - remote: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/lib/gitlab/ci/templates/Verify/Accessibility.gitlab-ci.yml"
@@ -108,7 +108,7 @@ a11y:
     - apt-get install -y google-chrome-stable && \
     - rm -rf /var/lib/apt/lists/*
     - npm install pa11y@5.3.0 pa11y-reporter-html@1.0.0
-    - './node_modules/.bin/pa11y $a11y_urls > accessibility.html'
+    - './node_modules/.bin/pa11y --ignore "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail" $PRODUCTION_HOST > accessibility.html'
   allow_failure: true
   artifacts:
     when: always
