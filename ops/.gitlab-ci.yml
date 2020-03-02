@@ -29,6 +29,8 @@
   type: test
   image: golang:1.14-buster
   only:
+    refs:
+      - tags
     changes:
       - "*.go"
       - "**/*.go"
