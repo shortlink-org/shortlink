@@ -20,6 +20,15 @@
     - branches
   when: manual
 
+.job_teplate_go: &job_go
+  type: test
+  image: golang:1.14-buster
+  only:
+    changes:
+      - cmd
+      - internal
+      - pkg
+
 services:
   - name: docker:19.03-dind
     alias: localhost # necessary for correct addressing to services running in docker
@@ -28,7 +37,7 @@ variables:
   DOCKER_DRIVER: overlay2
   DOCKER_HOST: tcp://docker:2375
   PROJECT_NAMESPACE: shortlink
-  a11y_urls: "https://about.gitlab.com" # https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html#configure-accessibility-testing
+  a11y_urls: "https://shortlink.surge.sh/" # https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html#configure-accessibility-testing
 
 include:
   - remote: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/lib/gitlab/ci/templates/Verify/Accessibility.gitlab-ci.yml"
@@ -41,22 +50,20 @@ stages:
 
 # ON COMMIT ============================================================================================================
 golint:
-  type: test
+  <<: *job_go
   image: golangci/golangci-lint:v1.23.6
   script:
     - make golint
 
 gosec:
-  type: test
-  image: golang:1.14-buster
+  <<: *job_go
   before_script:
     - go get -u github.com/securego/gosec/cmd/gosec
   script:
     - make gosec
 
 gotest:
-  type: test
-  image: golang:1.14-buster
+  <<: *job_go
   script:
     - make test
 
@@ -69,7 +76,7 @@ deploy:staging:
     RELEASE_NAME: $CI_PROJECT_NAME
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
   environment:
-    name: Production
+    name: staging
     url: stage.example.com
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
@@ -83,7 +90,7 @@ deploy:production:
     RELEASE_NAME: $CI_PROJECT_NAME
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
   environment:
-    name: Production
+    name: production
     url: prod.example.com
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
