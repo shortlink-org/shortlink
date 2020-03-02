@@ -12,6 +12,9 @@
       )
     },
     head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
       title: 'About of project'
     }
   }
