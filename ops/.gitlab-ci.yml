@@ -157,4 +157,4 @@ a11y:
     expose_as: 'accessibility'
     paths: ['accessibility.html']
   rules:
-    - if: $a11y_urls
+    - if: $PRODUCTION_HOST
