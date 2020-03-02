@@ -5,7 +5,7 @@
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
-    - push # TODO: delete this line before accept this PR
+    - branches # TODO: delete this line before accept this PR
   except:
     - branches
 
@@ -133,8 +133,7 @@ a11y:
     - apt-get install -y google-chrome-stable && \
     - rm -rf /var/lib/apt/lists/*
     - npm install pa11y@5.3.0 pa11y-reporter-html@1.0.0
-    - './node_modules/.bin/pa11y --ignore "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail" $PRODUCTION_HOST > accessibility.html'
-  allow_failure: true
+    - './node_modules/.bin/pa11y $PRODUCTION_HOST > accessibility.html'
   artifacts:
     when: always
     expose_as: 'accessibility'
