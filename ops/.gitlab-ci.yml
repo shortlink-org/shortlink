@@ -30,9 +30,7 @@
   image: golang:1.14-buster
   only:
     changes:
-      - cmd
-      - internal
-      - pkg
+      - "*.go"
 
 services:
   - name: docker:19.03-dind
