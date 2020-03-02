@@ -1,21 +1,14 @@
 .job_template_build: &job_build
   type: build
+  before_script:
+    - docker login registry.gitlab.com
   when: on_success
   retry: 2
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
-    - branches # TODO: delete this line before accept this PR
   except:
     - branches
-
-.job_template_go_build: &job_go_build
-  <<: *job_build
-  image: golang:1.14-buster
-
-.job_template_node_build: &job_node_build
-  <<: *job_build
-  image: node:1.13-alpine
 
 .job_template_deploy: &job_deploy
   type: deploy
@@ -81,16 +74,40 @@ gotest:
 
 # BUILD IMAGE ==========================================================================================================
 build:shortlink:
-  <<: *job_go_build
+  <<: *job_build
+  variables:
+    CI_REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/shortlink
+    DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
   script:
-    - make CI_COMMIT_TAG=$CI_COMMIT_TAG docker
+    - make \
+        CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE \
+        CI_COMMIT_TAG=$CI_COMMIT_TAG \
+        DOCKERFILE_PATH=$DOCKERFILE_PATH \
+        docker-build
+
+build:logger:
+  <<: *job_build
+  variables:
+    CI_REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
+    DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
+  script:
+    - make \
+      CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE \
+      CI_COMMIT_TAG=$CI_COMMIT_TAG \
+      DOCKERFILE_PATH=$DOCKERFILE_PATH \
+      docker-build
 
 build:ui:
-  <<: *job_node_build
-  before_script:
-    - npm install
+  <<: *job_build
+  variables:
+    CI_REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
+    DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
   script:
-    - make nuxt_generate
+    - make \
+      CI_REGISTRY_IMAGE=$CI_REGISTRY_IMAGE \
+      CI_COMMIT_TAG=$CI_COMMIT_TAG \
+      DOCKERFILE_PATH=$DOCKERFILE_PATH \
+      docker-build
 
 # STAGING RELEASE ======================================================================================================
 
