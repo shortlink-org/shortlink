@@ -23,14 +23,14 @@ stages:
 # ON COMMIT ============================================================================================================
 golint:
   extends:
-    - job_teplate_go
+    - .job_teplate_go
   image: golangci/golangci-lint:v1.23.6
   script:
     - make golint
 
 gosec:
   extends:
-    - job_teplate_go
+    - .job_teplate_go
   before_script:
     - go get -u github.com/securego/gosec/cmd/gosec
   script:
@@ -38,14 +38,14 @@ gosec:
 
 gotest:
   extends:
-    - job_teplate_go
+    - .job_teplate_go
   script:
     - make test
 
 # BUILD IMAGE ==========================================================================================================
 build:shortlink:
   extends:
-    - job_template_build
+    - .job_template_build
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/shortlink
     DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
@@ -55,7 +55,7 @@ build:shortlink:
 
 build:logger:
   extends:
-    - job_template_build
+    - .job_template_build
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
@@ -65,7 +65,7 @@ build:logger:
 
 build:ui:
   extends:
-    - job_template_build
+    - .job_template_build
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
     DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
@@ -77,7 +77,7 @@ build:ui:
 
 deploy:staging:
   extends:
-    - job_deploy
+    - .job_template_deploy
   variables:
     KUBE_CONTEXT: production
     RELEASE_NAME: $CI_PROJECT_NAME
@@ -92,7 +92,7 @@ deploy:staging:
 
 deploy:production:
   extends:
-    - job_template_deploy
+    - .job_template_deploy
   variables:
     KUBE_CONTEXT: production
     RELEASE_NAME: $CI_PROJECT_NAME
