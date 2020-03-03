@@ -1,45 +1,3 @@
-.job_template_build: &job_build
-  stage: build
-  image: gitlab/dind
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  when: on_success
-  retry: 2
-  tags:
-    - docker
-  only:
-    - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
-    - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
-  except:
-    - branches
-
-.job_template_deploy: &job_deploy
-  stage: deploy
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - helm --kube-context $KUBE_CONTEXT upgrade $RELEASE_NAME $HELM_PATH
-      --install
-      --force
-      --wait
-      --namespace=$PROJECT_NAMESPACE
-      --set CI_PROJECT_NAME=$CI_PROJECT_NAME;
-  except:
-    - branches
-  when: manual
-
-.job_teplate_go: &job_go
-  stage: test
-  image: golang:1.14-buster
-  tags:
-    - docker
-  only:
-    refs:
-      - tags
-    changes:
-      - "*.go"
-      - "**/*.go"
-
 services:
   - name: docker:19.03-dind
     alias: localhost # necessary for correct addressing to services running in docker
@@ -50,6 +8,9 @@ variables:
   PROJECT_NAMESPACE: shortlink
 
 include:
+  - local: /ops/templates/job_template_build.yml
+  - local: /ops/templates/job_template_deploy.yml
+  - local: /ops/templates/job_teplate_go.yml
   - template: License-Scanning.gitlab-ci.yml
 
 stages:
@@ -61,26 +22,30 @@ stages:
 
 # ON COMMIT ============================================================================================================
 golint:
-  <<: *job_go
+  extends:
+    - job_go
   image: golangci/golangci-lint:v1.23.6
   script:
     - make golint
 
 gosec:
-  <<: *job_go
+  extends:
+    - job_go
   before_script:
     - go get -u github.com/securego/gosec/cmd/gosec
   script:
     - make gosec
 
 gotest:
-  <<: *job_go
+  extends:
+    - job_go
   script:
     - make test
 
 # BUILD IMAGE ==========================================================================================================
 build:shortlink:
-  <<: *job_build
+  extends:
+    - job_build
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/shortlink
     DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
@@ -89,7 +54,8 @@ build:shortlink:
     - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 
 build:logger:
-  <<: *job_build
+  extends:
+    - job_build
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
@@ -98,7 +64,8 @@ build:logger:
     - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 
 build:ui:
-  <<: *job_build
+  extends:
+    - job_build
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
     DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
@@ -109,7 +76,8 @@ build:ui:
 # STAGING RELEASE ======================================================================================================
 
 deploy:staging:
-  <<: *job_deploy
+  extends:
+    - job_deploy
   variables:
     KUBE_CONTEXT: production
     RELEASE_NAME: $CI_PROJECT_NAME
@@ -123,7 +91,8 @@ deploy:staging:
 # PRODUCTION RELEASE ===================================================================================================
 
 deploy:production:
-  <<: *job_deploy
+  extends:
+    - job_deploy
   variables:
     KUBE_CONTEXT: production
     RELEASE_NAME: $CI_PROJECT_NAME
