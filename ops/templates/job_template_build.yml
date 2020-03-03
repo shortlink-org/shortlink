@@ -1,0 +1,14 @@
+.job_template_build: &job_build
+  stage: build
+  image: gitlab/dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  when: on_success
+  retry: 2
+  tags:
+    - docker
+  only:
+    - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
+    - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
+  except:
+    - branches
