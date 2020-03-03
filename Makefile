@@ -120,8 +120,14 @@ docker-login: ## Docker login
 	@echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
 
 docker-build: ## Build the container
+	@echo docker build image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ops/dockerfile/shortlink.Dockerfile .
+
+	@echo docker build image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
+	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG} -f ops/dockerfile/logger.Dockerfile .
+
 	@echo docker build image ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
-	@docker build -t ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+	@docker build -t ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG} -f ops/dockerfile/ui-nuxt.Dockerfile .
 
 docker-push: ## Publish the container
 	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
