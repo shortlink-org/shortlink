@@ -135,5 +135,6 @@ license_scanning:
       - tags
 
 performance:
+  stage: accessibility
   variables:
     URL: $PRODUCTION_UI_HOST
