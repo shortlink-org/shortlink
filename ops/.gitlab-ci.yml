@@ -56,6 +56,10 @@ build:shortlink:
   script:
     - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
     - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+  needs:
+    - golint
+    - gosec
+    - gotest
 
 build:logger:
   extends:
@@ -66,6 +70,10 @@ build:logger:
   script:
     - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
     - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+  needs:
+    - golint
+    - gosec
+    - gotest
 
 build:ui:
   extends:
@@ -76,6 +84,10 @@ build:ui:
   script:
     - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
     - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+  needs:
+    - golint
+    - gosec
+    - gotest
 
 # STAGING RELEASE ======================================================================================================
 
@@ -89,6 +101,10 @@ deploy:staging:
   environment:
     name: staging
     url: $STAGING_UI_HOST
+  needs:
+    - build:shortlink
+    - build:logger
+    - build:ui
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
 
@@ -104,6 +120,10 @@ deploy:production:
   environment:
     name: production
     url: $PRODUCTION_UI_HOST
+  needs:
+    - build:shortlink
+    - build:logger
+    - build:ui
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
 
