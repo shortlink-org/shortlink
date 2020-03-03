@@ -2,7 +2,7 @@
   type: build
   image: gitlab/dind
   before_script:
-    - docker login registry.gitlab.com
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   when: on_success
   retry: 2
   only:
