@@ -1,5 +1,5 @@
 .job_template_build: &job_build
-  type: build
+  stage: build
   image: gitlab/dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
@@ -14,7 +14,7 @@
     - branches
 
 .job_template_deploy: &job_deploy
-  type: deploy
+  stage: deploy
   variables:
     GIT_STRATEGY: none
   script:
@@ -29,8 +29,10 @@
   when: manual
 
 .job_teplate_go: &job_go
-  type: test
+  stage: test
   image: golang:1.14-buster
+  tags:
+    - docker
   only:
     refs:
       - tags
@@ -153,3 +155,10 @@ a11y:
     when: always
     expose_as: 'accessibility'
     paths: ['accessibility.html']
+
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
+license_scanning:
+  only:
+    refs:
+      - branches
+      - tags
