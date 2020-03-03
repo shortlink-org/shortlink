@@ -14,7 +14,7 @@ export PROJECT_NAME
 # thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
 
-help: ## This help
+help: ## Display this help screen
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 # APPLICATION ==========================================================================================================
@@ -85,9 +85,7 @@ bench: ## Run benchmark tests
 run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
-         -f ops/docker-compose/application/shortlink.yaml \
-         -f ops/docker-compose/application/logger.yaml \
-         -f ops/docker-compose/database/scylla.yaml \
+         -f ops/docker-compose/database/dgraph.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
          -f ops/docker-compose/tooling/loki.yaml \
          -f ops/docker-compose/tooling/fluentd.yaml \
