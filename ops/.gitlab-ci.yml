@@ -1,17 +1,9 @@
-services:
-  - name: docker:19.03-dind
-    alias: localhost # necessary for correct addressing to services running in docker
-
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://docker:2375
-  PROJECT_NAMESPACE: shortlink
-
 include:
   - local: /ops/templates/job_template_build.yml
   - local: /ops/templates/job_template_deploy.yml
   - local: /ops/templates/job_teplate_go.yml
   - template: License-Scanning.gitlab-ci.yml
+  - template: Verify/Browser-Performance.gitlab-ci.yml
 
 stages:
   - test
@@ -19,6 +11,18 @@ stages:
   - deploy
   - accessibility
   - release
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375
+  PRODUCTION_UI_HOST: https://shortlink.surge.sh
+  STAGING_UI_HOST: https://staging_shortlink.surge.sh
+
+# DEFAULT ==============================================================================================================
+default:
+  services:
+    - name: docker:19.03-dind
+      alias: localhost # necessary for correct addressing to services running in docker
 
 # ON COMMIT ============================================================================================================
 golint:
@@ -84,7 +88,7 @@ deploy:staging:
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
   environment:
     name: staging
-    url: stage.example.com
+    url: $STAGING_UI_HOST
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
 
@@ -99,7 +103,7 @@ deploy:production:
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
   environment:
     name: production
-    url: prod.example.com
+    url: $PRODUCTION_UI_HOST
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
 
@@ -109,8 +113,6 @@ deploy:production:
 a11y:
   stage: accessibility
   image: node
-  variables:
-    PRODUCTION_HOST: "https://shortlink.surge.sh/" # https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html#configure-accessibility-testing
   script:
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
@@ -118,7 +120,7 @@ a11y:
     - apt-get install -y google-chrome-stable && \
     - rm -rf /var/lib/apt/lists/*
     - npm install pa11y@5.3.0 pa11y-reporter-html@1.0.0
-    - './node_modules/.bin/pa11y $PRODUCTION_HOST > accessibility.html'
+    - './node_modules/.bin/pa11y $PRODUCTION_UI_HOST > accessibility.html'
     - echo 'Complete!!!'
   artifacts:
     when: always
@@ -131,3 +133,7 @@ license_scanning:
     refs:
       - branches
       - tags
+
+performance:
+  variables:
+    URL: $PRODUCTION_UI_HOST
