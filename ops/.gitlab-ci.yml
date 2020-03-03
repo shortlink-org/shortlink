@@ -78,26 +78,26 @@ gotest:
 build:shortlink:
   <<: *job_build
   variables:
-    CI_REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/shortlink
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/shortlink
     DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
   script:
-    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
 
 build:logger:
   <<: *job_build
   variables:
-    CI_REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
   script:
-    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
 
 build:ui:
   <<: *job_build
   variables:
-    CI_REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
     DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
   script:
-    - docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
 
 # STAGING RELEASE ======================================================================================================
 
