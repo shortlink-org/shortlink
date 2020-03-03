@@ -1,0 +1,14 @@
+.job_template_deploy: &job_deploy
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - helm --kube-context $KUBE_CONTEXT upgrade $RELEASE_NAME $HELM_PATH
+      --install
+      --force
+      --wait
+      --namespace=$PROJECT_NAMESPACE
+      --set CI_PROJECT_NAME=$CI_PROJECT_NAME;
+  except:
+    - branches
+  when: manual

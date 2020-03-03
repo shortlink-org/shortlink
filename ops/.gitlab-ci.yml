@@ -1,57 +1,160 @@
-.job_template_build: &job_build
-  type: build
-  except:
-    - branches
-  when: on_success
-  retry: 2
-
-.job_template_deploy: &job_deploy
-  type: deploy
-  variables:
-    GIT_STRATEGY: none
-  script:
-    - helm --kube-context $KUBE_CONTEXT upgrade $RELEASE_NAME $HELM_PATH
-      --install
-      --force
-      --wait
-      --namespace=$PROJECT_NAMESPACE
-      --set CI_PROJECT_NAME=$CI_PROJECT_NAME;
-  except:
-    - branches
-  when: manual
-
-variables:
-  PROJECT_NAMESPACE: rightcar
+include:
+  - local: /ops/templates/job_template_build.yml
+  - local: /ops/templates/job_template_deploy.yml
+  - local: /ops/templates/job_teplate_go.yml
+  - template: License-Scanning.gitlab-ci.yml
+  - template: Verify/Browser-Performance.gitlab-ci.yml
 
 stages:
   - test
   - build
   - deploy
+  - accessibility
+  - release
 
-# QUEUES STAGING ======================================================================
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375
+  PRODUCTION_UI_HOST: https://shortlink.surge.sh
+  STAGING_UI_HOST: https://staging_shortlink.surge.sh
+
+# DEFAULT ==============================================================================================================
+default:
+  services:
+    - name: docker:19.03-dind
+      alias: localhost # necessary for correct addressing to services running in docker
+
+# ON COMMIT ============================================================================================================
+golint:
+  extends:
+    - .job_teplate_go
+  image: golangci/golangci-lint:v1.23.6
+  script:
+    - make golint
+
+gosec:
+  extends:
+    - .job_teplate_go
+  before_script:
+    - go get -u github.com/securego/gosec/cmd/gosec
+  script:
+    - make gosec
+
+gotest:
+  extends:
+    - .job_teplate_go
+  script:
+    - make test
+
+# BUILD IMAGE ==========================================================================================================
+build:shortlink:
+  extends:
+    - .job_template_build
+  variables:
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/shortlink
+    DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
+  script:
+    - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+  needs:
+    - golint
+    - gosec
+    - gotest
+
+build:logger:
+  extends:
+    - .job_template_build
+  variables:
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
+    DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
+  script:
+    - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+  needs:
+    - golint
+    - gosec
+    - gotest
+
+build:ui:
+  extends:
+    - .job_template_build
+  variables:
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
+    DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
+  script:
+    - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+  needs:
+    - golint
+    - gosec
+    - gotest
+
+# STAGING RELEASE ======================================================================================================
 
 deploy:staging:
-  <<: *job_deploy
+  extends:
+    - .job_template_deploy
   variables:
     KUBE_CONTEXT: production
     RELEASE_NAME: $CI_PROJECT_NAME
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
   environment:
-    name: Production
-    url: stage.example.com
+    name: staging
+    url: $STAGING_UI_HOST
+  needs:
+    - build:shortlink
+    - build:logger
+    - build:ui
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
 
-# PRODUCTION =======================================================================
+# PRODUCTION RELEASE ===================================================================================================
 
 deploy:production:
-  <<: *job_deploy
+  extends:
+    - .job_template_deploy
   variables:
     KUBE_CONTEXT: production
     RELEASE_NAME: $CI_PROJECT_NAME
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
   environment:
-    name: Production
-    url: prod.example.com
+    name: production
+    url: $PRODUCTION_UI_HOST
+  needs:
+    - build:shortlink
+    - build:logger
+    - build:ui
   only:
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
+
+# OTHER ================================================================================================================
+
+# Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
+a11y:
+  stage: accessibility
+  image: node
+  script:
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
+    - apt-get update && \
+    - apt-get install -y google-chrome-stable && \
+    - rm -rf /var/lib/apt/lists/*
+    - npm install pa11y@5.3.0 pa11y-reporter-html@1.0.0
+    - './node_modules/.bin/pa11y $PRODUCTION_UI_HOST > accessibility.html'
+    - echo 'Complete!!!'
+  artifacts:
+    when: always
+    expose_as: 'accessibility'
+    paths: ['accessibility.html']
+
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
+license_scanning:
+  only:
+    refs:
+      - branches
+      - tags
+
+performance:
+  stage: accessibility
+  variables:
+    URL: $PRODUCTION_UI_HOST
