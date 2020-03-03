@@ -47,13 +47,14 @@ variables:
   PRODUCTION_HOST: "https://shortlink.surge.sh/" # https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html#configure-accessibility-testing
 
 include:
-  - remote: "https://gitlab.com/gitlab-org/gitlab/-/raw/master/lib/gitlab/ci/templates/Verify/Accessibility.gitlab-ci.yml"
+  - template: License-Scanning.gitlab-ci.yml
 
 stages:
   - test
   - build
   - deploy
   - accessibility
+  - release
 
 # ON COMMIT ============================================================================================================
 golint:
@@ -82,6 +83,7 @@ build:shortlink:
     DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
   script:
     - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 
 build:logger:
   <<: *job_build
@@ -90,6 +92,7 @@ build:logger:
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
   script:
     - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 
 build:ui:
   <<: *job_build
@@ -98,6 +101,7 @@ build:ui:
     DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
   script:
     - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
 
 # STAGING RELEASE ======================================================================================================
 
