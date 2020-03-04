@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: ops/dockerfile/shortlink.dockerfile
+      shm_size: 1gb
     container_name: shortlink
     ports:
       # API
