@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: ops/dockerfile/logger.dockerfile
+      shm_size: 1gb
     container_name: logger
     restart: on-failure
     environment:
