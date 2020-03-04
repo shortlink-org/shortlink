@@ -5,11 +5,10 @@ go 1.13
 require (
 	github.com/Masterminds/squirrel v1.2.0
 	github.com/Shopify/sarama v1.26.1
-	github.com/batazor/protoc-gen-gotemplate v1.7.1 // indirect
 	github.com/cloudevents/sdk-go v1.1.1
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
-	github.com/dgraph-io/badger/v2 v2.0.1
+	github.com/dgraph-io/badger/v2 v2.0.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/getsentry/sentry-go v0.5.1
 	github.com/go-chi/chi v4.0.3+incompatible
@@ -19,28 +18,24 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocql/gocql v0.0.0-20200228163523-cd4b606dd2fb
 	github.com/golang/protobuf v1.3.4
-	github.com/google/subcommands v1.2.0 // indirect
 	github.com/google/wire v0.4.0
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
 	github.com/graph-gophers/graphql-go v0.0.0-20200207002730-8334863f2c8b
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway v1.13.0
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
-	github.com/huandu/xstrings v1.3.0 // indirect
 	github.com/jackc/pgx/v4 v4.4.1
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.3.0
 	github.com/markbates/pkger v0.14.0
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
-	github.com/mitchellh/reflectwalk v1.0.1 // indirect
 	github.com/nats-io/nats.go v1.9.1
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/ory/dockertest/v3 v3.5.4
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/prometheus/client_golang v1.4.1
+	github.com/prometheus/client_golang v1.5.0
 	github.com/scylladb/gocqlx v1.4.0
-	github.com/securego/gosec v0.0.0-20200302134848-c998389da2ac // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
@@ -51,14 +46,13 @@ require (
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/uber/jaeger-client-go v2.22.1+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	go.mongodb.org/mongo-driver v1.3.0
+	go.mongodb.org/mongo-driver v1.3.1
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.14.0
-	golang.org/x/crypto v0.0.0-20200302210943-78000ba7a073 // indirect
 	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect
-	golang.org/x/tools v0.0.0-20200302225559-9b52d559c609 // indirect
-	google.golang.org/genproto v0.0.0-20200302123026-7795fca6ccb1
+	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
+	google.golang.org/genproto v0.0.0-20200303153909-beee998c1893
 	google.golang.org/grpc v1.27.1
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
