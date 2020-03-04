@@ -48,11 +48,11 @@ type Cache struct {
 	// contention
 	setBuf chan *item
 	// onEvict is called for item evictions
-	onEvict func(uint64, interface{}, int64)
+	onEvict func(uint64, uint64, interface{}, int64)
 	// KeyToHash function is used to customize the key hashing algorithm.
 	// Each key will be hashed using the provided function. If keyToHash value
 	// is not set, the default keyToHash function is used.
-	keyToHash func(interface{}, uint8) uint64
+	keyToHash func(interface{}) (uint64, uint64)
 	// stop is used to stop the processItems goroutine
 	stop chan struct{}
 	// cost calculates cost from a value
@@ -94,23 +94,15 @@ type Config struct {
 	Metrics bool
 	// OnEvict is called for every eviction and passes the hashed key, value,
 	// and cost to the function.
-	OnEvict func(key uint64, value interface{}, cost int64)
+	OnEvict func(key, conflict uint64, value interface{}, cost int64)
 	// KeyToHash function is used to customize the key hashing algorithm.
 	// Each key will be hashed using the provided function. If keyToHash value
 	// is not set, the default keyToHash function is used.
-	KeyToHash func(key interface{}, seed uint8) uint64
+	KeyToHash func(key interface{}) (uint64, uint64)
 	// Cost evaluates a value and outputs a corresponding cost. This function
 	// is ran after Set is called for a new item or an item update with a cost
 	// param of 0.
 	Cost func(value interface{}) int64
-	// Hashes is the number of 64-bit hashes to chain and use as each item's
-	// unique identifier. For example, setting Hashes to 2 will set internal
-	// keys to 128-bits and therefore very little probability of colliding with
-	// another key-value item in the cache. To just use 64-bit keys, set this
-	// value to 0 or 1.
-	//
-	// The larger this value is, the worse throughput performance will be.
-	Hashes uint8
 }
 
 type itemFlag byte
@@ -123,26 +115,26 @@ const (
 
 // item is passed to setBuf so items can eventually be added to the cache
 type item struct {
-	flag    itemFlag
-	key     interface{}
-	keyHash uint64
-	value   interface{}
-	cost    int64
+	flag     itemFlag
+	key      uint64
+	conflict uint64
+	value    interface{}
+	cost     int64
 }
 
 // NewCache returns a new Cache instance and any configuration errors, if any.
 func NewCache(config *Config) (*Cache, error) {
 	switch {
 	case config.NumCounters == 0:
-		return nil, errors.New("NumCounters can't be zero.")
+		return nil, errors.New("NumCounters can't be zero")
 	case config.MaxCost == 0:
-		return nil, errors.New("MaxCost can't be zero.")
+		return nil, errors.New("MaxCost can't be zero")
 	case config.BufferItems == 0:
-		return nil, errors.New("BufferItems can't be zero.")
+		return nil, errors.New("BufferItems can't be zero")
 	}
 	policy := newPolicy(config.NumCounters, config.MaxCost)
 	cache := &Cache{
-		store:     newStore(config.Hashes),
+		store:     newStore(),
 		policy:    policy,
 		getBuf:    newRingBuffer(policy, config.BufferItems),
 		setBuf:    make(chan *item, setBufSize),
@@ -171,13 +163,13 @@ func (c *Cache) Get(key interface{}) (interface{}, bool) {
 	if c == nil || key == nil {
 		return nil, false
 	}
-	hashed := z.KeyToHash(key, 0)
-	c.getBuf.Push(hashed)
-	value, ok := c.store.Get(hashed, key)
+	keyHash, conflictHash := c.keyToHash(key)
+	c.getBuf.Push(keyHash)
+	value, ok := c.store.Get(keyHash, conflictHash)
 	if ok {
-		c.Metrics.add(hit, hashed, 1)
+		c.Metrics.add(hit, keyHash, 1)
 	} else {
-		c.Metrics.add(miss, hashed, 1)
+		c.Metrics.add(miss, keyHash, 1)
 	}
 	return value, ok
 }
@@ -195,16 +187,17 @@ func (c *Cache) Set(key, value interface{}, cost int64) bool {
 	if c == nil || key == nil {
 		return false
 	}
+	keyHash, conflictHash := c.keyToHash(key)
 	i := &item{
-		flag:    itemNew,
-		key:     key,
-		keyHash: z.KeyToHash(key, 0),
-		value:   value,
-		cost:    cost,
+		flag:     itemNew,
+		key:      keyHash,
+		conflict: conflictHash,
+		value:    value,
+		cost:     cost,
 	}
 	// attempt to immediately update hashmap value and set flag to update so the
 	// cost is eventually updated
-	if c.store.Update(i.keyHash, i.key, i.value) {
+	if c.store.Update(keyHash, conflictHash, i.value) {
 		i.flag = itemUpdate
 	}
 	// attempt to send item to policy
@@ -212,7 +205,7 @@ func (c *Cache) Set(key, value interface{}, cost int64) bool {
 	case c.setBuf <- i:
 		return true
 	default:
-		c.Metrics.add(dropSets, i.keyHash, 1)
+		c.Metrics.add(dropSets, keyHash, 1)
 		return false
 	}
 }
@@ -222,18 +215,28 @@ func (c *Cache) Del(key interface{}) {
 	if c == nil || key == nil {
 		return
 	}
+	keyHash, conflictHash := c.keyToHash(key)
+	// Delete immediately.
+	c.store.Del(keyHash, conflictHash)
+	// If we've set an item, it would be applied slightly later.
+	// So we must push the same item to `setBuf` with the deletion flag.
+	// This ensures that if a set is followed by a delete, it will be applied in the correct order.
 	c.setBuf <- &item{
-		flag:    itemDelete,
-		key:     key,
-		keyHash: z.KeyToHash(key, 0),
+		flag:     itemDelete,
+		key:      keyHash,
+		conflict: conflictHash,
 	}
 }
 
 // Close stops all goroutines and closes all channels.
 func (c *Cache) Close() {
+	if c == nil || c.stop == nil {
+		return
+	}
 	// block until processItems goroutine is returned
 	c.stop <- struct{}{}
 	close(c.stop)
+	c.stop = nil
 	close(c.setBuf)
 	c.policy.Close()
 }
@@ -242,6 +245,9 @@ func (c *Cache) Close() {
 // not an atomic operation (but that shouldn't be a problem as it's assumed that
 // Set/Get calls won't be occurring until after this).
 func (c *Cache) Clear() {
+	if c == nil {
+		return
+	}
 	// block until processItems goroutine is returned
 	c.stop <- struct{}{}
 	// swap out the setBuf channel
@@ -268,28 +274,24 @@ func (c *Cache) processItems() {
 			}
 			switch i.flag {
 			case itemNew:
-				if victims, added := c.policy.Add(i.keyHash, i.cost); added {
-					// item was accepted by the policy, so add to the hashmap
-					c.store.Set(i.keyHash, i.key, i.value)
-					// delete victims
-					for _, victim := range victims {
-						// TODO: make Get-Delete atomic
-						if c.onEvict != nil {
-							// force get with no collision checking because
-							// we don't have access to the victim's key
-							victim.value, _ = c.store.Get(victim.keyHash, nil)
-							c.onEvict(victim.keyHash, victim.value, victim.cost)
-						}
-						// force delete with no collision checking because we
-						// don't have access to the original, unhashed key
-						c.store.Del(victim.keyHash, nil)
+				victims, added := c.policy.Add(i.key, i.cost)
+				if added {
+					c.store.Set(i.key, i.conflict, i.value)
+					c.Metrics.add(keyAdd, i.key, 1)
+				}
+				for _, victim := range victims {
+					victim.conflict, victim.value = c.store.Del(victim.key, 0)
+					if c.onEvict != nil {
+						c.onEvict(victim.key, victim.conflict, victim.value, victim.cost)
 					}
 				}
+
 			case itemUpdate:
-				c.policy.Update(i.keyHash, i.cost)
+				c.policy.Update(i.key, i.cost)
+
 			case itemDelete:
-				c.policy.Del(i.keyHash)
-				c.store.Del(i.keyHash, i.key)
+				c.policy.Del(i.key) // Deals with metrics updates.
+				c.store.Del(i.key, i.conflict)
 			}
 		case <-c.stop:
 			return
