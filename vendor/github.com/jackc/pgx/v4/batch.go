@@ -26,6 +26,11 @@ func (b *Batch) Queue(query string, arguments ...interface{}) {
 	})
 }
 
+// Len returns number of queries that have been queued so far.
+func (b *Batch) Len() int {
+	return len(b.items)
+}
+
 type BatchResults interface {
 	// Exec reads the results from the next query in the batch as if the query has been sent with Conn.Exec.
 	Exec() (pgconn.CommandTag, error)
@@ -47,6 +52,8 @@ type batchResults struct {
 	conn *Conn
 	mrr  *pgconn.MultiResultReader
 	err  error
+	b    *Batch
+	ix   int
 }
 
 // Exec reads the results from the next query in the batch as if the query has been sent with Exec.
@@ -55,20 +62,52 @@ func (br *batchResults) Exec() (pgconn.CommandTag, error) {
 		return nil, br.err
 	}
 
+	query, arguments, _ := br.nextQueryAndArgs()
+
 	if !br.mrr.NextResult() {
 		err := br.mrr.Close()
 		if err == nil {
 			err = errors.New("no result")
 		}
+		if br.conn.shouldLog(LogLevelError) {
+			br.conn.log(br.ctx, LogLevelError, "BatchResult.Exec", map[string]interface{} {
+				"sql": query,
+				"args": logQueryArgs(arguments),
+				"err": err,
+			})
+		}
 		return nil, err
 	}
 
-	return br.mrr.ResultReader().Close()
+	commandTag, err := br.mrr.ResultReader().Close()
+
+	if err != nil {
+		if br.conn.shouldLog(LogLevelError) {
+			br.conn.log(br.ctx, LogLevelError, "BatchResult.Exec", map[string]interface{}{
+				"sql":  query,
+				"args": logQueryArgs(arguments),
+				"err":  err,
+			})
+		}
+	} else if br.conn.shouldLog(LogLevelInfo) {
+		br.conn.log(br.ctx, LogLevelInfo, "BatchResult.Exec", map[string]interface{} {
+			"sql": query,
+			"args": logQueryArgs(arguments),
+			"commandTag": commandTag,
+		})
+	}
+
+	return commandTag, err
 }
 
 // Query reads the results from the next query in the batch as if the query has been sent with Query.
 func (br *batchResults) Query() (Rows, error) {
-	rows := br.conn.getRows(br.ctx, "batch query", nil)
+	query, arguments, ok := br.nextQueryAndArgs()
+	if !ok {
+		query = "batch query"
+	}
+
+	rows := br.conn.getRows(br.ctx, query, arguments)
 
 	if br.err != nil {
 		rows.err = br.err
@@ -82,6 +121,15 @@ func (br *batchResults) Query() (Rows, error) {
 			rows.err = errors.New("no result")
 		}
 		rows.closed = true
+
+		if br.conn.shouldLog(LogLevelError) {
+			br.conn.log(br.ctx, LogLevelError, "BatchResult.Query", map[string]interface{} {
+				"sql": query,
+				"args": logQueryArgs(arguments),
+				"err": rows.err,
+			})
+		}
+
 		return rows, rows.err
 	}
 
@@ -103,5 +151,31 @@ func (br *batchResults) Close() error {
 		return br.err
 	}
 
+	// log any queries that haven't yet been logged by Exec or Query
+	for {
+		query, args, ok := br.nextQueryAndArgs()
+		if !ok {
+			break
+		}
+
+		if br.conn.shouldLog(LogLevelInfo) {
+			br.conn.log(br.ctx, LogLevelInfo, "BatchResult.Close", map[string]interface{} {
+				"sql": query,
+				"args": logQueryArgs(args),
+			})
+		}
+	}
+
 	return br.mrr.Close()
+}
+
+func (br *batchResults) nextQueryAndArgs() (query string, args []interface{}, ok bool) {
+	if br.b != nil && br.ix < len(br.b.items) {
+		bi := br.b.items[br.ix]
+		query = bi.query
+		args = bi.arguments
+		ok = true
+		br.ix++
+	}
+	return
 }
