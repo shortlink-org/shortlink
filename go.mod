@@ -22,7 +22,7 @@ require (
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
 	github.com/graph-gophers/graphql-go v0.0.0-20200207002730-8334863f2c8b
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway v1.13.0
+	github.com/grpc-ecosystem/grpc-gateway v1.14.2
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.5.0
 	github.com/jmoiron/sqlx v1.2.0
