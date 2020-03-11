@@ -5,7 +5,7 @@ go 1.13
 require (
 	github.com/Masterminds/squirrel v1.2.0
 	github.com/Shopify/sarama v1.26.1
-	github.com/cloudevents/sdk-go v1.1.1
+	github.com/cloudevents/sdk-go v1.1.2
 	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.0.2
@@ -20,11 +20,11 @@ require (
 	github.com/golang/protobuf v1.3.4
 	github.com/google/wire v0.4.0
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
-	github.com/graph-gophers/graphql-go v0.0.0-20200207002730-8334863f2c8b
+	github.com/graph-gophers/graphql-go v0.0.0-20200309224638-dae41bde9ef9
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway v1.13.0
+	github.com/grpc-ecosystem/grpc-gateway v1.14.2
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
-	github.com/jackc/pgx/v4 v4.4.1
+	github.com/jackc/pgx/v4 v4.5.0
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.3.0
 	github.com/markbates/pkger v0.14.0
@@ -52,8 +52,8 @@ require (
 	go.uber.org/zap v1.14.0
 	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect
 	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
-	google.golang.org/genproto v0.0.0-20200303153909-beee998c1893
-	google.golang.org/grpc v1.27.1
+	google.golang.org/genproto v0.0.0-20200310143817-43be25429f5a
+	google.golang.org/grpc v1.28.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gotest.tools v2.2.0+incompatible // indirect
