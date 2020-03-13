@@ -17,7 +17,7 @@ require (
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocql/gocql v0.0.0-20200228163523-cd4b606dd2fb
-	github.com/golang/protobuf v1.3.4
+	github.com/golang/protobuf v1.3.5
 	github.com/google/wire v0.4.0
 	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
 	github.com/graph-gophers/graphql-go v0.0.0-20200309224638-dae41bde9ef9
