@@ -192,6 +192,8 @@ func (c *Cors) Handler(next http.Handler) http.Handler {
 			// headers (see #1)
 			if c.optionPassthrough {
 				next.ServeHTTP(w, r)
+			} else {
+				w.WriteHeader(http.StatusOK)
 			}
 		} else {
 			c.logf("Handler: Actual request")
