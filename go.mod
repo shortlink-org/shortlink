@@ -12,7 +12,7 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/getsentry/sentry-go v0.5.1
 	github.com/go-chi/chi v4.0.3+incompatible
-	github.com/go-chi/cors v1.0.0
+	github.com/go-chi/cors v1.0.1
 	github.com/go-chi/render v1.0.1
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/go-sql-driver/mysql v1.5.0

@@ -1,6 +1,8 @@
 # CORS net/http middleware
 
-(fork of github.com/rs/cors)
+[go-chi/cors](https://github.com/go-chi/cors) is a fork of github.com/rs/cors that provides a `net/http` compatible middleware for performing preflight CORS checks on the server side. These headers are required for using the browser native [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+
+This middleware is designed to be used as a global middleware on the chi router. Applying with within a `r.Group()` or using `With()` will not work without routes matching `OPTIONS` added.
 
 ## Usage
 
