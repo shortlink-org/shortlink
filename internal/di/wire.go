@@ -152,7 +152,9 @@ func InitMonitoring(sentryHandler *sentryhttp.Handler) *http.ServeMux {
 	commonMux := http.NewServeMux()
 
 	// Expose prometheus metrics on /metrics
-	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.HandlerFor(registry, promhttp.HandlerOpts{})))
+	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.HandlerFor(registry, promhttp.HandlerOpts{
+		EnableOpenMetrics: true,
+	})))
 
 	// Expose a liveness check on /live
 	commonMux.HandleFunc("/live", sentryHandler.HandleFunc(health.LiveEndpoint))
