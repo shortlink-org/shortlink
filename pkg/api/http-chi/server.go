@@ -13,7 +13,7 @@ import (
 	"github.com/opentracing/opentracing-go"
 
 	"github.com/batazor/shortlink/internal/logger"
-	additionalMiddleware "github.com/batazor/shortlink/pkg/api/http-chi/middleware"
+	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
