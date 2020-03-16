@@ -22,6 +22,13 @@ Shortlink service
 - docker-compose
 - protoc 3.7.1+
 
+##### Services
+
+| Service     | Description                       | Language   |
+|-------------|-----------------------------------|------------|
+| shortlink   | Shortlink service                 | Go         |
+| logger      | Logger service                    | Go         |
+
 ### Run
 
 ```
@@ -52,6 +59,7 @@ docker-compose \
 
 - HTTP (chi)
 - gRPC-gateway
+- go-kit
 - GraphQL
 - [CloudEvents](https://cloudevents.io/)
 
@@ -116,7 +124,7 @@ docker-compose \
 | LOG_TIME_FORMAT     | 2006-01-02T15:04:05.999999999Z07:00                         | Log time format (golang time format)                                                           |
 | TRACER_SERVICE_NAME | ShortLink                                                   | Service Name                                                                                   |
 | TRACER_URI          | localhost:6831                                              | Tracing addr:host                                                                              |
-| API_TYPE            | http-chi                                                    | Select: http-chi, gRPC-web, graphql, cloudevents                                               |
+| API_TYPE            | http-chi                                                    | Select: http-chi, gRPC-web, graphql, cloudevents, go-kit                                       |
 | API_PORT            | 7070                                                        | API port                                                                                       |
 | MQ_ENABLED          | false                                                       | Enabled MQ-service                                                                             |
 | MQ_TYPE             | kafka                                                       | Select: kafka, nats                                                                            |

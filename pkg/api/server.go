@@ -8,6 +8,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/api/cloudevents"
+	gokit "github.com/batazor/shortlink/pkg/api/go-kit"
 	"github.com/batazor/shortlink/pkg/api/graphql"
 	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
 	httpchi "github.com/batazor/shortlink/pkg/api/http-chi"
@@ -30,6 +31,8 @@ func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opent
 	switch serverType {
 	case "http-chi":
 		server = &httpchi.API{}
+	case "go-kit":
+		server = &gokit.API{}
 	case "gRPC-web":
 		server = &grpcweb.API{}
 	case "graphql":

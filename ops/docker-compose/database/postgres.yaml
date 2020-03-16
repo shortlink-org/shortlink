@@ -12,6 +12,7 @@ services:
   postgres:
     <<: *network
     image: postgres:alpine
+    shm_size: 1gb
     init: true
     restart: on-failure
     container_name: postgres
