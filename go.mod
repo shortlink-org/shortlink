@@ -14,7 +14,7 @@ require (
 	github.com/go-chi/chi v4.0.3+incompatible
 	github.com/go-chi/cors v1.0.1
 	github.com/go-chi/render v1.0.1
-	github.com/go-kit/kit v0.9.0
+	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocql/gocql v0.0.0-20200228163523-cd4b606dd2fb
