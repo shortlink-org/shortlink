@@ -3,6 +3,7 @@ package gokit
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -19,11 +20,6 @@ import (
 
 type linkService struct {
 	ctx context.Context
-}
-
-type uppercaseResponse struct {
-	V   string `json:"v"`
-	Err string `json:"err,omitempty"` // errors don't define JSON marshaling
 }
 
 // Endpoints are a primary abstraction in go-kit. An endpoint represents a single RPC (method in our service interface)
@@ -49,23 +45,107 @@ func makeAddLinkEndpoint(svc linkService) endpoint.Endpoint {
 }
 
 func makeGetLinkEndpoint(svc linkService) endpoint.Endpoint {
-	return func(_ context.Context, request interface{}) (interface{}, error) {
-		//req := request.(link.Link)
-		//
-		//responseCh := make(chan interface{})
-		//
-		//// TODO: send []byte format
-		//go notify.Publish(api_type.METHOD_GET, req.Hash, responseCh, "RESPONSE_STORE_GET")
-		//
-		//c := <-responseCh
-		//switch r := c.(type) {
-		//case nil:
-		//	return nil, fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
-		//case notify.Response:
-		//	return r.Payload.(*link.Link), nil
-		//}
+	return func(_ context.Context, r interface{}) (interface{}, error) {
+		vars := mux.Vars(r.(*http.Request))
+		if vars["id"] == "" {
+			return nil, errors.New(`{"error": "need set hash URL"}`)
+		}
 
-		return nil, nil
+		// Parse request
+		var request = &getRequest{
+			Hash: vars["id"],
+		}
+
+		var (
+			response     *link.Link
+			responseLink ResponseLink // for custom JSON parsing
+			err          error
+		)
+
+		responseCh := make(chan interface{})
+
+		go notify.Publish(api_type.METHOD_GET, request.Hash, responseCh, "RESPONSE_STORE_GET")
+
+		c := <-responseCh
+		switch r := c.(type) {
+		case nil:
+			err = fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		case notify.Response:
+			err = r.Error
+			if err == nil {
+				response = r.Payload.(*link.Link) // nolint errcheck
+			}
+		}
+
+		var errorLink *link.NotFoundError
+		if errors.As(err, &errorLink) {
+			return nil, errors.New(`{"error": "` + err.Error() + `"}`)
+		}
+		if err != nil {
+			return nil, errors.New(`{"error": "` + err.Error() + `"}`)
+		}
+
+		responseLink = ResponseLink{
+			response,
+		}
+
+		return responseLink, nil
+	}
+}
+
+func makeGetListLinkEndpoint(svc linkService) endpoint.Endpoint {
+	return func(_ context.Context, request interface{}) (interface{}, error) {
+		var (
+			response     []*link.Link
+			responseLink []ResponseLink // for custom JSON parsing
+			err          error
+		)
+
+		responseCh := make(chan interface{})
+
+		go notify.Publish(api_type.METHOD_LIST, nil, responseCh, "RESPONSE_STORE_LIST")
+
+		c := <-responseCh
+		switch r := c.(type) {
+		case nil:
+			err = fmt.Errorf("Not found subscribe to event %s", "METHOD_LIST")
+		case notify.Response:
+			err = r.Error
+			if err == nil {
+				response = r.Payload.([]*link.Link) // nolint errcheck
+			}
+		}
+
+		for l := range response {
+			responseLink = append(responseLink, ResponseLink{response[l]})
+		}
+
+		return responseLink, nil
+	}
+}
+
+func makeDeleteLinkEndpoint(svc linkService) endpoint.Endpoint {
+	return func(_ context.Context, r interface{}) (interface{}, error) {
+		req := r.(link.Link)
+		var err error
+
+		responseCh := make(chan interface{})
+
+		go notify.Publish(api_type.METHOD_DELETE, req.Hash, responseCh, "RESPONSE_STORE_DELETE")
+
+		c := <-responseCh
+		switch r := c.(type) {
+		case nil:
+			err = fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
+		case notify.Response:
+			err = r.Error
+		}
+
+		if err != nil {
+			return nil, errors.New(`{"error": "` + err.Error() + `"}`)
+		}
+
+		return `{}`, nil
 	}
 }
 
@@ -78,38 +158,52 @@ func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logge
 
 	linkAddHandler := httptransport.NewServer(
 		makeAddLinkEndpoint(svc),
-		decodeLinkRequest,
+		decodeAddLinkRequest,
+		encodeResponse,
+	)
+
+	linkGetByIdHandler := httptransport.NewServer(
+		makeGetLinkEndpoint(svc),
+		decodeGetLinkRequest,
 		encodeResponse,
 	)
 
 	linkGetListHandler := httptransport.NewServer(
-		makeGetLinkEndpoint(svc),
-		decodeLinkRequest,
+		makeGetListLinkEndpoint(svc),
+		decodeGetLinkRequest,
+		encodeResponse,
+	)
+
+	linkDeleteHandler := httptransport.NewServer(
+		makeDeleteLinkEndpoint(svc),
+		decodeAddLinkRequest,
 		encodeResponse,
 	)
 
 	// set-up router and initialize http endpoints
 	r := mux.NewRouter()
 
-	r.Methods("GET").Path("/links").Handler(linkGetListHandler)
-	//r.Methods("GET").Path("/:id").Handler(linkAddHandler)
-	r.Methods("POST").Path("/").Handler(linkAddHandler)
-	//r.Methods("DELETE").Path("/").Handler(linkAddHandler)
-
-	http.Handle("/", linkAddHandler)
+	r.Methods("GET").Path("/api/links").Handler(linkGetListHandler)
+	r.Methods("GET").Path("/api/{id}").Handler(linkGetByIdHandler)
+	r.Methods("POST").Path("/api").Handler(linkAddHandler)
+	r.Methods("DELETE").Path("/api").Handler(linkDeleteHandler)
 
 	log.Info(fmt.Sprintf("Run on port %d", config.Port))
-	http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil)
+	http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r)
 
 	return nil
 }
 
-func decodeLinkRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func decodeAddLinkRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var request link.Link
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		return nil, err
 	}
 	return request, nil
+}
+
+func decodeGetLinkRequest(_ context.Context, r *http.Request) (interface{}, error) {
+	return r, nil
 }
 
 func encodeResponse(_ context.Context, w http.ResponseWriter, response interface{}) error {
