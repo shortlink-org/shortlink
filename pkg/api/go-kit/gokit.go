@@ -22,7 +22,10 @@ import (
 // Endpoints are a primary abstraction in go-kit. An endpoint represents a single RPC (method in our service interface)
 func makeAddLinkEndpoint() endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
-		req := request.(link.Link)
+		req, ok := request.(link.Link)
+		if !ok {
+			return nil, nil
+		}
 
 		responseCh := make(chan interface{})
 
@@ -106,6 +109,7 @@ func makeGetListLinkEndpoint() endpoint.Endpoint {
 		switch r := c.(type) {
 		case nil:
 			err = fmt.Errorf("Not found subscribe to event %s", "METHOD_LIST")
+			return nil, err
 		case notify.Response:
 			err = r.Error
 			if err == nil {
@@ -123,8 +127,11 @@ func makeGetListLinkEndpoint() endpoint.Endpoint {
 
 func makeDeleteLinkEndpoint() endpoint.Endpoint {
 	return func(_ context.Context, r interface{}) (interface{}, error) {
-		req := r.(link.Link)
 		var err error
+		req, ok := r.(link.Link)
+		if !ok {
+			return nil, nil
+		}
 
 		responseCh := make(chan interface{})
 
@@ -146,7 +153,7 @@ func makeDeleteLinkEndpoint() endpoint.Endpoint {
 	}
 }
 
-func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
+func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error { // nolint unparam
 	api.ctx = ctx
 
 	log.Info("Run go-kit API")
@@ -187,9 +194,9 @@ func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logge
 	r.Use(additionalMiddleware.Logger(log))
 
 	log.Info(fmt.Sprintf("Run on port %d", config.Port))
-	http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r)
 
-	return nil
+	return err
 }
 
 func decodeAddLinkRequest(_ context.Context, r *http.Request) (interface{}, error) {
