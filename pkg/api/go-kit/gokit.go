@@ -14,16 +14,13 @@ import (
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/notify"
+	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/link"
 )
 
-type linkService struct {
-	ctx context.Context
-}
-
 // Endpoints are a primary abstraction in go-kit. An endpoint represents a single RPC (method in our service interface)
-func makeAddLinkEndpoint(svc linkService) endpoint.Endpoint {
+func makeAddLinkEndpoint() endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		req := request.(link.Link)
 
@@ -44,7 +41,7 @@ func makeAddLinkEndpoint(svc linkService) endpoint.Endpoint {
 	}
 }
 
-func makeGetLinkEndpoint(svc linkService) endpoint.Endpoint {
+func makeGetLinkEndpoint() endpoint.Endpoint {
 	return func(_ context.Context, r interface{}) (interface{}, error) {
 		vars := mux.Vars(r.(*http.Request))
 		if vars["id"] == "" {
@@ -93,7 +90,7 @@ func makeGetLinkEndpoint(svc linkService) endpoint.Endpoint {
 	}
 }
 
-func makeGetListLinkEndpoint(svc linkService) endpoint.Endpoint {
+func makeGetListLinkEndpoint() endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		var (
 			response     []*link.Link
@@ -124,7 +121,7 @@ func makeGetListLinkEndpoint(svc linkService) endpoint.Endpoint {
 	}
 }
 
-func makeDeleteLinkEndpoint(svc linkService) endpoint.Endpoint {
+func makeDeleteLinkEndpoint() endpoint.Endpoint {
 	return func(_ context.Context, r interface{}) (interface{}, error) {
 		req := r.(link.Link)
 		var err error
@@ -152,30 +149,28 @@ func makeDeleteLinkEndpoint(svc linkService) endpoint.Endpoint {
 func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
 	api.ctx = ctx
 
-	svc := linkService{}
-
 	log.Info("Run go-kit API")
 
 	linkAddHandler := httptransport.NewServer(
-		makeAddLinkEndpoint(svc),
+		makeAddLinkEndpoint(),
 		decodeAddLinkRequest,
 		encodeResponse,
 	)
 
 	linkGetByIdHandler := httptransport.NewServer(
-		makeGetLinkEndpoint(svc),
+		makeGetLinkEndpoint(),
 		decodeGetLinkRequest,
 		encodeResponse,
 	)
 
 	linkGetListHandler := httptransport.NewServer(
-		makeGetListLinkEndpoint(svc),
+		makeGetListLinkEndpoint(),
 		decodeGetLinkRequest,
 		encodeResponse,
 	)
 
 	linkDeleteHandler := httptransport.NewServer(
-		makeDeleteLinkEndpoint(svc),
+		makeDeleteLinkEndpoint(),
 		decodeAddLinkRequest,
 		encodeResponse,
 	)
@@ -187,6 +182,9 @@ func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logge
 	r.Methods("GET").Path("/api/{id}").Handler(linkGetByIdHandler)
 	r.Methods("POST").Path("/api").Handler(linkAddHandler)
 	r.Methods("DELETE").Path("/api").Handler(linkDeleteHandler)
+
+	// Additional middleware
+	r.Use(additionalMiddleware.Logger(log))
 
 	log.Info(fmt.Sprintf("Run on port %d", config.Port))
 	http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r)
