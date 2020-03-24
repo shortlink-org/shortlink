@@ -17,7 +17,7 @@ require (
 	github.com/go-kit/kit v0.9.0
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/gocql/gocql v0.0.0-20200320183641-769c970a283b
+	github.com/gocql/gocql v0.0.0-20200324094621-6d895e38b0a5
 	github.com/golang/protobuf v1.3.5
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.7.4
