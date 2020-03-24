@@ -525,15 +525,6 @@ func (n *node) findEdge(ntyp nodeTyp, label byte) *node {
 	}
 }
 
-func (n *node) isEmpty() bool {
-	for _, nds := range n.children {
-		if len(nds) > 0 {
-			return false
-		}
-	}
-	return true
-}
-
 func (n *node) isLeaf() bool {
 	return n.endpoints != nil
 }
@@ -837,6 +828,7 @@ func walk(r Routes, walkFn WalkFunc, parentRoute string, parentMw ...func(http.H
 			}
 
 			fullRoute := parentRoute + route.Pattern
+			fullRoute = strings.Replace(fullRoute, "/*/", "/", -1)
 
 			if chain, ok := handler.(*ChainHandler); ok {
 				if err := walkFn(method, fullRoute, chain.Endpoint, append(mws, chain.Middlewares...)...); err != nil {
