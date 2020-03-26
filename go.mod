@@ -16,6 +16,7 @@ require (
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.9.0
 	github.com/go-redis/redis v6.15.7+incompatible
+	github.com/go-redis/redis/v7 v7.2.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocql/gocql v0.0.0-20200324094621-6d895e38b0a5
 	github.com/golang/protobuf v1.3.5
