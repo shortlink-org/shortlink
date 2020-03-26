@@ -6,7 +6,6 @@ require (
 	github.com/Masterminds/squirrel v1.2.0
 	github.com/Shopify/sarama v1.26.1
 	github.com/cloudevents/sdk-go v1.1.2
-	github.com/codahale/hdrhistogram v0.0.0-20161010025455-3a0bb77429bd // indirect
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.0.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
@@ -16,7 +15,6 @@ require (
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.7+incompatible
-	github.com/go-redis/redis/v7 v7.2.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gocql/gocql v0.0.0-20200324094621-6d895e38b0a5
 	github.com/golang/protobuf v1.3.5
@@ -54,7 +52,6 @@ require (
 	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.14.1
 	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect
-	golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40 // indirect
 	google.golang.org/genproto v0.0.0-20200325114520-5b2d0af7952b
 	google.golang.org/grpc v1.28.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
