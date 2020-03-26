@@ -78,12 +78,12 @@ github.com/go-chi/chi/middleware
 github.com/go-chi/cors
 # github.com/go-chi/render v1.0.1
 github.com/go-chi/render
-# github.com/go-kit/kit v0.9.0
+# github.com/go-kit/kit v0.10.0
 github.com/go-kit/kit/endpoint
 github.com/go-kit/kit/log
 github.com/go-kit/kit/transport
 github.com/go-kit/kit/transport/http
-# github.com/go-logfmt/logfmt v0.4.0
+# github.com/go-logfmt/logfmt v0.5.0
 github.com/go-logfmt/logfmt
 # github.com/go-redis/redis v6.15.7+incompatible
 github.com/go-redis/redis
@@ -104,6 +104,8 @@ github.com/gocql/gocql
 github.com/gocql/gocql/internal/lru
 github.com/gocql/gocql/internal/murmur
 github.com/gocql/gocql/internal/streams
+# github.com/golang/groupcache v0.0.0-20190702054246-869f871628b6
+github.com/golang/groupcache/lru
 # github.com/golang/protobuf v1.3.5
 github.com/golang/protobuf/descriptor
 github.com/golang/protobuf/jsonpb
@@ -152,8 +154,6 @@ github.com/grpc-ecosystem/grpc-gateway/utilities
 github.com/hailocab/go-hostpool
 # github.com/hashicorp/go-uuid v1.0.2
 github.com/hashicorp/go-uuid
-# github.com/hashicorp/golang-lru v0.5.1
-github.com/hashicorp/golang-lru/simplelru
 # github.com/hashicorp/hcl v1.0.0
 github.com/hashicorp/hcl
 github.com/hashicorp/hcl/hcl/ast
@@ -203,8 +203,6 @@ github.com/klauspost/compress/zstd
 github.com/klauspost/compress/zstd/internal/xxhash
 # github.com/konsorten/go-windows-terminal-sequences v1.0.2
 github.com/konsorten/go-windows-terminal-sequences
-# github.com/kr/logfmt v0.0.0-20140226030751-b84e30acd515
-github.com/kr/logfmt
 # github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
 github.com/lann/builder
 # github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0
@@ -390,7 +388,7 @@ go.mongodb.org/mongo-driver/x/mongo/driver/session
 go.mongodb.org/mongo-driver/x/mongo/driver/topology
 go.mongodb.org/mongo-driver/x/mongo/driver/uuid
 go.mongodb.org/mongo-driver/x/mongo/driver/wiremessage
-# go.opencensus.io v0.22.0
+# go.opencensus.io v0.22.2
 go.opencensus.io
 go.opencensus.io/internal
 go.opencensus.io/internal/tagencoding
@@ -463,7 +461,7 @@ golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/width
-# golang.org/x/tools v0.0.0-20191224055732-dd894d0a8a40
+# golang.org/x/tools v0.0.0-20200103221440-774c71fcf114
 golang.org/x/tools/go/ast/astutil
 golang.org/x/tools/go/gcexportdata
 golang.org/x/tools/go/internal/gcimporter
