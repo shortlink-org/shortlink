@@ -21,6 +21,13 @@ func (dst *Float4) Set(src interface{}) error {
 		return nil
 	}
 
+	if value, ok := src.(interface{ Get() interface{} }); ok {
+		value2 := value.Get()
+		if value2 != value {
+			return dst.Set(value2)
+		}
+	}
+
 	switch value := src.(type) {
 	case float32:
 		*dst = Float4{Float: value, Status: Present}
@@ -92,7 +99,7 @@ func (dst *Float4) Set(src interface{}) error {
 	return nil
 }
 
-func (dst *Float4) Get() interface{} {
+func (dst Float4) Get() interface{} {
 	switch dst.Status {
 	case Present:
 		return dst.Float
