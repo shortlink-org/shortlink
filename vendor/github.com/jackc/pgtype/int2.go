@@ -21,6 +21,13 @@ func (dst *Int2) Set(src interface{}) error {
 		return nil
 	}
 
+	if value, ok := src.(interface{ Get() interface{} }); ok {
+		value2 := value.Get()
+		if value2 != value {
+			return dst.Set(value2)
+		}
+	}
+
 	switch value := src.(type) {
 	case int8:
 		*dst = Int2{Int: int16(value), Status: Present}
@@ -88,7 +95,7 @@ func (dst *Int2) Set(src interface{}) error {
 	return nil
 }
 
-func (dst *Int2) Get() interface{} {
+func (dst Int2) Get() interface{} {
 	switch dst.Status {
 	case Present:
 		return dst.Int

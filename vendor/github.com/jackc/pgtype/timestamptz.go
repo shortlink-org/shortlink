@@ -32,6 +32,13 @@ func (dst *Timestamptz) Set(src interface{}) error {
 		return nil
 	}
 
+	if value, ok := src.(interface{ Get() interface{} }); ok {
+		value2 := value.Get()
+		if value2 != value {
+			return dst.Set(value2)
+		}
+	}
+
 	switch value := src.(type) {
 	case time.Time:
 		*dst = Timestamptz{Time: value, Status: Present}
@@ -45,7 +52,7 @@ func (dst *Timestamptz) Set(src interface{}) error {
 	return nil
 }
 
-func (dst *Timestamptz) Get() interface{} {
+func (dst Timestamptz) Get() interface{} {
 	switch dst.Status {
 	case Present:
 		if dst.InfinityModifier != None {
@@ -153,7 +160,7 @@ func (src Timestamptz) EncodeText(ci *ConnInfo, buf []byte) ([]byte, error) {
 
 	switch src.InfinityModifier {
 	case None:
-		s = src.Time.UTC().Format(pgTimestamptzSecondFormat)
+		s = src.Time.UTC().Truncate(time.Microsecond).Format(pgTimestamptzSecondFormat)
 	case Infinity:
 		s = "infinity"
 	case NegativeInfinity:

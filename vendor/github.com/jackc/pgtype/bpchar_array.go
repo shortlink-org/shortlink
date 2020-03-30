@@ -21,6 +21,13 @@ func (dst *BPCharArray) Set(src interface{}) error {
 		return nil
 	}
 
+	if value, ok := src.(interface{ Get() interface{} }); ok {
+		value2 := value.Get()
+		if value2 != value {
+			return dst.Set(value2)
+		}
+	}
+
 	switch value := src.(type) {
 
 	case []string:
@@ -64,7 +71,7 @@ func (dst *BPCharArray) Set(src interface{}) error {
 	return nil
 }
 
-func (dst *BPCharArray) Get() interface{} {
+func (dst BPCharArray) Get() interface{} {
 	switch dst.Status {
 	case Present:
 		return dst

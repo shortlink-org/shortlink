@@ -27,9 +27,18 @@ func (dst *Date) Set(src interface{}) error {
 		return nil
 	}
 
+	if value, ok := src.(interface{ Get() interface{} }); ok {
+		value2 := value.Get()
+		if value2 != value {
+			return dst.Set(value2)
+		}
+	}
+
 	switch value := src.(type) {
 	case time.Time:
 		*dst = Date{Time: value, Status: Present}
+	case string:
+		return dst.DecodeText(nil, []byte(value))
 	default:
 		if originalSrc, ok := underlyingTimeType(src); ok {
 			return dst.Set(originalSrc)
@@ -40,7 +49,7 @@ func (dst *Date) Set(src interface{}) error {
 	return nil
 }
 
-func (dst *Date) Get() interface{} {
+func (dst Date) Get() interface{} {
 	switch dst.Status {
 	case Present:
 		if dst.InfinityModifier != None {

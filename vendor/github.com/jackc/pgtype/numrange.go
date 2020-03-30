@@ -16,10 +16,27 @@ type Numrange struct {
 }
 
 func (dst *Numrange) Set(src interface{}) error {
-	return errors.Errorf("cannot convert %v to Numrange", src)
+	// untyped nil and typed nil interfaces are different
+	if src == nil {
+		*dst = Numrange{Status: Null}
+		return nil
+	}
+
+	switch value := src.(type) {
+	case Numrange:
+		*dst = value
+	case *Numrange:
+		*dst = *value
+	case string:
+		return dst.DecodeText(nil, []byte(value))
+	default:
+		return errors.Errorf("cannot convert %v to Numrange", src)
+	}
+
+	return nil
 }
 
-func (dst *Numrange) Get() interface{} {
+func (dst Numrange) Get() interface{} {
 	switch dst.Status {
 	case Present:
 		return dst
