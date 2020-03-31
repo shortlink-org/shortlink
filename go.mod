@@ -32,7 +32,7 @@ require (
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/nats-io/nats.go v1.9.2
 	github.com/opentracing/opentracing-go v1.1.0
-	github.com/ory/dockertest/v3 v3.5.4
+	github.com/ory/dockertest/v3 v3.5.5
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.5.1
