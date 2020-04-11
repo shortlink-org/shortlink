@@ -11,7 +11,7 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/getsentry/sentry-go v0.5.1
 	github.com/go-chi/chi v4.1.0+incompatible
-	github.com/go-chi/cors v1.0.1
+	github.com/go-chi/cors v1.1.0
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.7+incompatible
