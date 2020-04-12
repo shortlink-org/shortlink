@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   mode: 'spa',
 
@@ -23,6 +25,7 @@ module.exports = {
   buildModules: [
     '@nuxtjs/date-fns',
     '@nuxtjs/router',
+    '@nuxtjs/dotenv',
   ],
 
   dateFns: {
@@ -68,10 +71,16 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/vuetify',
+    '@nuxtjs/sentry',
   ],
 
   vuetify: {
     optionsPath: './vuetify.options.js'
+  },
+
+  sentry: {
+    dsn: process.env.SENTRY_DSN, // Enter your project's DSN here
+    config: {}, // Additional config
   },
 
   /*

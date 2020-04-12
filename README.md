@@ -99,6 +99,17 @@ docker-compose \
 ### UI
 
 + Nuxt: [demo UI](http://shortlink.surge.sh/)
++ Next
+
+##### ENV for UI
+
+Use `.env` file in `pkg/ui/[nuxt/next/etc]` directories for setting your UI
+
+
+| Name                | Default                                                     | Description                                                                                    |
+|:--------------------|:------------------------------------------------------------|:-----------------------------------------------------------------------------------------------|
+| NODE_ENV            | -                                                           | Select: production, development, etc...                                                        |
+| SENTRY_DSN          | -                                                           | Your sentry DSN                                                                                |
 
 ### Configuration
 
