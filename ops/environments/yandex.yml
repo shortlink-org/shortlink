@@ -1,0 +1,40 @@
+include:
+  - local: /ops/templates/job_template_deploy.yml
+
+# STAGING RELEASE ======================================================================================================
+
+deploy:staging:
+  extends:
+    - .job_template_deploy
+  variables:
+    KUBE_CONTEXT: production
+    RELEASE_NAME: $CI_PROJECT_NAME
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
+  environment:
+    name: yandex-staging
+    url: $STAGING_UI_HOST
+  needs:
+    - build:shortlink
+    - build:logger
+    - build:ui
+  only:
+    - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
+
+# PRODUCTION RELEASE ===================================================================================================
+
+deploy:production:
+  extends:
+    - .job_template_deploy
+  variables:
+    KUBE_CONTEXT: production
+    RELEASE_NAME: $CI_PROJECT_NAME
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
+  environment:
+    name: yandex-production
+    url: $PRODUCTION_UI_HOST
+  needs:
+    - build:shortlink
+    - build:logger
+    - build:ui
+  only:
+    - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
