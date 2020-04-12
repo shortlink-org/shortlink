@@ -131,3 +131,5 @@ helm:
   script:
     - ls /tmp/config
     - helm --kubeconfig=${KUBECONFIG} ls
+  environment:
+    name: yandex-test
