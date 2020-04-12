@@ -127,4 +127,5 @@ helm:
     name: alpine/helm:3.1.2
     entrypoint: [""]
   script:
+    - echo $KUBECONFIG
     - helm --kubeconfig=${KUBECONFIG} ls
