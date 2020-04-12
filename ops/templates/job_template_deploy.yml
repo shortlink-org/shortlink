@@ -1,6 +1,6 @@
 .job_template_deploy: &job_deploy
   stage: deploy
-  name: alpine/helm:3.1.2
+  image: alpine/helm:3.1.2
   variables:
     GIT_STRATEGY: none
   script:
