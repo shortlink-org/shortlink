@@ -129,7 +129,7 @@ helm:
     name: alpine/helm:3.1.2
     entrypoint: [""]
   before_script:
-    - echo $KUBECONFIG > /tmp/config
+    - env
   script:
     - ls /tmp/config
     - helm --kubeconfig=${KUBECONFIG} ls
