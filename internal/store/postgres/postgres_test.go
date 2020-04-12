@@ -53,8 +53,10 @@ func TestPostgres(t *testing.T) {
 		assert.Nil(t, err, "Could not connect to docker")
 	}
 
-	// When you're done, kill and remove the container
-	if err := pool.Purge(resource); err != nil {
-		t.Fatalf("Could not purge resource: %s", err)
-	}
+	t.Cleanup(func() {
+		// When you're done, kill and remove the container
+		if err := pool.Purge(resource); err != nil {
+			t.Fatalf("Could not purge resource: %s", err)
+		}
+	})
 }

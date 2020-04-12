@@ -39,6 +39,13 @@ func TestCassandra(t *testing.T) {
 		assert.Nil(t, err, "Could not connect to docker")
 	}
 
+	t.Cleanup(func() {
+		// When you're done, kill and remove the container
+		if err := pool.Purge(resource); err != nil {
+			t.Fatalf("Could not purge resource: %s", err)
+		}
+	})
+
 	// t.Run("Create", func(t *testing.T) {
 	// 	link, err := store.Add(mock.AddLink)
 	// 	assert.Nil(t, err)
@@ -64,9 +71,4 @@ func TestCassandra(t *testing.T) {
 	// t.Run("Close", func(t *testing.T) {
 	// 	assert.Nil(t, store.Close())
 	// })
-
-	// When you're done, kill and remove the container
-	if err := pool.Purge(resource); err != nil {
-		t.Fatalf("Could not purge resource: %s", err)
-	}
 }
