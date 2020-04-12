@@ -182,9 +182,10 @@ func New(options Options) *Cors {
 	return c
 }
 
-// Default creates a new Cors handler with default options.
-func Default() *Cors {
-	return New(Options{})
+// Handler creates a new Cors handler with passed options.
+func Handler(options Options) func(next http.Handler) http.Handler {
+	c := New(options)
+	return c.Handler
 }
 
 // AllowAll create a new Cors handler with permissive configuration allowing all
