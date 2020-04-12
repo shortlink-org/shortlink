@@ -134,10 +134,10 @@ a11y:
   stage: accessibility
   image: node
   script:
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list && \
-    - apt-get update && \
-    - apt-get install -y google-chrome-stable && \
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+    - apt-get update
+    - apt-get install -y google-chrome-stable
     - rm -rf /var/lib/apt/lists/*
     - npm install pa11y@5.3.0 pa11y-reporter-html@1.0.0
     - './node_modules/.bin/pa11y $PRODUCTION_UI_HOST > accessibility.html'
