@@ -123,6 +123,8 @@ performance:
 
 # TEST
 helm:
-  image: alpine/helm:3.1.2
+  image:
+    name: alpine/helm:3.1.2
+    entrypoint: [""]
   script:
-    - helm ls
+    - helm --kubeconfig=${KUBECONFIG} ls
