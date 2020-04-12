@@ -123,6 +123,6 @@ performance:
 
 # TEST
 helm:
-  name: alpine/helm:3.1.2
+  image: alpine/helm:3.1.2
   script:
     - helm ls
