@@ -1,16 +1,14 @@
+import React from 'react';
+import Container from '@material-ui/core/Container';
 import Header from './Header';
-
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: '1px solid #DDD'
-};
+import Copyright from './Copyright';
 
 const Layout = props => (
-  <div style={layoutStyle}>
+  <Container maxWidth="sm">
     <Header />
     {props.content}
-  </div>
+    <Copyright />
+  </Container>
 );
 
 export default Layout;
