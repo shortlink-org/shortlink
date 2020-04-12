@@ -3,7 +3,7 @@
   variables:
     GIT_STRATEGY: none
   script:
-    - helm --kube-context $KUBE_CONTEXT upgrade $RELEASE_NAME $HELM_PATH
+    - helm --kube-config $KUBECONFIG --kube-context $KUBE_CONTEXT upgrade $RELEASE_NAME $HELM_PATH
       --install
       --force
       --wait
