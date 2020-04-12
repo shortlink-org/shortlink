@@ -3,6 +3,8 @@ name: Add store
 about: Use this template for tracking new store.
 title: "[STORE]: [TITLE]"
 labels: feature_request, store
+assignees: ''
+
 ---
 
 ### Add store - [NAME]
