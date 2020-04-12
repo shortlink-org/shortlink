@@ -129,7 +129,7 @@ helm:
   before_script:
     - env
   script:
-    - ls /tmp/config
-    - helm --kubeconfig=${KUBECONFIG} ls
+    - cat $KUBECONFIG
+    - helm --kubeconfig=$KUBECONFIG ls
   environment:
     name: yandex-test
