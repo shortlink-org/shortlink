@@ -123,8 +123,6 @@ performance:
 
 # TEST
 helm:
-  variables:
-    KUBECONFIG: /tmp/config
   image:
     name: alpine/helm:3.1.2
     entrypoint: [""]
