@@ -8,10 +8,7 @@ metadata:
 spec:
   replicas: {{ .Values.ui.deploy.replicaCount }}
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 50%
-      maxUnavailable: 50%
+    {{- toYaml .Values.ui.deploy.strategy | nindent 4 }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "shortlink.name" . }}
