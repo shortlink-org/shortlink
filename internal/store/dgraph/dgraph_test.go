@@ -74,6 +74,18 @@ func TestDgraph(t *testing.T) {
 		assert.Errorf(t, err, "Could not connect to docker")
 	}
 
+	t.Cleanup(func() {
+		// When you're done, kill and remove the container
+		if err := pool.Purge(ALPHA); err != nil {
+			assert.Errorf(t, err, "Could not purge resource")
+		}
+
+		// When you're done, kill and remove the container
+		if err := pool.Purge(ZERO); err != nil {
+			assert.Errorf(t, err, "Could not purge resource")
+		}
+	})
+
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(mock.AddLink)
 		assert.Nil(t, err)
@@ -99,14 +111,4 @@ func TestDgraph(t *testing.T) {
 	t.Run("Close", func(t *testing.T) {
 		assert.Nil(t, store.Close())
 	})
-
-	// When you're done, kill and remove the container
-	if err := pool.Purge(ALPHA); err != nil {
-		assert.Errorf(t, err, "Could not purge resource")
-	}
-
-	// When you're done, kill and remove the container
-	if err := pool.Purge(ZERO); err != nil {
-		assert.Errorf(t, err, "Could not purge resource")
-	}
 }
