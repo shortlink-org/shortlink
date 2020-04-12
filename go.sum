@@ -98,6 +98,7 @@ github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 h1:kIFnQBO7r
 github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41/go.mod h1:Dq467ZllaHgAtVp4p1xUQWBrFXR9s/wyoTpG8zOJGkY=
 github.com/coreos/bbolt v1.3.2/go.mod h1:iRUV2dpdMOn7Bo10OQBFzIJO9kkE559Wcmn+qkEiiKk=
 github.com/coreos/etcd v3.3.10+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
+github.com/coreos/etcd v3.3.13+incompatible/go.mod h1:uF7uidLiAD3TWHmW31ZFd/JWoc32PjwdhPthX9715RE=
 github.com/coreos/go-etcd v2.0.0+incompatible/go.mod h1:Jez6KQU2B/sWsbdaef3ED8NzMklzPG4d5KIOhIy30Tk=
 github.com/coreos/go-semver v0.2.0/go.mod h1:nnelYz7RCh+5ahJtPPxZlU+153eP4D4r3EedlOD2RNk=
 github.com/coreos/go-systemd v0.0.0-20180511133405-39ca1b05acc7/go.mod h1:F5haX7vjVVG0kc13fIWeqUViNPyEJxv/OmvnBo0Yme4=
@@ -175,6 +176,8 @@ github.com/go-chi/chi v4.1.0+incompatible h1:ETj3cggsVIY2Xao5ExCu6YhEh5MD6JTfcBz
 github.com/go-chi/chi v4.1.0+incompatible/go.mod h1:eB3wogJHnLi3x/kFX2A+IbTBlXxmMeXJVKy9tTv1XzQ=
 github.com/go-chi/cors v1.0.1 h1:56TT/uWGoLWZpnMI/AwAmCneikXr5eLsiIq27wrKecw=
 github.com/go-chi/cors v1.0.1/go.mod h1:K2Yje0VW/SJzxiyMYu6iPQYa7hMjQX2i/F491VChg1I=
+github.com/go-chi/cors v1.1.0 h1:R64971lH0rkqNELr8IKpjsoobTSIyHPmBvWpb1Z1kS4=
+github.com/go-chi/cors v1.1.0/go.mod h1:K2Yje0VW/SJzxiyMYu6iPQYa7hMjQX2i/F491VChg1I=
 github.com/go-chi/render v1.0.1 h1:4/5tis2cKaNdnv9zFLfXzcquC9HbeZgCnxGnKrltBS8=
 github.com/go-chi/render v1.0.1/go.mod h1:pq4Rr7HbnsdaeHagklXub+p6Wd16Af5l9koip1OvJns=
 github.com/go-errors/errors v1.0.1 h1:LUHzmkK3GUKUrL/1gfBUxAHzcev3apQlezX/+O7ma6w=
@@ -229,6 +232,8 @@ github.com/gobwas/ws v1.0.2/go.mod h1:szmBTxLgaFppYjEmNtny/v3w89xOydFnnZMcgRRu/E
 github.com/gocql/gocql v0.0.0-20200131111108-92af2e088537/go.mod h1:DL0ekTmBSTdlNF25Orwt/JMzqIq3EJ4MVa/J/uK64OY=
 github.com/gocql/gocql v0.0.0-20200324094621-6d895e38b0a5 h1:LbX3qY8XXiD8kUJLvEsm3Hm2tjG3gQxThdmv9tW3cyI=
 github.com/gocql/gocql v0.0.0-20200324094621-6d895e38b0a5/go.mod h1:DL0ekTmBSTdlNF25Orwt/JMzqIq3EJ4MVa/J/uK64OY=
+github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6 h1:esX8kOWgz5dyrcn/QQQgMmPqPWzX/hNO65/nmfcEOYw=
+github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6/go.mod h1:DL0ekTmBSTdlNF25Orwt/JMzqIq3EJ4MVa/J/uK64OY=
 github.com/gofrs/uuid v3.2.0+incompatible h1:y12jRkkFxsd7GpqdSZ+/KCs/fJbqpEXSGd4+jfEaewE=
 github.com/gofrs/uuid v3.2.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
 github.com/gogo/googleapis v1.1.0/go.mod h1:gf4bu3Q80BeJ6H1S1vYPm8/ELATdvryBaNFGgqEef3s=
@@ -557,6 +562,7 @@ github.com/openzipkin/zipkin-go v0.2.2/go.mod h1:NaW6tEwdmWMaCDZzg8sh+IBNOxHMPnh
 github.com/ory/dockertest/v3 v3.5.4 h1:rYijlJuraj8D4OgC1DpYpCV8SGXrkviT3RVrjFy7OFc=
 github.com/ory/dockertest/v3 v3.5.4/go.mod h1:J8ZUbNB2FOhm1cFZW9xBpDsODqsSWcyYgtJYVPcnF70=
 github.com/ory/dockertest/v3 v3.5.5/go.mod h1:4ZOpj8qBUmh8fcBSVzkH2bws2s91JdGvHUqan4GHEuQ=
+github.com/ory/dockertest/v3 v3.6.0/go.mod h1:4ZOpj8qBUmh8fcBSVzkH2bws2s91JdGvHUqan4GHEuQ=
 github.com/pact-foundation/pact-go v1.0.4/go.mod h1:uExwJY4kCzNPcHRj+hCR/HBbOOIwwtUjcrb0b5/5kLM=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
 github.com/pborman/uuid v1.2.0/go.mod h1:X/NO0urCmaxf9VXbdlT7C2Yzkj2IKimNn4k+gtPdI/k=
@@ -636,6 +642,8 @@ github.com/satori/go.uuid v1.2.0/go.mod h1:dA0hQrYB0VpLJoorglMZABFdXlWrHn1NEOzdh
 github.com/scylladb/go-reflectx v1.0.1/go.mod h1:rWnOfDIRWBGN0miMLIcoPt/Dhi2doCMZqwMCJ3KupFc=
 github.com/scylladb/gocqlx v1.4.0 h1:TQaJ9u0IOICgFdmsi5zW/wNW7Z73F6q6DE6z5IG3OTw=
 github.com/scylladb/gocqlx v1.4.0/go.mod h1:QarZcw5kpYh31MXfxiN2JWWvF1cgZbYqfTfXwmwhpEQ=
+github.com/scylladb/gocqlx v1.5.0 h1:p7NEqRaCMAtW2nvq62iyUNXmIYP29373YOC7D2Xd7Qg=
+github.com/scylladb/gocqlx v1.5.0/go.mod h1:QarZcw5kpYh31MXfxiN2JWWvF1cgZbYqfTfXwmwhpEQ=
 github.com/sean-/seed v0.0.0-20170313163322-e2103e2c3529/go.mod h1:DxrIzT+xaE7yg65j358z/aeFdxmN0P9QXhEzd20vsDc=
 github.com/sergi/go-diff v1.0.0/go.mod h1:0CfEIISq7TuYL3j771MWULgwwjU+GofnZX9QAmXWZgo=
 github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24 h1:pntxY8Ary0t43dCZ5dqY4YTJCObLY1kIXl0uzMv+7DE=
@@ -684,6 +692,8 @@ github.com/spf13/pflag v1.0.5/go.mod h1:McXfInJRrz4CZXVZOBLb0bTZqETkiAhM9Iw0y3An
 github.com/spf13/viper v1.3.2/go.mod h1:ZiWeW+zYFKm7srdB9IoDzzZXaJaI5eL9QjNiN/DMA2s=
 github.com/spf13/viper v1.6.2 h1:7aKfF+e8/k68gda3LOjo5RxiUqddoFxVq4BKBPrxk5E=
 github.com/spf13/viper v1.6.2/go.mod h1:t3iDnF5Jlj76alVNuyFBk5oUMCvsrkbvZK0WQdfDi5k=
+github.com/spf13/viper v1.6.3 h1:pDDu1OyEDTKzpJwdq4TiuLyMsUgRa/BT5cn5O62NoHs=
+github.com/spf13/viper v1.6.3/go.mod h1:jUMtyi0/lB5yZH/FjyGAoH7IMNrIhlBf6pXZmbMDvzw=
 github.com/streadway/amqp v0.0.0-20190404075320-75d898a42a94/go.mod h1:AZpEONHx3DKn8O/DFsRAY58/XVQiIPMTMB1SddzLXVw=
 github.com/streadway/amqp v0.0.0-20190827072141-edfb9018d271/go.mod h1:AZpEONHx3DKn8O/DFsRAY58/XVQiIPMTMB1SddzLXVw=
 github.com/streadway/handy v0.0.0-20190108123426-d5acb3125c2a/go.mod h1:qNTQ5P5JnDBl6z3cMAg/SywNDC5ABu5ApDIw6lUbRmI=
@@ -941,6 +951,10 @@ google.golang.org/genproto v0.0.0-20200402124713-8ff61da6d932 h1:aw1IXx+GKsPxp8M
 google.golang.org/genproto v0.0.0-20200402124713-8ff61da6d932/go.mod h1:55QSHmfGQM9UVYDPBsyGGes0y52j32PQ3BqQfXhyH3c=
 google.golang.org/genproto v0.0.0-20200406120821-33397c535dc2 h1:KlOjjpQjL4dqscfbhtQvAnRMm5PaRTchHHczffkUiq0=
 google.golang.org/genproto v0.0.0-20200406120821-33397c535dc2/go.mod h1:55QSHmfGQM9UVYDPBsyGGes0y52j32PQ3BqQfXhyH3c=
+google.golang.org/genproto v0.0.0-20200408120641-fbb3ad325eb7 h1:AMRSRXQjlgdwNhezZB0hscb7mJ4AK/UCM6uNIlEknCc=
+google.golang.org/genproto v0.0.0-20200408120641-fbb3ad325eb7/go.mod h1:55QSHmfGQM9UVYDPBsyGGes0y52j32PQ3BqQfXhyH3c=
+google.golang.org/genproto v0.0.0-20200410110633-0848e9f44c36 h1:QGM8iDIfHwTRMruKa7+aKDNRMQcWKeS6LDhdMiucYCE=
+google.golang.org/genproto v0.0.0-20200410110633-0848e9f44c36/go.mod h1:55QSHmfGQM9UVYDPBsyGGes0y52j32PQ3BqQfXhyH3c=
 google.golang.org/grpc v1.17.0/go.mod h1:6QZJwpn2B+Zp71q/5VxRsJ6NXXVCE5NRUHRo+f3cWCs=
 google.golang.org/grpc v1.19.0/go.mod h1:mqu4LbDTu4XGKhr4mRzUsmM4RtVoemTSY81AxZiDr8c=
 google.golang.org/grpc v1.19.1/go.mod h1:mqu4LbDTu4XGKhr4mRzUsmM4RtVoemTSY81AxZiDr8c=
