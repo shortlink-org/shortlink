@@ -4,16 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sentry/browser": "^5.15.4",
+    "@sentry/integrations": "^5.15.4",
+    "@sentry/node": "^5.15.4",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "js-cookie": "^2.2.1",
     "next": "^9.3.4",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "@zeit/next-source-maps": "0.0.3"
   }
 }
