@@ -105,6 +105,8 @@ a11y:
     - './node_modules/.bin/pa11y $PRODUCTION_UI_HOST > accessibility.html'
     - echo 'Complete!!!'
   allow_failure: true
+  rules:
+    - when: on_success
   artifacts:
     when: always
     expose_as: 'accessibility'
@@ -122,13 +124,3 @@ performance:
   variables:
     URL: $PRODUCTION_UI_HOST
 
-# TEST
-helm:
-  image: alpine/helm:3.1.2
-  before_script:
-    - env
-  script:
-    - cat $KUBECONFIG
-    - helm ls
-  environment:
-    name: yandex-test

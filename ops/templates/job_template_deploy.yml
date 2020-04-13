@@ -1,15 +1,16 @@
 .job_template_deploy: &job_deploy
   stage: deploy
-  image: alpine/helm:3.1.2
+  image:
+    name: alpine/helm:3.1.2
+    entrypoint: [""]
   variables:
     GIT_STRATEGY: none
   script:
-    - helm ls
-#    - helm upgrade $RELEASE_NAME $HELM_PATH
-#      --install
-#      --force
-#      --wait
-#      --namespace=$KUBE_NAMESPACE;
-#  except:
-#    - branches
-#  when: manual
+    - helm upgrade $RELEASE_NAME $HELM_PATH
+      --install
+      --force
+      --wait
+      --namespace=$KUBE_NAMESPACE;
+  except:
+    - branches
+  when: manual
