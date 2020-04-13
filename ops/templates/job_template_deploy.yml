@@ -10,6 +10,6 @@
       --force
       --wait
       --namespace=$KUBE_NAMESPACE;
-  except:
-    - branches
+#  except:
+#    - branches
   when: manual
