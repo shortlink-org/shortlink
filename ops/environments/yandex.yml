@@ -6,7 +6,6 @@ include:
 deploy:staging:
   extends:
     - .job_template_deploy
-  stage: test # TODO: delete
   variables:
     ENVIRONMENT: yandex-staging
     RELEASE_NAME: $CI_PROJECT_NAME
@@ -14,14 +13,13 @@ deploy:staging:
   environment:
     name: yandex-staging
     url: staging.example.com
-#  needs:
-#    - build:shortlink
-#    - build:logger
-#    - build:ui
+  needs:
+    - build:shortlink
+    - build:logger
+    - build:ui
   only:
     refs:
-      - branches # TODO: delete
-#      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
+      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
 
 
 # PRODUCTION RELEASE ===================================================================================================
@@ -41,4 +39,5 @@ deploy:production:
     - build:logger
     - build:ui
   only:
-    - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
+    refs:
+      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
