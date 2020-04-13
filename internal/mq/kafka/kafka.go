@@ -2,8 +2,6 @@ package kafka
 
 import (
 	"context"
-	"time"
-
 	"github.com/Shopify/sarama"
 	"github.com/spf13/viper"
 
@@ -71,7 +69,6 @@ func (k *Kafka) Publish(message query.Message) error {
 		Metadata:  nil,
 		Offset:    0,
 		Partition: 0,
-		Timestamp: time.Time{},
 	})
 
 	return err
