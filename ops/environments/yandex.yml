@@ -6,6 +6,7 @@ include:
 deploy:staging:
   extends:
     - .job_template_deploy
+  stage: test
   variables:
     ENVIRONMENT: yandex-staging
     RELEASE_NAME: $CI_PROJECT_NAME
@@ -18,6 +19,7 @@ deploy:staging:
     - build:logger
     - build:ui
   only:
+    - commit
     - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
 
 # PRODUCTION RELEASE ===================================================================================================
