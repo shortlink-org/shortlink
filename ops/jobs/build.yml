@@ -2,7 +2,7 @@ include:
   - local: /ops/templates/job_template_build.yml
 
 # BUILD IMAGE ==========================================================================================================
-build:shortlink:
+build:api:
   extends:
     - .job_template_build
   variables:
