@@ -1,0 +1,32 @@
+include:
+  - local: /ops/templates/job_template_build.yml
+
+# BUILD IMAGE ==========================================================================================================
+build:shortlink:
+  extends:
+    - .job_template_build
+  variables:
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/shortlink
+    DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
+  needs:
+    - golint
+    - gosec
+    - gotest
+
+build:logger:
+  extends:
+    - .job_template_build
+  variables:
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
+    DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
+  needs:
+    - golint
+    - gosec
+    - gotest
+
+build:ui:
+  extends:
+    - .job_template_build
+  variables:
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
+    DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
