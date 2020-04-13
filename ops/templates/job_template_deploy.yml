@@ -4,12 +4,11 @@
   variables:
     GIT_STRATEGY: none
   script:
-    - helm --kube-config $KUBECONFIG --kube-context $KUBE_CONTEXT upgrade $RELEASE_NAME $HELM_PATH
+    - helm --kubeconfig=$KUBECONFIG upgrade $RELEASE_NAME $HELM_PATH
       --install
       --force
       --wait
-      --namespace=$PROJECT_NAMESPACE
-      --set CI_PROJECT_NAME=$CI_PROJECT_NAME;
+      --namespace=$KUBE_NAMESPACE;
   except:
     - branches
   when: manual
