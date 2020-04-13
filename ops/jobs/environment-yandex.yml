@@ -3,13 +3,13 @@ include:
 
 # STAGING RELEASE ======================================================================================================
 
-deploy:staging:
+api:staging:
   extends:
     - .job_template_deploy
   variables:
     ENVIRONMENT: yandex-staging
     RELEASE_NAME: $CI_PROJECT_NAME
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
   environment:
     name: yandex-staging
     url: staging.example.com
@@ -24,13 +24,13 @@ deploy:staging:
 
 # PRODUCTION RELEASE ===================================================================================================
 
-deploy:production:
+api:production:
   extends:
     - .job_template_deploy
   variables:
     ENVIRONMENT: yandex-production
     RELEASE_NAME: $CI_PROJECT_NAME
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
   environment:
     name: yandex-production
     url: production.example.com

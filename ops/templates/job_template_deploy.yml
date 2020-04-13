@@ -8,7 +8,8 @@
       --install
       --force
       --wait
-      --namespace=$KUBE_NAMESPACE;
+      --namespace=$KUBE_NAMESPACE
+      --set ;
   except:
     - branches
   when: manual
