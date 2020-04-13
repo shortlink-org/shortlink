@@ -24,10 +24,10 @@ Shortlink service
 
 ##### Services
 
-| Service     | Description                       | Language   |
-|-------------|-----------------------------------|------------|
-| shortlink   | Shortlink service                 | Go         |
-| logger      | Logger service                    | Go         |
+| Service     | Description                       | Language/Framework |
+|-------------|-----------------------------------|--------------------|
+| shortlink   | Shortlink service                 | Go                 |
+| logger      | Logger service                    | Go                 |
 
 ### Run
 
@@ -96,10 +96,15 @@ docker-compose \
 + Traefik
 + Nginx
 
-### UI
+### UI service
 
 + Nuxt: [demo UI](http://shortlink.surge.sh/)
 + Next
+
+| Service     | Description                       | Language/Framework |
+|-------------|-----------------------------------|--------------------|
+| next        | UI service                        | JS/ReactJS         |
+| nuxt        | UI service                        | JS/VueJS           |
 
 ##### ENV for UI
 
@@ -206,6 +211,11 @@ ansible-playbook playbooks/playbook.yml
 - DOCKER_PASSWORD
 - SURGE_LOGIN
 - SURGE_TOKEN
+
+##### Support environment
+
+- Minikube
+- [Yandex Cloud](https://cloud.yandex.ru/)
 
 ## -~- THE END -~-
 
