@@ -1,15 +1,10 @@
 include:
   - local: /ops/templates/job_template_deploy.yml
 
-# STAGING RELEASE ======================================================================================================
-
-api:staging:
+# CUSTOM TEMPLATE ======================================================================================================
+.job_template_deploy_staging: &job_deploy_staging
   extends:
     - .job_template_deploy
-  variables:
-    ENVIRONMENT: yandex-staging
-    RELEASE_NAME: $CI_PROJECT_NAME
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
   environment:
     name: yandex-staging
     url: staging.example.com
@@ -21,16 +16,9 @@ api:staging:
     refs:
       - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
 
-
-# PRODUCTION RELEASE ===================================================================================================
-
-api:production:
+.job_template_deploy_production: &job_deploy_production
   extends:
     - .job_template_deploy
-  variables:
-    ENVIRONMENT: yandex-production
-    RELEASE_NAME: $CI_PROJECT_NAME
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
   environment:
     name: yandex-production
     url: production.example.com
@@ -41,3 +29,55 @@ api:production:
   only:
     refs:
       - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
+
+# STAGING RELEASE ======================================================================================================
+
+api:staging:
+  extends:
+    - .job_template_deploy_staging
+  variables:
+    ENVIRONMENT: yandex-staging
+    RELEASE_NAME: $CI_PROJECT_NAME-api
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
+
+logger:staging:
+  extends:
+    - .job_template_deploy_staging
+  variables:
+    ENVIRONMENT: yandex-staging
+    RELEASE_NAME: $CI_PROJECT_NAME-logger
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
+
+ui:staging:
+  extends:
+    - .job_template_deploy_staging
+  variables:
+    ENVIRONMENT: yandex-staging
+    RELEASE_NAME: $CI_PROJECT_NAME-ui
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
+
+# PRODUCTION RELEASE ===================================================================================================
+
+api:production:
+  extends:
+    - .job_template_deploy_production
+  variables:
+    ENVIRONMENT: yandex-production
+    RELEASE_NAME: $CI_PROJECT_NAME-api
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
+
+logger:production:
+  extends:
+    - .job_template_deploy_production
+  variables:
+    ENVIRONMENT: yandex-production
+    RELEASE_NAME: $CI_PROJECT_NAME-logger
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
+
+ui:production:
+  extends:
+    - .job_template_deploy_production
+  variables:
+    ENVIRONMENT: yandex-production
+    RELEASE_NAME: $CI_PROJECT_NAME-ui
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui

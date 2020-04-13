@@ -9,7 +9,7 @@
       --force
       --wait
       --namespace=$KUBE_NAMESPACE
-      --set ;
+      --set deploy.image.tag=$CI_COMMIT_TAG;
   except:
     - branches
   when: manual
