@@ -121,3 +121,16 @@ performance:
   stage: accessibility
   variables:
     URL: $PRODUCTION_UI_HOST
+
+# TEST
+helm:
+  image:
+    name: alpine/helm:3.1.2
+    entrypoint: [""]
+  before_script:
+    - env
+  script:
+    - cat $KUBECONFIG
+    - helm --kubeconfig=$KUBECONFIG ls
+  environment:
+    name: yandex-test
