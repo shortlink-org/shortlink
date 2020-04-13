@@ -1,0 +1,34 @@
+include:
+  - local: /ops/templates/job_teplate_go.yml
+  - template: License-Scanning.gitlab-ci.yml
+
+# ON COMMIT ============================================================================================================
+golint:
+  extends:
+    - .job_teplate_go
+  image: golangci/golangci-lint:v1.24.0
+  script:
+    - make golint
+
+gosec:
+  extends:
+    - .job_teplate_go
+  before_script:
+    - go get -u github.com/securego/gosec/cmd/gosec
+  script:
+    - make gosec
+
+gotest:
+  extends:
+    - .job_teplate_go
+  script:
+    - make test
+
+# OTHER ================================================================================================================
+
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
+license_scanning:
+  only:
+    refs:
+      - branches
+      - tags

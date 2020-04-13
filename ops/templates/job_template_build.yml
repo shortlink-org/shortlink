@@ -3,6 +3,9 @@
   image: gitlab/dind
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
+    - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
   when: on_success
   retry: 2
   tags:
