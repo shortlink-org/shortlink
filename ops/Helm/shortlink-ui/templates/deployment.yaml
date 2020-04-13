@@ -1,4 +1,4 @@
-{{- if .Values.ui.enabled -}}
+{{- if .Values.enabled -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,9 +6,9 @@ metadata:
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.ui.deploy.replicaCount }}
+  replicas: {{ .Values.deploy.replicaCount }}
   strategy:
-    {{- toYaml .Values.ui.deploy.strategy | nindent 4 }}
+    {{- toYaml .Values.deploy.strategy | nindent 4 }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "shortlink.name" . }}
@@ -21,38 +21,38 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: ui
     spec:
-    {{- with .Values.ui.deploy.imagePullSecrets }}
+    {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | indent 8 }}
     {{- end }}
       serviceAccountName: {{ template "shortlink.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.ui.deploy.podSecurityContext | indent 8 }}
+        {{- toYaml .Values.deploy.podSecurityContext | indent 8 }}
       containers:
       - name: {{ .Chart.Name }}
         securityContext:
-          {{- toYaml .Values.ui.deploy.securityContext | indent 12 }}
-        image: "{{ .Values.ui.deploy.image.repository }}:{{ .Values.ui.deploy.image.tag }}"
-        imagePullPolicy: {{ .Values.ui.deploy.image.pullPolicy }}
+          {{- toYaml .Values.deploy.securityContext | indent 12 }}
+        image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
+        imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
         ports:
         - name: http
           containerPort: 80
           protocol: TCP
         livenessProbe:
-          {{- toYaml .Values.ui.deploy.livenessProbe | nindent 12 }}
+          {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
         readinessProbe:
-          {{- toYaml .Values.ui.deploy.readinessProbe | nindent 12 }}
+          {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
         resources:
-          {{- toYaml .Values.ui.deploy.resources | indent 10 }}
-      {{- with .Values.ui.deploy.nodeSelector }}
+          {{- toYaml .Values.deploy.resources | indent 10 }}
+      {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | indent 8 }}
       {{- end }}
-    {{- with .Values.ui.deploy.affinity }}
+    {{- with .Values.deploy.affinity }}
       affinity:
         {{- toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.ui.deploy.tolerations }}
+    {{- with .Values.deploy.tolerations }}
       tolerations:
         {{- toYaml . | indent 8 }}
     {{- end }}

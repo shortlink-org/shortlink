@@ -5,9 +5,9 @@ metadata:
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.logger.deploy.replicaCount }}
+  replicas: {{ .Values.deploy.replicaCount }}
   strategy:
-    {{- toYaml .Values.logger.deploy.strategy | nindent 4 }}
+    {{- toYaml .Values.deploy.strategy | nindent 4 }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "shortlink.name" . }}
@@ -20,42 +20,42 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: logger
     spec:
-    {{- with .Values.logger.deploy.imagePullSecrets }}
+    {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | indent 8 }}
     {{- end }}
       serviceAccountName: {{ template "shortlink.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.logger.deploy.podSecurityContext | indent 8 }}
+        {{- toYaml .Values.deploy.podSecurityContext | indent 8 }}
       containers:
       - name: {{ .Chart.Name }}
         securityContext:
-          {{- toYaml .Values.logger.deploy.securityContext | indent 12 }}
-        image: "{{ .Values.logger.deploy.image.repository }}:{{ .Values.logger.deploy.image.tag }}"
-        imagePullPolicy: {{ .Values.logger.deploy.image.pullPolicy }}
+          {{- toYaml .Values.deploy.securityContext | indent 12 }}
+        image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
+        imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
         ports:
         - name: http
           containerPort: 7070
           protocol: TCP
-        {{- if .Values.logger.deploy.livenessProbe }}
+        {{- if .Values.deploy.livenessProbe }}
         livenessProbe:
-          {{- toYaml .Values.logger.deploy.livenessProbe | nindent 12 }}
+          {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
         {{- end }}
-        {{- if .Values.logger.deploy.readinessProbe }}
+        {{- if .Values.deploy.readinessProbe }}
         readinessProbe:
-          {{- toYaml .Values.logger.deploy.readinessProbe | nindent 12 }}
+          {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
         {{- end }}
         resources:
-          {{- toYaml .Values.logger.deploy.resources | indent 10 }}
-      {{- with .Values.logger.deploy.nodeSelector }}
+          {{- toYaml .Values.deploy.resources | indent 10 }}
+      {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | indent 8 }}
       {{- end }}
-    {{- with .Values.logger.deploy.affinity }}
+    {{- with .Values.deploy.affinity }}
       affinity:
         {{- toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.logger.deploy.tolerations }}
+    {{- with .Values.deploy.tolerations }}
       tolerations:
         {{- toYaml . | indent 8 }}
     {{- end }}
