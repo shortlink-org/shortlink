@@ -1,0 +1,19 @@
+apiVersion: v2                                   # The chart API version (required)
+appVersion: "1.0.0"                              # The version of the app that this contains (optional)
+name: chaos                                      # The name of the chart (required)
+description: Chaos service                       # A single-sentence description of this project (optional)
+version: 0.3.4                                   # A SemVer 2 version (required)
+kubeVersion: ">= 1.16.0"                         # A SemVer range of compatible Kubernetes versions (optional)
+keywords:                                        # A list of keywords about this project (optional)
+  - chaos
+home: https://batazor.github.io/shortlink/       # The URL of this project's home page (optional)
+sources:                                         # A list of URLs to source code for this project (optional)
+  - https://github.com/batazor/shortlink
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application                                # It is the type of chart (optional)
+deprecated: false                                # Whether this chart is deprecated (optional, boolean)
+dependencies: []
