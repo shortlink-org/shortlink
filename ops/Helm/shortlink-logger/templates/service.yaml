@@ -5,9 +5,9 @@ metadata:
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.logger.service.type }}
+  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.logger.service.port }}
+    - port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
       name: http

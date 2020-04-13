@@ -5,9 +5,9 @@ metadata:
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.shortlink.deploy.replicaCount }}
+  replicas: {{ .Values.deploy.replicaCount }}
   strategy:
-    {{- toYaml .Values.shortlink.deploy.strategy | nindent 4 }}
+    {{- toYaml .Values.deploy.strategy | nindent 4 }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "shortlink.name" . }}
@@ -20,38 +20,38 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: shortlink
     spec:
-    {{- with .Values.shortlink.deploy.imagePullSecrets }}
+    {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | indent 8 }}
     {{- end }}
       serviceAccountName: {{ template "shortlink.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.shortlink.deploy.podSecurityContext | indent 8 }}
+        {{- toYaml .Values.deploy.podSecurityContext | indent 8 }}
       containers:
       - name: {{ .Chart.Name }}
         securityContext:
-          {{- toYaml .Values.shortlink.deploy.securityContext | indent 12 }}
-        image: "{{ .Values.shortlink.deploy.image.repository }}:{{ .Values.shortlink.deploy.image.tag }}"
-        imagePullPolicy: {{ .Values.shortlink.deploy.image.pullPolicy }}
+          {{- toYaml .Values.deploy.securityContext | indent 12 }}
+        image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
+        imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
         ports:
         - name: http
           containerPort: 7070
           protocol: TCP
         livenessProbe:
-          {{- toYaml .Values.shortlink.deploy.livenessProbe | nindent 12 }}
+          {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
         readinessProbe:
-          {{- toYaml .Values.shortlink.deploy.readinessProbe | nindent 12 }}
+          {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
         resources:
-          {{- toYaml .Values.shortlink.deploy.resources | indent 10 }}
-      {{- with .Values.shortlink.deploy.nodeSelector }}
+          {{- toYaml .Values.deploy.resources | indent 10 }}
+      {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | indent 8 }}
       {{- end }}
-    {{- with .Values.shortlink.deploy.affinity }}
+    {{- with .Values.deploy.affinity }}
       affinity:
         {{- toYaml . | indent 8 }}
     {{- end }}
-    {{- with .Values.shortlink.deploy.tolerations }}
+    {{- with .Values.deploy.tolerations }}
       tolerations:
         {{- toYaml . | indent 8 }}
     {{- end }}

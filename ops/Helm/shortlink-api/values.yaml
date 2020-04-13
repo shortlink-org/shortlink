@@ -12,314 +12,93 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name:
 
-ingress:
-  enabled: false
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  rules:
-    - host: ui-nuxt.shortlink.minikube
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: shortlink-ui
-              servicePort: 80
-
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
-
-istio:
-  enabled: false
-
-chaosMesh:
-  namespace: default
-  podChaos:
-    enabled: false
-    labelSelectors:
-      app.kubernetes.io/part-of: shortlink
-    scheduler: "@every 5m"
-  NetworkChaos:
-    enabled: false
-  IoChaos:
-    enabled: false
-
 # ==============================================================================
-ui:
-  enabled: true
+deploy:
+  replicaCount: 3
 
-  deploy:
-    replicaCount: 1
+  imagePullSecrets: []
 
-    imagePullSecrets: []
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
 
-    strategy:
-      type: RollingUpdate
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
+  terminationGracePeriodSeconds: 90
 
-    terminationGracePeriodSeconds: 90
+  ## Annotations to be added to controller pods
+  ##
+  podAnnotations: {}
 
-    ## Annotations to be added to controller pods
-    ##
-    podAnnotations: {}
+  image:
+    repository: batazor/shortlink
+    tag: latest
+    ## Global imagePullPolicy
+    ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    ## Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    pullPolicy: IfNotPresent
 
-    image:
-      repository: batazor/shortlink-ui-nuxt
-      tag: latest
-      ## Global imagePullPolicy
-      ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
-      ## Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-      pullPolicy: IfNotPresent
+  ## Node labels and tolerations for pod assignment
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+  # nodeSelector:
+  #  shortlink: "true"
+  tolerations: []
 
-    ## Node labels and tolerations for pod assignment
-    ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
-    ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-    # nodeSelector:
-    #  shortlink: "true"
-    tolerations: []
+  affinity: []
 
-    affinity: []
+  # define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  livenessProbe:
+    httpGet:
+      path: /live
+      port: 9090
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 1
 
-    # define a liveness probe that checks every 5 seconds, starting after 5 seconds
-    livenessProbe:
-      httpGet:
-        path: /
-        port: 80
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      successThreshold: 1
-      failureThreshold: 1
+  # define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 9090
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 30
 
-    # define a readiness probe that checks every 5 seconds, starting after 5 seconds
-    readinessProbe:
-      httpGet:
-        path: /
-        port: 80
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      successThreshold: 1
-      failureThreshold: 30
+  # volumes:
+  #  hostPath: /data/carenda/upload
 
-    # volumes:
-    #  hostPath: /data/carenda/upload
+  resources: {}
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
 
-    resources: {}
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-      # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+  podSecurityContext: {}
+  # runAsUser: 1000
+  # fsGroup: 2000
 
-    podSecurityContext: {}
+  ## Security Context policies for controller pods
+  ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+  ## notes on enabling and using sysctls
+  ##
+  securityContext: {}
+    # allowPrivilegeEscalation: false
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
     # runAsUser: 1000
-    # fsGroup: 2000
 
-    ## Security Context policies for controller pods
-    ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
-    ## notes on enabling and using sysctls
-    ##
-    securityContext: {}
-      # allowPrivilegeEscalation: false
-      # capabilities:
-      #   drop:
-      #   - ALL
-      # readOnlyRootFilesystem: true
-      # runAsNonRoot: true
-      # runAsUser: 1000
-
-  service:
-    type: NodePort
-    port: 80
-
-# ==============================================================================
-shortlink:
-  deploy:
-    replicaCount: 3
-
-    imagePullSecrets: []
-
-    strategy:
-      type: RollingUpdate
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-
-    terminationGracePeriodSeconds: 90
-
-    ## Annotations to be added to controller pods
-    ##
-    podAnnotations: {}
-
-    image:
-      repository: batazor/shortlink
-      tag: latest
-      ## Global imagePullPolicy
-      ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
-      ## Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-      pullPolicy: IfNotPresent
-
-    ## Node labels and tolerations for pod assignment
-    ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
-    ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-    # nodeSelector:
-    #  shortlink: "true"
-    tolerations: []
-
-    affinity: []
-
-    # define a liveness probe that checks every 5 seconds, starting after 5 seconds
-    livenessProbe:
-      httpGet:
-        path: /live
-        port: 9090
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      successThreshold: 1
-      failureThreshold: 1
-
-    # define a readiness probe that checks every 5 seconds, starting after 5 seconds
-    readinessProbe:
-      httpGet:
-        path: /ready
-        port: 9090
-      initialDelaySeconds: 5
-      periodSeconds: 5
-      successThreshold: 1
-      failureThreshold: 30
-
-    # volumes:
-    #  hostPath: /data/carenda/upload
-
-    resources: {}
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-      # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
-
-    podSecurityContext: {}
-    # runAsUser: 1000
-    # fsGroup: 2000
-
-    ## Security Context policies for controller pods
-    ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
-    ## notes on enabling and using sysctls
-    ##
-    securityContext: {}
-      # allowPrivilegeEscalation: false
-      # capabilities:
-      #   drop:
-      #   - ALL
-      # readOnlyRootFilesystem: true
-      # runAsNonRoot: true
-      # runAsUser: 1000
-
-  service:
-    type: NodePort
-    port: 7070
-
-# ==============================================================================
-logger:
-  deploy:
-    replicaCount: 3
-
-    imagePullSecrets: []
-
-    strategy:
-      type: RollingUpdate
-      rollingUpdate:
-        maxSurge: 1
-        maxUnavailable: 0
-
-    terminationGracePeriodSeconds: 90
-
-    ## Annotations to be added to controller pods
-    ##
-    podAnnotations: {}
-
-    image:
-      repository: batazor/shortlink-logger
-      tag: latest
-      ## Global imagePullPolicy
-      ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
-      ## Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-      pullPolicy: IfNotPresent
-
-    ## Node labels and tolerations for pod assignment
-    ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
-    ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-    # nodeSelector:
-    #  shortlink: "true"
-    tolerations: []
-
-    affinity: []
-
-    # define a liveness probe that checks every 5 seconds, starting after 5 seconds
-    # livenessProbe: {}
-    #   httpGet:
-    #     path: /live
-    #     port: 9090
-    #   initialDelaySeconds: 5
-    #   periodSeconds: 5
-    #   successThreshold: 1
-    #   failureThreshold: 1
-
-    # define a readiness probe that checks every 5 seconds, starting after 5 seconds
-    # readinessProbe: {}
-    #   httpGet:
-    #     path: /ready
-    #     port: 9090
-    #   initialDelaySeconds: 5
-    #   periodSeconds: 5
-    #   successThreshold: 1
-    #   failureThreshold: 30
-
-    # volumes:
-    #  hostPath: /data/carenda/upload
-
-    resources: {}
-      # We usually recommend not to specify default resources and to leave this as a conscious
-      # choice for the user. This also increases chances charts run on environments with little
-      # resources, such as Minikube. If you do want to specify resources, uncomment the following
-      # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-      # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
-
-    podSecurityContext: {}
-    # runAsUser: 1000
-    # fsGroup: 2000
-
-    ## Security Context policies for controller pods
-    ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
-    ## notes on enabling and using sysctls
-    ##
-    securityContext: {}
-      # allowPrivilegeEscalation: false
-      # capabilities:
-      #   drop:
-      #   - ALL
-      # readOnlyRootFilesystem: true
-      # runAsNonRoot: true
-      # runAsUser: 1000
-
-  service:
-    type: NodePort
-    port: 7070
+service:
+  type: NodePort
+  port: 7070

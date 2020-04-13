@@ -7,6 +7,13 @@ ingress:
 istio:
   enabled: true
 
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
 nginx-ingress:
   ## nginx configuration
   ## Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
