@@ -104,6 +104,7 @@ a11y:
     - npm install pa11y@5.3.0 pa11y-reporter-html@1.0.0
     - './node_modules/.bin/pa11y $PRODUCTION_UI_HOST > accessibility.html'
     - echo 'Complete!!!'
+  allow_failure: true
   artifacts:
     when: always
     expose_as: 'accessibility'
