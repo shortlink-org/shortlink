@@ -124,9 +124,7 @@ performance:
 
 # TEST
 helm:
-  image:
-    name: alpine/helm:3.1.2
-    entrypoint: [""]
+  image: alpine/helm:3.1.2
   before_script:
     - env
   script:
