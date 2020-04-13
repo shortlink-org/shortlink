@@ -131,6 +131,6 @@ helm:
     - env
   script:
     - cat $KUBECONFIG
-    - helm --kubeconfig=$KUBECONFIG ls
+    - helm ls
   environment:
     name: yandex-test
