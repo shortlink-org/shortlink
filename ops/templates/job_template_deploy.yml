@@ -5,11 +5,11 @@
     GIT_STRATEGY: none
   script:
     - helm init --kubeconfig=$KUBECONFIG
-    - helm upgrade $RELEASE_NAME $HELM_PATH
-      --install
-      --force
-      --wait
-      --namespace=$KUBE_NAMESPACE;
+#    - helm upgrade $RELEASE_NAME $HELM_PATH
+#      --install
+#      --force
+#      --wait
+#      --namespace=$KUBE_NAMESPACE;
 #  except:
 #    - branches
   when: manual
