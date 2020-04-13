@@ -7,12 +7,12 @@ deploy:staging:
   extends:
     - .job_template_deploy
   variables:
-    KUBE_CONTEXT: production
+    ENVIRONMENT: yandex-staging
     RELEASE_NAME: $CI_PROJECT_NAME
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
   environment:
     name: yandex-staging
-    url: $STAGING_UI_HOST
+    url: staging.example.com
   needs:
     - build:shortlink
     - build:logger
@@ -26,12 +26,12 @@ deploy:production:
   extends:
     - .job_template_deploy
   variables:
-    KUBE_CONTEXT: production
+    ENVIRONMENT: yandex-production
     RELEASE_NAME: $CI_PROJECT_NAME
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}
   environment:
     name: yandex-production
-    url: $PRODUCTION_UI_HOST
+    url: production.example.com
   needs:
     - build:shortlink
     - build:logger
