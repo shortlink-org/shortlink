@@ -4,8 +4,8 @@
   variables:
     GIT_STRATEGY: none
   script:
-    - cat $KUBECONFIG
-    - helm --kubeconfig=$KUBECONFIG upgrade $RELEASE_NAME $HELM_PATH
+    - helm init --kubeconfig=$KUBECONFIG
+    - helm upgrade $RELEASE_NAME $HELM_PATH
       --install
       --force
       --wait
