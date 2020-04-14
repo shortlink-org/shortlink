@@ -7,7 +7,7 @@ package mq
 import (
 	"context"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/logger"
