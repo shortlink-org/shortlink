@@ -20,7 +20,6 @@ require (
 	github.com/golang/protobuf v1.4.0
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.7.4
-	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
 	github.com/graph-gophers/graphql-go v0.0.0-20200309224638-dae41bde9ef9
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway v1.14.3
@@ -56,5 +55,4 @@ require (
 	google.golang.org/grpc v1.28.1
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
-	gotest.tools v2.2.0+incompatible // indirect
 )
