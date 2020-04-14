@@ -4,7 +4,7 @@ package link;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/batazor/shortlink/pkg/link";
+option go_package = "link";
 
 message Link {
     // URL

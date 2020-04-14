@@ -7,8 +7,8 @@ package mq
 import (
 	"context"
 
-	"google.golang.org/protobuf/proto"
 	"github.com/spf13/viper"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq/kafka"
