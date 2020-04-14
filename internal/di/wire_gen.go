@@ -242,7 +242,9 @@ func InitMonitoring(sentryHandler *sentryhttp.Handler) *http.ServeMux {
 
 	commonMux := http.NewServeMux()
 
-	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.HandlerFor(registry, promhttp.HandlerOpts{})))
+	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.HandlerFor(registry, promhttp.HandlerOpts{
+		EnableOpenMetrics: true,
+	})))
 
 	commonMux.HandleFunc("/live", sentryHandler.HandleFunc(health.LiveEndpoint))
 

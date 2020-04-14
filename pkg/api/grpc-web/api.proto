@@ -6,6 +6,8 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "pkg/link/link.proto";
 
+option go_package = "grpcweb";
+
 service Link {
     rpc GetLinks(link.Link) returns (link.Links) {
         option(google.api.http) = {

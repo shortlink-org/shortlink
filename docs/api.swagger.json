@@ -13,12 +13,18 @@
   "paths": {
     "/api": {
       "delete": {
-        "operationId": "DeleteLink",
+        "operationId": "Link_DeleteLink",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -37,12 +43,18 @@
         ]
       },
       "post": {
-        "operationId": "CreateLink",
+        "operationId": "Link_CreateLink",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/linkLink"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -63,12 +75,18 @@
     },
     "/api/links": {
       "get": {
-        "operationId": "GetLinks",
+        "operationId": "Link_GetLinks",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/linkLinks"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -118,12 +136,18 @@
     },
     "/api/{hash}": {
       "get": {
-        "operationId": "GetLink",
+        "operationId": "Link_GetLink",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/linkLink"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
             }
           }
         },
@@ -207,6 +231,39 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/linkLink"
+          }
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
           }
         }
       }
