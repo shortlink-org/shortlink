@@ -48,7 +48,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	responseCh := make(chan interface{})
 
 	// TODO: send []byte format
-	go notify.Publish(api_type.METHOD_ADD, *newLink, responseCh, "RESPONSE_STORE_ADD")
+	go notify.Publish(api_type.METHOD_ADD, newLink, responseCh, "RESPONSE_STORE_ADD")
 
 	c := <-responseCh
 	switch r := c.(type) {

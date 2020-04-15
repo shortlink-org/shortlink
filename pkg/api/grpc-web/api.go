@@ -69,7 +69,7 @@ func (api *API) GetLinks(ctx context.Context, req *link.Link) (*link.Links, erro
 func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_ADD, *req, responseCh, "RESPONSE_STORE_ADD")
+	go notify.Publish(api_type.METHOD_ADD, req, responseCh, "RESPONSE_STORE_ADD")
 
 	c := <-responseCh
 	switch r := c.(type) {

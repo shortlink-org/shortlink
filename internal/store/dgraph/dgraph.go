@@ -16,15 +16,15 @@ import (
 
 // DGraphLink implementation of store interface
 type DGraphLink struct { // nolint unused
-	Uid       string `json:"uid,omitempty"`
-	link.Link `json:"link,omitempty"`
-	DType     []string `json:"dgraph.type,omitempty"`
+	Uid        string `json:"uid,omitempty"`
+	*link.Link `json:"link,omitempty"`
+	DType      []string `json:"dgraph.type,omitempty"`
 }
 
 // DGraphLinkResponse ...
 type DGraphLinkResponse struct { // nolint unused
 	Link []struct {
-		link.Link
+		*link.Link
 		Uid string `json:"uid,omitempty"`
 	}
 }
@@ -155,7 +155,7 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
-	return &response.Link[0].Link, nil
+	return response.Link[0].Link, nil
 }
 
 // get - private `get` method
@@ -241,7 +241,7 @@ func (dg *DGraphLinkList) Add(source *link.Link) (*link.Link, error) {
 
 	item := DGraphLink{
 		Uid:   fmt.Sprintf(`_:%s`, data.Hash),
-		Link:  *data,
+		Link:  data,
 		DType: []string{"Link"},
 	}
 
@@ -296,8 +296,8 @@ func (dg *DGraphLinkList) Delete(id string) error {
 	mu := &api.Mutation{
 		CommitNow: true,
 	}
-	for _, link := range links.Link {
-		dgo.DeleteEdges(mu, link.Uid, "hash")
+	for _, delLink := range links.Link {
+		dgo.DeleteEdges(mu, delLink.Uid, "hash")
 	}
 
 	_, err = txn.Mutate(ctx, mu)

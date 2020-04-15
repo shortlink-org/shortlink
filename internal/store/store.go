@@ -6,6 +6,7 @@ package store
 
 import (
 	"context"
+	"errors"
 
 	"github.com/spf13/viper"
 
@@ -87,12 +88,19 @@ func (s *Store) setConfig() { // nolint unused
 func (s *Store) Notify(event int, payload interface{}) *notify.Response { // nolint unused
 	switch event {
 	case api_type.METHOD_ADD:
-		link := payload.(link.Link)
-		payload, err := s.store.Add(&link)
+		if addLink, ok := payload.(*link.Link); ok {
+			payload, err := s.store.Add(addLink)
+			return &notify.Response{
+				Name:    "RESPONSE_STORE_ADD",
+				Payload: payload,
+				Error:   err,
+			}
+		}
+
 		return &notify.Response{
 			Name:    "RESPONSE_STORE_ADD",
 			Payload: payload,
-			Error:   err,
+			Error:   errors.New("failed assert type"),
 		}
 	case api_type.METHOD_GET:
 		payload, err := s.store.Get(payload.(string))
@@ -109,12 +117,19 @@ func (s *Store) Notify(event int, payload interface{}) *notify.Response { // nol
 			Error:   err,
 		}
 	case api_type.METHOD_UPDATE:
-		link := payload.(link.Link)
-		payload, err := s.store.Update(&link)
+		if linkUpdate, ok := payload.(*link.Link); ok {
+			payload, err := s.store.Update(linkUpdate)
+			return &notify.Response{
+				Name:    "RESPONSE_STORE_UPDATE",
+				Payload: payload,
+				Error:   err,
+			}
+		}
+
 		return &notify.Response{
 			Name:    "RESPONSE_STORE_UPDATE",
 			Payload: payload,
-			Error:   err,
+			Error:   errors.New("failed assert type"),
 		}
 	case api_type.METHOD_DELETE:
 		err := s.store.Delete(payload.(string))
