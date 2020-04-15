@@ -73,14 +73,14 @@ func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
 
 	stmt, err := lite.client.Prepare(query)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 	defer stmt.Close() // nolint errcheck
 
 	var response link.Link
 	err = stmt.QueryRow(args...).Scan(&response.Url, &response.Hash, &response.Describe)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -98,7 +98,7 @@ func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) { /
 
 	rows, err := lite.client.Query(query, args...)
 	if err != nil || rows.Err() != nil {
-		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 	defer rows.Close() // nolint errcheck
 
@@ -108,7 +108,7 @@ func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) { /
 		var result link.Link
 		err = rows.Scan(&result.Url, &result.Hash, &result.Describe)
 		if err != nil {
-			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
 		response = append(response, &result)
@@ -118,7 +118,7 @@ func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) { /
 }
 
 // Add ...
-func (lite *SQLiteLinkList) Add(source link.Link) (*link.Link, error) {
+func (lite *SQLiteLinkList) Add(source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -139,11 +139,11 @@ func (lite *SQLiteLinkList) Add(source link.Link) (*link.Link, error) {
 		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
 	}
 
-	return &data, nil
+	return data, nil
 }
 
 // Update ...
-func (lite *SQLiteLinkList) Update(data link.Link) (*link.Link, error) {
+func (lite *SQLiteLinkList) Update(data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
@@ -159,7 +159,7 @@ func (lite *SQLiteLinkList) Delete(id string) error {
 
 	_, err = lite.client.Exec(query, args...)
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
 
 	return nil

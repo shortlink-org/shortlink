@@ -13,7 +13,7 @@ import (
 )
 
 // NewURL return new link
-func NewURL(link string) (Link, error) { // nolint unparam
+func NewURL(link string) (*Link, error) { // nolint unparam
 	hash := CreateHash([]byte(link), []byte("secret"))
 
 	newLink := Link{
@@ -23,7 +23,7 @@ func NewURL(link string) (Link, error) { // nolint unparam
 		UpdatedAt: ptypes.TimestampNow(),
 	}
 
-	return newLink, nil
+	return &newLink, nil
 }
 
 // CreateHash return hash by getting link

@@ -64,14 +64,14 @@ func (m *MySQLLinkList) Get(id string) (*link.Link, error) {
 
 	stmt, err := m.client.Prepare(query)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 	defer stmt.Close() // nolint errcheck
 
 	var response link.Link
 	err = stmt.QueryRow(args...).Scan(&response.Url, &response.Hash, &response.Describe)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -89,7 +89,7 @@ func (m *MySQLLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 
 	rows, err := m.client.Query(query, args...)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 	defer rows.Close() // nolint errcheck
 
@@ -99,7 +99,7 @@ func (m *MySQLLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 		var result link.Link
 		err = rows.Scan(&result.Url, &result.Hash, &result.Describe)
 		if err != nil {
-			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
 		response = append(response, &result)
@@ -109,7 +109,7 @@ func (m *MySQLLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Add ...
-func (m *MySQLLinkList) Add(source link.Link) (*link.Link, error) {
+func (m *MySQLLinkList) Add(source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -130,11 +130,11 @@ func (m *MySQLLinkList) Add(source link.Link) (*link.Link, error) {
 		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
 	}
 
-	return &data, nil
+	return data, nil
 }
 
 // Update ...
-func (m *MySQLLinkList) Update(data link.Link) (*link.Link, error) {
+func (m *MySQLLinkList) Update(data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
@@ -150,7 +150,7 @@ func (m *MySQLLinkList) Delete(id string) error {
 
 	_, err = m.client.Exec(query, args...)
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
 
 	return nil

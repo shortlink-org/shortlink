@@ -60,7 +60,7 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 	rows, err := p.client.Query(context.Background(), query, args...)
 
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -68,7 +68,7 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
 		if err != nil {
-			return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+			return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 		}
 	}
 
@@ -88,7 +88,7 @@ func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { //
 
 	rows, err := p.client.Query(context.Background(), query, args...)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
 	var response []*link.Link
@@ -97,7 +97,7 @@ func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { //
 		var result link.Link
 		err = rows.Scan(&result.Url, &result.Hash, &result.Describe)
 		if err != nil {
-			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
 		response = append(response, &result)
@@ -107,7 +107,7 @@ func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { //
 }
 
 // Add ...
-func (p *PostgresLinkList) Add(source link.Link) (*link.Link, error) {
+func (p *PostgresLinkList) Add(source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -133,17 +133,17 @@ func (p *PostgresLinkList) Add(source link.Link) (*link.Link, error) {
 
 	errScan := row.Scan(&data.Url, &data.Hash, &data.Describe).Error()
 	if errScan == "no rows in result set" {
-		return &data, nil
+		return data, nil
 	}
 	if errScan != "" {
 		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
 	}
 
-	return &data, nil
+	return data, nil
 }
 
 // Update ...
-func (p *PostgresLinkList) Update(data link.Link) (*link.Link, error) {
+func (p *PostgresLinkList) Update(data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
@@ -159,7 +159,7 @@ func (p *PostgresLinkList) Delete(id string) error {
 
 	_, err = p.client.Exec(context.Background(), query, args...)
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
 
 	return nil

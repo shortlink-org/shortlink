@@ -17,8 +17,8 @@ type DB interface { // nolint unused
 
 	Get(id string) (*link.Link, error)
 	List(filter *query.Filter) ([]*link.Link, error)
-	Add(data link.Link) (*link.Link, error)
-	Update(data link.Link) (*link.Link, error)
+	Add(data *link.Link) (*link.Link, error)
+	Update(data *link.Link) (*link.Link, error)
 	Delete(id string) error
 }
 

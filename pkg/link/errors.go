@@ -6,7 +6,7 @@ import (
 
 // NotFoundError - not found link
 type NotFoundError struct { // nolint unused
-	Link Link
+	Link *Link
 	Err  error
 }
 
