@@ -28,10 +28,9 @@ api:staging:
   extends:
     - .job_template_deploy_staging
   variables:
-    ENVIRONMENT: yandex-staging
-    RELEASE_NAME: $CI_PROJECT_NAME-api
+    RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
-    REGISTRY: registry.gitlab.com/shortlink1/shortlink/api
+    REGISTRY: ${CI_REGISTRY_IMAGE}/api
   needs:
     - build:api
 
@@ -39,10 +38,9 @@ logger:staging:
   extends:
     - .job_template_deploy_staging
   variables:
-    ENVIRONMENT: yandex-staging
-    RELEASE_NAME: $CI_PROJECT_NAME-logger
+    RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
-    REGISTRY: registry.gitlab.com/shortlink1/shortlink/logger
+    REGISTRY: ${CI_REGISTRY_IMAGE}/logger
   needs:
     - build:logger
 
@@ -50,10 +48,9 @@ ui:staging:
   extends:
     - .job_template_deploy_staging
   variables:
-    ENVIRONMENT: yandex-staging
-    RELEASE_NAME: $CI_PROJECT_NAME-ui
+    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
-    REGISTRY: registry.gitlab.com/shortlink1/shortlink/ui-nuxt
+    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
   needs:
     - build:ui
 
@@ -63,10 +60,9 @@ api:production:
   extends:
     - .job_template_deploy_production
   variables:
-    ENVIRONMENT: yandex-production
-    RELEASE_NAME: $CI_PROJECT_NAME-api
+    RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
-    REGISTRY: registry.gitlab.com/shortlink1/shortlink/api
+    REGISTRY: ${CI_REGISTRY_IMAGE}/api
   needs:
     - build:api
 
@@ -74,10 +70,9 @@ logger:production:
   extends:
     - .job_template_deploy_production
   variables:
-    ENVIRONMENT: yandex-production
-    RELEASE_NAME: $CI_PROJECT_NAME-logger
+    RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
-    REGISTRY: registry.gitlab.com/shortlink1/shortlink/logger
+    REGISTRY: ${CI_REGISTRY_IMAGE}/logger
   needs:
     - build:logger
 
@@ -85,9 +80,8 @@ ui:production:
   extends:
     - .job_template_deploy_production
   variables:
-    ENVIRONMENT: yandex-production
-    RELEASE_NAME: $CI_PROJECT_NAME-ui
+    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
-    REGISTRY: registry.gitlab.com/shortlink1/shortlink/ui-nuxt
+    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
   needs:
     - build:ui

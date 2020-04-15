@@ -4,6 +4,8 @@
     name: alpine/helm:3.1.2
     entrypoint: [""]
   script:
+    - env
+    - helm ls
     - helm upgrade $RELEASE_NAME $HELM_PATH
       --install
       --force
