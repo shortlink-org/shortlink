@@ -1,5 +1,5 @@
 include:
-  - local: /ops/templates/jobs/job_template_deploy.yml
+  - local: /ops/jobs/templates/deploy.yml
 
 # CUSTOM TEMPLATE ======================================================================================================
 .job_template_deploy_staging: &job_deploy_staging
