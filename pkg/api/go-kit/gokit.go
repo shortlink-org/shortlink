@@ -22,7 +22,7 @@ import (
 // Endpoints are a primary abstraction in go-kit. An endpoint represents a single RPC (method in our service interface)
 func makeAddLinkEndpoint() endpoint.Endpoint {
 	return func(_ context.Context, request interface{}) (interface{}, error) {
-		req, ok := request.(link.Link)
+		req, ok := request.(*link.Link)
 		if !ok {
 			return nil, nil
 		}
@@ -128,7 +128,7 @@ func makeGetListLinkEndpoint() endpoint.Endpoint {
 func makeDeleteLinkEndpoint() endpoint.Endpoint {
 	return func(_ context.Context, r interface{}) (interface{}, error) {
 		var err error
-		req, ok := r.(link.Link)
+		req, ok := r.(*link.Link)
 		if !ok {
 			return nil, nil
 		}
@@ -204,7 +204,7 @@ func decodeAddLinkRequest(_ context.Context, r *http.Request) (interface{}, erro
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		return nil, err
 	}
-	return request, nil
+	return &request, nil
 }
 
 func decodeGetLinkRequest(_ context.Context, r *http.Request) (interface{}, error) {
