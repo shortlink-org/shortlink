@@ -23,7 +23,7 @@ func (log *zapLogger) init(config Configuration) error {
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
 		EncodeLevel:    zapcore.LowercaseLevelEncoder,
-		EncodeTime:     log.timeEncoder(config.TimeFormat),
+		EncodeTime:     zapcore.TimeEncoder(log.timeEncoder(config.TimeFormat)),
 		EncodeDuration: zapcore.SecondsDurationEncoder,
 		EncodeCaller:   zapcore.ShortCallerEncoder,
 	}
