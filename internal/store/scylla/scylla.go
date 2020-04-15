@@ -98,7 +98,7 @@ func (c *ScyllaLinkList) Get(id string) (*link.Link, error) {
 	}
 
 	if len(iter) == 0 {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	// Here's an array in which you can store the decoded documents
@@ -133,7 +133,7 @@ func (c *ScyllaLinkList) List(filter *query.Filter) ([]*link.Link, error) { // n
 }
 
 // Add ...
-func (c *ScyllaLinkList) Add(source link.Link) (*link.Link, error) {
+func (c *ScyllaLinkList) Add(source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -147,11 +147,11 @@ func (c *ScyllaLinkList) Add(source link.Link) (*link.Link, error) {
 		return nil, err
 	}
 
-	return &data, nil
+	return data, nil
 }
 
 // Update ...
-func (c *ScyllaLinkList) Update(data link.Link) (*link.Link, error) {
+func (c *ScyllaLinkList) Update(data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 

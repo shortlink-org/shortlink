@@ -87,7 +87,8 @@ func (s *Store) setConfig() { // nolint unused
 func (s *Store) Notify(event int, payload interface{}) *notify.Response { // nolint unused
 	switch event {
 	case api_type.METHOD_ADD:
-		payload, err := s.store.Add(payload.(link.Link))
+		link := payload.(link.Link)
+		payload, err := s.store.Add(&link)
 		return &notify.Response{
 			Name:    "RESPONSE_STORE_ADD",
 			Payload: payload,
@@ -108,7 +109,8 @@ func (s *Store) Notify(event int, payload interface{}) *notify.Response { // nol
 			Error:   err,
 		}
 	case api_type.METHOD_UPDATE:
-		payload, err := s.store.Update(payload.(link.Link))
+		link := payload.(link.Link)
+		payload, err := s.store.Update(&link)
 		return &notify.Response{
 			Name:    "RESPONSE_STORE_UPDATE",
 			Payload: payload,

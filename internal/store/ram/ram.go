@@ -33,15 +33,15 @@ func (ram *RAMLinkList) migrate() error { // nolint unused
 func (ram *RAMLinkList) Get(hash string) (*link.Link, error) {
 	response, ok := ram.links.Load(hash)
 	if !ok {
-		return nil, &link.NotFoundError{Link: link.Link{Url: hash}, Err: fmt.Errorf("Not found id: %s", hash)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: hash}, Err: fmt.Errorf("Not found id: %s", hash)}
 	}
 
-	v, ok := response.(link.Link)
+	v, ok := response.(*link.Link)
 	if !ok {
-		return nil, &link.NotFoundError{Link: link.Link{Url: hash}, Err: fmt.Errorf("Not found id: %s", hash)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: hash}, Err: fmt.Errorf("Not found id: %s", hash)}
 	}
 
-	return &v, nil
+	return v, nil
 }
 
 // List ...
@@ -49,13 +49,13 @@ func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 	links := []*link.Link{}
 
 	ram.links.Range(func(key interface{}, value interface{}) bool {
-		link, ok := value.(link.Link)
+		link, ok := value.(*link.Link)
 
 		if !ok {
 			return false
 		}
 
-		links = append(links, &link)
+		links = append(links, link)
 		return true
 	})
 
@@ -63,7 +63,7 @@ func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Add ...
-func (ram *RAMLinkList) Add(source link.Link) (*link.Link, error) { // nolint unused
+func (ram *RAMLinkList) Add(source *link.Link) (*link.Link, error) { // nolint unused
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -71,11 +71,11 @@ func (ram *RAMLinkList) Add(source link.Link) (*link.Link, error) { // nolint un
 
 	ram.links.Store(data.Hash, data)
 
-	return &data, nil
+	return data, nil
 }
 
 // Update ...
-func (ram *RAMLinkList) Update(data link.Link) (*link.Link, error) {
+func (ram *RAMLinkList) Update(data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 

@@ -123,13 +123,13 @@ query all($a: string) {
 
 	val, err := txn.QueryWithVars(ctx, q, map[string]string{"$a": id})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response DGraphLinkResponse
 
 	if err = json.Unmarshal(val.Json, &response); err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
 	return &response, nil
@@ -148,11 +148,11 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 
 	response, err := dg.get(id)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	if len(response.Link) == 0 {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response.Link[0].Link, nil
@@ -208,7 +208,7 @@ func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) { // 
 
 	responses, err := dg.list()
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
 	var links []*link.Link
@@ -224,7 +224,7 @@ func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) { // 
 }
 
 // Add ...
-func (dg *DGraphLinkList) Add(source link.Link) (*link.Link, error) {
+func (dg *DGraphLinkList) Add(source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -241,7 +241,7 @@ func (dg *DGraphLinkList) Add(source link.Link) (*link.Link, error) {
 
 	item := DGraphLink{
 		Uid:   fmt.Sprintf(`_:%s`, data.Hash),
-		Link:  data,
+		Link:  *data,
 		DType: []string{"Link"},
 	}
 
@@ -265,11 +265,11 @@ func (dg *DGraphLinkList) Add(source link.Link) (*link.Link, error) {
 		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
 	}
 
-	return &data, nil
+	return data, nil
 }
 
 // Update ...
-func (dg *DGraphLinkList) Update(data link.Link) (*link.Link, error) {
+func (dg *DGraphLinkList) Update(data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
@@ -286,7 +286,7 @@ func (dg *DGraphLinkList) Delete(id string) error {
 
 	links, err := dg.get(id)
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	if len(links.Link) == 0 {

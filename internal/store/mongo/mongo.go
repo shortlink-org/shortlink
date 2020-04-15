@@ -60,7 +60,7 @@ func (m *MongoLinkList) migrate() error { // nolint unused
 }
 
 // Add ...
-func (m *MongoLinkList) Add(source link.Link) (*link.Link, error) {
+func (m *MongoLinkList) Add(source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -71,12 +71,12 @@ func (m *MongoLinkList) Add(source link.Link) (*link.Link, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
-	_, err = collection.InsertOne(ctx, data)
+	_, err = collection.InsertOne(ctx, &data)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
 	}
 
-	return &data, nil
+	return data, nil
 }
 
 // Get ...
@@ -89,13 +89,13 @@ func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 
 	if val.Err() != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
 
 	if err := val.Decode(&response); err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
 	return &response, nil
@@ -111,11 +111,11 @@ func (m *MongoLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, bson.D{})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
 	if cur.Err() != nil {
-		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
 	// Here's an array in which you can store the decoded documents
@@ -127,7 +127,7 @@ func (m *MongoLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 		// create a value into which the single document can be decoded
 		var elem link.Link
 		if errDecode := cur.Decode(&elem); errDecode != nil {
-			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
 		response = append(response, &elem)
@@ -143,7 +143,7 @@ func (m *MongoLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Update ...
-func (m *MongoLinkList) Update(data link.Link) (*link.Link, error) {
+func (m *MongoLinkList) Update(data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
@@ -156,7 +156,7 @@ func (m *MongoLinkList) Delete(id string) error {
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 	if err != nil {
-		return &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
+		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 
 	return nil

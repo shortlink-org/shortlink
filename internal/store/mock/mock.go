@@ -7,7 +7,7 @@ import (
 
 var (
 	timestamp = ptypes.TimestampNow()
-	AddLink   = link.Link{
+	AddLink   = &link.Link{ // nolint unused
 		Url:       "https://example.com",
 		Hash:      "",
 		Describe:  "example link",
@@ -15,7 +15,7 @@ var (
 		UpdatedAt: timestamp,
 	}
 
-	GetLink = link.Link{
+	GetLink = &link.Link{ // nolint unused
 		Url:       "https://example.com",
 		Hash:      "5888cab",
 		Describe:  "example link",

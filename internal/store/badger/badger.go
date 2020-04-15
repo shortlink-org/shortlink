@@ -77,7 +77,7 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -88,7 +88,7 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 	}
 
 	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -128,7 +128,7 @@ func (b *BadgerLinkList) List(filter *query.Filter) ([]*link.Link, error) { // n
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("not found links: %s", err)}
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("not found links: %s", err)}
 	}
 
 	response := make([]*link.Link, len(list))
@@ -144,7 +144,7 @@ func (b *BadgerLinkList) List(filter *query.Filter) ([]*link.Link, error) { // n
 }
 
 // Add ...
-func (b *BadgerLinkList) Add(source link.Link) (*link.Link, error) {
+func (b *BadgerLinkList) Add(source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -166,11 +166,11 @@ func (b *BadgerLinkList) Add(source link.Link) (*link.Link, error) {
 		return nil, err
 	}
 
-	return &data, nil
+	return data, nil
 }
 
 // Update ...
-func (b *BadgerLinkList) Update(data link.Link) (*link.Link, error) {
+func (b *BadgerLinkList) Update(data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 

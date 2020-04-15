@@ -47,7 +47,7 @@ func (l *LevelDBLinkList) migrate() error { // nolint unused
 }
 
 // Add ...
-func (l *LevelDBLinkList) Add(source link.Link) (*link.Link, error) {
+func (l *LevelDBLinkList) Add(source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -63,14 +63,14 @@ func (l *LevelDBLinkList) Add(source link.Link) (*link.Link, error) {
 		return nil, err
 	}
 
-	return &data, nil
+	return data, nil
 }
 
 // Get ...
 func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -81,7 +81,7 @@ func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 	}
 
 	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -101,7 +101,7 @@ func (l *LevelDBLinkList) List(filter *query.Filter) ([]*link.Link, error) { // 
 
 		err := json.Unmarshal(value, &response)
 		if err != nil {
-			return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
 		links = append(links, &response)
@@ -110,14 +110,14 @@ func (l *LevelDBLinkList) List(filter *query.Filter) ([]*link.Link, error) { // 
 	iterator.Release()
 	err := iterator.Error()
 	if err != nil {
-		return nil, &link.NotFoundError{Link: link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
 	return links, nil
 }
 
 // Update ...
-func (l *LevelDBLinkList) Update(data link.Link) (*link.Link, error) {
+func (l *LevelDBLinkList) Update(data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
