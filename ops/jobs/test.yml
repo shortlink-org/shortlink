@@ -1,5 +1,5 @@
 include:
-  - local: /ops/templates/job_teplate_go.yml
+  - local: /ops/templates/jobs/job_teplate_go.yml
   - template: License-Scanning.gitlab-ci.yml
 
 # ON COMMIT ============================================================================================================
