@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "shortlink.fullname" . }}-logger
+  name: {{ include "shortlink.fullname" . }}
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:

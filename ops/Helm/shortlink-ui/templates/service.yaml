@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "shortlink.fullname" . }}-ui
+  name: {{ include "shortlink.fullname" . }}
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:

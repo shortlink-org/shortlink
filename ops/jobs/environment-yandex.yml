@@ -29,7 +29,7 @@ api:staging:
     - .job_template_deploy_staging
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
+    HELM_PATH: ops/Helm/${RELEASE_NAME}
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
   needs:
     - build:api
@@ -39,7 +39,7 @@ logger:staging:
     - .job_template_deploy_staging
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
+    HELM_PATH: ops/Helm/${RELEASE_NAME}
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
   needs:
     - build:logger
@@ -49,7 +49,7 @@ ui:staging:
     - .job_template_deploy_staging
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-ui
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
+    HELM_PATH: ops/Helm/${RELEASE_NAME}
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
   needs:
     - build:ui
@@ -61,7 +61,7 @@ api:production:
     - .job_template_deploy_production
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
+    HELM_PATH: ops/Helm/${RELEASE_NAME}
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
   needs:
     - build:api
@@ -71,7 +71,7 @@ logger:production:
     - .job_template_deploy_production
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
+    HELM_PATH: ops/Helm/${RELEASE_NAME}
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
   needs:
     - build:logger
@@ -81,7 +81,7 @@ ui:production:
     - .job_template_deploy_production
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-ui
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
+    HELM_PATH: ops/Helm/${RELEASE_NAME}
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
   needs:
     - build:ui

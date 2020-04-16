@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "shortlink.fullname" . }}-ui
+  name: {{ include "shortlink.fullname" . }}
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:
