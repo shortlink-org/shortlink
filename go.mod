@@ -51,7 +51,7 @@ require (
 	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.14.1
 	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect
-	google.golang.org/genproto v0.0.0-20200413115906-b5235f65be36
+	google.golang.org/genproto v0.0.0-20200416231807-8751e049a2a0
 	google.golang.org/grpc v1.28.1
 	google.golang.org/protobuf v1.21.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
