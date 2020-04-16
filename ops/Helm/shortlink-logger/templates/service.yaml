@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "shortlink.fullname" . }}-logger
+  name: {{ include "shortlink.fullname" . }}
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:
