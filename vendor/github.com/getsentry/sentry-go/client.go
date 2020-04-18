@@ -15,6 +15,23 @@ import (
 	"time"
 )
 
+// maxErrorDepth is the maximum number of errors reported in a chain of errors.
+// This protects the SDK from an arbitrarily long chain of wrapped errors.
+//
+// An additional consideration is that arguably reporting a long chain of errors
+// is of little use when debugging production errors with Sentry. The Sentry UI
+// is not optimized for long chains either. The top-level error together with a
+// stack trace is often the most useful information.
+const maxErrorDepth = 10
+
+// usageError is used to report to Sentry an SDK usage error.
+//
+// It is not exported because it is never returned by any function or method in
+// the exported API.
+type usageError struct {
+	error
+}
+
 // Logger is an instance of log.Logger that is use to provide debug information about running Sentry Client
 // can be enabled by either using `Logger.SetOutput` directly or with `Debug` client option
 var Logger = log.New(ioutil.Discard, "[Sentry] ", log.LstdFlags) //nolint: gochecknoglobals
@@ -79,7 +96,7 @@ type ClientOptions struct {
 	HTTPClient *http.Client
 	// An optional pointer to `http.Transport` that will be used with a default HTTPTransport.
 	// Using your own transport will make HTTPProxy, HTTPSProxy and CaCerts options ignored.
-	HTTPTransport *http.Transport
+	HTTPTransport http.RoundTripper
 	// An optional HTTP proxy to use.
 	// This will default to the `http_proxy` environment variable.
 	// or `https_proxy` if that one exists.
@@ -298,35 +315,49 @@ func (client *Client) eventFromMessage(message string, level Level) *Event {
 }
 
 func (client *Client) eventFromException(exception error, level Level) *Event {
-	if exception == nil {
-		event := NewEvent()
-		event.Level = level
-		event.Message = fmt.Sprintf("Called %s with nil value", callerFunctionName())
-		return event
+	err := exception
+	if err == nil {
+		err = usageError{fmt.Errorf("%s called with nil error", callerFunctionName())}
 	}
 
-	stacktrace := ExtractStacktrace(exception)
+	event := &Event{Level: level}
 
-	if stacktrace == nil {
-		stacktrace = NewStacktrace()
-	}
-
-	cause := exception
-	// Handle wrapped errors for github.com/pingcap/errors and github.com/pkg/errors
-	if ex, ok := exception.(interface{ Cause() error }); ok {
-		if c := ex.Cause(); c != nil {
-			cause = c
+	for i := 0; i < maxErrorDepth && err != nil; i++ {
+		event.Exception = append(event.Exception, Exception{
+			Value:      err.Error(),
+			Type:       reflect.TypeOf(err).String(),
+			Stacktrace: ExtractStacktrace(err),
+		})
+		switch previous := err.(type) {
+		case interface{ Unwrap() error }:
+			err = previous.Unwrap()
+		case interface{ Cause() error }:
+			err = previous.Cause()
+		default:
+			err = nil
 		}
 	}
 
-	event := NewEvent()
-	event.Level = level
-	event.Exception = []Exception{{
-		Value:      cause.Error(),
-		Type:       reflect.TypeOf(cause).String(),
-		Stacktrace: stacktrace,
-	}}
+	// Add a trace of the current stack to the most recent error in a chain if
+	// it doesn't have a stack trace yet.
+	// We only add to the most recent error to avoid duplication and because the
+	// current stack is most likely unrelated to errors deeper in the chain.
+	if event.Exception[0].Stacktrace == nil {
+		event.Exception[0].Stacktrace = NewStacktrace()
+	}
+
+	// event.Exception should be sorted such that the most recent error is last.
+	reverse(event.Exception)
+
 	return event
+}
+
+// reverse reverses the slice a in place.
+func reverse(a []Exception) {
+	for i := len(a)/2 - 1; i >= 0; i-- {
+		opp := len(a) - 1 - i
+		a[i], a[opp] = a[opp], a[i]
+	}
 }
 
 func (client *Client) processEvent(event *Event, hint *EventHint, scope EventModifier) *EventID {
@@ -369,8 +400,8 @@ func (client *Client) prepareEvent(event *Event, hint *EventHint, scope EventMod
 		event.EventID = EventID(uuid())
 	}
 
-	if event.Timestamp == 0 {
-		event.Timestamp = time.Now().Unix()
+	if event.Timestamp.IsZero() {
+		event.Timestamp = time.Now().UTC()
 	}
 
 	if event.Level == "" {
@@ -410,6 +441,9 @@ func (client *Client) prepareEvent(event *Event, hint *EventHint, scope EventMod
 
 	if scope != nil {
 		event = scope.ApplyToEvent(event, hint)
+		if event == nil {
+			return nil
+		}
 	}
 
 	for _, processor := range client.eventProcessors {
