@@ -24,11 +24,15 @@ gotest:
   script:
     - make test
 
-# OTHER ================================================================================================================
-
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
   only:
     refs:
       - branches
       - tags
+
+helm-lint-chart:
+  stage: test
+  image: quay.io/helmpack/chart-testing
+  script:
+    - ct lint --config ct.yaml
