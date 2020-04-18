@@ -1,5 +1,10 @@
 # See https://github.com/helm/chart-testing#configuration
+
+# The name of the Git remote
 remote: origin
+
+# Chart directories separated by a space
 chart-dirs:
   - ops/Helm
+
 helm-extra-args: --timeout 600
