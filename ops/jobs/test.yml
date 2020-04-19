@@ -48,5 +48,5 @@ helm-run-chart:
     - chmod +x /usr/local/bin/kind
     - kind create cluster --wait 2m --config=./ops/Helm/kind-config.yaml
     - sed -i -E -e 's/localhost|0\.0\.0\.0/docker/g' "$HOME/.kube/config"
+  script:
     - ct install --config ct.yaml
-
