@@ -36,3 +36,17 @@ helm-lint-chart:
   image: quay.io/helmpack/chart-testing
   script:
     - ct lint --all --config ct.yaml
+
+helm-run-chart:
+  stage: test
+  image: quay.io/helmpack/chart-testing
+  variables:
+    KIND: v0.7.0
+  before_script:
+    - apk add -U docker
+    - wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND}/kind-linux-amd64
+    - chmod +x /usr/local/bin/kind
+    - kind create cluster --wait 2m --config=./ops/Helm/kind-config.yaml
+    - sed -i -E -e 's/localhost|0\.0\.0\.0/docker/g' "$HOME/.kube/config"
+    - ct install --config ct.yaml
+
