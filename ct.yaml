@@ -19,6 +19,4 @@ chart-repos:
   - incubator=https://kubernetes-charts-incubator.storage.googleapis.com/
   - stable=https://kubernetes-charts.storage.googleapis.com/
 
-check-version-increment: false
-
 helm-extra-args: --timeout 6m
