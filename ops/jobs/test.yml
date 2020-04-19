@@ -35,4 +35,4 @@ helm-lint-chart:
   stage: test
   image: quay.io/helmpack/chart-testing
   script:
-    - ct lint --config ct.yaml
+    - ct lint --all --config ct.yaml
