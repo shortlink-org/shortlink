@@ -8,10 +8,12 @@ remote: origin
 chart-dirs:
   - ops/Helm
 
+# TODO: need test all charts
 excluded-charts:
   - ops/Helm/chaos
   - ops/Helm/common
   - ops/Helm/ingress
+  - ops/Helm/shortlink-ui
 
 chart-repos:
   - incubator=https://kubernetes-charts-incubator.storage.googleapis.com/
