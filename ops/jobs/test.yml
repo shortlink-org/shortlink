@@ -35,7 +35,7 @@ helm-lint-chart:
   stage: test
   image: quay.io/helmpack/chart-testing
   script:
-    - ct lint --all --config ct.yaml
+    - ct lint --config ct.yaml
 
 helm-run-chart:
   stage: test
@@ -49,4 +49,4 @@ helm-run-chart:
     - kind create cluster --wait 2m --config=./ops/Helm/kind-config.yaml
     - sed -i -E -e 's/localhost|0\.0\.0\.0/docker/g' "$HOME/.kube/config"
   script:
-    - ct install --all --config ct.yaml
+    - ct install --config ct.yaml
