@@ -6,7 +6,8 @@ remote: origin
 
 # Chart directories separated by a space
 chart-dirs:
-  - ops/Helm
+  - ops/Helm/shortlink-api
+  - ops/Helm/shortlink-logger
 
 # TODO: need test all charts
 excluded-charts:
