@@ -36,7 +36,6 @@ trigger_multi_job:
   trigger:
     project: shortlink1/shortlink
     strategy: depend
-    job: test
   when: always
 
 test:
