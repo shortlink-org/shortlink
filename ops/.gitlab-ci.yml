@@ -1,12 +1,14 @@
 include:
   - local: /ops/jobs/test.yml
   - local: /ops/jobs/build.yml
+  - local: /ops/jobs/qa.yml
   - local: /ops/jobs/environment-yandex.yml
   - local: /ops/jobs/accessibility.yml
 
 stages:
   - test
   - build
+  - qa
   - deploy
   - accessibility
   - release
