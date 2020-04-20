@@ -34,4 +34,6 @@ license_scanning:
 trigger_multi_job:
   stage: .pre
   trigger:
-    include: 'ops/jobs/accessibility.yml'
+    include:
+      - local: 'ops/jobs/test.yml'
+    strategy: depend
