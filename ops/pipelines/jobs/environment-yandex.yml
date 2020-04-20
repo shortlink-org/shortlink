@@ -1,27 +1,6 @@
 include:
   - local: /ops/pipelines/templates/deploy.yml
 
-# CUSTOM TEMPLATE ======================================================================================================
-.job_template_deploy_staging: &job_deploy_staging
-  extends:
-    - .job_template_deploy
-  environment:
-    name: yandex-staging
-    url: staging.example.com
-  only:
-    refs:
-      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
-
-.job_template_deploy_production: &job_deploy_production
-  extends:
-    - .job_template_deploy
-  environment:
-    name: yandex-production
-    url: production.example.com
-  only:
-    refs:
-      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
-
 # STAGING RELEASE ======================================================================================================
 
 api:staging:
@@ -46,12 +25,13 @@ logger:staging:
     - build:logger
 
 trigger_deploy_ui:staging:
-  extends:
-    - .job_template_deploy_staging
   trigger:
     include:
       - local: '/ops/pipelines/ui.yml'
     strategy: depend
+  only:
+    refs:
+      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
   needs:
     - build:ui
 
@@ -79,11 +59,12 @@ logger:production:
     - build:logger
 
 trigger_deploy_ui:production:
-  extends:
-    - .job_template_deploy_production
   trigger:
     include:
       - local: '/ops/pipelines/ui.yml'
     strategy: depend
+  only:
+    refs:
+      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
   needs:
     - build:ui

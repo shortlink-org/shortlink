@@ -1,3 +1,6 @@
+include:
+  - local: /ops/pipelines/templates/deploy.yml
+
 stage:
   - deploy
   - accessibility
