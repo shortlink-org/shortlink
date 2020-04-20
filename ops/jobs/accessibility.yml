@@ -27,6 +27,3 @@ performance:
     URL: $PRODUCTION_UI_HOST
   allow_failure: true
   when: on_success
-  only:
-    refs:
-      - tags
