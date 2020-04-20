@@ -6,6 +6,7 @@ include:
 a11y:
   extends:
     - .job_teplate_accessibility
+  stage: accessibility
   image: node
   script:
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
