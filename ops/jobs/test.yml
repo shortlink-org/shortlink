@@ -32,12 +32,13 @@ license_scanning:
       - tags
 
 trigger_multi_job:
-  stage: test
+  stage: .pre
   trigger:
     project: shortlink1/shortlink
     strategy: depend
   when: always
 
 test:
+  stage: .pre
   script:
     - echo "test"
