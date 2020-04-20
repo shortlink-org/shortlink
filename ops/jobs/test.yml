@@ -37,3 +37,5 @@ trigger_multi_job:
     include:
       - local: 'ops/jobs/test.yml'
     strategy: depend
+  only:
+    - branches
