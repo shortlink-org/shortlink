@@ -25,9 +25,10 @@ logger:staging:
     - build:logger
 
 trigger_deploy_ui:staging:
+  stage: deploy
   trigger:
     include:
-      - local: '/ops/pipelines/ui.yml'
+      - local: 'ops/pipelines/ui.yml'
     strategy: depend
   only:
     refs:
@@ -57,9 +58,10 @@ logger:production:
     - build:logger
 
 trigger_deploy_ui:production:
+  stage: deploy
   trigger:
     include:
-      - local: '/ops/pipelines/ui.yml'
+      - local: 'ops/pipelines/ui.yml'
     strategy: depend
   only:
     refs:
