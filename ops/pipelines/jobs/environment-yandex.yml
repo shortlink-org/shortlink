@@ -1,26 +1,17 @@
 include:
   - local: /ops/pipelines/templates/deploy.yml
 
-# CUSTOM TEMPLATE ======================================================================================================
-.job_template_deploy_staging: &job_deploy_staging
-  extends:
-    - .job_template_deploy
-  environment:
-    name: yandex-staging
-    url: staging.example.com
-  only:
-    refs:
-      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
+# COMMON TRIGGER RELEASE ===============================================================================================
 
-.job_template_deploy_production: &job_deploy_production
+trigger_deploy_ui:
   extends:
-    - .job_template_deploy
-  environment:
-    name: yandex-production
-    url: production.example.com
-  only:
-    refs:
-      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
+    - .job_template_deploy_staging
+  trigger:
+    include:
+      - local: '/ops/pipelines/ui.yml'
+    strategy: depend
+  needs:
+    - build:ui
 
 # STAGING RELEASE ======================================================================================================
 
@@ -45,17 +36,6 @@ logger:staging:
   needs:
     - build:logger
 
-ui:staging:
-  extends:
-    - .job_template_deploy_staging
-  variables:
-    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
-    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
-    HELM_ARG: "--set serviceAccount.create=false"
-  needs:
-    - build:ui
-
 # PRODUCTION RELEASE ===================================================================================================
 
 api:production:
@@ -78,14 +58,3 @@ logger:production:
     HELM_ARG: "--set serviceAccount.create=false"
   needs:
     - build:logger
-
-ui:production:
-  extends:
-    - .job_template_deploy_production
-  variables:
-    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
-    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
-    HELM_ARG: "--set serviceAccount.create=false"
-  needs:
-    - build:ui

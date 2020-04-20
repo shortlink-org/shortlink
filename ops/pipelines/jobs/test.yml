@@ -30,17 +30,3 @@ license_scanning:
     refs:
       - branches
       - tags
-
-#trigger_multi_job:
-#  stage: .pre
-#  trigger:
-##    include:
-##      - local: 'ops/jobs/test.yml'
-#    project: shortlink1/test
-#    strategy: depend
-#  only:
-#    - branches
-#  except:
-#    - triggers
-#    - pipelines
-#    - web

@@ -1,4 +1,5 @@
 .job_teplate_accessibility: &job_accessibility
+  stage: accessibility
   allow_failure: true
   when: on_success
   only:
