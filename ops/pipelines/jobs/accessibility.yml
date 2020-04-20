@@ -1,5 +1,5 @@
 include:
-  - local: /ops/jobs/templates/accessibility.yml
+  - local: /ops/pipelines/templates/accessibility.yml
   - template: Verify/Browser-Performance.gitlab-ci.yml
 
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
