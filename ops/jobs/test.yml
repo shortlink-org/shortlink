@@ -35,5 +35,5 @@ trigger_multi_job:
   stage: .pre
   trigger:
     project: shortlink1/shortlink
-  strategy: depend
+    strategy: depend
   when: always
