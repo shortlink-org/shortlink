@@ -30,6 +30,7 @@ trigger_deploy_ui:staging:
     include:
       - local: 'ops/pipelines/ui.yml'
     strategy: depend
+  when: manual
   only:
     refs:
       - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
@@ -63,6 +64,7 @@ trigger_deploy_ui:production:
     include:
       - local: 'ops/pipelines/ui.yml'
     strategy: depend
+  when: manual
   only:
     refs:
       - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
