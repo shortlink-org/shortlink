@@ -34,8 +34,9 @@ license_scanning:
 trigger_multi_job:
   stage: test
   trigger:
-    include:
-      - local: 'ops/jobs/test.yml'
+#    include:
+#      - local: 'ops/jobs/test.yml'
+    project: shortlink1/shortlink
     strategy: depend
   only:
     - branches
