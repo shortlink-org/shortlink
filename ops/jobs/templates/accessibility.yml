@@ -2,6 +2,3 @@
   stage: accessibility
   allow_failure: true
   when: on_success
-  only:
-    refs:
-      - tags
