@@ -32,7 +32,7 @@ license_scanning:
       - tags
 
 trigger_multi_job:
-  stage: .pre
+  stage: test
   trigger:
     include:
       - local: 'ops/jobs/test.yml'
