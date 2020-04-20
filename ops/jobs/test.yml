@@ -34,12 +34,4 @@ license_scanning:
 trigger_multi_job:
   stage: .pre
   trigger:
-    project: shortlink1/shortlink
-  when: always
-
-test:
-  stage: .pre
-  script:
-    - echo "test"
-  only:
-    - trigger
+    include: 'ops/jobs/accessibility.yml'
