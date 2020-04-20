@@ -5,6 +5,10 @@ stage:
   - deploy
   - accessibility
 
+tt:
+  script:
+    - echo 123
+
 # STAGING RELEASE ======================================================================================================
 
 ui:staging:
