@@ -22,8 +22,7 @@ a11y:
     paths: ['accessibility.html']
 
 performance:
-  stage: accessibility
+  extends:
+    - .job_teplate_accessibility
   variables:
     URL: $PRODUCTION_UI_HOST
-  allow_failure: true
-  when: on_success
