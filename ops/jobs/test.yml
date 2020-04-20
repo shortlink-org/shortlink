@@ -39,3 +39,5 @@ trigger_multi_job:
     strategy: depend
   only:
     - branches
+  except:
+    - triggers
