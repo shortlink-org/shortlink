@@ -3,8 +3,6 @@
   image:
     name: alpine/helm:3.1.2
     entrypoint: [""]
-  before_script:
-    - apk add --update make
   script:
     - helm upgrade $RELEASE_NAME $HELM_PATH
       --install

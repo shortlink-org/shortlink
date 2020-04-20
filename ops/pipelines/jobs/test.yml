@@ -7,6 +7,8 @@ golint:
   extends:
     - .job_teplate_go
   image: golangci/golangci-lint:v1.24-alpine
+  before_script:
+    - apk add --update make
   script:
     - make golint
 
