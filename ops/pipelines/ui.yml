@@ -1,5 +1,6 @@
 include:
   - local: /ops/pipelines/templates/deploy.yml
+  - local: /ops/pipelines/jobs/accessibility.yml
 
 stages:
   - deploy
