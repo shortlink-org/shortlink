@@ -33,6 +33,8 @@ license_scanning:
 
 trigger_multi_job:
   stage: .pre
+  script:
+    - echo "test"
   trigger:
     project: shortlink1/shortlink
     strategy: depend
@@ -41,5 +43,3 @@ trigger_multi_job:
 test:
   script:
     - echo "test"
-  only:
-    - trigger
