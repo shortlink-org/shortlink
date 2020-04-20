@@ -41,4 +41,5 @@ trigger_multi_job:
 test:
   script:
     - echo "test"
-  when: trigger
+  only:
+    - trigger
