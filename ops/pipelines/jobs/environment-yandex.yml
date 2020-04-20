@@ -1,17 +1,26 @@
 include:
   - local: /ops/pipelines/templates/deploy.yml
 
-# COMMON TRIGGER RELEASE ===============================================================================================
-
-trigger_deploy_ui:
+# CUSTOM TEMPLATE ======================================================================================================
+.job_template_deploy_staging: &job_deploy_staging
   extends:
-    - .job_template_deploy_staging
-  trigger:
-    include:
-      - local: '/ops/pipelines/ui.yml'
-    strategy: depend
-  needs:
-    - build:ui
+    - .job_template_deploy
+  environment:
+    name: yandex-staging
+    url: staging.example.com
+  only:
+    refs:
+      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
+
+.job_template_deploy_production: &job_deploy_production
+  extends:
+    - .job_template_deploy
+  environment:
+    name: yandex-production
+    url: production.example.com
+  only:
+    refs:
+      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
 
 # STAGING RELEASE ======================================================================================================
 
@@ -36,6 +45,16 @@ logger:staging:
   needs:
     - build:logger
 
+trigger_deploy_ui:staging:
+  extends:
+    - .job_template_deploy_staging
+  trigger:
+    include:
+      - local: '/ops/pipelines/ui.yml'
+    strategy: depend
+  needs:
+    - build:ui
+
 # PRODUCTION RELEASE ===================================================================================================
 
 api:production:
@@ -58,3 +77,13 @@ logger:production:
     HELM_ARG: "--set serviceAccount.create=false"
   needs:
     - build:logger
+
+trigger_deploy_ui:production:
+  extends:
+    - .job_template_deploy_production
+  trigger:
+    include:
+      - local: '/ops/pipelines/ui.yml'
+    strategy: depend
+  needs:
+    - build:ui
