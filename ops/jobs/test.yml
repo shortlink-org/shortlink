@@ -41,3 +41,5 @@ trigger_multi_job:
     - branches
   except:
     - triggers
+    - pipelines
+    - web
