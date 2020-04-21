@@ -1,7 +1,7 @@
 include:
   - local: /ops/pipelines/templates/go.yml
   - template: Dependency-Scanning.gitlab-ci.yml
-#  - template: License-Scanning.gitlab-ci.yml
+  - template: License-Scanning.gitlab-ci.yml
 
 # ON COMMIT ============================================================================================================
 golint:
@@ -29,11 +29,11 @@ gotest:
     - make test
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
-#license_scanning:
-#  stage: test
-#  only:
-#    refs:
-#      - tags
+license_scanning:
+  allow_failure: false
+  only:
+    refs:
+      - tags
 
 dependency_scanning:
   stage: test
