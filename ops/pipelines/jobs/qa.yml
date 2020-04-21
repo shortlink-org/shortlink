@@ -1,17 +1,3 @@
-include:
-  - template: Container-Scanning.gitlab-ci.yml
-
-# DOCKER ===============================================================================================================
-container_scanning:
-  stage: .pre
-  variables:
-    GIT_STRATEGY: fetch
-    CI_APPLICATION_REPOSITORY: registry.gitlab.com/shortlink1/shortlink/logger
-    CI_APPLICATION_TAG: 0.5.0-rc21
-    DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
-#  before_script:
-#    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
 # K8S ==================================================================================================================
 helm-lint-chart:
   stage: qa

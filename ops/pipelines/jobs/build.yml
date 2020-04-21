@@ -1,32 +1,39 @@
-include:
-  - local: /ops/pipelines/templates/build.yml
-
 # BUILD IMAGE ==========================================================================================================
-build:api:
-  extends:
-    - .job_template_build
+trigger_build_api:
+  stage: deploy
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
     DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
-  needs:
-    - golint
-    - gosec
-    - gotest
+  trigger:
+    include:
+      - local: 'ops/pipelines/build.yml'
+    strategy: depend
+  only:
+    refs:
+      - tags
 
-build:logger:
-  extends:
-    - .job_template_build
+trigger_build_logger:
+  stage: deploy
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
-  needs:
-    - golint
-    - gosec
-    - gotest
+  trigger:
+    include:
+      - local: 'ops/pipelines/build.yml'
+    strategy: depend
+  only:
+    refs:
+      - tags
 
-build:ui:
-  extends:
-    - .job_template_build
+trigger_build_ui:
+  stage: deploy
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
     DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
+  trigger:
+    include:
+      - local: 'ops/pipelines/build.yml'
+    strategy: depend
+  only:
+    refs:
+      - tags
