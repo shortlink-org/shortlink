@@ -1,5 +1,6 @@
 include:
   - template: Container-Scanning.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
 
 # DOCKER ===============================================================================================================
 container_scanning:
@@ -10,6 +11,11 @@ container_scanning:
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+dast:
+  stage: .pre
+  variables:
+    DAST_WEBSITE: https://batazor.ru
 
 # K8S ==================================================================================================================
 helm-lint-chart:
