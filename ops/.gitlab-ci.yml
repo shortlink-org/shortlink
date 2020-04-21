@@ -6,8 +6,8 @@ include:
   - local: /ops/pipelines/jobs/environment-yandex.yml
 
 stages:
-  - test
-  - build
+#  - test
+#  - build
   - qa
   - deploy
   - release
