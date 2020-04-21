@@ -3,21 +3,15 @@ include:
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: License-Scanning.gitlab-ci.yml
 
-test:
-  stage: test
-  image: alpine
-  script:
-    - echo 123
-
 # ON COMMIT ============================================================================================================
-#golint:
-#  extends:
-#    - .job_teplate_go
-#  image: golangci/golangci-lint:v1.24-alpine
-#  before_script:
-#    - apk add --update make
-#  script:
-#    - make golint
+golint:
+  extends:
+    - .job_teplate_go
+  image: golangci/golangci-lint:v1.24-alpine
+  before_script:
+    - apk add --update make
+  script:
+    - make golint
 
 gosec:
   extends:
@@ -27,12 +21,12 @@ gosec:
   script:
     - make gosec
 
-#gotest:
-#  extends:
-#    - .job_teplate_go
-#  coverage: '/coverage: \d+.\d+% of statements/'
-#  script:
-#    - make test
+gotest:
+  extends:
+    - .job_teplate_go
+  coverage: '/coverage: \d+.\d+% of statements/'
+  script:
+    - make test
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
