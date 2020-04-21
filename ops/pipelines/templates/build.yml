@@ -9,6 +9,8 @@
     - docker build -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ${DOCKERFILE_PATH} .
     - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
   when: on_success
+  tags:
+    - docker
   retry: 2
   only:
     refs:
