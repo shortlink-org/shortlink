@@ -3,6 +3,7 @@ include:
 
 # DOCKER ===============================================================================================================
 container_scanning:
+  stage: .pre
   variables:
     CI_APPLICATION_REPOSITORY: registry.gitlab.com/shortlink1/shortlink/logger
     CI_APPLICATION_TAG: 0.5.0-rc21
