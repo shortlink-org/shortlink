@@ -1,4 +1,5 @@
 include:
+  - local: /ops/pipelines/templates/common.yml
   - local: /ops/pipelines/jobs/test.yml
   - local: /ops/pipelines/jobs/build.yml
   - local: /ops/pipelines/jobs/qa.yml
@@ -12,13 +13,5 @@ stages:
   - release
 
 variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://docker:2375
   PRODUCTION_UI_HOST: https://shortlink.surge.sh
   STAGING_UI_HOST: https://staging_shortlink.surge.sh
-
-# DEFAULT ==============================================================================================================
-default:
-  services:
-    - name: docker:19.03-dind
-      alias: localhost # necessary for correct addressing to services running in docker
