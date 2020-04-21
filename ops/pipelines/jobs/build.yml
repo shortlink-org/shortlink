@@ -2,6 +2,8 @@
 trigger_build_api:
   stage: build
   variables:
+    DOCKER_DRIVER: $DOCKER_DRIVER
+    DOCKER_HOST: $DOCKER_HOST
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
     DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
   trigger:
@@ -15,6 +17,8 @@ trigger_build_api:
 trigger_build_logger:
   stage: build
   variables:
+    DOCKER_DRIVER: $DOCKER_DRIVER
+    DOCKER_HOST: $DOCKER_HOST
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
   trigger:
@@ -28,6 +32,8 @@ trigger_build_logger:
 trigger_build_ui:
   stage: build
   variables:
+    DOCKER_DRIVER: $DOCKER_DRIVER
+    DOCKER_HOST: $DOCKER_HOST
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
     DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
   trigger:

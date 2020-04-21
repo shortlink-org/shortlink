@@ -51,6 +51,9 @@ logger:production:
 
 trigger_deploy_ui:production:
   stage: deploy
+  variables:
+    DOCKER_DRIVER: $DOCKER_DRIVER
+    DOCKER_HOST: $DOCKER_HOST
   trigger:
     include:
       - local: 'ops/pipelines/ui.yml'
