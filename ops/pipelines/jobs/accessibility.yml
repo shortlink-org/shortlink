@@ -1,6 +1,7 @@
 include:
   - local: /ops/pipelines/templates/accessibility.yml
   - template: Verify/Browser-Performance.gitlab-ci.yml
+  - template: DAST.gitlab-ci.yml
 
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
 a11y:
@@ -27,3 +28,12 @@ performance:
   stage: accessibility
   variables:
     URL: $PRODUCTION_UI_HOST
+
+# SECURITY =============================================================================================================
+
+# Docs: https://gitlab.com/help/user/application_security/dast/index.md
+dast:
+  extends:
+    - .job_teplate_accessibility
+  variables:
+    DAST_WEBSITE: $PRODUCTION_UI_HOST
