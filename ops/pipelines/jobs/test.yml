@@ -5,6 +5,7 @@
 
 test:
   stage: test
+  image: alpine
   script:
     - echo 123
 
