@@ -6,6 +6,7 @@ helm-lint-chart:
     - ct lint --all --config ct.yaml
   only:
     refs:
+      - branches
       - tags
 
 helm-run-chart:
