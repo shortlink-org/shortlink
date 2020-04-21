@@ -4,9 +4,11 @@ include:
 # DOCKER ===============================================================================================================
 container_scanning:
   variables:
-#    CI_APPLICATION_REPOSITORY:
-#    CI_APPLICATION_TAG:
-    DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
+    CI_APPLICATION_REPOSITORY: registry.gitlab.com/shortlink1/shortlink/logger
+    CI_APPLICATION_TAG: 0.5.0-rc21
+    DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 # K8S ==================================================================================================================
 helm-lint-chart:
