@@ -23,6 +23,7 @@ gosec:
 gotest:
   extends:
     - .job_teplate_go
+  coverage: '/coverage: \d+.\d+% of statements/'
   script:
     - make test
 
