@@ -1,6 +1,16 @@
 include:
   - local: /ops/pipelines/templates/deploy.yml
 
+trigger_deploy_ui:
+  stage: deploy
+  trigger:
+    include:
+      - local: 'ops/pipelines/ui.yml'
+    strategy: depend
+  only:
+    refs:
+      - tags
+
 # STAGING RELEASE ======================================================================================================
 
 api:staging:
@@ -20,16 +30,6 @@ logger:staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: "--set serviceAccount.create=false"
 
-trigger_deploy_ui:staging:
-  stage: deploy
-  trigger:
-    include:
-      - local: 'ops/pipelines/ui.yml'
-    strategy: depend
-  only:
-    refs:
-      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
-
 # PRODUCTION RELEASE ===================================================================================================
 
 api:production:
@@ -48,13 +48,3 @@ logger:production:
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: "--set serviceAccount.create=false"
-
-trigger_deploy_ui:production:
-  stage: deploy
-  trigger:
-    include:
-      - local: 'ops/pipelines/ui.yml'
-    strategy: depend
-  only:
-    refs:
-      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/

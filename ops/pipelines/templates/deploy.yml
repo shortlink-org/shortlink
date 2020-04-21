@@ -3,6 +3,8 @@
   image:
     name: alpine/helm:3.1.2
     entrypoint: [""]
+  tags:
+    - docker
   script:
     - helm upgrade $RELEASE_NAME $HELM_PATH
       --install
