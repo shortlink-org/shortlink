@@ -1,3 +1,12 @@
+include:
+  - template: Container-Scanning.gitlab-ci.yml
+
+# DOCKER ===============================================================================================================
+container_scanning:
+  variables:
+#    CI_APPLICATION_REPOSITORY:
+#    CI_APPLICATION_TAG:
+    DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
 
 # K8S ==================================================================================================================
 helm-lint-chart:
@@ -5,7 +14,6 @@ helm-lint-chart:
   image: quay.io/helmpack/chart-testing
   script:
     - ct lint --all --config ct.yaml
-
 
 helm-run-chart:
   stage: qa
