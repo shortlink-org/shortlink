@@ -4,6 +4,9 @@ helm-lint-chart:
   image: quay.io/helmpack/chart-testing
   script:
     - ct lint --all --config ct.yaml
+  only:
+    refs:
+      - tags
 
 helm-run-chart:
   stage: qa
