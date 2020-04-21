@@ -1,6 +1,7 @@
 # BUILD IMAGE ==========================================================================================================
 trigger_build_api:
   stage: build
+  when: always
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
     DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
