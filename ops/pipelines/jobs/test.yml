@@ -1,12 +1,14 @@
 include:
-  - local: /ops/jobs/templates/go.yml
+  - local: /ops/pipelines/templates/go.yml
   - template: License-Scanning.gitlab-ci.yml
 
 # ON COMMIT ============================================================================================================
 golint:
   extends:
     - .job_teplate_go
-  image: golangci/golangci-lint:v1.24.0
+  image: golangci/golangci-lint:v1.24-alpine
+  before_script:
+    - apk add --update make
   script:
     - make golint
 
