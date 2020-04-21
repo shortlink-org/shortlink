@@ -11,6 +11,7 @@ test:
   stage: build
   script:
     - echo 123
+  when: on_success
   only:
     refs:
       - tags
@@ -19,6 +20,7 @@ test 123:
   stage: security
   script:
     - echo 123
+  when: on_success
   only:
     refs:
       - tags
