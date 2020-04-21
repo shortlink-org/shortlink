@@ -1,26 +1,5 @@
 include:
-  - local: /ops/jobs/templates/deploy.yml
-
-# CUSTOM TEMPLATE ======================================================================================================
-.job_template_deploy_staging: &job_deploy_staging
-  extends:
-    - .job_template_deploy
-  environment:
-    name: yandex-staging
-    url: staging.example.com
-  only:
-    refs:
-      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
-
-.job_template_deploy_production: &job_deploy_production
-  extends:
-    - .job_template_deploy
-  environment:
-    name: yandex-production
-    url: production.example.com
-  only:
-    refs:
-      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
+  - local: /ops/pipelines/templates/deploy.yml
 
 # STAGING RELEASE ======================================================================================================
 
@@ -45,16 +24,15 @@ logger:staging:
   needs:
     - build:logger
 
-ui:staging:
-  extends:
-    - .job_template_deploy_staging
-  variables:
-    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
-    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
-    HELM_ARG: "--set serviceAccount.create=false"
-  needs:
-    - build:ui
+trigger_deploy_ui:staging:
+  stage: deploy
+  trigger:
+    include:
+      - local: 'ops/pipelines/ui.yml'
+    strategy: depend
+  only:
+    refs:
+      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
 
 # PRODUCTION RELEASE ===================================================================================================
 
@@ -79,13 +57,12 @@ logger:production:
   needs:
     - build:logger
 
-ui:production:
-  extends:
-    - .job_template_deploy_production
-  variables:
-    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
-    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
-    HELM_ARG: "--set serviceAccount.create=false"
-  needs:
-    - build:ui
+trigger_deploy_ui:production:
+  stage: deploy
+  trigger:
+    include:
+      - local: 'ops/pipelines/ui.yml'
+    strategy: depend
+  only:
+    refs:
+      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/
