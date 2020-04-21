@@ -1,6 +1,7 @@
 .job_teplate_go: &job_go
   stage: test
   image: golang:1.14-buster
+  coverage: \d+.\d+% of statements
   tags:
     - docker
   only:
