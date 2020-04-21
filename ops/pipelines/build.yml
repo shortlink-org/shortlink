@@ -2,7 +2,6 @@ include:
   - local: /ops/pipelines/templates/common.yml
   - local: /ops/pipelines/templates/build.yml
   - template: Container-Scanning.gitlab-ci.yml
-  - template: Dependency-Scanning.gitlab-ci.yml
 
 stages:
   - build
@@ -24,12 +23,6 @@ container_scanning:
     CI_APPLICATION_REPOSITORY: $REGISTRY_IMAGE
     CI_APPLICATION_TAG: $CI_COMMIT_TAG
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
-  only:
-    refs:
-      - tags
-
-dependency_scanning:
-  stage: security
   only:
     refs:
       - tags

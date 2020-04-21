@@ -1,6 +1,13 @@
 include:
   - local: /ops/pipelines/templates/go.yml
+  - template: Dependency-Scanning.gitlab-ci.yml
 #  - template: License-Scanning.gitlab-ci.yml
+
+dependency_scanning:
+  stage: test
+  only:
+    refs:
+      - tags
 
 # ON COMMIT ============================================================================================================
 #golint:
@@ -11,11 +18,6 @@ include:
 #    - apk add --update make
 #  script:
 #    - make golint
-
-test:
-  stage: test
-  script:
-    - echo 123
 
 #gosec:
 #  extends:
