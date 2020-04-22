@@ -1,12 +1,10 @@
 include:
-  - local: /ops/pipelines/templates/accessibility.yml
   - template: Verify/Browser-Performance.gitlab-ci.yml
   - template: DAST.gitlab-ci.yml
 
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
 a11y:
-  extends:
-    - .job_teplate_accessibility
+  stage: accessibility
   image: node
   script:
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -17,23 +15,32 @@ a11y:
     - npm install pa11y@5.3.0 pa11y-reporter-html@1.0.0
     - './node_modules/.bin/pa11y $PRODUCTION_UI_HOST > accessibility.html'
     - echo 'Complete!!!'
+  tags:
+    - docker
+  allow_failure: true
+  when: on_success
   artifacts:
     when: always
     expose_as: 'accessibility'
     paths: ['accessibility.html']
 
 performance:
-  extends:
-    - .job_teplate_accessibility
   stage: accessibility
   variables:
     URL: $PRODUCTION_UI_HOST
+  tags:
+    - docker
+  allow_failure: true
+  when: on_success
 
 # SECURITY =============================================================================================================
 
 # Docs: https://gitlab.com/help/user/application_security/dast/index.md
 dast:
-  extends:
-    - .job_teplate_accessibility
+  stage: accessibility
+  tags:
+    - docker
+  allow_failure: true
+  when: on_success
   variables:
     DAST_WEBSITE: $PRODUCTION_UI_HOST
