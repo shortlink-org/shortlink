@@ -18,7 +18,8 @@ a11y:
   tags:
     - docker
   allow_failure: true
-  when: on_success
+  rules:
+    - when: on_success
   artifacts:
     when: always
     expose_as: 'accessibility'
@@ -31,7 +32,8 @@ performance:
   tags:
     - docker
   allow_failure: true
-  when: on_success
+  rules:
+    - when: on_success
 
 # SECURITY =============================================================================================================
 
@@ -41,6 +43,7 @@ dast:
   tags:
     - docker
   allow_failure: true
-  when: on_success
+  rules:
+    - when: on_success
   variables:
     DAST_WEBSITE: $PRODUCTION_UI_HOST
