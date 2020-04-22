@@ -5,7 +5,7 @@ go 1.14
 require (
 	github.com/Masterminds/squirrel v1.2.0
 	github.com/Shopify/sarama v1.26.1
-	github.com/cloudevents/sdk-go v1.1.2
+	github.com/cloudevents/sdk-go v1.2.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.0.3
 	github.com/dgraph-io/dgo/v2 v2.2.0
