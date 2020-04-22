@@ -8,7 +8,7 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/batazor/shortlink)
 ![GitHub contributors](https://img.shields.io/github/contributors/batazor/shortlink)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3510/badge)](https://bestpractices.coreinfrastructure.org/projects/3510)
-[![Mergify Status][mergify-status]][mergifDOCKER_PASSWORDy]
+[![Mergify Status][mergify-status]][mergify]
 
 Shortlink service
 
@@ -212,16 +212,8 @@ ansible-playbook playbooks/playbook.yml
 
 ##### GitLab Variable
 
-![](./docs/gitlab-variable.png)
-
-- DOCKER_PASSWORD
 - SURGE_LOGIN
 - SURGE_TOKEN
-
-###### Environment variable
-
-- ENVIRONMENT_NAME
-- ENVIRONMENT_URL
 
 ##### Support environment
 

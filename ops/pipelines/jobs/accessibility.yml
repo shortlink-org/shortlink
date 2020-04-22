@@ -17,9 +17,9 @@ a11y:
     - echo 'Complete!!!'
   tags:
     - docker
-  environment:
-    name: $ENVIRONMENT_NAME
-    url: $ENVIRONMENT_URL
+#  environment:
+#    name: $ENVIRONMENT_NAME
+#    url: $ENVIRONMENT_URL
   allow_failure: true
   rules:
     - when: on_success
@@ -35,9 +35,9 @@ performance:
   tags:
     - docker
   allow_failure: true
-  environment:
-    name: $ENVIRONMENT_NAME
-    url: $ENVIRONMENT_URL
+#  environment:
+#    name: $ENVIRONMENT_NAME
+#    url: $ENVIRONMENT_URL
   rules:
     - when: on_success
 
@@ -48,9 +48,9 @@ dast:
   stage: accessibility
   variables:
     DAST_WEBSITE: $ENVIRONMENT_URL
-  environment:
-    name: $ENVIRONMENT_NAME
-    url: $ENVIRONMENT_URL
+#  environment:
+#    name: $ENVIRONMENT_NAME
+#    url: $ENVIRONMENT_URL
   tags:
     - docker
   allow_failure: true

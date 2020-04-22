@@ -38,12 +38,9 @@ logger:staging:
 
 trigger_deploy_ui:staging:
   stage: deploy
-#  variables:
-#    ENVIRONMENT_NAME: yandex-staging
-#    ENVIRONMENT_URL: staging.example.com
-  environment:
-    name: yandex-staging
-    url: $ENVIRONMENT_URL
+  variables:
+    ENVIRONMENT_NAME: yandex-staging
+    ENVIRONMENT_URL: staging.example.com
   trigger:
     include:
       - local: 'ops/pipelines/ui.yml'
@@ -91,13 +88,13 @@ logger:production:
 
 trigger_deploy_ui:production:
   stage: deploy
+  variables:
+    ENVIRONMENT_NAME: yandex-production
+    ENVIRONMENT_URL: example.com
   trigger:
     include:
       - local: 'ops/pipelines/ui.yml'
     strategy: depend
-  environment:
-    name: yandex-production
-    url: $ENVIRONMENT_URL
   needs:
     - trigger_build_ui
   rules:
