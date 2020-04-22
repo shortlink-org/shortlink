@@ -4,15 +4,6 @@ include:
   - template: License-Scanning.gitlab-ci.yml
 
 # ON COMMIT ============================================================================================================
-golint:
-  extends:
-    - .job_teplate_go
-  image: golangci/golangci-lint:v1.24-alpine
-  before_script:
-    - apk add --update make
-  script:
-    - make golint
-
 gosec:
   extends:
     - .job_teplate_go
@@ -27,6 +18,15 @@ gotest:
   coverage: '/coverage: \d+.\d+% of statements/'
   script:
     - make test
+
+golint:
+  extends:
+    - .job_teplate_go
+  image: golangci/golangci-lint:v1.24-alpine
+  before_script:
+    - apk add --update make
+  script:
+    - make golint
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
