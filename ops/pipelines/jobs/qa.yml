@@ -4,6 +4,7 @@ helm-lint-chart:
   image: quay.io/helmpack/chart-testing
   script:
     - ct lint --all --config ct.yaml
+  needs: []
 
 helm-run-chart:
   stage: qa
@@ -18,6 +19,7 @@ helm-run-chart:
     - sed -i -E -e 's/localhost|0\.0\.0\.0/docker/g' "$HOME/.kube/config"
   script:
     - ct install --all --config ct.yaml
+  needs: []
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
