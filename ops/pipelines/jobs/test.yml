@@ -37,5 +37,5 @@ license_scanning:
 
 dependency_scanning:
   stage: test
-  rules:
-    - if: $CI_COMMIT_TAG
+  only:
+    - tags
