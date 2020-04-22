@@ -3,7 +3,3 @@
   image: golang:1.14-buster
   tags:
     - docker
-  only:
-    refs:
-      - tags
-      - branches

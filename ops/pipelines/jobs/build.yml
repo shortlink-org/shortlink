@@ -8,9 +8,8 @@ trigger_build_api:
     include:
       - local: 'ops/pipelines/build.yml'
     strategy: depend
-  only:
-    refs:
-      - tags
+  rules:
+    - if: $CI_COMMIT_TAG
 
 trigger_build_logger:
   stage: build
@@ -21,9 +20,8 @@ trigger_build_logger:
     include:
       - local: 'ops/pipelines/build.yml'
     strategy: depend
-  only:
-    refs:
-      - tags
+  rules:
+    - if: $CI_COMMIT_TAG
 
 trigger_build_ui:
   stage: build
@@ -34,6 +32,5 @@ trigger_build_ui:
     include:
       - local: 'ops/pipelines/build.yml'
     strategy: depend
-  only:
-    refs:
-      - tags
+  rules:
+    - if: $CI_COMMIT_TAG

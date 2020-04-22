@@ -5,10 +5,6 @@ helm-lint-chart:
   script:
     - ct lint --all --config ct.yaml
   when: on_success
-  only:
-    refs:
-      - branches
-      - tags
 
 helm-run-chart:
   stage: qa
@@ -24,6 +20,5 @@ helm-run-chart:
   script:
     - ct install --all --config ct.yaml
   when: on_success
-  only:
-    refs:
-      - tags
+  rules:
+    - if: $CI_COMMIT_TAG
