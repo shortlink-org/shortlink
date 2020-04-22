@@ -5,7 +5,7 @@ include:
 
 api:staging:
   extends:
-    - .job_template_deploy_staging
+    - .job_template_deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
@@ -16,7 +16,7 @@ api:staging:
 
 logger:staging:
   extends:
-    - .job_template_deploy_staging
+    - .job_template_deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
@@ -40,7 +40,7 @@ trigger_deploy_ui:staging:
 
 api:production:
   extends:
-    - .job_template_deploy_production
+    - .job_template_deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
@@ -51,7 +51,7 @@ api:production:
 
 logger:production:
   extends:
-    - .job_template_deploy_production
+    - .job_template_deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
