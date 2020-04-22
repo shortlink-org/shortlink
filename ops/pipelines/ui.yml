@@ -7,7 +7,7 @@ stages:
   - deploy
   - accessibility
 
-ui:staging:
+ui:
   extends:
     - .job_template_deploy
   variables:
@@ -16,8 +16,5 @@ ui:staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: "--set serviceAccount.create=false"
   environment:
-    name: yandex-staging
-    url: staging.example.com
-  only:
-    refs:
-      - /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/
+    name: $ENVIRONMENT_NAME
+    url: $ENVIRONMENT_URL
