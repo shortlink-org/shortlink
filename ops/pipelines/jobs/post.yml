@@ -1,0 +1,18 @@
+# Load artifacts from multi-pipeline
+load artifacts:
+  stage: .post
+  script:
+    - echo "Load artifacts from multi-pipeline"
+  needs:
+    - project: shortlink1/shortlink
+      job: a11y
+      ref: $CI_BUILD_REF_NAME
+      artifacts: true
+    - project: shortlink1/shortlink
+      job: performance
+      ref: $CI_BUILD_REF_NAME
+      artifacts: true
+    - project: shortlink1/shortlink
+      job: dast
+      ref: $CI_BUILD_REF_NAME
+      artifacts: true

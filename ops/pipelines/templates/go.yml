@@ -3,3 +3,4 @@
   image: golang:1.14-buster
   tags:
     - docker
+  interruptible: true
