@@ -12,7 +12,7 @@ api:staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
   environment:
     name: yandex-staging
-    url: staging.example.com
+    url: http://example.com
   needs:
     - trigger:build_api
   rules:
@@ -29,7 +29,7 @@ logger:staging:
     HELM_ARG: "--set serviceAccount.create=false"
   environment:
     name: yandex-staging
-    url: staging.example.com
+    url: http://example.com
   allow_failure: false
   needs:
     - trigger:build_logger
@@ -41,7 +41,7 @@ trigger:ui-staging:
   stage: deploy
   variables:
     ENVIRONMENT_NAME: yandex-staging
-    ENVIRONMENT_URL: staging.example.com
+    ENVIRONMENT_URL: http://example.com
   trigger:
     include:
       - local: 'ops/pipelines/ui.yml'
