@@ -1,30 +1,14 @@
 include:
   - template: Verify/Browser-Performance.gitlab-ci.yml
+  - template: Verify/Accessibility.gitlab-ci.yml
   - template: DAST.gitlab-ci.yml
 
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
 a11y:
-  stage: accessibility
-  image: node
-  script:
-    - env
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
-    - apt-get update
-    - apt-get install -y google-chrome-stable
-    - rm -rf /var/lib/apt/lists/*
-    - npm install pa11y@5.3.0 pa11y-reporter-html@1.0.0
-    - './node_modules/.bin/pa11y $ENVIRONMENT_URL > accessibility.html'
-    - echo 'Complete!!!'
   tags:
     - docker
-  allow_failure: true
   rules:
     - when: on_success
-  artifacts:
-    when: always
-    expose_as: 'accessibility'
-    paths: ['accessibility.html']
 
 performance:
   stage: accessibility
@@ -43,7 +27,9 @@ dast:
   stage: accessibility
   variables:
     DAST_WEBSITE: $ENVIRONMENT_URL
+    GITLAB_FEATURES: dast
   tags:
     - docker
-  allow_failure: true
+  only: []
+  except: []
   when: on_success
