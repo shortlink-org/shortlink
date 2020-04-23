@@ -8,13 +8,15 @@ stages:
   - accessibility
 
 ui:staging:
-  extends:
-    - .job_template_deploy
-  variables:
-    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
-    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
-    HELM_ARG: "--set serviceAccount.create=false"
+  script:
+    - echo 123
+#  extends:
+#    - .job_template_deploy
+#  variables:
+#    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
+#    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
+#    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
+#    HELM_ARG: "--set serviceAccount.create=false"
   environment:
     name: $ENVIRONMENT_NAME
     url: $ENVIRONMENT_URL
