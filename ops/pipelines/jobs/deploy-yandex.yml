@@ -30,6 +30,7 @@ logger:staging:
   environment:
     name: yandex-staging
     url: staging.example.com
+  allow_failure: false
   needs:
     - trigger:build_logger
   rules:
@@ -45,6 +46,7 @@ trigger:ui-staging:
     include:
       - local: 'ops/pipelines/ui.yml'
     strategy: depend
+  allow_failure: false
   needs:
     - trigger:build_ui
   rules:
@@ -63,6 +65,7 @@ api:production:
   environment:
     name: yandex-production
     url: $ENVIRONMENT_URL
+  allow_failure: false
   needs:
     - trigger:build_api
   rules:
@@ -80,6 +83,7 @@ logger:production:
   environment:
     name: yandex-production
     url: $ENVIRONMENT_URL
+  allow_failure: false
   needs:
     - trigger:build_logger
   rules:
