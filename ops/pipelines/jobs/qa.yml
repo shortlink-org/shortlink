@@ -4,6 +4,7 @@ helm-lint-chart:
   image: quay.io/helmpack/chart-testing
   script:
     - ct lint --all --config ct.yaml
+  interruptible: true
   needs: []
 
 helm-run-chart:
@@ -20,6 +21,7 @@ helm-run-chart:
   script:
     - ct install --all --config ct.yaml
   retry: 2
+  interruptible: true
   needs: []
   rules:
     - if: $CI_COMMIT_TAG
