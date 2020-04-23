@@ -20,8 +20,6 @@ performance:
   rules:
     - when: on_success
 
-# SECURITY =============================================================================================================
-
 # Docs: https://gitlab.com/help/user/application_security/dast/index.md
 dast:
   stage: accessibility
@@ -30,6 +28,8 @@ dast:
     GITLAB_FEATURES: dast
   tags:
     - docker
-  only: []
-  except: []
+  only:
+    refs:
+      - tags
+      - branches
   when: on_success
