@@ -9,11 +9,13 @@ stages:
 
 # BUILD ================================================================================================================
 build:
-  extends:
-    - .job_template_build
-  variables:
-    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
-    DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
+  script:
+    - echo 123
+#  extends:
+#    - .job_template_build
+#  variables:
+#    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
+#    DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
 
 # SECURITY =============================================================================================================
 container_scanning:
