@@ -12,7 +12,7 @@ api:staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
   environment:
     name: yandex-staging
-    url: http://example.com
+    url: https://example.com
   needs:
     - trigger:build_api
   rules:
@@ -29,7 +29,7 @@ logger:staging:
     HELM_ARG: "--set serviceAccount.create=false"
   environment:
     name: yandex-staging
-    url: http://example.com
+    url: https://example.com
   allow_failure: false
   needs:
     - trigger:build_logger
@@ -64,7 +64,7 @@ api:production:
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
   environment:
     name: yandex-production
-    url: $ENVIRONMENT_URL
+    url: https://example.com
   allow_failure: false
   needs:
     - trigger:build_api
@@ -82,7 +82,7 @@ logger:production:
     HELM_ARG: "--set serviceAccount.create=false"
   environment:
     name: yandex-production
-    url: $ENVIRONMENT_URL
+    url: https://example.com
   allow_failure: false
   needs:
     - trigger:build_logger
