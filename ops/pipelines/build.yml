@@ -30,3 +30,15 @@ container_scanning:
     - echo 123
   needs:
     - build
+
+test:
+  stage: security
+#  variables:
+#    GIT_STRATEGY: fetch
+#    CI_APPLICATION_REPOSITORY: $REGISTRY_IMAGE
+#    CI_APPLICATION_TAG: $CI_COMMIT_TAG
+#    DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
+  script:
+    - echo 123
+#  needs:
+#    - build

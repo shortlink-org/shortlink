@@ -1,13 +1,14 @@
 include:
   - local: /ops/pipelines/templates/common.yml
   - local: /ops/pipelines/templates/deploy.yml
-  - local: /ops/pipelines/jobs/accessibility.yml
+#  - local: /ops/pipelines/jobs/accessibility.yml
 
 stages:
   - deploy
   - accessibility
 
 ui:staging:
+  stage: deploy
   script:
     - echo 123
 #  extends:
