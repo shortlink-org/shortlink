@@ -9,6 +9,7 @@ stages:
 
 # BUILD ================================================================================================================
 build:
+  stage: build
   script:
     - echo 123
 #  extends:
@@ -25,5 +26,7 @@ container_scanning:
     CI_APPLICATION_REPOSITORY: $REGISTRY_IMAGE
     CI_APPLICATION_TAG: $CI_COMMIT_TAG
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
+  script:
+    - echo 123
   needs:
     - build
