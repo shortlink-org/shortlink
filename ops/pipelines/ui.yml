@@ -1,4 +1,5 @@
 include:
+  - local: /ops/pipelines/templates/common.yml
   - local: /ops/pipelines/templates/deploy.yml
   - local: /ops/pipelines/jobs/accessibility.yml
 
@@ -6,24 +7,14 @@ stages:
   - deploy
   - accessibility
 
-# STAGING RELEASE ======================================================================================================
-
-ui:staging:
+ui:
   extends:
-    - .job_template_deploy_staging
+    - .job_template_deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-ui
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: "--set serviceAccount.create=false"
-
-# PRODUCTION RELEASE ===================================================================================================
-
-ui:production:
-  extends:
-    - .job_template_deploy_production
-  variables:
-    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
-    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
-    HELM_ARG: "--set serviceAccount.create=false"
+  environment:
+    name: $ENVIRONMENT_NAME
+    url: $ENVIRONMENT_URL

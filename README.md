@@ -210,7 +210,8 @@ ansible-playbook playbooks/playbook.yml
 
 ![](./docs/gitlab-pipeline.png)
 
-- DOCKER_PASSWORD
+##### GitLab Variable
+
 - SURGE_LOGIN
 - SURGE_TOKEN
 

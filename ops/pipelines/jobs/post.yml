@@ -1,0 +1,21 @@
+# Load artifacts from multi-pipeline
+# TODO: Watch https://gitlab.com/gitlab-org/gitlab/issues/202093#note_291607385
+load artifacts:
+  stage: .post
+  script:
+    - echo "Load artifacts from multi-pipeline"
+  needs:
+    - project: shortlink1/shortlink
+      job: a11y
+      ref: ultimate
+      artifacts: true
+    - project: shortlink1/shortlink
+      job: performance
+      ref: ultimate
+      artifacts: true
+    - project: shortlink1/shortlink
+      job: dast
+      ref: ultimate
+      artifacts: true
+  rules:
+    - when: never

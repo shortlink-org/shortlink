@@ -1,0 +1,33 @@
+include:
+  - local: /ops/pipelines/templates/common.yml
+  - local: /ops/pipelines/templates/build.yml
+  - template: Container-Scanning.gitlab-ci.yml
+
+stages:
+  - build
+  - security
+
+# BUILD ================================================================================================================
+build:
+  extends:
+    - .job_template_build
+  variables:
+    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
+    DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
+
+# SECURITY =============================================================================================================
+container_scanning:
+  stage: security
+  variables:
+    GIT_STRATEGY: fetch
+    CI_APPLICATION_REPOSITORY: $REGISTRY_IMAGE
+    CI_APPLICATION_TAG: $CI_COMMIT_TAG
+    DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
+  tags:
+    - docker
+  when: on_success
+  allow_failure: false
+  only:
+    refs:
+      - tags
+      - branches
