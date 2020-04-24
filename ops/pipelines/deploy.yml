@@ -4,7 +4,7 @@ include:
 stages:
   - deploy
 
-api:
+deploy:
   extends:
     - .job_template_deploy
   environment:
