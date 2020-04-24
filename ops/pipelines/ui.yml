@@ -15,3 +15,6 @@ ui:staging:
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: "--set serviceAccount.create=false"
+  environment:
+    name: $ENVIRONMENT_NAME
+    url: $ENVIRONMENT_URL
