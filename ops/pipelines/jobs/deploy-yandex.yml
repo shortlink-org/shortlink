@@ -15,12 +15,9 @@ api:staging:
     url: https://example.com
   needs:
     - trigger:build_api
-    - gosec
-    - gotest
-    - golint
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
-      when: manual
+      when: on_success
 
 logger:staging:
   extends:
@@ -33,12 +30,11 @@ logger:staging:
   environment:
     name: yandex-staging
     url: https://example.com
-  allow_failure: true
   needs:
     - trigger:build_logger
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
-      when: manual
+      when: on_success
 
 trigger:ui-staging:
   stage: deploy
@@ -49,12 +45,11 @@ trigger:ui-staging:
     include:
       - local: 'ops/pipelines/ui.yml'
     strategy: depend
-  allow_failure: false
   needs:
     - trigger:build_ui
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
-      when: manual
+      when: on_success
 
 # PRODUCTION RELEASE ===================================================================================================
 
@@ -68,12 +63,11 @@ api:production:
   environment:
     name: yandex-production
     url: https://example.com
-  allow_failure: false
   needs:
     - trigger:build_api
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/'
-      when: manual
+      when: on_success
 
 logger:production:
   extends:
@@ -86,12 +80,11 @@ logger:production:
   environment:
     name: yandex-production
     url: https://example.com
-  allow_failure: false
   needs:
     - trigger:build_logger
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/'
-      when: manual
+      when: on_success
 
 trigger:ui-production:
   stage: deploy
@@ -106,4 +99,4 @@ trigger:ui-production:
     - trigger:build_ui
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/'
-      when: manual
+      when: on_success
