@@ -28,9 +28,8 @@ container_scanning:
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
   tags:
     - docker
+  when: on_success
   only:
     refs:
       - tags
       - branches
-  rules:
-    - when: on_success
