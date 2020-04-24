@@ -1,18 +1,20 @@
 include:
   - local: /ops/pipelines/templates/deploy.yml
 
-# STAGING RELEASE ======================================================================================================
-
+# YANDEX STAGING RELEASE ===============================================================================================
 api:staging:
-  extends:
-    - .job_template_deploy
+  stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
-  environment:
-    name: yandex-staging
-    url: https://example.com
+
+    ENVIRONMENT_NAME: yandex-staging
+    ENVIRONMENT_URL: http://example.com
+  trigger:
+    include:
+      - local: 'ops/pipelines/deploy.yml'
+    strategy: depend
   needs:
     - trigger:build_api
   rules:
@@ -20,16 +22,19 @@ api:staging:
       when: on_success
 
 logger:staging:
-  extends:
-    - .job_template_deploy
+  stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: "--set serviceAccount.create=false"
-  environment:
-    name: yandex-staging
-    url: https://example.com
+
+    ENVIRONMENT_NAME: yandex-staging
+    ENVIRONMENT_URL: http://example.com
+  trigger:
+    include:
+      - local: 'ops/pipelines/deploy.yml'
+    strategy: depend
   needs:
     - trigger:build_logger
   rules:
@@ -51,18 +56,20 @@ trigger:ui-staging:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
 
-# PRODUCTION RELEASE ===================================================================================================
-
+# YANDEX PRODUCTION RELEASE ============================================================================================
 api:production:
-  extends:
-    - .job_template_deploy
+  stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
-  environment:
-    name: yandex-production
-    url: https://example.com
+
+    ENVIRONMENT_NAME: yandex-production
+    ENVIRONMENT_URL: https://example.com
+  trigger:
+    include:
+      - local: 'ops/pipelines/deploy.yml'
+    strategy: depend
   needs:
     - trigger:build_api
   rules:
@@ -70,16 +77,19 @@ api:production:
       when: on_success
 
 logger:production:
-  extends:
-    - .job_template_deploy
+  stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: "--set serviceAccount.create=false"
-  environment:
-    name: yandex-production
-    url: https://example.com
+
+    ENVIRONMENT_NAME: yandex-production
+    ENVIRONMENT_URL: https://example.com
+  trigger:
+    include:
+      - local: 'ops/pipelines/deploy.yml'
+    strategy: depend
   needs:
     - trigger:build_logger
   rules:
