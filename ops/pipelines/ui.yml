@@ -7,7 +7,7 @@ stages:
   - deploy
   - accessibility
 
-ui:staging:
+ui:
   extends:
     - .job_template_deploy
   variables:
