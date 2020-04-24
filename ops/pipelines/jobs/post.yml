@@ -1,4 +1,5 @@
 # Load artifacts from multi-pipeline
+# TODO: Watch https://gitlab.com/gitlab-org/gitlab/issues/202093#note_291607385
 load artifacts:
   stage: .post
   script:
@@ -16,3 +17,5 @@ load artifacts:
       job: dast
       ref: ultimate
       artifacts: true
+  rules:
+    - when: never
