@@ -65,7 +65,7 @@ generate: ## Code generation
 	@make fmt
 
 golint: ## Linter for golang
-	@golangci-lint run
+	@golangci-lint run ./...
 
 .PHONY: fmt
 fmt: ## Format source using gofmt

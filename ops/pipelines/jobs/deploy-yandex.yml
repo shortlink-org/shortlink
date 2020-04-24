@@ -2,7 +2,7 @@ include:
   - local: /ops/pipelines/templates/deploy.yml
 
 # YANDEX STAGING RELEASE ===============================================================================================
-api:staging:
+trigger:api-staging:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
@@ -21,7 +21,7 @@ api:staging:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
 
-logger:staging:
+trigger:logger-staging:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
@@ -57,7 +57,7 @@ trigger:ui-staging:
       when: on_success
 
 # YANDEX PRODUCTION RELEASE ============================================================================================
-api:production:
+trigger:api-production:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
@@ -76,7 +76,7 @@ api:production:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/'
       when: on_success
 
-logger:production:
+trigger:logger-production:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
