@@ -18,3 +18,4 @@ workflow:
     # Disable renovate branch
     - if: $CI_COMMIT_REF_NAME =~ /^renovate/
       when: never
+    - when: always
