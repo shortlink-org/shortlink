@@ -5,7 +5,7 @@ go 1.14
 require (
 	github.com/Masterminds/squirrel v1.2.0
 	github.com/Shopify/sarama v1.26.1
-	github.com/cloudevents/sdk-go v1.1.2
+	github.com/cloudevents/sdk-go v1.2.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.0.3
 	github.com/dgraph-io/dgo/v2 v2.2.0
@@ -26,7 +26,7 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.6.0
 	github.com/jmoiron/sqlx v1.2.0
-	github.com/lib/pq v1.3.0
+	github.com/lib/pq v1.4.0
 	github.com/markbates/pkger v0.15.1
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/nats-io/nats.go v1.9.2
@@ -44,15 +44,15 @@ require (
 	github.com/spf13/viper v1.6.3
 	github.com/stretchr/testify v1.5.1
 	github.com/syndtr/goleveldb v1.0.0
-	github.com/uber/jaeger-client-go v2.22.1+incompatible
+	github.com/uber/jaeger-client-go v2.23.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	go.mongodb.org/mongo-driver v1.3.2
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.0.0
-	go.uber.org/zap v1.14.1
+	go.uber.org/zap v1.15.0
 	golang.org/x/sys v0.0.0-20200124204421-9fbb57f87de9 // indirect
 	google.golang.org/genproto v0.0.0-20200420144010-e5e8543f8aeb
-	google.golang.org/grpc v1.28.1
+	google.golang.org/grpc v1.29.0
 	google.golang.org/protobuf v1.21.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect

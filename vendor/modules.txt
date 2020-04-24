@@ -22,7 +22,7 @@ github.com/cenkalti/backoff/v3
 github.com/cespare/xxhash
 # github.com/cespare/xxhash/v2 v2.1.1
 github.com/cespare/xxhash/v2
-# github.com/cloudevents/sdk-go v1.1.2
+# github.com/cloudevents/sdk-go v1.2.0
 ## explicit
 github.com/cloudevents/sdk-go
 github.com/cloudevents/sdk-go/pkg/cloudevents
@@ -229,7 +229,7 @@ github.com/konsorten/go-windows-terminal-sequences
 github.com/lann/builder
 # github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0
 github.com/lann/ps
-# github.com/lib/pq v1.3.0
+# github.com/lib/pq v1.4.0
 ## explicit
 github.com/lib/pq
 github.com/lib/pq/oid
@@ -371,7 +371,7 @@ github.com/syndtr/goleveldb/leveldb/opt
 github.com/syndtr/goleveldb/leveldb/storage
 github.com/syndtr/goleveldb/leveldb/table
 github.com/syndtr/goleveldb/leveldb/util
-# github.com/uber/jaeger-client-go v2.22.1+incompatible
+# github.com/uber/jaeger-client-go v2.23.0+incompatible
 ## explicit
 github.com/uber/jaeger-client-go
 github.com/uber/jaeger-client-go/config
@@ -462,7 +462,7 @@ go.uber.org/goleak
 go.uber.org/goleak/internal/stack
 # go.uber.org/multierr v1.5.0
 go.uber.org/multierr
-# go.uber.org/zap v1.14.1
+# go.uber.org/zap v1.15.0
 ## explicit
 go.uber.org/zap
 go.uber.org/zap/buffer
@@ -521,7 +521,7 @@ google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
 google.golang.org/genproto/googleapis/rpc/status
 google.golang.org/genproto/protobuf/field_mask
-# google.golang.org/grpc v1.28.1
+# google.golang.org/grpc v1.29.0
 ## explicit
 google.golang.org/grpc
 google.golang.org/grpc/attributes
@@ -550,6 +550,7 @@ google.golang.org/grpc/internal/grpcsync
 google.golang.org/grpc/internal/grpcutil
 google.golang.org/grpc/internal/resolver/dns
 google.golang.org/grpc/internal/resolver/passthrough
+google.golang.org/grpc/internal/status
 google.golang.org/grpc/internal/syscall
 google.golang.org/grpc/internal/transport
 google.golang.org/grpc/keepalive
