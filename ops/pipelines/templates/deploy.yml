@@ -9,7 +9,6 @@
     - env
     - helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
       --install
-      --force
       --wait
       --namespace=$KUBE_NAMESPACE
       --set deploy.image.tag=$CI_COMMIT_TAG
