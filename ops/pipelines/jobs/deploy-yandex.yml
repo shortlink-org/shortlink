@@ -1,6 +1,3 @@
-include:
-  - local: /ops/pipelines/templates/deploy.yml
-
 # YANDEX STAGING RELEASE ===============================================================================================
 trigger:api-staging:
   stage: deploy
