@@ -1,6 +1,3 @@
-include:
-  - local: /ops/pipelines/templates/deploy.yml
-
 # AWS STAGING RELEASE ==================================================================================================
 trigger:api-aws:
   stage: deploy
