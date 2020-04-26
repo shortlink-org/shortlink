@@ -4,6 +4,10 @@ metadata:
   name: {{ include "shortlink.fullname" . }}
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
+  annotations:
+  {{- if .Values.deploy.annotations }}
+    {{- toYaml .Values.deploy.annotations | nindent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.deploy.replicaCount }}
   strategy:
@@ -19,10 +23,6 @@ spec:
         app.kubernetes.io/name: {{ include "shortlink.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: shortlink
-      annotations:
-        {{- if .Values.deploy.podAnnotations }}
-          {{- toYaml .Values.deploy.podAnnotations | nindent 8 }}
-        {{- end }}
     spec:
     {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:

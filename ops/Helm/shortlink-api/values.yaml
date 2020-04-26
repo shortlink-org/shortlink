@@ -28,7 +28,7 @@ deploy:
 
   ## Annotations to be added to controller pods
   ##
-  podAnnotations: {}
+  annotations: {}
 
   image:
     repository: batazor/shortlink
