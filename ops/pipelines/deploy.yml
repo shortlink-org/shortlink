@@ -10,3 +10,9 @@ deploy:
   environment:
     name: $ENVIRONMENT_NAME
     url: $ENVIRONMENT_URL
+
+stop:
+  stage: .stop
+  script:
+    - helm -n $KUBE_NAMESPACE del $RELEASE_NAME
+  when: on_failure
