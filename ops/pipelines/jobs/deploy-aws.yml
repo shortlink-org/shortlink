@@ -15,6 +15,8 @@ aws:api-staging:
     strategy: depend
   needs:
     - trigger:build_api
+#    - helm-lint-chart
+#    - helm-run-chart
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
@@ -35,6 +37,8 @@ aws:logger-staging:
     strategy: depend
   needs:
     - trigger:build_logger
+#    - helm-lint-chart
+#    - helm-run-chart
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
@@ -55,6 +59,8 @@ aws:ui-staging:
     strategy: depend
   needs:
     - trigger:build_ui
+#    - helm-lint-chart
+#    - helm-run-chart
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
