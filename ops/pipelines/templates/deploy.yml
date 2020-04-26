@@ -10,7 +10,7 @@
     # TODO: Use $KUBE_NAMESPACE
     - helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
       --install
-      --wait
-      --namespace=$K8S_NAMESPACE
+      --atomic
+      --create-namespace=$K8S_NAMESPACE
       --set deploy.image.tag=$CI_COMMIT_TAG
       --set deploy.image.repository=$REGISTRY;
