@@ -3,7 +3,7 @@ appVersion: "1.0.0"                              # The version of the app that t
 name: common                                     # The name of the chart (required)
 description: Shortlink infrastructure            # A single-sentence description of this project (optional)
 version: 0.1.8                                   # A SemVer 2 version (required)
-kubeVersion: ">= 1.15.0 || >= v1.15.0-[a-z\-]*"  # A SemVer range of compatible Kubernetes versions (optional)
+kubeVersion: ">= 1.15.0 || >= v1.15.0-*"         # A SemVer range of compatible Kubernetes versions (optional)
 home: https://batazor.github.io/shortlink/       # The URL of this project's home page (optional)
 sources:                                         # A list of URLs to source code for this project (optional)
   - https://github.com/batazor/shortlink
