@@ -140,7 +140,7 @@ docker-push: ## Publish the container
 	@docker push ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
 
 # KUBERNETES ===========================================================================================================
-PATH_TO_SHORTLINK_CHART := ops/Helm/shortlink
+PATH_TO_SHORTLINK_CHART := ops/Helm/shortlink-ui
 PATH_TO_COMMON_CHART := ops/Helm/common
 
 helm-lint: ## Check Helm chart

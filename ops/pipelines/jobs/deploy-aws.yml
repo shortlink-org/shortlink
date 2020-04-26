@@ -1,5 +1,5 @@
 # AWS STAGING RELEASE ==================================================================================================
-trigger:api-aws:
+aws:api-staging:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
@@ -18,7 +18,7 @@ trigger:api-aws:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
 
-trigger:logger-aws:
+aws:logger-staging:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
@@ -38,7 +38,7 @@ trigger:logger-aws:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
 
-trigger:ui-aws:
+aws:ui-staging:
   stage: deploy
   variables:
     ENVIRONMENT_NAME: aws-staging
