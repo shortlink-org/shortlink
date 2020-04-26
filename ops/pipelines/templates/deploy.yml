@@ -6,6 +6,7 @@
   tags:
     - docker
   script:
+    - env
     - helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
       --install
       --wait
