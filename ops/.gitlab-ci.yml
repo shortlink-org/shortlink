@@ -38,5 +38,3 @@ test:
     include:
       - local: 'ops/pipelines/ui.yml'
     strategy: depend
-  needs:
-    - trigger:build_ui
