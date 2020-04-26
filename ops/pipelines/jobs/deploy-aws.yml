@@ -5,6 +5,7 @@ aws:api-staging:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
+    HELM_ARG: '--set deploy.podAnnotations.\"app\.gitlab\.com\/env\"=$CI_ENVIRONMENT_SLUG --set deploy.podAnnotations.\"app\.gitlab\.com\/app\"=$CI_PROJECT_PATH_SLUG'
 
     ENVIRONMENT_NAME: aws-staging
     ENVIRONMENT_URL: http://example.com
@@ -24,7 +25,7 @@ aws:logger-staging:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
-    HELM_ARG: "--set serviceAccount.create=false"
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.podAnnotations.\"app\.gitlab\.com\/env\"=$CI_ENVIRONMENT_SLUG --set deploy.podAnnotations.\"app\.gitlab\.com\/app\"=$CI_PROJECT_PATH_SLUG'
 
     ENVIRONMENT_NAME: aws-staging
     ENVIRONMENT_URL: http://example.com
@@ -41,7 +42,12 @@ aws:logger-staging:
 aws:ui-staging:
   stage: deploy
   variables:
-    ENVIRONMENT_NAME: aws-staging
+    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
+    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.podAnnotations.\"app\.gitlab\.com\/env\"=$CI_ENVIRONMENT_SLUG --set deploy.podAnnotations.\"app\.gitlab\.com\/app\"=$CI_PROJECT_PATH_SLUG'
+
+    ENVIRONMENT_NAME: yandex-staging
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
