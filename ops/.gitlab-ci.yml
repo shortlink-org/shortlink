@@ -38,3 +38,4 @@ test:
     include:
       - local: 'ops/pipelines/ui.yml'
     strategy: depend
+  needs: []
