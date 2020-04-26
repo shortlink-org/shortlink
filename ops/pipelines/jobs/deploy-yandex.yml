@@ -7,7 +7,7 @@ yandex:api-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
     HELM_ARG: '--set deploy.podAnnotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.podAnnotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-staging
+    ENVIRONMENT_NAME: yandex-api-staging
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
@@ -29,7 +29,7 @@ yandex:logger-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: '--set serviceAccount.create=false --set deploy.podAnnotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.podAnnotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-staging
+    ENVIRONMENT_NAME: yandex-logger-staging
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
@@ -51,7 +51,7 @@ yandex:ui-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: '--set serviceAccount.create=false --set deploy.podAnnotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.podAnnotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-staging
+    ENVIRONMENT_NAME: yandex-ui-staging
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
@@ -74,7 +74,7 @@ yandex:api-production:
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
     HELM_ARG: '--set deploy.podAnnotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.podAnnotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-production
+    ENVIRONMENT_NAME: yandex-api-production
     ENVIRONMENT_URL: https://example.com
   trigger:
     include:
@@ -96,7 +96,7 @@ yandex:logger-production:
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: '--set serviceAccount.create=false --set deploy.podAnnotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.podAnnotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-production
+    ENVIRONMENT_NAME: yandex-logger-production
     ENVIRONMENT_URL: https://example.com
   trigger:
     include:
@@ -118,7 +118,7 @@ yandex:ui-production:
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: '--set serviceAccount.create=false --set deploy.podAnnotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.podAnnotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-production
+    ENVIRONMENT_NAME: yandex-ui-production
     ENVIRONMENT_URL: example.com
   trigger:
     include:
