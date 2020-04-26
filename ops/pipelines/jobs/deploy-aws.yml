@@ -7,7 +7,7 @@ aws:api-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
     HELM_ARG: '--set deploy.podAnnotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.podAnnotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: aws:api-staging
+    ENVIRONMENT_NAME: aws-api-staging
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
@@ -29,7 +29,7 @@ aws:logger-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: '--set serviceAccount.create=false --set deploy.podAnnotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.podAnnotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: aws:logger-staging
+    ENVIRONMENT_NAME: aws-logger-staging
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
@@ -51,7 +51,7 @@ aws:ui-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: '--set serviceAccount.create=false --set deploy.podAnnotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.podAnnotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: aws:ui-staging
+    ENVIRONMENT_NAME: aws-ui-staging
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
