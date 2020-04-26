@@ -19,7 +19,10 @@ spec:
         app.kubernetes.io/name: {{ include "shortlink.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: shortlink
-        {{- toYaml .Values.deploy.podAnnotations | indent 8 }}
+      annotations:
+        {{- if .Values.deploy.podAnnotations }}
+          {{- toYaml .Values.deploy.podAnnotations | nindent 8 }}
+        {{- end }}
     spec:
     {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
