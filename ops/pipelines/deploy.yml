@@ -10,6 +10,8 @@ deploy:
   environment:
     name: $ENVIRONMENT_NAME
     url: $ENVIRONMENT_URL
+    kubernetes:
+      namespace: $K8S_NAMESPACE
 
 stop:
   stage: .stop
