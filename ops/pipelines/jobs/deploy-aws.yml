@@ -7,9 +7,8 @@ aws:api-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
     HELM_ARG: '--set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: aws-staging-api
+    ENVIRONMENT_NAME: aws-staging
     ENVIRONMENT_URL: http://example.com
-    K8S_NAMESPACE: staging
   trigger:
     include:
       - local: 'ops/pipelines/deploy.yml'
@@ -30,9 +29,8 @@ aws:logger-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: aws-staging-logger
+    ENVIRONMENT_NAME: aws-staging
     ENVIRONMENT_URL: http://example.com
-    K8S_NAMESPACE: staging
   trigger:
     include:
       - local: 'ops/pipelines/deploy.yml'
@@ -53,9 +51,8 @@ aws:ui-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: aws-staging-ui
+    ENVIRONMENT_NAME: aws-staging
     ENVIRONMENT_URL: http://example.com
-    K8S_NAMESPACE: staging
   trigger:
     include:
       - local: 'ops/pipelines/ui.yml'

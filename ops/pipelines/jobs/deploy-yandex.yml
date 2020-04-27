@@ -7,9 +7,8 @@ yandex:api-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
     HELM_ARG: '--set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-staging-api
+    ENVIRONMENT_NAME: yandex-staging
     ENVIRONMENT_URL: http://example.com
-    K8S_NAMESPACE: staging
   trigger:
     include:
       - local: 'ops/pipelines/deploy.yml'
@@ -30,9 +29,8 @@ yandex:logger-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-staging-logger
+    ENVIRONMENT_NAME: yandex-staging
     ENVIRONMENT_URL: http://example.com
-    K8S_NAMESPACE: staging
   trigger:
     include:
       - local: 'ops/pipelines/deploy.yml'
@@ -53,9 +51,8 @@ yandex:ui-staging:
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-staging-ui
+    ENVIRONMENT_NAME: yandex-staging
     ENVIRONMENT_URL: http://example.com
-    K8S_NAMESPACE: staging
   trigger:
     include:
       - local: 'ops/pipelines/ui.yml'
@@ -77,9 +74,8 @@ yandex:api-production:
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
     HELM_ARG: '--set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-production-api
+    ENVIRONMENT_NAME: yandex-production
     ENVIRONMENT_URL: https://example.com
-    K8S_NAMESPACE: production
   trigger:
     include:
       - local: 'ops/pipelines/deploy.yml'
@@ -100,9 +96,8 @@ yandex:logger-production:
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-production-logger
+    ENVIRONMENT_NAME: yandex-production
     ENVIRONMENT_URL: https://example.com
-    K8S_NAMESPACE: production
   trigger:
     include:
       - local: 'ops/pipelines/deploy.yml'
@@ -123,9 +118,8 @@ yandex:ui-production:
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
 
-    ENVIRONMENT_NAME: yandex-production-ui
+    ENVIRONMENT_NAME: yandex-production
     ENVIRONMENT_URL: example.com
-    K8S_NAMESPACE: production
   trigger:
     include:
       - local: 'ops/pipelines/ui.yml'
