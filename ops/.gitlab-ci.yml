@@ -24,9 +24,12 @@ workflow:
 
 test:
   stage: .pre
+  image:
+    name: alpine/helm:3.2.0
+    entrypoint: [""]
   script:
     - helm ls
   environment:
-    name: test
+    name: aws-test
     kubernetes:
       namespace: staging
