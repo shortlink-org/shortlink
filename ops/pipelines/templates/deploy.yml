@@ -4,7 +4,6 @@
     name: alpine/helm:3.2.0
     entrypoint: [""]
   tags:
-    - docker
     - kubernetes
   script:
     - env

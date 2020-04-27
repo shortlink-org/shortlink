@@ -6,7 +6,6 @@ include:
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
 a11y:
   tags:
-    - docker
     - kubernetes
   rules:
     - when: on_success
@@ -16,7 +15,6 @@ performance:
   variables:
     URL: $ENVIRONMENT_URL
   tags:
-    - docker
     - kubernetes
   allow_failure: true
   rules:
@@ -29,7 +27,6 @@ dast:
     DAST_WEBSITE: $ENVIRONMENT_URL
     GITLAB_FEATURES: dast
   tags:
-    - docker
     - kubernetes
   only:
     refs:
