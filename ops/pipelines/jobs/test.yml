@@ -28,6 +28,7 @@ golint:
     name: golangci/golangci-lint:v1.24-alpine
     entrypoint: [""]
   script:
+    - echo "Run test"
     - golangci-lint run ./...
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
