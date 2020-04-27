@@ -23,7 +23,7 @@ workflow:
     - when: always
 
 test:
-  state: .pre
+  stage: .pre
   script:
     - helm ls
   environment:
