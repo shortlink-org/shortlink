@@ -24,10 +24,6 @@ spec:
         app.kubernetes.io/name: {{ include "shortlink.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: ui
-      annotations:
-      {{- if .Values.deploy.annotations }}
-        {{- toYaml .Values.deploy.annotations | nindent 8 }}
-      {{- end }}
     spec:
     {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
