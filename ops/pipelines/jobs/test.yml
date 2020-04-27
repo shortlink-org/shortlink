@@ -27,6 +27,8 @@ golint:
   image:
     name: golangci/golangci-lint:v1.24-alpine
     entrypoint: [""]
+  tags:
+    - kubernetes
   script:
     - golangci-lint run ./...
 
