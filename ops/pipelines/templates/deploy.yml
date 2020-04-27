@@ -4,7 +4,7 @@
     name: alpine/helm:3.2.0
     entrypoint: [""]
   tags:
-    - kubernetes
+    - docker
   script:
     - env
     - helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
