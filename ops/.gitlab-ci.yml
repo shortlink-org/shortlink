@@ -4,7 +4,7 @@ include:
   - local: /ops/pipelines/jobs/test.yml
   - local: /ops/pipelines/jobs/build.yml
   - local: /ops/pipelines/jobs/qa.yml
-#  - local: /ops/pipelines/jobs/deploy-yandex.yml
+  - local: /ops/pipelines/jobs/deploy-yandex.yml
   - local: /ops/pipelines/jobs/deploy-aws.yml
   - local: /ops/pipelines/jobs/post.yml
 
