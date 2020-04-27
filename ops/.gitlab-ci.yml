@@ -32,5 +32,5 @@ test:
     - helm ls
   environment:
     name: aws-test
-    kubernetes:
-      namespace: staging
+#    kubernetes:
+#      namespace: staging
