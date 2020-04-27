@@ -30,6 +30,6 @@ test:
   script:
     - helm ls
   environment:
-    name: aws-test
+    name: yandex-test
     kubernetes:
       namespace: staging
