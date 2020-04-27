@@ -5,6 +5,7 @@
     entrypoint: [""]
   tags:
     - docker
+    - kubernetes
   script:
     - env
     # TODO: Use $KUBE_NAMESPACE

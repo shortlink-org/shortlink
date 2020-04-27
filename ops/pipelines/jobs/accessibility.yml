@@ -7,6 +7,7 @@ include:
 a11y:
   tags:
     - docker
+    - kubernetes
   rules:
     - when: on_success
 
@@ -16,6 +17,7 @@ performance:
     URL: $ENVIRONMENT_URL
   tags:
     - docker
+    - kubernetes
   allow_failure: true
   rules:
     - when: on_success
@@ -28,6 +30,7 @@ dast:
     GITLAB_FEATURES: dast
   tags:
     - docker
+    - kubernetes
   only:
     refs:
       - tags

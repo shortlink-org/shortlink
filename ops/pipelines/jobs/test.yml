@@ -13,6 +13,8 @@ gosec:
     - make gosec
 
 gotest:
+  tags:
+    - docker
   extends:
     - .job_teplate_go
   coverage: '/coverage: \d+.\d+% of statements/'
