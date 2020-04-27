@@ -10,7 +10,6 @@
     # TODO: Use $KUBE_NAMESPACE
     - helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
       --install
-      --atomic
       --namespace=$K8S_NAMESPACE
       --create-namespace=true
       --set deploy.image.tag=$CI_COMMIT_TAG
