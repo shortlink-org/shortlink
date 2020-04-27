@@ -12,9 +12,3 @@ deploy:
     url: $ENVIRONMENT_URL
     kubernetes:
       namespace: $K8S_NAMESPACE
-
-stop:
-  stage: .stop
-  script:
-    - helm -n $KUBE_NAMESPACE del $RELEASE_NAME
-  when: on_failure
