@@ -28,6 +28,7 @@ test:
     name: alpine/helm:3.2.0
     entrypoint: [""]
   script:
+    - env
     - helm ls
   environment:
     name: aws-test
