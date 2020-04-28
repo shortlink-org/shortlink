@@ -28,7 +28,7 @@ golint:
     name: golangci/golangci-lint:v1.24-alpine
     entrypoint: [""]
   tags:
-    - kubernetes
+    - docker
   script:
     - golangci-lint run ./...
 
