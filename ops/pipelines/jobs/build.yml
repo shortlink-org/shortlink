@@ -11,7 +11,7 @@ trigger:build_api:
   needs:
     - gosec
     - gotest
-    - golint
+#    - golint
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
@@ -28,7 +28,7 @@ trigger:build_logger:
   needs:
     - gosec
     - gotest
-    - golint
+#    - golint
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
