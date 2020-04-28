@@ -5,8 +5,6 @@ include:
 
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
 a11y:
-  tags:
-    - docker
   rules:
     - when: on_success
 
@@ -14,8 +12,6 @@ performance:
   stage: accessibility
   variables:
     URL: $ENVIRONMENT_URL
-  tags:
-    - docker
   allow_failure: true
   rules:
     - when: on_success
@@ -26,8 +22,6 @@ dast:
   variables:
     DAST_WEBSITE: $ENVIRONMENT_URL
     GITLAB_FEATURES: dast
-  tags:
-    - docker
   only:
     refs:
       - tags

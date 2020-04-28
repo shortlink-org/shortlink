@@ -1,44 +1,56 @@
-include:
-  - local: /ops/pipelines/templates/deploy.yml
-
-# STAGING RELEASE ======================================================================================================
-
-api:staging:
-  extends:
-    - .job_template_deploy
+# YANDEX STAGING RELEASE ===============================================================================================
+yandex:api-staging:
+  stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
-  environment:
-    name: yandex-staging
-    url: https://example.com
+    HELM_ARG: '--set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+
+    ENVIRONMENT_NAME: yandex-staging
+    ENVIRONMENT_URL: http://example.com
+  trigger:
+    include:
+      - local: 'ops/pipelines/deploy.yml'
+    strategy: depend
   needs:
     - trigger:build_api
+    - helm-lint-chart
+    - helm-run-chart
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
 
-logger:staging:
-  extends:
-    - .job_template_deploy
+yandex:logger-staging:
+  stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
-    HELM_ARG: "--set serviceAccount.create=false"
-  environment:
-    name: yandex-staging
-    url: https://example.com
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+
+    ENVIRONMENT_NAME: yandex-staging
+    ENVIRONMENT_URL: http://example.com
+  trigger:
+    include:
+      - local: 'ops/pipelines/deploy.yml'
+    strategy: depend
   needs:
     - trigger:build_logger
+    - helm-lint-chart
+    - helm-run-chart
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
 
-trigger:ui-staging:
+yandex:ui-staging:
   stage: deploy
   variables:
+    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
+    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+
     ENVIRONMENT_NAME: yandex-staging
     ENVIRONMENT_URL: http://example.com
   trigger:
@@ -47,48 +59,65 @@ trigger:ui-staging:
     strategy: depend
   needs:
     - trigger:build_ui
+    - helm-lint-chart
+    - helm-run-chart
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)-rc(?:0|[1-9]\d*)$/'
       when: on_success
 
-# PRODUCTION RELEASE ===================================================================================================
-
-api:production:
-  extends:
-    - .job_template_deploy
+# YANDEX PRODUCTION RELEASE ============================================================================================
+yandex:api-production:
+  stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
-  environment:
-    name: yandex-production
-    url: https://example.com
+    HELM_ARG: '--set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+
+    ENVIRONMENT_NAME: yandex-production
+    ENVIRONMENT_URL: https://example.com
+  trigger:
+    include:
+      - local: 'ops/pipelines/deploy.yml'
+    strategy: depend
   needs:
     - trigger:build_api
+    - helm-lint-chart
+    - helm-run-chart
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/'
       when: on_success
 
-logger:production:
-  extends:
-    - .job_template_deploy
+yandex:logger-production:
+  stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
-    HELM_ARG: "--set serviceAccount.create=false"
-  environment:
-    name: yandex-production
-    url: https://example.com
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+
+    ENVIRONMENT_NAME: yandex-production
+    ENVIRONMENT_URL: https://example.com
+  trigger:
+    include:
+      - local: 'ops/pipelines/deploy.yml'
+    strategy: depend
   needs:
     - trigger:build_logger
+    - helm-lint-chart
+    - helm-run-chart
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/'
       when: on_success
 
-trigger:ui-production:
+yandex:ui-production:
   stage: deploy
   variables:
+    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
+    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$ENVIRONMENT_NAME --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+
     ENVIRONMENT_NAME: yandex-production
     ENVIRONMENT_URL: example.com
   trigger:
@@ -97,6 +126,8 @@ trigger:ui-production:
     strategy: depend
   needs:
     - trigger:build_ui
+    - helm-lint-chart
+    - helm-run-chart
   rules:
     - if: '$CI_COMMIT_TAG =~ /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.?(?:0|[1-9]\d*)?$/'
       when: on_success
