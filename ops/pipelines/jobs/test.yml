@@ -35,11 +35,7 @@ license_scanning:
   stage: test
   allow_failure: false
   interruptible: true
-  only:
-    - tags
 
 dependency_scanning:
   stage: test
   interruptible: true
-  only:
-    - tags
