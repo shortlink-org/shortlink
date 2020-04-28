@@ -7,6 +7,8 @@ stages:
 deploy:
   extends:
     - .job_template_deploy
+  tags:
+    - docker
   environment:
     name: $ENVIRONMENT_NAME
     url: $ENVIRONMENT_URL
