@@ -21,17 +21,3 @@ workflow:
     - if: $CI_COMMIT_REF_NAME =~ /^renovate/
       when: never
     - when: always
-
-aws:api-test:
-  stage: .pre
-  variables:
-    RELEASE_NAME: ${CI_PROJECT_NAME}-api
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
-    REGISTRY: ${CI_REGISTRY_IMAGE}/api
-
-    ENVIRONMENT_NAME: aws-staging
-    ENVIRONMENT_URL: http://example.com
-  trigger:
-    include:
-      - local: 'ops/pipelines/deploy.yml'
-    strategy: depend
