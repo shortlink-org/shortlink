@@ -22,7 +22,7 @@ workflow:
       when: never
     - when: always
 
-aws:api-staging:
+aws:api-test:
   stage: .pre
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
