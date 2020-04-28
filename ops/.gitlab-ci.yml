@@ -35,4 +35,3 @@ aws:api-staging:
     include:
       - local: 'ops/pipelines/deploy.yml'
     strategy: depend
-  needs: []
