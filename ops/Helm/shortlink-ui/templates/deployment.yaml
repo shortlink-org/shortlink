@@ -5,6 +5,10 @@ metadata:
   name: {{ include "shortlink.fullname" . }}
   labels:
     {{ include "shortlink.labels" . | nindent 4 }}
+  annotations:
+  {{- if .Values.deploy.annotations }}
+    {{- toYaml .Values.deploy.annotations | nindent 4 }}
+  {{- end }}
 spec:
   replicas: {{ .Values.deploy.replicaCount }}
   strategy:

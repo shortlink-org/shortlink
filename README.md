@@ -219,6 +219,7 @@ ansible-playbook playbooks/playbook.yml
 
 - Minikube
 - [Yandex Cloud](https://cloud.yandex.ru/)
+- [AWS EKS](https://aws.amazon.com/eks/)
 
 ## -~- THE END -~-
 

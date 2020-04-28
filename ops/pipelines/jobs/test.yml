@@ -22,22 +22,20 @@ gotest:
 golint:
   extends:
     - .job_teplate_go
-  image: golangci/golangci-lint:v1.24-alpine
-  before_script:
-    - apk add --update make
+  image:
+    name: golangci/golangci-lint:v1.24-alpine
+    entrypoint: [""]
+  tags:
+    - docker
   script:
-    - make golint
+    - golangci-lint run ./...
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
   stage: test
   allow_failure: false
   interruptible: true
-  only:
-    - tags
 
 dependency_scanning:
   stage: test
   interruptible: true
-  only:
-    - tags
