@@ -25,7 +25,7 @@ golint:
   extends:
     - .job_teplate_go
   image:
-    name: golangci/golangci-lint:v1.24-alpine
+    name: golangci/golangci-lint:v1.25.1-alpine
     entrypoint: [""]
   tags:
     - docker
