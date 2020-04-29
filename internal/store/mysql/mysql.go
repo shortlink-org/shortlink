@@ -91,6 +91,9 @@ func (m *MySQLLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
+	if rows.Err() != nil {
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
+	}
 	defer rows.Close() // nolint errcheck
 
 	var response []*link.Link

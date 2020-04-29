@@ -30,7 +30,7 @@ golint:
   tags:
     - docker
   script:
-    - golangci-lint run ./...
+    - golangci-lint run ./... --skip-dirs-use-default
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
