@@ -1,6 +1,7 @@
 package dgraph
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -14,6 +15,7 @@ import (
 
 func TestDgraph(t *testing.T) {
 	store := DGraphLinkList{}
+	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -64,7 +66,7 @@ func TestDgraph(t *testing.T) {
 			return nil
 		}
 
-		err = store.Init()
+		err = store.Init(ctx)
 		if err != nil {
 			return err
 		}

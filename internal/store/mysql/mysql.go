@@ -1,6 +1,7 @@
 package mysql
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
@@ -14,8 +15,11 @@ import (
 )
 
 // Init ...
-func (m *MySQLLinkList) Init() error {
+func (m *MySQLLinkList) Init(ctx context.Context) error {
 	var err error
+
+	// Set context
+	m.ctx = ctx
 
 	// Set configuration
 	m.setConfig()

@@ -32,22 +32,7 @@ Shortlink service
 ### Run
 
 ```
-docker-compose \
-    -f docker-compose.yaml \
-    -f ops/docker-compose/database/[DATABASE_NAME] \
-    -f ops/docker-compose/gateway/[GATEWAY_NAME] \
-    up -d 
-```
-
-##### As example
-
-```
-docker-compose \
-    -f docker-compose.yaml \
-    -f ops/docker-compose/database/postgres.yaml \
-    -f ops/docker-compose/gateway/traefik.yaml \
-    -f ops/docker-compose/tooling/opentracing.yaml \
-    up -d 
+make run
 ```
 
 ### HTTP API

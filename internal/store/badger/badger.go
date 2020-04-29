@@ -1,6 +1,7 @@
 package badger
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -19,13 +20,18 @@ type BadgerConfig struct { // nolint unused
 
 // BadgerLinkList implementation of store interface
 type BadgerLinkList struct { // nolint unused
+	ctx context.Context
+
 	client *badger.DB
 	config BadgerConfig
 }
 
 // Init ...
-func (b *BadgerLinkList) Init() error {
+func (b *BadgerLinkList) Init(ctx context.Context) error {
 	var err error
+
+	// Set context
+	b.ctx = ctx
 
 	// Set configuration
 	b.setConfig()

@@ -1,6 +1,7 @@
 package mysql
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -18,6 +19,7 @@ func TestMain(m *testing.M) {
 
 func TestMongo(t *testing.T) {
 	store := MySQLLinkList{}
+	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -34,7 +36,7 @@ func TestMongo(t *testing.T) {
 		err = os.Setenv("STORE_MYSQL_URI", fmt.Sprintf("root:secret@(localhost:%s)/mysql?parseTime=true", resource.GetPort("3306/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init()
+		err = store.Init(ctx)
 		if err != nil {
 			return err
 		}

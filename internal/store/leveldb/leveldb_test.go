@@ -1,6 +1,7 @@
 package leveldb
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -11,7 +12,9 @@ import (
 func TestLevelDB(t *testing.T) {
 	store := LevelDBLinkList{}
 
-	err := store.Init()
+	ctx := context.Background()
+
+	err := store.Init(ctx)
 	assert.Nil(t, err)
 
 	t.Run("Create", func(t *testing.T) {

@@ -1,6 +1,7 @@
 package sqlite
 
 import (
+	"context"
 	"testing"
 
 	"github.com/batazor/shortlink/internal/store/mock"
@@ -15,7 +16,9 @@ func TestMain(m *testing.M) {
 func TestSQLite(t *testing.T) {
 	store := SQLiteLinkList{}
 
-	err := store.Init()
+	ctx := context.Background()
+
+	err := store.Init(ctx)
 	assert.Nil(t, err)
 
 	t.Run("Create", func(t *testing.T) {

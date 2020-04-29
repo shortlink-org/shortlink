@@ -1,13 +1,15 @@
 package leveldb
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
-	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/spf13/viper"
 	"github.com/syndtr/goleveldb/leveldb"
+
+	"github.com/batazor/shortlink/internal/store/query"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // LevelDBConfig ...
@@ -17,13 +19,18 @@ type LevelDBConfig struct { // nolint unused
 
 // LevelDBLinkList implementation of store interface
 type LevelDBLinkList struct { // nolint unused
+	ctx context.Context
+
 	client *leveldb.DB
 	config LevelDBConfig
 }
 
 // Init ...
-func (l *LevelDBLinkList) Init() error {
+func (l *LevelDBLinkList) Init(ctx context.Context) error {
 	var err error
+
+	// Set context
+	l.ctx = ctx
 
 	// Set configuration
 	l.setConfig()

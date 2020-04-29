@@ -66,7 +66,7 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) DB { // nolint u
 		store.store = &ram.RAMLinkList{}
 	}
 
-	if err := store.store.Init(); err != nil {
+	if err := store.store.Init(ctx); err != nil {
 		panic(err)
 	}
 

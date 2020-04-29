@@ -21,8 +21,11 @@ var (
 )
 
 // Init ...
-func (p *PostgresLinkList) Init() error {
+func (p *PostgresLinkList) Init(ctx context.Context) error {
 	var err error
+
+	// Set context
+	p.ctx = ctx
 
 	// Set configuration
 	p.setConfig()
@@ -62,6 +65,11 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
+	if rows.Err() != nil {
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	}
+
+	p.client.Exec(context.Background(), "SELECT pg_sleep(10)")
 
 	var response link.Link
 
@@ -70,6 +78,10 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 		if err != nil {
 			return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 		}
+	}
+
+	if response.Hash == "" {
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -167,7 +179,7 @@ func (p *PostgresLinkList) Delete(id string) error {
 
 // setConfig - set configuration
 func (p *PostgresLinkList) setConfig() {
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", "shortlink", "shortlink", "shortlink")
+	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s", "shortlink", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)

@@ -1,6 +1,7 @@
 package cassandra
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 	"strconv"
@@ -21,13 +22,18 @@ type CassandraConfig struct { // nolint unused
 
 // CassandraLinkList implementation of store interface
 type CassandraLinkList struct { // nolint unused
+	ctx context.Context
+
 	client *gocql.Session
 	config CassandraConfig
 }
 
 // Init ...
-func (c *CassandraLinkList) Init() error {
+func (c *CassandraLinkList) Init(ctx context.Context) error {
 	var err error
+
+	// Set context
+	c.ctx = ctx
 
 	// Set configuration
 	c.setConfig()
