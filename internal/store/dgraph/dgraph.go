@@ -36,14 +36,19 @@ type DGraphConfig struct { // nolint unused
 
 // DGraphLinkList ...
 type DGraphLinkList struct { // nolint unused
+	ctx context.Context
+
 	conn   *grpc.ClientConn
 	client *dgo.Dgraph
 	config DGraphConfig
 }
 
 // Init ...
-func (dg *DGraphLinkList) Init() error {
+func (dg *DGraphLinkList) Init(ctx context.Context) error {
 	var err error
+
+	// Set context
+	dg.ctx = ctx
 
 	// Set configuration
 	dg.setConfig()

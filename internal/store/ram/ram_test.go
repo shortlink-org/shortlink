@@ -1,6 +1,7 @@
 package ram
 
 import (
+	"context"
 	"testing"
 
 	"github.com/batazor/shortlink/internal/store/mock"
@@ -15,7 +16,9 @@ func TestMain(m *testing.M) {
 func TestRAM(t *testing.T) {
 	store := RAMLinkList{}
 
-	err := store.Init()
+	ctx := context.Background()
+
+	err := store.Init(ctx)
 	assert.Nil(t, err)
 
 	t.Run("Create", func(t *testing.T) {
@@ -48,7 +51,9 @@ func TestRAM(t *testing.T) {
 func BenchmarkRAM(b *testing.B) {
 	store := RAMLinkList{}
 
-	err := store.Init()
+	ctx := context.Background()
+
+	err := store.Init(ctx)
 	assert.Nil(b, err)
 
 	b.Run("Create", func(b *testing.B) {

@@ -22,7 +22,7 @@ func TestLink(t *testing.T) { //nolint unused
 	s := st.Use(ctx, log)
 
 	// Init store
-	assert.Nil(t, s.Init(), "Error  create a new link list")
+	assert.Nil(t, s.Init(ctx), "Error  create a new link list")
 
 	newLink, err := link.NewURL("example.com")
 	assert.Nil(t, err, "Error create a new link")

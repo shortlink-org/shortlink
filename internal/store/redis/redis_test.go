@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -13,6 +14,7 @@ import (
 
 func TestRedis(t *testing.T) {
 	store := RedisLinkList{}
+	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -29,7 +31,7 @@ func TestRedis(t *testing.T) {
 		err = os.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init()
+		err = store.Init(ctx)
 		if err != nil {
 			return err
 		}

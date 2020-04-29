@@ -17,7 +17,7 @@ services:
     restart: on-failure
     container_name: postgres
     ports:
-      - "5434:5432"
+      - "5435:5432"
     environment:
       POSTGRES_USER: shortlink
       POSTGRES_PASSWORD: shortlink
@@ -27,7 +27,7 @@ services:
         ipv4_address: 10.5.0.100
     volumes:
       - ./initialState/init-postgres.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+#      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
     depends_on:
       - fluentd
       - coredns

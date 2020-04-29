@@ -1,14 +1,16 @@
 package redis
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
 	"github.com/spf13/viper"
 
+	"github.com/go-redis/redis"
+
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
-	"github.com/go-redis/redis"
 )
 
 // RedisConfig ...
@@ -18,12 +20,17 @@ type RedisConfig struct { // nolint unused
 
 // RedisLinkList implementation of store interface
 type RedisLinkList struct { // nolint unused
+	ctx context.Context
+
 	client *redis.Client
 	config RedisConfig
 }
 
 // Init ...
-func (r *RedisLinkList) Init() error {
+func (r *RedisLinkList) Init(ctx context.Context) error {
+	// Set context
+	r.ctx = ctx
+
 	// Set configuration
 	r.setConfig()
 

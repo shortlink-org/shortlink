@@ -1,6 +1,7 @@
 package mongo
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -18,6 +19,7 @@ func TestMain(m *testing.M) {
 
 func TestMongo(t *testing.T) {
 	store := MongoLinkList{}
+	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -34,7 +36,7 @@ func TestMongo(t *testing.T) {
 		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s", resource.GetPort("27017/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init()
+		err = store.Init(ctx)
 		if err != nil {
 			return err
 		}

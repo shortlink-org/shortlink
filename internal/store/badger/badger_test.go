@@ -1,6 +1,7 @@
 package badger
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -15,8 +16,9 @@ func TestMain(m *testing.M) {
 
 func TestBadger(t *testing.T) {
 	store := BadgerLinkList{}
+	ctx := context.Background()
 
-	err := store.Init()
+	err := store.Init(ctx)
 	assert.Nil(t, err)
 
 	t.Run("Create", func(t *testing.T) {

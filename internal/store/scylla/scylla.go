@@ -1,16 +1,18 @@
 package scylla
 
 import (
+	"context"
 	"fmt"
 	"net/url"
 	"strconv"
 
-	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/gocql/gocql"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/scylladb/gocqlx/qb"
 	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/internal/store/query"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // ScyllaConfig ...
@@ -20,13 +22,18 @@ type ScyllaConfig struct { // nolint unused
 
 // ScyllaLinkList implementation of store interface
 type ScyllaLinkList struct { // nolint unused
+	ctx context.Context
+
 	client *gocql.Session
 	config ScyllaConfig
 }
 
 // Init ...
-func (c *ScyllaLinkList) Init() error {
+func (c *ScyllaLinkList) Init(ctx context.Context) error {
 	var err error
+
+	// Set context
+	c.ctx = ctx
 
 	// Set configuration
 	c.setConfig()
