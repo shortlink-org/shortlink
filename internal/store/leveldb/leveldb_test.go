@@ -18,25 +18,25 @@ func TestLevelDB(t *testing.T) {
 	assert.Nil(t, err)
 
 	t.Run("Create", func(t *testing.T) {
-		link, err := store.Add(mock.AddLink)
+		link, err := store.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		link, err := store.Get(mock.GetLink.Hash)
+		link, err := store.Get(ctx, mock.GetLink.Hash)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
-		links, err := store.List(nil)
+		links, err := store.List(ctx, nil)
 		assert.Nil(t, err)
 		assert.Equal(t, len(links), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		assert.Nil(t, store.Delete(mock.GetLink.Hash))
+		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 
 	t.Run("Close", func(t *testing.T) {

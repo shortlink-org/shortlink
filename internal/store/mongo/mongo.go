@@ -65,7 +65,7 @@ func (m *MongoLinkList) migrate() error { // nolint unused
 }
 
 // Add ...
-func (m *MongoLinkList) Add(source *link.Link) (*link.Link, error) {
+func (m *MongoLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func (m *MongoLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Get ...
-func (m *MongoLinkList) Get(id string) (*link.Link, error) {
+func (m *MongoLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
@@ -107,7 +107,7 @@ func (m *MongoLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (m *MongoLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (m *MongoLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
@@ -148,12 +148,12 @@ func (m *MongoLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Update ...
-func (m *MongoLinkList) Update(data *link.Link) (*link.Link, error) {
+func (m *MongoLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (m *MongoLinkList) Delete(id string) error {
+func (m *MongoLinkList) Delete(ctx context.Context, id string) error {
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)

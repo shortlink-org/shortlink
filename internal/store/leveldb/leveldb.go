@@ -54,7 +54,7 @@ func (l *LevelDBLinkList) migrate() error { // nolint unused
 }
 
 // Add ...
-func (l *LevelDBLinkList) Add(source *link.Link) (*link.Link, error) {
+func (l *LevelDBLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -74,7 +74,7 @@ func (l *LevelDBLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Get ...
-func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
+func (l *LevelDBLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -95,7 +95,7 @@ func (l *LevelDBLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (l *LevelDBLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (l *LevelDBLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	links := []*link.Link{}
 	iterator := l.client.NewIterator(nil, nil)
 
@@ -124,12 +124,12 @@ func (l *LevelDBLinkList) List(filter *query.Filter) ([]*link.Link, error) { // 
 }
 
 // Update ...
-func (l *LevelDBLinkList) Update(data *link.Link) (*link.Link, error) {
+func (l *LevelDBLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (l *LevelDBLinkList) Delete(id string) error {
+func (l *LevelDBLinkList) Delete(ctx context.Context, id string) error {
 	err := l.client.Delete([]byte(id), nil)
 	return err
 }

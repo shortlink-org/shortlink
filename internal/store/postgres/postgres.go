@@ -50,7 +50,7 @@ func (p *PostgresLinkList) migrate() error { // nolint unused
 }
 
 // Get ...
-func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
+func (p *PostgresLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links").
@@ -60,7 +60,7 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 		return nil, err
 	}
 
-	rows, err := p.client.Query(context.Background(), query, args...)
+	rows, err := p.client.Query(ctx, query, args...)
 
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -68,8 +68,6 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 	if rows.Err() != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
-
-	p.client.Exec(context.Background(), "SELECT pg_sleep(10)")
 
 	var response link.Link
 
@@ -88,7 +86,7 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (p *PostgresLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links")
@@ -119,7 +117,7 @@ func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { //
 }
 
 // Add ...
-func (p *PostgresLinkList) Add(source *link.Link) (*link.Link, error) {
+func (p *PostgresLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -155,12 +153,12 @@ func (p *PostgresLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Update ...
-func (p *PostgresLinkList) Update(data *link.Link) (*link.Link, error) {
+func (p *PostgresLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (p *PostgresLinkList) Delete(id string) error {
+func (p *PostgresLinkList) Delete(ctx context.Context, id string) error {
 	// query builder
 	links := psql.Delete("links").
 		Where(squirrel.Eq{"hash": id})

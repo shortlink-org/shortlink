@@ -73,10 +73,9 @@ func (dg *DGraphLinkList) Close() error {
 
 // Migrate - init structure
 func (dg *DGraphLinkList) migrate() error { // nolint unused
-	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {
-		if err := txn.Discard(ctx); err != nil {
+		if err := txn.Discard(dg.ctx); err != nil {
 			// TODO: use logger
 			fmt.Println(err.Error())
 		}
@@ -100,12 +99,11 @@ updated_at: datetime .
 `,
 	}
 
-	return dg.client.Alter(ctx, op)
+	return dg.client.Alter(dg.ctx, op)
 }
 
 // get - private `get` method
-func (dg *DGraphLinkList) get(id string) (*DGraphLinkResponse, error) {
-	ctx := context.Background()
+func (dg *DGraphLinkList) get(ctx context.Context, id string) (*DGraphLinkResponse, error) {
 	txn := dg.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
@@ -141,8 +139,7 @@ query all($a: string) {
 }
 
 // Get public `get` method
-func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
-	ctx := context.Background()
+func (dg *DGraphLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	txn := dg.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
@@ -151,7 +148,7 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 		}
 	}()
 
-	response, err := dg.get(id)
+	response, err := dg.get(ctx, id)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
@@ -164,8 +161,7 @@ func (dg *DGraphLinkList) Get(id string) (*link.Link, error) {
 }
 
 // get - private `get` method
-func (dg *DGraphLinkList) list() (*DGraphLinkResponse, error) {
-	ctx := context.Background()
+func (dg *DGraphLinkList) list(ctx context.Context) (*DGraphLinkResponse, error) {
 	txn := dg.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
@@ -201,8 +197,7 @@ query all {
 }
 
 // List ...
-func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
-	ctx := context.Background()
+func (dg *DGraphLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	txn := dg.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
@@ -211,7 +206,7 @@ func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) { // 
 		}
 	}()
 
-	responses, err := dg.list()
+	responses, err := dg.list(ctx)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
@@ -229,13 +224,12 @@ func (dg *DGraphLinkList) List(filter *query.Filter) ([]*link.Link, error) { // 
 }
 
 // Add ...
-func (dg *DGraphLinkList) Add(source *link.Link) (*link.Link, error) {
+func (dg *DGraphLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
 	}
 
-	ctx := context.Background()
 	txn := dg.client.NewTxn()
 	defer func() {
 		if errTxn := txn.Discard(ctx); errTxn != nil {
@@ -274,13 +268,12 @@ func (dg *DGraphLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Update ...
-func (dg *DGraphLinkList) Update(data *link.Link) (*link.Link, error) {
+func (dg *DGraphLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (dg *DGraphLinkList) Delete(id string) error {
-	ctx := context.Background()
+func (dg *DGraphLinkList) Delete(ctx context.Context, id string) error {
 	txn := dg.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
@@ -289,7 +282,7 @@ func (dg *DGraphLinkList) Delete(id string) error {
 		}
 	}()
 
-	links, err := dg.get(id)
+	links, err := dg.get(ctx, id)
 	if err != nil {
 		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}

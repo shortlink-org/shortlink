@@ -55,7 +55,7 @@ func (b *BadgerLinkList) migrate() error { // nolint unused
 }
 
 // Get ...
-func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
+func (b *BadgerLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	var valCopy []byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
@@ -101,7 +101,7 @@ func (b *BadgerLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (b *BadgerLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (b *BadgerLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
@@ -150,7 +150,7 @@ func (b *BadgerLinkList) List(filter *query.Filter) ([]*link.Link, error) { // n
 }
 
 // Add ...
-func (b *BadgerLinkList) Add(source *link.Link) (*link.Link, error) {
+func (b *BadgerLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -176,12 +176,12 @@ func (b *BadgerLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Update ...
-func (b *BadgerLinkList) Update(data *link.Link) (*link.Link, error) {
+func (b *BadgerLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (b *BadgerLinkList) Delete(id string) error {
+func (b *BadgerLinkList) Delete(ctx context.Context, id string) error {
 	err := b.client.Update(func(txn *badger.Txn) error {
 		err := txn.Delete([]byte(id))
 		return err
