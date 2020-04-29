@@ -12,3 +12,4 @@
       --create-namespace=true
       --set deploy.image.tag=$CI_COMMIT_TAG
       --set deploy.image.repository=$REGISTRY;
+  retry: 2
