@@ -21,7 +21,7 @@ import (
 
 // Endpoints are a primary abstraction in go-kit. An endpoint represents a single RPC (method in our service interface)
 func makeAddLinkEndpoint() endpoint.Endpoint {
-	return func(_ context.Context, request interface{}) (interface{}, error) {
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		req, ok := request.(*link.Link)
 		if !ok {
 			return nil, nil
@@ -30,7 +30,7 @@ func makeAddLinkEndpoint() endpoint.Endpoint {
 		responseCh := make(chan interface{})
 
 		// TODO: send []byte format
-		go notify.Publish(api_type.METHOD_ADD, req, responseCh, "RESPONSE_STORE_ADD")
+		go notify.Publish(ctx, api_type.METHOD_ADD, req, responseCh, "RESPONSE_STORE_ADD")
 
 		c := <-responseCh
 		switch r := c.(type) {
@@ -45,7 +45,7 @@ func makeAddLinkEndpoint() endpoint.Endpoint {
 }
 
 func makeGetLinkEndpoint() endpoint.Endpoint {
-	return func(_ context.Context, r interface{}) (interface{}, error) {
+	return func(ctx context.Context, r interface{}) (interface{}, error) {
 		vars := mux.Vars(r.(*http.Request))
 		if vars["id"] == "" {
 			return nil, errors.New(`{"error": "need set hash URL"}`)
@@ -64,7 +64,7 @@ func makeGetLinkEndpoint() endpoint.Endpoint {
 
 		responseCh := make(chan interface{})
 
-		go notify.Publish(api_type.METHOD_GET, request.Hash, responseCh, "RESPONSE_STORE_GET")
+		go notify.Publish(ctx, api_type.METHOD_GET, request.Hash, responseCh, "RESPONSE_STORE_GET")
 
 		c := <-responseCh
 		switch r := c.(type) {
@@ -94,7 +94,7 @@ func makeGetLinkEndpoint() endpoint.Endpoint {
 }
 
 func makeGetListLinkEndpoint() endpoint.Endpoint {
-	return func(_ context.Context, request interface{}) (interface{}, error) {
+	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		var (
 			response     []*link.Link
 			responseLink []ResponseLink // for custom JSON parsing
@@ -103,7 +103,7 @@ func makeGetListLinkEndpoint() endpoint.Endpoint {
 
 		responseCh := make(chan interface{})
 
-		go notify.Publish(api_type.METHOD_LIST, nil, responseCh, "RESPONSE_STORE_LIST")
+		go notify.Publish(ctx, api_type.METHOD_LIST, nil, responseCh, "RESPONSE_STORE_LIST")
 
 		c := <-responseCh
 		switch r := c.(type) {
@@ -126,7 +126,7 @@ func makeGetListLinkEndpoint() endpoint.Endpoint {
 }
 
 func makeDeleteLinkEndpoint() endpoint.Endpoint {
-	return func(_ context.Context, r interface{}) (interface{}, error) {
+	return func(ctx context.Context, r interface{}) (interface{}, error) {
 		var err error
 		req, ok := r.(*link.Link)
 		if !ok {
@@ -135,7 +135,7 @@ func makeDeleteLinkEndpoint() endpoint.Endpoint {
 
 		responseCh := make(chan interface{})
 
-		go notify.Publish(api_type.METHOD_DELETE, req.Hash, responseCh, "RESPONSE_STORE_DELETE")
+		go notify.Publish(ctx, api_type.METHOD_DELETE, req.Hash, responseCh, "RESPONSE_STORE_DELETE")
 
 		c := <-responseCh
 		switch r := c.(type) {

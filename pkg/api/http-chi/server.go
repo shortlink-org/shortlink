@@ -45,6 +45,11 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	r.Use(middleware.Heartbeat("/healthz"))
 	r.Use(middleware.Recoverer)
 
+	// Set a timeout value on the request context (ctx), that will signal
+	// through ctx.Done() that the request has timed out and further
+	// processing should be stopped.
+	r.Use(middleware.Timeout(2 * time.Second))
+
 	// Additional middleware
 	r.Use(additionalMiddleware.Logger(log))
 

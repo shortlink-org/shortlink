@@ -56,7 +56,7 @@ func (m *MySQLLinkList) migrate() error { // nolint unused
 }
 
 // Get ...
-func (m *MySQLLinkList) Get(id string) (*link.Link, error) {
+func (m *MySQLLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	// query builder
 	links := squirrel.Select("url, hash, description").
 		From("links").
@@ -82,7 +82,7 @@ func (m *MySQLLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (m *MySQLLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (m *MySQLLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	// query builder
 	links := squirrel.Select("url, hash, description").
 		From("links")
@@ -116,7 +116,7 @@ func (m *MySQLLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Add ...
-func (m *MySQLLinkList) Add(source *link.Link) (*link.Link, error) {
+func (m *MySQLLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -141,12 +141,12 @@ func (m *MySQLLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Update ...
-func (m *MySQLLinkList) Update(data *link.Link) (*link.Link, error) {
+func (m *MySQLLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (m *MySQLLinkList) Delete(id string) error {
+func (m *MySQLLinkList) Delete(ctx context.Context, id string) error {
 	// query builder
 	links := squirrel.Delete("links").
 		Where(squirrel.Eq{"hash": id})

@@ -53,6 +53,9 @@ func main() {
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	<-sigs
 
+	// Context close
+	ctx.Done()
+
 	// Stop the service gracefully.
 	// close DB
 	if err := s.DB.Close(); err != nil {

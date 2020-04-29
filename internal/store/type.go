@@ -16,11 +16,11 @@ type DB interface { // nolint unused
 
 	Init(ctx context.Context) error
 
-	Get(id string) (*link.Link, error)
-	List(filter *query.Filter) ([]*link.Link, error)
-	Add(data *link.Link) (*link.Link, error)
-	Update(data *link.Link) (*link.Link, error)
-	Delete(id string) error
+	Get(ctx context.Context, id string) (*link.Link, error)
+	List(ctx context.Context, filter *query.Filter) ([]*link.Link, error)
+	Add(ctx context.Context, data *link.Link) (*link.Link, error)
+	Update(ctx context.Context, data *link.Link) (*link.Link, error)
+	Delete(ctx context.Context, id string) error
 }
 
 // Store abstract type

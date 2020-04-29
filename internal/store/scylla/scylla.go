@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS shortlink.links (
 }
 
 // Get ...
-func (c *ScyllaLinkList) Get(id string) (*link.Link, error) {
+func (c *ScyllaLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	stmt, values := qb.Select("shortlink.links").Columns("url", "hash", "ddd").Where(qb.EqNamed("hash", id)).ToCql()
 	iter, err := c.client.Query(stmt, values[0]).Consistency(gocql.One).Iter().SliceMap()
 	if err != nil {
@@ -119,7 +119,7 @@ func (c *ScyllaLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (c *ScyllaLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (c *ScyllaLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	iter, err := c.client.Query(`SELECT url, hash, ddd FROM shortlink.links`).Iter().SliceMap()
 	if err != nil {
 		return nil, err
@@ -140,7 +140,7 @@ func (c *ScyllaLinkList) List(filter *query.Filter) ([]*link.Link, error) { // n
 }
 
 // Add ...
-func (c *ScyllaLinkList) Add(source *link.Link) (*link.Link, error) {
+func (c *ScyllaLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -158,12 +158,12 @@ func (c *ScyllaLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Update ...
-func (c *ScyllaLinkList) Update(data *link.Link) (*link.Link, error) {
+func (c *ScyllaLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (c *ScyllaLinkList) Delete(id string) error {
+func (c *ScyllaLinkList) Delete(ctx context.Context, id string) error {
 	err := c.client.Query(`DELETE FROM shortlink.links WHERE hash = ?`, id).Exec()
 	return err
 }

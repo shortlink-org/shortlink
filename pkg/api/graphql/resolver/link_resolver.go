@@ -16,7 +16,7 @@ func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 }) (*LinkResolver, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_GET, *args.Hash, responseCh, "RESPONSE_STORE_GET")
+	go notify.Publish(ctx, api_type.METHOD_GET, *args.Hash, responseCh, "RESPONSE_STORE_GET")
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -46,7 +46,7 @@ func (r *Resolver) Links(ctx context.Context, args struct { // nolint unused
 }) (*[]*LinkResolver, error) { // nolint unused
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_LIST, args.Filter, responseCh, "RESPONSE_STORE_LIST")
+	go notify.Publish(ctx, api_type.METHOD_LIST, args.Filter, responseCh, "RESPONSE_STORE_LIST")
 
 	c := <-responseCh
 	switch r := c.(type) {
