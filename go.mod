@@ -50,7 +50,7 @@ require (
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.15.0
-	google.golang.org/genproto v0.0.0-20200428115010-c45acf45369a
+	google.golang.org/genproto v0.0.0-20200429120912-1f37eeb960b2
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.21.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
