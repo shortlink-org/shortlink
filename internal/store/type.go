@@ -1,6 +1,7 @@
 package store
 
 import (
+	"context"
 	"io"
 
 	"github.com/batazor/shortlink/internal/notify"
@@ -13,13 +14,13 @@ type DB interface { // nolint unused
 	// Closer is the interface that wraps the basic Close method.
 	io.Closer
 
-	Init() error
+	Init(ctx context.Context) error
 
-	Get(id string) (*link.Link, error)
-	List(filter *query.Filter) ([]*link.Link, error)
-	Add(data *link.Link) (*link.Link, error)
-	Update(data *link.Link) (*link.Link, error)
-	Delete(id string) error
+	Get(ctx context.Context, id string) (*link.Link, error)
+	List(ctx context.Context, filter *query.Filter) ([]*link.Link, error)
+	Add(ctx context.Context, data *link.Link) (*link.Link, error)
+	Update(ctx context.Context, data *link.Link) (*link.Link, error)
+	Delete(ctx context.Context, id string) error
 }
 
 // Store abstract type

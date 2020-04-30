@@ -1,6 +1,7 @@
 package redis
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -13,6 +14,7 @@ import (
 
 func TestRedis(t *testing.T) {
 	store := RedisLinkList{}
+	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -29,7 +31,7 @@ func TestRedis(t *testing.T) {
 		err = os.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init()
+		err = store.Init(ctx)
 		if err != nil {
 			return err
 		}
@@ -47,25 +49,25 @@ func TestRedis(t *testing.T) {
 	})
 
 	t.Run("Create", func(t *testing.T) {
-		link, err := store.Add(mock.AddLink)
+		link, err := store.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		link, err := store.Get(mock.GetLink.Hash)
+		link, err := store.Get(ctx, mock.GetLink.Hash)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
-		links, err := store.List(nil)
+		links, err := store.List(ctx, nil)
 		assert.Nil(t, err)
 		assert.Equal(t, len(links), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		assert.Nil(t, store.Delete(mock.GetLink.Hash))
+		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 
 	t.Run("Close", func(t *testing.T) {

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
@@ -78,7 +79,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 	handler := api.GetHandler()
 
-	http.Handle("/api/query", handler)
+	http.Handle("/api/query", http.TimeoutHandler(handler, config.Timeout*time.Second, `{"error":"context deadline exceeded"}`))
 	err := http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil)
 
 	return err

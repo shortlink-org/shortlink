@@ -4,6 +4,8 @@ Notify system
 
 package notify
 
+import "context"
+
 var (
 	subsribers = Notify{
 		subsribers: map[int][]Subscriber{},
@@ -28,7 +30,7 @@ func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
 	}
 }
 
-func Publish(event int, payload interface{}, cb chan<- interface{}, responseFilter string) { // nolint unused
+func Publish(ctx context.Context, event int, payload interface{}, cb chan<- interface{}, responseFilter string) { // nolint unused
 	responses := map[string]*Response{}
 	subsribers.Lock()
 	defer subsribers.Unlock()
@@ -38,7 +40,7 @@ func Publish(event int, payload interface{}, cb chan<- interface{}, responseFilt
 	}
 
 	for key := range subsribers.subsribers[event] {
-		response := subsribers.subsribers[event][key].Notify(event, payload)
+		response := subsribers.subsribers[event][key].Notify(ctx, event, payload)
 		if response.Error != nil {
 			// TODO: Need to add undo operations
 			cb <- *response

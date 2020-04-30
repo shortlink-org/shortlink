@@ -1,6 +1,7 @@
 package postgres
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -11,6 +12,7 @@ import (
 
 func TestPostgres(t *testing.T) {
 	store := PostgresLinkList{}
+	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -38,7 +40,7 @@ func TestPostgres(t *testing.T) {
 		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:postgres@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init()
+		err = store.Init(ctx)
 		if err != nil {
 			return err
 		}

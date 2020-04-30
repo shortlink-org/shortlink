@@ -45,6 +45,11 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	r.Use(middleware.Heartbeat("/healthz"))
 	r.Use(middleware.Recoverer)
 
+	// Set a timeout value on the request context (ctx), that will signal
+	// through ctx.Done() that the request has timed out and further
+	// processing should be stopped.
+	r.Use(middleware.Timeout(config.Timeout * time.Second))
+
 	// Additional middleware
 	r.Use(additionalMiddleware.Logger(log))
 
@@ -52,18 +57,18 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 	r.Mount("/api", api.Routes())
 
-	log.Info(fmt.Sprintf("Run on port %d", config.Port))
 	srv := http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),
 		Handler: chi.ServerBaseContext(ctx, r),
 
-		ReadTimeout:       1 * time.Second,  // the maximum duration for reading the entire request, including the body
-		WriteTimeout:      1 * time.Second,  // the maximum duration before timing out writes of the response
-		IdleTimeout:       30 * time.Second, // the maximum amount of time to wait for the next request when keep-alive is enabled
-		ReadHeaderTimeout: 2 * time.Second,  // the amount of time allowed to read request headers
+		ReadTimeout:       1 * time.Second,                     // the maximum duration for reading the entire request, including the body
+		WriteTimeout:      (config.Timeout + 30) * time.Second, // the maximum duration before timing out writes of the response
+		IdleTimeout:       30 * time.Second,                    // the maximum amount of time to wait for the next request when keep-alive is enabled
+		ReadHeaderTimeout: 2 * time.Second,                     // the amount of time allowed to read request headers
 	}
 
 	// start HTTP-server
+	log.Info(fmt.Sprintf("API run on port %d", config.Port))
 	err := srv.ListenAndServe()
 	return err
 }

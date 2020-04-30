@@ -1,6 +1,8 @@
 package postgres
 
-import "github.com/jackc/pgx/v4/pgxpool"
+import (
+	"github.com/jackc/pgx/v4/pgxpool"
+)
 
 // PostgresConfig ...
 type PostgresConfig struct { // nolint unused
