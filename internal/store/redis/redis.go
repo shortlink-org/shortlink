@@ -20,17 +20,12 @@ type RedisConfig struct { // nolint unused
 
 // RedisLinkList implementation of store interface
 type RedisLinkList struct { // nolint unused
-	ctx context.Context
-
 	client *redis.Client
 	config RedisConfig
 }
 
 // Init ...
 func (r *RedisLinkList) Init(ctx context.Context) error {
-	// Set context
-	r.ctx = ctx
-
 	// Set configuration
 	r.setConfig()
 

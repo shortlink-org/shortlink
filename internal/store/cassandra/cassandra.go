@@ -22,8 +22,6 @@ type CassandraConfig struct { // nolint unused
 
 // CassandraLinkList implementation of store interface
 type CassandraLinkList struct { // nolint unused
-	ctx context.Context
-
 	client *gocql.Session
 	config CassandraConfig
 }
@@ -31,9 +29,6 @@ type CassandraLinkList struct { // nolint unused
 // Init ...
 func (c *CassandraLinkList) Init(ctx context.Context) error {
 	var err error
-
-	// Set context
-	c.ctx = ctx
 
 	// Set configuration
 	c.setConfig()

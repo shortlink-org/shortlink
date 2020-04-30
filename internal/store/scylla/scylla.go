@@ -22,8 +22,6 @@ type ScyllaConfig struct { // nolint unused
 
 // ScyllaLinkList implementation of store interface
 type ScyllaLinkList struct { // nolint unused
-	ctx context.Context
-
 	client *gocql.Session
 	config ScyllaConfig
 }
@@ -31,9 +29,6 @@ type ScyllaLinkList struct { // nolint unused
 // Init ...
 func (c *ScyllaLinkList) Init(ctx context.Context) error {
 	var err error
-
-	// Set context
-	c.ctx = ctx
 
 	// Set configuration
 	c.setConfig()

@@ -20,8 +20,6 @@ type SQLiteConfig struct { // nolint unused
 
 // SQLiteLinkList implementation of store interface
 type SQLiteLinkList struct { // nolint unused
-	ctx context.Context
-
 	client *sql.DB
 	config SQLiteConfig
 }
@@ -29,9 +27,6 @@ type SQLiteLinkList struct { // nolint unused
 // Init ...
 func (lite *SQLiteLinkList) Init(ctx context.Context) error {
 	var err error
-
-	// Set context
-	lite.ctx = ctx
 
 	// Set configuration
 	lite.setConfig()

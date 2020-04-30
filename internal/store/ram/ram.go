@@ -11,18 +11,12 @@ import (
 
 // RAMLinkList implementation of store interface
 type RAMLinkList struct { // nolint unused
-	ctx context.Context
-
 	// sync.Map solver problem with cache contention
 	links sync.Map
 }
 
 // Init ...
 func (ram *RAMLinkList) Init(ctx context.Context) error { // nolint unparam
-
-	// Set context
-	ram.ctx = ctx
-
 	return nil
 }
 

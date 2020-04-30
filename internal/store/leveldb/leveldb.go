@@ -19,8 +19,6 @@ type LevelDBConfig struct { // nolint unused
 
 // LevelDBLinkList implementation of store interface
 type LevelDBLinkList struct { // nolint unused
-	ctx context.Context
-
 	client *leveldb.DB
 	config LevelDBConfig
 }
@@ -28,9 +26,6 @@ type LevelDBLinkList struct { // nolint unused
 // Init ...
 func (l *LevelDBLinkList) Init(ctx context.Context) error {
 	var err error
-
-	// Set context
-	l.ctx = ctx
 
 	// Set configuration
 	l.setConfig()
