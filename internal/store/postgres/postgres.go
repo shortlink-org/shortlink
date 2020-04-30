@@ -24,14 +24,11 @@ var (
 func (p *PostgresLinkList) Init(ctx context.Context) error {
 	var err error
 
-	// Set context
-	p.ctx = ctx
-
 	// Set configuration
 	p.setConfig()
 
 	// Connect to Postgres
-	if p.client, err = pgxpool.Connect(context.Background(), p.config.URI); err != nil {
+	if p.client, err = pgxpool.Connect(ctx, p.config.URI); err != nil {
 		return err
 	}
 
@@ -69,6 +66,11 @@ func (p *PostgresLinkList) Get(ctx context.Context, id string) (*link.Link, erro
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
+	_, err = p.client.Exec(ctx, "SELECT pg_sleep(15)")
+	if err != nil {
+		return nil, err
+	}
+
 	var response link.Link
 
 	for rows.Next() {
@@ -96,7 +98,7 @@ func (p *PostgresLinkList) List(ctx context.Context, filter *query.Filter) ([]*l
 		return nil, err
 	}
 
-	rows, err := p.client.Query(context.Background(), query, args...)
+	rows, err := p.client.Query(ctx, query, args...)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
@@ -139,7 +141,7 @@ func (p *PostgresLinkList) Add(ctx context.Context, source *link.Link) (*link.Li
 		return nil, err
 	}
 
-	row := p.client.QueryRow(context.Background(), query, args...)
+	row := p.client.QueryRow(ctx, query, args...)
 
 	errScan := row.Scan(&data.Url, &data.Hash, &data.Describe).Error()
 	if errScan == "no rows in result set" {
@@ -167,7 +169,7 @@ func (p *PostgresLinkList) Delete(ctx context.Context, id string) error {
 		return err
 	}
 
-	_, err = p.client.Exec(context.Background(), query, args...)
+	_, err = p.client.Exec(ctx, query, args...)
 	if err != nil {
 		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}

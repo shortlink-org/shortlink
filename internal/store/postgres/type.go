@@ -1,8 +1,6 @@
 package postgres
 
 import (
-	"context"
-
 	"github.com/jackc/pgx/v4/pgxpool"
 )
 
@@ -13,8 +11,6 @@ type PostgresConfig struct { // nolint unused
 
 // PostgresLinkList implementation of store interface
 type PostgresLinkList struct { // nolint unused
-	ctx context.Context
-
 	client *pgxpool.Pool
 	config PostgresConfig
 }

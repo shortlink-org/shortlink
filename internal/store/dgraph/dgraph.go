@@ -36,8 +36,6 @@ type DGraphConfig struct { // nolint unused
 
 // DGraphLinkList ...
 type DGraphLinkList struct { // nolint unused
-	ctx context.Context
-
 	conn   *grpc.ClientConn
 	client *dgo.Dgraph
 	config DGraphConfig
@@ -46,9 +44,6 @@ type DGraphLinkList struct { // nolint unused
 // Init ...
 func (dg *DGraphLinkList) Init(ctx context.Context) error {
 	var err error
-
-	// Set context
-	dg.ctx = ctx
 
 	// Set configuration
 	dg.setConfig()
@@ -59,7 +54,7 @@ func (dg *DGraphLinkList) Init(ctx context.Context) error {
 	}
 	dg.client = dgo.NewDgraphClient(api.NewDgraphClient(dg.conn))
 
-	if err = dg.migrate(); err != nil {
+	if err = dg.migrate(ctx); err != nil {
 		return err
 	}
 
@@ -72,10 +67,10 @@ func (dg *DGraphLinkList) Close() error {
 }
 
 // Migrate - init structure
-func (dg *DGraphLinkList) migrate() error { // nolint unused
+func (dg *DGraphLinkList) migrate(ctx context.Context) error { // nolint unused
 	txn := dg.client.NewTxn()
 	defer func() {
-		if err := txn.Discard(dg.ctx); err != nil {
+		if err := txn.Discard(ctx); err != nil {
 			// TODO: use logger
 			fmt.Println(err.Error())
 		}
@@ -99,7 +94,7 @@ updated_at: datetime .
 `,
 	}
 
-	return dg.client.Alter(dg.ctx, op)
+	return dg.client.Alter(ctx, op)
 }
 
 // get - private `get` method

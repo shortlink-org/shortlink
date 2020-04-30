@@ -22,8 +22,6 @@ type MongoConfig struct { // nolint unused
 
 // MongoLinkList implementation of store interface
 type MongoLinkList struct { // nolint unused
-	ctx context.Context
-
 	client *mongo.Client
 	config MongoConfig
 }
@@ -31,9 +29,6 @@ type MongoLinkList struct { // nolint unused
 // Init ...
 func (m *MongoLinkList) Init(ctx context.Context) error {
 	var err error
-
-	// Set context
-	m.ctx = ctx
 
 	// Set configuration
 	m.setConfig()

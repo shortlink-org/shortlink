@@ -1,8 +1,6 @@
 package mysql
 
 import (
-	"context"
-
 	"github.com/jmoiron/sqlx"
 )
 
@@ -13,8 +11,6 @@ type MySQLConfig struct { // nolint unused
 
 // MySQLLinkList implementation of store interface
 type MySQLLinkList struct { // nolint unused
-	ctx context.Context
-
 	client *sqlx.DB
 	config MySQLConfig
 }

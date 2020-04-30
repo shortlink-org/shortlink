@@ -18,9 +18,6 @@ import (
 func (m *MySQLLinkList) Init(ctx context.Context) error {
 	var err error
 
-	// Set context
-	m.ctx = ctx
-
 	// Set configuration
 	m.setConfig()
 
