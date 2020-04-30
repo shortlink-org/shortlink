@@ -1,6 +1,7 @@
 package sqlite
 
 import (
+	"context"
 	"database/sql"
 	"fmt"
 
@@ -24,7 +25,7 @@ type SQLiteLinkList struct { // nolint unused
 }
 
 // Init ...
-func (lite *SQLiteLinkList) Init() error {
+func (lite *SQLiteLinkList) Init(ctx context.Context) error {
 	var err error
 
 	// Set configuration
@@ -61,7 +62,7 @@ func (lite *SQLiteLinkList) migrate() error { // nolint unused
 }
 
 // Get ...
-func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
+func (lite *SQLiteLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links").
@@ -87,7 +88,7 @@ func (lite *SQLiteLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (lite *SQLiteLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")
@@ -118,7 +119,7 @@ func (lite *SQLiteLinkList) List(filter *query.Filter) ([]*link.Link, error) { /
 }
 
 // Add ...
-func (lite *SQLiteLinkList) Add(source *link.Link) (*link.Link, error) {
+func (lite *SQLiteLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -143,12 +144,12 @@ func (lite *SQLiteLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Update ...
-func (lite *SQLiteLinkList) Update(data *link.Link) (*link.Link, error) {
+func (lite *SQLiteLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (lite *SQLiteLinkList) Delete(id string) error {
+func (lite *SQLiteLinkList) Delete(ctx context.Context, id string) error {
 	// query builder
 	links := squirrel.Delete("links").
 		Where(squirrel.Eq{"hash": id})

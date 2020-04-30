@@ -1,6 +1,7 @@
 package ram
 
 import (
+	"context"
 	"fmt"
 	"sync"
 
@@ -15,7 +16,7 @@ type RAMLinkList struct { // nolint unused
 }
 
 // Init ...
-func (ram *RAMLinkList) Init() error { // nolint unparam
+func (ram *RAMLinkList) Init(ctx context.Context) error { // nolint unparam
 	return nil
 }
 
@@ -30,22 +31,22 @@ func (ram *RAMLinkList) migrate() error { // nolint unused
 }
 
 // Get ...
-func (ram *RAMLinkList) Get(hash string) (*link.Link, error) {
-	response, ok := ram.links.Load(hash)
+func (ram *RAMLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
+	response, ok := ram.links.Load(id)
 	if !ok {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: hash}, Err: fmt.Errorf("Not found id: %s", hash)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	v, ok := response.(*link.Link)
 	if !ok {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: hash}, Err: fmt.Errorf("Not found id: %s", hash)}
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return v, nil
 }
 
 // List ...
-func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (ram *RAMLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	links := []*link.Link{}
 
 	ram.links.Range(func(key interface{}, value interface{}) bool {
@@ -63,7 +64,7 @@ func (ram *RAMLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Add ...
-func (ram *RAMLinkList) Add(source *link.Link) (*link.Link, error) { // nolint unused
+func (ram *RAMLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) { // nolint unused
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -75,12 +76,12 @@ func (ram *RAMLinkList) Add(source *link.Link) (*link.Link, error) { // nolint u
 }
 
 // Update ...
-func (ram *RAMLinkList) Update(data *link.Link) (*link.Link, error) {
+func (ram *RAMLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (ram *RAMLinkList) Delete(hash string) error { // nolint unused
-	ram.links.Delete(hash)
+func (ram *RAMLinkList) Delete(ctx context.Context, id string) error { // nolint unused
+	ram.links.Delete(id)
 	return nil
 }

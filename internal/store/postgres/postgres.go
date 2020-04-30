@@ -21,14 +21,14 @@ var (
 )
 
 // Init ...
-func (p *PostgresLinkList) Init() error {
+func (p *PostgresLinkList) Init(ctx context.Context) error {
 	var err error
 
 	// Set configuration
 	p.setConfig()
 
 	// Connect to Postgres
-	if p.client, err = pgxpool.Connect(context.Background(), p.config.URI); err != nil {
+	if p.client, err = pgxpool.Connect(ctx, p.config.URI); err != nil {
 		return err
 	}
 
@@ -47,7 +47,7 @@ func (p *PostgresLinkList) migrate() error { // nolint unused
 }
 
 // Get ...
-func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
+func (p *PostgresLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links").
@@ -57,14 +57,16 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 		return nil, err
 	}
 
-	rows, err := p.client.Query(context.Background(), query, args...)
+	rows, err := p.client.Query(ctx, query, args...)
 
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
+	if rows.Err() != nil {
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	}
 
 	var response link.Link
-
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
 		if err != nil {
@@ -72,11 +74,15 @@ func (p *PostgresLinkList) Get(id string) (*link.Link, error) {
 		}
 	}
 
+	if response.Hash == "" {
+		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+	}
+
 	return &response, nil
 }
 
 // List ...
-func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (p *PostgresLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links")
@@ -86,7 +92,7 @@ func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { //
 		return nil, err
 	}
 
-	rows, err := p.client.Query(context.Background(), query, args...)
+	rows, err := p.client.Query(ctx, query, args...)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
@@ -107,7 +113,7 @@ func (p *PostgresLinkList) List(filter *query.Filter) ([]*link.Link, error) { //
 }
 
 // Add ...
-func (p *PostgresLinkList) Add(source *link.Link) (*link.Link, error) {
+func (p *PostgresLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -129,7 +135,7 @@ func (p *PostgresLinkList) Add(source *link.Link) (*link.Link, error) {
 		return nil, err
 	}
 
-	row := p.client.QueryRow(context.Background(), query, args...)
+	row := p.client.QueryRow(ctx, query, args...)
 
 	errScan := row.Scan(&data.Url, &data.Hash, &data.Describe).Error()
 	if errScan == "no rows in result set" {
@@ -143,12 +149,12 @@ func (p *PostgresLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Update ...
-func (p *PostgresLinkList) Update(data *link.Link) (*link.Link, error) {
+func (p *PostgresLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (p *PostgresLinkList) Delete(id string) error {
+func (p *PostgresLinkList) Delete(ctx context.Context, id string) error {
 	// query builder
 	links := psql.Delete("links").
 		Where(squirrel.Eq{"hash": id})
@@ -157,7 +163,7 @@ func (p *PostgresLinkList) Delete(id string) error {
 		return err
 	}
 
-	_, err = p.client.Exec(context.Background(), query, args...)
+	_, err = p.client.Exec(ctx, query, args...)
 	if err != nil {
 		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
@@ -167,7 +173,7 @@ func (p *PostgresLinkList) Delete(id string) error {
 
 // setConfig - set configuration
 func (p *PostgresLinkList) setConfig() {
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s", "shortlink", "shortlink", "shortlink")
+	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s", "shortlink", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)

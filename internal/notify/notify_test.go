@@ -1,6 +1,7 @@
 package notify
 
 import (
+	"context"
 	"testing"
 	"time"
 
@@ -16,7 +17,7 @@ func TestMain(m *testing.M) {
 
 type subscriber struct{}
 
-func (subscriber) Notify(event int, payload interface{}) *Response {
+func (subscriber) Notify(ctx context.Context, event int, payload interface{}) *Response {
 	return &Response{
 		Payload: nil,
 		Error:   nil,
@@ -48,6 +49,7 @@ func TestUnsubscribe(t *testing.T) {
 
 // TODO: Need kafka-service or add mock
 func TestPublish(t *testing.T) {
+	ctx := context.Background()
 	sub := subscriber{}
 
 	// Subscribe to Event
@@ -61,7 +63,7 @@ func TestPublish(t *testing.T) {
 	responseCh := make(chan interface{})
 
 	// Publish
-	go Publish(api_type.METHOD_ADD, "hello world", responseCh, "RESPONSE_STORE_ADD")
+	go Publish(ctx, api_type.METHOD_ADD, "hello world", responseCh, "RESPONSE_STORE_ADD")
 
 	select {
 	case c := <-responseCh:

@@ -1,6 +1,9 @@
 package notify
 
-import "sync"
+import (
+	"context"
+	"sync"
+)
 
 type Publisher interface { // nolint unused
 	Subscribe(event int, subscriber Subscriber)
@@ -8,7 +11,7 @@ type Publisher interface { // nolint unused
 }
 
 type Subscriber interface {
-	Notify(event int, payload interface{}) *Response
+	Notify(ctx context.Context, event int, payload interface{}) *Response
 }
 
 type Notify struct {

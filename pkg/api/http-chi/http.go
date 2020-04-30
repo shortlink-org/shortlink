@@ -48,7 +48,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	responseCh := make(chan interface{})
 
 	// TODO: send []byte format
-	go notify.Publish(api_type.METHOD_ADD, newLink, responseCh, "RESPONSE_STORE_ADD")
+	go notify.Publish(r.Context(), api_type.METHOD_ADD, newLink, responseCh, "RESPONSE_STORE_ADD")
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -102,7 +102,7 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_GET, request.Hash, responseCh, "RESPONSE_STORE_GET")
+	go notify.Publish(r.Context(), api_type.METHOD_GET, request.Hash, responseCh, "RESPONSE_STORE_GET")
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -153,7 +153,7 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_LIST, nil, responseCh, "RESPONSE_STORE_LIST")
+	go notify.Publish(r.Context(), api_type.METHOD_LIST, nil, responseCh, "RESPONSE_STORE_LIST")
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -218,7 +218,7 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(api_type.METHOD_DELETE, request.Hash, responseCh, "RESPONSE_STORE_DELETE")
+	go notify.Publish(r.Context(), api_type.METHOD_DELETE, request.Hash, responseCh, "RESPONSE_STORE_DELETE")
 
 	c := <-responseCh
 	switch r := c.(type) {

@@ -1,14 +1,16 @@
 package redis
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
 	"github.com/spf13/viper"
 
+	"github.com/go-redis/redis"
+
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
-	"github.com/go-redis/redis"
 )
 
 // RedisConfig ...
@@ -23,7 +25,7 @@ type RedisLinkList struct { // nolint unused
 }
 
 // Init ...
-func (r *RedisLinkList) Init() error {
+func (r *RedisLinkList) Init(ctx context.Context) error {
 	// Set configuration
 	r.setConfig()
 
@@ -52,7 +54,7 @@ func (r *RedisLinkList) migrate() error { // nolint unused
 }
 
 // Get ...
-func (r *RedisLinkList) Get(id string) (*link.Link, error) {
+func (r *RedisLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	val, err := r.client.Get(id).Result()
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -68,7 +70,7 @@ func (r *RedisLinkList) Get(id string) (*link.Link, error) {
 }
 
 // List ...
-func (r *RedisLinkList) List(filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (r *RedisLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	keys := r.client.Keys("*")
 	links := []*link.Link{}
 
@@ -90,7 +92,7 @@ func (r *RedisLinkList) List(filter *query.Filter) ([]*link.Link, error) { // no
 }
 
 // Add ...
-func (r *RedisLinkList) Add(source *link.Link) (*link.Link, error) {
+func (r *RedisLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -109,12 +111,12 @@ func (r *RedisLinkList) Add(source *link.Link) (*link.Link, error) {
 }
 
 // Update ...
-func (r *RedisLinkList) Update(data *link.Link) (*link.Link, error) {
+func (r *RedisLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (r *RedisLinkList) Delete(id string) error {
+func (r *RedisLinkList) Delete(ctx context.Context, id string) error {
 	if err := r.client.Del(id).Err(); err != nil {
 		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
