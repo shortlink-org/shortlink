@@ -1,5 +1,9 @@
 package api_type
 
+import (
+	"time"
+)
+
 const (
 	METHOD_ADD    = iota // nolint unused
 	METHOD_GET           // nolint unused
@@ -10,5 +14,6 @@ const (
 
 // Config - base configuration for API
 type Config struct { // nolint unused
-	Port int
+	Port    int
+	Timeout time.Duration
 }

@@ -66,13 +66,7 @@ func (p *PostgresLinkList) Get(ctx context.Context, id string) (*link.Link, erro
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
-	_, err = p.client.Exec(ctx, "SELECT pg_sleep(15)")
-	if err != nil {
-		return nil, err
-	}
-
 	var response link.Link
-
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
 		if err != nil {

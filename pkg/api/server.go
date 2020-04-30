@@ -21,9 +21,11 @@ func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opent
 
 	viper.SetDefault("API_TYPE", "http-chi")
 	viper.SetDefault("API_PORT", 7070)
+	viper.SetDefault("API_TIMEOUT", 60)
 
 	config := api_type.Config{
-		Port: viper.GetInt("API_PORT"),
+		Port:    viper.GetInt("API_PORT"),
+		Timeout: viper.GetDuration("API_TIMEOUT"),
 	}
 
 	serverType := viper.GetString("API_TYPE")

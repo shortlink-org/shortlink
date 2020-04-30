@@ -22,7 +22,8 @@ import (
 
 // API ...
 type API struct { // nolint unused
-	ctx context.Context
+	ctx    context.Context
+	config api_type.Config
 }
 
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
@@ -55,6 +56,10 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	// Register custom error handler
 	runtime.HTTPError = api.CustomHTTPError
 
+	// DefaultContextTimeout is used for gRPC call context.WithTimeout whenever a Grpc-Timeout inbound
+	// header isn't present. If the value is 0 the sent `context` will not have a timeout.
+	runtime.DefaultContextTimeout = config.Timeout * time.Second
+
 	opts := []grpc.DialOption{
 		grpc.WithInsecure(),
 		grpc.WithUnaryInterceptor(
@@ -72,13 +77,14 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 		Addr:    fmt.Sprintf(":%d", config.Port),
 		Handler: api.tracingWrapper(gw),
 
-		ReadTimeout:       1 * time.Second,  // the maximum duration for reading the entire request, including the body
-		WriteTimeout:      1 * time.Second,  // the maximum duration before timing out writes of the response
-		IdleTimeout:       30 * time.Second, // the maximum amount of time to wait for the next request when keep-alive is enabled
-		ReadHeaderTimeout: 2 * time.Second,  // the amount of time allowed to read request headers
+		ReadTimeout:       1 * time.Second,                     // the maximum duration for reading the entire request, including the body
+		WriteTimeout:      (config.Timeout + 30) * time.Second, // the maximum duration before timing out writes of the response
+		IdleTimeout:       30 * time.Second,                    // the maximum amount of time to wait for the next request when keep-alive is enabled
+		ReadHeaderTimeout: 2 * time.Second,                     // the amount of time allowed to read request headers
 	}
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
+	log.Info(fmt.Sprintf("API run on port %d", config.Port))
 	err = srv.ListenAndServe()
 	return err
 }

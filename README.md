@@ -127,6 +127,7 @@ Use `.env` file in `pkg/ui/[nuxt/next/etc]` directories for setting your UI
 | TRACER_URI          | localhost:6831                                              | Tracing addr:host                                                                              |
 | API_TYPE            | http-chi                                                    | Select: http-chi, gRPC-web, graphql, cloudevents, go-kit                                       |
 | API_PORT            | 7070                                                        | API port                                                                                       |
+| API_TIMEOUT         | 60                                                          | Request Timeout                                                                                |
 | MQ_ENABLED          | false                                                       | Enabled MQ-service                                                                             |
 | MQ_TYPE             | kafka                                                       | Select: kafka, nats                                                                            |
 | MQ_KAFKA_URI        | localhost:9092                                              | Kafka URI                                                                                      |
@@ -178,7 +179,9 @@ ansible-playbook playbooks/playbook.yml
 ##### HELM
 
 + **common** - run common tools (ingress)
-+ **shortlink** - run shortlink applications (shortlink, logger, ui)
++ **shortlink-\*** - run shortlink applications (api, logger, ui)
++ **chaos** - run chaos daemon
++ **ingress** - run ingress ;-)
 
 ##### DNS
 
