@@ -1,4 +1,4 @@
-FROM node:13.13 as builder
+FROM node:13.14 as builder
 
 WORKDIR /app
 ADD ./pkg/ui/nuxt /app/
