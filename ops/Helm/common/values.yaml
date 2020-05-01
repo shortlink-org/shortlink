@@ -2,8 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-ingress:
-  enabled: false
 istio:
   enabled: false
 
@@ -15,6 +13,8 @@ serviceAccount:
   name: shortlink
 
 nginx-ingress:
+  enabled: false
+
   ## nginx configuration
   ## Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
   ##
@@ -53,3 +53,8 @@ nginx-ingress:
 
       prometheusRule:
         enabled: true
+
+jaeger-operator:
+  enabled: false
+
+
