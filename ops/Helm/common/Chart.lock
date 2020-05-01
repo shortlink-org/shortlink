@@ -2,5 +2,8 @@ dependencies:
 - name: nginx-ingress
   repository: https://kubernetes-charts.storage.googleapis.com/
   version: 1.29.6
-digest: sha256:34d227d3fcea15c638fdb3bd0087a7eb6d878300641f4469105e0e902b36c4eb
-generated: "2020-02-02T05:04:02.023797438+03:00"
+- name: jaeger-operator
+  repository: https://jaegertracing.github.io/helm-charts
+  version: 2.14.2
+digest: sha256:cab2dd2ed4c2e73e43ad423bd53c16845970b4a8c8d415ab7fb7fadcf28694a7
+generated: "2020-05-01T08:04:47.04243227+03:00"

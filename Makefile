@@ -144,6 +144,10 @@ docker-push: ## Publish the container
 PATH_TO_SHORTLINK_CHART := ops/Helm/shortlink-ui
 PATH_TO_COMMON_CHART := ops/Helm/common
 
+helm-init: ## helm init
+	@add custom repo for helm
+	@helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
+
 helm-lint: ## Check Helm chart
 	@helm lint ${PATH_TO_SHORTLINK_CHART}
 	@helm lint ${PATH_TO_COMMON_CHART}
@@ -159,6 +163,7 @@ helm-clean: ## Clean artifact from K8S
 	@helm del ${PROJECT_NAME}
 
 helm-common: ## run common service for
+	@make helm-init
 	@echo helm install/update common service
 	@helm upgrade common ${PATH_TO_COMMON_CHART} \
 		--install \
