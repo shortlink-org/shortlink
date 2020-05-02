@@ -21,7 +21,7 @@ func TestRedis(t *testing.T) {
 	assert.Nil(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("redis", "latest", nil)
+	resource, err := pool.Run("redis", "6.0-alpine", nil)
 	assert.Nil(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet

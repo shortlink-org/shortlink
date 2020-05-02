@@ -3,7 +3,7 @@ version: '2.4'
 services:
 
   redis:
-    image: redis:alpine
+    image: redis:6.0-alpine
     init: true
     restart: on-failure
     container_name: redis
