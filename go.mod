@@ -52,7 +52,7 @@ require (
 	go.uber.org/zap v1.15.0
 	google.golang.org/genproto v0.0.0-20200429120912-1f37eeb960b2
 	google.golang.org/grpc v1.29.1
-	google.golang.org/protobuf v1.21.0
+	google.golang.org/protobuf v1.22.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 )
