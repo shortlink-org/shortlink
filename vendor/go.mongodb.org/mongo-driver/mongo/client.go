@@ -333,6 +333,10 @@ func (c *Client) configure(opts *options.ClientOptions) error {
 	var appName string
 	if opts.AppName != nil {
 		appName = *opts.AppName
+
+		serverOpts = append(serverOpts, topology.WithServerAppName(func(string) string {
+			return appName
+		}))
 	}
 	// Compressors & ZlibLevel
 	var comps []string
@@ -808,6 +812,7 @@ func (c *Client) Watch(ctx context.Context, pipeline interface{},
 		client:         c,
 		registry:       c.registry,
 		streamType:     ClientStream,
+		crypt:          c.crypt,
 	}
 
 	return newChangeStream(ctx, csConfig, pipeline, opts...)
