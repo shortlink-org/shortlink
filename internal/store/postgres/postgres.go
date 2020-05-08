@@ -173,7 +173,7 @@ func (p *PostgresLinkList) Delete(ctx context.Context, id string) error {
 
 // setConfig - set configuration
 func (p *PostgresLinkList) setConfig() {
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s", "shortlink", "shortlink", "shortlink")
+	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s?pool_max_conns=10", "shortlink", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)
