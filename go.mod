@@ -3,8 +3,8 @@ module github.com/batazor/shortlink
 go 1.14
 
 require (
-	github.com/Masterminds/squirrel v1.2.0
-	github.com/Shopify/sarama v1.26.1
+	github.com/Masterminds/squirrel v1.3.0
+	github.com/Shopify/sarama v1.26.3
 	github.com/cloudevents/sdk-go v1.2.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.0.3
@@ -16,8 +16,8 @@ require (
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6
-	github.com/golang/protobuf v1.4.0
+	github.com/gocql/gocql v0.0.0-20200505093417-effcbd8bcf0e
+	github.com/golang/protobuf v1.4.1
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.7.4
 	github.com/graph-gophers/graphql-go v0.0.0-20200309224638-dae41bde9ef9
@@ -26,7 +26,7 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.6.0
 	github.com/jmoiron/sqlx v1.2.0
-	github.com/lib/pq v1.4.0
+	github.com/lib/pq v1.5.1
 	github.com/markbates/pkger v0.15.1
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
 	github.com/nats-io/nats.go v1.9.2
@@ -36,7 +36,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.6.0
 	github.com/scylladb/gocqlx v1.5.0
-	github.com/sirupsen/logrus v1.5.0
+	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
@@ -46,13 +46,13 @@ require (
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/uber/jaeger-client-go v2.23.1+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	go.mongodb.org/mongo-driver v1.3.2
+	go.mongodb.org/mongo-driver v1.3.3
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.15.0
-	google.golang.org/genproto v0.0.0-20200429120912-1f37eeb960b2
+	google.golang.org/genproto v0.0.0-20200507105951-43844f6eee31
 	google.golang.org/grpc v1.29.1
-	google.golang.org/protobuf v1.21.0
+	google.golang.org/protobuf v1.22.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 )

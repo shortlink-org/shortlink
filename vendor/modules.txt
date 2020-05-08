@@ -3,7 +3,7 @@ github.com/Azure/go-ansiterm
 github.com/Azure/go-ansiterm/winterm
 # github.com/DataDog/zstd v1.4.1
 github.com/DataDog/zstd
-# github.com/Masterminds/squirrel v1.2.0
+# github.com/Masterminds/squirrel v1.3.0
 ## explicit
 github.com/Masterminds/squirrel
 # github.com/Microsoft/go-winio v0.4.14
@@ -11,7 +11,7 @@ github.com/Microsoft/go-winio
 github.com/Microsoft/go-winio/pkg/guid
 # github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5
 github.com/Nvveen/Gotty
-# github.com/Shopify/sarama v1.26.1
+# github.com/Shopify/sarama v1.26.3
 ## explicit
 github.com/Shopify/sarama
 # github.com/beorn7/perks v1.0.1
@@ -112,7 +112,7 @@ github.com/go-sql-driver/mysql
 github.com/go-stack/stack
 # github.com/gobuffalo/here v0.6.0
 github.com/gobuffalo/here
-# github.com/gocql/gocql v0.0.0-20200410100145-b454769479c6
+# github.com/gocql/gocql v0.0.0-20200505093417-effcbd8bcf0e
 ## explicit
 github.com/gocql/gocql
 github.com/gocql/gocql/internal/lru
@@ -120,7 +120,7 @@ github.com/gocql/gocql/internal/murmur
 github.com/gocql/gocql/internal/streams
 # github.com/golang/groupcache v0.0.0-20190702054246-869f871628b6
 github.com/golang/groupcache/lru
-# github.com/golang/protobuf v1.4.0
+# github.com/golang/protobuf v1.4.1
 ## explicit
 github.com/golang/protobuf/descriptor
 github.com/golang/protobuf/jsonpb
@@ -223,13 +223,13 @@ github.com/klauspost/compress/huff0
 github.com/klauspost/compress/snappy
 github.com/klauspost/compress/zstd
 github.com/klauspost/compress/zstd/internal/xxhash
-# github.com/konsorten/go-windows-terminal-sequences v1.0.2
+# github.com/konsorten/go-windows-terminal-sequences v1.0.3
 github.com/konsorten/go-windows-terminal-sequences
 # github.com/lann/builder v0.0.0-20180802200727-47ae307949d0
 github.com/lann/builder
 # github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0
 github.com/lann/ps
-# github.com/lib/pq v1.4.0
+# github.com/lib/pq v1.5.1
 ## explicit
 github.com/lib/pq
 github.com/lib/pq/oid
@@ -243,11 +243,7 @@ github.com/magiconair/properties
 ## explicit
 github.com/markbates/pkger
 github.com/markbates/pkger/internal/maps
-github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa
-github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa/filters
 github.com/markbates/pkger/pkging
-github.com/markbates/pkger/pkging/embed
-github.com/markbates/pkger/pkging/mem
 github.com/markbates/pkger/pkging/stdos
 # github.com/mattn/go-sqlite3 v2.0.3+incompatible
 ## explicit
@@ -337,7 +333,7 @@ github.com/rcrowley/go-metrics
 # github.com/scylladb/gocqlx v1.5.0
 ## explicit
 github.com/scylladb/gocqlx/qb
-# github.com/sirupsen/logrus v1.5.0
+# github.com/sirupsen/logrus v1.6.0
 ## explicit
 github.com/sirupsen/logrus
 # github.com/spf13/afero v1.2.2
@@ -402,7 +398,7 @@ github.com/uber/jaeger-lib/metrics
 github.com/xdg/scram
 # github.com/xdg/stringprep v1.0.0
 github.com/xdg/stringprep
-# go.mongodb.org/mongo-driver v1.3.2
+# go.mongodb.org/mongo-driver v1.3.3
 ## explicit
 go.mongodb.org/mongo-driver/bson
 go.mongodb.org/mongo-driver/bson/bsoncodec
@@ -518,7 +514,7 @@ golang.org/x/tools/go/internal/gcimporter
 # golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543
 golang.org/x/xerrors
 golang.org/x/xerrors/internal
-# google.golang.org/genproto v0.0.0-20200429120912-1f37eeb960b2
+# google.golang.org/genproto v0.0.0-20200507105951-43844f6eee31
 ## explicit
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
@@ -565,7 +561,7 @@ google.golang.org/grpc/serviceconfig
 google.golang.org/grpc/stats
 google.golang.org/grpc/status
 google.golang.org/grpc/tap
-# google.golang.org/protobuf v1.21.0
+# google.golang.org/protobuf v1.22.0
 ## explicit
 google.golang.org/protobuf/encoding/protojson
 google.golang.org/protobuf/encoding/prototext

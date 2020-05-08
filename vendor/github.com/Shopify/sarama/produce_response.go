@@ -171,6 +171,14 @@ func (r *ProduceResponse) version() int16 {
 	return r.Version
 }
 
+func (r *ProduceResponse) headerVersion() int16 {
+	return 0
+}
+
+func (r *ProduceResponse) requiredVersion() KafkaVersion {
+	return MinVersion
+}
+
 func (r *ProduceResponse) GetBlock(topic string, partition int32) *ProduceResponseBlock {
 	if r.Blocks == nil {
 		return nil
