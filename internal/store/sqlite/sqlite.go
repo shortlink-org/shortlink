@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
@@ -34,6 +35,10 @@ func (lite *SQLiteLinkList) Init(ctx context.Context) error {
 	if lite.client, err = sql.Open("sqlite3", lite.config.Path); err != nil {
 		return err
 	}
+
+	lite.client.SetMaxOpenConns(25)
+	lite.client.SetMaxIdleConns(2)
+	lite.client.SetConnMaxLifetime(time.Minute)
 
 	sqlStmt := `
 		CREATE TABLE IF NOT EXISTS links (

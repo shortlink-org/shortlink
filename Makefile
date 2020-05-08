@@ -192,6 +192,16 @@ minikube-down: ## minikube delete
 istio-run: ## Run istio
 	@istioctl manifest apply --set profile=demo
 
+
+# GITLAB ===============================================================================================================
+gitlab-minikube: ## Install GitLab to minikube
+	@helm repo add gitlab https://charts.gitlab.io/
+	@helm repo update
+	@helm upgrade -n gitlab --install gitlab gitlab/gitlab \
+      --namespace=gitlab \
+      --create-namespace=true \
+	  -f ops/docker-compose/tooling/gitlab/helm-value.yaml
+
 # UI ===================================================================================================================
 PATH_TO_UI_NUXT := pkg/ui/nuxt
 

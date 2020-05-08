@@ -1,0 +1,46 @@
+# Docs: https://gitlab.com/gitlab-org/charts/gitlab/blob/master/examples/values-minikube.yaml
+
+# values-minikube.yaml
+# This example intended as baseline to use Minikube for the deployment of GitLab
+# - Services that are not compatible with how Minikube runs are disabled
+# - Configured to use 192.168.99.100, and nip.io for the domain
+
+# Minimal settings
+global:
+  ingress:
+    configureCertmanager: false
+    class: "nginx"
+  hosts:
+    domain: gitlab:32363
+    externalIP: 172.17.0.2
+  # Disable Rails bootsnap cache (temporary)
+  rails:
+    bootsnap:
+      enabled: false
+# Don't use certmanager, we'll self-sign
+certmanager:
+  install: false
+# Use the `ingress` addon, not our Ingress (can't map 22/80/443)
+nginx-ingress:
+  enabled: false
+# Save resources, only 2 CPU
+prometheus:
+  install: false
+# GitLab Runner isn't a big fan of self-signed certificates
+gitlab-runner:
+  install: false
+# Reduce replica counts, reducing CPU & memory requirements
+gitlab:
+  webservice:
+    minReplicas: 1
+    maxReplicas: 1
+  sidekiq:
+    minReplicas: 1
+    maxReplicas: 1
+  gitlab-shell:
+    minReplicas: 1
+    maxReplicas: 1
+registry:
+  hpa:
+    minReplicas: 1
+    maxReplicas: 1
