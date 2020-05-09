@@ -3,7 +3,7 @@ module github.com/batazor/shortlink
 go 1.14
 
 require (
-	github.com/Masterminds/squirrel v1.3.0
+	github.com/Masterminds/squirrel v1.4.0
 	github.com/Shopify/sarama v1.26.3
 	github.com/cloudevents/sdk-go v1.2.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
