@@ -11,12 +11,15 @@ global:
     configureCertmanager: false
     class: "nginx"
   hosts:
-    domain: gitlab:32363
+    domain: 172.17.0.2.nip.io
     externalIP: 172.17.0.2
+    ssh: 172.17.0.2.nip.io
   # Disable Rails bootsnap cache (temporary)
   rails:
     bootsnap:
       enabled: false
+  shell:
+    port: 4222
 # Don't use certmanager, we'll self-sign
 certmanager:
   install: false
