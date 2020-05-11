@@ -35,6 +35,13 @@ Shortlink service
 make run
 ```
 
+##### DNS/HTTP
+
++ `ui-nuxt.local`
++ `shortlink.local`
+
+Add `127.0.0.1 *.local` to your `/etc/hosts`
+
 ### HTTP API
 
 + Import [Postman link](./docs/shortlink.postman_collection.json) for
