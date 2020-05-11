@@ -44,6 +44,8 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 
 ### HTTP API
 
+![arhitecture.json](./docs/arhitecture.png)
+
 + Import [Postman link](./docs/shortlink.postman_collection.json) for
   test HTTP API
 
