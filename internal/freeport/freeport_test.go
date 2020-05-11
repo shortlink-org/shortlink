@@ -20,7 +20,9 @@ func TestGetFreePort(t *testing.T) {
 
 	// Try to listen on the port
 	l, err := net.Listen("tcp", "localhost"+":"+strconv.Itoa(port))
-	defer l.Close()
+	defer func() {
+		_ = l.Close()
+	}()
 	assert.Nil(t, err)
 }
 
