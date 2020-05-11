@@ -1,6 +1,11 @@
 variables:
   DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://127.0.0.1:2375
+#  DOCKER_HOST: tcp://127.0.0.1:2375
+  # Create the certificates inside this directory for both the server
+  # and client. The certificates used by the client will be created in
+  # /certs/client so we only need to share this directory with the
+  # volume mount in `config.toml`.
+  DOCKER_TLS_CERTDIR: "/certs"
 
 # DEFAULT ==============================================================================================================
 default:
