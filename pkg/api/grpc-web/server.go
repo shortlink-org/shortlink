@@ -22,8 +22,7 @@ import (
 
 // API ...
 type API struct { // nolint unused
-	ctx    context.Context
-	config api_type.Config
+	ctx context.Context
 }
 
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}

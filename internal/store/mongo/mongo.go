@@ -39,7 +39,7 @@ func (m *MongoLinkList) Init(ctx context.Context) error {
 		panic(err)
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 	err = m.client.Connect(ctx)
 	if err != nil {
@@ -68,7 +68,7 @@ func (m *MongoLinkList) Add(ctx context.Context, source *link.Link) (*link.Link,
 
 	collection := m.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
 	_, err = collection.InsertOne(ctx, &data)
@@ -83,7 +83,7 @@ func (m *MongoLinkList) Add(ctx context.Context, source *link.Link) (*link.Link,
 func (m *MongoLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
 	collection := m.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
@@ -151,7 +151,7 @@ func (m *MongoLinkList) Update(ctx context.Context, data *link.Link) (*link.Link
 func (m *MongoLinkList) Delete(ctx context.Context, id string) error {
 	collection := m.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
