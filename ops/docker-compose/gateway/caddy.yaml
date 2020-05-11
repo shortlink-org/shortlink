@@ -2,9 +2,9 @@ version: '2.4'
 
 services:
 
-  nginx:
-    image: nginx:1.17-alpine
-    container_name: nginx
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
     ports:
       - "80:80"
       - "443:443"
@@ -18,9 +18,7 @@ services:
       - "10.5.0.2"
     dns_search: coredns
     volumes:
-      - ./ops/docker-compose/gateway/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./ops/docker-compose/gateway/nginx/conf.d:/etc/nginx/conf.d
-      - ./ops/docker-compose/gateway/nginx/templates:/etc/nginx/templates
+      - ./ops/docker-compose/gateway/caddy/Caddyfile:/etc/caddy/Caddyfile
     # logging:
     #   driver: fluentd
     #   options:

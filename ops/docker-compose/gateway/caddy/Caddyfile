@@ -1,0 +1,7 @@
+ui-nuxt.local {
+  reverse_proxy * ui-nuxt:80
+}
+
+shortlink.local {
+  reverse_proxy * shortlink:7070
+}
