@@ -1,0 +1,25 @@
+version: '2.4'
+
+services:
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - fluentd
+      - coredns
+      - shortlink
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    volumes:
+      - ./ops/docker-compose/gateway/caddy/Caddyfile:/etc/caddy/Caddyfile
+    # logging:
+    #   driver: fluentd
+    #   options:
+    #     tag: traefik

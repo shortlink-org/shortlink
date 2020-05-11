@@ -9,8 +9,8 @@ upstream backend {
 # }
 
 server {
-  listen 80 default_server;
-  server_name _;
+  listen 80;
+  server_name shortlink.local;
 
   include templates/default.conf;
 
