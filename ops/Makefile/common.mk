@@ -17,7 +17,11 @@ dep: ## Install dependencies for this project
 run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
+         -f ops/docker-compose/application/shortlink.yaml \
+         -f ops/docker-compose/application/logger.yaml \
+         -f ops/docker-compose/application/ui-nuxt.yaml \
          -f ops/docker-compose/database/postgres.yaml \
+         -f ops/docker-compose/gateway/caddy.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
          -f ops/docker-compose/tooling/prometheus.yaml \
          -f ops/docker-compose/tooling/loki.yaml \
