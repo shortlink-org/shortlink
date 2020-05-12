@@ -34,6 +34,8 @@ golint:
     paths:
       - gl-code-quality-report.json
     expire_in: 7 days
+  before_script:
+    - apk add --update jq
   script:
     # Use default .golangci.yml file from the image if one is not present in the project root.
     - "[ -e .golangci.yml ] || cp /golangci/.golangci.yml ."
