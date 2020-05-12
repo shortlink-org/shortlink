@@ -211,6 +211,7 @@ ansible-playbook playbooks/playbook.yml
 
 - SURGE_LOGIN
 - SURGE_TOKEN
+- GITLAB_API_TOKEN - API TOKEN
 
 ##### Support environment
 
