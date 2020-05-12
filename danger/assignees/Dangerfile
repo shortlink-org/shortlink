@@ -1,0 +1,10 @@
+if gitlab.mr_json["assignees"].none?
+  warn "This merge request does not have an assignee yet. Setting an assignee clarifies who needs to take action on the merge request at any given time."
+
+  reviewers = (RELEASE_TEAM - [gitlab.mr_author]).sample(2)
+  maintainers = (MAINTAINERS - [gitlab.mr_author]).sample(1)
+
+  message "Suggested reviewer: `@#{reviewers.first}`\nSuggested maintainer: `@#{maintainers.last}`"
+end
+
+# vim: ft=ruby
