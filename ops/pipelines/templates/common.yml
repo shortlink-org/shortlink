@@ -12,13 +12,3 @@ default:
   services:
     - name: docker:19.03-dind
       alias: localhost # necessary for correct addressing to services running in docker
-
-# CACHE ================================================================================================================
-.go-cache:
-  variables:
-    GOPATH: $CI_PROJECT_DIR/.go
-  before_script:
-    - mkdir -p .go
-  cache:
-    paths:
-      - .go/pkg/mod/

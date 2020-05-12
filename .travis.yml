@@ -50,7 +50,7 @@ matrix:
             # .golangci.yml file at the top level of your repo.
             before_install:
               # binary will be $(go env GOPATH)/bin/golangci-lint
-              - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.22.2
+              - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.26.0
             script:
               - make golint
           - name: gosec

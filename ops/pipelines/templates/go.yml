@@ -1,4 +1,14 @@
+.go-cache:
+  variables:
+    GOPATH: $CI_PROJECT_DIR/.go
+  before_script:
+    - mkdir -p .go
+  cache:
+    paths:
+      - .go/pkg/mod/
+
 .job_teplate_go: &job_go
+  extends: .go-cache
   stage: test
   image: golang:1.14-buster
   interruptible: true

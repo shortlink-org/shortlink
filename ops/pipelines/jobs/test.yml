@@ -26,12 +26,20 @@ golint:
   extends:
     - .job_teplate_go
   image:
-    name: golangci/golangci-lint:v1.25.1-alpine
+    name: golangci/golangci-lint:v1.26-alpine
     entrypoint: [""]
-  tags:
-    - docker
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.json
+    paths:
+      - gl-code-quality-report.json
+    expire_in: 7 days
   script:
-    - golangci-lint run ./... --skip-dirs-use-default
+    # Use default .golangci.yml file from the image if one is not present in the project root.
+    - "[ -e .golangci.yml ] || cp /golangci/.golangci.yml ."
+    # Write the code coverage report to gl-code-quality-report.json
+    # and print linting issues to stdout in the format: path/to/file:line description
+    - golangci-lint run --out-format code-climate | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
