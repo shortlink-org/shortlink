@@ -8,7 +8,7 @@
       - .go/pkg/mod/
 
 .job_teplate_go: &job_go
-  extends: .go-cache
+#  extends: .go-cache
   stage: test
   image: golang:1.14-buster
   interruptible: true
