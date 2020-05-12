@@ -2,6 +2,7 @@ include:
   - local: /ops/pipelines/templates/go.yml
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: License-Scanning.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
 
 # ON COMMIT ============================================================================================================
 gosec:
