@@ -10,9 +10,9 @@ chart-dirs:
 
 # TODO: need test all charts
 excluded-charts:
-  - ops/Helm/chaos
-  - ops/Helm/common
-  - ops/Helm/ingress
+  - chaos
+  - common
+  - ingress
 
 chart-repos:
   - incubator=https://kubernetes-charts-incubator.storage.googleapis.com/
