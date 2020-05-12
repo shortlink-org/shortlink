@@ -211,7 +211,7 @@ ansible-playbook playbooks/playbook.yml
 
 - SURGE_LOGIN
 - SURGE_TOKEN
-- GITLAB_API_TOKEN - API TOKEN
+- DANGER_GITLAB_API_TOKEN - `API TOKEN` for danger
 
 ##### Support environment
 
