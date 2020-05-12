@@ -1,0 +1,9 @@
+# RELEASE ==============================================================================================================
+release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli
+  script:
+    - gitlab-releaser create --name="Release $CI_COMMIT_TAG" --description="My Release description"
+  rules:
+    - if: $CI_COMMIT_TAG
+
