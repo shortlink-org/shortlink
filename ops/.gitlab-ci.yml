@@ -13,8 +13,8 @@ stages:
   - test
   - build
   - qa
-  - release
   - deploy
+  - release
 
 workflow:
   rules:
