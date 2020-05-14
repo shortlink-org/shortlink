@@ -28,7 +28,7 @@ require (
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.5.2
 	github.com/markbates/pkger v0.15.1
-	github.com/mattn/go-sqlite3 v2.0.3+incompatible
+	github.com/mattn/go-sqlite3 v2.0.5+incompatible
 	github.com/nats-io/nats.go v1.10.0
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/ory/dockertest/v3 v3.6.0
