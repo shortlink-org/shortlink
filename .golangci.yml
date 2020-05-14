@@ -47,7 +47,11 @@ run:
   # If invoked with -mod=vendor, the go command assumes that the vendor
   # directory holds the correct copies of dependencies and ignores
   # the dependency descriptions in go.mod.
-  # modules-download-mode: readonly|release|vendor
+  modules-download-mode: vendor
+
+  # Allow multiple parallel golangci-lint instances running.
+  # If false (default) - golangci-lint acquires file lock on start.
+  allow-parallel-runners: false
 
 
 # output configuration options
@@ -80,7 +84,7 @@ linters-settings:
 
     # report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`;
     # default is false: such cases aren't reported by default.
-    check-blank: true
+    check-blank: false
 
     # [deprecated] comma-separated list of pairs of the form pkg:regex
     # the regex is used to ignore names within pkg. (default "fmt:.*").
@@ -104,24 +108,24 @@ linters-settings:
     min-len: 3
     # minimal occurrences count to trigger, 3 by default
     min-occurrences: 3
-#  gocritic:
+  gocritic:
     # Which checks should be enabled; can't be combined with 'disabled-checks';
     # See https://go-critic.github.io/overview#checks-overview
     # To check which checks are enabled run `GL_DEBUG=gocritic golangci-lint run`
     # By default list of stable checks is used.
-#    enabled-checks:
-#      - rangeValCopy
+    # enabled-checks:
+    #   - rangeValCopy
 
     # Which checks should be disabled; can't be combined with 'enabled-checks'; default is empty
-#    disabled-checks:
-#      - regexpMust
+    # disabled-checks:
+    #   - regexpMust
 
     # Enable multiple checks by tags, run `GL_DEBUG=gocritic golangci-lint run` to see all tags and checks.
     # Empty list by default. See https://github.com/go-critic/go-critic#usage -> section "Tags".
-#    enabled-tags:
-#      - performance
-#    disabled-tags:
-#      - experimental
+    enabled-tags:
+      - performance
+    disabled-tags:
+      - experimental
 
     settings: # settings passed to gocritic
       captLocal: # must be valid enabled check name
@@ -224,6 +228,17 @@ linters-settings:
     simple: true
     range-loops: true # Report preallocation suggestions on range loops, true by default
     for-loops: false # Report preallocation suggestions on for loops, false by default
+  nolintlint:
+    # Enable to ensure that nolint directives are all used. Default is true.
+    allow-unused: true
+    # Disable to ensure that nolint directives don't have a leading space. Default is true.
+    allow-leading-space: true
+    # Exclude following linters from requiring an explanation.  Default is [].
+    allow-no-explanation: []
+    # Enable to require an explanation after each nolint directive. Default is false.
+    require-explanation: true
+    # Enable to require an explanation after each nolint directive. Default is false.
+    require-specific: true
   rowserrcheck:
     packages:
       - github.com/jmoiron/sqlx
@@ -267,15 +282,15 @@ linters-settings:
 
   # The custom section can be used to define linter plugins to be loaded at runtime. See README doc
   #  for more info.
-#  custom:
-#    # Each custom linter should have a unique name.
-#     example:
-#      # The path to the plugin *.so. Can be absolute or local. Required for each custom linter
-#      path: /path/to/example.so
-#      # The description of the linter. Optional, just for documentation purposes.
-#      description: This is an example usage of a plugin linter.
-#      # Intended to point to the repo location of the linter. Optional, just for documentation purposes.
-#      original-url: github.com/golangci/example-linter
+  #  custom:
+  #    # Each custom linter should have a unique name.
+  #     example:
+  #      # The path to the plugin *.so. Can be absolute or local. Required for each custom linter
+  #      path: /path/to/example.so
+  #      # The description of the linter. Optional, just for documentation purposes.
+  #      description: This is an example usage of a plugin linter.
+  #      # Intended to point to the repo location of the linter. Optional, just for documentation purposes.
+  #      original-url: github.com/golangci/example-linter
 
 linters:
   enable:
@@ -328,6 +343,14 @@ issues:
   # excluded by default patterns execute `golangci-lint run --help`.
   # Default value for this option is true.
   exclude-use-default: true
+
+  # The default value is false. If set to true exclude and exclude-rules
+  # regular expressions become case sensitive.
+  exclude-case-sensitive: false
+
+  # The list of ids of default excludes to include or disable. By default it's empty.
+  include:
+    - EXC0002 # disable excluding of issues about comments from golint
 
   # Maximum issues count per one linter. Set to 0 to disable. Default is 50.
   max-issues-per-linter: 0
