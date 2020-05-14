@@ -80,7 +80,7 @@ linters-settings:
 
     # report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`;
     # default is false: such cases aren't reported by default.
-    check-blank: false
+    check-blank: true
 
     # [deprecated] comma-separated list of pairs of the form pkg:regex
     # the regex is used to ignore names within pkg. (default "fmt:.*").
@@ -133,7 +133,7 @@ linters-settings:
     min-complexity: 10
   godot:
     # check all top-level comments, not only declarations
-    check-all: false
+    check-all: true
   godox:
     # report any comments starting with keywords, this is useful for TODO or FIXME comments that
     # might be left in the code accidentally and should be resolved before merging
@@ -281,9 +281,6 @@ linters:
   enable:
     - megacheck
     - govet
-  disable:
-    - maligned
-    - prealloc
   disable-all: false
   presets:
     - bugs
@@ -330,7 +327,7 @@ issues:
   # it can be disabled by this option. To list all
   # excluded by default patterns execute `golangci-lint run --help`.
   # Default value for this option is true.
-  exclude-use-default: false
+  exclude-use-default: true
 
   # Maximum issues count per one linter. Set to 0 to disable. Default is 50.
   max-issues-per-linter: 0
