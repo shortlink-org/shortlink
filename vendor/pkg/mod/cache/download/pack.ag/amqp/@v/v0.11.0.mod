@@ -1,0 +1,1 @@
+module pack.ag/amqp
