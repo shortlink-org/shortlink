@@ -1,4 +1,4 @@
-import Layout from '../components/MyLayout.js';
+import Layout from '../components/Layout.js';
 import AddURL from '../components/AddURL.js';
 
 export default function Index() {

@@ -28,7 +28,7 @@ require (
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.5.2
 	github.com/markbates/pkger v0.16.0
-	github.com/mattn/go-sqlite3 v2.0.5+incompatible
+	github.com/mattn/go-sqlite3 v1.9.0
 	github.com/nats-io/nats.go v1.10.0
 	github.com/opentracing/opentracing-go v1.1.0
 	github.com/ory/dockertest/v3 v3.6.0
@@ -36,7 +36,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.6.0
 	github.com/scylladb/gocqlx v1.5.0
-	github.com/scylladb/gocqlx/v2 v2.0.2 // indirect
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
@@ -54,6 +53,5 @@ require (
 	google.golang.org/genproto v0.0.0-20200515170657-fc4c6c6a6587
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.23.0
-	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 )
