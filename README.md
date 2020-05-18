@@ -109,6 +109,13 @@ Use `.env` file in `pkg/ui/[nuxt/next/etc]` directories for setting your UI
 |:--------------------|:------------------------------------------------------------|:-----------------------------------------------------------------------------------------------|
 | NODE_ENV            | -                                                           | Select: production, development, etc...                                                        |
 | SENTRY_DSN          | -                                                           | Your sentry DSN                                                                                |
+| API_URL_HTTP        | http://localhost:7070                                       | HTTP API Endpoint                                                                              |
+
+#### UI Screenshot
+
+| Describe                | Screenshot                           |
+|-------------------------|--------------------------------------|
+| Link Table              | ![link table](./docs/next-js-ui.png) |
 
 ### Configuration
 
