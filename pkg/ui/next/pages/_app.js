@@ -1,5 +1,14 @@
+import React from 'react';
 import App from 'next/app'
+import Head from 'next/head';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import sentry from '../utils/sentry'
+import theme from '../theme/theme';
+import ScrollTop from '../components/ScrollTop';
+import "../assets/styles.css"
 
 const { Sentry, captureException } = sentry()
 
@@ -82,7 +91,22 @@ export default class MyApp extends App {
       </section>
     ) : (
       // Render the normal Next.js page
-      super.render()
+      <React.Fragment>
+        <Head>
+          <title>Shortlink</title>
+          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        </Head>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          { super.render() }
+          <ScrollTop {...this.props}>
+            <Fab color="secondary" size="small" aria-label="scroll back to top">
+              <KeyboardArrowUpIcon />
+            </Fab>
+          </ScrollTop>
+        </ThemeProvider>
+      </React.Fragment>
     )
   }
 }
