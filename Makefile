@@ -13,6 +13,7 @@ export PROJECT_NAME
 
 # Include Makefile
 include $(SELF_DIR)/ops/Makefile/common.mk
+include $(SELF_DIR)/ops/Makefile/vagrant.mk
 include $(SELF_DIR)/ops/Makefile/docker.mk
 include $(SELF_DIR)/ops/Makefile/gitlab.mk
 include $(SELF_DIR)/ops/Makefile/go.mk
