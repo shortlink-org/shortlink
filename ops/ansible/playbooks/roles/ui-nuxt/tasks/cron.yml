@@ -1,0 +1,14 @@
+---
+- name: copy cron script
+  copy:
+    src: files/cron.sh
+    dest: /home/vagrant/cron.sh
+    owner: vagrant
+    group: vagrant
+    mode: u+rx
+
+- name: ping ui
+  cron:
+    name: "ping-ui"
+    job: /home/vagrant/cron.sh
+    user: vagrant

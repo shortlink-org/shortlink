@@ -7,3 +7,10 @@ vagrant-dep: ## Install vagrant plugins
 vagrant-up: ## Run vagrant VM
 	@vagrant up --provider=virtualbox
 
+vagrant-reload: ## Reload vagrant VM, loads new Vagrantfile configuration
+	@vagrant reload
+
+vagrant-down: ## Down vagrant VM
+	@vagrant destroy --force
+	@rm -rf .vagrant
+	@rm -f *-console.log
