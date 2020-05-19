@@ -1,14 +1,30 @@
 ---
-- name: copy cron script
-  copy:
-    src: files/cron.sh
-    dest: /home/vagrant/cron.sh
-    owner: vagrant
-    group: vagrant
-    mode: u+rx
+- name: Get JWT token
+  tags:
+    - test
+  uri:
+    url: "{{ rest_server }}/auth"
+    method: POST
+    body_format: form-urlencoded
+    body:
+      username: "{{ username }}"
+      password: "{{ password }}"
+    return_content: yes
+  register: jwt_data
+  retries: 3
 
-- name: ping ui
+- name: GET settlement report
+  tags:
+    - test
   cron:
-    name: "ping-ui"
-    job: /home/vagrant/cron.sh
+    name: "GET settlement report"
+    job: "curl -XGET -H \"Content-Type: application/json\" -H \"Authorization: Bearer {{ jwt_data.json.token }}\" {{ rest_server }}/mypath > /tmp/report.log"
+    user: vagrant
+
+- name: Settlement retry
+  tags:
+    - test
+  cron:
+    name: "Settlement retry"
+    job: "curl -XPUT -H \"Content-Type: application/json\" -H \"Authorization: Bearer {{ jwt_data.json.token }}\" {{ rest_server }}/mypath > /tmp/retry.log"
     user: vagrant
