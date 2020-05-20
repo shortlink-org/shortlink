@@ -230,4 +230,3 @@ ansible-playbook playbooks/playbook.yml
 
 [mergify]: https://mergify.io
 [mergify-status]: https://img.shields.io/endpoint.svg?url=https://dashboard.mergify.io/badges/batazor/shortlink&style=flat
-

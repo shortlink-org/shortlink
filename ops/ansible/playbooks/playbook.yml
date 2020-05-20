@@ -5,6 +5,8 @@
     pip_package: python3-pip
     pip_install_packages:
       - name: docker
+  vars_files:
+    - "./group_vars/values.yml"
   roles:
     - geerlingguy.pip
     - geerlingguy.docker
