@@ -1,0 +1,6 @@
+ansible-jwt:
+  stage: .pre
+  when: manual
+  image: quay.io/ansible/molecule:latest
+  script:
+

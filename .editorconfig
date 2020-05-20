@@ -26,3 +26,7 @@ indent_size = 2
 [{package.json, *.yaml}]
 indent_style = space
 indent_size = 2
+
+# Use tabs
+[**.mk]
+indent_style = tab
