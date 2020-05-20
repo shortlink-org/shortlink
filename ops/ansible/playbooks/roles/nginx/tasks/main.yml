@@ -3,7 +3,7 @@
 - name: install nginx
   apt:
     name: nginx
-    state: 1.14.0
+    state: latest
     update_cache: yes
     cache_valid_time: 3600
   when: inventory_hostname in groups['gateway']
@@ -14,6 +14,11 @@
     dest: /etc/nginx/nginx.conf
   when: inventory_hostname in groups['gateway']
   notify: restart nginx
+
+- name: create TLS dir
+  file:
+    path: /etc/nginx/ssl
+    state: directory
 
 - name: copy TLS key
   copy:
