@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
 
   # Enable plugins =====================================================================================================
   config.env.enable # https://github.com/gosuri/vagrant-env
+  config.env.load './ops/vagrant/.env' # path from root-directory
 
   # ENV ========================================================================
   # Defaults for config options defined in CONFIG
@@ -74,7 +75,19 @@ Vagrant.configure("2") do |config|
       #   # Customize the amount of memory on the VM:
       #   vb.memory = "1024"
       # end
-      #
+
+      # config.vm.provider "docker" do |d|
+      #   d.image = "ubuntu:20.04"
+      # end
+
+      # Enable provisioning with a shell script. Additional provisioners such as
+      # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
+      # documentation for more information about their specific syntax and use.
+      config.vm.provision "shell", inline: <<-SHELL
+        apt-get update
+        apt-get install -y python3-pip
+      SHELL
+
       # View the documentation for the provider you are using for more
       # information on available options.
     end
@@ -85,12 +98,4 @@ Vagrant.configure("2") do |config|
   # ensure that all Vagrant machines will use the same SSH key pair.
   # See https://github.com/mitchellh/vagrant/issues/5005
   config.ssh.insert_key = false
-
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
 end

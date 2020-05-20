@@ -14,3 +14,6 @@
     dest: /etc/nginx/conf.d/ui-nuxt.shortlink.vagrant
   notify: restart nginx
   when: inventory_hostname in groups['gateway']
+
+- name: Include cron jobs
+  include: cron.yml
