@@ -3,4 +3,5 @@ ansible-jwt:
   when: manual
   image: quay.io/ansible/molecule:latest
   script:
+    - make ansible-up
 
