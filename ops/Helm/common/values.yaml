@@ -2,9 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-istio:
-  enabled: false
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: create

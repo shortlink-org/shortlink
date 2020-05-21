@@ -1,5 +1,5 @@
 # MINIKUBE TASKS =======================================================================================================
-minikube-init: ## run minikube for dev mode
+minikube-up: ## run minikube for dev mode
 	@minikube start \
 		--cpus 4 \
 		--memory "16384" \
