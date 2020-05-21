@@ -1,8 +1,0 @@
-# Set up automated test files for docker hub
-version: "3.6"
-
-services:
- sut:
-   build:
-     context: .
-   command: echo 123
