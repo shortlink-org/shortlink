@@ -3,7 +3,13 @@ minikube-up: ## run minikube for dev mode
 	@minikube start \
 		--cpus 4 \
 		--memory "16384" \
-		--driver=docker
+		--driver=docker \
+		--extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \
+		--extra-config=apiserver.service-account-key-file=/var/lib/minikube/certs/sa.pub \
+		--extra-config=apiserver.service-account-issuer=api \
+		--extra-config=apiserver.service-account-api-audiences=api,spire-server \
+		--extra-config=apiserver.authorization-mode=Node,RBAC \
+		--extra-config=kubelet.authentication-token-webhook=true
 	@minikube addons enable ingress
 	@eval $(minikube docker-env) # Set docker env
 

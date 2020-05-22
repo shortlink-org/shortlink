@@ -5,8 +5,9 @@
 nameOverride: ""
 fullnameOverride: ""
 
+# nginx-ingress
 ingress:
-  enabled: true
+  enabled: false
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -29,4 +30,4 @@ ingress:
   #      - chart-example.local
 
 istio:
-  enabled: false
+  enabled: true
