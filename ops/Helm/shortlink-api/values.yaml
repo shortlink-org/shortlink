@@ -100,5 +100,5 @@ deploy:
     # runAsUser: 1000
 
 service:
-  type: NodePort
+  type: LoadBalancer
   port: 7070
