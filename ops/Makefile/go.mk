@@ -1,7 +1,7 @@
 # GO TASKS =============================================================================================================
 
 generate: ## Code generation
-	@echo "proto generation link entity"
+	# proto generation link entity
 	@protoc -I/usr/local/include -I. \
 	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
 	--go_out=plugins=grpc:. \
@@ -11,7 +11,7 @@ generate: ## Code generation
     	--gotemplate_out=all=true,template_dir=internal/store/query/template:internal/store/query \
     	pkg/link/link.proto
 
-	@echo "proto generation gRPC-web"
+	# proto generation gRPC-web
 	@protoc -I/usr/local/include -I. \
 	-I=pkg/api/grpc-web \
 	-I=third_party/googleapis \
@@ -22,18 +22,18 @@ generate: ## Code generation
 	pkg/api/grpc-web/api.proto
 	@mv pkg/api/grpc-web/api.swagger.json docs/api.swagger.json
 
-	@echo "Generate from .go code"
+	# Generate from .go code
 	@go generate internal/store/postgres/postgres.go
 	@go generate internal/di/wire.go
 
-	@echo "Generate go static"
+	# Generate go static
 	@pkger -o cmd/shortlink
 
 	@make fmt
 
 .PHONY: fmt
 fmt: ## Format source using gofmt
-	@echo Apply go fmt
+	# Apply go fmt
 	@gofmt -l -s -w cmd pkg internal
 
 gosec: ## Golang security checker
@@ -43,7 +43,6 @@ golint: ## Linter for golang
 	@golangci-lint run ./...
 
 test: ## Run all test
-	@echo "run test"
 	@sh ./ops/scripts/coverage.sh
 
 bench: ## Run benchmark tests

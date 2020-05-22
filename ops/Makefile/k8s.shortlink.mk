@@ -26,5 +26,6 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--wait
 
 helm-shortlink-down: ## Clean artifact from K8S
-	@helm -n ${SHORTLINK_NAMESPACE} del api
-	@helm -n ${SHORTLINK_NAMESPACE} del ui
+	-helm -n ${SHORTLINK_NAMESPACE} del api
+	-helm -n ${SHORTLINK_NAMESPACE} del ui
+	-helm -n ${SHORTLINK_NAMESPACE} del ingress

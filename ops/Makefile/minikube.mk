@@ -1,4 +1,6 @@
 # MINIKUBE TASKS =======================================================================================================
+MINIKUBE_IP := $(shell minikube ip)
+
 minikube-up: ## run minikube for dev mode
 	@minikube start \
 		--cpus 4 \

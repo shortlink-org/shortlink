@@ -10,7 +10,7 @@ SHORTLINK_HELM_UI := ops/Helm/shortlink-ui
 SHORTLINK_HELM_INGRESS := ops/Helm/ingress
 
 helm-init: ## helm init
-	@echo "add custom repo for helm"
+	# add custom repo for helm
 	@helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 	@helm repo add istio https://storage.googleapis.com/istio-release/releases/1.5.4/charts/
 
@@ -22,7 +22,7 @@ helm-lint: ## Check Helm chart
 
 helm-common: ## run common service for
 	@make helm-init
-	@echo helm install/update common service
+	# helm install/update common service
 	@helm upgrade common ${PATH_TO_COMMON_CHART} \
 		--install \
 		--force \
