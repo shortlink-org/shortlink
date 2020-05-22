@@ -40,7 +40,7 @@ spec:
   - name: "ui-nuxt"
     route:
     - destination:
-        host: shortlink-ui
+        host: ui-shortlink-ui
         port:
           number: 80
 {{- end }}
