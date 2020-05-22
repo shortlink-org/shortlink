@@ -11,17 +11,10 @@ spec:
   servers:
     - port:
         number: 80
-        name: ui
+        name: http
         protocol: HTTP
       hosts:
-        - "*"
-
-    - port:
-        number: 7070
-        name: api
-        protocol: HTTP
-      hosts:
-        - "*"
+        - "ui-nuxt.shortlink.minikube"
 
 ---
 
@@ -33,14 +26,24 @@ metadata:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:
   hosts:
-  - ui-nuxt.shortlink.minikube
+  - "ui-nuxt.shortlink.minikube"
   gateways:
     - {{ include "shortlink.fullname" . }}
   http:
-  - name: "ui-nuxt"
+  - match:
+      - uri:
+          prefix: /ui
     route:
     - destination:
-        host: shortlink-ui
+        host: ui-shortlink-ui
         port:
           number: 80
+  - match:
+      - uri:
+          prefix: /api
+    route:
+    - destination:
+        host: api-shortlink-api
+        port:
+          number: 7070
 {{- end }}

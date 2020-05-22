@@ -1,9 +1,9 @@
 # APPLICATION TASKS ====================================================================================================
 dep: ## Install dependencies for this project
-	@echo "install protoc"
+	# install protoc
 	@sudo ./ops/scripts/install-protobuf.sh
 
-	@echo "install protoc addons"
+	# install protoc addons
 	@go get -u github.com/golang/protobuf/proto
 	@go get -u github.com/golang/protobuf/protoc-gen-go
 	@go get -u github.com/batazor/protoc-gen-gotemplate
@@ -11,7 +11,7 @@ dep: ## Install dependencies for this project
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 	@go get -u github.com/securego/gosec/cmd/gosec
 
-	@echo "install wire"
+	# install wire
 	@go get -u github.com/google/wire/cmd/wire
 
 run: ## Run this project in docker-compose

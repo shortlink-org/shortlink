@@ -5,13 +5,7 @@
 nameOverride: ""
 fullnameOverride: ""
 
-serviceAccount:
-  # Specifies whether a service account should be created
-  create: create
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: shortlink
-
+# nginx-ingress
 ingress:
   enabled: false
   annotations: {}
@@ -21,10 +15,14 @@ ingress:
     - host: ui-nuxt.shortlink.minikube
       http:
         paths:
-          - path: /
+          - path: /ui
             backend:
-              serviceName: shortlink-ui
+              serviceName: ui-shortlink-ui
               servicePort: 80
+          - path: /api
+            backend:
+              serviceName: api-shortlink-api
+              servicePort: 7070
 
   tls: []
   #  - secretName: chart-example-tls
@@ -32,4 +30,4 @@ ingress:
   #      - chart-example.local
 
 istio:
-  enabled: false
+  enabled: true
