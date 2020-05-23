@@ -24,3 +24,7 @@ resource "kubernetes_namespace" "example" {
     name = "my-first-namespace"
   }
 }
+
+terraform {
+  backend "http" {}
+}
