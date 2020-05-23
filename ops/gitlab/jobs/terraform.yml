@@ -3,5 +3,5 @@ terraform-up:
   when: on_success
   trigger:
     include:
-      - local: 'ops/pipelines/terraform.yml'
+      - local: 'ops/gitlab/terraform.yml'
     strategy: depend

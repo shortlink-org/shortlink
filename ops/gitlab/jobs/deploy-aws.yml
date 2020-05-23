@@ -11,7 +11,7 @@ aws:api-staging:
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
-      - local: 'ops/pipelines/deploy.yml'
+      - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
     - trigger:build_api
@@ -33,7 +33,7 @@ aws:logger-staging:
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
-      - local: 'ops/pipelines/deploy.yml'
+      - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
     - trigger:build_logger
@@ -55,7 +55,7 @@ aws:ui-staging:
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
-      - local: 'ops/pipelines/ui.yml'
+      - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
     - trigger:build_ui

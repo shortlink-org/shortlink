@@ -11,7 +11,7 @@ yandex:api-staging:
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
-      - local: 'ops/pipelines/deploy.yml'
+      - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
     - trigger:build_api
@@ -33,7 +33,7 @@ yandex:logger-staging:
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
-      - local: 'ops/pipelines/deploy.yml'
+      - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
     - trigger:build_logger
@@ -55,7 +55,7 @@ yandex:ui-staging:
     ENVIRONMENT_URL: http://example.com
   trigger:
     include:
-      - local: 'ops/pipelines/ui.yml'
+      - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
     - trigger:build_ui
@@ -78,7 +78,7 @@ yandex:api-production:
     ENVIRONMENT_URL: https://example.com
   trigger:
     include:
-      - local: 'ops/pipelines/deploy.yml'
+      - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
     - trigger:build_api
@@ -100,7 +100,7 @@ yandex:logger-production:
     ENVIRONMENT_URL: https://example.com
   trigger:
     include:
-      - local: 'ops/pipelines/deploy.yml'
+      - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
     - trigger:build_logger
@@ -122,7 +122,7 @@ yandex:ui-production:
     ENVIRONMENT_URL: example.com
   trigger:
     include:
-      - local: 'ops/pipelines/ui.yml'
+      - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
     - trigger:build_ui
