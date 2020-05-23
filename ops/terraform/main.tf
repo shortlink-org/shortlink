@@ -15,7 +15,6 @@ provider "kubernetes" {
 }
 
 resource "postgresql_database" "my_db" {
-  provider = "postgresql.pg"
   name     = "my_db"
 }
 
