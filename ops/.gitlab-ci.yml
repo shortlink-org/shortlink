@@ -1,6 +1,7 @@
 include:
   - local: /ops/pipelines/templates/common.yml
   - local: /ops/pipelines/jobs/ansible.yml
+  - local: /ops/pipelines/jobs/terraform.yml
   - local: /ops/pipelines/jobs/test.yml
   - local: /ops/pipelines/jobs/build.yml
   - local: /ops/pipelines/jobs/qa.yml
