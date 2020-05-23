@@ -50,7 +50,7 @@ plan:
   stage: build
   script:
     - terraform plan -out=$PLAN ${TF_DATA_DIR}
-    - terraform show --json $PLAN | convert_report > $PLAN_JSON
+    - terraform show --json $PLAN | convert_report
   artifacts:
     name: plan
     paths:
