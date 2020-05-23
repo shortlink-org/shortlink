@@ -1,6 +1,6 @@
 terraform-up:
   stage: .pre
-  when: manual
+  when: on_success
   trigger:
     include:
       - local: 'ops/pipelines/terraform.yml'
