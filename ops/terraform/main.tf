@@ -1,5 +1,4 @@
 provider "postgresql" {
-  alias           = "pg"
   host            = "postgres"
   port            = 5432
   database        = var.psql-database
