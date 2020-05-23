@@ -19,6 +19,10 @@ variables:
   PLAN_JSON: tfplan.json
   TF_ROOT: ${CI_PROJECT_DIR}
   TF_DATA_DIR: ops/terraform
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST_AUTH_METHOD: trust
 
 cache:
   paths:
