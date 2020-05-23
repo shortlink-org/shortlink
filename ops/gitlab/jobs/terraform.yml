@@ -1,9 +1,6 @@
 terraform-up:
   stage: .pre
-  when: on_success
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/terraform.yml'
     strategy: depend
-  rules:
-    - if: '$CI_MERGE_REQUEST_ID != ""'
