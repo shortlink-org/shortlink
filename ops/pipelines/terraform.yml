@@ -14,7 +14,7 @@ variables:
   GITLAB_TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/${CI_PROJECT_NAME}
   PLAN: plan.tfplan
   PLAN_JSON: tfplan.json
-  TF_ROOT: ${CI_PROJECT_DIR}
+  TF_ROOT: ${CI_PROJECT_DIR}/ops/terraform
 
 cache:
   paths:
