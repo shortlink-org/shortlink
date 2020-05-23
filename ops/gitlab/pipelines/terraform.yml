@@ -53,7 +53,7 @@ plan:
   artifacts:
     name: plan
     paths:
-      - ${TF_ROOT}/plan.tfplan
+      - ${TF_ROOT}/ops/terraform/plan.tfplan
     reports:
       terraform: ${TF_ROOT}/tfplan.json
 
