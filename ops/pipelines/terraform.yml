@@ -14,7 +14,8 @@ variables:
   GITLAB_TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/${CI_PROJECT_NAME}
   PLAN: plan.tfplan
   PLAN_JSON: tfplan.json
-  TF_ROOT: ${CI_PROJECT_DIR}/ops/terraform
+  TF_ROOT: ${CI_PROJECT_DIR}
+  TF_DATA_DIR: ops/terraform
 
 cache:
   paths:
@@ -25,7 +26,7 @@ before_script:
   - alias convert_report="jq -r '([.resource_changes[]?.change.actions?]|flatten)|{\"create\":(map(select(.==\"create\"))|length),\"update\":(map(select(.==\"update\"))|length),\"delete\":(map(select(.==\"delete\"))|length)}'"
   - cd ${TF_ROOT}
   - terraform --version
-  - terraform init -backend-config="address=${GITLAB_TF_ADDRESS}" -backend-config="lock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="unlock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="username=${GITLAB_USER_LOGIN}" -backend-config="password=${GITLAB_TF_PASSWORD}" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5"
+  - terraform init -backend-config="address=${GITLAB_TF_ADDRESS}" -backend-config="lock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="unlock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="username=${GITLAB_USER_LOGIN}" -backend-config="password=${GITLAB_TF_PASSWORD}" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5" ${TF_DATA_DIR}
 
 stages:
   - validate
@@ -36,12 +37,12 @@ stages:
 validate:
   stage: validate
   script:
-    - terraform validate
+    - terraform validate ${TF_DATA_DIR}
 
 plan:
   stage: build
   script:
-    - terraform plan -out=$PLAN
+    - terraform plan -out=$PLAN ${TF_DATA_DIR}
     - terraform show --json $PLAN | convert_report > $PLAN_JSON
   artifacts:
     name: plan
