@@ -1,6 +1,6 @@
 provider "postgresql" {
   alias           = "pg"
-  host            = "127.0.0.1"
+  host            = "postgres"
   port            = 5432
   database        = var.psql-database
   username        = var.psql-user
@@ -14,9 +14,13 @@ provider "kubernetes" {
   config_context_cluster   = "minikube"
 }
 
-# resource "postgresql_database" "my_db" {
-#   name     = "my_db"
-# }
+resource "postgresql_database" "my_db" {
+  name     = "my_db"
+}
+
+resource "postgresql_database" "my_db2" {
+  name     = "my_db2"
+}
 
 # resource "kubernetes_namespace" "example" {
 #   metadata {
