@@ -4,3 +4,6 @@ terraform-up:
     include:
       - local: 'ops/gitlab/pipelines/terraform.yml'
     strategy: depend
+  rules:
+    - changes:
+        - ops/terraform/*
