@@ -47,6 +47,7 @@ plan:
   script:
     - terraform plan -out=$PLAN ops/terraform
     - terraform show --json $PLAN | convert_report > $PLAN_JSON
+  allow_failure: true
   artifacts:
     name: plan
     paths:
