@@ -19,11 +19,11 @@ resource "postgresql_database" "my_db" {
   name     = "my_db"
 }
 
-resource "kubernetes_namespace" "example" {
-  metadata {
-    name = "my-first-namespace"
-  }
-}
+# resource "kubernetes_namespace" "example" {
+#   metadata {
+#     name = "my-first-namespace"
+#   }
+# }
 
 terraform {
   backend "http" {}
