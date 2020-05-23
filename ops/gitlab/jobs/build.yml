@@ -6,7 +6,7 @@ trigger:build_api:
     DOCKERFILE_PATH: ops/dockerfile/shortlink.Dockerfile
   trigger:
     include:
-      - local: 'ops/pipelines/build.yml'
+      - local: 'ops/gitlab/pipelines/build.yml'
     strategy: depend
   needs:
     - gosec
@@ -23,7 +23,7 @@ trigger:build_logger:
     DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
   trigger:
     include:
-      - local: 'ops/pipelines/build.yml'
+      - local: 'ops/gitlab/pipelines/build.yml'
     strategy: depend
   needs:
     - gosec
@@ -40,7 +40,7 @@ trigger:build_ui:
     DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
   trigger:
     include:
-      - local: 'ops/pipelines/build.yml'
+      - local: 'ops/gitlab/pipelines/build.yml'
     strategy: depend
   needs: []
   rules:

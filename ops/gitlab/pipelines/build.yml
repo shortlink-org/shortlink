@@ -1,6 +1,6 @@
 include:
-  - local: /ops/pipelines/templates/common.yml
-  - local: /ops/pipelines/templates/build.yml
+  - local: /ops/gitlab/templates/common.yml
+  - local: /ops/gitlab/templates/build.yml
   - template: Container-Scanning.gitlab-ci.yml
 
 stages:
