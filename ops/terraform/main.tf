@@ -14,9 +14,9 @@ provider "kubernetes" {
   config_context_cluster   = "minikube"
 }
 
-resource "postgresql_database" "my_db" {
-  name     = "my_db"
-}
+# resource "postgresql_database" "my_db" {
+#   name     = "my_db"
+# }
 
 # resource "kubernetes_namespace" "example" {
 #   metadata {
