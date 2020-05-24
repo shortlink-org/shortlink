@@ -73,9 +73,11 @@ brakeman-sast:
       when: on_success
 
 eslint-sast:
-  extends:
-    - .sast-analyzer
-    - .primary_rules
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: on_success
 
 flawfinder-sast:
   extends:
