@@ -56,12 +56,12 @@ dependency_scanning:
   stage: test
   interruptible: true
   extends:
-    - .primary_rules
+    - primary_rules
 
 .sast-analyzer:
   extends:
     - sast
-    - .primary_rules
+    - primary_rules
 
 bandit-sast:
   extends:
@@ -78,57 +78,57 @@ eslint-sast:
 flawfinder-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 kubesec-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 gosec-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 nodejs-scan-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 phpcs-security-audit-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 pmd-apex-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 secrets-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 security-code-scan-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 sobelow-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 spotbugs-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 tslint-sast:
   extends:
     - .sast-analyzer
-    - .primary_rules
+    - primary_rules
 
 danger-review:
   image: registry.gitlab.com/gitlab-org/gitlab-build-images:danger
