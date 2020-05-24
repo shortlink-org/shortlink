@@ -79,6 +79,7 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 ### Cloud-Native
 
 + Prometheus
+  + prometheus-operator
 + HealthCheck
 + Support K8S
   + Helm Chart
