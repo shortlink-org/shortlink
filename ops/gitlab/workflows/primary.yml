@@ -2,4 +2,5 @@
 .primary_rules:
   rules:
     - if: $CI_COMMIT_TAG
+      when: on_success
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
