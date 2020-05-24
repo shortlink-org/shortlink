@@ -1,0 +1,77 @@
+prometheusOperator:
+  createCustomResource: false
+
+  service:
+    type: LoadBalancer
+
+prometheus:
+  service:
+    type: LoadBalancer
+
+alertmanager:
+  service:
+    type: LoadBalancer
+  config:
+    global:
+      resolve_timeout: 5m
+      slack_api_url: "${PROMETHEUS_SLACK}"
+    route:
+      group_by: ['job']
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 12h
+      receiver: 'slack'
+      routes:
+        - match:
+            alertname: DeadMansSwitch
+          receiver: 'null'
+        - match:
+          receiver: 'slack'
+          continue: true
+        - match:
+          receiver: 'email-me'
+          continue: true
+    receivers:
+      - name: 'null'
+      - name: 'slack'
+        slack_configs:
+          - channel: "${PROMETHEUS_SLACK_CHANNEL}"
+            send_resolved: false
+            title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] Monitoring Event Notification'
+            text: >-
+              {{ range .Alerts }}
+                *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+                *Description:* {{ .Annotations.description }}
+                *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:> *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
+                *Details:*
+                {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+                {{ end }}
+              {{ end }}
+      - name: email-me
+        email_configs:
+          - to: "${PROMETHEUS_MAIL_ACCOUNT}"
+            from: "${PROMETHEUS_MAIL_ACCOUNT}"
+            smarthost: "${PROMETHEUS_MAIL_HOST}"
+            auth_username: "${PROMETHEUS_MAIL_ACCOUNT}"
+            auth_identity: "${PROMETHEUS_MAIL_ACCOUNT}"
+            auth_password: "${PROMETHEUS_MAIL_PASSWORD}"
+
+  templateFiles:
+
+    template_alert.tmpl: |-
+          {{ define "__single_message_title" }}{{ range .Alerts.Firing }}{{ .Labels.alertname }} @ {{ .Annotations.message }}{{ end }}{{ range .Alerts.Resolved }}{{ .Labels.alertname }} @ {{ .Annotations.message }}{{ end }}{{ end }}
+          {{ define "custom_title" }}[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ if or (and (eq (len .Alerts.Firing) 1) (eq (len .Alerts.Resolved) 0)) (and (eq (len .Alerts.Firing) 0) (eq (len .Alerts.Resolved) 1)) }}{{ template "__single_message_title" . }}{{ end }}{{ end }}
+          {{ define "custom_slack_message" }}
+          {{ if or (and (eq (len .Alerts.Firing) 1) (eq (len .Alerts.Resolved) 0)) (and (eq (len .Alerts.Firing) 0) (eq (len .Alerts.Resolved) 1)) }}
+          {{ range .Alerts.Firing }}{{ .Annotations.message }}{{ end }}{{ range .Alerts.Resolved }}{{ .Annotations.message }}{{ end }}
+          {{ else }}
+          {{ if gt (len .Alerts.Firing) 0 }}
+          *Alerts Firing:*
+          {{ range .Alerts.Firing }}- {{ .Annotations.message }}: {{ .Annotations.runbook_url }}
+          {{ end }}{{ end }}
+          {{ if gt (len .Alerts.Resolved) 0 }}
+          *Alerts Resolved:*
+          {{ range .Alerts.Resolved }}- {{ .Annotations.message }}: {{ .Annotations.runbook_url }}
+          {{ end }}{{ end }}
+          {{ end }}
+          {{ end }}
