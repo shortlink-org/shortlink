@@ -73,16 +73,14 @@ brakeman-sast:
 
 eslint-sast:
   extends:
-    - .sast-analyzer
+    - .primary_rules
 
 flawfinder-sast:
   extends:
-    - .sast-analyzer
     - .primary_rules
 
 kubesec-sast:
   extends:
-    - .sast-analyzer
     - .primary_rules
 
 gosec-sast:
