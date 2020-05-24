@@ -59,14 +59,74 @@ dependency_scanning:
   extends:
     - .primary_rules
 
-.ds-analyzer:
+bandit-sast:
   extends:
-    - dependency_scanning
+    - .sast-analyzer
     - .primary_rules
 
-.sast-analyzer:
+brakeman-sast:
   extends:
-    - sast
+    - .sast-analyzer
+    - .primary_rules
+
+eslint-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+flawfinder-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+kubesec-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+gosec-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+nodejs-scan-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+phpcs-security-audit-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+pmd-apex-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+secrets-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+security-code-scan-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+sobelow-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+spotbugs-sast:
+  extends:
+    - .sast-analyzer
+    - .primary_rules
+
+tslint-sast:
+  extends:
+    - .sast-analyzer
     - .primary_rules
 
 danger-review:
