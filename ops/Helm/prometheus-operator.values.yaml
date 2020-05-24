@@ -31,6 +31,9 @@ alertmanager:
         - match:
           receiver: 'email-me'
           continue: true
+        - match:
+          receiver: 'alertmananger-bot'
+          continue: true
     receivers:
       - name: 'null'
       - name: 'slack'
@@ -55,6 +58,10 @@ alertmanager:
             auth_username: "${PROMETHEUS_MAIL_ACCOUNT}"
             auth_identity: "${PROMETHEUS_MAIL_ACCOUNT}"
             auth_password: "${PROMETHEUS_MAIL_PASSWORD}"
+      - name: 'alertmananger-bot'
+        webhook_configs:
+          - send_resolved: true
+            url: 'http://alertmanager-bot:8080'
 
   templateFiles:
 

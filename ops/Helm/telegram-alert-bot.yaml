@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  data:
+    admin: ${PROMETHEUS_TELEGRAM_ADMIN}
+    token: ${PROMETHEUS_TELEGRAM_API}
+  kind: Secret
+  metadata:
+    labels:
+      app.kubernetes.io/name: alertmanager-bot
+    name: alertmanager-bot
+  type: Opaque
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app.kubernetes.io/name: alertmanager-bot
+    name: alertmanager-bot
+  spec:
+    ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+    selector:
+      app.kubernetes.io/name: alertmanager-bot
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    labels:
+      app.kubernetes.io/name: alertmanager-bot
+    name: alertmanager-bot
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: alertmanager-bot
+    template:
+      metadata:
+        labels:
+          app.kubernetes.io/name: alertmanager-bot
+        name: alertmanager-bot
+      spec:
+        containers:
+        - args:
+          - --alertmanager.url=http://prometheus-prometheus-oper-alertmanager:9093
+          - --log.level=info
+          - --store=bolt
+          - --bolt.path=/data/bot.db
+          env:
+          - name: TELEGRAM_ADMIN
+            valueFrom:
+              secretKeyRef:
+                key: admin
+                name: alertmanager-bot
+          - name: TELEGRAM_TOKEN
+            valueFrom:
+              secretKeyRef:
+                key: token
+                name: alertmanager-bot
+          image: metalmatze/alertmanager-bot:0.4.2
+          imagePullPolicy: IfNotPresent
+          name: alertmanager-bot
+          ports:
+          - containerPort: 8080
+            name: http
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 25m
+              memory: 64Mi
+
