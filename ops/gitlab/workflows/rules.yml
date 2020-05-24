@@ -1,5 +1,5 @@
 # TODO: rename this template
-primary_rules:
+.primary_rules:
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
