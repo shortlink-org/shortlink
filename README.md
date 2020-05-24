@@ -80,6 +80,7 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 
 + Prometheus
   + prometheus-operator
+    + notify: slack, email, telegram
 + HealthCheck
 + Support K8S
   + Helm Chart
