@@ -58,26 +58,22 @@ dependency_scanning:
   extends:
     - .primary_rules
 
+.sast-analyzer:
+  extends:
+    - sast
+    - .primary_rules
+
 bandit-sast:
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+  extends:
+    - .sast-analyzer
 
 brakeman-sast:
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+  extends:
+    - .sast-analyzer
 
 eslint-sast:
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+  extends:
+    - .sast-analyzer
 
 flawfinder-sast:
   extends:
