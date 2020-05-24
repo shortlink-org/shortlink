@@ -1,4 +1,5 @@
 include:
+  - local: /ops/gitlab/workflows/rules.yml
   - local: /ops/gitlab/templates/go.yml
   - template: Dependency-Scanning.gitlab-ci.yml
   - template: License-Scanning.gitlab-ci.yml
