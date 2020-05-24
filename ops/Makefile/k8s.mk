@@ -13,6 +13,8 @@ helm-init: ## helm init
 	# add custom repo for helm
 	@helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 	@helm repo add istio https://storage.googleapis.com/istio-release/releases/1.5.4/charts/
+	@helm repo add stable https://kubernetes-charts.storage.googleapis.com
+	@helm repo update
 
 helm-lint: ## Check Helm chart
 	@helm lint ${PATH_TO_COMMON_CHART}
