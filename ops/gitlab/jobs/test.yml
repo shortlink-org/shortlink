@@ -45,8 +45,6 @@ golint:
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
-  stage: test
-  allow_failure: false
   interruptible: true
   rules:
     - if: $CI_COMMIT_TAG
