@@ -1,8 +1,8 @@
 include:
   - local: /ops/gitlab/templates/go.yml
-  - template: Dependency-Scanning.gitlab-ci.yml
+  - local: /ops/gitlab/jobs/sast.yml
+  - local: /ops/gitlab/jobs/dependency.yml
   - template: License-Scanning.gitlab-ci.yml
-  - template: SAST.gitlab-ci.yml
 
 # ON COMMIT ============================================================================================================
 gosec:
@@ -45,18 +45,11 @@ golint:
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
-  stage: test
-  allow_failure: false
   interruptible: true
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
-
-dependency_scanning:
-  stage: test
-  interruptible: true
-  rules:
-    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: on_success
 
 danger-review:
@@ -65,3 +58,5 @@ danger-review:
   script:
     - git version
     - danger
+  rules:
+    - if: $CI_MERGE_REQUEST_ID
