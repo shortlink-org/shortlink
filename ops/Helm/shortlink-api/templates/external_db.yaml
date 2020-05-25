@@ -1,0 +1,26 @@
+{{- if .Values.external_database.enable -}}
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: db
+subsets:
+  - addresses:
+      - ip: {{ .Values.external_database.ip }}
+    ports:
+      - port: {{ .Values.external_database.port }}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    {{ include "shortlink.labels" . | nindent 4 }}
+spec:
+  ports:
+    - port: 3000
+      targetPort: {{ .Values.external_database.port }}
+      protocol: TCP
+      name: http
+{{- end -}}
