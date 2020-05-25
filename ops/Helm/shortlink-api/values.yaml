@@ -102,3 +102,9 @@ deploy:
 service:
   type: LoadBalancer
   port: 7070
+
+# If you want to use an external database
+external_database:
+  enable: false
+  ip: 178.62.37.191
+  port: 6379
