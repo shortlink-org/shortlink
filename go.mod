@@ -50,8 +50,8 @@ require (
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.0.0
 	go.uber.org/zap v1.15.0
-	google.golang.org/genproto v0.0.0-20200526151428-9bb895338b15
+	google.golang.org/genproto v0.0.0-20200526211855-cb27e3aa2013
 	google.golang.org/grpc v1.29.1
-	google.golang.org/protobuf v1.23.0
+	google.golang.org/protobuf v1.23.1-0.20200526195155-81db48ad09cc
 	gopkg.in/ini.v1 v1.51.1 // indirect
 )
