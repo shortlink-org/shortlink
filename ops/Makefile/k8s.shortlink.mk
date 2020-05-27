@@ -6,6 +6,8 @@ helm-shortlink-dep:
 helm-shortlink-up: ## run shortlink in k8s by Helm
 	@echo helm install/update ${PROJECT_NAME}
 
+	@make helm-shortlink-dep
+
 	@helm upgrade api ${SHORTLINK_HELM_API} \
 		--install \
 		--force \

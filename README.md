@@ -86,6 +86,7 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
   + Helm Chart
     + [pingcap/chaos-meshh](https://github.com/pingcap/chaos-mesh)
   + Minikube
+  + Backup/Restore ([Velero](https://velero.io/)
 + Istio
 + MetalLB
 
