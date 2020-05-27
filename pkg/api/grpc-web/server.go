@@ -22,7 +22,9 @@ import (
 
 // API ...
 type API struct { // nolint unused
-	ctx context.Context
+	ctx  context.Context
+	http http.Server
+	rpc  *grpc.Server
 }
 
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
@@ -72,7 +74,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 		return err
 	}
 
-	srv := http.Server{
+	api.http = http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),
 		Handler: api.tracingWrapper(gw),
 
@@ -84,8 +86,19 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))
-	err = srv.ListenAndServe()
+	err = api.http.ListenAndServe()
 	return err
+}
+
+// Close ...
+func (api *API) Close() error {
+	api.rpc.GracefulStop()
+
+	if err := api.http.Close(); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // runGRPC ...
@@ -95,9 +108,9 @@ func (api *API) runGRPC(port int) error {
 		return err
 	}
 
-	grpcServer := grpc.NewServer()
-	RegisterLinkServer(grpcServer, api)
-	err = grpcServer.Serve(lis)
+	api.rpc = grpc.NewServer()
+	RegisterLinkServer(api.rpc, api)
+	err = api.rpc.Serve(lis)
 	return err
 }
 
