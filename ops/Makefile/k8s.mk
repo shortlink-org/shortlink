@@ -1,5 +1,6 @@
 # Include Makefile
 include $(SELF_DIR)/ops/Makefile/k8s.shortlink.mk
+include $(SELF_DIR)/ops/Makefile/k8s.velero.mk
 
 # KUBERNETES TASKS =====================================================================================================
 PATH_TO_COMMON_CHART := ops/Helm/common
@@ -29,4 +30,3 @@ helm-common: ## run common service for
 		--install \
 		--force \
 		--wait
-
