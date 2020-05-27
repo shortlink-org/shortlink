@@ -9,7 +9,7 @@ import (
 	"github.com/batazor/shortlink/internal/logger"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 
-	cloudevents "github.com/cloudevents/sdk-go"
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 )
 
 // Receive ...
@@ -23,8 +23,6 @@ func Receive(ctx context.Context, event cloudevents.Event) error { // nolint unu
 
 	fmt.Printf("Got Data: %+v\n", data)
 
-	fmt.Printf("Got Transport Context: %+v\n", cloudevents.HTTPTransportContextFrom(ctx))
-
 	fmt.Printf("----------------------------\n")
 	return nil
 }
@@ -36,15 +34,10 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	log.Info("Run Cloud-Events API")
 
 	// New endpoint (HTTP)
-	t, err := cloudevents.NewHTTPTransport(
-		cloudevents.WithPort(config.Port),
-		cloudevents.WithPath("/"),
-	)
-	if err != nil {
-		return err
-	}
+	cloudevents.WithPort(config.Port)
+	cloudevents.WithPath("/")
 
-	c, err := cloudevents.NewClient(t)
+	c, err := cloudevents.NewDefaultClient()
 	if err != nil {
 		return err
 	}
