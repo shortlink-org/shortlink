@@ -48,6 +48,8 @@ Vagrant.configure("2") do |config|
     config.vm.define vm_name = "%s-%02d" % [$instance_name_prefix, i] do |config|
 
     # Common settin machine ============================================================================================
+    config.vm.hostname = vm_name
+
     config.vm.provider :virtualbox do |v|
       v.gui = $vm_gui
       v.memory = $vm_memory
