@@ -1,0 +1,23 @@
+# Setting
+
+ubuntu-01 ansible_host=127.0.0.1 ansible_ssh_port=2222 private_key_file=../../.vagrant/machines/ubuntu-01/virtualbox/private_key
+ubuntu-02 ansible_host=127.0.0.1 ansible_ssh_port=2200 private_key_file=../../.vagrant/machines/ubuntu-02/virtualbox/private_key
+ubuntu-03 ansible_host=127.0.0.1 ansible_ssh_port=2201 private_key_file=../../.vagrant/machines/ubuntu-03/virtualbox/private_key
+
+[gateway]
+ubuntu-01
+
+[store]
+ubuntu-02
+
+[mq]
+ubuntu-02
+
+[ui]
+ubuntu-03
+
+[shortlink]
+ubuntu-03
+
+[logger]
+ubuntu-02

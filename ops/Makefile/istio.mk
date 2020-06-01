@@ -13,5 +13,5 @@ metallb-up: ## Run MetalLB
 	# On first install only
 	@kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="${METALLB_SECRET}"
 	# Apply configuration
-	@envsubst < /home/batazor/myproejct/shortlink/ops/Helm/metallb.yaml > /tmp/metallb.yaml
+	@envsubst < /home/batazor/myproejct/shortlink/ops/Helm/addons/metallb/metallb.yaml > /tmp/metallb.yaml
 	@kubectl apply -f /tmp/metallb.yaml

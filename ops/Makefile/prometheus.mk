@@ -21,7 +21,7 @@ helm-prometheus-up:
 	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
 	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
 	# Custom setting values
-	@envsubst < ops/Helm/prometheus-operator.values.yaml > /tmp/prometheus-operator.values.yaml
+	@envsubst < ops/Helm/addons/monitoring/prometheus-operator.values.yaml > /tmp/prometheus-operator.values.yaml
 	@helm upgrade prometheus stable/prometheus-operator \
 		--install \
 		--namespace=${PROMETHEUS_NAMESPACE} \
@@ -30,7 +30,7 @@ helm-prometheus-up:
 		-f /tmp/prometheus-operator.values.yaml
 
 prometheus-telegram-alert:
-	@envsubst < ops/Helm/telegram-alert-bot.yaml > /tmp/telegram-alert-bot.yaml
+	@envsubst < ops/Helm/addons/monitoring/telegram-alert-bot.yaml > /tmp/telegram-alert-bot.yaml
 	@kubectl apply -n ${PROMETHEUS_NAMESPACE} \
 		-f /tmp/telegram-alert-bot.yaml
 
