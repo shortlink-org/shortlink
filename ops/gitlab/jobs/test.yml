@@ -9,7 +9,7 @@ gosec:
   extends:
     - .job_teplate_go
   before_script:
-    - curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin v2.2.0
+    - curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin v2.3.0
   script:
     - make gosec
 
