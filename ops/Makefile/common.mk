@@ -2,6 +2,7 @@
 dep: ## Install dependencies for this project
 	# install protoc
 	@sudo ./ops/scripts/install-protobuf.sh
+	@sudo rm -rf bin
 
 	# install protoc addons
 	@go get -u github.com/golang/protobuf/proto
@@ -10,6 +11,7 @@ dep: ## Install dependencies for this project
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
 	@go get -u github.com/securego/gosec/cmd/gosec
+	@go get -u moul.io/protoc-gen-gotemplate
 
 	# install wire
 	@go get -u github.com/google/wire/cmd/wire
