@@ -19,12 +19,9 @@ goreleaser:
     GORELEASER_IMAGE: goreleaser/goreleaser:latest
 
     # Optionally use GitLab's built-in image registry.
-    # DOCKER_REGISTRY: $CI_REGISTRY
-    # DOCKER_USERNAME: $CI_REGISTRY_USER
-    # DOCKER_PASSWORD: $CI_REGISTRY_PASSWORD
-
-    # Or, use any registry, including the official one.
-    DOCKER_REGISTRY: registry.gitlab.com
+    DOCKER_REGISTRY: $CI_REGISTRY
+    DOCKER_USERNAME: $CI_REGISTRY_USER
+    DOCKER_PASSWORD: $CI_REGISTRY_PASSWORD
 
     # Disable shallow cloning so that goreleaser can diff between tags to
     # generate a changelog.
