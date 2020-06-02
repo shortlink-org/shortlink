@@ -6,7 +6,7 @@ ADD ./pkg/ui/nuxt /app/
 RUN npm i && \
   npm run generate
 
-FROM nginx:1.18-alpine
+FROM nginx:1.19-alpine
 
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
