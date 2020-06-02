@@ -4,9 +4,6 @@ before:
   hooks:
     # You may remove this if you don't use go modules.
     - go mod download
-    - make dep
-    # you may remove this if you don't need go generate
-    - go generate ./...
 builds:
 - id: shortlink
   main: ./cmd/shortlink

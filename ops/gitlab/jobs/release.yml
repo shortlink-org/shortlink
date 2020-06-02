@@ -32,8 +32,6 @@ goreleaser:
   script: |
     docker pull $GORELEASER_IMAGE
 
-    apk add --update make
-
     # GITLAB_TOKEN is needed to create GitLab releases.
     # DOCKER_* are needed to push Docker images.
     docker run --rm --privileged \
