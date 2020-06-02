@@ -34,7 +34,12 @@ changelog:
     - '^.github:'
     - '^.gitlab:'
 dockers:
-  - image_templates:
+  # You can have multiple Docker images.
+  - # GOOS of the built binary that should be used.
+    goos: linux
+    # GOARCH of the built binary that should be used.
+    goarch: amd64
+    image_templates:
       - "shortlink1/shortlink/api:{{ .Tag }}"
       - "shortlink1/shortlink/api:v{{ .Major }}"
       - "shortlink1/shortlink/api:v{{ .Major }}.{{ .Minor }}"

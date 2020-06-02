@@ -29,6 +29,8 @@ builds:
   main: ./cmd/shortlink
   ldflags:
   - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser
+  flags:
+  - -mod=vendor
   binary: shortlink
   env:
   - CGO_ENABLED=0
