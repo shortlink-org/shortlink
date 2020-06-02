@@ -7,11 +7,13 @@ before:
     # you may remove this if you don't need go generate
     - go generate ./...
 builds:
-- main: ./cmd/shortlink
+- id: shortlink
+  main: ./cmd/shortlink
   env:
     - CGO_ENABLED=0
   flags:
     - -mod=vendor
+  binary: shortlink
 archives:
 - replacements:
     darwin: Darwin
@@ -39,6 +41,8 @@ dockers:
     goos: linux
     # GOARCH of the built binary that should be used.
     goarch: amd64
+    binaries:
+      - shortlink
     image_templates:
       - "shortlink1/shortlink/api:{{ .Tag }}"
       - "shortlink1/shortlink/api:v{{ .Major }}"
