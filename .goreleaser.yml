@@ -7,7 +7,11 @@ before:
     # you may remove this if you don't need go generate
     - go generate ./...
 builds:
-- env:
+- main: ./cmd/shortlink
+  env:
+  - CGO_ENABLED=0
+- main: ./cmd/logger
+  env:
   - CGO_ENABLED=0
 archives:
 - replacements:
