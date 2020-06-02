@@ -64,9 +64,12 @@ dockers:
   - shortlink
   goos: linux
   goarch: amd64
-  dockerfile: shortlink.Dockerfile
+  dockerfile: ops/dockerfile.shortlink.Dockerfile
   image_templates:
-  - ops/dockerfile
+  - shortlink1/shortlink/api:{{ .Tag }}
+  - shortlink1/shortlink/api:v{{ .Major }}
+  - shortlink1/shortlink/api:v{{ .Major }}.{{ .Minor }}
+  - shortlink1/shortlink/api:latest
 changelog:
   filters:
     exclude:
