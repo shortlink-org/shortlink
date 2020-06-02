@@ -30,3 +30,6 @@ changelog:
     - '^danger:'
     - '^.github:'
     - '^.gitlab:'
+dockers:
+  - image_templates:
+    - ops/dockerfile/shortlink.Dockerfile
