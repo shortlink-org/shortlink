@@ -24,7 +24,7 @@ goreleaser:
     # DOCKER_PASSWORD: $CI_REGISTRY_PASSWORD
 
     # Or, use any registry, including the official one.
-    DOCKER_REGISTRY: https://index.docker.io/v1/
+    # DOCKER_REGISTRY: https://index.docker.io/v1/
 
     # Disable shallow cloning so that goreleaser can diff between tags to
     # generate a changelog.
