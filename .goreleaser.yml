@@ -33,5 +33,8 @@ changelog:
     - '^.gitlab:'
 dockers:
   - image_templates:
-    - ops/dockerfile
-    dockerfile: shortlink.Dockerfile
+      - "shortlink1/shortlink/api:{{ .Tag }}"
+      - "shortlink1/shortlink/api:v{{ .Major }}"
+      - "shortlink1/shortlink/api:v{{ .Major }}.{{ .Minor }}"
+      - "shortlink1/shortlink/api:latest"
+    dockerfile: ops/dockerfile.shortlink.Dockerfile
