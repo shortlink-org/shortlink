@@ -48,4 +48,4 @@ dockers:
       - "shortlink1/shortlink/api:v{{ .Major }}"
       - "shortlink1/shortlink/api:v{{ .Major }}.{{ .Minor }}"
       - "shortlink1/shortlink/api:latest"
-    dockerfile: ops/dockerfile/shortlink.Dockerfile
+    dockerfile: ops/dockerfile/shortlink.goreleaser.Dockerfile
