@@ -33,4 +33,5 @@ changelog:
     - '^.gitlab:'
 dockers:
   - image_templates:
-    - ops/dockerfile/shortlink.Dockerfile
+    - ops/dockerfile
+    dockerfile: shortlink.Dockerfile
