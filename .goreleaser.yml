@@ -9,7 +9,9 @@ before:
 builds:
 - main: ./cmd/shortlink
   env:
-  - CGO_ENABLED=0
+    - CGO_ENABLED=0
+  flags:
+    - -mod=vendor
 archives:
 - replacements:
     darwin: Darwin
