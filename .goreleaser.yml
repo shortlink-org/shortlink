@@ -39,11 +39,17 @@ dockers:
     goos: linux
     # GOARCH of the built binary that should be used.
     goarch: amd64
+    # Name templates of the built binaries that should be used.
     binaries:
       - shortlink
+    # Build IDs to gather the binaries from.
+    builds:
+      - shortlink
+    # Templates of the Docker image names.
     image_templates:
-      - "shortlink1/shortlink/api:{{ .Tag }}"
-      - "shortlink1/shortlink/api:v{{ .Major }}"
-      - "shortlink1/shortlink/api:v{{ .Major }}.{{ .Minor }}"
-      - "shortlink1/shortlink/api:latest"
+      - "registry.gitlab.com/shortlink1/shortlink/api:{{ .Tag }}"
+      - "registry.gitlab.com/shortlink1/shortlink/api:v{{ .Major }}"
+      - "registry.gitlab.com/shortlink1/shortlink/api:v{{ .Major }}.{{ .Minor }}"
+      - "registry.gitlab.com/shortlink1/shortlink/api:latest"
+    # Path to the Dockerfile (from the project root).
     dockerfile: ops/dockerfile/shortlink.goreleaser.Dockerfile

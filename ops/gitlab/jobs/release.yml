@@ -24,11 +24,13 @@ goreleaser:
     # DOCKER_PASSWORD: $CI_REGISTRY_PASSWORD
 
     # Or, use any registry, including the official one.
-    # DOCKER_REGISTRY: https://index.docker.io/v1/
+    DOCKER_REGISTRY: registry.gitlab.com
 
     # Disable shallow cloning so that goreleaser can diff between tags to
     # generate a changelog.
     GIT_DEPTH: 0
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script: |
     docker pull $GORELEASER_IMAGE
 
