@@ -17,6 +17,8 @@ github.com/Shopify/sarama
 # github.com/alexbrainman/sspi v0.0.0-20180613141037-e580b900e9f5
 github.com/alexbrainman/sspi
 github.com/alexbrainman/sspi/negotiate
+# github.com/batazor/protoc-gen-gotemplate v1.7.1
+## explicit
 # github.com/beorn7/perks v1.0.1
 github.com/beorn7/perks/quantile
 # github.com/cenkalti/backoff/v3 v3.0.0
@@ -142,6 +144,8 @@ github.com/golang/protobuf/ptypes/timestamp
 github.com/golang/protobuf/ptypes/wrappers
 # github.com/golang/snappy v0.0.1
 github.com/golang/snappy
+# github.com/google/subcommands v1.2.0
+## explicit
 # github.com/google/uuid v1.1.1
 github.com/google/uuid
 # github.com/google/wire v0.4.0
@@ -195,6 +199,10 @@ github.com/hashicorp/hcl/json/token
 # github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 ## explicit
 github.com/heptiolabs/healthcheck
+# github.com/huandu/xstrings v1.3.1
+## explicit
+# github.com/imdario/mergo v0.3.9
+## explicit
 # github.com/jackc/chunkreader/v2 v2.0.1
 github.com/jackc/chunkreader/v2
 # github.com/jackc/pgconn v1.5.0
@@ -294,7 +302,11 @@ github.com/magiconair/properties
 github.com/markbates/pkger
 github.com/markbates/pkger/here
 github.com/markbates/pkger/internal/maps
+github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa
+github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa/filters
 github.com/markbates/pkger/pkging
+github.com/markbates/pkger/pkging/embed
+github.com/markbates/pkger/pkging/mem
 github.com/markbates/pkger/pkging/stdos
 # github.com/mattn/go-sqlite3 v1.13.0
 ## explicit
@@ -303,6 +315,8 @@ github.com/mattn/go-sqlite3
 github.com/matttproud/golang_protobuf_extensions/pbutil
 # github.com/mitchellh/mapstructure v1.1.2
 github.com/mitchellh/mapstructure
+# github.com/mitchellh/reflectwalk v1.0.1
+## explicit
 # github.com/nats-io/jwt v0.3.2
 github.com/nats-io/jwt
 # github.com/nats-io/nats.go v1.10.0
@@ -384,6 +398,8 @@ github.com/rcrowley/go-metrics
 # github.com/scylladb/gocqlx v1.5.0
 ## explicit
 github.com/scylladb/gocqlx/qb
+# github.com/securego/gosec v0.0.0-20200401082031-e946c8c39989
+## explicit
 # github.com/sirupsen/logrus v1.6.0
 ## explicit
 github.com/sirupsen/logrus
@@ -521,7 +537,8 @@ go.uber.org/zap/internal/bufferpool
 go.uber.org/zap/internal/color
 go.uber.org/zap/internal/exit
 go.uber.org/zap/zapcore
-# golang.org/x/crypto v0.0.0-20200323165209-0ec3e9974c59
+# golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
+## explicit
 golang.org/x/crypto/ed25519
 golang.org/x/crypto/ed25519/internal/edwards25519
 golang.org/x/crypto/md4
@@ -529,7 +546,7 @@ golang.org/x/crypto/pbkdf2
 # golang.org/x/lint v0.0.0-20191125180803-fdd1cda4f05f
 golang.org/x/lint
 golang.org/x/lint/golint
-# golang.org/x/net v0.0.0-20200202094626-16171245cfb2
+# golang.org/x/net v0.0.0-20200226121028-0de0cce0169b
 golang.org/x/net/context
 golang.org/x/net/http/httpguts
 golang.org/x/net/http2
@@ -558,14 +575,15 @@ golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/width
-# golang.org/x/tools v0.0.0-20200103221440-774c71fcf114
+# golang.org/x/tools v0.0.0-20200601175630-2caf76543d99
+## explicit
 golang.org/x/tools/go/ast/astutil
 golang.org/x/tools/go/gcexportdata
 golang.org/x/tools/go/internal/gcimporter
 # golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543
 golang.org/x/xerrors
 golang.org/x/xerrors/internal
-# google.golang.org/genproto v0.0.0-20200601130524-0f60399e6634
+# google.golang.org/genproto v0.0.0-20200602104108-2bb8d6132df6
 ## explicit
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
@@ -695,7 +713,10 @@ gopkg.in/jcmturner/gokrb5.v7/types
 # gopkg.in/jcmturner/rpc.v1 v1.1.0
 gopkg.in/jcmturner/rpc.v1/mstypes
 gopkg.in/jcmturner/rpc.v1/ndr
-# gopkg.in/yaml.v2 v2.2.8
+# gopkg.in/yaml.v2 v2.3.0
+## explicit
 gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 gopkg.in/yaml.v3
+# moul.io/protoc-gen-gotemplate v1.10.0
+## explicit
