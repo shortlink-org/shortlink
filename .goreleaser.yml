@@ -33,23 +33,23 @@ changelog:
     - '^danger:'
     - '^.github:'
     - '^.gitlab:'
-dockers:
-  # You can have multiple Docker images.
-  - # GOOS of the built binary that should be used.
-    goos: linux
-    # GOARCH of the built binary that should be used.
-    goarch: amd64
-    # Name templates of the built binaries that should be used.
-    binaries:
-      - shortlink
-    # Build IDs to gather the binaries from.
-    builds:
-      - shortlink
-    # Templates of the Docker image names.
-    image_templates:
-      - "registry.gitlab.com/shortlink1/shortlink/api:{{ .Tag }}"
-      - "registry.gitlab.com/shortlink1/shortlink/api:v{{ .Major }}"
-      - "registry.gitlab.com/shortlink1/shortlink/api:v{{ .Major }}.{{ .Minor }}"
-      - "registry.gitlab.com/shortlink1/shortlink/api:latest"
-    # Path to the Dockerfile (from the project root).
-    dockerfile: ops/dockerfile/shortlink.goreleaser.Dockerfile
+#dockers:
+#  # You can have multiple Docker images.
+#  - # GOOS of the built binary that should be used.
+#    goos: linux
+#    # GOARCH of the built binary that should be used.
+#    goarch: amd64
+#    # Name templates of the built binaries that should be used.
+#    binaries:
+#      - shortlink
+#    # Build IDs to gather the binaries from.
+#    builds:
+#      - shortlink
+#    # Templates of the Docker image names.
+#    image_templates:
+#      - "registry.gitlab.com/shortlink1/shortlink/api:{{ .Tag }}"
+#      - "registry.gitlab.com/shortlink1/shortlink/api:v{{ .Major }}"
+#      - "registry.gitlab.com/shortlink1/shortlink/api:v{{ .Major }}.{{ .Minor }}"
+#      - "registry.gitlab.com/shortlink1/shortlink/api:latest"
+#    # Path to the Dockerfile (from the project root).
+#    dockerfile: ops/dockerfile/shortlink.goreleaser.Dockerfile
