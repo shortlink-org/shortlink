@@ -55,6 +55,8 @@ license_scanning:
 danger-review:
   image: registry.gitlab.com/gitlab-org/gitlab-build-images:danger
   stage: test
+  variables:
+    DANGER_GITLAB_API_TOKEN: $GITLAB_TOKEN
   script:
     - git version
     - danger

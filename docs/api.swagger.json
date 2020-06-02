@@ -13,7 +13,7 @@
   "paths": {
     "/api": {
       "delete": {
-        "operationId": "DeleteLink",
+        "operationId": "Link_DeleteLink",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -43,7 +43,7 @@
         ]
       },
       "post": {
-        "operationId": "CreateLink",
+        "operationId": "Link_CreateLink",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -75,7 +75,7 @@
     },
     "/api/links": {
       "get": {
-        "operationId": "GetLinks",
+        "operationId": "Link_GetLinks",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -136,7 +136,7 @@
     },
     "/api/{hash}": {
       "get": {
-        "operationId": "GetLink",
+        "operationId": "Link_GetLink",
         "responses": {
           "200": {
             "description": "A successful response.",
