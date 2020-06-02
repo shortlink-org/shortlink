@@ -59,6 +59,14 @@ snapshot:
 checksum:
   name_template: checksums.txt
   algorithm: sha256
+dockers:
+- binaries:
+  - shortlink
+  goos: linux
+  goarch: amd64
+  dockerfile: Dockerfile
+  image_templates:
+  - ops/dockerfile/shortlink.Dockerfile
 changelog:
   filters:
     exclude:
