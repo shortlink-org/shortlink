@@ -32,7 +32,7 @@ require (
 	github.com/jackc/pgx/v4 v4.6.0
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.6.0
-	github.com/markbates/pkger v0.16.0
+	github.com/markbates/pkger v0.17.0
 	github.com/mattn/go-sqlite3 v1.13.0
 	github.com/mitchellh/reflectwalk v1.0.1 // indirect
 	github.com/nats-io/nats.go v1.10.0
