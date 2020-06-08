@@ -31,7 +31,7 @@ require (
 	github.com/imdario/mergo v0.3.9 // indirect
 	github.com/jackc/pgx/v4 v4.6.0
 	github.com/jmoiron/sqlx v1.2.0
-	github.com/lib/pq v1.6.0
+	github.com/lib/pq v1.7.0
 	github.com/markbates/pkger v0.17.0
 	github.com/mattn/go-sqlite3 v1.13.0
 	github.com/mitchellh/reflectwalk v1.0.1 // indirect
