@@ -1,5 +1,6 @@
 # DOCKER TASKS =========================================================================================================
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
+CI_COMMIT_TAG := latest
 
 docker: docker-login docker-build docker-push ## docker login > build > push
 
@@ -16,6 +17,9 @@ docker-build: ## Build the container
 
 	@echo docker build image ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
 	@docker build -t ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG} -f ops/dockerfile/ui-nuxt.Dockerfile .
+
+	@echo docker build image ${CI_REGISTRY_IMAGE}-ui-next:${CI_COMMIT_TAG}
+	@docker build -t ${CI_REGISTRY_IMAGE}-ui-next:${CI_COMMIT_TAG} -f ops/dockerfile/ui-next.Dockerfile .
 
 docker-push: ## Publish the container
 	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
