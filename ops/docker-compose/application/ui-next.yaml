@@ -1,0 +1,32 @@
+version: '2.4'
+
+services:
+
+  ui-next:
+    build:
+      context: .
+      dockerfile: ops/dockerfile/ui-next.Dockerfile
+      shm_size: 1gb
+    container_name: ui-next
+    ports:
+#      # HTTP UI
+      - "8080:80"
+    restart: on-failure
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.http.routers.shortlink.rule=Host(`shortlink.local`)"
+      - "traefik.backend.healthcheck.path=/"
+      - "traefik.backend.healthcheck.port=80"
+    depends_on:
+      - fluentd
+      - coredns
+    networks:
+      - simple
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    # logging:
+    #   driver: fluentd
+    #   options:
+    #     tag: shortlink
