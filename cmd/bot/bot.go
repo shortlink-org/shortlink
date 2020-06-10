@@ -1,5 +1,5 @@
 /*
-Logger application
+Bot application
 */
 
 package main
@@ -27,7 +27,7 @@ func main() {
 	ctx := context.Background()
 
 	// Init a new service
-	s, cleanup, err := di.InitializeLoggerService(ctx)
+	s, cleanup, err := di.InitializeBotService(ctx)
 	if err != nil {
 		panic(err)
 	}

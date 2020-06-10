@@ -59,8 +59,8 @@ func (mq *DataBus) Notify(ctx context.Context, event int, payload interface{}) *
 	switch event {
 	case api_type.METHOD_ADD:
 		// TODO: send []byte
-		msg := payload.(link.Link) // nolint errcheck
-		data, err := proto.Marshal(&msg)
+		msg := payload.(*link.Link) // nolint errcheck
+		data, err := proto.Marshal(msg)
 		if err != nil {
 			return &notify.Response{
 				Name:    "RESPONSE_MQ_ADD",

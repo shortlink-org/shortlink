@@ -2,6 +2,7 @@ package kafka
 
 import (
 	"context"
+
 	"github.com/Shopify/sarama"
 	"github.com/spf13/viper"
 
@@ -9,14 +10,15 @@ import (
 )
 
 type Config struct { // nolint unused
-	URI []string // addresses of available kafka brokers
+	URI           []string // addresses of available kafka brokers
+	ConsumerGroup string
 }
 
 type Kafka struct { // nolint unused
 	*Config
 	client   sarama.Client
 	producer sarama.SyncProducer
-	consumer sarama.Consumer
+	consumer sarama.ConsumerGroup
 }
 
 func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
@@ -35,7 +37,7 @@ func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
 	}
 
 	// Create new consumer
-	if mq.consumer, err = sarama.NewConsumerFromClient(mq.client); err != nil {
+	if mq.consumer, err = sarama.NewConsumerGroupFromClient(mq.ConsumerGroup, mq.client); err != nil {
 		return err
 	}
 
@@ -75,19 +77,15 @@ func (k *Kafka) Publish(message query.Message) error {
 }
 
 func (mq *Kafka) Subscribe(message query.Response) error {
-	consumer, err := mq.consumer.ConsumePartition("shortlink", 0, sarama.OffsetOldest)
-	if err != nil {
+	consumer := Consumer{
+		ch: message,
+	}
+
+	if err := mq.consumer.Consume(context.Background(), []string{"shortlink"}, &consumer); err != nil {
 		return err
 	}
 
-	for {
-		select {
-		case err := <-consumer.Errors():
-			message.Chan <- []byte(err.Error())
-		case msg := <-consumer.Messages():
-			message.Chan <- msg.Value
-		}
-	}
+	return nil
 }
 
 func (mq *Kafka) UnSubscribe() error {
@@ -98,10 +96,13 @@ func (mq *Kafka) UnSubscribe() error {
 func (mq *Kafka) setConfig() *sarama.Config {
 	viper.AutomaticEnv()
 	viper.SetDefault("MQ_KAFKA_URI", "localhost:9092")
+	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP", "shortlink")
+
 	mq.Config = &Config{
 		URI: []string{
 			viper.GetString("MQ_KAFKA_URI"),
 		},
+		ConsumerGroup: viper.GetString("MQ_KAFKA_CONSUMER_GROUP"),
 	}
 
 	// sarama config
@@ -112,6 +113,7 @@ func (mq *Kafka) setConfig() *sarama.Config {
 	config.Producer.Retry.Max = 5
 	config.Producer.Return.Successes = true
 	config.Producer.Compression = sarama.CompressionSnappy
+	config.Version = sarama.V2_5_0_0
 
 	config.Consumer.Return.Errors = true
 
