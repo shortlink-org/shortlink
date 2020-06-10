@@ -6,7 +6,7 @@ import (
 )
 
 type Publisher interface { // nolint unused
-	Subscribe(event int, subscriber Subscriber)
+	Subscribe(event *int, subscriber Subscriber)
 	UnSubscribe(subscriber Subscriber)
 }
 
