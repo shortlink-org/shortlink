@@ -41,13 +41,15 @@ func Publish(ctx context.Context, event int, payload interface{}, cb chan<- inte
 
 	for key := range subsribers.subsribers[event] {
 		response := subsribers.subsribers[event][key].Notify(ctx, event, payload)
-		if response.Error != nil {
-			// TODO: Need to add undo operations
-			cb <- *response
-			return
-		}
+		if response != nil && response.Error != nil {
+			if response.Error != nil {
+				// TODO: Need to add undo operations
+				cb <- *response
+				return
+			}
 
-		responses[response.Name] = response
+			responses[response.Name] = response
+		}
 	}
 
 	// TODO: Send only first success response for simple implementation
