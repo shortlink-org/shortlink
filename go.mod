@@ -59,7 +59,7 @@ require (
 	go.uber.org/zap v1.15.0
 	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37 // indirect
 	golang.org/x/tools v0.0.0-20200601175630-2caf76543d99 // indirect
-	google.golang.org/genproto v0.0.0-20200611194920-44ba362f84c1
+	google.golang.org/genproto v0.0.0-20200612171551-7676ae05be11
 	google.golang.org/grpc v1.29.1
 	google.golang.org/protobuf v1.24.0
 	gopkg.in/ini.v1 v1.51.1 // indirect
