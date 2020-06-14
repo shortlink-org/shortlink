@@ -49,7 +49,6 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) MQ { // nolint un
 
 // setConfig - set configuration
 func (mq *DataBus) setConfig() { // nolint unused
-	viper.AutomaticEnv()
 	viper.SetDefault("MQ_TYPE", "kafka")
 	mq.typeMQ = viper.GetString("MQ_TYPE")
 }

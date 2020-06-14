@@ -53,7 +53,7 @@ func Publish(ctx context.Context, event int, payload interface{}, cb chan<- inte
 	}
 
 	// TODO: Send only first success response for simple implementation
-	if responseFilter != "" {
+	if responses[responseFilter].Name != "" {
 		cb <- responses[responseFilter]
 	}
 }
