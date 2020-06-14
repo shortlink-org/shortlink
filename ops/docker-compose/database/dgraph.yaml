@@ -11,7 +11,7 @@ services:
 
   zero:
     <<: *network
-    image: dgraph/dgraph:v2.0.0-beta
+    image: dgraph/dgraph:v20.03.3
     volumes:
       - type: volume
         source: database
@@ -29,7 +29,7 @@ services:
 
   server:
     <<: *network
-    image: dgraph/dgraph:v2.0.0-beta
+    image: dgraph/dgraph:v20.03.3
     volumes:
       - type: volume
         source: database
@@ -37,7 +37,7 @@ services:
         volume:
           nocopy: true
     ports:
-      - "8080:8080"
+      - "8090:8080"
       - "9080:9080"
     depends_on:
       - fluentd
@@ -47,7 +47,7 @@ services:
 
   ratel:
     <<: *network
-    image: dgraph/dgraph:v2.0.0-beta
+    image: dgraph/dgraph:v20.03.3
     volumes:
       - type: volume
         source: database

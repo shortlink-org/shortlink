@@ -11,15 +11,18 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/spf13/viper"
-
+	"github.com/batazor/shortlink/internal/config"
 	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/internal/error/status"
 	"github.com/batazor/shortlink/internal/mq/query"
 )
 
 func init() {
 	// Read ENV variables
-	viper.AutomaticEnv()
+	if err := config.Init(); err != nil {
+		fmt.Println(err.Error())
+		os.Exit(status.ERROR_CONFIG)
+	}
 }
 
 func main() {

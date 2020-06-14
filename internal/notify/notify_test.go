@@ -17,8 +17,8 @@ func TestMain(m *testing.M) {
 
 type subscriber struct{}
 
-func (subscriber) Notify(ctx context.Context, event int, payload interface{}) *Response {
-	return &Response{
+func (subscriber) Notify(ctx context.Context, event int, payload interface{}) Response {
+	return Response{
 		Payload: nil,
 		Error:   nil,
 	}

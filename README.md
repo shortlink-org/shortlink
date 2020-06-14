@@ -232,6 +232,13 @@ ansible-playbook playbooks/playbook.yml
 - [Yandex Cloud](https://cloud.yandex.ru/)
 - [AWS EKS](https://aws.amazon.com/eks/)
 
+### [Error code](./internal/error/status/exit.go)
+
+| CODE | Describe     |
+|------|--------------|
+| 0    | SUCCESS      |
+| 1    | ERROR_CONFIG |
+
 ## -~- THE END -~-
 
 [mergify]: https://mergify.io
