@@ -6,6 +6,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -58,6 +59,7 @@ func main() {
 			// []byte to link.Link
 			myLink := &link.Link{}
 			if err := proto.Unmarshal(msg, myLink); err != nil {
+				s.Log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				continue
 			}
 

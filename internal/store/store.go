@@ -85,33 +85,33 @@ func (s *Store) setConfig() { // nolint unused
 }
 
 // Notify ...
-func (s *Store) Notify(ctx context.Context, event int, payload interface{}) *notify.Response { // nolint unused
+func (s *Store) Notify(ctx context.Context, event int, payload interface{}) notify.Response { // nolint unused
 	switch event {
 	case api_type.METHOD_ADD:
 		if addLink, ok := payload.(*link.Link); ok {
 			payload, err := s.store.Add(ctx, addLink)
-			return &notify.Response{
+			return notify.Response{
 				Name:    "RESPONSE_STORE_ADD",
 				Payload: payload,
 				Error:   err,
 			}
 		}
 
-		return &notify.Response{
+		return notify.Response{
 			Name:    "RESPONSE_STORE_ADD",
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
 	case api_type.METHOD_GET:
 		payload, err := s.store.Get(ctx, payload.(string))
-		return &notify.Response{
+		return notify.Response{
 			Name:    "RESPONSE_STORE_GET",
 			Payload: payload,
 			Error:   err,
 		}
 	case api_type.METHOD_LIST:
 		payload, err := s.store.List(ctx, nil)
-		return &notify.Response{
+		return notify.Response{
 			Name:    "RESPONSE_STORE_LIST",
 			Payload: payload,
 			Error:   err,
@@ -119,26 +119,26 @@ func (s *Store) Notify(ctx context.Context, event int, payload interface{}) *not
 	case api_type.METHOD_UPDATE:
 		if linkUpdate, ok := payload.(*link.Link); ok {
 			payload, err := s.store.Update(ctx, linkUpdate)
-			return &notify.Response{
+			return notify.Response{
 				Name:    "RESPONSE_STORE_UPDATE",
 				Payload: payload,
 				Error:   err,
 			}
 		}
 
-		return &notify.Response{
+		return notify.Response{
 			Name:    "RESPONSE_STORE_UPDATE",
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
 	case api_type.METHOD_DELETE:
 		err := s.store.Delete(ctx, payload.(string))
-		return &notify.Response{
+		return notify.Response{
 			Name:    "RESPONSE_STORE_DELETE",
 			Payload: nil,
 			Error:   err,
 		}
 	}
 
-	return nil
+	return notify.Response{}
 }

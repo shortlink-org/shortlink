@@ -30,8 +30,9 @@ func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
 	}
 }
 
+// Publish - add new event
 func Publish(ctx context.Context, event int, payload interface{}, cb chan<- interface{}, responseFilter string) { // nolint unused
-	responses := map[string]*Response{}
+	responses := map[string]Response{}
 	subsribers.Lock()
 	defer subsribers.Unlock()
 
@@ -39,22 +40,21 @@ func Publish(ctx context.Context, event int, payload interface{}, cb chan<- inte
 		cb <- nil
 	}
 
+	// send event to all subscribes
 	for key := range subsribers.subsribers[event] {
 		response := subsribers.subsribers[event][key].Notify(ctx, event, payload)
-		if response != nil && response.Error != nil {
-			if response.Error != nil {
-				// TODO: Need to add undo operations
-				cb <- *response
-				return
-			}
-
-			responses[response.Name] = response
+		if response.Error != nil {
+			// TODO: Need to add undo operations
+			cb <- response
+			return
 		}
+
+		responses[response.Name] = response
 	}
 
 	// TODO: Send only first success response for simple implementation
-	if responses[responseFilter] != nil {
-		cb <- *responses[responseFilter]
+	if responseFilter != "" {
+		cb <- responses[responseFilter]
 	}
 }
 
