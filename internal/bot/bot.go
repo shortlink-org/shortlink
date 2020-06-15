@@ -9,18 +9,12 @@ import (
 	"github.com/batazor/shortlink/pkg/link"
 )
 
-type Bot struct {
-	// system event
-	notify.Subscriber // Observer interface for subscribe on system event
-
-	slack slack.Bot
-}
-
 func (b *Bot) Use(ctx context.Context) { // nolint unused
 	// Subscribe to Event
 	notify.Subscribe(METHOD_NEW_LINK, b)
 
 	// Init bot
+	b.slack = &slack.Bot{}
 	err := b.slack.Init()
 	if err != nil {
 		return
