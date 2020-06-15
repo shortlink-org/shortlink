@@ -155,6 +155,9 @@ Use `.env` file in `pkg/ui/[nuxt/next/etc]` directories for setting your UI
 | MQ_KAFKA_CONSUMER_GROUP | shortlink                                                   | Kafka consumer group                                                                           |
 | SENTRY_DSN              | ___DSN___                                                   | key for sentry                                                                                 |
 | BOT_SLACK_WEBHOOK       | YOUR_WEBHOOK_URL_HERE                                       | Your webhook URL                                                                               |
+| BOT_TELEGRAM_WEBHOOK    | YOUR_WEBHOOK_URL_HERE                                       | Your webhook URL                                                                               |
+| BOT_TELEGRAM_CHAT_ID    | 123                                                         | Your webhook URL                                                                               |
+| BOT_TELEGRAM_DEBUG_MODE | false                                                       | Your webhook URL                                                                               |
 
 </p>
 </details>

@@ -10,7 +10,7 @@ import (
 )
 
 type Bot struct {
-	WEBHOOK string
+	webhook string
 }
 
 func (b *Bot) Init() error {
@@ -28,7 +28,7 @@ func (b *Bot) Send(message string) error {
 		return err
 	}
 
-	resp, err := http.Post(b.WEBHOOK, "application/json", bytes.NewBuffer(requestBody))
+	resp, err := http.Post(b.webhook, "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
 		return err
 	}
@@ -47,5 +47,5 @@ func (b *Bot) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("BOT_SLACK_WEBHOOK", "YOUR_WEBHOOK_URL_HERE")
 
-	b.WEBHOOK = viper.GetString("BOT_SLACK_WEBHOOK")
+	b.webhook = viper.GetString("BOT_SLACK_WEBHOOK")
 }
