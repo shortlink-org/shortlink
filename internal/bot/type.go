@@ -12,8 +12,7 @@ type Bot struct {
 	// system event
 	notify.Subscriber // Observer interface for subscribe on system event
 
-	slack    Service
-	telegram Service
+	services []Service
 }
 
 type Service interface {
