@@ -24,10 +24,11 @@ Shortlink service
 
 ##### Services
 
-| Service     | Description                       | Language/Framework |
-|-------------|-----------------------------------|--------------------|
-| shortlink   | Shortlink service                 | Go                 |
-| logger      | Logger service                    | Go                 |
+| Service     | Description                          | Language/Framework |
+|-------------|--------------------------------------|--------------------|
+| shortlink   | Shortlink service                    | Go                 |
+| logger      | Logger service                       | Go                 |
+| bot         | Send notify to smtp, slack, telegram | Go                 |
 
 ### Run
 

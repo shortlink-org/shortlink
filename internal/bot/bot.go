@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/bot/slack"
+	"github.com/batazor/shortlink/internal/bot/smtp"
 	"github.com/batazor/shortlink/internal/bot/telegram"
 	"github.com/batazor/shortlink/internal/notify"
 	"github.com/batazor/shortlink/pkg/link"
@@ -29,6 +30,14 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 		return
 	}
 	b.services = append(b.services, telegramBot)
+
+	// Init SMTP bot
+	smtpBot := &smtp.Bot{}
+	err = smtpBot.Init()
+	if err != nil {
+		return
+	}
+	b.services = append(b.services, smtpBot)
 }
 
 // Notify ...
