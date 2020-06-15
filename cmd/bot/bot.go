@@ -14,6 +14,7 @@ import (
 	"github.com/golang/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/bot"
+	bot_type "github.com/batazor/shortlink/internal/bot/type"
 	"github.com/batazor/shortlink/internal/config"
 	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/error/status"
@@ -67,7 +68,7 @@ func main() {
 				continue
 			}
 
-			notify.Publish(ctx, bot.METHOD_NEW_LINK, myLink, nil, "")
+			notify.Publish(ctx, bot_type.METHOD_NEW_LINK, myLink, nil, "")
 		}
 	}()
 

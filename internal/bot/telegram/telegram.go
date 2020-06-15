@@ -1,11 +1,27 @@
 package telegram
 
 import (
+	"context"
+
 	"github.com/go-telegram-bot-api/telegram-bot-api"
 	"github.com/spf13/viper"
+
+	bot_type "github.com/batazor/shortlink/internal/bot/type"
+	"github.com/batazor/shortlink/internal/notify"
 )
 
+func init() {
+	// issue: https://github.com/spf13/viper/issues/268
+	viper.AutomaticEnv()
+	viper.SetDefault("BOT_TELEGRAM_WEBHOOK", "YOUR_WEBHOOK_URL_HERE")
+	viper.SetDefault("BOT_TELEGRAM_CHAT_ID", 123)
+	viper.SetDefault("BOT_TELEGRAM_DEBUG_MODE", false)
+}
+
 type Bot struct {
+	// system event
+	notify.Subscriber // Observer interface for subscribe on system event
+
 	client *tgbotapi.BotAPI
 
 	webhook   string
@@ -27,7 +43,27 @@ func (b *Bot) Init() error {
 	// Set debug mode
 	b.client.Debug = b.debugMode
 
+	// Subscribe to Event
+	notify.Subscribe(bot_type.METHOD_SEND_NEW_LINK, b)
+
 	return nil
+}
+
+func (b *Bot) Notify(ctx context.Context, event int, payload interface{}) notify.Response {
+	switch event {
+	case bot_type.METHOD_SEND_NEW_LINK:
+		{
+			if err := b.Send(payload.(string)); err != nil {
+				return notify.Response{
+					Error: err,
+				}
+			}
+
+			return notify.Response{}
+		}
+	default:
+		return notify.Response{}
+	}
 }
 
 func (b *Bot) Send(message string) error {
@@ -41,11 +77,6 @@ func (b *Bot) Send(message string) error {
 
 // setConfig - set configuration
 func (b *Bot) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("BOT_TELEGRAM_WEBHOOK", "YOUR_WEBHOOK_URL_HERE")
-	viper.SetDefault("BOT_TELEGRAM_CHAT_ID", 123)
-	viper.SetDefault("BOT_TELEGRAM_DEBUG_MODE", false)
-
 	b.webhook = viper.GetString("BOT_TELEGRAM_WEBHOOK")
 	b.chatId = viper.GetInt64("BOT_TELEGRAM_CHAT_ID")
 	b.debugMode = viper.GetBool("BOT_TELEGRAM_DEBUG_MODE")
