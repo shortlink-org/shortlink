@@ -13,12 +13,13 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 	// Subscribe to Event
 	notify.Subscribe(METHOD_NEW_LINK, b)
 
-	// Init bot
-	b.slack = &slack.Bot{}
-	err := b.slack.Init()
+	// Init slack bot
+	slackBot := &slack.Bot{}
+	err := slackBot.Init()
 	if err != nil {
 		return
 	}
+	b.services = append(b.services, slackBot)
 }
 
 // Notify ...
@@ -36,8 +37,11 @@ func (b *Bot) Notify(ctx context.Context, event int, payload interface{}) notify
 func (b *Bot) Send(ctx context.Context, link *link.Link) {
 	payload := fmt.Sprintf("LINK: %s", link.Url)
 
-	err := b.slack.Send(payload)
-	if err != nil {
-		return
+	// Send message
+	for _, service := range b.services {
+		err := service.Send(payload)
+		if err != nil {
+			continue
+		}
 	}
 }
