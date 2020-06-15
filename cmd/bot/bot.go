@@ -1,5 +1,5 @@
 /*
-Logger application
+Bot application
 */
 
 package main
@@ -11,10 +11,16 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/golang/protobuf/proto"
+
+	"github.com/batazor/shortlink/internal/bot"
+	bot_type "github.com/batazor/shortlink/internal/bot/type"
 	"github.com/batazor/shortlink/internal/config"
 	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/error/status"
 	"github.com/batazor/shortlink/internal/mq/query"
+	"github.com/batazor/shortlink/internal/notify"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 func init() {
@@ -30,7 +36,7 @@ func main() {
 	ctx := context.Background()
 
 	// Init a new service
-	s, cleanup, err := di.InitializeLoggerService(ctx)
+	s, cleanup, err := di.InitializeBotService(ctx)
 	if err != nil {
 		panic(err)
 	}
@@ -38,6 +44,10 @@ func main() {
 	getEventNewLink := query.Response{
 		Chan: make(chan []byte),
 	}
+
+	// Run bot
+	b := bot.Bot{}
+	b.Use(ctx)
 
 	go func() {
 		if s.MQ != nil {
@@ -49,7 +59,16 @@ func main() {
 
 	go func() {
 		for {
-			s.Log.Info(fmt.Sprintf("GET: %s", string(<-getEventNewLink.Chan)))
+			msg := <-getEventNewLink.Chan
+
+			// []byte to link.Link
+			myLink := &link.Link{}
+			if err := proto.Unmarshal(msg, myLink); err != nil {
+				s.Log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
+				continue
+			}
+
+			notify.Publish(ctx, bot_type.METHOD_NEW_LINK, myLink, nil, "")
 		}
 	}()
 

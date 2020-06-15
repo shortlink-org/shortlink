@@ -17,7 +17,6 @@ services:
       - "10.5.0.2"
     dns_search: coredns
     depends_on:
-      - loki
       - coredns
     volumes:
       - ./ops/docker-compose/tooling/fluentd/fluentd.conf:/fluentd/etc/fluentd.conf

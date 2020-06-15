@@ -11,7 +11,7 @@ services:
 
   zookeeper:
     <<: *network
-    image: confluentinc/cp-zookeeper:5.4.0
+    image: confluentinc/cp-zookeeper:5.4.2
     hostname: zookeeper
     container_name: zookeeper
     ports:
