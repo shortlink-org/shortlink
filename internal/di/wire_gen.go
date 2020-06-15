@@ -120,6 +120,36 @@ func InitializeLoggerService(ctx context.Context) (*Service, func(), error) {
 	}, nil
 }
 
+func InitializeBotService(ctx context.Context) (*Service, func(), error) {
+	logger, cleanup, err := InitLogger(ctx)
+	if err != nil {
+		return nil, nil, err
+	}
+	mq, cleanup2, err := InitMQ(ctx, logger)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	diDiAutoMaxPro, cleanup3, err := InitAutoMaxProcs(logger)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewBotService(logger, mq, diDiAutoMaxPro)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return service, func() {
+		cleanup3()
+		cleanup2()
+		cleanup()
+	}, nil
+}
+
 // wire.go:
 
 // Service - heplers
@@ -313,6 +343,16 @@ func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tra
 var LoggerSet = wire.NewSet(DefaultSet, NewLoggerService, InitMQ)
 
 func NewLoggerService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
+	return &Service{
+		Log: log,
+		MQ:  mq2,
+	}, nil
+}
+
+// BotService ==========================================================================================================
+var BotSet = wire.NewSet(DefaultSet, NewBotService, InitMQ)
+
+func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
 	return &Service{
 		Log: log,
 		MQ:  mq2,

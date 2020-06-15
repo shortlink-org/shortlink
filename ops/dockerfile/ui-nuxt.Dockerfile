@@ -1,9 +1,11 @@
-FROM node:13.14 as builder
+FROM node:14.4-alpine as builder
 
 WORKDIR /app
 ADD ./pkg/ui/nuxt /app/
 
-RUN npm i && \
+RUN apk add --update python2 make g++ && \
+  npm install fibers && \
+  npm i && \
   npm run generate
 
 FROM nginx:1.19-alpine

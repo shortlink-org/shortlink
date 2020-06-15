@@ -2,6 +2,11 @@ server {
     listen      80;
     server_name ui-nuxt.local;
 
+    gzip on;
+    gzip_proxied any;
+    gzip_comp_level 4;
+    gzip_types text/css application/javascript image/svg+xml;
+
     root   /usr/share/nginx/html;
 
     location ~* \.(?:ico|gif|jpe?g|png|woff2?|eot|otf|ttf|svg|js|css)$ {

@@ -11,15 +11,18 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/spf13/viper"
-
+	"github.com/batazor/shortlink/internal/config"
 	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/internal/error/status"
 	"github.com/batazor/shortlink/internal/mq/query"
 )
 
 func init() {
 	// Read ENV variables
-	viper.AutomaticEnv()
+	if err := config.Init(); err != nil {
+		fmt.Println(err.Error())
+		os.Exit(status.ERROR_CONFIG)
+	}
 }
 
 func main() {
@@ -32,13 +35,13 @@ func main() {
 		panic(err)
 	}
 
-	test := query.Response{
+	getEventNewLink := query.Response{
 		Chan: make(chan []byte),
 	}
 
 	go func() {
 		if s.MQ != nil {
-			if err := s.MQ.Subscribe(test); err != nil {
+			if err := s.MQ.Subscribe(getEventNewLink); err != nil {
 				s.Log.Error(err.Error())
 			}
 		}
@@ -46,7 +49,7 @@ func main() {
 
 	go func() {
 		for {
-			s.Log.Info(fmt.Sprintf("GET: %s", string(<-test.Chan)))
+			s.Log.Info(fmt.Sprintf("GET: %s", string(<-getEventNewLink.Chan)))
 		}
 	}()
 

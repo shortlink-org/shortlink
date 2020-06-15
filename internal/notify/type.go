@@ -6,12 +6,12 @@ import (
 )
 
 type Publisher interface { // nolint unused
-	Subscribe(event int, subscriber Subscriber)
+	Subscribe(event *int, subscriber Subscriber)
 	UnSubscribe(subscriber Subscriber)
 }
 
 type Subscriber interface {
-	Notify(ctx context.Context, event int, payload interface{}) *Response
+	Notify(ctx context.Context, event int, payload interface{}) Response
 }
 
 type Notify struct {
