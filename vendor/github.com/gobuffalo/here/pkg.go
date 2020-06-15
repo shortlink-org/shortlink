@@ -32,7 +32,7 @@ func (h Here) Package(p string) (Info, error) {
 	})
 
 	if err != nil {
-		return i, fmt.Errorf("here.Package: %s: %w", p, err)
+		return i, err
 	}
 
 	h.cache(i.Dir, func(p string) (Info, error) {

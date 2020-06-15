@@ -35,7 +35,7 @@ func run(n string, args ...string) ([]byte, error) {
 	c.Stderr = ebb
 	err := c.Run()
 	if err != nil {
-		return nil, fmt.Errorf("%v %w: %s", c.Args, err, ebb)
+		return nil, fmt.Errorf("%s: %s", err, ebb)
 	}
 
 	return bb.Bytes(), nil
@@ -48,7 +48,7 @@ func (h Here) cache(p string, fn func(string) (Info, error)) (Info, error) {
 	}
 	i, err := fn(p)
 	if err != nil {
-		return i, fmt.Errorf("here.cache: %s: %w", p, err)
+		return i, err
 	}
 	h.infos.Store(p, i)
 	return i, nil
