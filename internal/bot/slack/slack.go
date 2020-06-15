@@ -3,6 +3,7 @@ package slack
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"net/http"
 
 	"github.com/spf13/viper"
@@ -33,6 +34,10 @@ func (b *Bot) Send(message string) error {
 	}
 
 	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		return errors.New("Don't send message to slack")
+	}
 
 	return nil
 }
