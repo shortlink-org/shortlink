@@ -33,8 +33,6 @@ func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
 // Publish - add new event
 func Publish(ctx context.Context, event int, payload interface{}, cb chan<- interface{}, responseFilter string) { // nolint unused
 	responses := map[string]Response{}
-	subsribers.Lock()
-	defer subsribers.Unlock()
 
 	if len(subsribers.subsribers[event]) == 0 {
 		cb <- nil
@@ -49,7 +47,9 @@ func Publish(ctx context.Context, event int, payload interface{}, cb chan<- inte
 			return
 		}
 
+		subsribers.Lock()
 		responses[response.Name] = response
+		subsribers.Unlock()
 	}
 
 	// TODO: Send only first success response for simple implementation
