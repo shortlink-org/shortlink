@@ -18,7 +18,7 @@ require (
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.8+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/gocql/gocql v0.0.0-20200613210051-80dc62113c6d
+	github.com/gocql/gocql v0.0.0-20200615160627-420e3b873d91
 	github.com/golang/protobuf v1.4.2
 	github.com/google/subcommands v1.2.0 // indirect
 	github.com/google/wire v0.4.0
