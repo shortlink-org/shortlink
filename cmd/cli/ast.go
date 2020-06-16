@@ -9,6 +9,10 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
+
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 type ENV struct {
@@ -26,17 +30,47 @@ type Config struct {
 	envs []ENV
 }
 
-var (
-	config   = Config{}
-	findDirs = []string{"cmd", "internal", "pkg"}
-	skipDirs = []string{"vendor", "node_modules", "dist", "ui"}
-)
+func init() {
+	rootCmd := &cobra.Command{
+		Use:   "shortctl",
+		Short: "Shortlink this sandbox for experiments",
+		Long:  "Demo microservice architecture and best practices",
+		Run:   func(cmd *cobra.Command, args []string) {},
+	}
+
+	rootCmd.Flags().String("o", "./docs/env.md", "Output file path")
+	if err := viper.BindPFlag("o", rootCmd.Flags().Lookup("o")); err != nil {
+		log.Fatal(err)
+	}
+
+	rootCmd.Flags().String("include-dir", "cmd,internal,pkg", "Include directories")
+	if err := viper.BindPFlag("include-dir", rootCmd.Flags().Lookup("include-dir")); err != nil {
+		log.Fatal(err)
+	}
+
+	rootCmd.Flags().String("exclude-dir", "vendor,node_modules,dist,ui", "Exclude directories")
+	if err := viper.BindPFlag("exclude-dir", rootCmd.Flags().Lookup("exclude-dir")); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := rootCmd.Execute(); err != nil {
+		log.Fatal(err)
+	}
+}
 
 func main() {
-	var dirs []string
+	dirs := []string{}
+	config := Config{}
+	filePath := viper.GetString("o")
+
+	includeDirs := viper.GetString("include-dir")
+	findDirs := strings.Split(includeDirs, ",")
+
+	excludeDirs := viper.GetString("exclude-dir")
+	skipDirs := strings.Split(excludeDirs, ",")
 
 	for _, dir := range findDirs {
-		resp, err := getDirectories(dir)
+		resp, err := getDirectories(dir, skipDirs)
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -46,18 +80,18 @@ func main() {
 	}
 
 	for _, dir := range dirs {
-		setConfigDocs(dir)
+		setConfigDocs(dir, &config)
 	}
 
 	payload := renderMDTable(config)
 
-	if err := saveToFile("./docs/env.md", payload); err != nil {
+	if err := saveToFile(filePath, payload); err != nil {
 		fmt.Println(err)
 		return
 	}
 }
 
-func getDirectories(root string) ([]string, error) {
+func getDirectories(root string, skipDirs []string) ([]string, error) {
 	dirs := []string{}
 
 	err := filepath.Walk(
@@ -95,7 +129,7 @@ func isExist(s []string, e string) bool {
 	return false
 }
 
-func setConfigDocs(path string) {
+func setConfigDocs(path string, config *Config) {
 	fset := token.NewFileSet()
 	pkgs, err := parser.ParseDir(fset, path, nil, parser.ParseComments)
 	if err != nil {
