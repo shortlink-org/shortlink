@@ -166,7 +166,7 @@ func (c *CassandraLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (c *CassandraLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_CASSANDRA_URI", "localhost:9042")
+	viper.SetDefault("STORE_CASSANDRA_URI", "localhost:9042") // Cassandra URI
 	c.config = CassandraConfig{
 		URI: viper.GetString("STORE_CASSANDRA_URI"),
 	}

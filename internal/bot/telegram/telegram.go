@@ -72,7 +72,7 @@ func (b *Bot) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("BOT_TELEGRAM_WEBHOOK", "YOUR_WEBHOOK_URL_HERE") // Your webhook URL
 	viper.SetDefault("BOT_TELEGRAM_CHAT_ID", 123)                     // Your chat ID
-	viper.SetDefault("BOT_TELEGRAM_DEBUG_MODE", false)
+	viper.SetDefault("BOT_TELEGRAM_DEBUG_MODE", false)                // Debug mode
 
 	b.webhook = viper.GetString("BOT_TELEGRAM_WEBHOOK")
 	b.chatId = viper.GetInt64("BOT_TELEGRAM_CHAT_ID")

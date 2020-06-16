@@ -174,7 +174,7 @@ func (lite *SQLiteLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (lite *SQLiteLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_SQLITE_PATH", "/tmp/links.sqlite")
+	viper.SetDefault("STORE_SQLITE_PATH", "/tmp/links.sqlite") // SQLite URI
 
 	lite.config = SQLiteConfig{
 		Path: viper.GetString("STORE_SQLITE_PATH"),

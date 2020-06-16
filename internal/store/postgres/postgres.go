@@ -176,7 +176,7 @@ func (p *PostgresLinkList) setConfig() {
 	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s?pool_max_conns=10", "shortlink", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)
+	viper.SetDefault("STORE_POSTGRES_URI", dbinfo) // Postgres URI
 
 	p.config = PostgresConfig{
 		URI: viper.GetString("STORE_POSTGRES_URI"),

@@ -127,7 +127,7 @@ func (r *RedisLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (r *RedisLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_REDIS_URI", "localhost:6379")
+	viper.SetDefault("STORE_REDIS_URI", "localhost:6379") // Redis URI
 
 	r.config = RedisConfig{
 		URI: viper.GetString("STORE_REDIS_URI"),

@@ -163,7 +163,7 @@ func (m *MySQLLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (m *MySQLLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MYSQL_URI", "shortlink:shortlink@(localhost:3306)/shortlink?parseTime=true")
+	viper.SetDefault("STORE_MYSQL_URI", "shortlink:shortlink@(localhost:3306)/shortlink?parseTime=true") // MySQL URI
 
 	m.config = MySQLConfig{
 		URI: viper.GetString("STORE_MYSQL_URI"),
