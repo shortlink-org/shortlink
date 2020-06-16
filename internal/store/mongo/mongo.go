@@ -165,7 +165,7 @@ func (m *MongoLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (m *MongoLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MONGODB_URI", "mongodb://localhost:27017")
+	viper.SetDefault("STORE_MONGODB_URI", "mongodb://localhost:27017") // MongoDB URI
 	m.config = MongoConfig{
 		URI: viper.GetString("STORE_MONGODB_URI"),
 	}

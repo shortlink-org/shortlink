@@ -96,8 +96,8 @@ func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
 }
 
 func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, func(), error) {
-	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink")
-	viper.SetDefault("TRACER_URI", "localhost:6831")
+	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink") // Service Name
+	viper.SetDefault("TRACER_URI", "localhost:6831")     // Tracing addr:host
 
 	config := traicing.Config{
 		ServiceName: viper.GetString("TRACER_SERVICE_NAME"),
@@ -119,7 +119,7 @@ func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, fun
 }
 
 func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
-	viper.SetDefault("MQ_ENABLED", "false")
+	viper.SetDefault("MQ_ENABLED", "false") // Enabled MQ-service
 
 	if viper.GetBool("MQ_ENABLED") {
 		var service mq.DataBus
@@ -180,6 +180,7 @@ func InitProfiling() PprofEndpoint {
 }
 
 func InitSentry() (*sentryhttp.Handler, func(), error) {
+	viper.SetDefault("SENTRY_DSN", "__DSN__") // key for sentry
 	DSN := viper.GetString("SENTRY_DSN")
 
 	if DSN != "" {

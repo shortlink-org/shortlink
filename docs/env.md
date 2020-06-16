@@ -8,31 +8,32 @@
 | "BOT_SMTP_ADDR" | "smtp.gmail.com:587" |  |
 | "BOT_TELEGRAM_WEBHOOK" | "YOUR_WEBHOOK_URL_HERE" | Your webhook URL |
 | "BOT_TELEGRAM_CHAT_ID" | 123 | Your chat ID |
-| "BOT_TELEGRAM_DEBUG_MODE" | false |  |
+| "BOT_TELEGRAM_DEBUG_MODE" | false | Debug mode |
 | "LOG_LEVEL" | logger.INFO_LEVEL |  |
 | "LOG_TIME_FORMAT" | time.RFC3339Nano |  |
+| "TRACER_SERVICE_NAME" | "ShortLink" | Service Name |
+| "TRACER_URI" | "localhost:6831" | Tracing addr:host |
+| "MQ_ENABLED" | "false" | Enabled MQ-service |
+| "SENTRY_DSN" | "__DSN__" | key for sentry |
+| "LOG_LEVEL" | logger.INFO_LEVEL | Log level. Select 0-4 (Fatal->Debug) |
+| "LOG_TIME_FORMAT" | time.RFC3339Nano | Log time format (golang time format) |
 | "TRACER_SERVICE_NAME" | "ShortLink" |  |
 | "TRACER_URI" | "localhost:6831" |  |
 | "MQ_ENABLED" | "false" |  |
-| "LOG_LEVEL" | logger.INFO_LEVEL |  |
-| "LOG_TIME_FORMAT" | time.RFC3339Nano |  |
-| "TRACER_SERVICE_NAME" | "ShortLink" |  |
-| "TRACER_URI" | "localhost:6831" |  |
-| "MQ_ENABLED" | "false" |  |
-| "MQ_TYPE" | "kafka" |  |
-| "MQ_KAFKA_URI" | "localhost:9092" |  |
-| "MQ_KAFKA_CONSUMER_GROUP" | "shortlink" |  |
-| "STORE_TYPE" | "ram" |  |
-| "STORE_BADGER_PATH" | "/tmp/links.badger" |  |
-| "STORE_CASSANDRA_URI" | "localhost:9042" |  |
-| "STORE_DGRAPH_URI" | "localhost:9080" |  |
-| "STORE_LEVELDB_PATH" | "/tmp/links.db" |  |
-| "STORE_MONGODB_URI" | "mongodb://localhost:27017" |  |
-| "STORE_MYSQL_URI" | "shortlink:shortlink@(localhost:3306)/shortlink?parseTime=true" |  |
-| "STORE_POSTGRES_URI" | dbinfo |  |
-| "STORE_REDIS_URI" | "localhost:6379" |  |
-| "STORE_SCYLLA_URI" | "localhost:9042" |  |
-| "STORE_SQLITE_PATH" | "/tmp/links.sqlite" |  |
-| "API_TYPE" | "http-chi" |  |
-| "API_PORT" | 7070 |  |
-| "API_TIMEOUT" | 60 |  |
+| "MQ_TYPE" | "kafka" | Select: kafka, nats |
+| "MQ_KAFKA_URI" | "localhost:9092" | Kafka URI |
+| "MQ_KAFKA_CONSUMER_GROUP" | "shortlink" | Kafka consumer group |
+| "STORE_TYPE" | "ram" | Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram, scylla, cassandra |
+| "STORE_BADGER_PATH" | "/tmp/links.badger" | Badger path to file |
+| "STORE_CASSANDRA_URI" | "localhost:9042" | Cassandra URI |
+| "STORE_DGRAPH_URI" | "localhost:9080" | DGRAPH URI |
+| "STORE_LEVELDB_PATH" | "/tmp/links.db" | LevelDB path to file |
+| "STORE_MONGODB_URI" | "mongodb://localhost:27017" | MongoDB URI |
+| "STORE_MYSQL_URI" | "shortlink:shortlink@(localhost:3306)/shortlink?parseTime=true" | MySQL URI |
+| "STORE_POSTGRES_URI" | dbinfo | Postgres URI |
+| "STORE_REDIS_URI" | "localhost:6379" | Redis URI |
+| "STORE_SCYLLA_URI" | "localhost:9042" | Scylla URI |
+| "STORE_SQLITE_PATH" | "/tmp/links.sqlite" | SQLite URI |
+| "API_TYPE" | "http-chi" | Select: http-chi, gRPC-web, graphql, cloudevents, go-kit |
+| "API_PORT" | 7070 | API port |
+| "API_TIMEOUT" | 60 | Request Timeout |

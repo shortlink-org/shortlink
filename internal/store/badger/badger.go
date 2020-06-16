@@ -187,7 +187,7 @@ func (b *BadgerLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (b *BadgerLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_BADGER_PATH", "/tmp/links.badger")
+	viper.SetDefault("STORE_BADGER_PATH", "/tmp/links.badger") // Badger path to file
 
 	b.config = BadgerConfig{
 		Path: viper.GetString("STORE_BADGER_PATH"),

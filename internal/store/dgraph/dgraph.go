@@ -304,7 +304,7 @@ func (dg *DGraphLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (dg *DGraphLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_DGRAPH_URI", "localhost:9080")
+	viper.SetDefault("STORE_DGRAPH_URI", "localhost:9080") // DGRAPH URI
 
 	dg.config = DGraphConfig{
 		URL: viper.GetString("STORE_DGRAPH_URI"),
