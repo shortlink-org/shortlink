@@ -5,15 +5,21 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
 )
 
 type ENV struct {
-	key   string
-	value string
-	kind  string
+	key      string
+	value    string
+	kind     string
+	describe string
+
+	// for match comments
+	pos      token.Pos
+	fileName string
 }
 
 type Config struct {
@@ -43,7 +49,12 @@ func main() {
 		setConfigDocs(dir)
 	}
 
-	fmt.Println(config)
+	payload := renderMDTable(config)
+
+	if err := saveToFile("./docs/env.md", payload); err != nil {
+		fmt.Println(err)
+		return
+	}
 }
 
 func getDirectories(root string) ([]string, error) {
@@ -103,7 +114,9 @@ func setConfigDocs(path string) {
 								if ident, ok := fun.X.(*ast.Ident); ok {
 									if ident.Name == "viper" && fun.Sel.Name == "SetDefault" {
 										env := ENV{
-											key: x.Args[0].(*ast.BasicLit).Value,
+											pos:      x.Args[0].(*ast.BasicLit).Pos(),
+											fileName: fileName,
+											key:      x.Args[0].(*ast.BasicLit).Value,
 										}
 
 										switch arg := x.Args[1].(type) {
@@ -130,6 +143,46 @@ func setConfigDocs(path string) {
 
 				return true
 			})
+
+			for _, comment := range file.Comments {
+				for _, item := range comment.List {
+					line := fset.Position(item.Pos()).Line
+
+					for index, conf := range config.envs {
+						currentLine := fset.Position(conf.pos).Line
+						if line == currentLine && fileName == conf.fileName {
+							config.envs[index].describe = item.Text[3:] // skip comments symbols
+						}
+					}
+				}
+			}
 		}
 	}
+}
+
+func renderMDTable(conf Config) string {
+	str := `|Name | Default Value | Description |
+|---|---|---|
+`
+
+	for _, env := range conf.envs {
+		str += fmt.Sprintf("| %s | %s | %s |\n", env.key, env.value, env.describe)
+	}
+
+	return str
+}
+
+func saveToFile(filename string, payload string) error {
+	file, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	_, err = io.WriteString(file, payload)
+	if err != nil {
+		return err
+	}
+
+	return file.Sync()
 }

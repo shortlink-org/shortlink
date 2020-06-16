@@ -72,7 +72,7 @@ func (b *Bot) Send(message string) error {
 // setConfig - set configuration
 func (b *Bot) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("BOT_SLACK_WEBHOOK", "YOUR_WEBHOOK_URL_HERE")
+	viper.SetDefault("BOT_SLACK_WEBHOOK", "YOUR_WEBHOOK_URL_HERE") // Your webhook URL
 
 	b.webhook = viper.GetString("BOT_SLACK_WEBHOOK")
 }
