@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/cmd/cli/internal/tool"
@@ -38,6 +39,11 @@ func init() {
 	}
 
 	if err := rootCmd.Execute(); err != nil {
+		log.Fatal(err)
+	}
+
+	// Generate docs
+	if err := doc.GenMarkdownTree(rootCmd, "./docs"); err != nil {
 		log.Fatal(err)
 	}
 }
