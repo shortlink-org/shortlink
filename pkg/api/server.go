@@ -19,9 +19,9 @@ import (
 func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opentracing.Tracer) {
 	var server API
 
-	viper.SetDefault("API_TYPE", "http-chi")
-	viper.SetDefault("API_PORT", 7070)
-	viper.SetDefault("API_TIMEOUT", 60)
+	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
+	viper.SetDefault("API_PORT", 7070)       // API port
+	viper.SetDefault("API_TIMEOUT", 60)      // Request Timeout
 
 	config := api_type.Config{
 		Port:    viper.GetInt("API_PORT"),

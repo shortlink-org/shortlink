@@ -80,7 +80,7 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) DB { // nolint u
 // setConfig - set configuration
 func (s *Store) setConfig() { // nolint unused
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_TYPE", "ram")
+	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram, scylla, cassandra
 	s.typeStore = viper.GetString("STORE_TYPE")
 }
 

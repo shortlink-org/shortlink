@@ -199,8 +199,8 @@ func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error)
 }
 
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
-	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
-	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
+	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)      // Log level. Select 0-4 (Fatal->Debug)
+	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano) // Log time format (golang time format)
 
 	conf := logger.Configuration{
 		Level:      viper.GetInt("LOG_LEVEL"),

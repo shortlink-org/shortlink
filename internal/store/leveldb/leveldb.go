@@ -132,7 +132,7 @@ func (l *LevelDBLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (l *LevelDBLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_LEVELDB_PATH", "/tmp/links.db")
+	viper.SetDefault("STORE_LEVELDB_PATH", "/tmp/links.db") // LevelDB path to file
 
 	l.config = LevelDBConfig{
 		Path: viper.GetString("STORE_LEVELDB_PATH"),
