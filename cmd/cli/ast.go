@@ -155,12 +155,26 @@ func setConfigDocs(path string, config *Config) {
 
 										switch arg := x.Args[1].(type) {
 										case *ast.BasicLit:
-											env.value = arg.Value
+											env.value = trimQuotes(arg.Value)
 											env.kind = arg.Kind.String()
 										case *ast.Ident:
-											env.value = arg.Name
+											if arg.Obj != nil {
+												switch variable := arg.Obj.Decl.(type) {
+												case *ast.AssignStmt:
+													c := variable.Rhs[0].(*ast.CallExpr)
+
+													str := []interface{}{}
+													for i, _ := range c.Args {
+														str = append(str, trimQuotes(c.Args[i].(*ast.BasicLit).Value))
+													}
+
+													env.value = fmt.Sprintf(str[0].(string), str[1:]...)
+												}
+											} else {
+												env.value = trimQuotes(arg.Name)
+											}
 										case *ast.SelectorExpr:
-											env.value = fmt.Sprintf("%s.%s", arg.X.(*ast.Ident).Name, arg.Sel.Name)
+											env.value = trimQuotes(fmt.Sprintf("%s.%s", arg.X.(*ast.Ident).Name, arg.Sel.Name))
 										}
 
 										config.envs = append(config.envs, env)
@@ -223,4 +237,13 @@ func saveToFile(filename string, payload string) error {
 	}
 
 	return file.Sync()
+}
+
+func trimQuotes(s string) string {
+	if len(s) >= 2 {
+		if s[0] == '"' && s[len(s)-1] == '"' {
+			return s[1 : len(s)-1]
+		}
+	}
+	return s
 }
