@@ -166,7 +166,7 @@ func (c *ScyllaLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (c *ScyllaLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_SCYLLA_URI", "localhost:9042")
+	viper.SetDefault("STORE_SCYLLA_URI", "localhost:9042") // Scylla URI
 	c.config = ScyllaConfig{
 		URI: viper.GetString("STORE_SCYLLA_URI"),
 	}

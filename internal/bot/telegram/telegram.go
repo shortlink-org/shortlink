@@ -10,14 +10,6 @@ import (
 	"github.com/batazor/shortlink/internal/notify"
 )
 
-func init() {
-	// issue: https://github.com/spf13/viper/issues/268
-	viper.AutomaticEnv()
-	viper.SetDefault("BOT_TELEGRAM_WEBHOOK", "YOUR_WEBHOOK_URL_HERE")
-	viper.SetDefault("BOT_TELEGRAM_CHAT_ID", 123)
-	viper.SetDefault("BOT_TELEGRAM_DEBUG_MODE", false)
-}
-
 type Bot struct {
 	// system event
 	notify.Subscriber // Observer interface for subscribe on system event
@@ -77,6 +69,11 @@ func (b *Bot) Send(message string) error {
 
 // setConfig - set configuration
 func (b *Bot) setConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("BOT_TELEGRAM_WEBHOOK", "YOUR_WEBHOOK_URL_HERE") // Your webhook URL
+	viper.SetDefault("BOT_TELEGRAM_CHAT_ID", 123)                     // Your chat ID
+	viper.SetDefault("BOT_TELEGRAM_DEBUG_MODE", false)                // Debug mode
+
 	b.webhook = viper.GetString("BOT_TELEGRAM_WEBHOOK")
 	b.chatId = viper.GetInt64("BOT_TELEGRAM_CHAT_ID")
 	b.debugMode = viper.GetBool("BOT_TELEGRAM_DEBUG_MODE")

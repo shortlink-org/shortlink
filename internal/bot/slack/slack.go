@@ -13,12 +13,6 @@ import (
 	"github.com/batazor/shortlink/internal/notify"
 )
 
-func init() {
-	// issue: https://github.com/spf13/viper/issues/268
-	viper.AutomaticEnv()
-	viper.SetDefault("BOT_SLACK_WEBHOOK", "YOUR_WEBHOOK_URL_HERE")
-}
-
 type Bot struct {
 	// system event
 	notify.Subscriber // Observer interface for subscribe on system event
@@ -77,5 +71,8 @@ func (b *Bot) Send(message string) error {
 
 // setConfig - set configuration
 func (b *Bot) setConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("BOT_SLACK_WEBHOOK", "YOUR_WEBHOOK_URL_HERE") // Your webhook URL
+
 	b.webhook = viper.GetString("BOT_SLACK_WEBHOOK")
 }
