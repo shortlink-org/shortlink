@@ -24,11 +24,12 @@ Shortlink service
 
 ##### Services
 
-| Service     | Description                          | Language/Framework |
-|-------------|--------------------------------------|--------------------|
-| shortlink   | Shortlink service                    | Go                 |
-| logger      | Logger service                       | Go                 |
-| bot         | Send notify to smtp, slack, telegram | Go                 |
+| Service     | Description                          | Language/Framework | Docs                       |
+|-------------|--------------------------------------|--------------------|----------------------------|
+| shortlink   | Shortlink service                    | Go                 |                            |
+| logger      | Logger service                       | Go                 |                            |
+| bot         | Send notify to smtp, slack, telegram | Go                 |                            |
+| shortctl    | Shortlink CLI                        | Go                 | [docs](./docs/shortctl.md) |
 
 ### Run
 
