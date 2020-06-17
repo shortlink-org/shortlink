@@ -1,6 +1,6 @@
 ## shortctl
 
-Shortlink this sandbox for experiments
+Shortlink it's sandbox for experiments
 
 ### Synopsis
 

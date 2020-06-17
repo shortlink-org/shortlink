@@ -18,7 +18,7 @@ import (
 func init() {
 	rootCmd := &cobra.Command{
 		Use:   "shortctl",
-		Short: "Shortlink this sandbox for experiments",
+		Short: "Shortlink it's sandbox for experiments",
 		Long:  "Demo microservice architecture and best practices",
 		Run:   func(cmd *cobra.Command, args []string) {},
 	}
