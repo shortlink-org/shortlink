@@ -29,7 +29,7 @@ require (
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.7.0
 	github.com/markbates/pkger v0.17.0
-	github.com/mattn/go-sqlite3 v1.13.0
+	github.com/mattn/go-sqlite3 v1.14.0
 	github.com/nats-io/nats.go v1.10.0
 	github.com/onsi/ginkgo v1.12.0 // indirect
 	github.com/onsi/gomega v1.9.0 // indirect
