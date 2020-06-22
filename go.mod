@@ -21,7 +21,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.7.4
-	github.com/graph-gophers/graphql-go v0.0.0-20200617222552-83ba81946ab5
+	github.com/graph-gophers/graphql-go v0.0.0-20200622220639-c1d9693c95a6
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway v1.14.6
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
