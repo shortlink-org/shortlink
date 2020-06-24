@@ -18,8 +18,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 
 	// Init slack bot
 	go func() {
-		var slackBot Service
-		slackBot = &slack.Bot{}
+		slackBot := &slack.Bot{}
 		err := slackBot.Init()
 		if err != nil {
 			return
@@ -28,8 +27,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 
 	// Init telegram bot
 	go func() {
-		var telegramBot Service
-		telegramBot = &telegram.Bot{}
+		telegramBot := &telegram.Bot{}
 		err := telegramBot.Init()
 		if err != nil {
 			return
@@ -38,8 +36,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 
 	// Init SMTP bot
 	go func() {
-		var smtpBot Service
-		smtpBot = &smtp.Bot{}
+		smtpBot := &smtp.Bot{}
 		err := smtpBot.Init()
 		if err != nil {
 			return
