@@ -116,7 +116,7 @@ func (*Config) setConfigDocs(path string, config *Config) {
 													c := variable.Rhs[0].(*ast.CallExpr)
 
 													str := []interface{}{}
-													for i, _ := range c.Args {
+													for i := range c.Args {
 														str = append(str, tool.TrimQuotes(c.Args[i].(*ast.BasicLit).Value))
 													}
 

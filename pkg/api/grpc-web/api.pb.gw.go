@@ -13,7 +13,6 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/golang/protobuf/descriptor"
 	"github.com/golang/protobuf/proto"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
@@ -22,6 +21,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/status"
+
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // Suppress "imported and not used" errors

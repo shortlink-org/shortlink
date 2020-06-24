@@ -11,7 +11,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/bot"
 	bot_type "github.com/batazor/shortlink/internal/bot/type"
