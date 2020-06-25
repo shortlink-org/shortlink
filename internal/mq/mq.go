@@ -20,7 +20,7 @@ import (
 )
 
 // Use return implementation of MQ
-func (mq *DataBus) Use(ctx context.Context, log logger.Logger) MQ { // nolint unused
+func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) { // nolint unused
 	// Set configuration
 	mq.setConfig()
 
@@ -37,14 +37,14 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) MQ { // nolint un
 	}
 
 	if err := mq.mq.Init(ctx); err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	log.Info("run MQ", logger.Fields{
 		"mq": mq.typeMQ,
 	})
 
-	return mq.mq
+	return mq.mq, nil
 }
 
 // setConfig - set configuration
