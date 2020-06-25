@@ -8,7 +8,9 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "shortlink",
@@ -25,7 +27,8 @@
     "@nuxtjs/sentry": "^4.1.2",
     "axios": "^0.19.2",
     "date-fns": "^2.14.0",
-    "nuxt": "^2.13.1"
+    "nuxt": "^2.13.1",
+    "snyk": "^1.345.1"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.2",
@@ -34,5 +37,6 @@
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2"
-  }
+  },
+  "snyk": true
 }
