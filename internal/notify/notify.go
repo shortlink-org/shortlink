@@ -4,7 +4,9 @@ Notify system
 
 package notify
 
-import "context"
+import (
+	"context"
+)
 
 var (
 	subsribers = Notify{
@@ -33,6 +35,8 @@ func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
 // Publish - add new event
 func Publish(ctx context.Context, event int, payload interface{}, cb chan<- interface{}, responseFilter string) { // nolint unused
 	responses := map[string]Response{}
+	subsribers.RLock()
+	defer subsribers.RUnlock()
 
 	if len(subsribers.subsribers[event]) == 0 {
 		cb <- nil
@@ -47,9 +51,9 @@ func Publish(ctx context.Context, event int, payload interface{}, cb chan<- inte
 			return
 		}
 
-		subsribers.Lock()
-		responses[response.Name] = response
-		subsribers.Unlock()
+		if response.Name != "" {
+			responses[response.Name] = response
+		}
 	}
 
 	// TODO: Send only first success response for simple implementation
