@@ -55,6 +55,7 @@ require (
 	github.com/scylladb/gocqlx v1.5.0
 	github.com/sirupsen/logrus v1.6.0
 	github.com/sourcegraph/go-diff v0.5.3 // indirect
+	github.com/sourcegraph/lsif-go v0.8.0 // indirect
 	github.com/spf13/afero v1.3.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.0.0
