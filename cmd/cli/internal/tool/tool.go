@@ -58,9 +58,9 @@ func SaveToFile(filename string, payload string) error {
 		return err
 	}
 	defer func() {
-		if err := file.Close(); err != nil {
+		if errClose := file.Close(); err != nil {
 			// TODO: use logger
-			fmt.Println(err)
+			fmt.Println(errClose)
 		}
 	}()
 
