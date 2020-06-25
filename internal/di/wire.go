@@ -123,7 +123,10 @@ func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
 
 	if viper.GetBool("MQ_ENABLED") {
 		var service mq.DataBus
-		dataBus := service.Use(ctx, log)
+		dataBus, err := service.Use(ctx, log)
+		if err != nil {
+			return nil, nil, err
+		}
 
 		cleanup := func() {
 			if err := dataBus.Close(); err != nil {

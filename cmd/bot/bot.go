@@ -18,6 +18,7 @@ import (
 	"github.com/batazor/shortlink/internal/config"
 	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/error/status"
+	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq/query"
 	"github.com/batazor/shortlink/internal/notify"
 	"github.com/batazor/shortlink/pkg/link"
@@ -68,6 +69,7 @@ func main() {
 				continue
 			}
 
+			s.Log.Info("Get new LINK", logger.Fields{"url": myLink.Url})
 			notify.Publish(ctx, bot_type.METHOD_NEW_LINK, myLink, nil, "")
 		}
 	}()
