@@ -4,9 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/batazor/shortlink/internal/bot/slack"
-	"github.com/batazor/shortlink/internal/bot/smtp"
-	"github.com/batazor/shortlink/internal/bot/telegram"
+	"github.com/batazor/shortlink/internal/bot/di"
 	bot_type "github.com/batazor/shortlink/internal/bot/type"
 	"github.com/batazor/shortlink/internal/notify"
 	"github.com/batazor/shortlink/pkg/link"
@@ -17,31 +15,10 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 	notify.Subscribe(bot_type.METHOD_NEW_LINK, b)
 
 	// Init slack bot
-	go func() {
-		slackBot := &slack.Bot{}
-		err := slackBot.Init()
-		if err != nil {
-			return
-		}
-	}()
-
-	// Init telegram bot
-	go func() {
-		telegramBot := &telegram.Bot{}
-		err := telegramBot.Init()
-		if err != nil {
-			return
-		}
-	}()
-
-	// Init SMTP bot
-	go func() {
-		smtpBot := &smtp.Bot{}
-		err := smtpBot.Init()
-		if err != nil {
-			return
-		}
-	}()
+	_, _, err := di.InitializeFullBotService(ctx)
+	if err != nil {
+		panic(err)
+	}
 }
 
 // Notify ...
