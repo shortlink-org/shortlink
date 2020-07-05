@@ -24,7 +24,7 @@ run: ## Run this project in docker-compose
          -f ops/docker-compose/application/ui-next.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
          -f ops/docker-compose/tooling/fluentd.yaml \
-         -f ops/docker-compose/mq/kafka.yaml \
+         -f ops/docker-compose/mq/rabbitmq.yaml \
          up -d --remove-orphans
 
 run-dep: ## Run only dep for this project in docker-compose
