@@ -63,6 +63,8 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 ### MQ
 
 + [Kafka](https://kafka.apache.org/)
++ NATS
++ RabbitMQ
 
 ### Store provider
 

@@ -14,6 +14,7 @@ import (
 	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/mq/nats"
 	"github.com/batazor/shortlink/internal/mq/query"
+	"github.com/batazor/shortlink/internal/mq/rabbit"
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/link"
@@ -32,6 +33,8 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) { // 
 		mq.mq = &kafka.Kafka{}
 	case "nats":
 		mq.mq = &nats.NATS{}
+	case "rabbitmq":
+		mq.mq = &rabbit.RabbitMQ{}
 	default:
 		mq.mq = &kafka.Kafka{}
 	}
@@ -49,7 +52,7 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) { // 
 
 // setConfig - set configuration
 func (mq *DataBus) setConfig() { // nolint unused
-	viper.SetDefault("MQ_TYPE", "kafka") // Select: kafka, nats
+	viper.SetDefault("MQ_TYPE", "rabbitmq") // Select: kafka, rabbitmq, nats
 	mq.typeMQ = viper.GetString("MQ_TYPE")
 }
 
