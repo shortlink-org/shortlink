@@ -69,7 +69,7 @@ func TestPublish(t *testing.T) {
 	responseCh := make(chan interface{})
 
 	// Publish
-	go Publish(ctx, METHOD_ADD, "hello world", responseCh, "RESPONSE_STORE_ADD")
+	go Publish(ctx, METHOD_ADD, "hello world", &Callback{responseCh, "RESPONSE_STORE_ADD"})
 
 	select {
 	case c := <-responseCh:

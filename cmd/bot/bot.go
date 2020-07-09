@@ -70,7 +70,7 @@ func main() {
 			}
 
 			s.Log.Info("Get new LINK", logger.Fields{"url": myLink.Url})
-			notify.Publish(ctx, bot_type.METHOD_NEW_LINK, myLink, nil, "")
+			notify.Publish(ctx, bot_type.METHOD_NEW_LINK, myLink, nil)
 		}
 	}()
 

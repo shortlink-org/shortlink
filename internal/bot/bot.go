@@ -36,5 +36,5 @@ func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) not
 func (b *Bot) Send(ctx context.Context, link *link.Link) {
 	payload := fmt.Sprintf("LINK: %s", link.Url)
 
-	notify.Publish(ctx, bot_type.METHOD_SEND_NEW_LINK, payload, nil, "")
+	notify.Publish(ctx, bot_type.METHOD_SEND_NEW_LINK, payload, nil)
 }
