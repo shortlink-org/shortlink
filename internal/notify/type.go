@@ -24,3 +24,8 @@ type Response struct {
 	Payload interface{}
 	Error   error
 }
+
+type Callback struct {
+	CB             chan<- interface{}
+	ResponseFilter string
+}
