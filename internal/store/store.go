@@ -85,7 +85,7 @@ func (s *Store) setConfig() { // nolint unused
 }
 
 // Notify ...
-func (s *Store) Notify(ctx context.Context, event int, payload interface{}) notify.Response { // nolint unused
+func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
 	switch event {
 	case api_type.METHOD_ADD:
 		if addLink, ok := payload.(*link.Link); ok {

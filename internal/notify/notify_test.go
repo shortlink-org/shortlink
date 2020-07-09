@@ -7,8 +7,14 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
+)
 
-	api_type "github.com/batazor/shortlink/pkg/api/type"
+var (
+	METHOD_ADD    = NewEventID()
+	METHOD_GET    = NewEventID()
+	METHOD_LIST   = NewEventID()
+	METHOD_UPDATE = NewEventID()
+	METHOD_DELETE = NewEventID()
 )
 
 func TestMain(m *testing.M) {
@@ -17,7 +23,7 @@ func TestMain(m *testing.M) {
 
 type subscriber struct{}
 
-func (subscriber) Notify(ctx context.Context, event int, payload interface{}) Response {
+func (subscriber) Notify(ctx context.Context, event uint32, payload interface{}) Response {
 	return Response{
 		Payload: nil,
 		Error:   nil,
@@ -53,17 +59,17 @@ func TestPublish(t *testing.T) {
 	sub := subscriber{}
 
 	// Subscribe to Event
-	Subscribe(api_type.METHOD_ADD, sub)
-	Subscribe(api_type.METHOD_GET, sub)
-	Subscribe(api_type.METHOD_LIST, sub)
-	Subscribe(api_type.METHOD_UPDATE, sub)
-	Subscribe(api_type.METHOD_DELETE, sub)
+	Subscribe(METHOD_ADD, sub)
+	Subscribe(METHOD_GET, sub)
+	Subscribe(METHOD_LIST, sub)
+	Subscribe(METHOD_UPDATE, sub)
+	Subscribe(METHOD_DELETE, sub)
 	assert.Equal(t, len(subsribers.subsribers), 5)
 
 	responseCh := make(chan interface{})
 
 	// Publish
-	go Publish(ctx, api_type.METHOD_ADD, "hello world", responseCh, "RESPONSE_STORE_ADD")
+	go Publish(ctx, METHOD_ADD, "hello world", responseCh, "RESPONSE_STORE_ADD")
 
 	select {
 	case c := <-responseCh:
@@ -82,11 +88,11 @@ func TestClean(t *testing.T) {
 	sub := subscriber{}
 
 	// Subscribe to Event
-	Subscribe(api_type.METHOD_ADD, sub)
-	Subscribe(api_type.METHOD_GET, sub)
-	Subscribe(api_type.METHOD_LIST, sub)
-	Subscribe(api_type.METHOD_UPDATE, sub)
-	Subscribe(api_type.METHOD_DELETE, sub)
+	Subscribe(METHOD_ADD, sub)
+	Subscribe(METHOD_GET, sub)
+	Subscribe(METHOD_LIST, sub)
+	Subscribe(METHOD_UPDATE, sub)
+	Subscribe(METHOD_DELETE, sub)
 	assert.Equal(t, len(subsribers.subsribers), 5)
 
 	// Unsubscribe from all Event

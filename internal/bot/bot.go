@@ -22,7 +22,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 }
 
 // Notify ...
-func (b *Bot) Notify(ctx context.Context, event int, payload interface{}) notify.Response { // nolint unused
+func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
 	switch event {
 	case bot_type.METHOD_NEW_LINK:
 		if addLink, ok := payload.(*link.Link); ok {

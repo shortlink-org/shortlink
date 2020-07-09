@@ -41,7 +41,7 @@ func (b *Bot) Init() error {
 	return nil
 }
 
-func (b *Bot) Notify(ctx context.Context, event int, payload interface{}) notify.Response {
+func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response {
 	switch event {
 	case bot_type.METHOD_SEND_NEW_LINK:
 		{
