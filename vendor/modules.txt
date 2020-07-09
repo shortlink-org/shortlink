@@ -4,7 +4,6 @@ github.com/Azure/go-ansiterm/winterm
 # github.com/DataDog/zstd v1.4.1
 github.com/DataDog/zstd
 # github.com/Masterminds/squirrel v1.4.0
-## explicit
 github.com/Masterminds/squirrel
 # github.com/Microsoft/go-winio v0.4.14
 github.com/Microsoft/go-winio
@@ -12,7 +11,6 @@ github.com/Microsoft/go-winio/pkg/guid
 # github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5
 github.com/Nvveen/Gotty
 # github.com/Shopify/sarama v1.26.4
-## explicit
 github.com/Shopify/sarama
 # github.com/beorn7/perks v1.0.1
 github.com/beorn7/perks/quantile
@@ -23,7 +21,6 @@ github.com/cespare/xxhash
 # github.com/cespare/xxhash/v2 v2.1.1
 github.com/cespare/xxhash/v2
 # github.com/cloudevents/sdk-go/v2 v2.0.0
-## explicit
 github.com/cloudevents/sdk-go/v2
 github.com/cloudevents/sdk-go/v2/binding
 github.com/cloudevents/sdk-go/v2/binding/format
@@ -41,14 +38,12 @@ github.com/cloudevents/sdk-go/v2/protocol
 github.com/cloudevents/sdk-go/v2/protocol/http
 github.com/cloudevents/sdk-go/v2/types
 # github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41
-## explicit
 github.com/containerd/continuity/pathdriver
 # github.com/cpuguy83/go-md2man/v2 v2.0.0
 github.com/cpuguy83/go-md2man/v2/md2man
 # github.com/davecgh/go-spew v1.1.1
 github.com/davecgh/go-spew/spew
 # github.com/dgraph-io/badger/v2 v2.0.3
-## explicit
 github.com/dgraph-io/badger/v2
 github.com/dgraph-io/badger/v2/options
 github.com/dgraph-io/badger/v2/pb
@@ -57,7 +52,6 @@ github.com/dgraph-io/badger/v2/table
 github.com/dgraph-io/badger/v2/trie
 github.com/dgraph-io/badger/v2/y
 # github.com/dgraph-io/dgo/v2 v2.2.0
-## explicit
 github.com/dgraph-io/dgo/v2
 github.com/dgraph-io/dgo/v2/protos/api
 # github.com/dgraph-io/ristretto v0.0.2-0.20200115201040-8f368f2f2ab3
@@ -80,21 +74,16 @@ github.com/eapache/queue
 # github.com/fsnotify/fsnotify v1.4.7
 github.com/fsnotify/fsnotify
 # github.com/getsentry/sentry-go v0.6.1
-## explicit
 github.com/getsentry/sentry-go
 github.com/getsentry/sentry-go/http
 # github.com/go-chi/chi v4.1.2+incompatible
-## explicit
 github.com/go-chi/chi
 github.com/go-chi/chi/middleware
 # github.com/go-chi/cors v1.1.1
-## explicit
 github.com/go-chi/cors
 # github.com/go-chi/render v1.0.1
-## explicit
 github.com/go-chi/render
 # github.com/go-kit/kit v0.10.0
-## explicit
 github.com/go-kit/kit/endpoint
 github.com/go-kit/kit/log
 github.com/go-kit/kit/transport
@@ -102,7 +91,6 @@ github.com/go-kit/kit/transport/http
 # github.com/go-logfmt/logfmt v0.5.0
 github.com/go-logfmt/logfmt
 # github.com/go-redis/redis v6.15.8+incompatible
-## explicit
 github.com/go-redis/redis
 github.com/go-redis/redis/internal
 github.com/go-redis/redis/internal/consistenthash
@@ -111,17 +99,14 @@ github.com/go-redis/redis/internal/pool
 github.com/go-redis/redis/internal/proto
 github.com/go-redis/redis/internal/util
 # github.com/go-sql-driver/mysql v1.5.0
-## explicit
 github.com/go-sql-driver/mysql
 # github.com/go-stack/stack v1.8.0
 github.com/go-stack/stack
 # github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
-## explicit
 github.com/go-telegram-bot-api/telegram-bot-api
 # github.com/gobuffalo/here v0.6.0
 github.com/gobuffalo/here
 # github.com/gocql/gocql v0.0.0-20200624222514-34081eda590e
-## explicit
 github.com/gocql/gocql
 github.com/gocql/gocql/internal/lru
 github.com/gocql/gocql/internal/murmur
@@ -129,7 +114,6 @@ github.com/gocql/gocql/internal/streams
 # github.com/golang/groupcache v0.0.0-20190702054246-869f871628b6
 github.com/golang/groupcache/lru
 # github.com/golang/protobuf v1.4.2
-## explicit
 github.com/golang/protobuf/descriptor
 github.com/golang/protobuf/jsonpb
 github.com/golang/protobuf/proto
@@ -145,13 +129,10 @@ github.com/golang/snappy
 # github.com/google/uuid v1.1.1
 github.com/google/uuid
 # github.com/google/wire v0.4.0
-## explicit
 github.com/google/wire
 # github.com/gorilla/mux v1.7.4
-## explicit
 github.com/gorilla/mux
 # github.com/graph-gophers/graphql-go v0.0.0-20200622220639-c1d9693c95a6
-## explicit
 github.com/graph-gophers/graphql-go
 github.com/graph-gophers/graphql-go/errors
 github.com/graph-gophers/graphql-go/internal/common
@@ -167,13 +148,11 @@ github.com/graph-gophers/graphql-go/log
 github.com/graph-gophers/graphql-go/relay
 github.com/graph-gophers/graphql-go/trace
 # github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
-## explicit
 github.com/grpc-ecosystem/go-grpc-middleware
 github.com/grpc-ecosystem/go-grpc-middleware/tags
 github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing
 github.com/grpc-ecosystem/go-grpc-middleware/util/metautils
 # github.com/grpc-ecosystem/grpc-gateway v1.14.6
-## explicit
 github.com/grpc-ecosystem/grpc-gateway/internal
 github.com/grpc-ecosystem/grpc-gateway/runtime
 github.com/grpc-ecosystem/grpc-gateway/utilities
@@ -193,7 +172,6 @@ github.com/hashicorp/hcl/json/parser
 github.com/hashicorp/hcl/json/scanner
 github.com/hashicorp/hcl/json/token
 # github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
-## explicit
 github.com/heptiolabs/healthcheck
 # github.com/inconshreveable/mousetrap v1.0.0
 github.com/inconshreveable/mousetrap
@@ -214,7 +192,6 @@ github.com/jackc/pgservicefile
 # github.com/jackc/pgtype v1.3.0
 github.com/jackc/pgtype
 # github.com/jackc/pgx/v4 v4.6.0
-## explicit
 github.com/jackc/pgx/v4
 github.com/jackc/pgx/v4/internal/sanitize
 github.com/jackc/pgx/v4/pgxpool
@@ -224,7 +201,6 @@ github.com/jackc/puddle
 github.com/jcmturner/gofork/encoding/asn1
 github.com/jcmturner/gofork/x/crypto/pbkdf2
 # github.com/jmoiron/sqlx v1.2.0
-## explicit
 github.com/jmoiron/sqlx
 github.com/jmoiron/sqlx/reflectx
 # github.com/klauspost/compress v1.9.8
@@ -240,7 +216,6 @@ github.com/lann/builder
 # github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0
 github.com/lann/ps
 # github.com/lib/pq v1.7.0
-## explicit
 github.com/lib/pq
 github.com/lib/pq/oid
 github.com/lib/pq/scram
@@ -250,18 +225,12 @@ github.com/lightstep/tracecontext.go/tracestate
 # github.com/magiconair/properties v1.8.1
 github.com/magiconair/properties
 # github.com/markbates/pkger v0.17.0
-## explicit
 github.com/markbates/pkger
 github.com/markbates/pkger/here
 github.com/markbates/pkger/internal/maps
-github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa
-github.com/markbates/pkger/internal/takeon/github.com/markbates/hepa/filters
 github.com/markbates/pkger/pkging
-github.com/markbates/pkger/pkging/embed
-github.com/markbates/pkger/pkging/mem
 github.com/markbates/pkger/pkging/stdos
 # github.com/mattn/go-sqlite3 v1.14.0
-## explicit
 github.com/mattn/go-sqlite3
 # github.com/matttproud/golang_protobuf_extensions v1.0.1
 github.com/matttproud/golang_protobuf_extensions/pbutil
@@ -270,7 +239,6 @@ github.com/mitchellh/mapstructure
 # github.com/nats-io/jwt v0.3.2
 github.com/nats-io/jwt
 # github.com/nats-io/nats.go v1.10.0
-## explicit
 github.com/nats-io/nats.go
 github.com/nats-io/nats.go/encoders/builtin
 github.com/nats-io/nats.go/util
@@ -278,10 +246,6 @@ github.com/nats-io/nats.go/util
 github.com/nats-io/nkeys
 # github.com/nats-io/nuid v1.0.1
 github.com/nats-io/nuid
-# github.com/onsi/ginkgo v1.12.0
-## explicit
-# github.com/onsi/gomega v1.9.0
-## explicit
 # github.com/opencontainers/go-digest v1.0.0-rc1
 github.com/opencontainers/go-digest
 # github.com/opencontainers/image-spec v1.0.1
@@ -290,12 +254,10 @@ github.com/opencontainers/image-spec/specs-go/v1
 # github.com/opencontainers/runc v1.0.0-rc9
 github.com/opencontainers/runc/libcontainer/user
 # github.com/opentracing/opentracing-go v1.2.0
-## explicit
 github.com/opentracing/opentracing-go
 github.com/opentracing/opentracing-go/ext
 github.com/opentracing/opentracing-go/log
 # github.com/ory/dockertest/v3 v3.6.0
-## explicit
 github.com/ory/dockertest/v3
 github.com/ory/dockertest/v3/docker
 github.com/ory/dockertest/v3/docker/opts
@@ -322,7 +284,6 @@ github.com/ory/dockertest/v3/docker/types/registry
 github.com/ory/dockertest/v3/docker/types/strslice
 github.com/ory/dockertest/v3/docker/types/versions
 # github.com/pelletier/go-toml v1.6.0
-## explicit
 github.com/pelletier/go-toml
 # github.com/pierrec/lz4 v2.4.1+incompatible
 github.com/pierrec/lz4
@@ -332,7 +293,6 @@ github.com/pkg/errors
 # github.com/pmezard/go-difflib v1.0.0
 github.com/pmezard/go-difflib/difflib
 # github.com/prometheus/client_golang v1.7.1
-## explicit
 github.com/prometheus/client_golang/prometheus
 github.com/prometheus/client_golang/prometheus/internal
 github.com/prometheus/client_golang/prometheus/promhttp
@@ -351,43 +311,32 @@ github.com/rcrowley/go-metrics
 # github.com/russross/blackfriday/v2 v2.0.1
 github.com/russross/blackfriday/v2
 # github.com/scylladb/gocqlx v1.5.0
-## explicit
 github.com/scylladb/gocqlx/qb
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
 # github.com/sirupsen/logrus v1.6.0
-## explicit
 github.com/sirupsen/logrus
 # github.com/spf13/afero v1.2.2
-## explicit
 github.com/spf13/afero
 github.com/spf13/afero/mem
 # github.com/spf13/cast v1.3.1
-## explicit
 github.com/spf13/cast
 # github.com/spf13/cobra v1.0.0
-## explicit
 github.com/spf13/cobra
 github.com/spf13/cobra/doc
 # github.com/spf13/jwalterweatherman v1.1.0
-## explicit
 github.com/spf13/jwalterweatherman
 # github.com/spf13/pflag v1.0.5
-## explicit
 github.com/spf13/pflag
 # github.com/spf13/viper v1.7.0
-## explicit
 github.com/spf13/viper
 # github.com/streadway/amqp v0.0.0-20190827072141-edfb9018d271
-## explicit
 github.com/streadway/amqp
 # github.com/stretchr/testify v1.6.1
-## explicit
 github.com/stretchr/testify/assert
 # github.com/subosito/gotenv v1.2.0
 github.com/subosito/gotenv
 # github.com/syndtr/goleveldb v1.0.0
-## explicit
 github.com/syndtr/goleveldb/leveldb
 github.com/syndtr/goleveldb/leveldb/cache
 github.com/syndtr/goleveldb/leveldb/comparer
@@ -401,10 +350,8 @@ github.com/syndtr/goleveldb/leveldb/storage
 github.com/syndtr/goleveldb/leveldb/table
 github.com/syndtr/goleveldb/leveldb/util
 # github.com/technoweenie/multipartstreamer v1.0.1
-## explicit
 github.com/technoweenie/multipartstreamer
 # github.com/uber/jaeger-client-go v2.24.0+incompatible
-## explicit
 github.com/uber/jaeger-client-go
 github.com/uber/jaeger-client-go/config
 github.com/uber/jaeger-client-go/internal/baggage
@@ -424,14 +371,12 @@ github.com/uber/jaeger-client-go/thrift-gen/zipkincore
 github.com/uber/jaeger-client-go/transport
 github.com/uber/jaeger-client-go/utils
 # github.com/uber/jaeger-lib v2.2.0+incompatible
-## explicit
 github.com/uber/jaeger-lib/metrics
 # github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c
 github.com/xdg/scram
 # github.com/xdg/stringprep v1.0.0
 github.com/xdg/stringprep
 # go.mongodb.org/mongo-driver v1.3.4
-## explicit
 go.mongodb.org/mongo-driver/bson
 go.mongodb.org/mongo-driver/bson/bsoncodec
 go.mongodb.org/mongo-driver/bson/bsonoptions
@@ -484,18 +429,15 @@ go.opencensus.io/trace/tracestate
 # go.uber.org/atomic v1.6.0
 go.uber.org/atomic
 # go.uber.org/automaxprocs v1.3.0
-## explicit
 go.uber.org/automaxprocs/internal/cgroups
 go.uber.org/automaxprocs/internal/runtime
 go.uber.org/automaxprocs/maxprocs
 # go.uber.org/goleak v1.0.0
-## explicit
 go.uber.org/goleak
 go.uber.org/goleak/internal/stack
 # go.uber.org/multierr v1.5.0
 go.uber.org/multierr
 # go.uber.org/zap v1.15.0
-## explicit
 go.uber.org/zap
 go.uber.org/zap/buffer
 go.uber.org/zap/internal/bufferpool
@@ -503,7 +445,6 @@ go.uber.org/zap/internal/color
 go.uber.org/zap/internal/exit
 go.uber.org/zap/zapcore
 # golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
-## explicit
 golang.org/x/crypto/ed25519
 golang.org/x/crypto/ed25519/internal/edwards25519
 golang.org/x/crypto/md4
@@ -542,7 +483,6 @@ golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/width
 # golang.org/x/tools v0.0.0-20200601175630-2caf76543d99
-## explicit
 golang.org/x/tools/go/ast/astutil
 golang.org/x/tools/go/gcexportdata
 golang.org/x/tools/go/internal/gcimporter
@@ -550,13 +490,11 @@ golang.org/x/tools/go/internal/gcimporter
 golang.org/x/xerrors
 golang.org/x/xerrors/internal
 # google.golang.org/genproto v0.0.0-20200624020401-64a14ca9d1ad
-## explicit
 google.golang.org/genproto/googleapis/api/annotations
 google.golang.org/genproto/googleapis/api/httpbody
 google.golang.org/genproto/googleapis/rpc/status
 google.golang.org/genproto/protobuf/field_mask
 # google.golang.org/grpc v1.30.0
-## explicit
 google.golang.org/grpc
 google.golang.org/grpc/attributes
 google.golang.org/grpc/backoff
@@ -598,7 +536,6 @@ google.golang.org/grpc/stats
 google.golang.org/grpc/status
 google.golang.org/grpc/tap
 # google.golang.org/protobuf v1.25.0
-## explicit
 google.golang.org/protobuf/encoding/protojson
 google.golang.org/protobuf/encoding/prototext
 google.golang.org/protobuf/encoding/protowire
@@ -635,12 +572,9 @@ google.golang.org/protobuf/types/known/emptypb
 google.golang.org/protobuf/types/known/fieldmaskpb
 google.golang.org/protobuf/types/known/timestamppb
 google.golang.org/protobuf/types/known/wrapperspb
-# gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0
-## explicit
 # gopkg.in/inf.v0 v0.9.1
 gopkg.in/inf.v0
 # gopkg.in/ini.v1 v1.51.1
-## explicit
 gopkg.in/ini.v1
 # gopkg.in/jcmturner/aescts.v1 v1.0.1
 gopkg.in/jcmturner/aescts.v1
@@ -681,7 +615,6 @@ gopkg.in/jcmturner/gokrb5.v7/types
 gopkg.in/jcmturner/rpc.v1/mstypes
 gopkg.in/jcmturner/rpc.v1/ndr
 # gopkg.in/yaml.v2 v2.3.0
-## explicit
 gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 gopkg.in/yaml.v3

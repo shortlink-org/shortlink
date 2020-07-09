@@ -6,21 +6,29 @@ package notify
 
 import (
 	"context"
+
+	"go.uber.org/atomic"
 )
 
 var (
 	subsribers = Notify{
-		subsribers: map[int][]Subscriber{},
+		subsribers: map[uint32][]Subscriber{},
 	}
+	eventCounter atomic.Uint32
 )
 
-func Subscribe(event int, subscriber Subscriber) { // nolint unused
+func NewEventID() uint32 {
+	eventCounter.Inc()
+	return eventCounter.Load()
+}
+
+func Subscribe(event uint32, subscriber Subscriber) { // nolint unused
 	subsribers.Lock()
 	subsribers.subsribers[event] = append(subsribers.subsribers[event], subscriber)
 	subsribers.Unlock()
 }
 
-func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
+func UnSubscribe(event uint32, subscriber Subscriber) { // nolint unused
 	subsribers.Lock()
 	defer subsribers.Unlock()
 
@@ -33,7 +41,7 @@ func UnSubscribe(event int, subscriber Subscriber) { // nolint unused
 }
 
 // Publish - add new event
-func Publish(ctx context.Context, event int, payload interface{}, cb chan<- interface{}, responseFilter string) { // nolint unused
+func Publish(ctx context.Context, event uint32, payload interface{}, cb chan<- interface{}, responseFilter string) { // nolint unused
 	responses := map[string]Response{}
 	subsribers.RLock()
 	defer subsribers.RUnlock()
@@ -64,6 +72,6 @@ func Publish(ctx context.Context, event int, payload interface{}, cb chan<- inte
 
 func Clean() { // nolint unused
 	subsribers = Notify{
-		subsribers: map[int][]Subscriber{},
+		subsribers: map[uint32][]Subscriber{},
 	}
 }

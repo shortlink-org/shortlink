@@ -11,11 +11,11 @@ type Publisher interface { // nolint unused
 }
 
 type Subscriber interface {
-	Notify(ctx context.Context, event int, payload interface{}) Response
+	Notify(ctx context.Context, event uint32, payload interface{}) Response
 }
 
 type Notify struct {
-	subsribers map[int][]Subscriber
+	subsribers map[uint32][]Subscriber
 	sync.RWMutex
 }
 

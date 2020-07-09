@@ -2,14 +2,16 @@ package api_type
 
 import (
 	"time"
+
+	"github.com/batazor/shortlink/internal/notify"
 )
 
-const (
-	METHOD_ADD    = iota // nolint unused
-	METHOD_GET           // nolint unused
-	METHOD_LIST          // nolint unused
-	METHOD_UPDATE        // nolint unused
-	METHOD_DELETE        // nolint unused
+var (
+	METHOD_ADD    = notify.NewEventID()
+	METHOD_GET    = notify.NewEventID()
+	METHOD_LIST   = notify.NewEventID()
+	METHOD_UPDATE = notify.NewEventID()
+	METHOD_DELETE = notify.NewEventID()
 )
 
 // Config - base configuration for API
