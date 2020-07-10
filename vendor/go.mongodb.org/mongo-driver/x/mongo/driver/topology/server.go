@@ -10,7 +10,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"math"
 	"net"
 	"sync"
 	"sync/atomic"
@@ -21,11 +20,9 @@ import (
 	"go.mongodb.org/mongo-driver/x/mongo/driver/address"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/description"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/operation"
-	"golang.org/x/sync/semaphore"
 )
 
 const minHeartbeatInterval = 500 * time.Millisecond
-const connectionSemaphoreSize = math.MaxInt64
 
 // ErrServerClosed occurs when an attempt to Get a connection is made after
 // the server has been closed.
@@ -86,7 +83,6 @@ type Server struct {
 
 	// connection related fields
 	pool *pool
-	sem  *semaphore.Weighted
 
 	// goroutine management fields
 	done          chan struct{}
@@ -129,16 +125,9 @@ func NewServer(addr address.Address, opts ...ServerOption) (*Server, error) {
 		return nil, err
 	}
 
-	var maxConns = cfg.maxConns
-	if maxConns == 0 {
-		maxConns = math.MaxInt64
-	}
-
 	s := &Server{
 		cfg:     cfg,
 		address: addr,
-
-		sem: semaphore.NewWeighted(int64(maxConns)),
 
 		done:          make(chan struct{}),
 		checkNow:      make(chan struct{}, 1),
@@ -146,9 +135,8 @@ func NewServer(addr address.Address, opts ...ServerOption) (*Server, error) {
 
 		subscribers: make(map[uint64]chan description.Server),
 	}
-	s.desc.Store(description.Server{Addr: addr})
+	s.desc.Store(description.NewDefaultServer(addr))
 
-	callback := func(desc description.Server) { s.updateDescription(desc) }
 	pc := poolConfig{
 		Address:     addr,
 		MinPoolSize: cfg.minConns,
@@ -157,7 +145,8 @@ func NewServer(addr address.Address, opts ...ServerOption) (*Server, error) {
 		PoolMonitor: cfg.poolMonitor,
 	}
 
-	s.pool, err = newPool(pc, withServerDescriptionCallback(callback, cfg.connectionOpts...)...)
+	connectionOpts := append(cfg.connectionOpts, withErrorHandlingCallback(s.ProcessHandshakeError))
+	s.pool, err = newPool(pc, connectionOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -170,7 +159,7 @@ func (s *Server) Connect(updateCallback func(description.Server)) error {
 	if !atomic.CompareAndSwapInt32(&s.connectionstate, disconnected, connected) {
 		return ErrServerConnected
 	}
-	s.desc.Store(description.Server{Addr: s.address})
+	s.desc.Store(description.NewDefaultServer(s.address))
 	s.updateTopologyCallback.Store(updateCallback)
 	go s.update()
 	s.closewg.Add(1)
@@ -228,39 +217,30 @@ func (s *Server) Connection(ctx context.Context) (driver.Connection, error) {
 		return nil, ErrServerClosed
 	}
 
-	err := s.sem.Acquire(ctx, 1)
-	if err != nil {
-		if s.pool.monitor != nil {
-			s.pool.monitor.Event(&event.PoolEvent{
-				Type:    "ConnectionCheckOutFailed",
-				Address: s.pool.address.String(),
-				Reason:  "timeout",
-			})
-		}
-		return nil, ErrWaitQueueTimeout
-	}
-
 	conn, err := s.pool.get(ctx)
 	if err != nil {
-		s.sem.Release(1)
-		wrappedConnErr := unwrapConnectionError(err)
-		if wrappedConnErr == nil {
-			return nil, err
-		}
-
-		// Since the only kind of ConnectionError we receive from pool.Get will be an initialization
-		// error, we should set the description.Server appropriately.
-		desc := description.Server{
-			Kind:      description.Unknown,
-			LastError: wrappedConnErr,
-		}
-		s.updateDescription(desc)
-		s.pool.clear()
-
+		// The error has already been handled by connection.connect, which calls Server.ProcessHandshakeError.
 		return nil, err
 	}
 
 	return &Connection{connection: conn, s: s}, nil
+}
+
+// ProcessHandshakeError implements SDAM error handling for errors that occur before a connection finishes handshaking.
+func (s *Server) ProcessHandshakeError(err error) {
+	if err == nil {
+		return
+	}
+	wrappedConnErr := unwrapConnectionError(err)
+	if wrappedConnErr == nil {
+		return
+	}
+
+	// Since the only kind of ConnectionError we receive from pool.Get will be an initialization error, we should set
+	// the description.Server appropriately.
+	desc := description.NewServerFromError(s.address, wrappedConnErr)
+	s.updateDescription(desc)
+	s.pool.clear()
 }
 
 // Description returns a description of the server as of the last heartbeat.
@@ -318,14 +298,12 @@ func (s *Server) RequestImmediateCheck() {
 
 // ProcessError handles SDAM error handling and implements driver.ErrorProcessor.
 func (s *Server) ProcessError(err error) {
+	desc := s.Description()
 	// Invalidate server description if not master or node recovering error occurs.
 	// These errors can be reported as a command error or a write concern error.
 	if cerr, ok := err.(driver.Error); ok && (cerr.NodeIsRecovering() || cerr.NotMaster()) {
-		desc := s.Description()
-		desc.Kind = description.Unknown
-		desc.LastError = err
 		// updates description to unknown
-		s.updateDescription(desc)
+		s.updateDescription(description.NewServerFromError(s.address, err))
 		// If the node is shutting down or is older than 4.2, we synchronously clear the pool
 		if cerr.NodeIsShuttingDown() || desc.WireVersion == nil || desc.WireVersion.Max < 8 {
 			s.RequestImmediateCheck()
@@ -334,11 +312,8 @@ func (s *Server) ProcessError(err error) {
 		return
 	}
 	if wcerr, ok := err.(driver.WriteConcernError); ok && (wcerr.NodeIsRecovering() || wcerr.NotMaster()) {
-		desc := s.Description()
-		desc.Kind = description.Unknown
-		desc.LastError = err
 		// updates description to unknown
-		s.updateDescription(desc)
+		s.updateDescription(description.NewServerFromError(s.address, err))
 		// If the node is shutting down or is older than 4.2, we synchronously clear the pool
 		if wcerr.NodeIsShuttingDown() || desc.WireVersion == nil || desc.WireVersion.Max < 8 {
 			s.RequestImmediateCheck()
@@ -360,11 +335,8 @@ func (s *Server) ProcessError(err error) {
 		return
 	}
 
-	desc := s.Description()
-	desc.Kind = description.Unknown
-	desc.LastError = err
 	// updates description to unknown
-	s.updateDescription(desc)
+	s.updateDescription(description.NewServerFromError(s.address, err))
 	s.pool.clear()
 }
 
@@ -487,7 +459,7 @@ func (s *Server) heartbeat(conn *connection) (description.Server, *connection) {
 		var now time.Time
 		var descPtr *description.Server
 
-		if conn != nil && conn.expired() {
+		if conn != nil && (conn.idleTimeoutExpired() || conn.closed()) {
 			if conn.nc != nil {
 				conn.nc.Close()
 			}
@@ -565,11 +537,7 @@ func (s *Server) heartbeat(conn *connection) (description.Server, *connection) {
 	}
 
 	if !set {
-		desc = description.Server{
-			Addr:      s.address,
-			LastError: saved,
-			Kind:      description.Unknown,
-		}
+		desc = description.NewServerFromError(s.address, saved)
 	}
 
 	return desc, conn
@@ -578,6 +546,7 @@ func (s *Server) heartbeat(conn *connection) (description.Server, *connection) {
 func (s *Server) updateAverageRTT(delay time.Duration) time.Duration {
 	if !s.averageRTTSet {
 		s.averageRTT = delay
+		s.averageRTTSet = true
 	} else {
 		alpha := 0.2
 		s.averageRTT = time.Duration(alpha*float64(delay) + (1-alpha)*float64(s.averageRTT))
