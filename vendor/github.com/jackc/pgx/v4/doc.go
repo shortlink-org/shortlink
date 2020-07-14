@@ -22,6 +22,11 @@ here. In addition, a config struct can be created by `ParseConfig` and modified 
 
     conn, err := pgx.ConnectConfig(context.Background(), config)
 
+Connection Pool
+
+`*pgx.Conn` represents a single connection to the database and is not concurrency safe. Use sub-package pgxpool for a
+concurrency safe connection pool.
+
 Query Interface
 
 pgx implements Query and Scan in the familiar database/sql style.
@@ -53,7 +58,7 @@ pgx implements Query and Scan in the familiar database/sql style.
 
     // Any errors encountered by rows.Next or rows.Scan will be returned here
     if rows.Err() != nil {
-        return err
+        return rows.Err()
     }
 
     // No errors found - do something with sum
@@ -76,10 +81,6 @@ Use Exec to execute a query that does not return a result set.
     if commandTag.RowsAffected() != 1 {
         return errors.New("No row found to delete")
     }
-
-Connection Pool
-
-See sub-package pgxpool for a connection pool.
 
 Base Type Mapping
 
@@ -157,6 +158,51 @@ If pgx does cannot natively encode a type and that type is a renamed type (e.g. 
 to encode the underlying type. While this is usually desired behavior it can produce surprising behavior if one the
 underlying type and the renamed type each implement database/sql interfaces and the other implements pgx interfaces. It
 is recommended that this situation be avoided by implementing pgx interfaces on the renamed type.
+
+Composite types and row values
+
+Row values and composite types are represented as pgtype.Record (https://pkg.go.dev/github.com/jackc/pgtype?tab=doc#Record).
+It is possible to get values of your custom type by implementing DecodeBinary interface. Decoding into
+pgtype.Record first can simplify process by avoiding dealing with raw protocol directly.
+
+For example:
+
+    type MyType struct {
+        a int      // NULL will cause decoding error
+        b *string  // there can be NULL in this position in SQL
+    }
+
+    func (t *MyType) DecodeBinary(ci *pgtype.ConnInfo, src []byte) error {
+        r := pgtype.Record{
+            Fields: []pgtype.Value{&pgtype.Int4{}, &pgtype.Text{}},
+        }
+
+        if err := r.DecodeBinary(ci, src); err != nil {
+            return err
+        }
+
+        if r.Status != pgtype.Present {
+            return errors.New("BUG: decoding should not be called on NULL value")
+        }
+
+        a := r.Fields[0].(*pgtype.Int4)
+        b := r.Fields[1].(*pgtype.Text)
+
+        // type compatibility is checked by AssignTo
+        // only lossless assignments will succeed
+        if err := a.AssignTo(&t.a); err != nil {
+            return err
+        }
+
+        // AssignTo also deals with null value handling
+        if err := b.AssignTo(&t.b); err != nil {
+            return err
+        }
+        return nil
+    }
+
+    result := MyType{}
+    err := conn.QueryRow(context.Background(), "select row(1, 'foo'::text)", pgx.QueryResultFormats{pgx.BinaryFormatCode}).Scan(&r)
 
 Raw Bytes Mapping
 

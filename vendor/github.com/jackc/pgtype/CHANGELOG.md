@@ -1,3 +1,18 @@
+# 1.4.0 (June 27, 2020)
+
+* Add JSON support to ext/gofrs-uuid
+* Performance improvements in Scan path
+* Improved ext/shopspring-numeric binary decoding performance
+* Add composite type support (Maxim Ivanov and Jack Christensen)
+* Add better generic enum type support
+* Add generic array type support
+* Clarify and normalize Value semantics
+* Fix hstore with empty string values
+* Numeric supports NaN values (leighhopcroft)
+* Add slice of pointer support to array types (megaturbo)
+* Add jsonb array type (tserakhau)
+* Allow converting intervals with months and days to duration
+
 # 1.3.0 (March 30, 2020)
 
 * Get implemented on T instead of *T

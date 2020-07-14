@@ -69,6 +69,7 @@ func (cr *connResource) getPoolRows(c *Conn, r pgx.Rows) *poolRows {
 
 type Pool struct {
 	p                 *puddle.Pool
+	config            *Config
 	afterConnect      func(context.Context, *pgx.Conn) error
 	beforeAcquire     func(context.Context, *pgx.Conn) bool
 	afterRelease      func(*pgx.Conn) bool
@@ -112,8 +113,25 @@ type Config struct {
 	// HealthCheckPeriod is the duration between checks of the health of idle connections.
 	HealthCheckPeriod time.Duration
 
+	// If set to true, pool doesn't do any I/O operation on initialization.
+	// And connects to the server only when the pool starts to be used.
+	// The default is false.
+	LazyConnect bool
+
 	createdByParseConfig bool // Used to enforce created by ParseConfig rule.
 }
+
+// Copy returns a deep copy of the config that is safe to use and modify.
+// The only exception is the tls.Config:
+// according to the tls.Config docs it must not be modified after creation.
+func (c *Config) Copy() *Config {
+	newConfig := new(Config)
+	*newConfig = *c
+	newConfig.ConnConfig = c.ConnConfig.Copy()
+	return newConfig
+}
+
+func (c *Config) ConnString() string { return c.ConnConfig.ConnString() }
 
 // Connect creates a new Pool and immediately establishes one connection. ctx can be used to cancel this initial
 // connection. See ParseConfig for information on connString format.
@@ -136,6 +154,7 @@ func ConnectConfig(ctx context.Context, config *Config) (*Pool, error) {
 	}
 
 	p := &Pool{
+		config:            config,
 		afterConnect:      config.AfterConnect,
 		beforeAcquire:     config.BeforeAcquire,
 		afterRelease:      config.AfterRelease,
@@ -171,24 +190,24 @@ func ConnectConfig(ctx context.Context, config *Config) (*Pool, error) {
 			return cr, nil
 		},
 		func(value interface{}) {
-			go func() {
-				ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-				value.(*connResource).conn.Close(ctx)
-				cancel()
-			}()
+			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+			value.(*connResource).conn.Close(ctx)
+			cancel()
 		},
 		config.MaxConns,
 	)
 
 	go p.backgroundHealthCheck()
 
-	// Initially establish one connection
-	res, err := p.p.Acquire(ctx)
-	if err != nil {
-		p.p.Close()
-		return nil, err
+	if !config.LazyConnect {
+		// Initially establish one connection
+		res, err := p.p.Acquire(ctx)
+		if err != nil {
+			p.Close()
+			return nil, err
+		}
+		res.Release()
 	}
-	res.Release()
 
 	return p, nil
 }
@@ -364,6 +383,9 @@ func (p *Pool) AcquireAllIdle(ctx context.Context) []*Conn {
 	return conns
 }
 
+// Config returns a copy of config that was used to initialize this pool.
+func (p *Pool) Config() *Config { return p.config.Copy() }
+
 func (p *Pool) Stat() *Stat {
 	return &Stat{s: p.p.Stat()}
 }
@@ -424,6 +446,7 @@ func (p *Pool) BeginTx(ctx context.Context, txOptions pgx.TxOptions) (pgx.Tx, er
 
 	t, err := c.BeginTx(ctx, txOptions)
 	if err != nil {
+		c.Release()
 		return nil, err
 	}
 

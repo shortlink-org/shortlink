@@ -27,19 +27,20 @@ import (
 type AfterConnectFunc func(ctx context.Context, pgconn *PgConn) error
 type ValidateConnectFunc func(ctx context.Context, pgconn *PgConn) error
 
-// Config is the settings used to establish a connection to a PostgreSQL server. It must be created by ParseConfig and
-// then it can be modified. A manually initialized Config will cause ConnectConfig to panic.
+// Config is the settings used to establish a connection to a PostgreSQL server. It must be created by ParseConfig. A
+// manually initialized Config will cause ConnectConfig to panic.
 type Config struct {
-	Host          string // host (e.g. localhost) or absolute path to unix domain socket directory (e.g. /private/tmp)
-	Port          uint16
-	Database      string
-	User          string
-	Password      string
-	TLSConfig     *tls.Config // nil disables TLS
-	DialFunc      DialFunc    // e.g. net.Dialer.DialContext
-	LookupFunc    LookupFunc  // e.g. net.Resolver.LookupHost
-	BuildFrontend BuildFrontendFunc
-	RuntimeParams map[string]string // Run-time parameters to set on connection as session default values (e.g. search_path or application_name)
+	Host           string // host (e.g. localhost) or absolute path to unix domain socket directory (e.g. /private/tmp)
+	Port           uint16
+	Database       string
+	User           string
+	Password       string
+	TLSConfig      *tls.Config // nil disables TLS
+	ConnectTimeout time.Duration
+	DialFunc       DialFunc   // e.g. net.Dialer.DialContext
+	LookupFunc     LookupFunc // e.g. net.Resolver.LookupHost
+	BuildFrontend  BuildFrontendFunc
+	RuntimeParams  map[string]string // Run-time parameters to set on connection as session default values (e.g. search_path or application_name)
 
 	Fallbacks []*FallbackConfig
 
@@ -59,6 +60,35 @@ type Config struct {
 	OnNotification NotificationHandler
 
 	createdByParseConfig bool // Used to enforce created by ParseConfig rule.
+}
+
+// Copy returns a deep copy of the config that is safe to use and modify.
+// The only exception is the TLSConfig field:
+// according to the tls.Config docs it must not be modified after creation.
+func (c *Config) Copy() *Config {
+	newConf := new(Config)
+	*newConf = *c
+	if newConf.TLSConfig != nil {
+		newConf.TLSConfig = c.TLSConfig.Clone()
+	}
+	if newConf.RuntimeParams != nil {
+		newConf.RuntimeParams = make(map[string]string, len(c.RuntimeParams))
+		for k, v := range c.RuntimeParams {
+			newConf.RuntimeParams[k] = v
+		}
+	}
+	if newConf.Fallbacks != nil {
+		newConf.Fallbacks = make([]*FallbackConfig, len(c.Fallbacks))
+		for i, fallback := range c.Fallbacks {
+			newFallback := new(FallbackConfig)
+			*newFallback = *fallback
+			if newFallback.TLSConfig != nil {
+				newFallback.TLSConfig = fallback.TLSConfig.Clone()
+			}
+			newConf.Fallbacks[i] = newFallback
+		}
+	}
+	return newConf
 }
 
 // FallbackConfig is additional settings to attempt a connection with when the primary Config fails to establish a
@@ -82,7 +112,7 @@ func NetworkAddress(host string, port uint16) (network, address string) {
 	return network, address
 }
 
-// ParseConfig builds a []*Config with similar behavior to the PostgreSQL standard C library libpq. It uses the same
+// ParseConfig builds a *Config with similar behavior to the PostgreSQL standard C library libpq. It uses the same
 // defaults as libpq (e.g. port=5432) and understands most PG* environment variables. connString may be a URL or a DSN.
 // It also may be empty to only read from the environment. If a password is not supplied it will attempt to read the
 // .pgpass file.
@@ -92,6 +122,11 @@ func NetworkAddress(host string, port uint16) (network, address string) {
 //
 //   # Example URL
 //   postgres://jack:secret@pg.example.com:5432/mydb?sslmode=verify-ca
+//
+// The returned *Config may be modified. However, it is strongly recommended that any configuration that can be done
+// through the connection string be done there. In particular the fields Host, Port, TLSConfig, and Fallbacks can be
+// interdependent (e.g. TLSConfig needs knowledge of the host to validate the server certificate). These fields should
+// not be modified individually. They should all be modified or all left unchanged.
 //
 // ParseConfig supports specifying multiple hosts in similar manner to libpq. Host and port may include comma separated
 // values that will be tried in order. This can be used as part of a high availability system. See
@@ -124,13 +159,20 @@ func NetworkAddress(host string, port uint16) (network, address string) {
 // See https://www.postgresql.org/docs/11/libpq-connect.html#LIBPQ-PARAMKEYWORDS for parameter key word names. They are
 // usually but not always the environment variable name downcased and without the "PG" prefix.
 //
-// Important TLS Security Notes:
+// Important Security Notes:
 //
 // ParseConfig tries to match libpq behavior with regard to PGSSLMODE. This includes defaulting to "prefer" behavior if
 // not set.
 //
 // See http://www.postgresql.org/docs/11/static/libpq-ssl.html#LIBPQ-SSL-PROTECTION for details on what level of
 // security each sslmode provides.
+//
+// The sslmode "prefer" (the default), sslmode "allow", and multiple hosts are implemented via the Fallbacks field of
+// the Config struct. If TLSConfig is manually changed it will not affect the fallbacks. For example, in the case of
+// sslmode "prefer" this means it will first try the main Config settings which use TLS, then it will try the fallback
+// which does not use TLS. This can lead to an unexpected unencrypted connection if the main TLS config is manually
+// changed later but the unencrypted fallback is present. Ensure there are no stale fallbacks when manually setting
+// TLCConfig.
 //
 // Other known differences with libpq:
 //
@@ -191,12 +233,13 @@ func ParseConfig(connString string) (*Config, error) {
 		BuildFrontend:        makeDefaultBuildFrontendFunc(int(minReadBufferSize)),
 	}
 
-	if connectTimeout, present := settings["connect_timeout"]; present {
-		dialFunc, err := makeConnectTimeoutDialFunc(connectTimeout)
+	if connectTimeoutSetting, present := settings["connect_timeout"]; present {
+		connectTimeout, err := parseConnectTimeoutSetting(connectTimeoutSetting)
 		if err != nil {
 			return nil, &parseConfigError{connString: connString, msg: "invalid connect_timeout", err: err}
 		}
-		config.DialFunc = dialFunc
+		config.ConnectTimeout = connectTimeout
+		config.DialFunc = makeConnectTimeoutDialFunc(connectTimeout)
 	} else {
 		defaultDialer := makeDefaultDialer()
 		config.DialFunc = defaultDialer.DialContext
@@ -399,13 +442,19 @@ func parseURLSettings(connString string) (map[string]string, error) {
 	var hosts []string
 	var ports []string
 	for _, host := range strings.Split(url.Host, ",") {
-		parts := strings.SplitN(host, ":", 2)
-		if parts[0] != "" {
-			hosts = append(hosts, parts[0])
+		if host == "" {
+			continue
 		}
-		if len(parts) == 2 {
-			ports = append(ports, parts[1])
+		if isIPOnly(host) {
+			hosts = append(hosts, strings.Trim(host, "[]"))
+			continue
 		}
+		h, p, err := net.SplitHostPort(host)
+		if err != nil {
+			return nil, errors.Errorf("failed to split host:port in '%s', err: %w", host, err)
+		}
+		hosts = append(hosts, h)
+		ports = append(ports, p)
 	}
 	if len(hosts) > 0 {
 		settings["host"] = strings.Join(hosts, ",")
@@ -424,6 +473,10 @@ func parseURLSettings(connString string) (map[string]string, error) {
 	}
 
 	return settings, nil
+}
+
+func isIPOnly(host string) bool {
+	return net.ParseIP(strings.Trim(host, "[]")) != nil || !strings.Contains(host, ":")
 }
 
 var asciiSpace = [256]uint8{'\t': 1, '\n': 1, '\v': 1, '\f': 1, '\r': 1, ' ': 1}
@@ -495,12 +548,12 @@ func parseDSNSettings(s string) (map[string]string, error) {
 func parseServiceSettings(servicefilePath, serviceName string) (map[string]string, error) {
 	servicefile, err := pgservicefile.ReadServicefile(servicefilePath)
 	if err != nil {
-		fmt.Errorf("failed to read service file: %v", servicefile)
+		return nil, fmt.Errorf("failed to read service file: %v", servicefilePath)
 	}
 
 	service, err := servicefile.GetService(serviceName)
 	if err != nil {
-		fmt.Errorf("unable to find service: %v", servicefile)
+		return nil, fmt.Errorf("unable to find service: %v", serviceName)
 	}
 
 	nameMap := map[string]string{
@@ -548,7 +601,17 @@ func configTLS(settings map[string]string) ([]*tls.Config, error) {
 	case "allow", "prefer":
 		tlsConfig.InsecureSkipVerify = true
 	case "require":
-		tlsConfig.InsecureSkipVerify = sslrootcert == ""
+		// According to PostgreSQL documentation, if a root CA file exists,
+		// the behavior of sslmode=require should be the same as that of verify-ca
+		//
+		// See https://www.postgresql.org/docs/12/libpq-ssl.html
+		if sslrootcert != "" {
+			goto nextCase
+		}
+		tlsConfig.InsecureSkipVerify = true
+		break
+	nextCase:
+		fallthrough
 	case "verify-ca":
 		// Don't perform the default certificate verification because it
 		// will verify the hostname. Instead, verify the server's
@@ -662,18 +725,21 @@ func makeDefaultBuildFrontendFunc(minBufferLen int) BuildFrontendFunc {
 	}
 }
 
-func makeConnectTimeoutDialFunc(s string) (DialFunc, error) {
+func parseConnectTimeoutSetting(s string) (time.Duration, error) {
 	timeout, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
-		return nil, err
+		return 0, err
 	}
 	if timeout < 0 {
-		return nil, errors.New("negative timeout")
+		return 0, errors.New("negative timeout")
 	}
+	return time.Duration(timeout) * time.Second, nil
+}
 
+func makeConnectTimeoutDialFunc(timeout time.Duration) DialFunc {
 	d := makeDefaultDialer()
-	d.Timeout = time.Duration(timeout) * time.Second
-	return d.DialContext, nil
+	d.Timeout = timeout
+	return d.DialContext
 }
 
 // ValidateConnectTargetSessionAttrsReadWrite is an ValidateConnectFunc that implements libpq compatible

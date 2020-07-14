@@ -10,16 +10,16 @@ import (
 	errors "golang.org/x/xerrors"
 )
 
-type UUIDArray struct {
-	Elements   []UUID
+type JSONBArray struct {
+	Elements   []Text
 	Dimensions []ArrayDimension
 	Status     Status
 }
 
-func (dst *UUIDArray) Set(src interface{}) error {
+func (dst *JSONBArray) Set(src interface{}) error {
 	// untyped nil and typed nil interfaces are different
 	if src == nil {
-		*dst = UUIDArray{Status: Null}
+		*dst = JSONBArray{Status: Null}
 		return nil
 	}
 
@@ -32,89 +32,32 @@ func (dst *UUIDArray) Set(src interface{}) error {
 
 	switch value := src.(type) {
 
-	case [][16]byte:
-		if value == nil {
-			*dst = UUIDArray{Status: Null}
-		} else if len(value) == 0 {
-			*dst = UUIDArray{Status: Present}
-		} else {
-			elements := make([]UUID, len(value))
-			for i := range value {
-				if err := elements[i].Set(value[i]); err != nil {
-					return err
-				}
-			}
-			*dst = UUIDArray{
-				Elements:   elements,
-				Dimensions: []ArrayDimension{{Length: int32(len(elements)), LowerBound: 1}},
-				Status:     Present,
-			}
-		}
-
-	case [][]byte:
-		if value == nil {
-			*dst = UUIDArray{Status: Null}
-		} else if len(value) == 0 {
-			*dst = UUIDArray{Status: Present}
-		} else {
-			elements := make([]UUID, len(value))
-			for i := range value {
-				if err := elements[i].Set(value[i]); err != nil {
-					return err
-				}
-			}
-			*dst = UUIDArray{
-				Elements:   elements,
-				Dimensions: []ArrayDimension{{Length: int32(len(elements)), LowerBound: 1}},
-				Status:     Present,
-			}
-		}
-
 	case []string:
 		if value == nil {
-			*dst = UUIDArray{Status: Null}
+			*dst = JSONBArray{Status: Null}
 		} else if len(value) == 0 {
-			*dst = UUIDArray{Status: Present}
+			*dst = JSONBArray{Status: Present}
 		} else {
-			elements := make([]UUID, len(value))
+			elements := make([]Text, len(value))
 			for i := range value {
 				if err := elements[i].Set(value[i]); err != nil {
 					return err
 				}
 			}
-			*dst = UUIDArray{
+			*dst = JSONBArray{
 				Elements:   elements,
 				Dimensions: []ArrayDimension{{Length: int32(len(elements)), LowerBound: 1}},
 				Status:     Present,
 			}
 		}
 
-	case []*string:
+	case []Text:
 		if value == nil {
-			*dst = UUIDArray{Status: Null}
+			*dst = JSONBArray{Status: Null}
 		} else if len(value) == 0 {
-			*dst = UUIDArray{Status: Present}
+			*dst = JSONBArray{Status: Present}
 		} else {
-			elements := make([]UUID, len(value))
-			for i := range value {
-				if err := elements[i].Set(value[i]); err != nil {
-					return err
-				}
-			}
-			*dst = UUIDArray{
-				Elements:   elements,
-				Dimensions: []ArrayDimension{{Length: int32(len(elements)), LowerBound: 1}},
-				Status:     Present,
-			}
-		}
-
-	case []UUID:
-		if value == nil {
-			*dst = UUIDArray{Status: Null}
-		} else if len(value) == 0 {
-			*dst = UUIDArray{Status: Present}
-		} else {
-			*dst = UUIDArray{
+			*dst = JSONBArray{
 				Elements:   value,
 				Dimensions: []ArrayDimension{{Length: int32(len(value)), LowerBound: 1}},
 				Status:     Present,
@@ -124,13 +67,13 @@ func (dst *UUIDArray) Set(src interface{}) error {
 		if originalSrc, ok := underlyingSliceType(src); ok {
 			return dst.Set(originalSrc)
 		}
-		return errors.Errorf("cannot convert %v to UUIDArray", value)
+		return errors.Errorf("cannot convert %v to JSONBArray", value)
 	}
 
 	return nil
 }
 
-func (dst UUIDArray) Get() interface{} {
+func (dst JSONBArray) Get() interface{} {
 	switch dst.Status {
 	case Present:
 		return dst
@@ -141,40 +84,13 @@ func (dst UUIDArray) Get() interface{} {
 	}
 }
 
-func (src *UUIDArray) AssignTo(dst interface{}) error {
+func (src *JSONBArray) AssignTo(dst interface{}) error {
 	switch src.Status {
 	case Present:
 		switch v := dst.(type) {
 
-		case *[][16]byte:
-			*v = make([][16]byte, len(src.Elements))
-			for i := range src.Elements {
-				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
-					return err
-				}
-			}
-			return nil
-
-		case *[][]byte:
-			*v = make([][]byte, len(src.Elements))
-			for i := range src.Elements {
-				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
-					return err
-				}
-			}
-			return nil
-
 		case *[]string:
 			*v = make([]string, len(src.Elements))
-			for i := range src.Elements {
-				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
-					return err
-				}
-			}
-			return nil
-
-		case *[]*string:
-			*v = make([]*string, len(src.Elements))
 			for i := range src.Elements {
 				if err := src.Elements[i].AssignTo(&((*v)[i])); err != nil {
 					return err
@@ -195,9 +111,9 @@ func (src *UUIDArray) AssignTo(dst interface{}) error {
 	return errors.Errorf("cannot decode %#v into %T", src, dst)
 }
 
-func (dst *UUIDArray) DecodeText(ci *ConnInfo, src []byte) error {
+func (dst *JSONBArray) DecodeText(ci *ConnInfo, src []byte) error {
 	if src == nil {
-		*dst = UUIDArray{Status: Null}
+		*dst = JSONBArray{Status: Null}
 		return nil
 	}
 
@@ -206,13 +122,13 @@ func (dst *UUIDArray) DecodeText(ci *ConnInfo, src []byte) error {
 		return err
 	}
 
-	var elements []UUID
+	var elements []Text
 
 	if len(uta.Elements) > 0 {
-		elements = make([]UUID, len(uta.Elements))
+		elements = make([]Text, len(uta.Elements))
 
 		for i, s := range uta.Elements {
-			var elem UUID
+			var elem Text
 			var elemSrc []byte
 			if s != "NULL" {
 				elemSrc = []byte(s)
@@ -226,14 +142,14 @@ func (dst *UUIDArray) DecodeText(ci *ConnInfo, src []byte) error {
 		}
 	}
 
-	*dst = UUIDArray{Elements: elements, Dimensions: uta.Dimensions, Status: Present}
+	*dst = JSONBArray{Elements: elements, Dimensions: uta.Dimensions, Status: Present}
 
 	return nil
 }
 
-func (dst *UUIDArray) DecodeBinary(ci *ConnInfo, src []byte) error {
+func (dst *JSONBArray) DecodeBinary(ci *ConnInfo, src []byte) error {
 	if src == nil {
-		*dst = UUIDArray{Status: Null}
+		*dst = JSONBArray{Status: Null}
 		return nil
 	}
 
@@ -244,7 +160,7 @@ func (dst *UUIDArray) DecodeBinary(ci *ConnInfo, src []byte) error {
 	}
 
 	if len(arrayHeader.Dimensions) == 0 {
-		*dst = UUIDArray{Dimensions: arrayHeader.Dimensions, Status: Present}
+		*dst = JSONBArray{Dimensions: arrayHeader.Dimensions, Status: Present}
 		return nil
 	}
 
@@ -253,7 +169,7 @@ func (dst *UUIDArray) DecodeBinary(ci *ConnInfo, src []byte) error {
 		elementCount *= d.Length
 	}
 
-	elements := make([]UUID, elementCount)
+	elements := make([]Text, elementCount)
 
 	for i := range elements {
 		elemLen := int(int32(binary.BigEndian.Uint32(src[rp:])))
@@ -269,11 +185,11 @@ func (dst *UUIDArray) DecodeBinary(ci *ConnInfo, src []byte) error {
 		}
 	}
 
-	*dst = UUIDArray{Elements: elements, Dimensions: arrayHeader.Dimensions, Status: Present}
+	*dst = JSONBArray{Elements: elements, Dimensions: arrayHeader.Dimensions, Status: Present}
 	return nil
 }
 
-func (src UUIDArray) EncodeText(ci *ConnInfo, buf []byte) ([]byte, error) {
+func (src JSONBArray) EncodeText(ci *ConnInfo, buf []byte) ([]byte, error) {
 	switch src.Status {
 	case Null:
 		return nil, nil
@@ -330,7 +246,7 @@ func (src UUIDArray) EncodeText(ci *ConnInfo, buf []byte) ([]byte, error) {
 	return buf, nil
 }
 
-func (src UUIDArray) EncodeBinary(ci *ConnInfo, buf []byte) ([]byte, error) {
+func (src JSONBArray) EncodeBinary(ci *ConnInfo, buf []byte) ([]byte, error) {
 	switch src.Status {
 	case Null:
 		return nil, nil
@@ -342,10 +258,10 @@ func (src UUIDArray) EncodeBinary(ci *ConnInfo, buf []byte) ([]byte, error) {
 		Dimensions: src.Dimensions,
 	}
 
-	if dt, ok := ci.DataTypeForName("uuid"); ok {
+	if dt, ok := ci.DataTypeForName("text"); ok {
 		arrayHeader.ElementOID = int32(dt.OID)
 	} else {
-		return nil, errors.Errorf("unable to find oid for type name %v", "uuid")
+		return nil, errors.Errorf("unable to find oid for type name %v", "text")
 	}
 
 	for i := range src.Elements {
@@ -375,7 +291,7 @@ func (src UUIDArray) EncodeBinary(ci *ConnInfo, buf []byte) ([]byte, error) {
 }
 
 // Scan implements the database/sql Scanner interface.
-func (dst *UUIDArray) Scan(src interface{}) error {
+func (dst *JSONBArray) Scan(src interface{}) error {
 	if src == nil {
 		return dst.DecodeText(nil, nil)
 	}
@@ -393,7 +309,7 @@ func (dst *UUIDArray) Scan(src interface{}) error {
 }
 
 // Value implements the database/sql/driver Valuer interface.
-func (src UUIDArray) Value() (driver.Value, error) {
+func (src JSONBArray) Value() (driver.Value, error) {
 	buf, err := src.EncodeText(nil, nil)
 	if err != nil {
 		return nil, err
