@@ -7,12 +7,12 @@
 # # yamllint disable-line                 #
 ###########################################
 rules:
-  braces:
-    level: warning
-    min-spaces-inside: 0
-    max-spaces-inside: 0
-    min-spaces-inside-empty: 1
-    max-spaces-inside-empty: 5
+  braces: disable
+#    level: warning
+#    min-spaces-inside: 0
+#    max-spaces-inside: 0
+#    min-spaces-inside-empty: 1
+#    max-spaces-inside-empty: 5
   brackets:
     level: warning
     min-spaces-inside: 0
