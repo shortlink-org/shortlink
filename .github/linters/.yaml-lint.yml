@@ -31,9 +31,9 @@ rules:
   comments: disable
   comments-indentation: disable
   document-end: disable
-  document-start:
-    level: warning
-    present: true
+  document-start: disable
+#    level: warning
+#    present: true
   empty-lines:
     level: warning
     max: 2
