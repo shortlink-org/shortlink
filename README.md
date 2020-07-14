@@ -79,6 +79,7 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 + SQLite
 + Scylla
 + Сassandra (via: Scylla driver)
++ RethinkDB
 
 ### Cloud-Native
 

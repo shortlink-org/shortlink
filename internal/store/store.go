@@ -21,6 +21,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/postgres"
 	"github.com/batazor/shortlink/internal/store/ram"
 	"github.com/batazor/shortlink/internal/store/redis"
+	"github.com/batazor/shortlink/internal/store/rethinkdb"
 	"github.com/batazor/shortlink/internal/store/scylla"
 	"github.com/batazor/shortlink/internal/store/sqlite"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
@@ -60,6 +61,8 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) DB { // nolint u
 		store.store = &cassandra.CassandraLinkList{}
 	case "scylla":
 		store.store = &scylla.ScyllaLinkList{}
+	case "rethinkdb":
+		store.store = &rethinkdb.RethinkDBLinkList{}
 	case "ram":
 		store.store = &ram.RAMLinkList{}
 	default:
