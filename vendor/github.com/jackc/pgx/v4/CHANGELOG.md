@@ -1,3 +1,33 @@
+# 4.7.2 (July 14, 2020)
+
+* Improve performance of Columns() (zikaeroh)
+* Fix fatal Commit() failure not being considered fatal
+* Update pgconn to v1.6.2
+* Update pgtype to v1.4.1
+
+# 4.7.1 (June 29, 2020)
+
+* Fix stdlib decoding error with certain order and combination of fields
+
+# 4.7.0 (June 27, 2020)
+
+* Update pgtype to v1.4.0
+* Update pgconn to v1.6.1
+* Update puddle to v1.1.1
+* Fix context propagation with Tx commit and Rollback (georgysavva)
+* Add lazy connect option to pgxpool (georgysavva)
+* Fix connection leak if pgxpool.BeginTx() fail (Jean-Baptiste Bronisz)
+* Add native Go slice support for strings and numbers to simple protocol
+* stdlib add default timeouts for Conn.Close() and Stmt.Close() (georgysavva)
+* Assorted performance improvements especially with large result sets
+* Fix close pool on not lazy connect failure (Yegor Myskin)
+* Add Config copy (georgysavva)
+* Support SendBatch with Simple Protocol (Jordan Lewis)
+* Better error logging on rows close (Igor V. Kozinov)
+* Expose stdlib.Conn.Conn() to enable database/sql.Conn.Raw()
+* Improve unknown type support for database/sql
+* Fix transaction commit failure closing connection
+
 # 4.6.0 (March 30, 2020)
 
 * stdlib: Bail early if preloading rows.Next() results in rows.Err() (Bas van Beek)

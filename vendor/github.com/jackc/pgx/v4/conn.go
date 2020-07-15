@@ -29,6 +29,9 @@ type ConnConfig struct {
 	Logger   Logger
 	LogLevel LogLevel
 
+	// Original connection string that was parsed into config.
+	connString string
+
 	// BuildStatementCache creates the stmtcache.Cache implementation for connections created with this config. Set
 	// to nil to disable automatic prepared statements.
 	BuildStatementCache BuildStatementCacheFunc
@@ -43,6 +46,18 @@ type ConnConfig struct {
 
 	createdByParseConfig bool // Used to enforce created by ParseConfig rule.
 }
+
+// Copy returns a deep copy of the config that is safe to use and modify.
+// The only exception is the tls.Config:
+// according to the tls.Config docs it must not be modified after creation.
+func (cc *ConnConfig) Copy() *ConnConfig {
+	newConfig := new(ConnConfig)
+	*newConfig = *cc
+	newConfig.Config = *newConfig.Config.Copy()
+	return newConfig
+}
+
+func (cc *ConnConfig) ConnString() string { return cc.connString }
 
 // BuildStatementCacheFunc is a function that can be used to create a stmtcache.Cache implementation for connection.
 type BuildStatementCacheFunc func(conn *pgconn.PgConn) stmtcache.Cache
@@ -157,6 +172,7 @@ func ParseConfig(connString string) (*ConnConfig, error) {
 		createdByParseConfig: true,
 		LogLevel:             LogLevelInfo,
 		BuildStatementCache:  buildStatementCache,
+		connString:           connString,
 	}
 
 	return connConfig, nil
@@ -168,6 +184,7 @@ func connect(ctx context.Context, config *ConnConfig) (c *Conn, err error) {
 	if !config.createdByParseConfig {
 		panic("config must be created by ParseConfig")
 	}
+	originalConfig := config
 
 	// This isn't really a deep copy. But it is enough to avoid the config.Config.OnNotification mutation from affecting
 	// other connections with the same config. See https://github.com/jackc/pgx/issues/618.
@@ -177,7 +194,7 @@ func connect(ctx context.Context, config *ConnConfig) (c *Conn, err error) {
 	}
 
 	c = &Conn{
-		config:   config,
+		config:   originalConfig,
 		connInfo: pgtype.NewConnInfo(),
 		logLevel: config.LogLevel,
 		logger:   config.Logger,
@@ -417,6 +434,9 @@ func (c *Conn) StatementCache() stmtcache.Cache { return c.stmtcache }
 
 // ConnInfo returns the connection info used for this connection.
 func (c *Conn) ConnInfo() *pgtype.ConnInfo { return c.connInfo }
+
+// Config returns a copy of config that was used to establish this connection.
+func (c *Conn) Config() *ConnConfig { return c.config.Copy() }
 
 // Exec executes sql. sql can be either a prepared statement name or an SQL string. arguments should be referenced
 // positionally from the sql string as $1, $2, etc.
@@ -699,6 +719,29 @@ func (c *Conn) QueryRow(ctx context.Context, sql string, args ...interface{}) Ro
 // explicit transaction control statements are executed. The returned BatchResults must be closed before the connection
 // is used again.
 func (c *Conn) SendBatch(ctx context.Context, b *Batch) BatchResults {
+	simpleProtocol := c.config.PreferSimpleProtocol
+	var sb strings.Builder
+	if simpleProtocol {
+		for i, bi := range b.items {
+			if i > 0 {
+				sb.WriteByte(';')
+			}
+			sql, err := c.sanitizeForSimpleQuery(bi.query, bi.arguments...)
+			if err != nil {
+				return &batchResults{ctx: ctx, conn: c, err: err}
+			}
+			sb.WriteString(sql)
+		}
+		mrr := c.pgConn.Exec(ctx, sb.String())
+		return &batchResults{
+			ctx:  ctx,
+			conn: c,
+			mrr:  mrr,
+			b:    b,
+			ix:   0,
+		}
+	}
+
 	distinctUnpreparedQueries := map[string]struct{}{}
 
 	for _, bi := range b.items {

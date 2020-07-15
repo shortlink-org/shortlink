@@ -48,6 +48,8 @@ func main() {
 }
 ```
 
+See the [getting started guide](https://github.com/jackc/pgx/wiki/Getting-started-with-pgx) for more information.
+
 ## Choosing Between the pgx and database/sql Interfaces
 
 It is recommended to use the pgx interface if:
@@ -58,7 +60,7 @@ The pgx interface is faster and exposes more features.
 
 The `database/sql` interface only allows the underlying driver to return or receive the following types: `int64`,
 `float64`, `bool`, `[]byte`, `string`, `time.Time`, or `nil`. Handling other types requires implementing the
-`database/sql.Scanner` and the `database/sq/driver.Valuer` interfaces which require transmission of values in text format. The binary format can be substantially faster, which is what the pgx interface uses.
+`database/sql.Scanner` and the `database/sql/driver/driver.Valuer` interfaces which require transmission of values in text format. The binary format can be substantially faster, which is what the pgx interface uses.
 
 ## Features
 
@@ -144,43 +146,57 @@ PGX_TEST_DATABASE="host=/var/run/postgresql database=pgx_test" go test ./...
 
 In addition, there are tests specific for PgBouncer that will be executed if `PGX_TEST_PGBOUNCER_CONN_STRING` is set.
 
+## Supported Go and PostgreSQL Versions
+
+pgx supports the same versions of Go and PostgreSQL that are supported by their respective teams. For [Go](https://golang.org/doc/devel/release.html#policy) that is the two most recent major releases and for [PostgreSQL](https://www.postgresql.org/support/versioning/) the major releases in the last 5 years. This means pgx supports Go 1.13 and higher and PostgreSQL 9.5 and higher.
+
 ## Version Policy
 
 pgx follows semantic versioning for the documented public API on stable releases. `v4` is the latest stable major version.
 
-## Related Libraries
+## PGX Family Libraries
 
 pgx is the head of a family of PostgreSQL libraries. Many of these can be used independently. Many can also be accessed
 from pgx for lower-level control.
 
-### github.com/jackc/pgconn
+### [github.com/jackc/pgconn](https://github.com/jackc/pgconn)
 
 `pgconn` is a lower-level PostgreSQL database driver that operates at nearly the same level as the C library `libpq`.
 
-### github.com/jackc/pgx/v4/pgxpool
+### [github.com/jackc/pgx/v4/pgxpool](https://github.com/jackc/pgx/tree/master/pgxpool)
 
 `pgxpool` is a connection pool for pgx. pgx is entirely decoupled from its default pool implementation. This means that pgx can be used with a different pool. or without any pool at all.
 
-### github.com/jackc/pgx/v4/stdlib
+### [github.com/jackc/pgx/v4/stdlib](https://github.com/jackc/pgx/tree/master/stdlib)
 
 This is a `database/sql` compatibility layer for pgx. pgx can be used as a normal `database/sql` driver, but at any time, the native interface can be acquired for more performance or PostgreSQL specific functionality.
 
-### github.com/jackc/pgtype
+### [github.com/jackc/pgtype](https://github.com/jackc/pgtype)
 
 Over 70 PostgreSQL types are supported including `uuid`, `hstore`, `json`, `bytea`, `numeric`, `interval`, `inet`, and arrays. These types support `database/sql` interfaces and are usable outside of pgx. They are fully tested in pgx and pq. They also support a higher performance interface when used with the pgx driver.
 
-### github.com/jackc/pgproto3
+### [github.com/jackc/pgproto3](https://github.com/jackc/pgproto3)
 
 pgproto3 provides standalone encoding and decoding of the PostgreSQL v3 wire protocol. This is useful for implementing very low level PostgreSQL tooling.
 
-### github.com/jackc/pglogrepl
+### [github.com/jackc/pglogrepl](https://github.com/jackc/pglogrepl)
 
 pglogrepl provides functionality to act as a client for PostgreSQL logical replication.
 
-### github.com/jackc/pgmock
+### [github.com/jackc/pgmock](https://github.com/jackc/pgmock)
 
 pgmock offers the ability to create a server that mocks the PostgreSQL wire protocol. This is used internally to test pgx by purposely inducing unusual errors. pgproto3 and pgmock together provide most of the foundational tooling required to implement a PostgreSQL proxy or MitM (such as for a custom connection pooler).
 
-### github.com/jackc/tern
+### [github.com/jackc/tern](https://github.com/jackc/tern)
 
 tern is a stand-alone SQL migration system.
+
+### [github.com/jackc/pgerrcode](https://github.com/jackc/pgerrcode)
+
+pgerrcode contains constants for the PostgreSQL error codes.
+
+## 3rd Party Libraries with PGX Support
+
+### [github.com/georgysavva/scany](https://github.com/georgysavva/scany)
+
+Library for scanning data from a database into Go structs and more.

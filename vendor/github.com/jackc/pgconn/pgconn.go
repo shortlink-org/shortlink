@@ -116,6 +116,12 @@ func ConnectConfig(ctx context.Context, config *Config) (pgConn *PgConn, err err
 		panic("config must be created by ParseConfig")
 	}
 
+	// ConnectTimeout restricts the whole connection process.
+	if config.ConnectTimeout != 0 {
+		var cancel context.CancelFunc
+		ctx, cancel = context.WithTimeout(ctx, config.ConnectTimeout)
+		defer cancel()
+	}
 	// Simplify usage by treating primary config and fallbacks the same.
 	fallbackConfigs := []*FallbackConfig{
 		{
@@ -282,6 +288,13 @@ func connect(ctx context.Context, config *Config, fallbackConfig *FallbackConfig
 		case *pgproto3.ReadyForQuery:
 			pgConn.status = connStatusIdle
 			if config.ValidateConnect != nil {
+				// ValidateConnect may execute commands that cause the context to be watched again. Unwatch first to avoid
+				// the watch already in progress panic. This is that last thing done by this method so there is no need to
+				// restart the watch after ValidateConnect returns.
+				//
+				// See https://github.com/jackc/pgconn/issues/40.
+				pgConn.contextWatcher.Unwatch()
+
 				err := config.ValidateConnect(ctx, pgConn)
 				if err != nil {
 					pgConn.conn.Close()
@@ -494,6 +507,13 @@ func (pgConn *PgConn) Close(ctx context.Context) error {
 	defer pgConn.conn.Close()
 
 	if ctx != context.Background() {
+		// Close may be called while a cancellable query is in progress. This will most often be triggered by panic when
+		// a defer closes the connection (possibly indirectly via a transaction or a connection pool). Unwatch to end any
+		// previous watch. It is safe to Unwatch regardless of whether a watch is already is progress.
+		//
+		// See https://github.com/jackc/pgconn/issues/29
+		pgConn.contextWatcher.Unwatch()
+
 		pgConn.contextWatcher.Watch(ctx)
 		defer pgConn.contextWatcher.Unwatch()
 	}
@@ -877,11 +897,11 @@ func (pgConn *PgConn) Exec(ctx context.Context, sql string) *MultiResultReader {
 // ExecParams will panic if len(paramOIDs) is not 0, 1, or len(paramValues).
 //
 // paramFormats is a slice of format codes determining for each paramValue column whether it is encoded in text or
-// binary format. If paramFormats is nil all results will be in text protocol. ExecParams will panic if
+// binary format. If paramFormats is nil all params are text format. ExecParams will panic if
 // len(paramFormats) is not 0, 1, or len(paramValues).
 //
 // resultFormats is a slice of format codes determining for each result column whether it is encoded in text or
-// binary format. If resultFormats is nil all results will be in text protocol.
+// binary format. If resultFormats is nil all results will be in text format.
 //
 // ResultReader must be closed before PgConn can be used again.
 func (pgConn *PgConn) ExecParams(ctx context.Context, sql string, paramValues [][]byte, paramOIDs []uint32, paramFormats []int16, resultFormats []int16) *ResultReader {
@@ -904,11 +924,11 @@ func (pgConn *PgConn) ExecParams(ctx context.Context, sql string, paramValues []
 // paramValues are the parameter values. It must be encoded in the format given by paramFormats.
 //
 // paramFormats is a slice of format codes determining for each paramValue column whether it is encoded in text or
-// binary format. If paramFormats is nil all results will be in text protocol. ExecPrepared will panic if
+// binary format. If paramFormats is nil all params are text format. ExecPrepared will panic if
 // len(paramFormats) is not 0, 1, or len(paramValues).
 //
 // resultFormats is a slice of format codes determining for each result column whether it is encoded in text or
-// binary format. If resultFormats is nil all results will be in text protocol.
+// binary format. If resultFormats is nil all results will be in text format.
 //
 // ResultReader must be closed before PgConn can be used again.
 func (pgConn *PgConn) ExecPrepared(ctx context.Context, stmtName string, paramValues [][]byte, paramFormats []int16, resultFormats []int16) *ResultReader {
@@ -1138,7 +1158,6 @@ func (pgConn *PgConn) CopyFrom(ctx context.Context, r io.Reader, sql string) (Co
 			default:
 				signalMessageChan = pgConn.signalMessage()
 			}
-		default:
 		}
 	}
 	close(abortCopyChan)
@@ -1422,7 +1441,6 @@ func (rr *ResultReader) concludeCommand(commandTag CommandTag, err error) {
 
 	rr.commandTag = commandTag
 	rr.err = err
-	rr.fieldDescriptions = nil
 	rr.rowValues = nil
 	rr.commandConcluded = true
 }

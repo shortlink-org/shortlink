@@ -144,6 +144,10 @@ func NewPool(constructor Constructor, destructor Destructor, maxSize int32) *Poo
 // Blocks until all resources are returned to pool and destroyed.
 func (p *Pool) Close() {
 	p.cond.L.Lock()
+	if p.closed {
+		p.cond.L.Unlock()
+		return
+	}
 	p.closed = true
 
 	for _, res := range p.idleResources {
@@ -357,6 +361,10 @@ func (p *Pool) Acquire(ctx context.Context) (*Resource, error) {
 // statistics.
 func (p *Pool) AcquireAllIdle() []*Resource {
 	p.cond.L.Lock()
+	if p.closed {
+		p.cond.L.Unlock()
+		return nil
+	}
 
 	for _, res := range p.idleResources {
 		res.status = resourceStatusAcquired
@@ -373,6 +381,12 @@ func (p *Pool) AcquireAllIdle() []*Resource {
 // It goes straight in the IdlePool. It does not check against maxSize.
 // It can be useful to maintain warm resources under little load.
 func (p *Pool) CreateResource(ctx context.Context) error {
+	p.cond.L.Lock()
+	if p.closed {
+		p.cond.L.Unlock()
+		return ErrClosedPool
+	}
+	p.cond.L.Unlock()
 
 	value, err := p.constructResourceValue(ctx)
 	if err != nil {
@@ -388,6 +402,11 @@ func (p *Pool) CreateResource(ctx context.Context) error {
 	}
 
 	p.cond.L.Lock()
+	// If closed while constructing resource then destroy it and return an error
+	if p.closed {
+		go p.destructResourceValue(res.value)
+		return ErrClosedPool
+	}
 	p.allResources = append(p.allResources, res)
 	p.idleResources = append(p.idleResources, res)
 	p.destructWG.Add(1)
