@@ -1,0 +1,26 @@
+version: '2.4'
+
+services:
+
+  rethinkdb:
+    image: rethinkdb:2.4-buster-slim
+    init: true
+    restart: on-failure
+    container_name: rethinkdb
+    ports:
+      - "28080:8080" # UI port
+      - "28015:28015"
+      - "29015:29015"
+    networks:
+      simple:
+        ipv4_address: 10.5.0.100
+    dns:
+      - "10.5.0.2"
+    dns_search: coredns
+    depends_on:
+      - fluentd
+      - coredns
+    logging:
+      driver: fluentd
+      options:
+        tag: rethinkdb

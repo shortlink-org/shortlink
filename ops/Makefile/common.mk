@@ -22,6 +22,7 @@ run: ## Run this project in docker-compose
          -f ops/docker-compose/application/shortlink.yaml \
          -f ops/docker-compose/application/logger.yaml \
          -f ops/docker-compose/application/ui-next.yaml \
+         -f ops/docker-compose/database/rethinkdb.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
          -f ops/docker-compose/tooling/fluentd.yaml \
          -f ops/docker-compose/mq/rabbitmq.yaml \
