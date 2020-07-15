@@ -11,7 +11,7 @@ services:
 
   mongo: &mongo
     <<: *network
-    image: mongo:4.2
+    image: mongo:4.4-rc
     init: true
     restart: on-failure
     container_name: mongo
