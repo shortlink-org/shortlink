@@ -25,6 +25,7 @@ type addRequest struct { // nolint unused
 type getRequest struct { // nolint unused
 	Hash     string
 	Describe string
+	Filter   string
 }
 
 // deleteRequest ...

@@ -145,6 +145,9 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 func (api *API) List(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// Get filter
+	filter := r.URL.Query().Get("filter")
+
 	var (
 		response     []*link.Link
 		responseLink []ResponseLink // for custom JSON parsing
@@ -153,7 +156,7 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(r.Context(), api_type.METHOD_LIST, nil, &notify.Callback{responseCh, "RESPONSE_STORE_LIST"})
+	go notify.Publish(r.Context(), api_type.METHOD_LIST, filter, &notify.Callback{responseCh, "RESPONSE_STORE_LIST"})
 
 	c := <-responseCh
 	switch r := c.(type) {
