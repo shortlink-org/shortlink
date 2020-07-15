@@ -31,8 +31,6 @@ require (
 	github.com/markbates/pkger v0.17.0
 	github.com/mattn/go-sqlite3 v1.14.0
 	github.com/nats-io/nats.go v1.10.0
-	github.com/onsi/ginkgo v1.12.0 // indirect
-	github.com/onsi/gomega v1.9.0 // indirect
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.6.0
 	github.com/pelletier/go-toml v1.6.0 // indirect
@@ -62,6 +60,7 @@ require (
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
+	gopkg.in/mgo.v2 v2.0.0-20180705113604-9856a29383ce
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )

@@ -6,6 +6,7 @@ package store
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 
 	"github.com/spf13/viper"
@@ -19,6 +20,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/mongo"
 	"github.com/batazor/shortlink/internal/store/mysql"
 	"github.com/batazor/shortlink/internal/store/postgres"
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/internal/store/ram"
 	"github.com/batazor/shortlink/internal/store/redis"
 	"github.com/batazor/shortlink/internal/store/rethinkdb"
@@ -113,7 +115,19 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Error:   err,
 		}
 	case api_type.METHOD_LIST:
-		payload, err := s.store.List(ctx, nil)
+		f := payload.(string)
+
+		// Parse filter
+		var filter query.Filter
+		if err := json.Unmarshal([]byte(f), &filter); err != nil {
+			return notify.Response{
+				Name:    "RESPONSE_STORE_LIST",
+				Payload: payload,
+				Error:   err,
+			}
+		}
+
+		payload, err := s.store.List(ctx, &filter)
 		return notify.Response{
 			Name:    "RESPONSE_STORE_LIST",
 			Payload: payload,
