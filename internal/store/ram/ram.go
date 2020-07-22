@@ -51,12 +51,14 @@ func (ram *RAMLinkList) List(ctx context.Context, filter *query.Filter) ([]*link
 
 	ram.links.Range(func(key interface{}, value interface{}) bool {
 		link, ok := value.(*link.Link)
-
 		if !ok {
 			return false
 		}
 
-		links = append(links, link)
+		// Apply Filter
+		if isFilterSuccess(link, filter) {
+			links = append(links, link)
+		}
 		return true
 	})
 
