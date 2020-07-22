@@ -15,4 +15,13 @@ type StringFilterInput struct { // nolint unused
 	{{$command}} *string
 {{- end}}
 }
+
+// GetKeys - return all keys
+func (f *Filter) GetKeys() []string {
+	return []string{
+	{{- range $type := .File.MessageType}}{{- range $field := $type.Field}}
+		"{{upperFirst $field.Name}}",
+	{{- end}}{{- end}}
+	}
+}
 {{- end}}

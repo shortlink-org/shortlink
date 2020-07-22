@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 	"github.com/stretchr/testify/assert"
 )
@@ -40,6 +41,12 @@ func TestLink(t *testing.T) { //nolint unused
 	links, err := s.List(ctx, nil)
 	assert.Nil(t, err)
 	assert.Equal(t, len(links), 1)
+
+	// test get links with using a filter
+	filter := &query.Filter{Link: &query.StringFilterInput{Eq: &newLink.Url}}
+	linksWithFilter, err := s.List(ctx, filter)
+	assert.Nil(t, err)
+	assert.Equal(t, len(linksWithFilter), 1)
 
 	// delete link
 	err = s.Delete(ctx, newLink.Hash)

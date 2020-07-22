@@ -9,7 +9,7 @@ import "pkg/link/link.proto";
 option go_package = "grpcweb";
 
 service Link {
-    rpc GetLinks(link.Link) returns (link.Links) {
+    rpc GetLinks(LinkRequest) returns (link.Links) {
         option(google.api.http) = {
 			get: "/api/links"
 		};
@@ -34,4 +34,10 @@ service Link {
 			body: "*"
 		};
     };
+}
+
+message LinkRequest {
+  link.Link link = 1;
+
+  string filter = 2;
 }

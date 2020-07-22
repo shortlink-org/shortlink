@@ -37,7 +37,7 @@ var (
 )
 
 func request_Link_GetLinks_0(ctx context.Context, marshaler runtime.Marshaler, client LinkClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq link.Link
+	var protoReq LinkRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
@@ -53,7 +53,7 @@ func request_Link_GetLinks_0(ctx context.Context, marshaler runtime.Marshaler, c
 }
 
 func local_request_Link_GetLinks_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq link.Link
+	var protoReq LinkRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {

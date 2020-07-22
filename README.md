@@ -56,9 +56,10 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 
 - HTTP (chi)
 - gRPC-gateway
-- go-kit
 - GraphQL
-- [CloudEvents](https://cloudevents.io/)
+- ***Optional***
+    - go-kit
+    - [CloudEvents](https://cloudevents.io/)
 
 ### MQ
 
@@ -69,17 +70,18 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 ### Store provider
 
 + RAM
-+ Redis
 + MongoDB
-+ MySQL
 + Postgres
-+ DGraph
-+ LevelDB
-+ Badger
-+ SQLite
-+ Scylla
-+ Сassandra (via: Scylla driver)
-+ RethinkDB
++ ***Optional***
+    + Redis
+    + MySQL
+    + LevelDB
+    + Badger
+    + SQLite
+    + Scylla
+    + Сassandra (via: Scylla driver)
+    + RethinkDB
+    + DGraph
 
 ### Cloud-Native
 

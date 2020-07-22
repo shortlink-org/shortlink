@@ -2,6 +2,7 @@ package resolver
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/notify"
@@ -46,7 +47,19 @@ func (r *Resolver) Links(ctx context.Context, args struct { // nolint unused
 }) (*[]*LinkResolver, error) { // nolint unused
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_type.METHOD_LIST, args.Filter, &notify.Callback{responseCh, "RESPONSE_STORE_LIST"})
+	// Filter to string
+	filterRaw, err := json.Marshal(args.Filter)
+	if err != nil {
+		err := fmt.Errorf("Error parse filter args")
+		return nil, err
+	}
+
+	// Default value for filter; null -> nil
+	if string(filterRaw) == "null" {
+		filterRaw = nil
+	}
+
+	go notify.Publish(ctx, api_type.METHOD_LIST, string(filterRaw), &notify.Callback{responseCh, "RESPONSE_STORE_LIST"})
 
 	c := <-responseCh
 	switch r := c.(type) {

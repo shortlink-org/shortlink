@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/spf13/viper"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
@@ -36,14 +37,22 @@ func (m *MongoLinkList) Init(ctx context.Context) error {
 	// Connect to MongoDB
 	m.client, err = mongo.NewClient(options.Client().ApplyURI(m.config.URI))
 	if err != nil {
-		panic(err)
+		return err
 	}
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
 	defer cancel()
 	err = m.client.Connect(ctx)
 	if err != nil {
-		panic(err)
+		return err
+	}
+
+	// Check connect
+	ctx, cancel = context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+	err = m.client.Ping(ctx, readpref.Primary())
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -108,8 +117,14 @@ func (m *MongoLinkList) List(ctx context.Context, filter *query.Filter) ([]*link
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancel()
 
+	// build Filter
+	filterQuery := bson.D{}
+	if filter != nil {
+		filterQuery = getFilter(filter)
+	}
+
 	// Passing bson.D{{}} as the filter matches all documents in the collection
-	cur, err := collection.Find(ctx, bson.D{})
+	cur, err := collection.Find(ctx, filterQuery)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
