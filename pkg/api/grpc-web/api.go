@@ -36,10 +36,10 @@ func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error)
 }
 
 // GetLinks ...
-func (api *API) GetLinks(ctx context.Context, req *link.Link) (*link.Links, error) {
+func (api *API) GetLinks(ctx context.Context, req *LinkRequest) (*link.Links, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_type.METHOD_LIST, nil, &notify.Callback{responseCh, "RESPONSE_STORE_LIST"})
+	go notify.Publish(ctx, api_type.METHOD_LIST, req.Filter, &notify.Callback{responseCh, "RESPONSE_STORE_LIST"})
 
 	c := <-responseCh
 	switch r := c.(type) {

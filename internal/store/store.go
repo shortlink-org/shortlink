@@ -115,7 +115,10 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Error:   err,
 		}
 	case api_type.METHOD_LIST:
-		filterRaw := payload.(string)
+		filterRaw := ""
+		if payload != nil {
+			filterRaw = payload.(string)
+		}
 
 		// Parse filter
 		var filter query.Filter
