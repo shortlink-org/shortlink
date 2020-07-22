@@ -52,7 +52,7 @@ require (
 	go.mongodb.org/mongo-driver v1.3.5
 	go.uber.org/atomic v1.6.0
 	go.uber.org/automaxprocs v1.3.0
-	go.uber.org/goleak v1.0.0
+	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.15.0
 	golang.org/x/tools v0.0.0-20200601175630-2caf76543d99 // indirect
 	google.golang.org/genproto v0.0.0-20200624020401-64a14ca9d1ad
