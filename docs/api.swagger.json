@@ -92,28 +92,28 @@
         },
         "parameters": [
           {
-            "name": "url",
+            "name": "link.url",
             "description": "URL.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "hash",
+            "name": "link.hash",
             "description": "Hash by URL + salt.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "describe",
+            "name": "link.describe",
             "description": "Describe of link.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "created_at",
+            "name": "link.created_at",
             "description": "Create at.",
             "in": "query",
             "required": false,
@@ -121,12 +121,18 @@
             "format": "date-time"
           },
           {
-            "name": "updated_at",
+            "name": "link.updated_at",
             "description": "Update at.",
             "in": "query",
             "required": false,
             "type": "string",
             "format": "date-time"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [

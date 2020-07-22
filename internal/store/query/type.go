@@ -22,3 +22,15 @@ type StringFilterInput struct { // nolint unused
 	Contains    *string
 	NotContains *string
 }
+
+// GetKeys - return all keys
+func (f *Filter) GetKeys() []string {
+	return []string{
+		"Url",
+		"Hash",
+		"Describe",
+		"Created_at",
+		"Updated_at",
+		"Link",
+	}
+}
