@@ -11,6 +11,7 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/batazor/shortlink/internal/store/mock"
+	"github.com/batazor/shortlink/internal/store/query"
 )
 
 func TestMain(m *testing.M) {
@@ -67,6 +68,20 @@ func TestMongo(t *testing.T) {
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
+		assert.Nil(t, err)
+		assert.Equal(t, len(links), 1)
+	})
+
+	t.Run("Get list using filter", func(t *testing.T) {
+		linkNotValid := "https://google.com"
+		filter := &query.Filter{
+			Url: &query.StringFilterInput{
+				Eq: &mock.GetLink.Url,
+				Ne: &linkNotValid,
+			},
+			Hash: &query.StringFilterInput{Eq: &mock.GetLink.Hash},
+		}
+		links, err := store.List(ctx, filter)
 		assert.Nil(t, err)
 		assert.Equal(t, len(links), 1)
 	})
