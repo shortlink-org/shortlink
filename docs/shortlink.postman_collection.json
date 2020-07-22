@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "194e8458-a108-459d-a37b-a1007abdda53",
+		"_postman_id": "90dece02-6409-43dc-a44c-e7be5c78bf54",
 		"name": "shortlink",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -41,6 +41,31 @@
 							"path": [
 								"api",
 								"links"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get links (filter by: link)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7070/api/links?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api",
+								"links"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "{\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}"
+								}
 							]
 						}
 					},
@@ -165,6 +190,37 @@
 							"mode": "graphql",
 							"graphql": {
 								"query": "{ links { url created_at } }",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "localhost:7070/api/query",
+							"host": [
+								"localhost"
+							],
+							"port": "7070",
+							"path": [
+								"api",
+								"query"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get links (filter by: link)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "{\n    links(filter: { url: { eq: \"https://example.com\" } }) {\n        url\n        created_at\n    }\n}",
 								"variables": ""
 							}
 						},
