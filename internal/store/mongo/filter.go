@@ -16,8 +16,18 @@ func getFilter(filter *query.Filter) bson.D {
 
 	for _, key := range filter.GetKeys() {
 		val := reflect.Indirect(r).FieldByName(key).Interface().(*query.StringFilterInput)
+
+		// Eq
 		if val != nil && val.Eq != nil {
 			filterQuery = append(filterQuery, primitive.E{Key: strings.ToLower(key), Value: *val.Eq})
+		}
+
+		// Ne
+		if val != nil && val.Ne != nil {
+			filterQuery = append(filterQuery, primitive.E{
+				Key:   strings.ToLower(key),
+				Value: bson.D{{"$ne", *val.Ne}},
+			})
 		}
 	}
 

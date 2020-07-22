@@ -31,7 +31,7 @@ import (
 )
 
 // Use return implementation of store
-func (store *Store) Use(ctx context.Context, log logger.Logger) DB { // nolint unused
+func (store *Store) Use(ctx context.Context, log logger.Logger) (DB, error) { // nolint unused
 	// Set configuration
 	store.setConfig()
 
@@ -72,14 +72,14 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) DB { // nolint u
 	}
 
 	if err := store.store.Init(ctx); err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	log.Info("run store", logger.Fields{
 		"store": store.typeStore,
 	})
 
-	return store.store
+	return store.store, nil
 }
 
 // setConfig - set configuration
@@ -115,15 +115,17 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Error:   err,
 		}
 	case api_type.METHOD_LIST:
-		f := payload.(string)
+		filterRaw := payload.(string)
 
 		// Parse filter
 		var filter query.Filter
-		if err := json.Unmarshal([]byte(f), &filter); err != nil {
-			return notify.Response{
-				Name:    "RESPONSE_STORE_LIST",
-				Payload: payload,
-				Error:   err,
+		if filterRaw != "" {
+			if err := json.Unmarshal([]byte(filterRaw), &filter); err != nil {
+				return notify.Response{
+					Name:    "RESPONSE_STORE_LIST",
+					Payload: payload,
+					Error:   err,
+				}
 			}
 		}
 

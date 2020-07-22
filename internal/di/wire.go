@@ -62,7 +62,10 @@ func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
 // InitStore return store
 func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error) {
 	var st store.Store
-	db := st.Use(ctx, log)
+	db, err := st.Use(ctx, log)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	cleanup := func() {
 		if err := db.Close(); err != nil {
@@ -125,7 +128,7 @@ func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
 		var service mq.DataBus
 		dataBus, err := service.Use(ctx, log)
 		if err != nil {
-			return nil, nil, err
+			return nil, func() {}, err
 		}
 
 		cleanup := func() {
@@ -137,7 +140,7 @@ func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
 		return dataBus, cleanup, nil
 	}
 
-	return nil, nil, nil
+	return nil, func() {}, nil
 }
 
 func InitMonitoring(sentryHandler *sentryhttp.Handler) *http.ServeMux {
@@ -187,7 +190,7 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 	DSN := viper.GetString("SENTRY_DSN")
 
 	if DSN != "" {
-		return nil, nil, nil
+		return nil, func() {}, nil
 	}
 
 	err := sentry.Init(sentry.ClientOptions{

@@ -118,8 +118,10 @@ func (m *MongoLinkList) List(ctx context.Context, filter *query.Filter) ([]*link
 	defer cancel()
 
 	// build Filter
-	filterQuery := getFilter(filter)
-	//filterQuery := bson.D{primitive.E{Value: "5888cab", Key: "hash"}}
+	filterQuery := bson.D{}
+	if filter != nil {
+		filterQuery = getFilter(filter)
+	}
 
 	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, filterQuery)
