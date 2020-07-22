@@ -6,6 +6,10 @@
 # You can disable line with:              #
 # # yamllint disable-line                 #
 ###########################################
+# For all rules
+ignore: |
+  ops/Helm
+
 rules:
   braces: disable
 #    level: warning
