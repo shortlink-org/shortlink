@@ -24,7 +24,7 @@ matrix:
       # You don't need to test on very old versions of the Go compiler. It's the user's
       # responsibility to keep their compiler up to date.
       go:
-        - 1.13.x
+        - 1.14.x
 
       #go_import_path:
 
@@ -78,7 +78,7 @@ matrix:
       language: node_js
 
       node_js:
-        - v13.6.0
+        - node # latest stable Node.js release
 
       cache:
         directories:
