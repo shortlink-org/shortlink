@@ -80,10 +80,6 @@ matrix:
       node_js:
         - node # latest stable Node.js release
 
-      cache:
-        directories:
-          - "node_modules"
-
       install:
         - npm install -g surge
 
