@@ -70,16 +70,16 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 ### Store provider
 
 + RAM
-+ Redis
 + MongoDB
-+ MySQL
 + Postgres
-+ LevelDB
-+ Badger
-+ SQLite
-+ Scylla
-+ Сassandra (via: Scylla driver)
 + ***Optional***
+    + Redis
+    + MySQL
+    + LevelDB
+    + Badger
+    + SQLite
+    + Scylla
+    + Сassandra (via: Scylla driver)
     + RethinkDB
     + DGraph
 
