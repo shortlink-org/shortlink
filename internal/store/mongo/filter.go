@@ -31,7 +31,7 @@ func getFilter(filter *query.Filter) bson.D {
 		if val.Ne != nil {
 			filterQuery = append(filterQuery, primitive.E{
 				Key:   strings.ToLower(key),
-				Value: bson.D{{"$ne", *val.Ne}},
+				Value: bson.D{{Key: "$ne", Value: *val.Ne}},
 			})
 		}
 
@@ -39,7 +39,7 @@ func getFilter(filter *query.Filter) bson.D {
 		if val.Lt != nil {
 			filterQuery = append(filterQuery, primitive.E{
 				Key:   strings.ToLower(key),
-				Value: bson.D{{"$lt", *val.Lt}},
+				Value: bson.D{{Key: "$lt", Value: *val.Lt}},
 			})
 		}
 
@@ -47,7 +47,7 @@ func getFilter(filter *query.Filter) bson.D {
 		if val.Le != nil {
 			filterQuery = append(filterQuery, primitive.E{
 				Key:   strings.ToLower(key),
-				Value: bson.D{{"$lte", *val.Le}},
+				Value: bson.D{{Key: "$lte", Value: *val.Le}},
 			})
 		}
 
@@ -55,7 +55,7 @@ func getFilter(filter *query.Filter) bson.D {
 		if val.Gt != nil {
 			filterQuery = append(filterQuery, primitive.E{
 				Key:   strings.ToLower(key),
-				Value: bson.D{{"$gt", *val.Gt}},
+				Value: bson.D{{Key: "$gt", Value: *val.Gt}},
 			})
 		}
 
@@ -63,7 +63,7 @@ func getFilter(filter *query.Filter) bson.D {
 		if val.Ge != nil {
 			filterQuery = append(filterQuery, primitive.E{
 				Key:   strings.ToLower(key),
-				Value: bson.D{{"$gte", *val.Ge}},
+				Value: bson.D{{Key: "$gte", Value: *val.Ge}},
 			})
 		}
 
@@ -71,7 +71,7 @@ func getFilter(filter *query.Filter) bson.D {
 		if val.Contains != nil {
 			filterQuery = append(filterQuery, primitive.E{
 				Key:   strings.ToLower(key),
-				Value: bson.D{{"$in", *val.Contains}},
+				Value: bson.D{{Key: "$in", Value: *val.Contains}},
 			})
 		}
 
@@ -79,7 +79,7 @@ func getFilter(filter *query.Filter) bson.D {
 		if val.NotContains != nil {
 			filterQuery = append(filterQuery, primitive.E{
 				Key:   strings.ToLower(key),
-				Value: bson.D{{"$nin", *val.NotContains}},
+				Value: bson.D{{Key: "$nin", Value: *val.NotContains}},
 			})
 		}
 	}

@@ -20,7 +20,8 @@ func TestLink(t *testing.T) { //nolint unused
 	assert.Nil(t, err, "Error init a logger")
 
 	var st Store
-	s := st.Use(ctx, log)
+	s, err := st.Use(ctx, log)
+	assert.Nil(t, err, "Error init a store")
 
 	// Init store
 	assert.Nil(t, s.Init(ctx), "Error  create a new link list")
@@ -43,7 +44,7 @@ func TestLink(t *testing.T) { //nolint unused
 	assert.Equal(t, len(links), 1)
 
 	// test get links with using a filter
-	filter := &query.Filter{Link: &query.StringFilterInput{Eq: &newLink.Url}}
+	filter := &query.Filter{Url: &query.StringFilterInput{Eq: &newLink.Url}}
 	linksWithFilter, err := s.List(ctx, filter)
 	assert.Nil(t, err)
 	assert.Equal(t, len(linksWithFilter), 1)
