@@ -25,7 +25,7 @@ func TestAPI(t *testing.T) {
 	})
 
 	t.Run("GetLinks", func(t *testing.T) {
-		_, err := server.GetLinks(ctx, &link.Link{Url: "example.com"})
+		_, err := server.GetLinks(ctx, &LinkRequest{Link: &link.Link{Url: "example.com"}})
 		assert.Equal(t, err.Error(), "Not found subscribe to event METHOD_LIST")
 	})
 

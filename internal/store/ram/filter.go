@@ -9,6 +9,11 @@ import (
 )
 
 func isFilterSuccess(link *link.Link, filter *query.Filter) bool {
+	// Skip empty filter
+	if filter == nil {
+		return true
+	}
+
 	r := reflect.ValueOf(filter)
 	l := reflect.ValueOf(link)
 
@@ -71,7 +76,7 @@ func isFilterSuccess(link *link.Link, filter *query.Filter) bool {
 		// Contains
 		if val.Contains != nil {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if strings.Index(linkValue, *val.Contains) == -1 {
+			if !strings.Contains(linkValue, *val.Contains) {
 				return false
 			}
 		}
@@ -79,7 +84,7 @@ func isFilterSuccess(link *link.Link, filter *query.Filter) bool {
 		// NotContains
 		if val.Contains != nil {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if strings.Index(linkValue, *val.NotContains) != -1 {
+			if strings.Contains(linkValue, *val.NotContains) {
 				return false
 			}
 		}
