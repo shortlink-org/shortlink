@@ -111,6 +111,4 @@ func (mq *RabbitMQ) setConfig() {
 	viper.SetDefault("MQ_RABBIT_URI", "amqp://localhost:5672") // RabbitMQ URI
 
 	mq.URI = viper.GetString("MQ_RABBIT_URI")
-
-	return
 }

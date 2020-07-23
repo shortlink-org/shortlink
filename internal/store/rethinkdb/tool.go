@@ -9,6 +9,9 @@ func (r *RethinkDBLinkList) getDatabases() ([]string, error) {
 	}
 
 	list, err := getArrayString(c)
+	if err != nil {
+		return nil, err
+	}
 	return list, nil
 }
 
@@ -19,6 +22,9 @@ func (r *RethinkDBLinkList) getTables() ([]string, error) {
 	}
 
 	list, err := getArrayString(c)
+	if err != nil {
+		return nil, err
+	}
 	return list, nil
 }
 
