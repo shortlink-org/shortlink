@@ -9,6 +9,11 @@ import (
 )
 
 func isFilterSuccess(link *link.Link, filter *query.Filter) bool {
+	// Skip empty filter
+	if filter == nil {
+		return true
+	}
+
 	r := reflect.ValueOf(filter)
 	l := reflect.ValueOf(link)
 
