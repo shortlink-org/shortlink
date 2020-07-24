@@ -7,13 +7,12 @@ release:
   image: registry.gitlab.com/gitlab-org/release-cli
   script:
     - echo 'running release_job'
-    - gitlab-releaser create --name="Release $CI_COMMIT_TAG" --description="My Release description"
   release:
     name: 'Release $CI_COMMIT_TAG'
     description: 'Created using the release-cli $EXTRA_DESCRIPTION' # $EXTRA_DESCRIPTION must be defined
     tag_name: '$CI_COMMIT_TAG'                                      # elsewhere in the pipeline.
     ref: '$CI_COMMIT_TAG'
-  rules:
+  rules:goreleaser/goreleaser
     - if: $CI_COMMIT_TAG
 
 goreleaser:
