@@ -1,5 +1,5 @@
 -- Create a table for links
-CREATE TABLE links
+CREATE TABLE IF NOT EXISTS links
 (
     id       serial       not null
              constraint links_pk
@@ -15,12 +15,12 @@ COMMENT ON TABLE links IS 'Link list';
 ALTER TABLE links
     OWNER TO shortlink;
 
-CREATE UNIQUE INDEX links_id_uindex
+CREATE UNIQUE INDEX IF NOT EXISTS links_id_uindex
     ON links (id);
 
-CREATE UNIQUE INDEX links_hash_uindex
+CREATE UNIQUE INDEX IF NOT EXISTS links_hash_uindex
     ON links (hash);
 
 -- INCLUDE-index
 -- as example: SELECT id, url, hash FROM links WHERE id = 10;
-CREATE UNIQUE INDEX links_list ON links USING btree (hash) INCLUDE (url);
+CREATE UNIQUE INDEX IF NOT EXISTS links_list ON links USING btree (hash) INCLUDE (url);
