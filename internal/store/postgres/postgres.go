@@ -77,7 +77,7 @@ func (p *PostgresLinkList) migrate() error { // nolint unused
 	}
 
 	err = m.Up()
-	if err != nil {
+	if err != nil && err.Error() != "no change" {
 		return err
 	}
 
