@@ -1,17 +1,22 @@
 //go:generate protoc -I../../../pkg/link --gotemplate_out=all=true,template_dir=template:. link.proto
+//go:generate go-bindata -pkg migrations -ignore migrations.go -o migrations/migrations.go migrations
 package postgres
 
 import (
 	"context"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 
-	"github.com/spf13/viper"
-
 	"github.com/Masterminds/squirrel"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	"github.com/golang-migrate/migrate/v4/source/go_bindata"
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
+	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/store/postgres/migrations"
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 )
@@ -26,6 +31,12 @@ func (p *PostgresLinkList) Init(ctx context.Context) error {
 
 	// Set configuration
 	p.setConfig()
+
+	// Apply migration
+	err = p.migrate()
+	if err != nil {
+		return err
+	}
 
 	// Connect to Postgres
 	if p.client, err = pgxpool.Connect(ctx, p.config.URI); err != nil {
@@ -43,6 +54,38 @@ func (p *PostgresLinkList) Close() error { // nolint unparam
 
 // Migrate ...
 func (p *PostgresLinkList) migrate() error { // nolint unused
+	// Create connect
+	db, err := sql.Open("postgres", p.config.URI)
+	if err != nil {
+		return err
+	}
+
+	// wrap assets into Resource
+	s := bindata.Resource(migrations.AssetNames(),
+		func(name string) ([]byte, error) {
+			return migrations.Asset(name)
+		})
+
+	driver, err := bindata.WithInstance(s)
+	if err != nil {
+		return err
+	}
+
+	m, err := migrate.NewWithSourceInstance("go-bindata", driver, p.config.URI)
+	if err != nil {
+		return err
+	}
+
+	err = m.Up()
+	if err != nil {
+		return err
+	}
+
+	err = db.Close()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -52,12 +95,12 @@ func (p *PostgresLinkList) Get(ctx context.Context, id string) (*link.Link, erro
 	links := psql.Select("url, hash, describe").
 		From("links").
 		Where(squirrel.Eq{"hash": id})
-	query, args, err := links.ToSql()
+	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
 	}
 
-	rows, err := p.client.Query(ctx, query, args...)
+	rows, err := p.client.Query(ctx, q, args...)
 
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -87,12 +130,12 @@ func (p *PostgresLinkList) List(ctx context.Context, filter *query.Filter) ([]*l
 	links := psql.Select("url, hash, describe").
 		From("links")
 	links = p.buildFilter(links, filter)
-	query, args, err := links.ToSql()
+	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
 	}
 
-	rows, err := p.client.Query(ctx, query, args...)
+	rows, err := p.client.Query(ctx, q, args...)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
@@ -130,12 +173,12 @@ func (p *PostgresLinkList) Add(ctx context.Context, source *link.Link) (*link.Li
 		Columns("url", "hash", "describe", "json").
 		Values(data.Url, data.Hash, data.Describe, dataJson)
 
-	query, args, err := links.ToSql()
+	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
 	}
 
-	row := p.client.QueryRow(ctx, query, args...)
+	row := p.client.QueryRow(ctx, q, args...)
 
 	errScan := row.Scan(&data.Url, &data.Hash, &data.Describe).Error()
 	if errScan == "no rows in result set" {
@@ -158,12 +201,12 @@ func (p *PostgresLinkList) Delete(ctx context.Context, id string) error {
 	// query builder
 	links := psql.Delete("links").
 		Where(squirrel.Eq{"hash": id})
-	query, args, err := links.ToSql()
+	q, args, err := links.ToSql()
 	if err != nil {
 		return err
 	}
 
-	_, err = p.client.Exec(ctx, query, args...)
+	_, err = p.client.Exec(ctx, q, args...)
 	if err != nil {
 		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
@@ -173,7 +216,7 @@ func (p *PostgresLinkList) Delete(ctx context.Context, id string) error {
 
 // setConfig - set configuration
 func (p *PostgresLinkList) setConfig() {
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s?pool_max_conns=10", "shortlink", "shortlink", "shortlink")
+	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s?sslmode=disable", "shortlink", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_POSTGRES_URI", dbinfo) // Postgres URI
