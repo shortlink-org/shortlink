@@ -1,5 +1,5 @@
 //go:generate protoc -I../../../pkg/link --gotemplate_out=all=true,template_dir=template:. link.proto
-//go:generate go-bindata -pkg migrations -ignore migrations.go -o migrations/migrations.go migrations
+//go:generate go-bindata -prefix migrations -pkg migrations -ignore bigdata.go -o migrations/bigdata.go migrations
 package postgres
 
 import (
