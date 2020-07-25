@@ -27,9 +27,6 @@ generate: ## Code generation
 	@go generate internal/di/wire.go
 	@go generate internal/bot/di/wire.go
 
-	# Generate go static
-	@pkger -o cmd/shortlink
-
 	@make fmt
 
 .PHONY: fmt
