@@ -1,3 +1,4 @@
+//go:generate go-bindata -prefix migrations -pkg migrations -ignore migrations.go -o migrations/migrations.go migrations
 package mongo
 
 import (
@@ -5,15 +6,20 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
+	bindata "github.com/golang-migrate/migrate/v4/source/go_bindata"
 	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 
-	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"github.com/batazor/shortlink/internal/store/mongo/migrations"
+	"github.com/batazor/shortlink/internal/store/query"
+	"github.com/batazor/shortlink/pkg/link"
 )
 
 // MongoConfig ...
@@ -55,6 +61,12 @@ func (m *MongoLinkList) Init(ctx context.Context) error {
 		return err
 	}
 
+	// Apply migration
+	err = m.migrate()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -65,6 +77,27 @@ func (m *MongoLinkList) Close() error {
 
 // Migrate ...
 func (m *MongoLinkList) migrate() error { // nolint unused
+	// wrap assets into Resource
+	s := bindata.Resource(migrations.AssetNames(),
+		func(name string) ([]byte, error) {
+			return migrations.Asset(name)
+		})
+
+	driver, err := bindata.WithInstance(s)
+	if err != nil {
+		return err
+	}
+
+	ms, err := migrate.NewWithSourceInstance("go-bindata", driver, m.config.URI)
+	if err != nil {
+		return err
+	}
+
+	err = ms.Up()
+	if err != nil && err.Error() != "no change" {
+		return err
+	}
+
 	return nil
 }
 
@@ -180,7 +213,7 @@ func (m *MongoLinkList) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (m *MongoLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MONGODB_URI", "mongodb://localhost:27017") // MongoDB URI
+	viper.SetDefault("STORE_MONGODB_URI", "mongodb://localhost:27017/shortlink") // MongoDB URI
 	m.config = MongoConfig{
 		URI: viper.GetString("STORE_MONGODB_URI"),
 	}

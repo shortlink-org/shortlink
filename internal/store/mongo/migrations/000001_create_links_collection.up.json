@@ -1,0 +1,49 @@
+[
+  {
+    "create": "links"
+  },
+  {
+    "collMod": "links",
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["url", "hash", "artist_id"],
+        "properties": {
+          "url": {
+            "bsonType": "string",
+            "description": "URL must be type string"
+          },
+          "hash": {
+            "bsonType": "string",
+            "description": "hash must be type string"
+          },
+          "describe": {
+            "bsonType": "string",
+            "description": "describe must be type string"
+          },
+          "created_at": {
+            "bsonType": "timestamp",
+            "description": "created_at must be type timestamp"
+          },
+          "updated_at": {
+            "bsonType": "timestamp",
+            "description": "updated_at must be type timestamp"
+          }
+        }
+      }
+    }
+  },
+  {
+    "createIndexes": "links",
+    "indexes": [
+      {
+        "key": {
+          "url": 1,
+          "hash": 1
+        },
+        "name": "link_details",
+        "unique": true
+      }
+    ]
+  }
+]
