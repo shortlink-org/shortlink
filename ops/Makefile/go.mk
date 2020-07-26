@@ -24,11 +24,9 @@ generate: ## Code generation
 
 	# Generate from .go code
 	@go generate internal/store/postgres/postgres.go
+	@go generate internal/store/mongo/mongo.go
 	@go generate internal/di/wire.go
 	@go generate internal/bot/di/wire.go
-
-	# Generate go static
-	@pkger -o cmd/shortlink
 
 	@make fmt
 

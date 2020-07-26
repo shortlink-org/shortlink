@@ -27,20 +27,21 @@ services:
       options:
         tag: mongo
 
-  mongo_initial_state:
-    <<: *network
-    <<: *mongo
-    container_name: mongo_initial_state
-    depends_on:
-      - mongo
-    command: >
-      bash -c "mongoimport \
-                -h=mongo:27017 \
-                -d auth \
-                -c users \
-                --mode merge \
-                --file /initialState/links.json"
-    ports:
-      - "27018:27017"
-    volumes:
-      - ./initialState:/initialState
+# Mongo example for initial state
+#  mongo_initial_state:
+#    <<: *network
+#    <<: *mongo
+#    container_name: mongo_initial_state
+#    depends_on:
+#      - mongo
+#    command: >
+#      bash -c "mongoimport \
+#                -h=mongo:27017 \
+#                -d auth \
+#                -c users \
+#                --mode merge \
+#                --file /initialState/links.json"
+#    ports:
+#      - "27018:27017"
+#    volumes:
+#      - ./ops/docker-compose/database/mongo:/initialState
