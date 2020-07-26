@@ -26,7 +26,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway v1.14.6
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
-	github.com/jackc/pgx/v4 v4.7.2
+	github.com/jackc/pgx/v4 v4.8.0
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.7.1
 	github.com/markbates/pkger v0.17.0
