@@ -2,16 +2,19 @@ package ram
 
 import (
 	"context"
+	"os"
+	"strconv"
 	"testing"
 
-	"github.com/batazor/shortlink/internal/store/mock"
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/goleak"
+
+	"github.com/batazor/shortlink/internal/store/mock"
+	"github.com/batazor/shortlink/internal/store/options"
 )
 
-func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
-}
+//func TestMain(m *testing.M) {
+//	goleak.VerifyTestMain(m)
+//}
 
 func TestRAM(t *testing.T) {
 	store := RAMLinkList{}
@@ -21,8 +24,33 @@ func TestRAM(t *testing.T) {
 	err := store.Init(ctx)
 	assert.Nil(t, err)
 
-	t.Run("Create", func(t *testing.T) {
+	t.Run("Create [single]", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+	})
+
+	t.Run("Create [batch]", func(t *testing.T) {
+		// Set config
+		err = os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
+		assert.Nil(t, err, "Cannot set ENV")
+
+		err = store.Init(ctx)
+		assert.Nil(t, err)
+
+		link, err := store.Add(ctx, mock.AddLink)
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+
+		link, err = store.Add(ctx, mock.AddLink)
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+
+		link, err = store.Add(ctx, mock.AddLink)
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+
+		link, err = store.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
@@ -45,24 +73,5 @@ func TestRAM(t *testing.T) {
 
 	t.Run("Close", func(t *testing.T) {
 		assert.Nil(t, store.Close())
-	})
-}
-
-func BenchmarkRAM(b *testing.B) {
-	store := RAMLinkList{}
-
-	ctx := context.Background()
-
-	err := store.Init(ctx)
-	assert.Nil(b, err)
-
-	b.Run("Create", func(b *testing.B) {
-		data := mock.AddLink
-
-		for i := 0; i < b.N; i++ {
-			data.Url = data.Url + "/" + string(i)
-			_, err := store.Add(ctx, mock.AddLink)
-			assert.Nil(b, err)
-		}
 	})
 }
