@@ -23,11 +23,6 @@ func (c *Config) Push(item interface{}) (chan interface{}, error) {
 	el := NewItem(item)
 	c.items = append(c.items, el)
 
-	//go func(el *Item){
-	//	response := c.cb(item)
-	//	el.cb <- response
-	//}(el)
-
 	return el.cb, nil
 }
 
