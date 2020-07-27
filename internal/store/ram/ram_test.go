@@ -12,6 +12,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/options"
 )
 
+// TODO: problem with goleak
 //func TestMain(m *testing.M) {
 //	goleak.VerifyTestMain(m)
 //}
