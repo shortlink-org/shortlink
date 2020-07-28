@@ -36,12 +36,13 @@ func (ram *RAMLinkList) Init(ctx context.Context) error { // nolint unparam
 
 	// Create batch job
 	if ram.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args interface{}) interface{} {
-			data, _ := link.NewURL(args.(*link.Link).Url)
+		cb := func(args []*batch.Item) interface{} {
+			for key := range args {
+				data, _ := link.NewURL(args[key].Item.(*link.Link).Url)
+				args[key].CB <- data
+			}
 
-			ram.links.Store(data.Hash, data)
-
-			return data
+			return nil
 		}
 		ram.config.job, err = batch.New(ctx, cb)
 		if err != nil {

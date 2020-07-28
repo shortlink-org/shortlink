@@ -5,15 +5,16 @@ import (
 	"time"
 )
 
-func New(ctx context.Context, f func(interface{}) interface{}) (*Config, error) {
+// TODO: add config for as timeout, retries, etc...
+// New - create a new batch
+func New(ctx context.Context, cb func([]*Item) interface{}) (*Config, error) {
 	cnf := Config{
-		ctx:     ctx,
-		cb:      f,
-		Timeout: time.Second,
+		cb:       cb,
+		Interval: time.Millisecond * 100,
 	}
 
 	// run background job
-	go cnf.run()
+	go cnf.run(ctx)
 
 	return &cnf, nil
 }
@@ -21,37 +22,42 @@ func New(ctx context.Context, f func(interface{}) interface{}) (*Config, error) 
 func (c *Config) Push(item interface{}) (chan interface{}, error) {
 	// create new item
 	el := NewItem(item)
-	c.items = append(c.items, el)
 
-	return el.cb, nil
+	c.mx.Lock()
+	c.items = append(c.items, el)
+	c.mx.Unlock()
+
+	return el.CB, nil
 }
 
-func (c *Config) run() {
-	ticker := time.NewTicker(c.Timeout)
+// run - starts a loop flushing at the Interval
+func (c *Config) run(ctx context.Context) {
+	ticker := time.NewTicker(c.Interval)
 
 	for {
 		select {
+		case <-ctx.Done():
+			for key := range c.items {
+				c.items[key].CB <- "ctx close"
+			}
+
+			break
 		case <-ticker.C:
 			c.mx.Lock()
-			// apply func for each item
-			for _, item := range c.items {
-				resp := c.cb(item.item)
-				item.cb <- resp
-			}
+			// apply func for all items
+			c.cb(c.items)
 
 			// clear items
 			c.items = []*Item{}
 			c.mx.Unlock()
-			continue
-		case <-c.ctx.Done():
 		}
-		break
 	}
 }
 
 func NewItem(item interface{}) *Item {
+	cb := make(chan interface{})
 	return &Item{
-		cb:   make(chan interface{}),
-		item: item,
+		CB:   cb,
+		Item: item,
 	}
 }

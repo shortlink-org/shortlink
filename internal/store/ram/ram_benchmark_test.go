@@ -26,7 +26,7 @@ func BenchmarkRAM(b *testing.B) {
 
 		for i := 0; i < b.N; i++ {
 			data.Url = data.Url + "/" + string(i)
-			_, err := store.Add(ctx, mock.AddLink)
+			_, err := store.Add(ctx, data)
 			assert.Nil(b, err)
 		}
 	})
@@ -44,7 +44,7 @@ func BenchmarkRAM(b *testing.B) {
 
 		for i := 0; i < b.N; i++ {
 			data.Url = data.Url + "/" + string(i)
-			_, err := store.Add(ctx, mock.AddLink)
+			_, err := store.Add(ctx, data)
 			assert.Nil(b, err)
 		}
 	})
