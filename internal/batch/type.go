@@ -1,24 +1,25 @@
 package batch
 
 import (
-	"context"
 	"sync"
 	"time"
 )
 
+// Config
 type Config struct {
-	ctx context.Context
-	mx  sync.Mutex
+	mx sync.Mutex
 
-	Size    int
-	Timeout time.Duration
-	Worker  int
+	Size     int           // Size is the max entries limit
+	Interval time.Duration // Interval is the flush interval
+	Worker   int
+	Retries  int // Retries is count for try fault exec a command
 
 	items []*Item
-	cb    func(interface{}) interface{}
+	cb    func([]*Item) interface{} // is the flush callback function used to flush entries.
 }
 
+// Item
 type Item struct {
-	cb   chan interface{}
-	item interface{}
+	CB   chan interface{}
+	Item interface{}
 }
