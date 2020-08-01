@@ -20,12 +20,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readconcern"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"go.mongodb.org/mongo-driver/mongo/writeconcern"
-	"go.mongodb.org/mongo-driver/x/bsonx"
 	"go.mongodb.org/mongo-driver/x/bsonx/bsoncore"
 	"go.mongodb.org/mongo-driver/x/mongo/driver"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/auth"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/connstring"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/description"
+	"go.mongodb.org/mongo-driver/x/mongo/driver/ocsp"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/operation"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/session"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/topology"
@@ -296,7 +296,7 @@ func (c *Client) endSessions(ctx context.Context) {
 		Database("admin").Crypt(c.crypt)
 
 	totalNumIDs := len(sessionIDs)
-	var currentBatch []bsonx.Doc
+	var currentBatch []bsoncore.Document
 	for i := 0; i < totalNumIDs; i++ {
 		currentBatch = append(currentBatch, sessionIDs[i])
 
@@ -323,6 +323,9 @@ func (c *Client) configure(opts *options.ClientOptions) error {
 	var topologyOpts []topology.Option
 
 	// TODO(GODRIVER-814): Add tests for topology, server, and connection related options.
+
+	// ClusterClock
+	c.clock = new(session.ClusterClock)
 
 	// Pass down URI so topology can determine whether or not SRV polling is required
 	topologyOpts = append(topologyOpts, topology.WithURI(func(uri string) string {
@@ -368,7 +371,7 @@ func (c *Client) configure(opts *options.ClientOptions) error {
 	}
 	// Handshaker
 	var handshaker = func(driver.Handshaker) driver.Handshaker {
-		return operation.NewIsMaster().AppName(appName).Compressors(comps)
+		return operation.NewIsMaster().AppName(appName).Compressors(comps).ClusterClock(c.clock)
 	}
 	// Auth & Database & Password & Username
 	if opts.Auth != nil {
@@ -399,6 +402,7 @@ func (c *Client) configure(opts *options.ClientOptions) error {
 			AppName:       appName,
 			Authenticator: authenticator,
 			Compressors:   comps,
+			ClusterClock:  c.clock,
 		}
 		if mechanism == "" {
 			// Required for SASL mechanism negotiation during handshake
@@ -553,8 +557,20 @@ func (c *Client) configure(opts *options.ClientOptions) error {
 		}
 	}
 
-	// ClusterClock
-	c.clock = new(session.ClusterClock)
+	// OCSP cache
+	ocspCache := ocsp.NewCache()
+	connOpts = append(
+		connOpts,
+		topology.WithOCSPCache(func(ocsp.Cache) ocsp.Cache { return ocspCache }),
+	)
+
+	// Disable communication with external OCSP responders.
+	if opts.DisableOCSPEndpointCheck != nil {
+		connOpts = append(
+			connOpts,
+			topology.WithDisableOCSPEndpointCheck(func(bool) bool { return *opts.DisableOCSPEndpointCheck }),
+		)
+	}
 
 	serverOpts = append(
 		serverOpts,
@@ -703,9 +719,14 @@ func (c *Client) ListDatabases(ctx context.Context, filter interface{}, opts ...
 	op := operation.NewListDatabases(filterDoc).
 		Session(sess).ReadPreference(c.readPreference).CommandMonitor(c.monitor).
 		ServerSelector(selector).ClusterClock(c.clock).Database("admin").Deployment(c.deployment).Crypt(c.crypt)
+
 	if ldo.NameOnly != nil {
 		op = op.NameOnly(*ldo.NameOnly)
 	}
+	if ldo.AuthorizedDatabases != nil {
+		op = op.AuthorizedDatabases(*ldo.AuthorizedDatabases)
+	}
+
 	retry := driver.RetryNone
 	if c.retryReads {
 		retry = driver.RetryOncePerCommand
@@ -755,7 +776,7 @@ func (c *Client) ListDatabaseNames(ctx context.Context, filter interface{}, opts
 //
 // Any error returned by the fn callback will be returned without any modifications.
 func WithSession(ctx context.Context, sess Session, fn func(SessionContext) error) error {
-	return fn(contextWithSession(ctx, sess))
+	return fn(NewSessionContext(ctx, sess))
 }
 
 // UseSession creates a new Session and uses it to create a new SessionContext, which is used to call the fn callback.
@@ -778,13 +799,7 @@ func (c *Client) UseSessionWithOptions(ctx context.Context, opts *options.Sessio
 	}
 
 	defer defaultSess.EndSession(ctx)
-
-	sessCtx := sessionContext{
-		Context: context.WithValue(ctx, sessionKey{}, defaultSess),
-		Session: defaultSess,
-	}
-
-	return fn(sessCtx)
+	return fn(NewSessionContext(ctx, defaultSess))
 }
 
 // Watch returns a change stream for all changes on the deployment. See
