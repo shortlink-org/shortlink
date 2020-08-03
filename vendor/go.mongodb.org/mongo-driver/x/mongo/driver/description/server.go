@@ -31,26 +31,28 @@ type SelectedServer struct {
 type Server struct {
 	Addr address.Address
 
-	AverageRTT            time.Duration
-	AverageRTTSet         bool
-	Compression           []string // compression methods returned by server
-	CanonicalAddr         address.Address
-	ElectionID            primitive.ObjectID
-	HeartbeatInterval     time.Duration
-	LastError             error
-	LastUpdateTime        time.Time
-	LastWriteTime         time.Time
-	MaxBatchCount         uint32
-	MaxDocumentSize       uint32
-	MaxMessageSize        uint32
-	Members               []address.Address
-	ReadOnly              bool
-	SessionTimeoutMinutes uint32
-	SetName               string
-	SetVersion            uint32
-	Tags                  tag.Set
-	Kind                  ServerKind
-	WireVersion           *VersionRange
+	AverageRTT              time.Duration
+	AverageRTTSet           bool
+	Compression             []string // compression methods returned by server
+	CanonicalAddr           address.Address
+	ElectionID              primitive.ObjectID
+	HeartbeatInterval       time.Duration
+	LastError               error
+	LastUpdateTime          time.Time
+	LastWriteTime           time.Time
+	MaxBatchCount           uint32
+	MaxDocumentSize         uint32
+	MaxMessageSize          uint32
+	Members                 []address.Address
+	ReadOnly                bool
+	SessionTimeoutMinutes   uint32
+	SetName                 string
+	SetVersion              uint32
+	SpeculativeAuthenticate bsoncore.Document
+	Tags                    tag.Set
+	TopologyVersion         *TopologyVersion
+	Kind                    ServerKind
+	WireVersion             *VersionRange
 
 	SaslSupportedMechs []string // user-specific from server handshake
 }
@@ -238,6 +240,13 @@ func NewServer(addr address.Address, response bsoncore.Document) Server {
 				return desc
 			}
 			desc.SetVersion = uint32(i64)
+		case "speculativeAuthenticate":
+			desc.SpeculativeAuthenticate, ok = element.Value().DocumentOK()
+			if !ok {
+				desc.LastError = fmt.Errorf("expected 'speculativeAuthenticate' to be a document but it's a BSON %s",
+					element.Value().Type)
+				return desc
+			}
 		case "tags":
 			m, err := decodeStringMap(element, "tags")
 			if err != nil {
@@ -245,6 +254,18 @@ func NewServer(addr address.Address, response bsoncore.Document) Server {
 				return desc
 			}
 			desc.Tags = tag.NewTagSetFromMap(m)
+		case "topologyVersion":
+			doc, ok := element.Value().DocumentOK()
+			if !ok {
+				desc.LastError = fmt.Errorf("expected 'topologyVersion' to be a document but it's a BSON %s", element.Value().Type)
+				return desc
+			}
+
+			desc.TopologyVersion, err = NewTopologyVersion(doc)
+			if err != nil {
+				desc.LastError = err
+				return desc
+			}
 		}
 	}
 
@@ -287,15 +308,16 @@ func NewServer(addr address.Address, response bsoncore.Document) Server {
 
 // NewDefaultServer creates a new unknown server description with the given address.
 func NewDefaultServer(addr address.Address) Server {
-	return NewServerFromError(addr, nil)
+	return NewServerFromError(addr, nil, nil)
 }
 
-// NewServerFromError creates a new unknown server description with the given address and error.
-func NewServerFromError(addr address.Address, err error) Server {
+// NewServerFromError creates a new unknown server description with the given parameters.
+func NewServerFromError(addr address.Address, err error, tv *TopologyVersion) Server {
 	return Server{
-		Addr:      addr,
-		LastError: err,
-		Kind:      Unknown,
+		Addr:            addr,
+		LastError:       err,
+		Kind:            Unknown,
+		TopologyVersion: tv,
 	}
 }
 
