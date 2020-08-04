@@ -150,9 +150,9 @@ func (ram *RAMLinkList) Delete(ctx context.Context, id string) error { // nolint
 // setConfig - set configuration
 func (ram *RAMLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to store
+	viper.SetDefault("STORE_RAM_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to store
 
 	ram.config = RAMConfig{
-		mode: viper.GetInt("STORE_MODE_WRITE"),
+		mode: viper.GetInt("STORE_RAM_MODE_WRITE"),
 	}
 }
