@@ -146,7 +146,7 @@ func (r *RethinkDBLinkList) Close() error {
 // setConfig - set configuration
 func (r *RethinkDBLinkList) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_RETHINKDB_URI", "localhost:28015") // MongoDB URI
+	viper.SetDefault("STORE_RETHINKDB_URI", "localhost:28015") // RethinkDB URI
 
 	r.config = RethinkDBConfig{
 		URI: viper.GetStringSlice("STORE_RETHINKDB_URI"),

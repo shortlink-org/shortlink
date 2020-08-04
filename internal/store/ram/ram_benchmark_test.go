@@ -39,7 +39,7 @@ func BenchmarkRAMSerial(b *testing.B) {
 		b.ReportAllocs()
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
+		err := os.Setenv("STORE_RAM_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		assert.Nil(b, err, "Cannot set ENV")
 
 		// create a store
@@ -86,7 +86,7 @@ func BenchmarkRAMParallel(b *testing.B) {
 		b.ReportAllocs()
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
+		err := os.Setenv("STORE_RAM_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		assert.Nil(b, err, "Cannot set ENV")
 
 		// create a store

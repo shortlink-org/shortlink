@@ -302,6 +302,7 @@ func InitProfiling() PprofEndpoint {
 	return pprofMux
 }
 
+// TODO: Create package for Init Sentry. Problem with generate docs. Don't will use public init.
 func InitSentry() (*sentryhttp.Handler, func(), error) {
 	viper.SetDefault("SENTRY_DSN", "__DSN__")
 	DSN := viper.GetString("SENTRY_DSN")
