@@ -44,11 +44,16 @@ func (c *Config) run(ctx context.Context) {
 			break
 		case <-ticker.C:
 			c.mx.Lock()
-			// apply func for all items
-			c.cb(c.items)
 
-			// clear items
-			c.items = []*Item{}
+			// skip if items empty
+			if len(c.items) > 0 {
+				// apply func for all items
+				c.cb(c.items)
+
+				// clear items
+				c.items = []*Item{}
+			}
+
 			c.mx.Unlock()
 		}
 	}

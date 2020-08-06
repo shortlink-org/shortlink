@@ -1,13 +1,9 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
+import { uuidv4 } from "https://jslib.k6.io/k6-utils/1.0.0/index.js";
 
 // init code
 const BASE_URL = 'http://localhost:7070';
-
-const payload = JSON.stringify({
-  url: "https://example.com",
-  describe: "example link",
-});
 
 const params = {
   headers: {
@@ -18,7 +14,7 @@ const params = {
 export let options = {
   stages: [
     // { duration: "5m", target: 100 },  // simulate ramp-up of traffic from 1 to 100 users over 5 minutes.
-    { duration: "3m", target: 100 }, // stay at 100 users for 10 minutes
+    { duration: "1m", target: 10000 }, // stay at 100 users for 10 minutes
     // { duration: "5m", target: 0 },    // ramp-down to 0 users
   ],
   thresholds: {
@@ -29,7 +25,12 @@ export let options = {
 
 export default function() {
   // vu code
+  const payload = JSON.stringify({
+    url: `https://example.com/${uuidv4()}`,
+    describe: "example link",
+  });
+
   let res = http.post(`${BASE_URL}/api`, payload, params);
-  check(res, { 'status was 200': r => r.status === 201 });
+  check(res, { 'status was 201': r => r.status === 201 });
   sleep(1);
 }
