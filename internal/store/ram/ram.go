@@ -37,6 +37,10 @@ func (ram *RAMLinkList) Init(ctx context.Context) error { // nolint unparam
 	// Create batch job
 	if ram.config.mode == options.MODE_BATCH_WRITE {
 		cb := func(args []*batch.Item) interface{} {
+			if len(args) == 0 {
+				return nil
+			}
+
 			for key := range args {
 				source := args[key].Item.(*link.Link)
 				data, err := ram.singleWrite(ctx, source)
@@ -125,17 +129,6 @@ func (ram *RAMLinkList) Add(ctx context.Context, source *link.Link) (*link.Link,
 	return nil, nil
 }
 
-func (ram *RAMLinkList) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) { // nolint unused
-	data, err := link.NewURL(source.Url) // Create a new link
-	if err != nil {
-		return nil, err
-	}
-
-	ram.links.Store(data.Hash, data)
-
-	return data, nil
-}
-
 // Update ...
 func (ram *RAMLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
@@ -145,6 +138,17 @@ func (ram *RAMLinkList) Update(ctx context.Context, data *link.Link) (*link.Link
 func (ram *RAMLinkList) Delete(ctx context.Context, id string) error { // nolint unused
 	ram.links.Delete(id)
 	return nil
+}
+
+func (ram *RAMLinkList) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) { // nolint unused
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
+
+	ram.links.Store(data.Hash, data)
+
+	return data, nil
 }
 
 // setConfig - set configuration

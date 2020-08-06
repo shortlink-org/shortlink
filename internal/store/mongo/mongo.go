@@ -3,6 +3,7 @@ package mongo
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"time"
 
@@ -10,21 +11,23 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
 	bindata "github.com/golang-migrate/migrate/v4/source/go_bindata"
 	"github.com/spf13/viper"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
-
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
+	"github.com/batazor/shortlink/internal/batch"
 	"github.com/batazor/shortlink/internal/store/mongo/migrations"
+	storeOptions "github.com/batazor/shortlink/internal/store/options"
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
 )
 
 // MongoConfig ...
 type MongoConfig struct { // nolint unused
-	URI string
+	URI  string
+	mode int
+	job  *batch.Config
 }
 
 // MongoLinkList implementation of store interface
@@ -46,25 +49,55 @@ func (m *MongoLinkList) Init(ctx context.Context) error {
 		return err
 	}
 
-	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
-	defer cancel()
 	err = m.client.Connect(ctx)
 	if err != nil {
 		return err
 	}
 
+	// TODO: check correct ping
 	// Check connect
-	ctx, cancel = context.WithTimeout(context.Background(), 2*time.Second)
-	defer cancel()
-	err = m.client.Ping(ctx, readpref.Primary())
-	if err != nil {
-		return err
-	}
+	//ctx, cancel = context.WithTimeout(context.Background(), 2*time.Second)
+	//defer cancel()
+	//err = m.client.Ping(ctx, readpref.Primary())
+	//if err != nil {
+	//	return err
+	//}
 
 	// Apply migration
 	err = m.migrate()
 	if err != nil {
 		return err
+	}
+
+	// Create batch job
+	if m.config.mode == storeOptions.MODE_BATCH_WRITE {
+		cb := func(args []*batch.Item) interface{} {
+			sources := make([]link.Link, len(args))
+
+			for key := range args {
+				source := args[key].Item.(*link.Link)
+				sources[key] = *source
+			}
+
+			dataList, err := m.batchWrite(ctx, sources)
+			if err != nil {
+				for index := range args {
+					// TODO: add logs for error
+					args[index].CB <- errors.New("Error write to MongoDB")
+				}
+				return err
+			}
+
+			for key, item := range dataList {
+				args[key].CB <- item
+			}
+
+			return nil
+		}
+		m.config.job, err = batch.New(ctx, cb)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -103,22 +136,33 @@ func (m *MongoLinkList) migrate() error { // nolint unused
 
 // Add ...
 func (m *MongoLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
-	if err != nil {
-		return nil, err
+	switch m.config.mode {
+	case storeOptions.MODE_BATCH_WRITE:
+		cb, err := m.config.job.Push(source)
+		select {
+		case res := <-cb:
+			switch res.(type) {
+			case error:
+				{
+					return nil, err
+				}
+			case link.Link:
+				{
+					a := res.(link.Link)
+					return &a, nil
+				}
+			default:
+				return nil, nil
+			}
+
+			return nil, nil
+		}
+	case storeOptions.MODE_SINGLE_WRITE:
+		data, err := m.singleWrite(ctx, source)
+		return data, err
 	}
 
-	collection := m.client.Database("shortlink").Collection("links")
-
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
-	defer cancel()
-
-	_, err = collection.InsertOne(ctx, &data)
-	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
-	}
-
-	return data, nil
+	return nil, nil
 }
 
 // Get ...
@@ -210,11 +254,59 @@ func (m *MongoLinkList) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
+func (m *MongoLinkList) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) { // nolint unused
+	data, err := link.NewURL(source.Url) // Create a new link
+	if err != nil {
+		return nil, err
+	}
+
+	collection := m.client.Database("shortlink").Collection("links")
+
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	defer cancel()
+
+	_, err = collection.InsertOne(ctx, &data)
+	if err != nil {
+		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
+	}
+
+	return data, nil
+}
+
+func (m *MongoLinkList) batchWrite(ctx context.Context, sources []link.Link) ([]link.Link, error) { // nolint unused
+	docs := make([]interface{}, len(sources))
+
+	// Create a new link
+	for key := range sources {
+		data, err := link.NewURL(sources[key].Url)
+		if err != nil {
+			return nil, err
+		}
+
+		docs[key] = data
+	}
+
+	collection := m.client.Database("shortlink").Collection("links")
+
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	defer cancel()
+
+	_, err := collection.InsertMany(ctx, docs)
+	if err != nil {
+		return nil, &link.NotFoundError{Link: &sources[0], Err: fmt.Errorf("Failed marsharing link: %s", &sources[0].Url)}
+	}
+
+	return sources, nil
+}
+
 // setConfig - set configuration
 func (m *MongoLinkList) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_MONGODB_URI", "mongodb://localhost:27017/shortlink") // MongoDB URI
+	viper.SetDefault("STORE_MONGODB_MODE_WRITE", storeOptions.MODE_SINGLE_WRITE) // mode write to store
+
 	m.config = MongoConfig{
-		URI: viper.GetString("STORE_MONGODB_URI"),
+		URI:  viper.GetString("STORE_MONGODB_URI"),
+		mode: viper.GetInt("STORE_MONGODB_MODE_WRITE"),
 	}
 }
