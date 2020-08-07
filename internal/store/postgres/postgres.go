@@ -6,6 +6,7 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+	"errors"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
@@ -16,6 +17,8 @@ import (
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/batch"
+	storeOptions "github.com/batazor/shortlink/internal/store/options"
 	"github.com/batazor/shortlink/internal/store/postgres/migrations"
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/pkg/link"
@@ -41,6 +44,36 @@ func (p *PostgresLinkList) Init(ctx context.Context) error {
 	// Connect to Postgres
 	if p.client, err = pgxpool.Connect(ctx, p.config.URI); err != nil {
 		return err
+	}
+
+	// Create batch job
+	if p.config.mode == storeOptions.MODE_BATCH_WRITE {
+		cb := func(args []*batch.Item) interface{} {
+			sources := make([]*link.Link, len(args))
+
+			for key := range args {
+				sources[key] = args[key].Item.(*link.Link)
+			}
+
+			dataList, errBatchWrite := p.batchWrite(ctx, sources)
+			if errBatchWrite != nil {
+				for index := range args {
+					// TODO: add logs for error
+					args[index].CB <- errors.New("Error write to PostgreSQL")
+				}
+				return errBatchWrite
+			}
+
+			for key, item := range dataList {
+				args[key].CB <- item
+			}
+
+			return nil
+		}
+		p.config.job, err = batch.New(ctx, cb)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
@@ -157,6 +190,50 @@ func (p *PostgresLinkList) List(ctx context.Context, filter *query.Filter) ([]*l
 
 // Add ...
 func (p *PostgresLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
+	switch p.config.mode {
+	case storeOptions.MODE_BATCH_WRITE:
+		cb, err := p.config.job.Push(source)
+		res := <-cb
+		switch data := res.(type) {
+		case error:
+			return nil, err
+		case link.Link:
+			return &data, nil
+		default:
+			return nil, nil
+		}
+	case storeOptions.MODE_SINGLE_WRITE:
+		data, err := p.singleWrite(ctx, source)
+		return data, err
+	}
+
+	return nil, nil
+}
+
+// Update ...
+func (p *PostgresLinkList) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
+	return nil, nil
+}
+
+// Delete ...
+func (p *PostgresLinkList) Delete(ctx context.Context, id string) error {
+	// query builder
+	links := psql.Delete("links").
+		Where(squirrel.Eq{"hash": id})
+	q, args, err := links.ToSql()
+	if err != nil {
+		return err
+	}
+
+	_, err = p.client.Exec(ctx, q, args...)
+	if err != nil {
+		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+	}
+
+	return nil
+}
+
+func (p *PostgresLinkList) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) { // nolint unused
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -191,27 +268,40 @@ func (p *PostgresLinkList) Add(ctx context.Context, source *link.Link) (*link.Li
 	return data, nil
 }
 
-// Update ...
-func (p *PostgresLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
-	return nil, nil
-}
+func (p *PostgresLinkList) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.Link, error) {
+	docs := make([]interface{}, len(sources))
 
-// Delete ...
-func (p *PostgresLinkList) Delete(ctx context.Context, id string) error {
+	// Create a new link
+	for key := range sources {
+		data, err := link.NewURL(sources[key].Url)
+		if err != nil {
+			return nil, err
+		}
+
+		docs[key] = data
+	}
+
+	links := psql.Insert("links").Columns("url", "hash", "describe", "json")
+
 	// query builder
-	links := psql.Delete("links").
-		Where(squirrel.Eq{"hash": id})
+	for _, source := range sources {
+		// save as JSON. it doesn't make sense
+		dataJson, err := json.Marshal(source)
+		if err != nil {
+			return nil, err
+		}
+
+		links.Values(source.Url, source.Hash, source.Describe, dataJson)
+	}
+
 	q, args, err := links.ToSql()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	_, err = p.client.Exec(ctx, q, args...)
-	if err != nil {
-		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
-	}
+	p.client.QueryRow(ctx, q, args...)
 
-	return nil
+	return sources, nil
 }
 
 // setConfig - set configuration
@@ -219,9 +309,11 @@ func (p *PostgresLinkList) setConfig() {
 	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s?sslmode=disable", "shortlink", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_POSTGRES_URI", dbinfo) // Postgres URI
+	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)                                // Postgres URI
+	viper.SetDefault("STORE_POSTGRES_MODE_WRITE", storeOptions.MODE_SINGLE_WRITE) // mode write to store
 
 	p.config = PostgresConfig{
-		URI: viper.GetString("STORE_POSTGRES_URI"),
+		URI:  viper.GetString("STORE_POSTGRES_URI"),
+		mode: viper.GetInt("STORE_POSTGRES_MODE_WRITE"),
 	}
 }
