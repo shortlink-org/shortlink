@@ -43,9 +43,9 @@ func (ram *RAMLinkList) Init(ctx context.Context) error { // nolint unparam
 
 			for key := range args {
 				source := args[key].Item.(*link.Link)
-				data, err := ram.singleWrite(ctx, source)
-				if err != nil {
-					return err
+				data, errSingleWrite := ram.singleWrite(ctx, source)
+				if errSingleWrite != nil {
+					return errSingleWrite
 				}
 
 				args[key].CB <- data
@@ -112,13 +112,13 @@ func (ram *RAMLinkList) Add(ctx context.Context, source *link.Link) (*link.Link,
 	switch ram.config.mode {
 	case options.MODE_BATCH_WRITE:
 		cb, err := ram.config.job.Push(source)
-		select {
-		case res := <-cb:
-			if res != nil {
-				r := res.(*link.Link)
-				return r, err
-			}
-
+		res := <-cb
+		switch data := res.(type) {
+		case error:
+			return nil, err
+		case link.Link:
+			return &data, nil
+		default:
 			return nil, nil
 		}
 	case options.MODE_SINGLE_WRITE:

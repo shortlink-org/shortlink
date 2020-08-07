@@ -18,7 +18,7 @@ func NewURL(link string) (*Link, error) { // nolint unparam
 
 	newLink := Link{
 		Url:       link,
-		Hash:      hash[:7],
+		Hash:      hash[:9],
 		CreatedAt: ptypes.TimestampNow(),
 		UpdatedAt: ptypes.TimestampNow(),
 	}

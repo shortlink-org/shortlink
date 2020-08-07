@@ -26,8 +26,8 @@ func TestRAM(t *testing.T) {
 	assert.Nil(t, err)
 
 	t.Run("Create [single]", func(t *testing.T) {
-		link, err := store.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
+		link, errAdd := store.Add(ctx, mock.AddLink)
+		assert.Nil(t, errAdd)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
