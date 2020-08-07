@@ -244,7 +244,12 @@ func (m *MongoLinkList) singleWrite(ctx context.Context, source *link.Link) (*li
 
 	_, err = collection.InsertOne(ctx, &data)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
+		switch err.(mongo.WriteException).WriteErrors[0].Code {
+		case 11000:
+			return nil, &link.NotUniqError{Link: data, Err: fmt.Errorf("Duplicate URL: %s", data.Url)}
+		default:
+			return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
+		}
 	}
 
 	return data, nil
@@ -270,7 +275,12 @@ func (m *MongoLinkList) batchWrite(ctx context.Context, sources []*link.Link) ([
 
 	_, err := collection.InsertMany(ctx, docs)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: sources[0], Err: fmt.Errorf("Failed marsharing link: %s", sources[0].Url)}
+		switch err.(mongo.WriteException).WriteErrors[0].Code {
+		case 11000:
+			return nil, &link.NotUniqError{Link: sources[0], Err: fmt.Errorf("Duplicate URL: %s", sources[0].Url)}
+		default:
+			return nil, &link.NotFoundError{Link: sources[0], Err: fmt.Errorf("Failed marsharing link: %s", sources[0].Url)}
+		}
 	}
 
 	return sources, nil
