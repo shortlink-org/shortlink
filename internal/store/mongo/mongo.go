@@ -23,19 +23,6 @@ import (
 	"github.com/batazor/shortlink/pkg/link"
 )
 
-// MongoConfig ...
-type MongoConfig struct { // nolint unused
-	URI  string
-	mode int
-	job  *batch.Config
-}
-
-// MongoLinkList implementation of store interface
-type MongoLinkList struct { // nolint unused
-	client *mongo.Client
-	config MongoConfig
-}
-
 // Init ...
 func (m *MongoLinkList) Init(ctx context.Context) error {
 	var err error

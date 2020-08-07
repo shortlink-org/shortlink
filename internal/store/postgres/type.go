@@ -2,11 +2,15 @@ package postgres
 
 import (
 	"github.com/jackc/pgx/v4/pgxpool"
+
+	"github.com/batazor/shortlink/internal/batch"
 )
 
 // PostgresConfig ...
 type PostgresConfig struct { // nolint unused
-	URI string
+	URI  string
+	mode int
+	job  *batch.Config
 }
 
 // PostgresLinkList implementation of store interface

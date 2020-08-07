@@ -12,6 +12,13 @@ const params = {
 };
 
 export let options = {
+  ext: {
+    loadimpact: {
+      projectID: 123456,
+      // Test runs with the same name groups test runs together
+      name: "TEST BATCH STORE MODE"
+    }
+  },
   stages: [
     // { duration: "5m", target: 100 },  // simulate ramp-up of traffic from 1 to 100 users over 5 minutes.
     { duration: "1m", target: 10000 }, // stay at 100 users for 10 minutes
