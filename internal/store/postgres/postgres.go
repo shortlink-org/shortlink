@@ -49,20 +49,19 @@ func (p *PostgresLinkList) Init(ctx context.Context) error {
 	// Create batch job
 	if p.config.mode == storeOptions.MODE_BATCH_WRITE {
 		cb := func(args []*batch.Item) interface{} {
-			sources := make([]link.Link, len(args))
+			sources := make([]*link.Link, len(args))
 
 			for key := range args {
-				source := args[key].Item.(*link.Link)
-				sources[key] = *source
+				sources[key] = args[key].Item.(*link.Link)
 			}
 
-			dataList, err := p.batchWrite(ctx, sources)
-			if err != nil {
+			dataList, errBatchWrite := p.batchWrite(ctx, sources)
+			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CB <- errors.New("Error write to MongoDB")
+					args[index].CB <- errors.New("Error write to PostgreSQL")
 				}
-				return err
+				return errBatchWrite
 			}
 
 			for key, item := range dataList {
@@ -194,22 +193,13 @@ func (p *PostgresLinkList) Add(ctx context.Context, source *link.Link) (*link.Li
 	switch p.config.mode {
 	case storeOptions.MODE_BATCH_WRITE:
 		cb, err := p.config.job.Push(source)
-		select {
-		case res := <-cb:
-			switch res.(type) {
-			case error:
-				{
-					return nil, err
-				}
-			case link.Link:
-				{
-					a := res.(link.Link)
-					return &a, nil
-				}
-			default:
-				return nil, nil
-			}
-
+		res := <-cb
+		switch data := res.(type) {
+		case error:
+			return nil, err
+		case link.Link:
+			return &data, nil
+		default:
 			return nil, nil
 		}
 	case storeOptions.MODE_SINGLE_WRITE:
@@ -278,7 +268,7 @@ func (p *PostgresLinkList) singleWrite(ctx context.Context, source *link.Link) (
 	return data, nil
 }
 
-func (p *PostgresLinkList) batchWrite(ctx context.Context, sources []link.Link) ([]link.Link, error) {
+func (p *PostgresLinkList) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.Link, error) {
 	docs := make([]interface{}, len(sources))
 
 	// Create a new link

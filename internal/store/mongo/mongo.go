@@ -59,20 +59,19 @@ func (m *MongoLinkList) Init(ctx context.Context) error {
 	// Create batch job
 	if m.config.mode == storeOptions.MODE_BATCH_WRITE {
 		cb := func(args []*batch.Item) interface{} {
-			sources := make([]link.Link, len(args))
+			sources := make([]*link.Link, len(args))
 
 			for key := range args {
-				source := args[key].Item.(*link.Link)
-				sources[key] = *source
+				sources[key] = args[key].Item.(*link.Link)
 			}
 
-			dataList, err := m.batchWrite(ctx, sources)
-			if err != nil {
+			dataList, errBatchWrite := m.batchWrite(ctx, sources)
+			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
 					args[index].CB <- errors.New("Error write to MongoDB")
 				}
-				return err
+				return errBatchWrite
 			}
 
 			for key, item := range dataList {
@@ -126,22 +125,13 @@ func (m *MongoLinkList) Add(ctx context.Context, source *link.Link) (*link.Link,
 	switch m.config.mode {
 	case storeOptions.MODE_BATCH_WRITE:
 		cb, err := m.config.job.Push(source)
-		select {
-		case res := <-cb:
-			switch res.(type) {
-			case error:
-				{
-					return nil, err
-				}
-			case link.Link:
-				{
-					a := res.(link.Link)
-					return &a, nil
-				}
-			default:
-				return nil, nil
-			}
-
+		res := <-cb
+		switch data := res.(type) {
+		case error:
+			return nil, err
+		case link.Link:
+			return &data, nil
+		default:
 			return nil, nil
 		}
 	case storeOptions.MODE_SINGLE_WRITE:
@@ -260,7 +250,7 @@ func (m *MongoLinkList) singleWrite(ctx context.Context, source *link.Link) (*li
 	return data, nil
 }
 
-func (m *MongoLinkList) batchWrite(ctx context.Context, sources []link.Link) ([]link.Link, error) { // nolint unused
+func (m *MongoLinkList) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.Link, error) { // nolint unused
 	docs := make([]interface{}, len(sources))
 
 	// Create a new link
@@ -280,7 +270,7 @@ func (m *MongoLinkList) batchWrite(ctx context.Context, sources []link.Link) ([]
 
 	_, err := collection.InsertMany(ctx, docs)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &sources[0], Err: fmt.Errorf("Failed marsharing link: %s", &sources[0].Url)}
+		return nil, &link.NotFoundError{Link: sources[0], Err: fmt.Errorf("Failed marsharing link: %s", sources[0].Url)}
 	}
 
 	return sources, nil

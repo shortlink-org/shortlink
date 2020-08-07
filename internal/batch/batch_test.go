@@ -51,10 +51,10 @@ func TestNew(t *testing.T) {
 			wg.Add(1)
 			res, err := b.Push(request[key])
 			assert.Nil(t, err)
-			go func(key int) {
+			go func() {
 				assert.Equal(t, <-res, "ctx close")
 				wg.Done()
-			}(key)
+			}()
 		}
 		wg.Wait()
 	})
