@@ -23,9 +23,9 @@ func (c *Config) Push(item interface{}) (chan interface{}, error) {
 	// create new item
 	el := NewItem(item)
 
-	c.mx.Lock()
+	c.Lock()
 	c.items = append(c.items, el)
-	c.mx.Unlock()
+	c.Unlock()
 
 	return el.CB, nil
 }
@@ -37,24 +37,23 @@ func (c *Config) run(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
+			// skip if items empty
 			for key := range c.items {
+				c.Lock()
 				c.items[key].CB <- "ctx close"
+				c.Unlock()
 			}
-
-			break
 		case <-ticker.C:
-			c.mx.Lock()
-
 			// skip if items empty
 			if len(c.items) > 0 {
+				c.Lock()
 				// apply func for all items
 				c.cb(c.items)
 
 				// clear items
 				c.items = []*Item{}
+				c.Unlock()
 			}
-
-			c.mx.Unlock()
 		}
 	}
 }
