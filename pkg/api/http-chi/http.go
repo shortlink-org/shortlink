@@ -11,7 +11,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // Routes creates a REST router

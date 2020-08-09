@@ -18,7 +18,7 @@ import (
 	"github.com/batazor/shortlink/internal/notify"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // Endpoints are a primary abstraction in go-kit. An endpoint represents a single RPC (method in our service interface)

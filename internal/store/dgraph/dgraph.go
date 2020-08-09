@@ -7,11 +7,12 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"google.golang.org/grpc"
+
+	"github.com/batazor/shortlink/internal/store/query"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // DGraphLink implementation of store interface

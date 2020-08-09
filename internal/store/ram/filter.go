@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 func isFilterSuccess(link *link.Link, filter *query.Filter) bool {
