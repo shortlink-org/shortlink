@@ -5,11 +5,11 @@ generate: ## Code generation
 	@protoc -I/usr/local/include -I. \
 	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
 	--go_out=plugins=grpc:. \
-	pkg/link/link.proto
+	pkg/domain/link/link.proto
 
 	@protoc -I/usr/local/include -I. \
     	--gotemplate_out=all=true,template_dir=internal/store/query/template:internal/store/query \
-    	pkg/link/link.proto
+    	pkg/domain/link/link.proto
 
 	# proto generation gRPC-web
 	@protoc -I/usr/local/include -I. \

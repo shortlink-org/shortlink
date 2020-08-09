@@ -21,7 +21,7 @@ import (
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq/query"
 	"github.com/batazor/shortlink/internal/notify"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 func init() {

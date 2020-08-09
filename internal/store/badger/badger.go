@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // BadgerConfig ...

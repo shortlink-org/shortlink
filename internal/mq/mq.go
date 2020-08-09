@@ -17,7 +17,7 @@ import (
 	"github.com/batazor/shortlink/internal/mq/rabbit"
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // Use return implementation of MQ

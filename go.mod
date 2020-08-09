@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/Masterminds/squirrel v1.4.0
 	github.com/Shopify/sarama v1.26.4
+	github.com/batazor/protoc-gen-gotemplate v1.7.1 // indirect
 	github.com/cloudevents/sdk-go/v2 v2.0.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.0.3
@@ -20,23 +21,29 @@ require (
 	github.com/gocql/gocql v0.0.0-20200624222514-34081eda590e
 	github.com/golang-migrate/migrate/v4 v4.12.2
 	github.com/golang/protobuf v1.4.2
+	github.com/google/subcommands v1.2.0 // indirect
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.7.4
 	github.com/graph-gophers/graphql-go v0.0.0-20200622220639-c1d9693c95a6
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway v1.14.6
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
+	github.com/huandu/xstrings v1.3.2 // indirect
+	github.com/imdario/mergo v0.3.10 // indirect
 	github.com/jackc/pgx/v4 v4.8.1
 	github.com/jmoiron/sqlx v1.2.0
+	github.com/jteeuwen/go-bindata v3.0.7+incompatible // indirect
 	github.com/lib/pq v1.8.0
 	github.com/markbates/pkger v0.17.0
 	github.com/mattn/go-sqlite3 v1.14.0
+	github.com/mitchellh/reflectwalk v1.0.1 // indirect
 	github.com/nats-io/nats.go v1.10.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.6.0
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/prometheus/client_golang v1.7.1
 	github.com/scylladb/gocqlx v1.5.0
+	github.com/securego/gosec v0.0.0-20200401082031-e946c8c39989 // indirect
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
@@ -55,11 +62,15 @@ require (
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.15.0
-	google.golang.org/genproto v0.0.0-20200806141610-86f49bd18e98
+	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de // indirect
+	golang.org/x/tools v0.0.0-20200809012840-6f4f008689da // indirect
+	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	google.golang.org/genproto v0.0.0-20200808173500-a06252235341
 	google.golang.org/grpc v1.31.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	gopkg.in/yaml.v2 v2.3.0 // indirect
+	moul.io/protoc-gen-gotemplate v1.10.0 // indirect
 )
