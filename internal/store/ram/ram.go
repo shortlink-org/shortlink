@@ -10,7 +10,7 @@ import (
 	"github.com/batazor/shortlink/internal/batch"
 	"github.com/batazor/shortlink/internal/store/options"
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // RAMConfig ...
@@ -57,6 +57,8 @@ func (ram *RAMLinkList) Init(ctx context.Context) error { // nolint unparam
 		if err != nil {
 			return err
 		}
+
+		go ram.config.job.Run(ctx)
 	}
 
 	return nil
@@ -116,8 +118,8 @@ func (ram *RAMLinkList) Add(ctx context.Context, source *link.Link) (*link.Link,
 		switch data := res.(type) {
 		case error:
 			return nil, err
-		case link.Link:
-			return &data, nil
+		case *link.Link:
+			return data, nil
 		default:
 			return nil, nil
 		}

@@ -1,8 +1,9 @@
 package mock
 
 import (
-	"github.com/batazor/shortlink/pkg/link"
 	"github.com/golang/protobuf/ptypes"
+
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 var (
@@ -17,7 +18,7 @@ var (
 
 	GetLink = &link.Link{ // nolint unused
 		Url:       "https://example.com",
-		Hash:      "5888cab",
+		Hash:      "5888cabde",
 		Describe:  "example link",
 		CreatedAt: timestamp,
 		UpdatedAt: timestamp,

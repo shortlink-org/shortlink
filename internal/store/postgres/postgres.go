@@ -1,4 +1,4 @@
-//go:generate protoc -I../../../pkg/link --gotemplate_out=all=true,template_dir=template:. link.proto
+//go:generate protoc -I../../../pkg/domain/link --gotemplate_out=all=true,template_dir=template:. link.proto
 //go:generate go-bindata -prefix migrations -pkg migrations -ignore migrations.go -o migrations/migrations.go migrations
 package postgres
 
@@ -21,7 +21,7 @@ import (
 	storeOptions "github.com/batazor/shortlink/internal/store/options"
 	"github.com/batazor/shortlink/internal/store/postgres/migrations"
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 var (
@@ -74,6 +74,8 @@ func (p *PostgresLinkList) Init(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
+
+		go p.config.job.Run(ctx)
 	}
 
 	return nil

@@ -7,14 +7,11 @@ import (
 
 // TODO: add config for as timeout, retries, etc...
 // New - create a new batch
-func New(ctx context.Context, cb func([]*Item) interface{}) (*Config, error) {
+func New(_ context.Context, cb func([]*Item) interface{}) (*Config, error) {
 	cnf := Config{
 		cb:       cb,
 		Interval: time.Millisecond * 100,
 	}
-
-	// run background job
-	go cnf.run(ctx)
 
 	return &cnf, nil
 }
@@ -23,27 +20,30 @@ func (c *Config) Push(item interface{}) (chan interface{}, error) {
 	// create new item
 	el := NewItem(item)
 
-	c.mx.Lock()
+	c.Lock()
 	c.items = append(c.items, el)
-	c.mx.Unlock()
+	c.Unlock()
 
 	return el.CB, nil
 }
 
 // run - starts a loop flushing at the Interval
-func (c *Config) run(ctx context.Context) {
+func (c *Config) Run(ctx context.Context) {
 	ticker := time.NewTicker(c.Interval)
 
 	for {
 		select {
 		case <-ctx.Done():
+			c.Lock()
+
+			// skip if items empty
 			for key := range c.items {
 				c.items[key].CB <- "ctx close"
 			}
 
-			break
+			c.Unlock()
 		case <-ticker.C:
-			c.mx.Lock()
+			c.Lock()
 
 			// skip if items empty
 			if len(c.items) > 0 {
@@ -54,7 +54,7 @@ func (c *Config) run(ctx context.Context) {
 				c.items = []*Item{}
 			}
 
-			c.mx.Unlock()
+			c.Unlock()
 		}
 	}
 }

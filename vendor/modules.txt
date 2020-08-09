@@ -32,6 +32,8 @@ github.com/aws/aws-sdk-go/internal/strings
 github.com/aws/aws-sdk-go/internal/sync/singleflight
 github.com/aws/aws-sdk-go/private/protocol
 github.com/aws/aws-sdk-go/private/protocol/rest
+# github.com/batazor/protoc-gen-gotemplate v1.7.1
+## explicit
 # github.com/beorn7/perks v1.0.1
 github.com/beorn7/perks/quantile
 # github.com/cenkalti/backoff/v3 v3.0.0
@@ -169,6 +171,8 @@ github.com/golang/protobuf/ptypes/timestamp
 github.com/golang/protobuf/ptypes/wrappers
 # github.com/golang/snappy v0.0.1
 github.com/golang/snappy
+# github.com/google/subcommands v1.2.0
+## explicit
 # github.com/google/uuid v1.1.1
 github.com/google/uuid
 # github.com/google/wire v0.4.0
@@ -226,6 +230,10 @@ github.com/hashicorp/hcl/json/token
 # github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 ## explicit
 github.com/heptiolabs/healthcheck
+# github.com/huandu/xstrings v1.3.2
+## explicit
+# github.com/imdario/mergo v0.3.10
+## explicit
 # github.com/inconshreveable/mousetrap v1.0.0
 github.com/inconshreveable/mousetrap
 # github.com/jackc/chunkreader/v2 v2.0.1
@@ -260,6 +268,8 @@ github.com/jmespath/go-jmespath
 ## explicit
 github.com/jmoiron/sqlx
 github.com/jmoiron/sqlx/reflectx
+# github.com/jteeuwen/go-bindata v3.0.7+incompatible
+## explicit
 # github.com/klauspost/compress v1.9.8
 github.com/klauspost/compress/fse
 github.com/klauspost/compress/huff0
@@ -296,6 +306,8 @@ github.com/mattn/go-sqlite3
 github.com/matttproud/golang_protobuf_extensions/pbutil
 # github.com/mitchellh/mapstructure v1.1.2
 github.com/mitchellh/mapstructure
+# github.com/mitchellh/reflectwalk v1.0.1
+## explicit
 # github.com/nats-io/jwt v0.3.2
 github.com/nats-io/jwt
 # github.com/nats-io/nats.go v1.10.0
@@ -378,6 +390,8 @@ github.com/russross/blackfriday/v2
 # github.com/scylladb/gocqlx v1.5.0
 ## explicit
 github.com/scylladb/gocqlx/qb
+# github.com/securego/gosec v0.0.0-20200401082031-e946c8c39989
+## explicit
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
 # github.com/sirupsen/logrus v1.6.0
@@ -529,7 +543,8 @@ go.uber.org/zap/internal/bufferpool
 go.uber.org/zap/internal/color
 go.uber.org/zap/internal/exit
 go.uber.org/zap/zapcore
-# golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899
+# golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de
+## explicit
 golang.org/x/crypto/ed25519
 golang.org/x/crypto/ed25519/internal/edwards25519
 golang.org/x/crypto/md4
@@ -569,11 +584,13 @@ golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/width
-# golang.org/x/tools v0.0.0-20200725200936-102e7d357031
+# golang.org/x/tools v0.0.0-20200809012840-6f4f008689da
+## explicit
 golang.org/x/tools/go/ast/astutil
 golang.org/x/tools/go/gcexportdata
 golang.org/x/tools/go/internal/gcimporter
-# golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543
+# golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
+## explicit
 golang.org/x/xerrors
 golang.org/x/xerrors/internal
 # google.golang.org/genproto v0.0.0-20200808173500-a06252235341
@@ -721,3 +738,5 @@ gopkg.in/rethinkdb/rethinkdb-go.v6/types
 gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 gopkg.in/yaml.v3
+# moul.io/protoc-gen-gotemplate v1.10.0
+## explicit

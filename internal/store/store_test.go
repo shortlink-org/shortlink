@@ -4,10 +4,11 @@ import (
 	"context"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
-	"github.com/stretchr/testify/assert"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // TestLink ...

@@ -10,7 +10,7 @@ import (
 	"github.com/go-redis/redis"
 
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // RedisConfig ...
