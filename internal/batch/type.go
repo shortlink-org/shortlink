@@ -7,7 +7,7 @@ import (
 
 // Config
 type Config struct {
-	mx sync.Mutex
+	sync.Mutex
 
 	Size     int           // Size is the max entries limit
 	Interval time.Duration // Interval is the flush interval

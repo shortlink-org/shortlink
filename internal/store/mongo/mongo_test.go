@@ -34,7 +34,7 @@ func TestMongo(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s", resource.GetPort("27017/tcp")))
+		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
 		err = store.Init(ctx)

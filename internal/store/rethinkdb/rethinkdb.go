@@ -9,7 +9,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/internal/tool"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // RethinkDBConfig ...

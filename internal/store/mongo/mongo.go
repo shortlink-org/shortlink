@@ -20,7 +20,7 @@ import (
 	"github.com/batazor/shortlink/internal/store/mongo/migrations"
 	storeOptions "github.com/batazor/shortlink/internal/store/options"
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/link"
+	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // Init ...
@@ -84,6 +84,8 @@ func (m *MongoLinkList) Init(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
+
+		go m.config.job.Run(ctx)
 	}
 
 	return nil
