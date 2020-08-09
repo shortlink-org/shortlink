@@ -17,7 +17,7 @@ var (
 
 	GetLink = &link.Link{ // nolint unused
 		Url:       "https://example.com",
-		Hash:      "5888cab",
+		Hash:      "5888cabde",
 		Describe:  "example link",
 		CreatedAt: timestamp,
 		UpdatedAt: timestamp,

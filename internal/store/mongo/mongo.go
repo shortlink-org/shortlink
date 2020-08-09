@@ -84,6 +84,8 @@ func (m *MongoLinkList) Init(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
+
+		go m.config.job.Run(ctx)
 	}
 
 	return nil

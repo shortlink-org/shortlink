@@ -20,8 +20,8 @@ func TestPostgres(t *testing.T) {
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("postgres", "latest", []string{
-		"POSTGRES_USER=postgres",
-		"POSTGRES_PASSWORD=postgres",
+		"POSTGRES_USER=shortlink",
+		"POSTGRES_PASSWORD=shortlink",
 		"POSTGRES_DB=shortlink",
 	})
 	if err != nil {
@@ -37,7 +37,7 @@ func TestPostgres(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:postgres@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
+		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://shortlink:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
 		err = store.Init(ctx)
