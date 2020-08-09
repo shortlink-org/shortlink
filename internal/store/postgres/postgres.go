@@ -74,6 +74,8 @@ func (p *PostgresLinkList) Init(ctx context.Context) error {
 		if err != nil {
 			return err
 		}
+
+		go p.config.job.Run(ctx)
 	}
 
 	return nil

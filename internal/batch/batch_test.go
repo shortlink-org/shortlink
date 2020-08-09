@@ -30,8 +30,10 @@ func TestNew(t *testing.T) {
 			return nil
 		}
 
-		b, err := New(ctx, aggrCB)
+		b, err := New(nil, aggrCB)
 		assert.Nil(t, err)
+
+		go b.Run(ctx)
 
 		request := []string{"A", "B", "C", "D"}
 		for key := range request {
@@ -71,6 +73,8 @@ func TestNew(t *testing.T) {
 	//
 	//	b, err := New(ctx, aggrCB)
 	//	assert.Nil(t, err)
+	//
+	//	go b.Run(ctx)
 	//
 	//	for key := range request {
 	//		wg.Add(1)
