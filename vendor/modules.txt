@@ -32,8 +32,6 @@ github.com/aws/aws-sdk-go/internal/strings
 github.com/aws/aws-sdk-go/internal/sync/singleflight
 github.com/aws/aws-sdk-go/private/protocol
 github.com/aws/aws-sdk-go/private/protocol/rest
-# github.com/batazor/protoc-gen-gotemplate v1.7.1
-## explicit
 # github.com/beorn7/perks v1.0.1
 github.com/beorn7/perks/quantile
 # github.com/cenkalti/backoff/v3 v3.0.0
@@ -171,8 +169,6 @@ github.com/golang/protobuf/ptypes/timestamp
 github.com/golang/protobuf/ptypes/wrappers
 # github.com/golang/snappy v0.0.1
 github.com/golang/snappy
-# github.com/google/subcommands v1.2.0
-## explicit
 # github.com/google/uuid v1.1.1
 github.com/google/uuid
 # github.com/google/wire v0.4.0
@@ -203,7 +199,7 @@ github.com/grpc-ecosystem/go-grpc-middleware
 github.com/grpc-ecosystem/go-grpc-middleware/tags
 github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing
 github.com/grpc-ecosystem/go-grpc-middleware/util/metautils
-# github.com/grpc-ecosystem/grpc-gateway v1.14.6
+# github.com/grpc-ecosystem/grpc-gateway v1.14.7
 ## explicit
 github.com/grpc-ecosystem/grpc-gateway/internal
 github.com/grpc-ecosystem/grpc-gateway/runtime
@@ -230,10 +226,6 @@ github.com/hashicorp/hcl/json/token
 # github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 ## explicit
 github.com/heptiolabs/healthcheck
-# github.com/huandu/xstrings v1.3.2
-## explicit
-# github.com/imdario/mergo v0.3.10
-## explicit
 # github.com/inconshreveable/mousetrap v1.0.0
 github.com/inconshreveable/mousetrap
 # github.com/jackc/chunkreader/v2 v2.0.1
@@ -268,8 +260,6 @@ github.com/jmespath/go-jmespath
 ## explicit
 github.com/jmoiron/sqlx
 github.com/jmoiron/sqlx/reflectx
-# github.com/jteeuwen/go-bindata v3.0.7+incompatible
-## explicit
 # github.com/klauspost/compress v1.9.8
 github.com/klauspost/compress/fse
 github.com/klauspost/compress/huff0
@@ -306,8 +296,6 @@ github.com/mattn/go-sqlite3
 github.com/matttproud/golang_protobuf_extensions/pbutil
 # github.com/mitchellh/mapstructure v1.1.2
 github.com/mitchellh/mapstructure
-# github.com/mitchellh/reflectwalk v1.0.1
-## explicit
 # github.com/nats-io/jwt v0.3.2
 github.com/nats-io/jwt
 # github.com/nats-io/nats.go v1.10.0
@@ -390,8 +378,6 @@ github.com/russross/blackfriday/v2
 # github.com/scylladb/gocqlx v1.5.0
 ## explicit
 github.com/scylladb/gocqlx/qb
-# github.com/securego/gosec v0.0.0-20200401082031-e946c8c39989
-## explicit
 # github.com/shurcooL/sanitized_anchor_name v1.0.0
 github.com/shurcooL/sanitized_anchor_name
 # github.com/sirupsen/logrus v1.6.0
@@ -738,5 +724,3 @@ gopkg.in/rethinkdb/rethinkdb-go.v6/types
 gopkg.in/yaml.v2
 # gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
 gopkg.in/yaml.v3
-# moul.io/protoc-gen-gotemplate v1.10.0
-## explicit
