@@ -11,10 +11,10 @@ services:
       - "6379:6379"
     networks:
       simple:
-        ipv4_address: 10.5.0.100
+        ipv4_address: ${DATABASE_IP}
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
     depends_on:
       - fluentd
       - coredns

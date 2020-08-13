@@ -15,8 +15,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
     volumes:
       - ./ops/docker-compose/gateway/caddy/Caddyfile:/etc/caddy/Caddyfile
     # logging:
