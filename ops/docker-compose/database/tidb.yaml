@@ -22,8 +22,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
 
   pd1:
     image: pingcap/pd:latest
@@ -46,8 +46,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
 
   pd2:
     image: pingcap/pd:latest
@@ -70,8 +70,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
 
   tikv0:
     image: pingcap/tikv:latest
@@ -91,8 +91,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
 
   tikv1:
     image: pingcap/tikv:latest
@@ -112,8 +112,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
 
   tikv2:
     image: pingcap/tikv:latest
@@ -133,8 +133,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
 
   tidb:
     image: pingcap/tidb:latest
@@ -155,8 +155,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
 
   tispark-master:
     image: pingcap/tispark:latest
@@ -177,8 +177,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
 
   tispark-slave0:
     image: pingcap/tispark:latest
@@ -196,8 +196,8 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
 
   tidb-vision:
     image: pingcap/tidb-vision:latest
@@ -212,5 +212,5 @@ services:
     networks:
       - simple
     dns:
-      - "10.5.0.2"
-    dns_search: coredns
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}

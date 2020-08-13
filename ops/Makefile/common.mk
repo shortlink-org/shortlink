@@ -26,7 +26,9 @@ run: ## Run this project in docker-compose
          -f ops/docker-compose/database/mongo.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
          -f ops/docker-compose/tooling/fluentd.yaml \
+         -f ops/docker-compose/gateway/traefik.yaml \
          -f ops/docker-compose/tooling/prometheus.yaml \
+         -f ops/docker-compose/tooling/opentracing.yaml \
          -f ops/docker-compose/mq/rabbitmq.yaml \
          up -d --remove-orphans
 

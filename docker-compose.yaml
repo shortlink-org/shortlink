@@ -2,7 +2,7 @@ version: '2.4'
 
 networks:
   simple:
-    name: simple
+    name: ${DOCKER_NETWORK}
     # use the bridge driver, but enable IPv6
     driver: bridge
     driver_opts:
