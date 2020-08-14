@@ -13,7 +13,7 @@ default:
 
 code_navigation_go:
   stage: .pre
-  image: golang:1.14-buster
+  image: golang:1.15-buster
   allow_failure: true # recommended
   script:
     - go get -u github.com/sourcegraph/lsif-go/cmd/lsif-go

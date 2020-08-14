@@ -8,6 +8,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.http.routers.shortlink.rule=Host(`gateway.$DOCKER_DOMAIN`)"
     depends_on:
       - fluentd
       - coredns

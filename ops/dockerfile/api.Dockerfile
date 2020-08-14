@@ -27,7 +27,7 @@ RUN \
     rm -rf /var/cache/apk/*
 
 RUN addgroup -S shortlink && adduser -S -g shortlink shortlink
-USER shortlink
+USER api
 
 HEALTHCHECK \
   --interval=5s \
