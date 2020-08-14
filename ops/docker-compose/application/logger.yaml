@@ -15,7 +15,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.port=7070"
-      - "traefik.http.routers.shortlink.rule=Host(`logger.local`)"
+      - "traefik.http.routers.whoami.entrypoints=logger"
+      - "traefik.http.routers.shortlink.rule=Host(`logger.$DOCKER_DOMAIN`)"
       #      - "traefik.http.routers.shortlink.tls=true"
       #      - "traefik.http.routers.shortlink.entrypoints=shortlink"
       #      - "traefik.http.services.shortlink.loadbalancer.server.port=7070"

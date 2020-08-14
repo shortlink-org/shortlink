@@ -2,10 +2,10 @@ version: '2.4'
 
 services:
 
-  shortlink:
+  api:
     build:
       context: .
-      dockerfile: ops/dockerfile/shortlink.Dockerfile
+      dockerfile: ops/dockerfile/api.Dockerfile
       shm_size: 1gb
     container_name: shortlink
     ports:
@@ -19,8 +19,9 @@ services:
       MQ_KAFKA_URI: kafka-1:9092,kafka-2:9092
     labels:
       - "traefik.enable=true"
-      - "traefik.port=7070"
-      - "traefik.http.routers.shortlink.rule=Host(`shortlink.local`)"
+      - "traefik.port=7080"
+      - "traefik.http.routers.whoami.entrypoints=api"
+      - "traefik.http.routers.shortlink.rule=Host(`shortlink.$DOCKER_DOMAIN`)"
 #      - "traefik.http.routers.shortlink.tls=true"
 #      - "traefik.http.routers.shortlink.entrypoints=shortlink"
 #      - "traefik.http.services.shortlink.loadbalancer.server.port=7070"

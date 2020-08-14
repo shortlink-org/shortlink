@@ -20,13 +20,13 @@ dep: ## Install dependencies for this project
 run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
-         -f ops/docker-compose/application/shortlink.yaml \
-         -f ops/docker-compose/application/logger.yaml \
-         -f ops/docker-compose/application/ui-next.yaml \
-         -f ops/docker-compose/database/mongo.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
          -f ops/docker-compose/tooling/fluentd.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
+         -f ops/docker-compose/application/api.yaml \
+         -f ops/docker-compose/application/logger.yaml \
+         -f ops/docker-compose/application/ui-next.yaml \
+         -f ops/docker-compose/database/mongo.yaml \
          -f ops/docker-compose/tooling/prometheus.yaml \
          -f ops/docker-compose/tooling/opentracing.yaml \
          -f ops/docker-compose/mq/rabbitmq.yaml \
@@ -36,7 +36,7 @@ run-dep: ## Run only dep for this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
          -f ops/docker-compose/mq/kafka.yaml \
-         -f ops/docker-compose/application/shortlink.yaml \
+         -f ops/docker-compose/application/api.yaml \
          -f ops/docker-compose/database/postgres.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
          -f ops/docker-compose/tooling/opentracing.yaml \
@@ -45,8 +45,4 @@ run-dep: ## Run only dep for this project in docker-compose
 
 down: ## Down docker-compose
 	@docker-compose down --remove-orphans
-	@docker network rm simple shortlink_default
-
-clean: ## Clean artifacts
-	-@docker network rm simple shortlink_default
-	@docker rmi -f shortlink_shortlink
+	@docker network prune -f

@@ -15,7 +15,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.port=80"
-      - "traefik.http.routers.shortlink.rule=Host(`ui.local`)"
+      - "traefik.http.routers.whoami.entrypoints=ui"
+      - "traefik.http.routers.shortlink.rule=Host(`ui.$DOCKER_DOMAIN`)"
       - "traefik.backend.healthcheck.path=/"
       - "traefik.backend.healthcheck.port=80"
     depends_on:
