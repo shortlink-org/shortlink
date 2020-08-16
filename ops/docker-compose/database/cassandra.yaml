@@ -19,7 +19,7 @@ services:
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
-    logging:
-      driver: fluentd
-      options:
-        tag: cassandra
+#    logging:
+#      driver: fluentd
+#      options:
+#        tag: cassandra

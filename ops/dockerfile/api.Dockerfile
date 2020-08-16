@@ -26,7 +26,7 @@ RUN \
     apk add curl && \
     rm -rf /var/cache/apk/*
 
-RUN addgroup -S shortlink && adduser -S -g shortlink shortlink
+RUN addgroup -S api && adduser -S -g api api
 USER api
 
 HEALTHCHECK \

@@ -20,7 +20,7 @@ services:
     depends_on:
       - fluentd
       - coredns
-    logging:
-      driver: fluentd
-      options:
-        tag: rethinkdb
+#    logging:
+#      driver: fluentd
+#      options:
+#        tag: rethinkdb

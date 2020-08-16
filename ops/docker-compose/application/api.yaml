@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ops/dockerfile/api.Dockerfile
       shm_size: 1gb
-    container_name: shortlink
+    container_name: api
     ports:
       # API
       - "7080:7070"

@@ -22,10 +22,10 @@ services:
     depends_on:
       - fluentd
       - coredns
-    logging:
-      driver: fluentd
-      options:
-        tag: mongo
+#    logging:
+#      driver: fluentd
+#      options:
+#        tag: mongo
 
 # Mongo example for initial state
 #  mongo_initial_state:

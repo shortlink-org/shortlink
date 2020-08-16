@@ -25,7 +25,8 @@ services:
       TRAEFIK_TRACING_JAEGER_COLLECTOR_ENDPOINT: jaeger-collector:9411
       TRAEFIK_TRACING_JAEGER_GEN128BIT: "true"
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.3
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
@@ -33,7 +34,7 @@ services:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./ops/docker-compose/gateway/traefik/dyn-traefik.toml:/dyn-traefik.toml
-    logging:
-      driver: fluentd
-      options:
-        tag: traefik
+#    logging:
+#      driver: fluentd
+#      options:
+#        tag: traefik

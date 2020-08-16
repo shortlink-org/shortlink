@@ -23,7 +23,7 @@ services:
     depends_on:
       - fluentd
       - coredns
-    logging:
-      driver: fluentd
-      options:
-        tag: mysql
+#    logging:
+#      driver: fluentd
+#      options:
+#        tag: mysql
