@@ -30,3 +30,8 @@ docker-push: ## Publish the container
 
 	@echo docker push image ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
 	@docker push ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
+
+### Helpers ============================================================================================================
+
+docker_ip: ## View docker ip and container name
+	@docker ps -q | xargs docker inspect --format "{{range .NetworkSettings.Networks}}{{print .IPAddress}} {{end}}{{.Name}}"

@@ -44,5 +44,17 @@ run-dep: ## Run only dep for this project in docker-compose
          up -d
 
 down: ## Down docker-compose
-	@docker-compose down --remove-orphans
+	@docker-compose \
+		-f docker-compose.yaml \
+		-f ops/docker-compose/tooling/coredns.yaml \
+		-f ops/docker-compose/tooling/fluentd.yaml \
+		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/application/api.yaml \
+		-f ops/docker-compose/application/logger.yaml \
+		-f ops/docker-compose/application/ui-next.yaml \
+		-f ops/docker-compose/database/mongo.yaml \
+		-f ops/docker-compose/tooling/prometheus.yaml \
+		-f ops/docker-compose/tooling/opentracing.yaml \
+		-f ops/docker-compose/mq/rabbitmq.yaml \
+		down --remove-orphans
 	@docker network prune -f

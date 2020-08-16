@@ -30,10 +30,10 @@ services:
     depends_on:
       - fluentd
       - coredns
-    logging:
-      driver: fluentd
-      options:
-        tag: postgres
+#    logging:
+#      driver: fluentd
+#      options:
+#        tag: postgres
 
   postgres-exporter:
     <<: *network

@@ -18,7 +18,7 @@ services:
     depends_on:
       - fluentd
       - coredns
-    logging:
-      driver: fluentd
-      options:
-        tag: redis
+#    logging:
+#      driver: fluentd
+#      options:
+#        tag: redis
