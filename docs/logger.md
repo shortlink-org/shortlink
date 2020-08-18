@@ -10,6 +10,13 @@ Stack:
 
 + [docker driver](https://grafana.com/docs/loki/latest/clients/docker-driver/)
 
+### Up/Down
+
+```
+make logger
+make down
+```
+
 ##### How use is it?
 
 ```

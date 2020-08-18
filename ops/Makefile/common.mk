@@ -62,6 +62,7 @@ down: ## Down docker-compose
 logger: ## Run logger infra
 		@docker-compose \
 				-f docker-compose.yaml \
+        -f ops/docker-compose/application/api.yaml \
         -f ops/docker-compose/tooling/coredns.yaml \
 				-f ops/docker-compose/tooling/grafana.yaml \
 				-f ops/docker-compose/tooling/loki.yaml \

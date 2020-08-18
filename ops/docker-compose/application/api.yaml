@@ -1,12 +1,22 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
 
   api:
+    <<: *network
     build:
       context: .
       dockerfile: ops/dockerfile/api.Dockerfile
       shm_size: 1gb
+    depends_on:
+      - coredns
     container_name: api
     ports:
       # API
@@ -17,6 +27,7 @@ services:
     environment:
       MQ_ENABLED: "false"
       MQ_KAFKA_URI: kafka-1:9092,kafka-2:9092
+      TRACER_URI: jaeger-agent:6831
     labels:
       - "traefik.enable=true"
       - "traefik.port=7080"
@@ -27,15 +38,7 @@ services:
 #      - "traefik.http.services.shortlink.loadbalancer.server.port=7070"
       - "traefik.backend.healthcheck.path=/ready"
       - "traefik.backend.healthcheck.port=9090"
-    depends_on:
-      - fluent-bit
-      - coredns
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
-    # logging:
-    #   driver: fluent-bit
-    #   options:
-    #     tag: shortlink
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}

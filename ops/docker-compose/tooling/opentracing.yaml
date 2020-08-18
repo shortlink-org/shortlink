@@ -2,6 +2,9 @@ version: '2.4'
 
 services:
   jaeger-collector:
+    depends_on:
+      - cassandra-schema
+      - coredns
     image: jaegertracing/jaeger-collector
     command: ["--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra", "--collector.zipkin.http-port=9411"]
     container_name: jaeger-collector
@@ -10,17 +13,16 @@ services:
       - "6832"         # accept jaeger.thrift in binary Thrift protocol used by Node.js Jaeger client (because thriftrw npm package does not support compact protocol)
       - "14271"        # Healthcheck at / and metrics at /metrics
     restart: on-failure
-    depends_on:
-      - cassandra-schema
-      - coredns
     networks:
-      simple:
-        ipv4_address: 10.5.0.4
+      - simple
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
 
   jaeger-query:
+    depends_on:
+      - cassandra-schema
+      - coredns
     image: jaegertracing/jaeger-query
     command: ["--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra"]
     container_name: jaeger-query
@@ -28,17 +30,16 @@ services:
       - "16686:16686"
       - "16687"
     restart: on-failure
-    depends_on:
-      - cassandra-schema
-      - coredns
     networks:
-      simple:
-        ipv4_address: 10.5.0.5
+      - simple
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
 
   jaeger-agent:
+    depends_on:
+      - coredns
+      - jaeger-collector
     image: jaegertracing/jaeger-agent
     command: ["--reporter.grpc.host-port=jaeger-collector:14250"]
     container_name: jaeger-agent
@@ -48,33 +49,31 @@ services:
       - "6832:6832/udp"
       - "5778:5778"
     restart: on-failure
-    depends_on:
-      - jaeger-collector
     networks:
-      simple:
-        ipv4_address: 10.5.0.6
+      - simple
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
 
   cassandra:
+    depends_on:
+      - coredns
     image: cassandra:3.9
     container_name: jaeger-cassandra
     networks:
-      simple:
-        ipv4_address: 10.5.0.7
+      - simple
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
 
   cassandra-schema:
+    depends_on:
+      - coredns
+      - cassandra
     image: jaegertracing/jaeger-cassandra-schema
     container_name: jaeger-cassandra-schema
-    depends_on:
-      - cassandra
     networks:
-      simple:
-        ipv4_address: 10.5.0.8
+      - simple
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
