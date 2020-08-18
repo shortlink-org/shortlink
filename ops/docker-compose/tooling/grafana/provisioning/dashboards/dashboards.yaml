@@ -6,3 +6,8 @@ providers:
     type: file
     options:
       path: /etc/grafana/provisioning/dashboards/alerts
+  - name: 'Logs'
+    folder: 'logger'
+    type: file
+    options:
+      path: /etc/grafana/provisioning/dashboards/logger
