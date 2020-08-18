@@ -17,7 +17,7 @@ services:
       - --log-file=/logs/pd0.log
     restart: on-failure
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
     networks:
       - simple
@@ -41,7 +41,7 @@ services:
       - --log-file=/logs/pd1.log
     restart: on-failure
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
     networks:
       - simple
@@ -65,7 +65,7 @@ services:
       - --log-file=/logs/pd2.log
     restart: on-failure
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
     networks:
       - simple
@@ -207,7 +207,7 @@ services:
       - "8010:8010"
     restart: on-failure
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
     networks:
       - simple

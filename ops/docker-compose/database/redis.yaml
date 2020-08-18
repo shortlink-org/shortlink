@@ -16,9 +16,9 @@ services:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
 #    logging:
-#      driver: fluentd
+#      driver: fluent-bit
 #      options:
 #        tag: redis

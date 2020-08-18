@@ -35,6 +35,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./ops/docker-compose/gateway/traefik/dyn-traefik.toml:/dyn-traefik.toml
 #    logging:
-#      driver: fluentd
+#      driver: fluent-bit
 #      options:
 #        tag: traefik

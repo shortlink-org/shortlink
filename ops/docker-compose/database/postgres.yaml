@@ -28,10 +28,10 @@ services:
     volumes: []
 #      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
 #    logging:
-#      driver: fluentd
+#      driver: fluent-bit
 #      options:
 #        tag: postgres
 
@@ -44,7 +44,7 @@ services:
       - 9187:9187
     depends_on:
       - postgres
-      - fluentd
+      - fluent-bit
       - coredns
     environment:
       - DATA_SOURCE_NAME=postgres://shortlink:shortlink@postgres:5432/?sslmode=disable

@@ -11,7 +11,7 @@ services:
       - "7000:7000"
       - "9042:9042"
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
     networks:
       simple:
@@ -20,6 +20,6 @@ services:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
 #    logging:
-#      driver: fluentd
+#      driver: fluent-bit
 #      options:
 #        tag: cassandra

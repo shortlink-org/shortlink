@@ -22,7 +22,7 @@ services:
       - "5080:5080"
       - "6080:6080"
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
     restart: on-failure
     command: dgraph zero --my=zero:5080
@@ -40,7 +40,7 @@ services:
       - "8090:8080"
       - "9080:9080"
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
     restart: on-failure
     command: dgraph alpha --my=server:7080 --lru_mb=2048 --zero=zero:5080
@@ -57,6 +57,6 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
     command: dgraph-ratel

@@ -85,6 +85,8 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 
 ### Cloud-Native
 
++ Logger
+  + [Loki](./docs/logger.md)
 + Prometheus
   + prometheus-operator
     + notify: slack, email, telegram

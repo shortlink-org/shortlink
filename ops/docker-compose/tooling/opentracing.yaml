@@ -14,7 +14,8 @@ services:
       - cassandra-schema
       - coredns
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.4
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
@@ -31,7 +32,8 @@ services:
       - cassandra-schema
       - coredns
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.5
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
@@ -49,7 +51,8 @@ services:
     depends_on:
       - jaeger-collector
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.6
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
@@ -58,7 +61,8 @@ services:
     image: cassandra:3.9
     container_name: jaeger-cassandra
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.7
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
@@ -69,7 +73,8 @@ services:
     depends_on:
       - cassandra
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.8
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
