@@ -11,6 +11,8 @@ services:
 
   loki:
     <<: *network
+    depends_on:
+      - coredns
     image: grafana/loki:master
     container_name: loki
     command: -config.file=/etc/loki/local-config.yaml
@@ -20,16 +22,14 @@ services:
       - GF_LOG_CONSOLE_FORMAT=json
     ports:
       - 3100:3100
-    depends_on:
-      - coredns
 
   promtail:
     <<: *network
+    depends_on:
+      - coredns
     image: grafana/promtail:latest
     container_name: promtail
     volumes:
       - /var/log:/var/log
       - ./ops/docker-compose/tooling/promtail/config.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
-    depends_on:
-      - coredns

@@ -33,9 +33,6 @@ services:
       - "traefik.port=7080"
       - "traefik.http.routers.whoami.entrypoints=api"
       - "traefik.http.routers.shortlink.rule=Host(`shortlink.$DOCKER_DOMAIN`)"
-#      - "traefik.http.routers.shortlink.tls=true"
-#      - "traefik.http.routers.shortlink.entrypoints=shortlink"
-#      - "traefik.http.services.shortlink.loadbalancer.server.port=7070"
       - "traefik.backend.healthcheck.path=/ready"
       - "traefik.backend.healthcheck.port=9090"
     logging:

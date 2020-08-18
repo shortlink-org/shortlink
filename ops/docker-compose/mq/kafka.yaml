@@ -11,6 +11,9 @@ services:
 
   zookeeper:
     <<: *network
+    depends_on:
+      - fluent-bit
+      - coredns
     image: confluentinc/cp-zookeeper:5.4.2
     hostname: zookeeper
     container_name: zookeeper
@@ -22,12 +25,13 @@ services:
       ZOOKEEPER_TICK_TIME: 2000   # the number of milliseconds of each tick
       ZOOKEEPER_INIT_LIMIT: 10    # the number of ticks that the initial synchronization phase can take
       ZOOKEEPER_SYNC_LIMIT: 5     # the number of ticks that can pass between sending a request and getting an acknowledgement
-    depends_on:
-      - fluent-bit
-      - coredns
 
   kafka-1: &kafka-1
     <<: *network
+    depends_on:
+      - zookeeper
+      - fluent-bit
+      - coredns
     image: confluentinc/cp-kafka:5.4.0
     restart: on-failure
     container_name: kafka_1
@@ -47,10 +51,6 @@ services:
       KAFKA_CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
 
       KAFKA_LOG_RETENTION_HOURS: 48
-    depends_on:
-      - zookeeper
-      - fluent-bit
-      - coredns
   #    logging:
   #      driver: fluent-bit
   #      options:
@@ -58,6 +58,10 @@ services:
 
   kafka-2:
     <<: *kafka-1
+    depends_on:
+      - zookeeper
+      - fluent-bit
+      - coredns
     container_name: kafka_2
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -78,6 +82,10 @@ services:
 
   kafka-3:
     <<: *kafka-1
+    depends_on:
+      - zookeeper
+      - fluent-bit
+      - coredns
     container_name: kafka_3
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -98,6 +106,11 @@ services:
 
   kafka-client:
     <<: *kafka-1
+    depends_on:
+      - coredns
+      - kafka-1
+      - kafka-2
+      - kafka-3
     hostname: kafka-client
     container_name: kafka-client
     ports:
@@ -111,11 +124,6 @@ services:
     command: "bash -c 'echo Waiting for Kafka to be ready... && \
                        cub kafka-ready -b kafka_1:9094 1 60 && \
                        kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1 --topic shortlink'"
-    depends_on:
-      - coredns
-      - kafka-1
-      - kafka-2
-      - kafka-3
 
 # TODO: How it work? ;-)
 #  schema-registry:

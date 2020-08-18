@@ -3,6 +3,10 @@ version: '2.4'
 services:
 
   caddy:
+    depends_on:
+      - fluent-bit
+      - coredns
+      - shortlink
     image: caddy:2-alpine
     container_name: caddy
     ports:
@@ -12,10 +16,6 @@ services:
       - "traefik.enable=true"
       - "traefik.port=80"
       - "traefik.http.routers.shortlink.rule=Host(`gateway.$DOCKER_DOMAIN`)"
-    depends_on:
-      - fluent-bit
-      - coredns
-      - shortlink
     networks:
       - simple
     dns:
@@ -23,7 +23,3 @@ services:
     dns_search: ${DNS_SEARCH}
     volumes:
       - ./ops/docker-compose/gateway/caddy/Caddyfile:/etc/caddy/Caddyfile
-    # logging:
-    #   driver: fluent-bit
-    #   options:
-    #     tag: traefik

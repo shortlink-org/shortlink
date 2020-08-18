@@ -3,6 +3,9 @@ version: '2.4'
 services:
 
   rethinkdb:
+    depends_on:
+      - fluent-bit
+      - coredns
     image: rethinkdb:2.4-buster-slim
     init: true
     restart: on-failure
@@ -17,9 +20,6 @@ services:
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
-    depends_on:
-      - fluent-bit
-      - coredns
 #    logging:
 #      driver: fluent-bit
 #      options:

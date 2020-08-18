@@ -3,6 +3,9 @@ version: '2.4'
 services:
 
   cassandra:
+    depends_on:
+      - fluent-bit
+      - coredns
     image: cassandra:3.11
     shm_size: 1gb
     restart: on-failure
@@ -10,9 +13,6 @@ services:
     ports:
       - "7000:7000"
       - "9042:9042"
-    depends_on:
-      - fluent-bit
-      - coredns
     networks:
       simple:
         ipv4_address: ${DATABASE_IP}
