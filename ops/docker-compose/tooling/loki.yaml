@@ -1,6 +1,8 @@
 version: '2.4'
 
 x-network: &network
+  networks:
+    - simple
   dns:
     - ${DNS_IP}
   dns_search: ${DNS_SEARCH}
@@ -18,9 +20,6 @@ services:
       - GF_LOG_CONSOLE_FORMAT=json
     ports:
       - 3100:3100
-    networks:
-      simple:
-        ipv4_address: 10.5.0.10
     depends_on:
       - coredns
 
@@ -32,8 +31,5 @@ services:
       - /var/log:/var/log
       - ./ops/docker-compose/tooling/promtail/config.yml:/etc/promtail/config.yml
     command: -config.file=/etc/promtail/config.yml
-    networks:
-      simple:
-        ipv4_address: 10.5.0.11
     depends_on:
       - coredns

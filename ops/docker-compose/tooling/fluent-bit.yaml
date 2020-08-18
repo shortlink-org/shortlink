@@ -11,6 +11,8 @@ services:
 
   fluent-bit:
     <<: *network
+    depends_on:
+      - coredns
     image: grafana/fluent-bit-plugin-loki:latest
     container_name: fluent-bit
     restart: on-failure

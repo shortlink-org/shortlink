@@ -193,6 +193,7 @@ func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logge
 	r.Methods("DELETE").Path("/api").Handler(linkDeleteHandler)
 
 	// Additional middleware
+	r.Use(additionalMiddleware.NewTracing(tracer))
 	r.Use(additionalMiddleware.Logger(log))
 
 	// Set a timeout value on the request context (ctx), that will signal

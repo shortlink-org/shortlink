@@ -3,6 +3,8 @@ version: '2.4'
 services:
 
   traefik:
+    depends_on:
+      - coredns
     # The official v2.0 Traefik docker image
     image: traefik:v2.0
     ports:
@@ -25,8 +27,7 @@ services:
       TRAEFIK_TRACING_JAEGER_COLLECTOR_ENDPOINT: jaeger-collector:9411
       TRAEFIK_TRACING_JAEGER_GEN128BIT: "true"
     networks:
-      simple:
-        ipv4_address: 10.5.0.3
+      - simple
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}

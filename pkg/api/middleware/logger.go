@@ -4,6 +4,9 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/opentracing/opentracing-go"
+	"github.com/uber/jaeger-client-go"
+
 	"github.com/batazor/shortlink/internal/logger"
 
 	"github.com/go-chi/chi/middleware"
@@ -23,12 +26,12 @@ func Logger(log logger.Logger) func(next http.Handler) http.Handler { // nolint 
 func (c chilogger) middleware(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
-		var requestID string
-		if reqID := r.Context().Value(middleware.RequestIDKey); reqID != nil {
-			requestID = reqID.(string) // nolint errcheck
-		}
 		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
 		next.ServeHTTP(ww, r)
+
+		// Get span ID
+		span := opentracing.SpanFromContext(r.Context())
+		traceID := span.Context().(jaeger.SpanContext).TraceID().String()
 
 		latency := time.Since(start)
 
@@ -39,8 +42,8 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 			"request": r.RequestURI,
 			"method":  r.Method,
 		}
-		if requestID != "" {
-			fields["request-id"] = requestID
+		if traceID != "" {
+			fields["traceID"] = traceID
 		}
 		c.logZ.Info("request completed", fields)
 	}
