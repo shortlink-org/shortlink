@@ -15,7 +15,8 @@ services:
     depends_on:
       - coredns
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.12
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}

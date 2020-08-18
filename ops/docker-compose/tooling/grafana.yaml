@@ -17,9 +17,14 @@ services:
     depends_on:
       - coredns
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.9
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
     volumes:
       - ./ops/docker-compose/tooling/grafana/provisioning:/etc/grafana/provisioning/
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}

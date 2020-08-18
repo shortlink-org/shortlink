@@ -21,7 +21,7 @@ run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
-         -f ops/docker-compose/tooling/fluentd.yaml \
+         -f ops/docker-compose/tooling/fluent-bit.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
          -f ops/docker-compose/application/api.yaml \
          -f ops/docker-compose/application/logger.yaml \
@@ -41,13 +41,13 @@ run-dep: ## Run only dep for this project in docker-compose
          -f ops/docker-compose/gateway/traefik.yaml \
          -f ops/docker-compose/tooling/opentracing.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
-         up -d
+         up -d --remove-orphans
 
 down: ## Down docker-compose
 	@docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
-		-f ops/docker-compose/tooling/fluentd.yaml \
+		-f ops/docker-compose/tooling/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
 		-f ops/docker-compose/application/api.yaml \
 		-f ops/docker-compose/application/logger.yaml \
@@ -58,3 +58,13 @@ down: ## Down docker-compose
 		-f ops/docker-compose/mq/rabbitmq.yaml \
 		down --remove-orphans
 	@docker network prune -f
+
+logger: ## Run logger infra
+		@docker-compose \
+				-f docker-compose.yaml \
+        -f ops/docker-compose/tooling/coredns.yaml \
+				-f ops/docker-compose/tooling/grafana.yaml \
+				-f ops/docker-compose/tooling/loki.yaml \
+				-f ops/docker-compose/tooling/prometheus.yaml \
+				-f ops/docker-compose/tooling/opentracing.yaml \
+				up -d --remove-orphans

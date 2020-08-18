@@ -19,7 +19,7 @@ services:
       - "traefik.backend.healthcheck.path=/"
       - "traefik.backend.healthcheck.port=80"
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
     networks:
       - simple
@@ -27,6 +27,6 @@ services:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
     # logging:
-    #   driver: fluentd
+    #   driver: fluent-bit
     #   options:
     #     tag: shortlink

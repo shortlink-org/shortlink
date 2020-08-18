@@ -1,0 +1,27 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  fluent-bit:
+    <<: *network
+    image: grafana/fluent-bit-plugin-loki:latest
+    container_name: fluent-bit
+    restart: on-failure
+    environment:
+      - VIRTUAL_HOST=loki.loc
+      - LOKI_URL=http://loki:3100/loki/api/v1/push
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    networks:
+      - simple
+    volumes:
+      - ./ops/docker-compose/tooling/fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
+      - ./ops/docker-compose/tooling/fluent-bit/parsers.conf:/fluent-bit/etc/parsers.conf

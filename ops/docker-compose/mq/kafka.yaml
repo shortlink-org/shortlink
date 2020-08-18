@@ -23,7 +23,7 @@ services:
       ZOOKEEPER_INIT_LIMIT: 10    # the number of ticks that the initial synchronization phase can take
       ZOOKEEPER_SYNC_LIMIT: 5     # the number of ticks that can pass between sending a request and getting an acknowledgement
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
 
   kafka-1: &kafka-1
@@ -49,10 +49,10 @@ services:
       KAFKA_LOG_RETENTION_HOURS: 48
     depends_on:
       - zookeeper
-      - fluentd
+      - fluent-bit
       - coredns
   #    logging:
-  #      driver: fluentd
+  #      driver: fluent-bit
   #      options:
   #        tag: kafka
 

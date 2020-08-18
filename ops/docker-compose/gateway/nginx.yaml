@@ -15,7 +15,7 @@ services:
       - "traefik.backend.healthcheck.path=/"
       - "traefik.backend.healthcheck.port=80"
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
       - shortlink
     networks:
@@ -28,6 +28,6 @@ services:
       - ./ops/docker-compose/gateway/nginx/conf.d:/etc/nginx/conf.d
       - ./ops/docker-compose/gateway/nginx/templates:/etc/nginx/templates
     # logging:
-    #   driver: fluentd
+    #   driver: fluent-bit
     #   options:
     #     tag: traefik

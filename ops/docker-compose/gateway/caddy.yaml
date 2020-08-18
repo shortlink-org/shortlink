@@ -13,7 +13,7 @@ services:
       - "traefik.port=80"
       - "traefik.http.routers.shortlink.rule=Host(`gateway.$DOCKER_DOMAIN`)"
     depends_on:
-      - fluentd
+      - fluent-bit
       - coredns
       - shortlink
     networks:
@@ -24,6 +24,6 @@ services:
     volumes:
       - ./ops/docker-compose/gateway/caddy/Caddyfile:/etc/caddy/Caddyfile
     # logging:
-    #   driver: fluentd
+    #   driver: fluent-bit
     #   options:
     #     tag: traefik
