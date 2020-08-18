@@ -7,6 +7,9 @@ services:
       context: .
       dockerfile: ops/dockerfile/ui-next.Dockerfile
       shm_size: 1gb
+    depends_on:
+      - fluent-bit
+      - coredns
     container_name: ui-next
     ports:
 #      # HTTP UI
@@ -18,15 +21,8 @@ services:
       - "traefik.http.routers.shortlink.rule=Host(`ui.$DOCKER_DOMAIN`)"
       - "traefik.backend.healthcheck.path=/"
       - "traefik.backend.healthcheck.port=80"
-    depends_on:
-      - fluent-bit
-      - coredns
     networks:
       - simple
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
-    # logging:
-    #   driver: fluent-bit
-    #   options:
-    #     tag: shortlink
