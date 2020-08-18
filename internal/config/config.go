@@ -1,8 +1,6 @@
 package config
 
 import (
-	"errors"
-
 	"github.com/spf13/viper"
 )
 
@@ -15,7 +13,9 @@ func Init() error {
 
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
-			return errors.New("The .env file has not been found in the current directory")
+			// TODO: logger this fact
+			//return errors.New("The .env file has not been found in the current directory")
+			return nil
 		} else {
 			return err
 		}

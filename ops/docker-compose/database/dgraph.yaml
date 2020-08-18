@@ -11,6 +11,9 @@ services:
 
   zero:
     <<: *network
+    depends_on:
+      - fluent-bit
+      - coredns
     image: dgraph/dgraph:v20.03.3
     volumes:
       - type: volume
@@ -21,14 +24,14 @@ services:
     ports:
       - "5080:5080"
       - "6080:6080"
-    depends_on:
-      - fluentd
-      - coredns
     restart: on-failure
     command: dgraph zero --my=zero:5080
 
   server:
     <<: *network
+    depends_on:
+      - fluent-bit
+      - coredns
     image: dgraph/dgraph:v20.03.3
     volumes:
       - type: volume
@@ -39,14 +42,14 @@ services:
     ports:
       - "8090:8080"
       - "9080:9080"
-    depends_on:
-      - fluentd
-      - coredns
     restart: on-failure
     command: dgraph alpha --my=server:7080 --lru_mb=2048 --zero=zero:5080
 
   ratel:
     <<: *network
+    depends_on:
+      - fluent-bit
+      - coredns
     image: dgraph/dgraph:v20.03.3
     volumes:
       - type: volume
@@ -56,7 +59,4 @@ services:
           nocopy: true
     ports:
       - "8000:8000"
-    depends_on:
-      - fluentd
-      - coredns
     command: dgraph-ratel

@@ -40,7 +40,6 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	r.Use(render.SetContentType(render.ContentTypeJSON))
 
 	// A good base middleware stack
-	r.Use(middleware.RequestID)
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Heartbeat("/healthz"))
 	r.Use(middleware.Recoverer)
@@ -51,6 +50,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	r.Use(middleware.Timeout(config.Timeout * time.Second))
 
 	// Additional middleware
+	r.Use(additionalMiddleware.NewTracing(tracer))
 	r.Use(additionalMiddleware.Logger(log))
 
 	r.NotFound(NotFoundHandler)

@@ -3,6 +3,9 @@ version: '2.4'
 services:
 
   scylla:
+    depends_on:
+      - fluent-bit
+      - coredns
     image: scylladb/scylla
     container_name: scylla
     restart: on-failure
@@ -15,6 +18,3 @@ services:
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
-    depends_on:
-      - fluentd
-      - coredns

@@ -3,6 +3,9 @@ version: '2.4'
 services:
 
   redis:
+    depends_on:
+      - fluent-bit
+      - coredns
     image: redis:6.0-alpine
     init: true
     restart: on-failure
@@ -15,10 +18,7 @@ services:
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
-    depends_on:
-      - fluentd
-      - coredns
 #    logging:
-#      driver: fluentd
+#      driver: fluent-bit
 #      options:
 #        tag: redis
