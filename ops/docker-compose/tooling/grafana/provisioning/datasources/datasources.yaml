@@ -15,3 +15,7 @@ datasources:
     type: loki
     access: proxy
     url: http://loki:3100
+
+  - name: Jaeger
+    type: jaeger
+    url: http://jaeger-query:16686
