@@ -48,7 +48,6 @@ type Options struct {
 	Truncate            bool
 	Logger              Logger
 	Compression         options.CompressionType
-	EventLogging        bool
 	InMemory            bool
 
 	// Fine tuning options.
@@ -94,6 +93,17 @@ type Options struct {
 	// ChecksumVerificationMode decides when db should verify checksums for SSTable blocks.
 	ChecksumVerificationMode options.ChecksumVerificationMode
 
+	// DetectConflicts determines whether the transactions would be checked for
+	// conflicts. The transactions can be processed at a higher rate when
+	// conflict detection is disabled.
+	DetectConflicts bool
+
+	// KeepBlockIndicesInCache decides whether to keep the block offsets in the cache or not.
+	KeepBlockIndicesInCache bool
+
+	// KeepBlocksInCache decides whether to keep the sst blocks in the cache or not.
+	KeepBlocksInCache bool
+
 	// Transaction start and commit timestamps are managed by end-user.
 	// This is only useful for databases built on top of Badger (like Dgraph).
 	// Not recommended for most users.
@@ -128,7 +138,7 @@ func DefaultOptions(path string) Options {
 		SyncWrites:              true,
 		NumVersionsToKeep:       1,
 		CompactL0OnClose:        true,
-		KeepL0InMemory:          true,
+		KeepL0InMemory:          false,
 		VerifyValueChecksum:     false,
 		Compression:             options.None,
 		MaxCacheSize:            0,
@@ -152,26 +162,29 @@ func DefaultOptions(path string) Options {
 		ValueLogFileSize: 1<<30 - 1,
 
 		ValueLogMaxEntries:            1000000,
-		ValueThreshold:                32,
+		ValueThreshold:                1 << 10, // 1 KB.
 		Truncate:                      false,
-		Logger:                        defaultLogger,
+		Logger:                        defaultLogger(INFO),
 		LogRotatesToFlush:             2,
-		EventLogging:                  true,
 		EncryptionKey:                 []byte{},
 		EncryptionKeyRotationDuration: 10 * 24 * time.Hour, // Default 10 days.
+		DetectConflicts:               true,
+		KeepBlocksInCache:             false,
+		KeepBlockIndicesInCache:       false,
 	}
 }
 
 func buildTableOptions(opt Options) table.Options {
 	return table.Options{
-		TableSize:            uint64(opt.MaxTableSize),
-		BlockSize:            opt.BlockSize,
-		BloomFalsePositive:   opt.BloomFalsePositive,
-		LoadBloomsOnOpen:     opt.LoadBloomsOnOpen,
-		LoadingMode:          opt.TableLoadingMode,
-		ChkMode:              opt.ChecksumVerificationMode,
-		Compression:          opt.Compression,
-		ZSTDCompressionLevel: opt.ZSTDCompressionLevel,
+		BlockSize:               opt.BlockSize,
+		BloomFalsePositive:      opt.BloomFalsePositive,
+		LoadBloomsOnOpen:        opt.LoadBloomsOnOpen,
+		LoadingMode:             opt.TableLoadingMode,
+		ChkMode:                 opt.ChecksumVerificationMode,
+		Compression:             opt.Compression,
+		ZSTDCompressionLevel:    opt.ZSTDCompressionLevel,
+		KeepBlockIndicesInCache: opt.KeepBlockIndicesInCache,
+		KeepBlocksInCache:       opt.KeepBlocksInCache,
 	}
 }
 
@@ -214,6 +227,17 @@ func (opt Options) WithDir(val string) Options {
 // This is set automatically to be the path given to `DefaultOptions`.
 func (opt Options) WithValueDir(val string) Options {
 	opt.ValueDir = val
+	return opt
+}
+
+// WithLoggingLevel returns a new Options value with logging level of the
+// default logger set to the given value.
+// LoggingLevel sets the level of logging. It should be one of DEBUG, INFO,
+// WARNING or ERROR levels.
+//
+// The default value of LoggingLevel is INFO.
+func (opt Options) WithLoggingLevel(val loggingLevel) Options {
+	opt.Logger = defaultLogger(val)
 	return opt
 }
 
@@ -294,16 +318,6 @@ func (opt Options) WithLogger(val Logger) Options {
 	return opt
 }
 
-// WithEventLogging returns a new Options value with EventLogging set to the given value.
-//
-// EventLogging provides a way to enable or disable trace.EventLog logging.
-//
-// The default value of EventLogging is true.
-func (opt Options) WithEventLogging(enabled bool) Options {
-	opt.EventLogging = enabled
-	return opt
-}
-
 // WithMaxTableSize returns a new Options value with MaxTableSize set to the given value.
 //
 // MaxTableSize sets the maximum size in bytes for each LSM table or file.
@@ -342,7 +356,7 @@ func (opt Options) WithMaxLevels(val int) Options {
 // ValueThreshold sets the threshold used to decide whether a value is stored directly in the LSM
 // tree or separately in the log value files.
 //
-// The default value of ValueThreshold is 32, but LSMOnlyOptions sets it to maxValueThreshold.
+// The default value of ValueThreshold is 1 KB, but LSMOnlyOptions sets it to maxValueThreshold.
 func (opt Options) WithValueThreshold(val int) Options {
 	opt.ValueThreshold = val
 	return opt
@@ -455,6 +469,7 @@ func (opt Options) WithNumCompactors(val int) Options {
 // CompactL0OnClose determines whether Level 0 should be compacted before closing the DB.
 // This ensures that both reads and writes are efficient when the DB is opened later.
 // CompactL0OnClose is set to true if KeepL0InMemory is set to true.
+//
 // The default value of CompactL0OnClose is true.
 func (opt Options) WithCompactL0OnClose(val bool) Options {
 	opt.CompactL0OnClose = val
@@ -502,7 +517,7 @@ func (opt Options) WithEncryptionKeyRotationDuration(d time.Duration) Options {
 // will take longer to complete since memtables and all level 0 tables will have to be recreated.
 // This option also sets CompactL0OnClose option to true.
 //
-// The default value of KeepL0InMemory is true.
+// The default value of KeepL0InMemory is false.
 func (opt Options) WithKeepL0InMemory(val bool) Options {
 	opt.KeepL0InMemory = val
 	return opt
@@ -630,5 +645,54 @@ func (opt Options) WithMaxBfCacheSize(size int64) Options {
 // The default value of LoadBloomsOnOpen is false.
 func (opt Options) WithLoadBloomsOnOpen(b bool) Options {
 	opt.LoadBloomsOnOpen = b
+	return opt
+}
+
+// WithDetectConflicts returns a new Options value with DetectConflicts set to the given value.
+//
+// Detect conflicts options determines if the transactions would be checked for
+// conflicts before committing them. When this option is set to false
+// (detectConflicts=false) badger can process transactions at a higher rate.
+// Setting this options to false might be useful when the user application
+// deals with conflict detection and resolution.
+//
+// The default value of Detect conflicts is True.
+func (opt Options) WithDetectConflicts(b bool) Options {
+	opt.DetectConflicts = b
+	return opt
+}
+
+// WithKeepBlockIndicesInCache returns a new Option value with KeepBlockOffsetInCache set to the
+// given value.
+//
+// When this option is set badger will store the block offsets in a cache along with the blocks.
+// The size of the cache is determined by the MaxCacheSize option.If the MaxCacheSize is set to
+// zero, then MaxCacheSize is set to 100 mb. When indices are stored in the cache, the read
+// performance might be affected but the cache limits the amount of memory used by the indices.
+//
+// The default value of KeepBlockOffsetInCache is false.
+func (opt Options) WithKeepBlockIndicesInCache(val bool) Options {
+	opt.KeepBlockIndicesInCache = val
+
+	if val && opt.MaxCacheSize == 0 {
+		opt.MaxCacheSize = 100 << 20
+	}
+	return opt
+}
+
+// WithKeepBlocksInCache returns a new Option value with KeepBlocksInCache set to the
+// given value.
+//
+// When this option is set badger will store the block in the cache. The size of the cache is
+// determined by the MaxCacheSize option.If the MaxCacheSize is set to zero,
+// then MaxCacheSize is set to 100 mb.
+//
+// The default value of KeepBlocksInCache is false.
+func (opt Options) WithKeepBlocksInCache(val bool) Options {
+	opt.KeepBlocksInCache = val
+
+	if val && opt.MaxCacheSize == 0 {
+		opt.MaxCacheSize = 100 << 20
+	}
 	return opt
 }
