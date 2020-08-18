@@ -1,8 +1,18 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
 
   loki:
+    <<: *network
+    depends_on:
+      - coredns
     image: grafana/loki:master
     container_name: loki
     command: -config.file=/etc/loki/local-config.yaml
@@ -12,24 +22,14 @@ services:
       - GF_LOG_CONSOLE_FORMAT=json
     ports:
       - 3100:3100
-    depends_on:
-      - coredns
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   promtail:
+    <<: *network
+    depends_on:
+      - coredns
     image: grafana/promtail:latest
     container_name: promtail
     volumes:
       - /var/log:/var/log
-    command: -config.file=/etc/promtail/docker-config.yaml
-    depends_on:
-      - coredns
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
+      - ./ops/docker-compose/tooling/promtail/config.yml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml

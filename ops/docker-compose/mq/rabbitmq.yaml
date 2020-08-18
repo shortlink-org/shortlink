@@ -11,12 +11,12 @@ services:
 
   rabbitmq:
     <<: *network
+    depends_on:
+      - fluent-bit
+      - coredns
     image: rabbitmq:3.8-management-alpine
     hostname: rabbitmq
     container_name: rabbitmq
     ports:
       - "5672:5672"
       - "15672:15672"
-    depends_on:
-      - fluentd
-      - coredns

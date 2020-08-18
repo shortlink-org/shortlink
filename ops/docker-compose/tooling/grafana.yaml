@@ -3,6 +3,8 @@ version: '2.4'
 services:
 
   grafana:
+    depends_on:
+      - coredns
     image: grafana/grafana
     container_name: grafana
     restart: on-failure
@@ -14,8 +16,6 @@ services:
       - GF_LOG_FILTERS=alerting.notifier:debug,alerting.notifier.slack:debug,auth:debug
     ports:
       - 3030:3000
-    depends_on:
-      - coredns
     networks:
       - simple
     dns:
@@ -23,3 +23,7 @@ services:
     dns_search: ${DNS_SEARCH}
     volumes:
       - ./ops/docker-compose/tooling/grafana/provisioning:/etc/grafana/provisioning/
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}

@@ -2,6 +2,9 @@ version: '2.4'
 
 services:
   pd0:
+    depends_on:
+      - fluent-bit
+      - coredns
     image: pingcap/pd:latest
     ports:
       - "2379"
@@ -16,9 +19,6 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd0.log
     restart: on-failure
-    depends_on:
-      - fluentd
-      - coredns
     networks:
       - simple
     dns:
@@ -26,6 +26,9 @@ services:
     dns_search: ${DNS_SEARCH}
 
   pd1:
+    depends_on:
+      - fluent-bit
+      - coredns
     image: pingcap/pd:latest
     ports:
       - "2379"
@@ -40,9 +43,6 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd1.log
     restart: on-failure
-    depends_on:
-      - fluentd
-      - coredns
     networks:
       - simple
     dns:
@@ -50,6 +50,9 @@ services:
     dns_search: ${DNS_SEARCH}
 
   pd2:
+    depends_on:
+      - fluent-bit
+      - coredns
     image: pingcap/pd:latest
     ports:
       - "2379"
@@ -64,9 +67,6 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd2.log
     restart: on-failure
-    depends_on:
-      - fluentd
-      - coredns
     networks:
       - simple
     dns:
@@ -74,6 +74,11 @@ services:
     dns_search: ${DNS_SEARCH}
 
   tikv0:
+    depends_on:
+      - pd0
+      - pd1
+      - pd2
+      - coredns
     image: pingcap/tikv:latest
     command:
       - --addr=0.0.0.0:20160
@@ -82,11 +87,6 @@ services:
       - --pd=pd0:2379,pd1:2379,pd2:2379
       - --config=/tikv.toml
       - --log-file=/logs/tikv0.log
-    depends_on:
-      - pd0
-      - pd1
-      - pd2
-      - coredns
     restart: on-failure
     networks:
       - simple
@@ -95,6 +95,11 @@ services:
     dns_search: ${DNS_SEARCH}
 
   tikv1:
+    depends_on:
+      - pd0
+      - pd1
+      - pd2
+      - coredns
     image: pingcap/tikv:latest
     command:
       - --addr=0.0.0.0:20160
@@ -103,11 +108,6 @@ services:
       - --pd=pd0:2379,pd1:2379,pd2:2379
       - --config=/tikv.toml
       - --log-file=/logs/tikv1.log
-    depends_on:
-      - pd0
-      - pd1
-      - pd2
-      - coredns
     restart: on-failure
     networks:
       - simple
@@ -116,6 +116,11 @@ services:
     dns_search: ${DNS_SEARCH}
 
   tikv2:
+    depends_on:
+      - pd0
+      - pd1
+      - pd2
+      - coredns
     image: pingcap/tikv:latest
     command:
       - --addr=0.0.0.0:20160
@@ -124,11 +129,6 @@ services:
       - --pd=pd0:2379,pd1:2379,pd2:2379
       - --config=/tikv.toml
       - --log-file=/logs/tikv2.log
-    depends_on:
-      - pd0
-      - pd1
-      - pd2
-      - coredns
     restart: on-failure
     networks:
       - simple
@@ -137,6 +137,11 @@ services:
     dns_search: ${DNS_SEARCH}
 
   tidb:
+    depends_on:
+      - tikv0
+      - tikv1
+      - tikv2
+      - coredns
     image: pingcap/tidb:latest
     ports:
       - "4000:4000"
@@ -146,11 +151,6 @@ services:
       - --path=pd0:2379,pd1:2379,pd2:2379
       - --config=/tidb.toml
       - --log-file=/logs/tidb.log
-    depends_on:
-      - tikv0
-      - tikv1
-      - tikv2
-      - coredns
     restart: on-failure
     networks:
       - simple
@@ -159,6 +159,11 @@ services:
     dns_search: ${DNS_SEARCH}
 
   tispark-master:
+    depends_on:
+      - tikv0
+      - tikv1
+      - tikv2
+      - coredns
     image: pingcap/tispark:latest
     command:
       - /opt/spark/sbin/start-master.sh
@@ -168,11 +173,6 @@ services:
     ports:
       - "7077:7077"
       - "8080:8080"
-    depends_on:
-      - tikv0
-      - tikv1
-      - tikv2
-      - coredns
     restart: on-failure
     networks:
       - simple
@@ -181,6 +181,9 @@ services:
     dns_search: ${DNS_SEARCH}
 
   tispark-slave0:
+    depends_on:
+      - tispark-master
+      - coredns
     image: pingcap/tispark:latest
     command:
       - /opt/spark/sbin/start-slave.sh
@@ -189,9 +192,6 @@ services:
       SPARK_WORKER_WEBUI_PORT: 38081
     ports:
       - "38081:38081"
-    depends_on:
-      - tispark-master
-      - coredns
     restart: on-failure
     networks:
       - simple
@@ -200,15 +200,15 @@ services:
     dns_search: ${DNS_SEARCH}
 
   tidb-vision:
+    depends_on:
+      - fluent-bit
+      - coredns
     image: pingcap/tidb-vision:latest
     environment:
       PD_ENDPOINT: pd0:2379
     ports:
       - "8010:8010"
     restart: on-failure
-    depends_on:
-      - fluentd
-      - coredns
     networks:
       - simple
     dns:

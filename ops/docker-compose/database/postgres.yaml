@@ -11,6 +11,9 @@ services:
 
   postgres:
     <<: *network
+    depends_on:
+      - fluent-bit
+      - coredns
     image: postgres:alpine
     shm_size: 1gb
     init: true
@@ -27,25 +30,22 @@ services:
         ipv4_address: ${DATABASE_IP}
     volumes: []
 #      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
-    depends_on:
-      - fluentd
-      - coredns
 #    logging:
-#      driver: fluentd
+#      driver: fluent-bit
 #      options:
 #        tag: postgres
 
   postgres-exporter:
     <<: *network
+    depends_on:
+      - postgres
+      - fluent-bit
+      - coredns
     image: wrouesnel/postgres_exporter:v0.8.0
     restart: on-failure
     container_name: postgres-exporter
     ports:
       - 9187:9187
-    depends_on:
-      - postgres
-      - fluentd
-      - coredns
     environment:
       - DATA_SOURCE_NAME=postgres://shortlink:shortlink@postgres:5432/?sslmode=disable
 

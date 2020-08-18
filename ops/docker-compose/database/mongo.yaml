@@ -11,6 +11,9 @@ services:
 
   mongo: &mongo
     <<: *network
+    depends_on:
+      - fluent-bit
+      - coredns
     image: mongo:4.4-rc
     init: true
     restart: on-failure
@@ -19,11 +22,8 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_DATABASE: shortlink
-    depends_on:
-      - fluentd
-      - coredns
 #    logging:
-#      driver: fluentd
+#      driver: fluent-bit
 #      options:
 #        tag: mongo
 
