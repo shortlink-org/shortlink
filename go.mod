@@ -30,7 +30,7 @@ require (
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.8.0
 	github.com/markbates/pkger v0.17.0
-	github.com/mattn/go-sqlite3 v1.14.0
+	github.com/mattn/go-sqlite3 v1.14.1
 	github.com/nats-io/nats.go v1.10.0
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
