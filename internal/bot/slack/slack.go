@@ -34,7 +34,7 @@ func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) not
 	switch event {
 	case bot_type.METHOD_SEND_NEW_LINK:
 		{
-			if err := b.Send(payload.(string)); err != nil {
+			if err := b.Send(ctx, payload.(string)); err != nil {
 				return notify.Response{
 					Error: err,
 				}
@@ -47,7 +47,7 @@ func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) not
 	}
 }
 
-func (b *Bot) Send(message string) error {
+func (b *Bot) Send(ctx context.Context, message string) error {
 	requestBody, err := json.Marshal(map[string]string{
 		"text": message,
 	})
@@ -55,16 +55,17 @@ func (b *Bot) Send(message string) error {
 		return err
 	}
 
-	resp, err := http.Post(b.webhook, "application/json", bytes.NewBuffer(requestBody))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, b.webhook, bytes.NewBuffer(requestBody))
 	if err != nil {
 		return err
 	}
 
-	defer resp.Body.Close()
-
-	if resp.StatusCode != 200 {
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil || resp.StatusCode != 200 {
 		return errors.New("Don't send message to slack")
 	}
+
+	defer resp.Body.Close()
 
 	return nil
 }

@@ -191,7 +191,7 @@ func TestDelete(t *testing.T) {
 }
 
 func testRequest(t *testing.T, ts *httptest.Server, method, path string, body io.Reader) (*http.Response, string) { // nolint unparam
-	req, err := http.NewRequest(method, ts.URL+path, body)
+	req, err := http.NewRequestWithContext(context.TODO(), method, ts.URL+path, body)
 	if err != nil {
 		assert.Nil(t, err)
 		return nil, ""
