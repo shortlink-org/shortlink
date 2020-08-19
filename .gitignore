@@ -6,6 +6,10 @@
 *.dylib
 bin/*
 
+# Vendoring
+node_modules
+vendor
+
 # Test binary, build with `go test -c`
 *.test
 
