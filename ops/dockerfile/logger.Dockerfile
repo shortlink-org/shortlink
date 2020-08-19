@@ -6,7 +6,7 @@ WORKDIR /go/src/github/batazor/shortlink
 COPY . .
 
 # Load dependencies
-RUN [! -d "/go/src/github/batazor/shortlink/vendor"] && go mod vendor
+RUN ! -d "/go/src/github/batazor/shortlink/vendor" && go mod vendor
 
 # Build project
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
