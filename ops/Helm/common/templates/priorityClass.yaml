@@ -1,0 +1,21 @@
+---
+# Ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#priorityclass
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority-preempting
+value: 1000000
+preemptionPolicy: PreemptLowerPriority
+globalDefault: false
+description: "This priority class will cause other lower priority pods to be preempted."
+
+---
+# Ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#non-preempting-priority-class
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority-nonpreempting
+value: 1000000
+preemptionPolicy: Never
+globalDefault: false
+description: "This priority class will not cause other pods to be preempted."
