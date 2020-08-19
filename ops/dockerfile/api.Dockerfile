@@ -2,9 +2,13 @@ FROM golang:1.15-alpine as builder
 
 ARG CI_COMMIT_TAG
 
-# Build project
 WORKDIR /go/src/github/batazor/shortlink
 COPY . .
+
+# Load dependencies
+RUN [! -d "/go/src/github/batazor/shortlink/vendor"] && go mod vendor
+
+# Build project
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
   go build \
   -a \
