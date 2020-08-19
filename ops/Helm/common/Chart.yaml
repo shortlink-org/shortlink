@@ -16,7 +16,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: nginx-ingress
-    version: 1.41.2
+    version: 1.41.3
     repository: https://kubernetes-charts.storage.googleapis.com/
     condition: nginx-ingress.enabled
     tags:
