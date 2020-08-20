@@ -18,7 +18,7 @@ minikube-up: ## run minikube for dev mode
 minikube-update: ## update image to last version
 	@eval $(minikube docker-env) # Set docker env
 	@make docker-build           # Build docker images on remote host (minikube)
-	@make helm-deploy            # Deploy shortlink HELM-chart
+	@make helm-shortlink-up      # Deploy shortlink HELM-chart
 
 minikube-down: ## minikube delete
 	@minikube delete
