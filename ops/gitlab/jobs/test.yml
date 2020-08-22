@@ -3,6 +3,7 @@ include:
   - local: /ops/gitlab/jobs/sast.yml
   - local: /ops/gitlab/jobs/dependency.yml
   - template: License-Scanning.gitlab-ci.yml
+  - template: Coverage-Fuzzing.gitlab-ci.yml
 
 # ON COMMIT ============================================================================================================
 gosec:
@@ -42,6 +43,21 @@ golint:
     # Write the code coverage report to gl-code-quality-report.json
     # and print linting issues to stdout in the format: path/to/file:line description
     - golangci-lint run --out-format code-climate | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
+
+go_fuzz_test:
+  extends: .fuzz_base
+  stage: .pre
+  image: registry.gitlab.com/gitlab-org/security-products/analyzers/gitlab-cov-fuzz/golang:1.12-buster-llvm9
+  variables:
+    CI_SEED_CORPUS: './seed_corpus'
+  script:
+    - pwd
+    - cd pkg/domain/link
+    - go-fuzz-build -libfuzzer -o my_fuzz_target.a .
+    - clang -fsanitize=fuzzer my_fuzz_target.a -o my_fuzz_target
+    - ./gitlab-cov-fuzz run --regression=$REGRESSION -- ./my_fuzz_target
+
+
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
