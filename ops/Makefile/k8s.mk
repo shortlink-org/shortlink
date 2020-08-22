@@ -5,9 +5,10 @@ include $(SELF_DIR)/ops/Makefile/k8s.velero.mk
 # KUBERNETES TASKS =====================================================================================================
 PATH_TO_COMMON_CHART := ops/Helm/common
 
-SHORTLINK_NAMESPACE := shortlink
-SHORTLINK_HELM_API := ops/Helm/shortlink-api
-SHORTLINK_HELM_UI := ops/Helm/shortlink-ui
+SHORTLINK_NAMESPACE    := shortlink
+SHORTLINK_HELM_API     := ops/Helm/shortlink-api
+SHORTLINK_HELM_LOGGER  := ops/Helm/shortlink-logger
+SHORTLINK_HELM_UI      := ops/Helm/shortlink-ui
 SHORTLINK_HELM_INGRESS := ops/Helm/ingress
 
 helm-init: ## helm init
@@ -20,6 +21,7 @@ helm-init: ## helm init
 helm-lint: ## Check Helm chart
 	@helm lint ${PATH_TO_COMMON_CHART}
 	@helm lint ${SHORTLINK_HELM_API}
+	@helm lint ${SHORTLINK_HELM_LOGGER}
 	@helm lint ${SHORTLINK_HELM_UI}
 	@helm lint ${SHORTLINK_HELM_INGRESS}
 
