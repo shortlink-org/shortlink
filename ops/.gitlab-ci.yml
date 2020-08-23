@@ -6,8 +6,7 @@ include:
   - local: /ops/gitlab/jobs/build.yml
   - local: /ops/gitlab/jobs/qa.yml
   - local: /ops/gitlab/templates/deploy.yml
-  - local: /ops/gitlab/jobs/deploy-yandex.yml
-  - local: /ops/gitlab/jobs/deploy-aws.yml
+  - local: /ops/gitlab/jobs/deploy.yml
   - local: /ops/gitlab/jobs/release.yml
   - local: /ops/gitlab/jobs/post.yml
 
