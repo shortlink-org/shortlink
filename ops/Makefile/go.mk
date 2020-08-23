@@ -1,16 +1,26 @@
 # GO TASKS =============================================================================================================
 
 generate: ## Code generation
+	# TODO: rewrite as metadata entity
 	# proto generation link entity
 	@protoc -I/usr/local/include -I. \
 	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
 	--go_out=plugins=grpc:. \
 	pkg/domain/link/link.proto
 
+	# proto generation metadata entity
+	@protoc -I/usr/local/include -I. \
+	--go_out=Minternal/metadata/domain/rpc.proto=./internal/proto/grpc_service_config:. \
+	--go-grpc_out=Minternal/metadata/domain/rpc.proto=./internal/proto/grpc_service_config:. \
+	--go_opt=paths=source_relative \
+  --go-grpc_opt=paths=source_relative \
+	internal/metadata/domain/rpc.proto
+
 	@protoc -I/usr/local/include -I. \
     	--gotemplate_out=all=true,template_dir=internal/store/query/template:internal/store/query \
     	pkg/domain/link/link.proto
 
+	# TODO: rewrite as metadata entity
 	# proto generation gRPC-web
 	@protoc -I/usr/local/include -I. \
 	-I=pkg/api/grpc-web \

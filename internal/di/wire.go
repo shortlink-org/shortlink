@@ -264,3 +264,16 @@ func NewBotService(log logger.Logger, mq mq.MQ, autoMaxProcsOption diAutoMaxPro)
 func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 	panic(wire.Build(BotSet))
 }
+
+// MetadataService =====================================================================================================
+var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService)
+
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
+	return &Service{
+		Log: log,
+	}, nil
+}
+
+func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
+	panic(wire.Build(MetadataSet))
+}
