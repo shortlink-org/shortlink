@@ -12,6 +12,8 @@ vendor
 
 # Test binary, build with `go test -c`
 *.test
+*_fuzz_target
+*_fuzz_target.a
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out

@@ -21,6 +21,7 @@ dast:
   stage: accessibility
   variables:
     DAST_WEBSITE: $ENVIRONMENT_URL
+    DAST_FULL_SCAN_ENABLED: "true"
     GITLAB_FEATURES: dast
   rules:
     - if: $CI_COMMIT_TAG

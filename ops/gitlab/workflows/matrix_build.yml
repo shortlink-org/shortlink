@@ -1,0 +1,12 @@
+.matrix_build: &matrix_build
+  parallel:
+    matrix:
+      - APPLICATION: api
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
+        DOCKERFILE_PATH: ops/dockerfile/api.Dockerfile
+      - APPLICATION: logger
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
+        DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
+      - APPLICATION: ui
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
+        DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
