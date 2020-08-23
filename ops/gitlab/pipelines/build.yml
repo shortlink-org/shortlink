@@ -12,7 +12,7 @@ stages:
 build:
   extends:
     - .job_template_build
-    - .matrix_deploy
+    - .matrix_build
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
     DOCKERFILE_PATH: ops/dockerfile/api.Dockerfile
