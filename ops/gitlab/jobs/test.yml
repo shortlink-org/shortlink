@@ -51,11 +51,11 @@ go_fuzz_test:
   variables:
     CI_SEED_CORPUS: './seed_corpus'
   script:
-    - pwd
-    - cd pkg/domain/link
-    - go-fuzz-build -libfuzzer -o my_fuzz_target.a .
-    - clang -fsanitize=fuzzer my_fuzz_target.a -o my_fuzz_target
-    - ./gitlab-cov-fuzz run --regression=$REGRESSION -- ./my_fuzz_target
+    # link package
+    - cd $CI_PROJECT_DIR/pkg/domain/link
+    - go-fuzz-build -libfuzzer -o link_fuzz_target.a .
+    - clang -fsanitize=fuzzer link_fuzz_target.a -o link_fuzz_target
+    - ./gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target
 
 
 
