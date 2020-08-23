@@ -1,5 +1,6 @@
 include:
   - local: /ops/gitlab/templates/deploy.yml
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
 
 stages:
   - deploy
@@ -7,6 +8,7 @@ stages:
 deploy:
   extends:
     - .job_template_deploy
+    - .matrix_deploy
   tags:
     - docker
   environment:

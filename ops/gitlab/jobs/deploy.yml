@@ -1,12 +1,6 @@
 # STAGING RELEASE ======================================================================================================
-aws:api-staging:
+api-staging:
   stage: deploy
-  parallel:
-    matrix:
-      - ENVIRONMENT_NAME: aws-staging
-        ENVIRONMENT_URL: http://aws-example.com
-      - ENVIRONMENT_NAME: yandex-staging
-        ENVIRONMENT_URL: http://yandex-example.com
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
@@ -26,12 +20,6 @@ aws:api-staging:
 
 logger-staging:
   stage: deploy
-  parallel:
-    matrix:
-      - ENVIRONMENT_NAME: aws-staging
-        ENVIRONMENT_URL: http://aws-example.com
-      - ENVIRONMENT_NAME: yandex-staging
-        ENVIRONMENT_URL: http://yandex-example.com
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
@@ -51,12 +39,6 @@ logger-staging:
 
 ui-staging:
   stage: deploy
-  parallel:
-    matrix:
-      - ENVIRONMENT_NAME: aws-staging
-        ENVIRONMENT_URL: http://aws-example.com
-      - ENVIRONMENT_NAME: yandex-staging
-        ENVIRONMENT_URL: http://yandex-example.com
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-ui
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
