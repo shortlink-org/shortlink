@@ -1,7 +1,7 @@
 .matrix_deploy: &matrix_deploy
   parallel:
     matrix:
-      - ENVIRONMENT_NAME: aws-staging
+      - PROVIDER: aws-staging
         ENVIRONMENT_URL: http://aws-example.com
-      - ENVIRONMENT_NAME: yandex-staging
+      - PROVIDER: yandex-staging
         ENVIRONMENT_URL: http://yandex-example.com

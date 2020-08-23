@@ -12,5 +12,5 @@ deploy:
   tags:
     - docker
   environment:
-    name: $ENVIRONMENT_NAME
+    name: $PROVIDER
     url: $ENVIRONMENT_URL
