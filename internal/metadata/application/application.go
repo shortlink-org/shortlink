@@ -17,7 +17,7 @@ func (r *Repository) Get(_ context.Context, url string) (*rpc.Meta, error) {
 	return nil, nil
 }
 
-func (r *Repository) Set(_ context.Context, url string) (*rpc.Meta, error) {
+func (r *Repository) Set(ctx context.Context, url string) (*rpc.Meta, error) {
 	meta := &rpc.Meta{
 		Id: url,
 	}
@@ -46,6 +46,11 @@ func (r *Repository) Set(_ context.Context, url string) (*rpc.Meta, error) {
 	})
 
 	// TODO: Write to DB
+	// write to store
+	//err = meta_store.Store.Add()
+	//if err != nil {
+	//	return nil, err
+	//}
 
 	return meta, nil
 }
