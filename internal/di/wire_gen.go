@@ -150,6 +150,28 @@ func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 	}, nil
 }
 
+func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
+	logger, cleanup, err := InitLogger(ctx)
+	if err != nil {
+		return nil, nil, err
+	}
+	diDiAutoMaxPro, cleanup2, err := InitAutoMaxProcs(logger)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewMetadataService(logger, diDiAutoMaxPro)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return service, func() {
+		cleanup2()
+		cleanup()
+	}, nil
+}
+
 // wire.go:
 
 // Service - heplers
@@ -363,5 +385,14 @@ func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro
 	return &Service{
 		Log: log,
 		MQ:  mq2,
+	}, nil
+}
+
+// MetadataService =====================================================================================================
+var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService)
+
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
+	return &Service{
+		Log: log,
 	}, nil
 }

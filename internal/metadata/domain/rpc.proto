@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package rpc;
+
+option go_package = "internal/metadata/infrastructure/rpc";
+
+service Metadata {
+  rpc Get(GetMetaRequest) returns(GetMetaResponse) {}
+  rpc Set(SetMetaRequest) returns(SetMetaResponse) {}
+}
+
+message GetMetaRequest {
+  string Id = 1;
+}
+
+message GetMetaResponse {
+  Meta meta = 1;
+}
+
+message SetMetaRequest {
+  string Id = 1;
+}
+
+message SetMetaResponse {
+  Meta meta = 1;
+}
+
+message Meta {
+  string Id = 1;
+	string ImageURL = 2;
+	string Description = 3;
+	string Keywords = 4;
+}
