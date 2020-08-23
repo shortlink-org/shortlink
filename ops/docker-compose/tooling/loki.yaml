@@ -22,6 +22,8 @@ services:
       - GF_LOG_CONSOLE_FORMAT=json
     ports:
       - 3100:3100
+    volumes:
+    - ./ops/docker-compose/tooling/loki/local-config.yaml:/etc/loki/local-config.yaml
 
   promtail:
     <<: *network
