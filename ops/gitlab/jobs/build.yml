@@ -1,9 +1,6 @@
 # BUILD IMAGE ==========================================================================================================
 trigger:build_api:
   stage: build
-  variables:
-    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
-    DOCKERFILE_PATH: ops/dockerfile/api.Dockerfile
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/build.yml'
@@ -18,9 +15,6 @@ trigger:build_api:
 
 trigger:build_logger:
   stage: build
-  variables:
-    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
-    DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/build.yml'
@@ -35,9 +29,6 @@ trigger:build_logger:
 
 trigger:build_ui:
   stage: build
-  variables:
-    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
-    DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/build.yml'
