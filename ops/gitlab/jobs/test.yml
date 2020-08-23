@@ -4,6 +4,8 @@ include:
   - local: /ops/gitlab/jobs/dependency.yml
   - template: License-Scanning.gitlab-ci.yml
   - template: Coverage-Fuzzing.gitlab-ci.yml
+  - template: Code-Quality.gitlab-ci.yml
+  - template: Secret-Detection.gitlab-ci.yml
 
 # ON COMMIT ============================================================================================================
 gosec:
