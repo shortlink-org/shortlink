@@ -1,5 +1,5 @@
 include:
-  - template: SAST.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
 
 bandit-sast:
   rules:
