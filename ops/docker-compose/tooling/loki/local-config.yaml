@@ -2,6 +2,7 @@ auth_enabled: false # single tenant mode
 
 server:
   http_listen_port: 3100
+  log_level: error
 
 ingester:
   lifecycler:
