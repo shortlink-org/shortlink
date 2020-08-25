@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 
+	"github.com/batazor/shortlink/internal/api/infrastructure/rpc"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/api/cloudevents"
 	gokit "github.com/batazor/shortlink/pkg/api/go-kit"
@@ -17,7 +18,7 @@ import (
 )
 
 // runAPIServer - start HTTP-server
-func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opentracing.Tracer, rpcServer *grpc.Server) {
+func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opentracing.Tracer, rpcServer *grpc.Server, rpcClient *grpc.ClientConn) {
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
@@ -46,6 +47,12 @@ func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opent
 		server = &cloudevents.API{}
 	default:
 		server = &httpchi.API{}
+	}
+
+	// Register clients
+	_, err := rpc.Use(ctx, rpcClient)
+	if err != nil {
+		log.Fatal(err.Error())
 	}
 
 	if err := server.Run(ctx, config, log, tracer); err != nil {
