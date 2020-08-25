@@ -7,6 +7,7 @@ package di
 import (
 	"context"
 	"fmt"
+	"net"
 	"net/http"
 	"net/http/pprof"
 	"time"
@@ -20,6 +21,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/viper"
 	"go.uber.org/automaxprocs/maxprocs"
+	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
@@ -35,6 +37,7 @@ type Service struct {
 	Sentry        *sentryhttp.Handler
 	DB            store.DB
 	MQ            mq.MQ
+	ServerRPC     *grpc.Server
 	Monitoring    *http.ServeMux
 	PprofEndpoint PprofEndpoint
 }
@@ -214,6 +217,22 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 	return sentryHandler, cleanup, nil
 }
 
+// runGRPC ...
+func runGRPC() (*grpc.Server, error) {
+	viper.SetDefault("GRPC_PORT", "50051") // gRPC port
+	grpc_port := viper.GetInt("GRPC_PORT")
+
+	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", grpc_port))
+	if err != nil {
+		return nil, err
+	}
+
+	rpc := grpc.NewServer()
+	rpc.Serve(lis)
+
+	return rpc, err
+}
+
 // Default =============================================================================================================
 var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 
@@ -266,11 +285,12 @@ func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 }
 
 // MetadataService =====================================================================================================
-var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService)
+var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, runGRPC)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, server *grpc.Server) (*Service, error) {
 	return &Service{
-		Log: log,
+		Log:       log,
+		ServerRPC: server,
 	}, nil
 }
 

@@ -2,7 +2,6 @@ package rpc
 
 import (
 	"context"
-	"net"
 
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
@@ -13,10 +12,6 @@ import (
 
 type MetadataServer struct {
 	rpc.UnimplementedMetadataServer
-
-	config struct {
-		grpc_port string
-	}
 }
 
 func (m *MetadataServer) Get(ctx context.Context, req *rpc.GetMetaRequest) (*rpc.GetMetaResponse, error) {
@@ -43,21 +38,12 @@ func (m *MetadataServer) Set(ctx context.Context, req *rpc.SetMetaRequest) (*rpc
 	}, nil
 }
 
-func New() (*MetadataServer, error) {
+func New(grpcServer *grpc.Server) (*MetadataServer, error) {
 	server := MetadataServer{}
 	server.setConfig()
 
-	// Run gRPC server
-	lis, err := net.Listen("tcp", server.config.grpc_port)
-	if err != nil {
-		return nil, err
-	}
-
-	s := grpc.NewServer()
-	rpc.RegisterMetadataServer(s, &server)
-	if err := s.Serve(lis); err != nil {
-		return nil, err
-	}
+	// Register services
+	rpc.RegisterMetadataServer(grpcServer, &server)
 
 	return &server, nil
 }
@@ -65,6 +51,4 @@ func New() (*MetadataServer, error) {
 // setConfig - set configuration
 func (s *MetadataServer) setConfig() { // nolint unused
 	viper.AutomaticEnv()
-	viper.SetDefault("GRPC_PORT", ":50051") // gRPC port
-	s.config.grpc_port = viper.GetString("GRPC_PORT")
 }
