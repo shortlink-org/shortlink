@@ -30,13 +30,13 @@ func main() {
 	ctx := context.Background()
 
 	// Init a new service
-	_, cleanup, err := di.InitializeMetadataService(ctx)
+	service, cleanup, err := di.InitializeMetadataService(ctx)
 	if err != nil {
 		panic(err)
 	}
 
 	// Run API server
-	_, err = rpc.New()
+	_, err = rpc.New(service.ServerRPC)
 	if err != nil {
 		panic(err)
 	}
