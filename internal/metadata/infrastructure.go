@@ -4,7 +4,6 @@ import (
 	"context"
 
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
-	"github.com/batazor/shortlink/internal/store"
 )
 
 type Store interface {
@@ -12,6 +11,4 @@ type Store interface {
 	Set(context.Context, rpc.Meta) (rpc.Meta, error)
 }
 
-type MetaStore struct {
-	store store.DB
-}
+type MetaStore struct{}
