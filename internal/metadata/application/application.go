@@ -23,7 +23,7 @@ func (r *Repository) Set(ctx context.Context, url string) (*rpc.Meta, error) {
 	}
 
 	// Request the HTML page.
-	resp, err := http.Get(url)
+	resp, err := http.Get(url) // nolint gosec
 	if err != nil {
 		return nil, err
 	}

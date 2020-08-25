@@ -15,7 +15,7 @@ func bindata_read(data []byte, name string) ([]byte, error) {
 	}
 
 	var buf bytes.Buffer
-	_, err = io.Copy(&buf, gz)
+	_, err = io.Copy(&buf, gz) // nolint gosec
 	gz.Close()
 
 	if err != nil {
