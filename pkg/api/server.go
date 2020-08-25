@@ -5,6 +5,7 @@ import (
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
+	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/api/cloudevents"
@@ -16,7 +17,7 @@ import (
 )
 
 // runAPIServer - start HTTP-server
-func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opentracing.Tracer) {
+func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opentracing.Tracer, rpcServer *grpc.Server) {
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
@@ -36,7 +37,9 @@ func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opent
 	case "go-kit":
 		server = &gokit.API{}
 	case "gRPC-web":
-		server = &grpcweb.API{}
+		server = &grpcweb.API{
+			RPC: rpcServer,
+		}
 	case "graphql":
 		server = &graphql.API{}
 	case "cloudevents":
