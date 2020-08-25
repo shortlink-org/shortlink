@@ -218,7 +218,7 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 }
 
 // runGRPC ...
-func runGRPC() (*grpc.Server, error) {
+func runGRPC() (*grpc.Server, func(), error) {
 	viper.SetDefault("GRPC_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_PORT")
 
@@ -230,16 +230,20 @@ func runGRPC() (*grpc.Server, error) {
 	rpc := grpc.NewServer()
 	rpc.Serve(lis)
 
-	return rpc, err
+	cleanup := func() {
+		rpc.GracefulStop()
+	}
+
+	return rpc, cleanup, err
 }
 
 // Default =============================================================================================================
 var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 
 // FullService =========================================================================================================
-var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry)
+var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry, runGRPC)
 
-func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
+func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler, autoMaxProcsOption diAutoMaxPro, server *grpc.Server) (*Service, error) {
 	return &Service{
 		Log:    log,
 		MQ:     mq,
@@ -249,6 +253,7 @@ func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, trac
 		DB:            db,
 		PprofEndpoint: pprofHTTP,
 		Sentry:        sentryHandler,
+		ServerRPC:     server,
 	}, nil
 }
 

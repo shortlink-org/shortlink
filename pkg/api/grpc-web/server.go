@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"net"
 	"net/http"
 	"time"
 
@@ -24,7 +23,7 @@ import (
 type API struct { // nolint unused
 	ctx  context.Context
 	http http.Server
-	rpc  *grpc.Server
+	RPC  *grpc.Server
 }
 
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
@@ -42,11 +41,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	log.Info(fmt.Sprintf("Run gRPC-GateWay on localhost:%d", port))
 
 	// Rug gRPC
-	go func() {
-		if errRunGRPC := api.runGRPC(port); errRunGRPC != nil {
-			log.Fatal(errRunGRPC.Error())
-		}
-	}()
+	RegisterLinkServer(api.RPC, api)
 
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
@@ -92,26 +87,11 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 // Close ...
 func (api *API) Close() error {
-	api.rpc.GracefulStop()
-
 	if err := api.http.Close(); err != nil {
 		return err
 	}
 
 	return nil
-}
-
-// runGRPC ...
-func (api *API) runGRPC(port int) error {
-	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))
-	if err != nil {
-		return err
-	}
-
-	api.rpc = grpc.NewServer()
-	RegisterLinkServer(api.rpc, api)
-	err = api.rpc.Serve(lis)
-	return err
 }
 
 func (api *API) tracingWrapper(h http.Handler) http.Handler {
