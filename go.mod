@@ -10,7 +10,6 @@ require (
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.2007.1
 	github.com/dgraph-io/dgo/v2 v2.2.0
-	github.com/dvyukov/go-fuzz v0.0.0-20200819065627-a253a53b0c63 // indirect
 	github.com/getsentry/sentry-go v0.7.0
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-chi/cors v1.1.1
@@ -21,7 +20,6 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/gocql/gocql v0.0.0-20200815110948-5378c8f664e9
 	github.com/golang-migrate/migrate/v4 v4.12.2
-	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.4.2
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.8.0
@@ -64,10 +62,8 @@ require (
 	golang.org/x/sys v0.0.0-20200824131525-c12d262b63d8 // indirect
 	golang.org/x/tools v0.0.0-20200809012840-6f4f008689da // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	google.golang.org/appengine v1.6.6 // indirect
 	google.golang.org/genproto v0.0.0-20200815001618-f69a88009b70
 	google.golang.org/grpc v1.31.0
-	google.golang.org/grpc/cmd/protoc-gen-go-grpc v0.0.0-20200824180931-410880dd7d91 // indirect
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
