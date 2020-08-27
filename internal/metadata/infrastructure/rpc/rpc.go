@@ -6,14 +6,18 @@ import (
 	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/metadata/application"
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
+	"github.com/batazor/shortlink/internal/store"
 )
 
 type MetadataServer struct {
 	rpc.UnimplementedMetadataServer
+	db store.DB
 }
 
 func (m *MetadataServer) Get(ctx context.Context, req *rpc.GetMetaRequest) (*rpc.GetMetaResponse, error) {
-	service := application.Repository{}
+	service := application.Repository{
+		DB: m.db,
+	}
 	meta, err := service.Get(ctx, req.Id)
 	if err != nil {
 		return nil, err
@@ -25,7 +29,9 @@ func (m *MetadataServer) Get(ctx context.Context, req *rpc.GetMetaRequest) (*rpc
 }
 
 func (m *MetadataServer) Set(ctx context.Context, req *rpc.SetMetaRequest) (*rpc.SetMetaResponse, error) {
-	service := application.Repository{}
+	service := application.Repository{
+		DB: m.db,
+	}
 	meta, err := service.Set(ctx, req.Id)
 	if err != nil {
 		return nil, err
@@ -36,8 +42,10 @@ func (m *MetadataServer) Set(ctx context.Context, req *rpc.SetMetaRequest) (*rpc
 	}, nil
 }
 
-func New(runRPCServer *di.RPCServer) (*MetadataServer, error) {
-	server := MetadataServer{}
+func New(runRPCServer *di.RPCServer, db store.DB) (*MetadataServer, error) {
+	server := MetadataServer{
+		db: db,
+	}
 
 	// Register services
 	rpc.RegisterMetadataServer(runRPCServer.Server, &server)

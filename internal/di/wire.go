@@ -324,12 +324,13 @@ func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 }
 
 // MetadataService =====================================================================================================
-var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, runGRPCServer)
+var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, serverRPC *RPCServer) (*Service, error) {
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db store.DB, serverRPC *RPCServer) (*Service, error) {
 	return &Service{
 		Log:       log,
 		ServerRPC: serverRPC,
+		DB:        db,
 	}, nil
 }
 

@@ -68,9 +68,10 @@ func (r *rpc) Notify(ctx context.Context, event uint32, payload interface{}) not
 				Error:   nil,
 			}
 
-			if link, ok := payload.(*link.Link); ok {
+			// TODO: use URL address?
+			if hash, ok := payload.(string); ok {
 				_, err := r.MetadataClient.Get(ctx, &metadata.GetMetaRequest{
-					Id: link.Url,
+					Id: hash,
 				})
 				if err != nil {
 					resp.Error = err
@@ -79,7 +80,7 @@ func (r *rpc) Notify(ctx context.Context, event uint32, payload interface{}) not
 				return resp
 			}
 
-			resp.Error = errors.New("error parse payload as link.Link")
+			resp.Error = errors.New("error parse payload as string")
 			return resp
 		}
 	}

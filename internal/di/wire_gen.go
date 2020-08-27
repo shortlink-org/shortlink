@@ -187,20 +187,29 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup3, err := runGRPCServer(logger)
+	db, cleanup3, err := InitStore(ctx, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewMetadataService(logger, diDiAutoMaxPro, rpcServer)
+	rpcServer, cleanup4, err := runGRPCServer(logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewMetadataService(logger, diDiAutoMaxPro, db, rpcServer)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -480,11 +489,12 @@ func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro
 }
 
 // MetadataService =====================================================================================================
-var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, runGRPCServer)
+var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, serverRPC *RPCServer) (*Service, error) {
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db store.DB, serverRPC *RPCServer) (*Service, error) {
 	return &Service{
 		Log:       log,
 		ServerRPC: serverRPC,
+		DB:        db,
 	}, nil
 }
