@@ -63,7 +63,7 @@ func (r *rpc) Notify(ctx context.Context, event uint32, payload interface{}) not
 	case api_type.METHOD_GET:
 		{
 			resp := notify.Response{
-				Name:    "RESPONSE_RPC_ADD",
+				Name:    "RESPONSE_RPC_GET",
 				Payload: payload,
 				Error:   nil,
 			}
