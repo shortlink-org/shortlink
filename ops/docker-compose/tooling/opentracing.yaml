@@ -5,7 +5,7 @@ services:
     depends_on:
       - cassandra-schema
       - coredns
-    image: jaegertracing/jaeger-collector
+    image: jaegertracing/jaeger-collector:${JAEGER_VERSION}
     command: ["--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra", "--collector.zipkin.http-port=9411"]
     container_name: jaeger-collector
     ports:
@@ -23,7 +23,7 @@ services:
     depends_on:
       - cassandra-schema
       - coredns
-    image: jaegertracing/jaeger-query
+    image: jaegertracing/jaeger-query:${JAEGER_VERSION}
     command: ["--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra"]
     container_name: jaeger-query
     ports:
@@ -40,7 +40,7 @@ services:
     depends_on:
       - coredns
       - jaeger-collector
-    image: jaegertracing/jaeger-agent
+    image: jaegertracing/jaeger-agent:${JAEGER_VERSION}
     command: ["--reporter.grpc.host-port=jaeger-collector:14250"]
     container_name: jaeger-agent
     ports:
