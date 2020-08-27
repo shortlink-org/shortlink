@@ -2,7 +2,6 @@ package rpc
 
 import (
 	"context"
-	"errors"
 
 	"google.golang.org/grpc"
 
@@ -43,12 +42,17 @@ func (r *rpc) Notify(ctx context.Context, event uint32, payload interface{}) not
 			Id: "https://github.com",
 		})
 		if err != nil {
+			return notify.Response{
+				Name:    "RESPONSE_RPC_ADD",
+				Payload: payload,
+				Error:   err,
+			}
 		}
 
 		return notify.Response{
 			Name:    "RESPONSE_RPC_ADD",
 			Payload: payload,
-			Error:   errors.New("failed assert type"),
+			Error:   nil,
 		}
 	}
 

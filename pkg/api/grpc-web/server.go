@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/freeport"
 	"github.com/batazor/shortlink/internal/logger"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 
@@ -32,14 +31,6 @@ var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-ga
 // Run HTTP-server
 func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
 	api.ctx = ctx
-
-	// Get free port
-	port, err := freeport.GetFreePort()
-	if err != nil {
-		return err
-	}
-
-	log.Info(fmt.Sprintf("Run gRPC-GateWay on localhost:%d", port))
 
 	// Rug gRPC
 	RegisterLinkServer(api.RPC.Server, api)
@@ -66,7 +57,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 			),
 		),
 	}
-	err = RegisterLinkHandlerFromEndpoint(ctx, gw, fmt.Sprintf("localhost:%d", port), opts)
+	err := RegisterLinkHandlerFromEndpoint(ctx, gw, api.RPC.Endpoint, opts)
 	if err != nil {
 		return err
 	}

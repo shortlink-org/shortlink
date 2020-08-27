@@ -228,8 +228,9 @@ type PprofEndpoint *http.ServeMux
 type diAutoMaxPro *string
 
 type RPCServer struct {
-	Run    func()
-	Server *grpc.Server
+	Run      func()
+	Server   *grpc.Server
+	Endpoint string
 }
 
 // InitAutoMaxProcs - Automatically set GOMAXPROCS to match Linux container CPU quota
@@ -396,7 +397,8 @@ func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
 	viper.SetDefault("GRPC_SERVER_PORT", "50051")
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
-	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", grpc_port))
+	endpoint := fmt.Sprintf("localhost:%d", grpc_port)
+	lis, err := net.Listen("tcp", endpoint)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -409,6 +411,7 @@ func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
 			go rpc.Serve(lis)
 			log.Info("Run gRPC server", logger.Fields{"port": grpc_port})
 		},
+		Endpoint: endpoint,
 	}
 
 	cleanup := func() {
