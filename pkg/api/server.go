@@ -8,6 +8,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/rpc"
+	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/pkg/api/cloudevents"
 	gokit "github.com/batazor/shortlink/pkg/api/go-kit"
@@ -18,7 +19,7 @@ import (
 )
 
 // runAPIServer - start HTTP-server
-func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opentracing.Tracer, rpcServer *grpc.Server, rpcClient *grpc.ClientConn) {
+func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer opentracing.Tracer, rpcServer *di.RPCServer, rpcClient *grpc.ClientConn) {
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit

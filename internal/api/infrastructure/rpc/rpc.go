@@ -39,7 +39,9 @@ func (r *rpc) Notify(ctx context.Context, event uint32, payload interface{}) not
 	switch event {
 	case api_type.METHOD_ADD:
 		// TODO: do it!!!
-		_, err := r.MetadataClient.Set(ctx, &metadata.SetMetaRequest{})
+		_, err := r.MetadataClient.Set(ctx, &metadata.SetMetaRequest{
+			Id: "https://github.com",
+		})
 		if err != nil {
 		}
 

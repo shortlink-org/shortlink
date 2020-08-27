@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/freeport"
 	"github.com/batazor/shortlink/internal/logger"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
@@ -23,7 +24,7 @@ import (
 type API struct { // nolint unused
 	ctx  context.Context
 	http http.Server
-	RPC  *grpc.Server
+	RPC  *di.RPCServer
 }
 
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
@@ -41,7 +42,8 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	log.Info(fmt.Sprintf("Run gRPC-GateWay on localhost:%d", port))
 
 	// Rug gRPC
-	RegisterLinkServer(api.RPC, api)
+	RegisterLinkServer(api.RPC.Server, api)
+	api.RPC.Run()
 
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
