@@ -3,9 +3,7 @@ package rpc
 import (
 	"context"
 
-	"github.com/spf13/viper"
-	"google.golang.org/grpc"
-
+	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/metadata/application"
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
 )
@@ -38,17 +36,12 @@ func (m *MetadataServer) Set(ctx context.Context, req *rpc.SetMetaRequest) (*rpc
 	}, nil
 }
 
-func New(grpcServer *grpc.Server) (*MetadataServer, error) {
+func New(runRPCServer *di.RPCServer) (*MetadataServer, error) {
 	server := MetadataServer{}
-	server.setConfig()
 
 	// Register services
-	rpc.RegisterMetadataServer(grpcServer, &server)
+	rpc.RegisterMetadataServer(runRPCServer.Server, &server)
+	runRPCServer.Run()
 
 	return &server, nil
-}
-
-// setConfig - set configuration
-func (s *MetadataServer) setConfig() { // nolint unused
-	viper.AutomaticEnv()
 }

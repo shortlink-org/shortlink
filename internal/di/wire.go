@@ -37,7 +37,7 @@ type Service struct {
 	Sentry        *sentryhttp.Handler
 	DB            store.DB
 	MQ            mq.MQ
-	ServerRPC     *grpc.Server
+	ServerRPC     *RPCServer
 	ClientRPC     *grpc.ClientConn
 	Monitoring    *http.ServeMux
 	PprofEndpoint PprofEndpoint
@@ -46,6 +46,11 @@ type Service struct {
 type PprofEndpoint *http.ServeMux
 
 type diAutoMaxPro *string
+
+type RPCServer struct {
+	Run    func()
+	Server *grpc.Server
+}
 
 // InitAutoMaxProcs - Automatically set GOMAXPROCS to match Linux container CPU quota
 func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
@@ -219,7 +224,7 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 }
 
 // runGRPCServer ...
-func runGRPCServer() (*grpc.Server, func(), error) {
+func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
@@ -229,13 +234,20 @@ func runGRPCServer() (*grpc.Server, func(), error) {
 	}
 
 	rpc := grpc.NewServer()
-	rpc.Serve(lis)
+
+	r := &RPCServer{
+		Server: rpc,
+		Run: func() {
+			go rpc.Serve(lis)
+			log.Info("Run gRPC server", logger.Fields{"port": grpc_port})
+		},
+	}
 
 	cleanup := func() {
 		rpc.GracefulStop()
 	}
 
-	return rpc, cleanup, err
+	return r, cleanup, err
 }
 
 // runGRPCClient - set up a connection to the server.
@@ -261,7 +273,7 @@ var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry, runGRPCServer, runGRPCClient)
 
-func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler, autoMaxProcsOption diAutoMaxPro, serverRPC *grpc.Server, clientRPC *grpc.ClientConn) (*Service, error) {
+func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler, autoMaxProcsOption diAutoMaxPro, serverRPC *RPCServer, clientRPC *grpc.ClientConn) (*Service, error) {
 	return &Service{
 		Log:    log,
 		MQ:     mq,
@@ -311,10 +323,10 @@ func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, runGRPCServer)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, server *grpc.Server) (*Service, error) {
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, serverRPC *RPCServer) (*Service, error) {
 	return &Service{
 		Log:       log,
-		ServerRPC: server,
+		ServerRPC: serverRPC,
 	}, nil
 }
 
