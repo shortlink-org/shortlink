@@ -36,7 +36,7 @@ func main() {
 	}
 
 	// Run API server
-	_, err = rpc.New(service.ServerRPC)
+	_, err = rpc.New(service.ServerRPC, service.DB)
 	if err != nil {
 		panic(err)
 	}

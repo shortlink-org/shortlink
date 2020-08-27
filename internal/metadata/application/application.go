@@ -7,14 +7,24 @@ import (
 	"github.com/PuerkitoBio/goquery"
 
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
+	"github.com/batazor/shortlink/internal/store"
 )
 
-type Repository struct{}
+type Repository struct {
+	DB store.DB
+}
 
-func (r *Repository) Get(_ context.Context, url string) (*rpc.Meta, error) {
-	// TODO: Store.Get
+func (r *Repository) Get(ctx context.Context, hash string) (*rpc.Meta, error) {
+	// TODO: Correct read store
+	link, err := r.DB.Get(ctx, hash)
+	if err != nil {
+		return nil, err
+	}
 
-	return nil, nil
+	return &rpc.Meta{
+		Id:          hash,
+		Description: link.Describe,
+	}, nil
 }
 
 func (r *Repository) Set(ctx context.Context, url string) (*rpc.Meta, error) {
@@ -46,8 +56,9 @@ func (r *Repository) Set(ctx context.Context, url string) (*rpc.Meta, error) {
 	})
 
 	// TODO: Write to DB
-	// write to store
-	//err = meta_store.Store.Add()
+	//_, err = r.DB.Add(ctx, &link.Link{
+	//	Url:       url,
+	//})
 	//if err != nil {
 	//	return nil, err
 	//}
