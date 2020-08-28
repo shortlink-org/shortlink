@@ -55,7 +55,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	db, cleanup5, err := InitStore(ctx, logger)
+	store, cleanup5, err := InitStore(ctx, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -63,7 +63,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkStore, err := InitLinkStore(ctx, logger, db)
+	linkStore, err := InitLinkStore(ctx, logger, store)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -103,7 +103,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewFullService(logger, mq, serveMux, tracer, db, linkStore, pprofEndpoint, handler, diDiAutoMaxPro, rpcServer, clientConn)
+	service, err := NewFullService(logger, mq, serveMux, tracer, store, linkStore, pprofEndpoint, handler, diDiAutoMaxPro, rpcServer, clientConn)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -197,7 +197,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	db, cleanup3, err := InitStore(ctx, logger)
+	store, cleanup3, err := InitStore(ctx, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -210,7 +210,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewMetadataService(logger, diDiAutoMaxPro, db, rpcServer)
+	service, err := NewMetadataService(logger, diDiAutoMaxPro, store, rpcServer)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -234,7 +234,7 @@ type Service struct {
 	Tracer opentracing.Tracer
 	// TracerClose func()
 	Sentry        *sentryhttp.Handler
-	DB            db.DB
+	DB            *db.Store
 	LinkStore     *store.LinkStore
 	MQ            mq.MQ
 	ServerRPC     *RPCServer
@@ -270,7 +270,7 @@ func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
 }
 
 // InitStore return db
-func InitStore(ctx context.Context, log logger.Logger) (db.DB, func(), error) {
+func InitStore(ctx context.Context, log logger.Logger) (*db.Store, func(), error) {
 	var st db.Store
 	db2, err := st.Use(ctx, log)
 	if err != nil {
@@ -278,7 +278,7 @@ func InitStore(ctx context.Context, log logger.Logger) (db.DB, func(), error) {
 	}
 
 	cleanup := func() {
-		if err := db2.Close(); err != nil {
+		if err := db2.Store.Close(); err != nil {
 			log.Error(err.Error())
 		}
 	}
@@ -287,10 +287,8 @@ func InitStore(ctx context.Context, log logger.Logger) (db.DB, func(), error) {
 }
 
 // InitLinkStore
-func InitLinkStore(ctx context.Context, log logger.Logger, conn db.DB) (*store.LinkStore, error) {
-	st := store.LinkStore{
-		Store: conn,
-	}
+func InitLinkStore(ctx context.Context, log logger.Logger, conn *db.Store) (*store.LinkStore, error) {
+	st := store.LinkStore{}
 	linkStore, err := st.Use(ctx, log, conn)
 	if err != nil {
 		return nil, err
@@ -481,8 +479,7 @@ func NewFullService(
 	log logger.Logger, mq2 mq.MQ,
 
 	monitoring *http.ServeMux,
-	tracer opentracing.Tracer, db2 db.DB,
-
+	tracer opentracing.Tracer, db2 *db.Store,
 	linkStore *store.LinkStore,
 	pprofHTTP PprofEndpoint,
 	sentryHandler *sentryhttp.Handler,
@@ -528,7 +525,7 @@ func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db2 db.DB, serverRPC *RPCServer) (*Service, error) {
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db2 *db.Store, serverRPC *RPCServer) (*Service, error) {
 	return &Service{
 		Log:       log,
 		ServerRPC: serverRPC,

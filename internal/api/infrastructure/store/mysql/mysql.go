@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/jmoiron/sqlx"
 	"github.com/spf13/viper"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -13,44 +12,6 @@ import (
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 )
-
-// Init ...
-func (m *Store) Init(ctx context.Context) error {
-	var err error
-
-	// Set configuration
-	m.setConfig()
-
-	if m.client, err = sqlx.Connect("mysql", m.config.URI); err != nil {
-		return err
-	}
-
-	sqlStmt := `
-		CREATE TABLE IF NOT EXISTS links (
-			id          int NOT NULL AUTO_INCREMENT,
-			url         varchar(255) NOT NULL,
-			hash        varchar(255) NOT NULL,
-			description text NULL,
-			PRIMARY KEY (id)
-		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-	`
-
-	if _, err = m.client.Exec(sqlStmt); err != nil {
-		panic(err)
-	}
-
-	return nil
-}
-
-// Close ...
-func (m *Store) Close() error {
-	return m.client.Close()
-}
-
-// Migrate ...
-func (m *Store) migrate() error { // nolint unused
-	return nil
-}
 
 // Get ...
 func (m *Store) Get(ctx context.Context, id string) (*link.Link, error) {

@@ -23,31 +23,6 @@ type Store struct { // nolint unused
 	config Config
 }
 
-// Init ...
-func (l *Store) Init(ctx context.Context) error {
-	var err error
-
-	// Set configuration
-	l.setConfig()
-
-	l.client, err = leveldb.OpenFile("/tmp/links.db", nil)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Close ...
-func (l *Store) Close() error {
-	return l.client.Close()
-}
-
-// Migrate ...
-func (l *Store) migrate() error { // nolint unused
-	return nil
-}
-
 // Add ...
 func (l *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link

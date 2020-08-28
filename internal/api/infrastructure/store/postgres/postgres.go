@@ -4,125 +4,22 @@ package postgres
 
 import (
 	"context"
-	"database/sql"
 	"encoding/json"
-	"errors"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	"github.com/golang-migrate/migrate/v4/source/go_bindata"
-	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
-	"github.com/batazor/shortlink/internal/api/infrastructure/store/postgres/migrations"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
-	"github.com/batazor/shortlink/internal/batch"
 	"github.com/batazor/shortlink/internal/db/options"
 )
 
 var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
-
-// Init ...
-func (p *Store) Init(ctx context.Context) error {
-	var err error
-
-	// Set configuration
-	p.setConfig()
-
-	// Apply migration
-	err = p.migrate()
-	if err != nil {
-		return err
-	}
-
-	// Connect to Postgres
-	if p.client, err = pgxpool.Connect(ctx, p.config.URI); err != nil {
-		return err
-	}
-
-	// Create batch job
-	if p.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) interface{} {
-			sources := make([]*link.Link, len(args))
-
-			for key := range args {
-				sources[key] = args[key].Item.(*link.Link)
-			}
-
-			dataList, errBatchWrite := p.batchWrite(ctx, sources)
-			if errBatchWrite != nil {
-				for index := range args {
-					// TODO: add logs for error
-					args[index].CB <- errors.New("Error write to PostgreSQL")
-				}
-				return errBatchWrite
-			}
-
-			for key, item := range dataList {
-				args[key].CB <- item
-			}
-
-			return nil
-		}
-		p.config.job, err = batch.New(ctx, cb)
-		if err != nil {
-			return err
-		}
-
-		go p.config.job.Run(ctx)
-	}
-
-	return nil
-}
-
-// Close ...
-func (p *Store) Close() error { // nolint unparam
-	p.client.Close()
-	return nil
-}
-
-// Migrate ...
-func (p *Store) migrate() error { // nolint unused
-	// Create connect
-	db, err := sql.Open("postgres", p.config.URI)
-	if err != nil {
-		return err
-	}
-
-	// wrap assets into Resource
-	s := bindata.Resource(migrations.AssetNames(),
-		func(name string) ([]byte, error) {
-			return migrations.Asset(name)
-		})
-
-	driver, err := bindata.WithInstance(s)
-	if err != nil {
-		return err
-	}
-
-	m, err := migrate.NewWithSourceInstance("go-bindata", driver, p.config.URI)
-	if err != nil {
-		return err
-	}
-
-	err = m.Up()
-	if err != nil && err.Error() != "no change" {
-		return err
-	}
-
-	err = db.Close()
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
 
 // Get ...
 func (p *Store) Get(ctx context.Context, id string) (*link.Link, error) {

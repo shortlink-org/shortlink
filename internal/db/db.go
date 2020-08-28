@@ -25,40 +25,40 @@ import (
 )
 
 // Use return implementation of db
-func (store *Store) Use(ctx context.Context, log logger.Logger) (DB, error) { // nolint unused
+func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) { // nolint unused
 	// Set configuration
 	store.setConfig()
 
 	switch store.typeStore {
 	case "postgres":
-		store.store = &postgres.Store{}
+		store.Store = &postgres.Store{}
 	case "mongo":
-		store.store = &mongo.Store{}
+		store.Store = &mongo.Store{}
 	case "mysql":
-		store.store = &mysql.Store{}
+		store.Store = &mysql.Store{}
 	case "redis":
-		store.store = &redis.Store{}
+		store.Store = &redis.Store{}
 	case "dgraph":
-		store.store = &dgraph.Store{}
+		store.Store = &dgraph.Store{}
 	case "sqlite":
-		store.store = &sqlite.Store{}
+		store.Store = &sqlite.Store{}
 	case "leveldb":
-		store.store = &leveldb.Store{}
+		store.Store = &leveldb.Store{}
 	case "badger":
-		store.store = &badger.Store{}
+		store.Store = &badger.Store{}
 	case "cassandra":
-		store.store = &cassandra.Store{}
+		store.Store = &cassandra.Store{}
 	case "scylla":
-		store.store = &scylla.Store{}
+		store.Store = &scylla.Store{}
 	case "rethinkdb":
-		store.store = &rethinkdb.Store{}
+		store.Store = &rethinkdb.Store{}
 	case "ram":
-		store.store = &ram.Store{}
+		store.Store = &ram.Store{}
 	default:
-		store.store = &ram.Store{}
+		store.Store = &ram.Store{}
 	}
 
-	if err := store.store.Init(ctx); err != nil {
+	if err := store.Store.Init(ctx); err != nil {
 		return nil, err
 	}
 
@@ -66,7 +66,7 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (DB, error) { //
 		"db": store.typeStore,
 	})
 
-	return store.store, nil
+	return store, nil
 }
 
 // setConfig - set configuration

@@ -5,7 +5,6 @@ import (
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
-	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/notify"
 )
 
@@ -20,9 +19,7 @@ type Repository interface {
 // Store abstract type
 type LinkStore struct { // nolint unused
 	typeStore string
-	Store     db.DB
-
-	Repository
+	Store     Repository
 
 	// system event
 	notify.Subscriber // Observer interface for subscribe on system event

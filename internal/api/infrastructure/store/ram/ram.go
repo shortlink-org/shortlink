@@ -27,48 +27,6 @@ type Store struct { // nolint unused
 	config Config
 }
 
-// Init ...
-func (ram *Store) Init(ctx context.Context) error { // nolint unparam
-	var err error
-
-	// Set configuration
-	ram.setConfig()
-
-	// Create batch job
-	if ram.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) interface{} {
-			if len(args) == 0 {
-				return nil
-			}
-
-			for key := range args {
-				source := args[key].Item.(*link.Link)
-				data, errSingleWrite := ram.singleWrite(ctx, source)
-				if errSingleWrite != nil {
-					return errSingleWrite
-				}
-
-				args[key].CB <- data
-			}
-
-			return nil
-		}
-		ram.config.job, err = batch.New(ctx, cb)
-		if err != nil {
-			return err
-		}
-
-		go ram.config.job.Run(ctx)
-	}
-
-	return nil
-}
-
-// Close ...
-func (ram *Store) Close() error {
-	return nil
-}
-
 // Migrate ...
 func (ram *Store) migrate() error { // nolint unused
 	return nil
