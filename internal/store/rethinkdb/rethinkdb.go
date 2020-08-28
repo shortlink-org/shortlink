@@ -7,9 +7,9 @@ import (
 	"github.com/spf13/viper"
 	"gopkg.in/rethinkdb/rethinkdb-go.v6"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/store/query"
 	"github.com/batazor/shortlink/internal/tool"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // RethinkDBConfig ...

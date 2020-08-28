@@ -4,15 +4,15 @@ generate: ## Code generation
 	# proto generation link entity
 	@protoc -I/usr/local/include -I. \
 	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
-	--go_out=Mpkg/domain/link/link.proto=./internal/proto/grpc_service_config:. \
-	--go-grpc_out=Mpkg/domain/link/link.proto=./internal/proto/grpc_service_config:. \
+	--go_out=Minternal/api/domain/link/link.proto=./internal/proto/grpc_service_config:. \
+	--go-grpc_out=Minternal/api/domain/link/link.proto=./internal/proto/grpc_service_config:. \
 	--go_opt=paths=source_relative \
   --go-grpc_opt=paths=source_relative \
-	pkg/domain/link/link.proto
+	internal/api/domain/link/link.proto
 
 	@protoc -I/usr/local/include -I. \
     	--gotemplate_out=all=true,template_dir=internal/store/query/template:internal/store/query \
-    	pkg/domain/link/link.proto
+    	internal/api/domain/link/link.proto
 
 	# proto generation metadata entity
 	@protoc -I/usr/local/include -I. \

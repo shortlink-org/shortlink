@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 func isFilterSuccess(link *link.Link, filter *query.Filter) bool {

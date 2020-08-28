@@ -13,6 +13,7 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/bot"
 	bot_type "github.com/batazor/shortlink/internal/bot/type"
 	"github.com/batazor/shortlink/internal/config"
@@ -21,7 +22,6 @@ import (
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq/query"
 	"github.com/batazor/shortlink/internal/notify"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 func init() {

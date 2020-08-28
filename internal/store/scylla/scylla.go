@@ -11,8 +11,8 @@ import (
 	"github.com/scylladb/gocqlx/qb"
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // ScyllaConfig ...

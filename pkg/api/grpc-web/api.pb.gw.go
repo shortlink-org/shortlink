@@ -13,7 +13,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/batazor/shortlink/pkg/domain/link"
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/golang/protobuf/descriptor"
 	"github.com/golang/protobuf/proto"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
