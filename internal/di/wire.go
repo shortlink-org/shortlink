@@ -23,9 +23,10 @@ import (
 	"go.uber.org/automaxprocs/maxprocs"
 	"google.golang.org/grpc"
 
+	"github.com/batazor/shortlink/internal/api/infrastructure/store"
+	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
-	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
 )
 
@@ -35,7 +36,8 @@ type Service struct {
 	Tracer opentracing.Tracer
 	// TracerClose func()
 	Sentry        *sentryhttp.Handler
-	DB            store.DB
+	DB            db.DB
+	LinkStore     *store.LinkStore
 	MQ            mq.MQ
 	ServerRPC     *RPCServer
 	ClientRPC     *grpc.ClientConn
@@ -69,9 +71,9 @@ func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
 	return nil, cleanup, nil
 }
 
-// InitStore return store
-func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error) {
-	var st store.Store
+// InitStore return db
+func InitStore(ctx context.Context, log logger.Logger) (db.DB, func(), error) {
+	var st db.Store
 	db, err := st.Use(ctx, log)
 	if err != nil {
 		return nil, nil, err
@@ -84,6 +86,19 @@ func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error)
 	}
 
 	return db, cleanup, nil
+}
+
+// InitLinkStore
+func InitLinkStore(ctx context.Context, log logger.Logger, conn db.DB) (*store.LinkStore, error) {
+	st := store.LinkStore{
+		Store: conn,
+	}
+	linkStore, err := st.Use(ctx, log, conn)
+	if err != nil {
+		return nil, err
+	}
+
+	return linkStore, nil
 }
 
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
@@ -258,6 +273,8 @@ func runGRPCClient() (*grpc.ClientConn, func(), error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
+	// TODO: fix sleep if not find connect
+	// TODO: Do async model
 	conn, err := grpc.Dial(fmt.Sprintf("localhost:%d", grpc_port), grpc.WithInsecure(), grpc.WithBlock())
 	if err != nil {
 		return nil, nil, err
@@ -274,9 +291,21 @@ func runGRPCClient() (*grpc.ClientConn, func(), error) {
 var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 
 // FullService =========================================================================================================
-var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry, runGRPCServer, runGRPCClient)
+var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry, runGRPCServer, runGRPCClient, InitLinkStore)
 
-func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler, autoMaxProcsOption diAutoMaxPro, serverRPC *RPCServer, clientRPC *grpc.ClientConn) (*Service, error) {
+func NewFullService(
+	log logger.Logger,
+	mq mq.MQ,
+	monitoring *http.ServeMux,
+	tracer opentracing.Tracer,
+	db db.DB,
+	linkStore *store.LinkStore,
+	pprofHTTP PprofEndpoint,
+	sentryHandler *sentryhttp.Handler,
+	autoMaxProcsOption diAutoMaxPro,
+	serverRPC *RPCServer,
+	clientRPC *grpc.ClientConn,
+) (*Service, error) {
 	return &Service{
 		Log:    log,
 		MQ:     mq,
@@ -284,6 +313,7 @@ func NewFullService(log logger.Logger, mq mq.MQ, monitoring *http.ServeMux, trac
 		// TracerClose: cleanup,
 		Monitoring:    monitoring,
 		DB:            db,
+		LinkStore:     linkStore,
 		PprofEndpoint: pprofHTTP,
 		Sentry:        sentryHandler,
 		ClientRPC:     clientRPC,
@@ -326,7 +356,7 @@ func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db store.DB, serverRPC *RPCServer) (*Service, error) {
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db db.DB, serverRPC *RPCServer) (*Service, error) {
 	return &Service{
 		Log:       log,
 		ServerRPC: serverRPC,

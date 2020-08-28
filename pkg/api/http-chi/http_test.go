@@ -14,9 +14,9 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
 
+	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/notify"
-	"github.com/batazor/shortlink/internal/store"
 )
 
 func TestMain(m *testing.M) {
@@ -56,9 +56,9 @@ func TestAdd(t *testing.T) {
 		assert.Equal(t, body, response)
 	})
 
-	t.Run("with store", func(t *testing.T) {
-		// add store
-		var st store.Store
+	t.Run("with db", func(t *testing.T) {
+		// add db
+		var st db.Store
 		st.Use(ctx, log)
 
 		payload, err := json.Marshal(addRequest{
@@ -69,7 +69,7 @@ func TestAdd(t *testing.T) {
 		_, body := testRequest(t, ts, "POST", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.NotNil(t, body)
 
-		// clean store subscribe
+		// clean db subscribe
 		notify.Clean()
 	})
 }
@@ -96,16 +96,16 @@ func TestGet(t *testing.T) {
 		assert.Equal(t, body, response)
 	})
 
-	t.Run("with store", func(t *testing.T) {
-		// add store
-		var st store.Store
+	t.Run("with db", func(t *testing.T) {
+		// add db
+		var st db.Store
 		st.Use(ctx, log)
 
 		response := `{"error": "Not found link: hash"}`
 		_, body := testRequest(t, ts, "GET", "/hash", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 
-		// clean store subscribe
+		// clean db subscribe
 		notify.Clean()
 	})
 }
@@ -132,16 +132,16 @@ func TestList(t *testing.T) {
 		assert.Equal(t, body, response)
 	})
 
-	t.Run("with store", func(t *testing.T) {
-		// add store
-		var st store.Store
+	t.Run("with db", func(t *testing.T) {
+		// add db
+		var st db.Store
 		st.Use(ctx, log)
 
 		response := `null`
 		_, body := testRequest(t, ts, "GET", "/links", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 
-		// clean store subscribe
+		// clean db subscribe
 		notify.Clean()
 	})
 }
@@ -172,9 +172,9 @@ func TestDelete(t *testing.T) {
 		assert.Equal(t, body, response)
 	})
 
-	t.Run("with store", func(t *testing.T) {
-		// add store
-		var st store.Store
+	t.Run("with db", func(t *testing.T) {
+		// add db
+		var st db.Store
 		st.Use(ctx, log)
 
 		payload, err := json.Marshal(deleteRequest{
@@ -185,7 +185,7 @@ func TestDelete(t *testing.T) {
 		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.Equal(t, body, response)
 
-		// clean store subscribe
+		// clean db subscribe
 		notify.Clean()
 	})
 }

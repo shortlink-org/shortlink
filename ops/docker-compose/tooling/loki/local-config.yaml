@@ -15,13 +15,13 @@ ingester:
     final_sleep: 0s
     heartbeat_period: 5s
 
-  query_store_max_look_back_period: -1  # This will allow the ingesters to query the store for all data
+  query_store_max_look_back_period: -1  # This will allow the ingesters to query the db for all data
 
-  chunk_idle_period: 2h      # Let chunks sit idle for at least 2h before flushing, this helps to reduce total chunks in store
+  chunk_idle_period: 2h      # Let chunks sit idle for at least 2h before flushing, this helps to reduce total chunks in db
   chunk_retain_period: 30s
-  max_chunk_age: 2h          # Let chunks get at least 2h old before flushing due to age, this helps to reduce total chunks in store
+  max_chunk_age: 2h          # Let chunks get at least 2h old before flushing due to age, this helps to reduce total chunks in db
   max_transfer_retries: 0    # Disable blocks transfers on ingesters shutdown or rollout.
-  chunk_target_size: 1048576 # Target chunks of 1MB, this helps to reduce total chunks in store
+  chunk_target_size: 1048576 # Target chunks of 1MB, this helps to reduce total chunks in db
 
 schema_config:
   configs:
@@ -46,7 +46,7 @@ limits_config:
   reject_old_samples_max_age: 168h
 
 chunk_store_config:
-  max_look_back_period: 0s   # No limit how far we can look back in the store
+  max_look_back_period: 0s   # No limit how far we can look back in the db
 
 table_manager:
   retention_deletes_enabled: true

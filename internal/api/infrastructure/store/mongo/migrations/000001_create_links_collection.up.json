@@ -1,0 +1,41 @@
+[
+  {
+    "create": "links"
+  },
+  {
+    "collMod": "links",
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "required": ["url", "hash"],
+        "properties": {
+          "url": {
+            "bsonType": "string",
+            "description": "URL must be type string"
+          },
+          "hash": {
+            "bsonType": "string",
+            "description": "hash must be type string"
+          },
+          "describe": {
+            "bsonType": "string",
+            "description": "describe must be type string"
+          }
+        }
+      }
+    }
+  },
+  {
+    "createIndexes": "links",
+    "indexes": [
+      {
+        "key": {
+          "url": 1,
+          "hash": 1
+        },
+        "name": "link_details",
+        "unique": true
+      }
+    ]
+  }
+]

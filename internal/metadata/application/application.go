@@ -6,16 +6,16 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 
+	"github.com/batazor/shortlink/internal/db"
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
-	"github.com/batazor/shortlink/internal/store"
 )
 
 type Repository struct {
-	DB store.DB
+	DB db.DB
 }
 
 func (r *Repository) Get(ctx context.Context, hash string) (*rpc.Meta, error) {
-	// TODO: Correct read store
+	// TODO: Correct read db
 	link, err := r.DB.Get(ctx, hash)
 	if err != nil {
 		return nil, err
