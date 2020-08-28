@@ -23,9 +23,10 @@ import (
 	"go.uber.org/automaxprocs/maxprocs"
 	"google.golang.org/grpc"
 
-	"github.com/batazor/shortlink/internal/api/infrastructure/store"
+	link_store "github.com/batazor/shortlink/internal/api/infrastructure/store"
 	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
+	meta_store "github.com/batazor/shortlink/internal/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/internal/mq"
 	"github.com/batazor/shortlink/internal/traicing"
 )
@@ -37,7 +38,8 @@ type Service struct {
 	// TracerClose func()
 	Sentry        *sentryhttp.Handler
 	DB            *db.Store
-	LinkStore     *store.LinkStore
+	LinkStore     *link_store.LinkStore
+	MetaStore     *meta_store.MetaStore
 	MQ            mq.MQ
 	ServerRPC     *RPCServer
 	ClientRPC     *grpc.ClientConn
@@ -89,14 +91,25 @@ func InitStore(ctx context.Context, log logger.Logger) (*db.Store, func(), error
 }
 
 // InitLinkStore
-func InitLinkStore(ctx context.Context, log logger.Logger, conn *db.Store) (*store.LinkStore, error) {
-	st := store.LinkStore{}
+func InitLinkStore(ctx context.Context, log logger.Logger, conn *db.Store) (*link_store.LinkStore, error) {
+	st := link_store.LinkStore{}
 	linkStore, err := st.Use(ctx, log, conn)
 	if err != nil {
 		return nil, err
 	}
 
 	return linkStore, nil
+}
+
+// InitMetaStore
+func InitMetaStore(ctx context.Context, log logger.Logger, conn *db.Store) (*meta_store.MetaStore, error) {
+	st := meta_store.MetaStore{}
+	metaStore, err := st.Use(ctx, log, conn)
+	if err != nil {
+		return nil, err
+	}
+
+	return metaStore, nil
 }
 
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
@@ -267,7 +280,7 @@ func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
 }
 
 // runGRPCClient - set up a connection to the server.
-func runGRPCClient() (*grpc.ClientConn, func(), error) {
+func runGRPCClient(log logger.Logger) (*grpc.ClientConn, func(), error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
@@ -277,6 +290,8 @@ func runGRPCClient() (*grpc.ClientConn, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
+
+	log.Info("Run gRPC client", logger.Fields{"port": grpc_port})
 
 	cleanup := func() {
 		conn.Close()
@@ -289,7 +304,18 @@ func runGRPCClient() (*grpc.ClientConn, func(), error) {
 var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 
 // FullService =========================================================================================================
-var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry, runGRPCServer, runGRPCClient, InitLinkStore)
+var FullSet = wire.NewSet(
+	DefaultSet,
+	NewFullService,
+	InitStore,
+	InitMonitoring,
+	InitProfiling,
+	InitMQ,
+	InitSentry,
+	runGRPCServer,
+	runGRPCClient,
+	InitLinkStore,
+)
 
 func NewFullService(
 	log logger.Logger,
@@ -297,7 +323,7 @@ func NewFullService(
 	monitoring *http.ServeMux,
 	tracer opentracing.Tracer,
 	db *db.Store,
-	linkStore *store.LinkStore,
+	linkStore *link_store.LinkStore,
 	pprofHTTP PprofEndpoint,
 	sentryHandler *sentryhttp.Handler,
 	autoMaxProcsOption diAutoMaxPro,
@@ -352,13 +378,20 @@ func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 }
 
 // MetadataService =====================================================================================================
-var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer)
+var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer, InitMetaStore)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db *db.Store, serverRPC *RPCServer) (*Service, error) {
+func NewMetadataService(
+	log logger.Logger,
+	autoMaxProcsOption diAutoMaxPro,
+	db *db.Store,
+	serverRPC *RPCServer,
+	metaStore *meta_store.MetaStore,
+) (*Service, error) {
 	return &Service{
 		Log:       log,
 		ServerRPC: serverRPC,
 		DB:        db,
+		MetaStore: metaStore,
 	}, nil
 }
 

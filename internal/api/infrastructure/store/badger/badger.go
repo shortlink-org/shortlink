@@ -71,7 +71,7 @@ func (b *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (b *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (b *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {

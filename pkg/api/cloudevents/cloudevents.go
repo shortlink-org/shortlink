@@ -13,7 +13,7 @@ import (
 )
 
 // Receive ...
-func Receive(ctx context.Context, event cloudevents.Event) error { // nolint unused
+func Receive(_ context.Context, event cloudevents.Event) error {
 	// do something with event.Context and event.Data (via event.DataAs(foo)
 	data := &Example{}
 

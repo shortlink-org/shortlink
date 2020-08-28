@@ -21,7 +21,7 @@ import (
 )
 
 // Use return implementation of MQ
-func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) { // nolint unused
+func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) {
 	// Set configuration
 	mq.setConfig()
 
@@ -57,7 +57,7 @@ func (mq *DataBus) setConfig() { // nolint unused
 }
 
 // Notify ...
-func (mq *DataBus) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
+func (mq *DataBus) Notify(_ context.Context, event uint32, payload interface{}) notify.Response {
 	switch event {
 	case api_type.METHOD_ADD:
 		// TODO: send []byte

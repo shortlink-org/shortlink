@@ -137,7 +137,7 @@ query all {
 }
 
 // List ...
-func (dg *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (dg *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error) {
 	txn := dg.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {

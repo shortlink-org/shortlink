@@ -47,7 +47,7 @@ func (c *CassandraLinkList) Get(ctx context.Context, id string) (*link.Link, err
 }
 
 // List ...
-func (c *CassandraLinkList) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (c *CassandraLinkList) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 	iter, err := c.client.Query(`SELECT url, hash, ddd FROM shortlink.links`).Iter().SliceMap()
 	if err != nil {
 		return nil, err

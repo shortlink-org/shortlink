@@ -6,28 +6,24 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 
-	"github.com/batazor/shortlink/internal/db"
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
+	meta_store "github.com/batazor/shortlink/internal/metadata/infrastructure/store"
 )
 
-type Repository struct {
-	DB db.DB
+type Service struct {
+	Store *meta_store.MetaStore
 }
 
-func (r *Repository) Get(ctx context.Context, hash string) (*rpc.Meta, error) {
-	// TODO: Correct read db
-	link, err := r.DB.Get(ctx, hash)
+func (r *Service) Get(ctx context.Context, hash string) (*rpc.Meta, error) {
+	meta, err := r.Store.Store.Get(ctx, hash)
 	if err != nil {
 		return nil, err
 	}
 
-	return &rpc.Meta{
-		Id:          hash,
-		Description: link.Describe,
-	}, nil
+	return meta, nil
 }
 
-func (r *Repository) Set(ctx context.Context, url string) (*rpc.Meta, error) {
+func (r *Service) Set(ctx context.Context, url string) (*rpc.Meta, error) {
 	meta := &rpc.Meta{
 		Id: url,
 	}
@@ -55,13 +51,11 @@ func (r *Repository) Set(ctx context.Context, url string) (*rpc.Meta, error) {
 		}
 	})
 
-	// TODO: Write to DB
-	//_, err = r.DB.Add(ctx, &link.Link{
-	//	Url:       url,
-	//})
-	//if err != nil {
-	//	return nil, err
-	//}
+	// Write to DB
+	err = r.Store.Store.Add(ctx, meta)
+	if err != nil {
+		return nil, err
+	}
 
 	return meta, nil
 }
