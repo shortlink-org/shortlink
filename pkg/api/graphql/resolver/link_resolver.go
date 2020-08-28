@@ -42,7 +42,7 @@ func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 }
 
 // Links ...
-func (r *Resolver) Links(ctx context.Context, args struct { // nolint unused
+func (r *Resolver) Links(ctx context.Context, args struct {
 	Filter *query.Filter
 }) (*[]*LinkResolver, error) { // nolint unused
 	responseCh := make(chan interface{})

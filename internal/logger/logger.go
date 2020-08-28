@@ -11,7 +11,7 @@ import (
 )
 
 // NewLogger - return new an instance of logger
-func NewLogger(loggerInstance int, config Configuration) (Logger, error) { // nolint unused
+func NewLogger(loggerInstance int, config Configuration) (Logger, error) {
 	var log Logger
 
 	switch loggerInstance {

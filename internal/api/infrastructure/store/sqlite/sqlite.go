@@ -51,7 +51,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (lite *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (lite *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")

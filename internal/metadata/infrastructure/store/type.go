@@ -3,7 +3,6 @@ package meta_store
 import (
 	"context"
 
-	"github.com/batazor/shortlink/internal/db"
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
 	"github.com/batazor/shortlink/internal/notify"
 )
@@ -18,7 +17,7 @@ type MetaStore struct {
 	Repository
 
 	typeStore string
-	Store     db.DB
+	Store     Repository
 
 	// system event
 	notify.Subscriber // Observer interface for subscribe on system event

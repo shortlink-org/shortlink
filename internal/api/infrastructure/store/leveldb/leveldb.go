@@ -65,7 +65,7 @@ func (l *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (l *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (l *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 	links := []*link.Link{}
 	iterator := l.client.NewIterator(nil, nil)
 

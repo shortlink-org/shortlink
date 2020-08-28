@@ -11,6 +11,7 @@ import (
 	"github.com/batazor/shortlink/internal/api/infrastructure/store"
 	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/internal/mq"
 	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/getsentry/sentry-go"
@@ -92,7 +93,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup8, err := runGRPCClient()
+	clientConn, cleanup8, err := runGRPCClient(logger)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -210,7 +211,15 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewMetadataService(logger, diDiAutoMaxPro, store, rpcServer)
+	metaStore, err := InitMetaStore(ctx, logger, store)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewMetadataService(logger, diDiAutoMaxPro, store, rpcServer, metaStore)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -236,6 +245,7 @@ type Service struct {
 	Sentry        *sentryhttp.Handler
 	DB            *db.Store
 	LinkStore     *store.LinkStore
+	MetaStore     *meta_store.MetaStore
 	MQ            mq.MQ
 	ServerRPC     *RPCServer
 	ClientRPC     *grpc.ClientConn
@@ -295,6 +305,17 @@ func InitLinkStore(ctx context.Context, log logger.Logger, conn *db.Store) (*sto
 	}
 
 	return linkStore, nil
+}
+
+// InitMetaStore
+func InitMetaStore(ctx context.Context, log logger.Logger, conn *db.Store) (*meta_store.MetaStore, error) {
+	st := meta_store.MetaStore{}
+	metaStore, err := st.Use(ctx, log, conn)
+	if err != nil {
+		return nil, err
+	}
+
+	return metaStore, nil
 }
 
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
@@ -453,7 +474,7 @@ func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
 }
 
 // runGRPCClient - set up a connection to the server.
-func runGRPCClient() (*grpc.ClientConn, func(), error) {
+func runGRPCClient(log logger.Logger) (*grpc.ClientConn, func(), error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051")
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
@@ -461,6 +482,8 @@ func runGRPCClient() (*grpc.ClientConn, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
+
+	log.Info("Run gRPC client", logger.Fields{"port": grpc_port})
 
 	cleanup := func() {
 		conn.Close()
@@ -473,7 +496,18 @@ func runGRPCClient() (*grpc.ClientConn, func(), error) {
 var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 
 // FullService =========================================================================================================
-var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry, runGRPCServer, runGRPCClient, InitLinkStore)
+var FullSet = wire.NewSet(
+	DefaultSet,
+	NewFullService,
+	InitStore,
+	InitMonitoring,
+	InitProfiling,
+	InitMQ,
+	InitSentry,
+	runGRPCServer,
+	runGRPCClient,
+	InitLinkStore,
+)
 
 func NewFullService(
 	log logger.Logger, mq2 mq.MQ,
@@ -523,12 +557,18 @@ func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro
 }
 
 // MetadataService =====================================================================================================
-var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer)
+var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer, InitMetaStore)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db2 *db.Store, serverRPC *RPCServer) (*Service, error) {
+func NewMetadataService(
+	log logger.Logger,
+	autoMaxProcsOption diAutoMaxPro, db2 *db.Store,
+	serverRPC *RPCServer,
+	metaStore *meta_store.MetaStore,
+) (*Service, error) {
 	return &Service{
 		Log:       log,
 		ServerRPC: serverRPC,
 		DB:        db2,
+		MetaStore: metaStore,
 	}, nil
 }

@@ -57,7 +57,7 @@ func (p *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (p *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (p *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("links")
@@ -132,7 +132,7 @@ func (p *Store) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
-func (p *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) { // nolint unused
+func (p *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err

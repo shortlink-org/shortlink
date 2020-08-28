@@ -30,13 +30,7 @@ func (s *Store) Get(_ context.Context, id string) (*rpc.Meta, error) {
 }
 
 // Set - write new metadata for link
-func (s *Store) Add(ctx context.Context, source *rpc.Meta) error {
-	err := s.singleWrite(ctx, source)
-
-	return err
-}
-
-func (s *Store) singleWrite(_ context.Context, source *rpc.Meta) error { // nolint unused
+func (s *Store) Add(_ context.Context, source *rpc.Meta) error {
 	s.metadata.Store(source.Id, source)
 
 	return nil

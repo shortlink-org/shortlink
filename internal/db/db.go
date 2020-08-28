@@ -25,7 +25,7 @@ import (
 )
 
 // Use return implementation of db
-func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) { // nolint unused
+func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) {
 	// Set configuration
 	store.setConfig()
 

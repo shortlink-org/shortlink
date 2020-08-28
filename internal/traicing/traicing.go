@@ -13,7 +13,7 @@ import (
 )
 
 // Init returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
-func Init(cnf Config) (opentracing.Tracer, io.Closer, error) { // nolint unused
+func Init(cnf Config) (opentracing.Tracer, io.Closer, error) {
 	cfg := &config.Configuration{
 		ServiceName: cnf.ServiceName,
 		RPCMetrics:  true,

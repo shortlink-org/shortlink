@@ -28,7 +28,7 @@ import (
 )
 
 // Use return implementation of db
-func (store *LinkStore) Use(ctx context.Context, log logger.Logger, st *db.Store) (*LinkStore, error) { // nolint unused
+func (store *LinkStore) Use(_ context.Context, log logger.Logger, st *db.Store) (*LinkStore, error) { // nolint unused
 	// Set configuration
 	store.setConfig()
 
@@ -94,10 +94,10 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Error:   errors.New("failed assert type"),
 		}
 	case api_type.METHOD_GET:
-		payload, err := s.Store.Get(ctx, payload.(string))
+		link, err := s.Store.Get(ctx, payload.(string))
 		return notify.Response{
 			Name:    "RESPONSE_STORE_GET",
-			Payload: payload,
+			Payload: link,
 			Error:   err,
 		}
 	case api_type.METHOD_LIST:

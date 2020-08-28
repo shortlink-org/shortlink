@@ -33,7 +33,7 @@ func (ram *Store) migrate() error { // nolint unused
 }
 
 // Get ...
-func (ram *Store) Get(ctx context.Context, id string) (*link.Link, error) {
+func (ram *Store) Get(_ context.Context, id string) (*link.Link, error) {
 	response, ok := ram.links.Load(id)
 	if !ok {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -48,7 +48,7 @@ func (ram *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (ram *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (ram *Store) List(_ context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	links := []*link.Link{}
 
 	ram.links.Range(func(key interface{}, value interface{}) bool {
@@ -90,17 +90,17 @@ func (ram *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error
 }
 
 // Update ...
-func (ram *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (ram *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (ram *Store) Delete(ctx context.Context, id string) error { // nolint unused
+func (ram *Store) Delete(_ context.Context, id string) error {
 	ram.links.Delete(id)
 	return nil
 }
 
-func (ram *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) { // nolint unused
+func (ram *Store) singleWrite(_ context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
