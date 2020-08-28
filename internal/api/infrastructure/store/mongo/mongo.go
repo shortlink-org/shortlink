@@ -3,124 +3,19 @@ package mongo
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"time"
 
-	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
-	bindata "github.com/golang-migrate/migrate/v4/source/go_bindata"
 	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
-	"github.com/batazor/shortlink/internal/api/infrastructure/store/mongo/migrations"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
-	"github.com/batazor/shortlink/internal/batch"
 	storeOptions "github.com/batazor/shortlink/internal/db/options"
 )
-
-// Init ...
-func (m *Store) Init(ctx context.Context) error {
-	var err error
-
-	// Set configuration
-	m.setConfig()
-
-	// Connect to MongoDB
-	m.client, err = mongo.NewClient(options.Client().ApplyURI(m.config.URI))
-	if err != nil {
-		return err
-	}
-
-	err = m.client.Connect(ctx)
-	if err != nil {
-		return err
-	}
-
-	// TODO: check correct ping
-	// Check connect
-	//ctx, cancel = context.WithTimeout(context.Background(), 2*time.Second)
-	//defer cancel()
-	//err = m.client.Ping(ctx, readpref.Primary())
-	//if err != nil {
-	//	return err
-	//}
-
-	// Apply migration
-	err = m.migrate()
-	if err != nil {
-		return err
-	}
-
-	// Create batch job
-	if m.config.mode == storeOptions.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) interface{} {
-			sources := make([]*link.Link, len(args))
-
-			for key := range args {
-				sources[key] = args[key].Item.(*link.Link)
-			}
-
-			dataList, errBatchWrite := m.batchWrite(ctx, sources)
-			if errBatchWrite != nil {
-				for index := range args {
-					// TODO: add logs for error
-					args[index].CB <- errors.New("Error write to MongoDB")
-				}
-				return errBatchWrite
-			}
-
-			for key, item := range dataList {
-				args[key].CB <- item
-			}
-
-			return nil
-		}
-		m.config.job, err = batch.New(ctx, cb)
-		if err != nil {
-			return err
-		}
-
-		go m.config.job.Run(ctx)
-	}
-
-	return nil
-}
-
-// Close ...
-func (m *Store) Close() error {
-	return m.client.Disconnect(context.Background())
-}
-
-// Migrate ...
-func (m *Store) migrate() error { // nolint unused
-	// wrap assets into Resource
-	s := bindata.Resource(migrations.AssetNames(),
-		func(name string) ([]byte, error) {
-			return migrations.Asset(name)
-		})
-
-	driver, err := bindata.WithInstance(s)
-	if err != nil {
-		return err
-	}
-
-	ms, err := migrate.NewWithSourceInstance("go-bindata", driver, m.config.URI)
-	if err != nil {
-		return err
-	}
-
-	err = ms.Up()
-	if err != nil && err.Error() != "no change" {
-		return err
-	}
-
-	return nil
-}
 
 // Add ...
 func (m *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {

@@ -24,35 +24,6 @@ type Store struct { // nolint unused
 	config Config
 }
 
-// Init ...
-func (r *Store) Init(ctx context.Context) error {
-	// Set configuration
-	r.setConfig()
-
-	// Connect to Redis
-	r.client = redis.NewClient(&redis.Options{
-		Addr:     r.config.URI,
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	})
-
-	if _, err := r.client.Ping().Result(); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Close ...
-func (r *Store) Close() error {
-	return r.client.Close()
-}
-
-// Migrate ...
-func (r *Store) migrate() error { // nolint unused
-	return nil
-}
-
 // Get ...
 func (r *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	val, err := r.client.Get(id).Result()

@@ -15,7 +15,7 @@ type DB interface { // nolint unused
 
 // Store abstract type
 type Store struct { // nolint unused
-	store DB
+	Store DB
 
 	typeStore string
 }

@@ -36,7 +36,7 @@ type Service struct {
 	Tracer opentracing.Tracer
 	// TracerClose func()
 	Sentry        *sentryhttp.Handler
-	DB            db.DB
+	DB            *db.Store
 	LinkStore     *store.LinkStore
 	MQ            mq.MQ
 	ServerRPC     *RPCServer
@@ -72,7 +72,7 @@ func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
 }
 
 // InitStore return db
-func InitStore(ctx context.Context, log logger.Logger) (db.DB, func(), error) {
+func InitStore(ctx context.Context, log logger.Logger) (*db.Store, func(), error) {
 	var st db.Store
 	db, err := st.Use(ctx, log)
 	if err != nil {
@@ -80,7 +80,7 @@ func InitStore(ctx context.Context, log logger.Logger) (db.DB, func(), error) {
 	}
 
 	cleanup := func() {
-		if err := db.Close(); err != nil {
+		if err := db.Store.Close(); err != nil {
 			log.Error(err.Error())
 		}
 	}
@@ -89,10 +89,8 @@ func InitStore(ctx context.Context, log logger.Logger) (db.DB, func(), error) {
 }
 
 // InitLinkStore
-func InitLinkStore(ctx context.Context, log logger.Logger, conn db.DB) (*store.LinkStore, error) {
-	st := store.LinkStore{
-		Store: conn,
-	}
+func InitLinkStore(ctx context.Context, log logger.Logger, conn *db.Store) (*store.LinkStore, error) {
+	st := store.LinkStore{}
 	linkStore, err := st.Use(ctx, log, conn)
 	if err != nil {
 		return nil, err
@@ -298,7 +296,7 @@ func NewFullService(
 	mq mq.MQ,
 	monitoring *http.ServeMux,
 	tracer opentracing.Tracer,
-	db db.DB,
+	db *db.Store,
 	linkStore *store.LinkStore,
 	pprofHTTP PprofEndpoint,
 	sentryHandler *sentryhttp.Handler,
@@ -356,7 +354,7 @@ func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db db.DB, serverRPC *RPCServer) (*Service, error) {
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db *db.Store, serverRPC *RPCServer) (*Service, error) {
 	return &Service{
 		Log:       log,
 		ServerRPC: serverRPC,

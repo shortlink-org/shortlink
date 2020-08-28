@@ -24,31 +24,6 @@ type Store struct { // nolint unused
 	config Config
 }
 
-// Init ...
-func (b *Store) Init(ctx context.Context) error {
-	var err error
-
-	// Set configuration
-	b.setConfig()
-
-	b.client, err = badger.Open(badger.DefaultOptions(b.config.Path))
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Close ...
-func (b *Store) Close() error {
-	return b.client.Close()
-}
-
-// Migrate ...
-func (b *Store) migrate() error { // nolint unused
-	return nil
-}
-
 // Get ...
 func (b *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	var valCopy []byte

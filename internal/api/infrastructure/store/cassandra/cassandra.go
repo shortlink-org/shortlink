@@ -3,8 +3,6 @@ package cassandra
 import (
 	"context"
 	"fmt"
-	"net/url"
-	"strconv"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
@@ -24,71 +22,6 @@ type Config struct { // nolint unused
 type CassandraLinkList struct { // nolint unused
 	client *gocql.Session
 	config Config
-}
-
-// Init ...
-func (c *CassandraLinkList) Init(ctx context.Context) error {
-	var err error
-
-	// Set configuration
-	c.setConfig()
-
-	uri, err := url.ParseRequestURI(c.config.URI)
-	if err != nil {
-		return err
-	}
-
-	// Connect to CassandraDB
-	cluster := gocql.NewCluster(c.config.URI)
-	cluster.ProtoVersion = 4
-	cluster.Port, err = strconv.Atoi(uri.Opaque)
-
-	if err != nil {
-		return err
-	}
-
-	c.client, err = cluster.CreateSession()
-	if err != nil {
-		panic(err)
-	}
-
-	// Migration
-	if err = c.migrate(); err != nil {
-		panic(err)
-	}
-
-	return nil
-}
-
-// Close ...
-func (c *CassandraLinkList) Close() error { // nolint unparam
-	c.client.Close()
-	return nil
-}
-
-// Migrate ...
-// TODO: ddd -> describe
-func (c *CassandraLinkList) migrate() error { // nolint unused
-	infoSchemas := []string{`
-CREATE KEYSPACE IF NOT EXISTS shortlink
-	WITH REPLICATION = {
-		'class' : 'SimpleStrategy',
-		'replication_factor': 1
-	};`, `
-CREATE TABLE IF NOT EXISTS shortlink.links (
-	url text,
-	hash text,
-	ddd text,
-	PRIMARY KEY(hash)
-)`}
-
-	for _, schema := range infoSchemas {
-		if err := c.client.Query(schema).Exec(); err != nil {
-			return err
-		}
-	}
-
-	return nil
 }
 
 // Get ...

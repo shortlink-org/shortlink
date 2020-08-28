@@ -9,7 +9,6 @@ import (
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
-	"github.com/batazor/shortlink/internal/tool"
 )
 
 // Config ...
@@ -26,59 +25,6 @@ type Store struct { // nolint unused
 type Link struct {
 	*link.Link
 	Id string `gorethink:"id,omitempty"`
-}
-
-func (r *Store) Init(ctx context.Context) error {
-	var err error
-
-	// Set configuration
-	r.setConfig()
-
-	// Connect to RethinkDB
-	r.client, err = rethinkdb.Connect(rethinkdb.ConnectOpts{
-		Addresses:  r.config.URI, // endpoint without http
-		InitialCap: 10,
-		MaxOpen:    10,
-	})
-	if err != nil {
-		return err
-	}
-
-	// Apply migration
-	if err = r.migrate(); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Migrate ...
-func (r *Store) migrate() error { // nolint unused
-	// create database
-	dbList, err := r.getDatabases()
-	if err != nil {
-		return err
-	}
-
-	if ok := tool.Contains(dbList, "shortlink"); !ok {
-		if _, errDBCreate := rethinkdb.DBCreate("shortlink").Run(r.client); errDBCreate != nil {
-			return errDBCreate
-		}
-	}
-
-	// Create table
-	tableList, err := r.getTables()
-	if err != nil {
-		return err
-	}
-
-	if ok := tool.Contains(tableList, "link"); !ok {
-		if _, errTableCreate := rethinkdb.DB("shortlink").TableCreate("link").Run(r.client); errTableCreate != nil {
-			return errTableCreate
-		}
-	}
-
-	return nil
 }
 
 func (r *Store) Get(ctx context.Context, id string) (*link.Link, error) {
@@ -136,11 +82,6 @@ func (r *Store) Delete(ctx context.Context, id string) error {
 	}
 
 	return nil
-}
-
-func (r *Store) Close() error {
-	err := r.client.Close()
-	return err
 }
 
 // setConfig - set configuration

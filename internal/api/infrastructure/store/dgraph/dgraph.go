@@ -42,62 +42,6 @@ type Store struct { // nolint unused
 	config Config
 }
 
-// Init ...
-func (dg *Store) Init(ctx context.Context) error {
-	var err error
-
-	// Set configuration
-	dg.setConfig()
-
-	dg.conn, err = grpc.Dial(dg.config.URL, grpc.WithInsecure())
-	if err != nil {
-		return err
-	}
-	dg.client = dgo.NewDgraphClient(api.NewDgraphClient(dg.conn))
-
-	if err = dg.migrate(ctx); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// Close ...
-func (dg *Store) Close() error {
-	return dg.conn.Close()
-}
-
-// Migrate - init structure
-func (dg *Store) migrate(ctx context.Context) error { // nolint unused
-	txn := dg.client.NewTxn()
-	defer func() {
-		if err := txn.Discard(ctx); err != nil {
-			// TODO: use logger
-			fmt.Println(err.Error())
-		}
-	}()
-
-	op := &api.Operation{
-		Schema: `
-type Link {
-    url: string
-    hash: string
-    describe: string
-    created_at: datetime
-    updated_at: datetime
-}
-
-url: string @index(term) @lang .
-hash: string @index(term) @lang .
-describe: string @index(term) @lang .
-created_at: datetime .
-updated_at: datetime .
-`,
-	}
-
-	return dg.client.Alter(ctx, op)
-}
-
 // get - private `get` method
 func (dg *Store) get(ctx context.Context, id string) (*DGraphLinkResponse, error) {
 	txn := dg.client.NewTxn()

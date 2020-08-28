@@ -28,9 +28,16 @@ import (
 )
 
 // Use return implementation of db
-func (store *LinkStore) Use(ctx context.Context, log logger.Logger, db db.DB) (*LinkStore, error) { // nolint unused
+func (store *LinkStore) Use(ctx context.Context, log logger.Logger, st *db.Store) (*LinkStore, error) { // nolint unused
 	// Set configuration
 	store.setConfig()
+
+	// Subscribe to Event
+	notify.Subscribe(api_type.METHOD_ADD, store)
+	notify.Subscribe(api_type.METHOD_GET, store)
+	notify.Subscribe(api_type.METHOD_LIST, store)
+	notify.Subscribe(api_type.METHOD_UPDATE, store)
+	notify.Subscribe(api_type.METHOD_DELETE, store)
 
 	switch store.typeStore {
 	case "postgres":
@@ -73,7 +80,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 	switch event {
 	case api_type.METHOD_ADD:
 		if addLink, ok := payload.(*link.Link); ok {
-			payload, err := s.Add(ctx, addLink)
+			payload, err := s.Store.Add(ctx, addLink)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_ADD",
 				Payload: payload,
@@ -87,7 +94,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Error:   errors.New("failed assert type"),
 		}
 	case api_type.METHOD_GET:
-		payload, err := s.Get(ctx, payload.(string))
+		payload, err := s.Store.Get(ctx, payload.(string))
 		return notify.Response{
 			Name:    "RESPONSE_STORE_GET",
 			Payload: payload,
@@ -111,7 +118,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			}
 		}
 
-		payload, err := s.List(ctx, &filter)
+		payload, err := s.Store.List(ctx, &filter)
 		return notify.Response{
 			Name:    "RESPONSE_STORE_LIST",
 			Payload: payload,
@@ -119,7 +126,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 		}
 	case api_type.METHOD_UPDATE:
 		if linkUpdate, ok := payload.(*link.Link); ok {
-			payload, err := s.Update(ctx, linkUpdate)
+			payload, err := s.Store.Update(ctx, linkUpdate)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_UPDATE",
 				Payload: payload,
@@ -133,7 +140,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Error:   errors.New("failed assert type"),
 		}
 	case api_type.METHOD_DELETE:
-		err := s.Delete(ctx, payload.(string))
+		err := s.Store.Delete(ctx, payload.(string))
 		return notify.Response{
 			Name:    "RESPONSE_STORE_DELETE",
 			Payload: nil,
