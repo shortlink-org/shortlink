@@ -18,7 +18,7 @@ type MetaStore struct {
 	typeStore string
 }
 
-// Use return implementation of store
+// Use return implementation of db
 func (store *MetaStore) Use(ctx context.Context, log logger.Logger) error {
 	// Set configuration
 	store.setConfig()

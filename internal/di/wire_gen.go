@@ -8,9 +8,10 @@ package di
 import (
 	"context"
 	"fmt"
+	"github.com/batazor/shortlink/internal/api/infrastructure/store"
+	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
-	"github.com/batazor/shortlink/internal/store"
 	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/getsentry/sentry-go"
 	"github.com/getsentry/sentry-go/http"
@@ -62,6 +63,15 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	linkStore, err := InitLinkStore(ctx, logger, db)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	pprofEndpoint := InitProfiling()
 	diDiAutoMaxPro, cleanup6, err := InitAutoMaxProcs(logger)
 	if err != nil {
@@ -93,7 +103,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewFullService(logger, mq, serveMux, tracer, db, pprofEndpoint, handler, diDiAutoMaxPro, rpcServer, clientConn)
+	service, err := NewFullService(logger, mq, serveMux, tracer, db, linkStore, pprofEndpoint, handler, diDiAutoMaxPro, rpcServer, clientConn)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -224,7 +234,8 @@ type Service struct {
 	Tracer opentracing.Tracer
 	// TracerClose func()
 	Sentry        *sentryhttp.Handler
-	DB            store.DB
+	DB            db.DB
+	LinkStore     *store.LinkStore
 	MQ            mq.MQ
 	ServerRPC     *RPCServer
 	ClientRPC     *grpc.ClientConn
@@ -258,21 +269,34 @@ func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
 	return nil, cleanup, nil
 }
 
-// InitStore return store
-func InitStore(ctx context.Context, log logger.Logger) (store.DB, func(), error) {
-	var st store.Store
-	db, err := st.Use(ctx, log)
+// InitStore return db
+func InitStore(ctx context.Context, log logger.Logger) (db.DB, func(), error) {
+	var st db.Store
+	db2, err := st.Use(ctx, log)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	cleanup := func() {
-		if err := db.Close(); err != nil {
+		if err := db2.Close(); err != nil {
 			log.Error(err.Error())
 		}
 	}
 
-	return db, cleanup, nil
+	return db2, cleanup, nil
+}
+
+// InitLinkStore
+func InitLinkStore(ctx context.Context, log logger.Logger, conn db.DB) (*store.LinkStore, error) {
+	st := store.LinkStore{
+		Store: conn,
+	}
+	linkStore, err := st.Use(ctx, log, conn)
+	if err != nil {
+		return nil, err
+	}
+
+	return linkStore, nil
 }
 
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
@@ -451,16 +475,29 @@ func runGRPCClient() (*grpc.ClientConn, func(), error) {
 var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 
 // FullService =========================================================================================================
-var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry, runGRPCServer, runGRPCClient)
+var FullSet = wire.NewSet(DefaultSet, NewFullService, InitStore, InitMonitoring, InitProfiling, InitMQ, InitSentry, runGRPCServer, runGRPCClient, InitLinkStore)
 
-func NewFullService(log logger.Logger, mq2 mq.MQ, monitoring *http.ServeMux, tracer opentracing.Tracer, db store.DB, pprofHTTP PprofEndpoint, sentryHandler *sentryhttp.Handler, autoMaxProcsOption diAutoMaxPro, serverRPC *RPCServer, clientRPC *grpc.ClientConn) (*Service, error) {
+func NewFullService(
+	log logger.Logger, mq2 mq.MQ,
+
+	monitoring *http.ServeMux,
+	tracer opentracing.Tracer, db2 db.DB,
+
+	linkStore *store.LinkStore,
+	pprofHTTP PprofEndpoint,
+	sentryHandler *sentryhttp.Handler,
+	autoMaxProcsOption diAutoMaxPro,
+	serverRPC *RPCServer,
+	clientRPC *grpc.ClientConn,
+) (*Service, error) {
 	return &Service{
 		Log:    log,
 		MQ:     mq2,
 		Tracer: tracer,
 
 		Monitoring:    monitoring,
-		DB:            db,
+		DB:            db2,
+		LinkStore:     linkStore,
 		PprofEndpoint: pprofHTTP,
 		Sentry:        sentryHandler,
 		ClientRPC:     clientRPC,
@@ -491,10 +528,10 @@ func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer)
 
-func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db store.DB, serverRPC *RPCServer) (*Service, error) {
+func NewMetadataService(log logger.Logger, autoMaxProcsOption diAutoMaxPro, db2 db.DB, serverRPC *RPCServer) (*Service, error) {
 	return &Service{
 		Log:       log,
 		ServerRPC: serverRPC,
-		DB:        db,
+		DB:        db2,
 	}, nil
 }

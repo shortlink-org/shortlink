@@ -3,15 +3,15 @@ package rpc
 import (
 	"context"
 
+	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/metadata/application"
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
-	"github.com/batazor/shortlink/internal/store"
 )
 
 type MetadataServer struct {
 	rpc.UnimplementedMetadataServer
-	db store.DB
+	db db.DB
 }
 
 func (m *MetadataServer) Get(ctx context.Context, req *rpc.GetMetaRequest) (*rpc.GetMetaResponse, error) {
@@ -42,7 +42,7 @@ func (m *MetadataServer) Set(ctx context.Context, req *rpc.SetMetaRequest) (*rpc
 	}, nil
 }
 
-func New(runRPCServer *di.RPCServer, db store.DB) (*MetadataServer, error) {
+func New(runRPCServer *di.RPCServer, db db.DB) (*MetadataServer, error) {
 	server := MetadataServer{
 		db: db,
 	}
