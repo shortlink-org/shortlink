@@ -7,10 +7,10 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/batch"
 	"github.com/batazor/shortlink/internal/store/options"
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // RAMConfig ...

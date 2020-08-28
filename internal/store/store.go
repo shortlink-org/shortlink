@@ -11,6 +11,7 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/notify"
 	"github.com/batazor/shortlink/internal/store/badger"
@@ -27,7 +28,6 @@ import (
 	"github.com/batazor/shortlink/internal/store/scylla"
 	"github.com/batazor/shortlink/internal/store/sqlite"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // Use return implementation of store

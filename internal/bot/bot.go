@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/bot/di"
 	bot_type "github.com/batazor/shortlink/internal/bot/type"
 	"github.com/batazor/shortlink/internal/notify"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 func (b *Bot) Use(ctx context.Context) { // nolint unused

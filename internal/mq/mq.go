@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/mq/nats"
@@ -17,7 +18,6 @@ import (
 	"github.com/batazor/shortlink/internal/mq/rabbit"
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // Use return implementation of MQ

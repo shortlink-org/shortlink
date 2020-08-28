@@ -4,7 +4,7 @@ package grpcweb
 
 import (
 	context "context"
-	link "github.com/batazor/shortlink/pkg/domain/link"
+	link "github.com/batazor/shortlink/internal/api/domain/link"
 	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"

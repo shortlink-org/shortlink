@@ -11,8 +11,8 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"google.golang.org/grpc"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/store/query"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // DGraphLink implementation of store interface
