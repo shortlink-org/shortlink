@@ -11,7 +11,6 @@ import (
 	"go.uber.org/atomic"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
-	"github.com/batazor/shortlink/internal/api/infrastructure/store/options"
 )
 
 func BenchmarkRAMSerial(b *testing.B) {

@@ -16,6 +16,7 @@ import (
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
 	"github.com/heptiolabs/healthcheck"
+	"github.com/opentracing-contrib/go-grpc"
 	"github.com/opentracing/opentracing-go"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -251,7 +252,7 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 }
 
 // runGRPCServer ...
-func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
+func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, func(), error) {
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
@@ -261,7 +262,11 @@ func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
 		return nil, nil, err
 	}
 
-	rpc := grpc.NewServer()
+	// Initialize the gRPC server.
+	rpc := grpc.NewServer(
+		grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)),
+		grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)),
+	)
 
 	r := &RPCServer{
 		Server: rpc,
@@ -280,13 +285,20 @@ func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
 }
 
 // runGRPCClient - set up a connection to the server.
-func runGRPCClient(log logger.Logger) (*grpc.ClientConn, func(), error) {
+func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientConn, func(), error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
 	// TODO: fix sleep if not find connect
 	// TODO: Do async model
-	conn, err := grpc.Dial(fmt.Sprintf("localhost:%d", grpc_port), grpc.WithInsecure(), grpc.WithBlock())
+	// Set up a connection to the server peer
+	conn, err := grpc.Dial(
+		fmt.Sprintf("localhost:%d", grpc_port),
+		grpc.WithInsecure(),
+		grpc.WithBlock(),
+		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)),
+		grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer)),
+	)
 	if err != nil {
 		return nil, nil, err
 	}

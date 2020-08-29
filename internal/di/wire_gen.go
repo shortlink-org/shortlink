@@ -18,6 +18,7 @@ import (
 	"github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
 	"github.com/heptiolabs/healthcheck"
+	"github.com/opentracing-contrib/go-grpc"
 	"github.com/opentracing/opentracing-go"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -83,7 +84,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup7, err := runGRPCServer(logger)
+	rpcServer, cleanup7, err := runGRPCServer(logger, tracer)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -93,7 +94,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup8, err := runGRPCClient(logger)
+	clientConn, cleanup8, err := runGRPCClient(logger, tracer)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -204,8 +205,16 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup4, err := runGRPCServer(logger)
+	tracer, cleanup4, err := InitTracer(ctx, logger)
 	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	rpcServer, cleanup5, err := runGRPCServer(logger, tracer)
+	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -213,6 +222,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 	}
 	metaStore, err := InitMetaStore(ctx, logger, store)
 	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -221,6 +231,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 	}
 	service, err := NewMetadataService(logger, diDiAutoMaxPro, store, rpcServer, metaStore)
 	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -228,6 +239,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 		return nil, nil, err
 	}
 	return service, func() {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -445,7 +457,7 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 }
 
 // runGRPCServer ...
-func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
+func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, func(), error) {
 	viper.SetDefault("GRPC_SERVER_PORT", "50051")
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
@@ -455,7 +467,7 @@ func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
 		return nil, nil, err
 	}
 
-	rpc := grpc.NewServer()
+	rpc := grpc.NewServer(grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)), grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)))
 
 	r := &RPCServer{
 		Server: rpc,
@@ -474,11 +486,11 @@ func runGRPCServer(log logger.Logger) (*RPCServer, func(), error) {
 }
 
 // runGRPCClient - set up a connection to the server.
-func runGRPCClient(log logger.Logger) (*grpc.ClientConn, func(), error) {
+func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientConn, func(), error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051")
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
-	conn, err := grpc.Dial(fmt.Sprintf("localhost:%d", grpc_port), grpc.WithInsecure(), grpc.WithBlock())
+	conn, err := grpc.Dial(fmt.Sprintf("localhost:%d", grpc_port), grpc.WithInsecure(), grpc.WithBlock(), grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)), grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer)))
 	if err != nil {
 		return nil, nil, err
 	}
