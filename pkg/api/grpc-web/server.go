@@ -4,11 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"net"
 	"net/http"
 	"time"
 
-	"github.com/batazor/shortlink/internal/freeport"
+	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/logger"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 
@@ -24,7 +23,7 @@ import (
 type API struct { // nolint unused
 	ctx  context.Context
 	http http.Server
-	rpc  *grpc.Server
+	RPC  *di.RPCServer
 }
 
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
@@ -33,20 +32,9 @@ var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-ga
 func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
 	api.ctx = ctx
 
-	// Get free port
-	port, err := freeport.GetFreePort()
-	if err != nil {
-		return err
-	}
-
-	log.Info(fmt.Sprintf("Run gRPC-GateWay on localhost:%d", port))
-
 	// Rug gRPC
-	go func() {
-		if errRunGRPC := api.runGRPC(port); errRunGRPC != nil {
-			log.Fatal(errRunGRPC.Error())
-		}
-	}()
+	RegisterLinkServer(api.RPC.Server, api)
+	api.RPC.Run()
 
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
@@ -69,7 +57,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 			),
 		),
 	}
-	err = RegisterLinkHandlerFromEndpoint(ctx, gw, fmt.Sprintf("localhost:%d", port), opts)
+	err := RegisterLinkHandlerFromEndpoint(ctx, gw, api.RPC.Endpoint, opts)
 	if err != nil {
 		return err
 	}
@@ -92,26 +80,11 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 // Close ...
 func (api *API) Close() error {
-	api.rpc.GracefulStop()
-
 	if err := api.http.Close(); err != nil {
 		return err
 	}
 
 	return nil
-}
-
-// runGRPC ...
-func (api *API) runGRPC(port int) error {
-	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", port))
-	if err != nil {
-		return err
-	}
-
-	api.rpc = grpc.NewServer()
-	RegisterLinkServer(api.rpc, api)
-	err = api.rpc.Serve(lis)
-	return err
 }
 
 func (api *API) tracingWrapper(h http.Handler) http.Handler {
@@ -147,3 +120,5 @@ func (api *API) CustomHTTPError(ctx context.Context, _ *runtime.ServeMux, marsha
 		_, _ = w.Write([]byte(fallback)) // nolint gosec
 	}
 }
+
+func (api *API) mustEmbedUnimplementedLinkServer() {}

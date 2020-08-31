@@ -14,11 +14,11 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/opentracing/opentracing-go"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/notify"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // Endpoints are a primary abstraction in go-kit. An endpoint represents a single RPC (method in our service interface)

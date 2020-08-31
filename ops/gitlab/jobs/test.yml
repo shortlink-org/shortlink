@@ -54,7 +54,7 @@ go_fuzz_test:
     CI_SEED_CORPUS: './seed_corpus'
   script:
     # link package
-    - cd $CI_PROJECT_DIR/pkg/domain/link
+    - cd $CI_PROJECT_DIR/internal/api/domain/link
     - go-fuzz-build -libfuzzer -o link_fuzz_target.a .
     - clang -fsanitize=fuzzer link_fuzz_target.a -o link_fuzz_target
     - ./gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target

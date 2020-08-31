@@ -17,7 +17,7 @@ type chilogger struct { // nolint unused
 }
 
 // Logger returns a new Zap Middleware handler.
-func Logger(log logger.Logger) func(next http.Handler) http.Handler { // nolint unused
+func Logger(log logger.Logger) func(next http.Handler) http.Handler {
 	return chilogger{
 		log,
 	}.middleware

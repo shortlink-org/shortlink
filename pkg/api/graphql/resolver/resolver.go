@@ -1,8 +1,8 @@
 package resolver
 
-import "github.com/batazor/shortlink/internal/store"
+import "github.com/batazor/shortlink/internal/db"
 
 // Resolver ...
 type Resolver struct { //nolint unused
-	Store store.DB
+	Store db.DB
 }

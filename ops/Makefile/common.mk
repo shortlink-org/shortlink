@@ -13,6 +13,7 @@ dep: ## Install dependencies for this project
 	@go get -u github.com/securego/gosec/cmd/gosec
 	@go get -u moul.io/protoc-gen-gotemplate
 	@go get -u github.com/jteeuwen/go-bindata/...
+	@go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
 	# install wire
 	@go get -u github.com/google/wire/cmd/wire

@@ -7,7 +7,7 @@ import (
 
 	"github.com/golang/protobuf/ptypes"
 
-	"github.com/batazor/shortlink/pkg/domain/link"
+	"github.com/batazor/shortlink/internal/api/domain/link"
 )
 
 // API ...

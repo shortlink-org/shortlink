@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
+	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 	"github.com/batazor/shortlink/internal/notify"
-	"github.com/batazor/shortlink/internal/store/query"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // Link ...
@@ -42,7 +42,7 @@ func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 }
 
 // Links ...
-func (r *Resolver) Links(ctx context.Context, args struct { // nolint unused
+func (r *Resolver) Links(ctx context.Context, args struct {
 	Filter *query.Filter
 }) (*[]*LinkResolver, error) { // nolint unused
 	responseCh := make(chan interface{})

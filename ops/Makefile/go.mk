@@ -4,19 +4,33 @@ generate: ## Code generation
 	# proto generation link entity
 	@protoc -I/usr/local/include -I. \
 	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
-	--go_out=plugins=grpc:. \
-	pkg/domain/link/link.proto
+	--go_out=Minternal/api/domain/link/link.proto=./internal/proto/grpc_service_config:. \
+	--go-grpc_out=Minternal/api/domain/link/link.proto=./internal/proto/grpc_service_config:. \
+	--go_opt=paths=source_relative \
+  --go-grpc_opt=paths=source_relative \
+	internal/api/domain/link/link.proto
 
 	@protoc -I/usr/local/include -I. \
     	--gotemplate_out=all=true,template_dir=internal/store/query/template:internal/store/query \
-    	pkg/domain/link/link.proto
+    	internal/api/domain/link/link.proto
+
+	# proto generation metadata entity
+	@protoc -I/usr/local/include -I. \
+	--go_out=Minternal/metadata/domain/rpc.proto=./internal/proto/grpc_service_config:. \
+	--go-grpc_out=Minternal/metadata/domain/rpc.proto=./internal/proto/grpc_service_config:. \
+	--go_opt=paths=source_relative \
+  --go-grpc_opt=paths=source_relative \
+	internal/metadata/domain/rpc.proto
 
 	# proto generation gRPC-web
 	@protoc -I/usr/local/include -I. \
 	-I=pkg/api/grpc-web \
 	-I=third_party/googleapis \
 	--plugin=protoc-gen-grpc-gateway=${GOPATH}/bin/protoc-gen-grpc-gateway \
-	--go_out=plugins=grpc:. \
+	--go_out=Mpkg/api/grpc-web/api.proto=./internal/proto/grpc_service_config:. \
+	--go-grpc_out=Mpkg/api/grpc-web/api.proto=./internal/proto/grpc_service_config:. \
+	--go_opt=paths=source_relative \
+  --go-grpc_opt=paths=source_relative \
 	--swagger_out=logtostderr=true,allow_delete_body=true:. \
 	--grpc-gateway_out=logtostderr=true,allow_delete_body=true:. \
 	pkg/api/grpc-web/api.proto

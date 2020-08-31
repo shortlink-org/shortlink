@@ -12,16 +12,16 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/goleak"
 
+	"github.com/batazor/shortlink/internal/api/infrastructure/store"
+	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/notify"
-	"github.com/batazor/shortlink/internal/store"
 )
 
-func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
-}
+//func TestMain(m *testing.M) {
+//	goleak.VerifyTestMain(m)
+//}
 
 func TestAdd(t *testing.T) {
 	server := &API{}
@@ -39,6 +39,15 @@ func TestAdd(t *testing.T) {
 	log, err := logger.NewLogger(logger.Zap, conf)
 	assert.Nil(t, err, "Error init a logger")
 
+	// Init Store
+	var st db.Store
+	_, err = st.Use(ctx, log)
+	assert.Nil(t, err)
+
+	store := store.LinkStore{}
+	_, err = store.Use(ctx, log, nil)
+	assert.Nil(t, err)
+
 	t.Run("empty payload", func(t *testing.T) {
 		response := `{"error": "EOF"}`
 		_, body := testRequest(t, ts, "POST", "/", nil) // nolint bodyclose
@@ -51,16 +60,17 @@ func TestAdd(t *testing.T) {
 			Describe: "",
 		})
 		assert.Nil(t, err)
-		response := `{"error": "Not found subscribe to event METHOD_ADD"}`
 		_, body := testRequest(t, ts, "POST", "/", bytes.NewReader(payload)) // nolint bodyclose
-		assert.Equal(t, body, response)
+
+		// Parse response
+		var resp map[string]interface{}
+		err = json.Unmarshal([]byte(body), &resp)
+		assert.Nil(t, err)
+
+		assert.Equal(t, resp["hash"], "92c9c679c")
 	})
 
-	t.Run("with store", func(t *testing.T) {
-		// add store
-		var st store.Store
-		st.Use(ctx, log)
-
+	t.Run("with db", func(t *testing.T) {
 		payload, err := json.Marshal(addRequest{
 			Describe: "",
 		})
@@ -69,7 +79,7 @@ func TestAdd(t *testing.T) {
 		_, body := testRequest(t, ts, "POST", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.NotNil(t, body)
 
-		// clean store subscribe
+		// clean db subscribe
 		notify.Clean()
 	})
 }
@@ -96,16 +106,21 @@ func TestGet(t *testing.T) {
 		assert.Equal(t, body, response)
 	})
 
-	t.Run("with store", func(t *testing.T) {
-		// add store
-		var st store.Store
-		st.Use(ctx, log)
+	t.Run("with db", func(t *testing.T) {
+		// Init Store
+		var st db.Store
+		_, err = st.Use(ctx, log)
+		assert.Nil(t, err)
+
+		store := store.LinkStore{}
+		_, err = store.Use(ctx, log, nil)
+		assert.Nil(t, err)
 
 		response := `{"error": "Not found link: hash"}`
 		_, body := testRequest(t, ts, "GET", "/hash", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 
-		// clean store subscribe
+		// clean db subscribe
 		notify.Clean()
 	})
 }
@@ -132,16 +147,21 @@ func TestList(t *testing.T) {
 		assert.Equal(t, body, response)
 	})
 
-	t.Run("with store", func(t *testing.T) {
-		// add store
-		var st store.Store
-		st.Use(ctx, log)
+	t.Run("with db", func(t *testing.T) {
+		// Init Store
+		var st db.Store
+		_, err = st.Use(ctx, log)
+		assert.Nil(t, err)
+
+		store := store.LinkStore{}
+		_, err = store.Use(ctx, log, nil)
+		assert.Nil(t, err)
 
 		response := `null`
 		_, body := testRequest(t, ts, "GET", "/links", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 
-		// clean store subscribe
+		// clean db subscribe
 		notify.Clean()
 	})
 }
@@ -172,10 +192,15 @@ func TestDelete(t *testing.T) {
 		assert.Equal(t, body, response)
 	})
 
-	t.Run("with store", func(t *testing.T) {
-		// add store
-		var st store.Store
-		st.Use(ctx, log)
+	t.Run("with db", func(t *testing.T) {
+		// Init Store
+		var st db.Store
+		_, err = st.Use(ctx, log)
+		assert.Nil(t, err)
+
+		store := store.LinkStore{}
+		_, err = store.Use(ctx, log, nil)
+		assert.Nil(t, err)
 
 		payload, err := json.Marshal(deleteRequest{
 			Hash: "hash",
@@ -185,7 +210,7 @@ func TestDelete(t *testing.T) {
 		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.Equal(t, body, response)
 
-		// clean store subscribe
+		// clean db subscribe
 		notify.Clean()
 	})
 }

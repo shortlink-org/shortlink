@@ -2,7 +2,7 @@
 set -ex
 
 # TODO: refactoring this script
-PROTOBUF_VERSION=3.12.4
+PROTOBUF_VERSION=3.13.0
 basename=protoc-$PROTOBUF_VERSION-linux-x86_64.zip
 
 wget https://github.com/protocolbuffers/protobuf/releases/download/v$PROTOBUF_VERSION/$basename

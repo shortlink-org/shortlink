@@ -45,7 +45,7 @@ items:
         - args:
           - --alertmanager.url=http://prometheus-prometheus-oper-alertmanager:9093
           - --log.level=info
-          - --store=bolt
+          - --db=bolt
           - --bolt.path=/data/bot.db
           env:
           - name: TELEGRAM_ADMIN
