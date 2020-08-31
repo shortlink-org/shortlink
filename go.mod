@@ -4,12 +4,12 @@ go 1.14
 
 require (
 	github.com/Masterminds/squirrel v1.4.0
-	github.com/PuerkitoBio/goquery v1.5.1
 	github.com/Shopify/sarama v1.27.0
 	github.com/cloudevents/sdk-go/v2 v2.0.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.2007.1
 	github.com/dgraph-io/dgo/v2 v2.2.0
+	github.com/dvyukov/go-fuzz v0.0.0-20200819065627-a253a53b0c63 // indirect
 	github.com/getsentry/sentry-go v0.7.0
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-chi/cors v1.1.1
@@ -20,10 +20,11 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/gocql/gocql v0.0.0-20200815110948-5378c8f664e9
 	github.com/golang-migrate/migrate/v4 v4.12.2
+	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.4.2
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.8.0
-	github.com/graph-gophers/graphql-go v0.0.0-20200622220639-c1d9693c95a6
+	github.com/graph-gophers/graphql-go v0.0.0-20200819123640-3b5ddcd884ae
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.1
 	github.com/grpc-ecosystem/grpc-gateway v1.14.7
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
@@ -31,9 +32,8 @@ require (
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.8.0
 	github.com/markbates/pkger v0.17.0
-	github.com/mattn/go-sqlite3 v1.14.1
+	github.com/mattn/go-sqlite3 v1.14.2
 	github.com/nats-io/nats.go v1.10.0
-	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.6.0
@@ -59,12 +59,11 @@ require (
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.15.0
 	golang.org/x/crypto v0.0.0-20200728195943-123391ffb6de // indirect
-	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
-	golang.org/x/sys v0.0.0-20200824131525-c12d262b63d8 // indirect
 	golang.org/x/tools v0.0.0-20200809012840-6f4f008689da // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	google.golang.org/genproto v0.0.0-20200815001618-f69a88009b70
-	google.golang.org/grpc v1.31.0
+	google.golang.org/appengine v1.6.6 // indirect
+	google.golang.org/genproto v0.0.0-20200829155447-2bf3329a0021
+	google.golang.org/grpc v1.31.1
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
