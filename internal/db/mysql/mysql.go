@@ -10,7 +10,7 @@ import (
 )
 
 // Init ...
-func (m *Store) Init(ctx context.Context) error {
+func (m *Store) Init(_ context.Context) error {
 	var err error
 
 	// Set configuration
@@ -20,18 +20,10 @@ func (m *Store) Init(ctx context.Context) error {
 		return err
 	}
 
-	sqlStmt := `
-		CREATE TABLE IF NOT EXISTS links (
-			id          int NOT NULL AUTO_INCREMENT,
-			url         varchar(255) NOT NULL,
-			hash        varchar(255) NOT NULL,
-			description text NULL,
-			PRIMARY KEY (id)
-		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-	`
-
-	if _, err = m.client.Exec(sqlStmt); err != nil {
-		panic(err)
+	// Apply migration
+	err = m.migrate()
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -44,6 +36,20 @@ func (m *Store) Close() error {
 
 // Migrate ...
 func (m *Store) migrate() error { // nolint unused
+	sqlStmt := `
+		CREATE TABLE IF NOT EXISTS links (
+			id          int NOT NULL AUTO_INCREMENT,
+			url         varchar(255) NOT NULL,
+			hash        varchar(255) NOT NULL,
+			description text NULL,
+			PRIMARY KEY (id)
+		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+	`
+
+	if _, err := m.client.Exec(sqlStmt); err != nil {
+		return err
+	}
+
 	return nil
 }
 

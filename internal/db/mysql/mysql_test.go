@@ -8,14 +8,13 @@ import (
 
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/goleak"
 )
 
-func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
-}
+//func TestMain(m *testing.M) {
+//	goleak.VerifyTestMain(m)
+//}
 
-func TestMongo(t *testing.T) {
+func TestMySQL(t *testing.T) {
 	store := Store{}
 	ctx := context.Background()
 
