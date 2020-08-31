@@ -2,25 +2,29 @@ package sqlite
 
 import (
 	"context"
+	"database/sql"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/goleak"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	db "github.com/batazor/shortlink/internal/db/sqlite"
 )
 
-func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
-}
+//func TestMain(m *testing.M) {
+//	goleak.VerifyTestMain(m)
+//}
 
 func TestSQLite(t *testing.T) {
-	store := Store{}
-
 	ctx := context.Background()
 
-	err := store.Init(ctx)
+	st := db.Store{}
+	err := st.Init(ctx)
 	assert.Nil(t, err)
+
+	store := Store{
+		client: st.GetConn().(*sql.DB),
+	}
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
@@ -42,9 +46,5 @@ func TestSQLite(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
 	})
 }

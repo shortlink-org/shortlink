@@ -6,7 +6,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
+	"github.com/batazor/shortlink/internal/logger"
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
+	"github.com/batazor/shortlink/internal/metadata/infrastructure/store"
 )
 
 var metaMock = rpc.Meta{
@@ -19,7 +21,18 @@ func TestSet(t *testing.T) { //nolint unused
 	ctx := context.Background()
 	url := "https://github.com/"
 
-	r := Repository{}
+	// Init logger
+	conf := logger.Configuration{}
+	log, err := logger.NewLogger(logger.Zap, conf)
+	assert.Nil(t, err, "Error init a logger")
+
+	// Create store
+	st := &meta_store.MetaStore{}
+	st.Use(ctx, log, nil)
+
+	r := Service{
+		Store: st,
+	}
 	meta, err := r.Set(ctx, url)
 	assert.Nil(t, err, "Error get body")
 

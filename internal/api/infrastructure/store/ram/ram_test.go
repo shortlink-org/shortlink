@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	"github.com/batazor/shortlink/internal/db/options"
 )
 
 // TODO: problem with goleak
@@ -21,9 +22,6 @@ func TestRAM(t *testing.T) {
 
 	ctx := context.Background()
 
-	err := store.Init(ctx)
-	assert.Nil(t, err)
-
 	t.Run("Create [single]", func(t *testing.T) {
 		link, errAdd := store.Add(ctx, mock.AddLink)
 		assert.Nil(t, errAdd)
@@ -32,11 +30,10 @@ func TestRAM(t *testing.T) {
 
 	t.Run("Create [batch]", func(t *testing.T) {
 		// Set config
-		err = os.Setenv("STORE_RAM_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
+		err := os.Setenv("STORE_RAM_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init(ctx)
-		assert.Nil(t, err)
+		store := Store{}
 
 		link, err := store.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
@@ -69,9 +66,5 @@ func TestRAM(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
 	})
 }

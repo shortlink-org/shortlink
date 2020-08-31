@@ -29,6 +29,11 @@ func (m *Store) Init(_ context.Context) error {
 	return nil
 }
 
+// GetConn ...
+func (s *Store) GetConn() interface{} {
+	return s.client
+}
+
 // Close ...
 func (m *Store) Close() error {
 	return m.client.Close()

@@ -4,22 +4,26 @@ import (
 	"context"
 	"testing"
 
+	"github.com/dgraph-io/badger/v2"
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/goleak"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	db "github.com/batazor/shortlink/internal/db/badger"
 )
 
-func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
-}
+//func TestMain(m *testing.M) {
+//	goleak.VerifyTestMain(m)
+//}
 
 func TestBadger(t *testing.T) {
-	store := Store{}
 	ctx := context.Background()
 
-	err := store.Init(ctx)
-	assert.Nil(t, err)
+	st := db.Store{}
+	st.Init(ctx)
+
+	store := Store{
+		client: st.GetConn().(*badger.DB),
+	}
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
@@ -41,9 +45,5 @@ func TestBadger(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
 	})
 }

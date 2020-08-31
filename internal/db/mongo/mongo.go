@@ -51,6 +51,11 @@ func (m *Store) Init(ctx context.Context) error {
 	return nil
 }
 
+// GetConn ...
+func (s *Store) GetConn() interface{} {
+	return s.client
+}
+
 // Close ...
 func (m *Store) Close() error {
 	return m.client.Disconnect(context.Background())

@@ -15,7 +15,8 @@ func TestMain(m *testing.M) {
 }
 
 func TestScylla(t *testing.T) {
-	// db := Store{}
+	//ctx := context.Background()
+	//st := db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -30,9 +31,10 @@ func TestScylla(t *testing.T) {
 		err = os.Setenv("STORE_SCYLLA_URI", fmt.Sprintf("localhost:%s", resource.GetPort("9042/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		// if errInit := db.Init(); errInit != nil {
-		// 	return errInit
-		// }
+		//err = st.Init(ctx)
+		//if err != nil {
+		//	return err
+		//}
 
 		return nil
 	}); err != nil {
@@ -46,12 +48,16 @@ func TestScylla(t *testing.T) {
 		}
 	})
 
-	// t.Run("Create", func(t *testing.T) {
-	// 	link, err := db.Add(mock.AddLink)
-	// 	assert.Nil(t, err)
-	// 	assert.Equal(t, link.Hash, mock.GetLink.Hash)
-	// })
+	//store := Store{
+	//	client: st.GetConn().(*gocql.Session),
+	//}
 	//
+	//t.Run("Create", func(t *testing.T) {
+	//	link, err := store.Add(ctx, mock.AddLink)
+	//	assert.Nil(t, err)
+	//	assert.Equal(t, link.Hash, mock.GetLink.Hash)
+	//})
+
 	// t.Run("Get", func(t *testing.T) {
 	// 	link, err := db.Get(mock.GetLink.Hash)
 	// 	assert.Nil(t, err)

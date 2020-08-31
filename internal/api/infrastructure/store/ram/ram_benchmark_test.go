@@ -11,19 +11,17 @@ import (
 	"go.uber.org/atomic"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	"github.com/batazor/shortlink/internal/db/options"
 )
 
 func BenchmarkRAMSerial(b *testing.B) {
-	store := Store{}
-
 	ctx := context.Background()
 
 	b.Run("Create [single]", func(b *testing.B) {
 		b.ReportAllocs()
 
 		// create a db
-		err := store.Init(ctx)
-		assert.Nil(b, err)
+		store := Store{}
 
 		data := mock.AddLink
 
@@ -37,13 +35,12 @@ func BenchmarkRAMSerial(b *testing.B) {
 	b.Run("Create [batch]", func(b *testing.B) {
 		b.ReportAllocs()
 
+		// create a db
+		store := Store{}
+
 		// Set config
 		err := os.Setenv("STORE_RAM_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		assert.Nil(b, err, "Cannot set ENV")
-
-		// create a db
-		err = store.Init(ctx)
-		assert.Nil(b, err)
 
 		data := mock.AddLink
 
@@ -56,16 +53,13 @@ func BenchmarkRAMSerial(b *testing.B) {
 }
 
 func BenchmarkRAMParallel(b *testing.B) {
-	store := Store{}
-
 	ctx := context.Background()
 
 	b.Run("Create [single]", func(b *testing.B) {
 		b.ReportAllocs()
 
 		// create a db
-		err := store.Init(ctx)
-		assert.Nil(b, err)
+		store := Store{}
 
 		data := mock.AddLink
 		var atom atomic.Int64
@@ -89,8 +83,7 @@ func BenchmarkRAMParallel(b *testing.B) {
 		assert.Nil(b, err, "Cannot set ENV")
 
 		// create a db
-		err = store.Init(ctx)
-		assert.Nil(b, err)
+		store := Store{}
 
 		data := mock.AddLink
 		var atom atomic.Int64

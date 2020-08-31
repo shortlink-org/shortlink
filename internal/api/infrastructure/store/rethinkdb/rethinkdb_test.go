@@ -8,13 +8,16 @@ import (
 
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
+	"gopkg.in/rethinkdb/rethinkdb-go.v6"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	db "github.com/batazor/shortlink/internal/db/rethinkdb"
 )
 
 func TestRethinkDB(t *testing.T) {
-	store := Store{}
 	ctx := context.Background()
+
+	st := db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -38,7 +41,7 @@ func TestRethinkDB(t *testing.T) {
 		err = os.Setenv("STORE_RETHINKDB_URI", fmt.Sprintf("localhost:%s", resource.GetPort("28015/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init(ctx)
+		err = st.Init(ctx)
 		if err != nil {
 			return err
 		}
@@ -60,6 +63,10 @@ func TestRethinkDB(t *testing.T) {
 		}
 	})
 
+	store := Store{
+		client: st.GetConn().(*rethinkdb.Session),
+	}
+
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
@@ -80,9 +87,5 @@ func TestRethinkDB(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
 	})
 }

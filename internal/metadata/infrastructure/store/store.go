@@ -13,7 +13,7 @@ import (
 )
 
 // Use return implementation of db
-func (s *MetaStore) Use(_ context.Context, log logger.Logger, st *db.Store) (*MetaStore, error) {
+func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (*MetaStore, error) {
 	// Set configuration
 	s.setConfig()
 
