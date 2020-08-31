@@ -13,6 +13,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestRAM(t *testing.T) {
+	// InitStore
 	store := Store{}
 
 	ctx := context.Background()
@@ -20,6 +21,7 @@ func TestRAM(t *testing.T) {
 	err := store.Init(ctx)
 	assert.Nil(t, err)
 
+	// Run tests
 	t.Run("Close", func(t *testing.T) {
 		assert.Nil(t, store.Close())
 	})
