@@ -6,16 +6,19 @@ import (
 	"os"
 	"testing"
 
+	"github.com/dgraph-io/dgo/v2"
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	db "github.com/batazor/shortlink/internal/db/dgraph"
 )
 
 func TestDgraph(t *testing.T) {
-	store := Store{}
 	ctx := context.Background()
+
+	st := db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -66,7 +69,7 @@ func TestDgraph(t *testing.T) {
 			return nil
 		}
 
-		err = store.Init(ctx)
+		err = st.Init(ctx)
 		if err != nil {
 			return err
 		}
@@ -88,6 +91,10 @@ func TestDgraph(t *testing.T) {
 		}
 	})
 
+	store := Store{
+		client: st.GetConn().(*dgo.Dgraph),
+	}
+
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
@@ -108,9 +115,5 @@ func TestDgraph(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
 	})
 }

@@ -54,6 +54,11 @@ func (c *Store) Init(ctx context.Context) error {
 	return nil
 }
 
+// GetConn ...
+func (s *Store) GetConn() interface{} {
+	return s.client
+}
+
 // Close ...
 func (c *Store) Close() error { // nolint unparam
 	c.client.Close()

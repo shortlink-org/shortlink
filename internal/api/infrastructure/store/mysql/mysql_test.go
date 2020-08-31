@@ -6,20 +6,22 @@ import (
 	"os"
 	"testing"
 
+	"github.com/jmoiron/sqlx"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/goleak"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	db "github.com/batazor/shortlink/internal/db/mysql"
 )
 
-func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
-}
+//func TestMain(m *testing.M) {
+//	goleak.VerifyTestMain(m)
+//}
 
 func TestMongo(t *testing.T) {
-	store := Store{}
 	ctx := context.Background()
+
+	st := db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -36,7 +38,7 @@ func TestMongo(t *testing.T) {
 		err = os.Setenv("STORE_MYSQL_URI", fmt.Sprintf("root:secret@(localhost:%s)/mysql?parseTime=true", resource.GetPort("3306/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init(ctx)
+		err = st.Init(ctx)
 		if err != nil {
 			return err
 		}
@@ -52,6 +54,10 @@ func TestMongo(t *testing.T) {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
 	})
+
+	store := Store{
+		client: st.GetConn().(*sqlx.DB),
+	}
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
@@ -73,9 +79,5 @@ func TestMongo(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
 	})
 }

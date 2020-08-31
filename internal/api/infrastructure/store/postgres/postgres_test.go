@@ -6,13 +6,18 @@ import (
 	"os"
 	"testing"
 
+	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	db "github.com/batazor/shortlink/internal/db/postgres"
 )
 
 func TestPostgres(t *testing.T) {
-	store := Store{}
 	ctx := context.Background()
+
+	st := db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -40,7 +45,7 @@ func TestPostgres(t *testing.T) {
 		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://shortlink:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init(ctx)
+		err = st.Init(ctx)
 		if err != nil {
 			return err
 		}
@@ -60,5 +65,31 @@ func TestPostgres(t *testing.T) {
 		if err := pool.Purge(resource); err != nil {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
+	})
+
+	store := Store{
+		client: st.GetConn().(*pgxpool.Pool),
+	}
+
+	t.Run("Create", func(t *testing.T) {
+		link, err := store.Add(ctx, mock.AddLink)
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+	})
+
+	t.Run("Get", func(t *testing.T) {
+		link, err := store.Get(ctx, mock.GetLink.Hash)
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+	})
+
+	t.Run("Get list", func(t *testing.T) {
+		links, err := store.List(ctx, nil)
+		assert.Nil(t, err)
+		assert.Equal(t, len(links), 4)
+	})
+
+	t.Run("Delete", func(t *testing.T) {
+		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 }

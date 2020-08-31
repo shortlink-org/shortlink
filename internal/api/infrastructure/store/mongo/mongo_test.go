@@ -8,9 +8,11 @@ import (
 
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
+	"go.mongodb.org/mongo-driver/mongo"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
+	db "github.com/batazor/shortlink/internal/db/mongo"
 )
 
 // TODO: Problem with testing into GitLab CI
@@ -19,8 +21,9 @@ import (
 //}
 
 func TestMongo(t *testing.T) {
-	store := Store{}
 	ctx := context.Background()
+
+	st := db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -37,7 +40,7 @@ func TestMongo(t *testing.T) {
 		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init(ctx)
+		err = st.Init(ctx)
 		if err != nil {
 			return err
 		}
@@ -53,6 +56,10 @@ func TestMongo(t *testing.T) {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
 	})
+
+	store := Store{
+		client: st.GetConn().(*mongo.Client),
+	}
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
@@ -88,9 +95,5 @@ func TestMongo(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
 	})
 }

@@ -25,7 +25,7 @@ type Store struct { // nolint unused
 }
 
 // Get ...
-func (r *Store) Get(ctx context.Context, id string) (*link.Link, error) {
+func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {
 	val, err := r.client.Get(id).Result()
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -41,7 +41,7 @@ func (r *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (r *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (r *Store) List(_ context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	keys := r.client.Keys("*")
 	links := []*link.Link{}
 
@@ -63,7 +63,7 @@ func (r *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 }
 
 // Add ...
-func (r *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
+func (r *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -87,7 +87,7 @@ func (r *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error)
 }
 
 // Delete ...
-func (r *Store) Delete(ctx context.Context, id string) error {
+func (r *Store) Delete(_ context.Context, id string) error {
 	if err := r.client.Del(id).Err(); err != nil {
 		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}

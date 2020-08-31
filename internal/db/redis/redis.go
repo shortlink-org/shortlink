@@ -38,6 +38,11 @@ func (r *Store) Init(ctx context.Context) error {
 	return nil
 }
 
+// GetConn ...
+func (s *Store) GetConn() interface{} {
+	return s.client
+}
+
 // Close ...
 func (r *Store) Close() error {
 	return r.client.Close()

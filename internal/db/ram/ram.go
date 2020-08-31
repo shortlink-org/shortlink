@@ -32,6 +32,11 @@ func (s *Store) Init(ctx context.Context) error { // nolint unparam
 	return nil
 }
 
+// GetConn ...
+func (s *Store) GetConn() interface{} {
+	return nil
+}
+
 // Close ...
 func (ram *Store) Close() error {
 	return nil

@@ -6,15 +6,18 @@ import (
 	"os"
 	"testing"
 
+	"github.com/go-redis/redis"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	db "github.com/batazor/shortlink/internal/db/redis"
 )
 
 func TestRedis(t *testing.T) {
-	store := Store{}
 	ctx := context.Background()
+
+	st := db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -31,7 +34,7 @@ func TestRedis(t *testing.T) {
 		err = os.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		err = store.Init(ctx)
+		err = st.Init(ctx)
 		if err != nil {
 			return err
 		}
@@ -47,6 +50,10 @@ func TestRedis(t *testing.T) {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
 	})
+
+	store := Store{
+		client: st.GetConn().(*redis.Client),
+	}
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
@@ -68,9 +75,5 @@ func TestRedis(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
 	})
 }

@@ -28,7 +28,7 @@ import (
 )
 
 // Use return implementation of db
-func (store *LinkStore) Use(_ context.Context, log logger.Logger, st *db.Store) (*LinkStore, error) { // nolint unused
+func (store *LinkStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (*LinkStore, error) { // nolint unused
 	// Set configuration
 	store.setConfig()
 
