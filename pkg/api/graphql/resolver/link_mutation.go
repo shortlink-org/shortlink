@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 // CreateLink ...

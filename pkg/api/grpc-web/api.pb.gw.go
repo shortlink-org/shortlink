@@ -13,7 +13,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/batazor/shortlink/pkg/domain/link"
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/golang/protobuf/descriptor"
 	"github.com/golang/protobuf/proto"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
@@ -211,6 +211,7 @@ func local_request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Mars
 // RegisterLinkHandlerServer registers the http handlers for service Link to "mux".
 // UnaryRPC     :call LinkServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
+// Note that using this registration option will cause many gRPC library features (such as grpc.SendHeader, etc) to stop working. Consider using RegisterLinkHandlerFromEndpoint instead.
 func RegisterLinkHandlerServer(ctx context.Context, mux *runtime.ServeMux, server LinkServer) error {
 
 	mux.Handle("GET", pattern_Link_GetLinks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {

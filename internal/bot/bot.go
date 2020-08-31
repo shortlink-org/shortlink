@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/bot/di"
 	bot_type "github.com/batazor/shortlink/internal/bot/type"
 	"github.com/batazor/shortlink/internal/notify"
-	"github.com/batazor/shortlink/pkg/domain/link"
 )
 
 func (b *Bot) Use(ctx context.Context) { // nolint unused
@@ -22,7 +22,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 }
 
 // Notify ...
-func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
+func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response {
 	switch event {
 	case bot_type.METHOD_NEW_LINK:
 		if addLink, ok := payload.(*link.Link); ok {

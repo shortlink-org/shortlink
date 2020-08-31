@@ -44,7 +44,7 @@ func main() {
 
 	// Run API server
 	var API api.Server
-	API.RunAPIServer(ctx, s.Log, s.Tracer)
+	API.RunAPIServer(ctx, s.Log, s.Tracer, s.ServerRPC, s.ClientRPC)
 
 	defer func() {
 		if r := recover(); r != nil {
@@ -62,7 +62,7 @@ func main() {
 
 	// Stop the service gracefully.
 	// close DB
-	if err := s.DB.Close(); err != nil {
+	if err := s.DB.Store.Close(); err != nil {
 		s.Log.Error(err.Error())
 	}
 

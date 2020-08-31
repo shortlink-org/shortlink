@@ -316,9 +316,11 @@ issues:
     # Exclude some linters from running on tests files.
     - path: _test\.go
       linters:
-        - gocyclo
         - errcheck
-        - dupl
+        - gosec
+
+    - path: migrations.go
+      linters:
         - gosec
 
     # Exclude known linters from partially hard-vendored code,

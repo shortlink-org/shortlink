@@ -1,5 +1,6 @@
 package tool
 
+// TODO: add test
 // Contains tells whether a contains x.
 func Contains(a []string, x string) bool {
 	for _, n := range a {
@@ -10,6 +11,7 @@ func Contains(a []string, x string) bool {
 	return false
 }
 
+// TODO: add test
 // Find returns the smallest index i at which x == a[i],
 // or len(a) if there is no such index.
 func Find(a []string, x string) int {

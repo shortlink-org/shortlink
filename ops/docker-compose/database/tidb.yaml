@@ -147,7 +147,7 @@ services:
       - "4000:4000"
       - "10080:10080"
     command:
-      - --store=tikv
+      - --db=tikv
       - --path=pd0:2379,pd1:2379,pd2:2379
       - --config=/tidb.toml
       - --log-file=/logs/tidb.log
