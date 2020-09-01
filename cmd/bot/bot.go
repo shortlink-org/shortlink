@@ -1,7 +1,6 @@
 /*
 Bot application
 */
-
 package main
 
 import (

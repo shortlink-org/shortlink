@@ -1,7 +1,6 @@
 /*
 Message Queue
 */
-
 package mq
 
 import (

@@ -1,3 +1,6 @@
+/*
+Bot Service
+*/
 package bot
 
 import (

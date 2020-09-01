@@ -1,3 +1,6 @@
+/*
+Package for work in batch mode
+*/
 package batch
 
 import (

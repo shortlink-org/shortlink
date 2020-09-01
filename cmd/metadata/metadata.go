@@ -1,7 +1,8 @@
 /*
 Metadata application
-*/
 
+Get information by links
+*/
 package main
 
 import (

@@ -1,7 +1,6 @@
 /*
 Link entity
 */
-
 package link
 
 import (

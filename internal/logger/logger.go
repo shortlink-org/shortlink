@@ -1,7 +1,6 @@
 /*
 Logger
 */
-
 package logger
 
 import (
