@@ -1,7 +1,6 @@
 /*
 Heath checker
 */
-
 package healthcheck
 
 import (

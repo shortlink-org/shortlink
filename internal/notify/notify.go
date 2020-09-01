@@ -1,7 +1,6 @@
 /*
 Notify system
 */
-
 package notify
 
 import (

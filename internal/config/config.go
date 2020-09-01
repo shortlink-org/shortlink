@@ -1,3 +1,6 @@
+/*
+Config package
+*/
 package config
 
 import (

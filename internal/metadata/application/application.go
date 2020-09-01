@@ -1,3 +1,6 @@
+/*
+Metadata Service. Application layer
+*/
 package application
 
 import (

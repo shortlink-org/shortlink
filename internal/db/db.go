@@ -1,7 +1,6 @@
 /*
 Data Base package
 */
-
 package db
 
 import (

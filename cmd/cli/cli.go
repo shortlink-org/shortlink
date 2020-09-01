@@ -1,3 +1,8 @@
+/*
+CLI tooling
+
+- generate ENV-docs
+*/
 package main
 
 import (

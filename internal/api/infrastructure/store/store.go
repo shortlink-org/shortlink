@@ -1,3 +1,6 @@
+/*
+Store Endpoint
+*/
 package store
 
 import (

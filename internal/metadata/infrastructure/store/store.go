@@ -1,3 +1,6 @@
+/*
+Metadata Service. Infrastructure layer
+*/
 package meta_store
 
 import (

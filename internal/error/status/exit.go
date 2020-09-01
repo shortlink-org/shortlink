@@ -1,3 +1,6 @@
+/*
+Global error status
+*/
 package status
 
 const (

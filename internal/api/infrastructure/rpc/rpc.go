@@ -1,3 +1,6 @@
+/*
+RPC Endpoint
+*/
 package rpc
 
 import (
