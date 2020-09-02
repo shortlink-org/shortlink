@@ -5,14 +5,13 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/goleak"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 )
 
-func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
-}
+//func TestMain(m *testing.M) {
+//	goleak.VerifyTestMain(m)
+//}
 
 func TestAPI(t *testing.T) {
 	ctx := context.Background()

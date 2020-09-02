@@ -12,36 +12,6 @@
   ],
   "paths": {
     "/api": {
-      "delete": {
-        "operationId": "Link_DeleteLink",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "properties": {}
-            }
-          },
-          "default": {
-            "description": "An unexpected error response",
-            "schema": {
-              "$ref": "#/definitions/runtimeError"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/linkLink"
-            }
-          }
-        ],
-        "tags": [
-          "Link"
-        ]
-      },
       "post": {
         "operationId": "Link_CreateLink",
         "responses": {
@@ -54,7 +24,7 @@
           "default": {
             "description": "An unexpected error response",
             "schema": {
-              "$ref": "#/definitions/runtimeError"
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         },
@@ -73,74 +43,7 @@
         ]
       }
     },
-    "/api/links": {
-      "get": {
-        "operationId": "Link_GetLinks",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/linkLinks"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response",
-            "schema": {
-              "$ref": "#/definitions/runtimeError"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "link.url",
-            "description": "URL.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "link.hash",
-            "description": "Hash by URL + salt.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "link.describe",
-            "description": "Describe of link.",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "link.created_at",
-            "description": "Create at.",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "name": "link.updated_at",
-            "description": "Update at.",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "date-time"
-          },
-          {
-            "name": "filter",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "Link"
-        ]
-      }
-    },
-    "/api/{hash}": {
+    "/api/link/{hash}": {
       "get": {
         "operationId": "Link_GetLink",
         "responses": {
@@ -153,7 +56,7 @@
           "default": {
             "description": "An unexpected error response",
             "schema": {
-              "$ref": "#/definitions/runtimeError"
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         },
@@ -180,7 +83,7 @@
             "type": "string"
           },
           {
-            "name": "created_at",
+            "name": "createdAt",
             "description": "Create at.",
             "in": "query",
             "required": false,
@@ -188,7 +91,135 @@
             "format": "date-time"
           },
           {
-            "name": "updated_at",
+            "name": "updatedAt",
+            "description": "Update at.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "Link"
+        ]
+      }
+    },
+    "/api/links": {
+      "get": {
+        "operationId": "Link_GetLinks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/linkLinks"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "link.url",
+            "description": "URL.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "link.hash",
+            "description": "Hash by URL + salt.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "link.describe",
+            "description": "Describe of link.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "link.createdAt",
+            "description": "Create at.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "link.updatedAt",
+            "description": "Update at.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Link"
+        ]
+      }
+    },
+    "/api/{hash}": {
+      "delete": {
+        "operationId": "Link_DeleteLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "properties": {}
+            }
+          },
+          "default": {
+            "description": "An unexpected error response",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "hash",
+            "description": "Hash by URL + salt",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "url",
+            "description": "URL.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "describe",
+            "description": "Describe of link.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "createdAt",
+            "description": "Create at.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "updatedAt",
             "description": "Update at.",
             "in": "query",
             "required": false,
@@ -218,12 +249,12 @@
           "type": "string",
           "title": "Describe of link"
         },
-        "created_at": {
+        "createdAt": {
           "type": "string",
           "format": "date-time",
           "title": "Create at"
         },
-        "updated_at": {
+        "updatedAt": {
           "type": "string",
           "format": "date-time",
           "title": "Update at"
@@ -244,7 +275,7 @@
     "protobufAny": {
       "type": "object",
       "properties": {
-        "type_url": {
+        "typeUrl": {
           "type": "string"
         },
         "value": {
@@ -253,12 +284,9 @@
         }
       }
     },
-    "runtimeError": {
+    "rpcStatus": {
       "type": "object",
       "properties": {
-        "error": {
-          "type": "string"
-        },
         "code": {
           "type": "integer",
           "format": "int32"

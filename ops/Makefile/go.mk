@@ -23,7 +23,7 @@ generate: ## Code generation
 	internal/metadata/domain/rpc.proto
 
 	# proto generation gRPC-web
-	@protoc -I/usr/local/include -I. \
+	@protoc -I. \
 	-I=pkg/api/grpc-web \
 	-I=third_party/googleapis \
 	--plugin=protoc-gen-grpc-gateway=${GOPATH}/bin/protoc-gen-grpc-gateway \
@@ -31,8 +31,8 @@ generate: ## Code generation
 	--go-grpc_out=Mpkg/api/grpc-web/api.proto=./internal/proto/grpc_service_config:. \
 	--go_opt=paths=source_relative \
   --go-grpc_opt=paths=source_relative \
-	--swagger_out=logtostderr=true,allow_delete_body=true:. \
 	--grpc-gateway_out=logtostderr=true,allow_delete_body=true:. \
+	--openapiv2_out=logtostderr=true:. \
 	pkg/api/grpc-web/api.proto
 	@mv pkg/api/grpc-web/api.swagger.json docs/api.swagger.json
 
