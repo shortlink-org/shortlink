@@ -77,4 +77,5 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 func NotFoundHandler(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusNotFound)
+
 }

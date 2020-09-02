@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/go-chi/chi"
@@ -20,8 +19,8 @@ func (api *API) Routes() chi.Router {
 
 	r.Post("/", api.Add)
 	r.Get("/links", api.List)
-	r.Get("/{hash}", api.Get)
-	r.Delete("/", api.Delete)
+	r.Get("/link/{hash}", api.Get)
+	r.Delete("/{hash}", api.Delete)
 
 	return r
 }
@@ -201,28 +200,22 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Parse request
-	b, err := ioutil.ReadAll(r.Body)
-	defer func() {
-		_ = r.Body.Close() // nolint errcheck
-	}()
-	if err != nil {
+	var hash = chi.URLParam(r, "hash")
+	if hash == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint errcheck
 		return
 	}
 
-	var request deleteRequest
-	err = json.Unmarshal(b, &request)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
-		return
+	request := deleteRequest{
+		Hash: hash,
 	}
 
 	responseCh := make(chan interface{})
 
 	go notify.Publish(r.Context(), api_type.METHOD_DELETE, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
 
+	var err error
 	c := <-responseCh
 	switch r := c.(type) {
 	case nil:
