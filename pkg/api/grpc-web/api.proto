@@ -11,28 +11,27 @@ option go_package = "grpcweb";
 service Link {
     rpc GetLinks(LinkRequest) returns (link.Links) {
         option(google.api.http) = {
-			get: "/api/links"
-		};
+        get: "/api/links"
+      };
     };
 
     rpc GetLink(link.Link) returns (link.Link) {
         option(google.api.http) = {
-			get: "/api/{hash}"
-		};
+        get: "/api/link/{hash}"
+      };
     };
 
     rpc CreateLink(link.Link) returns (link.Link) {
         option(google.api.http) = {
-			post: "/api"
-			body: "*"
-		};
+        post: "/api"
+        body: "*"
+      };
     };
 
     rpc DeleteLink(link.Link) returns (google.protobuf.Empty) {
         option(google.api.http) = {
-			delete: "/api"
-			body: "*"
-		};
+        delete: "/api/{hash}"
+      };
     };
 }
 

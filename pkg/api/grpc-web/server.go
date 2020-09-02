@@ -12,7 +12,7 @@ import (
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	"google.golang.org/grpc"
@@ -46,11 +46,9 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
 	gw := runtime.NewServeMux(
-		runtime.WithProtoErrorHandler(runtime.DefaultHTTPProtoErrorHandler),
+		// Register custom error handler
+		runtime.WithErrorHandler(api.CustomHTTPError),
 	)
-
-	// Register custom error handler
-	runtime.HTTPError = api.CustomHTTPError
 
 	// DefaultContextTimeout is used for gRPC call context.WithTimeout whenever a Grpc-Timeout inbound
 	// header isn't present. If the value is 0 the sent `context` will not have a timeout.
@@ -113,10 +111,18 @@ func (api *API) tracingWrapper(h http.Handler) http.Handler {
 	})
 }
 
-func (api *API) CustomHTTPError(ctx context.Context, _ *runtime.ServeMux, marshaler runtime.Marshaler, w http.ResponseWriter, _ *http.Request, err error) {
+func (api *API) CustomHTTPError(_ context.Context, _ *runtime.ServeMux, marshaler runtime.Marshaler, w http.ResponseWriter, _ *http.Request, err error) {
 	const fallback = `{"error": "failed to marshal error message"}`
 
-	w.Header().Set("Content-type", marshaler.ContentType())
+	s := status.Convert(err)
+	pb := s.Proto()
+
+	w.Header().Del("Trailer")
+	w.Header().Del("Transfer-Encoding")
+
+	contentType := marshaler.ContentType(pb)
+	w.Header().Set("Content-Type", contentType)
+
 	w.WriteHeader(runtime.HTTPStatusFromCode(status.Code(err)))
 
 	jErr := json.NewEncoder(w).Encode(customError{
