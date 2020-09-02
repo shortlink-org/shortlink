@@ -13,7 +13,7 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion6
+const _ = grpc.SupportPackageIsVersion7
 
 // LinkClient is the client API for Link service.
 //
@@ -33,6 +33,10 @@ func NewLinkClient(cc grpc.ClientConnInterface) LinkClient {
 	return &linkClient{cc}
 }
 
+var linkGetLinksStreamDesc = &grpc.StreamDesc{
+	StreamName: "GetLinks",
+}
+
 func (c *linkClient) GetLinks(ctx context.Context, in *LinkRequest, opts ...grpc.CallOption) (*link.Links, error) {
 	out := new(link.Links)
 	err := c.cc.Invoke(ctx, "/grpcweb.Link/GetLinks", in, out, opts...)
@@ -40,6 +44,10 @@ func (c *linkClient) GetLinks(ctx context.Context, in *LinkRequest, opts ...grpc
 		return nil, err
 	}
 	return out, nil
+}
+
+var linkGetLinkStreamDesc = &grpc.StreamDesc{
+	StreamName: "GetLink",
 }
 
 func (c *linkClient) GetLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error) {
@@ -51,6 +59,10 @@ func (c *linkClient) GetLink(ctx context.Context, in *link.Link, opts ...grpc.Ca
 	return out, nil
 }
 
+var linkCreateLinkStreamDesc = &grpc.StreamDesc{
+	StreamName: "CreateLink",
+}
+
 func (c *linkClient) CreateLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error) {
 	out := new(link.Link)
 	err := c.cc.Invoke(ctx, "/grpcweb.Link/CreateLink", in, out, opts...)
@@ -58,6 +70,10 @@ func (c *linkClient) CreateLink(ctx context.Context, in *link.Link, opts ...grpc
 		return nil, err
 	}
 	return out, nil
+}
+
+var linkDeleteLinkStreamDesc = &grpc.StreamDesc{
+	StreamName: "DeleteLink",
 }
 
 func (c *linkClient) DeleteLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*empty.Empty, error) {
@@ -69,132 +85,165 @@ func (c *linkClient) DeleteLink(ctx context.Context, in *link.Link, opts ...grpc
 	return out, nil
 }
 
-// LinkServer is the server API for Link service.
-// All implementations must embed UnimplementedLinkServer
-// for forward compatibility
-type LinkServer interface {
-	GetLinks(context.Context, *LinkRequest) (*link.Links, error)
-	GetLink(context.Context, *link.Link) (*link.Link, error)
-	CreateLink(context.Context, *link.Link) (*link.Link, error)
-	DeleteLink(context.Context, *link.Link) (*empty.Empty, error)
-	mustEmbedUnimplementedLinkServer()
+// LinkService is the service API for Link service.
+// Fields should be assigned to their respective handler implementations only before
+// RegisterLinkService is called.  Any unassigned fields will result in the
+// handler for that method returning an Unimplemented error.
+type LinkService struct {
+	GetLinks   func(context.Context, *LinkRequest) (*link.Links, error)
+	GetLink    func(context.Context, *link.Link) (*link.Link, error)
+	CreateLink func(context.Context, *link.Link) (*link.Link, error)
+	DeleteLink func(context.Context, *link.Link) (*empty.Empty, error)
 }
 
-// UnimplementedLinkServer must be embedded to have forward compatible implementations.
-type UnimplementedLinkServer struct {
-}
-
-func (*UnimplementedLinkServer) GetLinks(context.Context, *LinkRequest) (*link.Links, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetLinks not implemented")
-}
-func (*UnimplementedLinkServer) GetLink(context.Context, *link.Link) (*link.Link, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetLink not implemented")
-}
-func (*UnimplementedLinkServer) CreateLink(context.Context, *link.Link) (*link.Link, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateLink not implemented")
-}
-func (*UnimplementedLinkServer) DeleteLink(context.Context, *link.Link) (*empty.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeleteLink not implemented")
-}
-func (*UnimplementedLinkServer) mustEmbedUnimplementedLinkServer() {}
-
-func RegisterLinkServer(s *grpc.Server, srv LinkServer) {
-	s.RegisterService(&_Link_serviceDesc, srv)
-}
-
-func _Link_GetLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func (s *LinkService) getLinks(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.GetLinks == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method GetLinks not implemented")
+	}
 	in := new(LinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LinkServer).GetLinks(ctx, in)
+		return s.GetLinks(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
-		Server:     srv,
+		Server:     s,
 		FullMethod: "/grpcweb.Link/GetLinks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServer).GetLinks(ctx, req.(*LinkRequest))
+		return s.GetLinks(ctx, req.(*LinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
-
-func _Link_GetLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func (s *LinkService) getLink(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.GetLink == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method GetLink not implemented")
+	}
 	in := new(link.Link)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LinkServer).GetLink(ctx, in)
+		return s.GetLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
-		Server:     srv,
+		Server:     s,
 		FullMethod: "/grpcweb.Link/GetLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServer).GetLink(ctx, req.(*link.Link))
+		return s.GetLink(ctx, req.(*link.Link))
 	}
 	return interceptor(ctx, in, info, handler)
 }
-
-func _Link_CreateLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func (s *LinkService) createLink(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.CreateLink == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method CreateLink not implemented")
+	}
 	in := new(link.Link)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LinkServer).CreateLink(ctx, in)
+		return s.CreateLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
-		Server:     srv,
+		Server:     s,
 		FullMethod: "/grpcweb.Link/CreateLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServer).CreateLink(ctx, req.(*link.Link))
+		return s.CreateLink(ctx, req.(*link.Link))
 	}
 	return interceptor(ctx, in, info, handler)
 }
-
-func _Link_DeleteLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func (s *LinkService) deleteLink(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.DeleteLink == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method DeleteLink not implemented")
+	}
 	in := new(link.Link)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LinkServer).DeleteLink(ctx, in)
+		return s.DeleteLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
-		Server:     srv,
+		Server:     s,
 		FullMethod: "/grpcweb.Link/DeleteLink",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServer).DeleteLink(ctx, req.(*link.Link))
+		return s.DeleteLink(ctx, req.(*link.Link))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _Link_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "grpcweb.Link",
-	HandlerType: (*LinkServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "GetLinks",
-			Handler:    _Link_GetLinks_Handler,
+// RegisterLinkService registers a service implementation with a gRPC server.
+func RegisterLinkService(s grpc.ServiceRegistrar, srv *LinkService) {
+	sd := grpc.ServiceDesc{
+		ServiceName: "grpcweb.Link",
+		Methods: []grpc.MethodDesc{
+			{
+				MethodName: "GetLinks",
+				Handler:    srv.getLinks,
+			},
+			{
+				MethodName: "GetLink",
+				Handler:    srv.getLink,
+			},
+			{
+				MethodName: "CreateLink",
+				Handler:    srv.createLink,
+			},
+			{
+				MethodName: "DeleteLink",
+				Handler:    srv.deleteLink,
+			},
 		},
-		{
-			MethodName: "GetLink",
-			Handler:    _Link_GetLink_Handler,
-		},
-		{
-			MethodName: "CreateLink",
-			Handler:    _Link_CreateLink_Handler,
-		},
-		{
-			MethodName: "DeleteLink",
-			Handler:    _Link_DeleteLink_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "pkg/api/grpc-web/api.proto",
+		Streams:  []grpc.StreamDesc{},
+		Metadata: "pkg/api/grpc-web/api.proto",
+	}
+
+	s.RegisterService(&sd, nil)
+}
+
+// NewLinkService creates a new LinkService containing the
+// implemented methods of the Link service in s.  Any unimplemented
+// methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
+// This includes situations where the method handler is misspelled or has the wrong
+// signature.  For this reason, this function should be used with great care and
+// is not recommended to be used by most users.
+func NewLinkService(s interface{}) *LinkService {
+	ns := &LinkService{}
+	if h, ok := s.(interface {
+		GetLinks(context.Context, *LinkRequest) (*link.Links, error)
+	}); ok {
+		ns.GetLinks = h.GetLinks
+	}
+	if h, ok := s.(interface {
+		GetLink(context.Context, *link.Link) (*link.Link, error)
+	}); ok {
+		ns.GetLink = h.GetLink
+	}
+	if h, ok := s.(interface {
+		CreateLink(context.Context, *link.Link) (*link.Link, error)
+	}); ok {
+		ns.CreateLink = h.CreateLink
+	}
+	if h, ok := s.(interface {
+		DeleteLink(context.Context, *link.Link) (*empty.Empty, error)
+	}); ok {
+		ns.DeleteLink = h.DeleteLink
+	}
+	return ns
+}
+
+// UnstableLinkService is the service API for Link service.
+// New methods may be added to this interface if they are added to the service
+// definition, which is not a backward-compatible change.  For this reason,
+// use of this type is not recommended.
+type UnstableLinkService interface {
+	GetLinks(context.Context, *LinkRequest) (*link.Links, error)
+	GetLink(context.Context, *link.Link) (*link.Link, error)
+	CreateLink(context.Context, *link.Link) (*link.Link, error)
+	DeleteLink(context.Context, *link.Link) (*empty.Empty, error)
 }

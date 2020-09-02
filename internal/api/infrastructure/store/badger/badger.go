@@ -7,21 +7,14 @@ import (
 
 	"github.com/dgraph-io/badger/v2"
 	"github.com/golang/protobuf/ptypes"
-	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 )
 
-// Config ...
-type Config struct { // nolint unused
-	Path string
-}
-
 // Store implementation of db interface
 type Store struct { // nolint unused
 	client *badger.DB
-	config Config
 }
 
 // Get ...
@@ -157,14 +150,4 @@ func (b *Store) Delete(ctx context.Context, id string) error {
 		return err
 	})
 	return err
-}
-
-// setConfig - set configuration
-func (b *Store) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_BADGER_PATH", "/tmp/links.badger") // Badger path to file
-
-	b.config = Config{
-		Path: viper.GetString("STORE_BADGER_PATH"),
-	}
 }

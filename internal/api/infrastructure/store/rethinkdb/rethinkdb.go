@@ -5,22 +5,15 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/spf13/viper"
 	"gopkg.in/rethinkdb/rethinkdb-go.v6"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 )
 
-// Config ...
-type Config struct { // nolint unused
-	URI []string
-}
-
 // Store implementation of db interface
 type Store struct { // nolint unused
 	client *rethinkdb.Session
-	config Config
 }
 
 type Link struct {
@@ -28,7 +21,7 @@ type Link struct {
 	Id string `gorethink:"id,omitempty"`
 }
 
-func (r *Store) Get(ctx context.Context, id string) (*link.Link, error) {
+func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {
 	c, err := rethinkdb.DB("shortlink").Table("link").Get(id).Run(r.client)
 	if err != nil {
 		return nil, err
@@ -49,7 +42,7 @@ func (r *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // TODO: How get all keys?
-func (r *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) {
+func (r *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 	return nil, nil
 }
 
@@ -72,25 +65,15 @@ func (r *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) 
 	return data, nil
 }
 
-func (r *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (s *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
-func (r *Store) Delete(ctx context.Context, id string) error {
+func (r *Store) Delete(_ context.Context, id string) error {
 	_, err := rethinkdb.DB("shortlink").Table("link").Get(id).Delete().Run(r.client)
 	if err != nil {
 		return err
 	}
 
 	return nil
-}
-
-// setConfig - set configuration
-func (r *Store) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_RETHINKDB_URI", "localhost:28015") // RethinkDB URI
-
-	r.config = Config{
-		URI: viper.GetStringSlice("STORE_RETHINKDB_URI"),
-	}
 }

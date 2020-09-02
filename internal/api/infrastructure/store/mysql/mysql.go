@@ -5,8 +5,6 @@ import (
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/spf13/viper"
-
 	_ "github.com/go-sql-driver/mysql"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
@@ -119,14 +117,4 @@ func (m *Store) Delete(ctx context.Context, id string) error {
 	}
 
 	return nil
-}
-
-// setConfig - set configuration
-func (m *Store) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MYSQL_URI", "shortlink:shortlink@(localhost:3306)/shortlink?parseTime=true") // MySQL URI
-
-	m.config = Config{
-		URI: viper.GetString("STORE_MYSQL_URI"),
-	}
 }

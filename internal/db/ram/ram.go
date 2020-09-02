@@ -2,30 +2,24 @@ package ram
 
 import (
 	"context"
-	"sync"
 
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/batch"
 	"github.com/batazor/shortlink/internal/db/options"
 )
 
 // Config ...
 type Config struct { // nolint unused
 	mode int
-	job  *batch.Config
 }
 
 // Store implementation of db interface
-type Store struct { // nolint unused
-	// sync.Map solver problem with cache contention
-	links sync.Map
-
+type Store struct {
 	config Config
 }
 
 // Init ...
-func (s *Store) Init(ctx context.Context) error { // nolint unparam
+func (s *Store) Init(_ context.Context) error {
 	// Set configuration
 	s.setConfig()
 

@@ -183,10 +183,10 @@ func TestDelete(t *testing.T) {
 	assert.Nil(t, err, "Error init a logger")
 
 	t.Run("correct payload", func(t *testing.T) {
-		payload, err := json.Marshal(deleteRequest{
+		payload, errJsonMarshal := json.Marshal(deleteRequest{
 			Hash: "hash",
 		})
-		assert.Nil(t, err)
+		assert.Nil(t, errJsonMarshal)
 		response := `{"error": "Not found subscribe to event METHOD_DELETE"}`
 		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)) // nolint bodyclose
 		assert.Equal(t, body, response)

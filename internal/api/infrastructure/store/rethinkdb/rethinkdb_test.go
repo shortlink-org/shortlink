@@ -1,3 +1,4 @@
+// Deprecated: This database is no longer supported
 package rethinkdb
 
 import (
@@ -11,7 +12,7 @@ import (
 	"gopkg.in/rethinkdb/rethinkdb-go.v6"
 
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
-	db "github.com/batazor/shortlink/internal/db/rethinkdb"
+	db "github.com/batazor/shortlink/internal/db/rethinkdb" // nolint staticcheck
 )
 
 func TestRethinkDB(t *testing.T) {

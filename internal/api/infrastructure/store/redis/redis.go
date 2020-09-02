@@ -5,23 +5,15 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/spf13/viper"
-
 	"github.com/go-redis/redis"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 )
 
-// Config ...
-type Config struct { // nolint unused
-	URI string
-}
-
 // Store implementation of db interface
 type Store struct { // nolint unused
 	client *redis.Client
-	config Config
 }
 
 // Get ...
@@ -93,14 +85,4 @@ func (r *Store) Delete(_ context.Context, id string) error {
 	}
 
 	return nil
-}
-
-// setConfig - set configuration
-func (r *Store) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_REDIS_URI", "localhost:6379") // Redis URI
-
-	r.config = Config{
-		URI: viper.GetString("STORE_REDIS_URI"),
-	}
 }

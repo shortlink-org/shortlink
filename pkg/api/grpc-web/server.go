@@ -32,8 +32,15 @@ var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-ga
 func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
 	api.ctx = ctx
 
+	service := &LinkService{
+		GetLinks:   api.GetLinks,
+		GetLink:    api.GetLink,
+		CreateLink: api.CreateLink,
+		DeleteLink: api.DeleteLink,
+	}
+
 	// Rug gRPC
-	RegisterLinkServer(api.RPC.Server, api)
+	RegisterLinkService(api.RPC.Server, service)
 	api.RPC.Run()
 
 	// Register gRPC server endpoint
@@ -120,5 +127,3 @@ func (api *API) CustomHTTPError(ctx context.Context, _ *runtime.ServeMux, marsha
 		_, _ = w.Write([]byte(fallback)) // nolint gosec
 	}
 }
-
-func (api *API) mustEmbedUnimplementedLinkServer() {}

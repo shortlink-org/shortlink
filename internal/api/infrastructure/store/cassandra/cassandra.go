@@ -10,18 +10,11 @@ import (
 	"github.com/gocql/gocql"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/scylladb/gocqlx/qb"
-	"github.com/spf13/viper"
 )
-
-// Config ...
-type Config struct { // nolint unused
-	URI string
-}
 
 // CassandraLinkList implementation of db interface
 type CassandraLinkList struct { // nolint unused
 	client *gocql.Session
-	config Config
 }
 
 // Get ...
@@ -94,13 +87,4 @@ func (c *CassandraLinkList) Update(ctx context.Context, data *link.Link) (*link.
 func (c *CassandraLinkList) Delete(ctx context.Context, id string) error {
 	err := c.client.Query(`DELETE FROM shortlink.links WHERE hash = ?`, id).Exec()
 	return err
-}
-
-// setConfig - set configuration
-func (c *CassandraLinkList) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_CASSANDRA_URI", "localhost:9042") // Cassandra URI
-	c.config = Config{
-		URI: viper.GetString("STORE_CASSANDRA_URI"),
-	}
 }

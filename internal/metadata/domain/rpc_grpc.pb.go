@@ -11,7 +11,7 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion6
+const _ = grpc.SupportPackageIsVersion7
 
 // MetadataClient is the client API for Metadata service.
 //
@@ -29,6 +29,10 @@ func NewMetadataClient(cc grpc.ClientConnInterface) MetadataClient {
 	return &metadataClient{cc}
 }
 
+var metadataGetStreamDesc = &grpc.StreamDesc{
+	StreamName: "Get",
+}
+
 func (c *metadataClient) Get(ctx context.Context, in *GetMetaRequest, opts ...grpc.CallOption) (*GetMetaResponse, error) {
 	out := new(GetMetaResponse)
 	err := c.cc.Invoke(ctx, "/rpc.Metadata/Get", in, out, opts...)
@@ -36,6 +40,10 @@ func (c *metadataClient) Get(ctx context.Context, in *GetMetaRequest, opts ...gr
 		return nil, err
 	}
 	return out, nil
+}
+
+var metadataSetStreamDesc = &grpc.StreamDesc{
+	StreamName: "Set",
 }
 
 func (c *metadataClient) Set(ctx context.Context, in *SetMetaRequest, opts ...grpc.CallOption) (*SetMetaResponse, error) {
@@ -47,80 +55,103 @@ func (c *metadataClient) Set(ctx context.Context, in *SetMetaRequest, opts ...gr
 	return out, nil
 }
 
-// MetadataServer is the server API for Metadata service.
-// All implementations must embed UnimplementedMetadataServer
-// for forward compatibility
-type MetadataServer interface {
-	Get(context.Context, *GetMetaRequest) (*GetMetaResponse, error)
-	Set(context.Context, *SetMetaRequest) (*SetMetaResponse, error)
-	mustEmbedUnimplementedMetadataServer()
+// MetadataService is the service API for Metadata service.
+// Fields should be assigned to their respective handler implementations only before
+// RegisterMetadataService is called.  Any unassigned fields will result in the
+// handler for that method returning an Unimplemented error.
+type MetadataService struct {
+	Get func(context.Context, *GetMetaRequest) (*GetMetaResponse, error)
+	Set func(context.Context, *SetMetaRequest) (*SetMetaResponse, error)
 }
 
-// UnimplementedMetadataServer must be embedded to have forward compatible implementations.
-type UnimplementedMetadataServer struct {
-}
-
-func (*UnimplementedMetadataServer) Get(context.Context, *GetMetaRequest) (*GetMetaResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
-}
-func (*UnimplementedMetadataServer) Set(context.Context, *SetMetaRequest) (*SetMetaResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Set not implemented")
-}
-func (*UnimplementedMetadataServer) mustEmbedUnimplementedMetadataServer() {}
-
-func RegisterMetadataServer(s *grpc.Server, srv MetadataServer) {
-	s.RegisterService(&_Metadata_serviceDesc, srv)
-}
-
-func _Metadata_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func (s *MetadataService) get(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.Get == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+	}
 	in := new(GetMetaRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MetadataServer).Get(ctx, in)
+		return s.Get(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
-		Server:     srv,
+		Server:     s,
 		FullMethod: "/rpc.Metadata/Get",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MetadataServer).Get(ctx, req.(*GetMetaRequest))
+		return s.Get(ctx, req.(*GetMetaRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
-
-func _Metadata_Set_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func (s *MetadataService) set(_ interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	if s.Set == nil {
+		return nil, status.Errorf(codes.Unimplemented, "method Set not implemented")
+	}
 	in := new(SetMetaRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MetadataServer).Set(ctx, in)
+		return s.Set(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
-		Server:     srv,
+		Server:     s,
 		FullMethod: "/rpc.Metadata/Set",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MetadataServer).Set(ctx, req.(*SetMetaRequest))
+		return s.Set(ctx, req.(*SetMetaRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _Metadata_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "rpc.Metadata",
-	HandlerType: (*MetadataServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Get",
-			Handler:    _Metadata_Get_Handler,
+// RegisterMetadataService registers a service implementation with a gRPC server.
+func RegisterMetadataService(s grpc.ServiceRegistrar, srv *MetadataService) {
+	sd := grpc.ServiceDesc{
+		ServiceName: "rpc.Metadata",
+		Methods: []grpc.MethodDesc{
+			{
+				MethodName: "Get",
+				Handler:    srv.get,
+			},
+			{
+				MethodName: "Set",
+				Handler:    srv.set,
+			},
 		},
-		{
-			MethodName: "Set",
-			Handler:    _Metadata_Set_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "internal/metadata/domain/rpc.proto",
+		Streams:  []grpc.StreamDesc{},
+		Metadata: "internal/metadata/domain/rpc.proto",
+	}
+
+	s.RegisterService(&sd, nil)
+}
+
+// NewMetadataService creates a new MetadataService containing the
+// implemented methods of the Metadata service in s.  Any unimplemented
+// methods will result in the gRPC server returning an UNIMPLEMENTED status to the client.
+// This includes situations where the method handler is misspelled or has the wrong
+// signature.  For this reason, this function should be used with great care and
+// is not recommended to be used by most users.
+func NewMetadataService(s interface{}) *MetadataService {
+	ns := &MetadataService{}
+	if h, ok := s.(interface {
+		Get(context.Context, *GetMetaRequest) (*GetMetaResponse, error)
+	}); ok {
+		ns.Get = h.Get
+	}
+	if h, ok := s.(interface {
+		Set(context.Context, *SetMetaRequest) (*SetMetaResponse, error)
+	}); ok {
+		ns.Set = h.Set
+	}
+	return ns
+}
+
+// UnstableMetadataService is the service API for Metadata service.
+// New methods may be added to this interface if they are added to the service
+// definition, which is not a backward-compatible change.  For this reason,
+// use of this type is not recommended.
+type UnstableMetadataService interface {
+	Get(context.Context, *GetMetaRequest) (*GetMetaResponse, error)
+	Set(context.Context, *SetMetaRequest) (*SetMetaResponse, error)
 }
