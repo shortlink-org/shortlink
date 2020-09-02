@@ -4,20 +4,20 @@ generate: ## Code generation
 	# proto generation link entity
 	@protoc -I/usr/local/include -I. \
 	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
-	--go_out=Minternal/api/domain/link/link.proto=./internal/proto/grpc_service_config:. \
-	--go-grpc_out=Minternal/api/domain/link/link.proto=./internal/proto/grpc_service_config:. \
+	--go_out=Minternal/api/domain/link/link.proto=.:. \
+	--go-grpc_out=Minternal/api/domain/link/link.proto=.:. \
 	--go_opt=paths=source_relative \
   --go-grpc_opt=paths=source_relative \
 	internal/api/domain/link/link.proto
 
 	@protoc -I/usr/local/include -I. \
-    	--gotemplate_out=all=true,template_dir=internal/store/query/template:internal/store/query \
+    	--gotemplate_out=all=true,template_dir=internal/api/infrastructure/store/query/template:internal/api/infrastructure/store/query \
     	internal/api/domain/link/link.proto
 
 	# proto generation metadata entity
 	@protoc -I/usr/local/include -I. \
-	--go_out=Minternal/metadata/domain/rpc.proto=./internal/proto/grpc_service_config:. \
-	--go-grpc_out=Minternal/metadata/domain/rpc.proto=./internal/proto/grpc_service_config:. \
+	--go_out=Minternal/metadata/domain/rpc.proto=.:. \
+	--go-grpc_out=Minternal/metadata/domain/rpc.proto=.:. \
 	--go_opt=paths=source_relative \
   --go-grpc_opt=paths=source_relative \
 	internal/metadata/domain/rpc.proto
@@ -38,7 +38,7 @@ generate: ## Code generation
 
 	# Generate from .go code
 	@go generate internal/store/postgres/postgres.go
-	@go generate internal/store/mongo/mongo.go
+	@go generate internal/db/mongo/mongo.go
 	@go generate internal/di/wire.go
 	@go generate internal/bot/di/wire.go
 

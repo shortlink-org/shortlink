@@ -5,22 +5,15 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/spf13/viper"
 	"github.com/syndtr/goleveldb/leveldb"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 )
 
-// Config ...
-type Config struct { // nolint unused
-	Path string
-}
-
 // Store implementation of db interface
 type Store struct { // nolint unused
 	client *leveldb.DB
-	config Config
 }
 
 // Add ...
@@ -102,14 +95,4 @@ func (l *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error)
 func (l *Store) Delete(ctx context.Context, id string) error {
 	err := l.client.Delete([]byte(id), nil)
 	return err
-}
-
-// setConfig - set configuration
-func (l *Store) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_LEVELDB_PATH", "/tmp/links.db") // LevelDB path to file
-
-	l.config = Config{
-		Path: viper.GetString("STORE_LEVELDB_PATH"),
-	}
 }

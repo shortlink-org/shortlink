@@ -52,7 +52,7 @@ func request_Link_GetLinks_0(ctx context.Context, marshaler runtime.Marshaler, c
 
 }
 
-func local_request_Link_GetLinks_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_Link_GetLinks_0(ctx context.Context, marshaler runtime.Marshaler, server LinkService, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq LinkRequest
 	var metadata runtime.ServerMetadata
 
@@ -106,7 +106,7 @@ func request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, cl
 
 }
 
-func local_request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkService, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq link.Link
 	var metadata runtime.ServerMetadata
 
@@ -157,7 +157,7 @@ func request_Link_CreateLink_0(ctx context.Context, marshaler runtime.Marshaler,
 
 }
 
-func local_request_Link_CreateLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_Link_CreateLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkService, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq link.Link
 	var metadata runtime.ServerMetadata
 
@@ -191,7 +191,7 @@ func request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler,
 
 }
 
-func local_request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkService, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq link.Link
 	var metadata runtime.ServerMetadata
 
@@ -209,10 +209,10 @@ func local_request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Mars
 }
 
 // RegisterLinkHandlerServer registers the http handlers for service Link to "mux".
-// UnaryRPC     :call LinkServer directly.
+// UnaryRPC     :call LinkService directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
 // Note that using this registration option will cause many gRPC library features (such as grpc.SendHeader, etc) to stop working. Consider using RegisterLinkHandlerFromEndpoint instead.
-func RegisterLinkHandlerServer(ctx context.Context, mux *runtime.ServeMux, server LinkServer) error {
+func RegisterLinkHandlerServer(ctx context.Context, mux *runtime.ServeMux, server LinkService) error {
 
 	mux.Handle("GET", pattern_Link_GetLinks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())

@@ -21,7 +21,7 @@ import (
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/ram"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/redis"
-	"github.com/batazor/shortlink/internal/api/infrastructure/store/rethinkdb"
+	"github.com/batazor/shortlink/internal/api/infrastructure/store/rethinkdb" // nolint staticcheck
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/scylla"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/sqlite"
 	"github.com/batazor/shortlink/internal/db"

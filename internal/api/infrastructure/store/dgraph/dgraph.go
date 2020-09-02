@@ -5,11 +5,8 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/spf13/viper"
-
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
-	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
@@ -30,16 +27,9 @@ type DGraphLinkResponse struct { // nolint unused
 	}
 }
 
-// Config ...
-type Config struct { // nolint unused
-	URL string
-}
-
 // Store ...
 type Store struct { // nolint unused
-	conn   *grpc.ClientConn
 	client *dgo.Dgraph
-	config Config
 }
 
 // get - private `get` method
@@ -244,14 +234,4 @@ func (dg *Store) Delete(ctx context.Context, id string) error {
 	}
 
 	return nil
-}
-
-// setConfig - set configuration
-func (dg *Store) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_DGRAPH_URI", "localhost:9080") // DGRAPH URI
-
-	dg.config = Config{
-		URL: viper.GetString("STORE_DGRAPH_URI"),
-	}
 }

@@ -110,6 +110,6 @@ type _bintree_t struct {
 }
 
 var _bintree = &_bintree_t{nil, map[string]*_bintree_t{
-	"000001_create_links_collection.down.json": {_000001_create_links_collection_down_json, map[string]*_bintree_t{}},
-	"000001_create_links_collection.up.json":   {_000001_create_links_collection_up_json, map[string]*_bintree_t{}},
+	"000001_create_links_collection.down.json": &_bintree_t{_000001_create_links_collection_down_json, map[string]*_bintree_t{}},
+	"000001_create_links_collection.up.json":   &_bintree_t{_000001_create_links_collection_up_json, map[string]*_bintree_t{}},
 }}

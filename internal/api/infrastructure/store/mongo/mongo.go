@@ -7,7 +7,6 @@ import (
 	"time"
 
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
-	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -181,16 +180,4 @@ func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.L
 	}
 
 	return sources, nil
-}
-
-// setConfig - set configuration
-func (m *Store) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MONGODB_URI", "mongodb://localhost:27017/shortlink") // MongoDB URI
-	viper.SetDefault("STORE_MONGODB_MODE_WRITE", storeOptions.MODE_SINGLE_WRITE) // mode write to db
-
-	m.config = Config{
-		URI:  viper.GetString("STORE_MONGODB_URI"),
-		mode: viper.GetInt("STORE_MONGODB_MODE_WRITE"),
-	}
 }

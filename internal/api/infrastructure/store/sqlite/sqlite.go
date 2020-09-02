@@ -7,21 +7,14 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
-	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 )
 
-// Config ...
-type Config struct { // nolint unused
-	Path string
-}
-
 // Store implementation of db interface
 type Store struct { // nolint unused
 	client *sql.DB
-	config Config
 }
 
 // Get ...
@@ -127,14 +120,4 @@ func (lite *Store) Delete(ctx context.Context, id string) error {
 	}
 
 	return nil
-}
-
-// setConfig - set configuration
-func (lite *Store) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_SQLITE_PATH", "/tmp/links.sqlite") // SQLite URI
-
-	lite.config = Config{
-		Path: viper.GetString("STORE_SQLITE_PATH"),
-	}
 }

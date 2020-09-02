@@ -10,7 +10,6 @@ import (
 	"github.com/Masterminds/squirrel"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
-	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
@@ -165,54 +164,4 @@ func (p *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link,
 	}
 
 	return data, nil
-}
-
-func (p *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.Link, error) {
-	docs := make([]interface{}, len(sources))
-
-	// Create a new link
-	for key := range sources {
-		data, err := link.NewURL(sources[key].Url)
-		if err != nil {
-			return nil, err
-		}
-
-		docs[key] = data
-	}
-
-	links := psql.Insert("links").Columns("url", "hash", "describe", "json")
-
-	// query builder
-	for _, source := range sources {
-		// save as JSON. it doesn't make sense
-		dataJson, err := json.Marshal(source)
-		if err != nil {
-			return nil, err
-		}
-
-		links.Values(source.Url, source.Hash, source.Describe, dataJson)
-	}
-
-	q, args, err := links.ToSql()
-	if err != nil {
-		return nil, err
-	}
-
-	p.client.QueryRow(ctx, q, args...)
-
-	return sources, nil
-}
-
-// setConfig - set configuration
-func (p *Store) setConfig() {
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s?sslmode=disable", "shortlink", "shortlink", "shortlink")
-
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)                           // Postgres URI
-	viper.SetDefault("STORE_POSTGRES_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db
-
-	p.config = Config{
-		URI:  viper.GetString("STORE_POSTGRES_URI"),
-		mode: viper.GetInt("STORE_POSTGRES_MODE_WRITE"),
-	}
 }

@@ -13,7 +13,6 @@ import (
 )
 
 type MetadataServer struct {
-	rpc.UnimplementedMetadataServer
 	service *application.Service
 }
 
@@ -25,8 +24,13 @@ func New(runRPCServer *di.RPCServer, st *meta_store.MetaStore) (*MetadataServer,
 		},
 	}
 
+	service := &rpc.MetadataService{
+		Get: server.Get,
+		Set: server.Set,
+	}
+
 	// Register services
-	rpc.RegisterMetadataServer(runRPCServer.Server, &server)
+	rpc.RegisterMetadataService(runRPCServer.Server, service)
 	runRPCServer.Run()
 
 	return &server, nil

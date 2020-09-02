@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/spf13/viper"
-
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 	"github.com/batazor/shortlink/internal/batch"
@@ -109,14 +107,4 @@ func (ram *Store) singleWrite(_ context.Context, source *link.Link) (*link.Link,
 	ram.links.Store(data.Hash, data)
 
 	return data, nil
-}
-
-// setConfig - set configuration
-func (ram *Store) setConfig() {
-	viper.AutomaticEnv()
-	viper.SetDefault("STORE_RAM_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db
-
-	ram.config = Config{
-		mode: viper.GetInt("STORE_RAM_MODE_WRITE"),
-	}
 }

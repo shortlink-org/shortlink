@@ -17,7 +17,7 @@ import (
 	"github.com/batazor/shortlink/internal/db/postgres"
 	"github.com/batazor/shortlink/internal/db/ram"
 	"github.com/batazor/shortlink/internal/db/redis"
-	"github.com/batazor/shortlink/internal/db/rethinkdb"
+	"github.com/batazor/shortlink/internal/db/rethinkdb" // nolint staticcheck
 	"github.com/batazor/shortlink/internal/db/scylla"
 	"github.com/batazor/shortlink/internal/db/sqlite"
 	"github.com/batazor/shortlink/internal/logger"

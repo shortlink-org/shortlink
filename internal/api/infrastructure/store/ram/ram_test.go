@@ -33,21 +33,21 @@ func TestRAM(t *testing.T) {
 		err := os.Setenv("STORE_RAM_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		store := Store{}
+		storeBatchMode := Store{}
 
-		link, err := store.Add(ctx, mock.AddLink)
+		link, err := storeBatchMode.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 
-		link, err = store.Add(ctx, mock.AddLink)
+		link, err = storeBatchMode.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 
-		link, err = store.Add(ctx, mock.AddLink)
+		link, err = storeBatchMode.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 
-		link, err = store.Add(ctx, mock.AddLink)
+		link, err = storeBatchMode.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
