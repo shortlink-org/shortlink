@@ -1,0 +1,20 @@
+{
+  "CN": "traefik.local",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C": "RU",
+      "L": "Moscow",
+      "O": "Shortlink",
+      "OU": "Moscow",
+      "ST": "Moscow"
+    }
+  ],
+  "hosts": [
+    "0.0.0.0",
+    "localhost"
+  ]
+}

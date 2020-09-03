@@ -12,7 +12,7 @@ services:
       - coredns
     container_name: ui-nuxt
     ports:
-#      # HTTP UI
+      # HTTP UI
       - "8080:80"
     restart: on-failure
     labels:

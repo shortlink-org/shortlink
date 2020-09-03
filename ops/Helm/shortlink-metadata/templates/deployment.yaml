@@ -16,13 +16,13 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "shortlink.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/component: logger
+      app.kubernetes.io/component: metadata
   template:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "shortlink.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/component: logger
+        app.kubernetes.io/component: metadata
     spec:
     {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:

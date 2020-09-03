@@ -1,0 +1,16 @@
+################################################################
+# ROUTERS
+################################################################
+[http.routers]
+  [http.routers.metadata]
+    rule = "PathPrefix(`/rpc.Metadata/`)"
+    service = "metadata"
+
+################################################################
+# SERVICES
+################################################################
+[http.services]
+  [http.services.metadata]
+    [http.services.metadata.loadBalancer]
+      [[http.services.metadata.loadBalancer.servers]]
+        url = "https://192.168.1.56:50052"
