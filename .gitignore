@@ -73,16 +73,3 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
-ops/Helm/chaos/charts/
-ops/Helm/shortlink-api/charts/
-ops/Helm/shortlink-logger/charts/
-ops/Helm/shortlink-metadata/charts/
-ops/Helm/shortlink-ui/charts/
-ops/ansible/application/
-ops/cert/ca.csr
-ops/cert/intermediate_ca.csr
-ops/cert/shortlink-client.csr
-ops/cert/shortlink-peer.csr
-ops/cert/shortlink-server.csr
-ops/scripts/bin/
-ops/scripts/include/
