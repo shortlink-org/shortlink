@@ -12,8 +12,11 @@ services:
       - VIRTUAL_HOST=grafana.loc
       - GF_SERVER_ROOT_URL=http://grafana.loc
       - GF_SERVER_ROUTER_LOGGING=true
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=test
       - GF_LOG_CONSOLE_FORMAT=json
       - GF_LOG_FILTERS=alerting.notifier:debug,alerting.notifier.slack:debug,auth:debug
+      - GF_INSTALL_PLUGIN=grafana-piechart-panel
     ports:
       - 3030:3000
     networks:

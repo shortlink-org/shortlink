@@ -5,7 +5,7 @@ services:
   prometheus:
     depends_on:
       - coredns
-    image: prom/prometheus:v2.13.1
+    image: prom/prometheus:v2.20.1
     container_name: prometheus
     restart: always
     command:

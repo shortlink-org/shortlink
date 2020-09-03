@@ -20,6 +20,9 @@
   [entryPoints.websecure]
     address = ":443"
 
+  [entryPoints.metrics]
+    address = ":8082"
+
 ################################################################
 # Traefik logs configuration
 ################################################################
@@ -202,3 +205,13 @@
     # Default: "uber-trace-id"
     #
     traceContextHeaderName = "uber-trace-id"
+
+################################################################
+# Prometheus
+################################################################
+
+[metrics]
+  [metrics.prometheus]
+    addEntryPointsLabels = true
+    addServicesLabels = true
+    entryPoint = "metrics"

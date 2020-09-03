@@ -1,6 +1,12 @@
 apiVersion: 1
 
 providers:
+  - name: 'RPC'
+    folder: 'RPC'
+    type: file
+    options:
+      path: /etc/grafana/provisioning/dashboards/rpc
+
   - name: 'Alerts'
     folder: 'Alerts'
     type: file

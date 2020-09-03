@@ -25,7 +25,12 @@ services:
       - ./ops/docker-compose/gateway/traefik/dynamic_conf.toml:/conf/dynamic_conf.toml
       - ./ops/docker-compose/gateway/traefik/traefik.toml:/traefik.toml
       - ./ops/cert:/cert
-#    logging:
-#      driver: fluent-bit
-#      options:
-#        tag: traefik
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}
+        max-size: ${LOGGER_MAX_SIZE}
+
+  prometheus:
+    volumes:
+      - ./ops/docker-compose/gateway/traefik/prometheus-target.json:/etc/prometheus/targets/traefik-server.json
