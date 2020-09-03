@@ -29,7 +29,7 @@
   # loop detects simple forwarding loops and halts the server.
   loop
 
-  trace zipkin jaeger-collector:9411 {
+  trace zipkin jaeger-agent:9411 {
     every 1
     service coredns
     client_server
