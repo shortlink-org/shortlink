@@ -14,6 +14,9 @@ dep: ## Install dependencies for this project
 	@go get -u moul.io/protoc-gen-gotemplate
 	@go get -u github.com/jteeuwen/go-bindata/...
 	@go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
+  # CFSSL: Cloudflare's PKI and TLS toolkit
+	@go get -u github.com/cloudflare/cfssl/cmd/cfssl
+	@go get -u github.com/cloudflare/cfssl/cmd/cfssljson
 
 	# install wire
 	@go get -u github.com/google/wire/cmd/wire
@@ -25,6 +28,7 @@ run: ## Run this project in docker-compose
          -f ops/docker-compose/tooling/fluent-bit.yaml \
          -f ops/docker-compose/gateway/traefik.yaml \
          -f ops/docker-compose/application/api.yaml \
+         -f ops/docker-compose/application/metadata.yaml \
          -f ops/docker-compose/application/logger.yaml \
          -f ops/docker-compose/application/ui-next.yaml \
          -f ops/docker-compose/database/mongo.yaml \

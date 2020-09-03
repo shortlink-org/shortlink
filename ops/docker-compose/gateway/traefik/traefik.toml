@@ -86,7 +86,7 @@
 [api]
 
   # Enable the API in insecure mode
-  # insecure = true
+  insecure = true
 
   # Enabled Dashboard
   dashboard = true
@@ -109,6 +109,10 @@
 # Docker configuration backend
 ################################################################
 
+[providers.file]
+  directory = "/conf"
+  watch = true
+
 # Enable Docker configuration backend
 [providers.docker]
 
@@ -129,6 +133,8 @@
   #
   exposedByDefault = false
 
+  watch = true
+
 ################################################################
 # TLS
 ################################################################
@@ -137,3 +143,62 @@
    certFile = "/configuration/shortlink.local.cert"
    keyFile = "/configuration/shortlink.local.key"
 
+################################################################
+# Tracing definition
+################################################################
+
+[tracing]
+  # Backend name used to send tracing data
+  #
+  # Default: "jaeger"
+  #
+#  backend = "jaeger"
+
+  # Service name used in Jaeger backend
+  #
+  # Default: "traefik"
+  #
+  serviceName = "traefik"
+
+  # Span name limit allows for name truncation in case of very long Frontend/Backend names
+  # This can prevent certain tracing providers to drop traces that exceed their length limits
+  #
+  # Default: 0 - no truncation will occur
+  #
+  spanNameLimit = 0
+
+  [tracing.jaeger]
+    # Sampling Server URL is the address of jaeger-agent's HTTP sampling server
+    #
+    # Default: "http://localhost:5778/sampling"
+    #
+    samplingServerURL = "http://localhost:5778/sampling"
+
+    # Sampling Type specifies the type of the sampler: const, probabilistic, rateLimiting
+    #
+    # Default: "const"
+    #
+    samplingType = "const"
+
+    # Sampling Param is a value passed to the sampler.
+    # Valid values for Param field are:
+    #   - for "const" sampler, 0 or 1 for always false/true respectively
+    #   - for "probabilistic" sampler, a probability between 0 and 1
+    #   - for "rateLimiting" sampler, the number of spans per second
+    #
+    # Default: 1.0
+    #
+    samplingParam = 1.0
+
+    # Local Agent Host Port instructs reporter to send spans to jaeger-agent at this address
+    #
+    # Default: "127.0.0.1:6831"
+    #
+    localAgentHostPort = "jaeger-agent:6831"
+
+    # Trace Context Header Name is the http header name used to propagate tracing context.
+    # This must be in lower-case to avoid mismatches when decoding incoming headers.
+    #
+    # Default: "uber-trace-id"
+    #
+    traceContextHeaderName = "traefik-trace-id"

@@ -19,7 +19,7 @@ deploy:
   env:
     MQ_ENABLED: "false"
     TRACER_URI: jaeger-agent:6831
-    TRACER_SERVICE_NAME: API
+    TRACER_SERVICE_NAME: metadata
 
   imagePullSecrets: []
 
@@ -36,7 +36,7 @@ deploy:
   annotations: {}
 
   image:
-    repository: batazor/shortlink
+    repository: batazor/shortlink-metadata
     tag: latest
     ## Global imagePullPolicy
     ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
@@ -53,24 +53,24 @@ deploy:
   affinity: []
 
   # define a liveness probe that checks every 5 seconds, starting after 5 seconds
-  livenessProbe:
-    httpGet:
-      path: /live
-      port: 9090
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 1
+  # livenessProbe: {}
+  #   httpGet:
+  #     path: /live
+  #     port: 9090
+  #   initialDelaySeconds: 5
+  #   periodSeconds: 5
+  #   successThreshold: 1
+  #   failureThreshold: 1
 
   # define a readiness probe that checks every 5 seconds, starting after 5 seconds
-  readinessProbe:
-    httpGet:
-      path: /ready
-      port: 9090
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 30
+  # readinessProbe: {}
+  #   httpGet:
+  #     path: /ready
+  #     port: 9090
+  #   initialDelaySeconds: 5
+  #   periodSeconds: 5
+  #   successThreshold: 1
+  #   failureThreshold: 30
 
   # volumes:
   #  hostPath: /data/carenda/upload
@@ -104,12 +104,6 @@ deploy:
     # runAsNonRoot: true
     # runAsUser: 1000
 
-service:
-  type: LoadBalancer
-  port: 7070
-
-# If you want to use an external database
-external_database:
-  enable: false
-  ip: 178.62.37.191
-  port: 6379
+service: {}
+#  type: NodePort
+#  port: 7070
