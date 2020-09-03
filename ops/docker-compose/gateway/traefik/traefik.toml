@@ -172,7 +172,7 @@
     #
     # Default: "http://localhost:5778/sampling"
     #
-    samplingServerURL = "http://localhost:5778/sampling"
+    samplingServerURL = "http://jaeger-agent:5778/sampling"
 
     # Sampling Type specifies the type of the sampler: const, probabilistic, rateLimiting
     #
@@ -201,4 +201,4 @@
     #
     # Default: "uber-trace-id"
     #
-    traceContextHeaderName = "traefik-trace-id"
+    traceContextHeaderName = "uber-trace-id"

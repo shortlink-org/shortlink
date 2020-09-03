@@ -259,7 +259,7 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
-	endpoint := fmt.Sprintf("localhost:%d", grpc_port)
+	endpoint := fmt.Sprintf("0.0.0.0:%d", grpc_port)
 	lis, err := net.Listen("tcp", endpoint)
 	if err != nil {
 		return nil, nil, err
@@ -296,7 +296,7 @@ func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientCo
 	// TODO: Do async model
 	// Set up a connection to the server peer
 	conn, err := grpc.Dial(
-		fmt.Sprintf("localhost:%d", grpc_port),
+		fmt.Sprintf("0.0.0.0:%d", grpc_port),
 		grpc.WithInsecure(),
 		grpc.WithBlock(),
 		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)),
