@@ -1,16 +1,37 @@
 ################################################################
-# ROUTERS
+# TLS
+################################################################
+
+[tls.stores]
+  [tls.stores.default]
+    [tls.stores.default.defaultCertificate]
+      certFile = "/cert/shortlink-peer.pem"
+      keyFile = "/cert/shortlink-peer-key.pem"
+
+################################################################
+# metadata
 ################################################################
 [http.routers]
   [http.routers.metadata]
     rule = "PathPrefix(`/rpc.Metadata/`)"
     service = "metadata"
 
-################################################################
-# SERVICES
-################################################################
 [http.services]
   [http.services.metadata]
     [http.services.metadata.loadBalancer]
       [[http.services.metadata.loadBalancer.servers]]
         url = "h2c://192.168.1.56:50052"
+
+################################################################
+# UI
+################################################################
+[http.routers.ui]
+  rule = "Host(`ui-next.local`)"
+  service = "ui-next-shortlink@docker"
+  [http.routers.ui.tls]
+    certResolver = "default"
+
+[http.services.ui]
+  [http.services.ui.loadBalancer]
+    [[http.services.ui.loadBalancer.servers]]
+      url = "http://ui-next"

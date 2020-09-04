@@ -1,5 +1,6 @@
 # CERT TASKS ===========================================================================================================
 
+# Prepare variables
 export CERT_PATH=./ops/cert
 export CERT_CONF_PATH=${CERT_PATH}/conf
 
