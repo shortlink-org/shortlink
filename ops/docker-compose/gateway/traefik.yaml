@@ -7,6 +7,7 @@ services:
       - coredns
     # The official v2.0 Traefik docker image
     image: traefik:v2.2.8
+    container_name: traefik
     ports:
       # The HTTP port
       - "80:80"

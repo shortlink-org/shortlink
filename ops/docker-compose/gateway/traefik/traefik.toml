@@ -139,24 +139,10 @@
   watch = true
 
 ################################################################
-# TLS
-################################################################
-
-[[tls.certificates]]
-   certFile = "/configuration/shortlink.local.cert"
-   keyFile = "/configuration/shortlink.local.key"
-
-################################################################
 # Tracing definition
 ################################################################
 
 [tracing]
-  # Backend name used to send tracing data
-  #
-  # Default: "jaeger"
-  #
-#  backend = "jaeger"
-
   # Service name used in Jaeger backend
   #
   # Default: "traefik"
