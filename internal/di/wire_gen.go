@@ -25,6 +25,7 @@ import (
 	"github.com/spf13/viper"
 	"go.uber.org/automaxprocs/maxprocs"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"net"
 	"net/http"
 	"net/http/pprof"
@@ -461,13 +462,15 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 	viper.SetDefault("GRPC_SERVER_PORT", "50051")
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
-	endpoint := fmt.Sprintf("0.0.0.0:%d", grpc_port)
+	creds, _ := credentials.NewClientTLSFromFile("ops/cert/shortlink-peer.pem", "")
+
+	endpoint := fmt.Sprintf("localhost:%d", grpc_port)
 	lis, err := net.Listen("tcp", endpoint)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	rpc := grpc.NewServer(grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)), grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)))
+	rpc := grpc.NewServer(grpc.Creds(creds), grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)), grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)))
 
 	r := &RPCServer{
 		Server: rpc,
@@ -490,7 +493,9 @@ func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientCo
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051")
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
-	conn, err := grpc.Dial(fmt.Sprintf("0.0.0.0:%d", grpc_port), grpc.WithInsecure(), grpc.WithBlock(), grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)), grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer)))
+	creds, _ := credentials.NewClientTLSFromFile("ops/cert/shortlink-peer.pem", "")
+
+	conn, err := grpc.Dial(fmt.Sprintf("localhost:%d", grpc_port), grpc.WithTransportCredentials(creds), grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)), grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer)))
 	if err != nil {
 		return nil, nil, err
 	}

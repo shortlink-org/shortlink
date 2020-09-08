@@ -1,5 +1,5 @@
 {
-  "CN": "traefik.local",
+  "CN": "localhost",
   "key": {
     "algo": "rsa",
     "size": 2048
@@ -14,7 +14,6 @@
     }
   ],
   "hosts": [
-    "0.0.0.0",
     "localhost"
   ]
 }
