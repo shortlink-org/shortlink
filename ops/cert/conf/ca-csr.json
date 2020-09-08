@@ -1,15 +1,15 @@
 {
   "CN": "Shortlink Root CA",
   "key": {
-    "algo": "rsa",
-    "size": 2048
+    "algo": "ecdsa",
+    "size": 256
   },
   "names": [
     {
       "C": "RU",
       "L": "Moscow",
       "O": "Shortlink",
-      "OU": "Moscow",
+      "OU": "Example Root Certificate Authority",
       "ST": "Moscow"
     }
   ]
