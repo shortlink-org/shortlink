@@ -26,6 +26,7 @@ import (
 	"github.com/spf13/viper"
 	"go.uber.org/automaxprocs/maxprocs"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 
 	link_store "github.com/batazor/shortlink/internal/api/infrastructure/store"
 	"github.com/batazor/shortlink/internal/db"
@@ -259,7 +260,9 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
-	endpoint := fmt.Sprintf("0.0.0.0:%d", grpc_port)
+	creds, _ := credentials.NewClientTLSFromFile("ops/cert/shortlink-peer.pem", "")
+
+	endpoint := fmt.Sprintf("localhost:%d", grpc_port)
 	lis, err := net.Listen("tcp", endpoint)
 	if err != nil {
 		return nil, nil, err
@@ -267,6 +270,7 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 
 	// Initialize the gRPC server.
 	rpc := grpc.NewServer(
+		grpc.Creds(creds),
 		grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)),
 		grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)),
 	)
@@ -292,13 +296,12 @@ func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientCo
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
-	// TODO: fix sleep if not find connect
-	// TODO: Do async model
+	creds, _ := credentials.NewClientTLSFromFile("ops/cert/shortlink-peer.pem", "")
+
 	// Set up a connection to the server peer
 	conn, err := grpc.Dial(
-		fmt.Sprintf("0.0.0.0:%d", grpc_port),
-		grpc.WithInsecure(),
-		grpc.WithBlock(),
+		fmt.Sprintf("localhost:%d", grpc_port),
+		grpc.WithTransportCredentials(creds),
 		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)),
 		grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer)),
 	)
