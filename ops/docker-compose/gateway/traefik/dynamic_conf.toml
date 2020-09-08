@@ -41,6 +41,8 @@
   [http.routers.metadata]
     rule = "PathPrefix(`/rpc.Metadata/`)"
     service = "metadata"
+    [http.routers.metadata.tls]
+      certResolver = "default"
 
 [http.services]
   [http.services.metadata]

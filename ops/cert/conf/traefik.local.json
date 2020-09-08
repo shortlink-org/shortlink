@@ -1,8 +1,8 @@
 {
   "CN": "shortlink",
   "key": {
-    "algo": "rsa",
-    "size": 2048
+    "algo": "ecdsa",
+    "size": 256
   },
   "names": [
     {
@@ -15,6 +15,7 @@
   ],
   "hosts": [
     "0.0.0.0",
+    "127.0.0.1",
     "localhost",
     "local",
     "*.local"

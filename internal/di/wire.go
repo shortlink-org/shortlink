@@ -26,6 +26,7 @@ import (
 	"github.com/spf13/viper"
 	"go.uber.org/automaxprocs/maxprocs"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 
 	link_store "github.com/batazor/shortlink/internal/api/infrastructure/store"
 	"github.com/batazor/shortlink/internal/db"
@@ -254,10 +255,21 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 	return sentryHandler, cleanup, nil
 }
 
+// TODO: Move to inside package
 // runGRPCServer ...
 func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, func(), error) {
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
+
+	viper.SetDefault("GRPC_SERVER_CERT_PATH", "ops/cert/shortlink-server.pem") // gRPC server cert
+	certFile := viper.GetString("GRPC_SERVER_CERT_PATH")
+	viper.SetDefault("GRPC_SERVER_KEY_PATH", "ops/cert/shortlink-server-key.pem") // gRPC server key
+	keyFile := viper.GetString("GRPC_SERVER_KEY_PATH")
+
+	creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	endpoint := fmt.Sprintf("0.0.0.0:%d", grpc_port)
 	lis, err := net.Listen("tcp", endpoint)
@@ -267,6 +279,7 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 
 	// Initialize the gRPC server.
 	rpc := grpc.NewServer(
+		grpc.Creds(creds),
 		grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)),
 		grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)),
 	)
@@ -287,18 +300,24 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 	return r, cleanup, err
 }
 
+// TODO: Move to inside package
 // runGRPCClient - set up a connection to the server.
 func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientConn, func(), error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
-	// TODO: fix sleep if not find connect
-	// TODO: Do async model
+	viper.SetDefault("GRPC_CLIENT_CERT_PATH", "ops/cert/intermediate_ca.pem") // gRPC client cert
+	certFile := viper.GetString("GRPC_CLIENT_CERT_PATH")
+
+	creds, err := credentials.NewClientTLSFromFile(certFile, "")
+	if err != nil {
+		return nil, nil, err
+	}
+
 	// Set up a connection to the server peer
 	conn, err := grpc.Dial(
 		fmt.Sprintf("0.0.0.0:%d", grpc_port),
-		grpc.WithInsecure(),
-		grpc.WithBlock(),
+		grpc.WithTransportCredentials(creds),
 		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)),
 		grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer)),
 	)
