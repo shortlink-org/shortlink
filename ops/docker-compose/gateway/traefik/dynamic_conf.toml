@@ -48,7 +48,7 @@
   [http.services.metadata]
     [http.services.metadata.loadBalancer]
       [[http.services.metadata.loadBalancer.servers]]
-        url = "h2c://192.168.1.56:50052"
+        url = "https://192.168.1.56:50052"
 
 ################################################################
 # UI
