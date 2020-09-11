@@ -16,11 +16,6 @@ services:
       MQ_ENABLED: "true"
       MQ_KAFKA_URI: kafka-1:9092,kafka-2:9092
       TRACER_SERVICE_NAME: Logger
-    labels:
-      - "traefik.enable=true"
-      - "traefik.port=7070"
-      - "traefik.http.routers.whoami.entrypoints=logger"
-      - "traefik.http.routers.shortlink.rule=Host(`logger.$DOCKER_DOMAIN`)"
     networks:
       - simple
     dns:

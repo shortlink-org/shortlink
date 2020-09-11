@@ -39,6 +39,7 @@
 ################################################################
 [http.routers]
   [http.routers.metadata]
+    entryPoints = ["websecure"]
     rule = "PathPrefix(`/rpc.Metadata/`)"
     service = "metadata"
     [http.routers.metadata.tls]
@@ -48,7 +49,7 @@
   [http.services.metadata]
     [http.services.metadata.loadBalancer]
       [[http.services.metadata.loadBalancer.servers]]
-        url = "https://192.168.1.56:50052"
+        url = "https://metadata:50051"
 
 ################################################################
 # UI
