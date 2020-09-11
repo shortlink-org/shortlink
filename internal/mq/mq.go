@@ -11,6 +11,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 	"github.com/batazor/shortlink/internal/mq/kafka"
 	"github.com/batazor/shortlink/internal/mq/nats"
 	"github.com/batazor/shortlink/internal/mq/query"
@@ -42,7 +43,7 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) {
 		return nil, err
 	}
 
-	log.Info("run MQ", logger.Fields{
+	log.Info("run MQ", field.Fields{
 		"mq": mq.typeMQ,
 	})
 
