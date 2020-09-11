@@ -85,11 +85,12 @@ func (log *logrusLogger) Fatal(msg string, fields ...field.Fields) {
 }
 
 func (log *logrusLogger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	log.converter(fields...).Fatal(msg)
-
-	if err := tracer.NewTraceFromContext(ctx, msg, fields...); err != nil {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
+
+	log.converter(fields...).Fatal(msg)
 }
 
 // Error ===============================================================================================================
@@ -99,11 +100,12 @@ func (log *logrusLogger) Error(msg string, fields ...field.Fields) {
 }
 
 func (log *logrusLogger) ErrorWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	log.converter(fields...).Error(msg)
-
-	if err := tracer.NewTraceFromContext(ctx, msg, fields...); err != nil {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
+
+	log.converter(fields...).Error(msg)
 }
 
 // Warn ================================================================================================================
@@ -113,11 +115,12 @@ func (log *logrusLogger) Warn(msg string, fields ...field.Fields) {
 }
 
 func (log *logrusLogger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	log.converter(fields...).Warn(msg)
-
-	if err := tracer.NewTraceFromContext(ctx, msg, fields...); err != nil {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
+
+	log.converter(fields...).Warn(msg)
 }
 
 // Info ================================================================================================================
@@ -127,11 +130,12 @@ func (log *logrusLogger) Info(msg string, fields ...field.Fields) {
 }
 
 func (log *logrusLogger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	log.converter(fields...).Info(msg)
-
-	if err := tracer.NewTraceFromContext(ctx, msg, fields...); err != nil {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
+
+	log.converter(fields...).Info(msg)
 }
 
 // Debug ===============================================================================================================
@@ -141,9 +145,10 @@ func (log *logrusLogger) Debug(msg string, fields ...field.Fields) {
 }
 
 func (log *logrusLogger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	log.converter(fields...).Debug(msg)
-
-	if err := tracer.NewTraceFromContext(ctx, msg, fields...); err != nil {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
+
+	log.converter(fields...).Debug(msg)
 }
