@@ -7,6 +7,7 @@ import (
 	"context"
 
 	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/metadata/application"
 	rpc "github.com/batazor/shortlink/internal/metadata/domain"
 	meta_store "github.com/batazor/shortlink/internal/metadata/infrastructure/store"
@@ -14,14 +15,16 @@ import (
 
 type MetadataServer struct {
 	service *application.Service
+	log     logger.Logger
 }
 
-func New(runRPCServer *di.RPCServer, st *meta_store.MetaStore) (*MetadataServer, error) {
+func New(runRPCServer *di.RPCServer, st *meta_store.MetaStore, log logger.Logger) (*MetadataServer, error) {
 	server := MetadataServer{
 		// Create Service Application
 		service: &application.Service{
 			Store: st,
 		},
+		log: log,
 	}
 
 	service := &rpc.MetadataService{

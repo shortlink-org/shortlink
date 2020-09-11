@@ -6,11 +6,12 @@ import (
 
 	"github.com/opentracing/opentracing-go"
 	opentracinglog "github.com/opentracing/opentracing-go/log"
+	"github.com/uber/jaeger-client-go"
 
 	"github.com/batazor/shortlink/internal/logger/field"
 )
 
-func NewTraceFromContext(ctx context.Context, msg string, fields ...field.Fields) error {
+func NewTraceFromContext(ctx context.Context, msg string, fields ...field.Fields) ([]field.Fields, error) {
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -21,11 +22,15 @@ func NewTraceFromContext(ctx context.Context, msg string, fields ...field.Fields
 	span.LogFields(ZapFieldsToOpentracing(fields...)...)
 	span.LogFields(opentracinglog.String("log", msg))
 
-	//if traceID, ok := span.Context().(jaeger.SpanContext); ok {
-	//	fields = append(fields, zap.String("traceID", traceID.TraceID().String()))
-	//}
+	if traceID, ok := span.Context().(jaeger.SpanContext); ok {
+		if len(fields) == 0 {
+			fields = make([]field.Fields, 1)
+		}
 
-	return nil
+		fields[0]["traceID"] = traceID.TraceID().String()
+	}
+
+	return fields, nil
 }
 
 func getNameFunc() string {
