@@ -31,6 +31,7 @@ import (
 	link_store "github.com/batazor/shortlink/internal/api/infrastructure/store"
 	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 	meta_store "github.com/batazor/shortlink/internal/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/internal/mq"
 	"github.com/batazor/shortlink/internal/traicing"
@@ -288,7 +289,7 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 		Server: rpc,
 		Run: func() {
 			go rpc.Serve(lis)
-			log.Info("Run gRPC server", logger.Fields{"port": grpc_port})
+			log.Info("Run gRPC server", field.Fields{"port": grpc_port})
 		},
 		Endpoint: endpoint,
 	}
@@ -325,7 +326,7 @@ func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientCo
 		return nil, nil, err
 	}
 
-	log.Info("Run gRPC client", logger.Fields{"port": grpc_port})
+	log.Info("Run gRPC client", field.Fields{"port": grpc_port})
 
 	cleanup := func() {
 		conn.Close()

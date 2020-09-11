@@ -10,6 +10,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 	"github.com/batazor/shortlink/internal/metadata/infrastructure/store/ram"
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
@@ -34,7 +35,7 @@ func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (*Met
 		s.Store = &ram.Store{}
 	}
 
-	log.Info("init metaStore", logger.Fields{
+	log.Info("init metaStore", field.Fields{
 		"db": s.typeStore,
 	})
 
