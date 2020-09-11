@@ -280,8 +280,8 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 	// Initialize the gRPC server.
 	rpc := grpc.NewServer(
 		grpc.Creds(creds),
-		grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)),
-		grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)),
+		grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer, otgrpc.LogPayloads())),
+		grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer, otgrpc.LogPayloads())),
 	)
 
 	r := &RPCServer{
@@ -318,8 +318,8 @@ func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientCo
 	conn, err := grpc.Dial(
 		fmt.Sprintf("0.0.0.0:%d", grpc_port),
 		grpc.WithTransportCredentials(creds),
-		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)),
-		grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer)),
+		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer, otgrpc.LogPayloads())),
+		grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer, otgrpc.LogPayloads())),
 	)
 	if err != nil {
 		return nil, nil, err
