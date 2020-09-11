@@ -20,9 +20,9 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 
 FROM alpine:latest
 
-# 7070: API
+# 50051: gRPC
 # 9090: metrics
-EXPOSE 7070 9090
+EXPOSE 50051 9090
 
 # Install dependencies
 RUN \

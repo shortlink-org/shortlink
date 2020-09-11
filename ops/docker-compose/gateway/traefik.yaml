@@ -6,7 +6,7 @@ services:
     depends_on:
       - coredns
     # The official v2.0 Traefik docker image
-    image: traefik:v2.2.8
+    image: traefik:v2.3
     container_name: traefik
     ports:
       # The HTTP port

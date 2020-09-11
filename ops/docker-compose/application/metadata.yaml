@@ -22,10 +22,11 @@ services:
     environment:
       TRACER_URI: jaeger-agent:6831
       TRACER_SERVICE_NAME: metadata
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.whoami.entrypoints=metadata"
-      - "traefik.http.routers.shortlink.rule=Host(`metadata.$DOCKER_DOMAIN`)"
+    volumes:
+      - type: bind
+        source: ./ops/cert
+        target: /app/ops/cert
+    user: ${CURRENT_UID}
     logging:
       driver: ${LOGGER_DRIVER}
       options:

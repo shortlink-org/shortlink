@@ -21,6 +21,8 @@ dep: ## Install dependencies for this project
 	# install wire
 	@go get -u github.com/google/wire/cmd/wire
 
+export CURRENT_UID=$(id -u):$(id -g)
+
 run: ## Run this project in docker-compose
 	@docker-compose \
          -f docker-compose.yaml \

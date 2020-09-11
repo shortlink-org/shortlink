@@ -36,6 +36,11 @@ services:
       - "traefik.http.routers.shortlink.rule=Host(`api.$DOCKER_DOMAIN`)"
       - "traefik.backend.healthcheck.path=/ready"
       - "traefik.backend.healthcheck.port=9090"
+    volumes:
+      - type: bind
+        source: ./ops/cert
+        target: /app/ops/cert
+    user: ${CURRENT_UID}
     logging:
       driver: ${LOGGER_DRIVER}
       options:
