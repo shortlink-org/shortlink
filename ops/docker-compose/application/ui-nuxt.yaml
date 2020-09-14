@@ -23,7 +23,8 @@ services:
       - "traefik.backend.healthcheck.path=/"
       - "traefik.backend.healthcheck.port=80"
     networks:
-      - simple
+      simple:
+        ipv4_address: 10.5.0.200
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}

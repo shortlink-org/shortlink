@@ -17,7 +17,12 @@
   reload 10s
 
   hosts {
+    # Infrastructure
     10.5.0.100 store
+
+    # Application
+    10.5.0.200 api
+    10.5.0.201 ui-nuxt
   }
 
   # nsid adds an identifier of this server to each reply.

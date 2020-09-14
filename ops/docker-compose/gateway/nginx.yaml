@@ -30,5 +30,10 @@ services:
   default_backend:
     depends_on:
       - coredns
-    image: k8s.gcr.io/defaultbackend-amd64:1.5
+    image: nginx:1.19-alpine
     container_name: default_backend
+    networks:
+      - simple
+    dns:
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}

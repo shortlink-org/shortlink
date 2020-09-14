@@ -1,7 +1,6 @@
 upstream backend {
   ip_hash;
-  # server shortlink:7070;
-  server default_backend:80;
+  server api:7070;
 }
 
 # upstream backend_socket {
@@ -12,9 +11,6 @@ upstream backend {
 server {
   listen 80;
   server_name shortlink.local;
-
-  # this is the internal Docker DNS, cache only for 30s
-  resolver 127.0.0.11 valid=30s;
 
   include templates/default.conf;
 
