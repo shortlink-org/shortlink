@@ -2,7 +2,8 @@ version: '2.4'
 
 x-network: &network
   networks:
-    - simple
+    simple:
+      ipv4_address: 10.5.0.201
   dns:
     - ${DNS_IP}
   dns_search: ${DNS_SEARCH}
