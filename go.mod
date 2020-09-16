@@ -16,7 +16,6 @@ require (
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.9+incompatible
-	github.com/go-redis/redis/v8 v8.0.0
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/gocql/gocql v0.0.0-20200815110948-5378c8f664e9
@@ -25,15 +24,14 @@ require (
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.8.0
 	github.com/graph-gophers/graphql-go v0.0.0-20200819123640-3b5ddcd884ae
-	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
-	github.com/grpc-ecosystem/grpc-gateway v1.14.8
+	github.com/grpc-ecosystem/go-grpc-middleware v1.2.1
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.0.0-beta.4
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.8.1
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.8.0
-	github.com/markbates/pkger v0.17.1
-	github.com/mattn/go-sqlite3 v1.14.3
+	github.com/markbates/pkger v0.17.0
+	github.com/mattn/go-sqlite3 v1.14.2
 	github.com/nats-io/nats.go v1.10.0
 	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
 	github.com/opentracing-contrib/go-stdlib v1.0.0
@@ -56,7 +54,7 @@ require (
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	go.mongodb.org/mongo-driver v1.4.1
-	go.uber.org/atomic v1.7.0
+	go.uber.org/atomic v1.6.0
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
@@ -65,7 +63,7 @@ require (
 	golang.org/x/sys v0.0.0-20200831180312-196b9ba8737a // indirect
 	golang.org/x/tools v0.0.0-20200809012840-6f4f008689da // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
-	google.golang.org/genproto v0.0.0-20200914193844-75d14daec038
+	google.golang.org/genproto v0.0.0-20200903010400-9bfcb5116336
 	google.golang.org/grpc v1.33.0-dev
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect

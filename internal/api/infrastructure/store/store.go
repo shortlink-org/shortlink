@@ -26,6 +26,7 @@ import (
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/sqlite"
 	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
@@ -71,7 +72,7 @@ func (store *LinkStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (
 		store.Store = &ram.Store{}
 	}
 
-	log.Info("init linkStore", logger.Fields{
+	log.Info("init linkStore", field.Fields{
 		"db": store.typeStore,
 	})
 

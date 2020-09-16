@@ -16,6 +16,11 @@ serviceAccount:
 deploy:
   replicaCount: 3
 
+  env:
+    MQ_ENABLED: "false"
+    TRACER_URI: jaeger-agent:6831
+    TRACER_SERVICE_NAME: Logger
+
   imagePullSecrets: []
 
   strategy:

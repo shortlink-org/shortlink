@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   coredns:
-    image: coredns/coredns:1.6.7
+    image: coredns/coredns:1.7.0
     container_name: coredns
     command: -conf /etc/coredns/Corefile
     restart: always

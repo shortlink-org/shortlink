@@ -15,11 +15,7 @@ services:
     environment:
       MQ_ENABLED: "true"
       MQ_KAFKA_URI: kafka-1:9092,kafka-2:9092
-    labels:
-      - "traefik.enable=true"
-      - "traefik.port=7070"
-      - "traefik.http.routers.whoami.entrypoints=logger"
-      - "traefik.http.routers.shortlink.rule=Host(`logger.$DOCKER_DOMAIN`)"
+      TRACER_SERVICE_NAME: Logger
     networks:
       - simple
     dns:
@@ -27,3 +23,8 @@ services:
     dns_search: ${DNS_SEARCH}
     cpu_quota: 20000
     mem_limit: 500m
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}
+        max-size: ${LOGGER_MAX_SIZE}

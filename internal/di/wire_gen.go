@@ -11,6 +11,7 @@ import (
 	"github.com/batazor/shortlink/internal/api/infrastructure/store"
 	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 	"github.com/batazor/shortlink/internal/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/internal/mq"
 	"github.com/batazor/shortlink/internal/traicing"
@@ -25,6 +26,7 @@ import (
 	"github.com/spf13/viper"
 	"go.uber.org/automaxprocs/maxprocs"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"net"
 	"net/http"
 	"net/http/pprof"
@@ -456,24 +458,34 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 	return sentryHandler, cleanup, nil
 }
 
+// TODO: Move to inside package
 // runGRPCServer ...
 func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, func(), error) {
 	viper.SetDefault("GRPC_SERVER_PORT", "50051")
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
+	viper.SetDefault("GRPC_SERVER_CERT_PATH", "ops/cert/shortlink-server.pem")
+	certFile := viper.GetString("GRPC_SERVER_CERT_PATH")
+	viper.SetDefault("GRPC_SERVER_KEY_PATH", "ops/cert/shortlink-server-key.pem")
+	keyFile := viper.GetString("GRPC_SERVER_KEY_PATH")
 
-	endpoint := fmt.Sprintf("localhost:%d", grpc_port)
+	creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	endpoint := fmt.Sprintf("0.0.0.0:%d", grpc_port)
 	lis, err := net.Listen("tcp", endpoint)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	rpc := grpc.NewServer(grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)), grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)))
+	rpc := grpc.NewServer(grpc.Creds(creds), grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer, otgrpc.LogPayloads())), grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer, otgrpc.LogPayloads())))
 
 	r := &RPCServer{
 		Server: rpc,
 		Run: func() {
 			go rpc.Serve(lis)
-			log.Info("Run gRPC server", logger.Fields{"port": grpc_port})
+			log.Info("Run gRPC server", field.Fields{"port": grpc_port})
 		},
 		Endpoint: endpoint,
 	}
@@ -485,17 +497,25 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 	return r, cleanup, err
 }
 
+// TODO: Move to inside package
 // runGRPCClient - set up a connection to the server.
 func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientConn, func(), error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051")
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
+	viper.SetDefault("GRPC_CLIENT_CERT_PATH", "ops/cert/intermediate_ca.pem")
+	certFile := viper.GetString("GRPC_CLIENT_CERT_PATH")
 
-	conn, err := grpc.Dial(fmt.Sprintf("localhost:%d", grpc_port), grpc.WithInsecure(), grpc.WithBlock(), grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer)), grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer)))
+	creds, err := credentials.NewClientTLSFromFile(certFile, "")
 	if err != nil {
 		return nil, nil, err
 	}
 
-	log.Info("Run gRPC client", logger.Fields{"port": grpc_port})
+	conn, err := grpc.Dial(fmt.Sprintf("0.0.0.0:%d", grpc_port), grpc.WithTransportCredentials(creds), grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer, otgrpc.LogPayloads())), grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer, otgrpc.LogPayloads())))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	log.Info("Run gRPC client", field.Fields{"port": grpc_port})
 
 	cleanup := func() {
 		conn.Close()

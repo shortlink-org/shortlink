@@ -9,6 +9,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
+
+	"github.com/batazor/shortlink/internal/logger/field"
 )
 
 func TestMain(m *testing.M) {
@@ -117,7 +119,7 @@ func TestFieldsZap(t *testing.T) { //nolint unused
 	log, err := NewLogger(Zap, conf)
 	assert.Nil(t, err, "Error init a logger")
 
-	log.Info("Hello World", Fields{
+	log.Info("Hello World", field.Fields{
 		"hello": "world",
 		"first": 1,
 	})
@@ -151,7 +153,7 @@ func TestFieldsLogrus(t *testing.T) { //nolint unused
 	log, err := NewLogger(Logrus, conf)
 	assert.Nil(t, err, "Error init a logger")
 
-	log.Info("Hello World", Fields{
+	log.Info("Hello World", field.Fields{
 		"hello": "world",
 		"first": 1,
 	})

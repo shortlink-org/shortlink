@@ -4,10 +4,9 @@ services:
 
   nginx:
     depends_on:
-      - fluent-bit
       - coredns
-      - shortlink
-    image: nginx:1.17-alpine
+      - default_backend
+    image: nginx:1.19-alpine
     container_name: nginx
     ports:
       - "80:80"
@@ -27,3 +26,14 @@ services:
       - ./ops/docker-compose/gateway/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./ops/docker-compose/gateway/nginx/conf.d:/etc/nginx/conf.d
       - ./ops/docker-compose/gateway/nginx/templates:/etc/nginx/templates
+
+  default_backend:
+    depends_on:
+      - coredns
+    image: nginx:1.19-alpine
+    container_name: default_backend
+    networks:
+      - simple
+    dns:
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}

@@ -5,7 +5,7 @@ services:
   prometheus:
     depends_on:
       - coredns
-    image: prom/prometheus:v2.13.1
+    image: prom/prometheus:v2.20.1
     container_name: prometheus
     restart: always
     command:
@@ -14,7 +14,7 @@ services:
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
-      - 9090:9090
+      - 9093:9090
     networks:
       - simple
     dns:
