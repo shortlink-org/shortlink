@@ -1,9 +1,15 @@
 package logger
 
 import (
+	"context"
+	"fmt"
+	"time"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
-	"time"
+
+	"github.com/batazor/shortlink/internal/logger/field"
+	"github.com/batazor/shortlink/internal/logger/tracer"
 )
 
 type zapLogger struct { // nolint unused
@@ -37,36 +43,6 @@ func (log *zapLogger) init(config Configuration) error {
 	return nil
 }
 
-func (log *zapLogger) Fatal(msg string, fields ...Fields) {
-	zapFields := log.converter(fields...)
-
-	log.logger.Fatal(msg, zapFields...)
-}
-
-func (log *zapLogger) Warn(msg string, fields ...Fields) {
-	zapFields := log.converter(fields...)
-
-	log.logger.Warn(msg, zapFields...)
-}
-
-func (log *zapLogger) Error(msg string, fields ...Fields) {
-	zapFields := log.converter(fields...)
-
-	log.logger.Error(msg, zapFields...)
-}
-
-func (log *zapLogger) Info(msg string, fields ...Fields) {
-	zapFields := log.converter(fields...)
-
-	log.logger.Info(msg, zapFields...)
-}
-
-func (log *zapLogger) Debug(msg string, fields ...Fields) {
-	zapFields := log.converter(fields...)
-
-	log.logger.Debug(msg, zapFields...)
-}
-
 func (log *zapLogger) Close() error {
 	err := log.logger.Sync()
 	return err
@@ -86,7 +62,7 @@ func (log *zapLogger) SetConfig(config Configuration) error {
 	return nil
 }
 
-func (log *zapLogger) converter(fields ...Fields) []zap.Field {
+func (log *zapLogger) converter(fields ...field.Fields) []zap.Field {
 	var zapFields []zap.Field
 
 	for _, field := range fields {
@@ -123,4 +99,89 @@ func (log *zapLogger) timeEncoder(format string) func(time.Time, zapcore.Primiti
 	return func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 		enc.AppendString(t.Format(format))
 	}
+}
+
+// Fatal ===============================================================================================================
+
+func (log *zapLogger) Fatal(msg string, fields ...field.Fields) {
+	zapFields := log.converter(fields...)
+	log.logger.Fatal(msg, zapFields...)
+}
+
+func (log *zapLogger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	zapFields := log.converter(fields...)
+	log.logger.Fatal(msg, zapFields...)
+}
+
+// Warn ================================================================================================================
+
+func (log *zapLogger) Warn(msg string, fields ...field.Fields) {
+	zapFields := log.converter(fields...)
+	log.logger.Warn(msg, zapFields...)
+}
+
+func (log *zapLogger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	zapFields := log.converter(fields...)
+	log.logger.Warn(msg, zapFields...)
+}
+
+// Error ===============================================================================================================
+
+func (log *zapLogger) Error(msg string, fields ...field.Fields) {
+	zapFields := log.converter(fields...)
+	log.logger.Error(msg, zapFields...)
+}
+
+func (log *zapLogger) ErrorWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	zapFields := log.converter(fields...)
+	log.logger.Error(msg, zapFields...)
+}
+
+// Info ================================================================================================================
+
+func (log *zapLogger) Info(msg string, fields ...field.Fields) {
+	zapFields := log.converter(fields...)
+	log.logger.Info(msg, zapFields...)
+}
+
+func (log *zapLogger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	zapFields := log.converter(fields...)
+	log.logger.Info(msg, zapFields...)
+}
+
+// Debug ===============================================================================================================
+
+func (log *zapLogger) Debug(msg string, fields ...field.Fields) {
+	zapFields := log.converter(fields...)
+	log.logger.Debug(msg, zapFields...)
+}
+
+func (log *zapLogger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	zapFields := log.converter(fields...)
+	log.logger.Debug(msg, zapFields...)
 }

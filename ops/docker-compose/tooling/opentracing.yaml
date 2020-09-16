@@ -1,7 +1,15 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
   jaeger-collector:
+    <<: *network
     depends_on:
       - cassandra-schema
       - coredns
@@ -13,13 +21,9 @@ services:
       - "6832"         # accept jaeger.thrift in binary Thrift protocol used by Node.js Jaeger client (because thriftrw npm package does not support compact protocol)
       - "14271"        # Healthcheck at / and metrics at /metrics
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   jaeger-query:
+    <<: *network
     depends_on:
       - cassandra-schema
       - coredns
@@ -30,13 +34,9 @@ services:
       - "16686:16686"
       - "16687"
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   jaeger-agent:
+    <<: *network
     depends_on:
       - coredns
       - jaeger-collector
@@ -48,32 +48,20 @@ services:
       - "6831:6831/udp"
       - "6832:6832/udp"
       - "5778:5778"
+      - "9411:9411"
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   cassandra:
+    <<: *network
     depends_on:
       - coredns
     image: cassandra:3.9
     container_name: jaeger-cassandra
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   cassandra-schema:
+    <<: *network
     depends_on:
       - coredns
       - cassandra
     image: jaegertracing/jaeger-cassandra-schema
     container_name: jaeger-cassandra-schema
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}

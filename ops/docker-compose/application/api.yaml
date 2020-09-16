@@ -2,7 +2,8 @@ version: '2.4'
 
 x-network: &network
   networks:
-    - simple
+    simple:
+      ipv4_address: 10.5.0.201
   dns:
     - ${DNS_IP}
   dns_search: ${DNS_SEARCH}
@@ -28,13 +29,19 @@ services:
       MQ_ENABLED: "false"
       MQ_KAFKA_URI: kafka-1:9092,kafka-2:9092
       TRACER_URI: jaeger-agent:6831
+      TRACER_SERVICE_NAME: API
     labels:
       - "traefik.enable=true"
-      - "traefik.port=7080"
+      - "traefik.port=7070"
       - "traefik.http.routers.whoami.entrypoints=api"
-      - "traefik.http.routers.shortlink.rule=Host(`shortlink.$DOCKER_DOMAIN`)"
+      - "traefik.http.routers.shortlink.rule=Host(`api.$DOCKER_DOMAIN`)"
       - "traefik.backend.healthcheck.path=/ready"
       - "traefik.backend.healthcheck.port=9090"
+    volumes:
+      - type: bind
+        source: ./ops/cert
+        target: /app/ops/cert
+    user: ${CURRENT_UID}
     logging:
       driver: ${LOGGER_DRIVER}
       options:

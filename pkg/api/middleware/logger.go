@@ -8,6 +8,7 @@ import (
 	"github.com/uber/jaeger-client-go"
 
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 
 	"github.com/go-chi/chi/middleware"
 )
@@ -35,7 +36,7 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 
 		latency := time.Since(start)
 
-		var fields = logger.Fields{
+		var fields = field.Fields{
 			"status":  ww.Status(),
 			"took":    latency,
 			"remote":  r.RemoteAddr,

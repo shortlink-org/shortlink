@@ -49,6 +49,11 @@ spec:
         readinessProbe:
           {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
         {{- end }}
+        env:
+          {{- range $key, $value := .Values.deploy.env }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}
         resources:
           {{- toYaml .Values.deploy.resources | indent 10 }}
       {{- with .Values.deploy.nodeSelector }}

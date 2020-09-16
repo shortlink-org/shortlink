@@ -33,11 +33,12 @@ RUN \
 RUN addgroup -S logger && adduser -S -g logger logger
 USER logger
 
-HEALTHCHECK \
-  --interval=5s \
-  --timeout=5s \
-  --retries=3 \
-  CMD curl -f localhost:9090/ready || exit 1
+# TODO: fix it
+#HEALTHCHECK \
+#  --interval=5s \
+#  --timeout=5s \
+#  --retries=3 \
+#  CMD curl -f localhost:9090/ready || exit 1
 
 WORKDIR /app/
 COPY --from=builder /go/src/github/batazor/shortlink/app .

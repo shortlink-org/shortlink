@@ -1,0 +1,34 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  metadata:
+    <<: *network
+    build:
+      context: .
+      dockerfile: ops/dockerfile/metadata.Dockerfile
+      shm_size: 1gb
+    depends_on:
+      - coredns
+    container_name: metadata
+    restart: on-failure
+    environment:
+      TRACER_URI: jaeger-agent:6831
+      TRACER_SERVICE_NAME: metadata
+    volumes:
+      - type: bind
+        source: ./ops/cert
+        target: /app/ops/cert
+    user: ${CURRENT_UID}
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}
+        max-size: ${LOGGER_MAX_SIZE}

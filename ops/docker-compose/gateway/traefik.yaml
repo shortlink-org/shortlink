@@ -6,7 +6,8 @@ services:
     depends_on:
       - coredns
     # The official v2.0 Traefik docker image
-    image: traefik:v2.0
+    image: traefik:v2.3
+    container_name: traefik
     ports:
       # The HTTP port
       - "80:80"
@@ -14,18 +15,6 @@ services:
       - "443:443"
       # The Web UI (enabled by --api.insecure=true)
       - "8060:8080"
-    environment:
-      TRAEFIK_API_INSECURE: "true" # Don't do that in production
-      TRAEFIK_PROVIDERS_DOCKER: "true"
-      TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT: "false"
-      TRAEFIK_ACCESSLOG: "true"
-      TRAEFIK_ACCESSLOG_FORMAT: json
-      TRAEFIK_METRICS_PROMETHEUS: "true"
-      TRAEFIK_PING: "true"
-      TRAEFIK_TRACING: "true"
-      TRAEFIK_TRACING_JAEGER: "true"
-      TRAEFIK_TRACING_JAEGER_COLLECTOR_ENDPOINT: jaeger-collector:9411
-      TRAEFIK_TRACING_JAEGER_GEN128BIT: "true"
     networks:
       - simple
     dns:
@@ -34,8 +23,15 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./ops/docker-compose/gateway/traefik/dyn-traefik.toml:/dyn-traefik.toml
-#    logging:
-#      driver: fluent-bit
-#      options:
-#        tag: traefik
+      - ./ops/docker-compose/gateway/traefik/dynamic_conf.toml:/conf/dynamic_conf.toml
+      - ./ops/docker-compose/gateway/traefik/traefik.toml:/traefik.toml
+      - ./ops/cert:/cert
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}
+        max-size: ${LOGGER_MAX_SIZE}
+
+  prometheus:
+    volumes:
+      - ./ops/docker-compose/gateway/traefik/traefik-target.json:/etc/prometheus/targets/traefik-server.json

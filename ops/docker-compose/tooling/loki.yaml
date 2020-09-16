@@ -17,9 +17,6 @@ services:
     container_name: loki
     command: -config.file=/etc/loki/local-config.yaml
     restart: on-failure
-    environment:
-      - VIRTUAL_HOST=loki.loc
-      - GF_LOG_CONSOLE_FORMAT=json
     ports:
       - 3100:3100
     volumes:

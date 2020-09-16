@@ -21,6 +21,7 @@ import (
 	"github.com/batazor/shortlink/internal/db/scylla"
 	"github.com/batazor/shortlink/internal/db/sqlite"
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 )
 
 // Use return implementation of db
@@ -61,7 +62,7 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 		return nil, err
 	}
 
-	log.Info("run db", logger.Fields{
+	log.Info("run db", field.Fields{
 		"db": store.typeStore,
 	})
 

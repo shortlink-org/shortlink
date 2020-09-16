@@ -12,7 +12,7 @@ services:
       - coredns
     container_name: ui-next
     ports:
-#      # HTTP UI
+      # HTTP UI
       - "8080:80"
     restart: on-failure
     labels:
@@ -26,3 +26,8 @@ services:
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}
+        max-size: ${LOGGER_MAX_SIZE}

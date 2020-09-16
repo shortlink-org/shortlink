@@ -1,7 +1,13 @@
 package logger
 
 import (
+	"context"
+	"fmt"
+
 	"github.com/sirupsen/logrus"
+
+	"github.com/batazor/shortlink/internal/logger/field"
+	"github.com/batazor/shortlink/internal/logger/tracer"
 )
 
 type logrusLogger struct { // nolint unused
@@ -32,26 +38,6 @@ func (log *logrusLogger) init(config Configuration) error {
 	return nil
 }
 
-func (log *logrusLogger) Fatal(msg string, fields ...Fields) {
-	log.converter(fields...).Fatal(msg)
-}
-
-func (log *logrusLogger) Error(msg string, fields ...Fields) {
-	log.converter(fields...).Error(msg)
-}
-
-func (log *logrusLogger) Warn(msg string, fields ...Fields) {
-	log.converter(fields...).Warn(msg)
-}
-
-func (log *logrusLogger) Info(msg string, fields ...Fields) {
-	log.converter(fields...).Info(msg)
-}
-
-func (log *logrusLogger) Debug(msg string, fields ...Fields) {
-	log.converter(fields...).Debug(msg)
-}
-
 func (log *logrusLogger) Close() error {
 	return nil
 }
@@ -62,7 +48,7 @@ func (log *logrusLogger) SetConfig(config Configuration) error {
 	return nil
 }
 
-func (log *logrusLogger) converter(fields ...Fields) *logrus.Entry {
+func (log *logrusLogger) converter(fields ...field.Fields) *logrus.Entry {
 	logrusFields := logrus.Fields{}
 
 	for _, field := range fields {
@@ -90,4 +76,79 @@ func (log *logrusLogger) setLogLevel(logLevel int) {
 	default:
 		log.logger.SetLevel(logrus.InfoLevel)
 	}
+}
+
+// Fatal ===============================================================================================================
+
+func (log *logrusLogger) Fatal(msg string, fields ...field.Fields) {
+	log.converter(fields...).Fatal(msg)
+}
+
+func (log *logrusLogger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	log.converter(fields...).Fatal(msg)
+}
+
+// Error ===============================================================================================================
+
+func (log *logrusLogger) Error(msg string, fields ...field.Fields) {
+	log.converter(fields...).Error(msg)
+}
+
+func (log *logrusLogger) ErrorWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	log.converter(fields...).Error(msg)
+}
+
+// Warn ================================================================================================================
+
+func (log *logrusLogger) Warn(msg string, fields ...field.Fields) {
+	log.converter(fields...).Warn(msg)
+}
+
+func (log *logrusLogger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	log.converter(fields...).Warn(msg)
+}
+
+// Info ================================================================================================================
+
+func (log *logrusLogger) Info(msg string, fields ...field.Fields) {
+	log.converter(fields...).Info(msg)
+}
+
+func (log *logrusLogger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	log.converter(fields...).Info(msg)
+}
+
+// Debug ===============================================================================================================
+
+func (log *logrusLogger) Debug(msg string, fields ...field.Fields) {
+	log.converter(fields...).Debug(msg)
+}
+
+func (log *logrusLogger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	if err != nil {
+		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+	}
+
+	log.converter(fields...).Debug(msg)
 }

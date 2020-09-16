@@ -1,6 +1,6 @@
 upstream backend {
   ip_hash;
-  server shortlink:7070;
+  server api:7070;
 }
 
 # upstream backend_socket {
