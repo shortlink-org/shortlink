@@ -18,6 +18,7 @@ import (
 	"github.com/getsentry/sentry-go"
 	"github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
+	"github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing-contrib/go-grpc"
 	"github.com/opentracing/opentracing-go"
@@ -479,11 +480,13 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 		return nil, nil, err
 	}
 
-	rpc := grpc.NewServer(grpc.Creds(creds), grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer, otgrpc.LogPayloads())), grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer, otgrpc.LogPayloads())))
+	rpc := grpc.NewServer(grpc.Creds(creds), grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer, otgrpc.LogPayloads())), grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer, otgrpc.LogPayloads())), grpc.StreamInterceptor(grpc_prometheus.StreamServerInterceptor), grpc.UnaryInterceptor(grpc_prometheus.UnaryServerInterceptor))
 
 	r := &RPCServer{
 		Server: rpc,
 		Run: func() {
+			grpc_prometheus.Register(rpc)
+
 			go rpc.Serve(lis)
 			log.Info("Run gRPC server", field.Fields{"port": grpc_port})
 		},
