@@ -8,6 +8,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -35,6 +36,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	// Monitoring endpoints
+	go http.ListenAndServe("0.0.0.0:9091", service.Monitoring) // nolint errcheck
 
 	// Run API server
 	_, err = rpc.New(service.ServerRPC, service.MetaStore, service.Log)
