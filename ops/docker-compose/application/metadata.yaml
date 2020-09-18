@@ -27,8 +27,14 @@ services:
         source: ./ops/cert
         target: /app/ops/cert
     user: ${CURRENT_UID}
+    ports:
+      - "50052:50051"
     logging:
       driver: ${LOGGER_DRIVER}
       options:
         loki-url: ${LOGGER_DRIVER_URL}
         max-size: ${LOGGER_MAX_SIZE}
+
+  prometheus:
+    volumes:
+      - ./ops/docker-compose/application/metadata/metadata-server.json:/etc/prometheus/targets/metadata-server.json

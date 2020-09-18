@@ -18,6 +18,8 @@ import (
 	"github.com/getsentry/sentry-go"
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
+	"github.com/grpc-ecosystem/go-grpc-middleware"
+	"github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing-contrib/go-grpc"
 	"github.com/opentracing/opentracing-go"
@@ -200,9 +202,7 @@ func InitMonitoring(sentryHandler *sentryhttp.Handler) *http.ServeMux {
 	commonMux := http.NewServeMux()
 
 	// Expose prometheus metrics on /metrics
-	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.HandlerFor(registry, promhttp.HandlerOpts{
-		EnableOpenMetrics: true,
-	})))
+	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.Handler()))
 
 	// Expose a liveness check on /live
 	commonMux.HandleFunc("/live", sentryHandler.HandleFunc(health.LiveEndpoint))
@@ -228,15 +228,15 @@ func InitProfiling() PprofEndpoint {
 }
 
 func InitSentry() (*sentryhttp.Handler, func(), error) {
-	viper.SetDefault("SENTRY_DSN", "__DSN__") // key for sentry
+	viper.SetDefault("SENTRY_DSN", "") // key for sentry
 	DSN := viper.GetString("SENTRY_DSN")
 
-	if DSN != "" {
+	if DSN == "" {
 		return nil, func() {}, nil
 	}
 
 	err := sentry.Init(sentry.ClientOptions{
-		Dsn: viper.GetString("DSN"),
+		Dsn: DSN,
 	})
 	if err != nil {
 		return nil, nil, err
@@ -281,13 +281,25 @@ func runGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 	// Initialize the gRPC server.
 	rpc := grpc.NewServer(
 		grpc.Creds(creds),
-		grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer, otgrpc.LogPayloads())),
-		grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer, otgrpc.LogPayloads())),
+
+		// Initialize your gRPC server's interceptor.
+		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
+			otgrpc.OpenTracingServerInterceptor(tracer, otgrpc.LogPayloads()),
+			grpc_prometheus.UnaryServerInterceptor,
+		)),
+
+		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
+			otgrpc.OpenTracingStreamServerInterceptor(tracer, otgrpc.LogPayloads()),
+			grpc_prometheus.StreamServerInterceptor,
+		)),
 	)
 
 	r := &RPCServer{
 		Server: rpc,
 		Run: func() {
+			// After all your registrations, make sure all of the Prometheus metrics are initialized.
+			grpc_prometheus.Register(rpc)
+
 			go rpc.Serve(lis)
 			log.Info("Run gRPC server", field.Fields{"port": grpc_port})
 		},
@@ -319,8 +331,17 @@ func runGRPCClient(log logger.Logger, tracer opentracing.Tracer) (*grpc.ClientCo
 	conn, err := grpc.Dial(
 		fmt.Sprintf("0.0.0.0:%d", grpc_port),
 		grpc.WithTransportCredentials(creds),
-		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(tracer, otgrpc.LogPayloads())),
-		grpc.WithStreamInterceptor(otgrpc.OpenTracingStreamClientInterceptor(tracer, otgrpc.LogPayloads())),
+
+		// Initialize your gRPC server's interceptor.
+		grpc.WithUnaryInterceptor(grpc_middleware.ChainUnaryClient(
+			otgrpc.OpenTracingClientInterceptor(tracer, otgrpc.LogPayloads()),
+			grpc_prometheus.UnaryClientInterceptor,
+		)),
+
+		grpc.WithStreamInterceptor(grpc_middleware.ChainStreamClient(
+			otgrpc.OpenTracingStreamClientInterceptor(tracer, otgrpc.LogPayloads()),
+			grpc_prometheus.StreamClientInterceptor,
+		)),
 	)
 	if err != nil {
 		return nil, nil, err
@@ -343,10 +364,10 @@ var FullSet = wire.NewSet(
 	DefaultSet,
 	NewFullService,
 	InitStore,
+	InitSentry,
 	InitMonitoring,
 	InitProfiling,
 	InitMQ,
-	InitSentry,
 	runGRPCServer,
 	runGRPCClient,
 	InitLinkStore,
@@ -355,12 +376,12 @@ var FullSet = wire.NewSet(
 func NewFullService(
 	log logger.Logger,
 	mq mq.MQ,
+	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
 	tracer opentracing.Tracer,
 	db *db.Store,
 	linkStore *link_store.LinkStore,
 	pprofHTTP PprofEndpoint,
-	sentryHandler *sentryhttp.Handler,
 	autoMaxProcsOption diAutoMaxPro,
 	serverRPC *RPCServer,
 	clientRPC *grpc.ClientConn,
@@ -371,10 +392,10 @@ func NewFullService(
 		Tracer: tracer,
 		// TracerClose: cleanup,
 		Monitoring:    monitoring,
+		Sentry:        sentryHandler,
 		DB:            db,
 		LinkStore:     linkStore,
 		PprofEndpoint: pprofHTTP,
-		Sentry:        sentryHandler,
 		ClientRPC:     clientRPC,
 		ServerRPC:     serverRPC,
 	}, nil
@@ -413,7 +434,15 @@ func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 }
 
 // MetadataService =====================================================================================================
-var MetadataSet = wire.NewSet(DefaultSet, NewMetadataService, InitStore, runGRPCServer, InitMetaStore)
+var MetadataSet = wire.NewSet(
+	DefaultSet,
+	NewMetadataService,
+	InitStore,
+	runGRPCServer,
+	InitMetaStore,
+	InitSentry,
+	InitMonitoring,
+)
 
 func NewMetadataService(
 	log logger.Logger,
@@ -421,12 +450,16 @@ func NewMetadataService(
 	db *db.Store,
 	serverRPC *RPCServer,
 	metaStore *meta_store.MetaStore,
+	monitoring *http.ServeMux,
+	sentryHandler *sentryhttp.Handler,
 ) (*Service, error) {
 	return &Service{
-		Log:       log,
-		ServerRPC: serverRPC,
-		DB:        db,
-		MetaStore: metaStore,
+		Log:        log,
+		ServerRPC:  serverRPC,
+		DB:         db,
+		MetaStore:  metaStore,
+		Monitoring: monitoring,
+		Sentry:     sentryHandler,
 	}, nil
 }
 
