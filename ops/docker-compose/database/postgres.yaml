@@ -12,7 +12,6 @@ services:
   postgres:
     <<: *network
     depends_on:
-      - fluent-bit
       - coredns
     image: postgres:alpine
     shm_size: 1gb
@@ -39,7 +38,6 @@ services:
     <<: *network
     depends_on:
       - postgres
-      - fluent-bit
       - coredns
     image: wrouesnel/postgres_exporter:v0.8.0
     restart: on-failure
