@@ -4,15 +4,21 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strconv"
 	"testing"
 
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/atomic"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	"github.com/batazor/shortlink/internal/db/options"
 	db "github.com/batazor/shortlink/internal/db/postgres"
 )
+
+var linkUniqId atomic.Int64
 
 func TestPostgres(t *testing.T) {
 	ctx := context.Background()
@@ -77,6 +83,32 @@ func TestPostgres(t *testing.T) {
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
+	t.Run("Create [batch]", func(t *testing.T) {
+		// Set config
+		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
+		assert.Nil(t, err, "Cannot set ENV")
+
+		storeBatchMode := Store{
+			client: st.GetConn().(*pgxpool.Pool),
+		}
+
+		link, err := storeBatchMode.Add(ctx, getLink())
+		assert.Nil(t, err)
+		assert.NotNil(t, link.CreatedAt)
+
+		link, err = storeBatchMode.Add(ctx, getLink())
+		assert.Nil(t, err)
+		assert.NotNil(t, link.CreatedAt)
+
+		link, err = storeBatchMode.Add(ctx, getLink())
+		assert.Nil(t, err)
+		assert.NotNil(t, link.CreatedAt)
+
+		link, err = storeBatchMode.Add(ctx, getLink())
+		assert.Nil(t, err)
+		assert.NotNil(t, link.CreatedAt)
+	})
+
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
 		assert.Nil(t, err)
@@ -86,10 +118,16 @@ func TestPostgres(t *testing.T) {
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
 		assert.Nil(t, err)
-		assert.Equal(t, len(links), 4)
+		assert.Equal(t, len(links), 8)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
+}
+
+func getLink() *link.Link {
+	link, _ := link.NewURL(fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load()))
+	linkUniqId.Inc()
+	return link
 }

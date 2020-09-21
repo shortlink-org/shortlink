@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 
+	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
@@ -32,7 +33,7 @@ import (
 )
 
 // Use return implementation of db
-func (store *LinkStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (*LinkStore, error) { // nolint unused
+func (store *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*LinkStore, error) { // nolint unused
 	// Set configuration
 	store.setConfig()
 
@@ -61,7 +62,7 @@ func (store *LinkStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (
 	case "badger":
 		store.Store = &badger.Store{}
 	case "cassandra":
-		store.Store = &cassandra.CassandraLinkList{}
+		store.Store = &cassandra.Store{}
 	case "scylla":
 		store.Store = &scylla.Store{}
 	case "rethinkdb":
@@ -70,6 +71,11 @@ func (store *LinkStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (
 		store.Store = &ram.Store{}
 	default:
 		store.Store = &ram.Store{}
+	}
+
+	// Init store
+	if err := store.Store.Init(ctx, db); err != nil {
+		return nil, err
 	}
 
 	log.Info("init linkStore", field.Fields{
@@ -83,8 +89,13 @@ func (store *LinkStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (
 func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
 	switch event {
 	case api_type.METHOD_ADD:
+		// start tracing
+		span, newCtx := opentracing.StartSpanFromContext(ctx, "store add new link")
+		span.SetTag("store", s.typeStore)
+		defer span.Finish()
+
 		if addLink, ok := payload.(*link.Link); ok {
-			payload, err := s.Store.Add(ctx, addLink)
+			payload, err := s.Store.Add(newCtx, addLink)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_ADD",
 				Payload: payload,
@@ -98,13 +109,23 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Error:   errors.New("failed assert type"),
 		}
 	case api_type.METHOD_GET:
-		link, err := s.Store.Get(ctx, payload.(string))
+		// start tracing
+		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get link")
+		span.SetTag("store", s.typeStore)
+		defer span.Finish()
+
+		link, err := s.Store.Get(newCtx, payload.(string))
 		return notify.Response{
 			Name:    "RESPONSE_STORE_GET",
 			Payload: link,
 			Error:   err,
 		}
 	case api_type.METHOD_LIST:
+		// start tracing
+		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get links")
+		span.SetTag("store", s.typeStore)
+		defer span.Finish()
+
 		filterRaw := ""
 		if payload != nil {
 			filterRaw = payload.(string)
@@ -122,15 +143,20 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			}
 		}
 
-		payload, err := s.Store.List(ctx, &filter)
+		payload, err := s.Store.List(newCtx, &filter)
 		return notify.Response{
 			Name:    "RESPONSE_STORE_LIST",
 			Payload: payload,
 			Error:   err,
 		}
 	case api_type.METHOD_UPDATE:
+		// start tracing
+		span, newCtx := opentracing.StartSpanFromContext(ctx, "store update link")
+		span.SetTag("store", s.typeStore)
+		defer span.Finish()
+
 		if linkUpdate, ok := payload.(*link.Link); ok {
-			payload, err := s.Store.Update(ctx, linkUpdate)
+			payload, err := s.Store.Update(newCtx, linkUpdate)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_UPDATE",
 				Payload: payload,
@@ -144,7 +170,12 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Error:   errors.New("failed assert type"),
 		}
 	case api_type.METHOD_DELETE:
-		err := s.Store.Delete(ctx, payload.(string))
+		// start tracing
+		span, newCtx := opentracing.StartSpanFromContext(ctx, "store delete link")
+		span.SetTag("store", s.typeStore)
+		defer span.Finish()
+
+		err := s.Store.Delete(newCtx, payload.(string))
 		return notify.Response{
 			Name:    "RESPONSE_STORE_DELETE",
 			Payload: nil,

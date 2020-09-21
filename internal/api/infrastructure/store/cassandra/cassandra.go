@@ -6,19 +6,25 @@ import (
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
+	"github.com/batazor/shortlink/internal/db"
 
 	"github.com/gocql/gocql"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/scylladb/gocqlx/qb"
 )
 
-// CassandraLinkList implementation of db interface
-type CassandraLinkList struct { // nolint unused
+// Store implementation of db interface
+type Store struct { // nolint unused
 	client *gocql.Session
 }
 
+// Init ...
+func (_ *Store) Init(_ context.Context, _ *db.Store) error {
+	return nil
+}
+
 // Get ...
-func (c *CassandraLinkList) Get(ctx context.Context, id string) (*link.Link, error) {
+func (c *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	stmt, values := qb.Select("shortlink.links").Columns("url", "hash", "ddd").Where(qb.EqNamed("hash", id)).ToCql()
 	iter, err := c.client.Query(stmt, values[0]).Consistency(gocql.One).Iter().SliceMap()
 	if err != nil {
@@ -40,7 +46,7 @@ func (c *CassandraLinkList) Get(ctx context.Context, id string) (*link.Link, err
 }
 
 // List ...
-func (c *CassandraLinkList) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
+func (c *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 	iter, err := c.client.Query(`SELECT url, hash, ddd FROM shortlink.links`).Iter().SliceMap()
 	if err != nil {
 		return nil, err
@@ -61,7 +67,7 @@ func (c *CassandraLinkList) List(_ context.Context, _ *query.Filter) ([]*link.Li
 }
 
 // Add ...
-func (c *CassandraLinkList) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
+func (c *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	data, err := link.NewURL(source.Url) // Create a new link
 	if err != nil {
 		return nil, err
@@ -79,12 +85,12 @@ func (c *CassandraLinkList) Add(ctx context.Context, source *link.Link) (*link.L
 }
 
 // Update ...
-func (c *CassandraLinkList) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (c *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (c *CassandraLinkList) Delete(ctx context.Context, id string) error {
+func (c *Store) Delete(ctx context.Context, id string) error {
 	err := c.client.Query(`DELETE FROM shortlink.links WHERE hash = ?`, id).Exec()
 	return err
 }

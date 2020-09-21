@@ -9,6 +9,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
+	"github.com/batazor/shortlink/internal/db"
 )
 
 // Store implementation of db interface
@@ -19,6 +20,11 @@ type Store struct { // nolint unused
 type Link struct {
 	*link.Link
 	Id string `gorethink:"id,omitempty"`
+}
+
+// Init ...
+func (_ *Store) Init(_ context.Context, _ *db.Store) error {
+	return nil
 }
 
 func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {

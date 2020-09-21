@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/spf13/viper"
+
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 	"github.com/batazor/shortlink/internal/batch"
+	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/db/options"
 )
 
@@ -25,8 +28,40 @@ type Store struct { // nolint unused
 	config Config
 }
 
-// Migrate ...
-func (ram *Store) migrate() error { // nolint unused
+// Init ...
+func (s *Store) Init(ctx context.Context, db *db.Store) error {
+	// Set configuration
+	s.setConfig()
+
+	// Create batch job
+	if s.config.mode == options.MODE_BATCH_WRITE {
+		cb := func(args []*batch.Item) interface{} {
+			if len(args) == 0 {
+				return nil
+			}
+
+			for key := range args {
+				source := args[key].Item.(*link.Link)
+				data, errSingleWrite := s.singleWrite(ctx, source)
+				if errSingleWrite != nil {
+					return errSingleWrite
+				}
+
+				args[key].CB <- data
+			}
+
+			return nil
+		}
+
+		var err error
+		s.config.job, err = batch.New(ctx, cb)
+		if err != nil {
+			return err
+		}
+
+		go s.config.job.Run(ctx)
+	}
+
 	return nil
 }
 
@@ -70,10 +105,14 @@ func (ram *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error
 	switch ram.config.mode {
 	case options.MODE_BATCH_WRITE:
 		cb, err := ram.config.job.Push(source)
+		if err != nil {
+			return nil, err
+		}
+
 		res := <-cb
 		switch data := res.(type) {
 		case error:
-			return nil, err
+			return nil, data
 		case *link.Link:
 			return data, nil
 		default:
@@ -107,4 +146,14 @@ func (ram *Store) singleWrite(_ context.Context, source *link.Link) (*link.Link,
 	ram.links.Store(data.Hash, data)
 
 	return data, nil
+}
+
+// setConfig - set configuration
+func (s *Store) setConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
+
+	s.config = Config{
+		mode: viper.GetInt("STORE_MODE_WRITE"),
+	}
 }

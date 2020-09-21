@@ -3,23 +3,70 @@ package mongo
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"time"
 
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
+	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
-	storeOptions "github.com/batazor/shortlink/internal/db/options"
+	"github.com/batazor/shortlink/internal/batch"
+	"github.com/batazor/shortlink/internal/db"
+	"github.com/batazor/shortlink/internal/db/options"
 )
+
+// Init ...
+func (s *Store) Init(ctx context.Context, db *db.Store) error {
+	// Set configuration
+	s.setConfig()
+	s.client = db.Store.GetConn().(*mongo.Client)
+
+	// Create batch job
+	if s.config.mode == options.MODE_BATCH_WRITE {
+		cb := func(args []*batch.Item) interface{} {
+			sources := make([]*link.Link, len(args))
+
+			for key := range args {
+				sources[key] = args[key].Item.(*link.Link)
+			}
+
+			dataList, errBatchWrite := s.batchWrite(ctx, sources)
+			if errBatchWrite != nil {
+				for index := range args {
+					// TODO: add logs for error
+					args[index].CB <- errors.New("Error write to PostgreSQL")
+				}
+				return errBatchWrite
+			}
+
+			for key, item := range dataList {
+				args[key].CB <- item
+			}
+
+			return nil
+		}
+
+		var err error
+		s.config.job, err = batch.New(ctx, cb)
+		if err != nil {
+			return err
+		}
+
+		go s.config.job.Run(ctx)
+	}
+
+	return nil
+}
 
 // Add ...
 func (m *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	switch m.config.mode {
-	case storeOptions.MODE_BATCH_WRITE:
+	case options.MODE_BATCH_WRITE:
 		cb, err := m.config.job.Push(source)
 		res := <-cb
 		switch data := res.(type) {
@@ -30,7 +77,7 @@ func (m *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) 
 		default:
 			return nil, nil
 		}
-	case storeOptions.MODE_SINGLE_WRITE:
+	case options.MODE_SINGLE_WRITE:
 		data, err := m.singleWrite(ctx, source)
 		return data, err
 	}
@@ -180,4 +227,14 @@ func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.L
 	}
 
 	return sources, nil
+}
+
+// setConfig - set configuration
+func (s *Store) setConfig() {
+	viper.AutomaticEnv()
+	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
+
+	s.config = Config{
+		mode: viper.GetInt("STORE_MODE_WRITE"),
+	}
 }
