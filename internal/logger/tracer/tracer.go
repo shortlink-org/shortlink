@@ -16,7 +16,7 @@ func NewTraceFromContext(ctx context.Context, msg string, fields ...field.Fields
 		ctx = context.Background()
 	}
 
-	span, ctx := opentracing.StartSpanFromContext(ctx, getNameFunc())
+	span, _ := opentracing.StartSpanFromContext(ctx, getNameFunc())
 	defer span.Finish()
 
 	span.LogFields(ZapFieldsToOpentracing(fields...)...)
@@ -45,8 +45,8 @@ func getNameFunc() string {
 func ZapFieldsToOpentracing(fields ...field.Fields) []opentracinglog.Field {
 	opentracingFields := make([]opentracinglog.Field, len(fields))
 
-	for key, _ := range fields {
-		for k, _ := range fields[key] {
+	for key := range fields {
+		for k := range fields[key] {
 			switch v := fields[key][k].(type) {
 			case string:
 				opentracingFields = append(opentracingFields, opentracinglog.String(k, v))
