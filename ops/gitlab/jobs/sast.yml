@@ -1,5 +1,6 @@
 include:
   - template: Secret-Detection.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
 
 bandit-sast:
   rules:
