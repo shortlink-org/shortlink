@@ -10,6 +10,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
+	"github.com/batazor/shortlink/internal/db"
 )
 
 // DGraphLink implementation of db interface
@@ -30,6 +31,11 @@ type DGraphLinkResponse struct { // nolint unused
 // Store ...
 type Store struct { // nolint unused
 	client *dgo.Dgraph
+}
+
+// Init ...
+func (_ *Store) Init(_ context.Context, _ *db.Store) error {
+	return nil
 }
 
 // get - private `get` method

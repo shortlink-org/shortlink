@@ -4,21 +4,27 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strconv"
 	"testing"
 
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.uber.org/atomic"
 
+	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 	db "github.com/batazor/shortlink/internal/db/mongo"
+	"github.com/batazor/shortlink/internal/db/options"
 )
 
 // TODO: Problem with testing into GitLab CI
 //func TestMain(m *testing.M) {
 //	goleak.VerifyTestMain(m)
 //}
+
+var linkUniqId atomic.Int64
 
 func TestMongo(t *testing.T) {
 	ctx := context.Background()
@@ -67,6 +73,32 @@ func TestMongo(t *testing.T) {
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
+	t.Run("Create [batch]", func(t *testing.T) {
+		// Set config
+		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
+		assert.Nil(t, err, "Cannot set ENV")
+
+		storeBatchMode := Store{
+			client: st.GetConn().(*mongo.Client),
+		}
+
+		link, err := storeBatchMode.Add(ctx, getLink())
+		assert.Nil(t, err)
+		assert.NotNil(t, link.CreatedAt)
+
+		link, err = storeBatchMode.Add(ctx, getLink())
+		assert.Nil(t, err)
+		assert.NotNil(t, link.CreatedAt)
+
+		link, err = storeBatchMode.Add(ctx, getLink())
+		assert.Nil(t, err)
+		assert.NotNil(t, link.CreatedAt)
+
+		link, err = storeBatchMode.Add(ctx, getLink())
+		assert.Nil(t, err)
+		assert.NotNil(t, link.CreatedAt)
+	})
+
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
 		assert.Nil(t, err)
@@ -76,7 +108,7 @@ func TestMongo(t *testing.T) {
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
 		assert.Nil(t, err)
-		assert.Equal(t, len(links), 1)
+		assert.Equal(t, len(links), 5)
 	})
 
 	t.Run("Get list using filter", func(t *testing.T) {
@@ -96,4 +128,10 @@ func TestMongo(t *testing.T) {
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
+}
+
+func getLink() *link.Link {
+	link, _ := link.NewURL(fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load()))
+	linkUniqId.Inc()
+	return link
 }

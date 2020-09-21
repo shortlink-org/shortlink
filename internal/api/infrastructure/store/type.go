@@ -5,10 +5,12 @@ import (
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
+	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/notify"
 )
 
 type Repository interface {
+	Init(ctx context.Context, db *db.Store) error
 	Get(ctx context.Context, id string) (*link.Link, error)
 	List(ctx context.Context, filter *query.Filter) ([]*link.Link, error)
 	Add(ctx context.Context, data *link.Link) (*link.Link, error)

@@ -9,7 +9,13 @@ import (
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
+	"github.com/batazor/shortlink/internal/db"
 )
+
+// Init ...
+func (_ *Store) Init(_ context.Context, _ *db.Store) error {
+	return nil
+}
 
 // Get ...
 func (m *Store) Get(ctx context.Context, id string) (*link.Link, error) {
