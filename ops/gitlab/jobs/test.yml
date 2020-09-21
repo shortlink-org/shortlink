@@ -2,7 +2,6 @@ include:
   - template: License-Scanning.gitlab-ci.yml
   - template: Coverage-Fuzzing.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml
-  - template: Secret-Detection.gitlab-ci.yml
   - local: /ops/gitlab/templates/go.yml
   - local: /ops/gitlab/jobs/sast.yml
   - local: /ops/gitlab/jobs/dependency.yml
