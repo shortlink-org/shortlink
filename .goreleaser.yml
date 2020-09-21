@@ -6,7 +6,7 @@ before:
     - go mod download
 builds:
 - id: shortlink
-  main: ./cmd/shortlink
+  main: ./cmd/api
   env:
     - CGO_ENABLED=0
   flags:
