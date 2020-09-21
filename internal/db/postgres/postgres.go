@@ -15,8 +15,8 @@ import (
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/api/infrastructure/store/postgres/migrations"
 	"github.com/batazor/shortlink/internal/db/options"
+	"github.com/batazor/shortlink/internal/db/postgres/migrations"
 )
 
 var (
@@ -97,11 +97,11 @@ func (p *Store) setConfig() {
 	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5435/%s?sslmode=disable", "shortlink", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)                           // Postgres URI
-	viper.SetDefault("STORE_POSTGRES_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db
+	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)                  // Postgres URI
+	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db
 
 	p.config = Config{
 		URI:  viper.GetString("STORE_POSTGRES_URI"),
-		mode: viper.GetInt("STORE_POSTGRES_MODE_WRITE"),
+		mode: viper.GetInt("STORE_MODE_WRITE"),
 	}
 }

@@ -11,7 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/batazor/shortlink/internal/api/infrastructure/store/mongo/migrations"
+	"github.com/batazor/shortlink/internal/db/mongo/migrations"
 	storeOptions "github.com/batazor/shortlink/internal/db/options"
 )
 
@@ -91,10 +91,10 @@ func (m *Store) migrate() error { // nolint unused
 func (m *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_MONGODB_URI", "mongodb://localhost:27017/shortlink") // MongoDB URI
-	viper.SetDefault("STORE_MONGODB_MODE_WRITE", storeOptions.MODE_SINGLE_WRITE) // mode write to db
+	viper.SetDefault("STORE_MODE_WRITE", storeOptions.MODE_SINGLE_WRITE)         // mode write to db
 
 	m.config = Config{
 		URI:  viper.GetString("STORE_MONGODB_URI"),
-		mode: viper.GetInt("STORE_MONGODB_MODE_WRITE"),
+		mode: viper.GetInt("STORE_MODE_WRITE"),
 	}
 }

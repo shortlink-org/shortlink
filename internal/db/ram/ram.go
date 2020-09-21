@@ -10,7 +10,7 @@ import (
 
 // Config ...
 type Config struct { // nolint unused
-	mode int
+	mode int // Type write mode. single or batch
 }
 
 // Store implementation of db interface
@@ -27,26 +27,26 @@ func (s *Store) Init(_ context.Context) error {
 }
 
 // GetConn ...
-func (s *Store) GetConn() interface{} {
+func (_ *Store) GetConn() interface{} {
 	return nil
 }
 
 // Close ...
-func (ram *Store) Close() error {
+func (_ *Store) Close() error {
 	return nil
 }
 
 // Migrate ...
-func (ram *Store) migrate() error { // nolint unused
+func (_ *Store) migrate() error { // nolint unused
 	return nil
 }
 
 // setConfig - set configuration
-func (ram *Store) setConfig() {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_RAM_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db
+	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
 
-	ram.config = Config{
-		mode: viper.GetInt("STORE_RAM_MODE_WRITE"),
+	s.config = Config{
+		mode: viper.GetInt("STORE_MODE_WRITE"),
 	}
 }
