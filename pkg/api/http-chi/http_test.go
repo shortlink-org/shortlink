@@ -102,7 +102,7 @@ func TestGet(t *testing.T) {
 
 	t.Run("correct payload", func(t *testing.T) {
 		response := `{"error": "Not found subscribe to event METHOD_GET"}`
-		_, body := testRequest(t, ts, "GET", "/hash", nil) // nolint bodyclose
+		_, body := testRequest(t, ts, "GET", "/link/hash", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
 
@@ -117,7 +117,7 @@ func TestGet(t *testing.T) {
 		assert.Nil(t, err)
 
 		response := `{"error": "Not found link: hash"}`
-		_, body := testRequest(t, ts, "GET", "/hash", nil) // nolint bodyclose
+		_, body := testRequest(t, ts, "GET", "/link/hash", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 
 		// clean db subscribe
@@ -188,7 +188,7 @@ func TestDelete(t *testing.T) {
 		})
 		assert.Nil(t, errJsonMarshal)
 		response := `{"error": "Not found subscribe to event METHOD_DELETE"}`
-		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)) // nolint bodyclose
+		_, body := testRequest(t, ts, "DELETE", "/hash", bytes.NewReader(payload)) // nolint bodyclose
 		assert.Equal(t, body, response)
 	})
 
@@ -207,7 +207,7 @@ func TestDelete(t *testing.T) {
 		})
 		assert.Nil(t, err)
 		response := `{}`
-		_, body := testRequest(t, ts, "DELETE", "/", bytes.NewReader(payload)) // nolint bodyclose
+		_, body := testRequest(t, ts, "DELETE", "/hash", bytes.NewReader(payload)) // nolint bodyclose
 		assert.Equal(t, body, response)
 
 		// clean db subscribe
