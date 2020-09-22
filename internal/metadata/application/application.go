@@ -32,7 +32,7 @@ func (r *Service) Set(ctx context.Context, url string) (*rpc.Meta, error) {
 	}
 
 	// Request the HTML page.
-	resp, err := http.Get(url) // nolint gosec
+	resp, err := http.Get(url) // #nosec G107
 	if err != nil {
 		return nil, err
 	}
