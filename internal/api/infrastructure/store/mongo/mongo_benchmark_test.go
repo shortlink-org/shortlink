@@ -102,9 +102,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 	assert.Nil(b, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
-	if err := pool.Retry(func() error {
-		var err error
-
+	if err = pool.Retry(func() error {
 		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
 		assert.Nil(b, err, "Cannot set ENV")
 
@@ -120,7 +118,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 	b.Cleanup(func() {
 		// When you're done, kill and remove the container
-		if err := pool.Purge(resource); err != nil {
+		if err = pool.Purge(resource); err != nil {
 			b.Fatalf("Could not purge resource: %s", err)
 		}
 	})
