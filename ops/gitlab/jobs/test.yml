@@ -1,11 +1,11 @@
 include:
-  - local: /ops/gitlab/templates/go.yml
-  - local: /ops/gitlab/jobs/sast.yml
-  - local: /ops/gitlab/jobs/dependency.yml
   - template: License-Scanning.gitlab-ci.yml
   - template: Coverage-Fuzzing.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml
-  - template: Secret-Detection.gitlab-ci.yml
+  - local: /ops/gitlab/templates/go.yml
+  - local: /ops/gitlab/jobs/sast.yml
+  - local: /ops/gitlab/jobs/dependency.yml
+  
 
 # ON COMMIT ============================================================================================================
 gosec:
@@ -54,10 +54,11 @@ go_fuzz_test:
     CI_SEED_CORPUS: './seed_corpus'
   script:
     # link package
+    - GITLAB_COV_FUZZ_PATH=`pwd`
     - cd $CI_PROJECT_DIR/internal/api/domain/link
     - go-fuzz-build -libfuzzer -o link_fuzz_target.a .
     - clang -fsanitize=fuzzer link_fuzz_target.a -o link_fuzz_target
-    - ./gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target
+    - $GITLAB_COV_FUZZ_PATH/gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target
 
 
 
