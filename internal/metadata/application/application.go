@@ -32,7 +32,12 @@ func (r *Service) Set(ctx context.Context, url string) (*rpc.Meta, error) {
 	}
 
 	// Request the HTML page.
-	resp, err := http.Get(url) // #nosec G107
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, err
 	}
