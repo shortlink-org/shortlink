@@ -81,8 +81,8 @@ func (lite *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error
 }
 
 // Add ...
-func (lite *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
+func (lite *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
+	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -90,7 +90,7 @@ func (lite *Store) Add(ctx context.Context, source *link.Link) (*link.Link, erro
 	// query builder
 	links := squirrel.Insert("links").
 		Columns("url", "hash", "describe").
-		Values(data.Url, data.Hash, data.Describe)
+		Values(source.Url, source.Hash, source.Describe)
 
 	query, args, err := links.ToSql()
 	if err != nil {
@@ -99,14 +99,14 @@ func (lite *Store) Add(ctx context.Context, source *link.Link) (*link.Link, erro
 
 	_, err = lite.client.Exec(query, args...)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
+		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
-	return data, nil
+	return source, nil
 }
 
 // Update ...
-func (lite *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (lite *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 

@@ -15,10 +15,11 @@ func TestNewURL(t *testing.T) {
 	URL := "http://test.com"
 
 	t.Run("create new", func(t *testing.T) {
-		newUrl, err := NewURL(URL)
+		link := &Link{Url: URL}
+		err := NewURL(&Link{Url: URL})
 
 		assert.Nil(t, err, "Assert nil. Got: %s", err)
-		assert.Equal(t, newUrl.Url, URL)
+		assert.Equal(t, link.Url, URL)
 	})
 
 	t.Run("create hash", func(t *testing.T) {

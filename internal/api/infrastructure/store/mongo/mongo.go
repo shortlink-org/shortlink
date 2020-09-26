@@ -155,7 +155,7 @@ func (m *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 }
 
 // Update ...
-func (m *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (m *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
@@ -175,7 +175,7 @@ func (m *Store) Delete(ctx context.Context, id string) error {
 }
 
 func (m *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) { // nolint unused
-	data, err := link.NewURL(source.Url) // Create a new link
+	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -185,17 +185,17 @@ func (m *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link,
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
-	_, err = collection.InsertOne(ctx, &data)
+	_, err = collection.InsertOne(ctx, &source)
 	if err != nil {
 		switch err.(mongo.WriteException).WriteErrors[0].Code {
 		case 11000:
-			return nil, &link.NotUniqError{Link: data, Err: fmt.Errorf("Duplicate URL: %s", data.Url)}
+			return nil, &link.NotUniqError{Link: source, Err: fmt.Errorf("Duplicate URL: %s", source.Url)}
 		default:
-			return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
+			return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
 		}
 	}
 
-	return data, nil
+	return source, nil
 }
 
 func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.Link, error) { // nolint unused
@@ -203,12 +203,12 @@ func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.L
 
 	// Create a new link
 	for key := range sources {
-		data, err := link.NewURL(sources[key].Url)
+		err := link.NewURL(sources[key])
 		if err != nil {
 			return nil, err
 		}
 
-		docs[key] = data
+		docs[key] = sources[key]
 	}
 
 	collection := m.client.Database("shortlink").Collection("links")

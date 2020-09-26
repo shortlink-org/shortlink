@@ -52,15 +52,15 @@ func (r *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 	return nil, nil
 }
 
-func (r *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
+func (r *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
+	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
 
 	linkRethinkDB := &Link{
-		data,
-		data.Hash,
+		source,
+		source.Hash,
 	}
 
 	_, err = rethinkdb.DB("shortlink").Table("link").Insert(linkRethinkDB, rethinkdb.InsertOpts{}).RunWrite(r.client)
@@ -68,7 +68,7 @@ func (r *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) 
 		return nil, err
 	}
 
-	return data, nil
+	return source, nil
 }
 
 func (s *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {

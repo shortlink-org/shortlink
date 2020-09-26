@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/gocql/gocql"
-	"github.com/golang/protobuf/ptypes"
 	"github.com/scylladb/gocqlx/qb"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
@@ -68,24 +67,20 @@ func (c *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 
 // Add ...
 func (c *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
+	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
 
-	// Add timestamp
-	data.CreatedAt = ptypes.TimestampNow()
-	data.UpdatedAt = ptypes.TimestampNow()
-
-	if err := c.client.Query(`INSERT INTO shortlink.links (url, hash, ddd) VALUES (?, ?, ?)`, data.Url, data.Hash, data.Describe).Exec(); err != nil {
+	if err := c.client.Query(`INSERT INTO shortlink.links (url, hash, ddd) VALUES (?, ?, ?)`, source.Url, source.Hash, source.Describe).Exec(); err != nil {
 		return nil, err
 	}
 
-	return data, nil
+	return source, nil
 }
 
 // Update ...
-func (c *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (c *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 
