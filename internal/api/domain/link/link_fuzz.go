@@ -3,7 +3,8 @@
 package link
 
 func Fuzz(link []byte) int { // nolint unparam
-	newLink, err := NewURL(string(link))
+	data := &Link{Url: string(link)}
+	err := NewURL(data)
 	if err != nil {
 		return -1
 	}

@@ -127,7 +127,8 @@ func TestPostgres(t *testing.T) {
 }
 
 func getLink() *link.Link {
-	link, _ := link.NewURL(fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load()))
+	data := &link.Link{Url: fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load())}
+	link, _ := link.NewURL(data)
 	linkUniqId.Inc()
 	return link
 }

@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	"github.com/dgraph-io/badger/v2"
-	"github.com/golang/protobuf/ptypes"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
@@ -120,32 +119,28 @@ func (b *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 
 // Add ...
 func (b *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
+	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
 
-	// Add timestamp
-	data.CreatedAt = ptypes.TimestampNow()
-	data.UpdatedAt = ptypes.TimestampNow()
-
-	payload, err := json.Marshal(data)
+	payload, err := json.Marshal(source)
 	if err != nil {
 		return nil, err
 	}
 
 	err = b.client.Update(func(txn *badger.Txn) error {
-		return txn.Set([]byte(data.Hash), payload)
+		return txn.Set([]byte(source.Hash), payload)
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	return data, nil
+	return source, nil
 }
 
 // Update ...
-func (b *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (b *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 

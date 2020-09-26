@@ -23,23 +23,23 @@ func (_ *Store) Init(_ context.Context, _ *db.Store) error {
 }
 
 // Add ...
-func (l *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
+func (l *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
+	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
 
-	payload, err := json.Marshal(data)
+	payload, err := json.Marshal(source)
 	if err != nil {
 		return nil, err
 	}
 
-	err = l.client.Put([]byte(data.Hash), payload, nil)
+	err = l.client.Put([]byte(source.Hash), payload, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	return data, nil
+	return source, nil
 }
 
 // Get ...
@@ -93,7 +93,7 @@ func (l *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 }
 
 // Update ...
-func (l *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (l *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 

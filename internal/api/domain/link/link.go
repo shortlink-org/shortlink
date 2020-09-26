@@ -12,17 +12,14 @@ import (
 )
 
 // NewURL return new link
-func NewURL(link string) (*Link, error) { // nolint unparam
-	hash := CreateHash([]byte(link), []byte("secret"))
+func NewURL(link *Link) error {
+	link.Hash = CreateHash([]byte(link.Url), []byte("secret"))[:9]
 
-	newLink := Link{
-		Url:       link,
-		Hash:      hash[:9],
-		CreatedAt: ptypes.TimestampNow(),
-		UpdatedAt: ptypes.TimestampNow(),
-	}
+	// Add timestamp
+	link.CreatedAt = ptypes.TimestampNow()
+	link.UpdatedAt = ptypes.TimestampNow()
 
-	return &newLink, nil
+	return nil
 }
 
 // CreateHash return hash by getting link

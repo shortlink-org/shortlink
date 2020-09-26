@@ -161,7 +161,7 @@ func (dg *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error
 
 // Add ...
 func (dg *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
+	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -175,8 +175,8 @@ func (dg *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error)
 	}()
 
 	item := DGraphLink{
-		Uid:   fmt.Sprintf(`_:%s`, data.Hash),
-		Link:  data,
+		Uid:   fmt.Sprintf(`_:%s`, source.Hash),
+		Link:  source,
 		DType: []string{"Link"},
 	}
 
@@ -197,14 +197,14 @@ func (dg *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error)
 	}
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
+		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
-	return data, nil
+	return source, nil
 }
 
 // Update ...
-func (dg *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (dg *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 

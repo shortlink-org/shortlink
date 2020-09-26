@@ -183,13 +183,13 @@ func (p *Store) Delete(ctx context.Context, id string) error {
 }
 
 func (p *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
+	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
 
 	// save as JSON. it doesn't make sense
-	dataJson, err := json.Marshal(data)
+	dataJson, err := json.Marshal(source)
 	if err != nil {
 		return nil, err
 	}
@@ -197,7 +197,7 @@ func (p *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link,
 	// query builder
 	links := psql.Insert("links").
 		Columns("url", "hash", "describe", "json").
-		Values(data.Url, data.Hash, data.Describe, dataJson)
+		Values(source.Url, source.Hash, source.Describe, dataJson)
 
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -206,26 +206,24 @@ func (p *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link,
 
 	row := p.client.QueryRow(ctx, q, args...)
 
-	errScan := row.Scan(&data.Url, &data.Hash, &data.Describe).Error()
+	errScan := row.Scan(&source.Url, &source.Hash, &source.Describe).Error()
 	if errScan == "no rows in result set" {
-		return data, nil
+		return source, nil
 	}
 	if errScan != "" {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
+		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
-	return data, nil
+	return source, nil
 }
 
 func (p *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.Link, error) {
 	// Create a new link
 	for key := range sources {
-		data, err := link.NewURL(sources[key].Url)
+		err := link.NewURL(sources[key])
 		if err != nil {
 			return nil, err
 		}
-
-		sources[key] = data
 	}
 
 	links := psql.Insert("links").Columns("url", "hash", "describe", "json")

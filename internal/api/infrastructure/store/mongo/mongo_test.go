@@ -82,21 +82,25 @@ func TestMongo(t *testing.T) {
 			client: st.GetConn().(*mongo.Client),
 		}
 
-		link, err := storeBatchMode.Add(ctx, getLink())
+		source, err := getLink()
+		_, err = storeBatchMode.Add(ctx, source)
 		assert.Nil(t, err)
-		assert.NotNil(t, link.CreatedAt)
+		assert.NotNil(t, source.CreatedAt)
 
-		link, err = storeBatchMode.Add(ctx, getLink())
+		source, err = getLink()
+		_, err = storeBatchMode.Add(ctx, source)
 		assert.Nil(t, err)
-		assert.NotNil(t, link.CreatedAt)
+		assert.NotNil(t, source.CreatedAt)
 
-		link, err = storeBatchMode.Add(ctx, getLink())
+		source, err = getLink()
+		_, err = storeBatchMode.Add(ctx, source)
 		assert.Nil(t, err)
-		assert.NotNil(t, link.CreatedAt)
+		assert.NotNil(t, source.CreatedAt)
 
-		link, err = storeBatchMode.Add(ctx, getLink())
+		source, err = getLink()
+		_, err = storeBatchMode.Add(ctx, source)
 		assert.Nil(t, err)
-		assert.NotNil(t, link.CreatedAt)
+		assert.NotNil(t, source.CreatedAt)
 	})
 
 	t.Run("Get", func(t *testing.T) {
@@ -130,8 +134,11 @@ func TestMongo(t *testing.T) {
 	})
 }
 
-func getLink() *link.Link {
-	link, _ := link.NewURL(fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load()))
+func getLink() (*link.Link, error) {
+	source := &link.Link{Url: fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load())}
+	if err := link.NewURL(source); err != nil {
+		return nil, err
+	}
 	linkUniqId.Inc()
-	return link
+	return source, nil
 }

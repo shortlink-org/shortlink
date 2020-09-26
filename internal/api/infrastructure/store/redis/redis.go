@@ -62,25 +62,25 @@ func (r *Store) List(_ context.Context, filter *query.Filter) ([]*link.Link, err
 
 // Add ...
 func (r *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
+	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
 
-	val, err := json.Marshal(data)
+	val, err := json.Marshal(source)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed marsharing link: %s", data.Url)}
+		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
 	}
 
-	if err = r.client.Set(data.Hash, val, 0).Err(); err != nil {
-		return nil, &link.NotFoundError{Link: data, Err: fmt.Errorf("Failed save link: %s", data.Url)}
+	if err = r.client.Set(source.Hash, val, 0).Err(); err != nil {
+		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
-	return data, nil
+	return source, nil
 }
 
 // Update ...
-func (r *Store) Update(ctx context.Context, data *link.Link) (*link.Link, error) {
+func (r *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 	return nil, nil
 }
 

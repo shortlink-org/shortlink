@@ -138,14 +138,14 @@ func (ram *Store) Delete(_ context.Context, id string) error {
 }
 
 func (ram *Store) singleWrite(_ context.Context, source *link.Link) (*link.Link, error) {
-	data, err := link.NewURL(source.Url) // Create a new link
+	err := link.NewURL(source) // Create a new link
 	if err != nil {
 		return nil, err
 	}
 
-	ram.links.Store(data.Hash, data)
+	ram.links.Store(source.Hash, source)
 
-	return data, nil
+	return source, nil
 }
 
 // setConfig - set configuration
