@@ -19,7 +19,7 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/gocql/gocql v0.0.0-20200815110948-5378c8f664e9
-	github.com/golang-migrate/migrate/v4 v4.12.2
+	github.com/golang-migrate/migrate/v4 v4.13.0
 	github.com/golang/protobuf v1.4.2
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.8.0
