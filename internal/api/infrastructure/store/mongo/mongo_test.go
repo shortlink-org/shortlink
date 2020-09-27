@@ -67,10 +67,11 @@ func TestMongo(t *testing.T) {
 		client: st.GetConn().(*mongo.Client),
 	}
 
-	t.Run("Create", func(t *testing.T) {
+	t.Run("Create [single]", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Create [batch]", func(t *testing.T) {
@@ -83,30 +84,39 @@ func TestMongo(t *testing.T) {
 		}
 
 		source, err := getLink()
+		assert.Nil(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
 		assert.Nil(t, err)
 		assert.NotNil(t, source.CreatedAt)
+		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
 		source, err = getLink()
+		assert.Nil(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
 		assert.Nil(t, err)
 		assert.NotNil(t, source.CreatedAt)
+		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
 		source, err = getLink()
+		assert.Nil(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
 		assert.Nil(t, err)
 		assert.NotNil(t, source.CreatedAt)
+		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
 		source, err = getLink()
+		assert.Nil(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
 		assert.Nil(t, err)
 		assert.NotNil(t, source.CreatedAt)
+		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
@@ -135,7 +145,10 @@ func TestMongo(t *testing.T) {
 }
 
 func getLink() (*link.Link, error) {
-	source := &link.Link{Url: fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load())}
+	source := &link.Link{
+		Url:      fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load()),
+		Describe: mock.AddLink.Describe,
+	}
 	if err := link.NewURL(source); err != nil {
 		return nil, err
 	}

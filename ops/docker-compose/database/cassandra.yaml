@@ -4,7 +4,6 @@ services:
 
   cassandra:
     depends_on:
-      - fluent-bit
       - coredns
     image: cassandra:3.11
     shm_size: 1gb

@@ -12,7 +12,6 @@ services:
   rabbitmq:
     <<: *network
     depends_on:
-      - fluent-bit
       - coredns
     image: rabbitmq:3.8-management-alpine
     hostname: rabbitmq

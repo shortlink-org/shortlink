@@ -4,7 +4,6 @@ services:
 
   scylla:
     depends_on:
-      - fluent-bit
       - coredns
     image: scylladb/scylla
     container_name: scylla

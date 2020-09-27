@@ -4,7 +4,6 @@ services:
 
   caddy:
     depends_on:
-      - fluent-bit
       - coredns
       - shortlink
     image: caddy:2-alpine

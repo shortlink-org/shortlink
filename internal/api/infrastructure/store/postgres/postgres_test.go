@@ -77,10 +77,11 @@ func TestPostgres(t *testing.T) {
 		client: st.GetConn().(*pgxpool.Pool),
 	}
 
-	t.Run("Create", func(t *testing.T) {
+	t.Run("Create [single]", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Create [batch]", func(t *testing.T) {
@@ -92,27 +93,40 @@ func TestPostgres(t *testing.T) {
 			client: st.GetConn().(*pgxpool.Pool),
 		}
 
-		link, err := storeBatchMode.Add(ctx, getLink())
+		source, err := getLink()
 		assert.Nil(t, err)
-		assert.NotNil(t, link.CreatedAt)
+		_, err = storeBatchMode.Add(ctx, source)
+		assert.Nil(t, err)
+		assert.NotNil(t, source.CreatedAt)
+		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
-		link, err = storeBatchMode.Add(ctx, getLink())
+		source, err = getLink()
 		assert.Nil(t, err)
-		assert.NotNil(t, link.CreatedAt)
+		_, err = storeBatchMode.Add(ctx, source)
+		assert.Nil(t, err)
+		assert.NotNil(t, source.CreatedAt)
+		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
-		link, err = storeBatchMode.Add(ctx, getLink())
+		source, err = getLink()
 		assert.Nil(t, err)
-		assert.NotNil(t, link.CreatedAt)
+		_, err = storeBatchMode.Add(ctx, source)
+		assert.Nil(t, err)
+		assert.NotNil(t, source.CreatedAt)
+		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
-		link, err = storeBatchMode.Add(ctx, getLink())
+		source, err = getLink()
 		assert.Nil(t, err)
-		assert.NotNil(t, link.CreatedAt)
+		_, err = storeBatchMode.Add(ctx, source)
+		assert.Nil(t, err)
+		assert.NotNil(t, source.CreatedAt)
+		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
@@ -126,9 +140,14 @@ func TestPostgres(t *testing.T) {
 	})
 }
 
-func getLink() *link.Link {
-	data := &link.Link{Url: fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load())}
-	link, _ := link.NewURL(data)
+func getLink() (*link.Link, error) {
+	data := &link.Link{
+		Url:      fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load()),
+		Describe: mock.AddLink.Describe,
+	}
+	if err := link.NewURL(data); err != nil {
+		return nil, err
+	}
 	linkUniqId.Inc()
-	return link
+	return data, nil
 }

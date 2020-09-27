@@ -8,7 +8,6 @@ services:
       dockerfile: ops/dockerfile/ui-nuxt.Dockerfile
       shm_size: 1gb
     depends_on:
-      - fluent-bit
       - coredns
     container_name: ui-nuxt
     ports:

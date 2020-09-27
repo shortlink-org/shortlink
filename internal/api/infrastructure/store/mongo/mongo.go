@@ -39,7 +39,7 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CB <- errors.New("Error write to PostgreSQL")
+					args[index].CB <- query.StoreError{Value: "Error write to MongoDB"}
 				}
 				return errBatchWrite
 			}
@@ -68,12 +68,18 @@ func (m *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) 
 	switch m.config.mode {
 	case options.MODE_BATCH_WRITE:
 		cb, err := m.config.job.Push(source)
+		if err != nil {
+			return nil, err
+		}
+
 		res := <-cb
 		switch data := res.(type) {
 		case error:
 			return nil, err
-		case link.Link:
-			return &data, nil
+		case query.StoreError:
+			return nil, errors.New(data.Value)
+		case *link.Link:
+			return data, nil
 		default:
 			return nil, nil
 		}
@@ -218,12 +224,7 @@ func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.L
 
 	_, err := collection.InsertMany(ctx, docs)
 	if err != nil {
-		switch err.(mongo.WriteException).WriteErrors[0].Code {
-		case 11000:
-			return nil, &link.NotUniqError{Link: sources[0], Err: fmt.Errorf("Duplicate URL: %s", sources[0].Url)}
-		default:
-			return nil, &link.NotFoundError{Link: sources[0], Err: fmt.Errorf("Failed marsharing link: %s", sources[0].Url)}
-		}
+		return nil, err
 	}
 
 	return sources, nil
