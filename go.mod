@@ -1,6 +1,6 @@
 module github.com/batazor/shortlink
 
-go 1.14
+go 1.15
 
 require (
 	github.com/Masterminds/squirrel v1.4.0
@@ -70,3 +70,5 @@ require (
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )
+
+replace github.com/coreos/bbolt => go.etcd.io/bbolt v1.3.5
