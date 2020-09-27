@@ -12,7 +12,6 @@ services:
   zookeeper:
     <<: *network
     depends_on:
-      - fluent-bit
       - coredns
     image: confluentinc/cp-zookeeper:5.4.2
     hostname: zookeeper
@@ -30,7 +29,6 @@ services:
     <<: *network
     depends_on:
       - zookeeper
-      - fluent-bit
       - coredns
     image: confluentinc/cp-kafka:5.4.0
     restart: on-failure
@@ -60,7 +58,6 @@ services:
     <<: *kafka-1
     depends_on:
       - zookeeper
-      - fluent-bit
       - coredns
     container_name: kafka_2
     environment:
@@ -84,7 +81,6 @@ services:
     <<: *kafka-1
     depends_on:
       - zookeeper
-      - fluent-bit
       - coredns
     container_name: kafka_3
     environment:

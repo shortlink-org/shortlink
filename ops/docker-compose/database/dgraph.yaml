@@ -12,7 +12,6 @@ services:
   zero:
     <<: *network
     depends_on:
-      - fluent-bit
       - coredns
     image: dgraph/dgraph:v20.03.3
     volumes:
@@ -30,7 +29,6 @@ services:
   server:
     <<: *network
     depends_on:
-      - fluent-bit
       - coredns
     image: dgraph/dgraph:v20.03.3
     volumes:
@@ -48,7 +46,6 @@ services:
   ratel:
     <<: *network
     depends_on:
-      - fluent-bit
       - coredns
     image: dgraph/dgraph:v20.03.3
     volumes:

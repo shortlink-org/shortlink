@@ -4,7 +4,6 @@ services:
 
   mysql:
     depends_on:
-      - fluent-bit
       - coredns
     image: mysql:8
     init: true

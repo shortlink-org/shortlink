@@ -2,10 +2,9 @@ package scylla
 
 import (
 	"context"
-	"net/url"
-	"strconv"
 
 	"github.com/gocql/gocql"
+	"github.com/scylladb/gocqlx/v2"
 	"github.com/spf13/viper"
 )
 
@@ -16,39 +15,29 @@ type Config struct { // nolint unused
 
 // Store implementation of db interface
 type Store struct { // nolint unused
-	client *gocql.Session
+	client gocqlx.Session
 	config Config
 }
 
 // Init ...
-func (c *Store) Init(ctx context.Context) error {
+func (s *Store) Init(_ context.Context) error {
 	var err error
 
 	// Set configuration
-	c.setConfig()
+	s.setConfig()
 
-	uri, err := url.ParseRequestURI(c.config.URI)
+	// Create gocql cluster.
+	cluster := gocql.NewCluster(s.config.URI)
+
+	// Wrap session on creation, gocqlx session embeds gocql.Session pointer.
+	s.client, err = gocqlx.WrapSession(cluster.CreateSession())
 	if err != nil {
 		return err
-	}
-
-	// Connect to ScyllaDB
-	cluster := gocql.NewCluster(c.config.URI)
-	cluster.ProtoVersion = 4
-	cluster.Port, err = strconv.Atoi(uri.Opaque)
-
-	if err != nil {
-		return err
-	}
-
-	c.client, err = cluster.CreateSession()
-	if err != nil {
-		panic(err)
 	}
 
 	// Migration
-	if err = c.migrate(); err != nil {
-		panic(err)
+	if err = s.migrate(); err != nil {
+		return err
 	}
 
 	return nil
@@ -60,14 +49,14 @@ func (s *Store) GetConn() interface{} {
 }
 
 // Close ...
-func (c *Store) Close() error { // nolint unparam
-	c.client.Close()
+func (s *Store) Close() error { // nolint unparam
+	s.client.Close()
 	return nil
 }
 
 // Migrate ...
 // TODO: ddd -> describe
-func (c *Store) migrate() error { // nolint unused
+func (s *Store) migrate() error { // nolint unused
 	infoSchemas := []string{`
 CREATE KEYSPACE IF NOT EXISTS shortlink
 	WITH REPLICATION = {
@@ -82,7 +71,7 @@ CREATE TABLE IF NOT EXISTS shortlink.links (
 )`}
 
 	for _, schema := range infoSchemas {
-		if err := c.client.Query(schema).Exec(); err != nil {
+		if err := s.client.ExecStmt(schema); err != nil {
 			return err
 		}
 	}
@@ -91,10 +80,10 @@ CREATE TABLE IF NOT EXISTS shortlink.links (
 }
 
 // setConfig - set configuration
-func (c *Store) setConfig() {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_SCYLLA_URI", "localhost:9042") // Scylla URI
-	c.config = Config{
+	s.config = Config{
 		URI: viper.GetString("STORE_SCYLLA_URI"),
 	}
 }

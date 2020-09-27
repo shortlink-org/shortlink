@@ -1,6 +1,7 @@
 package scylla
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -15,7 +16,8 @@ func TestMain(m *testing.M) {
 }
 
 func TestScylla(t *testing.T) {
-	// db := Store{}
+	store := Store{}
+	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -30,9 +32,10 @@ func TestScylla(t *testing.T) {
 		err = os.Setenv("STORE_SCYLLA_URI", fmt.Sprintf("localhost:%s", resource.GetPort("9042/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		// if errInit := db.Init(); errInit != nil {
-		// 	return errInit
-		// }
+		err = store.Init(ctx)
+		if err != nil {
+			return err
+		}
 
 		return nil
 	}); err != nil {
@@ -46,7 +49,7 @@ func TestScylla(t *testing.T) {
 		}
 	})
 
-	// t.Run("Close", func(t *testing.T) {
-	// 	assert.Nil(t, db.Close())
-	// })
+	t.Run("Close", func(t *testing.T) {
+		assert.Nil(t, store.Close())
+	})
 }

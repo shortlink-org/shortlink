@@ -1,22 +1,27 @@
 package scylla
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
 
 	"github.com/ory/dockertest/v3"
+	"github.com/scylladb/gocqlx/v2"
+	"github.com/scylladb/gocqlx/v2/table"
 	"github.com/stretchr/testify/assert"
-	"go.uber.org/goleak"
+
+	"github.com/batazor/shortlink/internal/api/infrastructure/store/mock"
+	db "github.com/batazor/shortlink/internal/db/scylla"
 )
 
-func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
-}
+//func TestMain(m *testing.M) {
+//	goleak.VerifyTestMain(m)
+//}
 
 func TestScylla(t *testing.T) {
-	//ctx := context.Background()
-	//st := db.Store{}
+	ctx := context.Background()
+	st := db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -31,10 +36,10 @@ func TestScylla(t *testing.T) {
 		err = os.Setenv("STORE_SCYLLA_URI", fmt.Sprintf("localhost:%s", resource.GetPort("9042/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
-		//err = st.Init(ctx)
-		//if err != nil {
-		//	return err
-		//}
+		err = st.Init(ctx)
+		if err != nil {
+			return err
+		}
 
 		return nil
 	}); err != nil {
@@ -48,33 +53,37 @@ func TestScylla(t *testing.T) {
 		}
 	})
 
-	//store := Store{
-	//	client: st.GetConn().(*gocql.Session),
-	//}
-	//
-	//t.Run("Create", func(t *testing.T) {
-	//	link, err := store.Add(ctx, mock.AddLink)
-	//	assert.Nil(t, err)
-	//	assert.Equal(t, link.Hash, mock.GetLink.Hash)
-	//})
+	m := table.Metadata{
+		Name:    "shortlink.links",
+		Columns: []string{"url", "hash", "ddd"},
+	}
 
-	// t.Run("Get", func(t *testing.T) {
-	// 	link, err := db.Get(mock.GetLink.Hash)
-	// 	assert.Nil(t, err)
-	// 	assert.Equal(t, link.Hash, mock.GetLink.Hash)
-	// })
-	//
-	// t.Run("Get list", func(t *testing.T) {
-	// 	links, err := db.List(nil)
-	// 	assert.Nil(t, err)
-	// 	assert.Equal(t, len(links), 1)
-	// })
-	//
-	// t.Run("Delete", func(t *testing.T) {
-	// 	assert.Nil(t, db.Delete(mock.GetLink.Hash))
-	// })
-	//
-	// t.Run("Close", func(t *testing.T) {
-	// 	assert.Nil(t, db.Close())
-	// })
+	store := Store{
+		client:     st.GetConn().(gocqlx.Session),
+		linksTable: table.New(m),
+	}
+
+	t.Run("Create", func(t *testing.T) {
+		link, err := store.Add(ctx, mock.AddLink)
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+	})
+
+	t.Run("Get", func(t *testing.T) {
+		link, err := store.Get(ctx, mock.GetLink.Hash)
+		assert.Nil(t, err)
+		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+	})
+
+	t.Run("Get list", func(t *testing.T) {
+		links, err := store.List(ctx, nil)
+		assert.Nil(t, err)
+		assert.Equal(t, len(links), 1)
+	})
+
+	t.Run("Delete", func(t *testing.T) {
+		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
+	})
 }

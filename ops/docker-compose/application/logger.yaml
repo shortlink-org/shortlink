@@ -8,7 +8,6 @@ services:
       dockerfile: ops/dockerfile/logger.Dockerfile
       shm_size: 1gb
     depends_on:
-      - fluent-bit
       - coredns
     container_name: logger
     restart: on-failure

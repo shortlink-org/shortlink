@@ -59,12 +59,14 @@ func TestRedis(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
 		assert.Nil(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
+		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get list", func(t *testing.T) {

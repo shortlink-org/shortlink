@@ -4,7 +4,6 @@ services:
 
   rethinkdb:
     depends_on:
-      - fluent-bit
       - coredns
     image: rethinkdb:2.4-buster-slim
     init: true

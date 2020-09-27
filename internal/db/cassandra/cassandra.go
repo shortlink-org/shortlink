@@ -21,7 +21,7 @@ type Store struct { // nolint unused
 }
 
 // Init ...
-func (c *Store) Init(ctx context.Context) error {
+func (c *Store) Init(_ context.Context) error {
 	var err error
 
 	// Set configuration
@@ -43,12 +43,12 @@ func (c *Store) Init(ctx context.Context) error {
 
 	c.client, err = cluster.CreateSession()
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	// Migration
 	if err = c.migrate(); err != nil {
-		panic(err)
+		return err
 	}
 
 	return nil

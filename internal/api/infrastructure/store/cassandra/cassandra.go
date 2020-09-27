@@ -9,7 +9,7 @@ import (
 	"github.com/batazor/shortlink/internal/db"
 
 	"github.com/gocql/gocql"
-	"github.com/scylladb/gocqlx/qb"
+	"github.com/scylladb/gocqlx/v2/qb"
 )
 
 // Store implementation of db interface

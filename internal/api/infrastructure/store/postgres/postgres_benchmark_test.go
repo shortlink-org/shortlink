@@ -77,10 +77,10 @@ func BenchmarkPostgresSerial(b *testing.B) {
 		}
 
 		for i := 0; i < b.N; i++ {
-			_, err := store.Add(ctx, getLink())
-			if err != nil {
-				fmt.Println(err)
-			}
+			source, err := getLink()
+			assert.Nil(b, err)
+
+			_, err = store.Add(ctx, source)
 			assert.Nil(b, err)
 		}
 	})
@@ -98,7 +98,10 @@ func BenchmarkPostgresSerial(b *testing.B) {
 		assert.Nil(b, err, "Cannot set ENV")
 
 		for i := 0; i < b.N; i++ {
-			_, err := storeBatchMode.Add(ctx, getLink())
+			source, err := getLink()
+			assert.Nil(b, err)
+
+			_, err = storeBatchMode.Add(ctx, source)
 			assert.Nil(b, err)
 		}
 	})
@@ -167,7 +170,10 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_, err := store.Add(ctx, getLink())
+				source, err := getLink()
+				assert.Nil(b, err)
+
+				_, err = store.Add(ctx, source)
 				assert.Nil(b, err)
 			}
 		})
@@ -187,7 +193,10 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				_, err := storeBatchMode.Add(ctx, getLink())
+				source, err := getLink()
+				assert.Nil(b, err)
+
+				_, err = storeBatchMode.Add(ctx, source)
 				assert.Nil(b, err)
 			}
 		})

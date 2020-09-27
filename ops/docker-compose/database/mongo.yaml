@@ -12,7 +12,6 @@ services:
   mongo: &mongo
     <<: *network
     depends_on:
-      - fluent-bit
       - coredns
     image: mongo:4.4-rc
     init: true
