@@ -1,4 +1,4 @@
-baseURL = "https://batazor.github.io/"
+baseURL = "https://batazor.github.io/shortlink/"
 # [en, zh-cn, fr, ...] determines default content language
 defaultContentLanguage = "en"
 # language code
@@ -7,6 +7,16 @@ title = "Architecture prototypes and experiments"
 
 # Change the default theme to be use when building the site with Hugo
 theme = "LoveIt"
+
+# whether to use robots.txt
+# 是否使用 robots.txt
+enableRobotsTXT = true
+# whether to use git commit log
+# 是否使用 git 信息
+enableGitInfo = true
+# whether to use emoji code
+# 是否使用 emoji 代码
+enableEmoji = true
 
 [params]
   # LoveIt CHANGED | 0.2.0 LoveIt theme version
@@ -43,7 +53,7 @@ theme = "LoveIt"
     # LoveIt NEW | 0.2.1 HTML tag name of the highlight part in results
     highlightTag = "em"
     # LoveIt NEW | 0.2.4 whether to use the absolute URL based on the baseURL in search index
-    absoluteURL = false
+    absoluteURL = true
     [params.search.algolia]
       index = ""
       appID = ""
