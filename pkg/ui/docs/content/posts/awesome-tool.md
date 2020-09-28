@@ -2,6 +2,11 @@
 title: "Awesome Tool"
 date: 2020-09-28T03:06:09+03:00
 draft: false
+categories:
+    - Awesome
+tags:
+    - awesome
+    - golang
 ---
 
 ### Golang

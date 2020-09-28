@@ -1,9 +1,11 @@
-baseURL = "https://batazor.github.io/shortlink/"
+baseURL = "https://shrts.ru/"
 # [en, zh-cn, fr, ...] determines default content language
 defaultContentLanguage = "en"
 # language code
 languageCode = "en"
 title = "Architecture prototypes and experiments"
+
+canonifyURLs = true
 
 # Change the default theme to be use when building the site with Hugo
 theme = "LoveIt"
