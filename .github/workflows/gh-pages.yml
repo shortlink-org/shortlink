@@ -23,6 +23,7 @@ jobs:
 
       - name: Build
         run: hugo --minify
+        workin-directory: pkg/ui/docs
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
