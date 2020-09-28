@@ -3,14 +3,61 @@ baseURL = "https://batazor.github.io/shortlink/"
 defaultContentLanguage = "en"
 # language code
 languageCode = "en"
-title = "My New Hugo Site"
+title = "Architecture prototypes and experiments"
 
 # Change the default theme to be use when building the site with Hugo
 theme = "LoveIt"
 
 [params]
-  # LoveIt theme version
+  # LoveIt CHANGED | 0.2.0 LoveIt theme version
   version = "0.2.X"
+
+  # site description
+  description = "This is my pet-prodject and cookbook"
+
+  # site keywords
+  keywords = ["batazor", "golang", "docker", "Architecture", "prototypes and experiments"]
+
+  # site default theme ("light", "dark", "auto")
+  defaultTheme = "auto"
+
+  # public git repo url only then enableGitInfo is true
+  gitRepo = "https://github.com/batazor/shortlink"
+
+  # LoveIt NEW | 0.2.0 date format
+  dateFormat = "2006-01-02"
+
+  # LoveIt NEW | 0.2.0 Search config
+  [params.search]
+    enable = true
+    # type of search engine ("lunr", "algolia")
+    type = "lunr"
+    # max index length of the chunked content
+    contentLength = 4000
+    # placeholder of the search bar
+    placeholder = ""
+    # LoveIt NEW | 0.2.1 max number of results length
+    maxResultLength = 10
+    # LoveIt NEW | 0.2.3 snippet length of the result
+    snippetLength = 30
+    # LoveIt NEW | 0.2.1 HTML tag name of the highlight part in results
+    highlightTag = "em"
+    # LoveIt NEW | 0.2.4 whether to use the absolute URL based on the baseURL in search index
+    absoluteURL = false
+    [params.search.algolia]
+      index = ""
+      appID = ""
+      searchKey = ""
+
+  # Home page config
+  [params.home]
+    # LoveIt NEW | 0.2.0 amount of RSS pages
+    rss = 10
+    # Home page profile
+    [params.home.profile]
+      enable = true
+      # Gravatar Email for preferred avatar in home page
+      gravatarEmail = "batazor111@gmail.com"
 
 [menu]
   [[menu.main]]
@@ -47,3 +94,9 @@ theme = "LoveIt"
   [markup.highlight]
     # false is a necessary configuration (https://github.com/dillonzq/LoveIt/issues/158)
     noClasses = false
+
+# Author config
+[author]
+  name = "batazor"
+  email = "batazor111@gmail.com"
+  link = "https://batazor.ru"
