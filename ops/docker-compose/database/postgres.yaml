@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: postgres:alpine
+    image: postgres:13-alpine
     shm_size: 1gb
     init: true
     restart: on-failure
