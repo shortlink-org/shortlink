@@ -1,0 +1,25 @@
+name: Docker CD
+
+on:
+  push:
+    branches:
+      - master  # Set a branch to deploy
+
+Build-and-Push-Docker-Image:
+    runs-on: ubuntu-latest
+    name: Docker Build, Tag, Push
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Download built artifact
+      uses: actions/download-artifact@master
+      with:
+        name: webpack artifacts
+        path: public
+    - name: Build, Tag, Push
+      uses: mattdavis0351/actions/docker-gpr@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        image-name: api # this image-name is changed for the demo
+        dockerfile-location: ops/dockerfile/api.Dockerfile
