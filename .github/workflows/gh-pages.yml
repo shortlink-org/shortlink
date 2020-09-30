@@ -28,4 +28,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./pkg/ui/docs/public
+          publish_dir: ./pkg/ui/docs/public .
+          tag: latest
