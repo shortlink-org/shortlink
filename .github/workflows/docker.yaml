@@ -5,7 +5,8 @@ on:
     branches:
       - master  # Set a branch to deploy
 
-Build-and-Push-Docker-Image:
+jobs:
+  Build-and-Push-Docker-Image:
     runs-on: ubuntu-latest
     name: Docker Build, Tag, Push
 
