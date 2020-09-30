@@ -13,11 +13,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Download built artifact
-      uses: actions/download-artifact@master
-      with:
-        name: webpack artifacts
-        path: public
     - name: Build, Tag, Push
       uses: mattdavis0351/actions/docker-gpr@v1
       with:
