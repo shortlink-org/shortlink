@@ -24,13 +24,13 @@ jobs:
       uses: mattdavis0351/actions/docker-gpr@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        image-name: api # this image-name is changed for the demo
+        image-name: metadata # this image-name is changed for the demo
         dockerfile-location: -f ops/dockerfile/metadata.Dockerfile .
         tag: latest
     - name: Logger (Build, Tag, Push)
       uses: mattdavis0351/actions/docker-gpr@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        image-name: api # this image-name is changed for the demo
+        image-name: logger # this image-name is changed for the demo
         dockerfile-location: -f ops/dockerfile/logger.Dockerfile .
         tag: latest

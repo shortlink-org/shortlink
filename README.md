@@ -213,6 +213,12 @@ ansible-playbook playbooks/playbook.yml
 - [Yandex Cloud](https://cloud.yandex.ru/)
 - [AWS EKS](https://aws.amazon.com/eks/)
 
+### GitHub CI
+
+- Travis action (backend/frontend)
+- Docker action
+- Helm chart
+
 ### [Error code](./internal/error/status/exit.go)
 
 | CODE | Describe     |
