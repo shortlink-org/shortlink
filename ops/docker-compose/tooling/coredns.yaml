@@ -7,10 +7,14 @@ services:
     command: -conf /etc/coredns/Corefile
     restart: always
     expose:
-      - '53'
       - '53/udp'
     networks:
       simple:
         ipv4_address: 10.5.0.2
     volumes:
       - ./ops/docker-compose/tooling/coredns/:/etc/coredns
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}
+        max-size: ${LOGGER_MAX_SIZE}

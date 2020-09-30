@@ -22,3 +22,8 @@ services:
     dns_search: ${DNS_SEARCH}
     volumes:
       - ./ops/docker-compose/tooling/prometheus/:/etc/prometheus/
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}
+        max-size: ${LOGGER_MAX_SIZE}
