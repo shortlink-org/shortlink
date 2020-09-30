@@ -18,5 +18,5 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         image-name: api # this image-name is changed for the demo
-        dockerfile-location: ops/dockerfile/api.Dockerfile .
+        dockerfile-location: -f ops/dockerfile/api.Dockerfile .
         tag: latest
