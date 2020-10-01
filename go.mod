@@ -16,6 +16,7 @@ require (
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/go-redis/redis/v8 v8.2.3
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/gocql/gocql v0.0.0-20200926162733-393f0c961220
@@ -31,8 +32,8 @@ require (
 	github.com/jackc/pgx/v4 v4.9.0
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.8.0
-	github.com/markbates/pkger v0.17.0
-	github.com/mattn/go-sqlite3 v1.14.2
+	github.com/markbates/pkger v0.17.1
+	github.com/mattn/go-sqlite3 v1.14.3
 	github.com/nats-io/nats.go v1.10.0
 	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
 	github.com/opentracing-contrib/go-stdlib v1.0.0
@@ -62,7 +63,7 @@ require (
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
 	golang.org/x/sys v0.0.0-20200831180312-196b9ba8737a // indirect
 	golang.org/x/tools v0.0.0-20200918232735-d647fc253266 // indirect
-	google.golang.org/genproto v0.0.0-20200929141702-51c3e5b607fe
+	google.golang.org/genproto v0.0.0-20200930140634-01fc692af84b
 	google.golang.org/grpc v1.33.0-dev
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
