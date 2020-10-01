@@ -1,6 +1,6 @@
 # define a snippet
 (snip) {
-  prometheus
+  prometheus :9153
   log {
     class all
   }
@@ -9,6 +9,7 @@
 
 . {
   whoami
+  health
   import snip
 
   # any gives a minimal response to ANY queries.
@@ -28,7 +29,8 @@
   # nsid adds an identifier of this server to each reply.
   nsid Use The Force and shortlink ;-)
 
-  forward . 8.8.8.8:53
+  forward . 8.8.8.8
+  # alternate NXDOMAIN . 192.168.1.1:53
   cache 3600
 
   # loop detects simple forwarding loops and halts the server.
