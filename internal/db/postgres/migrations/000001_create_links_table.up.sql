@@ -1,11 +1,12 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 -- Create a table for links
 CREATE TABLE IF NOT EXISTS links
 (
-    id       serial       not null
-             constraint links_pk
-             primary key,
+    id       UUID NOT NULL DEFAULT uuid_generate_v4(),
+             CONSTRAINT id_links PRIMARY KEY(id),
     url      varchar(255) not null,
-    hash     varchar(255) not null,
+    hash     varchar(20)  not null,
     describe text,
     json     jsonb        not null
 );
