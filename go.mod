@@ -23,7 +23,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.8.0
-	github.com/graph-gophers/graphql-go v0.0.0-20200819123640-3b5ddcd884ae
+	github.com/graph-gophers/graphql-go v0.0.0-20201003130358-c5bdf3b1108e
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.0.0-beta.5
@@ -32,7 +32,7 @@ require (
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/lib/pq v1.8.0
 	github.com/markbates/pkger v0.17.1
-	github.com/mattn/go-sqlite3 v1.14.3
+	github.com/mattn/go-sqlite3 v1.14.4
 	github.com/nats-io/nats.go v1.10.0
 	github.com/onsi/ginkgo v1.14.1 // indirect
 	github.com/onsi/gomega v1.10.2 // indirect
@@ -64,7 +64,7 @@ require (
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
 	golang.org/x/sys v0.0.0-20200831180312-196b9ba8737a // indirect
 	golang.org/x/tools v0.0.0-20200918232735-d647fc253266 // indirect
-	google.golang.org/genproto v0.0.0-20200930140634-01fc692af84b
+	google.golang.org/genproto v0.0.0-20201002142447-3860012362da
 	google.golang.org/grpc v1.33.0-dev
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
