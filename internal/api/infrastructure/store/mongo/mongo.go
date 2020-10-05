@@ -98,7 +98,7 @@ func (m *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
-	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
+	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}}) // lgtm [go/sql-injection]
 
 	if val.Err() != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
@@ -172,7 +172,7 @@ func (m *Store) Delete(ctx context.Context, id string) error {
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
-	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
+	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}}) // lgtm [go/sql-injection]
 	if err != nil {
 		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
