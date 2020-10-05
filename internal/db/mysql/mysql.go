@@ -1,27 +1,35 @@
+//go:generate go-bindata -prefix migrations -pkg migrations -ignore migrations.go -o migrations/migrations.go migrations
+
 package mysql
 
 import (
 	"context"
+	"database/sql"
+	"fmt"
 
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/mysql"
+	"github.com/golang-migrate/migrate/v4/source/go_bindata"
 	"github.com/jmoiron/sqlx"
 	"github.com/spf13/viper"
 
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/batazor/shortlink/internal/db/mysql/migrations"
 )
 
 // Init ...
-func (m *Store) Init(_ context.Context) error {
+func (s *Store) Init(_ context.Context) error {
 	var err error
 
 	// Set configuration
-	m.setConfig()
+	s.setConfig()
 
-	if m.client, err = sqlx.Connect("mysql", m.config.URI); err != nil {
+	if s.client, err = sqlx.Connect("mysql", s.config.URI); err != nil {
 		return err
 	}
 
 	// Apply migration
-	err = m.migrate()
+	err = s.migrate()
 	if err != nil {
 		return err
 	}
@@ -35,23 +43,41 @@ func (s *Store) GetConn() interface{} {
 }
 
 // Close ...
-func (m *Store) Close() error {
-	return m.client.Close()
+func (s *Store) Close() error {
+	return s.client.Close()
 }
 
 // Migrate ...
-func (m *Store) migrate() error { // nolint unused
-	sqlStmt := `
-		CREATE TABLE IF NOT EXISTS links (
-			id          int NOT NULL AUTO_INCREMENT,
-			url         varchar(255) NOT NULL,
-			hash        varchar(255) NOT NULL,
-			description text NULL,
-			PRIMARY KEY (id)
-		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-	`
+func (s *Store) migrate() error { // nolint unused
+	// Create connect
+	db, err := sql.Open("mysql", s.config.URI)
+	if err != nil {
+		return err
+	}
 
-	if _, err := m.client.Exec(sqlStmt); err != nil {
+	// wrap assets into Resource
+	res := bindata.Resource(migrations.AssetNames(),
+		func(name string) ([]byte, error) {
+			return migrations.Asset(name)
+		})
+
+	driver, err := bindata.WithInstance(res)
+	if err != nil {
+		return err
+	}
+
+	m, err := migrate.NewWithSourceInstance("go-bindata", driver, fmt.Sprintf("mysql://%s", s.config.URI))
+	if err != nil {
+		return err
+	}
+
+	err = m.Up()
+	if err != nil && err.Error() != "no change" {
+		return err
+	}
+
+	err = db.Close()
+	if err != nil {
 		return err
 	}
 
@@ -59,11 +85,11 @@ func (m *Store) migrate() error { // nolint unused
 }
 
 // setConfig - set configuration
-func (m *Store) setConfig() {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_MYSQL_URI", "shortlink:shortlink@(localhost:3306)/shortlink?parseTime=true") // MySQL URI
 
-	m.config = Config{
+	s.config = Config{
 		URI: viper.GetString("STORE_MYSQL_URI"),
 	}
 }
