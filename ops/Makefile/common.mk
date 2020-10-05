@@ -28,7 +28,7 @@ do: ## Run for specific job
          -f docker-compose.yaml \
          -f ops/docker-compose/application/api.yaml \
          -f ops/docker-compose/application/metadata.yaml \
-         -f ops/docker-compose/database/postgres.yaml \
+         -f ops/docker-compose/database/mysql.yaml \
          -f ops/docker-compose/tooling/coredns.yaml \
          -f ops/docker-compose/tooling/prometheus.yaml \
          up -d --remove-orphans
