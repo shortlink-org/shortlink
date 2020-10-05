@@ -1,7 +1,6 @@
 package gokit
 
 import (
-	"context"
 	"encoding/json"
 	"time"
 
@@ -11,9 +10,7 @@ import (
 )
 
 // API ...
-type API struct { // nolint unused
-	ctx context.Context
-}
+type API struct{}
 
 // getRequest ...
 type getRequest struct { // nolint unused

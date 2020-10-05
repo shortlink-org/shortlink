@@ -62,7 +62,7 @@ Subject: Add new link!!
 		auth,
 		b.from,
 		[]string{b.to},
-		[]byte(msg),
+		[]byte(msg), // lgtm [go/sql-injection]
 	)
 	if err != nil {
 		return err
