@@ -18,7 +18,7 @@ import (
 //	goleak.VerifyTestMain(m)
 //}
 
-func TestMongo(t *testing.T) {
+func TestMySQL(t *testing.T) {
 	ctx := context.Background()
 
 	st := db.Store{}
@@ -76,7 +76,7 @@ func TestMongo(t *testing.T) {
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
 		assert.Nil(t, err)
-		assert.Equal(t, len(links), 1)
+		assert.Equal(t, len(links), 4)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
