@@ -8,7 +8,10 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"sync"
 
+	"github.com/container-storage-interface/spec/lib/go/csi"
+	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/logger"
@@ -30,9 +33,15 @@ const (
 type Driver struct {
 	name string
 
+	endpoint string
+
+	srv *grpc.Server
 	log logger.Logger
 
-	endpoint string
+	// ready defines whether the driver is ready to function. This value will
+	// be used by the `Identity` service via the `Probe()` method.
+	readyMu sync.Mutex // protects ready
+	ready   bool
 }
 
 // NewDriver returns a CSI plugin that contains the necessary gRPC
@@ -93,7 +102,28 @@ func (d *Driver) Run(ctx context.Context) error {
 		return resp, err
 	}
 
-	fmt.Println(errHandler, grpcListener)
+	d.srv = grpc.NewServer(grpc.UnaryInterceptor(errHandler))
+	csi.RegisterIdentityServer(d.srv, d)
+	csi.RegisterControllerServer(d.srv, d)
+	csi.RegisterNodeServer(d.srv, d)
 
-	return nil
+	d.ready = true // we're now ready to go!
+	d.log.Info("starting server", field.Fields{
+		"grpc_addr": grpcAddr,
+	})
+
+	var eg errgroup.Group
+	eg.Go(func() error {
+		go func() {
+			<-ctx.Done()
+			d.log.Info("server stopped")
+			d.readyMu.Lock()
+			d.ready = false
+			d.readyMu.Unlock()
+			d.srv.GracefulStop()
+		}()
+		return d.srv.Serve(grpcListener)
+	})
+
+	return eg.Wait()
 }
