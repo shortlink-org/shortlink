@@ -1,0 +1,87 @@
+########################################
+###########                 ############
+###########   Node plugin   ############
+###########                 ############
+########################################
+
+kind: DaemonSet
+apiVersion: apps/v1beta2
+metadata:
+  name: csi-shrts-node
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: csi-shrts-node
+  template:
+    metadata:
+      labels:
+        app: csi-shrts-node
+        role: csi-do
+    spec:
+      priorityClassName: system-node-critical
+      serviceAccount: csi-shrts-node-sa
+      hostNetwork: true
+      containers:
+        - name: driver-registrar
+          image: quay.io/k8scsi/driver-registrar:v0.4.1
+          args:
+            - "--v=5"
+            - "--csi-address=$(ADDRESS)"
+            - "--mode=node-register"
+            - "--driver-requires-attachment=true"
+            - "--pod-info-mount-version=\"v1\""
+            - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+          env:
+            - name: ADDRESS
+              value: /csi/csi.sock
+            - name: DRIVER_REG_SOCK_PATH
+              value: /var/lib/kubelet/plugins/dobs.csi.digitalocean.com/csi.sock
+            - name: KUBE_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /csi/
+            - name: registration-dir
+              mountPath: /registration/
+        - name: csi-shrts-plugin
+          image: batazor/shortlink-csi
+          args :
+            - "--endpoint=$(CSI_ENDPOINT)"
+          env:
+            - name: CSI_ENDPOINT
+              value: unix:///csi/csi.sock
+          imagePullPolicy: "Always"
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["SYS_ADMIN"]
+            allowPrivilegeEscalation: true
+          volumeMounts:
+            - name: plugin-dir
+              mountPath: /csi
+            - name: pods-mount-dir
+              mountPath: /var/lib/kubelet
+              # needed so that any mounts setup inside this container are
+              # propagated back to the host machine.
+              mountPropagation: "Bidirectional"
+            - name: device-dir
+              mountPath: /dev
+      volumes:
+        - name: registration-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/
+            type: DirectoryOrCreate
+        - name: plugin-dir
+          hostPath:
+            path: /var/lib/kubelet/plugins/dobs.csi.digitalocean.com
+            type: DirectoryOrCreate
+        - name: pods-mount-dir
+          hostPath:
+            path: /var/lib/kubelet
+            type: Directory
+        - name: device-dir
+          hostPath:
+            path: /dev

@@ -1,4 +1,6 @@
 # DOCKER TASKS =========================================================================================================
+# This is the default. It can be overridden in the main Makefile after
+# including docker.mk
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
 
