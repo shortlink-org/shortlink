@@ -5,7 +5,7 @@
 ########################################
 
 kind: DaemonSet
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 metadata:
   name: csi-shrts-node
   namespace: kube-system
@@ -17,26 +17,40 @@ spec:
     metadata:
       labels:
         app: csi-shrts-node
-        role: csi-do
+        role: csi-shrts
     spec:
       priorityClassName: system-node-critical
       serviceAccount: csi-shrts-node-sa
       hostNetwork: true
+      initContainers:
+        # Delete automount udev rule running on all DO droplets. The rule mounts
+        # devices briefly and may conflict with CSI-managed droplets (leading to
+        # "resource busy" errors). We can safely delete it in DOKS.
+        - name: automount-udev-deleter
+          image: alpine:3
+          args:
+            - "rm"
+            - "-f"
+            - "/etc/udev/rules.d/99-shrts-automount.rules"
+          volumeMounts:
+            - name: udev-rules-dir
+              mountPath: /etc/udev/rules.d/
       containers:
-        - name: driver-registrar
-          image: quay.io/k8scsi/driver-registrar:v0.4.1
+        - name: csi-node-driver-registrar
+          image: quay.io/k8scsi/csi-node-driver-registrar:v2.0.1
           args:
             - "--v=5"
             - "--csi-address=$(ADDRESS)"
-            - "--mode=node-register"
-            - "--driver-requires-attachment=true"
-            - "--pod-info-mount-version=\"v1\""
             - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/sh", "-c", "rm -rf /registration/csi.shrts.ru /registration/csi.shrts.ru-reg.sock"]
           env:
             - name: ADDRESS
               value: /csi/csi.sock
             - name: DRIVER_REG_SOCK_PATH
-              value: /var/lib/kubelet/plugins/dobs.csi.digitalocean.com/csi.sock
+              value: /var/lib/kubelet/plugins/csi.shrts.ru/csi.sock
             - name: KUBE_NODE_NAME
               valueFrom:
                 fieldRef:
@@ -72,11 +86,11 @@ spec:
       volumes:
         - name: registration-dir
           hostPath:
-            path: /var/lib/kubelet/plugins/
+            path: /var/lib/kubelet/plugins_registry/
             type: DirectoryOrCreate
         - name: plugin-dir
           hostPath:
-            path: /var/lib/kubelet/plugins/dobs.csi.digitalocean.com
+            path: /var/lib/kubelet/plugins/csi.shrts.ru
             type: DirectoryOrCreate
         - name: pods-mount-dir
           hostPath:
@@ -85,3 +99,6 @@ spec:
         - name: device-dir
           hostPath:
             path: /dev
+        - name: udev-rules-dir
+          hostPath:
+            path: /etc/udev/rules.d/
