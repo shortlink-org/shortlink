@@ -1,16 +1,10 @@
-# CSIDriverRegistry feature gate needs to be enabled
+# Install the CSI Driver. This simplifies driver discovery and enables us to
+# customize Kubernetes behavior
+# https://kubernetes-csi.github.io/docs/csi-driver-object.html
 apiVersion: storage.k8s.io/v1
 kind: CSIDriver
 metadata:
   name: csi.shrts.ru
 spec:
   attachRequired: true
-  podInfoOnMountVersion: "v1"
-
-#  # Supports persistent and ephemeral inline volumes.
-#  volumeLifecycleModes:
-#  - Persistent
-#  - Ephemeral
-#  # To determine at runtime which mode a volume uses, pod info and its
-#  # "csi.storage.k8s.io/ephemeral" entry are needed.
-#  podInfoOnMount: true
+  podInfoOnMount: true
