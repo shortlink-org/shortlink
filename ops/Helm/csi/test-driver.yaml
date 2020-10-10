@@ -1,0 +1,20 @@
+# This file describes how to test this deployment of the CSI hostpath driver
+# using the Kubernetes 1.18 E2E test suite. For details see:
+# https://github.com/kubernetes/kubernetes/tree/v1.18.0/test/e2e/storage/external
+
+StorageClass:
+  FromName: true
+SnapshotClass:
+  FromName: true
+DriverInfo:
+  Name: csi.shrts.ru
+  Capabilities:
+    block: true
+    controllerExpansion: true
+    exec: true
+    multipods: true
+    nodeExpansion: true
+    persistence: true
+    singleNodeVolume: true
+    snapshotDataSource: true
+    topology: true

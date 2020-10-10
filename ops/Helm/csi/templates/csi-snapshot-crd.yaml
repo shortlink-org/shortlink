@@ -1,0 +1,63 @@
+##############################################
+###########                       ############
+###########     Snapshot CRDs     ############
+###########                       ############
+##############################################
+#
+# The following CRD's are created by the csi-snapshotter, however it
+# complicates installing a driver, because we're not able to install a custom
+# VolumeSnapshotClass until the csi-snapshotter sidecar is up and running.  We
+# pulled out the CRD's and put them here to simplify the installation for the
+# users. Make sure these are up to date with the original ones whenever we
+# release a new version: https://github.com/kubernetes-csi/external-snapshotter/blob/master/cmd/csi-snapshotter/create_crd.go
+
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: volumesnapshotclasses.snapshot.storage.k8s.io
+spec:
+  group: snapshot.storage.k8s.io
+  names:
+    kind: VolumeSnapshotClass
+    plural: volumesnapshotclasses
+  scope: Cluster
+  version: v1alpha1
+
+---
+
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: volumesnapshotcontents.snapshot.storage.k8s.io
+spec:
+  group: snapshot.storage.k8s.io
+  names:
+    kind: VolumeSnapshotContent
+    plural: volumesnapshotcontents
+  scope: Cluster
+  version: v1alpha1
+
+---
+
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: volumesnapshots.snapshot.storage.k8s.io
+spec:
+  group: snapshot.storage.k8s.io
+  names:
+    kind: VolumeSnapshot
+    plural: volumesnapshots
+  scope: Namespaced
+  version: v1alpha1
+
+---
+
+kind: VolumeSnapshotClass
+apiVersion: snapshot.storage.k8s.io/v1alpha1
+metadata:
+  name: do-block-storage
+  namespace: kube-system
+  annotations:
+    snapshot.storage.kubernetes.io/is-default-class: "true"
+snapshotter: csi.shrts.ru
