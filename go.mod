@@ -21,6 +21,7 @@ require (
 	github.com/gocql/gocql v0.0.0-20200926162733-393f0c961220
 	github.com/golang-migrate/migrate/v4 v4.13.0
 	github.com/golang/protobuf v1.4.2
+	github.com/google/uuid v1.1.2 // indirect
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.8.0
 	github.com/graph-gophers/graphql-go v0.0.0-20201003130358-c5bdf3b1108e
@@ -61,10 +62,10 @@ require (
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
-	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
+	golang.org/x/crypto v0.0.0-20201012173705-84dcc777aaee // indirect
 	golang.org/x/sys v0.0.0-20200831180312-196b9ba8737a // indirect
-	golang.org/x/tools v0.0.0-20200918232735-d647fc253266 // indirect
-	google.golang.org/genproto v0.0.0-20201006033701-bcad7cf615f2
+	golang.org/x/tools v0.0.0-20201014170642-d1624618ad65 // indirect
+	google.golang.org/genproto v0.0.0-20201014134559-03b6142f0dc9
 	google.golang.org/grpc v1.33.0-dev
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
