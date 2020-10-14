@@ -4,7 +4,7 @@ go 1.15
 
 require (
 	github.com/Masterminds/squirrel v1.4.0
-	github.com/PuerkitoBio/goquery v1.5.1
+	github.com/PuerkitoBio/goquery v1.6.0
 	github.com/Shopify/sarama v1.27.0
 	github.com/cloudevents/sdk-go/v2 v2.3.1
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
