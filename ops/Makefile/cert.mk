@@ -19,3 +19,8 @@ cert-up: ## Generate all certificates
 cert-down: ## Delete generated cert-files
 	-rm ${CERT_PATH}/*.csr
 	-rm ${CERT_PATH}/*.pem
+
+cert-dep: ## Install tooling
+	# CFSSL: Cloudflare's PKI and TLS toolkit
+	@go get -u github.com/cloudflare/cfssl/cmd/cfssl
+	@go get -u github.com/cloudflare/cfssl/cmd/cfssljson
