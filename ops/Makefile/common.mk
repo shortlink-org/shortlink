@@ -14,9 +14,6 @@ dep: ## Install dependencies for this project
 	@go get -u moul.io/protoc-gen-gotemplate
 	@go get -u github.com/jteeuwen/go-bindata/...
 	@go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
-  # CFSSL: Cloudflare's PKI and TLS toolkit
-	@go get -u github.com/cloudflare/cfssl/cmd/cfssl
-	@go get -u github.com/cloudflare/cfssl/cmd/cfssljson
 
 	# install wire
 	@go get -u github.com/google/wire/cmd/wire
