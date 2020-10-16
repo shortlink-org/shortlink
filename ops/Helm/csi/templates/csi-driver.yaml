@@ -6,8 +6,7 @@ kind: CSIDriver
 metadata:
   name: csi.shrts.ru
 spec:
-  # TODO: research params: attachRequired
-  #  attachRequired: true
+  attachRequired: true
   # Supports persistent and ephemeral inline volumes.
   volumeLifecycleModes:
     - Persistent
