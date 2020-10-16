@@ -47,6 +47,8 @@ func main() {
 		s.Log.Fatal(err.Error())
 	}
 
+	s.Log.Info("success run CSI plugin")
+
 	// Handle SIGINT and SIGTERM.
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
