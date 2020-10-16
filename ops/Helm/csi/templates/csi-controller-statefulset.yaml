@@ -21,6 +21,8 @@ spec:
         app: csi-shrts-controller
         role: csi-shrts
     spec:
+      tolerations:
+        - operator: Exists
       priorityClassName: system-cluster-critical
       serviceAccount: csi-shrts-controller-sa
       containers:

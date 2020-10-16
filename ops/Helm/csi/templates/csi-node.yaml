@@ -10,6 +10,8 @@ metadata:
   name: csi-shrts-node
   namespace: kube-system
 spec:
+  updateStrategy:
+    type: RollingUpdate
   selector:
     matchLabels:
       app: csi-shrts-node
@@ -22,6 +24,8 @@ spec:
       priorityClassName: system-node-critical
       serviceAccount: csi-shrts-node-sa
       hostNetwork: true
+      tolerations:
+        - operator: Exists
       containers:
         - name: csi-node-driver-registrar
           image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.0.1
@@ -46,7 +50,7 @@ spec:
             - name: plugin-dir
               mountPath: /csi
             - name: registration-dir
-              mountPath: /registration/
+              mountPath: /registration
         - name: csi-shrts-plugin
           image: batazor/shortlink-csi
           args :
@@ -94,6 +98,3 @@ spec:
         - name: device-dir
           hostPath:
             path: /dev
-        - name: udev-rules-dir
-          hostPath:
-            path: /etc/udev/rules.d/
