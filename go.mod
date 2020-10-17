@@ -31,6 +31,7 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.9.0
 	github.com/jmoiron/sqlx v1.2.0
+	github.com/kubernetes-csi/csi-test/v4 v4.0.1
 	github.com/lib/pq v1.8.0
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.4
@@ -45,11 +46,8 @@ require (
 	github.com/prometheus/client_golang v1.7.1
 	github.com/scylladb/gocqlx/v2 v2.1.0
 	github.com/sirupsen/logrus v1.7.0
-	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.0.0
-	github.com/spf13/jwalterweatherman v1.1.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.7.1
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.6.1
@@ -72,6 +70,31 @@ require (
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
+	k8s.io/kubernetes v1.19.3
+	k8s.io/utils v0.0.0-20201015054608-420da100c033
 )
 
-replace github.com/coreos/bbolt => go.etcd.io/bbolt v1.3.5
+replace (
+	github.com/coreos/bbolt => go.etcd.io/bbolt v1.3.5
+	k8s.io/api => k8s.io/api v0.18.3
+	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.18.3
+	k8s.io/apimachinery => k8s.io/apimachinery v0.18.3
+	k8s.io/apiserver => k8s.io/apiserver v0.18.3
+	k8s.io/cli-runtime => k8s.io/cli-runtime v0.18.3
+	k8s.io/client-go => k8s.io/client-go v0.18.3
+	k8s.io/cloud-provider => k8s.io/cloud-provider v0.18.3
+	k8s.io/cluster-bootstrap => k8s.io/cluster-bootstrap v0.18.3
+	k8s.io/code-generator => k8s.io/code-generator v0.18.3
+	k8s.io/component-base => k8s.io/component-base v0.18.3
+	k8s.io/cri-api => k8s.io/cri-api v0.18.3
+	k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.18.3
+	k8s.io/kube-aggregator => k8s.io/kube-aggregator v0.18.3
+	k8s.io/kube-controller-manager => k8s.io/kube-controller-manager v0.18.3
+	k8s.io/kube-proxy => k8s.io/kube-proxy v0.18.3
+	k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.18.3
+	k8s.io/kubectl => k8s.io/kubectl v0.18.3
+	k8s.io/kubelet => k8s.io/kubelet v0.18.3
+	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.18.3
+	k8s.io/metrics => k8s.io/metrics v0.18.3
+	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.18.3
+)
