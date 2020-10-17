@@ -7,6 +7,7 @@ metadata:
   name: csi.shrts.ru
 spec:
   attachRequired: true
+  # added in Kubernetes 1.16, this field is beta
   # Supports persistent and ephemeral inline volumes.
   volumeLifecycleModes:
     - Persistent
@@ -14,3 +15,5 @@ spec:
   # To determine at runtime which mode a volume uses, pod info and its
   # "csi.storage.k8s.io/ephemeral" entry are needed.
   podInfoOnMount: true
+  # added in Kubernetes 1.19, this field is alpha
+  fsGroupPolicy: File
