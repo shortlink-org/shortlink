@@ -2,6 +2,7 @@ package csi_driver
 
 import (
 	"context"
+	"os"
 
 	"github.com/container-storage-interface/spec/lib/go/csi"
 	"google.golang.org/grpc/codes"
@@ -73,20 +74,21 @@ func (d *Driver) NodeUnstageVolume(ctx context.Context, req *csi.NodeUnstageVolu
 
 // NodePublishVolume mounts the volume mounted to the staging path to the target path
 func (d *Driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) {
-	if req.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodePublishVolume Volume ID must be provided")
+	// Check arguments
+	if len(req.GetVolumeId()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
 	}
 
-	if req.StagingTargetPath == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodePublishVolume Staging Target Path must be provided")
+	if req.GetStagingTargetPath() == "" {
+		return nil, status.Error(codes.InvalidArgument, "Staging Target Path must be provided")
 	}
 
-	if req.TargetPath == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodePublishVolume Target Path must be provided")
+	if len(req.GetTargetPath()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Target Path must be provided")
 	}
 
-	if req.VolumeCapability == nil {
-		return nil, status.Error(codes.InvalidArgument, "NodePublishVolume Volume Capability must be provided")
+	if req.GetVolumeCapability() == nil {
+		return nil, status.Error(codes.InvalidArgument, "Volume Capability must be provided")
 	}
 
 	d.log.Info("node publish volume called", field.Fields{
@@ -110,12 +112,13 @@ func (d *Driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 
 // NodeUnpublishVolume unmounts the volume from the target path
 func (d *Driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublishVolumeRequest) (*csi.NodeUnpublishVolumeResponse, error) {
-	if req.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeUnpublishVolume Volume ID must be provided")
+	// Check arguments
+	if len(req.GetVolumeId()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
 	}
 
-	if req.TargetPath == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeUnpublishVolume Target Path must be provided")
+	if len(req.GetTargetPath()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Target Path must be provided")
 	}
 
 	d.log.Info("node unpublish volume called", field.Fields{
@@ -227,6 +230,12 @@ func (d *Driver) NodeExpandVolume(ctx context.Context, req *csi.NodeExpandVolume
 		return nil, status.Error(codes.InvalidArgument, "NodeExpandVolume volume ID not provided")
 	}
 
+	vol, err := getVolumeByID(volumeID)
+	if err != nil {
+		// Assume not found error
+		return nil, status.Errorf(codes.NotFound, "Could not get volume %s: %v", volumeID, err)
+	}
+
 	volumePath := req.GetVolumePath()
 	if len(volumePath) == 0 {
 		return nil, status.Error(codes.InvalidArgument, "NodeExpandVolume volume path not provided")
@@ -237,6 +246,24 @@ func (d *Driver) NodeExpandVolume(ctx context.Context, req *csi.NodeExpandVolume
 		"volume_path": req.VolumePath,
 		"method":      "node_expand_volume",
 	})
+
+	info, err := os.Stat(volumePath)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, "Could not get file information from %s: %v", volumePath, err)
+	}
+
+	switch m := info.Mode(); {
+	case m.IsDir():
+		if vol.VolAccessType != mountAccess {
+			return nil, status.Errorf(codes.InvalidArgument, "Volume %s is not a directory", volumeID)
+		}
+	case m&os.ModeDevice != 0:
+		if vol.VolAccessType != blockAccess {
+			return nil, status.Errorf(codes.InvalidArgument, "Volume %s is not a block device", volumeID)
+		}
+	default:
+		return nil, status.Errorf(codes.InvalidArgument, "Volume %s is invalid", volumeID)
+	}
 
 	if req.GetVolumeCapability() != nil {
 		switch req.GetVolumeCapability().GetAccessType().(type) {
