@@ -2,6 +2,8 @@ package csi_driver
 
 import (
 	"context"
+	"fmt"
+	"math"
 	"strconv"
 
 	"github.com/container-storage-interface/spec/lib/go/csi"
@@ -199,11 +201,10 @@ func (d *Driver) ControllerGetCapabilities(ctx context.Context, req *csi.Control
 	var caps []*csi.ControllerServiceCapability
 	for _, cap := range []csi.ControllerServiceCapability_RPC_Type{
 		csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME,
-		csi.ControllerServiceCapability_RPC_PUBLISH_UNPUBLISH_VOLUME,
-		csi.ControllerServiceCapability_RPC_LIST_VOLUMES,
-		//csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT,
-		//csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS,
-		//csi.ControllerServiceCapability_RPC_EXPAND_VOLUME,
+		csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT,
+		csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS,
+		csi.ControllerServiceCapability_RPC_CLONE_VOLUME,
+		csi.ControllerServiceCapability_RPC_EXPAND_VOLUME,
 	} {
 		caps = append(caps, newCap(cap))
 	}
@@ -267,18 +268,91 @@ func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 		"req_starting_token": req.StartingToken,
 		"method":             "list_snapshots",
 	})
-	return &csi.ListSnapshotsResponse{}, nil
+
+	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS); err != nil {
+		d.log.Error(fmt.Sprintf("invalid list snapshot req: %v", req))
+		return nil, err
+	}
+
+	var snapshots []csi.Snapshot
+
+	var (
+		ulenSnapshots = int32(len(snapshots))
+		maxEntries    = req.MaxEntries
+		startingToken int32
+	)
+
+	if v := req.StartingToken; v != "" {
+		i, err := strconv.ParseUint(v, 10, 32)
+		if err != nil {
+			return nil, status.Errorf(
+				codes.Aborted,
+				"startingToken=%d !< int32=%d",
+				startingToken,
+				math.MaxUint32,
+			)
+		}
+		startingToken = int32(i)
+	}
+
+	if startingToken > ulenSnapshots {
+		return nil, status.Errorf(
+			codes.Aborted,
+			"startingToken=%d > len(snapshots)=%d",
+			startingToken,
+			ulenSnapshots,
+		)
+	}
+
+	// Discern the number of remaining entries.
+	rem := ulenSnapshots - startingToken
+
+	// If maxEntries is 0 or greater than the number of remaining entries then
+	// set maxEntries to the number of remaining entries.
+	if maxEntries == 0 || maxEntries > rem {
+		maxEntries = rem
+	}
+
+	var (
+		i       int
+		j       = startingToken
+		entries = make([]*csi.ListSnapshotsResponse_Entry, maxEntries)
+	)
+
+	for i = 0; i < len(entries); i++ {
+		entries[i] = &csi.ListSnapshotsResponse_Entry{
+			Snapshot: &snapshots[j],
+		}
+		j++
+	}
+
+	var nextToken string
+	if j < ulenSnapshots {
+		nextToken = fmt.Sprintf("%d", j)
+	}
+
+	return &csi.ListSnapshotsResponse{
+		Entries:   entries,
+		NextToken: nextToken,
+	}, nil
 }
 
 // ControllerExpandVolume is called from the resizer to increase the volume size.
 func (d *Driver) ControllerExpandVolume(ctx context.Context, req *csi.ControllerExpandVolumeRequest) (*csi.ControllerExpandVolumeResponse, error) {
 	volID := req.GetVolumeId()
-
 	if len(volID) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "ControllerExpandVolume volume ID missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Volume ID missing in request")
 	}
 
-	return &csi.ControllerExpandVolumeResponse{}, nil
+	capRange := req.GetCapacityRange()
+	if capRange == nil {
+		return nil, status.Error(codes.InvalidArgument, "Capacity range not provided")
+	}
+
+	return &csi.ControllerExpandVolumeResponse{
+		CapacityBytes:         0,
+		NodeExpansionRequired: true,
+	}, nil
 }
 
 // ControllerGetVolume gets a specific volume.
@@ -286,4 +360,24 @@ func (d *Driver) ControllerExpandVolume(ctx context.Context, req *csi.Controller
 // (https://github.com/kubernetes/enhancements/pull/1077) which we do not support yet.
 func (d *Driver) ControllerGetVolume(ctx context.Context, req *csi.ControllerGetVolumeRequest) (*csi.ControllerGetVolumeResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "")
+}
+
+// TOOLS ===============================================================================================================
+func (d *Driver) validateControllerServiceRequest(c csi.ControllerServiceCapability_RPC_Type) error {
+	if c == csi.ControllerServiceCapability_RPC_UNKNOWN {
+		return nil
+	}
+
+	caps, err := d.ControllerGetCapabilities(context.Background(), nil)
+	if err != nil {
+		return err
+	}
+
+	for _, cap := range caps.Capabilities {
+		if c == cap.GetRpc().GetType() {
+			return nil
+		}
+	}
+
+	return status.Errorf(codes.InvalidArgument, "unsupported capability %s", c)
 }
