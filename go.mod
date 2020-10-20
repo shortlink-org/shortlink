@@ -42,6 +42,7 @@ require (
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.6.0
+	github.com/pborman/uuid v1.2.0
 	github.com/pelletier/go-toml v1.6.0 // indirect
 	github.com/prometheus/client_golang v1.7.1
 	github.com/scylladb/gocqlx/v2 v2.1.0
@@ -70,8 +71,8 @@ require (
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
-	k8s.io/kubernetes v1.19.3
-	k8s.io/utils v0.0.0-20201015054608-420da100c033
+	k8s.io/kubernetes v1.19.3 // indirect
+	k8s.io/utils v0.0.0-20201015054608-420da100c033 // indirect
 )
 
 replace (
