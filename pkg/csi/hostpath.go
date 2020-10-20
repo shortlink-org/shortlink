@@ -1,6 +1,10 @@
 package csi_driver
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/golang/protobuf/ptypes/timestamp"
+)
 
 type accessType int
 
@@ -29,4 +33,14 @@ func getVolumeByID(volumeID string) (hostPathVolume, error) {
 		return hostPathVol, nil
 	}
 	return hostPathVolume{}, fmt.Errorf("volume id %s does not exist in the volumes list", volumeID)
+}
+
+type hostPathSnapshot struct {
+	Name         string              `json:"name"`
+	Id           string              `json:"id"`
+	VolID        string              `json:"volID"`
+	Path         string              `json:"path"`
+	CreationTime timestamp.Timestamp `json:"creationTime"`
+	SizeBytes    int64               `json:"sizeBytes"`
+	ReadyToUse   bool                `json:"readyToUse"`
 }

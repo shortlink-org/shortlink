@@ -4,9 +4,12 @@ import (
 	"context"
 	"fmt"
 	"math"
+	"path/filepath"
+	"sort"
 	"strconv"
 
 	"github.com/container-storage-interface/spec/lib/go/csi"
+	"github.com/golang/protobuf/ptypes"
 	"github.com/pborman/uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -278,7 +281,36 @@ func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 		"method":               "create_snapshot",
 	})
 
-	return &csi.CreateSnapshotResponse{}, nil
+	volumeID := req.GetSourceVolumeId()
+	hostPathVolume, ok := hostPathVolumes[volumeID]
+	if !ok {
+		return nil, status.Error(codes.Internal, "volumeID is not exist")
+	}
+
+	snapshotID := uuid.NewUUID().String()
+	creationTime := ptypes.TimestampNow()
+	file := filepath.Join(d.dataRoot, fmt.Sprintf("%s%s", snapshotID, d.snapshotExt))
+
+	snapshot := hostPathSnapshot{}
+	snapshot.Name = req.GetName()
+	snapshot.Id = snapshotID
+	snapshot.VolID = volumeID
+	snapshot.Path = file
+	snapshot.CreationTime = *creationTime
+	snapshot.SizeBytes = hostPathVolume.VolSize
+	snapshot.ReadyToUse = true
+
+	d.hostPathVolumeSnapshots[snapshotID] = snapshot
+
+	return &csi.CreateSnapshotResponse{
+		Snapshot: &csi.Snapshot{
+			SnapshotId:     snapshot.Id,
+			SourceVolumeId: snapshot.VolID,
+			CreationTime:   &snapshot.CreationTime,
+			SizeBytes:      snapshot.SizeBytes,
+			ReadyToUse:     snapshot.ReadyToUse,
+		},
+	}, nil
 }
 
 // DeleteSnapshot will be called by the CO to delete a snapshot.
@@ -304,7 +336,7 @@ func (d *Driver) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequ
 
 	// Delete shapshot ;-)
 	snapshotID := req.GetSnapshotId()
-	delete(d.snapshots, snapshotID)
+	delete(d.hostPathVolumeSnapshots, snapshotID)
 
 	return &csi.DeleteSnapshotResponse{}, nil
 }
@@ -314,6 +346,13 @@ func (d *Driver) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequ
 // ListSnapshots shold not list a snapshot that is being created but has not
 // been cut successfully yet.
 func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsRequest) (*csi.ListSnapshotsResponse, error) {
+	var snapshots []csi.Snapshot
+
+	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS); err != nil {
+		d.log.Error(fmt.Sprintf("invalid list snapshot req: %v", req))
+		return nil, err
+	}
+
 	d.log.Info("list snapshots is called", field.Fields{
 		"snapshot_id":        req.SnapshotId,
 		"source_volume_id":   req.SourceVolumeId,
@@ -322,12 +361,41 @@ func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 		"method":             "list_snapshots",
 	})
 
-	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS); err != nil {
-		d.log.Error(fmt.Sprintf("invalid list snapshot req: %v", req))
-		return nil, err
+	// case 1: SnapshotId is not empty, return snapshots that match the snapshot id.
+	if len(req.GetSnapshotId()) != 0 {
+		snapshotID := req.SnapshotId
+		if snapshot, ok := d.hostPathVolumeSnapshots[snapshotID]; ok {
+			return convertSnapshot(snapshot), nil
+		}
 	}
 
-	var snapshots []csi.Snapshot
+	// case 2: SourceVolumeId is not empty, return snapshots that match the source volume id.
+	if len(req.GetSourceVolumeId()) != 0 {
+		for _, snapshot := range d.hostPathVolumeSnapshots {
+			if snapshot.VolID == req.SourceVolumeId {
+				return convertSnapshot(snapshot), nil
+			}
+		}
+	}
+
+	// case 3: no parameter is set, so we return all the snapshots.
+	sortedKeys := make([]string, 0)
+	for k := range d.hostPathVolumeSnapshots {
+		sortedKeys = append(sortedKeys, k)
+	}
+	sort.Strings(sortedKeys)
+
+	for _, key := range sortedKeys {
+		snap := d.hostPathVolumeSnapshots[key]
+		snapshot := csi.Snapshot{
+			SnapshotId:     snap.Id,
+			SourceVolumeId: snap.VolID,
+			CreationTime:   &snap.CreationTime,
+			SizeBytes:      snap.SizeBytes,
+			ReadyToUse:     snap.ReadyToUse,
+		}
+		snapshots = append(snapshots, snapshot)
+	}
 
 	var (
 		ulenSnapshots = int32(len(snapshots))
@@ -433,4 +501,24 @@ func (d *Driver) validateControllerServiceRequest(c csi.ControllerServiceCapabil
 	}
 
 	return status.Errorf(codes.InvalidArgument, "unsupported capability %s", c)
+}
+
+func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse {
+	entries := []*csi.ListSnapshotsResponse_Entry{
+		{
+			Snapshot: &csi.Snapshot{
+				SnapshotId:     snap.Id,
+				SourceVolumeId: snap.VolID,
+				CreationTime:   &snap.CreationTime,
+				SizeBytes:      snap.SizeBytes,
+				ReadyToUse:     snap.ReadyToUse,
+			},
+		},
+	}
+
+	rsp := &csi.ListSnapshotsResponse{
+		Entries: entries,
+	}
+
+	return rsp
 }

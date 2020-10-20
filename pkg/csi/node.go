@@ -257,16 +257,16 @@ func (d *Driver) NodeExpandVolume(ctx context.Context, req *csi.NodeExpandVolume
 		return nil, status.Error(codes.InvalidArgument, "NodeExpandVolume volume path not provided")
 	}
 
+	info, err := os.Stat(volumePath)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, "Could not get file information from %s: %v", volumePath, err)
+	}
+
 	d.log.Info("node expand volume called", field.Fields{
 		"volume_id":   req.VolumeId,
 		"volume_path": req.VolumePath,
 		"method":      "node_expand_volume",
 	})
-
-	info, err := os.Stat(volumePath)
-	if err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "Could not get file information from %s: %v", volumePath, err)
-	}
 
 	switch m := info.Mode(); {
 	case m.IsDir():
@@ -281,13 +281,14 @@ func (d *Driver) NodeExpandVolume(ctx context.Context, req *csi.NodeExpandVolume
 		return nil, status.Errorf(codes.InvalidArgument, "Volume %s is invalid", volumeID)
 	}
 
-	if req.GetVolumeCapability() != nil {
-		switch req.GetVolumeCapability().GetAccessType().(type) {
-		case *csi.VolumeCapability_Block:
-			d.log.Info("filesystem expansion is skipped for block volumes")
-			return &csi.NodeExpandVolumeResponse{}, nil
-		}
-	}
+	// TODO: hm...
+	//if req.GetVolumeCapability() != nil {
+	//	switch req.GetVolumeCapability().GetAccessType().(type) {
+	//	case *csi.VolumeCapability_Block:
+	//		d.log.Info("filesystem expansion is skipped for block volumes")
+	//		return &csi.NodeExpandVolumeResponse{}, nil
+	//	}
+	//}
 
 	return &csi.NodeExpandVolumeResponse{}, nil
 }
