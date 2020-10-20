@@ -35,9 +35,17 @@ type Driver struct {
 
 	endpoint string
 
-	volumes   map[string]interface{}
-	paths     map[string]interface{}
-	snapshots map[string]interface{}
+	// Directory where data for volumes and snapshots are persisted.
+	// This can be ephemeral within the container or persisted if
+	// backed by a Pod volume.
+	dataRoot string
+	// Extension with which snapshot files will be saved.
+	snapshotExt string
+
+	volumes                 map[string]interface{}
+	snapshots               map[string]interface{}
+	hostPathVolumes         map[string]hostPathVolume
+	hostPathVolumeSnapshots map[string]hostPathSnapshot
 
 	srv *grpc.Server
 	log logger.Logger
@@ -58,6 +66,12 @@ func NewDriver(endpoint string, log logger.Logger) (*Driver, error) {
 		name: driverName,
 
 		log: log,
+
+		dataRoot:    "/csi-data-dir",
+		snapshotExt: ".snap",
+
+		hostPathVolumes:         map[string]hostPathVolume{},
+		hostPathVolumeSnapshots: map[string]hostPathSnapshot{},
 
 		endpoint: endpoint,
 	}, nil
