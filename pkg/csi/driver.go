@@ -35,6 +35,10 @@ type Driver struct {
 
 	endpoint string
 
+	volumes   map[string]interface{}
+	paths     map[string]interface{}
+	snapshots map[string]interface{}
+
 	srv *grpc.Server
 	log logger.Logger
 

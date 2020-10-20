@@ -2,6 +2,7 @@ package csi_driver
 
 import (
 	"context"
+	"fmt"
 	"os"
 
 	"github.com/container-storage-interface/spec/lib/go/csi"
@@ -25,16 +26,24 @@ var (
 // volume to a staging path. Once mounted, NodePublishVolume will make sure to
 // mount it to the appropriate path
 func (d *Driver) NodeStageVolume(ctx context.Context, req *csi.NodeStageVolumeRequest) (*csi.NodeStageVolumeResponse, error) {
-	if req.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeStageVolume Volume ID must be provided")
+	// Check arguments
+	if len(req.GetVolumeId()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
 	}
 
-	if req.StagingTargetPath == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeStageVolume Staging Target Path must be provided")
+	if req.GetVolumeCapability() == nil {
+		return nil, status.Error(codes.InvalidArgument, "Volume capability must be provided")
 	}
 
-	if req.VolumeCapability == nil {
-		return nil, status.Error(codes.InvalidArgument, "NodeStageVolume Volume Capability must be provided")
+	if len(req.GetStagingTargetPath()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Staging target path must be provided")
+	}
+
+	volumeID := req.GetVolumeId()
+
+	_, ok := req.GetVolumeContext()[d.name]
+	if !ok {
+		return nil, status.Error(codes.InvalidArgument, fmt.Sprintf("%s field is missing, current context: %v", d.name, req.GetVolumeContext()))
 	}
 
 	d.log.Info("node stage volume called", field.Fields{
@@ -49,6 +58,8 @@ func (d *Driver) NodeStageVolume(ctx context.Context, req *csi.NodeStageVolumeRe
 	case *csi.VolumeCapability_Block:
 		return &csi.NodeStageVolumeResponse{}, nil
 	}
+
+	d.volumes[volumeID] = true
 
 	return &csi.NodeStageVolumeResponse{}, nil
 }
@@ -104,6 +115,7 @@ func (d *Driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 	}
 
 	// TODO: ...code
+	d.volumes[req.GetStagingTargetPath()] = true
 
 	d.log.Info("bind mounting the volume is finished")
 
@@ -190,12 +202,12 @@ func (d *Driver) NodeGetInfo(ctx context.Context, req *csi.NodeGetInfoRequest) (
 // NodeGetVolumeStats returns the volume capacity statistics available for the the given volume.
 func (d *Driver) NodeGetVolumeStats(ctx context.Context, req *csi.NodeGetVolumeStatsRequest) (*csi.NodeGetVolumeStatsResponse, error) {
 	if req.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeGetVolumeStats Volume ID must be provided")
+		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
 	}
 
 	volumePath := req.VolumePath
 	if volumePath == "" {
-		return nil, status.Error(codes.InvalidArgument, "NodeGetVolumeStats Volume Path must be provided")
+		return nil, status.Error(codes.InvalidArgument, "Volume Path must be provided")
 	}
 
 	d.log.Info("node get volume stats called", field.Fields{
@@ -203,6 +215,10 @@ func (d *Driver) NodeGetVolumeStats(ctx context.Context, req *csi.NodeGetVolumeS
 		"volume_path": req.VolumePath,
 		"method":      "node_get_volume_stats",
 	})
+
+	if d.volumes[req.VolumeId] == nil {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("Not found volume by id %s", req.VolumeId))
+	}
 
 	var stats int64 = 0
 

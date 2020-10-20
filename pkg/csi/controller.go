@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/container-storage-interface/spec/lib/go/csi"
+	"github.com/pborman/uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -40,27 +41,65 @@ const (
 
 // CreateVolume creates a new volume from the given request. The function is idempotent.
 func (d *Driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest) (*csi.CreateVolumeResponse, error) {
-	if req.Name == "" {
-		return nil, status.Error(codes.InvalidArgument, "CreateVolume Name must be provided")
+	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME); err != nil {
+		d.log.Error(fmt.Sprintf("invalid create snapshot req: %v", req))
+		return nil, err
 	}
 
-	if req.VolumeCapabilities == nil || len(req.VolumeCapabilities) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "CreateVolume Volume capabilities must be provided")
+	// Check arguments
+	if len(req.GetName()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Name must be provided")
 	}
 
-	volumeName := req.Name
+	caps := req.GetVolumeCapabilities()
+	if caps == nil {
+		return nil, status.Error(codes.InvalidArgument, "Volume capabilities must be provided")
+	}
 
 	// TODO: use real size
 	d.log.Info("create volume called", field.Fields{
-		"volume_name":             volumeName,
+		"volume_name":             req.Name,
 		"storage_size_giga_bytes": 1 / giB,
 		"method":                  "create_volume",
 		"volume_capabilities":     req.VolumeCapabilities,
 	})
 
+	// Keep a record of the requested access types.
+	var accessTypeMount, accessTypeBlock bool
+
+	for _, cap := range caps {
+		if cap.GetBlock() != nil {
+			accessTypeBlock = true
+		}
+		if cap.GetMount() != nil {
+			accessTypeMount = true
+		}
+	}
+
+	// A real driver would also need to check that the other
+	// fields in VolumeCapabilities are sane. The check above is
+	// just enough to pass the "[Testpattern: Dynamic PV (block
+	// volmode)] volumeMode should fail in binding dynamic
+	// provisioned PV to PVC" storage E2E test.
+
+	if accessTypeBlock && accessTypeMount {
+		return nil, status.Error(codes.InvalidArgument, "cannot have both block and mount access type")
+	}
+
+	// Check for maximum available capacity
+	capacity := req.GetCapacityRange().GetRequiredBytes()
+	if capacity >= maximumVolumeSizeInBytes {
+		return nil, status.Errorf(codes.OutOfRange, "Requested capacity %d exceeds maximum allowed %d", capacity, maximumVolumeSizeInBytes)
+	}
+
+	volumeID := uuid.NewUUID().String()
+
 	return &csi.CreateVolumeResponse{
 		Volume: &csi.Volume{
-			CapacityBytes: 0,
+			VolumeId:      volumeID,
+			CapacityBytes: req.GetCapacityRange().GetRequiredBytes(),
+			VolumeContext: req.GetParameters(),
+			ContentSource: req.GetVolumeContentSource(),
 		},
 	}, nil
 }
@@ -244,14 +283,28 @@ func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 
 // DeleteSnapshot will be called by the CO to delete a snapshot.
 func (d *Driver) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequest) (*csi.DeleteSnapshotResponse, error) {
+	// Check arguments
+	if len(req.GetSnapshotId()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Snapshot ID must be provided")
+	}
+
+	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT); err != nil {
+		d.log.Error(fmt.Sprintf("invalid delete snapshot req: %v", req))
+		return nil, err
+	}
+
+	if d.snapshots[req.GetSnapshotId()] == nil {
+		return nil, status.Error(codes.NotFound, fmt.Sprintf("Snapshot not found by id: %s", req.GetSnapshotId()))
+	}
+
 	d.log.Info("delete snapshot is called", field.Fields{
 		"req_snapshot_id": req.GetSnapshotId(),
 		"method":          "delete_snapshot",
 	})
 
-	if req.GetSnapshotId() == "" {
-		return nil, status.Error(codes.InvalidArgument, "DeleteSnapshot Snapshot ID must be provided")
-	}
+	// Delete shapshot ;-)
+	snapshotID := req.GetSnapshotId()
+	delete(d.snapshots, snapshotID)
 
 	return &csi.DeleteSnapshotResponse{}, nil
 }
