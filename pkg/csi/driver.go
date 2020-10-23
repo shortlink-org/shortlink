@@ -22,7 +22,7 @@ import (
 const (
 	// DefaultDriverName defines the name that is used in Kubernetes and the CSI
 	// system for the canonical, official name of this plugin
-	DefaultDriverName = "csi.shrts.ru"
+	DefaultDriverName = "shrts.csi.k8s.io"
 )
 
 // Driver implements the following CSI interfaces:
