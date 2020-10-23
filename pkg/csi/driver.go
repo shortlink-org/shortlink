@@ -2,6 +2,7 @@ package csi_driver
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"net/url"
@@ -31,8 +32,8 @@ const (
 //   csi.NodeServer
 //
 type Driver struct {
-	name string
-
+	name     string
+	nodeID   string
 	endpoint string
 
 	// Directory where data for volumes and snapshots are persisted.
@@ -59,11 +60,20 @@ type Driver struct {
 // NewDriver returns a CSI plugin that contains the necessary gRPC
 // interfaces to interact with Kubernetes over unix domain sockets for
 // managing ShortLink Storage
-func NewDriver(endpoint string, log logger.Logger) (*Driver, error) {
+func NewDriver(endpoint string, nodeID string, log logger.Logger) (*Driver, error) {
 	driverName := DefaultDriverName
 
+	if nodeID == "" {
+		return nil, errors.New("no node id provided")
+	}
+
+	if endpoint == "" {
+		return nil, errors.New("no driver endpoint provided")
+	}
+
 	return &Driver{
-		name: driverName,
+		name:   driverName,
+		nodeID: nodeID,
 
 		log: log,
 

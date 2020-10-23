@@ -30,6 +30,7 @@ func main() {
 	// TODO: Use cobra
 	var (
 		endpoint = flag.String("endpoint", "unix:///var/kubelet/plugins/"+csi_driver.DefaultDriverName+"/csi.sock", "CSI endpoint")
+		nodeID   = flag.String("nodeid", "", "node id")
 		//driverName = flag.String("driver-name", csi_driver.DefaultDriverName, "Name for the driver")
 		// TODO: add version package
 		//version = flag.Bool("version", false, "Print the version and exit.")
@@ -38,7 +39,7 @@ func main() {
 	flag.Parse()
 
 	// Run CSI Driver
-	drv, err := csi_driver.NewDriver(*endpoint, s.Log)
+	drv, err := csi_driver.NewDriver(*endpoint, *nodeID, s.Log)
 	if err != nil {
 		s.Log.Fatal(err.Error())
 	}
