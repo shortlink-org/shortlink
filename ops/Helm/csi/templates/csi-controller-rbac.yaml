@@ -1,7 +1,7 @@
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: csi-shrts-controller-sa
+  name: csi-shrts-provisioner-sa
   namespace: kube-system
 
 ---
@@ -47,7 +47,7 @@ metadata:
   name: csi-shrts-provisioner-binding
 subjects:
   - kind: ServiceAccount
-    name: csi-shrts-controller-sa
+    name: csi-shrts-provisioner-sa
     namespace: kube-system
 roleRef:
   kind: ClusterRole
@@ -84,7 +84,7 @@ metadata:
   name: csi-shrts-attacher-binding
 subjects:
   - kind: ServiceAccount
-    name: csi-shrts-controller-sa
+    name: csi-shrts-provisioner-sa
     namespace: kube-system
 roleRef:
   kind: ClusterRole
@@ -120,7 +120,7 @@ metadata:
   name: csi-shrts-snapshotter-binding
 subjects:
   - kind: ServiceAccount
-    name: csi-shrts-controller-sa
+    name: csi-shrts-provisioner-sa
     namespace: kube-system
 roleRef:
   kind: ClusterRole
@@ -156,7 +156,7 @@ metadata:
   name: csi-shrts-resizer-binding
 subjects:
   - kind: ServiceAccount
-    name: csi-shrts-controller-sa
+    name: csi-shrts-provisioner-sa
     namespace: kube-system
 roleRef:
   kind: ClusterRole
