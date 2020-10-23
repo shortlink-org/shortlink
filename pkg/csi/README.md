@@ -2,4 +2,4 @@
 
 | name | value        |
 |------|--------------|
-| name | csi.shrts.ru |
+| name | shrts.csi.k8s.io |

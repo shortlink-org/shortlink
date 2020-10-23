@@ -4,6 +4,7 @@ go 1.15
 
 require (
 	github.com/Masterminds/squirrel v1.4.0
+	github.com/Microsoft/go-winio v0.4.15-0.20190919025122-fc70bd9a86b5 // indirect
 	github.com/PuerkitoBio/goquery v1.5.1
 	github.com/Shopify/sarama v1.27.0
 	github.com/cloudevents/sdk-go/v2 v2.3.1
@@ -11,6 +12,7 @@ require (
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.2007.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
+	github.com/docker/docker v1.4.2-0.20200309214505-aa6a9891b09c // indirect
 	github.com/getsentry/sentry-go v0.7.0
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-chi/cors v1.1.1
@@ -35,9 +37,11 @@ require (
 	github.com/lib/pq v1.8.0
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.4
+	github.com/matttproud/golang_protobuf_extensions v1.0.2-0.20181231171920-c182affec369 // indirect
 	github.com/nats-io/nats.go v1.10.0
 	github.com/onsi/ginkgo v1.14.1 // indirect
 	github.com/onsi/gomega v1.10.2 // indirect
+	github.com/opencontainers/runc v1.0.0-rc91.0.20200707015106-819fcc687efb // indirect
 	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
@@ -47,8 +51,11 @@ require (
 	github.com/prometheus/client_golang v1.7.1
 	github.com/scylladb/gocqlx/v2 v2.1.0
 	github.com/sirupsen/logrus v1.7.0
+	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.0.0
+	github.com/spf13/jwalterweatherman v1.1.0 // indirect
+	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.7.1
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.6.1
@@ -71,8 +78,7 @@ require (
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
-	k8s.io/kubernetes v1.19.3 // indirect
-	k8s.io/utils v0.0.0-20201015054608-420da100c033 // indirect
+	gotest.tools v2.2.0+incompatible // indirect
 )
 
 replace (
@@ -97,5 +103,6 @@ replace (
 	k8s.io/kubelet => k8s.io/kubelet v0.18.3
 	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.18.3
 	k8s.io/metrics => k8s.io/metrics v0.18.3
+	k8s.io/mount-utils => k8s.io/mount-utils v0.20.0-alpha.3
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.18.3
 )

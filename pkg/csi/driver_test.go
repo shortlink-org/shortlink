@@ -29,6 +29,7 @@ func TestDriver(t *testing.T) {
 	driver := &Driver{
 		name:     DefaultDriverName,
 		endpoint: endpoint,
+		nodeID:   "myNode",
 		srv:      nil,
 		log:      log,
 		readyMu:  sync.Mutex{},

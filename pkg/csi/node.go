@@ -17,7 +17,7 @@ var (
 	// not formatted. Useful for cases if the user wants to reuse an existing
 	// volume.
 	annsNoFormatVolume = []string{
-		"csi.shrts.ru/noformat",
+		"shrts.csi.k8s.io/noformat",
 	}
 )
 
@@ -39,12 +39,12 @@ func (d *Driver) NodeStageVolume(ctx context.Context, req *csi.NodeStageVolumeRe
 		return nil, status.Error(codes.InvalidArgument, "Staging target path must be provided")
 	}
 
-	volumeID := req.GetVolumeId()
-
-	_, ok := req.GetVolumeContext()[d.name]
-	if !ok {
-		return nil, status.Error(codes.InvalidArgument, fmt.Sprintf("%s field is missing, current context: %v", d.name, req.GetVolumeContext()))
-	}
+	//volumeID := req.GetVolumeId()
+	//
+	//_, ok := req.GetVolumeContext()[d.name]
+	//if !ok {
+	//	return nil, status.Error(codes.InvalidArgument, fmt.Sprintf("%s field is missing, current context: %v", d.name, req.GetVolumeContext()))
+	//}
 
 	d.log.Info("node stage volume called", field.Fields{
 		"volume_id":           req.VolumeId,
@@ -59,7 +59,7 @@ func (d *Driver) NodeStageVolume(ctx context.Context, req *csi.NodeStageVolumeRe
 		return &csi.NodeStageVolumeResponse{}, nil
 	}
 
-	d.volumes[volumeID] = true
+	//d.volumes[volumeID] = true
 
 	return &csi.NodeStageVolumeResponse{}, nil
 }
@@ -87,7 +87,7 @@ func (d *Driver) NodeUnstageVolume(ctx context.Context, req *csi.NodeUnstageVolu
 func (d *Driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) {
 	// Check arguments
 	if len(req.GetVolumeId()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
+		return nil, status.Error(codes.InvalidArgument, "Volume ID missing in request")
 	}
 
 	if req.GetStagingTargetPath() == "" {
@@ -95,11 +95,11 @@ func (d *Driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 	}
 
 	if len(req.GetTargetPath()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Target Path must be provided")
+		return nil, status.Error(codes.InvalidArgument, "Target path missing in request")
 	}
 
 	if req.GetVolumeCapability() == nil {
-		return nil, status.Error(codes.InvalidArgument, "Volume Capability must be provided")
+		return nil, status.Error(codes.InvalidArgument, "Volume capability missing in request")
 	}
 
 	d.log.Info("node publish volume called", field.Fields{
@@ -115,7 +115,7 @@ func (d *Driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 	}
 
 	// TODO: ...code
-	d.volumes[req.GetStagingTargetPath()] = true
+	//d.volumes[req.GetStagingTargetPath()] = true
 
 	d.log.Info("bind mounting the volume is finished")
 
