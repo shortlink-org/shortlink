@@ -192,7 +192,7 @@ func (d *Driver) NodeGetInfo(ctx context.Context, req *csi.NodeGetInfoRequest) (
 	})
 
 	return &csi.NodeGetInfoResponse{
-		NodeId:            "testNode", // TODO: use nodeId
+		NodeId:            d.nodeID,
 		MaxVolumesPerNode: 100,
 
 		AccessibleTopology: &csi.Topology{},
