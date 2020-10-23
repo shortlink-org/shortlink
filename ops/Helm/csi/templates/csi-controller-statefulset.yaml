@@ -7,36 +7,42 @@
 kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: csi-shrts-controller
+  name: csi-shrts-provisioner
   namespace: kube-system
 spec:
-  serviceName: "csi-shrts"
+  serviceName: csi-shrts-provisioner
   selector:
     matchLabels:
-      app: csi-shrts-controller
+      app: csi-shrts-provisioner
   replicas: 1
   template:
     metadata:
       labels:
-        app: csi-shrts-controller
+        app: csi-shrts-provisioner
         role: csi-shrts
     spec:
       tolerations:
         - operator: Exists
       priorityClassName: system-cluster-critical
-      serviceAccount: csi-shrts-controller-sa
+      serviceAccount: csi-shrts-provisioner-sa
       containers:
         - name: csi-provisioner
           image: k8s.gcr.io/sig-storage/csi-provisioner:v2.0.2
           imagePullPolicy: "IfNotPresent"
           args:
+            - "-v=5"
             - "--csi-address=$(ADDRESS)"
-            - "--v=5"
+            - "--feature-gates=Topology=true"
+          securityContext:
+            # This is necessary only for systems with SELinux, where
+            # non-privileged sidecar containers cannot access unix domain socket
+            # created by privileged CSI driver container.
+            privileged: true
           env:
             - name: ADDRESS
               value: /csi/csi.sock
           volumeMounts:
-            - name: plugin-dir
+            - name: socket-dir
               mountPath: /csi
         - name: csi-attacher
           image: k8s.gcr.io/sig-storage/csi-attacher:v3.0.0
@@ -53,7 +59,7 @@ spec:
             - name: ADDRESS
               value: /csi/csi.sock
           volumeMounts:
-            - name: plugin-dir
+            - name: socket-dir
               mountPath: /csi
         - name: csi-snapshotter
           image: k8s.gcr.io/sig-storage/csi-snapshotter:v3.0.0
@@ -65,7 +71,7 @@ spec:
             - name: ADDRESS
               value: /csi/csi.sock
           volumeMounts:
-            - name: plugin-dir
+            - name: socket-dir
               mountPath: /csi
         - name: csi-resizer
           image: k8s.gcr.io/sig-storage/csi-resizer:v1.0.0
@@ -78,21 +84,32 @@ spec:
             - name: ADDRESS
               value: /csi/csi.sock
           volumeMounts:
-            - name: plugin-dir
-              mountPath: /csi
-        - name: csi-shrts-plugin
-          image: batazor/shortlink-csi
-          imagePullPolicy: "Always"
-          args :
-            - "--endpoint=$(CSI_ENDPOINT)"
-          env:
-            - name: CSI_ENDPOINT
-              value: unix:///csi/csi.sock
-          volumeMounts:
-            - name: plugin-dir
+            - name: socket-dir
               mountPath: /csi
       volumes:
-        - name: plugin-dir
-          hostPath:
-            path: /var/lib/kubelet/plugins/csi.shrts.ru
+        - hostPath:
+            path: /var/lib/kubelet/plugins/csi-shrts
             type: DirectoryOrCreate
+          name: socket-dir
+        - hostPath:
+            path: /var/lib/kubelet/pods
+            type: DirectoryOrCreate
+          name: mountpoint-dir
+        - hostPath:
+            path: /var/lib/kubelet/plugins_registry
+            type: Directory
+          name: registration-dir
+        - hostPath:
+            path: /var/lib/kubelet/plugins
+            type: Directory
+          name: plugins-dir
+        - hostPath:
+            # 'path' is where PV data is persisted on host.
+            # using /tmp is also possible while the PVs will not available after plugin container recreation or host reboot
+            path: /var/lib/csi-hostpath-data/
+            type: DirectoryOrCreate
+          name: csi-data-dir
+        - hostPath:
+            path: /dev
+            type: Directory
+          name: dev-dir

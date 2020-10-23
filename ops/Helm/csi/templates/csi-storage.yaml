@@ -1,5 +1,5 @@
-kind: VolumeSnapshotClass
 apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotClass
 metadata:
   name: shrts-block-storage
   annotations:
@@ -9,8 +9,8 @@ deletionPolicy: Delete
 
 ---
 
-kind: StorageClass
 apiVersion: storage.k8s.io/v1
+kind: StorageClass
 metadata:
   name: shrts-block-storage
   annotations:
