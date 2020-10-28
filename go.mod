@@ -11,7 +11,6 @@ require (
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.2007.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
-	github.com/docker/docker v1.4.2-0.20200309214505-aa6a9891b09c // indirect
 	github.com/getsentry/sentry-go v0.7.0
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-chi/cors v1.1.1
@@ -36,11 +35,9 @@ require (
 	github.com/lib/pq v1.8.0
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.4
-	github.com/matttproud/golang_protobuf_extensions v1.0.2-0.20181231171920-c182affec369 // indirect
 	github.com/nats-io/nats.go v1.10.0
 	github.com/onsi/ginkgo v1.14.1 // indirect
 	github.com/onsi/gomega v1.10.2 // indirect
-	github.com/opencontainers/runc v1.0.0-rc91.0.20200707015106-819fcc687efb // indirect
 	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
@@ -49,10 +46,8 @@ require (
 	github.com/prometheus/client_golang v1.8.0
 	github.com/scylladb/gocqlx/v2 v2.1.0
 	github.com/sirupsen/logrus v1.7.0
-	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.1.1
-	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/viper v1.7.1
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.6.1
@@ -67,6 +62,7 @@ require (
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201012173705-84dcc777aaee // indirect
 	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
+	golang.org/x/sys v0.0.0-20201015000850-e3ed0017c211
 	golang.org/x/tools v0.0.0-20201014170642-d1624618ad65 // indirect
 	google.golang.org/genproto v0.0.0-20201021134325-0d71844de594
 	google.golang.org/grpc v1.33.1
@@ -74,31 +70,33 @@ require (
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
-	gotest.tools v2.2.0+incompatible // indirect
+	k8s.io/kubernetes v1.16.2
+	k8s.io/utils v0.0.0-20200729134348-d5654de09c73
 )
 
 replace (
-	github.com/coreos/bbolt => go.etcd.io/bbolt v1.3.5
-	k8s.io/api => k8s.io/api v0.18.3
-	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.18.3
-	k8s.io/apimachinery => k8s.io/apimachinery v0.18.3
-	k8s.io/apiserver => k8s.io/apiserver v0.18.3
-	k8s.io/cli-runtime => k8s.io/cli-runtime v0.18.3
-	k8s.io/client-go => k8s.io/client-go v0.18.3
-	k8s.io/cloud-provider => k8s.io/cloud-provider v0.18.3
-	k8s.io/cluster-bootstrap => k8s.io/cluster-bootstrap v0.18.3
-	k8s.io/code-generator => k8s.io/code-generator v0.18.3
-	k8s.io/component-base => k8s.io/component-base v0.18.3
-	k8s.io/cri-api => k8s.io/cri-api v0.18.3
-	k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.18.3
-	k8s.io/kube-aggregator => k8s.io/kube-aggregator v0.18.3
-	k8s.io/kube-controller-manager => k8s.io/kube-controller-manager v0.18.3
-	k8s.io/kube-proxy => k8s.io/kube-proxy v0.18.3
-	k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.18.3
-	k8s.io/kubectl => k8s.io/kubectl v0.18.3
-	k8s.io/kubelet => k8s.io/kubelet v0.18.3
-	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.18.3
-	k8s.io/metrics => k8s.io/metrics v0.18.3
+	// github.com/coreos/bbolt => go.etcd.io/bbolt v1.3.5
+	k8s.io/api => k8s.io/api v0.19.3
+	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.19.3
+	k8s.io/apimachinery => k8s.io/apimachinery v0.19.3
+	k8s.io/apiserver => k8s.io/apiserver v0.19.3
+	k8s.io/cli-runtime => k8s.io/cli-runtime v0.19.3
+	k8s.io/client-go => k8s.io/client-go v0.19.3
+	k8s.io/cloud-provider => k8s.io/cloud-provider v0.19.3
+	k8s.io/cluster-bootstrap => k8s.io/cluster-bootstrap v0.19.3
+	k8s.io/code-generator => k8s.io/code-generator v0.19.3
+	k8s.io/component-base => k8s.io/component-base v0.19.3
+	k8s.io/cri-api => k8s.io/cri-api v0.19.3
+	k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.19.3
+	k8s.io/kube-aggregator => k8s.io/kube-aggregator v0.19.3
+	k8s.io/kube-controller-manager => k8s.io/kube-controller-manager v0.19.3
+	k8s.io/kube-proxy => k8s.io/kube-proxy v0.19.3
+	k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.19.3
+	k8s.io/kubectl => k8s.io/kubectl v0.19.3
+	k8s.io/kubelet => k8s.io/kubelet v0.19.3
+	k8s.io/kubernetes => k8s.io/kubernetes v1.19.2
+	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.19.3
+	k8s.io/metrics => k8s.io/metrics v0.19.3
 	k8s.io/mount-utils => k8s.io/mount-utils v0.20.0-alpha.3
-	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.18.3
+	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.19.3
 )

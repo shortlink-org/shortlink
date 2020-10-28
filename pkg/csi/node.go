@@ -241,54 +241,39 @@ func (d *Driver) NodeGetVolumeStats(ctx context.Context, req *csi.NodeGetVolumeS
 }
 
 func (d *Driver) NodeExpandVolume(ctx context.Context, req *csi.NodeExpandVolumeRequest) (*csi.NodeExpandVolumeResponse, error) {
-	volumeID := req.GetVolumeId()
-	if len(volumeID) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "NodeExpandVolume volume ID not provided")
+	volID := req.GetVolumeId()
+	if len(volID) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Volume ID not provided")
 	}
 
-	vol, err := getVolumeByID(volumeID)
+	vol, err := getVolumeByID(volID)
 	if err != nil {
 		// Assume not found error
-		return nil, status.Errorf(codes.NotFound, "Could not get volume %s: %v", volumeID, err)
+		return nil, status.Errorf(codes.NotFound, "Could not get volume %s: %v", volID, err)
 	}
 
-	volumePath := req.GetVolumePath()
-	if len(volumePath) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "NodeExpandVolume volume path not provided")
+	volPath := req.GetVolumePath()
+	if len(volPath) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Volume path not provided")
 	}
 
-	info, err := os.Stat(volumePath)
+	info, err := os.Stat(volPath)
 	if err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "Could not get file information from %s: %v", volumePath, err)
+		return nil, status.Errorf(codes.InvalidArgument, "Could not get file information from %s: %v", volPath, err)
 	}
-
-	d.log.Info("node expand volume called", field.Fields{
-		"volume_id":   req.VolumeId,
-		"volume_path": req.VolumePath,
-		"method":      "node_expand_volume",
-	})
 
 	switch m := info.Mode(); {
 	case m.IsDir():
 		if vol.VolAccessType != mountAccess {
-			return nil, status.Errorf(codes.InvalidArgument, "Volume %s is not a directory", volumeID)
+			return nil, status.Errorf(codes.InvalidArgument, "Volume %s is not a directory", volID)
 		}
 	case m&os.ModeDevice != 0:
 		if vol.VolAccessType != blockAccess {
-			return nil, status.Errorf(codes.InvalidArgument, "Volume %s is not a block device", volumeID)
+			return nil, status.Errorf(codes.InvalidArgument, "Volume %s is not a block device", volID)
 		}
 	default:
-		return nil, status.Errorf(codes.InvalidArgument, "Volume %s is invalid", volumeID)
+		return nil, status.Errorf(codes.InvalidArgument, "Volume %s is invalid", volID)
 	}
-
-	// TODO: hm...
-	//if req.GetVolumeCapability() != nil {
-	//	switch req.GetVolumeCapability().GetAccessType().(type) {
-	//	case *csi.VolumeCapability_Block:
-	//		d.log.Info("filesystem expansion is skipped for block volumes")
-	//		return &csi.NodeExpandVolumeResponse{}, nil
-	//	}
-	//}
 
 	return &csi.NodeExpandVolumeResponse{}, nil
 }

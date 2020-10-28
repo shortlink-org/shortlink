@@ -2,6 +2,7 @@ package csi_driver
 
 import (
 	"fmt"
+	"path/filepath"
 
 	"github.com/golang/protobuf/ptypes/timestamp"
 )
@@ -25,7 +26,8 @@ type hostPathVolume struct {
 }
 
 var (
-	hostPathVolumes map[string]hostPathVolume
+	hostPathVolumes         map[string]hostPathVolume
+	hostPathVolumeSnapshots map[string]hostPathSnapshot
 )
 
 func getVolumeByID(volumeID string) (hostPathVolume, error) {
@@ -43,4 +45,18 @@ type hostPathSnapshot struct {
 	CreationTime timestamp.Timestamp `json:"creationTime"`
 	SizeBytes    int64               `json:"sizeBytes"`
 	ReadyToUse   bool                `json:"readyToUse"`
+}
+
+func getSnapshotByName(name string) (hostPathSnapshot, error) {
+	for _, snapshot := range hostPathVolumeSnapshots {
+		if snapshot.Name == name {
+			return snapshot, nil
+		}
+	}
+	return hostPathSnapshot{}, fmt.Errorf("snapshot name %s does not exist in the snapshots list", name)
+}
+
+// getSnapshotPath returns the full path to where the snapshot is stored
+func getSnapshotPath(snapshotID string) string {
+	return filepath.Join("/csi-data-dir", fmt.Sprintf("%s%s", snapshotID, ".snap"))
 }

@@ -1,63 +1,69 @@
-########################################
-###########                 ############
-###########   Node plugin   ############
-###########                 ############
-########################################
+# Service defined here, plus serviceName below in StatefulSet,
+# are needed only because of condition explained in
+# https://github.com/kubernetes/kubernetes/issues/69608
 
-kind: DaemonSet
+kind: Service
+apiVersion: v1
+metadata:
+  name: csi-hostpathplugin
+  labels:
+    app: csi-hostpathplugin
+spec:
+  selector:
+    app: csi-hostpathplugin
+  ports:
+    - name: dummy
+      port: 12345
+---
+kind: StatefulSet
 apiVersion: apps/v1
 metadata:
-  name: csi-shrts-node
-  namespace: kube-system
+  name: csi-hostpathplugin
 spec:
-  updateStrategy:
-    type: RollingUpdate
+  serviceName: "csi-hostpathplugin"
+  # One replica only:
+  # Host path driver only works when everything runs
+  # on a single node. We achieve that by starting it once and then
+  # co-locate all other pods via inter-pod affinity
+  replicas: 1
   selector:
     matchLabels:
-      app: csi-shrts-node
+      app: csi-hostpathplugin
   template:
     metadata:
       labels:
-        app: csi-shrts-node
-        role: csi-shrts
+        app: csi-hostpathplugin
     spec:
-      priorityClassName: system-node-critical
-      serviceAccount: csi-shrts-node-sa
-      hostNetwork: true
-      tolerations:
-        - operator: Exists
       containers:
-        - name: csi-node-driver-registrar
+        - name: node-driver-registrar
           image: k8s.gcr.io/sig-storage/csi-node-driver-registrar:v2.0.1
           args:
-            - "--v=5"
-            - "--csi-address=$(ADDRESS)"
-            - "--kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)"
+            - --v=5
+            - --csi-address=/csi/csi.sock
+            - --kubelet-registration-path=/var/lib/kubelet/plugins/csi-hostpath/csi.sock
           securityContext:
             # This is necessary only for systems with SELinux, where
             # non-privileged sidecar containers cannot access unix domain socket
             # created by privileged CSI driver container.
             privileged: true
           env:
-            - name: ADDRESS
-              value: /csi/csi.sock
-            - name: DRIVER_REG_SOCK_PATH
-              value: /var/lib/kubelet/plugins/csi-shrts/csi.sock
             - name: KUBE_NODE_NAME
               valueFrom:
                 fieldRef:
+                  apiVersion: v1
                   fieldPath: spec.nodeName
           volumeMounts:
-            - mountPath: /csi
-              name: socket-dir
-            - mountPath: /registration
-              name: registration-dir
-            - mountPath: /csi-data-dir
-              name: csi-data-dir
-        - name: csi-shrts-plugin
+          - mountPath: /csi
+            name: socket-dir
+          - mountPath: /registration
+            name: registration-dir
+          - mountPath: /csi-data-dir
+            name: csi-data-dir
+        - name: hostpath
           image: batazor/shortlink-csi
-          imagePullPolicy: "Always"
-          args :
+          args:
+            - "--drivername=hostpath.csi.k8s.io"
+            - "--v=5"
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(KUBE_NODE_NAME)"
           env:
@@ -70,33 +76,43 @@ spec:
                   fieldPath: spec.nodeName
           securityContext:
             privileged: true
-            capabilities:
-              add: [ "SYS_ADMIN" ]
-            allowPrivilegeEscalation: true
-          volumeMounts:
-            - name: socket-dir
-              mountPath: /csi
-            - name: mountpoint-dir
-              mountPath: /var/lib/kubelet/pods
-              mountPropagation: Bidirectional
-            - name: plugins-dir
-              mountPath: /var/lib/kubelet/plugins
-              mountPropagation: Bidirectional
-            - name: csi-data-dir
-              mountPath: /csi-data-dir
-            - name: dev-dir
-              mountPath: /dev
-        - name: liveness-probe
+          ports:
+          - containerPort: 9898
+            name: healthz
+            protocol: TCP
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /healthz
+              port: healthz
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 2
           volumeMounts:
             - mountPath: /csi
               name: socket-dir
+            - mountPath: /var/lib/kubelet/pods
+              mountPropagation: Bidirectional
+              name: mountpoint-dir
+            - mountPath: /var/lib/kubelet/plugins
+              mountPropagation: Bidirectional
+              name: plugins-dir
+            - mountPath: /csi-data-dir
+              name: csi-data-dir
+            - mountPath: /dev
+              name: dev-dir
+        - name: liveness-probe
+          volumeMounts:
+          - mountPath: /csi
+            name: socket-dir
           image: k8s.gcr.io/sig-storage/livenessprobe:v2.1.0
           args:
-            - --csi-address=/csi/csi.sock
-            - --health-port=9898
+          - --csi-address=/csi/csi.sock
+          - --health-port=9898
+
       volumes:
         - hostPath:
-            path: /var/lib/kubelet/plugins/csi-shrts
+            path: /var/lib/kubelet/plugins/csi-hostpath
             type: DirectoryOrCreate
           name: socket-dir
         - hostPath:
