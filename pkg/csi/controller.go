@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"math"
-	"path/filepath"
 	"sort"
 	"strconv"
 
@@ -13,6 +12,7 @@ import (
 	"github.com/pborman/uuid"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	utilexec "k8s.io/utils/exec"
 
 	"github.com/batazor/shortlink/internal/logger/field"
 )
@@ -266,12 +266,16 @@ func (d *Driver) ControllerGetCapabilities(ctx context.Context, req *csi.Control
 // CreateSnapshot will be called by the CO to create a new snapshot from a
 // source volume on behalf of a user.
 func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequest) (*csi.CreateSnapshotResponse, error) {
-	if req.GetName() == "" {
-		return nil, status.Error(codes.InvalidArgument, "CreateSnapshot Name must be provided")
+	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT); err != nil {
+		return nil, err
 	}
 
-	if req.GetSourceVolumeId() == "" {
-		return nil, status.Error(codes.InvalidArgument, "CreateSnapshot Source Volume ID must be provided")
+	if len(req.GetName()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Name missing in request")
+	}
+
+	if len(req.GetSourceVolumeId()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "SourceVolumeId missing in request")
 	}
 
 	d.log.Info("create snapshot is called", field.Fields{
@@ -281,6 +285,26 @@ func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 		"method":               "create_snapshot",
 	})
 
+	// Need to check for already existing snapshot name, and if found check for the
+	// requested sourceVolumeId and sourceVolumeId of snapshot that has been created.
+	if exSnap, err := getSnapshotByName(req.GetName()); err == nil {
+		// Since err is nil, it means the snapshot with the same name already exists need
+		// to check if the sourceVolumeId of existing snapshot is the same as in new request.
+		if exSnap.VolID == req.GetSourceVolumeId() {
+			// same snapshot has been created.
+			return &csi.CreateSnapshotResponse{
+				Snapshot: &csi.Snapshot{
+					SnapshotId:     exSnap.Id,
+					SourceVolumeId: exSnap.VolID,
+					CreationTime:   &exSnap.CreationTime,
+					SizeBytes:      exSnap.SizeBytes,
+					ReadyToUse:     exSnap.ReadyToUse,
+				},
+			}, nil
+		}
+		return nil, status.Errorf(codes.AlreadyExists, "snapshot with the same name: %s but with different SourceVolumeId already exist", req.GetName())
+	}
+
 	volumeID := req.GetSourceVolumeId()
 	hostPathVolume, ok := hostPathVolumes[volumeID]
 	if !ok {
@@ -289,7 +313,20 @@ func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 
 	snapshotID := uuid.NewUUID().String()
 	creationTime := ptypes.TimestampNow()
-	file := filepath.Join(d.dataRoot, fmt.Sprintf("%s%s", snapshotID, d.snapshotExt))
+	volPath := hostPathVolume.VolPath
+	file := getSnapshotPath(snapshotID)
+
+	var cmd []string
+	if hostPathVolume.VolAccessType == blockAccess {
+		cmd = []string{"cp", volPath, file}
+	} else {
+		cmd = []string{"tar", "czf", file, "-C", volPath, "."}
+	}
+	executor := utilexec.New()
+	out, err := executor.Command(cmd[0], cmd[1:]...).CombinedOutput()
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed create snapshot: %v: %s", err, out)
+	}
 
 	snapshot := hostPathSnapshot{}
 	snapshot.Name = req.GetName()
@@ -300,7 +337,7 @@ func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 	snapshot.SizeBytes = hostPathVolume.VolSize
 	snapshot.ReadyToUse = true
 
-	d.hostPathVolumeSnapshots[snapshotID] = snapshot
+	hostPathVolumeSnapshots[snapshotID] = snapshot
 
 	return &csi.CreateSnapshotResponse{
 		Snapshot: &csi.Snapshot{
@@ -336,7 +373,7 @@ func (d *Driver) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequ
 
 	// Delete shapshot ;-)
 	snapshotID := req.GetSnapshotId()
-	delete(d.hostPathVolumeSnapshots, snapshotID)
+	delete(hostPathVolumeSnapshots, snapshotID)
 
 	return &csi.DeleteSnapshotResponse{}, nil
 }
@@ -364,14 +401,14 @@ func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	// case 1: SnapshotId is not empty, return snapshots that match the snapshot id.
 	if len(req.GetSnapshotId()) != 0 {
 		snapshotID := req.SnapshotId
-		if snapshot, ok := d.hostPathVolumeSnapshots[snapshotID]; ok {
+		if snapshot, ok := hostPathVolumeSnapshots[snapshotID]; ok {
 			return convertSnapshot(snapshot), nil
 		}
 	}
 
 	// case 2: SourceVolumeId is not empty, return snapshots that match the source volume id.
 	if len(req.GetSourceVolumeId()) != 0 {
-		for _, snapshot := range d.hostPathVolumeSnapshots {
+		for _, snapshot := range hostPathVolumeSnapshots {
 			if snapshot.VolID == req.SourceVolumeId {
 				return convertSnapshot(snapshot), nil
 			}
@@ -380,13 +417,13 @@ func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 
 	// case 3: no parameter is set, so we return all the snapshots.
 	sortedKeys := make([]string, 0)
-	for k := range d.hostPathVolumeSnapshots {
+	for k := range hostPathVolumeSnapshots {
 		sortedKeys = append(sortedKeys, k)
 	}
 	sort.Strings(sortedKeys)
 
 	for _, key := range sortedKeys {
-		snap := d.hostPathVolumeSnapshots[key]
+		snap := hostPathVolumeSnapshots[key]
 		snapshot := csi.Snapshot{
 			SnapshotId:     snap.Id,
 			SourceVolumeId: snap.VolID,

@@ -13,7 +13,25 @@ import (
 	"github.com/batazor/shortlink/pkg/csi/di"
 )
 
+// TODO: Use cobra
+var (
+	endpoint          = flag.String("endpoint", "unix://tmp/csi.sock", "CSI endpoint")
+	driverName        = flag.String("drivername", "hostpath.csi.k8s.io", "name of the driver")
+	nodeID            = flag.String("nodeid", "", "node id")
+	ephemeral         = flag.Bool("ephemeral", false, "publish volumes in ephemeral mode even if kubelet did not ask for it (only needed for Kubernetes 1.15)")
+	maxVolumesPerNode = flag.Int64("maxvolumespernode", 0, "limit of volumes per node")
+	showVersion       = flag.Bool("version", false, "Show version.")
+	// Set by the build process
+	version = ""
+)
+
+func init() {
+	flag.Set("logtostderr", "true")
+}
+
 func main() {
+	flag.Parse()
+
 	// Create a new context
 	ctx := context.Background()
 
@@ -26,17 +44,6 @@ func main() {
 
 		panic(err)
 	}
-
-	// TODO: Use cobra
-	var (
-		endpoint = flag.String("endpoint", "unix:///var/kubelet/plugins/"+csi_driver.DefaultDriverName+"/csi.sock", "CSI endpoint")
-		nodeID   = flag.String("nodeid", "", "node id")
-		//driverName = flag.String("driver-name", csi_driver.DefaultDriverName, "Name for the driver")
-		// TODO: add version package
-		//version = flag.Bool("version", false, "Print the version and exit.")
-	)
-
-	flag.Parse()
 
 	// Run CSI Driver
 	drv, err := csi_driver.NewDriver(*endpoint, *nodeID, s.Log)
