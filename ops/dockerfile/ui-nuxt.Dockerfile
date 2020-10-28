@@ -1,4 +1,4 @@
-FROM node:14.13-alpine as builder
+FROM node:14.15-alpine as builder
 
 WORKDIR /app
 ADD ./pkg/ui/nuxt /app/
