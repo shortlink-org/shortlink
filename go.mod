@@ -18,7 +18,7 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
-	github.com/gocql/gocql v0.0.0-20200926162733-393f0c961220
+	github.com/gocql/gocql v0.0.0-20201024154641-5913df4d474e
 	github.com/golang-migrate/migrate/v4 v4.13.0
 	github.com/golang/protobuf v1.4.3
 	github.com/google/uuid v1.1.2 // indirect
