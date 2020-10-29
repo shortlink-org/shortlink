@@ -1,7 +1,7 @@
-FROM node:14.13-alpine as builder
+FROM node:14.15-alpine as builder
 
 WORKDIR /app
-ADD ./pkg/ui/next /app/
+COPY ./pkg/ui/next /app/
 
 RUN npm i && \
   npm run generate
