@@ -1,71 +1,90 @@
+/*
+Copyright 2017 The Kubernetes Authors.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package csi_driver
 
 import (
-	"context"
 	"fmt"
 	"math"
+	"os"
+	"path/filepath"
 	"sort"
 	"strconv"
 
-	"github.com/container-storage-interface/spec/lib/go/csi"
 	"github.com/golang/protobuf/ptypes"
+
+	"github.com/golang/glog"
 	"github.com/pborman/uuid"
+	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	"github.com/container-storage-interface/spec/lib/go/csi"
 	utilexec "k8s.io/utils/exec"
-
-	"github.com/batazor/shortlink/internal/logger/field"
 )
 
 const (
-	_   = iota
-	kiB = 1 << (10 * iota)
-	miB
-	giB
-	tiB
+	deviceID           = "deviceID"
+	maxStorageCapacity = tib
 )
+
+type accessType int
 
 const (
-	// minimumVolumeSizeInBytes is used to validate that the user is not trying
-	// to create a volume that is smaller than what we support
-	minimumVolumeSizeInBytes int64 = 1 * miB
-
-	// maximumVolumeSizeInBytes is used to validate that the user is not trying
-	// to create a volume that is larger than what we support
-	maximumVolumeSizeInBytes int64 = 16 * tiB
-
-	// defaultVolumeSizeInBytes is used when the user did not provide a size or
-	// the size they provided did not satisfy our requirements
-	defaultVolumeSizeInBytes int64 = 1 * giB
-
-	// createdBy is used to tag volumes that are created by this CSI plugin
-	createdBy = "Created by shrts CSI driver"
+	mountAccess accessType = iota
+	blockAccess
 )
 
-// CreateVolume creates a new volume from the given request. The function is idempotent.
-func (d *Driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest) (*csi.CreateVolumeResponse, error) {
-	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME); err != nil {
-		d.log.Error(fmt.Sprintf("invalid create snapshot req: %v", req))
+type controllerServer struct {
+	caps   []*csi.ControllerServiceCapability
+	nodeID string
+}
+
+func (cs *controllerServer) ControllerGetVolume(ctx context.Context, request *csi.ControllerGetVolumeRequest) (*csi.ControllerGetVolumeResponse, error) {
+	panic("implement me")
+}
+
+func NewControllerServer(ephemeral bool, nodeID string) *controllerServer {
+	if ephemeral {
+		return &controllerServer{caps: getControllerServiceCapabilities(nil), nodeID: nodeID}
+	}
+	return &controllerServer{
+		caps: getControllerServiceCapabilities(
+			[]csi.ControllerServiceCapability_RPC_Type{
+				csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME,
+				csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT,
+				csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS,
+				csi.ControllerServiceCapability_RPC_CLONE_VOLUME,
+				csi.ControllerServiceCapability_RPC_EXPAND_VOLUME,
+			}),
+		nodeID: nodeID,
+	}
+}
+
+func (cs *controllerServer) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest) (*csi.CreateVolumeResponse, error) {
+	if err := cs.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME); err != nil {
+		glog.V(3).Infof("invalid create volume req: %v", req)
 		return nil, err
 	}
 
 	// Check arguments
 	if len(req.GetName()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Name must be provided")
+		return nil, status.Error(codes.InvalidArgument, "Name missing in request")
 	}
-
 	caps := req.GetVolumeCapabilities()
 	if caps == nil {
-		return nil, status.Error(codes.InvalidArgument, "Volume capabilities must be provided")
+		return nil, status.Error(codes.InvalidArgument, "Volume Capabilities missing in request")
 	}
-
-	// TODO: use real size
-	d.log.Info("create volume called", field.Fields{
-		"volume_name":             req.Name,
-		"storage_size_giga_bytes": 1 / giB,
-		"method":                  "create_volume",
-		"volume_capabilities":     req.VolumeCapabilities,
-	})
 
 	// Keep a record of the requested access types.
 	var accessTypeMount, accessTypeBlock bool
@@ -78,7 +97,6 @@ func (d *Driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 			accessTypeMount = true
 		}
 	}
-
 	// A real driver would also need to check that the other
 	// fields in VolumeCapabilities are sane. The check above is
 	// just enough to pass the "[Testpattern: Dynamic PV (block
@@ -89,201 +107,200 @@ func (d *Driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 		return nil, status.Error(codes.InvalidArgument, "cannot have both block and mount access type")
 	}
 
+	var requestedAccessType accessType
+
+	if accessTypeBlock {
+		requestedAccessType = blockAccess
+	} else {
+		// Default to mount.
+		requestedAccessType = mountAccess
+	}
+
 	// Check for maximum available capacity
-	capacity := req.GetCapacityRange().GetRequiredBytes()
-	if capacity >= maximumVolumeSizeInBytes {
-		return nil, status.Errorf(codes.OutOfRange, "Requested capacity %d exceeds maximum allowed %d", capacity, maximumVolumeSizeInBytes)
+	capacity := int64(req.GetCapacityRange().GetRequiredBytes())
+	if capacity >= maxStorageCapacity {
+		return nil, status.Errorf(codes.OutOfRange, "Requested capacity %d exceeds maximum allowed %d", capacity, maxStorageCapacity)
+	}
+
+	// Need to check for already existing volume name, and if found
+	// check for the requested capacity and already allocated capacity
+	if exVol, err := getVolumeByName(req.GetName()); err == nil {
+		// Since err is nil, it means the volume with the same name already exists
+		// need to check if the size of existing volume is the same as in new
+		// request
+		if exVol.VolSize < capacity {
+			return nil, status.Errorf(codes.AlreadyExists, "Volume with the same name: %s but with different size already exist", req.GetName())
+		}
+		if req.GetVolumeContentSource() != nil {
+			volumeSource := req.VolumeContentSource
+			switch volumeSource.Type.(type) {
+			case *csi.VolumeContentSource_Snapshot:
+				if volumeSource.GetSnapshot() != nil && exVol.ParentSnapID != volumeSource.GetSnapshot().GetSnapshotId() {
+					return nil, status.Error(codes.AlreadyExists, "existing volume source snapshot id not matching")
+				}
+			case *csi.VolumeContentSource_Volume:
+				if volumeSource.GetVolume() != nil && exVol.ParentVolID != volumeSource.GetVolume().GetVolumeId() {
+					return nil, status.Error(codes.AlreadyExists, "existing volume source volume id not matching")
+				}
+			default:
+				return nil, status.Errorf(codes.InvalidArgument, "%v not a proper volume source", volumeSource)
+			}
+		}
+		// TODO (sbezverk) Do I need to make sure that volume still exists?
+		return &csi.CreateVolumeResponse{
+			Volume: &csi.Volume{
+				VolumeId:      exVol.VolID,
+				CapacityBytes: int64(exVol.VolSize),
+				VolumeContext: req.GetParameters(),
+				ContentSource: req.GetVolumeContentSource(),
+			},
+		}, nil
 	}
 
 	volumeID := uuid.NewUUID().String()
 
+	vol, err := createHostpathVolume(volumeID, req.GetName(), capacity, requestedAccessType, false /* ephemeral */)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to create volume %v: %v", volumeID, err)
+	}
+	glog.V(4).Infof("created volume %s at path %s", vol.VolID, vol.VolPath)
+
+	if req.GetVolumeContentSource() != nil {
+		path := getVolumePath(volumeID)
+		volumeSource := req.VolumeContentSource
+		switch volumeSource.Type.(type) {
+		case *csi.VolumeContentSource_Snapshot:
+			if snapshot := volumeSource.GetSnapshot(); snapshot != nil {
+				err = loadFromSnapshot(capacity, snapshot.GetSnapshotId(), path, requestedAccessType)
+				vol.ParentSnapID = snapshot.GetSnapshotId()
+			}
+		case *csi.VolumeContentSource_Volume:
+			if srcVolume := volumeSource.GetVolume(); srcVolume != nil {
+				err = loadFromVolume(capacity, srcVolume.GetVolumeId(), path, requestedAccessType)
+				vol.ParentVolID = srcVolume.GetVolumeId()
+			}
+		default:
+			err = status.Errorf(codes.InvalidArgument, "%v not a proper volume source", volumeSource)
+		}
+		if err != nil {
+			if delErr := deleteHostpathVolume(volumeID); delErr != nil {
+				glog.V(2).Infof("deleting hostpath volume %v failed: %v", volumeID, delErr)
+			}
+			return nil, err
+		}
+		glog.V(4).Infof("successfully populated volume %s", vol.VolID)
+	}
+
+	topologies := []*csi.Topology{&csi.Topology{
+		Segments: map[string]string{TopologyKeyNode: cs.nodeID},
+	}}
+
 	return &csi.CreateVolumeResponse{
 		Volume: &csi.Volume{
-			VolumeId:      volumeID,
-			CapacityBytes: req.GetCapacityRange().GetRequiredBytes(),
-			VolumeContext: req.GetParameters(),
-			ContentSource: req.GetVolumeContentSource(),
+			VolumeId:           volumeID,
+			CapacityBytes:      req.GetCapacityRange().GetRequiredBytes(),
+			VolumeContext:      req.GetParameters(),
+			ContentSource:      req.GetVolumeContentSource(),
+			AccessibleTopology: topologies,
 		},
 	}, nil
 }
 
-// DeleteVolume deletes the given volume. The function is idempotent.
-func (d *Driver) DeleteVolume(ctx context.Context, req *csi.DeleteVolumeRequest) (*csi.DeleteVolumeResponse, error) {
-	if req.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "DeleteVolume Volume ID must be provided")
+func (cs *controllerServer) DeleteVolume(ctx context.Context, req *csi.DeleteVolumeRequest) (*csi.DeleteVolumeResponse, error) {
+	// Check arguments
+	if len(req.GetVolumeId()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Volume ID missing in request")
 	}
 
-	d.log.Info("delete volume called", field.Fields{
-		"volume_id": req.VolumeId,
-		"method":    "delete_volume",
-	})
+	if err := cs.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME); err != nil {
+		glog.V(3).Infof("invalid delete volume req: %v", req)
+		return nil, err
+	}
+
+	volId := req.GetVolumeId()
+	if err := deleteHostpathVolume(volId); err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to delete volume %v: %v", volId, err)
+	}
+
+	glog.V(4).Infof("volume %v successfully deleted", volId)
 
 	return &csi.DeleteVolumeResponse{}, nil
 }
 
-// ControllerPublishVolume attaches the given volume to the node
-func (d *Driver) ControllerPublishVolume(ctx context.Context, req *csi.ControllerPublishVolumeRequest) (*csi.ControllerPublishVolumeResponse, error) {
-	if req.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "ControllerPublishVolume Volume ID must be provided")
-	}
-
-	if req.NodeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "ControllerPublishVolume Node ID must be provided")
-	}
-
-	if req.VolumeCapability == nil {
-		return nil, status.Error(codes.InvalidArgument, "ControllerPublishVolume Volume capability must be provided")
-	}
-
-	if req.Readonly {
-		// TODO(arslan): we should return codes.InvalidArgument, but the CSI
-		// test fails, because according to the CSI Spec, this flag cannot be
-		// changed on the same volume. However we don't use this flag at all,
-		// as there are no `readonly` attachable volumes.
-		return nil, status.Error(codes.AlreadyExists, "read only Volumes are not supported")
-	}
-
-	d.log.Info("controller publish volume called", field.Fields{
-		"volume_id": req.VolumeId,
-		"node_id":   req.NodeId,
-		"method":    "controller_publish_volume",
-	})
-
-	return &csi.ControllerPublishVolumeResponse{
-		PublishContext: map[string]string{},
+func (cs *controllerServer) ControllerGetCapabilities(ctx context.Context, req *csi.ControllerGetCapabilitiesRequest) (*csi.ControllerGetCapabilitiesResponse, error) {
+	return &csi.ControllerGetCapabilitiesResponse{
+		Capabilities: cs.caps,
 	}, nil
 }
 
-// ControllerUnpublishVolume deattaches the given volume from the node
-func (d *Driver) ControllerUnpublishVolume(ctx context.Context, req *csi.ControllerUnpublishVolumeRequest) (*csi.ControllerUnpublishVolumeResponse, error) {
-	if req.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "ControllerUnpublishVolume Volume ID must be provided")
+func (cs *controllerServer) ValidateVolumeCapabilities(ctx context.Context, req *csi.ValidateVolumeCapabilitiesRequest) (*csi.ValidateVolumeCapabilitiesResponse, error) {
+
+	// Check arguments
+	if len(req.GetVolumeId()) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Volume ID cannot be empty")
+	}
+	if len(req.VolumeCapabilities) == 0 {
+		return nil, status.Error(codes.InvalidArgument, req.VolumeId)
 	}
 
-	d.log.Info("controller unpublish volume called", field.Fields{
-		"volume_id": req.VolumeId,
-		"node_id":   req.NodeId,
-		"method":    "controller_unpublish_volume",
-	})
-
-	return &csi.ControllerUnpublishVolumeResponse{}, nil
-}
-
-// ValidateVolumeCapabilities checks whether the volume capabilities requested are supported.
-func (d *Driver) ValidateVolumeCapabilities(ctx context.Context, req *csi.ValidateVolumeCapabilitiesRequest) (*csi.ValidateVolumeCapabilitiesResponse, error) {
-	if req.VolumeId == "" {
-		return nil, status.Error(codes.InvalidArgument, "ValidateVolumeCapabilities Volume ID must be provided")
+	if _, err := getVolumeByID(req.GetVolumeId()); err != nil {
+		return nil, status.Error(codes.NotFound, req.GetVolumeId())
 	}
 
-	if req.VolumeCapabilities == nil {
-		return nil, status.Error(codes.InvalidArgument, "ValidateVolumeCapabilities Volume Capabilities must be provided")
-	}
+	for _, cap := range req.GetVolumeCapabilities() {
+		if cap.GetMount() == nil && cap.GetBlock() == nil {
+			return nil, status.Error(codes.InvalidArgument, "cannot have both mount and block access type be undefined")
+		}
 
-	d.log.Info("validate volume capabilities called", field.Fields{
-		"volume_id":           req.VolumeId,
-		"volume_capabilities": req.VolumeCapabilities,
-		"method":              "validate_volume_capabilities",
-	})
+		// A real driver would check the capabilities of the given volume with
+		// the set of requested capabilities.
+	}
 
 	return &csi.ValidateVolumeCapabilitiesResponse{
 		Confirmed: &csi.ValidateVolumeCapabilitiesResponse_Confirmed{
-			VolumeCapabilities: []*csi.VolumeCapability{
-				{
-					AccessMode: &csi.VolumeCapability_AccessMode{
-						Mode: csi.VolumeCapability_AccessMode_MULTI_NODE_MULTI_WRITER,
-					},
-				},
-			},
+			VolumeContext:      req.GetVolumeContext(),
+			VolumeCapabilities: req.GetVolumeCapabilities(),
+			Parameters:         req.GetParameters(),
 		},
 	}, nil
 }
 
-// ListVolumes returns a list of all requested volumes
-func (d *Driver) ListVolumes(ctx context.Context, req *csi.ListVolumesRequest) (*csi.ListVolumesResponse, error) {
-	d.log.Info("list volumes called", field.Fields{
-		"max_entries":        req.MaxEntries,
-		"req_starting_token": req.StartingToken,
-		"method":             "list_volumes",
-	})
-
-	if req.StartingToken != "" {
-		_, err := strconv.ParseInt(req.StartingToken, 10, 32)
-		if err != nil {
-			return nil, status.Errorf(codes.Aborted, "ListVolumes starting token %q is not valid: %s", req.StartingToken, err)
-		}
-	}
-
-	return &csi.ListVolumesResponse{
-		Entries: []*csi.ListVolumesResponse_Entry{},
-	}, nil
+func (cs *controllerServer) ControllerPublishVolume(ctx context.Context, req *csi.ControllerPublishVolumeRequest) (*csi.ControllerPublishVolumeResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "")
 }
 
-// GetCapacity returns the capacity of the storage pool
-func (d *Driver) GetCapacity(ctx context.Context, req *csi.GetCapacityRequest) (*csi.GetCapacityResponse, error) {
-	d.log.Info("get capacity is not implemented", field.Fields{
-		"params": req.Parameters,
-		"method": "get_capacity",
-	})
-
-	return &csi.GetCapacityResponse{}, nil
+func (cs *controllerServer) ControllerUnpublishVolume(ctx context.Context, req *csi.ControllerUnpublishVolumeRequest) (*csi.ControllerUnpublishVolumeResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "")
 }
 
-// ControllerGetCapabilities returns the capabilities of the controller service.
-func (d *Driver) ControllerGetCapabilities(ctx context.Context, req *csi.ControllerGetCapabilitiesRequest) (*csi.ControllerGetCapabilitiesResponse, error) {
-	newCap := func(cap csi.ControllerServiceCapability_RPC_Type) *csi.ControllerServiceCapability {
-		return &csi.ControllerServiceCapability{
-			Type: &csi.ControllerServiceCapability_Rpc{
-				Rpc: &csi.ControllerServiceCapability_RPC{
-					Type: cap,
-				},
-			},
-		}
-	}
-
-	var caps []*csi.ControllerServiceCapability
-	for _, cap := range []csi.ControllerServiceCapability_RPC_Type{
-		csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME,
-		csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT,
-		csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS,
-		csi.ControllerServiceCapability_RPC_CLONE_VOLUME,
-		csi.ControllerServiceCapability_RPC_EXPAND_VOLUME,
-	} {
-		caps = append(caps, newCap(cap))
-	}
-
-	resp := &csi.ControllerGetCapabilitiesResponse{
-		Capabilities: caps,
-	}
-
-	d.log.Info("controller get capabilities called", field.Fields{
-		"response": resp,
-		"method":   "controller_get_capabilities",
-	})
-
-	return resp, nil
+func (cs *controllerServer) GetCapacity(ctx context.Context, req *csi.GetCapacityRequest) (*csi.GetCapacityResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "")
 }
 
-// CreateSnapshot will be called by the CO to create a new snapshot from a
-// source volume on behalf of a user.
-func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequest) (*csi.CreateSnapshotResponse, error) {
-	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT); err != nil {
+func (cs *controllerServer) ListVolumes(ctx context.Context, req *csi.ListVolumesRequest) (*csi.ListVolumesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "")
+}
+
+// getSnapshotPath returns the full path to where the snapshot is stored
+func getSnapshotPath(snapshotID string) string {
+	return filepath.Join(dataRoot, fmt.Sprintf("%s%s", snapshotID, snapshotExt))
+}
+
+// CreateSnapshot uses tar command to create snapshot for hostpath volume. The tar command can quickly create
+// archives of entire directories. The host image must have "tar" binaries in /bin, /usr/sbin, or /usr/bin.
+func (cs *controllerServer) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequest) (*csi.CreateSnapshotResponse, error) {
+	if err := cs.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT); err != nil {
+		glog.V(3).Infof("invalid create snapshot req: %v", req)
 		return nil, err
 	}
 
 	if len(req.GetName()) == 0 {
 		return nil, status.Error(codes.InvalidArgument, "Name missing in request")
 	}
-
+	// Check arguments
 	if len(req.GetSourceVolumeId()) == 0 {
 		return nil, status.Error(codes.InvalidArgument, "SourceVolumeId missing in request")
 	}
-
-	d.log.Info("create snapshot is called", field.Fields{
-		"req_name":             req.GetName(),
-		"req_source_volume_id": req.GetSourceVolumeId(),
-		"req_parameters":       req.GetParameters(),
-		"method":               "create_snapshot",
-	})
 
 	// Need to check for already existing snapshot name, and if found check for the
 	// requested sourceVolumeId and sourceVolumeId of snapshot that has been created.
@@ -318,8 +335,10 @@ func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 
 	var cmd []string
 	if hostPathVolume.VolAccessType == blockAccess {
+		glog.V(4).Infof("Creating snapshot of Raw Block Mode Volume")
 		cmd = []string{"cp", volPath, file}
 	} else {
+		glog.V(4).Infof("Creating snapshot of Filsystem Mode Volume")
 		cmd = []string{"tar", "czf", file, "-C", volPath, "."}
 	}
 	executor := utilexec.New()
@@ -328,6 +347,7 @@ func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 		return nil, status.Errorf(codes.Internal, "failed create snapshot: %v: %s", err, out)
 	}
 
+	glog.V(4).Infof("create volume snapshot %s", file)
 	snapshot := hostPathSnapshot{}
 	snapshot.Name = req.GetName()
 	snapshot.Id = snapshotID
@@ -350,53 +370,29 @@ func (d *Driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 	}, nil
 }
 
-// DeleteSnapshot will be called by the CO to delete a snapshot.
-func (d *Driver) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequest) (*csi.DeleteSnapshotResponse, error) {
+func (cs *controllerServer) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequest) (*csi.DeleteSnapshotResponse, error) {
 	// Check arguments
 	if len(req.GetSnapshotId()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Snapshot ID must be provided")
+		return nil, status.Error(codes.InvalidArgument, "Snapshot ID missing in request")
 	}
 
-	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT); err != nil {
-		d.log.Error(fmt.Sprintf("invalid delete snapshot req: %v", req))
+	if err := cs.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_SNAPSHOT); err != nil {
+		glog.V(3).Infof("invalid delete snapshot req: %v", req)
 		return nil, err
 	}
-
-	if d.snapshots[req.GetSnapshotId()] == nil {
-		return nil, status.Error(codes.NotFound, fmt.Sprintf("Snapshot not found by id: %s", req.GetSnapshotId()))
-	}
-
-	d.log.Info("delete snapshot is called", field.Fields{
-		"req_snapshot_id": req.GetSnapshotId(),
-		"method":          "delete_snapshot",
-	})
-
-	// Delete shapshot ;-)
 	snapshotID := req.GetSnapshotId()
+	glog.V(4).Infof("deleting snapshot %s", snapshotID)
+	path := getSnapshotPath(snapshotID)
+	os.RemoveAll(path)
 	delete(hostPathVolumeSnapshots, snapshotID)
-
 	return &csi.DeleteSnapshotResponse{}, nil
 }
 
-// ListSnapshots returns the information about all snapshots on the storage
-// system within the given parameters regardless of how they were created.
-// ListSnapshots shold not list a snapshot that is being created but has not
-// been cut successfully yet.
-func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsRequest) (*csi.ListSnapshotsResponse, error) {
-	var snapshots []csi.Snapshot
-
-	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS); err != nil {
-		d.log.Error(fmt.Sprintf("invalid list snapshot req: %v", req))
+func (cs *controllerServer) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsRequest) (*csi.ListSnapshotsResponse, error) {
+	if err := cs.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS); err != nil {
+		glog.V(3).Infof("invalid list snapshot req: %v", req)
 		return nil, err
 	}
-
-	d.log.Info("list snapshots is called", field.Fields{
-		"snapshot_id":        req.SnapshotId,
-		"source_volume_id":   req.SourceVolumeId,
-		"max_entries":        req.MaxEntries,
-		"req_starting_token": req.StartingToken,
-		"method":             "list_snapshots",
-	})
 
 	// case 1: SnapshotId is not empty, return snapshots that match the snapshot id.
 	if len(req.GetSnapshotId()) != 0 {
@@ -415,6 +411,7 @@ func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 		}
 	}
 
+	var snapshots []csi.Snapshot
 	// case 3: no parameter is set, so we return all the snapshots.
 	sortedKeys := make([]string, 0)
 	for k := range hostPathVolumeSnapshots {
@@ -446,9 +443,7 @@ func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 			return nil, status.Errorf(
 				codes.Aborted,
 				"startingToken=%d !< int32=%d",
-				startingToken,
-				math.MaxUint32,
-			)
+				startingToken, math.MaxUint32)
 		}
 		startingToken = int32(i)
 	}
@@ -457,9 +452,7 @@ func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 		return nil, status.Errorf(
 			codes.Aborted,
 			"startingToken=%d > len(snapshots)=%d",
-			startingToken,
-			ulenSnapshots,
-		)
+			startingToken, ulenSnapshots)
 	}
 
 	// Discern the number of remaining entries.
@@ -474,7 +467,9 @@ func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	var (
 		i       int
 		j       = startingToken
-		entries = make([]*csi.ListSnapshotsResponse_Entry, maxEntries)
+		entries = make(
+			[]*csi.ListSnapshotsResponse_Entry,
+			maxEntries)
 	)
 
 	for i = 0; i < len(entries); i++ {
@@ -495,8 +490,8 @@ func (d *Driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	}, nil
 }
 
-// ControllerExpandVolume is called from the resizer to increase the volume size.
-func (d *Driver) ControllerExpandVolume(ctx context.Context, req *csi.ControllerExpandVolumeRequest) (*csi.ControllerExpandVolumeResponse, error) {
+func (cs *controllerServer) ControllerExpandVolume(ctx context.Context, req *csi.ControllerExpandVolumeRequest) (*csi.ControllerExpandVolumeResponse, error) {
+
 	volID := req.GetVolumeId()
 	if len(volID) == 0 {
 		return nil, status.Error(codes.InvalidArgument, "Volume ID missing in request")
@@ -507,37 +502,28 @@ func (d *Driver) ControllerExpandVolume(ctx context.Context, req *csi.Controller
 		return nil, status.Error(codes.InvalidArgument, "Capacity range not provided")
 	}
 
-	return &csi.ControllerExpandVolumeResponse{
-		CapacityBytes:         0,
-		NodeExpansionRequired: true,
-	}, nil
-}
-
-// ControllerGetVolume gets a specific volume.
-// The call is used for the CSI health check feature
-// (https://github.com/kubernetes/enhancements/pull/1077) which we do not support yet.
-func (d *Driver) ControllerGetVolume(ctx context.Context, req *csi.ControllerGetVolumeRequest) (*csi.ControllerGetVolumeResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "")
-}
-
-// TOOLS ===============================================================================================================
-func (d *Driver) validateControllerServiceRequest(c csi.ControllerServiceCapability_RPC_Type) error {
-	if c == csi.ControllerServiceCapability_RPC_UNKNOWN {
-		return nil
+	capacity := int64(capRange.GetRequiredBytes())
+	if capacity >= maxStorageCapacity {
+		return nil, status.Errorf(codes.OutOfRange, "Requested capacity %d exceeds maximum allowed %d", capacity, maxStorageCapacity)
 	}
 
-	caps, err := d.ControllerGetCapabilities(context.Background(), nil)
+	exVol, err := getVolumeByID(volID)
 	if err != nil {
-		return err
+		// Assume not found error
+		return nil, status.Errorf(codes.NotFound, "Could not get volume %s: %v", volID, err)
 	}
 
-	for _, cap := range caps.Capabilities {
-		if c == cap.GetRpc().GetType() {
-			return nil
+	if exVol.VolSize < capacity {
+		exVol.VolSize = capacity
+		if err := updateHostpathVolume(volID, exVol); err != nil {
+			return nil, status.Errorf(codes.Internal, "Could not update volume %s: %v", volID, err)
 		}
 	}
 
-	return status.Errorf(codes.InvalidArgument, "unsupported capability %s", c)
+	return &csi.ControllerExpandVolumeResponse{
+		CapacityBytes:         exVol.VolSize,
+		NodeExpansionRequired: true,
+	}, nil
 }
 
 func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse {
@@ -558,4 +544,34 @@ func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse {
 	}
 
 	return rsp
+}
+
+func (cs *controllerServer) validateControllerServiceRequest(c csi.ControllerServiceCapability_RPC_Type) error {
+	if c == csi.ControllerServiceCapability_RPC_UNKNOWN {
+		return nil
+	}
+
+	for _, cap := range cs.caps {
+		if c == cap.GetRpc().GetType() {
+			return nil
+		}
+	}
+	return status.Errorf(codes.InvalidArgument, "unsupported capability %s", c)
+}
+
+func getControllerServiceCapabilities(cl []csi.ControllerServiceCapability_RPC_Type) []*csi.ControllerServiceCapability {
+	var csc []*csi.ControllerServiceCapability
+
+	for _, cap := range cl {
+		glog.Infof("Enabling controller service capability: %v", cap.String())
+		csc = append(csc, &csi.ControllerServiceCapability{
+			Type: &csi.ControllerServiceCapability_Rpc{
+				Rpc: &csi.ControllerServiceCapability_RPC{
+					Type: cap,
+				},
+			},
+		})
+	}
+
+	return csc
 }

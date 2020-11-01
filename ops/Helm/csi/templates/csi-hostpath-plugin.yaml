@@ -60,7 +60,8 @@ spec:
           - mountPath: /csi-data-dir
             name: csi-data-dir
         - name: hostpath
-          image: batazor/shortlink-csi
+          image: batazor/shortlink-csi:demo
+          imagePullPolicy: IfNotPresent
           args:
             - "--drivername=hostpath.csi.k8s.io"
             - "--v=5"
