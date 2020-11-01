@@ -2,4 +2,4 @@
 
 | name | value        |
 |------|--------------|
-| name | shrts.csi.k8s.io |
+| name | hostpath.csi.k8s.ioo |
