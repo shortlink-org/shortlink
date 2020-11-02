@@ -5,7 +5,7 @@ SNAPSHOTTER_VERSION=v3.0.1
 
 csi-build: ## Build the CSI container
 		@echo docker build image ${CI_REGISTRY_IMAGE}-csi:${CI_COMMIT_TAG}
-		@docker build --no-cache -t ${CI_REGISTRY_IMAGE}-csi:demo3 -f ops/dockerfile/csi.Dockerfile .
+		@docker build --no-cache -t ${CI_REGISTRY_IMAGE}-csi -f ops/dockerfile/csi.Dockerfile .
 
 csi-up: ## Deploy CSI plugin
 		# Apply VolumeSnapshot CRDs

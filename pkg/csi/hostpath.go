@@ -1,20 +1,7 @@
-/*
-Copyright 2017 The Kubernetes Authors.
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package csi_driver
 
 import (
-	"errors"
+	"context"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -23,12 +10,13 @@ import (
 	"strings"
 
 	"github.com/golang/glog"
+	"github.com/golang/protobuf/ptypes/timestamp"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"k8s.io/kubernetes/pkg/volume/util/volumepathhandler"
 	utilexec "k8s.io/utils/exec"
 
-	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/batazor/shortlink/internal/logger"
 )
 
 const (
@@ -47,6 +35,8 @@ type hostPath struct {
 	endpoint          string
 	ephemeral         bool
 	maxVolumesPerNode int64
+
+	log logger.Logger
 
 	ids *identityServer
 	ns  *nodeServer
@@ -96,39 +86,6 @@ func init() {
 	hostPathVolumeSnapshots = map[string]hostPathSnapshot{}
 }
 
-func NewHostPathDriver(driverName, nodeID, endpoint string, ephemeral bool, maxVolumesPerNode int64, version string) (*hostPath, error) {
-	if driverName == "" {
-		return nil, errors.New("no driver name provided")
-	}
-
-	if nodeID == "" {
-		return nil, errors.New("no node id provided")
-	}
-
-	if endpoint == "" {
-		return nil, errors.New("no driver endpoint provided")
-	}
-	if version != "" {
-		vendorVersion = version
-	}
-
-	if err := os.MkdirAll(dataRoot, 0750); err != nil {
-		return nil, fmt.Errorf("failed to create dataRoot: %v", err)
-	}
-
-	glog.Infof("Driver: %v ", driverName)
-	glog.Infof("Version: %s", vendorVersion)
-
-	return &hostPath{
-		name:              driverName,
-		version:           vendorVersion,
-		nodeID:            nodeID,
-		endpoint:          endpoint,
-		ephemeral:         ephemeral,
-		maxVolumesPerNode: maxVolumesPerNode,
-	}, nil
-}
-
 func getSnapshotID(file string) (bool, string) {
 	glog.V(4).Infof("file: %s", file)
 	// Files with .snap extension are volumesnapshot files.
@@ -158,9 +115,9 @@ func discoverExistingSnapshots() {
 	}
 }
 
-func (hp *hostPath) Run() {
+func (hp *hostPath) Run(ctx context.Context) error {
 	// Create GRPC servers
-	hp.ids = NewIdentityServer(hp.name, hp.version)
+	hp.ids = NewIdentityServer(hp.name, hp.version, hp.log)
 	hp.ns = NewNodeServer(hp.nodeID, hp.ephemeral, hp.maxVolumesPerNode)
 	hp.cs = NewControllerServer(hp.ephemeral, hp.nodeID)
 
@@ -168,6 +125,8 @@ func (hp *hostPath) Run() {
 	s := NewNonBlockingGRPCServer()
 	s.Start(hp.endpoint, hp.ids, hp.cs, hp.ns)
 	s.Wait()
+
+	return nil
 }
 
 func getVolumeByID(volumeID string) (hostPathVolume, error) {

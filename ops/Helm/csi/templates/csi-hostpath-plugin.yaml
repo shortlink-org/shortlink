@@ -63,8 +63,6 @@ spec:
           image: batazor/shortlink-csi
           imagePullPolicy: IfNotPresent
           args:
-            - "--drivername=hostpath.csi.k8s.io"
-            - "--v=5"
             - "--endpoint=$(CSI_ENDPOINT)"
             - "--nodeid=$(KUBE_NODE_NAME)"
           env:
