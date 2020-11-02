@@ -1,7 +1,7 @@
 ---
 title: "Uuid as Kp"
 date: 2020-10-04T13:48:42+03:00
-draft: true
+draft: false
 categories:
     - Database
 tags:
