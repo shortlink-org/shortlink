@@ -19,23 +19,27 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 )
 
 type identityServer struct {
 	name    string
 	version string
+	log     logger.Logger
 }
 
-func NewIdentityServer(name, version string) *identityServer {
+func NewIdentityServer(name, version string, log logger.Logger) *identityServer {
 	return &identityServer{
 		name:    name,
 		version: version,
+		log:     log,
 	}
 }
 
+// GetPluginInfo returns metadata of the plugin
 func (ids *identityServer) GetPluginInfo(ctx context.Context, req *csi.GetPluginInfoRequest) (*csi.GetPluginInfoResponse, error) {
-	glog.V(5).Infof("Using default GetPluginInfo")
-
 	if ids.name == "" {
 		return nil, status.Error(codes.Unavailable, "Driver name not configured")
 	}
@@ -44,16 +48,29 @@ func (ids *identityServer) GetPluginInfo(ctx context.Context, req *csi.GetPlugin
 		return nil, status.Error(codes.Unavailable, "Driver is missing version")
 	}
 
-	return &csi.GetPluginInfoResponse{
+	resp := &csi.GetPluginInfoResponse{
 		Name:          ids.name,
 		VendorVersion: ids.version,
-	}, nil
+	}
+
+	ids.log.InfoWithContext(ctx, "get plugin info called", field.Fields{
+		"response": resp,
+		"method":   "get_plugin_info",
+	})
+
+	return resp, nil
 }
 
+// Probe returns the health and readiness of the plugin
 func (ids *identityServer) Probe(ctx context.Context, req *csi.ProbeRequest) (*csi.ProbeResponse, error) {
+	ids.log.DebugWithContext(ctx, "probe called", field.Fields{
+		"method": "probe",
+	})
+
 	return &csi.ProbeResponse{}, nil
 }
 
+// GetPluginCapabilities returns available capabilities of the plugin
 func (ids *identityServer) GetPluginCapabilities(ctx context.Context, req *csi.GetPluginCapabilitiesRequest) (*csi.GetPluginCapabilitiesResponse, error) {
 	glog.V(5).Infof("Using default capabilities")
 	return &csi.GetPluginCapabilitiesResponse{

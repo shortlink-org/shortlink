@@ -1,46 +1,44 @@
-/*
-Copyright 2017 The Kubernetes Authors.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
+	"net"
 	"os"
+	"os/signal"
 	"path"
+	"syscall"
 
 	csi_driver "github.com/batazor/shortlink/pkg/csi"
-)
-
-func init() {
-	flag.Set("logtostderr", "true")
-}
-
-var (
-	endpoint          = flag.String("endpoint", "unix://tmp/csi.sock", "CSI endpoint")
-	driverName        = flag.String("drivername", "hostpath.csi.k8s.io", "name of the driver")
-	nodeID            = flag.String("nodeid", "", "node id")
-	ephemeral         = flag.Bool("ephemeral", false, "publish volumes in ephemeral mode even if kubelet did not ask for it (only needed for Kubernetes 1.15)")
-	maxVolumesPerNode = flag.Int64("maxvolumespernode", 0, "limit of volumes per node")
-	showVersion       = flag.Bool("version", false, "Show version.")
-	// Set by the build process
-	version = ""
+	"github.com/batazor/shortlink/pkg/csi/di"
 )
 
 func main() {
+	// Create a new context
+	ctx := context.Background()
+
+	// Init a new service
+	s, cleanup, err := di.InitializeSCIDriver(ctx)
+	if err != nil { // TODO: use as helpers
+		if r, ok := err.(*net.OpError); ok {
+			panic(fmt.Errorf("address %s already in use. Set GRPC_SERVER_PORT enviroment", r.Addr.String()))
+		}
+
+		panic(err)
+	}
+
+	// TODO: Use cobra
+	var (
+		endpoint          = flag.String("endpoint", "unix://tmp/csi.sock", "CSI endpoint")
+		nodeID            = flag.String("nodeid", "", "node id")
+		ephemeral         = flag.Bool("ephemeral", false, "publish volumes in ephemeral mode even if kubelet did not ask for it (only needed for Kubernetes 1.15)")
+		maxVolumesPerNode = flag.Int64("maxvolumespernode", 0, "limit of volumes per node")
+		showVersion       = flag.Bool("version", false, "Show version.")
+		// Set by the build process
+		version = ""
+	)
+
 	flag.Parse()
 
 	if *showVersion {
@@ -53,15 +51,22 @@ func main() {
 		fmt.Fprintln(os.Stderr, "Deprecation warning: The ephemeral flag is deprecated and should only be used when deploying on Kubernetes 1.15. It will be removed in the future.")
 	}
 
-	handle()
-	os.Exit(0)
-}
-
-func handle() {
-	driver, err := csi_driver.NewHostPathDriver(*driverName, *nodeID, *endpoint, *ephemeral, *maxVolumesPerNode, version)
+	// Run CSI Driver
+	driver, err := csi_driver.NewDriver(s.Log, "shrts.csi.k8s.io", *nodeID, *endpoint, *ephemeral, *maxVolumesPerNode, version)
 	if err != nil {
-		fmt.Printf("Failed to initialize driver: %s", err.Error())
-		os.Exit(1)
+		s.Log.Fatal(fmt.Sprintf("Failed to initialize driver: %s", err.Error()))
 	}
-	driver.Run()
+	if err := driver.Run(ctx); err != nil {
+		s.Log.Fatal(err.Error())
+	}
+
+	s.Log.Info("success run CSI plugin")
+
+	// Handle SIGINT and SIGTERM.
+	sigs := make(chan os.Signal, 1)
+	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
+	<-sigs
+
+	// Stop the service gracefully.
+	cleanup()
 }
