@@ -26,18 +26,9 @@ EXPOSE 9090
 # Install dependencies
 RUN \
     apk update && \
-    apk add curl && \
+    apk add curl util-linux && \
     rm -rf /var/cache/apk/*
-
-RUN addgroup -S csi && adduser -S -g csi csi
-USER csi
-
-HEALTHCHECK \
-  --interval=5s \
-  --timeout=5s \
-  --retries=3 \
-  CMD curl -f localhost:9090/ready || exit 1
 
 WORKDIR /app/
 COPY --from=builder /go/src/github/batazor/shortlink/app .
-CMD ["./app"]
+ENTRYPOINT ["./app"]
