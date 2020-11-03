@@ -54,10 +54,7 @@ func (cs *controllerServer) ControllerGetVolume(ctx context.Context, request *cs
 	panic("implement me")
 }
 
-func NewControllerServer(ephemeral bool, nodeID string) *controllerServer {
-	if ephemeral {
-		return &controllerServer{caps: getControllerServiceCapabilities(nil), nodeID: nodeID}
-	}
+func NewControllerServer(nodeID string) *controllerServer {
 	return &controllerServer{
 		caps: getControllerServiceCapabilities(
 			[]csi.ControllerServiceCapability_RPC_Type{
@@ -159,7 +156,7 @@ func (cs *controllerServer) CreateVolume(ctx context.Context, req *csi.CreateVol
 
 	volumeID := uuid.NewUUID().String()
 
-	vol, err := createHostpathVolume(volumeID, req.GetName(), capacity, requestedAccessType, false /* ephemeral */)
+	vol, err := createHostpathVolume(volumeID, req.GetName(), capacity, requestedAccessType)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to create volume %v: %v", volumeID, err)
 	}

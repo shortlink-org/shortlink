@@ -31,9 +31,7 @@ const (
 type hostPath struct {
 	name              string
 	nodeID            string
-	version           string
 	endpoint          string
-	ephemeral         bool
 	maxVolumesPerNode int64
 
 	log logger.Logger
@@ -51,7 +49,6 @@ type hostPathVolume struct {
 	VolAccessType accessType `json:"volAccessType"`
 	ParentVolID   string     `json:"parentVolID,omitempty"`
 	ParentSnapID  string     `json:"parentSnapID,omitempty"`
-	Ephemeral     bool       `json:"ephemeral"`
 }
 
 type hostPathSnapshot struct {
@@ -73,8 +70,6 @@ var (
 
 const (
 	// Directory where data for volumes and snapshots are persisted.
-	// This can be ephemeral within the container or persisted if
-	// backed by a Pod volume.
 	dataRoot = "/csi-data-dir"
 
 	// Extension with which snapshot files will be saved.
@@ -117,9 +112,9 @@ func discoverExistingSnapshots() {
 
 func (hp *hostPath) Run(ctx context.Context) error {
 	// Create GRPC servers
-	hp.ids = NewIdentityServer(hp.name, hp.version, hp.log)
-	hp.ns = NewNodeServer(hp.nodeID, hp.ephemeral, hp.maxVolumesPerNode)
-	hp.cs = NewControllerServer(hp.ephemeral, hp.nodeID)
+	hp.ids = NewIdentityServer(hp.name, hp.log)
+	hp.ns = NewNodeServer(hp.nodeID, hp.maxVolumesPerNode)
+	hp.cs = NewControllerServer(hp.nodeID)
 
 	discoverExistingSnapshots()
 	s := NewNonBlockingGRPCServer()
@@ -161,7 +156,7 @@ func getVolumePath(volID string) string {
 
 // createVolume create the directory for the hostpath volume.
 // It returns the volume path or err if one occurs.
-func createHostpathVolume(volID, name string, cap int64, volAccessType accessType, ephemeral bool) (*hostPathVolume, error) {
+func createHostpathVolume(volID, name string, cap int64, volAccessType accessType) (*hostPathVolume, error) {
 	path := getVolumePath(volID)
 
 	switch volAccessType {
@@ -199,7 +194,6 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 		VolSize:       cap,
 		VolPath:       path,
 		VolAccessType: volAccessType,
-		Ephemeral:     ephemeral,
 	}
 	hostPathVolumes[volID] = hostpathVol
 	return &hostpathVol, nil
