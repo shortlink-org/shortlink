@@ -24,3 +24,6 @@ csi-up: ## Deploy CSI plugin
 		@kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-resizer/v1.0.1/deploy/kubernetes/rbac.yaml
 
 		@kubectl apply -f /home/batazor/myproejct/shortlink/ops/Helm/csi/templates/
+
+csi-example: ## Deploy examples for CSI
+	@kubectl apply -f /home/batazor/myproejct/shortlink/ops/Helm/csi/examples/
