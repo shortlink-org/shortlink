@@ -19,18 +19,18 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
-	github.com/gocql/gocql v0.0.0-20200926162733-393f0c961220
+	github.com/gocql/gocql v0.0.0-20201024154641-5913df4d474e
 	github.com/golang-migrate/migrate/v4 v4.13.0
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.8.0
-	github.com/graph-gophers/graphql-go v0.0.0-20201003130358-c5bdf3b1108e
+	github.com/graph-gophers/graphql-go v0.0.0-20201027172035-4c772c181653
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.0.1
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
-	github.com/jackc/pgx/v4 v4.9.0
+	github.com/jackc/pgx/v4 v4.9.1
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/kubernetes-csi/csi-lib-utils v0.8.1
 	github.com/lib/pq v1.8.0
@@ -45,7 +45,7 @@ require (
 	github.com/ory/dockertest/v3 v3.6.2
 	github.com/pborman/uuid v1.2.0
 	github.com/prometheus/client_golang v1.8.0
-	github.com/scylladb/gocqlx/v2 v2.1.0
+	github.com/scylladb/gocqlx/v2 v2.2.0
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.1.1
@@ -56,7 +56,7 @@ require (
 	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	go.mongodb.org/mongo-driver v1.4.2
+	go.mongodb.org/mongo-driver v1.4.3
 	go.uber.org/atomic v1.7.0
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.1.10
@@ -64,7 +64,7 @@ require (
 	golang.org/x/crypto v0.0.0-20201012173705-84dcc777aaee // indirect
 	golang.org/x/net v0.0.0-20200904194848-62affa334b73
 	golang.org/x/tools v0.0.0-20201014170642-d1624618ad65 // indirect
-	google.golang.org/genproto v0.0.0-20201029200359-8ce4113da6f7
+	google.golang.org/genproto v0.0.0-20201102152239-715cce707fb0
 	google.golang.org/grpc v1.33.1
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
