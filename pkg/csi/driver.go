@@ -13,7 +13,7 @@ import (
 // NewDriver returns a CSI plugin that contains the necessary gRPC
 // interfaces to interact with Kubernetes over unix domain sockets for
 // managing ShortLink Storage
-func NewDriver(log logger.Logger, driverName, nodeID, endpoint string, ephemeral bool, maxVolumesPerNode int64, version string) (*hostPath, error) {
+func NewDriver(log logger.Logger, driverName, nodeID, endpoint string, maxVolumesPerNode int64) (*hostPath, error) {
 	if driverName == "" {
 		return nil, errors.New("no driver name provided")
 	}
@@ -25,9 +25,6 @@ func NewDriver(log logger.Logger, driverName, nodeID, endpoint string, ephemeral
 	if endpoint == "" {
 		return nil, errors.New("no driver endpoint provided")
 	}
-	if version != "" {
-		vendorVersion = version
-	}
 
 	if err := os.MkdirAll(dataRoot, 0750); err != nil {
 		return nil, fmt.Errorf("failed to create dataRoot: %v", err)
@@ -38,10 +35,8 @@ func NewDriver(log logger.Logger, driverName, nodeID, endpoint string, ephemeral
 
 	return &hostPath{
 		name:              driverName,
-		version:           vendorVersion,
 		nodeID:            nodeID,
 		endpoint:          endpoint,
-		ephemeral:         ephemeral,
 		maxVolumesPerNode: maxVolumesPerNode,
 		log:               log,
 	}, nil

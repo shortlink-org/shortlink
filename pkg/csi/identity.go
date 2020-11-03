@@ -25,16 +25,14 @@ import (
 )
 
 type identityServer struct {
-	name    string
-	version string
-	log     logger.Logger
+	name string
+	log  logger.Logger
 }
 
-func NewIdentityServer(name, version string, log logger.Logger) *identityServer {
+func NewIdentityServer(name string, log logger.Logger) *identityServer {
 	return &identityServer{
-		name:    name,
-		version: version,
-		log:     log,
+		name: name,
+		log:  log,
 	}
 }
 
@@ -44,13 +42,8 @@ func (ids *identityServer) GetPluginInfo(ctx context.Context, req *csi.GetPlugin
 		return nil, status.Error(codes.Unavailable, "Driver name not configured")
 	}
 
-	if ids.version == "" {
-		return nil, status.Error(codes.Unavailable, "Driver is missing version")
-	}
-
 	resp := &csi.GetPluginInfoResponse{
-		Name:          ids.name,
-		VendorVersion: ids.version,
+		Name: ids.name,
 	}
 
 	ids.log.InfoWithContext(ctx, "get plugin info called", field.Fields{
