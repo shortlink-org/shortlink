@@ -37,7 +37,7 @@ func main() {
 	flag.Parse()
 
 	// Run CSI Driver
-	driver, err := csi_driver.NewDriver(s.Log, "shrts.csi.k8s.io", *nodeID, *endpoint, *maxVolumesPerNode)
+	driver, err := csi_driver.NewDriver(s.Log, csi_driver.DefaultDriverName, *nodeID, *endpoint, *maxVolumesPerNode)
 	if err != nil {
 		s.Log.Fatal(fmt.Sprintf("Failed to initialize driver: %s", err.Error()))
 	}
