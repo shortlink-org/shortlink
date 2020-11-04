@@ -16,6 +16,7 @@ package csi_driver
 import (
 	"github.com/container-storage-interface/spec/lib/go/csi"
 	"github.com/golang/glog"
+	"github.com/golang/protobuf/ptypes/wrappers"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -23,11 +24,6 @@ import (
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/logger/field"
 )
-
-type identityServer struct {
-	name string
-	log  logger.Logger
-}
 
 func NewIdentityServer(name string, log logger.Logger) *identityServer {
 	return &identityServer{
@@ -37,16 +33,16 @@ func NewIdentityServer(name string, log logger.Logger) *identityServer {
 }
 
 // GetPluginInfo returns metadata of the plugin
-func (ids *identityServer) GetPluginInfo(ctx context.Context, req *csi.GetPluginInfoRequest) (*csi.GetPluginInfoResponse, error) {
-	if ids.name == "" {
+func (d *driver) GetPluginInfo(ctx context.Context, req *csi.GetPluginInfoRequest) (*csi.GetPluginInfoResponse, error) {
+	if d.ids.name == "" {
 		return nil, status.Error(codes.Unavailable, "Driver name not configured")
 	}
 
 	resp := &csi.GetPluginInfoResponse{
-		Name: ids.name,
+		Name: d.ids.name,
 	}
 
-	ids.log.InfoWithContext(ctx, "get plugin info called", field.Fields{
+	d.ids.log.InfoWithContext(ctx, "get plugin info called", field.Fields{
 		"response": resp,
 		"method":   "get_plugin_info",
 	})
@@ -55,16 +51,22 @@ func (ids *identityServer) GetPluginInfo(ctx context.Context, req *csi.GetPlugin
 }
 
 // Probe returns the health and readiness of the plugin
-func (ids *identityServer) Probe(ctx context.Context, req *csi.ProbeRequest) (*csi.ProbeResponse, error) {
-	ids.log.DebugWithContext(ctx, "probe called", field.Fields{
+func (d *driver) Probe(ctx context.Context, req *csi.ProbeRequest) (*csi.ProbeResponse, error) {
+	d.log.InfoWithContext(ctx, "probe called", field.Fields{
 		"method": "probe",
 	})
+	d.readyMu.Lock()
+	defer d.readyMu.Unlock()
 
-	return &csi.ProbeResponse{}, nil
+	return &csi.ProbeResponse{
+		Ready: &wrappers.BoolValue{
+			Value: d.ready,
+		},
+	}, nil
 }
 
 // GetPluginCapabilities returns available capabilities of the plugin
-func (ids *identityServer) GetPluginCapabilities(ctx context.Context, req *csi.GetPluginCapabilitiesRequest) (*csi.GetPluginCapabilitiesResponse, error) {
+func (d *driver) GetPluginCapabilities(ctx context.Context, req *csi.GetPluginCapabilitiesRequest) (*csi.GetPluginCapabilitiesResponse, error) {
 	glog.V(5).Infof("Using default capabilities")
 	return &csi.GetPluginCapabilitiesResponse{
 		Capabilities: []*csi.PluginCapability{

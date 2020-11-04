@@ -5,18 +5,24 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"net"
+	"net/url"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 
+	"github.com/container-storage-interface/spec/lib/go/csi"
 	"github.com/golang/glog"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"golang.org/x/sync/errgroup"
+	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"k8s.io/kubernetes/pkg/volume/util/volumepathhandler"
 	utilexec "k8s.io/utils/exec"
 
-	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 )
 
 const (
@@ -27,19 +33,6 @@ const (
 	tib    int64 = gib * 1024
 	tib100 int64 = tib * 100
 )
-
-type hostPath struct {
-	name              string
-	nodeID            string
-	endpoint          string
-	maxVolumesPerNode int64
-
-	log logger.Logger
-
-	ids *identityServer
-	ns  *nodeServer
-	cs  *controllerServer
-}
 
 type hostPathVolume struct {
 	VolName       string     `json:"volName"`
@@ -110,18 +103,77 @@ func discoverExistingSnapshots() {
 	}
 }
 
-func (hp *hostPath) Run(ctx context.Context) error {
+// Run starts the CSI plugin by communication over the given endpoint
+func (d *driver) Run(ctx context.Context) error {
+	u, err := url.Parse(d.endpoint)
+	if err != nil {
+		return fmt.Errorf("unable to parse address: %q", err)
+	}
+
+	grpcAddr := path.Join(u.Host, filepath.FromSlash(u.Path))
+	if u.Host == "" {
+		grpcAddr = filepath.FromSlash(u.Path)
+	}
+
+	// CSI plugins talk only over UNIX sockets currently
+	if u.Scheme != "unix" {
+		return fmt.Errorf("currently only unix domain sockets are supported, have: %s", u.Scheme)
+	}
+
+	// remove the socket if it's already there. This can happen if we
+	// deploy a new version and the socket was created from the old running
+	// plugin.
+	d.log.Info("removing socket", field.Fields{
+		"socket": grpcAddr,
+	})
+	if err := os.Remove(grpcAddr); err != nil && !os.IsNotExist(err) {
+		return fmt.Errorf("failed to remove unix domain socket file %s, error: %s", grpcAddr, err)
+	}
+
+	grpcListener, err := net.Listen(u.Scheme, grpcAddr)
+	if err != nil {
+		return fmt.Errorf("failed to listen: %v", err)
+	}
+
+	// log response errors for better observability
+	errHandler := func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+		resp, err := handler(ctx, req)
+		if err != nil {
+			d.log.ErrorWithContext(ctx, "method failed", field.Fields{
+				"method": info.FullMethod,
+			})
+		}
+		return resp, err
+	}
+
 	// Create GRPC servers
-	hp.ids = NewIdentityServer(hp.name, hp.log)
-	hp.ns = NewNodeServer(hp.nodeID, hp.maxVolumesPerNode)
-	hp.cs = NewControllerServer(hp.nodeID)
+	d.srv = grpc.NewServer(grpc.UnaryInterceptor(errHandler))
+	d.ids = NewIdentityServer(d.name, d.log)
+	d.ns = NewNodeServer(d.nodeID, d.maxVolumesPerNode)
+	d.cs = NewControllerServer(d.nodeID)
+	csi.RegisterIdentityServer(d.srv, d)
+	csi.RegisterControllerServer(d.srv, d)
+	csi.RegisterNodeServer(d.srv, d)
 
-	discoverExistingSnapshots()
-	s := NewNonBlockingGRPCServer()
-	s.Start(hp.endpoint, hp.ids, hp.cs, hp.ns)
-	s.Wait()
+	d.ready = true // we're now ready to go!
+	d.log.Info("starting server", field.Fields{
+		"grpc_addr": grpcAddr,
+	})
 
-	return nil
+	var eg errgroup.Group
+	eg.Go(func() error {
+		go func() {
+			<-ctx.Done()
+			d.log.Info("server stopped")
+			d.readyMu.Lock()
+			d.ready = false
+			d.readyMu.Unlock()
+			d.srv.GracefulStop()
+		}()
+		return d.srv.Serve(grpcListener)
+	})
+
+	return eg.Wait()
 }
 
 func getVolumeByID(volumeID string) (hostPathVolume, error) {
