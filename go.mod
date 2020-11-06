@@ -63,7 +63,7 @@ require (
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201012173705-84dcc777aaee // indirect
 	golang.org/x/tools v0.0.0-20201014170642-d1624618ad65 // indirect
-	google.golang.org/genproto v0.0.0-20201105153401-9d023cd09d72
+	google.golang.org/genproto v0.0.0-20201106154455-f9bfe239b0ba
 	google.golang.org/grpc v1.33.1
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
