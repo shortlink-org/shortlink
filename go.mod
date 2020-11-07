@@ -30,7 +30,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.0.1
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
-	github.com/jackc/pgx/v4 v4.9.1
+	github.com/jackc/pgx/v4 v4.9.2
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/kubernetes-csi/csi-lib-utils v0.8.1
 	github.com/kubernetes-csi/csi-test/v4 v4.0.1
@@ -66,8 +66,8 @@ require (
 	golang.org/x/net v0.0.0-20200904194848-62affa334b73
 	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
 	golang.org/x/tools v0.0.0-20201014170642-d1624618ad65 // indirect
-	google.golang.org/genproto v0.0.0-20201102152239-715cce707fb0
-	google.golang.org/grpc v1.33.1
+	google.golang.org/genproto v0.0.0-20201106154455-f9bfe239b0ba
+	google.golang.org/grpc v1.33.2
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
