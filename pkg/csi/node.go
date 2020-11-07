@@ -1,5 +1,4 @@
 /*
-Copyright 2017 The Kubernetes Authors.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -18,7 +17,6 @@ import (
 	"os"
 	"strings"
 
-	"github.com/golang/glog"
 	"golang.org/x/net/context"
 
 	"github.com/container-storage-interface/spec/lib/go/csi"
@@ -26,6 +24,8 @@ import (
 	"google.golang.org/grpc/status"
 	"k8s.io/kubernetes/pkg/volume/util/volumepathhandler"
 	"k8s.io/mount-utils"
+
+	"github.com/batazor/shortlink/internal/logger/field"
 )
 
 const TopologyKeyNode = "topology.hostpath.csi/node"
@@ -37,18 +37,31 @@ func NewNodeServer(nodeId string, maxVolumesPerNode int64) *nodeServer {
 	}
 }
 
+// NodePublishVolume mounts the volume mounted to the staging path to the target path
 func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) {
-
 	// Check arguments
 	if req.GetVolumeCapability() == nil {
-		return nil, status.Error(codes.InvalidArgument, "Volume capability missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Volume capability must be provided")
 	}
+
+	if req.GetStagingTargetPath() == "" {
+		return nil, status.Error(codes.InvalidArgument, "Staging Target Path must be provided")
+	}
+
 	if len(req.GetVolumeId()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Volume ID missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
 	}
+
 	if len(req.GetTargetPath()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Target path missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Target path must be provided")
 	}
+
+	d.log.Info("node publish volume called", field.Fields{
+		"volume_id":           req.VolumeId,
+		"staging_target_path": req.StagingTargetPath,
+		"target_path":         req.TargetPath,
+		"method":              "node_publish_volume",
+	})
 
 	targetPath := req.GetTargetPath()
 
@@ -98,7 +111,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		}
 		if !notMount {
 			// It's already mounted.
-			glog.V(5).Infof("Skipping bind-mounting subpath %s: already mounted", targetPath)
+			d.log.InfoWithContext(ctx, fmt.Sprintf("Skipping bind-mounting subpath %s: already mounted", targetPath))
 			return &csi.NodePublishVolumeResponse{}, nil
 		}
 
@@ -139,8 +152,8 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		attrib := req.GetVolumeContext()
 		mountFlags := req.GetVolumeCapability().GetMount().GetMountFlags()
 
-		glog.V(4).Infof("target %v\nfstype %v\ndevice %v\nreadonly %v\nvolumeId %v\nattributes %v\nmountflags %v\n",
-			targetPath, fsType, deviceId, readOnly, volumeId, attrib, mountFlags)
+		d.log.InfoWithContext(ctx, fmt.Sprintf("target %v\nfstype %v\ndevice %v\nreadonly %v\nvolumeId %v\nattributes %v\nmountflags %v\n",
+			targetPath, fsType, deviceId, readOnly, volumeId, attrib, mountFlags))
 
 		options := []string{"bind"}
 		if readOnly {
@@ -156,18 +169,29 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		}
 	}
 
+	d.log.Info("bind mounting the volume is finished")
+
 	return &csi.NodePublishVolumeResponse{}, nil
 }
 
+// NodeUnpublishVolume unmounts the volume from the target path
 func (d *driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublishVolumeRequest) (*csi.NodeUnpublishVolumeResponse, error) {
 
 	// Check arguments
 	if len(req.GetVolumeId()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Volume ID missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
 	}
+
 	if len(req.GetTargetPath()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Target path missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Target path must be provided")
 	}
+
+	d.log.Info("node unpublish volume called", field.Fields{
+		"volume_id":   req.VolumeId,
+		"target_path": req.TargetPath,
+		"method":      "node_unpublish_volume",
+	})
+
 	targetPath := req.GetTargetPath()
 	volumeID := req.GetVolumeId()
 
@@ -193,41 +217,68 @@ func (d *driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublish
 	if err = os.RemoveAll(targetPath); err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
-	glog.V(4).Infof("hostpath: volume %s has been unpublished.", targetPath)
+
+	d.log.InfoWithContext(ctx, fmt.Sprintf("hostpath: volume %s has been unpublished.", targetPath))
 
 	return &csi.NodeUnpublishVolumeResponse{}, nil
 }
 
+// NodeStageVolume mounts the volume to a staging path on the node. This is
+// called by the CO before NodePublishVolume and is used to temporary mount the
+// volume to a staging path. Once mounted, NodePublishVolume will make sure to
+// mount it to the appropriate path
 func (d *driver) NodeStageVolume(ctx context.Context, req *csi.NodeStageVolumeRequest) (*csi.NodeStageVolumeResponse, error) {
 
 	// Check arguments
 	if len(req.GetVolumeId()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Volume ID missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
 	}
+
 	if len(req.GetStagingTargetPath()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Target path missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Staging target path must be provided")
 	}
+
 	if req.GetVolumeCapability() == nil {
-		return nil, status.Error(codes.InvalidArgument, "Volume Capability missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Volume capability must be provided")
 	}
+
+	d.log.Info("node stage volume called", field.Fields{
+		"volume_id":           req.VolumeId,
+		"staging_target_path": req.StagingTargetPath,
+		"method":              "node_stage_volume",
+	})
 
 	return &csi.NodeStageVolumeResponse{}, nil
 }
 
+// NodeUnstageVolume unstages the volume from the staging path
 func (d *driver) NodeUnstageVolume(ctx context.Context, req *csi.NodeUnstageVolumeRequest) (*csi.NodeUnstageVolumeResponse, error) {
-
 	// Check arguments
 	if len(req.GetVolumeId()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Volume ID missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
 	}
+
 	if len(req.GetStagingTargetPath()) == 0 {
-		return nil, status.Error(codes.InvalidArgument, "Target path missing in request")
+		return nil, status.Error(codes.InvalidArgument, "Target path must be provided")
 	}
+
+	d.log.Info("node unstage volume called", field.Fields{
+		"volume_id":           req.VolumeId,
+		"staging_target_path": req.StagingTargetPath,
+		"method":              "node_unstage_volume",
+	})
 
 	return &csi.NodeUnstageVolumeResponse{}, nil
 }
 
+// NodeGetInfo returns the supported capabilities of the node server. This
+// should eventually return the droplet ID if possible. This is used so the CO
+// knows where to place the workload. The result of this function will be used
+// by the CO in ControllerPublishVolume.
 func (d *driver) NodeGetInfo(ctx context.Context, req *csi.NodeGetInfoRequest) (*csi.NodeGetInfoResponse, error) {
+	d.log.Info("node get info called", field.Fields{
+		"method": "node_get_info",
+	})
 
 	topology := &csi.Topology{
 		Segments: map[string]string{TopologyKeyNode: d.ns.nodeID},
@@ -240,35 +291,81 @@ func (d *driver) NodeGetInfo(ctx context.Context, req *csi.NodeGetInfoRequest) (
 	}, nil
 }
 
+// NodeGetCapabilities returns the supported capabilities of the node server
 func (d *driver) NodeGetCapabilities(ctx context.Context, req *csi.NodeGetCapabilitiesRequest) (*csi.NodeGetCapabilitiesResponse, error) {
-
-	return &csi.NodeGetCapabilitiesResponse{
-		Capabilities: []*csi.NodeServiceCapability{
-			{
-				Type: &csi.NodeServiceCapability_Rpc{
-					Rpc: &csi.NodeServiceCapability_RPC{
-						Type: csi.NodeServiceCapability_RPC_STAGE_UNSTAGE_VOLUME,
-					},
+	nscaps := []*csi.NodeServiceCapability{
+		{
+			Type: &csi.NodeServiceCapability_Rpc{
+				Rpc: &csi.NodeServiceCapability_RPC{
+					Type: csi.NodeServiceCapability_RPC_STAGE_UNSTAGE_VOLUME,
 				},
 			},
-			{
-				Type: &csi.NodeServiceCapability_Rpc{
-					Rpc: &csi.NodeServiceCapability_RPC{
-						Type: csi.NodeServiceCapability_RPC_EXPAND_VOLUME,
-					},
+		},
+		{
+			Type: &csi.NodeServiceCapability_Rpc{
+				Rpc: &csi.NodeServiceCapability_RPC{
+					Type: csi.NodeServiceCapability_RPC_EXPAND_VOLUME,
 				},
+			},
+		},
+		&csi.NodeServiceCapability{
+			Type: &csi.NodeServiceCapability_Rpc{
+				Rpc: &csi.NodeServiceCapability_RPC{
+					Type: csi.NodeServiceCapability_RPC_GET_VOLUME_STATS,
+				},
+			},
+		},
+	}
+
+	d.log.Info("node get capabilities called", field.Fields{
+		"node_capabilities": nscaps,
+		"method":            "node_get_capabilities",
+	})
+
+	return &csi.NodeGetCapabilitiesResponse{
+		Capabilities: nscaps,
+	}, nil
+}
+
+// NodeGetVolumeStats returns the volume capacity statistics available for the the given volume.
+func (d *driver) NodeGetVolumeStats(ctx context.Context, in *csi.NodeGetVolumeStatsRequest) (*csi.NodeGetVolumeStatsResponse, error) {
+	if in.VolumeId == "" {
+		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
+	}
+
+	volumePath := in.VolumePath
+	if volumePath == "" {
+		return nil, status.Error(codes.InvalidArgument, "Volume Path must be provided")
+	}
+
+	d.log.Info("node get volume stats called", field.Fields{
+		"volume_id":   in.VolumeId,
+		"volume_path": in.VolumePath,
+		"method":      "node_get_volume_stats",
+	})
+
+	var stats int64 = 0
+
+	return &csi.NodeGetVolumeStatsResponse{
+		Usage: []*csi.VolumeUsage{
+			&csi.VolumeUsage{
+				Available: stats,
+				Total:     stats,
+				Used:      stats,
+				Unit:      csi.VolumeUsage_BYTES,
+			},
+			&csi.VolumeUsage{
+				Available: stats,
+				Total:     stats,
+				Used:      stats,
+				Unit:      csi.VolumeUsage_INODES,
 			},
 		},
 	}, nil
 }
 
-func (d *driver) NodeGetVolumeStats(ctx context.Context, in *csi.NodeGetVolumeStatsRequest) (*csi.NodeGetVolumeStatsResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "")
-}
-
 // NodeExpandVolume is only implemented so the driver can be used for e2e testing.
 func (d *driver) NodeExpandVolume(ctx context.Context, req *csi.NodeExpandVolumeRequest) (*csi.NodeExpandVolumeResponse, error) {
-
 	volID := req.GetVolumeId()
 	if len(volID) == 0 {
 		return nil, status.Error(codes.InvalidArgument, "Volume ID not provided")

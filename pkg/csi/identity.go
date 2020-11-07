@@ -1,5 +1,4 @@
 /*
-Copyright 2017 The Kubernetes Authors.
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -14,8 +13,9 @@ limitations under the License.
 package csi_driver
 
 import (
+	"fmt"
+
 	"github.com/container-storage-interface/spec/lib/go/csi"
-	"github.com/golang/glog"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
@@ -67,7 +67,7 @@ func (d *driver) Probe(ctx context.Context, req *csi.ProbeRequest) (*csi.ProbeRe
 
 // GetPluginCapabilities returns available capabilities of the plugin
 func (d *driver) GetPluginCapabilities(ctx context.Context, req *csi.GetPluginCapabilitiesRequest) (*csi.GetPluginCapabilitiesResponse, error) {
-	glog.V(5).Infof("Using default capabilities")
+	d.log.InfoWithContext(ctx, fmt.Sprintf("Using default capabilities"))
 	return &csi.GetPluginCapabilitiesResponse{
 		Capabilities: []*csi.PluginCapability{
 			{
