@@ -1,3 +1,10 @@
+---
+- name: Localhost tooling
+  hosts: localhost
+  become: True
+  roles:
+    - { role: eks, tags: [ "localhost" ] }
+
 - name: Install common dependencies
   hosts: all
   become: True
@@ -8,4 +15,3 @@
     - { role: geerlingguy.docker, tags: [ "infrastructure" ] }
     - { role: nginx, tags: [ "application" ] }
     - { role: ui-nuxt, tags: ["ui", "application"] }
-    - { role: locale-tool, tags: [ "localhost" ] }
