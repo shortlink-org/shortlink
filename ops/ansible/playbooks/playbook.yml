@@ -1,14 +1,11 @@
 - name: Install common dependencies
   hosts: all
   become: True
-  vars:
-    pip_package: python3-pip
-    pip_install_packages:
-      - name: docker
   vars_files:
     - "./group_vars/values.yml"
   roles:
-    - geerlingguy.pip
-    - geerlingguy.docker
-    - nginx
-    - ui-nuxt
+    - { role: geerlingguy.pip, tags: [ "infrastructure" ] }
+    - { role: geerlingguy.docker, tags: [ "infrastructure" ] }
+    - { role: nginx, tags: [ "application" ] }
+    - { role: ui-nuxt, tags: ["ui", "application"] }
+    - { role: locale-tool, tags: [ "localhost" ] }

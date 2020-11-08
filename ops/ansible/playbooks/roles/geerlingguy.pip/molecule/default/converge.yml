@@ -1,0 +1,28 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    pip_install_packages:
+      # Test installing a specific version of a package.
+      - name: ipaddress
+        version: "1.0.18"
+      # Test installing a package by name.
+      - colorama
+
+  pre_tasks:
+    - name: Update apt cache.
+      apt: update_cache=true cache_valid_time=600
+      when: ansible_os_family == 'Debian'
+
+    - name: Set package name for older OSes.
+      set_fact:
+        pip_package: python-pip
+      when: >
+        (ansible_os_family == 'RedHat') and (ansible_distribution_major_version | int < 8)
+        or (ansible_distribution == 'Debian') and (ansible_distribution_major_version | int < 10)
+        or (ansible_distribution == 'Ubuntu') and (ansible_distribution_major_version | int < 18)
+
+  roles:
+    - role: geerlingguy.pip
