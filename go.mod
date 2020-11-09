@@ -43,7 +43,7 @@ require (
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.6.2
-	github.com/pborman/uuid v1.2.0
+	github.com/pborman/uuid v1.2.1
 	github.com/prometheus/client_golang v1.8.0
 	github.com/scylladb/gocqlx/v2 v2.2.0
 	github.com/sirupsen/logrus v1.7.0
