@@ -201,7 +201,8 @@ func (d *driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublish
 	}
 
 	// Unmount only if the target path is really a mount point.
-	if notMnt, err := mount.IsNotMountPoint(mount.New(""), targetPath); err != nil {
+	notMnt, err := mount.IsNotMountPoint(mount.New(""), targetPath)
+	if err != nil {
 		if !os.IsNotExist(err) {
 			return nil, status.Error(codes.Internal, err.Error())
 		}

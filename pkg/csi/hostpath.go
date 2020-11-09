@@ -41,9 +41,9 @@ const (
 	kib    int64 = 1024
 	mib    int64 = kib * 1024
 	gib    int64 = mib * 1024
-	gib100 int64 = gib * 100
+	gib100 int64 = gib * 100 // nolint unused
 	tib    int64 = gib * 1024
-	tib100 int64 = tib * 100
+	tib100 int64 = tib * 100 // nolint unused
 )
 
 type hostPathVolume struct {
@@ -138,7 +138,7 @@ func (d *driver) Run(ctx context.Context) error {
 	d.log.Info("removing socket", field.Fields{
 		"socket": grpcAddr,
 	})
-	if err := os.Remove(grpcAddr); err != nil && !os.IsNotExist(err) {
+	if err := os.Remove(grpcAddr); err != nil && !os.IsNotExist(err) { // nolint copylocks
 		return fmt.Errorf("failed to remove unix domain socket file %s, error: %s", grpcAddr, err)
 	}
 
@@ -207,9 +207,9 @@ func getVolumeByName(volName string) (hostPathVolume, error) {
 }
 
 func getSnapshotByName(name string) (hostPathSnapshot, error) {
-	for _, snapshot := range hostPathVolumeSnapshots {
+	for _, snapshot := range hostPathVolumeSnapshots { // nolint copylocks
 		if snapshot.Name == name {
-			return snapshot, nil
+			return snapshot, nil // nolint copylocks
 		}
 	}
 	return hostPathSnapshot{}, fmt.Errorf("snapshot name %s does not exist in the snapshots list", name)
@@ -334,7 +334,7 @@ func loadFromSnapshot(size int64, snapshotId, destPath string, mode accessType) 
 	if !ok {
 		return status.Errorf(codes.NotFound, "cannot find snapshot %v", snapshotId)
 	}
-	if snapshot.ReadyToUse != true {
+	if !snapshot.ReadyToUse {
 		return status.Errorf(codes.Internal, "snapshot %v is not yet ready to use.", snapshotId)
 	}
 	if snapshot.SizeBytes > size {
@@ -361,22 +361,22 @@ func loadFromSnapshot(size int64, snapshotId, destPath string, mode accessType) 
 
 // loadFromVolume populates the given destPath with data from the srcVolumeID
 func loadFromVolume(size int64, srcVolumeId, destPath string, mode accessType) error {
-	hostPathVolume, ok := hostPathVolumes[srcVolumeId]
+	hostPathVolumeById, ok := hostPathVolumes[srcVolumeId]
 	if !ok {
 		return status.Error(codes.NotFound, "source volumeId does not exist, are source/destination in the same storage class?")
 	}
-	if hostPathVolume.VolSize > size {
-		return status.Errorf(codes.InvalidArgument, "volume %v size %v is greater than requested volume size %v", srcVolumeId, hostPathVolume.VolSize, size)
+	if hostPathVolumeById.VolSize > size {
+		return status.Errorf(codes.InvalidArgument, "volume %v size %v is greater than requested volume size %v", srcVolumeId, hostPathVolumeById.VolSize, size)
 	}
-	if mode != hostPathVolume.VolAccessType {
+	if mode != hostPathVolumeById.VolAccessType {
 		return status.Errorf(codes.InvalidArgument, "volume %v mode is not compatible with requested mode", srcVolumeId)
 	}
 
 	switch mode {
 	case mountAccess:
-		return loadFromFilesystemVolume(hostPathVolume, destPath)
+		return loadFromFilesystemVolume(hostPathVolumeById, destPath)
 	case blockAccess:
-		return loadFromBlockVolume(hostPathVolume, destPath)
+		return loadFromBlockVolume(hostPathVolumeById, destPath)
 	default:
 		return status.Errorf(codes.InvalidArgument, "unknown accessType: %d", mode)
 	}
