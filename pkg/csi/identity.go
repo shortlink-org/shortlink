@@ -13,8 +13,6 @@ limitations under the License.
 package csi_driver
 
 import (
-	"fmt"
-
 	"github.com/container-storage-interface/spec/lib/go/csi"
 	"github.com/golang/protobuf/ptypes/wrappers"
 	"golang.org/x/net/context"
@@ -67,7 +65,7 @@ func (d *driver) Probe(ctx context.Context, req *csi.ProbeRequest) (*csi.ProbeRe
 
 // GetPluginCapabilities returns available capabilities of the plugin
 func (d *driver) GetPluginCapabilities(ctx context.Context, req *csi.GetPluginCapabilitiesRequest) (*csi.GetPluginCapabilitiesResponse, error) {
-	d.log.InfoWithContext(ctx, fmt.Sprintf("Using default capabilities"))
+	d.log.InfoWithContext(ctx, "Using default capabilities")
 	return &csi.GetPluginCapabilitiesResponse{
 		Capabilities: []*csi.PluginCapability{
 			{

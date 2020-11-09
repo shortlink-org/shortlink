@@ -15,7 +15,7 @@ import (
 
 func TestDriver(t *testing.T) {
 	// Create a new context
-	ctx := context.Background()
+	ctx := context.Background() // nolint staticcheck
 
 	// TODO: add test
 	t.SkipNow()
@@ -23,11 +23,15 @@ func TestDriver(t *testing.T) {
 	// Init logger
 	conf := logger.Configuration{}
 	log, err := logger.NewLogger(logger.Zap, conf)
-	assert.Nil(t, err, "Error init a logger")
+	if err != nil {
+		assert.Nil(t, err, "Error init a logger")
+		t.Fatal()
+	}
 
 	socket := "/tmp/csi.sock"
 	endpoint := "unix://" + socket
-	if err := os.Remove(socket); err != nil && !os.IsNotExist(err) {
+	err = os.Remove(socket)
+	if err != nil && !os.IsNotExist(err) {
 		t.Fatalf("failed to remove unix domain socket file %s, error: %s", socket, err)
 	}
 
