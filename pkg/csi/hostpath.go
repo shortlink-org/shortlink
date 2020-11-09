@@ -227,7 +227,7 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 
 	switch volAccessType {
 	case mountAccess:
-		err := os.MkdirAll(path, 0777) // nolint gosec
+		err := os.MkdirAll(path, 0777) // #nosec
 		if err != nil {
 			return nil, err
 		}
@@ -315,11 +315,11 @@ func deleteHostpathVolume(volID string) error {
 // hostPathIsEmpty is a simple check to determine if the specified hostpath directory
 // is empty or not.
 func hostPathIsEmpty(p string) (bool, error) {
-	f, err := os.Open(p) // nolint gosec
+	f, err := os.Open(p) // #nosec
 	if err != nil {
 		return true, fmt.Errorf("unable to open hostpath volume, error: %v", err)
 	}
-	defer f.Close() // nolint gosec
+	defer f.Close() // #nosec
 
 	_, err = f.Readdir(1)
 	if err == io.EOF {
