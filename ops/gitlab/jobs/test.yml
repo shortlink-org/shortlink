@@ -38,7 +38,7 @@ golint:
       - gl-code-quality-report.json
     expire_in: 7 days
   before_script:
-    - apk add --update jq
+    - apk add --no-cache jq
     - go mod vendor
   script:
     # Use default .golangci.yml file from the image if one is not present in the project root.

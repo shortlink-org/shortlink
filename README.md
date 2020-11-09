@@ -95,6 +95,7 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
     + [pingcap/chaos-meshh](https://github.com/pingcap/chaos-mesh)
   + Minikube
   + Backup/Restore ([Velero](https://velero.io/)
+  + Custom CSI driver (fork [csi-driver-host-pat](https://github.com/kubernetes-csi/csi-driver-host-path))
 + Istio
 + MetalLB
 
