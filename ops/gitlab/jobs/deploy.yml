@@ -11,7 +11,7 @@ api-staging:
       - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
-    - trigger:build_api
+    - trigger:build
     - helm-lint-chart
     - helm-run-chart
   rules:
@@ -30,7 +30,7 @@ logger-staging:
       - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
-    - trigger:build_logger
+    - trigger:build
     - helm-lint-chart
     - helm-run-chart
   rules:
@@ -49,7 +49,7 @@ ui-staging:
       - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
-    - trigger:build_ui
+    - trigger:build
     - helm-lint-chart
     - helm-run-chart
   rules:
