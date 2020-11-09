@@ -1,7 +1,7 @@
 ---
 title: "Csi"
 date: 2020-11-02T03:27:21+03:00
-draft: true
+draft: false
 categories:
     - Kubernetes
 tags:
