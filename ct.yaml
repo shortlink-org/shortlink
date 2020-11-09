@@ -15,7 +15,7 @@ excluded-charts:
   - ingress
 
 chart-repos:
-  - incubator=https://kubernetes-charts-incubator.storage.googleapis.com/
+  - incubator=https://charts.helm.sh/incubator
   - stable=https://kubernetes-charts.storage.googleapis.com/
   - jaegertracing=https://jaegertracing.github.io/helm-charts
 
