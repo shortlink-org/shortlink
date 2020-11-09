@@ -4,9 +4,6 @@ dep: ## Install dependencies for this project
 	@sudo ./ops/scripts/install-protobuf.sh
 	@sudo rm -rf bin
 
-	# setting tool
-	@sudo apt-get -y install sshpass
-
 	# install protoc addons
 	@go get -u github.com/golang/protobuf/proto
 	@go get -u github.com/golang/protobuf/protoc-gen-go
