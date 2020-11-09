@@ -71,7 +71,7 @@ require (
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
-	k8s.io/kubernetes v1.20.0-beta.0
+	k8s.io/kubernetes v1.20.0-beta.1
 	k8s.io/mount-utils v0.0.0
 	k8s.io/utils v0.0.0-20200729134348-d5654de09c73
 )
