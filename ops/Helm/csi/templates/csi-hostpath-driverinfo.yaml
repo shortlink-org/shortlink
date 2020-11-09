@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1beta1
+kind: CSIDriver
+metadata:
+  name: shrts.csi.k8s.io
+spec:
+  # Supports persistent inline volumes.
+  volumeLifecycleModes:
+  - Persistent
+  podInfoOnMount: true

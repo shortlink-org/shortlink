@@ -7,6 +7,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.6.0
 	github.com/Shopify/sarama v1.27.2
 	github.com/cloudevents/sdk-go/v2 v2.3.1
+	github.com/container-storage-interface/spec v1.3.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.2007.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
@@ -20,8 +21,8 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
 	github.com/gocql/gocql v0.0.0-20201024154641-5913df4d474e
 	github.com/golang-migrate/migrate/v4 v4.13.0
+	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
-	github.com/google/uuid v1.1.2 // indirect
 	github.com/google/wire v0.4.0
 	github.com/gorilla/mux v1.8.0
 	github.com/graph-gophers/graphql-go v0.0.0-20201027172035-4c772c181653
@@ -31,6 +32,7 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.9.2
 	github.com/jmoiron/sqlx v1.2.0
+	github.com/kubernetes-csi/csi-test/v4 v4.0.1
 	github.com/lib/pq v1.8.0
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.4
@@ -41,14 +43,12 @@ require (
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.6.2
+	github.com/pborman/uuid v1.2.0
 	github.com/prometheus/client_golang v1.8.0
 	github.com/scylladb/gocqlx/v2 v2.2.0
 	github.com/sirupsen/logrus v1.7.0
-	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.1.1
-	github.com/spf13/jwalterweatherman v1.1.0 // indirect
-	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.7.1
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.6.1
@@ -62,6 +62,8 @@ require (
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201012173705-84dcc777aaee // indirect
+	golang.org/x/net v0.0.0-20200904194848-62affa334b73
+	golang.org/x/sync v0.0.0-20200625203802-6e8e738ad208
 	golang.org/x/tools v0.0.0-20201014170642-d1624618ad65 // indirect
 	google.golang.org/genproto v0.0.0-20201106154455-f9bfe239b0ba
 	google.golang.org/grpc v1.33.2
@@ -69,6 +71,34 @@ require (
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
+	k8s.io/kubernetes v1.20.0-beta.0
+	k8s.io/mount-utils v0.0.0
+	k8s.io/utils v0.0.0-20200729134348-d5654de09c73
 )
 
-replace github.com/coreos/bbolt => go.etcd.io/bbolt v1.3.5
+replace (
+	k8s.io/api => k8s.io/api v0.20.0-beta.0
+	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.20.0-beta.0
+	k8s.io/apimachinery => k8s.io/apimachinery v0.20.0-beta.0
+	k8s.io/apiserver => k8s.io/apiserver v0.20.0-beta.0
+	k8s.io/cli-runtime => k8s.io/cli-runtime v0.20.0-beta.0
+	k8s.io/client-go => k8s.io/client-go v0.20.0-beta.0
+	k8s.io/cloud-provider => k8s.io/cloud-provider v0.20.0-beta.0
+	k8s.io/cluster-bootstrap => k8s.io/cluster-bootstrap v0.20.0-beta.0
+	k8s.io/code-generator => k8s.io/code-generator v0.20.0-beta.0
+	k8s.io/component-base => k8s.io/component-base v0.20.0-beta.0
+	k8s.io/component-helpers => k8s.io/component-helpers v0.20.0-beta.0
+	k8s.io/controller-manager => k8s.io/controller-manager v0.20.0-beta.0
+	k8s.io/cri-api => k8s.io/cri-api v0.20.0-beta.0
+	k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.20.0-beta.0
+	k8s.io/kube-aggregator => k8s.io/kube-aggregator v0.20.0-beta.0
+	k8s.io/kube-controller-manager => k8s.io/kube-controller-manager v0.20.0-beta.0
+	k8s.io/kube-proxy => k8s.io/kube-proxy v0.20.0-beta.0
+	k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.20.0-beta.0
+	k8s.io/kubectl => k8s.io/kubectl v0.20.0-beta.0
+	k8s.io/kubelet => k8s.io/kubelet v0.20.0-beta.0
+	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.20.0-beta.0
+	k8s.io/metrics => k8s.io/metrics v0.20.0-beta.0
+	k8s.io/mount-utils => k8s.io/mount-utils v0.20.0-beta.0
+	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.20.0-beta.0
+)

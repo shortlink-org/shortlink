@@ -41,6 +41,7 @@ generate: ## Code generation
 	@go generate internal/db/mongo/mongo.go
 	@go generate internal/di/wire.go
 	@go generate internal/bot/di/wire.go
+	@go generate pkg/csi/di/wire.go
 
 	@make fmt
 
