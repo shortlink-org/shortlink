@@ -130,6 +130,6 @@ func (api *API) CustomHTTPError(_ context.Context, _ *runtime.ServeMux, marshale
 	})
 
 	if jErr != nil {
-		_, _ = w.Write([]byte(fallback)) // nolint gosec
+		_, _ = w.Write([]byte(fallback)) // #nosec
 	}
 }

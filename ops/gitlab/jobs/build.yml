@@ -1,5 +1,5 @@
 # BUILD IMAGE ==========================================================================================================
-trigger:build_api:
+trigger:build:
   stage: build
   trigger:
     include:
@@ -12,27 +12,3 @@ trigger:build_api:
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
-
-trigger:build_logger:
-  stage: build
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/build.yml'
-    strategy: depend
-  needs:
-    - gosec
-    - gotest
-    - golint
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-
-trigger:build_ui:
-  stage: build
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/build.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - if: $CI_COMMIT_TAG
