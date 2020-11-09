@@ -18,6 +18,8 @@ Shortlink service
 - docker
 - docker-compose
 - protoc 3.7.1+
+- ansible
+- ansible-galaxy
 
 ##### Services
 
