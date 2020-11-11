@@ -1,7 +1,7 @@
 # K8S ==================================================================================================================
 helm-lint-chart:
   stage: qa
-  image: quay.io/helmpack/chart-testing
+  image: quay.io/helmpack/chart-testing:v3.3.0
   script:
     - ct lint --all --config ct.yaml
   interruptible: true
@@ -14,9 +14,9 @@ helm-lint-chart:
 
 helm-run-chart:
   stage: qa
-  image: quay.io/helmpack/chart-testing
+  image: quay.io/helmpack/chart-testing:v3.3.0
   variables:
-    KIND: v0.8.1
+    KIND: v0.9.0
   before_script:
     - apk add -U docker
     - wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND}/kind-linux-amd64
