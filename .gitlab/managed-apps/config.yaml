@@ -1,0 +1,11 @@
+# possible values are gke or eks
+clusterType: gke
+
+ingress:
+  installed: false
+
+falco:
+  installed: true
+
+vault:
+  installed: false
