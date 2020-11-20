@@ -16,7 +16,7 @@ excluded-charts:
 
 chart-repos:
   - incubator=https://charts.helm.sh/incubator
-  - stable=https://kubernetes-charts.storage.googleapis.com/
+  - stable=https://charts.helm.sh/stable
   - jaegertracing=https://jaegertracing.github.io/helm-charts
 
 helm-extra-args: --timeout 6m
