@@ -8,15 +8,15 @@ load artifacts:
   script:
     - echo "Load artifacts from multi-pipeline"
   needs:
-    - project: shortlink1/shortlink
+    - project: shortlink-org/shortlink
       job: a11y
       ref: ultimate
       artifacts: true
-    - project: shortlink1/shortlink
+    - project: shortlink-org/shortlink
       job: performance
       ref: ultimate
       artifacts: true
-    - project: shortlink1/shortlink
+    - project: shortlink-org/shortlink
       job: dast
       ref: ultimate
       artifacts: true

@@ -49,7 +49,7 @@ Add `127.0.0.1 *.local` to your `/etc/hosts`
 
 + Import [Postman link](./docs/shortlink.postman_collection.json) for
   test HTTP API
-+ Swagger [docs](https://shortlink1.gitlab.io/shortlink)
++ Swagger [docs](https://shortlink-org.gitlab.io/shortlink)
 
 ###### Support HTTP REST API:
 

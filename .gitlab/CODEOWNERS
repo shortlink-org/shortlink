@@ -1,0 +1,9 @@
+# When adding a group as a code owner, make sure to invite the group to the
+# project here: https://gitlab.com/shortlink-org/shortlink/-/project_members
+# As described in https://docs.gitlab.com/ee/user/project/code_owners.html
+
+[Backend]
+*.go @shortlink-org/maintainers/backend
+
+[Frontend]
+/pkg/ui @shortlink-org/maintainers/frontend
