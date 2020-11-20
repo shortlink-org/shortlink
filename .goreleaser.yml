@@ -47,9 +47,9 @@ changelog:
 #      - shortlink
 #    # Templates of the Docker image names.
 #    image_templates:
-#      - "registry.gitlab.com/shortlink1/shortlink/api:{{ .Tag }}"
-#      - "registry.gitlab.com/shortlink1/shortlink/api:v{{ .Major }}"
-#      - "registry.gitlab.com/shortlink1/shortlink/api:v{{ .Major }}.{{ .Minor }}"
-#      - "registry.gitlab.com/shortlink1/shortlink/api:latest"
+#      - "registry.gitlab.com/shortlink-org/shortlink/api:{{ .Tag }}"
+#      - "registry.gitlab.com/shortlink-org/shortlink/api:v{{ .Major }}"
+#      - "registry.gitlab.com/shortlink-org/shortlink/api:v{{ .Major }}.{{ .Minor }}"
+#      - "registry.gitlab.com/shortlink-org/shortlink/api:latest"
 #    # Path to the Dockerfile (from the project root).
 #    dockerfile: ops/dockerfile/shortlink.goreleaser.Dockerfile
