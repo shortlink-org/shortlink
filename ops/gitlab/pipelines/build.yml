@@ -2,7 +2,7 @@ include:
   - local: /ops/gitlab/workflows/matrix_build.yml
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/templates/build.yml
-  - template: Container-Scanning.gitlab-ci.yml
+#  - template: Container-Scanning.gitlab-ci.yml
 
 stages:
   - build
