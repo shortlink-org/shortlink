@@ -2,7 +2,7 @@ apiVersion: v2                                   # The chart API version (requir
 appVersion: "1.0.0"                              # The version of the app that this contains (optional)
 name: common                                     # The name of the chart (required)
 description: Shortlink infrastructure            # A single-sentence description of this project (optional)
-version: 0.2.1                                   # A SemVer 2 version (required)
+version: 0.3.0                                   # A SemVer 2 version (required)
 kubeVersion: ">= 1.15.0 || >= v1.15.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
 home: https://batazor.github.io/shortlink/       # The URL of this project's home page (optional)
 sources:                                         # A list of URLs to source code for this project (optional)
@@ -15,15 +15,22 @@ engine: gotpl
 type: application                                # It is the type of chart (optional)
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
-  - name: nginx-ingress
-    version: 1.41.3
-    repository: https://charts.helm.sh/stable
-    condition: nginx-ingress.enabled
+  - name: ingress-nginx
+    version: 3.11.0
+    repository: https://kubernetes.github.io/ingress-nginx
+    condition: ingress-nginx.enabled
     tags:
       - ingress
   - name: jaeger-operator
-    version: 2.15.1
+    version: 2.17.0
     repository: https://jaegertracing.github.io/helm-charts
     condition: jaeger-operator.enabled
     tags:
       - monitoring
+  - name: kube-prometheus-stack
+    version: 12.2.0
+    repository: https://prometheus-community.github.io/helm-charts
+    condition: prometheus-operator.enabled
+    tags:
+      - monitoring
+

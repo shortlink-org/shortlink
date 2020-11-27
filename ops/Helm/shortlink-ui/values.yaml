@@ -102,5 +102,5 @@ deploy:
     # runAsUser: 1000
 
 service:
-  type: LoadBalancer
+  type: ClusterIP
   port: 80

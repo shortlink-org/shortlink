@@ -7,12 +7,12 @@ fullnameOverride: ""
 
 # nginx-ingress
 ingress:
-  enabled: false
+  enabled: true
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   rules:
-    - host: ui-nuxt.shortlink.minikube
+    - host: ui-nuxt.local
       http:
         paths:
           - path: /ui
@@ -30,4 +30,4 @@ ingress:
   #      - chart-example.local
 
 istio:
-  enabled: true
+  enabled: false

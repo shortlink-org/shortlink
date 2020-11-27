@@ -36,12 +36,20 @@ Shortlink service
 make run
 ```
 
+##### Kuberentes
+
+```
+make minikube-up
+make helm-shortlink-up
+```
+
 ##### DNS/HTTP
 
-+ `ui-nuxt.local`
-+ `shortlink.local`
+services:
+  + `ui-nuxt.local`
+  + `shortlink.local`
 
-Add `127.0.0.1 *.local` to your `/etc/hosts`
+Add `127.0.0.1 [name services].local` to your `/etc/hosts`
 
 ### HTTP API
 

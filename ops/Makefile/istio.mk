@@ -5,13 +5,13 @@ istio-up: ## Run istio
 	@kubectl label namespace default istio-injection=enabled
 
 # MetalLB TASKS ========================================================================================================
-METALLB_SECRET := "ctVLn6wF2Y3dYIMj/UAo+ffNDv2xiHgEA/+vreUbpxHPlkXakoxCQQ=="
+METALLB_SECRET := "$(openssl rand -base64 128)"
+METALLB_VERSION := v0.9.5
 
 metallb-up: ## Run MetalLB
-	@kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/namespace.yaml
-	@kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.3/manifests/metallb.yaml
+	@kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/${METALLB_VERSION}/manifests/namespace.yaml
+	@kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/${METALLB_VERSION}/manifests/metallb.yaml
 	# On first install only
 	@kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="${METALLB_SECRET}"
 	# Apply configuration
-	@envsubst < /home/batazor/myproejct/shortlink/ops/Helm/addons/metallb/metallb.yaml > /tmp/metallb.yaml
-	@kubectl apply -f /tmp/metallb.yaml
+	@kubectl apply -f ops/Helm/addons/metallb/metallb.yaml
