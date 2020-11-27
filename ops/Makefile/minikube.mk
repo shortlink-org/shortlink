@@ -12,8 +12,10 @@ minikube-up: ## run minikube for dev mode
 		--extra-config=apiserver.service-account-api-audiences=api,spire-server \
 		--extra-config=apiserver.authorization-mode=Node,RBAC \
 		--extra-config=kubelet.authentication-token-webhook=true
-	@minikube addons enable ingress
+
+  # Addons enable
 	@eval $(minikube docker-env) # Set docker env
+	@minikube addons enable ingress
 
 minikube-update: ## update image to last version
 	@eval $(minikube docker-env) # Set docker env

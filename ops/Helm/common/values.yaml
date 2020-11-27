@@ -9,8 +9,11 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: shortlink
 
-nginx-ingress:
-  enabled: false
+prometheus-operator:
+  enabled: true
+
+ingress-nginx:
+  enabled: true
 
   ## nginx configuration
   ## Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
@@ -30,10 +33,11 @@ nginx-ingress:
     hostNetwork: true
 
     ## Use host ports 80 and 443
-    daemonset:
-      useHostPort: true
-
-      hostPorts:
+    ## Disabled by default
+    ##
+    hostPort:
+      enabled: true
+      ports:
         http: 80
         https: 443
 
@@ -43,7 +47,7 @@ nginx-ingress:
 
     metrics:
       # if this port is changed, change healthz-port: in extraArgs: accordingly
-      enabled: true
+      enabled: false
 
       serviceMonitor:
         enabled: true

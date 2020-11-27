@@ -13,7 +13,7 @@ export PROMETHEUS_TELEGRAM_API   := 'WFhYWFhYWA==' # in base64
 export PROMETHEUS_TELEGRAM_ADMIN := 'MTIzNA==' # in base64
 
 helm-prometheus-up:
-	@helm repo add stable https://kubernetes-charts.storage.googleapis.com
+	@helm repo add stable https://charts.helm.sh/stable
 	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
 	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
 	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml

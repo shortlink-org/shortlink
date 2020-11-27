@@ -1,4 +1,6 @@
 # SHORTLINK TASKS ======================================================================================================
+SHORTLINK_NAMESPACE := shortlink
+
 helm-shortlink-dep:
 	-kubectl create namespace ${SHORTLINK_NAMESPACE}
 	-kubectl label namespace ${SHORTLINK_NAMESPACE} istio-injection=enabled
@@ -10,20 +12,20 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 
 	@helm upgrade api ${SHORTLINK_HELM_API} \
 		--install \
-		--force \
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--wait
 
 	@helm upgrade ui ${SHORTLINK_HELM_UI} \
 		--install \
-		--force \
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--wait \
 		--set serviceAccount.create=false
 
+	# Add IP in /etc/hosts
+	@echo "$(minikube ip) ui-nuxt.local" | sudo tee -a /etc/hosts
+
 	@helm upgrade ingress ${SHORTLINK_HELM_INGRESS} \
 		--install \
-		--force \
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--wait
 
