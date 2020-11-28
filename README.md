@@ -199,11 +199,10 @@ ansible-playbook playbooks/playbook.yml
 
 ##### DNS
 
-+ `ui-nuxt.shortlink.minikube`
-+ `api.shortlink.minikube`
-+ `grafana.minikube`
-+ `jaeger.minikube`
-+ `prometheus.minikube`
++ `ui-nuxt.local`
++ `grafana.local`
++ `jaeger.local`
++ `prometheus.local`
 
 </p>
 </details>

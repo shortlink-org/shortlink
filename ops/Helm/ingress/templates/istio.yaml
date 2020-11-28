@@ -14,7 +14,7 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - "ui-nuxt.shortlink.minikube"
+        - "ui-nuxt.local"
 
 ---
 
@@ -26,7 +26,7 @@ metadata:
     {{ include "shortlink.labels" . | nindent 4 }}
 spec:
   hosts:
-  - "ui-nuxt.shortlink.minikube"
+  - "ui-nuxt.local"
   gateways:
     - {{ include "shortlink.fullname" . }}
   http:
