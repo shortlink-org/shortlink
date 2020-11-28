@@ -1,5 +1,5 @@
 # STAGING RELEASE ======================================================================================================
-api-staging:
+api:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
@@ -18,7 +18,7 @@ api-staging:
     - if: $CI_COMMIT_TAG
       when: on_success
 
-logger-staging:
+logger:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
@@ -37,7 +37,7 @@ logger-staging:
     - if: $CI_COMMIT_TAG
       when: on_success
 
-ui-staging:
+ui:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-ui
@@ -47,6 +47,24 @@ ui-staging:
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/ui.yml'
+    strategy: depend
+  needs:
+    - trigger:build
+    - helm-lint-chart
+    - helm-run-chart
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+
+ingress:
+  stage: deploy
+  variables:
+    RELEASE_NAME: ${CI_PROJECT_NAME}-ingress
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ingress
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$PROVIDER --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
     - trigger:build
