@@ -10,6 +10,7 @@ stages:
 ui:
   extends:
     - .job_template_deploy
+    - .matrix_deploy
   environment:
     name: $PROVIDER
     url: $ENVIRONMENT_URL
