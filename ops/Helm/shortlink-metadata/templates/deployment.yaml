@@ -56,6 +56,9 @@ spec:
           {{- end }}
         resources:
           {{- toYaml .Values.deploy.resources | indent 10 }}
+        volumeMounts:
+          - name: {{ include "shortlink.fullname" . }}-grpc
+            mountPath: /app/ops/cert/
       {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | indent 8 }}
@@ -68,3 +71,7 @@ spec:
       tolerations:
         {{- toYaml . | indent 8 }}
     {{- end }}
+      volumes:
+        - name: {{ include "shortlink.fullname" . }}-grpc
+          secret:
+            secretName: {{ include "shortlink.fullname" . }}-grpc
