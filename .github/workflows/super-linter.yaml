@@ -52,3 +52,4 @@ jobs:
           DEFAULT_BRANCH: master
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANSIBLE_DIRECTORY: ops/ansible
+          VALIDATE_KUBERNETES_KUBEVAL: false
