@@ -1,0 +1,226 @@
+Version: 1
+Name: Default
+Config:
+  CaCert:
+  CaKey:
+  ServerKey:
+  ClientCert:
+  ClientKey:
+  ConnectTimeout: 30
+  SendTimeout: 30
+  ReceiveTimeout: 30
+Routes:
+- &Route0
+  Order: 0
+  Url: '**'
+  Mutate: true
+  SwaggerUrl:
+  Script:
+  Headers:
+  - Pattern: Host
+    Mutate: false
+  - Pattern: Connection
+    Mutate: false
+  - Pattern: Content-Length
+    Mutate: false
+  ApiTokens:
+  - Name: Authorization
+    Where: Header
+    Expiration: 120
+    IsSignatureOfRequest: false
+  - Name: access_token
+    Where: FormData
+    Expiration: 120
+    IsSignatureOfRequest: false
+  - Name: access_token
+    Where: Query
+    Expiration: 120
+    IsSignatureOfRequest: false
+  - Name: X-API-Key
+    Where: Header
+    Expiration: 120
+    IsSignatureOfRequest: false
+Assertions:
+- Name: LogAnalysisAssertion
+  Configuration:
+    UserEntries: []
+- Name: ResponseAnalysisAssertion
+  Configuration:
+    UserEntries: []
+- Name: CustomBodyContainsAssertion
+  Configuration:
+    IsRequired: false
+    IsCaseSensitive: false
+    IsRegex: false
+    SearchString: ''
+- Name: CustomParameterContainsAssertion
+  Configuration:
+    ComparisonType: Contains
+    IsRequired: false
+    IsCaseSensitive: false
+    IsRegex: false
+    ParameterPart: Body
+    ParameterName: ''
+    Value: ''
+- Name: StatusCodeAssertion
+  Configuration:
+    IsWhitelist: false
+    StatusCodes:
+    - 500
+    - 502
+    - 504
+Checks:
+- Name: FormBodyFuzzingCheck
+  Configuration:
+    FuzzingCount: 30
+    UnicodeFuzzing: true
+  Assertions:
+  - Name: LogAnalysisAssertion
+  - Name: ResponseAnalysisAssertion
+  - Name: StatusCodeAssertion
+- Name: GeneralFuzzingCheck
+  Configuration:
+    FuzzingCount: 30
+    UnicodeFuzzing: true
+  Assertions:
+  - Name: LogAnalysisAssertion
+  - Name: ResponseAnalysisAssertion
+  - Name: StatusCodeAssertion
+- Name: JsonFuzzingCheck
+  Configuration:
+    FuzzingCount: 30
+    UnicodeFuzzing: true
+  Assertions:
+  - Name: LogAnalysisAssertion
+  - Name: ResponseAnalysisAssertion
+  - Name: StatusCodeAssertion
+- Name: XmlFuzzingCheck
+  Configuration:
+    FuzzingCount: 30
+    UnicodeFuzzing: true
+  Assertions:
+  - Name: LogAnalysisAssertion
+  - Name: ResponseAnalysisAssertion
+  - Name: StatusCodeAssertion
+Profiles:
+# ##################################
+- Name: Quick
+  DefaultProfile: Empty
+  Routes:
+  - Route: *Route0
+    Checks:
+    - Name: FormBodyFuzzingCheck
+      Configuration:
+        FuzzingCount: 10
+        UnicodeFuzzing: true
+    - Name: GeneralFuzzingCheck
+      Configuration:
+        FuzzingCount: 10
+        UnicodeFuzzing: true
+        HeaderFuzzing: false
+        Headers:
+    - Name: JsonFuzzingCheck
+      Configuration:
+        FuzzingCount: 10
+        UnicodeFuzzing: true
+    - Name: XmlFuzzingCheck
+      Configuration:
+        FuzzingCount: 10
+        UnicodeFuzzing: true
+# ##################################
+- Name: Quick-10
+  DefaultProfile: Empty
+  Routes:
+  - Route: *Route0
+    Checks:
+    - Name: FormBodyFuzzingCheck
+      Configuration:
+        FuzzingCount: 10
+        UnicodeFuzzing: true
+    - Name: GeneralFuzzingCheck
+      Configuration:
+        FuzzingCount: 10
+        UnicodeFuzzing: true
+        HeaderFuzzing: false
+        Headers:
+    - Name: JsonFuzzingCheck
+      Configuration:
+        FuzzingCount: 10
+        UnicodeFuzzing: true
+    - Name: XmlFuzzingCheck
+      Configuration:
+        FuzzingCount: 10
+        UnicodeFuzzing: true
+# ##################################
+- Name: Medium-20
+  DefaultProfile: Empty
+  Routes:
+  - Route: *Route0
+    Checks:
+    - Name: FormBodyFuzzingCheck
+      Configuration:
+        FuzzingCount: 20
+        UnicodeFuzzing: true
+    - Name: GeneralFuzzingCheck
+      Configuration:
+        FuzzingCount: 20
+        UnicodeFuzzing: true
+        HeaderFuzzing: false
+        Headers:
+    - Name: JsonFuzzingCheck
+      Configuration:
+        FuzzingCount: 20
+        UnicodeFuzzing: true
+    - Name: XmlFuzzingCheck
+      Configuration:
+        FuzzingCount: 20
+        UnicodeFuzzing: true
+# ##################################
+- Name: Medium-50
+  DefaultProfile: Empty
+  Routes:
+  - Route: *Route0
+    Checks:
+    - Name: FormBodyFuzzingCheck
+      Configuration:
+        FuzzingCount: 50
+        UnicodeFuzzing: true
+    - Name: GeneralFuzzingCheck
+      Configuration:
+        FuzzingCount: 50
+        UnicodeFuzzing: true
+        HeaderFuzzing: false
+        Headers:
+    - Name: JsonFuzzingCheck
+      Configuration:
+        FuzzingCount: 50
+        UnicodeFuzzing: true
+    - Name: XmlFuzzingCheck
+      Configuration:
+        FuzzingCount: 50
+        UnicodeFuzzing: true
+  # ##################################
+- Name: Long-100
+  DefaultProfile: Empty
+  Routes:
+  - Route: *Route0
+    Checks:
+    - Name: FormBodyFuzzingCheck
+      Configuration:
+        FuzzingCount: 100
+        UnicodeFuzzing: true
+    - Name: GeneralFuzzingCheck
+      Configuration:
+        FuzzingCount: 100
+        UnicodeFuzzing: true
+        HeaderFuzzing: false
+        Headers:
+    - Name: JsonFuzzingCheck
+      Configuration:
+        FuzzingCount: 100
+        UnicodeFuzzing: true
+    - Name: XmlFuzzingCheck
+      Configuration:
+        FuzzingCount: 100
+        UnicodeFuzzing: true
+# ##################################
