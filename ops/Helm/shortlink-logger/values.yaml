@@ -14,7 +14,7 @@ serviceAccount:
 
 # ==============================================================================
 deploy:
-  replicaCount: 3
+  replicaCount: 1
 
   env:
     MQ_ENABLED: "false"
@@ -104,6 +104,7 @@ deploy:
     # runAsNonRoot: true
     # runAsUser: 1000
 
-service: {}
-#  type: NodePort
-#  port: 7070
+# TODO: Check if empty in service
+service:
+  type: ClusterIP
+  port: 7070
