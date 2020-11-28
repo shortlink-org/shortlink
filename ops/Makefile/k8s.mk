@@ -26,18 +26,6 @@ helm-lint: ## Check Helm chart by linter
 	@helm lint ${SHORTLINK_HELM_UI}
 	@helm lint ${SHORTLINK_HELM_INGRESS}
 
-ct-lint: ### Check Helm chart by ct lint
-	@docker run -it \
-		-v /var/run/docker.sock:/var/run/docker.sock \
-		-v $(pwd):/home \
-		quay.io/helmpack/chart-testing bash -c "cd /home && ct lint --all --config ct.yaml"
-
-ct-run: ### Check Helm chart by ct install
-	@docker run -it \
-		-v /var/run/docker.sock:/var/run/docker.sock \
-		-v $(pwd):/home \
-		quay.io/helmpack/chart-testing bash -c "cd /home && ct install --all --config ct.yaml"
-
 helm-common-up: ## run common service
 	@make helm-init
 	# helm install/update common service
@@ -48,3 +36,24 @@ helm-common-up: ## run common service
 
 helm-common-down: ## down common service
 	-helm del common
+
+# CT TASKS =============================================================================================================
+export KIND=v0.9.0
+
+ct-lint: ### Check Helm chart by ct lint
+	@docker run -it \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v ${PWD}:/home \
+		quay.io/helmpack/chart-testing bash -c "cd /home && ct lint --all --config ct.yaml"
+
+ct-run: ### Check Helm chart by ct install
+	@docker run -it --rm --network host \
+		-v /var/run/docker.sock:/var/run/docker.sock \
+		-v ${PWD}:/home \
+		quay.io/helmpack/chart-testing bash -c "\
+				cd /home && pwd && ls -la && \
+				apk add -U docker && \
+				wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND}/kind-linux-amd64 && \
+				chmod +x /usr/local/bin/kind && \
+				kind create cluster --wait 2m --config=./ops/Helm/kind-config.yaml && \
+				ct install --all --config ct.yaml"
