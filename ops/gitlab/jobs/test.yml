@@ -2,7 +2,6 @@ include:
   - template: Security/License-Scanning.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
-  - local: /ops/gitlab/jobs/dependency.yml
 
 # GOLANG ===============================================================================================================
 GOLANG:
