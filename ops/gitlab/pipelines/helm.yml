@@ -1,6 +1,6 @@
 # K8S ==================================================================================================================
 helm-lint-chart:
-  stage: qa
+  stage: test
   image: quay.io/helmpack/chart-testing:v3.3.0
   script:
     - ct lint --all --config ct.yaml
@@ -13,7 +13,7 @@ helm-lint-chart:
       when: on_success
 
 helm-run-chart:
-  stage: qa
+  stage: test
   image: quay.io/helmpack/chart-testing:v3.3.0
   variables:
     KIND: v0.9.0
