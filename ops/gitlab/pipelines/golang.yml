@@ -3,18 +3,6 @@ include:
   - template: Security/Coverage-Fuzzing.gitlab-ci.yml
   - local: /ops/gitlab/templates/go.yml
 
-code_intelligence_go:
-  stage: .pre
-  image: sourcegraph/lsif-go:v1
-  allow_failure: true # recommended
-  script:
-    - lsif-go
-  artifacts:
-    reports:
-      lsif: dump.lsif
-  rules:
-    - when: always
-
 gosec:
   extends:
     - .job_teplate_go
