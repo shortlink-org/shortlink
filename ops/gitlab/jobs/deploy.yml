@@ -11,9 +11,8 @@ api:
       - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
-    - trigger:build
-    - helm-lint-chart
-    - helm-run-chart
+    - docker:build
+    - HELM
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
@@ -30,9 +29,8 @@ logger:
       - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
-    - trigger:build
-    - helm-lint-chart
-    - helm-run-chart
+    - docker:build
+    - HELM
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
@@ -49,9 +47,8 @@ ui:
       - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
-    - trigger:build
-    - helm-lint-chart
-    - helm-run-chart
+    - docker:build
+    - HELM
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
@@ -67,9 +64,8 @@ ingress:
       - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
   needs:
-    - trigger:build
-    - helm-lint-chart
-    - helm-run-chart
+    - docker:build
+    - HELM
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
