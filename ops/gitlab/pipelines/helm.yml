@@ -1,3 +1,6 @@
+include:
+  - local: /ops/gitlab/templates/common.yml
+
 stages:
   - test
 
@@ -8,7 +11,6 @@ helm-lint-chart:
   script:
     - ct lint --all --config ct.yaml
   interruptible: true
-  needs: []
   rules:
     - changes:
         - ops/Helm/*/*
@@ -30,7 +32,6 @@ helm-run-chart:
     - ct install --all --config ct.yaml
   retry: 2
   interruptible: true
-  needs: []
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
