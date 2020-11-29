@@ -8,6 +8,7 @@ a11y:
   rules:
     - when: on_success
 
+# Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/browser_performance_testing.html
 performance:
   stage: accessibility
   variables:
