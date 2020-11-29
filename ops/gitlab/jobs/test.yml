@@ -2,10 +2,9 @@ include:
   - template: License-Scanning.gitlab-ci.yml
   - template: Coverage-Fuzzing.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
   - local: /ops/gitlab/templates/go.yml
-  - local: /ops/gitlab/jobs/sast.yml
   - local: /ops/gitlab/jobs/dependency.yml
-  
 
 # ON COMMIT ============================================================================================================
 gosec:
@@ -61,8 +60,6 @@ go_fuzz_test:
     - clang -fsanitize=fuzzer link_fuzz_target.a -o link_fuzz_target
     - $GITLAB_COV_FUZZ_PATH/gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target
 
-
-
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
   interruptible: true
@@ -82,3 +79,25 @@ danger-review:
     - danger
   rules:
     - if: $CI_MERGE_REQUEST_ID
+
+# SECRET-DETECTION =====================================================================================================
+secret_detection_default_branch:
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+
+secret_detection:
+  rules:
+    - when: always
+
+
+# SAST =================================================================================================================
+trigger:build:
+  stage: test
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/sast.yml'
+    strategy: depend
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success

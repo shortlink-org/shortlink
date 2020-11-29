@@ -1,6 +1,5 @@
 include:
   - template: Security/SAST.gitlab-ci.yml
-  - template: Security/Secret-Detection.gitlab-ci.yml
 
 bandit-sast:
   rules:
@@ -63,11 +62,6 @@ pmd-apex-sast:
     - if: $CI_COMMIT_TAG
       when: on_success
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
-
-secret_detection_default_branch:
-  rules:
-    - if: $CI_COMMIT_TAG
       when: on_success
 
 security-code-scan-sast:
