@@ -1,64 +1,8 @@
 include:
   - template: License-Scanning.gitlab-ci.yml
-  - template: Coverage-Fuzzing.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
-  - local: /ops/gitlab/templates/go.yml
   - local: /ops/gitlab/jobs/dependency.yml
-
-# ON COMMIT ============================================================================================================
-gosec:
-  extends:
-    - .job_teplate_go
-  before_script:
-    - curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin v2.3.0
-  script:
-    - make gosec
-
-gotest:
-  extends:
-    - .job_teplate_go
-  tags:
-    - docker
-  coverage: '/coverage: \d+.\d+% of statements/'
-  script:
-    - make test
-
-golint:
-  extends:
-    - .job_teplate_go
-  image:
-    name: golangci/golangci-lint:v1.31-alpine
-    entrypoint: [""]
-  artifacts:
-    reports:
-      codequality: gl-code-quality-report.json
-    paths:
-      - gl-code-quality-report.json
-    expire_in: 7 days
-  before_script:
-    - apk add --no-cache jq
-    - go mod vendor
-  script:
-    # Use default .golangci.yml file from the image if one is not present in the project root.
-    - "[ -e .golangci.yml ] || cp /golangci/.golangci.yml ."
-    # Write the code coverage report to gl-code-quality-report.json
-    # and print linting issues to stdout in the format: path/to/file:line description
-    - golangci-lint run --out-format code-climate | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
-
-go_fuzz_test:
-  extends: .fuzz_base
-  stage: test
-  image: registry.gitlab.com/gitlab-org/security-products/analyzers/gitlab-cov-fuzz/golang:1.12-buster-llvm9
-  variables:
-    CI_SEED_CORPUS: './seed_corpus'
-  script:
-    # link package
-    - GITLAB_COV_FUZZ_PATH=`pwd`
-    - cd $CI_PROJECT_DIR/internal/api/domain/link
-    - go-fuzz-build -libfuzzer -o link_fuzz_target.a .
-    - clang -fsanitize=fuzzer link_fuzz_target.a -o link_fuzz_target
-    - $GITLAB_COV_FUZZ_PATH/gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target
 
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
@@ -80,6 +24,26 @@ danger-review:
   rules:
     - if: $CI_MERGE_REQUEST_ID
 
+# HELM =================================================================================================================
+HELM:
+  stage: test
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm.yml'
+    strategy: depend
+  rules:
+    - when: always
+
+# GOLANG ===============================================================================================================
+GOLANG:
+  stage: test
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/golang.yml'
+    strategy: depend
+  rules:
+    - when: always
+
 # SECRET-DETECTION =====================================================================================================
 secret_detection_default_branch:
   rules:
@@ -89,7 +53,6 @@ secret_detection_default_branch:
 secret_detection:
   rules:
     - when: always
-
 
 # SAST =================================================================================================================
 SAST:

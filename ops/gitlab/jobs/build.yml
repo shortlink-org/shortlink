@@ -1,9 +1,9 @@
 # BUILD IMAGE ==========================================================================================================
-trigger:build:
+docker:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/build.yml'
+      - local: 'ops/gitlab/pipelines/docker_build.yml'
     strategy: depend
   needs:
     - gosec

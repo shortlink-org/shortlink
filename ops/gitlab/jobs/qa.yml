@@ -1,33 +1,39 @@
-# K8S ==================================================================================================================
-helm-lint-chart:
-  stage: qa
-  image: quay.io/helmpack/chart-testing:v3.3.0
-  script:
-    - ct lint --all --config ct.yaml
-  interruptible: true
-  needs: []
-  rules:
-    - changes:
-        - ops/Helm/*/*
-    - if: $CI_COMMIT_TAG
-      when: on_success
+include:
+  - template: API-Fuzzing.gitlab-ci.yml
 
-helm-run-chart:
+# API-Fuzzing ==========================================================================================================
+variables:
+  FUZZAPI_PROFILE: Quick-10
+  # Perform testing using a Postman Collection v2.1
+  # All of the APIs defined in the collection will be
+  # tested.
+  FUZZAPI_POSTMAN_COLLECTION: ./docs/shortlink.postman_collection.json
+  #
+  # The target API instance to be tested. This must be
+  # a test deployment. NEVER fuzz a production environment.
+  FUZZAPI_TARGET_URL: ${FUZZAPI_TARGET_URL}
+  #
+  # Provide auth token for target being tested. This variable
+  # is set in the CI configuration as a secret.
+  # FUZZAPI_OVERRIDES_ENV: '{"headers":{"Authorization":"Token REDACTED"}}'
+
+apifuzzer_fuzz_unlicensed:
   stage: qa
-  image: quay.io/helmpack/chart-testing:v3.3.0
-  variables:
-    KIND: v0.9.0
-  before_script:
-    - apk add -U docker
-    - wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND}/kind-linux-amd64
-    - chmod +x /usr/local/bin/kind
-    - kind create cluster --wait 2m --config=./ops/Helm/kind-config.yaml
-    - sed -i -E -e 's/localhost|0\.0\.0\.0/docker/g' "$HOME/.kube/config"
-  script:
-    - ct install --all --config ct.yaml
-  retry: 2
-  interruptible: true
-  needs: []
+  rules:
+    - when: never
+
+apifuzzer_fuzz:
+  stage: qa
   rules:
     - if: $CI_COMMIT_TAG
-      when: on_success
+
+apifuzzer_fuzz_dnd:
+  stage: qa
+  rules:
+    - if: $CI_COMMIT_TAG
+
+# PERFORMANCE ==========================================================================================================
+load_performance:
+  stage: .post
+  variables:
+    K6_TEST_FILE: ops/scripts/k6.js

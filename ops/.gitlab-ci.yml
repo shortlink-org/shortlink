@@ -13,8 +13,8 @@ include:
 stages:
   - test
   - build
-  - qa
   - deploy
+  - qa
   - release
 
 workflow:
