@@ -3,7 +3,7 @@ module github.com/batazor/shortlink
 go 1.15
 
 require (
-	github.com/Masterminds/squirrel v1.4.0
+	github.com/Masterminds/squirrel v1.5.0
 	github.com/PuerkitoBio/goquery v1.6.0
 	github.com/Shopify/sarama v1.27.2
 	github.com/cloudevents/sdk-go/v2 v2.3.1
