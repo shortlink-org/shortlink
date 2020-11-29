@@ -1,6 +1,3 @@
-include:
-  - template: Verify/Load-Performance-Testing.gitlab-ci.yml
-
 # Load artifacts from multi-pipeline
 # TODO: Watch https://gitlab.com/gitlab-org/gitlab/issues/202093#note_291607385
 load artifacts:
@@ -23,7 +20,3 @@ load artifacts:
   rules:
     - when: never
 
-load_performance:
-  stage: .post
-  variables:
-    K6_TEST_FILE: ops/scripts/k6.js

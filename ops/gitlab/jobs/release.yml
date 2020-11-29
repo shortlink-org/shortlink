@@ -1,6 +1,6 @@
 include:
   - template: Pages/SwaggerUI.gitlab-ci.yml
-  - template: API-Fuzzing.gitlab-ci.yml
+  - template: Verify/Load-Performance-Testing.gitlab-ci.yml
 
 # RELEASE ==============================================================================================================
 release:
@@ -59,34 +59,3 @@ pages:
     SPEC_TO_DISPLAY: "api.swagger.json"
   only:
     - tags
-
-# API-Fuzzing ==========================================================================================================
-variables:
-  FUZZAPI_PROFILE: Quick-10
-  # Perform testing using a Postman Collection v2.1
-  # All of the APIs defined in the collection will be
-  # tested.
-  FUZZAPI_POSTMAN_COLLECTION: ./docs/shortlink.postman_collection.json
-  #
-  # The target API instance to be tested. This must be
-  # a test deployment. NEVER fuzz a production environment.
-  FUZZAPI_TARGET_URL: ${FUZZAPI_TARGET_URL}
-  #
-  # Provide auth token for target being tested. This variable
-  # is set in the CI configuration as a secret.
-  # FUZZAPI_OVERRIDES_ENV: '{"headers":{"Authorization":"Token REDACTED"}}'
-
-apifuzzer_fuzz_unlicensed:
-  stage: .post
-  rules:
-    - when: never
-
-apifuzzer_fuzz:
-  stage: .post
-  rules:
-    - if: $CI_COMMIT_TAG
-
-apifuzzer_fuzz_dnd:
-  stage: .post
-  rules:
-    - if: $CI_COMMIT_TAG

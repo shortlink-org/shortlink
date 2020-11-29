@@ -1,7 +1,7 @@
 include:
   - template: Verify/Browser-Performance.gitlab-ci.yml
   - template: Verify/Accessibility.gitlab-ci.yml
-  - template: DAST.gitlab-ci.yml
+  - template: Security/DAST.gitlab-ci.yml
 
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
 a11y:
