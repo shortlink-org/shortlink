@@ -36,7 +36,7 @@ golint:
   extends:
     - .job_teplate_go
   image:
-    name: golangci/golangci-lint:v1.31-alpine
+    name: golangci/golangci-lint:v1.33-alpine
     entrypoint: [""]
   artifacts:
     reports:
