@@ -102,7 +102,7 @@ func (b *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("not found links: %s", err)}
+		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("not found links: %w", err)}
 	}
 
 	response := make([]*link.Link, len(list))

@@ -193,12 +193,19 @@ func (m *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link,
 
 	_, err = collection.InsertOne(ctx, &source)
 	if err != nil {
-		switch err.(mongo.WriteException).WriteErrors[0].Code {
-		case 11000:
-			return nil, &link.NotUniqError{Link: source, Err: fmt.Errorf("Duplicate URL: %s", source.Url)}
-		default:
-			return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
+		var typeErr mongo.WriteException
+		errors.As(err, &typeErr)
+
+		if errors.As(err, &typeErr) {
+			switch typeErr.WriteErrors[0].Code {
+			case 11000:
+				return nil, &link.NotUniqError{Link: source, Err: fmt.Errorf("Duplicate URL: %s", source.Url)}
+			default:
+				return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
+			}
 		}
+
+		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
 	}
 
 	return source, nil

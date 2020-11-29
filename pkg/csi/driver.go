@@ -81,7 +81,7 @@ func NewDriver(log logger.Logger, driverName, nodeID, endpoint string, maxVolume
 	}
 
 	if err := os.MkdirAll(dataRoot, 0750); err != nil {
-		return nil, fmt.Errorf("failed to create dataRoot: %v", err)
+		return nil, fmt.Errorf("failed to create dataRoot: %w", err)
 	}
 
 	log.Info(fmt.Sprintf("Driver: %v ", driverName))

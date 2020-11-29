@@ -7,6 +7,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"net/http"
@@ -35,8 +36,9 @@ func main() {
 	// Init a new service
 	service, cleanup, err := di.InitializeMetadataService(ctx)
 	if err != nil { // TODO: use as helpers
-		if r, ok := err.(*net.OpError); ok {
-			panic(fmt.Errorf("address %s already in use. Set GRPC_SERVER_PORT environment", r.Addr.String()))
+		var typeErr *net.OpError
+		if errors.As(err, &typeErr) {
+			panic(fmt.Errorf("address %s already in use. Set GRPC_SERVER_PORT environment", typeErr.Addr.String()))
 		}
 
 		panic(err)

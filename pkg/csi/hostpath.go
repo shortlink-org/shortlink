@@ -14,6 +14,7 @@ package csi_driver
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -119,7 +120,7 @@ func discoverExistingSnapshots() {
 func (d *driver) Run(ctx context.Context) error {
 	u, err := url.Parse(d.endpoint)
 	if err != nil {
-		return fmt.Errorf("unable to parse address: %q", err)
+		return fmt.Errorf("unable to parse address: %w", err)
 	}
 
 	grpcAddr := path.Join(u.Host, filepath.FromSlash(u.Path))
@@ -138,13 +139,14 @@ func (d *driver) Run(ctx context.Context) error {
 	d.log.Info("removing socket", field.Fields{
 		"socket": grpcAddr,
 	})
-	if err := os.Remove(grpcAddr); err != nil && !os.IsNotExist(err) { // nolint copylocks
-		return fmt.Errorf("failed to remove unix domain socket file %s, error: %s", grpcAddr, err)
+	err = os.Remove(grpcAddr)
+	if err != nil && !os.IsNotExist(err) { // nolint copylocks
+		return fmt.Errorf("failed to remove unix domain socket file %s, error: %w", grpcAddr, err)
 	}
 
 	grpcListener, err := net.Listen(u.Scheme, grpcAddr)
 	if err != nil {
-		return fmt.Errorf("failed to listen: %v", err)
+		return fmt.Errorf("failed to listen: %w", err)
 	}
 
 	// log response errors for better observability
@@ -237,7 +239,7 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 		// Create a block file.
 		out, err := executor.Command("fallocate", "-l", size, path).CombinedOutput()
 		if err != nil {
-			return nil, fmt.Errorf("failed to create block device: %v, %v", err, string(out))
+			return nil, fmt.Errorf("failed to create block device: %w, %v", err, string(out))
 		}
 
 		// Associate block file with the loop device.
@@ -248,7 +250,7 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 			if err2 := os.Remove(path); err2 != nil {
 				glog.Errorf("failed to cleanup block file %s: %v", path, err2)
 			}
-			return nil, fmt.Errorf("failed to attach device %v: %v", path, err)
+			return nil, fmt.Errorf("failed to attach device %v: %w", path, err)
 		}
 	default:
 		return nil, fmt.Errorf("unsupported access type %v", volAccessType)
@@ -290,16 +292,17 @@ func deleteHostpathVolume(volID string) error {
 	if vol.VolAccessType == blockAccess {
 		volPathHandler := volumepathhandler.VolumePathHandler{}
 		// Get the associated loop device.
-		device, err := volPathHandler.GetLoopDevice(getVolumePath(volID))
-		if err != nil {
-			return fmt.Errorf("failed to get the loop device: %v", err)
+		device, errGetLoopDevice := volPathHandler.GetLoopDevice(getVolumePath(volID))
+		if errGetLoopDevice != nil {
+			return fmt.Errorf("failed to get the loop device: %w", errGetLoopDevice)
 		}
 
 		if device != "" {
 			// Remove any associated loop device.
 			glog.V(4).Infof("deleting loop device %s", device)
-			if err := volPathHandler.RemoveMapPath(device); err != nil {
-				return fmt.Errorf("failed to remove loop device %v: %v", device, err)
+			err = volPathHandler.RemoveMapPath(device)
+			if err != nil {
+				return fmt.Errorf("failed to remove loop device %v: %w", device, err)
 			}
 		}
 	}
@@ -317,12 +320,12 @@ func deleteHostpathVolume(volID string) error {
 func hostPathIsEmpty(p string) (bool, error) {
 	f, err := os.Open(p) // #nosec
 	if err != nil {
-		return true, fmt.Errorf("unable to open hostpath volume, error: %v", err)
+		return true, fmt.Errorf("unable to open hostpath volume, error: %w", err)
 	}
 	defer f.Close() // #nosec
 
 	_, err = f.Readdir(1)
-	if err == io.EOF {
+	if errors.Is(err, io.EOF) {
 		return true, nil
 	}
 	return false, err
