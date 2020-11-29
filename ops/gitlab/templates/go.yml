@@ -1,4 +1,5 @@
 .go-cache:
+  key: ${CI_COMMIT_REF_SLUG}
   variables:
     GOPATH: $CI_PROJECT_DIR/.go
   before_script:
@@ -8,7 +9,8 @@
       - .go/pkg/mod/
 
 .job_teplate_go: &job_go
-#  extends: .go-cache
+  extends: .go-cache
   stage: test
   image: golang:1.15-buster
   interruptible: true
+  needs: [ ]
