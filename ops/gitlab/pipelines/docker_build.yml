@@ -2,6 +2,7 @@ include:
   - local: /ops/gitlab/workflows/matrix_build.yml
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/templates/build.yml
+# TODO: fix container scanning
 #  - template: Container-Scanning.gitlab-ci.yml
 
 stages:
@@ -15,6 +16,8 @@ build:
     - .matrix_build
 
 # SECURITY =============================================================================================================
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/container_scanning/
+
 #container_scanning:
 #  extends:
 #    - .matrix_build

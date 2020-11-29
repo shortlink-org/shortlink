@@ -3,6 +3,12 @@ include:
   - template: Verify/Load-Performance-Testing.gitlab-ci.yml
 
 # API-Fuzzing ==========================================================================================================
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/api_fuzzing/
+
+# Configure the scanning tool through the environment variables.
+# List of the variables: https://docs.gitlab.com/ee/user/application_security/api_fuzzing/#available-variables
+# How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
+
 variables:
   FUZZAPI_PROFILE: Quick-10
   # Perform testing using a Postman Collection v2.1
