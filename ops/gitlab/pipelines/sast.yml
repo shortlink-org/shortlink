@@ -1,86 +1,65 @@
 include:
   - template: Security/SAST.gitlab-ci.yml
 
+# SAST =================================================================================================================
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/sast/
+#
+# Configure the scanning tool through the environment variables.
+# List of the variables: https://gitlab.com/gitlab-org/security-products/sast#settings
+# How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
+
 bandit-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 brakeman-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 eslint-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 flawfinder-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 kubesec-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 gosec-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
+
+mobsf-android-sast:
+  rules:
+    - when: always
+
+mobsf-ios-sast:
+  rules:
+    - when: always
 
 nodejs-scan-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 phpcs-security-audit-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 pmd-apex-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 security-code-scan-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 sobelow-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 spotbugs-sast:
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always

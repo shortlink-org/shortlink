@@ -3,6 +3,10 @@ include:
   - template: Verify/Accessibility.gitlab-ci.yml
   - template: Security/DAST.gitlab-ci.yml
 
+# Configure the scanning tool through the environment variables.
+# List of the variables: https://docs.gitlab.com/ee/user/application_security/dast/#available-variables
+# How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
+
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
 a11y:
   rules:
@@ -17,7 +21,7 @@ performance:
   rules:
     - when: on_success
 
-# Docs: https://gitlab.com/help/user/application_security/dast/index.md
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dast/
 dast:
   stage: accessibility
   variables:

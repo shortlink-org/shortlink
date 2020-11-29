@@ -11,13 +11,14 @@ default:
     - name: docker:19.03-dind
       alias: localhost # necessary for correct addressing to services running in docker
 
-code_navigation_go:
+code_intelligence_go:
   stage: .pre
-  image: golang:1.15-buster
+  image: sourcegraph/lsif-go:v1
   allow_failure: true # recommended
   script:
-    - go get -u github.com/sourcegraph/lsif-go/cmd/lsif-go
     - lsif-go
   artifacts:
     reports:
       lsif: dump.lsif
+  rules:
+    - when: always

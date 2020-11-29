@@ -1,5 +1,5 @@
 include:
-  - template: Coverage-Fuzzing.gitlab-ci.yml
+  - template: Security/Coverage-Fuzzing.gitlab-ci.yml
   - local: /ops/gitlab/templates/go.yml
 
 gosec:
@@ -56,6 +56,4 @@ go_fuzz_test:
     - $GITLAB_COV_FUZZ_PATH/gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target
   rules:
     - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: on_success
