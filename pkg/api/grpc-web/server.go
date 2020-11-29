@@ -3,6 +3,7 @@ package grpcweb
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"time"
@@ -96,8 +97,10 @@ func (api *API) tracingWrapper(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		parentSpanContext, err := opentracing.GlobalTracer().Extract(
 			opentracing.HTTPHeaders,
-			opentracing.HTTPHeadersCarrier(r.Header))
-		if err == nil || err == opentracing.ErrSpanContextNotFound {
+			opentracing.HTTPHeadersCarrier(r.Header),
+		)
+
+		if err == nil || errors.Is(err, opentracing.ErrSpanContextNotFound) {
 			serverSpan := opentracing.GlobalTracer().StartSpan(
 				"ServeHTTP",
 				// this is magical, it attaches the new span to the parent parentSpanContext, and creates an unparented one if empty.
