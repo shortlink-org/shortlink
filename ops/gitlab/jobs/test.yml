@@ -34,7 +34,10 @@ HELM:
       - local: 'ops/gitlab/pipelines/helm.yml'
     strategy: depend
   rules:
-    - when: always
+    - changes:
+        - ops/Helm/*/*
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 # LICENSE ==============================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
