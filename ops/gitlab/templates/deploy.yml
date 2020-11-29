@@ -1,7 +1,7 @@
 .job_template_deploy: &job_deploy
   stage: deploy
   image:
-    name: alpine/helm:3.4.0
+    name: alpine/helm:3.4.1
     entrypoint: [""]
   script:
     - env
