@@ -34,6 +34,6 @@ apifuzzer_fuzz_dnd:
 
 # PERFORMANCE ==========================================================================================================
 load_performance:
-  stage: .post
+  stage: qa
   variables:
     K6_TEST_FILE: ops/scripts/k6.js
