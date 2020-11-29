@@ -28,7 +28,7 @@ dependencies:
     tags:
       - monitoring
   - name: kube-prometheus-stack
-    version: 12.2.0
+    version: 12.2.4
     repository: https://prometheus-community.github.io/helm-charts
     condition: prometheus-operator.enabled
     tags:
