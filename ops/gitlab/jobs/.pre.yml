@@ -45,7 +45,7 @@ cert-manager:
   rules:
     - when: always
 
-logger:
+test-logger:
   stage: .pre
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
