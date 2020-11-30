@@ -17,3 +17,5 @@ deploy:
   environment:
     name: ${PROVIDER}-${RELEASE_NAME}
     url: $ENVIRONMENT_URL
+    kubernetes:
+      namespace: ${CI_PROJECT_NAME}
