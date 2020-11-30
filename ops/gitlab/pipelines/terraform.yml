@@ -1,3 +1,6 @@
+include:
+  - local: /ops/gitlab/templates/common.yml
+
 # Official image for Hashicorp's Terraform. It uses light image which is Alpine
 # based as it is much lighter.
 #

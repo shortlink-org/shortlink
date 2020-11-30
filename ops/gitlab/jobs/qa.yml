@@ -1,5 +1,5 @@
 include:
-  - template: API-Fuzzing.gitlab-ci.yml
+  - template: Security/API-Fuzzing.gitlab-ci.yml
   - template: Verify/Load-Performance-Testing.gitlab-ci.yml
 
 # API-Fuzzing ==========================================================================================================

@@ -1,5 +1,6 @@
 include:
   - template: Security/Dependency-Scanning.gitlab-ci.yml
+  - local: /ops/gitlab/templates/common.yml
 
 # DEPENDENCY ===========================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/
