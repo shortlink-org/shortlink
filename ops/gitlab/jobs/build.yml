@@ -1,5 +1,7 @@
 # BUILD IMAGE ==========================================================================================================
 docker:build:
+  extends:
+    - .rules_release
   stage: build
   trigger:
     include:
@@ -7,6 +9,3 @@ docker:build:
     strategy: depend
   needs:
     - GOLANG
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success

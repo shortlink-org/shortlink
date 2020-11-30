@@ -25,26 +25,26 @@ variables:
   # FUZZAPI_OVERRIDES_ENV: '{"headers":{"Authorization":"Token REDACTED"}}'
 
 apifuzzer_fuzz_unlicensed:
+  extends:
+    - .rules_never
   stage: qa
-  rules:
-    - when: never
 
 apifuzzer_fuzz:
+  extends:
+    - .rules_release
   stage: qa
-  rules:
-    - if: $CI_COMMIT_TAG
 
 apifuzzer_fuzz_dnd:
+  extends:
+    - .rules_release
   stage: qa
-  rules:
-    - if: $CI_COMMIT_TAG
 
 # PERFORMANCE ==========================================================================================================
 
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/load_performance_testing.html
 load_performance:
+  extends:
+    - .rules_release
   stage: qa
   variables:
     K6_TEST_FILE: ops/scripts/k6.js
-  rules:
-    - if: $CI_COMMIT_TAG

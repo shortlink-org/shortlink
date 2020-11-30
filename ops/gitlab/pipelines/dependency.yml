@@ -9,21 +9,21 @@ include:
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
 gemnasium-dependency_scanning:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 gemnasium-maven-dependency_scanning:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 gemnasium-python-dependency_scanning:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 bundler-audit-dependency_scanning:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 retire-js-dependency_scanning:
-  rules:
-    - when: always
+  extends:
+    - .rules_always

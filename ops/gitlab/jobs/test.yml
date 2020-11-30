@@ -5,26 +5,23 @@ include:
 
 # GOLANG ===============================================================================================================
 GOLANG:
+  extends:
+    - .rules_always
   stage: test
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/golang.yml'
     strategy: depend
-  rules:
-    - when: always
 
 # DEPENDENCY ===========================================================================================================
 DEPENDENCY:
+  extends:
+    - .rules_reelase_or_main
   stage: test
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/dependency.yml'
     strategy: depend
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
 
 # HELM =================================================================================================================
 HELM:
@@ -43,15 +40,14 @@ HELM:
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 
 license_scanning:
+  extends:
+    - .rules_reelase_or_main
   interruptible: true
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
 
 # DANGER ===============================================================================================================
 danger-review:
+  extends:
+    - .rules_MR
   image: registry.gitlab.com/gitlab-org/gitlab-build-images:danger
   stage: test
   variables:
@@ -59,8 +55,6 @@ danger-review:
   script:
     - git version
     - danger
-  rules:
-    - if: $CI_MERGE_REQUEST_ID
 
 # SECRET-DETECTION =====================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/secret_detection
@@ -70,23 +64,20 @@ danger-review:
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
 secret_detection_default_branch:
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
+  extends:
+    - .rules_release
 
 secret_detection:
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: never
-    - when: always
+  extends:
+    - .rules_release
+    - .rules_always
 
 # SAST =================================================================================================================
 SAST:
+  extends:
+    - .rules_release
   stage: test
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/sast.yml'
     strategy: depend
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success

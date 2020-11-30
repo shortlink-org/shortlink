@@ -9,57 +9,57 @@ include:
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
 bandit-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 brakeman-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 eslint-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 flawfinder-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 kubesec-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 gosec-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 mobsf-android-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 mobsf-ios-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 nodejs-scan-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 phpcs-security-audit-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 pmd-apex-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 security-code-scan-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 sobelow-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always
 
 spotbugs-sast:
-  rules:
-    - when: always
+  extends:
+    - .rules_always

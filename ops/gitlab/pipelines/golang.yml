@@ -4,6 +4,8 @@ include:
   - local: /ops/gitlab/templates/go.yml
 
 code_intelligence_go:
+  extends:
+    - .rules_always
   stage: .pre
   image: sourcegraph/lsif-go:v1
   allow_failure: true # recommended
@@ -12,8 +14,6 @@ code_intelligence_go:
   artifacts:
     reports:
       lsif: dump.lsif
-  rules:
-    - when: always
 
 gosec:
   extends:
@@ -55,7 +55,9 @@ golint:
     - golangci-lint run --out-format code-climate | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
 
 go_fuzz_test:
-  extends: .fuzz_base
+  extends:
+    - .fuzz_base
+    - .rules_release
   stage: test
   image: registry.gitlab.com/gitlab-org/security-products/analyzers/gitlab-cov-fuzz/golang:1.12-buster-llvm9
   variables:
@@ -67,6 +69,3 @@ go_fuzz_test:
     - go-fuzz-build -libfuzzer -o link_fuzz_target.a .
     - clang -fsanitize=fuzzer link_fuzz_target.a -o link_fuzz_target
     - $GITLAB_COV_FUZZ_PATH/gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
