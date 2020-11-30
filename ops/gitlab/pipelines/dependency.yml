@@ -7,3 +7,23 @@ include:
 # Configure the scanning tool through the environment variables.
 # List of the variables: https://gitlab.com/gitlab-org/security-products/dependency-scanning#settings
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
+
+gemnasium-dependency_scanning:
+  rules:
+    - when: always
+
+gemnasium-maven-dependency_scanning:
+  rules:
+    - when: always
+
+gemnasium-python-dependency_scanning:
+  rules:
+    - when: always
+
+bundler-audit-dependency_scanning:
+  rules:
+    - when: always
+
+retire-js-dependency_scanning:
+  rules:
+    - when: always
