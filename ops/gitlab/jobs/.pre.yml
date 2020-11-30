@@ -46,7 +46,7 @@ cert-manager:
     - when: always
 
 logger:
-  stage: deploy
+  stage: .pre
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
