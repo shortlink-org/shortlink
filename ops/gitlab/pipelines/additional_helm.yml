@@ -21,7 +21,7 @@ stages:
 #  rules:
 #    - when: always
 
-test:
+cert-manager:
   stage: deploy
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
