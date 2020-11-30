@@ -6,6 +6,7 @@ api:
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
     HELM_ARG: '--set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+    HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
@@ -24,6 +25,7 @@ logger:
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+    HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
@@ -42,6 +44,7 @@ ui:
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+    HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/ui.yml'
@@ -59,6 +62,7 @@ ingress:
     RELEASE_NAME: ingress
     HELM_PATH: ops/Helm/ingress
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+    HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
