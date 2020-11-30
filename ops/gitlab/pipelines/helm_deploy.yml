@@ -13,7 +13,7 @@ deploy:
   tags:
     - docker
   environment:
-    name: ${PROVIDER}-${RELEASE_NAME}
+    name: ${PROVIDER}-tls
     url: $ENVIRONMENT_URL
     kubernetes:
       namespace: ${HELM_NAMESPACE}
