@@ -17,11 +17,11 @@ ingress:
         paths:
           - path: /ui
             backend:
-              serviceName: ui-shortlink-ui
+              serviceName: shortlink-ui
               servicePort: 80
           - path: /api
             backend:
-              serviceName: api-shortlink-api
+              serviceName: shortlink-api
               servicePort: 7070
 
   tls: []
