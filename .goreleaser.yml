@@ -11,7 +11,7 @@ builds:
     - CGO_ENABLED=0
   flags:
     - -mod=vendor
-  binary: shortlink
+  binary: api
 archives:
 - replacements:
     darwin: Darwin
@@ -21,8 +21,6 @@ archives:
     amd64: x86_64
 checksum:
   name_template: 'checksums.txt'
-snapshot:
-  name_template: "{{ .Tag }}"
 changelog:
   sort: asc
   filters:
