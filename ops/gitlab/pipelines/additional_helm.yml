@@ -1,38 +1,19 @@
 include:
   - local: /ops/gitlab/templates/common.yml
-  - local: /ops/gitlab/templates/deploy.yml
-  - local: /ops/gitlab/workflows/matrix_deploy.yml
 
 stages:
   - deploy
 
 # K8S ==================================================================================================================
 cert-manager:
-  extends:
-    - .matrix_deploy
   stage: deploy
-  image:
-    name: alpine/helm:3.4.1
-    entrypoint: [ "" ]
   variables:
     RELEASE_NAME: cert-manager
-    HELM_PATH: jetstack/cert-manager
+    HELM_PATH: ops/Helm/addons/cert-manager
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
-  before_script:
-    - helm repo add jetstack https://charts.jetstack.io
-  script:
-    - env
-    - helm upgrade $RELEASE_NAME $HELM_PATH
-      --install
-      --wait
-      --namespace=$KUBE_NAMESPACE
-      --create-namespace=true
-      --set installCRDs=true
-  environment:
-    name: ${PROVIDER}-${RELEASE_NAME}
-    url: $ENVIRONMENT_URL
-    kubernetes:
-      namespace: ${RELEASE_NAME}
-  needs: []
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/deploy.yml'
+    strategy: depend
   rules:
     - when: manual

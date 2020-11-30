@@ -2,4 +2,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-cert-manager: {}
+cert-manager:
+  enabled: true
+
+  installCRDs: true
+
+  prometheus:
+    enabled: true
+    servicemonitor:
+      enabled: true
