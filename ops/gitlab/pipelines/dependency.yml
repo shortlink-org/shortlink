@@ -17,19 +17,15 @@ gemnasium-dependency_scanning:
 gemnasium-maven-dependency_scanning:
   extends:
     - .rules_always
-    - .ds-analyzer
 
 gemnasium-python-dependency_scanning:
   extends:
     - .rules_always
-    - .ds-analyzer
 
 bundler-audit-dependency_scanning:
   extends:
     - .rules_always
-    - .ds-analyzer
 
 retire-js-dependency_scanning:
   extends:
     - .rules_always
-    - .ds-analyzer
