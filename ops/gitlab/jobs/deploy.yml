@@ -57,7 +57,7 @@ ingress:
   stage: deploy
   variables:
     RELEASE_NAME: ingress
-    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ingress
+    HELM_PATH: ops/Helm/ingress
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$PROVIDER --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
   trigger:
     include:
