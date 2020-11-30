@@ -33,13 +33,12 @@ ADDITIONAL_HELM:
 #      when: manual
 
 
-test:
-  stage: .pre
+logger:
+  stage: deploy
   variables:
-#    RELEASE_NAME: test
-    RELEASE_NAME: ${CI_PROJECT_NAME}-test
-#    HELM_PATH: ops/Helm/addons/cert-manager
+    RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
+    REGISTRY: ${CI_REGISTRY_IMAGE}/logger
     HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
   trigger:
     include:
