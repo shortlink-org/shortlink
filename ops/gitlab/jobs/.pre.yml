@@ -33,7 +33,7 @@ ADDITIONAL_HELM:
 #      when: manual
 
 cert-manager:
-  stage: .pre
+  stage: test
   variables:
     RELEASE_NAME: cert-manager
     HELM_PATH: ops/Helm/addons/cert-manager
@@ -42,6 +42,5 @@ cert-manager:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
     strategy: depend
-  needs: []
   rules:
     - when: always
