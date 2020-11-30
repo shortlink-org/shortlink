@@ -21,6 +21,20 @@ terraform-up:
         - ops/terraform/*
 
 # K8S ==================================================================================================================
+cert-manager:
+  stage: deploy
+  variables:
+    RELEASE_NAME: cert-manager
+    HELM_PATH: ops/Helm/addons/cert-manager
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
 ADDITIONAL_HELM:
   stage: .pre
   trigger:
