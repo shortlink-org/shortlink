@@ -10,6 +10,7 @@ GOLANG:
     include:
       - local: 'ops/gitlab/pipelines/golang.yml'
     strategy: depend
+  needs: []
   rules:
     - when: always
 
@@ -20,6 +21,7 @@ DEPENDENCY:
     include:
       - local: 'ops/gitlab/pipelines/dependency.yml'
     strategy: depend
+  needs: []
   rules:
     - when: always
 
@@ -30,6 +32,7 @@ HELM:
     include:
       - local: 'ops/gitlab/pipelines/helm.yml'
     strategy: depend
+  needs: []
   rules:
     - changes:
         - ops/Helm/*/*
@@ -55,7 +58,7 @@ danger-review:
     - git version
     - danger
   rules:
-    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_TAG
 
 # SECRET-DETECTION =====================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/secret_detection
@@ -73,7 +76,8 @@ secret_detection:
   rules:
     - if: $CI_COMMIT_TAG
       when: never
-    - when: always
+    - if: $CI_DEFAULT_BRANCH != $CI_COMMIT_BRANCH
+      when: always
 
 # SAST =================================================================================================================
 SAST:
