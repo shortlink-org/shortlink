@@ -11,6 +11,3 @@ deploy:
     - .matrix_deploy
   tags:
     - docker
-  environment:
-    name: $PROVIDER
-    url: $ENVIRONMENT_URL
