@@ -33,14 +33,12 @@ apifuzzer_fuzz:
   stage: qa
   needs: []
   rules:
-    - when: always
     - if: $CI_COMMIT_TAG
 
 apifuzzer_fuzz_dnd:
   stage: qa
   needs: []
   rules:
-    - when: always
     - if: $CI_COMMIT_TAG
 
 # PERFORMANCE ==========================================================================================================

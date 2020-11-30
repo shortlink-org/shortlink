@@ -211,6 +211,8 @@ ansible-playbook playbooks/playbook.yml
 
 ![](./docs/gitlab-pipeline.png)
 
+![](./docs/gtilab-ci.png)
+
 ##### GitLab Variable
 
 - SURGE_LOGIN
