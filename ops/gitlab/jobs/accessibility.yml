@@ -7,11 +7,13 @@ include:
 # List of the variables: https://docs.gitlab.com/ee/user/application_security/dast/#available-variables
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
+# TODO: fix
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
 a11y:
   rules:
     - when: on_success
 
+# TODO: fix
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/browser_performance_testing.html
 performance:
   stage: accessibility
@@ -21,6 +23,7 @@ performance:
   rules:
     - when: on_success
 
+# TODO: fix
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dast/
 dast:
   stage: accessibility

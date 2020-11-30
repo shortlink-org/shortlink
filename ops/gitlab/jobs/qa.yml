@@ -29,12 +29,14 @@ apifuzzer_fuzz_unlicensed:
   rules:
     - when: never
 
+# TODO: fix
 apifuzzer_fuzz:
   stage: qa
   needs: []
   rules:
     - if: $CI_COMMIT_TAG
 
+# TODO: fix
 apifuzzer_fuzz_dnd:
   stage: qa
   needs: []
@@ -43,6 +45,7 @@ apifuzzer_fuzz_dnd:
 
 # PERFORMANCE ==========================================================================================================
 
+# TODO: fix
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/load_performance_testing.html
 load_performance:
   stage: qa
