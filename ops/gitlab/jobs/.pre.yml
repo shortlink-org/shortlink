@@ -28,5 +28,6 @@ ADDITIONAL_HELM:
       - local: 'ops/gitlab/pipelines/additional_helm.yml'
     strategy: depend
   rules:
-    - if: $CI_COMMIT_TAG
-      when: manual
+    - when: manual
+#    - if: $CI_COMMIT_TAG
+#      when: manual
