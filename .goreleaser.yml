@@ -22,7 +22,7 @@ archives:
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  name_template: "{{ .Version }}.{{ .Env.INC }}"
 changelog:
   sort: asc
   filters:

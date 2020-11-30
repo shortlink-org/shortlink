@@ -5,7 +5,7 @@ api:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
-    HELM_ARG: '--set deploy.annotations.app\.gitlab\.com\/env=$PROVIDER --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+    HELM_ARG: '--set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/deploy.yml'
@@ -23,7 +23,7 @@ logger:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
-    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$PROVIDER --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/deploy.yml'
@@ -41,7 +41,7 @@ ui:
     RELEASE_NAME: ${CI_PROJECT_NAME}-ui
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
-    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$PROVIDER --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/ui.yml'
@@ -58,7 +58,7 @@ ingress:
   variables:
     RELEASE_NAME: ingress
     HELM_PATH: ops/Helm/ingress
-    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$PROVIDER --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/deploy.yml'
