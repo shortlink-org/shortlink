@@ -9,23 +9,7 @@ include:
 # List of the variables: https://gitlab.com/gitlab-org/security-products/dependency-scanning#settings
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
-gemnasium-dependency_scanning:
-  extends:
-    - .rules_always
-    - .ds-analyzer
 
-gemnasium-maven-dependency_scanning:
-  extends:
-    - .rules_always
-
-gemnasium-python-dependency_scanning:
-  extends:
-    - .rules_always
-
-bundler-audit-dependency_scanning:
-  extends:
-    - .rules_always
-
-retire-js-dependency_scanning:
+dependency_scanning:
   extends:
     - .rules_always
