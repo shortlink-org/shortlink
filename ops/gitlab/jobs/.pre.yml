@@ -1,0 +1,31 @@
+include:
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
+
+# ANSIBLE ==============================================================================================================
+ansible-up:
+  stage: .pre
+  when: manual
+  image: quay.io/ansible/molecule:latest
+  script:
+    - make ansible-up
+
+# TERRAFORM ============================================================================================================
+terraform-up:
+  stage: .pre
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/terraform.yml'
+    strategy: depend
+  rules:
+    - changes:
+        - ops/terraform/*
+
+# K8S ==================================================================================================================
+ADDITIONAL_HELM:
+  stage: .pre
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/additional_helm.yml'
+    strategy: depend
+  rules:
+    - when: always

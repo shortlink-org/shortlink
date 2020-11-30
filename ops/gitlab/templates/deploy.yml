@@ -1,4 +1,4 @@
-.job_template_deploy: &job_deploy
+.job_template_deploy:
   stage: deploy
   image:
     name: alpine/helm:3.4.1
