@@ -27,6 +27,5 @@ ADDITIONAL_HELM:
     include:
       - local: 'ops/gitlab/pipelines/additional_helm.yml'
     strategy: depend
-  rules:
-    - when: manual
+  when: manual
 
