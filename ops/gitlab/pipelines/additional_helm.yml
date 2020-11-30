@@ -15,5 +15,6 @@ cert-manager:
     include:
       - local: 'ops/gitlab/pipelines/deploy.yml'
     strategy: depend
+  needs: []
   rules:
     - when: manual
