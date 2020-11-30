@@ -22,11 +22,12 @@ terraform-up:
 
 # K8S ==================================================================================================================
 ADDITIONAL_HELM:
-  stage: .pre
+  stage: test
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/additional_helm.yml'
     strategy: depend
+  needs: []
   rules:
     - when: manual
 #    - if: $CI_COMMIT_TAG
