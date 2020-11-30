@@ -35,7 +35,7 @@ jobs:
         dockerfile-location: -f ops/dockerfile/logger.Dockerfile .
         tag: latest
     - name: CSI
-      uses: mattdavis0351/actions/docker-gpr@v1
+      uses: mattdavis0351/actions/docker-gpr@2
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         image-name: logger # this image-name is changed for the demo
