@@ -11,25 +11,25 @@ include:
 
 gemnasium-dependency_scanning:
   extends:
-    - .ds-analyzer
     - .rules_always
+    - .ds-analyzer
 
 gemnasium-maven-dependency_scanning:
   extends:
-    - .ds-analyzer
     - .rules_always
+    - .ds-analyzer
 
 gemnasium-python-dependency_scanning:
   extends:
-    - .ds-analyzer
     - .rules_always
+    - .ds-analyzer
 
 bundler-audit-dependency_scanning:
   extends:
-    - .ds-analyzer
     - .rules_always
+    - .ds-analyzer
 
 retire-js-dependency_scanning:
   extends:
-    - .ds-analyzer
     - .rules_always
+    - .ds-analyzer
