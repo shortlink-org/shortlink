@@ -37,7 +37,6 @@ cert-manager:
   variables:
     RELEASE_NAME: cert-manager
     HELM_PATH: ops/Helm/addons/cert-manager
-    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations.app\.gitlab\.com\/env=$CI_ENVIRONMENT_SLUG --set deploy.annotations.app\.gitlab\.com\/app=$CI_PROJECT_PATH_SLUG'
     HELM_NAMESPACE: cert-manager
   trigger:
     include:
