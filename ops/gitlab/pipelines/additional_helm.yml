@@ -21,11 +21,15 @@ cert-manager:
   before_script:
     - helm repo add jetstack https://charts.jetstack.io
   script:
-    - helm install cert-manager jetstack/cert-manager
-      --namespace cert-manager
+    - env
+    - helm upgrade $RELEASE_NAME $HELM_PATH
+      --install
+      --wait
+      --namespace=$KUBE_NAMESPACE
+      --create-namespace=true
       --set installCRDs=true
   environment:
-    name: ${RELEASE_NAME}
+    name: ${PROVIDER}-${RELEASE_NAME}
     url: $ENVIRONMENT_URL
     kubernetes:
       namespace: ${RELEASE_NAME}
