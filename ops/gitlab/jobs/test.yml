@@ -21,10 +21,7 @@ DEPENDENCY:
       - local: 'ops/gitlab/pipelines/dependency.yml'
     strategy: depend
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 # HELM =================================================================================================================
 HELM:

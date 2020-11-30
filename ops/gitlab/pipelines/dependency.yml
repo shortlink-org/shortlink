@@ -11,19 +11,44 @@ include:
 gemnasium-dependency_scanning:
   rules:
     - when: always
+      exists:
+        - '{Gemfile.lock,*/Gemfile.lock,*/*/Gemfile.lock}'
+        - '{composer.lock,*/composer.lock,*/*/composer.lock}'
+        - '{gems.locked,*/gems.locked,*/*/gems.locked}'
+        - '{go.sum,*/go.sum,*/*/go.sum}'
+        - '{npm-shrinkwrap.json,*/npm-shrinkwrap.json,*/*/npm-shrinkwrap.json}'
+        - '{package-lock.json,*/package-lock.json,*/*/package-lock.json}'
+        - '{yarn.lock,*/yarn.lock,*/*/yarn.lock}'
+        - '{packages.lock.json,*/packages.lock.json,*/*/packages.lock.json}'
+        - '{conan.lock,*/conan.lock,*/*/conan.lock}'
 
 gemnasium-maven-dependency_scanning:
   rules:
     - when: always
+      exists:
+        - '{build.gradle,*/build.gradle,*/*/build.gradle}'
+        - '{build.gradle.kts,*/build.gradle.kts,*/*/build.gradle.kts}'
+        - '{build.sbt,*/build.sbt,*/*/build.sbt}'
+        - '{pom.xml,*/pom.xml,*/*/pom.xml}'
 
 gemnasium-python-dependency_scanning:
   rules:
     - when: always
+      exists:
+        - '{requirements.txt,*/requirements.txt,*/*/requirements.txt}'
+        - '{requirements.pip,*/requirements.pip,*/*/requirements.pip}'
+        - '{Pipfile,*/Pipfile,*/*/Pipfile}'
+        - '{requires.txt,*/requires.txt,*/*/requires.txt}'
+        - '{setup.py,*/setup.py,*/*/setup.py}'
 
 bundler-audit-dependency_scanning:
   rules:
     - when: always
+      exists:
+        - '{Gemfile.lock,*/Gemfile.lock,*/*/Gemfile.lock}'
 
 retire-js-dependency_scanning:
   rules:
     - when: always
+      exists:
+        - '{package.json,*/package.json,*/*/package.json}'
