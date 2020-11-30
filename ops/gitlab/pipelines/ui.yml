@@ -1,6 +1,6 @@
 include:
-  - local: /ops/gitlab/workflows/matrix_deploy.yml
   - local: /ops/gitlab/templates/common.yml
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
   - local: /ops/gitlab/templates/deploy.yml
   - local: /ops/gitlab/jobs/accessibility.yml
 
@@ -8,7 +8,12 @@ stages:
   - deploy
   - accessibility
 
-ui:
+deploy:
   extends:
     - .job_template_deploy
     - .matrix_deploy
+  tags:
+    - docker
+  environment:
+    name: ${PROVIDER}-${RELEASE_NAME}
+    url: $ENVIRONMENT_URL
