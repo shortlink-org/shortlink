@@ -17,4 +17,4 @@ cert-manager:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - when: always
