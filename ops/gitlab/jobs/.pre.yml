@@ -33,7 +33,7 @@ ADDITIONAL_HELM:
 #      when: manual
 
 
-logger:
+test:
   stage: .pre
   variables:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
