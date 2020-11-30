@@ -12,6 +12,7 @@ deploy:
     - .matrix_deploy
   tags:
     - docker
+  needs: []
   environment:
     name: ${PROVIDER}-${RELEASE_NAME}
     url: $ENVIRONMENT_URL
