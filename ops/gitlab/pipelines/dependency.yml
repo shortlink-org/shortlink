@@ -9,7 +9,6 @@ include:
 # List of the variables: https://gitlab.com/gitlab-org/security-products/dependency-scanning#settings
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
-
 dependency_scanning:
   extends:
     - .rules_always
