@@ -21,7 +21,7 @@ terraform-up:
         - ops/terraform/*
 
 # K8S ==================================================================================================================
-ADDITIONAL_HELM:
+infrastructure:
   stage: .pre
   trigger:
     include:
