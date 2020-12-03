@@ -6,10 +6,10 @@ import os
 import numpy as np
 
 # Read in data
-X_train = np.genfromtxt("data/train_features.csv")
-y_train = np.genfromtxt("data/train_labels.csv")
-X_test = np.genfromtxt("data/test_features.csv")
-y_test = np.genfromtxt("data/test_labels.csv")
+X_train = np.genfromtxt("./data/data_train_features.csv")
+y_train = np.genfromtxt("./data/data_train_labels.csv")
+X_test = np.genfromtxt("./data/data_test_features.csv")
+y_test = np.genfromtxt("./data/data_test_labels.csv")
 
 
 # Fit a model
