@@ -58,3 +58,12 @@ pages:
     SPEC_TO_DISPLAY: "api.swagger.json"
   only:
     - tags
+
+# ML ===================================================================================================================
+infrastructure:
+  stage: .pre
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/release_ml.yml'
+    strategy: depend
+  when: manual
