@@ -61,7 +61,9 @@ pages:
 
 # ML ===================================================================================================================
 ml:
-  stage: .pre
+  stage: release
+  values:
+    repo_token: $GITLAB_TOKEN
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/release_ml.yml'
