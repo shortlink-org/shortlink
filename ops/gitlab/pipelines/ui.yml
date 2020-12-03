@@ -16,6 +16,6 @@ deploy:
     - docker
   environment:
     name: ${PROVIDER}-${RELEASE_NAME}
-    url: $ENVIRONMENT_URL
+    url: $ENVIRONMENT_URL/ui
     kubernetes:
       namespace: ${HELM_NAMESPACE}
