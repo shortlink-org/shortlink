@@ -5,3 +5,8 @@
 kubernetes-dashboard:
   enabled: true
 
+  fullnameOverride: 'kubernetes-dashboard'
+
+  rbac:
+    clusterAdminRole: true
+

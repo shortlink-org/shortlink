@@ -37,7 +37,7 @@ jaeger-operator:
 dashboard:
   stage: deploy
   variables:
-    RELEASE_NAME: dashboard
+    RELEASE_NAME: kubernetes-dashboard
     HELM_PATH: ops/Helm/addons/dashboard
     HELM_NAMESPACE: dashboard
   trigger:

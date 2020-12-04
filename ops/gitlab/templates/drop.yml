@@ -5,6 +5,6 @@
     entrypoint: [""]
   script:
     - env
-    - helm del -n $KUBE_NAMESPACE --purge $RELEASE_NAME $HELM_ARG;
+    - helm del -n $KUBE_NAMESPACE $RELEASE_NAME $HELM_ARG;
   retry: 2
   when: manual
