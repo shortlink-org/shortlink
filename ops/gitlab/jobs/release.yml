@@ -62,7 +62,7 @@ pages:
 # ML ===================================================================================================================
 ml:
   stage: release
-  values:
+  variables:
     repo_token: $GITLAB_TOKEN
   trigger:
     include:
