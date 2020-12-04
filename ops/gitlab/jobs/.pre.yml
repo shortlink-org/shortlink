@@ -25,7 +25,7 @@ infrastructure:
   stage: .pre
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/additional_helm.yml'
+      - local: 'ops/gitlab/pipelines/helm_additional.yml'
     strategy: depend
   when: manual
 

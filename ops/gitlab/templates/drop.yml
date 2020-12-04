@@ -1,0 +1,9 @@
+.job_template_drop:
+  stage: drop
+  image:
+    name: alpine/helm:3.4.1
+    entrypoint: [""]
+  script:
+    - env
+    - helm del -n $KUBE_NAMESPACE --purge $RELEASE_NAME $HELM_ARG;
+  retry: 2

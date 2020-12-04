@@ -33,3 +33,17 @@ jaeger-operator:
   needs: []
   rules:
     - when: manual
+
+dashboard:
+  stage: deploy
+  variables:
+    RELEASE_NAME: dashboard
+    HELM_PATH: ops/Helm/addons/dashboard
+    HELM_NAMESPACE: dashboard
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: [ ]
+  rules:
+    - when: manual
