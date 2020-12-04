@@ -1,12 +1,12 @@
 dependencies:
 - name: ingress-nginx
   repository: https://kubernetes.github.io/ingress-nginx
-  version: 3.12.0
+  version: 3.13.0
 - name: jaeger-operator
   repository: https://jaegertracing.github.io/helm-charts
   version: 2.17.0
 - name: kube-prometheus-stack
   repository: https://prometheus-community.github.io/helm-charts
   version: 12.4.0
-digest: sha256:aaa14608c518ce3f664fd9b729635c0ae8e27e4edd8d910afa2dd44b0adde181
-generated: "2020-12-02T21:55:33.958374219Z"
+digest: sha256:3dd119322efc9fde74def479f1375218884fe2b25aa1aeb53d4dff3461a62829
+generated: "2020-12-04T23:52:29.007073572Z"
