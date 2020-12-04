@@ -68,4 +68,6 @@ ml:
     include:
       - local: 'ops/gitlab/pipelines/release_ml.yml'
     strategy: depend
-  when: manual
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: manual
