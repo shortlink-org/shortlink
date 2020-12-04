@@ -15,8 +15,9 @@ deploy:
   tags:
     - docker
   environment:
-    name: ${PROVIDER}-${RELEASE_NAME}
+    name: ${PROVIDER}/${RELEASE_NAME}
     url: $ENVIRONMENT_URL
+    on_stop: drop
     kubernetes:
       namespace: ${HELM_NAMESPACE}
 
@@ -26,3 +27,6 @@ drop:
     - .matrix_deploy
   tags:
     - docker
+  environment:
+    name: ${PROVIDER}/${RELEASE_NAME}
+    action: stop
