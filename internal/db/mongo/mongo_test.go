@@ -1,3 +1,5 @@
+// +build database,mongo
+
 package mongo
 
 import (

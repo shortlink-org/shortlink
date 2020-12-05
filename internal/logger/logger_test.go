@@ -1,3 +1,5 @@
+// +build unit
+
 package logger
 
 import (
@@ -36,7 +38,7 @@ func TestOutputZap(t *testing.T) { //nolint unused
 	expected := map[string]interface{}{
 		"@level":     "info",
 		"@timestamp": expectedTime,
-		"@caller":    "logger/logger_test.go:33",
+		"@caller":    "logger/logger_test.go:35",
 		"@msg":       "Hello World",
 	}
 	var response map[string]interface{}
@@ -129,7 +131,7 @@ func TestFieldsZap(t *testing.T) { //nolint unused
 		"@level":     "info",
 		"@timestamp": expectedTime,
 		"@msg":       "Hello World",
-		"@caller":    "logger/logger_test.go:122",
+		"@caller":    "logger/logger_test.go:124",
 		"first":      float64(1),
 		"hello":      "world",
 	}

@@ -1,3 +1,5 @@
+// +build database,dgraph
+
 package dgraph
 
 import (

@@ -1,3 +1,5 @@
+// +build database,sqlite
+
 package sqlite
 
 import (
