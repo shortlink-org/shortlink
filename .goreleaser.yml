@@ -5,13 +5,90 @@ before:
     # You may remove this if you don't use go modules.
     - go mod download
 builds:
-- id: shortlink
+- id: api
   main: ./cmd/api
   env:
     - CGO_ENABLED=0
+  goos:
+    - linux
+    - windows
+    - darwin
+  goarch:
+    - amd64
+    - arm64
   flags:
     - -mod=vendor
   binary: api
+- id: bot
+  main: ./cmd/bot
+  env:
+    - CGO_ENABLED=0
+  goos:
+    - linux
+    - windows
+    - darwin
+  goarch:
+    - amd64
+    - arm64
+  flags:
+    - -mod=vendor
+  binary: bot
+- id: cli
+  main: ./cmd/cli
+  env:
+    - CGO_ENABLED=0
+  goos:
+    - linux
+    - windows
+    - darwin
+  goarch:
+    - amd64
+    - arm64
+  flags:
+    - -mod=vendor
+  binary: cli
+- id: csi
+  main: ./cmd/k8s/csi
+  env:
+    - CGO_ENABLED=0
+  goos:
+    - linux
+    - windows
+    - darwin
+  goarch:
+    - amd64
+    - arm64
+  flags:
+    - -mod=vendor
+  binary: csi
+- id: logger
+  main: ./cmd/logger
+  env:
+    - CGO_ENABLED=0
+  goos:
+    - linux
+    - windows
+    - darwin
+  goarch:
+    - amd64
+    - arm64
+  flags:
+    - -mod=vendor
+  binary: logger
+- id: metadata
+  main: ./cmd/metadata
+  env:
+    - CGO_ENABLED=0
+  goos:
+    - linux
+    - windows
+    - darwin
+  goarch:
+    - amd64
+    - arm64
+  flags:
+    - -mod=vendor
+  binary: metadata
 archives:
 - replacements:
     darwin: Darwin
@@ -31,23 +108,23 @@ changelog:
     - '^danger:'
     - '^.github:'
     - '^.gitlab:'
-#dockers:
-#  # You can have multiple Docker images.
-#  - # GOOS of the built binary that should be used.
-#    goos: linux
-#    # GOARCH of the built binary that should be used.
-#    goarch: amd64
-#    # Name templates of the built binaries that should be used.
-#    binaries:
-#      - shortlink
-#    # Build IDs to gather the binaries from.
-#    builds:
-#      - shortlink
-#    # Templates of the Docker image names.
-#    image_templates:
-#      - "registry.gitlab.com/shortlink-org/shortlink/api:{{ .Tag }}"
-#      - "registry.gitlab.com/shortlink-org/shortlink/api:v{{ .Major }}"
-#      - "registry.gitlab.com/shortlink-org/shortlink/api:v{{ .Major }}.{{ .Minor }}"
-#      - "registry.gitlab.com/shortlink-org/shortlink/api:latest"
-#    # Path to the Dockerfile (from the project root).
-#    dockerfile: ops/dockerfile/shortlink.goreleaser.Dockerfile
+dockers:
+  # You can have multiple Docker images.
+  - # GOOS of the built binary that should be used.
+    goos: linux
+    # GOARCH of the built binary that should be used.
+    goarch: amd64
+    # Name templates of the built binaries that should be used.
+    binaries:
+      - api
+    # Build IDs to gather the binaries from.
+    builds:
+      - api
+    # Templates of the Docker image names.
+    image_templates:
+      - "registry.gitlab.com/shortlink-org/shortlink/api:{{ .Tag }}"
+      - "registry.gitlab.com/shortlink-org/shortlink/api:v{{ .Major }}"
+      - "registry.gitlab.com/shortlink-org/shortlink/api:v{{ .Major }}.{{ .Minor }}"
+      - "registry.gitlab.com/shortlink-org/shortlink/api:latest"
+    # Path to the Dockerfile (from the project root).
+    dockerfile: ops/dockerfile/api.goreleaser.Dockerfile
