@@ -24,7 +24,7 @@ logger:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
-    HELM_ARG: --set serviceAccount.create=false --set deploy.annotations[0]="app.gitlab.com/env: $CI_ENVIRONMENT_SLUG" --set deploy.annotations[1]="app.gitlab.com/app: $CI_PROJECT_PATH_SLUG"
+    HELM_ARG: "--set serviceAccount.create=false --set deploy.annotations[0]=\"app.gitlab.com/env: ${CI_ENVIRONMENT_SLUG}\" --set deploy.annotations[1]=\"app.gitlab.com/app: ${CI_PROJECT_PATH_SLUG}\""
     HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
