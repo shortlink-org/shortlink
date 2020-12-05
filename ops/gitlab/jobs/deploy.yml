@@ -61,7 +61,7 @@ ingress:
   variables:
     RELEASE_NAME: ingress
     HELM_PATH: ops/Helm/ingress
-    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations[0]="app.gitlab.com/env: $CI_ENVIRONMENT_SLUG" --set deploy.annotations[0]="app.gitlab.com/app: $CI_PROJECT_PATH_SLUG"' --set host=$INGRESS_PUBLIC_DOMAIN
+    HELM_ARG: '--set serviceAccount.create=false --set deploy.annotations[0]="app.gitlab.com/env: $CI_ENVIRONMENT_SLUG" --set deploy.annotations[0]="app.gitlab.com/app: $CI_PROJECT_PATH_SLUG" --set host=$INGRESS_PUBLIC_DOMAIN'
     HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
