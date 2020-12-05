@@ -24,7 +24,6 @@ deploy:
 drop:
   extends:
     - .job_template_drop
-    - .matrix_deploy
   tags:
     - docker
   environment:
