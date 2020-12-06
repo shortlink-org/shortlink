@@ -1,3 +1,5 @@
+// +build database,redis
+
 package redis
 
 import (

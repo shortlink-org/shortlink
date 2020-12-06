@@ -1,0 +1,31 @@
+include:
+  - local: /ops/gitlab/templates/common.yml
+  - local: /ops/gitlab/templates/deploy.yml
+  - local: /ops/gitlab/templates/drop.yml
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
+
+stages:
+  - deploy
+  - drop
+
+deploy:
+  extends:
+    - .job_template_deploy
+    - .matrix_deploy
+  tags:
+    - docker
+  environment:
+    name: ${PROVIDER}-${RELEASE_NAME}
+    url: $ENVIRONMENT_URL
+    on_stop: drop
+    kubernetes:
+      namespace: ${HELM_NAMESPACE}
+
+drop:
+  extends:
+    - .job_template_drop
+  tags:
+    - docker
+  environment:
+    name: ${PROVIDER}-${RELEASE_NAME}
+    action: stop

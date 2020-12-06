@@ -10,6 +10,7 @@ GOLANG:
     include:
       - local: 'ops/gitlab/pipelines/golang.yml'
     strategy: depend
+  needs: []
   rules:
     - when: always
 
@@ -20,11 +21,9 @@ DEPENDENCY:
     include:
       - local: 'ops/gitlab/pipelines/dependency.yml'
     strategy: depend
+  needs: []
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 # HELM =================================================================================================================
 HELM:
@@ -33,6 +32,7 @@ HELM:
     include:
       - local: 'ops/gitlab/pipelines/helm.yml'
     strategy: depend
+  needs: []
   rules:
     - changes:
         - ops/Helm/*/*
@@ -45,12 +45,10 @@ HELM:
 license_scanning:
   interruptible: true
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      when: on_success
+    - when: always
 
 # DANGER ===============================================================================================================
+# TODO: fix
 danger-review:
   image: registry.gitlab.com/gitlab-org/gitlab-build-images:danger
   stage: test
@@ -59,8 +57,9 @@ danger-review:
   script:
     - git version
     - danger
+  needs: []
   rules:
-    - if: $CI_MERGE_REQUEST_ID
+    - if: $CI_COMMIT_TAG
 
 # SECRET-DETECTION =====================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/secret_detection
@@ -70,15 +69,18 @@ danger-review:
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
 secret_detection_default_branch:
+  needs: []
   rules:
     - if: $CI_COMMIT_TAG
-      when: on_success
+      when: always
 
 secret_detection:
+  needs: []
   rules:
     - if: $CI_COMMIT_TAG
       when: never
-    - when: always
+    - if: $CI_DEFAULT_BRANCH != $CI_COMMIT_BRANCH
+      when: always
 
 # SAST =================================================================================================================
 SAST:
@@ -87,6 +89,6 @@ SAST:
     include:
       - local: 'ops/gitlab/pipelines/sast.yml'
     strategy: depend
+  needs: []
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
+    - when: always

@@ -1,3 +1,5 @@
+// +build database,rethinkdb
+
 // Deprecated: This database is no longer supported
 package rethinkdb
 

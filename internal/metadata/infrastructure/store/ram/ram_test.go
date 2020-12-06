@@ -1,3 +1,5 @@
+// +build database,ram
+
 package ram
 
 import (

@@ -1,3 +1,5 @@
+// +build database,mysql
+
 package migrations
 
 import (

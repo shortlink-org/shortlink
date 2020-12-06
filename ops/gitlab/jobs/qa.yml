@@ -29,22 +29,31 @@ apifuzzer_fuzz_unlicensed:
   rules:
     - when: never
 
+# TODO: fix
 apifuzzer_fuzz:
   stage: qa
+  needs: []
   rules:
     - if: $CI_COMMIT_TAG
+      when: on_success
 
+# TODO: fix
 apifuzzer_fuzz_dnd:
   stage: qa
+  needs: []
   rules:
     - if: $CI_COMMIT_TAG
+      when: on_success
 
 # PERFORMANCE ==========================================================================================================
 
+# TODO: fix
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/load_performance_testing.html
 load_performance:
   stage: qa
   variables:
     K6_TEST_FILE: ops/scripts/k6.js
+  needs: []
   rules:
     - if: $CI_COMMIT_TAG
+      when: on_success
