@@ -7,6 +7,7 @@ include:
 stages:
   - deploy
   - accessibility
+  - drop
 
 deploy:
   extends:
@@ -19,3 +20,12 @@ deploy:
     url: $ENVIRONMENT_URL/ui
     kubernetes:
       namespace: ${HELM_NAMESPACE}
+
+drop:
+  extends:
+    - .job_template_drop
+  tags:
+    - docker
+  environment:
+    name: ${PROVIDER}-${RELEASE_NAME}
+    action: stop

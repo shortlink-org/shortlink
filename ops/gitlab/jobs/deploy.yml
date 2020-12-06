@@ -24,7 +24,7 @@ logger:
     RELEASE_NAME: ${CI_PROJECT_NAME}-logger
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
     REGISTRY: ${CI_REGISTRY_IMAGE}/logger
-    HELM_ARG1: --set serviceAccount.create=false
+    HELM_ARG: --set serviceAccount.create=false
     HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
