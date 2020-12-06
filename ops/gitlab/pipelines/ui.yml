@@ -1,8 +1,9 @@
 include:
   - local: /ops/gitlab/templates/common.yml
-  - local: /ops/gitlab/workflows/matrix_deploy.yml
   - local: /ops/gitlab/templates/deploy.yml
+  - local: /ops/gitlab/templates/drop.yml
   - local: /ops/gitlab/jobs/accessibility.yml
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
 
 stages:
   - deploy
