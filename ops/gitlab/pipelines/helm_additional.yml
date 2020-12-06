@@ -1,0 +1,50 @@
+include:
+  - local: /ops/gitlab/templates/common.yml
+
+stages:
+  - deploy
+
+# K8S ==================================================================================================================
+# TODO: fix this job
+cert-manager:
+  stage: deploy
+  variables:
+    RELEASE_NAME: cert-manager
+    HELM_PATH: ops/Helm/addons/cert-manager
+    HELM_NAMESPACE: cert-manager
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
+jaeger-operator:
+  stage: deploy
+  variables:
+    RELEASE_NAME: jaeger-operator
+    HELM_PATH: ops/Helm/addons/jaeger-operator
+    HELM_NAMESPACE: jaeger-operator
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
+dashboard:
+  stage: deploy
+  variables:
+    RELEASE_NAME: kubernetes-dashboard
+    HELM_PATH: ops/Helm/addons/dashboard
+    HELM_NAMESPACE: dashboard
+    ENVIRONMENT_URL: http://localhost:8001/api/v1/namespaces/${HELM_NAMESPACE}/services/https:${RELEASE_NAME}:https/proxy/
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: [ ]
+  rules:
+    - when: manual

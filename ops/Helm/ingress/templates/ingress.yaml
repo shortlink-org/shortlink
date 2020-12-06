@@ -21,5 +21,15 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-    {{- toYaml .Values.ingress.rules | nindent 4 }}
+    - host: {{ .Values.host }}
+      http:
+        paths:
+          - path: /ui
+            backend:
+              serviceName: shortlink-ui
+              servicePort: 80
+          - path: /api
+            backend:
+              serviceName: shortlink-api
+              servicePort: 7070
 {{- end }}

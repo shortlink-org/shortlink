@@ -1,4 +1,4 @@
-.job_template_deploy: &job_deploy
+.job_template_deploy:
   stage: deploy
   image:
     name: alpine/helm:3.4.1
@@ -11,5 +11,6 @@
       --namespace=$KUBE_NAMESPACE
       --create-namespace=true
       --set deploy.image.tag=$CI_COMMIT_TAG
-      --set deploy.image.repository=$REGISTRY;
+      --set deploy.image.repository=$REGISTRY
+      --set deploy.annotations."app\.gitlab\.com\/app"=$CI_PROJECT_PATH_SLUG,deploy.annotations."app\.gitlab\.com\/env"=$CI_ENVIRONMENT_SLUG;
   retry: 2

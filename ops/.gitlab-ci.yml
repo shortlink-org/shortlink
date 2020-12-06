@@ -1,14 +1,13 @@
 include:
   - local: /ops/gitlab/templates/common.yml
-  - local: /ops/gitlab/jobs/ansible.yml
-  - local: /ops/gitlab/jobs/terraform.yml
+  - local: /ops/gitlab/jobs/.pre.yml
   - local: /ops/gitlab/jobs/test.yml
   - local: /ops/gitlab/jobs/build.yml
   - local: /ops/gitlab/jobs/qa.yml
   - local: /ops/gitlab/templates/deploy.yml
   - local: /ops/gitlab/jobs/deploy.yml
   - local: /ops/gitlab/jobs/release.yml
-  - local: /ops/gitlab/jobs/post.yml
+  - local: /ops/gitlab/jobs/.post.yml
 
 stages:
   - test

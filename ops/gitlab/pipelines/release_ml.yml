@@ -1,0 +1,19 @@
+include:
+  - local: /ops/gitlab/templates/common.yml
+
+stages:
+  - release
+
+cml:
+  stage: release
+  image: dvcorg/cml-py3:latest
+  script:
+    - cd pkg/ml/
+
+    - pip3 install -r requirements.txt
+    - python train.py
+
+    - cat metrics.txt >> report.md
+    - echo >> report.md
+    - cml-publish confusion_matrix.png --md --title 'confusion-matrix' >> report.md
+    - cml-send-comment report.md

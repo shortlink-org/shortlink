@@ -1,3 +1,5 @@
+// +build database,scylla
+
 package scylla
 
 import (

@@ -1,3 +1,5 @@
+// +build database,leveldb
+
 package leveldb
 
 import (

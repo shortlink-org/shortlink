@@ -1,3 +1,5 @@
+// +build api
+
 package httpchi
 
 import (

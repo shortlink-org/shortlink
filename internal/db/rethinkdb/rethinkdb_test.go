@@ -1,3 +1,5 @@
+// +build database,rethinkdb
+
 package rethinkdb
 
 import (
