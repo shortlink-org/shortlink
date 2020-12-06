@@ -32,6 +32,10 @@ scrape_configs:
         port: 3000
         refresh_interval: 10s
 
+  - job_name: 'jaeger-agent'
+    static_configs:
+      - targets: [ 'jaeger-agent:3100' ]
+
   # Load a directory of JSON configs
   - job_name: 'stub'  # This is a default value, it is mandatory.
     file_sd_configs:
