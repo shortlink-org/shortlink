@@ -18,6 +18,20 @@ api:
     - if: $CI_COMMIT_TAG
       when: on_success
 
+test:
+  stage: .pre
+  variables:
+    RELEASE_NAME: ${CI_PROJECT_NAME}-api
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
+    REGISTRY: ${CI_REGISTRY_IMAGE}/api
+    HELM_ARG: ""
+    HELM_NAMESPACE: ${CI_PROJECT_NAME}
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+
+
 logger:
   stage: deploy
   variables:
