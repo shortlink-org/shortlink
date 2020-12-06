@@ -19,7 +19,7 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
-	github.com/gocql/gocql v0.0.0-20201024154641-5913df4d474e
+	github.com/gocql/gocql v0.0.0-20201204142955-93eedddb6466
 	github.com/golang-migrate/migrate/v4 v4.14.1
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
@@ -30,10 +30,10 @@ require (
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.0.1
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
-	github.com/jackc/pgx/v4 v4.9.2
+	github.com/jackc/pgx/v4 v4.10.0
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/kubernetes-csi/csi-test/v4 v4.0.2
-	github.com/lib/pq v1.8.0
+	github.com/lib/pq v1.9.0
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.5
 	github.com/nats-io/nats.go v1.10.0
@@ -56,7 +56,7 @@ require (
 	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	go.mongodb.org/mongo-driver v1.4.3
+	go.mongodb.org/mongo-driver v1.4.4
 	go.uber.org/atomic v1.7.0
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.1.10
@@ -65,8 +65,8 @@ require (
 	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b
 	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9
 	golang.org/x/tools v0.0.0-20201124202034-299f270db459 // indirect
-	google.golang.org/genproto v0.0.0-20201119123407-9b1e624d6bc4
-	google.golang.org/grpc v1.33.2
+	google.golang.org/genproto v0.0.0-20201204160425-06b3db808446
+	google.golang.org/grpc v1.34.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
