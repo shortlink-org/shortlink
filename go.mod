@@ -62,7 +62,7 @@ require (
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201124201722-c8d3bf9c5392 // indirect
-	golang.org/x/net v0.0.0-20201207224615-747e23833adb
+	golang.org/x/net v0.0.0-20201209123823-ac852fbbde11
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/tools v0.0.0-20201124202034-299f270db459 // indirect
 	google.golang.org/genproto v0.0.0-20201207150747-9ee31aac76e7
