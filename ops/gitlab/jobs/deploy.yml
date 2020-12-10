@@ -37,12 +37,33 @@ logger:
     - if: $CI_COMMIT_TAG
       when: on_success
 
-ui:
+nuxt:
   stage: deploy
   variables:
-    RELEASE_NAME: ${CI_PROJECT_NAME}-ui
+    RELEASE_NAME: ${CI_PROJECT_NAME}-nuxt
+    RELEASE_URL: nuxt
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
+    HELM_ARG: --set serviceAccount.create=false
+    HELM_NAMESPACE: ${CI_PROJECT_NAME}
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/ui.yml'
+    strategy: depend
+  needs:
+    - docker:build
+    - HELM
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: manual
+
+next:
+  stage: deploy
+  variables:
+    RELEASE_NAME: ${CI_PROJECT_NAME}-next
+    RELEASE_URL: next
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
+    REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
     HELM_ARG: --set serviceAccount.create=false
     HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
