@@ -29,13 +29,13 @@ spec:
               serviceName: shortlink-next
               servicePort: 80
           - path: /next
-              backend:
-                serviceName: shortlink-next
-                servicePort: 80
+            backend:
+              serviceName: shortlink-next
+              servicePort: 80
           - path: /nuxt
-              backend:
-                serviceName: shortlink-nuxt
-                servicePort: 80
+            backend:
+              serviceName: shortlink-nuxt
+              servicePort: 80
           - path: /api
             backend:
               serviceName: shortlink-api
