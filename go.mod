@@ -19,7 +19,7 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
-	github.com/gocql/gocql v0.0.0-20201204142955-93eedddb6466
+	github.com/gocql/gocql v0.0.0-20201209090715-f485b5f9159c
 	github.com/golang-migrate/migrate/v4 v4.14.1
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
@@ -45,7 +45,7 @@ require (
 	github.com/ory/dockertest/v3 v3.6.2
 	github.com/pborman/uuid v1.2.1
 	github.com/prometheus/client_golang v1.8.0
-	github.com/scylladb/gocqlx/v2 v2.2.0
+	github.com/scylladb/gocqlx/v2 v2.3.0
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.1.1
@@ -62,17 +62,17 @@ require (
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201124201722-c8d3bf9c5392 // indirect
-	golang.org/x/net v0.0.0-20201207224615-747e23833adb
+	golang.org/x/net v0.0.0-20201209123823-ac852fbbde11
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/tools v0.0.0-20201124202034-299f270db459 // indirect
-	google.golang.org/genproto v0.0.0-20201207150747-9ee31aac76e7
+	google.golang.org/genproto v0.0.0-20201209185603-f92720507ed4
 	google.golang.org/grpc v1.34.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	k8s.io/kubernetes v1.20.0-beta.2
-	k8s.io/mount-utils v0.0.0
+	k8s.io/kubernetes v1.20.0
+	k8s.io/mount-utils v0.20.0
 	k8s.io/utils v0.0.0-20201110183641-67b214c5f920
 )
 
