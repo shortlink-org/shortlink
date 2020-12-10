@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import MaterialTable from "material-table"
 import AddBox from '@material-ui/icons/AddBox';
+import Update from '@material-ui/icons/Update';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import Check from '@material-ui/icons/Check';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
@@ -20,6 +21,7 @@ import Layout from '../components/Layout.js';
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
+  Update: forwardRef((props, ref) => <Update {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
   Clear: forwardRef((props, ref) => <Clear {...props} ref={ref} />),
   Delete: forwardRef((props, ref) => <DeleteOutline {...props} ref={ref} />),
@@ -70,6 +72,12 @@ const linkListPageContent = (
         tooltip: 'Add Link',
         isFreeAction: true,
         onClick: (event) => alert("You want to add a new row")
+      },
+      {
+        icon: tableIcons.Update,
+        tooltip: 'Update Link',
+        isFreeAction: true,
+        onClick: (event) => alert("You want to add a update row")
       },
       {
         icon: tableIcons.Save,

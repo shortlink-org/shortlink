@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import Grid from '@material-ui/core/Grid'
 import {makeStyles} from "@material-ui/core/styles";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,14 +100,22 @@ export default function AddURL() {
       </Paper>
 
       {
-        response.type !== "" && (
+        response.type !== "" && response.type !== "error" && (
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="p" component="p">
               Your link: {response.hash}
 
-              <IconButton aria-label="copy" color="secondary">
-                <FileCopyIcon />
-              </IconButton>
+              <CopyToClipboard text={response.hash} onCopy={() => {
+                setResponse({
+                  type: 'success',
+                  message: 'Success copy your link.',
+                  hash: response.hash,
+                });
+              }}>
+                <IconButton aria-label="copy" color="secondary">
+                  <FileCopyIcon />
+                </IconButton>
+              </CopyToClipboard>
             </Typography>
           </Paper>
         )
