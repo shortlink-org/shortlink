@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddURL() {
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
   const classes = useStyles()
 
   const [url, setURL] = useState({
