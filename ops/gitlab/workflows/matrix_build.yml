@@ -7,6 +7,9 @@
       - APPLICATION: logger
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
         DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
-      - APPLICATION: ui
+      - APPLICATION: ui-nuxt
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-nuxt
         DOCKERFILE_PATH: ops/dockerfile/ui-nuxt.Dockerfile
+      - APPLICATION: ui-next
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-next
+        DOCKERFILE_PATH: ops/dockerfile/ui-next.Dockerfile
