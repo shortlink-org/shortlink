@@ -23,6 +23,11 @@ performance:
   rules:
     - when: on_success
 
+dast_unlicensed:
+  stage: accessibility
+  rules:
+    - when: never
+
 # TODO: fix
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dast/
 dast:
