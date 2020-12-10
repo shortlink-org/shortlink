@@ -37,7 +37,7 @@ const Header = () => {
           </Link>
 
           <Link href="/list">
-            <Tab label="List" value="/" />
+            <Tab label="List" value="/list" />
           </Link>
 
           <Link href="/about">
