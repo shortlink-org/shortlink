@@ -120,6 +120,95 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 	}, nil
 }
 
+// Injectors from service_api.go:
+
+func InitializeAPIService(ctx context.Context) (*Service, func(), error) {
+	logger, cleanup, err := InitLogger(ctx)
+	if err != nil {
+		return nil, nil, err
+	}
+	mq, cleanup2, err := InitMQ(ctx, logger)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	handler, cleanup3, err := InitSentry()
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	serveMux := InitMonitoring(handler)
+	tracer, cleanup4, err := InitTracer(ctx, logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	store, cleanup5, err := InitStore(ctx, logger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	pprofEndpoint := InitProfiling()
+	diDiAutoMaxPro, cleanup6, err := InitAutoMaxProcs(logger)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	rpcServer, cleanup7, err := rpc.RunGRPCServer(logger, tracer)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	clientConn, cleanup8, err := rpc.RunGRPCClient(logger, tracer)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewAPIService(logger, mq, handler, serveMux, tracer, store, pprofEndpoint, diDiAutoMaxPro, rpcServer, clientConn)
+	if err != nil {
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return service, func() {
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+	}, nil
+}
+
 // Injectors from service_bot.go:
 
 func InitializeBotService(ctx context.Context) (*Service, func(), error) {
@@ -509,6 +598,45 @@ var FullSet = wire.NewSet(
 )
 
 func NewFullService(
+	log logger.Logger, mq2 mq.MQ,
+
+	sentryHandler *sentryhttp.Handler,
+	monitoring *http.ServeMux,
+	tracer opentracing.Tracer, db2 *db.Store,
+
+	pprofHTTP PprofEndpoint,
+	autoMaxProcsOption diAutoMaxPro,
+	serverRPC *rpc.RPCServer,
+	clientRPC *grpc.ClientConn,
+) (*Service, error) {
+	return &Service{
+		Log:    log,
+		MQ:     mq2,
+		Tracer: tracer,
+
+		Monitoring: monitoring,
+		Sentry:     sentryHandler,
+		DB:         db2,
+
+		PprofEndpoint: pprofHTTP,
+		ClientRPC:     clientRPC,
+		ServerRPC:     serverRPC,
+	}, nil
+}
+
+// service_api.go:
+
+// APIService =======================================================================================================
+var APISet = wire.NewSet(
+	DefaultSet,
+	InitStore,
+	InitSentry,
+	InitMonitoring,
+	InitProfiling,
+	InitMQ, rpc.RunGRPCServer, rpc.RunGRPCClient, NewAPIService,
+)
+
+func NewAPIService(
 	log logger.Logger, mq2 mq.MQ,
 
 	sentryHandler *sentryhttp.Handler,

@@ -34,7 +34,7 @@ func main() {
 	ctx := context.Background()
 
 	// Init a new service
-	s, cleanup, err := di.InitializeFullService(ctx)
+	s, cleanup, err := di.InitializeAPIService(ctx)
 	if err != nil { // TODO: use as helpers
 		var typeErr *net.OpError
 		if errors.As(err, &typeErr) {
