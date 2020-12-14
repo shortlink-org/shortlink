@@ -7,21 +7,118 @@ package di
 
 import (
 	"context"
+	"fmt"
 	"github.com/batazor/shortlink/internal/api/infrastructure/store"
 	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/internal/mq"
+	"github.com/batazor/shortlink/internal/traicing"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/getsentry/sentry-go"
 	"github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
+	"github.com/heptiolabs/healthcheck"
 	"github.com/opentracing/opentracing-go"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"go.uber.org/automaxprocs/maxprocs"
 	"google.golang.org/grpc"
 	"net/http"
+	"net/http/pprof"
 	"time"
 )
+
+// Injectors from default.go:
+
+func InitializeFullService(ctx context.Context) (*Service, func(), error) {
+	logger, cleanup, err := InitLogger(ctx)
+	if err != nil {
+		return nil, nil, err
+	}
+	mq, cleanup2, err := InitMQ(ctx, logger)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	handler, cleanup3, err := InitSentry()
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	serveMux := InitMonitoring(handler)
+	tracer, cleanup4, err := InitTracer(ctx, logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	store, cleanup5, err := InitStore(ctx, logger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	pprofEndpoint := InitProfiling()
+	diDiAutoMaxPro, cleanup6, err := InitAutoMaxProcs(logger)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	rpcServer, cleanup7, err := rpc.RunGRPCServer(logger, tracer)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	clientConn, cleanup8, err := rpc.RunGRPCClient(logger, tracer)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewFullService(logger, mq, handler, serveMux, tracer, store, pprofEndpoint, diDiAutoMaxPro, rpcServer, clientConn)
+	if err != nil {
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return service, func() {
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+	}, nil
+}
 
 // Injectors from service_bot.go:
 
@@ -159,158 +256,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 	}, nil
 }
 
-// Injectors from wire.go:
-
-func InitializeFullService(ctx context.Context) (*Service, func(), error) {
-	logger, cleanup, err := InitLogger(ctx)
-	if err != nil {
-		return nil, nil, err
-	}
-	mq, cleanup2, err := InitMQ(ctx, logger)
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	handler, cleanup3, err := InitSentry()
-	if err != nil {
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	serveMux := InitMonitoring(handler)
-	tracer, cleanup4, err := InitTracer(ctx, logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	store, cleanup5, err := InitStore(ctx, logger)
-	if err != nil {
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	linkStore, err := InitLinkStore(ctx, logger, store)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	pprofEndpoint := InitProfiling()
-	diDiAutoMaxPro, cleanup6, err := InitAutoMaxProcs(logger)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	rpcServer, cleanup7, err := rpc.RunGRPCServer(logger, tracer)
-	if err != nil {
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	clientConn, cleanup8, err := rpc.RunGRPCClient(logger, tracer)
-	if err != nil {
-		cleanup7()
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	service, err := NewFullService(logger, mq, handler, serveMux, tracer, store, linkStore, pprofEndpoint, diDiAutoMaxPro, rpcServer, clientConn)
-	if err != nil {
-		cleanup8()
-		cleanup7()
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	return service, func() {
-		cleanup8()
-		cleanup7()
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-	}, nil
-}
-
-// service_bot.go:
-
-// BotService ==========================================================================================================
-var BotSet = wire.NewSet(DefaultSet, NewBotService, InitMQ)
-
-func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
-	return &Service{
-		Log: log,
-		MQ:  mq2,
-	}, nil
-}
-
-// service_logger.go:
-
-// LoggerService =======================================================================================================
-var LoggerSet = wire.NewSet(DefaultSet, NewLoggerService, InitMQ)
-
-func NewLoggerService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
-	return &Service{
-		Log: log,
-		MQ:  mq2,
-	}, nil
-}
-
-// service_metadata.go:
-
-// MetadataService =====================================================================================================
-var MetadataSet = wire.NewSet(
-	DefaultSet,
-	NewMetadataService,
-	InitStore, rpc.RunGRPCServer, InitMetaStore,
-	InitSentry,
-	InitMonitoring,
-)
-
-func NewMetadataService(
-	log logger.Logger,
-	autoMaxProcsOption diAutoMaxPro, db2 *db.Store,
-	serverRPC *rpc.RPCServer,
-	metaStore *meta_store.MetaStore,
-	monitoring *http.ServeMux,
-	sentryHandler *sentryhttp.Handler,
-) (*Service, error) {
-	return &Service{
-		Log:        log,
-		ServerRPC:  serverRPC,
-		DB:         db2,
-		MetaStore:  metaStore,
-		Monitoring: monitoring,
-		Sentry:     sentryHandler,
-	}, nil
-}
-
-// wire.go:
+// default.go:
 
 // Service - heplers
 type Service struct {
@@ -326,6 +272,116 @@ type Service struct {
 	ClientRPC     *grpc.ClientConn
 	Monitoring    *http.ServeMux
 	PprofEndpoint PprofEndpoint
+}
+
+// Context =============================================================================================================
+func NewContext() (context.Context, func(), error) {
+	ctx := context.Background()
+
+	cb := func() {
+		ctx.Done()
+	}
+
+	return ctx, cb, nil
+}
+
+// Cobra/Flags =========================================================================================================
+func InitFlags() (*cobra.Command, error) {
+	rootCmd := &cobra.Command{
+		Use: "app",
+		Run: func(cmd *cobra.Command, args []string) {},
+	}
+
+	return rootCmd, nil
+}
+
+// Monitoring ==========================================================================================================
+func InitMonitoring(sentryHandler *sentryhttp.Handler) *http.ServeMux {
+
+	registry := prometheus.NewRegistry()
+
+	health := healthcheck.NewMetricsHandler(registry, "common")
+
+	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100))
+
+	commonMux := http.NewServeMux()
+
+	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.Handler()))
+
+	commonMux.HandleFunc("/live", sentryHandler.HandleFunc(health.LiveEndpoint))
+
+	commonMux.HandleFunc("/ready", sentryHandler.HandleFunc(health.ReadyEndpoint))
+
+	return commonMux
+}
+
+// Profiling ===========================================================================================================
+type PprofEndpoint *http.ServeMux
+
+func InitProfiling() PprofEndpoint {
+
+	pprofMux := http.NewServeMux()
+
+	pprofMux.HandleFunc("/debug/pprof/", pprof.Index)
+	pprofMux.HandleFunc("/debug/pprof/cmdline", pprof.Cmdline)
+	pprofMux.HandleFunc("/debug/pprof/profile", pprof.Profile)
+	pprofMux.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
+	pprofMux.HandleFunc("/debug/pprof/trace", pprof.Trace)
+
+	return pprofMux
+}
+
+// Health ==============================================================================================================
+func NewHealthCheck() (healthcheck.Handler, error) {
+
+	endpoint := healthcheck.NewHandler()
+
+	go http.ListenAndServe("0.0.0.0:9090", endpoint)
+
+	return endpoint, nil
+}
+
+// AutoMaxProcs ========================================================================================================
+type diAutoMaxPro *string
+
+// InitAutoMaxProcs - Automatically set GOMAXPROCS to match Linux container CPU quota
+func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
+	undo, err := maxprocs.Set(maxprocs.Logger(func(s string, args ...interface{}) {
+		log.Info(fmt.Sprintf(s, args))
+	}))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	cleanup := func() {
+		undo()
+	}
+
+	return nil, cleanup, nil
+}
+
+// Tracing =============================================================================================================
+func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, func(), error) {
+	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink")
+	viper.SetDefault("TRACER_URI", "localhost:6831")
+
+	config := traicing.Config{
+		ServiceName: viper.GetString("TRACER_SERVICE_NAME"),
+		URI:         viper.GetString("TRACER_URI"),
+	}
+
+	tracer, tracerClose, err := traicing.Init(config)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	cleanup := func() {
+		if err := tracerClose.Close(); err != nil {
+			log.Error(err.Error())
+		}
+	}
+
+	return tracer, cleanup, nil
 }
 
 // InitLinkStore
@@ -397,6 +453,47 @@ func InitSentry() (*sentryhttp.Handler, func(), error) {
 	return sentryHandler, cleanup, nil
 }
 
+// Store ===============================================================================================================
+// InitStore return db
+func InitStore(ctx context.Context, log logger.Logger) (*db.Store, func(), error) {
+	var st db.Store
+	db2, err := st.Use(ctx, log)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	cleanup := func() {
+		if err := db2.Store.Close(); err != nil {
+			log.Error(err.Error())
+		}
+	}
+
+	return db2, cleanup, nil
+}
+
+// MQ ==================================================================================================================
+func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
+	viper.SetDefault("MQ_ENABLED", "false")
+
+	if viper.GetBool("MQ_ENABLED") {
+		var service mq.DataBus
+		dataBus, err := service.Use(ctx, log)
+		if err != nil {
+			return nil, func() {}, err
+		}
+
+		cleanup := func() {
+			if err := dataBus.Close(); err != nil {
+				log.Error(err.Error())
+			}
+		}
+
+		return dataBus, cleanup, nil
+	}
+
+	return nil, func() {}, nil
+}
+
 // Default =============================================================================================================
 var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
 
@@ -408,7 +505,7 @@ var FullSet = wire.NewSet(
 	InitSentry,
 	InitMonitoring,
 	InitProfiling,
-	InitMQ, rpc.RunGRPCServer, rpc.RunGRPCClient, InitLinkStore,
+	InitMQ, rpc.RunGRPCServer, rpc.RunGRPCClient,
 )
 
 func NewFullService(
@@ -417,7 +514,7 @@ func NewFullService(
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
 	tracer opentracing.Tracer, db2 *db.Store,
-	linkStore *store.LinkStore,
+
 	pprofHTTP PprofEndpoint,
 	autoMaxProcsOption diAutoMaxPro,
 	serverRPC *rpc.RPCServer,
@@ -428,12 +525,65 @@ func NewFullService(
 		MQ:     mq2,
 		Tracer: tracer,
 
-		Monitoring:    monitoring,
-		Sentry:        sentryHandler,
-		DB:            db2,
-		LinkStore:     linkStore,
+		Monitoring: monitoring,
+		Sentry:     sentryHandler,
+		DB:         db2,
+
 		PprofEndpoint: pprofHTTP,
 		ClientRPC:     clientRPC,
 		ServerRPC:     serverRPC,
+	}, nil
+}
+
+// service_bot.go:
+
+// BotService ==========================================================================================================
+var BotSet = wire.NewSet(DefaultSet, NewBotService, InitMQ)
+
+func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
+	return &Service{
+		Log: log,
+		MQ:  mq2,
+	}, nil
+}
+
+// service_logger.go:
+
+// LoggerService =======================================================================================================
+var LoggerSet = wire.NewSet(DefaultSet, NewLoggerService, InitMQ)
+
+func NewLoggerService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
+	return &Service{
+		Log: log,
+		MQ:  mq2,
+	}, nil
+}
+
+// service_metadata.go:
+
+// MetadataService =====================================================================================================
+var MetadataSet = wire.NewSet(
+	DefaultSet,
+	NewMetadataService,
+	InitStore, rpc.RunGRPCServer, InitMetaStore,
+	InitSentry,
+	InitMonitoring,
+)
+
+func NewMetadataService(
+	log logger.Logger,
+	autoMaxProcsOption diAutoMaxPro, db2 *db.Store,
+	serverRPC *rpc.RPCServer,
+	metaStore *meta_store.MetaStore,
+	monitoring *http.ServeMux,
+	sentryHandler *sentryhttp.Handler,
+) (*Service, error) {
+	return &Service{
+		Log:        log,
+		ServerRPC:  serverRPC,
+		DB:         db2,
+		MetaStore:  metaStore,
+		Monitoring: monitoring,
+		Sentry:     sentryHandler,
 	}, nil
 }

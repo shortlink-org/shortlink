@@ -12,7 +12,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/metadata/infrastructure/store"
+	meta_store "github.com/batazor/shortlink/internal/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 

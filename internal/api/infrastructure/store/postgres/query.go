@@ -9,7 +9,7 @@ package postgres
 import (
 	"github.com/Masterminds/squirrel"
 
-	"github.com/batazor/shortlink/internal/store/query"
+	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
 )
 
 func (p *Store) buildFilter(query squirrel.SelectBuilder, filter *query.Filter) squirrel.SelectBuilder {
