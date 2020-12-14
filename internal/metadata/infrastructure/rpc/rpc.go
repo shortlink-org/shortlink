@@ -1,9 +1,9 @@
-//go:generate protoc -I../../domain --go_out=Minternal/metadata/domain/rpc.proto=.:. --go-grpc_out=Minternal/metadata/domain/rpc.proto=.:. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative rpc.proto
+//go:generate protoc -I. -I../../domain --go_out=Minternal/metadata/domain/meta.proto=.:. --go-grpc_out=Minternal/metadata/domain/meta.proto=.:. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative metadata_rpc.proto
 
 /*
 Metadata Service. Infrastructure layer
 */
-package rpc
+package metadata_rpc
 
 import (
 	"context"
@@ -14,8 +14,13 @@ import (
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
-func New(runRPCServer *rpc.RPCServer, st *meta_store.MetaStore, log logger.Logger) (*MetadataServer, error) {
-	server := MetadataServer{
+type Metadata struct {
+	service *application.Service
+	log     logger.Logger
+}
+
+func New(runRPCServer *rpc.RPCServer, st *meta_store.MetaStore, log logger.Logger) (*Metadata, error) {
+	server := &Metadata{
 		// Create Service Application
 		service: &application.Service{
 			Store: st,
@@ -27,10 +32,10 @@ func New(runRPCServer *rpc.RPCServer, st *meta_store.MetaStore, log logger.Logge
 	RegisterMetadataServer(runRPCServer.Server, server)
 	runRPCServer.Run()
 
-	return &server, nil
+	return server, nil
 }
 
-func (m *MetadataServer) Get(ctx context.Context, req *GetMetaRequest) (*GetMetaResponse, error) {
+func (m *Metadata) Get(ctx context.Context, req *GetMetaRequest) (*GetMetaResponse, error) {
 	meta, err := m.service.Get(ctx, req.Id)
 	if err != nil {
 		return nil, err
@@ -41,7 +46,7 @@ func (m *MetadataServer) Get(ctx context.Context, req *GetMetaRequest) (*GetMeta
 	}, nil
 }
 
-func (m *MetadataServer) Set(ctx context.Context, req *SetMetaRequest) (*SetMetaResponse, error) {
+func (m *Metadata) Set(ctx context.Context, req *SetMetaRequest) (*SetMetaResponse, error) {
 	meta, err := m.service.Set(ctx, req.Id)
 	if err != nil {
 		return nil, err
@@ -52,4 +57,4 @@ func (m *MetadataServer) Set(ctx context.Context, req *SetMetaRequest) (*SetMeta
 	}, nil
 }
 
-func (m *MetadataServer) mustEmbedUnimplementedMetadataServer() {}
+func (m *Metadata) mustEmbedUnimplementedMetadataServer() {}

@@ -48,7 +48,7 @@ func main() {
 	go http.ListenAndServe("0.0.0.0:9091", service.Monitoring) // nolint errcheck
 
 	// Run API server
-	_, err = rpc.New(service.ServerRPC, service.MetaStore, service.Log)
+	_, err = metadata_rpc.New(service.ServerRPC, service.MetaStore, service.Log)
 	if err != nil {
 		panic(err)
 	}
