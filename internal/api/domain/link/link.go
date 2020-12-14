@@ -1,3 +1,5 @@
+//go:generate protoc -I. --go_out=Minternal/api/domain/link/link.proto=.:. --go-grpc_out=Minternal/api/domain/link/link.proto=.:. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative link.proto
+
 /*
 Link entity
 */

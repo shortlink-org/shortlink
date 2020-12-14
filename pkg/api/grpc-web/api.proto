@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package grpcweb;
 
-import "google/api/annotations.proto";
+import "third_party/googleapis/google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "internal/api/domain/link/link.proto";
 

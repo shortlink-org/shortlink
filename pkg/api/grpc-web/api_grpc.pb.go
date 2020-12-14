@@ -203,5 +203,5 @@ var _Link_serviceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "pkg/api/grpc-web/api.proto",
+	Metadata: "api.proto",
 }
