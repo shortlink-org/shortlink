@@ -130,8 +130,8 @@ type _bintree_t struct {
 }
 
 var _bintree = &_bintree_t{nil, map[string]*_bintree_t{
-	"000001_init.down.sql":          &_bintree_t{_000001_init_down_sql, map[string]*_bintree_t{}},
-	"000001_init.up.sql":            &_bintree_t{_000001_init_up_sql, map[string]*_bintree_t{}},
-	"000002_add_test_link.down.sql": &_bintree_t{_000002_add_test_link_down_sql, map[string]*_bintree_t{}},
-	"000002_add_test_link.up.sql":   &_bintree_t{_000002_add_test_link_up_sql, map[string]*_bintree_t{}},
+	"000001_init.down.sql":          {_000001_init_down_sql, map[string]*_bintree_t{}},
+	"000001_init.up.sql":            {_000001_init_up_sql, map[string]*_bintree_t{}},
+	"000002_add_test_link.down.sql": {_000002_add_test_link_down_sql, map[string]*_bintree_t{}},
+	"000002_add_test_link.up.sql":   {_000002_add_test_link_up_sql, map[string]*_bintree_t{}},
 }}

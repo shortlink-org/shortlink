@@ -14,13 +14,15 @@ import (
 	"net/http"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
+	"github.com/golang/protobuf/descriptor"
+	"github.com/golang/protobuf/proto"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/grpc-ecosystem/grpc-gateway/utilities"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/proto"
 )
 
 // Suppress "imported and not used" errors
@@ -29,6 +31,8 @@ var _ io.Reader
 var _ status.Status
 var _ = runtime.String
 var _ = utilities.NewDoubleArray
+var _ = descriptor.ForMessage
+var _ = metadata.Join
 
 var (
 	filter_Link_GetLinks_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
@@ -50,7 +54,7 @@ func request_Link_GetLinks_0(ctx context.Context, marshaler runtime.Marshaler, c
 
 }
 
-func local_request_Link_GetLinks_0(ctx context.Context, marshaler runtime.Marshaler, server LinkService, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_Link_GetLinks_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq LinkRequest
 	var metadata runtime.ServerMetadata
 
@@ -87,6 +91,7 @@ func request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, cl
 	}
 
 	protoReq.Hash, err = runtime.String(val)
+
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hash", err)
 	}
@@ -103,7 +108,7 @@ func request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, cl
 
 }
 
-func local_request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkService, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq link.Link
 	var metadata runtime.ServerMetadata
 
@@ -120,6 +125,7 @@ func local_request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshal
 	}
 
 	protoReq.Hash, err = runtime.String(val)
+
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hash", err)
 	}
@@ -153,7 +159,7 @@ func request_Link_CreateLink_0(ctx context.Context, marshaler runtime.Marshaler,
 
 }
 
-func local_request_Link_CreateLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkService, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_Link_CreateLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq link.Link
 	var metadata runtime.ServerMetadata
 
@@ -191,6 +197,7 @@ func request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler,
 	}
 
 	protoReq.Hash, err = runtime.String(val)
+
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hash", err)
 	}
@@ -207,7 +214,7 @@ func request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler,
 
 }
 
-func local_request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkService, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+func local_request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq link.Link
 	var metadata runtime.ServerMetadata
 
@@ -224,6 +231,7 @@ func local_request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Mars
 	}
 
 	protoReq.Hash, err = runtime.String(val)
+
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "hash", err)
 	}
@@ -241,21 +249,24 @@ func local_request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Mars
 }
 
 // RegisterLinkHandlerServer registers the http handlers for service Link to "mux".
-// UnaryRPC     :call LinkService directly.
+// UnaryRPC     :call LinkServer directly.
 // StreamingRPC :currently unsupported pending https://github.com/grpc/grpc-go/issues/906.
-// Note that using this registration option will cause many gRPC library features (such as grpc.SendHeader, etc) to stop working. Consider using RegisterLinkHandlerFromEndpoint instead.
-func RegisterLinkHandlerServer(ctx context.Context, mux *runtime.ServeMux, server LinkService) error {
+// Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterLinkHandlerFromEndpoint instead.
+func RegisterLinkHandlerServer(ctx context.Context, mux *runtime.ServeMux, server LinkServer) error {
 
 	mux.Handle("GET", pattern_Link_GetLinks_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/grpcweb.Link/GetLinks")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 		resp, md, err := local_request_Link_GetLinks_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -269,13 +280,16 @@ func RegisterLinkHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 	mux.Handle("GET", pattern_Link_GetLink_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/grpcweb.Link/GetLink")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 		resp, md, err := local_request_Link_GetLink_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -289,13 +303,16 @@ func RegisterLinkHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 	mux.Handle("POST", pattern_Link_CreateLink_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/grpcweb.Link/CreateLink")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 		resp, md, err := local_request_Link_CreateLink_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -309,13 +326,16 @@ func RegisterLinkHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 	mux.Handle("DELETE", pattern_Link_DeleteLink_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/grpcweb.Link/DeleteLink")
+		rctx, err := runtime.AnnotateIncomingContext(ctx, mux, req)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 		resp, md, err := local_request_Link_DeleteLink_0(rctx, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
@@ -371,7 +391,7 @@ func RegisterLinkHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/grpcweb.Link/GetLinks")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -391,7 +411,7 @@ func RegisterLinkHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/grpcweb.Link/GetLink")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -411,7 +431,7 @@ func RegisterLinkHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/grpcweb.Link/CreateLink")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -431,7 +451,7 @@ func RegisterLinkHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		rctx, err := runtime.AnnotateContext(ctx, mux, req, "/grpcweb.Link/DeleteLink")
+		rctx, err := runtime.AnnotateContext(ctx, mux, req)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -451,13 +471,13 @@ func RegisterLinkHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 }
 
 var (
-	pattern_Link_GetLinks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "links"}, ""))
+	pattern_Link_GetLinks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "links"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Link_GetLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "link", "hash"}, ""))
+	pattern_Link_GetLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "link", "hash"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Link_CreateLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"api"}, ""))
+	pattern_Link_CreateLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"api"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Link_DeleteLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"api", "hash"}, ""))
+	pattern_Link_DeleteLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"api", "hash"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (

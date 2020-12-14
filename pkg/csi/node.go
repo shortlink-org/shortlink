@@ -309,7 +309,7 @@ func (d *driver) NodeGetCapabilities(ctx context.Context, req *csi.NodeGetCapabi
 				},
 			},
 		},
-		&csi.NodeServiceCapability{
+		{
 			Type: &csi.NodeServiceCapability_Rpc{
 				Rpc: &csi.NodeServiceCapability_RPC{
 					Type: csi.NodeServiceCapability_RPC_GET_VOLUME_STATS,
@@ -349,13 +349,13 @@ func (d *driver) NodeGetVolumeStats(ctx context.Context, in *csi.NodeGetVolumeSt
 
 	return &csi.NodeGetVolumeStatsResponse{
 		Usage: []*csi.VolumeUsage{
-			&csi.VolumeUsage{
+			{
 				Available: stats,
 				Total:     stats,
 				Used:      stats,
 				Unit:      csi.VolumeUsage_BYTES,
 			},
-			&csi.VolumeUsage{
+			{
 				Available: stats,
 				Total:     stats,
 				Used:      stats,

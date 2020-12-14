@@ -196,7 +196,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 		d.log.InfoWithContext(ctx, fmt.Sprintf("successfully populated volume %s", vol.VolID))
 	}
 
-	topologies := []*csi.Topology{&csi.Topology{
+	topologies := []*csi.Topology{{
 		Segments: map[string]string{TopologyKeyNode: d.cs.nodeID},
 	}}
 

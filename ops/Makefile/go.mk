@@ -2,7 +2,7 @@
 
 generate: ## Code generation
 	# proto generation link entity
-	@protoc -I/usr/local/include -I. \
+	@protoc -I. \
 	--gotemplate_out=all=true,template_dir=pkg/api/graphql/template:pkg/api/graphql \
 	--go_out=Minternal/api/domain/link/link.proto=.:. \
 	--go-grpc_out=Minternal/api/domain/link/link.proto=.:. \
