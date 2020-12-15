@@ -1,5 +1,5 @@
 import Button from '@material-ui/core/Button';
-import Layout from '../components/Layout.js';
+import { Layout } from '../components';
 import sentry from "../utils/sentry";
 
 const { Sentry, captureException } = sentry()

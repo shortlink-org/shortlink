@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddURL() {
+export function AddURL() {
   const [open, setOpen] = useState(false)
   const classes = useStyles()
 

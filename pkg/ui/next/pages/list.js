@@ -1,4 +1,5 @@
-import { forwardRef } from 'react';
+import { forwardRef, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "material-table"
 import AddBox from '@material-ui/icons/AddBox';
 import Update from '@material-ui/icons/Update';
@@ -17,7 +18,8 @@ import SaveAlt from '@material-ui/icons/SaveAlt';
 import Save from '@material-ui/icons/Save';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import Layout from '../components/Layout.js';
+import { Layout } from '../components';
+import {fetchLinkList} from "../store";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -41,62 +43,65 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
-const linkListPageContent = (
-  <MaterialTable
-    icons={tableIcons}
-    columns={[
-      { title: "URL", field: "url" },
-      { title: "hash", field: "hash" },
-      { title: "Describe", field: "describe" },
-      {
-        title: "Created at",
-        field: "created_at",
-      },
-      {
-        title: "Updated at",
-        field: "updated_at",
-      }
-    ]}
-    data={[
-      {
-        url: 'http://google.com',
-        hash: '4535345',
-        describe: 'Test URL for table',
-        created_at: 1243432434,
-        updated_at: 1243432434,
-      }
-    ]}
-    actions={[
-      {
-        icon: tableIcons.Add,
-        tooltip: 'Add Link',
-        isFreeAction: true,
-        onClick: (event) => alert("You want to add a new row")
-      },
-      {
-        icon: tableIcons.Update,
-        tooltip: 'Update Link',
-        isFreeAction: true,
-        onClick: (event) => alert("You want to add a update row")
-      },
-      {
-        icon: tableIcons.Save,
-        tooltip: 'Save User',
-        onClick: (event, rowData) => alert("You saved " + rowData.name)
-      },
-      {
-        icon: tableIcons.Delete,
-        tooltip: 'Delete Link',
-        onClick: (event, rowData) => confirm("You want to delete " + rowData.name)
-      }
-    ]}
-    options={{
-      exportButton: true
-    }}
-    title="Link Table"
-  />
-);
+export function LinkTableContent() {
+  const state = useSelector((state) => state.link);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+		dispatch(fetchLinkList());
+	}, [dispatch]);
+
+  console.warn('state', state)
+
+  return (
+    <MaterialTable
+      icons={tableIcons}
+      columns={[
+        { title: "URL", field: "url" },
+        { title: "hash", field: "hash" },
+        { title: "Describe", field: "describe" },
+        {
+          title: "Created at",
+          field: "created_at",
+        },
+        {
+          title: "Updated at",
+          field: "updated_at",
+        }
+      ]}
+      data={Object.keys(state.link.list).map(key => state.link.list[key])}
+      actions={[
+        {
+          icon: tableIcons.Add,
+          tooltip: 'Add Link',
+          isFreeAction: true,
+          onClick: (event) => alert("You want to add a new row")
+        },
+        {
+          icon: tableIcons.Update,
+          tooltip: 'Update Link',
+          isFreeAction: true,
+          onClick: (event) => alert("You want to add a update row")
+        },
+        {
+          icon: tableIcons.Save,
+          tooltip: 'Save User',
+          onClick: (event, rowData) => alert("You saved " + rowData.name)
+        },
+        {
+          icon: tableIcons.Delete,
+          tooltip: 'Delete Link',
+          onClick: (event, rowData) => confirm("You want to delete " + rowData.name)
+        }
+      ]}
+      options={{
+        exportButton: true
+      }}
+      title="Link Table"
+    />
+  );
+}
 
 export default function LinkTable() {
-  return <Layout content={linkListPageContent} />;
+  return <Layout content={LinkTableContent()} />;
 }
