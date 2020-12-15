@@ -1,4 +1,4 @@
-//go:generate protoc -I../../../internal/api/domain/link --gotemplate_out=all=true,template_dir=template:. link.proto
+//go:generate protoc -I../../../../../internal/api/domain/link --gotemplate_out=all=true,template_dir=template:. link.proto
 package postgres
 
 import (

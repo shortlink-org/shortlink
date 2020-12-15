@@ -4,7 +4,6 @@ Logger application
 package main
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -27,11 +26,8 @@ func init() {
 }
 
 func main() {
-	// Create a new context
-	ctx := context.Background()
-
 	// Init a new service
-	s, cleanup, err := di.InitializeLoggerService(ctx)
+	s, cleanup, err := di.InitializeLoggerService()
 	if err != nil { // TODO: use as helpers
 		var typeErr *net.OpError
 		if errors.As(err, &typeErr) {

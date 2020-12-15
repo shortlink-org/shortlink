@@ -16,9 +16,22 @@ import (
 
 // Service - heplers
 type Service struct {
+	Ctx context.Context
 	Log logger.Logger
 }
 
+// Context =============================================================================================================
+func NewContext() (context.Context, func(), error) {
+	ctx := context.Background()
+
+	cb := func() {
+		ctx.Done()
+	}
+
+	return ctx, cb, nil
+}
+
+// Logger ==============================================================================================================
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
 	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
 	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
@@ -42,14 +55,15 @@ func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
 }
 
 // CSI =================================================================================================================
-var FullBotSet = wire.NewSet(InitLogger, NewSCIDriver)
+var FullBotSet = wire.NewSet(NewContext, InitLogger, NewSCIDriver)
 
-func NewSCIDriver(log logger.Logger) (*Service, error) {
+func NewSCIDriver(log logger.Logger, ctx context.Context) (*Service, error) {
 	return &Service{
+		Ctx: ctx,
 		Log: log,
 	}, nil
 }
 
-func InitializeSCIDriver(ctx context.Context) (*Service, func(), error) {
+func InitializeSCIDriver() (*Service, func(), error) {
 	panic(wire.Build(FullBotSet))
 }

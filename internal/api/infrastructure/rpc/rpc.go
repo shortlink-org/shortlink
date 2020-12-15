@@ -10,14 +10,14 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
-	metadata "github.com/batazor/shortlink/internal/metadata/domain"
+	"github.com/batazor/shortlink/internal/metadata/infrastructure/rpc"
 	"github.com/batazor/shortlink/internal/notify"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 type rpc struct {
 	client         *grpc.ClientConn
-	MetadataClient metadata.MetadataClient
+	MetadataClient metadata_rpc.MetadataClient
 }
 
 func Use(_ context.Context, rpcClient *grpc.ClientConn) (*rpc, error) {
@@ -25,7 +25,7 @@ func Use(_ context.Context, rpcClient *grpc.ClientConn) (*rpc, error) {
 		client: rpcClient,
 
 		// Register clients
-		MetadataClient: metadata.NewMetadataClient(rpcClient),
+		MetadataClient: metadata_rpc.NewMetadataClient(rpcClient),
 	}
 
 	// Subscribe to Event
@@ -50,7 +50,7 @@ func (r *rpc) Notify(ctx context.Context, event uint32, payload interface{}) not
 			}
 
 			if link, ok := payload.(*link.Link); ok {
-				_, err := r.MetadataClient.Set(ctx, &metadata.SetMetaRequest{
+				_, err := r.MetadataClient.Set(ctx, &metadata_rpc.SetMetaRequest{
 					Id: link.Url,
 				})
 				if err != nil {
@@ -73,7 +73,7 @@ func (r *rpc) Notify(ctx context.Context, event uint32, payload interface{}) not
 
 			// TODO: use URL address?
 			if hash, ok := payload.(string); ok {
-				_, err := r.MetadataClient.Get(ctx, &metadata.GetMetaRequest{
+				_, err := r.MetadataClient.Get(ctx, &metadata_rpc.GetMetaRequest{
 					Id: hash,
 				})
 				if err != nil {
