@@ -15,15 +15,21 @@ import (
 
 // Injectors from wire.go:
 
-func InitializeFullBotService(ctx context.Context) (*Service, func(), error) {
-	bot := InitSlack(ctx)
-	telegramBot := InitTelegram(ctx)
-	smtpBot := InitSMTP(ctx)
-	service, err := NewBotService(bot, telegramBot, smtpBot)
+func InitializeFullBotService() (*Service, func(), error) {
+	context, cleanup, err := NewContext()
 	if err != nil {
 		return nil, nil, err
 	}
+	bot := InitSlack(context)
+	telegramBot := InitTelegram(context)
+	smtpBot := InitSMTP(context)
+	service, err := NewBotService(bot, telegramBot, smtpBot)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup()
 	}, nil
 }
 
@@ -34,6 +40,17 @@ type Service struct {
 	slack    *slack.Bot
 	telegram *telegram.Bot
 	smtp     *smtp.Bot
+}
+
+// Context =============================================================================================================
+func NewContext() (context.Context, func(), error) {
+	ctx := context.Background()
+
+	cb := func() {
+		ctx.Done()
+	}
+
+	return ctx, cb, nil
 }
 
 // InitSlack - Init slack bot
@@ -67,7 +84,7 @@ func InitSMTP(ctx context.Context) *smtp.Bot {
 }
 
 // FullBotService ======================================================================================================
-var FullBotSet = wire.NewSet(InitSlack, InitTelegram, InitSMTP, NewBotService)
+var FullBotSet = wire.NewSet(NewContext, InitSlack, InitTelegram, InitSMTP, NewBotService)
 
 func NewBotService(slack2 *slack.Bot, telegram2 *telegram.Bot, smtp2 *smtp.Bot) (*Service, error) {
 	return &Service{slack2, telegram2, smtp2}, nil

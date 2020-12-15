@@ -4,7 +4,6 @@
 package di
 
 import (
-	"context"
 	"net/http"
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
@@ -46,6 +45,6 @@ func NewMetadataService(
 	}, nil
 }
 
-func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
+func InitializeMetadataService() (*Service, func(), error) {
 	panic(wire.Build(MetadataSet))
 }

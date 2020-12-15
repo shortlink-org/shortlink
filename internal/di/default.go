@@ -33,6 +33,7 @@ import (
 
 // Service - heplers
 type Service struct {
+	Ctx    context.Context
 	Log    logger.Logger
 	Tracer opentracing.Tracer
 	// TracerClose func()
@@ -188,6 +189,7 @@ func InitMetaStore(ctx context.Context, log logger.Logger, conn *db.Store) (*met
 	return metaStore, nil
 }
 
+// Logger ==============================================================================================================
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
 	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
 	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
@@ -281,7 +283,7 @@ func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
+var DefaultSet = wire.NewSet(NewContext, InitAutoMaxProcs, InitLogger, InitTracer)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
@@ -298,6 +300,7 @@ var FullSet = wire.NewSet(
 )
 
 func NewFullService(
+	ctx context.Context,
 	log logger.Logger,
 	mq mq.MQ,
 	sentryHandler *sentryhttp.Handler,
@@ -311,6 +314,7 @@ func NewFullService(
 	clientRPC *grpc.ClientConn,
 ) (*Service, error) {
 	return &Service{
+		Ctx:    ctx,
 		Log:    log,
 		MQ:     mq,
 		Tracer: tracer,
@@ -325,6 +329,6 @@ func NewFullService(
 	}, nil
 }
 
-func InitializeFullService(ctx context.Context) (*Service, func(), error) {
+func InitializeFullService() (*Service, func(), error) {
 	panic(wire.Build(FullSet))
 }

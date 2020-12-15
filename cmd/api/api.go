@@ -6,7 +6,6 @@ API-service
 package main
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -30,11 +29,8 @@ func init() {
 }
 
 func main() {
-	// Create a new context
-	ctx := context.Background()
-
 	// Init a new service
-	s, cleanup, err := di.InitializeAPIService(ctx)
+	s, cleanup, err := di.InitializeAPIService()
 	if err != nil { // TODO: use as helpers
 		var typeErr *net.OpError
 		if errors.As(err, &typeErr) {
@@ -52,7 +48,7 @@ func main() {
 
 	// Run API server
 	var API api.Server
-	API.RunAPIServer(ctx, s.Log, s.Tracer, s.ServerRPC, s.ClientRPC)
+	API.RunAPIServer(s.Ctx, s.Log, s.Tracer, s.ServerRPC, s.ClientRPC)
 
 	defer func() {
 		if r := recover(); r != nil {
@@ -64,9 +60,6 @@ func main() {
 	sigs := make(chan os.Signal, 1)
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	<-sigs
-
-	// Context close
-	ctx.Done()
 
 	// Stop the service gracefully.
 	// close DB

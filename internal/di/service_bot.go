@@ -4,8 +4,6 @@
 package di
 
 import (
-	"context"
-
 	"github.com/google/wire"
 
 	"github.com/batazor/shortlink/internal/logger"
@@ -22,6 +20,6 @@ func NewBotService(log logger.Logger, mq mq.MQ, autoMaxProcsOption diAutoMaxPro)
 	}, nil
 }
 
-func InitializeBotService(ctx context.Context) (*Service, func(), error) {
+func InitializeBotService() (*Service, func(), error) {
 	panic(wire.Build(BotSet))
 }

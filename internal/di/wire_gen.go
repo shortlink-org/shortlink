@@ -33,31 +33,31 @@ import (
 
 // Injectors from default.go:
 
-func InitializeFullService(ctx context.Context) (*Service, func(), error) {
-	logger, cleanup, err := InitLogger(ctx)
+func InitializeFullService() (*Service, func(), error) {
+	context, cleanup, err := NewContext()
 	if err != nil {
 		return nil, nil, err
 	}
-	mq, cleanup2, err := InitMQ(ctx, logger)
+	logger, cleanup2, err := InitLogger(context)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
 	}
-	handler, cleanup3, err := InitSentry()
+	mq, cleanup3, err := InitMQ(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := InitMonitoring(handler)
-	tracer, cleanup4, err := InitTracer(ctx, logger)
+	handler, cleanup4, err := InitSentry()
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	store, cleanup5, err := InitStore(ctx, logger)
+	serveMux := InitMonitoring(handler)
+	tracer, cleanup5, err := InitTracer(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -65,8 +65,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := InitProfiling()
-	diDiAutoMaxPro, cleanup6, err := InitAutoMaxProcs(logger)
+	store, cleanup6, err := InitStore(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -75,7 +74,8 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup7, err := rpc.RunGRPCServer(logger, tracer)
+	pprofEndpoint := InitProfiling()
+	diDiAutoMaxPro, cleanup7, err := InitAutoMaxProcs(logger)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -85,7 +85,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup8, err := rpc.RunGRPCClient(logger, tracer)
+	rpcServer, cleanup8, err := rpc.RunGRPCServer(logger, tracer)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -96,7 +96,7 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewFullService(logger, mq, handler, serveMux, tracer, store, pprofEndpoint, diDiAutoMaxPro, rpcServer, clientConn)
+	clientConn, cleanup9, err := rpc.RunGRPCClient(logger, tracer)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -108,7 +108,21 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewFullService(context, logger, mq, handler, serveMux, tracer, store, pprofEndpoint, diDiAutoMaxPro, rpcServer, clientConn)
+	if err != nil {
+		cleanup9()
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -122,31 +136,31 @@ func InitializeFullService(ctx context.Context) (*Service, func(), error) {
 
 // Injectors from service_api.go:
 
-func InitializeAPIService(ctx context.Context) (*Service, func(), error) {
-	logger, cleanup, err := InitLogger(ctx)
+func InitializeAPIService() (*Service, func(), error) {
+	context, cleanup, err := NewContext()
 	if err != nil {
 		return nil, nil, err
 	}
-	mq, cleanup2, err := InitMQ(ctx, logger)
+	logger, cleanup2, err := InitLogger(context)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
 	}
-	handler, cleanup3, err := InitSentry()
+	mq, cleanup3, err := InitMQ(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := InitMonitoring(handler)
-	tracer, cleanup4, err := InitTracer(ctx, logger)
+	handler, cleanup4, err := InitSentry()
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	store, cleanup5, err := InitStore(ctx, logger)
+	serveMux := InitMonitoring(handler)
+	tracer, cleanup5, err := InitTracer(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -154,8 +168,7 @@ func InitializeAPIService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := InitProfiling()
-	diDiAutoMaxPro, cleanup6, err := InitAutoMaxProcs(logger)
+	store, cleanup6, err := InitStore(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -164,7 +177,8 @@ func InitializeAPIService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup7, err := rpc.RunGRPCServer(logger, tracer)
+	pprofEndpoint := InitProfiling()
+	diDiAutoMaxPro, cleanup7, err := InitAutoMaxProcs(logger)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -174,7 +188,7 @@ func InitializeAPIService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup8, err := rpc.RunGRPCClient(logger, tracer)
+	rpcServer, cleanup8, err := rpc.RunGRPCServer(logger, tracer)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -185,7 +199,7 @@ func InitializeAPIService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewAPIService(logger, mq, handler, serveMux, tracer, store, pprofEndpoint, diDiAutoMaxPro, rpcServer, clientConn)
+	clientConn, cleanup9, err := rpc.RunGRPCClient(logger, tracer)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -197,7 +211,21 @@ func InitializeAPIService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewAPIService(context, logger, mq, handler, serveMux, tracer, store, pprofEndpoint, diDiAutoMaxPro, rpcServer, clientConn)
+	if err != nil {
+		cleanup9()
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -211,30 +239,39 @@ func InitializeAPIService(ctx context.Context) (*Service, func(), error) {
 
 // Injectors from service_bot.go:
 
-func InitializeBotService(ctx context.Context) (*Service, func(), error) {
-	logger, cleanup, err := InitLogger(ctx)
+func InitializeBotService() (*Service, func(), error) {
+	context, cleanup, err := NewContext()
 	if err != nil {
 		return nil, nil, err
 	}
-	mq, cleanup2, err := InitMQ(ctx, logger)
+	logger, cleanup2, err := InitLogger(context)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
 	}
-	diDiAutoMaxPro, cleanup3, err := InitAutoMaxProcs(logger)
+	mq, cleanup3, err := InitMQ(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewBotService(logger, mq, diDiAutoMaxPro)
+	diDiAutoMaxPro, cleanup4, err := InitAutoMaxProcs(logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewBotService(logger, mq, diDiAutoMaxPro)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -243,12 +280,53 @@ func InitializeBotService(ctx context.Context) (*Service, func(), error) {
 
 // Injectors from service_logger.go:
 
-func InitializeLoggerService(ctx context.Context) (*Service, func(), error) {
-	logger, cleanup, err := InitLogger(ctx)
+func InitializeLoggerService() (*Service, func(), error) {
+	context, cleanup, err := NewContext()
 	if err != nil {
 		return nil, nil, err
 	}
-	mq, cleanup2, err := InitMQ(ctx, logger)
+	logger, cleanup2, err := InitLogger(context)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	mq, cleanup3, err := InitMQ(context, logger)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	diDiAutoMaxPro, cleanup4, err := InitAutoMaxProcs(logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewLoggerService(logger, mq, diDiAutoMaxPro)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return service, func() {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+	}, nil
+}
+
+// Injectors from service_metadata.go:
+
+func InitializeMetadataService() (*Service, func(), error) {
+	context, cleanup, err := NewContext()
+	if err != nil {
+		return nil, nil, err
+	}
+	logger, cleanup2, err := InitLogger(context)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
@@ -259,46 +337,14 @@ func InitializeLoggerService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLoggerService(logger, mq, diDiAutoMaxPro)
+	store, cleanup4, err := InitStore(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	return service, func() {
-		cleanup3()
-		cleanup2()
-		cleanup()
-	}, nil
-}
-
-// Injectors from service_metadata.go:
-
-func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
-	logger, cleanup, err := InitLogger(ctx)
-	if err != nil {
-		return nil, nil, err
-	}
-	diDiAutoMaxPro, cleanup2, err := InitAutoMaxProcs(logger)
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	store, cleanup3, err := InitStore(ctx, logger)
-	if err != nil {
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	tracer, cleanup4, err := InitTracer(ctx, logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	rpcServer, cleanup5, err := rpc.RunGRPCServer(logger, tracer)
+	tracer, cleanup5, err := InitTracer(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -306,7 +352,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metaStore, err := InitMetaStore(ctx, logger, store)
+	rpcServer, cleanup6, err := rpc.RunGRPCServer(logger, tracer)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -315,8 +361,19 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	handler, cleanup6, err := InitSentry()
+	metaStore, err := InitMetaStore(context, logger, store)
 	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	handler, cleanup7, err := InitSentry()
+	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -327,6 +384,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 	serveMux := InitMonitoring(handler)
 	service, err := NewMetadataService(logger, diDiAutoMaxPro, store, rpcServer, metaStore, serveMux, handler)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -336,6 +394,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 		return nil, nil, err
 	}
 	return service, func() {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -349,6 +408,7 @@ func InitializeMetadataService(ctx context.Context) (*Service, func(), error) {
 
 // Service - heplers
 type Service struct {
+	Ctx    context.Context
 	Log    logger.Logger
 	Tracer opentracing.Tracer
 	// TracerClose func()
@@ -495,6 +555,7 @@ func InitMetaStore(ctx context.Context, log logger.Logger, conn *db.Store) (*met
 	return metaStore, nil
 }
 
+// Logger ==============================================================================================================
 func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
 	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
 	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
@@ -584,7 +645,7 @@ func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(InitAutoMaxProcs, InitLogger, InitTracer)
+var DefaultSet = wire.NewSet(NewContext, InitAutoMaxProcs, InitLogger, InitTracer)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
@@ -598,6 +659,7 @@ var FullSet = wire.NewSet(
 )
 
 func NewFullService(
+	ctx context.Context,
 	log logger.Logger, mq2 mq.MQ,
 
 	sentryHandler *sentryhttp.Handler,
@@ -610,6 +672,7 @@ func NewFullService(
 	clientRPC *grpc.ClientConn,
 ) (*Service, error) {
 	return &Service{
+		Ctx:    ctx,
 		Log:    log,
 		MQ:     mq2,
 		Tracer: tracer,
@@ -637,6 +700,7 @@ var APISet = wire.NewSet(
 )
 
 func NewAPIService(
+	ctx context.Context,
 	log logger.Logger, mq2 mq.MQ,
 
 	sentryHandler *sentryhttp.Handler,
@@ -649,6 +713,7 @@ func NewAPIService(
 	clientRPC *grpc.ClientConn,
 ) (*Service, error) {
 	return &Service{
+		Ctx:    ctx,
 		Log:    log,
 		MQ:     mq2,
 		Tracer: tracer,

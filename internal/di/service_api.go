@@ -32,6 +32,7 @@ var APISet = wire.NewSet(
 )
 
 func NewAPIService(
+	ctx context.Context,
 	log logger.Logger,
 	mq mq.MQ,
 	sentryHandler *sentryhttp.Handler,
@@ -45,6 +46,7 @@ func NewAPIService(
 	clientRPC *grpc.ClientConn,
 ) (*Service, error) {
 	return &Service{
+		Ctx:    ctx,
 		Log:    log,
 		MQ:     mq,
 		Tracer: tracer,
@@ -59,6 +61,6 @@ func NewAPIService(
 	}, nil
 }
 
-func InitializeAPIService(ctx context.Context) (*Service, func(), error) {
+func InitializeAPIService() (*Service, func(), error) {
 	panic(wire.Build(APISet))
 }
