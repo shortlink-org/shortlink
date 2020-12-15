@@ -1,4 +1,3 @@
-//go:generate go-bindata -prefix migrations -pkg migrations -ignore migrations.go -o migrations/migrations.go migrations
 package mongo
 
 import (

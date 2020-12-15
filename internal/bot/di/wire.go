@@ -21,6 +21,17 @@ type Service struct {
 	smtp     *smtp.Bot
 }
 
+// Context =============================================================================================================
+func NewContext() (context.Context, func(), error) {
+	ctx := context.Background()
+
+	cb := func() {
+		ctx.Done()
+	}
+
+	return ctx, cb, nil
+}
+
 // InitSlack - Init slack bot
 func InitSlack(ctx context.Context) *slack.Bot {
 	slackBot := &slack.Bot{}
@@ -52,7 +63,7 @@ func InitSMTP(ctx context.Context) *smtp.Bot {
 }
 
 // FullBotService ======================================================================================================
-var FullBotSet = wire.NewSet(InitSlack, InitTelegram, InitSMTP, NewBotService)
+var FullBotSet = wire.NewSet(NewContext, InitSlack, InitTelegram, InitSMTP, NewBotService)
 
 func NewBotService(slack *slack.Bot, telegram *telegram.Bot, smtp *smtp.Bot) (*Service, error) {
 	return &Service{
@@ -62,6 +73,6 @@ func NewBotService(slack *slack.Bot, telegram *telegram.Bot, smtp *smtp.Bot) (*S
 	}, nil
 }
 
-func InitializeFullBotService(ctx context.Context) (*Service, func(), error) {
+func InitializeFullBotService() (*Service, func(), error) {
 	panic(wire.Build(FullBotSet))
 }

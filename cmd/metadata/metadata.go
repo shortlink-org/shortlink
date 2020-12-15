@@ -6,7 +6,6 @@ Get information by links
 package main
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -30,11 +29,8 @@ func init() {
 }
 
 func main() {
-	// Create a new context
-	ctx := context.Background()
-
 	// Init a new service
-	service, cleanup, err := di.InitializeMetadataService(ctx)
+	service, cleanup, err := di.InitializeMetadataService()
 	if err != nil { // TODO: use as helpers
 		var typeErr *net.OpError
 		if errors.As(err, &typeErr) {
@@ -48,7 +44,7 @@ func main() {
 	go http.ListenAndServe("0.0.0.0:9091", service.Monitoring) // nolint errcheck
 
 	// Run API server
-	_, err = rpc.New(service.ServerRPC, service.MetaStore, service.Log)
+	_, err = metadata_rpc.New(service.ServerRPC, service.MetaStore, service.Log)
 	if err != nil {
 		panic(err)
 	}

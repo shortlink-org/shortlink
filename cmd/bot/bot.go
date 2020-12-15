@@ -4,7 +4,6 @@ Bot application
 package main
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -34,11 +33,8 @@ func init() {
 }
 
 func main() {
-	// Create a new context
-	ctx := context.Background()
-
 	// Init a new service
-	s, cleanup, err := di.InitializeBotService(ctx)
+	s, cleanup, err := di.InitializeBotService()
 	if err != nil { // TODO: use as helpers
 		var typeErr *net.OpError
 		if errors.As(err, &typeErr) {
@@ -54,7 +50,7 @@ func main() {
 
 	// Run bot
 	b := bot.Bot{}
-	b.Use(ctx)
+	b.Use(s.Ctx)
 
 	go func() {
 		if s.MQ != nil {
@@ -76,7 +72,7 @@ func main() {
 			}
 
 			s.Log.Info("Get new LINK", field.Fields{"url": myLink.Url})
-			notify.Publish(ctx, bot_type.METHOD_NEW_LINK, myLink, nil)
+			notify.Publish(s.Ctx, bot_type.METHOD_NEW_LINK, myLink, nil)
 		}
 	}()
 

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"errors"
 	"flag"
 	"fmt"
@@ -15,11 +14,8 @@ import (
 )
 
 func main() {
-	// Create a new context
-	ctx := context.Background()
-
 	// Init a new service
-	s, cleanup, err := di.InitializeSCIDriver(ctx)
+	s, cleanup, err := di.InitializeSCIDriver()
 	if err != nil { // TODO: use as helpers
 		var typeErr *net.OpError
 		if errors.As(err, &typeErr) {
@@ -43,7 +39,7 @@ func main() {
 	if err != nil {
 		s.Log.Fatal(fmt.Sprintf("Failed to initialize driver: %s", err.Error()))
 	}
-	if err := driver.Run(ctx); err != nil {
+	if err := driver.Run(s.Ctx); err != nil {
 		s.Log.Fatal(err.Error())
 	}
 

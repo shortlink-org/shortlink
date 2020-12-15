@@ -1,8 +1,10 @@
 syntax = "proto3";
 
-package rpc;
+package metadata_rpc;
 
-option go_package = "internal/metadata/infrastructure/rpc";
+option go_package = "github.com/batazor/shortlink/internal/metadata/infrastructure/metadata_rpc";
+
+import "meta.proto";
 
 service Metadata {
   rpc Get(GetMetaRequest) returns(GetMetaResponse) {}
@@ -14,7 +16,7 @@ message GetMetaRequest {
 }
 
 message GetMetaResponse {
-  Meta meta = 1;
+  meta.Meta meta = 1;
 }
 
 message SetMetaRequest {
@@ -22,12 +24,5 @@ message SetMetaRequest {
 }
 
 message SetMetaResponse {
-  Meta meta = 1;
-}
-
-message Meta {
-  string Id = 1;
-	string ImageURL = 2;
-	string Description = 3;
-	string Keywords = 4;
+  meta.Meta meta = 1;
 }

@@ -61,12 +61,15 @@ require (
 	go.uber.org/automaxprocs v1.3.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
-	golang.org/x/crypto v0.0.0-20201124201722-c8d3bf9c5392 // indirect
+	golang.org/x/crypto v0.0.0-20201208171446-5f87f3452ae9 // indirect
+	golang.org/x/mod v0.4.0 // indirect
 	golang.org/x/net v0.0.0-20201209123823-ac852fbbde11
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/tools v0.0.0-20201124202034-299f270db459 // indirect
+	google.golang.org/api v0.30.0
 	google.golang.org/genproto v0.0.0-20201214200347-8c77b98c765d
 	google.golang.org/grpc v1.34.0
+	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.0.1
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1

@@ -2,7 +2,7 @@
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
-    http://www.apache.org/licenses/LICENSE-2.0
+	http://www.apache.org/licenses/LICENSE-2.0
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -309,7 +309,7 @@ func (d *driver) NodeGetCapabilities(ctx context.Context, req *csi.NodeGetCapabi
 				},
 			},
 		},
-		&csi.NodeServiceCapability{
+		{
 			Type: &csi.NodeServiceCapability_Rpc{
 				Rpc: &csi.NodeServiceCapability_RPC{
 					Type: csi.NodeServiceCapability_RPC_GET_VOLUME_STATS,
@@ -349,13 +349,13 @@ func (d *driver) NodeGetVolumeStats(ctx context.Context, in *csi.NodeGetVolumeSt
 
 	return &csi.NodeGetVolumeStatsResponse{
 		Usage: []*csi.VolumeUsage{
-			&csi.VolumeUsage{
+			{
 				Available: stats,
 				Total:     stats,
 				Used:      stats,
 				Unit:      csi.VolumeUsage_BYTES,
 			},
-			&csi.VolumeUsage{
+			{
 				Available: stats,
 				Total:     stats,
 				Used:      stats,

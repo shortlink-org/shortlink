@@ -8,9 +8,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/logger"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
+	"github.com/batazor/shortlink/pkg/rpc"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -24,7 +24,7 @@ import (
 type API struct { // nolint unused
 	ctx  context.Context
 	http http.Server
-	RPC  *di.RPCServer
+	RPC  *rpc.RPCServer
 }
 
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
@@ -33,20 +33,15 @@ var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-ga
 func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
 	api.ctx = ctx
 
-	service := &LinkService{
-		GetLinks:   api.GetLinks,
-		GetLink:    api.GetLink,
-		CreateLink: api.CreateLink,
-		DeleteLink: api.DeleteLink,
-	}
+	service := api
 
 	// Rug gRPC
-	RegisterLinkService(api.RPC.Server, service)
+	RegisterLinkServer(api.RPC.Server, service)
 	api.RPC.Run()
 
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
-	gw := runtime.NewServeMux(
+	mux := runtime.NewServeMux(
 		// Register custom error handler
 		runtime.WithErrorHandler(api.CustomHTTPError),
 	)
@@ -63,14 +58,14 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 			),
 		),
 	}
-	err := RegisterLinkHandlerFromEndpoint(ctx, gw, api.RPC.Endpoint, opts)
+	err := RegisterLinkHandlerFromEndpoint(ctx, mux, api.RPC.Endpoint, opts)
 	if err != nil {
 		return err
 	}
 
 	api.http = http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),
-		Handler: api.tracingWrapper(gw),
+		Handler: api.tracingWrapper(mux),
 
 		ReadTimeout:       1 * time.Second,                     // the maximum duration for reading the entire request, including the body
 		WriteTimeout:      (config.Timeout + 30) * time.Second, // the maximum duration before timing out writes of the response
@@ -136,3 +131,5 @@ func (api *API) CustomHTTPError(_ context.Context, _ *runtime.ServeMux, marshale
 		_, _ = w.Write([]byte(fallback)) // #nosec
 	}
 }
+
+func (api *API) mustEmbedUnimplementedLinkServer() {}
