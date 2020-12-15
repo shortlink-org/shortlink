@@ -59,8 +59,11 @@ func RunGRPCServer(log logger.Logger, tracer opentracing.Tracer) (*RPCServer, fu
 			// After all your registrations, make sure all of the Prometheus metrics are initialized.
 			grpc_prometheus.Register(rpc)
 
-			go rpc.Serve(lis)
 			log.Info("Run gRPC server", field.Fields{"port": grpc_port})
+			err = rpc.Serve(lis)
+			if err != nil {
+				log.Error(err.Error())
+			}
 		},
 		Endpoint: endpoint,
 	}

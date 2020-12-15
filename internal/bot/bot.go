@@ -18,7 +18,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 	notify.Subscribe(bot_type.METHOD_NEW_LINK, b)
 
 	// Init slack bot
-	_, _, err := di.InitializeFullBotService(ctx)
+	_, _, err := di.InitializeFullBotService()
 	if err != nil {
 		panic(err)
 	}
