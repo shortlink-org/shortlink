@@ -68,7 +68,7 @@ require (
 	google.golang.org/api v0.36.0
 	google.golang.org/genproto v0.0.0-20201214200347-8c77b98c765d
 	google.golang.org/grpc v1.34.0
-	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.34.0
+	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.0.1
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
@@ -104,3 +104,5 @@ replace (
 	k8s.io/mount-utils => k8s.io/mount-utils v0.20.0-beta.0
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.20.0-beta.0
 )
+
+replace google.golang.org/grpc => github.com/grpc/grpc-go v1.34.0
