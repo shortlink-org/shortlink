@@ -1,4 +1,5 @@
 import React from 'react';
+import { wrapper } from '../store/store'
 import App from 'next/app'
 import Head from 'next/head';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +13,7 @@ import "../assets/styles.css"
 
 const { Sentry, captureException } = sentry()
 
-export default class MyApp extends App {
+class MyApp extends App {
   constructor() {
     super(...arguments)
     this.state = {
@@ -110,3 +111,5 @@ export default class MyApp extends App {
     )
   }
 }
+
+export default wrapper.withRedux(MyApp);

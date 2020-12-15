@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Layout = props => {
+export function Layout(props) {
   const classes = useStyles()
 
   return (
@@ -26,6 +26,5 @@ const Layout = props => {
       </Grid>
     )
   )
-};
+}
 
-export default Layout;
