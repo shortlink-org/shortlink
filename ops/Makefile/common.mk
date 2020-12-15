@@ -22,46 +22,46 @@ export CURRENT_UID=$(id -u):$(id -g)
 
 do: ## Run for specific job
 	@docker-compose \
-         -f docker-compose.yaml \
-         -f ops/docker-compose/application/api.yaml \
-         -f ops/docker-compose/gateway/traefik.yaml \
-         -f ops/docker-compose/application/metadata.yaml \
-         -f ops/docker-compose/database/mysql.yaml \
-         -f ops/docker-compose/tooling/coredns.yaml \
-         -f ops/docker-compose/tooling/prometheus.yaml \
-         -f ops/docker-compose/tooling/grafana.yaml \
-         -f ops/docker-compose/tooling/grafana-loki.yaml \
-         -f ops/docker-compose/tooling/grafana-tempo.yaml \
-         up -d --remove-orphans
+		-f docker-compose.yaml \
+		-f ops/docker-compose/application/api.yaml \
+		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/application/metadata.yaml \
+		-f ops/docker-compose/database/mysql.yaml \
+		-f ops/docker-compose/tooling/coredns.yaml \
+		-f ops/docker-compose/tooling/prometheus.yaml \
+		-f ops/docker-compose/tooling/grafana.yaml \
+		-f ops/docker-compose/tooling/grafana-loki.yaml \
+		-f ops/docker-compose/tooling/grafana-tempo.yaml \
+		up -d --remove-orphans
 
 run: ## Run this project in docker-compose
 	@docker-compose \
-         -f docker-compose.yaml \
-         -f ops/docker-compose/tooling/coredns.yaml \
-         -f ops/docker-compose/tooling/fluent-bit.yaml \
-         -f ops/docker-compose/gateway/traefik.yaml \
-         -f ops/docker-compose/application/api.yaml \
-         -f ops/docker-compose/application/metadata.yaml \
-         -f ops/docker-compose/application/logger.yaml \
-         -f ops/docker-compose/application/ui-next.yaml \
-         -f ops/docker-compose/database/mongo.yaml \
-         -f ops/docker-compose/tooling/prometheus.yaml \
-         -f ops/docker-compose/tooling/opentracing.yaml \
-         -f ops/docker-compose/tooling/grafana.yaml \
-         -f ops/docker-compose/tooling/grafana-loki.yaml \
-         -f ops/docker-compose/mq/rabbitmq.yaml \
-         up -d --remove-orphans
+		-f docker-compose.yaml \
+		-f ops/docker-compose/tooling/coredns.yaml \
+		-f ops/docker-compose/tooling/fluent-bit.yaml \
+		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/application/api.yaml \
+		-f ops/docker-compose/application/metadata.yaml \
+		-f ops/docker-compose/application/logger.yaml \
+		-f ops/docker-compose/application/ui-next.yaml \
+		-f ops/docker-compose/database/mongo.yaml \
+		-f ops/docker-compose/tooling/prometheus.yaml \
+		-f ops/docker-compose/tooling/opentracing.yaml \
+		-f ops/docker-compose/tooling/grafana.yaml \
+		-f ops/docker-compose/tooling/grafana-loki.yaml \
+		-f ops/docker-compose/mq/rabbitmq.yaml \
+		up -d --remove-orphans
 
 run-dep: ## Run only dep for this project in docker-compose
 	@docker-compose \
-         -f docker-compose.yaml \
-         -f ops/docker-compose/mq/kafka.yaml \
-         -f ops/docker-compose/application/api.yaml \
-         -f ops/docker-compose/database/postgres.yaml \
-         -f ops/docker-compose/gateway/traefik.yaml \
-         -f ops/docker-compose/tooling/opentracing.yaml \
-         -f ops/docker-compose/tooling/coredns.yaml \
-         up -d --remove-orphans
+		-f docker-compose.yaml \
+		-f ops/docker-compose/mq/kafka.yaml \
+		-f ops/docker-compose/application/api.yaml \
+		-f ops/docker-compose/database/postgres.yaml \
+		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/tooling/opentracing.yaml \
+		-f ops/docker-compose/tooling/coredns.yaml \
+		up -d --remove-orphans
 
 down: ## Down docker-compose
 	@docker-compose \
@@ -70,23 +70,23 @@ down: ## Down docker-compose
 		-f ops/docker-compose/tooling/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
 		-f ops/docker-compose/application/api.yaml \
- 		-f ops/docker-compose/application/metadata.yaml \
+		-f ops/docker-compose/application/metadata.yaml \
 		-f ops/docker-compose/application/logger.yaml \
 		-f ops/docker-compose/application/ui-next.yaml \
 		-f ops/docker-compose/database/mongo.yaml \
 		-f ops/docker-compose/tooling/prometheus.yaml \
 		-f ops/docker-compose/tooling/opentracing.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
-		down --remove-orphans
+	down --remove-orphans
 	@docker network prune -f
 
 logger: ## Run logger infra
-		@docker-compose \
-				-f docker-compose.yaml \
-        -f ops/docker-compose/application/api.yaml \
-        -f ops/docker-compose/tooling/coredns.yaml \
-				-f ops/docker-compose/tooling/grafana.yaml \
-				-f ops/docker-compose/tooling/grafana-loki.yaml \
-				-f ops/docker-compose/tooling/prometheus.yaml \
-				-f ops/docker-compose/tooling/opentracing.yaml \
-				up -d --remove-orphans
+	@docker-compose \
+		-f docker-compose.yaml \
+		-f ops/docker-compose/application/api.yaml \
+		-f ops/docker-compose/tooling/coredns.yaml \
+		-f ops/docker-compose/tooling/grafana.yaml \
+		-f ops/docker-compose/tooling/grafana-loki.yaml \
+		-f ops/docker-compose/tooling/prometheus.yaml \
+		-f ops/docker-compose/tooling/opentracing.yaml \
+		up -d --remove-orphans
