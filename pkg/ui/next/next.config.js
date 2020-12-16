@@ -19,4 +19,14 @@ module.exports = withSourceMaps({
 
     return config
   },
+  async rewrites() {
+    return [
+      // we need to define a no-op rewrite to trigger checking
+      // all pages/static files before we attempt proxying
+      {
+        source: `/api/:uri`,
+        destination: `http://localhost:7070/api/:uri`,
+      },
+    ]
+  },
 })
