@@ -2,9 +2,9 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: {{ include "shortlink.fullname" . }}
+  name: {{ include "helpers.fullname" . }}
   labels:
-    {{ include "shortlink.labels" . | nindent 4 }}
+    {{ include "helpers.labels" . | nindent 4 }}
 spec:
   selector:
     istio: ingressgateway # use istio default controller
@@ -21,14 +21,14 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: {{ include "shortlink.fullname" . }}
+  name: {{ include "helpers.fullname" . }}
   labels:
-    {{ include "shortlink.labels" . | nindent 4 }}
+    {{ include "helpers.labels" . | nindent 4 }}
 spec:
   hosts:
   - {{ .Values.host }}
   gateways:
-    - {{ include "shortlink.fullname" . }}
+    - {{ include "helpers.fullname" . }}
   http:
   - match:
       - uri:

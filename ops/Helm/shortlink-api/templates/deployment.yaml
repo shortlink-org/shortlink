@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "shortlink.fullname" . }}
+  name: {{ include "helpers.fullname" . }}
   labels:
-    {{ include "shortlink.labels" . | nindent 4 }}
+    {{ include "helpers.labels" . | nindent 4 }}
   annotations:
   {{- if .Values.deploy.annotations }}
     {{- toYaml .Values.deploy.annotations | nindent 4 }}
@@ -14,13 +14,13 @@ spec:
     {{- toYaml .Values.deploy.strategy | nindent 4 }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "shortlink.name" . }}
+      app.kubernetes.io/name: {{ include "helpers.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
       app.kubernetes.io/component: shortlink
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "shortlink.name" . }}
+        app.kubernetes.io/name: {{ include "helpers.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: shortlink
       annotations:
@@ -32,7 +32,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | indent 8 }}
     {{- end }}
-      serviceAccountName: {{ template "shortlink.serviceAccountName" . }}
+      serviceAccountName: {{ template "helpers.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.deploy.podSecurityContext | indent 8 }}
       containers:
@@ -57,7 +57,7 @@ spec:
         resources:
           {{- toYaml .Values.deploy.resources | indent 10 }}
         volumeMounts:
-          - name: {{ include "shortlink.fullname" . }}-grpc
+          - name: {{ include "helpers.fullname" . }}-grpc
             mountPath: /app/ops/cert/
       {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
@@ -72,6 +72,6 @@ spec:
         {{- toYaml . | indent 8 }}
     {{- end }}
       volumes:
-        - name: {{ include "shortlink.fullname" . }}-grpc
+        - name: {{ include "helpers.fullname" . }}-grpc
           secret:
-            secretName: {{ include "shortlink.fullname" . }}-grpc
+            secretName: {{ include "helpers.fullname" . }}-grpc

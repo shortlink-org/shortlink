@@ -16,7 +16,7 @@ kind: Service
 metadata:
   name: db
   labels:
-    {{ include "shortlink.labels" . | nindent 4 }}
+    {{ include "helpers.labels" . | nindent 4 }}
 spec:
   ports:
     - port: 3000

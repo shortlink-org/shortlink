@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ include "shortlink.fullname" . }}-grpc
+  name: {{ include "helpers.fullname" . }}-grpc
   labels:
-    {{ include "shortlink.labels" . | nindent 4 }}
+    {{ include "helpers.labels" . | nindent 4 }}
 type: Opaque
 data:
   shortlink-server.pem: |
