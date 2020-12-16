@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "shortlink.name" -}}
+{{- define "helpers.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -11,7 +11,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "shortlink.fullname" -}}
+{{- define "helpers.fullname" -}}
 {{- if .Values.fullnameOverride -}}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
@@ -27,16 +27,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "shortlink.chart" -}}
+{{- define "helpers.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/*
 Common labels
 */}}
-{{- define "shortlink.labels" -}}
-app.kubernetes.io/name: {{ include "shortlink.name" . }}
-helm.sh/chart: {{ include "shortlink.chart" . }}
+{{- define "helpers.labels" -}}
+app.kubernetes.io/name: {{ include "helpers.name" . }}
+helm.sh/chart: {{ include "helpers.chart" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
@@ -48,9 +48,9 @@ app.kubernetes.io/part-of: shortlink
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "shortlink.serviceAccountName" -}}
+{{- define "helpers.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-    {{ default (include "shortlink.fullname" .) .Values.serviceAccount.name }}
+    {{ default (include "helpers.fullname" .) .Values.serviceAccount.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}

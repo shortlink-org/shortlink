@@ -1,13 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ include "shortlink.fullname" . }}
+  name: {{ include "helpers.fullname" . }}
   labels:
-    {{ include "shortlink.labels" . | nindent 4 }}
+    {{ include "helpers.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "shortlink.name" . }}
+      app.kubernetes.io/name: {{ include "helpers.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   policyTypes:
     - Egress

@@ -3,13 +3,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: chaosfs-{{ include "shortlink.fullname" . }}
+  name: chaosfs-{{ include "helpers.fullname" . }}
   namespace: {{ .Values.chaosMesh.namespace }}
   labels:
     app.kubernetes.io/component: webhook
 data:
   chaosfs-shortlink.yaml: |
-    name: chaosfs-{{ include "shortlink.fullname" . }}
+    name: chaosfs-{{ include "helpers.fullname" . }}
     selector:
       labelSelectors:
         app.kubernetes.io/instance: shortlink #TODO: use variable
@@ -17,7 +17,7 @@ data:
     - name: inject-scripts
       image: pingcap/chaos-scripts:latest
       imagePullpolicy: Always
-      command: ["sh", "-c", "/scripts/init.sh -d /var/lib/{{ include "shortlink.fullname" . }}/data -f /var/lib/{{ include "shortlink.fullname" . }}/fuse-data"]
+      command: ["sh", "-c", "/scripts/init.sh -d /var/lib/{{ include "helpers.fullname" . }}/data -f /var/lib/{{ include "helpers.fullname" . }}/fuse-data"]
     containers:
     - name: chaosfs
       image: pingcap/chaos-fs:latest
@@ -30,15 +30,15 @@ data:
         - /usr/local/bin/chaosfs
         - -addr=:65534
         - -pidfile=/tmp/fuse/pid
-        - -original=/var/lib/{{ include "shortlink.fullname" . }}/fuse-data
-        - -mountpoint=/var/lib/{{ include "shortlink.fullname" . }}/data
+        - -original=/var/lib/{{ include "helpers.fullname" . }}/fuse-data
+        - -mountpoint=/var/lib/{{ include "helpers.fullname" . }}/data
       volumeMounts:
-        - name: {{ include "shortlink.fullname" . }}
-          mountPath: /var/lib/{{ include "shortlink.fullname" . }}
+        - name: {{ include "helpers.fullname" . }}
+          mountPath: /var/lib/{{ include "helpers.fullname" . }}
           mountPropagation: Bidirectional
     volumeMounts:
-    - name: {{ include "shortlink.fullname" . }}
-      mountPath: /var/lib/{{ include "shortlink.fullname" . }}
+    - name: {{ include "helpers.fullname" . }}
+      mountPath: /var/lib/{{ include "helpers.fullname" . }}
       mountPropagation: HostToContainer
     - name: scripts
       mountPath: /tmp/scripts
@@ -50,7 +50,7 @@ data:
     - name: fuse
       emptyDir: {}
     postStart:
-      {{ include "shortlink.fullname" . }}:
+      {{ include "helpers.fullname" . }}:
         command:
           - /tmp/scripts/wait-fuse.sh
 
@@ -65,7 +65,7 @@ spec:
   action: mixed
   mode: one
   duration: "400s"
-  configName: chaosfs-{{ include "shortlink.fullname" . }}
+  configName: chaosfs-{{ include "helpers.fullname" . }}
   path: ""
   selector:
     namespaces:
@@ -89,7 +89,7 @@ spec:
   action: errno
   mode: one
   duration: "400s"
-  configName: chaosfs-{{ include "shortlink.fullname" . }}
+  configName: chaosfs-{{ include "helpers.fullname" . }}
   path: ""
   selector:
     namespaces:
