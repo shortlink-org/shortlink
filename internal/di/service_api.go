@@ -12,6 +12,7 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc"
 
+	link_store "github.com/batazor/shortlink/internal/api/infrastructure/store"
 	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
@@ -22,6 +23,7 @@ import (
 var APISet = wire.NewSet(
 	DefaultSet,
 	InitStore,
+	InitLinkStore,
 	InitSentry,
 	InitMonitoring,
 	InitProfiling,
@@ -39,7 +41,7 @@ func NewAPIService(
 	monitoring *http.ServeMux,
 	tracer opentracing.Tracer,
 	db *db.Store,
-	//linkStore *link_store.LinkStore,
+	linkStore *link_store.LinkStore,
 	pprofHTTP PprofEndpoint,
 	autoMaxProcsOption diAutoMaxPro,
 	serverRPC *rpc.RPCServer,
@@ -51,10 +53,10 @@ func NewAPIService(
 		MQ:     mq,
 		Tracer: tracer,
 		// TracerClose: cleanup,
-		Monitoring: monitoring,
-		Sentry:     sentryHandler,
-		DB:         db,
-		//LinkStore:     linkStore,
+		Monitoring:    monitoring,
+		Sentry:        sentryHandler,
+		DB:            db,
+		LinkStore:     linkStore,
 		PprofEndpoint: pprofHTTP,
 		ClientRPC:     clientRPC,
 		ServerRPC:     serverRPC,

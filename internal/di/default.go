@@ -296,7 +296,6 @@ var FullSet = wire.NewSet(
 	InitMQ,
 	rpc.RunGRPCServer,
 	rpc.RunGRPCClient,
-	//InitLinkStore,
 )
 
 func NewFullService(

@@ -177,6 +177,16 @@ func InitializeAPIService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	linkStore, err := InitLinkStore(context, logger, store)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	pprofEndpoint := InitProfiling()
 	diDiAutoMaxPro, cleanup7, err := InitAutoMaxProcs(logger)
 	if err != nil {
@@ -211,7 +221,7 @@ func InitializeAPIService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewAPIService(context, logger, mq, handler, serveMux, tracer, store, pprofEndpoint, diDiAutoMaxPro, rpcServer, clientConn)
+	service, err := NewAPIService(context, logger, mq, handler, serveMux, tracer, store, linkStore, pprofEndpoint, diDiAutoMaxPro, rpcServer, clientConn)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -693,6 +703,7 @@ func NewFullService(
 var APISet = wire.NewSet(
 	DefaultSet,
 	InitStore,
+	InitLinkStore,
 	InitSentry,
 	InitMonitoring,
 	InitProfiling,
@@ -706,7 +717,7 @@ func NewAPIService(
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
 	tracer opentracing.Tracer, db2 *db.Store,
-
+	linkStore *store.LinkStore,
 	pprofHTTP PprofEndpoint,
 	autoMaxProcsOption diAutoMaxPro,
 	serverRPC *rpc.RPCServer,
@@ -718,10 +729,10 @@ func NewAPIService(
 		MQ:     mq2,
 		Tracer: tracer,
 
-		Monitoring: monitoring,
-		Sentry:     sentryHandler,
-		DB:         db2,
-
+		Monitoring:    monitoring,
+		Sentry:        sentryHandler,
+		DB:            db2,
+		LinkStore:     linkStore,
 		PprofEndpoint: pprofHTTP,
 		ClientRPC:     clientRPC,
 		ServerRPC:     serverRPC,

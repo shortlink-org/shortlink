@@ -3,7 +3,7 @@ import * as t from "../types";
 
 function* fetchLinkById(id) {
 	try {
-		const response = yield fetch(`/link/${id}`);
+		const response = yield fetch(`/api/link/${id}`);
 
 		const link = yield response.json();
 
@@ -25,7 +25,7 @@ function* watchFetchLinkById(id) {
 
 function* fetchLinkList() {
 	try {
-		const response = yield fetch(`/link`);
+		const response = yield fetch(`/api/link`);
 
 		const links = yield response.json();
 
@@ -47,7 +47,7 @@ function* watchFetchLinkList() {
 
 function* addLink(action) {
 	try {
-		const response = yield fetch("/link", {
+		const response = yield fetch("/api/link", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -75,7 +75,7 @@ function* watchAddLink() {
 
 function* deleteLink(action) {
 	try {
-		const response = yield fetch(`/link/${action.payload}`, {
+		const response = yield fetch(`/api/link/${action.payload}`, {
 			method: "DELETE",
 		});
 
@@ -99,7 +99,7 @@ function* watchDeleteLink() {
 
 function* updateLink(action) {
 	try {
-		const response = yield fetch(`/link/${action.payload._id}`, {
+		const response = yield fetch(`/api/link/${action.payload._id}`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/json",
