@@ -18,7 +18,7 @@ require (
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1.0.20201106173600-4064ced03f92
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.1
 	github.com/gocql/gocql v0.0.0-20201215165327-e49edf966d90
 	github.com/golang-migrate/migrate/v4 v4.14.1
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
