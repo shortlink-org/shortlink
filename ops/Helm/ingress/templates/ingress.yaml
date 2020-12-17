@@ -40,4 +40,8 @@ spec:
             backend:
               serviceName: shortlink-api
               servicePort: 7070
+          - path: /tracing
+            backend:
+              serviceName: jaeger-agent.jaeger-operator
+              servicePort: 6831
 {{- end }}
