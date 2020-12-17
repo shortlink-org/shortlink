@@ -30,7 +30,7 @@ type API struct { // nolint unused
 var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error {
+func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error {
 	api.ctx = ctx
 
 	service := api
@@ -54,7 +54,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 		grpc.WithInsecure(),
 		grpc.WithUnaryInterceptor(
 			grpc_opentracing.UnaryClientInterceptor(
-				grpc_opentracing.WithTracer(tracer),
+				grpc_opentracing.WithTracer(*tracer),
 			),
 		),
 	}

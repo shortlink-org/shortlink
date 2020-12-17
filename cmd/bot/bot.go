@@ -11,6 +11,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/api/domain/link"
@@ -33,6 +34,8 @@ func init() {
 }
 
 func main() {
+	viper.SetDefault("SERVICE_NAME", "bot")
+
 	// Init a new service
 	s, cleanup, err := di.InitializeBotService()
 	if err != nil { // TODO: use as helpers

@@ -63,7 +63,7 @@ deploy:
   env:
     MQ_ENABLED: "false"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
-    TRACER_SERVICE_NAME: metadata
+    SERVICE_NAME: metadata
 
   imagePullSecrets: []
 

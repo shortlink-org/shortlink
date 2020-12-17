@@ -21,6 +21,8 @@ import (
 )
 
 func init() {
+	viper.SetDefault("SERVICE_NAME", "cli")
+
 	rootCmd := &cobra.Command{
 		Use:   "shortctl",
 		Short: "Shortlink it's sandbox for experiments",

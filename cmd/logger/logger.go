@@ -11,6 +11,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/spf13/viper"
+
 	"github.com/batazor/shortlink/internal/config"
 	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/error/status"
@@ -26,6 +28,8 @@ func init() {
 }
 
 func main() {
+	viper.SetDefault("SERVICE_NAME", "logger")
+
 	// Init a new service
 	s, cleanup, err := di.InitializeLoggerService()
 	if err != nil { // TODO: use as helpers

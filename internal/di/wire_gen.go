@@ -57,7 +57,7 @@ func InitializeFullService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := InitMonitoring(handler)
-	tracer, cleanup5, err := InitTracer(context, logger)
+	tracer, cleanup5, err := traicing.NewTracer(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -85,7 +85,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup8, err := rpc.RunGRPCServer(logger, tracer)
+	rpcServer, cleanup8, err := rpc.InitServer(logger, tracer)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -96,7 +96,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup9, err := rpc.RunGRPCClient(logger, tracer)
+	clientConn, cleanup9, err := rpc.InitClient(logger, tracer)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -160,7 +160,7 @@ func InitializeAPIService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := InitMonitoring(handler)
-	tracer, cleanup5, err := InitTracer(context, logger)
+	tracer, cleanup5, err := traicing.NewTracer(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -198,7 +198,7 @@ func InitializeAPIService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup8, err := rpc.RunGRPCServer(logger, tracer)
+	rpcServer, cleanup8, err := rpc.InitServer(logger, tracer)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -209,7 +209,7 @@ func InitializeAPIService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup9, err := rpc.RunGRPCClient(logger, tracer)
+	clientConn, cleanup9, err := rpc.InitClient(logger, tracer)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -354,7 +354,7 @@ func InitializeMetadataService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	tracer, cleanup5, err := InitTracer(context, logger)
+	tracer, cleanup5, err := traicing.NewTracer(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -362,7 +362,7 @@ func InitializeMetadataService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup6, err := rpc.RunGRPCServer(logger, tracer)
+	rpcServer, cleanup6, err := rpc.InitServer(logger, tracer)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -420,7 +420,7 @@ func InitializeMetadataService() (*Service, func(), error) {
 type Service struct {
 	Ctx    context.Context
 	Log    logger.Logger
-	Tracer opentracing.Tracer
+	Tracer *opentracing.Tracer
 	// TracerClose func()
 	Sentry        *sentryhttp.Handler
 	DB            *db.Store
@@ -517,30 +517,6 @@ func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
 	}
 
 	return nil, cleanup, nil
-}
-
-// Tracing =============================================================================================================
-func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, func(), error) {
-	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink")
-	viper.SetDefault("TRACER_URI", "localhost:6831")
-
-	config := traicing.Config{
-		ServiceName: viper.GetString("TRACER_SERVICE_NAME"),
-		URI:         viper.GetString("TRACER_URI"),
-	}
-
-	tracer, tracerClose, err := traicing.Init(config)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	cleanup := func() {
-		if err := tracerClose.Close(); err != nil {
-			log.Error(err.Error())
-		}
-	}
-
-	return tracer, cleanup, nil
 }
 
 // InitLinkStore
@@ -655,7 +631,7 @@ func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(NewContext, InitAutoMaxProcs, InitLogger, InitTracer)
+var DefaultSet = wire.NewSet(NewContext, InitAutoMaxProcs, InitLogger, traicing.NewTracer)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
@@ -665,7 +641,7 @@ var FullSet = wire.NewSet(
 	InitSentry,
 	InitMonitoring,
 	InitProfiling,
-	InitMQ, rpc.RunGRPCServer, rpc.RunGRPCClient,
+	InitMQ, rpc.InitServer, rpc.InitClient,
 )
 
 func NewFullService(
@@ -674,7 +650,7 @@ func NewFullService(
 
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
-	tracer opentracing.Tracer, db2 *db.Store,
+	tracer *opentracing.Tracer, db2 *db.Store,
 
 	pprofHTTP PprofEndpoint,
 	autoMaxProcsOption diAutoMaxPro,
@@ -707,7 +683,7 @@ var APISet = wire.NewSet(
 	InitSentry,
 	InitMonitoring,
 	InitProfiling,
-	InitMQ, rpc.RunGRPCServer, rpc.RunGRPCClient, NewAPIService,
+	InitMQ, rpc.InitServer, rpc.InitClient, NewAPIService,
 )
 
 func NewAPIService(
@@ -716,7 +692,7 @@ func NewAPIService(
 
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
-	tracer opentracing.Tracer, db2 *db.Store,
+	tracer *opentracing.Tracer, db2 *db.Store,
 	linkStore *store.LinkStore,
 	pprofHTTP PprofEndpoint,
 	autoMaxProcsOption diAutoMaxPro,
@@ -754,7 +730,7 @@ func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro
 // service_logger.go:
 
 // LoggerService =======================================================================================================
-var LoggerSet = wire.NewSet(DefaultSet, NewLoggerService, InitMQ)
+var LoggerSet = wire.NewSet(DefaultSet, InitMQ, NewLoggerService)
 
 func NewLoggerService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
 	return &Service{
@@ -768,10 +744,10 @@ func NewLoggerService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption diAutoMax
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(
 	DefaultSet,
-	NewMetadataService,
-	InitStore, rpc.RunGRPCServer, InitMetaStore,
+	InitStore, rpc.InitServer, InitMetaStore,
 	InitSentry,
 	InitMonitoring,
+	NewMetadataService,
 )
 
 func NewMetadataService(

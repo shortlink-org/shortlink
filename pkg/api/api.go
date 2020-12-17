@@ -15,7 +15,7 @@ import (
 
 // API - general describe of API
 type API interface { // nolint unused
-	Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error
+	Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error
 }
 
 type Server struct{} // nolint unused

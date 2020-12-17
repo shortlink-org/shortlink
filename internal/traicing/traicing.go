@@ -4,15 +4,35 @@ Tracing wrapping
 package traicing
 
 import (
+	"errors"
 	"io"
+	"net"
+	"strings"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
 	"github.com/uber/jaeger-client-go/config"
+
+	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/logger/field"
 )
 
 // Init returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
-func Init(cnf Config) (opentracing.Tracer, io.Closer, error) {
+func Init(cnf Config, log logger.Logger) (*opentracing.Tracer, io.Closer, error) {
+	// Check lookup site
+	addr := strings.Split(cnf.URI, ":")
+	if len(addr) == 0 {
+		return nil, nil, errors.New("Not found jaeger URI host:port")
+	}
+	_, err := net.LookupIP(addr[0])
+	if err != nil {
+		// Ignore error with lookup Jaeger
+		log.Warn("don't lookup Jaeger", field.Fields{"addr": cnf.URI})
+
+		t := &jaeger.Tracer{}
+		return nil, t, nil
+	}
+
 	cfg := &config.Configuration{
 		ServiceName: cnf.ServiceName,
 		RPCMetrics:  true,
@@ -33,5 +53,5 @@ func Init(cnf Config) (opentracing.Tracer, io.Closer, error) {
 	// Set the singleton opentracing.Tracer with the Jaeger tracer.
 	opentracing.SetGlobalTracer(tracer)
 
-	return tracer, closer, nil
+	return &tracer, closer, nil
 }
