@@ -30,10 +30,6 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
 		next.ServeHTTP(ww, r)
 
-		// Get span ID
-		span := opentracing.SpanFromContext(r.Context())
-		traceID := span.Context().(jaeger.SpanContext).TraceID().String()
-
 		latency := time.Since(start)
 
 		var fields = field.Fields{
@@ -43,9 +39,14 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 			"request": r.RequestURI,
 			"method":  r.Method,
 		}
-		if traceID != "" {
+
+		// Get span ID
+		span := opentracing.SpanFromContext(r.Context())
+		if span != nil {
+			traceID := span.Context().(jaeger.SpanContext).TraceID().String()
 			fields["traceID"] = traceID
 		}
+
 		c.logZ.Info("request completed", fields)
 	}
 	return http.HandlerFunc(fn)

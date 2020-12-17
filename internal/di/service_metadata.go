@@ -18,12 +18,12 @@ import (
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(
 	DefaultSet,
-	NewMetadataService,
 	InitStore,
-	rpc.RunGRPCServer,
+	rpc.InitServer,
 	InitMetaStore,
 	InitSentry,
 	InitMonitoring,
+	NewMetadataService,
 )
 
 func NewMetadataService(

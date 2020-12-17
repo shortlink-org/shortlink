@@ -28,8 +28,8 @@ var APISet = wire.NewSet(
 	InitMonitoring,
 	InitProfiling,
 	InitMQ,
-	rpc.RunGRPCServer,
-	rpc.RunGRPCClient,
+	rpc.InitServer,
+	rpc.InitClient,
 	NewAPIService,
 )
 
@@ -39,7 +39,7 @@ func NewAPIService(
 	mq mq.MQ,
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
-	tracer opentracing.Tracer,
+	tracer *opentracing.Tracer,
 	db *db.Store,
 	linkStore *link_store.LinkStore,
 	pprofHTTP PprofEndpoint,

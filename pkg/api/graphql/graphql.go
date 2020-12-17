@@ -74,7 +74,7 @@ func (api *API) GetHandler() *relay.Handler {
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer opentracing.Tracer) error { // nolint unparam
+func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error { // nolint unparam
 	api.ctx = ctx
 
 	log.Info("Run GraphQL API")

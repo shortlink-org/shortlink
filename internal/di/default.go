@@ -35,7 +35,7 @@ import (
 type Service struct {
 	Ctx    context.Context
 	Log    logger.Logger
-	Tracer opentracing.Tracer
+	Tracer *opentracing.Tracer
 	// TracerClose func()
 	Sentry        *sentryhttp.Handler
 	DB            *db.Store
@@ -141,30 +141,6 @@ func InitAutoMaxProcs(log logger.Logger) (diAutoMaxPro, func(), error) {
 	}
 
 	return nil, cleanup, nil
-}
-
-// Tracing =============================================================================================================
-func InitTracer(ctx context.Context, log logger.Logger) (opentracing.Tracer, func(), error) {
-	viper.SetDefault("TRACER_SERVICE_NAME", "ShortLink") // Service Name
-	viper.SetDefault("TRACER_URI", "localhost:6831")     // Tracing addr:host
-
-	config := traicing.Config{
-		ServiceName: viper.GetString("TRACER_SERVICE_NAME"),
-		URI:         viper.GetString("TRACER_URI"),
-	}
-
-	tracer, tracerClose, err := traicing.Init(config)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	cleanup := func() {
-		if err := tracerClose.Close(); err != nil {
-			log.Error(err.Error())
-		}
-	}
-
-	return tracer, cleanup, nil
 }
 
 // InitLinkStore
@@ -283,7 +259,7 @@ func InitMQ(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(NewContext, InitAutoMaxProcs, InitLogger, InitTracer)
+var DefaultSet = wire.NewSet(NewContext, InitAutoMaxProcs, InitLogger, traicing.NewTracer)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
@@ -294,8 +270,8 @@ var FullSet = wire.NewSet(
 	InitMonitoring,
 	InitProfiling,
 	InitMQ,
-	rpc.RunGRPCServer,
-	rpc.RunGRPCClient,
+	rpc.InitServer,
+	rpc.InitClient,
 )
 
 func NewFullService(
@@ -304,7 +280,7 @@ func NewFullService(
 	mq mq.MQ,
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
-	tracer opentracing.Tracer,
+	tracer *opentracing.Tracer,
 	db *db.Store,
 	//linkStore *link_store.LinkStore,
 	pprofHTTP PprofEndpoint,

@@ -11,7 +11,7 @@ import (
 )
 
 // LoggerService =======================================================================================================
-var LoggerSet = wire.NewSet(DefaultSet, NewLoggerService, InitMQ)
+var LoggerSet = wire.NewSet(DefaultSet, InitMQ, NewLoggerService)
 
 func NewLoggerService(log logger.Logger, mq mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
 	return &Service{

@@ -9,11 +9,15 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/spf13/viper"
+
 	csi_driver "github.com/batazor/shortlink/pkg/csi"
 	"github.com/batazor/shortlink/pkg/csi/di"
 )
 
 func main() {
+	viper.SetDefault("SERVICE_NAME", "csi")
+
 	// Init a new service
 	s, cleanup, err := di.InitializeSCIDriver()
 	if err != nil { // TODO: use as helpers
