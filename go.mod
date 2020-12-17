@@ -18,7 +18,7 @@ require (
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.1
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1.0.20201106173600-4064ced03f92
 	github.com/gocql/gocql v0.0.0-20201215165327-e49edf966d90
 	github.com/golang-migrate/migrate/v4 v4.14.1
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
@@ -53,7 +53,6 @@ require (
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.6.1
 	github.com/syndtr/goleveldb v1.0.0
-	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	go.mongodb.org/mongo-driver v1.4.4
