@@ -2,3 +2,18 @@ apiVersion: jaegertracing.io/v1
 kind: Jaeger
 metadata:
   name: jaeger
+spec:
+  ui:
+    options:
+      dependencies:
+        menuEnabled: true
+      menu:
+        - label: "Shortlink"
+          items:
+            - label: "GitHub"
+              url: "https://github.com/batazor/shortlink"
+      linkPatterns:
+      - type: "logs"
+        key: "customer_id"
+        url: /search?limit=20&lookback=1h&service=frontend&tags=%7B%22customer_id%22%3A%22#{customer_id}%22%7D
+        text: "Search for other traces for customer_id=#{customer_id}"

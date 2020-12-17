@@ -1,7 +1,7 @@
 include:
   - template: Verify/Browser-Performance.gitlab-ci.yml
   - template: Verify/Accessibility.gitlab-ci.yml
-  - template: Security/DAST.gitlab-ci.yml
+  - template: Security/DAST.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/DAST.gitlab-ci.yml
 
 # Configure the scanning tool through the environment variables.
 # List of the variables: https://docs.gitlab.com/ee/user/application_security/dast/#available-variables
@@ -22,11 +22,6 @@ performance:
   allow_failure: true
   rules:
     - when: on_success
-
-dast_unlicensed:
-  stage: accessibility
-  rules:
-    - when: never
 
 # TODO: fix
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dast/

@@ -50,7 +50,6 @@ nuxt:
     include:
       - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
-  allow_failure: true
   needs:
     - docker:build
     - HELM
