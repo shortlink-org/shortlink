@@ -4,7 +4,7 @@ metadata:
   name: {{ include "helpers.fullname" . }}-staging
   labels:
     {{ include "helpers.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
+  {{- with .Values.annotations }}
   annotations:
     {{- toYaml . | indent 4 }}
   {{- end }}
