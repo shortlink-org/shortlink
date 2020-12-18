@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
-  name: {{ include "helpers.fullname" . }}-staging
+  name: {{ include "helpers.fullname" . }}-production
   labels:
     {{ include "helpers.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -16,7 +16,7 @@ spec:
     email: {{ .Values.email }}
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: {{ include "helpers.fullname" . }}-staging
+      name: {{ include "helpers.fullname" . }}-production
     # Enable the HTTP-01 challenge provider
     solvers:
       - http01:
