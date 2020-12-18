@@ -26,6 +26,6 @@ spec:
         paths:
           - path: /
             backend:
-              serviceName: jaeger-agent
-              servicePort: 6831
+              serviceName: jaeger-query
+              servicePort: 16686
 {{- end }}
