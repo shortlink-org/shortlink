@@ -2,6 +2,12 @@ apiVersion: jaegertracing.io/v1
 kind: Jaeger
 metadata:
   name: jaeger
+  labels:
+    {{- include "helpers.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   ui:
     options:
@@ -10,10 +16,10 @@ spec:
       menu:
         - label: "Shortlink"
           items:
-            - label: "UI"
-              url: "/ui"
             - label: "GitHub"
               url: "https://github.com/batazor/shortlink"
+            - label: "GitLab"
+              url: "https://gitlab.com/shortlink-org/shortlink"
       linkPatterns:
       - type: "logs"
         key: "customer_id"
