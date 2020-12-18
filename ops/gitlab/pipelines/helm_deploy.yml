@@ -15,7 +15,7 @@ deploy:
   tags:
     - docker
   environment:
-    name: ${PROVIDER}-${RELEASE_NAME}
+    name: ${PROVIDER}/${RELEASE_NAME}
     url: $ENVIRONMENT_URL
     on_stop: drop
     kubernetes:
@@ -27,5 +27,5 @@ drop:
   tags:
     - docker
   environment:
-    name: ${PROVIDER}-${RELEASE_NAME}
+    name: ${PROVIDER}/${RELEASE_NAME}
     action: stop
