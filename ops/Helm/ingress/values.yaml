@@ -10,7 +10,7 @@ host: ui-nuxt.local
 # nginx-ingress
 ingress:
   enabled: true
-  annotations: {}
+  annotations:
      kubernetes.io/ingress.class: nginx
      cert-manager.io/cluster-issuer: cert-manager-staging
      kubernetes.io/tls-acme: "true"
