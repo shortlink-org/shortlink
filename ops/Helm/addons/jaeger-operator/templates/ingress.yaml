@@ -21,9 +21,10 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-    - http:
+    - host: mytracer.ddns.net
+      http:
         paths:
-          - path: /tracing
+          - path: /
             backend:
               serviceName: jaeger-agent
               servicePort: 6831
