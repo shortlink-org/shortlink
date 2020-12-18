@@ -4,10 +4,10 @@ kind: Ingress
 metadata:
   name: {{ include "helpers.fullname" . }}
   labels:
-    {{ include "helpers.labels" . | nindent 4 }}
+    {{- include "helpers.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
-    {{- toYaml . | indent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
 {{- if .Values.ingress.tls }}
