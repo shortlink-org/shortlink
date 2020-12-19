@@ -9,7 +9,7 @@ ingress:
   enabled: true
   annotations:
     kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: cert-manager-staging
+    cert-manager.io/cluster-issuer: cert-manager-production
     kubernetes.io/tls-acme: "true"
 
   tls:
