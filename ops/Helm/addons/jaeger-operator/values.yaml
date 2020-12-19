@@ -13,6 +13,6 @@ ingress:
     kubernetes.io/tls-acme: "true"
 
   tls:
-    - secretName: chart-example-tls
+    - secretName: jaeger-operator-tls
       hosts:
         - mytracer.ddns.net

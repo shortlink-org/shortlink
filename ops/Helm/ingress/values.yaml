@@ -16,7 +16,7 @@ ingress:
      kubernetes.io/tls-acme: "true"
 
   tls:
-    - secretName: chart-example-tls
+    - secretName: ingress-tls
       hosts:
         - shortlink.ddns.net
 
