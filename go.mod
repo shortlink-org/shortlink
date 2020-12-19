@@ -42,7 +42,7 @@ require (
 	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
-	github.com/ory/dockertest/v3 v3.6.2
+	github.com/ory/dockertest/v3 v3.6.3
 	github.com/pborman/uuid v1.2.1
 	github.com/prometheus/client_golang v1.9.0
 	github.com/scylladb/gocqlx/v2 v2.3.0
