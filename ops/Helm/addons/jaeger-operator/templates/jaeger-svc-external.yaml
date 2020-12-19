@@ -3,12 +3,11 @@ kind: Service
 metadata:
   name: jaeger-query-external
   labels:
-    app: jaeger
-    app.kubernetes.io/component: service-query
-    app.kubernetes.io/instance: jaeger
-    app.kubernetes.io/managed-by: jaeger-operator
-    app.kubernetes.io/name: jaeger-query
-    app.kubernetes.io/part-of: jaeger
+    {{- include "helpers.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   ports:
   - name: http-query
