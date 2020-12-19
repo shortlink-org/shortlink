@@ -21,10 +21,10 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-    - host: mytracer.ddns.net
+    - host: shortlink.ddns.net
       http:
         paths:
-          - path: /
+          - path: /jaeger
             backend:
               serviceName: jaeger-query
               servicePort: 16686

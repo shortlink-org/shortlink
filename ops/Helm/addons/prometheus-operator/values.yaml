@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-prometheus-operator:
+kube-prometheus-stack:
   enabled: true
 
   alertmanager:
@@ -23,14 +23,8 @@ prometheus-operator:
       ingressClassName: nginx
 
       annotations:
-        kubernetes.io/ingress.class: nginx
         cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/rewrite-target: /
 
-      hosts:
-        - prometric.ddns.net
-
-      tls:
-        - secretName: prometheus-tls
-          hosts:
-            - prometric.ddns.net
-
+      paths:
+        - /prometheus
