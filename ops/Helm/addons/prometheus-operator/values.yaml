@@ -10,6 +10,8 @@ prometheus-operator:
       type: LoadBalancer
 
   prometheus:
+    enabled: true
+
     service:
       type: LoadBalancer
 
