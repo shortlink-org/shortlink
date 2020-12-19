@@ -30,7 +30,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.0.1
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
-	github.com/jackc/pgx/v4 v4.10.0
+	github.com/jackc/pgx/v4 v4.10.1
 	github.com/jmoiron/sqlx v1.2.0
 	github.com/kubernetes-csi/csi-test/v4 v4.0.2
 	github.com/lib/pq v1.9.0
@@ -42,7 +42,7 @@ require (
 	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
-	github.com/ory/dockertest/v3 v3.6.2
+	github.com/ory/dockertest/v3 v3.6.3
 	github.com/pborman/uuid v1.2.1
 	github.com/prometheus/client_golang v1.9.0
 	github.com/scylladb/gocqlx/v2 v2.3.0
