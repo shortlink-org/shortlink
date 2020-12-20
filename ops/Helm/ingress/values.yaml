@@ -14,6 +14,8 @@ ingress:
      kubernetes.io/ingress.class: nginx
      cert-manager.io/cluster-issuer: cert-manager-production
      kubernetes.io/tls-acme: "true"
+     nginx.ingress.kubernetes.io/rewrite-target: /
+     nginx.ingress.kubernetes.io/x-forwarded-prefix: /next
 
   tls:
     - secretName: ingress-tls

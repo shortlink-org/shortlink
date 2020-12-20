@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const withSourceMaps = require('@zeit/next-source-maps')
 
 module.exports = withSourceMaps({
+  basePath: '/next',
   env: {
     SENTRY_DSN: process.env.SENTRY_DSN,
     API_URL_HTTP: "http://localhost:7070"

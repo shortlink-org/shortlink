@@ -9,6 +9,10 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  allInOne:
+    options:
+      query:
+        base-path: /jaeger
   ui:
     options:
       dependencies:
