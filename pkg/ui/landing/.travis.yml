@@ -1,0 +1,16 @@
+language: node_js
+
+node_js:
+  - node
+  - lts/*
+
+install:
+  - SKIP_SETUP=true npm install
+
+script:
+  - npm run lint:styles
+  - npm run lint:js
+  - npm run build:dist
+
+dist: trusty
+sudo: false
