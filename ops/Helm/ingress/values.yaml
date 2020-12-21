@@ -18,7 +18,7 @@ ingress:
      nginx.ingress.kubernetes.io/x-forwarded-prefix: /next
 
   tls:
-    - secretName: ingress-tls
+    - secretName: shortlink-ingress-tls
       hosts:
         - shortlink.ddns.net
 
