@@ -19,12 +19,12 @@ host: shortlink.ddns.net
 
 # nginx-ingress
 ingress:
-  enabled: true
+  enabled: false
   annotations:
-     kubernetes.io/ingress.class: nginx
-     cert-manager.io/cluster-issuer: cert-manager-production
-     kubernetes.io/tls-acme: "true"
-     nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: cert-manager-production
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
 
   tls:
     - secretName: shortlink-ingress-tls
