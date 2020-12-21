@@ -13,3 +13,6 @@
       - APPLICATION: ui-next
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-next
         DOCKERFILE_PATH: ops/dockerfile/ui-next.Dockerfile
+      - APPLICATION: landing
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/landing
+        DOCKERFILE_PATH: ops/dockerfile/landing.Dockerfile
