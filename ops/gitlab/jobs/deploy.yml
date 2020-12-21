@@ -5,7 +5,7 @@ api:
     RELEASE_NAME: ${CI_PROJECT_NAME}-api
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
     REGISTRY: ${CI_REGISTRY_IMAGE}/api
-    HELM_ARG: ""
+    HELM_ARG: --set host=$INGRESS_PUBLIC_DOMAIN
     HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
@@ -44,7 +44,7 @@ nuxt:
     RELEASE_URL: nuxt
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-nuxt
-    HELM_ARG: --set serviceAccount.create=false
+    HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path=nuxt
     HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
@@ -64,7 +64,7 @@ next:
     RELEASE_URL: next
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
     REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
-    HELM_ARG: --set serviceAccount.create=false
+    HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path=next
     HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
@@ -77,16 +77,18 @@ next:
     - if: $CI_COMMIT_TAG
       when: on_success
 
-ingress:
+landing:
   stage: deploy
   variables:
-    RELEASE_NAME: ingress
-    HELM_PATH: ops/Helm/ingress
-    HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN
+    RELEASE_NAME: ${CI_PROJECT_NAME}-landing
+    RELEASE_URL: next
+    HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
+    REGISTRY: ${CI_REGISTRY_IMAGE}/landing
+    HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path=""
     HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+      - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
     - docker:build

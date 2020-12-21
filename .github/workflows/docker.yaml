@@ -41,3 +41,10 @@ jobs:
         image-name: logger # this image-name is changed for the demo
         dockerfile-location: -f ops/dockerfile/csi.Dockerfile .
         tag: latest
+    - name: landing
+      uses: mattdavis0351/actions/docker-gpr@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        image-name: logger # this image-name is changed for the demo
+        dockerfile-location: -f ops/dockerfile/landing.Dockerfile .
+        tag: latest

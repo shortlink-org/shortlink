@@ -24,24 +24,9 @@ spec:
     - host: {{ .Values.host }}
       http:
         paths:
-          - path: /ui(/|$)(.*)
-            pathType: Prefix
-            backend:
-              serviceName: shortlink-next-shortlink-ui
-              servicePort: 80
-          - path: /next
-            pathType: Prefix
-            backend:
-              serviceName: shortlink-next-shortlink-ui
-              servicePort: 80
-          - path: /nuxt(/|$)(.*)
-            pathType: Prefix
-            backend:
-              serviceName: shortlink-nuxt
-              servicePort: 80
           - path: /api
             pathType: Prefix
             backend:
-              serviceName: shortlink-api
-              servicePort: 7070
+              serviceName: {{ include "helpers.fullname" . }}
+              servicePort: {{ .Values.service.port }}
 {{- end }}
