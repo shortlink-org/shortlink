@@ -9,7 +9,7 @@ SHORTLINK_HELM_API      := ops/Helm/shortlink-api
 SHORTLINK_HELM_LOGGER   := ops/Helm/shortlink-logger
 SHORTLINK_HELM_METADATA := ops/Helm/shortlink-metadata
 SHORTLINK_HELM_UI       := ops/Helm/shortlink-ui
-SHORTLINK_HELM_INGRESS  := ops/Helm/ingress
+SHORTLINK_HELM_LANDING  := ops/Helm/landing
 
 helm-init: ## helm init
 	# add custom repo for helm
@@ -25,7 +25,7 @@ helm-lint: ## Check Helm chart by linter
 	@helm lint ${SHORTLINK_HELM_LOGGER}
 	@helm lint ${SHORTLINK_HELM_METADATA}
 	@helm lint ${SHORTLINK_HELM_UI}
-	@helm lint ${SHORTLINK_HELM_INGRESS}
+	@helm lint ${SHORTLINK_HELM_LANDING}
 
 helm-common-up: ## run common service
 	@make helm-init
