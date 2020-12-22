@@ -13,7 +13,8 @@ module.exports = {
   ],
   output: {
     path: path.join(config.root, config.paths.dist),
-    filename: 'landing/[name].[fullhash].js',
+    filename: '[name].[fullhash].js',
+    publicPath: '/landing/',
   },
   mode: ['production', 'development'].includes(config.env)
     ? config.env
@@ -34,4 +35,7 @@ module.exports = {
     rules: loaders,
   },
   plugins,
+  experiments: {
+    asset: true
+  },
 };
