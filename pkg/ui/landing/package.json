@@ -29,8 +29,6 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server --config ./config/webpack.config.js",
     "start:dist": "cross-env NODE_ENV=production webpack-dev-server --config ./config/webpack.config.js && http-server ./dist -o",
-    "setup": "node ./config/site.setup.js",
-    "postinstall": "node ./config/site.setup.js",
     "lint:js": "$(npm bin)/eslint --fix \"src/**/*.js\"",
     "lint:styles": "stylelint --fix \"src/**/*.scss\"",
     "generate": "cross-env NODE_ENV=production webpack --config ./config/webpack.config.js",
