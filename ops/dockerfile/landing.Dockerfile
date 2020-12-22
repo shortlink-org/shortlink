@@ -1,6 +1,6 @@
 FROM node:14.15-alpine as builder
 
-RUN apk add --update alpine-sdk
+RUN apk add --update alpine-sdk python
 
 WORKDIR /app
 COPY ./pkg/ui/landing /app/
