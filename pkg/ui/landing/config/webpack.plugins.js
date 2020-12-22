@@ -41,9 +41,7 @@ const clean = new CleanWebpackPlugin();
 const stylelint = new StyleLintPlugin();
 
 // Extract CSS
-const cssExtract = new MiniCssExtractPlugin({
-  filename: 'style.[contenthash].css',
-});
+const cssExtract = new MiniCssExtractPlugin();
 
 // HTML generation
 const paths = [];
