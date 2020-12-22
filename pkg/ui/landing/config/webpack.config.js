@@ -1,4 +1,5 @@
 const path = require('path');
+const resolve = require('path').resolve;
 
 const config = require('./site.config');
 const loaders = require('./webpack.loaders');
@@ -12,19 +13,19 @@ module.exports = {
   ],
   output: {
     path: path.join(config.root, config.paths.dist),
-    filename: '[name].[hash].js',
-    publicPath: "/landing/",
+    filename: 'landing/[name].[fullhash].js',
   },
   mode: ['production', 'development'].includes(config.env)
     ? config.env
     : 'development',
   devtool: config.env === 'production'
     ? 'hidden-source-map'
-    : 'cheap-eval-source-map',
+    : 'eval-source-map',
   devServer: {
     contentBase: path.join(config.root, config.paths.src),
     watchContentBase: true,
     hot: true,
+    overlay: true,
     open: true,
     port: config.port,
     host: config.dev_host,

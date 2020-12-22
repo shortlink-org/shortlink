@@ -7,14 +7,7 @@ const sourceMap = config.env !== 'production';
 // HTML loaders
 const html = {
   test: /\.(html)$/,
-  use: [
-    {
-      loader: 'html-loader',
-      options: {
-        interpolate: true,
-      },
-    },
-  ],
+  loader: 'html-loader',
 };
 
 // Javascript loaders
@@ -46,12 +39,6 @@ const cssLoader = {
 
 const postcssLoader = {
   loader: 'postcss-loader',
-  options: {
-    plugins: [
-      require('autoprefixer')(),
-    ],
-    sourceMap,
-  },
 };
 
 const css = {
@@ -118,7 +105,7 @@ const images = {
   test: /\.(gif|png|jpe?g|svg)$/i,
   exclude: /fonts/,
   use: [
-    'file-loader?name=images/[name].[hash].[ext]',
+    'file-loader?name=images/[name].[fullhash].[ext]',
     config.env === 'production' ? imageLoader : null,
   ].filter(Boolean),
 };
@@ -130,9 +117,9 @@ const fonts = {
   use: [
     {
       loader: 'file-loader',
-      query: {
-        name: '[name].[hash].[ext]',
-        outputPath: 'fonts/',
+      options: {
+        name: '[name].[fullhash].[ext]',
+        publicPath: 'landing/fonts/',
       },
     },
   ],
@@ -144,9 +131,9 @@ const videos = {
   use: [
     {
       loader: 'file-loader',
-      query: {
-        name: '[name].[hash].[ext]',
-        outputPath: 'images/',
+      options: {
+        name: '[name].[fullhash].[ext]',
+        publicPath: 'landing/images/',
       },
     },
   ],
