@@ -84,7 +84,7 @@ landing:
     RELEASE_URL: next
     HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
     REGISTRY: ${CI_REGISTRY_IMAGE}/landing
-    HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path="" --set ingress.enabled=true
+    HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path=next --set ingress.enabled=true
     HELM_NAMESPACE: ${CI_PROJECT_NAME}
   trigger:
     include:

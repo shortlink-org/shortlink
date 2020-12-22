@@ -27,6 +27,6 @@ spec:
           - path: /{{ .Values.path }}(/|$)(.*)
             pathType: Prefix
             backend:
-              serviceName: shortlink-{{ .Values.path }}-shortlink-ui
+              serviceName: {{ include "helpers.fullname" . }}
               servicePort: {{ .Values.service.port }}
 {{- end }}
