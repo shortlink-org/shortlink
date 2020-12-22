@@ -27,7 +27,11 @@ const js = {
 
 // Style loaders
 const styleLoader = {
-  loader: 'style-loader'
+  loader: 'style-loader',
+  options: {
+      insert: 'head', // insert style tag inside of <head>
+      injectType: 'singletonStyleTag' // this is for wrap all your style in just one style tag
+  },
 };
 
 const cssLoader = {
