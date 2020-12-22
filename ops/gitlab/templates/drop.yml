@@ -1,5 +1,5 @@
 .job_template_drop:
-  stage: drop
+  stage: action
   image:
     name: alpine/helm:3.4.2
     entrypoint: [""]

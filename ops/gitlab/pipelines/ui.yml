@@ -8,7 +8,7 @@ include:
 stages:
   - deploy
   - accessibility
-  - drop
+  - action
 
 deploy:
   extends:
@@ -21,6 +21,16 @@ deploy:
     url: $ENVIRONMENT_URL/${RELEASE_URL}
     kubernetes:
       namespace: ${HELM_NAMESPACE}
+
+rollback:
+  extends:
+    - .job_template_drop
+  script:
+    - env
+    - helm --namespace=$KUBE_NAMESPACE rollback $RELEASE_NAME 0
+  needs:
+    - deploy
+  when: manual
 
 drop:
   extends:
