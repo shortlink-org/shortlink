@@ -6,7 +6,7 @@ include:
 
 stages:
   - deploy
-  - drop
+  - action
 
 deploy:
   extends:
@@ -20,6 +20,16 @@ deploy:
     on_stop: drop
     kubernetes:
       namespace: ${HELM_NAMESPACE}
+
+rollback:
+  extends:
+    - .job_template_drop
+  script:
+    - env
+    - helm --namespace=$KUBE_NAMESPACE rollback $RELEASE_NAME 0
+  needs:
+    - deploy
+  when: manual
 
 drop:
   extends:
