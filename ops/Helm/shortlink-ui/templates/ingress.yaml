@@ -24,9 +24,9 @@ spec:
     - host: {{ .Values.host }}
       http:
         paths:
-          - path: /{{ .Values.host }}(/|$)(.*)
+          - path: /{{ .Values.path }}(/|$)(.*)
             pathType: Prefix
             backend:
-              serviceName: shortlink-{{ .Values.host }}-shortlink-ui
+              serviceName: shortlink-{{ .Values.path }}-shortlink-ui
               servicePort: {{ .Values.service.port }}
 {{- end }}
