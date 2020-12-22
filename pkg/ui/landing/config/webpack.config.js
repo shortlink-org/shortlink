@@ -1,5 +1,4 @@
 const path = require('path');
-const resolve = require('path').resolve;
 
 const config = require('./site.config');
 const loaders = require('./webpack.loaders');
