@@ -119,7 +119,7 @@ const fonts = {
       loader: 'file-loader',
       options: {
         name: '[name].[fullhash].[ext]',
-        publicPath: 'landing/fonts/',
+        outputPath: 'fonts/',
       },
     },
   ],
@@ -133,7 +133,7 @@ const videos = {
       loader: 'file-loader',
       options: {
         name: '[name].[fullhash].[ext]',
-        publicPath: 'landing/images/',
+        outputPath: 'images/',
       },
     },
   ],
