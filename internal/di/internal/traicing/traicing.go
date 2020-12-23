@@ -1,4 +1,4 @@
-package traicing
+package traicing_di
 
 import (
 	"context"
@@ -7,17 +7,18 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/traicing"
 )
 
-func NewTracer(ctx context.Context, log logger.Logger) (*opentracing.Tracer, func(), error) {
+func New(_ context.Context, log logger.Logger) (*opentracing.Tracer, func(), error) {
 	viper.SetDefault("TRACER_URI", "localhost:6831") // Tracing addr:host
 
-	config := Config{
+	config := traicing.Config{
 		ServiceName: viper.GetString("SERVICE_NAME"),
 		URI:         viper.GetString("TRACER_URI"),
 	}
 
-	tracer, tracerClose, err := Init(config, log)
+	tracer, tracerClose, err := traicing.Init(config, log)
 	if err != nil {
 		return nil, nil, err
 	}

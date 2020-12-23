@@ -6,14 +6,16 @@ package di
 import (
 	"github.com/google/wire"
 
+	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
+	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
 )
 
 // BotService ==========================================================================================================
-var BotSet = wire.NewSet(DefaultSet, NewBotService, InitMQ)
+var BotSet = wire.NewSet(DefaultSet, NewBotService, mq_di.New)
 
-func NewBotService(log logger.Logger, mq mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
+func NewBotService(log logger.Logger, mq mq.MQ, autoMaxProcsOption autoMaxPro.AutoMaxPro) (*Service, error) {
 	return &Service{
 		Log: log,
 		MQ:  mq,

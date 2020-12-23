@@ -9,8 +9,10 @@ import (
 	"github.com/spf13/viper"
 )
 
+type Config struct{}
+
 // Init - read .env and ENV variables
-func Init() error {
+func New() (*Config, error) {
 	viper.SetConfigName(".env")
 	viper.SetConfigType("dotenv")
 	viper.AddConfigPath(".")
@@ -21,11 +23,11 @@ func Init() error {
 		if errors.As(err, &typeErr) {
 			// TODO: logger this fact
 			//return errors.New("The .env file has not been found in the current directory")
-			return nil
+			return nil, nil
 		} else {
-			return err
+			return nil, err
 		}
 	}
 
-	return nil
+	return &Config{}, nil
 }

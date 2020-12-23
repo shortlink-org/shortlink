@@ -4,31 +4,47 @@
 package di
 
 import (
+	"context"
 	"net/http"
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
 
 	"github.com/batazor/shortlink/internal/db"
+	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
+	"github.com/batazor/shortlink/internal/di/internal/monitoring"
+	"github.com/batazor/shortlink/internal/di/internal/sentry"
+	"github.com/batazor/shortlink/internal/di/internal/store"
 	"github.com/batazor/shortlink/internal/logger"
 	meta_store "github.com/batazor/shortlink/internal/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
+// InitMetaStore =======================================================================================================
+func InitMetaStore(ctx context.Context, log logger.Logger, conn *db.Store) (*meta_store.MetaStore, error) {
+	st := meta_store.MetaStore{}
+	metaStore, err := st.Use(ctx, log, conn)
+	if err != nil {
+		return nil, err
+	}
+
+	return metaStore, nil
+}
+
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(
 	DefaultSet,
-	InitStore,
+	store.New,
 	rpc.InitServer,
 	InitMetaStore,
-	InitSentry,
-	InitMonitoring,
+	sentry.New,
+	monitoring.New,
 	NewMetadataService,
 )
 
 func NewMetadataService(
 	log logger.Logger,
-	autoMaxProcsOption diAutoMaxPro,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	db *db.Store,
 	serverRPC *rpc.RPCServer,
 	metaStore *meta_store.MetaStore,

@@ -7,9 +7,9 @@ package di
 
 import (
 	"context"
-	"github.com/batazor/shortlink/internal/bot/slack"
-	"github.com/batazor/shortlink/internal/bot/smtp"
-	"github.com/batazor/shortlink/internal/bot/telegram"
+	"github.com/batazor/shortlink/internal/bot/infrastructure/slack"
+	"github.com/batazor/shortlink/internal/bot/infrastructure/smtp"
+	"github.com/batazor/shortlink/internal/bot/infrastructure/telegram"
 	"github.com/google/wire"
 )
 
