@@ -27,6 +27,7 @@ module.exports = withSourceMaps({
       {
         source: `/api/:uri`,
         destination: `http://localhost:7070/api/:uri`,
+        basePath: false,
       },
     ]
   },

@@ -1,18 +1,8 @@
 import { HYDRATE } from "next-redux-wrapper";
 import * as t from "../types";
 
-const DEMO_SET = {
-  url: 'http://google.com',
-  hash: '4535345',
-  describe: 'Test URL for table',
-  created_at: 1243432434,
-  updated_at: 1243432434,
-}
-
 const initialState = {
-	list: {
-	  [DEMO_SET.hash]: DEMO_SET,
-  },
+	list: [],
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -22,12 +12,13 @@ const mainReducer = (state = initialState, action) => {
     case t.LINK_FETCH_SUCCEEDED:
       return {
         ...state,
-        list: {
+        list: [
           ...state.list,
-          [action.payload.hash]: action.payload,
-        }
+          action.payload,
+        ]
       }
     case t.LINK_FETCH_LIST_SUCCEEDED:
+      console.warn('TEST', action)
       return {
         ...state,
         list: action.payload
@@ -35,26 +26,23 @@ const mainReducer = (state = initialState, action) => {
     case t.LINK_ADD_SUCCEEDED:
       return {
         ...state,
-        list: {
+        list: [
           ...state.list,
-          [action.payload.hash]: action.payload,
-        }
+          action.payload,
+        ]
       }
     case t.LINK_UPDATE_SUCCEEDED:
       return {
         ...state,
-        list: {
+        list: [
           ...state.list,
-          [action.payload.hash]: action.payload,
-        }
+          action.payload,
+        ]
       }
     case t.LINK_DELETE_SUCCEEDED:
       return {
         ...state,
-        list: {
-          ...state.list,
-          [action.payload.hash]: undefined,
-        }
+        list: state.list.filter(item => action.payload.hash !== item.hash),
       }
     default:
       return state

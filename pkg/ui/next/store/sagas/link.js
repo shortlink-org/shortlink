@@ -25,13 +25,13 @@ function* watchFetchLinkById(id) {
 
 function* fetchLinkList() {
 	try {
-		const response = yield fetch(`/api/link`);
+		const response = yield fetch(`/api/links`);
 
 		const links = yield response.json();
 
 		yield put({
 			type: t.LINK_FETCH_LIST_SUCCEEDED,
-			payload: links.data,
+			payload: links,
 		});
 	} catch (error) {
 		yield put({
