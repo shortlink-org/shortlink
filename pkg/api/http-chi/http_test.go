@@ -18,7 +18,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/infrastructure/pkg/store"
+	"github.com/batazor/shortlink/internal/services/api/infrastructure/store"
 )
 
 //func TestMain(m *testing.M) {

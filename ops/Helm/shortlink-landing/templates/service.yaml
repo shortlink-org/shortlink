@@ -7,9 +7,10 @@ metadata:
     {{ include "helpers.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
-  ipFamilyPolicy: PreferDualStack
-  ipFamilies:
-    - IPv6
+# TODO: Need k8s 1.20
+#  ipFamilyPolicy: PreferDualStack
+#  ipFamilies:
+#    - IPv6
   ports:
     - port: {{ .Values.service.port }}
       targetPort: http
