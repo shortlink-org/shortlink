@@ -17,21 +17,11 @@ import (
 	"github.com/batazor/shortlink/internal/api/domain/link"
 	"github.com/batazor/shortlink/internal/bot"
 	bot_type "github.com/batazor/shortlink/internal/bot/type"
-	"github.com/batazor/shortlink/internal/config"
 	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/error/status"
 	"github.com/batazor/shortlink/internal/logger/field"
 	"github.com/batazor/shortlink/internal/mq/query"
 	"github.com/batazor/shortlink/internal/notify"
 )
-
-func init() {
-	// Read ENV variables
-	if err := config.Init(); err != nil {
-		fmt.Println(err.Error())
-		os.Exit(status.ERROR_CONFIG)
-	}
-}
 
 func main() {
 	viper.SetDefault("SERVICE_NAME", "bot")

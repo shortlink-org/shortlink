@@ -6,14 +6,16 @@ package di
 import (
 	"github.com/google/wire"
 
+	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
+	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
 	"github.com/batazor/shortlink/internal/logger"
 	"github.com/batazor/shortlink/internal/mq"
 )
 
 // LoggerService =======================================================================================================
-var LoggerSet = wire.NewSet(DefaultSet, InitMQ, NewLoggerService)
+var LoggerSet = wire.NewSet(DefaultSet, mq_di.New, NewLoggerService)
 
-func NewLoggerService(log logger.Logger, mq mq.MQ, autoMaxProcsOption diAutoMaxPro) (*Service, error) {
+func NewLoggerService(log logger.Logger, mq mq.MQ, autoMaxProcsOption autoMaxPro.AutoMaxPro) (*Service, error) {
 	return &Service{
 		Log: log,
 		MQ:  mq,

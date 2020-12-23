@@ -13,7 +13,7 @@ import (
 	"github.com/batazor/shortlink/internal/notify"
 )
 
-func (b *Bot) Use(ctx context.Context) { // nolint unused
+func (b *Bot) Use(_ context.Context) { // nolint unused
 	// Subscribe to Event
 	notify.Subscribe(bot_type.METHOD_NEW_LINK, b)
 
