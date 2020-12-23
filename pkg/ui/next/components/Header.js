@@ -33,15 +33,15 @@ const Header = () => {
 
         <Tabs>
           <Link href="/">
-            <Tab label="Home" value="/" />
+            <Tab label="Home" value="/" component="a" />
           </Link>
 
           <Link href="/list">
-            <Tab label="List" value="/list" />
+            <Tab label="List" value="/list" component="a" />
           </Link>
 
           <Link href="/about">
-            <Tab label="About" value="/about" />
+            <Tab label="About" value="/about" component="a" />
           </Link>
         </Tabs>
 
