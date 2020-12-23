@@ -29,4 +29,9 @@ spec:
             backend:
               serviceName: {{ include "helpers.fullname" . }}
               servicePort: {{ .Values.service.port }}
+          - path: /
+              pathType: Prefix
+              backend:
+                serviceName: { { include "helpers.fullname" . } }
+                servicePort: { { .Values.service.port } }
 {{- end }}
