@@ -1,7 +1,11 @@
 const webpack = require('webpack')
 const withSourceMaps = require('@zeit/next-source-maps')
+const {
+  PHASE_DEVELOPMENT_SERVER,
+  PHASE_PRODUCTION_BUILD,
+} = require('next/constants')
 
-module.exports = withSourceMaps({
+const NEXT_CONFIG = {
   basePath: '/next',
   env: {
     SENTRY_DSN: process.env.SENTRY_DSN,
@@ -20,7 +24,10 @@ module.exports = withSourceMaps({
 
     return config
   },
-  async rewrites() {
+}
+
+if (PHASE_DEVELOPMENT_SERVER) {
+  NEXT_CONFIG.rewrites = async function() {
     return [
       // we need to define a no-op rewrite to trigger checking
       // all pages/static files before we attempt proxying
@@ -30,5 +37,7 @@ module.exports = withSourceMaps({
         basePath: false,
       },
     ]
-  },
-})
+  }
+}
+
+module.exports = withSourceMaps(NEXT_CONFIG)
