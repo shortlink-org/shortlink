@@ -9,7 +9,7 @@ SHORTLINK_HELM_API      := ops/Helm/shortlink-api
 SHORTLINK_HELM_LOGGER   := ops/Helm/shortlink-logger
 SHORTLINK_HELM_METADATA := ops/Helm/shortlink-metadata
 SHORTLINK_HELM_UI       := ops/Helm/shortlink-ui
-SHORTLINK_HELM_LANDING  := ops/Helm/landing
+SHORTLINK_HELM_LANDING  := ops/Helm/shortlink-landing
 
 helm-init: ## helm init
 	# add custom repo for helm
