@@ -19,7 +19,7 @@ import Save from '@material-ui/icons/Save';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import { Layout } from '../components';
-import {fetchLinkList} from "../store";
+import { fetchLinkList } from "../store";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -57,40 +57,40 @@ export function LinkTableContent() {
     <MaterialTable
       icons={tableIcons}
       columns={[
-        { title: "URL", field: "url" },
-        { title: "hash", field: "hash" },
-        { title: "Describe", field: "describe" },
+        { title: "URL", field: "Url" },
+        { title: "hash", field: "Hash" },
+        { title: "Describe", field: "Describe" },
         {
           title: "Created at",
-          field: "created_at",
+          field: "CreatedAt",
         },
         {
           title: "Updated at",
-          field: "updated_at",
+          field: "UpdatedAt",
         }
       ]}
-      data={Object.keys(state.link.list).map(key => state.link.list[key])}
+      data={state.link.list}
       actions={[
         {
           icon: tableIcons.Add,
-          tooltip: 'Add Link',
+          tooltip: 'Add link',
           isFreeAction: true,
           onClick: (event) => alert("You want to add a new row")
         },
         {
           icon: tableIcons.Update,
-          tooltip: 'Update Link',
+          tooltip: 'Update link',
           isFreeAction: true,
-          onClick: (event) => alert("You want to add a update row")
+          onClick: (event) => dispatch(fetchLinkList())
         },
         {
           icon: tableIcons.Save,
-          tooltip: 'Save User',
+          tooltip: 'Save link',
           onClick: (event, rowData) => alert("You saved " + rowData.name)
         },
         {
           icon: tableIcons.Delete,
-          tooltip: 'Delete Link',
+          tooltip: 'Delete link',
           onClick: (event, rowData) => confirm("You want to delete " + rowData.name)
         }
       ]}
