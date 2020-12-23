@@ -21,7 +21,7 @@ import (
 	"github.com/container-storage-interface/spec/lib/go/csi"
 	"google.golang.org/grpc"
 
-	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger"
 )
 
 const (

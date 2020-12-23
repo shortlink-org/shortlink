@@ -7,7 +7,7 @@ package di
 
 import (
 	"context"
-	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/google/wire"
 	"github.com/spf13/viper"
 	"time"

@@ -14,9 +14,9 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/opentracing/opentracing-go"
 
-	"github.com/batazor/shortlink/internal/api/domain/link"
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/notify"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/notify"
+	"github.com/batazor/shortlink/internal/services/api/domain/link"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )

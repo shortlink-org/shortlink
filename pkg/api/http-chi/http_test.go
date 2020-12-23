@@ -15,10 +15,10 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/batazor/shortlink/internal/api/infrastructure/store"
-	"github.com/batazor/shortlink/internal/db"
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/notify"
+	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/notify"
+	"github.com/batazor/shortlink/internal/services/api/infrastructure/pkg/store"
 )
 
 //func TestMain(m *testing.M) {

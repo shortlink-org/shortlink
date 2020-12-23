@@ -15,8 +15,8 @@ import (
 	"github.com/markbates/pkger"
 	"github.com/opentracing/opentracing-go"
 
-	"github.com/batazor/shortlink/internal/db"
-	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/pkg/api/graphql/resolver"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )

@@ -7,8 +7,6 @@ package di
 
 import (
 	"context"
-	store2 "github.com/batazor/shortlink/internal/api/infrastructure/store"
-	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/config"
 	"github.com/batazor/shortlink/internal/di/internal/context"
@@ -20,9 +18,11 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/di/internal/store"
 	"github.com/batazor/shortlink/internal/di/internal/traicing"
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/metadata/infrastructure/store"
-	"github.com/batazor/shortlink/internal/mq"
+	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/mq"
+	store2 "github.com/batazor/shortlink/internal/services/api/infrastructure/store"
+	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
@@ -423,11 +423,10 @@ func InitializeMetadataService() (*Service, func(), error) {
 
 // Service - heplers
 type Service struct {
-	Ctx    context.Context
-	Cfg    *config.Config
-	Log    logger.Logger
-	Tracer *opentracing.Tracer
-	// TracerClose func()
+	Ctx           context.Context
+	Cfg           *config.Config
+	Log           logger.Logger
+	Tracer        *opentracing.Tracer
 	Sentry        *sentryhttp.Handler
 	DB            *db.Store
 	LinkStore     *store2.LinkStore
@@ -462,16 +461,14 @@ func NewFullService(ctx2 context.Context,
 	clientRPC *grpc.ClientConn,
 ) (*Service, error) {
 	return &Service{
-		Ctx:    ctx2,
-		Cfg:    cfg,
-		Log:    log,
-		MQ:     mq2,
-		Tracer: tracer,
-
-		Monitoring: monitoring2,
-		Sentry:     sentryHandler,
-		DB:         db2,
-
+		Ctx:           ctx2,
+		Cfg:           cfg,
+		Log:           log,
+		MQ:            mq2,
+		Tracer:        tracer,
+		Monitoring:    monitoring2,
+		Sentry:        sentryHandler,
+		DB:            db2,
 		PprofEndpoint: pprofHTTP,
 		ClientRPC:     clientRPC,
 		ServerRPC:     serverRPC,
@@ -480,7 +477,7 @@ func NewFullService(ctx2 context.Context,
 
 // service_api.go:
 
-// InitLinkStore
+// InitLinkStore =======================================================================================================
 func InitLinkStore(ctx2 context.Context, log logger.Logger, conn *db.Store) (*store2.LinkStore, error) {
 	st := store2.LinkStore{}
 	linkStore, err := st.Use(ctx2, log, conn)
@@ -491,7 +488,7 @@ func InitLinkStore(ctx2 context.Context, log logger.Logger, conn *db.Store) (*st
 	return linkStore, nil
 }
 
-// APIService =======================================================================================================
+// APIService ==========================================================================================================
 var APISet = wire.NewSet(
 	DefaultSet, store.New, InitLinkStore, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, NewAPIService,
 )
@@ -509,11 +506,10 @@ func NewAPIService(ctx2 context.Context,
 	clientRPC *grpc.ClientConn,
 ) (*Service, error) {
 	return &Service{
-		Ctx:    ctx2,
-		Log:    log,
-		MQ:     mq2,
-		Tracer: tracer,
-
+		Ctx:           ctx2,
+		Log:           log,
+		MQ:            mq2,
+		Tracer:        tracer,
 		Monitoring:    monitoring2,
 		Sentry:        sentryHandler,
 		DB:            db2,
@@ -550,7 +546,7 @@ func NewLoggerService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption autoMaxPr
 
 // service_metadata.go:
 
-// InitMetaStore
+// InitMetaStore =======================================================================================================
 func InitMetaStore(ctx2 context.Context, log logger.Logger, conn *db.Store) (*meta_store.MetaStore, error) {
 	st := meta_store.MetaStore{}
 	metaStore, err := st.Use(ctx2, log, conn)

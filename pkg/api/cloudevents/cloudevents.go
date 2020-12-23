@@ -6,7 +6,7 @@ import (
 
 	"github.com/opentracing/opentracing-go"
 
-	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"

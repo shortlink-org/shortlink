@@ -14,13 +14,13 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/batazor/shortlink/internal/api/domain/link"
-	"github.com/batazor/shortlink/internal/bot"
-	bot_type "github.com/batazor/shortlink/internal/bot/type"
 	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/logger/field"
-	"github.com/batazor/shortlink/internal/mq/query"
-	"github.com/batazor/shortlink/internal/notify"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/batazor/shortlink/internal/pkg/mq/query"
+	"github.com/batazor/shortlink/internal/pkg/notify"
+	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/internal/services/bot"
+	bot_type "github.com/batazor/shortlink/internal/services/bot/type"
 )
 
 func main() {

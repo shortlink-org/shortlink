@@ -6,8 +6,8 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/traicing"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/traicing"
 )
 
 func New(_ context.Context, log logger.Logger) (*opentracing.Tracer, func(), error) {

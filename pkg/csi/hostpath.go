@@ -35,7 +35,7 @@ import (
 	"k8s.io/kubernetes/pkg/volume/util/volumepathhandler"
 	utilexec "k8s.io/utils/exec"
 
-	"github.com/batazor/shortlink/internal/logger/field"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
 const (

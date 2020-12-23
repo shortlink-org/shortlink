@@ -10,13 +10,13 @@ import (
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
 
-	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/di/internal/store"
-	"github.com/batazor/shortlink/internal/logger"
-	meta_store "github.com/batazor/shortlink/internal/metadata/infrastructure/store"
+	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
