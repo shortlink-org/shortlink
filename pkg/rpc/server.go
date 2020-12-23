@@ -13,8 +13,8 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/logger/field"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
 // InitServer ...

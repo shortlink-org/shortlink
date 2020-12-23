@@ -11,7 +11,7 @@ import (
 	"github.com/google/wire"
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger"
 )
 
 // Service - heplers

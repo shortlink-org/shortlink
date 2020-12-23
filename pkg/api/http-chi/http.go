@@ -8,8 +8,8 @@ import (
 
 	"github.com/go-chi/chi"
 
-	"github.com/batazor/shortlink/internal/api/domain/link"
-	"github.com/batazor/shortlink/internal/notify"
+	"github.com/batazor/shortlink/internal/pkg/notify"
+	"github.com/batazor/shortlink/internal/services/api/domain/link"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 

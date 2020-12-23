@@ -7,8 +7,8 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
 
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/logger/field"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
 
 	"github.com/go-chi/chi/middleware"
 )

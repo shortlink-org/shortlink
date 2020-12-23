@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/batazor/shortlink/internal/api/domain/link"
-	"github.com/batazor/shortlink/internal/api/infrastructure/store/query"
-	"github.com/batazor/shortlink/internal/notify"
+	"github.com/batazor/shortlink/internal/pkg/notify"
+	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/internal/services/api/infrastructure/store/query"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 

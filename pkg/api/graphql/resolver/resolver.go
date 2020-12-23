@@ -1,6 +1,6 @@
 package resolver
 
-import "github.com/batazor/shortlink/internal/db"
+import "github.com/batazor/shortlink/internal/pkg/db"
 
 // Resolver ...
 type Resolver struct { //nolint unused

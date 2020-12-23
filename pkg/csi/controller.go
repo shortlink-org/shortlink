@@ -30,7 +30,7 @@ import (
 	"github.com/container-storage-interface/spec/lib/go/csi"
 	utilexec "k8s.io/utils/exec"
 
-	"github.com/batazor/shortlink/internal/logger/field"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
 const (

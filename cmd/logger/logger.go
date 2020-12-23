@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/mq/query"
+	"github.com/batazor/shortlink/internal/pkg/mq/query"
 )
 
 func main() {

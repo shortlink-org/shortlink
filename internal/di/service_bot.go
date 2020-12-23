@@ -8,8 +8,8 @@ import (
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/mq"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/mq"
 )
 
 // BotService ==========================================================================================================

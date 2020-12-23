@@ -12,16 +12,16 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc"
 
-	link_store "github.com/batazor/shortlink/internal/api/infrastructure/store"
-	"github.com/batazor/shortlink/internal/db"
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
 	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
 	"github.com/batazor/shortlink/internal/di/internal/profiling"
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/di/internal/store"
-	"github.com/batazor/shortlink/internal/logger"
-	"github.com/batazor/shortlink/internal/mq"
+	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/mq"
+	link_store "github.com/batazor/shortlink/internal/services/api/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 

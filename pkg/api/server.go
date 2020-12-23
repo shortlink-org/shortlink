@@ -7,8 +7,8 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 
-	api_rpc "github.com/batazor/shortlink/internal/api/infrastructure/rpc"
-	"github.com/batazor/shortlink/internal/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	api_rpc "github.com/batazor/shortlink/internal/services/api/infrastructure/rpc"
 	"github.com/batazor/shortlink/pkg/api/cloudevents"
 	gokit "github.com/batazor/shortlink/pkg/api/go-kit"
 	"github.com/batazor/shortlink/pkg/api/graphql"

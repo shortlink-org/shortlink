@@ -3,7 +3,7 @@ package api_type
 import (
 	"time"
 
-	"github.com/batazor/shortlink/internal/notify"
+	"github.com/batazor/shortlink/internal/pkg/notify"
 )
 
 var (
