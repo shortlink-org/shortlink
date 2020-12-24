@@ -1,10 +1,7 @@
-.job_template_drop:
+.job_template_helm:
   stage: action
   image:
     name: alpine/helm:3.4.2
     entrypoint: [""]
-  script:
-    - env
-    - helm del -n $KUBE_NAMESPACE $RELEASE_NAME $HELM_ARG;
   retry: 2
   when: manual

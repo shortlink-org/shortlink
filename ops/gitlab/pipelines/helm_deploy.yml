@@ -1,7 +1,7 @@
 include:
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/templates/deploy.yml
-  - local: /ops/gitlab/templates/drop.yml
+  - local: /ops/gitlab/templates/helm.yml
   - local: /ops/gitlab/workflows/matrix_deploy.yml
 
 stages:
@@ -21,9 +21,11 @@ deploy:
     kubernetes:
       namespace: ${HELM_NAMESPACE}
 
+# action ===============================================================================================================
+
 rollback:
   extends:
-    - .job_template_drop
+    - .job_template_helm
   script:
     - env
     - helm --namespace=$KUBE_NAMESPACE rollback $RELEASE_NAME 0
@@ -31,11 +33,23 @@ rollback:
     - deploy
   when: manual
 
+history:
+  extends:
+    - .job_template_helm
+  script:
+    - helm --namespace=$KUBE_NAMESPACE history $RELEASE_NAME
+  needs:
+    - deploy
+  when: manual
+
 drop:
   extends:
-    - .job_template_drop
-  tags:
-    - docker
+    - .job_template_helm
+  script:
+    - env
+    - helm del -n $KUBE_NAMESPACE $RELEASE_NAME $HELM_ARG;
   environment:
     name: ${PROVIDER}/${RELEASE_NAME}
     action: stop
+  tags:
+    - docker
