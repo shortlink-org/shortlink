@@ -3,6 +3,7 @@ cli-build:
 	@go build \
 		-a \
 		-mod vendor \
+		-ldflags "-s -w" \
 		-installsuffix cgo \
 		-trimpath \
 		-o bin/cli ./cmd/cli
