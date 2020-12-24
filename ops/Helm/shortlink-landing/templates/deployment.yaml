@@ -31,15 +31,13 @@ spec:
     spec:
     {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml . | indent 8 }}
+        {{- toYaml . | nindent 8 }}
     {{- end }}
       serviceAccountName: {{ template "helpers.serviceAccountName" . }}
-      securityContext:
-        {{- toYaml .Values.deploy.podSecurityContext | indent 8 }}
       containers:
       - name: {{ .Chart.Name }}
         securityContext:
-          {{- toYaml .Values.deploy.securityContext | indent 12 }}
+          {{- toYaml .Values.deploy.securityContext | nindent 12 }}
         image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
         ports:
@@ -51,17 +49,17 @@ spec:
         readinessProbe:
           {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
         resources:
-          {{- toYaml .Values.deploy.resources | indent 10 }}
+          {{- toYaml .Values.deploy.resources | nindent 10 }}
       {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | indent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
     {{- with .Values.deploy.affinity }}
       affinity:
-        {{- toYaml . | indent 8 }}
+        {{- toYaml . | nindent 8 }}
     {{- end }}
     {{- with .Values.deploy.tolerations }}
       tolerations:
-        {{- toYaml . | indent 8 }}
+        {{- toYaml . | nindent 8 }}
     {{- end }}
 {{- end }}
