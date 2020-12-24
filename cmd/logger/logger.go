@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -21,7 +22,7 @@ func main() {
 	viper.SetDefault("SERVICE_NAME", "logger")
 
 	// Init a new service
-	s, cleanup, err := di.InitializeLoggerService()
+	service, cleanup, err := di.InitializeLoggerService()
 	if err != nil { // TODO: use as helpers
 		var typeErr *net.OpError
 		if errors.As(err, &typeErr) {
@@ -31,27 +32,30 @@ func main() {
 		panic(err)
 	}
 
+	// Monitoring endpoints
+	go http.ListenAndServe("0.0.0.0:9090", service.Monitoring) // nolint errcheck
+
 	getEventNewLink := query.Response{
 		Chan: make(chan []byte),
 	}
 
 	go func() {
-		if s.MQ != nil {
-			if err := s.MQ.Subscribe(getEventNewLink); err != nil {
-				s.Log.Error(err.Error())
+		if service.MQ != nil {
+			if err := service.MQ.Subscribe(getEventNewLink); err != nil {
+				service.Log.Error(err.Error())
 			}
 		}
 	}()
 
 	go func() {
 		for {
-			s.Log.Info(fmt.Sprintf("GET: %s", string(<-getEventNewLink.Chan)))
+			service.Log.Info(fmt.Sprintf("GET: %s", string(<-getEventNewLink.Chan)))
 		}
 	}()
 
 	defer func() {
 		if r := recover(); r != nil {
-			s.Log.Error(r.(string))
+			service.Log.Error(r.(string))
 		}
 	}()
 
