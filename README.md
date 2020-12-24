@@ -13,6 +13,10 @@ Shortlink service
 
 ![shortlink-arhitecture](./docs/shortlink-arhitecture.png)
 
+### Architecture (miro.com)
+
+- [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
+
 ##### Requirements
 
 - docker
