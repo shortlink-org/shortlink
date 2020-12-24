@@ -8,4 +8,4 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "helpers.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/component: shortlink
+      app.kubernetes.io/component: metadata

@@ -19,5 +19,5 @@ spec:
   selector:
     app.kubernetes.io/name: {{ include "helpers.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/component: ui
+    app.kubernetes.io/component: landing
 {{- end }}
