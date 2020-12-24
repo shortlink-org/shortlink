@@ -523,9 +523,15 @@ func NewAPIService(ctx2 context.Context,
 // service_bot.go:
 
 // BotService ==========================================================================================================
-var BotSet = wire.NewSet(DefaultSet, NewBotService, mq_di.New)
+var BotSet = wire.NewSet(
+	DefaultSet, monitoring.New, mq_di.New, NewBotService,
+)
 
-func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption autoMaxPro.AutoMaxPro) (*Service, error) {
+func NewBotService(
+	log logger.Logger, mq2 mq.MQ,
+
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+) (*Service, error) {
 	return &Service{
 		Log: log,
 		MQ:  mq2,
@@ -535,7 +541,9 @@ func NewBotService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption autoMaxPro.A
 // service_logger.go:
 
 // LoggerService =======================================================================================================
-var LoggerSet = wire.NewSet(DefaultSet, mq_di.New, NewLoggerService)
+var LoggerSet = wire.NewSet(
+	DefaultSet, mq_di.New, monitoring.New, NewLoggerService,
+)
 
 func NewLoggerService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption autoMaxPro.AutoMaxPro) (*Service, error) {
 	return &Service{

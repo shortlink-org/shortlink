@@ -281,11 +281,11 @@ type bintree struct {
 }
 
 var _bintree = &bintree{nil, map[string]*bintree{
-	"000001_create_links_table.down.sql": &bintree{_000001_create_links_tableDownSql, map[string]*bintree{}},
-	"000001_create_links_table.up.sql":   &bintree{_000001_create_links_tableUpSql, map[string]*bintree{}},
-	"000002_add_test_link.down.sql":      &bintree{_000002_add_test_linkDownSql, map[string]*bintree{}},
-	"000002_add_test_link.up.sql":        &bintree{_000002_add_test_linkUpSql, map[string]*bintree{}},
-	"migrations_test.go":                 &bintree{migrations_testGo, map[string]*bintree{}},
+	"000001_create_links_table.down.sql": {_000001_create_links_tableDownSql, map[string]*bintree{}},
+	"000001_create_links_table.up.sql":   {_000001_create_links_tableUpSql, map[string]*bintree{}},
+	"000002_add_test_link.down.sql":      {_000002_add_test_linkDownSql, map[string]*bintree{}},
+	"000002_add_test_link.up.sql":        {_000002_add_test_linkUpSql, map[string]*bintree{}},
+	"migrations_test.go":                 {migrations_testGo, map[string]*bintree{}},
 }}
 
 // RestoreAsset restores an asset under the given directory
