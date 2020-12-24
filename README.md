@@ -114,11 +114,13 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
 
 ### UI service
 
++ Landing: [demo UI](https://shortlink.ddns.net)
 + Nuxt: [demo UI](http://shortlink.surge.sh/)
-+ Next
++ Next: [ddemo UI](https://shortlink.ddns.net/next)
 
 | Service     | Description                       | Language/Framework |
 |-------------|-----------------------------------|--------------------|
+| landing     | Welcome page                      | JS/JQuery          |
 | next        | UI service                        | JS/ReactJS         |
 | nuxt        | UI service                        | JS/VueJS           |
 
@@ -138,6 +140,10 @@ Use `.env` file in `pkg/ui/[nuxt/next/etc]` directories for setting your UI
 | Describe                | Screenshot                           |
 |-------------------------|--------------------------------------|
 | Link Table              | ![link table](./docs/next-js-ui.png) |
+
+### Mobile
+
++ `Hello World` on flutter ;-)
 
 ### Configuration
 
