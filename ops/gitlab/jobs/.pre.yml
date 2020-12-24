@@ -26,6 +26,6 @@ infrastructure:
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_additional.yml'
-    strategy: depend
+    # strategy: depend
   when: manual
 

@@ -1,0 +1,38 @@
+include:
+  - local: /ops/gitlab/templates/common.yml
+
+stages:
+  - build
+  - analyze
+  - test
+
+before_script:
+  - flutter pub get
+  - flutter clean
+
+build:
+  stage: build
+  image: cirrusci/flutter:stable
+  script:
+    - flutter build aot
+  tags:
+    - docker
+    # - mobile
+
+unit_test:
+  stage: test
+  image: cirrusci/flutter:stable
+  script:
+    - flutter test test/*
+  tags:
+    - docker
+    # - mobile
+
+analyze:
+  stage: analyze
+  image: cirrusci/flutter:stable
+  script:
+    - echo job excluded
+  tags:
+    - docker
+    # - mobile
