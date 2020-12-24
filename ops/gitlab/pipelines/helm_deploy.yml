@@ -27,7 +27,6 @@ rollback:
   extends:
     - .job_template_helm
   script:
-    - env
     - helm --namespace=$KUBE_NAMESPACE rollback $RELEASE_NAME 0
   needs:
     - deploy
@@ -46,7 +45,6 @@ drop:
   extends:
     - .job_template_helm
   script:
-    - env
     - helm del -n $KUBE_NAMESPACE $RELEASE_NAME $HELM_ARG;
   environment:
     name: ${PROVIDER}/${RELEASE_NAME}
