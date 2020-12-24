@@ -19,6 +19,20 @@ prometheus-operator:
   rules:
     - when: manual
 
+nginx-ingress:
+  stage: deploy
+  variables:
+    RELEASE_NAME: nginx-ingress
+    HELM_PATH: ops/Helm/addons/nginx-ingress
+    HELM_NAMESPACE: nginx-ingress
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
 cert-manager:
   stage: deploy
   variables:
