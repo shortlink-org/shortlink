@@ -35,7 +35,7 @@ func main() {
 	}
 
 	// Monitoring endpoints
-	go http.ListenAndServe("0.0.0.0:9091", service.Monitoring) // nolint errcheck
+	go http.ListenAndServe("0.0.0.0:9090", service.Monitoring) // nolint errcheck
 
 	// Run API server
 	_, err = metadata_rpc.New(service.ServerRPC, service.MetaStore, service.Log)

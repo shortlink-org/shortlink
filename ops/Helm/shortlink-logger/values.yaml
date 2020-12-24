@@ -96,13 +96,13 @@ deploy:
   ## notes on enabling and using sysctls
   ##
   securityContext:
-     allowPrivilegeEscalation: false
-     capabilities:
-       drop:
-       - ALL
-     readOnlyRootFilesystem: true
-     runAsNonRoot: true
-     runAsUser: 1000
+    allowPrivilegeEscalation: false
+    capabilities:
+     drop:
+     - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
 
 # TODO: Check if empty in service
 service:

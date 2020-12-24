@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -36,6 +37,9 @@ func main() {
 
 		panic(err)
 	}
+
+	// Monitoring endpoints
+	go http.ListenAndServe("0.0.0.0:9090", s.Monitoring) // nolint errcheck
 
 	getEventNewLink := query.Response{
 		Chan: make(chan []byte),
