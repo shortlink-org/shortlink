@@ -34,6 +34,8 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       serviceAccountName: {{ template "helpers.serviceAccountName" . }}
+      securityContext:
+        {{ - toYaml .Values.deploy.podSecurityContext | nindent 8 }}
       containers:
       - name: {{ .Chart.Name }}
         securityContext:

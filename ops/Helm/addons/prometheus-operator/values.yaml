@@ -87,3 +87,8 @@ kube-prometheus-stack:
         - secretName: shortlink-ingress-tls
           hosts:
           - shortlink.ddns.net
+
+    dashboards:
+      default:
+        local-dashboard:
+          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
