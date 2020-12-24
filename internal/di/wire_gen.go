@@ -270,14 +270,15 @@ func InitializeBotService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
+	handler, cleanup4, err := sentry.New()
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewBotService(logger, mq, autoMaxProAutoMaxPro)
+	serveMux := monitoring.New(handler)
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -285,7 +286,17 @@ func InitializeBotService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewBotService(logger, mq, serveMux, autoMaxProAutoMaxPro)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -305,20 +316,21 @@ func InitializeLoggerService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup3, err := mq_di.New(context, logger)
+	handler, cleanup3, err := sentry.New()
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
+	serveMux := monitoring.New(handler)
+	mq, cleanup4, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLoggerService(logger, mq, autoMaxProAutoMaxPro)
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -326,7 +338,17 @@ func InitializeLoggerService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewLoggerService(logger, serveMux, mq, autoMaxProAutoMaxPro)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -524,17 +546,17 @@ func NewAPIService(ctx2 context.Context,
 
 // BotService ==========================================================================================================
 var BotSet = wire.NewSet(
-	DefaultSet, monitoring.New, mq_di.New, NewBotService,
+	DefaultSet, sentry.New, monitoring.New, mq_di.New, NewBotService,
 )
 
 func NewBotService(
-	log logger.Logger, mq2 mq.MQ,
-
+	log logger.Logger, mq2 mq.MQ, monitoring2 *http.ServeMux,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{
-		Log: log,
-		MQ:  mq2,
+		Log:        log,
+		MQ:         mq2,
+		Monitoring: monitoring2,
 	}, nil
 }
 
@@ -542,13 +564,18 @@ func NewBotService(
 
 // LoggerService =======================================================================================================
 var LoggerSet = wire.NewSet(
-	DefaultSet, mq_di.New, monitoring.New, NewLoggerService,
+	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewLoggerService,
 )
 
-func NewLoggerService(log logger.Logger, mq2 mq.MQ, autoMaxProcsOption autoMaxPro.AutoMaxPro) (*Service, error) {
+func NewLoggerService(
+	log logger.Logger, monitoring2 *http.ServeMux, mq2 mq.MQ,
+
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+) (*Service, error) {
 	return &Service{
-		Log: log,
-		MQ:  mq2,
+		Log:        log,
+		MQ:         mq2,
+		Monitoring: monitoring2,
 	}, nil
 }
 
