@@ -17,13 +17,13 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "helpers.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/component: ui
+      app.kubernetes.io/component: landing
   template:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "helpers.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/component: ui
+        app.kubernetes.io/component: landing
       annotations:
       {{- if .Values.deploy.annotations }}
         {{- toYaml .Values.deploy.annotations | nindent 8 }}
