@@ -40,6 +40,8 @@ kube-prometheus-stack:
 
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-opentracing: "true"
+        zipkin-collector-host: jaeger-agent.jaeger-operator
         nginx.ingress.kubernetes.io/rewrite-target: /prometheus
 
       hosts:
@@ -71,6 +73,8 @@ kube-prometheus-stack:
       annotations:
         kubernetes.io/ingress.class: nginx
         cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-opentracing: "true"
+        zipkin-collector-host: jaeger-agent.jaeger-operator
         nginx.ingress.kubernetes.io/rewrite-target: /$1
         nginx.ingress.kubernetes.io/use-regex: "true"
 
