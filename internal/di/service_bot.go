@@ -4,11 +4,14 @@
 package di
 
 import (
+	"net/http"
+
 	"github.com/google/wire"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
 	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
+	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
 )
@@ -16,6 +19,7 @@ import (
 // BotService ==========================================================================================================
 var BotSet = wire.NewSet(
 	DefaultSet,
+	sentry.New,
 	monitoring.New,
 	mq_di.New,
 	NewBotService,
@@ -24,11 +28,13 @@ var BotSet = wire.NewSet(
 func NewBotService(
 	log logger.Logger,
 	mq mq.MQ,
+	monitoring *http.ServeMux,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{
-		Log: log,
-		MQ:  mq,
+		Log:        log,
+		MQ:         mq,
+		Monitoring: monitoring,
 	}, nil
 }
 

@@ -18,7 +18,7 @@ terraform-up:
     strategy: depend
   rules:
     - changes:
-        - ops/terraform/*
+      - ops/terraform/*
 
 # K8S ==================================================================================================================
 infrastructure:
