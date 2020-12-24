@@ -1,9 +1,6 @@
 const webpack = require('webpack')
 const withSourceMaps = require('@zeit/next-source-maps')
-const {
-  PHASE_DEVELOPMENT_SERVER,
-  PHASE_PRODUCTION_BUILD,
-} = require('next/constants')
+const isProd = process.env.NODE_ENV === 'production'
 
 const NEXT_CONFIG = {
   basePath: '/next',
@@ -26,7 +23,7 @@ const NEXT_CONFIG = {
   },
 }
 
-if (PHASE_DEVELOPMENT_SERVER) {
+if (isProd) {
   NEXT_CONFIG.rewrites = async function() {
     return [
       // we need to define a no-op rewrite to trigger checking
