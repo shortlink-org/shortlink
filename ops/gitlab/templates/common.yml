@@ -12,3 +12,4 @@ env:
   stage: .pre
   script:
     - env
+  when: manual
