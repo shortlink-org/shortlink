@@ -8,7 +8,7 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "node server.js",
-    "generate": "next build && next export"
+    "generate": "NODE_ENV=production next build && next export"
   },
   "keywords": [],
   "author": "Victor Login <batazor111@gmail.com>",
