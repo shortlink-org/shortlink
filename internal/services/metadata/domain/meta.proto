@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package meta;
 
-option go_package = "github.com/batazor/shortlink/internal/metadata/domain";
+option go_package = "github.com/batazor/shortlink/internal/services/metadata/domain";
 
 message Meta {
   string Id = 1;

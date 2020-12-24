@@ -215,8 +215,8 @@ type bintree struct {
 }
 
 var _bintree = &bintree{nil, map[string]*bintree{
-	"000001_create_links_collection.down.json": &bintree{_000001_create_links_collectionDownJson, map[string]*bintree{}},
-	"000001_create_links_collection.up.json":   &bintree{_000001_create_links_collectionUpJson, map[string]*bintree{}},
+	"000001_create_links_collection.down.json": {_000001_create_links_collectionDownJson, map[string]*bintree{}},
+	"000001_create_links_collection.up.json":   {_000001_create_links_collectionUpJson, map[string]*bintree{}},
 }}
 
 // RestoreAsset restores an asset under the given directory
