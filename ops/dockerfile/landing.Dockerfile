@@ -10,6 +10,8 @@ RUN npm i && \
 
 FROM nginx:1.19-alpine
 
+RUN apk add --update curl
+
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
 
