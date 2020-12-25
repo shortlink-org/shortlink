@@ -52,7 +52,7 @@ deploy:
   annotations: {}
 
   image:
-    repository: batazor/shortlink-ui-nuxt
+    repository: batazor/shortlink-ui-next
     tag: latest
     ## Global imagePullPolicy
     ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
@@ -73,8 +73,8 @@ deploy:
     httpGet:
       path: /
       port: 80
-    initialDelaySeconds: 5
-    periodSeconds: 5
+    initialDelaySeconds: 15
+    periodSeconds: 30
     successThreshold: 1
     failureThreshold: 1
 
@@ -83,8 +83,8 @@ deploy:
     httpGet:
       path: /
       port: 80
-    initialDelaySeconds: 5
-    periodSeconds: 5
+    initialDelaySeconds: 15
+    periodSeconds: 30
     successThreshold: 1
     failureThreshold: 30
 
