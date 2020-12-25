@@ -70,20 +70,20 @@ deploy:
   # define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
-      path: /
+      path: /landing/
       port: 80
-    initialDelaySeconds: 5
-    periodSeconds: 5
+    initialDelaySeconds: 10
+    periodSeconds: 30
     successThreshold: 1
     failureThreshold: 1
 
   # define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
-      path: /
+      path: /landing/
       port: 80
-    initialDelaySeconds: 5
-    periodSeconds: 5
+    initialDelaySeconds: 10
+    periodSeconds: 30
     successThreshold: 1
     failureThreshold: 30
 
