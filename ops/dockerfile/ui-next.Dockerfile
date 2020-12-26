@@ -1,4 +1,4 @@
-FROM node:14.15-alpine as builder
+FROM node:15.5-alpine as builder
 
 WORKDIR /app
 COPY ./pkg/ui/next /app/

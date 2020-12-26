@@ -113,16 +113,6 @@ deploy:
   ##
   securityContext:
     allowPrivilegeEscalation: false
-    runAsNonRoot: true
-    # runAsUser is the user ID used to run the container
-    runAsUser: 1000
-    # runAsGroup is the primary group ID used to run all processes within any container of the pod
-    runAsGroup: 1000
-    # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
-    readOnlyRootFilesystem: false
-    capabilities:
-      drop:
-        - ALL
 
 service:
   type: ClusterIP

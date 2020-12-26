@@ -52,7 +52,7 @@ ct-run: ### Check Helm chart by ct install
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-v ${PWD}:/home \
 		quay.io/helmpack/chart-testing bash -c "\
-				cd /home && pwd && ls -la && \
+				cd /home && pwd && \
 				apk add -U docker && \
 				wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND}/kind-linux-amd64 && \
 				chmod +x /usr/local/bin/kind && \

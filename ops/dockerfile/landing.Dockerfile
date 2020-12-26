@@ -1,4 +1,4 @@
-FROM node:14.15-alpine as builder
+FROM node:15.5-alpine as builder
 
 RUN apk add --update alpine-sdk python
 
