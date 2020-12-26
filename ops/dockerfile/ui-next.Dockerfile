@@ -3,7 +3,8 @@ FROM node:15.5-alpine as builder
 WORKDIR /app
 COPY ./pkg/ui/next /app/
 
-RUN npm i && \
+RUN npm config set ignore-scripts false && \
+  npm i && \
   npm run generate
 
 FROM nginx:1.19-alpine

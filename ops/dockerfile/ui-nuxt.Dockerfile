@@ -5,6 +5,7 @@ COPY ./pkg/ui/nuxt /app/
 
 RUN apk add --no-cache python2 make g++ && \
   npm install fibers && \
+  npm config set ignore-scripts false && \
   npm i && \
   npm run generate
 
