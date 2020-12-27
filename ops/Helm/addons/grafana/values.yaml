@@ -1,0 +1,82 @@
+# Common default values for jaeger-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Docs: https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+grafana:
+  enabled: true
+  namespaceOverride: ""
+
+  ## Deploy default dashboards.
+  ##
+  defaultDashboardsEnabled: true
+
+  adminPassword: shortlink
+
+  grafana.ini:
+    server:
+      root_url: http://localhost:3000/grafana # this host can be localhost
+
+  serviceMonitor:
+    enabled: true
+    selfMonitor: true
+    interval: "1m"
+
+  imageRenderer:
+    enabled: true
+
+  ingress:
+    enabled: true
+
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/enable-opentracing: "true"
+      zipkin-collector-host: jaeger-agent.jaeger-operator
+      nginx.ingress.kubernetes.io/rewrite-target: /$1
+      nginx.ingress.kubernetes.io/use-regex: "true"
+
+    hosts:
+      - shortlink.ddns.net
+
+    path: /grafana/?(.*)
+
+    tls:
+      - secretName: shortlink-ingress-tls
+        hosts:
+          - shortlink.ddns.net
+
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+
+      ## Annotations for Grafana dashboard configmaps
+      ##
+      annotations: { }
+      multicluster: false
+    datasources:
+      enabled: true
+      defaultDatasourceEnabled: true
+
+      ## Annotations for Grafana datasource configmaps
+      ##
+      annotations: { }
+
+      ## Create datasource for each Pod of Prometheus StatefulSet;
+      ## this uses headless service `prometheus-operated` which is
+      ## created by Prometheus Operator
+      ## ref: https://git.io/fjaBS
+      createPrometheusReplicasDatasources: false
+      label: grafana_datasource
+
+  dashboards:
+    default:
+      local-dashboard:
+        url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+
+loki:
+  enabled: true
+
+promtail:
+  enabled: true
