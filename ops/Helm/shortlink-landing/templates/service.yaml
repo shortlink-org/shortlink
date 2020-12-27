@@ -7,10 +7,11 @@ metadata:
     {{ include "helpers.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
-# TODO: Need k8s 1.20
-#  ipFamilyPolicy: PreferDualStack
-#  ipFamilies:
-#    - IPv6
+  {{- if semverCompare ">=1.20" .Capabilities.KubeVersion.GitVersion -}}
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+    - IPv6
+  {{- end}}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: http
