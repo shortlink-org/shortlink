@@ -19,7 +19,7 @@ host: shortlink.ddns.net
 
 # nginx-ingress
 ingress:
-  enabled: false
+  enabled: true
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: cert-manager-production
