@@ -63,44 +63,45 @@ grafana:
       ##
       annotations: {}
 
-      datasources.yaml:
-        apiVersion: 1
-        datasources:
-          - name: Prometheus
-            type: prometheus
-            url: http://prometheus-operated.prometheus-operator:9090/prometheus
-            access: proxy
-            isDefault: true
-            jsonData:
-              timeInterval: 10s
-              queryTimeout: 30s
-              httpMethod: POST
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://prometheus-operated.prometheus-operator:9090/prometheus
+          access: proxy
+          isDefault: true
+          jsonData:
+            timeInterval: 10s
+            queryTimeout: 30s
+            httpMethod: POST
 
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://grafana-loki:3100
-            jsonData:
-              maxLines: 1000
-              derivedFields:
-                # Field with internal link pointing to data source in Grafana.
-                # Right now, Grafana supports only Jaeger and Zipkin data sources as link targets.
-                # datasourceUid value can be anything, but it should be unique across all defined data source uids.
-                - datasourceUid: jaeger
-                  matcherRegex: 'traceID":"(\w+)'
-                  name: TraceID
-                  # url will be interpreted as query for the datasource
-                  url: "$${__value.raw}"
+        - name: Loki
+          type: loki
+          access: proxy
+          url: http://grafana-loki:3100
+          jsonData:
+            maxLines: 1000
+            derivedFields:
+              # Field with internal link pointing to data source in Grafana.
+              # Right now, Grafana supports only Jaeger and Zipkin data sources as link targets.
+              # datasourceUid value can be anything, but it should be unique across all defined data source uids.
+              - datasourceUid: jaeger
+                matcherRegex: 'traceID":"(\w+)'
+                name: TraceID
+                # url will be interpreted as query for the datasource
+                url: "$${__value.raw}"
 
-                # Field with external link.
-                - matcherRegex: 'traceID":"(\w+)'
-                  name: TraceID
-                  url: "http://localhost:16686/trace/$${__value.raw}"
+              # Field with external link.
+              - matcherRegex: 'traceID":"(\w+)'
+                name: TraceID
+                url: "http://localhost:16686/trace/$${__value.raw}"
 
-          - name: Jaeger
-            type: jaeger
-            uid: jaeger
-            url: http://jaeger-query.jaeger-operator:16686
+        - name: Jaeger
+          type: jaeger
+          uid: jaeger
+          url: http://jaeger-query.jaeger-operator:16686
 
   dashboards:
     default:
