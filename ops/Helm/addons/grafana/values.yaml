@@ -67,7 +67,7 @@ grafana:
       ## this uses headless service `prometheus-operated` which is
       ## created by Prometheus Operator
       ## ref: https://git.io/fjaBS
-      createPrometheusReplicasDatasources: false
+      createPrometheusReplicasDatasources: true
       label: grafana_datasource
 
   dashboards:
