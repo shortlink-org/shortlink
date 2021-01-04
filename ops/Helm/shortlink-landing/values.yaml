@@ -7,7 +7,7 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: shortlink
@@ -26,7 +26,8 @@ ingress:
     nginx.ingress.kubernetes.io/enable-opentracing: "true"
     zipkin-collector-host: jaeger-agent.jaeger-operator
     kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /landing
+    nginx.ingress.kubernetes.io/rewrite-target: /landing/$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
 
   tls:
     - secretName: shortlink-ingress-tls
