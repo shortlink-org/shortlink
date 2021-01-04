@@ -40,7 +40,7 @@ Shortlink service
 make run
 ```
 
-##### Kuberentes
+##### Kubernetes
 
 ```
 make minikube-up
@@ -110,6 +110,7 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
   + Custom CSI driver (fork [csi-driver-host-pat](https://github.com/kubernetes-csi/csi-driver-host-path))
 + Istio
 + MetalLB
++ [kyverno](https://kyverno.io/) - Kubernetes Native Policy Management
 
 ### Gateway
 
