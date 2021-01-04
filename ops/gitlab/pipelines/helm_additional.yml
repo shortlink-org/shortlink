@@ -5,6 +5,20 @@ stages:
   - deploy
 
 # K8S ==================================================================================================================
+kyverno:
+  stage: deploy
+  variables:
+    RELEASE_NAME: kyverno
+    HELM_PATH: ops/Helm/addons/kyverno
+    HELM_NAMESPACE: kyverno
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
 prometheus-operator:
   stage: deploy
   variables:
