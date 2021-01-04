@@ -42,7 +42,6 @@ kube-prometheus-stack:
         cert-manager.io/cluster-issuer: cert-manager-production
         nginx.ingress.kubernetes.io/enable-opentracing: "true"
         zipkin-collector-host: jaeger-agent.jaeger-operator
-        nginx.ingress.kubernetes.io/rewrite-target: /prometheus
 
       hosts:
         - shortlink.ddns.net
