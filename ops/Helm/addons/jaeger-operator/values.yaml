@@ -13,7 +13,6 @@ ingress:
     nginx.ingress.kubernetes.io/enable-opentracing: "true"
     zipkin-collector-host: jaeger-agent.jaeger-operator
     kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /jaeger
 
   tls:
     - secretName: shortlink-ingress-tls
