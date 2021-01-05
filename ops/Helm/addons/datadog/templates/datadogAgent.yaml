@@ -4,8 +4,8 @@ metadata:
   name: datadog
 spec:
   credentials:
-    apiKey: {{ .Values.datadog-operator.apiKey }}
-    appKey: {{ .Values.datadog-operator.appKey }}
+    apiKey: {{ .Values.apiKey }}
+    appKey: {{ .Values.appKey }}
   agent:
     image:
       name: "datadog/agent:latest"
