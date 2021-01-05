@@ -13,7 +13,7 @@ ingress-nginx:
     # Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
     config:
       enable-opentracing: "true"
-      jaeger-collector-host: devops-init-jaeger-collector
+      # jaeger-collector-host: devops-init-jaeger-collector
       jaeger-service-name: nginx-ingress
       zipkin-collector-host: jaeger-agent.jaeger-operator
 
@@ -37,7 +37,7 @@ ingress-nginx:
 
     metrics:
       # if this port is changed, change healthz-port: in extraArgs: accordingly
-      enabled: true
+      enabled: false
 
       serviceMonitor:
         enabled: true
