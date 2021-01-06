@@ -98,6 +98,7 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
 
 + Logger
   + [Loki](./docs/logger.md)
+  + DataDog
 + Prometheus
   + prometheus-operator
     + notify: slack, email, telegram
