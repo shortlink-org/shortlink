@@ -1,7 +1,7 @@
 apiVersion: v2                                   # The chart API version (required)
 appVersion: "1.0.0"                              # The version of the app that this contains (optional)
 name: datadog                                    # The name of the chart (required)
-version: 0.2.0                                   # A SemVer 2 version (required)
+version: 0.2.1                                   # A SemVer 2 version (required)
 kubeVersion: ">= 1.16.0 || >= v1.16.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
 keywords:                                        # A list of keywords about this project (optional)
   - monitoring
@@ -16,6 +16,6 @@ dependencies:
   - name: datadog-operator
     version: 0.4.0
     repository: https://helm.datadoghq.com
-    condition: datadog-operator.enabled
+    condition: datadog.enabled
     tags:
       - monitoring

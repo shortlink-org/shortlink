@@ -2,13 +2,12 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-datadog-operator:
+## @param apiKey - string - required
+## Set this to your Datadog API key before the Agent runs.
+## ref: https://app.datadoghq.com/account/settings#agent/kubernetes
+apiKey: "<DATADOG_API_KEY>"
+
+datadog:
   enabled: true
-
-  ## @param apiKey - string - required
-  ## Set this to your Datadog API key before the Agent runs.
-  ## ref: https://app.datadoghq.com/account/settings#agent/kubernetes
-  apiKey: <DATADOG_API_KEY>
-
 
 
