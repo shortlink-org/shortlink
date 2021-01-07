@@ -104,7 +104,30 @@ grafana:
           uid: tempo
           url: http://jaeger-query.jaeger-operator:16686
 
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
   dashboards:
+    extra:
+      kubernetes-cluster:
+        gnetId: 7249
+        datasource: Prometheus
+      nginx-ingress:
+        gnetId: 9614
+        datasource: Prometheus
+      kubernetes-cluster-monitoring-prometheus:
+        gnetId: 1621
+        datasource: Prometheus
     default:
       cert-manager:
         # Ref: https://grafana.com/dashboards/11001
