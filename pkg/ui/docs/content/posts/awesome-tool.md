@@ -24,3 +24,8 @@ tags:
 ##### Tool
 
 - [krew](https://github.com/kubernetes-sigs/krew) manager plugin for kubectl
+
+### Monitoring
+
+- [Prometheus](https://prometheus.io/)
+  - [Thanos](https://thanos.io/) - Open source, highly available Prometheus setup with long term storage capabilities.
