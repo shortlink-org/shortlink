@@ -19,6 +19,10 @@ spec:
       {{ if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort))) }}
       nodePort: {{.Values.service.nodePort}}
       {{- end }}
+    - port: 9090
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
   selector:
     app.kubernetes.io/name: {{ include "helpers.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

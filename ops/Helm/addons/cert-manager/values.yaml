@@ -15,3 +15,5 @@ cert-manager:
     enabled: true
     servicemonitor:
       enabled: true
+      labels:
+        release: prometheus-operator

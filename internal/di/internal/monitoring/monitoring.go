@@ -13,6 +13,9 @@ func New(sentryHandler *sentryhttp.Handler) *http.ServeMux {
 	// Create a new Prometheus registry
 	registry := prometheus.NewRegistry()
 
+	// Add Go module build info.
+	registry.MustRegister(prometheus.NewBuildInfoCollector())
+
 	// Create a metrics-exposing Handler for the Prometheus registry
 	// The healthcheck related metrics will be prefixed with the provided namespace
 	health := healthcheck.NewMetricsHandler(registry, "common")

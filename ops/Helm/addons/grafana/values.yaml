@@ -118,28 +118,19 @@ grafana:
           path: /var/lib/grafana/dashboards/default
 
   dashboards:
-#    extra:
-#      kubernetes-cluster:
-#        gnetId: 7249
-#        datasource: Prometheus
-#      nginx-ingress:
-#        gnetId: 9614
-#        datasource: Prometheus
-#      kubernetes-cluster-monitoring-prometheus:
-#        gnetId: 1621
-#        datasource: Prometheus
     default:
       cert-manager:
         # Ref: https://grafana.com/dashboards/11001
         gnetId: 11001
         revision: 1
         datasource: Prometheus
-      prometheus-stats:
-        gnetId: 2
-        revision: 2
+      node-exporter:
+        gnetId: 1860
+        revision: 21
         datasource: Prometheus
-      local-dashboard:
+      ingress-nginx:
         url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+
 
 loki:
   enabled: true
