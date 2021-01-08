@@ -176,6 +176,9 @@ service:
   # nodePort: 7070
   # clusterIP: 172.0.0.1
 
+monitoring:
+  enabled: true
+
 # If you want to use an external database
 external_database:
   enable: false

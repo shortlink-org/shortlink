@@ -1,0 +1,18 @@
+{{- if .Values.monitoring.enabled -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "helpers.fullname" . }}
+  labels:
+    {{ include "helpers.labels" . | nindent 4 }}
+    release: prometheus-operator
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "helpers.name" . }}
+  namespaceSelector:
+    matchNames:
+      - shortlink
+  endpoints:
+  - port: metrics
+{{- end }}

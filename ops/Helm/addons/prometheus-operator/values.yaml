@@ -37,6 +37,13 @@ kube-prometheus-stack:
     prometheusSpec:
       routePrefix: /prometheus/
 
+      serviceMonitorNamespaceSelector: {}
+
+      serviceMonitorSelector: {}
+
+      ## How long to retain metrics
+      retention: 3d
+
     ingress:
       enabled: true
 
@@ -60,4 +67,11 @@ kube-prometheus-stack:
           - shortlink.ddns.net
 
   grafana:
+    enabled: false
+
+  kubeDns:
+    enabled: true
+
+  coreDns:
+    # disable for GKE
     enabled: false
