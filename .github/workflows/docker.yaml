@@ -3,7 +3,7 @@ name: Docker CD
 on:
   push:
     branches:
-      - master  # Set a branch to deploy
+      - main  # Set a branch to deploy
 
 jobs:
   Build-and-Push-Docker-Image:
