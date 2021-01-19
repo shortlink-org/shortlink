@@ -8,6 +8,7 @@
     - helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
       --install
       --wait
+      --wait-for-jobs
       --namespace=$KUBE_NAMESPACE
       --create-namespace=true
       --set deploy.image.tag=$CI_COMMIT_TAG
