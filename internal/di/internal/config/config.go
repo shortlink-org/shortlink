@@ -29,5 +29,13 @@ func New() (*Config, error) {
 		}
 	}
 
-	return &Config{}, nil
+	config := &Config{}
+
+	// Enable feature toggle
+	err := config.FeatureToogleRun()
+	if err != nil {
+		return nil, err
+	}
+
+	return config, nil
 }
