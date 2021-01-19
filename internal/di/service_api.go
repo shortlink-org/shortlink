@@ -13,6 +13,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
+	"github.com/batazor/shortlink/internal/di/internal/config"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
 	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
 	"github.com/batazor/shortlink/internal/di/internal/profiling"
@@ -52,6 +53,7 @@ var APISet = wire.NewSet(
 
 func NewAPIService(
 	ctx context.Context,
+	cfg *config.Config,
 	log logger.Logger,
 	mq mq.MQ,
 	sentryHandler *sentryhttp.Handler,

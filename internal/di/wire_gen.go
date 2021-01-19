@@ -146,6 +146,11 @@ func InitializeAPIService() (*Service, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
 	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
 		cleanup()
@@ -226,7 +231,7 @@ func InitializeAPIService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewAPIService(context, logger, mq, handler, serveMux, tracer, dbStore, linkStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn)
+	service, err := NewAPIService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, linkStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -517,6 +522,7 @@ var APISet = wire.NewSet(
 
 func NewAPIService(ctx2 context.Context,
 
+	cfg *config.Config,
 	log logger.Logger, mq2 mq.MQ,
 
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,

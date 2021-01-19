@@ -27,6 +27,12 @@ services:
     networks:
       simple:
         ipv4_address: ${DATABASE_IP}
+    healthcheck:
+      test: [ "CMD", "pg_isready", "--username=postgres", "--host=127.0.0.1", "--port=5432" ]
+      interval: 2s
+      timeout: 1m
+      retries: 5
+      start_period: 10s
     volumes: []
 #      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
 #    logging:
