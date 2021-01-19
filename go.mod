@@ -105,4 +105,4 @@ replace (
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.20.0-beta.0
 )
 
-replace google.golang.org/grpc => github.com/grpc/grpc-go v1.34.1
+replace google.golang.org/grpc => github.com/grpc/grpc-go v1.35.0
