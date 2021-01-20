@@ -43,7 +43,7 @@ func getNameFunc() string {
 // ZapFieldsToOpentracing returns a table of standard opentracing field based on
 // the inputed table of Zap field.
 func ZapFieldsToOpentracing(fields ...field.Fields) []opentracinglog.Field {
-	opentracingFields := make([]opentracinglog.Field, len(fields))
+	opentracingFields := make([]opentracinglog.Field, 0, len(fields))
 
 	for key := range fields {
 		for k := range fields[key] {
