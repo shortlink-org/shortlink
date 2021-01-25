@@ -6,4 +6,4 @@ WORKDIR /go/src/github/batazor/shortlink
 COPY . .
 
 # Load dependencies
-RUN ! -d "/go/src/github/batazor/shortlink/vendor" && go mod vendor
+RUN go mod vendor
