@@ -1,8 +1,8 @@
 .job_template_build_nodejs:
   stage: build
-  image: gitlab/dind
+  image: docker:dind
   variables:
-    # DOCKER_BUILDKIT: 1
+    DOCKER_BUILDKIT: 1
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
