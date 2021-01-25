@@ -40,7 +40,7 @@ Shortlink service
 make run
 ```
 
-##### Kubernetes
+##### Kubernetes (1.19+)
 
 ```
 make minikube-up
