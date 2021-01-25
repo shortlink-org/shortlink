@@ -39,7 +39,7 @@ helm-common-down: ## down common service
 	-helm del common
 
 # CT TASKS =============================================================================================================
-export KIND=v0.9.0
+export KIND=v0.10.0
 
 ct-lint: ### Check Helm chart by ct lint
 	@docker run -it \
@@ -47,6 +47,8 @@ ct-lint: ### Check Helm chart by ct lint
 		-v ${PWD}:/home \
 		quay.io/helmpack/chart-testing bash -c "cd /home && ct lint --all --config ct.yaml"
 
+# For local debug-run use:
+#	$> docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/home quay.io/helmpack/chart-testing /bin/sh
 ct-run: ### Check Helm chart by ct install
 	@docker run -it --rm --network host \
 		-v /var/run/docker.sock:/var/run/docker.sock \
