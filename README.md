@@ -221,9 +221,9 @@ ansible-playbook playbooks/playbook.yml
 
 ### GITLAB CI
 
-![](./docs/gitlab-pipeline.png)
+![](./docs/gitlab/gitlab-pipeline.png)
 
-![](./docs/gitlab-ci.png)
+![](./docs/gitlab/gitlab-ci.png)
 
 ##### GitLab Variable
 
