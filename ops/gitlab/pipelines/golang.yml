@@ -19,7 +19,7 @@ gosec:
   extends:
     - .job_teplate_go
   before_script:
-    - apk add --update curl
+    - apk add --update curl make
     - curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin v2.6.1
   script:
     - make gosec
