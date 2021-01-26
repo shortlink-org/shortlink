@@ -1,4 +1,4 @@
-// +build database,leveldb
+// +build unit database,leveldb
 
 package leveldb
 

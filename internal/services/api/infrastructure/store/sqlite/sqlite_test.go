@@ -1,4 +1,4 @@
-// +build database,sqlite
+// +build unit database,sqlite
 
 package sqlite
 

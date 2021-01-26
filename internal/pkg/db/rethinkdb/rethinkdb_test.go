@@ -1,4 +1,4 @@
-// +build database,rethinkdb
+// +build unit database,rethinkdb
 
 package rethinkdb
 

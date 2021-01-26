@@ -1,4 +1,4 @@
-// +build database,cassandra
+// +build unit database,cassandra
 
 package cassandra
 

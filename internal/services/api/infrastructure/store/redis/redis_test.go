@@ -1,4 +1,4 @@
-// +build database,redis
+// +build unit database,redis
 
 package redis
 

@@ -1,4 +1,4 @@
-// +build api
+// +build unit,api
 
 package grpcweb
 

@@ -1,4 +1,4 @@
-// +build database,mongo
+// +build unit database,mongo
 
 package mongo
 
