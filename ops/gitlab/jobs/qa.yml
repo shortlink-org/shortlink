@@ -33,6 +33,7 @@ apifuzzer_fuzz_unlicensed:
 apifuzzer_fuzz:
   stage: qa
   needs: []
+  allow_failure: true
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
@@ -41,6 +42,7 @@ apifuzzer_fuzz:
 apifuzzer_fuzz_dnd:
   stage: qa
   needs: []
+  allow_failure: true
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success

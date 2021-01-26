@@ -1,5 +1,4 @@
 # MINIKUBE TASKS =======================================================================================================
-MINIKUBE_IP := $(shell minikube ip)
 
 minikube-up: ## run minikube for dev mode
 	@minikube start \
@@ -13,7 +12,7 @@ minikube-up: ## run minikube for dev mode
 		--extra-config=apiserver.authorization-mode=Node,RBAC \
 		--extra-config=kubelet.authentication-token-webhook=true
 
-  # Addons enable
+	# Addons enable
 	@eval $(minikube docker-env) # Set docker env
 	@minikube addons enable ingress
 
