@@ -1,4 +1,5 @@
 delete_renovate_branch:
+  stage: .pre
   scripts:
     - git branch -r | awk -Forigin/ '/\/renovate/ {print $2}' | xargs -I {} git push gitlab :{}
   rules:
