@@ -19,7 +19,8 @@ gosec:
   extends:
     - .job_teplate_go
   before_script:
-    - curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin v2.5.0
+    - apk add --update curl
+    - curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin v2.6.1
   script:
     - make gosec
   rules:
@@ -31,6 +32,8 @@ gotest:
   tags:
     - docker
   coverage: '/coverage: \d+.\d+% of statements/'
+  before_script:
+    - apk add --update make
   script:
     - make test
   rules:
