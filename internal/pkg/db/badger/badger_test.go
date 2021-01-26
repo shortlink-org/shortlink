@@ -1,4 +1,4 @@
-// +build database,badger
+// +build unit database,badger
 
 package badger
 

@@ -1,4 +1,4 @@
-// +build database,ram
+// +build unit database,ram
 
 package ram
 

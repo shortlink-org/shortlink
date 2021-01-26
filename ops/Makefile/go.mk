@@ -17,8 +17,8 @@ gosec: ## Golang security checker
 golint: ## Linter for golang
 	@golangci-lint run ./...
 
-test: ## Run all test
-	@sh ./ops/scripts/coverage.sh
+test: ## Run all unit test
+	@go test -race -tags=unit -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml
 
 bench: ## Run benchmark tests
-	go test -bench ./...
+	@go test -bench ./...

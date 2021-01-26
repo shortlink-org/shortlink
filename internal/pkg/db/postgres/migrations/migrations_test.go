@@ -1,4 +1,4 @@
-// +build database,postgres
+// +build unit database,postgres
 
 package migrations
 

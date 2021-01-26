@@ -36,6 +36,10 @@ gotest:
     - apk add --update make
   script:
     - make test
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
   rules:
     - when: always
 

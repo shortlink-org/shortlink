@@ -1,4 +1,4 @@
-// +build database,scylla
+// +build unit database,scylla
 
 package scylla
 
