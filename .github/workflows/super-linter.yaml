@@ -6,10 +6,8 @@
 ###########################
 name: Lint Code Base
 
-#
 # Documentation:
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
-#
 
 #############################
 # Start the job on all push #
@@ -42,14 +40,23 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
+      - name: Check Docs
+        run: |
+          docker run --rm --volume "$(pwd):/helm-docs" -u "$(id -u)" jnorwood/helm-docs:v1.4.0
+          if ! git diff --exit-code; then
+              echo "Documentation not up to date. Please run helm-docs and commit changes!" >&2
+              exit 1
+          fi
+
       ################################
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
+          FILTER_REGEX_EXCLUDE: .*(README\.md|Chart\.yaml|NOTES.txt).*
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANSIBLE_DIRECTORY: ops/ansible
           VALIDATE_KUBERNETES_KUBEVAL: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
