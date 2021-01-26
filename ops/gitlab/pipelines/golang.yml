@@ -1,6 +1,6 @@
 include:
-  - local: /ops/gitlab/templates/common.yml
   - template: Security/Coverage-Fuzzing.gitlab-ci.yml
+  - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/templates/go.yml
 
 code_intelligence_go:
@@ -63,9 +63,11 @@ golint:
 go_fuzz_test:
   extends: .fuzz_base
   stage: test
-  image: registry.gitlab.com/gitlab-org/security-products/analyzers/gitlab-cov-fuzz/golang:1.12-buster-llvm9
+  image: 1.15-alpine
   variables:
     CI_SEED_CORPUS: './seed_corpus'
+  before_script:
+    - apk add --update clang git
   script:
     # link package
     - GITLAB_COV_FUZZ_PATH=`pwd`
