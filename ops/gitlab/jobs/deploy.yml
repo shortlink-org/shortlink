@@ -12,7 +12,7 @@ api:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
     strategy: depend
   needs:
-    - docker:build
+    - docker:build_go
     - HELM
   rules:
     - if: $CI_COMMIT_TAG
@@ -31,7 +31,7 @@ logger:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
     strategy: depend
   needs:
-    - docker:build
+    - docker:build_go
     - HELM
   rules:
     - if: $CI_COMMIT_TAG
@@ -51,7 +51,7 @@ nuxt:
       - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
-    - docker:build
+    - docker:build_nodejs
     - HELM
   rules:
     - if: $CI_COMMIT_TAG
@@ -71,7 +71,7 @@ next:
       - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
-    - docker:build
+    - docker:build_nodejs
     - HELM
   rules:
     - if: $CI_COMMIT_TAG
@@ -91,7 +91,7 @@ landing:
       - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
-    - docker:build
+    - docker:build_nodejs
     - HELM
   rules:
     - if: $CI_COMMIT_TAG

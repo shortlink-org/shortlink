@@ -1,8 +1,6 @@
 include:
-  - local: /ops/gitlab/workflows/matrix_build_go.yml
   - local: /ops/gitlab/workflows/matrix_build_nodejs.yml
   - local: /ops/gitlab/templates/common.yml
-  - local: /ops/gitlab/templates/build_go.yml
   - local: /ops/gitlab/templates/build_nodejs.yml
 # TODO: fix container scanning
 #  - template: Container-Scanning.gitlab-ci.yml
@@ -13,14 +11,6 @@ stages:
   - security
 
 # DEPENDENCY ===========================================================================================================
-dependencies_go:
-  extends:
-    - .job_template_build_go
-  stage: .pre
-  variables:
-    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/dependencies_go
-    DOCKERFILE_PATH: ops/dockerfile/dependencies/go.Dockerfile
-
 dependencies_nodejs:
   extends:
     - .job_template_build_nodejs
@@ -31,11 +21,6 @@ dependencies_nodejs:
 
 
 # BUILD ================================================================================================================
-go:
-  extends:
-    - .job_template_build_go
-    - .matrix_build_go
-
 nodejs:
   extends:
     - .job_template_build_nodejs
