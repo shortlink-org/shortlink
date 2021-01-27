@@ -1,5 +1,5 @@
 include:
-  - local: /ops/gitlab/workflows/matrix_build_nodejs.yml
+  - local: /ops/gitlab/workflows/matrix_build_go.yml
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/templates/build_go.yml
 # TODO: fix container scanning
