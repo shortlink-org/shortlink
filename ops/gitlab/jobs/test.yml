@@ -13,7 +13,7 @@ GOLANG:
   needs: []
   rules:
     - when: never
-      if: $CI_PIPELINE_SOURCE != "schedule"
+      if: $CI_PIPELINE_SOURCE == "schedule"
     - when: always
 
 # DEPENDENCY ===========================================================================================================
@@ -26,7 +26,7 @@ DEPENDENCY:
   needs: []
   rules:
     - when: never
-      if: $CI_PIPELINE_SOURCE != "schedule"
+      if: $CI_PIPELINE_SOURCE == "schedule"
     - when: always
 
 # HELM =================================================================================================================
@@ -39,7 +39,7 @@ HELM:
   needs: []
   rules:
     - when: never
-      if: $CI_PIPELINE_SOURCE != "schedule"
+      if: $CI_PIPELINE_SOURCE == "schedule"
     - changes:
         - ops/Helm/*/*
     - if: $CI_COMMIT_TAG
@@ -52,7 +52,7 @@ license_scanning:
   interruptible: true
   rules:
     - when: never
-      if: $CI_PIPELINE_SOURCE != "schedule"
+      if: $CI_PIPELINE_SOURCE == "schedule"
     - when: always
 
 # DANGER ===============================================================================================================
@@ -68,7 +68,7 @@ danger-review:
   needs: []
   rules:
     - when: never
-      if: $CI_PIPELINE_SOURCE != "schedule"
+      if: $CI_PIPELINE_SOURCE == "schedule"
     - if: $CI_COMMIT_TAG
 
 # SECRET-DETECTION =====================================================================================================
@@ -82,7 +82,7 @@ secret_detection_default_branch:
   needs: []
   rules:
     - when: never
-      if: $CI_PIPELINE_SOURCE != "schedule"
+      if: $CI_PIPELINE_SOURCE == "schedule"
     - if: $CI_COMMIT_TAG
       when: always
 
@@ -90,7 +90,7 @@ secret_detection:
   needs: []
   rules:
     - when: never
-      if: $CI_PIPELINE_SOURCE != "schedule"
+      if: $CI_PIPELINE_SOURCE == "schedule"
     - if: $CI_COMMIT_TAG
       when: never
     - if: $CI_DEFAULT_BRANCH != $CI_COMMIT_BRANCH
@@ -106,5 +106,5 @@ SAST:
   needs: []
   rules:
     - when: never
-      if: $CI_PIPELINE_SOURCE != "schedule"
+      if: $CI_PIPELINE_SOURCE == "schedule"
     - when: always
