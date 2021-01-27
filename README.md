@@ -112,6 +112,8 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
 + Istio
 + MetalLB
 + [kyverno](https://kyverno.io/) - Kubernetes Native Policy Management
++ DataBase
+  + [postgres-operator (zalando)](https://github.com/zalando/postgres-operator)
 
 ### Gateway
 
