@@ -1,5 +1,6 @@
 include:
   - local: /ops/gitlab/workflows/matrix_deploy.yml
+  - local: /ops/gitlab/jobs/schedule.yaml
 
 # ANSIBLE ==============================================================================================================
 ansible-up:
