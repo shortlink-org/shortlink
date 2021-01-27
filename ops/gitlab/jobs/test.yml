@@ -5,8 +5,6 @@ include:
 
 # GOLANG ===============================================================================================================
 GOLANG:
-  extends:
-    - .rules_default
   stage: test
   trigger:
     include:
@@ -14,12 +12,12 @@ GOLANG:
     strategy: depend
   needs: []
   rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE != "schedule"
     - when: always
 
 # DEPENDENCY ===========================================================================================================
 DEPENDENCY:
-  extends:
-    - .rules_default
   stage: test
   trigger:
     include:
@@ -27,12 +25,12 @@ DEPENDENCY:
     strategy: depend
   needs: []
   rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE != "schedule"
     - when: always
 
 # HELM =================================================================================================================
 HELM:
-  extends:
-    - .rules_default
   stage: test
   trigger:
     include:
@@ -40,6 +38,8 @@ HELM:
     strategy: depend
   needs: []
   rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE != "schedule"
     - changes:
         - ops/Helm/*/*
     - if: $CI_COMMIT_TAG
@@ -49,10 +49,10 @@ HELM:
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 
 license_scanning:
-  extends:
-    - .rules_default
   interruptible: true
   rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE != "schedule"
     - when: always
 
 # DANGER ===============================================================================================================
@@ -67,6 +67,8 @@ danger-review:
     - danger
   needs: []
   rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE != "schedule"
     - if: $CI_COMMIT_TAG
 
 # SECRET-DETECTION =====================================================================================================
@@ -77,18 +79,18 @@ danger-review:
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
 secret_detection_default_branch:
-  extends:
-    - .rules_default
   needs: []
   rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE != "schedule"
     - if: $CI_COMMIT_TAG
       when: always
 
 secret_detection:
-  extends:
-    - .rules_default
   needs: []
   rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE != "schedule"
     - if: $CI_COMMIT_TAG
       when: never
     - if: $CI_DEFAULT_BRANCH != $CI_COMMIT_BRANCH
@@ -96,8 +98,6 @@ secret_detection:
 
 # SAST =================================================================================================================
 SAST:
-  extends:
-    - .rules_default
   stage: test
   trigger:
     include:
@@ -105,4 +105,6 @@ SAST:
     strategy: depend
   needs: []
   rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE != "schedule"
     - when: always
