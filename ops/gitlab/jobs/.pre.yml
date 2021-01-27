@@ -18,6 +18,8 @@ terraform-up:
       - local: 'ops/gitlab/pipelines/terraform.yml'
     strategy: depend
   rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE == "schedule"
     - changes:
       - ops/terraform/*
 
