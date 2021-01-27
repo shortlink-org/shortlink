@@ -179,6 +179,10 @@ service:
 monitoring:
   enabled: true
 
+database:
+  postgres:
+    enable: true
+
 # If you want to use an external database
 external_database:
   enable: false
