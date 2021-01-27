@@ -1,0 +1,4 @@
+.rules_default:
+  rules:
+  - when: always
+    if: $CI_PIPELINE_SOURCE != "schedule"
