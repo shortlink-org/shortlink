@@ -20,7 +20,7 @@ require (
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1.0.20201106173600-4064ced03f92
-	github.com/gocql/gocql v0.0.0-20210125064827-43a8f9bf6605
+	github.com/gocql/gocql v0.0.0-20210129204804-4364a4b9cfdd
 	github.com/golang-migrate/migrate/v4 v4.14.1
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
