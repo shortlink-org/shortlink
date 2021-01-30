@@ -3,12 +3,8 @@ delete_renovate_branch:
   image: alpine
   before_script:
     - apk add --update git
-    - git config --global user.name "${GITLAB_USER_NAME}"
-    - git config --global user.email "${GITLAB_USER_EMAIL}"
   script:
-    - git remote -v
-    - git remote add gitlab https://${GITLAB_USER_NAME}:${CI_GIT_TOKEN}@${CI_REPOSITORY_URL#*@}
-    - git branch -r | awk -Fgitlab/ '/\/renovate/ {print $2}' | xargs -I {} git push gitlab :{}
+    - git branch -r | awk -Forigin/ '/\/renovate/ {print $2}' | xargs -I {} git push origin :{}
   rules:
     - when: always
       if: $CI_PIPELINE_SOURCE == "schedule"
