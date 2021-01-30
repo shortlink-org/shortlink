@@ -1,7 +1,7 @@
 FROM node:15.6-alpine as builder
 
 WORKDIR /app
-COPY ./pkg/ui/nuxt /app/
+COPY ./ui/nuxt /app/
 
 RUN apk add --no-cache python2 make g++ && \
   npm install fibers && \

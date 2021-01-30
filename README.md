@@ -134,7 +134,7 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
 
 ##### ENV for UI
 
-Use `.env` file in `pkg/ui/[nuxt/next/etc]` directories for setting your UI
+Use `.env` file in `ui/[nuxt/next/etc]` directories for setting your UI
 
 
 | Name                | Default                                                     | Description                                                                                    |

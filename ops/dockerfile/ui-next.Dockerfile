@@ -1,7 +1,7 @@
 FROM node:15.6-alpine as builder
 
 WORKDIR /app
-COPY ./pkg/ui/next /app/
+COPY ./ui/next /app/
 
 RUN npm config set ignore-scripts false && \
   npm i && \
