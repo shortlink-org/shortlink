@@ -1,13 +1,14 @@
 .job_template_deploy:
   stage: deploy
   image:
-    name: alpine/helm:3.5.0
+    name: alpine/helm:3.5.1
     entrypoint: [""]
   script:
     - env
     - helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
       --install
-      --wait
+      --atomic
+      --cleanup-on-fail
       --wait-for-jobs
       --namespace=$KUBE_NAMESPACE
       --create-namespace=true
