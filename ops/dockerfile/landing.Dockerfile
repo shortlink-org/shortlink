@@ -3,7 +3,7 @@ FROM node:15.6-alpine as builder
 RUN apk add --update alpine-sdk python
 
 WORKDIR /app
-COPY ./pkg/ui/landing /app/
+COPY ./ui/landing /app/
 
 RUN npm i && \
   npm run generate
