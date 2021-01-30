@@ -6,6 +6,7 @@ delete_renovate_branch:
     - git config --global user.name "${GITLAB_USER_NAME}"
     - git config --global user.email "${GITLAB_USER_EMAIL}"
   script:
+    - git remote -v
     - git remote add gitlab https://${GITLAB_USER_NAME}:${CI_GIT_TOKEN}@${CI_REPOSITORY_URL#*@}
     - git branch -r | awk -Fgitlab/ '/\/renovate/ {print $2}' | xargs -I {} git push gitlab :{}
   rules:
