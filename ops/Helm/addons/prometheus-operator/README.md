@@ -1,7 +1,51 @@
-### Prometheus-operator
+# prometheus-operator
 
-##### Run from local
+![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-```
-helm upgrade prometheus-operator ops/Helm/addons/prometheus-operator --install --wait --namespace=prometheus-operator
-```
+## Maintainers
+
+| Name | Email | Url |
+| ---- | ------ | --- |
+| batazor | batazor111@gmail.com | batazor.ru |
+
+## Requirements
+
+Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 13.2.1 |
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| kube-prometheus-stack.alertmanager.alertmanagerSpec.routePrefix | string | `"/alertmanager/"` |  |
+| kube-prometheus-stack.alertmanager.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
+| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| kube-prometheus-stack.alertmanager.ingress.enabled | bool | `true` |  |
+| kube-prometheus-stack.alertmanager.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
+| kube-prometheus-stack.alertmanager.ingress.ingressClassName | string | `"nginx"` |  |
+| kube-prometheus-stack.alertmanager.ingress.paths[0] | string | `"/alertmanager"` |  |
+| kube-prometheus-stack.alertmanager.ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
+| kube-prometheus-stack.alertmanager.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| kube-prometheus-stack.coreDns.enabled | bool | `false` |  |
+| kube-prometheus-stack.enabled | bool | `true` |  |
+| kube-prometheus-stack.grafana.enabled | bool | `false` |  |
+| kube-prometheus-stack.kubeDns.enabled | bool | `true` |  |
+| kube-prometheus-stack.prometheus.enabled | bool | `true` |  |
+| kube-prometheus-stack.prometheus.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
+| kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| kube-prometheus-stack.prometheus.ingress.enabled | bool | `true` |  |
+| kube-prometheus-stack.prometheus.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
+| kube-prometheus-stack.prometheus.ingress.ingressClassName | string | `"nginx"` |  |
+| kube-prometheus-stack.prometheus.ingress.paths[0] | string | `"/prometheus"` |  |
+| kube-prometheus-stack.prometheus.ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
+| kube-prometheus-stack.prometheus.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| kube-prometheus-stack.prometheus.prometheusSpec.retention | string | `"3d"` |  |
+| kube-prometheus-stack.prometheus.prometheusSpec.routePrefix | string | `"/prometheus/"` |  |
+| kube-prometheus-stack.prometheus.prometheusSpec.serviceMonitorNamespaceSelector | object | `{}` |  |
+| kube-prometheus-stack.prometheus.prometheusSpec.serviceMonitorSelector | object | `{}` |  |
+

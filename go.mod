@@ -38,6 +38,7 @@ require (
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.6
 	github.com/nats-io/nats.go v1.10.0
+	github.com/norwoodj/helm-docs v1.5.0 // indirect
 	github.com/onsi/ginkgo v1.14.1 // indirect
 	github.com/onsi/gomega v1.10.2 // indirect
 	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
