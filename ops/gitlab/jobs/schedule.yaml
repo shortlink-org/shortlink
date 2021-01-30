@@ -1,5 +1,8 @@
 delete_renovate_branch:
   stage: .pre
+  image: alpine
+  before_script:
+    - apk add --update git
   script:
     - git branch -r | awk -Forigin/ '/\/renovate/ {print $2}' | xargs -I {} git push gitlab :{}
   rules:
