@@ -50,7 +50,7 @@ make helm-shortlink-up
 ##### DNS/HTTP
 
 services:
-  + `ui-nuxt.local`
+  + `ui-next.local`
   + `shortlink.local`
 
 Add `127.0.0.1 [name services].local` to your `/etc/hosts`
@@ -123,18 +123,16 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
 ### UI service
 
 + Landing: [demo UI](https://shortlink.ddns.net)
-+ Nuxt: [demo UI](http://shortlink.surge.sh/)
-+ Next: [ddemo UI](https://shortlink.ddns.net/next)
++ Next: [demo UI](https://shortlink.ddns.net/next)
 
 | Service     | Description                       | Language/Framework |
 |-------------|-----------------------------------|--------------------|
 | landing     | Welcome page                      | JS/JQuery          |
 | next        | UI service                        | JS/ReactJS         |
-| nuxt        | UI service                        | JS/VueJS           |
 
 ##### ENV for UI
 
-Use `.env` file in `ui/[nuxt/next/etc]` directories for setting your UI
+Use `.env` file in `ui/[next/etc]` directories for setting your UI
 
 
 | Name                | Default                                                     | Description                                                                                    |
@@ -194,7 +192,7 @@ ansible-playbook playbooks/playbook.yml
 
 ##### DNS/HTTP
 
-+ `ui-nuxt.shortlink.vagrant:8081`
++ `ui-next.shortlink.vagrant:8081`
 
 </p>
 </details>
@@ -213,7 +211,7 @@ ansible-playbook playbooks/playbook.yml
 
 ##### DNS
 
-+ `ui-nuxt.local`
++ `ui-next.local`
 + `grafana.local`
 + `jaeger.local`
 + `prometheus.local`

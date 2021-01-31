@@ -22,7 +22,7 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--set serviceAccount.create=false
 
 	# Add IP in /etc/hosts
-	@echo "$(minikube ip) ui-nuxt.local" | sudo tee -a /etc/hosts
+	@echo "$(minikube ip) ui-next.local" | sudo tee -a /etc/hosts
 
 	@helm upgrade ingress ${SHORTLINK_HELM_INGRESS} \
 		--install \
