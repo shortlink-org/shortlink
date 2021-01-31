@@ -84,11 +84,11 @@ matrix:
         - npm install -g surge
 
       script:
-        - make nuxt_generate
+        - make next_generate
 
       deploy:
         - provider: surge
-          project: ./ui/nuxt/dist
+          project: ./ui/next/dist
           domain: shortlink.surge.sh
           on:
             all_branches: true

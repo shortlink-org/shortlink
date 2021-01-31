@@ -17,9 +17,6 @@ docker-build: ## Build the container
 	@echo docker build image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
 	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG} -f ops/dockerfile/logger.Dockerfile .
 
-	@echo docker build image ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
-	@docker build -t ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG} -f ops/dockerfile/ui-nuxt.Dockerfile .
-
 	@echo docker build image ${CI_REGISTRY_IMAGE}-ui-next:${CI_COMMIT_TAG}
 	@docker build -t ${CI_REGISTRY_IMAGE}-ui-next:${CI_COMMIT_TAG} -f ops/dockerfile/ui-next.Dockerfile .
 
@@ -32,9 +29,6 @@ docker-push: ## Publish the container
 
 	@echo docker push image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
 	@docker push ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
-
-	@echo docker push image ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
-	@docker push ${CI_REGISTRY_IMAGE}-ui-nuxt:${CI_COMMIT_TAG}
 
 	@echo docker push image ${CI_REGISTRY_IMAGE}-landing:${CI_COMMIT_TAG}
 	@docker push ${CI_REGISTRY_IMAGE}-landing:${CI_COMMIT_TAG}

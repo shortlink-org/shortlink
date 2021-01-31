@@ -18,5 +18,5 @@ WORKDIR /usr/share/nginx/html
 
 COPY --from=builder /app/out ./
 COPY ./ops/docker-compose/gateway/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./ops/dockerfile/conf/ui-nuxt.local /etc/nginx/conf.d/ui-nuxt.local
+COPY ./ops/dockerfile/conf/ui-next.local /etc/nginx/conf.d/ui-next.local
 COPY ./ops/docker-compose/gateway/nginx/templates /etc/nginx/template

@@ -38,7 +38,7 @@
 
 - name: copy nginx config file for TLS
   template:
-    src: templates/ui-nuxt-ssl.local.j2
+    src: templates/ui-next-ssl.local.j2
     dest: "{{ conf_file }}"
   when: inventory_hostname in groups['gateway']
   notify: restart nginx

@@ -1,0 +1,19 @@
+---
+# tasks file for ui-next
+- name: deploy UI by NEXT
+  docker_container:
+    name: ui
+    image: batazor/shortlink-ui-next
+    ports:
+      - "5080:80"
+  when: inventory_hostname in groups['ui']
+
+- name: copy nginx config file for shortlink-ui-next
+  template:
+    src: templates/ui-next.shortlink.vagrant.j2
+    dest: /etc/nginx/conf.d/ui-next.shortlink.vagrant
+  notify: restart nginx
+  when: inventory_hostname in groups['gateway']
+
+- name: Include cron jobs
+  include: cron.yml
