@@ -1,19 +1,22 @@
-//go:generate go-bindata -prefix migrations -pkg migrations -ignore migrations.go -o migrations/migrations.go migrations
 package mongo
 
 import (
 	"context"
+	"embed"
 
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
-	bindata "github.com/golang-migrate/migrate/v4/source/go_bindata"
+	_ "github.com/johejo/golang-migrate-extra/source/file"
+	"github.com/johejo/golang-migrate-extra/source/iofs"
 	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/batazor/shortlink/internal/pkg/db/mongo/migrations"
 	storeOptions "github.com/batazor/shortlink/internal/pkg/db/options"
 )
+
+//go:embed migrations/*.json
+var migrations embed.FS
 
 // Init ...
 func (m *Store) Init(ctx context.Context) error {
@@ -63,18 +66,12 @@ func (m *Store) Close() error {
 
 // Migrate ...
 func (m *Store) migrate() error { // nolint unused
-	// wrap assets into Resource
-	s := bindata.Resource(migrations.AssetNames(),
-		func(name string) ([]byte, error) {
-			return migrations.Asset(name)
-		})
-
-	driver, err := bindata.WithInstance(s)
+	driver, err := iofs.New(migrations, "migrations")
 	if err != nil {
 		return err
 	}
 
-	ms, err := migrate.NewWithSourceInstance("go-bindata", driver, m.config.URI)
+	ms, err := migrate.NewWithSourceInstance("iofs", driver, m.config.URI)
 	if err != nil {
 		return err
 	}

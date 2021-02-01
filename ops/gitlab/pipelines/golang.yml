@@ -36,7 +36,7 @@ gotest:
     - apk add --update make
     - go get -u github.com/jstemmer/go-junit-report
   script:
-    - make test || true
+    - make gitlab-test || true
   artifacts:
     when: always
     reports:

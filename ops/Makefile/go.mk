@@ -18,6 +18,9 @@ golint: ## Linter for golang
 	@golangci-lint run ./...
 
 test: ## Run all unit test
+	@go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./...
+
+gitlab-test:  ## Run all unit test for GitLab CI
 	@go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./... 2>&1 | go-junit-report -set-exit-code > report.xml
 
 bench: ## Run benchmark tests

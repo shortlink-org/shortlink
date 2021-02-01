@@ -21,7 +21,7 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1.0.20201106173600-4064ced03f92
 	github.com/gocql/gocql v0.0.0-20210125064827-43a8f9bf6605
-	github.com/golang-migrate/migrate/v4 v4.14.1
+	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
 	github.com/google/wire v0.5.0
@@ -33,6 +33,7 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.10.1
 	github.com/jmoiron/sqlx v1.3.1
+	github.com/johejo/golang-migrate-extra v0.0.0-20210115170724-f6c5f9ff328b
 	github.com/kubernetes-csi/csi-test/v4 v4.0.2
 	github.com/lib/pq v1.9.0
 	github.com/markbates/pkger v0.17.1

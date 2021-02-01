@@ -12,7 +12,6 @@ dep: ## Install dependencies for this project
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
 	@go get -u github.com/securego/gosec/cmd/gosec
 	@go get -u moul.io/protoc-gen-gotemplate
-	@go get -u github.com/jteeuwen/go-bindata/...
 	@go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
 	# install wire
