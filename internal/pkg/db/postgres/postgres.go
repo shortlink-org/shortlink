@@ -1,25 +1,27 @@
-//go:generate go-bindata -prefix migrations -pkg migrations -ignore migrations.go -o migrations/migrations.go migrations
 package postgres
 
 import (
 	"context"
 	"database/sql"
+	"embed"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	"github.com/golang-migrate/migrate/v4/source/go_bindata"
 	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/johejo/golang-migrate-extra/source/iofs"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/db/options"
-	"github.com/batazor/shortlink/internal/pkg/db/postgres/migrations"
 )
 
 var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
+
+	//go:embed migrations/*.sql
+	migrations embed.FS
 )
 
 // Init ...
@@ -62,18 +64,12 @@ func (p *Store) migrate() error { // nolint unused
 		return err
 	}
 
-	// wrap assets into Resource
-	s := bindata.Resource(migrations.AssetNames(),
-		func(name string) ([]byte, error) {
-			return migrations.Asset(name)
-		})
-
-	driver, err := bindata.WithInstance(s)
+	driver, err := iofs.New(migrations, "migrations")
 	if err != nil {
 		return err
 	}
 
-	m, err := migrate.NewWithSourceInstance("go-bindata", driver, p.config.URI)
+	m, err := migrate.NewWithSourceInstance("iofs", driver, p.config.URI)
 	if err != nil {
 		return err
 	}

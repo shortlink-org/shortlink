@@ -64,7 +64,7 @@ matrix:
             stage: test
             os: linux
             script:
-              - make test
+              - make gitlab-test
             after_success:
               - bash <(curl -s https://codecov.io/bash)
 

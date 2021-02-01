@@ -1,21 +1,22 @@
-//go:generate go-bindata -prefix migrations -pkg migrations -ignore migrations.go -o migrations/migrations.go migrations
-
 package mysql
 
 import (
 	"context"
 	"database/sql"
+	"embed"
 	"fmt"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
-	"github.com/golang-migrate/migrate/v4/source/go_bindata"
 	"github.com/jmoiron/sqlx"
+	_ "github.com/johejo/golang-migrate-extra/source/file"
+	"github.com/johejo/golang-migrate-extra/source/iofs"
 	"github.com/spf13/viper"
-
-	"github.com/batazor/shortlink/internal/pkg/db/mysql/migrations"
 )
+
+//go:embed migrations/*.sql
+var migrations embed.FS
 
 // Init ...
 func (s *Store) Init(_ context.Context) error {
@@ -55,18 +56,12 @@ func (s *Store) migrate() error { // nolint unused
 		return err
 	}
 
-	// wrap assets into Resource
-	res := bindata.Resource(migrations.AssetNames(),
-		func(name string) ([]byte, error) {
-			return migrations.Asset(name)
-		})
-
-	driver, err := bindata.WithInstance(res)
+	driver, err := iofs.New(migrations, "migrations")
 	if err != nil {
 		return err
 	}
 
-	m, err := migrate.NewWithSourceInstance("go-bindata", driver, fmt.Sprintf("mysql://%s", s.config.URI))
+	m, err := migrate.NewWithSourceInstance("iofs", driver, fmt.Sprintf("mysql://%s", s.config.URI))
 	if err != nil {
 		return err
 	}
