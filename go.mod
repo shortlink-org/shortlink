@@ -59,7 +59,7 @@ require (
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
 	go.mongodb.org/mongo-driver v1.4.6
 	go.uber.org/atomic v1.7.0
-	go.uber.org/automaxprocs v1.3.0
+	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201208171446-5f87f3452ae9 // indirect
