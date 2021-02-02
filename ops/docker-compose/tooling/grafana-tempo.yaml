@@ -9,7 +9,7 @@ x-network: &network
 
 services:
 
-  redis:
+  tempo-redis:
     <<: *network
     depends_on:
       - coredns
@@ -39,8 +39,8 @@ services:
   jaeger-query:
     <<: *network
     depends_on:
-      - jaeger-agent
       - coredns
+      - jaeger-agent
     image: grafana/tempo-query:latest
     command: [ "--grpc-storage-plugin.configuration-file=/etc/tempo-query.yaml" ]
     container_name: jaeger-query
