@@ -21,6 +21,7 @@ services:
       - 3100:3100
     volumes:
     - ./ops/docker-compose/tooling/loki/local-config.yaml:/etc/loki/local-config.yaml
+    - /data/loki:/loki:z
 
   promtail:
     <<: *network
