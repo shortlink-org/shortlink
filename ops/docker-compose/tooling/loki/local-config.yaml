@@ -21,7 +21,13 @@ ingester:
   chunk_retain_period: 30s
   max_chunk_age: 2h          # Let chunks get at least 2h old before flushing due to age, this helps to reduce total chunks in db
   max_transfer_retries: 0    # Disable blocks transfers on ingesters shutdown or rollout.
-  chunk_target_size: 1048576 # Target chunks of 1MB, this helps to reduce total chunks in db
+  # A target _compressed_ size in bytes for chunks.
+  # This is a desired size not an exact size, chunks may be slightly bigger
+  # or significantly smaller if they get flushed for other reasons (e.g. chunk_idle_period)
+  # The default value of 0 for this will create chunks with a fixed 10 blocks,
+  # A non zero value will create chunks with a variable number of blocks to meet the target size.
+  # CLI flag: -ingester.chunk-target-size
+  chunk_target_size: 0
 
 schema_config:
   configs:
