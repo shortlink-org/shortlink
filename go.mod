@@ -57,9 +57,9 @@ require (
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	go.mongodb.org/mongo-driver v1.4.5
+	go.mongodb.org/mongo-driver v1.4.6
 	go.uber.org/atomic v1.7.0
-	go.uber.org/automaxprocs v1.3.0
+	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201208171446-5f87f3452ae9 // indirect
@@ -68,8 +68,8 @@ require (
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
 	golang.org/x/tools v0.1.0 // indirect
-	google.golang.org/api v0.37.0
-	google.golang.org/genproto v0.0.0-20210201184850-646a494a81ea
+	google.golang.org/api v0.39.0
+	google.golang.org/genproto v0.0.0-20210204154452-deb828366460
 	google.golang.org/grpc v1.35.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.25.0
