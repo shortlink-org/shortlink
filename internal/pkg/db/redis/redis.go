@@ -30,7 +30,7 @@ func (r *Store) Init(ctx context.Context) error {
 		DB:       0,  // use default DB
 	})
 
-	if _, err := r.client.Ping().Result(); err != nil {
+	if _, err := r.client.Ping(ctx).Result(); err != nil {
 		return err
 	}
 

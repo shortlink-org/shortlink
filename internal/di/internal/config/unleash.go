@@ -6,7 +6,13 @@ import (
 )
 
 func (c *Config) FeatureToogleRun() error {
+	viper.SetDefault("FEATURE_TOGGLE_ENABLE", false)
 	viper.SetDefault("FEATURE_TOGGLE_API", "http://localhost:4242/api/")
+
+	isEnableFeatureToggle := viper.GetBool("FEATURE_TOGGLE_ENABLE")
+	if !isEnableFeatureToggle {
+		return nil
+	}
 
 	err := unleash.Initialize(
 		unleash.WithListener(&unleash.DebugListener{}),

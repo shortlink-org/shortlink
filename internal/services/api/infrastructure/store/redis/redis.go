@@ -23,8 +23,8 @@ func (_ *Store) Init(_ context.Context, _ *db.Store) error {
 }
 
 // Get ...
-func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {
-	val, err := r.client.Get(id).Result()
+func (r *Store) Get(ctx context.Context, id string) (*link.Link, error) {
+	val, err := r.client.Get(ctx, id).Result()
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
@@ -39,13 +39,13 @@ func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (r *Store) List(_ context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
-	keys := r.client.Keys("*")
+func (r *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+	keys := r.client.Keys(ctx, "*")
 	links := []*link.Link{}
 
 	for _, key := range keys.Val() {
 		var response link.Link
-		val, err := r.client.Get(key).Result()
+		val, err := r.client.Get(ctx, key).Result()
 		if err != nil {
 			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
@@ -61,7 +61,7 @@ func (r *Store) List(_ context.Context, filter *query.Filter) ([]*link.Link, err
 }
 
 // Add ...
-func (r *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
+func (r *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ func (r *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
 		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
 	}
 
-	if err = r.client.Set(source.Hash, val, 0).Err(); err != nil {
+	if err = r.client.Set(ctx, source.Hash, val, 0).Err(); err != nil {
 		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
@@ -85,8 +85,8 @@ func (r *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 }
 
 // Delete ...
-func (r *Store) Delete(_ context.Context, id string) error {
-	if err := r.client.Del(id).Err(); err != nil {
+func (r *Store) Delete(ctx context.Context, id string) error {
+	if err := r.client.Del(ctx, id).Err(); err != nil {
 		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 
