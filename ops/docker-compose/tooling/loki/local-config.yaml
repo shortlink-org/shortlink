@@ -2,52 +2,46 @@ auth_enabled: false # single tenant mode
 
 server:
   http_listen_port: 3100
-  log_level: error
+  log_level: info
 
 ingester:
   lifecycler:
     address: 127.0.0.1
     ring:
-      heartbeat_timeout: 1m
       kvstore:
         store: inmemory
       replication_factor: 1  # This can be increased and probably should if you are running multiple machines!
     final_sleep: 0s
-    heartbeat_period: 5s
-
-  query_store_max_look_back_period: -1  # This will allow the ingesters to query the db for all data
-
-  chunk_idle_period: 5m      # Let chunks sit idle for at least 5m before flushing, this helps to reduce total chunks in db
-  chunk_retain_period: 30s
-  max_chunk_age: 2h          # Let chunks get at least 2h old before flushing due to age, this helps to reduce total chunks in db
-  max_transfer_retries: 0    # Disable blocks transfers on ingesters shutdown or rollout.
-  # A target _compressed_ size in bytes for chunks.
-  # This is a desired size not an exact size, chunks may be slightly bigger
-  # or significantly smaller if they get flushed for other reasons (e.g. chunk_idle_period)
-  # The default value of 0 for this will create chunks with a fixed 10 blocks,
-  # A non zero value will create chunks with a variable number of blocks to meet the target size.
-  # CLI flag: -ingester.chunk-target-size
-  chunk_target_size: 0
+  chunk_idle_period: 1h       # Any chunk not receiving new logs in this time will be flushed
+  max_chunk_age: 1h           # All chunks will be flushed when they hit this age, default is 1h
+  chunk_target_size: 1048576  # Loki will attempt to build chunks up to 1.5MB, flushing first if chunk_idle_period or max_chunk_age is reached first
+  chunk_retain_period: 30s    # Must be greater than index read cache TTL if using an index cache (Default index read cache TTL is 5m)
+  max_transfer_retries: 0     # Chunk transfers disabled
 
 schema_config:
   configs:
-    - from: 2018-04-15
-      store: boltdb
+    - from: 2020-10-24
+      store: boltdb-shipper
       object_store: filesystem
       schema: v11
       index:
         prefix: index_
-        period: 168h
+        period: 24h
 
 storage_config:
-  boltdb:
-    directory: /loki/index
-
+  boltdb_shipper:
+    active_index_directory: /loki/boltdb-shipper-active
+    cache_location: /loki/boltdb-shipper-cache
+    cache_ttl: 24h         # Can be increased for faster performance over longer query periods, uses more disk space
+    shared_store: filesystem
   filesystem:
     directory: /loki/chunks
 
+compactor:
+  working_directory: /loki/boltdb-shipper-compactor
+  shared_store: filesystem
+
 limits_config:
-  enforce_metric_name: false
   reject_old_samples: true
   reject_old_samples_max_age: 168h
 
