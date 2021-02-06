@@ -37,7 +37,7 @@ require (
 	github.com/kubernetes-csi/csi-test/v4 v4.0.2
 	github.com/lib/pq v1.9.0
 	github.com/markbates/pkger v0.17.1
-	github.com/mattn/go-sqlite3 v1.14.6
+	github.com/mattn/go-sqlite3/v2/v2 v2.0.6
 	github.com/nats-io/nats.go v1.10.0
 	github.com/onsi/ginkgo v1.14.1 // indirect
 	github.com/onsi/gomega v1.10.2 // indirect
