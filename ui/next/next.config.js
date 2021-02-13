@@ -5,19 +5,12 @@ const isProd = process.env.NODE_ENV === 'production'
 const NEXT_CONFIG = {
   basePath: '/next',
   env: {
-    SENTRY_DSN: process.env.SENTRY_DSN,
     API_URL_HTTP: "http://localhost:7070"
   },
   webpack: (config, { isServer, buildId }) => {
     config.plugins.push(
-      new webpack.DefinePlugin({
-        'process.env.SENTRY_RELEASE': JSON.stringify(buildId),
-      })
+      new webpack.DefinePlugin({})
     )
-
-    if (!isServer) {
-      config.resolve.alias['@sentry/node'] = '@sentry/browser'
-    }
 
     return config
   },

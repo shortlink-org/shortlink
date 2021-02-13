@@ -73,14 +73,3 @@ down: ## Down docker-compose
 		-f ops/docker-compose/mq/rabbitmq.yaml \
 	down --remove-orphans
 	@docker network prune -f
-
-logger: ## Run logger infra
-	@docker-compose \
-		-f docker-compose.yaml \
-		-f ops/docker-compose/application/api.yaml \
-		-f ops/docker-compose/tooling/coredns.yaml \
-		-f ops/docker-compose/tooling/grafana.yaml \
-		-f ops/docker-compose/tooling/grafana-loki.yaml \
-		-f ops/docker-compose/tooling/prometheus.yaml \
-		-f ops/docker-compose/tooling/opentracing.yaml \
-		up -d --remove-orphans
