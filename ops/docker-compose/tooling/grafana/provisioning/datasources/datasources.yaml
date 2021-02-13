@@ -32,7 +32,8 @@ datasources:
           name: TraceID
           url: "http://localhost:16686/trace/$${__value.raw}"
 
-  - name: Jaeger
-    type: jaeger
-    uid: jaeger
+  - name: Tempo
+    type: tempo
+    uid: tempo
     url: http://jaeger-query:16686
+    editable: false
