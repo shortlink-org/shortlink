@@ -28,12 +28,7 @@ include $(SELF_DIR)/ops/Makefile/cli.mk
 include $(SELF_DIR)/ops/Makefile/vagrant.mk
 include $(SELF_DIR)/ops/Makefile/ansible.mk
 include $(SELF_DIR)/ops/Makefile/terraform.mk
-include $(SELF_DIR)/ops/Makefile/prometheus.mk
 include $(SELF_DIR)/ops/Makefile/docker.mk
-include $(SELF_DIR)/ops/Makefile/gitlab.mk
 include $(SELF_DIR)/ops/Makefile/go.mk
-include $(SELF_DIR)/ops/Makefile/csi.mk
-include $(SELF_DIR)/ops/Makefile/istio.mk
-include $(SELF_DIR)/ops/Makefile/k8s.mk
-include $(SELF_DIR)/ops/Makefile/minikube.mk
+include $(SELF_DIR)/ops/Makefile/k8s/k8s.mk
 include $(SELF_DIR)/ops/Makefile/ui.mk
