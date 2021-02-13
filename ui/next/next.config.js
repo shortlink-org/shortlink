@@ -16,7 +16,7 @@ const NEXT_CONFIG = {
   },
 }
 
-if (isProd) {
+if (!isProd) {
   NEXT_CONFIG.rewrites = async function() {
     return [
       // we need to define a no-op rewrite to trigger checking

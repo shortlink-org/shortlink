@@ -20,37 +20,27 @@ distributor:
 
 ingester:
   trace_idle_period: 10s               # the length of time after a trace has not received spans to consider it complete and flush it
-  traces_per_block: 100                # cut the head block when it his this number of traces or ...
+  max_block_bytes: 1_000_000           # cut the head block when it hits this size or ...
   max_block_duration: 5m               #   this much time passes
 
 compactor:
   compaction:
     compaction_window: 1h              # blocks in this time window will be compacted together
-    max_compaction_objects: 1000000    # maximum size of compacted blocks
+    max_block_bytes: 100_000_000        # maximum size of compacted blocks
     block_retention: 1h
     compacted_block_retention: 10m
 
 storage:
   trace:
-    redis:
-      endpoint: tempo-redis            # redis endpoint to use when caching.
-      timeout: 500ms                   # optional. maximum time to wait before giving up on redis requests. (default 100ms)
-      master-name: redis-master        # optional. redis Sentinel master name. (default "")
-      db: 0                            # optional. database index. (default 0)
-      expiration: 0s                   # optional. how long keys stay in the redis. (default 0)
-      tls-enabled: false               # optional. enable connecting to redis with TLS. (default false)
-      tls-insecure-skip-verify: false  # optional. skip validating server certificate. (default false)
-      pool-size: 0                     # optional. maximum number of connections in the pool. (default 0)
-      password: ...                    # optional. password to use when connecting to redis. (default "")
-      idle-timeout: 0s                 # optional. close connections after remaining idle for this duration. (default 0s)
-      max-connection-age: 0s           # optional. close connections older than this duration. (default 0s)
     backend: local                     # backend configuration to use
+    block:
+      bloom_filter_false_positive: .05 # bloom filter false positive rate.  lower values create larger filters but fewer false positives
+      index_downsample_bytes: 1000     # number of bytes per index record
+      encoding: zstd                   # block encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd
     wal:
       path: /tmp/tempo/wal             # where to store the the wal locally
-      bloom_filter_false_positive: .05 # bloom filter false positive rate.  lower values create larger filters but fewer false positives
-      index_downsample: 10             # number of traces per index record
     local:
-      path: /tmp/tempo
+      path: /tmp/tempo/blocks
     pool:
       max_workers: 100                 # the worker pool mainly drives querying, but is also used for polling the blocklist
       queue_depth: 10000
