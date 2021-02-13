@@ -1,8 +1,5 @@
 import Button from '@material-ui/core/Button';
 import { Layout } from '../components';
-import sentry from "../utils/sentry";
-
-const { Sentry, captureException } = sentry()
 
 const aboutPageContent = <div>
   <p>This is the about page</p>

@@ -6,12 +6,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import sentry from '../utils/sentry'
 import theme from '../theme/theme';
 import ScrollTop from '../components/ScrollTop';
 import "../assets/styles.css"
-
-const { Sentry, captureException } = sentry()
 
 class MyApp extends App {
   constructor() {
@@ -69,32 +66,13 @@ class MyApp extends App {
     return this.state.hasError ? (
       <section>
         <h1>There was an error!</h1>
-        <p>
-          <a
-            href="#"
-            onClick={() =>
-              Sentry.showReportDialog({ eventId: this.state.errorEventId })
-            }
-          >
-            📣 Report this error
-          </a>
-        </p>
-        <p>
-          <a
-            href="#"
-            onClick={() => {
-              window.location.reload(true)
-            }}
-          >
-            Or, try reloading the page
-          </a>
-        </p>
       </section>
     ) : (
       // Render the normal Next.js page
       <React.Fragment>
         <Head>
           <title>Shortlink</title>
+          <meta charSet="utf-8" />
           <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         </Head>
         <ThemeProvider theme={theme}>
