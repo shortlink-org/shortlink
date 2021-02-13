@@ -17,13 +17,13 @@ services:
     command: ["-config.file=/etc/tempo.yaml"]
     container_name: jaeger-agent
     ports:
-      - "55680"       # OpenTelemetry
-      - "6831:6831/udp"   # Jaeger - Thrift Compact
-      - "6832:6832"   # Jaeger - Thrift Binary
-      - "14268"       # Jaeger - Thrift HTTP
-      - "14250"       # Jaeger - GRPC
-      - "9411"        # Zipkin
-      - "3100"        # tempo
+      - "55680"         # OpenTelemetry
+      - "6831:6831/udp" # Jaeger - Thrift Compact
+      - "6832:6832"     # Jaeger - Thrift Binary
+      - "14268"         # Jaeger - Thrift HTTP
+      - "14250"         # Jaeger - GRPC
+      - "9411"          # Zipkin
+      - "3100"          # tempo
     volumes:
       - ./ops/docker-compose/tooling/tempo/tempo-local.yaml:/etc/tempo.yaml
       - /data/tempo:/tmp/tempo
