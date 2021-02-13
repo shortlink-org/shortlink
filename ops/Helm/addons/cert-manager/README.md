@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.jetstack.io | cert-manager | 1.1.0 |
+| https://charts.jetstack.io | cert-manager | v1.2.0 |
 
 ## Values
 
