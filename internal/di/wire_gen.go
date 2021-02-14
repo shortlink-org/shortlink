@@ -316,6 +316,11 @@ func InitializeLoggerService() (*Service, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
 	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
 		cleanup()
@@ -343,7 +348,7 @@ func InitializeLoggerService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLoggerService(logger, serveMux, mq, autoMaxProAutoMaxPro)
+	service, err := NewLoggerService(context, configConfig, logger, serveMux, mq, autoMaxProAutoMaxPro)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -573,12 +578,15 @@ var LoggerSet = wire.NewSet(
 	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewLoggerService,
 )
 
-func NewLoggerService(
+func NewLoggerService(ctx2 context.Context,
+
+	cfg *config.Config,
 	log logger.Logger, monitoring2 *http.ServeMux, mq2 mq.MQ,
 
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{
+		Ctx:        ctx2,
 		Log:        log,
 		MQ:         mq2,
 		Monitoring: monitoring2,
