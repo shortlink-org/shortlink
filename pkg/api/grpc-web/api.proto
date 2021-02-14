@@ -6,7 +6,7 @@ import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 import "internal/services/api/domain/link/link.proto";
 
-option go_package = "grpcweb";
+option go_package = ".;grpcweb";
 
 service Link {
     rpc GetLinks(LinkRequest) returns (link.Links) {

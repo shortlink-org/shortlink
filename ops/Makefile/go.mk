@@ -2,7 +2,7 @@
 
 generate: ## Code generation
 	# Generate from .go code
-	@go generate ./...
+	@go generate -tags=wireinject ./...
 
 	@make fmt
 
