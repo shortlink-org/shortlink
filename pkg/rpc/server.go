@@ -5,13 +5,16 @@ import (
 	"net"
 
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/opentracing-contrib/go-grpc"
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/grpc/status"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
@@ -38,9 +41,23 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 		return nil, nil, err
 	}
 
-	// UnaryClien
+	// Define custom func to handle panic
+	customFunc := func(p interface{}) (err error) {
+		return status.Errorf(codes.Unknown, "panic triggered: %v", p)
+	}
+
+	// Shared options for the logger, with a custom gRPC code to log level function.
+	recoveryOpts := []grpc_recovery.Option{
+		grpc_recovery.WithRecoveryHandler(customFunc),
+	}
+
+	// UnaryServer
 	var incerceptorUnaryServerList = []grpc.UnaryServerInterceptor{
 		grpc_prometheus.UnaryServerInterceptor,
+
+		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
+		// (e.g. logging) can operate on the recovered state instead of being directly affected by any panic
+		grpc_recovery.UnaryServerInterceptor(recoveryOpts...),
 	}
 
 	if tracer != nil {
@@ -50,6 +67,10 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 	// StreamClient
 	var incerceptorStreamServerList = []grpc.StreamServerInterceptor{
 		grpc_prometheus.StreamServerInterceptor,
+
+		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
+		// (e.g. logging) can operate on the recovered state instead of being directly affected by any panic
+		grpc_recovery.StreamServerInterceptor(recoveryOpts...),
 	}
 
 	if tracer != nil {
