@@ -108,20 +108,21 @@ func (mq *RabbitMQ) Subscribe(message query.Response) error {
 				mq.Log.Warn(err.Error())
 			}
 
-			sp := opentracing.StartSpan(
-				"ConsumeMessage",
+			span := opentracing.StartSpan(
+				"AMQP: ConsumeMessage",
 				opentracing.FollowsFrom(spanCtx),
 			)
+			span.SetTag("queue", mq.q.Name)
 
 			// Update the context with the span for the subsequent reference.
-			ctx = opentracing.ContextWithSpan(ctx, sp)
+			ctx = opentracing.ContextWithSpan(ctx, span)
 
 			message.Chan <- query.ResponseMessage{
 				Body:    msg.Body,
 				Context: ctx,
 			}
 
-			sp.Finish()
+			span.Finish()
 		}
 	}()
 
