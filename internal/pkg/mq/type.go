@@ -11,12 +11,12 @@ import (
 // MQ - common interface of DataBus
 type MQ interface { // nolint unused
 	// setting
-	Init(ctx context.Context) error
+	Init(context.Context) error
 	io.Closer // Closer is the interface that wraps the basic Close method.
 
 	// Pub/Sub a pattern
-	Publish(message query.Message) error
-	Subscribe(message query.Response) error
+	Publish(context.Context, query.Message) error
+	Subscribe(query.Response) error
 	UnSubscribe() error
 }
 

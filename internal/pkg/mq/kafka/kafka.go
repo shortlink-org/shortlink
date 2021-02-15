@@ -62,7 +62,7 @@ func (mq *Kafka) Close() error {
 	return err
 }
 
-func (k *Kafka) Publish(message query.Message) error {
+func (k *Kafka) Publish(ctx context.Context, message query.Message) error {
 	_, _, err := k.producer.SendMessage(&sarama.ProducerMessage{
 		Topic:     "shortlink",
 		Key:       sarama.StringEncoder(message.Key),

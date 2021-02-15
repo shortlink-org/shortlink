@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/google/wire"
+	"github.com/opentracing/opentracing-go"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/config"
@@ -32,6 +33,7 @@ func NewLoggerService(
 	cfg *config.Config,
 	log logger.Logger,
 	monitoring *http.ServeMux,
+	tracer *opentracing.Tracer,
 	mq mq.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
@@ -39,6 +41,7 @@ func NewLoggerService(
 		Ctx:        ctx,
 		Log:        log,
 		MQ:         mq,
+		Tracer:     tracer,
 		Monitoring: monitoring,
 	}, nil
 }

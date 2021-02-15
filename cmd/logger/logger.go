@@ -36,7 +36,7 @@ func main() {
 	go http.ListenAndServe("0.0.0.0:9090", service.Monitoring) // nolint errcheck
 
 	getEventNewLink := query.Response{
-		Chan: make(chan []byte),
+		Chan: make(chan query.ResponseMessage),
 	}
 
 	go func() {
@@ -49,7 +49,9 @@ func main() {
 
 	go func() {
 		for {
-			service.Log.Info(fmt.Sprintf("GET: %s", string(<-getEventNewLink.Chan)))
+			msg := <-getEventNewLink.Chan
+			service.Log.Info(fmt.Sprintf("GET: %s", string(msg.Body)))
+			msg.Context.Done()
 		}
 	}()
 

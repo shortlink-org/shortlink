@@ -3,9 +3,11 @@ package rabbit
 import (
 	"context"
 
+	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
 
+	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
 )
 
@@ -14,9 +16,11 @@ type RabbitMQ struct {
 	conn *amqp.Connection
 	ch   *amqp.Channel
 	q    amqp.Queue
+
+	Log logger.Logger
 }
 
-func (mq *RabbitMQ) Init(ctx context.Context) error {
+func (mq *RabbitMQ) Init(_ context.Context) error {
 	var err error
 
 	// Set configuration
@@ -50,16 +54,30 @@ func (mq *RabbitMQ) Init(ctx context.Context) error {
 	return nil
 }
 
-func (mq *RabbitMQ) Publish(message query.Message) error {
-	if err := mq.ch.Publish(
+func (mq *RabbitMQ) Publish(ctx context.Context, message query.Message) error {
+	sp := opentracing.SpanFromContext(ctx)
+	defer sp.Finish()
+
+	msg := amqp.Publishing{
+		ContentType: "text/plain",
+		Body:        message.Payload,
+		Headers:     make(amqp.Table),
+	}
+
+	// Inject the span context into the AMQP header.
+	err := opentracing.GlobalTracer().Inject(sp.Context(), opentracing.TextMap, amqpHeadersCarrier(msg.Headers))
+	if err != nil {
+		mq.Log.Warn(err.Error())
+	}
+
+	err = mq.ch.Publish(
 		string(message.Key), // exchange
 		mq.q.Name,           // routing key
 		false,               // mandatory
 		false,               // immediate
-		amqp.Publishing{
-			ContentType: "text/plain",
-			Body:        message.Payload,
-		}); err != nil {
+		msg,
+	)
+	if err != nil {
 		return err
 	}
 
@@ -81,8 +99,29 @@ func (mq *RabbitMQ) Subscribe(message query.Response) error {
 	}
 
 	go func() {
-		for d := range msgs {
-			message.Chan <- d.Body
+		for msg := range msgs {
+			ctx := context.Background()
+
+			// Extract the span context out of the AMQP header.
+			spanCtx, err := opentracing.GlobalTracer().Extract(opentracing.TextMap, amqpHeadersCarrier(msg.Headers))
+			if err != nil {
+				mq.Log.Warn(err.Error())
+			}
+
+			sp := opentracing.StartSpan(
+				"ConsumeMessage",
+				opentracing.FollowsFrom(spanCtx),
+			)
+
+			// Update the context with the span for the subsequent reference.
+			ctx = opentracing.ContextWithSpan(ctx, sp)
+
+			message.Chan <- query.ResponseMessage{
+				Body:    msg.Body,
+				Context: ctx,
+			}
+
+			sp.Finish()
 		}
 	}()
 

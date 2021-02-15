@@ -29,14 +29,16 @@ func (mq *NATS) Close() error { // nolint unparam
 	return nil
 }
 
-func (mq *NATS) Publish(message query.Message) error {
+func (mq *NATS) Publish(ctx context.Context, message query.Message) error {
 	err := mq.client.Publish(string(message.Key), message.Payload)
 	return err
 }
 
 func (mq *NATS) Subscribe(message query.Response) error {
 	_, err := mq.client.Subscribe(string(message.Key), func(m *nats.Msg) {
-		message.Chan <- m.Data
+		message.Chan <- query.ResponseMessage{
+			Body: m.Data,
+		}
 	})
 	if err != nil {
 		return err
@@ -50,7 +52,9 @@ func (mq *NATS) Subscribe(message query.Response) error {
 
 	for {
 		msg := <-ch
-		message.Chan <- msg.Data
+		message.Chan <- query.ResponseMessage{
+			Body: msg.Data,
+		}
 	}
 }
 
