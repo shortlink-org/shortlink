@@ -32,7 +32,9 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 	for message := range claim.Messages() {
 		session.MarkMessage(message, "")
 
-		consumer.ch.Chan <- message.Value
+		consumer.ch.Chan <- query.ResponseMessage{
+			Body: message.Value,
+		}
 	}
 
 	return nil

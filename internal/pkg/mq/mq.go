@@ -34,7 +34,9 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) {
 	case "nats":
 		mq.mq = &nats.NATS{}
 	case "rabbitmq":
-		mq.mq = &rabbit.RabbitMQ{}
+		mq.mq = &rabbit.RabbitMQ{
+			Log: log,
+		}
 	default:
 		mq.mq = &kafka.Kafka{}
 	}
@@ -57,7 +59,7 @@ func (mq *DataBus) setConfig() { // nolint unused
 }
 
 // Notify ...
-func (mq *DataBus) Notify(_ context.Context, event uint32, payload interface{}) notify.Response {
+func (mq *DataBus) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response {
 	switch event {
 	case api_type.METHOD_ADD:
 		// TODO: send []byte
@@ -71,7 +73,7 @@ func (mq *DataBus) Notify(_ context.Context, event uint32, payload interface{}) 
 			}
 		}
 
-		err = mq.mq.Publish(query.Message{
+		err = mq.mq.Publish(ctx, query.Message{
 			Key:     nil,
 			Payload: data,
 		})

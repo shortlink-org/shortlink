@@ -333,14 +333,14 @@ func InitializeLoggerService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler)
-	mq, cleanup4, err := mq_di.New(context, logger)
+	tracer, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
+	mq, cleanup5, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -348,7 +348,7 @@ func InitializeLoggerService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLoggerService(context, configConfig, logger, serveMux, mq, autoMaxProAutoMaxPro)
+	autoMaxProAutoMaxPro, cleanup6, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -357,7 +357,18 @@ func InitializeLoggerService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewLoggerService(context, configConfig, logger, serveMux, tracer, mq, autoMaxProAutoMaxPro)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -581,7 +592,8 @@ var LoggerSet = wire.NewSet(
 func NewLoggerService(ctx2 context.Context,
 
 	cfg *config.Config,
-	log logger.Logger, monitoring2 *http.ServeMux, mq2 mq.MQ,
+	log logger.Logger, monitoring2 *http.ServeMux,
+	tracer *opentracing.Tracer, mq2 mq.MQ,
 
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
@@ -589,6 +601,7 @@ func NewLoggerService(ctx2 context.Context,
 		Ctx:        ctx2,
 		Log:        log,
 		MQ:         mq2,
+		Tracer:     tracer,
 		Monitoring: monitoring2,
 	}, nil
 }

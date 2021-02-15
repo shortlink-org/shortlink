@@ -3,7 +3,10 @@ module github.com/batazor/shortlink
 go 1.15
 
 require (
+	github.com/DataDog/zstd v1.4.4 // indirect
+	github.com/HdrHistogram/hdrhistogram-go v0.9.0 // indirect
 	github.com/Masterminds/squirrel v1.5.0
+	github.com/OneOfOne/xxhash v1.2.5 // indirect
 	github.com/PuerkitoBio/goquery v1.6.1
 	github.com/Shopify/sarama v1.27.2
 	github.com/Unleash/unleash-client-go/v3 v3.1.1
@@ -12,6 +15,7 @@ require (
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.2007.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
+	github.com/dgryski/go-farm v0.0.0-20200201041132-a6ae2369ad13 // indirect
 	github.com/getsentry/sentry-go v0.9.0
 	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-chi/cors v1.1.1
@@ -21,15 +25,18 @@ require (
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
 	github.com/gocql/gocql v0.0.0-20210129204804-4364a4b9cfdd
+	github.com/gofrs/uuid v3.3.0+incompatible // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
+	github.com/golang/snappy v0.0.2 // indirect
+	github.com/google/uuid v1.1.4 // indirect
 	github.com/google/wire v0.5.0
 	github.com/gorilla/mux v1.8.0
 	github.com/graph-gophers/graphql-go v0.0.0-20201113091052-beb923fada29
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway v1.9.5
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.2.0
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.10.1
@@ -39,12 +46,14 @@ require (
 	github.com/lib/pq v1.9.0
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.6
+	github.com/mitchellh/mapstructure v1.3.2 // indirect
 	github.com/nats-io/nats.go v1.10.0
 	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.6.3
 	github.com/pborman/uuid v1.2.1
+	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/prometheus/client_golang v1.9.0
 	github.com/scylladb/gocqlx/v2 v2.3.0
 	github.com/sirupsen/logrus v1.7.0
@@ -55,7 +64,7 @@ require (
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
-	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
+	github.com/uber/jaeger-lib v2.4.0+incompatible // indirect
 	go.mongodb.org/mongo-driver v1.4.6
 	go.uber.org/atomic v1.7.0
 	go.uber.org/automaxprocs v1.4.0
@@ -65,6 +74,7 @@ require (
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
+	golang.org/x/text v0.3.5 // indirect
 	golang.org/x/tools v0.1.0 // indirect
 	google.golang.org/api v0.40.0
 	google.golang.org/genproto v0.0.0-20210212180131-e7f2df4ecc2d
@@ -72,7 +82,9 @@ require (
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
+	gopkg.in/ini.v1 v1.57.0 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
+	honnef.co/go/tools v0.0.1-2020.1.6 // indirect
 	k8s.io/kubernetes v1.20.2
 	k8s.io/mount-utils v0.20.2
 	k8s.io/utils v0.0.0-20210111153108-fddb29f9d009
