@@ -1,6 +1,6 @@
 module github.com/batazor/shortlink
 
-go 1.15
+go 1.16
 
 require (
 	github.com/DataDog/zstd v1.4.4 // indirect
@@ -30,7 +30,6 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.4.3
-	github.com/golang/snappy v0.0.2 // indirect
 	github.com/google/uuid v1.1.4 // indirect
 	github.com/google/wire v0.5.0
 	github.com/gorilla/mux v1.8.0
@@ -74,7 +73,6 @@ require (
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 	golang.org/x/sync v0.0.0-20201207232520-09787c993a3a
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
-	golang.org/x/text v0.3.5 // indirect
 	golang.org/x/tools v0.1.0 // indirect
 	google.golang.org/api v0.40.0
 	google.golang.org/genproto v0.0.0-20210212180131-e7f2df4ecc2d
