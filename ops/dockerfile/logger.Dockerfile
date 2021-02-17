@@ -18,7 +18,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
   -trimpath \
   -o app ./cmd/logger
 
-FROM alpine:latest
+FROM alpine:3.13
 
 # 7070: API
 # 9090: metrics
