@@ -1,6 +1,6 @@
 delete_renovate_branch:
   stage: .pre
-  image: alpine
+  image: alpine:3.13
   script:
     - echo 123
   rules:
