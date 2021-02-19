@@ -23,7 +23,7 @@ require (
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis/v8 v8.5.0
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.1
 	github.com/gocql/gocql v0.0.0-20210129204804-4364a4b9cfdd
 	github.com/gofrs/uuid v3.3.0+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
