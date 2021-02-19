@@ -1,0 +1,14 @@
+version: '2.4'
+
+services:
+
+  gitlab:
+    image: gitlab/gitlab-ce:13.8.4-ce.0
+    container_name: gitlab
+    restart: always
+    ports:
+      - "9999:80"
+    volumes:
+      - "${GITLAB_HOME}/config:/etc/gitlab"
+      - "${GITLAB_HOME}/logs:/var/log/gitlab"
+      - "${GITLAB_HOME}/data:/var/opt/gitlab"
