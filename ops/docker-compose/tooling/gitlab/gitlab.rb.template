@@ -29,7 +29,7 @@
 ##! On AWS EC2 instances, we also attempt to fetch the public hostname/IP
 ##! address from AWS. For more details, see:
 ##! https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
-# external_url 'GENERATED_EXTERNAL_URL'
+external_url 'GENERATED_EXTERNAL_URL'
 
 ## Roles for multi-instance GitLab
 ##! The default is to have no roles enabled, which results in GitLab running as an all-in-one instance.
@@ -96,7 +96,7 @@
 
 ### Email Settings
 
-gitlab_rails['gitlab_email_enabled'] = true
+# gitlab_rails['gitlab_email_enabled'] = true
 
 ##! If your SMTP server does not like the default 'From: gitlab@gitlab.example.com'
 ##! can change the 'From' with this setting.
@@ -110,8 +110,8 @@ gitlab_rails['gitlab_email_enabled'] = true
 # gitlab_rails['gitlab_email_smime_ca_certs_file'] = '/etc/gitlab/ssl/gitlab_smime_cas.crt'
 
 ### GitLab user privileges
-gitlab_rails['gitlab_default_can_create_group'] = false
-gitlab_rails['gitlab_username_changing_enabled'] = true
+# gitlab_rails['gitlab_default_can_create_group'] = true
+# gitlab_rails['gitlab_username_changing_enabled'] = true
 
 ### Default Theme
 ### Available values:
@@ -128,12 +128,12 @@ gitlab_rails['gitlab_username_changing_enabled'] = true
 # gitlab_rails['gitlab_default_theme'] = 2
 
 ### Default project feature settings
-gitlab_rails['gitlab_default_projects_features_issues'] = true
-gitlab_rails['gitlab_default_projects_features_merge_requests'] = true
-gitlab_rails['gitlab_default_projects_features_wiki'] = false
-gitlab_rails['gitlab_default_projects_features_snippets'] = false
-gitlab_rails['gitlab_default_projects_features_builds'] = true
-gitlab_rails['gitlab_default_projects_features_container_registry'] = true
+# gitlab_rails['gitlab_default_projects_features_issues'] = true
+# gitlab_rails['gitlab_default_projects_features_merge_requests'] = true
+# gitlab_rails['gitlab_default_projects_features_wiki'] = true
+# gitlab_rails['gitlab_default_projects_features_snippets'] = true
+# gitlab_rails['gitlab_default_projects_features_builds'] = true
+# gitlab_rails['gitlab_default_projects_features_container_registry'] = true
 
 ### Automatic issue closing
 ###! See https://docs.gitlab.com/ee/customization/issue_closing.html for more
@@ -611,7 +611,7 @@ gitlab_rails['gitlab_default_projects_features_container_registry'] = true
 # high_availability['mountpoint'] = ["/var/opt/gitlab/git-data", "/var/opt/gitlab/gitlab-rails/shared"]
 
 ### GitLab Shell settings for GitLab
-gitlab_rails['gitlab_shell_ssh_port'] = 22
+# gitlab_rails['gitlab_shell_ssh_port'] = 22
 # gitlab_rails['gitlab_shell_git_timeout'] = 800
 
 ### Extra customization
@@ -726,13 +726,13 @@ gitlab_rails['gitlab_shell_ssh_port'] = 22
 ##! Docs: https://docs.gitlab.com/ee/administration/container_registry.html
 ################################################################################
 
-registry_external_url 'http://registry:5000'
+# registry_external_url 'https://registry.example.com'
 
 ### Settings used by GitLab application
-gitlab_rails['registry_enabled'] = true
-gitlab_rails['registry_host'] = "registry"
-gitlab_rails['registry_port'] = "5000"
-gitlab_rails['registry_path'] = "/data"
+# gitlab_rails['registry_enabled'] = true
+# gitlab_rails['registry_host'] = "registry.gitlab.example.com"
+# gitlab_rails['registry_port'] = "5005"
+# gitlab_rails['registry_path'] = "/var/opt/gitlab/gitlab-rails/shared/registry"
 
 # Notification secret, it's used to authenticate notification requests to GitLab application
 # You only need to change this when you use external Registry service, otherwise
@@ -741,14 +741,12 @@ gitlab_rails['registry_path'] = "/data"
 
 ###! **Do not change the following 3 settings unless you know what you are
 ###!   doing**
-gitlab_rails['registry_api_url'] = "http://registry:5000"
-# gitlab_rails['registry_key_path'] = "/cert/registry-auth.key"
-gitlab_rails['registry_issuer'] = "gitlab-issuer"
+# gitlab_rails['registry_api_url'] = "http://localhost:5000"
+# gitlab_rails['registry_key_path'] = "/var/opt/gitlab/gitlab-rails/certificate.key"
+# gitlab_rails['registry_issuer'] = "omnibus-gitlab-issuer"
 
 ### Settings used by Registry application
-registry['enable'] = false
-registry['internal_certificate'] = "-----BEGIN CERTIFICATE-----\nMIIFBTCCAu2gAwIBAgIBADANBgkqhkiG9w0BAQsFADBGMQwwCgYDVQQGEwNVU0Ex\nDzANBgNVBAoMBkdpdExhYjESMBAGA1UECwwJQ29udGFpbmVyMREwDwYDVQQDDAhS\nZWdpc3RyeTAeFw0yMTAyMjEyMzU3MzBaFw0zMTAyMTkyMzU3MzBaMEYxDDAKBgNV\nBAYTA1VTQTEPMA0GA1UECgwGR2l0TGFiMRIwEAYDVQQLDAlDb250YWluZXIxETAP\nBgNVBAMMCFJlZ2lzdHJ5MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA\nrYtHQ0z+8psCE5zkjlRxGuSze0mRTNyhire8YT1JyBs/wRjMxLXr4JizkH1kF7++\nFFO2B/l+OOPw7aR2/XnlkyPtJZr9bGfCN7Rbs9q+AXfxoyDVOvddBBA0tJZu4We4\nVwCUarDBYNN3pAct1engH+82Ul9/Ohv2TEneSUFYSnWpPqsLU1DVjZHrHRE0b8xp\nM58WtMO5GNH88gXn6OdHtYHe8bE1CIiVtsA2QILBrpabLswKWRnd0v7QQDgw3bJ2\nY19nGdL2rF9oA65Kad4qaLD6qYztdJY/3CaI8dVr4bE+HcArrpcnAtDxustO0XQ2\n1P0rglSdJZpZg+iT3zrBXaoDE4mfB+D/eS3vUYil4hCPKF1JMV29whEXtcMKyeEA\nj3c5Mgtu3Nk36+Mnvmp5GCZO2QgHBDPqb5yotD8zkFHjdjH1Toqu/nYuvpwo9LeC\nM3foLz0Fz2mbfoSazFyzPQfZt9JVEe8TfTzCTBxDQbMSU2N1Lw+bnxyfntWBlq5R\nQGFOr6WOJ9xEguMF3U2dRazY8T0rlOXY+qm6bO7P07InZGKWkUF2Ou78Vbzrpcxm\nPlSsn09h8kdFKkgcQiuWgePz5rusyk4nSo1biRupjtAiXxhn3Y6QOJFRxJM5r7cC\n8PeiOgCZUU9nkcH803uVuLAhmOhTYrsuJUbKr+BX5GMCAwEAATANBgkqhkiG9w0B\nAQsFAAOCAgEAQ81tGv3JsF8fa6iY4ntlLpjUSyiIVrLSv+KqfkTruMWX5FszIzIN\ngGPv2xsGr/eQCcHJGbAKgpXNh/JTZcVtOh7Jmkqb7CjnQYXkuP8GPmTqnnLv0/4C\nZs6W4Eve6MXzzJKUFwZCIETERaGD9Jli2Uat+rokNCfMd8LWc/yllm8/mHG7mY+r\niJMoMAJiw+p9Bi/kkxIw/r+ZnKWL/Bv2BlVsRgOYlGsIvEoUi4PI7gmQq0qaGBI8\nyMMhkSWj1zlSwrsrLQRRF0cDdgVup07K+yfYnMUrB2bwVBrOzd+8sMmba42K2kEu\n3oDyow9iqHrk6CRF6ydMU1wBK3m5BBLUt4QN7ewSoLQynORRlglO3LiWh1ZoAAqh\nOtUmlpugBsw51iP1Qhwi7rjNt+4CmR10RIJ4xRZtIHT6iibHL3ADXj0sAsihL0cu\n0VNubcYCZUv+lopI/DIBOZSZtBL7ZVZV15932v62yVtXFv15MTFgxs1tVGeY31U9\nGQflvgY3sdP6IbyuptdjFUxZ/gK6b7o6/5de0y1qPPpYba1xRMYtfewWbmSb70yq\nF7zA3vkkbZQM6V/QBeyJggMtx4b9Mo0st/1kpM8JyXDzYVSMwkmYKSG7O0baoGIx\n4kL8lOvSrP+4basgertJaSB+8RyG3MgRxIcN6pEUDRc8HZP/iw5jvbY=\n-----END CERTIFICATE-----\n"
-registry['internal_key'] = "-----BEGIN RSA PRIVATE KEY-----\n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\n-----END RSA PRIVATE KEY-----\n"
+# registry['enable'] = true
 # registry['username'] = "registry"
 # registry['group'] = "registry"
 # registry['uid'] = nil
@@ -763,7 +761,7 @@ registry['internal_key'] = "-----BEGIN RSA PRIVATE KEY-----\nMIIJKQIBAAKCAgEArYt
 # }
 # registry['log_level'] = "info"
 # registry['log_formatter'] = "text"
-# registry['rootcertbundle'] = "/cert/registry-auth.key"
+# registry['rootcertbundle'] = "/var/opt/gitlab/registry/certificate.crt"
 # registry['health_storagedriver_enabled'] = true
 # registry['storage_delete_enabled'] = true
 # registry['validation_enabled'] = false
@@ -1730,7 +1728,7 @@ registry['internal_key'] = "-----BEGIN RSA PRIVATE KEY-----\nMIIJKQIBAAKCAgEArYt
 # `registry_nginx['some_setting']` and should be set separately.
 
 # Below you can find settings that are exclusive to "Registry NGINX"
-registry_nginx['enable'] = false
+# registry_nginx['enable'] = false
 
 # registry_nginx['proxy_set_headers'] = {
 #  "Host" => "$http_host",

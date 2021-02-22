@@ -10,13 +10,13 @@ services:
       REGISTRY_LOG_LEVEL: info
       REGISTRY_AUTH: token
       REGISTRY_AUTH_TOKEN_REALM: http://gitlab/jwt/auth
-      REGISTRY_AUTH_TOKEN_SERVICE: "container_registry"
-      REGISTRY_AUTH_TOKEN_ISSUER: "gitlab-issuer"
-      REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE: /certs/registry.crt
+      REGISTRY_AUTH_TOKEN_SERVICE: container_registry
+      REGISTRY_AUTH_TOKEN_ISSUER: gitlab-issuer
+      REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE: /certs/registry-auth.crt
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
       REGISTRY_STORAGE_DELETE_ENABLED: "true"
     ports:
       - "5000:5000"
     volumes:
-      - /data/registry:/data
-      - ./ops/cert/gitlab:/certs
+      - /data/registry:/data:Z
+      - ./ops/cert/gitlab:/certs:Z

@@ -9,6 +9,8 @@ services:
     ports:
       - "9999:80"
     volumes:
-      - "${GITLAB_HOME}/config:/etc/gitlab"
-      - "${GITLAB_HOME}/logs:/var/log/gitlab"
-      - "${GITLAB_HOME}/data:/var/opt/gitlab"
+      - "${GITLAB_HOME}/config:/etc/gitlab:Z"
+      - "${GITLAB_HOME}/logs:/var/log/gitlab:Z"
+      - "${GITLAB_HOME}/data:/var/opt/gitlab:Z"
+#      - ./ops/docker-compose/tooling/gitlab/gitlab.rb:/etc/gitlab/gitlab.rb
+#      - ./ops/cert/gitlab/registry-auth.key:/cert/registry-auth.key
