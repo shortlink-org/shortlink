@@ -47,7 +47,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.6
 	github.com/mitchellh/mapstructure v1.3.2 // indirect
 	github.com/nats-io/nats.go v1.10.0
-	github.com/opentracing-contrib/go-grpc v0.0.0-20200813121455-4a6760c71486
+	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.6.3
