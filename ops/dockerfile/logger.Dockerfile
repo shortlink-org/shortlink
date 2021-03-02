@@ -27,8 +27,7 @@ EXPOSE 7070 9090
 # Install dependencies
 RUN \
     apk update && \
-    apk add curl && \
-    rm -rf /var/cache/apk/*
+    apk add --no-cache curl
 
 RUN addgroup -S logger && adduser -S -g logger logger
 USER logger

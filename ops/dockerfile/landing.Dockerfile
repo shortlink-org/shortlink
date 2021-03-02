@@ -1,6 +1,6 @@
 FROM node:15.8-alpine as builder
 
-RUN apk add --update alpine-sdk python
+RUN apk add --no-cache alpine-sdk python
 
 WORKDIR /app
 COPY ./ui/landing /app/
@@ -10,7 +10,7 @@ RUN npm i && \
 
 FROM nginx:1.19-alpine
 
-RUN apk add --update curl
+RUN apk add --no-cache curl
 
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf

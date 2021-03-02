@@ -27,8 +27,7 @@ EXPOSE 50051 9090
 # Install dependencies
 RUN \
     apk update && \
-    apk add curl && \
-    rm -rf /var/cache/apk/*
+    apk add --no-cache curl
 
 RUN addgroup -S metadata && adduser -S -g metadata metadata
 USER metadata

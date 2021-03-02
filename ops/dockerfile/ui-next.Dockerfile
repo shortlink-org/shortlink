@@ -9,7 +9,7 @@ RUN npm config set ignore-scripts false && \
 
 FROM nginx:1.19-alpine
 
-RUN apk add --update curl
+RUN apk add --no-cache curl
 
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf

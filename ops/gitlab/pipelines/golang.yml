@@ -19,7 +19,7 @@ gosec:
   extends:
     - .job_teplate_go
   before_script:
-    - apk add --update curl make
+    - apk add --no-cache curl make
     - curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin v2.6.1
   script:
     - make gosec
@@ -33,7 +33,7 @@ gotest:
     - docker
   coverage: '/coverage: \d+.\d+% of statements/'
   before_script:
-    - apk add --update make
+    - apk add --no-cache make
     - go get -u github.com/jstemmer/go-junit-report
   script:
     - make gitlab-test || true
@@ -77,7 +77,7 @@ go_fuzz_test:
   variables:
     CI_SEED_CORPUS: './seed_corpus'
   before_script:
-    - apk add --update clang git
+    - apk add --no-cache clang git
   script:
     # link package
     - GITLAB_COV_FUZZ_PATH=`pwd`
