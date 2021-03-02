@@ -68,11 +68,11 @@ require (
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
+	golang.org/x/lint v0.0.0-20201208152925-83fdc39ff7b5 // indirect
 	golang.org/x/mod v0.4.1 // indirect
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/tools v0.1.0 // indirect
-	google.golang.org/api v0.40.0
 	google.golang.org/genproto v0.0.0-20210302174412-5ede27ff9881
 	google.golang.org/grpc v1.36.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
