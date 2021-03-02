@@ -6,9 +6,6 @@ API-service
 package main
 
 import (
-	"errors"
-	"fmt"
-	"net"
 	"net/http"
 	"os"
 	"os/signal"
@@ -26,11 +23,6 @@ func main() {
 	// Init a new service
 	s, cleanup, err := di.InitializeAPIService()
 	if err != nil { // TODO: use as helpers
-		var typeErr *net.OpError
-		if errors.As(err, &typeErr) {
-			panic(fmt.Errorf("address %s already in use. Set GRPC_SERVER_PORT environment", typeErr.Addr.String()))
-		}
-
 		panic(err)
 	}
 

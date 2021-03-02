@@ -4,9 +4,7 @@ Bot application
 package main
 
 import (
-	"errors"
 	"fmt"
-	"net"
 	"net/http"
 	"os"
 	"os/signal"
@@ -30,11 +28,6 @@ func main() {
 	// Init a new service
 	s, cleanup, err := di.InitializeBotService()
 	if err != nil { // TODO: use as helpers
-		var typeErr *net.OpError
-		if errors.As(err, &typeErr) {
-			panic(fmt.Errorf("address %s already in use. Set GRPC_SERVER_PORT environment", typeErr.Addr.String()))
-		}
-
 		panic(err)
 	}
 
@@ -42,7 +35,7 @@ func main() {
 	go http.ListenAndServe("0.0.0.0:9090", s.Monitoring) // nolint errcheck
 
 	getEventNewLink := query.Response{
-		Chan: make(chan []byte),
+		Chan: make(chan query.ResponseMessage),
 	}
 
 	// Run bot
@@ -63,7 +56,7 @@ func main() {
 
 			// []byte to link.Link
 			myLink := &link.Link{}
-			if err := proto.Unmarshal(msg, myLink); err != nil {
+			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
 				s.Log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				continue
 			}

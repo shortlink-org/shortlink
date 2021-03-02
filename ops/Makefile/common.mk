@@ -8,7 +8,7 @@ dep: ## Install dependencies for this project
 	@go get -u github.com/golang/protobuf/proto
 	@go get -u github.com/golang/protobuf/protoc-gen-go
 	@go get -u github.com/batazor/protoc-gen-gotemplate
-	@go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+	@go get -u github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway
 	@go get -u github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2
 	@go get -u github.com/securego/gosec/cmd/gosec
 	@go get -u moul.io/protoc-gen-gotemplate

@@ -59,7 +59,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 	srv := http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),
-		Handler: chi.ServerBaseContext(ctx, r),
+		Handler: r,
 
 		ReadTimeout:       1 * time.Second,                     // the maximum duration for reading the entire request, including the body
 		WriteTimeout:      (config.Timeout + 30) * time.Second, // the maximum duration before timing out writes of the response
