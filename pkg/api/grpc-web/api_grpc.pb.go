@@ -5,10 +5,10 @@ package grpcweb
 import (
 	context "context"
 	link "github.com/batazor/shortlink/internal/services/api/domain/link"
-	empty "github.com/golang/protobuf/ptypes/empty"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -23,7 +23,7 @@ type LinkClient interface {
 	GetLinks(ctx context.Context, in *LinkRequest, opts ...grpc.CallOption) (*link.Links, error)
 	GetLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
 	CreateLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
-	DeleteLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*empty.Empty, error)
+	DeleteLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type linkClient struct {
@@ -61,8 +61,8 @@ func (c *linkClient) CreateLink(ctx context.Context, in *link.Link, opts ...grpc
 	return out, nil
 }
 
-func (c *linkClient) DeleteLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*empty.Empty, error) {
-	out := new(empty.Empty)
+func (c *linkClient) DeleteLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/grpcweb.Link/DeleteLink", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ type LinkServer interface {
 	GetLinks(context.Context, *LinkRequest) (*link.Links, error)
 	GetLink(context.Context, *link.Link) (*link.Link, error)
 	CreateLink(context.Context, *link.Link) (*link.Link, error)
-	DeleteLink(context.Context, *link.Link) (*empty.Empty, error)
+	DeleteLink(context.Context, *link.Link) (*emptypb.Empty, error)
 	mustEmbedUnimplementedLinkServer()
 }
 
@@ -94,7 +94,7 @@ func (UnimplementedLinkServer) GetLink(context.Context, *link.Link) (*link.Link,
 func (UnimplementedLinkServer) CreateLink(context.Context, *link.Link) (*link.Link, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLink not implemented")
 }
-func (UnimplementedLinkServer) DeleteLink(context.Context, *link.Link) (*empty.Empty, error) {
+func (UnimplementedLinkServer) DeleteLink(context.Context, *link.Link) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLink not implemented")
 }
 func (UnimplementedLinkServer) mustEmbedUnimplementedLinkServer() {}
