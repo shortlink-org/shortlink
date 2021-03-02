@@ -26,8 +26,7 @@ EXPOSE 9090
 # Install dependencies
 RUN \
     apk update && \
-    apk add curl util-linux && \
-    rm -rf /var/cache/apk/*
+    apk add --no-cache curl util-linux
 
 WORKDIR /app/
 COPY --from=builder /go/src/github/batazor/shortlink/app .
