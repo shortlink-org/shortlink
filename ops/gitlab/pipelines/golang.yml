@@ -60,7 +60,7 @@ golint:
   before_script:
     - apk add --no-cache jq
     - go mod vendor
-    - go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.36.0
+    - go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.37.1
   script:
     # Use default .golangci.yml file from the image if one is not present in the project root.
     - "[ -e .golangci.yml ] || cp /golangci/.golangci.yml ."

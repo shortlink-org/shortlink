@@ -1,10 +1,8 @@
 package main
 
 import (
-	"errors"
 	"flag"
 	"fmt"
-	"net"
 	"os"
 	"os/signal"
 	"syscall"
@@ -21,11 +19,6 @@ func main() {
 	// Init a new service
 	s, cleanup, err := di.InitializeSCIDriver()
 	if err != nil { // TODO: use as helpers
-		var typeErr *net.OpError
-		if errors.As(err, &typeErr) {
-			panic(fmt.Errorf("address %s already in use. Set GRPC_SERVER_PORT environment", typeErr.Addr.String()))
-		}
-
 		panic(err)
 	}
 
