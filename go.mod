@@ -24,7 +24,7 @@ require (
 	github.com/go-redis/redis/v8 v8.6.0
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
-	github.com/gocql/gocql v0.0.0-20210301062520-a04dba85ed25
+	github.com/gocql/gocql v0.0.0-20210303083436-2235133ed460
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
@@ -73,6 +73,7 @@ require (
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/tools v0.1.0 // indirect
+	google.golang.org/api v0.30.0
 	google.golang.org/genproto v0.0.0-20210302174412-5ede27ff9881
 	google.golang.org/grpc v1.36.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
