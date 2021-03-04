@@ -13,7 +13,7 @@ release:
     tag_name: '$CI_COMMIT_TAG'                                      # elsewhere in the pipeline.
     ref: '$CI_COMMIT_TAG'
   rules:
-    - !reference [.rules_release, rules]
+    - if: $CI_COMMIT_TAG
 
 goreleaser:
   stage: release
@@ -49,7 +49,7 @@ goreleaser:
       -e GITLAB_TOKEN \
       $GORELEASER_IMAGE release --rm-dist
   rules:
-    - !reference [.rules_release, rules]
+    - if: $CI_COMMIT_TAG
 
 pages:
   stage: release
@@ -57,7 +57,7 @@ pages:
     DOCS_FOLDER: "docs"
     SPEC_TO_DISPLAY: "api.swagger.json"
   only:
-    - !reference [.rules_release, rules]
+    - tags
 
 # ML ===================================================================================================================
 ml:

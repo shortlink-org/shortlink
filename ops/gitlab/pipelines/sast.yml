@@ -10,56 +10,56 @@ include:
 
 bandit-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 brakeman-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 eslint-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 flawfinder-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 kubesec-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 gosec-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 mobsf-android-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 mobsf-ios-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 nodejs-scan-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 phpcs-security-audit-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 pmd-apex-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 security-code-scan-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 sobelow-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
 
 spotbugs-sast:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always

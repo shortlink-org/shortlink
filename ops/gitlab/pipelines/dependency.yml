@@ -10,7 +10,7 @@ include:
 
 gemnasium-dependency_scanning:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
       exists:
         - '{Gemfile.lock,*/Gemfile.lock,*/*/Gemfile.lock}'
         - '{composer.lock,*/composer.lock,*/*/composer.lock}'
@@ -24,7 +24,7 @@ gemnasium-dependency_scanning:
 
 gemnasium-maven-dependency_scanning:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
       exists:
         - '{build.gradle,*/build.gradle,*/*/build.gradle}'
         - '{build.gradle.kts,*/build.gradle.kts,*/*/build.gradle.kts}'
@@ -33,7 +33,7 @@ gemnasium-maven-dependency_scanning:
 
 gemnasium-python-dependency_scanning:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
       exists:
         - '{requirements.txt,*/requirements.txt,*/*/requirements.txt}'
         - '{requirements.pip,*/requirements.pip,*/*/requirements.pip}'
@@ -43,12 +43,12 @@ gemnasium-python-dependency_scanning:
 
 bundler-audit-dependency_scanning:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
       exists:
         - '{Gemfile.lock,*/Gemfile.lock,*/*/Gemfile.lock}'
 
 retire-js-dependency_scanning:
   rules:
-    - !reference [.rules_always, rules]
+    - when: always
       exists:
         - '{package.json,*/package.json,*/*/package.json}'
