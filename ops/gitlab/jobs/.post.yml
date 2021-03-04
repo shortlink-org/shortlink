@@ -18,5 +18,5 @@ load artifacts:
       ref: ultimate
       artifacts: true
   rules:
-    - when: never
+    - !reference [.rules_never, rules]
 

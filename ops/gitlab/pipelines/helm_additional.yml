@@ -19,7 +19,7 @@ kyverno:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]
 
 nginx-ingress:
   stage: deploy
@@ -33,7 +33,7 @@ nginx-ingress:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]
 
 cert-manager:
   stage: deploy
@@ -49,7 +49,7 @@ cert-manager:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]
 
 
 # DATABASE =============================================================================================================
@@ -65,7 +65,7 @@ postgres-operator:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]
 
 postgres-operator-ui:
   stage: database
@@ -79,7 +79,7 @@ postgres-operator-ui:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]
 
 # MONITORING ===========================================================================================================
 dashboard:
@@ -95,7 +95,7 @@ dashboard:
     strategy: depend
   needs: [ ]
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]
 
 grafana:
   stage: monitoring
@@ -109,7 +109,7 @@ grafana:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]
 
 prometheus-operator:
   stage: monitoring
@@ -123,7 +123,7 @@ prometheus-operator:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]
 
 jaeger-operator:
   stage: monitoring
@@ -137,7 +137,7 @@ jaeger-operator:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]
 
 datadog:
   stage: monitoring
@@ -152,4 +152,4 @@ datadog:
     strategy: depend
   needs: []
   rules:
-    - when: manual
+    - !reference [.rules_manual, rules]

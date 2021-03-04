@@ -15,8 +15,7 @@ api:
     - docker:build_go
     - HELM
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
+    - !reference [.rules_release, rules]
 
 logger:
   stage: deploy
@@ -34,8 +33,7 @@ logger:
     - docker:build_go
     - HELM
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
+    - !reference [.rules_release, rules]
 
 next:
   stage: deploy
@@ -54,8 +52,7 @@ next:
     - docker:build_nodejs
     - HELM
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
+    - !reference [.rules_release, rules]
 
 landing:
   stage: deploy
@@ -74,8 +71,7 @@ landing:
     - docker:build_nodejs
     - HELM
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
+    - !reference [.rules_release, rules]
 
 mobile:
   stage: deploy
@@ -85,5 +81,4 @@ mobile:
     strategy: depend
   needs: []
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
+    - !reference [.rules_release, rules]

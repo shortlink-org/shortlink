@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-kit/kit/endpoint"
@@ -197,7 +196,7 @@ func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logge
 	// Set a timeout value on the request context (ctx), that will signal
 	// through ctx.Done() that the request has timed out and further
 	// processing should be stopped.
-	r.Use(middleware.Timeout(config.Timeout * time.Second))
+	r.Use(middleware.Timeout(config.Timeout))
 
 	log.Info(fmt.Sprintf("Run on port %d", config.Port))
 	err := http.ListenAndServe(fmt.Sprintf(":%d", config.Port), r)

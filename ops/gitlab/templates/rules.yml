@@ -1,0 +1,34 @@
+.rules_default:
+  rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE == "schedule"
+
+# TYPE =================================================================================================================
+
+.rules_release:
+  rules:
+    - !reference [.rules_default, rules]
+    - if: $CI_COMMIT_TAG
+      when: on_success
+
+# EVENT ================================================================================================================
+
+.rules_always:
+  rules:
+    - !reference [.rules_default, rules]
+    - when: always
+
+.rules_manual:
+  rules:
+    - !reference [.rules_default, rules]
+    - when: manual
+
+.rules_never:
+  rules:
+    - !reference [.rules_default, rules]
+    - when: never
+
+.rules_on_success:
+  rules:
+    - !reference [ .rules_default, rules ]
+    - when: on_success
