@@ -12,8 +12,8 @@
       when: on_success
 
 .rules_scheduler:
-  - when: always
-    if: $CI_PIPELINE_SOURCE == "schedule"
+  rules:
+    - when: always
 
 # EVENT ================================================================================================================
 
