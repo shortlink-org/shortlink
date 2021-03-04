@@ -236,7 +236,7 @@ func (dg *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		return nil
+		return err
 	}
 
 	return nil

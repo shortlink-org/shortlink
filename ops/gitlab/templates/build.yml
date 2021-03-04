@@ -1,0 +1,8 @@
+.template_build:
+  stage: build
+  image: docker:dind
+  tags:
+    - docker
+  retry: 2
+  rules:
+    - !reference [.rules_release, rules]

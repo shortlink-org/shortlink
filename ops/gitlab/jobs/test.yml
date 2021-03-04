@@ -14,7 +14,7 @@ GOLANG:
   rules:
     - when: never
       if: $CI_PIPELINE_SOURCE == "schedule"
-    - when: always
+    - !reference [.rules_always, rules]
 
 # DEPENDENCY ===========================================================================================================
 DEPENDENCY:
@@ -27,7 +27,7 @@ DEPENDENCY:
   rules:
     - when: never
       if: $CI_PIPELINE_SOURCE == "schedule"
-    - when: always
+    - !reference [.rules_always, rules]
 
 # HELM =================================================================================================================
 HELM:
@@ -53,7 +53,7 @@ license_scanning:
   rules:
     - when: never
       if: $CI_PIPELINE_SOURCE == "schedule"
-    - when: always
+    - !reference [.rules_always, rules]
 
 # DANGER ===============================================================================================================
 # TODO: fix
@@ -107,4 +107,4 @@ SAST:
   rules:
     - when: never
       if: $CI_PIPELINE_SOURCE == "schedule"
-    - when: always
+    - !reference [.rules_always, rules]

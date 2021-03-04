@@ -13,7 +13,7 @@ stages:
 # DEPENDENCY ===========================================================================================================
 dependencies_nodejs:
   extends:
-    - .job_template_build_nodejs
+    - .template_build_nodejs
   stage: .pre
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/dependencies_nodejs
@@ -23,9 +23,10 @@ dependencies_nodejs:
 # BUILD ================================================================================================================
 nodejs:
   extends:
-    - .job_template_build_nodejs
+    - .template_build_nodejs
     - .matrix_build_nodejs
 
+# TODO: fix this job
 # SECURITY =============================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/container_scanning/
 
