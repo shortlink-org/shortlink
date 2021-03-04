@@ -27,7 +27,7 @@ variables:
 apifuzzer_fuzz_unlicensed:
   stage: qa
   rules:
-    - !reference [.rules_never, rules]
+    - when: never
 
 # TODO: fix
 apifuzzer_fuzz:
@@ -35,7 +35,8 @@ apifuzzer_fuzz:
   needs: []
   allow_failure: true
   rules:
-    - !reference [.rules_release, rules]
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 # TODO: fix
 apifuzzer_fuzz_dnd:
@@ -43,7 +44,8 @@ apifuzzer_fuzz_dnd:
   needs: []
   allow_failure: true
   rules:
-    - !reference [.rules_release, rules]
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 # PERFORMANCE ==========================================================================================================
 
@@ -55,4 +57,5 @@ load_performance:
     K6_TEST_FILE: ops/scripts/k6.js
   needs: []
   rules:
-    - !reference [.rules_release, rules]
+    - if: $CI_COMMIT_TAG
+      when: on_success

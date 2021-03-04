@@ -8,7 +8,8 @@ docker:build_go:
   needs:
     - GOLANG
   rules:
-    - !reference [.rules_release, rules]
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 docker:build_nodejs:
   stage: build
@@ -18,4 +19,5 @@ docker:build_nodejs:
     strategy: depend
   needs: []
   rules:
-    - !reference [.rules_release, rules]
+    - if: $CI_COMMIT_TAG
+      when: on_success
