@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"time"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
@@ -22,9 +23,9 @@ import (
 func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, rpcClient *grpc.ClientConn) {
 	var server API
 
-	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
-	viper.SetDefault("API_PORT", 7070)       // API port
-	viper.SetDefault("API_TIMEOUT", 60)      // Request Timeout
+	viper.SetDefault("API_TYPE", "http-chi")        // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
+	viper.SetDefault("API_PORT", 7070)              // API port
+	viper.SetDefault("API_TIMEOUT", 60*time.Second) // Request Timeout
 
 	config := api_type.Config{
 		Port:    viper.GetInt("API_PORT"),

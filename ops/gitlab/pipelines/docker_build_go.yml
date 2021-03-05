@@ -13,7 +13,7 @@ stages:
 # DEPENDENCY ===========================================================================================================
 dependencies_go:
   extends:
-    - .job_template_build_go
+    - .template_build_go
   stage: .pre
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/dependencies_go
@@ -22,9 +22,10 @@ dependencies_go:
 # BUILD ================================================================================================================
 go:
   extends:
-    - .job_template_build_go
+    - .template_build_go
     - .matrix_build_go
 
+# TODO: fix this job
 # SECURITY =============================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/container_scanning/
 

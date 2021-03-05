@@ -286,7 +286,7 @@ func deleteHostpathVolume(volID string) error {
 	vol, err := getVolumeByID(volID)
 	if err != nil {
 		// Return OK if the volume is not found.
-		return nil
+		return nil // nolint nilerr
 	}
 
 	if vol.VolAccessType == blockAccess {

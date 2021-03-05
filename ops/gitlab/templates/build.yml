@@ -1,0 +1,11 @@
+.template_build:
+  stage: build
+  image: docker:dind
+  tags:
+    - docker
+  retry: 2
+  rules:
+    - when: never
+      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_COMMIT_TAG
+      when: on_success
