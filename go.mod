@@ -32,7 +32,7 @@ require (
 	github.com/google/uuid v1.1.4 // indirect
 	github.com/google/wire v0.5.0
 	github.com/gorilla/mux v1.8.0
-	github.com/graph-gophers/graphql-go v0.0.0-20201113091052-beb923fada29
+	github.com/graph-gophers/graphql-go v0.0.0-20210305042231-6859f2744fc2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.3.0
