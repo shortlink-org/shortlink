@@ -11,7 +11,7 @@ require (
 	github.com/Shopify/sarama v1.28.0
 	github.com/Unleash/unleash-client-go/v3 v3.1.1
 	github.com/cloudevents/sdk-go/v2 v2.3.1
-	github.com/container-storage-interface/spec v1.3.0
+	github.com/container-storage-interface/spec v1.4.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v2 v2.2007.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
