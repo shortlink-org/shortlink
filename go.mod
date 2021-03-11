@@ -17,14 +17,14 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dgryski/go-farm v0.0.0-20200201041132-a6ae2369ad13 // indirect
 	github.com/getsentry/sentry-go v0.10.0
-	github.com/go-chi/chi/v5 v5.0.0
+	github.com/go-chi/chi/v5 v5.0.1
 	github.com/go-chi/cors v1.1.1
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis/v8 v8.7.1
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
-	github.com/gocql/gocql v0.0.0-20210303210847-f18e0979d243
+	github.com/gocql/gocql v0.0.0-20210310132943-486542b7b4b4
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
@@ -54,7 +54,7 @@ require (
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/prometheus/client_golang v1.9.0
 	github.com/scylladb/gocqlx/v2 v2.3.0
-	github.com/sirupsen/logrus v1.8.0
+	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.1
@@ -63,7 +63,7 @@ require (
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/uber/jaeger-client-go v2.25.0+incompatible
 	github.com/uber/jaeger-lib v2.4.0+incompatible // indirect
-	go.mongodb.org/mongo-driver v1.4.6
+	go.mongodb.org/mongo-driver v1.5.0
 	go.uber.org/atomic v1.7.0
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.10
@@ -71,10 +71,9 @@ require (
 	golang.org/x/mod v0.4.1 // indirect
 	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20210303074136-134d130e1a04 // indirect
 	golang.org/x/tools v0.1.0 // indirect
-	google.golang.org/api v0.40.0
-	google.golang.org/genproto v0.0.0-20210309190941-1aeedc14537d
+	google.golang.org/api v0.41.0
+	google.golang.org/genproto v0.0.0-20210310155132-4ce2db91004e
 	google.golang.org/grpc v1.36.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.25.1-0.20201208041424-160c7477e0e8
