@@ -1,4 +1,4 @@
-{{- if and .Values.monitoring.enabled (.Capabilities.APIVersions.Has "networking.k8s.io/v1") -}}
+{{- if and .Values.ingress.enabled (.Capabilities.APIVersions.Has "networking.k8s.io/v1") -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

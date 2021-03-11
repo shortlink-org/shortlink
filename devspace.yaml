@@ -1,0 +1,73 @@
+# Config version
+version: v1beta9
+
+# Defines all Dockerfiles that DevSpace will build, tag and push
+images:
+  shortlink-api:
+    image: batazor/shortlink-api
+    tags:
+      - '#####'
+    dockerfile: ./ops/dockerfile/api.Dockerfile
+    preferSyncOverRebuild: true
+    injectRestartHelper: true
+    appendDockerfileInstructions:
+    - USER root
+
+# Defines an array of everything (component, Helm chart, Kubernetes maninfests)
+# that will be deployed with DevSpace in the specified orde
+deployments:
+- name: shortlink-api
+  helm:
+    chart:
+      name: ./ops/Helm/shortlink-api
+    wait: true
+    values:
+      # Will be rewritten to registry.url/repo/image
+      repository: image(registry.url/repo/image)
+      tag: tag(registry.url/repo/image)
+
+# Settings for development mode
+dev:
+  ports:                              # Port Forwarding Configuration
+    - imageName: shortlink-api        # Select pod & container by image name (reference to images section)
+      forward:                        # List of ports to forward
+        - port: 7070
+  open:                               # Open Browser (after deployment)
+    - url: http://localhost:7070
+  sync:                               # File Sync Configuration
+    - imageName: shortlink-api        # Select pod & container by image name (reference to images section)
+      excludePaths:
+      - .git/
+      uploadExcludePaths:             # Never upload these files from local filesystem to the container
+      - .*
+      - docs
+      - '*.yml'
+      - '*.yaml'
+      - '*.md'
+      - '*.txt'
+      - '*.xml'
+      - devspace.yaml
+      onUpload:                       # Commands to execute after uploading files
+        restartContainer: true        # Restart the container (uses the restart helper)
+
+# Settings for development mode
+profiles:
+  - name: production
+    description: ""
+    patches:
+      - op: remove
+        path: images.api.appendDockerfileInstructions
+      - op: remove
+        path: images.api.injectRestartHelper
+  - name: interactive
+    description: ""
+    patches:
+      - op: add
+        path: dev.interactive
+        value:
+          defaultEnabled: true
+      - op: add
+        path: images.api.entrypoint
+        value:
+        - sleep
+        - "9999999999"
