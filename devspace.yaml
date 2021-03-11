@@ -22,9 +22,10 @@ deployments:
       name: ./ops/Helm/shortlink-api
     wait: true
     values:
-      # Will be rewritten to registry.url/repo/image
-      repository: image(registry.url/repo/image)
-      tag: tag(registry.url/repo/image)
+      deploy:
+        image:
+          repository: image(batazor/shortlink-api)
+          tag: tag(batazor/shortlink-api)
 
 # Settings for development mode
 dev:
