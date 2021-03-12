@@ -11,11 +11,11 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	api_rpc "github.com/batazor/shortlink/internal/services/api/infrastructure/rpc"
 	"github.com/batazor/shortlink/pkg/api/cloudevents"
-	gokit "github.com/batazor/shortlink/pkg/api/go-kit"
+	"github.com/batazor/shortlink/pkg/api/go-kit"
 	"github.com/batazor/shortlink/pkg/api/graphql"
-	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
-	httpchi "github.com/batazor/shortlink/pkg/api/http-chi"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
+	"github.com/batazor/shortlink/pkg/api/grpc-web"
+	"github.com/batazor/shortlink/pkg/api/http-chi"
+	"github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
