@@ -5,11 +5,12 @@ package grpcweb
 import (
 	"context"
 
-	"github.com/batazor/shortlink/internal/services/api/domain/link"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
+
+	"github.com/batazor/shortlink/internal/services/api/domain/link"
 )
 
 // This is a compile-time assertion to ensure that this generated file
