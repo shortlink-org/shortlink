@@ -50,6 +50,7 @@ make minikube-up
 make helm-shortlink-up
 ```
 
+<!--- don't work with current version 5.8.4
 ##### Devspace [(link)](https://devspace.sh/)
 
 ```
@@ -60,6 +61,7 @@ make devspace-up
 // For down
 make devspace-down
 ```
+-->
 
 </p>
 </details>
