@@ -40,6 +40,9 @@ Shortlink service
 make run
 ```
 
+<details><summary>DETAILS</summary>
+<p>
+
 ##### Kubernetes (1.19+)
 
 ```
@@ -58,14 +61,22 @@ make devspace-up
 make devspace-down
 ```
 
+</p>
+</details>
 
 ##### DNS/HTTP
+
+<details><summary>DETAILS</summary>
+<p>
 
 services:
   + `ui-next.local`
   + `shortlink.local`
 
 Add `127.0.0.1 [name services].local` to your `/etc/hosts`
+
+</p>
+</details>
 
 ### HTTP API
 
