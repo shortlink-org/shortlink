@@ -11,8 +11,6 @@ images:
     context: ../
     preferSyncOverRebuild: true
     injectRestartHelper: true
-    appendDockerfileInstructions:
-    - USER root
 
 # Defines an array of everything (component, Helm chart, Kubernetes maninfests)
 # that will be deployed with DevSpace in the specified orde
