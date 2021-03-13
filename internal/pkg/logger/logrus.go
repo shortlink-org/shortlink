@@ -42,6 +42,10 @@ func (log *logrusLogger) Close() error {
 	return nil
 }
 
+func (log *logrusLogger) Get() interface{} {
+	return log.logger
+}
+
 func (log *logrusLogger) SetConfig(config Configuration) error {
 	log.setLogLevel(config.Level)
 

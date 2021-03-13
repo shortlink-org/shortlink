@@ -48,6 +48,10 @@ func (log *zapLogger) Close() error {
 	return err
 }
 
+func (log *zapLogger) Get() interface{} {
+	return log.logger
+}
+
 func (log *zapLogger) SetConfig(config Configuration) error {
 	var err error
 	logLevel := log.setLogLevel(config.Level)
