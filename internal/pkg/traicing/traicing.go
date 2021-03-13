@@ -12,6 +12,8 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/uber/jaeger-client-go"
 	"github.com/uber/jaeger-client-go/config"
+	zapJaeger "github.com/uber/jaeger-client-go/log/zap"
+	"go.uber.org/zap"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
@@ -45,7 +47,8 @@ func Init(cnf Config, log logger.Logger) (*opentracing.Tracer, io.Closer, error)
 			LocalAgentHostPort: cnf.URI,
 		},
 	}
-	tracer, closer, err := cfg.NewTracer(config.Logger(jaeger.StdLogger))
+	zapLogger := log.Get().(*zap.Logger)
+	tracer, closer, err := cfg.NewTracer(config.Logger(zapJaeger.NewLogger(zapLogger)))
 	if err != nil {
 		return nil, nil, err
 	}
