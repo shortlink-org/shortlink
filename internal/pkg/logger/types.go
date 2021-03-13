@@ -34,6 +34,7 @@ type Logger interface { //nolint unused
 	DebugWithContext(ctx context.Context, msg string, fields ...field.Fields)
 
 	SetConfig(Configuration) error
+	Get() interface{}
 
 	// Closer is the interface that wraps the basic Close method.
 	io.Closer
