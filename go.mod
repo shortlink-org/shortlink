@@ -13,7 +13,7 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.3.1
 	github.com/container-storage-interface/spec v1.4.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
-	github.com/dgraph-io/badger/v2 v2.2007.2
+	github.com/dgraph-io/badger/v3 v3.2011.1
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dgryski/go-farm v0.0.0-20200201041132-a6ae2369ad13 // indirect
 	github.com/getsentry/sentry-go v0.10.0

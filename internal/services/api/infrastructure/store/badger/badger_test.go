@@ -6,7 +6,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/dgraph-io/badger/v2"
+	"github.com/dgraph-io/badger/v3"
 	"github.com/stretchr/testify/assert"
 
 	db "github.com/batazor/shortlink/internal/pkg/db/badger"
