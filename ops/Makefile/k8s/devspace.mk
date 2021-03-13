@@ -4,8 +4,8 @@ devspace-init: ## Run local minikube and set default params
 	@devspace use namespace shortlink
 
 devspace-up: ## Up dev-workspace
-	@devspace dev
+	@devspace dev --config ops/devspace.yaml
 
 devspace-down: ## Down dev-workspace
-	@devspace purge --dependencies
+	@devspace purge --dependencies --config ops/devspace.yaml
 

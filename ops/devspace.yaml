@@ -7,7 +7,8 @@ images:
     image: batazor/shortlink-api
     tags:
       - '#####'
-    dockerfile: ./ops/dockerfile/api.Dockerfile
+    dockerfile: ./dockerfile/api.Dockerfile
+    context: ../
     preferSyncOverRebuild: true
     injectRestartHelper: true
     appendDockerfileInstructions:
@@ -19,7 +20,7 @@ deployments:
 - name: shortlink-api
   helm:
     chart:
-      name: ./ops/Helm/shortlink-api
+      name: ./Helm/shortlink-api
     wait: true
     values:
       deploy:
