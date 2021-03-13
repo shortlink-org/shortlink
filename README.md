@@ -40,6 +40,9 @@ Shortlink service
 make run
 ```
 
+<details><summary>DETAILS</summary>
+<p>
+
 ##### Kubernetes (1.19+)
 
 ```
@@ -47,13 +50,35 @@ make minikube-up
 make helm-shortlink-up
 ```
 
+<!--- don't work with current version 5.8.4
+##### Devspace [(link)](https://devspace.sh/)
+
+```
+// For run
+make devspace-init
+make devspace-up
+
+// For down
+make devspace-down
+```
+-->
+
+</p>
+</details>
+
 ##### DNS/HTTP
+
+<details><summary>DETAILS</summary>
+<p>
 
 services:
   + `ui-next.local`
   + `shortlink.local`
 
 Add `127.0.0.1 [name services].local` to your `/etc/hosts`
+
+</p>
+</details>
 
 ### HTTP API
 
@@ -75,8 +100,8 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
 ### MQ
 
 + [Kafka](https://kafka.apache.org/)
-+ NATS
-+ RabbitMQ
++ [NATS](https://nats.io/)
++ [RabbitMQ](https://www.rabbitmq.com/)
 
 ### Store provider
 
@@ -107,7 +132,7 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
   + Helm Chart
     + [pingcap/chaos-meshh](https://github.com/pingcap/chaos-mesh)
   + Minikube
-  + Backup/Restore ([Velero](https://velero.io/)
+  + Backup/Restore [(Velero)](https://velero.io/)
   + Custom CSI driver (fork [csi-driver-host-pat](https://github.com/kubernetes-csi/csi-driver-host-path))
 + Istio
 + MetalLB
@@ -121,9 +146,6 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
 + Nginx
 
 ### UI service
-
-+ Landing: [demo UI](https://shortlink.ddns.net)
-+ Next: [demo UI](https://shortlink.ddns.net/next)
 
 | Service     | Description                       | Language/Framework |
 |-------------|-----------------------------------|--------------------|
@@ -197,28 +219,6 @@ ansible-playbook playbooks/playbook.yml
 </p>
 </details>
 
-### Kubernetes
-
-<details><summary>DETAILS</summary>
-<p>
-
-##### HELM
-
-+ **common** - run common tools (ingress)
-+ **shortlink-\*** - run shortlink applications (api, logger, ui)
-+ **chaos** - run chaos daemon
-+ **ingress** - run ingress ;-)
-
-##### DNS
-
-+ `ui-next.local`
-+ `grafana.local`
-+ `jaeger.local`
-+ `prometheus.local`
-
-</p>
-</details>
-
 ### GITLAB CI
 
 ![](./docs/gitlab/gitlab-pipeline.png)
@@ -242,13 +242,6 @@ ansible-playbook playbooks/playbook.yml
 - Travis action (backend/frontend)
 - Docker action
 - Helm chart
-
-### [Error code](./internal/error/status/exit.go)
-
-| CODE | Describe     |
-|------|--------------|
-| 0    | SUCCESS      |
-| 1    | ERROR_CONFIG |
 
 ## -~- THE END -~-
 
