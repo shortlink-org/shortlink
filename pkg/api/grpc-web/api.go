@@ -1,6 +1,6 @@
-//go:generate protoc -I. -I../../..  -I../../../third_party/googleapis --go_out=Mpkg/api/grpc-web/api.proto=.:. --go-grpc_out=Mpkg/api/grpc-web/api.proto=.:. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative api.proto
-//go:generate protoc -I. -I../../..  -I../../../third_party/googleapis --grpc-gateway_out=logtostderr=true,allow_delete_body=true:. --openapiv2_out=logtostderr=true:. api.proto
-//go:generate mv api.swagger.json ../../../docs/api.swagger.json
+//go:generate protoc -I. -I../../..  -I../../../third_party/googleapis --go_out=Mpkg/api/grpc-web/grpc-api.proto=.:. --go-grpc_out=Mpkg/api/grpc-web/grpc-api.proto=.:. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative grpc-api.proto
+//go:generate protoc -I. -I../../..  -I../../../third_party/googleapis --grpc-gateway_out=logtostderr=true,allow_delete_body=true:. --openapiv2_out=logtostderr=true:. grpc-api.proto
+//go:generate mv grpc-api.swagger.json ../../../docs/api.swagger.json
 
 package grpcweb
 
