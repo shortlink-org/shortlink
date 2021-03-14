@@ -9,4 +9,3 @@ include $(SELF_DIR)/ops/Makefile/k8s/csi.mk
 include $(SELF_DIR)/ops/Makefile/k8s/istio.mk
 include $(SELF_DIR)/ops/Makefile/k8s/gitlab.mk
 include $(SELF_DIR)/ops/Makefile/k8s/prometheus.mk
-include $(SELF_DIR)/ops/Makefile/k8s/devspace.mk
