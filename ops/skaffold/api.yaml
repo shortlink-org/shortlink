@@ -1,0 +1,29 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: shortlink-api
+build:
+  local:
+    useBuildkit: true
+  artifacts:
+  - image: shortlink-api
+    context: ../../
+    docker:
+      dockerfile: ops/dockerfile/api.Dockerfile
+deploy:
+  helm:
+    releases:
+    - name: shortlink-api
+      namespace: shortlink
+      chartPath: ../Helm/shortlink-api
+      wait: true
+      artifactOverrides:
+        image: shortlink-api
+      setValueTemplates:
+        deploy.image.repository: "{{.IMAGE_REPO}}"
+        deploy.image.tag: "{{.IMAGE_TAG}}"
+portForward:
+- resourceType: deployment
+  resourceName: shortlink-api
+  port: 7070
+  localPort: 7070

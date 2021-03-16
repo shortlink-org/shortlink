@@ -50,6 +50,15 @@ make minikube-up
 make helm-shortlink-up
 ```
 
+##### Skaffold [(link)](https://skaffold.dev/)
+```
+// For run
+make skaffold-init
+make skaffold-up
+// For down
+make skaffold-down
+```
+
 </p>
 </details>
 
@@ -108,6 +117,8 @@ Add `127.0.0.1 [name services].local` to your `/etc/hosts`
 
 ### Cloud-Native
 
++ Development
+  + [Skaffold](https://skaffold.dev/)
 + Logger
   + [Loki](./docs/logger.md)
   + DataDog
