@@ -1,0 +1,6 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: shortlink
+requires:
+- path: ./ops/skaffold/api.yaml
