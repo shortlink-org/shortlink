@@ -23,7 +23,8 @@ deploy:
         deploy.image.repository: "{{.IMAGE_REPO}}"
         deploy.image.tag: "{{.IMAGE_TAG}}"
 portForward:
-- resourceType: deployment
+- resourceType: service
   resourceName: shortlink-api
+  namespace: shortlink
   port: 7070
   localPort: 7070
