@@ -59,17 +59,12 @@ plan:
       - plan.tfplan
     reports:
       terraform: tfplan.json
+  needs:
+    - validate
   rules:
     - when: always
 
-test:
-  stage: build
-  script:
-    - echo 123
-  rules:
-    - when: always
-
-deploy:
+apply:
   stage: deploy
   script:
     - echo 123
@@ -78,13 +73,13 @@ deploy:
 
 # Separate apply job for manual launching Terraform as it can be destructive
 # action.
-apply:
-  stage: deploy
-  environment:
-    name: terraform
-    deployment_tier: production
-  script:
-    - terraform apply -input=false $PLAN
-  needs:
-    - plan
-  when: manual
+#apply:
+#  stage: deploy
+#  environment:
+#    name: terraform
+#    deployment_tier: production
+#  script:
+#    - terraform apply -input=false $PLAN
+#  needs:
+#    - plan
+#  when: manual
