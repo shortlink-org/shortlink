@@ -66,9 +66,9 @@ plan:
 # action.
 apply:
   stage: deploy
-  environment:
-    name: production/terraform
-    deployment_tier: production
+#  environment:
+#    name: terraform
+#    deployment_tier: production
   script:
     - terraform apply -input=false $PLAN
   needs:
