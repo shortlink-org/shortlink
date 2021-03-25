@@ -59,6 +59,8 @@ plan:
       - plan.tfplan
     reports:
       terraform: tfplan.json
+  rules:
+    - when: always
 
 # Separate apply job for manual launching Terraform as it can be destructive
 # action.
