@@ -41,10 +41,6 @@ spec:
           {{- toYaml .Values.deploy.securityContext | nindent 12 }}
         image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
-        ports:
-        - name: http
-          containerPort: 7070
-          protocol: TCP
         {{- if .Values.deploy.livenessProbe }}
         livenessProbe:
           {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
@@ -60,6 +56,9 @@ spec:
           {{- end }}
         resources:
           {{- toYaml .Values.deploy.resources | nindent 10 }}
+        volumeMounts:
+          - name: {{ include "helpers.fullname" . }}-grpc
+            mountPath: /app/ops/cert/
       {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -72,3 +71,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
+      volumes:
+        - name: {{ include "helpers.fullname" . }}-grpc
+          secret:
+            secretName: {{ include "helpers.fullname" . }}-grpc
