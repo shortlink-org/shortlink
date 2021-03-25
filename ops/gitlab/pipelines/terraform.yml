@@ -63,7 +63,8 @@ plan:
 apply:
   stage: deploy
   environment:
-    name: production
+    name: terraform
+    deployment_tier: production
   script:
     - terraform apply -input=false $PLAN
   dependencies:
