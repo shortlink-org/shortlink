@@ -65,7 +65,6 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.tolerations | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | nameOverride | string | `""` |  |
-| service.port | int | `7070` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
