@@ -17,61 +17,60 @@ Shortlink service
 
 - [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
 
-##### Requirements
-
-- docker
-- docker-compose
-- protoc 3.7.1+
-- ansible
-- ansible-galaxy
-
 ##### Services
 
 | Service     | Description                          | Language/Framework | Docs                       |
 |-------------|--------------------------------------|--------------------|----------------------------|
-| shortlink   | Shortlink service                    | Go                 |                            |
+| api         | GateWay/Main service                 | Go                 |                            |
 | logger      | Logger service                       | Go                 |                            |
+| metadata    | Parser site by API                   | Go                 |                            |
 | bot         | Send notify to smtp, slack, telegram | Go                 |                            |
 | shortctl    | Shortlink CLI                        | Go                 | [docs](./docs/shortctl.md) |
+| csi         | CSI example                          | Go                 |                            |
 
 ### Run
-
-```
-make run
-```
 
 <details><summary>DETAILS</summary>
 <p>
 
+##### docker-compose
+
+###### For run
+```
+make run
+```
+
+###### For down
+```
+make down
+```
+
+
 ##### Kubernetes (1.19+)
 
+###### For run
 ```
 make minikube-up
 make helm-shortlink-up
 ```
 
-##### Skaffold [(link)](https://skaffold.dev/)
+###### For down
 ```
-// For run
+make minikube-down
+```
+
+##### Skaffold [(link)](https://skaffold.dev/)
+
+###### For run
+```
 make skaffold-init
 make skaffold-up
-// For down
-make skaffold-down
 ```
 
-</p>
-</details>
-
-##### DNS/HTTP
-
-<details><summary>DETAILS</summary>
-<p>
-
-services:
-  + `ui-next.local`
-  + `shortlink.local`
-
-Add `127.0.0.1 [name services].local` to your `/etc/hosts`
+###### For down
+```
+make skaffold-down
+```
 
 </p>
 </details>

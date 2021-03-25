@@ -4,11 +4,15 @@ ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
 ARG SKAFFOLD_GO_GCFLAGS
 
-WORKDIR /go/src/github/batazor/shortlink
-COPY . .
+WORKDIR /go/github.com/batazor/shortlink
 
 # Load dependencies
+COPY go.mod .
+COPY go.sum .
 RUN go mod vendor
+
+# COPY the source code as the last step
+COPY . .
 
 # Build project
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
@@ -25,7 +29,7 @@ FROM alpine:3.13
 
 # Define GOTRACEBACK to mark this container as using the Go language runtime
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
-ENV GOTRACEBACK=single
+ENV GOTRACEBACK=all
 
 # 7070: API
 # 9090: metrics
@@ -34,7 +38,7 @@ EXPOSE 7070 9090
 # Install dependencies
 RUN \
     apk update && \
-    apk add --no-cache curl
+    apk add --no-cache curl ca-certificates git
 
 RUN addgroup -S api && adduser -S -g api api
 USER api
@@ -46,5 +50,5 @@ HEALTHCHECK \
   CMD curl -f localhost:9090/ready || exit 1
 
 WORKDIR /app/
-COPY --from=builder /go/src/github/batazor/shortlink/app .
 CMD ["./app"]
+COPY --from=builder /go/github.com/batazor/shortlink/app /app

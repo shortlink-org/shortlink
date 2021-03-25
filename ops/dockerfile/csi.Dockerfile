@@ -2,7 +2,7 @@ FROM golang:1.16-alpine as builder
 
 ARG CI_COMMIT_TAG
 
-WORKDIR /go/src/github/batazor/shortlink
+WORKDIR /go/github.com/batazor/shortlink
 COPY . .
 
 # Load dependencies
@@ -25,9 +25,9 @@ EXPOSE 9090
 
 # Install dependencies
 RUN \
-    apk update && \
-    apk add --no-cache curl util-linux
+  apk update && \
+  apk add --no-cache curl util-linux
 
 WORKDIR /app/
-COPY --from=builder /go/src/github/batazor/shortlink/app .
+COPY --from=builder /go/github.com/batazor/shortlink/app .
 ENTRYPOINT ["./app"]
