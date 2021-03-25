@@ -65,6 +65,9 @@ plan:
 
 apply:
   stage: deploy
+  environment:
+    name: terraform
+    deployment_tier: production
   script:
     - echo 123
   needs:
