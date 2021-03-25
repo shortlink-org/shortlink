@@ -33,7 +33,6 @@ before_script:
   - terraform init -backend-config="address=${GITLAB_TF_ADDRESS}" -backend-config="lock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="unlock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="username=${GITLAB_USER_LOGIN}" -backend-config="password=${GITLAB_TF_PASSWORD}" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5" ops/terraform
 
 stages:
-  - .pre
   - validate
   - build
   - deploy
@@ -68,6 +67,8 @@ apply:
   stage: deploy
   script:
     - echo 123
+  needs:
+    - plan
   rules:
     - when: always
 
