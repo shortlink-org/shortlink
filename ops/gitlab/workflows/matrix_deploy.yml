@@ -27,6 +27,7 @@
 
 .matrix_deploy_application_js:
   parallel:
+    matrix:
       - PROVIDER: next
         RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
         RELEASE_URL: ${PROVIDER}
