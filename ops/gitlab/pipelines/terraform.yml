@@ -63,13 +63,14 @@ plan:
   rules:
     - when: always
 
+# Separate apply job for manual launching Terraform as it can be destructive action.
 apply:
   stage: deploy
   environment:
     name: terraform
     deployment_tier: production
   script:
-    - echo 123
+    - terraform apply -input=false $PLAN
   needs:
     - plan
   rules:
