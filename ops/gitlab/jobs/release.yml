@@ -56,8 +56,9 @@ pages:
   variables:
     DOCS_FOLDER: "docs"
     SPEC_TO_DISPLAY: "api.swagger.json"
-  only:
-    - tags
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 # ML ===================================================================================================================
 ml:
