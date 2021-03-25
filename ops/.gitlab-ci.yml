@@ -10,11 +10,13 @@ include:
   - local: /ops/gitlab/jobs/.post.yml
 
 stages:
+  - .pre
   - test
   - build
   - deploy
   - qa
   - release
+  - .post
 
 workflow:
   rules:
