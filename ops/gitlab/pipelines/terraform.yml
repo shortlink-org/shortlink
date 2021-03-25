@@ -62,13 +62,23 @@ plan:
   rules:
     - when: always
 
+test:
+  stage: build
+  script:
+    - echo 123
+
+deploy:
+  stage: deploy
+  script:
+    - echo 123
+
 # Separate apply job for manual launching Terraform as it can be destructive
 # action.
 apply:
   stage: deploy
-#  environment:
-#    name: terraform
-#    deployment_tier: production
+  environment:
+    name: terraform
+    deployment_tier: production
   script:
     - terraform apply -input=false $PLAN
   needs:
