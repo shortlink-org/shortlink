@@ -42,6 +42,8 @@ validate:
   stage: validate
   script:
     - terraform validate
+  rules:
+    - when: always
 
 plan:
   stage: build
