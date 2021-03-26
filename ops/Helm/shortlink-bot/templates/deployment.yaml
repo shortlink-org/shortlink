@@ -16,13 +16,13 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "helpers.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/component: metadata
+      app.kubernetes.io/component: bot
   template:
     metadata:
       labels:
         app.kubernetes.io/name: {{ include "helpers.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
-        app.kubernetes.io/component: metadata
+        app.kubernetes.io/component: bot
       annotations:
       {{- if .Values.deploy.annotations }}
         {{- toYaml .Values.deploy.annotations | nindent 8 }}

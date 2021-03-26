@@ -1,0 +1,25 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: shortlink-metadata
+build:
+  local:
+    useBuildkit: true
+  artifacts:
+  - image: shortlink-metadata
+    context: ../../
+    docker:
+      dockerfile: ops/dockerfile/metadata.Dockerfile
+deploy:
+  helm:
+    releases:
+    - name: shortlink-metadata
+      namespace: shortlink
+      chartPath: ../Helm/shortlink-metadata
+      wait: true
+      artifactOverrides:
+        image: shortlink-metadata
+      setValueTemplates:
+        deploy.image.repository: "{{.IMAGE_REPO}}"
+        deploy.image.tag: "{{.IMAGE_TAG}}"
+
