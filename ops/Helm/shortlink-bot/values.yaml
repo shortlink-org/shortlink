@@ -63,7 +63,7 @@ deploy:
   env:
     MQ_ENABLED: "false"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
-    SERVICE_NAME: metadata
+    SERVICE_NAME: Logger
 
   imagePullSecrets: []
 
@@ -80,7 +80,7 @@ deploy:
   annotations: {}
 
   image:
-    repository: batazor/shortlink-metadata
+    repository: batazor/shortlink-bot
     tag: latest
     ## Global imagePullPolicy
     ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
@@ -90,8 +90,9 @@ deploy:
   ## Node labels and tolerations for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-  nodeSelector: []
+  nodeSelector: {}
   #  shortlink: "true"
+
   tolerations: []
 
   affinity: []
