@@ -20,6 +20,6 @@ deploy:
       artifactOverrides:
         image: shortlink-bot
       setValueTemplates:
-        deploy.image.repository: "{{.IMAGE_REPO}}"
-        deploy.image.tag: "{{.IMAGE_TAG}}"
+        deploy.image.repository: "{{.IMAGE_REPO4}}"
+        deploy.image.tag: "{{.IMAGE_TAG4}}"
 
