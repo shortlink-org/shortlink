@@ -18,7 +18,7 @@ require (
 	github.com/dgryski/go-farm v0.0.0-20200201041132-a6ae2369ad13 // indirect
 	github.com/getsentry/sentry-go v0.10.0
 	github.com/go-chi/chi/v5 v5.0.1
-	github.com/go-chi/cors v1.1.1
+	github.com/go-chi/cors v1.2.0
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis/v8 v8.7.1
