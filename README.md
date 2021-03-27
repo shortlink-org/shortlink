@@ -72,6 +72,11 @@ make skaffold-up
 make skaffold-down
 ```
 
+###### Debug mode
+```
+make skaffold-debug
+```
+
 </p>
 </details>
 
