@@ -1,0 +1,29 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: shortlink-landing
+build:
+  local:
+    useBuildkit: true
+  artifacts:
+  - image: shortlink-landing
+    context: ../../
+    docker:
+      dockerfile: ops/dockerfile/landing.Dockerfile
+    sync:
+      infer:
+        - 'ui/landing/**'
+        - 'ops/docker-compose/gateway/**'
+        - 'ops/dockerfile/conf/landing.local'
+deploy:
+  helm:
+    releases:
+    - name: shortlink-landing
+      namespace: shortlink
+      chartPath: ../Helm/shortlink-landing
+      wait: true
+      artifactOverrides:
+        image: shortlink-landing
+      setValueTemplates:
+        deploy.image.repository: "{{.IMAGE_REPO6}}"
+        deploy.image.tag: "{{.IMAGE_TAG6}}"
