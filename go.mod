@@ -72,7 +72,7 @@ require (
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/api v0.43.0
 	google.golang.org/genproto v0.0.0-20210325224202-eed09b1b5210
-	google.golang.org/grpc v1.36.0
+	google.golang.org/grpc v1.36.1
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
