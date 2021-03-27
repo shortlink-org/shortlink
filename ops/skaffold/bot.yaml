@@ -1,0 +1,30 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: shortlink-bot
+build:
+  local:
+    useBuildkit: true
+  artifacts:
+  - image: shortlink-bot
+    context: ../../
+    docker:
+      dockerfile: ops/dockerfile/bot.Dockerfile
+    sync:
+      infer:
+        - 'cmd/bot/**'
+        - 'pkg/**'
+        - 'internal'
+deploy:
+  helm:
+    releases:
+    - name: shortlink-bot
+      namespace: shortlink
+      chartPath: ../Helm/shortlink-bot
+      wait: true
+      artifactOverrides:
+        image: shortlink-bot
+      setValueTemplates:
+        deploy.image.repository: "{{.IMAGE_REPO4}}"
+        deploy.image.tag: "{{.IMAGE_TAG4}}"
+

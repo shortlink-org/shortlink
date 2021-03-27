@@ -11,11 +11,12 @@ stages:
 deploy:
   extends:
     - .job_template_deploy
-    - .matrix_deploy
+    - .matrix_deploy_provider
   tags:
     - docker
   environment:
     name: ${PROVIDER}/${RELEASE_NAME}
+    deployment_tier: production
     url: $ENVIRONMENT_URL
     on_stop: drop
     kubernetes:

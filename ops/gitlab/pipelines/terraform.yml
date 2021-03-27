@@ -35,13 +35,14 @@ before_script:
 stages:
   - validate
   - build
-  - test
   - deploy
 
 validate:
   stage: validate
   script:
     - terraform validate
+  rules:
+    - when: always
 
 plan:
   stage: build
@@ -57,15 +58,20 @@ plan:
       - plan.tfplan
     reports:
       terraform: tfplan.json
+  needs:
+    - validate
+  rules:
+    - when: always
 
-# Separate apply job for manual launching Terraform as it can be destructive
-# action.
+# Separate apply job for manual launching Terraform as it can be destructive action.
 apply:
   stage: deploy
   environment:
-    name: production
+    name: terraform
+    deployment_tier: production
   script:
     - terraform apply -input=false $PLAN
-  dependencies:
+  needs:
     - plan
-  when: manual
+  rules:
+    - when: manual

@@ -1,0 +1,154 @@
+# Common default values for shortlink.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: shortlink
+
+# ==============================================================================
+# This secret for dev-stand. For production use CI-variables
+secret:
+  grpcServerCert: |
+    -----BEGIN CERTIFICATE-----
+    MIICkTCCAjigAwIBAgIUdo/zgCCySxFfOxrYpympLLN0mvcwCgYIKoZIzj0EAwIw
+    fzELMAkGA1UEBhMCUlUxDzANBgNVBAgTBk1vc2NvdzEPMA0GA1UEBxMGTW9zY293
+    MRIwEAYDVQQKEwlTaG9ydGxpbmsxDzANBgNVBAsTBk1vc2NvdzEpMCcGA1UEAxMg
+    Q3VzdG9tIFNob3J0bGluayBJbnRlcm1lZGlhdGUgQ0EwHhcNMjAxMTIxMTgwMjAw
+    WhcNMjExMTIxMTgwMjAwWjBoMQswCQYDVQQGEwJSVTEPMA0GA1UECBMGTW9zY293
+    MQ8wDQYDVQQHEwZNb3Njb3cxEjAQBgNVBAoTCVNob3J0bGluazEPMA0GA1UECxMG
+    TW9zY293MRIwEAYDVQQDEwlzaG9ydGxpbmswWTATBgcqhkjOPQIBBggqhkjOPQMB
+    BwNCAARXdzYwc4cLaba2/9zxd0aT0wGSOy40s47jT7fkGwCuOvNB7Yl80ed/jEht
+    +BJJgT87MOVOHLBXT9SEa2O/8Iw6o4GoMIGlMA4GA1UdDwEB/wQEAwIFoDATBgNV
+    HSUEDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQvXJcdbHow
+    DJoiXyvryuTo1NFAtjAfBgNVHSMEGDAWgBQYmcpn4g+FP48+qkjb1NulzAgvaDAw
+    BgNVHREEKTAngglsb2NhbGhvc3SCBWxvY2FsggcqLmxvY2FshwR/AAABhwQAAAAA
+    MAoGCCqGSM49BAMCA0cAMEQCIDTXPLlM1YpK5Iwe80imyysmJAkbA+jKSWW0CBvd
+    rUQDAiB71ah7iKjM1P9lOzWfD3nm6DYZSdWLmUCXnrjBt6xYEQ==
+    -----END CERTIFICATE-----
+  grpcServerKey: |
+    -----BEGIN EC PRIVATE KEY-----
+    MHcCAQEEIAm9fkeHAhonIbVt3LQHgibo7x5+5RkMEW6a1qm00KUkoAoGCCqGSM49
+    AwEHoUQDQgAEV3c2MHOHC2m2tv/c8XdGk9MBkjsuNLOO40+35BsArjrzQe2JfNHn
+    f4xIbfgSSYE/OzDlThywV0/UhGtjv/CMOg==
+    -----END EC PRIVATE KEY-----
+  grpcIntermediateCA: |
+    -----BEGIN CERTIFICATE-----
+    MIICljCCAjugAwIBAgIUZhuY8pa+aFn96PpXHKoFxgW9WsQwCgYIKoZIzj0EAwIw
+    gYwxCzAJBgNVBAYTAlJVMQ8wDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2Nv
+    dzESMBAGA1UEChMJU2hvcnRsaW5rMSswKQYDVQQLEyJFeGFtcGxlIFJvb3QgQ2Vy
+    dGlmaWNhdGUgQXV0aG9yaXR5MRowGAYDVQQDExFTaG9ydGxpbmsgUm9vdCBDQTAe
+    Fw0yMDExMjExODAyMDBaFw0yMTExMjExODAyMDBaMH8xCzAJBgNVBAYTAlJVMQ8w
+    DQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2NvdzESMBAGA1UEChMJU2hvcnRs
+    aW5rMQ8wDQYDVQQLEwZNb3Njb3cxKTAnBgNVBAMTIEN1c3RvbSBTaG9ydGxpbmsg
+    SW50ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsMwqTmk0
+    bvNChfE79Ljr/mnkw90XVe4J45GgYYZZ83eUqetg/dnT+0h/Mdw1uEABYtbmRG4Q
+    yGdNIcSCsS8tf6OBhjCBgzAOBgNVHQ8BAf8EBAMCAaYwHQYDVR0lBBYwFAYIKwYB
+    BQUHAwEGCCsGAQUFBwMCMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFBiZ
+    ymfiD4U/jz6qSNvU26XMCC9oMB8GA1UdIwQYMBaAFA93UcPMOw3jdtWLxuCopshq
+    K9FrMAoGCCqGSM49BAMCA0kAMEYCIQDGHwhl3IrIgD75cvqBqvitltzEDqBlnGMi
+    M3FEoCXGhwIhAIFPuVTuk16zNNJZNlY+027k0pg0SOfNcw0qcNyFtOvC
+    -----END CERTIFICATE-----
+
+# ==============================================================================
+deploy:
+  replicaCount: 1
+
+  env:
+    MQ_ENABLED: "false"
+    TRACER_URI: jaeger-agent.jaeger-operator:6831
+    SERVICE_NAME: Logger
+
+  imagePullSecrets: []
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  terminationGracePeriodSeconds: 90
+
+  ## Annotations to be added to controller pods
+  ##
+  annotations: {}
+
+  image:
+    repository: batazor/shortlink-bot
+    tag: latest
+    ## Global imagePullPolicy
+    ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    ## Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    pullPolicy: IfNotPresent
+
+  ## Node labels and tolerations for pod assignment
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+  nodeSelector: {}
+  #  shortlink: "true"
+
+  tolerations: []
+
+  affinity: []
+
+  # define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  livenessProbe:
+    httpGet:
+      path: /live
+      port: 9090
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 1
+
+  # define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 9090
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 30
+
+  # volumes:
+  #  hostPath: /data/carenda/upload
+
+  resources:
+    # We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  podSecurityContext:
+    # fsGroup is the group ID associated with the container
+    fsGroup: 1000
+
+  ## Security Context policies for controller pods
+  ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+  ## notes on enabling and using sysctls
+  ##
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsNonRoot: true
+    # runAsUser is the user ID used to run the container
+    runAsUser: 1000
+    # runAsGroup is the primary group ID used to run all processes within any container of the pod
+    runAsGroup: 1000
+    # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop:
+        - ALL

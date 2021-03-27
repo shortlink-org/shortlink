@@ -1,0 +1,30 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: shortlink-logger
+build:
+  local:
+    useBuildkit: true
+  artifacts:
+  - image: shortlink-logger
+    context: ../../
+    docker:
+      dockerfile: ops/dockerfile/logger.Dockerfile
+    sync:
+      infer:
+        - 'cmd/logger/**'
+        - 'pkg/**'
+        - 'internal'
+deploy:
+  helm:
+    releases:
+    - name: shortlink-logger
+      namespace: shortlink
+      chartPath: ../Helm/shortlink-logger
+      wait: true
+      artifactOverrides:
+        image: shortlink-logger
+      setValueTemplates:
+        deploy.image.repository: "{{.IMAGE_REPO2}}"
+        deploy.image.tag: "{{.IMAGE_TAG2}}"
+

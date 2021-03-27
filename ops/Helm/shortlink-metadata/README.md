@@ -70,7 +70,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIAm9fkeHAhonIbVt3LQHgibo7x5+5RkMEW6a1qm00KUkoAoGCCqGSM49\nAwEHoUQDQgAEV3c2MHOHC2m2tv/c8XdGk9MBkjsuNLOO40+35BsArjrzQe2JfNHn\nf4xIbfgSSYE/OzDlThywV0/UhGtjv/CMOg==\n-----END EC PRIVATE KEY-----\n"` |  |
 | service.port | int | `7070` |  |
 | service.type | string | `"ClusterIP"` |  |
-| serviceAccount.create | bool | `true` |  |
+| serviceAccount.create | bool | `false` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
 
 ----------------------------------------------
