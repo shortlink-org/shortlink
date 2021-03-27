@@ -10,6 +10,11 @@ build:
     context: ../../
     docker:
       dockerfile: ops/dockerfile/logger.Dockerfile
+    sync:
+      infer:
+        - 'cmd/logger/**'
+        - 'pkg/**'
+        - 'internal'
 deploy:
   helm:
     releases:

@@ -10,6 +10,11 @@ build:
     context: ../../
     docker:
       dockerfile: ops/dockerfile/metadata.Dockerfile
+    sync:
+      infer:
+        - 'cmd/metadata/**'
+        - 'pkg/**'
+        - 'internal'
 deploy:
   helm:
     releases:

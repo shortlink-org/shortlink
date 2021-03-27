@@ -10,6 +10,11 @@ build:
     context: ../../
     docker:
       dockerfile: ops/dockerfile/bot.Dockerfile
+    sync:
+      infer:
+        - 'cmd/bot/**'
+        - 'pkg/**'
+        - 'internal'
 deploy:
   helm:
     releases:

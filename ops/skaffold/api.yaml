@@ -10,6 +10,11 @@ build:
     context: ../../
     docker:
       dockerfile: ops/dockerfile/api.Dockerfile
+    sync:
+      infer:
+        - 'cmd/api/**'
+        - 'pkg/**'
+        - 'internal'
 deploy:
   helm:
     releases:
