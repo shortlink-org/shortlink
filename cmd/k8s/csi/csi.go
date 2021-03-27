@@ -1,38 +1,70 @@
 package main
 
 import (
-	"flag"
 	"fmt"
+	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
+	"github.com/spf13/cobra"
+	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
 
 	csi_driver "github.com/batazor/shortlink/pkg/csi"
 	"github.com/batazor/shortlink/pkg/csi/di"
 )
 
-func main() {
+func init() {
 	viper.SetDefault("SERVICE_NAME", "csi")
 
+	rootCmd := &cobra.Command{
+		Use:   "shortctl-csi",
+		Short: "Shortlink container storage interface",
+		Long:  "Shortlink container storage interface",
+		Run:   func(cmd *cobra.Command, args []string) {},
+	}
+
+	rootCmd.Flags().String("endpoint", "unix://tmp/csi.sock", "CSI endpoint")
+	if err := viper.BindPFlag("endpoint", rootCmd.Flags().Lookup("endpoint")); err != nil {
+		log.Fatal(err)
+	}
+
+	rootCmd.Flags().String("nodeid", "", "node id")
+	if err := viper.BindPFlag("nodeid", rootCmd.Flags().Lookup("nodeid")); err != nil {
+		log.Fatal(err)
+	}
+
+	rootCmd.Flags().Int64("maxvolumespernode", 0, "limit of volumes per node")
+	if err := viper.BindPFlag("maxvolumespernode", rootCmd.Flags().Lookup("maxvolumespernode")); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := rootCmd.Execute(); err != nil {
+		log.Fatal(err)
+	}
+
+	// Generate docs
+	if err := doc.GenMarkdownTree(rootCmd, "./docs"); err != nil {
+		log.Fatal(err)
+	}
+}
+
+func main() {
 	// Init a new service
 	s, cleanup, err := di.InitializeSCIDriver()
 	if err != nil { // TODO: use as helpers
 		panic(err)
 	}
 
-	// TODO: Use cobra
-	var (
-		endpoint          = flag.String("endpoint", "unix://tmp/csi.sock", "CSI endpoint")
-		nodeID            = flag.String("nodeid", "", "node id")
-		maxVolumesPerNode = flag.Int64("maxvolumespernode", 0, "limit of volumes per node")
-	)
-
-	flag.Parse()
-
 	// Run CSI Driver
-	driver, err := csi_driver.NewDriver(s.Log, csi_driver.DefaultDriverName, *nodeID, *endpoint, *maxVolumesPerNode)
+	driver, err := csi_driver.NewDriver(
+		s.Log,
+		csi_driver.DefaultDriverName,
+		viper.GetString("nodeid"),
+		viper.GetString("endpoint"),
+		viper.GetInt64("maxvolumespernode"),
+	)
 	if err != nil {
 		s.Log.Fatal(fmt.Sprintf("Failed to initialize driver: %s", err.Error()))
 	}

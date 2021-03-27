@@ -41,10 +41,6 @@ spec:
           {{- toYaml .Values.deploy.securityContext | nindent 12 }}
         image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
-        ports:
-        - name: http
-          containerPort: 7070
-          protocol: TCP
         {{- if .Values.deploy.livenessProbe }}
         livenessProbe:
           {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}

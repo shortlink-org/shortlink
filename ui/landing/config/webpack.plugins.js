@@ -64,7 +64,12 @@ const generateHTMLPlugins = () => glob.sync('./src/**/*.html').map((dir) => {
 
 // Favicons
 const favicons = new FaviconsWebpackPlugin({
+  // Your source logo (required)
   logo: config.favicon,
+  // Enable caching and optionally specify the path to store cached data
+  // Note: disabling caching may increase build times considerably
+  cache: true,
+  // Prefix path for generated assets
   prefix: 'images/favicons/',
   favicons: {
     appName: config.site_name,
