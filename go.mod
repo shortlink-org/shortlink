@@ -24,15 +24,15 @@ require (
 	github.com/go-redis/redis/v8 v8.7.1
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
-	github.com/gocql/gocql v0.0.0-20210313142353-65899a66288b
+	github.com/gocql/gocql v0.0.0-20210320175511-5be2641c68cb
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
-	github.com/golang/protobuf v1.4.3
+	github.com/golang/protobuf v1.5.1
 	github.com/google/uuid v1.1.4 // indirect
 	github.com/google/wire v0.5.0
 	github.com/gorilla/mux v1.8.0
-	github.com/graph-gophers/graphql-go v0.0.0-20210306090651-bd703c223f03
+	github.com/graph-gophers/graphql-go v0.0.0-20210319060855-d2656e8bde15
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.3.0
@@ -52,7 +52,7 @@ require (
 	github.com/ory/dockertest/v3 v3.6.3
 	github.com/pborman/uuid v1.2.1
 	github.com/pelletier/go-toml v1.8.0 // indirect
-	github.com/prometheus/client_golang v1.9.0
+	github.com/prometheus/client_golang v1.10.0
 	github.com/scylladb/gocqlx/v2 v2.3.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cast v1.3.1 // indirect
@@ -70,17 +70,17 @@ require (
 	go.uber.org/zap v1.16.0
 	golang.org/x/net v0.0.0-20210316092652-d523dce5a7f4
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	google.golang.org/api v0.41.0
-	google.golang.org/genproto v0.0.0-20210315173758-2651cd453018
+	google.golang.org/api v0.42.0
+	google.golang.org/genproto v0.0.0-20210322173543-5f0e89347f5a
 	google.golang.org/grpc v1.36.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
-	google.golang.org/protobuf v1.25.1-0.20201208041424-160c7477e0e8
+	google.golang.org/protobuf v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.57.0 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	honnef.co/go/tools v0.0.1-2020.1.6 // indirect
-	k8s.io/kubernetes v1.20.4
-	k8s.io/mount-utils v0.20.4
+	k8s.io/kubernetes v1.20.5
+	k8s.io/mount-utils v0.20.5
 	k8s.io/utils v0.0.0-20210305010621-2afb4311ab10
 )
 
