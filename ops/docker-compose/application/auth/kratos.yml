@@ -1,3 +1,6 @@
+## ORY Kratos Configuration
+#
+
 version: v0.5.5-alpha.1
 
 dsn: memory
@@ -7,8 +10,24 @@ serve:
     base_url: http://127.0.0.1:4433/
     cors:
       enabled: true
+      allowed_origins:
+        - http://127.0.0.1
+      allowed_methods:
+        - POST
+        - GET
+        - PUT
+        - DELETE
+      allowed_headers:
+        - Authorization
+        - Cookie
+      exposed_headers:
+        - Content-Type
+        - Set-Cookie
   admin:
     base_url: http://kratos:4434/
+
+session:
+  lifespan: 720h # 30 days
 
 selfservice:
   default_browser_return_url: http://127.0.0.1:4455/
@@ -18,22 +37,49 @@ selfservice:
   methods:
     password:
       enabled: true
+    profile:
+      enabled: true
+    link:
+      enabled: true
+    oidc:
+      enabled: true
+      config:
+        providers:
+          - id: github # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+            provider: github
+            client_id: .... # Replace this with the OAuth2 Client ID provided by GitHub
+            client_secret: .... # Replace this with the OAuth2 Client Secret provided by GitHub
+            mapper_url: file:///etc/config/kratos/oidc.github.jsonnet
+            scope:
+              - user:email
+          - id: gitlab # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+            provider: gitlab
+            client_id: .... # Replace this with the OAuth2 Client ID provided by GitLab
+            client_secret: .... # Replace this with the OAuth2 Client Secret provided by GitLab
+            mapper_url: file:///etc/config/kratos/oidc.gitlab.jsonnet
+            scope:
+              - read_user
+              - openid
+              - profile
+              - email
 
   flows:
     error:
-      ui_url: http://127.0.0.1:4455/error
+      ui_url: http://127.0.0.1:4455/ui/auth/error
 
     settings:
-      ui_url: http://127.0.0.1:4455/settings
+      ui_url: http://127.0.0.1:4455/ui/auth/settings
+      # Sessions older than a minute requires the user to sign in again before
+      # the password is changed.
       privileged_session_max_age: 15m
 
     recovery:
       enabled: true
-      ui_url: http://127.0.0.1:4455/recovery
+      ui_url: http://127.0.0.1:4455/ui/auth/recovery
 
     verification:
       enabled: true
-      ui_url: http://127.0.0.1:4455/verify
+      ui_url: http://127.0.0.1:4455/ui/auth/verify
       after:
         default_browser_return_url: http://127.0.0.1:4455/
 
@@ -42,14 +88,17 @@ selfservice:
         default_browser_return_url: http://127.0.0.1:4455/auth/login
 
     login:
-      ui_url: http://127.0.0.1:4455/auth/login
+      ui_url: http://127.0.0.1:4455/ui/auth/login
       lifespan: 10m
 
     registration:
       lifespan: 10m
-      ui_url: http://127.0.0.1:4455/auth/registration
+      ui_url: http://127.0.0.1:4455/ui/auth/registration
       after:
         password:
+          hooks:
+            - hook: session
+        oidc:
           hooks:
             - hook: session
 
