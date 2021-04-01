@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "90dece02-6409-43dc-a44c-e7be5c78bf54",
+		"_postman_id": "d1003e6c-9083-4784-ab3d-18bf65f13e01",
 		"name": "shortlink",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,138 +9,639 @@
 			"name": "HTTP",
 			"item": [
 				{
-					"name": "Get link",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:7070/api/{{hash}}",
-							"host": [
-								"localhost"
-							],
-							"port": "7070",
-							"path": [
-								"api",
-								"{{hash}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get links",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:7070/api/links",
-							"host": [
-								"localhost"
-							],
-							"port": "7070",
-							"path": [
-								"api",
-								"links"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get links (filter by: link)",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:7070/api/links?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
-							"host": [
-								"localhost"
-							],
-							"port": "7070",
-							"path": [
-								"api",
-								"links"
-							],
-							"query": [
+					"name": "Auth",
+					"item": [
+						{
+							"name": "health",
+							"item": [
 								{
-									"key": "filter",
-									"value": "{\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}"
+									"name": "Check alive status",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:4433/health/alive",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "4433",
+											"path": [
+												"health",
+												"alive"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check readiness status",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:4433/health/ready",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "4433",
+											"path": [
+												"health",
+												"ready"
+											]
+										}
+									},
+									"response": []
 								}
 							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "add link",
-					"event": [
+						},
 						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"",
-									"",
-									"postman.setGlobalVariable(\"hash\", jsonData.hash);"
-								]
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"url\":\"https://example.com\",\"describe\":\"example link\"}"
-						},
-						"url": {
-							"raw": "localhost:7070/api",
-							"host": [
-								"localhost"
-							],
-							"port": "7070",
-							"path": [
-								"api"
+							"name": "Registration flow",
+							"item": [
+								{
+									"name": "Init",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"postman.setGlobalVariable(\"newRegistration\", jsonData.methods.password.config.action);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:4433/self-service/registration/api",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "4433",
+											"path": [
+												"self-service",
+												"registration",
+												"api"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Registration",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"traits.email\": \"registration-api@user.org\", \"password\": \"fhAzi860a\"}"
+										},
+										"url": {
+											"raw": "{{newRegistration}}",
+											"host": [
+												"{{newRegistration}}"
+											]
+										}
+									},
+									"response": []
+								}
 							]
+						},
+						{
+							"name": "Login flow",
+							"item": [
+								{
+									"name": "Init",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"postman.setGlobalVariable(\"newLogin\", jsonData.methods.password.config.action);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:4433/self-service/login/api",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "4433",
+											"path": [
+												"self-service",
+												"login",
+												"api"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Login",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"postman.setGlobalVariable(\"sessionToken\", jsonData.session_token);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"identifier\": \"registration-api@user.org\", \"password\": \"fhAzi860a\"}"
+										},
+										"url": {
+											"raw": "{{newLogin}}",
+											"host": [
+												"{{newLogin}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Profile",
+							"item": [
+								{
+									"name": "Init",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"postman.setGlobalVariable(\"updatePassword\", jsonData.methods.password.config.action);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{sessionToken}}",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:4433/self-service/settings/api",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "4433",
+											"path": [
+												"self-service",
+												"settings",
+												"api"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{sessionToken}}",
+												"type": "text"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"password\": \"fhAzi860a\"}"
+										},
+										"url": {
+											"raw": "{{updatePassword}}",
+											"host": [
+												"{{updatePassword}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Recovery",
+							"item": [
+								{
+									"name": "Init",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"postman.setGlobalVariable(\"recovery\", jsonData.methods.link.config.action);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:4433/self-service/recovery/api",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "4433",
+											"path": [
+												"self-service",
+												"recovery",
+												"api"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Recovery",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{recovery}}",
+											"host": [
+												"{{recovery}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Verification",
+							"item": [
+								{
+									"name": "Init",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"postman.setGlobalVariable(\"verification\", jsonData.methods.link.config.action);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:4433/self-service/verification/api?Accept=application/json",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "4433",
+											"path": [
+												"self-service",
+												"verification",
+												"api"
+											],
+											"query": [
+												{
+													"key": "Accept",
+													"value": "application/json"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Verification",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{verification}}",
+											"host": [
+												"{{verification}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Logout",
+							"item": [
+								{
+									"name": "Logout",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:4455/ui/auth/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "4455",
+											"path": [
+												"ui",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "whoami",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{sessionToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:4433/sessions/whoami",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "4433",
+									"path": [
+										"sessions",
+										"whoami"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "delete link",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"hash\":\"{{hash}}\"}"
+					"name": "Links",
+					"item": [
+						{
+							"name": "Get link",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:7070/api/{{hash}}",
+									"host": [
+										"localhost"
+									],
+									"port": "7070",
+									"path": [
+										"api",
+										"{{hash}}"
+									]
+								}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:7070/api",
-							"host": [
-								"localhost"
+						{
+							"name": "Get links",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:7070/api/links",
+									"host": [
+										"localhost"
+									],
+									"port": "7070",
+									"path": [
+										"api",
+										"links"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get links (filter by: link)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:7070/api/links?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
+									"host": [
+										"localhost"
+									],
+									"port": "7070",
+									"path": [
+										"api",
+										"links"
+									],
+									"query": [
+										{
+											"key": "filter",
+											"value": "{\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"",
+											"",
+											"postman.setGlobalVariable(\"hash\", jsonData.hash);"
+										]
+									}
+								}
 							],
-							"port": "7070",
-							"path": [
-								"api"
-							]
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"url\":\"https://example.com\",\"describe\":\"example link\"}"
+								},
+								"url": {
+									"raw": "localhost:7070/api",
+									"host": [
+										"localhost"
+									],
+									"port": "7070",
+									"path": [
+										"api"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete link",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"hash\":\"{{hash}}\"}"
+								},
+								"url": {
+									"raw": "localhost:7070/api",
+									"host": [
+										"localhost"
+									],
+									"port": "7070",
+									"path": [
+										"api"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "GraphQL",
@@ -244,7 +745,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "d1818d45-7022-40d7-98e5-e0dbd95ee6cd",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody);",
 									"",
@@ -316,8 +816,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Monitoring",
@@ -377,9 +876,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

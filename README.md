@@ -19,14 +19,16 @@ Shortlink service
 
 ##### Services
 
-| Service     | Description                          | Language/Framework | Docs                       |
-|-------------|--------------------------------------|--------------------|----------------------------|
-| api         | GateWay/Main service                 | Go                 |                            |
-| logger      | Logger service                       | Go                 |                            |
-| metadata    | Parser site by API                   | Go                 |                            |
-| bot         | Send notify to smtp, slack, telegram | Go                 |                            |
-| shortctl    | Shortlink CLI                        | Go                 | [docs](./docs/shortctl.md) |
-| csi         | CSI example                          | Go                 |                            |
+| Service     | Description                          | Language/Framework | Docs                                     |
+|-------------|--------------------------------------|--------------------|------------------------------------------|
+| api         | GateWay/Main service                 | Go                 |                                          |
+| logger      | Logger service                       | Go                 |                                          |
+| metadata    | Parser site by API                   | Go                 |                                          |
+| bot         | Send notify to smtp, slack, telegram | Go                 |                                          |
+| shortctl    | Shortlink CLI                        | Go                 | [docs](./docs/shortctl.md)               |
+| csi         | CSI example                          | Go                 |                                          |
+| ory/kratos  | User management service              | Go                 | [docs](https://www.ory.sh/kratos/docs/ ) |
+| ory/hydra   | OAuth 2.0 Provider                   | Go                 | [docs](https://www.ory.sh/keto/docs/ )   |
 
 ### Run
 

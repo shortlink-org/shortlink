@@ -44,12 +44,12 @@ require (
 	github.com/lib/pq v1.10.0
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.6
-	github.com/mitchellh/mapstructure v1.3.2 // indirect
 	github.com/nats-io/nats.go v1.10.0
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.6.3
+	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/pborman/uuid v1.2.1
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/prometheus/client_golang v1.10.0

@@ -23,10 +23,7 @@ do: ## Run for specific job
 	@docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
-		-f ops/docker-compose/tooling/grafana.yaml \
-		-f ops/docker-compose/tooling/grafana-loki.yaml \
-		-f ops/docker-compose/tooling/grafana-tempo.yaml \
-		-f ops/docker-compose/mq/rabbitmq.yaml \
+		-f ops/docker-compose/application/auth.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose
@@ -35,6 +32,7 @@ run: ## Run this project in docker-compose
 		-f ops/docker-compose/tooling/coredns.yaml \
 		-f ops/docker-compose/tooling/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/application/api.yaml \
 		-f ops/docker-compose/application/metadata.yaml \
 		-f ops/docker-compose/application/logger.yaml \
@@ -64,6 +62,7 @@ down: ## Down docker-compose
 		-f ops/docker-compose/tooling/coredns.yaml \
 		-f ops/docker-compose/tooling/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/application/api.yaml \
 		-f ops/docker-compose/application/metadata.yaml \
 		-f ops/docker-compose/application/logger.yaml \

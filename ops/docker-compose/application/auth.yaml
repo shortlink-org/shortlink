@@ -1,0 +1,206 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+#  auth:
+#    <<: *network
+#    build:
+#      context: .
+#      dockerfile: ops/dockerfile/auth.Dockerfile
+#      shm_size: 1gb
+#    depends_on:
+#      - coredns
+#      - kratos
+#    container_name: auth
+#    restart: on-failure
+#    environment:
+#      SERVICE_NAME: auth
+#    cpu_quota: 20000
+#    mem_limit: 500m
+#    logging:
+#      driver: ${LOGGER_DRIVER}
+#      options:
+#        loki-url: ${LOGGER_DRIVER_URL}
+#        max-size: ${LOGGER_MAX_SIZE}
+
+  # -------------------------------------------------------------------------- #
+  # ORY HYDRA
+  # OAuth 2.0 and OpenID Certified® OpenID Connect Server
+  # https://www.ory.sh/hydra/
+  # https://github.com/ory/hydra
+  # -------------------------------------------------------------------------- #
+
+#  hydra:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#      - hydra-migrate
+#    image: oryd/hydra
+#    container_name: app-hydra
+#    ports:
+#      - "4444:4444" # Public port
+#      - "4445:4445" # Admin port
+#      - "5555:5555" # Port for hydra token user
+#    command:
+#      serve all --dangerous-force-http
+#    environment:
+#      - URLS_SELF_ISSUER=http://127.0.0.1:4444
+#      - URLS_CONSENT=http://127.0.0.1:9000/oauth2/consent
+#      - URLS_LOGIN=http://127.0.0.1:9000/oauth2/login
+#      - URLS_LOGOUT=http://127.0.0.1:9000/oauth2/logout
+#      - SECRETS_SYSTEM=youReallyNeedToChangeThis
+#      - OIDC_SUBJECT_IDENTIFIERS_SUPPORTED_TYPES=public,pairwise
+#      - OIDC_SUBJECT_IDENTIFIERS_PAIRWISE_SALT=youReallyNeedToChangeThis
+#      - HYDRA_ADMIN_URL=http://127.0.0.1:4445
+#      - DSN=postgres://${DB_USER}:${DB_PASSWORD}@postgresql-db:${DB_PORT}/${DB_NAME}?sslmode=disable&max_conns=20&max_idle_conns=4
+#    restart: unless-stopped
+
+#  hydra-migrate:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#      - kratos_db
+#    image: oryd/hydra
+#    container_name: hydra-migrate
+#    environment:
+#      DSN: "postgres://${AUTH_DB_USER}:${AUTH_DB_PASS}@kratos_db:5432/${AUTH_DB}?sslmode=disable&max_conns=20&max_idle_conns=4"
+#    command:
+#      migrate sql -e --yes
+#    restart: on-failure
+
+  # -------------------------------------------------------------------------- #
+  # ORY KRATOS
+  # User database, self-login infrastructure, 2FA authentication
+  # https://www.ory.sh/kratos/
+  # https://github.com/ory/kratos
+  # -------------------------------------------------------------------------- #
+
+  kratos:
+    <<: *network
+    depends_on:
+      - coredns
+      - kratos_db
+      - kratos_migrate
+      - mailslurper
+    image: oryd/kratos:v0.5.5-alpha.1
+    command: serve -c /etc/config/kratos/kratos.yml --dev
+    container_name: kratos
+    environment:
+      DSN: "postgres://${AUTH_DB_USER}:${AUTH_DB_PASS}@kratos_db:5432/${AUTH_DB}?sslmode=disable&max_conns=20&max_idle_conns=4"
+    ports:
+      - "4433:4433"
+      - "4434:4434"
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: ./ops/docker-compose/application/auth
+        target: /etc/config/kratos
+
+  kratos_migrate:
+    <<: *network
+    depends_on:
+      - coredns
+      - kratos_db
+    image: "oryd/kratos:v0.5.5-alpha.1"
+    environment:
+      DSN: "postgres://${AUTH_DB_USER}:${AUTH_DB_PASS}@kratos_db:5432/${AUTH_DB}?sslmode=disable&max_conns=20&max_idle_conns=4"
+      COURIER_SMTP_FROM_ADDRESS: no-reply@shortlink.com
+    command: migrate sql -e --yes
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: ./ops/docker-compose/application/auth
+        target: /etc/config/kratos
+
+  kratos_db:
+    <<: *network
+    depends_on:
+      - coredns
+    image: postgres:12
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_PASSWORD: ${AUTH_DB_PASS}
+      POSTGRES_USER: ${AUTH_DB_USER}
+      POSTGRES_DB: ${AUTH_DB}
+
+#  kratos-selfservice-ui-node:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#    image: oryd/kratos-selfservice-ui-node:v0.5.5-alpha.1
+#    container_name: kratos-ui-node
+#    environment:
+#      - PORT=4455
+#      - SECURITY_MODE=
+#      - KRATOS_BROWSER_URL=http://127.0.0.1:4433/
+#      - KRATOS_PUBLIC_URL=http://kratos:4433/
+#      - KRATOS_ADMIN_URL=http://kratos:4434/
+#    ports:
+#      - "4455:4455"
+#    restart: on-failure
+
+  # -------------------------------------------------------------------------- #
+  # ORY KETO
+  # User and Policies management, a.k.a. the permission mapping users to
+  # characters
+  # https://www.ory.sh/keto/
+  # https://github.com/ory/keto
+  # -------------------------------------------------------------------------- #
+#  keto:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#      - keto_db
+#      - keto_migrate
+#    image: oryd/keto:v0.5.7-alpha.1
+#    ports:
+#      - "4466:4466"
+#    environment:
+#      DSN: "postgres://keto:secret@keto_db:5432/keto?sslmode=disable"
+#    restart: on-failure
+#
+#  keto_migrate:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#      - keto_db
+#    image: oryd/keto:v0.5.7-alpha.1
+#    environment:
+#      DSN: "postgres://keto:secret@keto_db:5432/keto?sslmode=disable"
+#    command: migrate sql -e
+#    restart: on-failure
+#
+#  keto_db:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#    image: "postgres:12"
+#    ports:
+#      - 5434:5432
+#    environment:
+#      POSTGRES_PASSWORD: "secret"
+#      POSTGRES_USER: "keto"
+#      POSTGRES_DB: "keto"
+
+  # -------------------------------------------------------------------------- #
+  # ORY mailslurper
+  # Intercept confirmation emails to ease the testing process.
+  # -------------------------------------------------------------------------- #
+
+  mailslurper:
+    <<: *network
+    depends_on:
+      - coredns
+    image: oryd/mailslurper:latest-smtps
+    ports:
+      - "4436:4436"
+      - "4437:4437"
+    restart: on-failure
