@@ -62,6 +62,7 @@ down: ## Down docker-compose
 		-f ops/docker-compose/tooling/coredns.yaml \
 		-f ops/docker-compose/tooling/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/application/api.yaml \
 		-f ops/docker-compose/application/metadata.yaml \
 		-f ops/docker-compose/application/logger.yaml \
