@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/tempo:latest
+    image: grafana/tempo:0.6.0
     command: ["-config.file=/etc/tempo.yaml"]
     container_name: jaeger-agent
     ports:
@@ -33,7 +33,7 @@ services:
     depends_on:
       - coredns
       - jaeger-agent
-    image: grafana/tempo-query:latest
+    image: grafana/tempo-query:0.6.0
     command: ["--grpc-storage-plugin.configuration-file=/etc/tempo-query.yaml"]
     container_name: jaeger-query
     ports:
