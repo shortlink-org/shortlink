@@ -32,18 +32,18 @@
         RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-next-ui
         REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
-        HELM_ARG: --set host=$INGRESS_PUBLIC_DOMAIN
+        HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
       - PROVIDER: landing
         RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-${PROVIDER}
         REGISTRY: ${CI_REGISTRY_IMAGE}/${PROVIDER}
-        HELM_ARG: --set serviceAccount.create=false
+        HELM_ARG: --set serviceAccount.create=false --set serviceAccount.create=false
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
 #      - RELEASE_URL: ${PROVIDER}REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
-#        HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path=next --set ingress.enabled=true
+#        HELM_ARG: --set path=next --set ingress.enabled=true
 #
 #      - RELEASE_URL: next
-#        HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path="" --set ingress.enabled=true
+#        HELM_ARG: --set path="" --set ingress.enabled=true
