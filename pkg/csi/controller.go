@@ -20,7 +20,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/pborman/uuid"
 	"golang.org/x/net/context"
@@ -401,7 +401,7 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 	}
 
 	snapshotID := uuid.NewUUID().String()
-	creationTime := ptypes.TimestampNow()
+	creationTime := timestamppb.Now()
 	volPath := hostPathVolume.VolPath
 	file := getSnapshotPath(snapshotID)
 

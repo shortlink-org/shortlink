@@ -1,13 +1,13 @@
 package mock
 
 import (
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
 )
 
 var (
-	timestamp = ptypes.TimestampNow()
+	timestamp = timestamppb.Now()
 	AddLink   = &link.Link{ // nolint unused
 		Url:       "https://example.com",
 		Hash:      "",

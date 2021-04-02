@@ -5,8 +5,6 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/golang/protobuf/ptypes"
-
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
 )
 
@@ -39,22 +37,14 @@ type ResponseLink struct { // nolint unused
 }
 
 func (l ResponseLink) MarshalJSON() ([]byte, error) {
-	var err error
-
 	var createdAt time.Time
 	if l.CreatedAt != nil {
-		createdAt, err = ptypes.Timestamp(l.CreatedAt)
-		if err != nil {
-			return nil, err
-		}
+		createdAt = l.CreatedAt.AsTime()
 	}
 
 	var updatedAt time.Time
 	if l.CreatedAt != nil {
-		updatedAt, err = ptypes.Timestamp(l.CreatedAt)
-		if err != nil {
-			return nil, err
-		}
+		updatedAt = l.CreatedAt.AsTime()
 	}
 
 	return json.Marshal(&struct {
