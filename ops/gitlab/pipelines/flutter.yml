@@ -13,7 +13,7 @@ before_script:
 
 build:
   stage: build
-  image: cirrusci/flutter:stable
+  image: cirrusci/flutter:1.22.6
   script:
     - flutter build aot
   tags:
