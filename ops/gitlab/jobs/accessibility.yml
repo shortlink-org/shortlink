@@ -1,6 +1,6 @@
 include:
   - template: Verify/Browser-Performance.gitlab-ci.yml
-  - template: Verify/Accessibility.gitlab-ci.yml
+  - template: Verify/Accessibility.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Accessibility.gitlab-ci.yml
   - template: Security/DAST.latest.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/DAST.latest.gitlab-ci.yml
 
 # Configure the scanning tool through the environment variables.
@@ -36,3 +36,8 @@ dast:
       when: on_success
     - if: $CI_COMMIT_BRANCH
       when: on_success
+
+dast_api:
+  stage: accessibility
+  variables:
+    DAST_API_API: $ENVIRONMENT_URL
