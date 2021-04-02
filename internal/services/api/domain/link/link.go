@@ -10,7 +10,7 @@ import (
 	"crypto/sha512"
 	"encoding/hex"
 
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // NewURL return new link
@@ -18,8 +18,8 @@ func NewURL(link *Link) error {
 	link.Hash = CreateHash([]byte(link.Url), []byte("secret"))[:9]
 
 	// Add timestamp
-	link.CreatedAt = ptypes.TimestampNow()
-	link.UpdatedAt = ptypes.TimestampNow()
+	link.CreatedAt = timestamppb.Now()
+	link.UpdatedAt = timestamppb.Now()
 
 	return nil
 }
