@@ -36,8 +36,8 @@ EXPOSE 9090
 
 # Install dependencies
 RUN \
-  apk update && \
-  apk add --no-cache curl
+    apk update && \
+    apk add --no-cache curl ca-certificates
 
 RUN addgroup -S bot && adduser -S -g bot bot
 USER bot
