@@ -1,8 +1,54 @@
 include:
-  - local: /ops/gitlab/pipelines/helm_deploy.yml
-#  - local: /ops/gitlab/jobs/accessibility.yml
+  - local: /ops/gitlab/templates/common.yml
+  - local: /ops/gitlab/templates/deploy.yml
+  - local: /ops/gitlab/templates/helm.yml
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
 
-#stages:
-#  - deploy
-#  - accessibility
-#  - action
+stages:
+  - deploy
+  - action
+
+deploy:
+  extends:
+    - .job_template_deploy
+    - .matrix_deploy_provider
+  tags:
+    - docker
+  environment:
+    name: ${PROVIDER}/${RELEASE_NAME}
+    deployment_tier: production
+    url: $ENVIRONMENT_URL
+    on_stop: drop
+    kubernetes:
+      namespace: ${HELM_NAMESPACE}
+
+# action ===============================================================================================================
+
+rollback:
+  extends:
+    - .job_template_helm
+  script:
+    - helm --namespace=$KUBE_NAMESPACE rollback $RELEASE_NAME 0
+  needs:
+    - deploy
+  when: manual
+
+history:
+  extends:
+    - .job_template_helm
+  script:
+    - helm --namespace=$KUBE_NAMESPACE history $RELEASE_NAME
+  needs:
+    - deploy
+  when: manual
+
+drop:
+  extends:
+    - .job_template_helm
+  script:
+    - helm del -n $KUBE_NAMESPACE $RELEASE_NAME $HELM_ARG;
+  environment:
+    name: ${PROVIDER}/${RELEASE_NAME}
+    action: stop
+  tags:
+    - docker
