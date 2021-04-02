@@ -28,18 +28,32 @@
 .matrix_deploy_application_js:
   parallel:
     matrix:
-      - PROVIDER: next
+      - PROVIDER: api
         RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
-#        RELEASE_URL: ${PROVIDER}
-        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-next-ui
-        REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
-        HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path=next --set ingress.enabled=true
-        HELM_NAMESPACE: ${CI_PROJECT_NAME}
-
-      - PROVIDER: landing
-        RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
-#        RELEASE_URL: next
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-${PROVIDER}
         REGISTRY: ${CI_REGISTRY_IMAGE}/${PROVIDER}
-        HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path="" --set ingress.enabled=true
+        HELM_ARG: --set host=$INGRESS_PUBLIC_DOMAIN
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
+
+      - PROVIDER: logger
+        RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
+        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-${PROVIDER}
+        REGISTRY: ${CI_REGISTRY_IMAGE}/${PROVIDER}
+        HELM_ARG: --set serviceAccount.create=false
+        HELM_NAMESPACE: ${CI_PROJECT_NAME}
+
+#      - PROVIDER: next
+#        RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
+##        RELEASE_URL: ${PROVIDER}
+#        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-next-ui
+#        REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
+#        HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path=next --set ingress.enabled=true
+#        HELM_NAMESPACE: ${CI_PROJECT_NAME}
+#
+#      - PROVIDER: landing
+#        RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
+##        RELEASE_URL: next
+#        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-${PROVIDER}
+#        REGISTRY: ${CI_REGISTRY_IMAGE}/${PROVIDER}
+#        HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path="" --set ingress.enabled=true
+#        HELM_NAMESPACE: ${CI_PROJECT_NAME}
