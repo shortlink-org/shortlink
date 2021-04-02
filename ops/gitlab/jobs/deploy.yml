@@ -19,7 +19,7 @@ applications_go:
 
 applications_js:
   extends:
-    - .matrix_deploy_application_go
+    - .matrix_deploy_application_js
   stage: deploy
   trigger:
     include:
