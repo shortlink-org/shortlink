@@ -1,4 +1,4 @@
-FROM golang:1.16 as builder
+FROM golang:1.16-alpine as builder
 
 ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
