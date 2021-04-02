@@ -1,3 +1,6 @@
+include:
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
+
 # STAGING RELEASE ======================================================================================================
 applications_go:
   extends:
