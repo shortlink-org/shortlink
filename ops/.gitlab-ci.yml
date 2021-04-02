@@ -18,11 +18,12 @@ stages:
 
 workflow:
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-    # do not create pipelines if merge requests are opened
-    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
-      when: never
     # Disable renovate branch
     - if: $CI_COMMIT_REF_NAME =~ /^renovate/
       when: never
-    - if: '$CI_PIPELINE_SOURCE == "push"'
+    # do not create pipelines if merge requests are opened
+    - if: '$CI_COMMIT_BRANCH && $CI_PIPELINE_SOURCE == "push" && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - when: always
+
