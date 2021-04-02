@@ -116,7 +116,7 @@ func (m *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 func (m *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
 	collection := m.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, time.Duration(20*time.Second))
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
 	// build Filter

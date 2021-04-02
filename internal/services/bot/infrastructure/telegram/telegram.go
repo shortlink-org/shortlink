@@ -3,7 +3,7 @@ package telegram
 import (
 	"context"
 
-	"github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
