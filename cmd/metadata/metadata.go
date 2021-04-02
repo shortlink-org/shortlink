@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
+	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 )
 
 func main() {
