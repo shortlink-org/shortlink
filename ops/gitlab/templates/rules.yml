@@ -21,8 +21,7 @@
 .rules_always:
   rules:
     - !reference [.rules_default, rules]
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: always
+    - when: always
 
 .rules_manual:
   rules:
