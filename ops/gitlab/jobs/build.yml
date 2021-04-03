@@ -7,8 +7,8 @@ docker:build_go:
     include:
       - local: 'ops/gitlab/pipelines/docker_build_go.yml'
     strategy: depend
-  needs:
-    - GOLANG
+#  needs:
+#    - GOLANG
   rules:
     # TODO: test
     - when: always
