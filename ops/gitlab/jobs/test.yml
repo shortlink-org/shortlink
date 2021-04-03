@@ -12,9 +12,10 @@ GOLANG:
     strategy: depend
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 # DEPENDENCY ===========================================================================================================
 DEPENDENCY:
@@ -25,9 +26,10 @@ DEPENDENCY:
     strategy: depend
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 # HELM =================================================================================================================
 HELM:
@@ -38,8 +40,8 @@ HELM:
     strategy: depend
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - changes:
         - ops/Helm/*/*
     - if: $CI_COMMIT_TAG
@@ -51,9 +53,10 @@ HELM:
 license_scanning:
   interruptible: true
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 # DANGER ===============================================================================================================
 # TODO: fix
@@ -67,8 +70,8 @@ danger-review:
     - danger
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_TAG
 
 # SECRET-DETECTION =====================================================================================================
@@ -81,16 +84,16 @@ danger-review:
 secret_detection_default_branch:
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_TAG
       when: always
 
 secret_detection:
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_TAG
       when: never
     - if: $CI_DEFAULT_BRANCH != $CI_COMMIT_BRANCH
@@ -105,6 +108,7 @@ SAST:
     strategy: depend
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
