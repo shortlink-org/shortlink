@@ -10,56 +10,70 @@ include:
 
 bandit-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 brakeman-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 eslint-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 flawfinder-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 kubesec-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 gosec-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 mobsf-android-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 mobsf-ios-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 nodejs-scan-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 phpcs-security-audit-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 pmd-apex-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 security-code-scan-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 sobelow-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
 
 spotbugs-sast:
   rules:
-    - when: always
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: always
