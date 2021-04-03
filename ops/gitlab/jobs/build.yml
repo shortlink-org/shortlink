@@ -1,6 +1,8 @@
 # BUILD IMAGE ==========================================================================================================
 docker:build_go:
-  stage: build
+  # TODO: test
+#  stage: build
+  stage: .pre
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/docker_build_go.yml'
