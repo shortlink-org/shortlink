@@ -13,7 +13,7 @@ code_intelligence_go:
     reports:
       lsif: dump.lsif
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_BRANCH
       when: always
 
 gosec:
@@ -25,7 +25,7 @@ gosec:
   script:
     - make gosec
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_BRANCH
       when: always
 
 gotest:
@@ -42,7 +42,7 @@ gotest:
     reports:
       junit: report.xml
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_BRANCH
       when: always
 
 golint:
@@ -67,7 +67,7 @@ golint:
     # and print linting issues to stdout in the format: path/to/file:line description
     - golangci-lint run --out-format code-climate | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
   rules:
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_COMMIT_BRANCH
       when: always
 
 go_fuzz_test:
