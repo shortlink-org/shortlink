@@ -3,10 +3,14 @@ docker:build_go:
   # TODO: test
 #  stage: build
   stage: .pre
+  # TODO: test
+  variables:
+    CI_COMMIT_TAG: 0.9.33
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/docker_build_go.yml'
     strategy: depend
+  # TODO: test
 #  needs:
 #    - GOLANG
   rules:
