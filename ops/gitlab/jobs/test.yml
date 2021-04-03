@@ -14,8 +14,6 @@ GOLANG:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
-    - if: $CI_PIPELINE_SOURCE == "push"
-      when: always
 
 # DEPENDENCY ===========================================================================================================
 DEPENDENCY:
@@ -28,8 +26,6 @@ DEPENDENCY:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
-    - if: $CI_PIPELINE_SOURCE == "push"
-      when: always
 
 # HELM =================================================================================================================
 HELM:
@@ -55,8 +51,6 @@ license_scanning:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
-    - if: $CI_PIPELINE_SOURCE == "push"
-      when: always
 
 # DANGER ===============================================================================================================
 # TODO: fix
@@ -110,5 +104,3 @@ SAST:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
-    - if: $CI_PIPELINE_SOURCE == "push"
-      when: always
