@@ -10,70 +10,56 @@ include:
 
 bandit-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 brakeman-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 eslint-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 flawfinder-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 kubesec-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 gosec-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 mobsf-android-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 mobsf-ios-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 nodejs-scan-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 phpcs-security-audit-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 pmd-apex-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 security-code-scan-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 sobelow-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 spotbugs-sast:
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
