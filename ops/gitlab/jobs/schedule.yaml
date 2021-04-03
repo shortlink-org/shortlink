@@ -4,6 +4,6 @@ delete_renovate_branch:
   script:
     - echo 123
   rules:
-    - when: always
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
 
