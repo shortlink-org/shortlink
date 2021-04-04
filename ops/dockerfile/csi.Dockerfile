@@ -7,8 +7,7 @@ ARG SKAFFOLD_GO_GCFLAGS
 WORKDIR /go/github.com/batazor/shortlink
 
 # Load dependencies
-COPY go.mod .
-COPY go.sum .
+COPY go.mod go.sum ./
 RUN go mod vendor
 
 # COPY the source code as the last step
