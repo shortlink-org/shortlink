@@ -17,7 +17,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
   go build \
   -a \
-  -mod vendor \
+  -mod mod \
   -gcflags="${SKAFFOLD_GO_GCFLAGS}" \
   -ldflags "-s -w -X main.CI_COMMIT_TAG=$CI_COMMIT_TAG" \
   -installsuffix cgo \
