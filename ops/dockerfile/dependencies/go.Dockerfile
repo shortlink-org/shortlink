@@ -4,6 +4,8 @@ ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
 ARG SKAFFOLD_GO_GCFLAGS
 
+ENV GO111MODULE=on
+
 WORKDIR /go/github.com/batazor/shortlink
 
 # Load dependencies
