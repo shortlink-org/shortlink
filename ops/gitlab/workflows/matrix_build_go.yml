@@ -4,6 +4,15 @@
       - APPLICATION: api
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
         DOCKERFILE_PATH: ops/dockerfile/api.Dockerfile
+      - APPLICATION: auth
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/auth
+        DOCKERFILE_PATH: ops/dockerfile/auth.Dockerfile
+      - APPLICATION: bot
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot
+        DOCKERFILE_PATH: ops/dockerfile/bot.Dockerfile
+      - APPLICATION: csi
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/csi
+        DOCKERFILE_PATH: ops/dockerfile/csi.Dockerfile
       - APPLICATION: logger
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
         DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
