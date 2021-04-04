@@ -1,21 +1,13 @@
 # BUILD IMAGE ==========================================================================================================
 docker:build_go:
-  # TODO: test
-#  stage: build
-  stage: .pre
-  # TODO: test
-  variables:
-    CI_COMMIT_TAG: 0.9.33
+  stage: build
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/docker_build_go.yml'
     strategy: depend
-  # TODO: test
-#  needs:
-#    - GOLANG
+  needs:
+    - GOLANG
   rules:
-    # TODO: test
-    - when: always
     - if: $CI_COMMIT_TAG
       when: on_success
 
