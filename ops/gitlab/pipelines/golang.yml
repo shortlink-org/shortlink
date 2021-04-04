@@ -13,8 +13,7 @@ code_intelligence_go:
     reports:
       lsif: dump.lsif
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 gosec:
   extends:
@@ -25,8 +24,7 @@ gosec:
   script:
     - make gosec
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 gotest:
   extends:
@@ -42,8 +40,7 @@ gotest:
     reports:
       junit: report.xml
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 golint:
   extends:
@@ -67,8 +64,7 @@ golint:
     # and print linting issues to stdout in the format: path/to/file:line description
     - golangci-lint run --out-format code-climate | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
   rules:
-    - if: $CI_COMMIT_BRANCH
-      when: always
+    - when: always
 
 go_fuzz_test:
   extends: .fuzz_base
