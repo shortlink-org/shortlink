@@ -8,7 +8,7 @@ WORKDIR /go/github.com/batazor/shortlink
 
 # Load dependencies
 COPY go.mod go.sum ./
-RUN go mod vendor
+RUN go mod download
 
 # COPY the source code as the last step
 COPY . .
