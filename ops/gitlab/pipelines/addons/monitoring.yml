@@ -1,0 +1,72 @@
+# MONITORING ===========================================================================================================
+dashboard:
+  stage: monitoring
+  variables:
+    RELEASE_NAME: kubernetes-dashboard
+    HELM_PATH: ops/Helm/addons/dashboard
+    HELM_NAMESPACE: dashboard
+    ENVIRONMENT_URL: http://localhost:8001/api/v1/namespaces/${HELM_NAMESPACE}/services/https:${RELEASE_NAME}:https/proxy/
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: [ ]
+  rules:
+    - when: manual
+
+grafana:
+  stage: monitoring
+  variables:
+    RELEASE_NAME: grafana
+    HELM_PATH: ops/Helm/addons/grafana
+    HELM_NAMESPACE: grafana
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
+prometheus-operator:
+  stage: monitoring
+  variables:
+    RELEASE_NAME: prometheus-operator
+    HELM_PATH: ops/Helm/addons/prometheus-operator
+    HELM_NAMESPACE: prometheus-operator
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
+jaeger-operator:
+  stage: monitoring
+  variables:
+    RELEASE_NAME: jaeger-operator
+    HELM_PATH: ops/Helm/addons/jaeger-operator
+    HELM_NAMESPACE: jaeger-operator
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
+datadog:
+  stage: monitoring
+  variables:
+    RELEASE_NAME: datadog
+    HELM_PATH: ops/Helm/addons/datadog
+    HELM_NAMESPACE: datadog
+    HELM_ARG: --set apiKey=$DATADOG_APIKEY
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
