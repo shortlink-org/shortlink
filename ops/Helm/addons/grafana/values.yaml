@@ -138,7 +138,7 @@ promtail:
   enabled: true
 
   config:
-    lokiAddress: http://grafana-loki/loki/api/v1/push
+    lokiAddress: http://grafana-loki:3100/loki/api/v1/push
 
   extraScrapeConfigs:
     - job_name: syslog
