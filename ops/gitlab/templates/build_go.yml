@@ -11,11 +11,9 @@ include:
 
     # Pull the image from remote repository (|| true avoids errors if the image hasn't been pushed before)
     - docker pull $CI_REGISTRY_IMAGE/dependencies_go || true
-    - docker pull ${REGISTRY_IMAGE}:${CI_COMMIT_TAG} || true
   script:
     - docker build
       --cache-from $CI_REGISTRY_IMAGE/dependencies_go
-      --cache-from ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
       -f ${DOCKERFILE_PATH} .
     - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}

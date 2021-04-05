@@ -1,7 +1,7 @@
 .rules_default:
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
 
 # TYPE =================================================================================================================
 
@@ -13,8 +13,8 @@
 
 .rules_scheduler:
   rules:
-    - when: always
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
 
 # EVENT ================================================================================================================
 

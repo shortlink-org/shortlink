@@ -24,6 +24,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
+//gocyclo:ignore
 // Use return implementation of db
 func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) {
 	// Set configuration

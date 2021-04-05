@@ -11,7 +11,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
-	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
+	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 

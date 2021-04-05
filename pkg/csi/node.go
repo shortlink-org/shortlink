@@ -37,6 +37,7 @@ func NewNodeServer(nodeId string, maxVolumesPerNode int64) *nodeServer {
 	}
 }
 
+//gocyclo:ignore
 // NodePublishVolume mounts the volume mounted to the staging path to the target path
 func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) {
 	// Check arguments

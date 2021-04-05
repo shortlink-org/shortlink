@@ -1,5 +1,6 @@
-const next = require('next')
 const express = require('express')
+const next = require('next')
+
 const cookieParser = require('cookie-parser')
 const { v4: uuidv4 } = require('uuid')
 const port = parseInt(process.env.PORT, 10) || 3000
