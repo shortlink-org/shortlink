@@ -11,29 +11,29 @@
 .matrix_deploy_application_go:
   parallel:
     matrix:
-      - RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
-        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-${PROVIDER}
-        REGISTRY: ${CI_REGISTRY_IMAGE}/${PROVIDER}
+      - RELEASE_NAME: ${CI_PROJECT_NAME}-api
+        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
+        REGISTRY: ${CI_REGISTRY_IMAGE}/api
         HELM_ARG: --set host=$INGRESS_PUBLIC_DOMAIN
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
-      - RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
-        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-${PROVIDER}
-        REGISTRY: ${CI_REGISTRY_IMAGE}/${PROVIDER}
+      - RELEASE_NAME: ${CI_PROJECT_NAME}-logger
+        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
+        REGISTRY: ${CI_REGISTRY_IMAGE}/logger
         HELM_ARG: --set serviceAccount.create=false
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
 .matrix_deploy_application_js:
   parallel:
     matrix:
-      - RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
+      - RELEASE_NAME: ${CI_PROJECT_NAME}-next
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-next-ui
         REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
         HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path=next --set ingress.enabled=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
-      - RELEASE_NAME: ${CI_PROJECT_NAME}-${PROVIDER}
-        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-${PROVIDER}
-        REGISTRY: ${CI_REGISTRY_IMAGE}/${PROVIDER}
+      - RELEASE_NAME: ${CI_PROJECT_NAME}-landing
+        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-landing
+        REGISTRY: ${CI_REGISTRY_IMAGE}/landing
         HELM_ARG: --set serviceAccount.create=false --set serviceAccount.create=false --set ingress.enabled=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
