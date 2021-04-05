@@ -14,7 +14,6 @@
       - RELEASE_NAME: ${CI_PROJECT_NAME}-api
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
         REGISTRY: ${CI_REGISTRY_IMAGE}/api
-        HELM_ARG: --set host=$INGRESS_PUBLIC_DOMAIN
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
       - RELEASE_NAME: ${CI_PROJECT_NAME}-logger
@@ -29,7 +28,7 @@
       - RELEASE_NAME: ${CI_PROJECT_NAME}-next
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-next-ui
         REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
-        HELM_ARG: --set serviceAccount.create=false --set host=$INGRESS_PUBLIC_DOMAIN --set path=next --set ingress.enabled=true
+        HELM_ARG: --set serviceAccount.create=false --set path=next --set ingress.enabled=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
       - RELEASE_NAME: ${CI_PROJECT_NAME}-landing
