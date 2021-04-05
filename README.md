@@ -21,14 +21,15 @@ Shortlink service
 
 | Service     | Description                          | Language/Framework | Docs                                     |
 |-------------|--------------------------------------|--------------------|------------------------------------------|
-| api         | GateWay/Main service                 | Go                 |                                          |
+| api         | GateWay                              | Go                 | [docs](./docs/services/api.md)           |
+| link        | Link service                         | Go                 | [docs](./docs/services/link.md)          |
 | logger      | Logger service                       | Go                 |                                          |
 | metadata    | Parser site by API                   | Go                 |                                          |
 | bot         | Send notify to smtp, slack, telegram | Go                 |                                          |
 | shortctl    | Shortlink CLI                        | Go                 | [docs](./docs/shortctl.md)               |
 | csi         | CSI example                          | Go                 |                                          |
-| ory/kratos  | User management service              | Go                 | [docs](https://www.ory.sh/kratos/docs/ ) |
-| ory/hydra   | OAuth 2.0 Provider                   | Go                 | [docs](https://www.ory.sh/keto/docs/ )   |
+| ory/kratos  | User management service              | Go                 | [docs](https://www.ory.sh/kratos/docs/) |
+| ory/hydra   | OAuth 2.0 Provider                   | Go                 | [docs](https://www.ory.sh/keto/docs/)   |
 
 ### Run
 
@@ -104,22 +105,6 @@ make skaffold-debug
 + [Kafka](https://kafka.apache.org/)
 + [NATS](https://nats.io/)
 + [RabbitMQ](https://www.rabbitmq.com/)
-
-### Store provider
-
-+ RAM
-+ MongoDB
-+ Postgres
-+ ***Optional***
-    + Redis
-    + MySQL
-    + LevelDB
-    + Badger
-    + SQLite
-    + Scylla
-    + Сassandra (via: Scylla driver)
-    + RethinkDB
-    + DGraph
 
 ### Cloud-Native
 
