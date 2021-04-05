@@ -6,7 +6,6 @@ include:
 
 stages:
   - deploy
-  - debug
   - action
 
 deploy:
@@ -22,12 +21,6 @@ deploy:
     on_stop: drop
     kubernetes:
       namespace: ${HELM_NAMESPACE}
-
-deploy_debug:
-  extends:
-    - .job_template_deploy_debug
-  when: on_failure
-
 
 # action ===============================================================================================================
 

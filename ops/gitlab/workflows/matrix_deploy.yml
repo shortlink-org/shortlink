@@ -26,7 +26,7 @@
   parallel:
     matrix:
       - RELEASE_NAME: ${CI_PROJECT_NAME}-next
-        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-next-ui
+        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
         REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
         HELM_ARG: --set serviceAccount.create=false --set path=next --set ingress.enabled=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
