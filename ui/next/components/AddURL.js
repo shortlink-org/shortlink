@@ -55,7 +55,7 @@ export function AddURL() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await fetch(`${process.env.API_URL_HTTP}/api`, {
+      const res = await fetch(`/api`, {
         method: 'POST',
         body: JSON.stringify(url),
         headers: { 'Content-Type': 'application/json' },

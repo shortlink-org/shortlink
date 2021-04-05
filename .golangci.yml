@@ -56,7 +56,8 @@ run:
 
 # output configuration options
 output:
-  # colored-line-number|line-number|json|tab|checkstyle|code-climate, default is "colored-line-number"
+  # colored-line-number|line-number|json|tab|checkstyle|code-climate|junit-xml|github-actions
+  # default is "colored-line-number"
   format: colored-line-number
 
   # print lines of code with issue, default is true
@@ -107,6 +108,12 @@ linters-settings:
     # 'default' case is present, even if all enum members aren't listed in the
     # switch
     default-signifies-exhaustive: false
+  exhaustivestruct:
+    struct-patterns:
+      - '*.Test'
+      - '*.Test2'
+      - '*.Embedded'
+      - '*.External'
   funlen:
     lines: 60
     statements: 40
@@ -131,8 +138,10 @@ linters-settings:
     # See https://go-critic.github.io/overview#checks-overview
     # To check which checks are enabled run `GL_DEBUG=gocritic golangci-lint run`
     # By default list of stable checks is used.
-    # enabled-checks:
-    #   - rangeValCopy
+    enabled-checks:
+      - nestingreduce
+      - truncatecmp
+      - ruleguard
 
     # Which checks should be disabled; can't be combined with 'enabled-checks'; default is empty
     # disabled-checks:
@@ -158,6 +167,9 @@ linters-settings:
       hugeParam:
         # size in bytes that makes the warning trigger (default 80)
         sizeThreshold: 80
+      nestingReduce:
+        # min number of statements inside a branch to trigger a warning (default 5)
+        bodyWidth: 5
       rangeExprCopy:
         # size in bytes that makes the warning trigger (default 512)
         sizeThreshold: 512
@@ -168,6 +180,12 @@ linters-settings:
         sizeThreshold: 32
         # whether to check test functions (default true)
         skipTestFuncs: true
+      ruleguard:
+        # path to a gorules file for the ruleguard checker
+        rules: ''
+      truncateCmp:
+        # whether to skip int/uint/uintptr types (default true)
+        skipArchDependent: true
       underef:
         # whether to skip (*x).method() calls where x is a pointer receiver (default true)
         skipRecvDeref: true
@@ -176,6 +194,13 @@ linters-settings:
   gocyclo:
     # minimal code complexity to report, 30 by default (but we recommend 10-20)
     min-complexity: 10
+  cyclop:
+    # the maximal code complexity to report
+    max-complexity: 10
+    # the maximal average package complexity. If it's higher than 0.0 (float) the check is enabled (default 0.0)
+    package-average: 0.0
+    # should ignore tests (default false)
+    skip-tests: false
   godot:
     # comments to be checked: `declarations`, `toplevel`, or `all`
     scope: declarations
@@ -203,7 +228,7 @@ linters-settings:
       regexp:
         # define here regexp type values, for example
         # AUTHOR: .*@mycompany\.com
-    template: # |
+    template: # |-
       # put here copyright header template for source code files, for example:
       # Note: {{ YEAR }} is a builtin value that returns the year relative to the current machine time.
       #
@@ -269,6 +294,7 @@ linters-settings:
           - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
 
     # enable or disable analyzers by name
+    # run `go tool vet help` to see all analyzers
     enable:
       - atomicalign
     enable-all: false
@@ -317,6 +343,20 @@ linters-settings:
     simple: true
     range-loops: true # Report preallocation suggestions on range loops, true by default
     for-loops: false # Report preallocation suggestions on for loops, false by default
+  promlinter:
+    # Promlinter cannot infer all metrics name in static analysis.
+    # Enable strict mode will also include the errors caused by failing to parse the args.
+    strict: false
+    # Please refer to https://github.com/yeya24/promlinter#usage for detailed usage.
+    disabled-linters:
+    #  - "Help"
+    #  - "MetricUnits"
+    #  - "Counter"
+    #  - "HistogramSummaryReserved"
+    #  - "MetricTypeInName"
+    #  - "ReservedChars"
+    #  - "CamelCase"
+    #  - "lintUnitAbbreviations"
   predeclared:
     # comma-separated list of predeclared identifiers to not report on
     ignore: ""
@@ -336,6 +376,13 @@ linters-settings:
   rowserrcheck:
     packages:
       - github.com/jmoiron/sqlx
+  revive:
+    # see https://github.com/mgechev/revive#available-rules for details.
+    ignore-generated-header: true
+    severity: warning
+    rules:
+      - name: indent-error-flow
+        severity: warning
   testpackage:
     # regexp pattern to skip files
     skip-regexp: (export|internal)_test\.go
@@ -347,6 +394,10 @@ linters-settings:
       name: true
       begin: true
     benchmark:
+      first: true
+      name: true
+      begin: true
+    tb:
       first: true
       name: true
       begin: true
@@ -372,6 +423,8 @@ linters-settings:
     # Allow calls and assignments to be cuddled as long as the lines have any
     # matching variables, fields or types. Default is true.
     allow-assign-and-call: true
+    # Allow assignments to be cuddled with anything. Default is false.
+    allow-assign-and-anything: false
     # Allow multiline assignments to be cuddled. Default is true.
     allow-multiline-assign: true
     # Allow declarations (var) to be cuddled.
@@ -382,7 +435,7 @@ linters-settings:
     force-case-trailing-whitespace: 0
     # Force cuddling of err checks with err var assignment
     force-err-cuddling: false
-    # Allow leading comments to be separated with empty liens
+    # Allow leading comments to be separated with empty lines
     allow-separated-leading-comment: false
   gofumpt:
     # Choose whether or not to use the extra rules that are disabled
@@ -402,26 +455,58 @@ linters-settings:
       - ginkgo\\.F.* # these are used just for local development
     # Exclude godoc examples from forbidigo checks.  Default is true.
     exclude_godoc_examples: false
+  importas:
+    # using `servingv1` alias for `knative.dev/serving/pkg/apis/serving/v1` package
+    servingv1: knative.dev/serving/pkg/apis/serving/v1
+    # using `autoscalingv1alpha1` alias for `knative.dev/serving/pkg/apis/autoscaling/v1alpha1` package
+    autoscalingv1alpha1: knative.dev/serving/pkg/apis/autoscaling/v1alpha1
+  gomoddirectives:
+    # Allow local `replace` directives. Default is false.
+    replace-local: false
+    # List of allowed `replace` directives. Default is empty.
+    replace-allow-list:
+      - launchpad.net/gocheck
+    # Allow to not explain why the version has been retracted in the `retract` directives. Default is false.
+    retract-allow-no-explanation: false
+    # Forbid the use of the `exclude` directives. Default is false.
+    exclude-forbidden: false
 
   # The custom section can be used to define linter plugins to be loaded at runtime. See README doc
   #  for more info.
-  #  custom:
-  #    # Each custom linter should have a unique name.
-  #     example:
-  #      # The path to the plugin *.so. Can be absolute or local. Required for each custom linter
-  #      path: /path/to/example.so
-  #      # The description of the linter. Optional, just for documentation purposes.
-  #      description: This is an example usage of a plugin linter.
-  #      # Intended to point to the repo location of the linter. Optional, just for documentation purposes.
-  #      original-url: github.com/golangci/example-linter
+#  custom:
+#    # Each custom linter should have a unique name.
+#     example:
+#      # The path to the plugin *.so. Can be absolute or local. Required for each custom linter
+#      path: /path/to/example.so
+#      # The description of the linter. Optional, just for documentation purposes.
+#      description: This is an example usage of a plugin linter.
+#      # Intended to point to the repo location of the linter. Optional, just for documentation purposes.
+#      original-url: github.com/golangci/example-linter
 
 linters:
   enable:
+    - bodyclose
     - megacheck
     - govet
+    - errcheck
+    - staticcheck
+    - unused
+    - gosimple
+    - structcheck
+    - varcheck
+    - ineffassign
+    - deadcode
+    - typecheck
+    - gosec
+    - unconvert
+    - goconst
+    - gocyclo
+    - goimports
+    - misspell
+    - unparam
   disable:
     - maligned
-    - prealloc
+    - scopelint
   disable-all: false
   presets:
     - bugs

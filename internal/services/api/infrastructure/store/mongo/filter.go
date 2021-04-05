@@ -10,6 +10,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/api/infrastructure/store/query"
 )
 
+//gocyclo:ignore
 func getFilter(filter *query.Filter) bson.D {
 	filterQuery := bson.D{}
 	r := reflect.ValueOf(filter)

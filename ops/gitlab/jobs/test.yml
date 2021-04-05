@@ -1,5 +1,5 @@
 include:
-  - template: Security/License-Scanning.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/License-Scanning.gitlab-ci.yml
   - template: Code-Quality.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
 
@@ -12,8 +12,8 @@ GOLANG:
     strategy: depend
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - when: always
 
 # DEPENDENCY ===========================================================================================================
@@ -25,8 +25,8 @@ DEPENDENCY:
     strategy: depend
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - when: always
 
 # HELM =================================================================================================================
@@ -38,8 +38,8 @@ HELM:
     strategy: depend
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - changes:
         - ops/Helm/*/*
     - if: $CI_COMMIT_TAG
@@ -51,8 +51,8 @@ HELM:
 license_scanning:
   interruptible: true
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - when: always
 
 # DANGER ===============================================================================================================
@@ -67,8 +67,8 @@ danger-review:
     - danger
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_TAG
 
 # SECRET-DETECTION =====================================================================================================
@@ -81,16 +81,16 @@ danger-review:
 secret_detection_default_branch:
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_TAG
       when: always
 
 secret_detection:
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_TAG
       when: never
     - if: $CI_DEFAULT_BRANCH != $CI_COMMIT_BRANCH
@@ -105,6 +105,6 @@ SAST:
     strategy: depend
   needs: []
   rules:
-    - when: never
-      if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - when: always

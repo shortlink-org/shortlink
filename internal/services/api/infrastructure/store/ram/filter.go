@@ -8,6 +8,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/api/infrastructure/store/query"
 )
 
+//gocyclo:ignore
 func isFilterSuccess(link *link.Link, filter *query.Filter) bool {
 	// Skip empty filter
 	if filter == nil {

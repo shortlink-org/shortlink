@@ -20,7 +20,7 @@ import (
 	"sort"
 	"strconv"
 
-	"github.com/golang/protobuf/ptypes"
+	"google.golang.org/protobuf/types/known/timestamppb"
 
 	"github.com/pborman/uuid"
 	"golang.org/x/net/context"
@@ -66,6 +66,7 @@ func NewControllerServer(nodeID string) *controllerServer {
 	}
 }
 
+//gocyclo:ignore
 // CreateVolume creates a new volume from the given request. The function is idempotent.
 func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest) (*csi.CreateVolumeResponse, error) {
 	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME); err != nil {
@@ -122,7 +123,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 	}
 
 	// Check for maximum available capacity
-	capacity := int64(req.GetCapacityRange().GetRequiredBytes())
+	capacity := req.GetCapacityRange().GetRequiredBytes()
 	if capacity >= maxStorageCapacity {
 		return nil, status.Errorf(codes.OutOfRange, "Requested capacity %d exceeds maximum allowed %d", capacity, maxStorageCapacity)
 	}
@@ -155,7 +156,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 		return &csi.CreateVolumeResponse{
 			Volume: &csi.Volume{
 				VolumeId:      exVol.VolID,
-				CapacityBytes: int64(exVol.VolSize),
+				CapacityBytes: exVol.VolSize,
 				VolumeContext: req.GetParameters(),
 				ContentSource: req.GetVolumeContentSource(),
 			},
@@ -401,7 +402,7 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 	}
 
 	snapshotID := uuid.NewUUID().String()
-	creationTime := ptypes.TimestampNow()
+	creationTime := timestamppb.Now()
 	volPath := hostPathVolume.VolPath
 	file := getSnapshotPath(snapshotID)
 
@@ -461,6 +462,7 @@ func (d *driver) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequ
 	return &csi.DeleteSnapshotResponse{}, nil
 }
 
+//gocyclo:ignore
 // ListSnapshots returns the information about all snapshots on the storage
 // system within the given parameters regardless of how they were created.
 // ListSnapshots shold not list a snapshot that is being created but has not
@@ -579,7 +581,7 @@ func (d *driver) ControllerExpandVolume(ctx context.Context, req *csi.Controller
 		return nil, status.Error(codes.InvalidArgument, "Capacity range not provided")
 	}
 
-	capacity := int64(capRange.GetRequiredBytes())
+	capacity := capRange.GetRequiredBytes()
 	if capacity >= maxStorageCapacity {
 		return nil, status.Errorf(codes.OutOfRange, "Requested capacity %d exceeds maximum allowed %d", capacity, maxStorageCapacity)
 	}

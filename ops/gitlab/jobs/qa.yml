@@ -1,6 +1,6 @@
 include:
-  - template: Security/API-Fuzzing.gitlab-ci.yml #https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/API-Fuzzing.gitlab-ci.yml
-  - template: Verify/Load-Performance-Testing.gitlab-ci.yml #https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Load-Performance-Testing.gitlab-ci.yml
+  - template: Security/API-Fuzzing.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/API-Fuzzing.gitlab-ci.yml
+  - template: Verify/Load-Performance-Testing.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Load-Performance-Testing.gitlab-ci.yml
 
 # API-Fuzzing ==========================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/api_fuzzing/

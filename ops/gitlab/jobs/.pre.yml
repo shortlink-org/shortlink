@@ -1,5 +1,4 @@
 include:
-  - local: /ops/gitlab/workflows/matrix_deploy.yml
   - local: /ops/gitlab/jobs/schedule.yaml
 
 # ANSIBLE ==============================================================================================================
@@ -17,6 +16,7 @@ terraform-up:
     include:
       - local: 'ops/gitlab/pipelines/terraform.yml'
     strategy: depend
+  allow_failure: true
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never

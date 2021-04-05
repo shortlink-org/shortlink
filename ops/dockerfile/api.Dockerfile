@@ -1,4 +1,4 @@
-FROM golang:1.16 as builder
+FROM golang:1.16-alpine as builder
 
 ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
@@ -7,9 +7,8 @@ ARG SKAFFOLD_GO_GCFLAGS
 WORKDIR /go/github.com/batazor/shortlink
 
 # Load dependencies
-COPY go.mod .
-COPY go.sum .
-RUN go mod vendor
+COPY go.mod go.sum ./
+RUN go mod download
 
 # COPY the source code as the last step
 COPY . .
@@ -18,7 +17,7 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
   go build \
   -a \
-  -mod vendor \
+  -mod mod \
   -gcflags="${SKAFFOLD_GO_GCFLAGS}" \
   -ldflags "-s -w -X main.CI_COMMIT_TAG=$CI_COMMIT_TAG" \
   -installsuffix cgo \
