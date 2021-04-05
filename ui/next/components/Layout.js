@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    height: '100vh',
     display: 'grid',
     gridTemplateRows: 'auto 1fr auto',
   },

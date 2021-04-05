@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "node server.js",
-    "build": "next build",
+    "build": "$(npm bin)/next build",
     "start": "node server.js",
-    "generate": "NODE_ENV=production next build && next export"
+    "generate": "NODE_ENV=production $(npm bin)/next build && $(npm bin)/next export"
   },
   "keywords": [],
   "author": "Victor Login <batazor111@gmail.com>",
@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "js-cookie": "^2.2.1",
     "material-table": "^1.69.0",
-    "next": "^10.1.2",
+    "next": "^10.1.3",
     "next-redux-wrapper": "^6.0.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "@zeit/next-source-maps": "0.0.3",
-    "sharp": "^0.28.0"
+    "sharp": "^0.28.1"
   }
 }
