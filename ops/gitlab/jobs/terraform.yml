@@ -3,7 +3,7 @@ terraform-up:
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/terraform.yml'
-    strategy: depend
+    # strategy: depend
   rules:
     - changes:
         - ops/terraform/*
