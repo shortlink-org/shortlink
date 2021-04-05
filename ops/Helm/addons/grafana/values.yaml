@@ -131,12 +131,14 @@ grafana:
       ingress-nginx:
         url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
 
-
 loki:
   enabled: true
 
 promtail:
   enabled: true
+
+  config:
+    lokiAddress: http://grafana-loki/loki/api/v1/push
 
   extraScrapeConfigs:
     - job_name: syslog
