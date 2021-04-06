@@ -8,7 +8,7 @@ const initialState = {
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
     case HYDRATE:
-      return {...state, ...action.payload}
+      return {...state, list: action.payload.link.list}
     case t.LINK_FETCH_SUCCEEDED:
       return {
         ...state,
