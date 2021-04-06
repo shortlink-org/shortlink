@@ -82,6 +82,7 @@ deploy:
     MQ_ENABLED: "false"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
     SERVICE_NAME: API
+    STORE_TYPE: postgres
 
   imagePullSecrets: []
 
