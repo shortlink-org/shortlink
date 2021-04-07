@@ -15,7 +15,5 @@ load artifacts:
       job: SAST
       artifacts: true
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - when: always
+    - when: never
 
