@@ -24,7 +24,7 @@ matrix:
       # You don't need to test on very old versions of the Go compiler. It's the user's
       # responsibility to keep their compiler up to date.
       go:
-        - 1.15.x
+        - 1.16.x
 
       #go_import_path:
 
@@ -64,7 +64,7 @@ matrix:
             stage: test
             os: linux
             script:
-              - make gitlab-test
+              - make test
             after_success:
               - bash <(curl -s https://codecov.io/bash)
 
@@ -73,22 +73,3 @@ matrix:
           script: make CI_COMMIT_TAG=$TRAVIS_TAG docker
           on:
             tags: true
-
-    - name: frontend
-      language: node_js
-
-      node_js:
-        - node # latest stable Node.js release
-
-      install:
-        - npm install -g surge
-
-      script:
-        - make next_generate
-
-      deploy:
-        - provider: surge
-          project: ./ui/next/dist
-          domain: shortlink.surge.sh
-          on:
-            all_branches: true
