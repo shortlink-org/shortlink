@@ -19,7 +19,7 @@ services:
     restart: on-failure
     container_name: postgres
     ports:
-      - "5435:5432"
+      - "5432:5432"
     environment:
       POSTGRES_USER: shortlink
       POSTGRES_PASSWORD: shortlink

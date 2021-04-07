@@ -15,13 +15,7 @@ terraform-up:
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/terraform.yml'
-    strategy: depend
-  allow_failure: true
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - changes:
-      - ops/terraform/*
+  when: manual
 
 # K8S ==================================================================================================================
 infrastructure:
@@ -29,6 +23,5 @@ infrastructure:
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_additional.yml'
-    # strategy: depend
   when: manual
 

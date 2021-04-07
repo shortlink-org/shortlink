@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	grpc_opentracing "github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
+	tracing "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/tracing"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
@@ -58,8 +58,8 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	opts := []grpc.DialOption{
 		grpc.WithInsecure(),
 		grpc.WithUnaryInterceptor(
-			grpc_opentracing.UnaryClientInterceptor(
-				grpc_opentracing.WithTracer(*tracer),
+			tracing.UnaryClientInterceptor(
+				tracing.WithTracer(*tracer),
 			),
 		),
 	}
