@@ -83,6 +83,9 @@ deploy:
     TRACER_URI: jaeger-agent.jaeger-operator:6831
     SERVICE_NAME: API
 
+    # default store config
+    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable
+
   imagePullSecrets: []
 
   strategy:
