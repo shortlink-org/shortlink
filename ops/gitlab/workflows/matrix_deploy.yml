@@ -14,7 +14,7 @@
       - RELEASE_NAME: ${CI_PROJECT_NAME}-api
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-api
         REGISTRY: ${CI_REGISTRY_IMAGE}/api
-        HELM_ARG: --set ingress.enabled=true --set deploy.env.STORE_TYPE=postgres --set deploy.env.STORE_POSTGRES_URI="postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable"
+        HELM_ARG: --set ingress.enabled=true --set deploy.env.STORE_TYPE=postgres --set deploy.env.STORE_POSTGRES_URI=postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
       - RELEASE_NAME: ${CI_PROJECT_NAME}-logger
