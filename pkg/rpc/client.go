@@ -3,9 +3,9 @@ package rpc
 import (
 	"fmt"
 
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	otgrpc "github.com/opentracing-contrib/go-grpc"
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2"
+	"github.com/grpc-ecosystem/go-grpc-prometheus"
+	"github.com/opentracing-contrib/go-grpc"
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
@@ -55,8 +55,8 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 		grpc.WithTransportCredentials(creds),
 
 		// Initialize your gRPC server's interceptor.
-		grpc.WithUnaryInterceptor(grpc_middleware.ChainUnaryClient(incerceptorUnaryClientList...)),
-		grpc.WithStreamInterceptor(grpc_middleware.ChainStreamClient(incerceptorStreamClientList...)),
+		grpc.WithUnaryInterceptor(middleware.ChainUnaryClient(incerceptorUnaryClientList...)),
+		grpc.WithStreamInterceptor(middleware.ChainStreamClient(incerceptorStreamClientList...)),
 	)
 	if err != nil {
 		return nil, nil, err
