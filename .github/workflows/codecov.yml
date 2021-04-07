@@ -14,12 +14,14 @@ jobs:
       with:
         fetch-depth: 2
 
+    - uses: docker-practice/actions-setup-docker@master
+
     - uses: actions/setup-go@v2
       with:
         go-version: '1.16.2'
 
     - name: Test With Coverage
-      run: go test -gcflags=-l -v  -coverprofile=coverage.out -covermode=atomic ./...
+      run:go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./...
 
     - name: Upload coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash)
