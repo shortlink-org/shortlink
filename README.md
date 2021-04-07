@@ -1,7 +1,7 @@
 # shortlink
 
 [![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/batazor/shortlink)](https://pkg.go.dev/mod/github.com/batazor/shortlink)
-[![codecov](https://codecov.io/gh/batazor/shortlink/branch/main/graph/badge.svg)](https://codecov.io/gh/batazor/shortlink)
+[![codecov](https://codecov.io/gh/batazor/shortlink/branch/main/graph/badge.svg?token=Wxz5bI4QzF)](https://codecov.io/gh/batazor/shortlink)
 [![Go Report Card](https://goreportcard.com/badge/github.com/batazor/shortlink)](https://goreportcard.com/report/github.com/batazor/shortlink)
 [![Releases](https://img.shields.io/github/release-pre/batazor/shortlink.svg)](https://github.com/batazor/shortlink/releases)
 [![LICENSE](https://img.shields.io/github/license/batazor/shortlink.svg)](https://github.com/batazor/shortlink/blob/main/LICENSE)
