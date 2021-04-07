@@ -16,12 +16,15 @@ jobs:
 
     - uses: docker-practice/actions-setup-docker@master
 
+    - name: Install make
+      run: sudo apt-get install -y make
+
     - uses: actions/setup-go@v2
       with:
         go-version: '1.16.2'
 
     - name: Test With Coverage
-      run:go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./...
+      run: make test
 
     - name: Upload coverage to Codecov
       run: bash <(curl -s https://codecov.io/bash)
