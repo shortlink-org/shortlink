@@ -82,8 +82,6 @@ deploy:
     MQ_ENABLED: "false"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
     SERVICE_NAME: API
-    STORE_TYPE: postgres
-    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable
 
   imagePullSecrets: []
 

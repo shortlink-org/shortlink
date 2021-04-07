@@ -69,7 +69,7 @@ export function LinkTableContent() {
           field: "UpdatedAt",
         }
       ]}
-      data={state.link.list}
+      data={state.link && state.link.list || []}
       actions={[
         {
           icon: tableIcons.Add,
