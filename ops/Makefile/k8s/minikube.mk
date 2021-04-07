@@ -5,6 +5,7 @@ minikube-up: ## run minikube for dev mode
 		--cpus 4 \
 		--memory "16384" \
 		--driver=docker \
+		--listen-address=0.0.0.0 \
 		--extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \
 		--extra-config=apiserver.service-account-key-file=/var/lib/minikube/certs/sa.pub \
 		--extra-config=apiserver.service-account-issuer=api \
@@ -21,6 +22,9 @@ minikube-update: ## update image to last version
 	@eval $(minikube docker-env) # Set docker env
 	@make docker-build           # Build docker images on remote host (minikube)
 	@make helm-shortlink-up      # Deploy shortlink HELM-chart
+
+minikube-clear:  ## minikube clear
+	@minikube image rm image
 
 minikube-down: ## minikube delete
 	@minikube delete

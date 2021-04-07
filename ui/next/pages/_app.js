@@ -19,26 +19,6 @@ class MyApp extends App {
     }
   }
 
-  static async getInitialProps({ Component, ctx }) {
-    try {
-      let pageProps = {}
-
-      if (Component.getInitialProps) {
-        pageProps = await Component.getInitialProps(ctx)
-      }
-
-      return { pageProps }
-    } catch (error) {
-      // Capture errors that happen during a page's getInitialProps.
-      // This will work on both client and server sides.
-      const errorEventId = captureException(error, ctx)
-      return {
-        hasError: true,
-        errorEventId,
-      }
-    }
-  }
-
   static getDerivedStateFromProps(props, state) {
     // If there was an error generated within getInitialProps, and we haven't
     // yet seen an error, we add it to this.state here
