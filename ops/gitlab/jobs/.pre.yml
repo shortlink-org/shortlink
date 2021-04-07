@@ -15,8 +15,6 @@ terraform-up:
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/terraform.yml'
-    strategy: depend
-  allow_failure: true
   when: manual
 
 # K8S ==================================================================================================================
@@ -25,6 +23,5 @@ infrastructure:
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_additional.yml'
-    # strategy: depend
   when: manual
 
