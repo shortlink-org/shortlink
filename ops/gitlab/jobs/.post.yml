@@ -5,17 +5,14 @@ load artifacts:
   script:
     - echo "Load artifacts from multi-pipeline"
   needs:
-    - project: shortlink-org/shortlink
-      job: a11y
-      ref: ultimate
+    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+      job: DEPENDENCY
       artifacts: true
-    - project: shortlink-org/shortlink
-      job: performance
-      ref: ultimate
+    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+      job: GOLANG
       artifacts: true
-    - project: shortlink-org/shortlink
-      job: dast
-      ref: ultimate
+    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+      job: SAST
       artifacts: true
   rules:
     - when: never

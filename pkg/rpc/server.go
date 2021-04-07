@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net"
 
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/recovery"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	otgrpc "github.com/opentracing-contrib/go-grpc"
 	"github.com/opentracing/opentracing-go"
@@ -47,8 +47,8 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 	}
 
 	// Shared options for the logger, with a custom gRPC code to log level function.
-	recoveryOpts := []grpc_recovery.Option{
-		grpc_recovery.WithRecoveryHandler(customFunc),
+	recoveryOpts := []recovery.Option{
+		recovery.WithRecoveryHandler(customFunc),
 	}
 
 	// UnaryServer
@@ -57,7 +57,7 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 		// (e.g. logging) can operate on the recovered state instead of being directly affected by any panic
-		grpc_recovery.UnaryServerInterceptor(recoveryOpts...),
+		recovery.UnaryServerInterceptor(recoveryOpts...),
 	}
 
 	if tracer != nil {
@@ -70,7 +70,7 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 		// (e.g. logging) can operate on the recovered state instead of being directly affected by any panic
-		grpc_recovery.StreamServerInterceptor(recoveryOpts...),
+		recovery.StreamServerInterceptor(recoveryOpts...),
 	}
 
 	if tracer != nil {

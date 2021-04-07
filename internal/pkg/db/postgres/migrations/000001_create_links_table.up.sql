@@ -13,9 +13,6 @@ CREATE TABLE IF NOT EXISTS links
 
 COMMENT ON TABLE links IS 'Link list';
 
-ALTER TABLE links
-    OWNER TO shortlink;
-
 CREATE UNIQUE INDEX IF NOT EXISTS links_id_uindex
     ON links (id);
 
