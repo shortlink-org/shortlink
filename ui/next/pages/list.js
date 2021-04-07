@@ -51,8 +51,6 @@ export function LinkTableContent() {
 		dispatch(fetchLinkList());
 	}, [dispatch]);
 
-  console.warn('state', state)
-
   return (
     <MaterialTable
       icons={tableIcons}
@@ -69,7 +67,7 @@ export function LinkTableContent() {
           field: "UpdatedAt",
         }
       ]}
-      data={state.link && state.link.list || []}
+      data={state.list || []}
       actions={[
         {
           icon: tableIcons.Add,
