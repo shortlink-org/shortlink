@@ -38,7 +38,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.3.0
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.11.0
-	github.com/jmoiron/sqlx v1.3.1
+	github.com/jmoiron/sqlx v1.3.3
 	github.com/johejo/golang-migrate-extra v0.0.0-20210217013041-51a992e50d16
 	github.com/kubernetes-csi/csi-test/v4 v4.1.0
 	github.com/lib/pq v1.10.0
