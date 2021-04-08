@@ -110,6 +110,7 @@ make skaffold-debug
 
 + Development
   + [Skaffold](https://skaffold.dev/)
+  + Telepresence
 + Logger
   + [Loki](./docs/logger.md)
   + DataDog
