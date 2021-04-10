@@ -82,54 +82,54 @@ services:
   # https://github.com/ory/kratos
   # -------------------------------------------------------------------------- #
 
-  kratos:
-    <<: *network
-    depends_on:
-      - coredns
-      - kratos_db
-      - kratos_migrate
-      - mailslurper
-    image: oryd/kratos:v0.5.5-alpha.1
-    command: serve -c /etc/config/kratos/kratos.yml --dev
-    container_name: kratos
-    environment:
-      DSN: "postgres://${AUTH_DB_USER}:${AUTH_DB_PASS}@kratos_db:5432/${AUTH_DB}?sslmode=disable&max_conns=20&max_idle_conns=4"
-    ports:
-      - "4433:4433"
-      - "4434:4434"
-    restart: on-failure
-    volumes:
-      - type: bind
-        source: ./ops/docker-compose/application/auth
-        target: /etc/config/kratos
+#  kratos:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#      - kratos_db
+#      - kratos_migrate
+#      - mailslurper
+#    image: oryd/kratos:v0.5.5-alpha.1
+#    command: serve -c /etc/config/kratos/kratos.yml --dev
+#    container_name: kratos
+#    environment:
+#      DSN: "postgres://${AUTH_DB_USER}:${AUTH_DB_PASS}@kratos_db:5432/${AUTH_DB}?sslmode=disable&max_conns=20&max_idle_conns=4"
+#    ports:
+#      - "4433:4433"
+#      - "4434:4434"
+#    restart: on-failure
+#    volumes:
+#      - type: bind
+#        source: ./ops/docker-compose/application/auth
+#        target: /etc/config/kratos
 
-  kratos_migrate:
-    <<: *network
-    depends_on:
-      - coredns
-      - kratos_db
-    image: "oryd/kratos:v0.5.5-alpha.1"
-    environment:
-      DSN: "postgres://${AUTH_DB_USER}:${AUTH_DB_PASS}@kratos_db:5432/${AUTH_DB}?sslmode=disable&max_conns=20&max_idle_conns=4"
-      COURIER_SMTP_FROM_ADDRESS: no-reply@shortlink.com
-    command: migrate sql -e --yes
-    restart: on-failure
-    volumes:
-      - type: bind
-        source: ./ops/docker-compose/application/auth
-        target: /etc/config/kratos
+#  kratos_migrate:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#      - kratos_db
+#    image: "oryd/kratos:v0.5.5-alpha.1"
+#    environment:
+#      DSN: "postgres://${AUTH_DB_USER}:${AUTH_DB_PASS}@kratos_db:5432/${AUTH_DB}?sslmode=disable&max_conns=20&max_idle_conns=4"
+#      COURIER_SMTP_FROM_ADDRESS: no-reply@shortlink.com
+#    command: migrate sql -e --yes
+#    restart: on-failure
+#    volumes:
+#      - type: bind
+#        source: ./ops/docker-compose/application/auth
+#        target: /etc/config/kratos
 
-  kratos_db:
-    <<: *network
-    depends_on:
-      - coredns
-    image: postgres:12
-    ports:
-      - 5433:5432
-    environment:
-      POSTGRES_PASSWORD: ${AUTH_DB_PASS}
-      POSTGRES_USER: ${AUTH_DB_USER}
-      POSTGRES_DB: ${AUTH_DB}
+#  kratos_db:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#    image: postgres:12
+#    ports:
+#      - 5433:5432
+#    environment:
+#      POSTGRES_PASSWORD: ${AUTH_DB_PASS}
+#      POSTGRES_USER: ${AUTH_DB_USER}
+#      POSTGRES_DB: ${AUTH_DB}
 
 #  kratos-selfservice-ui-node:
 #    <<: *network
@@ -154,41 +154,25 @@ services:
   # https://www.ory.sh/keto/
   # https://github.com/ory/keto
   # -------------------------------------------------------------------------- #
-#  keto:
-#    <<: *network
-#    depends_on:
-#      - coredns
+  keto:
+    <<: *network
+    depends_on:
+      - coredns
 #      - keto_db
 #      - keto_migrate
-#    image: oryd/keto:v0.5.7-alpha.1
-#    ports:
-#      - "4466:4466"
-#    environment:
-#      DSN: "postgres://keto:secret@keto_db:5432/keto?sslmode=disable"
-#    restart: on-failure
-#
-#  keto_migrate:
-#    <<: *network
-#    depends_on:
-#      - coredns
-#      - keto_db
-#    image: oryd/keto:v0.5.7-alpha.1
-#    environment:
-#      DSN: "postgres://keto:secret@keto_db:5432/keto?sslmode=disable"
-#    command: migrate sql -e
-#    restart: on-failure
-#
-#  keto_db:
-#    <<: *network
-#    depends_on:
-#      - coredns
-#    image: "postgres:12"
-#    ports:
-#      - 5434:5432
-#    environment:
-#      POSTGRES_PASSWORD: "secret"
-#      POSTGRES_USER: "keto"
-#      POSTGRES_DB: "keto"
+    image: oryd/keto:v0.6.0-alpha.1
+    command: serve
+    ports:
+      - "4466:4466"
+      - "4467:4467"
+    environment:
+      DSN: memory
+      TRACING_PROVIDER: jaeger
+      TRACING_PROVIDER_JAEGER_SAMPLING_SERVER_URL: http://jaeger:5778/sampling
+      TRACING_PROVIDER_JAEGER_LOCAL_AGENT_ADDRESS: jaeger:6831
+      TRACING_PROVIDER_JAEGER_SAMPLING_TYPE: const
+      TRACING_PROVIDER_JAEGER_SAMPLING_VALUE: 1
+    restart: on-failure
 
   # -------------------------------------------------------------------------- #
   # ORY mailslurper
