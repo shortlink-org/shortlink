@@ -18,10 +18,9 @@ const mainReducer = (state = initialState, action) => {
         ]
       }
     case t.LINK_FETCH_LIST_SUCCEEDED:
-      console.warn('TEST', action)
       return {
         ...state,
-        list: action.payload
+        list: action.payload.list
       }
     case t.LINK_ADD_SUCCEEDED:
       return {
