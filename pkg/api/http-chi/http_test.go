@@ -14,6 +14,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/goleak"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -21,9 +22,9 @@ import (
 	"github.com/batazor/shortlink/internal/services/api/infrastructure/store"
 )
 
-//func TestMain(m *testing.M) {
-//	goleak.VerifyTestMain(m)
-//}
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestAdd(t *testing.T) {
 	server := &API{}
