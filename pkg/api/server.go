@@ -14,7 +14,7 @@ import (
 	gokit "github.com/batazor/shortlink/pkg/api/go-kit"
 	"github.com/batazor/shortlink/pkg/api/graphql"
 	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
-	httpchi "github.com/batazor/shortlink/pkg/api/http-chi"
+	"github.com/batazor/shortlink/pkg/api/http-chi"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
@@ -36,7 +36,7 @@ func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *open
 
 	switch serverType {
 	case "http-chi":
-		server = &httpchi.API{}
+		server = &http_chi.API{}
 	case "go-kit":
 		server = &gokit.API{}
 	case "gRPC-web":
@@ -48,7 +48,7 @@ func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *open
 	case "cloudevents":
 		server = &cloudevents.API{}
 	default:
-		server = &httpchi.API{}
+		server = &http_chi.API{}
 	}
 
 	// Register clients

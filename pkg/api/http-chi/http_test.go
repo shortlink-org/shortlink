@@ -1,6 +1,6 @@
 // +build unit,api
 
-package httpchi
+package http_chi
 
 import (
 	"bytes"
@@ -57,8 +57,8 @@ func TestAdd(t *testing.T) {
 	})
 
 	t.Run("correct payload", func(t *testing.T) {
-		payload, err := json.Marshal(addRequest{
-			URL:      "http://test.com",
+		payload, err := json.Marshal(AddLinkRequest{
+			Url:      "http://test.com",
 			Describe: "",
 		})
 		assert.Nil(t, err)
@@ -73,7 +73,7 @@ func TestAdd(t *testing.T) {
 	})
 
 	t.Run("with db", func(t *testing.T) {
-		payload, err := json.Marshal(addRequest{
+		payload, err := json.Marshal(AddLinkRequest{
 			Describe: "",
 		})
 		assert.Nil(t, err)
@@ -159,7 +159,7 @@ func TestList(t *testing.T) {
 		_, err = store.Use(ctx, log, nil)
 		assert.Nil(t, err)
 
-		response := `null`
+		response := `{}`
 		_, body := testRequest(t, ts, "GET", "/links", nil) // nolint bodyclose
 		assert.Equal(t, body, response)
 
@@ -185,7 +185,7 @@ func TestDelete(t *testing.T) {
 	assert.Nil(t, err, "Error init a logger")
 
 	t.Run("correct payload", func(t *testing.T) {
-		payload, errJsonMarshal := json.Marshal(deleteRequest{
+		payload, errJsonMarshal := json.Marshal(DeleteLinkRequest{
 			Hash: "hash",
 		})
 		assert.Nil(t, errJsonMarshal)
@@ -204,7 +204,7 @@ func TestDelete(t *testing.T) {
 		_, err = store.Use(ctx, log, nil)
 		assert.Nil(t, err)
 
-		payload, err := json.Marshal(deleteRequest{
+		payload, err := json.Marshal(DeleteLinkRequest{
 			Hash: "hash",
 		})
 		assert.Nil(t, err)

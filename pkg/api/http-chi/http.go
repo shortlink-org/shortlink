@@ -1,4 +1,4 @@
-package httpchi
+package http_chi
 
 import (
 	"encoding/json"
@@ -31,7 +31,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
-	var request addRequest
+	var request AddLinkRequest
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -40,7 +40,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	newLink := &link.Link{
-		Url:      request.URL,
+		Url:      request.Url,
 		Describe: request.Describe,
 	}
 
@@ -89,13 +89,13 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Parse request
-	var request = &getRequest{
+	var request = &GetLinkRequest{
 		Hash: hash,
 	}
 
 	var (
 		response     *link.Link
-		responseLink ResponseLink // for custom JSON parsing
+		responseLink GetLinkResponse // for custom JSON parsing
 		err          error
 	)
 
@@ -126,8 +126,8 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	responseLink = ResponseLink{
-		response,
+	responseLink = GetLinkResponse{
+		Link: response,
 	}
 	res, err := json.Marshal(responseLink)
 	if err != nil {
@@ -149,7 +149,7 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 
 	var (
 		response     []*link.Link
-		responseLink []ResponseLink // for custom JSON parsing
+		responseLink GetListLinkResponse // for custom JSON parsing
 		err          error
 	)
 
@@ -181,7 +181,7 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 	}
 
 	for l := range response {
-		responseLink = append(responseLink, ResponseLink{response[l]})
+		responseLink.List = append(responseLink.List, response[l])
 	}
 
 	res, err := json.Marshal(responseLink)
@@ -207,7 +207,7 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	request := deleteRequest{
+	request := DeleteLinkRequest{
 		Hash: hash,
 	}
 
