@@ -512,7 +512,20 @@
 							"name": "Get link",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
 								"url": {
 									"raw": "localhost:7070/api/{{hash}}",
 									"host": [
@@ -531,7 +544,14 @@
 							"name": "Get links",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "localhost:7070/api/links",
 									"host": [
@@ -550,7 +570,14 @@
 							"name": "Get links (filter by: link)",
 							"request": {
 								"method": "GET",
-								"header": [],
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									}
+								],
 								"url": {
 									"raw": "localhost:7070/api/links?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
 									"host": [
@@ -577,19 +604,25 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody);",
 											"",
 											"",
 											"postman.setGlobalVariable(\"hash\", jsonData.hash);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
 							"request": {
 								"method": "POST",
 								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									},
 									{
 										"key": "Content-Type",
 										"value": "application/x-www-form-urlencoded"
@@ -618,6 +651,12 @@
 								"method": "DELETE",
 								"header": [
 									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									},
+									{
 										"key": "Content-Type",
 										"value": "application/json"
 									}
@@ -640,6 +679,87 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Monitoring",
+					"item": [
+						{
+							"name": "liveness",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:9090/live",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"live"
+									]
+								},
+								"description": "liveness endpoint (HTTP 200 if healthy, HTTP 503 if unhealthy)"
+							},
+							"response": []
+						},
+						{
+							"name": "readiness",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:9090/ready",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"ready"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "prometheus metrics",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:9090/metrics",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"metrics"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -651,6 +771,12 @@
 					"request": {
 						"method": "POST",
 						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json; version=1",
+								"description": "API version",
+								"type": "text"
+							},
 							{
 								"key": "Content-Type",
 								"value": "application/json"
@@ -683,6 +809,12 @@
 						"method": "POST",
 						"header": [
 							{
+								"key": "Accept",
+								"value": "application/vnd.api+json; version=1",
+								"description": "API version",
+								"type": "text"
+							},
+							{
 								"key": "Content-Type",
 								"value": "application/json"
 							}
@@ -713,6 +845,12 @@
 					"request": {
 						"method": "POST",
 						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.api+json; version=1",
+								"description": "API version",
+								"type": "text"
+							},
 							{
 								"key": "Content-Type",
 								"value": "application/json"
@@ -760,6 +898,12 @@
 						"method": "POST",
 						"header": [
 							{
+								"key": "Accept",
+								"value": "application/vnd.api+json; version=1",
+								"description": "API version",
+								"type": "text"
+							},
+							{
 								"key": "Content-Type",
 								"value": "application/json"
 							}
@@ -791,6 +935,12 @@
 						"method": "POST",
 						"header": [
 							{
+								"key": "Accept",
+								"value": "application/vnd.api+json; version=1",
+								"description": "API version",
+								"type": "text"
+							},
+							{
 								"key": "Content-Type",
 								"value": "application/json"
 							}
@@ -811,66 +961,6 @@
 							"path": [
 								"api",
 								"query"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Monitoring",
-			"item": [
-				{
-					"name": "liveness",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:9090/live",
-							"host": [
-								"localhost"
-							],
-							"port": "9090",
-							"path": [
-								"live"
-							]
-						},
-						"description": "liveness endpoint (HTTP 200 if healthy, HTTP 503 if unhealthy)"
-					},
-					"response": []
-				},
-				{
-					"name": "readiness",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:9090/ready",
-							"host": [
-								"localhost"
-							],
-							"port": "9090",
-							"path": [
-								"ready"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "prometheus metrics",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:9090/metrics",
-							"host": [
-								"localhost"
-							],
-							"port": "9090",
-							"path": [
-								"metrics"
 							]
 						}
 					},
