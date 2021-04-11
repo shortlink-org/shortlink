@@ -56,10 +56,13 @@ func init() {
 }
 
 func main() {
-	pterm.DefaultBigText.WithLetters(
+	err := pterm.DefaultBigText.WithLetters(
 		pterm.NewLettersFromStringWithStyle("Short", pterm.NewStyle(pterm.FgCyan)),
 		pterm.NewLettersFromStringWithStyle("Link", pterm.NewStyle(pterm.FgLightMagenta))).
 		Render()
+	if err != nil {
+		panic(err)
+	}
 
 	dirs := []string{}
 	config := Config{}

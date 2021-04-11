@@ -1,7 +1,6 @@
 package http_chi
 
 import (
-	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -67,9 +66,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var res bytes.Buffer
-
-	err = api.jsonpb.Marshal(&res, newLink)
+	res, err := api.jsonpb.Marshal(newLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -77,7 +74,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res.Bytes()) // nolint errcheck
+	_, _ = w.Write(res) // nolint errcheck
 }
 
 // Get ...
@@ -133,9 +130,7 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 		Link: response,
 	}
 
-	var res bytes.Buffer
-
-	err = api.jsonpb.Marshal(&res, &responseLink)
+	res, err := api.jsonpb.Marshal(&responseLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -143,7 +138,7 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res.Bytes()) // nolint errcheck
+	_, _ = w.Write(res) // nolint errcheck
 }
 
 // List ...
@@ -190,9 +185,7 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 		responseLink.List = append(responseLink.List, response[l])
 	}
 
-	var res bytes.Buffer
-
-	err = api.jsonpb.Marshal(&res, &responseLink)
+	res, err := api.jsonpb.Marshal(&responseLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -200,7 +193,7 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res.Bytes()) // nolint errcheck
+	_, _ = w.Write(res) // nolint errcheck
 }
 
 // Delete ...

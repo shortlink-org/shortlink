@@ -14,7 +14,7 @@ import (
 	gokit "github.com/batazor/shortlink/pkg/api/go-kit"
 	"github.com/batazor/shortlink/pkg/api/graphql"
 	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
-	"github.com/batazor/shortlink/pkg/api/http-chi"
+	http_chi "github.com/batazor/shortlink/pkg/api/http-chi"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 )

@@ -3,9 +3,9 @@ package rpc
 import (
 	"fmt"
 
-	"github.com/grpc-ecosystem/go-grpc-middleware/v2"
-	"github.com/grpc-ecosystem/go-grpc-prometheus"
-	"github.com/opentracing-contrib/go-grpc"
+	middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
+	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
+	otgrpc "github.com/opentracing-contrib/go-grpc"
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
