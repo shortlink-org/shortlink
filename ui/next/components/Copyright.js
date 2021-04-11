@@ -6,7 +6,7 @@ export default function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <MuiLink color="inherit" href="/">
+      <MuiLink color="inherit" href="/next">
         Shortlink
       </MuiLink>{' '}
       {new Date().getFullYear()}
