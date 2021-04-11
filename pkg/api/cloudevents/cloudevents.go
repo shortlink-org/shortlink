@@ -37,7 +37,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	cloudevents.WithPort(config.Port)
 	cloudevents.WithPath("/")
 
-	c, err := cloudevents.NewDefaultClient()
+	c, err := cloudevents.NewClientHTTP()
 	if err != nil {
 		return err
 	}

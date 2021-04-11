@@ -10,8 +10,8 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/render"
-	"github.com/golang/protobuf/jsonpb"
 	"github.com/opentracing/opentracing-go"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
@@ -21,8 +21,8 @@ import (
 // Run HTTP-server
 func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error { // nolint unparam
 	api.ctx = ctx
-	api.jsonpb = jsonpb.Marshaler{
-		OrigName: true,
+	api.jsonpb = protojson.MarshalOptions{
+		UseProtoNames: true,
 	}
 
 	log.Info("Run HTTP-CHI API")
