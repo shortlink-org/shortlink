@@ -55,16 +55,16 @@ export function LinkTableContent() {
     <MaterialTable
       icons={tableIcons}
       columns={[
-        { title: "URL", field: "Url" },
-        { title: "hash", field: "Hash" },
-        { title: "Describe", field: "Describe" },
+        { title: "URL", field: "url" },
+        { title: "hash", field: "hash" },
+        { title: "Describe", field: "describe" },
         {
           title: "Created at",
-          field: "CreatedAt",
+          field: "created_at",
         },
         {
           title: "Updated at",
-          field: "UpdatedAt",
+          field: "updated_at",
         }
       ]}
       data={state.list || []}

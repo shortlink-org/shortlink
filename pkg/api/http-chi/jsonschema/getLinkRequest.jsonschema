@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "properties": {
+        "hash": {
+            "type": "string"
+        },
+        "describe": {
+            "type": "string"
+        },
+        "filter": {
+            "type": "string"
+        }
+    },
+    "additionalProperties": true,
+    "type": "object"
+}
