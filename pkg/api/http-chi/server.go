@@ -1,4 +1,4 @@
-package httpchi
+package http_chi
 
 import (
 	"context"
@@ -10,6 +10,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/render"
+	"github.com/golang/protobuf/jsonpb"
 	"github.com/opentracing/opentracing-go"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -20,6 +21,9 @@ import (
 // Run HTTP-server
 func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error { // nolint unparam
 	api.ctx = ctx
+	api.jsonpb = jsonpb.Marshaler{
+		OrigName: true,
+	}
 
 	log.Info("Run HTTP-CHI API")
 

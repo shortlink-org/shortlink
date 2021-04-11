@@ -25,7 +25,6 @@ require (
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
 	github.com/gocql/gocql v0.0.0-20210401103645-80ab1e13e309
-	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/protobuf v1.5.2
@@ -53,6 +52,7 @@ require (
 	github.com/pborman/uuid v1.2.1
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/prometheus/client_golang v1.10.0
+	github.com/pterm/pterm v0.12.12
 	github.com/scylladb/gocqlx/v2 v2.3.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cast v1.3.1 // indirect

@@ -13,11 +13,11 @@ import (
 	"log"
 	"strings"
 
+	"github.com/batazor/shortlink/cmd/cli/internal/tool"
+	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
-
-	"github.com/batazor/shortlink/cmd/cli/internal/tool"
 )
 
 func init() {
@@ -56,6 +56,11 @@ func init() {
 }
 
 func main() {
+	pterm.DefaultBigText.WithLetters(
+		pterm.NewLettersFromStringWithStyle("Short", pterm.NewStyle(pterm.FgCyan)),
+		pterm.NewLettersFromStringWithStyle("Link", pterm.NewStyle(pterm.FgLightMagenta))).
+		Render()
+
 	dirs := []string{}
 	config := Config{}
 	filePath := viper.GetString("o")
@@ -77,6 +82,7 @@ func main() {
 	}
 
 	for _, dir := range dirs {
+		pterm.DefaultSection.Printf(`Search in directory %s`, dir)
 		config.setConfigDocs(dir, &config)
 	}
 
@@ -98,7 +104,7 @@ func (*Config) setConfigDocs(path string, config *Config) {
 
 	for _, pkg := range pkgs {
 		for fileName, file := range pkg.Files {
-			fmt.Printf("working on file %v\n", fileName)
+			pterm.Success.Printf("working on file %v\n", fileName)
 			ast.Inspect(file, func(n ast.Node) bool {
 				if stmt, ok := n.(*ast.ExprStmt); ok {
 

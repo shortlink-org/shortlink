@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "properties": {
+        "link": {
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "description": "URL"
+                },
+                "hash": {
+                    "type": "string",
+                    "description": "Hash by URL + salt"
+                },
+                "describe": {
+                    "type": "string",
+                    "description": "Describe of link"
+                },
+                "created_at": {
+                    "type": "string",
+                    "description": "Create at",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "description": "Update at",
+                    "format": "date-time"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object"
+        }
+    },
+    "additionalProperties": true,
+    "type": "object"
+}
