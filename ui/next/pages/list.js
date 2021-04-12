@@ -1,6 +1,8 @@
 import { forwardRef, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "material-table"
+import Tooltip from '@material-ui/core/Tooltip';
+import { formatRelative } from 'date-fns'
 import AddBox from '@material-ui/icons/AddBox';
 import Update from '@material-ui/icons/Update';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -61,10 +63,20 @@ export function LinkTableContent() {
         {
           title: "Created at",
           field: "created_at",
+          render: rowData => (
+            <Tooltip title="Add" arrow title={rowData.created_at} interactive>
+              <span>{ formatRelative(new Date(rowData.created_at), new Date(), { addSuffix: true }) }</span>
+            </Tooltip>
+          ),
         },
         {
           title: "Updated at",
           field: "updated_at",
+          render: rowData => (
+            <Tooltip title="Add" arrow title={rowData.updated_at} interactive>
+              <span>{ formatRelative(new Date(rowData.updated_at), new Date(), { addSuffix: true }) }</span>
+            </Tooltip>
+          ),
         }
       ]}
       data={state.list || []}
