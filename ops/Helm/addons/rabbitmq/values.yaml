@@ -9,6 +9,10 @@ annotations: {}
 rabbitmq:
   enabled: true
 
+  auth:
+    username: admin
+    password: admin
+
   ingress:
     enabled: true
     annotations:
