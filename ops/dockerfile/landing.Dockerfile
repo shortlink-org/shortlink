@@ -5,7 +5,7 @@ RUN apk add --no-cache alpine-sdk python
 WORKDIR /app
 COPY ./ui/landing /app/
 
-RUN npm i && \
+RUN npm i --force && \
   npm run generate
 
 FROM nginx:1.19-alpine
