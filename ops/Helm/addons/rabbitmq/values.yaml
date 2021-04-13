@@ -19,7 +19,9 @@ rabbitmq:
       nginx.ingress.kubernetes.io/enable-opentracing: "true"
       kubernetes.io/tls-acme: "true"
 
+    hostname: shortlink.ddns.net
     path: /rabbitmq
+    pathType: Prefix
 
     tls: true
     existingSecret: shortlink-ingress-tls
