@@ -20,13 +20,13 @@
       - RELEASE_NAME: ${CI_PROJECT_NAME}-logger
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
         REGISTRY: ${CI_REGISTRY_IMAGE}/logger
-        HELM_ARG: --set serviceAccount.create=false --set deploy.env.MQ_ENABLED="true"
+        HELM_ARG: --set deploy.env.MQ_ENABLED="true"
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
       - RELEASE_NAME: ${CI_PROJECT_NAME}-bot
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-bot
         REGISTRY: ${CI_REGISTRY_IMAGE}/bot
-        HELM_ARG: --set serviceAccount.create=false --set deploy.env.MQ_ENABLED="true"
+        HELM_ARG: --set deploy.env.MQ_ENABLED="true"
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
       - RELEASE_NAME: ${CI_PROJECT_NAME}-metadata
@@ -41,11 +41,11 @@
       - RELEASE_NAME: ${CI_PROJECT_NAME}-next
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-ui
         REGISTRY: ${CI_REGISTRY_IMAGE}/ui-next
-        HELM_ARG: --set serviceAccount.create=false --set path=next --set ingress.enabled=true
+        HELM_ARG: --set path=next --set ingress.enabled=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
       - RELEASE_NAME: ${CI_PROJECT_NAME}-landing
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-landing
         REGISTRY: ${CI_REGISTRY_IMAGE}/landing
-        HELM_ARG: --set serviceAccount.create=false --set serviceAccount.create=false --set ingress.enabled=true
+        HELM_ARG: --set ingress.enabled=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
