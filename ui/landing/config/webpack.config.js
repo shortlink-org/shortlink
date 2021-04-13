@@ -4,7 +4,7 @@ const config = require('./site.config');
 const loaders = require('./webpack.loaders');
 const plugins = require('./webpack.plugins');
 
-module.exports = {
+const CONFIG = {
   context: path.join(config.root, config.paths.src),
   entry: [
     path.join(config.root, config.paths.src, 'javascripts/scripts.js'),
@@ -13,7 +13,6 @@ module.exports = {
   output: {
     path: path.join(config.root, config.paths.dist),
     filename: '[name].[fullhash].js',
-    publicPath: '/landing/',
   },
   mode: ['production', 'development'].includes(config.env)
     ? config.env
@@ -38,3 +37,9 @@ module.exports = {
     asset: true
   },
 };
+
+if (process.env.NODE_ENV !== "development") {
+  CONFIG.output.publicPath = '/landing/'
+}
+
+module.exports = CONFIG
