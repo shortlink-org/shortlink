@@ -131,8 +131,8 @@ deploy:
       cpu: 100m
       memory: 128Mi
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 10m
+      memory: 32Mi
 
   podSecurityContext:
     # fsGroup is the group ID associated with the container

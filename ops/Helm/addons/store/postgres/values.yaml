@@ -30,6 +30,11 @@ postgresql:
     - name: POSTGRESQL_SHARED_PRELOAD_LIBRARIES
       value: uuid-ossp
 
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
   metrics:
     enabled: true
 
