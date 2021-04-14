@@ -59,7 +59,7 @@ plan:
     reports:
       terraform: tfplan.json
   needs:
-    - validate
+    - job: validate
   rules:
     - when: always
 
@@ -72,6 +72,6 @@ apply:
   script:
     - terraform apply -input=false $PLAN
   needs:
-    - plan
+    - job: plan
   rules:
     - when: manual
