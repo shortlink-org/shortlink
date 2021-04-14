@@ -10,29 +10,11 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const config = require('./site.config');
 
 // Hot module replacement
 const hmr = new webpack.HotModuleReplacementPlugin();
-
-// Optimize CSS assets
-const optimizeCss = new OptimizeCssAssetsPlugin({
-  assetNameRegExp: /\.css$/g,
-  cssProcessor: cssnano,
-  cssProcessorPluginOptions: {
-    preset: [
-      'default',
-      {
-        discardComments: {
-          removeAll: true,
-        },
-      },
-    ],
-  },
-  canPrint: true,
-});
 
 // Clean webpack
 const clean = new CleanWebpackPlugin();
@@ -124,8 +106,7 @@ module.exports = [
   stylelint,
   cssExtract,
   ...generateHTMLPlugins(),
-  fs.existsSync(config.favicon) && favicons,
-  config.env === 'production' && optimizeCss,
+  // fs.existsSync(config.favicon) && favicons,
   config.googleAnalyticsUA && google,
   webpackBar,
   config.env === 'development' && hmr,

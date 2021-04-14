@@ -1,11 +1,12 @@
 FROM node:15.14-alpine as builder
 
-RUN apk add --no-cache alpine-sdk python
+RUN apk add --no-cache alpine-sdk python libsass
 
 WORKDIR /app
 COPY ./ui/landing /app/
 
-RUN npm i --force && \
+RUN npm i && \
+  npm rebuild node-sass && \
   npm run generate
 
 FROM nginx:1.19-alpine
