@@ -30,7 +30,7 @@ rollback:
   script:
     - helm --namespace=$KUBE_NAMESPACE rollback $RELEASE_NAME 0
   needs:
-    - deploy
+    - job: deploy
   when: manual
 
 history:
@@ -39,7 +39,7 @@ history:
   script:
     - helm --namespace=$KUBE_NAMESPACE history $RELEASE_NAME
   needs:
-    - deploy
+    - job: deploy
   when: manual
 
 drop:
