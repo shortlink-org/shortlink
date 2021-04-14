@@ -1,4 +1,5 @@
 const path = require('path');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const config = require('./site.config');
 const loaders = require('./webpack.loaders');
@@ -35,6 +36,12 @@ const CONFIG = {
   plugins,
   experiments: {
     asset: true
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new CssMinimizerPlugin(),
+    ],
   },
 };
 
