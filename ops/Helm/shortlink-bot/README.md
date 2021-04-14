@@ -27,6 +27,8 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
+| deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
+| deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
 | deploy.env.SERVICE_NAME | string | `"Logger"` |  |
 | deploy.env.TRACER_URI | string | `"jaeger-agent.jaeger-operator:6831"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
@@ -68,7 +70,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nMIICljCCAjugAwIBAgIUZhuY8pa+aFn96PpXHKoFxgW9WsQwCgYIKoZIzj0EAwIw\ngYwxCzAJBgNVBAYTAlJVMQ8wDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2Nv\ndzESMBAGA1UEChMJU2hvcnRsaW5rMSswKQYDVQQLEyJFeGFtcGxlIFJvb3QgQ2Vy\ndGlmaWNhdGUgQXV0aG9yaXR5MRowGAYDVQQDExFTaG9ydGxpbmsgUm9vdCBDQTAe\nFw0yMDExMjExODAyMDBaFw0yMTExMjExODAyMDBaMH8xCzAJBgNVBAYTAlJVMQ8w\nDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2NvdzESMBAGA1UEChMJU2hvcnRs\naW5rMQ8wDQYDVQQLEwZNb3Njb3cxKTAnBgNVBAMTIEN1c3RvbSBTaG9ydGxpbmsg\nSW50ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsMwqTmk0\nbvNChfE79Ljr/mnkw90XVe4J45GgYYZZ83eUqetg/dnT+0h/Mdw1uEABYtbmRG4Q\nyGdNIcSCsS8tf6OBhjCBgzAOBgNVHQ8BAf8EBAMCAaYwHQYDVR0lBBYwFAYIKwYB\nBQUHAwEGCCsGAQUFBwMCMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFBiZ\nymfiD4U/jz6qSNvU26XMCC9oMB8GA1UdIwQYMBaAFA93UcPMOw3jdtWLxuCopshq\nK9FrMAoGCCqGSM49BAMCA0kAMEYCIQDGHwhl3IrIgD75cvqBqvitltzEDqBlnGMi\nM3FEoCXGhwIhAIFPuVTuk16zNNJZNlY+027k0pg0SOfNcw0qcNyFtOvC\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nMIICkTCCAjigAwIBAgIUdo/zgCCySxFfOxrYpympLLN0mvcwCgYIKoZIzj0EAwIw\nfzELMAkGA1UEBhMCUlUxDzANBgNVBAgTBk1vc2NvdzEPMA0GA1UEBxMGTW9zY293\nMRIwEAYDVQQKEwlTaG9ydGxpbmsxDzANBgNVBAsTBk1vc2NvdzEpMCcGA1UEAxMg\nQ3VzdG9tIFNob3J0bGluayBJbnRlcm1lZGlhdGUgQ0EwHhcNMjAxMTIxMTgwMjAw\nWhcNMjExMTIxMTgwMjAwWjBoMQswCQYDVQQGEwJSVTEPMA0GA1UECBMGTW9zY293\nMQ8wDQYDVQQHEwZNb3Njb3cxEjAQBgNVBAoTCVNob3J0bGluazEPMA0GA1UECxMG\nTW9zY293MRIwEAYDVQQDEwlzaG9ydGxpbmswWTATBgcqhkjOPQIBBggqhkjOPQMB\nBwNCAARXdzYwc4cLaba2/9zxd0aT0wGSOy40s47jT7fkGwCuOvNB7Yl80ed/jEht\n+BJJgT87MOVOHLBXT9SEa2O/8Iw6o4GoMIGlMA4GA1UdDwEB/wQEAwIFoDATBgNV\nHSUEDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQvXJcdbHow\nDJoiXyvryuTo1NFAtjAfBgNVHSMEGDAWgBQYmcpn4g+FP48+qkjb1NulzAgvaDAw\nBgNVHREEKTAngglsb2NhbGhvc3SCBWxvY2FsggcqLmxvY2FshwR/AAABhwQAAAAA\nMAoGCCqGSM49BAMCA0cAMEQCIDTXPLlM1YpK5Iwe80imyysmJAkbA+jKSWW0CBvd\nrUQDAiB71ah7iKjM1P9lOzWfD3nm6DYZSdWLmUCXnrjBt6xYEQ==\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIAm9fkeHAhonIbVt3LQHgibo7x5+5RkMEW6a1qm00KUkoAoGCCqGSM49\nAwEHoUQDQgAEV3c2MHOHC2m2tv/c8XdGk9MBkjsuNLOO40+35BsArjrzQe2JfNHn\nf4xIbfgSSYE/OzDlThywV0/UhGtjv/CMOg==\n-----END EC PRIVATE KEY-----\n"` |  |
-| serviceAccount.create | bool | `false` |  |
+| serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
 
 ----------------------------------------------

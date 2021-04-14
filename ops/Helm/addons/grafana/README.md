@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 6.7.0 |
+| https://grafana.github.io/helm-charts | grafana | 6.7.4 |
 | https://grafana.github.io/helm-charts | loki | 2.5.0 |
 | https://grafana.github.io/helm-charts | promtail | 3.5.0 |
 
@@ -91,6 +91,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | grafana.sidecar.datasources.defaultDatasourceEnabled | bool | `true` |  |
 | grafana.sidecar.datasources.enabled | bool | `true` |  |
 | loki.enabled | bool | `true` |  |
+| promtail.config.lokiAddress | string | `"http://grafana-loki:3100/loki/api/v1/push"` |  |
 | promtail.enabled | bool | `true` |  |
 | promtail.extraScrapeConfigs[0].job_name | string | `"syslog"` |  |
 | promtail.extraScrapeConfigs[0].syslog.labels.job | string | `"syslog"` |  |

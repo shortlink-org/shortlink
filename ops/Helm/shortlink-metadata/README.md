@@ -27,7 +27,10 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
+| deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
+| deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
 | deploy.env.SERVICE_NAME | string | `"metadata"` |  |
+| deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable"` |  |
 | deploy.env.TRACER_URI | string | `"jaeger-agent.jaeger-operator:6831"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
 | deploy.image.repository | string | `"batazor/shortlink-metadata"` |  |
