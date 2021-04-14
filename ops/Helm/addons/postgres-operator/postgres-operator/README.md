@@ -106,7 +106,7 @@ Postgres Operator creates and manages PostgreSQL clusters running in Kubernetes
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"registry.opensource.zalan.do"` |  |
 | image.repository | string | `"acid/postgres-operator"` |  |
-| image.tag | string | `"v1.6.1"` |  |
+| image.tag | string | `"v1.6.2"` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
 | podLabels | object | `{}` |  |
