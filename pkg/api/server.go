@@ -23,13 +23,13 @@ import (
 func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, rpcClient *grpc.ClientConn) {
 	var server API
 
-	viper.SetDefault("API_TYPE", "http-chi")        // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
-	viper.SetDefault("API_PORT", 7070)              // API port
-	viper.SetDefault("API_TIMEOUT", 60*time.Second) // Request Timeout
+	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
+	viper.SetDefault("API_PORT", 7070)       // API port
+	viper.SetDefault("API_TIMEOUT", 60)      // Request Timeout (seconds)
 
 	config := api_type.Config{
 		Port:    viper.GetInt("API_PORT"),
-		Timeout: viper.GetDuration("API_TIMEOUT"),
+		Timeout: viper.GetDuration("API_TIMEOUT") * time.Second,
 	}
 
 	serverType := viper.GetString("API_TYPE")
