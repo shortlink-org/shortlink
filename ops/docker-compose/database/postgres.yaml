@@ -21,7 +21,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: shortlink
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: shortlink
       POSTGRES_DB: shortlink
     networks:
@@ -32,7 +32,6 @@ services:
       interval: 2s
       timeout: 1m
       retries: 5
-      start_period: 10s
     volumes: []
 #      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
 #    logging:
