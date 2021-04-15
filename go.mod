@@ -10,7 +10,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.6.1
 	github.com/Shopify/sarama v1.28.0
 	github.com/Unleash/unleash-client-go/v3 v3.1.1
-	github.com/cloudevents/sdk-go/v2 v2.4.0
+	github.com/cloudevents/sdk-go/v2 v2.4.1
 	github.com/container-storage-interface/spec v1.4.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v3 v3.2011.1
@@ -42,7 +42,7 @@ require (
 	github.com/kubernetes-csi/csi-test/v4 v4.1.0
 	github.com/lib/pq v1.10.0
 	github.com/markbates/pkger v0.17.1
-	github.com/mattn/go-sqlite3 v1.14.6
+	github.com/mattn/go-sqlite3 v1.14.7
 	github.com/nats-io/nats.go v1.10.0
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
