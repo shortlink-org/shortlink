@@ -27,7 +27,9 @@ func NewTraceFromContext(ctx context.Context, msg string, fields ...field.Fields
 			fields = make([]field.Fields, 1)
 		}
 
-		fields[0]["traceID"] = traceID.TraceID().String()
+		fields = append(fields, field.Fields{
+			"traceID": traceID.TraceID().String(),
+		})
 	}
 
 	return fields, nil

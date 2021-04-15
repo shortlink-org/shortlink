@@ -23,7 +23,11 @@ do: ## Run for specific job
 	@docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
-		-f ops/docker-compose/application/auth.yaml \
+		-f ops/docker-compose/database/postgres.yaml \
+		-f ops/docker-compose/tooling/prometheus.yaml \
+		-f ops/docker-compose/tooling/grafana.yaml \
+		-f ops/docker-compose/tooling/grafana-loki.yaml \
+		-f ops/docker-compose/tooling/grafana-tempo.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose

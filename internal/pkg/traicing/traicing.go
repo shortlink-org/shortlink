@@ -55,6 +55,9 @@ func Init(cnf Config, log logger.Logger) (*opentracing.Tracer, io.Closer, error)
 
 	// Set the singleton opentracing.Tracer with the Jaeger tracer.
 	opentracing.SetGlobalTracer(tracer)
+	log.Info(`Tracing enable`, field.Fields{
+		"uri": cnf.URI,
+	})
 
 	return &tracer, closer, nil
 }

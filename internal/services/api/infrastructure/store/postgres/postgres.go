@@ -3,21 +3,22 @@ package postgres
 
 import (
 	"context"
+	"database/sql"
 	"encoding/json"
 	"errors"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	"github.com/jackc/pgx/v4/pgxpool"
-	_ "github.com/lib/pq" // need for init PostgreSQL interface
-	"github.com/spf13/viper"
-
 	"github.com/batazor/shortlink/internal/pkg/batch"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/db/options"
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
 	"github.com/batazor/shortlink/internal/services/api/infrastructure/store/query"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	"github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/jackc/pgx/v4/pgxpool"
+	_ "github.com/lib/pq" // need for init PostgreSQL interface
+	"github.com/spf13/viper"
 )
 
 var (
@@ -105,7 +106,7 @@ func (p *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 // List ...
 func (p *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) {
 	// query builder
-	links := psql.Select("url, hash, describe").
+	links := psql.Select("url, hash, describe, created_at, updated_at").
 		From("links")
 	links = p.buildFilter(links, filter)
 	q, args, err := links.ToSql()
@@ -122,10 +123,16 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 
 	for rows.Next() {
 		var result link.Link
-		err = rows.Scan(&result.Url, &result.Hash, &result.Describe)
+		var (
+			created_ad sql.NullTime
+			updated_at sql.NullTime
+		)
+		err = rows.Scan(&result.Url, &result.Hash, &result.Describe, &created_ad, &updated_at)
 		if err != nil {
 			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
+		result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
+		result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
 
 		response = append(response, &result)
 	}

@@ -50,12 +50,12 @@ func (r *rpc) Notify(ctx context.Context, event uint32, payload interface{}) not
 			}
 
 			if link, ok := payload.(*link.Link); ok {
-				_, err := r.MetadataClient.Set(ctx, &metadata_rpc.SetMetaRequest{
-					Id: link.Url,
-				})
-				if err != nil {
-					resp.Error = err
-				}
+				// TODO: use sage. drop goroutine
+				go func() {
+					_, _ = r.MetadataClient.Set(ctx, &metadata_rpc.SetMetaRequest{
+						Id: link.Url,
+					})
+				}()
 
 				return resp
 			}

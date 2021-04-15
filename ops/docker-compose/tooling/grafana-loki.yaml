@@ -29,7 +29,7 @@ services:
       - coredns
     image: grafana/promtail:2.2.0
     container_name: promtail
+    command: -config.file=/etc/promtail/config.yml
     volumes:
       - /var/log:/var/log
       - ./ops/docker-compose/tooling/promtail/config.yml:/etc/promtail/config.yml
-    command: -config.file=/etc/promtail/config.yml
