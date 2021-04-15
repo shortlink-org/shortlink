@@ -89,7 +89,7 @@ func (p *Store) migrate() error { // nolint unused
 
 // setConfig - set configuration
 func (p *Store) setConfig() {
-	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s?sslmode=disable", "shortlink", "shortlink", "shortlink")
+	dbinfo := fmt.Sprintf("postgres://%s:%s@localhost:5432/%s?sslmode=disable", "postgres", "shortlink", "shortlink")
 
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_POSTGRES_URI", dbinfo)                  // Postgres URI

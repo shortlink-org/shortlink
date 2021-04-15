@@ -28,7 +28,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("postgres", "latest", []string{
-		"POSTGRES_USER=shortlink",
+		"POSTGRES_USER=postgres",
 		"POSTGRES_PASSWORD=shortlink",
 		"POSTGRES_DB=shortlink",
 	})
@@ -120,7 +120,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("postgres", "latest", []string{
-		"POSTGRES_USER=shortlink",
+		"POSTGRES_USER=postgres",
 		"POSTGRES_PASSWORD=shortlink",
 		"POSTGRES_DB=shortlink",
 	})
