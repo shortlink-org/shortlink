@@ -16,6 +16,7 @@ ingress-nginx:
       # jaeger-collector-host: devops-init-jaeger-collector
       jaeger-service-name: nginx-ingress
       zipkin-collector-host: jaeger-agent.jaeger-operator
+      jaeger-propagation-format: w3c
 
     # Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
     # since CNI and hostport don't mix yet. Can be deprecated once https://github.com/kubernetes/kubernetes/issues/23920

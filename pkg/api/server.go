@@ -29,7 +29,7 @@ func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *open
 
 	config := api_type.Config{
 		Port:    viper.GetInt("API_PORT"),
-		Timeout: viper.GetDuration("API_TIMEOUT") * time.Second,
+		Timeout: viper.GetDuration("API_TIMEOUT") * time.Second, // nolint durationcheck
 	}
 
 	serverType := viper.GetString("API_TYPE")
