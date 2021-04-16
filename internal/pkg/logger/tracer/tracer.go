@@ -24,10 +24,10 @@ func NewTraceFromContext(ctx context.Context, msg string, fields ...field.Fields
 
 	if traceID, ok := span.Context().(jaeger.SpanContext); ok {
 		if len(fields) == 0 {
-			fields = make([]field.Fields, 1)
+			fields = make([]field.Fields, 0)
 		}
 
-		fields = append(fields, field.Fields{
+		fields = append(fields, field.Fields{ // nozero
 			"traceID": traceID.TraceID().String(),
 		})
 	}
