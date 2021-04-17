@@ -18,7 +18,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
-	"github.com/batazor/shortlink/internal/services/bot"
+	"github.com/batazor/shortlink/internal/services/bot/service"
 	bot_type "github.com/batazor/shortlink/internal/services/bot/type"
 )
 
@@ -39,7 +39,7 @@ func main() {
 	}
 
 	// Run bot
-	b := bot.Bot{}
+	b := service.Bot{}
 	b.Use(s.Ctx)
 
 	go func() {
@@ -54,7 +54,7 @@ func main() {
 		for {
 			msg := <-getEventNewLink.Chan
 
-			// []byte to link.Link
+			// Convert: []byte to link.Link
 			myLink := &link.Link{}
 			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
 				s.Log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))

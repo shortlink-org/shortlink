@@ -1,4 +1,4 @@
-package bot
+package service
 
 import (
 	"github.com/batazor/shortlink/internal/pkg/notify"

@@ -264,6 +264,11 @@ func InitializeBotService() (*Service, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
 	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
 		cleanup()
@@ -283,7 +288,7 @@ func InitializeBotService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler)
-	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
+	tracer, cleanup5, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -291,7 +296,7 @@ func InitializeBotService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewBotService(logger, mq, serveMux, autoMaxProAutoMaxPro)
+	autoMaxProAutoMaxPro, cleanup6, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -300,7 +305,18 @@ func InitializeBotService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	service, err := NewBotService(context, configConfig, logger, mq, serveMux, tracer, autoMaxProAutoMaxPro)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -568,16 +584,21 @@ func NewAPIService(ctx2 context.Context,
 
 // BotService ==========================================================================================================
 var BotSet = wire.NewSet(
-	DefaultSet, sentry.New, monitoring.New, mq_di.New, NewBotService,
+	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewBotService,
 )
 
-func NewBotService(
+func NewBotService(ctx2 context.Context,
+
+	cfg *config.Config,
 	log logger.Logger, mq2 mq.MQ, monitoring2 *http.ServeMux,
+	tracer *opentracing.Tracer,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{
+		Ctx:        ctx2,
 		Log:        log,
 		MQ:         mq2,
+		Tracer:     tracer,
 		Monitoring: monitoring2,
 	}, nil
 }
