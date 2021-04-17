@@ -55,6 +55,7 @@ require (
 	github.com/pterm/pterm v0.12.13
 	github.com/scylladb/gocqlx/v2 v2.3.0
 	github.com/sirupsen/logrus v1.8.1
+	github.com/smartystreets/assertions v1.0.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.1
