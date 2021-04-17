@@ -61,6 +61,9 @@ func (mq *RabbitMQ) Init(_ context.Context) error {
 		false,       // no-wait
 		nil,         // arguments
 	)
+	if err != nil {
+		return err
+	}
 
 	err = mq.ch.QueueBind(
 		mq.q.Name,
