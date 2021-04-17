@@ -7,6 +7,8 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/opentracing/opentracing-go"
+	"github.com/uber/jaeger-client-go"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
@@ -50,13 +52,19 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	go notify.Publish(r.Context(), api_type.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
 
 	c := <-responseCh
-	switch r := c.(type) {
+	switch resp := c.(type) {
 	case nil:
 		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
 	case notify.Response:
-		err = r.Error
+		// inject spanId in response header
+		span := opentracing.SpanFromContext(r.Context())
+		if traceID, ok := span.Context().(jaeger.SpanContext); ok {
+			w.Header().Add("span-id", traceID.SpanID().String())
+		}
+
+		err = resp.Error
 		if err == nil {
-			newLink = r.Payload.(*link.Link) // nolint errcheck
+			newLink = resp.Payload.(*link.Link) // nolint errcheck
 		}
 	}
 
