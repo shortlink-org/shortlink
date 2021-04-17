@@ -15,6 +15,8 @@ import (
 )
 
 type Metadata struct {
+	UnimplementedMetadataServer
+
 	service *application.Service
 	log     logger.Logger
 }
