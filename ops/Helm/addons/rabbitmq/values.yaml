@@ -13,6 +13,9 @@ rabbitmq:
     username: admin
     password: admin
 
+  persistence:
+    enabled: false
+
   ingress:
     enabled: true
     annotations:
