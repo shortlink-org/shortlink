@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"net"
 
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	grpc_logger "github.com/batazor/shortlink/pkg/rpc/logger"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/recovery"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
@@ -11,13 +14,8 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
-	"google.golang.org/grpc/status"
-
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
 // InitServer ...
@@ -30,6 +28,9 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 	viper.SetDefault("GRPC_SERVER_KEY_PATH", "ops/cert/shortlink-server-key.pem") // gRPC server key
 	keyFile := viper.GetString("GRPC_SERVER_KEY_PATH")
 
+	viper.SetDefault("GRPC_SERVER_LOGGER_ENABLE", true) // Enable logging for gRPC-client
+	isEnableLogger := viper.GetBool("GRPC_SERVER_LOGGER_ENABLE")
+
 	creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)
 	if err != nil {
 		return nil, nil, err
@@ -41,27 +42,21 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 		return nil, nil, err
 	}
 
-	// Define custom func to handle panic
-	customFunc := func(p interface{}) (err error) {
-		return status.Errorf(codes.Unknown, "panic triggered: %v", p)
-	}
-
-	// Shared options for the logger, with a custom gRPC code to log level function.
-	recoveryOpts := []recovery.Option{
-		recovery.WithRecoveryHandler(customFunc),
-	}
-
 	// UnaryServer
 	var incerceptorUnaryServerList = []grpc.UnaryServerInterceptor{
 		grpc_prometheus.UnaryServerInterceptor,
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 		// (e.g. logging) can operate on the recovered state instead of being directly affected by any panic
-		recovery.UnaryServerInterceptor(recoveryOpts...),
+		recovery.UnaryServerInterceptor(),
 	}
 
 	if tracer != nil {
 		incerceptorUnaryServerList = append(incerceptorUnaryServerList, otgrpc.OpenTracingServerInterceptor(*tracer, otgrpc.LogPayloads()))
+	}
+
+	if isEnableLogger {
+		incerceptorUnaryServerList = append(incerceptorUnaryServerList, grpc_logger.UnaryServerInterceptor(log))
 	}
 
 	// StreamClient
@@ -70,11 +65,15 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 		// (e.g. logging) can operate on the recovered state instead of being directly affected by any panic
-		recovery.StreamServerInterceptor(recoveryOpts...),
+		recovery.StreamServerInterceptor(),
 	}
 
 	if tracer != nil {
 		incerceptorStreamServerList = append(incerceptorStreamServerList, otgrpc.OpenTracingStreamServerInterceptor(*tracer, otgrpc.LogPayloads()))
+	}
+
+	if isEnableLogger {
+		incerceptorStreamServerList = append(incerceptorStreamServerList, grpc_logger.StreamServerInterceptor(log))
 	}
 
 	// Initialize the gRPC server.
