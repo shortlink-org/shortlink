@@ -2,6 +2,9 @@
   <configuration default="false" name="api" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="GRPC_CLIENT_PORT" value="50052" />
+    </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
