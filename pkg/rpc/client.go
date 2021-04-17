@@ -3,6 +3,7 @@ package rpc
 import (
 	"fmt"
 
+	grpc_logger "github.com/batazor/shortlink/pkg/rpc/logger"
 	middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	otgrpc "github.com/opentracing-contrib/go-grpc"
@@ -26,6 +27,9 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 	viper.SetDefault("GRPC_CLIENT_CERT_PATH", "ops/cert/intermediate_ca.pem") // gRPC client cert
 	certFile := viper.GetString("GRPC_CLIENT_CERT_PATH")
 
+	viper.SetDefault("GRPC_CLIENT_LOGGER_ENABLE", true) // Enable logging for gRPC-client
+	isEnableLogger := viper.GetBool("GRPC_CLIENT_LOGGER_ENABLE")
+
 	creds, err := credentials.NewClientTLSFromFile(certFile, "")
 	if err != nil {
 		return nil, nil, err
@@ -40,6 +44,10 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 		incerceptorUnaryClientList = append(incerceptorUnaryClientList, otgrpc.OpenTracingClientInterceptor(*tracer, otgrpc.LogPayloads()))
 	}
 
+	if isEnableLogger {
+		incerceptorUnaryClientList = append(incerceptorUnaryClientList, grpc_logger.UnaryClientInterceptor(log))
+	}
+
 	// StreamClient
 	var incerceptorStreamClientList = []grpc.StreamClientInterceptor{
 		grpc_prometheus.StreamClientInterceptor,
@@ -47,6 +55,10 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 
 	if tracer != nil {
 		incerceptorStreamClientList = append(incerceptorStreamClientList, otgrpc.OpenTracingStreamClientInterceptor(*tracer, otgrpc.LogPayloads()))
+	}
+
+	if isEnableLogger {
+		incerceptorStreamClientList = append(incerceptorStreamClientList, grpc_logger.StreamClientInterceptor(log))
 	}
 
 	// Set up a connection to the server peer
@@ -65,7 +77,7 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 	log.Info("Run gRPC client", field.Fields{"port": grpc_port, "host": grpc_host})
 
 	cleanup := func() {
-		conn.Close()
+		_ = conn.Close()
 	}
 
 	return conn, cleanup, nil
