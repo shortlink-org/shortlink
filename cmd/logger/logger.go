@@ -10,7 +10,9 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/batazor/shortlink/internal/services/api/domain/link"
 	"github.com/spf13/viper"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/di"
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
@@ -43,7 +45,16 @@ func main() {
 	go func() {
 		for {
 			msg := <-getEventNewLink.Chan
-			service.Log.Info(fmt.Sprintf("GET: %s", string(msg.Body)))
+
+			// Convert: []byte to link.Link
+			myLink := &link.Link{}
+			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
+				service.Log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
+				msg.Context.Done()
+				continue
+			}
+
+			service.Log.Info(fmt.Sprintf("GET URL: %s", myLink.Url))
 			msg.Context.Done()
 		}
 	}()

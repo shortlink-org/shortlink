@@ -38,6 +38,20 @@ func (mq *RabbitMQ) Init(_ context.Context) error {
 		return err
 	}
 
+	// create a exchange
+	err = mq.ch.ExchangeDeclare(
+		"shortlink", // name
+		"fanout",    // type
+		false,       // durable
+		false,       // auto-deleted
+		false,       // internal
+		false,       // no-wait
+		nil,         // arguments
+	)
+	if err != nil {
+		return err
+	}
+
 	// create a queue
 	mq.q, err = mq.ch.QueueDeclare(
 		"shortlink", // name
@@ -46,6 +60,14 @@ func (mq *RabbitMQ) Init(_ context.Context) error {
 		false,       // exclusive
 		false,       // no-wait
 		nil,         // arguments
+	)
+
+	err = mq.ch.QueueBind(
+		mq.q.Name,
+		"*",
+		"shortlink",
+		false,
+		nil,
 	)
 	if err != nil {
 		return err

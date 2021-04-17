@@ -1,7 +1,7 @@
 /*
 Bot Service
 */
-package bot
+package service
 
 import (
 	"context"
