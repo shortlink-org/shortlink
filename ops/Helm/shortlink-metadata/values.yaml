@@ -156,3 +156,9 @@ deploy:
     capabilities:
       drop:
         - ALL
+
+service:
+  type: ClusterIP
+  port: 7070
+  # nodePort: 7070
+  # clusterIP: 172.0.0.1

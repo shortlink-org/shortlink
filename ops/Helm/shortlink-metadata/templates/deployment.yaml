@@ -41,6 +41,13 @@ spec:
           {{- toYaml .Values.deploy.securityContext | nindent 12 }}
         image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
+        ports:
+        - name: grpc
+          containerPort: 50051
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
         {{- if .Values.deploy.livenessProbe }}
         livenessProbe:
           {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}

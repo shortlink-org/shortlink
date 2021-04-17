@@ -23,6 +23,9 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
+	viper.SetDefault("GRPC_SERVER_HOST", "0.0.0.0") // gRPC host
+	grpc_host := viper.GetString("GRPC_SERVER_HOST")
+
 	viper.SetDefault("GRPC_SERVER_CERT_PATH", "ops/cert/shortlink-server.pem") // gRPC server cert
 	certFile := viper.GetString("GRPC_SERVER_CERT_PATH")
 	viper.SetDefault("GRPC_SERVER_KEY_PATH", "ops/cert/shortlink-server-key.pem") // gRPC server key
@@ -36,7 +39,7 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 		return nil, nil, err
 	}
 
-	endpoint := fmt.Sprintf("0.0.0.0:%d", grpc_port)
+	endpoint := fmt.Sprintf("%s:%d", grpc_host, grpc_port)
 	lis, err := net.Listen("tcp", endpoint)
 	if err != nil {
 		return nil, nil, err
@@ -94,7 +97,7 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 			// After all your registrations, make sure all of the Prometheus metrics are initialized.
 			grpc_prometheus.Register(rpc)
 
-			log.Info("Run gRPC server", field.Fields{"port": grpc_port})
+			log.Info("Run gRPC server", field.Fields{"port": grpc_port, "host": grpc_host})
 			err = rpc.Serve(lis)
 			if err != nil {
 				log.Error(err.Error())
