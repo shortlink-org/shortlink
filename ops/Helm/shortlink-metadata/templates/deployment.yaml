@@ -43,7 +43,7 @@ spec:
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
         ports:
         - name: grpc
-          containerPort: 50051
+          containerPort: {{ .Values.service.port }}
           protocol: TCP
         - name: metrics
           containerPort: 9090
