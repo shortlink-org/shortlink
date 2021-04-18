@@ -457,7 +457,10 @@ func (d *driver) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequ
 	snapshotID := req.GetSnapshotId()
 	d.log.InfoWithContext(ctx, fmt.Sprintf("deleting snapshot %s", snapshotID))
 	path := getSnapshotPath(snapshotID)
-	os.RemoveAll(path)
+	err := os.RemoveAll(path)
+	if err != nil {
+		return nil, err
+	}
 	delete(hostPathVolumeSnapshots, snapshotID)
 	return &csi.DeleteSnapshotResponse{}, nil
 }
