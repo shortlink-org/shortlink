@@ -57,11 +57,11 @@ func main() {
 			// Convert: []byte to link.Link
 			myLink := &link.Link{}
 			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
-				s.Log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
+				s.Log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				continue
 			}
 
-			s.Log.Info("Get new LINK", field.Fields{"url": myLink.Url})
+			s.Log.InfoWithContext(msg.Context, "Get new LINK", field.Fields{"url": myLink.Url})
 			notify.Publish(s.Ctx, bot_type.METHOD_NEW_LINK, myLink, nil)
 		}
 	}()
