@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/DataDog/zstd v1.4.4 // indirect
+	github.com/GeertJohan/go.rice v1.0.2 // indirect
 	github.com/HdrHistogram/hdrhistogram-go v0.9.0 // indirect
 	github.com/Masterminds/squirrel v1.5.0
 	github.com/OneOfOne/xxhash v1.2.5 // indirect
@@ -11,8 +12,11 @@ require (
 	github.com/Shopify/sarama v1.28.0
 	github.com/Unleash/unleash-client-go/v3 v3.1.1
 	github.com/cloudevents/sdk-go/v2 v2.4.1
+	github.com/cloudflare/cfssl v1.5.0 // indirect
 	github.com/container-storage-interface/spec v1.4.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
+	github.com/coreos/go-systemd v0.0.0-20191104093116-d3cd4ed1dbcf // indirect
+	github.com/daaku/go.zipexe v1.0.1 // indirect
 	github.com/dgraph-io/badger/v3 v3.2011.1
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dgryski/go-farm v0.0.0-20200201041132-a6ae2369ad13 // indirect
@@ -27,23 +31,30 @@ require (
 	github.com/gocql/gocql v0.0.0-20210413161705-87a5d7a5ff74
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
+	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2
-	github.com/google/uuid v1.1.4 // indirect
+	github.com/google/btree v1.0.1 // indirect
+	github.com/google/certificate-transparency-go v1.1.1 // indirect
+	github.com/google/uuid v1.2.0 // indirect
 	github.com/google/wire v0.5.0
 	github.com/gorilla/mux v1.8.0
 	github.com/graph-gophers/graphql-go v1.0.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
+	github.com/grpc-ecosystem/grpc-gateway v1.16.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.3.0
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.11.0
 	github.com/jmoiron/sqlx v1.3.3
 	github.com/johejo/golang-migrate-extra v0.0.0-20210217013041-51a992e50d16
+	github.com/jonboulle/clockwork v0.2.2 // indirect
+	github.com/kisielk/sqlstruct v0.0.0-20201105191214-5f3e10d3ab46 // indirect
 	github.com/kubernetes-csi/csi-test/v4 v4.1.0
 	github.com/lib/pq v1.10.0
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.7
 	github.com/nats-io/nats.go v1.10.0
+	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
@@ -52,25 +63,34 @@ require (
 	github.com/pborman/uuid v1.2.1
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/prometheus/client_golang v1.10.0
+	github.com/prometheus/common v0.20.0 // indirect
 	github.com/pterm/pterm v0.12.13
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/scylladb/gocqlx/v2 v2.3.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/smartystreets/assertions v1.0.0 // indirect
+	github.com/soheilhy/cmux v0.1.5 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.1
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.0
+	github.com/tmc/grpc-websocket-proxy v0.0.0-20201229170055-e5319fda7802 // indirect
 	github.com/uber/jaeger-client-go v2.26.0+incompatible
 	github.com/uber/jaeger-lib v2.4.0+incompatible // indirect
+	github.com/urfave/cli v1.22.5 // indirect
+	github.com/zmap/zcrypto v0.0.0-20210414125301-c96eed78a71a // indirect
 	go.mongodb.org/mongo-driver v1.5.1
 	go.uber.org/atomic v1.7.0
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
+	golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc // indirect
+	golang.org/x/mod v0.4.2 // indirect
 	golang.org/x/net v0.0.0-20210415231046-e915ea6b2b7d
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
+	golang.org/x/sys v0.0.0-20210415045647-66c3f260301c // indirect
 	google.golang.org/api v0.44.0
 	google.golang.org/genproto v0.0.0-20210416161957-9910b6c460de
 	google.golang.org/grpc v1.37.0
