@@ -21,8 +21,11 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/notify"
+	"github.com/batazor/shortlink/internal/services/api/infrastructure/mq"
 	store2 "github.com/batazor/shortlink/internal/services/api/infrastructure/store"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
+	"github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
@@ -141,7 +144,7 @@ func InitializeFullService() (*Service, func(), error) {
 
 // Injectors from service_api.go:
 
-func InitializeAPIService() (*Service, func(), error) {
+func InitializeAPIService() (*ServiceAPI, func(), error) {
 	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
@@ -180,6 +183,16 @@ func InitializeAPIService() (*Service, func(), error) {
 	}
 	dbStore, cleanup6, err := store.New(context, logger)
 	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	event, err := InitLinkMQ(context, logger, mq)
+	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -231,7 +244,7 @@ func InitializeAPIService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewAPIService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, linkStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn)
+	serviceAPI, err := NewAPIService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, event, linkStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -244,7 +257,7 @@ func InitializeAPIService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	return service, func() {
+	return serviceAPI, func() {
 		cleanup9()
 		cleanup8()
 		cleanup7()
@@ -395,7 +408,7 @@ func InitializeLoggerService() (*Service, func(), error) {
 
 // Injectors from service_metadata.go:
 
-func InitializeMetadataService() (*Service, func(), error) {
+func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
@@ -456,7 +469,7 @@ func InitializeMetadataService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler)
-	service, err := NewMetadataService(logger, autoMaxProAutoMaxPro, dbStore, rpcServer, metaStore, serveMux, handler)
+	serviceMetadata, err := NewMetadataService(logger, autoMaxProAutoMaxPro, dbStore, rpcServer, metaStore, serveMux, handler)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -467,7 +480,7 @@ func InitializeMetadataService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	return service, func() {
+	return serviceMetadata, func() {
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -488,7 +501,6 @@ type Service struct {
 	Tracer        *opentracing.Tracer
 	Sentry        *sentryhttp.Handler
 	DB            *db.Store
-	LinkStore     *store2.LinkStore
 	MetaStore     *meta_store.MetaStore
 	MQ            mq.MQ
 	ServerRPC     *rpc.RPCServer
@@ -536,6 +548,22 @@ func NewFullService(ctx2 context.Context,
 
 // service_api.go:
 
+type ServiceAPI struct {
+	Service
+	LinkMQ    *api_mq.Event
+	LinkStore *store2.LinkStore
+}
+
+// InitLinkMQ ==========================================================================================================
+func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Event, error) {
+	linkMQ := &api_mq.Event{
+		MQ: mq2,
+	}
+	notify.Subscribe(api_type.METHOD_ADD, linkMQ)
+
+	return linkMQ, nil
+}
+
 // InitLinkStore =======================================================================================================
 func InitLinkStore(ctx2 context.Context, log logger.Logger, conn *db.Store) (*store2.LinkStore, error) {
 	st := store2.LinkStore{}
@@ -549,7 +577,8 @@ func InitLinkStore(ctx2 context.Context, log logger.Logger, conn *db.Store) (*st
 
 // APIService ==========================================================================================================
 var APISet = wire.NewSet(
-	DefaultSet, store.New, InitLinkStore, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, NewAPIService,
+	DefaultSet, store.New, InitLinkMQ,
+	InitLinkStore, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, NewAPIService,
 )
 
 func NewAPIService(ctx2 context.Context,
@@ -558,25 +587,28 @@ func NewAPIService(ctx2 context.Context,
 	log logger.Logger, mq2 mq.MQ,
 
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer, db2 *db.Store,
+	tracer *opentracing.Tracer, db2 *db.Store, api_mq2 *api_mq.Event,
 	linkStore *store2.LinkStore,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
-) (*Service, error) {
-	return &Service{
-		Ctx:           ctx2,
-		Log:           log,
-		MQ:            mq2,
-		Tracer:        tracer,
-		Monitoring:    monitoring2,
-		Sentry:        sentryHandler,
-		DB:            db2,
-		LinkStore:     linkStore,
-		PprofEndpoint: pprofHTTP,
-		ClientRPC:     clientRPC,
-		ServerRPC:     serverRPC,
+) (*ServiceAPI, error) {
+	return &ServiceAPI{
+		Service: Service{
+			Ctx:           ctx2,
+			Log:           log,
+			MQ:            mq2,
+			Tracer:        tracer,
+			Monitoring:    monitoring2,
+			Sentry:        sentryHandler,
+			DB:            db2,
+			PprofEndpoint: pprofHTTP,
+			ClientRPC:     clientRPC,
+			ServerRPC:     serverRPC,
+		},
+		LinkMQ:    api_mq2,
+		LinkStore: linkStore,
 	}, nil
 }
 
@@ -629,6 +661,11 @@ func NewLoggerService(ctx2 context.Context,
 
 // service_metadata.go:
 
+type ServiceMetadata struct {
+	Service
+	MetaStore *meta_store.MetaStore
+}
+
 // InitMetaStore =======================================================================================================
 func InitMetaStore(ctx2 context.Context, log logger.Logger, conn *db.Store) (*meta_store.MetaStore, error) {
 	st := meta_store.MetaStore{}
@@ -651,13 +688,15 @@ func NewMetadataService(
 	serverRPC *rpc.RPCServer,
 	metaStore *meta_store.MetaStore, monitoring2 *http.ServeMux,
 	sentryHandler *sentryhttp.Handler,
-) (*Service, error) {
-	return &Service{
-		Log:        log,
-		ServerRPC:  serverRPC,
-		DB:         db2,
-		MetaStore:  metaStore,
-		Monitoring: monitoring2,
-		Sentry:     sentryHandler,
+) (*ServiceMetadata, error) {
+	return &ServiceMetadata{
+		Service: Service{
+			Log:        log,
+			ServerRPC:  serverRPC,
+			DB:         db2,
+			Monitoring: monitoring2,
+			Sentry:     sentryHandler,
+		},
+		MetaStore: metaStore,
 	}, nil
 }

@@ -20,6 +20,11 @@ import (
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
+type ServiceMetadata struct {
+	Service
+	MetaStore *meta_store.MetaStore
+}
+
 // InitMetaStore =======================================================================================================
 func InitMetaStore(ctx context.Context, log logger.Logger, conn *db.Store) (*meta_store.MetaStore, error) {
 	st := meta_store.MetaStore{}
@@ -50,17 +55,19 @@ func NewMetadataService(
 	metaStore *meta_store.MetaStore,
 	monitoring *http.ServeMux,
 	sentryHandler *sentryhttp.Handler,
-) (*Service, error) {
-	return &Service{
-		Log:        log,
-		ServerRPC:  serverRPC,
-		DB:         db,
-		MetaStore:  metaStore,
-		Monitoring: monitoring,
-		Sentry:     sentryHandler,
+) (*ServiceMetadata, error) {
+	return &ServiceMetadata{
+		Service: Service{
+			Log:        log,
+			ServerRPC:  serverRPC,
+			DB:         db,
+			Monitoring: monitoring,
+			Sentry:     sentryHandler,
+		},
+		MetaStore: metaStore,
 	}, nil
 }
 
-func InitializeMetadataService() (*Service, func(), error) {
+func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 	panic(wire.Build(MetadataSet))
 }

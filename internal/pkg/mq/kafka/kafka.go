@@ -62,7 +62,7 @@ func (mq *Kafka) Close() error {
 	return err
 }
 
-func (k *Kafka) Publish(ctx context.Context, message query.Message) error {
+func (k *Kafka) Publish(ctx context.Context, target string, message query.Message) error {
 	_, _, err := k.producer.SendMessage(&sarama.ProducerMessage{
 		Topic:     "shortlink",
 		Key:       sarama.StringEncoder(message.Key),
@@ -76,7 +76,7 @@ func (k *Kafka) Publish(ctx context.Context, message query.Message) error {
 	return err
 }
 
-func (mq *Kafka) Subscribe(message query.Response) error {
+func (mq *Kafka) Subscribe(target string, message query.Response) error {
 	consumer := Consumer{
 		ch: message,
 	}
@@ -88,7 +88,7 @@ func (mq *Kafka) Subscribe(message query.Response) error {
 	return nil
 }
 
-func (mq *Kafka) UnSubscribe() error {
+func (mq *Kafka) UnSubscribe(target string) error {
 	panic("implement me!")
 }
 

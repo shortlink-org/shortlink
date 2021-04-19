@@ -2,6 +2,7 @@ package rabbit
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
@@ -38,50 +39,26 @@ func (mq *RabbitMQ) Init(_ context.Context) error {
 		return err
 	}
 
-	// create a exchange
-	err = mq.ch.ExchangeDeclare(
-		"shortlink", // name
-		"fanout",    // type
-		false,       // durable
-		false,       // auto-deleted
-		false,       // internal
-		false,       // no-wait
-		nil,         // arguments
-	)
-	if err != nil {
-		return err
-	}
-
-	// create a queue
-	mq.q, err = mq.ch.QueueDeclare(
-		"shortlink", // name
-		false,       // durable
-		false,       // delete when unused
-		false,       // exclusive
-		false,       // no-wait
-		nil,         // arguments
-	)
-	if err != nil {
-		return err
-	}
-
-	err = mq.ch.QueueBind(
-		mq.q.Name,
-		"*",
-		"shortlink",
-		false,
-		nil,
-	)
-	if err != nil {
-		return err
-	}
-
 	return nil
 }
 
-func (mq *RabbitMQ) Publish(ctx context.Context, message query.Message) error {
+func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Message) error {
 	sp := opentracing.SpanFromContext(ctx)
 	defer sp.Finish()
+
+	// create a exchange
+	err := mq.ch.ExchangeDeclare(
+		target,   // name
+		"fanout", // type
+		false,    // durable
+		false,    // auto-deleted
+		false,    // internal
+		false,    // no-wait
+		nil,      // arguments
+	)
+	if err != nil {
+		return err
+	}
 
 	msg := amqp.Publishing{
 		ContentType: "text/plain",
@@ -90,16 +67,16 @@ func (mq *RabbitMQ) Publish(ctx context.Context, message query.Message) error {
 	}
 
 	// Inject the span context into the AMQP header.
-	err := opentracing.GlobalTracer().Inject(sp.Context(), opentracing.TextMap, amqpHeadersCarrier(msg.Headers))
+	err = opentracing.GlobalTracer().Inject(sp.Context(), opentracing.TextMap, amqpHeadersCarrier(msg.Headers))
 	if err != nil {
 		mq.Log.Warn(err.Error())
 	}
 
 	err = mq.ch.Publish(
-		string(message.Key), // exchange
-		mq.q.Name,           // routing key
-		false,               // mandatory
-		false,               // immediate
+		target,    // exchange
+		mq.q.Name, // routing key
+		false,     // mandatory
+		false,     // immediate
 		msg,
 	)
 	if err != nil {
@@ -109,7 +86,33 @@ func (mq *RabbitMQ) Publish(ctx context.Context, message query.Message) error {
 	return nil
 }
 
-func (mq *RabbitMQ) Subscribe(message query.Response) error {
+func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
+	var err error
+
+	// create a queue
+	mq.q, err = mq.ch.QueueDeclare(
+		fmt.Sprintf("%s-%s", target, viper.GetString("SERVICE_NAME")), // name
+		false, // durable
+		false, // delete when unused
+		false, // exclusive
+		false, // no-wait
+		nil,   // arguments
+	)
+	if err != nil {
+		return err
+	}
+
+	err = mq.ch.QueueBind(
+		mq.q.Name,
+		"*",
+		target,
+		false,
+		nil,
+	)
+	if err != nil {
+		return err
+	}
+
 	msgs, err := mq.ch.Consume(
 		mq.q.Name, // queue
 		"",        // consumer
@@ -154,7 +157,7 @@ func (mq *RabbitMQ) Subscribe(message query.Response) error {
 	return nil
 }
 
-func (mq *RabbitMQ) UnSubscribe() error {
+func (mq *RabbitMQ) UnSubscribe(target string) error {
 	return nil
 }
 
