@@ -64,7 +64,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(handler)
+	serveMux := monitoring.New(handler, logger)
 	tracer, cleanup5, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup4()
@@ -82,7 +82,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := profiling.New()
+	pprofEndpoint := profiling.New(logger)
 	autoMaxProAutoMaxPro, cleanup7, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup6()
@@ -172,7 +172,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(handler)
+	serveMux := monitoring.New(handler, logger)
 	tracer, cleanup5, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup4()
@@ -210,7 +210,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := profiling.New()
+	pprofEndpoint := profiling.New(logger)
 	autoMaxProAutoMaxPro, cleanup7, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup6()
@@ -300,7 +300,7 @@ func InitializeBotService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(handler)
+	serveMux := monitoring.New(handler, logger)
 	tracer, cleanup5, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup4()
@@ -361,7 +361,7 @@ func InitializeLoggerService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(handler)
+	serveMux := monitoring.New(handler, logger)
 	tracer, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup3()
@@ -468,7 +468,7 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(handler)
+	serveMux := monitoring.New(handler, logger)
 	serviceMetadata, err := NewMetadataService(logger, autoMaxProAutoMaxPro, dbStore, rpcServer, metaStore, serveMux, handler)
 	if err != nil {
 		cleanup7()

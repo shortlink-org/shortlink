@@ -21,6 +21,8 @@ Shortlink service
 
 | Service     | Description                          | Language/Framework | Docs                                     |
 |-------------|--------------------------------------|--------------------|------------------------------------------|
+| landing     | Welcome page                         | JS/JQuery          |                                          |
+| next        | UI service                           | JS/ReactJS         |                                          |
 | api         | GateWay                              | Go                 | [docs](./docs/services/api.md)           |
 | link        | Link service                         | Go                 | [docs](./docs/services/link.md)          |
 | logger      | Logger service                       | Go                 |                                          |
@@ -28,8 +30,8 @@ Shortlink service
 | bot         | Send notify to smtp, slack, telegram | Go                 |                                          |
 | shortctl    | Shortlink CLI                        | Go                 | [docs](./docs/shortctl.md)               |
 | csi         | CSI example                          | Go                 |                                          |
-| ory/kratos  | User management service              | Go                 | [docs](https://www.ory.sh/kratos/docs/) |
-| ory/hydra   | OAuth 2.0 Provider                   | Go                 | [docs](https://www.ory.sh/keto/docs/)   |
+| ory/kratos  | User management service              | Go                 | [docs](https://www.ory.sh/kratos/docs/)  |
+| ory/hydra   | OAuth 2.0 Provider                   | Go                 | [docs](https://www.ory.sh/keto/docs/)    |
 
 ### Run
 
@@ -106,6 +108,10 @@ make skaffold-debug
 + [NATS](https://nats.io/)
 + [RabbitMQ](https://www.rabbitmq.com/)
 
+### OpenTracing
+
+![http_add_link](./docs/opentracing_add_link.png)
+
 ### Cloud-Native
 
 + Development
@@ -135,12 +141,7 @@ make skaffold-debug
 + Traefik
 + Nginx
 
-### UI service
-
-| Service     | Description                       | Language/Framework |
-|-------------|-----------------------------------|--------------------|
-| landing     | Welcome page                      | JS/JQuery          |
-| next        | UI service                        | JS/ReactJS         |
+### UI
 
 ##### ENV for UI
 

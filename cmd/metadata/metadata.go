@@ -6,7 +6,6 @@ Get information by links
 package main
 
 import (
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -25,9 +24,6 @@ func main() {
 	if err != nil { // TODO: use as helpers
 		panic(err)
 	}
-
-	// Monitoring endpoints
-	go http.ListenAndServe("0.0.0.0:9090", service.Monitoring) // nolint errcheck
 
 	// Run API server
 	_, err = metadata_rpc.New(service.ServerRPC, service.MetaStore, service.Log)

@@ -7,6 +7,10 @@ import (
 	"context"
 	"fmt"
 
+	"google.golang.org/protobuf/proto"
+
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
 	"github.com/batazor/shortlink/internal/services/bot/di"
@@ -22,6 +26,35 @@ func (b *Bot) Use(_ context.Context) { // nolint unused
 	if err != nil {
 		panic(err)
 	}
+
+	// TODO: refactoring this code
+	getEventNewLink := query.Response{
+		Chan: make(chan query.ResponseMessage),
+	}
+
+	go func() {
+		if b.MQ != nil {
+			if err := b.MQ.Subscribe("shortlink", getEventNewLink); err != nil {
+				b.Log.Error(err.Error())
+			}
+		}
+	}()
+
+	go func() {
+		for {
+			msg := <-getEventNewLink.Chan
+
+			// Convert: []byte to link.Link
+			myLink := &link.Link{}
+			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
+				b.Log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
+				continue
+			}
+
+			b.Log.InfoWithContext(msg.Context, "Get new LINK", field.Fields{"url": myLink.Url})
+			notify.Publish(msg.Context, bot_type.METHOD_NEW_LINK, myLink, nil)
+		}
+	}()
 }
 
 // Notify ...
