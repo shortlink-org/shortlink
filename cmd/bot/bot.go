@@ -44,7 +44,7 @@ func main() {
 
 	go func() {
 		if s.MQ != nil {
-			if err := s.MQ.Subscribe(getEventNewLink); err != nil {
+			if err := s.MQ.Subscribe("shortlink", getEventNewLink); err != nil {
 				s.Log.Error(err.Error())
 			}
 		}

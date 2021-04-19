@@ -7,6 +7,7 @@ import (
 	"context"
 	"net/http"
 
+	api_mq "github.com/batazor/shortlink/internal/services/api/infrastructure/mq"
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
@@ -22,9 +23,29 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/notify"
 	link_store "github.com/batazor/shortlink/internal/services/api/infrastructure/store"
+	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
+
+type ServiceAPI struct {
+	Service
+	LinkMQ    *api_mq.Event
+	LinkStore *link_store.LinkStore
+}
+
+// InitLinkMQ ==========================================================================================================
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ) (*api_mq.Event, error) {
+	linkMQ := &api_mq.Event{
+		MQ: mq,
+	}
+
+	// Subscribe to Event
+	notify.Subscribe(api_type.METHOD_ADD, linkMQ)
+
+	return linkMQ, nil
+}
 
 // InitLinkStore =======================================================================================================
 func InitLinkStore(ctx context.Context, log logger.Logger, conn *db.Store) (*link_store.LinkStore, error) {
@@ -41,6 +62,7 @@ func InitLinkStore(ctx context.Context, log logger.Logger, conn *db.Store) (*lin
 var APISet = wire.NewSet(
 	DefaultSet,
 	store.New,
+	InitLinkMQ,
 	InitLinkStore,
 	sentry.New,
 	monitoring.New,
@@ -60,27 +82,31 @@ func NewAPIService(
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,
 	db *db.Store,
+	api_mq *api_mq.Event,
 	linkStore *link_store.LinkStore,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
-) (*Service, error) {
-	return &Service{
-		Ctx:           ctx,
-		Log:           log,
-		MQ:            mq,
-		Tracer:        tracer,
-		Monitoring:    monitoring,
-		Sentry:        sentryHandler,
-		DB:            db,
-		LinkStore:     linkStore,
-		PprofEndpoint: pprofHTTP,
-		ClientRPC:     clientRPC,
-		ServerRPC:     serverRPC,
+) (*ServiceAPI, error) {
+	return &ServiceAPI{
+		Service: Service{
+			Ctx:           ctx,
+			Log:           log,
+			MQ:            mq,
+			Tracer:        tracer,
+			Monitoring:    monitoring,
+			Sentry:        sentryHandler,
+			DB:            db,
+			PprofEndpoint: pprofHTTP,
+			ClientRPC:     clientRPC,
+			ServerRPC:     serverRPC,
+		},
+		LinkMQ:    api_mq,
+		LinkStore: linkStore,
 	}, nil
 }
 
-func InitializeAPIService() (*Service, func(), error) {
+func InitializeAPIService() (*ServiceAPI, func(), error) {
 	panic(wire.Build(APISet))
 }

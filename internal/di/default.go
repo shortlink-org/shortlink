@@ -26,7 +26,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
-	link_store "github.com/batazor/shortlink/internal/services/api/infrastructure/store"
 	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
@@ -39,7 +38,6 @@ type Service struct {
 	Tracer        *opentracing.Tracer
 	Sentry        *sentryhttp.Handler
 	DB            *db.Store
-	LinkStore     *link_store.LinkStore
 	MetaStore     *meta_store.MetaStore
 	MQ            mq.MQ
 	ServerRPC     *rpc.RPCServer

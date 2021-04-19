@@ -36,7 +36,7 @@ func main() {
 
 	go func() {
 		if service.MQ != nil {
-			if err := service.MQ.Subscribe(getEventNewLink); err != nil {
+			if err := service.MQ.Subscribe("shortlink", getEventNewLink); err != nil {
 				service.Log.Error(err.Error())
 			}
 		}
@@ -54,7 +54,7 @@ func main() {
 				continue
 			}
 
-			service.Log.Info(fmt.Sprintf("GET URL: %s", myLink.Url))
+			service.Log.InfoWithContext(msg.Context, fmt.Sprintf("GET URL: %s", myLink.Url))
 			msg.Context.Done()
 		}
 	}()

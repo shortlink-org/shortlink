@@ -29,12 +29,12 @@ func (mq *NATS) Close() error { // nolint unparam
 	return nil
 }
 
-func (mq *NATS) Publish(ctx context.Context, message query.Message) error {
+func (mq *NATS) Publish(ctx context.Context, target string, message query.Message) error {
 	err := mq.client.Publish(string(message.Key), message.Payload)
 	return err
 }
 
-func (mq *NATS) Subscribe(message query.Response) error {
+func (mq *NATS) Subscribe(target string, message query.Response) error {
 	_, err := mq.client.Subscribe(string(message.Key), func(m *nats.Msg) {
 		message.Chan <- query.ResponseMessage{
 			Body: m.Data,
@@ -58,6 +58,6 @@ func (mq *NATS) Subscribe(message query.Response) error {
 	}
 }
 
-func (mq *NATS) UnSubscribe() error {
+func (mq *NATS) UnSubscribe(target string) error {
 	panic("implement me!")
 }
