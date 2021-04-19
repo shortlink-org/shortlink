@@ -6,7 +6,6 @@ API-service
 package main
 
 import (
-	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
@@ -25,12 +24,6 @@ func main() {
 	if err != nil { // TODO: use as helpers
 		panic(err)
 	}
-
-	// Monitoring endpoints
-	go http.ListenAndServe("0.0.0.0:9090", s.Monitoring) // nolint errcheck
-
-	var profiling *http.ServeMux = s.PprofEndpoint
-	go http.ListenAndServe("0.0.0.0:7071", profiling) // nolint errcheck
 
 	// Run API server
 	var API api.Server

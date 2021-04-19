@@ -3,13 +3,16 @@ package monitoring
 import (
 	"net/http"
 
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
-func New(sentryHandler *sentryhttp.Handler) *http.ServeMux {
+// Monitoring endpoints
+func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *http.ServeMux {
 	// Create a new Prometheus registry
 	registry := prometheus.NewRegistry()
 
@@ -34,6 +37,11 @@ func New(sentryHandler *sentryhttp.Handler) *http.ServeMux {
 
 	// Expose a readiness check on /ready
 	commonMux.HandleFunc("/ready", sentryHandler.HandleFunc(health.ReadyEndpoint))
+
+	go http.ListenAndServe("0.0.0.0:9090", commonMux) // nolint errcheck
+	log.Info("Run monitoring", field.Fields{
+		"addr": "0.0.0.0:9090",
+	})
 
 	return commonMux
 }
