@@ -80,7 +80,6 @@ deploy:
   replicaCount: 3
 
   env:
-    SERVICE_NAME: API
     MQ_ENABLED: "false"
     MQ_TYPE: "rabbitmq"
     MQ_RABBIT_URI: "amqp://admin:admin@rabbitmq.rabbitmq:5672"

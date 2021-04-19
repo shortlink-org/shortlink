@@ -21,7 +21,6 @@ services:
     restart: on-failure
     environment:
       TRACER_URI: jaeger-agent:6831
-      SERVICE_NAME: metadata
     volumes:
       - type: bind
         source: ./ops/cert

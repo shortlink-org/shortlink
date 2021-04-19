@@ -20,8 +20,7 @@ services:
 #      - kratos
 #    container_name: auth
 #    restart: on-failure
-#    environment:
-#      SERVICE_NAME: auth
+#    environment: []
 #    cpu_quota: 20000
 #    mem_limit: 500m
 #    logging:
