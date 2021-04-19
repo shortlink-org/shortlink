@@ -14,7 +14,6 @@ services:
     environment:
       MQ_ENABLED: "true"
       MQ_KAFKA_URI: kafka-1:9092,kafka-2:9092
-      SERVICE_NAME: Logger
     networks:
       - simple
     dns:

@@ -62,7 +62,6 @@ deploy:
   replicaCount: 1
 
   env:
-    SERVICE_NAME: metadata
     MQ_ENABLED: "false"
     MQ_TYPE: "rabbitmq"
     MQ_RABBIT_URI: "amqp://admin:admin@rabbitmq.rabbitmq:5672"
