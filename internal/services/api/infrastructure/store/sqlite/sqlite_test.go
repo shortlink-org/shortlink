@@ -7,15 +7,18 @@ import (
 	"database/sql"
 	"testing"
 
+	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 
 	db "github.com/batazor/shortlink/internal/pkg/db/sqlite"
 	"github.com/batazor/shortlink/internal/services/api/infrastructure/store/mock"
 )
 
-//func TestMain(m *testing.M) {
-//	goleak.VerifyTestMain(m)
-//}
+func TestMain(m *testing.M) {
+	err = os.Setenv("STORE_SQLITE_PATH", "/tmp/links-test.sqlite")
+	assert.Nil(t, err, "Cannot set ENV")
+	//	goleak.VerifyTestMain(m)
+}
 
 func TestSQLite(t *testing.T) {
 	ctx := context.Background()
@@ -48,5 +51,10 @@ func TestSQLite(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
+	})
+
+	t.Run("Close", func(t *testing.T) {
+		errDeleteFile := os.Remove(viper.GetString("STORE_SQLITE_PATH"))
+		assert.Nil(t, errDeleteFile)
 	})
 }

@@ -39,7 +39,7 @@ func TestPostgres(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://shortlink:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
+		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 		assert.Nil(t, err, "Cannot set ENV")
 
 		err = store.Init(ctx)
