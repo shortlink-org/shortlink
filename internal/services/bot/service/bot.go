@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 
+	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
@@ -17,7 +18,7 @@ import (
 	bot_type "github.com/batazor/shortlink/internal/services/bot/type"
 )
 
-func (b *Bot) Use(_ context.Context) { // nolint unused
+func (b *Bot) Use(ctx context.Context) { // nolint unused
 	// Subscribe to Event
 	notify.Subscribe(bot_type.METHOD_NEW_LINK, b)
 
@@ -32,15 +33,19 @@ func (b *Bot) Use(_ context.Context) { // nolint unused
 		Chan: make(chan query.ResponseMessage),
 	}
 
-	go func() {
+	g := errgroup.Group{}
+
+	g.Go(func() error {
 		if b.MQ != nil {
-			if err := b.MQ.Subscribe("shortlink", getEventNewLink); err != nil {
-				b.Log.Error(err.Error())
+			if errSubscribe := b.MQ.Subscribe("shortlink", getEventNewLink); errSubscribe != nil {
+				return errSubscribe
 			}
 		}
-	}()
 
-	go func() {
+		return nil
+	})
+
+	g.Go(func() error {
 		for {
 			msg := <-getEventNewLink.Chan
 
@@ -54,7 +59,11 @@ func (b *Bot) Use(_ context.Context) { // nolint unused
 			b.Log.InfoWithContext(msg.Context, "Get new LINK", field.Fields{"url": myLink.Url})
 			notify.Publish(msg.Context, bot_type.METHOD_NEW_LINK, myLink, nil)
 		}
-	}()
+	})
+
+	if err := g.Wait(); err != nil {
+		b.Log.Error(err.Error())
+	}
 }
 
 // Notify ...
