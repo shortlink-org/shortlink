@@ -35,12 +35,12 @@ func (s *Store) Init(_ context.Context, db *db.Store) error {
 }
 
 // Get ...
-func (s *Store) Get(_ context.Context, id string) (*link.Link, error) {
+func (s *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	stmt, values := qb.Select("shortlink.links").
 		Columns(s.linksTable.Metadata().Columns...).
 		Where(qb.EqNamed("hash", id)).
 		ToCql()
-	iter, err := s.client.Query(stmt, values).Bind(id).Consistency(gocql.One).Iter().SliceMap()
+	iter, err := s.client.Query(stmt, values).WithContext(ctx).Bind(id).Consistency(gocql.One).Iter().SliceMap()
 	if err != nil {
 		return nil, err
 	}
@@ -60,11 +60,11 @@ func (s *Store) Get(_ context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (s *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
+func (s *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error) {
 	stmt, values := qb.Select("shortlink.links").
 		Columns(s.linksTable.Metadata().Columns...).
 		ToCql()
-	iter, err := s.client.Query(stmt, values).Iter().SliceMap()
+	iter, err := s.client.Query(stmt, values).WithContext(ctx).Iter().SliceMap()
 	if err != nil {
 		return nil, err
 	}
@@ -84,13 +84,13 @@ func (s *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 }
 
 // Add ...
-func (s *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
+func (s *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := s.client.Query(s.linksTable.Insert()).BindMap(map[string]interface{}{
+	if err := s.client.Query(s.linksTable.Insert()).WithContext(ctx).BindMap(map[string]interface{}{
 		"url":  source.Url,
 		"hash": source.Hash,
 		"ddd":  source.Describe,
@@ -112,6 +112,6 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 		Where(qb.EqNamed("hash", id)).
 		ToCql()
 
-	err := s.client.Query(stmt, values).Bind(id).Exec()
+	err := s.client.Query(stmt, values).WithContext(ctx).Bind(id).Exec()
 	return err
 }

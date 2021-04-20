@@ -18,14 +18,15 @@ type Store struct { // nolint unused
 }
 
 // Init ...
-func (_ *Store) Init(_ context.Context, _ *db.Store) error {
+func (s *Store) Init(_ context.Context, db *db.Store) error {
+	s.client = db.Store.GetConn().(*gocql.Session)
 	return nil
 }
 
 // Get ...
 func (c *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	stmt, values := qb.Select("shortlink.links").Columns("url", "hash", "ddd").Where(qb.EqNamed("hash", id)).ToCql()
-	iter, err := c.client.Query(stmt, values[0]).Consistency(gocql.One).Iter().SliceMap()
+	iter, err := c.client.Query(stmt, values[0]).WithContext(ctx).Consistency(gocql.One).Iter().SliceMap()
 	if err != nil {
 		return nil, err
 	}
@@ -45,8 +46,8 @@ func (c *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (c *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
-	iter, err := c.client.Query(`SELECT url, hash, ddd FROM shortlink.links`).Iter().SliceMap()
+func (c *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error) {
+	iter, err := c.client.Query(`SELECT url, hash, ddd FROM shortlink.links`).WithContext(ctx).Iter().SliceMap()
 	if err != nil {
 		return nil, err
 	}
@@ -66,13 +67,13 @@ func (c *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 }
 
 // Add ...
-func (c *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
+func (c *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := c.client.Query(`INSERT INTO shortlink.links (url, hash, ddd) VALUES (?, ?, ?)`, source.Url, source.Hash, source.Describe).Exec(); err != nil {
+	if err := c.client.Query(`INSERT INTO shortlink.links (url, hash, ddd) VALUES (?, ?, ?)`, source.Url, source.Hash, source.Describe).WithContext(ctx).Exec(); err != nil {
 		return nil, err
 	}
 
@@ -86,6 +87,6 @@ func (c *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 
 // Delete ...
 func (c *Store) Delete(ctx context.Context, id string) error {
-	err := c.client.Query(`DELETE FROM shortlink.links WHERE hash = ?`, id).Exec()
+	err := c.client.Query(`DELETE FROM shortlink.links WHERE hash = ?`, id).WithContext(ctx).Exec()
 	return err
 }

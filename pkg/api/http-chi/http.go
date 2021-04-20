@@ -112,13 +112,19 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	go notify.Publish(r.Context(), api_type.METHOD_GET, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
 
 	c := <-responseCh
-	switch r := c.(type) {
+	switch resp := c.(type) {
 	case nil:
 		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
 	case notify.Response:
-		err = r.Error
+		// inject spanId in response header
+		span := opentracing.SpanFromContext(r.Context())
+		if traceID, ok := span.Context().(jaeger.SpanContext); ok {
+			w.Header().Add("span-id", traceID.SpanID().String())
+		}
+
+		err = resp.Error
 		if err == nil {
-			response = r.Payload.(*link.Link) // nolint errcheck
+			response = resp.Payload.(*link.Link) // nolint errcheck
 		}
 	}
 
@@ -167,13 +173,19 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 	go notify.Publish(r.Context(), api_type.METHOD_LIST, filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
 
 	c := <-responseCh
-	switch r := c.(type) {
+	switch resp := c.(type) {
 	case nil:
 		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_LIST")
 	case notify.Response:
-		err = r.Error
+		// inject spanId in response header
+		span := opentracing.SpanFromContext(r.Context())
+		if traceID, ok := span.Context().(jaeger.SpanContext); ok {
+			w.Header().Add("span-id", traceID.SpanID().String())
+		}
+
+		err = resp.Error
 		if err == nil {
-			response = r.Payload.([]*link.Link) // nolint errcheck
+			response = resp.Payload.([]*link.Link) // nolint errcheck
 		}
 	}
 
@@ -226,11 +238,17 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 
 	var err error
 	c := <-responseCh
-	switch r := c.(type) {
+	switch resp := c.(type) {
 	case nil:
 		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
 	case notify.Response:
-		err = r.Error
+		// inject spanId in response header
+		span := opentracing.SpanFromContext(r.Context())
+		if traceID, ok := span.Context().(jaeger.SpanContext); ok {
+			w.Header().Add("span-id", traceID.SpanID().String())
+		}
+
+		err = resp.Error
 	}
 
 	if err != nil {

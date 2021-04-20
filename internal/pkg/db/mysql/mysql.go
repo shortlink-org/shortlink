@@ -6,12 +6,15 @@ import (
 	"embed"
 	"fmt"
 
+	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/johejo/golang-migrate-extra/source/file"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
+	"github.com/luna-duclos/instrumentedsql"
+	"github.com/luna-duclos/instrumentedsql/opentracing"
 	"github.com/spf13/viper"
 )
 
@@ -51,7 +54,8 @@ func (s *Store) Close() error {
 // Migrate ...
 func (s *Store) migrate() error { // nolint unused
 	// Create connect
-	db, err := sql.Open("mysql", s.config.URI)
+	sql.Register("instrumented-mysql", instrumentedsql.WrapDriver(&mysql.MySQLDriver{}, instrumentedsql.WithTracer(opentracing.NewTracer(false))))
+	db, err := sql.Open("instrumented-mysql", s.config.URI)
 	if err != nil {
 		return err
 	}
