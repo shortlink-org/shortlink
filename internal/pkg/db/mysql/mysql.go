@@ -6,15 +6,12 @@ import (
 	"embed"
 	"fmt"
 
-	"github.com/go-sql-driver/mysql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/johejo/golang-migrate-extra/source/file"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
-	"github.com/luna-duclos/instrumentedsql"
-	"github.com/luna-duclos/instrumentedsql/opentracing"
 	"github.com/spf13/viper"
 )
 
@@ -28,13 +25,9 @@ func (s *Store) Init(_ context.Context) error {
 	// Set configuration
 	s.setConfig()
 
-	// Register driver with tracing
-	sql.Register("instrumented-mysql", instrumentedsql.WrapDriver(&mysql.MySQLDriver{}, instrumentedsql.WithTracer(opentracing.NewTracer(false))))
-	db, err := sql.Open("instrumented-mysql", s.config.URI)
-	if err != nil {
+	if s.client, err = sqlx.Connect("mysql", s.config.URI); err != nil {
 		return err
 	}
-	s.client = sqlx.NewDb(db, "mysql")
 
 	// Apply migration
 	err = s.migrate()
@@ -58,11 +51,7 @@ func (s *Store) Close() error {
 // Migrate ...
 func (s *Store) migrate() error { // nolint unused
 	// Create connect
-	sql.Register("instrumented-mysql", instrumentedsql.WrapDriver(&mysql.MySQLDriver{}, instrumentedsql.WithTracer(opentracing.NewTracer(false))))
-	db, err := sql.Open("instrumented-mysql", s.config.URI)
-	if err != nil {
-		return err
-	}
+	db, err := sql.Open("mysql", s.config.URI)
 
 	driver, err := iofs.New(migrations, "migrations")
 	if err != nil {
