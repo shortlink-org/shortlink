@@ -28,9 +28,13 @@ func (s *Store) Init(_ context.Context) error {
 	// Set configuration
 	s.setConfig()
 
-	if s.client, err = sqlx.Connect("mysql", s.config.URI); err != nil {
+	// Register driver with tracing
+	sql.Register("instrumented-mysql", instrumentedsql.WrapDriver(&mysql.MySQLDriver{}, instrumentedsql.WithTracer(opentracing.NewTracer(false))))
+	db, err := sql.Open("instrumented-mysql", s.config.URI)
+	if err != nil {
 		return err
 	}
+	s.client = sqlx.NewDb(db, "mysql")
 
 	// Apply migration
 	err = s.migrate()
