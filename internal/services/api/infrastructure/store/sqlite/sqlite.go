@@ -19,7 +19,9 @@ type Store struct { // nolint unused
 }
 
 // Init ...
-func (_ *Store) Init(_ context.Context, _ *db.Store) error {
+func (s *Store) Init(_ context.Context, db *db.Store) error {
+	s.client = db.Store.GetConn().(*sql.DB)
+
 	return nil
 }
 
@@ -41,7 +43,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	defer stmt.Close() // nolint errcheck
 
 	var response link.Link
-	err = stmt.QueryRow(args...).Scan(&response.Url, &response.Hash, &response.Describe)
+	err = stmt.QueryRowContext(ctx, args...).Scan(&response.Url, &response.Hash, &response.Describe)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
@@ -50,7 +52,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (lite *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
+func (lite *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error) {
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")
@@ -59,7 +61,7 @@ func (lite *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error
 		return nil, err
 	}
 
-	rows, err := lite.client.Query(query, args...)
+	rows, err := lite.client.QueryContext(ctx, query, args...)
 	if err != nil || rows.Err() != nil {
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
@@ -81,7 +83,7 @@ func (lite *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error
 }
 
 // Add ...
-func (lite *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
+func (lite *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
 	err := link.NewURL(source)
 	if err != nil {
 		return nil, err
@@ -97,7 +99,7 @@ func (lite *Store) Add(_ context.Context, source *link.Link) (*link.Link, error)
 		return nil, err
 	}
 
-	_, err = lite.client.Exec(query, args...)
+	_, err = lite.client.ExecContext(ctx, query, args...)
 	if err != nil {
 		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
@@ -120,7 +122,7 @@ func (lite *Store) Delete(ctx context.Context, id string) error {
 		return err
 	}
 
-	_, err = lite.client.Exec(query, args...)
+	_, err = lite.client.ExecContext(ctx, query, args...)
 	if err != nil {
 		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}

@@ -5,11 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/go-redis/redis/v8"
-
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
 	"github.com/batazor/shortlink/internal/services/api/infrastructure/store/query"
+	"github.com/go-redis/redis/v8"
 )
 
 // Store implementation of db interface
@@ -18,7 +17,8 @@ type Store struct { // nolint unused
 }
 
 // Init ...
-func (_ *Store) Init(_ context.Context, _ *db.Store) error {
+func (s *Store) Init(_ context.Context, db *db.Store) error {
+	s.client = db.Store.GetConn().(*redis.Client)
 	return nil
 }
 

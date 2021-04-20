@@ -5,15 +5,16 @@ import (
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	_ "github.com/go-sql-driver/mysql"
-
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
 	"github.com/batazor/shortlink/internal/services/api/infrastructure/store/query"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
 )
 
 // Init ...
-func (_ *Store) Init(_ context.Context, _ *db.Store) error {
+func (s *Store) Init(_ context.Context, db *db.Store) error {
+	s.client = db.Store.GetConn().(*sqlx.DB)
 	return nil
 }
 

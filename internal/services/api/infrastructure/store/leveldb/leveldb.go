@@ -18,7 +18,8 @@ type Store struct { // nolint unused
 }
 
 // Init ...
-func (_ *Store) Init(_ context.Context, _ *db.Store) error {
+func (s *Store) Init(_ context.Context, db *db.Store) error {
+	s.client = db.Store.GetConn().(*leveldb.DB)
 	return nil
 }
 
