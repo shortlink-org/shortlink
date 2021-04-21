@@ -8,6 +8,7 @@ import (
 	"context"
 
 	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
@@ -25,6 +26,11 @@ type Event struct {
 
 // Notify ...
 func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response {
+	// Skip if MQ disabled
+	if !viper.GetBool("MQ_ENABLED") {
+		return notify.Response{}
+	}
+
 	switch event {
 	case api_type.METHOD_ADD:
 		// TODO: send []byte

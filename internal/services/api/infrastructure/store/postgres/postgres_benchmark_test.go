@@ -45,7 +45,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://shortlink:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
+		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 		assert.Nil(b, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
@@ -137,7 +137,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://shortlink:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
+		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 		assert.Nil(b, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
