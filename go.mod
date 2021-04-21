@@ -41,7 +41,7 @@ require (
 	github.com/jmoiron/sqlx v1.3.3
 	github.com/johejo/golang-migrate-extra v0.0.0-20210217013041-51a992e50d16
 	github.com/kubernetes-csi/csi-test/v4 v4.1.0
-	github.com/lib/pq v1.10.0
+	github.com/lib/pq v1.10.1
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.7
 	github.com/nats-io/nats.go v1.10.0
