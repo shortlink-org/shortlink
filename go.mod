@@ -74,7 +74,7 @@ require (
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20210415154028-4f45737414dc // indirect
 	golang.org/x/mod v0.4.2 // indirect
-	golang.org/x/net v0.0.0-20210420210106-798c2154c571
+	golang.org/x/net v0.0.0-20210421230115-4e50805a0758
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/api v0.45.0
 	google.golang.org/genproto v0.0.0-20210421164718-3947dc264843
