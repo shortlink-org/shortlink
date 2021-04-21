@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	tracing "github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/tracing"
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/tracing"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
@@ -31,13 +31,8 @@ var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-ga
 
 // Run HTTP-server
 func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error {
-	api.ctx = ctx
-
-	service := api
-
 	// Rug gRPC
-	RegisterLinkServer(api.RPC.Server, service)
-	api.RPC.Run()
+	RegisterLinkServer(api.RPC.Server, api)
 
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
