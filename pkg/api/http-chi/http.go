@@ -6,13 +6,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/opentracing/opentracing-go"
-	"github.com/uber/jaeger-client-go"
-
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/pkg/api/http-chi/helpers"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
+	"github.com/go-chi/chi/v5"
 )
 
 // Routes creates a REST router
@@ -48,6 +46,9 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	// TODO: send []byte format
 	go notify.Publish(r.Context(), api_type.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
 
@@ -56,12 +57,6 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	case nil:
 		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
 	case notify.Response:
-		// inject spanId in response header
-		span := opentracing.SpanFromContext(r.Context())
-		if traceID, ok := span.Context().(jaeger.SpanContext); ok {
-			w.Header().Add("span-id", traceID.SpanID().String())
-		}
-
 		err = resp.Error
 		if err == nil {
 			newLink = resp.Payload.(*link.Link) // nolint errcheck
@@ -109,6 +104,9 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	go notify.Publish(r.Context(), api_type.METHOD_GET, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
 
 	c := <-responseCh
@@ -116,12 +114,6 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	case nil:
 		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
 	case notify.Response:
-		// inject spanId in response header
-		span := opentracing.SpanFromContext(r.Context())
-		if traceID, ok := span.Context().(jaeger.SpanContext); ok {
-			w.Header().Add("span-id", traceID.SpanID().String())
-		}
-
 		err = resp.Error
 		if err == nil {
 			response = resp.Payload.(*link.Link) // nolint errcheck
@@ -170,6 +162,9 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	go notify.Publish(r.Context(), api_type.METHOD_LIST, filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
 
 	c := <-responseCh
@@ -177,12 +172,6 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 	case nil:
 		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_LIST")
 	case notify.Response:
-		// inject spanId in response header
-		span := opentracing.SpanFromContext(r.Context())
-		if traceID, ok := span.Context().(jaeger.SpanContext); ok {
-			w.Header().Add("span-id", traceID.SpanID().String())
-		}
-
 		err = resp.Error
 		if err == nil {
 			response = resp.Payload.([]*link.Link) // nolint errcheck
@@ -236,18 +225,15 @@ func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
 
 	go notify.Publish(r.Context(), api_type.METHOD_DELETE, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	var err error
 	c := <-responseCh
 	switch resp := c.(type) {
 	case nil:
 		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
 	case notify.Response:
-		// inject spanId in response header
-		span := opentracing.SpanFromContext(r.Context())
-		if traceID, ok := span.Context().(jaeger.SpanContext); ok {
-			w.Header().Add("span-id", traceID.SpanID().String())
-		}
-
 		err = resp.Error
 	}
 

@@ -8,11 +8,11 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/golang/protobuf/ptypes/empty"
-
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/pkg/api/grpc-web/helpers"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
+	"github.com/golang/protobuf/ptypes/empty"
 )
 
 // GetLink ...
@@ -20,6 +20,9 @@ func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error)
 	responseCh := make(chan interface{})
 
 	go notify.Publish(ctx, api_type.METHOD_GET, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
+
+	// inject spanId in response header
+	helpers.RegisterSpan(ctx)
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -44,6 +47,9 @@ func (api *API) GetLinks(ctx context.Context, req *LinkRequest) (*link.Links, er
 	responseCh := make(chan interface{})
 
 	go notify.Publish(ctx, api_type.METHOD_LIST, req.Filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
+
+	// inject spanId in response header
+	helpers.RegisterSpan(ctx)
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -75,6 +81,9 @@ func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, err
 
 	go notify.Publish(ctx, api_type.METHOD_ADD, req, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
 
+	// inject spanId in response header
+	helpers.RegisterSpan(ctx)
+
 	c := <-responseCh
 	switch r := c.(type) {
 	case nil:
@@ -98,6 +107,9 @@ func (api *API) DeleteLink(ctx context.Context, req *link.Link) (*empty.Empty, e
 	responseCh := make(chan interface{})
 
 	go notify.Publish(ctx, api_type.METHOD_DELETE, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
+
+	// inject spanId in response header
+	helpers.RegisterSpan(ctx)
 
 	c := <-responseCh
 	switch r := c.(type) {
