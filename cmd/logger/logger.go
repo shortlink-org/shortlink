@@ -9,7 +9,7 @@ import (
 	"syscall"
 
 	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/services/logger/service"
+	logger_service "github.com/batazor/shortlink/internal/services/logger/service"
 	"github.com/spf13/viper"
 )
 

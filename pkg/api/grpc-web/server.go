@@ -20,7 +20,6 @@ import (
 
 // API ...
 type API struct { // nolint unused
-	ctx  context.Context
 	http http.Server
 	RPC  *rpc.RPCServer
 }

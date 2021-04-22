@@ -52,6 +52,9 @@ func (s *Store) Close() error {
 func (s *Store) migrate() error { // nolint unused
 	// Create connect
 	db, err := sql.Open("mysql", s.config.URI)
+	if err != nil {
+		return err
+	}
 
 	driver, err := iofs.New(migrations, "migrations")
 	if err != nil {
