@@ -5,26 +5,27 @@ package sqlite
 import (
 	"context"
 	"database/sql"
+	"os"
 	"testing"
-
-	"github.com/spf13/viper"
-	"github.com/stretchr/testify/assert"
 
 	db "github.com/batazor/shortlink/internal/pkg/db/sqlite"
 	"github.com/batazor/shortlink/internal/services/api/infrastructure/store/mock"
+	"github.com/spf13/viper"
+	"github.com/stretchr/testify/assert"
 )
 
-func TestMain(m *testing.M) {
-	err = os.Setenv("STORE_SQLITE_PATH", "/tmp/links-test.sqlite")
-	assert.Nil(t, err, "Cannot set ENV")
-	//	goleak.VerifyTestMain(m)
-}
+//func TestMain(m *testing.M) {
+//	goleak.VerifyTestMain(m)
+//}
 
 func TestSQLite(t *testing.T) {
 	ctx := context.Background()
 
+	err := os.Setenv("STORE_SQLITE_PATH", "/tmp/links-test.sqlite")
+	assert.Nil(t, err, "Cannot set ENV")
+
 	st := db.Store{}
-	err := st.Init(ctx)
+	err = st.Init(ctx)
 	assert.Nil(t, err)
 
 	store := Store{

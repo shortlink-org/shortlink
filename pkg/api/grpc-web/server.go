@@ -8,11 +8,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/tracing"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
-	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -46,20 +44,6 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	runtime.DefaultContextTimeout = config.Timeout
 
 	err := RegisterLinkHandlerServer(ctx, mux, api)
-	if err != nil {
-		return err
-	}
-
-	opts := []grpc.DialOption{
-		grpc.WithInsecure(),
-		grpc.WithUnaryInterceptor(
-			tracing.UnaryClientInterceptor(
-				tracing.WithTracer(*tracer),
-			),
-		),
-	}
-
-	err = RegisterLinkHandlerFromEndpoint(ctx, mux, api.RPC.Endpoint, opts)
 	if err != nil {
 		return err
 	}
