@@ -47,8 +47,8 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.replicaCount | int | `1` |  |
 | deploy.resources.limits.cpu | string | `"100m"` |  |
 | deploy.resources.limits.memory | string | `"128Mi"` |  |
-| deploy.resources.requests.cpu | string | `"100m"` |  |
-| deploy.resources.requests.memory | string | `"128Mi"` |  |
+| deploy.resources.requests.cpu | string | `"10m"` |  |
+| deploy.resources.requests.memory | string | `"32Mi"` |  |
 | deploy.securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | deploy.strategy.rollingUpdate.maxSurge | int | `1` |  |
 | deploy.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
