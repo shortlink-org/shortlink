@@ -1,6 +1,6 @@
 # shortlink-metadata
 
-![Version: 0.5.7](https://img.shields.io/badge/Version-0.5.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.5.8](https://img.shields.io/badge/Version-0.5.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink service for get metadata by URL
 
@@ -29,7 +29,6 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
-| deploy.env.SERVICE_NAME | string | `"metadata"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable"` |  |
 | deploy.env.TRACER_URI | string | `"jaeger-agent.jaeger-operator:6831"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
@@ -53,8 +52,8 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.replicaCount | int | `1` |  |
 | deploy.resources.limits.cpu | string | `"100m"` |  |
 | deploy.resources.limits.memory | string | `"128Mi"` |  |
-| deploy.resources.requests.cpu | string | `"100m"` |  |
-| deploy.resources.requests.memory | string | `"128Mi"` |  |
+| deploy.resources.requests.cpu | string | `"10m"` |  |
+| deploy.resources.requests.memory | string | `"32Mi"` |  |
 | deploy.securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | deploy.securityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | deploy.securityContext.readOnlyRootFilesystem | bool | `true` |  |
@@ -68,9 +67,11 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.tolerations | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
 | nameOverride | string | `""` |  |
-| secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nMIICljCCAjugAwIBAgIUZhuY8pa+aFn96PpXHKoFxgW9WsQwCgYIKoZIzj0EAwIw\ngYwxCzAJBgNVBAYTAlJVMQ8wDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2Nv\ndzESMBAGA1UEChMJU2hvcnRsaW5rMSswKQYDVQQLEyJFeGFtcGxlIFJvb3QgQ2Vy\ndGlmaWNhdGUgQXV0aG9yaXR5MRowGAYDVQQDExFTaG9ydGxpbmsgUm9vdCBDQTAe\nFw0yMDExMjExODAyMDBaFw0yMTExMjExODAyMDBaMH8xCzAJBgNVBAYTAlJVMQ8w\nDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2NvdzESMBAGA1UEChMJU2hvcnRs\naW5rMQ8wDQYDVQQLEwZNb3Njb3cxKTAnBgNVBAMTIEN1c3RvbSBTaG9ydGxpbmsg\nSW50ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEsMwqTmk0\nbvNChfE79Ljr/mnkw90XVe4J45GgYYZZ83eUqetg/dnT+0h/Mdw1uEABYtbmRG4Q\nyGdNIcSCsS8tf6OBhjCBgzAOBgNVHQ8BAf8EBAMCAaYwHQYDVR0lBBYwFAYIKwYB\nBQUHAwEGCCsGAQUFBwMCMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFBiZ\nymfiD4U/jz6qSNvU26XMCC9oMB8GA1UdIwQYMBaAFA93UcPMOw3jdtWLxuCopshq\nK9FrMAoGCCqGSM49BAMCA0kAMEYCIQDGHwhl3IrIgD75cvqBqvitltzEDqBlnGMi\nM3FEoCXGhwIhAIFPuVTuk16zNNJZNlY+027k0pg0SOfNcw0qcNyFtOvC\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nMIICkTCCAjigAwIBAgIUdo/zgCCySxFfOxrYpympLLN0mvcwCgYIKoZIzj0EAwIw\nfzELMAkGA1UEBhMCUlUxDzANBgNVBAgTBk1vc2NvdzEPMA0GA1UEBxMGTW9zY293\nMRIwEAYDVQQKEwlTaG9ydGxpbmsxDzANBgNVBAsTBk1vc2NvdzEpMCcGA1UEAxMg\nQ3VzdG9tIFNob3J0bGluayBJbnRlcm1lZGlhdGUgQ0EwHhcNMjAxMTIxMTgwMjAw\nWhcNMjExMTIxMTgwMjAwWjBoMQswCQYDVQQGEwJSVTEPMA0GA1UECBMGTW9zY293\nMQ8wDQYDVQQHEwZNb3Njb3cxEjAQBgNVBAoTCVNob3J0bGluazEPMA0GA1UECxMG\nTW9zY293MRIwEAYDVQQDEwlzaG9ydGxpbmswWTATBgcqhkjOPQIBBggqhkjOPQMB\nBwNCAARXdzYwc4cLaba2/9zxd0aT0wGSOy40s47jT7fkGwCuOvNB7Yl80ed/jEht\n+BJJgT87MOVOHLBXT9SEa2O/8Iw6o4GoMIGlMA4GA1UdDwEB/wQEAwIFoDATBgNV\nHSUEDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBQvXJcdbHow\nDJoiXyvryuTo1NFAtjAfBgNVHSMEGDAWgBQYmcpn4g+FP48+qkjb1NulzAgvaDAw\nBgNVHREEKTAngglsb2NhbGhvc3SCBWxvY2FsggcqLmxvY2FshwR/AAABhwQAAAAA\nMAoGCCqGSM49BAMCA0cAMEQCIDTXPLlM1YpK5Iwe80imyysmJAkbA+jKSWW0CBvd\nrUQDAiB71ah7iKjM1P9lOzWfD3nm6DYZSdWLmUCXnrjBt6xYEQ==\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIAm9fkeHAhonIbVt3LQHgibo7x5+5RkMEW6a1qm00KUkoAoGCCqGSM49\nAwEHoUQDQgAEV3c2MHOHC2m2tv/c8XdGk9MBkjsuNLOO40+35BsArjrzQe2JfNHn\nf4xIbfgSSYE/OzDlThywV0/UhGtjv/CMOg==\n-----END EC PRIVATE KEY-----\n"` |  |
+| secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nMIIClTCCAjugAwIBAgIUOCl/NAZsR4Qy+78LBDy9l/1MN+IwCgYIKoZIzj0EAwIw\ngYwxCzAJBgNVBAYTAlJVMQ8wDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2Nv\ndzESMBAGA1UEChMJU2hvcnRsaW5rMSswKQYDVQQLEyJFeGFtcGxlIFJvb3QgQ2Vy\ndGlmaWNhdGUgQXV0aG9yaXR5MRowGAYDVQQDExFTaG9ydGxpbmsgUm9vdCBDQTAe\nFw0yMTA0MTgxMzUwMDBaFw0yMjA0MTgxMzUwMDBaMH8xCzAJBgNVBAYTAlJVMQ8w\nDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2NvdzESMBAGA1UEChMJU2hvcnRs\naW5rMQ8wDQYDVQQLEwZNb3Njb3cxKTAnBgNVBAMTIEN1c3RvbSBTaG9ydGxpbmsg\nSW50ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErGrPBmwM\n+FlQhRgAB2a+76LCLR9KF772wff9MxgXiSaD1cQZB8iiIPQzWObkKb0nUxBBS6u2\nulXdhj0Po32A46OBhjCBgzAOBgNVHQ8BAf8EBAMCAaYwHQYDVR0lBBYwFAYIKwYB\nBQUHAwEGCCsGAQUFBwMCMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFHqZ\niQcOHCuTdL6qkOTmemcjUeG5MB8GA1UdIwQYMBaAFKYsspmh6iQcM0XotbiZoZEx\n3jyeMAoGCCqGSM49BAMCA0gAMEUCIQC536u40hdoh4EU2Wcfp0Wz/MDQI01Ol16I\nFTfi/rQgPgIgS1XwXKSpJjE6qStUO308w9BVEV/CT/KJ9kpqTVlhm4M=\n-----END CERTIFICATE-----\n"` |  |
+| secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nMIICnzCCAkWgAwIBAgIUEuCWhGqFAMdEFamP0LohiAxdEQYwCgYIKoZIzj0EAwIw\nfzELMAkGA1UEBhMCUlUxDzANBgNVBAgTBk1vc2NvdzEPMA0GA1UEBxMGTW9zY293\nMRIwEAYDVQQKEwlTaG9ydGxpbmsxDzANBgNVBAsTBk1vc2NvdzEpMCcGA1UEAxMg\nQ3VzdG9tIFNob3J0bGluayBJbnRlcm1lZGlhdGUgQ0EwHhcNMjEwNDE4MTM1MDAw\nWhcNMjIwNDE4MTM1MDAwWjBoMQswCQYDVQQGEwJSVTEPMA0GA1UECBMGTW9zY293\nMQ8wDQYDVQQHEwZNb3Njb3cxEjAQBgNVBAoTCVNob3J0bGluazEPMA0GA1UECxMG\nTW9zY293MRIwEAYDVQQDEwlzaG9ydGxpbmswWTATBgcqhkjOPQIBBggqhkjOPQMB\nBwNCAARjxcJl5q0fVcUU51TeEBKDNfyn4I59JpbUtfyQShpVJxZQ0AP8XYEx9l40\nj9QWkB/QP7+4wj+O+so0TU8W1V4ho4G1MIGyMA4GA1UdDwEB/wQEAwIFoDATBgNV\nHSUEDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBR5Bu+KogPg\n5cjtR+ZQWYT3tdqRNzAfBgNVHSMEGDAWgBR6mYkHDhwrk3S+qpDk5npnI1HhuTA9\nBgNVHREENjA0gglsb2NhbGhvc3SCBWxvY2FsggcqLmxvY2FsggsqLnNob3J0bGlu\na4cEfwAAAYcEAAAAADAKBggqhkjOPQQDAgNIADBFAiEA+l1fywhag1A2ozb4xmV3\nvUwKpDrtJKL5hfat4XbVgHsCIB6jD+t+qOi3GjbB04kxWckLLMdMuQGUhA26/MW/\nhIkH\n-----END CERTIFICATE-----\n"` |  |
+| secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIEOFKH5IWvobNXqUU5LF64NNh3o01fa1eSyNrN+8LwKjoAoGCCqGSM49\nAwEHoUQDQgAEY8XCZeatH1XFFOdU3hASgzX8p+COfSaW1LX8kEoaVScWUNAD/F2B\nMfZeNI/UFpAf0D+/uMI/jvrKNE1PFtVeIQ==\n-----END EC PRIVATE KEY-----\n"` |  |
+| service.port | int | `50051` |  |
+| service.type | string | `"ClusterIP"` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
 
