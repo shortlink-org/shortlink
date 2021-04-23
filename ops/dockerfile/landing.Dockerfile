@@ -9,7 +9,7 @@ RUN npm i && \
   npm rebuild node-sass && \
   npm run generate
 
-FROM nginx:1.19-alpine
+FROM nginx:1.20-alpine
 
 RUN apk add --no-cache curl
 
