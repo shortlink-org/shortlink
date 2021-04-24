@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	rpc "github.com/batazor/shortlink/internal/services/metadata/domain"
 )
 

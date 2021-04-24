@@ -10,7 +10,7 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"google.golang.org/grpc"
 
-	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 )
 
 // DGraphLink implementation of db interface

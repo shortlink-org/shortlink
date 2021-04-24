@@ -8,8 +8,8 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/domain/link"
 	bot_type "github.com/batazor/shortlink/internal/services/bot/type"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 )
 
 func (l *Logger) Use(_ context.Context) { // nolint unused
