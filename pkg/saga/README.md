@@ -1,6 +1,6 @@
 ### Saga manager
 
-#### Saga step state:
+#### Saga steps of state:
 
 + START (REJECT)
 + SUCCESS (FAIL)
