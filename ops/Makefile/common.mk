@@ -21,9 +21,6 @@ export CURRENT_UID=$(id -u):$(id -g)
 do: ## Run for specific job
 	@COMPOSE_PROFILES=dns,gateway,opentracing docker-compose \
 		-f docker-compose.yaml \
-		-f ops/docker-compose/application/api.yaml \
-		-f ops/docker-compose/application/metadata.yaml \
-		-f ops/docker-compose/application/link.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
 		-f ops/docker-compose/tooling/grafana-tempo.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
