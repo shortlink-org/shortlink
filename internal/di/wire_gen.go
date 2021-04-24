@@ -22,8 +22,8 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/infrastructure/mq"
-	store2 "github.com/batazor/shortlink/internal/services/api/infrastructure/store"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
+	store2 "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
@@ -190,26 +190,6 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(context, logger, mq)
-	if err != nil {
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	linkStore, err := InitLinkStore(context, logger, dbStore)
-	if err != nil {
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
 	pprofEndpoint := profiling.New(logger)
 	autoMaxProAutoMaxPro, cleanup7, err := autoMaxPro.New(logger)
 	if err != nil {
@@ -221,7 +201,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup8, err := rpc.InitServer(logger, tracer)
+	clientConn, cleanup8, err := rpc.InitClient(logger, tracer)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -232,21 +212,8 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup9, err := rpc.InitClient(logger, tracer)
+	serviceAPI, err := NewAPIService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, pprofEndpoint, autoMaxProAutoMaxPro, clientConn)
 	if err != nil {
-		cleanup8()
-		cleanup7()
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	serviceAPI, err := NewAPIService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, event, linkStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn)
-	if err != nil {
-		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -258,7 +225,6 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		return nil, nil, err
 	}
 	return serviceAPI, func() {
-		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -329,6 +295,134 @@ func InitializeBotService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	return service, func() {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+	}, nil
+}
+
+// Injectors from service_link.go:
+
+func InitializeLinkService() (*ServiceLink, func(), error) {
+	context, cleanup, err := ctx.New()
+	if err != nil {
+		return nil, nil, err
+	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	logger, cleanup2, err := logger_di.New(context)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	mq, cleanup3, err := mq_di.New(context, logger)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	handler, cleanup4, err := sentry.New()
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	serveMux := monitoring.New(handler, logger)
+	tracer, cleanup5, err := traicing_di.New(context, logger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	dbStore, cleanup6, err := store.New(context, logger)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	event, err := InitLinkMQ(context, logger, mq)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	linkStore, err := InitLinkStore(context, logger, dbStore)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	pprofEndpoint := profiling.New(logger)
+	autoMaxProAutoMaxPro, cleanup7, err := autoMaxPro.New(logger)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	rpcServer, cleanup8, err := rpc.InitServer(logger, tracer)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	clientConn, cleanup9, err := rpc.InitClient(logger, tracer)
+	if err != nil {
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	serviceLink, err := NewLinkService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, event, linkStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn)
+	if err != nil {
+		cleanup9()
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return serviceLink, func() {
+		cleanup9()
+		cleanup8()
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -550,6 +644,66 @@ func NewFullService(ctx2 context.Context,
 
 type ServiceAPI struct {
 	Service
+}
+
+// APIService ==========================================================================================================
+var APISet = wire.NewSet(
+	DefaultSet, store.New, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, NewAPIService,
+)
+
+func NewAPIService(ctx2 context.Context,
+
+	cfg *config.Config,
+	log logger.Logger, mq2 mq.MQ,
+
+	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
+	tracer *opentracing.Tracer, db2 *db.Store,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+	clientRPC *grpc.ClientConn,
+) (*ServiceAPI, error) {
+	return &ServiceAPI{
+		Service: Service{
+			Ctx:           ctx2,
+			Log:           log,
+			MQ:            mq2,
+			Tracer:        tracer,
+			Monitoring:    monitoring2,
+			Sentry:        sentryHandler,
+			DB:            db2,
+			PprofEndpoint: pprofHTTP,
+			ClientRPC:     clientRPC,
+		},
+	}, nil
+}
+
+// service_bot.go:
+
+// BotService ==========================================================================================================
+var BotSet = wire.NewSet(
+	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewBotService,
+)
+
+func NewBotService(ctx2 context.Context,
+
+	cfg *config.Config,
+	log logger.Logger, mq2 mq.MQ, monitoring2 *http.ServeMux,
+	tracer *opentracing.Tracer,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+) (*Service, error) {
+	return &Service{
+		Ctx:        ctx2,
+		Log:        log,
+		MQ:         mq2,
+		Tracer:     tracer,
+		Monitoring: monitoring2,
+	}, nil
+}
+
+// service_link.go:
+
+type ServiceLink struct {
+	Service
 	LinkMQ    *api_mq.Event
 	LinkStore *store2.LinkStore
 }
@@ -576,12 +730,12 @@ func InitLinkStore(ctx2 context.Context, log logger.Logger, conn *db.Store) (*st
 }
 
 // APIService ==========================================================================================================
-var APISet = wire.NewSet(
+var LinkSet = wire.NewSet(
 	DefaultSet, store.New, InitLinkMQ,
-	InitLinkStore, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, NewAPIService,
+	InitLinkStore, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, NewLinkService,
 )
 
-func NewAPIService(ctx2 context.Context,
+func NewLinkService(ctx2 context.Context,
 
 	cfg *config.Config,
 	log logger.Logger, mq2 mq.MQ,
@@ -593,8 +747,8 @@ func NewAPIService(ctx2 context.Context,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
-) (*ServiceAPI, error) {
-	return &ServiceAPI{
+) (*ServiceLink, error) {
+	return &ServiceLink{
 		Service: Service{
 			Ctx:           ctx2,
 			Log:           log,
@@ -609,29 +763,6 @@ func NewAPIService(ctx2 context.Context,
 		},
 		LinkMQ:    api_mq2,
 		LinkStore: linkStore,
-	}, nil
-}
-
-// service_bot.go:
-
-// BotService ==========================================================================================================
-var BotSet = wire.NewSet(
-	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewBotService,
-)
-
-func NewBotService(ctx2 context.Context,
-
-	cfg *config.Config,
-	log logger.Logger, mq2 mq.MQ, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
-) (*Service, error) {
-	return &Service{
-		Ctx:        ctx2,
-		Log:        log,
-		MQ:         mq2,
-		Tracer:     tracer,
-		Monitoring: monitoring2,
 	}, nil
 }
 

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package link_rpc;
+
+option go_package = "github.com/batazor/shortlink/internal/link/infrastructure/link_rpc";
+
+import "link.proto";
+
+service Link {
+  rpc Add(link.Link) returns(link.Link) {}
+  rpc Get(link.Link) returns(link.Link) {}
+  rpc List(LinkRequest) returns(link.Links) {}
+  rpc Update(link.Link) returns(link.Link) {}
+  rpc Delete(link.Link) returns(link.Link) {}
+}
+
+message LinkRequest {
+  link.Link link = 1;
+
+  string filter = 2;
+}
