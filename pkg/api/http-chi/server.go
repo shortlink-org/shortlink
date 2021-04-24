@@ -14,6 +14,7 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	link_api "github.com/batazor/shortlink/pkg/api/http-chi/controllers/link"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
@@ -59,7 +60,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 	r.NotFound(NotFoundHandler)
 
-	r.Mount("/api", api.Routes())
+	r.Mount("/api", link_api.Routes())
 
 	srv := http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),

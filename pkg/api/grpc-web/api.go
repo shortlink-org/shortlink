@@ -9,7 +9,7 @@ import (
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	"github.com/batazor/shortlink/pkg/api/grpc-web/helpers"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/golang/protobuf/ptypes/empty"
