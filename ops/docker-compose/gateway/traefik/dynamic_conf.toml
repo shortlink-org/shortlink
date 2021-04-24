@@ -27,7 +27,6 @@
 ################################################################
 # TLS
 ################################################################
-
 [tls.stores.default.defaultCertificate]
   certFile = "/cert/shortlink-peer.pem"
   keyFile = "/cert/shortlink-peer-key.pem"
@@ -40,7 +39,7 @@
   rule = "PathPrefix(`/link_rpc.Link/`)"
   service = "link"
   [http.routers.link.tls]
-      certResolver = "default"
+    certResolver = "default"
   [http.services.link.loadBalancer.healthCheck]
     scheme = "http"
     path = "/ready"
@@ -49,7 +48,7 @@
     port = 9090
 
 [[http.services.link.loadBalancer.servers]]
-  url = "https://link:50051"
+  url = "h2c://host.docker.internal:50053"
 
 ################################################################
 # metadata
@@ -68,7 +67,7 @@
     port = 9090
 
 [[http.services.metadata.loadBalancer.servers]]
-  url = "https://metadata:50051"
+  url = "h2c://host.docker.internal:50052"
 
 ################################################################
 # UI

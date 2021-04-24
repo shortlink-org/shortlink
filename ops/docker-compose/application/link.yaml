@@ -21,6 +21,7 @@ services:
     restart: on-failure
     environment:
       TRACER_URI: jaeger-agent:6831
+      GRPC_SERVER_TLS_ENABLED: "false"
     volumes:
       - type: bind
         source: ./ops/cert

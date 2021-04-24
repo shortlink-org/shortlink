@@ -22,6 +22,8 @@ services:
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
