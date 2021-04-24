@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 )
 
 //func TestMain(m *testing.M) {

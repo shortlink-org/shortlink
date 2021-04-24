@@ -2,12 +2,12 @@
 // versions:
 // 	protoc-gen-go v1.26.0
 // 	protoc        v3.15.8
-// source: http-api.proto
+// source: link-api.proto
 
-package http_chi
+package link_api
 
 import (
-	link "github.com/batazor/shortlink/internal/services/api/domain/link"
+	link "github.com/batazor/shortlink/internal/services/link/domain/link"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -33,7 +33,7 @@ type AddLinkRequest struct {
 func (x *AddLinkRequest) Reset() {
 	*x = AddLinkRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_http_api_proto_msgTypes[0]
+		mi := &file_link_api_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -46,7 +46,7 @@ func (x *AddLinkRequest) String() string {
 func (*AddLinkRequest) ProtoMessage() {}
 
 func (x *AddLinkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_http_api_proto_msgTypes[0]
+	mi := &file_link_api_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -59,7 +59,7 @@ func (x *AddLinkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddLinkRequest.ProtoReflect.Descriptor instead.
 func (*AddLinkRequest) Descriptor() ([]byte, []int) {
-	return file_http_api_proto_rawDescGZIP(), []int{0}
+	return file_link_api_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *AddLinkRequest) GetUrl() string {
@@ -87,7 +87,7 @@ type AddLinkResponse struct {
 func (x *AddLinkResponse) Reset() {
 	*x = AddLinkResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_http_api_proto_msgTypes[1]
+		mi := &file_link_api_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -100,7 +100,7 @@ func (x *AddLinkResponse) String() string {
 func (*AddLinkResponse) ProtoMessage() {}
 
 func (x *AddLinkResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_http_api_proto_msgTypes[1]
+	mi := &file_link_api_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -113,7 +113,7 @@ func (x *AddLinkResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AddLinkResponse.ProtoReflect.Descriptor instead.
 func (*AddLinkResponse) Descriptor() ([]byte, []int) {
-	return file_http_api_proto_rawDescGZIP(), []int{1}
+	return file_link_api_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *AddLinkResponse) GetLink() *link.Link {
@@ -136,7 +136,7 @@ type GetLinkRequest struct {
 func (x *GetLinkRequest) Reset() {
 	*x = GetLinkRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_http_api_proto_msgTypes[2]
+		mi := &file_link_api_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -149,7 +149,7 @@ func (x *GetLinkRequest) String() string {
 func (*GetLinkRequest) ProtoMessage() {}
 
 func (x *GetLinkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_http_api_proto_msgTypes[2]
+	mi := &file_link_api_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -162,7 +162,7 @@ func (x *GetLinkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetLinkRequest.ProtoReflect.Descriptor instead.
 func (*GetLinkRequest) Descriptor() ([]byte, []int) {
-	return file_http_api_proto_rawDescGZIP(), []int{2}
+	return file_link_api_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetLinkRequest) GetHash() string {
@@ -197,7 +197,7 @@ type GetLinkResponse struct {
 func (x *GetLinkResponse) Reset() {
 	*x = GetLinkResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_http_api_proto_msgTypes[3]
+		mi := &file_link_api_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -210,7 +210,7 @@ func (x *GetLinkResponse) String() string {
 func (*GetLinkResponse) ProtoMessage() {}
 
 func (x *GetLinkResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_http_api_proto_msgTypes[3]
+	mi := &file_link_api_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -223,7 +223,7 @@ func (x *GetLinkResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetLinkResponse.ProtoReflect.Descriptor instead.
 func (*GetLinkResponse) Descriptor() ([]byte, []int) {
-	return file_http_api_proto_rawDescGZIP(), []int{3}
+	return file_link_api_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetLinkResponse) GetLink() *link.Link {
@@ -244,7 +244,7 @@ type GetListLinkRequest struct {
 func (x *GetListLinkRequest) Reset() {
 	*x = GetListLinkRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_http_api_proto_msgTypes[4]
+		mi := &file_link_api_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -257,7 +257,7 @@ func (x *GetListLinkRequest) String() string {
 func (*GetListLinkRequest) ProtoMessage() {}
 
 func (x *GetListLinkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_http_api_proto_msgTypes[4]
+	mi := &file_link_api_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -270,7 +270,7 @@ func (x *GetListLinkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetListLinkRequest.ProtoReflect.Descriptor instead.
 func (*GetListLinkRequest) Descriptor() ([]byte, []int) {
-	return file_http_api_proto_rawDescGZIP(), []int{4}
+	return file_link_api_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetListLinkRequest) GetFilter() string {
@@ -291,7 +291,7 @@ type GetListLinkResponse struct {
 func (x *GetListLinkResponse) Reset() {
 	*x = GetListLinkResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_http_api_proto_msgTypes[5]
+		mi := &file_link_api_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -304,7 +304,7 @@ func (x *GetListLinkResponse) String() string {
 func (*GetListLinkResponse) ProtoMessage() {}
 
 func (x *GetListLinkResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_http_api_proto_msgTypes[5]
+	mi := &file_link_api_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -317,7 +317,7 @@ func (x *GetListLinkResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetListLinkResponse.ProtoReflect.Descriptor instead.
 func (*GetListLinkResponse) Descriptor() ([]byte, []int) {
-	return file_http_api_proto_rawDescGZIP(), []int{5}
+	return file_link_api_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetListLinkResponse) GetList() []*link.Link {
@@ -338,7 +338,7 @@ type DeleteLinkRequest struct {
 func (x *DeleteLinkRequest) Reset() {
 	*x = DeleteLinkRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_http_api_proto_msgTypes[6]
+		mi := &file_link_api_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -351,7 +351,7 @@ func (x *DeleteLinkRequest) String() string {
 func (*DeleteLinkRequest) ProtoMessage() {}
 
 func (x *DeleteLinkRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_http_api_proto_msgTypes[6]
+	mi := &file_link_api_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -364,7 +364,7 @@ func (x *DeleteLinkRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteLinkRequest.ProtoReflect.Descriptor instead.
 func (*DeleteLinkRequest) Descriptor() ([]byte, []int) {
-	return file_http_api_proto_rawDescGZIP(), []int{6}
+	return file_link_api_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DeleteLinkRequest) GetHash() string {
@@ -383,7 +383,7 @@ type DeleteLinkResponse struct {
 func (x *DeleteLinkResponse) Reset() {
 	*x = DeleteLinkResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_http_api_proto_msgTypes[7]
+		mi := &file_link_api_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -396,7 +396,7 @@ func (x *DeleteLinkResponse) String() string {
 func (*DeleteLinkResponse) ProtoMessage() {}
 
 func (x *DeleteLinkResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_http_api_proto_msgTypes[7]
+	mi := &file_link_api_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -409,77 +409,78 @@ func (x *DeleteLinkResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteLinkResponse.ProtoReflect.Descriptor instead.
 func (*DeleteLinkResponse) Descriptor() ([]byte, []int) {
-	return file_http_api_proto_rawDescGZIP(), []int{7}
+	return file_link_api_proto_rawDescGZIP(), []int{7}
 }
 
-var File_http_api_proto protoreflect.FileDescriptor
+var File_link_api_proto protoreflect.FileDescriptor
 
-var file_http_api_proto_rawDesc = []byte{
-	0x0a, 0x0e, 0x68, 0x74, 0x74, 0x70, 0x2d, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x12, 0x07, 0x68, 0x74, 0x74, 0x70, 0x63, 0x68, 0x69, 0x1a, 0x2c, 0x69, 0x6e, 0x74, 0x65, 0x72,
-	0x6e, 0x61, 0x6c, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x61, 0x70, 0x69,
-	0x2f, 0x64, 0x6f, 0x6d, 0x61, 0x69, 0x6e, 0x2f, 0x6c, 0x69, 0x6e, 0x6b, 0x2f, 0x6c, 0x69, 0x6e,
-	0x6b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x3e, 0x0a, 0x0e, 0x61, 0x64, 0x64, 0x4c, 0x69,
-	0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x6c,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x12, 0x1a, 0x0a, 0x08, 0x64,
-	0x65, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x64,
-	0x65, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x22, 0x31, 0x0a, 0x0f, 0x61, 0x64, 0x64, 0x4c, 0x69,
-	0x6e, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1e, 0x0a, 0x04, 0x6c, 0x69,
-	0x6e, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x6c, 0x69, 0x6e, 0x6b, 0x2e,
-	0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x04, 0x6c, 0x69, 0x6e, 0x6b, 0x22, 0x58, 0x0a, 0x0e, 0x67, 0x65,
-	0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04,
-	0x68, 0x61, 0x73, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x68, 0x61, 0x73, 0x68,
-	0x12, 0x1a, 0x0a, 0x08, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x18, 0x02, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x08, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x12, 0x16, 0x0a, 0x06,
-	0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x66, 0x69,
-	0x6c, 0x74, 0x65, 0x72, 0x22, 0x31, 0x0a, 0x0f, 0x67, 0x65, 0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1e, 0x0a, 0x04, 0x6c, 0x69, 0x6e, 0x6b, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x6c, 0x69, 0x6e, 0x6b, 0x2e, 0x4c, 0x69, 0x6e,
-	0x6b, 0x52, 0x04, 0x6c, 0x69, 0x6e, 0x6b, 0x22, 0x2c, 0x0a, 0x12, 0x67, 0x65, 0x74, 0x4c, 0x69,
-	0x73, 0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a,
-	0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x66,
-	0x69, 0x6c, 0x74, 0x65, 0x72, 0x22, 0x35, 0x0a, 0x13, 0x67, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74,
+var file_link_api_proto_rawDesc = []byte{
+	0x0a, 0x0e, 0x6c, 0x69, 0x6e, 0x6b, 0x2d, 0x61, 0x70, 0x69, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x12, 0x08, 0x6c, 0x69, 0x6e, 0x6b, 0x5f, 0x61, 0x70, 0x69, 0x1a, 0x2d, 0x69, 0x6e, 0x74, 0x65,
+	0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x6c, 0x69,
+	0x6e, 0x6b, 0x2f, 0x64, 0x6f, 0x6d, 0x61, 0x69, 0x6e, 0x2f, 0x6c, 0x69, 0x6e, 0x6b, 0x2f, 0x6c,
+	0x69, 0x6e, 0x6b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x3e, 0x0a, 0x0e, 0x61, 0x64, 0x64,
+	0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x75,
+	0x72, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x12, 0x1a, 0x0a,
+	0x08, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x08, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x22, 0x31, 0x0a, 0x0f, 0x61, 0x64, 0x64,
 	0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1e, 0x0a, 0x04,
-	0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x6c, 0x69, 0x6e,
-	0x6b, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x22, 0x27, 0x0a, 0x11,
-	0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x12, 0x12, 0x0a, 0x04, 0x68, 0x61, 0x73, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x04, 0x68, 0x61, 0x73, 0x68, 0x22, 0x14, 0x0a, 0x12, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4c,
-	0x69, 0x6e, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x2f, 0x5a, 0x2d, 0x67,
-	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x61, 0x74, 0x61, 0x7a, 0x6f,
-	0x72, 0x2f, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x6c, 0x69, 0x6e, 0x6b, 0x2f, 0x70, 0x6b, 0x67, 0x2f,
-	0x61, 0x70, 0x69, 0x2f, 0x68, 0x74, 0x74, 0x70, 0x2d, 0x63, 0x68, 0x69, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x6c, 0x69, 0x6e, 0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x6c, 0x69, 0x6e,
+	0x6b, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x04, 0x6c, 0x69, 0x6e, 0x6b, 0x22, 0x58, 0x0a, 0x0e,
+	0x67, 0x65, 0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x12,
+	0x0a, 0x04, 0x68, 0x61, 0x73, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x68, 0x61,
+	0x73, 0x68, 0x12, 0x1a, 0x0a, 0x08, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x62, 0x65, 0x12, 0x16,
+	0x0a, 0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
+	0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x22, 0x31, 0x0a, 0x0f, 0x67, 0x65, 0x74, 0x4c, 0x69, 0x6e,
+	0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1e, 0x0a, 0x04, 0x6c, 0x69, 0x6e,
+	0x6b, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x6c, 0x69, 0x6e, 0x6b, 0x2e, 0x4c,
+	0x69, 0x6e, 0x6b, 0x52, 0x04, 0x6c, 0x69, 0x6e, 0x6b, 0x22, 0x2c, 0x0a, 0x12, 0x67, 0x65, 0x74,
+	0x4c, 0x69, 0x73, 0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x16, 0x0a, 0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x06, 0x66, 0x69, 0x6c, 0x74, 0x65, 0x72, 0x22, 0x35, 0x0a, 0x13, 0x67, 0x65, 0x74, 0x4c, 0x69,
+	0x73, 0x74, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x1e,
+	0x0a, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x6c,
+	0x69, 0x6e, 0x6b, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x04, 0x6c, 0x69, 0x73, 0x74, 0x22, 0x27,
+	0x0a, 0x11, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x68, 0x61, 0x73, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x68, 0x61, 0x73, 0x68, 0x22, 0x14, 0x0a, 0x12, 0x64, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x4c, 0x69, 0x6e, 0x6b, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x44, 0x5a,
+	0x42, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x61, 0x74, 0x61,
+	0x7a, 0x6f, 0x72, 0x2f, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x6c, 0x69, 0x6e, 0x6b, 0x2f, 0x70, 0x6b,
+	0x67, 0x2f, 0x61, 0x70, 0x69, 0x2f, 0x68, 0x74, 0x74, 0x70, 0x2d, 0x63, 0x68, 0x69, 0x2f, 0x63,
+	0x6f, 0x6e, 0x74, 0x72, 0x6f, 0x6c, 0x6c, 0x65, 0x72, 0x73, 0x2f, 0x6c, 0x69, 0x6e, 0x6b, 0x5f,
+	0x61, 0x70, 0x69, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_http_api_proto_rawDescOnce sync.Once
-	file_http_api_proto_rawDescData = file_http_api_proto_rawDesc
+	file_link_api_proto_rawDescOnce sync.Once
+	file_link_api_proto_rawDescData = file_link_api_proto_rawDesc
 )
 
-func file_http_api_proto_rawDescGZIP() []byte {
-	file_http_api_proto_rawDescOnce.Do(func() {
-		file_http_api_proto_rawDescData = protoimpl.X.CompressGZIP(file_http_api_proto_rawDescData)
+func file_link_api_proto_rawDescGZIP() []byte {
+	file_link_api_proto_rawDescOnce.Do(func() {
+		file_link_api_proto_rawDescData = protoimpl.X.CompressGZIP(file_link_api_proto_rawDescData)
 	})
-	return file_http_api_proto_rawDescData
+	return file_link_api_proto_rawDescData
 }
 
-var file_http_api_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_http_api_proto_goTypes = []interface{}{
-	(*AddLinkRequest)(nil),      // 0: httpchi.addLinkRequest
-	(*AddLinkResponse)(nil),     // 1: httpchi.addLinkResponse
-	(*GetLinkRequest)(nil),      // 2: httpchi.getLinkRequest
-	(*GetLinkResponse)(nil),     // 3: httpchi.getLinkResponse
-	(*GetListLinkRequest)(nil),  // 4: httpchi.getListLinkRequest
-	(*GetListLinkResponse)(nil), // 5: httpchi.getListLinkResponse
-	(*DeleteLinkRequest)(nil),   // 6: httpchi.deleteLinkRequest
-	(*DeleteLinkResponse)(nil),  // 7: httpchi.deleteLinkResponse
+var file_link_api_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_link_api_proto_goTypes = []interface{}{
+	(*AddLinkRequest)(nil),      // 0: link_api.addLinkRequest
+	(*AddLinkResponse)(nil),     // 1: link_api.addLinkResponse
+	(*GetLinkRequest)(nil),      // 2: link_api.getLinkRequest
+	(*GetLinkResponse)(nil),     // 3: link_api.getLinkResponse
+	(*GetListLinkRequest)(nil),  // 4: link_api.getListLinkRequest
+	(*GetListLinkResponse)(nil), // 5: link_api.getListLinkResponse
+	(*DeleteLinkRequest)(nil),   // 6: link_api.deleteLinkRequest
+	(*DeleteLinkResponse)(nil),  // 7: link_api.deleteLinkResponse
 	(*link.Link)(nil),           // 8: link.Link
 }
-var file_http_api_proto_depIdxs = []int32{
-	8, // 0: httpchi.addLinkResponse.link:type_name -> link.Link
-	8, // 1: httpchi.getLinkResponse.link:type_name -> link.Link
-	8, // 2: httpchi.getListLinkResponse.list:type_name -> link.Link
+var file_link_api_proto_depIdxs = []int32{
+	8, // 0: link_api.addLinkResponse.link:type_name -> link.Link
+	8, // 1: link_api.getLinkResponse.link:type_name -> link.Link
+	8, // 2: link_api.getListLinkResponse.list:type_name -> link.Link
 	3, // [3:3] is the sub-list for method output_type
 	3, // [3:3] is the sub-list for method input_type
 	3, // [3:3] is the sub-list for extension type_name
@@ -487,13 +488,13 @@ var file_http_api_proto_depIdxs = []int32{
 	0, // [0:3] is the sub-list for field type_name
 }
 
-func init() { file_http_api_proto_init() }
-func file_http_api_proto_init() {
-	if File_http_api_proto != nil {
+func init() { file_link_api_proto_init() }
+func file_link_api_proto_init() {
+	if File_link_api_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_http_api_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_link_api_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddLinkRequest); i {
 			case 0:
 				return &v.state
@@ -505,7 +506,7 @@ func file_http_api_proto_init() {
 				return nil
 			}
 		}
-		file_http_api_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_link_api_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddLinkResponse); i {
 			case 0:
 				return &v.state
@@ -517,7 +518,7 @@ func file_http_api_proto_init() {
 				return nil
 			}
 		}
-		file_http_api_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_link_api_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetLinkRequest); i {
 			case 0:
 				return &v.state
@@ -529,7 +530,7 @@ func file_http_api_proto_init() {
 				return nil
 			}
 		}
-		file_http_api_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_link_api_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetLinkResponse); i {
 			case 0:
 				return &v.state
@@ -541,7 +542,7 @@ func file_http_api_proto_init() {
 				return nil
 			}
 		}
-		file_http_api_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_link_api_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetListLinkRequest); i {
 			case 0:
 				return &v.state
@@ -553,7 +554,7 @@ func file_http_api_proto_init() {
 				return nil
 			}
 		}
-		file_http_api_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_link_api_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetListLinkResponse); i {
 			case 0:
 				return &v.state
@@ -565,7 +566,7 @@ func file_http_api_proto_init() {
 				return nil
 			}
 		}
-		file_http_api_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_link_api_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteLinkRequest); i {
 			case 0:
 				return &v.state
@@ -577,7 +578,7 @@ func file_http_api_proto_init() {
 				return nil
 			}
 		}
-		file_http_api_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_link_api_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteLinkResponse); i {
 			case 0:
 				return &v.state
@@ -594,18 +595,18 @@ func file_http_api_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_http_api_proto_rawDesc,
+			RawDescriptor: file_link_api_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   8,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_http_api_proto_goTypes,
-		DependencyIndexes: file_http_api_proto_depIdxs,
-		MessageInfos:      file_http_api_proto_msgTypes,
+		GoTypes:           file_link_api_proto_goTypes,
+		DependencyIndexes: file_link_api_proto_depIdxs,
+		MessageInfos:      file_link_api_proto_msgTypes,
 	}.Build()
-	File_http_api_proto = out.File
-	file_http_api_proto_rawDesc = nil
-	file_http_api_proto_goTypes = nil
-	file_http_api_proto_depIdxs = nil
+	File_link_api_proto = out.File
+	file_link_api_proto_rawDesc = nil
+	file_link_api_proto_goTypes = nil
+	file_link_api_proto_depIdxs = nil
 }

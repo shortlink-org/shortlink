@@ -7,7 +7,7 @@
 package grpcweb
 
 import (
-	link "github.com/batazor/shortlink/internal/services/api/domain/link"
+	link "github.com/batazor/shortlink/internal/services/link/domain/link"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

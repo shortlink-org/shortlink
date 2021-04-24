@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 

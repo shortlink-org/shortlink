@@ -1,4 +1,4 @@
-//go:generate protoc -I. -I../../../ --gotemplate_out=all=true,template_dir=template:. internal/services/api/domain/link/link.proto
+//go:generate protoc -I. -I../../../ --gotemplate_out=all=true,template_dir=template:. internal/services/link/domain/link/link.proto
 
 package graphql
 

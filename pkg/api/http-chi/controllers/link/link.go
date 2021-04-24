@@ -1,4 +1,6 @@
-package http_chi
+//go:generate protoc -I. -I../../../../..  -I../../../../../third_party/googleapis --proto_path=src --go_out=Mpkg/api/http-chi/link-api.proto=.:. --go_opt=paths=source_relative link-api.proto
+
+package link_api
 
 import (
 	"encoding/json"
@@ -6,27 +8,33 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/go-chi/chi/v5"
+	"google.golang.org/protobuf/encoding/protojson"
+
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	link_domain "github.com/batazor/shortlink/internal/services/link/domain/link"
 	"github.com/batazor/shortlink/pkg/api/http-chi/helpers"
 	api_type "github.com/batazor/shortlink/pkg/api/type"
-	"github.com/go-chi/chi/v5"
+)
+
+var (
+	jsonpb protojson.MarshalOptions
 )
 
 // Routes creates a REST router
-func (api *API) Routes() chi.Router {
+func Routes() chi.Router {
 	r := chi.NewRouter()
 
-	r.Post("/", api.Add)
-	r.Get("/links", api.List)
-	r.Get("/link/{hash}", api.Get)
-	r.Delete("/{hash}", api.Delete)
+	r.Post("/link", Add)
+	r.Get("/links", List)
+	r.Get("/link/{hash}", Get)
+	r.Delete("/link/{hash}", Delete)
 
 	return r
 }
 
 // Add ...
-func (api *API) Add(w http.ResponseWriter, r *http.Request) {
+func Add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Parse request
@@ -39,7 +47,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newLink := &link.Link{
+	newLink := &link_domain.Link{
 		Url:      request.Url,
 		Describe: request.Describe,
 	}
@@ -50,7 +58,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	// TODO: send []byte format
-	go notify.Publish(r.Context(), api_type.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
+	go notify.Publish(r.Context(), api_type.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_ADD"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -59,7 +67,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			newLink = resp.Payload.(*link.Link) // nolint errcheck
+			newLink = resp.Payload.(*link_domain.Link) // nolint errcheck
 		}
 	}
 
@@ -69,7 +77,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := api.jsonpb.Marshal(newLink)
+	res, err := jsonpb.Marshal(newLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -81,7 +89,7 @@ func (api *API) Add(w http.ResponseWriter, r *http.Request) {
 }
 
 // Get ...
-func (api *API) Get(w http.ResponseWriter, r *http.Request) {
+func Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	var hash = chi.URLParam(r, "hash")
@@ -97,7 +105,7 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		response     *link.Link
+		response     *link_domain.Link
 		responseLink GetLinkResponse // for custom JSON parsing
 		err          error
 	)
@@ -116,11 +124,11 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.(*link.Link) // nolint errcheck
+			response = resp.Payload.(*link_domain.Link) // nolint errcheck
 		}
 	}
 
-	var errorLink *link.NotFoundError
+	var errorLink *link_domain.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -136,7 +144,7 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 		Link: response,
 	}
 
-	res, err := api.jsonpb.Marshal(&responseLink)
+	res, err := jsonpb.Marshal(&responseLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -148,14 +156,14 @@ func (api *API) Get(w http.ResponseWriter, r *http.Request) {
 }
 
 // List ...
-func (api *API) List(w http.ResponseWriter, r *http.Request) {
+func List(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Get filter
 	filter := r.URL.Query().Get("filter")
 
 	var (
-		response     []*link.Link
+		response     []*link_domain.Link
 		responseLink GetListLinkResponse // for custom JSON parsing
 		err          error
 	)
@@ -174,11 +182,11 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.([]*link.Link) // nolint errcheck
+			response = resp.Payload.([]*link_domain.Link) // nolint errcheck
 		}
 	}
 
-	var errorLink *link.NotFoundError
+	var errorLink *link_domain.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -194,7 +202,7 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 		responseLink.List = append(responseLink.List, response[l])
 	}
 
-	res, err := api.jsonpb.Marshal(&responseLink)
+	res, err := jsonpb.Marshal(&responseLink)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -206,7 +214,7 @@ func (api *API) List(w http.ResponseWriter, r *http.Request) {
 }
 
 // Delete ...
-func (api *API) Delete(w http.ResponseWriter, r *http.Request) {
+func Delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Parse request
