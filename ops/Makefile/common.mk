@@ -19,10 +19,14 @@ dep: ## Install dependencies for this project
 export CURRENT_UID=$(id -u):$(id -g)
 
 do: ## Run for specific job
-	@docker-compose \
+	@COMPOSE_PROFILES=dns,gateway,opentracing docker-compose \
 		-f docker-compose.yaml \
+		-f ops/docker-compose/application/api.yaml \
+		-f ops/docker-compose/application/metadata.yaml \
+		-f ops/docker-compose/application/link.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
 		-f ops/docker-compose/tooling/grafana-tempo.yaml \
+		-f ops/docker-compose/gateway/traefik.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose
@@ -43,17 +47,6 @@ run: ## Run this project in docker-compose
 		-f ops/docker-compose/tooling/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/grafana-tempo.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
-		up -d --remove-orphans
-
-run-dep: ## Run only dep for this project in docker-compose
-	@docker-compose \
-		-f docker-compose.yaml \
-		-f ops/docker-compose/mq/kafka.yaml \
-		-f ops/docker-compose/application/api.yaml \
-		-f ops/docker-compose/database/postgres.yaml \
-		-f ops/docker-compose/gateway/traefik.yaml \
-		-f ops/docker-compose/tooling/opentracing.yaml \
-		-f ops/docker-compose/tooling/coredns.yaml \
 		up -d --remove-orphans
 
 down: ## Down docker-compose

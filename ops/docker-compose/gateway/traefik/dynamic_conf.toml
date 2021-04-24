@@ -28,28 +28,47 @@
 # TLS
 ################################################################
 
-[tls.stores]
-  [tls.stores.default]
-    [tls.stores.default.defaultCertificate]
-      certFile = "/cert/shortlink-peer.pem"
-      keyFile = "/cert/shortlink-peer-key.pem"
+[tls.stores.default.defaultCertificate]
+  certFile = "/cert/shortlink-peer.pem"
+  keyFile = "/cert/shortlink-peer-key.pem"
+
+################################################################
+# link
+################################################################
+[http.routers.link]
+  entryPoints = ["websecure"]
+  rule = "PathPrefix(`/link_rpc.Link/`)"
+  service = "link"
+  [http.routers.link.tls]
+      certResolver = "default"
+  [http.services.link.loadBalancer.healthCheck]
+    scheme = "http"
+    path = "/ready"
+    interval = "10s"
+    timeout = "3s"
+    port = 9090
+
+[[http.services.link.loadBalancer.servers]]
+  url = "https://link:50051"
 
 ################################################################
 # metadata
 ################################################################
-[http.routers]
-  [http.routers.metadata]
-    entryPoints = ["websecure"]
-    rule = "PathPrefix(`/rpc.Metadata/`)"
-    service = "metadata"
-    [http.routers.metadata.tls]
-      certResolver = "default"
+[http.routers.metadata]
+  entryPoints = ["websecure"]
+  rule = "PathPrefix(`/metadata_rpc.Metadata/`)"
+  service = "metadata"
+  [http.routers.metadata.tls]
+    certResolver = "default"
+  [http.services.metadata.loadBalancer.healthCheck]
+    scheme = "http"
+    path = "/ready"
+    interval = "10s"
+    timeout = "3s"
+    port = 9090
 
-[http.services]
-  [http.services.metadata]
-    [http.services.metadata.loadBalancer]
-      [[http.services.metadata.loadBalancer.servers]]
-        url = "https://metadata:50051"
+[[http.services.metadata.loadBalancer.servers]]
+  url = "https://metadata:50051"
 
 ################################################################
 # UI
@@ -60,7 +79,5 @@
   [http.routers.ui.tls]
     certResolver = "default"
 
-[http.services.ui]
-  [http.services.ui.loadBalancer]
-    [[http.services.ui.loadBalancer.servers]]
-      url = "http://ui-next"
+[[http.services.ui.loadBalancer.servers]]
+  url = "http://ui-next"

@@ -14,6 +14,8 @@ services:
     depends_on:
       - coredns
     image: grafana/tempo:0.6.0
+    profiles:
+      - opentracing
     command: ["-config.file=/etc/tempo.yaml"]
     container_name: jaeger-agent
     ports:
@@ -34,6 +36,8 @@ services:
       - coredns
       - jaeger-agent
     image: grafana/tempo-query:0.6.0
+    profiles:
+      - opentracing
     command: ["--grpc-storage-plugin.configuration-file=/etc/tempo-query.yaml"]
     container_name: jaeger-query
     ports:
