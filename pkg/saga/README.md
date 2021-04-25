@@ -2,9 +2,8 @@
 
 #### Saga steps of state:
 
-+ START (REJECT)
-+ SUCCESS (FAIL)
-+ DONE
++ WAIT -> START -> RUN -> READY
++ REJECT -> FAIL
 
 #### example
 
