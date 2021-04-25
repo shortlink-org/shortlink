@@ -13,15 +13,19 @@ import (
 )
 
 func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
+	const SAGA_NAME = "Add link"
+	const SAGA_STEP_SAVE_LINK = "Save link in store"
+	const SAGA_STEP_GET_METADATA = "Get metadata by link"
+
   // create a new saga for add link
   sagaAddLink := saga.
-    New("add link"). // name saga
+    New(SAGA_NAME).  // name saga
     WithContext(ctx) // ctx for tracing
-    Store(store)     // create store for save state saga
+    SetStore(store)  // create store for save state saga
   
   // step: save to store
-  saga.AddStep("Save link in store").
-    Do(func(context.Context) error {
+  saga.AddStep(SAGA_STEP_SAVE_LINK).
+    Then(func(context.Context) error {
       err := l.Store.Add(link)
       return err
     }).
@@ -31,8 +35,8 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
     })
 
   // step: get metadata
-  saga.AddStep("Get metadata by link").
-    Do(func(context.Context, link link.Link) error {
+  saga.AddStep(SAGA_STEP_GET_METADATA).
+    Then(func(context.Context, link link.Link) error {
       err := l.MetadataServer.Add(link)
       return err
     }).
@@ -43,8 +47,8 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 
   // step: send notify
   saga.AddStep("send notify").
-    Needs([]string{"Save link in store", "Get metadata by link"}).
-    Do(func(context.Context, link link.Link) error {
+    Needs([]string{SAGA_STEP_SAVE_LINK, SAGA_STEP_GET_METADATA}).
+    Then(func(context.Context, link link.Link) error {
       err := l.NotifyServer.Add(link)
       return err
     })
@@ -61,3 +65,10 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 - libs:
   - [go-saga](https://github.com/itimofeev/go-saga) - example go-library
   - https://github.com/danielgerlag/workflow-core
+
+### Alternative solve
+
+#### Use `Step.degree` increment
+
+Run jobs by `degree`: `0 -> 1 -> 2 -> ... -> N`  
+Reject jobs by `degree`: `Current -> Current - 1 -> Current - 2 -> ... -> 0`

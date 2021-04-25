@@ -1,34 +1,16 @@
 package saga
 
-import (
-	"context"
-)
-
 type StepState int
 
+// Success chain: INIT -> WAIT -> RUN -> DONE
 const (
-	WAIT StepState = iota
-	START
+	INIT StepState = iota
+	WAIT
 	RUN
-	READY
+	DONE
 	REJECT
 	FAIL
+	ROLLBACK
 )
 
-type EventState int
-
-type Step struct {
-	Name   string
-	Status StepState
-	Do     func(ctx context.Context) error
-	Reject func(ctx context.Context) error
-}
-
 type Store interface{}
-
-type Saga struct {
-	Ctx   context.Context
-	Name  string
-	Store Store
-	Steps []Step
-}
