@@ -24,7 +24,7 @@ require (
 	github.com/go-redis/redis/v8 v8.8.2
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
-	github.com/gocql/gocql v0.0.0-20210413161705-87a5d7a5ff74
+	github.com/gocql/gocql v0.0.0-20210425135552-909f2a77f46e
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
