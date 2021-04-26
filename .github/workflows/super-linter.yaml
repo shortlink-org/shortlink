@@ -54,4 +54,5 @@ jobs:
           DEFAULT_BRANCH: main
           ANSIBLE_DIRECTORY: ops/ansible
           VALIDATE_KUBERNETES_KUBEVAL: false
+          VALIDATE_JSCPD: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
