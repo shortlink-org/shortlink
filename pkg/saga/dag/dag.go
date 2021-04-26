@@ -20,12 +20,14 @@ func New() *Dag {
 func (d *Dag) AddVertex(id string, value interface{}) (*Vertex, error) {
 	// check on uniq key
 	if _, ok := d.vertices.Load(id); ok {
-		return nil, fmt.Errorf("Not uniq key: %s", id)
+		return nil, fmt.Errorf("dag already contains a vertex with the id: %s", id)
 	}
 
 	node := &Vertex{
-		id:    id,
-		value: value,
+		id:       id,
+		value:    value,
+		parents:  make([]*Vertex, 0),
+		children: make([]*Vertex, 0),
 	}
 	d.vertices.Store(id, node)
 
@@ -35,12 +37,12 @@ func (d *Dag) AddVertex(id string, value interface{}) (*Vertex, error) {
 func (d *Dag) AddEdge(from string, to string) error {
 	fromVertexRaw, ok := d.vertices.Load(from)
 	if !ok {
-		return fmt.Errorf("not found %s", from)
+		return fmt.Errorf("not found vertex by id: %s", from)
 	}
 	fromVertex := fromVertexRaw.(*Vertex)
 	toVertexRaw, ok := d.vertices.Load(to)
 	if !ok {
-		return fmt.Errorf("not found %s", to)
+		return fmt.Errorf("not found vertex by id: %s", to)
 	}
 	toVertex := toVertexRaw.(*Vertex)
 

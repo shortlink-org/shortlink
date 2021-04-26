@@ -27,11 +27,6 @@ func (s *SagaBuilder) WithContext(ctx context.Context) *SagaBuilder {
 	return s
 }
 
-func (s *SagaBuilder) SetStore(store Store) *SagaBuilder {
-	s.store = store
-	return s
-}
-
 func (s *SagaBuilder) Build() (*Saga, []error) {
 	return s.Saga, s.errorList
 }

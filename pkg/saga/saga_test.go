@@ -9,8 +9,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
-
-	"github.com/batazor/shortlink/pkg/saga/store/ram"
 )
 
 func TestMain(m *testing.M) {
@@ -27,7 +25,6 @@ func TestNewSaga(t *testing.T) {
 		const SAGA_STEP_E = "E"
 
 		ctx := context.Background()
-		store := ram.RAM{}
 
 		// Example amount
 		amount := 0
@@ -48,7 +45,6 @@ func TestNewSaga(t *testing.T) {
 		// create a new saga for work with number
 		sagaNumber, errs := New(SAGA_NAME).
 			WithContext(ctx).
-			SetStore(store).
 			Build()
 		// check error
 		assert.Len(t, errs, 0)
@@ -130,7 +126,6 @@ func TestNewSaga(t *testing.T) {
 		const SAGA_STEP_FAIL = "STEP_FAIL"
 
 		ctx := context.Background()
-		store := ram.RAM{}
 
 		// Example amount
 		amount := 0
@@ -151,7 +146,6 @@ func TestNewSaga(t *testing.T) {
 		// create a new saga for work with number
 		sagaNumber, errs := New(SAGA_NAME).
 			WithContext(ctx).
-			SetStore(store).
 			Build()
 		// check error
 		assert.Len(t, errs, 0)

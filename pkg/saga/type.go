@@ -12,5 +12,3 @@ const (
 	FAIL
 	ROLLBACK
 )
-
-type Store interface{}
