@@ -83,11 +83,11 @@ func (dg *Store) migrate(ctx context.Context) error { // nolint unused
 	op := &api.Operation{
 		Schema: `
 type Link {
-    url: string
-    hash: string
-    describe: string
-    created_at: datetime
-    updated_at: datetime
+	url: string
+	hash: string
+	describe: string
+	created_at: datetime
+	updated_at: datetime
 }
 
 url: string @index(term) @lang .
