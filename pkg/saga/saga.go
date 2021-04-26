@@ -100,46 +100,6 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	return s.Play(initChildrenStep)
 }
 
-func (s *Saga) Reject(rejectSteps map[string]*Step) error {
-	fmt.Println("===========================")
-	fmt.Println("Run REJECT")
-
-	// Run root steps
-	g := errgroup.Group{}
-
-	for _, step := range rejectSteps {
-		g.Go(step.Reject)
-	}
-
-	// ignore error and continue reject parent func
-	err := g.Wait()
-	fmt.Println(err)
-
-	// get parents
-	initParentStep := make(map[string]*Step)
-	for _, rootStep := range rejectSteps {
-		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
-		if errGetVertex != nil {
-			return errGetVertex
-		}
-
-		for _, child := range vertex.Parents() {
-			step := s.steps[child.GetId()]
-			initParentStep[step.name] = step
-		}
-	}
-	if len(initParentStep) == 0 {
-		return nil
-	}
-
-	initParentStep, err = s.validateReject(initParentStep)
-	if err != nil {
-		return err
-	}
-
-	return s.Reject(initParentStep)
-}
-
 func (s *Saga) getRootSteps() (map[string]*Step, error) {
 	initSteps := make(map[string]*Step)
 
@@ -183,6 +143,46 @@ func (s *Saga) validateRun(steps map[string]*Step) (map[string]*Step, error) {
 	}
 
 	return doneSteps, nil
+}
+
+func (s *Saga) Reject(rejectSteps map[string]*Step) error {
+	fmt.Println("===========================")
+	fmt.Println("Run REJECT")
+
+	// Run root steps
+	g := errgroup.Group{}
+
+	for _, step := range rejectSteps {
+		g.Go(step.Reject)
+	}
+
+	// ignore error and continue reject parent func
+	err := g.Wait()
+	fmt.Println(err)
+
+	// get parents
+	initParentStep := make(map[string]*Step)
+	for _, rootStep := range rejectSteps {
+		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
+		if errGetVertex != nil {
+			return errGetVertex
+		}
+
+		for _, child := range vertex.Parents() {
+			step := s.steps[child.GetId()]
+			initParentStep[step.name] = step
+		}
+	}
+	if len(initParentStep) == 0 {
+		return nil
+	}
+
+	initParentStep, err = s.validateReject(initParentStep)
+	if err != nil {
+		return err
+	}
+
+	return s.Reject(initParentStep)
 }
 
 func (s *Saga) validateReject(steps map[string]*Step) (map[string]*Step, error) {
