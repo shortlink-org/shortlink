@@ -9,6 +9,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
+
+	"github.com/batazor/shortlink/internal/pkg/logger"
 )
 
 func TestMain(m *testing.M) {
@@ -16,6 +18,13 @@ func TestMain(m *testing.M) {
 }
 
 func TestNewSaga(t *testing.T) {
+	// Init logger
+	conf := logger.Configuration{
+		Level: logger.DEBUG_LEVEL,
+	}
+	log, err := logger.NewLogger(logger.Zap, conf)
+	assert.Nil(t, err, "Error init a logger")
+
 	t.Run("create simple saga", func(t *testing.T) {
 		const SAGA_NAME = "Number magic"
 		const SAGA_STEP_A = "A"
@@ -38,12 +47,12 @@ func TestNewSaga(t *testing.T) {
 			return nil
 		}
 		printFunc := func(ctx context.Context) error {
-			fmt.Println(amount)
+			log.Info(fmt.Sprintf("amount: %d", amount))
 			return nil
 		}
 
 		// create a new saga for work with number
-		sagaNumber, errs := New(SAGA_NAME).
+		sagaNumber, errs := New(SAGA_NAME, Logger(log)).
 			WithContext(ctx).
 			Build()
 		// check error
@@ -139,12 +148,12 @@ func TestNewSaga(t *testing.T) {
 			return nil
 		}
 		printFunc := func(ctx context.Context) error {
-			fmt.Printf("amount: %d\n", amount)
+			log.Info(fmt.Sprintf("amount: %d", amount))
 			return nil
 		}
 
 		// create a new saga for work with number
-		sagaNumber, errs := New(SAGA_NAME).
+		sagaNumber, errs := New(SAGA_NAME, Logger(log)).
 			WithContext(ctx).
 			Build()
 		// check error

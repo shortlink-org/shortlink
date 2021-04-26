@@ -19,9 +19,12 @@ type Saga struct {
 	dag *dag.Dag
 
 	errorList []error
+
+	// options
+	Options
 }
 
-func (s *Saga) AddStep(name string) *BuilderStep {
+func (s *Saga) AddStep(name string, setters ...Option) *BuilderStep {
 	// create a new step
 	step := &BuilderStep{
 		Step: &Step{
@@ -29,7 +32,13 @@ func (s *Saga) AddStep(name string) *BuilderStep {
 			name:   name,
 			dag:    s.dag,
 			status: INIT,
+
+			Options: Options{logger: s.logger},
 		},
+	}
+
+	for _, setter := range setters {
+		setter(&step.Options)
 	}
 
 	// check uniq
@@ -68,7 +77,7 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	err = g.Wait()
 	if err != nil {
 		// If get error run rejectFunc
-		fmt.Printf("Run REJECT after run step with error: %s\n", err)
+		s.logger.Warn(fmt.Sprintf("Run REJECT after run step with error: %s", err))
 		errReject := s.Reject(initSteps)
 		return errReject
 	}
@@ -94,8 +103,6 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	if err != nil {
 		return err
 	}
-
-	fmt.Println("===========================")
 
 	return s.Play(initChildrenStep)
 }
@@ -146,9 +153,6 @@ func (s *Saga) validateRun(steps map[string]*Step) (map[string]*Step, error) {
 }
 
 func (s *Saga) Reject(rejectSteps map[string]*Step) error {
-	fmt.Println("===========================")
-	fmt.Println("Run REJECT")
-
 	// Run root steps
 	g := errgroup.Group{}
 
@@ -158,7 +162,9 @@ func (s *Saga) Reject(rejectSteps map[string]*Step) error {
 
 	// ignore error and continue reject parent func
 	err := g.Wait()
-	fmt.Println(err)
+	if err != nil {
+		s.logger.Error(err.Error())
+	}
 
 	// get parents
 	initParentStep := make(map[string]*Step)
