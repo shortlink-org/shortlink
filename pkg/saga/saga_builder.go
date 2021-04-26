@@ -12,13 +12,19 @@ type SagaBuilder struct {
 	errorList []error
 }
 
-func New(name string) *SagaBuilder {
+func New(name string, setters ...Option) *SagaBuilder {
+	newSaga := &Saga{
+		name:  name,
+		dag:   dag.New(),
+		steps: make(map[string]*Step),
+	}
+
+	for _, setter := range setters {
+		setter(&newSaga.Options)
+	}
+
 	return &SagaBuilder{
-		Saga: &Saga{
-			name:  name,
-			dag:   dag.New(),
-			steps: make(map[string]*Step),
-		},
+		Saga: newSaga,
 	}
 }
 
