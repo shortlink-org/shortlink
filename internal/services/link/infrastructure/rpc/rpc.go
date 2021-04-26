@@ -83,5 +83,3 @@ func (m *Link) Update(ctx context.Context, in *link.Link) (*link.Link, error) {
 func (m *Link) Delete(ctx context.Context, in *link.Link) (*link.Link, error) {
 	panic("implement me")
 }
-
-func (m *Link) mustEmbedUnimplementedMetadataServer() {}
