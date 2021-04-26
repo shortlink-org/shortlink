@@ -18,13 +18,18 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 	const SAGA_STEP_GET_METADATA = "Get metadata by link"
 
   // create a new saga for add link
-  sagaAddLink := saga.
-    New(SAGA_NAME).  // name saga
-    WithContext(ctx) // ctx for tracing
-    SetStore(store)  // create store for save state saga
+  sagaAddLink, errs := saga.
+    New(SAGA_NAME).   // name saga
+    WithContext(ctx). // ctx for tracing
+    SetStore(store).  // create store for save state saga
+    Build()
+  
+  if len(errs) > 0 {
+    // check err...
+  }
   
   // step: save to store
-  saga.AddStep(SAGA_STEP_SAVE_LINK).
+  _, err = saga.AddStep(SAGA_STEP_SAVE_LINK).
     Then(func(context.Context) error {
       err := l.Store.Add(link)
       return err
@@ -32,26 +37,22 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
     Reject(func(context.Context) error {
       err := l.Store.Delete(link)
       return err
-    })
+    }).
+  	Build()
+  
+  if len(errs) > 0 {
+    // check err...
+  }
 
   // step: get metadata
   saga.AddStep(SAGA_STEP_GET_METADATA).
-    Then(func(context.Context, link link.Link) error {
-      err := l.MetadataServer.Add(link)
-      return err
-    }).
-    Reject(func(context.Context) error {
-      err := l.MetadataServer.Delete(link)
-      return err
-    })
+    Then(addFunc).
+    Reject(cancelAddFunc)
 
   // step: send notify
   saga.AddStep("send notify").
     Needs([]string{SAGA_STEP_SAVE_LINK, SAGA_STEP_GET_METADATA}).
-    Then(func(context.Context, link link.Link) error {
-      err := l.NotifyServer.Add(link)
-      return err
-    })
+    Then(youNotifyFunc)
   
   // Run saga
   err := sagaAddLink.Play()

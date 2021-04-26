@@ -65,15 +65,18 @@ func (s *Saga) Play(initSteps []*Step) error {
 
 	err = g.Wait()
 	if err != nil {
-		return err
+		// If get error run rejectFunc
+		fmt.Printf("Run REJECT after run step with error: %s\n", err)
+		errReject := s.Reject(initSteps)
+		return errReject
 	}
 
 	// Run children
 	initChildrenStep := []*Step{}
 	for _, rootStep := range initSteps {
-		vertex, err := s.dag.GetVertex(rootStep.name)
-		if err != nil {
-			return err
+		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
+		if errGetVertex != nil {
+			return errGetVertex
 		}
 
 		for _, child := range vertex.Children() {
@@ -84,7 +87,7 @@ func (s *Saga) Play(initSteps []*Step) error {
 		return nil
 	}
 
-	initChildrenStep, err = s.validate(initChildrenStep)
+	initChildrenStep, err = s.validateRun(initChildrenStep)
 	if err != nil {
 		return err
 	}
@@ -92,6 +95,45 @@ func (s *Saga) Play(initSteps []*Step) error {
 	fmt.Println("===========================")
 
 	return s.Play(initChildrenStep)
+}
+
+func (s *Saga) Reject(rejectSteps []*Step) error {
+	fmt.Println("===========================")
+	fmt.Println("Run REJECT")
+
+	// Run root steps
+	g := errgroup.Group{}
+
+	for _, step := range rejectSteps {
+		g.Go(step.Reject)
+	}
+
+	// ignore error and continue reject parent func
+	err := g.Wait()
+	fmt.Println(err)
+
+	// get parents
+	initParentStep := []*Step{}
+	for _, rootStep := range rejectSteps {
+		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
+		if errGetVertex != nil {
+			return errGetVertex
+		}
+
+		for _, child := range vertex.Parents() {
+			initParentStep = append(initParentStep, s.steps[child.GetId()])
+		}
+	}
+	if len(initParentStep) == 0 {
+		return nil
+	}
+
+	initParentStep, err = s.validateReject(initParentStep)
+	if err != nil {
+		return err
+	}
+
+	return s.Reject(initParentStep)
 }
 
 func (s *Saga) getRootSteps() ([]*Step, error) {
@@ -115,7 +157,7 @@ func (s *Saga) getRootSteps() ([]*Step, error) {
 	return initSteps, nil
 }
 
-func (s *Saga) validate(steps []*Step) ([]*Step, error) {
+func (s *Saga) validateRun(steps []*Step) ([]*Step, error) {
 	var err error
 
 	// drop double
@@ -137,6 +179,43 @@ func (s *Saga) validate(steps []*Step) ([]*Step, error) {
 			if s.steps[child.GetId()].status != DONE {
 				isDone = false
 				step.status = WAIT
+			}
+		}
+		if isDone {
+			doneSteps = append(doneSteps, step)
+		}
+	}
+
+	// drop double
+	doneSteps, err = s.uniq(doneSteps)
+	if err != nil {
+		return nil, err
+	}
+
+	return doneSteps, nil
+}
+
+func (s *Saga) validateReject(steps []*Step) ([]*Step, error) {
+	var err error
+
+	// drop double
+	steps, err = s.uniq(steps)
+	if err != nil {
+		return nil, err
+	}
+
+	// drop if status of all parents step not DONE
+	doneSteps := []*Step{}
+	for _, step := range steps {
+		vertex, errGetVertex := s.dag.GetVertex(step.name)
+		if errGetVertex != nil {
+			return nil, errGetVertex
+		}
+
+		isDone := true
+		for _, parent := range vertex.Parents() {
+			if s.steps[parent.GetId()].status == ROLLBACK && step.status != DONE {
+				isDone = false
 			}
 		}
 		if isDone {
