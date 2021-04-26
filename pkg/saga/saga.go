@@ -12,9 +12,11 @@ import (
 type Saga struct {
 	ctx   context.Context
 	name  string
-	store Store
 	steps map[string]*Step
-	dag   *dag.Dag
+
+	// A Directed acyclic graph or DAG  describes the workflow processes and
+	// how are they related each other.
+	dag *dag.Dag
 
 	errorList []error
 }
@@ -45,7 +47,7 @@ func (s *Saga) AddStep(name string) *BuilderStep {
 	return step
 }
 
-func (s *Saga) Play(initSteps []*Step) error {
+func (s *Saga) Play(initSteps map[string]*Step) error {
 	var err error
 
 	// Get steps for RUN
@@ -72,7 +74,7 @@ func (s *Saga) Play(initSteps []*Step) error {
 	}
 
 	// Run children
-	initChildrenStep := []*Step{}
+	initChildrenStep := make(map[string]*Step)
 	for _, rootStep := range initSteps {
 		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
 		if errGetVertex != nil {
@@ -80,7 +82,8 @@ func (s *Saga) Play(initSteps []*Step) error {
 		}
 
 		for _, child := range vertex.Children() {
-			initChildrenStep = append(initChildrenStep, s.steps[child.GetId()])
+			step := s.steps[child.GetId()]
+			initChildrenStep[step.name] = step
 		}
 	}
 	if len(initChildrenStep) == 0 {
@@ -97,7 +100,7 @@ func (s *Saga) Play(initSteps []*Step) error {
 	return s.Play(initChildrenStep)
 }
 
-func (s *Saga) Reject(rejectSteps []*Step) error {
+func (s *Saga) Reject(rejectSteps map[string]*Step) error {
 	fmt.Println("===========================")
 	fmt.Println("Run REJECT")
 
@@ -113,7 +116,7 @@ func (s *Saga) Reject(rejectSteps []*Step) error {
 	fmt.Println(err)
 
 	// get parents
-	initParentStep := []*Step{}
+	initParentStep := make(map[string]*Step)
 	for _, rootStep := range rejectSteps {
 		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
 		if errGetVertex != nil {
@@ -121,7 +124,8 @@ func (s *Saga) Reject(rejectSteps []*Step) error {
 		}
 
 		for _, child := range vertex.Parents() {
-			initParentStep = append(initParentStep, s.steps[child.GetId()])
+			step := s.steps[child.GetId()]
+			initParentStep[step.name] = step
 		}
 	}
 	if len(initParentStep) == 0 {
@@ -136,8 +140,8 @@ func (s *Saga) Reject(rejectSteps []*Step) error {
 	return s.Reject(initParentStep)
 }
 
-func (s *Saga) getRootSteps() ([]*Step, error) {
-	initSteps := []*Step{}
+func (s *Saga) getRootSteps() (map[string]*Step, error) {
+	initSteps := make(map[string]*Step)
 
 	for _, step := range s.steps {
 		// get steps with status: INIT
@@ -149,7 +153,7 @@ func (s *Saga) getRootSteps() ([]*Step, error) {
 			}
 
 			if len(vertex.Parents()) == 0 {
-				initSteps = append(initSteps, step)
+				initSteps[step.name] = step
 			}
 		}
 	}
@@ -157,17 +161,9 @@ func (s *Saga) getRootSteps() ([]*Step, error) {
 	return initSteps, nil
 }
 
-func (s *Saga) validateRun(steps []*Step) ([]*Step, error) {
-	var err error
-
-	// drop double
-	steps, err = s.uniq(steps)
-	if err != nil {
-		return nil, err
-	}
-
-	// drop if status of all parents step not DONE
-	doneSteps := []*Step{}
+func (s *Saga) validateRun(steps map[string]*Step) (map[string]*Step, error) {
+	// skip if status of all parents step not DONE
+	doneSteps := make(map[string]*Step)
 	for _, step := range steps {
 		vertex, errGetVertex := s.dag.GetVertex(step.name)
 		if errGetVertex != nil {
@@ -182,30 +178,16 @@ func (s *Saga) validateRun(steps []*Step) ([]*Step, error) {
 			}
 		}
 		if isDone {
-			doneSteps = append(doneSteps, step)
+			doneSteps[step.name] = step
 		}
-	}
-
-	// drop double
-	doneSteps, err = s.uniq(doneSteps)
-	if err != nil {
-		return nil, err
 	}
 
 	return doneSteps, nil
 }
 
-func (s *Saga) validateReject(steps []*Step) ([]*Step, error) {
-	var err error
-
-	// drop double
-	steps, err = s.uniq(steps)
-	if err != nil {
-		return nil, err
-	}
-
-	// drop if status of all parents step not DONE
-	doneSteps := []*Step{}
+func (s *Saga) validateReject(steps map[string]*Step) (map[string]*Step, error) {
+	// skip if status of all parents step ROLLBACK
+	doneSteps := make(map[string]*Step)
 	for _, step := range steps {
 		vertex, errGetVertex := s.dag.GetVertex(step.name)
 		if errGetVertex != nil {
@@ -219,30 +201,9 @@ func (s *Saga) validateReject(steps []*Step) ([]*Step, error) {
 			}
 		}
 		if isDone {
-			doneSteps = append(doneSteps, step)
+			doneSteps[step.name] = step
 		}
 	}
 
-	// drop double
-	doneSteps, err = s.uniq(doneSteps)
-	if err != nil {
-		return nil, err
-	}
-
 	return doneSteps, nil
-}
-
-func (s *Saga) uniq(steps []*Step) ([]*Step, error) {
-	// drop double
-	mapStep := map[string]*Step{}
-	for _, step := range steps {
-		mapStep[step.name] = step
-	}
-
-	uniqSteps := []*Step{}
-	for _, v := range mapStep {
-		uniqSteps = append(uniqSteps, v)
-	}
-
-	return uniqSteps, nil
 }

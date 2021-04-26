@@ -21,7 +21,6 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
   sagaAddLink, errs := saga.
     New(SAGA_NAME).   // name saga
     WithContext(ctx). // ctx for tracing
-    SetStore(store).  // create store for save state saga
     Build()
   
   if len(errs) > 0 {
@@ -65,6 +64,7 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 - [DAG](https://github.com/goombaio/dag) - for build pipeline steps
 - libs:
   - [go-saga](https://github.com/itimofeev/go-saga) - example go-library
+  - [goflow](https://github.com/s8sg/goflow)
   - https://github.com/danielgerlag/workflow-core
 
 ### Alternative solve
