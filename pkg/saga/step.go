@@ -28,3 +28,16 @@ func (s *Step) Run() error {
 
 	return nil
 }
+
+func (s *Step) Reject() error {
+	fmt.Printf("Reject step by name: %s\n", s.name)
+	s.status = REJECT
+	err := s.reject(*s.ctx)
+	if err != nil {
+		s.status = FAIL
+		return err
+	}
+	s.status = ROLLBACK
+
+	return nil
+}
