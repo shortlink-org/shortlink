@@ -37,7 +37,7 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
       err := l.Store.Delete(link)
       return err
     }).
-  	Build()
+    Build()
   
   if len(errs) > 0 {
     // check err...
@@ -61,11 +61,13 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 
 ### Ref
 
+- [Saga pattern](https://microservices.io/patterns/data/saga.html)
 - [DAG](https://github.com/goombaio/dag) - for build pipeline steps
 - libs:
   - [go-saga](https://github.com/itimofeev/go-saga) - example go-library
   - [goflow](https://github.com/s8sg/goflow)
   - https://github.com/danielgerlag/workflow-core
+  - https://github.com/VladKopanev/cats-saga
 
 ### Alternative solve
 
