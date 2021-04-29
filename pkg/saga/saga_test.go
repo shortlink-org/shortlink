@@ -5,6 +5,7 @@ package saga
 import (
 	"context"
 	"fmt"
+	"sync"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -12,6 +13,12 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 )
+
+type Wallet struct {
+	sync.Mutex
+
+	value int
+}
 
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
@@ -36,18 +43,24 @@ func TestNewSaga(t *testing.T) {
 		ctx := context.Background()
 
 		// Example amount
-		amount := 0
+		wallet := &Wallet{
+			value: 0,
+		}
 
 		addFunc := func(ctx context.Context) error {
-			amount += 10
+			wallet.Lock()
+			wallet.value += 10
+			wallet.Unlock()
 			return nil
 		}
 		rejectFunc := func(ctx context.Context) error {
-			amount -= 10
+			wallet.Lock()
+			wallet.value -= 10
+			wallet.Unlock()
 			return nil
 		}
 		printFunc := func(ctx context.Context) error {
-			log.Info(fmt.Sprintf("amount: %d", amount))
+			log.Info(fmt.Sprintf("amount: %d", wallet.value))
 			return nil
 		}
 
@@ -121,7 +134,7 @@ func TestNewSaga(t *testing.T) {
 
 		// Run saga
 		err := sagaNumber.Play(nil)
-		assert.Equal(t, amount, 30)
+		assert.Equal(t, wallet.value, 30)
 		assert.Nil(t, err)
 	})
 
@@ -137,18 +150,24 @@ func TestNewSaga(t *testing.T) {
 		ctx := context.Background()
 
 		// Example amount
-		amount := 0
+		wallet := &Wallet{
+			value: 0,
+		}
 
 		addFunc := func(ctx context.Context) error {
-			amount += 10
+			wallet.Lock()
+			wallet.value += 10
+			wallet.Unlock()
 			return nil
 		}
 		rejectFunc := func(ctx context.Context) error {
-			amount -= 9 // For check work addFunc after saga.Play ;-)
+			wallet.Lock()
+			wallet.value -= 9 // For check work addFunc after saga.Play ;-)
+			wallet.Unlock()
 			return nil
 		}
 		printFunc := func(ctx context.Context) error {
-			log.Info(fmt.Sprintf("amount: %d", amount))
+			log.Info(fmt.Sprintf("amount: %d", wallet.value))
 			return nil
 		}
 
@@ -236,7 +255,7 @@ func TestNewSaga(t *testing.T) {
 
 		// Run saga
 		err := sagaNumber.Play(nil)
-		assert.Equal(t, amount, 3) // amount: 10+10+10-9-9-9=3
+		assert.Equal(t, wallet.value, 3) // amount: 10+10+10-9-9-9=3
 		assert.Nil(t, err)
 	})
 }
