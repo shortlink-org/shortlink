@@ -1,7 +1,7 @@
 /*
 Metadata Service. Application layer
 */
-package application
+package metadata
 
 import (
 	"context"
@@ -14,11 +14,17 @@ import (
 )
 
 type Service struct {
-	Store *meta_store.MetaStore
+	MetaStore *meta_store.MetaStore
+}
+
+func New(store *meta_store.MetaStore) (*Service, error) {
+	return &Service{
+		MetaStore: store,
+	}, nil
 }
 
 func (r *Service) Get(ctx context.Context, hash string) (*rpc.Meta, error) {
-	meta, err := r.Store.Store.Get(ctx, hash)
+	meta, err := r.MetaStore.Store.Get(ctx, hash)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +66,7 @@ func (r *Service) Set(ctx context.Context, url string) (*rpc.Meta, error) {
 	})
 
 	// Write to DB
-	err = r.Store.Store.Add(ctx, meta)
+	err = r.MetaStore.Store.Add(ctx, meta)
 	if err != nil {
 		return nil, err
 	}

@@ -18,7 +18,9 @@ import (
 )
 
 type rpc struct {
-	client         *grpc.ClientConn
+	client *grpc.ClientConn
+
+	// Delivery
 	MetadataClient metadata_rpc.MetadataClient
 	LinkClient     link_rpc.LinkClient
 }

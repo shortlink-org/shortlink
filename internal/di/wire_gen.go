@@ -24,6 +24,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	store2 "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
+	"github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
@@ -542,16 +543,6 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metaStore, err := InitMetaStore(context, logger, dbStore)
-	if err != nil {
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
 	handler, cleanup7, err := sentry.New()
 	if err != nil {
 		cleanup6()
@@ -563,7 +554,7 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler, logger)
-	serviceMetadata, err := NewMetadataService(logger, autoMaxProAutoMaxPro, dbStore, rpcServer, metaStore, serveMux, handler)
+	metaDataService, cleanup8, err := InitMetaService(context, rpcServer, logger, dbStore)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -574,7 +565,20 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	serviceMetadata, err := NewMetadataService(logger, autoMaxProAutoMaxPro, dbStore, rpcServer, serveMux, handler, metaDataService)
+	if err != nil {
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return serviceMetadata, func() {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -794,31 +798,27 @@ func NewLoggerService(ctx2 context.Context,
 
 type ServiceMetadata struct {
 	Service
-	MetaStore *meta_store.MetaStore
+
+	MetaService *di.MetaDataService
 }
 
-// InitMetaStore =======================================================================================================
-func InitMetaStore(ctx2 context.Context, log logger.Logger, conn *db.Store) (*meta_store.MetaStore, error) {
-	st := meta_store.MetaStore{}
-	metaStore, err := st.Use(ctx2, log, conn)
-	if err != nil {
-		return nil, err
-	}
-
-	return metaStore, nil
+// InitMetaService =====================================================================================================
+func InitMetaService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store) (*di.MetaDataService, func(), error) {
+	return di.InitializeMetaDataService(ctx2, runRPCServer, log, db2)
 }
 
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(
-	DefaultSet, store.New, rpc.InitServer, InitMetaStore, sentry.New, monitoring.New, NewMetadataService,
+	DefaultSet, store.New, rpc.InitServer, sentry.New, monitoring.New, InitMetaService,
+	NewMetadataService,
 )
 
 func NewMetadataService(
 	log logger.Logger,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro, db2 *db.Store,
-	serverRPC *rpc.RPCServer,
-	metaStore *meta_store.MetaStore, monitoring2 *http.ServeMux,
+	serverRPC *rpc.RPCServer, monitoring2 *http.ServeMux,
 	sentryHandler *sentryhttp.Handler,
+	metaDataService *di.MetaDataService,
 ) (*ServiceMetadata, error) {
 	return &ServiceMetadata{
 		Service: Service{
@@ -828,6 +828,6 @@ func NewMetadataService(
 			Monitoring: monitoring2,
 			Sentry:     sentryHandler,
 		},
-		MetaStore: metaStore,
+		MetaService: metaDataService,
 	}, nil
 }
