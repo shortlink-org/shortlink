@@ -9,25 +9,21 @@ import (
 	"context"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/services/metadata/application"
-	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
+	metadata "github.com/batazor/shortlink/internal/services/metadata/application"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
 type Metadata struct {
 	UnimplementedMetadataServer
 
-	service *application.Service
+	service *metadata.Service
 	log     logger.Logger
 }
 
-func New(runRPCServer *rpc.RPCServer, st *meta_store.MetaStore, log logger.Logger) (*Metadata, error) {
+func New(runRPCServer *rpc.RPCServer, application *metadata.Service, log logger.Logger) (*Metadata, error) {
 	server := &Metadata{
-		// Create Service Application
-		service: &application.Service{
-			Store: st,
-		},
-		log: log,
+		service: application,
+		log:     log,
 	}
 
 	// Register services

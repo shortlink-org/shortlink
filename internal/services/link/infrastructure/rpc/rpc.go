@@ -33,7 +33,7 @@ func New(runRPCServer *rpc.RPCServer, st *link_store.LinkStore, log logger.Logge
 	server := &Link{
 		// Create Service Application
 		service: &application.Service{
-			Store: st,
+			LinkStore: st,
 		},
 		log: log,
 	}

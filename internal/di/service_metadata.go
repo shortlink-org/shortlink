@@ -16,24 +16,19 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/store"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
+	meta_di "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
 type ServiceMetadata struct {
 	Service
-	MetaStore *meta_store.MetaStore
+
+	MetaService *meta_di.MetaDataService
 }
 
-// InitMetaStore =======================================================================================================
-func InitMetaStore(ctx context.Context, log logger.Logger, conn *db.Store) (*meta_store.MetaStore, error) {
-	st := meta_store.MetaStore{}
-	metaStore, err := st.Use(ctx, log, conn)
-	if err != nil {
-		return nil, err
-	}
-
-	return metaStore, nil
+// InitMetaService =====================================================================================================
+func InitMetaService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store) (*meta_di.MetaDataService, func(), error) {
+	return meta_di.InitializeMetaDataService(ctx, runRPCServer, log, db)
 }
 
 // MetadataService =====================================================================================================
@@ -41,9 +36,9 @@ var MetadataSet = wire.NewSet(
 	DefaultSet,
 	store.New,
 	rpc.InitServer,
-	InitMetaStore,
 	sentry.New,
 	monitoring.New,
+	InitMetaService,
 	NewMetadataService,
 )
 
@@ -52,9 +47,9 @@ func NewMetadataService(
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	db *db.Store,
 	serverRPC *rpc.RPCServer,
-	metaStore *meta_store.MetaStore,
 	monitoring *http.ServeMux,
 	sentryHandler *sentryhttp.Handler,
+	metaDataService *meta_di.MetaDataService,
 ) (*ServiceMetadata, error) {
 	return &ServiceMetadata{
 		Service: Service{
@@ -64,7 +59,7 @@ func NewMetadataService(
 			Monitoring: monitoring,
 			Sentry:     sentryHandler,
 		},
-		MetaStore: metaStore,
+		MetaService: metaDataService,
 	}, nil
 }
 
