@@ -6,6 +6,14 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/batazor/shortlink/internal/services/link/domain/link";
 
+enum LinkEvent {
+  ADD = 0;
+  GET = 1;
+  LIST = 2;
+  UPDATE = 3;
+  DELETE = 4;
+}
+
 message Link {
     // URL
     string url = 1;

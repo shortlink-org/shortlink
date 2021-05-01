@@ -21,12 +21,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
-	store2 "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
-	"github.com/batazor/shortlink/internal/services/metadata/di"
+	"github.com/batazor/shortlink/internal/services/link/di"
+	di2 "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
-	"github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
@@ -353,26 +350,6 @@ func InitializeLinkService() (*ServiceLink, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(context, logger, mq)
-	if err != nil {
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	linkStore, err := InitLinkStore(context, logger, dbStore)
-	if err != nil {
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
 	pprofEndpoint := profiling.New(logger)
 	autoMaxProAutoMaxPro, cleanup7, err := autoMaxPro.New(logger)
 	if err != nil {
@@ -407,7 +384,7 @@ func InitializeLinkService() (*ServiceLink, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serviceLink, err := NewLinkService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, event, linkStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn)
+	linkService, cleanup10, err := InitLinkService(context, clientConn, rpcServer, logger, dbStore, mq)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -420,7 +397,22 @@ func InitializeLinkService() (*ServiceLink, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	serviceLink, err := NewLinkService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn, linkService)
+	if err != nil {
+		cleanup10()
+		cleanup9()
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return serviceLink, func() {
+		cleanup10()
 		cleanup9()
 		cleanup8()
 		cleanup7()
@@ -708,35 +700,19 @@ func NewBotService(ctx2 context.Context,
 
 type ServiceLink struct {
 	Service
-	LinkMQ    *api_mq.Event
-	LinkStore *store2.LinkStore
+
+	LinkService *di.LinkService
 }
 
-// InitLinkMQ ==========================================================================================================
-func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Event, error) {
-	linkMQ := &api_mq.Event{
-		MQ: mq2,
-	}
-	notify.Subscribe(api_type.METHOD_ADD, linkMQ)
-
-	return linkMQ, nil
-}
-
-// InitLinkStore =======================================================================================================
-func InitLinkStore(ctx2 context.Context, log logger.Logger, conn *db.Store) (*store2.LinkStore, error) {
-	st := store2.LinkStore{}
-	linkStore, err := st.Use(ctx2, log, conn)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkStore, nil
+// InitLinkService =====================================================================================================
+func InitLinkService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*di.LinkService, func(), error) {
+	return di.InitializeLinkService(ctx2, runRPCClient, runRPCServer, log, db2, mq2)
 }
 
 // APIService ==========================================================================================================
 var LinkSet = wire.NewSet(
-	DefaultSet, store.New, InitLinkMQ,
-	InitLinkStore, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, NewLinkService,
+	DefaultSet, store.New, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, InitLinkService,
+	NewLinkService,
 )
 
 func NewLinkService(ctx2 context.Context,
@@ -745,12 +721,12 @@ func NewLinkService(ctx2 context.Context,
 	log logger.Logger, mq2 mq.MQ,
 
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer, db2 *db.Store, api_mq2 *api_mq.Event,
-	linkStore *store2.LinkStore,
+	tracer *opentracing.Tracer, db2 *db.Store,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
+	linkService *di.LinkService,
 ) (*ServiceLink, error) {
 	return &ServiceLink{
 		Service: Service{
@@ -765,8 +741,7 @@ func NewLinkService(ctx2 context.Context,
 			ClientRPC:     clientRPC,
 			ServerRPC:     serverRPC,
 		},
-		LinkMQ:    api_mq2,
-		LinkStore: linkStore,
+		LinkService: linkService,
 	}, nil
 }
 
@@ -799,12 +774,12 @@ func NewLoggerService(ctx2 context.Context,
 type ServiceMetadata struct {
 	Service
 
-	MetaService *di.MetaDataService
+	MetaService *di2.MetaDataService
 }
 
 // InitMetaService =====================================================================================================
-func InitMetaService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store) (*di.MetaDataService, func(), error) {
-	return di.InitializeMetaDataService(ctx2, runRPCServer, log, db2)
+func InitMetaService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store) (*di2.MetaDataService, func(), error) {
+	return di2.InitializeMetaDataService(ctx2, runRPCServer, log, db2)
 }
 
 // MetadataService =====================================================================================================
@@ -818,7 +793,7 @@ func NewMetadataService(
 	autoMaxProcsOption autoMaxPro.AutoMaxPro, db2 *db.Store,
 	serverRPC *rpc.RPCServer, monitoring2 *http.ServeMux,
 	sentryHandler *sentryhttp.Handler,
-	metaDataService *di.MetaDataService,
+	metadataService *di2.MetaDataService,
 ) (*ServiceMetadata, error) {
 	return &ServiceMetadata{
 		Service: Service{
@@ -828,6 +803,6 @@ func NewMetadataService(
 			Monitoring: monitoring2,
 			Sentry:     sentryHandler,
 		},
-		MetaService: metaDataService,
+		MetaService: metadataService,
 	}, nil
 }

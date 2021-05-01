@@ -29,7 +29,6 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/rethinkdb" // nolint staticcheck
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/scylla"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/sqlite"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 // Use return implementation of db
@@ -38,11 +37,11 @@ func (store *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store
 	store.setConfig()
 
 	// Subscribe to Event
-	notify.Subscribe(api_type.METHOD_ADD, store)
-	notify.Subscribe(api_type.METHOD_GET, store)
-	notify.Subscribe(api_type.METHOD_LIST, store)
-	notify.Subscribe(api_type.METHOD_UPDATE, store)
-	notify.Subscribe(api_type.METHOD_DELETE, store)
+	//notify.Subscribe(uint32(link.LinkEvent_ADD), store)
+	//notify.Subscribe(uint32(link.LinkEvent_GET), store)
+	//notify.Subscribe(uint32(link.LinkEvent_LIST), store)
+	//notify.Subscribe(uint32(link.LinkEvent_UPDATE), store)
+	//notify.Subscribe(uint32(link.LinkEvent_DELETE), store)
 
 	switch store.typeStore {
 	case "postgres":
@@ -87,8 +86,8 @@ func (store *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store
 
 // Notify ...
 func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
-	switch event {
-	case api_type.METHOD_ADD:
+	switch link.LinkEvent(event) {
+	case link.LinkEvent_ADD:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store add new link")
 		span.SetTag("store", s.typeStore)
@@ -108,7 +107,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
-	case api_type.METHOD_GET:
+	case link.LinkEvent_GET:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get link")
 		span.SetTag("store", s.typeStore)
@@ -120,7 +119,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: link,
 			Error:   err,
 		}
-	case api_type.METHOD_LIST:
+	case link.LinkEvent_LIST:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get links")
 		span.SetTag("store", s.typeStore)
@@ -149,7 +148,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: payload,
 			Error:   err,
 		}
-	case api_type.METHOD_UPDATE:
+	case link.LinkEvent_UPDATE:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store update link")
 		span.SetTag("store", s.typeStore)
@@ -169,7 +168,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
-	case api_type.METHOD_DELETE:
+	case link.LinkEvent_DELETE:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store delete link")
 		span.SetTag("store", s.typeStore)

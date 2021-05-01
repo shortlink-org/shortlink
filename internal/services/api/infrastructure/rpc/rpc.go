@@ -7,7 +7,6 @@ import (
 	"context"
 	"errors"
 
-	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
@@ -55,32 +54,9 @@ func (r *rpc) Notify(ctx context.Context, event uint32, payload interface{}) not
 				Error:   nil,
 			}
 
-			g := errgroup.Group{}
-
 			if linkRaw, ok := payload.(*link.Link); ok {
 				// Save link
-				g.Go(func() error {
-					_, err := r.LinkClient.Add(ctx, linkRaw)
-					if err != nil {
-						return err
-					}
-
-					return nil
-				})
-
-				// Set Metadata
-				g.Go(func() error {
-					_, err := r.MetadataClient.Set(ctx, &metadata_rpc.SetMetaRequest{
-						Id: linkRaw.Url,
-					})
-					if err != nil {
-						return err
-					}
-
-					return nil
-				})
-
-				err := g.Wait()
+				_, err := r.LinkClient.Add(ctx, linkRaw)
 				if err != nil {
 					resp.Error = err
 				}

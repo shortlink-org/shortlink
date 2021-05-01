@@ -19,10 +19,16 @@ func main() {
 	viper.SetDefault("SERVICE_NAME", "metadata")
 
 	// Init a new service
-	_, cleanup, err := di.InitializeMetadataService()
+	service, cleanup, err := di.InitializeMetadataService()
 	if err != nil { // TODO: use as helpers
 		panic(err)
 	}
+
+	defer func() {
+		if r := recover(); r != nil {
+			service.Log.Error(r.(string))
+		}
+	}()
 
 	// Handle SIGINT and SIGTERM.
 	sigs := make(chan os.Signal, 1)

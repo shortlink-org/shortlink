@@ -8,34 +8,28 @@ package link_rpc
 
 import (
 	"context"
-	"fmt"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/application"
+	link_application "github.com/batazor/shortlink/internal/services/link/application"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
-	link_store "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
 type Link struct {
 	UnimplementedLinkServer
 
-	service *application.Service
+	service *link_application.Service
 	log     logger.Logger
 }
 
-func New(runRPCServer *rpc.RPCServer, st *link_store.LinkStore, log logger.Logger) (*Link, error) {
+func New(runRPCServer *rpc.RPCServer, application *link_application.Service, log logger.Logger) (*Link, error) {
 	server := &Link{
 		// Create Service Application
-		service: &application.Service{
-			LinkStore: st,
-		},
-		log: log,
+		service: application,
+		log:     log,
 	}
 
 	// Register services
@@ -45,41 +39,27 @@ func New(runRPCServer *rpc.RPCServer, st *link_store.LinkStore, log logger.Logge
 	return server, nil
 }
 
-func (m *Link) Add(ctx context.Context, in *link.Link) (*link.Link, error) {
-	var err error
-	responseCh := make(chan interface{})
-
-	// TODO: send []byte format
-	go notify.Publish(ctx, api_type.METHOD_ADD, in, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
-
-	c := <-responseCh
-	switch resp := c.(type) {
-	case nil:
-		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
-		return nil, err
-	case notify.Response:
-		if resp.Error != nil {
-			return nil, resp.Error
-		}
-
-		return resp.Payload.(*link.Link), nil
-	default:
-		return nil, status.Error(codes.InvalidArgument, "default case")
+func (l *Link) Add(ctx context.Context, in *link.Link) (*link.Link, error) {
+	link, err := l.service.AddLink(ctx, in)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
+
+	return link, nil
 }
 
-func (m *Link) Get(ctx context.Context, in *link.Link) (*link.Link, error) {
+func (l *Link) Get(ctx context.Context, in *link.Link) (*link.Link, error) {
 	panic("implement me")
 }
 
-func (m *Link) List(ctx context.Context, in *LinkRequest) (*link.Links, error) {
+func (l *Link) List(ctx context.Context, in *LinkRequest) (*link.Links, error) {
 	panic("implement me")
 }
 
-func (m *Link) Update(ctx context.Context, in *link.Link) (*link.Link, error) {
+func (l *Link) Update(ctx context.Context, in *link.Link) (*link.Link, error) {
 	panic("implement me")
 }
 
-func (m *Link) Delete(ctx context.Context, in *link.Link) (*link.Link, error) {
+func (l *Link) Delete(ctx context.Context, in *link.Link) (*link.Link, error) {
 	panic("implement me")
 }

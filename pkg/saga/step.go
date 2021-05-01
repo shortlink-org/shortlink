@@ -36,6 +36,12 @@ func (s *Step) Run() error {
 func (s *Step) Reject() error {
 	s.logger.Info(fmt.Sprintf("Reject step by name: %s", s.name), field.Fields{"name": s.name})
 	s.status = REJECT
+
+	// Check on compensation step
+	if s.reject == nil {
+		return nil
+	}
+
 	err := s.reject(*s.ctx)
 	if err != nil {
 		s.status = FAIL

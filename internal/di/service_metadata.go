@@ -49,7 +49,7 @@ func NewMetadataService(
 	serverRPC *rpc.RPCServer,
 	monitoring *http.ServeMux,
 	sentryHandler *sentryhttp.Handler,
-	metaDataService *meta_di.MetaDataService,
+	metadataService *meta_di.MetaDataService,
 ) (*ServiceMetadata, error) {
 	return &ServiceMetadata{
 		Service: Service{
@@ -59,7 +59,7 @@ func NewMetadataService(
 			Monitoring: monitoring,
 			Sentry:     sentryHandler,
 		},
-		MetaService: metaDataService,
+		MetaService: metadataService,
 	}, nil
 }
 
