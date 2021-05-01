@@ -1,7 +1,7 @@
 /*
 Metadata Service. Application layer
 */
-package application
+package link_application
 
 import (
 	"context"
@@ -9,6 +9,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	link_store "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
@@ -47,11 +48,12 @@ func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error 
 	return nil
 }
 
-func (s *Service) AddLink(ctx context.Context, link *link.Link) (*link.Link, error) {
+func (s *Service) AddLink(ctx context.Context, in *link.Link) (*link.Link, error) {
 	const (
-		SAGA_NAME              = "ADD_LINK"
-		SAGA_STEP_STORE_SAVE   = "SAGA_STEP_STORE_SAVE"
-		SAGA_STEP_METADATA_GET = "SAGA_STEP_METADATA_GET"
+		SAGA_NAME                        = "ADD_LINK"
+		SAGA_STEP_STORE_SAVE             = "SAGA_STEP_STORE_SAVE"
+		SAGA_STEP_METADATA_GET           = "SAGA_STEP_METADATA_GET"
+		SAGA_STEP_PUBLISH_EVENT_NEW_LINK = "SAGA_STEP_PUBLISH_EVENT_NEW_LINK"
 	)
 
 	// create a new saga for create a new link
@@ -66,11 +68,11 @@ func (s *Service) AddLink(ctx context.Context, link *link.Link) (*link.Link, err
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_STORE_SAVE).
 		Then(func(ctx context.Context) error {
 			var err error
-			link, err = s.Store.Add(ctx, link)
+			in, err = s.Store.Add(ctx, in)
 			return err
 		}).
 		Reject(func(ctx context.Context) error {
-			return s.Store.Delete(ctx, link.Hash)
+			return s.Store.Delete(ctx, in.Hash)
 		}).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -81,12 +83,23 @@ func (s *Service) AddLink(ctx context.Context, link *link.Link) (*link.Link, err
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_METADATA_GET).
 		Then(func(ctx context.Context) error {
 			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.SetMetaRequest{
-				Id: link.Url,
+				Id: in.Url,
 			})
 			return err
 		}).
 		Reject(func(ctx context.Context) error {
-			return s.Store.Delete(ctx, link.Hash)
+			return s.Store.Delete(ctx, in.Hash)
+		}).
+		Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// add step: publish event by this service
+	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
+		Then(func(ctx context.Context) error {
+			go notify.Publish(ctx, uint32(link.LinkEvent_ADD), in, nil)
+			return nil
 		}).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -99,5 +112,5 @@ func (s *Service) AddLink(ctx context.Context, link *link.Link) (*link.Link, err
 		return nil, err
 	}
 
-	return link, nil
+	return in, nil
 }

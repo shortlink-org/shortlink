@@ -13,7 +13,6 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/di"
-	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
 )
 
 func main() {
@@ -22,12 +21,6 @@ func main() {
 	// Init a new service
 	service, cleanup, err := di.InitializeLinkService()
 	if err != nil { // TODO: use as helpers
-		panic(err)
-	}
-
-	// Run API server
-	_, err = link_rpc.New(service.ServerRPC, service.LinkStore, service.Log)
-	if err != nil {
 		panic(err)
 	}
 

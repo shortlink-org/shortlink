@@ -31,7 +31,7 @@ type MetaDataService struct {
 
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
-	// gRPC server
+	// infrastructure
 	NewMetaDataRPCServer,
 
 	// applications

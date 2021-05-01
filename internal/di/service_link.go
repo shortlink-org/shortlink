@@ -12,8 +12,6 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc"
 
-	api_mq "github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
-
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/config"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
@@ -24,53 +22,32 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	link_store "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
+	link_di "github.com/batazor/shortlink/internal/services/link/di"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
 type ServiceLink struct {
 	Service
-	LinkMQ    *api_mq.Event
-	LinkStore *link_store.LinkStore
+
+	LinkService *link_di.LinkService
 }
 
-// InitLinkMQ ==========================================================================================================
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ) (*api_mq.Event, error) {
-	linkMQ := &api_mq.Event{
-		MQ: mq,
-	}
-
-	// Subscribe to Event
-	notify.Subscribe(api_type.METHOD_ADD, linkMQ)
-
-	return linkMQ, nil
-}
-
-// InitLinkStore =======================================================================================================
-func InitLinkStore(ctx context.Context, log logger.Logger, conn *db.Store) (*link_store.LinkStore, error) {
-	st := link_store.LinkStore{}
-	linkStore, err := st.Use(ctx, log, conn)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkStore, nil
+// InitLinkService =====================================================================================================
+func InitLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq mq.MQ) (*link_di.LinkService, func(), error) {
+	return link_di.InitializeLinkService(ctx, runRPCClient, runRPCServer, log, db, mq)
 }
 
 // APIService ==========================================================================================================
 var LinkSet = wire.NewSet(
 	DefaultSet,
 	store.New,
-	InitLinkMQ,
-	InitLinkStore,
 	sentry.New,
 	monitoring.New,
 	profiling.New,
 	mq_di.New,
 	rpc.InitServer,
 	rpc.InitClient,
+	InitLinkService,
 	NewLinkService,
 )
 
@@ -83,12 +60,11 @@ func NewLinkService(
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,
 	db *db.Store,
-	api_mq *api_mq.Event,
-	linkStore *link_store.LinkStore,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
+	linkService *link_di.LinkService,
 ) (*ServiceLink, error) {
 	return &ServiceLink{
 		Service: Service{
@@ -103,8 +79,7 @@ func NewLinkService(
 			ClientRPC:     clientRPC,
 			ServerRPC:     serverRPC,
 		},
-		LinkMQ:    api_mq,
-		LinkStore: linkStore,
+		LinkService: linkService,
 	}, nil
 }
 

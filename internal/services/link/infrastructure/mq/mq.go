@@ -15,7 +15,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 type Event struct {
@@ -32,8 +31,8 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 		return notify.Response{}
 	}
 
-	switch event {
-	case api_type.METHOD_ADD:
+	switch link.LinkEvent(event) {
+	case link.LinkEvent_ADD:
 		// TODO: send []byte
 		msg := payload.(*link.Link) // nolint errcheck
 		data, err := proto.Marshal(msg)
@@ -54,13 +53,13 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Payload: nil,
 			Error:   err,
 		}
-	case api_type.METHOD_GET:
+	case link.LinkEvent_GET:
 		panic("implement me")
-	case api_type.METHOD_LIST:
+	case link.LinkEvent_LIST:
 		panic("implement me")
-	case api_type.METHOD_UPDATE:
+	case link.LinkEvent_UPDATE:
 		panic("implement me")
-	case api_type.METHOD_DELETE:
+	case link.LinkEvent_DELETE:
 		panic("implement me")
 	}
 
