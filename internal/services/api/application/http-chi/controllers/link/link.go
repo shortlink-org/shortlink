@@ -1,4 +1,4 @@
-//go:generate protoc -I. -I../../../../..  -I../../../../../third_party/googleapis --proto_path=src --go_out=Mpkg/api/http-chi/link-api.proto=.:. --go_opt=paths=source_relative link-api.proto
+//go:generate protoc -I. -I../../../../..  -I../../../../../../../third_party/googleapis --proto_path=src --go_out=Minternal/services/api/application/http-chi/controllers/link/link-api.proto=.:. --go_opt=paths=source_relative link-api.proto
 
 package link_api
 
@@ -105,9 +105,8 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		response     *link_domain.Link
-		responseLink GetLinkResponse // for custom JSON parsing
-		err          error
+		response *link_domain.Link
+		err      error
 	)
 
 	responseCh := make(chan interface{})
@@ -115,7 +114,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), api_type.METHOD_GET, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
+	go notify.Publish(r.Context(), api_type.METHOD_GET, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_GET"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -140,11 +139,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	responseLink = GetLinkResponse{
-		Link: response,
-	}
-
-	res, err := jsonpb.Marshal(&responseLink)
+	res, err := jsonpb.Marshal(response)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -173,7 +168,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), api_type.METHOD_LIST, filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
+	go notify.Publish(r.Context(), api_type.METHOD_LIST, filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_LIST"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -231,7 +226,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(r.Context(), api_type.METHOD_DELETE, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
+	go notify.Publish(r.Context(), api_type.METHOD_DELETE, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_DELETE"})
 
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))

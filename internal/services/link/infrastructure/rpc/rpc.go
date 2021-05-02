@@ -9,6 +9,7 @@ package link_rpc
 import (
 	"context"
 
+	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
@@ -40,26 +41,46 @@ func New(runRPCServer *rpc.RPCServer, application *link_application.Service, log
 }
 
 func (l *Link) Add(ctx context.Context, in *link.Link) (*link.Link, error) {
-	link, err := l.service.AddLink(ctx, in)
+	resp, err := l.service.AddLink(ctx, in)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
 
-	return link, nil
+	return resp, nil
 }
 
-func (l *Link) Get(ctx context.Context, in *link.Link) (*link.Link, error) {
-	panic("implement me")
+func (l *Link) Get(ctx context.Context, in *GetRequest) (*link.Link, error) {
+	resp, err := l.service.GetLink(ctx, in.Hash)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, err.Error())
+	}
+
+	return resp, nil
 }
 
-func (l *Link) List(ctx context.Context, in *LinkRequest) (*link.Links, error) {
-	panic("implement me")
+func (l *Link) List(ctx context.Context, in *ListRequest) (*link.Links, error) {
+	resp, err := l.service.ListLink(ctx, in.Filter)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, err.Error())
+	}
+
+	return resp, nil
 }
 
 func (l *Link) Update(ctx context.Context, in *link.Link) (*link.Link, error) {
-	panic("implement me")
+	resp, err := l.service.UpdateLink(ctx, in)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, err.Error())
+	}
+
+	return resp, nil
 }
 
-func (l *Link) Delete(ctx context.Context, in *link.Link) (*link.Link, error) {
-	panic("implement me")
+func (l *Link) Delete(ctx context.Context, in *DeleteRequest) (*empty.Empty, error) {
+	_, err := l.service.DeleteLink(ctx, in.Hash)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, err.Error())
+	}
+
+	return &empty.Empty{}, nil
 }

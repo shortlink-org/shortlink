@@ -8,6 +8,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,11 +20,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LinkClient interface {
+	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*link.Link, error)
+	List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*link.Links, error)
 	Add(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
-	Get(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
-	List(ctx context.Context, in *LinkRequest, opts ...grpc.CallOption) (*link.Links, error)
 	Update(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
-	Delete(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type linkClient struct {
@@ -34,16 +35,7 @@ func NewLinkClient(cc grpc.ClientConnInterface) LinkClient {
 	return &linkClient{cc}
 }
 
-func (c *linkClient) Add(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error) {
-	out := new(link.Link)
-	err := c.cc.Invoke(ctx, "/link_rpc.Link/Add", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *linkClient) Get(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error) {
+func (c *linkClient) Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*link.Link, error) {
 	out := new(link.Link)
 	err := c.cc.Invoke(ctx, "/link_rpc.Link/Get", in, out, opts...)
 	if err != nil {
@@ -52,9 +44,18 @@ func (c *linkClient) Get(ctx context.Context, in *link.Link, opts ...grpc.CallOp
 	return out, nil
 }
 
-func (c *linkClient) List(ctx context.Context, in *LinkRequest, opts ...grpc.CallOption) (*link.Links, error) {
+func (c *linkClient) List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*link.Links, error) {
 	out := new(link.Links)
 	err := c.cc.Invoke(ctx, "/link_rpc.Link/List", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *linkClient) Add(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error) {
+	out := new(link.Link)
+	err := c.cc.Invoke(ctx, "/link_rpc.Link/Add", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -70,8 +71,8 @@ func (c *linkClient) Update(ctx context.Context, in *link.Link, opts ...grpc.Cal
 	return out, nil
 }
 
-func (c *linkClient) Delete(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error) {
-	out := new(link.Link)
+func (c *linkClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, "/link_rpc.Link/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -83,11 +84,11 @@ func (c *linkClient) Delete(ctx context.Context, in *link.Link, opts ...grpc.Cal
 // All implementations must embed UnimplementedLinkServer
 // for forward compatibility
 type LinkServer interface {
+	Get(context.Context, *GetRequest) (*link.Link, error)
+	List(context.Context, *ListRequest) (*link.Links, error)
 	Add(context.Context, *link.Link) (*link.Link, error)
-	Get(context.Context, *link.Link) (*link.Link, error)
-	List(context.Context, *LinkRequest) (*link.Links, error)
 	Update(context.Context, *link.Link) (*link.Link, error)
-	Delete(context.Context, *link.Link) (*link.Link, error)
+	Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedLinkServer()
 }
 
@@ -95,19 +96,19 @@ type LinkServer interface {
 type UnimplementedLinkServer struct {
 }
 
-func (UnimplementedLinkServer) Add(context.Context, *link.Link) (*link.Link, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Add not implemented")
-}
-func (UnimplementedLinkServer) Get(context.Context, *link.Link) (*link.Link, error) {
+func (UnimplementedLinkServer) Get(context.Context, *GetRequest) (*link.Link, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedLinkServer) List(context.Context, *LinkRequest) (*link.Links, error) {
+func (UnimplementedLinkServer) List(context.Context, *ListRequest) (*link.Links, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
+}
+func (UnimplementedLinkServer) Add(context.Context, *link.Link) (*link.Link, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Add not implemented")
 }
 func (UnimplementedLinkServer) Update(context.Context, *link.Link) (*link.Link, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (UnimplementedLinkServer) Delete(context.Context, *link.Link) (*link.Link, error) {
+func (UnimplementedLinkServer) Delete(context.Context, *DeleteRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedLinkServer) mustEmbedUnimplementedLinkServer() {}
@@ -121,6 +122,42 @@ type UnsafeLinkServer interface {
 
 func RegisterLinkServer(s grpc.ServiceRegistrar, srv LinkServer) {
 	s.RegisterService(&Link_ServiceDesc, srv)
+}
+
+func _Link_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LinkServer).Get(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/link_rpc.Link/Get",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LinkServer).Get(ctx, req.(*GetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Link_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LinkServer).List(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/link_rpc.Link/List",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LinkServer).List(ctx, req.(*ListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Link_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -137,42 +174,6 @@ func _Link_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LinkServer).Add(ctx, req.(*link.Link))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Link_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(link.Link)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LinkServer).Get(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/link_rpc.Link/Get",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServer).Get(ctx, req.(*link.Link))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Link_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LinkRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LinkServer).List(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/link_rpc.Link/List",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServer).List(ctx, req.(*LinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -196,7 +197,7 @@ func _Link_Update_Handler(srv interface{}, ctx context.Context, dec func(interfa
 }
 
 func _Link_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(link.Link)
+	in := new(DeleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -208,7 +209,7 @@ func _Link_Delete_Handler(srv interface{}, ctx context.Context, dec func(interfa
 		FullMethod: "/link_rpc.Link/Delete",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServer).Delete(ctx, req.(*link.Link))
+		return srv.(LinkServer).Delete(ctx, req.(*DeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -221,16 +222,16 @@ var Link_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*LinkServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Add",
-			Handler:    _Link_Add_Handler,
-		},
-		{
 			MethodName: "Get",
 			Handler:    _Link_Get_Handler,
 		},
 		{
 			MethodName: "List",
 			Handler:    _Link_List_Handler,
+		},
+		{
+			MethodName: "Add",
+			Handler:    _Link_Add_Handler,
 		},
 		{
 			MethodName: "Update",

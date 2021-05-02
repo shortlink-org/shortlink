@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package link_api;
 
-import "internal/services/link/domain/link/link.proto";
+import "link/domain/link/link.proto";
 
 option go_package = "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/link_api";
 
@@ -19,10 +19,6 @@ message getLinkRequest {
   string hash = 1;
   string describe = 2;
   string filter = 3;
-}
-
-message getLinkResponse {
-  link.Link link = 1;
 }
 
 message getListLinkRequest {
