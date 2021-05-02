@@ -15,30 +15,33 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/config"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
-	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
 	"github.com/batazor/shortlink/internal/di/internal/profiling"
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
-	"github.com/batazor/shortlink/internal/di/internal/store"
-	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	api_di "github.com/batazor/shortlink/internal/services/api/di"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
 type ServiceAPI struct {
 	Service
+
+	APIService *api_di.APIService
+}
+
+// InitAPIService =====================================================================================================
+func InitAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*api_di.APIService, func(), error) {
+	return api_di.InitializeAPIService(ctx, runRPCClient, runRPCServer, log, tracer)
 }
 
 // APIService ==========================================================================================================
 var APISet = wire.NewSet(
 	DefaultSet,
-	store.New,
 	sentry.New,
 	monitoring.New,
 	profiling.New,
-	mq_di.New,
 	rpc.InitServer,
 	rpc.InitClient,
+	InitAPIService,
 	NewAPIService,
 )
 
@@ -46,27 +49,25 @@ func NewAPIService(
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
-	mq mq.MQ,
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,
-	db *db.Store,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	clientRPC *grpc.ClientConn,
+	apiService *api_di.APIService,
 ) (*ServiceAPI, error) {
 	return &ServiceAPI{
 		Service: Service{
 			Ctx:           ctx,
 			Log:           log,
-			MQ:            mq,
 			Tracer:        tracer,
 			Monitoring:    monitoring,
 			Sentry:        sentryHandler,
-			DB:            db,
 			PprofEndpoint: pprofHTTP,
 			ClientRPC:     clientRPC,
 		},
+		APIService: apiService,
 	}, nil
 }
 

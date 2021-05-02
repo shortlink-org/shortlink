@@ -1,4 +1,4 @@
-package api
+package api_application
 
 import (
 	"context"
@@ -9,18 +9,18 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/services/api/application/cloudevents"
+	gokit "github.com/batazor/shortlink/internal/services/api/application/go-kit"
+	"github.com/batazor/shortlink/internal/services/api/application/graphql"
+	grpcweb "github.com/batazor/shortlink/internal/services/api/application/grpc-web"
+	http_chi "github.com/batazor/shortlink/internal/services/api/application/http-chi"
+	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	api_rpc "github.com/batazor/shortlink/internal/services/api/infrastructure/rpc"
-	"github.com/batazor/shortlink/pkg/api/cloudevents"
-	gokit "github.com/batazor/shortlink/pkg/api/go-kit"
-	"github.com/batazor/shortlink/pkg/api/graphql"
-	grpcweb "github.com/batazor/shortlink/pkg/api/grpc-web"
-	http_chi "github.com/batazor/shortlink/pkg/api/http-chi"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
 // runAPIServer - start HTTP-server
-func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, rpcClient *grpc.ClientConn) {
+func (s *Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, rpcClient *grpc.ClientConn) (*Server, error) {
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
@@ -54,10 +54,12 @@ func (*Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *open
 	// Register clients
 	_, err := api_rpc.Use(ctx, rpcClient)
 	if err != nil {
-		log.Fatal(err.Error())
+		return nil, err
 	}
 
 	if err := server.Run(ctx, config, log, tracer); err != nil {
-		log.Fatal(err.Error())
+		return nil, err
 	}
+
+	return s, nil
 }

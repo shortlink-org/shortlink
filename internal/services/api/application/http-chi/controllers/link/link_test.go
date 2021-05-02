@@ -1,6 +1,6 @@
 // +build unit api
 
-package link
+package link_api
 
 import (
 	"bytes"

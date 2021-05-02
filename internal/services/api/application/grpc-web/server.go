@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
+	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 

@@ -2,7 +2,7 @@
 API
 */
 
-package api
+package api_application
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 	"github.com/opentracing/opentracing-go"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
+	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 )
 
 // API - general describe of API
