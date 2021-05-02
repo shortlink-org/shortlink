@@ -46,11 +46,14 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataC
 	return metadataRPCClient, nil
 }
 
-func NewAPIApplication(ctx context.Context, logger logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, rpcClient *grpc.ClientConn) (*api_application.Server, error) {
+func NewAPIApplication(ctx context.Context, logger logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, metadataClient metadata_rpc.MetadataClient, linkClient link_rpc.LinkClient) (*api_application.Server, error) {
 	// Run API server
-	var API api_application.Server
+	API := api_application.Server{
+		MetadataClient: metadataClient,
+		LinkClient:     linkClient,
+	}
 
-	apiService, err := API.RunAPIServer(ctx, logger, tracer, rpcServer, rpcClient)
+	apiService, err := API.RunAPIServer(ctx, logger, tracer, rpcServer)
 	if err != nil {
 		return nil, err
 	}

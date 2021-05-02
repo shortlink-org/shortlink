@@ -20,7 +20,15 @@ import (
 // Injectors from di.go:
 
 func InitializeAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*APIService, func(), error) {
-	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, runRPCClient)
+	metadataClient, err := NewMetadataRPCClient(runRPCClient)
+	if err != nil {
+		return nil, nil, err
+	}
+	linkClient, err := NewLinkRPCClient(runRPCClient)
+	if err != nil {
+		return nil, nil, err
+	}
+	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataClient, linkClient)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -62,11 +70,14 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataC
 	return metadataRPCClient, nil
 }
 
-func NewAPIApplication(ctx context.Context, logger2 logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, rpcClient *grpc.ClientConn) (*api_application.Server, error) {
-	// Run API server
-	var API api_application.Server
+func NewAPIApplication(ctx context.Context, logger2 logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, metadataClient metadata_rpc.MetadataClient, linkClient link_rpc.LinkClient) (*api_application.Server, error) {
 
-	apiService, err := API.RunAPIServer(ctx, logger2, tracer, rpcServer, rpcClient)
+	API := api_application.Server{
+		MetadataClient: metadataClient,
+		LinkClient:     linkClient,
+	}
+
+	apiService, err := API.RunAPIServer(ctx, logger2, tracer, rpcServer)
 	if err != nil {
 		return nil, err
 	}
