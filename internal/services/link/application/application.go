@@ -114,3 +114,52 @@ func (s *Service) AddLink(ctx context.Context, in *link.Link) (*link.Link, error
 
 	return in, nil
 }
+
+func (s *Service) GetLink(ctx context.Context, hash string) (*link.Link, error) {
+	const (
+		SAGA_NAME           = "GET_LINK"
+		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_GET"
+	)
+
+	resp := &link.Link{}
+
+	// create a new saga for create a new link
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+		WithContext(ctx).
+		Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// add step: get link from store
+	_, errs = sagaGetLink.AddStep(SAGA_STEP_STORE_GET).
+		Then(func(ctx context.Context) error {
+			var err error
+			resp, err = s.Store.Get(ctx, hash)
+			return err
+		}).
+		Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// Run saga
+	err := sagaGetLink.Play(nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}
+
+func (s *Service) ListLink(ctx context.Context, filter string) (*link.Links, error) {
+	return nil, nil
+}
+
+func (s *Service) UpdateLink(ctx context.Context, in *link.Link) (*link.Link, error) {
+	return nil, nil
+}
+
+func (s *Service) DeleteLink(ctx context.Context, hash string) (*link.Link, error) {
+	return nil, nil
+}
