@@ -20,7 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LinkClient interface {
-	GetLinks(ctx context.Context, in *LinkRequest, opts ...grpc.CallOption) (*link.Links, error)
+	GetLinks(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*link.Links, error)
 	GetLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
 	CreateLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*link.Link, error)
 	DeleteLink(ctx context.Context, in *link.Link, opts ...grpc.CallOption) (*emptypb.Empty, error)
@@ -34,7 +34,7 @@ func NewLinkClient(cc grpc.ClientConnInterface) LinkClient {
 	return &linkClient{cc}
 }
 
-func (c *linkClient) GetLinks(ctx context.Context, in *LinkRequest, opts ...grpc.CallOption) (*link.Links, error) {
+func (c *linkClient) GetLinks(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*link.Links, error) {
 	out := new(link.Links)
 	err := c.cc.Invoke(ctx, "/grpcweb.Link/GetLinks", in, out, opts...)
 	if err != nil {
@@ -74,7 +74,7 @@ func (c *linkClient) DeleteLink(ctx context.Context, in *link.Link, opts ...grpc
 // All implementations must embed UnimplementedLinkServer
 // for forward compatibility
 type LinkServer interface {
-	GetLinks(context.Context, *LinkRequest) (*link.Links, error)
+	GetLinks(context.Context, *ListRequest) (*link.Links, error)
 	GetLink(context.Context, *link.Link) (*link.Link, error)
 	CreateLink(context.Context, *link.Link) (*link.Link, error)
 	DeleteLink(context.Context, *link.Link) (*emptypb.Empty, error)
@@ -85,7 +85,7 @@ type LinkServer interface {
 type UnimplementedLinkServer struct {
 }
 
-func (UnimplementedLinkServer) GetLinks(context.Context, *LinkRequest) (*link.Links, error) {
+func (UnimplementedLinkServer) GetLinks(context.Context, *ListRequest) (*link.Links, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLinks not implemented")
 }
 func (UnimplementedLinkServer) GetLink(context.Context, *link.Link) (*link.Link, error) {
@@ -111,7 +111,7 @@ func RegisterLinkServer(s grpc.ServiceRegistrar, srv LinkServer) {
 }
 
 func _Link_GetLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(LinkRequest)
+	in := new(ListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -123,7 +123,7 @@ func _Link_GetLinks_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: "/grpcweb.Link/GetLinks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServer).GetLinks(ctx, req.(*LinkRequest))
+		return srv.(LinkServer).GetLinks(ctx, req.(*ListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

@@ -38,6 +38,14 @@ Shortlink service
 <details><summary>DETAILS</summary>
 <p>
 
+##### Require
+
+###### Install GIT sub-repository
+
+```
+git submodule update --init --recursive
+```
+
 ##### docker-compose
 
 ###### For run
