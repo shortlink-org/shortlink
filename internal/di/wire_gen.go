@@ -21,8 +21,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
-	"github.com/batazor/shortlink/internal/services/link/di"
-	di2 "github.com/batazor/shortlink/internal/services/metadata/di"
+	"github.com/batazor/shortlink/internal/services/api/di"
+	di2 "github.com/batazor/shortlink/internal/services/link/di"
+	di3 "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/getsentry/sentry-go/http"
@@ -157,21 +158,22 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup3, err := mq_di.New(context, logger)
+	handler, cleanup3, err := sentry.New()
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	handler, cleanup4, err := sentry.New()
+	serveMux := monitoring.New(handler, logger)
+	tracer, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(handler, logger)
-	tracer, cleanup5, err := traicing_di.New(context, logger)
+	pprofEndpoint := profiling.New(logger)
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -179,7 +181,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dbStore, cleanup6, err := store.New(context, logger)
+	clientConn, cleanup6, err := rpc.InitClient(logger, tracer)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -188,8 +190,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := profiling.New(logger)
-	autoMaxProAutoMaxPro, cleanup7, err := autoMaxPro.New(logger)
+	rpcServer, cleanup7, err := rpc.InitServer(logger, tracer)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -199,7 +200,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup8, err := rpc.InitClient(logger, tracer)
+	apiService, cleanup8, err := InitAPIService(context, clientConn, rpcServer, logger, tracer)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -210,7 +211,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serviceAPI, err := NewAPIService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, pprofEndpoint, autoMaxProAutoMaxPro, clientConn)
+	serviceAPI, err := NewAPIService(context, configConfig, logger, handler, serveMux, tracer, pprofEndpoint, autoMaxProAutoMaxPro, clientConn, apiService)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -640,36 +641,43 @@ func NewFullService(ctx2 context.Context,
 
 type ServiceAPI struct {
 	Service
+
+	APIService *di.APIService
+}
+
+// InitAPIService =====================================================================================================
+func InitAPIService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*di.APIService, func(), error) {
+	return di.InitializeAPIService(ctx2, runRPCClient, runRPCServer, log, tracer)
 }
 
 // APIService ==========================================================================================================
 var APISet = wire.NewSet(
-	DefaultSet, store.New, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, NewAPIService,
+	DefaultSet, sentry.New, monitoring.New, profiling.New, rpc.InitServer, rpc.InitClient, InitAPIService,
+	NewAPIService,
 )
 
 func NewAPIService(ctx2 context.Context,
 
 	cfg *config.Config,
-	log logger.Logger, mq2 mq.MQ,
-
+	log logger.Logger,
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer, db2 *db.Store,
+	tracer *opentracing.Tracer,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	clientRPC *grpc.ClientConn,
+	apiService *di.APIService,
 ) (*ServiceAPI, error) {
 	return &ServiceAPI{
 		Service: Service{
 			Ctx:           ctx2,
 			Log:           log,
-			MQ:            mq2,
 			Tracer:        tracer,
 			Monitoring:    monitoring2,
 			Sentry:        sentryHandler,
-			DB:            db2,
 			PprofEndpoint: pprofHTTP,
 			ClientRPC:     clientRPC,
 		},
+		APIService: apiService,
 	}, nil
 }
 
@@ -701,12 +709,12 @@ func NewBotService(ctx2 context.Context,
 type ServiceLink struct {
 	Service
 
-	LinkService *di.LinkService
+	LinkService *di2.LinkService
 }
 
 // InitLinkService =====================================================================================================
-func InitLinkService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*di.LinkService, func(), error) {
-	return di.InitializeLinkService(ctx2, runRPCClient, runRPCServer, log, db2, mq2)
+func InitLinkService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*di2.LinkService, func(), error) {
+	return di2.InitializeLinkService(ctx2, runRPCClient, runRPCServer, log, db2, mq2)
 }
 
 // APIService ==========================================================================================================
@@ -726,7 +734,7 @@ func NewLinkService(ctx2 context.Context,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
-	linkService *di.LinkService,
+	linkService *di2.LinkService,
 ) (*ServiceLink, error) {
 	return &ServiceLink{
 		Service: Service{
@@ -774,12 +782,12 @@ func NewLoggerService(ctx2 context.Context,
 type ServiceMetadata struct {
 	Service
 
-	MetaService *di2.MetaDataService
+	MetaService *di3.MetaDataService
 }
 
 // InitMetaService =====================================================================================================
-func InitMetaService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store) (*di2.MetaDataService, func(), error) {
-	return di2.InitializeMetaDataService(ctx2, runRPCServer, log, db2)
+func InitMetaService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store) (*di3.MetaDataService, func(), error) {
+	return di3.InitializeMetaDataService(ctx2, runRPCServer, log, db2)
 }
 
 // MetadataService =====================================================================================================
@@ -793,7 +801,7 @@ func NewMetadataService(
 	autoMaxProcsOption autoMaxPro.AutoMaxPro, db2 *db.Store,
 	serverRPC *rpc.RPCServer, monitoring2 *http.ServeMux,
 	sentryHandler *sentryhttp.Handler,
-	metadataService *di2.MetaDataService,
+	metadataService *di3.MetaDataService,
 ) (*ServiceMetadata, error) {
 	return &ServiceMetadata{
 		Service: Service{

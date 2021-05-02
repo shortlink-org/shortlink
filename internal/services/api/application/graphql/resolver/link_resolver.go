@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
+	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 // Link ...

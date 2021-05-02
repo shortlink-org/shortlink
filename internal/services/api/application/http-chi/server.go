@@ -14,9 +14,9 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	link_api "github.com/batazor/shortlink/pkg/api/http-chi/controllers/link"
-	additionalMiddleware "github.com/batazor/shortlink/pkg/api/middleware"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
+	link_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/link"
+	additionalMiddleware "github.com/batazor/shortlink/internal/services/api/application/middleware"
+	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 )
 
 // Run HTTP-server

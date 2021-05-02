@@ -35,11 +35,5 @@ func main() {
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	<-sigs
 
-	// Stop the service gracefully.
-	// close DB
-	if errStoreClose := service.DB.Store.Close(); errStoreClose != nil {
-		service.Log.Error(errStoreClose.Error())
-	}
-
 	cleanup()
 }

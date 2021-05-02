@@ -8,11 +8,12 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
-	"github.com/batazor/shortlink/pkg/api/grpc-web/helpers"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/golang/protobuf/ptypes/empty"
+
+	"github.com/batazor/shortlink/internal/pkg/notify"
+	"github.com/batazor/shortlink/internal/services/api/application/grpc-web/helpers"
+	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 )
 
 // GetLink ...
@@ -43,7 +44,7 @@ func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error)
 }
 
 // GetLinks ...
-func (api *API) GetLinks(ctx context.Context, req *LinkRequest) (*link.Links, error) {
+func (api *API) GetLinks(ctx context.Context, req *ListRequest) (*link.Links, error) {
 	responseCh := make(chan interface{})
 
 	go notify.Publish(ctx, api_type.METHOD_LIST, req.Filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})

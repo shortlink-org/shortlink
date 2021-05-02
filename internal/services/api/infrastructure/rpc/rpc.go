@@ -10,10 +10,10 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
+	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 type rpc struct {
