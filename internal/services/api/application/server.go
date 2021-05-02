@@ -6,21 +6,20 @@ import (
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/application/cloudevents"
 	gokit "github.com/batazor/shortlink/internal/services/api/application/go-kit"
 	"github.com/batazor/shortlink/internal/services/api/application/graphql"
 	grpcweb "github.com/batazor/shortlink/internal/services/api/application/grpc-web"
 	http_chi "github.com/batazor/shortlink/internal/services/api/application/http-chi"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	api_rpc "github.com/batazor/shortlink/internal/services/api/infrastructure/rpc"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
 // runAPIServer - start HTTP-server
-func (s *Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, rpcClient *grpc.ClientConn) (*Server, error) {
+func (s *Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer) (*Server, error) {
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
@@ -51,11 +50,12 @@ func (s *Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *op
 		server = &http_chi.API{}
 	}
 
-	// Register clients
-	_, err := api_rpc.Use(ctx, rpcClient)
-	if err != nil {
-		return nil, err
-	}
+	// Subscribe to Event
+	notify.Subscribe(api_type.METHOD_ADD, s)
+	notify.Subscribe(api_type.METHOD_GET, s)
+	notify.Subscribe(api_type.METHOD_LIST, s)
+	notify.Subscribe(api_type.METHOD_UPDATE, s)
+	notify.Subscribe(api_type.METHOD_DELETE, s)
 
 	if err := server.Run(ctx, config, log, tracer); err != nil {
 		return nil, err

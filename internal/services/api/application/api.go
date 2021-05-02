@@ -11,6 +11,8 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
+	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 )
 
 // API - general describe of API
@@ -18,4 +20,8 @@ type API interface { // nolint unused
 	Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error
 }
 
-type Server struct{} // nolint unused
+type Server struct {
+	// Delivery
+	MetadataClient metadata_rpc.MetadataClient
+	LinkClient     link_rpc.LinkClient
+}
