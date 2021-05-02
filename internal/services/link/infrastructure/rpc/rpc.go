@@ -34,7 +34,7 @@ func New(runRPCServer *rpc.RPCServer, application *link_application.Service, log
 
 	// Register services
 	RegisterLinkServer(runRPCServer.Server, server)
-	runRPCServer.Run()
+	go runRPCServer.Run()
 
 	return server, nil
 }

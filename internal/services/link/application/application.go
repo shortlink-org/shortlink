@@ -98,7 +98,7 @@ func (s *Service) AddLink(ctx context.Context, in *link.Link) (*link.Link, error
 	// add step: publish event by this service
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
-			go notify.Publish(ctx, uint32(link.LinkEvent_ADD), in, nil)
+			notify.Publish(ctx, uint32(link.LinkEvent_ADD), in, nil)
 			return nil
 		}).
 		Build()

@@ -14,11 +14,11 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/application"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	api_mq "github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
 	link_store "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
@@ -58,7 +58,7 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ) (*api_mq.Event
 	}
 
 	// Subscribe to Event
-	notify.Subscribe(api_type.METHOD_ADD, linkMQ)
+	notify.Subscribe(uint32(link.LinkEvent_ADD), linkMQ)
 
 	return linkMQ, nil
 }
@@ -101,11 +101,13 @@ func NewLinkService(
 	linkRPCServer *link_rpc.Link,
 	linkStore *link_store.LinkStore,
 	service *link_application.Service,
+	linkMQ *api_mq.Event,
 ) (*LinkService, error) {
 	return &LinkService{
 		Logger:        log,
 		linkRPCServer: linkRPCServer,
 		linkStore:     linkStore,
+		linkMQ:        linkMQ,
 		service:       service,
 	}, nil
 }

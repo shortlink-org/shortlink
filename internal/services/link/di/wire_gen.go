@@ -12,11 +12,11 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/application"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
-	"github.com/batazor/shortlink/pkg/api/type"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
 	"google.golang.org/grpc"
@@ -41,7 +41,11 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(log, link, linkStore, service)
+	event, err := InitLinkMQ(ctx, log, mq2)
+	if err != nil {
+		return nil, nil, err
+	}
+	linkService, err := NewLinkService(log, link, linkStore, service, event)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -83,7 +87,7 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Even
 	linkMQ := &api_mq.Event{
 		MQ: mq2,
 	}
-	notify.Subscribe(api_type.METHOD_ADD, linkMQ)
+	notify.Subscribe(uint32(link.LinkEvent_ADD), linkMQ)
 
 	return linkMQ, nil
 }
@@ -126,11 +130,13 @@ func NewLinkService(
 	linkRPCServer *link_rpc.Link,
 	linkStore *store.LinkStore,
 	service *link_application.Service,
+	linkMQ *api_mq.Event,
 ) (*LinkService, error) {
 	return &LinkService{
 		Logger:        log,
 		linkRPCServer: linkRPCServer,
 		linkStore:     linkStore,
+		linkMQ:        linkMQ,
 		service:       service,
 	}, nil
 }

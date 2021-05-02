@@ -28,7 +28,7 @@ func New(runRPCServer *rpc.RPCServer, application *metadata.Service, log logger.
 
 	// Register services
 	RegisterMetadataServer(runRPCServer.Server, server)
-	runRPCServer.Run()
+	go runRPCServer.Run()
 
 	return server, nil
 }
