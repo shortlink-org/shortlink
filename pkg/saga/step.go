@@ -4,7 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/opentracing/opentracing-go"
+
 	"github.com/batazor/shortlink/pkg/saga/dag"
 )
 
@@ -21,9 +22,13 @@ type Step struct {
 }
 
 func (s *Step) Run() error {
-	s.logger.Info(fmt.Sprintf("Run step by name: %s", s.name), field.Fields{"name": s.name})
+	// start tracing
+	span, newCtx := opentracing.StartSpanFromContext(*s.ctx, fmt.Sprintf("step: %s", s.name))
+	span.SetTag("step", s.name)
+	defer span.Finish()
+
 	s.status = RUN
-	err := s.then(*s.ctx)
+	err := s.then(newCtx)
 	if err != nil {
 		s.status = REJECT
 		return err
@@ -34,7 +39,11 @@ func (s *Step) Run() error {
 }
 
 func (s *Step) Reject() error {
-	s.logger.Info(fmt.Sprintf("Reject step by name: %s", s.name), field.Fields{"name": s.name})
+	// start tracing
+	span, newCtx := opentracing.StartSpanFromContext(*s.ctx, fmt.Sprintf("step: %s", s.name))
+	span.SetTag("step", s.name)
+	defer span.Finish()
+
 	s.status = REJECT
 
 	// Check on compensation step
@@ -42,7 +51,7 @@ func (s *Step) Reject() error {
 		return nil
 	}
 
-	err := s.reject(*s.ctx)
+	err := s.reject(newCtx)
 	if err != nil {
 		s.status = FAIL
 		return err

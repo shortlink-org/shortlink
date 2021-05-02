@@ -2,14 +2,14 @@
 
 #### Saga steps of state:
 
-+ WAIT -> START -> RUN -> READY
-+ REJECT -> FAIL
++ WAIT -> RUN -> DONE/REJECT
++ REJECT -> FAIL/ROLLBACK
 
-#### example
+#### Example
 
 ```go
 import (
-  "saga"
+  "github.com/batazor/shortlink/pkg/saga"
 )
 
 func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
@@ -59,6 +59,10 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 }
 ```
 
+### OpenTracing
+
+![OpenTracing](./docs/tracing.png)
+
 ### Ref
 
 - [Saga pattern](https://microservices.io/patterns/data/saga.html)
@@ -68,10 +72,3 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
   - [goflow](https://github.com/s8sg/goflow)
   - https://github.com/danielgerlag/workflow-core
   - https://github.com/VladKopanev/cats-saga
-
-### Alternative solve
-
-#### Use `Step.degree` increment
-
-Run jobs by `degree`: `0 -> 1 -> 2 -> ... -> N`  
-Reject jobs by `degree`: `Current -> Current - 1 -> Current - 2 -> ... -> 0`

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/opentracing/opentracing-go"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/batazor/shortlink/pkg/saga/dag"
@@ -70,14 +71,18 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	// Run root steps
 	g := errgroup.Group{}
 
+	// start tracing
+	span, newCtx := opentracing.StartSpanFromContext(s.ctx, fmt.Sprintf("saga: %s", s.name))
+	span.SetTag("saga", s.name)
+	defer span.Finish()
+
 	for _, step := range initSteps {
+		step.ctx = &newCtx
 		g.Go(step.Run)
 	}
 
 	err = g.Wait()
 	if err != nil {
-		// If get error run rejectFunc
-		s.logger.Warn(fmt.Sprintf("Run REJECT after run step with error: %s", err))
 		errReject := s.Reject(initSteps)
 		return errReject
 	}
@@ -163,7 +168,7 @@ func (s *Saga) Reject(rejectSteps map[string]*Step) error {
 	// ignore error and continue reject parent func
 	err := g.Wait()
 	if err != nil {
-		s.logger.Error(err.Error())
+		s.logger.ErrorWithContext(s.ctx, err.Error())
 	}
 
 	// get parents
