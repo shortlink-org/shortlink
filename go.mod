@@ -65,7 +65,7 @@ require (
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.0
-	github.com/uber/jaeger-client-go v2.27.0+incompatible
+	github.com/uber/jaeger-client-go v2.28.0+incompatible
 	github.com/uber/jaeger-lib v2.4.0+incompatible // indirect
 	go.mongodb.org/mongo-driver v1.5.1
 	go.uber.org/atomic v1.7.0
