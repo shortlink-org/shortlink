@@ -1,5 +1,3 @@
-//go:generate protoc -I. -I../../../../..  -I../../../../../../../third_party/googleapis --proto_path=src --go_out=Minternal/services/api/application/http-chi/controllers/link/link-api.proto=.:. --go_opt=paths=source_relative link-api.proto
-
 package link_api
 
 import (
@@ -39,7 +37,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
-	var request AddLinkRequest
+	var request link_domain.Link
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -99,11 +97,6 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Parse request
-	var request = &GetLinkRequest{
-		Hash: hash,
-	}
-
 	var (
 		response *link_domain.Link
 		err      error
@@ -114,7 +107,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), api_type.METHOD_GET, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_GET"})
+	go notify.Publish(r.Context(), api_type.METHOD_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_GET"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -215,13 +208,9 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	request := DeleteLinkRequest{
-		Hash: hash,
-	}
-
 	responseCh := make(chan interface{})
 
-	go notify.Publish(r.Context(), api_type.METHOD_DELETE, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_DELETE"})
+	go notify.Publish(r.Context(), api_type.METHOD_DELETE, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_DELETE"})
 
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))

@@ -47,7 +47,7 @@ func (l *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
 func (l *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -58,7 +58,7 @@ func (l *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	}
 
 	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil

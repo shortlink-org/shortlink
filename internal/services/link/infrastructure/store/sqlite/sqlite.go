@@ -38,14 +38,14 @@ func (lite *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 
 	stmt, err := lite.client.Prepare(query)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 	defer stmt.Close() // nolint errcheck
 
 	var response link.Link
 	err = stmt.QueryRowContext(ctx, args...).Scan(&response.Url, &response.Hash, &response.Describe)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -126,7 +126,7 @@ func (lite *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = lite.client.ExecContext(ctx, query, args...)
 	if err != nil {
-		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+		return &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
 
 	return nil

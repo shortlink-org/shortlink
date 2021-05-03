@@ -83,22 +83,22 @@ func (p *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	rows, err := p.client.Query(ctx, q, args...)
 
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 	if rows.Err() != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
 		if err != nil {
-			return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+			return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 		}
 	}
 
 	if response.Hash == "" {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
@@ -186,7 +186,7 @@ func (p *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = p.client.Exec(ctx, q, args...)
 	if err != nil {
-		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+		return &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
 
 	return nil

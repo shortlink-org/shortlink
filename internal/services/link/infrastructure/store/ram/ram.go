@@ -69,12 +69,12 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 func (ram *Store) Get(_ context.Context, id string) (*link.Link, error) {
 	response, ok := ram.links.Load(id)
 	if !ok {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	v, ok := response.(*link.Link)
 	if !ok {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return v, nil

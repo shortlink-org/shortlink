@@ -32,7 +32,7 @@ func (c *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	}
 
 	if len(iter) == 0 {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	// Here's an array in which you can db the decoded documents

@@ -51,7 +51,7 @@ func (b *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	var response link.Link
@@ -62,7 +62,7 @@ func (b *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	}
 
 	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
