@@ -19,16 +19,16 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq"
 )
 
-// BotService ==========================================================================================================
-var BotSet = wire.NewSet(
+// NotifyService ==========================================================================================================
+var NotifySet = wire.NewSet(
 	DefaultSet,
 	mq_di.New,
 	sentry.New,
 	monitoring.New,
-	NewBotService,
+	NewNotifyService,
 )
 
-func NewBotService(
+func NewNotifyService(
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
@@ -46,6 +46,6 @@ func NewBotService(
 	}, nil
 }
 
-func InitializeBotService() (*Service, func(), error) {
-	panic(wire.Build(BotSet))
+func InitializeNotifyService() (*Service, func(), error) {
+	panic(wire.Build(NotifySet))
 }

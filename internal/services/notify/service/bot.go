@@ -13,9 +13,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/bot/di"
-	bot_type "github.com/batazor/shortlink/internal/services/bot/type"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/notify/di"
+	bot_type "github.com/batazor/shortlink/internal/services/notify/type"
 )
 
 func (b *Bot) Use(ctx context.Context) { // nolint unused

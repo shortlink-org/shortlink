@@ -8,16 +8,17 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/services/bot/service"
 	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/internal/services/notify/service"
 )
 
 func main() {
 	viper.SetDefault("SERVICE_NAME", "bot")
 
 	// Init a new service
-	s, cleanup, err := di.InitializeBotService()
+	s, cleanup, err := di.InitializeNotifyService()
 	if err != nil { // TODO: use as helpers
 		panic(err)
 	}

@@ -9,9 +9,9 @@ import (
 
 	"github.com/google/wire"
 
-	"github.com/batazor/shortlink/internal/services/bot/infrastructure/slack"
-	"github.com/batazor/shortlink/internal/services/bot/infrastructure/smtp"
-	"github.com/batazor/shortlink/internal/services/bot/infrastructure/telegram"
+	"github.com/batazor/shortlink/internal/services/notify/infrastructure/slack"
+	"github.com/batazor/shortlink/internal/services/notify/infrastructure/smtp"
+	"github.com/batazor/shortlink/internal/services/notify/infrastructure/telegram"
 )
 
 // Service - heplers
