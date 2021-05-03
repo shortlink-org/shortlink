@@ -7,6 +7,8 @@ services:
       - coredns
     # The official v2.0 Traefik docker image
     image: traefik:v2.4
+    profiles:
+      - gateway
     container_name: traefik
     ports:
       # The HTTP port
@@ -20,6 +22,8 @@ services:
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -33,5 +37,8 @@ services:
         max-size: ${LOGGER_MAX_SIZE}
 
   prometheus:
+    image: prom/prometheus:v2.26.0
+    profiles:
+      - prometheus
     volumes:
       - ./ops/docker-compose/gateway/traefik/traefik-target.json:/etc/prometheus/targets/traefik-server.json

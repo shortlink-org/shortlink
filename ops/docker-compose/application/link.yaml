@@ -1,0 +1,40 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  link:
+    <<: *network
+    build:
+      context: .
+      dockerfile: ops/dockerfile/link.Dockerfile
+      shm_size: 1gb
+    depends_on:
+      - coredns
+    container_name: link
+    restart: on-failure
+    environment:
+      TRACER_URI: jaeger-agent:6831
+      GRPC_SERVER_TLS_ENABLED: "false"
+    volumes:
+      - type: bind
+        source: ./ops/cert
+        target: /app/ops/cert
+    user: ${CURRENT_UID}
+    ports:
+      - "50053:50051"
+    logging:
+      driver: ${LOGGER_DRIVER}
+      options:
+        loki-url: ${LOGGER_DRIVER_URL}
+        max-size: ${LOGGER_MAX_SIZE}
+
+  prometheus:
+    volumes:
+      - ./ops/docker-compose/application/link/link-server.json:/etc/prometheus/targets/link-server.json

@@ -10,7 +10,7 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"google.golang.org/grpc"
 
-	"github.com/batazor/shortlink/internal/services/api/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
 )
 
 // DGraphLink implementation of db interface
@@ -83,11 +83,11 @@ func (dg *Store) migrate(ctx context.Context) error { // nolint unused
 	op := &api.Operation{
 		Schema: `
 type Link {
-    url: string
-    hash: string
-    describe: string
-    created_at: datetime
-    updated_at: datetime
+	url: string
+	hash: string
+	describe: string
+	created_at: datetime
+	updated_at: datetime
 }
 
 url: string @index(term) @lang .

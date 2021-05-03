@@ -527,13 +527,14 @@
 									}
 								],
 								"url": {
-									"raw": "localhost:7070/api/{{hash}}",
+									"raw": "localhost:7070/api/link/{{hash}}",
 									"host": [
 										"localhost"
 									],
 									"port": "7070",
 									"path": [
 										"api",
+										"link",
 										"{{hash}}"
 									]
 								}

@@ -25,3 +25,6 @@ gitlab-test:  ## Run all unit test for GitLab CI
 
 bench: ## Run benchmark tests
 	@go test -bench ./...
+
+godoc-serve: ## Serve documentation (godoc format) for this package at port HTTP 9090
+	@godoc -http=":9090"

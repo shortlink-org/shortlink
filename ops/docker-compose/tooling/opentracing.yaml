@@ -14,7 +14,9 @@ services:
       - cassandra-schema
       - coredns
     image: jaegertracing/jaeger-collector:${JAEGER_VERSION}
-    command: ["--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra", "--collector.zipkin.http-port=9411"]
+    profiles:
+      - opentracing
+    command: ["--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra", "--collector.zipkin.host-port=9411"]
     container_name: jaeger-collector
     ports:
       - "6831"         # accept jaeger.thrift in compact Thrift protocol used by most current Jaeger clients
@@ -28,6 +30,8 @@ services:
       - cassandra-schema
       - coredns
     image: jaegertracing/jaeger-query:${JAEGER_VERSION}
+    profiles:
+      - opentracing
     command: ["--cassandra.keyspace=jaeger_v1_dc1", "--cassandra.servers=cassandra"]
     container_name: jaeger-query
     ports:
@@ -41,6 +45,8 @@ services:
       - coredns
       - jaeger-collector
     image: jaegertracing/jaeger-agent:${JAEGER_VERSION}
+    profiles:
+      - opentracing
     command: ["--reporter.grpc.host-port=jaeger-collector:14250"]
     container_name: jaeger-agent
     ports:
@@ -56,6 +62,8 @@ services:
     depends_on:
       - coredns
     image: cassandra:3.9
+    profiles:
+      - opentracing
     container_name: jaeger-cassandra
     logging:
       driver: ${LOGGER_DRIVER}
@@ -69,4 +77,6 @@ services:
       - coredns
       - cassandra
     image: jaegertracing/jaeger-cassandra-schema
+    profiles:
+      - opentracing
     container_name: jaeger-cassandra-schema

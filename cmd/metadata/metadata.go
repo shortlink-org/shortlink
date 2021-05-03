@@ -13,7 +13,6 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/di"
-	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 )
 
 func main() {
@@ -25,11 +24,11 @@ func main() {
 		panic(err)
 	}
 
-	// Run API server
-	_, err = metadata_rpc.New(service.ServerRPC, service.MetaStore, service.Log)
-	if err != nil {
-		panic(err)
-	}
+	defer func() {
+		if r := recover(); r != nil {
+			service.Log.Error(r.(string))
+		}
+	}()
 
 	// Handle SIGINT and SIGTERM.
 	sigs := make(chan os.Signal, 1)

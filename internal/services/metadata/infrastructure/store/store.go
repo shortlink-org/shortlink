@@ -12,8 +12,8 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
+	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store/ram"
-	api_type "github.com/batazor/shortlink/pkg/api/type"
 )
 
 // Use return implementation of db
