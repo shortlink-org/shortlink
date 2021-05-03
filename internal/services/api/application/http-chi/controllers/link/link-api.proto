@@ -25,10 +25,6 @@ message getListLinkRequest {
   string filter = 1;
 }
 
-message getListLinkResponse {
-  repeated link.Link list = 1;
-}
-
 message deleteLinkRequest {
   string hash = 1;
 }

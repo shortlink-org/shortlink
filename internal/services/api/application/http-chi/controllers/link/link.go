@@ -158,9 +158,8 @@ func List(w http.ResponseWriter, r *http.Request) {
 	filter := r.URL.Query().Get("filter")
 
 	var (
-		response     []*link_domain.Link
-		responseLink GetListLinkResponse // for custom JSON parsing
-		err          error
+		response *link_domain.Links
+		err      error
 	)
 
 	responseCh := make(chan interface{})
@@ -177,7 +176,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.([]*link_domain.Link) // nolint errcheck
+			response = resp.Payload.(*link_domain.Links) // nolint errcheck
 		}
 	}
 
@@ -193,11 +192,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for l := range response {
-		responseLink.List = append(responseLink.List, response[l])
-	}
-
-	res, err := jsonpb.Marshal(&responseLink)
+	res, err := jsonpb.Marshal(response)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck

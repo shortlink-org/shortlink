@@ -46,17 +46,19 @@ func (c *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (c *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error) {
+func (c *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, error) {
 	iter, err := c.client.Query(`SELECT url, hash, ddd FROM shortlink.links`).WithContext(ctx).Iter().SliceMap()
 	if err != nil {
 		return nil, err
 	}
 
 	// Here's an array in which you can db the decoded documents
-	var response []*link.Link
+	response := &link.Links{
+		Link: []*link.Link{},
+	}
 
 	for index := range iter {
-		response = append(response, &link.Link{
+		response.Link = append(response.Link, &link.Link{
 			Url:      iter[index]["url"].(string),
 			Hash:     iter[index]["hash"].(string),
 			Describe: iter[index]["ddd"].(string),
