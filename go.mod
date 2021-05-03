@@ -28,7 +28,6 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v0.0.0-20210429001901-424d2337a529
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
-	github.com/golang/mock v1.5.0 // indirect
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/google/wire v0.5.0
@@ -71,7 +70,6 @@ require (
 	github.com/uber/jaeger-client-go v2.28.0+incompatible
 	github.com/uber/jaeger-lib v2.4.0+incompatible // indirect
 	go.mongodb.org/mongo-driver v1.5.1
-	go.opencensus.io v0.23.0 // indirect
 	go.uber.org/atomic v1.7.0
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.10
