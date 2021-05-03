@@ -235,74 +235,6 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 	}, nil
 }
 
-// Injectors from service_bot.go:
-
-func InitializeBotService() (*Service, func(), error) {
-	context, cleanup, err := ctx.New()
-	if err != nil {
-		return nil, nil, err
-	}
-	configConfig, err := config.New()
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	logger, cleanup2, err := logger_di.New(context)
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	mq, cleanup3, err := mq_di.New(context, logger)
-	if err != nil {
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	handler, cleanup4, err := sentry.New()
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	serveMux := monitoring.New(handler, logger)
-	tracer, cleanup5, err := traicing_di.New(context, logger)
-	if err != nil {
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	autoMaxProAutoMaxPro, cleanup6, err := autoMaxPro.New(logger)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	service, err := NewBotService(context, configConfig, logger, mq, serveMux, tracer, autoMaxProAutoMaxPro)
-	if err != nil {
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	return service, func() {
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-	}, nil
-}
-
 // Injectors from service_link.go:
 
 func InitializeLinkService() (*ServiceLink, func(), error) {
@@ -582,6 +514,74 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 	}, nil
 }
 
+// Injectors from service_notify.go:
+
+func InitializeNotifyService() (*Service, func(), error) {
+	context, cleanup, err := ctx.New()
+	if err != nil {
+		return nil, nil, err
+	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	logger, cleanup2, err := logger_di.New(context)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	mq, cleanup3, err := mq_di.New(context, logger)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	handler, cleanup4, err := sentry.New()
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	serveMux := monitoring.New(handler, logger)
+	tracer, cleanup5, err := traicing_di.New(context, logger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	autoMaxProAutoMaxPro, cleanup6, err := autoMaxPro.New(logger)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewNotifyService(context, configConfig, logger, mq, serveMux, tracer, autoMaxProAutoMaxPro)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return service, func() {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+	}, nil
+}
+
 // default.go:
 
 // Service - heplers
@@ -678,29 +678,6 @@ func NewAPIService(ctx2 context.Context,
 			ClientRPC:     clientRPC,
 		},
 		APIService: apiService,
-	}, nil
-}
-
-// service_bot.go:
-
-// BotService ==========================================================================================================
-var BotSet = wire.NewSet(
-	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewBotService,
-)
-
-func NewBotService(ctx2 context.Context,
-
-	cfg *config.Config,
-	log logger.Logger, mq2 mq.MQ, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
-) (*Service, error) {
-	return &Service{
-		Ctx:        ctx2,
-		Log:        log,
-		MQ:         mq2,
-		Tracer:     tracer,
-		Monitoring: monitoring2,
 	}, nil
 }
 
@@ -812,5 +789,28 @@ func NewMetadataService(
 			Sentry:     sentryHandler,
 		},
 		MetaService: metadataService,
+	}, nil
+}
+
+// service_notify.go:
+
+// NotifyService ==========================================================================================================
+var NotifySet = wire.NewSet(
+	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewNotifyService,
+)
+
+func NewNotifyService(ctx2 context.Context,
+
+	cfg *config.Config,
+	log logger.Logger, mq2 mq.MQ, monitoring2 *http.ServeMux,
+	tracer *opentracing.Tracer,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+) (*Service, error) {
+	return &Service{
+		Ctx:        ctx2,
+		Log:        log,
+		MQ:         mq2,
+		Tracer:     tracer,
+		Monitoring: monitoring2,
 	}, nil
 }

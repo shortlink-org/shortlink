@@ -7,8 +7,8 @@
       - APPLICATION: auth
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/auth
         DOCKERFILE_PATH: ops/dockerfile/auth.Dockerfile
-      - APPLICATION: bot
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot
+      - APPLICATION: notify
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/notify
         DOCKERFILE_PATH: ops/dockerfile/notify.Dockerfile
       - APPLICATION: csi
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/csi
