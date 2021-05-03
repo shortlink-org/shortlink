@@ -1,11 +1,11 @@
 apiVersion: v2                                   # The chart API version (required)
 appVersion: "1.0.0"                              # The version of the app that this contains (optional)
-name: shortlink-bot                           # The name of the chart (required)
-description: Shortlink bot service            # A single-sentence description of this project (optional)
+name: shortlink-notify                           # The name of the chart (required)
+description: Shortlink notify service            # A single-sentence description of this project (optional)
 version: 0.5.5                                   # A SemVer 2 version (required)
 kubeVersion: ">= 1.19.0 || >= v1.19.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
 keywords:                                        # A list of keywords about this project (optional)
-  - bot
+  - notify
   - shortlink
 home: https://batazor.github.io/shortlink/       # The URL of this project's home page (optional)
 sources:                                         # A list of URLs to source code for this project (optional)

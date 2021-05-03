@@ -82,7 +82,7 @@ deploy:
   annotations: {}
 
   image:
-    repository: batazor/shortlink-bot
+    repository: batazor/shortlink-notify
     tag: latest
     ## Global imagePullPolicy
     ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
