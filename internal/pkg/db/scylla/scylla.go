@@ -5,7 +5,10 @@ import (
 
 	"github.com/gocql/gocql"
 	"github.com/scylladb/gocqlx/v2"
+	"github.com/scylladb/gocqlx/v2/migrate"
 	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/internal/pkg/db/scylla/migration"
 )
 
 // Config ...
@@ -54,26 +57,12 @@ func (s *Store) Close() error { // nolint unparam
 	return nil
 }
 
-// Migrate ...
+// migrate ...
 // TODO: ddd -> describe
-func (s *Store) migrate() error { // nolint unused
-	infoSchemas := []string{`
-CREATE KEYSPACE IF NOT EXISTS shortlink
-	WITH REPLICATION = {
-		'class' : 'SimpleStrategy',
-		'replication_factor': 1
-	};`, `
-CREATE TABLE IF NOT EXISTS shortlink.links (
-	url text,
-	hash text,
-	ddd text,
-	PRIMARY KEY(hash)
-)`}
-
-	for _, schema := range infoSchemas {
-		if err := s.client.ExecStmt(schema); err != nil {
-			return err
-		}
+func (s *Store) migrate() error {
+	err := migrate.FromFS(context.Background(), s.client, migration.Files)
+	if err != nil {
+		return err
 	}
 
 	return nil
