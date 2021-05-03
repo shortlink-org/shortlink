@@ -159,25 +159,25 @@ func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logge
 
 	linkAddHandler := httptransport.NewServer(
 		makeAddLinkEndpoint(),
-		decodeAddLinkRequest,
+		decodeAddListRequest,
 		encodeResponse,
 	)
 
 	linkGetByIdHandler := httptransport.NewServer(
 		makeGetLinkEndpoint(),
-		decodeGetLinkRequest,
+		decodeGetListRequest,
 		encodeResponse,
 	)
 
 	linkGetListHandler := httptransport.NewServer(
 		makeGetListLinkEndpoint(),
-		decodeGetLinkRequest,
+		decodeGetListRequest,
 		encodeResponse,
 	)
 
 	linkDeleteHandler := httptransport.NewServer(
 		makeDeleteLinkEndpoint(),
-		decodeAddLinkRequest,
+		decodeAddListRequest,
 		encodeResponse,
 	)
 
@@ -204,7 +204,7 @@ func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logge
 	return err
 }
 
-func decodeAddLinkRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func decodeAddListRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	var request link.Link
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		return nil, err
@@ -212,7 +212,7 @@ func decodeAddLinkRequest(_ context.Context, r *http.Request) (interface{}, erro
 	return &request, nil
 }
 
-func decodeGetLinkRequest(_ context.Context, r *http.Request) (interface{}, error) {
+func decodeGetListRequest(_ context.Context, r *http.Request) (interface{}, error) {
 	return r, nil
 }
 
