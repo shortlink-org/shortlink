@@ -23,7 +23,7 @@ builds:
     - -trimpath
   binary: api
 - id: bot
-  main: ./cmd/bot
+  main: ./cmd/notify
   env:
     - CGO_ENABLED=0
   goos:

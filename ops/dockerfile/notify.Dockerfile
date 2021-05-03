@@ -22,7 +22,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
   -ldflags "-s -w -X main.CI_COMMIT_TAG=$CI_COMMIT_TAG" \
   -installsuffix cgo \
   -trimpath \
-  -o app ./cmd/bot
+  -o app ./cmd/notify
 
 FROM alpine:3.13
 

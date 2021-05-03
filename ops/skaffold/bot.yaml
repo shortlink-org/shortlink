@@ -9,10 +9,10 @@ build:
   - image: shortlink-bot
     context: ../../
     docker:
-      dockerfile: ops/dockerfile/bot.Dockerfile
+      dockerfile: ops/dockerfile/notify.Dockerfile
     sync:
       infer:
-        - 'cmd/bot/**'
+        - 'cmd/notify/**'
         - 'pkg/**'
         - 'internal'
 deploy:
