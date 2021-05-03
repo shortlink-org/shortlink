@@ -126,7 +126,7 @@ func (s *Service) GetLink(ctx context.Context, hash string) (*link.Link, error) 
 
 	resp := &link.Link{}
 
-	// create a new saga for create a new link
+	// create a new saga for get link by hash
 	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
 		WithContext(ctx).
 		Build()
@@ -152,6 +152,10 @@ func (s *Service) GetLink(ctx context.Context, hash string) (*link.Link, error) 
 		return nil, err
 	}
 
+	if resp == nil {
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: hash}, Err: fmt.Errorf("Not found links")}
+	}
+
 	return resp, nil
 }
 
@@ -167,13 +171,13 @@ func (s *Service) ListLink(ctx context.Context, in string) (*link.Links, error) 
 	}
 
 	const (
-		SAGA_NAME           = "GET_LIST"
-		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_LIST"
+		SAGA_NAME            = "LIST_LINK"
+		SAGA_STEP_STORE_LIST = "SAGA_STEP_STORE_LIST"
 	)
 
 	resp := &link.Links{}
 
-	// create a new saga for create a new link
+	// create a new saga for get list of link
 	sagaListLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
 		WithContext(ctx).
 		Build()
@@ -182,7 +186,7 @@ func (s *Service) ListLink(ctx context.Context, in string) (*link.Links, error) 
 	}
 
 	// add step: get link from store
-	_, errs = sagaListLink.AddStep(SAGA_STEP_STORE_GET).
+	_, errs = sagaListLink.AddStep(SAGA_STEP_STORE_LIST).
 		Then(func(ctx context.Context) error {
 			var err error
 			resp, err = s.Store.List(ctx, filter)
@@ -207,5 +211,37 @@ func (s *Service) UpdateLink(ctx context.Context, in *link.Link) (*link.Link, er
 }
 
 func (s *Service) DeleteLink(ctx context.Context, hash string) (*link.Link, error) {
+	var err error
+
+	const (
+		SAGA_NAME              = "DELETE_LINK"
+		SAGA_STEP_STORE_DELETE = "SAGA_STEP_STORE_DELETE"
+	)
+
+	// create a new saga for delete link by hash
+	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+		WithContext(ctx).
+		Build()
+	if err = errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// add step: get link from store
+	_, errs = sagaDeleteLink.AddStep(SAGA_STEP_STORE_DELETE).
+		Then(func(ctx context.Context) error {
+			err = s.Store.Delete(ctx, hash)
+			return err
+		}).
+		Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// Run saga
+	err = sagaDeleteLink.Play(nil)
+	if err != nil {
+		return nil, err
+	}
+
 	return nil, nil
 }

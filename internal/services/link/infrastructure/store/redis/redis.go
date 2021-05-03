@@ -27,13 +27,13 @@ func (s *Store) Init(_ context.Context, db *db.Store) error {
 func (r *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	val, err := r.client.Get(ctx, id).Result()
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response link.Link
 
 	if err = json.Unmarshal([]byte(val), &response); err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
 	return &response, nil
@@ -90,7 +90,7 @@ func (r *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 // Delete ...
 func (r *Store) Delete(ctx context.Context, id string) error {
 	if err := r.client.Del(ctx, id).Err(); err != nil {
-		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed save link: %s", id)}
+		return &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 
 	return nil

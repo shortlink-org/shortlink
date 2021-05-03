@@ -36,13 +36,13 @@ func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {
 	defer c.Close()
 
 	if c.IsNil() {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var customlink Link
 	err = c.One(&customlink)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return customlink.Link, nil

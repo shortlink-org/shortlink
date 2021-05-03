@@ -108,7 +108,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 	case api_type.METHOD_DELETE:
 		{
 			resp := notify.Response{
-				Name:    "RESPONSE_RPC_LIST",
+				Name:    "RESPONSE_RPC_DELETE",
 				Payload: payload,
 				Error:   nil,
 			}

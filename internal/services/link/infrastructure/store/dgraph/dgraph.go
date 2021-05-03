@@ -63,13 +63,13 @@ query all($a: string) {
 
 	val, err := txn.QueryWithVars(ctx, q, map[string]string{"$a": id})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response DGraphLinkResponse
 
 	if err = json.Unmarshal(val.Json, &response); err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
 	return &response, nil
@@ -87,11 +87,11 @@ func (dg *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 
 	response, err := dg.get(ctx, id)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	if len(response.Link) == 0 {
-		return nil, &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return response.Link[0].Link, nil
@@ -223,7 +223,7 @@ func (dg *Store) Delete(ctx context.Context, id string) error {
 
 	links, err := dg.get(ctx, id)
 	if err != nil {
-		return &link.NotFoundError{Link: &link.Link{Url: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	if len(links.Link) == 0 {
