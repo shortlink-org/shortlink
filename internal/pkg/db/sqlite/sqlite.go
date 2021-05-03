@@ -5,6 +5,9 @@ import (
 	"database/sql"
 	"time"
 
+	"github.com/luna-duclos/instrumentedsql"
+	"github.com/luna-duclos/instrumentedsql/opentracing"
+	"github.com/mattn/go-sqlite3"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 	"github.com/spf13/viper"
 )
@@ -27,7 +30,8 @@ func (lite *Store) Init(ctx context.Context) error {
 	// Set configuration
 	lite.setConfig()
 
-	if lite.client, err = sql.Open("sqlite3", lite.config.Path); err != nil {
+	sql.Register("instrumented-sqlite", instrumentedsql.WrapDriver(&sqlite3.SQLiteDriver{}, instrumentedsql.WithTracer(opentracing.NewTracer(false))))
+	if lite.client, err = sql.Open("instrumented-sqlite", lite.config.Path); err != nil {
 		return err
 	}
 

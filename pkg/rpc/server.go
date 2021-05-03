@@ -4,9 +4,6 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	grpc_logger "github.com/batazor/shortlink/pkg/rpc/logger"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/recovery"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
@@ -16,10 +13,17 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
+
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	grpc_logger "github.com/batazor/shortlink/pkg/rpc/logger"
 )
 
 // InitServer ...
 func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func(), error) {
+	viper.SetDefault("GRPC_SERVER_TLS_ENABLED", true) // gRPC port
+	isEnableTLS := viper.GetBool("GRPC_SERVER_TLS_ENABLED")
+
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
@@ -79,14 +83,17 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 		incerceptorStreamServerList = append(incerceptorStreamServerList, grpc_logger.StreamServerInterceptor(log))
 	}
 
-	// Initialize the gRPC server.
-	rpc := grpc.NewServer(
-		grpc.Creds(creds),
-
+	optionsNewServer := []grpc.ServerOption{
 		// Initialize your gRPC server's interceptor.
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(incerceptorUnaryServerList...)),
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(incerceptorStreamServerList...)),
-	)
+	}
+	if isEnableTLS {
+		optionsNewServer = append(optionsNewServer, grpc.Creds(creds))
+	}
+
+	// Initialize the gRPC server.
+	rpc := grpc.NewServer(optionsNewServer...)
 
 	r := &RPCServer{
 		Server: rpc,

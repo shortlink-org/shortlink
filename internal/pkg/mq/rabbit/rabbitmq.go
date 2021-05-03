@@ -7,6 +7,7 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 	"github.com/streadway/amqp"
+	"golang.org/x/sync/errgroup"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
@@ -126,7 +127,9 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 		return err
 	}
 
-	go func() {
+	g := errgroup.Group{}
+
+	g.Go(func() error {
 		for msg := range msgs {
 			ctx := context.Background()
 
@@ -152,9 +155,11 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 
 			span.Finish()
 		}
-	}()
 
-	return nil
+		return nil
+	})
+
+	return g.Wait()
 }
 
 func (mq *RabbitMQ) UnSubscribe(target string) error {

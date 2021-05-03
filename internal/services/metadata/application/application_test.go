@@ -1,6 +1,6 @@
 // +build unit
 
-package application
+package metadata
 
 import (
 	"context"
@@ -16,7 +16,7 @@ import (
 var metaMock = rpc.Meta{
 	ImageURL:    "",
 	Keywords:    "",
-	Description: "GitHub is where over 56 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
+	Description: "GitHub is where over 65 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
 }
 
 func TestSet(t *testing.T) { //nolint unused
@@ -32,9 +32,9 @@ func TestSet(t *testing.T) { //nolint unused
 	st := &meta_store.MetaStore{}
 	st.Use(ctx, log, nil)
 
-	r := Service{
-		Store: st,
-	}
+	r, err := New(st)
+	assert.Nil(t, err)
+
 	meta, err := r.Set(ctx, url)
 	assert.Nil(t, err, "Error get body")
 
