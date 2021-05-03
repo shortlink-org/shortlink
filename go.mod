@@ -17,7 +17,7 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dgryski/go-farm v0.0.0-20200201041132-a6ae2369ad13 // indirect
 	github.com/getsentry/sentry-go v0.10.0
-	github.com/go-chi/chi/v5 v5.0.2
+	github.com/go-chi/chi/v5 v5.0.3
 	github.com/go-chi/cors v1.2.0
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.10.0
@@ -26,7 +26,7 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
 	github.com/gocql/gocql v0.0.0-20210425135552-909f2a77f46e
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
+	github.com/golang/glog v0.0.0-20210429001901-424d2337a529
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/mock v1.5.0 // indirect
 	github.com/golang/protobuf v1.5.2
@@ -51,7 +51,7 @@ require (
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
-	github.com/ory/dockertest/v3 v3.6.3
+	github.com/ory/dockertest/v3 v3.6.5
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/pborman/uuid v1.2.1
 	github.com/pelletier/go-toml v1.8.0 // indirect
@@ -68,7 +68,7 @@ require (
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.0
-	github.com/uber/jaeger-client-go v2.27.0+incompatible
+	github.com/uber/jaeger-client-go v2.28.0+incompatible
 	github.com/uber/jaeger-lib v2.4.0+incompatible // indirect
 	go.mongodb.org/mongo-driver v1.5.1
 	go.opencensus.io v0.23.0 // indirect
@@ -78,10 +78,10 @@ require (
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b // indirect
 	golang.org/x/mod v0.4.2 // indirect
-	golang.org/x/net v0.0.0-20210423184538-5f58ad60dda6
+	golang.org/x/net v0.0.0-20210501222612-f8dd838d8c7d
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	google.golang.org/api v0.30.0
-	google.golang.org/genproto v0.0.0-20210423144448-3a41ef94ed2b
+	google.golang.org/api v0.45.0
+	google.golang.org/genproto v0.0.0-20210429181445-86c259c2b4ab
 	google.golang.org/grpc v1.37.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.26.0
