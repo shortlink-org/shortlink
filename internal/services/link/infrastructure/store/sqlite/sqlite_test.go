@@ -8,10 +8,11 @@ import (
 	"os"
 	"testing"
 
-	db "github.com/batazor/shortlink/internal/pkg/db/sqlite"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/mock"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
+
+	db "github.com/batazor/shortlink/internal/pkg/db/sqlite"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/mock"
 )
 
 //func TestMain(m *testing.M) {
@@ -47,7 +48,7 @@ func TestSQLite(t *testing.T) {
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
 		assert.Nil(t, err)
-		assert.Equal(t, len(links), 1)
+		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {

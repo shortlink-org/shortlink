@@ -50,7 +50,9 @@ func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {
 
 // TODO: How get all keys?
 func (r *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
-	return nil, nil
+	return &link.Links{
+		Link: make([]*link.Link, 0),
+	}, nil
 }
 
 func (r *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {

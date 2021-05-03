@@ -105,7 +105,9 @@ func (b *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("not found links: %w", err)}
 	}
 
-	response := &link.Links{}
+	response := &link.Links{
+		Link: make([]*link.Link, len(list)),
+	}
 
 	for index, item := range list {
 		err = json.Unmarshal(item, &response.Link[index])

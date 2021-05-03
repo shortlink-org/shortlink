@@ -211,8 +211,6 @@ func (s *Service) UpdateLink(ctx context.Context, in *link.Link) (*link.Link, er
 }
 
 func (s *Service) DeleteLink(ctx context.Context, hash string) (*link.Link, error) {
-	var err error
-
 	const (
 		SAGA_NAME              = "DELETE_LINK"
 		SAGA_STEP_STORE_DELETE = "SAGA_STEP_STORE_DELETE"
@@ -222,15 +220,14 @@ func (s *Service) DeleteLink(ctx context.Context, hash string) (*link.Link, erro
 	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
 		WithContext(ctx).
 		Build()
-	if err = errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
 		return nil, err
 	}
 
 	// add step: get link from store
 	_, errs = sagaDeleteLink.AddStep(SAGA_STEP_STORE_DELETE).
 		Then(func(ctx context.Context) error {
-			err = s.Store.Delete(ctx, hash)
-			return err
+			return s.Store.Delete(ctx, hash)
 		}).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -238,7 +235,7 @@ func (s *Service) DeleteLink(ctx context.Context, hash string) (*link.Link, erro
 	}
 
 	// Run saga
-	err = sagaDeleteLink.Play(nil)
+	err := sagaDeleteLink.Play(nil)
 	if err != nil {
 		return nil, err
 	}

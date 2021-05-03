@@ -134,7 +134,7 @@ func TestPostgres(t *testing.T) {
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
 		assert.Nil(t, err)
-		assert.Equal(t, len(links), 8)
+		assert.Equal(t, len(links.Link), 8)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
