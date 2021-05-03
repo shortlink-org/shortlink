@@ -5,30 +5,12 @@
 nameOverride: ""
 fullnameOverride: ""
 
-host: shortlink.ddns.net
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: shortlink
-
-# nginx-ingress
-ingress:
-  enabled: false
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: cert-manager-production
-    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-    nginx.ingress.kubernetes.io/enable-opentracing: "true"
-    kubernetes.io/tls-acme: "true"
-
-  tls:
-    - secretName: shortlink-ingress-tls
-      hosts:
-        - shortlink.ddns.net
 
 # ==============================================================================
 # This secret for dev-stand. For production use CI-variables
@@ -77,14 +59,14 @@ secret:
 
 # ==============================================================================
 deploy:
-  replicaCount: 3
+  replicaCount: 1
 
   env:
     MQ_ENABLED: "false"
     MQ_TYPE: "rabbitmq"
     MQ_RABBIT_URI: "amqp://admin:admin@rabbitmq.rabbitmq:5672"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
-    GRPC_CLIENT_HOST: shortlink-link
+    GRPC_CLIENT_HOST: shortlink-metadata
 
     # default store config
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable
@@ -104,7 +86,7 @@ deploy:
   annotations: {}
 
   image:
-    repository: batazor/shortlink-api
+    repository: batazor/shortlink-link
     tag: latest
     ## Global imagePullPolicy
     ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
@@ -114,8 +96,9 @@ deploy:
   ## Node labels and tolerations for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-  nodeSelector: []
+  nodeSelector: {}
   #  shortlink: "true"
+
   tolerations: []
 
   affinity: []
@@ -175,22 +158,3 @@ deploy:
     capabilities:
       drop:
         - ALL
-
-service:
-  type: ClusterIP
-  port: 7070
-  # nodePort: 7070
-  # clusterIP: 172.0.0.1
-
-monitoring:
-  enabled: true
-
-database:
-  postgres:
-    enable: true
-
-# If you want to use an external database
-external_database:
-  enable: false
-  ip: 178.62.37.191
-  port: 6379

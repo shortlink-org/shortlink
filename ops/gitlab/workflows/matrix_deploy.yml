@@ -35,6 +35,12 @@
         HELM_ARG: --set serviceAccount.create=false --set deploy.env.STORE_TYPE=postgres --set deploy.env.MQ_ENABLED=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
+      - RELEASE_NAME: ${CI_PROJECT_NAME}-link
+        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-link
+        REGISTRY: ${CI_REGISTRY_IMAGE}/link
+        HELM_ARG: --set serviceAccount.create=false --set deploy.env.STORE_TYPE=postgres --set deploy.env.MQ_ENABLED=true
+        HELM_NAMESPACE: ${CI_PROJECT_NAME}
+
 .matrix_deploy_application_js:
   parallel:
     matrix:
