@@ -69,10 +69,12 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 
 			// TODO: use URL address?
 			if filter, ok := payload.(string); ok {
-				_, err := s.LinkClient.List(ctx, &link_rpc.ListRequest{Filter: filter})
+				linkResp, err := s.LinkClient.List(ctx, &link_rpc.ListRequest{Filter: filter})
 				if err != nil {
 					resp.Error = err
 				}
+
+				resp.Payload = linkResp
 
 				return resp
 			}

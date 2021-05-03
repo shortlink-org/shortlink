@@ -52,7 +52,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (lite *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error) {
+func (lite *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, error) {
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")
@@ -67,7 +67,9 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, err
 	}
 	defer rows.Close() // nolint errcheck
 
-	var response []*link.Link
+	response := &link.Links{
+		Link: []*link.Link{},
+	}
 
 	for rows.Next() {
 		var result link.Link
@@ -76,7 +78,7 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, err
 			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
-		response = append(response, &result)
+		response.Link = append(response.Link, &result)
 	}
 
 	return response, nil

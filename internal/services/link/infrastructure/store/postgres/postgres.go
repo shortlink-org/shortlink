@@ -9,16 +9,17 @@ import (
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/batazor/shortlink/internal/pkg/batch"
-	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/pkg/db/options"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/internal/pkg/batch"
+	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/batazor/shortlink/internal/pkg/db/options"
+	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
 
 var (
@@ -49,7 +50,7 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 				return errBatchWrite
 			}
 
-			for key, item := range dataList {
+			for key, item := range dataList.Link {
 				args[key].CB <- item
 			}
 
@@ -104,7 +105,7 @@ func (p *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (p *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) {
+func (p *Store) List(ctx context.Context, filter *query.Filter) (*link.Links, error) {
 	// query builder
 	links := psql.Select("url, hash, describe, created_at, updated_at").
 		From("links")
@@ -119,7 +120,9 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
-	var response []*link.Link
+	response := &link.Links{
+		Link: []*link.Link{},
+	}
 
 	for rows.Next() {
 		var result link.Link
@@ -134,7 +137,7 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 		result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
 		result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
 
-		response = append(response, &result)
+		response.Link = append(response.Link, &result)
 	}
 
 	return response, nil
@@ -224,7 +227,7 @@ func (p *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link,
 	return source, nil
 }
 
-func (p *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.Link, error) {
+func (p *Store) batchWrite(ctx context.Context, sources []*link.Link) (*link.Links, error) {
 	// Create a new link
 	for key := range sources {
 		err := link.NewURL(sources[key])
@@ -254,13 +257,23 @@ func (p *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.L
 	row := p.client.QueryRow(ctx, q, args...)
 	errScan := row.Scan(&sources)
 	if errScan.Error() == "no rows in result set" {
-		return sources, nil
+		return &link.Links{
+			Link: []*link.Link{},
+		}, nil
 	}
 	if errScan != nil {
 		return nil, fmt.Errorf("Error save link")
 	}
 
-	return sources, nil
+	response := &link.Links{
+		Link: []*link.Link{},
+	}
+
+	for item := range sources {
+		response.Link = append(response.Link, sources[item])
+	}
+
+	return response, nil
 }
 
 // setConfig - set configuration

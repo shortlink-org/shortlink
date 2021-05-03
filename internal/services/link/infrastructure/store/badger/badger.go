@@ -69,7 +69,7 @@ func (b *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (b *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
+func (b *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
@@ -105,10 +105,10 @@ func (b *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("not found links: %w", err)}
 	}
 
-	response := make([]*link.Link, len(list))
+	response := &link.Links{}
 
-	for index, link := range list {
-		err = json.Unmarshal(link, &response[index])
+	for index, item := range list {
+		err = json.Unmarshal(item, &response.Link[index])
 		if err != nil {
 			return nil, err
 		}

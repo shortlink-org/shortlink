@@ -12,7 +12,7 @@ import (
 type Repository interface {
 	Init(ctx context.Context, db *db.Store) error
 	Get(ctx context.Context, id string) (*link.Link, error)
-	List(ctx context.Context, filter *query.Filter) ([]*link.Link, error)
+	List(ctx context.Context, filter *query.Filter) (*link.Links, error)
 	Add(ctx context.Context, data *link.Link) (*link.Link, error)
 	Update(ctx context.Context, data *link.Link) (*link.Link, error)
 	Delete(ctx context.Context, id string) error

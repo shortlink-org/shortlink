@@ -5,6 +5,8 @@ package link_application
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -12,6 +14,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	link_store "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 	"github.com/batazor/shortlink/pkg/saga"
 )
@@ -152,8 +155,51 @@ func (s *Service) GetLink(ctx context.Context, hash string) (*link.Link, error) 
 	return resp, nil
 }
 
-func (s *Service) ListLink(ctx context.Context, filter string) (*link.Links, error) {
-	return nil, nil
+func (s *Service) ListLink(ctx context.Context, in string) (*link.Links, error) {
+	// Parse args
+	filter := &query.Filter{}
+
+	if in != "" {
+		errJsonUnmarshal := json.Unmarshal([]byte(in), &filter)
+		if errJsonUnmarshal != nil {
+			return nil, errors.New("error parse payload as string")
+		}
+	}
+
+	const (
+		SAGA_NAME           = "GET_LIST"
+		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_LIST"
+	)
+
+	resp := &link.Links{}
+
+	// create a new saga for create a new link
+	sagaListLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+		WithContext(ctx).
+		Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// add step: get link from store
+	_, errs = sagaListLink.AddStep(SAGA_STEP_STORE_GET).
+		Then(func(ctx context.Context) error {
+			var err error
+			resp, err = s.Store.List(ctx, filter)
+			return err
+		}).
+		Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// Run saga
+	err := sagaListLink.Play(nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
 }
 
 func (s *Service) UpdateLink(ctx context.Context, in *link.Link) (*link.Link, error) {

@@ -81,8 +81,10 @@ func (ram *Store) Get(_ context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (ram *Store) List(_ context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
-	links := []*link.Link{}
+func (ram *Store) List(_ context.Context, filter *query.Filter) (*link.Links, error) { // nolint unused
+	links := &link.Links{
+		Link: []*link.Link{},
+	}
 
 	ram.links.Range(func(key interface{}, value interface{}) bool {
 		link, ok := value.(*link.Link)
@@ -92,7 +94,7 @@ func (ram *Store) List(_ context.Context, filter *query.Filter) ([]*link.Link, e
 
 		// Apply Filter
 		if isFilterSuccess(link, filter) {
-			links = append(links, link)
+			links.Link = append(links.Link, link)
 		}
 		return true
 	})

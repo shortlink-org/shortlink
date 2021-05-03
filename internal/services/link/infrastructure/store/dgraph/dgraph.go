@@ -5,11 +5,12 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/dgraph-io/dgo/v2"
+	"github.com/dgraph-io/dgo/v2/protos/api"
+
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
-	"github.com/dgraph-io/dgo/v2"
-	"github.com/dgraph-io/dgo/v2/protos/api"
 )
 
 // DGraphLink implementation of db interface
@@ -133,7 +134,7 @@ query all {
 }
 
 // List ...
-func (dg *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error) {
+func (dg *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, error) {
 	txn := dg.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
@@ -147,9 +148,11 @@ func (dg *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error
 		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
-	var links []*link.Link
+	links := &link.Links{
+		Link: []*link.Link{},
+	}
 	for _, response := range responses.Link {
-		links = append(links, &link.Link{
+		links.Link = append(links.Link, &link.Link{
 			Url:      response.Url,
 			Hash:     response.Hash,
 			Describe: response.Describe,

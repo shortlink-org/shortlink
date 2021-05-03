@@ -60,7 +60,7 @@ func (s *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (s *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error) {
+func (s *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, error) {
 	stmt, values := qb.Select("shortlink.links").
 		Columns(s.linksTable.Metadata().Columns...).
 		ToCql()
@@ -70,17 +70,19 @@ func (s *Store) List(ctx context.Context, _ *query.Filter) ([]*link.Link, error)
 	}
 
 	// Here's an array in which you can db the decoded documents
-	var response []*link.Link
+	links := &link.Links{
+		Link: []*link.Link{},
+	}
 
 	for index := range iter {
-		response = append(response, &link.Link{
+		links.Link = append(links.Link, &link.Link{
 			Url:      iter[index]["url"].(string),
 			Hash:     iter[index]["hash"].(string),
 			Describe: iter[index]["ddd"].(string),
 		})
 	}
 
-	return response, nil
+	return links, nil
 }
 
 // Add ...

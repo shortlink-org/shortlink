@@ -5,11 +5,12 @@ import (
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
+
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
 )
 
 // Init ...
@@ -45,7 +46,7 @@ func (m *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (m *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (m *Store) List(ctx context.Context, filter *query.Filter) (*link.Links, error) { // nolint unused
 	// query builder
 	links := squirrel.Select("url, hash, description").
 		From("links")
@@ -63,7 +64,9 @@ func (m *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 	}
 	defer rows.Close() // nolint errcheck
 
-	var response []*link.Link
+	response := &link.Links{
+		Link: []*link.Link{},
+	}
 
 	for rows.Next() {
 		var result link.Link
@@ -72,7 +75,7 @@ func (m *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
-		response = append(response, &result)
+		response.Link = append(response.Link, &result)
 	}
 
 	return response, nil

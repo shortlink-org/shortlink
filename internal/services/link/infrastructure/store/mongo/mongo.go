@@ -43,7 +43,7 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 				return errBatchWrite
 			}
 
-			for key, item := range dataList {
+			for key, item := range dataList.Link {
 				args[key].CB <- item
 			}
 
@@ -113,7 +113,7 @@ func (m *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (m *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (m *Store) List(ctx context.Context, filter *query.Filter) (*link.Links, error) { // nolint unused
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
@@ -136,7 +136,9 @@ func (m *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 	}
 
 	// Here's an array in which you can db the decoded documents
-	var response []*link.Link
+	links := &link.Links{
+		Link: []*link.Link{},
+	}
 
 	// Finding multiple documents returns a cursor
 	// Iterating through the cursor allows us to decode documents one at a time
@@ -147,7 +149,7 @@ func (m *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
-		response = append(response, &elem)
+		links.Link = append(links.Link, &elem)
 	}
 
 	// Close the cursor once finished
@@ -156,7 +158,7 @@ func (m *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 		return nil, err
 	}
 
-	return response, nil
+	return links, nil
 }
 
 // Update ...
@@ -210,7 +212,7 @@ func (m *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link,
 	return source, nil
 }
 
-func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.Link, error) { // nolint unused
+func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) (*link.Links, error) { // nolint unused
 	docs := make([]interface{}, len(sources))
 
 	// Create a new link
@@ -233,7 +235,15 @@ func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) ([]*link.L
 		return nil, err
 	}
 
-	return sources, nil
+	links := &link.Links{
+		Link: []*link.Link{},
+	}
+
+	for item := range sources {
+		links.Link = append(links.Link, sources[item])
+	}
+
+	return links, nil
 }
 
 // setConfig - set configuration

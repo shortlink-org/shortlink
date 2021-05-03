@@ -65,8 +65,10 @@ func (l *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (l *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
-	links := []*link.Link{}
+func (l *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
+	links := &link.Links{
+		Link: []*link.Link{},
+	}
 	iterator := l.client.NewIterator(nil, nil)
 
 	for iterator.Next() {
@@ -81,7 +83,7 @@ func (l *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
 			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
-		links = append(links, &response)
+		links.Link = append(links.Link, &response)
 	}
 
 	iterator.Release()

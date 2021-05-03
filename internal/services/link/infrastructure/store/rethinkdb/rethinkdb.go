@@ -49,7 +49,7 @@ func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {
 }
 
 // TODO: How get all keys?
-func (r *Store) List(_ context.Context, _ *query.Filter) ([]*link.Link, error) {
+func (r *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
 	return nil, nil
 }
 

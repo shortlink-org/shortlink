@@ -5,10 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/go-redis/redis/v8"
+
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
-	"github.com/go-redis/redis/v8"
 )
 
 // Store implementation of db interface
@@ -39,9 +40,11 @@ func (r *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 }
 
 // List ...
-func (r *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, error) { // nolint unused
+func (r *Store) List(ctx context.Context, filter *query.Filter) (*link.Links, error) { // nolint unused
 	keys := r.client.Keys(ctx, "*")
-	links := []*link.Link{}
+	links := &link.Links{
+		Link: []*link.Link{},
+	}
 
 	for _, key := range keys.Val() {
 		var response link.Link
@@ -54,7 +57,7 @@ func (r *Store) List(ctx context.Context, filter *query.Filter) ([]*link.Link, e
 			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
-		links = append(links, &response)
+		links.Link = append(links.Link, &response)
 	}
 
 	return links, nil
