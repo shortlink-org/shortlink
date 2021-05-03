@@ -23,9 +23,9 @@
         HELM_ARG: --set serviceAccount.create=false --set deploy.env.MQ_ENABLED=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
-      - RELEASE_NAME: ${CI_PROJECT_NAME}-bot
-        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-bot
-        REGISTRY: ${CI_REGISTRY_IMAGE}/bot
+      - RELEASE_NAME: ${CI_PROJECT_NAME}-notify
+        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-notify
+        REGISTRY: ${CI_REGISTRY_IMAGE}/notify
         HELM_ARG: --set serviceAccount.create=false --set deploy.env.MQ_ENABLED=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
