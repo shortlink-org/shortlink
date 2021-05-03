@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="bot" type="GoApplicationRunConfiguration" factoryName="Go Application">
+  <configuration default="false" name="notify" type="GoApplicationRunConfiguration" factoryName="Go Application">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
     <EXTENSION ID="net.ashald.envfile">
@@ -13,9 +13,9 @@
       </ENTRIES>
     </EXTENSION>
     <kind value="PACKAGE" />
-    <package value="github.com/batazor/shortlink/cmd/bot" />
+    <package value="github.com/batazor/shortlink/cmd/notify" />
     <directory value="$PROJECT_DIR$/" />
-    <filePath value="$PROJECT_DIR$/cmd/bot/bot.go" />
+    <filePath value="$PROJECT_DIR$/cmd/notify/bot.go" />
     <method v="2" />
   </configuration>
 </component>

@@ -9,7 +9,7 @@
         DOCKERFILE_PATH: ops/dockerfile/auth.Dockerfile
       - APPLICATION: bot
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot
-        DOCKERFILE_PATH: ops/dockerfile/bot.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/notify.Dockerfile
       - APPLICATION: csi
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/csi
         DOCKERFILE_PATH: ops/dockerfile/csi.Dockerfile
