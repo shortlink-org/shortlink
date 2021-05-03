@@ -19,3 +19,6 @@
       - APPLICATION: metadata
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/metadata
         DOCKERFILE_PATH: ops/dockerfile/metadata.Dockerfile
+      - APPLICATION: link
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/link
+        DOCKERFILE_PATH: ops/dockerfile/link.Dockerfile
