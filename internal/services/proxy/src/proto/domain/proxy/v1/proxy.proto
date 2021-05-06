@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package domain.proxy.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Stats {
+  uint64 count_redirect = 1;
+
+  // Update at
+  google.protobuf.Timestamp updated_at = 2;
+}
