@@ -1,0 +1,16 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+    default  = true
+}
+
+generator photon {
+    provider = "photonjs"
+}
+
+model Stats {
+  hash String @id @unique
+  count_redirect Number @default(0)
+  createdAt DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
