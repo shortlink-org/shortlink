@@ -19,19 +19,20 @@ Shortlink service
 
 ##### Services
 
-| Service     | Description                          | Language/Framework | Docs                                     |
-|-------------|--------------------------------------|--------------------|------------------------------------------|
-| landing     | Welcome page                         | JS/JQuery          |                                          |
-| next        | UI service                           | JS/ReactJS         |                                          |
-| api         | GateWay                              | Go                 | [docs](./docs/services/api.md)           |
-| link        | Link service                         | Go                 | [docs](./docs/services/link.md)          |
-| logger      | Logger service                       | Go                 |                                          |
-| metadata    | Parser site by API                   | Go                 |                                          |
-| bot         | Send notify to smtp, slack, telegram | Go                 |                                          |
-| shortctl    | Shortlink CLI                        | Go                 | [docs](./docs/shortctl.md)               |
-| csi         | CSI example                          | Go                 |                                          |
-| ory/kratos  | User management service              | Go                 | [docs](https://www.ory.sh/kratos/docs/)  |
-| ory/hydra   | OAuth 2.0 Provider                   | Go                 | [docs](https://www.ory.sh/keto/docs/)    |
+| Service     | Description                                 | Language/Framework | Docs                                     |
+|-------------|---------------------------------------------|--------------------|------------------------------------------|
+| landing     | Welcome page                                | JS/JQuery          |                                          |
+| next        | UI service                                  | JS/NextJS          |                                          |
+| api         | GateWay                                     | Go                 | [docs](./docs/services/api.md)           |
+| link        | Link service                                | Go                 | [docs](./docs/services/link.md)          |
+| proxy       |  Proxy service for redirect to original URL | TypeScript         |                                          |
+| logger      | Logger service                              | Go                 |                                          |
+| metadata    | Parser site by API                          | Go                 |                                          |
+| bot         | Send notify to smtp, slack, telegram        | Go                 |                                          |
+| shortctl    | Shortlink CLI                               | Go                 | [docs](./docs/shortctl.md)               |
+| csi         | CSI example                                 | Go                 |                                          |
+| ory/kratos  | User management service                     | Go                 | [docs](https://www.ory.sh/kratos/docs/)  |
+| ory/hydra   | OAuth 2.0 Provider                          | Go                 | [docs](https://www.ory.sh/keto/docs/)    |
 
 ### Run
 
