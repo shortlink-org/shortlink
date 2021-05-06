@@ -1,6 +1,5 @@
 import 'dotenv/config';
-import * as grpc from 'grpc'
-import GrpcMiddleware, { GrpcCall } from 'grpc-ts-middleware'
+import * as grpc from '@grpc/grpc-js'
 
 import proxyHandler from './handlers/proxy'
 
@@ -20,10 +19,10 @@ export const startServer: StartServerType = (): void => {
       return console.error(err)
     }
     console.info(`gRPC listening on ${port}`)
-  })
 
-  // start the gRPC server
-  server.start()
+    // start the gRPC server
+    server.start()
+  })
 }
 
 startServer()

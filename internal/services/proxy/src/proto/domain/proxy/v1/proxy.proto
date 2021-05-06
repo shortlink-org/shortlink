@@ -5,8 +5,9 @@ package domain.proxy.v1;
 import "google/protobuf/timestamp.proto";
 
 message Stats {
-  uint64 count_redirect = 1;
+  string hash = 1;
+  uint64 count_redirect = 2;
 
   // Update at
-  google.protobuf.Timestamp updated_at = 2;
+  google.protobuf.Timestamp updated_at = 3;
 }

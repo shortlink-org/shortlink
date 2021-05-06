@@ -4,6 +4,8 @@ Service for work with link-domain (CRUD)
 
 ### Store provider
 
+![URI FORMAT](URI_FORMAT.png)
+
 > support - enabled batch mode; filter, etc...  
 > scale - scalability/single mode
 
