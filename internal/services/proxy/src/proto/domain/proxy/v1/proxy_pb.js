@@ -71,7 +71,8 @@ proto.domain.proxy.v1.Stats.prototype.toObject = function(opt_includeInstance) {
  */
 proto.domain.proxy.v1.Stats.toObject = function(includeInstance, msg) {
   var f, obj = {
-    countRedirect: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    hash: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    countRedirect: jspb.Message.getFieldWithDefault(msg, 2, 0),
     updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
@@ -110,10 +111,14 @@ proto.domain.proxy.v1.Stats.deserializeBinaryFromReader = function(msg, reader) 
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setHash(value);
+      break;
+    case 2:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setCountRedirect(value);
       break;
-    case 2:
+    case 3:
       var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setUpdatedAt(value);
@@ -147,17 +152,24 @@ proto.domain.proxy.v1.Stats.prototype.serializeBinary = function() {
  */
 proto.domain.proxy.v1.Stats.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getHash();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
   f = message.getCountRedirect();
   if (f !== 0) {
     writer.writeUint64(
-      1,
+      2,
       f
     );
   }
   f = message.getUpdatedAt();
   if (f != null) {
     writer.writeMessage(
-      2,
+      3,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
@@ -166,11 +178,29 @@ proto.domain.proxy.v1.Stats.serializeBinaryToWriter = function(message, writer) 
 
 
 /**
- * optional uint64 count_redirect = 1;
+ * optional string hash = 1;
+ * @return {string}
+ */
+proto.domain.proxy.v1.Stats.prototype.getHash = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.domain.proxy.v1.Stats} returns this
+ */
+proto.domain.proxy.v1.Stats.prototype.setHash = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional uint64 count_redirect = 2;
  * @return {number}
  */
 proto.domain.proxy.v1.Stats.prototype.getCountRedirect = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
@@ -179,17 +209,17 @@ proto.domain.proxy.v1.Stats.prototype.getCountRedirect = function() {
  * @return {!proto.domain.proxy.v1.Stats} returns this
  */
 proto.domain.proxy.v1.Stats.prototype.setCountRedirect = function(value) {
-  return jspb.Message.setProto3IntField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 2, value);
 };
 
 
 /**
- * optional google.protobuf.Timestamp updated_at = 2;
+ * optional google.protobuf.Timestamp updated_at = 3;
  * @return {?proto.google.protobuf.Timestamp}
  */
 proto.domain.proxy.v1.Stats.prototype.getUpdatedAt = function() {
   return /** @type{?proto.google.protobuf.Timestamp} */ (
-    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 2));
+    jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 3));
 };
 
 
@@ -198,7 +228,7 @@ proto.domain.proxy.v1.Stats.prototype.getUpdatedAt = function() {
  * @return {!proto.domain.proxy.v1.Stats} returns this
 */
 proto.domain.proxy.v1.Stats.prototype.setUpdatedAt = function(value) {
-  return jspb.Message.setWrapperField(this, 2, value);
+  return jspb.Message.setWrapperField(this, 3, value);
 };
 
 
@@ -216,7 +246,7 @@ proto.domain.proxy.v1.Stats.prototype.clearUpdatedAt = function() {
  * @return {boolean}
  */
 proto.domain.proxy.v1.Stats.prototype.hasUpdatedAt = function() {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 3) != null;
 };
 
 

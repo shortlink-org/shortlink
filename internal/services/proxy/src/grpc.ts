@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import * as grpc from '@grpc/grpc-js'
 
-import proxyHandler from './handlers/proxy'
+import statsServer from './proxy/infrastructure/rpc/stats'
 
 const GRPC_PORT: string | number = process.env.GRPC_PORT || 50051
 
@@ -11,7 +11,7 @@ export const startServer: StartServerType = (): void => {
   const server: grpc.Server = new grpc.Server();
 
   // register all the handler here...
-  server.addService(proxyHandler.service, proxyHandler.handler)
+  server.addService(statsServer.service, statsServer.handler)
 
   // define the host/port for server
   server.bindAsync(`0.0.0.0:${GRPC_PORT}`, grpc.ServerCredentials.createInsecure(), (err: Error | null, port: number) => {

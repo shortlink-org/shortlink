@@ -28,9 +28,9 @@ function deserialize_infrastructure_rpc_v1_StatsResponse(buffer_arg) {
 }
 
 
-var ProxyService = exports.ProxyService = {
+var StatsService = exports.StatsService = {
   stats: {
-    path: '/infrastructure.rpc.v1.Proxy/Stats',
+    path: '/infrastructure.rpc.v1.Stats/Stats',
     requestStream: false,
     responseStream: false,
     requestType: src_proto_infrastructure_rpc_v1_proxy_pb.StatsRequest,
@@ -42,4 +42,4 @@ var ProxyService = exports.ProxyService = {
   },
 };
 
-exports.ProxyClient = grpc.makeGenericClientConstructor(ProxyService);
+exports.StatsClient = grpc.makeGenericClientConstructor(StatsService);

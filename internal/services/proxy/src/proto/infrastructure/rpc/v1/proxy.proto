@@ -4,7 +4,7 @@ package infrastructure.rpc.v1;
 
 import "src/proto/domain/proxy/v1/proxy.proto";
 
-service Proxy {
+service Stats {
   rpc Stats(StatsRequest) returns (StatsResponse) {}
 }
 

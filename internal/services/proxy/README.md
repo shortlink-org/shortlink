@@ -8,3 +8,9 @@ Proxy service for redirect to original URL
 npm install grpc-tools --global
 npm install grpc_tools_node_protoc_ts --global
 ```
+
+##### Migration
+
+```
+npx prisma migrate dev
+```
