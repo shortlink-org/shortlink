@@ -1,18 +1,17 @@
 import * as grpc from '@grpc/grpc-js'
 import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 
-import {Stats} from "../proto/domain/proxy/v1/proxy_pb";
-import { StatsRequest, StatsResponse } from '../proto/infrastructure/rpc/v1/proxy_pb'
-import { ProxyService, IProxyServer } from '../proto/infrastructure/rpc/v1/proxy_grpc_pb'
+import {Stats} from "../../../proto/domain/proxy/v1/proxy_pb";
+import { StatsRequest, StatsResponse } from '../../../proto/infrastructure/rpc/v1/proxy_pb'
+import { StatsService, IStatsServer } from '../../../proto/infrastructure/rpc/v1/proxy_grpc_pb'
 
-class ProxyHandler implements IProxyServer {
+class StatsServer implements IStatsServer {
   [name: string]: grpc.UntypedHandleCall;
   /**
    * Return stats by use URL
    * @param url
    */
   stats = (url: grpc.ServerUnaryCall<StatsRequest, StatsResponse>): StatsResponse => {
-    console.log(123)
     const resp: StatsResponse = new StatsResponse()
 
     console.info(`hash: ${url.request.getHash()}`)
@@ -30,6 +29,6 @@ class ProxyHandler implements IProxyServer {
 }
 
 export default {
-  service: ProxyService,       // Service interface
-  handler: new ProxyHandler(), // Service interface definitions
+  service: StatsService,       // Service interface
+  handler: new StatsServer(), // Service interface definitions
 }

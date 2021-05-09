@@ -8,6 +8,8 @@ import * as jspb from "google-protobuf";
 import * as google_protobuf_timestamp_pb from "google-protobuf/google/protobuf/timestamp_pb";
 
 export class Stats extends jspb.Message { 
+    getHash(): string;
+    setHash(value: string): Stats;
     getCountRedirect(): number;
     setCountRedirect(value: number): Stats;
 
@@ -28,6 +30,7 @@ export class Stats extends jspb.Message {
 
 export namespace Stats {
     export type AsObject = {
+        hash: string,
         countRedirect: number,
         updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     }
