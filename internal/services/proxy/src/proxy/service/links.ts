@@ -12,7 +12,7 @@ export class LinkService {
   public async get(hash: string): Promise<string> {
     // TODO: use ENV
     // TODO: use gRPC
-    const resp = await fetch('localhost:7070')
+    const resp = await fetch(`http://localhost:7070/api/link/${hash}`)
     const link: Link = await resp.json()
 
     return link.url
