@@ -4,58 +4,79 @@ import { Stats } from "../../../proto/domain/proxy/v1/proxy_pb";
 import {Timestamp} from "google-protobuf/google/protobuf/timestamp_pb";
 
 import TYPES from '../../../types'
+import {Link} from "../../../proto/domain/link/v1/link_pb";
 
 const prisma = new PrismaClient()
 
 @injectable()
-class StatsRepositoryImpl {
-  // private statsRepository: StatsRepositoryImpl;
-  // constructor(@inject(TYPES.StatsRepositoryImpl) statsRepository: StatsRepositoryImpl) {
-  //   this.statsRepository = statsRepository;
-  // }
+class StatsRepository {
 
   /**
    * Return stats by use URL
-   * @param url
+   * @param hash
    */
-  get = (url: string): Stats => {
-    // const resp = await prisma.stats.findFirst()
-    //
-    let resp = new Stats()
-    // stats.setCountRedirect(0)
-    //
-    // const timestamp = new Timestamp();
-    // timestamp.fromDate(new Date());
-    // stats.setUpdatedAt(timestamp)
+  get = async (hash: string): Promise<Stats> => {
+    let resp = await prisma.stats.findUnique({
+      where: {
+        hash: hash,
+      },
+    })
 
-    // TODO:
-    // 1. return stats by hash
+    let stats = new Stats()
 
-    return resp
+    if (resp !== null) {
+      stats.setHash(resp.hash)
+      stats.setCountRedirect(resp.count_redirect)
+
+      const timestamp = new Timestamp();
+      timestamp.fromDate(resp.updated_at);
+      stats.setUpdatedAt(timestamp)
+
+      stats.setUpdatedAt(timestamp)
+    }
+
+    return stats
   }
 
-  list = (): Array<Stats> => {
+  list = async (): Promise<Array<Stats>> => {
     let list: Array<Stats> = []
-    // TODO:
-    // 1. return Array<Stats>
+    const resp = await prisma.stats.findMany()
     return list
   }
 
-  create = (payload: Stats): boolean => {
-    // TODO:
-    // 1. create Stats
-    return true
+  create = async (payload: Link): Promise<Stats> => {
+    let resp = await prisma.stats.create({
+      data: {
+        hash: payload.getHash(),
+      },
+    })
+
+    let stats = new Stats()
+    stats.setHash(resp.hash)
+
+    return stats
   }
 
-  update = (payload: Stats): boolean => {
-    // TODO:
-    // 1. update Stats
-    return true
+  update = async (payload: Stats): Promise<Stats> => {
+    await prisma.stats.update({
+      where: {
+        hash: payload.getHash(),
+      },
+      data: payload,
+    })
+
+    return payload
   }
 
-  delete = (hash: String): boolean => {
-    // TODO:
-    // 1. delete Stats
+  delete = async (hash: string): Promise<boolean> => {
+    const resp = await prisma.stats.delete({
+      where: {
+        hash: hash,
+      },
+    })
+
     return true
   }
 }
+
+export default StatsRepository

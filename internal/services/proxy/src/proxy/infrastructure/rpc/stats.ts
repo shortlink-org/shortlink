@@ -4,7 +4,9 @@ import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 import {Stats} from "../../../proto/domain/proxy/v1/proxy_pb";
 import { StatsRequest, StatsResponse } from '../../../proto/infrastructure/rpc/v1/proxy_pb'
 import { StatsService, IStatsServer } from '../../../proto/infrastructure/rpc/v1/proxy_grpc_pb'
+import {injectable} from "inversify";
 
+@injectable()
 class StatsServer implements IStatsServer {
   [name: string]: grpc.UntypedHandleCall;
   /**
