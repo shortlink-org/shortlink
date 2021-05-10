@@ -4,11 +4,12 @@ const SERVICE = {
 }
 
 const REPOSITORY = {
-  StatsRepositoryImpl: Symbol('StatsRepositoryImpl'),
+  StatsRepository: Symbol.for('StatsRepository'),
 }
 
 const TAGS = {
-  StatsController: Symbol('StatsController'),
+  StatsController: Symbol.for('StatsController'),
+  AMQPController: Symbol.for('AMQPController'),
 }
 
 export default { SERVICE, REPOSITORY, TAGS }

@@ -11,7 +11,7 @@ import './proxy/infrastructure/http/proxy'
 
 const APP = express.default()
 const PORT = process.env.PORT || 3000
-const log: Logger = new Logger({ type: "json" })
+const log: Logger = new Logger()
 
 // configuration application
 APP.use(bodyParser.urlencoded({

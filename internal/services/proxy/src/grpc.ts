@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import 'dotenv/config'
 import * as grpc from '@grpc/grpc-js'
 
 import statsServer from './proxy/infrastructure/rpc/stats'

@@ -5,12 +5,16 @@ import { Logger } from "tslog"
 
 import { LinkService } from '../../service/links'
 import TYPES from '../../../types'
+import {StatsService} from "../../service/stats";
 
-const log: Logger = new Logger({ type: "json" })
+const log: Logger = new Logger()
 
 @controller(`/s/:hash`)
 class ProxyController implements interfaces.Controller {
-  constructor( @inject(TYPES.SERVICE.LinkService) private linkService: LinkService) { }
+  constructor(
+    @inject(TYPES.SERVICE.LinkService) private linkService: LinkService,
+    @inject(TYPES.SERVICE.StatsService) private statsService: StatsService,
+  ) { }
 
   @httpGet(`/`)
   public async redirect (@request() req: express.Request, @response() res: express.Response) {
