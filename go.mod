@@ -87,7 +87,7 @@ require (
 	gopkg.in/ini.v1 v1.57.0 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	honnef.co/go/tools v0.0.1-2020.1.6 // indirect
-	k8s.io/kubernetes v1.21.0
+	k8s.io/kubernetes v1.21.1
 	k8s.io/mount-utils v0.21.0
 	k8s.io/utils v0.0.0-20210305010621-2afb4311ab10
 )
