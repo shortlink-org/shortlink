@@ -45,14 +45,14 @@ class StatsRepository {
   }
 
   create = async (payload: Link): Promise<Stats> => {
-    let resp = await prisma.stats.create({
-      data: {
-        hash: payload.getHash(),
-      },
-    })
+    // let resp = await prisma.stats.create({
+    //   data: {
+    //     hash: payload.getHash(),
+    //   },
+    // })
 
     let stats = new Stats()
-    stats.setHash(resp.hash)
+    // stats.setHash(resp.hash)
 
     return stats
   }
