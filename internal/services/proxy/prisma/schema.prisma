@@ -1,0 +1,16 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("STORE_POSTGRES_URI")
+    default  = true
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Stats {
+  hash String @unique
+  count_redirect Int @default(0)
+  createdAt DateTime @default(now())
+  updated_at DateTime @updatedAt
+}

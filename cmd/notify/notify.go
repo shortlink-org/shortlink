@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	viper.SetDefault("SERVICE_NAME", "bot")
+	viper.SetDefault("SERVICE_NAME", "notify")
 
 	// Init a new service
 	s, cleanup, err := di.InitializeNotifyService()

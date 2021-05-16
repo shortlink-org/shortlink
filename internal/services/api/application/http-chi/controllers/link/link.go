@@ -23,9 +23,9 @@ var (
 func Routes() chi.Router {
 	r := chi.NewRouter()
 
-	r.Post("/link", Add)
-	r.Get("/links", List)
 	r.Get("/link/{hash}", Get)
+	r.Get("/links", List)
+	r.Post("/link", Add)
 	r.Delete("/link/{hash}", Delete)
 
 	return r
