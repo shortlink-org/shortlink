@@ -20,3 +20,4 @@ services:
     volumes:
       - /data/registry:/data:Z
       - ./ops/cert/gitlab:/certs:Z
+      - ./ops/docker-compose/tooling/registry/cron:/etc/crontabs/root:Z
