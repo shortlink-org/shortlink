@@ -8,7 +8,7 @@
       - PROVIDER: google
         ENVIRONMENT_URL: http://35.184.88.126
 
-.matrix_deploy_application_go:
+.matrix_deploy_application:
   parallel:
     matrix:
       - RELEASE_NAME: ${CI_PROJECT_NAME}-api
@@ -39,6 +39,18 @@
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-link
         REGISTRY: ${CI_REGISTRY_IMAGE}/link
         HELM_ARG: --set serviceAccount.create=false --set deploy.env.STORE_TYPE=postgres --set deploy.env.MQ_ENABLED=true
+        HELM_NAMESPACE: ${CI_PROJECT_NAME}
+
+      - RELEASE_NAME: ${CI_PROJECT_NAME}-proxy
+        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-proxy
+        REGISTRY: ${CI_REGISTRY_IMAGE}/proxy
+        HELM_ARG: --set serviceAccount.create=false
+        HELM_NAMESPACE: ${CI_PROJECT_NAME}
+
+      - RELEASE_NAME: ${CI_PROJECT_NAME}-bot
+        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-bot
+        REGISTRY: ${CI_REGISTRY_IMAGE}/bot
+        HELM_ARG: --set serviceAccount.create=false
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
 .matrix_deploy_application_js:

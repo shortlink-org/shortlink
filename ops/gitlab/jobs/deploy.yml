@@ -2,9 +2,9 @@ include:
   - local: /ops/gitlab/workflows/matrix_deploy.yml
 
 # STAGING RELEASE ======================================================================================================
-applications_go:
+applications:
   extends:
-    - .matrix_deploy_application_go
+    - .matrix_deploy_application
   stage: deploy
   trigger:
     include:
@@ -17,7 +17,7 @@ applications_go:
     - if: $CI_COMMIT_TAG
       when: on_success
 
-applications_js:
+ui:
   extends:
     - .matrix_deploy_application_js
   stage: deploy
