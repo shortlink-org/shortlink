@@ -27,7 +27,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | database.postgres.enable | bool | `true` |  |
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
-| deploy.env.GRPC_CLIENT_HOST | string | `"shortlink-metadata"` |  |
+| deploy.env.GRPC_CLIENT_HOST | string | `"shortlink-link"` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |

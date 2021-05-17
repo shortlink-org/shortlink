@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 15.2.0 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 15.4.6 |
 
 ## Values
 
@@ -28,6 +28,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | kube-prometheus-stack.alertmanager.ingress.enabled | bool | `true` |  |
 | kube-prometheus-stack.alertmanager.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
 | kube-prometheus-stack.alertmanager.ingress.ingressClassName | string | `"nginx"` |  |
+| kube-prometheus-stack.alertmanager.ingress.pathType | string | `"Prefix"` |  |
 | kube-prometheus-stack.alertmanager.ingress.paths[0] | string | `"/alertmanager"` |  |
 | kube-prometheus-stack.alertmanager.ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
 | kube-prometheus-stack.alertmanager.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
@@ -41,6 +42,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | kube-prometheus-stack.prometheus.ingress.enabled | bool | `true` |  |
 | kube-prometheus-stack.prometheus.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
 | kube-prometheus-stack.prometheus.ingress.ingressClassName | string | `"nginx"` |  |
+| kube-prometheus-stack.prometheus.ingress.pathType | string | `"Prefix"` |  |
 | kube-prometheus-stack.prometheus.ingress.paths[0] | string | `"/prometheus"` |  |
 | kube-prometheus-stack.prometheus.ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
 | kube-prometheus-stack.prometheus.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
