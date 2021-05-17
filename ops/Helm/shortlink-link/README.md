@@ -1,8 +1,8 @@
-# shortlink-logger
+# shortlink-link
 
 ![Version: 0.5.5](https://img.shields.io/badge/Version-0.5.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-Shortlink logger service
+Shortlink link service
 
 **Homepage:** <https://batazor.github.io/shortlink/>
 
@@ -26,12 +26,14 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 |-----|------|---------|-------------|
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
+| deploy.env.GRPC_CLIENT_HOST | string | `"shortlink-metadata"` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
+| deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable"` |  |
 | deploy.env.TRACER_URI | string | `"jaeger-agent.jaeger-operator:6831"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
-| deploy.image.repository | string | `"batazor/shortlink-logger"` |  |
+| deploy.image.repository | string | `"batazor/shortlink-link"` |  |
 | deploy.image.tag | string | `"latest"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe.failureThreshold | int | `1` |  |
