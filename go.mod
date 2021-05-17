@@ -21,7 +21,7 @@ require (
 	github.com/go-chi/cors v1.2.0
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.10.0
-	github.com/go-redis/redis/v8 v8.8.2
+	github.com/go-redis/redis/v8 v8.8.3
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
 	github.com/gocql/gocql v0.0.0-20210515062232-b7ef815b4556
@@ -41,7 +41,7 @@ require (
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/johejo/golang-migrate-extra v0.0.0-20210217013041-51a992e50d16
 	github.com/kubernetes-csi/csi-test/v4 v4.2.0
-	github.com/lib/pq v1.10.1
+	github.com/lib/pq v1.10.2
 	github.com/luna-duclos/instrumentedsql v1.1.3
 	github.com/luna-duclos/instrumentedsql/opentracing v0.0.0-20201103091713-40d03108b6f4
 	github.com/markbates/pkger v0.17.1
@@ -78,7 +78,7 @@ require (
 	golang.org/x/net v0.0.0-20210510120150-4163338589ed
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/api v0.46.0
-	google.golang.org/genproto v0.0.0-20210513213006-bf773b8c8384
+	google.golang.org/genproto v0.0.0-20210517163617-5e0236093d7a
 	google.golang.org/grpc v1.37.1
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.26.0
