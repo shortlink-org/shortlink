@@ -31,10 +31,11 @@ Shortlink service
 | next        | UI service                                  | JS/NextJS          |                                          |
 | api         | GateWay                                     | Go                 | [docs](./docs/services/api.md)           |
 | link        | Link service                                | Go                 | [docs](./docs/services/link.md)          |
-| proxy       |  Proxy service for redirect to original URL | TypeScript         |                                          |
+| proxy       | Proxy service for redirect to original URL  | TypeScript         |                                          |
+| bot         | Telegram bot                                | JAVA               |                                          |
 | logger      | Logger service                              | Go                 |                                          |
 | metadata    | Parser site by API                          | Go                 |                                          |
-| bot         | Send notify to smtp, slack, telegram        | Go                 |                                          |
+| notify      | Send notify to smtp, slack, telegram        | Go                 |                                          |
 | shortctl    | Shortlink CLI                               | Go                 | [docs](./docs/shortctl.md)               |
 | csi         | CSI example                                 | Go                 |                                          |
 | ory/kratos  | User management service                     | Go                 | [docs](https://www.ory.sh/kratos/docs/)  |
