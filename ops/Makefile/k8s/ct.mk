@@ -1,5 +1,5 @@
 # CT TASKS =============================================================================================================
-export KIND=v0.10.0
+export KIND=v0.11.0
 
 ct-lint: ### Check Helm chart by ct lint
 	@docker run -it \
