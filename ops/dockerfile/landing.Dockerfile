@@ -1,6 +1,9 @@
 FROM node:16.1-alpine as builder
 
-RUN apk add --no-cache alpine-sdk python libsass
+ENV PYTHONUNBUFFERED=1
+
+RUN apk add --no-cache alpine-sdk python3 libsass \
+  && ln -sf python3 /usr/bin/python
 
 WORKDIR /app
 COPY ./ui/landing /app/

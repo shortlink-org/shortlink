@@ -13,20 +13,7 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 	@helm upgrade api ${SHORTLINK_HELM_API} \
 		--install \
 		--namespace=${SHORTLINK_NAMESPACE} \
-		--wait
-
-	@helm upgrade ui ${SHORTLINK_HELM_UI} \
-		--install \
-		--namespace=${SHORTLINK_NAMESPACE} \
-		--wait \
-		--set serviceAccount.create=false
-
-	# Add IP in /etc/hosts
-	@echo "$(minikube ip) ui-next.local" | sudo tee -a /etc/hosts
-
-	@helm upgrade ingress ${SHORTLINK_HELM_INGRESS} \
-		--install \
-		--namespace=${SHORTLINK_NAMESPACE} \
+		--create-namespace=true \
 		--wait
 
 helm-shortlink-down: ## Clean artifact from K8S
