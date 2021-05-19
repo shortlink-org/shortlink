@@ -78,7 +78,7 @@ require (
 	golang.org/x/net v0.0.0-20210510120150-4163338589ed
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/api v0.46.0
-	google.golang.org/genproto v0.0.0-20210517163617-5e0236093d7a
+	google.golang.org/genproto v0.0.0-20210518161634-ec7691c0a37d
 	google.golang.org/grpc v1.37.1
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.26.0
@@ -87,7 +87,7 @@ require (
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	honnef.co/go/tools v0.0.1-2020.1.6 // indirect
 	k8s.io/kubernetes v1.21.1
-	k8s.io/mount-utils v0.21.0
+	k8s.io/mount-utils v0.21.1
 	k8s.io/utils v0.0.0-20210517184530-5a248b5acedc
 )
 
