@@ -3,6 +3,7 @@
 # including docker.mk
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
+DOCKER_BUILDKIT := 1
 
 docker: docker-login docker-build docker-push ## docker login > build > push
 
@@ -11,16 +12,9 @@ docker-login: ## Docker login
 	@echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
 
 docker-build: ## Build the container
-	@echo docker build image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
-	@docker build -t ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG} -f ops/dockerfile/api.Dockerfile .
-
-	@echo docker build image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
-	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG} -f ops/dockerfile/logger.Dockerfile .
-
-	@echo docker build image ${CI_REGISTRY_IMAGE}-ui-next:${CI_COMMIT_TAG}
+	@docker build -t ${CI_REGISTRY_IMAGE}-api:${CI_COMMIT_TAG}     -f ops/dockerfile/api.Dockerfile .
+	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}  -f ops/dockerfile/logger.Dockerfile .
 	@docker build -t ${CI_REGISTRY_IMAGE}-ui-next:${CI_COMMIT_TAG} -f ops/dockerfile/ui-next.Dockerfile .
-
-	@echo docker build image ${CI_REGISTRY_IMAGE}-landing:${CI_COMMIT_TAG}
 	@docker build -t ${CI_REGISTRY_IMAGE}-landing:${CI_COMMIT_TAG} -f ops/dockerfile/landing.Dockerfile .
 
 docker-push: ## Publish the container
