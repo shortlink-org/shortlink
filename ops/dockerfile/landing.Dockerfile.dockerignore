@@ -1,0 +1,14 @@
+.*
+cmd
+danger
+docs
+internal
+ops
+pkg
+third_party
+ui
+*.yml
+
+!ui/landing
+!ops/dockerfile/conf/landing.local
+!ops/docker-compose/gateway/nginx
