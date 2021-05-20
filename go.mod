@@ -75,7 +75,7 @@ require (
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.16.0
 	golang.org/x/mod v0.4.2 // indirect
-	golang.org/x/net v0.0.0-20210510120150-4163338589ed
+	golang.org/x/net v0.0.0-20210520170846-37e1c6afe023
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/api v0.47.0
 	google.golang.org/genproto v0.0.0-20210520160233-290a1ae68a05
