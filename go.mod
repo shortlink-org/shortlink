@@ -87,7 +87,7 @@ require (
 	honnef.co/go/tools v0.0.1-2020.1.6 // indirect
 	k8s.io/kubernetes v1.21.1
 	k8s.io/mount-utils v0.21.1
-	k8s.io/utils v0.0.0-20210517184530-5a248b5acedc
+	k8s.io/utils v0.0.0-20210521133846-da695404a2bc
 )
 
 replace (
