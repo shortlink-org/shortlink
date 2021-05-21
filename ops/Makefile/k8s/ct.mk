@@ -8,7 +8,7 @@ ct-lint: ### Check Helm chart by ct lint
 		quay.io/helmpack/chart-testing bash -c "cd /home && ct lint --all --config ct.yaml"
 
 # For local debug-run use:
-#	$> docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/home quay.io/helmpack/chart-testing /bin/sh
+#	$> docker run -it --rm --network host -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/home quay.io/helmpack/chart-testing /bin/bash
 #	$> cd /home
 #	$> kind create cluster --wait 2m --config=./ops/Helm/kind-config.yaml
 #	$> kubectl cluster-info --context kind-kind
@@ -17,7 +17,7 @@ ct-run: ### Check Helm chart by ct install
 	@docker run -it --rm --network host \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-v ${PWD}:/home \
-		quay.io/helmpack/chart-testing bash -c "\
+		quay.io/helmpack/chart-testing:v3.3.1 bash -c "\
 				cd /home && pwd && \
 				apk add -U docker && \
 				wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND}/kind-linux-amd64 && \
