@@ -9,6 +9,10 @@ ct-lint: ### Check Helm chart by ct lint
 
 # For local debug-run use:
 #	$> docker run -it -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/home quay.io/helmpack/chart-testing /bin/sh
+#	$> cd /home
+#	$> kind create cluster --wait 2m --config=./ops/Helm/kind-config.yaml
+#	$> kubectl cluster-info --context kind-kind
+#	$> ct install --config ct.yaml --charts ops/Helm/shortlink-api --debug
 ct-run: ### Check Helm chart by ct install
 	@docker run -it --rm --network host \
 		-v /var/run/docker.sock:/var/run/docker.sock \

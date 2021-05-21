@@ -1,6 +1,9 @@
 apiVersion: kind.x-k8s.io/v1alpha4
 kind: Cluster
 networking:
+  ipFamily: ipv6
+  # WARNING: It is _strongly_ recommended that you keep this the default
+  # (127.0.0.1) for security reasons. However it is possible to change this.
   apiServerAddress: "0.0.0.0"
 
 # add to the apiServer certSANs the name of the docker (dind) service in order to be able to reach the cluster through it
