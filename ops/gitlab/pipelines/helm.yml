@@ -27,7 +27,6 @@ helm-run-chart:
     - wget -O /usr/local/bin/kind https://github.com/kubernetes-sigs/kind/releases/download/${KIND}/kind-linux-amd64
     - chmod +x /usr/local/bin/kind
     - kind create cluster --wait 2m --config=./ops/Helm/kind-config.yaml
-    - kubectl cluster-info --context kind-kind
     - sed -i -E -e 's/localhost|0\.0\.0\.0/docker/g' "$HOME/.kube/config"
   script:
     - ct install --all --config ct.yaml
