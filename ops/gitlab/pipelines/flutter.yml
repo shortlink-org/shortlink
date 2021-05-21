@@ -15,7 +15,7 @@ build:
   stage: build
   image: cirrusci/flutter:2.2.0
   script:
-    - flutter build aot
+    - flutter build apk
   tags:
     - docker
     # - mobile
