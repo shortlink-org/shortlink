@@ -16,7 +16,7 @@ require (
 	github.com/dgraph-io/badger/v3 v3.2011.1
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dgryski/go-farm v0.0.0-20200201041132-a6ae2369ad13 // indirect
-	github.com/getsentry/sentry-go v0.10.0
+	github.com/getsentry/sentry-go v0.11.0
 	github.com/go-chi/chi/v5 v5.0.3
 	github.com/go-chi/cors v1.2.0
 	github.com/go-chi/render v1.0.1
@@ -87,7 +87,7 @@ require (
 	honnef.co/go/tools v0.0.1-2020.1.6 // indirect
 	k8s.io/kubernetes v1.21.1
 	k8s.io/mount-utils v0.21.1
-	k8s.io/utils v0.0.0-20210517184530-5a248b5acedc
+	k8s.io/utils v0.0.0-20210521133846-da695404a2bc
 )
 
 replace (
