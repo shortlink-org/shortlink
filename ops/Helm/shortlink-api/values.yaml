@@ -77,7 +77,7 @@ secret:
 
 # ==============================================================================
 deploy:
-  replicaCount: 3
+  replicaCount: 1
 
   env:
     MQ_ENABLED: "false"
