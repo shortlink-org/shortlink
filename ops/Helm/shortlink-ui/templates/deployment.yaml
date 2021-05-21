@@ -46,6 +46,7 @@ spec:
         - name: http
           containerPort: 80
           protocol: TCP
+        # TODO: fix
         # TODO: add livenessProbe
         # TODO: add readinessProbe
         resources:
