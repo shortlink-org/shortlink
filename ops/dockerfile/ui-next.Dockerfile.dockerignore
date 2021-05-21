@@ -10,6 +10,6 @@ third_party
 ui
 *.yml
 
-!vendor
-!pkg
-!internal
+!ui/next
+!ops/dockerfile/conf/ui-next.local
+!ops/docker-compose/gateway/nginx

@@ -46,10 +46,8 @@ spec:
         - name: http
           containerPort: 80
           protocol: TCP
-        livenessProbe:
-          {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
-        readinessProbe:
-          {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
+        # TODO: add livenessProbe
+        # TODO: add readinessProbe
         resources:
           {{- toYaml .Values.deploy.resources | nindent 10 }}
       {{- with .Values.deploy.nodeSelector }}

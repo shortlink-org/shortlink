@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "helpers.fullname" . }}:{{ .Values.service.port }}/api/links']
+      args:  ['{{ include "helpers.fullname" . }}:9090/ready']
   restartPolicy: Never
