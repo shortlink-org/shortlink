@@ -1,9 +1,6 @@
 include:
   - local: /ops/gitlab/templates/common.yml
-  - local: /ops/gitlab/pipelines/addons/k8s.yml
-  - local: /ops/gitlab/pipelines/addons/database.yml
-  - local: /ops/gitlab/pipelines/addons/monitoring.yml
-  - local: /ops/gitlab/pipelines/addons/mq.yml
+  - local: /ops/gitlab/pipelines/addons/*.yml
 
 stages:
   - deploy
