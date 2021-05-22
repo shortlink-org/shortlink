@@ -176,6 +176,9 @@ deploy:
       drop:
         - ALL
 
+NetworkPolicy:
+  enabled: false
+
 service:
   type: ClusterIP
   port: 7070

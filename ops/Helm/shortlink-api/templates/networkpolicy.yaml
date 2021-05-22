@@ -1,3 +1,4 @@
+{{- if and .Values.NetworkPolicy.enabled -}}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
@@ -25,3 +26,4 @@ spec:
             except:
               - 10.0.0.0/8  # block access to VPC CIDR
               - 192.168.0.0/16  # block access to VPC CIDR
+{{- end }}

@@ -49,13 +49,9 @@ spec:
           containerPort: 9090
           protocol: TCP
         {{- if .Values.deploy.livenessProbe }}
-        livenessProbe:
-          {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
-        {{- end }}
-        {{- if .Values.deploy.readinessProbe }}
-        readinessProbe:
-          {{- toYaml .Values.deploy.readinessProbe | nindent 12 }}
-        {{- end }}
+        # TODO: fix
+        # TODO: add livenessProbe
+        # TODO: add readinessProbe
         env:
           {{- range $key, $value := .Values.deploy.env }}
           - name: {{ $key }}
