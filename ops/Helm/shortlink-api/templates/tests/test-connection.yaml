@@ -1,3 +1,4 @@
+{{- if and false -}}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -13,3 +14,4 @@ spec:
       command: ['wget']
       args:  ['{{ include "helpers.fullname" . }}:9090/ready']
   restartPolicy: Never
+{{- end }}
