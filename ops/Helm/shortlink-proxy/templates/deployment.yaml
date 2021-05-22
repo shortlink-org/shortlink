@@ -48,7 +48,6 @@ spec:
         - name: metrics
           containerPort: 9090
           protocol: TCP
-        {{- if .Values.deploy.livenessProbe }}
         # TODO: fix
         # TODO: add livenessProbe
         # TODO: add readinessProbe
