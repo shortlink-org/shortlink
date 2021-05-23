@@ -43,17 +43,3 @@ cert-manager:
   rules:
     - when: manual
 
-istio-operator:
-  stage: deploy
-  variables:
-    RELEASE_NAME: istio-operator
-    HELM_PATH: ops/Helm/addons/istio-operator
-    HELM_NAMESPACE: istio-operator
-    # HELM_ARG: --set email=$GITLAB_USER_EMAIL
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
