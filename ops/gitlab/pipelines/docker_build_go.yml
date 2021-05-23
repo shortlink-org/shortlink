@@ -35,7 +35,8 @@ variables:
 
 container_scanning_new:
   extends:
-    - .matrix_build_nodejs
+    - .cs_common
+    - .matrix_build_go
   stage: security
   allow_failure: true
   variables:
