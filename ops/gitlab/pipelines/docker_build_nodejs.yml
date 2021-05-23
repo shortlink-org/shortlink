@@ -39,11 +39,10 @@ container_scanning_new:
     - .cs_common
     - .matrix_build_nodejs
   stage: security
-  allow_failure: true
   variables:
     DOCKER_IMAGE: $REGISTRY_IMAGE
     CS_MAJOR_VERSION: 4
-    TRIVY_DEBUG: true
+  allow_failure: true
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
