@@ -1,7 +1,7 @@
 include:
   - local: /ops/gitlab/templates/build.yml
 
-.template_build_go:
+.template_build_base:
   extends:
     - .template_build
   variables:

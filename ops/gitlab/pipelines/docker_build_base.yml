@@ -12,7 +12,7 @@ stages:
 # DEPENDENCY ===========================================================================================================
 dependencies_go:
   extends:
-    - .template_build_go
+    - .template_build_base
   stage: .pre
   variables:
     CI_COMMIT_TAG: latest # always build as latest tag of image
@@ -20,9 +20,9 @@ dependencies_go:
     DOCKERFILE_PATH: ops/dockerfile/dependencies/go.Dockerfile
 
 # BUILD ================================================================================================================
-go:
+base:
   extends:
-    - .template_build_go
+    - .template_build_base
     - .matrix_build_base
 
 # TODO: fix this job
