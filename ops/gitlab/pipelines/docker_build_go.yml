@@ -29,11 +29,17 @@ go:
 # SECURITY =============================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/container_scanning/
 
+variables:
+  TRIVY_DEBUG: true
+  CS_MAJOR_VERSION: 4
+
 container_scanning_new:
+  extends:
+    - .matrix_build_nodejs
   stage: security
   allow_failure: true
   variables:
-    TRIVY_DEBUG: true
+    DOCKER_IMAGE: $REGISTRY_IMAGE
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
