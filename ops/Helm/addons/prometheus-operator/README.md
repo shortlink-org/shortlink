@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 15.4.6 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 16.0.1 |
 
 ## Values
 
