@@ -58,6 +58,12 @@ secret:
     -----END CERTIFICATE-----
 
 # ==============================================================================
+ingress:
+  enabled: true
+  # type ingress-controller: istio
+  type: istio
+
+# ==============================================================================
 deploy:
   replicaCount: 1
 
@@ -158,3 +164,9 @@ deploy:
     capabilities:
       drop:
         - ALL
+
+service:
+  type: ClusterIP
+  port: 50051
+  # nodePort: 7070
+  # clusterIP: 172.0.0.1

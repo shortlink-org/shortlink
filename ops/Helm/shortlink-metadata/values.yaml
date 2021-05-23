@@ -58,6 +58,12 @@ secret:
     -----END CERTIFICATE-----
 
 # ==============================================================================
+ingress:
+  enabled: true
+  # type ingress-controller: istio
+  type: istio
+
+# ==============================================================================
 deploy:
   replicaCount: 1
 

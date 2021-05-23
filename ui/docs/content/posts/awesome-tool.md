@@ -29,3 +29,7 @@ tags:
 
 - [Prometheus](https://prometheus.io/)
   - [Thanos](https://thanos.io/) - Open source, highly available Prometheus setup with long term storage capabilities.
+
+### gRPC
+
+- [grpc_cli](https://github.com/grpc/grpc/blob/master/doc/command_line_tool.md) - gRPC CLI

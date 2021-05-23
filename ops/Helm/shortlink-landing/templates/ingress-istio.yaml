@@ -1,23 +1,4 @@
-{{- if .Values.istio.enabled -}}
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
-metadata:
-  name: {{ include "helpers.fullname" . }}
-  labels:
-    {{ include "helpers.labels" . | nindent 4 }}
-spec:
-  selector:
-    istio: ingressgateway # use istio default controller
-  servers:
-    - port:
-        number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-        - {{ .Values.host }}
-
----
-
+{{- if and .Values.ingress.enabled (eq .Values.ingress.type "istio") -}}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -28,7 +9,7 @@ spec:
   hosts:
   - {{ .Values.host }}
   gateways:
-    - {{ include "helpers.fullname" . }}
+    - shortlink-ingress
   http:
   - match:
       - uri:
@@ -46,4 +27,14 @@ spec:
         host: api-shortlink-api
         port:
           number: 7070
+  - match:
+      - uri:
+          prefix: /
+    rewrite:
+      uri: "/landing"
+    route:
+    - destination:
+        host: landing-shortlink-landing
+        port:
+          number: 80
 {{- end }}
