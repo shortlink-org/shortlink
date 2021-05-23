@@ -1,7 +1,7 @@
 include:
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/templates/build_go.yml
-  - local: /ops/gitlab/workflows/matrix_build_go.yml
+  - local: /ops/gitlab/workflows/matrix_build_base.yml
   - template: Security/Container-Scanning.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/Container-Scanning.gitlab-ci.yml
 
 stages:
@@ -23,7 +23,7 @@ dependencies_go:
 go:
   extends:
     - .template_build_go
-    - .matrix_build_go
+    - .matrix_build_base
 
 # TODO: fix this job
 # SECURITY =============================================================================================================
@@ -37,10 +37,10 @@ container_scanning:
 container_scanning_new:
   extends:
     - .cs_common
-    - .matrix_build_go
+    - .matrix_build_base
   stage: security
   variables:
-    DOCKER_IMAGE: $REGISTRY_IMAGE
+    DOCKER_IMAGE: $REGISTRY_IMAGE:$CI_COMMIT_TAG
     CS_MAJOR_VERSION: 4
   allow_failure: true
   rules:

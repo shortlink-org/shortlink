@@ -3,7 +3,7 @@ docker:build_go:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/docker_build_go.yml'
+      - local: 'ops/gitlab/pipelines/docker_build_base.yml'
     strategy: depend
   needs:
     - job: GOLANG
