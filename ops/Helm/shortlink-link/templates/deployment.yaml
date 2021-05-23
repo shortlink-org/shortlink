@@ -42,6 +42,13 @@ spec:
         image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
         {{- if .Values.deploy.livenessProbe }}
+        ports:
+        - name: grpc
+          containerPort: {{ .Values.service.port }}
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
         livenessProbe:
           {{- toYaml .Values.deploy.livenessProbe | nindent 12 }}
         {{- end }}

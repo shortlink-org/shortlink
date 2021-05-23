@@ -2,6 +2,7 @@
 SHORTLINK_HELM_API      := ops/Helm/shortlink-api
 SHORTLINK_HELM_LOGGER   := ops/Helm/shortlink-logger
 SHORTLINK_HELM_METADATA := ops/Helm/shortlink-metadata
+SHORTLINK_HELM_LINK     := ops/Helm/shortlink-link
 SHORTLINK_HELM_BOT      := ops/Helm/shortlink-bot
 SHORTLINK_HELM_UI       := ops/Helm/shortlink-ui
 SHORTLINK_HELM_LANDING  := ops/Helm/shortlink-landing

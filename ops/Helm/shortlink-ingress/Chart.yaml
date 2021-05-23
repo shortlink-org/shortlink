@@ -1,6 +1,6 @@
 apiVersion: v2                                   # The chart API version (required)
 appVersion: "1.0.0"                              # The version of the app that this contains (optional)
-name: ingress                                    # The name of the chart (required)
+name: shortlink-ingress                          # The name of the chart (required)
 description: Shortlink ingress                   # A single-sentence description of this project (optional)
 version: 0.4.7                                   # A SemVer 2 version (required)
 kubeVersion: ">= 1.19.0 || >= v1.19.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
