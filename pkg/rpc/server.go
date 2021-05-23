@@ -21,7 +21,7 @@ import (
 
 // InitServer ...
 func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func(), error) {
-	viper.SetDefault("GRPC_SERVER_TLS_ENABLED", true) // gRPC port
+	viper.SetDefault("GRPC_SERVER_TLS_ENABLED", true) // gRPC tls
 	isEnableTLS := viper.GetBool("GRPC_SERVER_TLS_ENABLED")
 
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port

@@ -3,7 +3,6 @@ package rpc
 import (
 	"fmt"
 
-	grpc_logger "github.com/batazor/shortlink/pkg/rpc/logger"
 	middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	otgrpc "github.com/opentracing-contrib/go-grpc"
@@ -12,12 +11,17 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 
+	grpc_logger "github.com/batazor/shortlink/pkg/rpc/logger"
+
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
 // InitClient - set up a connection to the server.
 func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn, func(), error) {
+	viper.SetDefault("GRPC_CLIENT_TLS_ENABLED", true) // gRPC tls
+	isEnableTLS := viper.GetBool("GRPC_CLIENT_TLS_ENABLED")
+
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
@@ -61,14 +65,19 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 		incerceptorStreamClientList = append(incerceptorStreamClientList, grpc_logger.StreamClientInterceptor(log))
 	}
 
-	// Set up a connection to the server peer
-	conn, err := grpc.Dial(
-		fmt.Sprintf("%s:%d", grpc_host, grpc_port),
-		grpc.WithTransportCredentials(creds),
-
+	optionsNewClient := []grpc.DialOption{
 		// Initialize your gRPC server's interceptor.
 		grpc.WithUnaryInterceptor(middleware.ChainUnaryClient(incerceptorUnaryClientList...)),
 		grpc.WithStreamInterceptor(middleware.ChainStreamClient(incerceptorStreamClientList...)),
+	}
+	if isEnableTLS {
+		optionsNewClient = append(optionsNewClient, grpc.WithTransportCredentials(creds))
+	}
+
+	// Set up a connection to the server peer
+	conn, err := grpc.Dial(
+		fmt.Sprintf("%s:%d", grpc_host, grpc_port),
+		optionsNewClient...,
 	)
 	if err != nil {
 		return nil, nil, err
