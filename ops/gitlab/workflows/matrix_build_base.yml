@@ -1,4 +1,4 @@
-.matrix_build_go:
+.matrix_build_base:
   parallel:
     matrix:
       - APPLICATION: api
@@ -22,3 +22,9 @@
       - APPLICATION: link
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/link
         DOCKERFILE_PATH: ops/dockerfile/link.Dockerfile
+      - APPLICATION: proxy
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/proxy
+        DOCKERFILE_PATH: ops/dockerfile/proxy.Dockerfile
+      - APPLICATION: bot
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot
+        DOCKERFILE_PATH: ops/dockerfile/bot.Dockerfile

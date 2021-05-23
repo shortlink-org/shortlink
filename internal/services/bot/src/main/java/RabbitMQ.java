@@ -12,7 +12,7 @@ import java.util.concurrent.TimeoutException;
 
 public class RabbitMQ {
   private final static String EXCHANGE_NAME = "shortlink";
-  private final static String QUEUE_NAME = "shortlink_bot";
+  private final static String QUEUE_NAME = "shortlink-bot";
   private String MQ_RABBIT_URI = System.getenv("MQ_RABBIT_URI");
   private Channel channel;
 

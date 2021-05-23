@@ -40,7 +40,7 @@ container_scanning_new:
     - .matrix_build_nodejs
   stage: security
   variables:
-    DOCKER_IMAGE: $REGISTRY_IMAGE
+    DOCKER_IMAGE: $REGISTRY_IMAGE:$CI_COMMIT_TAG
     CS_MAJOR_VERSION: 4
   allow_failure: true
   rules:
