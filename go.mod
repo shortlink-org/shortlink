@@ -78,7 +78,7 @@ require (
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20210521203332-0cec03c779c1 // indirect
 	google.golang.org/api v0.47.0
-	google.golang.org/genproto v0.0.0-20210521181308-5ccab8a35a9a
+	google.golang.org/genproto v0.0.0-20210524142926-3e3a6030be83
 	google.golang.org/grpc v1.38.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.26.0
