@@ -20,7 +20,7 @@ COPY --from=deps /app/node_modules ./node_modules
 RUN npm run generate
 
 # Production image, copy all the files and run next
-FROM nginx:1.20-alpine
+FROM nginx:1.21-alpine
 
 RUN apk add --no-cache curl
 
