@@ -12,10 +12,11 @@ spec:
     - shortlink-ingress
   http:
   - match:
-      - port: 50051
+      - uri:
+          prefix: /metadata_rpc.Metadata/
     route:
     - destination:
-        host: metadata-shortlink-metadata
+        host: metadata-shortlink-metadata.shortlink
         port:
           number: 50051
 {{- end }}

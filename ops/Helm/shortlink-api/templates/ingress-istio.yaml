@@ -13,10 +13,10 @@ spec:
   http:
   - match:
       - uri:
-          prefix: /
+          prefix: /api
     route:
     - destination:
         host: {{ include "helpers.fullname" . }}
         port:
-          number: 80
+          number: 7070
 {{- end }}

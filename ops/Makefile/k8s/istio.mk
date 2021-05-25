@@ -6,12 +6,12 @@ ISTIO_CHART_PATH := ops/Helm/addons/gateway/istio/charts
 istio-dep: ## Install istio
 	@curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh -
 	@sudo mv istio-${ISTIO_VERSION}/bin/istioctl /usr/bin/istioctl
-	@mv istio-${ISTIO_VERSION}/manifests/charts ops/Helm/addons/gateway/istio
+	@rsync -a -v istio-${ISTIO_VERSION}/manifests/charts ops/Helm/addons/gateway/istio
 	@rm -rf istio-${ISTIO_VERSION}
 
 istio-up: ## Run istio
 	@kubectl create namespace ${ISTIO_NAMESPACE}
-	@kubectl label namespace default istio-injection=enabled
+	@kubectl label namespace shortlink istio-injection=enabled
 	@helm install istio-base ${ISTIO_CHART_PATH}/base -n ${ISTIO_NAMESPACE}
 	@helm install istiod ${ISTIO_CHART_PATH}/istio-control/istio-discovery -n ${ISTIO_NAMESPACE}
 	@helm upgrade istio-ingress ${ISTIO_CHART_PATH}/gateways/istio-ingress \
@@ -20,8 +20,18 @@ istio-up: ## Run istio
 		--create-namespace=true \
 		--wait
 	@helm install istio-egress ${ISTIO_CHART_PATH}/gateways/istio-egress -n ${ISTIO_NAMESPACE}
+	# @helm install \
+	#	--namespace istio-system \
+	#	--set auth.strategy="anonymous" \
+	#	--repo https://kiali.org/helm-charts \
+	#	kiali-server \
+	#	kiali-server
 
 istio-down: ## Delete istio
+	# delete kiali
+	@#helm uninstall --namespace istio-system kiali-server
+	@#kubectl delete crd monitoringdashboards.monitoring.kiali.io
+	# delete istio
 	@helm delete istio-egress -n ${ISTIO_NAMESPACE}
 	@helm delete istio-ingress -n ${ISTIO_NAMESPACE}
 	@helm delete istiod -n ${ISTIO_NAMESPACE}
@@ -41,3 +51,11 @@ metallb-up: ## Run MetalLB
 	@kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="${METALLB_SECRET}"
 	# Apply configuration
 	@kubectl apply -f ops/Helm/addons/metallb/metallb.yaml
+
+metallb-down: ## Down MetalLB
+	@kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/${METALLB_VERSION}/manifests/namespace.yaml
+	@kubectl delete -f https://raw.githubusercontent.com/metallb/metallb/${METALLB_VERSION}/manifests/metallb.yaml
+	# On first install only
+	@kubectl delete secret -n metallb-system memberlist
+	# Apply configuration
+	@kubectl delete -f ops/Helm/addons/metallb/metallb.yaml

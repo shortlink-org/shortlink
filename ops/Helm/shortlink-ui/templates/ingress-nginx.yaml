@@ -1,4 +1,4 @@
-{{- if and .Values.ingress.enabled (.Capabilities.APIVersions.Has "networking.k8s.io/v1") -}}
+{{- if and .Values.ingress.enabled (.Capabilities.APIVersions.Has "networking.k8s.io/v1") (eq .Values.ingress.type "nginx") -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -24,7 +24,7 @@ spec:
     - host: {{ .Values.host }}
       http:
         paths:
-          - path: /api
+          - path: /{{ .Values.path }}(/|$)(.*)
             pathType: Prefix
             backend:
               service:
