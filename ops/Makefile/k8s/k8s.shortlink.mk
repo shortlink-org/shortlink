@@ -1,6 +1,7 @@
 # SHORTLINK TASKS ======================================================================================================
 SHORTLINK_NAMESPACE := shortlink
 SHORTLINK_HELM_INGRESS := ops/Helm/shortlink-ingress
+HELM_CHART_NGINX_INGRESS := ops/Helm/addons/nginx-ingress
 
 helm-shortlink-dep:
 	-kubectl create namespace ${SHORTLINK_NAMESPACE}
@@ -10,6 +11,13 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 	@echo helm install/update ${PROJECT_NAME}
 
 	-make helm-shortlink-dep
+
+	@helm upgrade nginx-ingress ${HELM_CHART_NGINX_INGRESS} \
+		--install \
+		--namespace=nginx-ingress \
+		--create-namespace=true \
+		--set ingress-nginx.controller.metrics.enabled=false \
+		--wait
 
 	@helm upgrade shortlink-ingress ${SHORTLINK_HELM_INGRESS} \
 		--install \

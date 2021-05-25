@@ -15,4 +15,10 @@ spec:
         protocol: GRPC
       hosts:
         - "*"
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
 {{- end }}

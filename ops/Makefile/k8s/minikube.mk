@@ -15,8 +15,6 @@ minikube-up: ## run minikube for dev mode
 
 	# Addons enable
 	@eval $(minikube docker-env) # Set docker env
-	@minikube addons enable ingress
-	@minikube addons enable ingress-dns
 
 minikube-update: ## update image to last version
 	@eval $(minikube docker-env) # Set docker env
