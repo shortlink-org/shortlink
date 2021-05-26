@@ -26,4 +26,4 @@ spec:
   selector:
     app.kubernetes.io/name: {{ include "helpers.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/component: metadata
+    app.kubernetes.io/component: bot

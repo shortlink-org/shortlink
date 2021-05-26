@@ -7,16 +7,16 @@ metadata:
     {{ include "helpers.labels" . | nindent 4 }}
 spec:
   hosts:
-  - {{ .Values.host }}
+  - "*"
   gateways:
     - shortlink-ingress
   http:
   - match:
       - uri:
-          prefix: /ui
+          prefix: /link_rpc.Link/
     route:
     - destination:
-        host: ui-shortlink-ui
+        host: link-shortlink-link.{{ .Release.Namespace }}
         port:
-          number: 80
+          number: 50051
 {{- end }}

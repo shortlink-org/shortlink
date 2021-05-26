@@ -13,9 +13,9 @@ spec:
   {{- end }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: grpc
       protocol: TCP
-      name: http
+      name: grpc
       {{ if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort))) }}
       nodePort: {{.Values.service.nodePort}}
       {{- end }}
@@ -26,4 +26,4 @@ spec:
   selector:
     app.kubernetes.io/name: {{ include "helpers.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/component: api
+    app.kubernetes.io/component: link

@@ -1,6 +1,6 @@
 server {
     listen      80;
-    server_name ui-next.local;
+    server_name _;
 
     gzip on;
     gzip_proxied any;
