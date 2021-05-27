@@ -44,7 +44,7 @@ deploy:
     MQ_TYPE: "rabbitmq"
     MQ_RABBIT_URI: "amqp://admin:admin@rabbitmq.rabbitmq:5672"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
-    GRPC_CLIENT_HOST: shortlink-metadata
+    GRPC_CLIENT_HOST: istio-ingressgateway.istio-system
     GRPC_CLIENT_TLS_ENABLED: false
     GRPC_SERVER_TLS_ENABLED: false
 
