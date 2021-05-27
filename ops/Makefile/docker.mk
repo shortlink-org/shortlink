@@ -14,7 +14,10 @@ docker-login: ## Docker login
 
 docker_build:
 	@echo "Building ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}"
-	@docker build -t ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG} -f ops/dockerfile/$(SERVICE).Dockerfile .
+	@docker build \
+		--force-rm \
+		-t ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG} \
+		-f ops/dockerfile/$(SERVICE).Dockerfile .
 	@docker push ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}
 	@docker rmi ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}
 
