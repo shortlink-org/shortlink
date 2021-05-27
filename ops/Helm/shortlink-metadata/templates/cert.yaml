@@ -1,3 +1,4 @@
+{{- if and .Values.secret.enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -12,3 +13,4 @@ data:
     {{ .Values.secret.grpcServerKey | b64enc }}
   intermediate_ca.pem: |
     {{ .Values.secret.grpcIntermediateCA | b64enc }}
+{{- end }}

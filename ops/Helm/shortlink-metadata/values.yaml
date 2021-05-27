@@ -15,46 +15,18 @@ serviceAccount:
 # ==============================================================================
 # This secret for dev-stand. For production use CI-variables
 secret:
+  enabled: false
   grpcServerCert: |
     -----BEGIN CERTIFICATE-----
-    MIICnzCCAkWgAwIBAgIUEuCWhGqFAMdEFamP0LohiAxdEQYwCgYIKoZIzj0EAwIw
-    fzELMAkGA1UEBhMCUlUxDzANBgNVBAgTBk1vc2NvdzEPMA0GA1UEBxMGTW9zY293
-    MRIwEAYDVQQKEwlTaG9ydGxpbmsxDzANBgNVBAsTBk1vc2NvdzEpMCcGA1UEAxMg
-    Q3VzdG9tIFNob3J0bGluayBJbnRlcm1lZGlhdGUgQ0EwHhcNMjEwNDE4MTM1MDAw
-    WhcNMjIwNDE4MTM1MDAwWjBoMQswCQYDVQQGEwJSVTEPMA0GA1UECBMGTW9zY293
-    MQ8wDQYDVQQHEwZNb3Njb3cxEjAQBgNVBAoTCVNob3J0bGluazEPMA0GA1UECxMG
-    TW9zY293MRIwEAYDVQQDEwlzaG9ydGxpbmswWTATBgcqhkjOPQIBBggqhkjOPQMB
-    BwNCAARjxcJl5q0fVcUU51TeEBKDNfyn4I59JpbUtfyQShpVJxZQ0AP8XYEx9l40
-    j9QWkB/QP7+4wj+O+so0TU8W1V4ho4G1MIGyMA4GA1UdDwEB/wQEAwIFoDATBgNV
-    HSUEDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBR5Bu+KogPg
-    5cjtR+ZQWYT3tdqRNzAfBgNVHSMEGDAWgBR6mYkHDhwrk3S+qpDk5npnI1HhuTA9
-    BgNVHREENjA0gglsb2NhbGhvc3SCBWxvY2FsggcqLmxvY2FsggsqLnNob3J0bGlu
-    a4cEfwAAAYcEAAAAADAKBggqhkjOPQQDAgNIADBFAiEA+l1fywhag1A2ozb4xmV3
-    vUwKpDrtJKL5hfat4XbVgHsCIB6jD+t+qOi3GjbB04kxWckLLMdMuQGUhA26/MW/
-    hIkH
+    Your cert...
     -----END CERTIFICATE-----
   grpcServerKey: |
     -----BEGIN EC PRIVATE KEY-----
-    MHcCAQEEIEOFKH5IWvobNXqUU5LF64NNh3o01fa1eSyNrN+8LwKjoAoGCCqGSM49
-    AwEHoUQDQgAEY8XCZeatH1XFFOdU3hASgzX8p+COfSaW1LX8kEoaVScWUNAD/F2B
-    MfZeNI/UFpAf0D+/uMI/jvrKNE1PFtVeIQ==
+    Your key...
     -----END EC PRIVATE KEY-----
   grpcIntermediateCA: |
     -----BEGIN CERTIFICATE-----
-    MIIClTCCAjugAwIBAgIUOCl/NAZsR4Qy+78LBDy9l/1MN+IwCgYIKoZIzj0EAwIw
-    gYwxCzAJBgNVBAYTAlJVMQ8wDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2Nv
-    dzESMBAGA1UEChMJU2hvcnRsaW5rMSswKQYDVQQLEyJFeGFtcGxlIFJvb3QgQ2Vy
-    dGlmaWNhdGUgQXV0aG9yaXR5MRowGAYDVQQDExFTaG9ydGxpbmsgUm9vdCBDQTAe
-    Fw0yMTA0MTgxMzUwMDBaFw0yMjA0MTgxMzUwMDBaMH8xCzAJBgNVBAYTAlJVMQ8w
-    DQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2NvdzESMBAGA1UEChMJU2hvcnRs
-    aW5rMQ8wDQYDVQQLEwZNb3Njb3cxKTAnBgNVBAMTIEN1c3RvbSBTaG9ydGxpbmsg
-    SW50ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErGrPBmwM
-    +FlQhRgAB2a+76LCLR9KF772wff9MxgXiSaD1cQZB8iiIPQzWObkKb0nUxBBS6u2
-    ulXdhj0Po32A46OBhjCBgzAOBgNVHQ8BAf8EBAMCAaYwHQYDVR0lBBYwFAYIKwYB
-    BQUHAwEGCCsGAQUFBwMCMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFHqZ
-    iQcOHCuTdL6qkOTmemcjUeG5MB8GA1UdIwQYMBaAFKYsspmh6iQcM0XotbiZoZEx
-    3jyeMAoGCCqGSM49BAMCA0gAMEUCIQC536u40hdoh4EU2Wcfp0Wz/MDQI01Ol16I
-    FTfi/rQgPgIgS1XwXKSpJjE6qStUO308w9BVEV/CT/KJ9kpqTVlhm4M=
+    Your CA...
     -----END CERTIFICATE-----
 
 # ==============================================================================
@@ -72,6 +44,8 @@ deploy:
     MQ_TYPE: "rabbitmq"
     MQ_RABBIT_URI: "amqp://admin:admin@rabbitmq.rabbitmq:5672"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
+    GRPC_CLIENT_TLS_ENABLED: false
+    GRPC_SERVER_TLS_ENABLED: false
 
     # default store config
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable
