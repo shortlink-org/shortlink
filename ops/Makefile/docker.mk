@@ -4,6 +4,7 @@
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
 DOCKER_BUILDKIT := 1
+SHORTLINK_SERVICES := api auth bot csi landing link logger metadata notify proxy ui-next
 
 docker: docker-login docker-build docker-push ## docker login > build > push
 
@@ -11,21 +12,16 @@ docker-login: ## Docker login
 	@echo docker login as ${DOCKER_USERNAME}
 	@echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
 
+docker_build:
+	@echo "Building ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}"
+	@docker build -t ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG} -f ops/dockerfile/$(SERVICE).Dockerfile .
+	@docker push ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}
+	@docker rmi ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}
+
 docker-build: ## Build the container
-	@docker build -t ${CI_REGISTRY_IMAGE}-api:${CI_COMMIT_TAG}     -f ops/dockerfile/api.Dockerfile .
-	@docker build -t ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}  -f ops/dockerfile/logger.Dockerfile .
-	@docker build -t ${CI_REGISTRY_IMAGE}-ui-next:${CI_COMMIT_TAG} -f ops/dockerfile/ui-next.Dockerfile .
-	@docker build -t ${CI_REGISTRY_IMAGE}-landing:${CI_COMMIT_TAG} -f ops/dockerfile/landing.Dockerfile .
-
-docker-push: ## Publish the container
-	@echo docker push image ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
-	@docker push ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
-
-	@echo docker push image ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
-	@docker push ${CI_REGISTRY_IMAGE}-logger:${CI_COMMIT_TAG}
-
-	@echo docker push image ${CI_REGISTRY_IMAGE}-landing:${CI_COMMIT_TAG}
-	@docker push ${CI_REGISTRY_IMAGE}-landing:${CI_COMMIT_TAG}
+	for i in $(SHORTLINK_SERVICES); do \
+		make docker_build SERVICE=$$i; \
+  	done
 
 ### Helpers ============================================================================================================
 

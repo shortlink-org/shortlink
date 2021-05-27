@@ -38,11 +38,6 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 	viper.SetDefault("GRPC_SERVER_LOGGER_ENABLE", true) // Enable logging for gRPC-client
 	isEnableLogger := viper.GetBool("GRPC_SERVER_LOGGER_ENABLE")
 
-	creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)
-	if err != nil {
-		return nil, nil, err
-	}
-
 	endpoint := fmt.Sprintf("%s:%d", grpc_host, grpc_port)
 	lis, err := net.Listen("tcp", endpoint)
 	if err != nil {
@@ -89,6 +84,11 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(incerceptorStreamServerList...)),
 	}
 	if isEnableTLS {
+		creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)
+		if err != nil {
+			return nil, nil, err
+		}
+
 		optionsNewServer = append(optionsNewServer, grpc.Creds(creds))
 	}
 

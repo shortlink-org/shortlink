@@ -34,11 +34,6 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 	viper.SetDefault("GRPC_CLIENT_LOGGER_ENABLE", true) // Enable logging for gRPC-client
 	isEnableLogger := viper.GetBool("GRPC_CLIENT_LOGGER_ENABLE")
 
-	creds, err := credentials.NewClientTLSFromFile(certFile, "")
-	if err != nil {
-		return nil, nil, err
-	}
-
 	// UnaryClien
 	var incerceptorUnaryClientList = []grpc.UnaryClientInterceptor{
 		grpc_prometheus.UnaryClientInterceptor,
@@ -71,7 +66,14 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 		grpc.WithStreamInterceptor(middleware.ChainStreamClient(incerceptorStreamClientList...)),
 	}
 	if isEnableTLS {
+		creds, err := credentials.NewClientTLSFromFile(certFile, "")
+		if err != nil {
+			return nil, nil, err
+		}
+
 		optionsNewClient = append(optionsNewClient, grpc.WithTransportCredentials(creds))
+	} else {
+		optionsNewClient = append(optionsNewClient, grpc.WithInsecure())
 	}
 
 	// Set up a connection to the server peer
