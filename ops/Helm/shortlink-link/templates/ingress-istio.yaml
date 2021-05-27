@@ -16,7 +16,7 @@ spec:
           prefix: /link_rpc.Link/
     route:
     - destination:
-        host: link-shortlink-link.{{ .Release.Namespace }}
+        host: link-shortlink-link
         port:
           number: 50051
 {{- end }}
