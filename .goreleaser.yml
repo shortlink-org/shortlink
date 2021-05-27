@@ -2,10 +2,12 @@
 # Make sure to check the documentation at http://goreleaser.com
 env:
   - GO111MODULE=on
+
 before:
   hooks:
     # You may remove this if you don't use go modules.
     - go mod download
+
 builds:
 - id: api
   main: ./cmd/api
@@ -97,6 +99,7 @@ builds:
     - -mod=mod
     - -trimpath
   binary: metadata
+
 archives:
 - replacements:
     darwin: Darwin
@@ -104,10 +107,13 @@ archives:
     windows: Windows
     386: i386
     amd64: x86_64
+
 checksum:
   name_template: 'checksums.txt'
+
 snapshot:
   name_template: "{{ .Tag }}"
+
 changelog:
   sort: asc
   filters:
@@ -118,6 +124,7 @@ changelog:
     - '^danger:'
     - '^.github:'
     - '^.gitlab:'
+
 dockers:
   # You can have multiple Docker images.
   - # GOOS of the built binary that should be used.
