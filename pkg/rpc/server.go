@@ -84,9 +84,9 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(incerceptorStreamServerList...)),
 	}
 	if isEnableTLS {
-		creds, err := credentials.NewServerTLSFromFile(certFile, keyFile)
-		if err != nil {
-			return nil, nil, err
+		creds, errTLSFromFile := credentials.NewServerTLSFromFile(certFile, keyFile)
+		if errTLSFromFile != nil {
+			return nil, nil, errTLSFromFile
 		}
 
 		optionsNewServer = append(optionsNewServer, grpc.Creds(creds))
