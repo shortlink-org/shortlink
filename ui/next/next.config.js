@@ -1,6 +1,10 @@
 const webpack = require('webpack')
 const withSourceMaps = require('@zeit/next-source-maps')
 const isProd = process.env.NODE_ENV === 'production'
+const API_URI_PORT = process.env.API_URI_PORT || 7070
+const API_URI = process.env.API_URI ? `${process.env.API_URI}:${API_URI_PORT}` : `http://localhost:7070:${API_URI_PORT}`
+
+console.info("API_URI", API_URI)
 
 const NEXT_CONFIG = {
   basePath: '/next',
@@ -25,12 +29,12 @@ if (!isProd) {
         // all pages/static files before we attempt proxying
         {
           source: `/api`,
-          destination: `http://localhost:7070/api`,
+          destination: `${API_URI}/api`,
           basePath: false,
         },
         {
           source: `/api/:uri`,
-          destination: `http://localhost:7070/api/:uri`,
+          destination: `${API_URI}/api/:uri`,
           basePath: false,
         },
       ],

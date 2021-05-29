@@ -62,19 +62,19 @@ export function LinkTableContent() {
         { title: "Describe", field: "describe" },
         {
           title: "Created at",
-          field: "created_at",
+          field: "createdAt",
           render: rowData => (
-            <Tooltip title="Add" arrow title={rowData.created_at} interactive>
-              <span>{ formatRelative(new Date(rowData.created_at), new Date(), { addSuffix: true }) }</span>
+            <Tooltip title="Created at" arrow title={rowData.createdAt} interactive>
+              <span>{ formatRelative(new Date(rowData.createdAt), new Date(), { addSuffix: true }) }</span>
             </Tooltip>
           ),
         },
         {
           title: "Updated at",
-          field: "updated_at",
+          field: "updatedAt",
           render: rowData => (
-            <Tooltip title="Add" arrow title={rowData.updated_at} interactive>
-              <span>{ formatRelative(new Date(rowData.updated_at), new Date(), { addSuffix: true }) }</span>
+            <Tooltip title="Updated at" arrow title={rowData.updatedAt} interactive>
+              <span>{ formatRelative(new Date(rowData.updatedAt), new Date(), { addSuffix: true }) }</span>
             </Tooltip>
           ),
         }
