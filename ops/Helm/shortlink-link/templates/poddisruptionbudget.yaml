@@ -12,4 +12,4 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "helpers.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-      app.kubernetes.io/component: logger
+      app.kubernetes.io/component: link

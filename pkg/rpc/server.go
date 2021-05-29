@@ -53,14 +53,6 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 		recovery.UnaryServerInterceptor(),
 	}
 
-	if tracer != nil {
-		incerceptorUnaryServerList = append(incerceptorUnaryServerList, otgrpc.OpenTracingServerInterceptor(*tracer, otgrpc.LogPayloads()))
-	}
-
-	if isEnableLogger {
-		incerceptorUnaryServerList = append(incerceptorUnaryServerList, grpc_logger.UnaryServerInterceptor(log))
-	}
-
 	// StreamClient
 	var incerceptorStreamServerList = []grpc.StreamServerInterceptor{
 		grpc_prometheus.StreamServerInterceptor,
@@ -72,10 +64,12 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 
 	if tracer != nil {
 		incerceptorStreamServerList = append(incerceptorStreamServerList, otgrpc.OpenTracingStreamServerInterceptor(*tracer, otgrpc.LogPayloads()))
+		incerceptorUnaryServerList = append(incerceptorUnaryServerList, otgrpc.OpenTracingServerInterceptor(*tracer, otgrpc.LogPayloads()))
 	}
 
 	if isEnableLogger {
 		incerceptorStreamServerList = append(incerceptorStreamServerList, grpc_logger.StreamServerInterceptor(log))
+		incerceptorUnaryServerList = append(incerceptorUnaryServerList, grpc_logger.UnaryServerInterceptor(log))
 	}
 
 	optionsNewServer := []grpc.ServerOption{
@@ -83,6 +77,7 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(incerceptorUnaryServerList...)),
 		grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(incerceptorStreamServerList...)),
 	}
+
 	if isEnableTLS {
 		creds, errTLSFromFile := credentials.NewServerTLSFromFile(certFile, keyFile)
 		if errTLSFromFile != nil {

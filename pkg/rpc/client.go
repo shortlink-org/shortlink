@@ -39,24 +39,18 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 		grpc_prometheus.UnaryClientInterceptor,
 	}
 
-	if tracer != nil {
-		incerceptorUnaryClientList = append(incerceptorUnaryClientList, otgrpc.OpenTracingClientInterceptor(*tracer, otgrpc.LogPayloads()))
-	}
-
-	if isEnableLogger {
-		incerceptorUnaryClientList = append(incerceptorUnaryClientList, grpc_logger.UnaryClientInterceptor(log))
-	}
-
 	// StreamClient
 	var incerceptorStreamClientList = []grpc.StreamClientInterceptor{
 		grpc_prometheus.StreamClientInterceptor,
 	}
 
 	if tracer != nil {
+		incerceptorUnaryClientList = append(incerceptorUnaryClientList, otgrpc.OpenTracingClientInterceptor(*tracer, otgrpc.LogPayloads()))
 		incerceptorStreamClientList = append(incerceptorStreamClientList, otgrpc.OpenTracingStreamClientInterceptor(*tracer, otgrpc.LogPayloads()))
 	}
 
 	if isEnableLogger {
+		incerceptorUnaryClientList = append(incerceptorUnaryClientList, grpc_logger.UnaryClientInterceptor(log))
 		incerceptorStreamClientList = append(incerceptorStreamClientList, grpc_logger.StreamClientInterceptor(log))
 	}
 

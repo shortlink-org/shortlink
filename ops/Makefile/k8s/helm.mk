@@ -6,6 +6,7 @@ SHORTLINK_HELM_LINK     := ops/Helm/shortlink-link
 SHORTLINK_HELM_BOT      := ops/Helm/shortlink-bot
 SHORTLINK_HELM_UI       := ops/Helm/shortlink-ui
 SHORTLINK_HELM_LANDING  := ops/Helm/shortlink-landing
+SHORTLINK_HELM_PROXY    := ops/Helm/shortlink-proxy
 
 helm-init: ## helm init
 	# add custom repo for helm
