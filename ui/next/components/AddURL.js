@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
@@ -10,6 +10,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy'
 import Grid from '@material-ui/core/Grid'
 import {makeStyles} from "@material-ui/core/styles";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,7 +105,9 @@ export function AddURL() {
         response.type !== "" && response.type !== "error" && (
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="p" component="p">
-              Your link: {response.hash}
+              <Link href={`/s/${response.hash}`} variant="body2">
+                Your link: {response.hash}
+              </Link>
 
               <CopyToClipboard text={response.hash} onCopy={() => {
                 setResponse({
