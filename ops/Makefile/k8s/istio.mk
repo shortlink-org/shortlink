@@ -13,7 +13,11 @@ istio-up: ## Run istio
 	@kubectl create namespace ${ISTIO_NAMESPACE}
 	@kubectl label namespace shortlink istio-injection=enabled
 	@helm install istio-base ${ISTIO_CHART_PATH}/base -n ${ISTIO_NAMESPACE}
-	@helm install istiod ${ISTIO_CHART_PATH}/istio-control/istio-discovery -n ${ISTIO_NAMESPACE}
+	@helm upgrade istiod ${ISTIO_CHART_PATH}/istio-control/istio-discovery \
+		--install \
+		--namespace=${ISTIO_NAMESPACE} \
+		--create-namespace=true \
+		--wait
 	@helm upgrade istio-ingress ${ISTIO_CHART_PATH}/gateways/istio-ingress \
 		--install \
 		--namespace=${ISTIO_NAMESPACE} \

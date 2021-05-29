@@ -14,7 +14,7 @@ ingress-nginx:
     config:
       enable-opentracing: "true"
       jaeger-service-name: nginx-ingress
-      zipkin-collector-host: jaeger-agent.jaeger-operator
+      zipkin-collector-host: zipkin.jaeger-operator
 
     # Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
     # since CNI and hostport don't mix yet. Can be deprecated once https://github.com/kubernetes/kubernetes/issues/23920
