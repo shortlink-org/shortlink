@@ -9,7 +9,7 @@ spec:
   hosts:
   - "*"
   gateways:
-    - shortlink-ingress
+    - istio-system/shortlink-ingress
   http:
   - match:
       - uri:

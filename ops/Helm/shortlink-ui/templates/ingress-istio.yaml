@@ -9,7 +9,7 @@ spec:
   hosts:
   - {{ .Values.host }}
   gateways:
-    - shortlink-ingress
+    - istio-system/shortlink-ingress
   http:
   - match:
       - uri:

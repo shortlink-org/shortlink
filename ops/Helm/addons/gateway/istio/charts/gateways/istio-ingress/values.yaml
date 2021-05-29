@@ -317,6 +317,10 @@ meshConfig:
     proxyMetadata: {}
     sampling: 100.00
     tracing:
+      zipkin:
+        # Host:Port for reporting trace data in zipkin format. If not specified, will default to
+        # zipkin service (port 9411) in the same namespace as the other istio components.
+        address: zipkin.jaeger-operator:9411
     #      tlsSettings:
     #        mode: DISABLE # DISABLE, SIMPLE, MUTUAL, ISTIO_MUTUAL
     #        clientCertificate: # example: /etc/istio/tracer/cert-chain.pem

@@ -18,8 +18,8 @@ spec:
       name: zipkin
   selector:
     app: jaeger
-    app.kubernetes.io/name: jaeger-agent
+    app.kubernetes.io/name: jaeger
     app.kubernetes.io/instance: jaeger
     app.kubernetes.io/part-of: jaeger
     app.kubernetes.io/managed-by: jaeger-operator
-    app.kubernetes.io/component: service-agent
+    app.kubernetes.io/component: all-in-one
