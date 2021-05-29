@@ -3,13 +3,23 @@ SHORTLINK_NAMESPACE := shortlink
 SHORTLINK_HELM_INGRESS := ops/Helm/shortlink-ingress
 HELM_CHART_NGINX_INGRESS := ops/Helm/addons/nginx-ingress
 
-helm-shortlink-dep:
+helm-export-env: ## export env variables for Helm
+	echo SHORTLINK_NAMESPACE=${SHORTLINK_NAMESPACE}
+	echo SHORTLINK_HELM_INGRESS=${SHORTLINK_HELM_INGRESS}
+	echo HELM_CHART_NGINX_INGRESS=${HELM_CHART_NGINX_INGRESS}
+	echo SHORTLINK_HELM_API=${SHORTLINK_HELM_API}
+	echo SHORTLINK_HELM_LOGGER=${SHORTLINK_HELM_LOGGER}
+	echo SHORTLINK_HELM_METADATA=${SHORTLINK_HELM_METADATA}
+	echo SHORTLINK_HELM_LINK=${SHORTLINK_HELM_LINK}
+	echo SHORTLINK_HELM_BOT=${SHORTLINK_HELM_BOT}
+	echo SHORTLINK_HELM_UI=${SHORTLINK_HELM_UI}
+	echo SHORTLINK_HELM_LANDING=${SHORTLINK_HELM_LANDING}
+
+helm-shortlink-dep: ## set need dependencies for shortlink
 	-kubectl create namespace ${SHORTLINK_NAMESPACE}
 	-kubectl label namespace ${SHORTLINK_NAMESPACE} istio-injection=enabled
 
 helm-shortlink-up: ## run shortlink in k8s by Helm
-	@echo helm install/update ${PROJECT_NAME}
-
 	-make helm-shortlink-dep
 
 	@helm upgrade nginx-ingress ${HELM_CHART_NGINX_INGRESS} \

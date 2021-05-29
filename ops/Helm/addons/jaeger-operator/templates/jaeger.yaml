@@ -13,6 +13,9 @@ spec:
     options:
       query:
         base-path: /jaeger
+  collector:
+    options:
+      collector.zipkin.host-port: ":9411"
   ui:
     options:
       dependencies:

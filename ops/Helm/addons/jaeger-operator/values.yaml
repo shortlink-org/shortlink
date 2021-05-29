@@ -5,6 +5,10 @@
 jaeger-operator:
   enabled: true
 
+  image:
+    # TODO: use tag version. Current version 1.22.1 not support zipkin port listen
+    tag: master
+
 ingress:
   enabled: true
   annotations:
