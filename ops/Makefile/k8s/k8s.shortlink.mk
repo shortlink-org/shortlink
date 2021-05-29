@@ -15,6 +15,7 @@ helm-export-env: ## export env variables for Helm
 	echo SHORTLINK_HELM_BOT=${SHORTLINK_HELM_BOT}
 	echo SHORTLINK_HELM_UI=${SHORTLINK_HELM_UI}
 	echo SHORTLINK_HELM_LANDING=${SHORTLINK_HELM_LANDING}
+	echo SHORTLINK_HELM_PROXY=${SHORTLINK_HELM_PROXY}
 
 helm-shortlink-dep: ## set need dependencies for shortlink
 	-kubectl create namespace ${SHORTLINK_NAMESPACE}
@@ -34,6 +35,14 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--install \
 		--namespace=${ISTIO_NAMESPACE} \
 		--create-namespace=true \
+		--wait
+
+	@helm upgrade rabbitmq ops/Helm/addons/rabbitmq \
+		--install \
+		--namespace=rabbitmq \
+		--create-namespace=true \
+		--set rabbitmq.ingress.tls=false \
+		--set rabbitmq.metrics.enabled=false \
 		--wait
 
 	@helm upgrade api ${SHORTLINK_HELM_API} \
@@ -78,6 +87,17 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--create-namespace=true \
 		--set serviceAccount.create=false \
 		--set path=next \
+		--set ingress.enabled=true \
+		--set host=shortlink.local \
+		--wait
+
+	@helm upgrade proxy ${SHORTLINK_HELM_PROXY} \
+		--install \
+		--namespace=${SHORTLINK_NAMESPACE} \
+		--create-namespace=true \
+		--set serviceAccount.create=false \
+		--set deploy.env.GRPC_SERVER_TLS_ENABLED=false \
+		--set path=s \
 		--set ingress.enabled=true \
 		--set host=shortlink.local \
 		--wait
