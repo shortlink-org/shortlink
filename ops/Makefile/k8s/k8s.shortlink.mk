@@ -4,6 +4,7 @@ SHORTLINK_HELM_INGRESS := ops/Helm/shortlink-ingress
 HELM_CHART_NGINX_INGRESS := ops/Helm/addons/nginx-ingress
 
 helm-export-env: ## export env variables for Helm
+	echo ISTIO_NAMESPACE=${ISTIO_NAMESPACE}
 	echo SHORTLINK_NAMESPACE=${SHORTLINK_NAMESPACE}
 	echo SHORTLINK_HELM_INGRESS=${SHORTLINK_HELM_INGRESS}
 	echo HELM_CHART_NGINX_INGRESS=${HELM_CHART_NGINX_INGRESS}
@@ -31,7 +32,7 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 
 	@helm upgrade shortlink-ingress ${SHORTLINK_HELM_INGRESS} \
 		--install \
-		--namespace=${SHORTLINK_NAMESPACE} \
+		--namespace=${ISTIO_NAMESPACE} \
 		--create-namespace=true \
 		--wait
 

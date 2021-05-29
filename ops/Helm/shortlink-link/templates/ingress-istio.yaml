@@ -9,14 +9,14 @@ spec:
   hosts:
   - "*"
   gateways:
-    - shortlink-ingress
+    - istio-system/shortlink-ingress
   http:
   - match:
       - uri:
           prefix: /link_rpc.Link/
     route:
     - destination:
-        host: link-shortlink-link
+        host: link-shortlink-link.{{ .Release.Namespace }}.svc.cluster.local
         port:
           number: 50051
 {{- end }}
