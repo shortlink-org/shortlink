@@ -16,6 +16,7 @@ helm-export-env: ## export env variables for Helm
 	echo SHORTLINK_HELM_UI=${SHORTLINK_HELM_UI}
 	echo SHORTLINK_HELM_LANDING=${SHORTLINK_HELM_LANDING}
 	echo SHORTLINK_HELM_PROXY=${SHORTLINK_HELM_PROXY}
+	echo SHORTLINK_HELM_BOT=${SHORTLINK_HELM_BOT}
 
 helm-shortlink-dep: ## set need dependencies for shortlink
 	-kubectl create namespace ${SHORTLINK_NAMESPACE}
@@ -100,6 +101,15 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--set path=s \
 		--set ingress.enabled=true \
 		--set host=shortlink.local \
+		--wait
+
+	@helm upgrade bot ${SHORTLINK_HELM_BOT} \
+		--install \
+		--namespace=${SHORTLINK_NAMESPACE} \
+		--create-namespace=true \
+		--set serviceAccount.create=false \
+		--set deploy.env.TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN} \
+		--set deploy.env.TELEGRAM_BOT_USERNAME=${TELEGRAM_BOT_USERNAME} \
 		--wait
 
 helm-shortlink-down: ## Clean artifact from K8S

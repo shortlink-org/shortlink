@@ -38,8 +38,8 @@ deploy:
     MQ_TYPE: "rabbitmq"
     MQ_RABBIT_URI: "amqp://admin:admin@rabbitmq.rabbitmq:5672"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
-    GRPC_CLIENT_TLS_ENABLED: false
-    GRPC_SERVER_TLS_ENABLED: false
+    TELEGRAM_BOT_TOKEN: "YOUR_TELEGRAM_TOKEN"
+    TELEGRAM_BOT_USERNAME: "YOUR_BOT_NAME"
 
     # default store config
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable
@@ -59,7 +59,7 @@ deploy:
   annotations: {}
 
   image:
-    repository: batazor/shortlink-metadata
+    repository: batazor/shortlink-bot
     tag: latest
     ## Global imagePullPolicy
     ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
@@ -130,9 +130,3 @@ deploy:
     capabilities:
       drop:
         - ALL
-
-service:
-  type: ClusterIP
-  port: 50051
-  # nodePort: 7070
-  # clusterIP: 172.0.0.1
