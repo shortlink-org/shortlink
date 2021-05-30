@@ -50,7 +50,7 @@
       - RELEASE_NAME: ${CI_PROJECT_NAME}-bot
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-bot
         REGISTRY: ${CI_REGISTRY_IMAGE}/bot
-        HELM_ARG: --set serviceAccount.create=false --set deploy.env.TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN} --set deploy.env.TELEGRAM_BOT_USERNAME=${TELEGRAM_BOT_USERNAME}
+        HELM_ARG: --set serviceAccount.create=false --set deploy.env.TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
 .matrix_deploy_application_js:
