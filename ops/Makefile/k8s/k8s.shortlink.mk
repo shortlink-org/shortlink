@@ -24,14 +24,6 @@ helm-shortlink-dep: ## set need dependencies for shortlink
 helm-shortlink-up: ## run shortlink in k8s by Helm
 	-make helm-shortlink-dep
 
-	@kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.3.1/cert-manager.crds.yaml
-	@helm upgrade cert-manager ops/Helm/addons/cert-manager \
-		--install \
-		--namespace=cert-manager \
-		--create-namespace=true \
-		--set cert-manager.prometheus.enabled=false \
-		--wait
-
 	@helm upgrade nginx-ingress ${HELM_CHART_NGINX_INGRESS} \
 		--install \
 		--namespace=nginx-ingress \

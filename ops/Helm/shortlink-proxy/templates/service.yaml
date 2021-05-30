@@ -13,9 +13,9 @@ spec:
   {{- end }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: grpc
+      targetPort: http
       protocol: TCP
-      name: grpc
+      name: http
       {{ if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort))) }}
       nodePort: {{.Values.service.nodePort}}
       {{- end }}
