@@ -42,9 +42,6 @@ spec:
         image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
         ports:
-        - name: grpc
-          containerPort: {{ .Values.service.port }}
-          protocol: TCP
         - name: metrics
           containerPort: 9090
           protocol: TCP
