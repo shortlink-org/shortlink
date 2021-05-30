@@ -12,4 +12,8 @@ ui
 
 !vendor
 !pkg
-!internal
+
+internal/services/proxy
+!internal/services/proxy/prisma
+!internal/services/proxy/src
+!internal/services/proxy/*.json

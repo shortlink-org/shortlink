@@ -2,9 +2,12 @@ const webpack = require('webpack')
 const withSourceMaps = require('@zeit/next-source-maps')
 const isProd = process.env.NODE_ENV === 'production'
 const API_URI_PORT = process.env.API_URI_PORT || 7070
-const API_URI = process.env.API_URI ? `${process.env.API_URI}:${API_URI_PORT}` : `http://localhost:7070:${API_URI_PORT}`
+// TODO: fix DNS
+const API_URI = process.env.API_URI ? `${process.env.API_URI}:${API_URI_PORT}` : `http://localhost:${API_URI_PORT}`
+const PROXY_URI = process.env.PROXY_URI || 'http://proxy-shortlink-proxy.shortlink:3030'
 
 console.info("API_URI", API_URI)
+console.info("PROXY_URI", PROXY_URI)
 
 const NEXT_CONFIG = {
   basePath: '/next',
@@ -35,6 +38,16 @@ if (!isProd) {
         {
           source: `/api/:uri`,
           destination: `${API_URI}/api/:uri`,
+          basePath: false,
+        },
+        {
+          source: `/s`,
+          destination: `${PROXY_URI}/s`,
+          basePath: false,
+        },
+        {
+          source: `/s/:uri`,
+          destination: `${PROXY_URI}/s/:uri`,
           basePath: false,
         },
       ],

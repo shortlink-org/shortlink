@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "node server.js",
     "build": "$(npm bin)/next build",
-    "start": "API_URI= node server.js",
+    "start": "API_URI=http://api-shortlink-api.shortlink node server.js",
     "cloud": "API_URI_PORT=$(kubectl -n nginx-ingress get svc --field-selector \"metadata.name=nginx-ingress-ingress-nginx-controller\" -o json | jq '(.items|select([0])) | first.spec.ports | .[] | select(.name == \"https\") | .nodePort') API_URI=https://shortlink.local node server.js",
     "generate": "NODE_ENV=production $(npm bin)/next build && $(npm bin)/next export"
   },

@@ -105,11 +105,13 @@ export function AddURL() {
         response.type !== "" && response.type !== "error" && (
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="p" component="p">
-              <Link href={`/s/${response.hash}`} variant="body2">
-                Your link: {response.hash}
+              Your link: &nbsp;
+
+              <Link href={`/s/${response.hash}`} target="_blank" rel="noopener" variant="body2">
+                {window.location.host}/s/{response.hash}
               </Link>
 
-              <CopyToClipboard text={response.hash} onCopy={() => {
+              <CopyToClipboard text={`${window.location.host}/s/${response.hash}`} onCopy={() => {
                 setResponse({
                   type: 'success',
                   message: 'Success copy your link.',

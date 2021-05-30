@@ -62,6 +62,7 @@ deploy:
     MQ_TYPE: "rabbitmq"
     MQ_RABBIT_URI: "amqp://admin:admin@rabbitmq.rabbitmq:5672"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
+    API_LINK_SERVICE: http://api-shortlink-api.shortlink:7070
     GRPC_CLIENT_HOST: istio-ingressgateway.istio-system
     GRPC_CLIENT_TLS_ENABLED: false
     GRPC_SERVER_TLS_ENABLED: false
@@ -104,7 +105,7 @@ deploy:
   livenessProbe:
     httpGet:
       path: /ready
-      port: 3000
+      port: 3030
     initialDelaySeconds: 5
     periodSeconds: 5
     successThreshold: 1
@@ -114,7 +115,7 @@ deploy:
   readinessProbe:
     httpGet:
       path: /ready
-      port: 3000
+      port: 3030
     initialDelaySeconds: 5
     periodSeconds: 5
     successThreshold: 1
@@ -130,10 +131,10 @@ deploy:
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
       cpu: 100m
-      memory: 128Mi
+      memory: 1024Mi
     requests:
       cpu: 10m
-      memory: 32Mi
+      memory: 64Mi
 
   podSecurityContext:
     # fsGroup is the group ID associated with the container
@@ -158,6 +159,6 @@ deploy:
 
 service:
   type: ClusterIP
-  port: 3000
+  port: 3030
   # nodePort: 7070
   # clusterIP: 172.0.0.1

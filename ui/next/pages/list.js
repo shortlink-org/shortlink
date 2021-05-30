@@ -1,4 +1,4 @@
-import { forwardRef, useEffect } from 'react';
+import React, { forwardRef, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import MaterialTable from "material-table"
 import Tooltip from '@material-ui/core/Tooltip';
@@ -22,6 +22,7 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import { Layout } from '../components';
 import { fetchLinkList } from "../store";
+import Link from "@material-ui/core/Link";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -57,7 +58,15 @@ export function LinkTableContent() {
     <MaterialTable
       icons={tableIcons}
       columns={[
-        { title: "URL", field: "url" },
+        {
+          title: "URL",
+          field: "url",
+          render: rowData => (
+            <Link href={rowData.url} target="_blank" rel="noopener" variant="p">
+              {rowData.url}
+            </Link>
+          ),
+        },
         { title: "hash", field: "hash" },
         { title: "Describe", field: "describe" },
         {
