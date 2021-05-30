@@ -30,18 +30,11 @@ nodejs:
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/container_scanning/
 
 container_scanning:
-  stage: security
-  rules:
-    - when: never
-
-container_scanning_new:
   extends:
-    - .cs_common
     - .matrix_build_nodejs
   stage: security
   variables:
     DOCKER_IMAGE: $REGISTRY_IMAGE:$CI_COMMIT_TAG
-    CS_MAJOR_VERSION: 4
   allow_failure: true
   rules:
     - if: $CI_COMMIT_TAG
