@@ -1,7 +1,13 @@
 ---
 title: "K8s Troubleshooting"
 date: 2021-05-31T21:24:14+03:00
-draft: true
+draft: false
+categories:
+    - Kubernetes
+tags:
+    - k8s
+    - devops
+    - troubleshooting
 ---
 
 #### Namespace deletion stuck
