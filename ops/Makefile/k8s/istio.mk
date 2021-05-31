@@ -10,9 +10,11 @@ istio-dep: ## Install istio
 	@rm -rf istio-${ISTIO_VERSION}
 
 istio-up: ## Run istio
-	@kubectl create namespace ${ISTIO_NAMESPACE}
-	@kubectl label namespace shortlink istio-injection=enabled
-	@helm install istio-base ${ISTIO_CHART_PATH}/base -n ${ISTIO_NAMESPACE}
+	@helm upgrade istio-base ${ISTIO_CHART_PATH}/base  \
+		--install \
+		--namespace=${ISTIO_NAMESPACE} \
+		--create-namespace=true \
+		--wait
 	@helm upgrade istiod ${ISTIO_CHART_PATH}/istio-control/istio-discovery \
 		--install \
 		--namespace=${ISTIO_NAMESPACE} \
@@ -24,18 +26,8 @@ istio-up: ## Run istio
 		--create-namespace=true \
 		--wait
 	@helm install istio-egress ${ISTIO_CHART_PATH}/gateways/istio-egress -n ${ISTIO_NAMESPACE}
-	# @helm install \
-	#	--namespace istio-system \
-	#	--set auth.strategy="anonymous" \
-	#	--repo https://kiali.org/helm-charts \
-	#	kiali-server \
-	#	kiali-server
 
 istio-down: ## Delete istio
-	# delete kiali
-	@#helm uninstall --namespace istio-system kiali-server
-	@#kubectl delete crd monitoringdashboards.monitoring.kiali.io
-	# delete istio
 	@helm delete istio-egress -n ${ISTIO_NAMESPACE}
 	@helm delete istio-ingress -n ${ISTIO_NAMESPACE}
 	@helm delete istiod -n ${ISTIO_NAMESPACE}
