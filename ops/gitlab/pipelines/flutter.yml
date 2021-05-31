@@ -19,6 +19,7 @@ build:
   tags:
     - docker
     # - mobile
+  allow_failure: true
 
 unit_test:
   stage: test
