@@ -63,7 +63,7 @@ gateways:
     #    cloud.google.com/load-balancer-type: "internal"
 
     podAnnotations: {}
-    type: NodePort #change to NodePort, ClusterIP or LoadBalancer if need be
+    type: ClusterIP #change to NodePort, ClusterIP or LoadBalancer if need be
 
     ##############
     secretVolumes:
