@@ -16,7 +16,7 @@ spec:
           prefix: /metadata_rpc.Metadata/
     route:
     - destination:
-        host: metadata-shortlink-metadata
+        host: {{ include "helpers.fullname" . }}.{{ .Release.Namespace }}
         port:
           number: 50051
 {{- end }}

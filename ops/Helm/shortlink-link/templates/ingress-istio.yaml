@@ -16,7 +16,7 @@ spec:
           prefix: /link_rpc.Link/
     route:
     - destination:
-        host: link-shortlink-link.{{ .Release.Namespace }}.svc.cluster.local
+        host: {{ include "helpers.fullname" . }}.{{ .Release.Namespace }}
         port:
           number: 50051
 {{- end }}

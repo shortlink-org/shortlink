@@ -64,8 +64,6 @@ deploy:
     TRACER_URI: jaeger-agent.jaeger-operator:6831
     API_LINK_SERVICE: http://api-shortlink-api.shortlink:7070
     GRPC_CLIENT_HOST: istio-ingressgateway.istio-system
-    GRPC_CLIENT_TLS_ENABLED: false
-    GRPC_SERVER_TLS_ENABLED: false
 
     # default store config
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable
