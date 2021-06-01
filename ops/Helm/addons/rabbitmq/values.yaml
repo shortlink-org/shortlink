@@ -35,7 +35,7 @@ rabbitmq:
     pathType: Prefix
 
     tls: true
-    existingSecret: shortlink-ingress-tls
+    certManager: true
 
   metrics:
     enabled: true
