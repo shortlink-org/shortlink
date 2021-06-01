@@ -19,7 +19,7 @@ import (
 
 // InitClient - set up a connection to the server.
 func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn, func(), error) {
-	viper.SetDefault("GRPC_CLIENT_TLS_ENABLED", true) // gRPC tls
+	viper.SetDefault("GRPC_CLIENT_TLS_ENABLED", false) // gRPC tls
 	isEnableTLS := viper.GetBool("GRPC_CLIENT_TLS_ENABLED")
 
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port

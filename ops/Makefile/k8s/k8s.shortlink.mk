@@ -61,7 +61,6 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--create-namespace=true \
 		--set serviceAccount.create=false \
-		--set deploy.env.GRPC_SERVER_TLS_ENABLED=false \
 		--wait
 
 	@helm upgrade link ${SHORTLINK_HELM_LINK} \
@@ -69,7 +68,6 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--create-namespace=true \
 		--set serviceAccount.create=false \
-		--set deploy.env.GRPC_SERVER_TLS_ENABLED=false \
 		--wait
 
 	@helm upgrade landing ${SHORTLINK_HELM_LANDING} \
@@ -97,7 +95,6 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--create-namespace=true \
 		--set serviceAccount.create=false \
-		--set deploy.env.GRPC_SERVER_TLS_ENABLED=false \
 		--set path=s \
 		--set ingress.enabled=true \
 		--set host=shortlink.local \
