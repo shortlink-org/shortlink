@@ -153,37 +153,37 @@ services:
   # https://www.ory.sh/keto/
   # https://github.com/ory/keto
   # -------------------------------------------------------------------------- #
-  keto:
-    <<: *network
-    depends_on:
-      - coredns
-#      - keto_db
-#      - keto_migrate
-    image: oryd/keto:v0.6.0-alpha.1
-    command: serve
-    ports:
-      - "4466:4466"
-      - "4467:4467"
-    environment:
-      DSN: memory
-      TRACING_PROVIDER: jaeger
-      TRACING_PROVIDER_JAEGER_SAMPLING_SERVER_URL: http://jaeger:5778/sampling
-      TRACING_PROVIDER_JAEGER_LOCAL_AGENT_ADDRESS: jaeger:6831
-      TRACING_PROVIDER_JAEGER_SAMPLING_TYPE: const
-      TRACING_PROVIDER_JAEGER_SAMPLING_VALUE: 1
-    restart: on-failure
+#  keto:
+#    <<: *network
+#    depends_on:
+#      - coredns
+##      - keto_db
+##      - keto_migrate
+#    image: oryd/keto:v0.6.0-alpha.1
+#    command: serve
+#    ports:
+#      - "4466:4466"
+#      - "4467:4467"
+#    environment:
+#      DSN: memory
+#      TRACING_PROVIDER: jaeger
+#      TRACING_PROVIDER_JAEGER_SAMPLING_SERVER_URL: http://jaeger:5778/sampling
+#      TRACING_PROVIDER_JAEGER_LOCAL_AGENT_ADDRESS: jaeger:6831
+#      TRACING_PROVIDER_JAEGER_SAMPLING_TYPE: const
+#      TRACING_PROVIDER_JAEGER_SAMPLING_VALUE: 1
+#    restart: on-failure
 
   # -------------------------------------------------------------------------- #
   # ORY mailslurper
   # Intercept confirmation emails to ease the testing process.
   # -------------------------------------------------------------------------- #
 
-  mailslurper:
-    <<: *network
-    depends_on:
-      - coredns
-    image: oryd/mailslurper:latest-smtps
-    ports:
-      - "4436:4436"
-      - "4437:4437"
-    restart: on-failure
+#  mailslurper:
+#    <<: *network
+#    depends_on:
+#      - coredns
+#    image: oryd/mailslurper:latest-smtps
+#    ports:
+#      - "4436:4436"
+#      - "4437:4437"
+#    restart: on-failure
