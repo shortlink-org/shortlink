@@ -12,8 +12,14 @@ release:
     description: 'Created using the release-cli $EXTRA_DESCRIPTION' # $EXTRA_DESCRIPTION must be defined
     tag_name: '$CI_COMMIT_TAG'                                      # elsewhere in the pipeline.
     ref: '$CI_COMMIT_TAG'
+  assets: # Optional, multiple asset links
+    links:
+      - name: 'Demo'
+        url: 'https://shortlink.ddns.net/'
+      - name: 'Swagger'
+        url: 'https://shortlink-org.gitlab.io/shortlink'
   rules:
-    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_TAG  # Run this job when a tag is created manually
 
 goreleaser:
   stage: release
@@ -34,7 +40,7 @@ goreleaser:
     - mkdir -p .go
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - goreleaser release --rm-dist --skip-validate
+    - goreleaser release --rm-dist --skip-validate --skip-publish
   tags:
     - docker
   needs: [ ]
