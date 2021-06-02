@@ -1,16 +1,21 @@
 import React from 'react';
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
+import {makeStyles} from "@material-ui/core/styles"
+import Box from '@material-ui/core/Box'
 import Header from './Header';
 import Copyright from './Copyright';
-import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
-    display: 'grid',
-    gridTemplateRows: 'auto 1fr auto',
+    display: 'flex'
   },
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  },
+  appBarSpacer: theme.mixins.toolbar,
 }));
 
 export function Layout(props) {
@@ -20,10 +25,15 @@ export function Layout(props) {
     (
       <Grid className={classes.root}>
         <Header />
-        <Container >
-          {props.content}
-        </Container>
-        <Copyright />
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container>
+            {props.content}
+          </Container>
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </main>
       </Grid>
     )
   )
