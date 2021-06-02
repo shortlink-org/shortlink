@@ -46,7 +46,7 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--set rabbitmq.metrics.enabled=false \
 		--wait
 
-	@helm upgrade api ${SHORTLINK_HELM_API} \
+	@helm upgrade shortlink-api ${SHORTLINK_HELM_API} \
 		--install \
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--create-namespace=true \
@@ -56,21 +56,22 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--set host=shortlink.local \
 		--wait
 
-	@helm upgrade metadata ${SHORTLINK_HELM_METADATA} \
+	@helm upgrade shortlink-metadata ${SHORTLINK_HELM_METADATA} \
+		--install \
+		--namespace=${SHORTLINK_NAMESPACE} \
+		--create-namespace=true \
+		--set serviceAccount.create=false \
+		--set deploy.image.tag=0.10.26 --set deploy.image.repository=registry.gitlab.com/shortlink-org/shortlink/metadata \
+		--wait
+
+	@helm upgrade shortlink-link ${SHORTLINK_HELM_LINK} \
 		--install \
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--create-namespace=true \
 		--set serviceAccount.create=false \
 		--wait
 
-	@helm upgrade link ${SHORTLINK_HELM_LINK} \
-		--install \
-		--namespace=${SHORTLINK_NAMESPACE} \
-		--create-namespace=true \
-		--set serviceAccount.create=false \
-		--wait
-
-	@helm upgrade landing ${SHORTLINK_HELM_LANDING} \
+	@helm upgrade shortlink-landing ${SHORTLINK_HELM_LANDING} \
 		--install \
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--create-namespace=true \
@@ -80,7 +81,7 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--set ingress.type=nginx \
 		--wait
 
-	@helm upgrade next ${SHORTLINK_HELM_UI} \
+	@helm upgrade shortlink-next ${SHORTLINK_HELM_UI} \
 		--install \
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--create-namespace=true \
@@ -90,7 +91,7 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--set host=shortlink.local \
 		--wait
 
-	@helm upgrade proxy ${SHORTLINK_HELM_PROXY} \
+	@helm upgrade shortlink-proxy ${SHORTLINK_HELM_PROXY} \
 		--install \
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--create-namespace=true \
@@ -100,7 +101,7 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--set host=shortlink.local \
 		--wait
 
-	@helm upgrade bot ${SHORTLINK_HELM_BOT} \
+	@helm upgrade shortlink-bot ${SHORTLINK_HELM_BOT} \
 		--install \
 		--namespace=${SHORTLINK_NAMESPACE} \
 		--create-namespace=true \
@@ -111,5 +112,5 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 
 helm-shortlink-down: ## Clean artifact from K8S
 	for i in $(SHORTLINK_SERVICES); do \
-		helm -n ${SHORTLINK_NAMESPACE} del $$i; \
+		helm -n ${SHORTLINK_NAMESPACE} del shortlink-$$i; \
   	done

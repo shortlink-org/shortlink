@@ -44,7 +44,7 @@
       - RELEASE_NAME: ${CI_PROJECT_NAME}-proxy
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-proxy
         REGISTRY: ${CI_REGISTRY_IMAGE}/proxy
-        HELM_ARG: --set serviceAccount.create=false
+        HELM_ARG: --set serviceAccount.create=false --set ingress.enabled=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
 
       - RELEASE_NAME: ${CI_PROJECT_NAME}-bot
