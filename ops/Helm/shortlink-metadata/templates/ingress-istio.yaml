@@ -16,7 +16,7 @@ spec:
           prefix: /metadata_rpc.Metadata/
     route:
     - destination:
-        host: {{ include "helpers.fullname" . }}.{{ .Release.Namespace }}
+        host: {{ include "helpers.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
         port:
           number: 50051
 {{- end }}
