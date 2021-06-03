@@ -12,8 +12,14 @@ import AssignmentIcon from '@material-ui/icons/Assignment'
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 import AssessmentIcon from '@material-ui/icons/Assessment'
 import PersonIcon from '@material-ui/icons/Person'
+import HttpIcon from '@material-ui/icons/Http'
 
 const mainMenuList = [
+  {
+    name: "Add URL",
+    url: "/user/addUrl",
+    icon: <HttpIcon />,
+  },
   {
     name: "Dashboard",
     url: "/user/dashboard",
