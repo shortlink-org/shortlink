@@ -14,6 +14,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
+    gridTemplateRows: '64px auto 72px',
+    display: 'grid',
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
   },
   appBarSpacer: theme.mixins.toolbar,
 }));
