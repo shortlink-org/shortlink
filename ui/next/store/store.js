@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware } from "redux";
-import { createWrapper } from "next-redux-wrapper";
-import { composeWithDevTools } from "redux-devtools-extension";
-import createMiddleware from "redux-saga";
+import { createStore, applyMiddleware } from "redux"
+import { createWrapper } from "next-redux-wrapper"
+import { composeWithDevTools } from "redux-devtools-extension"
+import createMiddleware from "redux-saga"
 
 import rootReducer from "./reducers";
 import rootSaga from "./sagas";
