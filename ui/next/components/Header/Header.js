@@ -2,8 +2,6 @@ import React from "react"
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import AppBar from '@material-ui/core/AppBar'
-import Tab from '@material-ui/core/Tab'
-import Tabs from '@material-ui/core/Tabs'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
@@ -93,14 +91,18 @@ const Header = () => {
           Shortlink
         </Typography>
 
+        <Link href="/">
+          <Button href="/" color="inherit">Home</Button>
+        </Link>
+
         <Link href="/pricing">
-          <Button href="/price" color="inherit">Price</Button>
+          <Button href="/price" color="inherit">Pricing</Button>
         </Link>
 
         <SearchForm />
 
         <Link href="/auth/login">
-          <Button variant="outlined" color="inherit">Login</Button>
+          <Button variant="outlined" color="inherit">Log in</Button>
         </Link>
 
         <IconButton color="inherit">

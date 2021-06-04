@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid'
 import {makeStyles} from "@material-ui/core/styles"
 import Box from '@material-ui/core/Box'
 import Header from './Header';
-import Copyright from './Copyright';
+import Footer from './Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
-    gridTemplateRows: '64px auto 72px',
+    gridTemplateRows: '64px 1fr auto',
     display: 'grid',
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
@@ -37,7 +37,7 @@ export function Layout(props) {
             {props.content}
           </Container>
           <Box pt={4}>
-            <Copyright />
+            <Footer />
           </Box>
         </main>
       </Grid>

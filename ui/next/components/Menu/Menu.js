@@ -5,7 +5,7 @@ import Drawer from "@material-ui/core/Drawer";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
-import {mainListItems, secondaryListItems} from "./listItems";
+import { mainListItems, secondaryListItems, adminListItems } from "./listItems";
 import React from "react";
 import useStyles from './style'
 
@@ -22,6 +22,7 @@ const Menu = ({ open, setOpen }) => {
       variant="permanent"
       classes={{
         paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+        root: classes.root,
       }}
       open={open}
     >
@@ -34,6 +35,8 @@ const Menu = ({ open, setOpen }) => {
       <List>{mainListItems}</List>
       <Divider />
       <List>{secondaryListItems}</List>
+      <Divider />
+      <List>{adminListItems}</List>
     </Drawer>
   )
 };

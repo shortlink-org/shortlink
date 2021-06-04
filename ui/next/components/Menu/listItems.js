@@ -13,6 +13,8 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 import AssessmentIcon from '@material-ui/icons/Assessment'
 import PersonIcon from '@material-ui/icons/Person'
 import HttpIcon from '@material-ui/icons/Http'
+import PeopleIcon from '@material-ui/icons/People'
+import GroupAddIcon from '@material-ui/icons/GroupAdd'
 
 const mainMenuList = [
   {
@@ -79,6 +81,38 @@ const otherMenuList = [
 export const secondaryListItems = [
   <ListSubheader inset>Other options</ListSubheader>,
   otherMenuList.map(item => (
+    <Link href={item.url} key={item.url}>
+      <ListItem button>
+        <ListItemIcon>
+          {item.icon}
+        </ListItemIcon>
+        <ListItemText primary={item.name} />
+      </ListItem>
+    </Link>
+  ))
+]
+
+const adminMenuList = [
+  {
+    name: "Groups",
+    url: "/admin/groups",
+    icon: <PeopleIcon />,
+  },
+  {
+    name: "Users",
+    url: "/admin/users",
+    icon: <GroupAddIcon />,
+  },
+  {
+    name: "Links",
+    url: "/admin/links",
+    icon: <ListIcon />,
+  },
+]
+
+export const adminListItems = [
+  <ListSubheader inset>Admin options</ListSubheader>,
+  adminMenuList.map(item => (
     <Link href={item.url} key={item.url}>
       <ListItem button>
         <ListItemIcon>

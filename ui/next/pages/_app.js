@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import 'tailwindcss/tailwind.css'
 import theme from '../theme/theme';
 import ScrollTop from '../components/ScrollTop';
 import "../assets/styles.css"
