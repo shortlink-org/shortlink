@@ -93,7 +93,7 @@ const Header = () => {
           Shortlink
         </Typography>
 
-        <Link href="/price">
+        <Link href="/pricing">
           <Button href="/price" color="inherit">Price</Button>
         </Link>
 
