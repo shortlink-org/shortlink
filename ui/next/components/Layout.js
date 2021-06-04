@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import {makeStyles} from "@material-ui/core/styles"
@@ -8,7 +9,7 @@ import Copyright from './Copyright';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex'
+    display: 'flex',
   },
   content: {
     flexGrow: 1,
@@ -28,6 +29,7 @@ export function Layout(props) {
   return (
     (
       <Grid className={classes.root}>
+        <CssBaseline />
         <Header />
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
