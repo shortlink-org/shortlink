@@ -3,6 +3,9 @@ import {makeStyles} from "@material-ui/core/styles"
 const drawerWidth = 240
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '100vh',
+  },
   drawerPaper: {
     position: 'relative',
     whiteSpace: 'nowrap',
