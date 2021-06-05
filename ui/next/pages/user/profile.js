@@ -1,9 +1,12 @@
 import React from 'react'
 import { Layout } from '../../components';
+import Welcome from "../../components/widgets/welcom";
 
 export function ProfileContent() {
   return [
-    <div>
+    <React.Fragment>
+      <Welcome />
+
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <div className="px-4 sm:px-0">
@@ -118,7 +121,7 @@ export function ProfileContent() {
           </form>
         </div>
       </div>
-    </div>,
+    </React.Fragment>,
 
     <div className="hidden sm:block" aria-hidden="true">
       <div className="py-5">

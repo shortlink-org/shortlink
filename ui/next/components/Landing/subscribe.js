@@ -1,4 +1,4 @@
-import {UndrawTabs, UndrawDesigner,UndrawResponsive } from 'react-undraw-illustrations'
+import { UndrawDesigner } from 'react-undraw-illustrations'
 
 export default function Subscribe() {
   return (
