@@ -7,8 +7,6 @@ import Ready from '../../components/Landing/Ready';
 export function BillingContent() {
   return (
     <React.Fragment>
-      <Ready />
-
       <Discounted />
 
       <PaymentMethod />

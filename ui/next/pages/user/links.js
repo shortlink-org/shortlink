@@ -23,6 +23,7 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 import Link from "@material-ui/core/Link";
 import { Layout } from '../../components';
 import { fetchLinkList } from "../../store";
+import Statistic from '../../components/Dashboard/stats'
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -55,69 +56,73 @@ export function LinkTableContent() {
 	}, [dispatch]);
 
   return (
-    <MaterialTable
-      icons={tableIcons}
-      columns={[
-        {
-          title: "URL",
-          field: "url",
-          render: rowData => (
-            <Link href={rowData.url} target="_blank" rel="noopener" variant="p">
-              {rowData.url}
-            </Link>
-          ),
-        },
-        { title: "hash", field: "hash" },
-        { title: "Describe", field: "describe" },
-        {
-          title: "Created at",
-          field: "createdAt",
-          render: rowData => (
-            <Tooltip title="Created at" arrow title={rowData.createdAt} interactive>
-              <span>{ formatRelative(new Date(rowData.createdAt), new Date(), { addSuffix: true }) }</span>
-            </Tooltip>
-          ),
-        },
-        {
-          title: "Updated at",
-          field: "updatedAt",
-          render: rowData => (
-            <Tooltip title="Updated at" arrow title={rowData.updatedAt} interactive>
-              <span>{ formatRelative(new Date(rowData.updatedAt), new Date(), { addSuffix: true }) }</span>
-            </Tooltip>
-          ),
-        }
-      ]}
-      data={state.list || []}
-      actions={[
-        {
-          icon: tableIcons.Add,
-          tooltip: 'Add link',
-          isFreeAction: true,
-          onClick: (event) => alert("You want to add a new row")
-        },
-        {
-          icon: tableIcons.Update,
-          tooltip: 'Update link',
-          isFreeAction: true,
-          onClick: (event) => dispatch(fetchLinkList())
-        },
-        {
-          icon: tableIcons.Save,
-          tooltip: 'Save link',
-          onClick: (event, rowData) => alert("You saved " + rowData.name)
-        },
-        {
-          icon: tableIcons.Delete,
-          tooltip: 'Delete link',
-          onClick: (event, rowData) => confirm("You want to delete " + rowData.name)
-        }
-      ]}
-      options={{
-        exportButton: true
-      }}
-      title="Link Table"
-    />
+    <div>
+      <Statistic />
+
+      <MaterialTable
+        icons={tableIcons}
+        columns={[
+          {
+            title: "URL",
+            field: "url",
+            render: rowData => (
+              <Link href={rowData.url} target="_blank" rel="noopener" variant="p">
+                {rowData.url}
+              </Link>
+            ),
+          },
+          { title: "hash", field: "hash" },
+          { title: "Describe", field: "describe" },
+          {
+            title: "Created at",
+            field: "createdAt",
+            render: rowData => (
+              <Tooltip title="Created at" arrow title={rowData.createdAt} interactive>
+                <span>{ formatRelative(new Date(rowData.createdAt), new Date(), { addSuffix: true }) }</span>
+              </Tooltip>
+            ),
+          },
+          {
+            title: "Updated at",
+            field: "updatedAt",
+            render: rowData => (
+              <Tooltip title="Updated at" arrow title={rowData.updatedAt} interactive>
+                <span>{ formatRelative(new Date(rowData.updatedAt), new Date(), { addSuffix: true }) }</span>
+              </Tooltip>
+            ),
+          }
+        ]}
+        data={state.list || []}
+        actions={[
+          {
+            icon: tableIcons.Add,
+            tooltip: 'Add link',
+            isFreeAction: true,
+            onClick: (event) => alert("You want to add a new row")
+          },
+          {
+            icon: tableIcons.Update,
+            tooltip: 'Update link',
+            isFreeAction: true,
+            onClick: (event) => dispatch(fetchLinkList())
+          },
+          {
+            icon: tableIcons.Save,
+            tooltip: 'Save link',
+            onClick: (event, rowData) => alert("You saved " + rowData.name)
+          },
+          {
+            icon: tableIcons.Delete,
+            tooltip: 'Delete link',
+            onClick: (event, rowData) => confirm("You want to delete " + rowData.name)
+          }
+        ]}
+        options={{
+          exportButton: true
+        }}
+        title="Link Table"
+      />
+    </div>
   );
 }
 

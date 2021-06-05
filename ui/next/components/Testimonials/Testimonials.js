@@ -1,6 +1,6 @@
 export default function Testimonials() {
   return (
-    <div className="flex items-center justify-center px-5 py-5">
+    <div className="flex items-center justify-center px-5 py-5 my-10">
       <div
         className="w-full mx-auto max-w-xl rounded-lg bg-white dark:bg-gray-800 shadow-lg px-5 pt-5 pb-10 text-gray-800 dark:text-gray-50">
         <div className="w-full pt-1 text-center pb-5 -mt-16 mx-auto">

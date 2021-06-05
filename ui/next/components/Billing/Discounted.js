@@ -1,4 +1,4 @@
-export default function() {
+export default function Discounted() {
   return (
     <div className="mt-4 my-4 relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:mt-5">
       <div className="max-w-md mx-auto lg:max-w-5xl ">

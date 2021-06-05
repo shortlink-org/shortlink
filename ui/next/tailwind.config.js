@@ -7,9 +7,6 @@ module.exports = {
       body: ['Roboto Mono', 'Menlo', 'monospace'],
     },
   },
-  variants: {
-    extend: {},
-  },
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
