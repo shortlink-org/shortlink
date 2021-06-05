@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateRows: '64px 1fr auto',
     display: 'grid',
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
   },
   appBarSpacer: theme.mixins.toolbar,
 }));
@@ -27,21 +26,19 @@ export function Layout(props) {
   const classes = useStyles()
 
   return (
-    (
-      <Grid className={classes.root}>
-        <CssBaseline />
-        <Header />
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container>
-            {props.content}
-          </Container>
-          <Box pt={4}>
-            <Footer />
-          </Box>
-        </main>
-      </Grid>
-    )
+    <Grid className={[classes.root, "bg-gray-100"]}>
+      <CssBaseline />
+      <Header />
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container>
+          {props.content}
+        </Container>
+        <Box pt={4}>
+          <Footer />
+        </Box>
+      </main>
+    </Grid>
   )
 }
 
