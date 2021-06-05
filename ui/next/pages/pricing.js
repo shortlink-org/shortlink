@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Layout } from '../components';
+import Discounted from "../components/Billing/Discounted";
 
 const tiers = [
   {
@@ -105,6 +106,8 @@ export function PricingContent() {
           It&apos;s built with default Material-UI components with little customization.
         </Typography>
       </Container>
+
+      <Discounted />
 
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0, 2),
   },
 }));
 
@@ -106,20 +106,18 @@ export function SignInPageContent() {
             Sign In
           </Button>
 
-          <Paper className={classes.paper} elevation={0}>
-            <Grid container>
-              <Grid item xs>
-                <Link href="/next/auth/forgot" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/next/auth/registration" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+          <Grid container>
+            <Grid item xs>
+              <Link href="/next/auth/forgot" variant="body2">
+                Forgot password?
+              </Link>
             </Grid>
-          </Paper>
+            <Grid item>
+              <Link href="/next/auth/registration" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </form>
       </div>
     </Container>
