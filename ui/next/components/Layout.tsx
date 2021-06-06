@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
 }));
 
+// @ts-ignore
 export function Layout(props) {
   const classes = useStyles()
 

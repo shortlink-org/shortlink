@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "repository": "https://github.com/batazor/shortlink.git",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "dev": "node server.js",
+    "dev": "ts-node --project tsconfig.server.json server/server.ts",
     "build": "$(npm bin)/next build",
-    "start": "API_URI=http://api-shortlink-api.shortlink node server.js",
-    "cloud": "API_URI_PORT=$(kubectl -n nginx-ingress get svc --field-selector \"metadata.name=nginx-ingress-ingress-nginx-controller\" -o json | jq '(.items|select([0])) | first.spec.ports | .[] | select(.name == \"https\") | .nodePort') API_URI=https://shortlink.local node server.js",
-    "generate": "NODE_ENV=production $(npm bin)/next build && $(npm bin)/next export"
+    "start": "API_URI=http://api-shortlink-api.shortlink npm run dev",
+    "cloud": "API_URI_PORT=$(kubectl -n nginx-ingress get svc --field-selector \"metadata.name=nginx-ingress-ingress-nginx-controller\" -o json | jq '(.items|select([0])) | first.spec.ports | .[] | select(.name == \"https\") | .nodePort') API_URI=https://shortlink.local ts-node server/server.ts",
+    "generate": "NODE_ENV=production $(npm bin)/next build && $(npm bin)/next export",
+    "type-check": "tsc"
   },
   "keywords": [],
   "author": "Victor Login <batazor111@gmail.com>",
@@ -49,8 +50,15 @@
     "webpack": "^5.38.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.12",
+    "@types/material-ui": "^0.21.8",
+    "@types/node": "^15.12.1",
+    "@types/react": "^17.0.9",
+    "@types/react-dom": "^17.0.6",
     "@zeit/next-source-maps": "0.0.3",
     "sharp": "^0.28.3",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2",
     "webpack-shell-plugin": "^0.5.0"
   }
 }
