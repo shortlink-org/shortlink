@@ -1,7 +1,7 @@
 import React from "react"
 import { PaperClipIcon } from '@heroicons/react/solid'
 import { UndrawCoworkers } from 'react-undraw-illustrations'
-import { Layout } from '../components';
+import { Layout } from 'components';
 
 function NewComponent() {
 return (

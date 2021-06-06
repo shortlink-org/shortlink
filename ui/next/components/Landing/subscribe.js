@@ -2,8 +2,8 @@ import { UndrawDesigner } from 'react-undraw-illustrations'
 
 export default function Subscribe() {
   return (
-    <header className="bg-white dark:bg-gray-800 rounded">
-      <div className="container px-6 py-16 mx-auto border-t-4 border-indigo-500 rounded">
+    <header className="bg-white dark:bg-gray-800 rounded border-t-4 border-indigo-500">
+      <div className="container px-6 py-16 mx-auto rounded">
         <div className="items-center lg:flex">
           <div className="w-full lg:w-1/2">
             <div className="lg:max-w-lg">

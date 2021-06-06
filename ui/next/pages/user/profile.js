@@ -1,6 +1,6 @@
 import React from 'react'
-import { Layout } from '../../components';
-import Welcome from "../../components/widgets/welcom";
+import { Layout } from 'components';
+import Welcome from "components/widgets/welcom";
 
 export function ProfileContent() {
   return [

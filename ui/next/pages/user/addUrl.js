@@ -11,7 +11,7 @@ import Grid from '@material-ui/core/Grid'
 import {makeStyles} from "@material-ui/core/styles";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import Link from '@material-ui/core/Link';
-import { Layout } from '../../components';
+import { Layout } from 'components';
 
 const useStyles = makeStyles((theme) => ({
   root: {

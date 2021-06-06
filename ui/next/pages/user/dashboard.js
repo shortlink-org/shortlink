@@ -5,11 +5,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Chart from '../../components/widgets/Chart';
-import Deposits from '../../components/widgets/Deposits';
-import Orders from '../../components/widgets/Orders';
-import { Layout } from '../../components';
-import Profile from '../../components/Dashboard/profile';
+import { Layout } from 'components';
+import Chart from 'components/widgets/Chart';
+import Deposits from 'components/widgets/Deposits';
+import Orders from 'components/widgets/Orders';
+import Profile from 'components/Dashboard/profile';
 
 const useStyles = makeStyles((theme) => ({
   title: {
