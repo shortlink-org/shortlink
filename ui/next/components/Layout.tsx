@@ -1,13 +1,13 @@
-import React from 'react'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import {makeStyles} from "@material-ui/core/styles"
-import Box from '@material-ui/core/Box'
+import React from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Header from './Header';
 import Footer from './Footer';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
@@ -24,22 +24,19 @@ const useStyles = makeStyles((theme) => ({
 
 // @ts-ignore
 export function Layout(props) {
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
-    <Grid className={[classes.root, "bg-gray-100"]}>
+    <Grid className={[classes.root, 'bg-gray-100']}>
       <CssBaseline />
       <Header />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container>
-          {props.content}
-        </Container>
+        <Container>{props.content}</Container>
         <Box pt={4}>
           <Footer />
         </Box>
       </main>
     </Grid>
-  )
+  );
 }
-

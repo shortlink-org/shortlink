@@ -11,7 +11,7 @@ import Deposits from 'components/widgets/Deposits';
 import Orders from 'components/widgets/Orders';
 import Profile from 'components/Dashboard/profile';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
   },
@@ -51,8 +51,11 @@ function DashboardContent() {
               <div className="bg-white p-6 shadow-lg rounded-lg flex justify-between items-center">
                 <div className="flex">
                   <div className="mr-4">
-                    <img className="shadow sm:w-12 sm:h-12 w-14 h-14 rounded-full"
-                         src="http://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg" alt="Avatar"/>
+                    <img
+                      className="shadow sm:w-12 sm:h-12 w-14 h-14 rounded-full"
+                      src="http://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg"
+                      alt="Avatar"
+                    />
                   </div>
                   <div>
                     <h1 className="text-xl font-medium text-gray-700">Link</h1>
