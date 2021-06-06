@@ -13,6 +13,7 @@ import "assets/styles.css"
 
 class MyApp extends App {
   constructor() {
+    // @ts-ignore
     super(...arguments)
     this.state = {
       hasError: false,
@@ -20,6 +21,7 @@ class MyApp extends App {
     }
   }
 
+  // @ts-ignore
   static getDerivedStateFromProps(props, state) {
     // If there was an error generated within getInitialProps, and we haven't
     // yet seen an error, we add it to this.state here
@@ -35,15 +37,8 @@ class MyApp extends App {
     return { hasError: true }
   }
 
-  componentDidCatch(error, errorInfo) {
-    const errorEventId = captureException(error, { errorInfo })
-
-    // Store the event id at this point as we don't have access to it within
-    // `getDerivedStateFromError`.
-    this.setState({ errorEventId })
-  }
-
   render() {
+    // @ts-ignore
     return this.state.hasError ? (
       <section>
         <h1>There was an error!</h1>

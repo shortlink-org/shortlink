@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ScrollTop(props) {
+export default function ScrollTop(props?: any) {
   const { children, window } = props;
   const classes = useStyles();
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -24,6 +24,7 @@ export default function ScrollTop(props) {
     threshold: 100,
   });
 
+  // @ts-ignore
   const handleClick = (event) => {
     const anchor = (event.target.ownerDocument || document).querySelector('#back-to-top-anchor');
 
@@ -38,7 +39,7 @@ export default function ScrollTop(props) {
         {children}
       </div>
     </Zoom>
-  );
+  )
 }
 
 ScrollTop.propTypes = {

@@ -25,6 +25,7 @@ import { Layout } from 'components';
 import Statistic from 'components/Dashboard/stats'
 import { fetchLinkList } from "store";
 
+// @ts-ignore
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Update: forwardRef((props, ref) => <Update {...props} ref={ref} />),

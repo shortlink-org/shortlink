@@ -1,14 +1,14 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
+import React from 'react'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Link from '@material-ui/core/Link'
+import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import { makeStyles } from '@material-ui/core/styles';
-import { Layout } from 'components';
-import { Google, Facebook, GitHub } from 'components/widgets/oAuthServices.js'
+import { makeStyles } from '@material-ui/core/styles'
+import { Layout } from 'components'
+import { Google, Facebook, GitHub } from 'components/widgets/oAuthServices'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -111,12 +111,12 @@ export function SignInPageContent() {
             
                       <Grid container>
                         <Grid item xs>
-                          <Link href="/next/auth/forgot" variant="body2">
+                          <Link href={"/next/auth/forgot"} variant="body2">
                             Forgot password?
                           </Link>
                         </Grid>
                         <Grid item>
-                          <Link href="/next/auth/registration" variant="body2">
+                          <Link href={"/next/auth/registration"} variant="body2">
                             {"Don't have an account? Sign Up"}
                           </Link>
                         </Grid>

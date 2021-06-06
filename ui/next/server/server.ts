@@ -1,13 +1,15 @@
-const express = require('express')
+import express, { Request, Response } from "express"
 const next = require('next')
 
 const cookieParser = require('cookie-parser')
 const { v4: uuidv4 } = require('uuid')
+// @ts-ignore
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handler = app.getRequestHandler()
 
+// @ts-ignore
 function sessionCookie(req, res, next) {
   const htmlPage =
     !req.path.match(/^\/(_next|static)/) &&
@@ -35,7 +37,7 @@ app.prepare().then(() => {
     .use(sessionCookie)
     // Regular next.js request handler
     .use(handler)
-    .listen(port, err => {
+    .listen(port, (err?: any) => {
       if (err) {
         throw err
       }
