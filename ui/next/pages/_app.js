@@ -1,5 +1,5 @@
 import React from 'react';
-import { wrapper } from '../store/store'
+import { wrapper } from 'store/store'
 import App from 'next/app'
 import Head from 'next/head';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,9 +7,9 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import 'tailwindcss/tailwind.css'
-import theme from '../theme/theme';
-import ScrollTop from '../components/ScrollTop';
-import "../assets/styles.css"
+import theme from 'theme/theme';
+import ScrollTop from 'components/ScrollTop';
+import "assets/styles.css"
 
 class MyApp extends App {
   constructor() {

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Layout } from '../../components';
-import Ready from "../../components/Landing/Ready";
+import { Layout } from 'components';
+import Ready from "components/Landing/Ready"
 
 export function BillingContent() {
   return (

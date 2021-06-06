@@ -21,9 +21,9 @@ import Save from '@material-ui/icons/Save';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import Link from "@material-ui/core/Link";
-import { Layout } from '../../components';
-import { fetchLinkList } from "../../store";
-import Statistic from '../../components/Dashboard/stats'
+import { Layout } from 'components';
+import Statistic from 'components/Dashboard/stats'
+import { fetchLinkList } from "store";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
