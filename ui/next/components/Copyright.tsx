@@ -9,8 +9,7 @@ export default function Copyright() {
       <MuiLink color="inherit" href="/next">
         Shortlink
       </MuiLink>{' '}
-      {new Date().getFullYear()}
-      {'.'}
+      {new Date().getFullYear()}.
     </Typography>
   );
 }

@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import Snackbar from '@material-ui/core/Snackbar'
-import Alert from '@material-ui/lab/Alert'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import FileCopyIcon from '@material-ui/icons/FileCopy'
-import Grid from '@material-ui/core/Grid'
-import {makeStyles} from "@material-ui/core/styles";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import React, { useState } from 'react';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Link from '@material-ui/core/Link';
 import { Layout } from 'components';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     overflow: 'hidden',
@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function AddUrlContent() {
-  const [open, setOpen] = useState(false)
-  const classes = useStyles()
+  const [open, setOpen] = useState(false);
+  const classes = useStyles();
 
   const [url, setURL] = useState({
     url: '',
@@ -40,11 +40,10 @@ export function AddUrlContent() {
   const [response, setResponse] = useState({
     type: '',
     message: '',
-    hash: ''
-  })
+    hash: '',
+  });
 
-  const handleChange = e =>
-    setURL({ ...url, [e.target.name]: e.target.value })
+  const handleChange = e => setURL({ ...url, [e.target.name]: e.target.value });
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -62,8 +61,8 @@ export function AddUrlContent() {
         method: 'POST',
         body: JSON.stringify(url),
         headers: { 'Content-Type': 'application/json' },
-      })
-      const json = await res.json()
+      });
+      const json = await res.json();
 
       if (res.status === 201) {
         setResponse({
@@ -79,54 +78,68 @@ export function AddUrlContent() {
         });
       }
 
-      setOpen(true)
+      setOpen(true);
     } catch (e) {
       console.error('An error occurred', e);
       setResponse({
         type: 'error',
-        message: 'An error occured while submitting the form'
+        message: 'An error occured while submitting the form',
       });
-      setOpen(true)
+      setOpen(true);
     }
   };
 
   return (
-    <Grid container direction="column" justify="space-around" alignItems="center" className={classes.root}>
+    <Grid
+      container
+      direction="column"
+      justify="space-around"
+      alignItems="center"
+      className={classes.root}
+    >
       <Paper className={classes.paper}>
-        <form autoComplete="off" onSubmit={handleSubmit} className={classes.form}>
+        <form
+          autoComplete="off"
+          onSubmit={handleSubmit}
+          className={classes.form}
+        >
           <TextField label="Your URL" name="url" onChange={handleChange} />
           <TextField label="Describe" name="describe" onChange={handleChange} />
-          <Button variant="contained" color="primary" type={"submit"}>
+          <Button variant="contained" color="primary" type="submit">
             Add
           </Button>
         </form>
       </Paper>
 
-      {
-        response.type !== "" && response.type !== "error" && (
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="p" component="p">
-              Your link: &nbsp;
-
-              <Link href={`/s/${response.hash}`} target="_blank" rel="noopener" variant="body2">
-                {window.location.host}/s/{response.hash}
-              </Link>
-
-              <CopyToClipboard text={`${window.location.host}/s/${response.hash}`} onCopy={() => {
+      {response.type !== '' && response.type !== 'error' && (
+        <Paper elevation={3} className={classes.paper}>
+          <Typography variant="p" component="p">
+            Your link: &nbsp;
+            <Link
+              href={`/s/${response.hash}`}
+              target="_blank"
+              rel="noopener"
+              variant="body2"
+            >
+              {window.location.host}/s/{response.hash}
+            </Link>
+            <CopyToClipboard
+              text={`${window.location.host}/s/${response.hash}`}
+              onCopy={() => {
                 setResponse({
                   type: 'success',
                   message: 'Success copy your link.',
                   hash: response.hash,
                 });
-              }}>
-                <IconButton aria-label="copy" color="secondary">
-                  <FileCopyIcon />
-                </IconButton>
-              </CopyToClipboard>
-            </Typography>
-          </Paper>
-        )
-      }
+              }}
+            >
+              <IconButton aria-label="copy" color="secondary">
+                <FileCopyIcon />
+              </IconButton>
+            </CopyToClipboard>
+          </Typography>
+        </Paper>
+      )}
 
       <Snackbar
         anchorOrigin={{
@@ -138,11 +151,11 @@ export function AddUrlContent() {
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity={response.type}>
-          { response.message }
+          {response.message}
         </Alert>
       </Snackbar>
     </Grid>
-  )
+  );
 }
 
 export default function AddUrl() {

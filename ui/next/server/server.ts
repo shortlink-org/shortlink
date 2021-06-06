@@ -1,32 +1,34 @@
-import express, { Request, Response } from "express"
-const next = require('next')
+import express, { Request, Response } from 'express';
+import protect from './middleware/auth';
 
-const cookieParser = require('cookie-parser')
-const { v4: uuidv4 } = require('uuid')
+const next = require('next');
+const cookieParser = require('cookie-parser');
+const { v4: uuidv4 } = require('uuid');
+
 // @ts-ignore
-const port = parseInt(process.env.PORT, 10) || 3000
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handler = app.getRequestHandler()
+const port = parseInt(process.env.PORT, 10) || 3000;
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handler = app.getRequestHandler();
 
 // @ts-ignore
 function sessionCookie(req, res, next) {
   const htmlPage =
     !req.path.match(/^\/(_next|static)/) &&
     !req.path.match(/\.(js|map)$/) &&
-    req.accepts('text/html', 'text/css', 'image/png') === 'text/html'
+    req.accepts('text/html', 'text/css', 'image/png') === 'text/html';
 
   if (!htmlPage) {
-    next()
-    return
+    next();
+    return;
   }
 
   if (!req.cookies.sid || req.cookies.sid.length === 0) {
-    req.cookies.sid = uuidv4()
-    res.cookie('sid', req.cookies.sid)
+    req.cookies.sid = uuidv4();
+    res.cookie('sid', req.cookies.sid);
   }
 
-  next()
+  next();
 }
 
 app.prepare().then(() => {
@@ -35,13 +37,14 @@ app.prepare().then(() => {
   express()
     .use(cookieParser())
     .use(sessionCookie)
+    .use(protect)
     // Regular next.js request handler
     .use(handler)
     .listen(port, (err?: any) => {
       if (err) {
-        throw err
+        throw err;
       }
       // eslint-disable-next-line no-console
-      console.log(`> Ready on http://localhost:${port}`)
-    })
-})
+      console.log(`> Ready on http://localhost:${port}`);
+    });
+});

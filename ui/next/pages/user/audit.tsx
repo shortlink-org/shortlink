@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { Layout } from 'components';
-import Ready from "components/Landing/Ready";
+import Ready from 'components/Landing/Ready';
 
 export function BillingContent() {
-  return (
-    <Ready />
-  )
+  return <Ready />;
 }
 
 export default function Billing() {
