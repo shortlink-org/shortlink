@@ -24,7 +24,7 @@ import Link from '@material-ui/core/Link'
 import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
 import { fetchLinkList } from 'store'
-import withAuthSync from "components/Private";
+import withAuthSync from 'components/Private'
 
 // @ts-ignore
 const tableIcons = {
@@ -58,12 +58,7 @@ const columns = [
     title: 'URL',
     field: 'url',
     render: rowData => (
-      <Link
-        href={rowData.url}
-        target="_blank"
-        rel="noopener"
-        variant="p"
-      >
+      <Link href={rowData.url} target="_blank" rel="noopener" variant="p">
         {rowData.url}
       </Link>
     ),
@@ -74,11 +69,7 @@ const columns = [
     title: 'Created at',
     field: 'createdAt',
     render: rowData => (
-      <Tooltip
-        arrow
-        title={rowData.createdAt}
-        interactive
-      >
+      <Tooltip arrow title={rowData.createdAt} interactive>
         <span>
           {formatRelative(new Date(rowData.createdAt), new Date(), {
             addSuffix: true,
@@ -91,11 +82,7 @@ const columns = [
     title: 'Updated at',
     field: 'updatedAt',
     render: rowData => (
-      <Tooltip
-        arrow
-        title={rowData.updatedAt}
-        interactive
-      >
+      <Tooltip arrow title={rowData.updatedAt} interactive>
         <span>
           {formatRelative(new Date(rowData.updatedAt), new Date(), {
             addSuffix: true,

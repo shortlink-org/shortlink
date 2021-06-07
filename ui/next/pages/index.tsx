@@ -9,13 +9,13 @@ import { Layout } from 'components'
 
 export function ProfileContent() {
   return (
-    <>
+    <React.Fragment>
       <Header />
       <Mobile />
       <Feature />
       <Testimonials />
       <Subscribe />
-    </>
+    </React.Fragment>
   )
 }
 

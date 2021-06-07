@@ -2,7 +2,7 @@ import React from 'react'
 
 function Index() {
   return (
-    <>
+    <React.Fragment>
       <div className="w-full bg-gray-100 dark:bg-gray-900 py-10">
         <div className="container mx-auto px-6 flex items-start justify-center">
           <div className="w-full">
@@ -243,7 +243,7 @@ function Index() {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   )
 }
 export default Index

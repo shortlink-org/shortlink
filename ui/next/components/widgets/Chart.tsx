@@ -31,7 +31,7 @@ export default function Chart() {
   const theme = useTheme()
 
   return (
-    <>
+    <React.Fragment>
       <Title>Today</Title>
       <ResponsiveContainer>
         <LineChart
@@ -61,6 +61,6 @@ export default function Chart() {
           />
         </LineChart>
       </ResponsiveContainer>
-    </>
+    </React.Fragment>
   )
 }

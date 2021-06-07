@@ -37,7 +37,7 @@ const features = [
 
 export default function Feature() {
   return (
-    <>
+    <React.Fragment>
       <div className="py-12 bg-white rounded my-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
@@ -146,6 +146,6 @@ export default function Feature() {
           </p>
         </div>
       </div>
-    </>
+    </React.Fragment>
   )
 }

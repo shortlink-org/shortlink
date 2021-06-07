@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -9,9 +9,9 @@ import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import { Layout } from 'components'
 import SocialAuth from 'components/widgets/oAuthServices'
-import {useDispatch} from "react-redux"
-import {fetchLinkList} from "../../store"
-import {loginAuth} from "../../store/actions/session"
+import { useDispatch } from 'react-redux'
+import { fetchLinkList } from '../../store'
+import { loginAuth } from '../../store/actions/session'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -78,7 +78,9 @@ export function SignInPageContent() {
 
                 <div className="flex flex-row items-center justify-center">
                   <hr className="w-28 border-gray-300 block" />
-                  <label className="mx-2 text-sm text-gray-500">Or continue with</label>
+                  <label className="mx-2 text-sm text-gray-500">
+                    Or continue with
+                  </label>
                   <hr className="w-28 border-gray-300 block" />
                 </div>
               </div>
@@ -121,13 +123,13 @@ export function SignInPageContent() {
               </Button>
 
               <div className="flex items-center justify-between">
-                <Link href={"/next/auth/forgot"} variant="body2">
+                <Link href="/next/auth/forgot" variant="body2">
                   <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Forgot password?
                   </p>
                 </Link>
 
-                <Link href={"/next/auth/registration"} variant="body2">
+                <Link href="/next/auth/registration" variant="body2">
                   <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Don't have an account? Sign Up
                   </p>

@@ -1,11 +1,13 @@
 import { put, takeLatest } from 'redux-saga/effects'
 // @ts-ignore
-import {LoginRequest, PublicApi} from "@ory/kratos-client"
+import { LoginRequest, PublicApi } from '@ory/kratos-client'
 import * as t from 'store/types'
 
 // Init Kratos API
 // @ts-ignore
-const kratos = new PublicApi(process.env.KRATOS_API || 'http://127.0.0.1:4433/.ory/kratos/public')
+const kratos = new PublicApi(
+  process.env.KRATOS_API || 'http://127.0.0.1:4433/.ory/kratos/public',
+)
 
 function* fetchSession(token: string) {
   try {
@@ -38,7 +40,6 @@ function* loginAuth(action: { payload: any }) {
     // // @ts-ignore
     // const response = yield request
     // console.warn('TEST', response)
-
     // // @ts-ignore
     // const response = yield fetch('/api/link', {
     //   method: 'POST',
@@ -68,7 +69,4 @@ function* watchLoginAuth() {
   yield takeLatest(t.AUTH_LOGIN_REQUESTED, loginAuth)
 }
 
-export default [
-  watchFetchSession(),
-  watchLoginAuth(),
-]
+export default [watchFetchSession(), watchLoginAuth()]

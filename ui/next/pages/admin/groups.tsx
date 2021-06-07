@@ -190,9 +190,7 @@ export function GroupContent() {
 }
 
 function Groups() {
-  return (
-    <Layout content={GroupContent()} />
-  )
+  return <Layout content={GroupContent()} />
 }
 
 export default withAuthSync(Groups)
