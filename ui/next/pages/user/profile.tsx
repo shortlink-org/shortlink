@@ -1,6 +1,6 @@
-import React from 'react';
-import { Layout } from 'components';
-import Welcome from 'components/widgets/welcom';
+import React from 'react'
+import { Layout } from 'components'
+import Welcome from 'components/widgets/welcom'
 
 export function ProfileContent() {
   return [
@@ -476,9 +476,9 @@ export function ProfileContent() {
         </div>
       </div>
     </div>,
-  ];
+  ]
 }
 
 export default function Profile() {
-  return <Layout content={ProfileContent()} />;
+  return <Layout content={ProfileContent()} />
 }

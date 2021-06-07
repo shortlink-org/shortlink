@@ -1,7 +1,7 @@
-import React from 'react';
-import { Layout } from 'components';
-import PaymentMethod from 'components/Billing/PaymentMethod';
-import Discounted from 'components/Billing/Discounted';
+import React from 'react'
+import { Layout } from 'components'
+import PaymentMethod from 'components/Billing/PaymentMethod'
+import Discounted from 'components/Billing/Discounted'
 
 export function BillingContent() {
   return (
@@ -10,9 +10,9 @@ export function BillingContent() {
 
       <PaymentMethod />
     </>
-  );
+  )
 }
 
 export default function Billing() {
-  return <Layout content={BillingContent()} />;
+  return <Layout content={BillingContent()} />
 }

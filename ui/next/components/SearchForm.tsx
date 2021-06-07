@@ -1,7 +1,7 @@
-import React from 'react';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import React from 'react'
+import InputBase from '@material-ui/core/InputBase'
+import SearchIcon from '@material-ui/icons/Search'
+import { fade, makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
   search: {
@@ -44,10 +44,10 @@ const useStyles = makeStyles(theme => ({
       },
     },
   },
-}));
+}))
 
 export default function SearchForm() {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className={classes.search}>
@@ -63,5 +63,5 @@ export default function SearchForm() {
         inputProps={{ 'aria-label': 'search' }}
       />
     </div>
-  );
+  )
 }

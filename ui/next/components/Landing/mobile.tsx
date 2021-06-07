@@ -45,5 +45,5 @@ export default function() {
         </div>
       </div>
     </section>
-  );
+  )
 }

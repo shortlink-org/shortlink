@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import Copyright from '../Copyright';
+import Link from 'next/link'
+import Copyright from '../Copyright'
 
 export default function Footer() {
   return (
@@ -114,5 +114,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }

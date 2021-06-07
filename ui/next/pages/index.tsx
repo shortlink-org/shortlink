@@ -1,11 +1,11 @@
-import React from 'react';
-import Feature from 'components/Landing/feature';
-import Header from 'components/Landing/header';
-import Mobile from 'components/Landing/mobile';
-import Subscribe from 'components/Landing/subscribe';
-import Testimonials from 'components/Testimonials';
+import React from 'react'
+import Feature from 'components/Landing/feature'
+import Header from 'components/Landing/header'
+import Mobile from 'components/Landing/mobile'
+import Subscribe from 'components/Landing/subscribe'
+import Testimonials from 'components/Testimonials'
 
-import { Layout } from 'components';
+import { Layout } from 'components'
 
 export function ProfileContent() {
   return (
@@ -16,9 +16,9 @@ export function ProfileContent() {
       <Testimonials />
       <Subscribe />
     </>
-  );
+  )
 }
 
 export default function Profile() {
-  return <Layout content={ProfileContent()} />;
+  return <Layout content={ProfileContent()} />
 }

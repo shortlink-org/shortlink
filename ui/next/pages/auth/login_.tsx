@@ -1,14 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import { Layout } from 'components'
+import { Google, Facebook, GitHub } from 'components/widgets/oAuthServices'
+import {useDispatch} from "react-redux";
+import {fetchLinkList} from "../../store";
+import {loginAuth} from "../../store/actions/auth";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -22,12 +29,17 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0, 2),
   },
 }))
 
-export function ForgotPageContent() {
+export function SignInPageContent() {
   const classes = useStyles()
+
+  // const dispatch = useDispatch()
+  // useEffect(() => {
+  //   dispatch(loginAuth())
+  // }, [dispatch])
 
   return (
     <div className="flex h-full p-4 rotate">
@@ -41,12 +53,8 @@ export function ForgotPageContent() {
             }}
           >
             <div className="flex-1 absolute bottom-0 text-white p-10">
-              <h3 className="text-2xl font-bold inline-block">
-                Reset Password
-              </h3>
-              <p className="text-gray-500 whitespace-no-wrap">
-                Forgotten Password? No prob!
-              </p>
+              <h3 className="text-4xl font-bold inline-block">Login</h3>
+              <p className="text-gray-500 whitespace-no-wrap">Welcome back!</p>
             </div>
             <svg
               className="absolute animate h-full w-4/12 sm:w-2/12 right-0 inset-y-0 fill-current text-white"
@@ -60,9 +68,26 @@ export function ForgotPageContent() {
 
           <div className="flex-1 p-6 sm:p-10 sm:py-12">
             <h3 className="text-xl text-gray-700 font-bold mb-6">
-              Enter{' '}
-              <span className="text-gray-400 font-light">your email below</span>
+              Login{' '}
+              <span className="text-gray-400 font-light">to your account</span>
             </h3>
+            <Grid container>
+              <Grid item xs={12}>
+                <Paper className={classes.paper} elevation={0}>
+                  <GitHub />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper className={classes.paper} elevation={0}>
+                  <Google />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper className={classes.paper} elevation={0}>
+                  <Facebook />
+                </Paper>
+              </Grid>
+            </Grid>
 
             <form className={classes.form} noValidate>
               <TextField
@@ -76,6 +101,22 @@ export function ForgotPageContent() {
                 autoComplete="email"
                 autoFocus
               />
+              <TextField
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+              />
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+
               <Button
                 type="submit"
                 fullWidth
@@ -83,12 +124,13 @@ export function ForgotPageContent() {
                 color="primary"
                 className={classes.submit}
               >
-                Recovery
+                Log In
               </Button>
+
               <Grid container>
                 <Grid item xs>
-                  <Link href="/next/auth/login" variant="body2">
-                    Log in
+                  <Link href="/next/auth/forgot" variant="body2">
+                    Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
@@ -106,5 +148,5 @@ export function ForgotPageContent() {
 }
 
 export default function SignIn() {
-  return <Layout content={ForgotPageContent()} />
+  return <Layout content={SignInPageContent()} />
 }

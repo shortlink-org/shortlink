@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import useScrollTrigger from '@material-ui/core/useScrollTrigger';
-import Zoom from '@material-ui/core/Zoom';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react'
+import PropTypes from 'prop-types'
+import useScrollTrigger from '@material-ui/core/useScrollTrigger'
+import Zoom from '@material-ui/core/Zoom'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -10,11 +10,11 @@ const useStyles = makeStyles(theme => ({
     bottom: theme.spacing(2),
     right: theme.spacing(2),
   },
-}));
+}))
 
 export default function ScrollTop(props?: any) {
-  const { children, window } = props;
-  const classes = useStyles();
+  const { children, window } = props
+  const classes = useStyles()
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
   // This is only being set here because the demo is in an iframe.
@@ -22,18 +22,18 @@ export default function ScrollTop(props?: any) {
     target: window ? window() : undefined,
     disableHysteresis: true,
     threshold: 100,
-  });
+  })
 
   // @ts-ignore
   const handleClick = event => {
     const anchor = (event.target.ownerDocument || document).querySelector(
       '#back-to-top-anchor',
-    );
+    )
 
     if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      anchor.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
-  };
+  }
 
   return (
     <Zoom in={trigger}>
@@ -41,7 +41,7 @@ export default function ScrollTop(props?: any) {
         {children}
       </div>
     </Zoom>
-  );
+  )
 }
 
 ScrollTop.propTypes = {
@@ -51,4 +51,4 @@ ScrollTop.propTypes = {
    * You won't need it on your project.
    */
   window: PropTypes.func,
-};
+}

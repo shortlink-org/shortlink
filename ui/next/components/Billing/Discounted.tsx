@@ -26,5 +26,5 @@ export default function Discounted() {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,7 +1,8 @@
-import React from 'react';
-import { PaperClipIcon } from '@heroicons/react/solid';
-import { UndrawCoworkers } from 'react-undraw-illustrations';
-import { Layout } from 'components';
+import React from 'react'
+import { PaperClipIcon } from '@heroicons/react/solid'
+// @ts-ignore
+import { UndrawCoworkers } from 'react-undraw-illustrations'
+import { Layout } from 'components'
 
 function NewComponent() {
   return (
@@ -33,7 +34,7 @@ function NewComponent() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 const aboutPageContent = (
@@ -138,8 +139,8 @@ const aboutPageContent = (
       </div>
     </div>
   </>
-);
+)
 
 export default function About() {
-  return <Layout content={aboutPageContent} />;
+  return <Layout content={aboutPageContent} />
 }

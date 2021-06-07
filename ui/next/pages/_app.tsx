@@ -1,24 +1,24 @@
-import React from 'react';
-import { wrapper } from 'store/store';
-import App from 'next/app';
-import Head from 'next/head';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import 'tailwindcss/tailwind.css';
-import theme from 'theme/theme';
-import ScrollTop from 'components/ScrollTop';
-import 'assets/styles.css';
+import React from 'react'
+import { wrapper } from 'store/store'
+import App from 'next/app'
+import Head from 'next/head'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import { ThemeProvider } from '@material-ui/core/styles'
+import Fab from '@material-ui/core/Fab'
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
+import 'tailwindcss/tailwind.css'
+import theme from 'theme/theme'
+import ScrollTop from 'components/ScrollTop'
+import 'assets/styles.css'
 
 class MyApp extends App {
   constructor() {
     // @ts-ignore
-    super(...arguments);
+    super(...arguments)
     this.state = {
       hasError: false,
       errorEventId: undefined,
-    };
+    }
   }
 
   // @ts-ignore
@@ -28,13 +28,13 @@ class MyApp extends App {
     return {
       hasError: props.hasError || state.hasError || false,
       errorEventId: props.errorEventId || state.errorEventId || undefined,
-    };
+    }
   }
 
   static getDerivedStateFromError() {
     // React Error Boundary here allows us to set state flagging the error (and
     // later render a fallback UI).
-    return { hasError: true };
+    return { hasError: true }
   }
 
   render() {
@@ -65,8 +65,8 @@ class MyApp extends App {
           </ScrollTop>
         </ThemeProvider>
       </>
-    );
+    )
   }
 }
 
-export default wrapper.withRedux(MyApp);
+export default wrapper.withRedux(MyApp)

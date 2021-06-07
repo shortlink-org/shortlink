@@ -32,5 +32,5 @@ export default function Statistic() {
         </div>
       </div>
     </div>
-  );
+  )
 }

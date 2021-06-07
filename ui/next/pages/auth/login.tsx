@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import AlertUI from '@material-ui/lab/Alert'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import { Layout } from 'components';
-import { Google, Facebook, GitHub } from 'components/widgets/oAuthServices';
+import { Configuration, PublicApi } from '@ory/kratos-client';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '100vh',
+  },
+  image: {
+    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
   paper: {
-    marginTop: theme.spacing(1),
+    margin: theme.spacing(8, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -21,124 +34,139 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  csrf: {
+    visibility: 'hidden'
+  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(1, 0, 2),
+    margin: theme.spacing(3, 0, 5),
   },
 }));
 
-export function SignInPageContent() {
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
+function Login() {
   const classes = useStyles();
 
+  const [formUsernamePasswordAction, setFormUsernamePasswordAction] = useState();
+  const [csrfUsernamePasswordToken, setCsrfUsernamePasswordToken] = useState();
+  const [loginMessages, setLoginMessages] = useState();
+
+  const kratos = new PublicApi(new Configuration({ basePath: 'http://127.0.0.1:4433' }));
+
+  useEffect(() => {
+    if (!(new URL(document.location)).searchParams.get("flow")) {
+        window.location.href = "http://127.0.0.1:4433/self-service/login/browser";
+    }
+    const flowId = (new URL(document.location)).searchParams.get("flow");
+    kratos.getSelfServiceLoginFlow(flowId)
+        .then(({ status, data: flow }) => {
+            if ([401, 403, 404].includes(status)) {
+                return window.location.replace("http://127.0.0.1:4433/self-service/login/browser")
+            }
+            if (status !== 200) {
+                return Promise.reject(flow);
+            }
+            setFormUsernamePasswordAction(JSON.stringify(flow.methods.password.config.action).replaceAll('"',''));
+            setCsrfUsernamePasswordToken(JSON.stringify(flow.methods.password.config.fields[2].value).replaceAll('"',''));
+            setLoginMessages(flow.methods.password.config.messages[0].text);
+
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+  }, [loginMessages])
+
   return (
-    <div className="flex h-full p-4 rotate">
-      <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">
-        <div className="flex items-stretch bg-white rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">
-          <div
-            className="flex hidden overflow-hidden relative sm:block w-4/12 md:w-5/12 bg-gray-600 text-gray-300 py-4 bg-cover bg-center"
-            style={{
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')",
-            }}
-          >
-            <div className="flex-1 absolute bottom-0 text-white p-10">
-              <h3 className="text-4xl font-bold inline-block">Login</h3>
-              <p className="text-gray-500 whitespace-no-wrap">Welcome back!</p>
-            </div>
-            <svg
-              className="absolute animate h-full w-4/12 sm:w-2/12 right-0 inset-y-0 fill-current text-white"
-              viewBox="0 0 100 100"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-            >
-              <polygon points="0,0 100,100 100,0" />
-            </svg>
-          </div>
+    <>
+      <Grid container component="main" className={classes.root}>
+            <CssBaseline />
+            <Grid item xs={false} sm={4} md={7} className={classes.image} />
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <form className={classes.form} action={formUsernamePasswordAction} method="POST">
+                        <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        id="identifier"
+                        type="text"
+                        label="Email Address"
+                        name="identifier"
+                        autoComplete="email"
+                        autoFocus
+                        required
+                        />
+                        <TextField
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        required
+                        />
+                        <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        >
+                        Sign In
+                        </Button>
+                        <TextField
+                        name="csrf_token"
+                        id="csrf_token"
+                        type="hidden"
+                        required
+                        fullWidth
+                        variant="outlined"
+                        label="Csrf token"
+                        value={csrfUsernamePasswordToken}
+                        className={classes.csrf}
+                        />
+                    </form>
 
-          <div className="flex-1 p-6 sm:p-10 sm:py-12">
-            <h3 className="text-xl text-gray-700 font-bold mb-6">
-              Login{' '}
-              <span className="text-gray-400 font-light">to your account</span>
-            </h3>
-            <Grid container>
-              <Grid item xs={12}>
-                <Paper className={classes.paper} elevation={0}>
-                  <GitHub />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paper} elevation={0}>
-                  <Google />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paper} elevation={0}>
-                  <Facebook />
-                </Paper>
-              </Grid>
+                    <Grid container>
+                    <Grid item xs>
+                        <Link href="http://127.0.0.1:3000/recovery" variant="body2">
+                        Forgot password?
+                        </Link>
+                    </Grid>
+                    <Grid item>
+                        <Link href="http://127.0.0.1:3000/register" variant="body2">
+                        {"Don't have an account? Sign Up"}
+                        </Link>
+                    </Grid>
+                    </Grid>
+                </div>
+                {loginMessages
+                  ? (<>
+                      <Alert severity="error" style={{margin: "auto", width: "75%"}}>
+                        {loginMessages}
+                      </Alert>
+                  </>)
+                  : (<>
+                    </>)
+                }
             </Grid>
-
-            <form className={classes.form} noValidate>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Log In
-              </Button>
-
-              <Grid container>
-                <Grid item xs>
-                  <Link href="/next/auth/forgot" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/next/auth/registration" variant="body2">
-                    Don't have an account? Sign Up
-                  </Link>
-                </Grid>
-              </Grid>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+        </Grid>
+    </>
   );
 }
 
-export default function SignIn() {
-  return <Layout content={SignInPageContent()} />;
-}
+export default Login;
