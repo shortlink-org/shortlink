@@ -1,5 +1,7 @@
 import React from 'react'
+// @ts-ignore
 import { Layout } from 'components'
+import withAuthSync from 'components/Private'
 
 const people = [
   {
@@ -59,9 +61,9 @@ const people = [
   // More people...
 ]
 
-export function ProfileContent() {
+export function GroupContent() {
   return (
-    <>
+    <React.Fragment>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-10 mx-auto">
           <div className="flex flex-wrap -m-4 text-center">
@@ -183,10 +185,14 @@ export function ProfileContent() {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   )
 }
 
-export default function Profile() {
-  return <Layout content={ProfileContent()} />
+function Groups() {
+  return (
+    <Layout content={GroupContent()} />
+  )
 }
+
+export default withAuthSync(Groups)

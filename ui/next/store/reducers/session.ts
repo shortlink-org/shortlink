@@ -2,10 +2,8 @@ import { HYDRATE } from 'next-redux-wrapper'
 import * as t from 'store/types'
 
 const initialState = {
-  session: {
-    token: null,
-    kratos: null,
-  },
+  token: null,
+  kratos: null,
 }
 
 // @ts-ignore
@@ -16,18 +14,12 @@ const mainReducer = (state = initialState, action) => {
     case t.SESSION_FETCH_SUCCEEDED:
       return {
         ...state,
-        session: {
-          ...state.session,
-          kratos: action.payload,
-        }
+        kratos: action.payload,
       }
     case t.SESSION_CREATE_SUCCEEDED:
       return {
         ...state,
-        session: {
-          ...state.session,
-          kratos: action.payload,
-        }
+        kratos: action.payload,
       }
     default:
       return state

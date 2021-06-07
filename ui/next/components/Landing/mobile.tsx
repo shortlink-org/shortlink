@@ -1,4 +1,4 @@
-export default function() {
+export default function MobileApps() {
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto flex items-center md:flex-row flex-col">
