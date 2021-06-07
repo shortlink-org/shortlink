@@ -16,7 +16,7 @@ export function Google() {
       </svg>
       Sign in with Google
     </button>
-  );
+  )
 }
 
 export function Facebook() {
@@ -37,7 +37,7 @@ export function Facebook() {
       </svg>
       Sign in with Facebook
     </button>
-  );
+  )
 }
 
 export function GitHub() {
@@ -58,5 +58,5 @@ export function GitHub() {
       </svg>
       Sign in with GitHub
     </button>
-  );
+  )
 }

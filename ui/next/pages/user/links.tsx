@@ -1,31 +1,33 @@
-import React, { forwardRef, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import MaterialTable from 'material-table';
-import Tooltip from '@material-ui/core/Tooltip';
-import { formatRelative } from 'date-fns';
-import AddBox from '@material-ui/icons/AddBox';
-import Update from '@material-ui/icons/Update';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import Check from '@material-ui/icons/Check';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import Clear from '@material-ui/icons/Clear';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import Edit from '@material-ui/icons/Edit';
-import FilterList from '@material-ui/icons/FilterList';
-import FirstPage from '@material-ui/icons/FirstPage';
-import LastPage from '@material-ui/icons/LastPage';
-import Remove from '@material-ui/icons/Remove';
-import SaveAlt from '@material-ui/icons/SaveAlt';
-import Save from '@material-ui/icons/Save';
-import Search from '@material-ui/icons/Search';
-import ViewColumn from '@material-ui/icons/ViewColumn';
-import Link from '@material-ui/core/Link';
-import { fetchLinkList } from 'store';
-import { Layout } from 'components';
-import Statistic from 'components/Dashboard/stats';
+import React, { forwardRef, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import MaterialTable from 'material-table'
+import Tooltip from '@material-ui/core/Tooltip'
+import { formatRelative } from 'date-fns'
+import AddBox from '@material-ui/icons/AddBox'
+import Update from '@material-ui/icons/Update'
+import ArrowDownward from '@material-ui/icons/ArrowDownward'
+import Check from '@material-ui/icons/Check'
+import ChevronLeft from '@material-ui/icons/ChevronLeft'
+import ChevronRight from '@material-ui/icons/ChevronRight'
+import Clear from '@material-ui/icons/Clear'
+import DeleteOutline from '@material-ui/icons/DeleteOutline'
+import Edit from '@material-ui/icons/Edit'
+import FilterList from '@material-ui/icons/FilterList'
+import FirstPage from '@material-ui/icons/FirstPage'
+import LastPage from '@material-ui/icons/LastPage'
+import Remove from '@material-ui/icons/Remove'
+import SaveAlt from '@material-ui/icons/SaveAlt'
+import Save from '@material-ui/icons/Save'
+import Search from '@material-ui/icons/Search'
+import ViewColumn from '@material-ui/icons/ViewColumn'
+import Link from '@material-ui/core/Link'
+import { fetchLinkList } from 'store'
+import { Layout } from 'components'
+import Statistic from 'components/Dashboard/stats'
+import { Icons } from 'material-table'; // typescript specific import
 
-const tableIcons = {
+// specified type as Icons
+const tableIcons: Icons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Update: forwardRef((props, ref) => <Update {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -49,15 +51,15 @@ const tableIcons = {
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
-};
+}
 
 export function LinkTableContent() {
-  const state = useSelector(state => state.link);
-  const dispatch = useDispatch();
+  const state = useSelector(state => state.link)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchLinkList());
-  }, [dispatch]);
+    dispatch(fetchLinkList())
+  }, [dispatch])
 
   return (
     <div>
@@ -151,9 +153,9 @@ export function LinkTableContent() {
         title="Link Table"
       />
     </div>
-  );
+  )
 }
 
 export default function LinkTable() {
-  return <Layout content={LinkTableContent()} />;
+  return <Layout content={LinkTableContent()} />
 }

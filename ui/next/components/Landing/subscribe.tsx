@@ -1,4 +1,4 @@
-import { UndrawDesigner } from 'react-undraw-illustrations';
+import { UndrawDesigner } from 'react-undraw-illustrations'
 
 export default function Subscribe() {
   return (
@@ -43,5 +43,5 @@ export default function Subscribe() {
         </div>
       </div>
     </header>
-  );
+  )
 }

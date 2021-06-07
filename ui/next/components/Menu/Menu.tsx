@@ -1,21 +1,21 @@
-import { useRouter } from 'next/router';
-import IconButton from '@material-ui/core/IconButton';
-import clsx from 'clsx';
-import Drawer from '@material-ui/core/Drawer';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import React from 'react';
-import { mainListItems, secondaryListItems, adminListItems } from './listItems';
-import useStyles from './style';
+import { useRouter } from 'next/router'
+import IconButton from '@material-ui/core/IconButton'
+import clsx from 'clsx'
+import Drawer from '@material-ui/core/Drawer'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import Divider from '@material-ui/core/Divider'
+import List from '@material-ui/core/List'
+import React from 'react'
+import { mainListItems, secondaryListItems, adminListItems } from './listItems'
+import useStyles from './style'
 
 const Menu = ({ open, setOpen }) => {
-  const router = useRouter();
-  const classes = useStyles();
+  const router = useRouter()
+  const classes = useStyles()
 
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   return (
     <Drawer
@@ -38,7 +38,7 @@ const Menu = ({ open, setOpen }) => {
       <Divider />
       <List>{adminListItems}</List>
     </Drawer>
-  );
-};
+  )
+}
 
-export default Menu;
+export default Menu

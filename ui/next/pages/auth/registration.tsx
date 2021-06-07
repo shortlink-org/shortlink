@@ -1,12 +1,12 @@
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import { Layout } from 'components';
+import React from 'react'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import Checkbox from '@material-ui/core/Checkbox'
+import Link from '@material-ui/core/Link'
+import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/styles'
+import { Layout } from 'components'
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -16,10 +16,10 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
 
 export function SignUpPageContent() {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <div className="flex h-full p-4 rotate">
@@ -131,9 +131,9 @@ export function SignUpPageContent() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default function SignUp() {
-  return <Layout content={SignUpPageContent()} />;
+  return <Layout content={SignUpPageContent()} />
 }

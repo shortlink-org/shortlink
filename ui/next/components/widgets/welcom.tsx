@@ -1,4 +1,4 @@
-import { UndrawWelcome } from 'react-undraw-illustrations';
+import { UndrawWelcome } from 'react-undraw-illustrations'
 
 export default function Welcome() {
   return (
@@ -38,5 +38,5 @@ export default function Welcome() {
         </div>
       </div>
     </div>
-  );
+  )
 }

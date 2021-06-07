@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Index = () => (
   <div className="xl:w-5/12 w-11/12 mx-auto mb-4 my-6 md:w-2/3 shadow sm:px-10 px-4 py-6 bg-white dark:bg-gray-800 rounded-md">
@@ -55,5 +55,5 @@ const Index = () => (
       </div>
     </div>
   </div>
-);
-export default Index;
+)
+export default Index

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
   AnnotationIcon,
   GlobeAltIcon,
@@ -6,7 +6,7 @@ import {
   ScaleIcon,
   MenuIcon,
   XIcon,
-} from '@heroicons/react/outline';
+} from '@heroicons/react/outline'
 
 const features = [
   {
@@ -33,7 +33,7 @@ const features = [
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
     icon: AnnotationIcon,
   },
-];
+]
 
 export default function Feature() {
   return (
@@ -147,5 +147,5 @@ export default function Feature() {
         </div>
       </div>
     </>
-  );
+  )
 }

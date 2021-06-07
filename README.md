@@ -22,6 +22,7 @@ Shortlink service
 ### Architecture (miro.com)
 
 - [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
+- [Auth](https://miro.com/app/board/o9J_lA5Wmhg=/)
 
 ##### Services
 

@@ -1,22 +1,22 @@
-import React from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import MenuIcon from '@material-ui/icons/Menu';
-import Menu from '@material-ui/core/Menu';
-import Fade from '@material-ui/core/Fade';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Badge from '@material-ui/core/Badge';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MenuBar from '../Menu';
-import SearchForm from '../SearchForm';
+import React from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import MenuIcon from '@material-ui/icons/Menu'
+import Menu from '@material-ui/core/Menu'
+import Fade from '@material-ui/core/Fade'
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/core/styles'
+import clsx from 'clsx'
+import Badge from '@material-ui/core/Badge'
+import NotificationsIcon from '@material-ui/icons/Notifications'
+import MenuBar from '../Menu'
+import SearchForm from '../SearchForm'
 
-const drawerWidth = 240;
+const drawerWidth = 240
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,28 +66,28 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     padding: 0,
   },
-}));
+}))
 
 const Header = () => {
-  const router = useRouter();
-  const classes = useStyles();
+  const router = useRouter()
+  const classes = useStyles()
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
   const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
   const handleDrawerClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(null)
   const handleClick = (event?: any) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return [
     <AppBar
@@ -218,7 +218,7 @@ const Header = () => {
       </Toolbar>
     </AppBar>,
     <MenuBar open={open} setOpen={setOpen} />,
-  ];
-};
+  ]
+}
 
-export default Header;
+export default Header

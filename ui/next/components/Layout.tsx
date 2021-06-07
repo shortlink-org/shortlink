@@ -1,11 +1,11 @@
-import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Header from './Header';
-import Footer from './Footer';
+import React from 'react'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import { makeStyles } from '@material-ui/core/styles'
+import Box from '@material-ui/core/Box'
+import Header from './Header'
+import Footer from './Footer'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,11 +20,11 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(4),
   },
   appBarSpacer: theme.mixins.toolbar,
-}));
+}))
 
 // @ts-ignore
 export function Layout(props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
   return (
     <Grid className={[classes.root, 'bg-gray-100']}>
@@ -38,5 +38,5 @@ export function Layout(props) {
         </Box>
       </main>
     </Grid>
-  );
+  )
 }
