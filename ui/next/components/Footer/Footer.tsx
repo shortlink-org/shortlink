@@ -14,9 +14,9 @@ export default function Footer() {
             </Link>
           </li>
           <li className="my-2 cursor-pointer">
-            <Link href="/user/profile">
+            <Link href={"/privacy"}>
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
-                Configuration
+                Privacy
               </span>
             </Link>
           </li>
