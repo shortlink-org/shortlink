@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux'
 import linkReducer from 'store/reducers/link'
-import authReducer from 'store/reducers/auth'
+import sessionReducer from 'store/reducers/session'
 
 const rootReducer = combineReducers({
   link: linkReducer,
-  auth: authReducer,
+  auth: sessionReducer,
 })
 
 export default rootReducer

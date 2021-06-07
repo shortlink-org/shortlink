@@ -1,11 +1,11 @@
 import {all} from "redux-saga/effects";
 
 import link from 'store/sagas/link'
-import auth from 'store/sagas/auth'
+import session from 'store/sagas/session'
 
 export default function* rootSaga() {
   yield all([
-      ...link,
-    ...auth
+    ...session,
+    ...link,
   ])
 }

@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { wrapper } from 'store/store'
-import App from 'next/app'
+import App, { AppInitialProps, AppContext } from "next/app"
 import Head from 'next/head'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -10,45 +10,39 @@ import 'tailwindcss/tailwind.css'
 import theme from 'theme/theme'
 import ScrollTop from 'components/ScrollTop'
 import 'assets/styles.css'
+import {useSelector} from "react-redux";
+import Router from 'next/router';
 
-class MyApp extends App {
-  constructor() {
-    // @ts-ignore
-    super(...arguments)
-    this.state = {
-      hasError: false,
-      errorEventId: undefined,
-    }
-  }
+class MyApp extends App<AppInitialProps> {
+  public static getInitialProps = wrapper.getInitialAppProps(store => async ({Component, ctx}) => {
+    // Keep in mind that this will be called twice on server, one for page and second for error page
+    store.dispatch({ type: "APP", payload: "was set in _app" })
 
-  // @ts-ignore
-  static getDerivedStateFromProps(props, state) {
-    // If there was an error generated within getInitialProps, and we haven't
-    // yet seen an error, we add it to this.state here
     return {
-      hasError: props.hasError || state.hasError || false,
-      errorEventId: props.errorEventId || state.errorEventId || undefined,
+      pageProps: {
+        // Call page-level getInitialProps
+        // DON'T FORGET TO PROVIDE STORE TO PAGE
+        ...(Component.getInitialProps ? await Component.getInitialProps({...ctx, store}) : {}),
+        // Some custom thing for all pages
+        pathname: ctx.pathname,
+      }
     }
-  }
-
-  static getDerivedStateFromError() {
-    // React Error Boundary here allows us to set state flagging the error (and
-    // later render a fallback UI).
-    return { hasError: true }
-  }
+  })
 
   render() {
+    const { Component, pageProps } = this.props
+    // const sessionToken = useSelector(state => state.session.token)
+    // if (!sessionToken) {
+    //   Router.push('/next/auth/login')
+    // }
+
     // @ts-ignore
-    return this.state.hasError ? (
-      <section>
-        <h1>There was an error!</h1>
-      </section>
-    ) : (
+    return (
       // Render the normal Next.js page
-      <>
+      <React.Fragment>
         <Head>
           <title>Shortlink</title>
-          <meta charSet="utf-8" />
+          <meta charSet="utf-8"/>
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -56,15 +50,15 @@ class MyApp extends App {
         </Head>
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          {super.render()}
+          <CssBaseline/>
+          <Component {...pageProps} />
           <ScrollTop {...this.props}>
             <Fab color="secondary" size="small" aria-label="scroll back to top">
-              <KeyboardArrowUpIcon />
+              <KeyboardArrowUpIcon/>
             </Fab>
           </ScrollTop>
         </ThemeProvider>
-      </>
+      </React.Fragment>
     )
   }
 }
