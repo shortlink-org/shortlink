@@ -4,7 +4,7 @@ import sessionReducer from 'store/reducers/session'
 
 const rootReducer = combineReducers({
   link: linkReducer,
-  auth: sessionReducer,
+  session: sessionReducer,
 })
 
 export default rootReducer

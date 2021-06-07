@@ -10,8 +10,6 @@ import 'tailwindcss/tailwind.css'
 import theme from 'theme/theme'
 import ScrollTop from 'components/ScrollTop'
 import 'assets/styles.css'
-import {useSelector} from "react-redux";
-import Router from 'next/router';
 
 class MyApp extends App<AppInitialProps> {
   public static getInitialProps = wrapper.getInitialAppProps(store => async ({Component, ctx}) => {
@@ -31,10 +29,6 @@ class MyApp extends App<AppInitialProps> {
 
   render() {
     const { Component, pageProps } = this.props
-    // const sessionToken = useSelector(state => state.session.token)
-    // if (!sessionToken) {
-    //   Router.push('/next/auth/login')
-    // }
 
     // @ts-ignore
     return (
