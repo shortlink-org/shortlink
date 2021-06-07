@@ -24,6 +24,7 @@ import Link from '@material-ui/core/Link'
 import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
 import { fetchLinkList } from 'store'
+import withAuthSync from "components/Private";
 
 // @ts-ignore
 const tableIcons = {
@@ -52,6 +53,59 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 }
 
+const columns = [
+  {
+    title: 'URL',
+    field: 'url',
+    render: rowData => (
+      <Link
+        href={rowData.url}
+        target="_blank"
+        rel="noopener"
+        variant="p"
+      >
+        {rowData.url}
+      </Link>
+    ),
+  },
+  { title: 'hash', field: 'hash' },
+  { title: 'Describe', field: 'describe' },
+  {
+    title: 'Created at',
+    field: 'createdAt',
+    render: rowData => (
+      <Tooltip
+        arrow
+        title={rowData.createdAt}
+        interactive
+      >
+        <span>
+          {formatRelative(new Date(rowData.createdAt), new Date(), {
+            addSuffix: true,
+          })}
+        </span>
+      </Tooltip>
+    ),
+  },
+  {
+    title: 'Updated at',
+    field: 'updatedAt',
+    render: rowData => (
+      <Tooltip
+        arrow
+        title={rowData.updatedAt}
+        interactive
+      >
+        <span>
+          {formatRelative(new Date(rowData.updatedAt), new Date(), {
+            addSuffix: true,
+          })}
+        </span>
+      </Tooltip>
+    ),
+  },
+]
+
 export function LinkTableContent() {
   const state = useSelector(state => state.link)
   const dispatch = useDispatch()
@@ -61,65 +115,12 @@ export function LinkTableContent() {
   }, [dispatch])
 
   return (
-    <div>
+    <React.Fragment>
       <Statistic />
 
       <MaterialTable
         icons={tableIcons}
-        columns={[
-          {
-            title: 'URL',
-            field: 'url',
-            render: rowData => (
-              <Link
-                href={rowData.url}
-                target="_blank"
-                rel="noopener"
-                variant="p"
-              >
-                {rowData.url}
-              </Link>
-            ),
-          },
-          { title: 'hash', field: 'hash' },
-          { title: 'Describe', field: 'describe' },
-          {
-            title: 'Created at',
-            field: 'createdAt',
-            render: rowData => (
-              <Tooltip
-                title="Created at"
-                arrow
-                title={rowData.createdAt}
-                interactive
-              >
-                <span>
-                  {formatRelative(new Date(rowData.createdAt), new Date(), {
-                    addSuffix: true,
-                  })}
-                </span>
-              </Tooltip>
-            ),
-          },
-          {
-            title: 'Updated at',
-            field: 'updatedAt',
-            render: rowData => (
-              <Tooltip
-                title="Updated at"
-                arrow
-                title={rowData.updatedAt}
-                interactive
-              >
-                <span>
-                  {formatRelative(new Date(rowData.updatedAt), new Date(), {
-                    addSuffix: true,
-                  })}
-                </span>
-              </Tooltip>
-            ),
-          },
-        ]}
+        columns={columns}
         data={state.list || []}
         actions={[
           {
@@ -151,10 +152,12 @@ export function LinkTableContent() {
         }}
         title="Link Table"
       />
-    </div>
+    </React.Fragment>
   )
 }
 
-export default function LinkTable() {
+function LinkTable() {
   return <Layout content={LinkTableContent()} />
 }
+
+export default withAuthSync(LinkTable)

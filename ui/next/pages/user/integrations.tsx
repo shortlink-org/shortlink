@@ -1,11 +1,14 @@
 import React from 'react'
 import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
+import withAuthSync from "components/Private"
 
-export function BillingContent() {
+export function IntargrationsContent() {
   return <Ready />
 }
 
-export default function Billing() {
-  return <Layout content={BillingContent()} />
+function Intargrations() {
+  return <Layout content={IntargrationsContent()} />
 }
+
+export default withAuthSync(Intargrations)

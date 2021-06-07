@@ -1,5 +1,6 @@
 import React from 'react'
 import { Layout } from 'components'
+import withAuthSync from "components/Private";
 
 const people = [
   {
@@ -59,7 +60,7 @@ const people = [
   // More people...
 ]
 
-export function ProfileContent() {
+export function UsersContent() {
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -154,6 +155,8 @@ export function ProfileContent() {
   )
 }
 
-export default function Profile() {
-  return <Layout content={ProfileContent()} />
+export function Users() {
+  return <Layout content={UsersContent()} />
 }
+
+export default withAuthSync(Users)

@@ -127,7 +127,7 @@ export function SignInPageContent() {
                   </p>
                 </Link>
 
-                <Link href={"/next/auth/registration"} variant="body2" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                <Link href={"/next/auth/registration"} variant="body2">
                   <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Don't have an account? Sign Up
                   </p>
