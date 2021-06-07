@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import MaterialTable from 'material-table'
+import MaterialTable, { Icons } from 'material-table'
 import Tooltip from '@material-ui/core/Tooltip'
 import { formatRelative } from 'date-fns'
 import AddBox from '@material-ui/icons/AddBox'
@@ -24,8 +24,8 @@ import Link from '@material-ui/core/Link'
 import { fetchLinkList } from 'store'
 import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
-import { Icons } from 'material-table';
-import withAuthSync from "components/Private" // typescript specific import
+
+import withAuthSync from 'components/Private' // typescript specific import
 
 // specified type as Icons
 const tableIcons: Icons = {

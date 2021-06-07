@@ -1,10 +1,10 @@
 import express from 'express'
 
-const next = require('next')
-const cookieParser = require('cookie-parser')
-
 import protect from './middleware/auth'
 import sessionCookie from './middleware/sessionCookie'
+
+const next = require('next')
+const cookieParser = require('cookie-parser')
 
 // @ts-ignore
 const port = parseInt(process.env.PORT, 10) || 3000

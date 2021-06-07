@@ -10,7 +10,7 @@ import Chart from 'components/widgets/Chart'
 import Deposits from 'components/widgets/Deposits'
 import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
-import withAuthSync from "components/Private"
+import withAuthSync from 'components/Private'
 
 const useStyles = makeStyles(theme => ({
   title: {
