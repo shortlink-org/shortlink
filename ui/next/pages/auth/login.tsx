@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import { Layout } from 'components'
-import { Google, Facebook, GitHub } from 'components/widgets/oAuthServices'
+import SocialAuth from 'components/widgets/oAuthServices'
 import {useDispatch} from "react-redux"
 import {fetchLinkList} from "../../store"
 import {loginAuth} from "../../store/actions/session"
@@ -71,25 +71,18 @@ export function SignInPageContent() {
               Login{' '}
               <span className="text-gray-400 font-light">to your account</span>
             </h3>
-            <Grid container>
-              <Grid item xs={12}>
-                <Paper className={classes.paper} elevation={0}>
-                  <GitHub />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paper} elevation={0}>
-                  <Google />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paper} elevation={0}>
-                  <Facebook />
-                </Paper>
-              </Grid>
-            </Grid>
 
             <form className={classes.form} noValidate>
+              <div className="py-2 space-y-6">
+                <SocialAuth />
+
+                <div className="flex flex-row items-center justify-center">
+                  <hr className="w-28 border-gray-300 block" />
+                  <label className="mx-2 text-sm text-gray-500">Or continue with</label>
+                  <hr className="w-28 border-gray-300 block" />
+                </div>
+              </div>
+
               <TextField
                 variant="outlined"
                 margin="normal"
@@ -127,18 +120,19 @@ export function SignInPageContent() {
                 Log In
               </Button>
 
-              <Grid container>
-                <Grid item xs>
-                  <Link href="/next/auth/forgot" variant="body2">
+              <div className="flex items-center justify-between">
+                <Link href={"/next/auth/forgot"} variant="body2">
+                  <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/next/auth/registration" variant="body2">
+                  </p>
+                </Link>
+
+                <Link href={"/next/auth/registration"} variant="body2" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                  <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Don't have an account? Sign Up
-                  </Link>
-                </Grid>
-              </Grid>
+                  </p>
+                </Link>
+              </div>
             </form>
           </div>
         </div>
