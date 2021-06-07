@@ -24,7 +24,8 @@ import Link from '@material-ui/core/Link'
 import { fetchLinkList } from 'store'
 import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
-import { Icons } from 'material-table'; // typescript specific import
+import { Icons } from 'material-table';
+import withAuthSync from "components/Private" // typescript specific import
 
 // specified type as Icons
 const tableIcons: Icons = {
@@ -156,6 +157,8 @@ export function LinkTableContent() {
   )
 }
 
-export default function LinkTable() {
+function LinkTable() {
   return <Layout content={LinkTableContent()} />
 }
+
+export default withAuthSync(LinkTable)

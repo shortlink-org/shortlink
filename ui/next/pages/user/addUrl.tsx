@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Link from '@material-ui/core/Link'
 import { Layout } from 'components'
+import withAuthSync from "components/Private"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -158,6 +159,8 @@ export function AddUrlContent() {
   )
 }
 
-export default function AddUrl() {
+function AddUrl() {
   return <Layout content={AddUrlContent()} />
 }
+
+export default withAuthSync(AddUrl)

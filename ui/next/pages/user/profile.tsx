@@ -1,10 +1,11 @@
 import React from 'react'
 import { Layout } from 'components'
 import Welcome from 'components/widgets/welcom'
+import withAuthSync from "components/Private"
 
 export function ProfileContent() {
-  return [
-    <>
+  return (
+    <React.Fragment>
       <Welcome />
 
       <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -145,13 +146,12 @@ export function ProfileContent() {
           </form>
         </div>
       </div>
-    </>,
 
     <div className="hidden sm:block" aria-hidden="true">
       <div className="py-5">
         <div className="border-t border-gray-200" />
       </div>
-    </div>,
+    </div>
 
     <div className="mt-10 sm:mt-0">
       <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -312,13 +312,13 @@ export function ProfileContent() {
           </form>
         </div>
       </div>
-    </div>,
+    </div>
 
     <div className="hidden sm:block" aria-hidden="true">
       <div className="py-5">
         <div className="border-t border-gray-200" />
       </div>
-    </div>,
+    </div>
 
     <div className="mt-10 sm:mt-0">
       <div className="md:grid md:grid-cols-3 md:gap-6">
@@ -475,10 +475,13 @@ export function ProfileContent() {
           </form>
         </div>
       </div>
-    </div>,
-  ]
+    </div>
+  </React.Fragment>
+  )
 }
 
-export default function Profile() {
+function Profile() {
   return <Layout content={ProfileContent()} />
 }
+
+export default withAuthSync(Profile)

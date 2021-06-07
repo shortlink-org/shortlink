@@ -85,18 +85,20 @@ export function ForgotPageContent() {
               >
                 Recovery
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="/next/auth/login" variant="body2">
+
+              <div className="flex items-center justify-between">
+                <Link href="/next/auth/login" variant="body2">
+                  <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Log in
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/next/auth/registration" variant="body2">
+                  </p>
+                </Link>
+
+                <Link href="/next/auth/registration" variant="body2">
+                  <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Don't have an account? Sign Up
-                  </Link>
-                </Grid>
-              </Grid>
+                  </p>
+                </Link>
+              </div>
             </form>
           </div>
         </div>

@@ -122,7 +122,9 @@ export function SignUpPageContent() {
               <Grid container justify="flex-end">
                 <Grid item>
                   <Link href="/next/auth/login" variant="body2">
-                    Already have an account? Log in
+                    <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                      Already have an account? Log in
+                    </p>
                   </Link>
                 </Grid>
               </Grid>
