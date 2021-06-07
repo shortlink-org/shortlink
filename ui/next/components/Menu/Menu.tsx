@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import IconButton from '@material-ui/core/IconButton'
 import clsx from 'clsx'
 import Drawer from '@material-ui/core/Drawer'
@@ -8,10 +7,13 @@ import List from '@material-ui/core/List'
 import React from 'react'
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import useStyles from './style'
+import {useSelector} from "react-redux";
 
 const Menu = ({ open, setOpen }) => {
-  const router = useRouter()
   const classes = useStyles()
+
+  // @ts-ignore
+  const session = useSelector(state => state.session)
 
   const handleDrawerClose = () => {
     setOpen(false)
@@ -32,11 +34,33 @@ const Menu = ({ open, setOpen }) => {
         </IconButton>
       </div>
       <Divider />
-      <List>{mainListItems}</List>
-      <Divider />
-      <List>{secondaryListItems}</List>
-      <Divider />
-      <List>{adminListItems}</List>
+
+      {
+        !!session.token && (
+          <>
+            <List>{mainListItems}</List>
+            <Divider />
+          </>
+        )
+      }
+
+      {
+        !!session.token && (
+          <>
+            <List>{secondaryListItems}</List>
+            <Divider />
+          </>
+        )
+      }
+
+      {
+        !!session.token && (
+          <>
+            <List>{adminListItems}</List>
+            <Divider />
+          </>
+        )
+      }
     </Drawer>
   )
 }

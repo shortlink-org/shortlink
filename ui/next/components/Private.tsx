@@ -7,9 +7,9 @@ export default function withAuthSync(Child: any) {
     // checks whether we are on client / browser or server.
     if (typeof window !== 'undefined') {
       // @ts-ignore
-      const state = useSelector(state => state.session)
+      const session = useSelector(state => state.session)
 
-      if (!state.token) {
+      if (!session.token) {
         Router.push('/auth/login')
         return null
       }
