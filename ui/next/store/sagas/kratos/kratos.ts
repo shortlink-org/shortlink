@@ -4,7 +4,7 @@ import { LoginRequest, PublicApi, RecoveryRequest, RegistrationRequest, Settings
 import config from "store/sagas/kratos/config"
 
 // @ts-ignore
-const kratos = new PublicApi(config.kratos.public)
+const kratos = new PublicApi(process.env.KRATOS_API || 'http://127.0.0.1:4433/.ory/kratos/public')
 
 export const initialiseRequest = ({ type  }: { type: "login" | "register" | "settings" | "verify" | "recover"  }) : Promise<LoginRequest | RegistrationRequest | SettingsRequest | VerificationRequest | RecoveryRequest> => {
   const endpoints = {

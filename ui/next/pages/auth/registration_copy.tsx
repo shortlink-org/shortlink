@@ -39,7 +39,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-function Register() {
+function Registration() {
   const classes = useStyles();
 
   const [formAction, setFormAction] = useState();
@@ -54,7 +54,7 @@ function Register() {
 
 
   useEffect(() => {
-    if (!(new URL(document.location)).searchParams.get("flow") && (new URL(document.location)).href.indexOf("register") !== -1) {
+    if (!(new URL(document.location)).searchParams.get("flow") && (new URL(document.location)).href.indexOf("registration") !== -1) {
         window.location.href = "http://127.0.0.1:4433/self-service/registration/browser";
     }
     const flowId = (new URL(document.location)).searchParams.get("flow");
@@ -192,4 +192,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Registration;

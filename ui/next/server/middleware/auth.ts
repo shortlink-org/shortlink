@@ -10,13 +10,11 @@
 import { Configuration, PublicApi } from '@ory/kratos-client'
 import { NextFunction, Request, Response } from 'express'
 
-const kratos = new PublicApi(new Configuration({ basePath: process.env.KRATOS_API || '' }))
+const kratos = new PublicApi(new Configuration({ basePath: process.env.KRATOS_API || 'http://127.0.0.1:4433/.ory/kratos/public' }))
 
 export default (req: Request, res: Response, next: NextFunction) => {
-  kratos.
-
   // @ts-ignore
-  kratos.whoami(
+  kratos.toSession(
     req.header('Cookie'), req.header('Authorization')
   // @ts-ignore
   ).then(({ data: session }) => {
@@ -26,6 +24,6 @@ export default (req: Request, res: Response, next: NextFunction) => {
     next();
   }).catch(() => {
     // If no session is found, redirect to login.
-    res.redirect('/auth/login');
+    res.redirect('/next/auth/login');
   });
 };
