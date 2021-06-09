@@ -54,9 +54,8 @@ require (
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/pborman/uuid v1.2.1
 	github.com/pelletier/go-toml v1.8.0 // indirect
-	github.com/prometheus/client_golang v1.10.0
-	github.com/prometheus/common v0.20.0 // indirect
-	github.com/pterm/pterm v0.12.22
+	github.com/prometheus/client_golang v1.11.0
+	github.com/pterm/pterm v0.12.23
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/scylladb/gocqlx/v2 v2.4.0
 	github.com/sirupsen/logrus v1.8.1
@@ -76,9 +75,8 @@ require (
 	go.uber.org/zap v1.17.0
 	golang.org/x/net v0.0.0-20210525063256-abc453219eb5
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20210521203332-0cec03c779c1 // indirect
-	google.golang.org/api v0.47.0
-	google.golang.org/genproto v0.0.0-20210604141403-392c879c8b08
+	google.golang.org/api v0.48.0
+	google.golang.org/genproto v0.0.0-20210608205507-b6d2f5bf0d7d
 	google.golang.org/grpc v1.38.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.26.0
