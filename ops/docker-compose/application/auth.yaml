@@ -114,7 +114,6 @@ services:
     image: oryd/kratos:v0.6.3-sqlite
     environment:
       DSN: sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
-      COURIER_SMTP_FROM_ADDRESS: no-reply@shortlink.com
     command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
     restart: on-failure
     volumes:

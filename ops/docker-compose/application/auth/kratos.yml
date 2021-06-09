@@ -7,6 +7,9 @@ version: v0.6.3-alpha.1
 
 dsn: memory
 
+identity:
+  default_schema_url: file:///etc/config/kratos/identity.schema.json
+
 serve:
   public:
     # Kratos uses cookies so you must always connect from "127.0.0.1"
@@ -30,9 +33,6 @@ serve:
         - Set-Cookie
   admin:
     base_url: http://127.0.0.1:4434/
-
-identity:
-  default_schema_url: file:///etc/config/kratos/identity.schema.json
 
 session:
   lifespan: 720h # 30 days

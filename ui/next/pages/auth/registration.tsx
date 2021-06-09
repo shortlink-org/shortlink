@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -7,6 +7,7 @@ import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import { Layout } from 'components'
+import {Configuration, PublicApi} from "@ory/kratos-client";
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -16,10 +17,58 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  csrf: {
+    visibility: 'hidden'
+  },
 }))
 
 export function SignUpPageContent() {
   const classes = useStyles()
+
+  const kratos = new PublicApi(
+    new Configuration({ basePath: 'http://127.0.0.1:4433' }),
+  )
+
+  const [kratosState, setKratos] = useState()
+  const [csrfToken, setCsrfToken] = useState();
+  const [formState, setForm] = useState({
+    email: "",
+    password: "",
+  })
+
+  // @ts-ignore
+  const handleChange = e => setForm({ ...formState, [e.target.name]: e.target.value })
+
+  useEffect(() => {
+    if (
+      !new URL(document.location).searchParams.get('flow') &&
+      new URL(document.location).href.indexOf('registration') !== -1
+    ) {
+      window.location.href = 'http://127.0.0.1:4433/self-service/registration/browser'
+    }
+
+    // @ts-ignore
+    const flowId = new URL(document.location).searchParams.get('flow')
+
+    // @ts-ignore
+    kratos.getSelfServiceRegistrationFlow(flowId)
+      .then(({ status, data: flow }) => {
+        if (status === 404 || status === 410 || status === 403) {
+          return window.location.replace(
+            'http://127.0.0.1:4433/self-service/registration/browser',
+          )
+        }
+        if (status !== 200) {
+          return Promise.reject(flow)
+        }
+
+        // @ts-ignore
+        setKratos(flow)
+        // @ts-ignore
+        setCsrfToken(flow.ui.nodes[0].attributes.value)
+        console.warn('TEST', flow)
+      })
+  }, [csrfToken])
 
   return (
     <div className="flex h-full p-4 rotate">
@@ -53,18 +102,31 @@ export function SignUpPageContent() {
               <span className="text-gray-400 font-light">for an account</span>
             </h3>
 
-            <form className={classes.form} noValidate>
+            <form className={classes.form} action={kratosState && kratosState.ui.action} method={kratosState && kratosState.ui.method}>
+              <TextField
+                name="csrf_token"
+                id="csrf_token"
+                type="hidden"
+                required
+                fullWidth
+                variant="outlined"
+                label="Csrf token"
+                value={csrfToken}
+                className={classes.csrf}
+              />
+
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
                     autoComplete="fname"
-                    name="firstName"
+                    name="traits.name.first"
                     variant="outlined"
                     required
                     fullWidth
-                    id="firstName"
+                    id="traits.name.first"
                     label="First Name"
                     autoFocus
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -72,10 +134,11 @@ export function SignUpPageContent() {
                     variant="outlined"
                     required
                     fullWidth
-                    id="lastName"
+                    id="traits.name.last"
                     label="Last Name"
-                    name="lastName"
+                    name="traits.name.last"
                     autoComplete="lname"
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -83,10 +146,12 @@ export function SignUpPageContent() {
                     variant="outlined"
                     required
                     fullWidth
-                    id="email"
+                    id="traits.email"
                     label="Email Address"
-                    name="email"
+                    name="traits.email"
+                    type="email"
                     autoComplete="email"
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -99,6 +164,7 @@ export function SignUpPageContent() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
