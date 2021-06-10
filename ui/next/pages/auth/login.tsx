@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -7,9 +7,9 @@ import Link from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import { Layout } from 'components'
 import SocialAuth from 'components/widgets/oAuthServices'
-import {Configuration, PublicApi} from "@ory/kratos-client";
+import { Configuration, PublicApi } from '@ory/kratos-client'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
     display: 'flex',
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1, 0, 2),
   },
   csrf: {
-    visibility: 'hidden'
+    visibility: 'hidden',
   },
 }))
 
@@ -40,7 +40,7 @@ export function SignInPageContent() {
   )
 
   const [kratosState, setKratos] = useState()
-  const [csrfToken, setCsrfToken] = useState();
+  const [csrfToken, setCsrfToken] = useState()
 
   useEffect(() => {
     if (
@@ -54,23 +54,22 @@ export function SignInPageContent() {
     const flowId = new URL(document.location).searchParams.get('flow')
 
     // @ts-ignore
-    kratos.getSelfServiceLoginFlow(flowId)
-      .then(({ status, data: flow }) => {
-        if (status === 404 || status === 410 || status === 403) {
-          return window.location.replace(
-            'http://127.0.0.1:4433/self-service/registration/browser',
-          )
-        }
-        if (status !== 200) {
-          return Promise.reject(flow)
-        }
+    kratos.getSelfServiceLoginFlow(flowId).then(({ status, data: flow }) => {
+      if (status === 404 || status === 410 || status === 403) {
+        return window.location.replace(
+          'http://127.0.0.1:4433/self-service/registration/browser',
+        )
+      }
+      if (status !== 200) {
+        return Promise.reject(flow)
+      }
 
-        // @ts-ignore
-        setKratos(flow)
-        // @ts-ignore
-        setCsrfToken(flow.ui.nodes[0].attributes.value)
-        console.warn('TEST', flow)
-      })
+      // @ts-ignore
+      setKratos(flow)
+      // @ts-ignore
+      setCsrfToken(flow.ui.nodes[0].attributes.value)
+      console.warn('TEST', flow)
+    })
   }, [csrfToken])
 
   return (
@@ -104,7 +103,11 @@ export function SignInPageContent() {
               <span className="text-gray-400 font-light">to your account</span>
             </h3>
 
-            <form className={classes.form} action={kratosState && kratosState.ui.action} method={kratosState && kratosState.ui.method}>
+            <form
+              className={classes.form}
+              action={kratosState && kratosState.ui.action}
+              method={kratosState && kratosState.ui.method}
+            >
               <TextField
                 name="csrf_token"
                 id="csrf_token"
@@ -125,7 +128,7 @@ export function SignInPageContent() {
                 fullWidth
                 variant="outlined"
                 label="method"
-                value={"password"}
+                value="password"
                 className={classes.csrf}
               />
 

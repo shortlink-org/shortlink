@@ -5,15 +5,15 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import Divider from '@material-ui/core/Divider'
 import List from '@material-ui/core/List'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import useStyles from './style'
-import {useSelector} from "react-redux";
 
 const Menu = ({ open, setOpen }) => {
   const classes = useStyles()
 
   // @ts-ignore
-  const session = useSelector(state => state.session)
+  const session = useSelector((state) => state.session)
 
   const handleDrawerClose = () => {
     setOpen(false)

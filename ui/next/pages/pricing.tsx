@@ -52,7 +52,7 @@ const tiers = [
   },
 ]
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   '@global': {
     ul: {
       margin: 0,
@@ -175,7 +175,7 @@ export function PricingContent() {
 
       <Container maxWidth="md" component="main">
         <Grid container spacing={5} alignItems="flex-end">
-          {tiers.map(tier => (
+          {tiers.map((tier) => (
             // Enterprise card is full width at sm breakpoint
             <Grid
               item
@@ -203,7 +203,7 @@ export function PricingContent() {
                     </Typography>
                   </div>
                   <ul>
-                    {tier.description.map(line => (
+                    {tier.description.map((line) => (
                       <Typography
                         component="li"
                         variant="subtitle1"

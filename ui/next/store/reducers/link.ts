@@ -34,7 +34,7 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         // @ts-ignore
-        list: state.list.filter(item => action.payload.hash !== item.hash),
+        list: state.list.filter((item) => action.payload.hash !== item.hash),
       }
     default:
       return state

@@ -24,6 +24,7 @@ extends:
   - plugin:import/typescript
   - prettier
 rules:
+  semi: ["error", "never"]
   react/jsx-filename-extension: [1, { extensions: [".ts", ".tsx"] }]
   react/jsx-fragments: [1, 'element']
   import/extensions: off
