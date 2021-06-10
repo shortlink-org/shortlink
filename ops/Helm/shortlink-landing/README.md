@@ -69,6 +69,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | ingress.enabled | bool | `false` |  |
 | ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
 | ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| ingress.type | string | `"nginx"` |  |
 | nameOverride | string | `""` |  |
 | service.port | int | `80` |  |
 | service.type | string | `"ClusterIP"` |  |
