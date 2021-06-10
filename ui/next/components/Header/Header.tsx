@@ -86,7 +86,7 @@ const Header = () => {
           color="inherit"
           aria-label="menu"
           onClick={handleDrawerOpen}
-          disabled={!session.token}
+          disabled={!session.kratos.active}
           className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
         >
           <MenuIcon />
@@ -117,7 +117,7 @@ const Header = () => {
         <SearchForm />
 
         {
-          !!session.token ? (
+          !!session.kratos.active ? (
             <>
               <Button variant="outlined" color="inherit">
                 Profile
@@ -135,9 +135,7 @@ const Header = () => {
         }
       </Toolbar>
     </AppBar>,
-    (
-      !!session.token && <MenuBar open={open} setOpen={setOpen} />
-    ),
+    <MenuBar open={open} setOpen={setOpen} />
   ]
 }
 

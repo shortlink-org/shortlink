@@ -4,22 +4,19 @@ import { LoginRequest, PublicApi } from '@ory/kratos-client'
 import * as t from 'store/types'
 
 // Init Kratos API
-// @ts-ignore
-const kratos = new PublicApi(
-  process.env.KRATOS_API || 'http://127.0.0.1:4433/.ory/kratos/public',
-)
+const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://127.0.0.1:4433'
 
-function* fetchSession(token: string) {
+function* fetchSession() {
   try {
     // @ts-ignore
-    const response = yield kratos.toSession(token)
+    const response = yield fetch(`${KRATOS_PUBLIC_API}/sessions/whoami`)
 
     // @ts-ignore
-    const link = yield response.json()
+    const session = yield response.json()
 
     yield put({
       type: t.SESSION_FETCH_SUCCEEDED,
-      payload: link.data,
+      payload: session,
     })
   } catch (error) {
     yield put({

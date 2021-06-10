@@ -1,17 +1,13 @@
-import React, { useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import Link from '@material-ui/core/Link'
-import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
 import { Layout } from 'components'
 import SocialAuth from 'components/widgets/oAuthServices'
-import { useDispatch } from 'react-redux'
-import { fetchLinkList } from '../../store'
-import { loginAuth } from '../../store/actions/session'
+import {Configuration, PublicApi} from "@ory/kratos-client";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -31,15 +27,51 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(1, 0, 2),
   },
+  csrf: {
+    visibility: 'hidden'
+  },
 }))
 
 export function SignInPageContent() {
   const classes = useStyles()
 
-  // const dispatch = useDispatch()
-  // useEffect(() => {
-  //   dispatch(loginAuth())
-  // }, [dispatch])
+  const kratos = new PublicApi(
+    new Configuration({ basePath: 'http://127.0.0.1:4433' }),
+  )
+
+  const [kratosState, setKratos] = useState()
+  const [csrfToken, setCsrfToken] = useState();
+
+  useEffect(() => {
+    if (
+      !new URL(document.location).searchParams.get('flow') &&
+      new URL(document.location).href.indexOf('login') !== -1
+    ) {
+      window.location.href = 'http://127.0.0.1:4433/self-service/login/browser'
+    }
+
+    // @ts-ignore
+    const flowId = new URL(document.location).searchParams.get('flow')
+
+    // @ts-ignore
+    kratos.getSelfServiceLoginFlow(flowId)
+      .then(({ status, data: flow }) => {
+        if (status === 404 || status === 410 || status === 403) {
+          return window.location.replace(
+            'http://127.0.0.1:4433/self-service/registration/browser',
+          )
+        }
+        if (status !== 200) {
+          return Promise.reject(flow)
+        }
+
+        // @ts-ignore
+        setKratos(flow)
+        // @ts-ignore
+        setCsrfToken(flow.ui.nodes[0].attributes.value)
+        console.warn('TEST', flow)
+      })
+  }, [csrfToken])
 
   return (
     <div className="flex h-full p-4 rotate">
@@ -72,7 +104,31 @@ export function SignInPageContent() {
               <span className="text-gray-400 font-light">to your account</span>
             </h3>
 
-            <form className={classes.form} noValidate>
+            <form className={classes.form} action={kratosState && kratosState.ui.action} method={kratosState && kratosState.ui.method}>
+              <TextField
+                name="csrf_token"
+                id="csrf_token"
+                type="hidden"
+                required
+                fullWidth
+                variant="outlined"
+                label="Csrf token"
+                value={csrfToken}
+                className={classes.csrf}
+              />
+
+              <TextField
+                name="method"
+                id="method"
+                type="hidden"
+                required
+                fullWidth
+                variant="outlined"
+                label="method"
+                value={"password"}
+                className={classes.csrf}
+              />
+
               <div className="py-2 space-y-6">
                 <SocialAuth />
 
@@ -90,11 +146,11 @@ export function SignInPageContent() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                id="password_identifier"
                 label="Email Address"
-                name="email"
+                name="password_identifier"
+                type="email"
                 autoComplete="email"
-                autoFocus
               />
               <TextField
                 variant="outlined"

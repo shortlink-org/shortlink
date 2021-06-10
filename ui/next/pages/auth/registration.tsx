@@ -30,14 +30,7 @@ export function SignUpPageContent() {
   )
 
   const [kratosState, setKratos] = useState()
-  const [csrfToken, setCsrfToken] = useState();
-  const [formState, setForm] = useState({
-    email: "",
-    password: "",
-  })
-
-  // @ts-ignore
-  const handleChange = e => setForm({ ...formState, [e.target.name]: e.target.value })
+  const [csrfToken, setCsrfToken] = useState()
 
   useEffect(() => {
     if (
@@ -115,6 +108,18 @@ export function SignUpPageContent() {
                 className={classes.csrf}
               />
 
+              <TextField
+                name="method"
+                id="method"
+                type="hidden"
+                required
+                fullWidth
+                variant="outlined"
+                label="method"
+                value={"password"}
+                className={classes.csrf}
+              />
+
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <TextField
@@ -126,7 +131,6 @@ export function SignUpPageContent() {
                     id="traits.name.first"
                     label="First Name"
                     autoFocus
-                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -138,7 +142,6 @@ export function SignUpPageContent() {
                     label="Last Name"
                     name="traits.name.last"
                     autoComplete="lname"
-                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -151,7 +154,6 @@ export function SignUpPageContent() {
                     name="traits.email"
                     type="email"
                     autoComplete="email"
-                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -164,7 +166,6 @@ export function SignUpPageContent() {
                     type="password"
                     id="password"
                     autoComplete="current-password"
-                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -187,7 +188,7 @@ export function SignUpPageContent() {
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
-                  <Link href="/next/auth/login" variant="body2">
+                  <Link href={"/next/auth/login"} variant="body2">
                     <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Already have an account? Log in
                     </p>

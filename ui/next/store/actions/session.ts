@@ -1,6 +1,6 @@
 import * as t from '../types'
 
-export const whoami = (token: string) => ({
+export const getSession = (token: string) => ({
   type: t.SESSION_FETCH_REQUESTED,
   payload: token,
 })
