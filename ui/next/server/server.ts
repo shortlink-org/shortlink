@@ -1,7 +1,6 @@
 import express from 'express'
 
 import protect from './middleware/auth'
-import sessionCookie from './middleware/sessionCookie'
 
 const next = require('next')
 const cookieParser = require('cookie-parser')
@@ -18,7 +17,6 @@ app.prepare().then(() => {
 
   // add middleware
   app.use(cookieParser())
-  app.use(sessionCookie)
 
   // Routing
   app.all('/next/user/*', protect, handler)

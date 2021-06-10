@@ -35,32 +35,14 @@ const Menu = ({ open, setOpen }) => {
       </div>
       <Divider />
 
-      {
-        !!session.token && (
-          <>
-            <List>{mainListItems}</List>
-            <Divider />
-          </>
-        )
-      }
+      <List>{mainListItems}</List>
+      <Divider />
 
-      {
-        !!session.token && (
-          <>
-            <List>{secondaryListItems}</List>
-            <Divider />
-          </>
-        )
-      }
+      <List>{secondaryListItems}</List>
+      <Divider />
 
-      {
-        !!session.token && (
-          <>
-            <List>{adminListItems}</List>
-            <Divider />
-          </>
-        )
-      }
+      <List>{adminListItems}</List>
+      <Divider />
     </Drawer>
   )
 }
