@@ -42,7 +42,6 @@ const Menu = ({ open, setOpen }) => {
       <Divider />
 
       <List>{adminListItems}</List>
-      <Divider />
     </Drawer>
   )
 }

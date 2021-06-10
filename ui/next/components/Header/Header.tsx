@@ -12,6 +12,7 @@ import MenuBar from '../Menu'
 import SearchForm from '../SearchForm'
 import Notification from "./notification"
 import {useSelector} from "react-redux";
+import Profile from './profile'
 
 const drawerWidth = 240
 
@@ -119,9 +120,7 @@ const Header = () => {
         {
           !!session.kratos.active ? (
             <>
-              <Button variant="outlined" color="inherit">
-                Profile
-              </Button>
+              <Profile />
 
               <Notification />
             </>

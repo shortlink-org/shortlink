@@ -9,7 +9,7 @@ export default function withAuthSync(Child: any) {
       // @ts-ignore
       const session = useSelector(state => state.session)
 
-      if (!session.token) {
+      if (!session.kratos.active) {
         Router.push('/auth/login')
         return null
       }
