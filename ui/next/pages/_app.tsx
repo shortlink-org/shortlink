@@ -10,8 +10,8 @@ import 'tailwindcss/tailwind.css'
 import theme from 'theme/theme'
 import ScrollTop from 'components/ScrollTop'
 import 'assets/styles.css'
-import {SESSION_FETCH_SUCCEEDED} from "../store/types/session";
-import {useSelector} from "react-redux";
+import { useSelector } from 'react-redux'
+import { SESSION_FETCH_SUCCEEDED } from '../store/types/session'
 
 class MyApp extends App<AppInitialProps> {
   render() {
@@ -45,32 +45,36 @@ class MyApp extends App<AppInitialProps> {
 }
 
 MyApp.getInitialProps = wrapper.getInitialAppProps(
-  store => async ({ Component, ctx }) => {
-    // Init Kratos API
-    const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://127.0.0.1:4433'
+  (store) =>
+    async ({ Component, ctx }) => {
+      // Init Kratos API
+      const KRATOS_PUBLIC_API =
+        process.env.KRATOS_API || 'http://127.0.0.1:4433'
 
-    if (ctx.req?.headers) {
-      const response = await fetch(`${KRATOS_PUBLIC_API}/sessions/whoami`, {
-        headers: ctx.req?.headers,
-      })
+      if (ctx.req?.headers) {
+        const response = await fetch(`${KRATOS_PUBLIC_API}/sessions/whoami`, {
+          headers: ctx.req?.headers,
+        })
 
-      // @ts-ignore
-      const session = await response.json()
+        // @ts-ignore
+        const session = await response.json()
 
-      // Save in store
-      store.dispatch({ type: SESSION_FETCH_SUCCEEDED, payload: session })
-    }
+        // Save in store
+        store.dispatch({ type: SESSION_FETCH_SUCCEEDED, payload: session })
+      }
 
-    return {
-      pageProps: {
-        // Call page-level getInitialProps
-        // DON'T FORGET TO PROVIDE STORE TO PAGE
-        ...(Component.getInitialProps ? await Component.getInitialProps({...ctx, store}) : {}),
-        // Some custom thing for all pages
-        pathname: ctx.pathname,
-      },
-    }
-  },
+      return {
+        pageProps: {
+          // Call page-level getInitialProps
+          // DON'T FORGET TO PROVIDE STORE TO PAGE
+          ...(Component.getInitialProps
+            ? await Component.getInitialProps({ ...ctx, store })
+            : {}),
+          // Some custom thing for all pages
+          pathname: ctx.pathname,
+        },
+      }
+    },
 )
 
 export default wrapper.withRedux(MyApp)

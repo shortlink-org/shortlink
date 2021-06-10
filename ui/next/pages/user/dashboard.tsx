@@ -12,7 +12,7 @@ import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },

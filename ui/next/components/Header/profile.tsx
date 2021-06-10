@@ -1,8 +1,6 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import React from 'react'
+import { Menu, Transition } from '@headlessui/react'
 
-const navigation = ['Dashboard', 'Team', 'Projects', 'Calendar', 'Reports']
 const profile = ['Your Profile', 'Settings', 'Sign out']
 
 function classNames(...classes) {
@@ -13,7 +11,7 @@ export default function Profile() {
   return (
     <Menu as="div" className="ml-3 relative">
       {({ open }) => (
-        <>
+        <React.Fragment>
           <div>
             <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <span className="sr-only">Open user menu</span>
@@ -26,7 +24,7 @@ export default function Profile() {
           </div>
           <Transition
             show={open}
-            as={Fragment}
+            as={React.Fragment}
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
             enterTo="transform opacity-100 scale-100"
@@ -45,7 +43,7 @@ export default function Profile() {
                       href="#"
                       className={classNames(
                         active ? 'bg-gray-100' : '',
-                        'block px-4 py-2 text-sm text-gray-700'
+                        'block px-4 py-2 text-sm text-gray-700',
                       )}
                     >
                       {item}
@@ -55,7 +53,7 @@ export default function Profile() {
               ))}
             </Menu.Items>
           </Transition>
-        </>
+        </React.Fragment>
       )}
     </Menu>
   )

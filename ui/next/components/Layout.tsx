@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box'
 import Header from './Header'
 import Footer from './Footer'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },

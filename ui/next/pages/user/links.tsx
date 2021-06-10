@@ -55,7 +55,7 @@ const tableIcons: Icons = {
 }
 
 export function LinkTableContent() {
-  const state = useSelector(state => state.link)
+  const state = useSelector((state) => state.link)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -72,7 +72,7 @@ export function LinkTableContent() {
           {
             title: 'URL',
             field: 'url',
-            render: rowData => (
+            render: (rowData) => (
               <Link
                 href={rowData.url}
                 target="_blank"
@@ -88,7 +88,7 @@ export function LinkTableContent() {
           {
             title: 'Created at',
             field: 'createdAt',
-            render: rowData => (
+            render: (rowData) => (
               <Tooltip
                 title="Created at"
                 arrow
@@ -106,7 +106,7 @@ export function LinkTableContent() {
           {
             title: 'Updated at',
             field: 'updatedAt',
-            render: rowData => (
+            render: (rowData) => (
               <Tooltip
                 title="Updated at"
                 arrow
@@ -128,13 +128,13 @@ export function LinkTableContent() {
             icon: tableIcons.Add,
             tooltip: 'Add link',
             isFreeAction: true,
-            onClick: event => alert('You want to add a new row'),
+            onClick: (event) => alert('You want to add a new row'),
           },
           {
             icon: tableIcons.Update,
             tooltip: 'Update link',
             isFreeAction: true,
-            onClick: event => dispatch(fetchLinkList()),
+            onClick: (event) => dispatch(fetchLinkList()),
           },
           {
             icon: tableIcons.Save,

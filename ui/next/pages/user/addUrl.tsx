@@ -14,7 +14,7 @@ import Link from '@material-ui/core/Link'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     overflow: 'hidden',
@@ -44,7 +44,8 @@ export function AddUrlContent() {
     hash: '',
   })
 
-  const handleChange = e => setURL({ ...url, [e.target.name]: e.target.value })
+  const handleChange = (e) =>
+    setURL({ ...url, [e.target.name]: e.target.value })
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -54,7 +55,7 @@ export function AddUrlContent() {
     setOpen(false)
   }
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       // TODO: use store.actions

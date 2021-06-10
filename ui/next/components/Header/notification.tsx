@@ -1,12 +1,12 @@
-import Badge from "@material-ui/core/Badge";
-import Menu from "@material-ui/core/Menu";
-import Fade from "@material-ui/core/Fade";
-import IconButton from "@material-ui/core/IconButton";
-import React from "react";
+import Badge from '@material-ui/core/Badge'
+import Menu from '@material-ui/core/Menu'
+import Fade from '@material-ui/core/Fade'
+import IconButton from '@material-ui/core/IconButton'
+import React from 'react'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import {makeStyles} from "@material-ui/core/styles"
+import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   list: {
     margin: 0,
     padding: 0,
@@ -56,9 +56,7 @@ export default function Notification() {
               />
               <p className="mx-2 text-sm text-gray-600 dark:text-white">
                 <span className="font-bold">Sara Salah</span> replied on the{' '}
-                <span className="font-bold text-blue-500">
-                  Upload Image
-                </span>{' '}
+                <span className="font-bold text-blue-500">Upload Image</span>{' '}
                 artical . 2m
               </p>
             </a>
@@ -69,8 +67,8 @@ export default function Notification() {
                 alt="avatar"
               />
               <p className="mx-2 text-sm text-gray-600 dark:text-white">
-                <span className="font-bold">Slick Net</span> start following
-                you . 45m
+                <span className="font-bold">Slick Net</span> start following you
+                . 45m
               </p>
             </a>
             <a className="flex items-center px-4 py-3 -mx-2 transition-colors duration-200 transform border-b hover:bg-gray-100 dark:hover:bg-gray-700 dark:border-gray-700">
@@ -80,11 +78,8 @@ export default function Notification() {
                 alt="avatar"
               />
               <p className="mx-2 text-sm text-gray-600 dark:text-white">
-                <span className="font-bold">Jane Doe</span> Like Your reply
-                on{' '}
-                <span className="font-bold text-blue-500">
-                  Test with TDD
-                </span>{' '}
+                <span className="font-bold">Jane Doe</span> Like Your reply on{' '}
+                <span className="font-bold text-blue-500">Test with TDD</span>{' '}
                 artical . 1h
               </p>
             </a>

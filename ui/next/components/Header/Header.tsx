@@ -8,15 +8,15 @@ import MenuIcon from '@material-ui/icons/Menu'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
+import { useSelector } from 'react-redux'
 import MenuBar from '../Menu'
 import SearchForm from '../SearchForm'
-import Notification from "./notification"
-import {useSelector} from "react-redux";
+import Notification from './notification'
 import Profile from './profile'
 
 const drawerWidth = 240
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
@@ -66,7 +66,7 @@ const Header = () => {
   const classes = useStyles()
 
   // @ts-ignore
-  const session = useSelector(state => state.session)
+  const session = useSelector((state) => state.session)
 
   const [open, setOpen] = React.useState(false)
   const handleDrawerOpen = () => {
@@ -117,24 +117,22 @@ const Header = () => {
 
         <SearchForm />
 
-        {
-          !!session.kratos.active ? (
-            <>
-              <Profile />
+        {session.kratos.active ? (
+          <React.Fragment>
+            <Profile />
 
-              <Notification />
-            </>
-          ) : (
-            <Link href="/auth/login">
-              <Button variant="outlined" color="inherit">
-                Log in
-              </Button>
-            </Link>
-          )
-        }
+            <Notification />
+          </React.Fragment>
+        ) : (
+          <Link href="/auth/login">
+            <Button variant="outlined" color="inherit">
+              Log in
+            </Button>
+          </Link>
+        )}
       </Toolbar>
     </AppBar>,
-    <MenuBar open={open} setOpen={setOpen} />
+    <MenuBar open={open} setOpen={setOpen} />,
   ]
 }
 

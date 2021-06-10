@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -7,9 +7,9 @@ import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import { Layout } from 'components'
-import {Configuration, PublicApi} from "@ory/kratos-client";
+import { Configuration, PublicApi } from '@ory/kratos-client'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
   },
   csrf: {
-    visibility: 'hidden'
+    visibility: 'hidden',
   },
 }))
 
@@ -37,14 +37,16 @@ export function SignUpPageContent() {
       !new URL(document.location).searchParams.get('flow') &&
       new URL(document.location).href.indexOf('registration') !== -1
     ) {
-      window.location.href = 'http://127.0.0.1:4433/self-service/registration/browser'
+      window.location.href =
+        'http://127.0.0.1:4433/self-service/registration/browser'
     }
 
     // @ts-ignore
     const flowId = new URL(document.location).searchParams.get('flow')
 
     // @ts-ignore
-    kratos.getSelfServiceRegistrationFlow(flowId)
+    kratos
+      .getSelfServiceRegistrationFlow(flowId)
       .then(({ status, data: flow }) => {
         if (status === 404 || status === 410 || status === 403) {
           return window.location.replace(
@@ -95,7 +97,11 @@ export function SignUpPageContent() {
               <span className="text-gray-400 font-light">for an account</span>
             </h3>
 
-            <form className={classes.form} action={kratosState && kratosState.ui.action} method={kratosState && kratosState.ui.method}>
+            <form
+              className={classes.form}
+              action={kratosState && kratosState.ui.action}
+              method={kratosState && kratosState.ui.method}
+            >
               <TextField
                 name="csrf_token"
                 id="csrf_token"
@@ -116,7 +122,7 @@ export function SignUpPageContent() {
                 fullWidth
                 variant="outlined"
                 label="method"
-                value={"password"}
+                value="password"
                 className={classes.csrf}
               />
 
@@ -188,7 +194,7 @@ export function SignUpPageContent() {
               </Button>
               <Grid container justify="flex-end">
                 <Grid item>
-                  <Link href={"/next/auth/login"} variant="body2">
+                  <Link href="/next/auth/login" variant="body2">
                     <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Already have an account? Log in
                     </p>

@@ -13,8 +13,7 @@ import http from 'http'
 
 const kratos = new PublicApi(
   new Configuration({
-    basePath:
-      process.env.KRATOS_API || 'http://127.0.0.1:4433',
+    basePath: process.env.KRATOS_API || 'http://127.0.0.1:4433',
   }),
 )
 
@@ -28,27 +27,29 @@ export default (req: Request, res: Response, next: NextFunction) => {
     },
   }
 
-  http.request(options, (response) => {
-    let session = '';
+  http
+    .request(options, (response) => {
+      let session = ''
 
-    //another chunk of data has been received, so append it to `str`
-    response.on('data', function (chunk) {
-      session += chunk;
-    });
+      // another chunk of data has been received, so append it to `str`
+      response.on('data', (chunk) => {
+        session += chunk
+      })
 
-    //the whole response has been received, so we just print it out here
-    response.on('end', function () {
-      (req as Request & { user: any }).user = JSON.parse(session)
+      // the whole response has been received, so we just print it out here
+      response.on('end', () => {
+        ;(req as Request & { user: any }).user = JSON.parse(session)
 
-      // @ts-ignore
-      if (req.user.active) {
-        next()
-      } else {
-        // If no session is found, redirect to login.
-        res.redirect('/next/auth/login')
-      }
-    });
-  }).end()
+        // @ts-ignore
+        if (req.user.active) {
+          next()
+        } else {
+          // If no session is found, redirect to login.
+          res.redirect('/next/auth/login')
+        }
+      })
+    })
+    .end()
 
   // TODO: use official method
   // // @ts-ignore
