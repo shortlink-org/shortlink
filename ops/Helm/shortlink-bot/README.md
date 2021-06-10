@@ -31,7 +31,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable"` |  |
 | deploy.env.TELEGRAM_BOT_TOKEN | string | `"YOUR_TELEGRAM_TOKEN"` |  |
-| deploy.env.TELEGRAM_BOT_USERNAME | string | `"YOUR_BOT_NAME"` |  |
+| deploy.env.TELEGRAM_BOT_USERNAME | string | `"shortlink_my_bot"` |  |
 | deploy.env.TRACER_URI | string | `"jaeger-agent.jaeger-operator:6831"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
 | deploy.image.repository | string | `"batazor/shortlink-bot"` |  |

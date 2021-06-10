@@ -1,6 +1,6 @@
 # shortlink-api
 
-![Version: 0.7.2](https://img.shields.io/badge/Version-0.7.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.7.3](https://img.shields.io/badge/Version-0.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink API service
 
@@ -24,10 +24,11 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| NetworkPolicy.enabled | bool | `false` |  |
 | database.postgres.enable | bool | `true` |  |
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
-| deploy.env.GRPC_CLIENT_HOST | string | `"shortlink-link"` |  |
+| deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingressgateway.istio-system.svc.cluster.local"` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
@@ -51,7 +52,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.readinessProbe.initialDelaySeconds | int | `5` |  |
 | deploy.readinessProbe.periodSeconds | int | `5` |  |
 | deploy.readinessProbe.successThreshold | int | `1` |  |
-| deploy.replicaCount | int | `3` |  |
+| deploy.replicaCount | int | `1` |  |
 | deploy.resources.limits.cpu | string | `"100m"` |  |
 | deploy.resources.limits.memory | string | `"128Mi"` |  |
 | deploy.resources.requests.cpu | string | `"10m"` |  |
@@ -68,7 +69,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.terminationGracePeriodSeconds | int | `90` |  |
 | deploy.tolerations | list | `[]` |  |
 | external_database.enable | bool | `false` |  |
-| external_database.ip | string | `"178.62.37.191"` |  |
+| external_database.ip | string | `"192.168.0.101"` |  |
 | external_database.port | int | `6379` |  |
 | fullnameOverride | string | `""` |  |
 | host | string | `"shortlink.ddns.net"` |  |
@@ -81,11 +82,13 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | ingress.enabled | bool | `false` |  |
 | ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
 | ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| ingress.type | string | `"nginx"` |  |
 | monitoring.enabled | bool | `true` |  |
 | nameOverride | string | `""` |  |
-| secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nMIIClTCCAjugAwIBAgIUOCl/NAZsR4Qy+78LBDy9l/1MN+IwCgYIKoZIzj0EAwIw\ngYwxCzAJBgNVBAYTAlJVMQ8wDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2Nv\ndzESMBAGA1UEChMJU2hvcnRsaW5rMSswKQYDVQQLEyJFeGFtcGxlIFJvb3QgQ2Vy\ndGlmaWNhdGUgQXV0aG9yaXR5MRowGAYDVQQDExFTaG9ydGxpbmsgUm9vdCBDQTAe\nFw0yMTA0MTgxMzUwMDBaFw0yMjA0MTgxMzUwMDBaMH8xCzAJBgNVBAYTAlJVMQ8w\nDQYDVQQIEwZNb3Njb3cxDzANBgNVBAcTBk1vc2NvdzESMBAGA1UEChMJU2hvcnRs\naW5rMQ8wDQYDVQQLEwZNb3Njb3cxKTAnBgNVBAMTIEN1c3RvbSBTaG9ydGxpbmsg\nSW50ZXJtZWRpYXRlIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAErGrPBmwM\n+FlQhRgAB2a+76LCLR9KF772wff9MxgXiSaD1cQZB8iiIPQzWObkKb0nUxBBS6u2\nulXdhj0Po32A46OBhjCBgzAOBgNVHQ8BAf8EBAMCAaYwHQYDVR0lBBYwFAYIKwYB\nBQUHAwEGCCsGAQUFBwMCMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFHqZ\niQcOHCuTdL6qkOTmemcjUeG5MB8GA1UdIwQYMBaAFKYsspmh6iQcM0XotbiZoZEx\n3jyeMAoGCCqGSM49BAMCA0gAMEUCIQC536u40hdoh4EU2Wcfp0Wz/MDQI01Ol16I\nFTfi/rQgPgIgS1XwXKSpJjE6qStUO308w9BVEV/CT/KJ9kpqTVlhm4M=\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nMIICnzCCAkWgAwIBAgIUEuCWhGqFAMdEFamP0LohiAxdEQYwCgYIKoZIzj0EAwIw\nfzELMAkGA1UEBhMCUlUxDzANBgNVBAgTBk1vc2NvdzEPMA0GA1UEBxMGTW9zY293\nMRIwEAYDVQQKEwlTaG9ydGxpbmsxDzANBgNVBAsTBk1vc2NvdzEpMCcGA1UEAxMg\nQ3VzdG9tIFNob3J0bGluayBJbnRlcm1lZGlhdGUgQ0EwHhcNMjEwNDE4MTM1MDAw\nWhcNMjIwNDE4MTM1MDAwWjBoMQswCQYDVQQGEwJSVTEPMA0GA1UECBMGTW9zY293\nMQ8wDQYDVQQHEwZNb3Njb3cxEjAQBgNVBAoTCVNob3J0bGluazEPMA0GA1UECxMG\nTW9zY293MRIwEAYDVQQDEwlzaG9ydGxpbmswWTATBgcqhkjOPQIBBggqhkjOPQMB\nBwNCAARjxcJl5q0fVcUU51TeEBKDNfyn4I59JpbUtfyQShpVJxZQ0AP8XYEx9l40\nj9QWkB/QP7+4wj+O+so0TU8W1V4ho4G1MIGyMA4GA1UdDwEB/wQEAwIFoDATBgNV\nHSUEDDAKBggrBgEFBQcDATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBR5Bu+KogPg\n5cjtR+ZQWYT3tdqRNzAfBgNVHSMEGDAWgBR6mYkHDhwrk3S+qpDk5npnI1HhuTA9\nBgNVHREENjA0gglsb2NhbGhvc3SCBWxvY2FsggcqLmxvY2FsggsqLnNob3J0bGlu\na4cEfwAAAYcEAAAAADAKBggqhkjOPQQDAgNIADBFAiEA+l1fywhag1A2ozb4xmV3\nvUwKpDrtJKL5hfat4XbVgHsCIB6jD+t+qOi3GjbB04kxWckLLMdMuQGUhA26/MW/\nhIkH\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIEOFKH5IWvobNXqUU5LF64NNh3o01fa1eSyNrN+8LwKjoAoGCCqGSM49\nAwEHoUQDQgAEY8XCZeatH1XFFOdU3hASgzX8p+COfSaW1LX8kEoaVScWUNAD/F2B\nMfZeNI/UFpAf0D+/uMI/jvrKNE1PFtVeIQ==\n-----END EC PRIVATE KEY-----\n"` |  |
+| secret.enabled | bool | `false` |  |
+| secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
+| secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
+| secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
 | service.port | int | `7070` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.create | bool | `true` |  |
