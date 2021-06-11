@@ -30,7 +30,7 @@ Shortlink service
 |-------------|---------------------------------------------|---------------------------|------------------------------------------|
 | landing     | Welcome page                                | JS/JQuery                 |                                          |
 | docs        | Example blog                                | [Hugo](https://gohugo.io) | https://shrts.ru                         |
-| next        | UI service                                  | JS/NextJS                 |                                          |
+| next        | UI service                                  | JS/NextJS                 | [docs](./ui/next/README.md)              |
 | api         | GateWay                                     | Go                        | [docs](./docs/services/api.md)           |
 | link        | Link service                                | Go                        | [docs](./docs/services/link.md)          |
 | proxy       | Proxy service for redirect to original URL  | TypeScript                |                                          |
