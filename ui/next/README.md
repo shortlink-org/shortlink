@@ -13,3 +13,9 @@ This UI for shortlink application
 - Pretty code base
   - Typescript
   - ESLint/Prettier
+
+#### ENV
+
+| Name | Value | Description |
+|---|---|---|
+| `SENTRY_ENABLE` | `false` | Init Sentry |
