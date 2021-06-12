@@ -1,6 +1,8 @@
+// @ts-ignore
 import { UndrawWelcome } from 'react-undraw-illustrations'
 
-export default function Welcome() {
+// @ts-ignore
+export default function Welcome({ nickname }) {
   return (
     <div className="md:w-auto flex items-center content-center my-6 flex-auto bg-indigo-600 text-white rounded shadow-xl px-5 w-full">
       <div className="flex flex-wrap content-center items-center">
@@ -11,7 +13,7 @@ export default function Welcome() {
         </div>
         <div className="w-full sm:w-1/2 md:w-2/4 px-3 text-left">
           <div className="p-5 xl:px-8 md:py-5">
-            <h3 className="text-2xl">Welcome, Scott!</h3>
+            <h3 className="text-2xl">Welcome, {nickname}!</h3>
             <h5 className="text-xl mb-3">Lorem ipsum sit amet</h5>
             <p className="text-sm text-indigo-200">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro
