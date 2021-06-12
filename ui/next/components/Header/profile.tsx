@@ -1,13 +1,24 @@
 import React from 'react'
 import { Menu, Transition } from '@headlessui/react'
+import Link from 'next/link'
 
-const profile = ['Your Profile', 'Settings', 'Sign out']
+const profile = [
+  {
+    name: 'Your Profile',
+    link: '#',
+  },
+  {
+    name: 'Sign out',
+    link: `http://127.0.0.1:4433/self-service/browser/flows/logout`,
+  },
+]
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Profile() {
+  // @ts-ignore
   return (
     <Menu as="div" className="ml-3 relative">
       {({ open }) => (
@@ -37,17 +48,20 @@ export default function Profile() {
               className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
             >
               {profile.map((item) => (
-                <Menu.Item key={item}>
+                <Menu.Item key={item.name}>
                   {({ active }) => (
-                    <a
-                      href="#"
+                    <span
                       className={classNames(
                         active ? 'bg-gray-100' : '',
                         'block px-4 py-2 text-sm text-gray-700',
                       )}
                     >
-                      {item}
-                    </a>
+                      <Link
+                        href={item.link}
+                      >
+                        <p>{item.name}</p>
+                      </Link>
+                    </span>
                   )}
                 </Menu.Item>
               ))}
