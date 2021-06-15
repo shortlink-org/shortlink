@@ -7,11 +7,11 @@ require (
 	github.com/HdrHistogram/hdrhistogram-go v0.9.0 // indirect
 	github.com/Masterminds/squirrel v1.5.0
 	github.com/OneOfOne/xxhash v1.2.5 // indirect
-	github.com/PuerkitoBio/goquery v1.6.1
+	github.com/PuerkitoBio/goquery v1.7.0
 	github.com/Shopify/sarama v1.29.0
-	github.com/Unleash/unleash-client-go/v3 v3.1.1
+	github.com/Unleash/unleash-client-go/v3 v3.2.0
 	github.com/cloudevents/sdk-go/v2 v2.4.1
-	github.com/container-storage-interface/spec v1.4.0
+	github.com/container-storage-interface/spec v1.5.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/dgraph-io/badger/v3 v3.2103.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
@@ -55,7 +55,7 @@ require (
 	github.com/pborman/uuid v1.2.1
 	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/prometheus/client_golang v1.11.0
-	github.com/pterm/pterm v0.12.23
+	github.com/pterm/pterm v0.12.24
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/scylladb/gocqlx/v2 v2.4.0
 	github.com/sirupsen/logrus v1.8.1
@@ -73,10 +73,10 @@ require (
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.17.0
-	golang.org/x/net v0.0.0-20210610132358-84b48f89b13b
+	golang.org/x/net v0.0.0-20210614182718-04defd469f4e
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/api v0.48.0
-	google.golang.org/genproto v0.0.0-20210611144927-798beca9d670
+	google.golang.org/genproto v0.0.0-20210614182748-5b3b54cad159
 	google.golang.org/grpc v1.38.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.26.0
