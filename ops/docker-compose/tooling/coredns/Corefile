@@ -1,15 +1,15 @@
 # define a snippet
 (snip) {
+  errors
+  health
   prometheus 0.0.0.0:9153
   log {
     class all
   }
-  errors
 }
 
 . {
   whoami
-  health
   import snip
   minimal
 
