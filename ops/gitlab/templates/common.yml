@@ -13,7 +13,7 @@ default:
 
 env:
   stage: .pre
-  image: alpine:3.13
+  image: alpine:3.14
   script:
     - env
   when: manual
