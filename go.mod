@@ -53,7 +53,6 @@ require (
 	github.com/ory/dockertest/v3 v3.6.5
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/pborman/uuid v1.2.1
-	github.com/pelletier/go-toml v1.8.0 // indirect
 	github.com/prometheus/client_golang v1.11.0
 	github.com/pterm/pterm v0.12.24
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
@@ -62,7 +61,7 @@ require (
 	github.com/smartystreets/assertions v1.0.0 // indirect
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v1.1.3
-	github.com/spf13/viper v1.7.1
+	github.com/spf13/viper v1.8.0
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.0
@@ -81,7 +80,6 @@ require (
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.26.0
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
-	gopkg.in/ini.v1 v1.57.0 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	k8s.io/kubernetes v1.21.1
 	k8s.io/mount-utils v0.21.1
