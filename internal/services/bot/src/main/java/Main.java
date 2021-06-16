@@ -32,7 +32,7 @@ public class Main {
     // Instantiate Telegram Bots API
     TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
 
-    // Register our bot
+    // Registration our bot
     try {
       telegramBotsApi.registerBot(new TelegramBot(rabbitmq, api));
     } catch (TelegramApiException e) {

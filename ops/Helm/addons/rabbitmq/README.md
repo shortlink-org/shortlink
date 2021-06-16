@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | rabbitmq | 8.15.0 |
+| https://charts.bitnami.com/bitnami | rabbitmq | 8.15.2 |
 
 ## Values
 
@@ -32,8 +32,8 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
+| rabbitmq.ingress.certManager | bool | `true` |  |
 | rabbitmq.ingress.enabled | bool | `true` |  |
-| rabbitmq.ingress.existingSecret | string | `"shortlink-ingress-tls"` |  |
 | rabbitmq.ingress.hostname | string | `"shortlink.ddns.net"` |  |
 | rabbitmq.ingress.path | string | `"/rabbitmq/?(.*)"` |  |
 | rabbitmq.ingress.pathType | string | `"Prefix"` |  |

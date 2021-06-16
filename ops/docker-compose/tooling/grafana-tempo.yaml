@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/tempo:0.6.0
+    image: grafana/tempo:1.0.1
     profiles:
       - opentracing
     command: ["-config.file=/etc/tempo.yaml"]

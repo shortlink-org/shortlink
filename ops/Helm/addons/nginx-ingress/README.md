@@ -14,15 +14,15 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 3.30.0 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 3.33.0 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress-nginx.controller.config.enable-opentracing | string | `"true"` |  |
+| ingress-nginx.controller.config.jaeger-collector-host | string | `"jaeger-agent.jaeger-operator"` |  |
 | ingress-nginx.controller.config.jaeger-service-name | string | `"nginx-ingress"` |  |
-| ingress-nginx.controller.config.zipkin-collector-host | string | `"jaeger-agent.jaeger-operator"` |  |
 | ingress-nginx.controller.hostNetwork | bool | `false` |  |
 | ingress-nginx.controller.kind | string | `"Deployment"` |  |
 | ingress-nginx.controller.metrics.enabled | bool | `true` |  |
