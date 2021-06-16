@@ -19,6 +19,10 @@ const Menu = ({ open, setOpen }) => {
     setOpen(false)
   }
 
+  if (!session.kratos.active) {
+    return null
+  }
+
   return (
     <Drawer
       variant="permanent"
