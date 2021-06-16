@@ -173,9 +173,13 @@ Use `.env` file in `ui/[next/etc]` directories for setting your UI
 
 #### UI Screenshot
 
+<details>
+
 | Describe                | Screenshot                           |
 |-------------------------|--------------------------------------|
 | Link Table              | ![link table](./docs/next-js-ui.png) |
+
+</details>
 
 ### Mobile
 
