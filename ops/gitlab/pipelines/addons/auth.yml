@@ -1,0 +1,13 @@
+kratos:
+  stage: deploy
+  variables:
+    RELEASE_NAME: kratos
+    HELM_PATH: ops/Helm/shortlink-auth
+    HELM_NAMESPACE: shortlink
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual

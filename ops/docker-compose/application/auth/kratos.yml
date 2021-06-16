@@ -1,21 +1,29 @@
 ## ORY Kratos Configuration
-#
 
-version: v0.5.5-alpha.1
+# This file contains the configuration for your Kratos container.
+# Reference: https://www.ory.sh/kratos/docs/reference/configuration
+
+version: v0.6.3-alpha.1
 
 dsn: memory
 
+identity:
+  default_schema_url: file:///etc/config/kratos/identity.schema.json
+
 serve:
   public:
+    # Kratos uses cookies so you must always connect from "127.0.0.1"
     base_url: http://127.0.0.1:4433/
     cors:
       enabled: true
+      debug: true
       allowed_origins:
-        - http://127.0.0.1
+        - http://127.0.0.1:3000
       allowed_methods:
         - POST
         - GET
         - PUT
+        - PATCH
         - DELETE
       allowed_headers:
         - Authorization
@@ -24,15 +32,18 @@ serve:
         - Content-Type
         - Set-Cookie
   admin:
-    base_url: http://kratos:4434/
+    base_url: http://127.0.0.1:4434/
 
 session:
   lifespan: 720h # 30 days
+  cookie:
+    domain: http://127.0.0.1:3000
+    same_site: Lax
 
 selfservice:
-  default_browser_return_url: http://127.0.0.1:4455/
+  default_browser_return_url: http://127.0.0.1:3000/next/
   whitelisted_return_urls:
-    - http://127.0.0.1:4455
+    - http://127.0.0.1:3000
 
   methods:
     password:
@@ -63,37 +74,40 @@ selfservice:
               - profile
               - email
 
+  # These `ui_url` values are entirely dependant upon your setup.
+  # For this example, the React-app runs in development mode on the default port of 3000.
+  # You can see how this would change for a production environment or other solutions.
   flows:
     error:
-      ui_url: http://127.0.0.1:4455/ui/auth/error
+      ui_url: http://127.0.0.1:3000/next/error
 
     settings:
-      ui_url: http://127.0.0.1:4455/ui/auth/settings
+      ui_url: http://127.0.0.1:3000/next/auth/profile
       # Sessions older than a minute requires the user to sign in again before
       # the password is changed.
       privileged_session_max_age: 15m
 
     recovery:
       enabled: true
-      ui_url: http://127.0.0.1:4455/ui/auth/recovery
+      ui_url: http://127.0.0.1:3000/next/auth/recovery
 
     verification:
       enabled: true
-      ui_url: http://127.0.0.1:4455/ui/auth/verify
+      ui_url: http://127.0.0.1:3000/next/auth/verify
       after:
-        default_browser_return_url: http://127.0.0.1:4455/
+        default_browser_return_url: http://127.0.0.1:3000/next/
 
     logout:
       after:
-        default_browser_return_url: http://127.0.0.1:4455/auth/login
+        default_browser_return_url: http://127.0.0.1:3000/next/auth/login
 
     login:
-      ui_url: http://127.0.0.1:4455/ui/auth/login
+      ui_url: http://127.0.0.1:3000/next/auth/login
       lifespan: 10m
 
     registration:
       lifespan: 10m
-      ui_url: http://127.0.0.1:4455/ui/auth/registration
+      ui_url: http://127.0.0.1:3000/next/auth/registration
       after:
         password:
           hooks:
@@ -109,19 +123,18 @@ log:
 
 secrets:
   cookie:
+    # This is an example; secret must be this length (32 chars).
     - PLEASE-CHANGE-ME-I-AM-VERY-INSECURE
 
 hashers:
   argon2:
     parallelism: 1
-    memory: 131072
+    memory: 128MB
     iterations: 2
     salt_length: 16
     key_length: 16
 
-identity:
-  default_schema_url: file:///etc/config/kratos/identity.schema.json
-
 courier:
   smtp:
     connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
+    from_address: no-reply@shortlink.com

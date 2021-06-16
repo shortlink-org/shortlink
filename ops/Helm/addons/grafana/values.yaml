@@ -99,10 +99,15 @@ grafana:
                 name: TraceID
                 url: "http://localhost:16686/trace/$${__value.raw}"
 
+        - name: Jaeger
+          type: jaeger
+          uid: jaeger
+          url: http://jaeger-query.jaeger-operator:16686
+
         - name: Tempo
           type: tempo
           uid: tempo
-          url: http://jaeger-query.jaeger-operator:16686
+          url: http://tempo:16686
 
   dashboardProviders:
     dashboardproviders.yaml:
@@ -130,6 +135,10 @@ grafana:
         datasource: Prometheus
       ingress-nginx:
         url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+      grafana-overview:
+        gnetId: 10991
+        revision: 11
+        datasource: Prometheus
 
 loki:
   enabled: true
@@ -175,3 +184,6 @@ promtail:
     enabled: true
     type: LoadBalancer
     port: 1514
+
+tempo:
+  enabled: true
