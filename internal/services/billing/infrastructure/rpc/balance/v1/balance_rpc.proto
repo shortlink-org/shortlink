@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package infrastructure.rpc.balance.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/billing_rpc";
+
+import "google/protobuf/empty.proto";
+import "domain/billing/v1/billing.proto";
+
+service BalanceService {
+  rpc BalanceHistory(google.protobuf.Empty) returns(BalanceHistoryResponse) {}
+  rpc BalanceUpdate(BalanceUpdateRequest) returns(BalanceUpdateResponse) {}
+}
+
+message BalanceUpdateRequest {
+  domain.billing.v1.Balance balance = 1;
+}
+
+message BalanceUpdateResponse {
+  domain.billing.v1.Payment payment = 1;
+}
+
+message BalanceHistoryResponse {
+  domain.billing.v1.Balances list = 1;
+}

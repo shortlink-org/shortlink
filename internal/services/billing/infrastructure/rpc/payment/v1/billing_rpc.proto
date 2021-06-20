@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package infrastructure.rpc.payment.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/billing_rpc";
+
+import "google/protobuf/empty.proto";
+import "domain/billing/v1/billing.proto";
+
+service PaymentService {
+  rpc Payment(PaymentRequest) returns(PaymentResponse) {}
+  rpc Payments(google.protobuf.Empty) returns(PaymentsResponse) {}
+  rpc PaymentCreate(PaymentCreateRequest) returns(PaymentCreateResponse) {}
+  rpc PaymentClose(PaymentCloseRequest) returns(PaymentCloseResponse) {}
+}
+
+message PaymentRequest {
+  domain.billing.v1.Payment payment = 1;
+}
+
+message PaymentResponse {
+  domain.billing.v1.Payment payment = 1;
+}
+
+message PaymentsResponse {
+  domain.billing.v1.Payments list = 1;
+}
+
+message PaymentCreateRequest {
+  domain.billing.v1.Payment payment = 1;
+}
+
+message PaymentCreateResponse {
+  domain.billing.v1.Payment payment = 1;
+}
+
+message PaymentCloseRequest {
+  domain.billing.v1.Payment payment = 1;
+}
+
+message PaymentCloseResponse {
+  domain.billing.v1.Payment payment = 1;
+}
