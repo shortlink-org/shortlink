@@ -235,6 +235,74 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 	}, nil
 }
 
+// Injectors from service_billing.go:
+
+func InitializeBillingService() (*Service, func(), error) {
+	context, cleanup, err := ctx.New()
+	if err != nil {
+		return nil, nil, err
+	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	logger, cleanup2, err := logger_di.New(context)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	handler, cleanup3, err := sentry.New()
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	serveMux := monitoring.New(handler, logger)
+	tracer, cleanup4, err := traicing_di.New(context, logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	mq, cleanup5, err := mq_di.New(context, logger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	autoMaxProAutoMaxPro, cleanup6, err := autoMaxPro.New(logger)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewBillingService(context, configConfig, logger, serveMux, tracer, mq, autoMaxProAutoMaxPro)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return service, func() {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+	}, nil
+}
+
 // Injectors from service_link.go:
 
 func InitializeLinkService() (*ServiceLink, func(), error) {
@@ -678,6 +746,30 @@ func NewAPIService(ctx2 context.Context,
 			ClientRPC:     clientRPC,
 		},
 		APIService: apiService,
+	}, nil
+}
+
+// service_billing.go:
+
+// BillingService =======================================================================================================
+var BillingSet = wire.NewSet(
+	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewBillingService,
+)
+
+func NewBillingService(ctx2 context.Context,
+
+	cfg *config.Config,
+	log logger.Logger, monitoring2 *http.ServeMux,
+	tracer *opentracing.Tracer, mq2 mq.MQ,
+
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+) (*Service, error) {
+	return &Service{
+		Ctx:        ctx2,
+		Log:        log,
+		MQ:         mq2,
+		Tracer:     tracer,
+		Monitoring: monitoring2,
 	}, nil
 }
 
