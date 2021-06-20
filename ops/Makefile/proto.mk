@@ -14,3 +14,9 @@ proto-generate: ## Generate proto-files
 		--path=internal/services/proxy/src/proto/infrastructure \
 		--template=ops/proto/proxy/buf.gen.yaml \
 		--config=ops/proto/proxy/buf.yaml
+
+	@buf generate \
+		--path=internal/services/billing/domain \
+		--path=internal/services/billing/infrastructure \
+		--template=ops/proto/billing/buf.gen.yaml \
+		--config=ops/proto/billing/buf.yaml
