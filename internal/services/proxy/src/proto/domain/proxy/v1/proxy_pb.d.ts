@@ -1,5 +1,5 @@
 // package: domain.proxy.v1
-// file: src/proto/domain/proxy/v1/proxy.proto
+// file: domain/proxy/v1/proxy.proto
 
 /* tslint:disable */
 /* eslint-disable */

@@ -1,4 +1,4 @@
-// source: src/proto/domain/link/v1/link.proto
+// source: domain/link/v1/link.proto
 /**
  * @fileoverview
  * @enhanceable

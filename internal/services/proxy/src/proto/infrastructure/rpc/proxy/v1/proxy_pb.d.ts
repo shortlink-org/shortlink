@@ -1,11 +1,11 @@
-// package: infrastructure.rpc.v1
-// file: src/proto/infrastructure/rpc/v1/proxy.proto
+// package: infrastructure.rpc.proxy.v1
+// file: infrastructure/rpc/proxy/v1/proxy.proto
 
 /* tslint:disable */
 /* eslint-disable */
 
 import * as jspb from "google-protobuf";
-import * as src_proto_domain_proxy_v1_proxy_pb from "../../../../../src/proto/domain/proxy/v1/proxy_pb";
+import * as domain_proxy_v1_proxy_pb from "../../../../domain/proxy/v1/proxy_pb";
 
 export class StatsRequest extends jspb.Message { 
     getHash(): string;
@@ -31,8 +31,8 @@ export class StatsResponse extends jspb.Message {
 
     hasStats(): boolean;
     clearStats(): void;
-    getStats(): src_proto_domain_proxy_v1_proxy_pb.Stats | undefined;
-    setStats(value?: src_proto_domain_proxy_v1_proxy_pb.Stats): StatsResponse;
+    getStats(): domain_proxy_v1_proxy_pb.Stats | undefined;
+    setStats(value?: domain_proxy_v1_proxy_pb.Stats): StatsResponse;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): StatsResponse.AsObject;
@@ -46,6 +46,6 @@ export class StatsResponse extends jspb.Message {
 
 export namespace StatsResponse {
     export type AsObject = {
-        stats?: src_proto_domain_proxy_v1_proxy_pb.Stats.AsObject,
+        stats?: domain_proxy_v1_proxy_pb.Stats.AsObject,
     }
 }

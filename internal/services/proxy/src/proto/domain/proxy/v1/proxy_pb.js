@@ -1,4 +1,4 @@
-// source: src/proto/domain/proxy/v1/proxy.proto
+// source: domain/proxy/v1/proxy.proto
 /**
  * @fileoverview
  * @enhanceable

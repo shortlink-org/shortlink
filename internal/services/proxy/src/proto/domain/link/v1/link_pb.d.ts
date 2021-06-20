@@ -1,5 +1,5 @@
 // package: domain.link.v1
-// file: src/proto/domain/link/v1/link.proto
+// file: domain/link/v1/link.proto
 
 /* tslint:disable */
 /* eslint-disable */
