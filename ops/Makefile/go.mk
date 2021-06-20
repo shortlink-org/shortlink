@@ -4,6 +4,8 @@ generate: ## Code generation
 	# Generate from .go code
 	@go generate -tags=wireinject ./...
 
+	@make proto-lint
+	@make proto-generate
 	@make fmt
 
 .PHONY: fmt
