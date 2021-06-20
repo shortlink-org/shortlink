@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package infrastructure.rpc.tariff.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/billing_rpc";
+
+import "google/protobuf/empty.proto";
+import "domain/billing/v1/billing.proto";
+
+service TariffService {
+  rpc Tariff(TariffRequest) returns(TariffResponse) {}
+  rpc Tariffs(google.protobuf.Empty) returns(TariffsResponse) {}
+  rpc TariffCreate(TariffCreateRequest) returns(TariffCreateResponse) {}
+  rpc TariffUpdate(TariffUpdateRequest) returns(TariffUpdateResponse) {}
+  rpc TariffClose(TariffCloseRequest) returns(TariffCloseResponse) {}
+}
+
+message TariffRequest {
+  domain.billing.v1.Tariff tariff = 1;
+}
+
+message TariffResponse {
+  domain.billing.v1.Tariff tariff = 1;
+}
+
+message TariffsResponse {
+  domain.billing.v1.Tariffs list = 1;
+}
+
+message TariffCreateRequest {
+  domain.billing.v1.Tariff tariff = 1;
+}
+
+message TariffCreateResponse {
+  domain.billing.v1.Tariff tariff = 1;
+}
+
+message TariffUpdateRequest {
+  domain.billing.v1.Tariff tariff = 1;
+}
+
+message TariffUpdateResponse {
+  domain.billing.v1.Tariff tariff = 1;
+}
+
+message TariffCloseRequest {
+  domain.billing.v1.Tariff tariff = 1;
+}
+
+message TariffCloseResponse {
+  domain.billing.v1.Tariff tariff = 1;
+}

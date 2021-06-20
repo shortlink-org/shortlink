@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package infrastructure.rpc.v1;
 
-import "src/proto/domain/proxy/v1/proxy.proto";
+import "domain/proxy/v1/proxy.proto";
 
-service Stats {
+service StatsService {
   rpc Stats(StatsRequest) returns (StatsResponse) {}
 }
 
