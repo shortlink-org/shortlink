@@ -16,7 +16,7 @@ service OrderService {
 }
 
 message OrderHistoryResponse {
-  domain.billing.v1.Orders list = 1;
+  repeated domain.billing.v1.Order list = 1;
 }
 
 message OrderCreateRequest {

@@ -24,7 +24,7 @@ message TariffResponse {
 }
 
 message TariffsResponse {
-  domain.billing.v1.Tariffs list = 1;
+  repeated domain.billing.v1.Tariff list = 1;
 }
 
 message TariffCreateRequest {

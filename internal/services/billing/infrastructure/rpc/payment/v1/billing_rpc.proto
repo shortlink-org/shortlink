@@ -23,7 +23,7 @@ message PaymentResponse {
 }
 
 message PaymentsResponse {
-  domain.billing.v1.Payments list = 1;
+  repeated domain.billing.v1.Payment list = 1;
 }
 
 message PaymentCreateRequest {

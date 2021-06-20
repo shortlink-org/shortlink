@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.billing.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/events";
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
 
 enum Event {
   EVENT_UNSPECIFIED = 0;
@@ -39,27 +39,15 @@ message Payment {
   StatusPayment status = 4;
 }
 
-message Payments {
-  repeated Payment list = 1;
-}
-
 message Balance {
   string payment_id = 1;
   int64 amount = 2;
-}
-
-message Balances {
-  repeated Balance list = 1;
 }
 
 message Tariff {
   string id = 1;
   string name = 2;
   int64 amount = 3;
-}
-
-message Tariffs {
-  repeated Tariff list = 1;
 }
 
 enum StatusOrder {
@@ -78,8 +66,4 @@ message Order {
   string user_id = 2;
   string tariff_id = 3;
   StatusOrder status = 4;
-}
-
-message Orders {
-  repeated Order list = 1;
 }
