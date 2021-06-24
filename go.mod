@@ -8,7 +8,7 @@ require (
 	github.com/Masterminds/squirrel v1.5.0
 	github.com/OneOfOne/xxhash v1.2.5 // indirect
 	github.com/PuerkitoBio/goquery v1.7.0
-	github.com/Shopify/sarama v1.29.0
+	github.com/Shopify/sarama v1.29.1
 	github.com/Unleash/unleash-client-go/v3 v3.2.1
 	github.com/cloudevents/sdk-go/v2 v2.4.1
 	github.com/container-storage-interface/spec v1.5.0
