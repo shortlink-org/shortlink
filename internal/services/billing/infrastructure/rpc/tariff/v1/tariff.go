@@ -1,4 +1,4 @@
-package billing_rpc
+package tariff_rpc
 
 import (
 	"context"

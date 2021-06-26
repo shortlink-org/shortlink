@@ -22,6 +22,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/services/api/di"
+	"github.com/batazor/shortlink/internal/services/billing/di"
 	di2 "github.com/batazor/shortlink/internal/services/link/di"
 	di3 "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
@@ -237,7 +238,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 
 // Injectors from service_billing.go:
 
-func InitializeBillingService() (*Service, func(), error) {
+func InitializeBillingService() (*ServiceBilling, func(), error) {
 	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
@@ -283,7 +284,7 @@ func InitializeBillingService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewBillingService(context, configConfig, logger, serveMux, tracer, mq, autoMaxProAutoMaxPro)
+	clientConn, cleanup7, err := rpc.InitClient(logger, tracer)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -293,7 +294,61 @@ func InitializeBillingService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	return service, func() {
+	rpcServer, cleanup8, err := rpc.InitServer(logger, tracer)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	dbStore, cleanup9, err := store.New(context, logger)
+	if err != nil {
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	billingService, cleanup10, err := InitBillingService(context, clientConn, rpcServer, logger, dbStore, mq, tracer)
+	if err != nil {
+		cleanup9()
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	serviceBilling, err := NewBillingService(context, configConfig, logger, serveMux, tracer, mq, autoMaxProAutoMaxPro, billingService)
+	if err != nil {
+		cleanup10()
+		cleanup9()
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return serviceBilling, func() {
+		cleanup10()
+		cleanup9()
+		cleanup8()
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -547,7 +602,7 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler, logger)
-	metaDataService, cleanup8, err := InitMetaService(context, rpcServer, logger, dbStore)
+	metaDataService, cleanup8, err := InitMetaDataService(context, rpcServer, logger, dbStore)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -751,9 +806,21 @@ func NewAPIService(ctx2 context.Context,
 
 // service_billing.go:
 
+type ServiceBilling struct {
+	Service
+
+	BillingService *billing_di.BillingService
+}
+
+// InitMetaService =====================================================================================================
+func InitBillingService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ, tracer *opentracing.Tracer) (*billing_di.BillingService, func(), error) {
+	return billing_di.InitializeBillingService(ctx2, runRPCClient, runRPCServer, log, db2, mq2, tracer)
+}
+
 // BillingService =======================================================================================================
 var BillingSet = wire.NewSet(
-	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewBillingService,
+	DefaultSet, store.New, rpc.InitServer, rpc.InitClient, mq_di.New, sentry.New, monitoring.New, InitBillingService,
+	NewBillingService,
 )
 
 func NewBillingService(ctx2 context.Context,
@@ -763,13 +830,19 @@ func NewBillingService(ctx2 context.Context,
 	tracer *opentracing.Tracer, mq2 mq.MQ,
 
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
-) (*Service, error) {
-	return &Service{
-		Ctx:        ctx2,
-		Log:        log,
-		MQ:         mq2,
-		Tracer:     tracer,
-		Monitoring: monitoring2,
+
+	billingService *billing_di.BillingService,
+) (*ServiceBilling, error) {
+	return &ServiceBilling{
+		Service: Service{
+			Ctx:        ctx2,
+			Log:        log,
+			MQ:         mq2,
+			Tracer:     tracer,
+			Monitoring: monitoring2,
+		},
+
+		BillingService: billingService,
 	}, nil
 }
 
@@ -855,13 +928,13 @@ type ServiceMetadata struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitMetaService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store) (*di3.MetaDataService, func(), error) {
+func InitMetaDataService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store) (*di3.MetaDataService, func(), error) {
 	return di3.InitializeMetaDataService(ctx2, runRPCServer, log, db2)
 }
 
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(
-	DefaultSet, store.New, rpc.InitServer, sentry.New, monitoring.New, InitMetaService,
+	DefaultSet, store.New, rpc.InitServer, sentry.New, monitoring.New, InitMetaDataService,
 	NewMetadataService,
 )
 

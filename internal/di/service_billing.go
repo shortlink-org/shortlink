@@ -9,22 +9,42 @@ import (
 
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
+	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/config"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
 	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
+	"github.com/batazor/shortlink/internal/di/internal/store"
+	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
+	billing_di "github.com/batazor/shortlink/internal/services/billing/di"
+	"github.com/batazor/shortlink/pkg/rpc"
 )
+
+type ServiceBilling struct {
+	Service
+
+	BillingService *billing_di.BillingService
+}
+
+// InitMetaService =====================================================================================================
+func InitBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq mq.MQ, tracer *opentracing.Tracer) (*billing_di.BillingService, func(), error) {
+	return billing_di.InitializeBillingService(ctx, runRPCClient, runRPCServer, log, db, mq, tracer)
+}
 
 // BillingService =======================================================================================================
 var BillingSet = wire.NewSet(
 	DefaultSet,
+	store.New,
+	rpc.InitServer,
+	rpc.InitClient,
 	mq_di.New,
 	sentry.New,
 	monitoring.New,
+	InitBillingService,
 	NewBillingService,
 )
 
@@ -36,16 +56,22 @@ func NewBillingService(
 	tracer *opentracing.Tracer,
 	mq mq.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
-) (*Service, error) {
-	return &Service{
-		Ctx:        ctx,
-		Log:        log,
-		MQ:         mq,
-		Tracer:     tracer,
-		Monitoring: monitoring,
+
+	billingService *billing_di.BillingService,
+) (*ServiceBilling, error) {
+	return &ServiceBilling{
+		Service: Service{
+			Ctx:        ctx,
+			Log:        log,
+			MQ:         mq,
+			Tracer:     tracer,
+			Monitoring: monitoring,
+		},
+
+		BillingService: billingService,
 	}, nil
 }
 
-func InitializeBillingService() (*Service, func(), error) {
+func InitializeBillingService() (*ServiceBilling, func(), error) {
 	panic(wire.Build(BillingSet))
 }
