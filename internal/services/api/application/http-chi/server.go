@@ -15,8 +15,8 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	link_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/link"
-	additionalMiddleware "github.com/batazor/shortlink/internal/services/api/application/middleware"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
 
 // Run HTTP-server
