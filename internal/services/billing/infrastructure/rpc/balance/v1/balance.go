@@ -1,4 +1,4 @@
-package billing_rpc
+package balance_rpc
 
 import (
 	"context"

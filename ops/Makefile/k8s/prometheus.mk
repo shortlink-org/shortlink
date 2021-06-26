@@ -13,21 +13,14 @@ export PROMETHEUS_TELEGRAM_API   := 'WFhYWFhYWA==' # in base64
 export PROMETHEUS_TELEGRAM_ADMIN := 'MTIzNA==' # in base64
 
 helm-prometheus-up:
-	@helm repo add stable https://charts.helm.sh/stable
-	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
-	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
-	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml
-	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
-	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
-	@kubectl apply -f https://raw.githubusercontent.com/coreos/prometheus-operator/release-0.38/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
 	# Custom setting values
-	@envsubst < ops/Helm/addons/monitoring/prometheus-operator.values.yaml > /tmp/prometheus-operator.values.yaml
+	# @envsubst < ops/Helm/addons/monitoring/prometheus-operator.values.yaml > /tmp/prometheus-operator.values.yaml
 	@helm upgrade prometheus stable/prometheus-operator \
 		--install \
 		--namespace=${PROMETHEUS_NAMESPACE} \
         --create-namespace=true \
-		--wait \
-		-f /tmp/prometheus-operator.values.yaml
+		--wait
+#		-f /tmp/prometheus-operator.values.yaml
 
 prometheus-telegram-alert:
 	@envsubst < ops/Helm/addons/monitoring/telegram-alert-bot.yaml > /tmp/telegram-alert-bot.yaml

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package infrastructure.rpc.balance.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/billing_rpc";
+option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/balance_rpc";
 
 import "google/protobuf/empty.proto";
 import "domain/billing/v1/billing.proto";

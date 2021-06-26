@@ -14,8 +14,6 @@ type Repository interface {
 
 // Store abstract type
 type MetaStore struct {
-	Repository
-
 	typeStore string
 	Store     Repository
 
