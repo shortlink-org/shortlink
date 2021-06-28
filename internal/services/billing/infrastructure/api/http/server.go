@@ -8,8 +8,8 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	http_chi "github.com/batazor/shortlink/internal/services/api/application/http-chi"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
+	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 )
 
 // API - general describe of API
