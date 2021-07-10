@@ -13,19 +13,19 @@ type Balance struct {
 	client *pgxpool.Pool
 }
 
-func (b Balance) Init(ctx context.Context, db *db.Store) error {
+func (b *Balance) Init(ctx context.Context, db *db.Store) error {
 	b.client = db.Store.GetConn().(*pgxpool.Pool)
 	return nil
 }
 
-func (b Balance) Get(ctx context.Context, id *v1.Balance) (*v1.Balance, error) {
+func (b *Balance) Get(ctx context.Context, id *v1.Balance) (*v1.Balance, error) {
 	panic("implement me")
 }
 
-func (b Balance) List(ctx context.Context, filter interface{}) ([]*v1.Balance, error) {
+func (b *Balance) List(ctx context.Context, filter interface{}) ([]*v1.Balance, error) {
 	panic("implement me")
 }
 
-func (b Balance) Update(ctx context.Context, in *v1.Balance) (*v1.Balance, error) {
+func (b *Balance) Update(ctx context.Context, in *v1.Balance) (*v1.Balance, error) {
 	panic("implement me")
 }

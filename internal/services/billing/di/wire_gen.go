@@ -12,6 +12,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/services/billing/application/account"
 	"github.com/batazor/shortlink/internal/services/billing/application/payment"
+	"github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/balance/v1"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/order/v1"
@@ -35,7 +36,11 @@ func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn
 	if err != nil {
 		return nil, nil, err
 	}
-	server, err := NewBillingAPIServer(ctx, log, tracer, runRPCServer, db2, accountService)
+	tariffService, err := NewTariffApplication(log, billingStore)
+	if err != nil {
+		return nil, nil, err
+	}
+	server, err := NewBillingAPIServer(ctx, log, tracer, runRPCServer, db2, accountService, tariffService)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -77,10 +82,21 @@ var BillingSet = wire.NewSet(
 
 	NewBillingStore,
 
+	NewTariffApplication,
 	NewAccountApplication,
 
 	NewBillingService,
 )
+
+func NewBillingStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*billing_store.BillingStore, error) {
+	store := &billing_store.BillingStore{}
+	billingStore, err := store.Use(ctx, logger2, db2)
+	if err != nil {
+		return nil, err
+	}
+
+	return billingStore, nil
+}
 
 func NewAccountApplication(logger2 logger.Logger, store *billing_store.BillingStore) (*account_application.AccountService, error) {
 	accountService, err := account_application.New(logger2, store.Account)
@@ -91,6 +107,15 @@ func NewAccountApplication(logger2 logger.Logger, store *billing_store.BillingSt
 	return accountService, nil
 }
 
+func NewTariffApplication(logger2 logger.Logger, store *billing_store.BillingStore) (*tariff_application.TariffService, error) {
+	tariffService, err := tariff_application.New(logger2, store.Tariff)
+	if err != nil {
+		return nil, err
+	}
+
+	return tariffService, nil
+}
+
 func NewBillingAPIServer(
 	ctx context.Context, logger2 logger.Logger,
 
@@ -98,26 +123,22 @@ func NewBillingAPIServer(
 	rpcServer *rpc.RPCServer, db2 *db.Store,
 
 	accountService *account_application.AccountService,
+	tariffService *tariff_application.TariffService,
 ) (*api.Server, error) {
 
 	API := api.Server{}
 
-	apiService, err := API.Use(ctx, db2, logger2, tracer, accountService)
+	apiService, err := API.Use(
+		ctx, db2, logger2, tracer,
+
+		accountService,
+		tariffService,
+	)
 	if err != nil {
 		return nil, err
 	}
 
 	return apiService, nil
-}
-
-func NewBillingStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*billing_store.BillingStore, error) {
-	store := &billing_store.BillingStore{}
-	billingStore, err := store.Use(ctx, logger2, db2)
-	if err != nil {
-		return nil, err
-	}
-
-	return billingStore, nil
 }
 
 func NewBillingService(

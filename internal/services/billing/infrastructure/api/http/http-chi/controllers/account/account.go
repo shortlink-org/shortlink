@@ -33,7 +33,7 @@ func (api *AccoutAPI) Routes(r chi.Router) {
 }
 
 // add ...
-func (a *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
+func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Parse request
@@ -49,26 +49,26 @@ func (a *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	newAccount, err := a.accountService.Add(r.Context(), &request)
+	newAccount, err := api.accountService.Add(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
-	res, err := a.jsonpb.Marshal(newAccount)
+	res, err := api.jsonpb.Marshal(newAccount)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusCreated)
 	_, _ = w.Write(res) // nolint errcheck
 }
 
 // get ...
-func (a *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
+func (api *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
@@ -76,7 +76,7 @@ func (a *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
 }
 
 // list ...
-func (a *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
+func (api *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
@@ -84,7 +84,7 @@ func (a *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
 }
 
 // delete ...
-func (a *AccoutAPI) delete(w http.ResponseWriter, r *http.Request) {
+func (api *AccoutAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
