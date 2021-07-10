@@ -20,27 +20,28 @@ type Account struct {
 	client *pgxpool.Pool
 }
 
-func (a Account) Init(ctx context.Context, db *db.Store) error {
+func (a *Account) Init(ctx context.Context, db *db.Store) error {
 	a.client = db.Store.GetConn().(*pgxpool.Pool)
 	return nil
 }
 
-func (a Account) Get(ctx context.Context, id string) (*v1.Account, error) {
+func (a *Account) Get(ctx context.Context, id string) (*v1.Account, error) {
 	panic("implement me")
 }
 
-func (a Account) List(ctx context.Context, filter interface{}) ([]*v1.Account, error) {
+func (a *Account) List(ctx context.Context, filter interface{}) ([]*v1.Account, error) {
 	panic("implement me")
 }
 
-func (a Account) Add(ctx context.Context, in *v1.Account) (*v1.Account, error) {
+func (a *Account) Add(ctx context.Context, in *v1.Account) (*v1.Account, error) {
 	userId := uuid.MustParse(in.UserId)
 	tariffId := uuid.MustParse(in.TariffId)
 
 	// query builder
 	account := psql.Insert("billing.account").
-		Columns("user_id", "tariff_id").
-		Values(userId, tariffId)
+		Columns("id", "user_id", "tariff_id").
+		Values(uuid.Nil, userId, tariffId).
+		Suffix("RETURNING id")
 
 	q, args, err := account.ToSql()
 	if err != nil {
@@ -48,22 +49,21 @@ func (a Account) Add(ctx context.Context, in *v1.Account) (*v1.Account, error) {
 	}
 
 	row := a.client.QueryRow(ctx, q, args...)
-	//errScan := row.Scan(&source.Url, &source.Hash, &source.Describe).Error()
-	//if errScan == "no rows in result set" {
-	//	return source, nil
-	//}
-	//if errScan != "" {
-	//	return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
-	//}
-	fmt.Println(row)
+	errScan := row.Scan(&in.Id).Error()
+	if errScan == "no rows in result set" {
+		return in, nil
+	}
+	if errScan != "" {
+		return nil, fmt.Errorf(errScan)
+	}
 
-	return nil, nil
+	return in, nil
 }
 
-func (a Account) Update(ctx context.Context, in *v1.Account) (*v1.Account, error) {
+func (a *Account) Update(ctx context.Context, in *v1.Account) (*v1.Account, error) {
 	panic("implement me")
 }
 
-func (a Account) Delete(ctx context.Context, id string) error {
+func (a *Account) Delete(ctx context.Context, id string) error {
 	panic("implement me")
 }

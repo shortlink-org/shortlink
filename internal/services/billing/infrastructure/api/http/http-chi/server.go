@@ -16,14 +16,25 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
+	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/account"
+	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/tariff"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 	"github.com/batazor/shortlink/pkg/http/handler"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, db *db.Store, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer, accountService *account_application.AccountService) error { // nolint unparam
+func (api *API) Run(
+	ctx context.Context,
+	db *db.Store,
+	config api_type.Config,
+	log logger.Logger,
+	tracer *opentracing.Tracer,
+
+	accountService *account_application.AccountService,
+	tariffService *tariff_application.TariffService,
+) error { // nolint unparam
 	api.ctx = ctx
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
@@ -83,18 +94,18 @@ func (api *API) Run(ctx context.Context, db *db.Store, config api_type.Config, l
 	//if err != nil {
 	//	return err
 	//}
-	//
-	//tariffRoutes, err := tariff.New(tariffRepository)
-	//if err != nil {
-	//	return err
-	//}
+
+	tariffRoutes, err := tariff.New(tariffService)
+	if err != nil {
+		return err
+	}
 
 	r.Mount("/api/billing", r.Group(func(router chi.Router) {
 		accountRoutes.Routes(router)
 		//	balanceRoutes.Routes(router)
 		//	orderRoutes.Routes(router)
 		//	paymentRoutes.Routes(router)
-		//	tariffRoutes.Routes(router)
+		tariffRoutes.Routes(router)
 	}))
 
 	srv := http.Server{

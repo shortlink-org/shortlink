@@ -15,6 +15,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
 	"github.com/batazor/shortlink/internal/services/billing/application/payment"
+	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	api "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/balance/v1"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/order/v1"
@@ -54,10 +55,21 @@ var BillingSet = wire.NewSet(
 	NewBillingStore,
 
 	// application
+	NewTariffApplication,
 	NewAccountApplication,
 
 	NewBillingService,
 )
+
+func NewBillingStore(ctx context.Context, logger logger.Logger, db *db.Store) (*billing_store.BillingStore, error) {
+	store := &billing_store.BillingStore{}
+	billingStore, err := store.Use(ctx, logger, db)
+	if err != nil {
+		return nil, err
+	}
+
+	return billingStore, nil
+}
 
 func NewAccountApplication(logger logger.Logger, store *billing_store.BillingStore) (*account_application.AccountService, error) {
 	accountService, err := account_application.New(logger, store.Account)
@@ -66,6 +78,15 @@ func NewAccountApplication(logger logger.Logger, store *billing_store.BillingSto
 	}
 
 	return accountService, nil
+}
+
+func NewTariffApplication(logger logger.Logger, store *billing_store.BillingStore) (*tariff_application.TariffService, error) {
+	tariffService, err := tariff_application.New(logger, store.Tariff)
+	if err != nil {
+		return nil, err
+	}
+
+	return tariffService, nil
 }
 
 func NewBillingAPIServer(
@@ -77,26 +98,26 @@ func NewBillingAPIServer(
 
 	// Applications
 	accountService *account_application.AccountService,
+	tariffService *tariff_application.TariffService,
 ) (*api.Server, error) {
 	// Run API server
 	API := api.Server{}
 
-	apiService, err := API.Use(ctx, db, logger, tracer, accountService)
+	apiService, err := API.Use(
+		ctx,
+		db,
+		logger,
+		tracer,
+
+		// services
+		accountService,
+		tariffService,
+	)
 	if err != nil {
 		return nil, err
 	}
 
 	return apiService, nil
-}
-
-func NewBillingStore(ctx context.Context, logger logger.Logger, db *db.Store) (*billing_store.BillingStore, error) {
-	store := &billing_store.BillingStore{}
-	billingStore, err := store.Use(ctx, logger, db)
-	if err != nil {
-		return nil, err
-	}
-
-	return billingStore, nil
 }
 
 func NewBillingService(

@@ -177,9 +177,9 @@ func (p *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
 // Delete ...
 func (p *Store) Delete(ctx context.Context, id string) error {
 	// query builder
-	links := psql.Delete("links").
+	request := psql.Delete("links").
 		Where(squirrel.Eq{"hash": id})
-	q, args, err := links.ToSql()
+	q, args, err := request.ToSql()
 	if err != nil {
 		return err
 	}

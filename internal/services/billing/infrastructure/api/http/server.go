@@ -10,18 +10,36 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
+	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 )
 
 // API - general describe of API
 type API interface { // nolint unused
-	Run(ctx context.Context, db *db.Store, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer, accountService *account_application.AccountService) error
+	Run(
+		ctx context.Context,
+		db *db.Store,
+		config api_type.Config,
+		log logger.Logger,
+		tracer *opentracing.Tracer,
+
+		accountService *account_application.AccountService,
+		tariffService *tariff_application.TariffService,
+	) error
 }
 
 type Server struct{}
 
-func (s *Server) Use(ctx context.Context, db *db.Store, log logger.Logger, tracer *opentracing.Tracer, accountService *account_application.AccountService) (*Server, error) {
+func (s *Server) Use(
+	ctx context.Context,
+	db *db.Store,
+	log logger.Logger,
+	tracer *opentracing.Tracer,
+
+	accountService *account_application.AccountService,
+	tariffService *tariff_application.TariffService,
+) (*Server, error) {
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi
@@ -42,7 +60,16 @@ func (s *Server) Use(ctx context.Context, db *db.Store, log logger.Logger, trace
 		server = &http_chi.API{}
 	}
 
-	if err := server.Run(ctx, db, config, log, tracer, accountService); err != nil {
+	if err := server.Run(
+		ctx,
+		db,
+		config,
+		log,
+		tracer,
+
+		accountService,
+		tariffService,
+	); err != nil {
 		return nil, err
 	}
 
