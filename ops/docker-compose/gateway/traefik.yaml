@@ -6,7 +6,7 @@ services:
     depends_on:
       - coredns
     # The official v2.0 Traefik docker image
-    image: traefik:v2.4
+    image: traefik:v2.5
     profiles:
       - gateway
     container_name: traefik

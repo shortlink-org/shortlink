@@ -1,4 +1,4 @@
-package application
+package payment
 
 import (
 	events "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1"

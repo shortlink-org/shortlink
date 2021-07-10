@@ -13,13 +13,14 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
-	"github.com/batazor/shortlink/internal/services/billing/application"
+	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
+	"github.com/batazor/shortlink/internal/services/billing/application/payment"
 	api "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/balance/v1"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/order/v1"
-	payment_rpc "github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/payment/v1"
-	tariff_rpc "github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/tariff/v1"
-	billing_store "github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
+	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/payment/v1"
+	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/tariff/v1"
+	"github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
@@ -32,54 +33,61 @@ type BillingService struct {
 	orderRPCServer   *order_rpc.Order
 	paymentRPCServer *payment_rpc.Payment
 	tariffRPCServer  *tariff_rpc.Tariff
-	//mq *api_mq.Event
 
 	// Application
-	payment *application.Payment
+	payment *payment.Payment
 
 	// Repository
-	billingStore *billing_store.BillingStore
+	accountRepository *billing_store.AccountRepository
+	balanceRepository *billing_store.BalanceRepository
+	orderRepository   *billing_store.OrderRepository
+	paymentRepository *billing_store.PaymentRepository
+	tariffRepository  *billing_store.TariffRepository
 }
 
 // BillingService ======================================================================================================
 var BillingSet = wire.NewSet(
 	// infrastructure
 	NewBillingAPIServer,
-	//NewBalanceRPCServer,
-	//NewOrderRPCServer,
-	//NewPaymentRPCServer,
-	//NewTariffRPCServer,
-
-	// applications
-	//NewPaymentApplication,
 
 	// repository
 	NewBillingStore,
 
+	// application
+	NewAccountApplication,
+
 	NewBillingService,
 )
 
-func NewBillingAPIServer(ctx context.Context, logger logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer) (*api.Server, error) {
+func NewAccountApplication(logger logger.Logger, store *billing_store.BillingStore) (*account_application.AccountService, error) {
+	accountService, err := account_application.New(logger, store.Account)
+	if err != nil {
+		return nil, err
+	}
+
+	return accountService, nil
+}
+
+func NewBillingAPIServer(
+	ctx context.Context,
+	logger logger.Logger,
+	tracer *opentracing.Tracer,
+	rpcServer *rpc.RPCServer,
+	db *db.Store,
+
+	// Applications
+	accountService *account_application.AccountService,
+) (*api.Server, error) {
 	// Run API server
 	API := api.Server{}
 
-	apiService, err := API.Use(ctx, logger, tracer)
+	apiService, err := API.Use(ctx, db, logger, tracer, accountService)
 	if err != nil {
 		return nil, err
 	}
 
 	return apiService, nil
 }
-
-//func NewBalanceRPCServer() {}
-//
-//func NewOrderRPCServer() {}
-//
-//func NewPaymentRPCServer() {}
-//
-//func NewTariffRPCServer() {}
-//
-//func NewPaymentApplication() {}
 
 func NewBillingStore(ctx context.Context, logger logger.Logger, db *db.Store) (*billing_store.BillingStore, error) {
 	store := &billing_store.BillingStore{}
@@ -96,24 +104,12 @@ func NewBillingService(
 
 	// Delivery
 	httpAPIServer *api.Server,
-	//balanceRPCServer *balance_rpc.Balance,
-	//orderRPCServer   *order_rpc.Order,
-	//paymentRPCServer *payment_rpc.Payment,
-	//tariffRPCServer  *tariff_rpc.Tariff,
-
-	// Application
-	//payment *application.Payment,
 ) (*BillingService, error) {
 	return &BillingService{
 		Logger: log,
 
+		// Delivery
 		httpAPIServer: httpAPIServer,
-		//balanceRPCServer: balanceRPCServer,
-		//orderRPCServer:   orderRPCServer,
-		//paymentRPCServer: paymentRPCServer,
-		//tariffRPCServer:  tariffRPCServer,
-
-		//payment:          payment,
 	}, nil
 }
 

@@ -33,11 +33,24 @@ func (s *BillingStore) Use(ctx context.Context, log logger.Logger, db *db.Store)
 
 	switch s.typeStore {
 	case "postgres":
-		s.Store = &postgres.Store{}
+		s.Account = &postgres.Account{}
+		s.Balance = &postgres.Balance{}
+		s.Order = &postgres.Order{}
+		s.Payment = &postgres.Payment{}
+		s.Tariff = &postgres.Tariff{}
 	default:
-		s.Store = &postgres.Store{}
+		s.Account = &postgres.Account{}
+		s.Balance = &postgres.Balance{}
+		s.Order = &postgres.Order{}
+		s.Payment = &postgres.Payment{}
+		s.Tariff = &postgres.Tariff{}
 	}
-	_ = s.Store.Init(ctx, db)
+
+	_ = s.Account.Init(ctx, db)
+	_ = s.Balance.Init(ctx, db)
+	_ = s.Order.Init(ctx, db)
+	_ = s.Payment.Init(ctx, db)
+	_ = s.Tariff.Init(ctx, db)
 
 	log.Info("init billingStore", field.Fields{
 		"db": s.typeStore,

@@ -2,6 +2,7 @@ import { put, takeLatest } from 'redux-saga/effects'
 // @ts-ignore
 import { LoginRequest, PublicApi } from '@ory/kratos-client'
 import * as t from 'store/types'
+import {SESSION_FETCH_REQUESTED} from "store/types";
 
 // Init Kratos API
 const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://127.0.0.1:4433'
@@ -63,7 +64,7 @@ function* loginAuth(action: { payload: any }) {
 
 function* watchLoginAuth() {
   // @ts-ignore
-  yield takeLatest(t.AUTH_LOGIN_REQUESTED, loginAuth)
+  yield takeLatest(t.SESSION_FETCH_REQUESTED, loginAuth)
 }
 
 export default [watchFetchSession(), watchLoginAuth()]

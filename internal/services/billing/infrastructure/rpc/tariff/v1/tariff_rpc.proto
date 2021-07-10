@@ -5,7 +5,7 @@ package infrastructure.rpc.tariff.v1;
 option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/tariff_rpc";
 
 import "google/protobuf/empty.proto";
-import "domain/billing/v1/billing.proto";
+import "domain/billing/v1/tariff.proto";
 
 service TariffService {
   rpc Tariff(TariffRequest) returns(TariffResponse) {}

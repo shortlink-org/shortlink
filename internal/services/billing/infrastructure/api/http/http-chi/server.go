@@ -13,19 +13,17 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/account"
-	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/balance"
-	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/order"
-	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/payment"
-	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/tariff"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 	"github.com/batazor/shortlink/pkg/http/handler"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error { // nolint unparam
+func (api *API) Run(ctx context.Context, db *db.Store, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer, accountService *account_application.AccountService) error { // nolint unparam
 	api.ctx = ctx
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
@@ -65,12 +63,38 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 	r.NotFound(handler.NotFoundHandler)
 
+	// Init routes
+	accountRoutes, err := account.New(accountService)
+	if err != nil {
+		return err
+	}
+
+	//balanceRoutes, err := balance.New(balanceRepository)
+	//if err != nil {
+	//	return err
+	//}
+	//
+	//orderRoutes, err := order.New(orderRepository)
+	//if err != nil {
+	//	return err
+	//}
+	//
+	//paymentRoutes, err := payment.New(paymentRepository)
+	//if err != nil {
+	//	return err
+	//}
+	//
+	//tariffRoutes, err := tariff.New(tariffRepository)
+	//if err != nil {
+	//	return err
+	//}
+
 	r.Mount("/api/billing", r.Group(func(router chi.Router) {
-		account.Routes(router)
-		balance.Routes(router)
-		order.Routes(router)
-		payment.Routes(router)
-		tariff.Routes(router)
+		accountRoutes.Routes(router)
+		//	balanceRoutes.Routes(router)
+		//	orderRoutes.Routes(router)
+		//	paymentRoutes.Routes(router)
+		//	tariffRoutes.Routes(router)
 	}))
 
 	srv := http.Server{
@@ -85,6 +109,6 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 	// start HTTP-server
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))
-	err := srv.ListenAndServe()
+	err = srv.ListenAndServe()
 	return err
 }

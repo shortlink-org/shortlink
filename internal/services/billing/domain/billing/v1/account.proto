@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package domain.billing.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
+
+message Account {
+  string id = 1;
+  string user_id = 2;
+  string tariff_id = 3;
+}
