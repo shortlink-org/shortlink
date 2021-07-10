@@ -506,6 +506,423 @@
 					]
 				},
 				{
+					"name": "Billing",
+					"item": [
+						{
+							"name": "Account",
+							"item": [
+								{
+									"name": "Get account",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/account/{{account_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"account",
+												"{{account_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get accounts",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/accounts",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"accounts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add account",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/account",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"account"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete account",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/account/{{account_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"account",
+												"{{account_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Tariff",
+							"item": [
+								{
+									"name": "Get tariff",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"tariff",
+												"{{tariff_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get tariffs",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/tariffs",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"tariffs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add tariff",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/tariff",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"tariff"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update tariff",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"tariff",
+												"{{tariff_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete tariff",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"tariff",
+												"{{tariff_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Payment",
+							"item": [
+								{
+									"name": "Get payment",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get payments",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add payment",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Close payment",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/payment/{{payment_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"payment",
+												"{{payment_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"description": "Type payment: PayPal, Tinkoff, etc",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
+							"name": "Balance",
+							"item": [
+								{
+									"name": "Get balances",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/balances",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"balances"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update balance",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/balance/{{payment_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"balance",
+												"{{payment_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Order",
+							"item": [
+								{
+									"name": "Get order",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get orders",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add order",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update order",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": ""
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Close order",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/order/{{order_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"order",
+												"{{order_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"description": "Billing service:\n- account\n- tariff\n- payment\n- balance\n- order",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
 					"name": "Links",
 					"item": [
 						{
@@ -631,16 +1048,17 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\"url\":\"https://example.com\",\"describe\":\"example link\"}"
+									"raw": "{\"url\":\"https://google.com\",\"describe\":\"example link\"}"
 								},
 								"url": {
-									"raw": "localhost:7070/api",
+									"raw": "localhost:7070/api/link",
 									"host": [
 										"localhost"
 									],
 									"port": "7070",
 									"path": [
-										"api"
+										"api",
+										"link"
 									]
 								}
 							},
@@ -662,18 +1080,16 @@
 										"value": "application/json"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"hash\":\"{{hash}}\"}"
-								},
 								"url": {
-									"raw": "localhost:7070/api",
+									"raw": "localhost:7070/api/link/{{hash}}",
 									"host": [
 										"localhost"
 									],
 									"port": "7070",
 									"path": [
-										"api"
+										"api",
+										"link",
+										"{{hash}}"
 									]
 								}
 							},
@@ -755,6 +1171,50 @@
 									"port": "9090",
 									"path": [
 										"metrics"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Proxy",
+					"item": [
+						{
+							"name": "redirect",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/s/{{hash}}",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"s",
+										"{{hash}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "stats by hash",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:3000/s/{{hash}}/stats",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"s",
+										"{{hash}}",
+										"stats"
 									]
 								}
 							},

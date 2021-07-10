@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package domain.billing.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
+
+enum StatusPayment {
+  STATUS_PAYMENT_UNSPECIFIED = 0;
+
+  STATUS_PAYMENT_CREATE = 1;
+  STATUS_PAYMENT_PENDING = 2;
+  STATUS_PAYMENT_APPROVE = 3;
+  STATUS_PAYMENT_CLOSE = 4;
+  STATUS_PAYMENT_REJECT = 5;
+}
+
+message Payment {
+  string user_id = 1;
+  string id = 2;
+  string name = 3;
+  StatusPayment status = 4;
+}

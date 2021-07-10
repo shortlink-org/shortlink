@@ -7,19 +7,21 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 )
 
 // API - general describe of API
 type API interface { // nolint unused
-	Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error
+	Run(ctx context.Context, db *db.Store, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer, accountService *account_application.AccountService) error
 }
 
 type Server struct{}
 
-func (s *Server) Use(ctx context.Context, log logger.Logger, tracer *opentracing.Tracer) (*Server, error) {
+func (s *Server) Use(ctx context.Context, db *db.Store, log logger.Logger, tracer *opentracing.Tracer, accountService *account_application.AccountService) (*Server, error) {
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi
@@ -40,7 +42,7 @@ func (s *Server) Use(ctx context.Context, log logger.Logger, tracer *opentracing
 		server = &http_chi.API{}
 	}
 
-	if err := server.Run(ctx, config, log, tracer); err != nil {
+	if err := server.Run(ctx, db, config, log, tracer, accountService); err != nil {
 		return nil, err
 	}
 

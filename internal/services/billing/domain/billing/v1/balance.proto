@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package domain.billing.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
+
+message Balance {
+  string payment_id = 1;
+  int64 amount = 2;
+}

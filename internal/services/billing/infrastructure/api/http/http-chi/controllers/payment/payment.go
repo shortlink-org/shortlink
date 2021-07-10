@@ -5,46 +5,55 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
+
+	billing_store "github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
 )
 
-var (
+type PaymentAPI struct {
 	jsonpb protojson.MarshalOptions
-)
+	store  *billing_store.PaymentRepository
+}
+
+func New(store *billing_store.PaymentRepository) (*PaymentAPI, error) {
+	return &PaymentAPI{
+		store: store,
+	}, nil
+}
 
 // Routes creates a REST router
-func Routes(r chi.Router) {
-	r.Get("/payment/{id}", Get)
-	r.Get("/payments", List)
-	r.Post("/payment", Add)
-	r.Delete("/payment/{id}", Delete)
+func (api *PaymentAPI) Routes(r chi.Router) {
+	r.Get("/payment/{id}", api.get)
+	r.Get("/payments", api.list)
+	r.Post("/payment", api.add)
+	r.Delete("/payment/{id}", api.delete)
 }
 
-// Add ...
-func Add(w http.ResponseWriter, r *http.Request) {
+// add ...
+func (api *PaymentAPI) add(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-type", "application/json")
+
+	w.WriteHeader(http.StatusCreated)
+	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+}
+
+// get ...
+func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
 
-// Get ...
-func Get(w http.ResponseWriter, r *http.Request) {
+// list ...
+func (api *PaymentAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
 
-// List ...
-func List(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
-
-	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
-}
-
-// Delete ...
-func Delete(w http.ResponseWriter, r *http.Request) {
+// delete ...
+func (api *PaymentAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)

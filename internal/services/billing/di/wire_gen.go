@@ -10,7 +10,8 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
-	"github.com/batazor/shortlink/internal/services/billing/application"
+	"github.com/batazor/shortlink/internal/services/billing/application/account"
+	"github.com/batazor/shortlink/internal/services/billing/application/payment"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/balance/v1"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/order/v1"
@@ -26,7 +27,15 @@ import (
 // Injectors from di.go:
 
 func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ, tracer *opentracing.Tracer) (*BillingService, func(), error) {
-	server, err := NewBillingAPIServer(ctx, log, tracer, runRPCServer)
+	billingStore, err := NewBillingStore(ctx, log, db2)
+	if err != nil {
+		return nil, nil, err
+	}
+	accountService, err := NewAccountApplication(log, billingStore)
+	if err != nil {
+		return nil, nil, err
+	}
+	server, err := NewBillingAPIServer(ctx, log, tracer, runRPCServer, db2, accountService)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -51,10 +60,14 @@ type BillingService struct {
 	tariffRPCServer  *tariff_rpc.Tariff
 
 	// Application
-	payment *application.Payment
+	payment *payment.Payment
 
 	// Repository
-	billingStore *billing_store.BillingStore
+	accountRepository *billing_store.AccountRepository
+	balanceRepository *billing_store.BalanceRepository
+	orderRepository   *billing_store.OrderRepository
+	paymentRepository *billing_store.PaymentRepository
+	tariffRepository  *billing_store.TariffRepository
 }
 
 // BillingService ======================================================================================================
@@ -64,14 +77,32 @@ var BillingSet = wire.NewSet(
 
 	NewBillingStore,
 
+	NewAccountApplication,
+
 	NewBillingService,
 )
 
-func NewBillingAPIServer(ctx context.Context, logger2 logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer) (*api.Server, error) {
+func NewAccountApplication(logger2 logger.Logger, store *billing_store.BillingStore) (*account_application.AccountService, error) {
+	accountService, err := account_application.New(logger2, store.Account)
+	if err != nil {
+		return nil, err
+	}
+
+	return accountService, nil
+}
+
+func NewBillingAPIServer(
+	ctx context.Context, logger2 logger.Logger,
+
+	tracer *opentracing.Tracer,
+	rpcServer *rpc.RPCServer, db2 *db.Store,
+
+	accountService *account_application.AccountService,
+) (*api.Server, error) {
 
 	API := api.Server{}
 
-	apiService, err := API.Use(ctx, logger2, tracer)
+	apiService, err := API.Use(ctx, db2, logger2, tracer, accountService)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +124,6 @@ func NewBillingService(
 	log logger.Logger,
 
 	httpAPIServer *api.Server,
-
 ) (*BillingService, error) {
 	return &BillingService{
 		Logger: log,

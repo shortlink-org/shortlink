@@ -5,7 +5,7 @@ package infrastructure.rpc.payment.v1;
 option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/payment_rpc";
 
 import "google/protobuf/empty.proto";
-import "domain/billing/v1/billing.proto";
+import "domain/billing/v1/payment.proto";
 
 service PaymentService {
   rpc Payment(PaymentRequest) returns(PaymentResponse) {}

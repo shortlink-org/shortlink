@@ -5,7 +5,7 @@ package infrastructure.rpc.order.v1;
 option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/order_rpc";
 
 import "google/protobuf/empty.proto";
-import "domain/billing/v1/billing.proto";
+import "domain/billing/v1/order.proto";
 
 service OrderService {
   rpc OrderHistory(google.protobuf.Empty) returns(OrderHistoryResponse) {}

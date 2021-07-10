@@ -5,30 +5,39 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
+
+	billing_store "github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
 )
 
-var (
+type TariffAPI struct {
 	jsonpb protojson.MarshalOptions
-)
+	store  *billing_store.TariffRepository
+}
+
+func New(store *billing_store.TariffRepository) (*TariffAPI, error) {
+	return &TariffAPI{
+		store: store,
+	}, nil
+}
 
 // Routes creates a REST router
-func Routes(r chi.Router) {
-	r.Get("/tariffs", List)
-	r.Get("/tariff/{hash}", Get)
-	r.Post("/tariff", Add)
-	r.Delete("/tariff/{hash}", Delete)
+func (api *TariffAPI) Routes(r chi.Router) {
+	r.Get("/tariffs", api.list)
+	r.Get("/tariff/{hash}", api.get)
+	r.Post("/tariff", api.add)
+	r.Delete("/tariff/{hash}", api.delete)
 }
 
 // Add ...
-func Add(w http.ResponseWriter, r *http.Request) {
+func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
-	w.WriteHeader(http.StatusOK)
+	w.WriteHeader(http.StatusCreated)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
 
 // Get ...
-func Get(w http.ResponseWriter, r *http.Request) {
+func (api *TariffAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
@@ -36,7 +45,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 }
 
 // List ...
-func List(w http.ResponseWriter, r *http.Request) {
+func (api *TariffAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
@@ -44,7 +53,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 }
 
 // Delete ...
-func Delete(w http.ResponseWriter, r *http.Request) {
+func (api *TariffAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
