@@ -14,7 +14,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
-	"github.com/batazor/shortlink/internal/services/billing/application/payment"
+	balance_application "github.com/batazor/shortlink/internal/services/billing/application/balance"
+	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
+	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
 	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	api "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/rpc/balance/v1"
@@ -35,9 +37,6 @@ type BillingService struct {
 	paymentRPCServer *payment_rpc.Payment
 	tariffRPCServer  *tariff_rpc.Tariff
 
-	// Application
-	payment *payment.Payment
-
 	// Repository
 	accountRepository *billing_store.AccountRepository
 	balanceRepository *billing_store.BalanceRepository
@@ -57,6 +56,9 @@ var BillingSet = wire.NewSet(
 	// application
 	NewTariffApplication,
 	NewAccountApplication,
+	NewBalanceApplication,
+	NewOrderApplication,
+	NewPaymentApplication,
 
 	NewBillingService,
 )
@@ -78,6 +80,33 @@ func NewAccountApplication(logger logger.Logger, store *billing_store.BillingSto
 	}
 
 	return accountService, nil
+}
+
+func NewBalanceApplication(logger logger.Logger, store *billing_store.BillingStore) (*balance_application.BalanceService, error) {
+	balanceService, err := balance_application.New(logger, store.Balance)
+	if err != nil {
+		return nil, err
+	}
+
+	return balanceService, nil
+}
+
+func NewOrderApplication(logger logger.Logger, store *billing_store.BillingStore) (*order_application.OrderService, error) {
+	orderService, err := order_application.New(logger, store.Order)
+	if err != nil {
+		return nil, err
+	}
+
+	return orderService, nil
+}
+
+func NewPaymentApplication(logger logger.Logger, store *billing_store.BillingStore) (*payment_application.PaymentService, error) {
+	paymentService, err := payment_application.New(logger, store.Payment)
+	if err != nil {
+		return nil, err
+	}
+
+	return paymentService, nil
 }
 
 func NewTariffApplication(logger logger.Logger, store *billing_store.BillingStore) (*tariff_application.TariffService, error) {
