@@ -34,14 +34,14 @@ func (a *Account) List(ctx context.Context, filter interface{}) ([]*v1.Account, 
 }
 
 func (a *Account) Add(ctx context.Context, in *v1.Account) (*v1.Account, error) {
+	id := uuid.MustParse(in.Id)
 	userId := uuid.MustParse(in.UserId)
 	tariffId := uuid.MustParse(in.TariffId)
 
 	// query builder
 	account := psql.Insert("billing.account").
 		Columns("id", "user_id", "tariff_id").
-		Values(uuid.Nil, userId, tariffId).
-		Suffix("RETURNING id")
+		Values(id, userId, tariffId)
 
 	q, args, err := account.ToSql()
 	if err != nil {
@@ -49,7 +49,7 @@ func (a *Account) Add(ctx context.Context, in *v1.Account) (*v1.Account, error) 
 	}
 
 	row := a.client.QueryRow(ctx, q, args...)
-	errScan := row.Scan(&in.Id).Error()
+	errScan := row.Scan().Error()
 	if errScan == "no rows in result set" {
 		return in, nil
 	}
