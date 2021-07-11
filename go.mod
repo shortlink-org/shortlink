@@ -3,7 +3,6 @@ module github.com/batazor/shortlink
 go 1.16
 
 require (
-	github.com/DataDog/zstd v1.4.4 // indirect
 	github.com/HdrHistogram/hdrhistogram-go v0.9.0 // indirect
 	github.com/Masterminds/squirrel v1.5.0
 	github.com/OneOfOne/xxhash v1.2.5 // indirect
