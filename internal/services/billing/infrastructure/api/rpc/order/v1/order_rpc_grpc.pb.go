@@ -36,7 +36,7 @@ func NewOrderServiceClient(cc grpc.ClientConnInterface) OrderServiceClient {
 
 func (c *orderServiceClient) OrderHistory(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*OrderHistoryResponse, error) {
 	out := new(OrderHistoryResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.order.v1.OrderService/OrderHistory", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.order.v1.OrderService/OrderHistory", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (c *orderServiceClient) OrderHistory(ctx context.Context, in *emptypb.Empty
 
 func (c *orderServiceClient) OrderCreate(ctx context.Context, in *OrderCreateRequest, opts ...grpc.CallOption) (*OrderCreateResponse, error) {
 	out := new(OrderCreateResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.order.v1.OrderService/OrderCreate", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.order.v1.OrderService/OrderCreate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func (c *orderServiceClient) OrderCreate(ctx context.Context, in *OrderCreateReq
 
 func (c *orderServiceClient) OrderUpdate(ctx context.Context, in *OrderUpdateRequest, opts ...grpc.CallOption) (*OrderUpdateResponse, error) {
 	out := new(OrderUpdateResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.order.v1.OrderService/OrderUpdate", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.order.v1.OrderService/OrderUpdate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +63,7 @@ func (c *orderServiceClient) OrderUpdate(ctx context.Context, in *OrderUpdateReq
 
 func (c *orderServiceClient) OrderClose(ctx context.Context, in *OrderCloseRequest, opts ...grpc.CallOption) (*OrderCloseResponse, error) {
 	out := new(OrderCloseResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.order.v1.OrderService/OrderClose", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.order.v1.OrderService/OrderClose", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func (c *orderServiceClient) OrderClose(ctx context.Context, in *OrderCloseReque
 
 func (c *orderServiceClient) OrderApprove(ctx context.Context, in *OrderApproveRequest, opts ...grpc.CallOption) (*OrderApproveResponse, error) {
 	out := new(OrderApproveResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.order.v1.OrderService/OrderApprove", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.order.v1.OrderService/OrderApprove", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -133,7 +133,7 @@ func _OrderService_OrderHistory_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.order.v1.OrderService/OrderHistory",
+		FullMethod: "/infrastructure.api.rpc.order.v1.OrderService/OrderHistory",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderHistory(ctx, req.(*emptypb.Empty))
@@ -151,7 +151,7 @@ func _OrderService_OrderCreate_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.order.v1.OrderService/OrderCreate",
+		FullMethod: "/infrastructure.api.rpc.order.v1.OrderService/OrderCreate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderCreate(ctx, req.(*OrderCreateRequest))
@@ -169,7 +169,7 @@ func _OrderService_OrderUpdate_Handler(srv interface{}, ctx context.Context, dec
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.order.v1.OrderService/OrderUpdate",
+		FullMethod: "/infrastructure.api.rpc.order.v1.OrderService/OrderUpdate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderUpdate(ctx, req.(*OrderUpdateRequest))
@@ -187,7 +187,7 @@ func _OrderService_OrderClose_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.order.v1.OrderService/OrderClose",
+		FullMethod: "/infrastructure.api.rpc.order.v1.OrderService/OrderClose",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderClose(ctx, req.(*OrderCloseRequest))
@@ -205,7 +205,7 @@ func _OrderService_OrderApprove_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.order.v1.OrderService/OrderApprove",
+		FullMethod: "/infrastructure.api.rpc.order.v1.OrderService/OrderApprove",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderApprove(ctx, req.(*OrderApproveRequest))
@@ -217,7 +217,7 @@ func _OrderService_OrderApprove_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var OrderService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "infrastructure.rpc.order.v1.OrderService",
+	ServiceName: "infrastructure.api.rpc.order.v1.OrderService",
 	HandlerType: (*OrderServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -242,5 +242,5 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "infrastructure/rpc/order/v1/order_rpc.proto",
+	Metadata: "infrastructure/api/rpc/order/v1/order_rpc.proto",
 }

@@ -36,7 +36,7 @@ func NewTariffServiceClient(cc grpc.ClientConnInterface) TariffServiceClient {
 
 func (c *tariffServiceClient) Tariff(ctx context.Context, in *TariffRequest, opts ...grpc.CallOption) (*TariffResponse, error) {
 	out := new(TariffResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.tariff.v1.TariffService/Tariff", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.tariff.v1.TariffService/Tariff", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (c *tariffServiceClient) Tariff(ctx context.Context, in *TariffRequest, opt
 
 func (c *tariffServiceClient) Tariffs(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*TariffsResponse, error) {
 	out := new(TariffsResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.tariff.v1.TariffService/Tariffs", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.tariff.v1.TariffService/Tariffs", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -54,7 +54,7 @@ func (c *tariffServiceClient) Tariffs(ctx context.Context, in *emptypb.Empty, op
 
 func (c *tariffServiceClient) TariffCreate(ctx context.Context, in *TariffCreateRequest, opts ...grpc.CallOption) (*TariffCreateResponse, error) {
 	out := new(TariffCreateResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.tariff.v1.TariffService/TariffCreate", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.tariff.v1.TariffService/TariffCreate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +63,7 @@ func (c *tariffServiceClient) TariffCreate(ctx context.Context, in *TariffCreate
 
 func (c *tariffServiceClient) TariffUpdate(ctx context.Context, in *TariffUpdateRequest, opts ...grpc.CallOption) (*TariffUpdateResponse, error) {
 	out := new(TariffUpdateResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.tariff.v1.TariffService/TariffUpdate", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.tariff.v1.TariffService/TariffUpdate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +72,7 @@ func (c *tariffServiceClient) TariffUpdate(ctx context.Context, in *TariffUpdate
 
 func (c *tariffServiceClient) TariffClose(ctx context.Context, in *TariffCloseRequest, opts ...grpc.CallOption) (*TariffCloseResponse, error) {
 	out := new(TariffCloseResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.tariff.v1.TariffService/TariffClose", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.tariff.v1.TariffService/TariffClose", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -133,7 +133,7 @@ func _TariffService_Tariff_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.tariff.v1.TariffService/Tariff",
+		FullMethod: "/infrastructure.api.rpc.tariff.v1.TariffService/Tariff",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TariffServiceServer).Tariff(ctx, req.(*TariffRequest))
@@ -151,7 +151,7 @@ func _TariffService_Tariffs_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.tariff.v1.TariffService/Tariffs",
+		FullMethod: "/infrastructure.api.rpc.tariff.v1.TariffService/Tariffs",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TariffServiceServer).Tariffs(ctx, req.(*emptypb.Empty))
@@ -169,7 +169,7 @@ func _TariffService_TariffCreate_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.tariff.v1.TariffService/TariffCreate",
+		FullMethod: "/infrastructure.api.rpc.tariff.v1.TariffService/TariffCreate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TariffServiceServer).TariffCreate(ctx, req.(*TariffCreateRequest))
@@ -187,7 +187,7 @@ func _TariffService_TariffUpdate_Handler(srv interface{}, ctx context.Context, d
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.tariff.v1.TariffService/TariffUpdate",
+		FullMethod: "/infrastructure.api.rpc.tariff.v1.TariffService/TariffUpdate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TariffServiceServer).TariffUpdate(ctx, req.(*TariffUpdateRequest))
@@ -205,7 +205,7 @@ func _TariffService_TariffClose_Handler(srv interface{}, ctx context.Context, de
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.tariff.v1.TariffService/TariffClose",
+		FullMethod: "/infrastructure.api.rpc.tariff.v1.TariffService/TariffClose",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(TariffServiceServer).TariffClose(ctx, req.(*TariffCloseRequest))
@@ -217,7 +217,7 @@ func _TariffService_TariffClose_Handler(srv interface{}, ctx context.Context, de
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TariffService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "infrastructure.rpc.tariff.v1.TariffService",
+	ServiceName: "infrastructure.api.rpc.tariff.v1.TariffService",
 	HandlerType: (*TariffServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -242,5 +242,5 @@ var TariffService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "infrastructure/rpc/tariff/v1/tariff_rpc.proto",
+	Metadata: "infrastructure/api/rpc/tariff/v1/tariff_rpc.proto",
 }
