@@ -22,7 +22,7 @@ import (
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/pborman/uuid"
+	"github.com/google/uuid"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -163,7 +163,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 		}, nil
 	}
 
-	volumeID := uuid.NewUUID().String()
+	volumeID := uuid.New().String()
 
 	vol, err := createHostpathVolume(volumeID, req.GetName(), capacity, requestedAccessType)
 	if err != nil {
@@ -401,7 +401,7 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 		return nil, status.Error(codes.Internal, "volumeID is not exist")
 	}
 
-	snapshotID := uuid.NewUUID().String()
+	snapshotID := uuid.New().String()
 	creationTime := timestamppb.Now()
 	volPath := hostPathVolume.VolPath
 	file := getSnapshotPath(snapshotID)

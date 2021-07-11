@@ -3,6 +3,8 @@ package account_application
 import (
 	"context"
 
+	"github.com/google/uuid"
+
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1"
 	billing_store "github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
@@ -33,6 +35,9 @@ func (acc *AccountService) List(ctx context.Context, filter interface{}) ([]*bil
 }
 
 func (acc *AccountService) Add(ctx context.Context, in *billing.Account) (*billing.Account, error) {
+	// generate uniq identity
+	in.Id = uuid.New().String()
+
 	return acc.accountRepository.Add(ctx, in)
 }
 
