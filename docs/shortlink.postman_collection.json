@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d1003e6c-9083-4784-ab3d-18bf65f13e01",
+		"_postman_id": "c52f1d1c-8fa6-4a25-9b6a-8b8f7630756c",
 		"name": "shortlink",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -554,9 +554,32 @@
 								},
 								{
 									"name": "Add account",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"",
+													"postman.setGlobalVariable(\"billing.user_id\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "POST",
 										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"{{$randomUUID}}\",\n    \"tariff_id\": \"{{tariff_id}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
 										"url": {
 											"raw": "localhost:7070/api/billing/account",
 											"host": [
@@ -641,9 +664,32 @@
 								},
 								{
 									"name": "Add tariff",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"",
+													"postman.setGlobalVariable(\"tariff_id\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "POST",
 										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"trial\",\n    \"payload\": \"{\\\"amount\\\": 500}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
 										"url": {
 											"raw": "localhost:7070/api/billing/tariff",
 											"host": [
