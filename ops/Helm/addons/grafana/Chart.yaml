@@ -14,13 +14,13 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: grafana
-    version: 6.13.2
+    version: 6.13.9
     repository: https://grafana.github.io/helm-charts
     condition: grafana.enabled
     tags:
       - monitoring
   - name: loki
-    version: 2.5.0
+    version: 2.5.2
     repository: https://grafana.github.io/helm-charts
     condition: loki.enabled
     tags:
