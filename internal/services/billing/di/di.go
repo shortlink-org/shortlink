@@ -127,6 +127,9 @@ func NewBillingAPIServer(
 
 	// Applications
 	accountService *account_application.AccountService,
+	balanceService *balance_application.BalanceService,
+	orderService *order_application.OrderService,
+	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
 ) (*api.Server, error) {
 	// Run API server
@@ -140,6 +143,9 @@ func NewBillingAPIServer(
 
 		// services
 		accountService,
+		balanceService,
+		orderService,
+		paymentService,
 		tariffService,
 	)
 	if err != nil {

@@ -6,17 +6,18 @@ import (
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	billing_store "github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
+	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
 )
 
 type OrderAPI struct {
 	jsonpb protojson.MarshalOptions
-	store  *billing_store.OrderRepository
+
+	orderService *order_application.OrderService
 }
 
-func New(store *billing_store.OrderRepository) (*OrderAPI, error) {
+func New(orderService *order_application.OrderService) (*OrderAPI, error) {
 	return &OrderAPI{
-		store: store,
+		orderService: orderService,
 	}, nil
 }
 

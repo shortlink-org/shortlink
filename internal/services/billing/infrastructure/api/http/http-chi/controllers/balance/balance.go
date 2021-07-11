@@ -6,17 +6,18 @@ import (
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	billing_store "github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
+	balance_application "github.com/batazor/shortlink/internal/services/billing/application/balance"
 )
 
 type BalanceAPI struct {
 	jsonpb protojson.MarshalOptions
-	store  *billing_store.BalanceRepository
+
+	balanceService *balance_application.BalanceService
 }
 
-func New(store *billing_store.BalanceRepository) (*BalanceAPI, error) {
+func New(balanceService *balance_application.BalanceService) (*BalanceAPI, error) {
 	return &BalanceAPI{
-		store: store,
+		balanceService: balanceService,
 	}, nil
 }
 
