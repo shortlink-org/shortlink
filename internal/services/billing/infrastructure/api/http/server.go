@@ -10,6 +10,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
+	balance_application "github.com/batazor/shortlink/internal/services/billing/application/balance"
+	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
+	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
 	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
@@ -24,7 +27,11 @@ type API interface { // nolint unused
 		log logger.Logger,
 		tracer *opentracing.Tracer,
 
+		// services
 		accountService *account_application.AccountService,
+		balanceService *balance_application.BalanceService,
+		orderService *order_application.OrderService,
+		paymentService *payment_application.PaymentService,
 		tariffService *tariff_application.TariffService,
 	) error
 }
@@ -37,7 +44,11 @@ func (s *Server) Use(
 	log logger.Logger,
 	tracer *opentracing.Tracer,
 
+	// services
 	accountService *account_application.AccountService,
+	balanceService *balance_application.BalanceService,
+	orderService *order_application.OrderService,
+	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
 ) (*Server, error) {
 	var server API
@@ -68,6 +79,9 @@ func (s *Server) Use(
 		tracer,
 
 		accountService,
+		balanceService,
+		orderService,
+		paymentService,
 		tariffService,
 	); err != nil {
 		return nil, err

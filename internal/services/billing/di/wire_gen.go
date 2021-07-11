@@ -38,11 +38,23 @@ func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn
 	if err != nil {
 		return nil, nil, err
 	}
+	balanceService, err := NewBalanceApplication(log, billingStore)
+	if err != nil {
+		return nil, nil, err
+	}
+	orderService, err := NewOrderApplication(log, billingStore)
+	if err != nil {
+		return nil, nil, err
+	}
+	paymentService, err := NewPaymentApplication(log, billingStore)
+	if err != nil {
+		return nil, nil, err
+	}
 	tariffService, err := NewTariffApplication(log, billingStore)
 	if err != nil {
 		return nil, nil, err
 	}
-	server, err := NewBillingAPIServer(ctx, log, tracer, runRPCServer, db2, accountService, tariffService)
+	server, err := NewBillingAPIServer(ctx, log, tracer, runRPCServer, db2, accountService, balanceService, orderService, paymentService, tariffService)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -152,6 +164,9 @@ func NewBillingAPIServer(
 	rpcServer *rpc.RPCServer, db2 *db.Store,
 
 	accountService *account_application.AccountService,
+	balanceService *balance_application.BalanceService,
+	orderService *order_application.OrderService,
+	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
 ) (*api.Server, error) {
 
@@ -161,6 +176,9 @@ func NewBillingAPIServer(
 		ctx, db2, logger2, tracer,
 
 		accountService,
+		balanceService,
+		orderService,
+		paymentService,
 		tariffService,
 	)
 	if err != nil {

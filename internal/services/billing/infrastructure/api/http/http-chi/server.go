@@ -16,8 +16,14 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
+	balance_application "github.com/batazor/shortlink/internal/services/billing/application/balance"
+	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
+	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
 	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/account"
+	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/balance"
+	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/order"
+	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/payment"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/tariff"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 	"github.com/batazor/shortlink/pkg/http/handler"
@@ -32,7 +38,11 @@ func (api *API) Run(
 	log logger.Logger,
 	tracer *opentracing.Tracer,
 
+	// services
 	accountService *account_application.AccountService,
+	balanceService *balance_application.BalanceService,
+	orderService *order_application.OrderService,
+	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
 ) error { // nolint unparam
 	api.ctx = ctx
@@ -80,20 +90,20 @@ func (api *API) Run(
 		return err
 	}
 
-	//balanceRoutes, err := balance.New(balanceRepository)
-	//if err != nil {
-	//	return err
-	//}
-	//
-	//orderRoutes, err := order.New(orderRepository)
-	//if err != nil {
-	//	return err
-	//}
-	//
-	//paymentRoutes, err := payment.New(paymentRepository)
-	//if err != nil {
-	//	return err
-	//}
+	balanceRoutes, err := balance.New(balanceService)
+	if err != nil {
+		return err
+	}
+
+	orderRoutes, err := order.New(orderService)
+	if err != nil {
+		return err
+	}
+
+	paymentRoutes, err := payment.New(paymentService)
+	if err != nil {
+		return err
+	}
 
 	tariffRoutes, err := tariff.New(tariffService)
 	if err != nil {
@@ -102,9 +112,9 @@ func (api *API) Run(
 
 	r.Mount("/api/billing", r.Group(func(router chi.Router) {
 		accountRoutes.Routes(router)
-		//	balanceRoutes.Routes(router)
-		//	orderRoutes.Routes(router)
-		//	paymentRoutes.Routes(router)
+		balanceRoutes.Routes(router)
+		orderRoutes.Routes(router)
+		paymentRoutes.Routes(router)
 		tariffRoutes.Routes(router)
 	}))
 
