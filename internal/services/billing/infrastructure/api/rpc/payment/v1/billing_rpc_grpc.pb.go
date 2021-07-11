@@ -35,7 +35,7 @@ func NewPaymentServiceClient(cc grpc.ClientConnInterface) PaymentServiceClient {
 
 func (c *paymentServiceClient) Payment(ctx context.Context, in *PaymentRequest, opts ...grpc.CallOption) (*PaymentResponse, error) {
 	out := new(PaymentResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.payment.v1.PaymentService/Payment", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.payment.v1.PaymentService/Payment", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -44,7 +44,7 @@ func (c *paymentServiceClient) Payment(ctx context.Context, in *PaymentRequest, 
 
 func (c *paymentServiceClient) Payments(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*PaymentsResponse, error) {
 	out := new(PaymentsResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.payment.v1.PaymentService/Payments", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.payment.v1.PaymentService/Payments", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (c *paymentServiceClient) Payments(ctx context.Context, in *emptypb.Empty, 
 
 func (c *paymentServiceClient) PaymentCreate(ctx context.Context, in *PaymentCreateRequest, opts ...grpc.CallOption) (*PaymentCreateResponse, error) {
 	out := new(PaymentCreateResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.payment.v1.PaymentService/PaymentCreate", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.payment.v1.PaymentService/PaymentCreate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -62,7 +62,7 @@ func (c *paymentServiceClient) PaymentCreate(ctx context.Context, in *PaymentCre
 
 func (c *paymentServiceClient) PaymentClose(ctx context.Context, in *PaymentCloseRequest, opts ...grpc.CallOption) (*PaymentCloseResponse, error) {
 	out := new(PaymentCloseResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.payment.v1.PaymentService/PaymentClose", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.payment.v1.PaymentService/PaymentClose", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +119,7 @@ func _PaymentService_Payment_Handler(srv interface{}, ctx context.Context, dec f
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.payment.v1.PaymentService/Payment",
+		FullMethod: "/infrastructure.api.rpc.payment.v1.PaymentService/Payment",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PaymentServiceServer).Payment(ctx, req.(*PaymentRequest))
@@ -137,7 +137,7 @@ func _PaymentService_Payments_Handler(srv interface{}, ctx context.Context, dec 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.payment.v1.PaymentService/Payments",
+		FullMethod: "/infrastructure.api.rpc.payment.v1.PaymentService/Payments",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PaymentServiceServer).Payments(ctx, req.(*emptypb.Empty))
@@ -155,7 +155,7 @@ func _PaymentService_PaymentCreate_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.payment.v1.PaymentService/PaymentCreate",
+		FullMethod: "/infrastructure.api.rpc.payment.v1.PaymentService/PaymentCreate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PaymentServiceServer).PaymentCreate(ctx, req.(*PaymentCreateRequest))
@@ -173,7 +173,7 @@ func _PaymentService_PaymentClose_Handler(srv interface{}, ctx context.Context, 
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.payment.v1.PaymentService/PaymentClose",
+		FullMethod: "/infrastructure.api.rpc.payment.v1.PaymentService/PaymentClose",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PaymentServiceServer).PaymentClose(ctx, req.(*PaymentCloseRequest))
@@ -185,7 +185,7 @@ func _PaymentService_PaymentClose_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var PaymentService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "infrastructure.rpc.payment.v1.PaymentService",
+	ServiceName: "infrastructure.api.rpc.payment.v1.PaymentService",
 	HandlerType: (*PaymentServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -206,5 +206,5 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "infrastructure/rpc/payment/v1/billing_rpc.proto",
+	Metadata: "infrastructure/api/rpc/payment/v1/billing_rpc.proto",
 }

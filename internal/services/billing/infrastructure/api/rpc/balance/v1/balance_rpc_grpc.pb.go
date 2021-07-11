@@ -33,7 +33,7 @@ func NewBalanceServiceClient(cc grpc.ClientConnInterface) BalanceServiceClient {
 
 func (c *balanceServiceClient) BalanceHistory(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*BalanceHistoryResponse, error) {
 	out := new(BalanceHistoryResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.balance.v1.BalanceService/BalanceHistory", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.balance.v1.BalanceService/BalanceHistory", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -42,7 +42,7 @@ func (c *balanceServiceClient) BalanceHistory(ctx context.Context, in *emptypb.E
 
 func (c *balanceServiceClient) BalanceUpdate(ctx context.Context, in *BalanceUpdateRequest, opts ...grpc.CallOption) (*BalanceUpdateResponse, error) {
 	out := new(BalanceUpdateResponse)
-	err := c.cc.Invoke(ctx, "/infrastructure.rpc.balance.v1.BalanceService/BalanceUpdate", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/infrastructure.api.rpc.balance.v1.BalanceService/BalanceUpdate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +91,7 @@ func _BalanceService_BalanceHistory_Handler(srv interface{}, ctx context.Context
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.balance.v1.BalanceService/BalanceHistory",
+		FullMethod: "/infrastructure.api.rpc.balance.v1.BalanceService/BalanceHistory",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BalanceServiceServer).BalanceHistory(ctx, req.(*emptypb.Empty))
@@ -109,7 +109,7 @@ func _BalanceService_BalanceUpdate_Handler(srv interface{}, ctx context.Context,
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/infrastructure.rpc.balance.v1.BalanceService/BalanceUpdate",
+		FullMethod: "/infrastructure.api.rpc.balance.v1.BalanceService/BalanceUpdate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BalanceServiceServer).BalanceUpdate(ctx, req.(*BalanceUpdateRequest))
@@ -121,7 +121,7 @@ func _BalanceService_BalanceUpdate_Handler(srv interface{}, ctx context.Context,
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var BalanceService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "infrastructure.rpc.balance.v1.BalanceService",
+	ServiceName: "infrastructure.api.rpc.balance.v1.BalanceService",
 	HandlerType: (*BalanceServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -134,5 +134,5 @@ var BalanceService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "infrastructure/rpc/balance/v1/balance_rpc.proto",
+	Metadata: "infrastructure/api/rpc/balance/v1/balance_rpc.proto",
 }
