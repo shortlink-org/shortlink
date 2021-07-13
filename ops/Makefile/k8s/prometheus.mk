@@ -27,7 +27,7 @@ prometheus-telegram-alert:
 	@kubectl apply -n ${PROMETHEUS_NAMESPACE} \
 		-f /tmp/telegram-alert-bot.yaml
 
-prometheus-telegram-alert-sown:
+prometheus-telegram-alert-down:
 	@kubectl delete -n ${PROMETHEUS_NAMESPACE} \
 		-f /tmp/telegram-alert-bot.yaml
 
