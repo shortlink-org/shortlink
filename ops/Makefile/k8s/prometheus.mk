@@ -14,13 +14,13 @@ export PROMETHEUS_TELEGRAM_ADMIN := 'MTIzNA==' # in base64
 
 helm-prometheus-up:
 	# Custom setting values
-	# @envsubst < ops/Helm/addons/monitoring/prometheus-operator.values.yaml > /tmp/prometheus-operator.values.yaml
+	 @envsubst < ops/Helm/addons/monitoring/prometheus-operator.values.yaml > /tmp/prometheus-operator.values.yaml
 	@helm upgrade prometheus stable/prometheus-operator \
 		--install \
 		--namespace=${PROMETHEUS_NAMESPACE} \
         --create-namespace=true \
 		--wait
-#		-f /tmp/prometheus-operator.values.yaml
+		-f /tmp/prometheus-operator.values.yaml
 
 prometheus-telegram-alert:
 	@envsubst < ops/Helm/addons/monitoring/telegram-alert-bot.yaml > /tmp/telegram-alert-bot.yaml
