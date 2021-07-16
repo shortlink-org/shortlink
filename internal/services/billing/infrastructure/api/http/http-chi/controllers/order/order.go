@@ -6,6 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
 )
 
@@ -33,6 +34,9 @@ func (api *OrderAPI) Routes(r chi.Router) {
 func (api *OrderAPI) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	w.WriteHeader(http.StatusCreated)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
@@ -40,6 +44,9 @@ func (api *OrderAPI) add(w http.ResponseWriter, r *http.Request) {
 // Get ...
 func (api *OrderAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
+
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
@@ -49,6 +56,9 @@ func (api *OrderAPI) get(w http.ResponseWriter, r *http.Request) {
 func (api *OrderAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
@@ -56,6 +66,9 @@ func (api *OrderAPI) list(w http.ResponseWriter, r *http.Request) {
 // Delete ...
 func (api *OrderAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
+
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck

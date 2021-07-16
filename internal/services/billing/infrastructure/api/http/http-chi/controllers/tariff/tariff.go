@@ -36,6 +36,9 @@ func (api *TariffAPI) Routes(r chi.Router) {
 func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
 	var request billing.Tariff
@@ -45,9 +48,6 @@ func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
-
-	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	newTariff, err := api.tariffService.Add(r.Context(), &request)
 	if err != nil {
@@ -71,6 +71,9 @@ func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
 func (api *TariffAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
@@ -79,13 +82,33 @@ func (api *TariffAPI) get(w http.ResponseWriter, r *http.Request) {
 func (api *TariffAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
+	tariffs, err := api.tariffService.List(r.Context(), nil)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	res, err := api.jsonpb.Marshal(tariffs)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+	_, _ = w.Write(res) // nolint errcheck
 }
 
 // Delete ...
 func (api *TariffAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
+
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
