@@ -46,7 +46,7 @@ func (t *Tariff) Get(ctx context.Context, id string) (*v1.Tariff, error) {
 	return resp, nil
 }
 
-func (t *Tariff) List(ctx context.Context, filter interface{}) ([]*v1.Tariff, error) {
+func (t *Tariff) List(ctx context.Context, filter interface{}) (*v1.Tariffs, error) {
 	// query builder
 	tariffs := psql.Select("id", "name", "payload").
 		From("billing.tariff")
@@ -60,7 +60,7 @@ func (t *Tariff) List(ctx context.Context, filter interface{}) ([]*v1.Tariff, er
 		return nil, err
 	}
 
-	response := []*v1.Tariff{}
+	response := v1.Tariffs{}
 
 	for rows.Next() {
 		var result v1.Tariff
@@ -69,10 +69,10 @@ func (t *Tariff) List(ctx context.Context, filter interface{}) ([]*v1.Tariff, er
 			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
-		response = append(response, &result)
+		response.List = append(response.List, &result)
 	}
 
-	return response, nil
+	return &response, nil
 }
 
 func (t *Tariff) Add(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {

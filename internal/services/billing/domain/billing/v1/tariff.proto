@@ -9,3 +9,7 @@ message Tariff {
   string name = 2;
   string payload = 3;
 }
+
+message Tariffs {
+  repeated Tariff list = 1;
+}

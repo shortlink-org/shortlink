@@ -30,7 +30,7 @@ func (t *TariffService) Get(ctx context.Context, id string) (*billing.Tariff, er
 	return t.tariffRepository.Get(ctx, id)
 }
 
-func (t *TariffService) List(ctx context.Context, filter interface{}) ([]*billing.Tariff, error) {
+func (t *TariffService) List(ctx context.Context, filter interface{}) (*billing.Tariffs, error) {
 	return t.tariffRepository.List(ctx, filter)
 }
 

@@ -36,6 +36,9 @@ func (api *AccoutAPI) Routes(r chi.Router) {
 func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
 	var request billing.Account
@@ -45,9 +48,6 @@ func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
 		return
 	}
-
-	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	newAccount, err := api.accountService.Add(r.Context(), &request)
 	if err != nil {
@@ -71,6 +71,9 @@ func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 func (api *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
@@ -79,6 +82,9 @@ func (api *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
 func (api *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
@@ -86,6 +92,9 @@ func (api *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
 // delete ...
 func (api *AccoutAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
+
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck

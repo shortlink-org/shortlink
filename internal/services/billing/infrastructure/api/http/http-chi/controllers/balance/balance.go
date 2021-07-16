@@ -6,6 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	balance_application "github.com/batazor/shortlink/internal/services/billing/application/balance"
 )
 
@@ -31,6 +32,9 @@ func (api *BalanceAPI) Routes(r chi.Router) {
 func (api *BalanceAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
@@ -38,6 +42,9 @@ func (api *BalanceAPI) get(w http.ResponseWriter, r *http.Request) {
 // Update ...
 func (api *BalanceAPI) update(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
+
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
