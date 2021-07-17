@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package domain.billing.v1;
+package domain.billing.order.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
 
@@ -20,4 +20,19 @@ message Order {
   string user_id = 2;
   string tariff_id = 3;
   StatusOrder status = 4;
+}
+
+message Orders {
+  repeated Order list = 1;
+}
+
+enum Event {
+  EVENT_UNSPECIFIED = 0;
+
+  EVENT_ORDER_NEW = 1;
+  EVENT_ORDER_UPDATE = 2;
+  EVENT_ORDER_APPROVED = 3;
+  EVENT_ORDER_PAID = 4;
+  EVENT_ORDER_CLOSE = 5;
+  EVENT_ORDER_REJECT = 6;
 }

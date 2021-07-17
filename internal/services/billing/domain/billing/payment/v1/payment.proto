@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package domain.billing.v1;
+package domain.billing.payment.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
 
@@ -19,4 +19,17 @@ message Payment {
   string id = 2;
   string name = 3;
   StatusPayment status = 4;
+}
+
+message Payments {
+  repeated Payment list = 1;
+}
+
+enum Event {
+  EVENT_UNSPECIFIED = 0;
+
+  EVENT_PAYMENT_NEW = 1;
+  EVENT_PAYMENT_PENDING = 2;
+  EVENT_PAYMENT_APPROVE = 3;
+  EVENT_PAYMENT_CLOSE = 4;
 }

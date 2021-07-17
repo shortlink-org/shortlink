@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package domain.billing.v1;
+package domain.billing.account.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
 
@@ -8,4 +8,15 @@ message Account {
   string id = 1;
   string user_id = 2;
   string tariff_id = 3;
+}
+
+message Accounts {
+  repeated Account list = 1;
+}
+
+enum Event {
+  EVENT_UNSPECIFIED = 0;
+
+  EVENT_ACCOUNT_NEW = 1;
+  EVENT_ACCOUNT_DELETE = 2;
 }
