@@ -7,7 +7,7 @@ option go_package = "github.com/batazor/shortlink/internal/services/billing/doma
 enum StatusPayment {
   STATUS_PAYMENT_UNSPECIFIED = 0;
 
-  STATUS_PAYMENT_CREATE = 1;
+  STATUS_PAYMENT_NEW = 1;
   STATUS_PAYMENT_PENDING = 2;
   STATUS_PAYMENT_APPROVE = 3;
   STATUS_PAYMENT_CLOSE = 4;
@@ -29,7 +29,6 @@ enum Event {
   EVENT_UNSPECIFIED = 0;
 
   EVENT_PAYMENT_NEW = 1;
-  EVENT_PAYMENT_PENDING = 2;
-  EVENT_PAYMENT_APPROVE = 3;
-  EVENT_PAYMENT_CLOSE = 4;
+  EVENT_PAYMENT_APPROVE = 2;
+  EVENT_PAYMENT_CLOSE = 3;
 }
