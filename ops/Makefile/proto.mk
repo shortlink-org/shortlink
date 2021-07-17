@@ -20,3 +20,8 @@ proto-generate: ## Generate proto-files
 		--path=internal/services/billing/infrastructure \
 		--template=ops/proto/billing/buf.gen.yaml \
 		--config=ops/proto/billing/buf.yaml
+
+	@buf generate \
+		--path=internal/pkg/eventsourcing/v1 \
+		--template=ops/proto/eventsourcing/buf.gen.yaml \
+		--config=ops/proto/eventsourcing/buf.yaml

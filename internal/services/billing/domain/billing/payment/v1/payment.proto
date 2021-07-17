@@ -15,20 +15,11 @@ enum StatusPayment {
 }
 
 message Payment {
-  string user_id = 1;
-  string id = 2;
-  string name = 3;
-  StatusPayment status = 4;
+  string id = 1;
+  string name = 2;
+  StatusPayment status = 3;
 }
 
 message Payments {
   repeated Payment list = 1;
-}
-
-enum Event {
-  EVENT_UNSPECIFIED = 0;
-
-  EVENT_PAYMENT_NEW = 1;
-  EVENT_PAYMENT_APPROVE = 2;
-  EVENT_PAYMENT_CLOSE = 3;
 }
