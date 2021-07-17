@@ -7,8 +7,6 @@ deps:
 
 build:
   roots:
-    - internal/services/proxy/src/proto
-    - internal/services/billing
     - internal/pkg
 
 lint:

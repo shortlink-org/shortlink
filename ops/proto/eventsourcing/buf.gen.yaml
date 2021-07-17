@@ -1,0 +1,10 @@
+version: v1beta1
+
+plugins:
+  - name: go
+    out: internal/pkg
+    opt: paths=source_relative
+
+  - name: go-grpc
+    out: internal/pkg
+    opt: paths=source_relative
