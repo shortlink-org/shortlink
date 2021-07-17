@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1"
+	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/balance/v1"
 	billing_store "github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
 )
 

@@ -8,7 +8,7 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	v1 "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1"
+	"github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 )
 

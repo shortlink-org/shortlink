@@ -9,7 +9,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1"
+	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1"
 )
 
 type AccoutAPI struct {

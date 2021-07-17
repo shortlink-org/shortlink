@@ -9,7 +9,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1"
+	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"
 )
 
 type TariffAPI struct {

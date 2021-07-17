@@ -1,8 +1,16 @@
 syntax = "proto3";
 
-package domain.billing.v1;
+package domain.billing.tariff.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
+
+enum Event {
+  EVENT_UNSPECIFIED = 0;
+
+  EVENT_TARIFF_NEW = 1;
+  EVENT_TARIFF_UPDATE = 2;
+  EVENT_TARIFF_CLOSE = 3;
+}
 
 message Tariff {
   string id = 1;
