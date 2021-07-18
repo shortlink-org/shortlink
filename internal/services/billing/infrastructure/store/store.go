@@ -12,7 +12,8 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1"
+	account "github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1"
+	tariff "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/store/postgres"
 )
 
@@ -23,13 +24,13 @@ func (s *BillingStore) Use(ctx context.Context, log logger.Logger, db *db.Store)
 
 	// Subscribe to Event ==============================================================================================
 	// account events
-	notify.Subscribe(uint32(billing.Event_EVENT_ACCOUNT_NEW), s)
-	notify.Subscribe(uint32(billing.Event_EVENT_ACCOUNT_DELETE), s)
+	notify.Subscribe(uint32(account.Event_EVENT_ACCOUNT_NEW), s)
+	notify.Subscribe(uint32(account.Event_EVENT_ACCOUNT_DELETE), s)
 
 	// tariff events
-	notify.Subscribe(uint32(billing.Event_EVENT_TARIFF_NEW), s)
-	notify.Subscribe(uint32(billing.Event_EVENT_TARIFF_UPDATE), s)
-	notify.Subscribe(uint32(billing.Event_EVENT_TARIFF_CLOSE), s)
+	notify.Subscribe(uint32(tariff.Event_EVENT_TARIFF_NEW), s)
+	notify.Subscribe(uint32(tariff.Event_EVENT_TARIFF_UPDATE), s)
+	notify.Subscribe(uint32(tariff.Event_EVENT_TARIFF_CLOSE), s)
 
 	switch s.typeStore {
 	case "postgres":

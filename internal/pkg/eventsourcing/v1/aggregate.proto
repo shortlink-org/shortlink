@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package eventsourcing.v1;
+
+import "eventsourcing/v1/event.proto";
+
+option go_package = "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1";
+
+// BaseAggregate contains the basic info
+// that all aggregates should have
+message BaseAggregate {
+  string id = 1;
+  string type = 2;
+  int32 version = 3;
+  repeated eventsourcing.v1.Event changes = 4;
+}

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.billing.account.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1";
 
 message Account {
   string id = 1;

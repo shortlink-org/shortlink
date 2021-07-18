@@ -1,4 +1,4 @@
-package balance_rpc
+package v1
 
 import (
 	"context"

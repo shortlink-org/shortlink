@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.billing.payment.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1";
 
 enum StatusPayment {
   STATUS_PAYMENT_UNSPECIFIED = 0;
