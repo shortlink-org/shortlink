@@ -11,4 +11,5 @@ message BaseCommand {
   string aggregate_id = 2;
   string aggregate_type = 3;
   int32 version = 4;
+	string payload = 5;
 }

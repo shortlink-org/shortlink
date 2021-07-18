@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.billing.order.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/order/v1";
 
 enum StatusOrder {
   STATUS_ORDER_UNSPECIFIED = 0;

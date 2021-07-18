@@ -73,7 +73,7 @@ type BillingService struct {
 
 	// Delivery
 	httpAPIServer    *api.Server
-	balanceRPCServer *balance_rpc.Balance
+	balanceRPCServer *v1.Balance
 	orderRPCServer   *order_rpc.Order
 	paymentRPCServer *payment_rpc.Payment
 	tariffRPCServer  *tariff_rpc.Tariff

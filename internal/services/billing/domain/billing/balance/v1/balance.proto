@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.billing.balance.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/v1";
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/balance/v1";
 
 message Balance {
   string payment_id = 1;

@@ -15,6 +15,7 @@ lint:
   use:
     - DEFAULT # the current strictest possible
   rpc_allow_google_protobuf_empty_requests: true
+  rpc_allow_google_protobuf_empty_responses: true
 
 breaking:
   use:
