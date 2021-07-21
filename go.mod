@@ -3,7 +3,6 @@ module github.com/batazor/shortlink
 go 1.16
 
 require (
-	github.com/DataDog/zstd v1.4.4 // indirect
 	github.com/HdrHistogram/hdrhistogram-go v0.9.0 // indirect
 	github.com/Masterminds/squirrel v1.5.0
 	github.com/OneOfOne/xxhash v1.2.5 // indirect
@@ -29,7 +28,7 @@ require (
 	github.com/golang/glog v0.0.0-20210429001901-424d2337a529
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2
-	github.com/google/uuid v1.2.0 // indirect
+	github.com/google/uuid v1.2.0
 	github.com/google/wire v0.5.0
 	github.com/gorilla/mux v1.8.0
 	github.com/graph-gophers/graphql-go v1.1.0
@@ -40,6 +39,7 @@ require (
 	github.com/jackc/pgx/v4 v4.12.0
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/johejo/golang-migrate-extra v0.0.0-20210217013041-51a992e50d16
+	github.com/klauspost/compress v1.13.1 // indirect
 	github.com/kubernetes-csi/csi-test/v4 v4.2.0
 	github.com/lib/pq v1.10.2
 	github.com/luna-duclos/instrumentedsql v1.1.3
@@ -52,7 +52,6 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/ory/dockertest/v3 v3.7.0
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
-	github.com/pborman/uuid v1.2.1
 	github.com/prometheus/client_golang v1.11.0
 	github.com/pterm/pterm v0.12.28
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect

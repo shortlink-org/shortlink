@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package infrastructure.api.rpc.order.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/order_rpc";
+
+import "google/protobuf/empty.proto";
+import "domain/billing/order/v1/order.proto";
+
+service OrderService {
+  rpc OrderHistory(google.protobuf.Empty) returns(OrderHistoryResponse) {}
+  rpc OrderCreate(OrderCreateRequest) returns(OrderCreateResponse) {}
+  rpc OrderUpdate(OrderUpdateRequest) returns(OrderUpdateResponse) {}
+  rpc OrderClose(OrderCloseRequest) returns(OrderCloseResponse) {}
+  rpc OrderApprove(OrderApproveRequest) returns(OrderApproveResponse) {}
+}
+
+message OrderHistoryResponse {
+  repeated domain.billing.order.v1.Order list = 1;
+}
+
+message OrderCreateRequest {
+  domain.billing.order.v1.Order order = 1;
+}
+
+message OrderCreateResponse {
+  domain.billing.order.v1.Order order = 1;
+}
+
+message OrderUpdateRequest {
+  domain.billing.order.v1.Order order = 1;
+}
+
+message OrderUpdateResponse {
+  domain.billing.order.v1.Order order = 1;
+}
+
+message OrderCloseRequest {
+  domain.billing.order.v1.Order order = 1;
+}
+
+message OrderCloseResponse {
+  domain.billing.order.v1.Order order = 1;
+}
+
+message OrderApproveRequest {
+  domain.billing.order.v1.Order order = 1;
+}
+
+message OrderApproveResponse {
+  domain.billing.order.v1.Order order = 1;
+}
+

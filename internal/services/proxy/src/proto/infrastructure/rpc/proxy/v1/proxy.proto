@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package infrastructure.rpc.proxy.v1;
+
+import "domain/proxy/v1/proxy.proto";
+
+service StatsService {
+  rpc Stats(StatsRequest) returns (StatsResponse) {}
+}
+
+message StatsRequest {
+  string hash = 1;
+}
+
+message StatsResponse {
+  domain.proxy.v1.Stats stats = 1;
+}

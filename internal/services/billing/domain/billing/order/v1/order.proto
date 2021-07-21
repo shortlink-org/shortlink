@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package domain.billing.order.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/order/v1";
+
+enum StatusOrder {
+  STATUS_ORDER_UNSPECIFIED = 0;
+
+  STATUS_ORDER_CREATE = 1;
+  STATUS_ORDER_PENDING = 2;
+  STATUS_ORDER_APPROVE = 3;
+  STATUS_ORDER_PAID = 4;
+  STATUS_ORDER_CLOSE = 5;
+  STATUS_ORDER_REJECT = 6;
+}
+
+message Order {
+  string id = 1;
+  string user_id = 2;
+  string tariff_id = 3;
+  StatusOrder status = 4;
+}
+
+message Orders {
+  repeated Order list = 1;
+}
+
+enum Event {
+  EVENT_UNSPECIFIED = 0;
+
+  EVENT_ORDER_NEW = 1;
+  EVENT_ORDER_UPDATE = 2;
+  EVENT_ORDER_APPROVED = 3;
+  EVENT_ORDER_PAID = 4;
+  EVENT_ORDER_CLOSE = 5;
+  EVENT_ORDER_REJECT = 6;
+}

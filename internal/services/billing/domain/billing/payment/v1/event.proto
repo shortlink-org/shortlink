@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package domain.billing.payment.v1;
+
+import "domain/billing/payment/v1/payment.proto";
+
+option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1";
+
+enum Event {
+  EVENT_UNSPECIFIED = 0;
+
+  EVENT_PAYMENT_CREATED = 1;
+  EVENT_PAYMENT_APPROVED = 2;
+  EVENT_PAYMENT_CLOSED = 3;
+  EVENT_PAYMENT_REJECTED = 4;
+}
+
+message EventPaymentCreated {
+  string name = 1;
+  StatusPayment status = 2;
+}
+
+message EventPaymentApproved {
+  StatusPayment status = 1;
+}
+
+message EventPaymentRejected {
+  StatusPayment status = 1;
+}
+
+message EventPaymentClosed {
+  StatusPayment status = 1;
+}

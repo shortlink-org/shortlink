@@ -7,13 +7,15 @@ deps:
 
 build:
   roots:
-    - internal/services/proxy
-  excludes:
-    - internal/services/proxy/node_modules
+    - internal/services/proxy/src/proto
+    - internal/services/billing
+    - internal/pkg
 
 lint:
   use:
     - DEFAULT # the current strictest possible
+  rpc_allow_google_protobuf_empty_requests: true
+  rpc_allow_google_protobuf_empty_responses: true
 
 breaking:
   use:

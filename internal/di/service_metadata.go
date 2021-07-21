@@ -27,7 +27,7 @@ type ServiceMetadata struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitMetaService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store) (*meta_di.MetaDataService, func(), error) {
+func InitMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store) (*meta_di.MetaDataService, func(), error) {
 	return meta_di.InitializeMetaDataService(ctx, runRPCServer, log, db)
 }
 
@@ -38,7 +38,7 @@ var MetadataSet = wire.NewSet(
 	rpc.InitServer,
 	sentry.New,
 	monitoring.New,
-	InitMetaService,
+	InitMetaDataService,
 	NewMetadataService,
 )
 
