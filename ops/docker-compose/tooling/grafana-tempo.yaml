@@ -35,7 +35,7 @@ services:
     depends_on:
       - coredns
       - jaeger-agent
-    image: grafana/tempo-query:0.6.0
+    image: grafana/tempo-query:1.0.1
     profiles:
       - opentracing
     command: ["--grpc-storage-plugin.configuration-file=/etc/tempo-query.yaml"]
