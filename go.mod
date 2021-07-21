@@ -6,7 +6,7 @@ require (
 	github.com/HdrHistogram/hdrhistogram-go v0.9.0 // indirect
 	github.com/Masterminds/squirrel v1.5.0
 	github.com/OneOfOne/xxhash v1.2.5 // indirect
-	github.com/PuerkitoBio/goquery v1.7.0
+	github.com/PuerkitoBio/goquery v1.7.1
 	github.com/Shopify/sarama v1.29.1
 	github.com/Unleash/unleash-client-go/v3 v3.2.3
 	github.com/cloudevents/sdk-go/v2 v2.4.1
@@ -45,7 +45,7 @@ require (
 	github.com/luna-duclos/instrumentedsql v1.1.3
 	github.com/luna-duclos/instrumentedsql/opentracing v0.0.0-20201103091713-40d03108b6f4
 	github.com/markbates/pkger v0.17.1
-	github.com/mattn/go-sqlite3 v1.14.7
+	github.com/mattn/go-sqlite3 v1.14.8
 	github.com/nats-io/nats.go v1.11.0
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
@@ -53,7 +53,7 @@ require (
 	github.com/ory/dockertest/v3 v3.7.0
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/prometheus/client_golang v1.11.0
-	github.com/pterm/pterm v0.12.27
+	github.com/pterm/pterm v0.12.28
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/scylladb/gocqlx/v2 v2.4.0
 	github.com/sirupsen/logrus v1.8.1
@@ -65,22 +65,22 @@ require (
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
 	github.com/uber/jaeger-lib v2.4.0+incompatible // indirect
-	go.mongodb.org/mongo-driver v1.5.4
-	go.uber.org/atomic v1.8.0
+	go.mongodb.org/mongo-driver v1.6.0
+	go.uber.org/atomic v1.9.0
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.10
 	go.uber.org/zap v1.18.1
-	golang.org/x/net v0.0.0-20210614182718-04defd469f4e
+	golang.org/x/net v0.0.0-20210716203947-853a461950ff
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	google.golang.org/api v0.50.0
-	google.golang.org/genproto v0.0.0-20210708141623-e76da96a951f
+	google.golang.org/genproto v0.0.0-20210719143636-1d5a45f8e492
 	google.golang.org/grpc v1.39.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
-	k8s.io/kubernetes v1.21.2
-	k8s.io/mount-utils v0.21.2
+	k8s.io/kubernetes v1.21.3
+	k8s.io/mount-utils v0.21.3
 	k8s.io/utils v0.0.0-20210709001253-0e1f9d693477
 )
 
