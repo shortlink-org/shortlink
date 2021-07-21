@@ -15,8 +15,9 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	link_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/link"
-	additionalMiddleware "github.com/batazor/shortlink/internal/services/api/application/middleware"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	"github.com/batazor/shortlink/pkg/http/handler"
+	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
 
 // Run HTTP-server
@@ -58,7 +59,7 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	r.Use(additionalMiddleware.NewTracing(tracer))
 	r.Use(additionalMiddleware.Logger(log))
 
-	r.NotFound(NotFoundHandler)
+	r.NotFound(handler.NotFoundHandler)
 
 	r.Mount("/api", link_api.Routes())
 
@@ -76,10 +77,4 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))
 	err := srv.ListenAndServe()
 	return err
-}
-
-// NotFoundHandler - default handler for don't existing routers
-func NotFoundHandler(w http.ResponseWriter, _ *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusNotFound)
 }

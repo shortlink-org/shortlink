@@ -2,12 +2,12 @@ import * as grpc from '@grpc/grpc-js'
 import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 
 import {Stats} from "../../../proto/domain/proxy/v1/proxy_pb";
-import { StatsRequest, StatsResponse } from '../../../proto/infrastructure/rpc/v1/proxy_pb'
-import { StatsService, IStatsServer } from '../../../proto/infrastructure/rpc/v1/proxy_grpc_pb'
+import { StatsRequest, StatsResponse } from '../../../proto/infrastructure/rpc/proxy/v1/proxy_pb'
+import { StatsServiceService, IStatsServiceServer } from '../../../proto/infrastructure/rpc/proxy/v1/proxy_grpc_pb'
 import {injectable} from "inversify";
 
 @injectable()
-class StatsServer implements IStatsServer {
+class StatsServer implements IStatsServiceServer {
   [name: string]: grpc.UntypedHandleCall;
   /**
    * Return stats by use URL
@@ -31,6 +31,6 @@ class StatsServer implements IStatsServer {
 }
 
 export default {
-  service: StatsService,       // Service interface
-  handler: new StatsServer(), // Service interface definitions
+  service: StatsServiceService, // Service interface
+  handler: new StatsServer(),   // Service interface definitions
 }
