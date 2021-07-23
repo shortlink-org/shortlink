@@ -11,6 +11,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
@@ -216,11 +217,11 @@ func (p *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link,
 
 	row := p.client.QueryRow(ctx, q, args...)
 
-	errScan := row.Scan(&source.Url, &source.Hash, &source.Describe).Error()
-	if errScan == "no rows in result set" {
+	errScan := row.Scan(&source.Url, &source.Hash, &source.Describe)
+	if errors.Is(errScan, pgx.ErrNoRows) {
 		return source, nil
 	}
-	if errScan != "" {
+	if errScan.Error() != "" {
 		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
@@ -256,7 +257,7 @@ func (p *Store) batchWrite(ctx context.Context, sources []*link.Link) (*link.Lin
 
 	row := p.client.QueryRow(ctx, q, args...)
 	errScan := row.Scan(&sources)
-	if errScan.Error() == "no rows in result set" {
+	if errors.Is(errScan, pgx.ErrNoRows) {
 		return &link.Links{
 			Link: []*link.Link{},
 		}, nil

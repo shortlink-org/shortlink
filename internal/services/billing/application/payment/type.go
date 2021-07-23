@@ -7,5 +7,5 @@ import (
 
 type Payment struct {
 	eventsourcing.AggregateHandler
-	billing.Payment
+	*billing.Payment
 }

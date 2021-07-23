@@ -16,7 +16,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 		var payload billing.EventPaymentCreated
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
-			return nil
+			return err
 		}
 
 		p.Name = payload.Name
@@ -25,7 +25,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 		var payload billing.EventPaymentApproved
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
-			return nil
+			return err
 		}
 
 		p.Status = payload.Status
@@ -33,7 +33,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 		var payload billing.EventPaymentClosed
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
-			return nil
+			return err
 		}
 
 		p.Status = payload.Status
@@ -41,7 +41,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 		var payload billing.EventPaymentRejected
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
-			return nil
+			return err
 		}
 
 		p.Status = payload.Status

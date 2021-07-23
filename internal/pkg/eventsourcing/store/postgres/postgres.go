@@ -17,7 +17,7 @@ func (s *Store) Init(ctx context.Context, db *db.Store) (*Store, error) {
 	}, nil
 }
 
-func (s *Store) save(events []eventsourcing.Event, version int, safe bool) error {
+func (s *Store) save(events []eventsourcing.Event, version int, safe bool) error { // nolint govet
 	if len(events) == 0 {
 		return nil
 	}

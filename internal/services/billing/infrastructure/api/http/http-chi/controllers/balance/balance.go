@@ -11,7 +11,7 @@ import (
 )
 
 type BalanceAPI struct {
-	jsonpb protojson.MarshalOptions
+	jsonpb protojson.MarshalOptions // nolint structcheck
 
 	balanceService *balance_application.BalanceService
 }

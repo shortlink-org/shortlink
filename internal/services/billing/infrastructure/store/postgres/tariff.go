@@ -2,13 +2,15 @@ package postgres
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
+	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"
+	v1 "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 )
 
@@ -35,12 +37,12 @@ func (t *Tariff) Get(ctx context.Context, id string) (*v1.Tariff, error) {
 	}
 
 	row := t.client.QueryRow(ctx, q, args...)
-	errScan := row.Scan(&resp.Id, &resp.Name, &resp.Payload).Error()
-	if errScan == "no rows in result set" {
+	errScan := row.Scan(&resp.Id, &resp.Name, &resp.Payload)
+	if errors.Is(errScan, pgx.ErrNoRows) {
 		return resp, nil
 	}
-	if errScan != "" {
-		return nil, fmt.Errorf(errScan)
+	if errScan.Error() != "" {
+		return nil, errScan
 	}
 
 	return resp, nil
@@ -87,12 +89,12 @@ func (t *Tariff) Add(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
 	}
 
 	row := t.client.QueryRow(ctx, q, args...)
-	errScan := row.Scan().Error()
-	if errScan == "no rows in result set" {
+	errScan := row.Scan()
+	if errors.Is(errScan, pgx.ErrNoRows) {
 		return in, nil
 	}
-	if errScan != "" {
-		return nil, fmt.Errorf(errScan)
+	if errScan.Error() != "" {
+		return nil, errScan
 	}
 
 	return in, nil
@@ -111,12 +113,12 @@ func (t *Tariff) Update(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) 
 	}
 
 	row := t.client.QueryRow(ctx, q, args...)
-	errScan := row.Scan().Error()
-	if errScan == "no rows in result set" {
+	errScan := row.Scan()
+	if errors.Is(errScan, pgx.ErrNoRows) {
 		return in, nil
 	}
-	if errScan != "" {
-		return nil, fmt.Errorf(errScan)
+	if errScan.Error() != "" {
+		return nil, errScan
 	}
 
 	return in, nil

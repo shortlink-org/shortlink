@@ -10,7 +10,7 @@ type AggregateHandler interface {
 	IncrementVersion()
 }
 
-// Uncommited return the events to be saved
+// Uncommitted return the events to be saved
 func (b *BaseAggregate) Uncommitted() []*Event {
 	return b.Changes
 }

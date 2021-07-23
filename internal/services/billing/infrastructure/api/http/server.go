@@ -14,8 +14,8 @@ import (
 	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
 	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
 	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
-	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
-	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
+	http_chi "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
+	api_type "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 )
 
 // API - general describe of API

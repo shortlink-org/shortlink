@@ -11,7 +11,7 @@ import (
 )
 
 type OrderAPI struct {
-	jsonpb protojson.MarshalOptions
+	jsonpb protojson.MarshalOptions // nolint structcheck
 
 	orderService *order_application.OrderService
 }
