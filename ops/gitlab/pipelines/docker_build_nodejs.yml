@@ -28,7 +28,6 @@ build:
 # TODO: fix this job
 # SECURITY =============================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/container_scanning/
-
 container_scanning:
   extends:
     - .matrix_build_nodejs
