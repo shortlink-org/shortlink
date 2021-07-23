@@ -3,7 +3,7 @@ docker:go:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/docker_go.yml'
+      - local: 'ops/gitlab/pipelines/build/docker_go.yml'
     strategy: depend
   needs:
     - job: GOLANG
@@ -16,7 +16,7 @@ docker:nodejs:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/docker_nodejs.yml'
+      - local: 'ops/gitlab/pipelines/build/docker_nodejs.yml'
     strategy: depend
   needs:
     - job: DEPENDENCY
@@ -28,7 +28,7 @@ helm-chart:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/helm_chart.yml'
+      - local: 'ops/gitlab/pipelines/build/helm_chart.yml'
     strategy: depend
   needs:
     - job: HELM
