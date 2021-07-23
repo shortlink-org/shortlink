@@ -77,7 +77,6 @@ danger-review:
 # Configure the scanning tool through the environment variables.
 # List of the variables: https://gitlab.com/gitlab-org/security-products/secret_detection#available-variables
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
-
 secret_detection:
   needs: []
   rules:

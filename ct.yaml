@@ -15,6 +15,7 @@ excluded-charts:
   - chaos
   - csi
   - shortlink-ingress
+  - shortlink-auth # Disable. use only kratos
 
 chart-repos:
   - incubator=https://charts.helm.sh/incubator
