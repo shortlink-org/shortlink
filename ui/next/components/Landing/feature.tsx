@@ -48,41 +48,37 @@ export default function Feature() {
               Exercise Metrics
             </h4>
             <p className="text-gray-600 mb-8">
-              Our Smart Health Monitoring Wristwatch is able to capture you vitals
-              while you exercise. You can create different category of exercises
-              and can track your vitals on the go.
+              Our Smart Health Monitoring Wristwatch is able to capture you
+              vitals while you exercise. You can create different category of
+              exercises and can track your vitals on the go.
             </p>
           </div>
           <div className="w-full md:w-1/2">
             <img
-                 src="https://www.dropbox.com/s/mimcvn6zxtoruis/health.svg?raw=1"
-                 alt="Monitoring"
-                 />
+              src="https://www.dropbox.com/s/mimcvn6zxtoruis/health.svg?raw=1"
+              alt="Monitoring"
+            />
           </div>
         </div>
         <div className="flex items-center flex-wrap mb-20">
           <div className="w-full md:w-1/2">
             <img
-                 src="https://www.dropbox.com/s/hllo2ueo8zgi2tt/report.svg?raw=1"
-                 alt="Reporting"
-                 />
+              src="https://www.dropbox.com/s/hllo2ueo8zgi2tt/report.svg?raw=1"
+              alt="Reporting"
+            />
           </div>
           <div className="w-full md:w-1/2 pl-10">
-            <h4 className="text-3xl text-gray-800 font-bold mb-3">
-              Reporting
-            </h4>
+            <h4 className="text-3xl text-gray-800 font-bold mb-3">Reporting</h4>
             <p className="text-gray-600 mb-8">
-              Our Smart Health Monitoring Wristwatch can generate a comprehensive
-              report on your vitals depending on your settings either daily,
-              weekly, monthly, quarterly or yearly.
+              Our Smart Health Monitoring Wristwatch can generate a
+              comprehensive report on your vitals depending on your settings
+              either daily, weekly, monthly, quarterly or yearly.
             </p>
           </div>
         </div>
         <div className="flex items-center flex-wrap mb-20">
           <div className="w-full md:w-1/2">
-            <h4 className="text-3xl text-gray-800 font-bold mb-3">
-              Syncing
-            </h4>
+            <h4 className="text-3xl text-gray-800 font-bold mb-3">Syncing</h4>
             <p className="text-gray-600 mb-8">
               Our Smart Health Monitoring Wristwatch allows you to sync data
               across all your mobile devices whether iOS, Android or Windows OS
@@ -91,13 +87,13 @@ export default function Feature() {
           </div>
           <div className="w-full md:w-1/2">
             <img
-                 src="https://www.dropbox.com/s/v0x0ywlvgmw04z6/sync.svg?raw=1"
-                 alt="Syncing"
-                 />
+              src="https://www.dropbox.com/s/v0x0ywlvgmw04z6/sync.svg?raw=1"
+              alt="Syncing"
+            />
           </div>
         </div>
       </section>
-      
+
       <div className="py-12 bg-white rounded my-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">

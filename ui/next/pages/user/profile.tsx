@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from "react-redux"
+import { useSelector } from 'react-redux'
 import { Layout } from 'components'
 import Welcome from 'components/Profile/Welcome'
 import Profile from 'components/Profile/Profile'
