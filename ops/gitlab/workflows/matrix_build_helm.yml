@@ -3,3 +3,23 @@
     matrix:
       - HELM_CHART_NAME: shortlink-api
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-auth
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-bot
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-ingress
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-landing
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-link
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-logger
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-metadata
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-notify
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-proxy
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-ui
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
