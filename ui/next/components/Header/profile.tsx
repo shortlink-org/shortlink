@@ -57,9 +57,7 @@ export default function Profile() {
                         'block px-4 py-2 text-sm text-gray-700',
                       )}
                     >
-                      <Link
-                        href={item.link}
-                      >
+                      <Link href={item.link}>
                         <p>{item.name}</p>
                       </Link>
                     </span>

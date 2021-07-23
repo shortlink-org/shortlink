@@ -7,19 +7,20 @@ const API_URI_PORT = process.env.API_URI_PORT || 7070
 const isEnableSentry = process.env.SENTRY_ENABLE
 
 // TODO: fix DNS
-const API_URI = process.env.API_URI ? `${process.env.API_URI}:${API_URI_PORT}` : `http://localhost:${API_URI_PORT}`
-const PROXY_URI = process.env.PROXY_URI || 'http://proxy-shortlink-proxy.shortlink:3030'
+const API_URI = process.env.API_URI
+  ? `${process.env.API_URI}:${API_URI_PORT}`
+  : `http://localhost:${API_URI_PORT}`
+const PROXY_URI =
+  process.env.PROXY_URI || 'http://proxy-shortlink-proxy.shortlink:3030'
 
-console.info("API_URI", API_URI)
-console.info("PROXY_URI", PROXY_URI)
+console.info('API_URI', API_URI)
+console.info('PROXY_URI', PROXY_URI)
 
 const NEXT_CONFIG = {
   basePath: '/next',
   env: {},
   webpack: (config, { isServer, buildId }) => {
-    config.plugins.push(
-      new webpack.DefinePlugin({})
-    )
+    config.plugins.push(new webpack.DefinePlugin({}))
 
     return config
   },
@@ -27,7 +28,7 @@ const NEXT_CONFIG = {
 }
 
 if (!isProd) {
-  NEXT_CONFIG.rewrites = async function() {
+  NEXT_CONFIG.rewrites = async function () {
     return {
       fallback: [
         // we need to define a no-op rewrite to trigger checking
@@ -66,7 +67,7 @@ if (isEnableSentry) {
   // with Sentry.
   // https://nextjs.org/docs/api-reference/next.config.js/introduction
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/
-  const { withSentryConfig } = require('@sentry/nextjs');
+  const { withSentryConfig } = require('@sentry/nextjs')
 
   const SentryWebpackPluginOptions = {
     // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -76,10 +77,9 @@ if (isEnableSentry) {
     //   urlPrefix, include, ignore
     // For all available options, see:
     // https://github.com/getsentry/sentry-webpack-plugin#options.
-  };
+  }
 
-  EXPORT_CONFIG = withSentryConfig(EXPORT_CONFIG, SentryWebpackPluginOptions);
+  EXPORT_CONFIG = withSentryConfig(EXPORT_CONFIG, SentryWebpackPluginOptions)
 }
 
 module.exports = EXPORT_CONFIG
-

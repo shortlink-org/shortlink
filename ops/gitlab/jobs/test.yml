@@ -1,7 +1,7 @@
 include:
   - template: Security/License-Scanning.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/License-Scanning.gitlab-ci.yml
-  - template: Code-Quality.gitlab-ci.yml
-  - template: Jobs/Secret-Detection.gitlab-ci.yml
+  - template: Jobs/Code-Quality.gitlab-ci.yml         # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/Code-Quality.gitlab-ci.yml
+  - template: Jobs/Secret-Detection.gitlab-ci.yml     # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/Secret-Detection.gitlab-ci.yml
 
 # GOLANG ===============================================================================================================
 GOLANG:
@@ -47,7 +47,6 @@ HELM:
 
 # LICENSE ==============================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
-
 license_scanning:
   interruptible: true
   rules:
