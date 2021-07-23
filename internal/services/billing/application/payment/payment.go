@@ -38,11 +38,11 @@ func (p *PaymentService) List(ctx context.Context, filter interface{}) ([]*billi
 
 func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
 	// Create a payment
-	payment := &Payment{
-		Payment: *in,
+	payment := Payment{
+		Payment: in,
 	}
 
-	payload, err := protojson.Marshal(payment)
+	payload, err := protojson.Marshal(&payment)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 	err = payment.HandleCommand(&eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_PAYMENT_CREATE.String(),
 		AggregateId:   uuid.New().String(),
-		AggregateType: "Payload",
+		AggregateType: "Payment",
 		Version:       0,
 		Payload:       string(payload),
 	})

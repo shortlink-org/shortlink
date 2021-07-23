@@ -2,14 +2,15 @@ package postgres
 
 import (
 	"context"
-	"fmt"
+	"errors"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1"
+	v1 "github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1"
 )
 
 var (
@@ -49,12 +50,12 @@ func (a *Account) Add(ctx context.Context, in *v1.Account) (*v1.Account, error) 
 	}
 
 	row := a.client.QueryRow(ctx, q, args...)
-	errScan := row.Scan().Error()
-	if errScan == "no rows in result set" {
+	errScan := row.Scan()
+	if errors.Is(errScan, pgx.ErrNoRows) {
 		return in, nil
 	}
-	if errScan != "" {
-		return nil, fmt.Errorf(errScan)
+	if errScan.Error() != "" {
+		return nil, errScan
 	}
 
 	return in, nil

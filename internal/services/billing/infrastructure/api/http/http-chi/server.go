@@ -25,7 +25,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/order"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/payment"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/tariff"
-	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
+	api_type "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 	"github.com/batazor/shortlink/pkg/http/handler"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )

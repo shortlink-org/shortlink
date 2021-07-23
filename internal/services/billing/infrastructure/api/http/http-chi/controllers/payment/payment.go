@@ -11,7 +11,7 @@ import (
 )
 
 type PaymentAPI struct {
-	jsonpb protojson.MarshalOptions
+	jsonpb protojson.MarshalOptions // nolint structcheck
 
 	paymentService *payment_application.PaymentService
 }

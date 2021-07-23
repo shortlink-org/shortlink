@@ -3,12 +3,13 @@ package monitoring
 import (
 	"net/http"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
 // Monitoring endpoints
@@ -17,7 +18,7 @@ func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *http.ServeMux {
 	registry := prometheus.NewRegistry()
 
 	// Add Go module build info.
-	registry.MustRegister(prometheus.NewBuildInfoCollector())
+	registry.MustRegister(prometheus.NewBuildInfoCollector()) // nolint staticcheck
 
 	// Create a metrics-exposing Handler for the Prometheus registry
 	// The healthcheck related metrics will be prefixed with the provided namespace
