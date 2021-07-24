@@ -1,6 +1,7 @@
+// @ts-nocheck
 import React from 'react'
+import _ from 'lodash'
 
-// @ts-ignore
 export default function Personal({ session }) {
   return (
     <div className="mt-10 sm:mt-0">
@@ -32,7 +33,10 @@ export default function Personal({ session }) {
                       name="first_name"
                       id="first_name"
                       autoComplete="given-name"
-                      value={session.kratos.identity.traits.name.first}
+                      value={_.get(
+                        session,
+                        'kratos.identity.traits.name.first',
+                      )}
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>
@@ -49,7 +53,7 @@ export default function Personal({ session }) {
                       name="last_name"
                       id="last_name"
                       autoComplete="family-name"
-                      value={session.kratos.identity.traits.name.last}
+                      value={_.get(session, 'kratos.identity.traits.name.last')}
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>
@@ -66,7 +70,7 @@ export default function Personal({ session }) {
                       name="email_address"
                       id="email_address"
                       autoComplete="email"
-                      value={session.kratos.identity.traits.email}
+                      value={_.get(session, 'kratos.identity.traits.email')}
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>

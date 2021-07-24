@@ -16,6 +16,6 @@ This UI for shortlink application
 
 #### ENV
 
-| Name | Value | Description |
-|---|---|---|
+| Name            | Value   | Description |
+| --------------- | ------- | ----------- |
 | `SENTRY_ENABLE` | `false` | Init Sentry |

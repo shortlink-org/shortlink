@@ -60,7 +60,6 @@ export function SignInPageContent() {
         window.location.replace(
           'http://127.0.0.1:4433/self-service/registration/browser',
         )
-        return Promise.any()
       }
       if (status !== 200) {
         return Promise.reject(flow)
@@ -70,7 +69,6 @@ export function SignInPageContent() {
       setKratos(flow)
       // @ts-ignore
       setCsrfToken(flow.ui.nodes[0].attributes.value)
-      console.warn('TEST', flow)
     })
   }, [csrfToken])
 

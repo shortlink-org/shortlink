@@ -132,7 +132,7 @@ export function LinkTableContent() {
             icon: tableIcons.Delete,
             tooltip: 'Delete link',
             onClick: (event, rowData) =>
-              confirm(`You want to delete ${rowData.name}`),
+              confirm(`You want to delete ${rowData.name}`), // eslint-disable-line
           },
         ]}
         options={{

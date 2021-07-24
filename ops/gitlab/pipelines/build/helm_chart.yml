@@ -11,7 +11,7 @@ helm-chart:
   extends:
     - .matrix_build_helm
   stage: build
-  image: alpine
+  image: alpine/helm:latest
   before_script:
     - apk add --update curl yq
   script:

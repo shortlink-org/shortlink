@@ -39,7 +39,7 @@ export function ErrorContent() {
 
 // @ts-ignore
 ErrorContent.getInitialProps = ({ res, err }) => {
-  const statusCode = res && err.statusCode || 404
+  const statusCode = (res && err.statusCode) || 404
   return { statusCode }
 }
 

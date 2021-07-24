@@ -72,10 +72,6 @@ const Header = () => {
   const handleDrawerOpen = () => {
     setOpen(true)
   }
-  // eslint-disable-next-lint
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
 
   return [
     <AppBar

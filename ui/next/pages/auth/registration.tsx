@@ -62,7 +62,6 @@ export function SignUpPageContent() {
         setKratos(flow)
         // @ts-ignore
         setCsrfToken(flow.ui.nodes[0].attributes.value)
-        console.warn('TEST', flow)
       })
   }, [csrfToken])
 
