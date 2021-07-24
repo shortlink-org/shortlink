@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { UndrawDesigner } from 'react-undraw-illustrations'
 
 export default function Subscribe() {

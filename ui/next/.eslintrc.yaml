@@ -28,6 +28,22 @@ rules:
   react/jsx-filename-extension: [1, { extensions: [".ts", ".tsx"] }]
   react/jsx-fragments: [1, 'element']
   import/extensions: off
+  import/default: off
+  no-alert: off
+  import/no-extraneous-dependencies: off
+  import/prefer-default-export: off
+  import/order: off
+  react/jsx-key: off
+  react/button-has-type: off
+  '@typescript-eslint/no-explicit-any': off
+  import/no-self-import: off
+  import/export: off
+  react/require-default-props: off
+  import/no-useless-path-segments: off
+  import/no-named-as-default: off
+  import/no-named-as-default-member: off
+  react/destructuring-assignment: off
+  '@typescript-eslint/explicit-module-boundary-types': off
   react/prop-types: off
   jsx-a11y/anchor-is-valid: off
   react/jsx-props-no-spreading: ["error", { custom: "ignore" }]

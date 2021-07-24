@@ -4,8 +4,6 @@ import {
   GlobeAltIcon,
   LightningBoltIcon,
   ScaleIcon,
-  MenuIcon,
-  XIcon,
 } from '@heroicons/react/outline'
 
 const features = [

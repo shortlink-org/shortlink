@@ -6,7 +6,7 @@ import React from 'react'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   list: {
     margin: 0,
     padding: 0,

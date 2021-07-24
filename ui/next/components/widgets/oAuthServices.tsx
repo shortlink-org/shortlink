@@ -1,4 +1,4 @@
-export default function SocialAuth() {
+export default function SocialAuth(): JSX.Element {
   return (
     <div className="grid grid-cols-3 gap-x-3">
       <button

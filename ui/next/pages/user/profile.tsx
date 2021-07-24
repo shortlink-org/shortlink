@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Layout } from 'components'
@@ -8,10 +9,7 @@ import Notifications from 'components/Profile/Notifications'
 import withAuthSync from 'components/Private'
 
 export function ProfileContent() {
-  // @ts-ignore
   const session = useSelector((state) => state.session)
-
-  console.warn('session', session)
 
   return (
     <React.Fragment>

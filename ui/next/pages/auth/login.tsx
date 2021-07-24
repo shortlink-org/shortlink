@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useEffect, useState } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
@@ -56,9 +57,10 @@ export function SignInPageContent() {
     // @ts-ignore
     kratos.getSelfServiceLoginFlow(flowId).then(({ status, data: flow }) => {
       if (status === 404 || status === 410 || status === 403) {
-        return window.location.replace(
+        window.location.replace(
           'http://127.0.0.1:4433/self-service/registration/browser',
         )
+        return Promise.any()
       }
       if (status !== 200) {
         return Promise.reject(flow)

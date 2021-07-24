@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { forwardRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import MaterialTable, { Icons } from 'material-table'
@@ -90,7 +92,6 @@ export function LinkTableContent() {
             field: 'createdAt',
             render: (rowData) => (
               <Tooltip
-                title="Created at"
                 arrow
                 title={rowData.createdAt}
                 interactive
@@ -108,7 +109,6 @@ export function LinkTableContent() {
             field: 'updatedAt',
             render: (rowData) => (
               <Tooltip
-                title="Updated at"
                 arrow
                 title={rowData.updatedAt}
                 interactive
