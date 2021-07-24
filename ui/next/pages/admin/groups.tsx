@@ -1,5 +1,5 @@
+// @ts-nocheck
 import React from 'react'
-// @ts-ignore
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 

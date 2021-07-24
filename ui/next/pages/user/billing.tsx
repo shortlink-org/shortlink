@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react'
 import { Layout } from 'components'
 import PaymentMethod from 'components/Billing/PaymentMethod'

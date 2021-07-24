@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { forwardRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import MaterialTable from 'material-table'
@@ -94,7 +95,7 @@ const columns = [
 ]
 
 export function LinkTableContent() {
-  const state = useSelector((state) => state.link)
+  const state = useSelector((rootState) => rootState.link)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -114,13 +115,13 @@ export function LinkTableContent() {
             icon: tableIcons.Add,
             tooltip: 'Add link',
             isFreeAction: true,
-            onClick: (event) => alert('You want to add a new row'),
+            onClick: () => alert('You want to add a new row'),
           },
           {
             icon: tableIcons.Update,
             tooltip: 'Update link',
             isFreeAction: true,
-            onClick: (event) => dispatch(fetchLinkList()),
+            onClick: () => dispatch(fetchLinkList()),
           },
           {
             icon: tableIcons.Save,

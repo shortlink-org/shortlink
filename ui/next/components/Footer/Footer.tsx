@@ -1,4 +1,6 @@
-import Link from 'next/link'
+/* tslint:disable */
+
+import Link from '@material-ui/core/Link'
 import Copyright from '../Copyright'
 
 export default function Footer() {

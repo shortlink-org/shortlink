@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout } from 'components'
 import { UndrawBackInTheDay } from 'react-undraw-illustrations'
 
-export function ErrorContent({ statusCode }) {
+export function ErrorContent() {
   return (
     <div className="min-w-screen bg-blue-100 flex items-center p-5 lg:p-20 overflow-hidden relative rounded-md">
       <div className="flex-1 min-h-full min-w-full rounded-3xl bg-white shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
@@ -37,8 +37,9 @@ export function ErrorContent({ statusCode }) {
   )
 }
 
+// @ts-ignore
 ErrorContent.getInitialProps = ({ res, err }) => {
-  const statusCode = res ? res.statusCode : err ? err.statusCode : 404
+  const statusCode = res && err.statusCode || 404
   return { statusCode }
 }
 

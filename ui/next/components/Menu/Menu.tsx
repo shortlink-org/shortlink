@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import IconButton from '@material-ui/core/IconButton'
 import clsx from 'clsx'
 import Drawer from '@material-ui/core/Drawer'

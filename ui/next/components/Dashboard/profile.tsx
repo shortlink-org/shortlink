@@ -46,7 +46,7 @@ function Index() {
                   something that is personal, the more successful it is.
                 </p>
                 <div className="flex items-start">
-                  <div className>
+                  <div>
                     <h2 className="text-gray-600 dark:text-gray-100 text-2xl leading-6 mb-2 text-center">
                       82
                     </h2>
@@ -62,7 +62,7 @@ function Index() {
                       Projects
                     </p>
                   </div>
-                  <div className>
+                  <div>
                     <h2 className="text-gray-600 dark:text-gray-100 text-2xl leading-6 mb-2 text-center">
                       42
                     </h2>

@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react'
+// @ts-nocheck
+
+import React from 'react'
 import { wrapper } from 'store/store'
 import App, { AppInitialProps } from 'next/app'
 import Head from 'next/head'
@@ -10,7 +12,6 @@ import 'tailwindcss/tailwind.css'
 import theme from 'theme/theme'
 import ScrollTop from 'components/ScrollTop'
 import 'assets/styles.css'
-import { useSelector } from 'react-redux'
 import { SESSION_FETCH_SUCCEEDED } from '../store/types/session'
 
 class MyApp extends App<AppInitialProps> {
