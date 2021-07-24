@@ -11,9 +11,13 @@ helm-chart:
   extends:
     - .matrix_build_helm
   stage: build
-  image: alpine/helm:latest
+  image: alpine:latest
   before_script:
     - apk add --update curl yq
+    # install helm
+    - wget https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz
+    - tar -xvf helm-v3.6.3-linux-amd64.tar.gz
+    - mv linux-amd64/helm /usr/bin/helm
   script:
     - helm package $HELM_CHART_PATH
     - HELM_CHART_VERSION=$(helm show chart $HELM_CHART_PATH | yq .version)
