@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #__next {
+html,
+body,
+#__next {
   flex: 1 1;
   display: grid;
   flex-direction: column;

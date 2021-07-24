@@ -5,7 +5,7 @@ env:
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: 2020
-  sourceType: "module"
+  sourceType: 'module'
   ecmaFeatures:
     jsx: true
 plugins:
@@ -24,12 +24,17 @@ extends:
   - plugin:import/typescript
   - prettier
 rules:
-  semi: ["error", "never"]
-  react/jsx-filename-extension: [1, { extensions: [".ts", ".tsx"] }]
+  semi: ['error', 'never']
+  react/jsx-filename-extension: off
+  #  react/jsx-filename-extension: [1, { extensions: ['.ts', '.tsx'] }]
   react/jsx-fragments: [1, 'element']
   import/extensions: off
   import/default: off
   no-alert: off
+  consistent-return: off
+  react-hooks/exhaustive-deps: off
+  spaced-comment: off
+  import/first: off
   import/no-extraneous-dependencies: off
   import/prefer-default-export: off
   import/order: off
@@ -46,7 +51,7 @@ rules:
   '@typescript-eslint/explicit-module-boundary-types': off
   react/prop-types: off
   jsx-a11y/anchor-is-valid: off
-  react/jsx-props-no-spreading: ["error", { custom: "ignore" }]
+  react/jsx-props-no-spreading: ['error', { custom: 'ignore' }]
   prettier/prettier: error
   react/no-unescaped-entities: off
   import/no-cycle: [0, { ignoreExternal: true }]
@@ -58,13 +63,14 @@ rules:
   import/no-duplicates: off
   'jsx-a11y/label-has-associated-control': off
   react/display-name: off
-  '@typescript-eslint/no-use-before-define': ["error", {functions: false, classes: false, variables: true}]
+  '@typescript-eslint/no-use-before-define':
+    ['error', { functions: false, classes: false, variables: true }]
   '@typescript-eslint/ban-ts-comment': off
   react/react-in-jsx-scope: off
 settings:
   import/resolver:
     babel-module:
-      extensions: [".js", ".jsx", ".ts", ".tsx"]
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
     node:
-      extensions: [".js", ".jsx", ".ts", ".tsx"]
-      paths: ["server"]
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
+      paths: ['server']

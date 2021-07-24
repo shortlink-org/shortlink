@@ -57,7 +57,7 @@ const tableIcons: Icons = {
 }
 
 export function LinkTableContent() {
-  const state = useSelector((state) => state.link)
+  const state = useSelector((rootState) => rootState.link)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -91,11 +91,7 @@ export function LinkTableContent() {
             title: 'Created at',
             field: 'createdAt',
             render: (rowData) => (
-              <Tooltip
-                arrow
-                title={rowData.createdAt}
-                interactive
-              >
+              <Tooltip arrow title={rowData.createdAt} interactive>
                 <span>
                   {formatRelative(new Date(rowData.createdAt), new Date(), {
                     addSuffix: true,
@@ -108,11 +104,7 @@ export function LinkTableContent() {
             title: 'Updated at',
             field: 'updatedAt',
             render: (rowData) => (
-              <Tooltip
-                arrow
-                title={rowData.updatedAt}
-                interactive
-              >
+              <Tooltip arrow title={rowData.updatedAt} interactive>
                 <span>
                   {formatRelative(new Date(rowData.updatedAt), new Date(), {
                     addSuffix: true,
@@ -128,13 +120,13 @@ export function LinkTableContent() {
             icon: tableIcons.Add,
             tooltip: 'Add link',
             isFreeAction: true,
-            onClick: (event) => alert('You want to add a new row'),
+            onClick: () => alert('You want to add a new row'),
           },
           {
             icon: tableIcons.Update,
             tooltip: 'Update link',
             isFreeAction: true,
-            onClick: (event) => dispatch(fetchLinkList()),
+            onClick: () => dispatch(fetchLinkList()),
           },
           {
             icon: tableIcons.Save,
@@ -145,7 +137,7 @@ export function LinkTableContent() {
             icon: tableIcons.Delete,
             tooltip: 'Delete link',
             onClick: (event, rowData) =>
-              confirm(`You want to delete ${rowData.name}`),
+              confirm(`You want to delete ${rowData.name}`), // eslint-disable-line
           },
         ]}
         options={{

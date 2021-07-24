@@ -83,8 +83,8 @@ export function AddUrlContent() {
       }
 
       setOpen(true)
-    } catch (e) {
-      console.error('An error occurred', e)
+    } catch (error) {
+      console.error('An error occurred', error) // eslint-disable-line
       setResponse({
         type: 'error',
         message: 'An error occured while submitting the form',

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React from 'react'
+import get from 'lodash/get'
 import { useSelector } from 'react-redux'
 import { Layout } from 'components'
 import Welcome from 'components/Profile/Welcome'
@@ -13,7 +14,9 @@ export function ProfileContent() {
 
   return (
     <React.Fragment>
-      <Welcome nickname={session.kratos.identity.traits.name.first} />
+      <Welcome
+        nickname={get(session, 'kratos.identity.traits.name.first', 'default')}
+      />
 
       <Profile />
 
