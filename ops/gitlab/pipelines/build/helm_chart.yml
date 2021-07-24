@@ -12,13 +12,15 @@ helm-chart:
     - .matrix_build_helm
   stage: build
   image: alpine:latest
+  variables:
+    HELM_VERSION: v3.6.3
   before_script:
     - apk add --update curl yq
-    # install helm
-    - wget https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz
-    - tar -xvf helm-v3.6.3-linux-amd64.tar.gz
+    # install Helm
+    - wget https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz
+    - tar -xvf helm-${HELM_VERSION}-linux-amd64.tar.gz
     - mv linux-amd64/helm /usr/bin/helm
   script:
     - helm package $HELM_CHART_PATH
-    - HELM_CHART_VERSION=$(helm show chart $HELM_CHART_PATH | yq .version)
+    - HELM_CHART_VERSION=$(helm show chart $HELM_CHART_PATH | yq e .version -)
     - curl --request POST --user gitlab-ci-token:$CI_JOB_TOKEN --form "chart=$HELM_CHART_NAME-$HELM_CHART_VERSION.tgz" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/helm/api/stable/charts"
