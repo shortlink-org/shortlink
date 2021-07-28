@@ -6,6 +6,6 @@ import (
 )
 
 type Payment struct {
-	eventsourcing.AggregateHandler
+	*eventsourcing.BaseAggregate
 	*billing.Payment
 }

@@ -11,8 +11,8 @@ import (
 
 // ApplyChange to payment
 func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
-	switch event.Type {
-	case billing.Event_EVENT_PAYMENT_CREATED.String():
+	switch t := event.Type; {
+	case t == billing.Event_EVENT_PAYMENT_CREATED.String():
 		var payload billing.EventPaymentCreated
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
@@ -21,7 +21,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 
 		p.Name = payload.Name
 		p.Status = payload.Status
-	case billing.Event_EVENT_PAYMENT_APPROVED.String():
+	case t == billing.Event_EVENT_PAYMENT_APPROVED.String():
 		var payload billing.EventPaymentApproved
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
@@ -29,7 +29,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 		}
 
 		p.Status = payload.Status
-	case billing.Event_EVENT_PAYMENT_CLOSED.String():
+	case t == billing.Event_EVENT_PAYMENT_CLOSED.String():
 		var payload billing.EventPaymentClosed
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
@@ -37,7 +37,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 		}
 
 		p.Status = payload.Status
-	case billing.Event_EVENT_PAYMENT_REJECTED.String():
+	case t == billing.Event_EVENT_PAYMENT_REJECTED.String():
 		var payload billing.EventPaymentRejected
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
@@ -45,9 +45,11 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 		}
 
 		p.Status = payload.Status
+	default:
+		return fmt.Errorf("Not found event with type: %s", event.Type)
 	}
 
-	return fmt.Errorf("Not found event with type: %s", event.Type)
+	return nil
 }
 
 // HandleCommand create events and validate based on such command
@@ -57,15 +59,16 @@ func (p *Payment) HandleCommand(command *eventsourcing.BaseCommand) error {
 		AggregateType: "Payment",
 	}
 
-	switch command.GetType() {
-	case billing.Command_COMMAND_PAYMENT_CREATE.String():
+	switch t := command.GetType(); {
+	case t == billing.Command_COMMAND_PAYMENT_CREATE.String():
 		event.AggregateId = command.AggregateId
 		event.Payload = command.Payload
-	case billing.Command_COMMAND_PAYMENT_APPROVE.String():
+		event.Type = billing.Event_EVENT_PAYMENT_CREATED.String()
+	case t == billing.Event_EVENT_PAYMENT_APPROVED.String():
 		event.Payload = command.Payload
-	case billing.Command_COMMAND_PAYMENT_CLOSE.String():
+	case t == billing.Event_EVENT_PAYMENT_CLOSED.String():
 		event.Payload = command.Payload
-	case billing.Command_COMMAND_PAYMENT_REJECTE.String():
+	case t == billing.Event_EVENT_PAYMENT_REJECTED.String():
 		event.Payload = command.Payload
 	}
 

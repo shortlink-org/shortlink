@@ -6,7 +6,8 @@ option go_package = "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 
 // Event stores the data for every event
 message Event {
-	string id = 1;
+//  TODO: drop id field
+//	string id = 1;
 	string aggregate_id = 2;
 	string aggregate_type = 3;
 	int32 version = 4;

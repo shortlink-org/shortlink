@@ -8,7 +8,7 @@ import (
 	v1 "github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1"
 	v12 "github.com/batazor/shortlink/internal/services/billing/domain/billing/balance/v1"
 	v13 "github.com/batazor/shortlink/internal/services/billing/domain/billing/order/v1"
-	v14 "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1"
+	payment "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1"
 	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"
 )
 
@@ -54,10 +54,10 @@ type OrderRepository interface {
 type PaymentRepository interface {
 	Repository
 
-	Get(ctx context.Context, id string) (*v14.Payment, error)
-	List(ctx context.Context, filter interface{}) ([]*v14.Payment, error)
-	Add(ctx context.Context, in *v14.Payment) (*v14.Payment, error)
-	Update(ctx context.Context, in *v14.Payment) (*v14.Payment, error)
+	Get(ctx context.Context, id string) (*payment.Payment, error)
+	List(ctx context.Context, filter interface{}) ([]*payment.Payment, error)
+	Add(ctx context.Context, in *payment.Payment) (*payment.Payment, error)
+	Update(ctx context.Context, in *payment.Payment) (*payment.Payment, error)
 	Delete(ctx context.Context, id string) error
 }
 
