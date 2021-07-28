@@ -1,6 +1,7 @@
 package payment
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -8,6 +9,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
+	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1"
 )
 
 type PaymentAPI struct {
@@ -37,8 +39,32 @@ func (api *PaymentAPI) add(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
+	// Parse request
+	decoder := json.NewDecoder(r.Body)
+	var request billing.Payment
+	err := decoder.Decode(&request)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	newPayment, err := api.paymentService.Add(r.Context(), &request)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	res, err := api.jsonpb.Marshal(newPayment)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+	_, _ = w.Write(res) // nolint errcheck
 }
 
 // get ...

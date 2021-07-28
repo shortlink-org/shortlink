@@ -29,20 +29,23 @@ func New(logger logger.Logger, paymentRepository billing_store.PaymentRepository
 }
 
 func (p *PaymentService) Get(ctx context.Context, id string) (*billing.Payment, error) {
-	return p.paymentRepository.Get(ctx, id)
+	panic("implement me")
+	//return p.paymentRepository.Get(ctx, id)
 }
 
 func (p *PaymentService) List(ctx context.Context, filter interface{}) ([]*billing.Payment, error) {
-	return p.paymentRepository.List(ctx, filter)
+	panic("implement me")
+	//return p.paymentRepository.List(ctx, filter)
 }
 
+// Add - Create a payment
 func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
-	// Create a payment
-	payment := Payment{
-		Payment: in,
+	payment := &Payment{
+		Payment:       in,
+		BaseAggregate: &eventsourcing.BaseAggregate{},
 	}
 
-	payload, err := protojson.Marshal(&payment)
+	payload, err := protojson.Marshal(in)
 	if err != nil {
 		return nil, err
 	}
@@ -58,13 +61,21 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 		return nil, err
 	}
 
-	return p.paymentRepository.Add(ctx, in)
+	//payment.
+	//resp, err := p.paymentRepository.Add(ctx, payment)
+	//if err != nil {
+	//	return nil, err
+	//}
+
+	return nil, nil
 }
 
 func (p *PaymentService) Update(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
-	return p.paymentRepository.Update(ctx, in)
+	panic("implement me")
+	//return p.paymentRepository.Update(ctx, in)
 }
 
 func (p *PaymentService) Delete(ctx context.Context, id string) error {
-	return p.paymentRepository.Delete(ctx, id)
+	panic("implement me")
+	//return p.paymentRepository.Delete(ctx, id)
 }

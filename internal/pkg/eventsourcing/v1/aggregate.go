@@ -5,7 +5,7 @@ type AggregateHandler interface {
 	ApplyChange(event *Event) error
 	ApplyChangeHelper(aggregate AggregateHandler, event *Event, commit bool) error
 	HandleCommand(command *BaseCommand) error
-	Uncommitted() []Event
+	Uncommitted() []*Event
 	ClearUncommitted()
 	IncrementVersion()
 }

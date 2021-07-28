@@ -4,17 +4,12 @@ import (
 	"context"
 	"errors"
 
-	"github.com/Masterminds/squirrel"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	v1 "github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1"
-)
-
-var (
-	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
 
 type Account struct {
