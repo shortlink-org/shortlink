@@ -1,41 +1,72 @@
-package postgres
+package es_postgres
 
 import (
 	"context"
+
+	"github.com/Masterminds/squirrel"
+	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 )
 
 type Store struct {
-	db *db.Store
+	db *pgxpool.Pool
+
+	Aggregates
+	Events
 }
 
-func (s *Store) Init(ctx context.Context, db *db.Store) (*Store, error) {
-	return &Store{
-		db: db,
-	}, nil
+var (
+	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
+)
+
+func (s *Store) Init(ctx context.Context, db *db.Store) error {
+	s.db = db.Store.GetConn().(*pgxpool.Pool)
+	return nil
 }
 
-func (s *Store) save(events []eventsourcing.Event, version int, safe bool) error { // nolint govet
+func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bool) error { // nolint govet
 	if len(events) == 0 {
 		return nil
 	}
 
-	// Build all event records, with incrementing versions starting from the
-	// original aggregate version.
+	for _, event := range events {
+		// Either insert a new aggregate or append to an existing.
+		if event.Version == 1 {
+			err := s.addAggregate(ctx, event)
+			if err != nil {
+				return err
+			}
 
-	panic("implement me")
+			err = s.addEvent(ctx, event)
+			if err != nil {
+				return err
+			}
+		} else {
+			err := s.updateAggregate(ctx, event)
+			if err != nil {
+				return err
+			}
+
+			err = s.addEvent(ctx, event)
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
 }
 
-func (s *Store) Save(ctx context.Context, events []eventsourcing.Event, version int) error {
-	panic("implement me")
+func (s *Store) Save(ctx context.Context, events []*eventsourcing.Event) error {
+	return s.save(ctx, events, false)
 }
 
-func (s *Store) SafeSave(ctx context.Context, events []eventsourcing.Event, version int) error {
-	panic("implement me")
+func (s *Store) SafeSave(ctx context.Context, events []*eventsourcing.Event) error {
+	return s.save(ctx, events, true)
 }
 
-func (s *Store) Load(ctx context.Context, aggregateID string) ([]eventsourcing.Event, error) {
+func (s *Store) Load(ctx context.Context, aggregateID string) ([]*eventsourcing.Event, error) {
 	panic("implement me")
 }

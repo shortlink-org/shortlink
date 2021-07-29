@@ -18,6 +18,7 @@ enum Event {
 message EventPaymentCreated {
   string name = 1;
   StatusPayment status = 2;
+  string user_id = 3;
 }
 
 message EventPaymentApproved {
