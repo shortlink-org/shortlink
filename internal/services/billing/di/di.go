@@ -11,6 +11,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
+	event_store "github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
@@ -38,11 +39,9 @@ type BillingService struct {
 	tariffRPCServer  *tariff_rpc.Tariff
 
 	// Repository
-	accountRepository *billing_store.AccountRepository
-	balanceRepository *billing_store.BalanceRepository
-	orderRepository   *billing_store.OrderRepository
-	paymentRepository *billing_store.PaymentRepository
-	tariffRepository  *billing_store.TariffRepository
+	accountRepository    *billing_store.AccountRepository
+	tariffRepository     *billing_store.TariffRepository
+	eventStoreRepository *event_store.EventStore
 }
 
 // BillingService ======================================================================================================
@@ -83,7 +82,7 @@ func NewAccountApplication(logger logger.Logger, store *billing_store.BillingSto
 }
 
 func NewBalanceApplication(logger logger.Logger, store *billing_store.BillingStore) (*balance_application.BalanceService, error) {
-	balanceService, err := balance_application.New(logger, store.Balance)
+	balanceService, err := balance_application.New(logger, store.EventStore)
 	if err != nil {
 		return nil, err
 	}
@@ -92,7 +91,7 @@ func NewBalanceApplication(logger logger.Logger, store *billing_store.BillingSto
 }
 
 func NewOrderApplication(logger logger.Logger, store *billing_store.BillingStore) (*order_application.OrderService, error) {
-	orderService, err := order_application.New(logger, store.Order)
+	orderService, err := order_application.New(logger, store.EventStore)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +100,7 @@ func NewOrderApplication(logger logger.Logger, store *billing_store.BillingStore
 }
 
 func NewPaymentApplication(logger logger.Logger, store *billing_store.BillingStore) (*payment_application.PaymentService, error) {
-	paymentService, err := payment_application.New(logger, store.Payment)
+	paymentService, err := payment_application.New(logger, store.EventStore)
 	if err != nil {
 		return nil, err
 	}

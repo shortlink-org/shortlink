@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
+	event_store "github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
@@ -35,23 +36,17 @@ func (s *BillingStore) Use(ctx context.Context, log logger.Logger, db *db.Store)
 	switch s.typeStore {
 	case "postgres":
 		s.Account = &postgres.Account{}
-		s.Balance = &postgres.Balance{}
-		s.Order = &postgres.Order{}
-		s.Payment = &postgres.Payment{}
 		s.Tariff = &postgres.Tariff{}
+		s.EventStore = &event_store.Repository{}
 	default:
 		s.Account = &postgres.Account{}
-		s.Balance = &postgres.Balance{}
-		s.Order = &postgres.Order{}
-		s.Payment = &postgres.Payment{}
 		s.Tariff = &postgres.Tariff{}
+		s.EventStore = &event_store.Repository{}
 	}
 
 	_ = s.Account.Init(ctx, db)
-	_ = s.Balance.Init(ctx, db)
-	_ = s.Order.Init(ctx, db)
-	_ = s.Payment.Init(ctx, db)
 	_ = s.Tariff.Init(ctx, db)
+	_, _ = s.EventStore.Use(ctx, log, db)
 
 	log.Info("init billingStore", field.Fields{
 		"db": s.typeStore,

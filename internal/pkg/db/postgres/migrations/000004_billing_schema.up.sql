@@ -36,24 +36,23 @@ COMMENT ON COLUMN
 
 -- EVENTS TABLE ========================================================================================================
 CREATE TABLE billing.events(
-    "user_id" UUID NOT NULL,
-    "request_id" INTEGER NOT NULL,
-    "event_id" UUID NOT NULL,
-    "event_type" VARCHAR(255) NOT NULL,
-    "event_payload" jsonb NOT NULL,
-    "entity_id" INTEGER NOT NULL,
-    "entity_type" INTEGER NOT NULL
+    "aggregate_id" UUID NOT NULL,
+    "aggregate_type" TEXT NOT NULL,
+    "id" UUID NOT NULL,
+    "payload" jsonb NOT NULL,
+    "version" INTEGER NOT NULL,
+    "created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
 );
 ALTER TABLE
-    billing.events ADD PRIMARY KEY("event_id");
-COMMENT
-ON COLUMN
-    billing.events."request_id" IS 'используется для обнаружения повторяющихся со-
+    billing.events ADD PRIMARY KEY("id");
+
+COMMENT ON COLUMN
+    billing.events."aggregate_id" IS 'используется для обнаружения повторяющихся со-
 бытий/сообщений. Он хранит ID сообщения/события, обработка которого сгене­
 рировала это событие.';
-COMMENT
-ON COLUMN
-    billing.events."event_payload" IS '{
+
+COMMENT ON COLUMN
+    billing.events."payload" IS '{
   event: "BALANCE_ADD"
   payload: {amount: 5000}
 },
@@ -65,40 +64,40 @@ ON COLUMN
   ]}
 }';
 
--- ENTITIES TABLE ======================================================================================================
-CREATE TABLE billing.entities(
-    "id" INTEGER NOT NULL,
-    "type" INTEGER NOT NULL,
-    "version" VARCHAR(255) NOT NULL
-);
-ALTER TABLE
-    billing.entities ADD PRIMARY KEY("id");
-CREATE INDEX "entities_type_index" ON
-    billing.entities("type");
-COMMENT
-ON COLUMN
-    billing.entities."version" IS 'При каждом изменении сущности обновляется столбец';
-ALTER TABLE
-    billing.events ADD CONSTRAINT "events_user_id_foreign" FOREIGN KEY("user_id") REFERENCES billing.account("id");
-ALTER TABLE
-    billing.account ADD CONSTRAINT "account_tariff_id_foreign" FOREIGN KEY("tariff_id") REFERENCES billing.tariff("id");
-ALTER TABLE
-    billing.events ADD CONSTRAINT "events_entity_id_foreign" FOREIGN KEY("entity_id") REFERENCES billing.entities("id");
-
 -- SNAPSHOTS TABLE =====================================================================================================
 CREATE TABLE billing.snapshots(
-    "user_id" UUID NOT NULL,
-    "entity_id" UUID NOT NULL,
-    "entity_type" DECIMAL(8, 2) NOT NULL,
-    "entity_version" INTEGER NOT NULL,
-    "snapshot_type" INTEGER NOT NULL,
-    "snaphot_payload" INTEGER NOT NULL,
+    "aggregate_id" UUID NOT NULL,
+    "aggregate_type" TEXT NOT NULL,
+    "agregate_version" INTEGER NOT NULL,
+    "payload" jsonb NOT NULL,
     "created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
     "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
 );
-CREATE INDEX "snapshots_entity_id_index" ON
-    billing.snapshots("entity_id");
-CREATE INDEX "snapshots_entity_type_index" ON
-    billing.snapshots("entity_type");
-CREATE INDEX "snapshots_entity_version_index" ON
-    billing.snapshots("entity_version");
+CREATE INDEX "snapshots_aggregate_id_index" ON
+    billing.snapshots("aggregate_id");
+CREATE INDEX "snapshots_aggregate_type_index" ON
+    billing.snapshots("aggregate_type");
+CREATE INDEX "snapshots_agregate_version_index" ON
+    billing.snapshots("agregate_version");
+
+
+-- AGGREGATE TABLE =====================================================================================================
+CREATE TABLE billing.aggregates(
+    "id" UUID NOT NULL,
+    "type" TEXT NOT NULL,
+    "version" INTEGER NOT NULL,
+    "created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+    "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
+);
+ALTER TABLE
+    billing.aggregates ADD PRIMARY KEY("id");
+CREATE INDEX "aggregate_type_index" ON
+    billing.aggregates("type");
+COMMENT ON COLUMN
+    billing.aggregates."version" IS 'При каждом изменении сущности обновляется столбец';
+ALTER TABLE
+    billing.account ADD CONSTRAINT "account_tariff_id_foreign" FOREIGN KEY("tariff_id") REFERENCES billing.tariff("id");
+ALTER TABLE
+    billing.events ADD CONSTRAINT "events_aggregate_id_foreign" FOREIGN KEY("aggregate_id") REFERENCES billing.aggregates("id");
+ALTER TABLE
+    billing.snapshots ADD CONSTRAINT "snapshots_aggregate_id_foreign" FOREIGN KEY("aggregate_id") REFERENCES billing.aggregates("id");

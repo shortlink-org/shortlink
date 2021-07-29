@@ -4,13 +4,17 @@ package eventsourcing.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1";
 
+import "google/protobuf/timestamp.proto";
+
 // Event stores the data for every event
 message Event {
-//  TODO: drop id field
-//	string id = 1;
-	string aggregate_id = 2;
-	string aggregate_type = 3;
-	int32 version = 4;
-	string type = 5;
-	string payload = 6;
+	string aggregate_id = 1;
+	string aggregate_type = 2;
+	int32 version = 3;
+	string type = 4;
+	string payload = 5;
+
+	// Create at
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
 }
