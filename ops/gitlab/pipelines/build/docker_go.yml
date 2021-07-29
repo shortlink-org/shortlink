@@ -34,7 +34,9 @@ container_scanning:
     - .matrix_build_base
   stage: security
   variables:
-    DOCKER_IMAGE: $REGISTRY_IMAGE:$CI_COMMIT_TAG
+    CI_APPLICATION_REPOSITORY: $REGISTRY_IMAGE
+    CI_APPLICATION_TAG: $CI_COMMIT_TAG
+    DOCKERFILE_PATH: $DOCKERFILE_PATH
   allow_failure: true
   needs:
     - build
