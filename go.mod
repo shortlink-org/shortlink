@@ -72,7 +72,7 @@ require (
 	go.uber.org/zap v1.18.1
 	golang.org/x/net v0.0.0-20210716203947-853a461950ff
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	google.golang.org/api v0.50.0
+	golang.org/x/sys v0.0.0-20210616094352-59db8d763f22 // indirect
 	google.golang.org/genproto v0.0.0-20210721163202-f1cecdd8b78a
 	google.golang.org/grpc v1.39.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
