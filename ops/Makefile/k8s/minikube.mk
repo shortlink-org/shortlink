@@ -16,6 +16,9 @@ minikube-up: ## run minikube for dev mode
 	# Addons enable
 	@eval $(minikube docker-env) # Set docker env
 
+	# Change context (optional)
+	-kubectx minikube
+
 minikube-update: ## update image to last version
 	@eval $(minikube docker-env) # Set docker env
 	@make docker-build           # Build docker images on remote host (minikube)
