@@ -12,6 +12,9 @@ import (
 type PaymentService struct {
 	logger logger.Logger
 
+	// EventSourcing
+	eventsourcing.CommandHandle
+
 	// Repositories
 	paymentRepository event_store.EventStore
 }
@@ -35,8 +38,7 @@ func (p *PaymentService) List(ctx context.Context, filter interface{}) ([]*billi
 	//return p.paymentRepository.List(ctx, filter)
 }
 
-// Add - Create a payment
-func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
+func (p *PaymentService) Handle(ctx context.Context, in *billing.Payment) error {
 	aggregate := &Payment{
 		Payment:       in,
 		BaseAggregate: &eventsourcing.BaseAggregate{},
@@ -44,27 +46,56 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 
 	command, err := CommandPaymentCreate(aggregate)
 	if err != nil {
-		return nil, err
+		return err
+	}
+
+	// Check update or create
+	if command.Version > 1 {
+		events, errLoad := p.paymentRepository.Load(ctx, command.AggregateId)
+		if errLoad != nil {
+			return errLoad
+		}
+
+		for _, event := range events {
+			errApplyChange := aggregate.ApplyChangeHelper(aggregate, event, false)
+			if errApplyChange != nil {
+				return errApplyChange
+			}
+		}
 	}
 
 	err = aggregate.HandleCommand(command)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	err = p.paymentRepository.Save(ctx, aggregate.Uncommitted())
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Add - Create a payment
+func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
+	err := p.Handle(ctx, in)
 	if err != nil {
 		return nil, err
 	}
 
 	// TODO: PublishEvent(aggregate)
-
-	return nil, nil
+	return in, nil
 }
 
 func (p *PaymentService) Update(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
-	panic("implement me")
-	//return p.paymentRepository.Update(ctx, in)
+	err := p.Handle(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+
+	// TODO: PublishEvent(aggregate)
+	return in, nil
 }
 
 func (p *PaymentService) Delete(ctx context.Context, id string) error {

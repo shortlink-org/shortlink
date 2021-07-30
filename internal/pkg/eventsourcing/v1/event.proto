@@ -10,11 +10,12 @@ import "google/protobuf/timestamp.proto";
 message Event {
 	string aggregate_id = 1;
 	string aggregate_type = 2;
-	int32 version = 3;
-	string type = 4;
-	string payload = 5;
+  string id = 3;
+	int32 version = 4;
+	string type = 5;
+	string payload = 6;
 
 	// Create at
-  google.protobuf.Timestamp created_at = 6;
-  google.protobuf.Timestamp updated_at = 7;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
 }

@@ -12,3 +12,4 @@ alter table billing.account alter column id set default uuid_generate_v4();
 
 alter table billing.events alter column id set default uuid_generate_v4();
 alter table billing.events alter column created_at set default now();
+alter table billing.events add type varchar not null;
