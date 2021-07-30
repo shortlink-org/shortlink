@@ -15,8 +15,8 @@ type Events interface {
 
 func (e *Store) addEvent(ctx context.Context, event *eventsourcing.Event) error {
 	entities := psql.Insert("billing.events").
-		Columns("aggregate_id", "aggregate_type", "payload", "version").
-		Values(event.AggregateId, event.AggregateType, event.Payload, event.Version)
+		Columns("aggregate_id", "aggregate_type", "type", "payload", "version").
+		Values(event.AggregateId, event.AggregateType, event.Type, event.Payload, event.Version)
 
 	q, args, err := entities.ToSql()
 	if err != nil {
