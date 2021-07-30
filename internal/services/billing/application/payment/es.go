@@ -21,6 +21,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 
 		p.Name = payload.Name
 		p.Status = payload.Status
+		p.UserId = payload.UserId
 	case t == billing.Event_EVENT_PAYMENT_APPROVED.String():
 		var payload billing.EventPaymentApproved
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)

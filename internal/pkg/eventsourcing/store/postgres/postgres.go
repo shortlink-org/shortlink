@@ -70,8 +70,8 @@ func (s *Store) SafeSave(ctx context.Context, events []*eventsourcing.Event) err
 func (s *Store) Load(ctx context.Context, aggregateID string) ([]*eventsourcing.Event, error) {
 	var events []*eventsourcing.Event
 
-	query := psql.Select("billing.events").
-		Columns("aggregate_type", "id", "type", "payload", "version").
+	query := psql.Select("aggregate_type", "id", "type", "payload", "version").
+		From("billing.events").
 		Where(squirrel.Eq{
 			"aggregate_id": aggregateID,
 		}).
@@ -102,5 +102,5 @@ func (s *Store) Load(ctx context.Context, aggregateID string) ([]*eventsourcing.
 		events = append(events, &event)
 	}
 
-	panic("implement me")
+	return events, nil
 }
