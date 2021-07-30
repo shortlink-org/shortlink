@@ -6,5 +6,5 @@ import (
 
 // CommandHandle defines the contract to handle commands
 type CommandHandle interface {
-	Handle(ctx context.Context, in interface{}) error
+	Handle(ctx context.Context, in interface{}) (*BaseCommand, error)
 }

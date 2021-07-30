@@ -74,8 +74,29 @@ func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
+	var aggregateId = chi.URLParam(r, "id")
+	if aggregateId == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) // nolint errcheck
+		return
+	}
+
+	getPayment, err := api.paymentService.Get(r.Context(), aggregateId)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	res, err := api.jsonpb.Marshal(getPayment)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+	_, _ = w.Write(res) // nolint errcheck
 }
 
 // list ...
