@@ -81,7 +81,7 @@ require (
 	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	k8s.io/kubernetes v1.21.3
 	k8s.io/mount-utils v0.21.3
-	k8s.io/utils v0.0.0-20210722164352-7f3ee0f31471
+	k8s.io/utils v0.0.0-20210802155522-efc7438f0176
 )
 
 replace (
