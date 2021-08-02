@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: cert-manager
-    version: v1.4.1
+    version: v1.4.2
     repository: https://charts.jetstack.io
     condition: cert-manager.enabled
     tags:
