@@ -55,7 +55,7 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 		Set("version", event.Version).
 		Set("updated_at", time.Now()).
 		Where(squirrel.Eq{
-			"version": event.Version,
+			"version": event.Version - 1,
 			"id":      event.AggregateId,
 		})
 
@@ -66,15 +66,15 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 		return err
 	}
 
-	row := s.db.QueryRow(ctx, q, args...)
-	errScan := row.Scan()
-	if errors.Is(errScan, pgx.ErrNoRows) {
-		return nil
-	}
-	if errScan.Error() != "" {
+	row, err := s.db.Exec(ctx, q, args...)
+	if err != nil {
 		span.SetTag("error", true)
-		span.SetTag("message", errScan.Error())
-		return errScan
+		span.SetTag("message", err.Error())
+		return err
+	}
+
+	if row.RowsAffected() != 1 {
+		return fmt.Errorf(`Incorrect updated billing.aggregates. Updated: %d/1`, row.RowsAffected())
 	}
 
 	return nil
