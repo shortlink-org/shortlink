@@ -1,10 +1,14 @@
 package v1
 
+import (
+	"context"
+)
+
 // AggregateHandler defines the methods to process commands
 type AggregateHandler interface {
 	ApplyChange(event *Event) error
 	ApplyChangeHelper(aggregate AggregateHandler, event *Event, commit bool) error
-	HandleCommand(command *BaseCommand) error
+	HandleCommand(ctx context.Context, command *BaseCommand) error
 	Uncommitted() []*Event
 	ClearUncommitted()
 	IncrementVersion()

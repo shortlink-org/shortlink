@@ -3,10 +3,12 @@ package es_postgres
 import (
 	"context"
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v4"
+	"github.com/opentracing/opentracing-go"
 
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 )
@@ -17,6 +19,10 @@ type Aggregates interface {
 }
 
 func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) error {
+	// start tracing
+	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("addAggregate"))
+	defer span.Finish()
+
 	entities := psql.Insert("billing.aggregates").
 		Columns("id", "type", "version").
 		Values(event.AggregateId, event.AggregateType, event.Version)
@@ -32,6 +38,8 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 		return nil
 	}
 	if errScan.Error() != "" {
+		span.SetTag("error", true)
+		span.SetTag("message", errScan.Error())
 		return errScan
 	}
 
@@ -39,6 +47,10 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 }
 
 func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event) error {
+	// start tracing
+	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("updateAggregate"))
+	defer span.Finish()
+
 	entities := psql.Update("billing.aggregates").
 		Set("version", event.Version).
 		Set("updated_at", time.Now()).
@@ -49,6 +61,8 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 
 	q, args, err := entities.ToSql()
 	if err != nil {
+		span.SetTag("error", true)
+		span.SetTag("message", err.Error())
 		return err
 	}
 
@@ -58,6 +72,8 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 		return nil
 	}
 	if errScan.Error() != "" {
+		span.SetTag("error", true)
+		span.SetTag("message", errScan.Error())
 		return errScan
 	}
 
