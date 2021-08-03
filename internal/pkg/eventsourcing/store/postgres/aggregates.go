@@ -16,7 +16,7 @@ type Aggregates interface {
 	updateAggregate(ctx context.Context, event *eventsourcing.Event) error
 }
 
-func (e *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) error {
+func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) error {
 	entities := psql.Insert("billing.aggregates").
 		Columns("id", "type", "version").
 		Values(event.AggregateId, event.AggregateType, event.Version)
@@ -26,7 +26,7 @@ func (e *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 		return err
 	}
 
-	row := e.db.QueryRow(ctx, q, args...)
+	row := s.db.QueryRow(ctx, q, args...)
 	errScan := row.Scan()
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return nil
@@ -38,7 +38,7 @@ func (e *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 	return nil
 }
 
-func (e *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event) error {
+func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event) error {
 	entities := psql.Update("billing.aggregates").
 		Set("version", event.Version).
 		Set("updated_at", time.Now()).
@@ -52,7 +52,7 @@ func (e *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 		return err
 	}
 
-	row := e.db.QueryRow(ctx, q, args...)
+	row := s.db.QueryRow(ctx, q, args...)
 	errScan := row.Scan()
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return nil

@@ -90,7 +90,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 		BaseAggregate: &eventsourcing.BaseAggregate{},
 	}
 
-	command, err := CommandPaymentCreate(aggregate)
+	command, err := CommandPaymentCreate(ctx, aggregate)
 	if err != nil {
 		return nil, err
 	}
@@ -115,7 +115,7 @@ func (p *PaymentService) UpdateBalance(ctx context.Context, in *billing.Payment)
 		},
 	}
 
-	command, err := CommandPaymentUpdateBalance(aggregate)
+	command, err := CommandPaymentUpdateBalance(ctx, aggregate)
 	if err != nil {
 		return nil, err
 	}
