@@ -10,7 +10,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
-	balance_application "github.com/batazor/shortlink/internal/services/billing/application/balance"
 	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
 	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
 	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
@@ -29,7 +28,6 @@ type API interface { // nolint unused
 
 		// services
 		accountService *account_application.AccountService,
-		balanceService *balance_application.BalanceService,
 		orderService *order_application.OrderService,
 		paymentService *payment_application.PaymentService,
 		tariffService *tariff_application.TariffService,
@@ -46,7 +44,6 @@ func (s *Server) Use(
 
 	// services
 	accountService *account_application.AccountService,
-	balanceService *balance_application.BalanceService,
 	orderService *order_application.OrderService,
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
@@ -79,7 +76,6 @@ func (s *Server) Use(
 		tracer,
 
 		accountService,
-		balanceService,
 		orderService,
 		paymentService,
 		tariffService,

@@ -13,7 +13,11 @@ enum Event {
   EVENT_PAYMENT_APPROVED = 2;
   EVENT_PAYMENT_CLOSED = 3;
   EVENT_PAYMENT_REJECTED = 4;
+
+  EVENT_BALANCE_UPDATE = 5;
 }
+
+// PAYMENT =============================================================================================================
 
 message EventPaymentCreated {
   string name = 1;
@@ -31,4 +35,11 @@ message EventPaymentRejected {
 
 message EventPaymentClosed {
   StatusPayment status = 1;
+}
+
+// BALANCE =============================================================================================================
+
+message EventBalanceUpdated {
+  string id = 1;
+  int64 amount = 2;
 }
