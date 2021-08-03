@@ -1,8 +1,10 @@
 package payment_application
 
 import (
+	"context"
 	"fmt"
 
+	"github.com/opentracing/opentracing-go"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
@@ -19,6 +21,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 			return err
 		}
 
+		p.Payment.Id = payload.Id
 		p.Name = payload.Name
 		p.Status = payload.Status
 		p.UserId = payload.UserId
@@ -46,7 +49,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 		}
 
 		p.Status = payload.Status
-	case t == billing.Event_EVENT_BALANCE_UPDATE.String():
+	case t == billing.Event_EVENT_BALANCE_UPDATED.String():
 		var payload billing.EventBalanceUpdated
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
@@ -62,26 +65,41 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 }
 
 // HandleCommand create events and validate based on such command
-func (p *Payment) HandleCommand(command *eventsourcing.BaseCommand) error {
+func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.BaseCommand) error {
 	event := &eventsourcing.Event{
 		AggregateId:   p.Payment.Id,
 		AggregateType: "Payment",
 	}
+
+	// start tracing
+	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("event: HandleCommand"))
+	span.SetTag("aggregate id", p.Payment.Id)
+	defer span.Finish()
 
 	switch t := command.GetType(); {
 	case t == billing.Command_COMMAND_PAYMENT_CREATE.String():
 		event.AggregateId = command.AggregateId
 		event.Payload = command.Payload
 		event.Type = billing.Event_EVENT_PAYMENT_CREATED.String()
+
+		span.SetTag("event type", billing.Event_EVENT_PAYMENT_CREATED.String())
 	case t == billing.Command_COMMAND_PAYMENT_APPROVE.String():
 		event.Payload = command.Payload
+
+		span.SetTag("event type", billing.Event_EVENT_PAYMENT_APPROVED.String())
 	case t == billing.Command_COMMAND_PAYMENT_CLOSE.String():
 		event.Payload = command.Payload
+
+		span.SetTag("event type", billing.Event_EVENT_PAYMENT_CLOSED.String())
 	case t == billing.Command_COMMAND_PAYMENT_REJECTE.String():
 		event.Payload = command.Payload
+
+		span.SetTag("event type", billing.Event_EVENT_PAYMENT_REJECTED.String())
 	case t == billing.Command_COMMAND_BALANCE_UPDATE.String():
 		event.Payload = command.Payload
-		event.Type = billing.Event_EVENT_BALANCE_UPDATE.String()
+		event.Type = billing.Event_EVENT_BALANCE_UPDATED.String()
+
+		span.SetTag("event type", billing.Event_EVENT_BALANCE_UPDATED.String())
 	}
 
 	err := p.ApplyChangeHelper(p, event, true)

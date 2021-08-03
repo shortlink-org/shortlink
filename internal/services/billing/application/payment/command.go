@@ -13,18 +13,21 @@ import (
 	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1"
 )
 
-func CommandPaymentCreate(ctx context.Context, in *Payment) (*eventsourcing.BaseCommand, error) {
+func CommandPaymentCreate(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
 	aggregateId := uuid.New().String()
 	in.Status = billing.StatusPayment_STATUS_PAYMENT_NEW
+	in.Id = aggregateId
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("UpdateBalance"))
+	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("command: UpdateBalance"))
 	span.SetTag("aggregate id", aggregateId)
 	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_CREATE.String())
 	defer span.Finish()
 
-	payload, err := protojson.Marshal(in.Payment)
+	payload, err := protojson.Marshal(in)
 	if err != nil {
+		span.SetTag("error", true)
+		span.SetTag("message", err.Error())
 		return nil, err
 	}
 
@@ -39,15 +42,17 @@ func CommandPaymentCreate(ctx context.Context, in *Payment) (*eventsourcing.Base
 	}, nil
 }
 
-func CommandPaymentUpdateBalance(ctx context.Context, in *Payment) (*eventsourcing.BaseCommand, error) {
+func CommandPaymentUpdateBalance(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("UpdateBalance"))
-	span.SetTag("aggregate id", in.Payment.Id)
+	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("command: UpdateBalance"))
+	span.SetTag("aggregate id", in.Id)
 	span.SetTag("command type", billing.Command_COMMAND_BALANCE_UPDATE.String())
 	defer span.Finish()
 
-	payload, err := protojson.Marshal(in.Payment)
+	payload, err := protojson.Marshal(in)
 	if err != nil {
+		span.SetTag("error", true)
+		span.SetTag("message", err.Error())
 		return nil, err
 	}
 
@@ -55,9 +60,9 @@ func CommandPaymentUpdateBalance(ctx context.Context, in *Payment) (*eventsourci
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_BALANCE_UPDATE.String(),
-		AggregateId:   in.Payment.Id,
+		AggregateId:   in.Id,
 		AggregateType: "Payment",
-		Version:       in.Version,
+		Version:       1,
 		Payload:       string(payload),
 	}, nil
 }

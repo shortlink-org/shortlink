@@ -2,9 +2,11 @@ package es_postgres
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/opentracing/opentracing-go"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
@@ -60,14 +62,26 @@ func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bo
 }
 
 func (s *Store) Save(ctx context.Context, events []*eventsourcing.Event) error {
-	return s.save(ctx, events, false)
+	// start tracing
+	span, newCtx := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("store: Save"))
+	defer span.Finish()
+
+	return s.save(newCtx, events, false)
 }
 
 func (s *Store) SafeSave(ctx context.Context, events []*eventsourcing.Event) error {
-	return s.save(ctx, events, true)
+	// start tracing
+	span, newCtx := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("store: SafeSave"))
+	defer span.Finish()
+
+	return s.save(newCtx, events, true)
 }
 
 func (s *Store) Load(ctx context.Context, aggregateID string) ([]*eventsourcing.Event, error) {
+	// start tracing
+	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("store: Load"))
+	defer span.Finish()
+
 	var events []*eventsourcing.Event
 
 	query := psql.Select("aggregate_type", "id", "type", "payload", "version").
