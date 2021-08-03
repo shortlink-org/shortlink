@@ -13,7 +13,11 @@ enum Command {
   COMMAND_PAYMENT_APPROVE = 2;
   COMMAND_PAYMENT_CLOSE = 3;
   COMMAND_PAYMENT_REJECTE = 4;
+
+  COMMAND_BALANCE_UPDATE = 5;
 }
+
+// PAYMENT =============================================================================================================
 
 message CommandPaymentCreate {
   string name = 1;
@@ -24,3 +28,10 @@ message CommandPaymentApprove {}
 message CommandPaymentRejecte {}
 
 message CommandPaymentClose {}
+
+// BALANCE =============================================================================================================
+
+message CommandBalanceUpdate {
+  string aggregate_id = 1;
+  int64 amount = 2;
+}

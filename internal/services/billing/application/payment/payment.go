@@ -54,7 +54,37 @@ func (p *PaymentService) List(ctx context.Context, filter interface{}) ([]*billi
 	//return p.paymentRepository.List(ctx, filter)
 }
 
-func (p *PaymentService) Handle(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
+func (p *PaymentService) Handle(ctx context.Context, aggregate *Payment, command *eventsourcing.BaseCommand) error {
+	// Check update or create
+	if command.Version != 0 {
+		events, errLoad := p.paymentRepository.Load(ctx, command.AggregateId)
+		if errLoad != nil {
+			return errLoad
+		}
+
+		for _, event := range events {
+			errApplyChange := aggregate.ApplyChangeHelper(aggregate, event, false)
+			if errApplyChange != nil {
+				return errApplyChange
+			}
+		}
+	}
+
+	err := aggregate.HandleCommand(command)
+	if err != nil {
+		return err
+	}
+
+	err = p.paymentRepository.Save(ctx, aggregate.Uncommitted())
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Add - Create a payment
+func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
 	aggregate := &Payment{
 		Payment:       in,
 		BaseAggregate: &eventsourcing.BaseAggregate{},
@@ -65,37 +95,7 @@ func (p *PaymentService) Handle(ctx context.Context, in *billing.Payment) (*even
 		return nil, err
 	}
 
-	// Check update or create
-	if command.Version > 1 {
-		events, errLoad := p.paymentRepository.Load(ctx, command.AggregateId)
-		if errLoad != nil {
-			return nil, errLoad
-		}
-
-		for _, event := range events {
-			errApplyChange := aggregate.ApplyChangeHelper(aggregate, event, false)
-			if errApplyChange != nil {
-				return nil, errApplyChange
-			}
-		}
-	}
-
-	err = aggregate.HandleCommand(command)
-	if err != nil {
-		return nil, err
-	}
-
-	err = p.paymentRepository.Save(ctx, aggregate.Uncommitted())
-	if err != nil {
-		return nil, err
-	}
-
-	return command, nil
-}
-
-// Add - Create a payment
-func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
-	command, err := p.Handle(ctx, in)
+	err = p.Handle(ctx, aggregate, command)
 	if err != nil {
 		return nil, err
 	}
@@ -107,14 +107,26 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 	return in, nil
 }
 
-func (p *PaymentService) Update(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
-	_, err := p.Handle(ctx, in)
+func (p *PaymentService) UpdateBalance(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
+	aggregate := &Payment{
+		Payment: in,
+		BaseAggregate: &eventsourcing.BaseAggregate{
+			Version: 1,
+		},
+	}
+
+	command, err := CommandPaymentUpdateBalance(aggregate)
+	if err != nil {
+		return nil, err
+	}
+
+	err = p.Handle(ctx, aggregate, command)
 	if err != nil {
 		return nil, err
 	}
 
 	// TODO: PublishEvent(aggregate)
-	return in, nil
+	return aggregate.Payment, nil
 }
 
 func (p *PaymentService) Delete(ctx context.Context, id string) error {

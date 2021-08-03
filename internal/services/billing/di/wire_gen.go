@@ -12,12 +12,10 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/services/billing/application/account"
-	"github.com/batazor/shortlink/internal/services/billing/application/balance"
 	"github.com/batazor/shortlink/internal/services/billing/application/order"
 	"github.com/batazor/shortlink/internal/services/billing/application/payment"
 	"github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http"
-	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/rpc/balance/v1"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/rpc/order/v1"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/rpc/payment/v1"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/rpc/tariff/v1"
@@ -39,10 +37,6 @@ func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn
 	if err != nil {
 		return nil, nil, err
 	}
-	balanceService, err := NewBalanceApplication(log, billingStore)
-	if err != nil {
-		return nil, nil, err
-	}
 	orderService, err := NewOrderApplication(log, billingStore)
 	if err != nil {
 		return nil, nil, err
@@ -55,7 +49,7 @@ func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn
 	if err != nil {
 		return nil, nil, err
 	}
-	server, err := NewBillingAPIServer(ctx, log, tracer, runRPCServer, db2, accountService, balanceService, orderService, paymentService, tariffService)
+	server, err := NewBillingAPIServer(ctx, log, tracer, runRPCServer, db2, accountService, orderService, paymentService, tariffService)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -74,7 +68,6 @@ type BillingService struct {
 
 	// Delivery
 	httpAPIServer    *api.Server
-	balanceRPCServer *v1.Balance
 	orderRPCServer   *order_rpc.Order
 	paymentRPCServer *payment_rpc.Payment
 	tariffRPCServer  *tariff_rpc.Tariff
@@ -94,7 +87,6 @@ var BillingSet = wire.NewSet(
 
 	NewTariffApplication,
 	NewAccountApplication,
-	NewBalanceApplication,
 	NewOrderApplication,
 	NewPaymentApplication,
 
@@ -118,15 +110,6 @@ func NewAccountApplication(logger2 logger.Logger, store *billing_store.BillingSt
 	}
 
 	return accountService, nil
-}
-
-func NewBalanceApplication(logger2 logger.Logger, store *billing_store.BillingStore) (*balance_application.BalanceService, error) {
-	balanceService, err := balance_application.New(logger2, store.EventStore)
-	if err != nil {
-		return nil, err
-	}
-
-	return balanceService, nil
 }
 
 func NewOrderApplication(logger2 logger.Logger, store *billing_store.BillingStore) (*order_application.OrderService, error) {
@@ -163,7 +146,6 @@ func NewBillingAPIServer(
 	rpcServer *rpc.RPCServer, db2 *db.Store,
 
 	accountService *account_application.AccountService,
-	balanceService *balance_application.BalanceService,
 	orderService *order_application.OrderService,
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
@@ -175,7 +157,6 @@ func NewBillingAPIServer(
 		ctx, db2, logger2, tracer,
 
 		accountService,
-		balanceService,
 		orderService,
 		paymentService,
 		tariffService,

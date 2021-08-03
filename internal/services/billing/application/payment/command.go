@@ -24,3 +24,18 @@ func CommandPaymentCreate(in *Payment) (*eventsourcing.BaseCommand, error) {
 		Payload:       string(payload),
 	}, nil
 }
+
+func CommandPaymentUpdateBalance(in *Payment) (*eventsourcing.BaseCommand, error) {
+	payload, err := protojson.Marshal(in.Payment)
+	if err != nil {
+		return nil, err
+	}
+
+	return &eventsourcing.BaseCommand{
+		Type:          billing.Command_COMMAND_BALANCE_UPDATE.String(),
+		AggregateId:   in.Payment.Id,
+		AggregateType: "Payment",
+		Version:       in.Version,
+		Payload:       string(payload),
+	}, nil
+}

@@ -19,6 +19,7 @@ message Payment {
   string name = 2;
   StatusPayment status = 3;
   string user_id = 4;
+  int64 amount = 5;
 }
 
 message Payments {

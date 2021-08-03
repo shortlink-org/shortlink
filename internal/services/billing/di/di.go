@@ -15,12 +15,10 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
-	balance_application "github.com/batazor/shortlink/internal/services/billing/application/balance"
 	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
 	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
 	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	api "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http"
-	balance_rpc "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/rpc/balance/v1"
 	order_rpc "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/rpc/order/v1"
 	payment_rpc "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/rpc/payment/v1"
 	tariff_rpc "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/rpc/tariff/v1"
@@ -33,7 +31,6 @@ type BillingService struct {
 
 	// Delivery
 	httpAPIServer    *api.Server
-	balanceRPCServer *balance_rpc.Balance
 	orderRPCServer   *order_rpc.Order
 	paymentRPCServer *payment_rpc.Payment
 	tariffRPCServer  *tariff_rpc.Tariff
@@ -55,7 +52,6 @@ var BillingSet = wire.NewSet(
 	// application
 	NewTariffApplication,
 	NewAccountApplication,
-	NewBalanceApplication,
 	NewOrderApplication,
 	NewPaymentApplication,
 
@@ -79,15 +75,6 @@ func NewAccountApplication(logger logger.Logger, store *billing_store.BillingSto
 	}
 
 	return accountService, nil
-}
-
-func NewBalanceApplication(logger logger.Logger, store *billing_store.BillingStore) (*balance_application.BalanceService, error) {
-	balanceService, err := balance_application.New(logger, store.EventStore)
-	if err != nil {
-		return nil, err
-	}
-
-	return balanceService, nil
 }
 
 func NewOrderApplication(logger logger.Logger, store *billing_store.BillingStore) (*order_application.OrderService, error) {
@@ -126,7 +113,6 @@ func NewBillingAPIServer(
 
 	// Applications
 	accountService *account_application.AccountService,
-	balanceService *balance_application.BalanceService,
 	orderService *order_application.OrderService,
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
@@ -142,7 +128,6 @@ func NewBillingAPIServer(
 
 		// services
 		accountService,
-		balanceService,
 		orderService,
 		paymentService,
 		tariffService,
