@@ -35,7 +35,8 @@ message EventPaymentRejected {
 }
 
 message EventPaymentClosed {
-  StatusPayment status = 1;
+  string id = 1;
+  StatusPayment status = 2;
 }
 
 // BALANCE =============================================================================================================

@@ -27,7 +27,9 @@ message CommandPaymentApprove {}
 
 message CommandPaymentRejecte {}
 
-message CommandPaymentClose {}
+message CommandPaymentClose {
+  string aggregate_id = 1;
+}
 
 // BALANCE =============================================================================================================
 
