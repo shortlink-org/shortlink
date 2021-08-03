@@ -28,12 +28,12 @@ func New(paymentService *payment_application.PaymentService) (*PaymentAPI, error
 func (api *PaymentAPI) Routes(r chi.Router) {
 	r.Get("/payment/{id}", api.get)
 	r.Get("/payments", api.list)
-	r.Post("/payment", api.add)
-	r.Delete("/payment/{id}", api.delete)
+	r.Post("/payment", api.open)
+	r.Delete("/payment/{id}", api.close)
 }
 
-// add ...
-func (api *PaymentAPI) add(w http.ResponseWriter, r *http.Request) {
+// open a new payment
+func (api *PaymentAPI) open(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -67,7 +67,7 @@ func (api *PaymentAPI) add(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) // nolint errcheck
 }
 
-// get ...
+// get payment by identity
 func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -99,7 +99,7 @@ func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) // nolint errcheck
 }
 
-// list ...
+// list - get all payments of users
 func (api *PaymentAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -110,12 +110,26 @@ func (api *PaymentAPI) list(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
 }
 
-// delete ...
-func (api *PaymentAPI) delete(w http.ResponseWriter, r *http.Request) {
+// close a payment
+func (api *PaymentAPI) close(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
+	var aggregateId = chi.URLParam(r, "id")
+	if aggregateId == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) // nolint errcheck
+		return
+	}
+
+	err := api.paymentService.Close(r.Context(), aggregateId)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) // nolint errcheck

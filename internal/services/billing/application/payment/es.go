@@ -89,6 +89,7 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 		span.SetTag("event type", billing.Event_EVENT_PAYMENT_APPROVED.String())
 	case t == billing.Command_COMMAND_PAYMENT_CLOSE.String():
 		event.Payload = command.Payload
+		event.Type = billing.Event_EVENT_PAYMENT_CLOSED.String()
 
 		span.SetTag("event type", billing.Event_EVENT_PAYMENT_CLOSED.String())
 	case t == billing.Command_COMMAND_PAYMENT_REJECTE.String():
@@ -104,6 +105,8 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 
 	err := p.ApplyChangeHelper(p, event, true)
 	if err != nil {
+		span.SetTag("error", true)
+		span.SetTag("message", err.Error())
 		return err
 	}
 

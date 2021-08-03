@@ -127,7 +127,24 @@ func (p *PaymentService) UpdateBalance(ctx context.Context, in *billing.Payment)
 	return aggregate.Payment, nil
 }
 
-func (p *PaymentService) Delete(ctx context.Context, id string) error {
-	panic("implement me")
-	//return p.paymentRepository.Delete(ctx, id)
+func (p *PaymentService) Close(ctx context.Context, id string) error {
+	aggregate := &Payment{
+		Payment:       &billing.Payment{},
+		BaseAggregate: &eventsourcing.BaseAggregate{},
+	}
+
+	command, err := CommandPaymentClose(ctx, &billing.Payment{
+		Id: id,
+	})
+	if err != nil {
+		return err
+	}
+
+	err = p.Handle(ctx, aggregate, command)
+	if err != nil {
+		return err
+	}
+
+	// TODO: PublishEvent(aggregate)
+	return nil
 }

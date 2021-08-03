@@ -66,3 +66,30 @@ func CommandPaymentUpdateBalance(ctx context.Context, in *billing.Payment) (*eve
 		Payload:       string(payload),
 	}, nil
 }
+
+func CommandPaymentClose(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
+	in.Status = billing.StatusPayment_STATUS_PAYMENT_CLOSE
+
+	// start tracing
+	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("command: PaymentClose"))
+	span.SetTag("aggregate id", in.Id)
+	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_CLOSE.String())
+	defer span.Finish()
+
+	payload, err := protojson.Marshal(in)
+	if err != nil {
+		span.SetTag("error", true)
+		span.SetTag("message", err.Error())
+		return nil, err
+	}
+
+	span.LogFields(opentracinglog.String("log", string(payload)))
+
+	return &eventsourcing.BaseCommand{
+		Type:          billing.Command_COMMAND_PAYMENT_CLOSE.String(),
+		AggregateId:   in.Id,
+		AggregateType: "Payment",
+		Version:       1,
+		Payload:       string(payload),
+	}, nil
+}
