@@ -231,29 +231,10 @@ ansible-playbook playbooks/playbook.yml
 </p>
 </details>
 
-### GITLAB CI
+### CI/CD
 
-![](./docs/gitlab/gitlab-pipeline.png)
-
-![](./docs/gitlab/gitlab-ci.png)
-
-##### GitLab Variable
-
-- SURGE_LOGIN
-- SURGE_TOKEN
-- DANGER_GITLAB_API_TOKEN - `API TOKEN` for danger
-
-##### Support environment
-
-- Minikube
-- [Yandex Cloud](https://cloud.yandex.ru/)
-- [AWS EKS](https://aws.amazon.com/eks/)
-
-### GitHub CI
-
-- Travis action (backend/frontend)
-- Docker action
-- Helm chart
+- [GitLab CI](./ops/gitlab/README.md)
+- [GitHub CI](./.github/README.md)
 
 ## -~- THE END -~-
 
