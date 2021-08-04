@@ -17,7 +17,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/domain/link"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/badger"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cassandra"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/dgraph"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/leveldb"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/mongo"
@@ -27,14 +26,13 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/ram"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/redis"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/rethinkdb" // nolint staticcheck
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/scylla"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/sqlite"
 )
 
 // Use return implementation of db
-func (store *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*LinkStore, error) { // nolint unused
+func (s *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*LinkStore, error) { // nolint unused
 	// Set configuration
-	store.setConfig()
+	s.setConfig()
 
 	// Subscribe to Event
 	//notify.Subscribe(uint32(link.LinkEvent_ADD), store)
@@ -43,45 +41,41 @@ func (store *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store
 	//notify.Subscribe(uint32(link.LinkEvent_UPDATE), store)
 	//notify.Subscribe(uint32(link.LinkEvent_DELETE), store)
 
-	switch store.typeStore {
+	switch s.typeStore {
 	case "postgres":
-		store.Store = &postgres.Store{}
+		s.Store = &postgres.Store{}
 	case "mongo":
-		store.Store = &mongo.Store{}
+		s.Store = &mongo.Store{}
 	case "mysql":
-		store.Store = &mysql.Store{}
+		s.Store = &mysql.Store{}
 	case "redis":
-		store.Store = &redis.Store{}
+		s.Store = &redis.Store{}
 	case "dgraph":
-		store.Store = &dgraph.Store{}
+		s.Store = &dgraph.Store{}
 	case "sqlite":
-		store.Store = &sqlite.Store{}
+		s.Store = &sqlite.Store{}
 	case "leveldb":
-		store.Store = &leveldb.Store{}
+		s.Store = &leveldb.Store{}
 	case "badger":
-		store.Store = &badger.Store{}
-	case "cassandra":
-		store.Store = &cassandra.Store{}
-	case "scylla":
-		store.Store = &scylla.Store{}
+		s.Store = &badger.Store{}
 	case "rethinkdb":
-		store.Store = &rethinkdb.Store{}
+		s.Store = &rethinkdb.Store{}
 	case "ram":
-		store.Store = &ram.Store{}
+		s.Store = &ram.Store{}
 	default:
-		store.Store = &ram.Store{}
+		s.Store = &ram.Store{}
 	}
 
 	// Init store
-	if err := store.Store.Init(ctx, db); err != nil {
+	if err := s.Store.Init(ctx, db); err != nil {
 		return nil, err
 	}
 
 	log.Info("init linkStore", field.Fields{
-		"db": store.typeStore,
+		"db": s.typeStore,
 	})
 
-	return store, nil
+	return s, nil
 }
 
 // Notify ...
@@ -188,6 +182,6 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 // setConfig - set configuration
 func (s *LinkStore) setConfig() { // nolint unused
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram, scylla, cassandra
+	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram
 	s.typeStore = viper.GetString("STORE_TYPE")
 }
