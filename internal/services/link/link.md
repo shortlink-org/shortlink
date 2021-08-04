@@ -19,8 +19,6 @@ Service for work with link-domain (CRUD)
 | LevelDB                         | ❌         | ❌       |
 | Badger                          | ❌         | ❌       |
 | SQLite                          | ❌         | ❌       |
-| Scylla                          | ❌         | ✅       |
-| Сassandra (via: Scylla driver)  | ❌         | ✅       |
 | RethinkDB                       | ❌         | ✅       |
 | DGraph                          | ❌         | ✅       |
 
@@ -30,3 +28,7 @@ Service for work with link-domain (CRUD)
 ```
 grpcurl -cacert ./ops/cert/intermediate_ca.pem -d '{"url": "http://google.com"}' localhost:50052 link_rpc.Link/Add
 ```
+
+### Changelog
+
+- [04.08.2021] Drop support database: scylla, cassandra
