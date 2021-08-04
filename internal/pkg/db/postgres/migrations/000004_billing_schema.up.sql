@@ -68,18 +68,13 @@ COMMENT ON COLUMN
 CREATE TABLE billing.snapshots(
     "aggregate_id" UUID NOT NULL,
     "aggregate_type" TEXT NOT NULL,
-    "agregate_version" INTEGER NOT NULL,
+    "aggregate_version" INTEGER NOT NULL,
     "payload" jsonb NOT NULL,
     "created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
     "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
 );
-CREATE INDEX "snapshots_aggregate_id_index" ON
+CREATE UNIQUE INDEX "snapshots_aggregate_id_uindex" ON
     billing.snapshots("aggregate_id");
-CREATE INDEX "snapshots_aggregate_type_index" ON
-    billing.snapshots("aggregate_type");
-CREATE INDEX "snapshots_agregate_version_index" ON
-    billing.snapshots("agregate_version");
-
 
 -- AGGREGATE TABLE =====================================================================================================
 CREATE TABLE billing.aggregates(

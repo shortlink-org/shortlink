@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package eventsourcing.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1";
+
+import "google/protobuf/timestamp.proto";
+
+// Snapshot
+message Snapshot {
+	string aggregate_id = 1;
+	string aggregate_type = 2;
+	int32 aggregate_version = 3;
+	string payload = 4;
+
+	// Create at
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
