@@ -35,6 +35,7 @@ Shortlink service
 | link        | Link service                                | Go                        | [docs](./docs/services/link.md)          |
 | proxy       | Proxy service for redirect to original URL  | TypeScript                |                                          |
 | bot         | Telegram bot                                | JAVA                      |                                          |
+| billing     | Billing service                             | Go                        |                                          |
 | logger      | Logger service                              | Go                        |                                          |
 | metadata    | Parser site by API                          | Go                        |                                          |
 | notify      | Send notify to smtp, slack, telegram        | Go                        |                                          |
