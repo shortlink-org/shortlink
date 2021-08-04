@@ -3,7 +3,6 @@ package es_postgres
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/jackc/pgx/v4"
 	"github.com/opentracing/opentracing-go"
@@ -17,7 +16,7 @@ type Events interface {
 
 func (s *Store) addEvent(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("addEvent"))
+	span, _ := opentracing.StartSpanFromContext(ctx, "addEvent")
 	span.SetTag("event id", event.Id)
 	defer span.Finish()
 

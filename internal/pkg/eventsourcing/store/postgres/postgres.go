@@ -2,7 +2,6 @@ package es_postgres
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -64,7 +63,7 @@ func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bo
 
 func (s *Store) Save(ctx context.Context, events []*eventsourcing.Event) error {
 	// start tracing
-	span, newCtx := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("store: Save"))
+	span, newCtx := opentracing.StartSpanFromContext(ctx, "store: Save")
 	defer span.Finish()
 
 	return s.save(newCtx, events, false)
@@ -72,7 +71,7 @@ func (s *Store) Save(ctx context.Context, events []*eventsourcing.Event) error {
 
 func (s *Store) SafeSave(ctx context.Context, events []*eventsourcing.Event) error {
 	// start tracing
-	span, newCtx := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("store: SafeSave"))
+	span, newCtx := opentracing.StartSpanFromContext(ctx, "store: SafeSave")
 	defer span.Finish()
 
 	return s.save(newCtx, events, true)
@@ -80,7 +79,7 @@ func (s *Store) SafeSave(ctx context.Context, events []*eventsourcing.Event) err
 
 func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Snapshot, []*eventsourcing.Event, error) {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("store: Load"))
+	span, _ := opentracing.StartSpanFromContext(ctx, "store: Load")
 	defer span.Finish()
 
 	var events []*eventsourcing.Event

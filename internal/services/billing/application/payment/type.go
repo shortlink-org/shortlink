@@ -17,7 +17,7 @@ var (
 )
 
 func init() {
-	EventList = make(map[string]uint32, 0)
+	EventList = make(map[string]uint32)
 
 	for event := range billing.Event_name {
 		EventList[billing.Event_name[event]] = notify.NewEventID()

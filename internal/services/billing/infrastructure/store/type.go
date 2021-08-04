@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
+	event_store "github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	v1 "github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1"
 	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"

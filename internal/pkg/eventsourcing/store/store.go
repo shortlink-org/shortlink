@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/pkg/eventsourcing/store/postgres"
+	es_postgres "github.com/batazor/shortlink/internal/pkg/eventsourcing/store/postgres"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )

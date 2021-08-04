@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/jackc/pgx/v4"
@@ -60,7 +59,7 @@ func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapsh
 	// TODO: use worker pool
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("SaveSnapshot"))
+	span, _ := opentracing.StartSpanFromContext(ctx, "SaveSnapshot")
 	span.SetTag("snapshot aggregate id", snapshot.AggregateId)
 	defer span.Finish()
 

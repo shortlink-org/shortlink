@@ -2,7 +2,6 @@ package payment_application
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/google/uuid"
 	"github.com/opentracing/opentracing-go"
@@ -19,7 +18,7 @@ func CommandPaymentCreate(ctx context.Context, in *billing.Payment) (*eventsourc
 	in.Id = aggregateId
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("command: UpdateBalance"))
+	span, _ := opentracing.StartSpanFromContext(ctx, "command: UpdateBalance")
 	span.SetTag("aggregate id", aggregateId)
 	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_CREATE.String())
 	defer span.Finish()
@@ -44,7 +43,7 @@ func CommandPaymentCreate(ctx context.Context, in *billing.Payment) (*eventsourc
 
 func CommandPaymentUpdateBalance(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("command: UpdateBalance"))
+	span, _ := opentracing.StartSpanFromContext(ctx, "command: UpdateBalance")
 	span.SetTag("aggregate id", in.Id)
 	span.SetTag("command type", billing.Command_COMMAND_BALANCE_UPDATE.String())
 	defer span.Finish()
@@ -71,7 +70,7 @@ func CommandPaymentClose(ctx context.Context, in *billing.Payment) (*eventsourci
 	in.Status = billing.StatusPayment_STATUS_PAYMENT_CLOSE
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("command: PaymentClose"))
+	span, _ := opentracing.StartSpanFromContext(ctx, "command: PaymentClose")
 	span.SetTag("aggregate id", in.Id)
 	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_CLOSE.String())
 	defer span.Finish()

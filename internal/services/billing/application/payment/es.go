@@ -12,6 +12,7 @@ import (
 )
 
 // ApplyChange to payment
+//gocyclo:ignore
 func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 	switch t := event.Type; {
 	case t == billing.Event_EVENT_PAYMENT_CREATED.String():
@@ -72,7 +73,7 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 	}
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("event: HandleCommand"))
+	span, _ := opentracing.StartSpanFromContext(ctx, "event: HandleCommand")
 	span.SetTag("aggregate id", p.Payment.Id)
 	defer span.Finish()
 
