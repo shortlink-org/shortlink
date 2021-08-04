@@ -3,7 +3,7 @@ package payment_application
 import (
 	"context"
 
-	"github.com/robfig/cron"
+	"github.com/robfig/cron/v3"
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/encoding/protojson"
 
@@ -193,7 +193,7 @@ func (p *PaymentService) initTask() error {
 	c := cron.New()
 	// CRON Expression Format
 	// https://pkg.go.dev/github.com/robfig/cron#hdr-CRON_Expression_Format
-	err := c.AddFunc(viper.GetString("PAYMENT_SNAPSHOT_CRON"), func() {
+	_, err := c.AddFunc(viper.GetString("PAYMENT_SNAPSHOT_CRON"), func() {
 		p.asyncUpdateSnapshot()
 	})
 	if err != nil {
