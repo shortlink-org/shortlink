@@ -57,6 +57,8 @@ func (s *Store) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourci
 }
 
 func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapshot) error {
+	// TODO: use worker pool
+
 	// start tracing
 	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("SaveSnapshot"))
 	span.SetTag("snapshot aggregate id", snapshot.AggregateId)
