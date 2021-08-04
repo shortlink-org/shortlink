@@ -7,8 +7,13 @@
 
 ### Feature
 
+- EventBus
 - Snapshots
 - OpenTracing
+
+##### Example use
+
++ [service billing](../services/billing/application/payment)
 
 ##### OpenTracing
 

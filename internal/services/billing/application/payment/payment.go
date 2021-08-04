@@ -10,6 +10,7 @@ import (
 	event_store "github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/notify"
 	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1"
 )
 
@@ -69,6 +70,20 @@ func (p *PaymentService) Handle(ctx context.Context, aggregate *Payment, command
 	err = p.paymentRepository.Save(ctx, aggregate.Uncommitted())
 	if err != nil {
 		return err
+	}
+
+	err = p.PublishEvents(ctx, aggregate.Uncommitted())
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// PublishEvents - send message about a new events
+func (p *PaymentService) PublishEvents(ctx context.Context, events []*eventsourcing.Event) error {
+	for key := range events {
+		go notify.Publish(ctx, EventList[events[key].Type], events[key].GetPayload(), nil)
 	}
 
 	return nil
