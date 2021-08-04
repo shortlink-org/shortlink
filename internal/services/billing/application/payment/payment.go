@@ -42,9 +42,15 @@ func New(logger logger.Logger, paymentRepository event_store.EventStore) (*Payme
 func (p *PaymentService) Handle(ctx context.Context, aggregate *Payment, command *eventsourcing.BaseCommand) error {
 	// Check update or create
 	if command.Version != 0 {
-		events, errLoad := p.paymentRepository.Load(ctx, command.AggregateId)
+		snapshot, events, errLoad := p.paymentRepository.Load(ctx, command.AggregateId)
 		if errLoad != nil {
 			return errLoad
+		}
+
+		aggregate.Version = snapshot.AggregateVersion
+		err := protojson.Unmarshal([]byte(snapshot.Payload), aggregate.Payment)
+		if err != nil {
+			return err
 		}
 
 		for _, event := range events {
@@ -74,7 +80,12 @@ func (p *PaymentService) Get(ctx context.Context, aggregateId string) (*billing.
 		BaseAggregate: &eventsourcing.BaseAggregate{},
 	}
 
-	events, err := p.paymentRepository.Load(ctx, aggregateId)
+	snapshot, events, err := p.paymentRepository.Load(ctx, aggregateId)
+	if err != nil {
+		return nil, err
+	}
+
+	err = protojson.Unmarshal([]byte(snapshot.Payload), aggregate.Payment)
 	if err != nil {
 		return nil, err
 	}

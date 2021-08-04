@@ -14,7 +14,7 @@ type EventStore interface {
 
 	Save(ctx context.Context, events []*eventsourcing.Event) error
 	SafeSave(ctx context.Context, events []*eventsourcing.Event) error
-	Load(ctx context.Context, aggregateID string) ([]*eventsourcing.Event, error)
+	Load(ctx context.Context, aggregateID string) (*eventsourcing.Snapshot, []*eventsourcing.Event, error)
 
 	GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourcing.BaseAggregate, error)
 	SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapshot) error

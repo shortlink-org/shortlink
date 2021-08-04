@@ -34,8 +34,9 @@ func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bo
 	}
 
 	for _, event := range events {
+		// TODO: use transaction
 		// Either insert a new aggregate or append to an existing.
-		if event.Version == 1 {
+		if event.Version == 0 {
 			err := s.addAggregate(ctx, event)
 			if err != nil {
 				return err
@@ -77,31 +78,53 @@ func (s *Store) SafeSave(ctx context.Context, events []*eventsourcing.Event) err
 	return s.save(newCtx, events, true)
 }
 
-func (s *Store) Load(ctx context.Context, aggregateID string) ([]*eventsourcing.Event, error) {
+func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Snapshot, []*eventsourcing.Event, error) {
 	// start tracing
 	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("store: Load"))
 	defer span.Finish()
 
 	var events []*eventsourcing.Event
 
-	query := psql.Select("aggregate_type", "id", "type", "payload", "version").
-		From("billing.events").
+	// get snapshot if exist
+	querySnaphot := psql.Select("aggregate_id", "aggregate_type", "aggregate_version", "payload").
+		From("billing.snapshots").
 		Where(squirrel.Eq{
 			"aggregate_id": aggregateID,
-		}).
+		})
+	q, args, err := querySnaphot.ToSql()
+	if err != nil {
+		return nil, nil, err
+	}
+
+	var snapshot eventsourcing.Snapshot
+	row := s.db.QueryRow(ctx, q, args...)
+	err = row.Scan(&snapshot.AggregateId, &snapshot.AggregateType, &snapshot.AggregateVersion, &snapshot.Payload)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	// get new events
+	queryEvents := psql.Select("aggregate_type", "id", "type", "payload", "version").
+		From("billing.events").
+		Where(
+			squirrel.And{
+				squirrel.Eq{"aggregate_id": aggregateID},
+				squirrel.Gt{"version": snapshot.AggregateVersion},
+			},
+		).
 		OrderBy("created_at")
 
-	q, args, err := query.ToSql()
+	q, args, err = queryEvents.ToSql()
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	rows, err := s.db.Query(ctx, q, args...)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	if rows.Err() != nil {
-		return nil, rows.Err()
+		return nil, nil, rows.Err()
 	}
 
 	for rows.Next() {
@@ -110,11 +133,11 @@ func (s *Store) Load(ctx context.Context, aggregateID string) ([]*eventsourcing.
 		}
 		err = rows.Scan(&event.AggregateType, &event.Id, &event.Type, &event.Payload, &event.Version)
 		if err != nil {
-			return nil, err
+			return nil, nil, err
 		}
 
 		events = append(events, &event)
 	}
 
-	return events, nil
+	return &snapshot, events, nil
 }
