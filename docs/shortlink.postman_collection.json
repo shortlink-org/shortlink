@@ -509,116 +509,6 @@
 					"name": "Billing",
 					"item": [
 						{
-							"name": "Account",
-							"item": [
-								{
-									"name": "Get account",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/account/{{account_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"account",
-												"{{account_id}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get accounts",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/accounts",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"accounts"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Add account",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"var jsonData = JSON.parse(responseBody);",
-													"",
-													"",
-													"postman.setGlobalVariable(\"billing.user_id\", jsonData.id);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"user_id\": \"{{$randomUUID}}\",\n    \"tariff_id\": \"{{tariff_id}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:7070/api/billing/account",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"account"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete account",
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/account/{{account_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"account",
-												"{{account_id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
 							"name": "Tariff",
 							"item": [
 								{
@@ -750,6 +640,116 @@
 							]
 						},
 						{
+							"name": "Account",
+							"item": [
+								{
+									"name": "Get account",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/account/{{account_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"account",
+												"{{account_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get accounts",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/accounts",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"accounts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add account",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"",
+													"postman.setGlobalVariable(\"billing.user_id\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"{{$randomUUID}}\",\n    \"tariff_id\": \"{{tariff_id}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:7070/api/billing/account",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"account"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete account",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/billing/account/{{account_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"account",
+												"{{account_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Payment",
 							"item": [
 								{
@@ -758,7 +758,17 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": ""
+											"raw": "localhost:7070/api/billing/payment/{{billing.payment_id}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"payment",
+												"{{billing.payment_id}}"
+											]
 										}
 									},
 									"response": []
@@ -776,11 +786,43 @@
 								},
 								{
 									"name": "Add payment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"",
+													"postman.setGlobalVariable(\"billing.payment_id\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
 									"request": {
 										"method": "POST",
 										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"{{billing.user_id}}\",\n    \"name\": \"stripe\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
 										"url": {
-											"raw": ""
+											"raw": "localhost:7070/api/billing/payment",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"billing",
+												"payment"
+											]
 										}
 									},
 									"response": []
@@ -791,7 +833,7 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "localhost:7070/api/billing/payment/{{payment_id}}",
+											"raw": "localhost:7070/api/billing/payment/{{billing.payment_id}}",
 											"host": [
 												"localhost"
 											],
@@ -800,7 +842,7 @@
 												"api",
 												"billing",
 												"payment",
-												"{{payment_id}}"
+												"{{billing.payment_id}}"
 											]
 										}
 									},
@@ -833,30 +875,19 @@
 							"name": "Balance",
 							"item": [
 								{
-									"name": "Get balances",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/balances",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"balances"
-											]
-										}
-									},
-									"response": []
-								},
-								{
 									"name": "Update balance",
 									"request": {
 										"method": "PUT",
 										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"{{billing.payment_id}}\",\n    \"amount\": 300\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
 										"url": {
 											"raw": "localhost:7070/api/billing/balance/{{payment_id}}",
 											"host": [
