@@ -54,7 +54,7 @@ require (
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/prometheus/client_golang v1.11.0
 	github.com/pterm/pterm v0.12.29
-	github.com/robfig/cron v1.1.0
+	github.com/robfig/cron v1.2.0
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/scylladb/gocqlx/v2 v2.4.0
 	github.com/sirupsen/logrus v1.8.1
