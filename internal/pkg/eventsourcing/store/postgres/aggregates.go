@@ -20,7 +20,7 @@ type Aggregates interface {
 
 func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("addAggregate"))
+	span, _ := opentracing.StartSpanFromContext(ctx, "addAggregate")
 	defer span.Finish()
 
 	entities := psql.Insert("billing.aggregates").
@@ -48,7 +48,7 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 
 func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, fmt.Sprintf("updateAggregate"))
+	span, _ := opentracing.StartSpanFromContext(ctx, "updateAggregate")
 	defer span.Finish()
 
 	entities := psql.Update("billing.aggregates").
