@@ -2,6 +2,7 @@ package payment_application
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/robfig/cron/v3"
 	"github.com/spf13/viper"
@@ -10,8 +11,10 @@ import (
 	event_store "github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1"
+	"github.com/batazor/shortlink/pkg/saga"
 )
 
 type PaymentService struct {
@@ -48,10 +51,12 @@ func (p *PaymentService) Handle(ctx context.Context, aggregate *Payment, command
 			return errLoad
 		}
 
-		aggregate.Version = snapshot.AggregateVersion
-		err := protojson.Unmarshal([]byte(snapshot.Payload), aggregate.Payment)
-		if err != nil {
-			return err
+		if snapshot.Payload != "" {
+			aggregate.Version = snapshot.AggregateVersion
+			err := protojson.Unmarshal([]byte(snapshot.Payload), aggregate.Payment)
+			if err != nil {
+				return err
+			}
 		}
 
 		for _, event := range events {
@@ -100,9 +105,11 @@ func (p *PaymentService) Get(ctx context.Context, aggregateId string) (*billing.
 		return nil, err
 	}
 
-	err = protojson.Unmarshal([]byte(snapshot.Payload), aggregate.Payment)
-	if err != nil {
-		return nil, err
+	if snapshot.Payload != "" {
+		err = protojson.Unmarshal([]byte(snapshot.Payload), aggregate.Payment)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	for _, event := range events {
@@ -120,48 +127,153 @@ func (p *PaymentService) List(ctx context.Context, filter interface{}) ([]*billi
 	//return p.paymentRepository.List(ctx, filter)
 }
 
+func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error {
+	if len(errs) > 0 {
+		errList := field.Fields{}
+		for index := range errs {
+			errList[fmt.Sprintf("stack error: %d", index)] = errs[index]
+		}
+
+		logger.ErrorWithContext(ctx, "Error create a new payment", errList)
+		return fmt.Errorf("Error create a new payment")
+	}
+
+	return nil
+}
+
 // Add - Create a payment
 func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
-	aggregate := &Payment{
-		Payment:       &billing.Payment{},
-		BaseAggregate: &eventsourcing.BaseAggregate{},
+	const (
+		SAGA_NAME                 = "ADD_PAYMENT"
+		SAGA_STEP_PAYMENT_CREATE  = "SAGA_STEP_PAYMENT_CREATE"
+		SAGA_STEP_PAYMENT_APPROVE = "SAGA_STEP_PAYMENT_APPROVE"
+		SAGA_STEP_PAYMENT_GET     = "SAGA_STEP_PAYMENT_GET"
+	)
+
+	// saga for create a new payment
+	sagaAddPayment, errs := saga.New(SAGA_NAME, saga.Logger(p.logger)).
+		WithContext(ctx).
+		Build()
+	if err := errorHelper(ctx, p.logger, errs); err != nil {
+		return nil, err
 	}
 
-	command, err := CommandPaymentCreate(ctx, in)
+	// add step: create a payment
+	_, errs = sagaAddPayment.AddStep(SAGA_STEP_PAYMENT_CREATE).
+		Then(func(ctx context.Context) error {
+			aggregate := &Payment{
+				Payment:       &billing.Payment{},
+				BaseAggregate: &eventsourcing.BaseAggregate{},
+			}
+
+			command, err := CommandPaymentCreate(ctx, in)
+			if err != nil {
+				return err
+			}
+
+			err = p.Handle(ctx, aggregate, command)
+			if err != nil {
+				return err
+			}
+
+			// safe identity
+			in.Id = command.AggregateId
+
+			return nil
+		}).
+		Reject(func(ctx context.Context) error {
+			return fmt.Errorf("Error create a new payment")
+		}).
+		Build()
+	if err := errorHelper(ctx, p.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// add step: approve/reject payment
+	_, errs = sagaAddPayment.AddStep(SAGA_STEP_PAYMENT_APPROVE).
+		Needs([]string{SAGA_STEP_PAYMENT_CREATE}).
+		Then(func(ctx context.Context) error {
+			return p.Approve(ctx, in.Id)
+		}).
+		Reject(func(ctx context.Context) error {
+			err := p.Reject(ctx, in.Id)
+			return err
+		}).
+		Build()
+	if err := errorHelper(ctx, p.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// add step: get actual state a payment
+	_, errs = sagaAddPayment.AddStep(SAGA_STEP_PAYMENT_GET).
+		Needs([]string{SAGA_STEP_PAYMENT_APPROVE}).
+		Then(func(ctx context.Context) error {
+			var err error
+			in, err = p.Get(ctx, in.Id)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}).
+		Reject(func(ctx context.Context) error {
+			return fmt.Errorf(`Payment was successfully created, but its status could not be received`)
+		}).
+		Build()
+	if err := errorHelper(ctx, p.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// Run saga
+	err := sagaAddPayment.Play(nil)
 	if err != nil {
 		return nil, err
 	}
 
-	err = p.Handle(ctx, aggregate, command)
-	if err != nil {
-		return nil, err
-	}
-
-	// safe identity
-	in.Id = command.AggregateId
-
-	// TODO: PublishEvent(aggregate)
 	return in, nil
 }
 
-func (p *PaymentService) UpdateBalance(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
+func (p *PaymentService) Approve(ctx context.Context, id string) error {
 	aggregate := &Payment{
 		Payment:       &billing.Payment{},
 		BaseAggregate: &eventsourcing.BaseAggregate{},
 	}
 
-	command, err := CommandPaymentUpdateBalance(ctx, in)
+	command, err := CommandPaymentApprove(ctx, &billing.Payment{
+		Id: id,
+	})
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	err = p.Handle(ctx, aggregate, command)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	// TODO: PublishEvent(aggregate)
-	return aggregate.Payment, nil
+	return nil
+}
+
+func (p *PaymentService) Reject(ctx context.Context, id string) error {
+	aggregate := &Payment{
+		Payment:       &billing.Payment{},
+		BaseAggregate: &eventsourcing.BaseAggregate{},
+	}
+
+	command, err := CommandPaymentReject(ctx, &billing.Payment{
+		Id: id,
+	})
+	if err != nil {
+		return err
+	}
+
+	// set version `0` for do insert
+	err = p.Handle(ctx, aggregate, command)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (p *PaymentService) Close(ctx context.Context, id string) error {
@@ -182,13 +294,31 @@ func (p *PaymentService) Close(ctx context.Context, id string) error {
 		return err
 	}
 
-	// TODO: PublishEvent(aggregate)
 	return nil
+}
+
+func (p *PaymentService) UpdateBalance(ctx context.Context, in *billing.Payment) (*billing.Payment, error) {
+	aggregate := &Payment{
+		Payment:       &billing.Payment{},
+		BaseAggregate: &eventsourcing.BaseAggregate{},
+	}
+
+	command, err := CommandPaymentUpdateBalance(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+
+	err = p.Handle(ctx, aggregate, command)
+	if err != nil {
+		return nil, err
+	}
+
+	return aggregate.Payment, nil
 }
 
 func (p *PaymentService) initTask() error {
 	viper.AutomaticEnv()
-	viper.SetDefault("PAYMENT_SNAPSHOT_CRON", "0 * * * * *") // check snapshot by timeout
+	viper.SetDefault("PAYMENT_SNAPSHOT_CRON", "* * * * *") // check snapshot by timeout
 
 	c := cron.New()
 	// CRON Expression Format

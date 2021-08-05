@@ -2,8 +2,10 @@ package es_postgres
 
 import (
 	"context"
+	"errors"
 
 	"github.com/Masterminds/squirrel"
+	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/opentracing/opentracing-go"
 
@@ -35,7 +37,7 @@ func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bo
 	for _, event := range events {
 		// TODO: use transaction
 		// Either insert a new aggregate or append to an existing.
-		if event.Version == 0 {
+		if event.Version == 1 {
 			err := s.addAggregate(ctx, event)
 			if err != nil {
 				return err
@@ -98,7 +100,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 	var snapshot eventsourcing.Snapshot
 	row := s.db.QueryRow(ctx, q, args...)
 	err = row.Scan(&snapshot.AggregateId, &snapshot.AggregateType, &snapshot.AggregateVersion, &snapshot.Payload)
-	if err != nil {
+	if err != nil && !errors.Is(err, pgx.ErrNoRows) {
 		return nil, nil, err
 	}
 

@@ -59,7 +59,7 @@ func (s *Service) AddLink(ctx context.Context, in *link.Link) (*link.Link, error
 		SAGA_STEP_PUBLISH_EVENT_NEW_LINK = "SAGA_STEP_PUBLISH_EVENT_NEW_LINK"
 	)
 
-	// create a new saga for create a new link
+	// saga for create a new link
 	sagaAddLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
 		WithContext(ctx).
 		Build()

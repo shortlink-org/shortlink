@@ -27,11 +27,13 @@ message EventPaymentCreated {
 }
 
 message EventPaymentApproved {
-  StatusPayment status = 1;
+  string id = 1;
+  StatusPayment status = 2;
 }
 
 message EventPaymentRejected {
-  StatusPayment status = 1;
+  string id = 1;
+  StatusPayment status = 2;
 }
 
 message EventPaymentClosed {
