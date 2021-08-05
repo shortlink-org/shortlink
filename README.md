@@ -235,7 +235,7 @@ ansible-playbook playbooks/playbook.yml
 ### CI/CD
 
 - [GitLab CI](./ops/gitlab/README.md)
-- [GitHub CI](./.github/README.md)
+- [GitHub CI](./.github/DOCS.md)
 
 ## -~- THE END -~-
 
