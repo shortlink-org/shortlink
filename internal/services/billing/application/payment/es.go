@@ -51,6 +51,11 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 
 		p.Status = payload.Status
 	case t == billing.Event_EVENT_BALANCE_UPDATED.String():
+		// validate payment
+		if p.Status != billing.StatusPayment_STATUS_PAYMENT_APPROVE {
+			return fmt.Errorf("Incorrect status of payment: %s", p.Status)
+		}
+
 		var payload billing.EventBalanceUpdated
 		err := protojson.Unmarshal([]byte(event.Payload), &payload)
 		if err != nil {
@@ -86,6 +91,7 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 		span.SetTag("event type", billing.Event_EVENT_PAYMENT_CREATED.String())
 	case t == billing.Command_COMMAND_PAYMENT_APPROVE.String():
 		event.Payload = command.Payload
+		event.Type = billing.Event_EVENT_PAYMENT_APPROVED.String()
 
 		span.SetTag("event type", billing.Event_EVENT_PAYMENT_APPROVED.String())
 	case t == billing.Command_COMMAND_PAYMENT_CLOSE.String():
@@ -93,8 +99,9 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 		event.Type = billing.Event_EVENT_PAYMENT_CLOSED.String()
 
 		span.SetTag("event type", billing.Event_EVENT_PAYMENT_CLOSED.String())
-	case t == billing.Command_COMMAND_PAYMENT_REJECTE.String():
+	case t == billing.Command_COMMAND_PAYMENT_REJECT.String():
 		event.Payload = command.Payload
+		event.Type = billing.Event_EVENT_PAYMENT_REJECTED.String()
 
 		span.SetTag("event type", billing.Event_EVENT_PAYMENT_REJECTED.String())
 	case t == billing.Command_COMMAND_BALANCE_UPDATE.String():
@@ -102,6 +109,8 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 		event.Type = billing.Event_EVENT_BALANCE_UPDATED.String()
 
 		span.SetTag("event type", billing.Event_EVENT_BALANCE_UPDATED.String())
+	default:
+		return fmt.Errorf("Not found command with type: %s", t)
 	}
 
 	err := p.ApplyChangeHelper(p, event, true)

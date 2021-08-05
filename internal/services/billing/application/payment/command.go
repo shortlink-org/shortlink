@@ -92,3 +92,57 @@ func CommandPaymentClose(ctx context.Context, in *billing.Payment) (*eventsourci
 		Payload:       string(payload),
 	}, nil
 }
+
+func CommandPaymentApprove(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
+	in.Status = billing.StatusPayment_STATUS_PAYMENT_APPROVE
+
+	// start tracing
+	span, _ := opentracing.StartSpanFromContext(ctx, "command: PaymentApprove")
+	span.SetTag("aggregate id", in.Id)
+	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_APPROVE.String())
+	defer span.Finish()
+
+	payload, err := protojson.Marshal(in)
+	if err != nil {
+		span.SetTag("error", true)
+		span.SetTag("message", err.Error())
+		return nil, err
+	}
+
+	span.LogFields(opentracinglog.String("log", string(payload)))
+
+	return &eventsourcing.BaseCommand{
+		Type:          billing.Command_COMMAND_PAYMENT_APPROVE.String(),
+		AggregateId:   in.Id,
+		AggregateType: "Payment",
+		Version:       1,
+		Payload:       string(payload),
+	}, nil
+}
+
+func CommandPaymentReject(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
+	in.Status = billing.StatusPayment_STATUS_PAYMENT_REJECT
+
+	// start tracing
+	span, _ := opentracing.StartSpanFromContext(ctx, "command: PaymentReject")
+	span.SetTag("aggregate id", in.Id)
+	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_REJECT.String())
+	defer span.Finish()
+
+	payload, err := protojson.Marshal(in)
+	if err != nil {
+		span.SetTag("error", true)
+		span.SetTag("message", err.Error())
+		return nil, err
+	}
+
+	span.LogFields(opentracinglog.String("log", string(payload)))
+
+	return &eventsourcing.BaseCommand{
+		Type:          billing.Command_COMMAND_PAYMENT_REJECT.String(),
+		AggregateId:   in.Id,
+		AggregateType: "Payment",
+		Version:       1,
+		Payload:       string(payload),
+	}, nil
+}
