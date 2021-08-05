@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/opentracing/opentracing-go"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
@@ -113,7 +114,7 @@ func (log *zapLogger) Fatal(msg string, fields ...field.Fields) {
 }
 
 func (log *zapLogger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
@@ -130,7 +131,7 @@ func (log *zapLogger) Warn(msg string, fields ...field.Fields) {
 }
 
 func (log *zapLogger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
@@ -147,7 +148,12 @@ func (log *zapLogger) Error(msg string, fields ...field.Fields) {
 }
 
 func (log *zapLogger) ErrorWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	tags := []opentracing.Tag{{
+		Key:   "error",
+		Value: true,
+	}}
+
+	fields, err := tracer.NewTraceFromContext(ctx, msg, tags, fields...)
 	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
@@ -164,7 +170,7 @@ func (log *zapLogger) Info(msg string, fields ...field.Fields) {
 }
 
 func (log *zapLogger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
@@ -181,7 +187,7 @@ func (log *zapLogger) Debug(msg string, fields ...field.Fields) {
 }
 
 func (log *zapLogger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	fields, err := tracer.NewTraceFromContext(ctx, msg, fields...)
+	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
 	}
