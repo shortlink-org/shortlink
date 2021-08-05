@@ -83,6 +83,9 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 
 	err = g.Wait()
 	if err != nil {
+		span.SetTag("error", true)
+		span.SetTag("message", err.Error())
+
 		errReject := s.Reject(initSteps)
 		return errReject
 	}
@@ -92,6 +95,8 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	for _, rootStep := range initSteps {
 		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
 		if errGetVertex != nil {
+			span.SetTag("error", true)
+			span.SetTag("message", err.Error())
 			return errGetVertex
 		}
 
@@ -106,6 +111,8 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 
 	initChildrenStep, err = s.validateRun(initChildrenStep)
 	if err != nil {
+		span.SetTag("error", true)
+		span.SetTag("message", err.Error())
 		return err
 	}
 
@@ -169,6 +176,7 @@ func (s *Saga) Reject(rejectSteps map[string]*Step) error {
 	err := g.Wait()
 	if err != nil {
 		s.logger.ErrorWithContext(s.ctx, err.Error())
+		return err
 	}
 
 	// get parents
