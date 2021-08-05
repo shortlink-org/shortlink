@@ -6,7 +6,7 @@ option go_package = "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 
 import "google/protobuf/timestamp.proto";
 
-// Event stores the data for every event
+// Event describe a change that happened to the Aggregate
 message Event {
 	string aggregate_id = 1;
 	string aggregate_type = 2;
