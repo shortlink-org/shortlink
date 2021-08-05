@@ -11,7 +11,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
-func NewTraceFromContext(ctx context.Context, msg string, fields ...field.Fields) ([]field.Fields, error) {
+func NewTraceFromContext(ctx context.Context, msg string, tags []opentracing.Tag, fields ...field.Fields) ([]field.Fields, error) {
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -21,6 +21,10 @@ func NewTraceFromContext(ctx context.Context, msg string, fields ...field.Fields
 
 	span.LogFields(ZapFieldsToOpentracing(fields...)...)
 	span.LogFields(opentracinglog.String("log", msg))
+
+	for key := range tags {
+		span.SetTag(tags[key].Key, tags[key].Value)
+	}
 
 	if traceID, ok := span.Context().(jaeger.SpanContext); ok {
 		if len(fields) == 0 {
