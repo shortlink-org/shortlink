@@ -8,6 +8,7 @@ option go_package = "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 // that all commands should have
 message BaseCommand {
   string type = 1;
+  // AggregateID represents the id of the aggregate to apply to
   string aggregate_id = 2;
   string aggregate_type = 3;
   int32 version = 4;
