@@ -36,7 +36,7 @@
 ################################################################
 [http.routers.link]
   entryPoints = ["websecure"]
-  rule = "PathPrefix(`/link_rpc.Link/`)"
+  rule = "PathPrefix(`/infrastructure.rpc.link.v1.LinkCommandService/`, `/infrastructure.rpc.link.v1.LinkQueryService/`)"
   service = "link"
   [http.routers.link.tls]
     certResolver = "default"

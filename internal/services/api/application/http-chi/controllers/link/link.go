@@ -13,6 +13,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v12 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
 
 var (
@@ -49,6 +50,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		Url:      request.Url,
 		Describe: request.Describe,
 	}
+	var response *v12.AddResponse
 
 	responseCh := make(chan interface{})
 
@@ -65,7 +67,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			newLink = resp.Payload.(*v1.Link) // nolint errcheck
+			response = resp.Payload.(*v12.AddResponse) // nolint errcheck
 		}
 	}
 
@@ -75,7 +77,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := jsonpb.Marshal(newLink)
+	res, err := jsonpb.Marshal(response.Link)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -98,7 +100,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		response *v1.Link
+		response *v12.GetResponse
 		err      error
 	)
 
@@ -116,7 +118,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.(*v1.Link) // nolint errcheck
+			response = resp.Payload.(*v12.GetResponse) // nolint errcheck
 		}
 	}
 
@@ -132,7 +134,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := jsonpb.Marshal(response)
+	res, err := jsonpb.Marshal(response.Link)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -151,7 +153,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	filter := r.URL.Query().Get("filter")
 
 	var (
-		response *v1.Links
+		response *v12.ListResponse
 		err      error
 	)
 
@@ -169,7 +171,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.(*v1.Links) // nolint errcheck
+			response = resp.Payload.(*v12.ListResponse) // nolint errcheck
 		}
 	}
 
@@ -185,7 +187,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := jsonpb.Marshal(response)
+	res, err := jsonpb.Marshal(response.GetLinks())
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
