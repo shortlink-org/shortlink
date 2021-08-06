@@ -12,7 +12,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	link_domain "github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
 var (
@@ -37,7 +37,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
-	var request link_domain.Link
+	var request v1.Link
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -45,7 +45,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newLink := &link_domain.Link{
+	newLink := &v1.Link{
 		Url:      request.Url,
 		Describe: request.Describe,
 	}
@@ -65,7 +65,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			newLink = resp.Payload.(*link_domain.Link) // nolint errcheck
+			newLink = resp.Payload.(*v1.Link) // nolint errcheck
 		}
 	}
 
@@ -98,7 +98,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		response *link_domain.Link
+		response *v1.Link
 		err      error
 	)
 
@@ -116,11 +116,11 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.(*link_domain.Link) // nolint errcheck
+			response = resp.Payload.(*v1.Link) // nolint errcheck
 		}
 	}
 
-	var errorLink *link_domain.NotFoundError
+	var errorLink *v1.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -151,7 +151,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	filter := r.URL.Query().Get("filter")
 
 	var (
-		response *link_domain.Links
+		response *v1.Links
 		err      error
 	)
 
@@ -169,11 +169,11 @@ func List(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.(*link_domain.Links) // nolint errcheck
+			response = resp.Payload.(*v1.Links) // nolint errcheck
 		}
 	}
 
-	var errorLink *link_domain.NotFoundError
+	var errorLink *v1.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck

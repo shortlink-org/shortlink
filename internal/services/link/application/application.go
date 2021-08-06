@@ -12,7 +12,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	link_store "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
@@ -51,7 +51,7 @@ func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error 
 	return nil
 }
 
-func (s *Service) AddLink(ctx context.Context, in *link.Link) (*link.Link, error) {
+func (s *Service) AddLink(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	const (
 		SAGA_NAME                        = "ADD_LINK"
 		SAGA_STEP_STORE_SAVE             = "SAGA_STEP_STORE_SAVE"
@@ -101,7 +101,7 @@ func (s *Service) AddLink(ctx context.Context, in *link.Link) (*link.Link, error
 	// add step: publish event by this service
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
-			notify.Publish(ctx, uint32(link.LinkEvent_ADD), in, nil)
+			notify.Publish(ctx, uint32(v1.LinkEvent_LINK_EVENT_ADD), in, nil)
 			return nil
 		}).
 		Build()
@@ -118,13 +118,13 @@ func (s *Service) AddLink(ctx context.Context, in *link.Link) (*link.Link, error
 	return in, nil
 }
 
-func (s *Service) GetLink(ctx context.Context, hash string) (*link.Link, error) {
+func (s *Service) GetLink(ctx context.Context, hash string) (*v1.Link, error) {
 	const (
 		SAGA_NAME           = "GET_LINK"
 		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_GET"
 	)
 
-	resp := &link.Link{}
+	resp := &v1.Link{}
 
 	// create a new saga for get link by hash
 	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
@@ -153,13 +153,13 @@ func (s *Service) GetLink(ctx context.Context, hash string) (*link.Link, error) 
 	}
 
 	if resp == nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: hash}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: hash}, Err: fmt.Errorf("Not found links")}
 	}
 
 	return resp, nil
 }
 
-func (s *Service) ListLink(ctx context.Context, in string) (*link.Links, error) {
+func (s *Service) ListLink(ctx context.Context, in string) (*v1.Links, error) {
 	// Parse args
 	filter := &query.Filter{}
 
@@ -175,7 +175,7 @@ func (s *Service) ListLink(ctx context.Context, in string) (*link.Links, error) 
 		SAGA_STEP_STORE_LIST = "SAGA_STEP_STORE_LIST"
 	)
 
-	resp := &link.Links{}
+	resp := &v1.Links{}
 
 	// create a new saga for get list of link
 	sagaListLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
@@ -206,11 +206,11 @@ func (s *Service) ListLink(ctx context.Context, in string) (*link.Links, error) 
 	return resp, nil
 }
 
-func (s *Service) UpdateLink(ctx context.Context, in *link.Link) (*link.Link, error) {
+func (s *Service) UpdateLink(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
-func (s *Service) DeleteLink(ctx context.Context, hash string) (*link.Link, error) {
+func (s *Service) DeleteLink(ctx context.Context, hash string) (*v1.Link, error) {
 	const (
 		SAGA_NAME              = "DELETE_LINK"
 		SAGA_STEP_STORE_DELETE = "SAGA_STEP_STORE_DELETE"

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
 // API ...
@@ -18,7 +18,7 @@ type getRequest struct { // nolint unused
 
 // ResponseLink for custom JSON parsing
 type ResponseLink struct { // nolint unused
-	*link.Link
+	*v1.Link
 }
 
 func (l ResponseLink) MarshalJSON() ([]byte, error) {

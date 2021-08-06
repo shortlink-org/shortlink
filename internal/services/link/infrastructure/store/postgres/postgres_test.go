@@ -16,7 +16,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/db/options"
 	db "github.com/batazor/shortlink/internal/pkg/db/postgres"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/mock"
 )
 
@@ -142,12 +142,12 @@ func TestPostgres(t *testing.T) {
 	})
 }
 
-func getLink() (*link.Link, error) {
-	data := &link.Link{
+func getLink() (*v1.Link, error) {
+	data := &v1.Link{
 		Url:      fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load()),
 		Describe: mock.AddLink.Describe,
 	}
-	if err := link.NewURL(data); err != nil {
+	if err := v1.NewURL(data); err != nil {
 		return nil, err
 	}
 	linkUniqId.Inc()

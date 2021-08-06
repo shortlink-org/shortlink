@@ -8,7 +8,7 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
 
@@ -24,8 +24,8 @@ func (s *Store) Init(_ context.Context, db *db.Store) error {
 }
 
 // Add ...
-func (l *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
-	err := link.NewURL(source)
+func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
+	err := v1.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -44,13 +44,13 @@ func (l *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
 }
 
 // Get ...
-func (l *Store) Get(ctx context.Context, id string) (*link.Link, error) {
+func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
-	var response link.Link
+	var response v1.Link
 
 	err = json.Unmarshal(value, &response)
 	if err != nil {
@@ -58,16 +58,16 @@ func (l *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	}
 
 	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
 // List ...
-func (l *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
-	links := &link.Links{
-		Link: []*link.Link{},
+func (l *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
+	links := &v1.Links{
+		Link: []*v1.Link{},
 	}
 	iterator := l.client.NewIterator(nil, nil)
 
@@ -76,11 +76,11 @@ func (l *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
 		// only valid until the next call to Next.
 		value := iterator.Value()
 
-		var response link.Link
+		var response v1.Link
 
 		err := json.Unmarshal(value, &response)
 		if err != nil {
-			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
 		links.Link = append(links.Link, &response)
@@ -89,14 +89,14 @@ func (l *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
 	iterator.Release()
 	err := iterator.Error()
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
 	return links, nil
 }
 
 // Update ...
-func (l *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
+func (l *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 

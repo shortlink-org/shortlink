@@ -10,20 +10,20 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"google.golang.org/grpc"
 
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
 // DGraphLink implementation of db interface
 type DGraphLink struct { // nolint unused
-	Uid        string `json:"uid,omitempty"`
-	*link.Link `json:"link,omitempty"`
-	DType      []string `json:"dgraph.type,omitempty"`
+	Uid      string `json:"uid,omitempty"`
+	*v1.Link `json:"link,omitempty"`
+	DType    []string `json:"dgraph.type,omitempty"`
 }
 
 // DGraphLinkResponse ...
 type DGraphLinkResponse struct { // nolint unused
 	Link []struct {
-		*link.Link
+		*v1.Link
 		Uid string `json:"uid,omitempty"`
 	}
 }

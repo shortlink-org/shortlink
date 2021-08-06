@@ -1,5 +1,3 @@
-//go:generate protoc -I. -I../../../ --gotemplate_out=all=true,template_dir=template:. link/domain/link/link.proto
-
 package graphql
 
 import (

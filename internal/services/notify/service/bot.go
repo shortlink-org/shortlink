@@ -13,7 +13,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/notify/di"
 	bot_type "github.com/batazor/shortlink/internal/services/notify/type"
 )
@@ -50,7 +50,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 			msg := <-getEventNewLink.Chan
 
 			// Convert: []byte to link.Link
-			myLink := &link.Link{}
+			myLink := &v1.Link{}
 			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
 				b.Log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				continue
@@ -70,7 +70,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response {
 	switch event {
 	case bot_type.METHOD_NEW_LINK:
-		if addLink, ok := payload.(*link.Link); ok {
+		if addLink, ok := payload.(*v1.Link); ok {
 			b.Send(ctx, addLink)
 		}
 	}
@@ -78,7 +78,7 @@ func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) not
 	return notify.Response{}
 }
 
-func (b *Bot) Send(ctx context.Context, link *link.Link) {
+func (b *Bot) Send(ctx context.Context, link *v1.Link) {
 	payload := fmt.Sprintf("LINK: %s", link.Url)
 
 	notify.Publish(ctx, bot_type.METHOD_SEND_NEW_LINK, payload, nil)

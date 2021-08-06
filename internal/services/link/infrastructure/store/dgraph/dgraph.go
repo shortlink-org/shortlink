@@ -9,21 +9,21 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
 
 // DGraphLink implementation of db interface
 type DGraphLink struct { // nolint unused
-	Uid        string `json:"uid,omitempty"`
-	*link.Link `json:"link,omitempty"`
-	DType      []string `json:"dgraph.type,omitempty"`
+	Uid      string `json:"uid,omitempty"`
+	*v1.Link `json:"link,omitempty"`
+	DType    []string `json:"dgraph.type,omitempty"`
 }
 
 // DGraphLinkResponse ...
 type DGraphLinkResponse struct { // nolint unused
 	Link []struct {
-		*link.Link
+		*v1.Link
 		Uid string `json:"uid,omitempty"`
 	}
 }
@@ -63,20 +63,20 @@ query all($a: string) {
 
 	val, err := txn.QueryWithVars(ctx, q, map[string]string{"$a": id})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var response DGraphLinkResponse
 
 	if err = json.Unmarshal(val.Json, &response); err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
 	return &response, nil
 }
 
 // Get public `get` method
-func (dg *Store) Get(ctx context.Context, id string) (*link.Link, error) {
+func (dg *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	txn := dg.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
@@ -87,11 +87,11 @@ func (dg *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 
 	response, err := dg.get(ctx, id)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	if len(response.Link) == 0 {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return response.Link[0].Link, nil
@@ -134,7 +134,7 @@ query all {
 }
 
 // List ...
-func (dg *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, error) {
+func (dg *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
 	txn := dg.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
@@ -145,14 +145,14 @@ func (dg *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, error)
 
 	responses, err := dg.list(ctx)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
-	links := &link.Links{
-		Link: []*link.Link{},
+	links := &v1.Links{
+		Link: []*v1.Link{},
 	}
 	for _, response := range responses.Link {
-		links.Link = append(links.Link, &link.Link{
+		links.Link = append(links.Link, &v1.Link{
 			Url:      response.Url,
 			Hash:     response.Hash,
 			Describe: response.Describe,
@@ -163,8 +163,8 @@ func (dg *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, error)
 }
 
 // Add ...
-func (dg *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	err := link.NewURL(source)
+func (dg *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
+	err := v1.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -200,14 +200,14 @@ func (dg *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error)
 	}
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
 	return source, nil
 }
 
 // Update ...
-func (dg *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
+func (dg *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
@@ -223,7 +223,7 @@ func (dg *Store) Delete(ctx context.Context, id string) error {
 
 	links, err := dg.get(ctx, id)
 	if err != nil {
-		return &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	if len(links.Link) == 0 {

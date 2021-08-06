@@ -262,6 +262,54 @@ func (p *Store) buildFilter(query squirrel.SelectBuilder, filter *query.Filter) 
 				clausesNotLike["updated_at"] = filter.Updated_at.NotContains
 			}
 		}
+
+		if filter.Link != nil {
+			if filter.Link.Eq != nil {
+				clausesEq["link"] = filter.Link.Eq
+			}
+		}
+
+		if filter.Link != nil {
+			if filter.Link.Ne != nil {
+				clausesNotEq["link"] = filter.Link.Ne
+			}
+		}
+
+		if filter.Link != nil {
+			if filter.Link.Lt != nil {
+				clausesLt["link"] = filter.Link.Lt
+			}
+		}
+
+		if filter.Link != nil {
+			if filter.Link.Le != nil {
+				clausesLtOrEq["link"] = filter.Link.Le
+			}
+		}
+
+		if filter.Link != nil {
+			if filter.Link.Gt != nil {
+				clausesGt["link"] = filter.Link.Gt
+			}
+		}
+
+		if filter.Link != nil {
+			if filter.Link.Ge != nil {
+				clausesGtOrEq["link"] = filter.Link.Ge
+			}
+		}
+
+		if filter.Link != nil {
+			if filter.Link.Contains != nil {
+				clausesLike["link"] = filter.Link.Contains
+			}
+		}
+
+		if filter.Link != nil {
+			if filter.Link.NotContains != nil {
+				clausesNotLike["link"] = filter.Link.NotContains
+			}
+		}
 		query = query.Where(clausesEq)
 		query = query.Where(clausesNotEq)
 		query = query.Where(clausesLt)

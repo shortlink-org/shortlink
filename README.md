@@ -30,7 +30,7 @@ Shortlink service
 | Service     | Description                                 | Language/Framework        | Docs                                     |
 |-------------|---------------------------------------------|---------------------------|------------------------------------------|
 | landing     | Welcome page                                | JS/JQuery                 |                                          |
-| docs        | Example blog                                | [Hugo](https://gohugo.io) | https://shrts.ru                         |
+| docs        | Example blog                                | [Hugo](https://gohugo.io) | https://batazor.github.io/shortlink/     |
 | next        | UI service                                  | JS/NextJS                 | [docs](./ui/next/README.md)              |
 | api         | GateWay                                     | Go                        | [docs](./docs/services/api.md)           |
 | link        | Link service                                | Go                        | [docs](./docs/services/link.md)          |

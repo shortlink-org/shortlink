@@ -15,7 +15,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/batch"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/db/options"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
 
@@ -28,10 +28,10 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 	// Create batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
 		cb := func(args []*batch.Item) interface{} {
-			sources := make([]*link.Link, len(args))
+			sources := make([]*v1.Link, len(args))
 
 			for key := range args {
-				sources[key] = args[key].Item.(*link.Link)
+				sources[key] = args[key].Item.(*v1.Link)
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
@@ -63,7 +63,7 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 }
 
 // Add ...
-func (m *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
+func (m *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	switch m.config.mode {
 	case options.MODE_BATCH_WRITE:
 		cb, err := m.config.job.Push(source)
@@ -77,7 +77,7 @@ func (m *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) 
 			return nil, err
 		case query.StoreError:
 			return nil, errors.New(data.Value)
-		case *link.Link:
+		case *v1.Link:
 			return data, nil
 		default:
 			return nil, nil
@@ -91,7 +91,7 @@ func (m *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) 
 }
 
 // Get ...
-func (m *Store) Get(ctx context.Context, id string) (*link.Link, error) {
+func (m *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
@@ -100,20 +100,20 @@ func (m *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 
 	if val.Err() != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
-	var response link.Link
+	var response v1.Link
 
 	if err := val.Decode(&response); err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
 	return &response, nil
 }
 
 // List ...
-func (m *Store) List(ctx context.Context, filter *query.Filter) (*link.Links, error) { // nolint unused
+func (m *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) { // nolint unused
 	collection := m.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
@@ -128,25 +128,25 @@ func (m *Store) List(ctx context.Context, filter *query.Filter) (*link.Links, er
 	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, filterQuery)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
 	if cur.Err() != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
 	// Here's an array in which you can db the decoded documents
-	links := &link.Links{
-		Link: []*link.Link{},
+	links := &v1.Links{
+		Link: []*v1.Link{},
 	}
 
 	// Finding multiple documents returns a cursor
 	// Iterating through the cursor allows us to decode documents one at a time
 	for cur.Next(context.TODO()) {
 		// create a value into which the single document can be decoded
-		var elem link.Link
+		var elem v1.Link
 		if errDecode := cur.Decode(&elem); errDecode != nil {
-			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
 		links.Link = append(links.Link, &elem)
@@ -162,7 +162,7 @@ func (m *Store) List(ctx context.Context, filter *query.Filter) (*link.Links, er
 }
 
 // Update ...
-func (m *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
+func (m *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
@@ -175,14 +175,14 @@ func (m *Store) Delete(ctx context.Context, id string) error {
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 	if err != nil {
-		return &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Failed save link: %s", id)}
+		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 
 	return nil
 }
 
-func (m *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link, error) { // nolint unused
-	err := link.NewURL(source)
+func (m *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, error) { // nolint unused
+	err := v1.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -200,24 +200,24 @@ func (m *Store) singleWrite(ctx context.Context, source *link.Link) (*link.Link,
 		if errors.As(err, &typeErr) {
 			switch typeErr.WriteErrors[0].Code {
 			case 11000:
-				return nil, &link.NotUniqError{Link: source, Err: fmt.Errorf("Duplicate URL: %s", source.Url)}
+				return nil, &v1.NotUniqError{Link: source, Err: fmt.Errorf("Duplicate URL: %s", source.Url)}
 			default:
-				return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
+				return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
 			}
 		}
 
-		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
 	}
 
 	return source, nil
 }
 
-func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) (*link.Links, error) { // nolint unused
+func (m *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, error) { // nolint unused
 	docs := make([]interface{}, len(sources))
 
 	// Create a new link
 	for key := range sources {
-		err := link.NewURL(sources[key])
+		err := v1.NewURL(sources[key])
 		if err != nil {
 			return nil, err
 		}
@@ -235,8 +235,8 @@ func (m *Store) batchWrite(ctx context.Context, sources []*link.Link) (*link.Lin
 		return nil, err
 	}
 
-	links := &link.Links{
-		Link: []*link.Link{},
+	links := &v1.Links{
+		Link: []*v1.Link{},
 	}
 
 	for item := range sources {

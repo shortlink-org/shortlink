@@ -16,14 +16,14 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
 
 // Endpoints are a primary abstraction in go-kit. An endpoint represents a single RPC (method in our service interface)
 func makeAddLinkEndpoint() endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		req, ok := request.(*link.Link)
+		req, ok := request.(*v1.Link)
 		if !ok {
 			return nil, nil
 		}
@@ -38,7 +38,7 @@ func makeAddLinkEndpoint() endpoint.Endpoint {
 		case nil:
 			return nil, fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
 		case notify.Response:
-			return r.Payload.(*link.Link), nil
+			return r.Payload.(*v1.Link), nil
 		}
 
 		return nil, nil
@@ -58,7 +58,7 @@ func makeGetLinkEndpoint() endpoint.Endpoint {
 		}
 
 		var (
-			response     *link.Link
+			response     *v1.Link
 			responseLink ResponseLink // for custom JSON parsing
 			err          error
 		)
@@ -74,11 +74,11 @@ func makeGetLinkEndpoint() endpoint.Endpoint {
 		case notify.Response:
 			err = r.Error
 			if err == nil {
-				response = r.Payload.(*link.Link) // nolint errcheck
+				response = r.Payload.(*v1.Link) // nolint errcheck
 			}
 		}
 
-		var errorLink *link.NotFoundError
+		var errorLink *v1.NotFoundError
 		if errors.As(err, &errorLink) {
 			return nil, errors.New(`{"error": "` + err.Error() + `"}`)
 		}
@@ -97,7 +97,7 @@ func makeGetLinkEndpoint() endpoint.Endpoint {
 func makeGetListLinkEndpoint() endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
 		var (
-			response     []*link.Link
+			response     []*v1.Link
 			responseLink []ResponseLink // for custom JSON parsing
 			err          error
 		)
@@ -114,7 +114,7 @@ func makeGetListLinkEndpoint() endpoint.Endpoint {
 		case notify.Response:
 			err = r.Error
 			if err == nil {
-				response = r.Payload.([]*link.Link) // nolint errcheck
+				response = r.Payload.([]*v1.Link) // nolint errcheck
 			}
 		}
 
@@ -129,7 +129,7 @@ func makeGetListLinkEndpoint() endpoint.Endpoint {
 func makeDeleteLinkEndpoint() endpoint.Endpoint {
 	return func(ctx context.Context, r interface{}) (interface{}, error) {
 		var err error
-		req, ok := r.(*link.Link)
+		req, ok := r.(*v1.Link)
 		if !ok {
 			return nil, nil
 		}
@@ -205,7 +205,7 @@ func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logge
 }
 
 func decodeAddListRequest(_ context.Context, r *http.Request) (interface{}, error) {
-	var request link.Link
+	var request v1.Link
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		return nil, err
 	}
