@@ -15,7 +15,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/badger"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/dgraph"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/leveldb"
@@ -35,11 +35,11 @@ func (s *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*
 	s.setConfig()
 
 	// Subscribe to Event
-	//notify.Subscribe(uint32(link.LinkEvent_ADD), store)
-	//notify.Subscribe(uint32(link.LinkEvent_GET), store)
-	//notify.Subscribe(uint32(link.LinkEvent_LIST), store)
-	//notify.Subscribe(uint32(link.LinkEvent_UPDATE), store)
-	//notify.Subscribe(uint32(link.LinkEvent_DELETE), store)
+	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_ADD), store)
+	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_GET), store)
+	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_LIST), store)
+	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_UPDATE), store)
+	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_DELETE), store)
 
 	switch s.typeStore {
 	case "postgres":
@@ -80,14 +80,14 @@ func (s *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*
 
 // Notify ...
 func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
-	switch link.LinkEvent(event) {
-	case link.LinkEvent_ADD:
+	switch v1.LinkEvent(event) {
+	case v1.LinkEvent_LINK_EVENT_ADD:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store add new link")
 		span.SetTag("store", s.typeStore)
 		defer span.Finish()
 
-		if addLink, ok := payload.(*link.Link); ok {
+		if addLink, ok := payload.(*v1.Link); ok {
 			payload, err := s.Store.Add(newCtx, addLink)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_ADD",
@@ -101,7 +101,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
-	case link.LinkEvent_GET:
+	case v1.LinkEvent_LINK_EVENT_GET:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get link")
 		span.SetTag("store", s.typeStore)
@@ -113,7 +113,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: link,
 			Error:   err,
 		}
-	case link.LinkEvent_LIST:
+	case v1.LinkEvent_LINK_EVENT_LIST:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get links")
 		span.SetTag("store", s.typeStore)
@@ -142,13 +142,13 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: payload,
 			Error:   err,
 		}
-	case link.LinkEvent_UPDATE:
+	case v1.LinkEvent_LINK_EVENT_UPDATE:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store update link")
 		span.SetTag("store", s.typeStore)
 		defer span.Finish()
 
-		if linkUpdate, ok := payload.(*link.Link); ok {
+		if linkUpdate, ok := payload.(*v1.Link); ok {
 			payload, err := s.Store.Update(newCtx, linkUpdate)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_UPDATE",
@@ -162,7 +162,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
-	case link.LinkEvent_DELETE:
+	case v1.LinkEvent_LINK_EVENT_DELETE:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store delete link")
 		span.SetTag("store", s.typeStore)

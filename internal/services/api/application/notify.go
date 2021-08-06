@@ -6,8 +6,8 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
-	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
 
 // Notify ...
@@ -21,9 +21,9 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 				Error:   nil,
 			}
 
-			if linkRaw, ok := payload.(*link.Link); ok {
+			if linkRaw, ok := payload.(*v1.Link); ok {
 				// Save link
-				linkResp, err := s.LinkClient.Add(ctx, linkRaw)
+				linkResp, err := s.LinkCommandServiceClient.Add(ctx, &link_rpc.AddRequest{Link: linkRaw})
 				if err != nil {
 					resp.Error = err
 				}
@@ -46,7 +46,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 
 			// TODO: use URL address?
 			if hash, ok := payload.(string); ok {
-				linkResp, err := s.LinkClient.Get(ctx, &link_rpc.GetRequest{Hash: hash})
+				linkResp, err := s.LinkQueryServiceClient.Get(ctx, &link_rpc.GetRequest{Hash: hash})
 				if err != nil {
 					resp.Error = err
 				}
@@ -69,7 +69,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 
 			// TODO: use URL address?
 			if filter, ok := payload.(string); ok {
-				linkResp, err := s.LinkClient.List(ctx, &link_rpc.ListRequest{Filter: filter})
+				linkResp, err := s.LinkQueryServiceClient.List(ctx, &link_rpc.ListRequest{Filter: filter})
 				if err != nil {
 					resp.Error = err
 				}
@@ -91,8 +91,8 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 			}
 
 			// TODO: use URL address?
-			if request, ok := payload.(*link.Link); ok {
-				linkResp, err := s.LinkClient.Update(ctx, request)
+			if request, ok := payload.(*v1.Link); ok {
+				linkResp, err := s.LinkCommandServiceClient.Update(ctx, &link_rpc.UpdateRequest{Link: request})
 				if err != nil {
 					resp.Error = err
 				}
@@ -115,7 +115,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 
 			// TODO: use URL address?
 			if hash, ok := payload.(string); ok {
-				linkResp, err := s.LinkClient.Delete(ctx, &link_rpc.DeleteRequest{Hash: hash})
+				linkResp, err := s.LinkCommandServiceClient.Delete(ctx, &link_rpc.DeleteRequest{Hash: hash})
 				if err != nil {
 					resp.Error = err
 				}

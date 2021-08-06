@@ -16,7 +16,7 @@ import (
 
 	db "github.com/batazor/shortlink/internal/pkg/db/mongo"
 	"github.com/batazor/shortlink/internal/pkg/db/options"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/mock"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
@@ -146,12 +146,12 @@ func TestMongo(t *testing.T) {
 	})
 }
 
-func getLink() (*link.Link, error) {
-	source := &link.Link{
+func getLink() (*v1.Link, error) {
+	source := &v1.Link{
 		Url:      fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load()),
 		Describe: mock.AddLink.Describe,
 	}
-	if err := link.NewURL(source); err != nil {
+	if err := v1.NewURL(source); err != nil {
 		return nil, err
 	}
 	linkUniqId.Inc()

@@ -4,12 +4,12 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
 
 //gocyclo:ignore
-func isFilterSuccess(link *link.Link, filter *query.Filter) bool {
+func isFilterSuccess(link *v1.Link, filter *query.Filter) bool {
 	// Skip empty filter
 	if filter == nil {
 		return true

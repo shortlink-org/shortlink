@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	rpc "github.com/batazor/shortlink/internal/services/metadata/domain"
 )
 
@@ -18,12 +18,12 @@ type Store struct {
 func (s *Store) Get(_ context.Context, id string) (*rpc.Meta, error) {
 	response, ok := s.metadata.Load(id)
 	if !ok {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	v, ok := response.(*rpc.Meta)
 	if !ok {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return v, nil

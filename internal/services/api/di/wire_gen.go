@@ -9,7 +9,7 @@ import (
 	"context"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/services/api/application"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
@@ -24,11 +24,15 @@ func InitializeAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, ru
 	if err != nil {
 		return nil, nil, err
 	}
-	linkClient, err := NewLinkRPCClient(runRPCClient)
+	linkCommandServiceClient, err := NewLinkCommandRPCClient(runRPCClient)
 	if err != nil {
 		return nil, nil, err
 	}
-	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataClient, linkClient)
+	linkQueryServiceClient, err := NewLinkQueryRPCClient(runRPCClient)
+	if err != nil {
+		return nil, nil, err
+	}
+	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataClient, linkCommandServiceClient, linkQueryServiceClient)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -52,7 +56,8 @@ type APIService struct {
 // APIService ==========================================================================================================
 var APISet = wire.NewSet(
 
-	NewLinkRPCClient,
+	NewLinkCommandRPCClient,
+	NewLinkQueryRPCClient,
 	NewMetadataRPCClient,
 
 	NewAPIApplication,
@@ -60,9 +65,14 @@ var APISet = wire.NewSet(
 	NewAPIService,
 )
 
-func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkClient, error) {
-	linkRPCClient := link_rpc.NewLinkClient(runRPCClient)
-	return linkRPCClient, nil
+func NewLinkCommandRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkCommandServiceClient, error) {
+	LinkCommandRPCClient := v1.NewLinkCommandServiceClient(runRPCClient)
+	return LinkCommandRPCClient, nil
+}
+
+func NewLinkQueryRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkQueryServiceClient, error) {
+	LinkQueryRPCClient := v1.NewLinkQueryServiceClient(runRPCClient)
+	return LinkQueryRPCClient, nil
 }
 
 func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataClient, error) {
@@ -70,11 +80,20 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataC
 	return metadataRPCClient, nil
 }
 
-func NewAPIApplication(ctx context.Context, logger2 logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, metadataClient metadata_rpc.MetadataClient, linkClient link_rpc.LinkClient) (*api_application.Server, error) {
+func NewAPIApplication(
+	ctx context.Context, logger2 logger.Logger,
+
+	tracer *opentracing.Tracer,
+	rpcServer *rpc.RPCServer,
+	metadataClient metadata_rpc.MetadataClient,
+	linkCommandRPCClient v1.LinkCommandServiceClient,
+	linkQueryRPCClient v1.LinkQueryServiceClient,
+) (*api_application.Server, error) {
 
 	API := api_application.Server{
-		MetadataClient: metadataClient,
-		LinkClient:     linkClient,
+		MetadataClient:           metadataClient,
+		LinkCommandServiceClient: linkCommandRPCClient,
+		LinkQueryServiceClient:   linkQueryRPCClient,
 	}
 
 	apiService, err := API.RunAPIServer(ctx, logger2, tracer, rpcServer)

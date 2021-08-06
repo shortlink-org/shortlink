@@ -12,9 +12,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/application"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	v1_2 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 	"github.com/batazor/shortlink/pkg/rpc"
@@ -59,7 +59,7 @@ type LinkService struct {
 	Logger logger.Logger
 
 	// Delivery
-	linkRPCServer *link_rpc.Link
+	linkRPCServer *v1.Link
 
 	// Application
 	service *link_application.Service
@@ -87,7 +87,7 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Even
 	linkMQ := &api_mq.Event{
 		MQ: mq2,
 	}
-	notify.Subscribe(uint32(link.LinkEvent_ADD), linkMQ)
+	notify.Subscribe(uint32(v1_2.LinkEvent_LINK_EVENT_ADD), linkMQ)
 
 	return linkMQ, nil
 }
@@ -111,8 +111,8 @@ func NewLinkApplication(logger2 logger.Logger, metadataService metadata_rpc.Meta
 	return linkService, nil
 }
 
-func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link_application.Service, log logger.Logger) (*link_rpc.Link, error) {
-	linkRPCServer, err := link_rpc.New(runRPCServer, application, log)
+func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link_application.Service, log logger.Logger) (*v1.Link, error) {
+	linkRPCServer, err := v1.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
 	}
@@ -127,7 +127,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataC
 
 func NewLinkService(
 	log logger.Logger,
-	linkRPCServer *link_rpc.Link,
+	linkRPCServer *v1.Link,
 	linkStore *store.LinkStore,
 	service *link_application.Service,
 	linkMQ *api_mq.Event,

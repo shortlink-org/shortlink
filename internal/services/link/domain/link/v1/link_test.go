@@ -1,6 +1,6 @@
 // +build unit
 
-package link
+package v1
 
 import (
 	"testing"

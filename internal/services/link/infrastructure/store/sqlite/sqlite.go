@@ -9,7 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
 
@@ -26,7 +26,7 @@ func (s *Store) Init(_ context.Context, db *db.Store) error {
 }
 
 // Get ...
-func (lite *Store) Get(ctx context.Context, id string) (*link.Link, error) {
+func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links").
@@ -38,21 +38,21 @@ func (lite *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 
 	stmt, err := lite.client.Prepare(query)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 	defer stmt.Close() // nolint errcheck
 
-	var response link.Link
+	var response v1.Link
 	err = stmt.QueryRowContext(ctx, args...).Scan(&response.Url, &response.Hash, &response.Describe)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
 // List ...
-func (lite *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, error) {
+func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")
@@ -63,19 +63,19 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, erro
 
 	rows, err := lite.client.QueryContext(ctx, query, args...)
 	if err != nil || rows.Err() != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 	defer rows.Close() // nolint errcheck
 
-	response := &link.Links{
-		Link: []*link.Link{},
+	response := &v1.Links{
+		Link: []*v1.Link{},
 	}
 
 	for rows.Next() {
-		var result link.Link
+		var result v1.Link
 		err = rows.Scan(&result.Url, &result.Hash, &result.Describe)
 		if err != nil {
-			return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
 		response.Link = append(response.Link, &result)
@@ -85,8 +85,8 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*link.Links, erro
 }
 
 // Add ...
-func (lite *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	err := link.NewURL(source)
+func (lite *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
+	err := v1.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -103,14 +103,14 @@ func (lite *Store) Add(ctx context.Context, source *link.Link) (*link.Link, erro
 
 	_, err = lite.client.ExecContext(ctx, query, args...)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
 	return source, nil
 }
 
 // Update ...
-func (lite *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
+func (lite *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
@@ -126,7 +126,7 @@ func (lite *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = lite.client.ExecContext(ctx, query, args...)
 	if err != nil {
-		return &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
 
 	return nil

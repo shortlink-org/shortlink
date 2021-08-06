@@ -1,6 +1,6 @@
 // +build gofuzz
 
-package link
+package v1
 
 func Fuzz(link []byte) int { // nolint unparam
 	data := &Link{Url: string(link)}

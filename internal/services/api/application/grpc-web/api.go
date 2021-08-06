@@ -13,11 +13,11 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/application/grpc-web/helpers"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
 // GetLink ...
-func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error) {
+func (api *API) GetLink(ctx context.Context, req *v1.Link) (*v1.Link, error) {
 	responseCh := make(chan interface{})
 
 	go notify.Publish(ctx, api_type.METHOD_GET, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
@@ -35,7 +35,7 @@ func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error)
 		if err != nil {
 			return nil, err
 		}
-		response := r.Payload.(*link.Link) // nolint errcheck
+		response := r.Payload.(*v1.Link) // nolint errcheck
 		return response, nil
 	default:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
@@ -44,7 +44,7 @@ func (api *API) GetLink(ctx context.Context, req *link.Link) (*link.Link, error)
 }
 
 // GetLinks ...
-func (api *API) GetLinks(ctx context.Context, req *ListRequest) (*link.Links, error) {
+func (api *API) GetLinks(ctx context.Context, req *ListRequest) (*v1.Links, error) {
 	responseCh := make(chan interface{})
 
 	go notify.Publish(ctx, api_type.METHOD_LIST, req.Filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
@@ -62,9 +62,9 @@ func (api *API) GetLinks(ctx context.Context, req *ListRequest) (*link.Links, er
 		if err != nil {
 			return nil, err
 		}
-		links := r.Payload.([]*link.Link) // nolint errcheck
+		links := r.Payload.([]*v1.Link) // nolint errcheck
 
-		response := link.Links{}
+		response := v1.Links{}
 		for key := range links {
 			response.Link = append(response.Link, links[key])
 		}
@@ -77,7 +77,7 @@ func (api *API) GetLinks(ctx context.Context, req *ListRequest) (*link.Links, er
 }
 
 // CreateLink ...
-func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, error) {
+func (api *API) CreateLink(ctx context.Context, req *v1.Link) (*v1.Link, error) {
 	responseCh := make(chan interface{})
 
 	go notify.Publish(ctx, api_type.METHOD_ADD, req, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
@@ -95,7 +95,7 @@ func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, err
 		if err != nil {
 			return nil, err
 		}
-		response := r.Payload.(*link.Link) // nolint errcheck
+		response := r.Payload.(*v1.Link) // nolint errcheck
 		return response, nil
 	default:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
@@ -104,7 +104,7 @@ func (api *API) CreateLink(ctx context.Context, req *link.Link) (*link.Link, err
 }
 
 // DeleteLink ...
-func (api *API) DeleteLink(ctx context.Context, req *link.Link) (*empty.Empty, error) {
+func (api *API) DeleteLink(ctx context.Context, req *v1.Link) (*empty.Empty, error) {
 	responseCh := make(chan interface{})
 
 	go notify.Publish(ctx, api_type.METHOD_DELETE, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})

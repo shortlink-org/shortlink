@@ -11,10 +11,10 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
 )
 
 type Event struct {
@@ -31,10 +31,10 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 		return notify.Response{}
 	}
 
-	switch link.LinkEvent(event) {
-	case link.LinkEvent_ADD:
+	switch v1.LinkEvent(event) {
+	case v1.LinkEvent_LINK_EVENT_ADD:
 		// TODO: send []byte
-		msg := payload.(*link.Link) // nolint errcheck
+		msg := payload.(*v1.Link) // nolint errcheck
 		data, err := proto.Marshal(msg)
 		if err != nil {
 			return notify.Response{
@@ -53,13 +53,13 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Payload: nil,
 			Error:   err,
 		}
-	case link.LinkEvent_GET:
+	case v1.LinkEvent_LINK_EVENT_GET:
 		panic("implement me")
-	case link.LinkEvent_LIST:
+	case v1.LinkEvent_LINK_EVENT_LIST:
 		panic("implement me")
-	case link.LinkEvent_UPDATE:
+	case v1.LinkEvent_LINK_EVENT_UPDATE:
 		panic("implement me")
-	case link.LinkEvent_DELETE:
+	case v1.LinkEvent_LINK_EVENT_DELETE:
 		panic("implement me")
 	}
 

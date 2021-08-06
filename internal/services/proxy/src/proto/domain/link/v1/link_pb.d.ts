@@ -66,3 +66,12 @@ export namespace Links {
         linkList: Array<Link.AsObject>,
     }
 }
+
+export enum LinkEvent {
+    LINK_EVENT_UNSPECIFIED = 0,
+    LINK_EVENT_ADD = 1,
+    LINK_EVENT_GET = 2,
+    LINK_EVENT_LIST = 3,
+    LINK_EVENT_UPDATE = 4,
+    LINK_EVENT_DELETE = 5,
+}

@@ -10,7 +10,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/batch"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/db/options"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
 
@@ -41,7 +41,7 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 			}
 
 			for key := range args {
-				source := args[key].Item.(*link.Link)
+				source := args[key].Item.(*v1.Link)
 				data, errSingleWrite := s.singleWrite(ctx, source)
 				if errSingleWrite != nil {
 					return errSingleWrite
@@ -66,28 +66,28 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 }
 
 // Get ...
-func (ram *Store) Get(_ context.Context, id string) (*link.Link, error) {
+func (ram *Store) Get(_ context.Context, id string) (*v1.Link, error) {
 	response, ok := ram.links.Load(id)
 	if !ok {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
-	v, ok := response.(*link.Link)
+	v, ok := response.(*v1.Link)
 	if !ok {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return v, nil
 }
 
 // List ...
-func (ram *Store) List(_ context.Context, filter *query.Filter) (*link.Links, error) { // nolint unused
-	links := &link.Links{
-		Link: []*link.Link{},
+func (ram *Store) List(_ context.Context, filter *query.Filter) (*v1.Links, error) { // nolint unused
+	links := &v1.Links{
+		Link: []*v1.Link{},
 	}
 
 	ram.links.Range(func(key interface{}, value interface{}) bool {
-		link, ok := value.(*link.Link)
+		link, ok := value.(*v1.Link)
 		if !ok {
 			return false
 		}
@@ -103,7 +103,7 @@ func (ram *Store) List(_ context.Context, filter *query.Filter) (*link.Links, er
 }
 
 // Add ...
-func (ram *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
+func (ram *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	switch ram.config.mode {
 	case options.MODE_BATCH_WRITE:
 		cb, err := ram.config.job.Push(source)
@@ -115,7 +115,7 @@ func (ram *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error
 		switch data := res.(type) {
 		case error:
 			return nil, data
-		case *link.Link:
+		case *v1.Link:
 			return data, nil
 		default:
 			return nil, nil
@@ -129,7 +129,7 @@ func (ram *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error
 }
 
 // Update ...
-func (ram *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
+func (ram *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
@@ -139,8 +139,8 @@ func (ram *Store) Delete(_ context.Context, id string) error {
 	return nil
 }
 
-func (ram *Store) singleWrite(_ context.Context, source *link.Link) (*link.Link, error) {
-	err := link.NewURL(source) // Create a new link
+func (ram *Store) singleWrite(_ context.Context, source *v1.Link) (*v1.Link, error) {
+	err := v1.NewURL(source) // Create a new link
 	if err != nil {
 		return nil, err
 	}

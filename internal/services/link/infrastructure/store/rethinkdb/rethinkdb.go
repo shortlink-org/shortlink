@@ -8,7 +8,7 @@ import (
 	"gopkg.in/rethinkdb/rethinkdb-go.v6"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
 
@@ -18,7 +18,7 @@ type Store struct { // nolint unused
 }
 
 type Link struct {
-	*link.Link
+	*v1.Link
 	Id string `gorethink:"id,omitempty"`
 }
 
@@ -28,7 +28,7 @@ func (s *Store) Init(_ context.Context, db *db.Store) error {
 	return nil
 }
 
-func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {
+func (r *Store) Get(_ context.Context, id string) (*v1.Link, error) {
 	c, err := rethinkdb.DB("shortlink").Table("link").Get(id).Run(r.client)
 	if err != nil {
 		return nil, err
@@ -36,27 +36,27 @@ func (r *Store) Get(_ context.Context, id string) (*link.Link, error) {
 	defer c.Close()
 
 	if c.IsNil() {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	var customlink Link
 	err = c.One(&customlink)
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return customlink.Link, nil
 }
 
 // TODO: How get all keys?
-func (r *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
-	return &link.Links{
-		Link: make([]*link.Link, 0),
+func (r *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
+	return &v1.Links{
+		Link: make([]*v1.Link, 0),
 	}, nil
 }
 
-func (r *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
-	err := link.NewURL(source)
+func (r *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
+	err := v1.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +74,7 @@ func (r *Store) Add(_ context.Context, source *link.Link) (*link.Link, error) {
 	return source, nil
 }
 
-func (s *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
+func (s *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 

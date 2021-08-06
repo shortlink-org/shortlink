@@ -13,7 +13,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
 	"google.golang.org/grpc"
@@ -73,7 +73,7 @@ var (
 )
 
 func request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, client LinkClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq link.Link
+	var protoReq v1.Link
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -106,7 +106,7 @@ func request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, cl
 }
 
 func local_request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq link.Link
+	var protoReq v1.Link
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -139,7 +139,7 @@ func local_request_Link_GetLink_0(ctx context.Context, marshaler runtime.Marshal
 }
 
 func request_Link_CreateLink_0(ctx context.Context, marshaler runtime.Marshaler, client LinkClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq link.Link
+	var protoReq v1.Link
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -156,7 +156,7 @@ func request_Link_CreateLink_0(ctx context.Context, marshaler runtime.Marshaler,
 }
 
 func local_request_Link_CreateLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq link.Link
+	var protoReq v1.Link
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -177,7 +177,7 @@ var (
 )
 
 func request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler, client LinkClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq link.Link
+	var protoReq v1.Link
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -210,7 +210,7 @@ func request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler,
 }
 
 func local_request_Link_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler, server LinkServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq link.Link
+	var protoReq v1.Link
 	var metadata runtime.ServerMetadata
 
 	var (

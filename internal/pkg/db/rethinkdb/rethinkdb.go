@@ -8,7 +8,7 @@ import (
 	"gopkg.in/rethinkdb/rethinkdb-go.v6"
 
 	"github.com/batazor/shortlink/internal/pkg/tool"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
 // Config ...
@@ -23,7 +23,7 @@ type Store struct { // nolint unused
 }
 
 type Link struct {
-	*link.Link
+	*v1.Link
 	Id string `gorethink:"id,omitempty"`
 }
 

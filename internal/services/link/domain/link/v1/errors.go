@@ -1,4 +1,4 @@
-package link
+package v1
 
 import (
 	"fmt"

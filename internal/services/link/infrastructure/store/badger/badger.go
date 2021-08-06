@@ -8,7 +8,7 @@ import (
 	"github.com/dgraph-io/badger/v3"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
 
@@ -23,7 +23,7 @@ func (_ *Store) Init(_ context.Context, _ *db.Store) error {
 }
 
 // Get ...
-func (b *Store) Get(ctx context.Context, id string) (*link.Link, error) {
+func (b *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	var valCopy []byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
@@ -51,10 +51,10 @@ func (b *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
-	var response link.Link
+	var response v1.Link
 
 	err = json.Unmarshal(valCopy, &response)
 	if err != nil {
@@ -62,14 +62,14 @@ func (b *Store) Get(ctx context.Context, id string) (*link.Link, error) {
 	}
 
 	if response.Url == "" {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
 // List ...
-func (b *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
+func (b *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
@@ -102,11 +102,11 @@ func (b *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &link.NotFoundError{Link: &link.Link{}, Err: fmt.Errorf("not found links: %w", err)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("not found links: %w", err)}
 	}
 
-	response := &link.Links{
-		Link: make([]*link.Link, len(list)),
+	response := &v1.Links{
+		Link: make([]*v1.Link, len(list)),
 	}
 
 	for index, item := range list {
@@ -120,8 +120,8 @@ func (b *Store) List(_ context.Context, _ *query.Filter) (*link.Links, error) {
 }
 
 // Add ...
-func (b *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) {
-	err := link.NewURL(source)
+func (b *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
+	err := v1.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -142,7 +142,7 @@ func (b *Store) Add(ctx context.Context, source *link.Link) (*link.Link, error) 
 }
 
 // Update ...
-func (b *Store) Update(_ context.Context, _ *link.Link) (*link.Link, error) {
+func (b *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
