@@ -44,31 +44,31 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Stor
 
 	switch s.typeStore {
 	case "postgres":
-		s.Store = &postgres.Store{}
+		s.Repository = &postgres.Store{}
 	case "mongo":
-		s.Store = &mongo.Store{}
+		s.Repository = &mongo.Store{}
 	case "mysql":
-		s.Store = &mysql.Store{}
+		s.Repository = &mysql.Store{}
 	case "redis":
-		s.Store = &redis.Store{}
+		s.Repository = &redis.Store{}
 	case "dgraph":
-		s.Store = &dgraph.Store{}
+		s.Repository = &dgraph.Store{}
 	case "sqlite":
-		s.Store = &sqlite.Store{}
+		s.Repository = &sqlite.Store{}
 	case "leveldb":
-		s.Store = &leveldb.Store{}
+		s.Repository = &leveldb.Store{}
 	case "badger":
-		s.Store = &badger.Store{}
+		s.Repository = &badger.Store{}
 	case "rethinkdb":
-		s.Store = &rethinkdb.Store{}
+		s.Repository = &rethinkdb.Store{}
 	case "ram":
-		s.Store = &ram.Store{}
+		s.Repository = &ram.Store{}
 	default:
-		s.Store = &ram.Store{}
+		s.Repository = &ram.Store{}
 	}
 
 	// Init store
-	if err := s.Store.Init(ctx, db); err != nil {
+	if err := s.Init(ctx, db); err != nil {
 		return nil, err
 	}
 
@@ -89,7 +89,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 		defer span.Finish()
 
 		if addLink, ok := payload.(*v1.Link); ok {
-			payload, err := s.Store.Add(newCtx, addLink)
+			payload, err := s.Add(newCtx, addLink)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_ADD",
 				Payload: payload,
@@ -108,7 +108,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 		span.SetTag("store", s.typeStore)
 		defer span.Finish()
 
-		link, err := s.Store.Get(newCtx, payload.(string))
+		link, err := s.Get(newCtx, payload.(string))
 		return notify.Response{
 			Name:    "RESPONSE_STORE_GET",
 			Payload: link,
@@ -137,7 +137,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 			}
 		}
 
-		payload, err := s.Store.List(newCtx, &filter)
+		payload, err := s.List(newCtx, &filter)
 		return notify.Response{
 			Name:    "RESPONSE_STORE_LIST",
 			Payload: payload,
@@ -150,7 +150,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 		defer span.Finish()
 
 		if linkUpdate, ok := payload.(*v1.Link); ok {
-			payload, err := s.Store.Update(newCtx, linkUpdate)
+			payload, err := s.Update(newCtx, linkUpdate)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_UPDATE",
 				Payload: payload,
@@ -169,7 +169,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 		span.SetTag("store", s.typeStore)
 		defer span.Finish()
 
-		err := s.Store.Delete(newCtx, payload.(string))
+		err := s.Delete(newCtx, payload.(string))
 		return notify.Response{
 			Name:    "RESPONSE_STORE_DELETE",
 			Payload: nil,
