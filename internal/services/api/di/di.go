@@ -27,6 +27,7 @@ type APIService struct {
 // APIService ==========================================================================================================
 var APISet = wire.NewSet(
 	// infrastructure
+	NewLinkRPCClient,
 	NewLinkCommandRPCClient,
 	NewLinkQueryRPCClient,
 	NewMetadataRPCClient,
@@ -36,6 +37,11 @@ var APISet = wire.NewSet(
 
 	NewAPIService,
 )
+
+func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient, error) {
+	LinkServiceClient := link_rpc.NewLinkServiceClient(runRPCClient)
+	return LinkServiceClient, nil
+}
 
 func NewLinkCommandRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkCommandServiceClient, error) {
 	LinkCommandRPCClient := link_rpc.NewLinkCommandServiceClient(runRPCClient)
@@ -58,12 +64,14 @@ func NewAPIApplication(
 	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
 	metadataClient metadata_rpc.MetadataClient,
+	linkServiceClient link_rpc.LinkServiceClient,
 	linkCommandRPCClient link_rpc.LinkCommandServiceClient,
 	linkQueryRPCClient link_rpc.LinkQueryServiceClient,
 ) (*api_application.Server, error) {
 	// Run API server
 	API := api_application.Server{
 		MetadataClient:           metadataClient,
+		LinkServiceClient:        linkServiceClient,
 		LinkCommandServiceClient: linkCommandRPCClient,
 		LinkQueryServiceClient:   linkQueryRPCClient,
 	}

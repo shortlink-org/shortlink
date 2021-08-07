@@ -22,7 +22,9 @@ type API interface { // nolint unused
 
 type Server struct {
 	// Delivery
-	MetadataClient           metadata_rpc.MetadataClient
+	MetadataClient metadata_rpc.MetadataClient
+
+	LinkServiceClient        link_rpc.LinkServiceClient
 	LinkCommandServiceClient link_rpc.LinkCommandServiceClient
 	LinkQueryServiceClient   link_rpc.LinkQueryServiceClient
 }
