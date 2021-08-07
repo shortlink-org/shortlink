@@ -11,8 +11,8 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/application"
-	v1_2 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	"github.com/batazor/shortlink/internal/services/api/domain"
+	"github.com/batazor/shortlink/internal/services/link/application/link"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store"
@@ -62,7 +62,7 @@ type LinkService struct {
 	linkRPCServer *v1.Link
 
 	// Application
-	service *link_application.Service
+	service *link.Service
 
 	// Repository
 	linkStore *store.LinkStore
@@ -87,7 +87,7 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Even
 	linkMQ := &api_mq.Event{
 		MQ: mq2,
 	}
-	notify.Subscribe(uint32(v1_2.LinkEvent_LINK_EVENT_ADD), linkMQ)
+	notify.Subscribe(api_domain.METHOD_ADD, linkMQ)
 
 	return linkMQ, nil
 }
@@ -102,8 +102,8 @@ func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*s
 	return linkStore, nil
 }
 
-func NewLinkApplication(logger2 logger.Logger, metadataService metadata_rpc.MetadataClient, store2 *store.LinkStore) (*link_application.Service, error) {
-	linkService, err := link_application.New(logger2, metadataService, store2)
+func NewLinkApplication(logger2 logger.Logger, metadataService metadata_rpc.MetadataClient, store2 *store.LinkStore) (*link.Service, error) {
+	linkService, err := link.New(logger2, metadataService, store2)
 	if err != nil {
 		return nil, err
 	}
@@ -111,7 +111,7 @@ func NewLinkApplication(logger2 logger.Logger, metadataService metadata_rpc.Meta
 	return linkService, nil
 }
 
-func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link_application.Service, log logger.Logger) (*v1.Link, error) {
+func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, log logger.Logger) (*v1.Link, error) {
 	linkRPCServer, err := v1.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -129,7 +129,7 @@ func NewLinkService(
 	log logger.Logger,
 	linkRPCServer *v1.Link,
 	linkStore *store.LinkStore,
-	service *link_application.Service,
+	service *link.Service,
 	linkMQ *api_mq.Event,
 ) (*LinkService, error) {
 	return &LinkService{

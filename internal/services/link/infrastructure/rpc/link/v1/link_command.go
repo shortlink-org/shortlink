@@ -9,7 +9,7 @@ import (
 )
 
 func (l *Link) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
-	resp, err := l.service.AddLink(ctx, in.Link)
+	resp, err := l.service.Add(ctx, in.Link)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
@@ -20,7 +20,7 @@ func (l *Link) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
 }
 
 func (l *Link) Update(ctx context.Context, in *UpdateRequest) (*UpdateResponse, error) {
-	resp, err := l.service.UpdateLink(ctx, in.Link)
+	resp, err := l.service.Update(ctx, in.Link)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
@@ -31,7 +31,7 @@ func (l *Link) Update(ctx context.Context, in *UpdateRequest) (*UpdateResponse, 
 }
 
 func (l *Link) Delete(ctx context.Context, in *DeleteRequest) (*empty.Empty, error) {
-	_, err := l.service.DeleteLink(ctx, in.Hash)
+	_, err := l.service.Delete(ctx, in.Hash)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}

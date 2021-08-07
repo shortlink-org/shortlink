@@ -11,6 +11,7 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/mq"
+	api_domain "github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
@@ -31,8 +32,8 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 		return notify.Response{}
 	}
 
-	switch v1.LinkEvent(event) {
-	case v1.LinkEvent_LINK_EVENT_ADD:
+	switch event {
+	case api_domain.METHOD_ADD:
 		// TODO: send []byte
 		msg := payload.(*v1.Link) // nolint errcheck
 		data, err := proto.Marshal(msg)
@@ -53,13 +54,13 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Payload: nil,
 			Error:   err,
 		}
-	case v1.LinkEvent_LINK_EVENT_GET:
+	case api_domain.METHOD_GET:
 		panic("implement me")
-	case v1.LinkEvent_LINK_EVENT_LIST:
+	case api_domain.METHOD_LIST:
 		panic("implement me")
-	case v1.LinkEvent_LINK_EVENT_UPDATE:
+	case api_domain.METHOD_UPDATE:
 		panic("implement me")
-	case v1.LinkEvent_LINK_EVENT_DELETE:
+	case api_domain.METHOD_DELETE:
 		panic("implement me")
 	}
 

@@ -15,6 +15,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
+	api_domain "github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/badger"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/dgraph"
@@ -35,11 +36,11 @@ func (s *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*
 	s.setConfig()
 
 	// Subscribe to Event
-	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_ADD), store)
-	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_GET), store)
-	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_LIST), store)
-	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_UPDATE), store)
-	//notify.Subscribe(uint32(link.LinkEvent_LINK_EVENT_DELETE), store)
+	//notify.Subscribe(api_domain.METHOD_ADD, store)
+	//notify.Subscribe(api_domain.METHOD_GET, store)
+	//notify.Subscribe(api_domain.METHOD_LIST, store)
+	//notify.Subscribe(api_domain.METHOD_UPDATE, store)
+	//notify.Subscribe(api_domain.METHOD_DELETE, store)
 
 	switch s.typeStore {
 	case "postgres":
@@ -80,8 +81,8 @@ func (s *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*
 
 // Notify ...
 func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
-	switch v1.LinkEvent(event) {
-	case v1.LinkEvent_LINK_EVENT_ADD:
+	switch event {
+	case api_domain.METHOD_ADD:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store add new link")
 		span.SetTag("store", s.typeStore)
@@ -101,7 +102,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
-	case v1.LinkEvent_LINK_EVENT_GET:
+	case api_domain.METHOD_GET:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get link")
 		span.SetTag("store", s.typeStore)
@@ -113,7 +114,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: link,
 			Error:   err,
 		}
-	case v1.LinkEvent_LINK_EVENT_LIST:
+	case api_domain.METHOD_LIST:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get links")
 		span.SetTag("store", s.typeStore)
@@ -142,7 +143,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: payload,
 			Error:   err,
 		}
-	case v1.LinkEvent_LINK_EVENT_UPDATE:
+	case api_domain.METHOD_UPDATE:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store update link")
 		span.SetTag("store", s.typeStore)
@@ -162,7 +163,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
-	case v1.LinkEvent_LINK_EVENT_DELETE:
+	case api_domain.METHOD_DELETE:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store delete link")
 		span.SetTag("store", s.typeStore)
