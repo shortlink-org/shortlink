@@ -8,7 +8,7 @@ import (
 )
 
 func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
-	resp, err := l.service.GetLink(ctx, in.Hash)
+	resp, err := l.service.Get(ctx, in.Hash)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
@@ -19,7 +19,7 @@ func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
 }
 
 func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
-	resp, err := l.service.ListLink(ctx, in.Filter)
+	resp, err := l.service.List(ctx, in.Filter)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}

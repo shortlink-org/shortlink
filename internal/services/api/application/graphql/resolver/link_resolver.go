@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
 )
@@ -17,7 +17,7 @@ func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 }) (*LinkResolver, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_type.METHOD_GET, *args.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
+	go notify.Publish(ctx, api_domain.METHOD_GET, *args.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -59,7 +59,7 @@ func (r *Resolver) Links(ctx context.Context, args struct {
 		filterRaw = nil
 	}
 
-	go notify.Publish(ctx, api_type.METHOD_LIST, string(filterRaw), &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
+	go notify.Publish(ctx, api_domain.METHOD_LIST, string(filterRaw), &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
 
 	c := <-responseCh
 	switch r := c.(type) {

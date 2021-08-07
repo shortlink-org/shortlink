@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
@@ -13,7 +13,7 @@ import (
 // Notify ...
 func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
 	switch event {
-	case api_type.METHOD_ADD:
+	case api_domain.METHOD_ADD:
 		{
 			resp := notify.Response{
 				Name:    "RESPONSE_RPC_ADD",
@@ -36,7 +36,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 			resp.Error = errors.New("error parse payload as link.Link")
 			return resp
 		}
-	case api_type.METHOD_GET:
+	case api_domain.METHOD_GET:
 		{
 			resp := notify.Response{
 				Name:    "RESPONSE_RPC_GET",
@@ -59,7 +59,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 			resp.Error = errors.New("error parse payload as string")
 			return resp
 		}
-	case api_type.METHOD_LIST:
+	case api_domain.METHOD_LIST:
 		{
 			resp := notify.Response{
 				Name:    "RESPONSE_RPC_LIST",
@@ -82,7 +82,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 			resp.Error = errors.New("error parse payload as string")
 			return resp
 		}
-	case api_type.METHOD_UPDATE:
+	case api_domain.METHOD_UPDATE:
 		{
 			resp := notify.Response{
 				Name:    "RESPONSE_RPC_LIST",
@@ -105,7 +105,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 			resp.Error = errors.New("error parse payload as string")
 			return resp
 		}
-	case api_type.METHOD_DELETE:
+	case api_domain.METHOD_DELETE:
 		{
 			resp := notify.Response{
 				Name:    "RESPONSE_RPC_DELETE",

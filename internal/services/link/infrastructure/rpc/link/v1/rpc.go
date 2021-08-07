@@ -6,7 +6,7 @@ package v1
 
 import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	link_application "github.com/batazor/shortlink/internal/services/link/application"
+	link_application "github.com/batazor/shortlink/internal/services/link/application/link"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
