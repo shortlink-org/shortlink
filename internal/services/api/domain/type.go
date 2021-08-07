@@ -5,9 +5,10 @@ import (
 )
 
 var (
-	METHOD_ADD    = notify.NewEventID()
-	METHOD_GET    = notify.NewEventID()
-	METHOD_LIST   = notify.NewEventID()
-	METHOD_UPDATE = notify.NewEventID()
-	METHOD_DELETE = notify.NewEventID()
+	METHOD_ADD      = notify.NewEventID()
+	METHOD_GET      = notify.NewEventID()
+	METHOD_CQRS_GET = notify.NewEventID()
+	METHOD_LIST     = notify.NewEventID()
+	METHOD_UPDATE   = notify.NewEventID()
+	METHOD_DELETE   = notify.NewEventID()
 )

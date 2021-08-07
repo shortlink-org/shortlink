@@ -24,6 +24,10 @@ func InitializeAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, ru
 	if err != nil {
 		return nil, nil, err
 	}
+	linkServiceClient, err := NewLinkRPCClient(runRPCClient)
+	if err != nil {
+		return nil, nil, err
+	}
 	linkCommandServiceClient, err := NewLinkCommandRPCClient(runRPCClient)
 	if err != nil {
 		return nil, nil, err
@@ -32,7 +36,7 @@ func InitializeAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, ru
 	if err != nil {
 		return nil, nil, err
 	}
-	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataClient, linkCommandServiceClient, linkQueryServiceClient)
+	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -56,6 +60,7 @@ type APIService struct {
 // APIService ==========================================================================================================
 var APISet = wire.NewSet(
 
+	NewLinkRPCClient,
 	NewLinkCommandRPCClient,
 	NewLinkQueryRPCClient,
 	NewMetadataRPCClient,
@@ -64,6 +69,11 @@ var APISet = wire.NewSet(
 
 	NewAPIService,
 )
+
+func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkServiceClient, error) {
+	LinkServiceClient := v1.NewLinkServiceClient(runRPCClient)
+	return LinkServiceClient, nil
+}
 
 func NewLinkCommandRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkCommandServiceClient, error) {
 	LinkCommandRPCClient := v1.NewLinkCommandServiceClient(runRPCClient)
@@ -86,12 +96,14 @@ func NewAPIApplication(
 	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
 	metadataClient metadata_rpc.MetadataClient,
+	linkServiceClient v1.LinkServiceClient,
 	linkCommandRPCClient v1.LinkCommandServiceClient,
 	linkQueryRPCClient v1.LinkQueryServiceClient,
 ) (*api_application.Server, error) {
 
 	API := api_application.Server{
 		MetadataClient:           metadataClient,
+		LinkServiceClient:        linkServiceClient,
 		LinkCommandServiceClient: linkCommandRPCClient,
 		LinkQueryServiceClient:   linkQueryRPCClient,
 	}

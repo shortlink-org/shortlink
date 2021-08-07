@@ -11,6 +11,7 @@ import (
 )
 
 type Link struct {
+	LinkServiceServer
 	LinkCommandServiceServer
 	LinkQueryServiceServer
 
@@ -22,10 +23,12 @@ func New(runRPCServer *rpc.RPCServer, application *link_application.Service, log
 	server := &Link{
 		// Create Service Application
 		service: application,
-		log:     log,
+
+		log: log,
 	}
 
 	// Register services
+	RegisterLinkServiceServer(runRPCServer.Server, server)
 	RegisterLinkCommandServiceServer(runRPCServer.Server, server)
 	RegisterLinkQueryServiceServer(runRPCServer.Server, server)
 	go runRPCServer.Run()

@@ -23,7 +23,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 
 			if linkRaw, ok := payload.(*v1.Link); ok {
 				// Save link
-				linkResp, err := s.LinkCommandServiceClient.Add(ctx, &link_rpc.AddRequest{Link: linkRaw})
+				linkResp, err := s.LinkServiceClient.Add(ctx, &link_rpc.AddRequest{Link: linkRaw})
 				if err != nil {
 					resp.Error = err
 				}
@@ -46,7 +46,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 
 			// TODO: use URL address?
 			if hash, ok := payload.(string); ok {
-				linkResp, err := s.LinkQueryServiceClient.Get(ctx, &link_rpc.GetRequest{Hash: hash})
+				linkResp, err := s.LinkServiceClient.Get(ctx, &link_rpc.GetRequest{Hash: hash})
 				if err != nil {
 					resp.Error = err
 				}
@@ -69,7 +69,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 
 			// TODO: use URL address?
 			if filter, ok := payload.(string); ok {
-				linkResp, err := s.LinkQueryServiceClient.List(ctx, &link_rpc.ListRequest{Filter: filter})
+				linkResp, err := s.LinkServiceClient.List(ctx, &link_rpc.ListRequest{Filter: filter})
 				if err != nil {
 					resp.Error = err
 				}
@@ -92,7 +92,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 
 			// TODO: use URL address?
 			if request, ok := payload.(*v1.Link); ok {
-				linkResp, err := s.LinkCommandServiceClient.Update(ctx, &link_rpc.UpdateRequest{Link: request})
+				linkResp, err := s.LinkServiceClient.Update(ctx, &link_rpc.UpdateRequest{Link: request})
 				if err != nil {
 					resp.Error = err
 				}
@@ -115,7 +115,7 @@ func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) 
 
 			// TODO: use URL address?
 			if hash, ok := payload.(string); ok {
-				linkResp, err := s.LinkCommandServiceClient.Delete(ctx, &link_rpc.DeleteRequest{Hash: hash})
+				linkResp, err := s.LinkServiceClient.Delete(ctx, &link_rpc.DeleteRequest{Hash: hash})
 				if err != nil {
 					resp.Error = err
 				}
