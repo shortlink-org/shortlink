@@ -30,11 +30,11 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_STORE_SAVE).
 		Then(func(ctx context.Context) error {
 			var err error
-			in, err = s.Store.Add(ctx, in)
+			in, err = s.cqsStore.Store.Add(ctx, in)
 			return err
 		}).
 		Reject(func(ctx context.Context) error {
-			return s.Store.Delete(ctx, in.Hash)
+			return s.cqsStore.Store.Delete(ctx, in.Hash)
 		}).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -50,7 +50,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 			return err
 		}).
 		Reject(func(ctx context.Context) error {
-			return s.Store.Delete(ctx, in.Hash)
+			return s.cqsStore.Store.Delete(ctx, in.Hash)
 		}).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -98,7 +98,7 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 	// add step: get link from store
 	_, errs = sagaDeleteLink.AddStep(SAGA_STEP_STORE_DELETE).
 		Then(func(ctx context.Context) error {
-			return s.Store.Delete(ctx, hash)
+			return s.cqsStore.Store.Delete(ctx, hash)
 		}).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {

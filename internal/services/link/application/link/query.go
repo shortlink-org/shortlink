@@ -31,7 +31,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 	_, errs = sagaGetLink.AddStep(SAGA_STEP_STORE_GET).
 		Then(func(ctx context.Context) error {
 			var err error
-			resp, err = s.Store.Get(ctx, hash)
+			resp, err = s.cqsStore.Store.Get(ctx, hash)
 			return err
 		}).
 		Build()
@@ -82,7 +82,7 @@ func (s *Service) List(ctx context.Context, in string) (*v1.Links, error) {
 	_, errs = sagaListLink.AddStep(SAGA_STEP_STORE_LIST).
 		Then(func(ctx context.Context) error {
 			var err error
-			resp, err = s.Store.List(ctx, filter)
+			resp, err = s.cqsStore.Store.List(ctx, filter)
 			return err
 		}).
 		Build()

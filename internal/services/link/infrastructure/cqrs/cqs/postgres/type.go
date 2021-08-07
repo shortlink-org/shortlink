@@ -1,0 +1,19 @@
+package postgres
+
+import (
+	"github.com/jackc/pgx/v4/pgxpool"
+
+	"github.com/batazor/shortlink/internal/pkg/batch"
+)
+
+// Config ...
+type Config struct { // nolint unused
+	URI string
+	job *batch.Config
+}
+
+// Store implementation of db interface
+type Store struct { // nolint unused
+	client *pgxpool.Pool
+	config Config
+}

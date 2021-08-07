@@ -13,6 +13,8 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/cqrs/cqs"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/cqrs/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store"
@@ -29,11 +31,15 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
-	linkStore, err := NewLinkStore(ctx, log, db2)
+	store, err := NewLinkStore(ctx, log, db2)
 	if err != nil {
 		return nil, nil, err
 	}
-	service, err := NewLinkApplication(log, metadataClient, linkStore)
+	queryStore, err := NewQueryLinkStore(ctx, log, db2)
+	if err != nil {
+		return nil, nil, err
+	}
+	service, err := NewLinkApplication(log, metadataClient, store, queryStore)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -45,7 +51,11 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(log, link, linkStore, service, event)
+	cqsStore, err := NewCQSLinkStore(ctx, log, db2)
+	if err != nil {
+		return nil, nil, err
+	}
+	linkService, err := NewLinkService(log, link, service, store, event, cqsStore, queryStore)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -65,8 +75,12 @@ type LinkService struct {
 	service *link.Service
 
 	// Repository
-	linkStore *store.LinkStore
 	linkMQ    *api_mq.Event
+	linkStore *store.Store
+
+	// CQRS
+	cqsStore   *cqs.Store
+	queryStore *query.Store
 }
 
 // LinkService =========================================================================================================
@@ -79,6 +93,8 @@ var LinkSet = wire.NewSet(
 	NewLinkApplication,
 
 	NewLinkStore,
+	NewCQSLinkStore,
+	NewQueryLinkStore,
 
 	NewLinkService,
 )
@@ -92,8 +108,8 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Even
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*store.LinkStore, error) {
-	store2 := &store.LinkStore{}
+func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*store.Store, error) {
+	store2 := &store.Store{}
 	linkStore, err := store2.Use(ctx, logger2, db2)
 	if err != nil {
 		return nil, err
@@ -102,8 +118,28 @@ func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*s
 	return linkStore, nil
 }
 
-func NewLinkApplication(logger2 logger.Logger, metadataService metadata_rpc.MetadataClient, store2 *store.LinkStore) (*link.Service, error) {
-	linkService, err := link.New(logger2, metadataService, store2)
+func NewCQSLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*cqs.Store, error) {
+	store2 := &cqs.Store{}
+	cqsStore, err := store2.Use(ctx, logger2, db2)
+	if err != nil {
+		return nil, err
+	}
+
+	return cqsStore, nil
+}
+
+func NewQueryLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*query.Store, error) {
+	store2 := &query.Store{}
+	queryStore, err := store2.Use(ctx, logger2, db2)
+	if err != nil {
+		return nil, err
+	}
+
+	return queryStore, nil
+}
+
+func NewLinkApplication(logger2 logger.Logger, metadataService metadata_rpc.MetadataClient, cqsStore *store.Store, queryStore *query.Store) (*link.Service, error) {
+	linkService, err := link.New(logger2, metadataService, cqsStore, queryStore)
 	if err != nil {
 		return nil, err
 	}
@@ -128,15 +164,23 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataC
 func NewLinkService(
 	log logger.Logger,
 	linkRPCServer *v1.Link,
-	linkStore *store.LinkStore,
 	service *link.Service,
+
+	linkStore *store.Store,
 	linkMQ *api_mq.Event,
+
+	cqsStore *cqs.Store,
+	queryStore *query.Store,
 ) (*LinkService, error) {
 	return &LinkService{
 		Logger:        log,
 		linkRPCServer: linkRPCServer,
-		linkStore:     linkStore,
 		linkMQ:        linkMQ,
 		service:       service,
+
+		linkStore: linkStore,
+
+		cqsStore:   cqsStore,
+		queryStore: queryStore,
 	}, nil
 }
