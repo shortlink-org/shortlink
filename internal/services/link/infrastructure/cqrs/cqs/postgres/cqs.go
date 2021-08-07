@@ -2,7 +2,6 @@ package postgres
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 
@@ -33,16 +32,10 @@ func (p *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 		return nil, err
 	}
 
-	// save as JSON. it doesn't make sense
-	dataJson, err := json.Marshal(source)
-	if err != nil {
-		return nil, err
-	}
-
 	// query builder
-	links := psql.Insert("link_view").
-		Columns("url", "hash", "describe", "json").
-		Values(source.Url, source.Hash, source.Describe, dataJson)
+	links := psql.Insert("shortlink.link_view").
+		Columns("url", "hash", "describe").
+		Values(source.Url, source.Hash, source.Describe)
 
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -63,14 +56,35 @@ func (p *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 }
 
 // Update ...
-func (p *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
-	return nil, nil
+func (p *Store) Update(ctx context.Context, source *v1.Link) (*v1.Link, error) {
+	// query builder
+	links := psql.Update("shortlink.link_view").
+		Set("url", source.Url).
+		Set("hash", source.Hash).
+		Set("describe", source.Describe)
+
+	q, args, err := links.ToSql()
+	if err != nil {
+		return nil, err
+	}
+
+	row := p.client.QueryRow(ctx, q, args...)
+
+	errScan := row.Scan(&source.Url, &source.Hash, &source.Describe)
+	if errors.Is(errScan, pgx.ErrNoRows) {
+		return source, nil
+	}
+	if errScan.Error() != "" {
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+	}
+
+	return source, nil
 }
 
 // Delete ...
 func (p *Store) Delete(ctx context.Context, id string) error {
 	// query builder
-	request := psql.Delete("link_view").
+	request := psql.Delete("shortlink.link_view").
 		Where(squirrel.Eq{"hash": id})
 	q, args, err := request.ToSql()
 	if err != nil {
