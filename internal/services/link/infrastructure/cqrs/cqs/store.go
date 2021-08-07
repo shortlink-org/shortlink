@@ -21,13 +21,13 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Stor
 
 	switch s.typeStore {
 	case "postgres":
-		s.Store = &postgres.Store{}
+		s.Repository = &postgres.Store{}
 	default:
-		s.Store = &postgres.Store{}
+		s.Repository = &postgres.Store{}
 	}
 
 	// Init store
-	if err := s.Store.Init(ctx, db); err != nil {
+	if err := s.Init(ctx, db); err != nil {
 		return nil, err
 	}
 

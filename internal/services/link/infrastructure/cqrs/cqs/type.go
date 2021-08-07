@@ -9,6 +9,7 @@ import (
 
 type Repository interface {
 	Init(ctx context.Context, db *db.Store) error
+
 	Add(ctx context.Context, data *v1.Link) (*v1.Link, error)
 	Update(ctx context.Context, data *v1.Link) (*v1.Link, error)
 	Delete(ctx context.Context, id string) error
@@ -17,5 +18,5 @@ type Repository interface {
 // Store abstract type
 type Store struct { // nolint unused
 	typeStore string
-	Store     Repository
+	Repository
 }

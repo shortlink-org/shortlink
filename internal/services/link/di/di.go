@@ -101,8 +101,8 @@ func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) 
 	return queryStore, nil
 }
 
-func NewLinkApplication(logger logger.Logger, metadataService metadata_rpc.MetadataClient, cqsStore *store.Store, queryStore *query.Store) (*link.Service, error) {
-	linkService, err := link.New(logger, metadataService, cqsStore, queryStore)
+func NewLinkApplication(logger logger.Logger, metadataService metadata_rpc.MetadataClient, store *store.Store, cqsStore *cqs.Store, queryStore *query.Store) (*link.Service, error) {
+	linkService, err := link.New(logger, metadataService, store, cqsStore, queryStore)
 	if err != nil {
 		return nil, err
 	}
