@@ -10,7 +10,8 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	link_store "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/cqrs/query"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 )
 
@@ -22,15 +23,17 @@ type Service struct {
 	MetadataClient metadata_rpc.MetadataClient
 
 	// Repository
-	*link_store.LinkStore
+	cqsStore   *store.Store
+	queryStore *query.Store
 
 	logger logger.Logger
 }
 
-func New(logger logger.Logger, metadataService metadata_rpc.MetadataClient, linkStore *link_store.LinkStore) (*Service, error) {
+func New(logger logger.Logger, metadataService metadata_rpc.MetadataClient, cqsStore *store.Store, queryStore *query.Store) (*Service, error) {
 	service := &Service{
 		MetadataClient: metadataService,
-		LinkStore:      linkStore,
+		cqsStore:       cqsStore,
+		queryStore:     queryStore,
 		logger:         logger,
 	}
 

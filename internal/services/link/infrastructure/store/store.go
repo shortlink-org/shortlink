@@ -15,7 +15,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	api_domain "github.com/batazor/shortlink/internal/services/api/domain"
+	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/badger"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/dgraph"
@@ -31,7 +31,7 @@ import (
 )
 
 // Use return implementation of db
-func (s *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*LinkStore, error) { // nolint unused
+func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Store, error) { // nolint unused
 	// Set configuration
 	s.setConfig()
 
@@ -80,7 +80,7 @@ func (s *LinkStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*
 }
 
 // Notify ...
-func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
+func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
 	switch event {
 	case api_domain.METHOD_ADD:
 		// start tracing
@@ -181,7 +181,7 @@ func (s *LinkStore) Notify(ctx context.Context, event uint32, payload interface{
 }
 
 // setConfig - set configuration
-func (s *LinkStore) setConfig() { // nolint unused
+func (s *Store) setConfig() { // nolint unused
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram
 	s.typeStore = viper.GetString("STORE_TYPE")

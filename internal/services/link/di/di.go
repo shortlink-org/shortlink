@@ -15,9 +15,11 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	api_domain "github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/cqrs/cqs"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/cqrs/query"
 	api_mq "github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	v12 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	link_store "github.com/batazor/shortlink/internal/services/link/infrastructure/store"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
@@ -32,8 +34,12 @@ type LinkService struct {
 	service *link.Service
 
 	// Repository
-	linkStore *link_store.LinkStore
 	linkMQ    *api_mq.Event
+	linkStore *store.Store
+
+	// CQRS
+	cqsStore   *cqs.Store
+	queryStore *query.Store
 }
 
 // LinkService =========================================================================================================
@@ -48,6 +54,8 @@ var LinkSet = wire.NewSet(
 
 	// repository
 	NewLinkStore,
+	NewCQSLinkStore,
+	NewQueryLinkStore,
 
 	NewLinkService,
 )
@@ -63,8 +71,8 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ) (*api_mq.Event
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) (*link_store.LinkStore, error) {
-	store := &link_store.LinkStore{}
+func NewLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) (*store.Store, error) {
+	store := &store.Store{}
 	linkStore, err := store.Use(ctx, logger, db)
 	if err != nil {
 		return nil, err
@@ -73,8 +81,28 @@ func NewLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) (*lin
 	return linkStore, nil
 }
 
-func NewLinkApplication(logger logger.Logger, metadataService metadata_rpc.MetadataClient, store *link_store.LinkStore) (*link.Service, error) {
-	linkService, err := link.New(logger, metadataService, store)
+func NewCQSLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) (*cqs.Store, error) {
+	store := &cqs.Store{}
+	cqsStore, err := store.Use(ctx, logger, db)
+	if err != nil {
+		return nil, err
+	}
+
+	return cqsStore, nil
+}
+
+func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) (*query.Store, error) {
+	store := &query.Store{}
+	queryStore, err := store.Use(ctx, logger, db)
+	if err != nil {
+		return nil, err
+	}
+
+	return queryStore, nil
+}
+
+func NewLinkApplication(logger logger.Logger, metadataService metadata_rpc.MetadataClient, cqsStore *store.Store, queryStore *query.Store) (*link.Service, error) {
+	linkService, err := link.New(logger, metadataService, cqsStore, queryStore)
 	if err != nil {
 		return nil, err
 	}
@@ -99,16 +127,28 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataC
 func NewLinkService(
 	log logger.Logger,
 	linkRPCServer *v12.Link,
-	linkStore *link_store.LinkStore,
 	service *link.Service,
+
+	// Repository
+	linkStore *store.Store,
 	linkMQ *api_mq.Event,
+
+	// CQRS
+	cqsStore *cqs.Store,
+	queryStore *query.Store,
 ) (*LinkService, error) {
 	return &LinkService{
 		Logger:        log,
 		linkRPCServer: linkRPCServer,
-		linkStore:     linkStore,
 		linkMQ:        linkMQ,
 		service:       service,
+
+		// Repository
+		linkStore: linkStore,
+
+		// CQRS
+		cqsStore:   cqsStore,
+		queryStore: queryStore,
 	}, nil
 }
 
