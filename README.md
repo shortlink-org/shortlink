@@ -32,8 +32,8 @@ Shortlink service
 | landing     | Welcome page                                | JS/JQuery                 |                                          |
 | docs        | Example blog                                | [Hugo](https://gohugo.io) | https://batazor.github.io/shortlink/     |
 | next        | UI service                                  | JS/NextJS                 | [docs](./ui/next/README.md)              |
-| api         | GateWay                                     | Go                        | [docs](./docs/services/api.md)           |
-| link        | Link service                                | Go                        | [docs](./docs/services/link.md)          |
+| api         | GateWay                                     | Go                        | [docs](./docs/services/README.md)           |
+| link        | Link service                                | Go                        | [docs](./docs/services/README.md)          |
 | proxy       | Proxy service for redirect to original URL  | TypeScript                |                                          |
 | bot         | Telegram bot                                | JAVA                      |                                          |
 | billing     | Billing service                             | Go                        |                                          |
