@@ -21,7 +21,7 @@ import (
 type Event struct {
 	MQ mq.MQ
 
-	// system event
+	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
 }
 

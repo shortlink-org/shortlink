@@ -6,7 +6,7 @@ package v1
 
 import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	link_application "github.com/batazor/shortlink/internal/services/link/application/link"
+	"github.com/batazor/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
@@ -14,11 +14,11 @@ type Link struct {
 	LinkCommandServiceServer
 	LinkQueryServiceServer
 
-	service *link_application.Service
+	service *link_cqrs.Service
 	log     logger.Logger
 }
 
-func New(runRPCServer *rpc.RPCServer, application *link_application.Service, log logger.Logger) (*Link, error) {
+func New(runRPCServer *rpc.RPCServer, application *link_cqrs.Service, log logger.Logger) (*Link, error) {
 	server := &Link{
 		// Create Service Application
 		service: application,

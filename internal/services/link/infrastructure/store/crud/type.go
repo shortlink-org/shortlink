@@ -25,6 +25,6 @@ type Store struct { // nolint unused
 	typeStore string
 	Repository
 
-	// system event
+	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
 }
