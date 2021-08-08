@@ -14,8 +14,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
 	queryStore "github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
@@ -23,33 +21,26 @@ import (
 )
 
 type Service struct {
-	// system event
-	notify.Subscriber // Observer interface for subscribe on system event
+	// Observer interface for subscribe on system event
+	notify.Subscriber
 
 	// Delivery
 	MetadataClient metadata_rpc.MetadataClient
 
 	// Repository
-	store      *crud.Store
-	cqsStore   *cqs.Store
-	queryStore *query.Store
+	store *crud.Store
 
 	logger logger.Logger
 }
 
-func New(logger logger.Logger, metadataService metadata_rpc.MetadataClient, store *crud.Store, cqsStore *cqs.Store, queryStore *query.Store) (*Service, error) {
+func New(logger logger.Logger, metadataService metadata_rpc.MetadataClient, store *crud.Store) (*Service, error) {
 	service := &Service{
 		MetadataClient: metadataService,
 
-		store:      store,
-		cqsStore:   cqsStore,
-		queryStore: queryStore,
+		store: store,
 
 		logger: logger,
 	}
-
-	// Subscribe to event
-	service.EventHandler()
 
 	return service, nil
 }

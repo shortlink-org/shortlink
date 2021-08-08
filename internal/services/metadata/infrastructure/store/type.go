@@ -17,6 +17,6 @@ type MetaStore struct {
 	typeStore string
 	Store     Repository
 
-	// system event
+	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
 }

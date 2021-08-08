@@ -30,7 +30,7 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
-		From("link_view").
+		From("shortlink.link_view").
 		Where(squirrel.Eq{"hash": id})
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -65,7 +65,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
 	// query builder
 	links := psql.Select("url, hash, describe, created_at, updated_at").
-		From("link_view")
+		From("shortlink.link_view")
 	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err

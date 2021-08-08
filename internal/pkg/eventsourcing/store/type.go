@@ -27,6 +27,6 @@ type Repository struct { // nolint unused
 	// Base interface
 	EventStore
 
-	// system event
+	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
 }
