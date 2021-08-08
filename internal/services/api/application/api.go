@@ -11,6 +11,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	v1 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 )
@@ -25,6 +26,6 @@ type Server struct {
 	MetadataClient metadata_rpc.MetadataClient
 
 	LinkServiceClient        link_rpc.LinkServiceClient
-	LinkCommandServiceClient link_rpc.LinkCommandServiceClient
-	LinkQueryServiceClient   link_rpc.LinkQueryServiceClient
+	LinkCommandServiceClient v1.LinkCommandServiceClient
+	LinkQueryServiceClient   v1.LinkQueryServiceClient
 }

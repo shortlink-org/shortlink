@@ -90,63 +90,6 @@ func Add(w http.ResponseWriter, r *http.Request) {
 }
 
 // Get ...
-func GetByCQRS(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
-
-	var hash = chi.URLParam(r, "hash")
-	if hash == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint errcheck
-		return
-	}
-
-	var (
-		response *v12.GetResponse
-		err      error
-	)
-
-	responseCh := make(chan interface{})
-
-	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
-
-	go notify.Publish(r.Context(), api_domain.METHOD_CQRS_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_GET"})
-
-	c := <-responseCh
-	switch resp := c.(type) {
-	case nil:
-		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
-	case notify.Response:
-		err = resp.Error
-		if err == nil {
-			response = resp.Payload.(*v12.GetResponse) // nolint errcheck
-		}
-	}
-
-	var errorLink *v1.NotFoundError
-	if errors.As(err, &errorLink) {
-		w.WriteHeader(http.StatusNotFound)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
-		return
-	}
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
-		return
-	}
-
-	res, err := jsonpb.Marshal(response.Link)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
-		return
-	}
-
-	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) // nolint errcheck
-}
-
-// Get ...
 func Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -158,7 +101,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		response *v12.GetResponse
+		response *v1.Link
 		err      error
 	)
 
@@ -176,7 +119,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.(*v12.GetResponse) // nolint errcheck
+			response = resp.Payload.(*v1.Link) // nolint errcheck
 		}
 	}
 
@@ -192,7 +135,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := jsonpb.Marshal(response.Link)
+	res, err := jsonpb.Marshal(response)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck

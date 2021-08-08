@@ -13,11 +13,13 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/cqrs/cqs"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/cqrs/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
+	v1_2 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/run"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/query"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
@@ -47,7 +49,15 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
-	link, err := NewLinkRPCServer(runRPCServer, service, log)
+	link, err := NewLinkCQRSRPCServer(runRPCServer, service, log)
+	if err != nil {
+		return nil, nil, err
+	}
+	v1Link, err := NewLinkRPCServer(runRPCServer, service, log)
+	if err != nil {
+		return nil, nil, err
+	}
+	response, err := NewRunRPCServer(runRPCServer, link, v1Link)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -55,7 +65,7 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(log, link, service, store, event, cqsStore, queryStore)
+	linkService, err := NewLinkService(log, service, response, v1Link, link, store, event, cqsStore, queryStore)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -69,14 +79,16 @@ type LinkService struct {
 	Logger logger.Logger
 
 	// Delivery
-	linkRPCServer *v1.Link
+	run               *run.Response
+	linkRPCServer     *v1.Link
+	linkCQRSRPCServer *v1_2.Link
 
 	// Application
 	service *link.Service
 
 	// Repository
 	linkMQ    *api_mq.Event
-	linkStore *store.Store
+	linkStore *crud.Store
 
 	// CQRS
 	cqsStore   *cqs.Store
@@ -86,9 +98,11 @@ type LinkService struct {
 // LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
 
-	NewLinkRPCServer,
-	NewMetadataRPCClient,
 	InitLinkMQ,
+	NewLinkRPCServer,
+	NewLinkCQRSRPCServer,
+	NewRunRPCServer,
+	NewMetadataRPCClient,
 
 	NewLinkApplication,
 
@@ -108,9 +122,9 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Even
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*store.Store, error) {
-	store2 := &store.Store{}
-	linkStore, err := store2.Use(ctx, logger2, db2)
+func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*crud.Store, error) {
+	store := &crud.Store{}
+	linkStore, err := store.Use(ctx, logger2, db2)
 	if err != nil {
 		return nil, err
 	}
@@ -119,8 +133,8 @@ func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*s
 }
 
 func NewCQSLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*cqs.Store, error) {
-	store2 := &cqs.Store{}
-	cqsStore, err := store2.Use(ctx, logger2, db2)
+	store := &cqs.Store{}
+	cqsStore, err := store.Use(ctx, logger2, db2)
 	if err != nil {
 		return nil, err
 	}
@@ -129,8 +143,8 @@ func NewCQSLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) 
 }
 
 func NewQueryLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*query.Store, error) {
-	store2 := &query.Store{}
-	queryStore, err := store2.Use(ctx, logger2, db2)
+	store := &query.Store{}
+	queryStore, err := store.Use(ctx, logger2, db2)
 	if err != nil {
 		return nil, err
 	}
@@ -138,13 +152,22 @@ func NewQueryLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store
 	return queryStore, nil
 }
 
-func NewLinkApplication(logger2 logger.Logger, metadataService metadata_rpc.MetadataClient, store2 *store.Store, cqsStore *cqs.Store, queryStore *query.Store) (*link.Service, error) {
-	linkService, err := link.New(logger2, metadataService, store2, cqsStore, queryStore)
+func NewLinkApplication(logger2 logger.Logger, metadataService metadata_rpc.MetadataClient, store *crud.Store, cqsStore *cqs.Store, queryStore *query.Store) (*link.Service, error) {
+	linkService, err := link.New(logger2, metadataService, store, cqsStore, queryStore)
 	if err != nil {
 		return nil, err
 	}
 
 	return linkService, nil
+}
+
+func NewLinkCQRSRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, log logger.Logger) (*v1_2.Link, error) {
+	linkRPCServer, err := v1_2.New(runRPCServer, application, log)
+	if err != nil {
+		return nil, err
+	}
+
+	return linkRPCServer, nil
 }
 
 func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, log logger.Logger) (*v1.Link, error) {
@@ -156,6 +179,10 @@ func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, lo
 	return linkRPCServer, nil
 }
 
+func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *v1_2.Link, linkRPC *v1.Link) (*run.Response, error) {
+	return run.Run(runRPCServer)
+}
+
 func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataClient, error) {
 	metadataRPCClient := metadata_rpc.NewMetadataClient(runRPCClient)
 	return metadataRPCClient, nil
@@ -163,20 +190,24 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataC
 
 func NewLinkService(
 	log logger.Logger,
+	service *link.Service, run2 *run.Response,
 	linkRPCServer *v1.Link,
-	service *link.Service,
+	linkCQRSRPCServer *v1_2.Link,
 
-	linkStore *store.Store,
+	linkStore *crud.Store,
 	linkMQ *api_mq.Event,
 
 	cqsStore *cqs.Store,
 	queryStore *query.Store,
 ) (*LinkService, error) {
 	return &LinkService{
-		Logger:        log,
-		linkRPCServer: linkRPCServer,
-		linkMQ:        linkMQ,
-		service:       service,
+		Logger:  log,
+		linkMQ:  linkMQ,
+		service: service,
+
+		run:               run2,
+		linkRPCServer:     linkRPCServer,
+		linkCQRSRPCServer: linkCQRSRPCServer,
 
 		linkStore: linkStore,
 

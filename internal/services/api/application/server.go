@@ -57,6 +57,7 @@ func (s *Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *op
 	notify.Subscribe(api_domain.METHOD_LIST, s)
 	notify.Subscribe(api_domain.METHOD_UPDATE, s)
 	notify.Subscribe(api_domain.METHOD_DELETE, s)
+	notify.Subscribe(api_domain.METHOD_CQRS_GET, s)
 
 	if err := server.Run(ctx, config, log, tracer); err != nil {
 		return nil, err
