@@ -14,10 +14,10 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/domain"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/cqrs/cqs"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/cqrs/query"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store"
-	queryStore "github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/query"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
+	queryStore "github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 	"github.com/batazor/shortlink/pkg/saga"
 )
@@ -30,14 +30,14 @@ type Service struct {
 	MetadataClient metadata_rpc.MetadataClient
 
 	// Repository
-	store      *store.Store
+	store      *crud.Store
 	cqsStore   *cqs.Store
 	queryStore *query.Store
 
 	logger logger.Logger
 }
 
-func New(logger logger.Logger, metadataService metadata_rpc.MetadataClient, store *store.Store, cqsStore *cqs.Store, queryStore *query.Store) (*Service, error) {
+func New(logger logger.Logger, metadataService metadata_rpc.MetadataClient, store *crud.Store, cqsStore *cqs.Store, queryStore *query.Store) (*Service, error) {
 	service := &Service{
 		MetadataClient: metadataService,
 
