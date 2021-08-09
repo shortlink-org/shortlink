@@ -27,7 +27,7 @@ func New(logger logger.Logger, cqsStore *cqs.Store, queryStore *query.Store) (*S
 	}
 
 	// Subscribe to event
-	service.EventHandler()
+	service.EventHandlers()
 
 	return service, nil
 }
