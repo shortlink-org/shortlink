@@ -5,8 +5,8 @@ import (
 	"errors"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v13 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
 	v12 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
@@ -14,17 +14,17 @@ import (
 // Notify ...
 func (s *Server) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
 	switch event {
-	case api_domain.METHOD_ADD:
+	case v1.METHOD_ADD:
 		return s.add(ctx, payload)
-	case api_domain.METHOD_GET:
+	case v1.METHOD_GET:
 		return s.get(ctx, payload)
-	case api_domain.METHOD_LIST:
+	case v1.METHOD_LIST:
 		return s.list(ctx, payload)
-	case api_domain.METHOD_UPDATE:
+	case v1.METHOD_UPDATE:
 		return s.update(ctx, payload)
-	case api_domain.METHOD_DELETE:
+	case v1.METHOD_DELETE:
 		return s.delete(ctx, payload)
-	case api_domain.METHOD_CQRS_GET:
+	case v13.METHOD_CQRS_GET:
 		return s.cqrsGet(ctx, payload)
 	default:
 		return notify.Response{}

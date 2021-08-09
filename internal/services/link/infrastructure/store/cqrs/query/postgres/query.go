@@ -11,6 +11,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v12 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
@@ -27,9 +28,9 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 }
 
 // Get ...
-func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
+func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 	// query builder
-	links := psql.Select("url, hash, describe").
+	links := psql.Select("url, hash, describe", "image_url", "meta_description", "meta_keywords").
 		From("shortlink.link_view").
 		Where(squirrel.Eq{"hash": id})
 	q, args, err := links.ToSql()
@@ -46,9 +47,9 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
-	var response v1.Link
+	var response v12.LinkView
 	for rows.Next() {
-		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
+		err = rows.Scan(&response.Url, &response.Hash, &response.Describe, &response.ImageURL, &response.MetaDescription, &response.MetaKeywords)
 		if err != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 		}

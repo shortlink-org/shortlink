@@ -9,8 +9,8 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
-	"github.com/batazor/shortlink/internal/services/api/domain"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v12 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
 )
 
 // GetByCQRS ...
@@ -25,7 +25,7 @@ func GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		response *v1.Link
+		response *v12.LinkView
 		err      error
 	)
 
@@ -34,7 +34,7 @@ func GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), api_domain.METHOD_CQRS_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_CQRS_GET"})
+	go notify.Publish(r.Context(), v12.METHOD_CQRS_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_CQRS_GET"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -43,7 +43,7 @@ func GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.(*v1.Link) // nolint errcheck
+			response = resp.Payload.(*v12.LinkView) // nolint errcheck
 		}
 	}
 

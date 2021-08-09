@@ -3,7 +3,7 @@
 'use strict';
 var grpc = require('@grpc/grpc-js');
 var infrastructure_rpc_cqrs_link_v1_link_query_pb = require('../../../../../infrastructure/rpc/cqrs/link/v1/link_query_pb.js');
-var domain_link_v1_link_pb = require('../../../../../domain/link/v1/link_pb.js');
+var domain_link_cqrs_v1_link_pb = require('../../../../../domain/link_cqrs/v1/link_pb.js');
 
 function serialize_infrastructure_rpc_cqrs_link_v1_GetRequest(arg) {
   if (!(arg instanceof infrastructure_rpc_cqrs_link_v1_link_query_pb.GetRequest)) {

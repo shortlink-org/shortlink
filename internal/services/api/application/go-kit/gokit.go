@@ -16,7 +16,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
@@ -32,7 +31,7 @@ func makeAddLinkEndpoint() endpoint.Endpoint {
 		responseCh := make(chan interface{})
 
 		// TODO: send []byte format
-		go notify.Publish(ctx, api_domain.METHOD_ADD, req, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
+		go notify.Publish(ctx, v1.METHOD_ADD, req, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
 
 		c := <-responseCh
 		switch r := c.(type) {
@@ -66,7 +65,7 @@ func makeGetLinkEndpoint() endpoint.Endpoint {
 
 		responseCh := make(chan interface{})
 
-		go notify.Publish(ctx, api_domain.METHOD_GET, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
+		go notify.Publish(ctx, v1.METHOD_GET, request.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
 
 		c := <-responseCh
 		switch r := c.(type) {
@@ -105,7 +104,7 @@ func makeGetListLinkEndpoint() endpoint.Endpoint {
 
 		responseCh := make(chan interface{})
 
-		go notify.Publish(ctx, api_domain.METHOD_LIST, nil, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
+		go notify.Publish(ctx, v1.METHOD_LIST, nil, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
 
 		c := <-responseCh
 		switch r := c.(type) {
@@ -137,7 +136,7 @@ func makeDeleteLinkEndpoint() endpoint.Endpoint {
 
 		responseCh := make(chan interface{})
 
-		go notify.Publish(ctx, api_domain.METHOD_DELETE, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
+		go notify.Publish(ctx, v1.METHOD_DELETE, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
 
 		c := <-responseCh
 		switch r := c.(type) {

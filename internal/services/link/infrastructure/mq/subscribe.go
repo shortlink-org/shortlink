@@ -7,7 +7,7 @@ import (
 	"github.com/golang/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
-	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain"
+	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 func (e *Event) SubscribeCQRSGetMetadata(handler func(ctx context.Context, in *metadata_domain.Meta) error) {

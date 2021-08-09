@@ -1,4 +1,4 @@
-package domain
+package v1
 
 import (
 	"github.com/batazor/shortlink/internal/pkg/notify"

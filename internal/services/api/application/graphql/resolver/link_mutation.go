@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
@@ -23,7 +22,7 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unuse
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_domain.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
+	go notify.Publish(ctx, v1.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -64,7 +63,7 @@ func (r *Resolver) DeleteLink(ctx context.Context, args *struct { //nolint unuse
 }) (bool, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_domain.METHOD_DELETE, *args.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
+	go notify.Publish(ctx, v1.METHOD_DELETE, *args.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
 
 	c := <-responseCh
 	switch r := c.(type) {

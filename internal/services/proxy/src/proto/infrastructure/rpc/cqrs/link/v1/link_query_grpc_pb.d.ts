@@ -7,7 +7,7 @@
 import * as grpc from "@grpc/grpc-js";
 import {handleClientStreamingCall} from "@grpc/grpc-js/build/src/server-call";
 import * as infrastructure_rpc_cqrs_link_v1_link_query_pb from "../../../../../infrastructure/rpc/cqrs/link/v1/link_query_pb";
-import * as domain_link_v1_link_pb from "../../../../../domain/link/v1/link_pb";
+import * as domain_link_cqrs_v1_link_pb from "../../../../../domain/link_cqrs/v1/link_pb";
 
 interface ILinkQueryServiceService extends grpc.ServiceDefinition<grpc.UntypedServiceImplementation> {
     get: ILinkQueryServiceService_IGet;

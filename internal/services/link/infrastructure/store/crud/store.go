@@ -15,7 +15,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/badger"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/dgraph"
@@ -82,7 +81,7 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Stor
 // Notify ...
 func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
 	switch event {
-	case api_domain.METHOD_ADD:
+	case v1.METHOD_ADD:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store add new link")
 		span.SetTag("store", s.typeStore)
@@ -102,7 +101,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
-	case api_domain.METHOD_GET:
+	case v1.METHOD_GET:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get link")
 		span.SetTag("store", s.typeStore)
@@ -114,7 +113,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Payload: link,
 			Error:   err,
 		}
-	case api_domain.METHOD_LIST:
+	case v1.METHOD_LIST:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get links")
 		span.SetTag("store", s.typeStore)
@@ -143,7 +142,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Payload: payload,
 			Error:   err,
 		}
-	case api_domain.METHOD_UPDATE:
+	case v1.METHOD_UPDATE:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store update link")
 		span.SetTag("store", s.typeStore)
@@ -163,7 +162,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 			Payload: payload,
 			Error:   errors.New("failed assert type"),
 		}
-	case api_domain.METHOD_DELETE:
+	case v1.METHOD_DELETE:
 		// start tracing
 		span, newCtx := opentracing.StartSpanFromContext(ctx, "store delete link")
 		span.SetTag("store", s.typeStore)

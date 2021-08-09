@@ -4,29 +4,28 @@ import (
 	"context"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/domain"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain"
+	v12 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 func (s *Service) EventHandler() {
 	// Subscribe to Event
 	// Link
-	notify.Subscribe(api_domain.METHOD_ADD, s)
-	notify.Subscribe(api_domain.METHOD_UPDATE, s)
-	notify.Subscribe(api_domain.METHOD_DELETE, s)
+	notify.Subscribe(v1.METHOD_ADD, s)
+	notify.Subscribe(v1.METHOD_UPDATE, s)
+	notify.Subscribe(v1.METHOD_DELETE, s)
 
 	// Metadata
-	notify.Subscribe(metadata_domain.METHOD_ADD, s)
-	notify.Subscribe(metadata_domain.METHOD_UPDATE, s)
-	notify.Subscribe(metadata_domain.METHOD_DELETE, s)
+	notify.Subscribe(v12.METHOD_ADD, s)
+	notify.Subscribe(v12.METHOD_UPDATE, s)
+	notify.Subscribe(v12.METHOD_DELETE, s)
 
 	// Proxy
 }
 
 func (s *Service) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response {
 	switch event {
-	case api_domain.METHOD_ADD:
+	case v1.METHOD_ADD:
 		{
 			_, err := s.cqsStore.LinkAdd(ctx, payload.(*v1.Link))
 			if err != nil {
@@ -34,7 +33,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 			}
 			return notify.Response{}
 		}
-	case api_domain.METHOD_UPDATE:
+	case v1.METHOD_UPDATE:
 		{
 			_, err := s.cqsStore.LinkUpdate(ctx, payload.(*v1.Link))
 			if err != nil {
@@ -42,7 +41,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 			}
 			return notify.Response{}
 		}
-	case api_domain.METHOD_DELETE:
+	case v1.METHOD_DELETE:
 		{
 			err := s.cqsStore.LinkDelete(ctx, payload.(string))
 			if err != nil {
@@ -50,11 +49,11 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 			}
 			return notify.Response{}
 		}
-	case metadata_domain.METHOD_ADD:
+	case v12.METHOD_ADD:
 		fallthrough
-	case metadata_domain.METHOD_UPDATE:
+	case v12.METHOD_UPDATE:
 		{
-			_, err := s.cqsStore.MetadataUpdate(ctx, payload.(*metadata_domain.Meta))
+			_, err := s.cqsStore.MetadataUpdate(ctx, payload.(*v12.Meta))
 			if err != nil {
 				s.logger.ErrorWithContext(ctx, err.Error())
 			}

@@ -16,10 +16,10 @@ export class LinkView extends jspb.Message {
     setDescribe(value: string): LinkView;
     getImageurl(): string;
     setImageurl(value: string): LinkView;
-    getDescription(): string;
-    setDescription(value: string): LinkView;
-    getKeywords(): string;
-    setKeywords(value: string): LinkView;
+    getMetadescription(): string;
+    setMetadescription(value: string): LinkView;
+    getMetakeywords(): string;
+    setMetakeywords(value: string): LinkView;
 
     hasCreatedAt(): boolean;
     clearCreatedAt(): void;
@@ -47,8 +47,8 @@ export namespace LinkView {
         hash: string,
         describe: string,
         imageurl: string,
-        description: string,
-        keywords: string,
+        metadescription: string,
+        metakeywords: string,
         createdAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
         updatedAt?: google_protobuf_timestamp_pb.Timestamp.AsObject,
     }

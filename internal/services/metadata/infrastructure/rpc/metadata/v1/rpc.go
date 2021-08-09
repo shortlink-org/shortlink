@@ -1,9 +1,7 @@
-//go:generate protoc -I. -I../../domain --go_out=Minternal/metadata/domain/meta.proto=.:. --go-grpc_out=Minternal/metadata/domain/meta.proto=.:. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative metadata_rpc.proto
-
 /*
 Metadata Service. Infrastructure layer
 */
-package metadata_rpc
+package v1
 
 import (
 	"context"
@@ -14,7 +12,7 @@ import (
 )
 
 type Metadata struct {
-	UnimplementedMetadataServer
+	MetadataServiceServer
 
 	service *metadata.Service
 	log     logger.Logger
@@ -27,30 +25,30 @@ func New(runRPCServer *rpc.RPCServer, application *metadata.Service, log logger.
 	}
 
 	// Register services
-	RegisterMetadataServer(runRPCServer.Server, server)
+	RegisterMetadataServiceServer(runRPCServer.Server, server)
 	go runRPCServer.Run()
 
 	return server, nil
 }
 
-func (m *Metadata) Get(ctx context.Context, req *GetMetaRequest) (*GetMetaResponse, error) {
+func (m *Metadata) Get(ctx context.Context, req *MetadataServiceGetRequest) (*MetadataServiceGetResponse, error) {
 	meta, err := m.service.Get(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return &GetMetaResponse{
+	return &MetadataServiceGetResponse{
 		Meta: meta,
 	}, nil
 }
 
-func (m *Metadata) Set(ctx context.Context, req *SetMetaRequest) (*SetMetaResponse, error) {
+func (m *Metadata) Set(ctx context.Context, req *MetadataServiceSetRequest) (*MetadataServiceSetResponse, error) {
 	meta, err := m.service.Set(ctx, req.Id)
 	if err != nil {
 		return nil, err
 	}
 
-	return &SetMetaResponse{
+	return &MetadataServiceSetResponse{
 		Meta: meta,
 	}, nil
 }

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	rpc "github.com/batazor/shortlink/internal/services/metadata/domain"
+	rpc "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 type Repository interface {

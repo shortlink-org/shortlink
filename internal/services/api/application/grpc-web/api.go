@@ -12,7 +12,6 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/application/grpc-web/helpers"
-	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
@@ -20,7 +19,7 @@ import (
 func (api *API) GetLink(ctx context.Context, req *v1.Link) (*v1.Link, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_domain.METHOD_GET, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
+	go notify.Publish(ctx, v1.METHOD_GET, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
 
 	// inject spanId in response header
 	helpers.RegisterSpan(ctx)
@@ -47,7 +46,7 @@ func (api *API) GetLink(ctx context.Context, req *v1.Link) (*v1.Link, error) {
 func (api *API) GetLinks(ctx context.Context, req *ListRequest) (*v1.Links, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_domain.METHOD_LIST, req.Filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
+	go notify.Publish(ctx, v1.METHOD_LIST, req.Filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
 
 	// inject spanId in response header
 	helpers.RegisterSpan(ctx)
@@ -80,7 +79,7 @@ func (api *API) GetLinks(ctx context.Context, req *ListRequest) (*v1.Links, erro
 func (api *API) CreateLink(ctx context.Context, req *v1.Link) (*v1.Link, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_domain.METHOD_ADD, req, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
+	go notify.Publish(ctx, v1.METHOD_ADD, req, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
 
 	// inject spanId in response header
 	helpers.RegisterSpan(ctx)
@@ -107,7 +106,7 @@ func (api *API) CreateLink(ctx context.Context, req *v1.Link) (*v1.Link, error) 
 func (api *API) DeleteLink(ctx context.Context, req *v1.Link) (*empty.Empty, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_domain.METHOD_DELETE, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
+	go notify.Publish(ctx, v1.METHOD_DELETE, req.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
 
 	// inject spanId in response header
 	helpers.RegisterSpan(ctx)
