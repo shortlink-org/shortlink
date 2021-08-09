@@ -7,7 +7,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v4"
 
-	"github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
+	v1 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 // LinkUpdate ...

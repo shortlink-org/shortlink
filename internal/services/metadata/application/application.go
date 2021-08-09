@@ -10,7 +10,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
+	v1 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 )
 

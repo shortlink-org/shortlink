@@ -11,7 +11,7 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/mq"
-	"github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
+	v1 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"

@@ -77,7 +77,6 @@ require (
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
-	gopkg.in/rethinkdb/rethinkdb-go.v6 v6.2.1
 	k8s.io/kubernetes v1.21.3
 	k8s.io/mount-utils v0.22.0
 	k8s.io/utils v0.0.0-20210802155522-efc7438f0176

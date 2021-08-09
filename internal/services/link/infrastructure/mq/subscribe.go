@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"

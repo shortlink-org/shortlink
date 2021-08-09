@@ -16,7 +16,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
 
