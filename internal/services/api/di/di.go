@@ -14,7 +14,7 @@ import (
 	api_application "github.com/batazor/shortlink/internal/services/api/application"
 	v1 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
+	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
@@ -54,8 +54,8 @@ func NewLinkQueryRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkQueryServiceCl
 	return LinkQueryRPCClient, nil
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataClient, error) {
-	metadataRPCClient := metadata_rpc.NewMetadataClient(runRPCClient)
+func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataServiceClient, error) {
+	metadataRPCClient := metadata_rpc.NewMetadataServiceClient(runRPCClient)
 	return metadataRPCClient, nil
 }
 
@@ -64,7 +64,7 @@ func NewAPIApplication(
 	logger logger.Logger,
 	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
-	metadataClient metadata_rpc.MetadataClient,
+	metadataClient metadata_rpc.MetadataServiceClient,
 	linkServiceClient link_rpc.LinkServiceClient,
 	linkCommandRPCClient v1.LinkCommandServiceClient,
 	linkQueryRPCClient v1.LinkQueryServiceClient,

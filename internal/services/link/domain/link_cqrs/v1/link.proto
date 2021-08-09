@@ -16,8 +16,8 @@ message LinkView {
 
     // Metadata
     string ImageURL = 4;
-    string Description = 5;
-    string Keywords = 6;
+    string MetaDescription = 5;
+    string MetaKeywords = 6;
 
     // Create at
     google.protobuf.Timestamp created_at = 7;

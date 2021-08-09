@@ -1,7 +1,7 @@
 package mock
 
 import (
-	rpc "github.com/batazor/shortlink/internal/services/metadata/domain"
+	rpc "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 var (

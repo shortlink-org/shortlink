@@ -16,6 +16,12 @@ proto-generate: ## Generate proto-files
 		--config=ops/proto/link/buf.yaml
 
 	@buf generate \
+		--path=internal/services/metadata/domain \
+		--path=internal/services/metadata/infrastructure \
+		--template=ops/proto/metadata/buf.gen.yaml \
+		--config=ops/proto/metadata/buf.yaml
+
+	@buf generate \
 		--path=internal/services/proxy/src/proto/domain \
 		--path=internal/services/proxy/src/proto/infrastructure \
 		--template=ops/proto/proxy/buf.gen.yaml \

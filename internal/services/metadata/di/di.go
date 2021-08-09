@@ -13,9 +13,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	metadata "github.com/batazor/shortlink/internal/services/metadata/application"
-	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain"
+	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 	api_mq "github.com/batazor/shortlink/internal/services/metadata/infrastructure/mq"
-	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
+	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 )

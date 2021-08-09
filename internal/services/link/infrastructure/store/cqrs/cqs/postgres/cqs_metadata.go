@@ -7,14 +7,14 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v4"
 
-	"github.com/batazor/shortlink/internal/services/metadata/domain"
+	"github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 // LinkUpdate ...
-func (s *Store) MetadataUpdate(ctx context.Context, in *domain.Meta) (*domain.Meta, error) {
+func (s *Store) MetadataUpdate(ctx context.Context, in *v1.Meta) (*v1.Meta, error) {
 	// query builder
 	metadata := psql.Update("shortlink.link_view").
-		Set("image_url", in.ImageURL).
+		Set("image_url", in.ImageUrl).
 		Set("meta_description", in.Description).
 		Set("meta_keywords", in.Keywords).
 		Where(squirrel.Eq{"url": in.Id})
@@ -26,7 +26,7 @@ func (s *Store) MetadataUpdate(ctx context.Context, in *domain.Meta) (*domain.Me
 
 	row := s.client.QueryRow(ctx, q, args...)
 
-	errScan := row.Scan(&in.ImageURL, &in.Description, &in.Keywords)
+	errScan := row.Scan(&in.ImageUrl, &in.Description, &in.Keywords)
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return in, nil
 	}

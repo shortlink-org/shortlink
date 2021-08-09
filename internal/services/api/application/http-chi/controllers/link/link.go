@@ -11,7 +11,6 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
-	"github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	v12 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
@@ -59,7 +58,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	// TODO: send []byte format
-	go notify.Publish(r.Context(), api_domain.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_ADD"})
+	go notify.Publish(r.Context(), v1.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_ADD"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -110,7 +109,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), api_domain.METHOD_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_GET"})
+	go notify.Publish(r.Context(), v1.METHOD_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_GET"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -163,7 +162,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), api_domain.METHOD_LIST, filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_LIST"})
+	go notify.Publish(r.Context(), v1.METHOD_LIST, filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_LIST"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -213,7 +212,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(r.Context(), api_domain.METHOD_DELETE, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_DELETE"})
+	go notify.Publish(r.Context(), v1.METHOD_DELETE, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_DELETE"})
 
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))

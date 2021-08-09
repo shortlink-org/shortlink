@@ -5,7 +5,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/metadata/domain"
+	v12 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 type Repository interface {
@@ -15,7 +15,7 @@ type Repository interface {
 	LinkUpdate(ctx context.Context, data *v1.Link) (*v1.Link, error)
 	LinkDelete(ctx context.Context, id string) error
 
-	MetadataUpdate(ctx context.Context, data *domain.Meta) (*domain.Meta, error)
+	MetadataUpdate(ctx context.Context, data *v12.Meta) (*v12.Meta, error)
 }
 
 // Store abstract type

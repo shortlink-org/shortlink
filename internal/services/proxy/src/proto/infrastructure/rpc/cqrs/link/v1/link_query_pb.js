@@ -15,8 +15,8 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-var domain_link_v1_link_pb = require('../../../../../domain/link/v1/link_pb.js');
-goog.object.extend(proto, domain_link_v1_link_pb);
+var domain_link_cqrs_v1_link_pb = require('../../../../../domain/link_cqrs/v1/link_pb.js');
+goog.object.extend(proto, domain_link_cqrs_v1_link_pb);
 goog.exportSymbol('proto.infrastructure.rpc.cqrs.link.v1.GetRequest', null, global);
 goog.exportSymbol('proto.infrastructure.rpc.cqrs.link.v1.GetResponse', null, global);
 goog.exportSymbol('proto.infrastructure.rpc.cqrs.link.v1.ListRequest', null, global);
@@ -267,7 +267,7 @@ proto.infrastructure.rpc.cqrs.link.v1.GetResponse.prototype.toObject = function(
  */
 proto.infrastructure.rpc.cqrs.link.v1.GetResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    link: (f = msg.getLink()) && domain_link_v1_link_pb.Link.toObject(includeInstance, f)
+    link: (f = msg.getLink()) && domain_link_cqrs_v1_link_pb.LinkView.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -305,8 +305,8 @@ proto.infrastructure.rpc.cqrs.link.v1.GetResponse.deserializeBinaryFromReader = 
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new domain_link_v1_link_pb.Link;
-      reader.readMessage(value,domain_link_v1_link_pb.Link.deserializeBinaryFromReader);
+      var value = new domain_link_cqrs_v1_link_pb.LinkView;
+      reader.readMessage(value,domain_link_cqrs_v1_link_pb.LinkView.deserializeBinaryFromReader);
       msg.setLink(value);
       break;
     default:
@@ -343,24 +343,24 @@ proto.infrastructure.rpc.cqrs.link.v1.GetResponse.serializeBinaryToWriter = func
     writer.writeMessage(
       1,
       f,
-      domain_link_v1_link_pb.Link.serializeBinaryToWriter
+      domain_link_cqrs_v1_link_pb.LinkView.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional domain.link.v1.Link link = 1;
- * @return {?proto.domain.link.v1.Link}
+ * optional domain.link_cqrs.v1.LinkView link = 1;
+ * @return {?proto.domain.link_cqrs.v1.LinkView}
  */
 proto.infrastructure.rpc.cqrs.link.v1.GetResponse.prototype.getLink = function() {
-  return /** @type{?proto.domain.link.v1.Link} */ (
-    jspb.Message.getWrapperField(this, domain_link_v1_link_pb.Link, 1));
+  return /** @type{?proto.domain.link_cqrs.v1.LinkView} */ (
+    jspb.Message.getWrapperField(this, domain_link_cqrs_v1_link_pb.LinkView, 1));
 };
 
 
 /**
- * @param {?proto.domain.link.v1.Link|undefined} value
+ * @param {?proto.domain.link_cqrs.v1.LinkView|undefined} value
  * @return {!proto.infrastructure.rpc.cqrs.link.v1.GetResponse} returns this
 */
 proto.infrastructure.rpc.cqrs.link.v1.GetResponse.prototype.setLink = function(value) {
@@ -548,7 +548,7 @@ proto.infrastructure.rpc.cqrs.link.v1.ListResponse.prototype.toObject = function
  */
 proto.infrastructure.rpc.cqrs.link.v1.ListResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    links: (f = msg.getLinks()) && domain_link_v1_link_pb.Links.toObject(includeInstance, f)
+    links: (f = msg.getLinks()) && domain_link_cqrs_v1_link_pb.LinksView.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -586,8 +586,8 @@ proto.infrastructure.rpc.cqrs.link.v1.ListResponse.deserializeBinaryFromReader =
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = new domain_link_v1_link_pb.Links;
-      reader.readMessage(value,domain_link_v1_link_pb.Links.deserializeBinaryFromReader);
+      var value = new domain_link_cqrs_v1_link_pb.LinksView;
+      reader.readMessage(value,domain_link_cqrs_v1_link_pb.LinksView.deserializeBinaryFromReader);
       msg.setLinks(value);
       break;
     default:
@@ -624,24 +624,24 @@ proto.infrastructure.rpc.cqrs.link.v1.ListResponse.serializeBinaryToWriter = fun
     writer.writeMessage(
       1,
       f,
-      domain_link_v1_link_pb.Links.serializeBinaryToWriter
+      domain_link_cqrs_v1_link_pb.LinksView.serializeBinaryToWriter
     );
   }
 };
 
 
 /**
- * optional domain.link.v1.Links links = 1;
- * @return {?proto.domain.link.v1.Links}
+ * optional domain.link_cqrs.v1.LinksView links = 1;
+ * @return {?proto.domain.link_cqrs.v1.LinksView}
  */
 proto.infrastructure.rpc.cqrs.link.v1.ListResponse.prototype.getLinks = function() {
-  return /** @type{?proto.domain.link.v1.Links} */ (
-    jspb.Message.getWrapperField(this, domain_link_v1_link_pb.Links, 1));
+  return /** @type{?proto.domain.link_cqrs.v1.LinksView} */ (
+    jspb.Message.getWrapperField(this, domain_link_cqrs_v1_link_pb.LinksView, 1));
 };
 
 
 /**
- * @param {?proto.domain.link.v1.Links|undefined} value
+ * @param {?proto.domain.link_cqrs.v1.LinksView|undefined} value
  * @return {!proto.infrastructure.rpc.cqrs.link.v1.ListResponse} returns this
 */
 proto.infrastructure.rpc.cqrs.link.v1.ListResponse.prototype.setLinks = function(value) {

@@ -5,7 +5,7 @@
 /* eslint-disable */
 
 import * as jspb from "google-protobuf";
-import * as domain_link_v1_link_pb from "../../../../../domain/link/v1/link_pb";
+import * as domain_link_cqrs_v1_link_pb from "../../../../../domain/link_cqrs/v1/link_pb";
 
 export class GetRequest extends jspb.Message { 
     getHash(): string;
@@ -31,8 +31,8 @@ export class GetResponse extends jspb.Message {
 
     hasLink(): boolean;
     clearLink(): void;
-    getLink(): domain_link_v1_link_pb.Link | undefined;
-    setLink(value?: domain_link_v1_link_pb.Link): GetResponse;
+    getLink(): domain_link_cqrs_v1_link_pb.LinkView | undefined;
+    setLink(value?: domain_link_cqrs_v1_link_pb.LinkView): GetResponse;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): GetResponse.AsObject;
@@ -46,7 +46,7 @@ export class GetResponse extends jspb.Message {
 
 export namespace GetResponse {
     export type AsObject = {
-        link?: domain_link_v1_link_pb.Link.AsObject,
+        link?: domain_link_cqrs_v1_link_pb.LinkView.AsObject,
     }
 }
 
@@ -74,8 +74,8 @@ export class ListResponse extends jspb.Message {
 
     hasLinks(): boolean;
     clearLinks(): void;
-    getLinks(): domain_link_v1_link_pb.Links | undefined;
-    setLinks(value?: domain_link_v1_link_pb.Links): ListResponse;
+    getLinks(): domain_link_cqrs_v1_link_pb.LinksView | undefined;
+    setLinks(value?: domain_link_cqrs_v1_link_pb.LinksView): ListResponse;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): ListResponse.AsObject;
@@ -89,6 +89,6 @@ export class ListResponse extends jspb.Message {
 
 export namespace ListResponse {
     export type AsObject = {
-        links?: domain_link_v1_link_pb.Links.AsObject,
+        links?: domain_link_cqrs_v1_link_pb.LinksView.AsObject,
     }
 }

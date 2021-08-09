@@ -11,7 +11,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/api/application"
 	v1_2 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
+	v1_3 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
@@ -21,7 +21,7 @@ import (
 // Injectors from di.go:
 
 func InitializeAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*APIService, func(), error) {
-	metadataClient, err := NewMetadataRPCClient(runRPCClient)
+	metadataServiceClient, err := NewMetadataRPCClient(runRPCClient)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -37,7 +37,7 @@ func InitializeAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, ru
 	if err != nil {
 		return nil, nil, err
 	}
-	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient)
+	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -86,8 +86,8 @@ func NewLinkQueryRPCClient(runRPCClient *grpc.ClientConn) (v1_2.LinkQueryService
 	return LinkQueryRPCClient, nil
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataClient, error) {
-	metadataRPCClient := metadata_rpc.NewMetadataClient(runRPCClient)
+func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_3.MetadataServiceClient, error) {
+	metadataRPCClient := v1_3.NewMetadataServiceClient(runRPCClient)
 	return metadataRPCClient, nil
 }
 
@@ -96,7 +96,7 @@ func NewAPIApplication(
 
 	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
-	metadataClient metadata_rpc.MetadataClient,
+	metadataClient v1_3.MetadataServiceClient,
 	linkServiceClient v1.LinkServiceClient,
 	linkCommandRPCClient v1_2.LinkCommandServiceClient,
 	linkQueryRPCClient v1_2.LinkQueryServiceClient,

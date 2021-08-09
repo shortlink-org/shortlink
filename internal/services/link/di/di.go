@@ -13,9 +13,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	api_domain "github.com/batazor/shortlink/internal/services/api/domain"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
 	"github.com/batazor/shortlink/internal/services/link/application/link_cqrs"
+	api_domain "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	api_mq "github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	v12 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -23,7 +23,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
-	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
+	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
@@ -111,7 +111,7 @@ func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) 
 	return queryStore, nil
 }
 
-func NewLinkApplication(logger logger.Logger, metadataService metadata_rpc.MetadataClient, store *crud.Store) (*link.Service, error) {
+func NewLinkApplication(logger logger.Logger, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
 	linkService, err := link.New(logger, metadataService, store)
 	if err != nil {
 		return nil, err
@@ -151,8 +151,8 @@ func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *cqrs.Link, linkRP
 	return run.Run(runRPCServer)
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataClient, error) {
-	metadataRPCClient := metadata_rpc.NewMetadataClient(runRPCClient)
+func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataServiceClient, error) {
+	metadataRPCClient := metadata_rpc.NewMetadataServiceClient(runRPCClient)
 	return metadataRPCClient, nil
 }
 

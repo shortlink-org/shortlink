@@ -7,6 +7,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v12 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
 	"github.com/batazor/shortlink/pkg/saga"
 )
 
@@ -24,13 +25,13 @@ func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error 
 	return nil
 }
 
-func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
+func (s *Service) Get(ctx context.Context, hash string) (*v12.LinkView, error) {
 	const (
 		SAGA_NAME           = "GET_LINK_CQRS"
 		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_GET_CQRS"
 	)
 
-	resp := &v1.Link{}
+	resp := &v12.LinkView{}
 
 	// create a new saga for get link by hash
 	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).

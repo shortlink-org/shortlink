@@ -4,7 +4,7 @@ package infrastructure.rpc.cqrs.link.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1";
 
-import "domain/link/v1/link.proto";
+import "domain/link_cqrs/v1/link.proto";
 
 service LinkQueryService {
   rpc Get(GetRequest) returns(GetResponse) {}
@@ -15,7 +15,7 @@ message GetRequest {
 }
 
 message GetResponse {
-  domain.link.v1.Link link = 1;
+  domain.link_cqrs.v1.LinkView link = 1;
 }
 
 message ListRequest {
@@ -23,6 +23,6 @@ message ListRequest {
 }
 
 message ListResponse {
-  domain.link.v1.Links links = 1;
+  domain.link_cqrs.v1.LinksView links = 1;
 }
 

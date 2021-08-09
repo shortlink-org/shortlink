@@ -12,11 +12,10 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/domain"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
 	queryStore "github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
-	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
+	v12 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/saga"
 )
 
@@ -25,7 +24,7 @@ type Service struct {
 	notify.Subscriber
 
 	// Delivery
-	MetadataClient metadata_rpc.MetadataClient
+	MetadataClient v12.MetadataServiceClient
 
 	// Repository
 	store *crud.Store
@@ -33,7 +32,7 @@ type Service struct {
 	logger logger.Logger
 }
 
-func New(logger logger.Logger, metadataService metadata_rpc.MetadataClient, store *crud.Store) (*Service, error) {
+func New(logger logger.Logger, metadataService v12.MetadataServiceClient, store *crud.Store) (*Service, error) {
 	service := &Service{
 		MetadataClient: metadataService,
 
@@ -178,7 +177,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	// add step: request to metadata
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_METADATA_GET).
 		Then(func(ctx context.Context) error {
-			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.SetMetaRequest{
+			_, err := s.MetadataClient.Set(ctx, &v12.MetadataServiceSetRequest{
 				Id: in.Url,
 			})
 			return err
@@ -191,7 +190,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	// add step: publish event by this service
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
-			notify.Publish(ctx, api_domain.METHOD_ADD, in, nil)
+			notify.Publish(ctx, v1.METHOD_ADD, in, nil)
 			return nil
 		}).
 		Build()
