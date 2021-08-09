@@ -54,6 +54,10 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
+	event, err := InitLinkMQ(ctx, log, mq2)
+	if err != nil {
+		return nil, nil, err
+	}
 	link, err := NewLinkCQRSRPCServer(runRPCServer, link_cqrsService, log)
 	if err != nil {
 		return nil, nil, err
@@ -66,11 +70,7 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(ctx, log, mq2)
-	if err != nil {
-		return nil, nil, err
-	}
-	linkService, err := NewLinkService(log, service, link_cqrsService, response, v1Link, link, store, event, cqsStore, queryStore)
+	linkService, err := NewLinkService(log, service, link_cqrsService, event, response, v1Link, link, store, cqsStore, queryStore)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -84,6 +84,7 @@ type LinkService struct {
 	Logger logger.Logger
 
 	// Delivery
+	linkMQ            *api_mq.Event
 	run               *run.Response
 	linkRPCServer     *v1.Link
 	linkCQRSRPCServer *v1_2.Link
@@ -93,7 +94,6 @@ type LinkService struct {
 	linkCQRSService *link_cqrs.Service
 
 	// Repository
-	linkMQ    *api_mq.Event
 	linkStore *crud.Store
 
 	// CQRS
@@ -121,8 +121,9 @@ var LinkSet = wire.NewSet(
 )
 
 func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Event, error) {
-	linkMQ := &api_mq.Event{
-		MQ: mq2,
+	linkMQ, err := api_mq.New(mq2, log)
+	if err != nil {
+		return nil, err
 	}
 	notify.Subscribe(api_domain.METHOD_ADD, linkMQ)
 
@@ -208,12 +209,13 @@ func NewLinkService(
 	log logger.Logger,
 
 	linkService *link.Service,
-	linkCQRSService *link_cqrs.Service, run2 *run.Response,
+	linkCQRSService *link_cqrs.Service,
+
+	linkMQ *api_mq.Event, run2 *run.Response,
 	linkRPCServer *v1.Link,
 	linkCQRSRPCServer *v1_2.Link,
 
 	linkStore *crud.Store,
-	linkMQ *api_mq.Event,
 
 	cqsStore *cqs.Store,
 	queryStore *query.Store,

@@ -31,6 +31,7 @@ type LinkService struct {
 	Logger logger.Logger
 
 	// Delivery
+	linkMQ            *api_mq.Event
 	run               *run.Response
 	linkRPCServer     *v12.Link
 	linkCQRSRPCServer *cqrs.Link
@@ -40,7 +41,6 @@ type LinkService struct {
 	linkCQRSService *link_cqrs.Service
 
 	// Repository
-	linkMQ    *api_mq.Event
 	linkStore *crud.Store
 
 	// CQRS
@@ -70,11 +70,12 @@ var LinkSet = wire.NewSet(
 )
 
 func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ) (*api_mq.Event, error) {
-	linkMQ := &api_mq.Event{
-		MQ: mq,
+	linkMQ, err := api_mq.New(mq, log)
+	if err != nil {
+		return nil, err
 	}
 
-	// Subscribe to Event
+	// Publish Event
 	notify.Subscribe(api_domain.METHOD_ADD, linkMQ)
 
 	return linkMQ, nil
@@ -163,13 +164,13 @@ func NewLinkService(
 	linkCQRSService *link_cqrs.Service,
 
 	// Delivery
+	linkMQ *api_mq.Event,
 	run *run.Response,
 	linkRPCServer *v12.Link,
 	linkCQRSRPCServer *cqrs.Link,
 
 	// Repository
 	linkStore *crud.Store,
-	linkMQ *api_mq.Event,
 
 	// CQRS Repository
 	cqsStore *cqs.Store,

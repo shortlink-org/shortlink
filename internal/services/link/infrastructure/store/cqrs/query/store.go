@@ -31,7 +31,7 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Stor
 		return nil, err
 	}
 
-	log.Info("init linkStore", field.Fields{
+	log.Info("init queryStore", field.Fields{
 		"db": s.typeStore,
 	})
 
