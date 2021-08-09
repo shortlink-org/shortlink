@@ -15,7 +15,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/badger"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/dgraph"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/leveldb"
@@ -25,7 +25,6 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/ram"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/redis"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/rethinkdb"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/sqlite"
 )
 
@@ -58,8 +57,6 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Stor
 		s.Repository = &leveldb.Store{}
 	case "badger":
 		s.Repository = &badger.Store{}
-	case "rethinkdb":
-		s.Repository = &rethinkdb.Store{}
 	case "ram":
 		s.Repository = &ram.Store{}
 	default:

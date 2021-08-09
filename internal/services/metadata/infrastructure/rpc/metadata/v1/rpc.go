@@ -52,5 +52,3 @@ func (m *Metadata) Set(ctx context.Context, req *MetadataServiceSetRequest) (*Me
 		Meta: meta,
 	}, nil
 }
-
-func (m *Metadata) mustEmbedUnimplementedMetadataServer() {}

@@ -3,7 +3,7 @@ package mock
 import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
 var (

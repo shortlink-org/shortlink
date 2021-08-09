@@ -19,7 +19,6 @@ Service for work with link-domain (CRUD)
 | LevelDB                         | ❌         | ❌       |
 | Badger                          | ❌         | ❌       |
 | SQLite                          | ❌         | ❌       |
-| RethinkDB                       | ❌         | ✅       |
 | DGraph                          | ❌         | ✅       |
 
 ### Example request

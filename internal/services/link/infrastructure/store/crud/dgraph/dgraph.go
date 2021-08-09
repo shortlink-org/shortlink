@@ -9,7 +9,7 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 

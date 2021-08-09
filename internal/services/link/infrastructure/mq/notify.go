@@ -12,7 +12,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq"
-	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	v12 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 
 	"github.com/batazor/shortlink/internal/pkg/mq/query"

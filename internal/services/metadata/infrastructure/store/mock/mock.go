@@ -7,14 +7,14 @@ import (
 var (
 	AddMetaLink = &rpc.Meta{ // nolint unused
 		Id:          "https://example.com",
-		ImageURL:    "",
+		ImageUrl:    "",
 		Description: "example link",
 		Keywords:    "",
 	}
 
 	GetMetaLink = &rpc.Meta{ // nolint unused
 		Id:          "https://example.com",
-		ImageURL:    "",
+		ImageUrl:    "",
 		Description: "example link",
 		Keywords:    "",
 	}
