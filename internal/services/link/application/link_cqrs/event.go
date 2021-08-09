@@ -8,7 +8,7 @@ import (
 	v12 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
-func (s *Service) EventHandler() {
+func (s *Service) EventHandlers() {
 	// Subscribe to Event
 	// Link
 	notify.Subscribe(v1.METHOD_ADD, s)
