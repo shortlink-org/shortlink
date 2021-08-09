@@ -13,13 +13,17 @@ import (
 
 // NewURL return new link
 func NewURL(link *Link) error {
-	link.Hash = CreateHash([]byte(link.Url), []byte("secret"))[:9]
+	link.Hash = NewHash(link.Url)
 
 	// Add timestamp
 	link.CreatedAt = timestamppb.Now()
 	link.UpdatedAt = timestamppb.Now()
 
 	return nil
+}
+
+func NewHash(url string) string {
+	return CreateHash([]byte(url), []byte("secret"))[:9]
 }
 
 // CreateHash return hash by getting link

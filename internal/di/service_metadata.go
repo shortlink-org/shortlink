@@ -11,11 +11,15 @@ import (
 	"github.com/google/wire"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
+	"github.com/batazor/shortlink/internal/di/internal/config"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
+	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
+	"github.com/batazor/shortlink/internal/di/internal/profiling"
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/di/internal/store"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/mq"
 	meta_di "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
@@ -27,8 +31,8 @@ type ServiceMetadata struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store) (*meta_di.MetaDataService, func(), error) {
-	return meta_di.InitializeMetaDataService(ctx, runRPCServer, log, db)
+func InitMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq mq.MQ) (*meta_di.MetaDataService, func(), error) {
+	return meta_di.InitializeMetaDataService(ctx, runRPCServer, log, db, mq)
 }
 
 // MetadataService =====================================================================================================
@@ -38,12 +42,17 @@ var MetadataSet = wire.NewSet(
 	rpc.InitServer,
 	sentry.New,
 	monitoring.New,
+	profiling.New,
+	mq_di.New,
 	InitMetaDataService,
 	NewMetadataService,
 )
 
 func NewMetadataService(
+	ctx context.Context,
+	cfg *config.Config,
 	log logger.Logger,
+	mq mq.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	db *db.Store,
 	serverRPC *rpc.RPCServer,
@@ -53,9 +62,11 @@ func NewMetadataService(
 ) (*ServiceMetadata, error) {
 	return &ServiceMetadata{
 		Service: Service{
+			Ctx:        ctx,
 			Log:        log,
 			ServerRPC:  serverRPC,
 			DB:         db,
+			MQ:         mq,
 			Monitoring: monitoring,
 			Sentry:     sentryHandler,
 		},

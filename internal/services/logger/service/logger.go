@@ -20,7 +20,7 @@ func (l *Logger) Use(_ context.Context) { // nolint unused
 
 	go func() {
 		if l.MQ != nil {
-			if err := l.MQ.Subscribe("shortlink", getEventNewLink); err != nil {
+			if err := l.MQ.Subscribe("shortlink.link.event", getEventNewLink); err != nil {
 				l.Log.Error(err.Error())
 			}
 		}

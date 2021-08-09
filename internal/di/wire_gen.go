@@ -556,25 +556,30 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
 	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup3, err := autoMaxPro.New(logger)
+	mq, cleanup3, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	dbStore, cleanup4, err := store.New(context, logger)
+	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracer, cleanup5, err := traicing_di.New(context, logger)
+	dbStore, cleanup5, err := store.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -582,7 +587,7 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup6, err := rpc.InitServer(logger, tracer)
+	tracer, cleanup6, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -591,7 +596,7 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	handler, cleanup7, err := sentry.New()
+	rpcServer, cleanup7, err := rpc.InitServer(logger, tracer)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -601,8 +606,7 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(handler, logger)
-	metaDataService, cleanup8, err := InitMetaDataService(context, rpcServer, logger, dbStore)
+	handler, cleanup8, err := sentry.New()
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -613,7 +617,8 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serviceMetadata, err := NewMetadataService(logger, autoMaxProAutoMaxPro, dbStore, rpcServer, serveMux, handler, metaDataService)
+	serveMux := monitoring.New(handler, logger)
+	metaDataService, cleanup9, err := InitMetaDataService(context, rpcServer, logger, dbStore, mq)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -625,7 +630,21 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	serviceMetadata, err := NewMetadataService(context, configConfig, logger, mq, autoMaxProAutoMaxPro, dbStore, rpcServer, serveMux, handler, metaDataService)
+	if err != nil {
+		cleanup9()
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return serviceMetadata, func() {
+		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -928,18 +947,21 @@ type ServiceMetadata struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitMetaDataService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store) (*di3.MetaDataService, func(), error) {
-	return di3.InitializeMetaDataService(ctx2, runRPCServer, log, db2)
+func InitMetaDataService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*di3.MetaDataService, func(), error) {
+	return di3.InitializeMetaDataService(ctx2, runRPCServer, log, db2, mq2)
 }
 
 // MetadataService =====================================================================================================
 var MetadataSet = wire.NewSet(
-	DefaultSet, store.New, rpc.InitServer, sentry.New, monitoring.New, InitMetaDataService,
+	DefaultSet, store.New, rpc.InitServer, sentry.New, monitoring.New, profiling.New, mq_di.New, InitMetaDataService,
 	NewMetadataService,
 )
 
-func NewMetadataService(
-	log logger.Logger,
+func NewMetadataService(ctx2 context.Context,
+
+	cfg *config.Config,
+	log logger.Logger, mq2 mq.MQ,
+
 	autoMaxProcsOption autoMaxPro.AutoMaxPro, db2 *db.Store,
 	serverRPC *rpc.RPCServer, monitoring2 *http.ServeMux,
 	sentryHandler *sentryhttp.Handler,
@@ -947,9 +969,11 @@ func NewMetadataService(
 ) (*ServiceMetadata, error) {
 	return &ServiceMetadata{
 		Service: Service{
+			Ctx:        ctx2,
 			Log:        log,
 			ServerRPC:  serverRPC,
 			DB:         db2,
+			MQ:         mq2,
 			Monitoring: monitoring2,
 			Sentry:     sentryHandler,
 		},

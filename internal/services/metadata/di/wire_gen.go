@@ -9,7 +9,11 @@ import (
 	"context"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/metadata/application"
+	"github.com/batazor/shortlink/internal/services/metadata/domain"
+	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/mq"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
@@ -18,7 +22,7 @@ import (
 
 // Injectors from di.go:
 
-func InitializeMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store) (*MetaDataService, func(), error) {
+func InitializeMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*MetaDataService, func(), error) {
 	metaStore, err := NewMetaDataStore(ctx, log, db2)
 	if err != nil {
 		return nil, nil, err
@@ -27,11 +31,15 @@ func InitializeMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer,
 	if err != nil {
 		return nil, nil, err
 	}
+	event, err := InitLinkMQ(ctx, log, mq2)
+	if err != nil {
+		return nil, nil, err
+	}
 	metadata, err := NewMetaDataRPCServer(runRPCServer, service, log)
 	if err != nil {
 		return nil, nil, err
 	}
-	metaDataService, err := NewMetaDataService(log, metadata, metaStore, service)
+	metaDataService, err := NewMetaDataService(log, service, event, metadata, metaStore)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -45,6 +53,7 @@ type MetaDataService struct {
 	Logger logger.Logger
 
 	// Delivery
+	linkMQ            *api_mq.Event
 	metadataRPCServer *metadata_rpc.Metadata
 
 	// Application
@@ -57,6 +66,7 @@ type MetaDataService struct {
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
 
+	InitLinkMQ,
 	NewMetaDataRPCServer,
 
 	NewMetaDataApplication,
@@ -65,6 +75,15 @@ var MetaDataSet = wire.NewSet(
 
 	NewMetaDataService,
 )
+
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Event, error) {
+	linkMQ := &api_mq.Event{
+		MQ: mq2,
+	}
+	notify.Subscribe(domain.METHOD_ADD, linkMQ)
+
+	return linkMQ, nil
+}
 
 func NewMetaDataStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*meta_store.MetaStore, error) {
 	store := &meta_store.MetaStore{}
@@ -96,14 +115,22 @@ func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *metadata.Ser
 
 func NewMetaDataService(
 	log logger.Logger,
-	metadataRPCServer *metadata_rpc.Metadata,
-	metadataStore *meta_store.MetaStore,
+
 	service *metadata.Service,
+
+	linkMQ *api_mq.Event,
+	metadataRPCServer *metadata_rpc.Metadata,
+
+	metadataStore *meta_store.MetaStore,
 ) (*MetaDataService, error) {
 	return &MetaDataService{
-		Logger:            log,
+		Logger: log,
+
+		service: service,
+
+		linkMQ:            linkMQ,
 		metadataRPCServer: metadataRPCServer,
-		metadataStore:     metadataStore,
-		service:           service,
+
+		metadataStore: metadataStore,
 	}, nil
 }
