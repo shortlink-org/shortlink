@@ -1,5 +1,7 @@
 /*
-Logger application
+Shortlink application
+
+Logger-service
 */
 package main
 
@@ -8,9 +10,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/batazor/shortlink/internal/di"
-	logger_service "github.com/batazor/shortlink/internal/services/logger/service"
 	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/internal/di"
 )
 
 func main() {
@@ -21,13 +23,6 @@ func main() {
 	if err != nil { // TODO: use as helpers
 		panic(err)
 	}
-
-	// Run logger
-	logger := logger_service.Logger{
-		MQ:  service.MQ,
-		Log: service.Log,
-	}
-	logger.Use(service.Ctx)
 
 	defer func() {
 		if r := recover(); r != nil {
@@ -40,6 +35,5 @@ func main() {
 	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
 	<-sigs
 
-	// Stop the service gracefully.
 	cleanup()
 }

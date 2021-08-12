@@ -16,7 +16,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db/postgres"
 	"github.com/batazor/shortlink/internal/pkg/db/ram"
 	"github.com/batazor/shortlink/internal/pkg/db/redis"
-	"github.com/batazor/shortlink/internal/pkg/db/rethinkdb" // nolint staticcheck
 	"github.com/batazor/shortlink/internal/pkg/db/sqlite"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
@@ -45,8 +44,6 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 		store.Store = &leveldb.Store{}
 	case "badger":
 		store.Store = &badger.Store{}
-	case "rethinkdb":
-		store.Store = &rethinkdb.Store{}
 	case "ram":
 		store.Store = &ram.Store{}
 	default:

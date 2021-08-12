@@ -10,6 +10,18 @@ proto-lock: ## Lock proto dependencies
 
 proto-generate: ## Generate proto-files
 	@buf generate \
+		--path=internal/services/link/domain \
+		--path=internal/services/link/infrastructure \
+		--template=ops/proto/link/buf.gen.yaml \
+		--config=ops/proto/link/buf.yaml
+
+	@buf generate \
+		--path=internal/services/metadata/domain \
+		--path=internal/services/metadata/infrastructure \
+		--template=ops/proto/metadata/buf.gen.yaml \
+		--config=ops/proto/metadata/buf.yaml
+
+	@buf generate \
 		--path=internal/services/proxy/src/proto/domain \
 		--path=internal/services/proxy/src/proto/infrastructure \
 		--template=ops/proto/proxy/buf.gen.yaml \
@@ -25,3 +37,4 @@ proto-generate: ## Generate proto-files
 		--path=internal/pkg/eventsourcing/v1 \
 		--template=ops/proto/eventsourcing/buf.gen.yaml \
 		--config=ops/proto/eventsourcing/buf.yaml
+

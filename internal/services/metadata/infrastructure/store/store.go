@@ -12,7 +12,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store/ram"
 )
 
@@ -22,11 +22,11 @@ func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (*Met
 	s.setConfig()
 
 	// Subscribe to Event
-	notify.Subscribe(api_type.METHOD_ADD, s)
-	notify.Subscribe(api_type.METHOD_GET, s)
+	notify.Subscribe(v1.METHOD_ADD, s)
+	notify.Subscribe(v1.METHOD_GET, s)
 	//notify.Subscribe(api_type.METHOD_LIST, store)
-	//notify.Subscribe(api_type.METHOD_UPDATE, store)
-	//notify.Subscribe(api_type.METHOD_DELETE, store)
+	//notify.Subscribe(api_domain.METHOD_UPDATE, store)
+	//notify.Subscribe(api_domain.METHOD_DELETE, store)
 
 	switch s.typeStore {
 	case "ram":

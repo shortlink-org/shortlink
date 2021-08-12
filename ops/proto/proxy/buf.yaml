@@ -8,6 +8,7 @@ deps:
 build:
   roots:
     - internal/services/proxy/src/proto
+    - internal/services/link
 
 lint:
   use:

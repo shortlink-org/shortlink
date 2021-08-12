@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package infrastructure.rpc.cqrs.link.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1";
+
+import "domain/link_cqrs/v1/link.proto";
+
+service LinkQueryService {
+  rpc Get(GetRequest) returns(GetResponse) {}
+}
+
+message GetRequest {
+  string hash = 1;
+}
+
+message GetResponse {
+  domain.link_cqrs.v1.LinkView link = 1;
+}
+
+message ListRequest {
+  string filter = 1;
+}
+
+message ListResponse {
+  domain.link_cqrs.v1.LinksView links = 1;
+}
+

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package infrastructure.rpc.metadata.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/metadata/infrastructure/rpc/metadata/v1";
+
+import "domain/metadata/v1/meta.proto";
+
+service MetadataService {
+  rpc Get(MetadataServiceGetRequest) returns(MetadataServiceGetResponse) {}
+  rpc Set(MetadataServiceSetRequest) returns(MetadataServiceSetResponse) {}
+}
+
+message MetadataServiceGetRequest {
+  string id = 1;
+}
+
+message MetadataServiceGetResponse {
+  domain.metadata.v1.Meta meta = 1;
+}
+
+message MetadataServiceSetRequest {
+  string id = 1;
+}
+
+message MetadataServiceSetResponse {
+  domain.metadata.v1.Meta meta = 1;
+}

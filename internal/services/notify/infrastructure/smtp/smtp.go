@@ -11,7 +11,7 @@ import (
 )
 
 type Bot struct {
-	// system event
+	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
 
 	from string

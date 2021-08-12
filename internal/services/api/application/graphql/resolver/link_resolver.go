@@ -6,9 +6,8 @@ import (
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/query"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 // Link ...
@@ -17,7 +16,7 @@ func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 }) (*LinkResolver, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_type.METHOD_GET, *args.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
+	go notify.Publish(ctx, v1.METHOD_GET, *args.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -31,7 +30,7 @@ func (r *Resolver) Link(ctx context.Context, args struct { //nolint unparam
 				Link: nil,
 			}, err
 		}
-		response := r.Payload.(*link.Link) // nolint errcheck
+		response := r.Payload.(*v1.Link) // nolint errcheck
 		return &LinkResolver{
 			Link: response,
 		}, err
@@ -59,7 +58,7 @@ func (r *Resolver) Links(ctx context.Context, args struct {
 		filterRaw = nil
 	}
 
-	go notify.Publish(ctx, api_type.METHOD_LIST, string(filterRaw), &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
+	go notify.Publish(ctx, v1.METHOD_LIST, string(filterRaw), &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -71,7 +70,7 @@ func (r *Resolver) Links(ctx context.Context, args struct {
 		if err != nil {
 			return nil, err
 		}
-		responses := r.Payload.([]*link.Link) // nolint errcheck
+		responses := r.Payload.([]*v1.Link) // nolint errcheck
 
 		links := []*LinkResolver{}
 		for _, item := range responses {

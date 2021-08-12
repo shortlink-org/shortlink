@@ -9,7 +9,8 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 
-	rpc "github.com/batazor/shortlink/internal/services/metadata/domain"
+	"github.com/batazor/shortlink/internal/pkg/notify"
+	v1 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 )
 
@@ -23,7 +24,7 @@ func New(store *meta_store.MetaStore) (*Service, error) {
 	}, nil
 }
 
-func (r *Service) Get(ctx context.Context, hash string) (*rpc.Meta, error) {
+func (r *Service) Get(ctx context.Context, hash string) (*v1.Meta, error) {
 	meta, err := r.MetaStore.Store.Get(ctx, hash)
 	if err != nil {
 		return nil, err
@@ -32,8 +33,8 @@ func (r *Service) Get(ctx context.Context, hash string) (*rpc.Meta, error) {
 	return meta, nil
 }
 
-func (r *Service) Set(ctx context.Context, url string) (*rpc.Meta, error) {
-	meta := &rpc.Meta{
+func (r *Service) Set(ctx context.Context, url string) (*v1.Meta, error) {
+	meta := &v1.Meta{
 		Id: url,
 	}
 
@@ -70,6 +71,9 @@ func (r *Service) Set(ctx context.Context, url string) (*rpc.Meta, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	// publish event by this service
+	notify.Publish(ctx, v1.METHOD_ADD, meta, nil)
 
 	return meta, nil
 }

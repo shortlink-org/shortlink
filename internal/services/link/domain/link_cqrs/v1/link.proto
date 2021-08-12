@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package domain.link_cqrs.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1";
+
+message LinkView {
+    // URL
+    string url = 1;
+    // Hash by URL + salt
+    string hash = 2;
+    // Describe of link
+    string describe = 3;
+
+    // Metadata
+    string ImageURL = 4;
+    string MetaDescription = 5;
+    string MetaKeywords = 6;
+
+    // Create at
+    google.protobuf.Timestamp created_at = 7;
+    // Update at
+    google.protobuf.Timestamp updated_at = 8;
+}
+
+message LinksView {
+    repeated LinkView link = 1;
+}

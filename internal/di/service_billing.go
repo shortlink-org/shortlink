@@ -19,7 +19,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/store"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	billing_di "github.com/batazor/shortlink/internal/services/billing/di"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
@@ -31,7 +31,7 @@ type ServiceBilling struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq mq.MQ, tracer *opentracing.Tracer) (*billing_di.BillingService, func(), error) {
+func InitBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ, tracer *opentracing.Tracer) (*billing_di.BillingService, func(), error) {
 	return billing_di.InitializeBillingService(ctx, runRPCClient, runRPCServer, log, db, mq, tracer)
 }
 
@@ -54,7 +54,7 @@ func NewBillingService(
 	log logger.Logger,
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,
-	mq mq.MQ,
+	mq v1.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	billingService *billing_di.BillingService,

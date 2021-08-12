@@ -10,7 +10,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/services/billing/application/account"
 	"github.com/batazor/shortlink/internal/services/billing/application/order"
 	"github.com/batazor/shortlink/internal/services/billing/application/payment"
@@ -28,7 +28,7 @@ import (
 
 // Injectors from di.go:
 
-func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ, tracer *opentracing.Tracer) (*BillingService, func(), error) {
+func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ, tracer *opentracing.Tracer) (*BillingService, func(), error) {
 	billingStore, err := NewBillingStore(ctx, log, db2)
 	if err != nil {
 		return nil, nil, err
