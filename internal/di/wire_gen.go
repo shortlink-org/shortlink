@@ -24,7 +24,8 @@ import (
 	"github.com/batazor/shortlink/internal/services/api/di"
 	"github.com/batazor/shortlink/internal/services/billing/di"
 	di2 "github.com/batazor/shortlink/internal/services/link/di"
-	di3 "github.com/batazor/shortlink/internal/services/metadata/di"
+	di3 "github.com/batazor/shortlink/internal/services/logger/di"
+	di4 "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/getsentry/sentry-go/http"
@@ -483,7 +484,7 @@ func InitializeLinkService() (*ServiceLink, func(), error) {
 
 // Injectors from service_logger.go:
 
-func InitializeLoggerService() (*Service, func(), error) {
+func InitializeLoggerService() (*ServiceLogger, func(), error) {
 	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
@@ -529,7 +530,7 @@ func InitializeLoggerService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLoggerService(context, configConfig, logger, serveMux, tracer, mq, autoMaxProAutoMaxPro)
+	loggerService, cleanup7, err := InitLoggerService(context, logger, mq)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -539,7 +540,19 @@ func InitializeLoggerService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	return service, func() {
+	serviceLogger, err := NewLoggerService(context, configConfig, logger, serveMux, tracer, mq, autoMaxProAutoMaxPro, loggerService)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return serviceLogger, func() {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -878,7 +891,7 @@ func InitLinkService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPC
 	return di2.InitializeLinkService(ctx2, runRPCClient, runRPCServer, log, db2, mq2)
 }
 
-// APIService ==========================================================================================================
+// LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
 	DefaultSet, store.New, sentry.New, monitoring.New, profiling.New, mq_di.New, rpc.InitServer, rpc.InitClient, InitLinkService,
 	NewLinkService,
@@ -916,9 +929,21 @@ func NewLinkService(ctx2 context.Context,
 
 // service_logger.go:
 
+type ServiceLogger struct {
+	Service
+
+	loggerService *di3.LoggerService
+}
+
+// InitLoggerService ===================================================================================================
+func InitLoggerService(ctx2 context.Context, log logger.Logger, mq2 mq.MQ) (*di3.LoggerService, func(), error) {
+	return di3.InitializeLoggerService(ctx2, log, mq2)
+}
+
 // LoggerService =======================================================================================================
 var LoggerSet = wire.NewSet(
-	DefaultSet, mq_di.New, sentry.New, monitoring.New, NewLoggerService,
+	DefaultSet, sentry.New, monitoring.New, mq_di.New, InitLoggerService,
+	NewLoggerService,
 )
 
 func NewLoggerService(ctx2 context.Context,
@@ -928,13 +953,17 @@ func NewLoggerService(ctx2 context.Context,
 	tracer *opentracing.Tracer, mq2 mq.MQ,
 
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
-) (*Service, error) {
-	return &Service{
-		Ctx:        ctx2,
-		Log:        log,
-		MQ:         mq2,
-		Tracer:     tracer,
-		Monitoring: monitoring2,
+	loggerService *di3.LoggerService,
+) (*ServiceLogger, error) {
+	return &ServiceLogger{
+		Service: Service{
+			Ctx:        ctx2,
+			Log:        log,
+			MQ:         mq2,
+			Tracer:     tracer,
+			Monitoring: monitoring2,
+		},
+		loggerService: loggerService,
 	}, nil
 }
 
@@ -943,12 +972,12 @@ func NewLoggerService(ctx2 context.Context,
 type ServiceMetadata struct {
 	Service
 
-	MetaService *di3.MetaDataService
+	MetaService *di4.MetaDataService
 }
 
 // InitMetaService =====================================================================================================
-func InitMetaDataService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*di3.MetaDataService, func(), error) {
-	return di3.InitializeMetaDataService(ctx2, runRPCServer, log, db2, mq2)
+func InitMetaDataService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*di4.MetaDataService, func(), error) {
+	return di4.InitializeMetaDataService(ctx2, runRPCServer, log, db2, mq2)
 }
 
 // MetadataService =====================================================================================================
@@ -965,7 +994,7 @@ func NewMetadataService(ctx2 context.Context,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro, db2 *db.Store,
 	serverRPC *rpc.RPCServer, monitoring2 *http.ServeMux,
 	sentryHandler *sentryhttp.Handler,
-	metadataService *di3.MetaDataService,
+	metadataService *di4.MetaDataService,
 ) (*ServiceMetadata, error) {
 	return &ServiceMetadata{
 		Service: Service{
