@@ -8,8 +8,6 @@ require (
 	github.com/OneOfOne/xxhash v1.2.5 // indirect
 	github.com/PuerkitoBio/goquery v1.7.1
 	github.com/Shopify/sarama v1.29.1
-	github.com/ThreeDotsLabs/watermill v1.1.1
-	github.com/ThreeDotsLabs/watermill-amqp v1.1.2
 	github.com/Unleash/unleash-client-go/v3 v3.2.3
 	github.com/cloudevents/sdk-go/v2 v2.4.1
 	github.com/container-storage-interface/spec v1.5.0
