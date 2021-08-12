@@ -7,23 +7,21 @@ package di
 
 import (
 	"context"
-
-	"github.com/google/wire"
-
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/services/logger/application"
 	"github.com/batazor/shortlink/internal/services/logger/infrastructure/mq"
+	"github.com/google/wire"
 )
 
 // Injectors from di.go:
 
-func InitializeLoggerService(ctx context.Context, log logger.Logger, mq2 v1.MQ) (*LoggerService, func(), error) {
+func InitializeLoggerService(ctx context.Context, log logger.Logger, mq v1.MQ) (*LoggerService, func(), error) {
 	service, err := NewLoggerApplication(log)
 	if err != nil {
 		return nil, nil, err
 	}
-	event, err := InitLoggerMQ(ctx, log, mq2)
+	event, err := InitLoggerMQ(ctx, log, mq, service)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -57,8 +55,8 @@ var LoggerSet = wire.NewSet(
 	NewLoggerService,
 )
 
-func InitLoggerMQ(ctx context.Context, log logger.Logger, mq2 v1.MQ) (*logger_mq.Event, error) {
-	loggerMQ, err := logger_mq.New(mq2, log)
+func InitLoggerMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *logger_application.Service) (*logger_mq.Event, error) {
+	loggerMQ, err := logger_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
 	}
