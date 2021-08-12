@@ -28,7 +28,7 @@ type API struct { // nolint unused
 func (api *API) GetHandler() *relay.Handler {
 	buf := bytes.Buffer{}
 
-	err := pkger.Walk("/pkg/api/graphql/schema", func(path string, info os.FileInfo, err error) error {
+	err := pkger.Walk("internal/services/api/application/graphql/schema", func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
