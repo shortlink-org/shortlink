@@ -9,8 +9,9 @@ import (
 	"context"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/services/api/application"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
-	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
+	v1_2 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	v1_3 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
@@ -20,15 +21,23 @@ import (
 // Injectors from di.go:
 
 func InitializeAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*APIService, func(), error) {
-	metadataClient, err := NewMetadataRPCClient(runRPCClient)
+	metadataServiceClient, err := NewMetadataRPCClient(runRPCClient)
 	if err != nil {
 		return nil, nil, err
 	}
-	linkClient, err := NewLinkRPCClient(runRPCClient)
+	linkServiceClient, err := NewLinkRPCClient(runRPCClient)
 	if err != nil {
 		return nil, nil, err
 	}
-	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataClient, linkClient)
+	linkCommandServiceClient, err := NewLinkCommandRPCClient(runRPCClient)
+	if err != nil {
+		return nil, nil, err
+	}
+	linkQueryServiceClient, err := NewLinkQueryRPCClient(runRPCClient)
+	if err != nil {
+		return nil, nil, err
+	}
+	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -53,6 +62,8 @@ type APIService struct {
 var APISet = wire.NewSet(
 
 	NewLinkRPCClient,
+	NewLinkCommandRPCClient,
+	NewLinkQueryRPCClient,
 	NewMetadataRPCClient,
 
 	NewAPIApplication,
@@ -60,21 +71,42 @@ var APISet = wire.NewSet(
 	NewAPIService,
 )
 
-func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkClient, error) {
-	linkRPCClient := link_rpc.NewLinkClient(runRPCClient)
-	return linkRPCClient, nil
+func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkServiceClient, error) {
+	LinkServiceClient := v1.NewLinkServiceClient(runRPCClient)
+	return LinkServiceClient, nil
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataClient, error) {
-	metadataRPCClient := metadata_rpc.NewMetadataClient(runRPCClient)
+func NewLinkCommandRPCClient(runRPCClient *grpc.ClientConn) (v1_2.LinkCommandServiceClient, error) {
+	LinkCommandRPCClient := v1_2.NewLinkCommandServiceClient(runRPCClient)
+	return LinkCommandRPCClient, nil
+}
+
+func NewLinkQueryRPCClient(runRPCClient *grpc.ClientConn) (v1_2.LinkQueryServiceClient, error) {
+	LinkQueryRPCClient := v1_2.NewLinkQueryServiceClient(runRPCClient)
+	return LinkQueryRPCClient, nil
+}
+
+func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_3.MetadataServiceClient, error) {
+	metadataRPCClient := v1_3.NewMetadataServiceClient(runRPCClient)
 	return metadataRPCClient, nil
 }
 
-func NewAPIApplication(ctx context.Context, logger2 logger.Logger, tracer *opentracing.Tracer, rpcServer *rpc.RPCServer, metadataClient metadata_rpc.MetadataClient, linkClient link_rpc.LinkClient) (*api_application.Server, error) {
+func NewAPIApplication(
+	ctx context.Context, logger2 logger.Logger,
+
+	tracer *opentracing.Tracer,
+	rpcServer *rpc.RPCServer,
+	metadataClient v1_3.MetadataServiceClient,
+	linkServiceClient v1.LinkServiceClient,
+	linkCommandRPCClient v1_2.LinkCommandServiceClient,
+	linkQueryRPCClient v1_2.LinkQueryServiceClient,
+) (*api_application.Server, error) {
 
 	API := api_application.Server{
-		MetadataClient: metadataClient,
-		LinkClient:     linkClient,
+		MetadataClient:           metadataClient,
+		LinkServiceClient:        linkServiceClient,
+		LinkCommandServiceClient: linkCommandRPCClient,
+		LinkQueryServiceClient:   linkQueryRPCClient,
 	}
 
 	apiService, err := API.RunAPIServer(ctx, logger2, tracer, rpcServer)

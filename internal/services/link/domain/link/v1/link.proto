@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package domain.link.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/batazor/shortlink/internal/services/link/domain/link/v1";
+
+enum LinkEvent {
+  LINK_EVENT_UNSPECIFIED = 0;
+
+  LINK_EVENT_ADD = 1;
+  LINK_EVENT_GET = 2;
+  LINK_EVENT_LIST = 3;
+  LINK_EVENT_UPDATE = 4;
+  LINK_EVENT_DELETE = 5;
+}
+
+message Link {
+    // URL
+    string url = 1;
+    // Hash by URL + salt
+    string hash = 2;
+    // Describe of link
+    string describe = 3;
+
+    // Create at
+    google.protobuf.Timestamp created_at = 4;
+    // Update at
+    google.protobuf.Timestamp updated_at = 5;
+}
+
+message Links {
+    repeated Link link = 1;
+}

@@ -5,8 +5,7 @@ import (
 	"fmt"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	"github.com/batazor/shortlink/internal/services/link/domain/link"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
 // CreateLink ...
@@ -15,7 +14,7 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unuse
 	Hash     *string
 	Describe *string
 }) (*LinkResolver, error) {
-	newLink := &link.Link{
+	newLink := &v1.Link{
 		Url:      *args.URL,
 		Hash:     *args.Hash,
 		Describe: *args.Describe,
@@ -23,7 +22,7 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unuse
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_type.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
+	go notify.Publish(ctx, v1.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -37,7 +36,7 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unuse
 		if err != nil {
 			return nil, err
 		}
-		response := r.Payload.(*link.Link) // nolint errcheck
+		response := r.Payload.(*v1.Link) // nolint errcheck
 		return &LinkResolver{
 			Link: response,
 		}, err
@@ -64,7 +63,7 @@ func (r *Resolver) DeleteLink(ctx context.Context, args *struct { //nolint unuse
 }) (bool, error) {
 	responseCh := make(chan interface{})
 
-	go notify.Publish(ctx, api_type.METHOD_DELETE, *args.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
+	go notify.Publish(ctx, v1.METHOD_DELETE, *args.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
 
 	c := <-responseCh
 	switch r := c.(type) {

@@ -25,7 +25,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/traicing"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
@@ -39,7 +39,7 @@ type Service struct {
 	Sentry        *sentryhttp.Handler
 	DB            *db.Store
 	MetaStore     *meta_store.MetaStore
-	MQ            mq.MQ
+	MQ            v1.MQ
 	ServerRPC     *rpc.RPCServer
 	ClientRPC     *grpc.ClientConn
 	Monitoring    *http.ServeMux
@@ -66,7 +66,7 @@ func NewFullService(
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
-	mq mq.MQ,
+	mq v1.MQ,
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,

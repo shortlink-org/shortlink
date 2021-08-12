@@ -23,7 +23,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/linkLink"
+              "$ref": "#/definitions/v1Link"
             }
           },
           "default": {
@@ -39,7 +39,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/linkLink"
+              "$ref": "#/definitions/v1Link"
             }
           }
         ],
@@ -55,7 +55,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/linkLink"
+              "$ref": "#/definitions/v1Link"
             }
           },
           "default": {
@@ -116,7 +116,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/linkLinks"
+              "$ref": "#/definitions/v1Links"
             }
           },
           "default": {
@@ -239,44 +239,6 @@
     }
   },
   "definitions": {
-    "linkLink": {
-      "type": "object",
-      "properties": {
-        "url": {
-          "type": "string",
-          "title": "URL"
-        },
-        "hash": {
-          "type": "string",
-          "title": "Hash by URL + salt"
-        },
-        "describe": {
-          "type": "string",
-          "title": "Describe of link"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "title": "Create at"
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "title": "Update at"
-        }
-      }
-    },
-    "linkLinks": {
-      "type": "object",
-      "properties": {
-        "link": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/linkLink"
-          }
-        }
-      }
-    },
     "protobufAny": {
       "type": "object",
       "properties": {
@@ -303,6 +265,44 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Link": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "title": "URL"
+        },
+        "hash": {
+          "type": "string",
+          "title": "Hash by URL + salt"
+        },
+        "describe": {
+          "type": "string",
+          "title": "Describe of link"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Create at"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Update at"
+        }
+      }
+    },
+    "v1Links": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Link"
           }
         }
       }

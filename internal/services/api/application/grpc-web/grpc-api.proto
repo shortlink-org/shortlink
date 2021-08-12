@@ -4,31 +4,31 @@ package grpcweb;
 
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
-import "internal/services/link/domain/link/link.proto";
+import "internal/services/link/domain/link/v1/link.proto";
 
 option go_package = "./;grpcweb";
 
 service Link {
-    rpc GetLinks(ListRequest) returns (link.Links) {
+    rpc GetLinks(ListRequest) returns (domain.link.v1.Links) {
         option(google.api.http) = {
         get: "/api/links"
       };
     };
 
-    rpc GetLink(link.Link) returns (link.Link) {
+    rpc GetLink(domain.link.v1.Link) returns (domain.link.v1.Link) {
         option(google.api.http) = {
         get: "/api/link/{hash}"
       };
     };
 
-    rpc CreateLink(link.Link) returns (link.Link) {
+    rpc CreateLink(domain.link.v1.Link) returns (domain.link.v1.Link) {
         option(google.api.http) = {
         post: "/api"
         body: "*"
       };
     };
 
-    rpc DeleteLink(link.Link) returns (google.protobuf.Empty) {
+    rpc DeleteLink(domain.link.v1.Link) returns (google.protobuf.Empty) {
         option(google.api.http) = {
         delete: "/api/{hash}"
       };
@@ -36,7 +36,7 @@ service Link {
 }
 
 message ListRequest {
-  link.Link link = 1;
+  domain.link.v1.Link link = 1;
 
   string filter = 2;
 }

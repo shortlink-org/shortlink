@@ -11,8 +11,9 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc"
-	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc"
+	v1 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 )
 
 // API - general describe of API
@@ -22,6 +23,9 @@ type API interface { // nolint unused
 
 type Server struct {
 	// Delivery
-	MetadataClient metadata_rpc.MetadataClient
-	LinkClient     link_rpc.LinkClient
+	MetadataClient metadata_rpc.MetadataServiceClient
+
+	LinkServiceClient        link_rpc.LinkServiceClient
+	LinkCommandServiceClient v1.LinkCommandServiceClient
+	LinkQueryServiceClient   v1.LinkQueryServiceClient
 }

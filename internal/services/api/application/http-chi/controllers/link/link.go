@@ -11,8 +11,8 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	link_domain "github.com/batazor/shortlink/internal/services/link/domain/link"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v12 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
 
 var (
@@ -24,6 +24,7 @@ func Routes() chi.Router {
 	r := chi.NewRouter()
 
 	r.Get("/link/{hash}", Get)
+	r.Get("/link/{hash}/cqrs", GetByCQRS)
 	r.Get("/links", List)
 	r.Post("/link", Add)
 	r.Delete("/link/{hash}", Delete)
@@ -37,7 +38,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
-	var request link_domain.Link
+	var request v1.Link
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -45,10 +46,11 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newLink := &link_domain.Link{
+	newLink := &v1.Link{
 		Url:      request.Url,
 		Describe: request.Describe,
 	}
+	var response *v12.AddResponse
 
 	responseCh := make(chan interface{})
 
@@ -56,7 +58,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	// TODO: send []byte format
-	go notify.Publish(r.Context(), api_type.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_ADD"})
+	go notify.Publish(r.Context(), v1.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_ADD"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -65,7 +67,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			newLink = resp.Payload.(*link_domain.Link) // nolint errcheck
+			response = resp.Payload.(*v12.AddResponse) // nolint errcheck
 		}
 	}
 
@@ -75,7 +77,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := jsonpb.Marshal(newLink)
+	res, err := jsonpb.Marshal(response.Link)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -98,7 +100,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var (
-		response *link_domain.Link
+		response *v1.Link
 		err      error
 	)
 
@@ -107,7 +109,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), api_type.METHOD_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_GET"})
+	go notify.Publish(r.Context(), v1.METHOD_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_GET"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -116,11 +118,11 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.(*link_domain.Link) // nolint errcheck
+			response = resp.Payload.(*v1.Link) // nolint errcheck
 		}
 	}
 
-	var errorLink *link_domain.NotFoundError
+	var errorLink *v1.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -151,7 +153,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	filter := r.URL.Query().Get("filter")
 
 	var (
-		response *link_domain.Links
+		response *v12.ListResponse
 		err      error
 	)
 
@@ -160,7 +162,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), api_type.METHOD_LIST, filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_LIST"})
+	go notify.Publish(r.Context(), v1.METHOD_LIST, filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_LIST"})
 
 	c := <-responseCh
 	switch resp := c.(type) {
@@ -169,11 +171,11 @@ func List(w http.ResponseWriter, r *http.Request) {
 	case notify.Response:
 		err = resp.Error
 		if err == nil {
-			response = resp.Payload.(*link_domain.Links) // nolint errcheck
+			response = resp.Payload.(*v12.ListResponse) // nolint errcheck
 		}
 	}
 
-	var errorLink *link_domain.NotFoundError
+	var errorLink *v1.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -185,7 +187,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := jsonpb.Marshal(response)
+	res, err := jsonpb.Marshal(response.GetLinks())
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -210,7 +212,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 	responseCh := make(chan interface{})
 
-	go notify.Publish(r.Context(), api_type.METHOD_DELETE, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_DELETE"})
+	go notify.Publish(r.Context(), v1.METHOD_DELETE, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_DELETE"})
 
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))

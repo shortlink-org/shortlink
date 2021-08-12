@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package infrastructure.rpc.link.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1";
+
+import "google/protobuf/empty.proto";
+import "domain/link/v1/link.proto";
+
+service LinkService {
+  rpc Get(GetRequest) returns(GetResponse) {}
+  rpc List(ListRequest) returns(ListResponse) {}
+
+  rpc Add(AddRequest) returns(AddResponse) {}
+  rpc Update(UpdateRequest) returns(UpdateResponse) {}
+  rpc Delete(DeleteRequest) returns(google.protobuf.Empty) {}
+}
+
+message GetRequest {
+  string hash = 1;
+}
+
+message GetResponse {
+  domain.link.v1.Link link = 1;
+}
+
+message ListRequest {
+  string filter = 1;
+}
+
+message ListResponse {
+  domain.link.v1.Links links = 1;
+}
+
+message AddRequest {
+  domain.link.v1.Link link = 1;
+}
+
+message AddResponse {
+  domain.link.v1.Link link = 1;
+}
+
+message UpdateRequest {
+  domain.link.v1.Link link = 1;
+}
+
+message UpdateResponse {
+  domain.link.v1.Link link = 1;
+}
+
+message DeleteRequest {
+  string hash = 1;
+}

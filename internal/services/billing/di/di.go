@@ -13,7 +13,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	event_store "github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
 	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
 	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
@@ -153,6 +153,6 @@ func NewBillingService(
 	}, nil
 }
 
-func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq mq.MQ, tracer *opentracing.Tracer) (*BillingService, func(), error) {
+func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ, tracer *opentracing.Tracer) (*BillingService, func(), error) {
 	panic(wire.Build(BillingSet))
 }

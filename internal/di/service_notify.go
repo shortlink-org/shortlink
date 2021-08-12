@@ -16,7 +16,7 @@ import (
 	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 )
 
 // NotifyService ==========================================================================================================
@@ -32,7 +32,7 @@ func NewNotifyService(
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
-	mq mq.MQ,
+	mq v1.MQ,
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

@@ -9,6 +9,7 @@ build:
   roots:
     - internal/services/proxy/src/proto
     - internal/services/billing
+    - internal/services/metadata
     - internal/pkg
 
 lint:

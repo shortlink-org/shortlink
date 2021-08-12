@@ -15,6 +15,8 @@ import (
 	grpcweb "github.com/batazor/shortlink/internal/services/api/application/grpc-web"
 	http_chi "github.com/batazor/shortlink/internal/services/api/application/http-chi"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	v13 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
@@ -51,11 +53,12 @@ func (s *Server) RunAPIServer(ctx context.Context, log logger.Logger, tracer *op
 	}
 
 	// Subscribe to Event
-	notify.Subscribe(api_type.METHOD_ADD, s)
-	notify.Subscribe(api_type.METHOD_GET, s)
-	notify.Subscribe(api_type.METHOD_LIST, s)
-	notify.Subscribe(api_type.METHOD_UPDATE, s)
-	notify.Subscribe(api_type.METHOD_DELETE, s)
+	notify.Subscribe(v1.METHOD_ADD, s)
+	notify.Subscribe(v1.METHOD_GET, s)
+	notify.Subscribe(v1.METHOD_LIST, s)
+	notify.Subscribe(v1.METHOD_UPDATE, s)
+	notify.Subscribe(v1.METHOD_DELETE, s)
+	notify.Subscribe(v13.METHOD_CQRS_GET, s)
 
 	if err := server.Run(ctx, config, log, tracer); err != nil {
 		return nil, err
