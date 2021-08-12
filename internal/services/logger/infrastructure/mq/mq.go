@@ -1,0 +1,65 @@
+/*
+MQ Endpoint
+*/
+
+package logger_mq
+
+import (
+	"fmt"
+
+	"github.com/golang/protobuf/proto"
+
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/query"
+	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	"github.com/batazor/shortlink/internal/services/logger/application"
+)
+
+type Event struct {
+	mq  mq.MQ
+	log logger.Logger
+
+	service *logger_application.Service
+}
+
+func New(mq mq.MQ, log logger.Logger) (*Event, error) {
+	event := &Event{
+		mq:  mq,
+		log: log,
+	}
+
+	// Subscribe
+	event.Subscribe()
+
+	return event, nil
+}
+
+func (e *Event) Subscribe() {
+	getEventNewLink := query.Response{
+		Chan: make(chan query.ResponseMessage),
+	}
+
+	go func() {
+		if err := e.mq.Subscribe("shortlink.link.event", getEventNewLink); err != nil {
+			e.log.Error(err.Error())
+		}
+	}()
+
+	go func() {
+		for {
+			msg := <-getEventNewLink.Chan
+
+			// Convert: []byte to link.Link
+			myLink := &v1.Link{}
+			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
+				e.log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
+				msg.Context.Done()
+				continue
+			}
+
+			e.service.Log(msg.Context, myLink)
+			msg.Context.Done()
+		}
+	}()
+}

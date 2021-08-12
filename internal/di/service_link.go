@@ -37,7 +37,7 @@ func InitLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCS
 	return link_di.InitializeLinkService(ctx, runRPCClient, runRPCServer, log, db, mq)
 }
 
-// APIService ==========================================================================================================
+// LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
 	DefaultSet,
 	store.New,

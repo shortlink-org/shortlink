@@ -55,7 +55,7 @@
 ################################################################
 [http.routers.metadata]
   entryPoints = ["websecure"]
-  rule = "PathPrefix(`/metadata_rpc.Metadata/`)"
+  rule = "PathPrefix(`/infrastructure.rpc.metadata.v1.MetadataService/`)"
   service = "metadata"
   [http.routers.metadata.tls]
     certResolver = "default"
