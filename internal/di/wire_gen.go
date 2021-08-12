@@ -7,6 +7,13 @@ package di
 
 import (
 	"context"
+	"net/http"
+
+	"github.com/getsentry/sentry-go/http"
+	"github.com/google/wire"
+	"github.com/opentracing/opentracing-go"
+	"google.golang.org/grpc"
+
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/config"
 	"github.com/batazor/shortlink/internal/di/internal/context"
@@ -20,7 +27,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/traicing"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/services/api/di"
 	"github.com/batazor/shortlink/internal/services/billing/di"
 	di2 "github.com/batazor/shortlink/internal/services/link/di"
@@ -28,11 +35,6 @@ import (
 	di4 "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
-	"github.com/getsentry/sentry-go/http"
-	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
-	"google.golang.org/grpc"
-	"net/http"
 )
 
 // Injectors from default.go:
@@ -748,7 +750,7 @@ type Service struct {
 	Sentry        *sentryhttp.Handler
 	DB            *db.Store
 	MetaStore     *meta_store.MetaStore
-	MQ            mq.MQ
+	MQ            v1.MQ
 	ServerRPC     *rpc.RPCServer
 	ClientRPC     *grpc.ClientConn
 	Monitoring    *http.ServeMux
@@ -767,7 +769,7 @@ var FullSet = wire.NewSet(
 func NewFullService(ctx2 context.Context,
 
 	cfg *config.Config,
-	log logger.Logger, mq2 mq.MQ,
+	log logger.Logger, mq2 v1.MQ,
 
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
 	tracer *opentracing.Tracer, db2 *db.Store,
@@ -845,7 +847,7 @@ type ServiceBilling struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitBillingService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ, tracer *opentracing.Tracer) (*billing_di.BillingService, func(), error) {
+func InitBillingService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 v1.MQ, tracer *opentracing.Tracer) (*billing_di.BillingService, func(), error) {
 	return billing_di.InitializeBillingService(ctx2, runRPCClient, runRPCServer, log, db2, mq2, tracer)
 }
 
@@ -859,7 +861,7 @@ func NewBillingService(ctx2 context.Context,
 
 	cfg *config.Config,
 	log logger.Logger, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer, mq2 mq.MQ,
+	tracer *opentracing.Tracer, mq2 v1.MQ,
 
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
@@ -887,7 +889,7 @@ type ServiceLink struct {
 }
 
 // InitLinkService =====================================================================================================
-func InitLinkService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*di2.LinkService, func(), error) {
+func InitLinkService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 v1.MQ) (*di2.LinkService, func(), error) {
 	return di2.InitializeLinkService(ctx2, runRPCClient, runRPCServer, log, db2, mq2)
 }
 
@@ -900,7 +902,7 @@ var LinkSet = wire.NewSet(
 func NewLinkService(ctx2 context.Context,
 
 	cfg *config.Config,
-	log logger.Logger, mq2 mq.MQ,
+	log logger.Logger, mq2 v1.MQ,
 
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
 	tracer *opentracing.Tracer, db2 *db.Store,
@@ -936,7 +938,7 @@ type ServiceLogger struct {
 }
 
 // InitLoggerService ===================================================================================================
-func InitLoggerService(ctx2 context.Context, log logger.Logger, mq2 mq.MQ) (*di3.LoggerService, func(), error) {
+func InitLoggerService(ctx2 context.Context, log logger.Logger, mq2 v1.MQ) (*di3.LoggerService, func(), error) {
 	return di3.InitializeLoggerService(ctx2, log, mq2)
 }
 
@@ -950,7 +952,7 @@ func NewLoggerService(ctx2 context.Context,
 
 	cfg *config.Config,
 	log logger.Logger, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer, mq2 mq.MQ,
+	tracer *opentracing.Tracer, mq2 v1.MQ,
 
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	loggerService *di3.LoggerService,
@@ -976,7 +978,7 @@ type ServiceMetadata struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitMetaDataService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*di4.MetaDataService, func(), error) {
+func InitMetaDataService(ctx2 context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 v1.MQ) (*di4.MetaDataService, func(), error) {
 	return di4.InitializeMetaDataService(ctx2, runRPCServer, log, db2, mq2)
 }
 
@@ -989,7 +991,7 @@ var MetadataSet = wire.NewSet(
 func NewMetadataService(ctx2 context.Context,
 
 	cfg *config.Config,
-	log logger.Logger, mq2 mq.MQ,
+	log logger.Logger, mq2 v1.MQ,
 
 	autoMaxProcsOption autoMaxPro.AutoMaxPro, db2 *db.Store,
 	serverRPC *rpc.RPCServer, monitoring2 *http.ServeMux,
@@ -1020,7 +1022,7 @@ var NotifySet = wire.NewSet(
 func NewNotifyService(ctx2 context.Context,
 
 	cfg *config.Config,
-	log logger.Logger, mq2 mq.MQ, monitoring2 *http.ServeMux,
+	log logger.Logger, mq2 v1.MQ, monitoring2 *http.ServeMux,
 	tracer *opentracing.Tracer,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {

@@ -11,23 +11,23 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	v13 "github.com/batazor/shortlink/internal/pkg/mq/v1"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	v12 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 
-	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 )
 
 type Event struct {
-	mq  mq.MQ
+	mq  v13.MQ
 	log logger.Logger
 
 	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
 }
 
-func New(mq mq.MQ, log logger.Logger) (*Event, error) {
+func New(mq v13.MQ, log logger.Logger) (*Event, error) {
 	event := &Event{
 		mq:  mq,
 		log: log,

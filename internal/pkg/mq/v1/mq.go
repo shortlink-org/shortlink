@@ -1,7 +1,7 @@
 /*
 Message Queue
 */
-package mq
+package v1
 
 import (
 	"context"
@@ -10,9 +10,9 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	"github.com/batazor/shortlink/internal/pkg/mq/kafka"
-	"github.com/batazor/shortlink/internal/pkg/mq/nats"
-	"github.com/batazor/shortlink/internal/pkg/mq/rabbit"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/kafka"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/nats"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/rabbit"
 )
 
 // Use return implementation of MQ

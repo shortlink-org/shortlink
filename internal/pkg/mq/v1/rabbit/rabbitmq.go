@@ -10,7 +10,7 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq/query"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 )
 
 type RabbitMQ struct {

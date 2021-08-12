@@ -10,15 +10,15 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	v12 "github.com/batazor/shortlink/internal/pkg/mq/v1"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 	v1 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 
-	"github.com/batazor/shortlink/internal/pkg/mq/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 )
 
 type Event struct {
-	MQ mq.MQ
+	MQ v12.MQ
 
 	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event

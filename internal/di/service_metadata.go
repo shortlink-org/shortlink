@@ -19,7 +19,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/store"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	meta_di "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
@@ -31,7 +31,7 @@ type ServiceMetadata struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq mq.MQ) (*meta_di.MetaDataService, func(), error) {
+func InitMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ) (*meta_di.MetaDataService, func(), error) {
 	return meta_di.InitializeMetaDataService(ctx, runRPCServer, log, db, mq)
 }
 
@@ -52,7 +52,7 @@ func NewMetadataService(
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
-	mq mq.MQ,
+	mq v1.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	db *db.Store,
 	serverRPC *rpc.RPCServer,

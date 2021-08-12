@@ -10,7 +10,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	metadata "github.com/batazor/shortlink/internal/services/metadata/application"
 	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
@@ -49,7 +49,7 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ) (*api_mq.Event, error) {
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*api_mq.Event, error) {
 	linkMQ := &api_mq.Event{
 		MQ: mq,
 	}
@@ -116,6 +116,6 @@ func NewMetaDataService(
 	}, nil
 }
 
-func InitializeMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq mq.MQ) (*MetaDataService, func(), error) {
+func InitializeMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ) (*MetaDataService, func(), error) {
 	panic(wire.Build(MetaDataSet))
 }

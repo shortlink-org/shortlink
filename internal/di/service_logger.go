@@ -16,7 +16,7 @@ import (
 	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/services/logger/di"
 )
 
@@ -27,7 +27,7 @@ type ServiceLogger struct {
 }
 
 // InitLoggerService ===================================================================================================
-func InitLoggerService(ctx context.Context, log logger.Logger, mq mq.MQ) (*di.LoggerService, func(), error) {
+func InitLoggerService(ctx context.Context, log logger.Logger, mq v1.MQ) (*di.LoggerService, func(), error) {
 	return di.InitializeLoggerService(ctx, log, mq)
 }
 
@@ -47,7 +47,7 @@ func NewLoggerService(
 	log logger.Logger,
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,
-	mq mq.MQ,
+	mq v1.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	loggerService *di.LoggerService,
 ) (*ServiceLogger, error) {
