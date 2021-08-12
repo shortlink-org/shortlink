@@ -11,7 +11,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
 	"github.com/batazor/shortlink/internal/services/link/application/link_cqrs"
@@ -69,7 +69,7 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ) (*api_mq.Event, error) {
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq, log)
 	if err != nil {
 		return nil, err
@@ -198,6 +198,6 @@ func NewLinkService(
 	}, nil
 }
 
-func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq mq.MQ) (*LinkService, func(), error) {
+func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ) (*LinkService, func(), error) {
 	panic(wire.Build(LinkSet))
 }

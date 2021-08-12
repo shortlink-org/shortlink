@@ -21,7 +21,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/store"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	link_di "github.com/batazor/shortlink/internal/services/link/di"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
@@ -33,7 +33,7 @@ type ServiceLink struct {
 }
 
 // InitLinkService =====================================================================================================
-func InitLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq mq.MQ) (*link_di.LinkService, func(), error) {
+func InitLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ) (*link_di.LinkService, func(), error) {
 	return link_di.InitializeLinkService(ctx, runRPCClient, runRPCServer, log, db, mq)
 }
 
@@ -55,7 +55,7 @@ func NewLinkService(
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
-	mq mq.MQ,
+	mq v1.MQ,
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,

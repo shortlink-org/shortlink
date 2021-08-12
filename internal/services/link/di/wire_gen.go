@@ -7,9 +7,13 @@ package di
 
 import (
 	"context"
+
+	"github.com/google/wire"
+	"google.golang.org/grpc"
+
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	v12 "github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
 	"github.com/batazor/shortlink/internal/services/link/application/link_cqrs"
@@ -23,13 +27,11 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
 	v1_4 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
-	"github.com/google/wire"
-	"google.golang.org/grpc"
 )
 
 // Injectors from di.go:
 
-func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*LinkService, func(), error) {
+func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 v12.MQ) (*LinkService, func(), error) {
 	metadataServiceClient, err := NewMetadataRPCClient(runRPCClient)
 	if err != nil {
 		return nil, nil, err
@@ -120,7 +122,7 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Event, error) {
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 v12.MQ) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq2, log)
 	if err != nil {
 		return nil, err

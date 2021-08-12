@@ -6,7 +6,7 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	"github.com/batazor/shortlink/internal/pkg/mq/query"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 

@@ -6,7 +6,7 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/pkg/mq/query"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 )
 
 type Config struct { // nolint unused

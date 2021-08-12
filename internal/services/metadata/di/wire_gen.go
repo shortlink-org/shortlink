@@ -7,9 +7,12 @@ package di
 
 import (
 	"context"
+
+	"github.com/google/wire"
+
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq"
+	v12 "github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/metadata/application"
 	v1_2 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
@@ -17,12 +20,11 @@ import (
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
-	"github.com/google/wire"
 )
 
 // Injectors from di.go:
 
-func InitializeMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 mq.MQ) (*MetaDataService, func(), error) {
+func InitializeMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq2 v12.MQ) (*MetaDataService, func(), error) {
 	metaStore, err := NewMetaDataStore(ctx, log, db2)
 	if err != nil {
 		return nil, nil, err
@@ -76,7 +78,7 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 mq.MQ) (*api_mq.Event, error) {
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq2 v12.MQ) (*api_mq.Event, error) {
 	linkMQ := &api_mq.Event{
 		MQ: mq2,
 	}

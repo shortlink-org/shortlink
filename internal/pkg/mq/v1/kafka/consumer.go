@@ -3,7 +3,7 @@ package kafka
 import (
 	"github.com/Shopify/sarama"
 
-	"github.com/batazor/shortlink/internal/pkg/mq/query"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 )
 
 // Consumer represents a Sarama consumer group consumer
