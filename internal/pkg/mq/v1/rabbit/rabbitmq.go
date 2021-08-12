@@ -88,7 +88,19 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 }
 
 func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
-	var err error
+	// create a exchange
+	err := mq.ch.ExchangeDeclare(
+		target,   // name
+		"fanout", // type
+		false,    // durable
+		false,    // auto-deleted
+		false,    // internal
+		false,    // no-wait
+		nil,      // arguments
+	)
+	if err != nil {
+		return err
+	}
 
 	// create a queue
 	mq.q, err = mq.ch.QueueDeclare(
