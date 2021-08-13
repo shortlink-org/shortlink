@@ -207,7 +207,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	return in, nil
 }
 
-func (s *Service) Update(ctx context.Context, in *v1.Link) (*v1.Link, error) {
+func (s *Service) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
