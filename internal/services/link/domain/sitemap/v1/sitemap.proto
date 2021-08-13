@@ -6,7 +6,7 @@ import "tagger/tagger.proto";
 
 option go_package = "github.com/batazor/shortlink/internal/services/link/domain/sitemap/v1";
 
-message Sitemap {
+message SitemapNew {
   string location = 1 [(tagger.tags) = "xml:\"loc\"" ];
   string last_modified = 2 [(tagger.tags) = "xml:\"lastmod\"" ];
 }

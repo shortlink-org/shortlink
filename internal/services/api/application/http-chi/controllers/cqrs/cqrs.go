@@ -1,20 +1,45 @@
-package link_api
+package cqrs_api
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	v12 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
+	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 )
 
+var (
+	jsonpb protojson.MarshalOptions
+)
+
+type Handler struct {
+	LinkCommandServiceClient link_cqrs.LinkCommandServiceClient
+	LinkQueryServiceClient   link_cqrs.LinkQueryServiceClient
+}
+
+// Routes creates a REST router
+func Routes(
+	link_command link_cqrs.LinkCommandServiceClient,
+	link_query link_cqrs.LinkQueryServiceClient,
+) chi.Router {
+	r := chi.NewRouter()
+
+	h := &Handler{
+		LinkCommandServiceClient: link_command,
+		LinkQueryServiceClient:   link_query,
+	}
+
+	r.Get("/link/{hash}", h.GetByCQRS)
+
+	return r
+}
+
 // GetByCQRS ...
-func GetByCQRS(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	var hash = chi.URLParam(r, "hash")
@@ -24,29 +49,10 @@ func GetByCQRS(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var (
-		response *v12.LinkView
-		err      error
-	)
-
-	responseCh := make(chan interface{})
-
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), v12.METHOD_CQRS_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_CQRS_GET"})
-
-	c := <-responseCh
-	switch resp := c.(type) {
-	case nil:
-		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_CQRS_GET")
-	case notify.Response:
-		err = resp.Error
-		if err == nil {
-			response = resp.Payload.(*v12.LinkView) // nolint errcheck
-		}
-	}
-
+	response, err := h.LinkQueryServiceClient.Get(r.Context(), &link_cqrs.GetRequest{Hash: hash})
 	var errorLink *v1.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
@@ -59,7 +65,7 @@ func GetByCQRS(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := jsonpb.Marshal(response)
+	res, err := jsonpb.Marshal(response.Link)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck

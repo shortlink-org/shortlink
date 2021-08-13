@@ -11,7 +11,8 @@ import (
 	"github.com/batazor/shortlink/internal/services/api/application"
 	v1_2 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	v1_3 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	v1_3 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
+	v1_4 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
@@ -37,11 +38,15 @@ func InitializeAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, ru
 	if err != nil {
 		return nil, nil, err
 	}
-	server, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient)
+	sitemapServiceClient, err := NewSitemapServiceClient(runRPCClient)
 	if err != nil {
 		return nil, nil, err
 	}
-	apiService, err := NewAPIService(log, server)
+	api, err := NewAPIApplication(ctx, log, tracer, runRPCServer, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	if err != nil {
+		return nil, nil, err
+	}
+	apiService, err := NewAPIService(log, api)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -55,7 +60,7 @@ type APIService struct {
 	Logger logger.Logger
 
 	// applications
-	service *api_application.Server
+	service *api_application.API
 }
 
 // APIService ==========================================================================================================
@@ -64,6 +69,7 @@ var APISet = wire.NewSet(
 	NewLinkRPCClient,
 	NewLinkCommandRPCClient,
 	NewLinkQueryRPCClient,
+	NewSitemapServiceClient,
 	NewMetadataRPCClient,
 
 	NewAPIApplication,
@@ -86,8 +92,13 @@ func NewLinkQueryRPCClient(runRPCClient *grpc.ClientConn) (v1_2.LinkQueryService
 	return LinkQueryRPCClient, nil
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_3.MetadataServiceClient, error) {
-	metadataRPCClient := v1_3.NewMetadataServiceClient(runRPCClient)
+func NewSitemapServiceClient(runRPCClient *grpc.ClientConn) (v1_3.SitemapServiceClient, error) {
+	sitemapRPCClient := v1_3.NewSitemapServiceClient(runRPCClient)
+	return sitemapRPCClient, nil
+}
+
+func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceClient, error) {
+	metadataRPCClient := v1_4.NewMetadataServiceClient(runRPCClient)
 	return metadataRPCClient, nil
 }
 
@@ -96,20 +107,23 @@ func NewAPIApplication(
 
 	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
-	metadataClient v1_3.MetadataServiceClient,
-	linkServiceClient v1.LinkServiceClient,
-	linkCommandRPCClient v1_2.LinkCommandServiceClient,
-	linkQueryRPCClient v1_2.LinkQueryServiceClient,
-) (*api_application.Server, error) {
 
-	API := api_application.Server{
-		MetadataClient:           metadataClient,
-		LinkServiceClient:        linkServiceClient,
-		LinkCommandServiceClient: linkCommandRPCClient,
-		LinkQueryServiceClient:   linkQueryRPCClient,
-	}
+	metadataClient v1_4.MetadataServiceClient,
+	link_rpc v1.LinkServiceClient,
+	link_command v1_2.LinkCommandServiceClient,
+	link_query v1_2.LinkQueryServiceClient,
+	sitemap_rpc v1_3.SitemapServiceClient,
+) (*api_application.API, error) {
 
-	apiService, err := API.RunAPIServer(ctx, logger2, tracer, rpcServer)
+	apiService, err := api_application.RunAPIServer(
+		ctx, logger2, tracer,
+		rpcServer,
+
+		link_rpc,
+		link_command,
+		link_query,
+		sitemap_rpc,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -120,7 +134,7 @@ func NewAPIApplication(
 func NewAPIService(
 	log logger.Logger,
 
-	service *api_application.Server,
+	service *api_application.API,
 ) (*APIService, error) {
 	return &APIService{
 		Logger: log,

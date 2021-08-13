@@ -15,7 +15,7 @@ import (
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
 	queryStore "github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
-	v12 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/saga"
 )
 
@@ -24,7 +24,7 @@ type Service struct {
 	notify.Subscriber
 
 	// Delivery
-	MetadataClient v12.MetadataServiceClient
+	MetadataClient metadata_rpc.MetadataServiceClient
 
 	// Repository
 	store *crud.Store
@@ -32,7 +32,7 @@ type Service struct {
 	logger logger.Logger
 }
 
-func New(logger logger.Logger, metadataService v12.MetadataServiceClient, store *crud.Store) (*Service, error) {
+func New(logger logger.Logger, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*Service, error) {
 	service := &Service{
 		MetadataClient: metadataService,
 
@@ -177,7 +177,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	// add step: request to metadata
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_METADATA_GET).
 		Then(func(ctx context.Context) error {
-			_, err := s.MetadataClient.Set(ctx, &v12.MetadataServiceSetRequest{
+			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
 				Id: in.Url,
 			})
 			return err
