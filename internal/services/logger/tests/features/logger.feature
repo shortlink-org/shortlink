@@ -8,14 +8,14 @@ Feature: Print message
 
     Examples:
       | payload                           | url                |
-      | `{"url":"https://google.com"}`    | https://google.com |
+      | {"url":"https://google.com"}      | https://google.com |
 
   Scenario Outline: We got the incorrect payload link URL
     Given Get random payload <payload>$
     When get new a event from MQ
-    Then print error message: `Incorrect format payload` <url>$
+    Then print error message: Incorrect format payload <url>$
 
     Examples:
       | payload                           | url                      |
-      | `{"url":""}`                      | error message            |
-      | `123123`                          | error message            |
+      | {"url":""}                        | error message            |
+      | "gf123123"                        | error message            |
