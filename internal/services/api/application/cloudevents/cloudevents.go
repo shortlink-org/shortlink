@@ -8,6 +8,9 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 )
@@ -28,7 +31,18 @@ func Receive(_ context.Context, event cloudevents.Event) error {
 }
 
 // Run ...
-func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error { // nolint unparam
+func (api *API) Run(
+	ctx context.Context,
+	config api_type.Config,
+	log logger.Logger,
+	tracer *opentracing.Tracer,
+
+	// delivery
+	link_rpc link_rpc.LinkServiceClient,
+	link_command link_cqrs.LinkCommandServiceClient,
+	link_query link_cqrs.LinkQueryServiceClient,
+	sitemap_rpc sitemap_rpc.SitemapServiceClient,
+) error { // nolint unparam
 	api.ctx = ctx
 
 	log.Info("Run Cloud-Events API")

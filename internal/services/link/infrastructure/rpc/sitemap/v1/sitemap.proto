@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package infrastructure.rpc.sitemap.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1";
+
+import "google/protobuf/empty.proto";
+
+service SitemapService {
+  rpc Parse(ParseRequest) returns(google.protobuf.Empty) {}
+}
+
+message ParseRequest {
+  string url = 1;
+}
+

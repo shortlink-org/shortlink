@@ -14,14 +14,30 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	cqrs_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/cqrs"
 	link_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/link"
+	sitemap_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/sitemap"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
+	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 	"github.com/batazor/shortlink/pkg/http/handler"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
 
 // Run HTTP-server
-func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error { // nolint unparam
+func (api *API) Run(
+	ctx context.Context,
+	config api_type.Config,
+	log logger.Logger,
+	tracer *opentracing.Tracer,
+
+	// delivery
+	link_rpc link_rpc.LinkServiceClient,
+	link_command link_cqrs.LinkCommandServiceClient,
+	link_query link_cqrs.LinkQueryServiceClient,
+	sitemap_rpc sitemap_rpc.SitemapServiceClient,
+) error { // nolint unparam
 	api.ctx = ctx
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
@@ -61,7 +77,9 @@ func (api *API) Run(ctx context.Context, config api_type.Config, log logger.Logg
 
 	r.NotFound(handler.NotFoundHandler)
 
-	r.Mount("/api", link_api.Routes())
+	r.Mount("/api/link", link_api.Routes(link_rpc))
+	r.Mount("/api/cqrs", cqrs_api.Routes(link_command, link_query))
+	r.Mount("/api/sitemap", sitemap_api.Routes(sitemap_rpc))
 
 	srv := http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),

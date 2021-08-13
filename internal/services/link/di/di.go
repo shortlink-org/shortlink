@@ -15,11 +15,13 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
 	"github.com/batazor/shortlink/internal/services/link/application/link_cqrs"
+	"github.com/batazor/shortlink/internal/services/link/application/sitemap"
 	api_domain "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	api_mq "github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
-	v12 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/run"
+	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
@@ -33,12 +35,14 @@ type LinkService struct {
 	// Delivery
 	linkMQ            *api_mq.Event
 	run               *run.Response
-	linkRPCServer     *v12.Link
+	linkRPCServer     *link_rpc.Link
 	linkCQRSRPCServer *cqrs.Link
+	sitemapRPCServer  *sitemap_rpc.Sitemap
 
 	// Application
 	linkService     *link.Service
 	linkCQRSService *link_cqrs.Service
+	sitemapService  *sitemap.Service
 
 	// Repository
 	linkStore *crud.Store
@@ -52,14 +56,19 @@ type LinkService struct {
 var LinkSet = wire.NewSet(
 	// Delivery
 	InitLinkMQ,
+
 	NewLinkRPCServer,
 	NewLinkCQRSRPCServer,
+	NewSitemapRPCServer,
 	NewRunRPCServer,
+
+	NewLinkRPCClient,
 	NewMetadataRPCClient,
 
 	// applications
 	NewLinkApplication,
 	NewLinkCQRSApplication,
+	NewSitemapApplication,
 
 	// repository
 	NewLinkStore,
@@ -129,6 +138,20 @@ func NewLinkCQRSApplication(logger logger.Logger, cqsStore *cqs.Store, queryStor
 	return linkCQRSService, nil
 }
 
+func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient, error) {
+	LinkServiceClient := link_rpc.NewLinkServiceClient(runRPCClient)
+	return LinkServiceClient, nil
+}
+
+func NewSitemapApplication(logger logger.Logger, linkService link_rpc.LinkServiceClient) (*sitemap.Service, error) {
+	sitemapService, err := sitemap.New(logger, linkService)
+	if err != nil {
+		return nil, err
+	}
+
+	return sitemapService, nil
+}
+
 func NewLinkCQRSRPCServer(runRPCServer *rpc.RPCServer, application *link_cqrs.Service, log logger.Logger) (*cqrs.Link, error) {
 	linkRPCServer, err := cqrs.New(runRPCServer, application, log)
 	if err != nil {
@@ -138,8 +161,8 @@ func NewLinkCQRSRPCServer(runRPCServer *rpc.RPCServer, application *link_cqrs.Se
 	return linkRPCServer, nil
 }
 
-func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, log logger.Logger) (*v12.Link, error) {
-	linkRPCServer, err := v12.New(runRPCServer, application, log)
+func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, log logger.Logger) (*link_rpc.Link, error) {
+	linkRPCServer, err := link_rpc.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
 	}
@@ -147,7 +170,16 @@ func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, lo
 	return linkRPCServer, nil
 }
 
-func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *cqrs.Link, linkRPC *v12.Link) (*run.Response, error) {
+func NewSitemapRPCServer(runRPCServer *rpc.RPCServer, application *sitemap.Service, log logger.Logger) (*sitemap_rpc.Sitemap, error) {
+	sitemapRPCServer, err := sitemap_rpc.New(runRPCServer, application, log)
+	if err != nil {
+		return nil, err
+	}
+
+	return sitemapRPCServer, nil
+}
+
+func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *cqrs.Link, linkRPC *link_rpc.Link) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
 
@@ -162,12 +194,14 @@ func NewLinkService(
 	// Application
 	linkService *link.Service,
 	linkCQRSService *link_cqrs.Service,
+	sitemapService *sitemap.Service,
 
 	// Delivery
 	linkMQ *api_mq.Event,
 	run *run.Response,
-	linkRPCServer *v12.Link,
+	linkRPCServer *link_rpc.Link,
 	linkCQRSRPCServer *cqrs.Link,
+	sitemapRPCServer *sitemap_rpc.Sitemap,
 
 	// Repository
 	linkStore *crud.Store,
@@ -182,11 +216,13 @@ func NewLinkService(
 		// Application
 		linkService:     linkService,
 		linkCQRSService: linkCQRSService,
+		sitemapService:  sitemapService,
 
 		// Delivery
 		run:               run,
 		linkRPCServer:     linkRPCServer,
 		linkCQRSRPCServer: linkCQRSRPCServer,
+		sitemapRPCServer:  sitemapRPCServer,
 		linkMQ:            linkMQ,
 
 		// Repository

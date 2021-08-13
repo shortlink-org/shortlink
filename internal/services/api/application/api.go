@@ -11,21 +11,23 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
-	v1 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 )
 
 // API - general describe of API
 type API interface { // nolint unused
-	Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error
-}
+	Run(
+		ctx context.Context,
+		config api_type.Config,
+		log logger.Logger,
+		tracer *opentracing.Tracer,
 
-type Server struct {
-	// Delivery
-	MetadataClient metadata_rpc.MetadataServiceClient
-
-	LinkServiceClient        link_rpc.LinkServiceClient
-	LinkCommandServiceClient v1.LinkCommandServiceClient
-	LinkQueryServiceClient   v1.LinkQueryServiceClient
+		// delivery
+		link_rpc link_rpc.LinkServiceClient,
+		link_command link_cqrs.LinkCommandServiceClient,
+		link_query link_cqrs.LinkQueryServiceClient,
+		sitemap_rpc sitemap_rpc.SitemapServiceClient,
+	) error
 }
