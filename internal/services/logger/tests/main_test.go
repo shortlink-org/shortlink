@@ -23,10 +23,8 @@ func TestMain(m *testing.M) {
 	opts.Paths = pflag.Args()
 
 	status := godog.TestSuite{
-		Name:                 "godogs",
-		TestSuiteInitializer: InitializeTestSuite,
-		ScenarioInitializer:  InitializeScenario,
-		Options:              &opts,
+		Name:    "godogs",
+		Options: &opts,
 	}.Run()
 
 	// Optional: Run `testing` package's logic besides godog.
@@ -37,6 +35,31 @@ func TestMain(m *testing.M) {
 	os.Exit(status)
 }
 
-func InitializeTestSuite(ctx *godog.TestSuiteContext) {}
+func getCorrectPayloadWithNotNilFieldURLHttpsgooglecom(arg1 string) error {
+	return nil
+}
 
-func InitializeScenario(ctx *godog.ScenarioContext) {}
+func getNewAEventFromMQ() error {
+	return nil
+}
+
+func getRandomPayload(arg1 string) error {
+	return nil
+}
+
+func printErrorMessageIncorrectFormatPayloadErrorMessage() error {
+	return nil
+}
+
+func printLinkURLHttpsgooglecom() error {
+	return nil
+}
+
+func InitializeScenario(ctx *godog.ScenarioContext) {
+	ctx.Step(`^Get correct payload with not nil field URL {"([^"]*)":"https:\/\/google\.com"}\$$`, getCorrectPayloadWithNotNilFieldURLHttpsgooglecom)
+	ctx.Step(`^get new a event from MQ$`, getNewAEventFromMQ)
+	ctx.Step(`^Get random payload {"([^"]*)":""}\$$`, getRandomPayload)
+	ctx.Step(`^Get random payload "([^"]*)"\$$`, getRandomPayload)
+	ctx.Step(`^print error message: Incorrect format payload error message\$$`, printErrorMessageIncorrectFormatPayloadErrorMessage)
+	ctx.Step(`^print link URL https:\/\/google\.com\$$`, printLinkURLHttpsgooglecom)
+}
