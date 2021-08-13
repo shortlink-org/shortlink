@@ -12,3 +12,7 @@ var (
 	METHOD_UPDATE = notify.NewEventID()
 	METHOD_DELETE = notify.NewEventID()
 )
+
+const (
+	MQ_CQRS_EVENT = "shortlink.metadata.cqrs"
+)

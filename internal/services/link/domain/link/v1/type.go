@@ -12,3 +12,9 @@ var (
 	METHOD_UPDATE = notify.NewEventID()
 	METHOD_DELETE = notify.NewEventID()
 )
+
+// MQ
+const (
+	// MQ_NEW - subscribe on new link
+	MQ_NEW = "shortlink.link.new"
+)

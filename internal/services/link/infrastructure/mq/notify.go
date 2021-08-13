@@ -11,31 +11,31 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	v13 "github.com/batazor/shortlink/internal/pkg/mq/v1"
+	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	v12 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
+	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	metadata "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
 )
 
 type Event struct {
-	mq  v13.MQ
+	mq  mq.MQ
 	log logger.Logger
 
 	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
 }
 
-func New(mq v13.MQ, log logger.Logger) (*Event, error) {
+func New(mq mq.MQ, log logger.Logger) (*Event, error) {
 	event := &Event{
 		mq:  mq,
 		log: log,
 	}
 
 	// Subscribe
-	event.SubscribeCQRSGetMetadata(func(ctx context.Context, in *v12.Meta) error {
-		go notify.Publish(ctx, v12.METHOD_ADD, in, nil)
+	event.SubscribeCQRSGetMetadata(func(ctx context.Context, in *metadata.Meta) error {
+		go notify.Publish(ctx, metadata.METHOD_ADD, in, nil)
 		return nil
 	})
 
@@ -50,15 +50,15 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 	}
 
 	switch event {
-	case v1.METHOD_ADD:
+	case link.METHOD_ADD:
 		return e.add(ctx, payload)
-	case v1.METHOD_GET:
+	case link.METHOD_GET:
 		panic("implement me")
-	case v1.METHOD_LIST:
+	case link.METHOD_LIST:
 		panic("implement me")
-	case v1.METHOD_UPDATE:
+	case link.METHOD_UPDATE:
 		panic("implement me")
-	case v1.METHOD_DELETE:
+	case link.METHOD_DELETE:
 		panic("implement me")
 	}
 
@@ -67,7 +67,7 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 
 func (e *Event) add(ctx context.Context, payload interface{}) notify.Response {
 	// TODO: send []byte
-	msg := payload.(*v1.Link) // nolint errcheck
+	msg := payload.(*link.Link) // nolint errcheck
 	data, err := proto.Marshal(msg)
 	if err != nil {
 		return notify.Response{
@@ -77,7 +77,7 @@ func (e *Event) add(ctx context.Context, payload interface{}) notify.Response {
 		}
 	}
 
-	err = e.mq.Publish(ctx, "shortlink.link.event", query.Message{
+	err = e.mq.Publish(ctx, "shortlink.link.new", query.Message{
 		Key:     nil,
 		Payload: data,
 	})
