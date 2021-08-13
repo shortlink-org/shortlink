@@ -9,7 +9,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.7.1
 	github.com/Shopify/sarama v1.29.1
 	github.com/Unleash/unleash-client-go/v3 v3.2.3
-	github.com/cloudevents/sdk-go/v2 v2.4.1
+	github.com/cloudevents/sdk-go/v2 v2.5.0
 	github.com/container-storage-interface/spec v1.5.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
 	github.com/cucumber/godog v0.12.0-rc2
