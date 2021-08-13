@@ -37,7 +37,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 
 	g.Go(func() error {
 		if b.MQ != nil {
-			if errSubscribe := b.MQ.Subscribe("shortlink", getEventNewLink); errSubscribe != nil {
+			if errSubscribe := b.MQ.Subscribe(v1.MQ_NEW, getEventNewLink); errSubscribe != nil {
 				return errSubscribe
 			}
 		}

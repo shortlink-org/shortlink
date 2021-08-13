@@ -64,7 +64,7 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 	// send to link_rpc.add
 	g := errgroup.Group{}
 
-	newCtx, cancel := context.WithTimeout(ctx, time.Minute*2)
+	newCtx, cancel := context.WithTimeout(ctx, time.Minute*1)
 	defer cancel()
 
 	for key := range payload.URL {
