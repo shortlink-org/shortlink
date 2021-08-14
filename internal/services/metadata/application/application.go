@@ -6,6 +6,7 @@ package metadata
 import (
 	"context"
 	"net/http"
+	"time"
 
 	"github.com/PuerkitoBio/goquery"
 
@@ -38,8 +39,11 @@ func (r *Service) Set(ctx context.Context, url string) (*v1.Meta, error) {
 		Id: url,
 	}
 
+	newCtx, cancel := context.WithTimeout(ctx, time.Minute*1)
+	defer cancel()
+
 	// Request the HTML page.
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	req, err := http.NewRequestWithContext(newCtx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -67,13 +71,13 @@ func (r *Service) Set(ctx context.Context, url string) (*v1.Meta, error) {
 	})
 
 	// Write to DB
-	err = r.MetaStore.Store.Add(ctx, meta)
+	err = r.MetaStore.Store.Add(newCtx, meta)
 	if err != nil {
 		return nil, err
 	}
 
 	// publish event by this service
-	notify.Publish(ctx, v1.METHOD_ADD, meta, nil)
+	notify.Publish(newCtx, v1.METHOD_ADD, meta, nil)
 
 	return meta, nil
 }

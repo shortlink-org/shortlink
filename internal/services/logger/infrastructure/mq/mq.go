@@ -43,7 +43,7 @@ func (e *Event) Subscribe() {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(v1.MQ_NEW, getEventNewLink); err != nil {
+		if err := e.mq.Subscribe(v1.MQ_EVENT_LINK_CREATED, getEventNewLink); err != nil {
 			e.log.Error(err.Error())
 		}
 	}()

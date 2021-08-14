@@ -143,8 +143,8 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(logger logger.Logger, linkService link_rpc.LinkServiceClient) (*sitemap.Service, error) {
-	sitemapService, err := sitemap.New(logger, linkService)
+func NewSitemapApplication(logger logger.Logger, mq v1.MQ) (*sitemap.Service, error) {
+	sitemapService, err := sitemap.New(logger, mq)
 	if err != nil {
 		return nil, err
 	}

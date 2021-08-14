@@ -14,7 +14,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	metadata "github.com/batazor/shortlink/internal/services/metadata/application"
 	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
-	api_mq "github.com/batazor/shortlink/internal/services/metadata/infrastructure/mq"
+	metadata_mq "github.com/batazor/shortlink/internal/services/metadata/infrastructure/mq"
 	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
@@ -24,7 +24,7 @@ type MetaDataService struct {
 	Logger logger.Logger
 
 	// Delivery
-	linkMQ            *api_mq.Event
+	metadataMQ        *metadata_mq.Event
 	metadataRPCServer *metadata_rpc.Metadata
 
 	// Application
@@ -37,7 +37,7 @@ type MetaDataService struct {
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
 	// Delivery
-	InitLinkMQ,
+	InitMetadataMQ,
 	NewMetaDataRPCServer,
 
 	// applications
@@ -49,15 +49,16 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*api_mq.Event, error) {
-	linkMQ := &api_mq.Event{
-		MQ: mq,
+func InitMetadataMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(mq)
+	if err != nil {
+		return nil, err
 	}
 
 	// Subscribe to Event
-	notify.Subscribe(metadata_domain.METHOD_ADD, linkMQ)
+	notify.Subscribe(metadata_domain.METHOD_ADD, metadataMQ)
 
-	return linkMQ, nil
+	return metadataMQ, nil
 }
 
 func NewMetaDataStore(ctx context.Context, logger logger.Logger, db *db.Store) (*meta_store.MetaStore, error) {
@@ -95,7 +96,7 @@ func NewMetaDataService(
 	service *metadata.Service,
 
 	// Delivery
-	linkMQ *api_mq.Event,
+	metadataMQ *metadata_mq.Event,
 	metadataRPCServer *metadata_rpc.Metadata,
 
 	// Repository
@@ -108,7 +109,7 @@ func NewMetaDataService(
 		service: service,
 
 		// Delivery
-		linkMQ:            linkMQ,
+		metadataMQ:        metadataMQ,
 		metadataRPCServer: metadataRPCServer,
 
 		// Repository

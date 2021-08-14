@@ -56,11 +56,7 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
-	linkServiceClient, err := NewLinkRPCClient(runRPCClient)
-	if err != nil {
-		return nil, nil, err
-	}
-	sitemapService, err := NewSitemapApplication(log, linkServiceClient)
+	sitemapService, err := NewSitemapApplication(log, mq)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -204,8 +200,8 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1_2.LinkServiceClient, er
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(logger2 logger.Logger, linkService v1_2.LinkServiceClient) (*sitemap.Service, error) {
-	sitemapService, err := sitemap.New(logger2, linkService)
+func NewSitemapApplication(logger2 logger.Logger, mq v1.MQ) (*sitemap.Service, error) {
+	sitemapService, err := sitemap.New(logger2, mq)
 	if err != nil {
 		return nil, err
 	}

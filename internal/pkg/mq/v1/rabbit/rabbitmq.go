@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/opentracing/opentracing-go"
+	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/spf13/viper"
-	"github.com/streadway/amqp"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -47,7 +47,7 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 	sp := opentracing.SpanFromContext(ctx)
 	defer sp.Finish()
 
-	// create a exchange
+	// create exchange
 	err := mq.ch.ExchangeDeclare(
 		target,   // name
 		"fanout", // type

@@ -13,6 +13,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
+	link_application "github.com/batazor/shortlink/internal/services/link/application/link"
 	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	metadata "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 
@@ -22,6 +23,9 @@ import (
 type Event struct {
 	mq  mq.MQ
 	log logger.Logger
+
+	// Application
+	service *link_application.Service
 
 	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
@@ -37,6 +41,12 @@ func New(mq mq.MQ, log logger.Logger) (*Event, error) {
 	event.SubscribeCQRSGetMetadata(func(ctx context.Context, in *metadata.Meta) error {
 		go notify.Publish(ctx, metadata.METHOD_ADD, in, nil)
 		return nil
+	})
+
+	// Subscribe a new link
+	event.SubscribeNewLink(func(ctx context.Context, in *link.Link) error {
+		_, err := event.service.Add(ctx, in)
+		return err
 	})
 
 	return event, nil
@@ -77,7 +87,7 @@ func (e *Event) add(ctx context.Context, payload interface{}) notify.Response {
 		}
 	}
 
-	err = e.mq.Publish(ctx, "shortlink.link.new", query.Message{
+	err = e.mq.Publish(ctx, link.MQ_EVENT_LINK_CREATED, query.Message{
 		Key:     nil,
 		Payload: data,
 	})

@@ -6,26 +6,27 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"time"
 
+	"github.com/gogo/protobuf/proto"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
+	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	v12 "github.com/batazor/shortlink/internal/services/link/domain/sitemap/v1"
-	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
 
 type Service struct {
 	logger logger.Logger
 
 	// Delivery
-	LinkServiceClient link_rpc.LinkServiceClient
+	mq mq.MQ
 }
 
-func New(logger logger.Logger, linkService link_rpc.LinkServiceClient) (*Service, error) {
+func New(logger logger.Logger, mq mq.MQ) (*Service, error) {
 	service := &Service{
-		LinkServiceClient: linkService,
+		mq: mq,
 
 		logger: logger,
 	}
@@ -63,14 +64,22 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 
 	// send to link_rpc.add
 	g := errgroup.Group{}
-
-	newCtx, cancel := context.WithTimeout(ctx, time.Minute*1)
-	defer cancel()
-
 	for key := range payload.URL {
 		g.Go(func() error {
-			_, errAddLink := s.LinkServiceClient.Add(newCtx, &link_rpc.AddRequest{Link: &link.Link{Url: payload.URL[key].Loc}})
-			return errAddLink
+			data, errMarshal := proto.Marshal(&link.Link{Url: payload.URL[key].Loc})
+			if errMarshal != nil {
+				return errMarshal
+			}
+
+			errPublish := s.mq.Publish(ctx, link.MQ_EVENT_LINK_NEW, query.Message{
+				Key:     nil,
+				Payload: data,
+			})
+			if errPublish != nil {
+				return errPublish
+			}
+
+			return nil
 		})
 	}
 
