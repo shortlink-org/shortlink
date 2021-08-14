@@ -16,9 +16,9 @@
     service = "serviceError"
     query = "/{status}.html"
 
-  # 100 reqs/s
+  # 300 reqs/s
   [http.middlewares.test-ratelimit.rateLimit]
-    average = 100
+    average = 300
 
   # Retry to send request 4 times
   [http.middlewares.test-retry.retry]

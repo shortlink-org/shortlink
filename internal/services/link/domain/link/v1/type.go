@@ -13,8 +13,11 @@ var (
 	METHOD_DELETE = notify.NewEventID()
 )
 
-// MQ
+// MQ events
 const (
-	// MQ_NEW - subscribe on new link
-	MQ_NEW = "shortlink.link.new"
+	// MQ_EVENT_LINK_NEW - subscribe on request created link
+	MQ_EVENT_LINK_NEW = "shortlink.link.event.new"
+
+	// MQ_EVENT_LINK_CREATED - subscribe on created link
+	MQ_EVENT_LINK_CREATED = "shortlink.link.event.created"
 )
