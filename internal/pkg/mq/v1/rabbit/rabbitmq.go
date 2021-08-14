@@ -15,21 +15,26 @@ import (
 
 type RabbitMQ struct {
 	URI  string
-	conn *amqp.Connection
-	ch   *amqp.Channel
-	q    amqp.Queue
+	conn *Connection
+	ch   *Channel
 
-	Log logger.Logger
+	reconnectTime int
+
+	log logger.Logger
+}
+
+func New(log logger.Logger) *RabbitMQ {
+	return &RabbitMQ{
+		log: log,
+	}
 }
 
 func (mq *RabbitMQ) Init(_ context.Context) error {
-	var err error
-
 	// Set configuration
 	mq.setConfig()
 
 	// connect to RabbitMQ server
-	mq.conn, err = amqp.Dial(mq.URI)
+	err := mq.Dial()
 	if err != nil {
 		return err
 	}
@@ -51,7 +56,7 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 	err := mq.ch.ExchangeDeclare(
 		target,   // name
 		"fanout", // type
-		false,    // durable
+		true,     // durable
 		false,    // auto-deleted
 		false,    // internal
 		false,    // no-wait
@@ -70,14 +75,15 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 	// Inject the span context into the AMQP header.
 	err = opentracing.GlobalTracer().Inject(sp.Context(), opentracing.TextMap, amqpHeadersCarrier(msg.Headers))
 	if err != nil {
-		mq.Log.Warn(err.Error())
+		mq.log.Warn(err.Error())
 	}
 
+	mq.ch.Tx()
 	err = mq.ch.Publish(
-		target,    // exchange
-		mq.q.Name, // routing key
-		false,     // mandatory
-		false,     // immediate
+		target, // exchange
+		"",     // routing key
+		false,  // mandatory
+		false,  // immediate
 		msg,
 	)
 	if err != nil {
@@ -92,7 +98,7 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 	err := mq.ch.ExchangeDeclare(
 		target,   // name
 		"fanout", // type
-		false,    // durable
+		true,     // durable
 		false,    // auto-deleted
 		false,    // internal
 		false,    // no-wait
@@ -103,9 +109,9 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 	}
 
 	// create a queue
-	mq.q, err = mq.ch.QueueDeclare(
+	q, err := mq.ch.QueueDeclare(
 		fmt.Sprintf("%s-%s", target, viper.GetString("SERVICE_NAME")), // name
-		false, // durable
+		true,  // durable
 		false, // delete when unused
 		false, // exclusive
 		false, // no-wait
@@ -116,7 +122,7 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 	}
 
 	err = mq.ch.QueueBind(
-		mq.q.Name,
+		q.Name,
 		"*",
 		target,
 		false,
@@ -127,13 +133,13 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 	}
 
 	msgs, err := mq.ch.Consume(
-		mq.q.Name, // queue
-		"",        // consumer
-		true,      // auto-ack
-		false,     // exclusive
-		false,     // no-local
-		false,     // no-wait
-		nil,       // args
+		q.Name, // queue
+		"",     // consumer
+		true,   // auto-ack
+		false,  // exclusive
+		false,  // no-local
+		false,  // no-wait
+		nil,    // args
 	)
 	if err != nil {
 		return err
@@ -146,16 +152,16 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 			ctx := context.Background()
 
 			// Extract the span context out of the AMQP header.
-			spanCtx, err := opentracing.GlobalTracer().Extract(opentracing.TextMap, amqpHeadersCarrier(msg.Headers))
-			if err != nil {
-				mq.Log.Warn(err.Error())
+			spanCtx, errSpan := opentracing.GlobalTracer().Extract(opentracing.TextMap, amqpHeadersCarrier(msg.Headers))
+			if errSpan != nil {
+				mq.log.Warn(errSpan.Error())
 			}
 
 			span := opentracing.StartSpan(
 				"AMQP: ConsumeMessage",
 				opentracing.FollowsFrom(spanCtx),
 			)
-			span.SetTag("queue", mq.q.Name)
+			span.SetTag("queue", q.Name)
 
 			// Update the context with the span for the subsequent reference.
 			ctx = opentracing.ContextWithSpan(ctx, span)
@@ -194,6 +200,8 @@ func (mq *RabbitMQ) Close() error {
 func (mq *RabbitMQ) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("MQ_RABBIT_URI", "amqp://localhost:5672") // RabbitMQ URI
+	viper.SetDefault("MQ_RECONNECT_DELAY_SECONDS", 3)          // RabbitMQ reconnects after delay seconds
 
 	mq.URI = viper.GetString("MQ_RABBIT_URI")
+	mq.reconnectTime = viper.GetInt("MQ_RECONNECT_DELAY_SECONDS")
 }
