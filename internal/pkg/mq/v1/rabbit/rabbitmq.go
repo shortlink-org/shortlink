@@ -78,7 +78,6 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 		mq.log.Warn(err.Error())
 	}
 
-	mq.ch.Tx()
 	err = mq.ch.Publish(
 		target, // exchange
 		"",     // routing key
