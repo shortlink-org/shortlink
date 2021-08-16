@@ -8,3 +8,7 @@ plugins:
   - name: go-grpc
     out: internal/services/link
     opt: paths=source_relative
+
+  - name: gotag
+    out: internal/services/link
+    opt: paths=source_relative,xxx=graphql+"-" bson+"-",outdir=internal/services/link
