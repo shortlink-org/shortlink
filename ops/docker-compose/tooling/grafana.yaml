@@ -5,7 +5,7 @@ services:
   grafana:
     depends_on:
       - coredns
-    image: grafana/grafana:8.0.2
+    image: grafana/grafana:8.1.1
     container_name: grafana
     restart: on-failure
     environment:

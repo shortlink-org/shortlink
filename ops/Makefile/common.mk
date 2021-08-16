@@ -22,6 +22,7 @@ do: ## Run for specific job
 	@COMPOSE_PROFILES=dns,gateway,opentracing,postgres docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
+		-f ops/docker-compose/tooling/grafana.yaml \
 		-f ops/docker-compose/tooling/grafana-tempo.yaml \
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \

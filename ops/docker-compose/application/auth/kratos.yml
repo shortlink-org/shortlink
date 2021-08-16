@@ -52,6 +52,9 @@ selfservice:
       enabled: true
     link:
       enabled: true
+      config:
+        # Defines how long a recovery link is valid for (default 1h)
+        lifespan: 1h
     oidc:
       enabled: true
       config:
