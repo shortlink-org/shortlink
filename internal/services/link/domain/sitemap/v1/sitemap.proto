@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package domain.sitemap.v1;
+
+import "tagger/tagger.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/batazor/shortlink/internal/services/link/domain/sitemap/v1";
+
+// URL is a structure of <url> in <sitemap>
+message Url {
+    string loc = 1 [(tagger.tags) = "xml:\"loc\"" ];
+    string last_mod = 2 [(tagger.tags) = "xml:\"lastmod\"" ];
+    string change_freq = 3 [(tagger.tags) = "xml:\"changefreq\"" ];
+    float priority = 4 [(tagger.tags) = "xml:\"priority\"" ];
+}
+
+// Sitemap is a structure of <sitemap>
+message Sitemap {
+  repeated Url url = 1 [(tagger.tags) = "xml:\"url\"" ];
+}
