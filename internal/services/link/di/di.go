@@ -12,11 +12,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
-	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
 	"github.com/batazor/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/batazor/shortlink/internal/services/link/application/sitemap"
-	api_domain "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	api_mq "github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -84,9 +82,6 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*api_mq.Event
 		return nil, err
 	}
 
-	// Publish Event
-	notify.Subscribe(api_domain.METHOD_ADD, linkMQ)
-
 	return linkMQ, nil
 }
 
@@ -120,8 +115,8 @@ func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) 
 	return queryStore, nil
 }
 
-func NewLinkApplication(logger logger.Logger, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
-	linkService, err := link.New(logger, metadataService, store)
+func NewLinkApplication(logger logger.Logger, mq v1.MQ, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
+	linkService, err := link.New(logger, mq, metadataService, store)
 	if err != nil {
 		return nil, err
 	}

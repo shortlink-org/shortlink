@@ -10,11 +10,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
-	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
 	"github.com/batazor/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/batazor/shortlink/internal/services/link/application/sitemap"
-	v1_5 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
 	v1_3 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	v1_2 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -23,7 +21,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
-	v1_6 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	v1_5 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
 	"google.golang.org/grpc"
@@ -40,7 +38,7 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
-	service, err := NewLinkApplication(log, metadataServiceClient, store)
+	service, err := NewLinkApplication(log, mq, metadataServiceClient, store)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -142,7 +140,6 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*api_mq.Event
 	if err != nil {
 		return nil, err
 	}
-	notify.Subscribe(v1_5.METHOD_ADD, linkMQ)
 
 	return linkMQ, nil
 }
@@ -177,8 +174,8 @@ func NewQueryLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store
 	return queryStore, nil
 }
 
-func NewLinkApplication(logger2 logger.Logger, metadataService v1_6.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
-	linkService, err := link.New(logger2, metadataService, store)
+func NewLinkApplication(logger2 logger.Logger, mq v1.MQ, metadataService v1_5.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
+	linkService, err := link.New(logger2, mq, metadataService, store)
 	if err != nil {
 		return nil, err
 	}
@@ -240,8 +237,8 @@ func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *v1_3.Link, linkRP
 	return run.Run(runRPCServer)
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_6.MetadataServiceClient, error) {
-	metadataRPCClient := v1_6.NewMetadataServiceClient(runRPCClient)
+func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_5.MetadataServiceClient, error) {
+	metadataRPCClient := v1_5.NewMetadataServiceClient(runRPCClient)
 	return metadataRPCClient, nil
 }
 
