@@ -3,6 +3,7 @@ package rabbit
 import (
 	"context"
 	"fmt"
+	"sync"
 
 	"github.com/opentracing/opentracing-go"
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -14,6 +15,8 @@ import (
 )
 
 type RabbitMQ struct {
+	wg sync.Mutex
+
 	URI  string
 	conn *Connection
 	ch   *Channel
@@ -49,6 +52,9 @@ func (mq *RabbitMQ) Init(_ context.Context) error {
 }
 
 func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Message) error {
+	mq.wg.Lock()
+	defer mq.wg.Unlock()
+
 	sp := opentracing.SpanFromContext(ctx)
 	defer sp.Finish()
 
@@ -180,6 +186,9 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 }
 
 func (mq *RabbitMQ) UnSubscribe(target string) error {
+	mq.wg.Lock()
+	defer mq.wg.Unlock()
+
 	return nil
 }
 
