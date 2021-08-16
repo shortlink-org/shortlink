@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.3
+
 FROM alpine:latest
 
 # Install dependencies

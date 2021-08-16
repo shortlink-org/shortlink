@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.3
+
 # Install dependencies only when needed
 FROM node:16.6-alpine as deps
 
