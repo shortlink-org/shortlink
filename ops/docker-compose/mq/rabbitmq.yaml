@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: rabbitmq:3.8-management-alpine
+    image: rabbitmq:3.9-management-alpine
     hostname: rabbitmq
     container_name: rabbitmq
     ports:
