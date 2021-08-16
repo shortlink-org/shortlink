@@ -64,9 +64,9 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 
 	// send to link_rpc.add
 	g := errgroup.Group{}
-	for key := range payload.URL {
+	for key := range payload.Url {
 		g.Go(func() error {
-			data, errMarshal := proto.Marshal(&link.Link{Url: payload.URL[key].Loc})
+			data, errMarshal := proto.Marshal(&link.Link{Url: payload.Url[key].Loc})
 			if errMarshal != nil {
 				return errMarshal
 			}
