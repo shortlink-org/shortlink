@@ -470,6 +470,500 @@
 							]
 						},
 						{
+							"name": "Billing",
+							"item": [
+								{
+									"name": "Tariff",
+									"item": [
+										{
+											"name": "Get tariff",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"tariff",
+														"{{tariff_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get tariffs",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/tariffs",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"tariffs"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add tariff",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"",
+															"",
+															"postman.setGlobalVariable(\"billing.tariff_id\", jsonData.id);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"name\": \"trial\",\n    \"payload\": \"{\\\"amount\\\": 500}\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:7070/api/billing/tariff",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"tariff"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update tariff",
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"tariff",
+														"{{tariff_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete tariff",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"tariff",
+														"{{tariff_id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Account",
+									"item": [
+										{
+											"name": "Get account",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/account/{{account_id}}",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"account",
+														"{{account_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get accounts",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/accounts",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"accounts"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add account",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"",
+															"",
+															"postman.setGlobalVariable(\"billing.user_id\", jsonData.id);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"user_id\": \"{{$randomUUID}}\",\n    \"tariff_id\": \"{{billing.tariff_id}}\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:7070/api/billing/account",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"account"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Delete account",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/account/{{account_id}}",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"account",
+														"{{account_id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Payment",
+									"item": [
+										{
+											"name": "Get payment",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/payment/{{billing.payment_id}}",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"payment",
+														"{{billing.payment_id}}"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get payments",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": ""
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add payment",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"exec": [
+															"var jsonData = JSON.parse(responseBody);",
+															"",
+															"",
+															"postman.setGlobalVariable(\"billing.payment_id\", jsonData.id);"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"user_id\": \"{{billing.user_id}}\",\n    \"name\": \"stripe\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:7070/api/billing/payment",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"payment"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Close payment",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/payment/{{billing.payment_id}}",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"payment",
+														"{{billing.payment_id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									],
+									"description": "Type payment: PayPal, Tinkoff, etc",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										},
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													""
+												]
+											}
+										}
+									]
+								},
+								{
+									"name": "Balance",
+									"item": [
+										{
+											"name": "Update balance",
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"id\": \"{{billing.payment_id}}\",\n    \"amount\": 300\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:7070/api/billing/balance/{{payment_id}}",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"balance",
+														"{{payment_id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Order",
+									"item": [
+										{
+											"name": "Get order",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": ""
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get orders",
+											"request": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": ""
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Add order",
+											"request": {
+												"method": "POST",
+												"header": [],
+												"url": {
+													"raw": ""
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Update order",
+											"request": {
+												"method": "PUT",
+												"header": [],
+												"url": {
+													"raw": ""
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Close order",
+											"request": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "localhost:7070/api/billing/order/{{order_id}}",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"billing",
+														"order",
+														"{{order_id}}"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							],
+							"description": "Billing service:\n- account\n- tariff\n- payment\n- balance\n- order",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											""
+										]
+									}
+								}
+							]
+						},
+						{
 							"name": "whoami",
 							"request": {
 								"method": "GET",
@@ -506,671 +1000,354 @@
 					]
 				},
 				{
-					"name": "Billing",
-					"item": [
-						{
-							"name": "Tariff",
-							"item": [
-								{
-									"name": "Get tariff",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"tariff",
-												"{{tariff_id}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get tariffs",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/tariffs",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"tariffs"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Add tariff",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"var jsonData = JSON.parse(responseBody);",
-													"",
-													"",
-													"postman.setGlobalVariable(\"tariff_id\", jsonData.id);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"name\": \"trial\",\n    \"payload\": \"{\\\"amount\\\": 500}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:7070/api/billing/tariff",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"tariff"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Update tariff",
-									"request": {
-										"method": "PUT",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"tariff",
-												"{{tariff_id}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete tariff",
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"tariff",
-												"{{tariff_id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Account",
-							"item": [
-								{
-									"name": "Get account",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/account/{{account_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"account",
-												"{{account_id}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get accounts",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/accounts",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"accounts"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Add account",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"var jsonData = JSON.parse(responseBody);",
-													"",
-													"",
-													"postman.setGlobalVariable(\"billing.user_id\", jsonData.id);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"user_id\": \"{{$randomUUID}}\",\n    \"tariff_id\": \"{{tariff_id}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:7070/api/billing/account",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"account"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Delete account",
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/account/{{account_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"account",
-												"{{account_id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Payment",
-							"item": [
-								{
-									"name": "Get payment",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/payment/{{billing.payment_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"payment",
-												"{{billing.payment_id}}"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get payments",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": ""
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Add payment",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"exec": [
-													"var jsonData = JSON.parse(responseBody);",
-													"",
-													"",
-													"postman.setGlobalVariable(\"billing.payment_id\", jsonData.id);"
-												],
-												"type": "text/javascript"
-											}
-										}
-									],
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"user_id\": \"{{billing.user_id}}\",\n    \"name\": \"stripe\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:7070/api/billing/payment",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"payment"
-											]
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Close payment",
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/payment/{{billing.payment_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"payment",
-												"{{billing.payment_id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							],
-							"description": "Type payment: PayPal, Tinkoff, etc",
-							"event": [
-								{
-									"listen": "prerequest",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											""
-										]
-									}
-								},
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											""
-										]
-									}
-								}
-							]
-						},
-						{
-							"name": "Balance",
-							"item": [
-								{
-									"name": "Update balance",
-									"request": {
-										"method": "PUT",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"id\": \"{{billing.payment_id}}\",\n    \"amount\": 300\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": {
-											"raw": "localhost:7070/api/billing/balance/{{payment_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"balance",
-												"{{payment_id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						},
-						{
-							"name": "Order",
-							"item": [
-								{
-									"name": "Get order",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": ""
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Get orders",
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": {
-											"raw": ""
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Add order",
-									"request": {
-										"method": "POST",
-										"header": [],
-										"url": {
-											"raw": ""
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Update order",
-									"request": {
-										"method": "PUT",
-										"header": [],
-										"url": {
-											"raw": ""
-										}
-									},
-									"response": []
-								},
-								{
-									"name": "Close order",
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": {
-											"raw": "localhost:7070/api/billing/order/{{order_id}}",
-											"host": [
-												"localhost"
-											],
-											"port": "7070",
-											"path": [
-												"api",
-												"billing",
-												"order",
-												"{{order_id}}"
-											]
-										}
-									},
-									"response": []
-								}
-							]
-						}
-					],
-					"description": "Billing service:\n- account\n- tariff\n- payment\n- balance\n- order",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					]
-				},
-				{
 					"name": "Links",
 					"item": [
 						{
-							"name": "Get link",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/vnd.api+json; version=1",
-										"description": "API version",
-										"type": "text"
+							"name": "CQRS",
+							"item": [
+								{
+									"name": "Get link by {id}",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:7070/api/cqrs/link/{{link.hash}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"cqrs",
+												"link",
+												"{{link.hash}}"
+											]
+										}
 									},
-									{
-										"key": "",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": {
-									"raw": "localhost:7070/api/link/{{hash}}",
-									"host": [
-										"localhost"
-									],
-									"port": "7070",
-									"path": [
-										"api",
-										"link",
-										"{{hash}}"
-									]
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Get links",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/vnd.api+json; version=1",
-										"description": "API version",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "localhost:7070/api/links",
-									"host": [
-										"localhost"
-									],
-									"port": "7070",
-									"path": [
-										"api",
-										"links"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get links (filter by: link)",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/vnd.api+json; version=1",
-										"description": "API version",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "localhost:7070/api/links?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
-									"host": [
-										"localhost"
-									],
-									"port": "7070",
-									"path": [
-										"api",
-										"links"
-									],
-									"query": [
+							"name": "CRUD",
+							"item": [
+								{
+									"name": "Get link",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json; version=1",
+												"description": "API version",
+												"type": "text"
+											},
+											{
+												"key": "",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "localhost:7070/api/link/{{link.hash}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"link",
+												"{{link.hash}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get links",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json; version=1",
+												"description": "API version",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "localhost:7070/api/link/list",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"link",
+												"list"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get links (filter by: link)",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json; version=1",
+												"description": "API version",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "localhost:7070/api/link/list?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"link",
+												"list"
+											],
+											"query": [
+												{
+													"key": "filter",
+													"value": "{\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "add link",
+									"event": [
 										{
-											"key": "filter",
-											"value": "{\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}"
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"",
+													"postman.setGlobalVariable(\"link.hash\", jsonData.hash);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json; version=1",
+												"description": "API version",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\"url\":\"https://google.com/{{$randomUUID}}\",\"describe\":\"example link\"}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:7070/api/link",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"link"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "delete link",
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/vnd.api+json; version=1",
+												"description": "API version",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "localhost:7070/api/link/{{link.hash}}",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"link",
+												"{{link.hash}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Sitemap",
+							"item": [
+								{
+									"name": "Parse by url",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"url\": \"https://qna.habr.com/sitemap/tags.xml\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:7070/api/sitemap",
+											"host": [
+												"localhost"
+											],
+											"port": "7070",
+											"path": [
+												"api",
+												"sitemap"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "habr questions",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"url\": \"https://qna.habr.com/sitemap/questions.xml\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:7070/api/sitemap",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"sitemap"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Span-Id",
+													"value": "6545a7eb349ded43"
+												},
+												{
+													"key": "Vary",
+													"value": "Origin"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 13 Aug 2021 20:24:46 GMT"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "habr tags",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"url\": \"https://qna.habr.com/sitemap/tags.xml\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "localhost:7070/api/sitemap",
+													"host": [
+														"localhost"
+													],
+													"port": "7070",
+													"path": [
+														"api",
+														"sitemap"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Span-Id",
+													"value": "6545a7eb349ded43"
+												},
+												{
+													"key": "Vary",
+													"value": "Origin"
+												},
+												{
+													"key": "Date",
+													"value": "Fri, 13 Aug 2021 20:24:46 GMT"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
 										}
 									]
 								}
-							},
-							"response": []
-						},
-						{
-							"name": "add link",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = JSON.parse(responseBody);",
-											"",
-											"",
-											"postman.setGlobalVariable(\"hash\", jsonData.hash);"
-										],
-										"type": "text/javascript"
-									}
-								}
 							],
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/vnd.api+json; version=1",
-										"description": "API version",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/x-www-form-urlencoded"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"url\":\"https://google.com\",\"describe\":\"example link\"}"
-								},
-								"url": {
-									"raw": "localhost:7070/api/link",
-									"host": [
-										"localhost"
-									],
-									"port": "7070",
-									"path": [
-										"api",
-										"link"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete link",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/vnd.api+json; version=1",
-										"description": "API version",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"url": {
-									"raw": "localhost:7070/api/link/{{hash}}",
-									"host": [
-										"localhost"
-									],
-									"port": "7070",
-									"path": [
-										"api",
-										"link",
-										"{{hash}}"
-									]
-								}
-							},
-							"response": []
+							"description": "Work with sitemap"
 						}
 					]
 				},
@@ -1264,11 +1441,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:3000/s/{{hash}}",
+									"raw": "localhost:3030/s/{{hash}}",
 									"host": [
 										"localhost"
 									],
-									"port": "3000",
+									"port": "3030",
 									"path": [
 										"s",
 										"{{hash}}"
@@ -1283,11 +1460,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:3000/s/{{hash}}/stats",
+									"raw": "localhost:3030/s/{{hash}}/stats",
 									"host": [
 										"localhost"
 									],
-									"port": "3000",
+									"port": "3030",
 									"path": [
 										"s",
 										"{{hash}}",
