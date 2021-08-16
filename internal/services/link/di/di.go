@@ -76,8 +76,8 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*api_mq.Event, error) {
-	linkMQ, err := api_mq.New(mq, log)
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *link.Service) (*api_mq.Event, error) {
+	linkMQ, err := api_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
 	}

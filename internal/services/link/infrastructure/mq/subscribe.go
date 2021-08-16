@@ -11,7 +11,7 @@ import (
 	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
-func (e *Event) SubscribeNewLink(handler func(ctx context.Context, in *link.Link) error) {
+func (e *Event) SubscribeNewLink() error {
 	// TODO: refactoring this code
 	getNewLink := query.Response{
 		Chan: make(chan query.ResponseMessage),
@@ -35,13 +35,14 @@ func (e *Event) SubscribeNewLink(handler func(ctx context.Context, in *link.Link
 				continue
 			}
 
-			err := handler(msg.Context, myLink)
-			if err != nil {
+			if _, err := e.service.Add(msg.Context, myLink); err != nil {
 				e.log.ErrorWithContext(msg.Context, err.Error())
 			}
 			msg.Context.Done()
 		}
 	}()
+
+	return nil
 }
 
 func (e *Event) SubscribeCQRSGetMetadata(handler func(ctx context.Context, in *metadata_domain.Meta) error) {
