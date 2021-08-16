@@ -37,3 +37,14 @@ datasources:
     uid: tempo
     url: http://jaeger-query:16686
     editable: false
+
+  - name: PostgreSQL
+    type: postgres
+    url: postgres:5432
+    user: postgres
+    password: shortlink
+    database: shortlink
+    jsonData:
+      postgresVersion: 1200
+      sslmode: disable
+      tlsSkipVerify: true

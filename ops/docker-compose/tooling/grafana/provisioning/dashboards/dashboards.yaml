@@ -1,6 +1,12 @@
 apiVersion: 1
 
 providers:
+  - name: 'Shortlink'
+    folder: 'Shortlink'
+    type: file
+    options:
+      path: /etc/grafana/provisioning/dashboards/shortlink/postgres
+
   - name: 'RPC'
     folder: 'RPC'
     type: file
