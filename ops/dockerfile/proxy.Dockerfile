@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.3
+
 FROM node:16.6-alpine as builder
 
 # WARNING: if container limit < MAX_OLD_SPACE_SIZE => Killed

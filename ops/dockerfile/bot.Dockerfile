@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.3
+
 FROM maven:3.8.1-jdk-11-slim as builder
 
 ARG CI_COMMIT_TAG

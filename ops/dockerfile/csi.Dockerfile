@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.3
+
 FROM golang:1.16-alpine as builder
 
 ARG CI_COMMIT_TAG
