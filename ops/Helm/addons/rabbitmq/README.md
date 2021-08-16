@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | rabbitmq | 8.15.2 |
+| https://charts.bitnami.com/bitnami | rabbitmq | 8.20.1 |
 
 ## Values
 
