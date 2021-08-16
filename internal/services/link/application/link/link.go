@@ -9,13 +9,17 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/golang/protobuf/proto"
+
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
 	queryStore "github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
-	v12 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/saga"
 )
 
@@ -24,7 +28,8 @@ type Service struct {
 	notify.Subscriber
 
 	// Delivery
-	MetadataClient v12.MetadataServiceClient
+	mq             mq.MQ
+	MetadataClient metadata_rpc.MetadataServiceClient
 
 	// Repository
 	store *crud.Store
@@ -32,13 +37,16 @@ type Service struct {
 	logger logger.Logger
 }
 
-func New(logger logger.Logger, metadataService v12.MetadataServiceClient, store *crud.Store) (*Service, error) {
+func New(logger logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*Service, error) {
 	service := &Service{
+		logger: logger,
+
+		// Delivery
+		mq:             mq,
 		MetadataClient: metadataService,
 
+		// Repository
 		store: store,
-
-		logger: logger,
 	}
 
 	return service, nil
@@ -166,7 +174,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_STORE_SAVE).
 		Then(func(ctx context.Context) error {
 			var err error
-			in, err = s.store.Add(ctx, in)
+			_, err = s.store.Add(ctx, in)
 			return err
 		}).
 		Build()
@@ -177,7 +185,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	// add step: request to metadata
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_METADATA_GET).
 		Then(func(ctx context.Context) error {
-			_, err := s.MetadataClient.Set(ctx, &v12.MetadataServiceSetRequest{
+			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
 				Id: in.Url,
 			})
 			return err
@@ -190,7 +198,19 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	// add step: publish event by this service
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
-			notify.Publish(ctx, v1.METHOD_ADD, in, nil)
+			data, err := proto.Marshal(in)
+			if err != nil {
+				return err
+			}
+
+			err = s.mq.Publish(ctx, v1.MQ_EVENT_LINK_CREATED, query.Message{
+				Key:     nil,
+				Payload: data,
+			})
+			if err != nil {
+				return err
+			}
+
 			return nil
 		}).
 		Build()
@@ -207,7 +227,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	return in, nil
 }
 
-func (s *Service) Update(ctx context.Context, in *v1.Link) (*v1.Link, error) {
+func (s *Service) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 

@@ -31,7 +31,7 @@ func InitializeMetaDataService(ctx context.Context, runRPCServer *rpc.RPCServer,
 	if err != nil {
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(ctx, log, mq)
+	event, err := InitMetadataMQ(ctx, log, mq)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -53,7 +53,7 @@ type MetaDataService struct {
 	Logger logger.Logger
 
 	// Delivery
-	linkMQ            *api_mq.Event
+	metadataMQ        *metadata_mq.Event
 	metadataRPCServer *v1_2.Metadata
 
 	// Application
@@ -66,7 +66,7 @@ type MetaDataService struct {
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
 
-	InitLinkMQ,
+	InitMetadataMQ,
 	NewMetaDataRPCServer,
 
 	NewMetaDataApplication,
@@ -76,13 +76,14 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*api_mq.Event, error) {
-	linkMQ := &api_mq.Event{
-		MQ: mq,
+func InitMetadataMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(mq)
+	if err != nil {
+		return nil, err
 	}
-	notify.Subscribe(v1_3.METHOD_ADD, linkMQ)
+	notify.Subscribe(v1_3.METHOD_ADD, metadataMQ)
 
-	return linkMQ, nil
+	return metadataMQ, nil
 }
 
 func NewMetaDataStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*meta_store.MetaStore, error) {
@@ -118,7 +119,7 @@ func NewMetaDataService(
 
 	service *metadata.Service,
 
-	linkMQ *api_mq.Event,
+	metadataMQ *metadata_mq.Event,
 	metadataRPCServer *v1_2.Metadata,
 
 	metadataStore *meta_store.MetaStore,
@@ -128,7 +129,7 @@ func NewMetaDataService(
 
 		service: service,
 
-		linkMQ:            linkMQ,
+		metadataMQ:        metadataMQ,
 		metadataRPCServer: metadataRPCServer,
 
 		metadataStore: metadataStore,

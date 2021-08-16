@@ -17,6 +17,9 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
 
@@ -154,7 +157,18 @@ func makeDeleteLinkEndpoint() endpoint.Endpoint {
 	}
 }
 
-func (api API) Run(ctx context.Context, config api_type.Config, log logger.Logger, tracer *opentracing.Tracer) error { // nolint unparam
+func (api API) Run(
+	ctx context.Context,
+	config api_type.Config,
+	log logger.Logger,
+	tracer *opentracing.Tracer,
+
+	// delivery
+	link_rpc link_rpc.LinkServiceClient,
+	link_command link_cqrs.LinkCommandServiceClient,
+	link_query link_cqrs.LinkQueryServiceClient,
+	sitemap_rpc sitemap_rpc.SitemapServiceClient,
+) error { // nolint unparam
 	log.Info("Run go-kit API")
 
 	linkAddHandler := httptransport.NewServer(

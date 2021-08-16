@@ -9,6 +9,7 @@ import { Stats } from "../../proto/domain/proxy/v1/proxy_pb";
 import { Link } from "../../proto/domain/link/v1/link_pb";
 import TYPES from '../../types'
 import StatsRepository from "../infrastructure/store";
+import {MQ_EVENT_LINK_NEW} from "../domain/event";
 
 const log: Logger = new Logger()
 
@@ -18,7 +19,7 @@ export class StatsService {
     @inject(TYPES.REPOSITORY.StatsRepository) private readonly store: StatsRepository,
     @inject(TYPES.TAGS.AMQPController) private readonly amqp: AMQPController,
   ) {
-    const exchange = this.amqp.connection.declareExchange("shortlink", "fanout", {durable: false})
+    const exchange = this.amqp.connection.declareExchange(MQ_EVENT_LINK_NEW, "fanout", {durable: false})
     let queue = this.amqp.connection.declareQueue("shortlink-proxy")
     queue.bind(exchange)
     queue.activateConsumer((message: Amqp.Message) => {

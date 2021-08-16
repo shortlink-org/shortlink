@@ -16,9 +16,9 @@
     service = "serviceError"
     query = "/{status}.html"
 
-  # 100 reqs/s
+  # 300 reqs/s
   [http.middlewares.test-ratelimit.rateLimit]
-    average = 100
+    average = 300
 
   # Retry to send request 4 times
   [http.middlewares.test-retry.retry]
@@ -36,7 +36,7 @@
 ################################################################
 [http.routers.link]
   entryPoints = ["websecure"]
-  rule = "PathPrefix(`/infrastructure.rpc.link.v1.LinkService/`, `/infrastructure.rpc.cqrs.link.v1.LinkCommandService/`, `/infrastructure.rpc.cqrs.link.v1.LinkQueryService/`)"
+  rule = "PathPrefix(`/infrastructure.rpc.link.v1.LinkService/`, `/infrastructure.rpc.cqrs.link.v1.LinkCommandService/`, `/infrastructure.rpc.cqrs.link.v1.LinkQueryService/`, `/infrastructure.rpc.sitemap.v1.SitemapService/`)"
   service = "link"
   [http.routers.link.tls]
     certResolver = "default"

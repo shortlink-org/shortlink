@@ -3,42 +3,51 @@ package link_api
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/batazor/shortlink/internal/pkg/notify"
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	v12 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
 
 var (
 	jsonpb protojson.MarshalOptions
 )
 
+type Handler struct {
+	LinkServiceClient link_rpc.LinkServiceClient
+}
+
 // Routes creates a REST router
-func Routes() chi.Router {
+func Routes(
+	link_rpc link_rpc.LinkServiceClient,
+) chi.Router {
 	r := chi.NewRouter()
 
-	r.Get("/link/{hash}", Get)
-	r.Get("/link/{hash}/cqrs", GetByCQRS)
-	r.Get("/links", List)
-	r.Post("/link", Add)
-	r.Delete("/link/{hash}", Delete)
+	h := &Handler{
+		LinkServiceClient: link_rpc,
+	}
+
+	r.Get("/{hash}", h.Get)
+	r.Get("/list", h.List)
+	r.Post("/", h.Add)
+	r.Put("/", h.Update)
+	r.Patch("/", h.Update)
+	r.Delete("/{hash}", h.Delete)
 
 	return r
 }
 
 // Add ...
-func Add(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) Add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Parse request
-	decoder := json.NewDecoder(r.Body)
 	var request v1.Link
+	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -46,31 +55,47 @@ func Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newLink := &v1.Link{
-		Url:      request.Url,
-		Describe: request.Describe,
-	}
-	var response *v12.AddResponse
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	responseCh := make(chan interface{})
+	// Save link
+	response, err := h.LinkServiceClient.Add(r.Context(), &link_rpc.AddRequest{Link: &request})
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	res, err := jsonpb.Marshal(response.Link)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	w.WriteHeader(http.StatusCreated)
+	_, _ = w.Write(res) // nolint errcheck
+}
+
+// Update ...
+func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-type", "application/json")
+
+	// Parse request
+	var request v1.Link
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&request)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
 
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	// TODO: send []byte format
-	go notify.Publish(r.Context(), v1.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_ADD"})
-
-	c := <-responseCh
-	switch resp := c.(type) {
-	case nil:
-		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
-	case notify.Response:
-		err = resp.Error
-		if err == nil {
-			response = resp.Payload.(*v12.AddResponse) // nolint errcheck
-		}
-	}
-
+	// Update link
+	response, err := h.LinkServiceClient.Update(r.Context(), &link_rpc.UpdateRequest{Link: &request})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -89,7 +114,7 @@ func Add(w http.ResponseWriter, r *http.Request) {
 }
 
 // Get ...
-func Get(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	var hash = chi.URLParam(r, "hash")
@@ -99,27 +124,14 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var (
-		response *v1.Link
-		err      error
-	)
-
-	responseCh := make(chan interface{})
-
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), v1.METHOD_GET, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_GET"})
-
-	c := <-responseCh
-	switch resp := c.(type) {
-	case nil:
-		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
-	case notify.Response:
-		err = resp.Error
-		if err == nil {
-			response = resp.Payload.(*v1.Link) // nolint errcheck
-		}
+	response, err := h.LinkServiceClient.Get(r.Context(), &link_rpc.GetRequest{Hash: hash})
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint errcheck
+		return
 	}
 
 	var errorLink *v1.NotFoundError
@@ -134,7 +146,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := jsonpb.Marshal(response)
+	res, err := jsonpb.Marshal(response.GetLink())
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
@@ -146,33 +158,20 @@ func Get(w http.ResponseWriter, r *http.Request) {
 }
 
 // List ...
-func List(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Get filter
 	filter := r.URL.Query().Get("filter")
 
-	var (
-		response *v12.ListResponse
-		err      error
-	)
-
-	responseCh := make(chan interface{})
-
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	go notify.Publish(r.Context(), v1.METHOD_LIST, filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_LIST"})
-
-	c := <-responseCh
-	switch resp := c.(type) {
-	case nil:
-		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_LIST")
-	case notify.Response:
-		err = resp.Error
-		if err == nil {
-			response = resp.Payload.(*v12.ListResponse) // nolint errcheck
-		}
+	response, err := h.LinkServiceClient.List(r.Context(), &link_rpc.ListRequest{Filter: filter})
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
 	}
 
 	var errorLink *v1.NotFoundError
@@ -199,7 +198,7 @@ func List(w http.ResponseWriter, r *http.Request) {
 }
 
 // Delete ...
-func Delete(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) Delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Parse request
@@ -210,22 +209,10 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	responseCh := make(chan interface{})
-
-	go notify.Publish(r.Context(), v1.METHOD_DELETE, hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_RPC_DELETE"})
-
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	var err error
-	c := <-responseCh
-	switch resp := c.(type) {
-	case nil:
-		err = fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
-	case notify.Response:
-		err = resp.Error
-	}
-
+	_, err := h.LinkServiceClient.Delete(r.Context(), &link_rpc.DeleteRequest{Hash: hash})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck

@@ -2,6 +2,7 @@ package v1
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc/codes"
@@ -31,6 +32,10 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 }
 
 func (l *Link) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
+	if in.Link == nil {
+		return nil, fmt.Errorf("Create a new link: empty payload")
+	}
+
 	resp, err := l.service.Add(ctx, in.Link)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())

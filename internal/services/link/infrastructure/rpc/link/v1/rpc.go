@@ -13,8 +13,10 @@ import (
 type Link struct {
 	LinkServiceServer
 
+	log logger.Logger
+
+	// Application
 	service *link_application.Service
-	log     logger.Logger
 }
 
 func New(runRPCServer *rpc.RPCServer, application *link_application.Service, log logger.Logger) (*Link, error) {
