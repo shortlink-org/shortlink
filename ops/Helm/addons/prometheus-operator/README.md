@@ -14,42 +14,42 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 16.6.2 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 17.2.2 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| kube-prometheus-stack.alertmanager.alertmanagerSpec.routePrefix | string | `"/alertmanager/"` |  |
-| kube-prometheus-stack.alertmanager.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| kube-prometheus-stack.alertmanager.ingress.enabled | bool | `true` |  |
-| kube-prometheus-stack.alertmanager.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
-| kube-prometheus-stack.alertmanager.ingress.ingressClassName | string | `"nginx"` |  |
-| kube-prometheus-stack.alertmanager.ingress.pathType | string | `"Prefix"` |  |
-| kube-prometheus-stack.alertmanager.ingress.paths[0] | string | `"/alertmanager"` |  |
-| kube-prometheus-stack.alertmanager.ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
-| kube-prometheus-stack.alertmanager.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
-| kube-prometheus-stack.coreDns.enabled | bool | `false` |  |
-| kube-prometheus-stack.enabled | bool | `true` |  |
-| kube-prometheus-stack.grafana.enabled | bool | `false` |  |
-| kube-prometheus-stack.kubeDns.enabled | bool | `true` |  |
-| kube-prometheus-stack.prometheus.enabled | bool | `true` |  |
-| kube-prometheus-stack.prometheus.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| kube-prometheus-stack.prometheus.ingress.enabled | bool | `true` |  |
-| kube-prometheus-stack.prometheus.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
-| kube-prometheus-stack.prometheus.ingress.ingressClassName | string | `"nginx"` |  |
-| kube-prometheus-stack.prometheus.ingress.pathType | string | `"Prefix"` |  |
-| kube-prometheus-stack.prometheus.ingress.paths[0] | string | `"/prometheus"` |  |
-| kube-prometheus-stack.prometheus.ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
-| kube-prometheus-stack.prometheus.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
-| kube-prometheus-stack.prometheus.prometheusSpec.retention | string | `"3d"` |  |
-| kube-prometheus-stack.prometheus.prometheusSpec.routePrefix | string | `"/prometheus/"` |  |
-| kube-prometheus-stack.prometheus.prometheusSpec.serviceMonitorNamespaceSelector | object | `{}` |  |
-| kube-prometheus-stack.prometheus.prometheusSpec.serviceMonitorSelector | object | `{}` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.alertmanagerSpec.routePrefix | string | `"/alertmanager/"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.enabled | bool | `true` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.ingressClassName | string | `"nginx"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.pathType | string | `"Prefix"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.paths[0] | string | `"/alertmanager"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
+| prometheus-operator.kube-prometheus-stack.alertmanager.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| prometheus-operator.kube-prometheus-stack.coreDns.enabled | bool | `false` |  |
+| prometheus-operator.kube-prometheus-stack.enabled | bool | `true` |  |
+| prometheus-operator.kube-prometheus-stack.grafana.enabled | bool | `false` |  |
+| prometheus-operator.kube-prometheus-stack.kubeDns.enabled | bool | `true` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.enabled | bool | `true` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.ingress.enabled | bool | `true` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.ingress.ingressClassName | string | `"nginx"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.ingress.pathType | string | `"Prefix"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.ingress.paths[0] | string | `"/prometheus"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.prometheusSpec.retention | string | `"3d"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.prometheusSpec.routePrefix | string | `"/prometheus/"` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.prometheusSpec.serviceMonitorNamespaceSelector | object | `{}` |  |
+| prometheus-operator.kube-prometheus-stack.prometheus.prometheusSpec.serviceMonitorSelector | object | `{}` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.5.0](https://github.com/norwoodj/helm-docs/releases/v1.5.0)
