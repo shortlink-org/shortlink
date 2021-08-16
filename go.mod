@@ -54,7 +54,7 @@ require (
 	github.com/ory/dockertest/v3 v3.7.0
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/prometheus/client_golang v1.11.0
-	github.com/pterm/pterm v0.12.29
+	github.com/pterm/pterm v0.12.30
 	github.com/rabbitmq/amqp091-go v0.0.0-20210812094702-b2a427eb7d17
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
