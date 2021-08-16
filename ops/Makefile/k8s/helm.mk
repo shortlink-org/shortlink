@@ -1,13 +1,15 @@
 # KUBERNETES TASKS =====================================================================================================
-SHORTLINK_HELM_API      := ops/Helm/shortlink-api
-SHORTLINK_HELM_LOGGER   := ops/Helm/shortlink-logger
-SHORTLINK_HELM_METADATA := ops/Helm/shortlink-metadata
-SHORTLINK_HELM_LINK     := ops/Helm/shortlink-link
-SHORTLINK_HELM_BOT      := ops/Helm/shortlink-bot
-SHORTLINK_HELM_UI       := ops/Helm/shortlink-ui
-SHORTLINK_HELM_LANDING  := ops/Helm/shortlink-landing
-SHORTLINK_HELM_PROXY    := ops/Helm/shortlink-proxy
-SHORTLINK_HELM_BOT      := ops/Helm/shortlink-bot
+SHORTLINK_HELM_PATH     := ops/Helm
+SHORTLINK_HELM_API      := ${SHORTLINK_HELM_PATH}/shortlink-api
+SHORTLINK_HELM_LOGGER   := ${SHORTLINK_HELM_PATH}/shortlink-logger
+SHORTLINK_HELM_METADATA := ${SHORTLINK_HELM_PATH}/shortlink-metadata
+SHORTLINK_HELM_LINK     := ${SHORTLINK_HELM_PATH}/shortlink-link
+SHORTLINK_HELM_BOT      := ${SHORTLINK_HELM_PATH}/shortlink-bot
+SHORTLINK_HELM_UI       := ${SHORTLINK_HELM_PATH}/shortlink-ui
+SHORTLINK_HELM_LANDING  := ${SHORTLINK_HELM_PATH}/shortlink-landing
+SHORTLINK_HELM_PROXY    := ${SHORTLINK_HELM_PATH}/shortlink-proxy
+SHORTLINK_HELM_BOT      := ${SHORTLINK_HELM_PATH}/shortlink-bot
+SHORTLINK_HELM_SERVICES := api auth bot ingress landing link logger metadata notify proxy ui
 
 helm-init: ## helm init
 	# add custom repo for helm
@@ -19,12 +21,9 @@ helm-init: ## helm init
 	@helm repo update
 
 helm-lint: ## Check Helm chart by linter
-	@helm lint ${SHORTLINK_HELM_API}
-	@helm lint ${SHORTLINK_HELM_BOT}
-	@helm lint ${SHORTLINK_HELM_LOGGER}
-	@helm lint ${SHORTLINK_HELM_METADATA}
-	@helm lint ${SHORTLINK_HELM_UI}
-	@helm lint ${SHORTLINK_HELM_LANDING}
+	for i in $(SHORTLINK_HELM_SERVICES); do \
+		helm lint ${SHORTLINK_HELM_PATH}/shortlink-$$i; \
+  	done
 
 # HELM TASKS ===========================================================================================================
 helm-docs: ### Generate HELM docs
