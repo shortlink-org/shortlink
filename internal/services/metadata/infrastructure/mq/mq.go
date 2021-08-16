@@ -2,7 +2,7 @@
 MQ Endpoint
 */
 
-package api_mq
+package metadata_mq
 
 import (
 	"context"
@@ -10,18 +10,24 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
-	v12 "github.com/batazor/shortlink/internal/pkg/mq/v1"
+	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
-	v1 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
+	metadata "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 
 	"github.com/batazor/shortlink/internal/pkg/notify"
 )
 
 type Event struct {
-	MQ v12.MQ
+	mq mq.MQ
 
 	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
+}
+
+func New(mq mq.MQ) (*Event, error) {
+	return &Event{
+		mq: mq,
+	}, nil
 }
 
 // Notify ...
@@ -32,15 +38,15 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 	}
 
 	switch event {
-	case v1.METHOD_ADD:
+	case metadata.METHOD_ADD:
 		return e.add(ctx, payload)
-	case v1.METHOD_GET:
+	case metadata.METHOD_GET:
 		panic("implement me")
-	case v1.METHOD_LIST:
+	case metadata.METHOD_LIST:
 		panic("implement me")
-	case v1.METHOD_UPDATE:
+	case metadata.METHOD_UPDATE:
 		panic("implement me")
-	case v1.METHOD_DELETE:
+	case metadata.METHOD_DELETE:
 		panic("implement me")
 	}
 
@@ -49,7 +55,7 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 
 func (e *Event) add(ctx context.Context, payload interface{}) notify.Response {
 	// TODO: send []byte
-	msg := payload.(*v1.Meta) // nolint errcheck
+	msg := payload.(*metadata.Meta) // nolint errcheck
 	data, err := proto.Marshal(msg)
 	if err != nil {
 		return notify.Response{
@@ -59,7 +65,7 @@ func (e *Event) add(ctx context.Context, payload interface{}) notify.Response {
 		}
 	}
 
-	err = e.MQ.Publish(ctx, "shortlink.metadata.cqrs", query.Message{
+	err = e.mq.Publish(ctx, metadata.MQ_CQRS_EVENT, query.Message{
 		Key:     nil,
 		Payload: data,
 	})

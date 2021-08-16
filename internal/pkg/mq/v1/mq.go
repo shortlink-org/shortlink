@@ -26,9 +26,7 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) {
 	case "nats":
 		mq.mq = &nats.NATS{}
 	case "rabbitmq":
-		mq.mq = &rabbit.RabbitMQ{
-			Log: log,
-		}
+		mq.mq = rabbit.New(log)
 	default:
 		mq.mq = &kafka.Kafka{}
 	}
