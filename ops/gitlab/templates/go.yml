@@ -1,5 +1,5 @@
 .job_teplate_go:
   stage: test
-  image: golang:1.16-alpine
+  image: golang:1.17-alpine
   interruptible: true
   needs: []
