@@ -12,7 +12,7 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.5.0
 	github.com/container-storage-interface/spec v1.5.0
 	github.com/containerd/continuity v0.0.0-20200107194136-26c1120b8d41 // indirect
-	github.com/cucumber/godog v0.12.0-rc2
+	github.com/cucumber/godog v0.12.0
 	github.com/dgraph-io/badger/v3 v3.2103.1
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dgryski/go-farm v0.0.0-20200201041132-a6ae2369ad13 // indirect
