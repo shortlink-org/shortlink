@@ -3,15 +3,9 @@ const withSourceMaps = require('@zeit/next-source-maps')
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
-const API_URI_PORT = process.env.API_URI_PORT || 7070
-const isEnableSentry = process.env.SENTRY_ENABLE
-
-// TODO: fix DNS
-const API_URI = process.env.API_URI
-  ? `${process.env.API_URI}:${API_URI_PORT}`
-  : `http://localhost:${API_URI_PORT}`
-const PROXY_URI =
-  process.env.PROXY_URI || 'http://proxy-shortlink-proxy.shortlink:3030'
+const isEnableSentry = process.env.SENTRY_ENABLE === "true"
+const API_URI = process.env.API_URI || 'http://localhost:7070'
+const PROXY_URI = process.env.PROXY_URI || 'http://localhost:3030'
 
 console.info('API_URI', API_URI)
 console.info('PROXY_URI', PROXY_URI)

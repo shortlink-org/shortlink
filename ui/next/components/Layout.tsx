@@ -8,10 +8,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Header from './Header'
 import Footer from './Footer'
+import {colors} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    background: colors.grey[100]
   },
   content: {
     flexGrow: 1,
@@ -29,7 +31,7 @@ export function Layout(props) {
   const classes = useStyles()
 
   return (
-    <Grid className={[classes.root, 'bg-gray-100']}>
+    <Grid className={classes.root}>
       <CssBaseline />
       <Header />
       <main className={classes.content}>
