@@ -14,8 +14,19 @@ This UI for shortlink application
   - Typescript
   - ESLint/Prettier
 
+### Getting start
+
+```
+$> npm i
+$> npm start
+$>
+$> Ready on http://localhost:3000
+```
+
 #### ENV
 
-| Name            | Value   | Description |
-| --------------- | ------- | ----------- |
-| `SENTRY_ENABLE` | `false` | Init Sentry |
+| Name            | Value                   | Description                |
+| --------------- | ----------------------- | -------------------------- |
+| `API_URI`       | `http://localhost:7070` | API port                   |
+| `PROXY_URI`     | `http://localhost:3030` | Proxy service address      |
+| `SENTRY_ENABLE` | `false`                 | Init Sentry                |
