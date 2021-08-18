@@ -1,9 +1,8 @@
 import { injectable, inject } from "inversify";
-import { Prisma, PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { Stats } from "../../../proto/domain/proxy/v1/proxy_pb";
 import {Timestamp} from "google-protobuf/google/protobuf/timestamp_pb";
 
-import TYPES from '../../../types'
 import {Link} from "../../../proto/domain/link/v1/link_pb";
 
 const prisma = new PrismaClient()
