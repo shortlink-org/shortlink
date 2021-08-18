@@ -11,7 +11,7 @@ CREATE TABLE billing.tariff(
     "payload" jsonb NOT NULL,
     "created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
     "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
-);
+) WITH (fillfactor = 100);
 ALTER TABLE
     billing.tariff ADD PRIMARY KEY("id");
 COMMENT
@@ -26,7 +26,7 @@ CREATE TABLE billing.account(
     "id" UUID NOT NULL,
     "user_id" UUID NOT NULL,
     "tariff_id" UUID NOT NULL
-);
+) WITH (fillfactor = 100);
 
 ALTER TABLE
     billing.account ADD PRIMARY KEY("id");
@@ -42,7 +42,7 @@ CREATE TABLE billing.events(
     "payload" jsonb NOT NULL,
     "version" INTEGER NOT NULL,
     "created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
-);
+) WITH (fillfactor = 100);
 ALTER TABLE
     billing.events ADD PRIMARY KEY("id");
 
@@ -72,7 +72,7 @@ CREATE TABLE billing.snapshots(
     "payload" jsonb NOT NULL,
     "created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
     "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
-);
+) WITH (fillfactor = 100);
 CREATE UNIQUE INDEX "snapshots_aggregate_id_uindex" ON
     billing.snapshots("aggregate_id");
 
@@ -83,7 +83,7 @@ CREATE TABLE billing.aggregates(
     "version" INTEGER NOT NULL,
     "created_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
     "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
-);
+) WITH (fillfactor = 100);
 ALTER TABLE
     billing.aggregates ADD PRIMARY KEY("id");
 CREATE INDEX "aggregate_type_index" ON

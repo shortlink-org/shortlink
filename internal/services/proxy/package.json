@@ -8,7 +8,7 @@
     "start": "npx tsc --skipLibCheck && NODE_ENV=development node ./dist/app.js",
     "prod": "npx tsc --skipLibCheck && NODE_ENV=production node ./dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migration:deploy": "cd prisma && npx prisma migrate deploy"
+    "migrate:deploy": "cd prisma && npx prisma migrate deploy"
   },
   "keywords": [
     "shortlink",
