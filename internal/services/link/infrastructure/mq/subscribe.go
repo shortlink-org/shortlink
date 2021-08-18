@@ -1,12 +1,12 @@
 package api_mq
 
 import (
-	"context"
 	"fmt"
 
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
+	"github.com/batazor/shortlink/internal/pkg/notify"
 	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
 )
@@ -45,7 +45,39 @@ func (e *Event) SubscribeNewLink() error {
 	return nil
 }
 
-func (e *Event) SubscribeCQRSGetMetadata(handler func(ctx context.Context, in *metadata_domain.Meta) error) {
+func (e *Event) SubscribeCQRSNewLink() error {
+	// TODO: refactoring this code
+	getCreatedLink := query.Response{
+		Chan: make(chan query.ResponseMessage),
+	}
+
+	go func() {
+		if err := e.mq.Subscribe(link.MQ_EVENT_LINK_CREATED, getCreatedLink); err != nil {
+			e.log.Error(err.Error())
+		}
+	}()
+
+	go func() {
+		for {
+			msg := <-getCreatedLink.Chan
+
+			// Convert: []byte to link.Link
+			myLink := &link.Link{}
+			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
+				e.log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
+				msg.Context.Done()
+				continue
+			}
+
+			go notify.Publish(msg.Context, link.METHOD_ADD, myLink, nil)
+			msg.Context.Done()
+		}
+	}()
+
+	return nil
+}
+
+func (e *Event) SubscribeCQRSGetMetadata() {
 	// TODO: refactoring this code
 	getCQRSGetMetadata := query.Response{
 		Chan: make(chan query.ResponseMessage),
@@ -69,10 +101,7 @@ func (e *Event) SubscribeCQRSGetMetadata(handler func(ctx context.Context, in *m
 				continue
 			}
 
-			err := handler(msg.Context, myLink)
-			if err != nil {
-				e.log.ErrorWithContext(msg.Context, err.Error())
-			}
+			go notify.Publish(msg.Context, metadata_domain.METHOD_ADD, myLink, nil)
 			msg.Context.Done()
 		}
 	}()
