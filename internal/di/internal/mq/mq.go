@@ -10,7 +10,7 @@ import (
 )
 
 func New(ctx context.Context, log logger.Logger) (v1.MQ, func(), error) {
-	viper.SetDefault("MQ_ENABLED", "false") // Enabled MQ-service
+	viper.SetDefault("MQ_ENABLED", "false") // Enabled MQ
 
 	if viper.GetBool("MQ_ENABLED") {
 		var service v1.DataBus

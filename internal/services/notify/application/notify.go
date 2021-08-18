@@ -1,7 +1,7 @@
 /*
 Bot Service
 */
-package service
+package application
 
 import (
 	"context"
@@ -10,13 +10,22 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/proto"
 
+	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/notify/di"
 	bot_type "github.com/batazor/shortlink/internal/services/notify/type"
 )
+
+func New(mq mq.MQ, log logger.Logger) (*Bot, error) {
+	return &Bot{
+		mq:  nil,
+		log: nil,
+	}, nil
+}
 
 func (b *Bot) Use(ctx context.Context) { // nolint unused
 	// Subscribe to Event
@@ -36,8 +45,8 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 	g := errgroup.Group{}
 
 	g.Go(func() error {
-		if b.MQ != nil {
-			if errSubscribe := b.MQ.Subscribe(v1.MQ_EVENT_LINK_CREATED, getEventNewLink); errSubscribe != nil {
+		if b.mq != nil {
+			if errSubscribe := b.mq.Subscribe(link.MQ_EVENT_LINK_CREATED, getEventNewLink); errSubscribe != nil {
 				return errSubscribe
 			}
 		}
@@ -50,19 +59,19 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 			msg := <-getEventNewLink.Chan
 
 			// Convert: []byte to link.Link
-			myLink := &v1.Link{}
+			myLink := &link.Link{}
 			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
-				b.Log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
+				b.log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				continue
 			}
 
-			b.Log.InfoWithContext(msg.Context, "Get new LINK", field.Fields{"url": myLink.Url})
+			b.log.InfoWithContext(msg.Context, "Get new LINK", field.Fields{"url": myLink.Url})
 			notify.Publish(msg.Context, bot_type.METHOD_NEW_LINK, myLink, nil)
 		}
 	})
 
 	if err := g.Wait(); err != nil {
-		b.Log.Error(err.Error())
+		b.log.Error(err.Error())
 	}
 }
 
@@ -70,7 +79,7 @@ func (b *Bot) Use(ctx context.Context) { // nolint unused
 func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response {
 	switch event {
 	case bot_type.METHOD_NEW_LINK:
-		if addLink, ok := payload.(*v1.Link); ok {
+		if addLink, ok := payload.(*link.Link); ok {
 			b.Send(ctx, addLink)
 		}
 	}
@@ -78,8 +87,8 @@ func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) not
 	return notify.Response{}
 }
 
-func (b *Bot) Send(ctx context.Context, link *v1.Link) {
-	payload := fmt.Sprintf("LINK: %s", link.Url)
+func (b *Bot) Send(ctx context.Context, in *link.Link) {
+	payload := fmt.Sprintf("LINK: %s", in.Url)
 
 	notify.Publish(ctx, bot_type.METHOD_SEND_NEW_LINK, payload, nil)
 }
