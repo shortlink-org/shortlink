@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/services/notify/service"
+	"github.com/batazor/shortlink/internal/services/notify/application"
 )
 
 func main() {
@@ -24,9 +24,9 @@ func main() {
 	}
 
 	// Run bot
-	bot := service.Bot{
-		MQ:  s.MQ,
-		Log: s.Log,
+	bot, err := application.New(s.MQ, s.Log)
+	if err != nil { // TODO: use as helpers
+		panic(err)
 	}
 	bot.Use(s.Ctx)
 

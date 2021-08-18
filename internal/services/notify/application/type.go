@@ -1,4 +1,4 @@
-package service
+package application
 
 import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -10,8 +10,8 @@ type Bot struct {
 	// Observer interface for subscribe on system event
 	notify.Subscriber // Observer interface for subscribe on system event
 
-	MQ  v1.MQ
-	Log logger.Logger
+	mq  v1.MQ
+	log logger.Logger
 }
 
 type Service interface {
