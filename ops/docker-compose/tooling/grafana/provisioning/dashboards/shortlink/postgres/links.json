@@ -22,7 +22,6 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": null,
   "links": [],
   "panels": [
     {
@@ -41,7 +40,7 @@
     },
     {
       "datasource": "PostgreSQL",
-      "description": "",
+      "description": "Count links",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -54,10 +53,6 @@
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           }
@@ -65,8 +60,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 4,
+        "w": 3,
         "x": 0,
         "y": 1
       },
@@ -77,11 +72,9 @@
         "justifyMode": "auto",
         "orientation": "auto",
         "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+          "calcs": [],
+          "fields": "/^id$/",
+          "values": true
         },
         "text": {},
         "textMode": "auto"
@@ -100,8 +93,8 @@
             }
           ],
           "metricColumn": "none",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(updated_at,$__interval),\n  COALESCE(count(id),0)\nFROM shortlink.links\nWHERE\n  $__timeFilter(updated_at)\nGROUP BY 1\nORDER BY 1",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  count(id) AS id\nFROM shortlink.links",
           "refId": "A",
           "select": [
             [
@@ -132,6 +125,7 @@
         }
       ],
       "title": "count",
+      "transformations": [],
       "type": "stat"
     }
   ],
@@ -144,12 +138,12 @@
     "list": []
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-2h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Links",
-  "uid": null,
-  "version": 0
+  "uid": "xTGzhFnnz",
+  "version": 1
 }
