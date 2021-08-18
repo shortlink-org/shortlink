@@ -4,7 +4,7 @@ CREATE TABLE "stats" (
     "count_redirect" INTEGER NOT NULL DEFAULT 0,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL
-);
+) WITH (fillfactor = 100);
 
 -- CreateIndex
 CREATE UNIQUE INDEX "stats.hash_unique" ON "stats"("hash");
