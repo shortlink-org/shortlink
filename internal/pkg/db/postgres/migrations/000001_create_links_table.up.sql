@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS links
     hash     varchar(20)  not null,
     describe text,
     json     jsonb        not null
-);
+) WITH (fillfactor = 100);
 
 COMMENT ON TABLE links IS 'Link list';
 

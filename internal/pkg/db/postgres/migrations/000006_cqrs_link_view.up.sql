@@ -13,7 +13,7 @@ create table shortlink.link_view
 	describe text,
 	created_at TIMESTAMP default current_timestamp,
 	updated_at TIMESTAMP default current_timestamp
-);
+) WITH (fillfactor = 100);
 
 comment on table shortlink.link_view is 'CQRS for links';
 
