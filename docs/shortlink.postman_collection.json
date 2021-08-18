@@ -20,15 +20,10 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://127.0.0.1:4433/health/alive",
-											"protocol": "http",
+											"raw": "{{AUTH.HTTP_API}}/health/alive",
 											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
+												"{{AUTH.HTTP_API}}"
 											],
-											"port": "4433",
 											"path": [
 												"health",
 												"alive"
@@ -43,15 +38,10 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://127.0.0.1:4433/health/ready",
-											"protocol": "http",
+											"raw": "{{AUTH.HTTP_API}}/health/ready",
 											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
+												"{{AUTH.HTTP_API}}"
 											],
-											"port": "4433",
 											"path": [
 												"health",
 												"ready"
@@ -74,7 +64,7 @@
 												"exec": [
 													"var jsonData = JSON.parse(responseBody);",
 													"",
-													"postman.setGlobalVariable(\"newRegistration\", jsonData.methods.password.config.action);"
+													"postman.setGlobalVariable(\"auth.registration.flow\", jsonData.ui.action);"
 												],
 												"type": "text/javascript"
 											}
@@ -90,15 +80,10 @@
 											}
 										],
 										"url": {
-											"raw": "http://127.0.0.1:4433/self-service/registration/api",
-											"protocol": "http",
+											"raw": "{{AUTH.HTTP_API}}/self-service/registration/api",
 											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
+												"{{AUTH.HTTP_API}}"
 											],
-											"port": "4433",
 											"path": [
 												"self-service",
 												"registration",
@@ -126,12 +111,12 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\"traits.email\": \"registration-api@user.org\", \"password\": \"fhAzi860a\"}"
+											"raw": "{\n  \"method\": \"password\",\n  \"password\": \"string\",\n  \"traits\": {\n      \"email\": \"registration-api@user.org\",\n      \"name\": {\n          \"first\": \"123\",\n          \"last\": \"321\"\n      }\n  }\n}"
 										},
 										"url": {
-											"raw": "{{newRegistration}}",
+											"raw": "{{auth.registration.flow}}",
 											"host": [
-												"{{newRegistration}}"
+												"{{auth.registration.flow}}"
 											]
 										}
 									},
@@ -161,15 +146,10 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://127.0.0.1:4433/self-service/login/api",
-											"protocol": "http",
+											"raw": "{{AUTH.HTTP_API}}/self-service/login/api",
 											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
+												"{{AUTH.HTTP_API}}"
 											],
-											"port": "4433",
 											"path": [
 												"self-service",
 												"login",
@@ -256,15 +236,10 @@
 											}
 										],
 										"url": {
-											"raw": "http://127.0.0.1:4433/self-service/settings/api",
-											"protocol": "http",
+											"raw": "{{AUTH.HTTP_API}}/self-service/settings/api",
 											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
+												"{{AUTH.HTTP_API}}"
 											],
-											"port": "4433",
 											"path": [
 												"self-service",
 												"settings",
@@ -338,15 +313,10 @@
 											}
 										],
 										"url": {
-											"raw": "http://127.0.0.1:4433/self-service/recovery/api",
-											"protocol": "http",
+											"raw": "{{AUTH.HTTP_API}}/self-service/recovery/api",
 											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
+												"{{AUTH.HTTP_API}}"
 											],
-											"port": "4433",
 											"path": [
 												"self-service",
 												"recovery",
@@ -400,15 +370,10 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://127.0.0.1:4433/self-service/verification/api?Accept=application/json",
-											"protocol": "http",
+											"raw": "{{AUTH.HTTP_API}}/self-service/verification/api?Accept=application/json",
 											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
+												"{{AUTH.HTTP_API}}"
 											],
-											"port": "4433",
 											"path": [
 												"self-service",
 												"verification",
@@ -449,15 +414,10 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://127.0.0.1:4455/ui/auth/login",
-											"protocol": "http",
+											"raw": "{{AUTH.HTTP_API}}/ui/auth/login",
 											"host": [
-												"127",
-												"0",
-												"0",
-												"1"
+												"{{AUTH.HTTP_API}}"
 											],
-											"port": "4455",
 											"path": [
 												"ui",
 												"auth",
@@ -470,478 +430,377 @@
 							]
 						},
 						{
-							"name": "Billing",
+							"name": "whoami",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{sessionToken}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{AUTH.HTTP_API}}/sessions/whoami",
+									"host": [
+										"{{AUTH.HTTP_API}}"
+									],
+									"path": [
+										"sessions",
+										"whoami"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Billing",
+					"item": [
+						{
+							"name": "Tariff",
 							"item": [
 								{
-									"name": "Tariff",
-									"item": [
-										{
-											"name": "Get tariff",
-											"request": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"tariff",
-														"{{tariff_id}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Get tariffs",
-											"request": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/tariffs",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"tariffs"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Add tariff",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"var jsonData = JSON.parse(responseBody);",
-															"",
-															"",
-															"postman.setGlobalVariable(\"billing.tariff_id\", jsonData.id);"
-														],
-														"type": "text/javascript"
-													}
-												}
+									"name": "Get tariff",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/tariff/{{tariff_id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
 											],
-											"request": {
-												"method": "POST",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "{\n    \"name\": \"trial\",\n    \"payload\": \"{\\\"amount\\\": 500}\"\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "localhost:7070/api/billing/tariff",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"tariff"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Update tariff",
-											"request": {
-												"method": "PUT",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"tariff",
-														"{{tariff_id}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Delete tariff",
-											"request": {
-												"method": "DELETE",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/tariff/{{tariff_id}}",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"tariff",
-														"{{tariff_id}}"
-													]
-												}
-											},
-											"response": []
+											"path": [
+												"api",
+												"billing",
+												"tariff",
+												"{{tariff_id}}"
+											]
 										}
-									]
+									},
+									"response": []
 								},
 								{
-									"name": "Account",
-									"item": [
-										{
-											"name": "Get account",
-											"request": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/account/{{account_id}}",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"account",
-														"{{account_id}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Get accounts",
-											"request": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/accounts",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"accounts"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Add account",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"var jsonData = JSON.parse(responseBody);",
-															"",
-															"",
-															"postman.setGlobalVariable(\"billing.user_id\", jsonData.id);"
-														],
-														"type": "text/javascript"
-													}
-												}
+									"name": "Get tariffs",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/tariffs",
+											"host": [
+												"{{BILLING.HTTP_API}}"
 											],
-											"request": {
-												"method": "POST",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "{\n    \"user_id\": \"{{$randomUUID}}\",\n    \"tariff_id\": \"{{billing.tariff_id}}\"\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "localhost:7070/api/billing/account",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"account"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Delete account",
-											"request": {
-												"method": "DELETE",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/account/{{account_id}}",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"account",
-														"{{account_id}}"
-													]
-												}
-											},
-											"response": []
+											"path": [
+												"api",
+												"billing",
+												"tariffs"
+											]
 										}
-									]
+									},
+									"response": []
 								},
 								{
-									"name": "Payment",
-									"item": [
-										{
-											"name": "Get payment",
-											"request": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/payment/{{billing.payment_id}}",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"payment",
-														"{{billing.payment_id}}"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Get payments",
-											"request": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": ""
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Add payment",
-											"event": [
-												{
-													"listen": "test",
-													"script": {
-														"exec": [
-															"var jsonData = JSON.parse(responseBody);",
-															"",
-															"",
-															"postman.setGlobalVariable(\"billing.payment_id\", jsonData.id);"
-														],
-														"type": "text/javascript"
-													}
-												}
-											],
-											"request": {
-												"method": "POST",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "{\n    \"user_id\": \"{{billing.user_id}}\",\n    \"name\": \"stripe\"\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "localhost:7070/api/billing/payment",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"payment"
-													]
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Close payment",
-											"request": {
-												"method": "DELETE",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/payment/{{billing.payment_id}}",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"payment",
-														"{{billing.payment_id}}"
-													]
-												}
-											},
-											"response": []
-										}
-									],
-									"description": "Type payment: PayPal, Tinkoff, etc",
+									"name": "Add tariff",
 									"event": [
-										{
-											"listen": "prerequest",
-											"script": {
-												"type": "text/javascript",
-												"exec": [
-													""
-												]
-											}
-										},
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
-													""
-												]
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"",
+													"postman.setGlobalVariable(\"billing.tariff_id\", jsonData.id);"
+												],
+												"type": "text/javascript"
 											}
 										}
-									]
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"trial\",\n    \"payload\": \"{\\\"amount\\\": 500}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/tariff",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"tariff"
+											]
+										}
+									},
+									"response": []
 								},
 								{
-									"name": "Balance",
-									"item": [
-										{
-											"name": "Update balance",
-											"request": {
-												"method": "PUT",
-												"header": [],
-												"body": {
-													"mode": "raw",
-													"raw": "{\n    \"id\": \"{{billing.payment_id}}\",\n    \"amount\": 300\n}",
-													"options": {
-														"raw": {
-															"language": "json"
-														}
-													}
-												},
-												"url": {
-													"raw": "localhost:7070/api/billing/balance/{{payment_id}}",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"balance",
-														"{{payment_id}}"
-													]
-												}
-											},
-											"response": []
+									"name": "Update tariff",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/tariff/{{tariff_id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"tariff",
+												"{{tariff_id}}"
+											]
 										}
-									]
+									},
+									"response": []
 								},
 								{
-									"name": "Order",
-									"item": [
-										{
-											"name": "Get order",
-											"request": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": ""
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Get orders",
-											"request": {
-												"method": "GET",
-												"header": [],
-												"url": {
-													"raw": ""
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Add order",
-											"request": {
-												"method": "POST",
-												"header": [],
-												"url": {
-													"raw": ""
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Update order",
-											"request": {
-												"method": "PUT",
-												"header": [],
-												"url": {
-													"raw": ""
-												}
-											},
-											"response": []
-										},
-										{
-											"name": "Close order",
-											"request": {
-												"method": "DELETE",
-												"header": [],
-												"url": {
-													"raw": "localhost:7070/api/billing/order/{{order_id}}",
-													"host": [
-														"localhost"
-													],
-													"port": "7070",
-													"path": [
-														"api",
-														"billing",
-														"order",
-														"{{order_id}}"
-													]
-												}
-											},
-											"response": []
+									"name": "Delete tariff",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/tariff/{{tariff_id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"tariff",
+												"{{tariff_id}}"
+											]
 										}
-									]
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Account",
+							"item": [
+								{
+									"name": "Get account",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/account/{{account_id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"account",
+												"{{account_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get accounts",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/accounts",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"accounts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add account",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"",
+													"postman.setGlobalVariable(\"billing.user_id\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"{{$randomUUID}}\",\n    \"tariff_id\": \"{{billing.tariff_id}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/account",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"account"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete account",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/account/{{account_id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"account",
+												"{{account_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Payment",
+							"item": [
+								{
+									"name": "Get payment",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/payment/{{billing.payment_id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"payment",
+												"{{billing.payment_id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get payments",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/payments",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"payments"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add payment",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"var jsonData = JSON.parse(responseBody);",
+													"",
+													"",
+													"postman.setGlobalVariable(\"billing.payment_id\", jsonData.id);"
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"user_id\": \"{{billing.user_id}}\",\n    \"name\": \"stripe\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/payment",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"payment"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Close payment",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/payment/{{billing.payment_id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"payment",
+												"{{billing.payment_id}}"
+											]
+										}
+									},
+									"response": []
 								}
 							],
-							"description": "Billing service:\n- account\n- tariff\n- payment\n- balance\n- order",
+							"description": "Type payment: PayPal, Tinkoff, etc",
 							"event": [
 								{
 									"listen": "prerequest",
@@ -964,38 +823,161 @@
 							]
 						},
 						{
-							"name": "whoami",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json",
-										"type": "text"
+							"name": "Balance",
+							"item": [
+								{
+									"name": "Update balance",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"id\": \"{{billing.payment_id}}\",\n    \"amount\": 300\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/balance/{{payment_id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"balance",
+												"{{payment_id}}"
+											]
+										}
 									},
-									{
-										"key": "Authorization",
-										"value": "Bearer {{sessionToken}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "http://127.0.0.1:4433/sessions/whoami",
-									"protocol": "http",
-									"host": [
-										"127",
-										"0",
-										"0",
-										"1"
-									],
-									"port": "4433",
-									"path": [
-										"sessions",
-										"whoami"
-									]
+									"response": []
 								}
-							},
-							"response": []
+							]
+						},
+						{
+							"name": "Order",
+							"item": [
+								{
+									"name": "Get order",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/order/{{order.id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"order",
+												"{{order.id}}"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get orders",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/orders",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"orders"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add order",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/order",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"order"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update order",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/order",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"order"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Close order",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{BILLING.HTTP_API}}/api/billing/order/{{order_id}}",
+											"host": [
+												"{{BILLING.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"billing",
+												"order",
+												"{{order_id}}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					],
+					"description": "Billing service:\n- account\n- tariff\n- payment\n- balance\n- order",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
 						}
 					]
 				},
@@ -1011,11 +993,10 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "localhost:7070/api/cqrs/link/{{link.hash}}",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/cqrs/link/{{link.hash}}",
 											"host": [
-												"localhost"
+												"{{API_GATEWAY.HTTP_API}}"
 											],
-											"port": "7070",
 											"path": [
 												"api",
 												"cqrs",
@@ -1050,11 +1031,10 @@
 											}
 										],
 										"url": {
-											"raw": "localhost:7070/api/link/{{link.hash}}",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/link/{{link.hash}}",
 											"host": [
-												"localhost"
+												"{{API_GATEWAY.HTTP_API}}"
 											],
-											"port": "7070",
 											"path": [
 												"api",
 												"link",
@@ -1077,11 +1057,10 @@
 											}
 										],
 										"url": {
-											"raw": "localhost:7070/api/link/list",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/link/list",
 											"host": [
-												"localhost"
+												"{{API_GATEWAY.HTTP_API}}"
 											],
-											"port": "7070",
 											"path": [
 												"api",
 												"link",
@@ -1104,11 +1083,10 @@
 											}
 										],
 										"url": {
-											"raw": "localhost:7070/api/link/list?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/link/list?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
 											"host": [
-												"localhost"
+												"{{API_GATEWAY.HTTP_API}}"
 											],
-											"port": "7070",
 											"path": [
 												"api",
 												"link",
@@ -1160,11 +1138,10 @@
 											}
 										},
 										"url": {
-											"raw": "localhost:7070/api/link",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/link",
 											"host": [
-												"localhost"
+												"{{API_GATEWAY.HTTP_API}}"
 											],
-											"port": "7070",
 											"path": [
 												"api",
 												"link"
@@ -1190,11 +1167,10 @@
 											}
 										],
 										"url": {
-											"raw": "localhost:7070/api/link/{{link.hash}}",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/link/{{link.hash}}",
 											"host": [
-												"localhost"
+												"{{API_GATEWAY.HTTP_API}}"
 											],
-											"port": "7070",
 											"path": [
 												"api",
 												"link",
@@ -1224,11 +1200,10 @@
 											}
 										},
 										"url": {
-											"raw": "localhost:7070/api/sitemap",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/sitemap",
 											"host": [
-												"localhost"
+												"{{API_GATEWAY.HTTP_API}}"
 											],
-											"port": "7070",
 											"path": [
 												"api",
 												"sitemap"
@@ -1441,11 +1416,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:3030/s/{{hash}}",
+									"raw": "{{PROXY.HTTP_API}}/s/{{hash}}",
 									"host": [
-										"localhost"
+										"{{PROXY.HTTP_API}}"
 									],
-									"port": "3030",
 									"path": [
 										"s",
 										"{{hash}}"
@@ -1460,11 +1434,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "localhost:3030/s/{{hash}}/stats",
+									"raw": "{{PROXY.HTTP_API}}/s/{{hash}}/stats",
 									"host": [
-										"localhost"
+										"{{PROXY.HTTP_API}}"
 									],
-									"port": "3030",
 									"path": [
 										"s",
 										"{{hash}}",
@@ -1482,204 +1455,204 @@
 			"name": "GraphQL",
 			"item": [
 				{
-					"name": "Get link",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json; version=1",
-								"description": "API version",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "{ link(hash: \"{{hash}}\") {url} }",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "localhost:7070/api/query",
-							"host": [
-								"localhost"
-							],
-							"port": "7070",
-							"path": [
-								"api",
-								"query"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get links",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json; version=1",
-								"description": "API version",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "{ links { url created_at } }",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "localhost:7070/api/query",
-							"host": [
-								"localhost"
-							],
-							"port": "7070",
-							"path": [
-								"api",
-								"query"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get links (filter by: link)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json; version=1",
-								"description": "API version",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "{\n    links(filter: { url: { eq: \"https://example.com\" } }) {\n        url\n        created_at\n    }\n}",
-								"variables": ""
-							}
-						},
-						"url": {
-							"raw": "localhost:7070/api/query",
-							"host": [
-								"localhost"
-							],
-							"port": "7070",
-							"path": [
-								"api",
-								"query"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "add link",
-					"event": [
+					"name": "Links",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = JSON.parse(responseBody);",
-									"",
-									"",
-									"postman.setGlobalVariable(\"hash\", jsonData.data.createLink.hash);",
-									"postman.setEnvironmentVariable(\"hash\", jsonData.data.createLink.hash);"
+							"name": "Get link",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
 								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json; version=1",
-								"description": "API version",
-								"type": "text"
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{ link(hash: \"{{hash}}\") {url} }",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{API_GATEWAY.HTTP_API}}/api/query",
+									"host": [
+										"{{API_GATEWAY.HTTP_API}}"
+									],
+									"path": [
+										"api",
+										"query"
+									]
+								}
 							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation createLink { createLink( url: \"https://example.com\", hash: \"\", describe: \"\" ) { url hash describe created_at } }",
-								"variables": ""
-							}
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:7070/api/query",
-							"host": [
-								"localhost"
-							],
-							"port": "7070",
-							"path": [
-								"api",
-								"query"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete link",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/vnd.api+json; version=1",
-								"description": "API version",
-								"type": "text"
+						{
+							"name": "Get links",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{ links { url created_at } }",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{API_GATEWAY.HTTP_API}}/api/query",
+									"host": [
+										"{{API_GATEWAY.HTTP_API}}"
+									],
+									"path": [
+										"api",
+										"query"
+									]
+								}
 							},
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "graphql",
-							"graphql": {
-								"query": "mutation deleteLink { deleteLink( hash: \"{{hash}}\" ) { } }",
-								"variables": ""
-							}
+							"response": []
 						},
-						"url": {
-							"raw": "localhost:7070/api/query",
-							"host": [
-								"localhost"
+						{
+							"name": "Get links (filter by: link)",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\n    links(filter: { url: { eq: \"https://example.com\" } }) {\n        url\n        created_at\n    }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{API_GATEWAY.HTTP_API}}/api/query",
+									"host": [
+										"{{API_GATEWAY.HTTP_API}}"
+									],
+									"path": [
+										"api",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add link",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = JSON.parse(responseBody);",
+											"",
+											"",
+											"postman.setGlobalVariable(\"hash\", jsonData.data.createLink.hash);",
+											"postman.setEnvironmentVariable(\"hash\", jsonData.data.createLink.hash);"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"port": "7070",
-							"path": [
-								"api",
-								"query"
-							]
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation createLink { createLink( url: \"https://example.com\", hash: \"\", describe: \"\" ) { url hash describe created_at } }",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{API_GATEWAY.HTTP_API}}/api/query",
+									"host": [
+										"{{API_GATEWAY.HTTP_API}}"
+									],
+									"path": [
+										"api",
+										"query"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete link",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/vnd.api+json; version=1",
+										"description": "API version",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation deleteLink { deleteLink( hash: \"{{hash}}\" ) { } }",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{API_GATEWAY.HTTP_API}}/api/query",
+									"host": [
+										"{{API_GATEWAY.HTTP_API}}"
+									],
+									"path": [
+										"api",
+										"query"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
