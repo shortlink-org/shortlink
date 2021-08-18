@@ -8,7 +8,7 @@ generator client {
     provider = "prisma-client-js"
 }
 
-model Stats {
+model stats {
   hash String @unique
   count_redirect Int @default(0)
   createdAt DateTime @default(now())

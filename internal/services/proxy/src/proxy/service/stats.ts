@@ -19,7 +19,7 @@ export class StatsService {
     @inject(TYPES.REPOSITORY.StatsRepository) private readonly store: StatsRepository,
     @inject(TYPES.TAGS.AMQPController) private readonly amqp: AMQPController,
   ) {
-    const exchange = this.amqp.connection.declareExchange(MQ_EVENT_LINK_NEW, "fanout", {durable: false})
+    const exchange = this.amqp.connection.declareExchange(MQ_EVENT_LINK_NEW, "fanout", {durable: true})
     let queue = this.amqp.connection.declareQueue("shortlink-proxy")
     queue.bind(exchange)
     queue.activateConsumer((message: Amqp.Message) => {
