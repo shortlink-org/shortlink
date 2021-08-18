@@ -14,7 +14,7 @@ dep: ## Install dependencies for this project
 	@go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
 	# install wire
-	@go get -u github.com/google/wire/cmd/wire
+	@go install github.com/google/wire/cmd/wire@latest
 
 export CURRENT_UID=$(id -u):$(id -g)
 
