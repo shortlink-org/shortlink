@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: grafana
-    version: 6.15.0
+    version: 6.16.0
     repository: https://grafana.github.io/helm-charts
     condition: grafana.enabled
     tags:
