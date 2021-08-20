@@ -83,7 +83,7 @@ require (
 	google.golang.org/protobuf v1.27.1
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	k8s.io/kubernetes v1.21.3
-	k8s.io/mount-utils v0.22.0
+	k8s.io/mount-utils v0.22.1
 	k8s.io/utils v0.0.0-20210819203725-bdf08cb9a70a
 )
 
