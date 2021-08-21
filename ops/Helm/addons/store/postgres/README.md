@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 10.9.2 |
+| https://charts.bitnami.com/bitnami | postgresql | 10.9.3 |
 
 ## Values
 
