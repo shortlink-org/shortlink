@@ -20,13 +20,14 @@ dep: ## Install dependencies for this project
 export CURRENT_UID=$(id -u):$(id -g)
 
 do: ## Run for specific job
-	@COMPOSE_PROFILES=dns,gateway,opentracing,postgres docker-compose \
+	@COMPOSE_PROFILES=dns,gateway,opentracing,postgres,prometheus docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
 		-f ops/docker-compose/tooling/grafana.yaml \
 		-f ops/docker-compose/tooling/grafana-tempo.yaml \
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
+		-f ops/docker-compose/tooling/prometheus.yaml \
 		-f ops/docker-compose/database/postgres.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
 		up -d --remove-orphans

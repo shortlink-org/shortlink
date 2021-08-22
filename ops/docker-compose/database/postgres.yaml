@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: postgres:13-alpine
+    image: postgres:14beta3-alpine3.14
     profiles:
       - postgres
     shm_size: 1gb
@@ -34,8 +34,8 @@ services:
       interval: 2s
       timeout: 1m
       retries: 5
-    volumes: []
-#      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+    volumes:
+      - ./ops/docker-compose/database/postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
 #    logging:
 #      driver: fluent-bit
 #      options:
@@ -46,7 +46,7 @@ services:
     depends_on:
       - postgres
       - coredns
-    image: wrouesnel/postgres_exporter:v0.8.0
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.10.0
     profiles:
       - prometheus
     restart: on-failure
@@ -54,10 +54,11 @@ services:
     ports:
       - 9187:9187
     environment:
-      - DATA_SOURCE_NAME=postgres://shortlink:shortlink@postgres:5432/?sslmode=disable
+      - DATA_SOURCE_NAME=postgres://postgres:shortlink@postgres:5432/?sslmode=disable
+      - PG_EXPORTER_AUTO_DISCOVER_DATABASES=true
 
   prometheus:
-    image: prom/prometheus:v2.28.0
+    image: prom/prometheus:v2.29.1
     profiles:
       - prometheus
     volumes:
