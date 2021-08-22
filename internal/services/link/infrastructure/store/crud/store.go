@@ -50,7 +50,7 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Stor
 	case "redis":
 		s.Repository = &redis.Store{}
 	case "dgraph":
-		s.Repository = &dgraph.Store{}
+		s.Repository = dgraph.New(log)
 	case "sqlite":
 		s.Repository = &sqlite.Store{}
 	case "leveldb":

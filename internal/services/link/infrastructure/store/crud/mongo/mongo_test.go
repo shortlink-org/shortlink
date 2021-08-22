@@ -1,3 +1,4 @@
+//go:build unit || (database && mongo)
 // +build unit database,mongo
 
 package mongo

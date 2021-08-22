@@ -37,7 +37,7 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 	case "redis":
 		store.Store = &redis.Store{}
 	case "dgraph":
-		store.Store = &dgraph.Store{}
+		store.Store = dgraph.New(log)
 	case "sqlite":
 		store.Store = &sqlite.Store{}
 	case "leveldb":

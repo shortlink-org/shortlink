@@ -1,3 +1,4 @@
+//go:build unit || (database && mysql)
 // +build unit database,mysql
 
 package mysql

@@ -7,13 +7,13 @@ package logger_mq
 import (
 	"fmt"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/logger/application"
+	logger_application "github.com/batazor/shortlink/internal/services/logger/application"
 )
 
 type Event struct {

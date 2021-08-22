@@ -1,7 +1,6 @@
 package tool
 
 import (
-	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -58,10 +57,7 @@ func SaveToFile(filename string, payload string) error {
 		return err
 	}
 	defer func() {
-		if errClose := file.Close(); err != nil {
-			// TODO: use logger
-			fmt.Println(errClose)
-		}
+		_ = file.Close()
 	}()
 
 	_, err = io.WriteString(file, payload)
