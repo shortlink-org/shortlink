@@ -71,7 +71,7 @@ require (
 	google.golang.org/grpc v1.40.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
-	k8s.io/kubernetes v1.21.3
+	k8s.io/kubernetes v1.22.1
 	k8s.io/mount-utils v0.22.1
 	k8s.io/utils v0.0.0-20210820185131-d34e5cb4466e
 )
@@ -171,7 +171,7 @@ require (
 	github.com/onsi/gomega v1.15.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.1 // indirect
-	github.com/opencontainers/runc v1.0.0-rc95 // indirect
+	github.com/opencontainers/runc v1.0.1 // indirect
 	github.com/pelletier/go-toml v1.9.3 // indirect
 	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -241,5 +241,6 @@ replace (
 	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.22.1
 	k8s.io/metrics => k8s.io/metrics v0.22.1
 	k8s.io/mount-utils => k8s.io/mount-utils v0.22.1
+	k8s.io/pod-security-admission => k8s.io/pod-security-admission v0.22.1
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.22.1
 )
