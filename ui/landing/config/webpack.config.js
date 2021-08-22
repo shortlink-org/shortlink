@@ -22,13 +22,38 @@ const CONFIG = {
     ? 'hidden-source-map'
     : 'eval-source-map',
   devServer: {
-    contentBase: path.join(config.root, config.paths.src),
-    watchContentBase: true,
     hot: true,
-    overlay: true,
     open: true,
     port: config.port,
     host: config.dev_host,
+    allowedHosts: "all",
+
+    static: {
+      directory: path.join(config.root, config.paths.src),
+      staticOptions: {},
+      // Don't be confused with `devMiddleware.publicPath`, it is `publicPath` for static directory
+      // Can be:
+      // publicPath: ['/static-public-path-one/', '/static-public-path-two/'],
+      publicPath: "/static-public-path/",
+      // Can be:
+      // serveIndex: {} (options for the `serveIndex` option you can find https://github.com/expressjs/serve-index)
+      serveIndex: true,
+      // Can be:
+      // watch: {} (options for the `watch` option you can find https://github.com/paulmillr/chokidar)
+      watch: true,
+    },
+
+    client: {
+      logging: "info",
+      // Can be used only for `errors`/`warnings`
+      //
+      // overlay: {
+      //   errors: true,
+      //   warnings: true,
+      // }
+      overlay: true,
+      progress: true,
+    },
   },
   module: {
     rules: loaders,
