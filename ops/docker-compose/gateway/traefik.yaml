@@ -37,7 +37,7 @@ services:
         max-size: ${LOGGER_MAX_SIZE}
 
   prometheus:
-    image: prom/prometheus:v2.28.0
+    image: prom/prometheus:v2.29.1
     profiles:
       - prometheus
     volumes:

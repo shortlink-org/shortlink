@@ -20,7 +20,13 @@ providers:
       path: /etc/grafana/provisioning/dashboards/alerts
 
   - name: 'Logs'
-    folder: 'logger'
+    folder: 'Logger'
     type: file
     options:
       path: /etc/grafana/provisioning/dashboards/logger
+
+  - name: 'Infrastructure'
+    folder: 'Infrastructure'
+    type: file
+    options:
+      path: /etc/grafana/provisioning/dashboards/infrastructure
