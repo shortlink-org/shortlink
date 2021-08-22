@@ -13,11 +13,12 @@ import (
 	"log"
 	"strings"
 
-	"github.com/batazor/shortlink/cmd/cli/internal/tool"
 	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
+
+	"github.com/batazor/shortlink/cmd/cli/internal/tool"
 )
 
 func init() {

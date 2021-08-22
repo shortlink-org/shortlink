@@ -2,7 +2,6 @@ package dgraph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/spf13/viper"
 
@@ -10,6 +9,7 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"google.golang.org/grpc"
 
+	"github.com/batazor/shortlink/internal/pkg/logger"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
 
@@ -38,6 +38,13 @@ type Store struct { // nolint unused
 	conn   *grpc.ClientConn
 	client *dgo.Dgraph
 	config Config
+	logger logger.Logger
+}
+
+func New(logger logger.Logger) *Store {
+	return &Store{
+		logger: logger,
+	}
 }
 
 // Init ...
@@ -66,17 +73,16 @@ func (s *Store) GetConn() interface{} {
 }
 
 // Close ...
-func (dg *Store) Close() error {
-	return dg.conn.Close()
+func (s *Store) Close() error {
+	return s.conn.Close()
 }
 
 // Migrate - init structure
-func (dg *Store) migrate(ctx context.Context) error { // nolint unused
-	txn := dg.client.NewTxn()
+func (s *Store) migrate(ctx context.Context) error { // nolint unused
+	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			// TODO: use logger
-			fmt.Println(err.Error())
+			s.logger.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
@@ -98,15 +104,15 @@ updated_at: datetime .
 `,
 	}
 
-	return dg.client.Alter(ctx, op)
+	return s.client.Alter(ctx, op)
 }
 
 // setConfig - set configuration
-func (dg *Store) setConfig() {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_DGRAPH_URI", "localhost:9080") // DGRAPH URI
 
-	dg.config = Config{
+	s.config = Config{
 		URL: viper.GetString("STORE_DGRAPH_URI"),
 	}
 }

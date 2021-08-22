@@ -9,6 +9,7 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/batazor/shortlink/internal/pkg/logger"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
@@ -31,6 +32,14 @@ type DGraphLinkResponse struct { // nolint unused
 // Store ...
 type Store struct { // nolint unused
 	client *dgo.Dgraph
+
+	logger logger.Logger
+}
+
+func New(logger logger.Logger) *Store {
+	return &Store{
+		logger: logger,
+	}
 }
 
 // Init ...
@@ -40,12 +49,11 @@ func (s *Store) Init(_ context.Context, db *db.Store) error {
 }
 
 // get - private `get` method
-func (dg *Store) get(ctx context.Context, id string) (*DGraphLinkResponse, error) {
-	txn := dg.client.NewTxn()
+func (s *Store) get(ctx context.Context, id string) (*DGraphLinkResponse, error) {
+	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			// TODO: use logger
-			fmt.Println(err.Error())
+			s.logger.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
@@ -76,16 +84,15 @@ query all($a: string) {
 }
 
 // Get public `get` method
-func (dg *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
-	txn := dg.client.NewTxn()
+func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
+	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			// TODO: use logger
-			fmt.Println(err.Error())
+			s.logger.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
-	response, err := dg.get(ctx, id)
+	response, err := s.get(ctx, id)
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
@@ -98,12 +105,11 @@ func (dg *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // get - private `get` method
-func (dg *Store) list(ctx context.Context) (*DGraphLinkResponse, error) {
-	txn := dg.client.NewTxn()
+func (s *Store) list(ctx context.Context) (*DGraphLinkResponse, error) {
+	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			// TODO: use logger
-			fmt.Println(err.Error())
+			s.logger.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
@@ -134,16 +140,15 @@ query all {
 }
 
 // List ...
-func (dg *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
-	txn := dg.client.NewTxn()
+func (s *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
+	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			// TODO: use logger
-			fmt.Println(err.Error())
+			s.logger.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
-	responses, err := dg.list(ctx)
+	responses, err := s.list(ctx)
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 	}
@@ -163,17 +168,16 @@ func (dg *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
 }
 
 // Add ...
-func (dg *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
+func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	err := v1.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
 
-	txn := dg.client.NewTxn()
+	txn := s.client.NewTxn()
 	defer func() {
 		if errTxn := txn.Discard(ctx); errTxn != nil {
-			// TODO: use logger
-			fmt.Println(errTxn.Error())
+			s.logger.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
@@ -207,21 +211,20 @@ func (dg *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 }
 
 // Update ...
-func (dg *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
+func (s *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
 // Delete ...
-func (dg *Store) Delete(ctx context.Context, id string) error {
-	txn := dg.client.NewTxn()
+func (s *Store) Delete(ctx context.Context, id string) error {
+	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			// TODO: use logger
-			fmt.Println(err.Error())
+			s.logger.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
-	links, err := dg.get(ctx, id)
+	links, err := s.get(ctx, id)
 	if err != nil {
 		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}

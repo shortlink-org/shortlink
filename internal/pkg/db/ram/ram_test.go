@@ -1,3 +1,4 @@
+//go:build unit || (database && ram)
 // +build unit database,ram
 
 package ram

@@ -5,14 +5,9 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	v1 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-)
-
-var (
-	jsonpb protojson.MarshalOptions
 )
 
 type Handler struct {

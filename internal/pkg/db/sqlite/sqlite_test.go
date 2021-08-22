@@ -1,3 +1,4 @@
+//go:build unit || (database && sqlite)
 // +build unit database,sqlite
 
 package sqlite
