@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+// buf:lint:ignore
+package grpc_web.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "domain/link/v1/link.proto";
+
+option go_package = "github.com/batazor/shortlink/internal/services/api/application/grpc_web/v1";
+
+service LinkService {
+    rpc GetLinks(GetLinksRequest) returns (GetLinksResponse) {
+        option(google.api.http) = {
+        get: "/api/links"
+      };
+    };
+
+    rpc GetLink(GetLinkRequest) returns (GetLinkResponse) {
+        option(google.api.http) = {
+        get: "/api/link/{link.hash}"
+      };
+    };
+
+    rpc CreateLink(CreateLinkRequest) returns (CreateLinkResponse) {
+        option(google.api.http) = {
+        post: "/api"
+        body: "*"
+      };
+    };
+
+    rpc DeleteLink(DeleteLinkRequest) returns (google.protobuf.Empty) {
+        option(google.api.http) = {
+        delete: "/api/{link.hash}"
+      };
+    };
+}
+
+message GetLinksRequest {
+  domain.link.v1.Link link = 1;
+
+  string filter = 2;
+}
+
+message GetLinksResponse {
+  repeated domain.link.v1.Link links = 1;
+}
+
+message GetLinkRequest {
+  domain.link.v1.Link link = 1;
+}
+
+message GetLinkResponse {
+  domain.link.v1.Link link = 1;
+}
+
+message CreateLinkRequest {
+  domain.link.v1.Link link = 1;
+}
+
+message CreateLinkResponse {
+  domain.link.v1.Link link = 1;
+}
+
+message DeleteLinkRequest {
+  domain.link.v1.Link link = 1;
+}

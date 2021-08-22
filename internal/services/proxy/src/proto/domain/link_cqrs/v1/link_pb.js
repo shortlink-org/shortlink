@@ -96,9 +96,9 @@ proto.domain.link_cqrs.v1.LinkView.toObject = function(includeInstance, msg) {
     url: jspb.Message.getFieldWithDefault(msg, 1, ""),
     hash: jspb.Message.getFieldWithDefault(msg, 2, ""),
     describe: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    imageurl: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    metadescription: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    metakeywords: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    imageUrl: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    metaDescription: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    metaKeywords: jspb.Message.getFieldWithDefault(msg, 6, ""),
     createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
     updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
@@ -151,15 +151,15 @@ proto.domain.link_cqrs.v1.LinkView.deserializeBinaryFromReader = function(msg, r
       break;
     case 4:
       var value = /** @type {string} */ (reader.readString());
-      msg.setImageurl(value);
+      msg.setImageUrl(value);
       break;
     case 5:
       var value = /** @type {string} */ (reader.readString());
-      msg.setMetadescription(value);
+      msg.setMetaDescription(value);
       break;
     case 6:
       var value = /** @type {string} */ (reader.readString());
-      msg.setMetakeywords(value);
+      msg.setMetaKeywords(value);
       break;
     case 7:
       var value = new google_protobuf_timestamp_pb.Timestamp;
@@ -221,21 +221,21 @@ proto.domain.link_cqrs.v1.LinkView.serializeBinaryToWriter = function(message, w
       f
     );
   }
-  f = message.getImageurl();
+  f = message.getImageUrl();
   if (f.length > 0) {
     writer.writeString(
       4,
       f
     );
   }
-  f = message.getMetadescription();
+  f = message.getMetaDescription();
   if (f.length > 0) {
     writer.writeString(
       5,
       f
     );
   }
-  f = message.getMetakeywords();
+  f = message.getMetaKeywords();
   if (f.length > 0) {
     writer.writeString(
       6,
@@ -316,10 +316,10 @@ proto.domain.link_cqrs.v1.LinkView.prototype.setDescribe = function(value) {
 
 
 /**
- * optional string ImageURL = 4;
+ * optional string image_url = 4;
  * @return {string}
  */
-proto.domain.link_cqrs.v1.LinkView.prototype.getImageurl = function() {
+proto.domain.link_cqrs.v1.LinkView.prototype.getImageUrl = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
@@ -328,16 +328,16 @@ proto.domain.link_cqrs.v1.LinkView.prototype.getImageurl = function() {
  * @param {string} value
  * @return {!proto.domain.link_cqrs.v1.LinkView} returns this
  */
-proto.domain.link_cqrs.v1.LinkView.prototype.setImageurl = function(value) {
+proto.domain.link_cqrs.v1.LinkView.prototype.setImageUrl = function(value) {
   return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
 /**
- * optional string MetaDescription = 5;
+ * optional string meta_description = 5;
  * @return {string}
  */
-proto.domain.link_cqrs.v1.LinkView.prototype.getMetadescription = function() {
+proto.domain.link_cqrs.v1.LinkView.prototype.getMetaDescription = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
@@ -346,16 +346,16 @@ proto.domain.link_cqrs.v1.LinkView.prototype.getMetadescription = function() {
  * @param {string} value
  * @return {!proto.domain.link_cqrs.v1.LinkView} returns this
  */
-proto.domain.link_cqrs.v1.LinkView.prototype.setMetadescription = function(value) {
+proto.domain.link_cqrs.v1.LinkView.prototype.setMetaDescription = function(value) {
   return jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
 /**
- * optional string MetaKeywords = 6;
+ * optional string meta_keywords = 6;
  * @return {string}
  */
-proto.domain.link_cqrs.v1.LinkView.prototype.getMetakeywords = function() {
+proto.domain.link_cqrs.v1.LinkView.prototype.getMetaKeywords = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
@@ -364,7 +364,7 @@ proto.domain.link_cqrs.v1.LinkView.prototype.getMetakeywords = function() {
  * @param {string} value
  * @return {!proto.domain.link_cqrs.v1.LinkView} returns this
  */
-proto.domain.link_cqrs.v1.LinkView.prototype.setMetakeywords = function(value) {
+proto.domain.link_cqrs.v1.LinkView.prototype.setMetaKeywords = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
 };
 

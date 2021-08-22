@@ -1,0 +1,21 @@
+version: v1beta1
+
+name: buf.build/batazor/shortlink
+
+deps:
+  - buf.build/beta/googleapis
+
+build:
+  roots:
+    - internal/services/link
+    - internal/services/api/application
+
+lint:
+  use:
+    - DEFAULT # the current strictest possible
+  rpc_allow_google_protobuf_empty_requests: true
+
+breaking:
+  use:
+    - WIRE_JSON
+

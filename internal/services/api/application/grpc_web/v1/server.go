@@ -1,4 +1,4 @@
-package grpcweb
+package v1
 
 import (
 	"context"
@@ -23,6 +23,8 @@ import (
 
 // API ...
 type API struct { // nolint unused
+	LinkServiceServer
+
 	http http.Server
 	RPC  *rpc.RPCServer
 }
@@ -43,7 +45,7 @@ func (api *API) Run(
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
 ) error {
 	// Rug gRPC
-	RegisterLinkServer(api.RPC.Server, api)
+	RegisterLinkServiceServer(api.RPC.Server, api)
 
 	// Register gRPC server endpoint
 	// Note: Make sure the gRPC server is running properly and accessible
@@ -56,7 +58,7 @@ func (api *API) Run(
 	// header isn't present. If the value is 0 the sent `context` will not have a timeout.
 	runtime.DefaultContextTimeout = config.Timeout
 
-	err := RegisterLinkHandlerServer(ctx, mux, api)
+	err := RegisterLinkServiceHandlerServer(ctx, mux, api)
 	if err != nil {
 		return err
 	}

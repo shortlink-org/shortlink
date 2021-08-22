@@ -49,7 +49,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 
 	var response v12.LinkView
 	for rows.Next() {
-		err = rows.Scan(&response.Url, &response.Hash, &response.Describe, &response.ImageURL, &response.MetaDescription, &response.MetaKeywords)
+		err = rows.Scan(&response.Url, &response.Hash, &response.Describe, &response.ImageUrl, &response.MetaDescription, &response.MetaKeywords)
 		if err != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 		}
