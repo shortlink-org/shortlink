@@ -11,7 +11,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/api/application/cloudevents"
 	gokit "github.com/batazor/shortlink/internal/services/api/application/go-kit"
 	"github.com/batazor/shortlink/internal/services/api/application/graphql"
-	grpcweb "github.com/batazor/shortlink/internal/services/api/application/grpc-web"
+	grpcweb "github.com/batazor/shortlink/internal/services/api/application/grpc_web/v1"
 	http_chi "github.com/batazor/shortlink/internal/services/api/application/http-chi"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"

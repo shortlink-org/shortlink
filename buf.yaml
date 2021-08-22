@@ -8,8 +8,11 @@ deps:
 
 build:
   roots:
+    - internal/services/api/application
     - internal/services/proxy/src/proto
     - internal/services/billing
+    - internal/services/eventsourcing
+    - internal/services/link
     - internal/services/metadata
     - internal/pkg
 

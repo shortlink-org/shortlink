@@ -38,3 +38,8 @@ proto-generate: ## Generate proto-files
 		--template=ops/proto/eventsourcing/buf.gen.yaml \
 		--config=ops/proto/eventsourcing/buf.yaml
 
+	@buf generate \
+		--path=internal/services/api/application/grpc_web \
+		--template=ops/proto/grpc-web/buf.gen.yaml \
+		--config=ops/proto/grpc-web/buf.yaml
+
