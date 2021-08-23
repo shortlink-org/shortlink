@@ -1,9 +1,9 @@
 import express from 'express'
+import next from 'next'
+// @ts-ignore
+import cookieParser from 'cookie-parser'
 
 import protect from './middleware/auth'
-
-const next = require('next')
-const cookieParser = require('cookie-parser')
 
 // @ts-ignore
 const port = parseInt(process.env.PORT, 10) || 3000
@@ -13,18 +13,21 @@ const handler = app.getRequestHandler()
 
 app.prepare().then(() => {
   // app.buildId is only available after app.prepare(), hence why we setup here
-  const app = express()
+  const server = express()
 
   // add middleware
-  app.use(cookieParser())
+  server.use(cookieParser())
 
   // Routing
-  app.all('/next/user/*', protect, handler)
-  app.all('/next/admin/*', protect, handler)
-  app.all('*', handler)
+  // @ts-ignore
+  server.all('/next/user/*', protect, handler)
+  // @ts-ignore
+  server.all('/next/admin/*', protect, handler)
+  // @ts-ignore
+  server.all('*', handler)
 
   // Run server
-  app.listen(port, (err?: any) => {
+  server.listen(port, (err?: any) => {
     if (err) {
       throw err
     }

@@ -39,7 +39,10 @@ func (c *Connection) Channel() (*Channel, error) {
 			// exit this goroutine if closed by developer
 			if !ok || channel.IsClosed() {
 				c.log.Error("channel closed")
-				channel.Close() // close again, ensure closed flag set when connection closed
+				err = channel.Close() // close again, ensure closed flag set when connection closed
+				if err != nil {
+					c.log.Error(err.Error())
+				}
 				break
 			}
 			c.log.Error(fmt.Sprintf("channel closed, reason: %v", reason))

@@ -1,9 +1,11 @@
+/* eslint-disable */
+
 const webpack = require('webpack')
 const withSourceMaps = require('@zeit/next-source-maps')
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
-const isEnableSentry = process.env.SENTRY_ENABLE === "true"
+const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
 const API_URI = process.env.API_URI || 'http://localhost:7070'
 const PROXY_URI = process.env.PROXY_URI || 'http://localhost:3030'
 
