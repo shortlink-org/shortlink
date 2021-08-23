@@ -49,6 +49,9 @@ func (p *Store) Init(ctx context.Context) error {
 
 	// Create pool config
 	cnfPool, err := pgxpool.ParseConfig("")
+	if err != nil {
+		return err
+	}
 	cnfPool.ConnConfig = cnf
 
 	// Connect to Postgres

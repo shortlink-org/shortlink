@@ -1,8 +1,8 @@
 import { put, takeLatest } from 'redux-saga/effects'
 // @ts-ignore
-import { LoginRequest, PublicApi } from '@ory/kratos-client'
+import { LoginRequest, PublicApi } from '@ory/kratos-client' // eslint-disable-line
 import * as t from 'store/types'
-import { SESSION_FETCH_REQUESTED } from 'store/types'
+import { SESSION_FETCH_REQUESTED } from 'store/types' // eslint-disable-line
 
 // Init Kratos API
 const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://127.0.0.1:4433'
@@ -32,7 +32,7 @@ function* watchFetchSession() {
   yield takeLatest(t.SESSION_FETCH_REQUESTED, fetchSession)
 }
 
-function* loginAuth(action: { payload: any }) {
+function* loginAuth(action: { payload: any }) { // eslint-disable-line
   try {
     // const request = initialiseRequest({ type: "login" }) as Promise<LoginRequest>
     // // @ts-ignore

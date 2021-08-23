@@ -11,7 +11,7 @@ import { Configuration, PublicApi } from '@ory/kratos-client'
 import { NextFunction, Request, Response } from 'express'
 import http from 'http'
 
-const kratos = new PublicApi(
+const kratos = new PublicApi( // eslint-disable-line
   new Configuration({
     basePath: process.env.KRATOS_API || 'http://127.0.0.1:4433',
   }),

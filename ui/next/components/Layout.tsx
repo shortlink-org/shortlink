@@ -8,12 +8,12 @@ import { makeStyles } from '@material-ui/core/styles'
 import Box from '@material-ui/core/Box'
 import Header from './Header'
 import Footer from './Footer'
-import {colors} from "@material-ui/core";
+import { colors } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    background: colors.grey[100]
+    background: colors.grey[100],
   },
   content: {
     flexGrow: 1,

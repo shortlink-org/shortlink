@@ -135,5 +135,3 @@ func (api *API) CustomHTTPError(_ context.Context, _ *runtime.ServeMux, marshale
 		_, _ = w.Write([]byte(fallback)) // #nosec
 	}
 }
-
-func (api *API) mustEmbedUnimplementedLinkServer() {}
