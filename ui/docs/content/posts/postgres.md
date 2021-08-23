@@ -9,6 +9,10 @@ tags:
     - postgres
 ---
 
+### Tool
+
+1. [pgBouncer](https://www.pgbouncer.org/)
+
 ### Tuning params
 
 1. `max_connections`

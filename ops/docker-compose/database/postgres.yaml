@@ -33,12 +33,30 @@ services:
       interval: 2s
       timeout: 1m
       retries: 5
-#    volumes:
-#      - ./ops/docker-compose/database/postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
+    volumes:
+      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
 #    logging:
 #      driver: fluent-bit
 #      options:
 #        tag: postgres
+
+  pgbouncer:
+    <<: *network
+    depends_on:
+      - postgres
+      - coredns
+    image: docker.io/bitnami/pgbouncer:1
+    profiles:
+      - postgres
+    ports:
+      - 6432:6432
+    environment:
+      - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_PASSWORD=shortlink
+      - POSTGRESQL_DATABASE=shortlink
+      - PGBOUNCER_DATABASE=shortlink
+    volumes:
+      - ./ops/docker-compose/database/postgres/pgbouncer.ini:/bitnami/pgbouncer/conf/pgbouncer.ini
 
   postgres-exporter:
     <<: *network
