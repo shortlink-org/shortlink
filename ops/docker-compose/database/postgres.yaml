@@ -49,13 +49,17 @@ services:
     image: docker.io/bitnami/pgbouncer:1
     profiles:
       - postgres
+    restart: on-failure
+    container_name: pgbouncer
     ports:
       - 6432:6432
     environment:
-      - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_HOST=${DATABASE_IP}
       - POSTGRESQL_PASSWORD=shortlink
       - POSTGRESQL_DATABASE=shortlink
       - PGBOUNCER_DATABASE=shortlink
+    extra_hosts:
+      - "postgres:${DATABASE_IP}"
     volumes:
       - ./ops/docker-compose/database/postgres/pgbouncer.ini:/bitnami/pgbouncer/conf/pgbouncer.ini
 
