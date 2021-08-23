@@ -6,7 +6,6 @@ services:
     depends_on:
       - coredns
     image: cassandra:3.11
-    shm_size: 1gb
     restart: on-failure
     container_name: cassandra
     ports:
