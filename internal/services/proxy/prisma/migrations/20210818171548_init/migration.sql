@@ -18,3 +18,7 @@ alter table shortlink.stats
 	add constraint stats_links_hash_fk
 		foreign key (hash) references shortlink.links (hash)
 			on delete cascade;
+
+-- Improve
+
+alter table shortlink.stats alter column hash type hash using hash::hash;

@@ -9,5 +9,4 @@ CREATE DOMAIN hash AS TEXT CHECK (length(VALUE) > 0 AND length(VALUE) <= 9);
 
 alter table shortlink.link_view alter column hash type hash using hash::hash;
 alter table shortlink.links alter column hash type hash using hash::hash;
-alter table shortlink.stats alter column hash type hash using hash::hash;
 
