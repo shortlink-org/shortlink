@@ -1,0 +1,17 @@
+-- Shortlink user
+CREATE USER shortlink WITH
+  NOSUPERUSER
+  NOCREATEDB
+  NOCREATEROLE
+  ENCRYPTED PASSWORD 'shortlink';
+
+GRANT ALL PRIVILEGES ON SCHEMA shortlink to shortlink;
+
+-- Billing user
+CREATE USER billing WITH
+  NOSUPERUSER
+  NOCREATEDB
+  NOCREATEROLE
+  ENCRYPTED PASSWORD 'billing';
+
+GRANT ALL PRIVILEGES ON SCHEMA billing to billing;
