@@ -147,8 +147,7 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *link.
 }
 
 func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store, cache2 *cache.Cache) (*crud.Store, error) {
-	store := &crud.Store{}
-	linkStore, err := store.Use(ctx, logger2, db2, cache2)
+	linkStore, err := crud.New(ctx, logger2, db2, cache2)
 	if err != nil {
 		return nil, err
 	}

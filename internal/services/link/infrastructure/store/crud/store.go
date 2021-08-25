@@ -7,6 +7,8 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"time"
 
 	"github.com/go-redis/cache/v8"
 	"github.com/opentracing/opentracing-go"
@@ -29,8 +31,13 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/sqlite"
 )
 
-// Use return implementation of db
-func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) { // nolint unused
+// New return implementation of db
+func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) { // nolint unused
+	s := &Store{
+		log:   log,
+		cache: cache,
+	}
+
 	// Set configuration
 	s.setConfig()
 
@@ -45,32 +52,32 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store, cache 
 
 	switch s.typeStore {
 	case "postgres":
-		s.Repository, err = postgres.New(log, cache)
+		s.store, err = postgres.New()
+		if err != nil {
+			return nil, err
+		}
 	case "mongo":
-		s.Repository = &mongo.Store{}
+		s.store = &mongo.Store{}
 	case "mysql":
-		s.Repository = &mysql.Store{}
+		s.store = &mysql.Store{}
 	case "redis":
-		s.Repository = &redis.Store{}
+		s.store = &redis.Store{}
 	case "dgraph":
-		s.Repository = dgraph.New(log)
+		s.store = dgraph.New(log)
 	case "sqlite":
-		s.Repository = &sqlite.Store{}
+		s.store = &sqlite.Store{}
 	case "leveldb":
-		s.Repository = &leveldb.Store{}
+		s.store = &leveldb.Store{}
 	case "badger":
-		s.Repository = &badger.Store{}
+		s.store = &badger.Store{}
 	case "ram":
-		s.Repository = &ram.Store{}
+		s.store = &ram.Store{}
 	default:
-		s.Repository = &ram.Store{}
-	}
-	if err != nil {
-		return nil, err
+		s.store = &ram.Store{}
 	}
 
 	// Init store
-	err = s.Init(ctx, db)
+	err = s.store.Init(ctx, db)
 	if err != nil {
 		return nil, err
 	}
@@ -80,6 +87,89 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store, cache 
 	})
 
 	return s, nil
+}
+
+func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
+	// cache
+	link := v1.Link{}
+	err := s.cache.Get(ctx, fmt.Sprintf(`link:%s`, id), &link)
+	if err != nil {
+		s.log.ErrorWithContext(ctx, err.Error())
+	}
+	if err == nil {
+		return &link, nil
+	}
+
+	response, err := s.store.Get(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+
+	// save cache
+	err = s.cache.Set(&cache.Item{
+		Ctx:   ctx,
+		Key:   fmt.Sprintf(`link:%s`, id),
+		Value: &response,
+		TTL:   5 * time.Minute,
+	})
+	if err != nil {
+		s.log.ErrorWithContext(ctx, err.Error())
+	}
+
+	return response, err
+}
+
+func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
+	response, err := s.store.List(ctx, filter)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, err
+}
+
+func (s *Store) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
+	response, err := s.store.Add(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, err
+}
+
+func (s *Store) Update(ctx context.Context, in *v1.Link) (*v1.Link, error) {
+	response, err := s.store.Update(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+
+	// update cache
+	err = s.cache.Set(&cache.Item{
+		Ctx:   ctx,
+		Key:   fmt.Sprintf(`link:%s`, in.Hash),
+		Value: &response,
+		TTL:   5 * time.Minute,
+	})
+	if err != nil {
+		s.log.ErrorWithContext(ctx, err.Error())
+	}
+
+	return response, err
+}
+
+func (s *Store) Delete(ctx context.Context, id string) error {
+	// drop from cache
+	err := s.cache.Delete(ctx, fmt.Sprintf(`link:%s`, id))
+	if err != nil {
+		s.log.ErrorWithContext(ctx, err.Error())
+	}
+
+	err = s.store.Delete(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // Notify ...
@@ -92,7 +182,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 		defer span.Finish()
 
 		if addLink, ok := payload.(*v1.Link); ok {
-			payload, err := s.Add(newCtx, addLink)
+			payload, err := s.store.Add(newCtx, addLink)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_ADD",
 				Payload: payload,
@@ -140,7 +230,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 			}
 		}
 
-		payload, err := s.List(newCtx, &filter)
+		payload, err := s.store.List(newCtx, &filter)
 		return notify.Response{
 			Name:    "RESPONSE_STORE_LIST",
 			Payload: payload,
@@ -153,7 +243,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 		defer span.Finish()
 
 		if linkUpdate, ok := payload.(*v1.Link); ok {
-			payload, err := s.Update(newCtx, linkUpdate)
+			payload, err := s.store.Update(newCtx, linkUpdate)
 			return notify.Response{
 				Name:    "RESPONSE_STORE_UPDATE",
 				Payload: payload,
@@ -172,7 +262,7 @@ func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) n
 		span.SetTag("store", s.typeStore)
 		defer span.Finish()
 
-		err := s.Delete(newCtx, payload.(string))
+		err := s.store.Delete(newCtx, payload.(string))
 		return notify.Response{
 			Name:    "RESPONSE_STORE_DELETE",
 			Payload: nil,
