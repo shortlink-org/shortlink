@@ -10,6 +10,7 @@ import (
 	"net/http"
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
+	"github.com/go-redis/cache/v8"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc"
@@ -35,8 +36,8 @@ type ServiceLink struct {
 }
 
 // InitLinkService =====================================================================================================
-func InitLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ) (*link_di.LinkService, func(), error) {
-	return link_di.InitializeLinkService(ctx, runRPCClient, runRPCServer, log, db, mq)
+func InitLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ, cache *cache.Cache) (*link_di.LinkService, func(), error) {
+	return link_di.InitializeLinkService(ctx, runRPCClient, runRPCServer, log, db, mq, cache)
 }
 
 // LinkService =========================================================================================================

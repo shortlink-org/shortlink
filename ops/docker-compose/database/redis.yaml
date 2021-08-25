@@ -11,9 +11,9 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
-    networks:
-      simple:
-        ipv4_address: ${DATABASE_IP}
+#    networks:
+#      simple:
+#        ipv4_address: ${DATABASE_IP}
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}

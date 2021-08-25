@@ -19,6 +19,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/di/internal/store"
 	"github.com/batazor/shortlink/internal/di/internal/traicing"
+	"github.com/batazor/shortlink/internal/pkg/cache"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
@@ -27,9 +28,9 @@ import (
 	di2 "github.com/batazor/shortlink/internal/services/link/di"
 	di3 "github.com/batazor/shortlink/internal/services/logger/di"
 	di4 "github.com/batazor/shortlink/internal/services/metadata/di"
-	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/getsentry/sentry-go/http"
+	cache2 "github.com/go-redis/cache/v8"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc"
@@ -53,21 +54,20 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup3, err := mq_di.New(context, logger)
+	tracer, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	handler, cleanup4, err := sentry.New()
+	rpcServer, cleanup4, err := rpc.InitServer(logger, tracer)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(handler, logger)
-	tracer, cleanup5, err := traicing_di.New(context, logger)
+	clientConn, cleanup5, err := rpc.InitClient(logger, tracer)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -75,7 +75,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dbStore, cleanup6, err := store.New(context, logger)
+	mq, cleanup6, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -84,8 +84,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := profiling.New(logger)
-	autoMaxProAutoMaxPro, cleanup7, err := autoMaxPro.New(logger)
+	dbStore, cleanup7, err := store.New(context, logger)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -95,7 +94,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup8, err := rpc.InitServer(logger, tracer)
+	cacheCache, err := cache.New(context)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -106,7 +105,20 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup9, err := rpc.InitClient(logger, tracer)
+	handler, cleanup8, err := sentry.New()
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	serveMux := monitoring.New(handler, logger)
+	pprofEndpoint := profiling.New(logger)
+	autoMaxProAutoMaxPro, cleanup9, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -118,7 +130,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewFullService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn)
+	service, err := NewFullService(context, configConfig, logger, rpcServer, clientConn, mq, dbStore, cacheCache, handler, serveMux, tracer, pprofEndpoint, autoMaxProAutoMaxPro)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -442,7 +454,20 @@ func InitializeLinkService() (*ServiceLink, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, cleanup10, err := InitLinkService(context, clientConn, rpcServer, logger, dbStore, mq)
+	cacheCache, err := cache.New(context)
+	if err != nil {
+		cleanup9()
+		cleanup8()
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	linkService, cleanup10, err := InitLinkService(context, clientConn, rpcServer, logger, dbStore, mq, cacheCache)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -742,22 +767,27 @@ func InitializeNotifyService() (*Service, func(), error) {
 
 // Service - heplers
 type Service struct {
-	Ctx           context.Context
-	Cfg           *config.Config
-	Log           logger.Logger
+	// Common
+	Ctx context.Context
+	Cfg *config.Config
+	Log logger.Logger
+
+	// Delivery
+	DB        *db.Store
+	Cache     *cache2.Cache
+	MQ        v1.MQ
+	ServerRPC *rpc.RPCServer
+	ClientRPC *grpc.ClientConn
+
+	// Observability
 	Tracer        *opentracing.Tracer
 	Sentry        *sentryhttp.Handler
-	DB            *db.Store
-	MetaStore     *meta_store.MetaStore
-	MQ            v1.MQ
-	ServerRPC     *rpc.RPCServer
-	ClientRPC     *grpc.ClientConn
 	Monitoring    *http.ServeMux
 	PprofEndpoint profiling.PprofEndpoint
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New)
+var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, cache.New)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
@@ -769,20 +799,22 @@ func NewFullService(ctx2 context.Context,
 
 	cfg *config.Config,
 	log logger.Logger,
-	mq v1.MQ,
-	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer, db2 *db.Store,
 
-	pprofHTTP profiling.PprofEndpoint,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
+	mq v1.MQ, db2 *db.Store, cache3 *cache2.Cache,
+
+	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
+	tracer *opentracing.Tracer,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{
 		Ctx:           ctx2,
 		Cfg:           cfg,
 		Log:           log,
 		MQ:            mq,
+		Cache:         cache3,
 		Tracer:        tracer,
 		Monitoring:    monitoring2,
 		Sentry:        sentryHandler,
@@ -888,8 +920,8 @@ type ServiceLink struct {
 }
 
 // InitLinkService =====================================================================================================
-func InitLinkService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ) (*di2.LinkService, func(), error) {
-	return di2.InitializeLinkService(ctx2, runRPCClient, runRPCServer, log, db2, mq)
+func InitLinkService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ, cache3 *cache2.Cache) (*di2.LinkService, func(), error) {
+	return di2.InitializeLinkService(ctx2, runRPCClient, runRPCServer, log, db2, mq, cache3)
 }
 
 // LinkService =========================================================================================================
