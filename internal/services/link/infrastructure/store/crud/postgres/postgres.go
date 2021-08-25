@@ -7,10 +7,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"time"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/go-redis/cache/v8"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/jackc/pgx/v4"
@@ -21,7 +19,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/batch"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/db/options"
-	"github.com/batazor/shortlink/internal/pkg/logger"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
@@ -30,12 +27,10 @@ var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
 
-func New(log logger.Logger, cache *cache.Cache) (*Store, error) {
+func New() (*Store, error) {
 	return &Store{
 		client: nil,
-		cache:  cache,
 		config: Config{},
-		log:    log,
 	}, nil
 }
 
@@ -84,16 +79,6 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 
 // Get ...
 func (p *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
-	// cache
-	link := v1.Link{}
-	err := p.cache.Get(ctx, fmt.Sprintf(`link:%s`, id), &link)
-	if err != nil {
-		p.log.ErrorWithContext(ctx, err.Error())
-	}
-	if err == nil {
-		return &link, nil
-	}
-
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("shortlink.links").
@@ -122,17 +107,6 @@ func (p *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	if response.Hash == "" {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
-	}
-
-	// save cache
-	err = p.cache.Set(&cache.Item{
-		Ctx:   ctx,
-		Key:   fmt.Sprintf(`link:%s`, id),
-		Value: &response,
-		TTL:   5 * time.Minute,
-	})
-	if err != nil {
-		p.log.ErrorWithContext(ctx, err.Error())
 	}
 
 	return &response, nil
