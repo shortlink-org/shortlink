@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"embed"
 	"fmt"
+	"strings"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/golang-migrate/migrate/v4"
@@ -76,8 +77,10 @@ func (p *Store) Close() error { // nolint unparam
 
 // Migrate ...
 func (p *Store) migrate() error { // nolint unused
+	uri := strings.Join([]string{p.config.URI, "x-multi-statement=true"}, "&")
+
 	// Create connect
-	db, err := sql.Open("postgres", p.config.URI)
+	db, err := sql.Open("postgres", uri)
 	if err != nil {
 		return err
 	}
