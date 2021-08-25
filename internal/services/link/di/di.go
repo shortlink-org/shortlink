@@ -8,6 +8,7 @@ package di
 import (
 	"context"
 
+	"github.com/go-redis/cache/v8"
 	"github.com/google/wire"
 	"google.golang.org/grpc"
 
@@ -87,9 +88,9 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *link.
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) (*crud.Store, error) {
+func NewLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, cache *cache.Cache) (*crud.Store, error) {
 	store := &crud.Store{}
-	linkStore, err := store.Use(ctx, logger, db)
+	linkStore, err := store.Use(ctx, logger, db, cache)
 	if err != nil {
 		return nil, err
 	}
@@ -231,6 +232,6 @@ func NewLinkService(
 	}, nil
 }
 
-func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ) (*LinkService, func(), error) {
+func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ, cache *cache.Cache) (*LinkService, func(), error) {
 	panic(wire.Build(LinkSet))
 }

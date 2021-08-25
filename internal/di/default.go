@@ -10,6 +10,7 @@ import (
 	"net/http"
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
+	redisCache "github.com/go-redis/cache/v8"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc"
@@ -25,31 +26,36 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/di/internal/store"
 	"github.com/batazor/shortlink/internal/di/internal/traicing"
+	"github.com/batazor/shortlink/internal/pkg/cache"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
-	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
 // Service - heplers
 type Service struct {
-	Ctx           context.Context
-	Cfg           *config.Config
-	Log           logger.Logger
+	// Common
+	Ctx context.Context
+	Cfg *config.Config
+	Log logger.Logger
+
+	// Delivery
+	DB        *db.Store
+	Cache     *redisCache.Cache
+	MQ        v1.MQ
+	ServerRPC *rpc.RPCServer
+	ClientRPC *grpc.ClientConn
+
+	// Observability
 	Tracer        *opentracing.Tracer
 	Sentry        *sentryhttp.Handler
-	DB            *db.Store
-	MetaStore     *meta_store.MetaStore
-	MQ            v1.MQ
-	ServerRPC     *rpc.RPCServer
-	ClientRPC     *grpc.ClientConn
 	Monitoring    *http.ServeMux
 	PprofEndpoint profiling.PprofEndpoint
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New)
+var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, cache.New)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
@@ -65,25 +71,31 @@ var FullSet = wire.NewSet(
 )
 
 func NewFullService(
+	// Common
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
+
+	// Delivery
+	serverRPC *rpc.RPCServer,
+	clientRPC *grpc.ClientConn,
 	mq v1.MQ,
+	db *db.Store,
+	cache *redisCache.Cache,
+
+	// Observability
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,
-	db *db.Store,
-	//linkStore *link_store.LinkStore,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
-	serverRPC *rpc.RPCServer,
-	clientRPC *grpc.ClientConn,
 ) (*Service, error) {
 	return &Service{
 		Ctx:           ctx,
 		Cfg:           cfg,
 		Log:           log,
 		MQ:            mq,
+		Cache:         cache,
 		Tracer:        tracer,
 		Monitoring:    monitoring,
 		Sentry:        sentryHandler,

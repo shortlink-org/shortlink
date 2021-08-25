@@ -17,6 +17,7 @@ require (
 	github.com/go-chi/cors v1.2.0
 	github.com/go-chi/render v1.0.1
 	github.com/go-kit/kit v0.11.0
+	github.com/go-redis/cache/v8 v8.4.1
 	github.com/go-redis/redis/v8 v8.11.3
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
@@ -190,6 +191,10 @@ require (
 	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
 	github.com/twmb/murmur3 v1.1.5 // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
+	github.com/vmihailenco/bufpool v0.1.11 // indirect
+	github.com/vmihailenco/go-tinylfu v0.2.1 // indirect
+	github.com/vmihailenco/msgpack/v5 v5.1.0 // indirect
+	github.com/vmihailenco/tagparser v0.1.2 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.0.2 // indirect
 	github.com/xdg-go/stringprep v1.0.2 // indirect
@@ -201,6 +206,7 @@ require (
 	go.opencensus.io v0.23.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
+	golang.org/x/exp v0.0.0-20210220032938-85be41e4509f // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
 	golang.org/x/oauth2 v0.0.0-20210805134026-6f1e6394065a // indirect
 	golang.org/x/sys v0.0.0-20210806184541-e5e7981a1069 // indirect

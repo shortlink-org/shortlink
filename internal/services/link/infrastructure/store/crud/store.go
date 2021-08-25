@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 
+	"github.com/go-redis/cache/v8"
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 
@@ -29,7 +30,7 @@ import (
 )
 
 // Use return implementation of db
-func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Store, error) { // nolint unused
+func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) { // nolint unused
 	// Set configuration
 	s.setConfig()
 
@@ -40,9 +41,11 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Stor
 	//notify.Subscribe(api_domain.METHOD_UPDATE, store)
 	//notify.Subscribe(api_domain.METHOD_DELETE, store)
 
+	var err error
+
 	switch s.typeStore {
 	case "postgres":
-		s.Repository = &postgres.Store{}
+		s.Repository, err = postgres.New(log, cache)
 	case "mongo":
 		s.Repository = &mongo.Store{}
 	case "mysql":
@@ -62,9 +65,13 @@ func (s *Store) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Stor
 	default:
 		s.Repository = &ram.Store{}
 	}
+	if err != nil {
+		return nil, err
+	}
 
 	// Init store
-	if err := s.Init(ctx, db); err != nil {
+	err = s.Init(ctx, db)
+	if err != nil {
 		return nil, err
 	}
 

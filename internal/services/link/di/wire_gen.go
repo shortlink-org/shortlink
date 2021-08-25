@@ -24,18 +24,19 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
 	v1_5 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
+	"github.com/go-redis/cache/v8"
 	"github.com/google/wire"
 	"google.golang.org/grpc"
 )
 
 // Injectors from di.go:
 
-func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ) (*LinkService, func(), error) {
+func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ, cache2 *cache.Cache) (*LinkService, func(), error) {
 	metadataServiceClient, err := NewMetadataRPCClient(runRPCClient)
 	if err != nil {
 		return nil, nil, err
 	}
-	store, err := NewLinkStore(ctx, log, db2)
+	store, err := NewLinkStore(ctx, log, db2, cache2)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -145,9 +146,9 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *link.
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*crud.Store, error) {
+func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store, cache2 *cache.Cache) (*crud.Store, error) {
 	store := &crud.Store{}
-	linkStore, err := store.Use(ctx, logger2, db2)
+	linkStore, err := store.Use(ctx, logger2, db2, cache2)
 	if err != nil {
 		return nil, err
 	}
