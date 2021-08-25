@@ -36,16 +36,14 @@ type Store struct { // nolint unused
 	logger logger.Logger
 }
 
-func New(logger logger.Logger) *Store {
-	return &Store{
+// New store
+func New(ctx context.Context, db *db.Store, logger logger.Logger) (*Store, error) {
+	s := &Store{
 		logger: logger,
+		client: db.Store.GetConn().(*dgo.Dgraph),
 	}
-}
 
-// Init ...
-func (s *Store) Init(_ context.Context, db *db.Store) error {
-	s.client = db.Store.GetConn().(*dgo.Dgraph)
-	return nil
+	return s, nil
 }
 
 // get - private `get` method

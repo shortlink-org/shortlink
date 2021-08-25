@@ -1,5 +1,4 @@
 //go:build unit
-// +build unit
 
 package metadata
 
@@ -15,7 +14,7 @@ import (
 )
 
 var metaMock = rpc.Meta{
-	ImageURL:    "",
+	ImageUrl:    "",
 	Keywords:    "",
 	Description: "GitHub is where over 65 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
 }
@@ -40,7 +39,7 @@ func TestSet(t *testing.T) { //nolint unused
 	assert.Nil(t, err, "Error get body")
 
 	// Check content
-	assert.Equal(t, metaMock.ImageURL, meta.ImageURL)
+	assert.Equal(t, metaMock.ImageUrl, meta.ImageUrl)
 	assert.Equal(t, metaMock.Keywords, meta.Keywords)
 	assert.Equal(t, metaMock.Description, meta.Description)
 }

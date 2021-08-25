@@ -18,11 +18,13 @@ type Store struct { // nolint unused
 	client *sql.DB
 }
 
-// Init ...
-func (s *Store) Init(_ context.Context, db *db.Store) error {
-	s.client = db.Store.GetConn().(*sql.DB)
+// New store
+func New(ctx context.Context, db *db.Store) (*Store, error) {
+	s := &Store{
+		client: db.Store.GetConn().(*sql.DB),
+	}
 
-	return nil
+	return s, nil
 }
 
 // Get ...

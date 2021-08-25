@@ -28,8 +28,10 @@ type Store struct { // nolint unused
 	config Config
 }
 
-// Init ...
-func (s *Store) Init(ctx context.Context, db *db.Store) error {
+// New store
+func New(ctx context.Context, db *db.Store) (*Store, error) {
+	s := &Store{}
+
 	// Set configuration
 	s.setConfig()
 
@@ -56,13 +58,13 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 		var err error
 		s.config.job, err = batch.New(ctx, cb)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		go s.config.job.Run(ctx)
 	}
 
-	return nil
+	return s, nil
 }
 
 // Get ...

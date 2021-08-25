@@ -19,8 +19,10 @@ import (
 	query2 "github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-// Init ...
-func (s *Store) Init(ctx context.Context, db *db.Store) error {
+// New store
+func New(ctx context.Context, db *db.Store) (*Store, error) {
+	s := &Store{}
+
 	// Set configuration
 	s.setConfig()
 	s.client = db.Store.GetConn().(*mongo.Client)
@@ -53,20 +55,20 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 		var err error
 		s.config.job, err = batch.New(ctx, cb)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		go s.config.job.Run(ctx)
 	}
 
-	return nil
+	return s, nil
 }
 
 // Add ...
-func (m *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	switch m.config.mode {
+func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
+	switch s.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb, err := m.config.job.Push(source)
+		cb, err := s.config.job.Push(source)
 		if err != nil {
 			return nil, err
 		}
@@ -83,7 +85,7 @@ func (m *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 			return nil, nil
 		}
 	case options.MODE_SINGLE_WRITE:
-		data, err := m.singleWrite(ctx, source)
+		data, err := s.singleWrite(ctx, source)
 		return data, err
 	}
 

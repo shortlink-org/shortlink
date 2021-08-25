@@ -17,10 +17,12 @@ type Store struct { // nolint unused
 	client *leveldb.DB
 }
 
-// Init ...
-func (s *Store) Init(_ context.Context, db *db.Store) error {
-	s.client = db.Store.GetConn().(*leveldb.DB)
-	return nil
+// New store
+func New(ctx context.Context, db *db.Store) (*Store, error) {
+	s := &Store{
+		client: db.Store.GetConn().(*leveldb.DB),
+	}
+	return s, nil
 }
 
 // Add ...
