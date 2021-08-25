@@ -52,34 +52,52 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 
 	switch s.typeStore {
 	case "postgres":
-		s.store, err = postgres.New()
+		s.store, err = postgres.New(ctx, db)
 		if err != nil {
 			return nil, err
 		}
 	case "mongo":
-		s.store = &mongo.Store{}
+		s.store, err = mongo.New(ctx, db)
+		if err != nil {
+			return nil, err
+		}
 	case "mysql":
-		s.store = &mysql.Store{}
+		s.store, err = mysql.New(ctx, db)
+		if err != nil {
+			return nil, err
+		}
 	case "redis":
-		s.store = &redis.Store{}
+		s.store, err = redis.New(ctx, db)
+		if err != nil {
+			return nil, err
+		}
 	case "dgraph":
-		s.store = dgraph.New(log)
+		s.store, err = dgraph.New(ctx, db, log)
+		if err != nil {
+			return nil, err
+		}
 	case "sqlite":
-		s.store = &sqlite.Store{}
+		s.store, err = sqlite.New(ctx, db)
+		if err != nil {
+			return nil, err
+		}
 	case "leveldb":
-		s.store = &leveldb.Store{}
+		s.store, err = leveldb.New(ctx, db)
+		if err != nil {
+			return nil, err
+		}
 	case "badger":
-		s.store = &badger.Store{}
+		s.store, err = badger.New(ctx)
+		if err != nil {
+			return nil, err
+		}
 	case "ram":
-		s.store = &ram.Store{}
+		fallthrough
 	default:
-		s.store = &ram.Store{}
-	}
-
-	// Init store
-	err = s.store.Init(ctx, db)
-	if err != nil {
-		return nil, err
+		s.store, err = ram.New(ctx, db)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	log.Info("init linkStore", field.Fields{

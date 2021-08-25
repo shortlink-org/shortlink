@@ -27,15 +27,10 @@ var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
 
-func New() (*Store, error) {
-	return &Store{
-		client: nil,
-		config: Config{},
-	}, nil
-}
+// New store
+func New(ctx context.Context, db *db.Store) (*Store, error) {
+	s := &Store{}
 
-// Init ...
-func (s *Store) Init(ctx context.Context, db *db.Store) error {
 	// Set configuration
 	s.setConfig()
 	s.client = db.Store.GetConn().(*pgxpool.Pool)
@@ -68,13 +63,13 @@ func (s *Store) Init(ctx context.Context, db *db.Store) error {
 		var err error
 		s.config.job, err = batch.New(ctx, cb)
 		if err != nil {
-			return err
+			return nil, err
 		}
 
 		go s.config.job.Run(ctx)
 	}
 
-	return nil
+	return s, nil
 }
 
 // Get ...

@@ -13,10 +13,12 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-// Init ...
-func (s *Store) Init(_ context.Context, db *db.Store) error {
-	s.client = db.Store.GetConn().(*sqlx.DB)
-	return nil
+// New store
+func New(ctx context.Context, db *db.Store) (*Store, error) {
+	s := &Store{
+		client: db.Store.GetConn().(*sqlx.DB),
+	}
+	return s, nil
 }
 
 // Get ...

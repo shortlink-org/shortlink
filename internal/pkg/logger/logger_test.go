@@ -39,7 +39,7 @@ func TestOutputZap(t *testing.T) { //nolint unused
 	expected := map[string]interface{}{
 		"@level":     "info",
 		"@timestamp": expectedTime,
-		"@caller":    "logger/logger_test.go:35",
+		"@caller":    "logger/logger_test.go:36",
 		"@msg":       "Hello World",
 	}
 	var response map[string]interface{}
@@ -132,7 +132,7 @@ func TestFieldsZap(t *testing.T) { //nolint unused
 		"@level":     "info",
 		"@timestamp": expectedTime,
 		"@msg":       "Hello World",
-		"@caller":    "logger/logger_test.go:124",
+		"@caller":    "logger/logger_test.go:125",
 		"first":      float64(1),
 		"hello":      "world",
 	}

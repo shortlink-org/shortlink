@@ -7,7 +7,6 @@ import (
 
 	"github.com/dgraph-io/badger/v3"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
@@ -17,9 +16,9 @@ type Store struct { // nolint unused
 	client *badger.DB
 }
 
-// Init ...
-func (_ *Store) Init(_ context.Context, _ *db.Store) error {
-	return nil
+// New store
+func New(ctx context.Context) (*Store, error) {
+	return &Store{}, nil
 }
 
 // Get ...
