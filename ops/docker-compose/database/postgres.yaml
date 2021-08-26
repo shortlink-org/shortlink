@@ -36,6 +36,7 @@ services:
       retries: 5
     volumes:
       - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+      - /data/shortlink/store/postgres/data:/var/lib/postgresql/data
 #    logging:
 #      driver: fluent-bit
 #      options:
@@ -62,6 +63,24 @@ services:
       - "postgres:${DATABASE_IP}"
     volumes:
       - ./ops/docker-compose/database/postgres/pgbouncer.ini:/bitnami/pgbouncer/conf/pgbouncer.ini
+
+  # Backup
+  # Docs: https://github.com/wal-g/wal-g/blob/master/docs/PostgreSQL.md
+  wal-g:
+    <<: *network
+    depends_on:
+      - postgres
+      - coredns
+    image: docker.io/bitnami/wal-g:1.1.0
+    container_name: wal-g
+    profiles:
+      - postgres
+    restart: on-failure
+    user: root
+    command: --walg-file-prefix=/tmp/backups --pghost=postgres --pguser=postgres --pgpassword=shortlink --pgdatabase=shortlink backup-push /var/lib/postgresql/data
+    volumes:
+      - /data/shortlink/store/postgres/data:/var/lib/postgresql/data
+      - /data/shortlink/store/postgres/backups:/tmp/backups
 
   postgres-exporter:
     <<: *network
