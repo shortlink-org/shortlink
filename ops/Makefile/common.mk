@@ -57,16 +57,21 @@ down: ## Down docker-compose
 	@docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
+		-f ops/docker-compose/tooling/grafana.yaml \
+		-f ops/docker-compose/tooling/grafana-tempo.yaml \
+		-f ops/docker-compose/tooling/prometheus.yaml \
+		-f ops/docker-compose/tooling/opentracing.yaml \
 		-f ops/docker-compose/tooling/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/application/api.yaml \
 		-f ops/docker-compose/application/metadata.yaml \
 		-f ops/docker-compose/application/logger.yaml \
 		-f ops/docker-compose/application/ui-next.yaml \
 		-f ops/docker-compose/database/mongo.yaml \
-		-f ops/docker-compose/tooling/prometheus.yaml \
-		-f ops/docker-compose/tooling/opentracing.yaml \
+		-f ops/docker-compose/database/redis.yaml \
+		-f ops/docker-compose/database/patroni.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
 	down --remove-orphans
 	@docker network prune -f
