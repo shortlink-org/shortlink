@@ -70,6 +70,25 @@
   url = "h2c://host.docker.internal:50052"
 
 ################################################################
+# billing
+################################################################
+[http.routers.billing]
+  entryPoints = ["websecure"]
+  rule = "PathPrefix(`/infrastructure.api.rpc.payment.v1.PaymentService/`, `/infrastructure.api.rpc.order.v1.OrderService/`, `/infrastructure.api.rpc.tariff.v1.TariffService/`)"
+  service = "billing"
+  [http.routers.billing.tls]
+    certResolver = "default"
+  [http.services.billing.loadBalancer.healthCheck]
+    scheme = "http"
+    path = "/ready"
+    interval = "10s"
+    timeout = "3s"
+    port = 9090
+
+[[http.services.billing.loadBalancer.servers]]
+  url = "h2c://host.docker.internal:50054"
+
+################################################################
 # UI
 ################################################################
 [http.routers.ui]
