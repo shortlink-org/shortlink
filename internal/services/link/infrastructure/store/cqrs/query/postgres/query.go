@@ -2,9 +2,11 @@ package postgres
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
+	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
@@ -65,8 +67,10 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 // List ...
 func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView, error) {
 	// query builder
-	links := psql.Select("url, hash, describe, created_at, updated_at").
-		From("shortlink.link_view").
+	links := psql.Select("hash, describe, ts_headline(meta_description, q, 'StartSel=<em>, StopSel=</em>') as meta_description, created_at, updated_at").
+		From(fmt.Sprintf(`shortlink.link_view, to_tsquery('%s') AS q`, *filter.Search.Contains)).
+		Where("make_tsvector_link_view(meta_keywords, meta_description) @@ q").
+		OrderBy("ts_rank(make_tsvector_link_view(meta_keywords, meta_description), q) DESC").
 		Limit(uint64(filter.Pagination.Limit)).
 		Offset(uint64(filter.Pagination.Page * filter.Pagination.Limit))
 	q, args, err := links.ToSql()
@@ -85,16 +89,16 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 
 	for rows.Next() {
 		var result v12.LinkView
-		//var (
-		//	created_ad sql.NullTime
-		//	updated_at sql.NullTime
-		//)
-		//err = rows.Scan(&result.Url, &result.Hash, &result.Describe, &created_ad, &updated_at)
-		//if err != nil {
-		//	return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
-		//}
-		//result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
-		//result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
+		var (
+			created_ad sql.NullTime
+			updated_at sql.NullTime
+		)
+		err = rows.Scan(&result.Hash, &result.Describe, &result.MetaDescription, &created_ad, &updated_at)
+		if err != nil {
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		}
+		result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
+		result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
 
 		response.Links = append(response.Links, &result)
 	}

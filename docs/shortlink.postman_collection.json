@@ -1006,6 +1006,31 @@
 										}
 									},
 									"response": []
+								},
+								{
+									"name": "Get links {Search}",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/cqrs/links?search=\"язык <-> программирования\"",
+											"host": [
+												"{{API_GATEWAY.HTTP_API}}"
+											],
+											"path": [
+												"api",
+												"cqrs",
+												"links"
+											],
+											"query": [
+												{
+													"key": "search",
+													"value": "\"язык <-> программирования\""
+												}
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},

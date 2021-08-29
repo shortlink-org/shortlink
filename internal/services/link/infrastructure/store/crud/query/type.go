@@ -3,7 +3,14 @@
 
 package query
 
+type Pagination struct {
+	Page  int
+	Limit int
+}
+
 type Filter struct { // nolint unused
+	Pagination *Pagination
+	Search     *StringFilterInput
 	Url        *StringFilterInput
 	Hash       *StringFilterInput
 	Describe   *StringFilterInput
