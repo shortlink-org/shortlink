@@ -13,10 +13,12 @@ var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
 
-// Init ...
-func (s *Store) Init(ctx context.Context, db *db.Store) error {
+// New ...
+func New(_ context.Context, db *db.Store) (*Store, error) {
+	s := &Store{}
+
 	// Set configuration
 	s.client = db.Store.GetConn().(*pgxpool.Pool)
 
-	return nil
+	return s, nil
 }

@@ -19,6 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LinkQueryServiceClient interface {
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
+	List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 }
 
 type linkQueryServiceClient struct {
@@ -38,11 +39,21 @@ func (c *linkQueryServiceClient) Get(ctx context.Context, in *GetRequest, opts .
 	return out, nil
 }
 
+func (c *linkQueryServiceClient) List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error) {
+	out := new(ListResponse)
+	err := c.cc.Invoke(ctx, "/infrastructure.rpc.cqrs.link.v1.LinkQueryService/List", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LinkQueryServiceServer is the server API for LinkQueryService service.
 // All implementations must embed UnimplementedLinkQueryServiceServer
 // for forward compatibility
 type LinkQueryServiceServer interface {
 	Get(context.Context, *GetRequest) (*GetResponse, error)
+	List(context.Context, *ListRequest) (*ListResponse, error)
 	mustEmbedUnimplementedLinkQueryServiceServer()
 }
 
@@ -52,6 +63,9 @@ type UnimplementedLinkQueryServiceServer struct {
 
 func (UnimplementedLinkQueryServiceServer) Get(context.Context, *GetRequest) (*GetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedLinkQueryServiceServer) List(context.Context, *ListRequest) (*ListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
 }
 func (UnimplementedLinkQueryServiceServer) mustEmbedUnimplementedLinkQueryServiceServer() {}
 
@@ -84,6 +98,24 @@ func _LinkQueryService_Get_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LinkQueryService_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LinkQueryServiceServer).List(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/infrastructure.rpc.cqrs.link.v1.LinkQueryService/List",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LinkQueryServiceServer).List(ctx, req.(*ListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LinkQueryService_ServiceDesc is the grpc.ServiceDesc for LinkQueryService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -94,6 +126,10 @@ var LinkQueryService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Get",
 			Handler:    _LinkQueryService_Get_Handler,
+		},
+		{
+			MethodName: "List",
+			Handler:    _LinkQueryService_List_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

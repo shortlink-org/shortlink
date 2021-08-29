@@ -34,6 +34,7 @@ func Routes(
 	}
 
 	r.Get("/link/{hash}", h.GetByCQRS)
+	r.Get("/links", h.GetByAllCQRS)
 
 	return r
 }
@@ -66,6 +67,38 @@ func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	}
 
 	res, err := jsonpb.Marshal(response.Link)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write(res) // nolint errcheck
+}
+
+// GetByAllCQRS ...
+func (h *Handler) GetByAllCQRS(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-type", "application/json")
+
+	// inject spanId in response header
+	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+
+	var search = r.URL.Query().Get("search")
+	response, err := h.LinkQueryServiceClient.List(r.Context(), &link_cqrs.ListRequest{Filter: search})
+	var errorLink *v1.NotFoundError
+	if errors.As(err, &errorLink) {
+		w.WriteHeader(http.StatusNotFound)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		return
+	}
+
+	res, err := jsonpb.Marshal(response.Links)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck

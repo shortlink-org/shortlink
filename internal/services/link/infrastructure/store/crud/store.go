@@ -5,19 +5,15 @@ package crud
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
 	"fmt"
 	"time"
 
 	"github.com/go-redis/cache/v8"
-	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	"github.com/batazor/shortlink/internal/pkg/notify"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/badger"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/dgraph"
@@ -40,13 +36,6 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 
 	// Set configuration
 	s.setConfig()
-
-	// Subscribe to Event
-	//notify.Subscribe(api_domain.METHOD_ADD, store)
-	//notify.Subscribe(api_domain.METHOD_GET, store)
-	//notify.Subscribe(api_domain.METHOD_LIST, store)
-	//notify.Subscribe(api_domain.METHOD_UPDATE, store)
-	//notify.Subscribe(api_domain.METHOD_DELETE, store)
 
 	var err error
 
@@ -138,6 +127,13 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
+	if filter.Pagination == nil {
+		filter.Pagination = &query.Pagination{
+			Page:  0,
+			Limit: 10,
+		}
+	}
+
 	response, err := s.store.List(ctx, filter)
 	if err != nil {
 		return nil, err
@@ -188,107 +184,6 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 	}
 
 	return nil
-}
-
-// Notify ...
-func (s *Store) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response { // nolint unused
-	switch event {
-	case v1.METHOD_ADD:
-		// start tracing
-		span, newCtx := opentracing.StartSpanFromContext(ctx, "store add new link")
-		span.SetTag("store", s.typeStore)
-		defer span.Finish()
-
-		if addLink, ok := payload.(*v1.Link); ok {
-			payload, err := s.store.Add(newCtx, addLink)
-			return notify.Response{
-				Name:    "RESPONSE_STORE_ADD",
-				Payload: payload,
-				Error:   err,
-			}
-		}
-
-		return notify.Response{
-			Name:    "RESPONSE_STORE_ADD",
-			Payload: payload,
-			Error:   errors.New("failed assert type"),
-		}
-	case v1.METHOD_GET:
-		// start tracing
-		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get link")
-		span.SetTag("store", s.typeStore)
-		defer span.Finish()
-
-		link, err := s.Get(newCtx, payload.(string))
-		return notify.Response{
-			Name:    "RESPONSE_STORE_GET",
-			Payload: link,
-			Error:   err,
-		}
-	case v1.METHOD_LIST:
-		// start tracing
-		span, newCtx := opentracing.StartSpanFromContext(ctx, "store get links")
-		span.SetTag("store", s.typeStore)
-		defer span.Finish()
-
-		filterRaw := ""
-		if payload != nil {
-			filterRaw = payload.(string)
-		}
-
-		// Parse filter
-		var filter query.Filter
-		if filterRaw != "" {
-			if err := json.Unmarshal([]byte(filterRaw), &filter); err != nil {
-				return notify.Response{
-					Name:    "RESPONSE_STORE_LIST",
-					Payload: payload,
-					Error:   err,
-				}
-			}
-		}
-
-		payload, err := s.store.List(newCtx, &filter)
-		return notify.Response{
-			Name:    "RESPONSE_STORE_LIST",
-			Payload: payload,
-			Error:   err,
-		}
-	case v1.METHOD_UPDATE:
-		// start tracing
-		span, newCtx := opentracing.StartSpanFromContext(ctx, "store update link")
-		span.SetTag("store", s.typeStore)
-		defer span.Finish()
-
-		if linkUpdate, ok := payload.(*v1.Link); ok {
-			payload, err := s.store.Update(newCtx, linkUpdate)
-			return notify.Response{
-				Name:    "RESPONSE_STORE_UPDATE",
-				Payload: payload,
-				Error:   err,
-			}
-		}
-
-		return notify.Response{
-			Name:    "RESPONSE_STORE_UPDATE",
-			Payload: payload,
-			Error:   errors.New("failed assert type"),
-		}
-	case v1.METHOD_DELETE:
-		// start tracing
-		span, newCtx := opentracing.StartSpanFromContext(ctx, "store delete link")
-		span.SetTag("store", s.typeStore)
-		defer span.Finish()
-
-		err := s.store.Delete(newCtx, payload.(string))
-		return notify.Response{
-			Name:    "RESPONSE_STORE_DELETE",
-			Payload: nil,
-			Error:   err,
-		}
-	}
-
-	return notify.Response{}
 }
 
 // setConfig - set configuration

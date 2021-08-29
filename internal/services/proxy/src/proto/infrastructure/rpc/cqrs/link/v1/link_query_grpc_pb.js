@@ -27,6 +27,28 @@ function deserialize_infrastructure_rpc_cqrs_link_v1_GetResponse(buffer_arg) {
   return infrastructure_rpc_cqrs_link_v1_link_query_pb.GetResponse.deserializeBinary(new Uint8Array(buffer_arg));
 }
 
+function serialize_infrastructure_rpc_cqrs_link_v1_ListRequest(arg) {
+  if (!(arg instanceof infrastructure_rpc_cqrs_link_v1_link_query_pb.ListRequest)) {
+    throw new Error('Expected argument of type infrastructure.rpc.cqrs.link.v1.ListRequest');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_infrastructure_rpc_cqrs_link_v1_ListRequest(buffer_arg) {
+  return infrastructure_rpc_cqrs_link_v1_link_query_pb.ListRequest.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
+function serialize_infrastructure_rpc_cqrs_link_v1_ListResponse(arg) {
+  if (!(arg instanceof infrastructure_rpc_cqrs_link_v1_link_query_pb.ListResponse)) {
+    throw new Error('Expected argument of type infrastructure.rpc.cqrs.link.v1.ListResponse');
+  }
+  return Buffer.from(arg.serializeBinary());
+}
+
+function deserialize_infrastructure_rpc_cqrs_link_v1_ListResponse(buffer_arg) {
+  return infrastructure_rpc_cqrs_link_v1_link_query_pb.ListResponse.deserializeBinary(new Uint8Array(buffer_arg));
+}
+
 
 var LinkQueryServiceService = exports.LinkQueryServiceService = {
   get: {
@@ -39,6 +61,17 @@ var LinkQueryServiceService = exports.LinkQueryServiceService = {
     requestDeserialize: deserialize_infrastructure_rpc_cqrs_link_v1_GetRequest,
     responseSerialize: serialize_infrastructure_rpc_cqrs_link_v1_GetResponse,
     responseDeserialize: deserialize_infrastructure_rpc_cqrs_link_v1_GetResponse,
+  },
+  list: {
+    path: '/infrastructure.rpc.cqrs.link.v1.LinkQueryService/List',
+    requestStream: false,
+    responseStream: false,
+    requestType: infrastructure_rpc_cqrs_link_v1_link_query_pb.ListRequest,
+    responseType: infrastructure_rpc_cqrs_link_v1_link_query_pb.ListResponse,
+    requestSerialize: serialize_infrastructure_rpc_cqrs_link_v1_ListRequest,
+    requestDeserialize: deserialize_infrastructure_rpc_cqrs_link_v1_ListRequest,
+    responseSerialize: serialize_infrastructure_rpc_cqrs_link_v1_ListResponse,
+    responseDeserialize: deserialize_infrastructure_rpc_cqrs_link_v1_ListResponse,
   },
 };
 

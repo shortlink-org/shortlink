@@ -2,11 +2,15 @@ package v1
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
 	"fmt"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	queryStore "github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
@@ -21,7 +25,17 @@ func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
 }
 
 func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
-	resp, err := l.service.List(ctx, in.Filter)
+	// Parse args
+	filter := queryStore.Filter{}
+
+	if in.Filter != "" {
+		errJsonUnmarshal := json.Unmarshal([]byte(in.Filter), &filter)
+		if errJsonUnmarshal != nil {
+			return nil, errors.New("error parse payload as string")
+		}
+	}
+
+	resp, err := l.service.List(ctx, filter)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}

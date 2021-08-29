@@ -6,8 +6,9 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	v12 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
+	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	domain "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 	"github.com/batazor/shortlink/pkg/saga"
 )
 
@@ -25,13 +26,13 @@ func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error 
 	return nil
 }
 
-func (s *Service) Get(ctx context.Context, hash string) (*v12.LinkView, error) {
+func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error) {
 	const (
 		SAGA_NAME           = "GET_LINK_CQRS"
 		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_GET_CQRS"
 	)
 
-	resp := &v12.LinkView{}
+	resp := &domain.LinkView{}
 
 	// create a new saga for get link by hash
 	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
@@ -60,7 +61,48 @@ func (s *Service) Get(ctx context.Context, hash string) (*v12.LinkView, error) {
 	}
 
 	if resp == nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: hash}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: hash}, Err: fmt.Errorf("Not found links")}
+	}
+
+	return resp, nil
+}
+
+func (s *Service) List(ctx context.Context, filter *query.Filter) (*domain.LinksView, error) {
+	const (
+		SAGA_NAME           = "GET_LINKS_CQRS"
+		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_GET_CQRS"
+	)
+
+	resp := &domain.LinksView{}
+
+	// create a new saga for get link by hash
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+		WithContext(ctx).
+		Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// add step: get link from store
+	_, errs = sagaGetLink.AddStep(SAGA_STEP_STORE_GET).
+		Then(func(ctx context.Context) error {
+			var err error
+			resp, err = s.queryStore.List(ctx, filter)
+			return err
+		}).
+		Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	// Run saga
+	err := sagaGetLink.Play(nil)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp == nil {
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: ""}, Err: fmt.Errorf("Not found links")}
 	}
 
 	return resp, nil

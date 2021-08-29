@@ -97,24 +97,22 @@ func NewLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, cache
 	return linkStore, nil
 }
 
-func NewCQSLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) (*cqs.Store, error) {
-	store := &cqs.Store{}
-	cqsStore, err := store.Use(ctx, logger, db)
+func NewCQSLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, cache *cache.Cache) (*cqs.Store, error) {
+	store, err := cqs.New(ctx, logger, db, cache)
 	if err != nil {
 		return nil, err
 	}
 
-	return cqsStore, nil
+	return store, nil
 }
 
-func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store) (*query.Store, error) {
-	store := &query.Store{}
-	queryStore, err := store.Use(ctx, logger, db)
+func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, cache *cache.Cache) (*query.Store, error) {
+	store, err := query.New(ctx, logger, db, cache)
 	if err != nil {
 		return nil, err
 	}
 
-	return queryStore, nil
+	return store, nil
 }
 
 func NewLinkApplication(logger logger.Logger, mq v1.MQ, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*link.Service, error) {

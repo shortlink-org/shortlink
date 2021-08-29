@@ -3,7 +3,14 @@
 
 package query
 
+type Pagination struct {
+	Page int
+	Limit int
+}
+
 type Filter struct { // nolint unused
+	Pagination *Pagination
+	Search *StringFilterInput
 {{- range $type := .File.MessageType}}
 {{- range $field := $type.Field}}
 	{{ upperFirst $field.Name }} *StringFilterInput
