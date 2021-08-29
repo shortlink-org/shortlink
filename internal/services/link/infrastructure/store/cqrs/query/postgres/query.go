@@ -2,11 +2,9 @@ package postgres
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/jackc/pgx/v4/pgxpool"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
@@ -19,12 +17,14 @@ var (
 	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
 )
 
-// Init ...
-func (s *Store) Init(ctx context.Context, db *db.Store) error {
+// New ...
+func New(ctx context.Context, db *db.Store) (*Store, error) {
+	s := &Store{}
+
 	// Set configuration
 	s.client = db.Store.GetConn().(*pgxpool.Pool)
 
-	return nil
+	return s, nil
 }
 
 // Get ...
@@ -63,10 +63,12 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 }
 
 // List ...
-func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView, error) {
 	// query builder
 	links := psql.Select("url, hash, describe, created_at, updated_at").
-		From("shortlink.link_view")
+		From("shortlink.link_view").
+		Limit(uint64(filter.Pagination.Limit)).
+		Offset(uint64(filter.Pagination.Page * filter.Pagination.Limit))
 	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
@@ -77,24 +79,24 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 	}
 
-	response := &v1.Links{
-		Link: []*v1.Link{},
+	response := &v12.LinksView{
+		Links: []*v12.LinkView{},
 	}
 
 	for rows.Next() {
-		var result v1.Link
-		var (
-			created_ad sql.NullTime
-			updated_at sql.NullTime
-		)
-		err = rows.Scan(&result.Url, &result.Hash, &result.Describe, &created_ad, &updated_at)
-		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
-		}
-		result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
-		result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
+		var result v12.LinkView
+		//var (
+		//	created_ad sql.NullTime
+		//	updated_at sql.NullTime
+		//)
+		//err = rows.Scan(&result.Url, &result.Hash, &result.Describe, &created_ad, &updated_at)
+		//if err != nil {
+		//	return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		//}
+		//result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
+		//result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
 
-		response.Link = append(response.Link, &result)
+		response.Links = append(response.Links, &result)
 	}
 
 	return response, nil

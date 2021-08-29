@@ -5,7 +5,6 @@
 /* eslint-disable */
 
 import * as grpc from "@grpc/grpc-js";
-import {handleClientStreamingCall} from "@grpc/grpc-js/build/src/server-call";
 import * as infrastructure_rpc_link_v1_link_pb from "../../../../infrastructure/rpc/link/v1/link_pb";
 import * as google_protobuf_empty_pb from "google-protobuf/google/protobuf/empty_pb";
 import * as domain_link_v1_link_pb from "../../../../domain/link/v1/link_pb";

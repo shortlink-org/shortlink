@@ -48,7 +48,7 @@ func (api *API) Run(
 	r := chi.NewRouter()
 
 	// CORS
-	cors := cors.New(cors.Options{
+	corsPolicy := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
@@ -58,7 +58,7 @@ func (api *API) Run(
 		//Debug:            true,
 	})
 
-	r.Use(cors.Handler)
+	r.Use(corsPolicy.Handler)
 	r.Use(render.SetContentType(render.ContentTypeJSON))
 
 	// A good base middleware stack
@@ -85,10 +85,10 @@ func (api *API) Run(
 		Addr:    fmt.Sprintf(":%d", config.Port),
 		Handler: r,
 
-		ReadTimeout:       1 * time.Second,                   // the maximum duration for reading the entire request, including the body
-		WriteTimeout:      (config.Timeout + 30*time.Second), // the maximum duration before timing out writes of the response
-		IdleTimeout:       30 * time.Second,                  // the maximum amount of time to wait for the next request when keep-alive is enabled
-		ReadHeaderTimeout: 2 * time.Second,                   // the amount of time allowed to read request headers
+		ReadTimeout:       1 * time.Second,                 // the maximum duration for reading the entire request, including the body
+		WriteTimeout:      config.Timeout + 30*time.Second, // the maximum duration before timing out writes of the response
+		IdleTimeout:       30 * time.Second,                // the maximum amount of time to wait for the next request when keep-alive is enabled
+		ReadHeaderTimeout: 2 * time.Second,                 // the amount of time allowed to read request headers
 	}
 
 	// start HTTP-server

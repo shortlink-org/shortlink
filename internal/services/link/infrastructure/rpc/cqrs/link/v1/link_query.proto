@@ -8,6 +8,7 @@ import "domain/link_cqrs/v1/link.proto";
 
 service LinkQueryService {
   rpc Get(GetRequest) returns(GetResponse) {}
+  rpc List(ListRequest) returns(ListResponse) {}
 }
 
 message GetRequest {

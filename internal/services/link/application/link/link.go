@@ -5,8 +5,6 @@ package link
 
 import (
 	"context"
-	"encoding/json"
-	"errors"
 	"fmt"
 
 	"google.golang.org/protobuf/proto"
@@ -107,17 +105,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 	return resp, nil
 }
 
-func (s *Service) List(ctx context.Context, in string) (*v1.Links, error) {
-	// Parse args
-	filter := queryStore.Filter{}
-
-	if in != "" {
-		errJsonUnmarshal := json.Unmarshal([]byte(in), &filter)
-		if errJsonUnmarshal != nil {
-			return nil, errors.New("error parse payload as string")
-		}
-	}
-
+func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links, error) {
 	const (
 		SAGA_NAME            = "LIST_LINK"
 		SAGA_STEP_STORE_LIST = "SAGA_STEP_STORE_LIST"

@@ -482,7 +482,7 @@ proto.domain.link_cqrs.v1.LinksView.prototype.toObject = function(opt_includeIns
  */
 proto.domain.link_cqrs.v1.LinksView.toObject = function(includeInstance, msg) {
   var f, obj = {
-    linkList: jspb.Message.toObjectList(msg.getLinkList(),
+    linksList: jspb.Message.toObjectList(msg.getLinksList(),
     proto.domain.link_cqrs.v1.LinkView.toObject, includeInstance)
   };
 
@@ -523,7 +523,7 @@ proto.domain.link_cqrs.v1.LinksView.deserializeBinaryFromReader = function(msg, 
     case 1:
       var value = new proto.domain.link_cqrs.v1.LinkView;
       reader.readMessage(value,proto.domain.link_cqrs.v1.LinkView.deserializeBinaryFromReader);
-      msg.addLink(value);
+      msg.addLinks(value);
       break;
     default:
       reader.skipField();
@@ -554,7 +554,7 @@ proto.domain.link_cqrs.v1.LinksView.prototype.serializeBinary = function() {
  */
 proto.domain.link_cqrs.v1.LinksView.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getLinkList();
+  f = message.getLinksList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
       1,
@@ -566,10 +566,10 @@ proto.domain.link_cqrs.v1.LinksView.serializeBinaryToWriter = function(message, 
 
 
 /**
- * repeated LinkView link = 1;
+ * repeated LinkView links = 1;
  * @return {!Array<!proto.domain.link_cqrs.v1.LinkView>}
  */
-proto.domain.link_cqrs.v1.LinksView.prototype.getLinkList = function() {
+proto.domain.link_cqrs.v1.LinksView.prototype.getLinksList = function() {
   return /** @type{!Array<!proto.domain.link_cqrs.v1.LinkView>} */ (
     jspb.Message.getRepeatedWrapperField(this, proto.domain.link_cqrs.v1.LinkView, 1));
 };
@@ -579,7 +579,7 @@ proto.domain.link_cqrs.v1.LinksView.prototype.getLinkList = function() {
  * @param {!Array<!proto.domain.link_cqrs.v1.LinkView>} value
  * @return {!proto.domain.link_cqrs.v1.LinksView} returns this
 */
-proto.domain.link_cqrs.v1.LinksView.prototype.setLinkList = function(value) {
+proto.domain.link_cqrs.v1.LinksView.prototype.setLinksList = function(value) {
   return jspb.Message.setRepeatedWrapperField(this, 1, value);
 };
 
@@ -589,7 +589,7 @@ proto.domain.link_cqrs.v1.LinksView.prototype.setLinkList = function(value) {
  * @param {number=} opt_index
  * @return {!proto.domain.link_cqrs.v1.LinkView}
  */
-proto.domain.link_cqrs.v1.LinksView.prototype.addLink = function(opt_value, opt_index) {
+proto.domain.link_cqrs.v1.LinksView.prototype.addLinks = function(opt_value, opt_index) {
   return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.domain.link_cqrs.v1.LinkView, opt_index);
 };
 
@@ -598,8 +598,8 @@ proto.domain.link_cqrs.v1.LinksView.prototype.addLink = function(opt_value, opt_
  * Clears the list making it empty but non-null.
  * @return {!proto.domain.link_cqrs.v1.LinksView} returns this
  */
-proto.domain.link_cqrs.v1.LinksView.prototype.clearLinkList = function() {
-  return this.setLinkList([]);
+proto.domain.link_cqrs.v1.LinksView.prototype.clearLinksList = function() {
+  return this.setLinksList([]);
 };
 
 

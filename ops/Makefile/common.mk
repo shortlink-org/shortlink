@@ -14,6 +14,9 @@ dep: ## Install dependencies for this project
 	@go install github.com/securego/gosec/cmd/gosec@latest
 	@go install moul.io/protoc-gen-gotemplate@latest
 
+	# for NodeJS
+	@npm install -g grpc-tools grpc_tools_node_protoc_ts
+
 	# install wire
 	@go install github.com/google/wire/cmd/wire@latest
 

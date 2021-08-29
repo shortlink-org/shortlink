@@ -5,7 +5,6 @@
 /* eslint-disable */
 
 import * as grpc from "@grpc/grpc-js";
-import {handleClientStreamingCall} from "@grpc/grpc-js/build/src/server-call";
 import * as infrastructure_rpc_proxy_v1_proxy_pb from "../../../../infrastructure/rpc/proxy/v1/proxy_pb";
 import * as domain_proxy_v1_proxy_pb from "../../../../domain/proxy/v1/proxy_pb";
 

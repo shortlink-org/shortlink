@@ -55,10 +55,10 @@ export namespace LinkView {
 }
 
 export class LinksView extends jspb.Message { 
-    clearLinkList(): void;
-    getLinkList(): Array<LinkView>;
-    setLinkList(value: Array<LinkView>): LinksView;
-    addLink(value?: LinkView, index?: number): LinkView;
+    clearLinksList(): void;
+    getLinksList(): Array<LinkView>;
+    setLinksList(value: Array<LinkView>): LinksView;
+    addLinks(value?: LinkView, index?: number): LinkView;
 
     serializeBinary(): Uint8Array;
     toObject(includeInstance?: boolean): LinksView.AsObject;
@@ -72,6 +72,6 @@ export class LinksView extends jspb.Message {
 
 export namespace LinksView {
     export type AsObject = {
-        linkList: Array<LinkView.AsObject>,
+        linksList: Array<LinkView.AsObject>,
     }
 }

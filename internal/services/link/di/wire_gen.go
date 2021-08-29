@@ -44,11 +44,11 @@ func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, r
 	if err != nil {
 		return nil, nil, err
 	}
-	cqsStore, err := NewCQSLinkStore(ctx, log, db2)
+	cqsStore, err := NewCQSLinkStore(ctx, log, db2, cache2)
 	if err != nil {
 		return nil, nil, err
 	}
-	queryStore, err := NewQueryLinkStore(ctx, log, db2)
+	queryStore, err := NewQueryLinkStore(ctx, log, db2, cache2)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -155,24 +155,22 @@ func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store, cac
 	return linkStore, nil
 }
 
-func NewCQSLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*cqs.Store, error) {
-	store := &cqs.Store{}
-	cqsStore, err := store.Use(ctx, logger2, db2)
+func NewCQSLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store, cache2 *cache.Cache) (*cqs.Store, error) {
+	store, err := cqs.New(ctx, logger2, db2, cache2)
 	if err != nil {
 		return nil, err
 	}
 
-	return cqsStore, nil
+	return store, nil
 }
 
-func NewQueryLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store) (*query.Store, error) {
-	store := &query.Store{}
-	queryStore, err := store.Use(ctx, logger2, db2)
+func NewQueryLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store, cache2 *cache.Cache) (*query.Store, error) {
+	store, err := query.New(ctx, logger2, db2, cache2)
 	if err != nil {
 		return nil, err
 	}
 
-	return queryStore, nil
+	return store, nil
 }
 
 func NewLinkApplication(logger2 logger.Logger, mq v1.MQ, metadataService v1_5.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
