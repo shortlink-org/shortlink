@@ -20,6 +20,8 @@ services:
     ports:
       - "27017:27017"
     environment:
+      MONGO_INITDB_ROOT_USERNAME: shortlink
+      MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: shortlink
 #    logging:
 #      driver: fluent-bit
