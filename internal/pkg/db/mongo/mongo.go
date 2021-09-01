@@ -87,8 +87,8 @@ func (m *Store) migrate() error { // nolint unused
 // setConfig - set configuration
 func (m *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MONGODB_URI", "mongodb://localhost:27017/shortlink") // MongoDB URI
-	viper.SetDefault("STORE_MODE_WRITE", storeOptions.MODE_SINGLE_WRITE)         // mode write to db
+	viper.SetDefault("STORE_MONGODB_URI", "mongodb://shortlink:password@localhost:27017/shortlink") // MongoDB URI
+	viper.SetDefault("STORE_MODE_WRITE", storeOptions.MODE_SINGLE_WRITE)                            // mode write to db
 
 	m.config = Config{
 		URI:  viper.GetString("STORE_MONGODB_URI"),
