@@ -1,6 +1,6 @@
 # istio-operator
 
-![Version: 1.10.0](https://img.shields.io/badge/Version-1.10.0-informational?style=flat-square)
+![Version: 1.11.1](https://img.shields.io/badge/Version-1.11.1-informational?style=flat-square)
 
 Helm chart for deploying Istio operator
 
@@ -21,7 +21,7 @@ Helm chart for deploying Istio operator
 | operator.resources.requests.memory | string | `"128Mi"` |  |
 | operatorNamespace | string | `"istio-operator"` |  |
 | revision | string | `""` |  |
-| tag | string | `"1.10.0"` |  |
+| tag | string | `"1.11.1"` |  |
 | waitForResourcesTimeout | string | `"300s"` |  |
 | watchedNamespaces | string | `"istio-system"` |  |
 

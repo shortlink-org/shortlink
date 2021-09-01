@@ -1,6 +1,6 @@
 # istio-discovery
 
-![Version: 1.10.0](https://img.shields.io/badge/Version-1.10.0-informational?style=flat-square)
+![Version: 1.11.1](https://img.shields.io/badge/Version-1.11.1-informational?style=flat-square)
 
 Helm chart for istio control plane
 
@@ -65,7 +65,7 @@ Helm chart for istio control plane
 | global.remotePilotAddress | string | `""` |  |
 | global.sds.token.aud | string | `"istio-ca"` |  |
 | global.sts.servicePort | int | `0` |  |
-| global.tag | string | `"1.10.0"` |  |
+| global.tag | string | `"1.11.1"` |  |
 | global.tracer.datadog.address | string | `"$(HOST_IP):8126"` |  |
 | global.tracer.lightstep.accessToken | string | `""` |  |
 | global.tracer.lightstep.address | string | `""` |  |
