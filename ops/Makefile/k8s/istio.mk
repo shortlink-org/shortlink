@@ -1,5 +1,5 @@
 # ISTIO TASKS ==========================================================================================================
-ISTIO_VERSION := 1.10.0
+ISTIO_VERSION := 1.11.1
 ISTIO_NAMESPACE := istio-system
 ISTIO_CHART_PATH := ops/Helm/addons/gateway/istio/charts
 
