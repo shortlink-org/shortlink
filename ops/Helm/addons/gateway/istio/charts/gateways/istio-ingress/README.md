@@ -1,6 +1,6 @@
 # istio-ingress
 
-![Version: 1.10.0](https://img.shields.io/badge/Version-1.10.0-informational?style=flat-square)
+![Version: 1.11.1](https://img.shields.io/badge/Version-1.11.1-informational?style=flat-square)
 
 Helm chart for deploying Istio gateways
 
@@ -98,7 +98,7 @@ Helm chart for deploying Istio gateways
 | global.proxy.logLevel | string | `"warning"` |  |
 | global.sds.token.aud | string | `"istio-ca"` |  |
 | global.sts.servicePort | int | `0` |  |
-| global.tag | string | `"1.10.0"` |  |
+| global.tag | string | `"1.11.1"` |  |
 | meshConfig.defaultConfig.proxyMetadata | object | `{}` |  |
 | meshConfig.defaultConfig.sampling | float | `100` |  |
 | meshConfig.defaultConfig.tracing.zipkin.address | string | `"zipkin.jaeger-operator:9411"` |  |
