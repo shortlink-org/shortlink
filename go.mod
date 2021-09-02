@@ -60,7 +60,7 @@ require (
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
-	go.mongodb.org/mongo-driver v1.7.1
+	go.mongodb.org/mongo-driver v1.7.2
 	go.uber.org/atomic v1.9.0
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.10
