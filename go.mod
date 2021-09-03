@@ -191,10 +191,8 @@ require (
 	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
 	github.com/twmb/murmur3 v1.1.5 // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
-	github.com/vmihailenco/bufpool v0.1.11 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.1 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.4 // indirect
-	github.com/vmihailenco/tagparser v0.1.2 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.0.2 // indirect
