@@ -42,7 +42,7 @@ require (
 	github.com/luna-duclos/instrumentedsql/opentracing v0.0.0-20201103091713-40d03108b6f4
 	github.com/markbates/pkger v0.17.1
 	github.com/mattn/go-sqlite3 v1.14.8
-	github.com/nats-io/nats.go v1.12.0
+	github.com/nats-io/nats.go v1.12.1
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
 	github.com/opentracing/opentracing-go v1.2.0
