@@ -1,16 +1,26 @@
 # MINIKUBE TASKS =======================================================================================================
 
 minikube-up: ## run minikube for dev mode
+	# for enable audit
+	@mkdir -p ~/.minikube/files/etc/ssl/certs
+	@cp ${PWD}/ops/Makefile/conf/audit-policy.yaml ~/.minikube/files/etc/ssl/certs/audit-policy.yaml
+
 	@minikube start \
+		--nodes 3 \
 		--cpus 4 \
-		--memory "16384" \
+		--memory "6192" \
 		--driver=docker \
+		--container-runtime=containerd \
 		--listen-address=0.0.0.0 \
+		--addons=pod-security-policy,ingress \
 		--extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \
 		--extra-config=apiserver.service-account-key-file=/var/lib/minikube/certs/sa.pub \
 		--extra-config=apiserver.service-account-issuer=api \
 		--extra-config=apiserver.service-account-api-audiences=api,spire-server \
 		--extra-config=apiserver.authorization-mode=Node,RBAC \
+		--extra-config=apiserver.enable-admission-plugins=PodSecurityPolicy \
+		--extra-config=apiserver.audit-policy-file=/etc/ssl/certs/audit-policy.yaml \
+		--extra-config=apiserver.audit-log-path=- \
 		--extra-config=kubelet.authentication-token-webhook=true
 
 	# Addons enable

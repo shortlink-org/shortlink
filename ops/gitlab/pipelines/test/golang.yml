@@ -20,7 +20,7 @@ gosec:
     - .job_teplate_go
   before_script:
     - apk add --no-cache curl make
-    - curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin v2.7.0
+    - curl -sfL https://raw.githubusercontent.com/securego/gosec/master/install.sh | sh -s -- -b $GOPATH/bin v2.8.1
   script:
     - gosec -exclude-dir=third_party ./...
   rules:
