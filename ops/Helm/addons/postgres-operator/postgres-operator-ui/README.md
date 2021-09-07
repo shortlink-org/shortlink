@@ -27,7 +27,7 @@ Postgres Operator UI provides a graphical interface for a convenient database-as
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.registry | string | `"registry.opensource.zalan.do"` |  |
 | image.repository | string | `"acid/postgres-operator-ui"` |  |
-| image.tag | string | `"v1.6.3"` |  |
+| image.tag | string | `"v1.7.0"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/app-root" | string | `"/"` |  |
