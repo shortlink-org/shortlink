@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: image-availability-exporter
+  namespace: kube-system
+spec:
+  podMetricsEndpoints:
+  - port: http-metrics
+    scheme: http
+    honorLabels: true
+    scrapeTimeout: 10s
+  selector:
+    matchLabels:
+      app: image-availability-exporter
+  namespaceSelector:
+    matchNames:
+    - kube-system
