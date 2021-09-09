@@ -4,9 +4,9 @@ import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 
-export function AuditContent() {
+export function Audit() {
   return (
-    <React.Fragment>
+    <Layout>
       <Ready />
 
       <ul className="p-4 lg:p-8 bg-coolGray-100 text-coolGray-800">
@@ -107,12 +107,8 @@ export function AuditContent() {
           </article>
         </li>
       </ul>
-    </React.Fragment>
+    </Layout>
   )
-}
-
-function Audit() {
-  return <Layout content={AuditContent()} />
 }
 
 export default withAuthSync(Audit)

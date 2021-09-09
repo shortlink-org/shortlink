@@ -9,11 +9,11 @@ import Personal from 'components/Profile/Personal'
 import Notifications from 'components/Profile/Notifications'
 import withAuthSync from 'components/Private'
 
-export function ProfileContent() {
+export function Profile() {
   const session = useSelector((state) => state.session)
 
   return (
-    <React.Fragment>
+    <Layout>
       <Welcome
         nickname={get(session, 'kratos.identity.traits.name.first', 'default')}
       />
@@ -35,8 +35,8 @@ export function ProfileContent() {
       </div>
 
       <Notifications />
-    </React.Fragment>
+    </Layout>
   )
 }
 
-export default withAuthSync(() => <Layout content={ProfileContent()} />)
+export default withAuthSync(() => Profile)

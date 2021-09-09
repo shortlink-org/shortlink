@@ -4,12 +4,12 @@ import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 
-export function ReportsContent() {
-  return <Ready />
-}
-
-function Reports() {
-  return <Layout content={ReportsContent()} />
+export function Reports() {
+  return (
+    <Layout>
+      <Ready />
+    </Layout>
+  )
 }
 
 export default withAuthSync(Reports)

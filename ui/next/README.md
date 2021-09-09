@@ -20,7 +20,7 @@ This UI for shortlink application
 $> npm i
 $> npm start
 $>
-$> Ready on http://localhost:3000
+$> Ready on http://localhost:3000/next/auth/login
 ```
 
 #### ENV

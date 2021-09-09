@@ -94,7 +94,7 @@ const columns = [
   },
 ]
 
-export function LinkTableContent() {
+export function LinkTable() {
   const state = useSelector((rootState) => rootState.link)
   const dispatch = useDispatch()
 
@@ -103,7 +103,7 @@ export function LinkTableContent() {
   }, [dispatch])
 
   return (
-    <React.Fragment>
+    <Layout>
       <Statistic />
 
       <MaterialTable
@@ -140,12 +140,8 @@ export function LinkTableContent() {
         }}
         title="Link Table"
       />
-    </React.Fragment>
+    </Layout>
   )
-}
-
-function LinkTable() {
-  return <Layout content={LinkTableContent()} />
 }
 
 export default withAuthSync(LinkTable)

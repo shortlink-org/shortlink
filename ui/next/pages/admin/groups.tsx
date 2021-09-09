@@ -63,7 +63,7 @@ const people = [
 
 export function GroupContent() {
   return (
-    <React.Fragment>
+    <Layout>
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-10 mx-auto">
           <div className="flex flex-wrap -m-4 text-center">
@@ -185,12 +185,8 @@ export function GroupContent() {
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </Layout>
   )
 }
 
-function Groups() {
-  return <Layout content={GroupContent()} />
-}
-
-export default withAuthSync(Groups)
+export default withAuthSync(GroupContent)

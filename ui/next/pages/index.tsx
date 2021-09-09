@@ -7,18 +7,14 @@ import Testimonials from 'components/Testimonials'
 
 import { Layout } from 'components'
 
-export function ProfileContent() {
+export default function ProfileContent() {
   return (
-    <React.Fragment>
+    <Layout>
       <Header />
       <Mobile />
       <Feature />
       <Testimonials />
       <Subscribe />
-    </React.Fragment>
+    </Layout>
   )
-}
-
-export default function Profile() {
-  return <Layout content={ProfileContent()} />
 }
