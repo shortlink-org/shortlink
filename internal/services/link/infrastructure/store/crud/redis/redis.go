@@ -2,10 +2,10 @@ package redis
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 
 	"github.com/go-redis/redis/v8"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
@@ -33,8 +33,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	var response v1.Link
-
-	if err = json.Unmarshal([]byte(val), &response); err != nil {
+	if err = protojson.Unmarshal([]byte(val), &response); err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
 
@@ -55,7 +54,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
-		if err = json.Unmarshal([]byte(val), &response); err != nil {
+		if err = protojson.Unmarshal([]byte(val), &response); err != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 		}
 
@@ -72,7 +71,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 		return nil, err
 	}
 
-	val, err := json.Marshal(source)
+	val, err := protojson.Marshal(source)
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
 	}

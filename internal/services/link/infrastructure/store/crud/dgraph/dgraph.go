@@ -7,6 +7,7 @@ import (
 
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -73,7 +74,6 @@ query all($a: string) {
 	}
 
 	var response DGraphLinkResponse
-
 	if err = json.Unmarshal(val.Json, &response); err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
 	}
@@ -129,7 +129,6 @@ query all {
 	}
 
 	var response DGraphLinkResponse
-
 	if err = json.Unmarshal(val.Json, &response); err != nil {
 		return nil, err
 	}
@@ -188,7 +187,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	item.Link.CreatedAt = nil
 	item.Link.UpdatedAt = nil
 
-	pb, err := json.Marshal(item)
+	pb, err := protojson.Marshal(item)
 	if err != nil {
 		return nil, err
 	}

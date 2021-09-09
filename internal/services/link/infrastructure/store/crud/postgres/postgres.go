@@ -4,7 +4,6 @@ package postgres
 import (
 	"context"
 	"database/sql"
-	"encoding/json"
 	"errors"
 	"fmt"
 
@@ -15,6 +14,7 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/batch"
 	"github.com/batazor/shortlink/internal/pkg/db"
@@ -204,7 +204,7 @@ func (p *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 	}
 
 	// save as JSON. it doesn't make sense
-	dataJson, err := json.Marshal(source)
+	dataJson, err := protojson.Marshal(source)
 	if err != nil {
 		return nil, err
 	}
@@ -246,7 +246,7 @@ func (p *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 	// query builder
 	for _, source := range sources {
 		// save as JSON. it doesn't make sense
-		dataJson, err := json.Marshal(source)
+		dataJson, err := protojson.Marshal(source)
 		if err != nil {
 			return nil, err
 		}

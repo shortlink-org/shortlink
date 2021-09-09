@@ -2,10 +2,10 @@ package leveldb
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 
 	"github.com/syndtr/goleveldb/leveldb"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
@@ -32,7 +32,7 @@ func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 		return nil, err
 	}
 
-	payload, err := json.Marshal(source)
+	payload, err := protojson.Marshal(source)
 	if err != nil {
 		return nil, err
 	}
@@ -53,8 +53,7 @@ func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	var response v1.Link
-
-	err = json.Unmarshal(value, &response)
+	err = protojson.Unmarshal(value, &response)
 	if err != nil {
 		return nil, err
 	}
@@ -79,8 +78,7 @@ func (l *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 		value := iterator.Value()
 
 		var response v1.Link
-
-		err := json.Unmarshal(value, &response)
+		err := protojson.Unmarshal(value, &response)
 		if err != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 		}

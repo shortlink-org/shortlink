@@ -47,19 +47,19 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 }
 
 func (s *Store) LinkAdd(ctx context.Context, data *link.Link) (*link.Link, error) {
-	return s.LinkAdd(ctx, data)
+	return s.store.LinkAdd(ctx, data)
 }
 
 func (s *Store) LinkUpdate(ctx context.Context, data *link.Link) (*link.Link, error) {
-	return s.LinkUpdate(ctx, data)
+	return s.store.LinkUpdate(ctx, data)
 }
 
 func (s *Store) LinkDelete(ctx context.Context, id string) error {
-	return s.LinkDelete(ctx, id)
+	return s.store.LinkDelete(ctx, id)
 }
 
 func (s *Store) MetadataUpdate(ctx context.Context, data *metadata.Meta) (*metadata.Meta, error) {
-	return s.MetadataUpdate(ctx, data)
+	return s.store.MetadataUpdate(ctx, data)
 }
 
 // setConfig - set configuration
