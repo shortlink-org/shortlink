@@ -37,8 +37,8 @@ function NewComponent() {
   )
 }
 
-const aboutPageContent = (
-  <React.Fragment>
+const About = (
+  <Layout>
     <NewComponent />
 
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -138,9 +138,7 @@ const aboutPageContent = (
         </dl>
       </div>
     </div>
-  </React.Fragment>
+  </Layout>
 )
 
-export default function About() {
-  return <Layout content={aboutPageContent} />
-}
+export default About

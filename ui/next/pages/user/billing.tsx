@@ -5,18 +5,14 @@ import PaymentMethod from 'components/Billing/PaymentMethod'
 import Discounted from 'components/Billing/Discounted'
 import withAuthSync from 'components/Private'
 
-export function BillingContent() {
+export function Billing() {
   return (
-    <React.Fragment>
+    <Layout>
       <Discounted />
 
       <PaymentMethod />
-    </React.Fragment>
+    </Layout>
   )
-}
-
-function Billing() {
-  return <Layout content={BillingContent()} />
 }
 
 export default withAuthSync(Billing)

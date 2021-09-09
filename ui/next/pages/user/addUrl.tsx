@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function AddUrlContent() {
+export function AddUrl() {
   const [open, setOpen] = useState(false)
   const classes = useStyles()
 
@@ -94,76 +94,74 @@ export function AddUrlContent() {
   }
 
   return (
-    <Grid
-      container
-      direction="column"
-      justify="space-around"
-      alignItems="center"
-      className={classes.root}
-    >
-      <Paper className={classes.paper}>
-        <form
-          autoComplete="off"
-          onSubmit={handleSubmit}
-          className={classes.form}
-        >
-          <TextField label="Your URL" name="url" onChange={handleChange} />
-          <TextField label="Describe" name="describe" onChange={handleChange} />
-          <Button variant="contained" color="primary" type="submit">
-            Add
-          </Button>
-        </form>
-      </Paper>
-
-      {response.type !== '' && response.type !== 'error' && (
-        <Paper elevation={3} className={classes.paper}>
-          <Typography variant="p" component="p">
-            Your link: &nbsp;
-            <Link
-              href={`/s/${response.hash}`}
-              target="_blank"
-              rel="noopener"
-              variant="body2"
-            >
-              {window.location.host}/s/{response.hash}
-            </Link>
-            <CopyToClipboard
-              text={`${window.location.host}/s/${response.hash}`}
-              onCopy={() => {
-                setResponse({
-                  type: 'success',
-                  message: 'Success copy your link.',
-                  hash: response.hash,
-                })
-              }}
-            >
-              <IconButton aria-label="copy" color="secondary">
-                <FileCopyIcon />
-              </IconButton>
-            </CopyToClipboard>
-          </Typography>
-        </Paper>
-      )}
-
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
+    <Layout>
+      <Grid
+        container
+        direction="column"
+        justify="space-around"
+        alignItems="center"
+        className={classes.root}
       >
-        <Alert onClose={handleClose} severity={response.type}>
-          {response.message}
-        </Alert>
-      </Snackbar>
-    </Grid>
-  )
-}
+        <Paper className={classes.paper}>
+          <form
+            autoComplete="off"
+            onSubmit={handleSubmit}
+            className={classes.form}
+          >
+            <TextField label="Your URL" name="url" onChange={handleChange} />
+            <TextField label="Describe" name="describe" onChange={handleChange} />
+            <Button variant="contained" color="primary" type="submit">
+              Add
+            </Button>
+          </form>
+        </Paper>
 
-function AddUrl() {
-  return <Layout content={AddUrlContent()} />
+        {response.type !== '' && response.type !== 'error' && (
+          <Paper elevation={3} className={classes.paper}>
+            <Typography variant="p" component="p">
+              Your link: &nbsp;
+              <Link
+                href={`/s/${response.hash}`}
+                target="_blank"
+                rel="noopener"
+                variant="body2"
+              >
+                {window.location.host}/s/{response.hash}
+              </Link>
+              <CopyToClipboard
+                text={`${window.location.host}/s/${response.hash}`}
+                onCopy={() => {
+                  setResponse({
+                    type: 'success',
+                    message: 'Success copy your link.',
+                    hash: response.hash,
+                  })
+                }}
+              >
+                <IconButton aria-label="copy" color="secondary">
+                  <FileCopyIcon />
+                </IconButton>
+              </CopyToClipboard>
+            </Typography>
+          </Paper>
+        )}
+
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          open={open}
+          autoHideDuration={6000}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity={response.type}>
+            {response.message}
+          </Alert>
+        </Snackbar>
+      </Grid>
+    </Layout>
+  )
 }
 
 export default withAuthSync(AddUrl)

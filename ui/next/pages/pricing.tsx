@@ -99,11 +99,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export function PricingContent() {
+export function Pricing() {
   const classes = useStyles()
 
   return (
-    <React.Fragment>
+    <Layout>
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography
           component="h1"
@@ -225,10 +225,8 @@ export function PricingContent() {
           ))}
         </Grid>
       </Container>
-    </React.Fragment>
+    </Layout>
   )
 }
 
-export default function Pricing() {
-  return <Layout content={PricingContent()} />
-}
+export default Pricing

@@ -56,7 +56,7 @@ const tableIcons: Icons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 }
 
-export function LinkTableContent() {
+export function LinkTable() {
   const state = useSelector((rootState) => rootState.link)
   const dispatch = useDispatch()
 
@@ -65,7 +65,7 @@ export function LinkTableContent() {
   }, [dispatch])
 
   return (
-    <div>
+    <Layout>
       <Statistic />
 
       <MaterialTable
@@ -145,12 +145,8 @@ export function LinkTableContent() {
         }}
         title="Link Table"
       />
-    </div>
+    </Layout>
   )
-}
-
-function LinkTable() {
-  return <Layout content={LinkTableContent()} />
 }
 
 export default withAuthSync(LinkTable)

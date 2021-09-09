@@ -1,5 +1,5 @@
 import React from 'react'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import theme from 'theme/theme'
 
@@ -27,7 +27,7 @@ export default class MyDocument extends Document {
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with server-side generation (SSG).
-MyDocument.getInitialProps = async (ctx) => {
+MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Resolution order
   //
   // On the server:
@@ -56,9 +56,13 @@ MyDocument.getInitialProps = async (ctx) => {
 
   ctx.renderPage = () =>
     originalRenderPage({
+      // useful for wrapping the whole react tree
       enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+      // useful for wrapping in a per-page basis
+      enhanceComponent: (Component) => Component,
     })
 
+  // Run the parent `getInitialProps`, it now includes the custom `renderPage`
   const initialProps = await Document.getInitialProps(ctx)
 
   return {

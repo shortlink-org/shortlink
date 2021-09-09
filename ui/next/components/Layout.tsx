@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 // @ts-ignore
-export function Layout(props) {
+export function Layout({ children }) {
   const classes = useStyles()
 
   return (
@@ -36,7 +36,7 @@ export function Layout(props) {
       <Header />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container>{props.content}</Container>
+        <Container>{children}</Container>
         <Box pt={4}>
           <Footer />
         </Box>
