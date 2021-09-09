@@ -1,8 +1,7 @@
 package gokit
 
 import (
-	"encoding/json"
-	"time"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )
@@ -22,27 +21,10 @@ type ResponseLink struct { // nolint unused
 }
 
 func (l ResponseLink) MarshalJSON() ([]byte, error) {
-	var createdAt time.Time
-	if l.CreatedAt != nil {
-		createdAt = l.CreatedAt.AsTime()
+	resp, err := protojson.Marshal(l.Link)
+	if err != nil {
+		return nil, err
 	}
 
-	var updatedAt time.Time
-	if l.CreatedAt != nil {
-		updatedAt = l.CreatedAt.AsTime()
-	}
-
-	return json.Marshal(&struct {
-		Url       string
-		Hash      string
-		Describe  string
-		CreatedAt time.Time
-		UpdatedAt time.Time
-	}{
-		Url:       l.Url,
-		Hash:      l.Hash,
-		Describe:  l.Describe,
-		CreatedAt: createdAt,
-		UpdatedAt: updatedAt,
-	})
+	return resp, nil
 }

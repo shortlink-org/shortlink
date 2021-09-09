@@ -2,10 +2,10 @@ package badger
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 
 	"github.com/dgraph-io/badger/v3"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
@@ -17,7 +17,7 @@ type Store struct { // nolint unused
 }
 
 // New store
-func New(ctx context.Context) (*Store, error) {
+func New(_ context.Context) (*Store, error) {
 	return &Store{}, nil
 }
 
@@ -55,7 +55,7 @@ func (b *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	var response v1.Link
 
-	err = json.Unmarshal(valCopy, &response)
+	err = protojson.Unmarshal(valCopy, &response)
 	if err != nil {
 		return nil, err
 	}
@@ -109,7 +109,7 @@ func (b *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 	}
 
 	for index, item := range list {
-		err = json.Unmarshal(item, &response.Link[index])
+		err = protojson.Unmarshal(item, response.Link[index])
 		if err != nil {
 			return nil, err
 		}
@@ -125,7 +125,7 @@ func (b *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 		return nil, err
 	}
 
-	payload, err := json.Marshal(source)
+	payload, err := protojson.Marshal(source)
 	if err != nil {
 		return nil, err
 	}
