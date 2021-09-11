@@ -30,9 +30,12 @@ do: ## Run for specific job
 		-f ops/docker-compose/tooling/grafana-tempo.yaml \
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
+		-f ops/docker-compose/mq/kafka.yaml \
 		-f ops/docker-compose/tooling/prometheus.yaml \
 		-f ops/docker-compose/database/redis.yaml \
 		-f ops/docker-compose/database/postgres.yaml \
+		-f ops/docker-compose/database/redis.yaml \
+		-f ops/docker-compose/database/elasticsearch.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
 		up -d --remove-orphans
 
