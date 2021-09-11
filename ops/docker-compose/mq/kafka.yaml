@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: confluentinc/cp-zookeeper:5.4.2
+    image: confluentinc/cp-zookeeper:5.4.5
     hostname: zookeeper
     container_name: zookeeper
     ports:
@@ -30,7 +30,7 @@ services:
     depends_on:
       - zookeeper
       - coredns
-    image: confluentinc/cp-kafka:5.4.0
+    image: confluentinc/cp-kafka:5.4.5
     restart: on-failure
     container_name: kafka_1
     ports:
