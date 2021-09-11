@@ -99,6 +99,9 @@ services:
       - PG_EXPORTER_AUTO_DISCOVER_DATABASES=true
 
   prometheus:
+    <<: *network
+    depends_on:
+      - coredns
     image: prom/prometheus:v2.29.1
     profiles:
       - prometheus
