@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.3
 
 # Install dependencies only when needed
-FROM node:16.8-alpine as deps
+FROM node:16.9-alpine as deps
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
@@ -13,7 +13,7 @@ COPY ./ui/next/package.json ./ui/next/package-lock.json ./
 RUN npm i
 
 # Rebuild the source code only when needed
-FROM node:16.8-alpine as builder
+FROM node:16.9-alpine as builder
 
 WORKDIR /app
 COPY ./ui/next /app/
