@@ -34,5 +34,3 @@ services:
       - prometheus
     volumes:
       - ./ops/docker-compose/database/postgres/postgres-server.json:/etc/prometheus/targets/postgres-server.json
-
-  # Start Postgres connector for kafka
