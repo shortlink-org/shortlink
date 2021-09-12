@@ -22,7 +22,7 @@ services:
     cap_add:
       - IPC_LOCK
     volumes:
-      - /data/shortlink/elasticsearch:/usr/share/elasticsearch/data
+      - /data/shortlink/store/elasticsearch:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300

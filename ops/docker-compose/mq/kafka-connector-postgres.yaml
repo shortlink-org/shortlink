@@ -1,0 +1,27 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  # Start Postgres connector for kafka
+  kafka-connector-postgres:
+    <<: *network
+    depends_on:
+      - coredns
+      - postgres
+      - kafka-connect
+    image: curlimages/curl:7.78.0
+    profiles:
+      - postgres
+    restart: on-failure
+    container_name: kafka-connector-postgres
+    command: "sh -c 'curl -i -X POST -H \"Accept:application/json\" -H \"Content-Type:application/json\" http://kafka-connect:8083/connectors/ -d @register-postgres.json'"
+    volumes:
+      - ./ops/docker-compose/mq/kafka/register-postgres.json:/register-postgres.json
+

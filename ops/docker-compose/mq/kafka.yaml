@@ -18,6 +18,8 @@ services:
     container_name: zookeeper
     ports:
       - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
     environment:
       # Support ENV - https://github.com/confluentinc/cp-docker-images/blob/5.4-preview/debian/zookeeper/include/etc/confluent/docker/zookeeper.properties.template
       ZOOKEEPER_CLIENT_PORT: 2181 # the port at which the clients will connect
@@ -25,7 +27,7 @@ services:
       ZOOKEEPER_INIT_LIMIT: 10    # the number of ticks that the initial synchronization phase can take
       ZOOKEEPER_SYNC_LIMIT: 5     # the number of ticks that can pass between sending a request and getting an acknowledgement
 
-  kafka-1: &kafka-1
+  kafka_1: &kafka_1
     <<: *network
     depends_on:
       - zookeeper
@@ -54,8 +56,8 @@ services:
   #      options:
   #        tag: kafka
 
-  kafka-2:
-    <<: *kafka-1
+  kafka_2:
+    <<: *kafka_1
     depends_on:
       - zookeeper
       - coredns
@@ -77,8 +79,8 @@ services:
     ports:
       - '9095:9095'
 
-  kafka-3:
-    <<: *kafka-1
+  kafka_3:
+    <<: *kafka_1
     depends_on:
       - zookeeper
       - coredns
@@ -101,12 +103,12 @@ services:
       - '9098:9098'
 
   kafka-client:
-    <<: *kafka-1
+    <<: *kafka_1
     depends_on:
       - coredns
-      - kafka-1
-      - kafka-2
-      - kafka-3
+      - kafka_1
+      - kafka_2
+      - kafka_3
     hostname: kafka-client
     container_name: kafka-client
     ports:
@@ -121,6 +123,26 @@ services:
                        cub kafka-ready -b kafka_1:9094 1 60 && \
                        kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1 --topic shortlink'"
 
+  kafka-connect:
+    <<: *network
+    image: debezium/connect:1.7
+    container_name: kafka-connect
+    ports:
+      - 8083:8083
+    depends_on:
+      - coredns
+      - kafka_1
+      - kafka_2
+      - kafka_3
+      - postgres
+    environment:
+      - REST_HOST_NAME=0.0.0.0
+      - BOOTSTRAP_SERVERS=kafka_1:9094,kafka_2:9097,kafka_3:9099
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=my_connect_configs
+      - OFFSET_STORAGE_TOPIC=my_connect_offsets
+      - STATUS_STORAGE_TOPIC=my_connect_statuses
+
 # TODO: How it work? ;-)
 #  schema-registry:
 #    <<: *network
@@ -129,11 +151,11 @@ services:
 #    container_name: schema-registry
 #    depends_on:
 #      - zookeeper
-#      - kafka-1
-#      - kafka-2
-#      - kafka-3
+#      - kafka_1
+#      - kafka_2
+#      - kafka_3
 #    ports:
 #      - "8081:8081"
 #    environment:
 #      SCHEMA_REGISTRY_HOST_NAME: schema-registry
-#      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka_1:9092,kafka_2:9095'
+#      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka_1:9092,kafka_2:9095,kafka_3:9098'
