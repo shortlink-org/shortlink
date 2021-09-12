@@ -1,0 +1,38 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  postgres-exporter:
+    <<: *network
+    depends_on:
+      - postgres
+      - coredns
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.10.0
+    profiles:
+      - prometheus
+    restart: on-failure
+    container_name: postgres-exporter
+    ports:
+      - 9187:9187
+    environment:
+      - DATA_SOURCE_NAME=postgresql://postgres:shortlink@postgres:5432/shortlink?sslmode=disable
+      - PG_EXPORTER_AUTO_DISCOVER_DATABASES=true
+
+  prometheus:
+    <<: *network
+    depends_on:
+      - coredns
+    image: prom/prometheus:v2.29.1
+    profiles:
+      - prometheus
+    volumes:
+      - ./ops/docker-compose/database/postgres/postgres-server.json:/etc/prometheus/targets/postgres-server.json
+
+  # Start Postgres connector for kafka
