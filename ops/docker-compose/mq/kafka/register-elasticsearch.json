@@ -1,0 +1,29 @@
+{
+    "name": "shortlink-connector-elasticsearch",
+    "config": {
+        "_comment": "-- standard converter stuff -- this can actually go in the worker config globally --",
+        "connector.class": "io.confluent.connect.elasticsearch.ElasticsearchSinkConnector",
+        "tasks.max": "1",
+
+        "_comment": "--- Elasticsearch-specific config ---",
+        "_comment": "Elasticsearch server address",
+        "connection.url": "http://elasticsearch:9200",
+
+        "transforms": "unwrap,key",
+        "transforms.unwrap.type": "io.debezium.transforms.UnwrapFromEnvelope",
+        "transforms.key.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+        "transforms.key.field": "id",
+
+        "_comment": "Elasticsearch mapping name. Gets created automatically if doesn't exist",
+        "type.name": "order",
+
+        "_comment": "Which topic to stream data from into Elasticsearch",
+        "topics": "shortlink_link_view",
+
+        "_comment": "If the Kafka message doesn't have a key (as is the case with JDBC source)  you need to specify key.ignore=true.",
+        "_comment": "If you don't, you'll get an error from the Connect task: 'ConnectException: Key is used as document id and can not be null.",
+        "key.ignore": "false",
+
+        "behavior.on.null.values": "delete"
+    }
+}
