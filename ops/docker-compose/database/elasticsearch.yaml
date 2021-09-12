@@ -10,8 +10,11 @@ services:
     restart: on-failure
     container_name: elasticsearch
     environment:
-      - xpack.security.enabled=false
-      - discovery.type=single-node
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      xpack.security.enabled: "false"
+      # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+      # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+      discovery.type: single-node
     ulimits:
       memlock:
         soft: -1
@@ -22,7 +25,13 @@ services:
     cap_add:
       - IPC_LOCK
     volumes:
-      - /data/shortlink/store/elasticsearch:/usr/share/elasticsearch/data
+      - type: bind
+        source: ./ops/docker-compose/database/elasticsearch/config.yaml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+        read_only: true
+#      - type: bind
+#        source: /data/shortlink/store/elasticsearch
+#        target: /usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300
