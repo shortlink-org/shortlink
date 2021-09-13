@@ -1,0 +1,27 @@
+{
+    "language": "en-GB",
+    "messages": [
+        {
+            "id": "Welcome!",
+            "message": "Welcome!",
+            "translation": "Welcome!",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "API run on port {Port}",
+            "message": "API run on port {Port}",
+            "translation": "API run on port {Port}",
+            "placeholders": [
+                {
+                    "id": "Port",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "config.Port"
+                }
+            ]
+        }
+    ]
+}

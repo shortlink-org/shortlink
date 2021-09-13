@@ -1,0 +1,20 @@
+{
+    "language": "fr-CH",
+    "messages": [
+        {
+            "id": "API run on port {Port}",
+            "message": "API run on port {Port}",
+            "translation": "API exécuter sur le port {Port}",
+            "placeholders": [
+                {
+                    "id": "Port",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "config.Port"
+                }
+            ]
+        }
+    ]
+}

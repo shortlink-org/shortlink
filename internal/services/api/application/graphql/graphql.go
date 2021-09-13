@@ -11,6 +11,7 @@ import (
 	"github.com/graph-gophers/graphql-go/relay"
 	"github.com/markbates/pkger"
 	"github.com/opentracing/opentracing-go"
+	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -76,6 +77,7 @@ func (api *API) GetHandler() *relay.Handler {
 // Run ...
 func (api *API) Run(
 	ctx context.Context,
+	i18n *message.Printer,
 	config api_type.Config,
 	log logger.Logger,
 	tracer *opentracing.Tracer,

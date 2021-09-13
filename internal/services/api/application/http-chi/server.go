@@ -11,8 +11,10 @@ import (
 	"github.com/go-chi/cors"
 	"github.com/go-chi/render"
 	"github.com/opentracing/opentracing-go"
+	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	_ "github.com/batazor/shortlink/internal/pkg/i18n"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	cqrs_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/cqrs"
 	link_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/link"
@@ -28,6 +30,7 @@ import (
 // Run HTTP-server
 func (api *API) Run(
 	ctx context.Context,
+	i18n *message.Printer,
 	config api_type.Config,
 	log logger.Logger,
 	tracer *opentracing.Tracer,
@@ -92,7 +95,7 @@ func (api *API) Run(
 	}
 
 	// start HTTP-server
-	log.Info(fmt.Sprintf("API run on port %d", config.Port))
+	log.Info(i18n.Sprintf("API run on port %d", config.Port))
 	err := srv.ListenAndServe()
 	return err
 }

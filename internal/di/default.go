@@ -13,6 +13,7 @@ import (
 	redisCache "github.com/go-redis/cache/v8"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
+	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
@@ -28,6 +29,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/traicing"
 	"github.com/batazor/shortlink/internal/pkg/cache"
 	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/batazor/shortlink/internal/pkg/i18n"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
@@ -36,9 +38,10 @@ import (
 // Service - heplers
 type Service struct {
 	// Common
-	Ctx context.Context
-	Cfg *config.Config
-	Log logger.Logger
+	Ctx  context.Context
+	Cfg  *config.Config
+	Log  logger.Logger
+	I18N *message.Printer
 
 	// Delivery
 	DB        *db.Store
@@ -55,7 +58,7 @@ type Service struct {
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, cache.New)
+var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, cache.New, i18n.New)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
@@ -75,6 +78,7 @@ func NewFullService(
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
+	i18n *message.Printer,
 
 	// Delivery
 	serverRPC *rpc.RPCServer,
@@ -91,18 +95,24 @@ func NewFullService(
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{
-		Ctx:           ctx,
-		Cfg:           cfg,
-		Log:           log,
-		MQ:            mq,
-		Cache:         cache,
+		// Common
+		Ctx:  ctx,
+		Cfg:  cfg,
+		Log:  log,
+		I18N: i18n,
+
+		// Delivery
+		MQ:        mq,
+		DB:        db,
+		Cache:     cache,
+		ClientRPC: clientRPC,
+		ServerRPC: serverRPC,
+
+		// Observability
 		Tracer:        tracer,
 		Monitoring:    monitoring,
 		Sentry:        sentryHandler,
-		DB:            db,
 		PprofEndpoint: pprofHTTP,
-		ClientRPC:     clientRPC,
-		ServerRPC:     serverRPC,
 	}, nil
 }
 

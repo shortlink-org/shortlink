@@ -1,0 +1,22 @@
+{
+    "language": "de-DE",
+    "messages": [
+        {
+            "id": "API run on port {Port}",
+            "message": "API run on port {Port}",
+            "translation": "API im Hafen laufen {Port}",
+            "translatorComment": "Copied from source.",
+            "placeholders": [
+                {
+                    "id": "Port",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "config.Port"
+                }
+            ],
+            "fuzzy": true
+        }
+    ]
+}
