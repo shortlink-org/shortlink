@@ -12,6 +12,7 @@ import (
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
 	"github.com/opentracing/opentracing-go"
+	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/notify"
@@ -159,6 +160,7 @@ func makeDeleteLinkEndpoint() endpoint.Endpoint {
 
 func (api API) Run(
 	ctx context.Context,
+	i18n *message.Printer,
 	config api_type.Config,
 	log logger.Logger,
 	tracer *opentracing.Tracer,

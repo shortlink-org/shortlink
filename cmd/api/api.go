@@ -13,6 +13,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/di"
+	_ "github.com/batazor/shortlink/internal/pkg/i18n"
 )
 
 func main() {

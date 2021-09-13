@@ -6,6 +6,7 @@ import (
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
+	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/services/api/application/cloudevents"
@@ -23,6 +24,7 @@ import (
 // runAPIServer - start HTTP-server
 func RunAPIServer(
 	ctx context.Context,
+	i18n *message.Printer,
 	log logger.Logger,
 	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
@@ -63,7 +65,7 @@ func RunAPIServer(
 		server = &http_chi.API{}
 	}
 
-	if err := server.Run(ctx, config, log, tracer, link_rpc, link_command, link_query, sitemap_rpc); err != nil {
+	if err := server.Run(ctx, i18n, config, log, tracer, link_rpc, link_command, link_query, sitemap_rpc); err != nil {
 		return nil, err
 	}
 

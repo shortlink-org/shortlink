@@ -8,6 +8,7 @@ import (
 	"context"
 
 	"github.com/opentracing/opentracing-go"
+	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
@@ -20,6 +21,7 @@ import (
 type API interface { // nolint unused
 	Run(
 		ctx context.Context,
+		i18n *message.Printer,
 		config api_type.Config,
 		log logger.Logger,
 		tracer *opentracing.Tracer,

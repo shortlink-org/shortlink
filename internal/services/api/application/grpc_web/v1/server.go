@@ -11,6 +11,7 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
+	"golang.org/x/text/message"
 	"google.golang.org/grpc/status"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -34,6 +35,7 @@ var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-ga
 // Run HTTP-server
 func (api *API) Run(
 	ctx context.Context,
+	i18n *message.Printer,
 	config api_type.Config,
 	log logger.Logger,
 	tracer *opentracing.Tracer,

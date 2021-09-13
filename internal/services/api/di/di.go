@@ -10,6 +10,7 @@ import (
 
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
+	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -70,6 +71,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataS
 
 func NewAPIApplication(
 	ctx context.Context,
+	i18n *message.Printer,
 	logger logger.Logger,
 	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
@@ -84,6 +86,7 @@ func NewAPIApplication(
 	// Run API server
 	apiService, err := api_application.RunAPIServer(
 		ctx,
+		i18n,
 		logger,
 		tracer,
 		rpcServer,
@@ -103,6 +106,7 @@ func NewAPIApplication(
 
 func NewAPIService(
 	log logger.Logger,
+	i18n *message.Printer,
 
 	service *api_application.API,
 ) (*APIService, error) {
@@ -113,6 +117,6 @@ func NewAPIService(
 	}, nil
 }
 
-func InitializeAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*APIService, func(), error) {
+func InitializeAPIService(ctx context.Context, i18n *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*APIService, func(), error) {
 	panic(wire.Build(APISet))
 }

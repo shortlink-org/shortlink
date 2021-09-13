@@ -12,6 +12,7 @@ import (
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
+	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
@@ -31,8 +32,8 @@ type ServiceAPI struct {
 }
 
 // InitAPIService =====================================================================================================
-func InitAPIService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*api_di.APIService, func(), error) {
-	return api_di.InitializeAPIService(ctx, runRPCClient, runRPCServer, log, tracer)
+func InitAPIService(ctx context.Context, i18n *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*api_di.APIService, func(), error) {
+	return api_di.InitializeAPIService(ctx, i18n, runRPCClient, runRPCServer, log, tracer)
 }
 
 // APIService ==========================================================================================================
@@ -51,6 +52,7 @@ func NewAPIService(
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
+	i18n *message.Printer,
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
 	tracer *opentracing.Tracer,
@@ -64,6 +66,7 @@ func NewAPIService(
 			Ctx:           ctx,
 			Log:           log,
 			Tracer:        tracer,
+			I18N:          i18n,
 			Monitoring:    monitoring,
 			Sentry:        sentryHandler,
 			PprofEndpoint: pprofHTTP,

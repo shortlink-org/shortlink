@@ -21,6 +21,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/traicing"
 	"github.com/batazor/shortlink/internal/pkg/cache"
 	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/batazor/shortlink/internal/pkg/i18n"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/services/api/di"
@@ -33,6 +34,7 @@ import (
 	cache2 "github.com/go-redis/cache/v8"
 	"github.com/google/wire"
 	"github.com/opentracing/opentracing-go"
+	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 	"net/http"
 )
@@ -54,6 +56,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	printer := i18n.New(context)
 	tracer, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
@@ -130,7 +133,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewFullService(context, configConfig, logger, rpcServer, clientConn, mq, dbStore, cacheCache, handler, serveMux, tracer, pprofEndpoint, autoMaxProAutoMaxPro)
+	service, err := NewFullService(context, configConfig, logger, printer, rpcServer, clientConn, mq, dbStore, cacheCache, handler, serveMux, tracer, pprofEndpoint, autoMaxProAutoMaxPro)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -173,6 +176,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	printer := i18n.New(context)
 	handler, cleanup3, err := sentry.New()
 	if err != nil {
 		cleanup2()
@@ -215,7 +219,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	apiService, cleanup8, err := InitAPIService(context, clientConn, rpcServer, logger, tracer)
+	apiService, cleanup8, err := InitAPIService(context, printer, clientConn, rpcServer, logger, tracer)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -226,7 +230,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serviceAPI, err := NewAPIService(context, configConfig, logger, handler, serveMux, tracer, pprofEndpoint, autoMaxProAutoMaxPro, clientConn, apiService)
+	serviceAPI, err := NewAPIService(context, configConfig, logger, printer, handler, serveMux, tracer, pprofEndpoint, autoMaxProAutoMaxPro, clientConn, apiService)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -768,9 +772,10 @@ func InitializeNotifyService() (*Service, func(), error) {
 // Service - heplers
 type Service struct {
 	// Common
-	Ctx context.Context
-	Cfg *config.Config
-	Log logger.Logger
+	Ctx  context.Context
+	Cfg  *config.Config
+	Log  logger.Logger
+	I18N *message.Printer
 
 	// Delivery
 	DB        *db.Store
@@ -787,7 +792,7 @@ type Service struct {
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, cache.New)
+var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, cache.New, i18n.New)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
@@ -798,7 +803,7 @@ var FullSet = wire.NewSet(
 func NewFullService(ctx2 context.Context,
 
 	cfg *config.Config,
-	log logger.Logger,
+	log logger.Logger, i18n2 *message.Printer,
 
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
@@ -810,18 +815,22 @@ func NewFullService(ctx2 context.Context,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{
-		Ctx:           ctx2,
-		Cfg:           cfg,
-		Log:           log,
-		MQ:            mq,
-		Cache:         cache3,
+
+		Ctx:  ctx2,
+		Cfg:  cfg,
+		Log:  log,
+		I18N: i18n2,
+
+		MQ:        mq,
+		DB:        db2,
+		Cache:     cache3,
+		ClientRPC: clientRPC,
+		ServerRPC: serverRPC,
+
 		Tracer:        tracer,
 		Monitoring:    monitoring2,
 		Sentry:        sentryHandler,
-		DB:            db2,
 		PprofEndpoint: pprofHTTP,
-		ClientRPC:     clientRPC,
-		ServerRPC:     serverRPC,
 	}, nil
 }
 
@@ -834,8 +843,8 @@ type ServiceAPI struct {
 }
 
 // InitAPIService =====================================================================================================
-func InitAPIService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*di.APIService, func(), error) {
-	return di.InitializeAPIService(ctx2, runRPCClient, runRPCServer, log, tracer)
+func InitAPIService(ctx2 context.Context, i18n2 *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*di.APIService, func(), error) {
+	return di.InitializeAPIService(ctx2, i18n2, runRPCClient, runRPCServer, log, tracer)
 }
 
 // APIService ==========================================================================================================
@@ -847,7 +856,7 @@ var APISet = wire.NewSet(
 func NewAPIService(ctx2 context.Context,
 
 	cfg *config.Config,
-	log logger.Logger,
+	log logger.Logger, i18n2 *message.Printer,
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
 	tracer *opentracing.Tracer,
 	pprofHTTP profiling.PprofEndpoint,
@@ -860,6 +869,7 @@ func NewAPIService(ctx2 context.Context,
 			Ctx:           ctx2,
 			Log:           log,
 			Tracer:        tracer,
+			I18N:          i18n2,
 			Monitoring:    monitoring2,
 			Sentry:        sentryHandler,
 			PprofEndpoint: pprofHTTP,

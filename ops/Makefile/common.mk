@@ -20,6 +20,9 @@ dep: ## Install dependencies for this project
 	# install wire
 	@go install github.com/google/wire/cmd/wire@latest
 
+	#i18n
+	@go install golang.org/x/text/cmd/gotext@latest
+
 export CURRENT_UID=$(id -u):$(id -g)
 
 do: ## Run for specific job
