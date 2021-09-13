@@ -14,10 +14,10 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 6.16.4 |
+| https://grafana.github.io/helm-charts | grafana | 6.16.6 |
 | https://grafana.github.io/helm-charts | loki | 2.6.0 |
 | https://grafana.github.io/helm-charts | promtail | 3.8.1 |
-| https://grafana.github.io/helm-charts | tempo | 0.7.6 |
+| https://grafana.github.io/helm-charts | tempo | 0.7.7 |
 
 ## Values
 

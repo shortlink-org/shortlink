@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://jaegertracing.github.io/helm-charts | jaeger-operator | 2.23.0 |
+| https://jaegertracing.github.io/helm-charts | jaeger-operator | 2.24.0 |
 
 ## Values
 
