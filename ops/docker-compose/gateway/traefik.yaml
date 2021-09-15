@@ -1,8 +1,16 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
 
   traefik:
+    <<: *network
     depends_on:
       - coredns
     # The official v2.0 Traefik docker image
@@ -17,11 +25,6 @@ services:
       - "443:443"
       # The Web UI (enabled by --api.insecure=true)
       - "8060:8080"
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     volumes:
@@ -37,6 +40,9 @@ services:
         max-size: ${LOGGER_MAX_SIZE}
 
   prometheus:
+    <<: *network
+    depends_on:
+      - coredns
     image: prom/prometheus:v2.29.1
     profiles:
       - prometheus

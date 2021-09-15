@@ -1,8 +1,16 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
 
   prometheus:
+    <<: *network
     depends_on:
       - coredns
     image: prom/prometheus:v2.29.2
@@ -15,11 +23,6 @@ services:
       - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
       - 9093:9090
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
     volumes:
       - ./ops/docker-compose/tooling/prometheus/:/etc/prometheus/
     logging:
