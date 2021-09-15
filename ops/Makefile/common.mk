@@ -34,6 +34,7 @@ do: ## Run for specific job
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
 		-f ops/docker-compose/mq/kafka.yaml \
+		-f ops/docker-compose/mq/kafka-connect.yaml \
 		-f ops/docker-compose/mq/kafka-connector-postgres.yaml \
 		-f ops/docker-compose/mq/kafka-connector-elasticsearch.yaml \
 		-f ops/docker-compose/tooling/prometheus.yaml \

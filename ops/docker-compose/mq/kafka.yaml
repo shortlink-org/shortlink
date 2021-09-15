@@ -123,45 +123,7 @@ services:
                        cub kafka-ready -b kafka_1:9094 1 60 && \
                        kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1 --topic shortlink'"
 
-  kafka-connect:
-    <<: *network
-    image: debezium/connect:1.7
-    container_name: kafka-connect
-    ports:
-      - 8083:8083
-    depends_on:
-      - coredns
-      - kafka_1
-      - kafka_2
-      - kafka_3
-      - postgres
-    environment:
-      - REST_HOST_NAME=0.0.0.0
-      - BOOTSTRAP_SERVERS=kafka_1:9094,kafka_2:9097,kafka_3:9099
-      - GROUP_ID=1
-      - CONFIG_STORAGE_TOPIC=my_connect_configs
-      - OFFSET_STORAGE_TOPIC=my_connect_offsets
-      - STATUS_STORAGE_TOPIC=my_connect_statuses
-    volumes:
-      - type: bind
-        source: ./ops/docker-compose/mq/kafka/connectors/confluentinc-kafka-connect-elasticsearch-11.1.1/lib
-        target: /etc/config/kratos
 
-  kafka-connect-ui:
-    <<: *network
-    image: debezium/debezium-ui:1.7
-    container_name: kafka-connect-ui
-    ports:
-      - 8088:8080
-    depends_on:
-      - coredns
-      - kafka_1
-      - kafka_2
-      - kafka_3
-      - postgres
-      - kafka-connect
-    environment:
-      KAFKA_CONNECT_URI: http://kafka-connect:8083
 
 # TODO: How it work? ;-)
 #  schema-registry:

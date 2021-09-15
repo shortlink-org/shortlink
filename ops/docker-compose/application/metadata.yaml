@@ -35,5 +35,11 @@ services:
         max-size: ${LOGGER_MAX_SIZE}
 
   prometheus:
+    <<: *network
+    depends_on:
+      - coredns
+    image: prom/prometheus:v2.29.1
+    profiles:
+      - prometheus
     volumes:
       - ./ops/docker-compose/application/metadata/metadata-server.json:/etc/prometheus/targets/metadata-server.json
