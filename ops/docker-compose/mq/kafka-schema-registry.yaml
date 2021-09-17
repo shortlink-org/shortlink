@@ -3,17 +3,17 @@ version: '2.4'
 x-network: &network
   networks:
     - simple
-  dns:
-    - ${DNS_IP}
-  dns_search: ${DNS_SEARCH}
+#  dns:
+#    - ${DNS_IP}
+#  dns_search: ${DNS_SEARCH}
 
 services:
 
-  schema-registry:
+  schema_registry:
     <<: *network
     image: confluentinc/cp-schema-registry:6.0.4
-    hostname: schema-registry
-    container_name: schema-registry
+    hostname: schema_registry
+    container_name: schema_registry
     depends_on:
       - zookeeper
       - kafka_1
@@ -23,7 +23,7 @@ services:
       - "8085:8085"
     environment:
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka_1:9094,PLAINTEXT://kafka_1:9097,PLAINTEXT://kafka_1:9099'
-      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_HOST_NAME: schema_registry
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN: "*"
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS: "GET,POST,PUT,OPTIONS"
