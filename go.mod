@@ -20,7 +20,7 @@ require (
 	github.com/go-redis/cache/v8 v8.4.2
 	github.com/go-redis/redis/v8 v8.11.3
 	github.com/go-sql-driver/mysql v1.6.0
-	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.0-rc1
+	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.0.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.14.2-0.20201125065321-a53e6fc42574
 	github.com/golang/glog v1.0.0
@@ -41,7 +41,7 @@ require (
 	github.com/luna-duclos/instrumentedsql v1.1.3
 	github.com/luna-duclos/instrumentedsql/opentracing v0.0.0-20201103091713-40d03108b6f4
 	github.com/markbates/pkger v0.17.1
-	github.com/mattn/go-sqlite3 v1.14.6
+	github.com/mattn/go-sqlite3/v2 v2.0.6
 	github.com/nats-io/nats.go v1.12.1
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
@@ -56,7 +56,7 @@ require (
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.8.1
-	github.com/srikrsna/protoc-gen-gotag v0.6.1
+	github.com/srikrsna/protoc-gen-gotag v0.6.2
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.0
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
@@ -65,15 +65,15 @@ require (
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.11
 	go.uber.org/zap v1.19.1
-	golang.org/x/net v0.0.0-20210913180222-943fd674d43e
+	golang.org/x/net 12bc252f5db8
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
-	google.golang.org/api v0.56.0
-	google.golang.org/genproto v0.0.0-20210909211513-a8c4777a87af
+	google.golang.org/api v0.57.0
+	google.golang.org/genproto 86cf1236ec46
 	google.golang.org/grpc v1.40.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
-	k8s.io/kubernetes v1.22.1
+	k8s.io/kubernetes v1.22.2
 	k8s.io/mount-utils v0.22.1
 	k8s.io/utils v0.0.0-20210820185131-d34e5cb4466e
 )
