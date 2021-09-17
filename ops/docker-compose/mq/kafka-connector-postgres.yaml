@@ -15,13 +15,13 @@ services:
     depends_on:
       - coredns
       - postgres
-      - kafka-connect
+      - kafka-connect-debezium
     image: curlimages/curl:7.78.0
     profiles:
       - postgres
     restart: on-failure
     container_name: kafka-connector-postgres
-    command: "sh -c 'curl -i -X POST -H \"Accept:application/json\" -H \"Content-Type:application/json\" http://kafka-connect:8083/connectors/ -d @register-postgres.json'"
+    command: "sh -c 'curl -i -X POST -H \"Accept:application/json\" -H \"Content-Type:application/json\" http://kafka-connect-debezium:8083/connectors/ -d @register-postgres.json'"
     volumes:
       - ./ops/docker-compose/mq/kafka/register-postgres.json:/register-postgres.json
 

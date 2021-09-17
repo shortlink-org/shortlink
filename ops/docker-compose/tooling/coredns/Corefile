@@ -30,7 +30,10 @@
   # nsid adds an identifier of this server to each reply.
   nsid Use The Force and shortlink ;-)
 
-  forward . 8.8.8.8
+  forward . 8.8.8.8 8.8.4.4 {
+    tls_servername dns.google
+  }
+
   # alternate NXDOMAIN . 192.168.1.1:53
   cache 3600
 
