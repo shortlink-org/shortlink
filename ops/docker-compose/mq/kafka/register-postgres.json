@@ -10,7 +10,9 @@
         "database.password": "shortlink",
         "database.dbname" : "shortlink",
         "database.server.name": "shortlink",
-        "table.include.list": "shortlink.link_view",
-        "schema.include": "shortlink"
+        "slot.drop.on.stop": false,
+        "heartbeat.interval.ms": "5000",
+        "schema.include.list": "shortlink",
+        "table.include.list": "shortlink.link_view"
     }
 }

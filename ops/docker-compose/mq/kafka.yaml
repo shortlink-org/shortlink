@@ -17,9 +17,9 @@ services:
     hostname: zookeeper
     container_name: zookeeper
     ports:
-      - "2181:2181"
-      - "2888:2888"
-      - "3888:3888"
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
     environment:
       # Support ENV - https://github.com/confluentinc/cp-docker-images/blob/5.4-preview/debian/zookeeper/include/etc/confluent/docker/zookeeper.properties.template
       ZOOKEEPER_CLIENT_PORT: 2181 # the port at which the clients will connect
@@ -58,9 +58,6 @@ services:
 
   kafka_2:
     <<: *kafka_1
-    depends_on:
-      - zookeeper
-      - coredns
     container_name: kafka_2
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -81,9 +78,6 @@ services:
 
   kafka_3:
     <<: *kafka_1
-    depends_on:
-      - zookeeper
-      - coredns
     container_name: kafka_3
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -123,21 +117,3 @@ services:
                        cub kafka-ready -b kafka_1:9094 1 60 && \
                        kafka-topics --create --if-not-exists --zookeeper zookeeper:2181 --partitions 1 --replication-factor 1 --topic shortlink'"
 
-
-
-# TODO: How it work? ;-)
-#  schema-registry:
-#    <<: *network
-#    image: confluentinc/cp-schema-registry:5.4.0
-#    hostname: schema-registry
-#    container_name: schema-registry
-#    depends_on:
-#      - zookeeper
-#      - kafka_1
-#      - kafka_2
-#      - kafka_3
-#    ports:
-#      - "8081:8081"
-#    environment:
-#      SCHEMA_REGISTRY_HOST_NAME: schema-registry
-#      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: 'PLAINTEXT://kafka_1:9092,kafka_2:9095,kafka_3:9098'

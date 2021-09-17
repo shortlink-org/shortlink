@@ -26,7 +26,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: shortlink
       POSTGRES_DB: shortlink
-      PGOPTIONS: "--search_path=inventory"
+      PGOPTIONS: "--search_path=shortlink"
     networks:
       simple:
         ipv4_address: ${DATABASE_IP}

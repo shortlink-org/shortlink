@@ -3,18 +3,61 @@ version: '2.4'
 x-network: &network
   networks:
     - simple
-  dns:
-    - ${DNS_IP}
-  dns_search: ${DNS_SEARCH}
+#  dns:
+#    - ${DNS_IP}
+#  dns_search: ${DNS_SEARCH}
 
 services:
 
   kafka-connect:
     <<: *network
-    image: debezium/connect:1.7
+    image: confluentinc/cp-kafka-connect:6.0.4
     container_name: kafka-connect
+    depends_on:
+      - coredns
+      - kafka_1
+      - kafka_2
+      - kafka_3
+      - schema-registry
     ports:
       - 8083:8083
+    environment:
+      CONNECT_BOOTSTRAP_SERVERS: kafka_1:9094,kafka_2:9097,kafka_3:9099
+      CONNECT_REST_ADVERTISED_HOST_NAME: kafka-connect
+      CONNECT_GROUP_ID: connect-group
+      CONNECT_CONFIG_STORAGE_TOPIC: docker-connect-configs
+      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_OFFSET_STORAGE_TOPIC: docker-connect-offsets
+      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
+      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+      CONNECT_KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: http://schema_registry:8081
+      CONNECT_VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema_registry:8081
+      CONNECT_INTERNAL_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_INTERNAL_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_ZOOKEEPER_CONNECT: zookeeper:2181
+    command:
+      - bash
+      - -c
+      - |
+        echo "Installing Connector"
+        confluent-hub install --no-prompt confluentinc/kafka-connect-elasticsearch:11.1.2
+        #
+        echo "Launching Kafka Connect worker"
+        /etc/confluent/docker/run &
+        #
+        sleep infinity
+    extra_hosts:
+      - "api.hub.confluent.io:54.153.90.103"
+
+  kafka-connect-debezium:
+    <<: *network
+    image: debezium/connect:1.7
+    container_name: kafka-connect-debezium
+    ports:
+      - 8084:8083
     depends_on:
       - coredns
       - kafka_1
@@ -22,17 +65,17 @@ services:
       - kafka_3
       - postgres
     environment:
-      - REST_HOST_NAME=0.0.0.0
-      - BOOTSTRAP_SERVERS=kafka_1:9094,kafka_2:9097,kafka_3:9099
-      - GROUP_ID=1
-      - CONFIG_STORAGE_TOPIC=my_connect_configs
-      - OFFSET_STORAGE_TOPIC=my_connect_offsets
-      - STATUS_STORAGE_TOPIC=my_connect_statuses
+      REST_HOST_NAME: 0.0.0.0
+      BOOTSTRAP_SERVERS: kafka_1:9094,kafka_2:9097,kafka_3:9099
+      GROUP_ID: 2
+      CONFIG_STORAGE_TOPIC: my_connect_configs
+      OFFSET_STORAGE_TOPIC: my_connect_offsets
+      STATUS_STORAGE_TOPIC: my_connect_statuses
 
-  kafka-connect-ui:
+  kafka-connect-debezium-ui:
     <<: *network
     image: debezium/debezium-ui:1.7
-    container_name: kafka-connect-ui
+    container_name: kafka-connect-debezium-ui
     ports:
       - 8088:8080
     depends_on:
@@ -43,4 +86,4 @@ services:
       - postgres
       - kafka-connect
     environment:
-      KAFKA_CONNECT_URI: http://kafka-connect:8083
+      KAFKA_CONNECT_URI: http://kafka-connect-debezium:8083

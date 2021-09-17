@@ -28,20 +28,16 @@ export CURRENT_UID=$(id -u):$(id -g)
 do: ## Run for specific job
 	@COMPOSE_PROFILES=dns,gateway,opentracing,postgres,prometheus docker-compose \
 		-f docker-compose.yaml \
-		-f ops/docker-compose/tooling/coredns.yaml \
-		-f ops/docker-compose/tooling/grafana.yaml \
-		-f ops/docker-compose/tooling/grafana-tempo.yaml \
-		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
 		-f ops/docker-compose/mq/kafka.yaml \
+		-f ops/docker-compose/mq/kafka-schema-registry.yaml \
 		-f ops/docker-compose/mq/kafka-connect.yaml \
 		-f ops/docker-compose/mq/kafka-connector-postgres.yaml \
 		-f ops/docker-compose/mq/kafka-connector-elasticsearch.yaml \
-		-f ops/docker-compose/tooling/prometheus.yaml \
-		-f ops/docker-compose/database/redis.yaml \
-		-f ops/docker-compose/database/postgres.yaml \
 		-f ops/docker-compose/database/elasticsearch.yaml \
-		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/database/postgres.yaml \
+		-f ops/docker-compose/database/redis.yaml \
+		-f ops/docker-compose/tooling/coredns.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose
@@ -83,6 +79,13 @@ down: ## Down docker-compose
 		-f ops/docker-compose/database/mongo.yaml \
 		-f ops/docker-compose/database/redis.yaml \
 		-f ops/docker-compose/database/patroni.yaml \
+		-f ops/docker-compose/database/postgres.yaml \
+		-f ops/docker-compose/database/elasticsearch.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
+		-f ops/docker-compose/mq/kafka.yaml \
+		-f ops/docker-compose/mq/kafka-schema-registry.yaml \
+		-f ops/docker-compose/mq/kafka-connect.yaml \
+		-f ops/docker-compose/mq/kafka-connector-postgres.yaml \
+		-f ops/docker-compose/mq/kafka-connector-elasticsearch.yaml \
 	down --remove-orphans
 	@docker network prune -f
