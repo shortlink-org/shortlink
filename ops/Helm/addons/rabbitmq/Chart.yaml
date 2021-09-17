@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: rabbitmq
-    version: 8.22.1
+    version: 8.22.2
     repository: https://charts.bitnami.com/bitnami
     condition: rabbitmq.enabled
     tags:
