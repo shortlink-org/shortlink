@@ -18,6 +18,13 @@
         "_comment": "If the Kafka message doesn't have a key (as is the case with JDBC source)  you need to specify key.ignore=true.",
         "_comment": "If you don't, you'll get an error from the Connect task: 'ConnectException: Key is used as document id and can not be null.",
         "key.ignore": "false",
+        "schema.ignore": "true",
+
+        "transforms": "unwrap,key",
+        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+        "transforms.unwrap.drop.tombstones": "false",
+        "transforms.key.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
+        "transforms.key.field": "id",
 
         "behavior.on.null.values": "delete"
     }
