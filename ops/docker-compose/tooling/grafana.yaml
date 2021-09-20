@@ -26,8 +26,8 @@ services:
     dns_search: ${DNS_SEARCH}
     volumes:
       - ./ops/docker-compose/tooling/grafana/provisioning:/etc/grafana/provisioning/
-    logging:
-      driver: ${LOGGER_DRIVER}
-      options:
-        loki-url: ${LOGGER_DRIVER_URL}
-        max-size: ${LOGGER_MAX_SIZE}
+#    logging:
+#      driver: ${LOGGER_DRIVER}
+#      options:
+#        loki-url: ${LOGGER_DRIVER_URL}
+#        max-size: ${LOGGER_MAX_SIZE}
