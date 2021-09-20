@@ -1291,6 +1291,59 @@
 											"body": "{}"
 										},
 										{
+											"name": "williamspublishing",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"url\": \"http://www.williamspublishing.com/sitemap.xml\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{API_GATEWAY.HTTP_API}}/api/sitemap",
+													"host": [
+														"{{API_GATEWAY.HTTP_API}}"
+													],
+													"path": [
+														"api",
+														"sitemap"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Span-Id",
+													"value": "006bca2f288d2b21"
+												},
+												{
+													"key": "Vary",
+													"value": "Origin"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 11 Sep 2021 02:29:04 GMT"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
 											"name": "habr tags",
 											"originalRequest": {
 												"method": "POST",
@@ -1335,6 +1388,165 @@
 												{
 													"key": "Date",
 													"value": "Fri, 13 Aug 2021 20:24:46 GMT"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "Piter",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"url\": \"https://www.piter.com/sitemap.xml\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{API_GATEWAY.HTTP_API}}/api/sitemap",
+													"host": [
+														"{{API_GATEWAY.HTTP_API}}"
+													],
+													"path": [
+														"api",
+														"sitemap"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Span-Id",
+													"value": "14bd53359d6ec625"
+												},
+												{
+													"key": "Vary",
+													"value": "Origin"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 11 Sep 2021 02:34:30 GMT"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "mann-ivanov-ferber [books]",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"url\": \"https://www.mann-ivanov-ferber.ru/sitemap/books.xml\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{API_GATEWAY.HTTP_API}}/api/sitemap",
+													"host": [
+														"{{API_GATEWAY.HTTP_API}}"
+													],
+													"path": [
+														"api",
+														"sitemap"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Span-Id",
+													"value": "045b2376c18e3f70"
+												},
+												{
+													"key": "Vary",
+													"value": "Origin"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 11 Sep 2021 02:31:19 GMT"
+												},
+												{
+													"key": "Content-Length",
+													"value": "2"
+												}
+											],
+											"cookie": [],
+											"body": "{}"
+										},
+										{
+											"name": "mann-ivanov-ferber [author]",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"url\": \"https://www.mann-ivanov-ferber.ru/sitemap/authors.xml\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{API_GATEWAY.HTTP_API}}/api/sitemap",
+													"host": [
+														"{{API_GATEWAY.HTTP_API}}"
+													],
+													"path": [
+														"api",
+														"sitemap"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												},
+												{
+													"key": "Span-Id",
+													"value": "2854f21c7c6a3487"
+												},
+												{
+													"key": "Vary",
+													"value": "Origin"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 11 Sep 2021 02:32:47 GMT"
 												},
 												{
 													"key": "Content-Length",
@@ -1672,6 +1884,35 @@
 									"path": [
 										"api",
 										"query"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Internal Services",
+			"item": [
+				{
+					"name": "ElasticSearch",
+					"item": [
+						{
+							"name": "Get all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:9200/shortlink.shortlink.link_view/_search",
+									"host": [
+										"localhost"
+									],
+									"port": "9200",
+									"path": [
+										"shortlink.shortlink.link_view",
+										"_search"
 									]
 								}
 							},
