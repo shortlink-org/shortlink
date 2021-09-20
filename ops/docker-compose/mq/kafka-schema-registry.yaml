@@ -15,6 +15,7 @@ services:
     hostname: schema_registry
     container_name: schema_registry
     depends_on:
+      - coredns
       - zookeeper
       - kafka_1
       - kafka_2

@@ -20,11 +20,19 @@
         "key.ignore": "false",
         "schema.ignore": "true",
 
-        "transforms": "unwrap,key",
+        "transforms": "unwrap,key,InsertTimestamp,ConvertTimestamp",
         "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
         "transforms.unwrap.drop.tombstones": "false",
         "transforms.key.type": "org.apache.kafka.connect.transforms.ExtractField$Key",
         "transforms.key.field": "id",
+
+        "transforms.InsertTimestamp.type": "org.apache.kafka.connect.transforms.InsertField$Value",
+        "transforms.InsertTimestamp.timestamp.field": "@timestamp",
+
+        "transforms.ConvertTimestamp.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
+        "transforms.ConvertTimestamp.field": "@timestamp",
+        "transforms.ConvertTimestamp.format": "yyyy-MM-dd'T'HH:mm:ss'Z'",
+        "transforms.ConvertTimestamp.target.type": "string",
 
         "behavior.on.null.values": "delete"
     }

@@ -51,3 +51,14 @@ datasources:
       postgresVersion: 1200
       sslmode: disable
       tlsSkipVerify: true
+
+  - name: Elasticsearch
+    type: elasticsearch
+    access: proxy
+    url: http://elasticsearch:9200/
+    database: shortlink.shortlink.link_view
+    jsonData:
+      timeField: "@timestamp"
+      esVersion: "7.10.0"
+
+

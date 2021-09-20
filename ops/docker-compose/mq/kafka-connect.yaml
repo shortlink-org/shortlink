@@ -13,6 +13,7 @@ services:
     <<: *network
     image: confluentinc/cp-kafka-connect:6.0.4
     container_name: kafka-connect
+    restart: always
     depends_on:
       - coredns
       - kafka_1
@@ -57,6 +58,7 @@ services:
     <<: *network
     image: debezium/connect:1.7
     container_name: kafka-connect-debezium
+    restart: always
     ports:
       - 8084:8083
     depends_on:

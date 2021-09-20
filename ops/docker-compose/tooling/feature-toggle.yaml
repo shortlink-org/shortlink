@@ -20,6 +20,7 @@ services:
 
   unleash:
     depends_on:
+      - coredns
       - db
     image: unleashorg/unleash-server
     container_name: unleash
