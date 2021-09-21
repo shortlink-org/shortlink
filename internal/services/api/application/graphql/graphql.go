@@ -29,9 +29,12 @@ var (
 )
 
 // API ...
-type API struct { // nolint unused
+type API struct {
 	store db.DB
 	ctx   context.Context
+
+	// delivery
+	linkServiceClient link_rpc.LinkServiceClient
 }
 
 // GetHandler ...
@@ -71,7 +74,10 @@ func (api *API) GetHandler() *relay.Handler {
 		fmt.Println(err)
 	}
 
-	s := graphql.MustParseSchema(buf.String(), &resolver.Resolver{Store: api.store})
+	s := graphql.MustParseSchema(buf.String(), &resolver.Resolver{
+		Store:             api.store,
+		LinkServiceClient: api.linkServiceClient,
+	})
 	handler := relay.Handler{Schema: s}
 
 	return &handler
@@ -92,6 +98,7 @@ func (api *API) Run(
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
 ) error { // nolint unparam
 	api.ctx = ctx
+	api.linkServiceClient = link_rpc
 
 	log.Info("Run GraphQL API")
 
