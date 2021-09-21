@@ -2,10 +2,9 @@ package resolver
 
 import (
 	"context"
-	"fmt"
 
-	"github.com/batazor/shortlink/internal/pkg/notify"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
 
 // CreateLink ...
@@ -20,64 +19,48 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unuse
 		Describe: *args.Describe,
 	}
 
-	responseCh := make(chan interface{})
-
-	go notify.Publish(ctx, v1.METHOD_ADD, newLink, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
-
-	c := <-responseCh
-	switch r := c.(type) {
-	case nil:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
-		return &LinkResolver{
-			Link: nil,
-		}, err
-	case notify.Response:
-		err := r.Error
-		if err != nil {
-			return nil, err
-		}
-		response := r.Payload.(*v1.Link) // nolint errcheck
-		return &LinkResolver{
-			Link: response,
-		}, err
-	default:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
-		return &LinkResolver{
-			Link: nil,
-		}, err
+	// Save link
+	response, err := r.LinkServiceClient.Add(ctx, &link_rpc.AddRequest{Link: newLink})
+	if err != nil {
+		return nil, err
 	}
+
+	return &LinkResolver{
+		Link: response.Link,
+	}, err
 }
 
 // UpdateLink ...
-func (*Resolver) UpdateLink(ctx context.Context, args *struct { //nolint unused
+func (r *Resolver) UpdateLink(ctx context.Context, args *struct { //nolint unused
 	URL      *string
 	Hash     *string
 	Describe *string
 }) (*bool, error) {
-	return nil, nil
+	updateLink := &v1.Link{
+		Url:      *args.URL,
+		Hash:     *args.Hash,
+		Describe: *args.Describe,
+	}
+
+	// Update link
+	_, err := r.LinkServiceClient.Update(ctx, &link_rpc.UpdateRequest{Link: updateLink})
+	if err != nil {
+		return nil, err
+	}
+
+	response := true
+
+	return &response, err
 }
 
 // DeleteLink ...
 func (r *Resolver) DeleteLink(ctx context.Context, args *struct { //nolint unused
 	Hash *string
 }) (bool, error) {
-	responseCh := make(chan interface{})
-
-	go notify.Publish(ctx, v1.METHOD_DELETE, *args.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
-
-	c := <-responseCh
-	switch r := c.(type) {
-	case nil:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
-		return false, err
-	case notify.Response:
-		err := r.Error
-		if err != nil {
-			return false, err
-		}
-		return true, nil
-	default:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
+	_, err := r.LinkServiceClient.Delete(ctx, &link_rpc.DeleteRequest{Hash: *args.Hash})
+	if err != nil {
 		return false, err
 	}
+
+	return true, nil
 }
