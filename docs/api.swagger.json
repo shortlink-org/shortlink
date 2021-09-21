@@ -1,12 +1,12 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "grpc-api.proto",
+    "title": "buf:lint:ignore",
     "version": "version not set"
   },
   "tags": [
     {
-      "name": "Link"
+      "name": "LinkService"
     }
   ],
   "consumes": [
@@ -18,12 +18,12 @@
   "paths": {
     "/api": {
       "post": {
-        "operationId": "Link_CreateLink",
+        "operationId": "LinkService_CreateLink",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1Link"
+              "$ref": "#/definitions/v1CreateLinkResponse"
             }
           },
           "default": {
@@ -39,23 +39,23 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/v1Link"
+              "$ref": "#/definitions/v1CreateLinkRequest"
             }
           }
         ],
         "tags": [
-          "Link"
+          "LinkService"
         ]
       }
     },
-    "/api/link/{hash}": {
+    "/api/link/{link.hash}": {
       "get": {
-        "operationId": "Link_GetLink",
+        "operationId": "LinkService_GetLink",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1Link"
+              "$ref": "#/definitions/v1GetLinkResponse"
             }
           },
           "default": {
@@ -67,28 +67,28 @@
         },
         "parameters": [
           {
-            "name": "hash",
+            "name": "link.hash",
             "description": "Hash by URL + salt",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "url",
+            "name": "link.url",
             "description": "URL.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "describe",
+            "name": "link.describe",
             "description": "Describe of link.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "createdAt",
+            "name": "link.createdAt",
             "description": "Create at.",
             "in": "query",
             "required": false,
@@ -96,7 +96,7 @@
             "format": "date-time"
           },
           {
-            "name": "updatedAt",
+            "name": "link.updatedAt",
             "description": "Update at.",
             "in": "query",
             "required": false,
@@ -105,18 +105,18 @@
           }
         ],
         "tags": [
-          "Link"
+          "LinkService"
         ]
       }
     },
     "/api/links": {
       "get": {
-        "operationId": "Link_GetLinks",
+        "operationId": "LinkService_GetLinks",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1Links"
+              "$ref": "#/definitions/v1GetLinksResponse"
             }
           },
           "default": {
@@ -172,13 +172,13 @@
           }
         ],
         "tags": [
-          "Link"
+          "LinkService"
         ]
       }
     },
-    "/api/{hash}": {
+    "/api/{link.hash}": {
       "delete": {
-        "operationId": "Link_DeleteLink",
+        "operationId": "LinkService_DeleteLink",
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -195,28 +195,28 @@
         },
         "parameters": [
           {
-            "name": "hash",
+            "name": "link.hash",
             "description": "Hash by URL + salt",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "url",
+            "name": "link.url",
             "description": "URL.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "describe",
+            "name": "link.describe",
             "description": "Describe of link.",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "createdAt",
+            "name": "link.createdAt",
             "description": "Create at.",
             "in": "query",
             "required": false,
@@ -224,7 +224,7 @@
             "format": "date-time"
           },
           {
-            "name": "updatedAt",
+            "name": "link.updatedAt",
             "description": "Update at.",
             "in": "query",
             "required": false,
@@ -233,7 +233,7 @@
           }
         ],
         "tags": [
-          "Link"
+          "LinkService"
         ]
       }
     }
@@ -269,6 +269,41 @@
         }
       }
     },
+    "v1CreateLinkRequest": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "$ref": "#/definitions/v1Link"
+        }
+      }
+    },
+    "v1CreateLinkResponse": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "$ref": "#/definitions/v1Link"
+        }
+      }
+    },
+    "v1GetLinkResponse": {
+      "type": "object",
+      "properties": {
+        "link": {
+          "$ref": "#/definitions/v1Link"
+        }
+      }
+    },
+    "v1GetLinksResponse": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1Link"
+          }
+        }
+      }
+    },
     "v1Link": {
       "type": "object",
       "properties": {
@@ -293,17 +328,6 @@
           "type": "string",
           "format": "date-time",
           "title": "Update at"
-        }
-      }
-    },
-    "v1Links": {
-      "type": "object",
-      "properties": {
-        "link": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/v1Link"
-          }
         }
       }
     }

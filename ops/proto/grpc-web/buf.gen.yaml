@@ -7,8 +7,12 @@ plugins:
 
   - name: go-grpc
     out: internal/services/api/application
-    opt: paths=source_relative
+    opt: paths=source_relative,require_unimplemented_servers=false
 
   - name: grpc-gateway
     out: internal/services/api/application
-    opt: paths=source_relative
+    opt: paths=source_relative,logtostderr=true,allow_delete_body=true
+
+  - name: openapiv2
+    out: internal/services/api/application
+    opt: logtostderr=true
