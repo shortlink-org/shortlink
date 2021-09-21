@@ -48,7 +48,7 @@ func InitializeAPIService(ctx context.Context, i18n *message.Printer, runRPCClie
 	if err != nil {
 		return nil, nil, err
 	}
-	apiService, err := NewAPIService(log, api)
+	apiService, err := NewAPIService(log, i18n, api)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -137,6 +137,7 @@ func NewAPIApplication(
 
 func NewAPIService(
 	log logger.Logger,
+	i18n *message.Printer,
 
 	service *api_application.API,
 ) (*APIService, error) {

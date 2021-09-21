@@ -3,13 +3,14 @@ package graphql
 import (
 	"bytes"
 	"context"
+	"embed"
 	"fmt"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-	"github.com/markbates/pkger"
 	"github.com/opentracing/opentracing-go"
 	"golang.org/x/text/message"
 
@@ -22,6 +23,11 @@ import (
 	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 )
 
+var (
+	//go:embed schema/*.graphqls
+	schema embed.FS
+)
+
 // API ...
 type API struct { // nolint unused
 	store db.DB
@@ -32,22 +38,19 @@ type API struct { // nolint unused
 func (api *API) GetHandler() *relay.Handler {
 	buf := bytes.Buffer{}
 
-	err := pkger.Walk("internal/services/api/application/graphql/schema", func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk("./internal/services/api/application/graphql/schema", func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
 
 		if !info.IsDir() {
-			file, err := pkger.Open(path)
+			file, err := os.ReadFile(path)
 			if err != nil {
 				return err
 			}
 
-			f := make([]byte, info.Size())
-			_, err = file.Read(f)
-
 			// Add a newline if the file does not end in a newline.
-			if len(f) > 0 && f[len(f)-1] != '\n' {
+			if len(file) > 0 && file[len(file)-1] != '\n' {
 				if errWriteByte := buf.WriteByte('\n'); err != nil {
 					panic(errWriteByte)
 				}
@@ -57,7 +60,7 @@ func (api *API) GetHandler() *relay.Handler {
 				panic(err)
 			}
 
-			if _, err := buf.Write(f); err != nil {
+			if _, err := buf.Write(file); err != nil {
 				panic(err)
 			}
 		}

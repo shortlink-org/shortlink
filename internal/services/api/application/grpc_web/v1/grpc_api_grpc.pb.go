@@ -70,17 +70,16 @@ func (c *linkServiceClient) DeleteLink(ctx context.Context, in *DeleteLinkReques
 }
 
 // LinkServiceServer is the server API for LinkService service.
-// All implementations must embed UnimplementedLinkServiceServer
+// All implementations should embed UnimplementedLinkServiceServer
 // for forward compatibility
 type LinkServiceServer interface {
 	GetLinks(context.Context, *GetLinksRequest) (*GetLinksResponse, error)
 	GetLink(context.Context, *GetLinkRequest) (*GetLinkResponse, error)
 	CreateLink(context.Context, *CreateLinkRequest) (*CreateLinkResponse, error)
 	DeleteLink(context.Context, *DeleteLinkRequest) (*emptypb.Empty, error)
-	mustEmbedUnimplementedLinkServiceServer()
 }
 
-// UnimplementedLinkServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedLinkServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedLinkServiceServer struct {
 }
 
@@ -96,7 +95,6 @@ func (UnimplementedLinkServiceServer) CreateLink(context.Context, *CreateLinkReq
 func (UnimplementedLinkServiceServer) DeleteLink(context.Context, *DeleteLinkRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteLink not implemented")
 }
-func (UnimplementedLinkServiceServer) mustEmbedUnimplementedLinkServiceServer() {}
 
 // UnsafeLinkServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to LinkServiceServer will

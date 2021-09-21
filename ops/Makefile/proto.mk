@@ -42,4 +42,5 @@ proto-generate: ## Generate proto-files
 		--path=internal/services/api/application/grpc_web \
 		--template=ops/proto/grpc-web/buf.gen.yaml \
 		--config=ops/proto/grpc-web/buf.yaml
+	@mv ./internal/services/api/application/grpc_web/v1/grpc_api.swagger.json ./docs/api.swagger.json
 
