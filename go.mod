@@ -49,7 +49,7 @@ require (
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/prometheus/client_golang v1.11.0
 	github.com/pterm/pterm v0.12.30
-	github.com/rabbitmq/amqp091-go v0.0.0-20210917115608-f77dab523f04
+	github.com/rabbitmq/amqp091-go v0.0.0-20210921101955-bb8191b6c914
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.2.1
