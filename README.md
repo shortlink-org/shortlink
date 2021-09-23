@@ -17,20 +17,13 @@ Shortlink service
 
 ### High Level Architecture 🚀
 
-![shortlink-arhitecture](doc/shortlink-arhitecture.png)
+![shortlink-arhitecture](./docs/shortlink-arhitecture.png)
 
 ### Architecture (miro.com)
 
 - [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
 - [Auth](https://miro.com/app/board/o9J_lA5Wmhg=/)
 - [Event Sourcing](https://miro.com/app/board/o9J_l-6o1U0=/)
-
-### Architecture decision records] (ADR)
-
-An architecture decision record (ADR) is a document that captures an important architecture decision 
-made along with its context and consequences.
-
-+ [Docs](https://github.com/joelparkerhenderson/architecture-decision-record)
 
 ##### Services
 
@@ -47,7 +40,7 @@ made along with its context and consequences.
 | logger      | Logger service                              | Go                        |                                          |
 | metadata    | Parser site by API                          | Go                        |                                          |
 | notify      | Send notify to smtp, slack, telegram        | Go                        |                                          |
-| shortctl    | Shortlink CLI                               | Go                        | [docs](doc/shortctl.md)               |
+| shortctl    | Shortlink CLI                               | Go                        | [docs](./docs/shortctl.md)               |
 | csi         | CSI example                                 | Go                        |                                          |
 | ory/kratos  | User management service                     | Go                        | [docs](https://www.ory.sh/kratos/docs/)  |
 | ory/hydra   | OAuth 2.0 Provider                          | Go                        | [docs](https://www.ory.sh/keto/docs/)    |
@@ -114,9 +107,9 @@ make skaffold-debug
 
 ### HTTP API
 
-![arhitecture.json](doc/arhitecture.png)
+![arhitecture.json](./docs/arhitecture.png)
 
-+ Import [Postman link](doc/shortlink.postman_collection.json) for
++ Import [Postman link](./docs/shortlink.postman_collection.json) for
   test HTTP API
 + Swagger [docs](https://shortlink-org.gitlab.io/shortlink)
 
@@ -137,7 +130,7 @@ make skaffold-debug
 
 ### OpenTracing
 
-![http_add_link](doc/opentracing_add_link.png)
+![http_add_link](./docs/opentracing_add_link.png)
 
 ### Cloud-Native
 
@@ -145,7 +138,7 @@ make skaffold-debug
   + [Skaffold](https://skaffold.dev/)
   + Telepresence
 + Logger
-  + [Loki](doc/logger.md)
+  + [Loki](./docs/logger.md)
   + DataDog
 + Prometheus
   + prometheus-operator
@@ -186,7 +179,7 @@ Use `.env` file in `ui/[next/etc]` directories for setting your UI
 
 | Describe                | Screenshot                           |
 |-------------------------|--------------------------------------|
-| Link Table              | ![link table](doc/next-js-ui.png) |
+| Link Table              | ![link table](./docs/next-js-ui.png) |
 
 </details>
 
@@ -201,7 +194,7 @@ Use `.env` file in `ui/[next/etc]` directories for setting your UI
 
 ##### [12 factors: ENV](https://12factor.net/config)
 
-[View ENV Variables](doc/env.md)
+[View ENV Variables](./docs/env.md)
 
 </p>
 </details>

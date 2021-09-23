@@ -71,9 +71,9 @@
 
 ### Pipeline
 
-![](../../doc/gitlab/gitlab-pipeline.png)
+![](../../docs/gitlab/gitlab-pipeline.png)
 
-![](../../doc/gitlab/gitlab-ci.png)
+![](../../docs/gitlab/gitlab-ci.png)
 
 ---
 
