@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: jaeger-operator
-    version: 2.24.0
+    version: 2.25.0
     repository: https://jaegertracing.github.io/helm-charts
     condition: jaeger-operator.enabled
     tags:
