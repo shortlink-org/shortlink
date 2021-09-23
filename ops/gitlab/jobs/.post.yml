@@ -14,6 +14,3 @@ load artifacts:
     - pipeline: $CI_UPSTREAM_PIPELINE_ID
       job: SAST
       artifacts: true
-  rules:
-    - when: never
-

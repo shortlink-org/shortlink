@@ -2,11 +2,27 @@ include:
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/jobs/.pre.yml
   - local: /ops/gitlab/jobs/test.yml
+    rules:
+      - if: $CI_PIPELINE_SOURCE == "schedule"
+        when: never
   - local: /ops/gitlab/jobs/build.yml
+    rules:
+      - if: $CI_COMMIT_TAG
+        when: on_success
   - local: /ops/gitlab/jobs/deploy.yml
+    rules:
+      - if: $CI_COMMIT_TAG
+        when: on_success
   - local: /ops/gitlab/jobs/qa.yml
+    rules:
+      - if: $CI_COMMIT_TAG
+        when: on_success
   - local: /ops/gitlab/jobs/release.yml
+    rules:
+      - if: $CI_COMMIT_TAG  # Run this job when a tag is created manually
   - local: /ops/gitlab/jobs/.post.yml
+    rules:
+      - when: never
 
 stages:
   - test
