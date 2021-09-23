@@ -25,6 +25,13 @@ Shortlink service
 - [Auth](https://miro.com/app/board/o9J_lA5Wmhg=/)
 - [Event Sourcing](https://miro.com/app/board/o9J_l-6o1U0=/)
 
+### Architecture decision records] (ADR)
+
+An architecture decision record (ADR) is a document that captures an important architecture decision 
+made along with its context and consequences.
+
++ [Docs](https://github.com/joelparkerhenderson/architecture-decision-record)
+
 ##### Services
 
 | Service     | Description                                 | Language/Framework        | Docs                                     |
