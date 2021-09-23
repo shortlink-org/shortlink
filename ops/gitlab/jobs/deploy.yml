@@ -13,6 +13,9 @@ applications:
   needs:
     - job: docker:go
     - job: HELM
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 ui:
   extends:
@@ -25,6 +28,9 @@ ui:
   needs:
     - job: docker:nodejs
     - job: HELM
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 mobile:
   stage: deploy
@@ -32,3 +38,6 @@ mobile:
     include:
       - local: 'ops/gitlab/pipelines/flutter.yml'
   needs: []
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
