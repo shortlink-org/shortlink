@@ -18,6 +18,8 @@ release:
           url: 'https://shortlink.ddns.net/'
         - name: 'Swagger'
           url: 'https://shortlink-org.gitlab.io/shortlink'
+  rules:
+    - if: $CI_COMMIT_TAG  # Run this job when a tag is created manually
 
 goreleaser:
   stage: release
@@ -44,12 +46,17 @@ goreleaser:
   needs: [ ]
   interruptible: true
   retry: 2
+  rules:
+    - if: $CI_COMMIT_TAG
 
 pages:
   stage: release
   variables:
     DOCS_FOLDER: "docs"
     SPEC_TO_DISPLAY: "api.swagger.json"
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 # ML ===================================================================================================================
 ml:

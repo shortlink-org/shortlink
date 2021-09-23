@@ -29,6 +29,9 @@ variables:
 apifuzzer_fuzz:
   stage: qa
   allow_failure: true
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 # PERFORMANCE ==========================================================================================================
 
@@ -39,3 +42,6 @@ load_performance:
   variables:
     K6_TEST_FILE: ops/scripts/k6.js
   needs: []
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
