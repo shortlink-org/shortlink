@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/Masterminds/squirrel v1.5.0
 	github.com/PuerkitoBio/goquery v1.7.1
-	github.com/Shopify/sarama v1.29.1
+	github.com/Shopify/sarama v1.30.0
 	github.com/Unleash/unleash-client-go/v3 v3.2.3
 	github.com/cloudevents/sdk-go/v2 v2.5.0
 	github.com/container-storage-interface/spec v1.5.0
@@ -122,7 +122,7 @@ require (
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
-	github.com/golang/snappy v0.0.3 // indirect
+	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/flatbuffers v2.0.0+incompatible // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gookit/color v1.4.2 // indirect
@@ -170,7 +170,7 @@ require (
 	github.com/opencontainers/image-spec v1.0.1 // indirect
 	github.com/opencontainers/runc v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
-	github.com/pierrec/lz4 v2.6.0+incompatible // indirect
+	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
@@ -200,7 +200,7 @@ require (
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
-	golang.org/x/crypto v0.0.0-20210915214749-c084706c2272 // indirect
+	golang.org/x/crypto v0.0.0-20210920023735-84f357641f63 // indirect
 	golang.org/x/exp v0.0.0-20210916165020-5cb4fee858ee // indirect
 	golang.org/x/sys v0.0.0-20210917161153-d61c044b1678 // indirect
 	golang.org/x/term v0.0.0-20210615171337-6886f2dfbf5b // indirect
