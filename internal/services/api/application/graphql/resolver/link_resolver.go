@@ -30,8 +30,7 @@ func (r *Resolver) Links(ctx context.Context, args struct {
 	// Filter to string
 	filterRaw, err := json.Marshal(args.Filter)
 	if err != nil {
-		err := fmt.Errorf("Error parse filter args")
-		return nil, err
+		return nil, fmt.Errorf("error parse filter args")
 	}
 
 	// Default value for filter; null -> nil

@@ -25,7 +25,7 @@ import (
 
 var (
 	//go:embed schema/*.graphqls
-	schema embed.FS
+	schema embed.FS // nolint
 )
 
 // API ...
