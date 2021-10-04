@@ -2,8 +2,7 @@ version: '2.4'
 
 x-network: &network
   networks:
-    simple:
-      ipv4_address: 10.5.0.200
+    - simple
   dns:
     - ${DNS_IP}
   dns_search: ${DNS_SEARCH}
@@ -29,7 +28,7 @@ services:
       GRPC_CLIENT_HOST: traefik
       GRPC_CLIENT_PORT: 443
       LOG_LEVEL: 4
-      MQ_ENABLED: "false"
+      MQ_ENABLED: "true"
       MQ_KAFKA_URI: kafka-1:9092,kafka-2:9092
       TRACER_URI: jaeger-agent:6831
     labels:
@@ -49,3 +48,13 @@ services:
       options:
         loki-url: ${LOGGER_DRIVER_URL}
         max-size: ${LOGGER_MAX_SIZE}
+
+  prometheus:
+    <<: *network
+    depends_on:
+      - coredns
+    image: prom/prometheus:v2.30.2
+    profiles:
+      - prometheus
+    volumes:
+      - ./ops/docker-compose/application/config/api-server.json:/etc/prometheus/targets/api-server.json

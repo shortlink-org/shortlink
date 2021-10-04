@@ -38,8 +38,8 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.29.1
+    image: prom/prometheus:v2.30.2
     profiles:
       - prometheus
     volumes:
-      - ./ops/docker-compose/application/metadata/metadata-server.json:/etc/prometheus/targets/metadata-server.json
+      - ./ops/docker-compose/application/config/metadata-server.json:/etc/prometheus/targets/metadata-server.json
