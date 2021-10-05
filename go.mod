@@ -62,7 +62,7 @@ require (
 	go.mongodb.org/mongo-driver v1.7.2
 	go.uber.org/atomic v1.9.0
 	go.uber.org/automaxprocs v1.4.0
-	go.uber.org/goleak v1.1.11
+	go.uber.org/goleak v1.1.12
 	go.uber.org/zap v1.19.1
 	golang.org/x/net v0.0.0-20211005001312-d4b1ae081e3b
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
