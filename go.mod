@@ -35,7 +35,7 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20180807145615-6ff867650f40
 	github.com/jackc/pgx/v4 v4.13.0
 	github.com/jmoiron/sqlx v1.3.4
-	github.com/johejo/golang-migrate-extra v0.0.0-20210217013041-51a992e50d16
+	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/kubernetes-csi/csi-test/v4 v4.2.0
 	github.com/lib/pq v1.10.3
 	github.com/luna-duclos/instrumentedsql v1.1.3
