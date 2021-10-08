@@ -13,7 +13,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
-// Monitoring endpoints
+// New - Monitoring endpoints
 func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *http.ServeMux {
 	// Create a new Prometheus registry
 	registry := prometheus.NewRegistry()
@@ -28,7 +28,7 @@ func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *http.ServeMux {
 	// Our app is not happy if we've got more than 100 goroutines running.
 	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100))
 
-	// Create an "common" listener
+	// Create a "common" listener
 	commonMux := http.NewServeMux()
 
 	// Expose prometheus metrics on /metrics
