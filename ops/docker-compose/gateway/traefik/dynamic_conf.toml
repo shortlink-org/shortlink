@@ -89,6 +89,18 @@
   url = "h2c://host.docker.internal:50054"
 
 ################################################################
+# Newsletter
+################################################################
+[http.routers.newsletter]
+  rule = "PathPrefix(`/api/newsletter`)"
+  service = "newsletter-shortlink@docker"
+  [http.routers.newsletter.tls]
+    certResolver = "default"
+
+[[http.services.newsletter.loadBalancer.servers]]
+  url = "http://host.docker.internal:8080"
+
+################################################################
 # UI
 ################################################################
 [http.routers.ui]

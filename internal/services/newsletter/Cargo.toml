@@ -23,3 +23,12 @@ env_logger = "0.5.3"
 [dependencies.uuid]
 features = ["serde", "v4"]
 version = "0.7"
+
+[profile.dev]
+debug = 0
+
+[profile.test]
+debug = 0
+
+[profile.release]
+panic = 'abort'
