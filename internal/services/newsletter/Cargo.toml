@@ -7,7 +7,7 @@ authors = ["Login Victor <batazor111@gmail.com>"]
 edition = "2021"
 
 [dependencies]
-futures = { version = "0.3.6", default-features = false, features = ["async-await"] }
+futures = { version = "0.3.17", default-features = false, features = ["async-await"] }
 hyper = { version = "0.14", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
 serde = {version = "1.0.130", features = ["derive"] }
