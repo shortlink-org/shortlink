@@ -9,7 +9,7 @@ require (
 	github.com/Unleash/unleash-client-go/v3 v3.2.4
 	github.com/cloudevents/sdk-go/v2 v2.5.0
 	github.com/container-storage-interface/spec v1.5.0
-	github.com/cucumber/godog v0.12.1
+	github.com/cucumber/godog v0.12.2
 	github.com/dgraph-io/badger/v3 v3.2103.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/getsentry/sentry-go v0.11.0
