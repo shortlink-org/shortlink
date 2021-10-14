@@ -17,3 +17,7 @@ We will use Architecture Decision Records, as [described by Michael Nygard](http
 ## Consequences
 
 See Michael Nygard's article, linked above. For a lightweight ADR toolset, see Nat Pryce's [adr-tools](https://github.com/npryce/adr-tools).
+
+## Experience report
+
+This is a nice tool, although it is worth considering alternatives in the form of [RFC specification](https://philcalcado.com/2018/11/19/a_structured_rfc_process.html)
