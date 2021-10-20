@@ -7,6 +7,7 @@ use hyper::{
 use router::Router;
 use std::sync::Arc;
 use crate::context::Context;
+use futures::executor::block_on;
 
 mod handler;
 mod router;
@@ -22,7 +23,8 @@ pub async fn main() {
     pretty_env_logger::init();
 
     // Init postgres
-    postgres::new();
+    let future = postgres::new();
+    block_on(future);
 
     let mut router: Router = Router::new();
     router.get("/api/newsletters", Box::new(handler::get_list_subscribes));
