@@ -12,6 +12,7 @@ mod handler;
 mod router;
 mod context;
 mod domain;
+mod postgres;
 
 type Response = hyper::Response<hyper::Body>;
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
@@ -19,6 +20,9 @@ type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
 #[tokio::main]
 pub async fn main() {
     pretty_env_logger::init();
+
+    // Init postgres
+    postgres::new();
 
     let mut router: Router = Router::new();
     router.get("/api/newsletters", Box::new(handler::get_list_subscribes));
