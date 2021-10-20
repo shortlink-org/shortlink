@@ -1,0 +1,55 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+x-config: &config
+  image: foundationdb/foundationdb
+  restart: on-failure
+  environment:
+    FDB_COORDINATOR: fdb-coordinator
+    FDB_NETWORKING_MODE: container
+    FDB_COORDINATOR_PORT: 4500
+
+services:
+
+  fdb-coordinator:
+    <<: *network
+    <<: *config
+    depends_on:
+      - coredns
+    container_name: fdb-coordinator
+    ports:
+      - 4500:4500/tcp
+
+
+  fdb-server-1:
+    <<: *network
+    <<: *config
+    depends_on:
+      - coredns
+      - fdb-coordinator
+    image: foundationdb/foundationdb
+    container_name: fdb-server-1
+
+  fdb-server-2:
+    <<: *network
+    <<: *config
+    depends_on:
+      - coredns
+      - fdb-coordinator
+    image: foundationdb/foundationdb
+    container_name: fdb-server-2
+
+  fdb-server-3:
+    <<: *network
+    <<: *config
+    depends_on:
+      - coredns
+      - fdb-coordinator
+    image: foundationdb/foundationdb
+    container_name: fdb-server-3
