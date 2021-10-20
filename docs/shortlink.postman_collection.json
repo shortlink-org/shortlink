@@ -1685,6 +1685,76 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "NewsLetter",
+					"item": [
+						{
+							"name": "Get list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_GATEWAY.HTTP_API}}/api/newsletters",
+									"host": [
+										"{{API_GATEWAY.HTTP_API}}"
+									],
+									"path": [
+										"api",
+										"newsletters"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Subscribe",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"{{$randomEmail}}\",\n    \"active\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_GATEWAY.HTTP_API}}/api/newsletter",
+									"host": [
+										"{{API_GATEWAY.HTTP_API}}"
+									],
+									"path": [
+										"api",
+										"newsletter"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UnSubscribe",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_GATEWAY.HTTP_API}}/api/newsletter/unsubscribe/admin@example.com",
+									"host": [
+										"{{API_GATEWAY.HTTP_API}}"
+									],
+									"path": [
+										"api",
+										"newsletter",
+										"unsubscribe",
+										"admin@example.com"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
