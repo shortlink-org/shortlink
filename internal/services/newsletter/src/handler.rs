@@ -1,19 +1,13 @@
 use crate::{Context, Response};
 use hyper::StatusCode;
-use serde::Deserialize;
+use crate::domain::SendSubscribeRequest;
 
 pub async fn get_list_subscribes(ctx: Context) -> String {
     format!("get list subscribes: []")
 }
 
-#[derive(Deserialize)]
-struct SendRequest {
-    name: String,
-    active: bool,
-}
-
 pub async fn newsletter_subscribe(mut ctx: Context) -> Response {
-    let body: SendRequest = match ctx.body_json().await {
+    let body: SendSubscribeRequest = match ctx.body_json().await {
         Ok(v) => v,
         Err(e) => {
             return hyper::Response::builder()
@@ -26,7 +20,7 @@ pub async fn newsletter_subscribe(mut ctx: Context) -> Response {
     Response::new(
         format!(
             "add newsletter subscribes: {} and active: {}",
-            body.name, body.active
+            body.email, body.active
         )
         .into(),
     )
