@@ -1,12 +1,12 @@
-use crate::{Context, Response};
-use hyper::StatusCode;
+use crate::{Context};
+use hyper::{Response, Body, Method, StatusCode};
 use crate::domain::SendSubscribeRequest;
 
 pub async fn get_list_subscribes(ctx: Context) -> String {
     format!("get list subscribes: []")
 }
 
-pub async fn newsletter_subscribe(mut ctx: Context) -> Response {
+pub async fn newsletter_subscribe(mut ctx: Context) -> Response<Body> {
     let body: SendSubscribeRequest = match ctx.body_json().await {
         Ok(v) => v,
         Err(e) => {

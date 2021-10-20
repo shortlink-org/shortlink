@@ -1,8 +1,8 @@
 use std::{net::SocketAddr};
-
 use hyper::{
+    header::CONTENT_TYPE,
     service::{make_service_fn, service_fn},
-    Request, Server,
+    Body, Request, Response, Server,
 };
 use router::Router;
 use std::sync::Arc;
@@ -15,7 +15,6 @@ mod context;
 mod domain;
 mod postgres;
 
-type Response = hyper::Response<hyper::Body>;
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
 
 #[tokio::main]
@@ -26,6 +25,7 @@ pub async fn main() {
     let future = postgres::new();
     block_on(future);
 
+    // Routing
     let mut router: Router = Router::new();
     router.get("/api/newsletters", Box::new(handler::get_list_subscribes));
     router.post("/api/newsletter", Box::new(handler::newsletter_subscribe));
@@ -58,7 +58,7 @@ pub async fn main() {
 async fn route(
     router: Arc<Router>,
     req: Request<hyper::Body>,
-) -> Result<Response, Error> {
+) -> Result<Response<Body>, Error> {
     let found_handler = router.route(req.uri().path(), req.method());
     let resp = found_handler
         .handler

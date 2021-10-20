@@ -1,13 +1,13 @@
-use crate::{Context, Response};
+use crate::{Context};
 use async_trait::async_trait;
 use futures::future::Future;
-use hyper::{Method, StatusCode};
+use hyper::{Response, Body, Method, StatusCode};
 use route_recognizer::{Match, Params, Router as InternalRouter};
 use std::collections::HashMap;
 
 #[async_trait]
 pub trait Handler: Send + Sync + 'static {
-    async fn invoke(&self, context: Context) -> Response;
+    async fn invoke(&self, context: Context) -> Response<Body>;
 }
 
 #[async_trait]
@@ -17,7 +17,7 @@ where
     Fut: Future + Send + 'static,
     Fut::Output: IntoResponse,
 {
-    async fn invoke(&self, context: Context) -> Response {
+    async fn invoke(&self, context: Context) -> Response<Body> {
         (self)(context).await.into_response()
     }
 }
@@ -78,7 +78,7 @@ impl Router {
     }
 }
 
-async fn not_found_handler(_cx: Context) -> Response {
+async fn not_found_handler(_cx: Context) -> Response<Body> {
     hyper::Response::builder()
         .status(StatusCode::NOT_FOUND)
         .body("NOT FOUND".into())
@@ -86,23 +86,23 @@ async fn not_found_handler(_cx: Context) -> Response {
 }
 
 pub trait IntoResponse: Send + Sized {
-    fn into_response(self) -> Response;
+    fn into_response(self) -> Response<Body>;
 }
 
-impl IntoResponse for Response {
-    fn into_response(self) -> Response {
+impl IntoResponse for Response<Body> {
+    fn into_response(self) -> Response<Body> {
         self
     }
 }
 
 impl IntoResponse for &'static str {
-    fn into_response(self) -> Response {
+    fn into_response(self) -> Response<Body> {
         Response::new(self.into())
     }
 }
 
 impl IntoResponse for String {
-    fn into_response(self) -> Response {
+    fn into_response(self) -> Response<Body> {
         Response::new(self.into())
     }
 }
