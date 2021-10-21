@@ -1737,7 +1737,7 @@
 						{
 							"name": "UnSubscribe",
 							"request": {
-								"method": "DELETE",
+								"method": "GET",
 								"header": [],
 								"url": {
 									"raw": "{{API_GATEWAY.HTTP_API}}/api/newsletter/unsubscribe/admin@example.com",

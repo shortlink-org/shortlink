@@ -30,7 +30,7 @@ pub async fn main() {
     let mut router: Router = Router::new();
     router.get("/api/newsletters", Box::new(handler::get_list_subscribes));
     router.post("/api/newsletter", Box::new(handler::newsletter_subscribe));
-    router.delete("/api/newsletter/unsubscribe/:email", Box::new(handler::newsletter_unsubscribe));
+    router.get("/api/newsletter/unsubscribe/:email", Box::new(handler::newsletter_unsubscribe));
 
     let shared_router = Arc::new(router);
     let new_service = make_service_fn(move |_| {

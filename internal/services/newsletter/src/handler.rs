@@ -43,15 +43,22 @@ pub async fn newsletter_subscribe(mut ctx: Context) -> Response<Body> {
     client.execute("INSERT INTO shortlink.newsletters (email) VALUES ($1)", &[&body.email]).await.ok();
 
     Response::new(format!("{}", serde_json::to_string(&NewsLetter{
-            _id: 0,
-            email: body.email,
-        }).unwrap()).into())
+        _id: 0,
+        email: body.email,
+    }).unwrap()).into())
 }
 
-pub async fn newsletter_unsubscribe(ctx: Context) -> String {
+pub async fn newsletter_unsubscribe(ctx: Context) -> Response<Body> {
     let param = match ctx.params.find("email") {
         Some(v) => v,
         None => "empty",
     };
-    format!("newsletter/unsubscribe: {}", param)
+
+    let mut client = postgres::new().await.unwrap();
+    client.execute("DELETE FROM shortlink.newsletters WHERE email=$1", &[&param]).await.ok();
+
+    Response::new(format!("{}", serde_json::to_string(&NewsLetter{
+        _id: 0,
+        email: param.into(),
+    }).unwrap()).into())
 }
