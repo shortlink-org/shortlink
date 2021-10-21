@@ -1,12 +1,8 @@
 use std::env;
 use tokio_postgres::{NoTls, Client, GenericClient};
+use crate::domain::NewsLetter;
 
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
-
-struct NewsLetter {
-    _id: i32,
-    email: String
-}
 
 pub async fn new() -> Result<Client, Error> {
     let postgres_uri = env::var("STORE_POSTGRES_URI").unwrap();
@@ -26,42 +22,32 @@ pub async fn new() -> Result<Client, Error> {
     Ok(client)
 }
 
-pub async fn list() -> std::result::Result<(Vec<String>), Error> {
-    let mut newsletters = Vec::new();
+pub async fn list() -> std::result::Result<Vec<NewsLetter>, Error> {
+    let mut client = new().await.unwrap();
 
-    // client.batch_execute("
-    //     SELECT * FROM shortlink.newsletter
-    // ")?;
-    //
-    // for row in client.query("SELECT id, email FROM shortlink.newsletter", &[])? {
-    //     let author = NewsLetter {
-    //         _id: row.get(0),
-    //         email: row.get(1),
-    //     };
-    //     newsletters.push(author.email);
-    // }
+    let rows = client.query("SELECT id, email FROM shortlink.newsletters", &[]).await;
+
+    let mut newsletters = Vec::new();
+    for row in rows.unwrap().as_slice() {
+        newsletters.push(NewsLetter{
+            _id: 0,
+            email: row.get(1),
+        });
+    }
 
     Ok(newsletters)
 }
 
 pub async fn add(email: &str) -> std::result::Result<(), Error> {
-    // let newsletter = NewsLetter {
-    //     _id: 0,
-    //     email: email.to_string(),
-    // };
-    //
-    // client.batch_execute(
-    //     "INSERT INTO shortlink.newsletter (email) VALUES ($1)",
-    //     &newsletter
-    // )?;
+    let mut client = new().await.unwrap();
+    client.execute("INSERT INTO shortlink.newsletters (email) VALUES ($1)", &[&email]).await.ok();
 
     Ok(())
 }
 
-pub async fn delete() -> std::result::Result<(), Error> {
-    // client.batch_execute("
-    //     SELECT * FROM shortlink.newsletter
-    // ")?;
+pub async fn delete(email: &str) -> std::result::Result<(), Error> {
+    let mut client = new().await.unwrap();
+    client.execute("DELETE FROM shortlink.newsletters WHERE email=$1", &[&email]).await.ok();
 
     Ok(())
 }
