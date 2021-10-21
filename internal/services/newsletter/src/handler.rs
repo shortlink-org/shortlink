@@ -39,13 +39,13 @@ pub async fn newsletter_subscribe(mut ctx: Context) -> Response<Body> {
         }
     };
 
-    Response::new(
-        format!(
-            "add newsletter subscribes: {} and active: {}",
-            body.email, body.active
-        )
-        .into(),
-    )
+    let mut client = postgres::new().await.unwrap();
+    client.execute("INSERT INTO shortlink.newsletters (email) VALUES ($1)", &[&body.email]).await.ok();
+
+    Response::new(format!("{}", serde_json::to_string(&NewsLetter{
+            _id: 0,
+            email: body.email,
+        }).unwrap()).into())
 }
 
 pub async fn newsletter_unsubscribe(ctx: Context) -> String {
