@@ -1,6 +1,5 @@
 use std::env;
-use std::process;
-use tokio_postgres::{NoTls, Client};
+use tokio_postgres::{NoTls, Client, GenericClient};
 
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
 
@@ -9,11 +8,11 @@ struct NewsLetter {
     email: String
 }
 
-pub async fn new() -> Result<(), Error> {
+pub async fn new() -> Result<Client, Error> {
     let postgres_uri = env::var("STORE_POSTGRES_URI").unwrap();
 
     // Connect to the database.
-    let (mut client, connection) =
+    let (client, connection) =
         tokio_postgres::connect(&postgres_uri, NoTls).await?;
 
     // The connection object performs the actual communication with the database,
@@ -24,10 +23,7 @@ pub async fn new() -> Result<(), Error> {
         }
     });
 
-    // Migration
-    run_migrations(client).await?;
-
-    Ok(())
+    Ok(client)
 }
 
 pub async fn list() -> std::result::Result<(Vec<String>), Error> {
@@ -75,7 +71,9 @@ mod embedded {
     embed_migrations!("src/migrations");
 }
 
-async fn run_migrations(mut client: Client) -> std::result::Result<(), Error> {
+pub(crate) async fn run_migrations() -> Result<Client, Error> {
+    let mut client = new().await.unwrap();
+
     println!("Running DB migrations...");
 
     let migration_report = embedded::migrations::runner()
@@ -91,5 +89,5 @@ async fn run_migrations(mut client: Client) -> std::result::Result<(), Error> {
     }
     println!("DB migrations finished!");
 
-    Ok(())
+    Ok(client)
 }

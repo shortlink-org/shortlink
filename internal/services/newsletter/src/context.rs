@@ -1,9 +1,11 @@
+use std::sync::Arc;
 use bytes::Bytes;
 use hyper::{
     body::to_bytes,
     Body, Request
 };
 use route_recognizer::Params;
+use tokio_postgres::{Client, GenericClient};
 
 #[derive(Debug)]
 pub struct Context {
