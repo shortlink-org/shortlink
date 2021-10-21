@@ -8,6 +8,7 @@ use router::Router;
 use std::sync::Arc;
 use crate::context::Context;
 use futures::executor::block_on;
+use tokio_postgres::{Client, GenericClient};
 
 mod handler;
 mod router;
@@ -22,7 +23,7 @@ pub async fn main() {
     pretty_env_logger::init();
 
     // Init postgres
-    let future = postgres::new();
+    let future = postgres::run_migrations();
     block_on(future);
 
     // Routing
