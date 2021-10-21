@@ -10,11 +10,11 @@ use crate::context::Context;
 use futures::executor::block_on;
 use tokio_postgres::{Client, GenericClient};
 
+mod domain;
 mod postgres;
 mod handler;
 mod router;
 mod context;
-mod domain;
 
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
 
