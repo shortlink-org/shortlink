@@ -81,7 +81,7 @@ func InitLogger(ctx context.Context) (logger.Logger, func(), error) {
 }
 
 // CSI =================================================================================================================
-var FullBotSet = wire.NewSet(NewContext, InitLogger, NewSCIDriver)
+var CSISet = wire.NewSet(NewContext, InitLogger, NewSCIDriver)
 
 func NewSCIDriver(log logger.Logger, ctx context.Context) (*Service, error) {
 	return &Service{
