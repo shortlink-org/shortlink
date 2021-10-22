@@ -3,10 +3,12 @@ cargo-features = ["edition2021"]
 [package]
 name = "newsletter"
 version = "0.1.0"
+rust-version = "1.56"
 authors = ["Login Victor <batazor111@gmail.com>"]
 keywords = ["newsletter"]
 readme = "README.md"
 edition = "2021"
+repository = "https://github.com/batazor/shortlink"
 
 [dependencies]
 futures = { version = "0.3.17", default-features = false, features = ["async-await"] }
