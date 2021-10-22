@@ -1,6 +1,5 @@
 use std::{net::SocketAddr};
 use hyper::{
-    header::CONTENT_TYPE,
     service::{make_service_fn, service_fn},
     Body, Request, Response, Server,
 };
@@ -8,7 +7,6 @@ use router::Router;
 use std::sync::Arc;
 use crate::context::Context;
 use futures::executor::block_on;
-use tokio_postgres::{Client, GenericClient};
 
 mod domain;
 mod postgres;

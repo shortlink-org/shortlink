@@ -1,5 +1,5 @@
 use std::env;
-use tokio_postgres::{NoTls, Client, GenericClient};
+use tokio_postgres::{NoTls, Client};
 use crate::domain::NewsLetter;
 
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
@@ -23,7 +23,7 @@ pub async fn new() -> Result<Client, Error> {
 }
 
 pub async fn list() -> std::result::Result<Vec<NewsLetter>, Error> {
-    let mut client = new().await.unwrap();
+    let client = new().await.unwrap();
 
     let rows = client.query("SELECT id, email FROM shortlink.newsletters", &[]).await;
 
@@ -39,14 +39,14 @@ pub async fn list() -> std::result::Result<Vec<NewsLetter>, Error> {
 }
 
 pub async fn add(email: &str) -> std::result::Result<(), Error> {
-    let mut client = new().await.unwrap();
+    let client = new().await.unwrap();
     client.execute("INSERT INTO shortlink.newsletters (email) VALUES ($1)", &[&email]).await.ok();
 
     Ok(())
 }
 
 pub async fn delete(email: &str) -> std::result::Result<(), Error> {
-    let mut client = new().await.unwrap();
+    let client = new().await.unwrap();
     client.execute("DELETE FROM shortlink.newsletters WHERE email=$1", &[&email]).await.ok();
 
     Ok(())
