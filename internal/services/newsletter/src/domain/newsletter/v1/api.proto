@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package domain.newsletter.v1;
+
+import "google/protobuf/empty.proto";
+import "domain/newsletter/v1/newsletter.proto";
+
+service NewsletterService {
+  rpc Get(google.protobuf.Empty) returns (GetResponse) {}
+  rpc Subscribe(SubscribeRequest) returns (SubscribeResponse) {}
+  rpc UnSubscribe(UnSubscribeRequest) returns (UnSubscribeResponse) {}
+}
+
+message GetResponse {}
+message SubscribeRequest {}
+message SubscribeResponse {}
+message UnSubscribeRequest {}
+message UnSubscribeResponse {}

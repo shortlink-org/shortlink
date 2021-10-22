@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package domain.newsletter.v1;
+
+// Newsletter
+message Newsletter {
+  string email = 1;
+  bool active = 2;
+}
+
+message Newsletters {
+  repeated Newsletter list = 1;
+}
