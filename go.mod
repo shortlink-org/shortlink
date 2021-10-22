@@ -67,7 +67,7 @@ require (
 	golang.org/x/net v0.0.0-20211020060615-d418f374d309
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
-	google.golang.org/api v0.56.0
+	google.golang.org/api v0.59.0
 	google.golang.org/genproto v0.0.0-20211020151524-b7c3a969101a
 	google.golang.org/grpc v1.41.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
@@ -78,7 +78,7 @@ require (
 )
 
 require (
-	cloud.google.com/go v0.93.3 // indirect
+	cloud.google.com/go v0.97.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
 	github.com/Microsoft/go-winio v0.5.0 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
@@ -127,7 +127,7 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/flatbuffers v2.0.0+incompatible // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
-	github.com/googleapis/gax-go/v2 v2.1.0 // indirect
+	github.com/googleapis/gax-go/v2 v2.1.1 // indirect
 	github.com/gookit/color v1.4.2 // indirect
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
@@ -205,7 +205,7 @@ require (
 	go.uber.org/multierr v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/exp v0.0.0-20210916165020-5cb4fee858ee // indirect
-	golang.org/x/oauth2 v0.0.0-20210819190943-2bc19b11175f // indirect
+	golang.org/x/oauth2 v0.0.0-20211005180243-6b3c2da341f1 // indirect
 	golang.org/x/sys v0.0.0-20211013075003-97ac67df715c // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
