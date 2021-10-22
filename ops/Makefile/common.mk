@@ -31,6 +31,7 @@ do: ## Run for specific job
 		-f ops/docker-compose/gateway/traefik.yaml \
 		-f ops/docker-compose/database/postgres.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
+		-f ops/docker-compose/application/auth.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose
