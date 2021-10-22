@@ -1,8 +1,7 @@
 use crate::{Context};
-use hyper::{Response, Body, Method, StatusCode};
+use hyper::{Response, Body, StatusCode};
 use crate::domain::{NewsLetter, SendSubscribeRequest};
 use crate::postgres;
-use futures::executor::block_on;
 
 pub async fn get_list_subscribes(ctx: Context) -> String {
     let newsletters = postgres::list().await.unwrap();
