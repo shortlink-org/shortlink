@@ -22,7 +22,6 @@ const CONFIG = {
     ? 'hidden-source-map'
     : 'eval-source-map',
   devServer: {
-    hot: true,
     open: true,
     port: config.port,
     host: config.dev_host,
