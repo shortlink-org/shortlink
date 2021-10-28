@@ -55,23 +55,22 @@ export default function SignIn() {
     const flowId = new URL(document.location).searchParams.get('flow')
 
     // @ts-ignore
-    kratos
-      .getSelfServiceLoginFlow(flowId)
-      .then(({ status, data: flow }) => {
-        if (status === 404 || status === 410 || status === 403) {
-          window.location.replace(
-            'http://127.0.0.1:4433/self-service/registration/browser',
-          )
-        }
-        if (status !== 200) {
-          return Promise.reject(flow)
-        }
+    kratos.getSelfServiceLoginFlow(flowId).then(({ status, data: flow }) => {
+      if (status === 404 || status === 410 || status === 403) {
+        window.location.replace(
+          'http://127.0.0.1:4433/self-service/registration/browser',
+        )
+      }
+      if (status !== 200) {
+        return Promise.reject(flow)
+      }
 
-        // @ts-ignore
-        setKratos(flow)
-        // @ts-ignore
-        setCsrfToken(flow.ui.nodes[0].attributes.value)
-      })}, [csrfToken])
+      // @ts-ignore
+      setKratos(flow)
+      // @ts-ignore
+      setCsrfToken(flow.ui.nodes[0].attributes.value)
+    })
+  }, [csrfToken])
 
   return (
     <Layout>
@@ -87,7 +86,9 @@ export default function SignIn() {
             >
               <div className="flex-1 absolute bottom-0 text-white p-10">
                 <h3 className="text-4xl font-bold inline-block">Login</h3>
-                <p className="text-gray-500 whitespace-no-wrap">Welcome back!</p>
+                <p className="text-gray-500 whitespace-no-wrap">
+                  Welcome back!
+                </p>
               </div>
               <svg
                 className="absolute animate h-full w-4/12 sm:w-2/12 right-0 inset-y-0 fill-current text-white"
@@ -102,7 +103,9 @@ export default function SignIn() {
             <div className="flex-1 p-6 sm:p-10 sm:py-12">
               <h3 className="text-xl text-gray-700 font-bold mb-6">
                 Login{' '}
-                <span className="text-gray-400 font-light">to your account</span>
+                <span className="text-gray-400 font-light">
+                  to your account
+                </span>
               </h3>
 
               <form

@@ -61,7 +61,9 @@ function Dashboard() {
                       />
                     </div>
                     <div>
-                      <h1 className="text-xl font-medium text-gray-700">Link</h1>
+                      <h1 className="text-xl font-medium text-gray-700">
+                        Link
+                      </h1>
                       <p className="text-gray-600">UX Designer at Hyrule</p>
                     </div>
                   </div>

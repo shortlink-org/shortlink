@@ -8,7 +8,13 @@ import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles'
 import { Layout } from 'components'
-import { Configuration, PublicApi } from '@ory/kratos-client'
+import { useRouter, NextRouter } from 'next/router'
+import {
+  Configuration,
+  PublicApi,
+  SelfServiceRegistrationFlow,
+  SubmitSelfServiceRegistrationFlowBody
+} from '@ory/kratos-client'
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -25,45 +31,55 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles()
+  const router = useRouter()
 
   const kratos = new PublicApi(
     new Configuration({ basePath: 'http://127.0.0.1:4433' }),
   )
 
-  const [kratosState, setKratos] = useState()
-  const [csrfToken, setCsrfToken] = useState()
+  // The "flow" represents a registration process and contains
+  // information about the form we need to render (e.g. username + password)
+  const [flow, setFlow] = useState<SelfServiceRegistrationFlow>()
+
+  // Get ?flow=... from the URL
+  const { flow: flowId, return_to: returnTo } = router.query
 
   useEffect(() => {
-    if (
-      !new URL(document.location).searchParams.get('flow') &&
-      new URL(document.location).href.indexOf('registration') !== -1
-    ) {
-      window.location.href =
-        'http://127.0.0.1:4433/self-service/registration/browser'
+    // if (
+    //   !new URL(document.location).searchParams.get('flow') &&
+    //   new URL(document.location).href.indexOf('registration') !== -1
+    // ) {
+    //   window.location.href =
+    //     'http://127.0.0.1:4433/self-service/registration/browser'
+    // }
+
+    // If the router is not ready yet, or we already have a flow, do nothing.
+    if (!router.isReady || flow) {
+      return
     }
 
-    // @ts-ignore
-    const flowId = new URL(document.location).searchParams.get('flow')
+    // If ?flow=.. was in the URL, we fetch it
+    if (flowId) {
+      kratos
+        .getSelfServiceRegistrationFlow(String(flowId))
+        .then(({ data }) => {
+          // We received the flow - let's use its data and render the form!
+          setFlow(data)
+        })
+        .catch(console.error('registration', setFlow))
+      return
+    }
 
-    // @ts-ignore
+    // Otherwise we initialize it
     kratos
-      .getSelfServiceRegistrationFlow(flowId)
-      .then(({ status, data: flow }) => {
-        if (status === 404 || status === 410 || status === 403) {
-          return window.location.replace(
-            'http://127.0.0.1:4433/self-service/registration/browser',
-          )
-        }
-        if (status !== 200) {
-          return Promise.reject(flow)
-        }
-
-        // @ts-ignore
-        setKratos(flow)
-        // @ts-ignore
-        setCsrfToken(flow.ui.nodes[0].attributes.value)
+      .initializeSelfServiceRegistrationForBrowsers(
+        returnTo ? String(returnTo) : undefined
+      )
+      .then(({ data }) => {
+        setFlow(data)
       })
-  }, [csrfToken])
+      .catch(console.error('registration', setFlow))
+  }, [flowId, router, router.isReady, returnTo, flow])
 
   return (
     <Layout>
@@ -98,111 +114,117 @@ export default function SignUp() {
                 <span className="text-gray-400 font-light">for an account</span>
               </h3>
 
-              <form
-                className={classes.form}
-                action={kratosState && kratosState.ui.action}
-                method={kratosState && kratosState.ui.method}
-              >
-                <TextField
-                  name="csrf_token"
-                  id="csrf_token"
-                  type="hidden"
-                  required
-                  fullWidth
-                  variant="outlined"
-                  label="Csrf token"
-                  value={csrfToken}
-                  className={classes.csrf}
-                />
+              {
+                flow && (
+                  <form
+                    className={classes.form}
+                    action={flow.ui.action}
+                    method={flow.ui.method}
+                  >
+                    {
+                      // <TextField
+                      //   name="csrf_token"
+                      //   id="csrf_token"
+                      //   type="hidden"
+                      //   required
+                      //   fullWidth
+                      //   variant="outlined"
+                      //   label="Csrf token"
+                      //   value={csrfToken}
+                      //   className={classes.csrf}
+                      // />
+                    }
 
-                <TextField
-                  name="method"
-                  id="method"
-                  type="hidden"
-                  required
-                  fullWidth
-                  variant="outlined"
-                  label="method"
-                  value="password"
-                  className={classes.csrf}
-                />
+                    <TextField
+                      name="method"
+                      id="method"
+                      type="hidden"
+                      required
+                      fullWidth
+                      variant="outlined"
+                      label="method"
+                      value="password"
+                      className={classes.csrf}
+                    />
 
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      autoComplete="fname"
-                      name="traits.name.first"
-                      variant="outlined"
-                      required
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          autoComplete="fname"
+                          name="traits.name.first"
+                          variant="outlined"
+                          required
+                          fullWidth
+                          id="traits.name.first"
+                          label="First Name"
+                          autoFocus
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          variant="outlined"
+                          required
+                          fullWidth
+                          id="traits.name.last"
+                          label="Last Name"
+                          name="traits.name.last"
+                          autoComplete="lname"
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          variant="outlined"
+                          required
+                          fullWidth
+                          id="traits.email"
+                          label="Email Address"
+                          name="traits.email"
+                          type="email"
+                          autoComplete="email"
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          variant="outlined"
+                          required
+                          fullWidth
+                          name="password"
+                          label="Password"
+                          type="password"
+                          id="password"
+                          autoComplete="current-password"
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox value="allowExtraEmails" color="primary" />
+                          }
+                          label="I want to receive inspiration, marketing promotions and updates via email."
+                        />
+                      </Grid>
+                    </Grid>
+                    <Button
+                      type="submit"
                       fullWidth
-                      id="traits.name.first"
-                      label="First Name"
-                      autoFocus
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="traits.name.last"
-                      label="Last Name"
-                      name="traits.name.last"
-                      autoComplete="lname"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="traits.email"
-                      label="Email Address"
-                      name="traits.email"
-                      type="email"
-                      autoComplete="email"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox value="allowExtraEmails" color="primary" />
-                      }
-                      label="I want to receive inspiration, marketing promotions and updates via email."
-                    />
-                  </Grid>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                >
-                  Sign Up
-                </Button>
-                <Grid container justify="flex-end">
-                  <Grid item>
-                    <Link href="/next/auth/login" variant="body2">
-                      <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                        Already have an account? Log in
-                      </p>
-                    </Link>
-                  </Grid>
-                </Grid>
-              </form>
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
+                    >
+                      Sign Up
+                    </Button>
+                    <Grid container justify="flex-end">
+                      <Grid item>
+                        <Link href="/next/auth/login" variant="body2">
+                          <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                            Already have an account? Log in
+                          </p>
+                        </Link>
+                      </Grid>
+                    </Grid>
+                  </form>
+                )
+              }
             </div>
           </div>
         </div>
