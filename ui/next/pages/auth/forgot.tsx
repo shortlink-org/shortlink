@@ -61,7 +61,9 @@ export default function Forgot() {
             <div className="flex-1 p-6 sm:p-10 sm:py-12">
               <h3 className="text-xl text-gray-700 font-bold mb-6">
                 Enter{' '}
-                <span className="text-gray-400 font-light">your email below</span>
+                <span className="text-gray-400 font-light">
+                  your email below
+                </span>
               </h3>
 
               <form className={classes.form} noValidate>
