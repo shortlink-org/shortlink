@@ -19,7 +19,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: postgresql
-    version: 10.13.3
+    version: 10.13.4
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
     tags:
