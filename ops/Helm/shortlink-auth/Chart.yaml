@@ -19,7 +19,7 @@ type: application                                         # It is the type of ch
 deprecated: false                                         # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: kratos
-    version: 0.20.1
+    version: 0.20.2
     repository: https://k8s.ory.sh/helm/charts
     condition: kratos.enabled
     tags:
