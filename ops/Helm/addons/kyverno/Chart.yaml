@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: kyverno
-    version: v2.1.2
+    version: v2.1.3
     repository: https://kyverno.github.io/kyverno
     condition: kyverno.enabled
     tags:
