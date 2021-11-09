@@ -26,7 +26,7 @@ dependencies:
     tags:
       - monitoring
   - name: promtail
-    version: 3.8.2
+    version: 3.9.1
     repository: https://grafana.github.io/helm-charts
     condition: promtail.enabled
     tags:
