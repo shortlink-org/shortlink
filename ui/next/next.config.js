@@ -2,6 +2,7 @@
 
 const webpack = require('webpack')
 const withSourceMaps = require('@zeit/next-source-maps')
+const { i18n } = require('./next-i18next.config')
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
@@ -21,6 +22,8 @@ const NEXT_CONFIG = {
     return config
   },
   webpack5: true,
+  i18n,
+  trailingSlash: true,
 }
 
 if (!isProd) {
