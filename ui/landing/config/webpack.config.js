@@ -58,9 +58,7 @@ const CONFIG = {
     rules: loaders,
   },
   plugins,
-  experiments: {
-    asset: true
-  },
+  experiments: {},
   optimization: {
     minimize: true,
     minimizer: [
