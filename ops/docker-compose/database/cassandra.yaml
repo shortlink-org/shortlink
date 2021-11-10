@@ -5,7 +5,7 @@ services:
   cassandra:
     depends_on:
       - coredns
-    image: cassandra:3.11
+    image: cassandra:4.0.1
     restart: on-failure
     container_name: cassandra
     ports:

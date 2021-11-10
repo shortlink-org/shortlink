@@ -11,7 +11,7 @@ services:
 
   kafka-connect:
     <<: *network
-    image: confluentinc/cp-kafka-connect:6.0.4
+    image: confluentinc/cp-kafka-connect:7.0.0
     container_name: kafka-connect
     restart: always
     depends_on:
@@ -56,7 +56,7 @@ services:
 
   kafka-connect-debezium:
     <<: *network
-    image: debezium/connect:1.7
+    image: debezium/connect:1.8
     container_name: kafka-connect-debezium
     restart: always
     ports:
@@ -85,7 +85,7 @@ services:
 
   kafka-connect-debezium-ui:
     <<: *network
-    image: debezium/debezium-ui:1.7
+    image: debezium/debezium-ui:1.8
     container_name: kafka-connect-debezium-ui
     ports:
       - 8088:8080

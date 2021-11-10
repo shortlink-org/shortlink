@@ -61,7 +61,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: cassandra:3.9
+    image: cassandra:4.0.1
     profiles:
       - opentracing
     container_name: jaeger-cassandra

@@ -6,7 +6,7 @@ services:
     depends_on:
       - coredns
       - default_backend
-    image: nginx:1.19-alpine
+    image: nginx:1.21-alpine
     container_name: nginx
     ports:
       - "80:80"
@@ -30,7 +30,7 @@ services:
   default_backend:
     depends_on:
       - coredns
-    image: nginx:1.19-alpine
+    image: nginx:1.21-alpine
     container_name: default_backend
     networks:
       - simple

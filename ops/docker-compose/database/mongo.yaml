@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: mongo:4.4-rc
+    image: mongo:5.0.3
     init: true
     restart: on-failure
     container_name: mongo
