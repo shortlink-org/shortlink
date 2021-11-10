@@ -1,5 +1,7 @@
 // @ts-nocheck
 
+import { appWithTranslation } from 'next-i18next'
+
 import React from 'react'
 import { wrapper } from 'store/store'
 import App, { AppInitialProps } from 'next/app'
@@ -78,4 +80,4 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
     },
 )
 
-export default wrapper.withRedux(MyApp)
+export default appWithTranslation(wrapper.withRedux(MyApp))

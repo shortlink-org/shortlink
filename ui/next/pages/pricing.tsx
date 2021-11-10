@@ -1,4 +1,8 @@
 import React from 'react'
+
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
@@ -102,6 +106,8 @@ const useStyles = makeStyles((theme) => ({
 export function Pricing() {
   const classes = useStyles()
 
+  const { t } = useTranslation('pricing')
+
   return (
     <Layout>
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
@@ -112,7 +118,7 @@ export function Pricing() {
           color="textPrimary"
           gutterBottom
         >
-          Pricing
+          {t('title')}
         </Typography>
         <Typography
           variant="h5"
@@ -228,5 +234,12 @@ export function Pricing() {
     </Layout>
   )
 }
+
+// @ts-ignore
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...await serverSideTranslations(locale, ['pricing']),
+  },
+})
 
 export default Pricing
