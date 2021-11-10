@@ -5,7 +5,7 @@ services:
   redis:
     depends_on:
       - coredns
-    image: redis:6.0-alpine
+    image: redis:6.2-alpine
     init: true
     restart: on-failure
     container_name: redis

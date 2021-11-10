@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.30.2
+    image: prom/prometheus:v2.31.1
     container_name: prometheus
     restart: always
     command:

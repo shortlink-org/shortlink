@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/loki:2.3.0
+    image: grafana/loki:2.4.1
     container_name: loki
     command: -config.file=/etc/loki/local-config.yaml
     restart: on-failure
@@ -27,7 +27,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/promtail:2.2.1
+    image: grafana/promtail:2.4.1
     container_name: promtail
     command: -config.file=/etc/promtail/config.yml
     volumes:

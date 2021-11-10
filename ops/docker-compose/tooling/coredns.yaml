@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   coredns:
-    image: coredns/coredns:1.8.4
+    image: coredns/coredns:1.8.6
     profiles:
       - dns
     container_name: coredns

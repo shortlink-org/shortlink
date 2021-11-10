@@ -4,7 +4,7 @@ services:
   pd0:
     depends_on:
       - coredns
-    image: pingcap/pd:v5.0.0
+    image: pingcap/pd:v5.3.0-pre
     ports:
       - "2379"
     command:
@@ -27,7 +27,7 @@ services:
   pd1:
     depends_on:
       - coredns
-    image: pingcap/pd:v5.0.0
+    image: pingcap/pd:v5.3.0-pre
     ports:
       - "2379"
     command:
@@ -50,7 +50,7 @@ services:
   pd2:
     depends_on:
       - coredns
-    image: pingcap/pd:v5.0.0
+    image: pingcap/pd:v5.3.0-pre
     ports:
       - "2379"
     command:
@@ -76,7 +76,7 @@ services:
       - pd1
       - pd2
       - coredns
-    image: pingcap/tikv:v5.0.0
+    image: pingcap/tikv:v5.3.0-pre
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv0:20160
@@ -97,7 +97,7 @@ services:
       - pd1
       - pd2
       - coredns
-    image: pingcap/tikv:v5.0.0
+    image: pingcap/tikv:v5.3.0-pre
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv1:20160
@@ -118,7 +118,7 @@ services:
       - pd1
       - pd2
       - coredns
-    image: pingcap/tikv:v5.0.0
+    image: pingcap/tikv:v5.3.0-pre
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv2:20160
@@ -139,7 +139,7 @@ services:
       - tikv1
       - tikv2
       - coredns
-    image: pingcap/tidb:v5.0.0
+    image: pingcap/tidb:v5.3.0-pre
     ports:
       - "4000:4000"
       - "10080:10080"
@@ -161,7 +161,7 @@ services:
       - tikv1
       - tikv2
       - coredns
-    image: pingcap/tispark:v5.0.0
+    image: pingcap/tispark:v5.3.0-pre
     command:
       - /opt/spark/sbin/start-master.sh
     environment:
@@ -181,7 +181,7 @@ services:
     depends_on:
       - tispark-master
       - coredns
-    image: pingcap/tispark:v5.0.0
+    image: pingcap/tispark:v5.3.0-pre
     command:
       - /opt/spark/sbin/start-slave.sh
       - spark://tispark-master:7077
@@ -199,7 +199,7 @@ services:
   tidb-vision:
     depends_on:
       - coredns
-    image: pingcap/tidb-vision:v5.0.0
+    image: pingcap/tidb-vision:v5.3.0-pre
     environment:
       PD_ENDPOINT: pd0:2379
     ports:
