@@ -1,8 +1,19 @@
 /* eslint-disable */
 
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: {
+    files: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    transform: {
+      md: content => {
+        return remark().process(content)
+      },
+    },
+    extract: {
+      md: content => {
+        return content.match(/[^<>"'`\s]*/)
+      },
+    },
+  },
   theme: {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],
