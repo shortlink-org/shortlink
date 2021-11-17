@@ -72,7 +72,7 @@ require (
 	google.golang.org/grpc v1.42.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
 	google.golang.org/protobuf v1.27.1
-	k8s.io/kubernetes v1.22.3
+	k8s.io/kubernetes v1.22.4
 	k8s.io/mount-utils v0.22.3
 	k8s.io/utils v0.0.0-20211116205334-6203023598ed
 )
