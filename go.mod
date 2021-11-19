@@ -40,7 +40,7 @@ require (
 	github.com/lib/pq v1.10.4
 	github.com/luna-duclos/instrumentedsql v1.1.3
 	github.com/luna-duclos/instrumentedsql/opentracing v0.0.0-20201103091713-40d03108b6f4
-	github.com/mattn/go-sqlite3 v1.14.9
+	github.com/mattn/go-sqlite3 v2.0.1+incompatible
 	github.com/nats-io/nats.go v1.13.0
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
@@ -57,7 +57,7 @@ require (
 	github.com/spf13/viper v1.9.0
 	github.com/srikrsna/protoc-gen-gotag v0.6.2
 	github.com/stretchr/testify v1.7.0
-	github.com/syndtr/goleveldb v1.0.0
+	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
 	go.mongodb.org/mongo-driver v1.7.4
 	go.uber.org/atomic v1.9.0
@@ -174,6 +174,7 @@ require (
 	github.com/opencontainers/runc v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
+	github.com/pingcap/errors v0.11.5-0.20201126102027-b0a155152ca3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
