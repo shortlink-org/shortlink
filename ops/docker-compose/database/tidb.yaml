@@ -1,7 +1,15 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
   pd0:
+    <<: *network
     depends_on:
       - coredns
     image: pingcap/pd:v5.3.0-pre
@@ -18,13 +26,9 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd0.log
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   pd1:
+    <<: *network
     depends_on:
       - coredns
     image: pingcap/pd:v5.3.0-pre
@@ -41,13 +45,9 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd1.log
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   pd2:
+    <<: *network
     depends_on:
       - coredns
     image: pingcap/pd:v5.3.0-pre
@@ -64,13 +64,9 @@ services:
       - --config=/pd.toml
       - --log-file=/logs/pd2.log
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   tikv0:
+    <<: *network
     depends_on:
       - pd0
       - pd1
@@ -85,13 +81,9 @@ services:
       - --config=/tikv.toml
       - --log-file=/logs/tikv0.log
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   tikv1:
+    <<: *network
     depends_on:
       - pd0
       - pd1
@@ -106,13 +98,9 @@ services:
       - --config=/tikv.toml
       - --log-file=/logs/tikv1.log
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   tikv2:
+    <<: *network
     depends_on:
       - pd0
       - pd1
@@ -127,13 +115,9 @@ services:
       - --config=/tikv.toml
       - --log-file=/logs/tikv2.log
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   tidb:
+    <<: *network
     depends_on:
       - tikv0
       - tikv1
@@ -149,13 +133,9 @@ services:
       - --config=/tidb.toml
       - --log-file=/logs/tidb.log
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   tispark-master:
+    <<: *network
     depends_on:
       - tikv0
       - tikv1
@@ -171,13 +151,9 @@ services:
       - "7077:7077"
       - "8080:8080"
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   tispark-slave0:
+    <<: *network
     depends_on:
       - tispark-master
       - coredns
@@ -190,13 +166,9 @@ services:
     ports:
       - "38081:38081"
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
 
   tidb-vision:
+    <<: *network
     depends_on:
       - coredns
     image: pingcap/tidb-vision:v5.3.0-pre
@@ -205,8 +177,3 @@ services:
     ports:
       - "8010:8010"
     restart: on-failure
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
