@@ -26,7 +26,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
   -trimpath \
   -o app ./cmd/api
 
-FROM alpine:3.14
+FROM alpine:3.15
 
 # Define GOTRACEBACK to mark this container as using the Go language runtime
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
