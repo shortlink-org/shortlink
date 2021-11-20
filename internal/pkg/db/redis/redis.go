@@ -19,18 +19,18 @@ type Store struct { // nolint unused
 }
 
 // Init ...
-func (r *Store) Init(ctx context.Context) error {
+func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
-	r.setConfig()
+	s.setConfig()
 
 	// Connect to Redis
-	r.client = redis.NewClient(&redis.Options{
-		Addr:     r.config.URI,
+	s.client = redis.NewClient(&redis.Options{
+		Addr:     s.config.URI,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
 
-	if _, err := r.client.Ping(ctx).Result(); err != nil {
+	if _, err := s.client.Ping(ctx).Result(); err != nil {
 		return err
 	}
 
@@ -43,21 +43,21 @@ func (s *Store) GetConn() interface{} {
 }
 
 // Close ...
-func (r *Store) Close() error {
-	return r.client.Close()
+func (s *Store) Close() error {
+	return s.client.Close()
 }
 
 // Migrate ...
-func (r *Store) migrate() error { // nolint unused
+func (s *Store) migrate() error { // nolint unused
 	return nil
 }
 
 // setConfig - set configuration
-func (r *Store) setConfig() {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_REDIS_URI", "localhost:6379") // Redis URI
 
-	r.config = Config{
+	s.config = Config{
 		URI: viper.GetString("STORE_REDIS_URI"),
 	}
 }
