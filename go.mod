@@ -59,6 +59,7 @@ require (
 	github.com/stretchr/testify v1.7.0
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
+	go.etcd.io/etcd/client/v3 v3.5.1
 	go.mongodb.org/mongo-driver v1.7.4
 	go.uber.org/atomic v1.9.0
 	go.uber.org/automaxprocs v1.4.0
@@ -92,6 +93,8 @@ require (
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/containerd/continuity v0.1.0 // indirect
+	github.com/coreos/go-semver v0.3.0 // indirect
+	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/cucumber/gherkin-go/v19 v19.0.3 // indirect
 	github.com/cucumber/messages-go/v16 v16.0.1 // indirect
@@ -202,6 +205,8 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
+	go.etcd.io/etcd/api/v3 v3.5.1 // indirect
+	go.etcd.io/etcd/client/pkg/v3 v3.5.1 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
