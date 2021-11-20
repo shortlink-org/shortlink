@@ -1,0 +1,18 @@
+version: '2.4'
+
+services:
+
+  ignite:
+    depends_on:
+      - coredns
+    image: apacheignite/ignite:2.11.0
+    restart: on-failure
+    container_name: ignite
+    ports:
+      - "10800:10800"
+    networks:
+      simple:
+        ipv4_address: ${DATABASE_IP}
+    dns:
+      - ${DNS_IP}
+    dns_search: ${DNS_SEARCH}
