@@ -1,0 +1,21 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  aerospikedb:
+    <<: *network
+    depends_on:
+      - coredns
+    image: aerospike/aerospike-server:5.7.0.8
+    init: true
+    restart: on-failure
+    container_name: aerospikedb
+    ports:
+      - "3000:3000"
