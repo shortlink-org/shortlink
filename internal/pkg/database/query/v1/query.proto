@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package database.query.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/pkg/database/query/v1";
+
+// Type is the type of SQL query, e.g. SELECT/UPDATE
+enum Type {
+  // TYPE_UNSPECIFIED is the zero value for a Type
+  TYPE_UNSPECIFIED = 0;
+
+  // TYPE_SELECT represents a SELECT query
+  TYPE_SELECT = 1;
+  // TYPE_UPDATE represents an UPDATE query
+  TYPE_UPDATE = 2;
+  // TYPE_INSERT represents an INSERT query
+  TYPE_INSERT = 3;
+  // TYPE_DELETE represents a DELETE query
+  TYPE_DELETE = 4;
+}
+
+// Operator is between operands in a condition
+enum Operator {
+  // OPERATOR_UNSPECIFIED is the zero value for an Operator
+  OPERATOR_UNSPECIFIED = 0;
+
+  OPERATOR_EQ = 1;  // Eq -> "="
+  OPERATOR_NE = 2;  // Ne -> "!="
+  OPERATOR_GT = 3;  // Gt -> ">"
+  OPERATOR_LT = 4;  // Lt -> "<"
+  OPERATOR_GTE = 5; // Gte -> ">="
+  OPERATOR_LTE = 6; // Lte -> "<="
+}
+
+// Condition is a single boolean condition in a WHERE clause
+message Condition {
+  // LValue is the left hand side operand
+  string l_value = 1;
+  // LValueIsField determines if Operand1 is a literal or a field name
+  bool l_value_is_field = 2;
+
+  // Operator is e.g. "=", ">"
+  Operator operator = 3;
+
+  // RValue is the right hand side operand
+  string r_value = 4;
+  // RValueIsField determines if Operand2 is a literal or a field name
+  bool r_value_is_field = 5;
+}
+
+// Query represents a parsed query
+message Query {
+  message Array {
+    repeated string items = 1;
+  }
+
+  Type type = 1;
+  string table_name = 2;
+  repeated Condition condition = 3;
+  map<string, string> updates = 4;
+  repeated Array inserts = 5;
+  // Used for SELECT (i.e. SELECTed field names) and INSERT (INSERTEDed field names)
+  repeated string fields = 6;
+  map<string, string> aliases = 7;
+}
