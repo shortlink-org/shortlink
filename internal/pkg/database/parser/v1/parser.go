@@ -14,6 +14,20 @@ var reservedWords = []string{
 	"DELETE FROM", "WHERE", "FROM", "SET", "AS",
 }
 
+func New(sql string) (*Parser, error) {
+	parser := &Parser{
+		Sql: sql,
+	}
+
+	// Parse
+	_, err := parser.Parse()
+	if err != nil {
+		return nil, err
+	}
+
+	return parser, nil
+}
+
 // Parse - main function that returns the "query struct" or an error
 func (p *Parser) Parse() (*v1.Query, error) {
 	// initial step
