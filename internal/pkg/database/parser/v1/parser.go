@@ -16,13 +16,14 @@ var reservedWords = []string{
 
 func New(sql string) (*Parser, error) {
 	parser := &Parser{
-		Sql: sql,
+		Sql:   sql,
+		Query: &v1.Query{},
 	}
 
 	// Parse
 	_, err := parser.Parse()
 	if err != nil {
-		return nil, err
+		return parser, err
 	}
 
 	return parser, nil
@@ -30,31 +31,296 @@ func New(sql string) (*Parser, error) {
 
 // Parse - main function that returns the "query struct" or an error
 func (p *Parser) Parse() (*v1.Query, error) {
-	// initial step
-	//p.Step = "stepType"
+	q, err := p.doParse()
+	p.Error = err.Error()
+	if p.Error == "" {
+		if errValidate := p.validate(); errValidate != nil {
+			p.Error = errValidate.Error()
+		}
+	}
+	return q, fmt.Errorf(p.Error)
+}
 
-	//for p.I < len(p.Sql) {
-	//	nextToken := p.peek()
-	//
-	//	switch p.step {
-	//	case stepType:
-	//		switch nextToken {
-	//		case UPDATE:
-	//			p.Query.Type = "UPDATE"
-	//			p.step = stepUpdateTable
-	//		}
-	//	case stepUpdateSet:
-	//		continue
-	//	case stepUpdateField:
-	//		continue
-	//	case stepUpdateComma:
-	//		continue
-	//	}
-	//
-	//	p.pop()
-	//}
+func (p *Parser) doParse() (*v1.Query, error) {
+	for {
+		if p.I >= int32(len(p.Sql)) {
+			return p.Query, fmt.Errorf(p.Error)
+		}
 
-	return p.Query, nil
+		switch p.Step {
+		case Step_STEP_UNSPECIFIED:
+			switch strings.ToUpper(p.peek()) {
+			case "SELECT":
+				p.Query.Type = v1.Type_TYPE_SELECT
+				p.pop()
+				p.Step = Step_STEP_SELECT_FIELD
+			case "INSERT INTO":
+				p.Query.Type = v1.Type_TYPE_INSERT
+				p.pop()
+				p.Step = Step_STEP_INSERT_TABLE
+			case "UPDATE":
+				p.Query.Type = v1.Type_TYPE_UPDATE
+				p.Query.Updates = map[string]string{}
+				p.pop()
+				p.Step = Step_STEP_UPDATE_TABLE
+			case "DELETE FROM":
+				p.Query.Type = v1.Type_TYPE_DELETE
+				p.pop()
+				p.Step = Step_STEP_UPDATE_TABLE
+			}
+		case Step_STEP_SELECT_FIELD:
+			identifier := p.peek()
+			if !isIdentifierOrAsterisk(identifier) {
+				return p.Query, fmt.Errorf("at SELECT: expected field to SELECT")
+			}
+
+			p.Query.Fields = append(p.Query.Fields, identifier)
+			p.pop()
+			maybeFrom := p.peek()
+
+			if strings.ToUpper(maybeFrom) == "AS" {
+				p.pop()
+				alias := p.peek()
+				if !isIdentifier(alias) {
+					return p.Query, fmt.Errorf("at SELECT: expected field alias for \"%s as\" to SELECT", identifier)
+				}
+				if p.Query.Aliases == nil {
+					p.Query.Aliases = make(map[string]string)
+				}
+				p.Query.Aliases[identifier] = alias
+				p.pop()
+				maybeFrom = p.peek()
+			}
+
+			if strings.ToUpper(maybeFrom) == "FROM" {
+				p.Step = Step_STEP_SELECT_FROM
+				continue
+			}
+
+			p.Step = Step_STEP_SELECT_COMMA
+		case Step_STEP_SELECT_COMMA:
+			commaRWord := p.peek()
+			if commaRWord != "," {
+				return p.Query, fmt.Errorf("at SELECT: expected comma or FROM")
+			}
+			p.pop()
+			p.Step = Step_STEP_SELECT_FIELD
+		case Step_STEP_SELECT_FROM:
+			fromRWord := p.peek()
+			if strings.ToUpper(fromRWord) != "FROM" {
+				return p.Query, fmt.Errorf("at SELECT: expected FROM")
+			}
+			p.pop()
+			p.Step = Step_STEP_SELECT_FROM_TABLE
+		case Step_STEP_SELECT_FROM_TABLE:
+			tableName := p.peek()
+			if len(tableName) == 0 {
+				return p.Query, fmt.Errorf("at SELECT: expected quoted table name")
+			}
+			p.Query.TableName = tableName
+			p.pop()
+			p.Step = Step_STEP_WHERE
+		case Step_STEP_INSERT_TABLE:
+			tableName := p.peek()
+			if len(tableName) == 0 {
+				return p.Query, fmt.Errorf("at INSERT INTO: expected quoted table name")
+			}
+			p.Query.TableName = tableName
+			p.pop()
+			p.Step = Step_STEP_INSERT_FIELD_OPENING_PARENTS
+		case Step_STEP_DELETE_FROM_TABLE:
+			tableName := p.peek()
+			if len(tableName) == 0 {
+				return p.Query, fmt.Errorf("at DELETE FROM: expected quoted table name")
+			}
+			p.Query.TableName = tableName
+			p.pop()
+			p.Step = Step_STEP_WHERE
+		case Step_STEP_UPDATE_TABLE:
+			tableName := p.peek()
+			if len(tableName) == 0 {
+				return p.Query, fmt.Errorf("at UPDATE: expected quoted table name")
+			}
+			p.Query.TableName = tableName
+			p.pop()
+			p.Step = Step_STEP_UPDATE_SET
+		case Step_STEP_UPDATE_SET:
+			setRWord := p.peek()
+			if setRWord != "SET" {
+				return p.Query, fmt.Errorf("at UPDATE: expected 'SET'")
+			}
+			p.pop()
+			p.Step = Step_STEP_UPDATE_FIELD
+		case Step_STEP_UPDATE_FIELD:
+			identifier := p.peek()
+			if !isIdentifier(identifier) {
+				return p.Query, fmt.Errorf("at UPDATE: expected at least one field to update")
+			}
+			p.NextUpdateField = identifier
+			p.pop()
+			p.Step = Step_STEP_UPDATE_EQUALS
+		case Step_STEP_UPDATE_EQUALS:
+			equalsRWord := p.peek()
+			if equalsRWord != "=" {
+				return p.Query, fmt.Errorf("at UPDATE: expected '='")
+			}
+			p.pop()
+			p.Step = Step_STEP_UPDATE_VALUE
+		case Step_STEP_UPDATE_VALUE:
+			quotedValue, ln := p.peekQuotedStringWithLength()
+			if ln == 0 {
+				return p.Query, fmt.Errorf("at UPDATE: expected quoted value")
+			}
+			p.Query.Updates[p.NextUpdateField] = quotedValue
+			p.NextUpdateField = ""
+			p.pop()
+			maybeWhere := p.peek()
+			if strings.ToUpper(maybeWhere) == "WHERE" {
+				p.Step = Step_STEP_WHERE
+				continue
+			}
+			p.Step = Step_STEP_UPDATE_COMMA
+		case Step_STEP_UPDATE_COMMA:
+			commaRWord := p.peek()
+			if commaRWord != "," {
+				return p.Query, fmt.Errorf("at UPDATE: expected ','")
+			}
+			p.pop()
+			p.Step = Step_STEP_UPDATE_FIELD
+		case Step_STEP_WHERE:
+			whereRWord := p.peek()
+			if strings.ToUpper(whereRWord) != "WHERE" {
+				return p.Query, fmt.Errorf("expected WHERE")
+			}
+			p.pop()
+			p.Step = Step_STEP_WHERE_FIELD
+		case Step_STEP_WHERE_FIELD:
+			identifier := p.peek()
+			if !isIdentifier(identifier) {
+				return p.Query, fmt.Errorf("at WHERE: expected field")
+			}
+			p.Query.Conditions = append(p.Query.Conditions, &v1.Condition{LValue: identifier, LValueIsField: true})
+			p.pop()
+			p.Step = Step_STEP_WHERE_OPERATOR
+		case Step_STEP_WHERE_OPERATOR:
+			operator := p.peek()
+			currentCondition := p.Query.Conditions[len(p.Query.Conditions)-1]
+			switch operator {
+			case "=":
+				currentCondition.Operator = v1.Operator_OPERATOR_EQ
+			case ">":
+				currentCondition.Operator = v1.Operator_OPERATOR_GT
+			case ">=":
+				currentCondition.Operator = v1.Operator_OPERATOR_GTE
+			case "<":
+				currentCondition.Operator = v1.Operator_OPERATOR_LT
+			case "<=":
+				currentCondition.Operator = v1.Operator_OPERATOR_LTE
+			case "!=":
+				currentCondition.Operator = v1.Operator_OPERATOR_NE
+			default:
+				return p.Query, fmt.Errorf("at WHERE: unknown operator")
+			}
+			p.Query.Conditions[len(p.Query.Conditions)-1] = currentCondition
+			p.pop()
+			p.Step = Step_STEP_WHERE_VALUE
+		case Step_STEP_WHERE_VALUE:
+			currentCondition := p.Query.Conditions[len(p.Query.Conditions)-1]
+			identifier := p.peek()
+			if isIdentifier(identifier) {
+				currentCondition.RValue = identifier
+				currentCondition.RValueIsField = true
+			} else {
+				quotedValue, ln := p.peekQuotedStringWithLength()
+				if ln == 0 {
+					return p.Query, fmt.Errorf("at WHERE: expected quoted value")
+				}
+				currentCondition.RValue = quotedValue
+				currentCondition.RValueIsField = false
+			}
+			p.Query.Conditions[len(p.Query.Conditions)-1] = currentCondition
+			p.pop()
+			p.Step = Step_STEP_WHERE_AND
+		case Step_STEP_WHERE_AND:
+			andRWord := p.peek()
+			if strings.ToUpper(andRWord) != "AND" {
+				return p.Query, fmt.Errorf("expected AND")
+			}
+			p.pop()
+			p.Step = Step_STEP_WHERE_FIELD
+		case Step_STEP_INSERT_FIELD_OPENING_PARENTS:
+			openingParens := p.peek()
+			if len(openingParens) != 1 || openingParens != "(" {
+				return p.Query, fmt.Errorf("at INSERT INTO: expected opening parens")
+			}
+			p.pop()
+			p.Step = Step_STEP_INSERT_FIELDS
+		case Step_STEP_INSERT_FIELDS:
+			identifier := p.peek()
+			if !isIdentifier(identifier) {
+				return p.Query, fmt.Errorf("at INSERT INTO: expected at least one field to insert")
+			}
+			p.Query.Fields = append(p.Query.Fields, identifier)
+			p.pop()
+			p.Step = Step_STEP_INSERT_FIELDS_COMMA_OR_CLOSING_PARENTS
+		case Step_STEP_INSERT_FIELDS_COMMA_OR_CLOSING_PARENTS:
+			commaOrClosingParens := p.peek()
+			if commaOrClosingParens != "," && commaOrClosingParens != ")" {
+				return p.Query, fmt.Errorf("at INSERT INTO: expected comma or closing parens")
+			}
+			p.pop()
+			if commaOrClosingParens == "," {
+				p.Step = Step_STEP_INSERT_FIELDS
+				continue
+			}
+			p.Step = Step_STEP_INSERT_RWORD
+		case Step_STEP_INSERT_RWORD:
+			valuesRWord := p.peek()
+			if strings.ToUpper(valuesRWord) != "VALUES" {
+				return p.Query, fmt.Errorf("at INSERT INTO: expected 'VALUES'")
+			}
+			p.pop()
+			p.Step = Step_STEP_INSERT_VALUES_OPENING_PARENS
+		case Step_STEP_INSERT_VALUES_OPENING_PARENS:
+			openingParens := p.peek()
+			if openingParens != "(" {
+				return p.Query, fmt.Errorf("at INSERT INTO: expected opening parens")
+			}
+			p.Query.Inserts = append(p.Query.Inserts, &v1.Query_Array{})
+			p.pop()
+			p.Step = Step_STEP_INSERT_VALUES
+		case Step_STEP_INSERT_VALUES:
+			quotedValue, ln := p.peekQuotedStringWithLength()
+			if ln == 0 {
+				return p.Query, fmt.Errorf("at INSERT INTO: expected quoted value")
+			}
+			p.Query.Inserts[len(p.Query.Inserts)-1].Items = append(p.Query.Inserts[len(p.Query.Inserts)-1].Items, quotedValue)
+			p.pop()
+			p.Step = Step_STEP_INSERT_VALUES_COMMA_OR_CLOSING_PARENS
+		case Step_STEP_INSERT_VALUES_COMMA_OR_CLOSING_PARENS:
+			commaOrClosingParens := p.peek()
+			if commaOrClosingParens != "," && commaOrClosingParens != ")" {
+				return p.Query, fmt.Errorf("at INSERT INTO: expected comma or closing parens")
+			}
+			p.pop()
+			if commaOrClosingParens == "," {
+				p.Step = Step_STEP_INSERT_VALUES
+				continue
+			}
+			currentInsertRow := p.Query.Inserts[len(p.Query.Inserts)-1]
+			if len(currentInsertRow.Items) < len(p.Query.Fields) {
+				return p.Query, fmt.Errorf("at INSERT INTO: value count doesn't match field count")
+			}
+			p.Step = Step_STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS
+		case Step_STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS:
+			commaRWord := p.peek()
+			if strings.ToUpper(commaRWord) != "," {
+				return p.Query, fmt.Errorf("at INSERT INTO: expected comma")
+			}
+			p.pop()
+			p.Step = Step_STEP_INSERT_VALUES_OPENING_PARENS
+		}
+	}
 }
 
 // peek - a "look-ahead" function that returns the next token to parse
@@ -120,6 +386,10 @@ func (p *Parser) peekIdentifierStringWithLength() (string, int32) {
 }
 
 func (p *Parser) validate() error {
+	if p.Query == nil {
+		return nil
+	}
+
 	if len(p.Query.Conditions) == 0 && p.Step == Step_STEP_WHERE_FIELD {
 		return fmt.Errorf("at WHERE: empty WHERE clause")
 	}
@@ -174,6 +444,10 @@ func isIdentifier(s string) bool {
 
 	matched, _ := regexp.MatchString("[a-zA-Z_][a-zA-Z_0-9]*", s)
 	return matched
+}
+
+func isIdentifierOrAsterisk(s string) bool {
+	return isIdentifier(s) || s == "*"
 }
 
 func min(a, b int) int {
