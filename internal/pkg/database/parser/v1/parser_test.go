@@ -40,16 +40,16 @@ func TestMain(m *testing.M) {
 }
 
 func expression(sql string) error {
-	parser, err := New(sql)
+	_, err := New(sql)
 
 	// nil -> "nil"
 	if err == nil {
-		sqlResponse = "nil"
+		sqlResponse = ""
 	} else {
-		sqlResponse = parser.Query.String()
+		sqlResponse = err.Error()
 	}
 
-	return err
+	return nil
 }
 
 func theResponse(response string) error {
