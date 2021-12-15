@@ -7,6 +7,9 @@ import (
 type Response struct{}
 
 func Run(runRPCServer *rpc.RPCServer) (*Response, error) {
-	go runRPCServer.Run()
+	if runRPCServer != nil {
+		go runRPCServer.Run()
+	}
+
 	return nil, nil
 }

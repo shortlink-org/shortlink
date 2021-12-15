@@ -28,7 +28,9 @@ func New(runRPCServer *rpc.RPCServer, application *link_application.Service, log
 	}
 
 	// Register services
-	RegisterLinkServiceServer(runRPCServer.Server, server)
+	if runRPCServer != nil {
+		RegisterLinkServiceServer(runRPCServer.Server, server)
+	}
 
 	return server, nil
 }

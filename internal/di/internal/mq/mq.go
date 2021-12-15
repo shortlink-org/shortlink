@@ -26,6 +26,8 @@ func New(ctx context.Context, log logger.Logger) (v1.MQ, func(), error) {
 		}
 
 		return dataBus, cleanup, nil
+	} else {
+		log.Warn("MQ disabled")
 	}
 
 	return nil, func() {}, nil
