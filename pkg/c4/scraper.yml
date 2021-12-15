@@ -1,0 +1,26 @@
+configuration:
+  pkgs:
+    - "github.com/batazor/shortlink"
+
+rules:
+  - name_regexp: ".*"
+    pkg_regexps:
+      - "di"
+    component:
+      description: "application context"
+      tags:
+        - ROOT
+  - name_regexp: ".*"
+    pkg_regexps:
+      - "v1"
+    component:
+      description: "domain component"
+      tags:
+        - DOMAIN
+  - name_regexp: ".*"
+    pkg_regexps:
+      - "db"
+    component:
+      description: "database component"
+      tags:
+        - DB

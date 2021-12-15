@@ -1,0 +1,73 @@
+This diagram has been generated with go-structurizr 
+[https://github.com/krzysztofreczek/go-structurizr]
+
+@startuml
+
+title Service components
+
+skinparam {
+  shadowing false
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+hide stereotype
+top to bottom direction
+
+scale 4096 width
+
+skinparam rectangle<<_GROUP>> {
+  FontColor #ffffff
+  BorderColor #ffffff
+}
+
+skinparam rectangle<<DOMAIN>> {
+  BackgroundColor #ffffff
+  FontColor #000000
+  BorderColor #000000
+}
+
+skinparam database<<DB>> {
+  BackgroundColor #c8c8c8
+  FontColor #000000
+  BorderColor #000000
+}
+
+rectangle 0ROOT <<_GROUP>> {
+	rectangle "==di.LoggerService\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 3812318427
+}
+rectangle 0ROOT <<_GROUP>> {
+	rectangle "==di.ServiceLogger\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 722559357
+}
+rectangle 0ROOT <<_GROUP>> {
+	rectangle "==di.Service\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 1871087981
+}
+rectangle 0ROOT <<_GROUP>> {
+	rectangle "==config.Config\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 2592731437
+}
+rectangle 38123184271DOMAIN <<_GROUP>> {
+	rectangle "==rabbit.RabbitMQ\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 758782769
+}
+3812318427 .[#000000].> 758782769 : ""
+722559357 .[#000000].> 1871087981 : ""
+722559357 .[#000000].> 3812318427 : ""
+1871087981 .[#000000].> 758782769 : ""
+1871087981 .[#000000].> 2592731437 : ""
+rectangle 18710879811DB <<_GROUP>> {
+	database "==db.Store\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 4140039057
+}
+1871087981 .[#000000].> 4140039057 : ""
+rectangle 41400390572DB <<_GROUP>> {
+	database "==db.DB\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 71546234
+}
+4140039057 .[#000000].> 71546234 : ""
+rectangle 7587827692DOMAIN <<_GROUP>> {
+	rectangle "==rabbit.Connection\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 1004151439
+}
+758782769 .[#000000].> 1004151439 : ""
+rectangle 7587827692DOMAIN <<_GROUP>> {
+	rectangle "==rabbit.Channel\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 2572930566
+}
+758782769 .[#000000].> 2572930566 : ""
+@enduml
