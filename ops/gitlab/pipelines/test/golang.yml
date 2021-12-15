@@ -69,7 +69,7 @@ golint:
 go_fuzz_test:
   extends: .fuzz_base
   stage: test
-  image: golang:1.17-alpine
+  image: golang:1.18beta1-alpine
   variables:
     CI_SEED_CORPUS: './seed_corpus'
   before_script:
