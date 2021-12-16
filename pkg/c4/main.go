@@ -13,7 +13,7 @@ import (
 const (
 	scraperConfig = "./pkg/c4/scraper.yml"
 	viewConfig    = "./pkg/c4/view.yml"
-	outputFile    = "./pkg/c4/out/view-%s.plantuml"
+	outputFile    = "./docs/c4/view-%s.plantuml"
 )
 
 func main() {

@@ -22,14 +22,14 @@ skinparam rectangle<<_GROUP>> {
   BorderColor #ffffff
 }
 
-skinparam database<<DB>> {
-  BackgroundColor #c8c8c8
+skinparam rectangle<<DOMAIN>> {
+  BackgroundColor #ffffff
   FontColor #000000
   BorderColor #000000
 }
 
-skinparam rectangle<<DOMAIN>> {
-  BackgroundColor #ffffff
+skinparam database<<DB>> {
+  BackgroundColor #c8c8c8
   FontColor #000000
   BorderColor #000000
 }
@@ -40,6 +40,12 @@ rectangle 0ROOT <<_GROUP>> {
 rectangle 0ROOT <<_GROUP>> {
 	rectangle "==config.Config\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 2592731437
 }
+rectangle 0ROOT <<_GROUP>> {
+	rectangle "==di.ServiceBilling\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 198103108
+}
+rectangle 0ROOT <<_GROUP>> {
+	rectangle "==di.BillingService\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 864738821
+}
 1871087981 .[#000000].> 2592731437 : ""
 rectangle 18710879811DB <<_GROUP>> {
 	database "==db.Store\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 4140039057
@@ -49,10 +55,20 @@ rectangle 18710879811DOMAIN <<_GROUP>> {
 	rectangle "==rabbit.RabbitMQ\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 758782769
 }
 1871087981 .[#000000].> 758782769 : ""
-rectangle 41400390572DB <<_GROUP>> {
-	database "==db.DB\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 71546234
+198103108 .[#000000].> 864738821 : ""
+198103108 .[#000000].> 1871087981 : ""
+rectangle 8647388211DOMAIN <<_GROUP>> {
+	rectangle "==v1.Order\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 272909887
 }
-4140039057 .[#000000].> 71546234 : ""
+864738821 .[#000000].> 272909887 : ""
+rectangle 8647388211DOMAIN <<_GROUP>> {
+	rectangle "==v1.Payment\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 412977575
+}
+864738821 .[#000000].> 412977575 : ""
+rectangle 8647388211DOMAIN <<_GROUP>> {
+	rectangle "==v1.Tariff\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 859361647
+}
+864738821 .[#000000].> 859361647 : ""
 rectangle 7587827692DOMAIN <<_GROUP>> {
 	rectangle "==rabbit.Connection\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 1004151439
 }
@@ -61,4 +77,8 @@ rectangle 7587827692DOMAIN <<_GROUP>> {
 	rectangle "==rabbit.Channel\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 2572930566
 }
 758782769 .[#000000].> 2572930566 : ""
+rectangle 41400390572DB <<_GROUP>> {
+	database "==db.DB\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 71546234
+}
+4140039057 .[#000000].> 71546234 : ""
 @enduml
