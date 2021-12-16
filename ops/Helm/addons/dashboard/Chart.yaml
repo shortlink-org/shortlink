@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: kubernetes-dashboard
-    version: 5.0.4
+    version: 5.0.5
     repository: https://kubernetes.github.io/dashboard
     condition: kubernetes-dashboard.enabled
     tags:

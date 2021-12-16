@@ -6,6 +6,7 @@ import (
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -65,9 +66,11 @@ func RunAPIServer(
 		server = &http_chi.API{}
 	}
 
-	if err := server.Run(ctx, i18n, config, log, tracer, link_rpc, link_command, link_query, sitemap_rpc); err != nil {
-		return nil, err
-	}
+	g := errgroup.Group{}
+
+	g.Go(func() error {
+		return server.Run(ctx, i18n, config, log, tracer, link_rpc, link_command, link_query, sitemap_rpc)
+	})
 
 	return &server, nil
 }

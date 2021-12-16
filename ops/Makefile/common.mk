@@ -30,6 +30,7 @@ do: ## Run for specific job
 		-f docker-compose.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
 		-f ops/docker-compose/database/postgres.yaml \
+		-f ops/docker-compose/database/redis.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
