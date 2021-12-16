@@ -24,6 +24,7 @@ Shortlink service
 - [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
 - [Auth](https://miro.com/app/board/o9J_lA5Wmhg=/)
 - [Event Sourcing](https://miro.com/app/board/o9J_l-6o1U0=/)
+- [C4](./docs/c4)
 
 ### Architecture decision records] (ADR)
 

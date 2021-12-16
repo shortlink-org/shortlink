@@ -35,29 +35,20 @@ skinparam database<<DB>> {
 }
 
 rectangle 0ROOT <<_GROUP>> {
-	rectangle "==di.LoggerService\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 3812318427
-}
-rectangle 0ROOT <<_GROUP>> {
-	rectangle "==di.ServiceLogger\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 722559357
-}
-rectangle 0ROOT <<_GROUP>> {
 	rectangle "==di.Service\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 1871087981
 }
 rectangle 0ROOT <<_GROUP>> {
 	rectangle "==config.Config\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 2592731437
 }
-rectangle 38123184271DOMAIN <<_GROUP>> {
-	rectangle "==rabbit.RabbitMQ\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 758782769
-}
-3812318427 .[#000000].> 758782769 : ""
-722559357 .[#000000].> 1871087981 : ""
-722559357 .[#000000].> 3812318427 : ""
-1871087981 .[#000000].> 758782769 : ""
 1871087981 .[#000000].> 2592731437 : ""
 rectangle 18710879811DB <<_GROUP>> {
 	database "==db.Store\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 4140039057
 }
 1871087981 .[#000000].> 4140039057 : ""
+rectangle 18710879811DOMAIN <<_GROUP>> {
+	rectangle "==rabbit.RabbitMQ\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 758782769
+}
+1871087981 .[#000000].> 758782769 : ""
 rectangle 41400390572DB <<_GROUP>> {
 	database "==db.DB\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 71546234
 }

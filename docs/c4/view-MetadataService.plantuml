@@ -38,37 +38,34 @@ rectangle 0ROOT <<_GROUP>> {
 	rectangle "==config.Config\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 2592731437
 }
 rectangle 0ROOT <<_GROUP>> {
-	rectangle "==di.BillingService\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 864738821
-}
-rectangle 0ROOT <<_GROUP>> {
-	rectangle "==di.ServiceBilling\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 198103108
+	rectangle "==di.ServiceMetadata\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 347593176
 }
 rectangle 0ROOT <<_GROUP>> {
 	rectangle "==di.Service\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 1871087981
 }
-198103108 .[#000000].> 1871087981 : ""
-198103108 .[#000000].> 864738821 : ""
-rectangle 18710879811DOMAIN <<_GROUP>> {
-	rectangle "==rabbit.RabbitMQ\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 758782769
+rectangle 0ROOT <<_GROUP>> {
+	rectangle "==di.MetaDataService\n<size:10>[component]</size>\n\napplication context" <<ROOT>> as 2901281215
 }
-1871087981 .[#000000].> 758782769 : ""
+347593176 .[#000000].> 1871087981 : ""
+347593176 .[#000000].> 2901281215 : ""
 1871087981 .[#000000].> 2592731437 : ""
 rectangle 18710879811DB <<_GROUP>> {
 	database "==db.Store\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 4140039057
 }
 1871087981 .[#000000].> 4140039057 : ""
-rectangle 8647388211DOMAIN <<_GROUP>> {
-	rectangle "==v1.Order\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 272909887
+rectangle 18710879811DOMAIN <<_GROUP>> {
+	rectangle "==rabbit.RabbitMQ\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 758782769
 }
-864738821 .[#000000].> 272909887 : ""
-rectangle 8647388211DOMAIN <<_GROUP>> {
-	rectangle "==v1.Payment\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 412977575
+1871087981 .[#000000].> 758782769 : ""
+2901281215 .[#000000].> 758782769 : ""
+rectangle 29012812151DOMAIN <<_GROUP>> {
+	rectangle "==v1.Metadata\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 1014029880
 }
-864738821 .[#000000].> 412977575 : ""
-rectangle 8647388211DOMAIN <<_GROUP>> {
-	rectangle "==v1.Tariff\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 859361647
+2901281215 .[#000000].> 1014029880 : ""
+rectangle 41400390572DB <<_GROUP>> {
+	database "==postgres.Store\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 3312791683
 }
-864738821 .[#000000].> 859361647 : ""
+4140039057 .[#000000].> 3312791683 : ""
 rectangle 7587827692DOMAIN <<_GROUP>> {
 	rectangle "==rabbit.Connection\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 1004151439
 }
@@ -77,8 +74,12 @@ rectangle 7587827692DOMAIN <<_GROUP>> {
 	rectangle "==rabbit.Channel\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 2572930566
 }
 758782769 .[#000000].> 2572930566 : ""
-rectangle 41400390572DB <<_GROUP>> {
-	database "==db.DB\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 71546234
+rectangle 10140298802DOMAIN <<_GROUP>> {
+	rectangle "==v1.MetadataServiceServer\n<size:10>[component]</size>\n\ndomain component" <<DOMAIN>> as 2973877928
 }
-4140039057 .[#000000].> 71546234 : ""
+1014029880 .[#000000].> 2973877928 : ""
+rectangle 33127916833DB <<_GROUP>> {
+	database "==postgres.Config\n<size:10>[component]</size>\n\ndatabase component" <<DB>> as 2303787276
+}
+3312791683 .[#000000].> 2303787276 : ""
 @enduml
