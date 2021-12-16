@@ -248,6 +248,94 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			}
 			p.pop()
 			p.Step = Step_STEP_WHERE_FIELD
+		case Step_STEP_ORDER:
+			orderRWord := p.peek()
+			if strings.ToUpper(orderRWord) != "ORDER BY" {
+				return p.Query, fmt.Errorf("expected ORDER")
+			}
+			p.pop()
+			p.Step = Step_STEP_ORDER_FIELD
+		case Step_STEP_ORDER_FIELD:
+			identifier := p.peek()
+			if !isIdentifier(identifier) {
+				return p.Query, fmt.Errorf("at ORDER BY: expected field to ORDER")
+			}
+			p.Query.OrderFields = append(p.Query.OrderFields, identifier)
+			p.Query.OrderDir = append(p.Query.OrderDir, "ASC")
+			p.pop()
+			p.Step = stepOrderDirectionOrComma
+		case Step_STEP_ORDER_DIRECTION_OR_COMMA:
+			commaRWord := p.peek()
+			if commaRWord == "," {
+				p.pop()
+			} else if commaRWord == "ASC" || commaRWord == "DESC" {
+				p.pop()
+				p.Query.OrderDir[len(p.Query.OrderDir)-1] = commaRWord
+				continue
+			}
+			p.Step = stepOrderField
+		case Step_STEP_JOIN:
+			joinType := p.peek()
+			p.Query.Joins = append(p.Query.Joins, query.Join{Type: joinType, Table: "UNKNOWN"})
+			p.pop()
+			p.Step = stepJoinTable
+		case Step_STEP_JOIN_TABLE:
+			joinTable := p.peek()
+			currentJoin := p.Query.Joins[len(p.Query.Joins)-1]
+			currentJoin.Table = joinTable
+			p.Query.Joins[len(p.Query.Joins)-1] = currentJoin
+			p.pop()
+			if strings.ToUpper(p.peek()) == "ON" {
+				p.Step = stepJoinCondition
+			} else {
+				p.Step = stepOrder
+			}
+		case Step_STEP_JOIN_CONDITION:
+			p.pop()
+			op1 := p.pop()
+			op1split := strings.Split(op1, ".")
+			if len(op1split) != 2 {
+				return p.Query, fmt.Errorf("at ON: expected <tablename>.<fieldname>")
+			}
+			currentCondition := query.JoinCondition{Table1: op1split[0], Operand1: op1split[1]}
+			operator := p.peek()
+			switch operator {
+			case "=":
+				currentCondition.Operator = query.Eq
+			case ">":
+				currentCondition.Operator = query.Gt
+			case ">=":
+				currentCondition.Operator = query.Gte
+			case "<":
+				currentCondition.Operator = query.Lt
+			case "<=":
+				currentCondition.Operator = query.Lte
+			case "!=":
+				currentCondition.Operator = query.Ne
+			default:
+				return p.Query, fmt.Errorf("at ON: unknown operator")
+			}
+			p.pop()
+			op2 := p.pop()
+			op2split := strings.Split(op2, ".")
+			if len(op2split) != 2 {
+				return p.Query, fmt.Errorf("at ON: expected <tablename>.<fieldname>")
+			}
+			currentCondition.Table2 = op2split[0]
+			currentCondition.Operand2 = op2split[1]
+			currentJoin := p.Query.Joins[len(p.Query.Joins)-1]
+			currentJoin.Conditions = append(currentJoin.Conditions, currentCondition)
+			p.Query.Joins[len(p.Query.Joins)-1] = currentJoin
+			nextOp := p.peek()
+			if strings.ToUpper(nextOp) == "WHERE" {
+				p.Step = stepWhere
+			} else if strings.ToUpper(nextOp) == "ORDER BY" {
+				p.Step = stepOrder
+			} else if strings.ToUpper(nextOp) == "AND" {
+				p.Step = stepJoinCondition
+			} else if strings.Contains(strings.ToUpper(nextOp), "JOIN") {
+				p.Step = stepJoin
+			}
 		case Step_STEP_INSERT_FIELD_OPENING_PARENTS:
 			openingParens := p.peek()
 			if len(openingParens) != 1 || openingParens != "(" {

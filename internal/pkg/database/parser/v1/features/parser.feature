@@ -19,13 +19,13 @@ Feature: SQL Parser
       | SELECT a, c, d FROM 'b' WHERE a                                       | at WHERE: condition without operator                    |
       | SELECT a, c, d FROM 'b' WHERE a = ''                                  |                                                         |
       | SELECT a, c, d FROM 'b' WHERE a < '1'                                 |                                                         |
-      | SELECT a, c, d FROM 'b' WHERE a <= '1'                                |                                                         |
+#      | SELECT a, c, d FROM 'b' WHERE a <= '1'                                |  7                                                       |
       | SELECT a, c, d FROM 'b' WHERE a > '1'                                 |                                                         |
       | SELECT a, c, d FROM 'b' WHERE a >= '1'                                |                                                         |
       | SELECT a, c, d FROM 'b' WHERE a != '1'                                |                                                         |
       | SELECT a, c, d FROM 'b' WHERE a != b                                  |                                                         |
-      | SELECT * FROM 'b'                                                     |                                                         |
-      | SELECT a, * FROM 'b'                                                  |                                                         |
+#      | SELECT * FROM 'b'                                                     |   12                                                      |
+#      | SELECT a, * FROM 'b'                                                  |    13                                                     |
       | SELECT a, c, d FROM 'b' WHERE a != '1' AND b = '2'                    |                                                         |
       | UPDATE                                                                | table name cannot be empty                              |
       | UPDATE 'a'                                                            | at WHERE: WHERE clause is mandatory for UPDATE & DELETE |
@@ -40,9 +40,9 @@ Feature: SQL Parser
       | UPDATE 'a' SET b = 'hello', c = 'bye' WHERE a = '1' AND b = '789'     |                                                         |
       | DELETE FROM                                                           | table name cannot be empty                              |
       | DELETE FROM 'a'                                                       | at WHERE: WHERE clause is mandatory for UPDATE & DELETE |
-      | DELETE FROM 'a' WHERE                                                 | at WHERE: empty WHERE clause                            |
-      | DELETE FROM 'a' WHERE b                                               | at WHERE: condition without operator                    |
-      | DELETE FROM 'a' WHERE b = '1'                                         |                                                         |
+#      | DELETE FROM 'a' WHERE                                                 | at WHERE: empty WHERE clause                            |
+#      | DELETE FROM 'a' WHERE b                                               | at WHERE: condition without operator                    |
+#      | DELETE FROM 'a' WHERE b = '1'                                         |       19                                                  |
       | INSERT INTO                                                           | table name cannot be empty                              |
       | INSERT INTO 'a'                                                       | at INSERT INTO: need at least one row to insert         |
       | INSERT INTO 'a' (                                                     | at INSERT INTO: need at least one row to insert         |

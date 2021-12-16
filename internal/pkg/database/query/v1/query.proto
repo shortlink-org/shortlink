@@ -48,6 +48,26 @@ message Condition {
   bool r_value_is_field = 5;
 }
 
+// Condition is a single boolean condition in a WHERE clause
+message JoinCondition {
+  // LHS table name
+  string LTable = 1;
+  // Level operand is the left hand side operand
+  string LOperand = 2;
+  // Operator is e.g. "=", ">"
+  Operator operator = 3;
+  // RHS table name
+  string RTable = 4;
+  // Right operand1 is the right hand side operand
+  string ROperand = 5;
+}
+
+message Join {
+  string Type = 1;
+  string Table = 2;
+  repeated JoinCondition conditions = 3;
+}
+
 // Query represents a parsed query
 message Query {
   message Array {
@@ -55,11 +75,16 @@ message Query {
   }
 
   Type type = 1;
-  string table_name = 2;
-  repeated Condition conditions = 3;
-  map<string, string> updates = 4;
-  repeated Array inserts = 5;
+  string database = 2;
+  string table_name = 3;
+  repeated Condition conditions = 4;
+  map<string, string> updates = 5;
+  repeated Array inserts = 6;
   // Used for SELECT (i.e. SELECTed field names) and INSERT (INSERTEDed field names)
-  repeated string fields = 6;
-  map<string, string> aliases = 7;
+  repeated string fields = 7;
+  map<string, string> aliases = 8;
+  repeated string order_fields = 9;
+  repeated string order_dir = 10;
+  repeated Join joins = 11;
+  int32 max_rows = 12;
 }
