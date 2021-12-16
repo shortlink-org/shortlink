@@ -11,7 +11,10 @@ import (
 var reservedWords = []string{
 	"(", ")", ">=", ">", "<", "<=", "=", "!=", ",",
 	"SELECT", "INSERT INTO", "VALUES", "UPDATE",
-	"DELETE FROM", "WHERE", "FROM", "SET", "AS",
+	"DELETE FROM", "WHERE", "FROM", "SET",
+	"ON DUPLICATE KEY UPDATE", "ORDER BY", "ASC",
+	"DESC", "LEFT JOIN", "RIGHT JOIN", "INNER JOIN",
+	"JOIN", "ON", "AS",
 }
 
 func New(sql string) (*Parser, error) {
@@ -117,9 +120,23 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			if len(tableName) == 0 {
 				return p.Query, fmt.Errorf("at SELECT: expected quoted table name")
 			}
+
+			if strings.Contains(tableName, ".") {
+				parts := strings.Split(tableName, ".")
+				p.Query.Database = parts[0]
+				tableName = parts[1]
+			}
+
 			p.Query.TableName = tableName
 			p.pop()
-			p.Step = Step_STEP_WHERE
+			look := p.peek()
+			if strings.ToUpper(look) == "WHERE" {
+				p.Step = Step_STEP_WHERE
+			} else if strings.ToUpper(look) == "ORDER BY" {
+				p.Step = Step_STEP_ORDER
+			} else if strings.Contains(strings.ToUpper(look), "JOIN") {
+				p.Step = Step_STEP_JOIN
+			}
 		case Step_STEP_INSERT_TABLE:
 			tableName := p.peek()
 			if len(tableName) == 0 {
@@ -136,57 +153,6 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			p.Query.TableName = tableName
 			p.pop()
 			p.Step = Step_STEP_WHERE
-		case Step_STEP_UPDATE_TABLE:
-			tableName := p.peek()
-			if len(tableName) == 0 {
-				return p.Query, fmt.Errorf("at UPDATE: expected quoted table name")
-			}
-			p.Query.TableName = tableName
-			p.pop()
-			p.Step = Step_STEP_UPDATE_SET
-		case Step_STEP_UPDATE_SET:
-			setRWord := p.peek()
-			if setRWord != "SET" {
-				return p.Query, fmt.Errorf("at UPDATE: expected 'SET'")
-			}
-			p.pop()
-			p.Step = Step_STEP_UPDATE_FIELD
-		case Step_STEP_UPDATE_FIELD:
-			identifier := p.peek()
-			if !isIdentifier(identifier) {
-				return p.Query, fmt.Errorf("at UPDATE: expected at least one field to update")
-			}
-			p.NextUpdateField = identifier
-			p.pop()
-			p.Step = Step_STEP_UPDATE_EQUALS
-		case Step_STEP_UPDATE_EQUALS:
-			equalsRWord := p.peek()
-			if equalsRWord != "=" {
-				return p.Query, fmt.Errorf("at UPDATE: expected '='")
-			}
-			p.pop()
-			p.Step = Step_STEP_UPDATE_VALUE
-		case Step_STEP_UPDATE_VALUE:
-			quotedValue, ln := p.peekQuotedStringWithLength()
-			if ln == 0 {
-				return p.Query, fmt.Errorf("at UPDATE: expected quoted value")
-			}
-			p.Query.Updates[p.NextUpdateField] = quotedValue
-			p.NextUpdateField = ""
-			p.pop()
-			maybeWhere := p.peek()
-			if strings.ToUpper(maybeWhere) == "WHERE" {
-				p.Step = Step_STEP_WHERE
-				continue
-			}
-			p.Step = Step_STEP_UPDATE_COMMA
-		case Step_STEP_UPDATE_COMMA:
-			commaRWord := p.peek()
-			if commaRWord != "," {
-				return p.Query, fmt.Errorf("at UPDATE: expected ','")
-			}
-			p.pop()
-			p.Step = Step_STEP_UPDATE_FIELD
 		case Step_STEP_WHERE:
 			whereRWord := p.peek()
 			if strings.ToUpper(whereRWord) != "WHERE" {
@@ -248,6 +214,57 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			}
 			p.pop()
 			p.Step = Step_STEP_WHERE_FIELD
+		case Step_STEP_UPDATE_TABLE:
+			tableName := p.peek()
+			if len(tableName) == 0 {
+				return p.Query, fmt.Errorf("at UPDATE: expected quoted table name")
+			}
+			p.Query.TableName = tableName
+			p.pop()
+			p.Step = Step_STEP_UPDATE_SET
+		case Step_STEP_UPDATE_SET:
+			setRWord := p.peek()
+			if setRWord != "SET" {
+				return p.Query, fmt.Errorf("at UPDATE: expected 'SET'")
+			}
+			p.pop()
+			p.Step = Step_STEP_UPDATE_FIELD
+		case Step_STEP_UPDATE_FIELD:
+			identifier := p.peek()
+			if !isIdentifier(identifier) {
+				return p.Query, fmt.Errorf("at UPDATE: expected at least one field to update")
+			}
+			p.NextUpdateField = identifier
+			p.pop()
+			p.Step = Step_STEP_UPDATE_EQUALS
+		case Step_STEP_UPDATE_EQUALS:
+			equalsRWord := p.peek()
+			if equalsRWord != "=" {
+				return p.Query, fmt.Errorf("at UPDATE: expected '='")
+			}
+			p.pop()
+			p.Step = Step_STEP_UPDATE_VALUE
+		case Step_STEP_UPDATE_VALUE:
+			quotedValue, ln := p.peekQuotedStringWithLength()
+			if ln == 0 {
+				return p.Query, fmt.Errorf("at UPDATE: expected quoted value")
+			}
+			p.Query.Updates[p.NextUpdateField] = quotedValue
+			p.NextUpdateField = ""
+			p.pop()
+			maybeWhere := p.peek()
+			if strings.ToUpper(maybeWhere) == "WHERE" {
+				p.Step = Step_STEP_WHERE
+				continue
+			}
+			p.Step = Step_STEP_UPDATE_COMMA
+		case Step_STEP_UPDATE_COMMA:
+			commaRWord := p.peek()
+			if commaRWord != "," {
+				return p.Query, fmt.Errorf("at UPDATE: expected ','")
+			}
+			p.pop()
+			p.Step = Step_STEP_UPDATE_FIELD
 		case Step_STEP_ORDER:
 			orderRWord := p.peek()
 			if strings.ToUpper(orderRWord) != "ORDER BY" {
@@ -263,7 +280,7 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			p.Query.OrderFields = append(p.Query.OrderFields, identifier)
 			p.Query.OrderDir = append(p.Query.OrderDir, "ASC")
 			p.pop()
-			p.Step = stepOrderDirectionOrComma
+			p.Step = Step_STEP_ORDER_DIRECTION_OR_COMMA
 		case Step_STEP_ORDER_DIRECTION_OR_COMMA:
 			commaRWord := p.peek()
 			if commaRWord == "," {
@@ -273,12 +290,12 @@ func (p *Parser) doParse() (*v1.Query, error) {
 				p.Query.OrderDir[len(p.Query.OrderDir)-1] = commaRWord
 				continue
 			}
-			p.Step = stepOrderField
+			p.Step = Step_STEP_ORDER_FIELD
 		case Step_STEP_JOIN:
 			joinType := p.peek()
-			p.Query.Joins = append(p.Query.Joins, query.Join{Type: joinType, Table: "UNKNOWN"})
+			p.Query.Joins = append(p.Query.Joins, &v1.Join{Type: joinType, Table: "UNKNOWN"})
 			p.pop()
-			p.Step = stepJoinTable
+			p.Step = Step_STEP_JOIN_TABLE
 		case Step_STEP_JOIN_TABLE:
 			joinTable := p.peek()
 			currentJoin := p.Query.Joins[len(p.Query.Joins)-1]
@@ -286,9 +303,9 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			p.Query.Joins[len(p.Query.Joins)-1] = currentJoin
 			p.pop()
 			if strings.ToUpper(p.peek()) == "ON" {
-				p.Step = stepJoinCondition
+				p.Step = Step_STEP_JOIN_CONDITION
 			} else {
-				p.Step = stepOrder
+				p.Step = Step_STEP_ORDER
 			}
 		case Step_STEP_JOIN_CONDITION:
 			p.pop()
@@ -297,21 +314,21 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			if len(op1split) != 2 {
 				return p.Query, fmt.Errorf("at ON: expected <tablename>.<fieldname>")
 			}
-			currentCondition := query.JoinCondition{Table1: op1split[0], Operand1: op1split[1]}
+			currentCondition := &v1.JoinCondition{LTable: op1split[0], LOperand: op1split[1]}
 			operator := p.peek()
 			switch operator {
 			case "=":
-				currentCondition.Operator = query.Eq
+				currentCondition.Operator = v1.Operator_OPERATOR_EQ
 			case ">":
-				currentCondition.Operator = query.Gt
+				currentCondition.Operator = v1.Operator_OPERATOR_GT
 			case ">=":
-				currentCondition.Operator = query.Gte
+				currentCondition.Operator = v1.Operator_OPERATOR_GTE
 			case "<":
-				currentCondition.Operator = query.Lt
+				currentCondition.Operator = v1.Operator_OPERATOR_LT
 			case "<=":
-				currentCondition.Operator = query.Lte
+				currentCondition.Operator = v1.Operator_OPERATOR_LTE
 			case "!=":
-				currentCondition.Operator = query.Ne
+				currentCondition.Operator = v1.Operator_OPERATOR_NE
 			default:
 				return p.Query, fmt.Errorf("at ON: unknown operator")
 			}
@@ -321,20 +338,20 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			if len(op2split) != 2 {
 				return p.Query, fmt.Errorf("at ON: expected <tablename>.<fieldname>")
 			}
-			currentCondition.Table2 = op2split[0]
-			currentCondition.Operand2 = op2split[1]
+			currentCondition.RTable = op2split[0]
+			currentCondition.ROperand = op2split[1]
 			currentJoin := p.Query.Joins[len(p.Query.Joins)-1]
 			currentJoin.Conditions = append(currentJoin.Conditions, currentCondition)
 			p.Query.Joins[len(p.Query.Joins)-1] = currentJoin
 			nextOp := p.peek()
 			if strings.ToUpper(nextOp) == "WHERE" {
-				p.Step = stepWhere
+				p.Step = Step_STEP_WHERE
 			} else if strings.ToUpper(nextOp) == "ORDER BY" {
-				p.Step = stepOrder
+				p.Step = Step_STEP_ORDER
 			} else if strings.ToUpper(nextOp) == "AND" {
-				p.Step = stepJoinCondition
+				p.Step = Step_STEP_JOIN_CONDITION
 			} else if strings.Contains(strings.ToUpper(nextOp), "JOIN") {
-				p.Step = stepJoin
+				p.Step = Step_STEP_JOIN
 			}
 		case Step_STEP_INSERT_FIELD_OPENING_PARENTS:
 			openingParens := p.peek()

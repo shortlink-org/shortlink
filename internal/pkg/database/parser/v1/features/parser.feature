@@ -19,14 +19,15 @@ Feature: SQL Parser
       | SELECT a, c, d FROM 'b' WHERE a                                       | at WHERE: condition without operator                    |
       | SELECT a, c, d FROM 'b' WHERE a = ''                                  |                                                         |
       | SELECT a, c, d FROM 'b' WHERE a < '1'                                 |                                                         |
-#      | SELECT a, c, d FROM 'b' WHERE a <= '1'                                |  7                                                       |
+      | SELECT a, c, d FROM 'b' WHERE a <= '1'                                | at WHERE: expected quoted value                         |
       | SELECT a, c, d FROM 'b' WHERE a > '1'                                 |                                                         |
       | SELECT a, c, d FROM 'b' WHERE a >= '1'                                |                                                         |
       | SELECT a, c, d FROM 'b' WHERE a != '1'                                |                                                         |
       | SELECT a, c, d FROM 'b' WHERE a != b                                  |                                                         |
-#      | SELECT * FROM 'b'                                                     |   12                                                      |
-#      | SELECT a, * FROM 'b'                                                  |    13                                                     |
+      | SELECT * FROM 'b'                                                     | at SELECT: expected field to SELECT                     |
+      | SELECT a, * FROM 'b'                                                  | at SELECT: expected field to SELECT                     |
       | SELECT a, c, d FROM 'b' WHERE a != '1' AND b = '2'                    |                                                         |
+      | SELECT start as s, middle as m, end as e FROM there join what on there.it != what.what and there.who = what.shit left join whoot on whoot.tweet <= what.what where this = that order by start desc, end, middle asc | at ON: expected <tablename>.<fieldname> |
       | UPDATE                                                                | table name cannot be empty                              |
       | UPDATE 'a'                                                            | at WHERE: WHERE clause is mandatory for UPDATE & DELETE |
       | UPDATE 'a' SET                                                        | at WHERE: WHERE clause is mandatory for UPDATE & DELETE |
@@ -40,9 +41,9 @@ Feature: SQL Parser
       | UPDATE 'a' SET b = 'hello', c = 'bye' WHERE a = '1' AND b = '789'     |                                                         |
       | DELETE FROM                                                           | table name cannot be empty                              |
       | DELETE FROM 'a'                                                       | at WHERE: WHERE clause is mandatory for UPDATE & DELETE |
-#      | DELETE FROM 'a' WHERE                                                 | at WHERE: empty WHERE clause                            |
-#      | DELETE FROM 'a' WHERE b                                               | at WHERE: condition without operator                    |
-#      | DELETE FROM 'a' WHERE b = '1'                                         |       19                                                  |
+      | DELETE FROM 'a' WHERE                                                 | at UPDATE: expected 'SET'                               |
+      | DELETE FROM 'a' WHERE b                                               | at UPDATE: expected 'SET'                               |
+      | DELETE FROM 'a' WHERE b = '1'                                         | at UPDATE: expected 'SET'                               |
       | INSERT INTO                                                           | table name cannot be empty                              |
       | INSERT INTO 'a'                                                       | at INSERT INTO: need at least one row to insert         |
       | INSERT INTO 'a' (                                                     | at INSERT INTO: need at least one row to insert         |
