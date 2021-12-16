@@ -8,6 +8,7 @@ require (
 	github.com/Shopify/sarama v1.30.1
 	github.com/Unleash/unleash-client-go/v3 v3.2.4
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
+	github.com/c-bata/go-prompt v0.2.6
 	github.com/cloudevents/sdk-go/v2 v2.7.0
 	github.com/container-storage-interface/spec v1.5.0
 	github.com/cucumber/godog v0.12.2
@@ -163,7 +164,10 @@ require (
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/mailru/easyjson v0.7.6 // indirect
+	github.com/mattn/go-colorable v0.1.12 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
+	github.com/mattn/go-tty v0.0.3 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.2-0.20181231171920-c182affec369 // indirect
 	github.com/mitchellh/mapstructure v1.4.3 // indirect
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6 // indirect
@@ -181,6 +185,7 @@ require (
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
 	github.com/pingcap/errors v0.11.5-0.20201126102027-b0a155152ca3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/pkg/term v1.2.0-beta.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.30.0 // indirect

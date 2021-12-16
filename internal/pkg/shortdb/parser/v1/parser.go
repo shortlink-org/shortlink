@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	v1 "github.com/batazor/shortlink/internal/pkg/database/query/v1"
+	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
 )
 
 var reservedWords = []string{
