@@ -24,7 +24,6 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/ram"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/redis"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/sqlite"
 )
 
 // New return implementation of db
@@ -62,11 +61,6 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 		}
 	case "dgraph":
 		s.store, err = dgraph.New(ctx, db, log)
-		if err != nil {
-			return nil, err
-		}
-	case "sqlite":
-		s.store, err = sqlite.New(ctx, db)
 		if err != nil {
 			return nil, err
 		}

@@ -16,7 +16,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db/postgres"
 	"github.com/batazor/shortlink/internal/pkg/db/ram"
 	"github.com/batazor/shortlink/internal/pkg/db/redis"
-	"github.com/batazor/shortlink/internal/pkg/db/sqlite"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
@@ -38,14 +37,16 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 		store.Store = &redis.Store{}
 	case "dgraph":
 		store.Store = dgraph.New(log)
-	case "sqlite":
-		store.Store = &sqlite.Store{}
 	case "leveldb":
 		store.Store = &leveldb.Store{}
 	case "badger":
 		store.Store = &badger.Store{}
 	case "ram":
 		store.Store = &ram.Store{}
+	case "sqlite":
+		// disabled because it complicates cross-compilation
+		//store.Store = &sqlite.Store{}
+		fallthrough
 	default:
 		store.Store = &ram.Store{}
 	}

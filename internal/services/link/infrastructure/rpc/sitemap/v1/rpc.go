@@ -26,7 +26,9 @@ func New(runRPCServer *rpc.RPCServer, application *sitemap_application.Service, 
 	}
 
 	// Register services
-	RegisterSitemapServiceServer(runRPCServer.Server, server)
+	if runRPCServer != nil {
+		RegisterSitemapServiceServer(runRPCServer.Server, server)
+	}
 
 	return server, nil
 }

@@ -6,6 +6,7 @@ import (
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
+	"golang.org/x/sync/errgroup"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -68,20 +69,22 @@ func (s *Server) Use(
 		server = &http_chi.API{}
 	}
 
-	if err := server.Run(
-		ctx,
-		db,
-		config,
-		log,
-		tracer,
+	g := errgroup.Group{}
 
-		accountService,
-		orderService,
-		paymentService,
-		tariffService,
-	); err != nil {
-		return nil, err
-	}
+	g.Go(func() error {
+		return server.Run(
+			ctx,
+			db,
+			config,
+			log,
+			tracer,
+
+			accountService,
+			orderService,
+			paymentService,
+			tariffService,
+		)
+	})
 
 	return s, nil
 }

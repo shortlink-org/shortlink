@@ -1,10 +1,11 @@
 # syntax=docker/dockerfile:1.3
 
-FROM golang:1.17-alpine as builder
+FROM --platform=$BUILDPLATFORM golang:1.18beta1-alpine AS builder
 
 ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
 ARG SKAFFOLD_GO_GCFLAGS
+ARG TARGETOS TARGETARCH
 
 WORKDIR /go/github.com/batazor/shortlink
 
@@ -16,7 +17,9 @@ RUN go mod download
 COPY . .
 
 # Build project
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+RUN --mount=type=cache,target=/root/.cache/go-build \
+  --mount=type=cache,target=/go/pkg \
+  CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH \
   go build \
   -a \
   -mod mod \
