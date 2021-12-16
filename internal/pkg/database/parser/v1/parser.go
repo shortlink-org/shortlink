@@ -169,24 +169,14 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			p.pop()
 			p.Step = Step_STEP_WHERE_OPERATOR
 		case Step_STEP_WHERE_OPERATOR:
-			operator := p.peek()
 			currentCondition := p.Query.Conditions[len(p.Query.Conditions)-1]
-			switch operator {
-			case "=":
-				currentCondition.Operator = v1.Operator_OPERATOR_EQ
-			case ">":
-				currentCondition.Operator = v1.Operator_OPERATOR_GT
-			case ">=":
-				currentCondition.Operator = v1.Operator_OPERATOR_GTE
-			case "<":
-				currentCondition.Operator = v1.Operator_OPERATOR_LT
-			case "<=":
-				currentCondition.Operator = v1.Operator_OPERATOR_LTE
-			case "!=":
-				currentCondition.Operator = v1.Operator_OPERATOR_NE
-			default:
+
+			operator := p.peek()
+			currentCondition.Operator = getOperator(operator)
+			if currentCondition.Operator == v1.Operator_OPERATOR_UNSPECIFIED {
 				return p.Query, fmt.Errorf("at WHERE: unknown operator")
 			}
+
 			p.Query.Conditions[len(p.Query.Conditions)-1] = currentCondition
 			p.pop()
 			p.Step = Step_STEP_WHERE_VALUE
@@ -315,23 +305,13 @@ func (p *Parser) doParse() (*v1.Query, error) {
 				return p.Query, fmt.Errorf("at ON: expected <tablename>.<fieldname>")
 			}
 			currentCondition := &v1.JoinCondition{LTable: op1split[0], LOperand: op1split[1]}
+
 			operator := p.peek()
-			switch operator {
-			case "=":
-				currentCondition.Operator = v1.Operator_OPERATOR_EQ
-			case ">":
-				currentCondition.Operator = v1.Operator_OPERATOR_GT
-			case ">=":
-				currentCondition.Operator = v1.Operator_OPERATOR_GTE
-			case "<":
-				currentCondition.Operator = v1.Operator_OPERATOR_LT
-			case "<=":
-				currentCondition.Operator = v1.Operator_OPERATOR_LTE
-			case "!=":
-				currentCondition.Operator = v1.Operator_OPERATOR_NE
-			default:
+			currentCondition.Operator = getOperator(operator)
+			if currentCondition.Operator == v1.Operator_OPERATOR_UNSPECIFIED {
 				return p.Query, fmt.Errorf("at ON: unknown operator")
 			}
+
 			p.pop()
 			op2 := p.pop()
 			op2split := strings.Split(op2, ".")
@@ -560,4 +540,23 @@ func min(a, b int) int {
 		return a
 	}
 	return b
+}
+
+func getOperator(operator string) v1.Operator {
+	switch operator {
+	case "=":
+		return v1.Operator_OPERATOR_EQ
+	case ">":
+		return v1.Operator_OPERATOR_GT
+	case ">=":
+		return v1.Operator_OPERATOR_GTE
+	case "<":
+		return v1.Operator_OPERATOR_LT
+	case "<=":
+		return v1.Operator_OPERATOR_LTE
+	case "!=":
+		return v1.Operator_OPERATOR_NE
+	default:
+		return v1.Operator_OPERATOR_UNSPECIFIED
+	}
 }
