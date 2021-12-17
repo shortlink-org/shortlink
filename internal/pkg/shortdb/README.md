@@ -4,8 +4,14 @@ This database with support SQL language.
 
 #### Docs
 
+- [Architectura](https://miro.com/app/board/uXjVOaNZlsE=/?invite_link_id=250172061542)
 - [Roadmaps](./ROADMAP.md)
 - [CLI](./docs/dbctl.md)
+
+#### Feature
+
+- REPL interface
+- SQL-parser
 
 #### Reference
 

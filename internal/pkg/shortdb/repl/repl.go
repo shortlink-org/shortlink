@@ -4,6 +4,9 @@ import (
 	"fmt"
 
 	"github.com/c-bata/go-prompt"
+	"github.com/pterm/pterm"
+
+	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/parser/v1"
 )
 
 type repl struct{}
@@ -23,6 +26,14 @@ func (r *repl) Run() {
 			{
 				return
 			}
+		default: // if this not command then this SQL-expression
+			p, err := v1.New(t)
+			if err.Error() != "" {
+				pterm.FgRed.Println(err)
+				continue
+			}
+
+			fmt.Println(p.Query)
 		}
 	}
 }
