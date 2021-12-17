@@ -70,6 +70,8 @@ func (p *Parser) doParse() (*v1.Query, error) {
 				p.Query.Type = v1.Type_TYPE_DELETE
 				p.pop()
 				p.Step = Step_STEP_UPDATE_TABLE
+			default:
+				return nil, fmt.Errorf("incorrect sql-expression")
 			}
 		case Step_STEP_SELECT_FIELD:
 			identifier := p.peek()
