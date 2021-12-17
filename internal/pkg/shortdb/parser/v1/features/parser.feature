@@ -55,3 +55,4 @@ Feature: SQL Parser
       | INSERT INTO 'a' (*) VALUES ('1')                                      | at INSERT INTO: expected at least one field to insert   |
       | INSERT INTO 'a' (b,c,d) VALUES ('1','2','3')                          |                                                         |
       | INSERT INTO 'a' (b,c,d) VALUES ('1','2','3'),('4','5','6')            |                                                         |
+      | 123                                                                   | incorrect sql-expression                                |
