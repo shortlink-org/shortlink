@@ -21,7 +21,7 @@ func (r *repl) help() {
 ShortDB repl
 Enter ".help" for usage hints.
 Connected to a transient in-memory database.
-Use ".open FILENAME" to reopen on a persistent database.
+Use ".open DATABASENAME" to reopen on a persistent database.
 
 current database: %s
 `, r.session.CurrentDatabase)

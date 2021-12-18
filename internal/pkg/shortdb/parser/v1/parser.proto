@@ -46,6 +46,8 @@ enum Step {
   STEP_JOIN = 29;
   STEP_JOIN_TABLE = 30;
   STEP_JOIN_CONDITION = 31;
+
+  STEP_SEMICOLON = 32;
 }
 
 message Parser {
