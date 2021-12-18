@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package database.query.v1;
+package shortdb.query.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/pkg/database/query/v1";
+option go_package = "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1";
 
 // Type is the type of SQL query, e.g. SELECT/UPDATE
 enum Type {
@@ -51,20 +51,20 @@ message Condition {
 // Condition is a single boolean condition in a WHERE clause
 message JoinCondition {
   // LHS table name
-  string LTable = 1;
+  string l_table = 1;
   // Level operand is the left hand side operand
-  string LOperand = 2;
+  string l_operand = 2;
   // Operator is e.g. "=", ">"
   Operator operator = 3;
   // RHS table name
-  string RTable = 4;
+  string r_table = 4;
   // Right operand1 is the right hand side operand
-  string ROperand = 5;
+  string r_operand = 5;
 }
 
 message Join {
-  string Type = 1;
-  string Table = 2;
+  string type = 1;
+  string table = 2;
   repeated JoinCondition conditions = 3;
 }
 

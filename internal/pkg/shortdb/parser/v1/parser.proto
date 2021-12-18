@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package database.parser.v1;
+package shortdb.parser.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/pkg/database/parser/v1";
 
-import "database/query/v1/query.proto";
+import "shortdb/query/v1/query.proto";
 
 enum Step {
   STEP_UNSPECIFIED = 0;
@@ -52,7 +52,7 @@ message Parser {
   int32 i = 1;
   string sql = 2;
   Step step = 3;
-  database.query.v1.Query query = 4;
+  shortdb.query.v1.Query query = 4;
   string error = 5;
   string next_update_field = 6;
 }

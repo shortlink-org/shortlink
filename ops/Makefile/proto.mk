@@ -39,7 +39,7 @@ proto-generate: ## Generate proto-files
 		--config=ops/proto/eventsourcing/buf.yaml
 
 	@buf generate \
-		--path=internal/pkg/database/query/v1 \
+		--path=internal/pkg/shortdb/query/v1 \
 		--template=ops/proto/eventsourcing/buf.gen.yaml \
 		--config=ops/proto/eventsourcing/buf.yaml
 
