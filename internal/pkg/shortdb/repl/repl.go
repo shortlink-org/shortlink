@@ -2,32 +2,53 @@ package repl
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/c-bata/go-prompt"
 	"github.com/pterm/pterm"
 
-	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/parser/v1"
+	parser "github.com/batazor/shortlink/internal/pkg/shortdb/parser/v1"
+	session "github.com/batazor/shortlink/internal/pkg/shortdb/session/v1"
 )
 
-type repl struct{}
+type repl struct {
+	session *session.Session
+}
 
-func New() (*repl, error) {
-	return &repl{}, nil
+func New(s *session.Session) (*repl, error) {
+	return &repl{
+		session: s,
+	}, nil
 }
 
 func (r *repl) Run() {
-	help()
+	r.help()
 
 	for {
 		t := prompt.Input("> ", completer)
 
-		switch t {
-		case ".close":
-			{
+		if t == "" {
+			continue
+		}
+
+		switch t[0] {
+		case '.':
+			s := strings.Split(t, " ")
+
+			switch s[0] {
+			case ".close":
 				return
+			case ".open":
+				if err := r.open(t); err != nil {
+					pterm.FgRed.Println(err)
+				}
+			case ".help":
+				r.help()
+			default:
+				pterm.FgRed.Println("incorrect command")
 			}
 		default: // if this not command then this SQL-expression
-			p, err := v1.New(t)
+			p, err := parser.New(t)
 			if err.Error() != "" {
 				pterm.FgRed.Println(err)
 				continue
@@ -36,23 +57,4 @@ func (r *repl) Run() {
 			fmt.Println(p.Query)
 		}
 	}
-}
-
-func completer(d prompt.Document) []prompt.Suggest {
-	s := []prompt.Suggest{
-		{Text: ".help", Description: "Help snippet"},
-		{Text: ".close", Description: "Close this session"},
-	}
-	return prompt.FilterHasPrefix(s, d.GetWordBeforeCursor(), true)
-}
-
-func help() {
-	text := `
-ShortDB repl
-Enter ".help" for usage hints.
-Connected to a transient in-memory database.
-Use ".open FILENAME" to reopen on a persistent database.
-`
-
-	fmt.Print(text)
 }
