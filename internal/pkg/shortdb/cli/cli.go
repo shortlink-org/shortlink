@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/cobra/doc"
 
 	"github.com/batazor/shortlink/internal/pkg/shortdb/repl"
+	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/session/v1"
 )
 
 func main() {
@@ -15,8 +16,14 @@ func main() {
 		Short: "ShortDB it's daabase for experiments",
 		Long:  "Implementation simple database like SQLite",
 		Run: func(cmd *cobra.Command, args []string) {
+			// run new session
+			s, err := v1.New()
+			if err != nil {
+				panic(err)
+			}
+
 			// run REPL by default
-			r, err := repl.New()
+			r, err := repl.New(s)
 			if err != nil {
 				panic(err)
 			}
