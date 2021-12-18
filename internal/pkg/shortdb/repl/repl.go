@@ -32,16 +32,19 @@ func (r *repl) Run() {
 		}
 
 		// if this next line
-		if t[len(t)-1] == '\\' {
-			r.session.Raw += fmt.Sprintf("%s ", t)
-			continue
-		} else {
+		if t[len(t)-1] == ';' || t[0] == '.' {
 			t = fmt.Sprintf("%s %s", r.session.Raw, t)
 			r.session.Raw = ""
+			r.session.Exec = true
+		} else {
+			r.session.Raw += fmt.Sprintf("%s ", t)
+			r.session.Exec = false
 		}
 
+		t = strings.TrimSpace(t)
+
 		switch t[0] {
-		case '.':
+		case '.': // if this command
 			s := strings.Split(t, " ")
 
 			switch s[0] {
@@ -57,7 +60,10 @@ func (r *repl) Run() {
 				pterm.FgRed.Println("incorrect command")
 			}
 		default: // if this not command then this SQL-expression
-			t = strings.Replace(t, "\\", " ", -1)
+			// if this multiline then skip
+			if !r.session.Exec {
+				continue
+			}
 
 			p, err := parser.New(t)
 			if err.Error() != "" {

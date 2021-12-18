@@ -9,7 +9,7 @@ import (
 )
 
 var reservedWords = []string{
-	"(", ")", ">=", ">", "<", "<=", "=", "!=", ",",
+	"(", ")", ">=", ">", "<", "<=", "=", "!=", ",", ";",
 	"SELECT", "INSERT INTO", "VALUES", "UPDATE",
 	"DELETE FROM", "WHERE", "FROM", "SET",
 	"ON DUPLICATE KEY UPDATE", "ORDER BY", "ASC",
@@ -73,6 +73,8 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			default:
 				return nil, fmt.Errorf("incorrect sql-expression")
 			}
+		case Step_STEP_SEMICOLON:
+			p.pop()
 		case Step_STEP_SELECT_FIELD:
 			identifier := p.peek()
 			if !isIdentifierOrAsterisk(identifier) {
@@ -138,6 +140,8 @@ func (p *Parser) doParse() (*v1.Query, error) {
 				p.Step = Step_STEP_ORDER
 			} else if strings.Contains(strings.ToUpper(look), "JOIN") {
 				p.Step = Step_STEP_JOIN
+			} else if look == ";" {
+				p.Step = Step_STEP_SEMICOLON
 			}
 		case Step_STEP_INSERT_TABLE:
 			tableName := p.peek()
