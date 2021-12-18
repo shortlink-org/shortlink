@@ -31,6 +31,15 @@ func (r *repl) Run() {
 			continue
 		}
 
+		// if this next line
+		if t[len(t)-1] == '\\' {
+			r.session.Raw += fmt.Sprintf("%s ", t)
+			continue
+		} else {
+			t = fmt.Sprintf("%s %s", r.session.Raw, t)
+			r.session.Raw = ""
+		}
+
 		switch t[0] {
 		case '.':
 			s := strings.Split(t, " ")
@@ -48,6 +57,8 @@ func (r *repl) Run() {
 				pterm.FgRed.Println("incorrect command")
 			}
 		default: // if this not command then this SQL-expression
+			t = strings.Replace(t, "\\", " ", -1)
+
 			p, err := parser.New(t)
 			if err.Error() != "" {
 				pterm.FgRed.Println(err)
