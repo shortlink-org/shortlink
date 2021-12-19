@@ -14,7 +14,7 @@ var reservedWords = []string{
 	"DELETE FROM", "WHERE", "FROM", "SET",
 	"ON DUPLICATE KEY UPDATE", "ORDER BY", "ASC",
 	"DESC", "LEFT JOIN", "RIGHT JOIN", "INNER JOIN",
-	"JOIN", "ON", "AS",
+	"JOIN", "ON", "AS", "CREATE TABLE", "DROP TABLE",
 }
 
 func New(sql string) (*Parser, error) {
@@ -70,6 +70,14 @@ func (p *Parser) doParse() (*v1.Query, error) {
 				p.Query.Type = v1.Type_TYPE_DELETE
 				p.pop()
 				p.Step = Step_STEP_UPDATE_TABLE
+			case "CREATE TABLE":
+				p.Query.Type = v1.Type_TYPE_CREATE_TABLE
+				p.pop()
+				p.Step = Step_STEP_CREATE_TABLE_NAME
+			case "DROP TABLE":
+				p.Query.Type = v1.Type_TYPE_DROP_TABLE
+				p.pop()
+				p.Step = Step_STEP_DROP_TABLE_NAME
 			default:
 				return nil, fmt.Errorf("incorrect sql-expression")
 			}
@@ -410,6 +418,22 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			}
 			p.pop()
 			p.Step = Step_STEP_INSERT_VALUES_OPENING_PARENS
+		case Step_STEP_CREATE_TABLE_NAME:
+			commaRWord := p.peek()
+			p.pop()
+			p.Query.TableName = commaRWord
+			p.Step = Step_STEP_CREATE_TABLE_OPENING_PARENS
+		case Step_STEP_CREATE_TABLE_OPENING_PARENS:
+			openingParens := p.peek()
+			p.pop()
+			if openingParens != "(" {
+				return p.Query, fmt.Errorf("at CREATE TABLE: expected opening parens")
+			}
+			//p.Step = Step_STEP_CREATE_TABLE_OPENING_PARENS
+		case Step_STEP_DROP_TABLE_NAME:
+			commaRWord := p.peek()
+			p.pop()
+			p.Query.TableName = commaRWord
 		}
 	}
 }
