@@ -17,6 +17,10 @@ enum Type {
   TYPE_INSERT = 3;
   // TYPE_DELETE represents a DELETE query
   TYPE_DELETE = 4;
+  // TYPE_CREATE_TABLE represents a CREATE TABLE query
+  TYPE_CREATE_TABLE = 5;
+  // TYPE_DROP_TABLE represents a DROP TABLE query
+  TYPE_DROP_TABLE = 6;
 }
 
 // Operator is between operands in a condition

@@ -56,3 +56,13 @@ Feature: SQL Parser
       | INSERT INTO 'a' (b,c,d) VALUES ('1','2','3')                          |                                                         |
       | INSERT INTO 'a' (b,c,d) VALUES ('1','2','3'),('4','5','6')            |                                                         |
       | 123                                                                   | incorrect sql-expression                                |
+      | CREATE TABLE                                                          | table name cannot be empty                              |
+      | CREATE TABLE users                                                    | at CREATE TABLE: expected opening parens                |
+      | CREATE TABLE users (                                                  |                                                         |
+      | CREATE TABLE users ( id nontype )                                     |                                                         |
+      | CREATE TABLE users ( id integer )                                     |                                                         |
+      | CREATE TABLE users ( id integer, )                                    |                                                         |
+      | CREATE TABLE users ( id integer,                                      |                                                         |
+      | CREATE TABLE users ( id integer, name text )                          |                                                         |
+      | DROP TABLE                                                            | table name cannot be empty                              |
+      | DROP TABLE users                                                      |                                                         |
