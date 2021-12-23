@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: datadog-operator
-    version: 0.7.6
+    version: 0.7.7
     repository: https://helm.datadoghq.com
     condition: datadog.enabled
     tags:
