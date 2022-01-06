@@ -10,7 +10,7 @@ require (
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/cloudevents/sdk-go/v2 v2.7.0
 	github.com/container-storage-interface/spec v1.5.0
-	github.com/cucumber/godog v0.12.2
+	github.com/cucumber/godog v0.12.3
 	github.com/dgraph-io/badger/v3 v3.2103.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/getsentry/sentry-go v0.12.0
