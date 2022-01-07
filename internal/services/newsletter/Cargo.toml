@@ -11,10 +11,10 @@ edition = "2021"
 repository = "https://github.com/batazor/shortlink"
 
 [dependencies]
-futures = { version = "0.3.18", default-features = false, features = ["async-await"] }
+futures = { version = "0.3.19", default-features = false, features = ["async-await"] }
 hyper = { version = "0.14", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
-serde = {version = "1.0.131", features = ["derive"] }
+serde = {version = "1.0.133", features = ["derive"] }
 serde_json = "1.0"
 serde_derive = "1.0"
 route-recognizer = "0.2"
@@ -26,7 +26,7 @@ env_logger = "0.9.0"
 dotenv = "0.15.0"
 postgres = "0.19.2"
 tokio-postgres = { version = "^0.7" }
-refinery = { version = "0.7", features = ["tokio-postgres"] }
+refinery = { version = "0.8", features = ["tokio-postgres"] }
 
 [dependencies.uuid]
 features = ["serde", "v4"]
