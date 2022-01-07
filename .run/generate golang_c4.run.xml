@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="generate golang:c4" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="shortlink" />
+    <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="MQ_ENABLED" value="true" />
+      <env name="SERVICE_NAME" value="c4" />
+      <env name="GRPC_SERVER_ENABLED" value="false" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="github.com/batazor/shortlink/pkg/c4" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/pkg/c4/main.go" />
+    <method v="2" />
+  </configuration>
+</component>
