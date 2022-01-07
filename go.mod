@@ -8,13 +8,12 @@ require (
 	github.com/Shopify/sarama v1.30.1
 	github.com/Unleash/unleash-client-go/v3 v3.2.4
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
-	github.com/c-bata/go-prompt v0.2.6
-	github.com/cloudevents/sdk-go/v2 v2.7.0
+	github.com/cloudevents/sdk-go/v2 v2.8.0
 	github.com/container-storage-interface/spec v1.5.0
-	github.com/cucumber/godog v0.12.2
+	github.com/cucumber/godog v0.12.3
 	github.com/dgraph-io/badger/v3 v3.2103.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
-	github.com/getsentry/sentry-go v0.11.0
+	github.com/getsentry/sentry-go v0.12.0
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/cors v1.2.0
 	github.com/go-chi/render v1.0.1
@@ -33,7 +32,7 @@ require (
 	github.com/graph-gophers/graphql-go v1.2.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.1
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.2
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
 	github.com/jackc/pgx/v4 v4.14.1
 	github.com/jmoiron/sqlx v1.3.4
@@ -63,21 +62,21 @@ require (
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
 	go.etcd.io/etcd/client/v3 v3.5.1
-	go.mongodb.org/mongo-driver v1.8.1
+	go.mongodb.org/mongo-driver v1.8.2
 	go.uber.org/atomic v1.9.0
 	go.uber.org/automaxprocs v1.4.0
 	go.uber.org/goleak v1.1.12
-	go.uber.org/zap v1.19.1
-	golang.org/x/net v0.0.0-20211215060638-4ddde0e984e9
+	go.uber.org/zap v1.20.0
+	golang.org/x/net v0.0.0-20220107192237-5cfca573fb4d
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
-	google.golang.org/api v0.63.0
-	google.golang.org/genproto v0.0.0-20211208223120-3a66f561d7aa
+	google.golang.org/api v0.64.0
+	google.golang.org/genproto v0.0.0-20220107163113-42d7afdf6368
 	google.golang.org/grpc v1.43.0
-	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.1.0
+	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.27.1
-	k8s.io/kubernetes v1.23.0
-	k8s.io/mount-utils v0.23.0
+	k8s.io/kubernetes v1.23.1
+	k8s.io/mount-utils v0.23.1
 	k8s.io/utils v0.0.0-20211208161948-7d6a63dca704
 )
 
@@ -218,7 +217,7 @@ require (
 	golang.org/x/crypto v0.0.0-20210921155107-089bfa567519 // indirect
 	golang.org/x/exp v0.0.0-20210916165020-5cb4fee858ee // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
-	golang.org/x/sys v0.0.0-20211210111614-af8b64212486 // indirect
+	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
