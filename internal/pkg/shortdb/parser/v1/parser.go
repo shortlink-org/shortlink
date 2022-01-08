@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
+	"github.com/batazor/shortlink/internal/pkg/tool"
 )
 
 var reservedWords = []string{
@@ -16,6 +17,9 @@ var reservedWords = []string{
 	"DESC", "LEFT JOIN", "RIGHT JOIN", "INNER JOIN",
 	"JOIN", "ON", "AS", "CREATE TABLE", "DROP TABLE",
 }
+
+// typeFieldTable - list of support type fields of table
+var typeFieldTable = []string{"int", "integer", "string", "text", "boolean", "bool"}
 
 func New(sql string) (*Parser, error) {
 	parser := &Parser{
@@ -435,6 +439,7 @@ func (p *Parser) doParse() (*v1.Query, error) {
 
 			p.Step = Step_STEP_CREATE_TABLE_FIELDS
 		case Step_STEP_CREATE_TABLE_FIELDS:
+			// get name field of table
 			identifier := p.peek()
 			if !isIdentifier(identifier) {
 				return p.Query, fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
@@ -444,11 +449,19 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			}
 			p.pop()
 			typeField := p.peek()
+
+			// get type field of table
 			if !isIdentifier(typeField) {
 				return p.Query, fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
 			}
-			tableField.Type = typeField
-			p.pop()
+			if tool.Contains(typeFieldTable, typeField) {
+				tableField.Type = typeField
+				p.pop()
+			} else {
+				return p.Query, fmt.Errorf("at CREATE TABLE: unsupported type of field")
+			}
+
+			// append field to table
 			p.Query.TableFields = append(p.Query.TableFields, tableField)
 			p.Step = Step_STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS
 		case Step_STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS:
