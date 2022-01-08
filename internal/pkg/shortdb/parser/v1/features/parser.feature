@@ -59,7 +59,7 @@ Feature: SQL Parser
       | CREATE TABLE;                                                         | at CREATE TABLE: table name cannot be empty             |
       | CREATE TABLE users;                                                   | at CREATE TABLE: expected opening parens                |
       | CREATE TABLE users (;                                                 | at CREATE TABLE: expected at least one field to create table |
-      | CREATE TABLE users ( id nontype );                                    |                                                         |
+      | CREATE TABLE users ( id nontype );                                    | at CREATE TABLE: unsupported type of field              |
       | CREATE TABLE users ( id integer );                                    |                                                         |
       | CREATE TABLE users ( id integer, );                                   | at CREATE TABLE: expected at least one field to create table |
       | CREATE TABLE users ( id integer,;                                     | at CREATE TABLE: expected at least one field to create table |
