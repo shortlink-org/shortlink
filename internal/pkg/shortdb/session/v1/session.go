@@ -5,5 +5,6 @@ func New() (*Session, error) {
 		CurrentDatabase: "public",
 		Raw:             "",
 		Exec:            false,
+		History:         []string{},
 	}, nil
 }

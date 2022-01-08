@@ -21,46 +21,49 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// WARNING: this numbers used for inside use
+//          don't this numbers as is
 type Step int32
 
 const (
-	Step_STEP_UNSPECIFIED                               Step = 0
-	Step_STEP_SELECT_FIELD                              Step = 1
-	Step_STEP_SELECT_FROM                               Step = 2
-	Step_STEP_SELECT_COMMA                              Step = 3
-	Step_STEP_SELECT_FROM_TABLE                         Step = 4
-	Step_STEP_INSERT_TABLE                              Step = 5
-	Step_STEP_INSERT_FIELD_OPENING_PARENTS              Step = 6
-	Step_STEP_INSERT_FIELDS                             Step = 7
-	Step_STEP_INSERT_FIELDS_COMMA_OR_CLOSING_PARENTS    Step = 8
-	Step_STEP_INSERT_VALUES_OPENING_PARENS              Step = 9
-	Step_STEP_INSERT_RWORD                              Step = 10
-	Step_STEP_INSERT_VALUES                             Step = 11
-	Step_STEP_INSERT_VALUES_COMMA_OR_CLOSING_PARENS     Step = 12
-	Step_STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS Step = 13
-	Step_STEP_UPDATE_TABLE                              Step = 14
-	Step_STEP_UPDATE_SET                                Step = 15
-	Step_STEP_UPDATE_FIELD                              Step = 16
-	Step_STEP_UPDATE_EQUALS                             Step = 17
-	Step_STEP_UPDATE_VALUE                              Step = 18
-	Step_STEP_UPDATE_COMMA                              Step = 19
-	Step_STEP_DELETE_FROM_TABLE                         Step = 20
-	Step_STEP_WHERE                                     Step = 21
-	Step_STEP_WHERE_FIELD                               Step = 22
-	Step_STEP_WHERE_OPERATOR                            Step = 23
-	Step_STEP_WHERE_VALUE                               Step = 24
-	Step_STEP_WHERE_AND                                 Step = 25
-	Step_STEP_ORDER                                     Step = 26
-	Step_STEP_ORDER_FIELD                               Step = 27
-	Step_STEP_ORDER_DIRECTION_OR_COMMA                  Step = 28
-	Step_STEP_JOIN                                      Step = 29
-	Step_STEP_JOIN_TABLE                                Step = 30
-	Step_STEP_JOIN_CONDITION                            Step = 31
-	Step_STEP_SEMICOLON                                 Step = 32
-	Step_STEP_CREATE_TABLE_NAME                         Step = 33
-	Step_STEP_CREATE_TABLE_OPENING_PARENS               Step = 34
-	Step_STEP_CREATE_TABLE_COMMA_OR_CLOSING_PARENS      Step = 35
-	Step_STEP_DROP_TABLE_NAME                           Step = 36
+	Step_STEP_UNSPECIFIED                                 Step = 0
+	Step_STEP_SELECT_FIELD                                Step = 1
+	Step_STEP_SELECT_FROM                                 Step = 2
+	Step_STEP_SELECT_COMMA                                Step = 3
+	Step_STEP_SELECT_FROM_TABLE                           Step = 4
+	Step_STEP_INSERT_TABLE                                Step = 5
+	Step_STEP_INSERT_FIELD_OPENING_PARENTS                Step = 6
+	Step_STEP_INSERT_FIELDS                               Step = 7
+	Step_STEP_INSERT_FIELDS_COMMA_OR_CLOSING_PARENTS      Step = 8
+	Step_STEP_INSERT_VALUES_OPENING_PARENS                Step = 9
+	Step_STEP_INSERT_RWORD                                Step = 10
+	Step_STEP_INSERT_VALUES                               Step = 11
+	Step_STEP_INSERT_VALUES_COMMA_OR_CLOSING_PARENS       Step = 12
+	Step_STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS   Step = 13
+	Step_STEP_UPDATE_TABLE                                Step = 14
+	Step_STEP_UPDATE_SET                                  Step = 15
+	Step_STEP_UPDATE_FIELD                                Step = 16
+	Step_STEP_UPDATE_EQUALS                               Step = 17
+	Step_STEP_UPDATE_VALUE                                Step = 18
+	Step_STEP_UPDATE_COMMA                                Step = 19
+	Step_STEP_DELETE_FROM_TABLE                           Step = 20
+	Step_STEP_WHERE                                       Step = 21
+	Step_STEP_WHERE_FIELD                                 Step = 22
+	Step_STEP_WHERE_OPERATOR                              Step = 23
+	Step_STEP_WHERE_VALUE                                 Step = 24
+	Step_STEP_WHERE_AND                                   Step = 25
+	Step_STEP_ORDER                                       Step = 26
+	Step_STEP_ORDER_FIELD                                 Step = 27
+	Step_STEP_ORDER_DIRECTION_OR_COMMA                    Step = 28
+	Step_STEP_JOIN                                        Step = 29
+	Step_STEP_JOIN_TABLE                                  Step = 30
+	Step_STEP_JOIN_CONDITION                              Step = 31
+	Step_STEP_SEMICOLON                                   Step = 32
+	Step_STEP_CREATE_TABLE_NAME                           Step = 33
+	Step_STEP_CREATE_TABLE_OPENING_PARENS                 Step = 34
+	Step_STEP_CREATE_TABLE_FIELDS                         Step = 35
+	Step_STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS Step = 36
+	Step_STEP_DROP_TABLE_NAME                             Step = 37
 )
 
 // Enum value maps for Step.
@@ -101,47 +104,49 @@ var (
 		32: "STEP_SEMICOLON",
 		33: "STEP_CREATE_TABLE_NAME",
 		34: "STEP_CREATE_TABLE_OPENING_PARENS",
-		35: "STEP_CREATE_TABLE_COMMA_OR_CLOSING_PARENS",
-		36: "STEP_DROP_TABLE_NAME",
+		35: "STEP_CREATE_TABLE_FIELDS",
+		36: "STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS",
+		37: "STEP_DROP_TABLE_NAME",
 	}
 	Step_value = map[string]int32{
-		"STEP_UNSPECIFIED":                               0,
-		"STEP_SELECT_FIELD":                              1,
-		"STEP_SELECT_FROM":                               2,
-		"STEP_SELECT_COMMA":                              3,
-		"STEP_SELECT_FROM_TABLE":                         4,
-		"STEP_INSERT_TABLE":                              5,
-		"STEP_INSERT_FIELD_OPENING_PARENTS":              6,
-		"STEP_INSERT_FIELDS":                             7,
-		"STEP_INSERT_FIELDS_COMMA_OR_CLOSING_PARENTS":    8,
-		"STEP_INSERT_VALUES_OPENING_PARENS":              9,
-		"STEP_INSERT_RWORD":                              10,
-		"STEP_INSERT_VALUES":                             11,
-		"STEP_INSERT_VALUES_COMMA_OR_CLOSING_PARENS":     12,
-		"STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS": 13,
-		"STEP_UPDATE_TABLE":                              14,
-		"STEP_UPDATE_SET":                                15,
-		"STEP_UPDATE_FIELD":                              16,
-		"STEP_UPDATE_EQUALS":                             17,
-		"STEP_UPDATE_VALUE":                              18,
-		"STEP_UPDATE_COMMA":                              19,
-		"STEP_DELETE_FROM_TABLE":                         20,
-		"STEP_WHERE":                                     21,
-		"STEP_WHERE_FIELD":                               22,
-		"STEP_WHERE_OPERATOR":                            23,
-		"STEP_WHERE_VALUE":                               24,
-		"STEP_WHERE_AND":                                 25,
-		"STEP_ORDER":                                     26,
-		"STEP_ORDER_FIELD":                               27,
-		"STEP_ORDER_DIRECTION_OR_COMMA":                  28,
-		"STEP_JOIN":                                      29,
-		"STEP_JOIN_TABLE":                                30,
-		"STEP_JOIN_CONDITION":                            31,
-		"STEP_SEMICOLON":                                 32,
-		"STEP_CREATE_TABLE_NAME":                         33,
-		"STEP_CREATE_TABLE_OPENING_PARENS":               34,
-		"STEP_CREATE_TABLE_COMMA_OR_CLOSING_PARENS":      35,
-		"STEP_DROP_TABLE_NAME":                           36,
+		"STEP_UNSPECIFIED":                                 0,
+		"STEP_SELECT_FIELD":                                1,
+		"STEP_SELECT_FROM":                                 2,
+		"STEP_SELECT_COMMA":                                3,
+		"STEP_SELECT_FROM_TABLE":                           4,
+		"STEP_INSERT_TABLE":                                5,
+		"STEP_INSERT_FIELD_OPENING_PARENTS":                6,
+		"STEP_INSERT_FIELDS":                               7,
+		"STEP_INSERT_FIELDS_COMMA_OR_CLOSING_PARENTS":      8,
+		"STEP_INSERT_VALUES_OPENING_PARENS":                9,
+		"STEP_INSERT_RWORD":                                10,
+		"STEP_INSERT_VALUES":                               11,
+		"STEP_INSERT_VALUES_COMMA_OR_CLOSING_PARENS":       12,
+		"STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS":   13,
+		"STEP_UPDATE_TABLE":                                14,
+		"STEP_UPDATE_SET":                                  15,
+		"STEP_UPDATE_FIELD":                                16,
+		"STEP_UPDATE_EQUALS":                               17,
+		"STEP_UPDATE_VALUE":                                18,
+		"STEP_UPDATE_COMMA":                                19,
+		"STEP_DELETE_FROM_TABLE":                           20,
+		"STEP_WHERE":                                       21,
+		"STEP_WHERE_FIELD":                                 22,
+		"STEP_WHERE_OPERATOR":                              23,
+		"STEP_WHERE_VALUE":                                 24,
+		"STEP_WHERE_AND":                                   25,
+		"STEP_ORDER":                                       26,
+		"STEP_ORDER_FIELD":                                 27,
+		"STEP_ORDER_DIRECTION_OR_COMMA":                    28,
+		"STEP_JOIN":                                        29,
+		"STEP_JOIN_TABLE":                                  30,
+		"STEP_JOIN_CONDITION":                              31,
+		"STEP_SEMICOLON":                                   32,
+		"STEP_CREATE_TABLE_NAME":                           33,
+		"STEP_CREATE_TABLE_OPENING_PARENS":                 34,
+		"STEP_CREATE_TABLE_FIELDS":                         35,
+		"STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS": 36,
+		"STEP_DROP_TABLE_NAME":                             37,
 	}
 )
 
@@ -279,7 +284,7 @@ var file_shortdb_parser_v1_parser_proto_rawDesc = []byte{
 	0x72, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x2a,
 	0x0a, 0x11, 0x6e, 0x65, 0x78, 0x74, 0x5f, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x5f, 0x66, 0x69,
 	0x65, 0x6c, 0x64, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0f, 0x6e, 0x65, 0x78, 0x74, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x2a, 0xf0, 0x07, 0x0a, 0x04, 0x53,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x69, 0x65, 0x6c, 0x64, 0x2a, 0x95, 0x08, 0x0a, 0x04, 0x53,
 	0x74, 0x65, 0x70, 0x12, 0x14, 0x0a, 0x10, 0x53, 0x54, 0x45, 0x50, 0x5f, 0x55, 0x4e, 0x53, 0x50,
 	0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x15, 0x0a, 0x11, 0x53, 0x54, 0x45,
 	0x50, 0x5f, 0x53, 0x45, 0x4c, 0x45, 0x43, 0x54, 0x5f, 0x46, 0x49, 0x45, 0x4c, 0x44, 0x10, 0x01,
@@ -338,16 +343,18 @@ var file_shortdb_parser_v1_parser_proto_rawDesc = []byte{
 	0x45, 0x5f, 0x54, 0x41, 0x42, 0x4c, 0x45, 0x5f, 0x4e, 0x41, 0x4d, 0x45, 0x10, 0x21, 0x12, 0x24,
 	0x0a, 0x20, 0x53, 0x54, 0x45, 0x50, 0x5f, 0x43, 0x52, 0x45, 0x41, 0x54, 0x45, 0x5f, 0x54, 0x41,
 	0x42, 0x4c, 0x45, 0x5f, 0x4f, 0x50, 0x45, 0x4e, 0x49, 0x4e, 0x47, 0x5f, 0x50, 0x41, 0x52, 0x45,
-	0x4e, 0x53, 0x10, 0x22, 0x12, 0x2d, 0x0a, 0x29, 0x53, 0x54, 0x45, 0x50, 0x5f, 0x43, 0x52, 0x45,
-	0x41, 0x54, 0x45, 0x5f, 0x54, 0x41, 0x42, 0x4c, 0x45, 0x5f, 0x43, 0x4f, 0x4d, 0x4d, 0x41, 0x5f,
-	0x4f, 0x52, 0x5f, 0x43, 0x4c, 0x4f, 0x53, 0x49, 0x4e, 0x47, 0x5f, 0x50, 0x41, 0x52, 0x45, 0x4e,
-	0x53, 0x10, 0x23, 0x12, 0x18, 0x0a, 0x14, 0x53, 0x54, 0x45, 0x50, 0x5f, 0x44, 0x52, 0x4f, 0x50,
-	0x5f, 0x54, 0x41, 0x42, 0x4c, 0x45, 0x5f, 0x4e, 0x41, 0x4d, 0x45, 0x10, 0x24, 0x42, 0x3e, 0x5a,
-	0x3c, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x61, 0x74, 0x61,
-	0x7a, 0x6f, 0x72, 0x2f, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x6c, 0x69, 0x6e, 0x6b, 0x2f, 0x69, 0x6e,
-	0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x62,
-	0x61, 0x73, 0x65, 0x2f, 0x70, 0x61, 0x72, 0x73, 0x65, 0x72, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x4e, 0x53, 0x10, 0x22, 0x12, 0x1c, 0x0a, 0x18, 0x53, 0x54, 0x45, 0x50, 0x5f, 0x43, 0x52, 0x45,
+	0x41, 0x54, 0x45, 0x5f, 0x54, 0x41, 0x42, 0x4c, 0x45, 0x5f, 0x46, 0x49, 0x45, 0x4c, 0x44, 0x53,
+	0x10, 0x23, 0x12, 0x34, 0x0a, 0x30, 0x53, 0x54, 0x45, 0x50, 0x5f, 0x43, 0x52, 0x45, 0x41, 0x54,
+	0x45, 0x5f, 0x54, 0x41, 0x42, 0x4c, 0x45, 0x5f, 0x46, 0x49, 0x45, 0x4c, 0x44, 0x53, 0x5f, 0x43,
+	0x4f, 0x4d, 0x4d, 0x41, 0x5f, 0x4f, 0x52, 0x5f, 0x43, 0x4c, 0x4f, 0x53, 0x49, 0x4e, 0x47, 0x5f,
+	0x50, 0x41, 0x52, 0x45, 0x4e, 0x53, 0x10, 0x24, 0x12, 0x18, 0x0a, 0x14, 0x53, 0x54, 0x45, 0x50,
+	0x5f, 0x44, 0x52, 0x4f, 0x50, 0x5f, 0x54, 0x41, 0x42, 0x4c, 0x45, 0x5f, 0x4e, 0x41, 0x4d, 0x45,
+	0x10, 0x25, 0x42, 0x3e, 0x5a, 0x3c, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d,
+	0x2f, 0x62, 0x61, 0x74, 0x61, 0x7a, 0x6f, 0x72, 0x2f, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x6c, 0x69,
+	0x6e, 0x6b, 0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x70, 0x6b, 0x67, 0x2f,
+	0x64, 0x61, 0x74, 0x61, 0x62, 0x61, 0x73, 0x65, 0x2f, 0x70, 0x61, 0x72, 0x73, 0x65, 0x72, 0x2f,
+	0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (

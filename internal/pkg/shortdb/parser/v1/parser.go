@@ -419,9 +419,12 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			p.pop()
 			p.Step = Step_STEP_INSERT_VALUES_OPENING_PARENS
 		case Step_STEP_CREATE_TABLE_NAME:
-			commaRWord := p.peek()
+			identifier := p.peek()
+			if !isIdentifier(identifier) {
+				return p.Query, fmt.Errorf("at CREATE TABLE: table name cannot be empty")
+			}
 			p.pop()
-			p.Query.TableName = commaRWord
+			p.Query.TableName = identifier
 			p.Step = Step_STEP_CREATE_TABLE_OPENING_PARENS
 		case Step_STEP_CREATE_TABLE_OPENING_PARENS:
 			openingParens := p.peek()
@@ -429,7 +432,38 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			if openingParens != "(" {
 				return p.Query, fmt.Errorf("at CREATE TABLE: expected opening parens")
 			}
-			//p.Step = Step_STEP_CREATE_TABLE_OPENING_PARENS
+
+			p.Step = Step_STEP_CREATE_TABLE_FIELDS
+		case Step_STEP_CREATE_TABLE_FIELDS:
+			identifier := p.peek()
+			if !isIdentifier(identifier) {
+				return p.Query, fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
+			}
+			tableField := &v1.TableField{
+				Name: identifier,
+			}
+			p.pop()
+			typeField := p.peek()
+			if !isIdentifier(typeField) {
+				return p.Query, fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
+			}
+			tableField.Type = typeField
+			p.pop()
+			p.Query.TableFields = append(p.Query.TableFields, tableField)
+			p.Step = Step_STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS
+		case Step_STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS:
+			commaOrClosingParens := p.peek()
+			if commaOrClosingParens != "," && commaOrClosingParens != ")" && commaOrClosingParens != ";" {
+				return p.Query, fmt.Errorf("at CREATE TABLE: expected comma or closing parens")
+			}
+			p.pop()
+			if commaOrClosingParens == "," {
+				p.Step = Step_STEP_CREATE_TABLE_FIELDS
+				continue
+			}
+			if commaOrClosingParens == ";" {
+				p.Step = Step_STEP_SEMICOLON
+			}
 		case Step_STEP_DROP_TABLE_NAME:
 			commaRWord := p.peek()
 			p.pop()

@@ -72,6 +72,11 @@ message Join {
   repeated JoinCondition conditions = 3;
 }
 
+message TableField {
+  string name = 1;
+  string type = 2;
+}
+
 // Query represents a parsed query
 message Query {
   message Array {
@@ -81,14 +86,15 @@ message Query {
   Type type = 1;
   string database = 2;
   string table_name = 3;
-  repeated Condition conditions = 4;
-  map<string, string> updates = 5;
-  repeated Array inserts = 6;
+  repeated TableField table_fields = 4;
+  repeated Condition conditions = 5;
+  map<string, string> updates = 6;
+  repeated Array inserts = 7;
   // Used for SELECT (i.e. SELECTed field names) and INSERT (INSERTEDed field names)
-  repeated string fields = 7;
-  map<string, string> aliases = 8;
-  repeated string order_fields = 9;
-  repeated string order_dir = 10;
-  repeated Join joins = 11;
-  int32 max_rows = 12;
+  repeated string fields = 8;
+  map<string, string> aliases = 9;
+  repeated string order_fields = 10;
+  repeated string order_dir = 11;
+  repeated Join joins = 12;
+  int32 max_rows = 13;
 }
