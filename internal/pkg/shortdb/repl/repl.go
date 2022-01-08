@@ -25,7 +25,14 @@ func (r *repl) Run() {
 	r.help()
 
 	for {
-		t := prompt.Input("> ", completer)
+		t := prompt.Input("> ", completer,
+			prompt.OptionTitle("shortdb"),
+			prompt.OptionHistory(r.session.History),
+			prompt.OptionPrefixTextColor(prompt.Yellow),
+			prompt.OptionPreviewSuggestionTextColor(prompt.Blue),
+			prompt.OptionSelectedSuggestionBGColor(prompt.LightGray),
+			prompt.OptionSuggestionBGColor(prompt.DarkGray),
+		)
 
 		if t == "" {
 			continue
@@ -36,6 +43,9 @@ func (r *repl) Run() {
 			t = fmt.Sprintf("%s %s", r.session.Raw, t)
 			r.session.Raw = ""
 			r.session.Exec = true
+
+			// set in history
+			r.session.History = append(r.session.History, t)
 		} else {
 			r.session.Raw += fmt.Sprintf("%s ", t)
 			r.session.Exec = false
@@ -74,4 +84,12 @@ func (r *repl) Run() {
 			fmt.Println(p.Query)
 		}
 	}
+}
+
+func completer(in prompt.Document) []prompt.Suggest {
+	w := in.GetWordBeforeCursor()
+	if w == "" {
+		return []prompt.Suggest{}
+	}
+	return prompt.FilterHasPrefix(suggestions, w, true)
 }

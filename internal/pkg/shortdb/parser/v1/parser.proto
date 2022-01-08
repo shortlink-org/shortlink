@@ -6,6 +6,8 @@ option go_package = "github.com/batazor/shortlink/internal/pkg/database/parser/v
 
 import "shortdb/query/v1/query.proto";
 
+// WARNING: this numbers used for inside use
+//          don't this numbers as is
 enum Step {
   STEP_UNSPECIFIED = 0;
 
@@ -51,9 +53,10 @@ enum Step {
 
   STEP_CREATE_TABLE_NAME = 33;
   STEP_CREATE_TABLE_OPENING_PARENS = 34;
-  STEP_CREATE_TABLE_COMMA_OR_CLOSING_PARENS = 35;
+  STEP_CREATE_TABLE_FIELDS = 35;
+  STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS = 36;
 
-  STEP_DROP_TABLE_NAME = 36;
+  STEP_DROP_TABLE_NAME = 37;
 }
 
 message Parser {

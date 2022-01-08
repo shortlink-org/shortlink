@@ -12,4 +12,6 @@ message Session {
   string raw = 2;
   // flag for run command
   bool exec = 3;
+  // history query
+  repeated string history = 4;
 }

@@ -3,18 +3,7 @@ package repl
 import (
 	"fmt"
 	"strings"
-
-	"github.com/c-bata/go-prompt"
 )
-
-func completer(d prompt.Document) []prompt.Suggest {
-	s := []prompt.Suggest{
-		{Text: ".help", Description: "Help snippet"},
-		{Text: ".open", Description: "Select database"},
-		{Text: ".close", Description: "Close this session"},
-	}
-	return prompt.FilterHasPrefix(s, d.GetWordBeforeCursor(), true)
-}
 
 func (r *repl) help() {
 	fmt.Printf(`
