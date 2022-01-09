@@ -61,7 +61,7 @@ Feature: SQL Parser
       | CREATE TABLE users (;                                                 | at CREATE TABLE: expected at least one field to create table |
       | CREATE TABLE users ( id nontype );                                    | at CREATE TABLE: unsupported type of field              |
       | CREATE TABLE users ( id integer );                                    |                                                         |
-      | CREATE TABLE users ( id integer, );                                   | at CREATE TABLE: expected at least one field to create table |
+      | CREATE TABLE users ( id integer, );                                   |                                                         |
       | CREATE TABLE users ( id integer,;                                     | at CREATE TABLE: expected at least one field to create table |
       | CREATE TABLE users ( id integer, name text );                         |                                                         |
       | DROP TABLE                                                            | table name cannot be empty                              |
