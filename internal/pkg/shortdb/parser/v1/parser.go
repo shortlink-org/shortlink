@@ -441,6 +441,10 @@ func (p *Parser) doParse() (*v1.Query, error) {
 		case Step_STEP_CREATE_TABLE_FIELDS:
 			// get name field of table
 			identifier := p.peek()
+			if identifier == ")" {
+				p.Step = Step_STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS
+				continue
+			}
 			if !isIdentifier(identifier) {
 				return p.Query, fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
 			}
