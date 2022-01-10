@@ -16,6 +16,10 @@ current database: %s
 `, r.session.CurrentDatabase)
 }
 
+func (r *repl) save() error {
+	return r.engine.Close()
+}
+
 func (r *repl) open(t string) error {
 	s := strings.Split(t, " ")
 	if len(s) != 2 {
