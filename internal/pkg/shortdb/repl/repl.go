@@ -3,6 +3,7 @@ package repl
 import (
 	"fmt"
 	"strings"
+	"sync"
 
 	"github.com/c-bata/go-prompt"
 	"github.com/pterm/pterm"
@@ -14,6 +15,8 @@ import (
 )
 
 type repl struct {
+	mc sync.Mutex
+
 	session *session.Session
 	engine  engine.Engine
 }
@@ -32,6 +35,12 @@ func New(s *session.Session) (*repl, error) {
 }
 
 func (r *repl) Run() {
+	// load history
+	if err := r.init(); err != nil {
+		pterm.FgRed.Println(err)
+	}
+
+	// Show help snippet
 	r.help()
 
 	for {
@@ -69,6 +78,11 @@ func (r *repl) Run() {
 
 			switch s[0] {
 			case ".close":
+				if err := r.close(); err != nil {
+					pterm.FgRed.Println(err)
+				}
+
+				pterm.FgYellow.Println("Good buy!")
 				return
 			case ".open":
 				if err := r.open(t); err != nil {

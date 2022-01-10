@@ -99,7 +99,6 @@ func (f *file) init() error {
 	defer file.Close()
 
 	// read file
-
 	payload, err := ioutil.ReadFile(path)
 	if err != nil {
 		return err
