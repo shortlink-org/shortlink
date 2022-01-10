@@ -20,7 +20,7 @@ type repl struct {
 
 func New(s *session.Session) (*repl, error) {
 	// set engine
-	store, err := engine.New("file", file.SetPath(s.CurrentDatabase))
+	store, err := engine.New("file", file.SetName(s.CurrentDatabase), file.SetPath("/tmp/shortdb_repl"))
 	if err != nil {
 		return nil, err
 	}
@@ -76,6 +76,10 @@ func (r *repl) Run() {
 				}
 			case ".help":
 				r.help()
+			case ".save":
+				if err := r.save(); err != nil {
+					pterm.FgRed.Println(err)
+				}
 			default:
 				pterm.FgRed.Println("incorrect command")
 			}
@@ -93,7 +97,7 @@ func (r *repl) Run() {
 
 			// exec query
 			err = r.engine.Exec(p.Query)
-			if err.Error() != "" {
+			if err != nil && err.Error() != "" {
 				pterm.FgRed.Println(err)
 				continue
 			}

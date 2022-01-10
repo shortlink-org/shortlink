@@ -4,6 +4,8 @@ package shortdb.query.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1";
 
+import "shortdb/table/v1/table.proto";
+
 // Type is the type of SQL query, e.g. SELECT/UPDATE
 enum Type {
   // TYPE_UNSPECIFIED is the zero value for a Type
@@ -72,11 +74,6 @@ message Join {
   repeated JoinCondition conditions = 3;
 }
 
-message TableField {
-  string name = 1;
-  string type = 2;
-}
-
 // Query represents a parsed query
 message Query {
   message Array {
@@ -86,7 +83,7 @@ message Query {
   Type type = 1;
   string database = 2;
   string table_name = 3;
-  repeated TableField table_fields = 4;
+  repeated shortdb.table.v1.Field table_fields = 4;
   repeated Condition conditions = 5;
   map<string, string> updates = 6;
   repeated Array inserts = 7;

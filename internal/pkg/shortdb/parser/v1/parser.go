@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
+	table "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
 	"github.com/batazor/shortlink/internal/pkg/tool"
 )
 
@@ -448,7 +449,7 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			if !isIdentifier(identifier) {
 				return p.Query, fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
 			}
-			tableField := &v1.TableField{
+			tableField := &table.Field{
 				Name: identifier,
 			}
 			p.pop()
@@ -459,7 +460,23 @@ func (p *Parser) doParse() (*v1.Query, error) {
 				return p.Query, fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
 			}
 			if tool.Contains(typeFieldTable, typeField) {
-				tableField.Type = typeField
+				switch typeField {
+				case "int":
+					fallthrough
+				case "integer":
+					tableField.Type = table.Type_TYPE_INTEGER
+				case "text":
+					fallthrough
+				case "string":
+					tableField.Type = table.Type_TYPE_STRING
+				case "bool":
+					fallthrough
+				case "boolean":
+					tableField.Type = table.Type_TYPE_BOOLEAN
+				default:
+					return p.Query, fmt.Errorf("at CREATE TABLE: unsupported type of field")
+				}
+
 				p.pop()
 			} else {
 				return p.Query, fmt.Errorf("at CREATE TABLE: unsupported type of field")

@@ -4,13 +4,15 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/file"
 	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/options"
 	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
+	table "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
 )
 
 type Engine interface {
 	Exec(*v1.Query) error
+	Close() error
 
 	// Table
-	CreateTable(name string, fields []*v1.TableField) error
+	CreateTable(name string, fields []*table.Field) error
 	DropTable(name string) error
 
 	// Command
