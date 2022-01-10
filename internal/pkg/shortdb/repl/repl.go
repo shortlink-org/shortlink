@@ -7,17 +7,27 @@ import (
 	"github.com/c-bata/go-prompt"
 	"github.com/pterm/pterm"
 
+	"github.com/batazor/shortlink/internal/pkg/shortdb/engine"
+	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/file"
 	parser "github.com/batazor/shortlink/internal/pkg/shortdb/parser/v1"
 	session "github.com/batazor/shortlink/internal/pkg/shortdb/session/v1"
 )
 
 type repl struct {
 	session *session.Session
+	engine  engine.Engine
 }
 
 func New(s *session.Session) (*repl, error) {
+	// set engine
+	store, err := engine.New("file", file.SetPath(s.CurrentDatabase))
+	if err != nil {
+		return nil, err
+	}
+
 	return &repl{
 		session: s,
+		engine:  *store,
 	}, nil
 }
 
@@ -81,7 +91,12 @@ func (r *repl) Run() {
 				continue
 			}
 
-			fmt.Println(p.Query)
+			// exec query
+			err = r.engine.Exec(p.Query)
+			if err.Error() != "" {
+				pterm.FgRed.Println(err)
+				continue
+			}
 		}
 	}
 }
