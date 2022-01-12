@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="billing" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="shortlink" />
+    <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="STORE_TYPE" value="postgres" />
+      <env name="API_PORT" value="7090" />
+      <env name="GRPC_SERVER_PORT" value="50054" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="github.com/batazor/shortlink/cmd/billing" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/cmd/billing/billing.go" />
+    <method v="2" />
+  </configuration>
+</component>

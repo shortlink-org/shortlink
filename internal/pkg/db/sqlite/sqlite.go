@@ -24,20 +24,20 @@ type Store struct { // nolint unused
 }
 
 // Init ...
-func (lite *Store) Init(ctx context.Context) error {
+func (s *Store) Init(ctx context.Context) error {
 	var err error
 
 	// Set configuration
-	lite.setConfig()
+	s.setConfig()
 
 	sql.Register("instrumented-sqlite", instrumentedsql.WrapDriver(&sqlite3.SQLiteDriver{}, instrumentedsql.WithTracer(opentracing.NewTracer(false))))
-	if lite.client, err = sql.Open("instrumented-sqlite", lite.config.Path); err != nil {
+	if s.client, err = sql.Open("instrumented-sqlite", s.config.Path); err != nil {
 		return err
 	}
 
-	lite.client.SetMaxOpenConns(25)
-	lite.client.SetMaxIdleConns(2)
-	lite.client.SetConnMaxLifetime(time.Minute)
+	s.client.SetMaxOpenConns(25)
+	s.client.SetMaxIdleConns(2)
+	s.client.SetConnMaxLifetime(time.Minute)
 
 	sqlStmt := `
 		CREATE TABLE IF NOT EXISTS links (
@@ -48,7 +48,7 @@ func (lite *Store) Init(ctx context.Context) error {
 		);
 	`
 
-	if _, err = lite.client.Exec(sqlStmt); err != nil {
+	if _, err = s.client.Exec(sqlStmt); err != nil {
 		panic(err)
 	}
 
@@ -61,21 +61,21 @@ func (s *Store) GetConn() interface{} {
 }
 
 // Close ...
-func (lite *Store) Close() error {
-	return lite.client.Close()
+func (s *Store) Close() error {
+	return s.client.Close()
 }
 
 // Migrate ...
-func (lite *Store) migrate() error { // nolint unused
+func (s *Store) migrate() error { // nolint unused
 	return nil
 }
 
 // setConfig - set configuration
-func (lite *Store) setConfig() {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_SQLITE_PATH", "/tmp/links.sqlite") // SQLite URI
 
-	lite.config = Config{
+	s.config = Config{
 		Path: viper.GetString("STORE_SQLITE_PATH"),
 	}
 }
