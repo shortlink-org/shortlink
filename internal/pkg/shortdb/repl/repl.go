@@ -64,6 +64,7 @@ func (r *repl) Run() {
 			r.session.Exec = true
 
 			// set in history
+			t = strings.TrimSpace(t)
 			r.session.History = append(r.session.History, t)
 		} else {
 			r.session.Raw += fmt.Sprintf("%s ", t)
@@ -115,7 +116,12 @@ func (r *repl) Run() {
 				pterm.FgRed.Println(err)
 				continue
 			}
-			pterm.FgGreen.Println(response)
+
+			if response != nil {
+				pterm.FgGreen.Println(response)
+			} else {
+				pterm.FgGreen.Println(`Executed`)
+			}
 		}
 	}
 }

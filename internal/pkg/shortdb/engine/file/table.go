@@ -19,6 +19,10 @@ func (f *file) CreateTable(query *v1.Query) error {
 	f.database.Tables[query.TableName] = &table.Table{
 		Name:   query.TableName,
 		Fields: query.TableFields,
+		Stats: &table.Stats{
+			RowsCount: 0,
+			PageCount: 0,
+		},
 	}
 
 	return nil

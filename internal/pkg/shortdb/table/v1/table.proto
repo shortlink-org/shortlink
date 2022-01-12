@@ -16,11 +16,22 @@ message Row {
   map<string, bytes> value = 2;
 }
 
+message Stats {
+  int64 rows_count = 1;
+  int32 page_count = 2;
+}
+
+message Page {
+  repeated Row rows = 1;
+}
+
 message Table {
   string name = 1;
   map<string, Type> fields = 2;
 
-  repeated Row rows = 3;
+  repeated Page pages = 3;
+
+  Stats stats = 4;
 }
 
 message DataBase {
