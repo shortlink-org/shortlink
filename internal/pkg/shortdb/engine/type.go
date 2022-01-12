@@ -4,22 +4,22 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/file"
 	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/options"
 	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
-	table "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
+	v12 "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
 )
 
 type Engine interface {
-	Exec(*v1.Query) error
+	Exec(*v1.Query) (interface{}, error)
 	Close() error
 
 	// Table
-	CreateTable(name string, fields []*table.Field) error
+	CreateTable(query *v1.Query) error
 	DropTable(name string) error
 
 	// Command
-	Select() error
-	Update() error
-	Insert() error
-	Delete() error
+	Select(query *v1.Query) ([]*v12.Row, error)
+	Update(query *v1.Query) error
+	Insert(query *v1.Query) error
+	Delete(query *v1.Query) error
 }
 
 func New(name string, ops ...options.Option) (*Engine, error) {
