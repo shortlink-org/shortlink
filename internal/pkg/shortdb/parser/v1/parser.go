@@ -418,7 +418,9 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			p.Step = Step_STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS
 		case Step_STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS:
 			commaRWord := p.peek()
-			if strings.ToUpper(commaRWord) != "," {
+			if commaRWord == ";" {
+				p.Step = Step_STEP_SEMICOLON
+			} else if strings.ToUpper(commaRWord) != "," {
 				return p.Query, fmt.Errorf("at INSERT INTO: expected comma")
 			}
 			p.pop()
@@ -449,9 +451,7 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			if !isIdentifier(identifier) {
 				return p.Query, fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
 			}
-			tableField := &table.Field{
-				Name: identifier,
-			}
+
 			p.pop()
 			typeField := p.peek()
 
@@ -459,20 +459,26 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			if !isIdentifier(typeField) {
 				return p.Query, fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
 			}
+
+			if p.Query.TableFields == nil {
+				p.Query.TableFields = map[string]table.Type{}
+			}
+
+			// append field to table
 			if tool.Contains(typeFieldTable, typeField) {
 				switch typeField {
 				case "int":
 					fallthrough
 				case "integer":
-					tableField.Type = table.Type_TYPE_INTEGER
+					p.Query.TableFields[identifier] = table.Type_TYPE_INTEGER
 				case "text":
 					fallthrough
 				case "string":
-					tableField.Type = table.Type_TYPE_STRING
+					p.Query.TableFields[identifier] = table.Type_TYPE_STRING
 				case "bool":
 					fallthrough
 				case "boolean":
-					tableField.Type = table.Type_TYPE_BOOLEAN
+					p.Query.TableFields[identifier] = table.Type_TYPE_BOOLEAN
 				default:
 					return p.Query, fmt.Errorf("at CREATE TABLE: unsupported type of field")
 				}
@@ -482,8 +488,6 @@ func (p *Parser) doParse() (*v1.Query, error) {
 				return p.Query, fmt.Errorf("at CREATE TABLE: unsupported type of field")
 			}
 
-			// append field to table
-			p.Query.TableFields = append(p.Query.TableFields, tableField)
 			p.Step = Step_STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS
 		case Step_STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS:
 			commaOrClosingParens := p.peek()

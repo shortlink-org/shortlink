@@ -58,25 +58,25 @@ func New(opts ...options.Option) (*file, error) {
 	return f, nil
 }
 
-func (f *file) Exec(query *v1.Query) error {
+func (f *file) Exec(query *v1.Query) (interface{}, error) {
 	switch query.Type {
 	case v1.Type_TYPE_UNSPECIFIED:
-		return fmt.Errorf("exec: incorret type")
+		return nil, fmt.Errorf("exec: incorret type")
 	case v1.Type_TYPE_SELECT:
-		return f.Select()
+		return f.Select(query)
 	case v1.Type_TYPE_UPDATE:
-		return f.Update()
+		return nil, f.Update(query)
 	case v1.Type_TYPE_INSERT:
-		return f.Insert()
+		return nil, f.Insert(query)
 	case v1.Type_TYPE_DELETE:
-		return f.Delete()
+		return nil, f.Delete(query)
 	case v1.Type_TYPE_CREATE_TABLE:
-		return f.CreateTable(query.TableName, query.TableFields)
+		return nil, f.CreateTable(query)
 	case v1.Type_TYPE_DROP_TABLE:
-		return f.DropTable(query.TableName)
+		return nil, f.DropTable(query.TableName)
 	}
 
-	return nil
+	return nil, nil
 }
 
 func (f *file) init() error {

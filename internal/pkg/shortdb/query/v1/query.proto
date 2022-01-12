@@ -83,7 +83,7 @@ message Query {
   Type type = 1;
   string database = 2;
   string table_name = 3;
-  repeated shortdb.table.v1.Field table_fields = 4;
+  map<string, shortdb.table.v1.Type> table_fields = 4;
   repeated Condition conditions = 5;
   map<string, string> updates = 6;
   repeated Array inserts = 7;

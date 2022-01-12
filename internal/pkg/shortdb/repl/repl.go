@@ -110,11 +110,12 @@ func (r *repl) Run() {
 			}
 
 			// exec query
-			err = r.engine.Exec(p.Query)
+			response, err := r.engine.Exec(p.Query)
 			if err != nil && err.Error() != "" {
 				pterm.FgRed.Println(err)
 				continue
 			}
+			pterm.FgGreen.Println(response)
 		}
 	}
 }
