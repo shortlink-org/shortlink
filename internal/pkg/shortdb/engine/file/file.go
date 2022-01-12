@@ -20,16 +20,20 @@ type file struct {
 	name string
 	path string
 
+	pageSize int64
+
 	database *table.DataBase
 }
 
 func New(opts ...options.Option) (*file, error) {
 	viper.AutomaticEnv()
 	viper.SetDefault("SHORTDB_DEFAULT_DATABASE", "public.db") // ShortDB default database
+	viper.SetDefault("SHORTDB_PAGE_SIZE", 2)                  // ShortDB default page of size
 
 	var err error
 	f := &file{
-		name: viper.GetString("SHORTDB_DEFAULT_DATABASE"),
+		name:     viper.GetString("SHORTDB_DEFAULT_DATABASE"),
+		pageSize: viper.GetInt64("SHORTDB_PAGE_SIZE"),
 		database: &table.DataBase{
 			Tables: make(map[string]*table.Table),
 		},

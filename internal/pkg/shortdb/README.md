@@ -11,7 +11,10 @@ This database with support SQL language.
 #### Feature
 
 - REPL interface
+  - save history (by default last 100 commands)
+  - navigation by history commands
 - SQL-parser
+  - SELECT, INSERT INTO, CREATE TABLE, etc...
 - Engine:
   - file
 
