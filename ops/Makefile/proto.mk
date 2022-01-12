@@ -39,6 +39,26 @@ proto-generate: ## Generate proto-files
 		--config=ops/proto/eventsourcing/buf.yaml
 
 	@buf generate \
+		--path=internal/pkg/shortdb/query/v1 \
+		--template=ops/proto/eventsourcing/buf.gen.yaml \
+		--config=ops/proto/eventsourcing/buf.yaml
+
+	@buf generate \
+		--path=internal/pkg/shortdb/table/v1 \
+		--template=ops/proto/eventsourcing/buf.gen.yaml \
+		--config=ops/proto/eventsourcing/buf.yaml
+
+	@buf generate \
+		--path=internal/pkg/shortdb/parser/v1 \
+		--template=ops/proto/eventsourcing/buf.gen.yaml \
+		--config=ops/proto/eventsourcing/buf.yaml
+
+	@buf generate \
+		--path=internal/pkg/shortdb/session/v1 \
+		--template=ops/proto/eventsourcing/buf.gen.yaml \
+		--config=ops/proto/eventsourcing/buf.yaml
+
+	@buf generate \
 		--path=internal/services/api/application/grpc_web \
 		--template=ops/proto/grpc-web/buf.gen.yaml \
 		--config=ops/proto/grpc-web/buf.yaml

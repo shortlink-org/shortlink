@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+package shortdb.query.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1";
+
+import "shortdb/table/v1/table.proto";
+
+// Type is the type of SQL query, e.g. SELECT/UPDATE
+enum Type {
+  // TYPE_UNSPECIFIED is the zero value for a Type
+  TYPE_UNSPECIFIED = 0;
+
+  // TYPE_SELECT represents a SELECT query
+  TYPE_SELECT = 1;
+  // TYPE_UPDATE represents an UPDATE query
+  TYPE_UPDATE = 2;
+  // TYPE_INSERT represents an INSERT query
+  TYPE_INSERT = 3;
+  // TYPE_DELETE represents a DELETE query
+  TYPE_DELETE = 4;
+  // TYPE_CREATE_TABLE represents a CREATE TABLE query
+  TYPE_CREATE_TABLE = 5;
+  // TYPE_DROP_TABLE represents a DROP TABLE query
+  TYPE_DROP_TABLE = 6;
+}
+
+// Operator is between operands in a condition
+enum Operator {
+  // OPERATOR_UNSPECIFIED is the zero value for an Operator
+  OPERATOR_UNSPECIFIED = 0;
+
+  OPERATOR_EQ = 1;  // Eq -> "="
+  OPERATOR_NE = 2;  // Ne -> "!="
+  OPERATOR_GT = 3;  // Gt -> ">"
+  OPERATOR_LT = 4;  // Lt -> "<"
+  OPERATOR_GTE = 5; // Gte -> ">="
+  OPERATOR_LTE = 6; // Lte -> "<="
+}
+
+// Condition is a single boolean condition in a WHERE clause
+message Condition {
+  // LValue is the left hand side operand
+  string l_value = 1;
+  // LValueIsField determines if Operand1 is a literal or a field name
+  bool l_value_is_field = 2;
+
+  // Operator is e.g. "=", ">"
+  Operator operator = 3;
+
+  // RValue is the right hand side operand
+  string r_value = 4;
+  // RValueIsField determines if Operand2 is a literal or a field name
+  bool r_value_is_field = 5;
+}
+
+// Condition is a single boolean condition in a WHERE clause
+message JoinCondition {
+  // LHS table name
+  string l_table = 1;
+  // Level operand is the left hand side operand
+  string l_operand = 2;
+  // Operator is e.g. "=", ">"
+  Operator operator = 3;
+  // RHS table name
+  string r_table = 4;
+  // Right operand1 is the right hand side operand
+  string r_operand = 5;
+}
+
+message Join {
+  string type = 1;
+  string table = 2;
+  repeated JoinCondition conditions = 3;
+}
+
+// Query represents a parsed query
+message Query {
+  message Array {
+    repeated string items = 1;
+  }
+
+  Type type = 1;
+  string database = 2;
+  string table_name = 3;
+  map<string, shortdb.table.v1.Type> table_fields = 4;
+  repeated Condition conditions = 5;
+  map<string, string> updates = 6;
+  repeated Array inserts = 7;
+  // Used for SELECT (i.e. SELECTed field names) and INSERT (INSERTEDed field names)
+  repeated string fields = 8;
+  map<string, string> aliases = 9;
+  repeated string order_fields = 10;
+  repeated string order_dir = 11;
+  repeated Join joins = 12;
+  int32 max_rows = 13;
+}

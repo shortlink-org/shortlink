@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package shortdb.table.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1";
+
+enum Type {
+  TYPE_UNSPECIFIED = 0;
+
+  TYPE_INTEGER = 1;
+  TYPE_STRING = 2;
+  TYPE_BOOLEAN = 3;
+}
+
+message Row {
+  map<string, bytes> value = 2;
+}
+
+message Stats {
+  int64 rows_count = 1;
+  int32 page_count = 2;
+}
+
+message Page {
+  repeated Row rows = 1;
+}
+
+message Table {
+  string name = 1;
+  map<string, Type> fields = 2;
+
+  repeated Page pages = 3;
+
+  Stats stats = 4;
+}
+
+message DataBase {
+  map<string, Table> tables = 1;
+}

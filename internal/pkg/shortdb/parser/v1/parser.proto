@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package shortdb.parser.v1;
+
+option go_package = "github.com/batazor/shortlink/internal/pkg/database/parser/v1";
+
+import "shortdb/query/v1/query.proto";
+
+// WARNING: this numbers used for inside use
+//          don't this numbers as is
+enum Step {
+  STEP_UNSPECIFIED = 0;
+
+  STEP_SELECT_FIELD = 1;
+  STEP_SELECT_FROM = 2;
+  STEP_SELECT_COMMA = 3;
+  STEP_SELECT_FROM_TABLE = 4;
+
+  STEP_INSERT_TABLE = 5;
+  STEP_INSERT_FIELD_OPENING_PARENTS = 6;
+  STEP_INSERT_FIELDS = 7;
+  STEP_INSERT_FIELDS_COMMA_OR_CLOSING_PARENTS = 8;
+  STEP_INSERT_VALUES_OPENING_PARENS = 9;
+  STEP_INSERT_RWORD = 10;
+  STEP_INSERT_VALUES = 11;
+  STEP_INSERT_VALUES_COMMA_OR_CLOSING_PARENS = 12;
+  STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS = 13;
+
+  STEP_UPDATE_TABLE = 14;
+  STEP_UPDATE_SET = 15;
+  STEP_UPDATE_FIELD = 16;
+  STEP_UPDATE_EQUALS = 17;
+  STEP_UPDATE_VALUE = 18;
+  STEP_UPDATE_COMMA = 19;
+
+  STEP_DELETE_FROM_TABLE = 20;
+
+  STEP_WHERE = 21;
+  STEP_WHERE_FIELD = 22;
+  STEP_WHERE_OPERATOR = 23;
+  STEP_WHERE_VALUE = 24;
+  STEP_WHERE_AND = 25;
+
+  STEP_ORDER = 26;
+  STEP_ORDER_FIELD = 27;
+  STEP_ORDER_DIRECTION_OR_COMMA = 28;
+
+  STEP_JOIN = 29;
+  STEP_JOIN_TABLE = 30;
+  STEP_JOIN_CONDITION = 31;
+
+  STEP_SEMICOLON = 32;
+
+  STEP_CREATE_TABLE_NAME = 33;
+  STEP_CREATE_TABLE_OPENING_PARENS = 34;
+  STEP_CREATE_TABLE_FIELDS = 35;
+  STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS = 36;
+
+  STEP_DROP_TABLE_NAME = 37;
+}
+
+message Parser {
+  int32 i = 1;
+  string sql = 2;
+  Step step = 3;
+  shortdb.query.v1.Query query = 4;
+  string error = 5;
+  string next_update_field = 6;
+}
