@@ -23,11 +23,3 @@ func SetName(name string) options.Option {
 		return nil
 	}
 }
-
-func SetPageSize(pageSize int64) options.Option {
-	return func(o interface{}) error {
-		f := o.(*file)
-		f.pageSize = pageSize
-		return nil
-	}
-}

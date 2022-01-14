@@ -20,8 +20,6 @@ type file struct {
 	name string
 	path string
 
-	pageSize int64
-
 	database *table.DataBase
 }
 
@@ -32,8 +30,7 @@ func New(opts ...options.Option) (*file, error) {
 
 	var err error
 	f := &file{
-		name:     viper.GetString("SHORTDB_DEFAULT_DATABASE"),
-		pageSize: viper.GetInt64("SHORTDB_PAGE_SIZE"),
+		name: viper.GetString("SHORTDB_DEFAULT_DATABASE"),
 		database: &table.DataBase{
 			Tables: make(map[string]*table.Table),
 		},

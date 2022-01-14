@@ -3,6 +3,7 @@ package file
 import (
 	"fmt"
 
+	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/file/cursor"
 	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
 	v12 "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
 )
@@ -19,21 +20,27 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 	// response
 	response := []*v12.Row{}
 
-	for _, page := range f.database.Tables[query.TableName].Pages {
-		for _, row := range page.Rows {
-			record := &v12.Row{
-				Value: map[string][]byte{},
-			}
+	currentRow, err := cursor.New(f.database.Tables[query.TableName], false)
+	if err != nil {
+		return nil, fmt.Errorf("at SELECT: error create a new cursor")
+	}
 
-			for _, field := range query.Fields {
-				if row.Value[field] == nil {
-					return nil, fmt.Errorf("at SELECT: incorrect name fields %s in table %s", field, query.TableName)
-				}
-
-				record.Value[field] = row.Value[field]
-			}
-			response = append(response, record)
+	for currentRow.EndOfTable != true {
+		record, errGetValue := currentRow.Value()
+		if errGetValue != nil {
+			return nil, errGetValue
 		}
+
+		for _, field := range query.Fields {
+			if record.Value[field] == nil {
+				return nil, fmt.Errorf("at SELECT: incorrect name fields %s in table %s", field, query.TableName)
+			}
+
+			record.Value[field] = record.Value[field]
+		}
+		response = append(response, record)
+
+		currentRow.Advance()
 	}
 
 	return response, nil
@@ -54,7 +61,7 @@ func (f *file) Insert(query *v1.Query) error {
 	}
 
 	// check values and create row record
-	record := &v12.Row{
+	record := v12.Row{
 		Value: map[string][]byte{},
 	}
 	for index, field := range query.Fields {
@@ -66,13 +73,25 @@ func (f *file) Insert(query *v1.Query) error {
 	}
 
 	// insert
-	lastPageIndex, err := f.createPage(query)
+	_, err := f.database.Tables[query.TableName].AddPage()
 	if err != nil {
 		return fmt.Errorf("at INSERT INTO: error create a new page")
 	}
 
 	// insert to last page
-	f.database.Tables[query.TableName].Pages[lastPageIndex].Rows = append(f.database.Tables[query.TableName].Pages[lastPageIndex].Rows, record)
+	currentRow, err := cursor.New(f.database.Tables[query.TableName], true)
+	if err != nil {
+		return fmt.Errorf("at INSERT INTO: error create a new cursor")
+	}
+
+	// iterator to next value
+	currentRow.Advance()
+
+	row, err := currentRow.Value()
+	if err != nil {
+		return fmt.Errorf("at INSERT INTO: error get value from cursor")
+	}
+	*row = record
 
 	// update stats
 	f.database.Tables[query.TableName].Stats.RowsCount += 1
@@ -83,13 +102,4 @@ func (f *file) Insert(query *v1.Query) error {
 func (f *file) Delete(query *v1.Query) error {
 	//TODO implement me
 	return nil
-}
-
-func (f *file) createPage(query *v1.Query) (int32, error) {
-	if f.database.Tables[query.TableName].Stats.RowsCount%f.pageSize == 0 {
-		f.database.Tables[query.TableName].Pages = append(f.database.Tables[query.TableName].Pages, &v12.Page{Rows: []*v12.Row{}})
-		f.database.Tables[query.TableName].Stats.PageCount += 1
-	}
-
-	return f.database.Tables[query.TableName].Stats.PageCount - 1, nil
 }

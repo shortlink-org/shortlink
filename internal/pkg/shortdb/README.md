@@ -18,6 +18,14 @@ This database with support SQL language.
 - Engine:
   - file
 
+#### Example work with repl
+
+```
+> create table users (id integer, name string, active bool);
+> insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false');
+> select id, name, active from users;
+```
+
 #### Reference
 
 - Parser
