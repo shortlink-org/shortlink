@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/spf13/viper"
-	"go.etcd.io/etcd/client/v3"
+	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
 // Config ...

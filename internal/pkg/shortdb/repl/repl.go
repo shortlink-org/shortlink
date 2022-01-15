@@ -34,7 +34,7 @@ func New(s *session.Session) (*repl, error) {
 	}, nil
 }
 
-func (r *repl) Run() {
+func (r *repl) Run() { // nolint gocyclo
 	// load history
 	if err := r.init(); err != nil {
 		pterm.FgRed.Println(err)

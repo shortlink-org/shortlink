@@ -3,6 +3,7 @@ package http_chi
 import (
 	"context"
 	"fmt"
+	"net"
 	"net/http"
 	"time"
 

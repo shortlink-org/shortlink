@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/spf13/viper"
+	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
@@ -54,7 +55,7 @@ func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	s.setConfig()
 
-	s.conn, err = grpc.Dial(s.config.URL, grpc.WithInsecure())
+	s.conn, err = grpc.Dial(s.config.URL, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		return err
 	}

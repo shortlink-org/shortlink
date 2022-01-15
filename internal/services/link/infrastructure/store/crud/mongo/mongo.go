@@ -144,7 +144,7 @@ func (m *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, err
 
 	// Finding multiple documents returns a cursor
 	// Iterating through the cursor allows us to decode documents one at a time
-	for cur.Next(context.TODO()) {
+	for cur.Next(ctx) {
 		// create a value into which the single document can be decoded
 		var elem v1.Link
 		if errDecode := cur.Decode(&elem); errDecode != nil {
@@ -155,7 +155,7 @@ func (m *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, err
 	}
 
 	// Close the cursor once finished
-	err = cur.Close(context.TODO())
+	err = cur.Close(ctx)
 	if err != nil {
 		return nil, err
 	}
