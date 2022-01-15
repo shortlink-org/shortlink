@@ -10,17 +10,44 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/tool"
 )
 
+const (
+	SELECT                  = "SELECT"
+	INSERT_INTO             = "INSERT INTO"
+	VALUES                  = "VALUES"
+	UPDATE                  = "UPDATE"
+	DELETE_FROM             = "DELETE FROM"
+	WHERE                   = "WHERE"
+	FROM                    = "FROM"
+	SET                     = "SET"
+	ON_DUPLICATE_KEY_UPDATE = "ON DUPLICATE KEY UPDATE"
+	ORDER_BY                = "ORDER BY"
+	ASC                     = "ASC"
+	DESC                    = "DESC"
+	LEFT_JOIN               = "LEFT JOIN"
+	RIGHT_JOIN              = "RIGHT JOIN"
+	INNER_JOIN              = "INNER_JOIN"
+	JOIN                    = "JOIN"
+	ON                      = "ON"
+	AS                      = "AS"
+	CREATE_TABLE            = "CREATE TABLE"
+	DROP_TABLE              = "DROP_TABLE"
+)
+
 var reservedWords = []string{
 	"(", ")", ">=", ">", "<", "<=", "=", "!=", ",", ";",
-	"SELECT", "INSERT INTO", "VALUES", "UPDATE",
-	"DELETE FROM", "WHERE", "FROM", "SET",
-	"ON DUPLICATE KEY UPDATE", "ORDER BY", "ASC",
-	"DESC", "LEFT JOIN", "RIGHT JOIN", "INNER JOIN",
-	"JOIN", "ON", "AS", "CREATE TABLE", "DROP TABLE",
+	SELECT, INSERT_INTO, VALUES, UPDATE,
+	DELETE_FROM, WHERE, FROM, SET,
+	ON_DUPLICATE_KEY_UPDATE, ORDER_BY, ASC,
+	DESC, LEFT_JOIN, RIGHT_JOIN, INNER_JOIN,
+	JOIN, ON, AS, CREATE_TABLE, DROP_TABLE,
 }
 
-// typeFieldTable - list of support type fields of table
-var typeFieldTable = []string{"int", "integer", "string", "text", "boolean", "bool"}
+var (
+	r, _ = regexp.Compile("[a-zA-Z0-9]")
+
+	// typeFieldTable - list of support type fields of table
+	typeFieldTable = []string{"int", "integer", "string", "text", "boolean", "bool"}
+)
 
 func New(sql string) (*Parser, error) {
 	parser := &Parser{
@@ -49,7 +76,7 @@ func (p *Parser) Parse() (*v1.Query, error) {
 	return q, fmt.Errorf(p.Error)
 }
 
-func (p *Parser) doParse() (*v1.Query, error) {
+func (p *Parser) doParse() (*v1.Query, error) { // nolint gocyclo
 	for {
 		if p.I >= int32(len(p.Sql)) {
 			return p.Query, fmt.Errorf(p.Error)
@@ -147,11 +174,11 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			p.Query.TableName = tableName
 			p.pop()
 			look := p.peek()
-			if strings.ToUpper(look) == "WHERE" {
+			if strings.ToUpper(look) == WHERE {
 				p.Step = Step_STEP_WHERE
-			} else if strings.ToUpper(look) == "ORDER BY" {
+			} else if strings.ToUpper(look) == ORDER_BY {
 				p.Step = Step_STEP_ORDER
-			} else if strings.Contains(strings.ToUpper(look), "JOIN") {
+			} else if strings.Contains(strings.ToUpper(look), JOIN) {
 				p.Step = Step_STEP_JOIN
 			} else if look == ";" {
 				p.Step = Step_STEP_SEMICOLON
@@ -174,7 +201,7 @@ func (p *Parser) doParse() (*v1.Query, error) {
 			p.Step = Step_STEP_WHERE
 		case Step_STEP_WHERE:
 			whereRWord := p.peek()
-			if strings.ToUpper(whereRWord) != "WHERE" {
+			if strings.ToUpper(whereRWord) != WHERE {
 				return p.Query, fmt.Errorf("expected WHERE")
 			}
 			p.pop()
@@ -564,7 +591,7 @@ func (p *Parser) peekQuotedStringWithLength() (string, int32) {
 
 func (p *Parser) peekIdentifierStringWithLength() (string, int32) {
 	for i := p.I; i < int32(len(p.Sql)); i++ {
-		if matched, _ := regexp.MatchString(`[a-zA-Z0-9]`, string(p.Sql[i])); !matched {
+		if matched := r.MatchString(string(p.Sql[i])); !matched {
 			return p.Sql[p.I:i], int32(len(p.Sql[p.I:i]))
 		}
 	}
@@ -572,7 +599,7 @@ func (p *Parser) peekIdentifierStringWithLength() (string, int32) {
 	return p.Sql[p.I:], int32(len(p.Sql[p.I:]))
 }
 
-func (p *Parser) validate() error {
+func (p *Parser) validate() error { // nolint gocyclo
 	if p.Query == nil {
 		return nil
 	}

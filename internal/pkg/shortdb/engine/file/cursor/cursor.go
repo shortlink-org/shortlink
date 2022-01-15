@@ -11,7 +11,7 @@ func New(table *table.Table, isEnd bool) (*Cursor, error) {
 		EndOfTable: isEnd,
 	}
 
-	if isEnd == true {
+	if isEnd {
 		cursor.RowId = table.Stats.RowsCount
 	}
 

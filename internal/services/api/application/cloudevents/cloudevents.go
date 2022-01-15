@@ -58,7 +58,7 @@ func (api *API) Run(
 		return err
 	}
 
-	if err = c.StartReceiver(context.Background(), Receive); err != nil {
+	if err = c.StartReceiver(ctx, Receive); err != nil {
 		return err
 	}
 

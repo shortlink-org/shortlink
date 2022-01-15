@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 )
 
 func (r *repl) init() error {

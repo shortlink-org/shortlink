@@ -25,7 +25,7 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 		return nil, fmt.Errorf("at SELECT: error create a new cursor")
 	}
 
-	for currentRow.EndOfTable != true {
+	for !currentRow.EndOfTable {
 		record, errGetValue := currentRow.Value()
 		if errGetValue != nil {
 			return nil, errGetValue
@@ -35,8 +35,6 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 			if record.Value[field] == nil {
 				return nil, fmt.Errorf("at SELECT: incorrect name fields %s in table %s", field, query.TableName)
 			}
-
-			record.Value[field] = record.Value[field]
 		}
 		response = append(response, record)
 
@@ -91,7 +89,7 @@ func (f *file) Insert(query *v1.Query) error {
 	if err != nil {
 		return fmt.Errorf("at INSERT INTO: error get value from cursor")
 	}
-	*row = record
+	row.Value = record.Value
 
 	// update stats
 	f.database.Tables[query.TableName].Stats.RowsCount += 1
