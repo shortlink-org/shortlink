@@ -11,7 +11,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
-func NewTraceFromContext(ctx context.Context, msg string, tags []opentracing.Tag, fields ...field.Fields) ([]field.Fields, error) {
+func NewTraceFromContext(ctx context.Context, msg string, tags []opentracing.Tag, fields ...field.Fields) ([]field.Fields, error) { // nolint contextcheck
 	if ctx == nil {
 		ctx = context.Background()
 	}

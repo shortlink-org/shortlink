@@ -6,8 +6,8 @@ import (
 	"os"
 	"sync"
 
-	"github.com/golang/protobuf/proto"
 	"github.com/spf13/viper"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/options"
 	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
@@ -20,8 +20,6 @@ type file struct {
 	name string
 	path string
 
-	pageSize int64
-
 	database *table.DataBase
 }
 
@@ -32,16 +30,15 @@ func New(opts ...options.Option) (*file, error) {
 
 	var err error
 	f := &file{
-		name:     viper.GetString("SHORTDB_DEFAULT_DATABASE"),
-		pageSize: viper.GetInt64("SHORTDB_PAGE_SIZE"),
+		name: viper.GetString("SHORTDB_DEFAULT_DATABASE"),
 		database: &table.DataBase{
 			Tables: make(map[string]*table.Table),
 		},
 	}
 
 	for _, opt := range opts {
-		if err := opt(f); err != nil {
-			panic(err)
+		if errApplyOptions := opt(f); errApplyOptions != nil {
+			panic(errApplyOptions)
 		}
 	}
 

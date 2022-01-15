@@ -10,6 +10,7 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/credentials/insecure"
 
 	grpc_logger "github.com/batazor/shortlink/pkg/rpc/logger"
 
@@ -67,7 +68,7 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 
 		optionsNewClient = append(optionsNewClient, grpc.WithTransportCredentials(creds))
 	} else {
-		optionsNewClient = append(optionsNewClient, grpc.WithInsecure())
+		optionsNewClient = append(optionsNewClient, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	}
 
 	// Set up a connection to the server peer

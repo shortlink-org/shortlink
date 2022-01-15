@@ -61,12 +61,12 @@ func (s *Store) setConfig() error {
 
 	conf, err := url.Parse(viper.GetString("STORE_AEROSPIKE_URI"))
 	if err != nil {
-		return nil
+		return err
 	}
 
 	port, err := strconv.Atoi(conf.Port())
 	if err != nil {
-		return nil
+		return err
 	}
 
 	s.config = Config{

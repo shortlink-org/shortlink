@@ -16,13 +16,17 @@ message Row {
   map<string, bytes> value = 2;
 }
 
-message Stats {
+message Page {
+  repeated Row rows = 1;
+}
+
+message TableStats {
   int64 rows_count = 1;
   int32 page_count = 2;
 }
 
-message Page {
-  repeated Row rows = 1;
+message Option {
+  int64 page_size = 1;
 }
 
 message Table {
@@ -31,7 +35,8 @@ message Table {
 
   repeated Page pages = 3;
 
-  Stats stats = 4;
+  TableStats stats = 4;
+  Option option = 5;
 }
 
 message DataBase {
