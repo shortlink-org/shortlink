@@ -11,7 +11,7 @@ require (
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cloudevents/sdk-go/v2 v2.8.0
 	github.com/container-storage-interface/spec v1.5.0
-	github.com/cucumber/godog v0.12.3
+	github.com/cucumber/godog v0.12.4
 	github.com/dgraph-io/badger/v3 v3.2103.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/getsentry/sentry-go v0.12.0
