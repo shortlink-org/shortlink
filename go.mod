@@ -51,7 +51,7 @@ require (
 	github.com/ory/dockertest/v3 v3.8.1
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/prometheus/client_golang v1.11.0
-	github.com/pterm/pterm v0.12.33
+	github.com/pterm/pterm v0.12.34
 	github.com/rabbitmq/amqp091-go v1.2.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.8.1
