@@ -15,7 +15,7 @@ CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
 SHORTLINK_SERVICES := api auth bot csi landing link logger metadata notify proxy ui-next
 
-docker: docker-login docker-build docker-push ## docker login > build > push
+docker: docker-login docker-build ## docker login > build > push
 
 docker-login: ## Docker login
 	@echo docker login as ${DOCKER_USERNAME}
