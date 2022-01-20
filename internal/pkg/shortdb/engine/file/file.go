@@ -10,6 +10,7 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/options"
+	"github.com/batazor/shortlink/internal/pkg/shortdb/io_uring"
 	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
 	table "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
 )
@@ -99,11 +100,34 @@ func (f *file) init() error {
 	}
 	defer file.Close()
 
-	// read file
-	payload, err := ioutil.ReadFile(path)
+	// init io_uring
+	err = io_uring.Init()
 	if err != nil {
 		return err
 	}
+	defer io_uring.Cleanup()
+
+	go func() {
+		for errIOUring := range io_uring.Err() {
+			fmt.Println(errIOUring)
+		}
+	}()
+
+	payload := []byte{}
+	var wg sync.WaitGroup
+	wg.Add(1)
+	// Read a file.
+	err = io_uring.ReadFile(path, func(buf []byte) {
+		payload = buf
+		wg.Done()
+	})
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	io_uring.Poll()
+	wg.Wait()
 
 	if len(payload) != 0 {
 		err = proto.Unmarshal(payload, f.database)
@@ -133,10 +157,32 @@ func (f *file) Close() error {
 		return err
 	}
 
-	_, err = file.Write(payload)
+	// init io_uring
+	err = io_uring.Init()
 	if err != nil {
 		return err
 	}
+	defer io_uring.Cleanup()
+
+	go func() {
+		for err := range io_uring.Err() {
+			fmt.Println(err)
+		}
+	}()
+
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	// Write something
+	err = io_uring.WriteFile(path, payload, 0644, func(n int) {
+		defer wg.Done()
+		// handle n
+	})
+
+	// Call Poll to let the kernel know to read the entries.
+	io_uring.Poll()
+	// Wait till all callbacks are done.
+	wg.Wait()
 
 	return nil
 }

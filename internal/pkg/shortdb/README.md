@@ -26,6 +26,12 @@ This database with support SQL language.
 > select id, name, active from users;
 ```
 
+#### Docker build
+
+```bash
+$> docker buildx build --platform=linux/amd64 --load -t shortdb -f ops/dockerfile/shortdb.Dockerfile .
+```
+
 #### Reference
 
 - Parser
