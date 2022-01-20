@@ -6,7 +6,7 @@
 struct io_uring ring;
 
 struct file_info {
-  __u8 opcode;
+  __u8 opcode; /* type of operation for this sqe */
   off_t file_sz;
   int file_fd;
   struct iovec iovecs[];

@@ -10,3 +10,5 @@ Library for work with io_uring
 ### Reference
 
 + [https://developers.mattermost.com/blog/hands-on-iouring-go/](https://developers.mattermost.com/blog/hands-on-iouring-go/)
++ [Ringing in a new asynchronous I/O API](https://lwn.net/Articles/776703/)
++ [Chapter 4. Advanced File I/O](https://www.oreilly.com/library/view/linux-system-programming/9781449341527/ch04.html)
