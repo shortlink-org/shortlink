@@ -1,6 +1,6 @@
 module github.com/batazor/shortlink
 
-go 1.17
+go 1.18
 
 require (
 	github.com/Masterminds/squirrel v1.5.2
