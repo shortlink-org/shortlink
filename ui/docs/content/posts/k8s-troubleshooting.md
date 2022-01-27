@@ -25,3 +25,9 @@ $> kubectl get namespace istio-system -o json > tmp.json
 $> vim tmp.json
 $> curl -k -H "Content-Type: application/json" -X PUT --data-binary @tmp.json http://127.0.0.1:8001/api/v1/namespaces/istio-system/finalize
 ```
+
+#### Helm upgraid-faild
+
+```
+$> kubectl -n app-namespace patch secret release-name.v123 --type=merge -p '{"metadata":{"labels":{"status":"deployed"}}}'
+```
