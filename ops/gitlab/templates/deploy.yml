@@ -1,7 +1,7 @@
 .job_template_deploy:
   stage: deploy
   image:
-    name: alpine/helm:3.6.0-rc.1
+    name: alpine/helm:3.8.0
     entrypoint: [""]
   script:
     - echo "helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
