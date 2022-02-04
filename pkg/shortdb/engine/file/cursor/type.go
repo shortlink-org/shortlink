@@ -3,7 +3,7 @@ package cursor
 import (
 	"sync"
 
-	table "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
+	table "github.com/batazor/shortlink/pkg/shortdb/table/v1"
 )
 
 type Cursor struct {

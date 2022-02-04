@@ -3,9 +3,9 @@ package file
 import (
 	"fmt"
 
-	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/file/cursor"
-	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
-	v12 "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
+	"github.com/batazor/shortlink/pkg/shortdb/engine/file/cursor"
+	v1 "github.com/batazor/shortlink/pkg/shortdb/query/v1"
+	v12 "github.com/batazor/shortlink/pkg/shortdb/table/v1"
 )
 
 func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {

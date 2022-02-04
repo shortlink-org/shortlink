@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shortdb.table.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1";
+option go_package = "github.com/batazor/shortlink/pkg/shortdb/table/v1";
 
 enum Type {
   TYPE_UNSPECIFIED = 0;

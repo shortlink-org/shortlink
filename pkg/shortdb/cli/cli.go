@@ -6,8 +6,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 
-	"github.com/batazor/shortlink/internal/pkg/shortdb/repl"
-	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/session/v1"
+	"github.com/batazor/shortlink/pkg/shortdb/repl"
+	v1 "github.com/batazor/shortlink/pkg/shortdb/session/v1"
 )
 
 func main() {
@@ -37,7 +37,7 @@ func main() {
 	}
 
 	// Generate docs
-	if err := doc.GenMarkdownTree(rootCmd, "./internal/pkg/shortdb/docs"); err != nil {
+	if err := doc.GenMarkdownTree(rootCmd, "./pkg/shortdb/docs"); err != nil {
 		log.Fatal(err)
 	}
 }

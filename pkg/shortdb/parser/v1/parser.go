@@ -5,9 +5,9 @@ import (
 	"regexp"
 	"strings"
 
-	v1 "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1"
-	table "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
 	"github.com/batazor/shortlink/internal/pkg/tool"
+	v1 "github.com/batazor/shortlink/pkg/shortdb/query/v1"
+	table "github.com/batazor/shortlink/pkg/shortdb/table/v1"
 )
 
 const (

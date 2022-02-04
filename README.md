@@ -53,7 +53,7 @@ made along with its context and consequences.
 | csi         | CSI example                                 | Go                        |                                          |
 | ory/kratos  | User management service                     | Go                        | [docs](https://www.ory.sh/kratos/docs/)  |
 | ory/hydra   | OAuth 2.0 Provider                          | Go                        | [docs](https://www.ory.sh/keto/docs/)    |
-| shortdb | Custom database | Go | [docs](./internal/pkg/shortdb/README.md) |
+| shortdb | Custom database | Go | [docs](./pkg/shortdb/README.md) |
 
 ### Run
 
