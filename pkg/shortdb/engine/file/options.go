@@ -3,7 +3,7 @@ package file
 import (
 	"fmt"
 
-	"github.com/batazor/shortlink/internal/pkg/shortdb/engine/options"
+	"github.com/batazor/shortlink/pkg/shortdb/engine/options"
 )
 
 type Option func(file *file) error

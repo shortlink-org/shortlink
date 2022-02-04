@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shortdb.query.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/pkg/shortdb/query/v1";
+option go_package = "github.com/batazor/shortlink/pkg/shortdb/query/v1";
 
 import "shortdb/table/v1/table.proto";
 

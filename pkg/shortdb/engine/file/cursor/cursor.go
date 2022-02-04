@@ -1,7 +1,7 @@
 package cursor
 
 import (
-	table "github.com/batazor/shortlink/internal/pkg/shortdb/table/v1"
+	table "github.com/batazor/shortlink/pkg/shortdb/table/v1"
 )
 
 func New(table *table.Table, isEnd bool) (*Cursor, error) {
