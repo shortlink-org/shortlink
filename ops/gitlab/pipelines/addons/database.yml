@@ -1,18 +1,4 @@
 # DATABASE =============================================================================================================
-postgres-simple:
-  stage: database
-  variables:
-    RELEASE_NAME: postgres
-    HELM_PATH: ops/Helm/addons/store/postgres
-    HELM_NAMESPACE: postgres
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
-
 postgres-operator:
   stage: database
   variables:
