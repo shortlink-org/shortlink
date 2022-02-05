@@ -7,6 +7,7 @@ ansible-dep: ## Install ansible dep
 	@cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 ansible-locale: ## Install locale tool
+	@ansible-galaxy collection install community.docker
 	@ansible-playbook \
 		-i ops/ansible/hosts.ini \
 		--tags="localhost" \
