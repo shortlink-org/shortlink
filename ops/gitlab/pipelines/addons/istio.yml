@@ -1,6 +1,6 @@
 # CERT-MANAGER =========================================================================================================
 cert-manager:
-  stage: deploy
+  stage: gateway
   variables:
     RELEASE_NAME: cert-manager
     HELM_PATH: ops/Helm/addons/cert-manager
@@ -17,7 +17,7 @@ cert-manager:
 
 # NGINX-INGRESS ========================================================================================================
 nginx-ingress:
-  stage: deploy
+  stage: gateway
   variables:
     RELEASE_NAME: nginx-ingress
     HELM_PATH: ops/Helm/addons/nginx-ingress
