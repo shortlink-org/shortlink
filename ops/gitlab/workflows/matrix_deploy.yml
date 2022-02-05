@@ -5,8 +5,8 @@
 #        ENVIRONMENT_URL: http://aws-example.com
 #      - PROVIDER: yandex
 #        ENVIRONMENT_URL: http://yandex-example.com
-      - PROVIDER: google
-        ENVIRONMENT_URL: http://35.184.88.126
+      - PROVIDER: contabo
+        ENVIRONMENT_URL: http://185.229.119.55
 
 .matrix_deploy_application:
   parallel:

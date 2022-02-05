@@ -1,3 +1,5 @@
+//go:build !golangci
+
 package tool
 
 type Type interface {

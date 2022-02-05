@@ -1,11 +1,8 @@
-include:
-  - local: /ops/gitlab/jobs/schedule.yaml
-
 # ANSIBLE ==============================================================================================================
 ansible-up:
   stage: .pre
   when: manual
-  image: quay.io/ansible/molecule:latest
+  image: quay.io/ansible/creator-ee:v0.2.0
   script:
     - make ansible-up
 
@@ -25,3 +22,12 @@ infrastructure:
       - local: 'ops/gitlab/pipelines/helm_additional.yml'
   when: manual
 
+# SCHEDULE =============================================================================================================
+delete_renovate_branch:
+  stage: .pre
+  image: alpine:3.15
+  script:
+    - echo 123
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: always
