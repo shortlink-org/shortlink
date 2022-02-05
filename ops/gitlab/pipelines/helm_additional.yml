@@ -2,12 +2,7 @@ include:
   - local: /ops/gitlab/templates/common.yml
   # TODO: include:local with wildcard file paths
   # https://docs.gitlab.com/ee/ci/yaml/README.html#includelocal-with-wildcard-file-paths
-  - local: /ops/gitlab/pipelines/addons/database.yml
-  - local: /ops/gitlab/pipelines/addons/istio.yml
-  - local: /ops/gitlab/pipelines/addons/k8s.yml
-  - local: /ops/gitlab/pipelines/addons/monitoring.yml
-  - local: /ops/gitlab/pipelines/addons/mq.yml
-  - local: /ops/gitlab/pipelines/addons/auth.yml
+  - local: '/ops/gitlab/pipelines/addons/*.yml'
 
 stages:
   - deploy
