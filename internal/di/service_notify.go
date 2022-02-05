@@ -1,5 +1,4 @@
 //go:build wireinject
-// +build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
 
@@ -9,9 +8,6 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
-
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/config"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
@@ -19,6 +15,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
+	"github.com/google/wire"
 )
 
 // NotifyService ==========================================================================================================
