@@ -47,9 +47,9 @@ func (api *API) GetHandler() *relay.Handler {
 		}
 
 		if !info.IsDir() {
-			file, err := os.ReadFile(path)
-			if err != nil {
-				return err
+			file, errReadFile := os.ReadFile(path) // #nosec
+			if errReadFile != nil {
+				return errReadFile
 			}
 
 			// Add a newline if the file does not end in a newline.

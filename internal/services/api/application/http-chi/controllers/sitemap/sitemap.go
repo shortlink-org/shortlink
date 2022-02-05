@@ -53,5 +53,5 @@ func (h *Handler) Parse(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+	_, _ = w.Write([]byte(`{}`))
 }

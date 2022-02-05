@@ -44,7 +44,7 @@ var (
 func read_callback(iovecs *C.struct_iovec, length C.int, fd C.int) {
 	// Here be dragons.
 	intLen := int(length)
-	slice := (*[1 << 28]C.struct_iovec)(unsafe.Pointer(iovecs))[:intLen:intLen]
+	slice := (*[1 << 28]C.struct_iovec)(unsafe.Pointer(iovecs))[:intLen:intLen] // #nosec
 	// Can be optimized further with more unsafe.
 	var buf bytes.Buffer
 	for i := 0; i < intLen; i++ {
@@ -54,7 +54,7 @@ func read_callback(iovecs *C.struct_iovec, length C.int, fd C.int) {
 		}
 	}
 	cbMut.Lock()
-	cbMap[uintptr(fd)].close()
+	_ = cbMap[uintptr(fd)].close()
 	cbMap[uintptr(fd)].readCb(buf.Bytes())
 	delete(cbMap, uintptr(fd))
 	cbMut.Unlock()
@@ -63,7 +63,7 @@ func read_callback(iovecs *C.struct_iovec, length C.int, fd C.int) {
 //export write_callback
 func write_callback(written C.int, fd C.int) {
 	cbMut.Lock()
-	cbMap[uintptr(fd)].close()
+	_ = cbMap[uintptr(fd)].close()
 	cbMap[uintptr(fd)].writeCb(int(written))
 	delete(cbMap, uintptr(fd))
 	cbMut.Unlock()
@@ -135,9 +135,9 @@ func startLoop() {
 					// In case it's a zero byte write, we explicitly take the pointer
 					// to a zero byte slice. Because we can't do &sqe.buf.
 					zeroBytes := []byte("")
-					ptr = unsafe.Pointer(&zeroBytes)
+					ptr = unsafe.Pointer(&zeroBytes) // #nosec
 				} else {
-					ptr = unsafe.Pointer(&sqe.buf[0])
+					ptr = unsafe.Pointer(&sqe.buf[0]) // #nosec
 				}
 
 				ret := int(C.push_write_request(C.int(sqe.f.Fd()), ptr, C.long(len(sqe.buf))))
@@ -169,7 +169,7 @@ func startLoop() {
 // ReadFile reads a file from the given path and returns the result as a byte slice
 // in the passed callback function.
 func ReadFile(path string, cb func(buf []byte)) error {
-	f, err := os.Open(path)
+	f, err := os.Open(path) // #nosec
 	if err != nil {
 		return err
 	}
@@ -191,7 +191,7 @@ func ReadFile(path string, cb func(buf []byte)) error {
 // WriteFile writes data to a file at the given path. After the file is written,
 // it then calls the callback with the number of bytes written.
 func WriteFile(path string, data []byte, perm os.FileMode, cb func(written int)) error {
-	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, perm)
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, perm) // #nosec
 	if err != nil {
 		return err
 	}

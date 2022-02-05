@@ -52,7 +52,7 @@ func GetDirectories(root string, skipDirs []string) ([]string, error) {
 }
 
 func SaveToFile(filename string, payload string) error {
-	file, err := os.Create(filename)
+	file, err := os.Create(filename) // #nosec
 	if err != nil {
 		return err
 	}

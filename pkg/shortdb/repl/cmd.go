@@ -16,14 +16,16 @@ func (r *repl) init() error {
 	path := fmt.Sprintf("%s/repl.history", os.TempDir())
 
 	// create file if not exist
-	file, err := os.OpenFile(path, os.O_RDONLY|os.O_CREATE, os.ModePerm)
+	file, err := os.OpenFile(path, os.O_RDONLY|os.O_CREATE, os.ModePerm) // #nosec
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func() {
+		_ = file.Close() // #nosec
+	}()
 
 	// read file
-	payload, err := ioutil.ReadFile(path)
+	payload, err := ioutil.ReadFile(path) // #nosec
 	if err != nil {
 		return err
 	}
@@ -60,11 +62,13 @@ func (r *repl) close() error {
 	path := fmt.Sprintf("%s/repl.history", os.TempDir())
 
 	// create file if not exist
-	file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, os.ModePerm)
+	file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, os.ModePerm) // #nosec
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func() {
+		_ = file.Close() // #nosec
+	}()
 
 	// Save last 100 record
 	if len(r.session.History) > 100 {

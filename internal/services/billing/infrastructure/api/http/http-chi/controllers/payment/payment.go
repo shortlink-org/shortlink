@@ -107,7 +107,7 @@ func (api *PaymentAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+	_, _ = w.Write([]byte(`{}`))
 }
 
 // close a payment
@@ -132,5 +132,5 @@ func (api *PaymentAPI) close(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+	_, _ = w.Write([]byte(`{}`))
 }
