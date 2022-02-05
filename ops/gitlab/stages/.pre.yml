@@ -8,7 +8,7 @@ ansible-up:
     - sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
     - yum install make -y
   script:
-    - make ansible-up
+    - make ansible-locale
 
 # TERRAFORM ============================================================================================================
 terraform-up:
