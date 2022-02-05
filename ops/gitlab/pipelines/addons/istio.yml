@@ -1,6 +1,6 @@
 # ISTIO ================================================================================================================
 istio-base:
-  stage: network
+  stage: gateway
   variables:
     RELEASE_NAME: istio-base
     HELM_PATH: ops/Helm/addons/gateway/istio/charts/base
@@ -14,7 +14,7 @@ istio-base:
     - when: manual
 
 istiod:
-  stage: network
+  stage: gateway
   variables:
     RELEASE_NAME: istiod
     HELM_PATH: ops/Helm/addons/gateway/istio/charts/istio-control/istio-discovery
@@ -28,7 +28,7 @@ istiod:
     - when: manual
 
 istio-ingress:
-  stage: network
+  stage: gateway
   variables:
     RELEASE_NAME: istio-ingress
     HELM_PATH: ops/Helm/addons/gateway/istio/charts/gateways/istio-ingress
@@ -42,7 +42,7 @@ istio-ingress:
     - when: manual
 
 shortlink-ingress:
-  stage: network
+  stage: gateway
   variables:
     RELEASE_NAME: shortlink-ingress
     HELM_PATH: ops/Helm/shortlink-ingress
