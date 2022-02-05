@@ -42,20 +42,6 @@ prometheus-operator:
   rules:
     - when: manual
 
-jaeger-operator:
-  stage: monitoring
-  variables:
-    RELEASE_NAME: jaeger-operator
-    HELM_PATH: ops/Helm/addons/jaeger-operator
-    HELM_NAMESPACE: jaeger-operator
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
-
 datadog:
   stage: monitoring
   variables:
