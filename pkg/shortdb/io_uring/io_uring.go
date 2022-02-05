@@ -18,7 +18,7 @@ extern int pop_request();
 extern int queue_submit(int);
 extern void queue_exit();
 */
-import "C"
+import "C" // nolint typecheck
 import (
 	"bytes"
 	"fmt"

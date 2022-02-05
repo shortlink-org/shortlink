@@ -479,7 +479,7 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	// case 1: SnapshotId is not empty, return snapshots that match the snapshot id.
 	if len(req.GetSnapshotId()) != 0 {
 		snapshotID := req.SnapshotId
-		if snapshot, ok := hostPathVolumeSnapshots[snapshotID]; ok {
+		if snapshot, ok := hostPathVolumeSnapshots[snapshotID]; ok { // nolint govet
 			return convertSnapshot(snapshot), nil // nolint copylocks
 		}
 	}

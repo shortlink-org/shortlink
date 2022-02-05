@@ -1,5 +1,4 @@
 //go:build wireinject
-// +build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
 
@@ -11,7 +10,6 @@ import (
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 

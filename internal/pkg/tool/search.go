@@ -1,3 +1,5 @@
+//go:build !golangci
+
 package tool
 
 // TODO: add test
