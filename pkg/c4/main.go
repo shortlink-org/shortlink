@@ -64,7 +64,7 @@ func scrape(app interface{}, name string) {
 	structure := s.Scrape(app)
 
 	outFileName := fmt.Sprintf(outputFile, name)
-	outFile, err := os.Create(outFileName)
+	outFile, err := os.Create(outFileName) // #nosec
 	if err != nil {
 		panic(err)
 	}

@@ -75,7 +75,7 @@ func (api *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+	_, _ = w.Write([]byte(`{}`))
 }
 
 // list ...
@@ -86,7 +86,7 @@ func (api *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+	_, _ = w.Write([]byte(`{}`))
 }
 
 // delete ...
@@ -97,5 +97,5 @@ func (api *AccoutAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint errcheck
+	_, _ = w.Write([]byte(`{}`))
 }

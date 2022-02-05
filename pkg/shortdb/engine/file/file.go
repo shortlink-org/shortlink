@@ -94,11 +94,13 @@ func (f *file) init() error {
 	}
 
 	// create file if not exist
-	file, err := os.OpenFile(path, os.O_RDONLY|os.O_CREATE, os.ModePerm)
+	fileOpenFile, err := os.OpenFile(path, os.O_RDONLY|os.O_CREATE, os.ModePerm) // #nosec
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func() {
+		_ = fileOpenFile.Close() // #nosec
+	}()
 
 	// init io_uring
 	err = io_uring.Init()
@@ -146,11 +148,13 @@ func (f *file) Close() error {
 	path := fmt.Sprintf("%s/%s", f.path, f.name)
 
 	// create file if not exist
-	file, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, os.ModePerm)
+	fileOpenFile, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, os.ModePerm) // #nosec
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	defer func() {
+		_ = fileOpenFile.Close() // #nosec
+	}()
 
 	payload, err := proto.Marshal(f.database)
 	if err != nil {
