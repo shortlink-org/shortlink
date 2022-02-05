@@ -1,6 +1,5 @@
 include:
   - local: /ops/gitlab/templates/common.yml
-  - local: /ops/gitlab/templates/deploy.yml
   - local: /ops/gitlab/templates/helm.yml
   - local: /ops/gitlab/workflows/matrix_deploy.yml
 
@@ -10,10 +9,38 @@ stages:
 
 deploy:
   extends:
-    - .job_template_deploy
     - .matrix_deploy_provider
   tags:
     - docker
+  stage: deploy
+  image:
+    name: alpine/helm:3.8.0
+    entrypoint: [ "" ]
+  script:
+    - echo "helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
+      --kube-context=shortlink-org/shortlink:${PROVIDER}
+      --install
+      --atomic
+      --cleanup-on-fail
+      --wait-for-jobs
+      --namespace=$KUBE_NAMESPACE
+      --create-namespace=true
+      --set deploy.image.tag=$CI_COMMIT_TAG
+      --set deploy.image.repository=$REGISTRY
+      --set deploy.annotations."app\.gitlab\.com\/app"=$CI_PROJECT_PATH_SLUG,deploy.annotations."app\.gitlab\.com\/env"=$CI_ENVIRONMENT_SLUG;"
+
+    - helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
+      --kube-context=shortlink-org/shortlink:${PROVIDER}
+      --install
+      --atomic
+      --cleanup-on-fail
+      --wait-for-jobs
+      --namespace=$KUBE_NAMESPACE
+      --create-namespace=true
+      --set deploy.image.tag=$CI_COMMIT_TAG
+      --set deploy.image.repository=$REGISTRY
+      --set deploy.annotations."app\.gitlab\.com\/app"=$CI_PROJECT_PATH_SLUG,deploy.annotations."app\.gitlab\.com\/env"=$CI_ENVIRONMENT_SLUG;
+  retry: 2
   environment:
     name: ${PROVIDER}/${RELEASE_NAME}
     deployment_tier: production

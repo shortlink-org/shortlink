@@ -1,9 +1,0 @@
-delete_renovate_branch:
-  stage: .pre
-  image: alpine:3.15
-  script:
-    - echo 123
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: always
-

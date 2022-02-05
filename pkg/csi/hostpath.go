@@ -333,7 +333,7 @@ func hostPathIsEmpty(p string) (bool, error) {
 
 // loadFromSnapshot populates the given destPath with data from the snapshotID
 func loadFromSnapshot(size int64, snapshotId, destPath string, mode accessType) error {
-	snapshot, ok := hostPathVolumeSnapshots[snapshotId]
+	snapshot, ok := hostPathVolumeSnapshots[snapshotId] // nolint govet
 	if !ok {
 		return status.Errorf(codes.NotFound, "cannot find snapshot %v", snapshotId)
 	}

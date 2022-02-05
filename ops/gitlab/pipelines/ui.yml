@@ -1,6 +1,6 @@
 include:
   - local: /ops/gitlab/pipelines/helm_deploy.yml
-  - local: /ops/gitlab/jobs/accessibility.yml
+  - local: /ops/gitlab/stages/accessibility.yml
 
 stages:
   - deploy

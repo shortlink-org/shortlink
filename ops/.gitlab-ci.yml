@@ -1,12 +1,12 @@
 include:
   - local: /ops/gitlab/templates/common.yml
-  - local: /ops/gitlab/jobs/.pre.yml
-  - local: /ops/gitlab/jobs/test.yml
-  - local: /ops/gitlab/jobs/build.yml
-  - local: /ops/gitlab/jobs/deploy.yml
-  - local: /ops/gitlab/jobs/qa.yml
-  - local: /ops/gitlab/jobs/release.yml
-  - local: /ops/gitlab/jobs/.post.yml
+  - local: /ops/gitlab/stages/.pre.yml
+  - local: /ops/gitlab/stages/test.yml
+  - local: /ops/gitlab/stages/build.yml
+  - local: /ops/gitlab/stages/deploy.yml
+  - local: /ops/gitlab/stages/qa.yml
+  - local: /ops/gitlab/stages/release.yml
+  - local: /ops/gitlab/stages/.post.yml
 
 stages:
   - test
