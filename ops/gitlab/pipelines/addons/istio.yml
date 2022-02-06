@@ -31,58 +31,16 @@ nginx-ingress:
     - when: manual
 
 # ISTIO ================================================================================================================
-istio-base:
+istio:
   stage: gateway
   variables:
     RELEASE_NAME: istio-base
-    HELM_PATH: ops/Helm/addons/gateway/istio/charts/base
+    HELM_PATH: ops/Helm/addons/gateway/istio
     HELM_NAMESPACE: istio-system
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
     strategy: depend
   needs: []
-  rules:
-    - when: manual
-
-istiod:
-  stage: gateway
-  variables:
-    RELEASE_NAME: istiod
-    HELM_PATH: ops/Helm/addons/gateway/istio/charts/istio-control/istio-discovery
-    HELM_NAMESPACE: istio-system
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
-
-istio-ingress:
-  stage: gateway
-  variables:
-    RELEASE_NAME: istio-ingress
-    HELM_PATH: ops/Helm/addons/gateway/istio/charts/gateways/istio-ingress
-    HELM_NAMESPACE: istio-system
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
-
-shortlink-ingress:
-  stage: gateway
-  variables:
-    RELEASE_NAME: shortlink-ingress
-    HELM_PATH: ops/Helm/shortlink-ingress
-    HELM_NAMESPACE: istio-system
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: [ ]
   rules:
     - when: manual
