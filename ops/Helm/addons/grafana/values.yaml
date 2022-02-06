@@ -80,6 +80,7 @@ grafana:
 
         - name: Loki
           type: loki
+          uid: loki
           access: proxy
           url: http://grafana-loki:3100
           jsonData:
@@ -88,7 +89,7 @@ grafana:
               # Field with internal link pointing to data source in Grafana.
               # Right now, Grafana supports only Jaeger and Zipkin data sources as link targets.
               # datasourceUid value can be anything, but it should be unique across all defined data source uids.
-              - datasourceUid: jaeger
+              - datasourceUid: tempo
                 matcherRegex: 'traceID":"(\w+)'
                 name: TraceID
                 # url will be interpreted as query for the datasource
@@ -97,17 +98,21 @@ grafana:
               # Field with external link.
               - matcherRegex: 'traceID":"(\w+)'
                 name: TraceID
-                url: "http://localhost:16686/trace/$${__value.raw}"
-
-        - name: Jaeger
-          type: jaeger
-          uid: jaeger
-          url: http://jaeger-query.jaeger-operator:16686
+                url: "http://grafana-tempo:16686/trace/$${__value.raw}"
 
         - name: Tempo
           type: tempo
           uid: tempo
-          url: http://tempo:16686
+          url: http://grafana-tempo:3100
+          editable: false
+          jsonData:
+            nodeGraph:
+              enabled: true
+            tracesToLogs:
+              datasourceUid: loki
+              filterBySpanID: true
+              filterByTraceID: true
+
 
   dashboardProviders:
     dashboardproviders.yaml:
@@ -135,9 +140,13 @@ grafana:
         datasource: Prometheus
       ingress-nginx:
         url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-      grafana-overview:
+      rabbitmq-overview:
         gnetId: 10991
         revision: 11
+        datasource: Prometheus
+      go-runtime:
+        gnetId: 14061
+        revision: 1
         datasource: Prometheus
 
 loki:
