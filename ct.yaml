@@ -21,5 +21,6 @@ chart-repos:
   - incubator=https://charts.helm.sh/incubator
   - stable=https://charts.helm.sh/stable
   - jaegertracing=https://jaegertracing.github.io/helm-charts
+  - bitnami=https://charts.bitnami.com/bitnami
 
 helm-extra-args: --timeout 6m
