@@ -14,10 +14,10 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 6.16.6 |
-| https://grafana.github.io/helm-charts | loki | 2.6.0 |
-| https://grafana.github.io/helm-charts | promtail | 3.8.1 |
-| https://grafana.github.io/helm-charts | tempo | 0.7.7 |
+| https://grafana.github.io/helm-charts | grafana | 6.21.2 |
+| https://grafana.github.io/helm-charts | loki | 2.9.1 |
+| https://grafana.github.io/helm-charts | promtail | 3.11.0 |
+| https://grafana.github.io/helm-charts | tempo | 0.13.1 |
 
 ## Values
 
@@ -36,13 +36,16 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | grafana.dashboards.default.cert-manager.datasource | string | `"Prometheus"` |  |
 | grafana.dashboards.default.cert-manager.gnetId | int | `11001` |  |
 | grafana.dashboards.default.cert-manager.revision | int | `1` |  |
-| grafana.dashboards.default.grafana-overview.datasource | string | `"Prometheus"` |  |
-| grafana.dashboards.default.grafana-overview.gnetId | int | `10991` |  |
-| grafana.dashboards.default.grafana-overview.revision | int | `11` |  |
+| grafana.dashboards.default.go-runtime.datasource | string | `"Prometheus"` |  |
+| grafana.dashboards.default.go-runtime.gnetId | int | `14061` |  |
+| grafana.dashboards.default.go-runtime.revision | int | `1` |  |
 | grafana.dashboards.default.ingress-nginx.url | string | `"https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json"` |  |
 | grafana.dashboards.default.node-exporter.datasource | string | `"Prometheus"` |  |
 | grafana.dashboards.default.node-exporter.gnetId | int | `1860` |  |
 | grafana.dashboards.default.node-exporter.revision | int | `21` |  |
+| grafana.dashboards.default.rabbitmq-overview.datasource | string | `"Prometheus"` |  |
+| grafana.dashboards.default.rabbitmq-overview.gnetId | int | `10991` |  |
+| grafana.dashboards.default.rabbitmq-overview.revision | int | `11` |  |
 | grafana.datasources."datasources.yaml".apiVersion | int | `1` |  |
 | grafana.datasources."datasources.yaml".datasources[0].access | string | `"proxy"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].isDefault | bool | `true` |  |
@@ -53,25 +56,27 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | grafana.datasources."datasources.yaml".datasources[0].type | string | `"prometheus"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].url | string | `"http://prometheus-operated.prometheus-operator:9090/prometheus"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].access | string | `"proxy"` |  |
-| grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[0].datasourceUid | string | `"jaeger"` |  |
+| grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[0].datasourceUid | string | `"tempo"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[0].matcherRegex | string | `"traceID\":\"(\\w+)"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[0].name | string | `"TraceID"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[0].url | string | `"$${__value.raw}"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[1].matcherRegex | string | `"traceID\":\"(\\w+)"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[1].name | string | `"TraceID"` |  |
-| grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[1].url | string | `"http://localhost:16686/trace/$${__value.raw}"` |  |
+| grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[1].url | string | `"http://grafana-tempo:16686/trace/$${__value.raw}"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].jsonData.maxLines | int | `1000` |  |
 | grafana.datasources."datasources.yaml".datasources[1].name | string | `"Loki"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].type | string | `"loki"` |  |
+| grafana.datasources."datasources.yaml".datasources[1].uid | string | `"loki"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].url | string | `"http://grafana-loki:3100"` |  |
-| grafana.datasources."datasources.yaml".datasources[2].name | string | `"Jaeger"` |  |
-| grafana.datasources."datasources.yaml".datasources[2].type | string | `"jaeger"` |  |
-| grafana.datasources."datasources.yaml".datasources[2].uid | string | `"jaeger"` |  |
-| grafana.datasources."datasources.yaml".datasources[2].url | string | `"http://jaeger-query.jaeger-operator:16686"` |  |
-| grafana.datasources."datasources.yaml".datasources[3].name | string | `"Tempo"` |  |
-| grafana.datasources."datasources.yaml".datasources[3].type | string | `"tempo"` |  |
-| grafana.datasources."datasources.yaml".datasources[3].uid | string | `"tempo"` |  |
-| grafana.datasources."datasources.yaml".datasources[3].url | string | `"http://tempo:16686"` |  |
+| grafana.datasources."datasources.yaml".datasources[2].editable | bool | `false` |  |
+| grafana.datasources."datasources.yaml".datasources[2].jsonData.nodeGraph.enabled | bool | `true` |  |
+| grafana.datasources."datasources.yaml".datasources[2].jsonData.tracesToLogs.datasourceUid | string | `"loki"` |  |
+| grafana.datasources."datasources.yaml".datasources[2].jsonData.tracesToLogs.filterBySpanID | bool | `true` |  |
+| grafana.datasources."datasources.yaml".datasources[2].jsonData.tracesToLogs.filterByTraceID | bool | `true` |  |
+| grafana.datasources."datasources.yaml".datasources[2].name | string | `"Tempo"` |  |
+| grafana.datasources."datasources.yaml".datasources[2].type | string | `"tempo"` |  |
+| grafana.datasources."datasources.yaml".datasources[2].uid | string | `"tempo"` |  |
+| grafana.datasources."datasources.yaml".datasources[2].url | string | `"http://grafana-tempo:3100"` |  |
 | grafana.defaultDashboardsEnabled | bool | `true` |  |
 | grafana.enabled | bool | `true` |  |
 | grafana.imageRenderer.enabled | bool | `true` |  |
@@ -125,4 +130,4 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | tempo.enabled | bool | `true` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.5.0](https://github.com/norwoodj/helm-docs/releases/v1.5.0)
+Autogenerated from chart metadata using [helm-docs v1.7.0](https://github.com/norwoodj/helm-docs/releases/v1.7.0)
