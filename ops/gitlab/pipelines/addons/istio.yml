@@ -34,7 +34,7 @@ nginx-ingress:
 istio:
   stage: gateway
   variables:
-    RELEASE_NAME: istio-base
+    RELEASE_NAME: istio
     HELM_PATH: ops/Helm/addons/gateway/istio
     HELM_NAMESPACE: istio-system
   trigger:
