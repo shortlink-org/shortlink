@@ -40,7 +40,7 @@ pub async fn main() {
         }
     });
 
-    // We'll bind to 127.0.0.1:3000
+    // We'll bind to 127.0.0.1:7070
     let addr = SocketAddr::from(([127, 0, 0, 1], 7070));
     let server = Server::bind(&addr).serve(new_service);
     println!("Listening on http://{}", addr);
