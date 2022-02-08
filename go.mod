@@ -35,7 +35,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.7.3
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
-	github.com/jackc/pgx/v4 v4.14.1
+	github.com/jackc/pgx/v4 v4.15.0
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/krzysztofreczek/go-structurizr v0.1.5
@@ -145,13 +145,13 @@ require (
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
-	github.com/jackc/pgconn v1.10.1 // indirect
+	github.com/jackc/pgconn v1.11.0 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgproto3/v2 v2.2.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
-	github.com/jackc/pgtype v1.9.1 // indirect
-	github.com/jackc/puddle v1.2.0 // indirect
+	github.com/jackc/pgtype v1.10.0 // indirect
+	github.com/jackc/puddle v1.2.1 // indirect
 	github.com/jcmturner/aescts/v2 v2.0.0 // indirect
 	github.com/jcmturner/dnsutils/v2 v2.0.0 // indirect
 	github.com/jcmturner/gofork v1.0.0 // indirect
