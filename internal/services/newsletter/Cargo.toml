@@ -11,7 +11,7 @@ edition = "2021"
 repository = "https://github.com/batazor/shortlink"
 
 [dependencies]
-futures = { version = "0.3.19", default-features = false, features = ["async-await"] }
+futures = { version = "0.3.21", default-features = false, features = ["async-await"] }
 hyper = { version = "0.14", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
 serde = {version = "1.0.136", features = ["derive"] }
