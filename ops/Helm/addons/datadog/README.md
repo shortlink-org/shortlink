@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.datadoghq.com | datadog-operator | 0.7.8 |
+| https://helm.datadoghq.com | datadog-operator | 0.7.10 |
 
 ## Values
 
