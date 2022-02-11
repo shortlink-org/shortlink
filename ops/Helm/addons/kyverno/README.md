@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kyverno.github.io/kyverno | kyverno | v2.1.10 |
+| https://kyverno.github.io/kyverno | kyverno | v2.2.1 |
 
 ## Values
 

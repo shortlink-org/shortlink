@@ -23,7 +23,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | base.enabled | bool | `true` |  |
-| gateway.enabled | bool | `true` |  |
+| gateway.enabled | bool | `false` |  |
 | istiod.enabled | bool | `true` |  |
 
 ----------------------------------------------
