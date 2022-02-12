@@ -32,7 +32,7 @@ dependencies:
     tags:
       - monitoring
   - name: tempo
-    version: 0.13.1
+    version: 0.14.0
     repository: https://grafana.github.io/helm-charts
     condition: tempo.enabled
     tags:
