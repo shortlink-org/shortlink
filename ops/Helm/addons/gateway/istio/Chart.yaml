@@ -15,7 +15,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: base
-    version: 1.12.3
+    version: 1.13.0
     repository: https://istio-release.storage.googleapis.com/charts
     condition: base.enabled
     tags:
