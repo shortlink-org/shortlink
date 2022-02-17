@@ -25,7 +25,8 @@ gosec:
   script:
     - gosec -exclude-dir=third_party ./...
   rules:
-    - when: always
+   # TODO: enable
+    - when: newer
 
 gotest:
   extends:
