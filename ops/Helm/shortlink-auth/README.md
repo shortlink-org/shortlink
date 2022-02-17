@@ -22,7 +22,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://k8s.ory.sh/helm/charts | kratos | 0.21.7 |
+| https://k8s.ory.sh/helm/charts | kratos | 0.21.8 |
 
 ## Values
 
