@@ -33,7 +33,7 @@ grafana:
       cert-manager.io/cluster-issuer: cert-manager-production
       nginx.ingress.kubernetes.io/enable-modsecurity: "true"
       nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-      nginx.ingress.kubernetes.io/enable-opentracing: "true"
+      nginx.ingress.kubernetes.io/enable-opentracing: "false"
       nginx.ingress.kubernetes.io/rewrite-target: /$1
       nginx.ingress.kubernetes.io/use-regex: "true"
 

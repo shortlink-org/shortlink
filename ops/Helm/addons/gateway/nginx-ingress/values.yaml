@@ -5,14 +5,22 @@
 ingress-nginx:
   enabled: true
 
+  ## Default 404 backend
+  defaultBackend:
+    enabled: true
+
+  ## If true, create & use Pod Security Policy resources
+  ## https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+  podSecurityPolicy:
+    enabled: true
+
   ## nginx configuration
   ## Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
-  ##
   controller:
 
     # Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
     config:
-      enable-opentracing: "true"
+      enable-opentracing: "false"
       jaeger-service-name: nginx-ingress
       # zipkin-collector-host: zipkin.jaeger-operator
       jaeger-collector-host: jaeger-agent.jaeger-operator
@@ -20,11 +28,17 @@ ingress-nginx:
     # Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
     # since CNI and hostport don't mix yet. Can be deprecated once https://github.com/kubernetes/kubernetes/issues/23920
     # is merged
-    hostNetwork: false
+    hostNetwork: true
 
     ## DaemonSet or Deployment
     ##
     kind: Deployment
+
+    service:
+      type: NodePort
+      nodePorts:
+        http: 80
+        https: 443
 
     metrics:
       # if this port is changed, change healthz-port: in extraArgs: accordingly

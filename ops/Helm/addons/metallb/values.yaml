@@ -1,0 +1,10 @@
+metallb:
+  enabled: true
+
+  configInline:
+    address-pools:
+    - name: default
+      protocol: layer2
+      addresses:
+      - 185.229.119.55/32
+

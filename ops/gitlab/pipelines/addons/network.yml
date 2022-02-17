@@ -1,3 +1,18 @@
+# METALLB ==============================================================================================================
+metallb:
+  stage: gateway
+  variables:
+    RELEASE_NAME: metallb
+    HELM_PATH: ops/Helm/addons/metallb
+    HELM_NAMESPACE: metallb-system
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: [ ]
+  rules:
+    - when: manual
+
 # CERT-MANAGER =========================================================================================================
 cert-manager:
   stage: gateway
@@ -20,7 +35,7 @@ nginx-ingress:
   stage: gateway
   variables:
     RELEASE_NAME: nginx-ingress
-    HELM_PATH: ops/Helm/addons/nginx-ingress
+    HELM_PATH: ops/Helm/addons/gateway/nginx-ingress
     HELM_NAMESPACE: nginx-ingress
   trigger:
     include:
