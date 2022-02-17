@@ -1,7 +1,7 @@
 # SHORTLINK TASKS ======================================================================================================
 SHORTLINK_NAMESPACE := shortlink
 SHORTLINK_HELM_INGRESS := ops/Helm/shortlink-ingress
-HELM_CHART_NGINX_INGRESS := ops/Helm/addons/nginx-ingress
+HELM_CHART_NGINX_INGRESS := ops/Helm/addons/gateway/nginx-ingress
 
 helm-export-env: ## export env variables for Helm
 	echo ISTIO_NAMESPACE=${ISTIO_NAMESPACE}

@@ -32,7 +32,7 @@
 │         ├── addons
 │         │         ├── auth.yml
 │         │         ├── database.yml
-│         │         ├── istio.yml
+│         │         ├── network.yml
 │         │         ├── k8s.yml
 │         │         ├── monitoring.yml
 │         │         └── mq.yml
