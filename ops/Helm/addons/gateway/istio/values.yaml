@@ -4,5 +4,8 @@ base:
 istiod:
   enabled: true
 
-gateway:
-  enabled: false
+  global:
+    logAsJson: true
+
+gate:
+  run: true
