@@ -8,12 +8,8 @@ include:
     DOCKER_BUILDKIT: 1
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
-    # Pull the image from remote repository (|| true avoids errors if the image hasn't been pushed before)
-    - docker pull $CI_REGISTRY_IMAGE/dependencies_go || true
   script:
     - docker buildx build --platform=linux/amd64,linux/arm64
-      --cache-from $CI_REGISTRY_IMAGE/dependencies_go
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
       -f ${DOCKERFILE_PATH} .
     - docker push ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}

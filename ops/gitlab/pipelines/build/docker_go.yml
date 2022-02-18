@@ -9,16 +9,6 @@ stages:
   - build
   - security
 
-# DEPENDENCY ===========================================================================================================
-dependencies_go:
-  extends:
-    - .template_build_base
-  stage: .pre
-  variables:
-    CI_COMMIT_TAG: latest # always build as latest tag of image
-    REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/dependencies_go
-    DOCKERFILE_PATH: ops/dockerfile/dependencies/go.Dockerfile
-
 # BUILD ================================================================================================================
 build:
   extends:
