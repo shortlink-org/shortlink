@@ -26,7 +26,7 @@ ui:
       - local: 'ops/gitlab/pipelines/ui.yml'
     strategy: depend
   needs:
-    - job: docker:nodejs
+    - job: docker
     - job: HELM
   rules:
     - if: $CI_COMMIT_TAG
