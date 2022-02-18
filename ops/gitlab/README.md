@@ -52,8 +52,6 @@
 │         │         └── sast.yml
 │         └── ui.yml
 ├── templates                                  // Template for jobs
-│         ├── build_go.yml
-│         ├── build_nodejs.yml
 │         ├── build.yml
 │         ├── common.yml
 │         ├── deploy.yml

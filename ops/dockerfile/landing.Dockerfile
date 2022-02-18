@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.3
+# syntax=docker/dockerfile:experimental
 
 FROM node:17.5-alpine as builder
 
