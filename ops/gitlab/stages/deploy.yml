@@ -11,7 +11,7 @@ applications:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
     strategy: depend
   needs:
-    - job: docker:go
+    - job: docker
     - job: HELM
   rules:
     - if: $CI_COMMIT_TAG
