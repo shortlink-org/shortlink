@@ -37,8 +37,7 @@
 │         │         ├── monitoring.yml
 │         │         └── mq.yml
 │         ├── build
-│         │         ├── docker_go.yml
-│         │         ├── docker_nodejs.yml
+│         │         ├── docker.yml
 │         │         └── helm_chart.yml
 │         ├── flutter.yml
 │         ├── helm_additional.yml
