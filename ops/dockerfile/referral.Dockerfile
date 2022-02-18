@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.3
+# syntax=docker/dockerfile:experimental
 
 FROM python:3.10-slim as builder
 

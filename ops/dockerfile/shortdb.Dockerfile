@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.3
+# syntax=docker/dockerfile:experimental
 
 FROM --platform=$BUILDPLATFORM golang:1.18beta2 AS builder
 

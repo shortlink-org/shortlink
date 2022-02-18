@@ -1,6 +1,16 @@
 .template_build:
   stage: build
   image: docker:dind
+  variables:
+    DOCKER_BUILDKIT: 1
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker buildx build 
+      --platform=linux/amd64,linux/arm64
+      --push
+      -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+      -f ${DOCKERFILE_PATH} .
   tags:
     - docker
   retry: 2

@@ -1,6 +1,6 @@
 include:
   - local: /ops/gitlab/templates/common.yml
-  - local: /ops/gitlab/templates/build_nodejs.yml
+  - local: /ops/gitlab/templates/build.yml
   - local: /ops/gitlab/workflows/matrix_build_nodejs.yml
   - template: Security/Container-Scanning.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/Container-Scanning.gitlab-ci.yml
 
@@ -12,7 +12,7 @@ stages:
 # DEPENDENCY ===========================================================================================================
 dependencies_nodejs:
   extends:
-    - .template_build_nodejs
+    - .template_build
   stage: .pre
   variables:
     REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/dependencies_nodejs
@@ -22,7 +22,7 @@ dependencies_nodejs:
 # BUILD ================================================================================================================
 build:
   extends:
-    - .template_build_nodejs
+    - .template_build
     - .matrix_build_nodejs
 
 # TODO: fix this job

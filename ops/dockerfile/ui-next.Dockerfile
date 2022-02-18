@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.3
+# syntax=docker/dockerfile:experimental
 
 # Install dependencies only when needed
 FROM node:17.5-alpine as deps
