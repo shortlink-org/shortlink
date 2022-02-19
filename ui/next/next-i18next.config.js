@@ -10,5 +10,5 @@ module.exports = {
       useSuspense: false,
       wait: true,
     },
-  }
+  },
 }

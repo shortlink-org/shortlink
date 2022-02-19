@@ -2,14 +2,17 @@
 
 module.exports = {
   content: {
-    files: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    files: [
+      './pages/**/*.{js,ts,jsx,tsx}',
+      './components/**/*.{js,ts,jsx,tsx}',
+    ],
     transform: {
-      md: content => {
+      md: (content) => {
         return remark().process(content)
       },
     },
     extract: {
-      md: content => {
+      md: (content) => {
         return content.match(/[^<>"'`\s]*/)
       },
     },

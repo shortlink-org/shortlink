@@ -37,7 +37,7 @@ function NewComponent() {
   )
 }
 
-const About = (
+const About = () => (
   <Layout>
     <NewComponent />
 
