@@ -39,7 +39,9 @@ Error.getInitialProps = ({ res, err }) => {
   return { statusCode }
 }
 
+// @ts-ignore
 function Error404() {
+  // eslint-disable-line
   return (
     <div className="flex flex-col items-center justify-center py-24 lg:py-12 md:px-16 px-4">
       <h1 className="text-7xl font-bold text-indigo-700 pb-2">404</h1>

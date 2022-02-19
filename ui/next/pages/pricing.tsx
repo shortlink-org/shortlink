@@ -238,7 +238,7 @@ export function Pricing() {
 // @ts-ignore
 export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...await serverSideTranslations(locale, ['pricing']),
+    ...(await serverSideTranslations(locale, ['pricing'])),
   },
 })
 

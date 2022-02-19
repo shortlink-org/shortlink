@@ -32,7 +32,10 @@ function* watchFetchSession() {
   yield takeLatest(t.SESSION_FETCH_REQUESTED, fetchSession)
 }
 
-function* loginAuth(action: { payload: any }) { // eslint-disable-line
+// @ts-ignore
+function* loginAuth(action: { payload: any }) {
+  // eslint-disable-line
+  // eslint-disable-line
   try {
     // const request = initialiseRequest({ type: "login" }) as Promise<LoginRequest>
     // // @ts-ignore
