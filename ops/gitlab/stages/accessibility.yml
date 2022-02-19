@@ -1,6 +1,7 @@
 include:
-  - template: Verify/Browser-Performance.gitlab-ci.yml
-  - template: Verify/Accessibility.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Accessibility.gitlab-ci.yml
+  - template: Verify/Browser-Performance.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Browser-Performance.gitlab-ci.yml
+  - template: Verify/Accessibility.gitlab-ci.yml       # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Accessibility.gitlab-ci.yml
+
   - template: Security/DAST.latest.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/DAST.latest.gitlab-ci.yml
   - template: Security/DAST-API.gitlab-ci.yml    # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/DAST-API.gitlab-ci.yml
 
@@ -19,7 +20,7 @@ a11y:
 
 # TODO: fix
 # Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/browser_performance_testing.html
-performance:
+browser_performance:
   stage: accessibility
   variables:
     URL: $ENVIRONMENT_URL
