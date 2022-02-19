@@ -26,7 +26,7 @@ ingress:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-    nginx.ingress.kubernetes.io/enable-opentracing: "true"
+    nginx.ingress.kubernetes.io/enable-opentracing: "false"
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /landing/$2
     nginx.ingress.kubernetes.io/use-regex: "true"
