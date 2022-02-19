@@ -1,4 +1,18 @@
 # K8S ==================================================================================================================
+rook-ceph:
+  stage: deploy
+  variables:
+    RELEASE_NAME: rook-ceph
+    HELM_PATH: ops/Helm/addons/rook-ceph
+    HELM_NAMESPACE: rook-ceph
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
 kyverno:
   stage: deploy
   variables:
