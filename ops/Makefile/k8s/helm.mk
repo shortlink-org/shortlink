@@ -18,6 +18,7 @@ helm-init: ## helm init
 	@helm repo add stable https://charts.helm.sh/stable
 	@helm repo add jetstack https://charts.jetstack.io
 	@helm repo add ory https://k8s.ory.sh/helm/charts
+	@helm repo add rook-release https://charts.rook.io/release
 	@helm repo update
 
 helm-lint: ## Check Helm chart by linter
