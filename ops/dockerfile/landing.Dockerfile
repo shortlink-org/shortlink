@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1.3
 
+# Install dependencies only when needed
 FROM node:17.5-alpine as builder
 
 ENV PYTHONUNBUFFERED=1
@@ -14,6 +15,7 @@ RUN npm i --force && \
   npm rebuild node-sass && \
   npm run generate
 
+# Production image, copy all the files
 FROM nginx:1.21-alpine
 
 RUN apk add --no-cache curl

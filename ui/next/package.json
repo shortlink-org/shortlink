@@ -9,6 +9,7 @@
     "build": "$(npm bin)/next build",
     "start": "ts-node --project tsconfig.server.json server/server.ts",
     "start:dev": "cp .env.dev .env.local && npm start",
+    "start:prod": "NODE_ENV=production npm start",
     "start:k8s": "cp .env.k8s .env.local && npm start",
     "generate": "NODE_ENV=production $(npm bin)/next build && $(npm bin)/next export",
     "type-check": "tsc",

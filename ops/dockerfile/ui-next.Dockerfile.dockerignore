@@ -10,9 +10,8 @@ third_party
 ui
 *.yml
 
+# Exclude
 !ui/next
-!ops/dockerfile/conf/ui-next.local
-!ops/docker-compose/gateway/nginx
 
 # NextJS cache
 ui/next/.next
