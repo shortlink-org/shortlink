@@ -23,7 +23,7 @@ docker-login: ## Docker login
 
 docker_build:
 	@echo "Building ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}"
-	@docker buildx build --platform=linux/amd64,linux/arm64 \
+	@docker buildx build --platform=linux/amd64 \
 		--force-rm \
 		--push \
 		-t ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG} \
