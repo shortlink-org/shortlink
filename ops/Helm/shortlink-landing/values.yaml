@@ -59,7 +59,7 @@ deploy:
     ## Global imagePullPolicy
     ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     ## Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
   ## Node labels and tolerations for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
@@ -107,8 +107,10 @@ deploy:
 
   podSecurityContext:
     # fsGroup is the group ID associated with the container
-    fsGroup: 1001
-    runAsUser: 1001
+    fsGroup: 1000
+    runAsGroup: 1000
+    runAsUser: 1000
+    runAsNonRoot: true
 
   ## Security Context policies for controller pods
   ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
