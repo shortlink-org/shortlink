@@ -34,4 +34,5 @@ spec:
       log.console.formatter.json.verbosity_map = debug:7 info:6 notice:5 warning:4 error:3 critical:2 alert:1 emergency:0
       log.console.formatter.time_format = epoch_usecs
   persistence:
-
+    storageClassName: local-storage
+    storage: 1Gi
