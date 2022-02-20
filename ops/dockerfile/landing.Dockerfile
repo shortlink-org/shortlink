@@ -18,12 +18,15 @@ RUN npm i --force && \
 # Production image, copy all the files
 FROM nginxinc/nginx-unprivileged:1.21-alpine
 
-# Delete default config
-RUN rm /etc/nginx/conf.d/default.conf
-
 WORKDIR /usr/share/nginx/html
 
+# Use root user to copy dist folder and modify user access to specific folder
+USER root
+
 COPY --from=builder /app/dist ./
-COPY ./ops/dockerfile/conf/landing.local /etc/nginx/conf.d/landing.local
-COPY ./ops/docker-compose/gateway/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./ops/docker-compose/gateway/nginx/templates /etc/nginx/template
+
+# Setup unprivileged user 101
+RUN chown -R 101 /usr/share/nginx/html
+
+# Use user 101
+USER 101
