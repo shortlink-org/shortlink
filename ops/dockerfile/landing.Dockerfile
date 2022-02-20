@@ -18,8 +18,6 @@ RUN npm i --force && \
 # Production image, copy all the files
 FROM nginxinc/nginx-unprivileged:1.21-alpine
 
-RUN apk add --no-cache curl
-
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
 
