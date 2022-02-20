@@ -16,7 +16,7 @@ RUN npm i --force && \
   npm run generate
 
 # Production image, copy all the files
-FROM nginx:1.21-alpine
+FROM nginxinc/nginx-unprivileged:1.21-alpine
 
 RUN apk add --no-cache curl
 

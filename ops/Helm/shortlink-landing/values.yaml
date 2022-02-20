@@ -107,7 +107,8 @@ deploy:
 
   podSecurityContext:
     # fsGroup is the group ID associated with the container
-    fsGroup: 1000
+    fsGroup: 1001
+    runAsUser: 1001
 
   ## Security Context policies for controller pods
   ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
