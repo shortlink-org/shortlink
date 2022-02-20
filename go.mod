@@ -51,7 +51,7 @@ require (
 	github.com/ory/dockertest/v3 v3.8.1
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/prometheus/client_golang v1.12.1
-	github.com/pterm/pterm v0.12.36
+	github.com/pterm/pterm v0.12.37
 	github.com/rabbitmq/amqp091-go v1.3.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.8.1
@@ -72,12 +72,12 @@ require (
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
 	google.golang.org/api v0.69.0
-	google.golang.org/genproto v0.0.0-20220211171837-173942840c17
+	google.golang.org/genproto 94dd64e39d7c
 	google.golang.org/grpc v1.44.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.27.1
 	k8s.io/kubernetes v1.23.3
-	k8s.io/mount-utils v0.23.3
+	k8s.io/mount-utils v0.23.4
 	k8s.io/utils v0.0.0-20220210201930-3a6ce19ff2f9
 )
 
