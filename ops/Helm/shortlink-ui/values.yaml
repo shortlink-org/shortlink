@@ -59,7 +59,7 @@ deploy:
     ## Global imagePullPolicy
     ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     ## Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
   ## Node labels and tolerations for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
@@ -90,9 +90,6 @@ deploy:
     successThreshold: 1
     failureThreshold: 30
 
-  # volumes:
-  #  hostPath: /data/carenda/upload
-
   resources:
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
@@ -104,17 +101,6 @@ deploy:
     requests:
       cpu: 10m
       memory: 32Mi
-
-  podSecurityContext:
-    # fsGroup is the group ID associated with the container
-    fsGroup: 1000
-
-  ## Security Context policies for controller pods
-  ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
-  ## notes on enabling and using sysctls
-  ##
-  securityContext:
-    allowPrivilegeEscalation: false
 
 service:
   type: ClusterIP
