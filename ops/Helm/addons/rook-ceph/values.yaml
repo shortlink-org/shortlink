@@ -3,3 +3,27 @@ rook-ceph:
 
   monitoring:
     enabled: true
+
+host: shortlink.ddns.net
+
+ingress:
+  enabled: true
+  # type ingress-controller: nginx, istio
+  type: nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: cert-manager-production
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/enable-opentracing: "false"
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /ceph-dashboard/$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      proxy_ssl_verify off;
+
+  tls:
+    - secretName: shortlink-ingress-tls
+      hosts:
+        - shortlink.ddns.net

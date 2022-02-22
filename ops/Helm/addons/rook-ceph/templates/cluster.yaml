@@ -59,7 +59,7 @@ spec:
   dashboard:
     enabled: true
     # serve the dashboard under a subpath (useful when you are accessing the dashboard via a reverse proxy)
-    # urlPrefix: /ceph-dashboard
+    urlPrefix: /ceph-dashboard
     # serve the dashboard at the given port.
     # port: 8443
     # serve the dashboard using SSL
@@ -67,7 +67,7 @@ spec:
   # enable prometheus alerting for cluster
   monitoring:
     # requires Prometheus to be pre-installed
-    enabled: false
+    enabled: true
     # namespace to deploy prometheusRule in. If empty, namespace of the cluster will be used.
     # Recommended:
     # If you have a single rook-ceph cluster, set the rulesNamespace to the same namespace as the cluster or keep it empty.
@@ -130,16 +130,16 @@ spec:
   # To control where various services will be scheduled by kubernetes, use the placement configuration sections below.
   # The example under 'all' would have all services scheduled on kubernetes nodes labeled with 'role=storage-node' and
   # tolerate taints with a key of 'storage-node'.
-#  placement:
-#    all:
-#      nodeAffinity:
-#        requiredDuringSchedulingIgnoredDuringExecution:
-#          nodeSelectorTerms:
-#          - matchExpressions:
-#            - key: role
-#              operator: In
-#              values:
-#              - storage-node
+  placement:
+    all:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: ceph-node
+              operator: In
+              values:
+              - "true"
 #      podAffinity:
 #      podAntiAffinity:
 #      topologySpreadConstraints:
@@ -147,7 +147,15 @@ spec:
 #      - key: storage-node
 #        operator: Exists
 # The above placement information can also be specified for mon, osd, and mgr components
-#    mon:
+    mon:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: ceph-node
+                  operator: In
+                  values:
+                    - "true"
 # Monitor deployments may contain an anti-affinity rule for avoiding monitor
 # collocation on the same node. This is a required rule when host network is used
 # or when AllowMultiplePerNode is false. Otherwise this anti-affinity rule is a
@@ -183,7 +191,7 @@ spec:
     mgr:
       limits:
         cpu: 500m
-        memory: 1024Mi
+        memory: 2048Mi
       requests:
         cpu: 300m
         memory: 256Mi
@@ -191,14 +199,14 @@ spec:
     mon:
       limits:
         cpu: 500m
-        memory: 1024Mi
+        memory: 2048Mi
       requests:
         cpu: 300m
         memory: 256Mi
     osd:
       limits:
         cpu: 500m
-        memory: 1024Mi
+        memory: 2048Mi
       requests:
         cpu: 300m
         memory: 256Mi
