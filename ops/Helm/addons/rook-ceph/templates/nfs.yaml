@@ -1,0 +1,50 @@
+apiVersion: ceph.rook.io/v1
+kind: CephNFS
+metadata:
+  name: my-nfs
+  namespace: rook-ceph
+spec:
+  # For Ceph v15, the rados block is required. It is ignored for Ceph v16.
+  rados:
+    # RADOS pool where NFS configs are stored.
+    # In this example the data pool for the "myfs" filesystem is used.
+    # If using the object store example, the data pool would be "my-store.rgw.buckets.data".
+    # Note that this has nothing to do with where exported file systems or object stores live.
+    pool: myfs-data0
+    # RADOS namespace where NFS client recovery data is stored in the pool.
+    namespace: nfs-ns
+
+  # Settings for the NFS server
+  server:
+    # the number of active NFS servers
+    active: 2
+    # A key/value list of annotations
+    annotations:
+    #  key: value
+    # where to run the NFS server
+    placement:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: ceph-node
+                  operator: In
+                  values:
+                    - "true"
+    #  tolerations:
+    #  - key: mds-node
+    #    operator: Exists
+    #  podAffinity:
+    #  podAntiAffinity:
+    #  topologySpreadConstraints:
+
+    # The requests and limits set here allow the ganesha pod(s) to use half of one CPU core and 1 gigabyte of memory
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "1024Mi"
+      requests:
+        cpu: "500m"
+        memory: "1024Mi"
+    # the priority class to set to influence the scheduler's pod preemption
+    priorityClassName:

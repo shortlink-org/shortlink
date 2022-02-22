@@ -2,85 +2,84 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-prometheus-operator:
-  kube-prometheus-stack:
+kube-prometheus-stack:
+  enabled: true
+
+  alertmanager:
+    alertmanagerSpec:
+      routePrefix: /alertmanager/
+
+    ingress:
+      enabled: true
+
+      ingressClassName: nginx
+
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentracing: "false"
+
+      hosts:
+        - shortlink.ddns.net
+
+      paths:
+        - /alertmanager
+
+      ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
+      ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
+      pathType: Prefix
+
+      tls:
+        - secretName: shortlink-ingress-tls
+          hosts:
+          - shortlink.ddns.net
+
+  prometheus:
     enabled: true
 
-    alertmanager:
-      alertmanagerSpec:
-        routePrefix: /alertmanager/
+    prometheusSpec:
+      routePrefix: /prometheus/
 
-      ingress:
-        enabled: true
+      serviceMonitorNamespaceSelector: {}
 
-        ingressClassName: nginx
+      serviceMonitorSelector: {}
 
-        annotations:
-          cert-manager.io/cluster-issuer: cert-manager-production
-          nginx.ingress.kubernetes.io/enable-modsecurity: "true"
-          nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-          nginx.ingress.kubernetes.io/enable-opentracing: "false"
+      ## How long to retain metrics
+      retention: 3d
 
-        hosts:
-          - shortlink.ddns.net
-
-        paths:
-          - /alertmanager
-
-        ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
-        ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-        pathType: Prefix
-
-        tls:
-          - secretName: shortlink-ingress-tls
-            hosts:
-            - shortlink.ddns.net
-
-    prometheus:
+    ingress:
       enabled: true
 
-      prometheusSpec:
-        routePrefix: /prometheus/
+      # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+      # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+      ingressClassName: nginx
 
-        serviceMonitorNamespaceSelector: {}
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-opentracing: "false"
 
-        serviceMonitorSelector: {}
+      hosts:
+        - shortlink.ddns.net
 
-        ## How long to retain metrics
-        retention: 3d
+      paths:
+        - /prometheus
 
-      ingress:
-        enabled: true
+      ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
+      ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
+      pathType: Prefix
 
-        # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
-        # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-        ingressClassName: nginx
-
-        annotations:
-          cert-manager.io/cluster-issuer: cert-manager-production
-          nginx.ingress.kubernetes.io/enable-opentracing: "false"
-
-        hosts:
+      tls:
+        - secretName: shortlink-ingress-tls
+          hosts:
           - shortlink.ddns.net
 
-        paths:
-          - /prometheus
+  grafana:
+    enabled: false
 
-        ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
-        ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-        pathType: Prefix
+  kubeDns:
+    enabled: true
 
-        tls:
-          - secretName: shortlink-ingress-tls
-            hosts:
-            - shortlink.ddns.net
-
-    grafana:
-      enabled: false
-
-    kubeDns:
-      enabled: true
-
-    coreDns:
-      # disable for GKE
-      enabled: false
+  coreDns:
+    # disable for GKE
+    enabled: false
