@@ -1,0 +1,23 @@
+{{- if and (.Capabilities.APIVersions.Has "monitoring.coreos.com/v1") -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "helpers.fullname" . }}-mgr
+  labels:
+    {{ include "helpers.labels" . | nindent 4 }}
+    team: rook
+    release: prometheus-operator
+spec:
+  selector:
+    matchLabels:
+      app: rook-ceph-mgr
+      rook_cluster: rook-ceph
+      ceph_daemon_id: a
+  namespaceSelector:
+    matchNames:
+      - rook-ceph
+  endpoints:
+  - port: http-metrics
+    path: /metrics
+    interval: 5s
+{{- end }}

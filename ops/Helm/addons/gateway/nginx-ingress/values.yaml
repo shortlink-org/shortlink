@@ -43,6 +43,9 @@ ingress-nginx:
         http: 80
         https: 443
 
+    admissionWebhooks:
+      enabled: false
+
     metrics:
       # if this port is changed, change healthz-port: in extraArgs: accordingly
       enabled: true
