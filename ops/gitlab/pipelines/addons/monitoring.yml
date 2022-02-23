@@ -42,17 +42,3 @@ prometheus-operator:
   rules:
     - when: manual
 
-datadog:
-  stage: monitoring
-  variables:
-    RELEASE_NAME: datadog
-    HELM_PATH: ops/Helm/addons/datadog
-    HELM_NAMESPACE: datadog
-    HELM_ARG: --set apiKey=$DATADOG_APIKEY
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual

@@ -149,7 +149,6 @@ make skaffold-debug
   + Telepresence
 + Logger
   + [Loki](./docs/logger.md)
-  + DataDog
 + Prometheus
   + prometheus-operator
     + notify: slack, email, telegram
