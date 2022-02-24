@@ -1,7 +1,7 @@
 apiVersion: v2                                   # The chart API version (required)
 appVersion: "1.0.0"                              # The version of the app that this contains (optional)
 name: rook-ceph                                  # The name of the chart (required)
-version: 0.1.23                                  # A SemVer 2 version (required)
+version: 0.1.24                                  # A SemVer 2 version (required)
 kubeVersion: ">= 1.19.0 || >= v1.19.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
 keywords:                                        # A list of keywords about this project (optional)
   - rook
