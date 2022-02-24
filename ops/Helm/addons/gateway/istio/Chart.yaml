@@ -29,7 +29,7 @@ dependencies:
       - istio
       - istiod
   - name: gateway
-    version: 1.13.0
+    version: 1.13.1
     repository: https://istio-release.storage.googleapis.com/charts
     condition: gate.enabled
     tags:
