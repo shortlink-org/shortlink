@@ -1,3 +1,4 @@
+{{- if and (.Capabilities.APIVersions.Has "ceph.rook.io/v1") -}}
 apiVersion: ceph.rook.io/v1
 kind: CephBlockPool
 metadata:
@@ -59,3 +60,4 @@ reclaimPolicy: Delete
 # Optional, if you want to add dynamic resize for PVC. Works for Kubernetes 1.14+
 # For now only ext3, ext4, xfs resize support provided, like in Kubernetes itself.
 allowVolumeExpansion: true
+{{- end }}

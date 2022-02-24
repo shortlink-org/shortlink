@@ -1,3 +1,5 @@
+{{- if and (.Capabilities.APIVersions.Has "ceph.rook.io/v1") -}}
+
 #################################################################################################################
 # Define the settings for the rook-ceph cluster with common settings for a production cluster.
 # All nodes with available raw devices will be used for the Ceph cluster. At least three nodes are required
@@ -161,7 +163,15 @@ spec:
 # or when AllowMultiplePerNode is false. Otherwise this anti-affinity rule is a
 # preferred rule with weight: 50.
 #    osd:
-#    mgr:
+    mgr:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: ceph-node
+                  operator: In
+                  values:
+                    - "true"
 #    cleanup:
   annotations:
 #    all:
@@ -193,8 +203,8 @@ spec:
         cpu: 500m
         memory: 2048Mi
       requests:
-        cpu: 300m
-        memory: 256Mi
+        cpu: 500m
+        memory: 512Mi
 # The above example requests/limits can also be added to the other components
     mon:
       limits:
@@ -301,3 +311,5 @@ spec:
         disabled: false
       osd:
         disabled: false
+
+{{- end }}
