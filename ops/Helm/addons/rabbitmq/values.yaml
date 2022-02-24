@@ -2,8 +2,50 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-rabbitmq-cluster-operator:
+email: mymail@gmail.com
+
+annotations: {}
+
+rabbitmq:
   enabled: true
+
+  auth:
+    username: admin
+    password: admin
+    erlangCookie: randomCookie
+
+  podSecurityContext:
+    enabled: true
+
+  persistence:
+    enabled: false
+
+  extraVolumeMounts:
+    - name: tmp
+      mountPath: /tmp
+      readOnly: false
+    - name: opt
+      mountPath: /opt/bitnami/rabbitmq
+      readOnly: false
+
+  extraVolumes:
+    - name: tmp
+      emptyDir: {}
+    - name: opt
+      emptyDir: {}
+
+  initContainers:
+    - name: data-copy
+      image: bitnami/rabbitmq
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - name: opt
+          mountPath: "/mnt/opt/bitnami/rabbitmq"
+      command:
+        - /bin/bash
+      args:
+        - -ec
+        - cp -r -v "/opt/bitnami/rabbitmq/." "/mnt/opt/bitnami/rabbitmq"
 
   ingress:
     enabled: true
