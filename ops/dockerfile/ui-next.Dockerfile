@@ -8,7 +8,7 @@ RUN npm config set ignore-scripts false
 
 WORKDIR /app
 COPY ./ui/next ./
-RUN npm install && npm build
+RUN npm install
 
 # Setup unprivileged user 101
 RUN chown -R 101 /app
