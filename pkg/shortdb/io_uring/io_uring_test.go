@@ -1,3 +1,6 @@
+//go:build (unit && cgo) || (database && badger)
+// +build unit,cgo database,badger
+
 package io_uring
 
 import (
