@@ -16,7 +16,7 @@ import (
 var metaMock = rpc.Meta{
 	ImageUrl:    "",
 	Keywords:    "",
-	Description: "GitHub is where over 65 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
+	Description: "GitHub is where over 73 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
 }
 
 func TestSet(t *testing.T) { //nolint unused
