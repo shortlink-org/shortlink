@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: rook-ceph
-    version: v1.8.5
+    version: v1.8.6
     repository: https://charts.rook.io/release
     condition: rook-ceph.enabled
     tags:
