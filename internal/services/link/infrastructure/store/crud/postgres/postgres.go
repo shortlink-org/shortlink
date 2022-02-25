@@ -111,9 +111,14 @@ func (p *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 func (p *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
 	// query builder
 	links := psql.Select("url, hash, describe, created_at, updated_at").
-		From("shortlink.links").
-		Limit(uint64(filter.Pagination.Limit)).
-		Offset(uint64(filter.Pagination.Page * filter.Pagination.Limit))
+		From("shortlink.links")
+
+	if filter != nil {
+		links = links.
+			Limit(uint64(filter.Pagination.Limit)).
+			Offset(uint64(filter.Pagination.Page * filter.Pagination.Limit))
+	}
+
 	links = p.buildFilter(links, filter)
 	q, args, err := links.ToSql()
 	if err != nil {

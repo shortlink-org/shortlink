@@ -105,14 +105,17 @@ func (b *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 	}
 
 	response := &v1.Links{
-		Link: make([]*v1.Link, len(list)),
+		Link: []*v1.Link{},
 	}
 
-	for index, item := range list {
-		err = protojson.Unmarshal(item, response.Link[index])
+	for _, item := range list {
+		l := &v1.Link{}
+		err = protojson.Unmarshal(item, l)
 		if err != nil {
 			return nil, err
 		}
+
+		response.Link = append(response.Link, l)
 	}
 
 	return response, nil
