@@ -162,8 +162,6 @@ make skaffold-debug
 + Istio
 + MetalLB
 + [kyverno](https://kyverno.io/) - Kubernetes Native Policy Management
-+ DataBase
-  + [postgres-operator (zalando)](https://github.com/zalando/postgres-operator)
 + Storage
   + [rook-ceph](https://rook.io/)
     + ceph cluster (3 node)
