@@ -31,7 +31,6 @@
 ├── pipelines                                  // Pipelines jobs
 │         ├── addons
 │         │         ├── auth.yml
-│         │         ├── database.yml
 │         │         ├── network.yml
 │         │         ├── k8s.yml
 │         │         ├── monitoring.yml
