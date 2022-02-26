@@ -59,3 +59,17 @@ istio:
   needs: []
   rules:
     - when: manual
+
+istio-gateway:
+  stage: gateway
+  variables:
+    RELEASE_NAME: istio-ingress
+    HELM_PATH: ops/Helm/addons/gateway/istio-ingress
+    HELM_NAMESPACE: istio-ingress
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual

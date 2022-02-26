@@ -1,0 +1,7 @@
+istio-ingress:
+  enabled: true
+
+gateway:
+  service:
+    type: LoadBalancer
+
