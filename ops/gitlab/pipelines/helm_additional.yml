@@ -6,7 +6,6 @@ include:
   - local: /ops/gitlab/pipelines/addons/k8s.yml
   - local: /ops/gitlab/pipelines/addons/monitoring.yml
   - local: /ops/gitlab/pipelines/addons/mq.yml
-  - local: /ops/gitlab/pipelines/addons/auth.yml
 
 stages:
   - .pre

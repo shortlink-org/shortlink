@@ -30,7 +30,6 @@
 │         └── test.yml
 ├── pipelines                                  // Pipelines jobs
 │         ├── addons
-│         │         ├── auth.yml
 │         │         ├── network.yml
 │         │         ├── k8s.yml
 │         │         ├── monitoring.yml
