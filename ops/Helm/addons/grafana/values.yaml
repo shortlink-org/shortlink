@@ -23,7 +23,7 @@ grafana:
     interval: "1m"
 
   imageRenderer:
-    enabled: true
+    enabled: false
 
   ingress:
     enabled: true
@@ -113,7 +113,6 @@ grafana:
               filterBySpanID: true
               filterByTraceID: true
 
-
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
@@ -200,3 +199,9 @@ promtail:
 
 tempo:
   enabled: true
+
+  tempo:
+    searchEnabled: true
+
+  serviceMonitor:
+    enabled: true
