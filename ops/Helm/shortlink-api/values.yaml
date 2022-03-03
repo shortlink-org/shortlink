@@ -171,7 +171,7 @@ external_database:
 
 # Kratos ===============================================================================================================
 kratos:
-  enabled: false
+  enabled: true
 
   kratos:
     config:
@@ -205,7 +205,8 @@ kratos:
           base_url: http://127.0.0.1:4434/
 
       session:
-        lifespan: 720h # 30 days
+        # 30 days
+        lifespan: 720h
         cookie:
           domain: http://127.0.0.1:3000
           same_site: Lax
@@ -226,17 +227,23 @@ kratos:
             enabled: true
             config:
               providers:
-                - id: github # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+                # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+                - id: github
                   provider: github
-                  client_id: .... # Replace this with the OAuth2 Client ID provided by GitHub
-                  client_secret: .... # Replace this with the OAuth2 Client Secret provided by GitHub
+                  # Replace this with the OAuth2 Client ID provided by GitHub
+                  client_id: ....
+                  # Replace this with the OAuth2 Client Secret provided by GitHub
+                  client_secret: ....
                   mapper_url: file:///etc/config/kratos/oidc.github.jsonnet
                   scope:
                     - user:email
-                - id: gitlab # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+                 # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+                - id: gitlab
                   provider: gitlab
-                  client_id: .... # Replace this with the OAuth2 Client ID provided by GitLab
-                  client_secret: .... # Replace this with the OAuth2 Client Secret provided by GitLab
+                  # Replace this with the OAuth2 Client ID provided by GitLab
+                  client_id: ....
+                  # Replace this with the OAuth2 Client Secret provided by GitLab
+                  client_secret: ....
                   mapper_url: file:///etc/config/kratos/oidc.gitlab.jsonnet
                   scope:
                     - read_user
