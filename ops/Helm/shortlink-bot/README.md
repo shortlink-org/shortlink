@@ -29,7 +29,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
-| deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable"` |  |
+| deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` |  |
 | deploy.env.TELEGRAM_BOT_TOKEN | string | `"YOUR_TELEGRAM_TOKEN"` |  |
 | deploy.env.TELEGRAM_BOT_USERNAME | string | `"shortlink_my_bot"` |  |
 | deploy.env.TRACER_URI | string | `"jaeger-agent.jaeger-operator:6831"` |  |

@@ -26,7 +26,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 |-----|------|---------|-------------|
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
-| deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
+| deploy.image.pullPolicy | string | `"Always"` |  |
 | deploy.image.repository | string | `"batazor/shortlink-ui-next"` |  |
 | deploy.image.tag | string | `"latest"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
@@ -37,7 +37,6 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.livenessProbe.periodSeconds | int | `30` |  |
 | deploy.livenessProbe.successThreshold | int | `1` |  |
 | deploy.nodeSelector | list | `[]` |  |
-| deploy.podSecurityContext.fsGroup | int | `1000` |  |
 | deploy.readinessProbe.failureThreshold | int | `30` |  |
 | deploy.readinessProbe.httpGet.path | string | `"/"` |  |
 | deploy.readinessProbe.httpGet.port | int | `80` |  |
@@ -49,7 +48,6 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | deploy.resources.limits.memory | string | `"128Mi"` |  |
 | deploy.resources.requests.cpu | string | `"10m"` |  |
 | deploy.resources.requests.memory | string | `"32Mi"` |  |
-| deploy.securityContext.allowPrivilegeEscalation | bool | `false` |  |
 | deploy.strategy.rollingUpdate.maxSurge | int | `1` |  |
 | deploy.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
 | deploy.strategy.type | string | `"RollingUpdate"` |  |
@@ -62,15 +60,16 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$2"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/ceph-dashboard/$2"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
 | ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | ingress.type | string | `"nginx"` |  |
 | nameOverride | string | `""` |  |
+| path | string | `"ui"` |  |
 | service.port | int | `80` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.create | bool | `true` |  |
