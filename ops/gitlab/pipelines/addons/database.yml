@@ -1,0 +1,14 @@
+# DATABASE =============================================================================================================
+postgresql:
+  stage: deploy
+  variables:
+    RELEASE_NAME: postgresql
+    HELM_PATH: ops/Helm/addons/store/postgresql
+    HELM_NAMESPACE: postgresql
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual

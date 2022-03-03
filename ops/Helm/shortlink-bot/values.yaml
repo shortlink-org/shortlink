@@ -42,7 +42,7 @@ deploy:
     TELEGRAM_BOT_USERNAME: "shortlink_my_bot"
 
     # default store config
-    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable
+    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
 
   imagePullSecrets: []
 

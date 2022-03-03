@@ -47,7 +47,7 @@ deploy:
     GRPC_CLIENT_HOST: istio-ingressgateway.istio-system
 
     # default store config
-    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgres-postgresql.postgres:5432/shortlink?sslmode=disable
+    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
 
   imagePullSecrets: []
 
