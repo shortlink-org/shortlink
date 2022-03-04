@@ -48,6 +48,7 @@ deploy:
 
     # default store config
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
+    STORE_REDIS_URI: shortlink-redis-master.redis:6379
 
   imagePullSecrets: []
 
