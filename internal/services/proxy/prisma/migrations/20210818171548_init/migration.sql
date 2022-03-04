@@ -1,3 +1,6 @@
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS shortlink;
+
 -- CreateTable
 CREATE TABLE "stats" (
     "hash" varchar(9) NOT NULL,

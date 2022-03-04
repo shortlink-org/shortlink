@@ -1,6 +1,6 @@
 -- BILLING SCHEMA ======================================================================================================
 
-CREATE SCHEMA shortlink;
+CREATE SCHEMA IF NOT EXISTS shortlink;
 
 COMMENT ON SCHEMA shortlink IS 'Shortlink schema';
 

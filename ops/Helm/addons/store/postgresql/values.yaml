@@ -10,7 +10,14 @@ postgresql:
       auth:
         username: "postgres"
         password: "shortlink"
+        postgresPassword: "shortlink"
         database: "shortlink"
+
+  auth:
+    username: "postgres"
+    password: "shortlink"
+    postgresPassword: "shortlink"
+    database: "shortlink"
 
   primary:
     persistence:
