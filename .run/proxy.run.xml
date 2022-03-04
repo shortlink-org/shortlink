@@ -8,6 +8,8 @@
     <node-interpreter value="$USER_HOME$/.nvm/versions/node/v17.0.1/bin/node" />
     <package-manager value="npm" />
     <envs>
+      <env name="MQ_ENABLED" value="true" />
+      <env name="MQ_RABBIT_URI" value="amqp://admin:admin@rabbitmq.rabbitmq:5672" />
       <env name="STORE_POSTGRES_URI" value="postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable&amp;pool_timeout=20&amp;connect_timeout=20" />
     </envs>
     <method v="2" />
