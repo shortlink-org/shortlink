@@ -15,7 +15,8 @@ grafana:
 
   grafana.ini:
     server:
-      root_url: http://localhost:3000/grafana # this host can be localhost
+      # this host can be localhost
+      root_url: https://shortlink.ddns.net/grafana
 
   serviceMonitor:
     enabled: true
