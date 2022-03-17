@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.3
 
 # Install dependencies only when needed
-FROM node:17.6-alpine as builder
+FROM node:17.7-alpine as builder
 
 ENV PYTHONUNBUFFERED=1
 
