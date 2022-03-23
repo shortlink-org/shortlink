@@ -38,7 +38,7 @@ require (
 	github.com/jackc/pgx/v4 v4.15.0
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
-	github.com/krzysztofreczek/go-structurizr v0.1.5
+	github.com/krzysztofreczek/go-structurizr v0.1.6
 	github.com/kubernetes-csi/csi-test/v4 v4.3.0
 	github.com/lib/pq v1.10.4
 	github.com/luna-duclos/instrumentedsql v1.1.3
