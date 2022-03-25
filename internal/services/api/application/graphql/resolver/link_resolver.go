@@ -12,7 +12,9 @@ import (
 // Link ...
 func (r *Resolver) Link(ctx context.Context, args struct {
 	Hash *string
-}) (*LinkResolver, error) {
+},
+) (*LinkResolver, error) {
+
 	response, err := r.LinkServiceClient.Get(ctx, &link_rpc.GetRequest{Hash: *args.Hash})
 	if err != nil {
 		return nil, err
@@ -26,7 +28,8 @@ func (r *Resolver) Link(ctx context.Context, args struct {
 // Links ...
 func (r *Resolver) Links(ctx context.Context, args struct {
 	Filter *query.Filter
-}) (*[]*LinkResolver, error) {
+},
+) (*[]*LinkResolver, error) {
 	// Filter to string
 	filterRaw, err := json.Marshal(args.Filter)
 	if err != nil {

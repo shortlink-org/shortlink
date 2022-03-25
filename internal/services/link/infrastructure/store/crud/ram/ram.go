@@ -15,13 +15,13 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint unused
+type Config struct { // nolint:unused
 	mode int
 	job  *batch.Config
 }
 
 // Store implementation of db interface
-type Store struct { // nolint unused
+type Store struct { // nolint:unused
 	// sync.Map solver problem with cache contention
 	links sync.Map
 
@@ -83,12 +83,12 @@ func (ram *Store) Get(_ context.Context, id string) (*v1.Link, error) {
 }
 
 // List ...
-func (ram *Store) List(_ context.Context, filter *query.Filter) (*v1.Links, error) { // nolint unused
+func (ram *Store) List(_ context.Context, filter *query.Filter) (*v1.Links, error) { // nolint:unused
 	links := &v1.Links{
 		Link: []*v1.Link{},
 	}
 
-	ram.links.Range(func(key interface{}, value interface{}) bool {
+	ram.links.Range(func(key, value interface{}) bool {
 		link, ok := value.(*v1.Link)
 		if !ok {
 			return false

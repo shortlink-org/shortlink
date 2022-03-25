@@ -5,13 +5,13 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint unused
+type Config struct { // nolint:unused
 	URI  string
 	mode int
 }
 
 // Store implementation of db interface
-type Store struct { // nolint unused
+type Store struct { // nolint:unused
 	client *mongo.Client
 	config Config
 }

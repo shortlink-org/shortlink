@@ -24,7 +24,7 @@ import (
 )
 
 // API ...
-type API struct { // nolint unused
+type API struct { // nolint:unused
 	LinkServiceServer
 
 	http http.Server
@@ -68,15 +68,17 @@ func (api *API) Run(
 
 	api.http = http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),
-		Handler: api.tracingWrapper(mux), // nolint contextcheck
+		Handler: api.tracingWrapper(mux), // nolint:contextcheck
 		BaseContext: func(_ net.Listener) context.Context {
 			return ctx
 		},
 
-		ReadTimeout:       1 * time.Second,                 // the maximum duration for reading the entire request, including the body
-		WriteTimeout:      config.Timeout + 30*time.Second, // the maximum duration before timing out writes of the response
-		IdleTimeout:       30 * time.Second,                // the maximum amount of time to wait for the next request when keep-alive is enabled
-		ReadHeaderTimeout: 2 * time.Second,                 // the amount of time allowed to read request headers
+		ReadTimeout:  1 * time.Second,                 // the maximum duration for reading the entire request, including the body
+		WriteTimeout: config.Timeout + 30*time.Second, // the maximum duration before timing out writes of the response
+		// the maximum amount of time to wait for the next request when keep-alive is enabled
+		IdleTimeout: 30 * time.Second, // nolint: gomnd
+		// the amount of time allowed to read request headers
+		ReadHeaderTimeout: 2 * time.Second, // nolint: gomnd
 	}
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)

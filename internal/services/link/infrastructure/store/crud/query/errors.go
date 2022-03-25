@@ -1,7 +1,7 @@
 package query
 
 // NotFoundError - not found link
-type StoreError struct { // nolint unused
+type StoreError struct { // nolint:unused
 	Value string
 }
 

@@ -20,7 +20,7 @@ type Repository interface {
 }
 
 // Store abstract type
-type Store struct { // nolint unused
+type Store struct { // nolint:unused
 	cache *cache.Cache
 	log   logger.Logger
 

@@ -20,16 +20,14 @@ type Store struct {
 	Events
 }
 
-var (
-	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
-)
+var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint:unused
 
 func (s *Store) Init(ctx context.Context, db *db.Store) error {
 	s.db = db.Store.GetConn().(*pgxpool.Pool)
 	return nil
 }
 
-func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bool) error { // nolint govet
+func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bool) error { // nolint:govet
 	if len(events) == 0 {
 		return nil
 	}
@@ -37,7 +35,7 @@ func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bo
 	for _, event := range events {
 		// TODO: use transaction
 		// Either insert a new aggregate or append to an existing.
-		if event.Version == 1 {
+		if event.Version == 1 { // nolint:nestif
 			err := s.addAggregate(ctx, event)
 			if err != nil {
 				return err
@@ -84,8 +82,6 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 	span, _ := opentracing.StartSpanFromContext(ctx, "store: Load")
 	defer span.Finish()
 
-	var events []*eventsourcing.Event
-
 	// get snapshot if exist
 	querySnaphot := psql.Select("aggregate_id", "aggregate_type", "aggregate_version", "payload").
 		From("billing.snapshots").
@@ -128,6 +124,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 		return nil, nil, rows.Err()
 	}
 
+	var events []*eventsourcing.Event // nolint:prealloc
 	for rows.Next() {
 		event := eventsourcing.Event{
 			AggregateId: aggregateID,

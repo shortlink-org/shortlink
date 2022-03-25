@@ -13,7 +13,7 @@ import (
 )
 
 type PaymentAPI struct {
-	jsonpb protojson.MarshalOptions // nolint structcheck
+	jsonpb protojson.MarshalOptions // nolint:structcheck
 
 	paymentService *payment_application.PaymentService
 }
@@ -45,26 +45,26 @@ func (api *PaymentAPI) open(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 
 	newPayment, err := api.paymentService.Add(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 
 	res, err := api.jsonpb.Marshal(newPayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res) // nolint errcheck
+	_, _ = w.Write(res) // nolint:errcheck
 }
 
 // get payment by identity
@@ -74,29 +74,29 @@ func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	var aggregateId = chi.URLParam(r, "id")
+	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) // nolint:errcheck
 		return
 	}
 
 	getPayment, err := api.paymentService.Get(r.Context(), aggregateId)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 
 	res, err := api.jsonpb.Marshal(getPayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) // nolint errcheck
+	_, _ = w.Write(res) // nolint:errcheck
 }
 
 // list - get all payments of users
@@ -117,17 +117,17 @@ func (api *PaymentAPI) close(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
 
-	var aggregateId = chi.URLParam(r, "id")
+	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) // nolint:errcheck
 		return
 	}
 
 	err := api.paymentService.Close(r.Context(), aggregateId)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 

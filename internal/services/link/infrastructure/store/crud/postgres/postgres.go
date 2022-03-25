@@ -23,9 +23,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-var (
-	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
-)
+var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint:unused
 
 // New store
 func New(ctx context.Context, db *db.Store) (*Store, error) {
@@ -84,7 +82,6 @@ func (p *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	rows, err := p.client.Query(ctx, q, args...)
-
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}

@@ -10,7 +10,7 @@ import (
 // Init ...
 // Package healthcheck helps you implement Kubernetes liveness and readiness checks for your application.
 // It supports synchronous and asynchronous (background) checks.
-func Init() healthcheck.Handler { // nolint unused
+func Init() healthcheck.Handler { // nolint:unused
 	// Create a Handler that we can use to register liveness and readiness checks.
 	health := healthcheck.NewHandler()
 

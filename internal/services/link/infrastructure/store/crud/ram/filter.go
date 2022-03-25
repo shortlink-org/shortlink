@@ -8,8 +8,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-//gocyclo:ignore
-func isFilterSuccess(link *v1.Link, filter *query.Filter) bool {
+func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocognit
 	// Skip empty filter
 	if filter == nil {
 		return true

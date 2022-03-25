@@ -7,8 +7,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-type Order struct {
-}
+type Order struct{}
 
 func (o Order) OrderHistory(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*OrderHistoryResponse, error) {
 	panic("implement me")

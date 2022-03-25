@@ -11,7 +11,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/tracer"
 )
 
-type logrusLogger struct { // nolint unused
+type logrusLogger struct { // nolint:unused
 	logger *logrus.Logger
 }
 

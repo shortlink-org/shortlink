@@ -27,7 +27,7 @@ func New(mq mq.MQ, log logger.Logger) (*Bot, error) {
 	}, nil
 }
 
-func (b *Bot) Use(ctx context.Context) { // nolint unused
+func (b *Bot) Use(ctx context.Context) { // nolint:unused
 	// Subscribe to Event
 	notify.Subscribe(bot_type.METHOD_NEW_LINK, b)
 

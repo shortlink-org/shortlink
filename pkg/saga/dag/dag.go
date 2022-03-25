@@ -3,6 +3,7 @@
 package dag
 
 import (
+	"errors"
 	"fmt"
 	"sync"
 )
@@ -34,18 +35,23 @@ func (d *Dag) AddVertex(id string, value interface{}) (*Vertex, error) {
 	return node, nil
 }
 
-func (d *Dag) AddEdge(from string, to string) error {
+func (d *Dag) AddEdge(from, to string) error {
 	fromVertexRaw, ok := d.vertices.Load(from)
 	if !ok {
 		return fmt.Errorf("not found vertex by id: %s", from)
 	}
-	fromVertex := fromVertexRaw.(*Vertex)
+
+	fromVertex, ok := fromVertexRaw.(*Vertex)
+	if !ok {
+		return errors.New("incorrect type assertion")
+	}
 	toVertexRaw, ok := d.vertices.Load(to)
+
 	if !ok {
 		return fmt.Errorf("not found vertex by id: %s", to)
 	}
-	toVertex := toVertexRaw.(*Vertex)
 
+	toVertex := toVertexRaw.(*Vertex)
 	fromVertex.children = append(fromVertex.children, toVertex)
 	toVertex.parents = append(toVertex.parents, fromVertex)
 
@@ -61,5 +67,6 @@ func (d *Dag) GetVertex(id string) (*Vertex, error) {
 	if !ok {
 		return nil, fmt.Errorf("not found vertex with name: %s", id)
 	}
+
 	return vertex.(*Vertex), nil
 }

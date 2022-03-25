@@ -19,7 +19,7 @@ var metaMock = rpc.Meta{
 	Description: "GitHub is where over 73 million developers shape the future of software, together. Contribute to the open source community, manage your Git repositories, review code like a pro, track bugs and features, power your CI/CD and DevOps workflows, and secure code before you commit it.",
 }
 
-func TestSet(t *testing.T) { //nolint unused
+func TestSet(t *testing.T) { // nolint:unused
 	ctx := context.Background()
 	url := "https://github.com/"
 

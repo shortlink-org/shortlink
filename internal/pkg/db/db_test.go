@@ -13,7 +13,7 @@ import (
 )
 
 // TestLink ...
-func TestLink(t *testing.T) { //nolint unused
+func TestLink(t *testing.T) { // nolint:unused
 	ctx := context.Background()
 
 	// Init logger

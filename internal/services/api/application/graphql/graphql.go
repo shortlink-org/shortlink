@@ -23,10 +23,8 @@ import (
 	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 )
 
-var (
-	//go:embed schema/*.graphqls
-	schema embed.FS // nolint
-)
+//go:embed schema/*.graphqls
+var schema embed.FS // nolint
 
 // API ...
 type API struct {
@@ -46,7 +44,7 @@ func (api *API) GetHandler() *relay.Handler {
 			return err
 		}
 
-		if !info.IsDir() {
+		if !info.IsDir() { // nolint:nestif
 			file, errReadFile := os.ReadFile(path) // #nosec
 			if errReadFile != nil {
 				return errReadFile
@@ -96,7 +94,8 @@ func (api *API) Run(
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
-) error { // nolint unparam
+) error { // nolint:unparam
+
 	api.ctx = ctx
 	api.linkServiceClient = link_rpc
 

@@ -1,15 +1,16 @@
 package grpc_logger
 
 import (
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
 func printLog(logger logger.Logger, err error, fields field.Fields) {
 	switch status.Code(err) {
-	case codes.OK, codes.Canceled, codes.InvalidArgument, codes.NotFound, codes.AlreadyExists, codes.ResourceExhausted, codes.FailedPrecondition, codes.Aborted, codes.OutOfRange:
+	case codes.OK, codes.Canceled, codes.InvalidArgument, codes.NotFound, codes.AlreadyExists, codes.ResourceExhausted, codes.FailedPrecondition, codes.Aborted, codes.OutOfRange: // nolint:lll
 		logger.Debug(err.Error(), fields)
 	case codes.Unknown, codes.DeadlineExceeded, codes.PermissionDenied, codes.Unauthenticated:
 		logger.Info(err.Error(), fields)

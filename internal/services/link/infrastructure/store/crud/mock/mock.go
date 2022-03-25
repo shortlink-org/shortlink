@@ -8,7 +8,7 @@ import (
 
 var (
 	timestamp = timestamppb.Now()
-	AddLink   = &v1.Link{ // nolint unused
+	AddLink   = &v1.Link{ // nolint:unused
 		Url:       "https://example.com",
 		Hash:      "",
 		Describe:  "example link",
@@ -16,7 +16,7 @@ var (
 		UpdatedAt: timestamp,
 	}
 
-	GetLink = &v1.Link{ // nolint unused
+	GetLink = &v1.Link{ // nolint:unused
 		Url:       "https://example.com",
 		Hash:      "5888cabde",
 		Describe:  "example link",

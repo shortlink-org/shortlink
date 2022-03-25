@@ -12,7 +12,7 @@ import (
 )
 
 // Store implementation of db interface
-type Store struct { // nolint unused
+type Store struct { // nolint:unused
 	client *badger.DB
 }
 

@@ -11,10 +11,8 @@ type Payment struct {
 	*billing.Payment
 }
 
-var (
-	// EventList - event notify list
-	EventList map[string]uint32
-)
+// EventList - event notify list
+var EventList map[string]uint32
 
 func init() {
 	EventList = make(map[string]uint32)

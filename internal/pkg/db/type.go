@@ -6,7 +6,7 @@ import (
 )
 
 // DB - common interface of db
-type DB interface { // nolint unused
+type DB interface { // nolint:unused
 	// Closer is the interface that wraps the basic Close method.
 	io.Closer
 
@@ -15,7 +15,7 @@ type DB interface { // nolint unused
 }
 
 // Store abstract type
-type Store struct { // nolint unused
+type Store struct { // nolint:unused
 	Store DB
 
 	typeStore string

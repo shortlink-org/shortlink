@@ -50,7 +50,7 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 	}
 
 	// UnaryServer
-	var incerceptorUnaryServerList = []grpc.UnaryServerInterceptor{
+	incerceptorUnaryServerList := []grpc.UnaryServerInterceptor{
 		grpc_prometheus.UnaryServerInterceptor,
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
@@ -59,7 +59,7 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 	}
 
 	// StreamClient
-	var incerceptorStreamServerList = []grpc.StreamServerInterceptor{
+	incerceptorStreamServerList := []grpc.StreamServerInterceptor{
 		grpc_prometheus.StreamServerInterceptor,
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware

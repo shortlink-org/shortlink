@@ -25,26 +25,26 @@ func New(logger logger.Logger, orderRepository event_store.EventStore) (*OrderSe
 }
 
 func (o OrderService) Get(ctx context.Context, id string) (*billing.Order, error) {
-	//return o.orderRepository.Get(ctx, id)
+	// return o.orderRepository.Get(ctx, id)
 	panic("implement me")
 }
 
 func (o OrderService) List(ctx context.Context, filter interface{}) ([]*billing.Order, error) {
-	//return o.orderRepository.List(ctx, filter)
+	// return o.orderRepository.List(ctx, filter)
 	panic("implement me")
 }
 
 func (o OrderService) Add(ctx context.Context, in *billing.Order) (*billing.Order, error) {
-	//return o.orderRepository.Add(ctx, in)
+	// return o.orderRepository.Add(ctx, in)
 	panic("implement me")
 }
 
 func (o OrderService) Update(ctx context.Context, in *billing.Order) (*billing.Order, error) {
-	//return o.orderRepository.Update(ctx, in)
+	// return o.orderRepository.Update(ctx, in)
 	panic("implement me")
 }
 
 func (o OrderService) Delete(ctx context.Context, id string) error {
-	//return o.orderRepository.Delete(ctx, id)
+	// return o.orderRepository.Delete(ctx, id)
 	panic("implement me")
 }

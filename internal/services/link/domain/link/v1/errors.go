@@ -5,7 +5,7 @@ import (
 )
 
 // NotFoundError - not found link
-type NotFoundError struct { // nolint unused
+type NotFoundError struct { // nolint:unused
 	Link *Link
 	Err  error
 }
@@ -14,7 +14,7 @@ func (e *NotFoundError) Error() string {
 	return fmt.Sprintf("Not found link: %s", e.Link.Hash)
 }
 
-type NotUniqError struct { // nolint unused
+type NotUniqError struct { // nolint:decorder
 	Link *Link
 	Err  error
 }

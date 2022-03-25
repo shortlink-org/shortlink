@@ -21,7 +21,7 @@ func TestMain(m *testing.M) {
 }
 
 // TestOutput ...
-func TestOutputZap(t *testing.T) { //nolint unused
+func TestOutputZap(t *testing.T) { // nolint:unused
 	var b bytes.Buffer
 
 	conf := Configuration{
@@ -66,7 +66,7 @@ func BenchmarkOutputZap(bench *testing.B) {
 	}
 }
 
-func TestOutputLogrus(t *testing.T) { //nolint unused
+func TestOutputLogrus(t *testing.T) { // nolint:unused
 	var b bytes.Buffer
 
 	conf := Configuration{
@@ -110,7 +110,7 @@ func BenchmarkOutputLogrus(bench *testing.B) {
 	}
 }
 
-func TestFieldsZap(t *testing.T) { //nolint unused
+func TestFieldsZap(t *testing.T) { // nolint:unused
 	var b bytes.Buffer
 
 	conf := Configuration{
@@ -144,7 +144,7 @@ func TestFieldsZap(t *testing.T) { //nolint unused
 	}
 }
 
-func TestFieldsLogrus(t *testing.T) { //nolint unused
+func TestFieldsLogrus(t *testing.T) { // nolint:unused
 	var b bytes.Buffer
 
 	conf := Configuration{
@@ -177,7 +177,7 @@ func TestFieldsLogrus(t *testing.T) { //nolint unused
 	}
 }
 
-func TestSetLevel(t *testing.T) { //nolint unused
+func TestSetLevel(t *testing.T) { // nolint:unused
 	loggerList := []int{Zap, Logrus}
 
 	for _, logger := range loggerList {

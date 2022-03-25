@@ -39,12 +39,14 @@ func RunAPIServer(
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
-	viper.SetDefault("API_PORT", 7070)       // API port
-	viper.SetDefault("API_TIMEOUT", 60)      // Request Timeout (seconds)
+	// API port
+	viper.SetDefault("API_PORT", 7070) // nolint: gomnd
+	// Request Timeout (seconds)
+	viper.SetDefault("API_TIMEOUT", 60) // nolint: gomnd
 
 	config := api_type.Config{
 		Port:    viper.GetInt("API_PORT"),
-		Timeout: viper.GetDuration("API_TIMEOUT") * time.Second, // nolint durationcheck
+		Timeout: viper.GetDuration("API_TIMEOUT") * time.Second, // nolint:durationcheck
 	}
 
 	serverType := viper.GetString("API_TYPE")

@@ -9,9 +9,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 )
 
-var (
-	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
-)
+var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint:unused
 
 // New ...
 func New(_ context.Context, db *db.Store) (*Store, error) {

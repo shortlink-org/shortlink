@@ -6,7 +6,7 @@ import (
 )
 
 // Resolver ...
-type Resolver struct { //nolint unused
+type Resolver struct { // nolint:unused
 	Store             db.DB
 	LinkServiceClient link_rpc.LinkServiceClient
 }

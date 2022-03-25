@@ -13,8 +13,10 @@ const (
 
 const queueThreshold = 5
 
-type readCallback func([]byte)
-type writeCallback func(int)
+type (
+	readCallback  func([]byte)
+	writeCallback func(int)
+)
 
 // request contains info to send to the submission queue.
 type request struct {

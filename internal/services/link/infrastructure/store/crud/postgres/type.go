@@ -7,14 +7,14 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint unused
+type Config struct { // nolint:unused
 	URI  string
 	mode int
 	job  *batch.Config
 }
 
 // Store implementation of db interface
-type Store struct { // nolint unused
+type Store struct { // nolint:unused
 	client *pgxpool.Pool
 
 	config Config

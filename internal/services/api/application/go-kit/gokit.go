@@ -57,7 +57,7 @@ func makeGetLinkEndpoint() endpoint.Endpoint {
 		}
 
 		// Parse request
-		var request = &getRequest{
+		request := &getRequest{
 			Hash: vars["id"],
 		}
 
@@ -78,7 +78,7 @@ func makeGetLinkEndpoint() endpoint.Endpoint {
 		case notify.Response:
 			err = r.Error
 			if err == nil {
-				response = r.Payload.(*v1.Link) // nolint errcheck
+				response = r.Payload.(*v1.Link) // nolint:errcheck
 			}
 		}
 
@@ -118,7 +118,7 @@ func makeGetListLinkEndpoint() endpoint.Endpoint {
 		case notify.Response:
 			err = r.Error
 			if err == nil {
-				response = r.Payload.([]*v1.Link) // nolint errcheck
+				response = r.Payload.([]*v1.Link) // nolint:errcheck
 			}
 		}
 
@@ -170,7 +170,8 @@ func (api API) Run(
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
-) error { // nolint unparam
+) error { // nolint:unparam
+
 	log.Info("Run go-kit API")
 
 	linkAddHandler := httptransport.NewServer(

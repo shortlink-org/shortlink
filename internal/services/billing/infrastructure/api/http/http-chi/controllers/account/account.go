@@ -45,26 +45,26 @@ func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 
 	newAccount, err := api.accountService.Add(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 
 	res, err := api.jsonpb.Marshal(newAccount)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res) // nolint errcheck
+	_, _ = w.Write(res) // nolint:errcheck
 }
 
 // get ...

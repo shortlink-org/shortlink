@@ -18,7 +18,7 @@ import (
 )
 
 // API - general describe of API
-type API interface { // nolint unused
+type API interface { // nolint:unused
 	Run(
 		ctx context.Context,
 		i18n *message.Printer,

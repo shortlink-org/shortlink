@@ -45,7 +45,7 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 }
 
 func (f *file) Update(query *v1.Query) error {
-	//TODO implement me
+	// TODO implement me
 	return nil
 }
 
@@ -98,6 +98,6 @@ func (f *file) Insert(query *v1.Query) error {
 }
 
 func (f *file) Delete(query *v1.Query) error {
-	//TODO implement me
+	// TODO implement me
 	return nil
 }

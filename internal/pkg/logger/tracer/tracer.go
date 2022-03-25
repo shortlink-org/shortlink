@@ -11,7 +11,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
-func NewTraceFromContext(ctx context.Context, msg string, tags []opentracing.Tag, fields ...field.Fields) ([]field.Fields, error) { // nolint contextcheck
+func NewTraceFromContext(ctx context.Context, msg string, tags []opentracing.Tag, fields ...field.Fields) ([]field.Fields, error) { // nolint:contextcheck
 	if ctx == nil {
 		ctx = context.Background()
 	}
@@ -40,8 +40,9 @@ func NewTraceFromContext(ctx context.Context, msg string, tags []opentracing.Tag
 }
 
 func getNameFunc() string {
-	pc := make([]uintptr, 10) // at least 1 entry needed
-	runtime.Callers(4, pc)
+	// at least 1 entry needed
+	pc := make([]uintptr, 10) // nolint: gomnd
+	runtime.Callers(4, pc)    // nolint: gomnd
 	f := runtime.FuncForPC(pc[0])
 	return f.Name()
 }

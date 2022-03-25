@@ -15,14 +15,14 @@ import (
 )
 
 // DGraphLink implementation of db interface
-type DGraphLink struct { // nolint unused
+type DGraphLink struct { // nolint:unused
 	Uid      string `json:"uid,omitempty"`
 	*v1.Link `json:"link,omitempty"`
 	DType    []string `json:"dgraph.type,omitempty"`
 }
 
 // DGraphLinkResponse ...
-type DGraphLinkResponse struct { // nolint unused
+type DGraphLinkResponse struct { // nolint:decorder
 	Link []struct {
 		*v1.Link
 		Uid string `json:"uid,omitempty"`
@@ -30,12 +30,12 @@ type DGraphLinkResponse struct { // nolint unused
 }
 
 // Config ...
-type Config struct { // nolint unused
+type Config struct { // nolint:decorder
 	URL string
 }
 
 // Store ...
-type Store struct { // nolint unused
+type Store struct { // nolint:decorder
 	conn   *grpc.ClientConn
 	client *dgo.Dgraph
 	config Config
@@ -79,7 +79,7 @@ func (s *Store) Close() error {
 }
 
 // Migrate - init structure
-func (s *Store) migrate(ctx context.Context) error { // nolint unused
+func (s *Store) migrate(ctx context.Context) error { // nolint:unused
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {

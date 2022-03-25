@@ -41,7 +41,8 @@ func (api *API) Run(
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
-) error { // nolint unparam
+) error { // nolint:unparam
+
 	api.ctx = ctx
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
@@ -58,8 +59,8 @@ func (api *API) Run(
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: true,
-		MaxAge:           300,
-		//Debug:            true,
+		MaxAge:           300, // nolint: gomnd
+		// Debug:            true,
 	})
 
 	r.Use(corsPolicy.Handler)
@@ -92,10 +93,13 @@ func (api *API) Run(
 			return ctx
 		},
 
-		ReadTimeout:       1 * time.Second,                 // the maximum duration for reading the entire request, including the body
-		WriteTimeout:      config.Timeout + 30*time.Second, // the maximum duration before timing out writes of the response
-		IdleTimeout:       30 * time.Second,                // the maximum amount of time to wait for the next request when keep-alive is enabled
-		ReadHeaderTimeout: 2 * time.Second,                 // the amount of time allowed to read request headers
+		ReadTimeout: 1 * time.Second, // the maximum duration for reading the entire request, including the body
+		// the maximum duration before timing out writes of the response
+		WriteTimeout: config.Timeout + 30*time.Second, // nolint: gomnd
+		// the maximum amount of time to wait for the next request when keep-alive is enabled
+		IdleTimeout: 30 * time.Second, // nolint: gomnd
+		// the amount of time allowed to read request headers
+		ReadHeaderTimeout: 2 * time.Second, // nolint: gomnd
 	}
 
 	// start HTTP-server

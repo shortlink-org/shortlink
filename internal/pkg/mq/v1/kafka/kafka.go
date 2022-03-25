@@ -9,19 +9,19 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 )
 
-type Config struct { // nolint unused
+type Config struct { // nolint:unused
 	URI           []string // addresses of available kafka brokers
 	ConsumerGroup string
 }
 
-type Kafka struct { // nolint unused
+type Kafka struct { // nolint:decorder
 	*Config
 	client   sarama.Client
 	producer sarama.SyncProducer
 	consumer sarama.ConsumerGroup
 }
 
-func (mq *Kafka) Init(ctx context.Context) error { // nolint unparam
+func (mq *Kafka) Init(ctx context.Context) error { // nolint:unparam
 	var err error
 
 	// Set configuration

@@ -29,8 +29,7 @@ func (s *Store) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourci
 		return nil, err
 	}
 
-	var aggregates []*eventsourcing.BaseAggregate
-
+	var aggregates []*eventsourcing.BaseAggregate // nolint:prealloc
 	for rows.Next() {
 		var (
 			id            sql.NullString

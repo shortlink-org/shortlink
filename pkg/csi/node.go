@@ -68,6 +68,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 
 	if req.GetVolumeCapability().GetBlock() != nil &&
 		req.GetVolumeCapability().GetMount() != nil {
+
 		return nil, status.Error(codes.InvalidArgument, "cannot have both block and mount access type")
 	}
 
@@ -76,7 +77,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		return nil, status.Error(codes.NotFound, err.Error())
 	}
 
-	if req.GetVolumeCapability().GetBlock() != nil {
+	if req.GetVolumeCapability().GetBlock() != nil { // nolint:nestif
 		if vol.VolAccessType != blockAccess {
 			return nil, status.Error(codes.InvalidArgument, "cannot publish a non-block volume as block volume")
 		}
@@ -128,7 +129,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		notMnt, err := mount.New("").IsLikelyNotMountPoint(targetPath)
 		if err != nil {
 			if os.IsNotExist(err) {
-				if err = os.MkdirAll(targetPath, 0750); err != nil {
+				if err = os.MkdirAll(targetPath, 0o750); err != nil {
 					return nil, status.Error(codes.Internal, err.Error())
 				}
 				notMnt = true
@@ -177,7 +178,6 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 
 // NodeUnpublishVolume unmounts the volume from the target path
 func (d *driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublishVolumeRequest) (*csi.NodeUnpublishVolumeResponse, error) {
-
 	// Check arguments
 	if len(req.GetVolumeId()) == 0 {
 		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")
@@ -230,7 +230,6 @@ func (d *driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublish
 // volume to a staging path. Once mounted, NodePublishVolume will make sure to
 // mount it to the appropriate path
 func (d *driver) NodeStageVolume(ctx context.Context, req *csi.NodeStageVolumeRequest) (*csi.NodeStageVolumeResponse, error) {
-
 	// Check arguments
 	if len(req.GetVolumeId()) == 0 {
 		return nil, status.Error(codes.InvalidArgument, "Volume ID must be provided")

@@ -21,13 +21,13 @@ func NewEventID() uint32 {
 	return eventCounter.Load()
 }
 
-func Subscribe(event uint32, subscriber Subscriber) { // nolint unused
+func Subscribe(event uint32, subscriber Subscriber) { // nolint:unused
 	subsribers.Lock()
 	subsribers.subsribers[event] = append(subsribers.subsribers[event], subscriber)
 	subsribers.Unlock()
 }
 
-func UnSubscribe(event uint32, subscriber Subscriber) { // nolint unused
+func UnSubscribe(event uint32, subscriber Subscriber) { // nolint:unused
 	subsribers.Lock()
 	defer subsribers.Unlock()
 
@@ -44,7 +44,6 @@ func Publish(ctx context.Context, event uint32, payload interface{}, cb *Callbac
 	responses := map[string]Response{}
 	subsribers.RLock()
 	defer subsribers.RUnlock()
-
 	if len(subsribers.subsribers[event]) == 0 && cb != nil {
 		cb.CB <- nil
 	}
@@ -70,7 +69,7 @@ func Publish(ctx context.Context, event uint32, payload interface{}, cb *Callbac
 	}
 }
 
-func Clean() { // nolint unused
+func Clean() { // nolint:unused
 	subsribers = Notify{
 		subsribers: map[uint32][]Subscriber{},
 	}
