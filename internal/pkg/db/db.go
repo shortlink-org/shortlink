@@ -45,7 +45,7 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 		store.Store = &ram.Store{}
 	case "sqlite":
 		// disabled because it complicates cross-compilation
-		//store.Store = &sqlite.Store{}
+		// store.Store = &sqlite.Store{}
 		fallthrough
 	default:
 		store.Store = &ram.Store{}
@@ -63,7 +63,7 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 }
 
 // setConfig - set configuration
-func (s *Store) setConfig() { // nolint unused
+func (s *Store) setConfig() { // nolint:unused
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram
 	s.typeStore = viper.GetString("STORE_TYPE")

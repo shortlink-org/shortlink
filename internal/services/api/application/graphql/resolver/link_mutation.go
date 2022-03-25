@@ -8,11 +8,13 @@ import (
 )
 
 // CreateLink ...
-func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unused
+func (r *Resolver) CreateLink(ctx context.Context, args *struct { // nolint:unused
 	URL      *string
 	Hash     *string
 	Describe *string
-}) (*LinkResolver, error) {
+},
+) (*LinkResolver, error) {
+
 	newLink := &v1.Link{
 		Url:      *args.URL,
 		Hash:     *args.Hash,
@@ -31,11 +33,13 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct { //nolint unuse
 }
 
 // UpdateLink ...
-func (r *Resolver) UpdateLink(ctx context.Context, args *struct { //nolint unused
+func (r *Resolver) UpdateLink(ctx context.Context, args *struct { // nolint:unused
 	URL      *string
 	Hash     *string
 	Describe *string
-}) (*bool, error) {
+},
+) (*bool, error) {
+
 	updateLink := &v1.Link{
 		Url:      *args.URL,
 		Hash:     *args.Hash,
@@ -54,9 +58,11 @@ func (r *Resolver) UpdateLink(ctx context.Context, args *struct { //nolint unuse
 }
 
 // DeleteLink ...
-func (r *Resolver) DeleteLink(ctx context.Context, args *struct { //nolint unused
+func (r *Resolver) DeleteLink(ctx context.Context, args *struct { // nolint:unused
 	Hash *string
-}) (bool, error) {
+},
+) (bool, error) {
+
 	_, err := r.LinkServiceClient.Delete(ctx, &link_rpc.DeleteRequest{Hash: *args.Hash})
 	if err != nil {
 		return false, err

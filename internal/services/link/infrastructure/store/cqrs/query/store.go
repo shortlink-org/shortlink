@@ -18,7 +18,7 @@ import (
 )
 
 // New return implementation of db
-func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) { // nolint unused
+func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) { // nolint:unused
 	s := &Store{
 		log:   log,
 		cache: cache,
@@ -54,7 +54,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 	if filter.Pagination == nil {
 		filter.Pagination = &query.Pagination{
 			Page:  0,
-			Limit: 10,
+			Limit: 10, // nolint: gomnd
 		}
 	}
 
@@ -62,7 +62,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 }
 
 // setConfig - set configuration
-func (s *Store) setConfig() { // nolint unused
+func (s *Store) setConfig() { // nolint:unused
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "postgres") // Select: postgres
 	s.typeStore = viper.GetString("STORE_TYPE")

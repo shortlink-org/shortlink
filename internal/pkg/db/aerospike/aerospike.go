@@ -10,13 +10,13 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint unused
+type Config struct { // nolint:unused
 	host string
 	port int
 }
 
 // Store implementation of db interface
-type Store struct { // nolint unused
+type Store struct { // nolint:unused
 	client *aero.Client
 	config Config
 }
@@ -50,7 +50,7 @@ func (s *Store) Close() error {
 }
 
 // Migrate ...
-func (s *Store) migrate() error { // nolint unused
+func (s *Store) migrate() error { // nolint:unused
 	return nil
 }
 

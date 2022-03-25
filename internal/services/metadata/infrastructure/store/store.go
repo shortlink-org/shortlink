@@ -24,9 +24,9 @@ func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (*Met
 	// Subscribe to Event
 	notify.Subscribe(v1.METHOD_ADD, s)
 	notify.Subscribe(v1.METHOD_GET, s)
-	//notify.Subscribe(api_type.METHOD_LIST, store)
-	//notify.Subscribe(api_domain.METHOD_UPDATE, store)
-	//notify.Subscribe(api_domain.METHOD_DELETE, store)
+	// notify.Subscribe(api_type.METHOD_LIST, store)
+	// notify.Subscribe(api_domain.METHOD_UPDATE, store)
+	// notify.Subscribe(api_domain.METHOD_DELETE, store)
 
 	switch s.typeStore {
 	case "ram":
@@ -42,7 +42,7 @@ func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (*Met
 	return s, nil
 }
 
-func (s *MetaStore) setConfig() { // nolint unused
+func (s *MetaStore) setConfig() { // nolint:unused
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram, scylla, cassandra
 	s.typeStore = viper.GetString("STORE_TYPE")

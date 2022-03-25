@@ -12,6 +12,7 @@ func isExist(s []string, e string) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -21,6 +22,7 @@ func TrimQuotes(s string) string {
 			return s[1 : len(s)-1]
 		}
 	}
+
 	return s
 }
 
@@ -51,11 +53,12 @@ func GetDirectories(root string, skipDirs []string) ([]string, error) {
 	return dirs, nil
 }
 
-func SaveToFile(filename string, payload string) error {
+func SaveToFile(filename, payload string) error {
 	file, err := os.Create(filename) // #nosec
 	if err != nil {
 		return err
 	}
+
 	defer func() {
 		_ = file.Close()
 	}()

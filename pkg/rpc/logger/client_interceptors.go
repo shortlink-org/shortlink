@@ -5,10 +5,11 @@ import (
 	"path"
 	"time"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
+
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
 // UnaryClientInterceptor returns a new unary client interceptor that optionally logs the execution of external gRPC calls.
@@ -35,7 +36,14 @@ func UnaryClientInterceptor(logger logger.Logger) grpc.UnaryClientInterceptor {
 
 // StreamClientInterceptor returns a new streaming client interceptor that optionally logs the execution of external gRPC calls.
 func StreamClientInterceptor(logger logger.Logger) grpc.StreamClientInterceptor {
-	return func(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
+	return func(
+		ctx context.Context,
+		desc *grpc.StreamDesc,
+		cc *grpc.ClientConn,
+		method string,
+		streamer grpc.Streamer,
+		opts ...grpc.CallOption,
+	) (grpc.ClientStream, error) {
 		clientStream, err := streamer(ctx, desc, cc, method, opts...)
 		fields := field.Fields{
 			"grpc.service": path.Dir(method)[1:],

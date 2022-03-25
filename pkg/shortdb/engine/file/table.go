@@ -34,6 +34,6 @@ func (f *file) CreateTable(query *v1.Query) error {
 }
 
 func (f *file) DropTable(name string) error {
-	//TODO implement me
+	// TODO implement me
 	return nil
 }

@@ -36,12 +36,12 @@ func InitClient(log logger.Logger, tracer *opentracing.Tracer) (*grpc.ClientConn
 	isEnableLogger := viper.GetBool("GRPC_CLIENT_LOGGER_ENABLE")
 
 	// UnaryClien
-	var incerceptorUnaryClientList = []grpc.UnaryClientInterceptor{
+	incerceptorUnaryClientList := []grpc.UnaryClientInterceptor{
 		grpc_prometheus.UnaryClientInterceptor,
 	}
 
 	// StreamClient
-	var incerceptorStreamClientList = []grpc.StreamClientInterceptor{
+	incerceptorStreamClientList := []grpc.StreamClientInterceptor{
 		grpc_prometheus.StreamClientInterceptor,
 	}
 

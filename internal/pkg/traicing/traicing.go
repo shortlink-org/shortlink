@@ -32,7 +32,7 @@ func Init(cnf Config, log logger.Logger) (*opentracing.Tracer, io.Closer, error)
 		log.Warn("don't lookup Jaeger", field.Fields{"addr": cnf.URI})
 
 		t := &jaeger.Tracer{}
-		return nil, t, nil // nolint nilerr
+		return nil, t, nil // nolint:nilerr
 	}
 
 	cfg := &config.Configuration{
@@ -47,7 +47,11 @@ func Init(cnf Config, log logger.Logger) (*opentracing.Tracer, io.Closer, error)
 			LocalAgentHostPort: cnf.URI,
 		},
 	}
-	zapLogger := log.Get().(*zap.Logger)
+	zapLogger, ok := log.Get().(*zap.Logger)
+	if !ok {
+		return nil, nil, errors.New("incorrect type assertion")
+	}
+
 	tracer, closer, err := cfg.NewTracer(config.Logger(zapJaeger.NewLogger(zapLogger)))
 	if err != nil {
 		return nil, nil, err

@@ -130,7 +130,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 
 	// Need to check for already existing volume name, and if found
 	// check for the requested capacity and already allocated capacity
-	if exVol, err := getVolumeByName(req.GetName()); err == nil {
+	if exVol, err := getVolumeByName(req.GetName()); err == nil { // nolint:nestif
 		// Since err is nil, it means the volume with the same name already exists
 		// need to check if the size of existing volume is the same as in new
 		// request
@@ -245,7 +245,6 @@ func (d *driver) ControllerGetCapabilities(ctx context.Context, req *csi.Control
 }
 
 func (d *driver) ValidateVolumeCapabilities(ctx context.Context, req *csi.ValidateVolumeCapabilitiesRequest) (*csi.ValidateVolumeCapabilitiesResponse, error) {
-
 	// Check arguments
 	if len(req.GetVolumeId()) == 0 {
 		return nil, status.Error(codes.InvalidArgument, "Volume ID cannot be empty")
@@ -426,11 +425,11 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 	snapshot.Id = snapshotID
 	snapshot.VolID = volumeID
 	snapshot.Path = file
-	snapshot.CreationTime = *creationTime // nolint copylocks
+	snapshot.CreationTime = *creationTime // nolint:copylocks
 	snapshot.SizeBytes = hostPathVolume.VolSize
 	snapshot.ReadyToUse = true
 
-	hostPathVolumeSnapshots[snapshotID] = snapshot // nolint copylocks
+	hostPathVolumeSnapshots[snapshotID] = snapshot // nolint:copylocks
 
 	return &csi.CreateSnapshotResponse{
 		Snapshot: &csi.Snapshot{
@@ -479,16 +478,16 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	// case 1: SnapshotId is not empty, return snapshots that match the snapshot id.
 	if len(req.GetSnapshotId()) != 0 {
 		snapshotID := req.SnapshotId
-		if snapshot, ok := hostPathVolumeSnapshots[snapshotID]; ok { // nolint govet
-			return convertSnapshot(snapshot), nil // nolint copylocks
+		if snapshot, ok := hostPathVolumeSnapshots[snapshotID]; ok { // nolint:govet
+			return convertSnapshot(snapshot), nil // nolint:copylocks
 		}
 	}
 
 	// case 2: SourceVolumeId is not empty, return snapshots that match the source volume id.
 	if len(req.GetSourceVolumeId()) != 0 {
-		for _, snapshot := range hostPathVolumeSnapshots { // nolint copylocks
+		for _, snapshot := range hostPathVolumeSnapshots { // nolint:copylocks
 			if snapshot.VolID == req.SourceVolumeId {
-				return convertSnapshot(snapshot), nil // nolint copylocks
+				return convertSnapshot(snapshot), nil // nolint:copylocks
 			}
 		}
 	}
@@ -502,7 +501,7 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	sort.Strings(sortedKeys)
 
 	for _, key := range sortedKeys {
-		snap := hostPathVolumeSnapshots[key] // nolint copylocks
+		snap := hostPathVolumeSnapshots[key] // nolint:copylocks
 		snapshot := csi.Snapshot{
 			SnapshotId:     snap.Id,
 			SourceVolumeId: snap.VolID,
@@ -608,7 +607,7 @@ func (d *driver) ControllerExpandVolume(ctx context.Context, req *csi.Controller
 	}, nil
 }
 
-func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse { // nolint copylocks
+func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse { // nolint:copylocks
 	entries := []*csi.ListSnapshotsResponse_Entry{
 		{
 			Snapshot: &csi.Snapshot{

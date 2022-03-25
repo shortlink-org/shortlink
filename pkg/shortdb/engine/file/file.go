@@ -178,7 +178,7 @@ func (f *file) Close() error {
 	wg.Add(1)
 
 	// Write something
-	err = io_uring.WriteFile(path, payload, 0644, func(n int) {
+	err = io_uring.WriteFile(path, payload, 0o644, func(n int) {
 		defer wg.Done()
 		// handle n
 	})

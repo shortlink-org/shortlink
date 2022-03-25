@@ -18,7 +18,7 @@ func (c *Config) FeatureToogleRun() error {
 		unleash.WithListener(&unleash.DebugListener{}),
 		unleash.WithAppName(viper.GetString("SERVICE_NAME")),
 		unleash.WithUrl(viper.GetString("FEATURE_TOGGLE_API")),
-		unleash.WithRefreshInterval(10000),
+		unleash.WithRefreshInterval(10000), // nolint: gomnd
 	)
 	if err != nil {
 		return err

@@ -20,7 +20,7 @@ import (
 )
 
 var (
-	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint unused
+	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint:unused
 
 	//go:embed migrations/*.sql
 	migrations embed.FS
@@ -53,6 +53,7 @@ func (p *Store) Init(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+
 	cnfPool.ConnConfig = cnf
 
 	// Connect to Postgres
@@ -70,13 +71,13 @@ func (s *Store) GetConn() interface{} {
 }
 
 // Close ...
-func (p *Store) Close() error { // nolint unparam
+func (p *Store) Close() error { // nolint:unparam
 	p.client.Close()
 	return nil
 }
 
 // Migrate ...
-func (p *Store) migrate() error { // nolint unused
+func (p *Store) migrate() error { // nolint:unused
 	uri := strings.Join([]string{p.config.URI, "x-multi-statement=true"}, "&")
 
 	// Create connect

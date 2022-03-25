@@ -42,7 +42,8 @@ func (api *API) Run(
 	orderService *order_application.OrderService,
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
-) error { // nolint unparam
+) error { // nolint:unparam
+
 	api.ctx = ctx
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
@@ -59,8 +60,8 @@ func (api *API) Run(
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: true,
-		MaxAge:           300,
-		//Debug:            true,
+		MaxAge:           300, // nolint: gomnd
+		// Debug:            true,
 	})
 
 	r.Use(cors.Handler)
@@ -120,10 +121,12 @@ func (api *API) Run(
 		Addr:    fmt.Sprintf(":%d", config.Port),
 		Handler: r,
 
-		ReadTimeout:       1 * time.Second,                   // the maximum duration for reading the entire request, including the body
-		WriteTimeout:      (config.Timeout + 30*time.Second), // the maximum duration before timing out writes of the response
-		IdleTimeout:       30 * time.Second,                  // the maximum amount of time to wait for the next request when keep-alive is enabled
-		ReadHeaderTimeout: 2 * time.Second,                   // the amount of time allowed to read request headers
+		ReadTimeout:  1 * time.Second,                   // the maximum duration for reading the entire request, including the body
+		WriteTimeout: (config.Timeout + 30*time.Second), // the maximum duration before timing out writes of the response
+		// the maximum amount of time to wait for the next request when keep-alive is enabled
+		IdleTimeout: 30 * time.Second, // nolint: gomnd
+		// the amount of time allowed to read request headers
+		ReadHeaderTimeout: 2 * time.Second, // nolint: gomnd
 	}
 
 	// start HTTP-server

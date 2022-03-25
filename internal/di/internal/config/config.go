@@ -22,7 +22,7 @@ func New() (*Config, error) {
 		var typeErr viper.ConfigFileNotFoundError
 		if errors.As(err, &typeErr) {
 			// TODO: logger this fact
-			//return errors.New("The .env file has not been found in the current directory")
+			// return errors.New("The .env file has not been found in the current directory")
 			return nil, nil
 		} else {
 			return nil, err

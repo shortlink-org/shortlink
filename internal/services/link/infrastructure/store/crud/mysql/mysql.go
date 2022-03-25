@@ -36,7 +36,7 @@ func (m *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
-	defer stmt.Close() // nolint errcheck
+	defer stmt.Close() // nolint:errcheck
 
 	var response v1.Link
 	err = stmt.QueryRow(args...).Scan(&response.Url, &response.Hash, &response.Describe)
@@ -48,7 +48,7 @@ func (m *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List ...
-func (m *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) { // nolint unused
+func (m *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) { // nolint:unused
 	// query builder
 	links := squirrel.Select("url, hash, description").
 		From("links")
@@ -64,7 +64,7 @@ func (m *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 	if rows.Err() != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 	}
-	defer rows.Close() // nolint errcheck
+	defer rows.Close() // nolint:errcheck
 
 	response := &v1.Links{
 		Link: []*v1.Link{},

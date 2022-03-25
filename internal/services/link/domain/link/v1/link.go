@@ -27,9 +27,10 @@ func NewHash(url string) string {
 }
 
 // CreateHash return hash by getting link
-func CreateHash(str, secret []byte) string { // nolint unused
+func CreateHash(str, secret []byte) string { // nolint:unused
 	h := hmac.New(sha512.New, secret)
-	_, _ = h.Write(str) // nolint errcheck
+	_, _ = h.Write(str) // nolint:errcheck
 	sha := hex.EncodeToString(h.Sum(nil))
+
 	return sha
 }

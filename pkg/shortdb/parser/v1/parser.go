@@ -45,7 +45,7 @@ var reservedWords = []string{
 var (
 	r, _ = regexp.Compile("[a-zA-Z0-9]")
 
-	// typeFieldTable - list of support type fields of table
+	// TypeFieldTable - list of support type fields of table
 	typeFieldTable = []string{"int", "integer", "string", "text", "boolean", "bool"}
 )
 
@@ -76,7 +76,7 @@ func (p *Parser) Parse() (*v1.Query, error) {
 	return q, fmt.Errorf(p.Error)
 }
 
-func (p *Parser) doParse() (*v1.Query, error) { // nolint gocyclo
+func (p *Parser) doParse() (*v1.Query, error) { // nolint: gocyclo, gocognit
 	for {
 		if p.I >= int32(len(p.Sql)) {
 			return p.Query, fmt.Errorf(p.Error)
@@ -599,7 +599,7 @@ func (p *Parser) peekIdentifierStringWithLength() (string, int32) {
 	return p.Sql[p.I:], int32(len(p.Sql[p.I:]))
 }
 
-func (p *Parser) validate() error { // nolint gocyclo
+func (p *Parser) validate() error { // nolint:gocycl,gocognit
 	if p.Query == nil {
 		return nil
 	}

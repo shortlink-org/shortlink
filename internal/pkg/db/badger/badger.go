@@ -8,12 +8,12 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint unused
+type Config struct { // nolint:unused
 	Path string
 }
 
 // Store implementation of db interface
-type Store struct { // nolint unused
+type Store struct { // nolint:decorder
 	client *badger.DB
 	config Config
 }
@@ -44,7 +44,7 @@ func (b *Store) Close() error {
 }
 
 // Migrate ...
-func (b *Store) migrate() error { // nolint unused
+func (b *Store) migrate() error { // nolint:unused
 	return nil
 }
 

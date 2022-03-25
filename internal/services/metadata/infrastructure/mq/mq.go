@@ -55,7 +55,7 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload interface{}) n
 
 func (e *Event) add(ctx context.Context, payload interface{}) notify.Response {
 	// TODO: send []byte
-	msg := payload.(*metadata.Meta) // nolint errcheck
+	msg := payload.(*metadata.Meta) // nolint:errcheck
 	data, err := proto.Marshal(msg)
 	if err != nil {
 		return notify.Response{

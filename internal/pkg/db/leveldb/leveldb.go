@@ -8,24 +8,24 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint unused
+type Config struct { // nolint:unused
 	Path string
 }
 
 // Store implementation of db interface
-type Store struct { // nolint unused
+type Store struct { // nolint:decorder
 	client *leveldb.DB
 	config Config
 }
 
 // Init ...
-func (l *Store) Init(ctx context.Context) error {
+func (s *Store) Init(ctx context.Context) error {
 	var err error
 
 	// Set configuration
-	l.setConfig()
+	s.setConfig()
 
-	l.client, err = leveldb.OpenFile("/tmp/links.db", nil)
+	s.client, err = leveldb.OpenFile("/tmp/links.db", nil)
 	if err != nil {
 		return err
 	}
@@ -44,7 +44,7 @@ func (l *Store) Close() error {
 }
 
 // Migrate ...
-func (l *Store) migrate() error { // nolint unused
+func (l *Store) migrate() error { // nolint:unused
 	return nil
 }
 

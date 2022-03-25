@@ -39,12 +39,13 @@ func (api *API) Run(
 	log logger.Logger,
 	tracer *opentracing.Tracer,
 
-	// delivery
+	// Delivery
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
-) error { // nolint unparam
+) error { // nolint:unparam
+
 	api.ctx = ctx
 
 	log.Info("Run Cloud-Events API")

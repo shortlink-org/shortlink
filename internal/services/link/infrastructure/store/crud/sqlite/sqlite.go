@@ -14,7 +14,7 @@ import (
 )
 
 // Store implementation of db interface
-type Store struct { // nolint unused
+type Store struct { // nolint:unused
 	client *sql.DB
 }
 
@@ -42,7 +42,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
-	defer stmt.Close() // nolint errcheck
+	defer stmt.Close() // nolint:errcheck
 
 	var response v1.Link
 	err = stmt.QueryRowContext(ctx, args...).Scan(&response.Url, &response.Hash, &response.Describe)
@@ -67,7 +67,7 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 	if err != nil || rows.Err() != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
 	}
-	defer rows.Close() // nolint errcheck
+	defer rows.Close() // nolint:errcheck
 
 	response := &v1.Links{
 		Link: []*v1.Link{},

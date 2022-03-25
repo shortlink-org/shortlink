@@ -96,7 +96,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 func (m *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	collection := m.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) // nolint: gomnd
 	defer cancel()
 
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
@@ -115,10 +115,10 @@ func (m *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List ...
-func (m *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, error) { // nolint unused
+func (m *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, error) { // nolint:unused
 	collection := m.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) // nolint: gomnd
 	defer cancel()
 
 	// build Filter
@@ -172,7 +172,7 @@ func (m *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 func (m *Store) Delete(ctx context.Context, id string) error {
 	collection := m.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) // nolint: gomnd
 	defer cancel()
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
@@ -183,7 +183,7 @@ func (m *Store) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
-func (m *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, error) { // nolint unused
+func (m *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, error) { // nolint:unused
 	err := v1.NewURL(source)
 	if err != nil {
 		return nil, err
@@ -191,7 +191,7 @@ func (m *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 
 	collection := m.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) // nolint: gomnd
 	defer cancel()
 
 	_, err = collection.InsertOne(ctx, &source)
@@ -201,7 +201,7 @@ func (m *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 
 		if errors.As(err, &typeErr) {
 			switch typeErr.WriteErrors[0].Code {
-			case 11000:
+			case 11000: // nolint: gomnd
 				return nil, &v1.NotUniqError{Link: source, Err: fmt.Errorf("Duplicate URL: %s", source.Url)}
 			default:
 				return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
@@ -214,7 +214,7 @@ func (m *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 	return source, nil
 }
 
-func (m *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, error) { // nolint unused
+func (m *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, error) { // nolint:unused
 	docs := make([]interface{}, len(sources))
 
 	// Create a new link
@@ -229,7 +229,7 @@ func (m *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 
 	collection := m.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) // nolint: gomnd
 	defer cancel()
 
 	_, err := collection.InsertMany(ctx, docs)

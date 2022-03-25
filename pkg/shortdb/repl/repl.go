@@ -34,7 +34,7 @@ func New(s *session.Session) (*repl, error) {
 	}, nil
 }
 
-func (r *repl) Run() { // nolint gocyclo
+func (r *repl) Run() { // nolint:gocycl,gocognit
 	// load history
 	if err := r.init(); err != nil {
 		pterm.FgRed.Println(err)

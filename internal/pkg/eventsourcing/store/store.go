@@ -39,7 +39,7 @@ func (s *Repository) Use(ctx context.Context, log logger.Logger, db *db.Store) (
 }
 
 // setConfig - set configuration
-func (s *Repository) setConfig() { // nolint unused
+func (s *Repository) setConfig() { // nolint:unused
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres
 	s.typeStore = viper.GetString("STORE_TYPE")

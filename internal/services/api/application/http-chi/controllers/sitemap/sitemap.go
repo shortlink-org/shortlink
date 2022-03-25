@@ -37,7 +37,7 @@ func (h *Handler) Parse(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 
@@ -48,7 +48,7 @@ func (h *Handler) Parse(w http.ResponseWriter, r *http.Request) {
 	_, err = h.SitemapServiceClient.Parse(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 		return
 	}
 

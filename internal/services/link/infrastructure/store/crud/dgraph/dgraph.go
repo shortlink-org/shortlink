@@ -16,14 +16,14 @@ import (
 )
 
 // DGraphLink implementation of db interface
-type DGraphLink struct { // nolint unused
+type DGraphLink struct { // nolint:unused
 	Uid      string `json:"uid,omitempty"`
 	*v1.Link `json:"link,omitempty"`
 	DType    []string `json:"dgraph.type,omitempty"`
 }
 
 // DGraphLinkResponse ...
-type DGraphLinkResponse struct { // nolint unused
+type DGraphLinkResponse struct { // nolint:unused
 	Link []struct {
 		*v1.Link
 		Uid string `json:"uid,omitempty"`
@@ -31,7 +31,7 @@ type DGraphLinkResponse struct { // nolint unused
 }
 
 // Store ...
-type Store struct { // nolint unused
+type Store struct { // nolint:unused
 	client *dgo.Dgraph
 
 	logger logger.Logger
@@ -196,8 +196,8 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 		SetJson:   pb,
 		CommitNow: true,
 		// TODO: Add condition
-		//Cond: `@if(eq(len(hash), 1))`,
-		//SetNquads: []byte(fmt.Sprintf(`uid(hash) <hash> "%s" .`, data.Hash)),
+		// Cond: `@if(eq(len(hash), 1))`,
+		// SetNquads: []byte(fmt.Sprintf(`uid(hash) <hash> "%s" .`, data.Hash)),
 	}
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {

@@ -49,7 +49,7 @@ func (s *Store) Close() error {
 }
 
 // Migrate ...
-func (s *Store) migrate() error { // nolint unused
+func (s *Store) migrate() error { // nolint:unused
 	// Create connect
 	db, err := sql.Open("mysql", s.config.URI)
 	if err != nil {

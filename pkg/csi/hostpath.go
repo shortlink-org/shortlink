@@ -42,9 +42,9 @@ const (
 	kib    int64 = 1024
 	mib    int64 = kib * 1024
 	gib    int64 = mib * 1024
-	gib100 int64 = gib * 100 // nolint unused
+	gib100 int64 = gib * 100 // nolint:unused
 	tib    int64 = gib * 1024
-	tib100 int64 = tib * 100 // nolint unused
+	tib100 int64 = tib * 100 // nolint:unused
 )
 
 type hostPathVolume struct {
@@ -140,7 +140,7 @@ func (d *driver) Run(ctx context.Context) error {
 		"socket": grpcAddr,
 	})
 	err = os.Remove(grpcAddr)
-	if err != nil && !os.IsNotExist(err) { // nolint copylocks
+	if err != nil && !os.IsNotExist(err) { // nolint:copylocks
 		return fmt.Errorf("failed to remove unix domain socket file %s, error: %w", grpcAddr, err)
 	}
 
@@ -209,9 +209,9 @@ func getVolumeByName(volName string) (hostPathVolume, error) {
 }
 
 func getSnapshotByName(name string) (hostPathSnapshot, error) {
-	for _, snapshot := range hostPathVolumeSnapshots { // nolint copylocks
+	for _, snapshot := range hostPathVolumeSnapshots { // nolint:copylocks
 		if snapshot.Name == name {
-			return snapshot, nil // nolint copylocks
+			return snapshot, nil // nolint:copylocks
 		}
 	}
 	return hostPathSnapshot{}, fmt.Errorf("snapshot name %s does not exist in the snapshots list", name)
@@ -229,7 +229,7 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 
 	switch volAccessType {
 	case mountAccess:
-		err := os.MkdirAll(path, 0777) // #nosec
+		err := os.MkdirAll(path, 0o777) // #nosec
 		if err != nil {
 			return nil, err
 		}
@@ -286,7 +286,7 @@ func deleteHostpathVolume(volID string) error {
 	vol, err := getVolumeByID(volID)
 	if err != nil {
 		// Return OK if the volume is not found.
-		return nil // nolint nilerr
+		return nil // nolint:nilerr
 	}
 
 	if vol.VolAccessType == blockAccess {
@@ -333,7 +333,7 @@ func hostPathIsEmpty(p string) (bool, error) {
 
 // loadFromSnapshot populates the given destPath with data from the snapshotID
 func loadFromSnapshot(size int64, snapshotId, destPath string, mode accessType) error {
-	snapshot, ok := hostPathVolumeSnapshots[snapshotId] // nolint govet
+	snapshot, ok := hostPathVolumeSnapshots[snapshotId] // nolint:govet
 	if !ok {
 		return status.Errorf(codes.NotFound, "cannot find snapshot %v", snapshotId)
 	}

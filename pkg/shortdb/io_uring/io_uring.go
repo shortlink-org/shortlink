@@ -18,7 +18,7 @@ extern int pop_request();
 extern int queue_submit(int);
 extern void queue_exit();
 */
-import "C" // nolint typecheck
+import "C" // nolint:typecheck
 import (
 	"bytes"
 	"fmt"
@@ -41,7 +41,7 @@ var (
 )
 
 //export read_callback
-func read_callback(iovecs *C.struct_iovec, length C.int, fd C.int) {
+func read_callback(iovecs *C.struct_iovec, length, fd C.int) {
 	// Here be dragons.
 	intLen := int(length)
 	slice := (*[1 << 28]C.struct_iovec)(unsafe.Pointer(iovecs))[:intLen:intLen] // #nosec
@@ -61,7 +61,7 @@ func read_callback(iovecs *C.struct_iovec, length C.int, fd C.int) {
 }
 
 //export write_callback
-func write_callback(written C.int, fd C.int) {
+func write_callback(written, fd C.int) {
 	cbMut.Lock()
 	_ = cbMap[uintptr(fd)].close()
 	cbMap[uintptr(fd)].writeCb(int(written))
@@ -75,6 +75,7 @@ func Init() error {
 	if ret < 0 {
 		return fmt.Errorf("%v", syscall.Errno(-ret))
 	}
+
 	globalMut.Lock()
 	quitChan = make(chan struct{})
 	pollChan = make(chan struct{})
@@ -82,7 +83,9 @@ func Init() error {
 	submitChan = make(chan *request)
 	cbMap = make(map[uintptr]cbInfo)
 	globalMut.Unlock()
+
 	go startLoop()
+
 	return nil
 }
 
@@ -104,7 +107,7 @@ func Err() <-chan error {
 	return errChan
 }
 
-func startLoop() {
+func startLoop() { // nolint:gocognit nolint:gocognit
 	queueSize := 0
 	for {
 		select {
@@ -224,6 +227,7 @@ func submitAndPop(queueSize int) {
 		ret := int(C.pop_request())
 		if ret != 0 {
 			errChan <- fmt.Errorf("error while popping: %v", syscall.Errno(-ret))
+
 			if syscall.Errno(-ret) != syscall.EAGAIN { // Do not decrement if nothing was read.
 				queueSize--
 			}

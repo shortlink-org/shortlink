@@ -45,7 +45,7 @@ func New(logger logger.Logger, paymentRepository event_store.EventStore) (*Payme
 
 func (p *PaymentService) Handle(ctx context.Context, aggregate *Payment, command *eventsourcing.BaseCommand) error {
 	// Check update or create
-	if command.Version != 0 {
+	if command.Version != 0 { // nolint:nestif
 		snapshot, events, errLoad := p.paymentRepository.Load(ctx, command.AggregateId)
 		if errLoad != nil {
 			return errLoad
@@ -124,7 +124,7 @@ func (p *PaymentService) Get(ctx context.Context, aggregateId string) (*billing.
 
 func (p *PaymentService) List(ctx context.Context, filter interface{}) ([]*billing.Payment, error) {
 	panic("implement me")
-	//return p.paymentRepository.List(ctx, filter)
+	// return p.paymentRepository.List(ctx, filter)
 }
 
 func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error {

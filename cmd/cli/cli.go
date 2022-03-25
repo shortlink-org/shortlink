@@ -76,9 +76,9 @@ func main() {
 	skipDirs := strings.Split(excludeDirs, ",")
 
 	for _, dir := range findDirs {
-		resp, err := tool.GetDirectories(dir, skipDirs)
-		if err != nil {
-			fmt.Println(err)
+		resp, errGetDirectories := tool.GetDirectories(dir, skipDirs)
+		if errGetDirectories != nil {
+			fmt.Println(errGetDirectories)
 			return
 		}
 
@@ -99,7 +99,7 @@ func main() {
 }
 
 //gocyclo:ignore
-func (*Config) setConfigDocs(path string, config *Config) {
+func (*Config) setConfigDocs(path string, config *Config) { // nolint:gocognit
 	fset := token.NewFileSet()
 	pkgs, err := parser.ParseDir(fset, path, nil, parser.ParseComments)
 	if err != nil {
@@ -110,8 +110,7 @@ func (*Config) setConfigDocs(path string, config *Config) {
 		for fileName, file := range pkg.Files {
 			pterm.Success.Printf("working on file %v\n", fileName)
 			ast.Inspect(file, func(n ast.Node) bool {
-				if stmt, ok := n.(*ast.ExprStmt); ok {
-
+				if stmt, ok := n.(*ast.ExprStmt); ok { // nolint:nestif
 					ast.Inspect(stmt.X, func(n ast.Node) bool {
 						if x, ok := n.(*ast.CallExpr); ok {
 							if fun, ok := x.Fun.(*ast.SelectorExpr); ok {
@@ -119,7 +118,7 @@ func (*Config) setConfigDocs(path string, config *Config) {
 									if ident.Name == "viper" && fun.Sel.Name == "SetDefault" {
 										env := ENV{
 											pos:      x.Args[0].(*ast.BasicLit).Pos(),
-											fileName: fileName,
+											fileName: fileName, // nolint:scopelint
 											key:      x.Args[0].(*ast.BasicLit).Value,
 										}
 

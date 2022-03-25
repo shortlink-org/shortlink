@@ -8,7 +8,7 @@ type Pagination struct {
 	Limit int
 }
 
-type Filter struct { // nolint unused
+type Filter struct { // nolint:unused
 	Pagination *Pagination
 	Search *StringFilterInput
 {{- range $type := .File.MessageType}}
@@ -17,7 +17,7 @@ type Filter struct { // nolint unused
 {{- end}}{{- end}}
 }
 
-type StringFilterInput struct { // nolint unused
+type StringFilterInput struct { // nolint:unused
 {{- range $command := $commands }}
 	{{$command}} *string
 {{- end}}

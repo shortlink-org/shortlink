@@ -13,7 +13,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-type chilogger struct { // nolint unused
+type chilogger struct { // nolint:unused
 	logZ logger.Logger
 }
 
@@ -32,7 +32,7 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 
 		latency := time.Since(start)
 
-		var fields = field.Fields{
+		fields := field.Fields{
 			"status":  ww.Status(),
 			"took":    latency,
 			"remote":  r.RemoteAddr,
