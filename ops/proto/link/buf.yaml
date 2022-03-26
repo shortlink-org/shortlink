@@ -3,7 +3,7 @@ version: v1beta1
 name: buf.build/batazor/shortlink
 
 deps:
-  - buf.build/beta/googleapis
+  - buf.build/googleapis/googleapis
   - buf.build/srikrsna/protoc-gen-gotag
 
 build:
