@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/dashboard | kubernetes-dashboard | 5.2.0 |
+| https://kubernetes.github.io/dashboard | kubernetes-dashboard | 5.3.1 |
 
 ## Values
 

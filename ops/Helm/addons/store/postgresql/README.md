@@ -14,15 +14,20 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 11.1.3 |
+| https://charts.bitnami.com/bitnami | postgresql | 11.1.9 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| postgresql.auth.database | string | `"shortlink"` |  |
+| postgresql.auth.password | string | `"shortlink"` |  |
+| postgresql.auth.postgresPassword | string | `"shortlink"` |  |
+| postgresql.auth.username | string | `"postgres"` |  |
 | postgresql.enabled | bool | `true` |  |
 | postgresql.global.postgresql.auth.database | string | `"shortlink"` |  |
 | postgresql.global.postgresql.auth.password | string | `"shortlink"` |  |
+| postgresql.global.postgresql.auth.postgresPassword | string | `"shortlink"` |  |
 | postgresql.global.postgresql.auth.username | string | `"postgres"` |  |
 | postgresql.metrics.enabled | bool | `true` |  |
 | postgresql.metrics.prometheusRule.enabled | bool | `true` |  |
