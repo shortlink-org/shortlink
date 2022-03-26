@@ -1,5 +1,6 @@
 include:
   - template: Security/SAST.gitlab-ci.yml
+  - template: Security/SAST-IaC.latest.gitlab-ci.yml
 
 # SAST =================================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/sast/
