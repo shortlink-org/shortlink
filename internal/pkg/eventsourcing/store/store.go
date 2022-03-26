@@ -14,7 +14,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
 
-//gocyclo:ignore
 // Use return implementation of db
 func (s *Repository) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Repository, error) {
 	// Set configuration
@@ -39,7 +38,7 @@ func (s *Repository) Use(ctx context.Context, log logger.Logger, db *db.Store) (
 }
 
 // setConfig - set configuration
-func (s *Repository) setConfig() { // nolint:unused
+func (s *Repository) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres
 	s.typeStore = viper.GetString("STORE_TYPE")

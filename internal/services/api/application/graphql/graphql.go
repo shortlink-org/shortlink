@@ -24,7 +24,7 @@ import (
 )
 
 //go:embed schema/*.graphqls
-var schema embed.FS // nolint
+var schema embed.FS
 
 // API ...
 type API struct {
@@ -94,7 +94,7 @@ func (api *API) Run(
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
-) error { // nolint:unparam
+) error {
 
 	api.ctx = ctx
 	api.linkServiceClient = link_rpc

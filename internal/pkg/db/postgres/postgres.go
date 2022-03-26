@@ -20,7 +20,7 @@ import (
 )
 
 var (
-	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint:unused
+	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
 	//go:embed migrations/*.sql
 	migrations embed.FS
@@ -71,13 +71,13 @@ func (s *Store) GetConn() interface{} {
 }
 
 // Close ...
-func (p *Store) Close() error { // nolint:unparam
+func (p *Store) Close() error {
 	p.client.Close()
 	return nil
 }
 
 // Migrate ...
-func (p *Store) migrate() error { // nolint:unused
+func (p *Store) migrate() error {
 	uri := strings.Join([]string{p.config.URI, "x-multi-statement=true"}, "&")
 
 	// Create connect

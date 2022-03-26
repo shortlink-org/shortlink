@@ -13,7 +13,7 @@ import (
 )
 
 // Store implementation of db interface
-type Store struct { // nolint:unused
+type Store struct {
 	client *redis.Client
 }
 
@@ -22,6 +22,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 	s := &Store{
 		client: db.Store.GetConn().(*redis.Client),
 	}
+
 	return s, nil
 }
 
@@ -41,7 +42,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List ...
-func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) { // nolint:unused
+func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
 	keys := s.client.Keys(ctx, "*")
 	links := &v1.Links{
 		Link: []*v1.Link{},

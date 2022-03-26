@@ -13,7 +13,7 @@ import (
 func New(_ context.Context, cb func([]*Item) interface{}) (*Config, error) {
 	cnf := Config{
 		cb:       cb,
-		Interval: time.Millisecond * 100, // nolint: gomnd
+		Interval: time.Millisecond * 100, // nolint:gomnd
 	}
 
 	return &cnf, nil

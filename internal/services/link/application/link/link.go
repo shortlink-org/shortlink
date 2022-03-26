@@ -58,6 +58,7 @@ func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error 
 		}
 
 		logger.ErrorWithContext(ctx, "Error create a new link", errList)
+
 		return fmt.Errorf("Error create a new link")
 	}
 
@@ -85,6 +86,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 		Then(func(ctx context.Context) error {
 			var err error
 			resp, err = s.store.Get(ctx, hash)
+
 			return err
 		}).
 		Build()
@@ -126,6 +128,7 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 		Then(func(ctx context.Context) error {
 			var err error
 			resp, err = s.store.List(ctx, &filter)
+
 			return err
 		}).
 		Build()
@@ -163,6 +166,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		Then(func(ctx context.Context) error {
 			var err error
 			_, err = s.store.Add(ctx, in)
+
 			return err
 		}).
 		Build()
@@ -176,6 +180,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
 				Id: in.Url,
 			})
+
 			return err
 		}).
 		Build()

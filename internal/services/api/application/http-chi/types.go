@@ -7,7 +7,7 @@ import (
 )
 
 // API ...
-type API struct { // nolint:unused
+type API struct {
 	ctx    context.Context
 	jsonpb protojson.MarshalOptions
 }

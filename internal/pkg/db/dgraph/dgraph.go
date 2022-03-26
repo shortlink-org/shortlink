@@ -15,7 +15,7 @@ import (
 )
 
 // DGraphLink implementation of db interface
-type DGraphLink struct { // nolint:unused
+type DGraphLink struct {
 	Uid      string `json:"uid,omitempty"`
 	*v1.Link `json:"link,omitempty"`
 	DType    []string `json:"dgraph.type,omitempty"`
@@ -79,7 +79,7 @@ func (s *Store) Close() error {
 }
 
 // Migrate - init structure
-func (s *Store) migrate(ctx context.Context) error { // nolint:unused
+func (s *Store) migrate(ctx context.Context) error {
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {

@@ -87,6 +87,7 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 		span.SetTag("message", err.Error())
 
 		errReject := s.Reject(initSteps)
+
 		return errReject
 	}
 
@@ -97,6 +98,7 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 		if errGetVertex != nil {
 			span.SetTag("error", true)
 			span.SetTag("message", err.Error())
+
 			return errGetVertex
 		}
 
@@ -113,6 +115,7 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	if err != nil {
 		span.SetTag("error", true)
 		span.SetTag("message", err.Error())
+
 		return err
 	}
 

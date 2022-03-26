@@ -31,11 +31,13 @@ func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*GetLinkRespo
 			return nil, err
 		}
 		response := r.Payload.(*v1.Link) // nolint:errcheck
+
 		return &GetLinkResponse{
 			Link: response,
 		}, nil
 	default:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+
 		return nil, err
 	}
 }
@@ -95,11 +97,13 @@ func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*Create
 			return nil, err
 		}
 		response := r.Payload.(*v1.Link) // nolint:errcheck
+
 		return &CreateLinkResponse{
 			Link: response,
 		}, nil
 	default:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
+
 		return nil, err
 	}
 }
@@ -123,6 +127,7 @@ func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*empty.
 		if err != nil {
 			return nil, err
 		}
+
 		return &empty.Empty{}, nil
 	default:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")

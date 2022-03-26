@@ -57,6 +57,7 @@ func (e *Event) Subscribe() {
 			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
 				e.log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				msg.Context.Done()
+
 				continue
 			}
 

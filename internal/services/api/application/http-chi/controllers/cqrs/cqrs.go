@@ -45,6 +45,7 @@ func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	if hash == "" {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint:errcheck
+
 		return
 	}
 
@@ -56,11 +57,13 @@ func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+
 		return
 	}
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+
 		return
 	}
 
@@ -68,6 +71,7 @@ func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+
 		return
 	}
 
@@ -88,11 +92,13 @@ func (h *Handler) GetByAllCQRS(w http.ResponseWriter, r *http.Request) {
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+
 		return
 	}
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+
 		return
 	}
 
@@ -100,6 +106,7 @@ func (h *Handler) GetByAllCQRS(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+
 		return
 	}
 

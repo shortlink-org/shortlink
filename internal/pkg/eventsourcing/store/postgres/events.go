@@ -37,6 +37,7 @@ func (s *Store) addEvent(ctx context.Context, event *eventsourcing.Event) error 
 	if errScan.Error() != "" {
 		span.SetTag("error", true)
 		span.SetTag("message", errScan.Error())
+
 		return errScan
 	}
 

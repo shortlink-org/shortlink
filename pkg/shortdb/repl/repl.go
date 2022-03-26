@@ -34,7 +34,7 @@ func New(s *session.Session) (*repl, error) {
 	}, nil
 }
 
-func (r *repl) Run() { // nolint:gocycl,gocognit
+func (r *repl) Run() { // nolint:gocyclo,gocognit
 	// load history
 	if err := r.init(); err != nil {
 		pterm.FgRed.Println(err)
@@ -84,6 +84,7 @@ func (r *repl) Run() { // nolint:gocycl,gocognit
 				}
 
 				pterm.FgYellow.Println("Good buy!")
+
 				return
 			case ".open":
 				if err := r.open(t); err != nil {
@@ -131,5 +132,6 @@ func completer(in prompt.Document) []prompt.Suggest {
 	if w == "" {
 		return []prompt.Suggest{}
 	}
+
 	return prompt.FilterHasPrefix(suggestions, w, true)
 }

@@ -13,6 +13,7 @@ func (c amqpHeadersCarrier) ForeachKey(handler func(key, val string) error) erro
 			return err
 		}
 	}
+
 	return nil
 }
 

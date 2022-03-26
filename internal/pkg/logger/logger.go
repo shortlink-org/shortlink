@@ -31,7 +31,7 @@ func NewLogger(loggerInstance int, config Configuration) (Logger, error) {
 	return log, nil
 }
 
-func validateConfig(config *Configuration) { // nolint:unused
+func validateConfig(config *Configuration) {
 	if config.Writer == nil {
 		config.Writer = os.Stdout
 	}

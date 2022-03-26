@@ -111,7 +111,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		Ctx:   ctx,
 		Key:   fmt.Sprintf(`link:%s`, id),
 		Value: &response,
-		TTL:   5 * time.Minute, // nolint: gomnd
+		TTL:   5 * time.Minute, // nolint:gomnd
 	})
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())
@@ -124,7 +124,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 	if filter.Pagination == nil {
 		filter.Pagination = &query.Pagination{
 			Page:  0,
-			Limit: 10, // nolint: gomnd
+			Limit: 10, // nolint:gomnd
 		}
 	}
 
@@ -156,7 +156,7 @@ func (s *Store) Update(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		Ctx:   ctx,
 		Key:   fmt.Sprintf(`link:%s`, in.Hash),
 		Value: &response,
-		TTL:   5 * time.Minute, // nolint: gomnd
+		TTL:   5 * time.Minute, // nolint:gomnd
 	})
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())
@@ -181,7 +181,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 }
 
 // setConfig - set configuration
-func (s *Store) setConfig() { // nolint:unused
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram
 	s.typeStore = viper.GetString("STORE_TYPE")

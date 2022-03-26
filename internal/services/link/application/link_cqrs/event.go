@@ -31,6 +31,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 			if err != nil {
 				s.logger.ErrorWithContext(ctx, err.Error())
 			}
+
 			return notify.Response{}
 		}
 	case link.METHOD_UPDATE:
@@ -39,6 +40,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 			if err != nil {
 				s.logger.ErrorWithContext(ctx, err.Error())
 			}
+
 			return notify.Response{}
 		}
 	case link.METHOD_DELETE:
@@ -47,6 +49,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 			if err != nil {
 				s.logger.ErrorWithContext(ctx, err.Error())
 			}
+
 			return notify.Response{}
 		}
 	case metadata.METHOD_ADD:
@@ -57,6 +60,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 			if err != nil {
 				s.logger.ErrorWithContext(ctx, err.Error())
 			}
+
 			return notify.Response{}
 		}
 	default:

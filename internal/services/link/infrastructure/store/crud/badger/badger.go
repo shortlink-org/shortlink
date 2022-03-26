@@ -12,7 +12,7 @@ import (
 )
 
 // Store implementation of db interface
-type Store struct { // nolint:unused
+type Store struct {
 	client *badger.DB
 }
 
@@ -154,5 +154,6 @@ func (b *Store) Delete(ctx context.Context, id string) error {
 		err := txn.Delete([]byte(id))
 		return err
 	})
+
 	return err
 }

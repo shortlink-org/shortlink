@@ -66,9 +66,8 @@ func NewControllerServer(nodeID string) *controllerServer {
 	}
 }
 
-//gocyclo:ignore
 // CreateVolume creates a new volume from the given request. The function is idempotent.
-func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest) (*csi.CreateVolumeResponse, error) {
+func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest) (*csi.CreateVolumeResponse, error) { // nolint:gocognit,maintidx
 	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME); err != nil {
 		d.log.Error(fmt.Sprintf("invalid create snapshot req: %v", req))
 		return nil, err
@@ -171,7 +170,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 	}
 	d.log.InfoWithContext(ctx, fmt.Sprintf("created volume %s at path %s", vol.VolID, vol.VolPath))
 
-	if req.GetVolumeContentSource() != nil {
+	if req.GetVolumeContentSource() != nil { // nolint:nestif
 		path := getVolumePath(volumeID)
 		volumeSource := req.VolumeContentSource
 		switch volumeSource.Type.(type) {
@@ -192,6 +191,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 			if delErr := deleteHostpathVolume(volumeID); delErr != nil {
 				d.log.InfoWithContext(ctx, fmt.Sprintf("deleting hostpath volume %v failed: %v", volumeID, delErr))
 			}
+
 			return nil, err
 		}
 		d.log.InfoWithContext(ctx, fmt.Sprintf("successfully populated volume %s", vol.VolID))
@@ -342,7 +342,7 @@ func (d *driver) ListVolumes(ctx context.Context, req *csi.ListVolumesRequest) (
 	})
 
 	if req.StartingToken != "" {
-		_, err := strconv.ParseInt(req.StartingToken, 10, 32)
+		_, err := strconv.ParseInt(req.StartingToken, 10, 32) // nolint:gomnd
 		if err != nil {
 			return nil, status.Errorf(codes.Aborted, "ListVolumes starting token %q is not valid: %s", req.StartingToken, err)
 		}
@@ -391,6 +391,7 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 				},
 			}, nil
 		}
+
 		return nil, status.Errorf(codes.AlreadyExists, "snapshot with the same name: %s but with different SourceVolumeId already exist", req.GetName())
 	}
 
@@ -425,11 +426,11 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 	snapshot.Id = snapshotID
 	snapshot.VolID = volumeID
 	snapshot.Path = file
-	snapshot.CreationTime = *creationTime // nolint:copylocks
+	snapshot.CreationTime = *creationTime
 	snapshot.SizeBytes = hostPathVolume.VolSize
 	snapshot.ReadyToUse = true
 
-	hostPathVolumeSnapshots[snapshotID] = snapshot // nolint:copylocks
+	hostPathVolumeSnapshots[snapshotID] = snapshot
 
 	return &csi.CreateSnapshotResponse{
 		Snapshot: &csi.Snapshot{
@@ -461,10 +462,10 @@ func (d *driver) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequ
 		return nil, err
 	}
 	delete(hostPathVolumeSnapshots, snapshotID)
+
 	return &csi.DeleteSnapshotResponse{}, nil
 }
 
-//gocyclo:ignore
 // ListSnapshots returns the information about all snapshots on the storage
 // system within the given parameters regardless of how they were created.
 // ListSnapshots shold not list a snapshot that is being created but has not
@@ -479,15 +480,15 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	if len(req.GetSnapshotId()) != 0 {
 		snapshotID := req.SnapshotId
 		if snapshot, ok := hostPathVolumeSnapshots[snapshotID]; ok { // nolint:govet
-			return convertSnapshot(snapshot), nil // nolint:copylocks
+			return convertSnapshot(snapshot), nil
 		}
 	}
 
 	// case 2: SourceVolumeId is not empty, return snapshots that match the source volume id.
 	if len(req.GetSourceVolumeId()) != 0 {
-		for _, snapshot := range hostPathVolumeSnapshots { // nolint:copylocks
+		for _, snapshot := range hostPathVolumeSnapshots {
 			if snapshot.VolID == req.SourceVolumeId {
-				return convertSnapshot(snapshot), nil // nolint:copylocks
+				return convertSnapshot(snapshot), nil
 			}
 		}
 	}
@@ -501,7 +502,7 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	sort.Strings(sortedKeys)
 
 	for _, key := range sortedKeys {
-		snap := hostPathVolumeSnapshots[key] // nolint:copylocks
+		snap := hostPathVolumeSnapshots[key]
 		snapshot := csi.Snapshot{
 			SnapshotId:     snap.Id,
 			SourceVolumeId: snap.VolID,
@@ -519,7 +520,7 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	)
 
 	if v := req.StartingToken; v != "" {
-		i, err := strconv.ParseUint(v, 10, 32)
+		i, err := strconv.ParseUint(v, 10, 32) // nolint:gomnd
 		if err != nil {
 			return nil, status.Errorf(
 				codes.Aborted,
@@ -607,7 +608,7 @@ func (d *driver) ControllerExpandVolume(ctx context.Context, req *csi.Controller
 	}, nil
 }
 
-func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse { // nolint:copylocks
+func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse {
 	entries := []*csi.ListSnapshotsResponse_Entry{
 		{
 			Snapshot: &csi.Snapshot{

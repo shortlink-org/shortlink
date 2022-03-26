@@ -20,6 +20,7 @@ func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error 
 		}
 
 		logger.ErrorWithContext(ctx, "Error create a new link", errList)
+
 		return fmt.Errorf("Error create a new link")
 	}
 
@@ -47,6 +48,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 		Then(func(ctx context.Context) error {
 			var err error
 			resp, err = s.queryStore.Get(ctx, hash)
+
 			return err
 		}).
 		Build()
@@ -88,6 +90,7 @@ func (s *Service) List(ctx context.Context, filter *query.Filter) (*domain.Links
 		Then(func(ctx context.Context) error {
 			var err error
 			resp, err = s.queryStore.List(ctx, filter)
+
 			return err
 		}).
 		Build()

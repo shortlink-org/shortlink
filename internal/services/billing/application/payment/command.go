@@ -27,6 +27,7 @@ func CommandPaymentCreate(ctx context.Context, in *billing.Payment) (*eventsourc
 	if err != nil {
 		span.SetTag("error", true)
 		span.SetTag("message", err.Error())
+
 		return nil, err
 	}
 
@@ -52,6 +53,7 @@ func CommandPaymentUpdateBalance(ctx context.Context, in *billing.Payment) (*eve
 	if err != nil {
 		span.SetTag("error", true)
 		span.SetTag("message", err.Error())
+
 		return nil, err
 	}
 
@@ -79,6 +81,7 @@ func CommandPaymentClose(ctx context.Context, in *billing.Payment) (*eventsourci
 	if err != nil {
 		span.SetTag("error", true)
 		span.SetTag("message", err.Error())
+
 		return nil, err
 	}
 
@@ -106,6 +109,7 @@ func CommandPaymentApprove(ctx context.Context, in *billing.Payment) (*eventsour
 	if err != nil {
 		span.SetTag("error", true)
 		span.SetTag("message", err.Error())
+
 		return nil, err
 	}
 
@@ -133,6 +137,7 @@ func CommandPaymentReject(ctx context.Context, in *billing.Payment) (*eventsourc
 	if err != nil {
 		span.SetTag("error", true)
 		span.SetTag("message", err.Error())
+
 		return nil, err
 	}
 

@@ -209,7 +209,7 @@ func (mq *RabbitMQ) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("MQ_RABBIT_URI", "amqp://localhost:5672") // RabbitMQ URI
 	// RabbitMQ reconnects after delay seconds
-	viper.SetDefault("MQ_RECONNECT_DELAY_SECONDS", 3) // nolint: gomnd
+	viper.SetDefault("MQ_RECONNECT_DELAY_SECONDS", 3) // nolint:gomnd
 
 	mq.URI = viper.GetString("MQ_RABBIT_URI")
 	mq.reconnectTime = viper.GetInt("MQ_RECONNECT_DELAY_SECONDS")

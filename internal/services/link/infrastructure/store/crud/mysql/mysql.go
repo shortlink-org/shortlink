@@ -18,6 +18,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 	s := &Store{
 		client: db.Store.GetConn().(*sqlx.DB),
 	}
+
 	return s, nil
 }
 
@@ -48,7 +49,7 @@ func (m *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List ...
-func (m *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) { // nolint:unused
+func (m *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
 	// query builder
 	links := squirrel.Select("url, hash, description").
 		From("links")

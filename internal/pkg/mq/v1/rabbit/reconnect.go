@@ -43,6 +43,7 @@ func (c *Connection) Channel() (*Channel, error) {
 				if err != nil {
 					c.log.Error(err.Error())
 				}
+
 				break
 			}
 			c.log.Error(fmt.Sprintf("channel closed, reason: %v", reason))
@@ -56,6 +57,7 @@ func (c *Connection) Channel() (*Channel, error) {
 				if err == nil {
 					c.log.Info("channel recreate success")
 					channel.Channel = ch
+
 					break
 				}
 
@@ -99,6 +101,7 @@ func (mq *RabbitMQ) Dial() error {
 				if err == nil {
 					mq.conn.Connection = conn
 					mq.log.Info("reconnect success")
+
 					break
 				}
 

@@ -69,9 +69,11 @@ func (b *Bot) Send(message string) error {
 
 // setConfig - set configuration
 func (b *Bot) setConfig() {
+	const BOT_TELEGRAM_CHAT_ID = 123
+
 	viper.AutomaticEnv()
 	viper.SetDefault("BOT_TELEGRAM_WEBHOOK", "YOUR_WEBHOOK_URL_HERE") // Your webhook URL
-	viper.SetDefault("BOT_TELEGRAM_CHAT_ID", 123)                     // Your chat ID
+	viper.SetDefault("BOT_TELEGRAM_CHAT_ID", BOT_TELEGRAM_CHAT_ID)    // Your chat ID
 	viper.SetDefault("BOT_TELEGRAM_DEBUG_MODE", false)                // Debug mode
 
 	b.webhook = viper.GetString("BOT_TELEGRAM_WEBHOOK")

@@ -9,9 +9,9 @@ import (
 
 const (
 	// Zap implementation
-	Zap int = iota // nolint:unused
+	Zap int = iota
 	// Logrus implementation
-	Logrus // nolint:unused
+	Logrus
 )
 
 // Logger is our contract for the logger
@@ -44,17 +44,17 @@ type Logger interface { // nolint:decorder
 const (
 	// FatalLevel level. Logs and then calls `logger.Exit(1)`. It will exit even if the
 	// logging level is set to Panic.
-	FATAL_LEVEL int = iota // nolint:unused
+	FATAL_LEVEL int = iota
 	// ErrorLevel level. Logs. Used for errors that should definitely be noted.
 	// Commonly used for hooks to send errors to an error tracking service.
-	ERROR_LEVEL // nolint:unused
+	ERROR_LEVEL
 	// WarnLevel level. Non-critical entries that deserve eyes.
-	WARN_LEVEL // nolint:unused
+	WARN_LEVEL
 	// InfoLevel level. General operational entries about what's going on inside the
 	// application.
-	INFO_LEVEL // nolint:unused
+	INFO_LEVEL
 	// DebugLevel level. Usually only enabled when debugging. Very verbose logging.
-	DEBUG_LEVEL // nolint:unused
+	DEBUG_LEVEL
 )
 
 // Configuration - options for logger

@@ -16,14 +16,14 @@ import (
 )
 
 // DGraphLink implementation of db interface
-type DGraphLink struct { // nolint:unused
+type DGraphLink struct {
 	Uid      string `json:"uid,omitempty"`
 	*v1.Link `json:"link,omitempty"`
 	DType    []string `json:"dgraph.type,omitempty"`
 }
 
 // DGraphLinkResponse ...
-type DGraphLinkResponse struct { // nolint:unused
+type DGraphLinkResponse struct {
 	Link []struct {
 		*v1.Link
 		Uid string `json:"uid,omitempty"`
@@ -31,7 +31,7 @@ type DGraphLinkResponse struct { // nolint:unused
 }
 
 // Store ...
-type Store struct { // nolint:unused
+type Store struct {
 	client *dgo.Dgraph
 
 	logger logger.Logger

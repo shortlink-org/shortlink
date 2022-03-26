@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-type Publisher interface { // nolint:unused
+type Publisher interface {
 	Subscribe(event *int, subscriber Subscriber)
 	UnSubscribe(subscriber Subscriber)
 }

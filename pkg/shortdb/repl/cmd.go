@@ -71,7 +71,7 @@ func (r *repl) close() error {
 	}()
 
 	// Save last 100 record
-	if len(r.session.History) > 100 {
+	if len(r.session.History) > 100 { // nolint:gomnd
 		r.session.History = r.session.History[100:]
 	}
 
@@ -90,10 +90,11 @@ func (r *repl) close() error {
 
 func (r *repl) open(t string) error {
 	s := strings.Split(t, " ")
-	if len(s) != 2 {
+	if len(s) != 2 { // nolint:gomnd
 		return fmt.Errorf("")
 	}
 
 	r.session.CurrentDatabase = s[1]
+
 	return nil
 }

@@ -28,6 +28,7 @@ func Receive(_ context.Context, event cloudevents.Event) error {
 	fmt.Printf("Got Data: %+v\n", data)
 
 	fmt.Printf("----------------------------\n")
+
 	return nil
 }
 
@@ -44,7 +45,7 @@ func (api *API) Run(
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
-) error { // nolint:unparam
+) error {
 
 	api.ctx = ctx
 

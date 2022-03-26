@@ -65,7 +65,7 @@ func (m *Store) Close() error {
 }
 
 // Migrate ...
-func (m *Store) migrate() error { // nolint:unused
+func (m *Store) migrate() error {
 	driver, err := iofs.New(migrations, "migrations")
 	if err != nil {
 		return err

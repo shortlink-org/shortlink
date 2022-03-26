@@ -165,12 +165,12 @@ func (api API) Run(
 	log logger.Logger,
 	tracer *opentracing.Tracer,
 
-	// delivery
+	// Delivery
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
-) error { // nolint:unparam
+) error {
 
 	log.Info("Run go-kit API")
 
@@ -226,6 +226,7 @@ func decodeAddListRequest(_ context.Context, r *http.Request) (interface{}, erro
 	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
 		return nil, err
 	}
+
 	return &request, nil
 }
 

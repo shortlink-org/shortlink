@@ -43,7 +43,7 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) {
 }
 
 // setConfig - set configuration
-func (mq *DataBus) setConfig() { // nolint:unused
+func (mq *DataBus) setConfig() {
 	viper.SetDefault("MQ_TYPE", "rabbitmq") // Select: kafka, rabbitmq, nats
 	mq.typeMQ = viper.GetString("MQ_TYPE")
 }

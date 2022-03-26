@@ -10,13 +10,13 @@ import (
 type API struct{}
 
 // getRequest ...
-type getRequest struct { // nolint:unused
+type getRequest struct {
 	Hash     string
 	Describe string
 }
 
 // ResponseLink for custom JSON parsing
-type ResponseLink struct { // nolint:unused
+type ResponseLink struct {
 	*v1.Link
 }
 

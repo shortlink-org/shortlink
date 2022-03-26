@@ -15,7 +15,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint:unused
+var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
 // New ...
 func New(ctx context.Context, db *db.Store) (*Store, error) {
