@@ -22,7 +22,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://k8s.ory.sh/helm/charts | kratos | 0.21.8 |
+| https://k8s.ory.sh/helm/charts | kratos | 0.22.2 |
 
 ## Values
 
@@ -165,7 +165,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
 | service.port | int | `7070` |  |
 | service.type | string | `"ClusterIP"` |  |
-| serviceAccount.create | bool | `true` |  |
+| serviceAccount.create | bool | `false` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
 
 ----------------------------------------------

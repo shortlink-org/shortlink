@@ -14,7 +14,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 6.23.1 |
+| https://grafana.github.io/helm-charts | grafana | 6.24.1 |
 | https://grafana.github.io/helm-charts | loki | 2.10.1 |
 | https://grafana.github.io/helm-charts | promtail | 3.11.0 |
 | https://grafana.github.io/helm-charts | tempo | 0.14.2 |
@@ -23,7 +23,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| grafana."grafana.ini".server.root_url | string | `"http://localhost:3000/grafana"` |  |
+| grafana."grafana.ini".server.root_url | string | `"https://shortlink.ddns.net/grafana"` |  |
 | grafana.adminPassword | string | `"shortlink"` |  |
 | grafana.dashboardProviders."dashboardproviders.yaml".apiVersion | int | `1` |  |
 | grafana.dashboardProviders."dashboardproviders.yaml".providers[0].disableDeletion | bool | `false` |  |
