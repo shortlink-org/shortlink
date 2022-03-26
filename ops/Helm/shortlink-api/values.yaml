@@ -173,12 +173,18 @@ external_database:
 kratos:
   enabled: true
 
+  image:
+    tag: v0.9.0
+
   kratos:
     config:
       dsn: memory
 
       identity:
-        default_schema_url: file://identity.schema.json
+        default_schema_id: default
+        schemas:
+          - id: default
+            url: file:///etc/config/identity.default.schema.json
 
       serve:
         public:
@@ -213,7 +219,7 @@ kratos:
 
       selfservice:
         default_browser_return_url: http://127.0.0.1:3000/next/
-        whitelisted_return_urls:
+        allowed_return_urls:
           - http://127.0.0.1:3000
 
         methods:
@@ -323,7 +329,7 @@ kratos:
 
     #  You can add multiple identity schemas here
     identitySchemas:
-      "identity.schema.json": |
+      "identity.default.schema.json": |
         {
           "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
           "$schema": "http://json-schema.org/draft-07/schema#",
