@@ -3,12 +3,15 @@
 # This file contains the configuration for your Kratos container.
 # Reference: https://www.ory.sh/kratos/docs/reference/configuration
 
-version: v0.6.3-alpha.1
+version: v0.9.0-alpha.3
 
 dsn: memory
 
 identity:
-  default_schema_url: file:///etc/config/kratos/identity.schema.json
+  default_schema_id: default
+  schemas:
+    - id: default
+      url: file:///etc/config/kratos/identity.schema.json
 
 serve:
   public:
@@ -42,7 +45,7 @@ session:
 
 selfservice:
   default_browser_return_url: http://127.0.0.1:3000/next/
-  whitelisted_return_urls:
+  allowed_return_urls:
     - http://127.0.0.1:3000
 
   methods:

@@ -37,8 +37,13 @@ ingress:
       hosts:
         - shortlink.ddns.net
 
+# ==============================================================================
 deploy:
   replicaCount: 1
+
+  env:
+    API_URI: http://api-shortlink-api.shortlink:7070
+    PROXY_URI: http://proxy-shortlink-proxy.shortlink:3030
 
   imagePullSecrets: []
 
