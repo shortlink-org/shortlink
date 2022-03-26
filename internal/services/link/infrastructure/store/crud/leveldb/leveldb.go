@@ -13,7 +13,7 @@ import (
 )
 
 // Store implementation of db interface
-type Store struct { // nolint:unused
+type Store struct {
 	client *leveldb.DB
 }
 
@@ -22,6 +22,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 	s := &Store{
 		client: db.Store.GetConn().(*leveldb.DB),
 	}
+
 	return s, nil
 }
 

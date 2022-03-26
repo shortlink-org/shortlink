@@ -21,7 +21,7 @@ type EventStore interface {
 }
 
 // Store abstract type
-type Repository struct { // nolint:unused
+type Repository struct {
 	typeStore string
 
 	// Base interface

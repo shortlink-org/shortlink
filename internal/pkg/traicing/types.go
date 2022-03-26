@@ -1,7 +1,7 @@
 package traicing
 
 // Config ...
-type Config struct { // nolint:unused
+type Config struct {
 	ServiceName string
 	URI         string
 }

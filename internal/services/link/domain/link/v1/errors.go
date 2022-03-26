@@ -5,7 +5,7 @@ import (
 )
 
 // NotFoundError - not found link
-type NotFoundError struct { // nolint:unused
+type NotFoundError struct {
 	Link *Link
 	Err  error
 }

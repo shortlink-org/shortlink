@@ -5,7 +5,7 @@ import (
 )
 
 // Config - base configuration for API
-type Config struct { // nolint:unused
+type Config struct {
 	Port    int
 	Timeout time.Duration
 }

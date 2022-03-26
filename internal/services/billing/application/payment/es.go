@@ -12,7 +12,6 @@ import (
 )
 
 // ApplyChange to payment
-//gocyclo:ignore
 func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 	switch t := event.Type; {
 	case t == billing.Event_EVENT_PAYMENT_CREATED.String():
@@ -117,6 +116,7 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 	if err != nil {
 		span.SetTag("error", true)
 		span.SetTag("message", err.Error())
+
 		return err
 	}
 

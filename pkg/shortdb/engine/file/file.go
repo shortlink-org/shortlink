@@ -25,9 +25,11 @@ type file struct {
 }
 
 func New(opts ...options.Option) (*file, error) {
+	const SHORTDB_PAGE_SIZE = 2
+
 	viper.AutomaticEnv()
 	viper.SetDefault("SHORTDB_DEFAULT_DATABASE", "public.db") // ShortDB default database
-	viper.SetDefault("SHORTDB_PAGE_SIZE", 2)                  // ShortDB default page of size
+	viper.SetDefault("SHORTDB_PAGE_SIZE", SHORTDB_PAGE_SIZE)  // ShortDB default page of size
 
 	var err error
 	f := &file{
@@ -178,10 +180,13 @@ func (f *file) Close() error {
 	wg.Add(1)
 
 	// Write something
-	err = io_uring.WriteFile(path, payload, 0o644, func(n int) {
+	err = io_uring.WriteFile(path, payload, 0o644, func(n int) { // nolint:gomnd
 		defer wg.Done()
 		// handle n
 	})
+	if err != nil {
+		return err
+	}
 
 	// Call Poll to let the kernel know to read the entries.
 	io_uring.Poll()

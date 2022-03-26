@@ -19,7 +19,7 @@ import (
 )
 
 // API - general describe of API
-type API interface { // nolint:unused
+type API interface {
 	Run(
 		ctx context.Context,
 		db *db.Store,
@@ -53,9 +53,9 @@ func (s *Server) Use(
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi
 	// API port
-	viper.SetDefault("API_PORT", 7070) // nolint: gomnd
+	viper.SetDefault("API_PORT", 7070) // nolint:gomnd
 	// Request Timeout (seconds)
-	viper.SetDefault("API_TIMEOUT", 60) // nolint: gomnd
+	viper.SetDefault("API_TIMEOUT", 60) // nolint:gomnd
 
 	config := api_type.Config{
 		Port:    viper.GetInt("API_PORT"),

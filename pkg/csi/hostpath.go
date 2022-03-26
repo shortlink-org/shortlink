@@ -42,9 +42,9 @@ const (
 	kib    int64 = 1024
 	mib    int64 = kib * 1024
 	gib    int64 = mib * 1024
-	gib100 int64 = gib * 100 // nolint:unused
+	gib100 int64 = gib * 100
 	tib    int64 = gib * 1024
-	tib100 int64 = tib * 100 // nolint:unused
+	tib100 int64 = tib * 100
 )
 
 type hostPathVolume struct {
@@ -88,17 +88,18 @@ func init() {
 }
 
 func getSnapshotID(file string) (bool, string) {
-	glog.V(4).Infof("file: %s", file)
+	glog.V(4).Infof("file: %s", file) // nolint:gomnd
 	// Files with .snap extension are volumesnapshot files.
 	// e.g. foo.snap, foo.bar.snap
 	if filepath.Ext(file) == snapshotExt {
 		return true, strings.TrimSuffix(file, snapshotExt)
 	}
+
 	return false, ""
 }
 
 func discoverExistingSnapshots() {
-	glog.V(4).Infof("discovering existing snapshots in %s", dataRoot)
+	glog.V(4).Infof("discovering existing snapshots in %s", dataRoot) // nolint:gomnd
 	files, err := ioutil.ReadDir(dataRoot)
 	if err != nil {
 		glog.Errorf("failed to discover snapshots under %s: %v", dataRoot, err)
@@ -106,7 +107,7 @@ func discoverExistingSnapshots() {
 	for _, file := range files {
 		isSnapshot, snapshotID := getSnapshotID(file.Name())
 		if isSnapshot {
-			glog.V(4).Infof("adding snapshot %s from file %s", snapshotID, getSnapshotPath(snapshotID))
+			glog.V(4).Infof("adding snapshot %s from file %s", snapshotID, getSnapshotPath(snapshotID)) // nolint:gomnd
 			hostPathVolumeSnapshots[snapshotID] = hostPathSnapshot{
 				Id:         snapshotID,
 				Path:       getSnapshotPath(snapshotID),
@@ -140,7 +141,7 @@ func (d *driver) Run(ctx context.Context) error {
 		"socket": grpcAddr,
 	})
 	err = os.Remove(grpcAddr)
-	if err != nil && !os.IsNotExist(err) { // nolint:copylocks
+	if err != nil && !os.IsNotExist(err) {
 		return fmt.Errorf("failed to remove unix domain socket file %s, error: %w", grpcAddr, err)
 	}
 
@@ -157,6 +158,7 @@ func (d *driver) Run(ctx context.Context) error {
 				"method": info.FullMethod,
 			})
 		}
+
 		return resp, err
 	}
 
@@ -186,6 +188,7 @@ func (d *driver) Run(ctx context.Context) error {
 			d.readyMu.Unlock()
 			d.srv.GracefulStop()
 		}()
+
 		return d.srv.Serve(grpcListener)
 	})
 
@@ -196,6 +199,7 @@ func getVolumeByID(volumeID string) (hostPathVolume, error) {
 	if hostPathVol, ok := hostPathVolumes[volumeID]; ok {
 		return hostPathVol, nil
 	}
+
 	return hostPathVolume{}, fmt.Errorf("volume id %s does not exist in the volumes list", volumeID)
 }
 
@@ -205,15 +209,17 @@ func getVolumeByName(volName string) (hostPathVolume, error) {
 			return hostPathVol, nil
 		}
 	}
+
 	return hostPathVolume{}, fmt.Errorf("volume name %s does not exist in the volumes list", volName)
 }
 
 func getSnapshotByName(name string) (hostPathSnapshot, error) {
-	for _, snapshot := range hostPathVolumeSnapshots { // nolint:copylocks
+	for _, snapshot := range hostPathVolumeSnapshots {
 		if snapshot.Name == name {
-			return snapshot, nil // nolint:copylocks
+			return snapshot, nil
 		}
 	}
+
 	return hostPathSnapshot{}, fmt.Errorf("snapshot name %s does not exist in the snapshots list", name)
 }
 
@@ -229,6 +235,7 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 
 	switch volAccessType {
 	case mountAccess:
+		// nolint:gomnd
 		err := os.MkdirAll(path, 0o777) // #nosec
 		if err != nil {
 			return nil, err
@@ -250,6 +257,7 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 			if err2 := os.Remove(path); err2 != nil {
 				glog.Errorf("failed to cleanup block file %s: %v", path, err2)
 			}
+
 			return nil, fmt.Errorf("failed to attach device %v: %w", path, err)
 		}
 	default:
@@ -264,24 +272,26 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 		VolAccessType: volAccessType,
 	}
 	hostPathVolumes[volID] = hostpathVol
+
 	return &hostpathVol, nil
 }
 
 // updateVolume updates the existing hostpath volume.
 func updateHostpathVolume(volID string, volume hostPathVolume) error {
-	glog.V(4).Infof("updating hostpath volume: %s", volID)
+	glog.V(4).Infof("updating hostpath volume: %s", volID) // nolint:gomnd
 
 	if _, err := getVolumeByID(volID); err != nil {
 		return err
 	}
 
 	hostPathVolumes[volID] = volume
+
 	return nil
 }
 
 // deleteVolume deletes the directory for the hostpath volume.
 func deleteHostpathVolume(volID string) error {
-	glog.V(4).Infof("deleting hostpath volume: %s", volID)
+	glog.V(4).Infof("deleting hostpath volume: %s", volID) // nolint:gomnd
 
 	vol, err := getVolumeByID(volID)
 	if err != nil {
@@ -299,7 +309,7 @@ func deleteHostpathVolume(volID string) error {
 
 		if device != "" {
 			// Remove any associated loop device.
-			glog.V(4).Infof("deleting loop device %s", device)
+			glog.V(4).Infof("deleting loop device %s", device) // nolint:gomnd
 			err = volPathHandler.RemoveMapPath(device)
 			if err != nil {
 				return fmt.Errorf("failed to remove loop device %v: %w", device, err)
@@ -312,6 +322,7 @@ func deleteHostpathVolume(volID string) error {
 		return err
 	}
 	delete(hostPathVolumes, volID)
+
 	return nil
 }
 
@@ -328,6 +339,7 @@ func hostPathIsEmpty(p string) (bool, error) {
 	if errors.Is(err, io.EOF) {
 		return true, nil
 	}
+
 	return false, err
 }
 
@@ -359,6 +371,7 @@ func loadFromSnapshot(size int64, snapshotId, destPath string, mode accessType) 
 	if err != nil {
 		return status.Errorf(codes.Internal, "failed pre-populate data from snapshot %v: %v: %s", snapshotId, err, out)
 	}
+
 	return nil
 }
 
@@ -401,6 +414,7 @@ func loadFromFilesystemVolume(hostPathVolume hostPathVolume, destPath string) er
 			return status.Errorf(codes.Internal, "failed pre-populate data from volume %v: %v: %s", hostPathVolume.VolID, err, out)
 		}
 	}
+
 	return nil
 }
 
@@ -412,5 +426,6 @@ func loadFromBlockVolume(hostPathVolume hostPathVolume, destPath string) error {
 	if err != nil {
 		return status.Errorf(codes.Internal, "failed pre-populate data from volume %v: %v: %s", hostPathVolume.VolID, err, out)
 	}
+
 	return nil
 }

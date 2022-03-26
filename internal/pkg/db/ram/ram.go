@@ -9,7 +9,7 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint:unused
+type Config struct {
 	mode int // Type write mode. single or batch
 }
 
@@ -37,7 +37,7 @@ func (_ *Store) Close() error {
 }
 
 // Migrate ...
-func (_ *Store) migrate() error { // nolint:unused
+func (_ *Store) migrate() error {
 	return nil
 }
 

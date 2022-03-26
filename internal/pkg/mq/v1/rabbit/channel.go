@@ -45,6 +45,7 @@ func (ch *Channel) Consume(queue, consumer string, autoAck, exclusive, noLocal, 
 			if err != nil {
 				ch.log.Error(fmt.Errorf("consume failed, err: %w", err).Error())
 				time.Sleep(time.Duration(ch.delay) * time.Second)
+
 				continue
 			}
 

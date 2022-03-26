@@ -32,6 +32,7 @@ func Init(cnf Config, log logger.Logger) (*opentracing.Tracer, io.Closer, error)
 		log.Warn("don't lookup Jaeger", field.Fields{"addr": cnf.URI})
 
 		t := &jaeger.Tracer{}
+
 		return nil, t, nil // nolint:nilerr
 	}
 

@@ -69,6 +69,7 @@ func (e *Event) add(ctx context.Context, payload interface{}) notify.Response {
 		Key:     nil,
 		Payload: data,
 	})
+
 	return notify.Response{
 		Name:    "RESPONSE_MQ_ADD",
 		Payload: nil,

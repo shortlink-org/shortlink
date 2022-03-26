@@ -20,7 +20,7 @@ type Store struct {
 	Events
 }
 
-var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar) // nolint:unused
+var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
 func (s *Store) Init(ctx context.Context, db *db.Store) error {
 	s.db = db.Store.GetConn().(*pgxpool.Pool)

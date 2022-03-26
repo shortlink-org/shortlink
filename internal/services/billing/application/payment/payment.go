@@ -135,6 +135,7 @@ func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error 
 		}
 
 		logger.ErrorWithContext(ctx, "Error create a new payment", errList)
+
 		return fmt.Errorf("Error create a new payment")
 	}
 

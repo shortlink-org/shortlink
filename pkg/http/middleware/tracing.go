@@ -18,6 +18,7 @@ func NewTracing(tracer *opentracing.Tracer, options ...nethttp.MWOption) func(ne
 	var t TracingMiddleware
 	t.tracer = tracer
 	t.options = options
+
 	return t.handler
 }
 

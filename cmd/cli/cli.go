@@ -98,7 +98,6 @@ func main() {
 	}
 }
 
-//gocyclo:ignore
 func (*Config) setConfigDocs(path string, config *Config) { // nolint:gocognit
 	fset := token.NewFileSet()
 	pkgs, err := parser.ParseDir(fset, path, nil, parser.ParseComments)

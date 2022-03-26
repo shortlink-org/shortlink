@@ -55,7 +55,7 @@ func (s *BillingStore) Use(ctx context.Context, log logger.Logger, db *db.Store)
 	return s, nil
 }
 
-func (s *BillingStore) setConfig() { // nolint:unused
+func (s *BillingStore) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "postgres") // Select: postgres
 	s.typeStore = viper.GetString("STORE_TYPE")

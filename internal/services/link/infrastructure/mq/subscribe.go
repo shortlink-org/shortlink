@@ -32,6 +32,7 @@ func (e *Event) SubscribeNewLink() error {
 			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
 				e.log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				msg.Context.Done()
+
 				continue
 			}
 
@@ -66,6 +67,7 @@ func (e *Event) SubscribeCQRSNewLink() error {
 			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
 				e.log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				msg.Context.Done()
+
 				continue
 			}
 
@@ -98,6 +100,7 @@ func (e *Event) SubscribeCQRSGetMetadata() {
 			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
 				e.log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				msg.Context.Done()
+
 				continue
 			}
 

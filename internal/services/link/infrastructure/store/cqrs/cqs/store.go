@@ -18,7 +18,7 @@ import (
 )
 
 // New return implementation of db
-func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) { // nolint:unused
+func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) {
 	s := &Store{
 		log:   log,
 		cache: cache,
@@ -63,7 +63,7 @@ func (s *Store) MetadataUpdate(ctx context.Context, data *metadata.Meta) (*metad
 }
 
 // setConfig - set configuration
-func (s *Store) setConfig() { // nolint:unused
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "postgres") // Select: postgres
 	s.typeStore = viper.GetString("STORE_TYPE")

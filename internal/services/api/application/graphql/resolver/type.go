@@ -1,6 +1,6 @@
 package resolver
 
-type StringFilterInput struct { // nolint:unused
+type StringFilterInput struct {
 	Ne          *string
 	Eq          *string
 	Le          *string

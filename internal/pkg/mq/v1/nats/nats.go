@@ -8,14 +8,14 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 )
 
-type Config struct{} // nolint:unused
+type Config struct{}
 
 type NATS struct { // nolint:decorder
 	*Config
 	client *nats.Conn
 }
 
-func (mq *NATS) Init(ctx context.Context) error { // nolint:unparam
+func (mq *NATS) Init(ctx context.Context) error {
 	var err error
 
 	// Connect to a server
@@ -24,7 +24,7 @@ func (mq *NATS) Init(ctx context.Context) error { // nolint:unparam
 	return err
 }
 
-func (mq *NATS) Close() error { // nolint:unparam
+func (mq *NATS) Close() error {
 	mq.client.Close()
 	return nil
 }
@@ -44,7 +44,7 @@ func (mq *NATS) Subscribe(target string, message query.Response) error {
 		return err
 	}
 
-	ch := make(chan *nats.Msg, 64) // nolint: gomnd
+	ch := make(chan *nats.Msg, 64) // nolint:gomnd
 	_, err = mq.client.ChanSubscribe(string(message.Key), ch)
 
 	if err != nil {

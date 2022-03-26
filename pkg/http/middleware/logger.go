@@ -13,7 +13,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-type chilogger struct { // nolint:unused
+type chilogger struct {
 	logZ logger.Logger
 }
 
@@ -49,5 +49,6 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 
 		c.logZ.Info("request completed", fields)
 	}
+
 	return http.HandlerFunc(fn)
 }

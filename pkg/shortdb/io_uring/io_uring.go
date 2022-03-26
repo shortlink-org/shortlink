@@ -104,10 +104,11 @@ func Cleanup() {
 func Err() <-chan error {
 	globalMut.RLock()
 	defer globalMut.RUnlock()
+
 	return errChan
 }
 
-func startLoop() { // nolint:gocognit nolint:gocognit
+func startLoop() { // nolint:gocognit
 	queueSize := 0
 	for {
 		select {
@@ -188,6 +189,7 @@ func ReadFile(path string, cb func(buf []byte)) error {
 		size:   fi.Size(),
 		readCb: cb,
 	}
+
 	return nil
 }
 
@@ -205,6 +207,7 @@ func WriteFile(path string, data []byte, perm os.FileMode, cb func(written int))
 		f:       f,
 		writeCb: cb,
 	}
+
 	return nil
 }
 
@@ -231,6 +234,7 @@ func submitAndPop(queueSize int) {
 			if syscall.Errno(-ret) != syscall.EAGAIN { // Do not decrement if nothing was read.
 				queueSize--
 			}
+
 			continue
 		}
 		queueSize--

@@ -73,10 +73,11 @@ func (p *Parser) Parse() (*v1.Query, error) {
 			p.Error = errValidate.Error()
 		}
 	}
+
 	return q, fmt.Errorf(p.Error)
 }
 
-func (p *Parser) doParse() (*v1.Query, error) { // nolint: gocyclo, gocognit
+func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maintidx
 	for {
 		if p.I >= int32(len(p.Sql)) {
 			return p.Query, fmt.Errorf(p.Error)
@@ -324,6 +325,7 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint: gocyclo, gocognit
 			} else if commaRWord == "ASC" || commaRWord == "DESC" {
 				p.pop()
 				p.Query.OrderDir[len(p.Query.OrderDir)-1] = commaRWord
+
 				continue
 			}
 			p.Step = Step_STEP_ORDER_FIELD
@@ -347,7 +349,7 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint: gocyclo, gocognit
 			p.pop()
 			op1 := p.pop()
 			op1split := strings.Split(op1, ".")
-			if len(op1split) != 2 {
+			if len(op1split) != 2 { // nolint:gomnd
 				return p.Query, fmt.Errorf("at ON: expected <tablename>.<fieldname>")
 			}
 			currentCondition := &v1.JoinCondition{LTable: op1split[0], LOperand: op1split[1]}
@@ -361,7 +363,7 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint: gocyclo, gocognit
 			p.pop()
 			op2 := p.pop()
 			op2split := strings.Split(op2, ".")
-			if len(op2split) != 2 {
+			if len(op2split) != 2 { // nolint:gomnd
 				return p.Query, fmt.Errorf("at ON: expected <tablename>.<fieldname>")
 			}
 			currentCondition.RTable = op2split[0]
@@ -548,6 +550,7 @@ func (p *Parser) pop() string {
 	peeked, len := p.peekWithLength()
 	p.I += len
 	p.popWhitespace()
+
 	return peeked
 }
 
@@ -582,6 +585,7 @@ func (p *Parser) peekQuotedStringWithLength() (string, int32) {
 
 	for i := p.I + 1; i < int32(len(p.Sql)); i++ {
 		if p.Sql[i] == '\'' && p.Sql[i-1] != '\\' {
+			// nolint:gomnd
 			return p.Sql[p.I+1 : i], int32(len(p.Sql[p.I+1:i]) + 2) // +2 for the two quotes
 		}
 	}
@@ -599,7 +603,7 @@ func (p *Parser) peekIdentifierStringWithLength() (string, int32) {
 	return p.Sql[p.I:], int32(len(p.Sql[p.I:]))
 }
 
-func (p *Parser) validate() error { // nolint:gocycl,gocognit
+func (p *Parser) validate() error { // nolint:gocyclo,gocognit
 	if p.Query == nil {
 		return nil
 	}
@@ -657,6 +661,7 @@ func isIdentifier(s string) bool {
 	}
 
 	matched, _ := regexp.MatchString("[a-zA-Z_][a-zA-Z_0-9]*", s)
+
 	return matched
 }
 
@@ -668,6 +673,7 @@ func min(a, b int) int {
 	if a < b {
 		return a
 	}
+
 	return b
 }
 

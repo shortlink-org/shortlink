@@ -80,6 +80,7 @@ func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapsh
 	if errScan.Error() != "" {
 		span.SetTag("error", true)
 		span.SetTag("message", errScan.Error())
+
 		return errScan
 	}
 

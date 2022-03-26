@@ -40,6 +40,7 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 	if errScan.Error() != "" {
 		span.SetTag("error", true)
 		span.SetTag("message", errScan.Error())
+
 		return errScan
 	}
 
@@ -63,6 +64,7 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 	if err != nil {
 		span.SetTag("error", true)
 		span.SetTag("message", err.Error())
+
 		return err
 	}
 
@@ -70,6 +72,7 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 	if err != nil {
 		span.SetTag("error", true)
 		span.SetTag("message", err.Error())
+
 		return err
 	}
 

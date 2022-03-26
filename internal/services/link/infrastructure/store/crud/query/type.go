@@ -8,7 +8,7 @@ type Pagination struct {
 	Limit int
 }
 
-type Filter struct { // nolint:unused
+type Filter struct {
 	Pagination *Pagination
 	Search     *StringFilterInput
 	Url        *StringFilterInput
@@ -19,7 +19,7 @@ type Filter struct { // nolint:unused
 	Link       *StringFilterInput
 }
 
-type StringFilterInput struct { // nolint:unused
+type StringFilterInput struct {
 	Eq          *string
 	Ne          *string
 	Lt          *string

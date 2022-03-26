@@ -13,7 +13,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/tracer"
 )
 
-type zapLogger struct { // nolint:unused
+type zapLogger struct {
 	logger *zap.Logger
 }
 

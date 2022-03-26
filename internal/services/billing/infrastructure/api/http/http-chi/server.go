@@ -37,12 +37,12 @@ func (api *API) Run(
 	log logger.Logger,
 	tracer *opentracing.Tracer,
 
-	// services
+	// Services
 	accountService *account_application.AccountService,
 	orderService *order_application.OrderService,
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
-) error { // nolint:unparam
+) error {
 
 	api.ctx = ctx
 	api.jsonpb = protojson.MarshalOptions{
@@ -60,7 +60,7 @@ func (api *API) Run(
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: true,
-		MaxAge:           300, // nolint: gomnd
+		MaxAge:           300, // nolint:gomnd
 		// Debug:            true,
 	})
 
@@ -124,13 +124,14 @@ func (api *API) Run(
 		ReadTimeout:  1 * time.Second,                   // the maximum duration for reading the entire request, including the body
 		WriteTimeout: (config.Timeout + 30*time.Second), // the maximum duration before timing out writes of the response
 		// the maximum amount of time to wait for the next request when keep-alive is enabled
-		IdleTimeout: 30 * time.Second, // nolint: gomnd
+		IdleTimeout: 30 * time.Second, // nolint:gomnd
 		// the amount of time allowed to read request headers
-		ReadHeaderTimeout: 2 * time.Second, // nolint: gomnd
+		ReadHeaderTimeout: 2 * time.Second, // nolint:gomnd
 	}
 
 	// start HTTP-server
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))
 	err = srv.ListenAndServe()
+
 	return err
 }

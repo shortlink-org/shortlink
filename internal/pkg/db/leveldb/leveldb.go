@@ -8,7 +8,7 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint:unused
+type Config struct {
 	Path string
 }
 
@@ -44,7 +44,7 @@ func (l *Store) Close() error {
 }
 
 // Migrate ...
-func (l *Store) migrate() error { // nolint:unused
+func (l *Store) migrate() error {
 	return nil
 }
 

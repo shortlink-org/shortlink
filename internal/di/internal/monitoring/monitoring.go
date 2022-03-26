@@ -26,7 +26,7 @@ func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *http.ServeMux {
 	health := healthcheck.NewMetricsHandler(registry, "common")
 
 	// Our app is not happy if we've got more than 100 goroutines running.
-	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) // nolint: gomnd
+	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) // nolint:gomnd
 
 	// Create a "common" listener
 	commonMux := http.NewServeMux()

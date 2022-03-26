@@ -13,18 +13,21 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint:unused
+type Config struct {
 	Path string
 }
 
 // Store implementation of db interface
-type Store struct { // nolint:unused
+type Store struct {
 	client *sql.DB
 	config Config
 }
 
 // Init ...
 func (s *Store) Init(ctx context.Context) error {
+	const SET_MAX_OPEN_CONNS = 25
+	const SET_MAX_IDLE_CONNS = 2
+
 	var err error
 
 	// Set configuration
@@ -35,8 +38,8 @@ func (s *Store) Init(ctx context.Context) error {
 		return err
 	}
 
-	s.client.SetMaxOpenConns(25)
-	s.client.SetMaxIdleConns(2)
+	s.client.SetMaxOpenConns(SET_MAX_OPEN_CONNS)
+	s.client.SetMaxIdleConns(SET_MAX_IDLE_CONNS)
 	s.client.SetConnMaxLifetime(time.Minute)
 
 	sqlStmt := `
@@ -66,7 +69,7 @@ func (s *Store) Close() error {
 }
 
 // Migrate ...
-func (s *Store) migrate() error { // nolint:unused
+func (s *Store) migrate() error {
 	return nil
 }
 

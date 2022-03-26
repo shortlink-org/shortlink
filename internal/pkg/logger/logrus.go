@@ -11,7 +11,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger/tracer"
 )
 
-type logrusLogger struct { // nolint:unused
+type logrusLogger struct {
 	logger *logrus.Logger
 }
 
@@ -63,6 +63,7 @@ func (log *logrusLogger) converter(fields ...field.Fields) *logrus.Entry {
 	}
 
 	entryLog := log.logger.WithFields(logrusFields)
+
 	return entryLog
 }
 

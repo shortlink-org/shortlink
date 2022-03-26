@@ -26,7 +26,7 @@ func New() (*sentryhttp.Handler, func(), error) {
 	cleanup := func() {
 		// Since sentry emits events in the background we need to make sure
 		// they are sent before we shut down
-		sentry.Flush(time.Second * 5) // nolint: gomnd
+		sentry.Flush(time.Second * 5) // nolint:gomnd
 		sentry.Recover()
 	}
 

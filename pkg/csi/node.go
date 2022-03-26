@@ -37,9 +37,8 @@ func NewNodeServer(nodeId string, maxVolumesPerNode int64) *nodeServer {
 	}
 }
 
-//gocyclo:ignore
 // NodePublishVolume mounts the volume mounted to the staging path to the target path
-func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) {
+func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) { // nolint:gocognit,maintidx
 	// Check arguments
 	if req.GetVolumeCapability() == nil {
 		return nil, status.Error(codes.InvalidArgument, "Volume capability must be provided")
@@ -129,7 +128,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		notMnt, err := mount.New("").IsLikelyNotMountPoint(targetPath)
 		if err != nil {
 			if os.IsNotExist(err) {
-				if err = os.MkdirAll(targetPath, 0o750); err != nil {
+				if err = os.MkdirAll(targetPath, 0o750); err != nil { // nolint:gomnd
 					return nil, status.Error(codes.Internal, err.Error())
 				}
 				notMnt = true
@@ -167,6 +166,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		if err := mounter.Mount(path, targetPath, "", options); err != nil {
 			var errList strings.Builder
 			errList.WriteString(err.Error())
+
 			return nil, status.Error(codes.Internal, fmt.Sprintf("failed to mount device: %s at %s: %s", path, targetPath, errList.String()))
 		}
 	}

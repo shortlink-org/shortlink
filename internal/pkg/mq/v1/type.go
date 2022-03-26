@@ -8,7 +8,7 @@ import (
 )
 
 // MQ - common interface of DataBus
-type MQ interface { // nolint:unused
+type MQ interface {
 	// setting
 	Init(context.Context) error
 	io.Closer // Closer is the interface that wraps the basic Close method.

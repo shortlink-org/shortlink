@@ -10,12 +10,12 @@ import (
 )
 
 // Config ...
-type Config struct { // nolint:unused
+type Config struct {
 	URI []string
 }
 
 // Store implementation of db interface
-type Store struct { // nolint:unused
+type Store struct {
 	client *clientv3.Client
 	config Config
 }
@@ -29,7 +29,7 @@ func (s *Store) Init(ctx context.Context) error {
 	var err error
 	s.client, err = clientv3.New(clientv3.Config{
 		Endpoints:   s.config.URI,
-		DialTimeout: 5 * time.Second,
+		DialTimeout: 5 * time.Second, // nolint:gomnd
 	})
 	if err != nil {
 		return err
@@ -49,7 +49,7 @@ func (s *Store) Close() error {
 }
 
 // Migrate ...
-func (s *Store) migrate() error { // nolint:unused
+func (s *Store) migrate() error {
 	return nil
 }
 
