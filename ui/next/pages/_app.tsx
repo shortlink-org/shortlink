@@ -12,6 +12,7 @@ import {
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../theme/theme';
+import 'assets/styles.css'
 import createEmotionCache from '../theme/createEmotionCache';
 import { SESSION_FETCH_SUCCEEDED } from '../store/types/session'
 
