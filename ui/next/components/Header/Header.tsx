@@ -106,7 +106,7 @@ const Header = () => {
   }
 
   return [
-    <AppBar position="fixed" open={open}>
+    <AppBar key={"appbar"} position="fixed" open={open}>
       <Toolbar>
         <IconButton
           color="inherit"
@@ -160,7 +160,7 @@ const Header = () => {
         )}
       </Toolbar>
     </AppBar>,
-    <Drawer variant="permanent" open={open}>
+    <Drawer key={"drawer"} variant="permanent" open={open}>
       <DrawerHeader>
         <IconButton onClick={handleDrawerClose}>
           {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}

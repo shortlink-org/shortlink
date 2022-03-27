@@ -9,7 +9,7 @@ const profile = [
   },
   {
     name: 'Sign out',
-    link: `http://127.0.0.1:4433/self-service/browser/flows/logout`,
+    link: `/self-service/browser/flows/logout`,
   },
 ]
 

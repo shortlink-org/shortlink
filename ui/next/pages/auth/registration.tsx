@@ -33,7 +33,7 @@ export default function SignUp() {
   const router = useRouter()
 
   const kratos = new PublicApi(
-    new Configuration({ basePath: 'http://127.0.0.1:4433' }),
+    new Configuration({ basePath: 'http://shortlink-api-kratos-public.shortlink:80' }),
   )
 
   // The "flow" represents a registration process and contains
@@ -49,7 +49,7 @@ export default function SignUp() {
     //   new URL(document.location).href.indexOf('registration') !== -1
     // ) {
     //   window.location.href =
-    //     'http://127.0.0.1:4433/self-service/registration/browser'
+    //     '/self-service/registration/browser'
     // }
 
     // If the router is not ready yet, or we already have a flow, do nothing.
