@@ -62,7 +62,7 @@ deploy:
     MQ_TYPE: "rabbitmq"
     MQ_RABBIT_URI: "amqp://admin:admin@rabbitmq.rabbitmq:5672"
     TRACER_URI: jaeger-agent.jaeger-operator:6831
-    API_LINK_SERVICE: http://api-shortlink-api.shortlink:7070
+    API_LINK_SERVICE: http://shortlink-api.shortlink:7070
     GRPC_CLIENT_HOST: istio-ingressgateway.istio-system
 
     # default store config

@@ -42,8 +42,8 @@ deploy:
   replicaCount: 1
 
   env:
-    API_URI: http://api-shortlink-api.shortlink:7070
-    PROXY_URI: http://proxy-shortlink-proxy.shortlink:3030
+    API_URI: http://shortlink-api.shortlink:7070
+    PROXY_URI: http://shortlink-proxy.shortlink:3030
 
   imagePullSecrets: []
 

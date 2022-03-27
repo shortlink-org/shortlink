@@ -36,8 +36,11 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles()
 
+  // Init Kratos API
+  const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://127.0.0.1:4433'
+
   const kratos = new PublicApi(
-    new Configuration({ basePath: 'http://127.0.0.1:4433' }),
+    new Configuration({ basePath: KRATOS_PUBLIC_API }),
   )
 
   const [kratosState, setKratos] = useState()

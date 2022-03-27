@@ -7,7 +7,11 @@
     </scripts>
     <node-interpreter value="$USER_HOME$/.nvm/versions/node/v17.0.1/bin/node" />
     <package-manager value="npm" />
-    <envs />
+    <envs>
+      <env name="API_URI" value="http://shortlink-api.shortlink:7070" />
+      <env name="KRATOS_API" value="http://shortlink-api-kratos-public.shortlink:80" />
+      <env name="PROXY_URI" value="http://shortlink-proxy.shortlink:3030" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>
