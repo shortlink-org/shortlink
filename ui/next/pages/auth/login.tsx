@@ -1,11 +1,11 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
-import { makeStyles } from '@material-ui/core/styles'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import Link from '@mui/material/Link'
+import { makeStyles } from '@mui/styles'
 import { Layout } from 'components'
 import SocialAuth from 'components/widgets/oAuthServices'
 import { Configuration, PublicApi } from '@ory/kratos-client'
@@ -190,13 +190,21 @@ export default function SignIn() {
                 </Button>
 
                 <div className="flex items-center justify-between">
-                  <Link href="/next/auth/forgot" variant="body2">
+                  <Link
+                    href="/next/auth/forgot"
+                    variant="body2"
+                    underline="hover"
+                  >
                     <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Forgot password?
                     </p>
                   </Link>
 
-                  <Link href="/next/auth/registration" variant="body2">
+                  <Link
+                    href="/next/auth/registration"
+                    variant="body2"
+                    underline="hover"
+                  >
                     <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Don't have an account? Sign Up
                     </p>

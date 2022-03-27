@@ -1,12 +1,12 @@
 // @ts-nocheck
 import React from 'react'
-import Link from '@material-ui/core/Link'
-import { makeStyles } from '@material-ui/core/styles'
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
+import Link from '@mui/material/Link'
+import { makeStyles } from '@mui/styles'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
 import Title from './Title'
 
 // Generate Order Data
@@ -95,7 +95,12 @@ export default function Orders() {
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
+        <Link
+          color="primary"
+          href="#"
+          onClick={preventDefault}
+          underline="hover"
+        >
           See more orders
         </Link>
       </div>

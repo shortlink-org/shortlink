@@ -1,8 +1,8 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import Link from '@material-ui/core/Link'
-import { makeStyles } from '@material-ui/core/styles'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Link from '@mui/material/Link'
+import { makeStyles } from '@mui/styles'
 import { Layout } from 'components'
 
 const useStyles = makeStyles((theme) => ({
@@ -89,13 +89,21 @@ export default function Forgot() {
                 </Button>
 
                 <div className="flex items-center justify-between">
-                  <Link href="/next/auth/login" variant="body2">
+                  <Link
+                    href="/next/auth/login"
+                    variant="body2"
+                    underline="hover"
+                  >
                     <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Log in
                     </p>
                   </Link>
 
-                  <Link href="/next/auth/registration" variant="body2">
+                  <Link
+                    href="/next/auth/registration"
+                    variant="body2"
+                    underline="hover"
+                  >
                     <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Don't have an account? Sign Up
                     </p>

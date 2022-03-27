@@ -1,12 +1,12 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import FormControlLabel from '@material-ui/core/FormControlLabel'
-import Checkbox from '@material-ui/core/Checkbox'
-import Link from '@material-ui/core/Link'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import Checkbox from '@mui/material/Checkbox'
+import Link from '@mui/material/Link'
+import Grid from '@mui/material/Grid'
+import { makeStyles } from '@mui/styles'
 import { Layout } from 'components'
 import { useRouter } from 'next/router'
 import {
@@ -211,9 +211,13 @@ export default function SignUp() {
                   >
                     Sign Up
                   </Button>
-                  <Grid container justify="flex-end">
+                  <Grid container justifyContent="flex-end">
                     <Grid item>
-                      <Link href="/next/auth/login" variant="body2">
+                      <Link
+                        href="/next/auth/login"
+                        variant="body2"
+                        underline="hover"
+                      >
                         <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                           Already have an account? Log in
                         </p>
