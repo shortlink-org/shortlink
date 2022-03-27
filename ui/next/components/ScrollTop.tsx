@@ -2,19 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 import Zoom from '@mui/material/Zoom'
-import { styled } from '@mui/styles'
-
-const useStyles = styled(theme => ({
-  root: {
-    position: 'fixed',
-    bottom: theme.spacing(2),
-    right: theme.spacing(2),
-  },
-}))
 
 export default function ScrollTop(props?: any) {
   const { children, window } = props
-  const classes = {}
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
   // This is only being set here because the demo is in an iframe.
@@ -37,7 +27,7 @@ export default function ScrollTop(props?: any) {
 
   return (
     <Zoom in={trigger}>
-      <div onClick={handleClick} role="presentation" className={classes.root}>
+      <div onClick={handleClick} role="presentation">
         {children}
       </div>
     </Zoom>

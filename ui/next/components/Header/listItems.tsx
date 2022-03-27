@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
 import Tooltip from '@mui/material/Tooltip'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
@@ -52,12 +52,12 @@ const mainMenuList = [
 
 export const mainListItems = mainMenuList.map((item) => (
   <Link href={item.url} key={item.url}>
-    <ListItem>
+    <ListItemButton>
       <Tooltip title={item.name}>
         <ListItemIcon>{item.icon}</ListItemIcon>
       </Tooltip>
       <ListItemText primary={item.name} />
-    </ListItem>
+    </ListItemButton>
   </Link>
 ))
 
@@ -83,12 +83,12 @@ export const secondaryListItems = [
   <ListSubheader inset>Other options</ListSubheader>,
   otherMenuList.map((item) => (
     <Link href={item.url} key={item.url}>
-      <ListItem>
+      <ListItemButton>
         <Tooltip title={item.name}>
           <ListItemIcon>{item.icon}</ListItemIcon>
         </Tooltip>
         <ListItemText primary={item.name} />
-      </ListItem>
+      </ListItemButton>
     </Link>
   )),
 ]
@@ -115,12 +115,12 @@ export const adminListItems = [
   <ListSubheader inset>Admin options</ListSubheader>,
   adminMenuList.map((item) => (
     <Link href={item.url} key={item.url}>
-      <ListItem>
+      <ListItemButton>
         <Tooltip title={item.name}>
           <ListItemIcon>{item.icon}</ListItemIcon>
         </Tooltip>
         <ListItemText primary={item.name} />
-      </ListItem>
+      </ListItemButton>
     </Link>
   )),
 ]

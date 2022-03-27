@@ -37,7 +37,7 @@ export default function SignIn() {
   const classes = {}
 
   // Init Kratos API
-  const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://127.0.0.1:4433'
+  const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://shortlink-api-kratos-public.shortlink:80'
 
   const kratos = new PublicApi(
     new Configuration({ basePath: KRATOS_PUBLIC_API }),
@@ -51,7 +51,7 @@ export default function SignIn() {
       !new URL(document.location).searchParams.get('flow') &&
       new URL(document.location).href.indexOf('login') !== -1
     ) {
-      window.location.href = 'http://127.0.0.1:4433/self-service/login/browser'
+      window.location.href = 'http://shortlink-api-kratos-public.shortlink:80/self-service/login/browser'
     }
 
     // @ts-ignore
@@ -61,7 +61,7 @@ export default function SignIn() {
     kratos.getSelfServiceLoginFlow(flowId).then(({ status, data: flow }) => {
       if (status === 404 || status === 410 || status === 403) {
         window.location.replace(
-          'http://127.0.0.1:4433/self-service/registration/browser',
+          'http://shortlink-api-kratos-public.shortlink:80/self-service/registration/browser',
         )
       }
       if (status !== 200) {

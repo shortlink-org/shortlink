@@ -1,6 +1,6 @@
 /* tslint:disable */
 
-import Link from '@mui/material/Link'
+import Link from 'next/link'
 import Copyright from '../Copyright'
 
 export default function Footer() {
