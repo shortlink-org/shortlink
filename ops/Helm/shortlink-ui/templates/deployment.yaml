@@ -54,6 +54,11 @@ spec:
         # TODO: fix
         # TODO: add livenessProbe
         # TODO: add readinessProbe
+        env:
+          {{- range $key, $value := .Values.deploy.env }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}
         resources:
           {{- toYaml .Values.deploy.resources | nindent 10 }}
       {{- with .Values.deploy.nodeSelector }}

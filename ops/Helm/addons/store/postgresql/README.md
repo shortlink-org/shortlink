@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
+Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 11.1.9 |
+| https://charts.bitnami.com/bitnami | postgresql | 11.1.10 |
 
 ## Values
 
