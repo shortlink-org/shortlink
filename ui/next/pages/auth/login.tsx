@@ -5,12 +5,12 @@ import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/styles'
 import { Layout } from 'components'
 import SocialAuth from 'components/widgets/oAuthServices'
 import { Configuration, PublicApi } from '@ory/kratos-client'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled('div')((theme) => ({
   paper: {
     marginTop: theme.spacing(1),
     display: 'flex',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function SignIn() {
-  const classes = useStyles()
+  const classes = {}
 
   // Init Kratos API
   const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://127.0.0.1:4433'

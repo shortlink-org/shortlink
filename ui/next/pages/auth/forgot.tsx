@@ -2,10 +2,10 @@ import React from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Link from '@mui/material/Link'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/styles'
 import { Layout } from 'components'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled('div')((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Forgot() {
-  const classes = useStyles()
+  const classes = {}
 
   return (
     <Layout>

@@ -11,7 +11,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Grid from '@mui/material/Grid'
 import StarIcon from '@mui/icons-material/StarBorder'
 import Typography from '@mui/material/Typography'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/styles'
 import Container from '@mui/material/Container'
 import { Layout } from 'components'
 import Discounted from 'components/Billing/Discounted'
@@ -56,7 +56,7 @@ const tiers = [
   },
 ]
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled('div')((theme) => ({
   '@global': {
     ul: {
       margin: 0,
@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export function Pricing() {
-  const classes = useStyles()
+  const classes = {}
 
   const { t } = useTranslation('pricing')
 
