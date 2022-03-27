@@ -18,7 +18,7 @@ Shortlink API service
 
 ## Requirements
 
-Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
+Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
@@ -88,6 +88,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | ingress.type | string | `"nginx"` |  |
 | kratos.enabled | bool | `true` |  |
+| kratos.image.tag | string | `"v0.9.0"` |  |
 | kratos.kratos.autoMigrate | bool | `false` |  |
 | kratos.kratos.config.courier.smtp.connection_uri | string | `"smtps://test:test@mailslurper:1025/?skip_ssl_verify=true"` |  |
 | kratos.kratos.config.courier.smtp.from_address | string | `"no-reply@shortlink.com"` |  |
@@ -97,11 +98,14 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | kratos.kratos.config.hashers.argon2.memory | string | `"128MB"` |  |
 | kratos.kratos.config.hashers.argon2.parallelism | int | `1` |  |
 | kratos.kratos.config.hashers.argon2.salt_length | int | `16` |  |
-| kratos.kratos.config.identity.default_schema_url | string | `"file://identity.schema.json"` |  |
+| kratos.kratos.config.identity.default_schema_id | string | `"default"` |  |
+| kratos.kratos.config.identity.schemas[0].id | string | `"default"` |  |
+| kratos.kratos.config.identity.schemas[0].url | string | `"file:///etc/config/identity.default.schema.json"` |  |
 | kratos.kratos.config.log.format | string | `"json"` |  |
 | kratos.kratos.config.log.leak_sensitive_values | bool | `true` |  |
 | kratos.kratos.config.log.level | string | `"debug"` |  |
 | kratos.kratos.config.secrets.cookie[0] | string | `"PLEASE-CHANGE-ME-I-AM-VERY-INSECURE"` |  |
+| kratos.kratos.config.selfservice.allowed_return_urls[0] | string | `"http://127.0.0.1:3000"` |  |
 | kratos.kratos.config.selfservice.default_browser_return_url | string | `"http://127.0.0.1:3000/next/"` |  |
 | kratos.kratos.config.selfservice.flows.error.ui_url | string | `"http://127.0.0.1:3000/next/error"` |  |
 | kratos.kratos.config.selfservice.flows.login.lifespan | string | `"10m"` |  |
@@ -137,7 +141,6 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | kratos.kratos.config.selfservice.methods.oidc.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.password.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.profile.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.whitelisted_return_urls[0] | string | `"http://127.0.0.1:3000"` |  |
 | kratos.kratos.config.serve.admin.base_url | string | `"http://127.0.0.1:4434/"` |  |
 | kratos.kratos.config.serve.public.base_url | string | `"http://127.0.0.1:4433/"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_headers[0] | string | `"Authorization"` |  |
@@ -156,7 +159,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | kratos.kratos.config.session.cookie.same_site | string | `"Lax"` |  |
 | kratos.kratos.config.session.lifespan | string | `"720h"` |  |
 | kratos.kratos.development | bool | `true` |  |
-| kratos.kratos.identitySchemas."identity.schema.json" | string | `"{\n  \"$id\": \"https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json\",\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"Person\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"traits\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"email\": {\n          \"type\": \"string\",\n          \"format\": \"email\",\n          \"title\": \"E-Mail\",\n          \"minLength\": 3,\n          \"ory.sh/kratos\": {\n            \"credentials\": {\n              \"password\": {\n                \"identifier\": true\n              }\n            },\n            \"verification\": {\n              \"via\": \"email\"\n            },\n            \"recovery\": {\n              \"via\": \"email\"\n            }\n          }\n        },\n        \"name\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"first\": {\n              \"title\": \"First Name\",\n              \"type\": \"string\"\n            },\n            \"last\": {\n              \"title\": \"Last Name\",\n              \"type\": \"string\"\n            }\n          }\n        }\n      },\n      \"required\": [\n        \"email\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n}\n"` |  |
+| kratos.kratos.identitySchemas."identity.default.schema.json" | string | `"{\n  \"$id\": \"https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json\",\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"Person\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"traits\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"email\": {\n          \"type\": \"string\",\n          \"format\": \"email\",\n          \"title\": \"E-Mail\",\n          \"minLength\": 3,\n          \"ory.sh/kratos\": {\n            \"credentials\": {\n              \"password\": {\n                \"identifier\": true\n              }\n            },\n            \"verification\": {\n              \"via\": \"email\"\n            },\n            \"recovery\": {\n              \"via\": \"email\"\n            }\n          }\n        },\n        \"name\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"first\": {\n              \"title\": \"First Name\",\n              \"type\": \"string\"\n            },\n            \"last\": {\n              \"title\": \"Last Name\",\n              \"type\": \"string\"\n            }\n          }\n        }\n      },\n      \"required\": [\n        \"email\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n}\n"` |  |
 | monitoring.enabled | bool | `true` |  |
 | nameOverride | string | `""` |  |
 | secret.enabled | bool | `false` |  |

@@ -10,7 +10,7 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
+Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
@@ -58,9 +58,7 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 | ingress-nginx.controller.metrics.serviceMonitor.enabled | bool | `true` |  |
 | ingress-nginx.controller.metrics.serviceMonitor.namespaceSelector.matchNames[0] | string | `"nginx-ingress"` |  |
 | ingress-nginx.controller.podSecurityContext.fsGroup | int | `1001` |  |
-| ingress-nginx.controller.service.nodePorts.http | int | `80` |  |
-| ingress-nginx.controller.service.nodePorts.https | int | `443` |  |
-| ingress-nginx.controller.service.type | string | `"NodePort"` |  |
+| ingress-nginx.controller.service.type | string | `"LoadBalancer"` |  |
 | ingress-nginx.defaultBackend.enabled | bool | `true` |  |
 | ingress-nginx.enabled | bool | `true` |  |
 | ingress-nginx.podSecurityPolicy.enabled | bool | `true` |  |

@@ -1,6 +1,6 @@
 # shortlink-ui
 
-![Version: 0.5.10](https://img.shields.io/badge/Version-0.5.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.5.11](https://img.shields.io/badge/Version-0.5.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink UI service
 
@@ -18,7 +18,7 @@ Shortlink UI service
 
 ## Requirements
 
-Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
+Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 ## Values
 
@@ -26,6 +26,8 @@ Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
 |-----|------|---------|-------------|
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
+| deploy.env.API_URI | string | `"http://api-shortlink-api.shortlink:7070"` |  |
+| deploy.env.PROXY_URI | string | `"http://proxy-shortlink-proxy.shortlink:3030"` |  |
 | deploy.image.pullPolicy | string | `"Always"` |  |
 | deploy.image.repository | string | `"batazor/shortlink-ui-next"` |  |
 | deploy.image.tag | string | `"latest"` |  |

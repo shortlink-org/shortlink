@@ -18,7 +18,7 @@ Shortlink service for get proxy by URL
 
 ## Requirements
 
-Kubernetes: `>= 1.19.0 || >= v1.19.0-0`
+Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 ## Values
 
