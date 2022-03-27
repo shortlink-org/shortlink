@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import Zoom from '@material-ui/core/Zoom'
-import { makeStyles } from '@material-ui/core/styles'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
+import Zoom from '@mui/material/Zoom'
+import { makeStyles } from '@mui/styles'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     position: 'fixed',
     bottom: theme.spacing(2),

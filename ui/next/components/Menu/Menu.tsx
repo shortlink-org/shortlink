@@ -1,11 +1,11 @@
 // @ts-nocheck
 
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@mui/material/IconButton'
 import clsx from 'clsx'
-import Drawer from '@material-ui/core/Drawer'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import Divider from '@material-ui/core/Divider'
-import List from '@material-ui/core/List'
+import Drawer from '@mui/material/Drawer'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import Divider from '@mui/material/Divider'
+import List from '@mui/material/List'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
@@ -35,7 +35,7 @@ const Menu = ({ open, setOpen }) => {
       open={open}
     >
       <div className={classes.toolbarIcon}>
-        <IconButton onClick={handleDrawerClose}>
+        <IconButton onClick={handleDrawerClose} size="large">
           <ChevronLeftIcon />
         </IconButton>
       </div>

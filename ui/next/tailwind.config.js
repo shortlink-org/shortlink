@@ -13,7 +13,7 @@ module.exports = {
     },
     extract: {
       md: (content) => {
-        return content.match(/[^<>"'`\s]*/)
+        return content.match(/[^<>"'`\s]*/);
       },
     },
   },

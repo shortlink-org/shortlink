@@ -9,7 +9,7 @@ import Personal from 'components/Profile/Personal'
 import Notifications from 'components/Profile/Notifications'
 import withAuthSync from 'components/Private'
 
-export function Profile() {
+export function ProfileContent() {
   const session = useSelector((state) => state.session)
 
   return (
@@ -39,4 +39,4 @@ export function Profile() {
   )
 }
 
-export default withAuthSync(() => Profile)
+export default withAuthSync(() => ProfileContent)

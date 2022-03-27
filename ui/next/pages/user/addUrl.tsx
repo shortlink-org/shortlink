@@ -1,18 +1,18 @@
 // @ts-nocheck
 
 import React, { useState } from 'react'
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
-import Snackbar from '@material-ui/core/Snackbar'
-import Alert from '@material-ui/lab/Alert'
-import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-import FileCopyIcon from '@material-ui/icons/FileCopy'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@mui/material/TextField'
+import Button from '@mui/material/Button'
+import Snackbar from '@mui/material/Snackbar'
+import Alert from '@mui/lab/Alert'
+import Paper from '@mui/material/Paper'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import FileCopyIcon from '@mui/icons-material/FileCopy'
+import Grid from '@mui/material/Grid'
+import { makeStyles } from '@mui/styles'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import Link from '@material-ui/core/Link'
+import Link from '@mui/material/Link'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     maxWidth: 400,
-    margin: `${theme.spacing(1)}px auto`,
+    margin: `${theme.spacing(1)} auto`,
     padding: theme.spacing(2),
   },
 }))
@@ -98,7 +98,7 @@ export function AddUrl() {
       <Grid
         container
         direction="column"
-        justify="space-around"
+        justifyContent="space-around"
         alignItems="center"
         className={classes.root}
       >
@@ -129,6 +129,7 @@ export function AddUrl() {
                 target="_blank"
                 rel="noopener"
                 variant="body2"
+                underline="hover"
               >
                 {window.location.host}/s/{response.hash}
               </Link>
@@ -142,7 +143,7 @@ export function AddUrl() {
                   })
                 }}
               >
-                <IconButton aria-label="copy" color="secondary">
+                <IconButton aria-label="copy" color="secondary" size="large">
                   <FileCopyIcon />
                 </IconButton>
               </CopyToClipboard>

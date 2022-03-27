@@ -1,6 +1,6 @@
 /* tslint:disable */
 
-import Link from '@material-ui/core/Link'
+import Link from '@mui/material/Link'
 import Copyright from '../Copyright'
 
 export default function Footer() {
@@ -9,14 +9,14 @@ export default function Footer() {
       <div className="max-w-screen-xl mx-auto px-4">
         <ul className="max-w-screen-md mx-auto text-lg font-light flex flex-wrap justify-between">
           <li className="my-2 cursor-pointer">
-            <Link href="/faq">
+            <Link href="/faq" underline="hover">
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 FAQ
               </span>
             </Link>
           </li>
           <li className="my-2 cursor-pointer">
-            <Link href="/privacy">
+            <Link href="/privacy" underline="hover">
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 Privacy
               </span>
@@ -27,6 +27,7 @@ export default function Footer() {
               href="https://github.com/batazor/shortlink"
               target="_blank"
               rel="noopener"
+              underline="hover"
             >
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 Github

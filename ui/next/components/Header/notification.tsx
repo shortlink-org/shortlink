@@ -1,10 +1,10 @@
-import Badge from '@material-ui/core/Badge'
-import Menu from '@material-ui/core/Menu'
-import Fade from '@material-ui/core/Fade'
-import IconButton from '@material-ui/core/IconButton'
+import Badge from '@mui/material/Badge'
+import Menu from '@mui/material/Menu'
+import Fade from '@mui/material/Fade'
+import IconButton from '@mui/material/IconButton'
 import React from 'react'
-import NotificationsIcon from '@material-ui/icons/Notifications'
-import { makeStyles } from '@material-ui/core/styles'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles(() => ({
   list: {
@@ -31,6 +31,7 @@ export default function Notification() {
       aria-controls="simple-menu"
       aria-haspopup="true"
       onClick={handleClick}
+      size="large"
     >
       <Badge badgeContent={4} color="secondary">
         <NotificationsIcon />

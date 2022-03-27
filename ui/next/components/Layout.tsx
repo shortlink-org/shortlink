@@ -1,14 +1,14 @@
 // @ts-nocheck
 
 import React from 'react'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Container from '@material-ui/core/Container'
-import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core/styles'
-import Box from '@material-ui/core/Box'
+import CssBaseline from '@mui/material/CssBaseline'
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import { makeStyles } from '@mui/styles'
+import Box from '@mui/material/Box'
 import Header from './Header'
 import Footer from './Footer'
-import { colors } from '@material-ui/core'
+import { colors } from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
   root: {
