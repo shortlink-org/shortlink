@@ -3,9 +3,11 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 import { styled } from '@mui/material/styles'
 import Header from './Header'
 import Footer from './Footer'
+import Typography from "@mui/material/Typography";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -19,17 +21,17 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 // @ts-ignore
 export function Layout({ children }) {
   return (
-    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <Header />
-      <DrawerHeader />
-      <main>
-      {/*  <div className={classes.appBarSpacer} />*/}
-      {/*  <Container>{children}</Container>*/}
+
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
         <Box pt={4}>
+          <Container>{children}</Container>
           <Footer />
         </Box>
-      </main>
+      </Box>
     </Box>
   )
 }

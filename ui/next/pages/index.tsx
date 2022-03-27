@@ -11,7 +11,6 @@ import { Layout } from 'components'
 const Home: NextPage = () => {
   return (
     <Layout>
-      <h1>Hello world</h1>
       {/*<Header />*/}
       {/*<Mobile />*/}
       {/*<Feature />*/}
