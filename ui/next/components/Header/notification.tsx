@@ -4,9 +4,9 @@ import Fade from '@mui/material/Fade'
 import IconButton from '@mui/material/IconButton'
 import React from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/styles'
 
-const useStyles = makeStyles(() => ({
+const useStyles = styled(() => ({
   list: {
     margin: 0,
     padding: 0,
@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => ({
 }))
 
 export default function Notification() {
-  const classes = useStyles()
+  const classes = {}
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const handleClick = (event?: any) => {

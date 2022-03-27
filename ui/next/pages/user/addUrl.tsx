@@ -10,13 +10,13 @@ import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import FileCopyIcon from '@mui/icons-material/FileCopy'
 import Grid from '@mui/material/Grid'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/styles'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Link from '@mui/material/Link'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled('div')((theme) => ({
   root: {
     flexGrow: 1,
     overflow: 'hidden',
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function AddUrl() {
   const [open, setOpen] = useState(false)
-  const classes = useStyles()
+  const classes = {}
 
   const [url, setURL] = useState({
     url: '',

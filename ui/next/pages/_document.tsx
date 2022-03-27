@@ -1,16 +1,9 @@
-import React from 'react'
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-} from 'next/document'
-import theme from 'theme/theme'
+import * as React from 'react';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
+import theme from '../theme/theme';
 import createEmotionCache from '../theme/createEmotionCache';
 
-// @ts-ignore
 export default class MyDocument extends Document {
   render() {
     return (
@@ -18,6 +11,7 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -30,13 +24,13 @@ export default class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    )
+    );
   }
 }
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
-// it's compatible with server-side generation (SSG).
-MyDocument.getInitialProps = async (ctx: DocumentContext) => {
+// it's compatible with static-site generation (SSG).
+MyDocument.getInitialProps = async (ctx) => {
   // Resolution order
   //
   // On the server:
@@ -59,25 +53,22 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // 3. app.render
   // 4. page.render
 
-  // Render app and page and get the context of the page with collected side effects.
-  const originalRenderPage = ctx.renderPage
+  const originalRenderPage = ctx.renderPage;
 
   // You can consider sharing the same emotion cache between all the SSR requests to speed up performance.
   // However, be aware that it can have global side effects.
   const cache = createEmotionCache();
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
-  // Run the React rendering logic synchronously
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: (App: any) =>
         function EnhanceApp(props) {
-          return <App emotionCache={cache} {...props} />
+          return <App emotionCache={cache} {...props} />;
         },
-    })
+    });
 
-  // Run the parent `getInitialProps`, it now includes the custom `renderPage`
-  const initialProps = await Document.getInitialProps(ctx)
+  const initialProps = await Document.getInitialProps(ctx);
   // This is important. It prevents emotion to render invalid HTML.
   // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
   const emotionStyles = extractCriticalToChunks(initialProps.html);
@@ -88,11 +79,10 @@ MyDocument.getInitialProps = async (ctx: DocumentContext) => {
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: style.css }}
     />
-  ))
+  ));
 
   return {
     ...initialProps,
-    // Styles fragment is rendered after the app and page rendering finish.
-   emotionStyleTags,
-  }
-}
+    emotionStyleTags,
+  };
+};

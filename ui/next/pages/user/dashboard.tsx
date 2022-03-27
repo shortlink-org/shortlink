@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react'
 import clsx from 'clsx'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
@@ -13,7 +13,7 @@ import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled('div')((theme) => ({
   title: {
     flexGrow: 1,
   },
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function Dashboard() {
-  const classes = useStyles()
+  const classes = {}
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
   return (

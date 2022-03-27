@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/styles'
 import { Layout } from 'components'
 import { useRouter } from 'next/router'
 import {
@@ -15,7 +15,7 @@ import {
   SelfServiceRegistrationFlow,
 } from '@ory/kratos-client'
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled('div')((theme) => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function SignUp() {
-  const classes = useStyles()
+  const classes = {}
   const router = useRouter()
 
   const kratos = new PublicApi(

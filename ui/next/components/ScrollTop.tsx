@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 import Zoom from '@mui/material/Zoom'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/styles'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = styled(theme => ({
   root: {
     position: 'fixed',
     bottom: theme.spacing(2),
@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ScrollTop(props?: any) {
   const { children, window } = props
-  const classes = useStyles()
+  const classes = {}
   // Note that you normally won't need to set the window ref as useScrollTrigger
   // will default to window.
   // This is only being set here because the demo is in an iframe.

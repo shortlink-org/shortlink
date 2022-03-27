@@ -1,37 +1,36 @@
-import React from 'react'
-import InputBase from '@mui/material/InputBase'
-import SearchIcon from '@mui/icons-material/Search'
-import { alpha, makeStyles } from '@mui/styles'
+import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
 
-const useStyles = makeStyles((theme) => ({
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    marginRight: 10,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
+const Search = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  marginLeft: 0,
+  width: '100%',
+  [theme.breakpoints.up('sm')]: {
+    marginLeft: theme.spacing(1),
+    width: 'auto',
   },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -44,24 +43,18 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-}))
+}));
 
 export default function SearchForm() {
-  const classes = useStyles()
-
   return (
-    <div className={classes.search}>
-      <div className={classes.searchIcon}>
+    <Search sx={{ mr: 2 }}>
+      <SearchIconWrapper>
         <SearchIcon />
-      </div>
-      <InputBase
+      </SearchIconWrapper>
+      <StyledInputBase
         placeholder="Search…"
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
         inputProps={{ 'aria-label': 'search' }}
       />
-    </div>
+    </Search>
   )
 }

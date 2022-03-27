@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react'
 import Link from '@mui/material/Link'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/styles'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -61,14 +61,14 @@ function preventDefault(event) {
   event.preventDefault()
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled('div')((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
   },
 }))
 
 export default function Orders() {
-  const classes = useStyles()
+  const classes = {}
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
