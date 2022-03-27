@@ -6,33 +6,24 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
-import CssBaseline from '@mui/material/CssBaseline'
 import MuiDrawer from '@mui/material/Drawer';
 import { useSelector } from 'react-redux'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
-import ListItemText from "@mui/material/ListItemText";
 
-import MenuBar from '../Menu'
 import SearchForm from '../SearchForm'
 import Notification from './notification'
 import Profile from './profile'
-import { mainListItems, secondaryListItems, adminListItems } from '../Menu/listItems'
+import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 
 const drawerWidth = 240;
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
-
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -185,7 +176,6 @@ const Header = () => {
 
       <List>{adminListItems}</List>
     </Drawer>,
-    // <MenuBar open={open} setOpen={setOpen} />,
   ]
 }
 
