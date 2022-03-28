@@ -13,7 +13,7 @@ import http from 'http'
 
 const kratos = new PublicApi( // eslint-disable-line
   new Configuration({
-    basePath: process.env.KRATOS_API || 'http://shortlink-api-kratos-public.shortlink:80',
+    basePath: process.env.KRATOS_PUBLIC_API || 'http://shortlink-api-kratos-public.shortlink:80',
   }),
 )
 

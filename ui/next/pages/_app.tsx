@@ -56,7 +56,7 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
     async ({ Component, ctx }) => {
       // Init Kratos API
       const KRATOS_PUBLIC_API =
-        process.env.KRATOS_API || 'http://shortlink-api-kratos-public.shortlink:80'
+        process.env.KRATOS_PUBLIC_API || 'http://shortlink-api-kratos-public.shortlink:80'
 
       if (ctx.req?.headers) {
         // @ts-ignore

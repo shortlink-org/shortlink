@@ -44,6 +44,7 @@ deploy:
   env:
     API_URI: http://shortlink-api.shortlink:7070
     PROXY_URI: http://shortlink-proxy.shortlink:3030
+    KRATOS_PUBLIC_API: http://shortlink-api-kratos-public.shortlink:80
 
   imagePullSecrets: []
 
