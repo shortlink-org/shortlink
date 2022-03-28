@@ -9,7 +9,7 @@ const isProd = process.env.NODE_ENV === 'production'
 const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
 const API_URI = process.env.API_URI || 'http://localhost:7070'
 const PROXY_URI = process.env.PROXY_URI || 'http://localhost:3030'
-const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://127.0.0.1:4433'
+const KRATOS_PUBLIC_API = process.env.KRATOS_PUBLIC_API || 'http://127.0.0.1:4433'
 
 console.info('API_URI', API_URI)
 console.info('PROXY_URI', PROXY_URI)

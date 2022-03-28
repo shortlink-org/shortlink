@@ -37,7 +37,7 @@ export default function SignIn() {
   const classes = {}
 
   // Init Kratos API
-  const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://shortlink-api-kratos-public.shortlink:80'
+  const KRATOS_PUBLIC_API = process.env.KRATOS_PUBLIC_API || 'http://shortlink-api-kratos-public.shortlink:80'
 
   const kratos = new PublicApi(
     new Configuration({ basePath: KRATOS_PUBLIC_API }),

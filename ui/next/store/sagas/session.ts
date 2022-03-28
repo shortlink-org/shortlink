@@ -5,7 +5,7 @@ import * as t from 'store/types'
 import { SESSION_FETCH_REQUESTED } from 'store/types' // eslint-disable-line
 
 // Init Kratos API
-const KRATOS_PUBLIC_API = process.env.KRATOS_API || 'http://shortlink-api-kratos-public.shortlink:80'
+const KRATOS_PUBLIC_API = process.env.KRATOS_PUBLIC_API || 'http://shortlink-api-kratos-public.shortlink:80'
 
 function* fetchSession() {
   try {
