@@ -1,79 +1,130 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Component, FormEvent } from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
-import { styled } from '@mui/styles'
+import type { NextPage } from 'next'
 import { Layout } from 'components'
+import { useRouter } from 'next/router'
 import SocialAuth from 'components/widgets/oAuthServices'
-import { Configuration, PublicApi } from '@ory/kratos-client'
+import {
+  SelfServiceLoginFlow,
+  SubmitSelfServiceLoginFlowBody
+} from '@ory/kratos-client'
 
-const useStyles = styled('div')((theme) => ({
-  paper: {
-    marginTop: theme.spacing(1),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(1, 0, 2),
-  },
-  csrf: {
-    visibility: 'hidden',
-  },
-}))
+import {
+  ory,
+  createLogoutHandler,
+  handleFlowError,
+} from '../../pkg/sdk'
 
-export default function SignIn() {
-  const classes = {}
+const SignIn: NextPage = () => {
+  const [flow, setFlow] = useState<SelfServiceLoginFlow>()
 
-  // Init Kratos API
-  const KRATOS_PUBLIC_API = process.env.KRATOS_PUBLIC_API || 'http://shortlink-api-kratos-public.shortlink:80'
+  // Get ?flow=... from the URL
+  const router = useRouter()
+  const {
+    return_to: returnTo,
+    flow: flowId,
+    // Refresh means we want to refresh the session. This is needed, for example, when we want to update the password
+    // of a user.
+    refresh,
+    // AAL = Authorization Assurance Level. This implies that we want to upgrade the AAL, meaning that we want
+    // to perform two-factor authentication/verification.
+    aal
+  } = router.query
 
-  const kratos = new PublicApi(
-    new Configuration({ basePath: KRATOS_PUBLIC_API }),
-  )
-
-  const [kratosState, setKratos] = useState()
-  const [csrfToken, setCsrfToken] = useState()
+  // This might be confusing, but we want to show the user an option
+  // to sign out if they are performing two-factor authentication!
+  const onLogout = createLogoutHandler([aal, refresh])
 
   useEffect(() => {
-    if (
-      !new URL(document.location).searchParams.get('flow') &&
-      new URL(document.location).href.indexOf('login') !== -1
-    ) {
-      window.location.href = 'http://shortlink-api-kratos-public.shortlink:80/self-service/login/browser'
+    // If the router is not ready yet, or we already have a flow, do nothing.
+    if (!router.isReady || flow) {
+      return
     }
 
-    // @ts-ignore
-    const flowId = new URL(document.location).searchParams.get('flow')
+    // If ?flow=.. was in the URL, we fetch it
+    if (flowId) {
+      ory
+        .getSelfServiceLoginFlow(String(flowId))
+        .then(({ data }) => {
+          setFlow(data)
+        })
+        .catch(handleGetFlowError(router, 'login', setFlow))
+      return
+    }
 
-    // @ts-ignore
-    kratos.getSelfServiceLoginFlow(flowId).then(({ status, data: flow }) => {
-      if (status === 404 || status === 410 || status === 403) {
-        window.location.replace(
-          'http://shortlink-api-kratos-public.shortlink:80/self-service/registration/browser',
-        )
-      }
-      if (status !== 200) {
-        return Promise.reject(flow)
-      }
+    // Otherwise we initialize it
+    ory
+      .initializeSelfServiceLoginFlowForBrowsers(
+        Boolean(refresh),
+        aal ? String(aal) : undefined,
+        returnTo ? String(returnTo) : undefined
+      )
+      .then(({ data }) => {
+        setFlow(data)
+      })
+      .catch(handleFlowError(router, 'login', setFlow))
+  }, [flowId, router, router.isReady, aal, refresh, returnTo, flow])
 
-      // @ts-ignore
-      setKratos(flow)
-      // @ts-ignore
-      setCsrfToken(flow.ui.nodes[0].attributes.value)
+  const onSubmit = (values: SubmitSelfServiceLoginFlowBody) =>
+    router
+      // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
+      // his data when she/he reloads the page.
+      .push(`/login?flow=${flow?.id}`, undefined, { shallow: true })
+      .then(() =>
+        ory
+          .submitSelfServiceLoginFlow(String(flow?.id), undefined, values)
+          // We logged in successfully! Let's bring the user home.
+          .then((res) => {
+            if (flow?.return_to) {
+              window.location.href = flow?.return_to
+              return
+            }
+            router.push('/')
+          })
+          .then(() => {})
+          .catch(handleFlowError(router, 'login', setFlow))
+          .catch((err: AxiosError) => {
+            // If the previous handler did not catch the error it's most likely a form validation error
+            if (err.response?.status === 400) {
+              // Yup, it is!
+              setFlow(err.response?.data)
+              return
+            }
+
+            return Promise.reject(err)
+          })
+      )
+
+  // Handles form submission
+  const handleSubmit = (e: MouseEvent | FormEvent) => {
+    // Prevent all native handlers
+    e.stopPropagation()
+    e.preventDefault()
+
+    // Prevent double submission!
+    if (this.state.isLoading) {
+      return Promise.resolve()
+    }
+
+    this.setState((state) => ({
+      ...state,
+      isLoading: true
+    }))
+
+    return this.props.onSubmit(this.state.values).finally(() => {
+      // We wait for reconciliation and update the state after 50ms
+      // Done submitting - update loading status
+      this.setState((state) => ({
+        ...state,
+        isLoading: false
+      }))
     })
-  }, [csrfToken])
+  }
 
   return (
     <Layout>
@@ -111,106 +162,114 @@ export default function SignIn() {
                 </span>
               </h3>
 
-              <form
-                className={classes.form}
-                action={kratosState && kratosState.ui.action}
-                method={kratosState && kratosState.ui.method}
-              >
-                <TextField
-                  name="csrf_token"
-                  id="csrf_token"
-                  type="hidden"
-                  required
-                  fullWidth
-                  variant="outlined"
-                  label="Csrf token"
-                  value={csrfToken}
-                  className={classes.csrf}
-                />
-
-                <TextField
-                  name="method"
-                  id="method"
-                  type="hidden"
-                  required
-                  fullWidth
-                  variant="outlined"
-                  label="method"
-                  value="password"
-                  className={classes.csrf}
-                />
-
-                <div className="py-2 space-y-6">
-                  <SocialAuth />
-
-                  <div className="flex flex-row items-center justify-center">
-                    <hr className="w-28 border-gray-300 block" />
-                    <label className="mx-2 text-sm text-gray-500">
-                      Or continue with
-                    </label>
-                    <hr className="w-28 border-gray-300 block" />
-                  </div>
-                </div>
-
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="password_identifier"
-                  label="Email Address"
-                  name="password_identifier"
-                  type="email"
-                  autoComplete="email"
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-                <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
-                  label="Remember me"
-                />
-
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                >
-                  Log In
-                </Button>
-
-                <div className="flex items-center justify-between">
-                  <Link
-                    href="/next/auth/forgot"
-                    variant="body2"
-                    underline="hover"
+              {
+                flow && (
+                  <form
+                    action={flow.ui.action}
+                    method={flow.ui.method}
+                    onSubmit={handleSubmit}
                   >
-                    <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                      Forgot password?
-                    </p>
-                  </Link>
+                    <TextField
+                      name="csrf_token"
+                      id="csrf_token"
+                      type="hidden"
+                      required
+                      fullWidth
+                      variant="outlined"
+                      label="Csrf token"
+                      // value={csrfToken}
+                    />
 
-                  <Link
-                    href="/next/auth/registration"
-                    variant="body2"
-                    underline="hover"
-                  >
-                    <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                      Don't have an account? Sign Up
-                    </p>
-                  </Link>
-                </div>
-              </form>
+                    <TextField
+                      name="method"
+                      id="method"
+                      type="hidden"
+                      required
+                      fullWidth
+                      variant="outlined"
+                      label="method"
+                      value="password"
+                    />
+
+                    <div className="py-2 space-y-6">
+                      <SocialAuth />
+
+                      <div className="flex flex-row items-center justify-center">
+                        <hr className="w-28 border-gray-300 block" />
+                        <label className="mx-2 text-sm text-gray-500">
+                          Or continue with
+                        </label>
+                        <hr className="w-28 border-gray-300 block" />
+                      </div>
+                    </div>
+
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="password_identifier"
+                      label="Email Address"
+                      name="password_identifier"
+                      type="email"
+                      autoComplete="email"
+                    />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                    />
+                    <FormControlLabel
+                      control={<Checkbox value="remember" color="primary" />}
+                      label="Remember me"
+                    />
+
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                    >
+                      {(() => {
+                        if (flow?.refresh) {
+                          return 'Confirm Action'
+                        } else if (flow?.requested_aal === 'aal2') {
+                          return 'Two-Factor Authentication'
+                        }
+                        return 'Sign In'
+                      })()}
+                    </Button>
+
+                    <div className="flex items-center justify-between">
+                      <Link
+                        href="/next/auth/forgot"
+                        variant="body2"
+                        underline="hover"
+                      >
+                        <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                          Forgot password?
+                        </p>
+                      </Link>
+
+                      <Link
+                        href="/next/auth/registration"
+                        variant="body2"
+                        underline="hover"
+                      >
+                        <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                          Don't have an account? Sign Up
+                        </p>
+                      </Link>
+                    </div>
+                  </form>
+                )
+              }
             </div>
           </div>
         </div>
@@ -218,3 +277,5 @@ export default function SignIn() {
     </Layout>
   )
 }
+
+export default SignIn
