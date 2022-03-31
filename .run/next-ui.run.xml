@@ -9,7 +9,7 @@
     <package-manager value="npm" />
     <envs>
       <env name="API_URI" value="http://shortlink-api.shortlink:7070" />
-      <env name="KRATOS_API" value="http://shortlink-api-kratos-public.shortlink:80" />
+      <env name="KRATOS_PUBLIC_API" value="http://shortlink-api-kratos-public.shortlink:80" />
       <env name="PROXY_URI" value="http://shortlink-proxy.shortlink:3030" />
     </envs>
     <method v="2" />

@@ -6,7 +6,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
 import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
-import { styled } from '@mui/styles'
+import type { NextPage } from 'next'
 import { Layout } from 'components'
 import { useRouter } from 'next/router'
 import {
@@ -14,27 +14,14 @@ import {
   PublicApi,
   SelfServiceRegistrationFlow,
 } from '@ory/kratos-client'
+import {
+  ory,
+  createLogoutHandler,
+  handleFlowError,
+} from '../../pkg/sdk'
 
-const useStyles = styled('div')((theme) => ({
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  csrf: {
-    visibility: 'hidden',
-  },
-}))
-
-export default function SignUp() {
-  const classes = {}
+const SignUp: NextPage = () => {
   const router = useRouter()
-
-  const kratos = new PublicApi(
-    new Configuration({ basePath: 'http://shortlink-api-kratos-public.shortlink:80' }),
-  )
 
   // The "flow" represents a registration process and contains
   // information about the form we need to render (e.g. username + password)
@@ -43,15 +30,8 @@ export default function SignUp() {
   // Get ?flow=... from the URL
   const { flow: flowId, return_to: returnTo } = router.query
 
+  // In this effect we either initiate a new registration flow, or we fetch an existing registration flow.
   useEffect(() => {
-    // if (
-    //   !new URL(document.location).searchParams.get('flow') &&
-    //   new URL(document.location).href.indexOf('registration') !== -1
-    // ) {
-    //   window.location.href =
-    //     '/self-service/registration/browser'
-    // }
-
     // If the router is not ready yet, or we already have a flow, do nothing.
     if (!router.isReady || flow) {
       return
@@ -59,26 +39,82 @@ export default function SignUp() {
 
     // If ?flow=.. was in the URL, we fetch it
     if (flowId) {
-      kratos
+      ory
         .getSelfServiceRegistrationFlow(String(flowId))
         .then(({ data }) => {
           // We received the flow - let's use its data and render the form!
           setFlow(data)
         })
-        .catch(console.error('registration', setFlow))
+        .catch(handleFlowError(router, 'registration', setFlow))
       return
     }
 
-    // Otherwise, we initialize it
-    kratos
-      .initializeSelfServiceRegistrationForBrowsers(
-        returnTo ? String(returnTo) : undefined,
+    // Otherwise we initialize it
+    ory
+      .initializeSelfServiceRegistrationFlowForBrowsers(
+        returnTo ? String(returnTo) : undefined
       )
       .then(({ data }) => {
         setFlow(data)
       })
-      .catch(console.error('registration', setFlow))
+      .catch(handleFlowError(router, 'registration', setFlow))
   }, [flowId, router, router.isReady, returnTo, flow])
+
+  const onSubmit = (values: SubmitSelfServiceRegistrationFlowBody) =>
+    router
+      // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
+      // his data when she/he reloads the page.
+      .push(`/registration?flow=${flow?.id}`, undefined, { shallow: true })
+      .then(() =>
+        ory
+          .submitSelfServiceRegistrationFlow(String(flow?.id), values)
+          .then(({ data }) => {
+            // If we ended up here, it means we are successfully signed up!
+            //
+            // You can do cool stuff here, like having access to the identity which just signed up:
+            console.log('This is the user session: ', data, data.identity)
+
+            // For now however we just want to redirect home!
+            return router.push(flow?.return_to || '/').then(() => {})
+          })
+          .catch(handleFlowError(router, 'registration', setFlow))
+          .catch((err: AxiosError) => {
+            // If the previous handler did not catch the error it's most likely a form validation error
+            if (err.response?.status === 400) {
+              // Yup, it is!
+              setFlow(err.response?.data)
+              return
+            }
+
+            return Promise.reject(err)
+          })
+      )
+
+  // Handles form submission
+  handleSubmit = (e: MouseEvent | FormEvent) => {
+    // Prevent all native handlers
+    e.stopPropagation()
+    e.preventDefault()
+
+    // Prevent double submission!
+    if (this.state.isLoading) {
+      return Promise.resolve()
+    }
+
+    this.setState((state) => ({
+      ...state,
+      isLoading: true
+    }))
+
+    return this.props.onSubmit(this.state.values).finally(() => {
+      // We wait for reconciliation and update the state after 50ms
+      // Done submitting - update loading status
+      this.setState((state) => ({
+        ...state,
+        isLoading: false
+      }))
+    })
+  }
 
   return (
     <Layout>
@@ -115,9 +151,9 @@ export default function SignUp() {
 
               {flow && (
                 <form
-                  className={classes.form}
                   action={flow.ui.action}
                   method={flow.ui.method}
+                  onSubmit={this.handleSubmit}
                 >
                   {
                     // <TextField
@@ -129,7 +165,6 @@ export default function SignUp() {
                     //   variant="outlined"
                     //   label="Csrf token"
                     //   value={csrfToken}
-                    //   className={classes.csrf}
                     // />
                   }
 
@@ -142,7 +177,6 @@ export default function SignUp() {
                     variant="outlined"
                     label="method"
                     value="password"
-                    className={classes.csrf}
                   />
 
                   <Grid container spacing={2}>
@@ -207,7 +241,6 @@ export default function SignUp() {
                     fullWidth
                     variant="contained"
                     color="primary"
-                    className={classes.submit}
                   >
                     Sign Up
                   </Button>
@@ -233,3 +266,5 @@ export default function SignUp() {
     </Layout>
   )
 }
+
+export default SignUp
