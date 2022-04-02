@@ -9,7 +9,7 @@ require (
 	github.com/Unleash/unleash-client-go/v3 v3.3.1
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/cloudevents/sdk-go/v2 v2.8.0
+	github.com/cloudevents/sdk-go/v2 v2.9.0
 	github.com/container-storage-interface/spec v1.5.0
 	github.com/cucumber/godog v0.12.5
 	github.com/dgraph-io/badger/v3 v3.2103.2
@@ -71,7 +71,7 @@ require (
 	golang.org/x/net v0.0.0-20220325170049-de3da57026de
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
-	google.golang.org/genproto v0.0.0-20220324131243-acbaeb5b85eb
+	google.golang.org/genproto 7be39ac1afc7
 	google.golang.org/grpc v1.45.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.0
