@@ -174,7 +174,31 @@ kratos:
   enabled: true
 
   image:
-    tag: v0.9.0
+    tag: v0.9.0-alpha.3
+
+  ingress:
+    admin:
+      enabled: false
+    public:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentracing: "false"
+        kubernetes.io/tls-acme: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
+      hosts:
+        - host: shortlink.ddns.net
+          paths:
+            - path: /api/auth\/(.*)
+              pathType: Prefix
+      tls:
+        - secretName: shortlink-ingress-tls
+          hosts:
+            - shortlink.ddns.net
 
   kratos:
     config:
@@ -189,12 +213,13 @@ kratos:
       serve:
         public:
           # Kratos uses cookies so you must always connect from "127.0.0.1"
-          base_url: http://shortlink-api-kratos-public.shortlink:4433/
+          base_url: http://shortlink-api-kratos-public.shortlink:4433
           cors:
             enabled: true
             debug: true
             allowed_origins:
               - http://127.0.0.1:3000
+              - https://shortlink.ddns.net
             allowed_methods:
               - POST
               - GET
@@ -204,6 +229,7 @@ kratos:
             allowed_headers:
               - Authorization
               - Cookie
+              - Content-Type
             exposed_headers:
               - Content-Type
               - Set-Cookie
