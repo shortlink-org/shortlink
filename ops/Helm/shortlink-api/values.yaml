@@ -219,7 +219,6 @@ kratos:
             debug: true
             allowed_origins:
               - http://127.0.0.1:3000
-              - https://shortlink.ddns.net
             allowed_methods:
               - POST
               - GET
@@ -247,9 +246,11 @@ kratos:
           same_site: Lax
 
       selfservice:
-        default_browser_return_url: http://127.0.0.1:3000/next/
+        default_browser_return_url: http://127.0.0.1:3000
         allowed_return_urls:
-          - http://127.0.0.1:3000
+          - "*"
+          - http://*
+          - https://*
 
         methods:
           password:
@@ -291,35 +292,35 @@ kratos:
         # You can see how this would change for a production environment or other solutions.
         flows:
           error:
-            ui_url: http://127.0.0.1:3000/next/error
+            ui_url: http://127.0.0.1:3000/error
 
           settings:
-            ui_url: http://127.0.0.1:3000/next/auth/profile
+            ui_url: http://127.0.0.1:3000/profile
             # Sessions older than a minute requires the user to sign in again before
             # the password is changed.
             privileged_session_max_age: 15m
 
           recovery:
             enabled: true
-            ui_url: http://127.0.0.1:3000/next/auth/recovery
+            ui_url: http://127.0.0.1:3000/recovery
 
           verification:
             enabled: true
-            ui_url: http://127.0.0.1:3000/next/auth/verify
+            ui_url: http://127.0.0.1:3000/verify
             after:
-              default_browser_return_url: http://127.0.0.1:3000/next/
+              default_browser_return_url: http://127.0.0.1:3000/
 
           logout:
             after:
-              default_browser_return_url: http://127.0.0.1:3000/next/auth/login
+              default_browser_return_url: http://127.0.0.1:3000/login
 
           login:
-            ui_url: http://127.0.0.1:3000/next/auth/login
+            ui_url: http://127.0.0.1:3000/login
             lifespan: 10m
 
           registration:
             lifespan: 10m
-            ui_url: http://127.0.0.1:3000/next/auth/registration
+            ui_url: http://127.0.0.1:3000/registration
             after:
               password:
                 hooks:
