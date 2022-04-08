@@ -1,26 +1,26 @@
-// @ts-nocheck
-import React, { useEffect, useState, Component, FormEvent } from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-import Link from '@mui/material/Link'
-import type { NextPage } from 'next'
-import { Layout } from 'components'
-import { useRouter } from 'next/router'
-import SocialAuth from 'components/widgets/oAuthServices'
 import {
   SelfServiceLoginFlow,
   SubmitSelfServiceLoginFlowBody
-} from '@ory/kratos-client'
+} from '@ory/client'
+import { CardTitle } from '@ory/themes'
+import { AxiosError } from 'axios'
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 import {
-  ory,
+  ActionCard,
+  CenterLink,
   createLogoutHandler,
-  handleFlowError,
-} from '../../pkg/sdk'
+  Flow,
+  MarginCard
+} from '../../pkg'
+import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
+import ory from '../../pkg/sdk'
 
-const SignIn: NextPage = () => {
+const Login: NextPage = () => {
   const [flow, setFlow] = useState<SelfServiceLoginFlow>()
 
   // Get ?flow=... from the URL
@@ -74,7 +74,7 @@ const SignIn: NextPage = () => {
     router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
-      .push(`/login?flow=${flow?.id}`, undefined, { shallow: true })
+      .push(`/auth/login?flow=${flow?.id}`, undefined, { shallow: true })
       .then(() =>
         ory
           .submitSelfServiceLoginFlow(String(flow?.id), undefined, values)
@@ -84,7 +84,7 @@ const SignIn: NextPage = () => {
               window.location.href = flow?.return_to
               return
             }
-            router.push('/')
+            router.push('/auth')
           })
           .then(() => {})
           .catch(handleFlowError(router, 'login', setFlow))
@@ -100,182 +100,47 @@ const SignIn: NextPage = () => {
           })
       )
 
-  // Handles form submission
-  const handleSubmit = (e: MouseEvent | FormEvent) => {
-    // Prevent all native handlers
-    e.stopPropagation()
-    e.preventDefault()
-
-    // Prevent double submission!
-    if (this.state.isLoading) {
-      return Promise.resolve()
-    }
-
-    this.setState((state) => ({
-      ...state,
-      isLoading: true
-    }))
-
-    return this.props.onSubmit(this.state.values).finally(() => {
-      // We wait for reconciliation and update the state after 50ms
-      // Done submitting - update loading status
-      this.setState((state) => ({
-        ...state,
-        isLoading: false
-      }))
-    })
-  }
-
   return (
-    <Layout>
-      <div className="flex h-full p-4 rotate">
-        <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">
-          <div className="flex items-stretch bg-white rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">
-            <div
-              className="flex hidden overflow-hidden relative sm:block w-4/12 md:w-5/12 bg-gray-600 text-gray-300 py-4 bg-cover bg-center"
-              style={{
-                backgroundImage:
-                  "url('https://images.unsplash.com/photo-1477346611705-65d1883cee1e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')",
-              }}
-            >
-              <div className="flex-1 absolute bottom-0 text-white p-10">
-                <h3 className="text-4xl font-bold inline-block">Login</h3>
-                <p className="text-gray-500 whitespace-no-wrap">
-                  Welcome back!
-                </p>
-              </div>
-              <svg
-                className="absolute animate h-full w-4/12 sm:w-2/12 right-0 inset-y-0 fill-current text-white"
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-              >
-                <polygon points="0,0 100,100 100,0" />
-              </svg>
-            </div>
-
-            <div className="flex-1 p-6 sm:p-10 sm:py-12">
-              <h3 className="text-xl text-gray-700 font-bold mb-6">
-                Login{' '}
-                <span className="text-gray-400 font-light">
-                  to your account
-                </span>
-              </h3>
-
-              {
-                flow && (
-                  <form
-                    action={flow.ui.action}
-                    method={flow.ui.method}
-                    onSubmit={handleSubmit}
-                  >
-                    <TextField
-                      name="csrf_token"
-                      id="csrf_token"
-                      type="hidden"
-                      required
-                      fullWidth
-                      variant="outlined"
-                      label="Csrf token"
-                      // value={csrfToken}
-                    />
-
-                    <TextField
-                      name="method"
-                      id="method"
-                      type="hidden"
-                      required
-                      fullWidth
-                      variant="outlined"
-                      label="method"
-                      value="password"
-                    />
-
-                    <div className="py-2 space-y-6">
-                      <SocialAuth />
-
-                      <div className="flex flex-row items-center justify-center">
-                        <hr className="w-28 border-gray-300 block" />
-                        <label className="mx-2 text-sm text-gray-500">
-                          Or continue with
-                        </label>
-                        <hr className="w-28 border-gray-300 block" />
-                      </div>
-                    </div>
-
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="password_identifier"
-                      label="Email Address"
-                      name="password_identifier"
-                      type="email"
-                      autoComplete="email"
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="primary" />}
-                      label="Remember me"
-                    />
-
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                    >
-                      {(() => {
-                        if (flow?.refresh) {
-                          return 'Confirm Action'
-                        } else if (flow?.requested_aal === 'aal2') {
-                          return 'Two-Factor Authentication'
-                        }
-                        return 'Sign In'
-                      })()}
-                    </Button>
-
-                    <div className="flex items-center justify-between">
-                      <Link
-                        href="/next/auth/forgot"
-                        variant="body2"
-                        underline="hover"
-                      >
-                        <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                          Forgot password?
-                        </p>
-                      </Link>
-
-                      <Link
-                        href="/next/auth/registration"
-                        variant="body2"
-                        underline="hover"
-                      >
-                        <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                          Don't have an account? Sign Up
-                        </p>
-                      </Link>
-                    </div>
-                  </form>
-                )
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    </Layout>
+    <>
+      <Head>
+        <title>Sign in - Ory NextJS Integration Example</title>
+        <meta name="description" content="NextJS + React + Vercel + Ory" />
+      </Head>
+      <MarginCard>
+        <CardTitle>
+          {(() => {
+            if (flow?.refresh) {
+              return 'Confirm Action'
+            } else if (flow?.requested_aal === 'aal2') {
+              return 'Two-Factor Authentication'
+            }
+            return 'Sign In'
+          })()}
+        </CardTitle>
+        <Flow onSubmit={onSubmit} flow={flow} />
+      </MarginCard>
+      {aal || refresh ? (
+        <ActionCard>
+          <CenterLink data-testid="logout-link" onClick={onLogout}>
+            Log out
+          </CenterLink>
+        </ActionCard>
+      ) : (
+        <>
+          <ActionCard>
+            <Link href="/auth/registration" passHref>
+              <CenterLink>Create account</CenterLink>
+            </Link>
+          </ActionCard>
+          <ActionCard>
+            <Link href="/auth/recovery" passHref>
+              <CenterLink>Recover your account</CenterLink>
+            </Link>
+          </ActionCard>
+        </>
+      )}
+    </>
   )
 }
 
-export default SignIn
+export default Login
