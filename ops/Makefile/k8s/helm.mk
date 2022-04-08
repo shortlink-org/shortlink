@@ -28,4 +28,4 @@ helm-lint: ## Check Helm chart by linter
 
 # HELM TASKS ===========================================================================================================
 helm-docs: ### Generate HELM docs
-	@docker run --rm --volume "$(pwd):/helm-docs" -u "$(id -u)" jnorwood/helm-docs:v1.7.0
+	@docker run --rm --volume "$(pwd):/helm-docs" -u "$(id -u)" jnorwood/helm-docs:v1.8.1
