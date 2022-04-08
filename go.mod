@@ -10,7 +10,7 @@ require (
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cloudevents/sdk-go/v2 v2.9.0
-	github.com/container-storage-interface/spec v1.5.0
+	github.com/container-storage-interface/spec v1.6.0
 	github.com/cucumber/godog v0.12.5
 	github.com/dgraph-io/badger/v3 v3.2103.2
 	github.com/dgraph-io/dgo/v2 v2.2.0
@@ -38,9 +38,9 @@ require (
 	github.com/jackc/pgx/v4 v4.15.0
 	github.com/jmoiron/sqlx v1.3.4
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
-	github.com/krzysztofreczek/go-structurizr v0.1.6
+	github.com/krzysztofreczek/go-structurizr v0.1.7
 	github.com/kubernetes-csi/csi-test/v4 v4.3.0
-	github.com/lib/pq v1.10.4
+	github.com/lib/pq v1.10.5
 	github.com/luna-duclos/instrumentedsql v1.1.3
 	github.com/luna-duclos/instrumentedsql/opentracing v0.0.0-20201103091713-40d03108b6f4
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
@@ -52,7 +52,7 @@ require (
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/prometheus/client_golang v1.12.1
 	github.com/pterm/pterm v0.12.40
-	github.com/rabbitmq/amqp091-go v1.3.2
+	github.com/rabbitmq/amqp091-go v1.3.4
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.4.0
@@ -63,12 +63,12 @@ require (
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
 	go.etcd.io/etcd/client/v3 v3.5.2
-	go.mongodb.org/mongo-driver v1.8.4
+	go.mongodb.org/mongo-driver v1.9.0
 	go.uber.org/atomic v1.9.0
-	go.uber.org/automaxprocs v1.4.0
+	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/goleak v1.1.12
 	go.uber.org/zap v1.21.0
-	golang.org/x/net v0.0.0-20220325170049-de3da57026de
+	golang.org/x/net 749bd193bc2b
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
 	google.golang.org/genproto 7be39ac1afc7
