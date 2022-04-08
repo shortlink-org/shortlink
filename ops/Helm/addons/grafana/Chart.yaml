@@ -20,13 +20,13 @@ dependencies:
     tags:
       - monitoring
   - name: loki
-    version: 2.10.3
+    version: 2.11.0
     repository: https://grafana.github.io/helm-charts
     condition: loki.enabled
     tags:
       - monitoring
   - name: promtail
-    version: 3.11.0
+    version: 4.2.0
     repository: https://grafana.github.io/helm-charts
     condition: promtail.enabled
     tags:
