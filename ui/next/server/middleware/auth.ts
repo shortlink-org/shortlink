@@ -7,15 +7,8 @@
 //
 //   app.get("/dashboard", protect, (req, res) => { /* ... */ })
 
-import { Configuration, PublicApi } from '@ory/kratos-client'
 import { NextFunction, Request, Response } from 'express'
 import http from 'http'
-
-const kratos = new PublicApi( // eslint-disable-line
-  new Configuration({
-    basePath: process.env.KRATOS_PUBLIC_API || 'http://shortlink-api-kratos-public.shortlink:80',
-  }),
-)
 
 export default (req: Request, res: Response, next: NextFunction) => {
   const options = {

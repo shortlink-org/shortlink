@@ -226,13 +226,16 @@ kratos:
               - PUT
               - PATCH
               - DELETE
+              - OPTIONS
             allowed_headers:
               - Authorization
               - Cookie
-              - Content-Type
+              - Origin
+              - X-Session-Token
             exposed_headers:
               - Content-Type
               - Set-Cookie
+            allow_credentials: true
         admin:
           base_url: http://127.0.0.1:4434/
 

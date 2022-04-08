@@ -1,51 +1,10 @@
-import { Configuration, V0alpha2Api } from '@ory/client'
-import { Dispatch, SetStateAction, useEffect, useState, DependencyList } from "react";
-import { useRouter } from "next/router";
 import { AxiosError } from 'axios'
 import { NextRouter } from 'next/router'
+import { Dispatch, SetStateAction } from 'react'
 import { toast } from 'react-toastify'
 
-// Init Kratos API
-const KRATOS_PUBLIC_API = process.env.KRATOS_PUBLIC_API || 'http://shortlink-api-kratos-public.shortlink:80'
-
-export const ory = new V0alpha2Api(new Configuration({ basePath: KRATOS_PUBLIC_API }))
-
-// Returns a function which will log the user out
-export function createLogoutHandler(deps?: DependencyList) {
-  const [logoutToken, setLogoutToken] = useState<string>('')
-  const router = useRouter()
-
-  useEffect(() => {
-    ory
-      .createSelfServiceLogoutFlowUrlForBrowsers()
-      .then(({ data }) => {
-        setLogoutToken(data.logout_token)
-      })
-      .catch((err: AxiosError) => {
-        switch (err.response?.status) {
-          case 401:
-            // do nothing, the user is not logged in
-            return
-        }
-
-        // Something else happened!
-        return Promise.reject(err)
-      })
-  }, deps)
-
-  return () => {
-    if (logoutToken) {
-      ory
-        .submitSelfServiceLogoutFlow(logoutToken)
-        .then(() => router.push('/login'))
-        .then(() => router.reload())
-    }
-  }
-}
-
-
 // A small function to help us deal with errors coming from fetching a flow.
-export function handleFlowError<S>(
+export function handleGetFlowError<S>(
   router: NextRouter,
   flowType: 'login' | 'registration' | 'settings' | 'recovery' | 'verification',
   resetFlow: Dispatch<SetStateAction<S | undefined>>
@@ -58,7 +17,7 @@ export function handleFlowError<S>(
         return
       case 'session_already_available':
         // User is already signed in, let's redirect them home!
-        await router.push('/')
+        await router.push('/auth/')
         return
       case 'session_refresh_required':
         // We need to re-authenticate to perform this action
@@ -68,13 +27,13 @@ export function handleFlowError<S>(
         // The flow expired, let's request a new one.
         toast.error('The return_to address is not allowed.')
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push('/auth/' + flowType)
         return
       case 'self_service_flow_expired':
         // The flow expired, let's request a new one.
         toast.error('Your interaction expired, please fill out the form again.')
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push('/auth/' + flowType)
         return
       case 'security_csrf_violation':
         // A CSRF violation occurred. Best to just refresh the flow!
@@ -82,12 +41,12 @@ export function handleFlowError<S>(
           'A security violation was detected, please fill out the form again.'
         )
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push('/auth/' + flowType)
         return
       case 'security_identity_mismatch':
         // The requested item was intended for someone else. Let's request a new flow...
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push('/auth/' + flowType)
         return
       case 'browser_location_change_required':
         // Ory Kratos asked us to point the user to this URL.
@@ -99,7 +58,7 @@ export function handleFlowError<S>(
       case 410:
         // The flow expired, let's request a new one.
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push('/auth/' + flowType)
         return
     }
 
@@ -107,3 +66,6 @@ export function handleFlowError<S>(
     return Promise.reject(err)
   }
 }
+
+// A small function to help us deal with errors coming from initializing a flow.
+export const handleFlowError = handleGetFlowError
