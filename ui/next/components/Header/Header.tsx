@@ -9,7 +9,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import MuiDrawer from '@mui/material/Drawer';
-import { useSelector } from 'react-redux'
 import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'

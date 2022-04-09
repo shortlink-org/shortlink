@@ -32,7 +32,7 @@ const useStyles = styled('div')((theme) => ({
   },
 }))
 
-export function AddUrl() {
+function AddUrl() {
   const [open, setOpen] = useState(false)
   const classes = {}
 
