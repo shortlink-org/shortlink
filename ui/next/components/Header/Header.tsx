@@ -1,6 +1,7 @@
-import * as React from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import Link from 'next/link'
 import Button from '@mui/material/Button'
+import { AxiosError } from 'axios'
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,6 +19,7 @@ import SearchForm from '../SearchForm'
 import Notification from './notification'
 import Profile from './profile'
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
+import ory from '../../pkg/sdk'
 
 const drawerWidth = 240;
 
@@ -91,11 +93,26 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const Header = () => {
-  // @ts-ignore
-  const session = useSelector((state) => state.session)
+  const [session, setSession] = useState<string>(
+    'No valid Ory Session was found.\nPlease sign in to receive one.'
+  )
+  const [hasSession, setHasSession] = useState<boolean>(false)
+
+  useEffect(() => {
+    ory
+      .toSession()
+      .then(({ data }) => {
+        setSession(JSON.stringify(data, null, 2))
+        setHasSession(true)
+      })
+      .catch((err: AxiosError) => {
+        // Something else happened!
+        return Promise.reject(err)
+      })
+  })
 
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -117,6 +134,7 @@ const Header = () => {
             marginRight: 5,
             ...(open && { display: 'none' }),
           }}
+          disabled={!hasSession}
         >
           <MenuIcon />
         </IconButton>
@@ -145,12 +163,12 @@ const Header = () => {
 
         <SearchForm />
 
-        {session.kratos.active ? (
-          <React.Fragment>
+        {hasSession ? (
+          <Fragment>
             <Profile />
 
             <Notification />
-          </React.Fragment>
+          </Fragment>
         ) : (
           <Link href="/auth/login">
             <Button variant="outlined" color="inherit">
@@ -160,22 +178,28 @@ const Header = () => {
         )}
       </Toolbar>
     </AppBar>,
-    <Drawer key={"drawer"} variant="permanent" open={open}>
-      <DrawerHeader>
-        <IconButton onClick={handleDrawerClose}>
-          {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-        </IconButton>
-      </DrawerHeader>
-      <Divider />
+    <Fragment>
+      {
+        hasSession && (
+          <Drawer key={"drawer"} variant="permanent" open={open}>
+            <DrawerHeader>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+              </IconButton>
+            </DrawerHeader>
+            <Divider />
 
-      <List>{mainListItems}</List>
-      <Divider />
+            <List>{mainListItems}</List>
+            <Divider />
 
-      <List>{secondaryListItems}</List>
-      <Divider />
+            <List>{secondaryListItems}</List>
+            <Divider />
 
-      <List>{adminListItems}</List>
-    </Drawer>,
+            <List>{adminListItems}</List>
+          </Drawer>
+        )
+      }
+    </Fragment>
   ]
 }
 
