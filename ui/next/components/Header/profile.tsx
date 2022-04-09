@@ -1,17 +1,10 @@
-import React from 'react'
+import { AxiosError } from 'axios'
+import { useRouter } from 'next/router'
+import { useState, useEffect, Fragment, DependencyList } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
 
-const profile = [
-  {
-    name: 'Your Profile',
-    link: '#',
-  },
-  {
-    name: 'Sign out',
-    link: `/self-service/browser/flows/logout`,
-  },
-]
+import ory from '../../pkg/sdk'
 
 // @ts-ignore
 function classNames(...classes) {
@@ -19,11 +12,47 @@ function classNames(...classes) {
 }
 
 export default function Profile() {
+  const [logoutToken, setLogoutToken] = useState<string>('')
+  const router = useRouter()
+
+  useEffect(() => {
+    ory
+      .createSelfServiceLogoutFlowUrlForBrowsers()
+      .then(({ data }) => {
+        setLogoutToken(data.logout_token)
+      })
+      .catch((err: AxiosError) => {
+        switch (err.response?.status) {
+          case 401:
+            // do nothing, the user is not logged in
+            return
+        }
+
+        // Something else happened!
+        return Promise.reject(err)
+      })
+  })
+
+  const profile = [
+    {
+      name: 'Your Profile',
+      link: '#',
+    },
+    {
+      name: 'Sign out',
+      link: `#`,
+      onClick: () => ory
+        .submitSelfServiceLogoutFlow(logoutToken)
+        .then(() => router.push('/auth/login'))
+        .then(() => router.reload())
+    },
+  ]
+
   // @ts-ignore
   return (
     <Menu as="div" className="ml-3 relative">
       {({ open }) => (
-        <React.Fragment>
+        <Fragment>
           <div>
             <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <span className="sr-only">Open user menu</span>
@@ -34,9 +63,10 @@ export default function Profile() {
               />
             </Menu.Button>
           </div>
+
           <Transition
             show={open}
-            as={React.Fragment}
+            as={Fragment}
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
             enterTo="transform opacity-100 scale-100"
@@ -56,17 +86,24 @@ export default function Profile() {
                         active ? 'bg-gray-100' : '',
                         'block px-4 py-2 text-sm text-gray-700',
                       )}
+                      onClick={item.onClick}
                     >
-                      <Link href={item.link}>
-                        <p>{item.name}</p>
-                      </Link>
+                      {
+                        item.onClick ? (
+                          <p>{item.name}</p>
+                        ) : (
+                          <Link href={item.link}>
+                            <p>{item.name}</p>
+                          </Link>
+                        )
+                      }
                     </span>
                   )}
                 </Menu.Item>
               ))}
             </Menu.Items>
           </Transition>
-        </React.Fragment>
+        </Fragment>
       )}
     </Menu>
   )

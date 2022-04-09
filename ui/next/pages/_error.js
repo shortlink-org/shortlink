@@ -22,7 +22,7 @@ export default function Error() {
               </button>
             </div>
           </div>
-          <div className="w-full md:w-1/2 text-center">
+          <div className="w-full md:w-1/2 text-center p-5">
             <UndrawBackInTheDay />
           </div>
         </div>

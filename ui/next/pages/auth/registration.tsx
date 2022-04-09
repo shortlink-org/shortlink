@@ -1,5 +1,4 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -8,18 +7,19 @@ import Link from '@mui/material/Link'
 import Grid from '@mui/material/Grid'
 import type { NextPage } from 'next'
 import { Layout } from 'components'
-import { useRouter } from 'next/router'
 import {
-  Configuration,
-  PublicApi,
   SelfServiceRegistrationFlow,
-} from '@ory/kratos-client'
-import {
-  ory,
-  createLogoutHandler,
-  handleFlowError,
-} from '../../pkg/sdk'
+  SubmitSelfServiceRegistrationFlowBody
+} from '@ory/client'
+import { AxiosError } from 'axios'
+import { useRouter, NextRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { Flow } from '../../components/ui/Flow'
 
+import ory, { createLogoutHandler } from '../../pkg/sdk'
+import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
+
+// Renders the registration page
 const SignUp: NextPage = () => {
   const router = useRouter()
 
@@ -64,7 +64,7 @@ const SignUp: NextPage = () => {
     router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
-      .push(`/registration?flow=${flow?.id}`, undefined, { shallow: true })
+      .push(`/auth/registration?flow=${flow?.id}`, undefined, { shallow: true })
       .then(() =>
         ory
           .submitSelfServiceRegistrationFlow(String(flow?.id), values)
@@ -89,32 +89,6 @@ const SignUp: NextPage = () => {
             return Promise.reject(err)
           })
       )
-
-  // Handles form submission
-  handleSubmit = (e: MouseEvent | FormEvent) => {
-    // Prevent all native handlers
-    e.stopPropagation()
-    e.preventDefault()
-
-    // Prevent double submission!
-    if (this.state.isLoading) {
-      return Promise.resolve()
-    }
-
-    this.setState((state) => ({
-      ...state,
-      isLoading: true
-    }))
-
-    return this.props.onSubmit(this.state.values).finally(() => {
-      // We wait for reconciliation and update the state after 50ms
-      // Done submitting - update loading status
-      this.setState((state) => ({
-        ...state,
-        isLoading: false
-      }))
-    })
-  }
 
   return (
     <Layout>
@@ -149,116 +123,116 @@ const SignUp: NextPage = () => {
                 <span className="text-gray-400 font-light">for an account</span>
               </h3>
 
-              {flow && (
-                <form
-                  action={flow.ui.action}
-                  method={flow.ui.method}
-                  onSubmit={this.handleSubmit}
-                >
-                  {
-                    // <TextField
-                    //   name="csrf_token"
-                    //   id="csrf_token"
-                    //   type="hidden"
-                    //   required
-                    //   fullWidth
-                    //   variant="outlined"
-                    //   label="Csrf token"
-                    //   value={csrfToken}
-                    // />
-                  }
+              <Flow onSubmit={onSubmit} flow={flow} />
 
-                  <TextField
-                    name="method"
-                    id="method"
-                    type="hidden"
-                    required
-                    fullWidth
-                    variant="outlined"
-                    label="method"
-                    value="password"
-                  />
+              {/*<form*/}
+              {/*  // action={flow.ui.action}*/}
+              {/*  // method={flow.ui.method}*/}
+              {/*  // onSubmit={this.handleSubmit}*/}
+              {/*>*/}
+              {/*  {*/}
+              {/*    // <TextField*/}
+              {/*    //   name="csrf_token"*/}
+              {/*    //   id="csrf_token"*/}
+              {/*    //   type="hidden"*/}
+              {/*    //   required*/}
+              {/*    //   fullWidth*/}
+              {/*    //   variant="outlined"*/}
+              {/*    //   label="Csrf token"*/}
+              {/*    //   value={csrfToken}*/}
+              {/*    // />*/}
+              {/*  }*/}
 
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        autoComplete="fname"
-                        name="traits.name.first"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="traits.name.first"
-                        label="First Name"
-                        autoFocus
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="traits.name.last"
-                        label="Last Name"
-                        name="traits.name.last"
-                        autoComplete="lname"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="traits.email"
-                        label="Email Address"
-                        name="traits.email"
-                        type="email"
-                        autoComplete="email"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox value="allowExtraEmails" color="primary" />
-                        }
-                        label="I want to receive inspiration, marketing promotions and updates via email."
-                      />
-                    </Grid>
-                  </Grid>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                  >
-                    Sign Up
-                  </Button>
-                  <Grid container justifyContent="flex-end">
-                    <Grid item>
-                      <Link
-                        href="/next/auth/login"
-                        variant="body2"
-                        underline="hover"
-                      >
-                        <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                          Already have an account? Log in
-                        </p>
-                      </Link>
-                    </Grid>
-                  </Grid>
-                </form>
-              )}
+              {/*  <TextField*/}
+              {/*    name="method"*/}
+              {/*    id="method"*/}
+              {/*    type="hidden"*/}
+              {/*    required*/}
+              {/*    fullWidth*/}
+              {/*    variant="outlined"*/}
+              {/*    label="method"*/}
+              {/*    value="password"*/}
+              {/*  />*/}
+
+              {/*  <Grid container spacing={2}>*/}
+              {/*    <Grid item xs={12} sm={6}>*/}
+              {/*      <TextField*/}
+              {/*        autoComplete="fname"*/}
+              {/*        name="traits.name.first"*/}
+              {/*        variant="outlined"*/}
+              {/*        required*/}
+              {/*        fullWidth*/}
+              {/*        id="traits.name.first"*/}
+              {/*        label="First Name"*/}
+              {/*        autoFocus*/}
+              {/*      />*/}
+              {/*    </Grid>*/}
+              {/*    <Grid item xs={12} sm={6}>*/}
+              {/*      <TextField*/}
+              {/*        variant="outlined"*/}
+              {/*        required*/}
+              {/*        fullWidth*/}
+              {/*        id="traits.name.last"*/}
+              {/*        label="Last Name"*/}
+              {/*        name="traits.name.last"*/}
+              {/*        autoComplete="lname"*/}
+              {/*      />*/}
+              {/*    </Grid>*/}
+              {/*    <Grid item xs={12}>*/}
+              {/*      <TextField*/}
+              {/*        variant="outlined"*/}
+              {/*        required*/}
+              {/*        fullWidth*/}
+              {/*        id="traits.email"*/}
+              {/*        label="Email Address"*/}
+              {/*        name="traits.email"*/}
+              {/*        type="email"*/}
+              {/*        autoComplete="email"*/}
+              {/*      />*/}
+              {/*    </Grid>*/}
+              {/*    <Grid item xs={12}>*/}
+              {/*      <TextField*/}
+              {/*        variant="outlined"*/}
+              {/*        required*/}
+              {/*        fullWidth*/}
+              {/*        name="password"*/}
+              {/*        label="Password"*/}
+              {/*        type="password"*/}
+              {/*        id="password"*/}
+              {/*        autoComplete="current-password"*/}
+              {/*      />*/}
+              {/*    </Grid>*/}
+              {/*    <Grid item xs={12}>*/}
+              {/*      <FormControlLabel*/}
+              {/*        control={*/}
+              {/*          <Checkbox value="allowExtraEmails" color="primary" />*/}
+              {/*        }*/}
+              {/*        label="I want to receive inspiration, marketing promotions and updates via email."*/}
+              {/*      />*/}
+              {/*    </Grid>*/}
+              {/*  </Grid>*/}
+              {/*  <Button*/}
+              {/*    type="submit"*/}
+              {/*    fullWidth*/}
+              {/*    variant="contained"*/}
+              {/*    color="primary"*/}
+              {/*  >*/}
+              {/*    Sign Up*/}
+              {/*  </Button>*/}
+              {/*  <Grid container justifyContent="flex-end">*/}
+              {/*    <Grid item>*/}
+              {/*      <Link*/}
+              {/*        href="/next/auth/login"*/}
+              {/*        variant="body2"*/}
+              {/*        underline="hover"*/}
+              {/*      >*/}
+              {/*        <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">*/}
+              {/*          Already have an account? Log in*/}
+              {/*        </p>*/}
+              {/*      </Link>*/}
+              {/*    </Grid>*/}
+              {/*  </Grid>*/}
+              {/*</form>*/}
             </div>
           </div>
         </div>
