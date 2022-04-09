@@ -2,19 +2,12 @@
 
 import React from 'react'
 import Link from '@mui/material/Link'
-import { styled } from '@mui/styles'
 import Typography from '@mui/material/Typography'
 import Title from './Title'
 
 function preventDefault(event) {
   event.preventDefault()
 }
-
-const useStyles = styled({
-  depositContext: {
-    flex: 1,
-  },
-})
 
 export default function Deposits() {
   const classes = {}

@@ -10,27 +10,10 @@ import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import FileCopyIcon from '@mui/icons-material/FileCopy'
 import Grid from '@mui/material/Grid'
-import { styled } from '@mui/styles'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Link from '@mui/material/Link'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
-
-const useStyles = styled('div')((theme) => ({
-  root: {
-    flexGrow: 1,
-    overflow: 'hidden',
-    padding: theme.spacing(0, 3),
-  },
-  form: {
-    display: 'grid',
-  },
-  paper: {
-    maxWidth: 400,
-    margin: `${theme.spacing(1)} auto`,
-    padding: theme.spacing(2),
-  },
-}))
 
 function AddUrl() {
   const [open, setOpen] = useState(false)

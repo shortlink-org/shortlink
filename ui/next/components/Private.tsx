@@ -38,8 +38,6 @@ export default function withAuthSync(Child: any) {
         })
     })
 
-    console.warn('TEST', Child)
-
     // If this is an token we just render the component that was passed with all its props
     return <Child {...props} />
   }

@@ -34,7 +34,7 @@ export default function Subscribe() {
             </div>
           </div>
 
-          <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
+          <div className="flex items-center justify-center w-full mt-3 lg:mt-0 sm:w-1/2 p-3">
             <UndrawDesigner />
           </div>
         </div>
