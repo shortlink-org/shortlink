@@ -14,6 +14,8 @@ import {
 import { getNodeId } from '@ory/integrations/ui'
 import { isUiNodeInputAttributes } from '@ory/integrations/ui'
 import { Component, FormEvent } from 'react'
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl'
 
 import { Messages } from './Messages'
 import { Node } from './Node'
@@ -164,32 +166,35 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
         onSubmit={this.handleSubmit}
       >
         {!hideGlobalMessages ? <Messages messages={flow.ui.messages} /> : null}
-        {nodes.map((node, k) => {
-          const id = getNodeId(node) as keyof Values
-          return (
-            <Node
-              key={`${id}-${k}`}
-              disabled={isLoading}
-              node={node}
-              value={values[id]}
-              dispatchSubmit={this.handleSubmit}
-              setValue={(value) =>
-                new Promise((resolve) => {
-                  this.setState(
-                    (state) => ({
-                      ...state,
-                      values: {
-                        ...state.values,
-                        [getNodeId(node)]: value
-                      }
-                    }),
-                    resolve
-                  )
-                })
-              }
-            />
-          )
-        })}
+
+          {nodes.map((node, k) => {
+            const id = getNodeId(node) as keyof Values
+            return (
+              <FormControl margin={"normal"} fullWidth>
+                <Node
+                  key={`${id}-${k}`}
+                  disabled={isLoading}
+                  node={node}
+                  value={values[id]}
+                  dispatchSubmit={this.handleSubmit}
+                  setValue={(value) =>
+                    new Promise((resolve) => {
+                      this.setState(
+                        (state) => ({
+                          ...state,
+                          values: {
+                            ...state.values,
+                            [getNodeId(node)]: value
+                          }
+                        }),
+                        resolve
+                      )
+                    })
+                  }
+                />
+          </FormControl>
+            )
+          })}
       </form>
     )
   }

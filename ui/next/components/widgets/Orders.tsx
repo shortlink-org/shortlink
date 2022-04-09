@@ -61,7 +61,6 @@ function preventDefault(event) {
 }
 
 export default function Orders() {
-  const classes = {}
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
@@ -82,21 +81,19 @@ export default function Orders() {
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.shipTo}</TableCell>
               <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{row.amount}</TableCell>
+              <TableCell align="right">{`$${row.amount}`}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-      <div className={classes.seeMore}>
-        <Link
-          color="primary"
-          href="#"
-          onClick={preventDefault}
-          underline="hover"
-        >
-          See more orders
-        </Link>
-      </div>
+      <Link
+        color="primary"
+        href="#"
+        onClick={preventDefault}
+        sx={{ mt: 3 }}
+      >
+        See more orders
+      </Link>
     </React.Fragment>
   )
 }

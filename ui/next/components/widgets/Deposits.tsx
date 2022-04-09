@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import React from 'react'
 import Link from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
@@ -10,14 +8,13 @@ function preventDefault(event) {
 }
 
 export default function Deposits() {
-  const classes = {}
   return (
     <React.Fragment>
       <Title>Recent Deposits</Title>
       <Typography component="p" variant="h4">
         $3,024.00
       </Typography>
-      <Typography color="textSecondary" className={classes.depositContext}>
+      <Typography color="text.secondary" sx={{ flex: 1 }}>
         on 15 March, 2019
       </Typography>
       <div>
@@ -25,7 +22,6 @@ export default function Deposits() {
           color="primary"
           href="#"
           onClick={preventDefault}
-          underline="hover"
         >
           View balance
         </Link>
