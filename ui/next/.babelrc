@@ -1,4 +1,18 @@
 {
   "presets": ["next/babel"],
-  "plugins": [["styled-components", { "ssr": true }], "inline-react-svg"]
+  "plugins": [
+    ["styled-components", { "ssr": true }],
+    ["inline-react-svg", {
+        "svgo": {
+          "plugins": [
+            {
+              "name": "removeAttrs",
+              "params": { "attrs": "(data-name)" }
+            },
+            "cleanupIDs"
+          ]
+        }
+      }
+    ]
+  ]
 }

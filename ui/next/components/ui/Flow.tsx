@@ -1,5 +1,3 @@
-import { getNodeId } from '@ory/integrations/ui'
-import { isUiNodeInputAttributes } from '@ory/integrations/ui'
 import {
   SelfServiceLoginFlow,
   SelfServiceRecoveryFlow,
@@ -12,7 +10,9 @@ import {
   SubmitSelfServiceSettingsFlowBody,
   SubmitSelfServiceVerificationFlowBody,
   UiNode
-} from '@ory/kratos-client'
+} from '@ory/client'
+import { getNodeId } from '@ory/integrations/ui'
+import { isUiNodeInputAttributes } from '@ory/integrations/ui'
 import { Component, FormEvent } from 'react'
 
 import { Messages } from './Messages'

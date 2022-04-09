@@ -12,13 +12,11 @@ import SocialAuth from 'components/widgets/oAuthServices'
 import {
   SelfServiceLoginFlow,
   SubmitSelfServiceLoginFlowBody
-} from '@ory/kratos-client'
+} from '@ory/client'
 
-import {
-  ory,
-  createLogoutHandler,
-  handleFlowError,
-} from '../../pkg/sdk'
+import ory, { createLogoutHandler } from '../../pkg/sdk'
+import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
+import { Flow } from '../../components/ui/Flow'
 
 const SignIn: NextPage = () => {
   const [flow, setFlow] = useState<SelfServiceLoginFlow>()
@@ -74,7 +72,7 @@ const SignIn: NextPage = () => {
     router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
-      .push(`/login?flow=${flow?.id}`, undefined, { shallow: true })
+      .push(`/auth/login?flow=${flow?.id}`, undefined, { shallow: true })
       .then(() =>
         ory
           .submitSelfServiceLoginFlow(String(flow?.id), undefined, values)
@@ -99,32 +97,6 @@ const SignIn: NextPage = () => {
             return Promise.reject(err)
           })
       )
-
-  // Handles form submission
-  const handleSubmit = (e: MouseEvent | FormEvent) => {
-    // Prevent all native handlers
-    e.stopPropagation()
-    e.preventDefault()
-
-    // Prevent double submission!
-    if (this.state.isLoading) {
-      return Promise.resolve()
-    }
-
-    this.setState((state) => ({
-      ...state,
-      isLoading: true
-    }))
-
-    return this.props.onSubmit(this.state.values).finally(() => {
-      // We wait for reconciliation and update the state after 50ms
-      // Done submitting - update loading status
-      this.setState((state) => ({
-        ...state,
-        isLoading: false
-      }))
-    })
-  }
 
   return (
     <Layout>
@@ -162,114 +134,111 @@ const SignIn: NextPage = () => {
                 </span>
               </h3>
 
-              {
-                flow && (
-                  <form
-                    action={flow.ui.action}
-                    method={flow.ui.method}
-                    onSubmit={handleSubmit}
-                  >
-                    <TextField
-                      name="csrf_token"
-                      id="csrf_token"
-                      type="hidden"
-                      required
-                      fullWidth
-                      variant="outlined"
-                      label="Csrf token"
-                      // value={csrfToken}
-                    />
+              <Flow onSubmit={onSubmit} flow={flow} />
 
-                    <TextField
-                      name="method"
-                      id="method"
-                      type="hidden"
-                      required
-                      fullWidth
-                      variant="outlined"
-                      label="method"
-                      value="password"
-                    />
+              {/*<form*/}
+              {/*  // action={flow.ui.action}*/}
+              {/*  // method={flow.ui.method}*/}
+              {/*  // onSubmit={handleSubmit}*/}
+              {/*>*/}
+              {/*  <TextField*/}
+              {/*    name="csrf_token"*/}
+              {/*    id="csrf_token"*/}
+              {/*    type="hidden"*/}
+              {/*    required*/}
+              {/*    fullWidth*/}
+              {/*    variant="outlined"*/}
+              {/*    label="Csrf token"*/}
+              {/*    // value={csrfToken}*/}
+              {/*  />*/}
 
-                    <div className="py-2 space-y-6">
-                      <SocialAuth />
+              {/*  <TextField*/}
+              {/*    name="method"*/}
+              {/*    id="method"*/}
+              {/*    type="hidden"*/}
+              {/*    required*/}
+              {/*    fullWidth*/}
+              {/*    variant="outlined"*/}
+              {/*    label="method"*/}
+              {/*    value="password"*/}
+              {/*  />*/}
 
-                      <div className="flex flex-row items-center justify-center">
-                        <hr className="w-28 border-gray-300 block" />
-                        <label className="mx-2 text-sm text-gray-500">
-                          Or continue with
-                        </label>
-                        <hr className="w-28 border-gray-300 block" />
-                      </div>
-                    </div>
+              {/*  <div className="py-2 space-y-6">*/}
+              {/*    <SocialAuth />*/}
 
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="password_identifier"
-                      label="Email Address"
-                      name="password_identifier"
-                      type="email"
-                      autoComplete="email"
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                    />
-                    <FormControlLabel
-                      control={<Checkbox value="remember" color="primary" />}
-                      label="Remember me"
-                    />
+              {/*    <div className="flex flex-row items-center justify-center">*/}
+              {/*      <hr className="w-28 border-gray-300 block" />*/}
+              {/*      <label className="mx-2 text-sm text-gray-500">*/}
+              {/*        Or continue with*/}
+              {/*      </label>*/}
+              {/*      <hr className="w-28 border-gray-300 block" />*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
 
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                    >
-                      {(() => {
-                        if (flow?.refresh) {
-                          return 'Confirm Action'
-                        } else if (flow?.requested_aal === 'aal2') {
-                          return 'Two-Factor Authentication'
-                        }
-                        return 'Sign In'
-                      })()}
-                    </Button>
+              {/*  <TextField*/}
+              {/*    variant="outlined"*/}
+              {/*    margin="normal"*/}
+              {/*    required*/}
+              {/*    fullWidth*/}
+              {/*    id="password_identifier"*/}
+              {/*    label="Email Address"*/}
+              {/*    name="password_identifier"*/}
+              {/*    type="email"*/}
+              {/*    autoComplete="email"*/}
+              {/*  />*/}
+              {/*  <TextField*/}
+              {/*    variant="outlined"*/}
+              {/*    margin="normal"*/}
+              {/*    required*/}
+              {/*    fullWidth*/}
+              {/*    name="password"*/}
+              {/*    label="Password"*/}
+              {/*    type="password"*/}
+              {/*    id="password"*/}
+              {/*    autoComplete="current-password"*/}
+              {/*  />*/}
+              {/*  <FormControlLabel*/}
+              {/*    control={<Checkbox value="remember" color="primary" />}*/}
+              {/*    label="Remember me"*/}
+              {/*  />*/}
 
-                    <div className="flex items-center justify-between">
-                      <Link
-                        href="/next/auth/forgot"
-                        variant="body2"
-                        underline="hover"
-                      >
-                        <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                          Forgot password?
-                        </p>
-                      </Link>
+              {/*  <Button*/}
+              {/*    type="submit"*/}
+              {/*    fullWidth*/}
+              {/*    variant="contained"*/}
+              {/*  >*/}
+              {/*    {(() => {*/}
+              {/*      if (flow?.refresh) {*/}
+              {/*        return 'Confirm Action'*/}
+              {/*      } else if (flow?.requested_aal === 'aal2') {*/}
+              {/*        return 'Two-Factor Authentication'*/}
+              {/*      }*/}
+              {/*      return 'Sign In'*/}
+              {/*    })()}*/}
+              {/*  </Button>*/}
 
-                      <Link
-                        href="/next/auth/registration"
-                        variant="body2"
-                        underline="hover"
-                      >
-                        <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                          Don't have an account? Sign Up
-                        </p>
-                      </Link>
-                    </div>
-                  </form>
-                )
-              }
+              {/*  <div className="flex items-center justify-between">*/}
+              {/*    <Link*/}
+              {/*      href="/next/auth/forgot"*/}
+              {/*      variant="body2"*/}
+              {/*      underline="hover"*/}
+              {/*    >*/}
+              {/*      <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">*/}
+              {/*        Forgot password?*/}
+              {/*      </p>*/}
+              {/*    </Link>*/}
+
+              {/*    <Link*/}
+              {/*      href="/next/auth/registration"*/}
+              {/*      variant="body2"*/}
+              {/*      underline="hover"*/}
+              {/*    >*/}
+              {/*      <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">*/}
+              {/*        Don't have an account? Sign Up*/}
+              {/*      </p>*/}
+              {/*    </Link>*/}
+              {/*  </div>*/}
+              {/*</form>*/}
             </div>
           </div>
         </div>

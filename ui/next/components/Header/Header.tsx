@@ -19,6 +19,7 @@ import Notification from './notification'
 import Profile from './profile'
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import ory from '../../pkg/sdk'
+import { nextImageLoaderRegex } from "next/dist/build/webpack-config";
 
 const drawerWidth = 240;
 
