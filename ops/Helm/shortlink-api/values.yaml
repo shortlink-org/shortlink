@@ -218,7 +218,9 @@ kratos:
             enabled: true
             debug: true
             allowed_origins:
-              - http://127.0.0.1:3000
+              - "http://127.0.0.1:3000"
+              - "http://127.0.0.1:3000/"
+              - "https://shortlink.ddns.net/"
             allowed_methods:
               - POST
               - GET
@@ -231,6 +233,7 @@ kratos:
               - Cookie
               - Origin
               - X-Session-Token
+              - Content-Type
             exposed_headers:
               - Content-Type
               - Set-Cookie
