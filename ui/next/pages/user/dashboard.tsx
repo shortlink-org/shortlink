@@ -6,6 +6,7 @@ import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { Layout } from 'components'
+import Box from '@mui/material/Box';
 import Chart from 'components/widgets/Chart'
 import Deposits from 'components/widgets/Deposits'
 import Orders from 'components/widgets/Orders'
@@ -13,65 +14,57 @@ import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
 
 function Dashboard() {
-  const classes = {}
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
-
   return (
     <Layout>
-      <div className={classes.root}>
+      <Box sx={{ display: 'flex' }}>
         <CssBaseline />
 
-        <main className={classes.content}>
-          <Container maxWidth="lg" className={classes.container}>
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            overflow: 'auto',
+          }}
+        >
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               <Profile />
 
-              <Grid item xs={12} md={12} lg={9}>
-                <div className="bg-white p-6 shadow-lg rounded-lg flex justify-between items-center">
-                  <div className="flex">
-                    <div className="mr-4">
-                      <img
-                        className="shadow sm:w-12 sm:h-12 w-14 h-14 rounded-full"
-                        src="http://tailwindtemplates.io/wp-content/uploads/2019/03/link.jpg"
-                        alt="Avatar"
-                      />
-                    </div>
-                    <div>
-                      <h1 className="text-xl font-medium text-gray-700">
-                        Link
-                      </h1>
-                      <p className="text-gray-600">UX Designer at Hyrule</p>
-                    </div>
-                  </div>
-                  <button className="bg-blue-500 hover:opacity-75 text-white rounded-full px-8 py-2">
-                    Follow
-                  </button>
-                </div>
-              </Grid>
-
               {/* Chart */}
               <Grid item xs={12} md={8} lg={9}>
-                <Paper className={fixedHeightPaper}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
                   <Chart />
                 </Paper>
               </Grid>
 
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
-                <Paper className={fixedHeightPaper}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', height: 240 }}>
                   <Deposits />
                 </Paper>
               </Grid>
+
               {/* Recent Orders */}
               <Grid item xs={12}>
-                <Paper className={classes.paper}>
+                <Paper sx={{ p: 2, my: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
                 </Paper>
               </Grid>
             </Grid>
           </Container>
-        </main>
-      </div>
+        </Box>
+      </Box>
     </Layout>
   )
 }

@@ -143,17 +143,6 @@ const SignUp: NextPage = () => {
               {/*    // />*/}
               {/*  }*/}
 
-              {/*  <TextField*/}
-              {/*    name="method"*/}
-              {/*    id="method"*/}
-              {/*    type="hidden"*/}
-              {/*    required*/}
-              {/*    fullWidth*/}
-              {/*    variant="outlined"*/}
-              {/*    label="method"*/}
-              {/*    value="password"*/}
-              {/*  />*/}
-
               {/*  <Grid container spacing={2}>*/}
               {/*    <Grid item xs={12} sm={6}>*/}
               {/*      <TextField*/}

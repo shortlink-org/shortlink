@@ -5,6 +5,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
+import Box from '@mui/material/Box'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
@@ -39,7 +40,7 @@ const tiers = [
       'Priority email support',
     ],
     buttonText: 'Get started',
-    buttonVariant: 'contained',
+    buttonVariant: 'outlined',
   },
   {
     title: 'Enterprise',
@@ -63,22 +64,17 @@ export function Pricing() {
   // @ts-ignore
   return (
     <Layout>
-      <Container maxWidth="sm" component="main">
+      <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography
           component="h1"
           variant="h2"
           align="center"
-          color="textPrimary"
+          color="text.primary"
           gutterBottom
         >
           {t('title')}
         </Typography>
-        <Typography
-          variant="h5"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
+        <Typography variant="h5" align="center" color="text.secondary" component="p">
           Quickly build an effective pricing table for your potential customers
           with this layout. It&apos;s built with default Material-UI components
           with little customization.
@@ -99,6 +95,7 @@ export function Pricing() {
             </svg>
             No credit card required
           </div>
+
           <div className="flex items-center p-4">
             <svg
               viewBox="0 0 20 20"
@@ -113,6 +110,7 @@ export function Pricing() {
             </svg>
             14 days free
           </div>
+
           <div className="flex items-center p-4">
             <svg
               viewBox="0 0 20 20"
@@ -148,18 +146,33 @@ export function Pricing() {
                   title={tier.title}
                   subheader={tier.subheader}
                   titleTypographyProps={{ align: 'center' }}
-                  subheaderTypographyProps={{ align: 'center' }}
                   action={tier.title === 'Pro' ? <StarIcon /> : null}
+                  subheaderTypographyProps={{
+                    align: 'center',
+                  }}
+                  sx={{
+                    backgroundColor: (theme) =>
+                      theme.palette.mode === 'light'
+                        ? theme.palette.grey[200]
+                        : theme.palette.grey[700],
+                  }}
                 />
                 <CardContent>
-                  <div>
-                    <Typography component="h2" variant="h3" color="textPrimary">
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'baseline',
+                      mb: 2,
+                    }}
+                  >
+                    <Typography component="h2" variant="h3" color="text.primary">
                       ${tier.price}
                     </Typography>
-                    <Typography variant="h6" color="textSecondary">
+                    <Typography variant="h6" color="text.secondary">
                       /mo
                     </Typography>
-                  </div>
+                  </Box>
                   <ul>
                     {tier.description.map((line) => (
                       <Typography
@@ -174,7 +187,7 @@ export function Pricing() {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth color="primary">
+                  <Button fullWidth variant={tier.buttonVariant as 'outlined' | 'contained'}>
                     {tier.buttonText}
                   </Button>
                 </CardActions>

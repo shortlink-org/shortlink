@@ -1,16 +1,14 @@
-import { UiNode, UiNodeInputAttributes } from '@ory/client'
 import { getNodeLabel } from '@ory/integrations/ui'
-import { Button, Checkbox, TextInput } from '@ory/themes'
+import Button from '@mui/material/Button'
 
-import { FormDispatcher, NodeInputProps, ValueSetter } from './helpers'
-
-export function NodeInputButton<T>({
+// @ts-ignore
+export function NodeInputButton({
   node,
   attributes,
   setValue,
   disabled,
   dispatchSubmit
-}: NodeInputProps) {
+}) {
   // Some attributes have dynamic JavaScript - this is for example required for WebAuthn.
   const onClick = () => {
     // This section is only used for WebAuthn. The script is loaded via a <script> node
@@ -23,18 +21,17 @@ export function NodeInputButton<T>({
   }
 
   return (
-    <>
-      <Button
-        name={attributes.name}
-        onClick={({ e }: { e: any }) => {
-          onClick()
-          setValue(attributes.value).then(() => dispatchSubmit(e))
-        }}
-        value={attributes.value || ''}
-        disabled={attributes.disabled || disabled}
-      >
-        {getNodeLabel(node)}
-      </Button>
-    </>
+    <Button
+      name={attributes.name}
+      onClick={(e) => {
+        onClick()
+        setValue(attributes.value).then(() => dispatchSubmit(e))
+      }}
+      className={"bg-sky-600 hover:bg-sky-700"}
+      value={attributes.value || ''}
+      disabled={attributes.disabled || disabled}
+    >
+      {getNodeLabel(node)}
+    </Button>
   )
 }
