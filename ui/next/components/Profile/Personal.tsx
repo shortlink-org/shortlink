@@ -121,6 +121,7 @@ export default function Personal({ session }) {
                       type="text"
                       name="city"
                       id="city"
+                      autoComplete="address-level2"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>
@@ -134,8 +135,9 @@ export default function Personal({ session }) {
                     </label>
                     <input
                       type="text"
-                      name="state"
-                      id="state"
+                      name="region"
+                      id="region"
+                      autoComplete="address-level1"
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>

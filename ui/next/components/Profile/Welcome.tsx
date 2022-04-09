@@ -7,7 +7,7 @@ export default function Welcome({ nickname }) {
       <div className="flex flex-wrap content-center items-center">
         <div className="w-1/4 px-3 text-center hidden md:block">
           <div className="p-5 xl:px-8 md:py-5">
-            <UndrawWelcome primaryColor="#6c68fb" height="250px" />
+            <UndrawWelcome />
           </div>
         </div>
         <div className="w-full sm:w-1/2 md:w-2/4 px-3 text-left">

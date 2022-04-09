@@ -2,28 +2,7 @@ import React from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Link from '@mui/material/Link'
-import { styled } from '@mui/styles'
 import { Layout } from 'components'
-
-const useStyles = styled('div')((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}))
 
 export default function Forgot() {
   const classes = {}
@@ -66,7 +45,7 @@ export default function Forgot() {
                 </span>
               </h3>
 
-              <form className={classes.form} noValidate>
+              <form noValidate>
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -83,7 +62,6 @@ export default function Forgot() {
                   fullWidth
                   variant="contained"
                   color="primary"
-                  className={classes.submit}
                 >
                   Recovery
                 </Button>

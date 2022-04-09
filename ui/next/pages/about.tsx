@@ -7,15 +7,9 @@ import UndrawCoworkers from '../public/assets/images/undraw_back_in_the_day_knsh
 function NewComponent() {
   return (
     <div className="sm:flex items-center max-w-screen-xl bg-white rounded my-8">
-      <div className="sm:w-1/2 p-10">
+      <div className="sm:w-1/2 p-5">
         <div className="image object-center text-center">
-          <UndrawCoworkers
-            skinColor="#e2bd95"
-            primaryColor="#6c68fb"
-            hairColor="#222"
-            accentColor="#43d1a0"
-            height="250px"
-          />
+          <UndrawCoworkers />
         </div>
       </div>
       <div className="sm:w-1/2 p-5">

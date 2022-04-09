@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from 'react'
 import clsx from 'clsx'
-import { styled } from '@mui/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
@@ -12,29 +11,6 @@ import Deposits from 'components/widgets/Deposits'
 import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
-
-const useStyles = styled('div')((theme) => ({
-  title: {
-    flexGrow: 1,
-  },
-  content: {
-    flexGrow: 1,
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
-  },
-}))
 
 function Dashboard() {
   const classes = {}

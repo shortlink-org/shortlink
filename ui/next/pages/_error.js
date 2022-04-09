@@ -23,7 +23,7 @@ export default function Error() {
             </div>
           </div>
           <div className="w-full md:w-1/2 text-center">
-            <UndrawBackInTheDay primaryColor="#6c68fb" height="250px" />
+            <UndrawBackInTheDay />
           </div>
         </div>
         <div className="w-64 md:w-96 h-96 md:h-full bg-blue-200 bg-opacity-30 absolute -top-64 md:-top-96 right-20 md:right-32 rounded-full pointer-events-none -rotate-45 transform" />
