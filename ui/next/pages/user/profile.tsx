@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react'
+import React, { useEffect, useState } from "react";
 import get from 'lodash/get'
 import { useSelector } from 'react-redux'
 import { Layout } from 'components'
@@ -8,9 +8,27 @@ import Profile from 'components/Profile/Profile'
 import Personal from 'components/Profile/Personal'
 import Notifications from 'components/Profile/Notifications'
 import withAuthSync from 'components/Private'
+import ory from "../../pkg/sdk";
+import { AxiosError } from "axios";
 
-export function ProfileContent() {
-  const session = useSelector((state) => state.session)
+function ProfileContent() {
+  const [session, setSession] = useState<string>(
+    'No valid Ory Session was found.\nPlease sign in to receive one.'
+  )
+  const [hasSession, setHasSession] = useState<boolean>(false)
+
+  useEffect(() => {
+    ory
+      .toSession()
+      .then(({ data }) => {
+        setSession(JSON.stringify(data, null, 2))
+        setHasSession(true)
+      })
+      .catch((err: AxiosError) => {
+        // Something else happened!
+        return Promise.reject(err)
+      })
+  })
 
   return (
     <Layout>
@@ -39,4 +57,4 @@ export function ProfileContent() {
   )
 }
 
-export default withAuthSync(() => ProfileContent)
+export default withAuthSync(ProfileContent)

@@ -1,8 +1,8 @@
 import React from 'react'
 import { PaperClipIcon } from '@heroicons/react/solid'
 // @ts-ignore
-import { UndrawCoworkers } from 'react-undraw-illustrations'
 import { Layout } from 'components'
+import UndrawCoworkers from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
 
 function NewComponent() {
   return (

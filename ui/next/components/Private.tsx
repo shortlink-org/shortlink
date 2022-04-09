@@ -1,19 +1,44 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import Router from 'next/router'
+import { useEffect, useState } from "react";
+import ory from "../pkg/sdk";
+import { AxiosError } from "axios";
+import { useRouter } from 'next/router'
 
 export default function withAuthSync(Child: any) {
   return (props?: any) => {
-    // checks whether we are on client / browser or server.
-    if (typeof window !== 'undefined') {
-      // @ts-ignore
-      const session = useSelector((state) => state.session)
+    const [session, setSession] = useState<string>(
+      'No valid Ory Session was found.\nPlease sign in to receive one.'
+    )
+    const [hasSession, setHasSession] = useState<boolean>(false)
+    const router = useRouter()
 
-      if (!session.kratos.active) {
-        Router.push('/auth/login')
-        return null
-      }
-    }
+    useEffect(() => {
+      ory
+        .toSession()
+        .then(({ data }) => {
+          setSession(JSON.stringify(data, null, 2))
+          setHasSession(true)
+        })
+        .catch((err: AxiosError) => {
+          switch (err.response?.status) {
+            case 403:
+            // This is a legacy error code thrown. See code 422 for
+            // more details.
+            case 422:
+              // This status code is returned when we are trying to
+              // validate a session which has not yet completed
+              // it's second factor
+              return router.push('/auth/login?aal=aal2')
+            case 401:
+              // do nothing, the user is not logged in
+              return
+          }
+
+          // Something else happened!
+          return Promise.reject(err)
+        })
+    })
+
+    console.warn('TEST', Child)
 
     // If this is an token we just render the component that was passed with all its props
     return <Child {...props} />

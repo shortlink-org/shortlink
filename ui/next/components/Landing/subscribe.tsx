@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { UndrawDesigner } from 'react-undraw-illustrations'
+import UndrawDesigner from '../../public/assets/images/undraw_designer_re_5v95.svg'
 
 export default function Subscribe() {
   return (
@@ -35,11 +35,7 @@ export default function Subscribe() {
           </div>
 
           <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
-            <UndrawDesigner
-              skinColor="brown"
-              className="w-full h-full max-w-md"
-              hairColor="#222"
-            />
+            <UndrawDesigner />
           </div>
         </div>
       </div>
