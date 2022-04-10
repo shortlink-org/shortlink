@@ -68,7 +68,7 @@ require (
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/goleak v1.1.12
 	go.uber.org/zap v1.21.0
-	golang.org/x/net v0.0.0-20220403103023-749bd193bc2b
+	golang.org/x/net aac1ed45d8e3
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
 	google.golang.org/genproto v0.0.0-20220329172620-7be39ac1afc7
