@@ -173,6 +173,8 @@ external_database:
 kratos:
   enabled: true
 
+  fullnameOverride: kratos
+
   image:
     tag: v0.9.0-alpha.3
 
@@ -213,28 +215,22 @@ kratos:
       serve:
         public:
           # Kratos uses cookies so you must always connect from "127.0.0.1"
-          base_url: http://shortlink-api-kratos-public.shortlink:4433
+          base_url: https://shortlink.ddns.net/api/auth
           cors:
             enabled: true
             debug: true
             allowed_origins:
               - "http://127.0.0.1:3000"
-              - "http://127.0.0.1:3000/"
-              - "https://shortlink.ddns.net/"
+              - "https://shortlink.ddns.net"
             allowed_methods:
               - POST
               - GET
               - PUT
               - PATCH
               - DELETE
-              - OPTIONS
             allowed_headers:
               - Authorization
               - Cookie
-              - Origin
-              - X-Session-Token
-              - Content-Type
-            exposed_headers:
               - Content-Type
               - Set-Cookie
             allow_credentials: true
@@ -245,11 +241,11 @@ kratos:
         # 30 days
         lifespan: 720h
         cookie:
-          domain: http://127.0.0.1:3000
+          domain: https://shortlink.ddns.net
           same_site: Lax
 
       selfservice:
-        default_browser_return_url: http://127.0.0.1:3000
+        default_browser_return_url: https://shortlink.ddns.net
         allowed_return_urls:
           - "*"
           - http://*
@@ -295,35 +291,35 @@ kratos:
         # You can see how this would change for a production environment or other solutions.
         flows:
           error:
-            ui_url: http://127.0.0.1:3000/error
+            ui_url: https://shortlink.ddns.net/next/error
 
           settings:
-            ui_url: http://127.0.0.1:3000/profile
+            ui_url: https://shortlink.ddns.net/next/user/profile
             # Sessions older than a minute requires the user to sign in again before
             # the password is changed.
             privileged_session_max_age: 15m
 
           recovery:
             enabled: true
-            ui_url: http://127.0.0.1:3000/recovery
+            ui_url: https://shortlink.ddns.net/next/auth/recovery
 
           verification:
             enabled: true
-            ui_url: http://127.0.0.1:3000/verify
+            ui_url: https://shortlink.ddns.net/next/auth/verify
             after:
-              default_browser_return_url: http://127.0.0.1:3000/
+              default_browser_return_url: https://shortlink.ddns.net/next
 
           logout:
             after:
-              default_browser_return_url: http://127.0.0.1:3000/login
+              default_browser_return_url: https://shortlink.ddns.net/next/auth/login
 
           login:
-            ui_url: http://127.0.0.1:3000/login
+            ui_url: https://shortlink.ddns.net/next
             lifespan: 10m
 
           registration:
             lifespan: 10m
-            ui_url: http://127.0.0.1:3000/registration
+            ui_url: https://shortlink.ddns.net/next/auth/registration
             after:
               password:
                 hooks:

@@ -16,4 +16,4 @@ RUN chown -R 101 /app
 # Use user 101
 USER 101
 
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "start"]
