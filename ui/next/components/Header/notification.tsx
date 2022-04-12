@@ -7,7 +7,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 
 export default function Notification() {
   const classes = {
-    list: ""
+    list: '',
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null)

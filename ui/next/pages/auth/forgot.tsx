@@ -5,8 +5,6 @@ import Link from '@mui/material/Link'
 import { Layout } from 'components'
 
 export default function Forgot() {
-  const classes = {}
-
   return (
     <Layout>
       <div className="flex h-full p-4 rotate">

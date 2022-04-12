@@ -26,7 +26,7 @@ USER root
 COPY --from=builder /app/dist ./
 
 # Setup unprivileged user 101
-RUN chown -R 101 /usr/share/nginx/html
+RUN chown -R nginx /usr/share/nginx/html
 
 # Use user 101
-USER 101
+USER nginx

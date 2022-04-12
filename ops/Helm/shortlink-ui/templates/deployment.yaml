@@ -34,22 +34,22 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ template "helpers.serviceAccountName" . }}
-      securityContext:
-        runAsUser: 101
-        runAsGroup: 101
-        fsGroup: 101
+{{/*      securityContext:*/}}
+{{/*        runAsUser: 101*/}}
+{{/*        runAsGroup: 101*/}}
+{{/*        fsGroup: 101*/}}
       containers:
       - name: {{ .Chart.Name }}
-        securityContext:
-          capabilities:
-            drop:
-              - NET_RAW
-          runAsNonRoot: true
+        # securityContext:
+        #  capabilities:
+        #    drop:
+        #      - NET_RAW
+        #  runAsNonRoot: true
         image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
         ports:
         - name: http
-          containerPort: 3000
+          containerPort: 80
           protocol: TCP
         # TODO: fix
         # TODO: add livenessProbe

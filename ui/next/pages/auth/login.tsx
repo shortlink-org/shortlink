@@ -1,20 +1,14 @@
 // @ts-nocheck
-import React, { useEffect, useState, Component, FormEvent } from 'react'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-import Link from '@mui/material/Link'
+import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import { Layout } from 'components'
 import { useRouter } from 'next/router'
-import SocialAuth from 'components/widgets/oAuthServices'
 import {
   SelfServiceLoginFlow,
-  SubmitSelfServiceLoginFlowBody
+  SubmitSelfServiceLoginFlowBody,
 } from '@ory/client'
 
-import ory, { createLogoutHandler } from '../../pkg/sdk'
+import ory, { useCreateLogoutHandler } from '../../pkg/sdk'
 import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
 
@@ -31,12 +25,12 @@ const SignIn: NextPage = () => {
     refresh,
     // AAL = Authorization Assurance Level. This implies that we want to upgrade the AAL, meaning that we want
     // to perform two-factor authentication/verification.
-    aal
+    aal,
   } = router.query
 
   // This might be confusing, but we want to show the user an option
   // to sign out if they are performing two-factor authentication!
-  const onLogout = createLogoutHandler([aal, refresh])
+  const onLogout = useCreateLogoutHandler([aal, refresh])
 
   useEffect(() => {
     // If the router is not ready yet, or we already have a flow, do nothing.
@@ -60,7 +54,7 @@ const SignIn: NextPage = () => {
       .initializeSelfServiceLoginFlowForBrowsers(
         Boolean(refresh),
         aal ? String(aal) : undefined,
-        returnTo ? String(returnTo) : undefined
+        returnTo ? String(returnTo) : undefined,
       )
       .then(({ data }) => {
         setFlow(data)
@@ -95,7 +89,7 @@ const SignIn: NextPage = () => {
             }
 
             return Promise.reject(err)
-          })
+          }),
       )
 
   return (

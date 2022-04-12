@@ -5,15 +5,13 @@ interface MessageProps {
   message: UiText
 }
 
-export const Message = ({ message }: MessageProps) => {
-  return (
-    <Alert severity={message.type === 'error' ? 'error' : 'info'}>
-      <AlertContent data-testid={`ui/message/${message.id}`}>
-        {message.text}
-      </AlertContent>
-    </Alert>
-  )
-}
+export const Message = ({ message }: MessageProps) => (
+  <Alert severity={message.type === 'error' ? 'error' : 'info'}>
+    <AlertContent data-testid={`ui/message/${message.id}`}>
+      {message.text}
+    </AlertContent>
+  </Alert>
+)
 
 interface MessagesProps {
   messages?: Array<UiText>

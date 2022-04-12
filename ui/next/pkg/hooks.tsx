@@ -5,7 +5,7 @@ import { useState, useEffect, DependencyList } from 'react'
 import ory from './sdk'
 
 // Returns a function which will log the user out
-export function createLogoutHandler(deps?: DependencyList) {
+export function useCreateLogoutHandler(deps?: DependencyList) {
   const [logoutToken, setLogoutToken] = useState<string>('')
   const router = useRouter()
 

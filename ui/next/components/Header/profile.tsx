@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 import { useRouter } from 'next/router'
-import { useState, useEffect, Fragment, DependencyList } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
 
@@ -41,10 +41,11 @@ export default function Profile() {
     {
       name: 'Sign out',
       link: `#`,
-      onClick: () => ory
-        .submitSelfServiceLogoutFlow(logoutToken)
-        .then(() => router.push('/auth/login'))
-        .then(() => router.reload())
+      onClick: () =>
+        ory
+          .submitSelfServiceLogoutFlow(logoutToken)
+          .then(() => router.push('/auth/login'))
+          .then(() => router.reload()),
     },
   ]
 
@@ -88,15 +89,13 @@ export default function Profile() {
                       )}
                       onClick={item.onClick}
                     >
-                      {
-                        item.onClick ? (
+                      {item.onClick ? (
+                        <p>{item.name}</p>
+                      ) : (
+                        <Link href={item.link}>
                           <p>{item.name}</p>
-                        ) : (
-                          <Link href={item.link}>
-                            <p>{item.name}</p>
-                          </Link>
-                        )
-                      }
+                        </Link>
+                      )}
                     </span>
                   )}
                 </Menu.Item>

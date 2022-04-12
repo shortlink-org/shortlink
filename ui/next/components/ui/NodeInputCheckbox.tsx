@@ -7,24 +7,20 @@ export function NodeInputCheckbox<T>({
   node,
   attributes,
   setValue,
-  disabled
+  disabled,
 }: NodeInputProps) {
   // Render a checkbox.s
   return (
-    <>
-      <Checkbox
-        name={attributes.name}
-        defaultChecked={attributes.value === true}
-        onChange={({ e }: { e: any }) => setValue(e.target.checked)}
-        disabled={attributes.disabled || disabled}
-        label={getNodeLabel(node)}
-        state={
-          node.messages.find(({ type }) => type === 'error')
-            ? 'error'
-            : undefined
-        }
-        subtitle={node.messages.map(({ text }) => text).join('\n')}
-      />
-    </>
+    <Checkbox
+      name={attributes.name}
+      defaultChecked={attributes.value === true}
+      onChange={e => setValue(e.target.checked)}
+      disabled={attributes.disabled || disabled}
+      label={getNodeLabel(node)}
+      state={
+        node.messages.find(({ type }) => type === 'error') ? 'error' : undefined
+      }
+      subtitle={node.messages.map(({ text }) => text).join('\n')}
+    />
   )
 }

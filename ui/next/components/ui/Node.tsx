@@ -4,7 +4,7 @@ import {
   isUiNodeImageAttributes,
   isUiNodeInputAttributes,
   isUiNodeScriptAttributes,
-  isUiNodeTextAttributes
+  isUiNodeTextAttributes,
 } from '@ory/integrations/ui'
 
 import { NodeAnchor } from './NodeAnchor'
@@ -27,7 +27,7 @@ export const Node = ({
   value,
   setValue,
   disabled,
-  dispatchSubmit
+  dispatchSubmit,
 }: Props) => {
   if (isUiNodeImageAttributes(node.attributes)) {
     return <NodeImage node={node} attributes={node.attributes} />

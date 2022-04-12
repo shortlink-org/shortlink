@@ -8,16 +8,14 @@ import Subscribe from 'components/Landing/subscribe'
 
 import { Layout } from 'components'
 
-const Home: NextPage = () => {
-  return (
-    <Layout>
-      <Header />
-      <Mobile />
-      <Feature />
-      <Testimonials />
-      <Subscribe />
-    </Layout>
-  )
-}
+const Home: NextPage = () => (
+  <Layout>
+    <Header />
+    <Mobile />
+    <Feature />
+    <Testimonials />
+    <Subscribe />
+  </Layout>
+)
 
-export default Home;
+export default Home
