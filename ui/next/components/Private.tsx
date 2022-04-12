@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import ory from "../pkg/sdk";
-import { AxiosError } from "axios";
+import { useEffect, useState } from 'react'
+import ory from '../pkg/sdk'
+import { AxiosError } from 'axios'
 import { useRouter } from 'next/router'
 
 export default function withAuthSync(Child: any) {
   return (props?: any) => {
     const [session, setSession] = useState<string>(
-      'No valid Ory Session was found.\nPlease sign in to receive one.'
+      'No valid Ory Session was found.\nPlease sign in to receive one.',
     )
     const [hasSession, setHasSession] = useState<boolean>(false)
     const router = useRouter()

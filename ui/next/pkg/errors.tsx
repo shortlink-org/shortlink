@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 export function handleGetFlowError<S>(
   router: NextRouter,
   flowType: 'login' | 'registration' | 'settings' | 'recovery' | 'verification',
-  resetFlow: Dispatch<SetStateAction<S | undefined>>
+  resetFlow: Dispatch<SetStateAction<S | undefined>>,
 ) {
   return async (err: AxiosError) => {
     switch (err.response?.data.error?.id) {
@@ -27,26 +27,26 @@ export function handleGetFlowError<S>(
         // The flow expired, let's request a new one.
         toast.error('The return_to address is not allowed.')
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push(`/${flowType}`)
         return
       case 'self_service_flow_expired':
         // The flow expired, let's request a new one.
         toast.error('Your interaction expired, please fill out the form again.')
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push(`/${flowType}`)
         return
       case 'security_csrf_violation':
         // A CSRF violation occurred. Best to just refresh the flow!
         toast.error(
-          'A security violation was detected, please fill out the form again.'
+          'A security violation was detected, please fill out the form again.',
         )
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push(`/${flowType}`)
         return
       case 'security_identity_mismatch':
         // The requested item was intended for someone else. Let's request a new flow...
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push(`/${flowType}`)
         return
       case 'browser_location_change_required':
         // Ory Kratos asked us to point the user to this URL.
@@ -58,7 +58,7 @@ export function handleGetFlowError<S>(
       case 410:
         // The flow expired, let's request a new one.
         resetFlow(undefined)
-        await router.push('/' + flowType)
+        await router.push(`/${flowType}`)
         return
     }
 

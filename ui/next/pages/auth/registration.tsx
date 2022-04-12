@@ -1,23 +1,17 @@
 // @ts-nocheck
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Checkbox from '@mui/material/Checkbox'
-import Link from '@mui/material/Link'
-import Grid from '@mui/material/Grid'
 import type { NextPage } from 'next'
 import { Layout } from 'components'
 import {
   SelfServiceRegistrationFlow,
-  SubmitSelfServiceRegistrationFlowBody
+  SubmitSelfServiceRegistrationFlowBody,
 } from '@ory/client'
 import { AxiosError } from 'axios'
 import { useRouter, NextRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Flow } from '../../components/ui/Flow'
 
-import ory, { createLogoutHandler } from '../../pkg/sdk'
-import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
+import ory from '../../pkg/sdk'
+import { handleFlowError } from '../../pkg/errors'
 
 // Renders the registration page
 const SignUp: NextPage = () => {
@@ -52,7 +46,7 @@ const SignUp: NextPage = () => {
     // Otherwise we initialize it
     ory
       .initializeSelfServiceRegistrationFlowForBrowsers(
-        returnTo ? String(returnTo) : undefined
+        returnTo ? String(returnTo) : undefined,
       )
       .then(({ data }) => {
         setFlow(data)
@@ -87,7 +81,7 @@ const SignUp: NextPage = () => {
             }
 
             return Promise.reject(err)
-          })
+          }),
       )
 
   return (

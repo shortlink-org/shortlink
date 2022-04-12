@@ -2,13 +2,7 @@ import { getNodeLabel } from '@ory/integrations/ui'
 import Button from '@mui/material/Button'
 
 // @ts-ignore
-export function NodeInputButton({
-  node,
-  attributes,
-  setValue,
-  disabled,
-  dispatchSubmit
-}) {
+export function NodeInputButton({ node, attributes, setValue, disabled, dispatchSubmit}) {
   // Some attributes have dynamic JavaScript - this is for example required for WebAuthn.
   const onClick = () => {
     // This section is only used for WebAuthn. The script is loaded via a <script> node
@@ -27,7 +21,7 @@ export function NodeInputButton({
         onClick()
         setValue(attributes.value).then(() => dispatchSubmit(e))
       }}
-      className={"bg-sky-600 hover:bg-sky-700"}
+      className="bg-sky-600 hover:bg-sky-700"
       value={attributes.value || ''}
       disabled={attributes.disabled || disabled}
     >

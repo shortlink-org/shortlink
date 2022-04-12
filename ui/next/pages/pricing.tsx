@@ -1,8 +1,5 @@
 import React from 'react'
 
-import { useTranslation } from 'next-i18next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import Box from '@mui/material/Box'
@@ -57,14 +54,14 @@ const tiers = [
 ]
 
 export function Pricing() {
-  const classes = {}
-
-  const { t } = useTranslation('pricing')
-
-  // @ts-ignore
   return (
     <Layout>
-      <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
+      <Container
+        disableGutters
+        maxWidth="sm"
+        component="main"
+        sx={{ pt: 8, pb: 6 }}
+      >
         <Typography
           component="h1"
           variant="h2"
@@ -72,9 +69,14 @@ export function Pricing() {
           color="text.primary"
           gutterBottom
         >
-          {t('title')}
+          Pricing
         </Typography>
-        <Typography variant="h5" align="center" color="text.secondary" component="p">
+        <Typography
+          variant="h5"
+          align="center"
+          color="text.secondary"
+          component="p"
+        >
           Quickly build an effective pricing table for your potential customers
           with this layout. It&apos;s built with default Material-UI components
           with little customization.
@@ -166,7 +168,11 @@ export function Pricing() {
                       mb: 2,
                     }}
                   >
-                    <Typography component="h2" variant="h3" color="text.primary">
+                    <Typography
+                      component="h2"
+                      variant="h3"
+                      color="text.primary"
+                    >
                       ${tier.price}
                     </Typography>
                     <Typography variant="h6" color="text.secondary">
@@ -187,7 +193,10 @@ export function Pricing() {
                   </ul>
                 </CardContent>
                 <CardActions>
-                  <Button fullWidth variant={tier.buttonVariant as 'outlined' | 'contained'}>
+                  <Button
+                    fullWidth
+                    variant={tier.buttonVariant as 'outlined' | 'contained'}
+                  >
                     {tier.buttonText}
                   </Button>
                 </CardActions>
@@ -199,12 +208,5 @@ export function Pricing() {
     </Layout>
   )
 }
-
-// @ts-ignore
-export const getStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale, ['pricing'])),
-  },
-})
 
 export default Pricing

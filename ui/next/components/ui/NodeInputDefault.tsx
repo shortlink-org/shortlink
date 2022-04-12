@@ -1,11 +1,4 @@
-import { getNodeLabel } from '@ory/integrations/ui'
-
-import { NodeInputButton } from './NodeInputButton'
-import { NodeInputCheckbox } from './NodeInputCheckbox'
-import { NodeInputHidden } from './NodeInputHidden'
-import { NodeInputSubmit } from './NodeInputSubmit'
 import { NodeInputProps } from './helpers'
-import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
 export function NodeInputDefault<T>(props: NodeInputProps) {
@@ -25,24 +18,21 @@ export function NodeInputDefault<T>(props: NodeInputProps) {
   // Render a generic text input field.
   //       error={node.messages.find(({ type }) => type === 'error') ? 'error' : undefined}
   return (
-      <TextField
-        name={attributes.name}
-        id={node.meta.label?.text}
-        type={attributes.type}
-        required
-        fullWidth
-        // variant={value}
-        label={node.meta.label?.text}
-        value={value}
-        disabled={attributes.disabled || disabled}
-        error={
-          node.messages.find(({ type }) => type === 'error') ? true : false
-        }
-
-        onClick={onClick}
-        onChange={(e) => {
-          setValue(e.target.value)
-        }}
-      />
+    <TextField
+      name={attributes.name}
+      id={node.meta.label?.text}
+      type={attributes.type}
+      required
+      fullWidth
+      // variant={value}
+      label={node.meta.label?.text}
+      value={value}
+      disabled={attributes.disabled || disabled}
+      error={!!node.messages.find(({ type }) => type === 'error')}
+      onClick={onClick}
+      onChange={(e) => {
+        setValue(e.target.value)
+      }}
+    />
   )
 }

@@ -5,12 +5,10 @@ interface Props {
   attributes: UiNodeImageAttributes
 }
 
-export const NodeImage = ({ node, attributes }: Props) => {
-  return (
-    <img
-      data-testid={`node/image/${attributes.id}`}
-      src={attributes.src}
-      alt={node.meta.label?.text}
-    />
-  )
-}
+export const NodeImage = ({ node, attributes }: Props) => (
+  <img
+    data-testid={`node/image/${attributes.id}`}
+    src={attributes.src}
+    alt={node.meta.label?.text}
+  />
+)

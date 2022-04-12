@@ -9,12 +9,12 @@ import {
   SubmitSelfServiceRegistrationFlowBody,
   SubmitSelfServiceSettingsFlowBody,
   SubmitSelfServiceVerificationFlowBody,
-  UiNode
+  UiNode,
 } from '@ory/client'
 import { getNodeId } from '@ory/integrations/ui'
 import { isUiNodeInputAttributes } from '@ory/integrations/ui'
 import { Component, FormEvent } from 'react'
-import Box from '@mui/material/Box';
+import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 
 import { Messages } from './Messages'
@@ -67,7 +67,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
     super(props)
     this.state = {
       values: emptyState(),
-      isLoading: false
+      isLoading: false,
     }
   }
 
@@ -131,7 +131,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
 
     this.setState((state) => ({
       ...state,
-      isLoading: true
+      isLoading: true,
     }))
 
     return this.props.onSubmit(this.state.values).finally(() => {
@@ -139,7 +139,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
       // Done submitting - update loading status
       this.setState((state) => ({
         ...state,
-        isLoading: false
+        isLoading: false,
       }))
     })
   }
@@ -167,34 +167,34 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
       >
         {!hideGlobalMessages ? <Messages messages={flow.ui.messages} /> : null}
 
-          {nodes.map((node, k) => {
-            const id = getNodeId(node) as keyof Values
-            return (
-              <FormControl margin={"normal"} fullWidth>
-                <Node
-                  key={`${id}-${k}`}
-                  disabled={isLoading}
-                  node={node}
-                  value={values[id]}
-                  dispatchSubmit={this.handleSubmit}
-                  setValue={(value) =>
-                    new Promise((resolve) => {
-                      this.setState(
-                        (state) => ({
-                          ...state,
-                          values: {
-                            ...state.values,
-                            [getNodeId(node)]: value
-                          }
-                        }),
-                        resolve
-                      )
-                    })
-                  }
-                />
-          </FormControl>
-            )
-          })}
+        {nodes.map((node, k) => {
+          const id = getNodeId(node) as keyof Values
+          return (
+            <FormControl margin="normal" fullWidth>
+              <Node
+                key={`${id}-${k}`}
+                disabled={isLoading}
+                node={node}
+                value={values[id]}
+                dispatchSubmit={this.handleSubmit}
+                setValue={(value) =>
+                  new Promise((resolve) => {
+                    this.setState(
+                      (state) => ({
+                        ...state,
+                        values: {
+                          ...state.values,
+                          [getNodeId(node)]: value,
+                        },
+                      }),
+                      resolve,
+                    )
+                  })
+                }
+              />
+            </FormControl>
+          )
+        })}
       </form>
     )
   }

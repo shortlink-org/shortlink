@@ -9,26 +9,21 @@ export default function Footer() {
       <div className="max-w-screen-xl mx-auto px-4">
         <ul className="max-w-screen-md mx-auto text-lg font-light flex flex-wrap justify-between">
           <li className="my-2 cursor-pointer">
-            <Link href="/faq" underline="hover">
+            <Link href="/faq">
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 FAQ
               </span>
             </Link>
           </li>
           <li className="my-2 cursor-pointer">
-            <Link href="/privacy" underline="hover">
+            <Link href="/privacy">
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 Privacy
               </span>
             </Link>
           </li>
           <li className="my-2 cursor-pointer">
-            <Link
-              href="https://github.com/batazor/shortlink"
-              target="_blank"
-              rel="noopener"
-              underline="hover"
-            >
+            <Link href="https://github.com/batazor/shortlink">
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 Github
               </span>

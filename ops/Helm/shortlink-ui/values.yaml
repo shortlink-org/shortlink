@@ -41,11 +41,6 @@ ingress:
 deploy:
   replicaCount: 1
 
-  env:
-    API_URI: http://shortlink-api.shortlink:7070
-    PROXY_URI: http://shortlink-proxy.shortlink:3030
-    KRATOS_PUBLIC_API: https://shortlink.ddns.net/api/auth
-
   imagePullSecrets: []
 
   strategy:

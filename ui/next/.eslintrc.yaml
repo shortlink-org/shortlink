@@ -25,6 +25,7 @@ extends:
   - prettier
 rules:
   semi: ['error', 'never']
+  default-case: off
   react/jsx-filename-extension: off
   #  react/jsx-filename-extension: [1, { extensions: ['.ts', '.tsx'] }]
   react/jsx-fragments: [1, 'element']
@@ -44,7 +45,13 @@ rules:
   no-console: off
   default-param-last: off
   '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/no-empty-function': off
   import/no-self-import: off
+  jsx-a11y/click-events-have-key-events: off
+  jsx-a11y/no-static-element-interactions: off
+  no-fallthrough: off
+  react/no-array-index-key: off
+  no-new-func: off
   import/export: off
   react/require-default-props: off
   import/no-useless-path-segments: off
@@ -57,7 +64,7 @@ rules:
   react/function-component-definition: off
   jsx-a11y/anchor-is-valid: off
   react/jsx-props-no-spreading: ['error', { custom: 'ignore' }]
-  prettier/prettier: error
+  prettier/prettier: warn
   react/no-unescaped-entities: off
   import/no-cycle: [0, { ignoreExternal: true }]
   prefer-const: off
