@@ -32,13 +32,14 @@ WORKDIR /usr/share/nginx/html
 # Use root user to copy dist folder and modify user access to specific folder
 USER root
 
+# Copy application and custom NGINX configuration
 COPY --from=builder /app/out ./next
 COPY ./ops/dockerfile/conf/ui-next.local /etc/nginx/conf.d/ui-next.local
 COPY ./ops/docker-compose/gateway/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./ops/docker-compose/gateway/nginx/templates /etc/nginx/template
 
-# Setup unprivileged user 101
-RUN chown -R 101 /usr/share/nginx/html
+# Setup unprivileged user 1001
+RUN chown -R 1001 /usr/share/nginx/html
 
-# Use user 101
-USER 101
+# Use user 1001
+USER 1001
