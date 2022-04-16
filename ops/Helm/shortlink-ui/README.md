@@ -27,7 +27,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
 | deploy.env.API_URI | string | `"http://shortlink-api.shortlink:7070"` |  |
-| deploy.env.KRATOS_PUBLIC_API | string | `"http://shortlink-api-kratos-public.shortlink:80"` |  |
+| deploy.env.NEXT_PUBLIC_API_URI | string | `"http://shortlink-api-kratos-public.shortlink:80"` |  |
 | deploy.env.PROXY_URI | string | `"http://shortlink-proxy.shortlink:3030"` |  |
 | deploy.image.pullPolicy | string | `"Always"` |  |
 | deploy.image.repository | string | `"batazor/shortlink-ui-next"` |  |

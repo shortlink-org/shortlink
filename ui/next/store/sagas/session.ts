@@ -5,14 +5,16 @@ import * as t from 'store/types'
 import { SESSION_FETCH_REQUESTED } from 'store/types' // eslint-disable-line
 
 // Init Kratos API
-const KRATOS_PUBLIC_API =
-  process.env.KRATOS_PUBLIC_API ||
+const NEXT_PUBLIC_API_URI =
+  process.env.NEXT_PUBLIC_API_URI ||
   'http://shortlink-api-kratos-public.shortlink:80'
 
 function* fetchSession() {
   try {
     // @ts-ignore
-    const response = yield fetch(`${KRATOS_PUBLIC_API}/sessions/whoami`)
+    const response = yield fetch(
+      `${NEXT_PUBLIC_API_URI}/api/auth/sessions/whoami`,
+    )
 
     // @ts-ignore
     const session = yield response.json()

@@ -8,9 +8,9 @@ interface Props {
 }
 
 // @ts-ignore
-export const NodeAnchor = ({ node, attributes }: Props) => (
+export const NodeAnchor = ({ node, attributes }: Props) => ( // eslint-disable-line
   <Button
-    onClick={e => {
+    onClick={(e) => {
       e.stopPropagation()
       e.preventDefault()
       window.location.href = attributes.href

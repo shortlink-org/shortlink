@@ -19,7 +19,7 @@ applications:
 
 ui:
   extends:
-    - .matrix_deploy_application_js
+    - .matrix_deploy_application_ui
   stage: deploy
   trigger:
     include:

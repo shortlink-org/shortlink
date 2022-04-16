@@ -67,12 +67,12 @@ class MyApp extends App<MyAppProps> {
 //   (store) =>
 //     async ({ Component, ctx }) => {
 //       // Init Kratos API
-//       const KRATOS_PUBLIC_API =
-//         process.env.KRATOS_PUBLIC_API || 'http://shortlink-api-kratos-public.shortlink:80'
+//       const NEXT_PUBLIC_API_URI =
+//         process.env.NEXT_PUBLIC_API_URI || 'http://shortlink-api-kratos-public.shortlink:80'
 //
 //       if (ctx.req?.headers) {
 //         // @ts-ignore
-//         const response = await fetch(`${KRATOS_PUBLIC_API}/sessions/whoami`, {
+//         const response = await fetch(`${NEXT_PUBLIC_API_URI}/sessions/whoami`, {
 //           headers: ctx.req?.headers,
 //         })
 //

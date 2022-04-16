@@ -23,6 +23,7 @@ extends:
   - plugin:import/warnings
   - plugin:import/typescript
   - prettier
+  - plugin:@next/next/recommended
 rules:
   semi: ['error', 'never']
   default-case: off
