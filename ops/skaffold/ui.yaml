@@ -1,12 +1,12 @@
 apiVersion: skaffold/v2beta12
 kind: Config
 metadata:
-  name: shortlink-ui
+  name: shortlink-next
 build:
   local:
     useBuildkit: true
   artifacts:
-  - image: shortlink-ui
+  - image: shortlink-next
     context: ../../
     docker:
       dockerfile: ops/dockerfile/ui-next.Dockerfile
@@ -18,12 +18,12 @@ build:
 deploy:
   helm:
     releases:
-    - name: shortlink-ui
+    - name: shortlink-next
       namespace: shortlink
-      chartPath: ../Helm/shortlink-ui
+      chartPath: ../Helm/shortlink-next
       wait: true
       artifactOverrides:
-        image: shortlink-ui
+        image: shortlink-next
       setValueTemplates:
         deploy.image.repository: "{{.IMAGE_REPO5}}"
         deploy.image.tag: "{{.IMAGE_TAG5}}"
