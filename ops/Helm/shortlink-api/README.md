@@ -1,6 +1,6 @@
 # shortlink-api
 
-![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.8.3](https://img.shields.io/badge/Version-0.8.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink API service
 
@@ -22,7 +22,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://k8s.ory.sh/helm/charts | kratos | 0.23.0 |
+| https://k8s.ory.sh/helm/charts | kratos | 0.23.1 |
 
 ## Values
 
@@ -88,6 +88,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | ingress.type | string | `"nginx"` |  |
 | kratos.enabled | bool | `true` |  |
+| kratos.fullnameOverride | string | `"kratos"` |  |
 | kratos.image.tag | string | `"v0.9.0-alpha.3"` |  |
 | kratos.ingress.admin.enabled | bool | `false` |  |
 | kratos.ingress.public.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
@@ -120,23 +121,25 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | kratos.kratos.config.log.leak_sensitive_values | bool | `true` |  |
 | kratos.kratos.config.log.level | string | `"debug"` |  |
 | kratos.kratos.config.secrets.cookie[0] | string | `"PLEASE-CHANGE-ME-I-AM-VERY-INSECURE"` |  |
-| kratos.kratos.config.selfservice.allowed_return_urls[0] | string | `"http://127.0.0.1:3000"` |  |
-| kratos.kratos.config.selfservice.default_browser_return_url | string | `"http://127.0.0.1:3000/next/"` |  |
-| kratos.kratos.config.selfservice.flows.error.ui_url | string | `"http://127.0.0.1:3000/next/error"` |  |
+| kratos.kratos.config.selfservice.allowed_return_urls[0] | string | `"*"` |  |
+| kratos.kratos.config.selfservice.allowed_return_urls[1] | string | `"http://*"` |  |
+| kratos.kratos.config.selfservice.allowed_return_urls[2] | string | `"https://*"` |  |
+| kratos.kratos.config.selfservice.default_browser_return_url | string | `"https://shortlink.ddns.net"` |  |
+| kratos.kratos.config.selfservice.flows.error.ui_url | string | `"https://shortlink.ddns.net/next/error"` |  |
 | kratos.kratos.config.selfservice.flows.login.lifespan | string | `"10m"` |  |
-| kratos.kratos.config.selfservice.flows.login.ui_url | string | `"http://127.0.0.1:3000/next/auth/login"` |  |
-| kratos.kratos.config.selfservice.flows.logout.after.default_browser_return_url | string | `"http://127.0.0.1:3000/next/auth/login"` |  |
+| kratos.kratos.config.selfservice.flows.login.ui_url | string | `"https://shortlink.ddns.net/next"` |  |
+| kratos.kratos.config.selfservice.flows.logout.after.default_browser_return_url | string | `"https://shortlink.ddns.net/next/auth/login"` |  |
 | kratos.kratos.config.selfservice.flows.recovery.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.flows.recovery.ui_url | string | `"http://127.0.0.1:3000/next/auth/recovery"` |  |
+| kratos.kratos.config.selfservice.flows.recovery.ui_url | string | `"https://shortlink.ddns.net/next/auth/recovery"` |  |
 | kratos.kratos.config.selfservice.flows.registration.after.oidc.hooks[0].hook | string | `"session"` |  |
 | kratos.kratos.config.selfservice.flows.registration.after.password.hooks[0].hook | string | `"session"` |  |
 | kratos.kratos.config.selfservice.flows.registration.lifespan | string | `"10m"` |  |
-| kratos.kratos.config.selfservice.flows.registration.ui_url | string | `"http://127.0.0.1:3000/next/auth/registration"` |  |
+| kratos.kratos.config.selfservice.flows.registration.ui_url | string | `"https://shortlink.ddns.net/next/auth/registration"` |  |
 | kratos.kratos.config.selfservice.flows.settings.privileged_session_max_age | string | `"15m"` |  |
-| kratos.kratos.config.selfservice.flows.settings.ui_url | string | `"http://127.0.0.1:3000/next/auth/profile"` |  |
-| kratos.kratos.config.selfservice.flows.verification.after.default_browser_return_url | string | `"http://127.0.0.1:3000/next/"` |  |
+| kratos.kratos.config.selfservice.flows.settings.ui_url | string | `"https://shortlink.ddns.net/next/user/profile"` |  |
+| kratos.kratos.config.selfservice.flows.verification.after.default_browser_return_url | string | `"https://shortlink.ddns.net/next"` |  |
 | kratos.kratos.config.selfservice.flows.verification.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.flows.verification.ui_url | string | `"http://127.0.0.1:3000/next/auth/verify"` |  |
+| kratos.kratos.config.selfservice.flows.verification.ui_url | string | `"https://shortlink.ddns.net/next/auth/verify"` |  |
 | kratos.kratos.config.selfservice.methods.link.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.oidc.config.providers[0].client_id | string | `"...."` |  |
 | kratos.kratos.config.selfservice.methods.oidc.config.providers[0].client_secret | string | `"...."` |  |
@@ -157,25 +160,22 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | kratos.kratos.config.selfservice.methods.password.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.profile.enabled | bool | `true` |  |
 | kratos.kratos.config.serve.admin.base_url | string | `"http://127.0.0.1:4434/"` |  |
-| kratos.kratos.config.serve.public.base_url | string | `"http://shortlink-api-kratos-public.shortlink:4433"` |  |
+| kratos.kratos.config.serve.public.base_url | string | `"https://shortlink.ddns.net/api/auth"` |  |
 | kratos.kratos.config.serve.public.cors.allow_credentials | bool | `true` |  |
 | kratos.kratos.config.serve.public.cors.allowed_headers[0] | string | `"Authorization"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_headers[1] | string | `"Cookie"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_headers[2] | string | `"Origin"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_headers[3] | string | `"X-Session-Token"` |  |
+| kratos.kratos.config.serve.public.cors.allowed_headers[2] | string | `"Content-Type"` |  |
+| kratos.kratos.config.serve.public.cors.allowed_headers[3] | string | `"Set-Cookie"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_methods[0] | string | `"POST"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_methods[1] | string | `"GET"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_methods[2] | string | `"PUT"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_methods[3] | string | `"PATCH"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_methods[4] | string | `"DELETE"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_methods[5] | string | `"OPTIONS"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_origins[0] | string | `"http://127.0.0.1:3000"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_origins[1] | string | `"https://shortlink.ddns.net"` |  |
 | kratos.kratos.config.serve.public.cors.debug | bool | `true` |  |
 | kratos.kratos.config.serve.public.cors.enabled | bool | `true` |  |
-| kratos.kratos.config.serve.public.cors.exposed_headers[0] | string | `"Content-Type"` |  |
-| kratos.kratos.config.serve.public.cors.exposed_headers[1] | string | `"Set-Cookie"` |  |
-| kratos.kratos.config.session.cookie.domain | string | `"http://127.0.0.1:3000"` |  |
+| kratos.kratos.config.session.cookie.domain | string | `"https://shortlink.ddns.net"` |  |
 | kratos.kratos.config.session.cookie.same_site | string | `"Lax"` |  |
 | kratos.kratos.config.session.lifespan | string | `"720h"` |  |
 | kratos.kratos.development | bool | `true` |  |

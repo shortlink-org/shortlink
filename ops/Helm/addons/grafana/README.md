@@ -14,9 +14,9 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 6.26.0 |
-| https://grafana.github.io/helm-charts | loki | 2.10.3 |
-| https://grafana.github.io/helm-charts | promtail | 3.11.0 |
+| https://grafana.github.io/helm-charts | grafana | 6.26.3 |
+| https://grafana.github.io/helm-charts | loki | 2.11.0 |
+| https://grafana.github.io/helm-charts | promtail | 4.2.0 |
 | https://grafana.github.io/helm-charts | tempo | 0.14.2 |
 
 ## Values

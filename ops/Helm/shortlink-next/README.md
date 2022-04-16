@@ -1,6 +1,6 @@
 # shortlink-next
 
-![Version: 0.5.11](https://img.shields.io/badge/Version-0.5.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.5.13](https://img.shields.io/badge/Version-0.5.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink UI service
 
@@ -26,9 +26,6 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 |-----|------|---------|-------------|
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
-| deploy.env.API_URI | string | `"http://shortlink-api.shortlink:7070"` |  |
-| deploy.env.NEXT_PUBLIC_API_URI | string | `"http://shortlink-api-kratos-public.shortlink:80"` |  |
-| deploy.env.PROXY_URI | string | `"http://shortlink-proxy.shortlink:3030"` |  |
 | deploy.image.pullPolicy | string | `"Always"` |  |
 | deploy.image.repository | string | `"batazor/shortlink-ui-next"` |  |
 | deploy.image.tag | string | `"latest"` |  |
@@ -65,14 +62,13 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/ceph-dashboard/$2"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/next/$2"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
 | ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | ingress.type | string | `"nginx"` |  |
 | nameOverride | string | `""` |  |
-| path | string | `"ui"` |  |
 | service.port | int | `80` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.create | bool | `true` |  |
