@@ -19,6 +19,7 @@
     - docker buildx build 
       --platform=linux/amd64
       --push
+      $DOCKERFILE_ARGS
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
       -f ${DOCKERFILE_PATH} .
   tags:
