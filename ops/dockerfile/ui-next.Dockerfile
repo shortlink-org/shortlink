@@ -1,5 +1,7 @@
 # syntax=docker/dockerfile:1.3
 
+ARG API_URI
+
 # Install dependencies only when needed
 FROM node:17.9-alpine as deps
 
@@ -14,6 +16,9 @@ RUN npm i
 
 # Rebuild the source code only when needed
 FROM node:17.9-alpine as builder
+
+ARG API_URI
+ENV API_URI=${API_URI}
 
 WORKDIR /app
 COPY ./ui/next /app/

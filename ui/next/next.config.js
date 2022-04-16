@@ -10,10 +10,53 @@ const API_URI = process.env.API_URI || 'http://localhost:7070'
 
 console.info('API_URI', API_URI)
 
+// You can choose which headers to add to the list
+// after learning more below.
+const securityHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on'
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block'
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN'
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff'
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'origin-when-cross-origin'
+  }
+]
+
+if (!isProd) {
+  securityHeaders.push(
+    {
+      key: 'Strict-Transport-Security',
+      value: 'max-age=63072000; includeSubDomains; preload'
+    },
+  )
+}
+
 const NEXT_CONFIG = {
   basePath: '/next',
   env: {
     NEXT_PUBLIC_API_URI: process.env.API_URI,
+  },
+  swcMinify: true,
+  compiler: {
+    // ssr and displayName are configured by default
+    styledComponents: true,
   },
   images: {
     loader: "custom",
@@ -27,6 +70,13 @@ const NEXT_CONFIG = {
   },
   webpack5: true,
   trailingSlash: true,
+  headers: () => {
+    return [{
+      // Apply these headers to all routes in your application.
+      source: '/:path*',
+      headers: securityHeaders,
+    }]
+  },
 }
 
 if (!isProd) {
