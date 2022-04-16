@@ -8,9 +8,7 @@
     <node-interpreter value="$USER_HOME$/.nvm/versions/node/v17.8.0/bin/node" />
     <package-manager value="npm" />
     <envs>
-      <env name="API_URI" value="http://shortlink-api.shortlink:7070" />
-      <env name="KRATOS_PUBLIC_API" value="https://shortlink.ddns.net/api/auth" />
-      <env name="PROXY_URI" value="https://shortlink.ddns.net/api/auth" />
+      <env name="API_URI" value="https://shortlink.ddns.net" />
     </envs>
     <method v="2" />
   </configuration>

@@ -7,16 +7,19 @@ const withSourceMaps = require('@zeit/next-source-maps')
 const isProd = process.env.NODE_ENV === 'production'
 const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
 const API_URI = process.env.API_URI || 'http://localhost:7070'
-const PROXY_URI = process.env.PROXY_URI || 'http://localhost:3030'
-const KRATOS_PUBLIC_API = process.env.KRATOS_PUBLIC_API || 'http://127.0.0.1:4433'
 
 console.info('API_URI', API_URI)
-console.info('PROXY_URI', PROXY_URI)
-console.info('KRATOS_PUBLIC_API', KRATOS_PUBLIC_API)
 
 const NEXT_CONFIG = {
   basePath: '/next',
-  env: {},
+  env: {
+    NEXT_PUBLIC_API_URI: process.env.API_URI,
+  },
+  images: {
+    loader: "custom",
+    // domains: ['images.unsplash.com', 'www.dropbox.com', 'www.tailwind-kit.com'],
+    // formats: ['image/webp'],
+  },
   webpack: (config, { isServer, buildId }) => {
     config.plugins.push(new webpack.DefinePlugin({}))
 
@@ -44,12 +47,12 @@ if (!isProd) {
         },
         {
           source: `/s`,
-          destination: `${PROXY_URI}/s`,
+          destination: `${API_URI}/s`,
           basePath: false,
         },
         {
           source: `/s/:uri`,
-          destination: `${PROXY_URI}/s/:uri`,
+          destination: `${API_URI}/s/:uri`,
           basePath: false,
         },
       ],

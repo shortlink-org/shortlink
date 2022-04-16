@@ -51,7 +51,7 @@ const mainMenuList = [
 ]
 
 export const mainListItems = mainMenuList.map((item) => (
-  <Link href={item.url} key={item.url}>
+  <Link href={item.url} key={item.url} passHref>
     <ListItemButton>
       <Tooltip title={item.name}>
         <ListItemIcon>{item.icon}</ListItemIcon>
@@ -82,7 +82,7 @@ const otherMenuList = [
 export const secondaryListItems = [
   <ListSubheader inset>Other options</ListSubheader>,
   otherMenuList.map((item) => (
-    <Link href={item.url} key={item.url}>
+    <Link href={item.url} key={item.url} passHref>
       <ListItemButton>
         <Tooltip title={item.name}>
           <ListItemIcon>{item.icon}</ListItemIcon>
@@ -114,7 +114,7 @@ const adminMenuList = [
 export const adminListItems = [
   <ListSubheader inset>Admin options</ListSubheader>,
   adminMenuList.map((item) => (
-    <Link href={item.url} key={item.url}>
+    <Link href={item.url} key={item.url} passHref>
       <ListItemButton>
         <Tooltip title={item.name}>
           <ListItemIcon>{item.icon}</ListItemIcon>

@@ -5,10 +5,10 @@ import { useRouter } from 'next/router'
 
 export default function withAuthSync(Child: any) {
   return (props?: any) => {
-    const [session, setSession] = useState<string>(
+    const [session, setSession] = useState<string>( // eslint-disable-line
       'No valid Ory Session was found.\nPlease sign in to receive one.',
     )
-    const [hasSession, setHasSession] = useState<boolean>(false)
+    const [hasSession, setHasSession] = useState<boolean>(false) // eslint-disable-line
     const router = useRouter()
 
     useEffect(() => {

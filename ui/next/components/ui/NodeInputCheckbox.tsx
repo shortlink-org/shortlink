@@ -3,7 +3,7 @@ import { Checkbox } from '@ory/themes'
 
 import { NodeInputProps } from './helpers'
 
-export function NodeInputCheckbox<T>({
+export function NodeInputCheckbox<T>({ // eslint-disable-line
   node,
   attributes,
   setValue,
@@ -14,7 +14,7 @@ export function NodeInputCheckbox<T>({
     <Checkbox
       name={attributes.name}
       defaultChecked={attributes.value === true}
-      onChange={e => setValue(e.target.checked)}
+      onChange={(e) => setValue(e.target.checked)}
       disabled={attributes.disabled || disabled}
       label={getNodeLabel(node)}
       state={

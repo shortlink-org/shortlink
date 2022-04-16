@@ -6,7 +6,7 @@ import {
   SubmitSelfServiceRegistrationFlowBody,
 } from '@ory/client'
 import { AxiosError } from 'axios'
-import { useRouter, NextRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { Flow } from '../../components/ui/Flow'
 

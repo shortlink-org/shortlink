@@ -92,7 +92,7 @@ export default function Profile() {
                       {item.onClick ? (
                         <p>{item.name}</p>
                       ) : (
-                        <Link href={item.link}>
+                        <Link href={item.link} passHref>
                           <p>{item.name}</p>
                         </Link>
                       )}

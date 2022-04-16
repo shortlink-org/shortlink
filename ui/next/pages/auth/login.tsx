@@ -8,7 +8,7 @@ import {
   SubmitSelfServiceLoginFlowBody,
 } from '@ory/client'
 
-import ory, { useCreateLogoutHandler } from '../../pkg/sdk'
+import ory from '../../pkg/sdk'
 import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
 
@@ -27,10 +27,6 @@ const SignIn: NextPage = () => {
     // to perform two-factor authentication/verification.
     aal,
   } = router.query
-
-  // This might be confusing, but we want to show the user an option
-  // to sign out if they are performing two-factor authentication!
-  const onLogout = useCreateLogoutHandler([aal, refresh])
 
   useEffect(() => {
     // If the router is not ready yet, or we already have a flow, do nothing.
@@ -71,7 +67,7 @@ const SignIn: NextPage = () => {
         ory
           .submitSelfServiceLoginFlow(String(flow?.id), undefined, values)
           // We logged in successfully! Let's bring the user home.
-          .then((res) => {
+          .then(() => {
             if (flow?.return_to) {
               window.location.href = flow?.return_to
               return
