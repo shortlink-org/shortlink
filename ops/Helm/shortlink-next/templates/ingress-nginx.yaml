@@ -24,7 +24,7 @@ spec:
     - host: {{ .Values.host }}
       http:
         paths:
-          - path: /{{ .Values.path }}(/|$)(.*)
+          - path: /next(/|$)(.*)
             pathType: Prefix
             backend:
               service:
