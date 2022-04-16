@@ -14,7 +14,7 @@ build:
       infer:
         - 'ui/next/**'
         - 'ops/docker-compose/gateway/**'
-        - 'ops/dockerfile/conf/ui-next.local'
+        - 'ops/dockerfile/conf/ui.local'
 deploy:
   helm:
     releases:

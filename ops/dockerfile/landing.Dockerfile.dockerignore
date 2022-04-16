@@ -10,6 +10,7 @@ ui
 vendor
 *.yml
 
+# Exclude
 !ui/landing
-!ops/dockerfile/conf/landing.local
+!ops/dockerfile/conf/ui.local
 !ops/docker-compose/gateway/nginx

@@ -104,7 +104,7 @@
 # UI
 ################################################################
 [http.routers.ui]
-  rule = "Host(`ui-next.local`)"
+  rule = "Host(`ui.local`)"
   service = "ui-next-shortlink@docker"
   [http.routers.ui.tls]
     certResolver = "default"

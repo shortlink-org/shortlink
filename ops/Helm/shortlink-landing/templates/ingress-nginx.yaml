@@ -24,13 +24,6 @@ spec:
     - host: {{ .Values.host }}
       http:
         paths:
-          - path: /landing(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ include "helpers.fullname" . }}
-                port:
-                  number: {{ .Values.service.port }}
           - path: /
             pathType: Prefix
             backend:

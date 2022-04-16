@@ -68,7 +68,7 @@ const CONFIG = {
 };
 
 if (process.env.NODE_ENV !== "development") {
-  CONFIG.output.publicPath = '/landing/'
+  CONFIG.output.publicPath = '/'
 }
 
 module.exports = CONFIG

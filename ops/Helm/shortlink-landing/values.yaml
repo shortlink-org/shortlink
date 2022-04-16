@@ -28,8 +28,6 @@ ingress:
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     nginx.ingress.kubernetes.io/enable-opentracing: "false"
     kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /landing/$2
-    nginx.ingress.kubernetes.io/use-regex: "true"
 
   tls:
     - secretName: shortlink-ingress-tls
@@ -73,7 +71,7 @@ deploy:
   # define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
-      path: /landing/
+      path: /
       port: 80
     initialDelaySeconds: 10
     periodSeconds: 30
@@ -83,7 +81,7 @@ deploy:
   # define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
-      path: /landing/
+      path: /
       port: 80
     initialDelaySeconds: 10
     periodSeconds: 30

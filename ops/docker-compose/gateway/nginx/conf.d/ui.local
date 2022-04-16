@@ -5,7 +5,7 @@ upstream ui {
 
 server {
   listen 80 default_server;
-  server_name ui-next.local;
+  server_name ui.local;
 
   include templates/default.conf;
 
