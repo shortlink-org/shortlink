@@ -4,34 +4,44 @@
       - APPLICATION: api
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
         DOCKERFILE_PATH: ops/dockerfile/api.Dockerfile
+        DOCKERFILE_ARGS:
       - APPLICATION: auth
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/auth
         DOCKERFILE_PATH: ops/dockerfile/auth.Dockerfile
+        DOCKERFILE_ARGS:
       - APPLICATION: notify
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/notify
         DOCKERFILE_PATH: ops/dockerfile/notify.Dockerfile
+        DOCKERFILE_ARGS:
       - APPLICATION: csi
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/csi
         DOCKERFILE_PATH: ops/dockerfile/csi.Dockerfile
+        DOCKERFILE_ARGS:
       - APPLICATION: logger
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
         DOCKERFILE_PATH: ops/dockerfile/logger.Dockerfile
+        DOCKERFILE_ARGS:
       - APPLICATION: metadata
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/metadata
         DOCKERFILE_PATH: ops/dockerfile/metadata.Dockerfile
+        DOCKERFILE_ARGS:
       - APPLICATION: link
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/link
         DOCKERFILE_PATH: ops/dockerfile/link.Dockerfile
+        DOCKERFILE_ARGS:
       - APPLICATION: proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/proxy
         DOCKERFILE_PATH: ops/dockerfile/proxy.Dockerfile
+        DOCKERFILE_ARGS:
       - APPLICATION: bot
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot
         DOCKERFILE_PATH: ops/dockerfile/bot.Dockerfile
+        DOCKERFILE_ARGS:
       - APPLICATION: ui-next
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-next
         DOCKERFILE_PATH: ops/dockerfile/ui-next.Dockerfile
-        DOCKERFILE_ARGS: --build-arg API_URI="https://shortlink.ddns.net"
+        DOCKERFILE_ARGS: --build-arg API_URI=https://shortlink.ddns.net
       - APPLICATION: landing
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/landing
         DOCKERFILE_PATH: ops/dockerfile/landing.Dockerfile
+        DOCKERFILE_ARGS:
