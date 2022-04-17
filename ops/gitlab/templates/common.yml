@@ -26,11 +26,14 @@ dockerfile:
   services:
     - name: docker:dind
       command: [ "--experimental" ]
-  image: docker:latest
+  image:
+    name: alpine/helm:3.8.0
+    entrypoint: [ "" ]
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - kubectl create secret generic regcred \
-      --from-file=.dockerconfigjson=~/.docker/config.json \
+    - kubectl create secret generic regcred 
+      --kube-context=shortlink-org/shortlink:${PROVIDER}
+      --from-file=.dockerconfigjson=~/.docker/config.json 
       --type=kubernetes.io/dockerconfigjson
   when: manual
