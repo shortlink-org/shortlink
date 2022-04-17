@@ -36,7 +36,7 @@ dockerfile:
     - chmod +x kubectl
   script:
     - cat ~/.docker/config.json
-    - cat $USER
+    - echo $USER
     - ./kubectl create secret generic regcred 
       --context=shortlink-org/shortlink:${PROVIDER}
       --from-file=.dockerconfigjson=~/.docker/config.json 
