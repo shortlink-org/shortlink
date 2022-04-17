@@ -23,7 +23,10 @@ env:
 
 dockerfile:
   stage: .pre
-  image: alpine:3.15
+  services:
+    - name: docker:dind
+      command: [ "--experimental" ]
+  image: docker:latest
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
