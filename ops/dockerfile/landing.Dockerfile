@@ -11,7 +11,7 @@ RUN apk add --no-cache alpine-sdk python3 libsass \
 WORKDIR /app
 COPY ./ui/landing /app/
 
-RUN npm i --force && \
+RUN npm ci --force && \
   npm rebuild node-sass && \
   npm run generate
 

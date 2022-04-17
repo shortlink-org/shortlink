@@ -12,7 +12,7 @@ RUN npm config set ignore-scripts false
 WORKDIR /app
 COPY ./ui/next/package.json ./ui/next/package-lock.json ./
 
-RUN npm i
+RUN npm ci
 
 # Rebuild the source code only when needed
 FROM node:17.9-alpine as builder
