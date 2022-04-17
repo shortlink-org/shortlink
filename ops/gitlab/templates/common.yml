@@ -22,6 +22,8 @@ env:
   when: manual
 
 dockerfile:
+  extends:
+    - .matrix_deploy_provider
   stage: .pre
   services:
     - name: docker:dind
