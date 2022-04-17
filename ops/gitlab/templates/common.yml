@@ -26,9 +26,7 @@ dockerfile:
   services:
     - name: docker:dind
       command: [ "--experimental" ]
-  image:
-    name: alpine/k8s:1.22.6
-    entrypoint: [ "" ]
+  image: docker:latest
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
