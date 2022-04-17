@@ -20,3 +20,16 @@ env:
   script:
     - env
   when: manual
+
+dockerfile:
+  stage: .pre
+  image: alpine:3.15
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - cat ~/.docker/config.json
+#    - DOCKER_AUTH_CONFIG
+#    - kubectl create secret generic regcred \
+#      --from-file=.dockerconfigjson=<path/to/.docker/config.json> \
+#      --type=kubernetes.io/dockerconfigjson
+  when: manual
