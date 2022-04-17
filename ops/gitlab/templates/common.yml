@@ -27,7 +27,7 @@ dockerfile:
     - name: docker:dind
       command: [ "--experimental" ]
   image:
-    name: alpine/helm:3.8.0
+    name: bitnami/kubectl:1.23.5
     entrypoint: [ "" ]
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
