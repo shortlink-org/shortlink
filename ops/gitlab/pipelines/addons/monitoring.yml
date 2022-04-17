@@ -34,6 +34,7 @@ prometheus-operator:
     RELEASE_NAME: prometheus-operator
     HELM_PATH: ops/Helm/addons/prometheus-operator
     HELM_NAMESPACE: prometheus-operator
+    HELM_ARG: --set kube-prometheus-stack.alertmanager.config.global.slack_api_url=$SLACK_TOKEN
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'

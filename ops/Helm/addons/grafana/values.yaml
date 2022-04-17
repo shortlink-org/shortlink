@@ -152,6 +152,8 @@ grafana:
         gnetId: 2842
         revision: 14
         datasource: Prometheus
+      kyverno:
+        url: https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json
 
 loki:
   enabled: true
