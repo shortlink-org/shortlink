@@ -11,3 +11,64 @@ kyverno:
     additionalLabels:
       release: prometheus-operator
 
+kyverno-policies:
+  enabled: true
+
+policy-reporter:
+  enabled: true
+
+  networkPolicy:
+    enabled: false
+
+  rest:
+    enabled: true
+
+  metrics:
+    enabled: true
+
+  ui:
+    enabled: true
+
+    plugins:
+      kyverno: true
+
+    ingress:
+      enabled: true
+
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentracing: "false"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
+
+      hosts:
+        - host: shortlink.ddns.net
+          paths:
+            - path: /kyverno/?(.*)
+              pathType: Prefix
+
+      tls:
+        - secretName: shortlink-ingress-tls
+          hosts:
+            - shortlink.ddns.net
+
+  kyvernoPlugin:
+    enabled: true
+
+  monitoring:
+    enabled: true
+
+  global:
+    plugins:
+      kyverno: true
+
+  target:
+    loki:
+      host: http://grafana-loki.grafana:3100
+      minimumPriority: "warning"
+      skipExistingOnStartup: true
+      sources:
+        - kyverno

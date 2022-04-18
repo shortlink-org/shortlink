@@ -20,3 +20,18 @@ dependencies:
     tags:
       - security
       - automatiozation
+  - name: policy-reporter
+    version: 2.7.1
+    repository: https://kyverno.github.io/policy-reporter
+    condition: policy-reporter.enabled
+    tags:
+      - security
+      - automatiozation
+      - ui
+  - name: kyverno-policies
+    version: v2.2.0-rc2
+    repository: https://kyverno.github.io/kyverno
+    condition: kyverno-policies.enabled
+    tags:
+      - security
+      - automatiozation
