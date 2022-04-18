@@ -2,5 +2,11 @@ dependencies:
 - name: kyverno
   repository: https://kyverno.github.io/kyverno
   version: v2.3.2
-digest: sha256:52dba37dfb11df8c535354a9837a40a992fb404066d8feae5c4330055482e7f4
-generated: "2022-03-31T12:20:00.57293044Z"
+- name: policy-reporter
+  repository: https://kyverno.github.io/policy-reporter
+  version: 2.7.1
+- name: kyverno-policies
+  repository: https://kyverno.github.io/kyverno
+  version: v2.2.0-rc2
+digest: sha256:0af6eafe63fc346a90ab48bf67f6d233b86ae972def65354a7fe027d8ce1660c
+generated: "2022-04-18T03:23:06.968033159+03:00"
