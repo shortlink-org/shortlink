@@ -14,5 +14,7 @@ server {
     proxy_http_version 1.1;
 
     proxy_pass http://10.0.7.103:5080;
+    proxy_http_version 1.1;
+    proxy_set_header "Connection" "";
   }
 }

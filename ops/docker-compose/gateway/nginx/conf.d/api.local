@@ -1,10 +1,12 @@
 upstream backend {
-  ip_hash;
+  hash $binary_remote_addr consistent;
   server api:7070;
+
+  keepalive 12; # servers * 2
 }
 
 # upstream backend_socket {
-#   ip_hash;
+#   hash $binary_remote_addr consistent;
 #   server shortlink-sockets:8000;
 # }
 
@@ -24,6 +26,7 @@ server {
     proxy_set_header        X-Forwarded-Proto $scheme;
 
     proxy_http_version 1.1;
+    proxy_set_header "Connection" "";
 
     proxy_pass http://backend;
   }
@@ -64,6 +67,7 @@ server {
 #       proxy_set_header        X-Forwarded-Proto $scheme;
 #
 #       proxy_http_version 1.1;
+#       proxy_set_header "Connection" "";
 #
 #       proxy_pass http://backend;
 #     }
