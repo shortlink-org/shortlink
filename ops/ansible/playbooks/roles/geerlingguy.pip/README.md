@@ -1,6 +1,6 @@
 # Ansible Role: Pip (for Python)
 
-[![Build Status](https://travis-ci.org/geerlingguy/ansible-role-pip.svg?branch=main)](https://travis-ci.org/geerlingguy/ansible-role-pip)
+[![CI](https://github.com/geerlingguy/ansible-role-pip/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-pip/actions?query=workflow%3ACI)
 
 An Ansible Role that installs [Pip](https://pip.pypa.io) on Linux.
 
@@ -39,7 +39,7 @@ A list of packages to install with pip. Examples below:
       - name: docker
         state: absent
     
-      # Or update a package ot the latest version.
+      # Or update a package to the latest version.
       - name: docker
         state: latest
     
