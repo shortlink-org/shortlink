@@ -91,6 +91,11 @@ if (!isProd) {
           basePath: false,
         },
         {
+          source: `/api/auth/:uri*`,
+          destination: `http://127.0.0.1:4433/:uri*`,
+          basePath: false,
+        },
+        {
           source: `/api/:uri`,
           destination: `${API_URI}/api/:uri`,
           basePath: false,
