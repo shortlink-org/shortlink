@@ -14,8 +14,8 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 6.26.3 |
-| https://grafana.github.io/helm-charts | loki | 2.11.0 |
+| https://grafana.github.io/helm-charts | grafana | 6.26.5 |
+| https://grafana.github.io/helm-charts | loki | 2.11.1 |
 | https://grafana.github.io/helm-charts | promtail | 4.2.0 |
 | https://grafana.github.io/helm-charts | tempo | 0.14.2 |
 
@@ -43,6 +43,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | grafana.dashboards.default.go-runtime.gnetId | int | `14061` |  |
 | grafana.dashboards.default.go-runtime.revision | int | `1` |  |
 | grafana.dashboards.default.ingress-nginx.url | string | `"https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json"` |  |
+| grafana.dashboards.default.kyverno.url | string | `"https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json"` |  |
 | grafana.dashboards.default.node-exporter.datasource | string | `"Prometheus"` |  |
 | grafana.dashboards.default.node-exporter.gnetId | int | `1860` |  |
 | grafana.dashboards.default.node-exporter.revision | int | `21` |  |

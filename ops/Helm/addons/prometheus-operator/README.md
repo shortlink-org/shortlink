@@ -1,6 +1,6 @@
 # prometheus-operator
 
-![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.3.9](https://img.shields.io/badge/Version-0.3.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -20,7 +20,20 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| kube-prometheus-stack.alertmanager.alertmanagerSpec.alertmanagerConfigSelector.matchLabels.alertmanagerConfig | string | `"shortlink"` |  |
+| kube-prometheus-stack.alertmanager.alertmanagerSpec.externalUrl | string | `"https://shortlink.ddns.net/alertmanager"` |  |
+| kube-prometheus-stack.alertmanager.alertmanagerSpec.logFormat | string | `"json"` |  |
 | kube-prometheus-stack.alertmanager.alertmanagerSpec.routePrefix | string | `"/alertmanager/"` |  |
+| kube-prometheus-stack.alertmanager.config.global.resolve_timeout | string | `"5m"` |  |
+| kube-prometheus-stack.alertmanager.config.receivers[0].name | string | `"null"` |  |
+| kube-prometheus-stack.alertmanager.config.route.group_by[0] | string | `"job"` |  |
+| kube-prometheus-stack.alertmanager.config.route.group_interval | string | `"5m"` |  |
+| kube-prometheus-stack.alertmanager.config.route.group_wait | string | `"30s"` |  |
+| kube-prometheus-stack.alertmanager.config.route.receiver | string | `"null"` |  |
+| kube-prometheus-stack.alertmanager.config.route.repeat_interval | string | `"12h"` |  |
+| kube-prometheus-stack.alertmanager.config.route.routes[0].match.alertname | string | `"Watchdog"` |  |
+| kube-prometheus-stack.alertmanager.config.route.routes[0].receiver | string | `"null"` |  |
+| kube-prometheus-stack.alertmanager.config.templates[0] | string | `"/etc/alertmanager/config/*.tmpl"` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |

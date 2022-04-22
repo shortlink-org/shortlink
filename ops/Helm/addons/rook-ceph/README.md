@@ -14,7 +14,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.rook.io/release | rook-ceph | v1.9.0 |
+| https://charts.rook.io/release | rook-ceph | v1.9.1 |
 
 ## Values
 
