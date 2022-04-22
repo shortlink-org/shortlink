@@ -5,10 +5,10 @@
     <scripts>
       <script value="start" />
     </scripts>
-    <node-interpreter value="$USER_HOME$/.nvm/versions/node/v17.8.0/bin/node" />
+    <node-interpreter value="$USER_HOME$/.nvm/versions/node/v18.0.0/bin/node" />
     <package-manager value="npm" />
     <envs>
-      <env name="API_URI" value="https://shortlink.ddns.net" />
+      <env name="API_URI" value="http://127.0.0.1:3000" />
     </envs>
     <method v="2" />
   </configuration>
