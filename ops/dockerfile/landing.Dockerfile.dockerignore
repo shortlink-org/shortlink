@@ -7,8 +7,11 @@ internal
 ops
 pkg
 ui
-vendor
 *.yml
+
+# NextJS cache
+ui/landing/.next
+ui/landing/out
 
 # Exclude
 !ui/landing
