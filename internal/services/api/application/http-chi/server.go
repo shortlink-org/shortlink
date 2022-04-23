@@ -82,7 +82,7 @@ func (api *API) Run(
 
 	r.NotFound(handler.NotFoundHandler)
 
-	r.Mount("/api/link", link_api.Routes(link_rpc))
+	r.Mount("/api/links", link_api.Routes(link_rpc))
 	r.Mount("/api/cqrs", cqrs_api.Routes(link_command, link_query))
 	r.Mount("/api/sitemap", sitemap_api.Routes(sitemap_rpc))
 

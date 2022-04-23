@@ -86,18 +86,13 @@ if (!isProd) {
         // we need to define a no-op rewrite to trigger checking
         // all pages/static files before we attempt proxying
         {
-          source: `/api`,
-          destination: `${API_URI}/api`,
-          basePath: false,
-        },
-        {
           source: `/api/auth/:uri*`,
           destination: `http://127.0.0.1:4433/:uri*`,
           basePath: false,
         },
         {
-          source: `/api/:uri`,
-          destination: `${API_URI}/api/:uri`,
+          source: `/api/:uri*`,
+          destination: `http://127.0.0.1:7070/api/:uri*`,
           basePath: false,
         },
         {

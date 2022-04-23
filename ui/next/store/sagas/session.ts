@@ -46,7 +46,7 @@ function* loginAuth(action: { payload: any }) { // eslint-disable-line
     // const response = yield request
     // console.warn('TEST', response)
     // // @ts-ignore
-    // const response = yield fetch('/api/link', {
+    // const response = yield fetch('/api/links', {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',
