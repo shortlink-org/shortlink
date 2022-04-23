@@ -128,20 +128,14 @@ const SignIn: NextPage = () => {
               <Flow onSubmit={onSubmit} flow={flow} />
 
               <div className="flex items-center justify-between">
-                <Link
-                  href="/auth/forgot"
-                  variant="body2"
-                >
-                  <p className={"cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500"}>
+                <Link href="/auth/forgot" variant="body2">
+                  <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Forgot password?
                   </p>
                 </Link>
 
-                <Link
-                  href="/auth/registration"
-                  variant="body2"
-                >
-                  <p className={"cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500"}>
+                <Link href="/auth/registration" variant="body2">
+                  <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Don't have an account? Sign Up
                   </p>
                 </Link>
