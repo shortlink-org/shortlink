@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import {
   SelfServiceRecoveryFlow,
-  SubmitSelfServiceRecoveryFlowBody
+  SubmitSelfServiceRecoveryFlowBody,
 } from '@ory/client'
 import { AxiosError } from 'axios'
 import type { NextPage } from 'next'
@@ -22,7 +22,7 @@ const Forgot: NextPage = () => {
   const router = useRouter()
   const { flow: flowId, return_to: returnTo } = router.query
 
-   useEffect(() => {
+  useEffect(() => {
     // If the router is not ready yet, or we already have a flow, do nothing.
     if (!router.isReady || flow) {
       return
@@ -80,7 +80,7 @@ const Forgot: NextPage = () => {
             }
 
             throw err
-          })
+          }),
       )
 
   return (
@@ -124,17 +124,13 @@ const Forgot: NextPage = () => {
               <Flow onSubmit={onSubmit} flow={flow} />
 
               <div className="flex items-center justify-between">
-                <Link
-                  href="/auth/login"
-                >
+                <Link href="/auth/login">
                   <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Log in
                   </p>
                 </Link>
 
-                <Link
-                  href="/auth/registration"
-                >
+                <Link href="/auth/registration">
                   <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Don't have an account? Sign Up
                   </p>
