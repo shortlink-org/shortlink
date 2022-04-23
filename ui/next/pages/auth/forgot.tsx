@@ -1,10 +1,88 @@
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import {
+  SelfServiceRecoveryFlow,
+  SubmitSelfServiceRecoveryFlowBody
+} from '@ory/client'
+import { AxiosError } from 'axios'
+import type { NextPage } from 'next'
+import Link from 'next/link'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import Link from '@mui/material/Link'
 import { Layout } from 'components'
 
-export default function Forgot() {
+import ory from '../../pkg/sdk'
+import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
+import { Flow } from '../../components/ui/Flow'
+
+const Forgot: NextPage = () => {
+  const [flow, setFlow] = useState<SelfServiceRecoveryFlow>()
+
+  // Get ?flow=... from the URL
+  const router = useRouter()
+  const { flow: flowId, return_to: returnTo } = router.query
+
+   useEffect(() => {
+    // If the router is not ready yet, or we already have a flow, do nothing.
+    if (!router.isReady || flow) {
+      return
+    }
+
+    // If ?flow=.. was in the URL, we fetch it
+    if (flowId) {
+      ory
+        .getSelfServiceRecoveryFlow(String(flowId))
+        .then(({ data }) => {
+          setFlow(data)
+        })
+        .catch(handleFlowError(router, 'recovery', setFlow))
+      return
+    }
+
+    // Otherwise we initialize it
+    ory
+      .initializeSelfServiceRecoveryFlowForBrowsers()
+      .then(({ data }) => {
+        setFlow(data)
+      })
+      .catch(handleFlowError(router, 'recovery', setFlow))
+      .catch((err: AxiosError) => {
+        // If the previous handler did not catch the error it's most likely a form validation error
+        if (err.response?.status === 400) {
+          // Yup, it is!
+          setFlow(err.response?.data)
+          return
+        }
+
+        return Promise.reject(err)
+      })
+  }, [flowId, router, router.isReady, returnTo, flow])
+
+  const onSubmit = (values: SubmitSelfServiceRecoveryFlowBody) =>
+    router
+      // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
+      // his data when she/he reloads the page.
+      .push(`/auth/forget?flow=${flow?.id}`, undefined, { shallow: true })
+      .then(() =>
+        ory
+          .submitSelfServiceRecoveryFlow(String(flow?.id), undefined, values)
+          .then(({ data }) => {
+            // Form submission was successful, show the message to the user!
+            setFlow(data)
+          })
+          .catch(handleFlowError(router, 'recovery', setFlow))
+          .catch((err: AxiosError) => {
+            switch (err.response?.status) {
+              case 400:
+                // Status code 400 implies the form validation had an error
+                setFlow(err.response?.data)
+                return
+            }
+
+            throw err
+          })
+      )
+
   return (
     <Layout>
       <div className="flex h-full p-4 rotate">
@@ -43,49 +121,25 @@ export default function Forgot() {
                 </span>
               </h3>
 
-              <form noValidate>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
+              <Flow onSubmit={onSubmit} flow={flow} />
+
+              <div className="flex items-center justify-between">
+                <Link
+                  href="/auth/login"
                 >
-                  Recovery
-                </Button>
+                  <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                    Log in
+                  </p>
+                </Link>
 
-                <div className="flex items-center justify-between">
-                  <Link
-                    href="/next/auth/login"
-                    variant="body2"
-                    underline="hover"
-                  >
-                    <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                      Log in
-                    </p>
-                  </Link>
-
-                  <Link
-                    href="/next/auth/registration"
-                    variant="body2"
-                    underline="hover"
-                  >
-                    <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                      Don't have an account? Sign Up
-                    </p>
-                  </Link>
-                </div>
-              </form>
+                <Link
+                  href="/auth/registration"
+                >
+                  <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                    Don't have an account? Sign Up
+                  </p>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -93,3 +147,5 @@ export default function Forgot() {
     </Layout>
   )
 }
+
+export default Forgot
