@@ -25,11 +25,12 @@ dep: ## Install dependencies for this project
 
 export CURRENT_UID=$(id -u):$(id -g)
 
-do: ## Run for specific job
+up: ## Run for specific job
 	@COMPOSE_PROFILES=dns,gateway,opentracing,postgres,prometheus docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
 		-f ops/docker-compose/application/auth.yaml \
+		-f ops/docker-compose/gateway/traefik.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose

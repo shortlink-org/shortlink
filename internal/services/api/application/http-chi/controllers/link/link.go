@@ -30,7 +30,7 @@ func Routes(
 	}
 
 	r.Get("/{hash}", h.Get)
-	r.Get("/list", h.List)
+	r.Get("/", h.List)
 	r.Post("/", h.Add)
 	r.Put("/", h.Update)
 	r.Patch("/", h.Update)

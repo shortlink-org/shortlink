@@ -5,7 +5,7 @@ import * as t from 'store/types'
 function* fetchLinkById(id) {
   try {
     // @ts-ignore
-    const response = yield fetch(`/api/link/${id}`)
+    const response = yield fetch(`/api/links/${id}`)
 
     // @ts-ignore
     const link = yield response.json()
@@ -53,7 +53,7 @@ function* watchFetchLinkList() {
 function* addLink(action: { payload: any }) {
   try {
     // @ts-ignore
-    const response = yield fetch('/api/link', {
+    const response = yield fetch('/api/links', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ function* watchAddLink() {
 function* deleteLink(action: { payload: any }) {
   try {
     // @ts-ignore
-    const response = yield fetch(`/api/link/${action.payload}`, {
+    const response = yield fetch(`/api/links/${action.payload}`, {
       method: 'DELETE',
     })
 
@@ -112,7 +112,7 @@ function* watchDeleteLink() {
 function* updateLink(action) {
   try {
     // @ts-ignore
-    const response = yield fetch(`/api/link/${action.payload._id}`, {
+    const response = yield fetch(`/api/links/${action.payload._id}`, {
       // eslint-disable-line
       method: 'PUT',
       headers: {
