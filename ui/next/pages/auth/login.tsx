@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import { Layout } from 'components'
 import { useRouter } from 'next/router'
 import {
@@ -126,109 +127,25 @@ const SignIn: NextPage = () => {
 
               <Flow onSubmit={onSubmit} flow={flow} />
 
-              {/*<form*/}
-              {/*  // action={flow.ui.action}*/}
-              {/*  // method={flow.ui.method}*/}
-              {/*  // onSubmit={handleSubmit}*/}
-              {/*>*/}
-              {/*  <TextField*/}
-              {/*    name="csrf_token"*/}
-              {/*    id="csrf_token"*/}
-              {/*    type="hidden"*/}
-              {/*    required*/}
-              {/*    fullWidth*/}
-              {/*    variant="outlined"*/}
-              {/*    label="Csrf token"*/}
-              {/*    // value={csrfToken}*/}
-              {/*  />*/}
+              <div className="flex items-center justify-between">
+                <Link
+                  href="/auth/forgot"
+                  variant="body2"
+                >
+                  <p className={"cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500"}>
+                    Forgot password?
+                  </p>
+                </Link>
 
-              {/*  <TextField*/}
-              {/*    name="method"*/}
-              {/*    id="method"*/}
-              {/*    type="hidden"*/}
-              {/*    required*/}
-              {/*    fullWidth*/}
-              {/*    variant="outlined"*/}
-              {/*    label="method"*/}
-              {/*    value="password"*/}
-              {/*  />*/}
-
-              {/*  <div className="py-2 space-y-6">*/}
-              {/*    <SocialAuth />*/}
-
-              {/*    <div className="flex flex-row items-center justify-center">*/}
-              {/*      <hr className="w-28 border-gray-300 block" />*/}
-              {/*      <label className="mx-2 text-sm text-gray-500">*/}
-              {/*        Or continue with*/}
-              {/*      </label>*/}
-              {/*      <hr className="w-28 border-gray-300 block" />*/}
-              {/*    </div>*/}
-              {/*  </div>*/}
-
-              {/*  <TextField*/}
-              {/*    variant="outlined"*/}
-              {/*    margin="normal"*/}
-              {/*    required*/}
-              {/*    fullWidth*/}
-              {/*    id="password_identifier"*/}
-              {/*    label="Email Address"*/}
-              {/*    name="password_identifier"*/}
-              {/*    type="email"*/}
-              {/*    autoComplete="email"*/}
-              {/*  />*/}
-              {/*  <TextField*/}
-              {/*    variant="outlined"*/}
-              {/*    margin="normal"*/}
-              {/*    required*/}
-              {/*    fullWidth*/}
-              {/*    name="password"*/}
-              {/*    label="Password"*/}
-              {/*    type="password"*/}
-              {/*    id="password"*/}
-              {/*    autoComplete="current-password"*/}
-              {/*  />*/}
-              {/*  <FormControlLabel*/}
-              {/*    control={<Checkbox value="remember" color="primary" />}*/}
-              {/*    label="Remember me"*/}
-              {/*  />*/}
-
-              {/*  <Button*/}
-              {/*    type="submit"*/}
-              {/*    fullWidth*/}
-              {/*    variant="contained"*/}
-              {/*  >*/}
-              {/*    {(() => {*/}
-              {/*      if (flow?.refresh) {*/}
-              {/*        return 'Confirm Action'*/}
-              {/*      } else if (flow?.requested_aal === 'aal2') {*/}
-              {/*        return 'Two-Factor Authentication'*/}
-              {/*      }*/}
-              {/*      return 'Sign In'*/}
-              {/*    })()}*/}
-              {/*  </Button>*/}
-
-              {/*  <div className="flex items-center justify-between">*/}
-              {/*    <Link*/}
-              {/*      href="/next/auth/forgot"*/}
-              {/*      variant="body2"*/}
-              {/*      underline="hover"*/}
-              {/*    >*/}
-              {/*      <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">*/}
-              {/*        Forgot password?*/}
-              {/*      </p>*/}
-              {/*    </Link>*/}
-
-              {/*    <Link*/}
-              {/*      href="/next/auth/registration"*/}
-              {/*      variant="body2"*/}
-              {/*      underline="hover"*/}
-              {/*    >*/}
-              {/*      <p className="text-sm font-medium text-indigo-600 hover:text-indigo-500">*/}
-              {/*        Don't have an account? Sign Up*/}
-              {/*      </p>*/}
-              {/*    </Link>*/}
-              {/*  </div>*/}
-              {/*</form>*/}
+                <Link
+                  href="/auth/registration"
+                  variant="body2"
+                >
+                  <p className={"cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500"}>
+                    Don't have an account? Sign Up
+                  </p>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

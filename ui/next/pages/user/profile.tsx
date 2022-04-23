@@ -23,11 +23,25 @@ function ProfileContent() {
         setSession(JSON.stringify(data, null, 2))
         setHasSession(true)
       })
-      .catch((err: AxiosError) =>
+      .catch((err: AxiosError) => {
+        switch (err.response?.status) {
+          case 403:
+           // This is a legacy error code thrown. See code 422 for
+           // more details.
+          case 422:
+           // This status code is returned when we are trying to
+           // validate a session which has not yet completed
+           // it's second factor
+           return router.push('/login?aal=aal2')
+          case 401:
+           // do nothing, the user is not logged in
+           return
+        }
+
         // Something else happened!
-        Promise.reject(err),
-      )
-  })
+        Promise.reject(err)
+      })
+  }, [])
 
   return (
     <Layout>
