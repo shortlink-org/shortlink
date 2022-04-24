@@ -37,7 +37,7 @@ func (api *PaymentAPI) open(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
@@ -75,7 +75,7 @@ func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
 
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {
@@ -110,7 +110,7 @@ func (api *PaymentAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`))
@@ -121,7 +121,7 @@ func (api *PaymentAPI) close(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
 
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {

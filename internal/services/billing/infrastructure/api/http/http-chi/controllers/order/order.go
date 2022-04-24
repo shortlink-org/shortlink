@@ -37,7 +37,7 @@ func (api *OrderAPI) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
@@ -75,7 +75,7 @@ func (api *OrderAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`))
@@ -86,7 +86,7 @@ func (api *OrderAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`))
@@ -97,7 +97,7 @@ func (api *OrderAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`))
