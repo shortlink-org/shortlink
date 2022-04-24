@@ -6,3 +6,7 @@ istiod:
 
   global:
     logAsJson: true
+
+    tracer:
+      zipkin:
+        address: grafana-tempo.grafana:9411
