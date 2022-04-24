@@ -17,7 +17,7 @@ func RegisterSpan(ctx context.Context) {
 	}
 	if traceID, okSpan := span.Context().(jaeger.SpanContext); okSpan {
 		err := grpc.SendHeader(ctx, metadata.New(map[string]string{
-			"span-id": traceID.SpanID().String(),
+			"trace-id": traceID.SpanID().String(),
 		}))
 		if err != nil {
 			return

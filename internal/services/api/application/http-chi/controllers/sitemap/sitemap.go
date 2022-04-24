@@ -43,7 +43,7 @@ func (h *Handler) Parse(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// inject spanId in response header
-	w.Header().Add("span-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
 
 	// Parse link
 	_, err = h.SitemapServiceClient.Parse(r.Context(), &request)
