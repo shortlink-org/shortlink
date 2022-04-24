@@ -1,10 +1,9 @@
+{{ if .Release.IsInstall }}
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: {{ .Values.namespace }}
+  name: {{ .Release.Namespace }}
   labels:
-    name: {{ .Values.namespace }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    heritage: {{ .Release.Service }}
-    release: {{ .Release.Name }}
+    name: {{ .Release.Namespace }}
     istio-injection: enabled
+{{ end }}
