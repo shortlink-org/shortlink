@@ -1,21 +1,21 @@
 import type { NextPage } from 'next'
 import Script from 'next/script'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import * as React from 'react';
+import * as React from 'react'
 // @ts-ignore
-import SwipeableViews from 'react-swipeable-views';
-import Divider from '@mui/material/Divider';
-import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Tabs from '@mui/material/Tabs';
-import Button from '@mui/material/Button';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import SwipeableViews from 'react-swipeable-views'
+import Divider from '@mui/material/Divider'
+import { useTheme } from '@mui/material/styles'
+import AppBar from '@mui/material/AppBar'
+import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
+import Tabs from '@mui/material/Tabs'
+import Button from '@mui/material/Button'
+import Tab from '@mui/material/Tab'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import Link from 'next/link'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -124,9 +124,11 @@ const Home: NextPage = () => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <Button variant="outlined" href="#outlined-buttons">
-                  Next
-                </Button>
+                <Link href="/next">
+                  <Button variant="outlined">
+                    Next
+                  </Button>
+                </Link>
               </Stack>
             </TabPanel>
 
@@ -143,21 +145,29 @@ const Home: NextPage = () => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <Button variant="outlined" href="#outlined-buttons">
-                  Prometheus
-                </Button>
+                <Link href="/prometheus">
+                  <Button variant="outlined">
+                    Prometheus
+                  </Button>
+                </Link>
 
-                <Button variant="outlined" href="#outlined-buttons">
-                  Grafana
-                </Button>
+                <Link href="/grafana">
+                  <Button variant="outlined">
+                    Grafana
+                  </Button>
+                </Link>
 
-                <Button variant="outlined" href="#outlined-buttons">
-                  RabbitMQ
-                </Button>
+                <Link href="/rabbitmq">
+                  <Button variant="outlined">
+                    RabbitMQ
+                  </Button>
+                </Link>
 
-                <Button variant="outlined" href="#outlined-buttons">
-                  Kyverno
-                </Button>
+                <Link href="/kyverno/#/">
+                  <Button variant="outlined">
+                    Kyverno
+                  </Button>
+                </Link>
               </Stack>
             </TabPanel>
 
@@ -174,17 +184,23 @@ const Home: NextPage = () => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <Button variant="outlined" href="#outlined-buttons">
-                  GitHub
-                </Button>
+                <Link href="https://github.com/batazor/shortlink">
+                  <Button variant="outlined">
+                    GitHub
+                  </Button>
+                </Link>
 
-                <Button variant="outlined" href="#outlined-buttons">
-                  GitLab
-                </Button>
+                <Link href="https://gitlab.com/shortlink-org/shortlink/">
+                  <Button variant="outlined">
+                    GitLab
+                  </Button>
+                </Link>
 
-                <Button variant="outlined" href="#outlined-buttons">
-                  Swagger API
-                </Button>
+                <Link href="https://shortlink-org.gitlab.io/shortlink/">
+                  <Button variant="outlined">
+                    Swagger API
+                  </Button>
+                </Link>
               </Stack>
             </TabPanel>
           </SwipeableViews>
