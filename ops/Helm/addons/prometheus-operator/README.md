@@ -36,7 +36,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | kube-prometheus-stack.alertmanager.config.templates[0] | string | `"/etc/alertmanager/config/*.tmpl"` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | kube-prometheus-stack.alertmanager.ingress.enabled | bool | `true` |  |
 | kube-prometheus-stack.alertmanager.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
@@ -51,7 +51,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | kube-prometheus-stack.kubeDns.enabled | bool | `true` |  |
 | kube-prometheus-stack.prometheus.enabled | bool | `true` |  |
 | kube-prometheus-stack.prometheus.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | kube-prometheus-stack.prometheus.ingress.enabled | bool | `true` |  |
 | kube-prometheus-stack.prometheus.ingress.hosts[0] | string | `"shortlink.ddns.net"` |  |
 | kube-prometheus-stack.prometheus.ingress.ingressClassName | string | `"nginx"` |  |

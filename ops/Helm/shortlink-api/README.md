@@ -37,7 +37,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` |  |
-| deploy.env.TRACER_URI | string | `"jaeger-agent.jaeger-operator:6831"` |  |
+| deploy.env.TRACER_URI | string | `"grafana-tempo.grafana:6831"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
 | deploy.image.repository | string | `"batazor/shortlink-api"` |  |
 | deploy.image.tag | string | `"latest"` |  |
@@ -81,7 +81,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.tls[0].hosts[0] | string | `"shortlink.ddns.net"` |  |
@@ -95,7 +95,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | kratos.ingress.public.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | kratos.ingress.public.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |

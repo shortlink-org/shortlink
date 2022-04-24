@@ -29,7 +29,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
-| deploy.env.TRACER_URI | string | `"jaeger-agent.jaeger-operator:6831"` |  |
+| deploy.env.TRACER_URI | string | `"grafana-tempo.grafana:6831"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
 | deploy.image.repository | string | `"batazor/shortlink-logger"` |  |
 | deploy.image.tag | string | `"latest"` |  |

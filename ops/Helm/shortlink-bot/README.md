@@ -32,7 +32,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` |  |
 | deploy.env.TELEGRAM_BOT_TOKEN | string | `"YOUR_TELEGRAM_TOKEN"` |  |
 | deploy.env.TELEGRAM_BOT_USERNAME | string | `"shortlink_my_bot"` |  |
-| deploy.env.TRACER_URI | string | `"jaeger-agent.jaeger-operator:6831"` |  |
+| deploy.env.TRACER_URI | string | `"grafana-tempo.grafana:6831"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
 | deploy.image.repository | string | `"batazor/shortlink-bot"` |  |
 | deploy.image.tag | string | `"latest"` |  |
