@@ -39,7 +39,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | rabbitmq.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | rabbitmq.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
