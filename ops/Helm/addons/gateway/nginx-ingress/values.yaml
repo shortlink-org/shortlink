@@ -20,10 +20,10 @@ ingress-nginx:
 
     # Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
     config:
-      enable-opentracing: "false"
+      enable-opentracing: "true"
       jaeger-service-name: nginx-ingress
       # zipkin-collector-host: zipkin.jaeger-operator
-      jaeger-collector-host: jaeger-agent.jaeger-operator
+      jaeger-collector-host: grafana-tempo.grafana
 
     # Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
     # since CNI and hostport don't mix yet. Can be deprecated once https://github.com/kubernetes/kubernetes/issues/23920
