@@ -15,7 +15,7 @@ func RegisterSpan(ctx context.Context) string {
 	}
 
 	if traceID, okSpan := span.Context().(jaeger.SpanContext); okSpan {
-		return traceID.SpanID().String()
+		return traceID.TraceID().String()
 	}
 
 	return ""
