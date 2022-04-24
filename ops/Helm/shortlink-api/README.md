@@ -32,7 +32,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | database.postgres.enable | bool | `true` |  |
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
-| deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingressgateway.istio-system.svc.cluster.local"` |  |
+| deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress.svc.cluster.local"` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |

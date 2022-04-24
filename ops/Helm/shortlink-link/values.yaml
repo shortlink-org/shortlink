@@ -44,7 +44,7 @@ deploy:
     MQ_TYPE: "rabbitmq"
     MQ_RABBIT_URI: "amqp://admin:admin@rabbitmq.rabbitmq:5672"
     TRACER_URI: grafana-tempo.grafana:6831
-    GRPC_CLIENT_HOST: istio-ingressgateway.istio-system
+    GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 
     # default store config
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable

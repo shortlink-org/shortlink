@@ -27,7 +27,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
 | deploy.env.API_LINK_SERVICE | string | `"http://shortlink-api.shortlink:7070"` |  |
-| deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingressgateway.istio-system"` |  |
+| deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
