@@ -20,6 +20,22 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| gateway.service.ports[0].name | string | `"status-port"` |  |
+| gateway.service.ports[0].port | int | `15021` |  |
+| gateway.service.ports[0].protocol | string | `"TCP"` |  |
+| gateway.service.ports[0].targetPort | int | `15021` |  |
+| gateway.service.ports[1].name | string | `"http2"` |  |
+| gateway.service.ports[1].port | int | `80` |  |
+| gateway.service.ports[1].protocol | string | `"TCP"` |  |
+| gateway.service.ports[1].targetPort | int | `80` |  |
+| gateway.service.ports[2].name | string | `"https"` |  |
+| gateway.service.ports[2].port | int | `443` |  |
+| gateway.service.ports[2].protocol | string | `"TCP"` |  |
+| gateway.service.ports[2].targetPort | int | `443` |  |
+| gateway.service.ports[3].name | string | `"grpc"` |  |
+| gateway.service.ports[3].port | int | `50051` |  |
+| gateway.service.ports[3].protocol | string | `"TCP"` |  |
+| gateway.service.ports[3].targetPort | int | `50051` |  |
 | gateway.service.type | string | `"LoadBalancer"` |  |
 | istio-ingress.enabled | bool | `true` |  |
 

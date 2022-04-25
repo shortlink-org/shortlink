@@ -15,7 +15,7 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://kyverno.github.io/kyverno | kyverno | v2.3.3 |
-| https://kyverno.github.io/kyverno | kyverno-policies | v2.3.3 |
+| https://kyverno.github.io/kyverno | kyverno-policies | v2.3.4 |
 | https://kyverno.github.io/policy-reporter | policy-reporter | 2.7.1 |
 
 ## Values
