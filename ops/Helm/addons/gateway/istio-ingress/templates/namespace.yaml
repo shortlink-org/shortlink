@@ -1,9 +1,0 @@
-{{ if .Release.IsInstall }}
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: {{ .Release.Namespace }}
-  labels:
-    name: {{ .Release.Namespace }}
-    istio-injection: enabled
-{{ end }}

@@ -5,8 +5,6 @@
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-bot
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-ingress
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-landing
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-link

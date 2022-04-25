@@ -1,5 +1,5 @@
-{{- if and .Values.ingress.enabled (eq .Values.ingress.type "istio") (.Capabilities.APIVersions.Has "networking.istio.io/v1alpha3") -}}
-apiVersion: networking.istio.io/v1alpha3
+{{- if and .Values.ingress.enabled (eq .Values.ingress.type "istio") (.Capabilities.APIVersions.Has "networking.istio.io/v1beta1") -}}
+apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: {{ include "helpers.fullname" . }}
@@ -9,14 +9,14 @@ spec:
   hosts:
   - "*"
   gateways:
-    - istio-system/shortlink-ingress
+    - istio-ingress/istio-ingress
   http:
   - match:
       - uri:
-          prefix: /link_rpc.Link/
+          prefix: /infrastructure.rpc.link.v1.LinkService/
     route:
     - destination:
-        host: {{ include "helpers.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
+        host: {{ include "helpers.fullname" . }}
         port:
-          number: 50051
+          number: {{ .Values.service.port }}
 {{- end }}
