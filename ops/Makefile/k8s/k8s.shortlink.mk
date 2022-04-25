@@ -1,12 +1,10 @@
 # SHORTLINK TASKS ======================================================================================================
 SHORTLINK_NAMESPACE := shortlink
-SHORTLINK_HELM_INGRESS := ops/Helm/shortlink-ingress
 HELM_CHART_NGINX_INGRESS := ops/Helm/addons/gateway/nginx-ingress
 
 helm-export-env: ## export env variables for Helm
 	echo ISTIO_NAMESPACE=${ISTIO_NAMESPACE}
 	echo SHORTLINK_NAMESPACE=${SHORTLINK_NAMESPACE}
-	echo SHORTLINK_HELM_INGRESS=${SHORTLINK_HELM_INGRESS}
 	echo HELM_CHART_NGINX_INGRESS=${HELM_CHART_NGINX_INGRESS}
 	echo SHORTLINK_HELM_API=${SHORTLINK_HELM_API}
 	echo SHORTLINK_HELM_LOGGER=${SHORTLINK_HELM_LOGGER}
@@ -30,12 +28,6 @@ helm-shortlink-up: ## run shortlink in k8s by Helm
 		--namespace=nginx-ingress \
 		--create-namespace=true \
 		--set ingress-nginx.controller.metrics.enabled=false \
-		--wait
-
-	@helm upgrade shortlink-ingress ${SHORTLINK_HELM_INGRESS} \
-		--install \
-		--namespace=${ISTIO_NAMESPACE} \
-		--create-namespace=true \
 		--wait
 
 	@helm upgrade rabbitmq ops/Helm/addons/rabbitmq \
