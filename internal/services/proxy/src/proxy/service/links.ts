@@ -1,6 +1,6 @@
 import { injectable } from 'inversify'
 // @ts-ignore
-const fetch = (...args: string[]) => import('node-fetch').then(({default: fetch}) => fetch(...args))
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args))
 
 interface Link {
   url: string,
