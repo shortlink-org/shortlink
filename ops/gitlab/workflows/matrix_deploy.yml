@@ -16,7 +16,6 @@
         REGISTRY: ${CI_REGISTRY_IMAGE}/api
         HELM_ARG: --set serviceAccount.create=true --set deploy.env.STORE_TYPE=postgres --set deploy.env.MQ_ENABLED=true
         HELM_NAMESPACE: ${CI_PROJECT_NAME}
-        ENVIRONMENT_URL_PATH: /api
 
       - RELEASE_NAME: ${CI_PROJECT_NAME}-logger
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-logger
