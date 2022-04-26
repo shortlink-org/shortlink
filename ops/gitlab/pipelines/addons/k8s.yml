@@ -19,6 +19,7 @@ kyverno:
     RELEASE_NAME: kyverno
     HELM_PATH: ops/Helm/addons/kyverno
     HELM_NAMESPACE: kyverno
+    ENVIRONMENT_URL: $ENVIRONMENT_URL/kyverno
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
