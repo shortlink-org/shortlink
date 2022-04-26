@@ -5,6 +5,7 @@ rabbitmq:
     RELEASE_NAME: rabbitmq
     HELM_PATH: ops/Helm/addons/rabbitmq
     HELM_NAMESPACE: rabbitmq
+    ENVIRONMENT_URL: $ENVIRONMENT_URL/rabbitmq
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
