@@ -7,9 +7,10 @@ metadata:
     {{ include "helpers.labels" . | nindent 4 }}
 spec:
   hosts:
-  - {{ .Values.host }}
+    - "*"
   gateways:
-    - istio-system/shortlink-ingress
+    # prefer the <namespace>/<name> format
+    - istio-ingress/istio-ingress
   http:
   - match:
       - uri:

@@ -7,8 +7,9 @@ metadata:
     {{ include "helpers.labels" . | nindent 4 }}
 spec:
   hosts:
-  - "*"
+    - "*"
   gateways:
+    # prefer the <namespace>/<name> format
     - istio-ingress/istio-ingress
   http:
   - match:
