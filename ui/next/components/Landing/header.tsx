@@ -10,7 +10,7 @@ export default function Header() {
             preserveAspectRatio="none"
             aria-hidden="true"
           >
-            <polygon points="50,0 100,0 50,100 0,100" fill={"#e5e7eb"} />
+            <polygon points="50,0 100,0 50,100 0,100" fill="#e5e7eb" />
           </svg>
 
           <main className="mx-auto max-w-7xl px-4 sm:mt-6 sm:px-6 md:mt-8 lg:mt-10 lg:px-8 xl:mt-14">
