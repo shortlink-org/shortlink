@@ -45,7 +45,7 @@ ingress:
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     nginx.ingress.kubernetes.io/enable-opentracing: "true"
     kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /s/$2
     nginx.ingress.kubernetes.io/use-regex: "true"
 
   tls:
@@ -103,7 +103,7 @@ deploy:
   livenessProbe:
     httpGet:
       path: /ready
-      port: 3030
+      port: 3020
     initialDelaySeconds: 5
     periodSeconds: 5
     successThreshold: 1
@@ -113,7 +113,7 @@ deploy:
   readinessProbe:
     httpGet:
       path: /ready
-      port: 3030
+      port: 3020
     initialDelaySeconds: 5
     periodSeconds: 5
     successThreshold: 1
@@ -154,6 +154,6 @@ deploy:
 
 service:
   type: ClusterIP
-  port: 3030
+  port: 3020
   # nodePort: 7070
   # clusterIP: 172.0.0.1
