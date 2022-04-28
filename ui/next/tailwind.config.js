@@ -17,7 +17,7 @@ module.exports = {
       },
     },
   },
-  important: '#__next',
+  // important: '#__next',
   theme: {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],
