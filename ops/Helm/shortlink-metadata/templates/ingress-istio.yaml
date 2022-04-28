@@ -7,13 +7,14 @@ metadata:
     {{ include "helpers.labels" . | nindent 4 }}
 spec:
   hosts:
-  - "*"
+    - "*"
   gateways:
-    - istio-system/shortlink-ingress
+    # prefer the <namespace>/<name> format
+    - istio-ingress/istio-ingress
   http:
   - match:
       - uri:
-          prefix: /metadata_rpc.Metadata/
+          prefix: /infrastructure.rpc.metadata.v1.MetadataService/
     route:
     - destination:
         host: {{ include "helpers.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
