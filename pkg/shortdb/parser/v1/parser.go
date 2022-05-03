@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/batazor/shortlink/internal/pkg/tool"
+	"github.com/batazor/shortlink/internal/pkg/types/vector"
 	v1 "github.com/batazor/shortlink/pkg/shortdb/query/v1"
 	table "github.com/batazor/shortlink/pkg/shortdb/table/v1"
 )
@@ -494,7 +494,7 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 			}
 
 			// append field to table
-			if tool.Contains(typeFieldTable, typeField) {
+			if vector.Contains(typeFieldTable, typeField) {
 				switch typeField {
 				case "int":
 					fallthrough

@@ -1,6 +1,6 @@
 //go:build !golangci
 
-package tool
+package vector
 
 // TODO: add test
 // Contains tells whether a contains x.
