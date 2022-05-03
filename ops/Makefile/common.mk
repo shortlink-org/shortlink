@@ -6,8 +6,8 @@ dep: ## Install dependencies for this project
 
 	# install protoc addons
 	@go get -u google.golang.org/protobuf
-	@go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
-	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1
+	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 	@go install github.com/srikrsna/protoc-gen-gotag@latest
 	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest

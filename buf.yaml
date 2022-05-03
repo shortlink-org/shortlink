@@ -1,10 +1,11 @@
-version: v1beta1
+version: v1
 
 name: buf.build/batazor/shortlink
 
 deps:
   - buf.build/googleapis/googleapis
   - buf.build/srikrsna/protoc-gen-gotag
+  - buf.build/envoyproxy/protoc-gen-validate
 
 build:
   roots:

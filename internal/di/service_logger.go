@@ -8,6 +8,10 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/opentracing/opentracing-go"
+
+	"github.com/google/wire"
+
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/config"
 	"github.com/batazor/shortlink/internal/di/internal/monitoring"
@@ -16,7 +20,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/services/logger/di"
-	"github.com/google/wire"
 )
 
 type ServiceLogger struct {

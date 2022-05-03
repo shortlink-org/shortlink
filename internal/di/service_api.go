@@ -10,6 +10,7 @@ import (
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
+	"github.com/opentracing/opentracing-go"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
