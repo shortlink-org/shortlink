@@ -11,6 +11,7 @@ import (
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	redisCache "github.com/go-redis/cache/v8"
 	"github.com/google/wire"
+	"github.com/opentracing/opentracing-go"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
@@ -24,6 +25,7 @@ import (
 	"github.com/batazor/shortlink/internal/di/internal/profiling"
 	"github.com/batazor/shortlink/internal/di/internal/sentry"
 	"github.com/batazor/shortlink/internal/di/internal/store"
+	"github.com/batazor/shortlink/internal/di/internal/traicing"
 	"github.com/batazor/shortlink/internal/pkg/cache"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/i18n"

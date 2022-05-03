@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/google/wire"
+	"github.com/opentracing/opentracing-go"
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
