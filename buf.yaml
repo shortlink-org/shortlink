@@ -1,11 +1,12 @@
-version: v1
+version: v1beta1
 
 name: buf.build/batazor/shortlink
 
 deps:
   - buf.build/googleapis/googleapis
-  - buf.build/srikrsna/protoc-gen-gotag
   - buf.build/envoyproxy/protoc-gen-validate
+  - buf.build/grpc-ecosystem/grpc-gateway
+  - buf.build/srikrsna/protoc-gen-gotag
 
 build:
   roots:
@@ -17,6 +18,7 @@ build:
     - internal/services/metadata
     - internal/services/newsletter/src
     - internal/pkg
+    - pkg
 
 lint:
   use:
