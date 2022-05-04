@@ -10,7 +10,7 @@ import (
 	"golang.org/x/text/message"
 )
 
-func New(ctx context.Context) *message.Printer {
+func New(_ context.Context) *message.Printer {
 	// Declare variable to hold the target language tag.
 	var lang language.Tag
 
