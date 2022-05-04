@@ -43,7 +43,7 @@ require (
 	github.com/lib/pq v1.10.5
 	github.com/luna-duclos/instrumentedsql v1.1.3
 	github.com/luna-duclos/instrumentedsql/opentracing v0.0.0-20201103091713-40d03108b6f4
-	github.com/mattn/go-sqlite3 v1.14.10
+	github.com/mattn/go-sqlite3 v1.14.12
 	github.com/nats-io/nats.go v1.14.0
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
@@ -63,7 +63,7 @@ require (
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/uber/jaeger-client-go v2.29.1+incompatible
 	go.etcd.io/etcd/client/v3 v3.5.4
-	go.mongodb.org/mongo-driver v1.9.0
+	go.mongodb.org/mongo-driver v1.9.1
 	go.uber.org/atomic v1.9.0
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/goleak v1.1.12
@@ -71,12 +71,12 @@ require (
 	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
-	google.golang.org/genproto v0.0.0-20220502173005-c8bf987b8c21
+	google.golang.org/genproto ba3ae3f07e29
 	google.golang.org/grpc v1.46.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.0
-	k8s.io/kubernetes v1.23.6
-	k8s.io/mount-utils v0.23.6
+	k8s.io/kubernetes v1.24.0
+	k8s.io/mount-utils v0.24.0
 	k8s.io/utils v0.0.0-20220210201930-3a6ce19ff2f9
 )
 
