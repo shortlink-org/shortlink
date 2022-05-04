@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.3
+# syntax=docker/dockerfile:1.4
 
 FROM node:18.0-alpine as builder
 

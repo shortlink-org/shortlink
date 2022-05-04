@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.3
+# syntax=docker/dockerfile:1.4
 
 FROM maven:3.8.5-jdk-11-slim as builder
 
