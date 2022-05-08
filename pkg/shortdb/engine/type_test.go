@@ -56,10 +56,6 @@ func BenchmarkEngine(b *testing.B) {
 			resp, err := (*store).Select(qInsertUsers.Query)
 			assert.Nil(b, err)
 			assert.Equal(b, 5, len(resp))
-
-			// save data
-			err = (*store).Close()
-			assert.Nil(b, err)
 		}
 	})
 }
