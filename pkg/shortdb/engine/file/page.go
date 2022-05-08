@@ -65,3 +65,8 @@ func (f *file) savePage(nameTable string, pageCount int32) error {
 
 	return nil
 }
+
+func (f *file) clearPages(nameTable string) error {
+	f.database.Tables[nameTable].Pages = nil
+	return nil
+}
