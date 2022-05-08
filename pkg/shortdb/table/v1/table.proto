@@ -40,5 +40,6 @@ message Table {
 }
 
 message DataBase {
-  map<string, Table> tables = 1;
+  string name = 1;
+  map<string, Table> tables = 2;
 }

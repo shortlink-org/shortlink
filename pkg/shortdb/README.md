@@ -44,11 +44,11 @@ $> docker buildx build --platform=linux/amd64 --load -t shortdb -f ops/dockerfil
 
 > cpu: Intel(R) Core(TM) i3-7300 CPU @ 4.00GHz
 
-| Name                           |      Count |             Ops |
-|:-------------------------------|-----------:|----------------:|
-| **CREATE_DATABASE**            |            |                 |
-| CREATE_DATABASE-4              | 1000000000 | 0.0001539 ns/op |
-| **INSERT_INTO_USERS**          |            |                 |
-| INSERT_INTO_USERS-4            |       3753 |   3709991 ns/op |
-| **SELECT_USERS**               |            |                 |
-| SELECT_USERS-4                 |      12216 |     96871 ns/op |
+| Name                      |      Count |          ns/op  |
+|:--------------------------|-----------:|----------------:|
+| **CREATE_TABLE**          |            |                 |
+| CREATE_TABLE-4            | 1000000000 | 0.0001936 ns/op |
+| **INSERT_INTO_USERS**     |            |                 |
+| INSERT_INTO_USERS-4       |      13588 |     78490 ns/op |
+| **SELECT_USERS**          |            |                 |
+| SELECT_USERS-4            |      13228 |     90312 ns/op |

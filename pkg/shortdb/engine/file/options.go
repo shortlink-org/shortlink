@@ -1,8 +1,6 @@
 package file
 
 import (
-	"fmt"
-
 	"github.com/batazor/shortlink/pkg/shortdb/engine/options"
 )
 
@@ -20,7 +18,7 @@ func SetPath(path string) options.Option {
 func SetName(name string) options.Option {
 	return func(o interface{}) error {
 		f := o.(*file)
-		f.name = fmt.Sprintf("%s.db", name)
+		f.database.Name = name
 
 		return nil
 	}

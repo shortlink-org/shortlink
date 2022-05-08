@@ -26,7 +26,7 @@ func BenchmarkEngine(b *testing.B) {
 		assert.Nil(b, err)
 	})
 
-	b.Run("CREATE DATABASE", func(b *testing.B) {
+	b.Run("CREATE TABLE", func(b *testing.B) {
 		// create table
 		qCreateTable, err := parser.New("create table users (id integer, name string, active bool)")
 		assert.Nil(b, err)
@@ -41,11 +41,11 @@ func BenchmarkEngine(b *testing.B) {
 
 			err = (*store).Insert(qInsertUsers.Query)
 			assert.Nil(b, err)
-
-			// save data
-			err = (*store).Close()
-			assert.Nil(b, err)
 		}
+
+		// save data
+		err = (*store).Close()
+		assert.Nil(b, err)
 	})
 
 	b.Run("SELECT USERS", func(b *testing.B) {

@@ -83,7 +83,7 @@ func (f *file) Insert(query *v1.Query) error {
 	}
 
 	// insert
-	_, err := f.database.Tables[query.TableName].AddPage()
+	_, err := f.AddPage(query.TableName)
 	if err != nil {
 		return fmt.Errorf("at INSERT INTO: error create a new page")
 	}

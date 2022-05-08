@@ -11,6 +11,8 @@ type Cursor struct {
 
 	// table name
 	Table *table.Table
+	// page position
+	PageId int32
 	// row position
 	RowId int64
 	// Indicates a position one past the last element

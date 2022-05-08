@@ -7,6 +7,7 @@ import (
 func New(table *table.Table, isEnd bool) (*Cursor, error) {
 	cursor := &Cursor{
 		Table:      table,
+		PageId:     0,
 		RowId:      0,
 		EndOfTable: isEnd,
 	}
@@ -37,7 +38,7 @@ func (c *Cursor) Value() (*table.Row, error) {
 		c.wc.Unlock()
 	}
 
-	rowNum := len(page.Rows) - 1
+	rowNum := int(c.RowId) % len(page.Rows)
 
 	if page.Rows[rowNum] == nil {
 		c.wc.Lock()
