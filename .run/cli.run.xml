@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="cli" type="GoApplicationRunConfiguration" factoryName="Go Application">
+  <configuration default="false" name="cli" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="docs">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
     <parameters value="--o ./docs/env.md --include-dir &quot;cmd,internal,pkg&quot; --exclude-dir &quot;vendor,node_modules,dist,ui&quot;" />
