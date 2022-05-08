@@ -39,3 +39,14 @@ $> docker buildx build --platform=linux/amd64 --load -t shortdb -f ops/dockerfil
   - [Simple SQL parser meant for querying CSV files on golang](https://github.com/marianogappa/sqlparser) 
 - Database
   - [Let's Build a Simple Database](https://cstack.github.io/db_tutorial/)
+
+### Benchmark Engine
+
+| Name                           |      Count |             Ops |
+|:-------------------------------|-----------:|----------------:|
+| **CREATE_DATABASE**            |            |                 |
+| CREATE_DATABASE-4              | 1000000000 | 0.0001539 ns/op |
+| **INSERT_INTO_USERS**          |            |                 |
+| INSERT_INTO_USERS-4            |       3753 |   3709991 ns/op |
+| **SELECT_USERS**               |            |                 |
+| SELECT_USERS-4                 |      12216 |     96871 ns/op |
