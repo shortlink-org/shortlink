@@ -30,6 +30,12 @@ func (f *file) AddPage(nameTable string) (int32, error) {
 			if err != nil {
 				return t.Stats.PageCount, err
 			}
+
+			// clear old page
+			err = f.clearPage(nameTable, oldPageCount)
+			if err != nil {
+				return t.Stats.PageCount, err
+			}
 		}
 
 		t.Pages = append(t.Pages, &table.Page{Rows: []*table.Row{}})
@@ -63,6 +69,11 @@ func (f *file) savePage(nameTable string, pageCount int32) error {
 		return err
 	}
 
+	return nil
+}
+
+func (f *file) clearPage(nameTable string, pageCount int32) error {
+	f.database.Tables[nameTable].Pages[pageCount] = nil
 	return nil
 }
 
