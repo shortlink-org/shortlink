@@ -174,6 +174,20 @@ func (f *file) Close() error {
 	var wg sync.WaitGroup
 	wg.Add(1)
 
+	// save last page
+	for tableName := range f.database.Tables {
+		err = f.savePage(tableName, f.database.Tables[tableName].Stats.PageCount-1)
+		if err != nil {
+			return err
+		}
+
+		// clear cache
+		err = f.clearPages(tableName)
+		if err != nil {
+			return err
+		}
+	}
+
 	// save database
 	err = io_uring.WriteFile(databaseFile.Name(), payload, 0o644, func(n int) { // nolint:gomnd
 		defer wg.Done()
@@ -181,14 +195,6 @@ func (f *file) Close() error {
 	})
 	if err != nil {
 		return err
-	}
-
-	// save last page
-	for tableName := range f.database.Tables {
-		err = f.savePage(tableName, f.database.Tables[tableName].Stats.PageCount-1)
-		if err != nil {
-			return err
-		}
 	}
 
 	// Call Poll to let the kernel know to read the entries.
