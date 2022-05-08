@@ -3,6 +3,7 @@ package v1
 import (
 	"fmt"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/batazor/shortlink/internal/pkg/types/vector"
@@ -31,6 +32,7 @@ const (
 	AS                      = "AS"
 	CREATE_TABLE            = "CREATE TABLE"
 	DROP_TABLE              = "DROP_TABLE"
+	LIMIT                   = "LIMIT"
 )
 
 var reservedWords = []string{
@@ -40,6 +42,7 @@ var reservedWords = []string{
 	ON_DUPLICATE_KEY_UPDATE, ORDER_BY, ASC,
 	DESC, LEFT_JOIN, RIGHT_JOIN, INNER_JOIN,
 	JOIN, ON, AS, CREATE_TABLE, DROP_TABLE,
+	LIMIT,
 }
 
 var (
@@ -51,8 +54,10 @@ var (
 
 func New(sql string) (*Parser, error) {
 	parser := &Parser{
-		Sql:   sql,
-		Query: &v1.Query{},
+		Sql: sql,
+		Query: &v1.Query{
+			Limit: -1,
+		},
 	}
 
 	// Parse
@@ -74,7 +79,11 @@ func (p *Parser) Parse() (*v1.Query, error) {
 		}
 	}
 
-	return q, fmt.Errorf(p.Error)
+	if p.Error != "" {
+		return nil, fmt.Errorf(p.Error)
+	}
+
+	return q, nil
 }
 
 func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maintidx
@@ -181,6 +190,8 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 				p.Step = Step_STEP_ORDER
 			} else if strings.Contains(strings.ToUpper(look), JOIN) {
 				p.Step = Step_STEP_JOIN
+			} else if strings.ToUpper(look) == LIMIT {
+				p.Step = Step_STEP_LIMIT
 			} else if look == ";" {
 				p.Step = Step_STEP_SEMICOLON
 			}
@@ -535,6 +546,23 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 			commaRWord := p.peek()
 			p.pop()
 			p.Query.TableName = commaRWord
+		case Step_STEP_LIMIT:
+			_ = p.peek()
+			p.pop()
+
+			countRaw := p.peek()
+			p.pop()
+
+			if len(countRaw) == 0 {
+				return p.Query, fmt.Errorf("at LIMIT: empty LIMIT clause")
+			}
+
+			limit, err := strconv.Atoi(countRaw)
+			if err != nil {
+				return p.Query, fmt.Errorf("at LIMIT: required number")
+			}
+
+			p.Query.Limit = int32(limit)
 		}
 	}
 }

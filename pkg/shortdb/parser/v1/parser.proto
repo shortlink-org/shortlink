@@ -57,6 +57,8 @@ enum Step {
   STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS = 36;
 
   STEP_DROP_TABLE_NAME = 37;
+
+  STEP_LIMIT = 38;
 }
 
 message Parser {

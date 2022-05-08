@@ -94,4 +94,5 @@ message Query {
   repeated string order_dir = 11;
   repeated Join joins = 12;
   int32 max_rows = 13;
+  int32 limit = 14;
 }

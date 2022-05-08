@@ -21,13 +21,11 @@
 
 ### Engine ROADMAP
 
-- [ ] filesystem
-  - [ ] CSV
-- [ ] in-memory
+- [x] filesystem
 
 ### OTHER ROADMAP
 
 - [ ] Cluster work
   - [ ] master-slave
     - [ ] Raft-consistence
-- [ ] REPL
+- [x] REPL
