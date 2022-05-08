@@ -17,15 +17,19 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 		return nil, fmt.Errorf("at SELECT: not exist table")
 	}
 
-	// response
-	response := []*v12.Row{}
+	// set flags
+	isLimit := query.Limit >= 0
 
-	currentRow, err := cursor.New(f.database.Tables[query.TableName], false)
+	// response
+	response := make([]*v12.Row, 0)
+
+	table := f.database.Tables[query.TableName]
+	currentRow, err := cursor.New(table, false)
 	if err != nil {
 		return nil, fmt.Errorf("at SELECT: error create a new cursor")
 	}
 
-	for !currentRow.EndOfTable {
+	for !currentRow.EndOfTable && isLimit {
 		record, errGetValue := currentRow.Value()
 		if errGetValue != nil {
 			return nil, errGetValue
@@ -37,6 +41,14 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 			}
 		}
 		response = append(response, record)
+
+		if isLimit {
+			query.Limit -= 1
+
+			if query.Limit < 1 {
+				isLimit = false
+			}
+		}
 
 		currentRow.Advance()
 	}
@@ -60,7 +72,7 @@ func (f *file) Insert(query *v1.Query) error {
 
 	// check values and create row record
 	record := v12.Row{
-		Value: map[string][]byte{},
+		Value: make(map[string][]byte),
 	}
 	for index, field := range query.Fields {
 		if f.database.Tables[query.TableName].Fields[field].String() == "" {

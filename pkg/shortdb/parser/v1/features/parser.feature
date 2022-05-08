@@ -28,6 +28,9 @@ Feature: SQL Parser
       | SELECT a, * FROM 'b'                                                  | at SELECT: expected field to SELECT                     |
       | SELECT a, c, d FROM 'b' WHERE a != '1' AND b = '2'                    |                                                         |
       | SELECT start as s, middle as m, end as e FROM there join what on there.it != what.what and there.who = what.shit left join whoot on whoot.tweet <= what.what where this = that order by start desc, end, middle asc | at ON: expected <tablename>.<fieldname> |
+      | SELECT a, c, d FROM 'b' LIMIT                                         | at LIMIT: empty LIMIT clause                            |
+      | SELECT a, c, d FROM 'b' LIMIT N                                       | at LIMIT: required number                               |
+      | SELECT a, c, d FROM 'b' LIMIT 5                                       |                                                         |
       | UPDATE                                                                | table name cannot be empty                              |
       | UPDATE 'a'                                                            | at WHERE: WHERE clause is mandatory for UPDATE & DELETE |
       | UPDATE 'a' SET                                                        | at WHERE: WHERE clause is mandatory for UPDATE & DELETE |

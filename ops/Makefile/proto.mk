@@ -40,20 +40,8 @@ proto-generate: ## Generate proto-files
 
 	@buf generate \
 		--path=pkg/shortdb/query/v1 \
-		--template=ops/proto/shortdb/buf.gen.yaml \
-		--config=ops/proto/shortdb/buf.yaml
-
-	@buf generate \
 		--path=pkg/shortdb/table/v1 \
-		--template=ops/proto/shortdb/buf.gen.yaml \
-		--config=ops/proto/shortdb/buf.yaml
-
-	@buf generate \
 		--path=pkg/shortdb/parser/v1 \
-		--template=ops/proto/shortdb/buf.gen.yaml \
-		--config=ops/proto/shortdb/buf.yaml
-
-	@buf generate \
 		--path=pkg/shortdb/session/v1 \
 		--template=ops/proto/shortdb/buf.gen.yaml \
 		--config=ops/proto/shortdb/buf.yaml
