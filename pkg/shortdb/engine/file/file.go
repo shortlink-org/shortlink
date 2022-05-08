@@ -18,23 +18,22 @@ import (
 type file struct {
 	mc sync.Mutex
 
-	name string
 	path string
 
 	database *table.DataBase
 }
 
 func New(opts ...options.Option) (*file, error) {
-	const SHORTDB_PAGE_SIZE = 2
+	const SHORTDB_PAGE_SIZE = 100
 
 	viper.AutomaticEnv()
-	viper.SetDefault("SHORTDB_DEFAULT_DATABASE", "public.db") // ShortDB default database
-	viper.SetDefault("SHORTDB_PAGE_SIZE", SHORTDB_PAGE_SIZE)  // ShortDB default page of size
+	viper.SetDefault("SHORTDB_DEFAULT_DATABASE", "public")   // ShortDB default database
+	viper.SetDefault("SHORTDB_PAGE_SIZE", SHORTDB_PAGE_SIZE) // ShortDB default page of size
 
 	var err error
 	f := &file{
-		name: viper.GetString("SHORTDB_DEFAULT_DATABASE"),
 		database: &table.DataBase{
+			Name:   viper.GetString("SHORTDB_DEFAULT_DATABASE"),
 			Tables: make(map[string]*table.Table),
 		},
 	}
@@ -87,8 +86,6 @@ func (f *file) init() error {
 	f.mc.Lock()
 	defer f.mc.Unlock()
 
-	path := fmt.Sprintf("%s/%s", f.path, f.name)
-
 	// create directory if not exist
 	err := os.MkdirAll(f.path, os.ModePerm)
 	if err != nil {
@@ -96,7 +93,7 @@ func (f *file) init() error {
 	}
 
 	// create file if not exist
-	fileOpenFile, err := os.OpenFile(path, os.O_RDONLY|os.O_CREATE, os.ModePerm) // #nosec
+	fileOpenFile, err := f.createFile(fmt.Sprintf("%s.db", f.database.Name))
 	if err != nil {
 		return err
 	}
@@ -120,13 +117,13 @@ func (f *file) init() error {
 	payload := []byte{}
 	var wg sync.WaitGroup
 	wg.Add(1)
+
 	// Read a file.
-	err = io_uring.ReadFile(path, func(buf []byte) {
+	err = io_uring.ReadFile(fileOpenFile.Name(), func(buf []byte) {
 		payload = buf
 		wg.Done()
 	})
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 
@@ -147,15 +144,13 @@ func (f *file) Close() error {
 	f.mc.Lock()
 	defer f.mc.Unlock()
 
-	path := fmt.Sprintf("%s/%s", f.path, f.name)
-
-	// create file if not exist
-	fileOpenFile, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE, os.ModePerm) // #nosec
+	// create database if not exist
+	databaseFile, err := f.createFile(fmt.Sprintf("%s.db", f.database.Name))
 	if err != nil {
 		return err
 	}
 	defer func() {
-		_ = fileOpenFile.Close() // #nosec
+		_ = databaseFile.Close() // #nosec
 	}()
 
 	payload, err := proto.Marshal(f.database)
@@ -179,8 +174,8 @@ func (f *file) Close() error {
 	var wg sync.WaitGroup
 	wg.Add(1)
 
-	// Write something
-	err = io_uring.WriteFile(path, payload, 0o644, func(n int) { // nolint:gomnd
+	// save database
+	err = io_uring.WriteFile(databaseFile.Name(), payload, 0o644, func(n int) { // nolint:gomnd
 		defer wg.Done()
 		// handle n
 	})
@@ -188,10 +183,31 @@ func (f *file) Close() error {
 		return err
 	}
 
+	// save last page
+	for tableName := range f.database.Tables {
+		err = f.savePage(tableName, f.database.Tables[tableName].Stats.PageCount-1)
+		if err != nil {
+			return err
+		}
+	}
+
 	// Call Poll to let the kernel know to read the entries.
 	io_uring.Poll()
 	// Wait till all callbacks are done.
 	wg.Wait()
+
+	return nil
+}
+
+func (f *file) createFile(name string) (*os.File, error) {
+	return os.OpenFile(fmt.Sprintf("%s/%s", f.path, name), os.O_RDONLY|os.O_CREATE, os.ModePerm) // #nosec
+}
+
+func (f *file) writeFile(name string, payload []byte) error {
+	err := os.WriteFile(name, payload, 0o644) // #nosec
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
