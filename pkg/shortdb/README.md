@@ -42,6 +42,8 @@ $> docker buildx build --platform=linux/amd64 --load -t shortdb -f ops/dockerfil
 
 ### Benchmark Engine
 
+> cpu: Intel(R) Core(TM) i3-7300 CPU @ 4.00GHz
+
 | Name                           |      Count |             Ops |
 |:-------------------------------|-----------:|----------------:|
 | **CREATE_DATABASE**            |            |                 |
