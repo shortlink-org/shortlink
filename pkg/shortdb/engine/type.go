@@ -22,7 +22,7 @@ type Engine interface {
 	Delete(query *v1.Query) error
 }
 
-func New(name string, ops ...options.Option) (*Engine, error) {
+func New(name string, ops ...options.Option) (Engine, error) {
 	var err error
 	var engine Engine
 
@@ -36,5 +36,5 @@ func New(name string, ops ...options.Option) (*Engine, error) {
 		}
 	}
 
-	return &engine, nil
+	return engine, nil
 }

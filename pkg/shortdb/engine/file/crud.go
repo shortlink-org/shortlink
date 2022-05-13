@@ -13,7 +13,8 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 	defer f.mc.Unlock()
 
 	// check table
-	if f.database.Tables[query.TableName] == nil {
+	table := f.database.Tables[query.TableName]
+	if table == nil {
 		return nil, fmt.Errorf("at SELECT: not exist table")
 	}
 
@@ -23,7 +24,7 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 	// response
 	response := make([]*v12.Row, 0)
 
-	table := f.database.Tables[query.TableName]
+retrySelect:
 	currentRow, err := cursor.New(table, false)
 	if err != nil {
 		return nil, fmt.Errorf("at SELECT: error create a new cursor")
@@ -32,7 +33,20 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 	for !currentRow.EndOfTable && isLimit {
 		record, errGetValue := currentRow.Value()
 		if errGetValue != nil {
-			return nil, errGetValue
+			switch errGetValue.(type) {
+			case *cursor.ErrorGetPage:
+				pagePath := fmt.Sprintf("%s/%s_%s_%d.page", f.path, f.database.Name, query.TableName, currentRow.PageId)
+				payload, errLoadPage := f.loadPage(pagePath)
+				if errLoadPage != nil {
+					return nil, errLoadPage
+				}
+
+				// load data
+				table.Pages = []*v12.Page{payload}
+				goto retrySelect
+			default:
+				return nil, errGetValue
+			}
 		}
 
 		for _, field := range query.Fields {
@@ -83,7 +97,7 @@ func (f *file) Insert(query *v1.Query) error {
 	}
 
 	// insert
-	_, err := f.AddPage(query.TableName)
+	_, err := f.addPage(query.TableName)
 	if err != nil {
 		return fmt.Errorf("at INSERT INTO: error create a new page")
 	}
@@ -99,7 +113,16 @@ func (f *file) Insert(query *v1.Query) error {
 
 	row, err := currentRow.Value()
 	if err != nil {
-		return fmt.Errorf("at INSERT INTO: error get value from cursor")
+		switch err.(type) {
+		case *cursor.ErrorGetPage:
+			pagePath := fmt.Sprintf("%s/%s_%s_%d.page", f.path, f.database.Name, query.TableName, currentRow.PageId)
+			_, errLoadPage := f.loadPage(pagePath)
+			if errLoadPage != nil {
+				return errLoadPage
+			}
+		default:
+			return fmt.Errorf("at INSERT INTO: error get value from cursor")
+		}
 	}
 	row.Value = record.Value
 

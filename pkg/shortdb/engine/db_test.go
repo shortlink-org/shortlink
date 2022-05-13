@@ -28,7 +28,7 @@ func TestDatabase(t *testing.T) {
 		qCreateTable, err := parser.New("create table users (id integer, name string, active bool)")
 		assert.Nil(t, err)
 
-		_, _ = (*store).Exec(qCreateTable.Query)
+		_, _ = store.Exec(qCreateTable.Query)
 	})
 
 	t.Run("INSERT INTO USERS", func(t *testing.T) {
@@ -36,21 +36,21 @@ func TestDatabase(t *testing.T) {
 			qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			assert.Nil(t, err)
 
-			err = (*store).Insert(qInsertUsers.Query)
+			err = store.Insert(qInsertUsers.Query)
 			assert.Nil(t, err)
 		}
 
 		// save data
-		err = (*store).Close()
+		err = store.Close()
 		assert.Nil(t, err)
 	})
 
-	t.Run("SELECT USERS", func(t *testing.T) {
-		_, err := parser.New("select id, name, active from users limit 200")
-		assert.Nil(t, err)
-
-		//resp, err := (*store).Select(qInsertUsers.Query)
-		//assert.Nil(t, err)
-		//assert.Equal(t, 200, len(resp))
-	})
+	//t.Run("SELECT USERS", func(t *testing.T) {
+	//	qInsertUsers, err := parser.New("select id, name, active from users limit 300")
+	//	assert.Nil(t, err)
+	//
+	//	resp, err := (*store).Select(qInsertUsers.Query)
+	//	assert.Nil(t, err)
+	//	assert.Equal(t, 300, len(resp))
+	//})
 }
