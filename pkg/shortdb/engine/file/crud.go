@@ -5,16 +5,16 @@ import (
 
 	"github.com/batazor/shortlink/pkg/shortdb/engine/file/cursor"
 	v1 "github.com/batazor/shortlink/pkg/shortdb/query/v1"
-	v12 "github.com/batazor/shortlink/pkg/shortdb/table/v1"
+	table "github.com/batazor/shortlink/pkg/shortdb/table/v1"
 )
 
-func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
+func (f *file) Select(query *v1.Query) ([]*table.Row, error) {
 	f.mc.Lock()
 	defer f.mc.Unlock()
 
 	// check table
-	table := f.database.Tables[query.TableName]
-	if table == nil {
+	t := f.database.Tables[query.TableName]
+	if t == nil {
 		return nil, fmt.Errorf("at SELECT: not exist table")
 	}
 
@@ -22,10 +22,10 @@ func (f *file) Select(query *v1.Query) ([]*v12.Row, error) {
 	isLimit := query.Limit >= 0
 
 	// response
-	response := make([]*v12.Row, 0)
+	response := make([]*table.Row, 0)
 
 retrySelect:
-	currentRow, err := cursor.New(table, false)
+	currentRow, err := cursor.New(t, false)
 	if err != nil {
 		return nil, fmt.Errorf("at SELECT: error create a new cursor")
 	}
@@ -41,8 +41,12 @@ retrySelect:
 					return nil, errLoadPage
 				}
 
+				if t.Pages == nil {
+					t.Pages = make(map[int32]*table.Page, 0)
+				}
+
 				// load data
-				table.Pages[currentRow.PageId] = payload
+				t.Pages[currentRow.PageId] = payload
 				goto retrySelect
 			default:
 				return nil, errGetValue
@@ -80,7 +84,8 @@ func (f *file) Insert(query *v1.Query) error {
 	defer f.mc.Unlock()
 
 	// check the table's existence
-	if f.database.Tables[query.TableName] == nil {
+	t := f.database.Tables[query.TableName]
+	if t == nil {
 		return fmt.Errorf("at INSERT INTO: not exist table")
 	}
 
@@ -91,7 +96,7 @@ func (f *file) Insert(query *v1.Query) error {
 	}
 
 	// insert to last page
-	currentRow, err := cursor.New(f.database.Tables[query.TableName], true)
+	currentRow, err := cursor.New(t, true)
 	if err != nil {
 		return fmt.Errorf("at INSERT INTO: error create a new cursor")
 	}
@@ -115,11 +120,11 @@ func (f *file) Insert(query *v1.Query) error {
 	}
 
 	// check values and create row record
-	record := v12.Row{
+	record := table.Row{
 		Value: make(map[string][]byte),
 	}
 	for index, field := range query.Fields {
-		if f.database.Tables[query.TableName].Fields[field].String() == "" {
+		if t.Fields[field].String() == "" {
 			return fmt.Errorf("at INSERT INTO: incorrect type fields %s in table %s", field, query.TableName)
 		}
 
@@ -128,7 +133,7 @@ func (f *file) Insert(query *v1.Query) error {
 	row.Value = record.Value
 
 	// update stats
-	f.database.Tables[query.TableName].Stats.RowsCount += 1
+	t.Stats.RowsCount += 1
 
 	return nil
 }

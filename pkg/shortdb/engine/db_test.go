@@ -48,7 +48,7 @@ func TestDatabase(t *testing.T) {
 	//	qInsertUsers, err := parser.New("select id, name, active from users limit 300")
 	//	assert.Nil(t, err)
 	//
-	//	resp, err := (*store).Select(qInsertUsers.Query)
+	//	resp, err := store.Select(qInsertUsers.Query)
 	//	assert.Nil(t, err)
 	//	assert.Equal(t, 300, len(resp))
 	//})
