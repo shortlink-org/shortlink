@@ -2,7 +2,6 @@ package engine
 
 import (
 	"fmt"
-	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -18,10 +17,10 @@ func TestDatabase(t *testing.T) {
 	store, err := New("file", file.SetName("testDatabase"), file.SetPath(path))
 	assert.Nil(t, err)
 
-	t.Cleanup(func() {
-		err = os.RemoveAll(path)
-		assert.Nil(t, err)
-	})
+	//t.Cleanup(func() {
+	//	err = os.RemoveAll(path)
+	//	assert.Nil(t, err)
+	//})
 
 	t.Run("CREATE TABLE", func(t *testing.T) {
 		// create table

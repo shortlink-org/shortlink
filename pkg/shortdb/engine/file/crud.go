@@ -42,7 +42,7 @@ retrySelect:
 				}
 
 				// load data
-				table.Pages = []*v12.Page{payload}
+				table.Pages[currentRow.PageId] = payload
 				goto retrySelect
 			default:
 				return nil, errGetValue
@@ -79,24 +79,12 @@ func (f *file) Insert(query *v1.Query) error {
 	f.mc.Lock()
 	defer f.mc.Unlock()
 
-	// check table
+	// check the table's existence
 	if f.database.Tables[query.TableName] == nil {
 		return fmt.Errorf("at INSERT INTO: not exist table")
 	}
 
-	// check values and create row record
-	record := v12.Row{
-		Value: make(map[string][]byte),
-	}
-	for index, field := range query.Fields {
-		if f.database.Tables[query.TableName].Fields[field].String() == "" {
-			return fmt.Errorf("at INSERT INTO: incorrect type fields %s in table %s", field, query.TableName)
-		}
-
-		record.Value[field] = []byte(query.Inserts[0].Items[index])
-	}
-
-	// insert
+	// check if a new page needs to be created
 	_, err := f.addPage(query.TableName)
 	if err != nil {
 		return fmt.Errorf("at INSERT INTO: error create a new page")
@@ -115,14 +103,27 @@ func (f *file) Insert(query *v1.Query) error {
 	if err != nil {
 		switch err.(type) {
 		case *cursor.ErrorGetPage:
-			pagePath := fmt.Sprintf("%s/%s_%s_%d.page", f.path, f.database.Name, query.TableName, currentRow.PageId)
-			_, errLoadPage := f.loadPage(pagePath)
-			if errLoadPage != nil {
-				return errLoadPage
-			}
+			// normal
+			//pagePath := fmt.Sprintf("%s/%s_%s_%d.page", f.path, f.database.Name, query.TableName, currentRow.PageId)
+			//_, errLoadPage := f.loadPage(pagePath)
+			//if errLoadPage != nil {
+			//	return errLoadPage
+			//}
 		default:
 			return fmt.Errorf("at INSERT INTO: error get value from cursor")
 		}
+	}
+
+	// check values and create row record
+	record := v12.Row{
+		Value: make(map[string][]byte),
+	}
+	for index, field := range query.Fields {
+		if f.database.Tables[query.TableName].Fields[field].String() == "" {
+			return fmt.Errorf("at INSERT INTO: incorrect type fields %s in table %s", field, query.TableName)
+		}
+
+		record.Value[field] = []byte(query.Inserts[0].Items[index])
 	}
 	row.Value = record.Value
 

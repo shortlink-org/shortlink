@@ -52,7 +52,7 @@ func (c *Cursor) Value() (*table.Row, error) {
 
 	if page.Rows[rowNum] == nil {
 		page.Rows[rowNum] = &table.Row{}
-		return page.Rows[rowNum], &ErrorGetPage{}
+		//return page.Rows[rowNum], &ErrorGetPage{}
 	}
 
 	return page.Rows[rowNum], nil

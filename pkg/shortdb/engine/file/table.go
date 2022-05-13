@@ -23,7 +23,7 @@ func (f *file) CreateTable(query *v1.Query) error {
 		Fields: query.TableFields,
 		Stats: &table.TableStats{
 			RowsCount: 0,
-			PageCount: 0,
+			PageCount: -1,
 		},
 		Option: &table.Option{
 			PageSize: viper.GetInt64("SHORTDB_PAGE_SIZE"),
