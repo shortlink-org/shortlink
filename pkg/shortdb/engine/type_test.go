@@ -5,7 +5,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/gofrs/uuid"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/batazor/shortlink/pkg/shortdb/engine/file"
@@ -14,9 +13,7 @@ import (
 
 func BenchmarkEngine(b *testing.B) {
 	// set engine
-	id, err := uuid.NewV4()
-	assert.Nil(b, err)
-	path := fmt.Sprintf("/tmp/shortdb_test_%s", id.String())
+	path := fmt.Sprintf("/tmp/shortdb_test_unit")
 
 	store, err := New("file", file.SetName("testDatabase"), file.SetPath(path))
 	assert.Nil(b, err)
@@ -36,7 +33,7 @@ func BenchmarkEngine(b *testing.B) {
 
 	b.Run("INSERT INTO USERS", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			qInsertUsers, err := parser.New("insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false')")
+			qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			assert.Nil(b, err)
 
 			err = store.Insert(qInsertUsers.Query)
