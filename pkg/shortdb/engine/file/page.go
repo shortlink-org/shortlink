@@ -26,6 +26,13 @@ func (f *file) addPage(nameTable string) (int32, error) {
 	t := f.database.Tables[nameTable]
 
 	if t.Stats.RowsCount%t.Option.PageSize == 0 {
+		if t.Pages == nil {
+			t.Pages = make(map[int32]*table.Page, 0)
+		}
+
+		t.Stats.PageCount += 1
+		t.Pages[t.Stats.PageCount] = &table.Page{Rows: []*table.Row{}}
+
 		// create a page file
 		newPageFile, err := f.createFile(f.pageName(nameTable))
 		if err != nil {
@@ -38,23 +45,19 @@ func (f *file) addPage(nameTable string) (int32, error) {
 		}
 
 		// if this not first page, save current date
-		if t.Pages != nil {
+		if t.Stats.PageCount > 0 {
 			// save data after clear memory page
-			err = f.savePage(nameTable, t.Stats.PageCount)
+			err = f.savePage(nameTable, t.Stats.PageCount-1)
 			if err != nil {
 				return t.Stats.PageCount, err
 			}
 
 			// clear old page
-			err = f.clearPage(nameTable, t.Stats.PageCount)
+			err = f.clearPage(nameTable, t.Stats.PageCount-1)
 			if err != nil {
 				return t.Stats.PageCount, err
 			}
-
-			t.Stats.PageCount += 1
 		}
-
-		t.Pages = append(t.Pages, &table.Page{Rows: []*table.Row{}})
 	}
 
 	return t.Stats.PageCount, nil
@@ -64,13 +67,13 @@ func (f *file) savePage(nameTable string, pageCount int32) error {
 	t := f.database.Tables[nameTable]
 
 	// save date
-	oldPageFile, err := f.createFile(f.pageName(nameTable))
+	openFile, err := f.createFile(fmt.Sprintf("%s_%s_%d.page", f.database.Name, nameTable, pageCount))
 	if err != nil {
 		return err
 	}
 
 	defer func() {
-		_ = oldPageFile.Close() // #nosec
+		_ = openFile.Close() // #nosec
 	}()
 
 	payload, err := proto.Marshal(t.Pages[pageCount])
@@ -79,7 +82,7 @@ func (f *file) savePage(nameTable string, pageCount int32) error {
 	}
 
 	// Write something
-	err = f.writeFile(oldPageFile.Name(), payload)
+	err = f.writeFile(openFile.Name(), payload)
 	if err != nil {
 		return err
 	}

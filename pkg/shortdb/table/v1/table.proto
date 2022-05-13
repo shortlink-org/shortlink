@@ -33,7 +33,7 @@ message Table {
   string name = 1;
   map<string, Type> fields = 2;
 
-  repeated Page pages = 3;
+  map<int32, Page> pages = 3;
 
   TableStats stats = 4;
   Option option = 5;
