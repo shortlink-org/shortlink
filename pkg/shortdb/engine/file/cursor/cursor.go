@@ -36,6 +36,8 @@ func (c *Cursor) Advance() {
 }
 
 func (c *Cursor) Value() (*table.Row, error) {
+	c.wc.Lock()
+	defer c.wc.Unlock()
 	//if c.Table.Pages == nil || len(c.Table.Pages) < int(c.PageId)+1 || c.Table.Pages[c.PageId] == nil {
 	//	return nil, &ErrorGetPage{}
 	//}
@@ -48,9 +50,9 @@ func (c *Cursor) Value() (*table.Row, error) {
 
 	page := c.Table.Pages[c.PageId]
 	if len(page.Rows) == 0 {
-		c.wc.Lock()
+		//c.wc.Lock()
 		page.Rows = make([]*table.Row, c.Table.Option.PageSize)
-		c.wc.Unlock()
+		//c.wc.Unlock()
 	}
 
 	rowNum := int(c.RowId) % len(page.Rows)

@@ -31,6 +31,24 @@ func TestDatabase(t *testing.T) {
 		_, _ = store.Exec(qCreateTable.Query)
 	})
 
+	t.Run("INSERT INTO USERS SINGLE", func(t *testing.T) {
+		qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false')"))
+		assert.Nil(t, err)
+
+		err = store.Insert(qInsertUsers.Query)
+		assert.Nil(t, err)
+
+		err = store.Insert(qInsertUsers.Query)
+		assert.Nil(t, err)
+
+		err = store.Insert(qInsertUsers.Query)
+		assert.Nil(t, err)
+
+		// save data
+		err = store.Close()
+		assert.Nil(t, err)
+	})
+
 	t.Run("INSERT INTO USERS", func(t *testing.T) {
 		for i := 0; i < 1000; i++ {
 			qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
@@ -45,8 +63,22 @@ func TestDatabase(t *testing.T) {
 		assert.Nil(t, err)
 	})
 
-	t.Run("INSERT INTO USERS ADDITIONAL", func(t *testing.T) {
-		for i := 0; i < 1000; i++ {
+	t.Run("INSERT INTO USERS +173", func(t *testing.T) {
+		for i := 0; i < 173; i++ {
+			qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
+			assert.Nil(t, err)
+
+			err = store.Insert(qInsertUsers.Query)
+			assert.Nil(t, err)
+		}
+
+		// save data
+		err = store.Close()
+		assert.Nil(t, err)
+	})
+
+	t.Run("INSERT INTO USERS +207", func(t *testing.T) {
+		for i := 0; i < 207; i++ {
 			qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			assert.Nil(t, err)
 

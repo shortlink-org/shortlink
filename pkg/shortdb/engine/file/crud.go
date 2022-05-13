@@ -93,6 +93,21 @@ func (f *file) Insert(query *v1.Query) error {
 		return fmt.Errorf("at INSERT INTO: error create a new page")
 	}
 
+	if t.Stats.PageCount > -1 && t.Pages[t.Stats.PageCount] == nil {
+		// load page
+		pagePath := fmt.Sprintf("%s/%s_%s_%d.page", f.path, f.database.Name, t.Name, t.Stats.PageCount)
+		payload, errLoadPage := f.loadPage(pagePath)
+		if errLoadPage != nil {
+			return errLoadPage
+		}
+
+		if t.Pages == nil {
+			t.Pages = make(map[int32]*table.Page, 0)
+		}
+
+		t.Pages[t.Stats.PageCount] = payload
+	}
+
 	// insert to last page
 	currentRow, err := cursor.New(t, true)
 	if err != nil {

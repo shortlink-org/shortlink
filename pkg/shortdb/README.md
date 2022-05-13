@@ -49,6 +49,6 @@ $> docker buildx build --platform=linux/amd64 --load -t shortdb -f ops/dockerfil
 | **CREATE_TABLE**          |            |                 |
 | CREATE_TABLE-4            | 1000000000 | 0.0001936 ns/op |
 | **INSERT_INTO_USERS**     |            |                 |
-| INSERT_INTO_USERS-4       |      13588 |     78490 ns/op |
+| INSERT_INTO_USERS-4       |      14044 |     83893 ns/op |
 | **SELECT_USERS**          |            |                 |
 | SELECT_USERS-4            |      13228 |     90312 ns/op |
