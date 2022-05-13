@@ -7,7 +7,7 @@ import (
 )
 
 type Cursor struct {
-	wc sync.Mutex
+	wc sync.RWMutex
 
 	// table name
 	Table *table.Table

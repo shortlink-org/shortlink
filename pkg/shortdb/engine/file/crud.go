@@ -121,12 +121,7 @@ func (f *file) Insert(query *v1.Query) error {
 	if err != nil {
 		switch err.(type) {
 		case *cursor.ErrorGetPage:
-			// normal
-			//pagePath := fmt.Sprintf("%s/%s_%s_%d.page", f.path, f.database.Name, query.TableName, currentRow.PageId)
-			//_, errLoadPage := f.loadPage(pagePath)
-			//if errLoadPage != nil {
-			//	return errLoadPage
-			//}
+			// hmm...
 		default:
 			return fmt.Errorf("at INSERT INTO: error get value from cursor")
 		}
