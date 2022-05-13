@@ -24,33 +24,31 @@ func (f *file) Select(query *v1.Query) ([]*table.Row, error) {
 	// response
 	response := make([]*table.Row, 0)
 
-retrySelect:
 	currentRow, err := cursor.New(t, false)
 	if err != nil {
 		return nil, fmt.Errorf("at SELECT: error create a new cursor")
 	}
 
 	for !currentRow.EndOfTable && isLimit {
+		// load data
+		if t.Pages[currentRow.PageId] == nil {
+			pagePath := fmt.Sprintf("%s/%s_%s_%d.page", f.path, f.database.Name, t.Name, currentRow.PageId)
+			payload, errLoadPage := f.loadPage(pagePath)
+			if errLoadPage != nil {
+				return nil, errLoadPage
+			}
+
+			if t.Pages == nil {
+				t.Pages = make(map[int32]*table.Page, 0)
+			}
+
+			t.Pages[currentRow.PageId] = payload
+		}
+
+		// get value
 		record, errGetValue := currentRow.Value()
 		if errGetValue != nil {
-			switch errGetValue.(type) {
-			case *cursor.ErrorGetPage:
-				pagePath := fmt.Sprintf("%s/%s_%s_%d.page", f.path, f.database.Name, query.TableName, currentRow.PageId)
-				payload, errLoadPage := f.loadPage(pagePath)
-				if errLoadPage != nil {
-					return nil, errLoadPage
-				}
-
-				if t.Pages == nil {
-					t.Pages = make(map[int32]*table.Page, 0)
-				}
-
-				// load data
-				t.Pages[currentRow.PageId] = payload
-				goto retrySelect
-			default:
-				return nil, errGetValue
-			}
+			return nil, errGetValue
 		}
 
 		for _, field := range query.Fields {
