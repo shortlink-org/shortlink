@@ -45,7 +45,7 @@ func (f *file) addPage(nameTable string) (int32, error) {
 		}
 
 		// if this not first page, save current date
-		if t.Stats.PageCount > 0 {
+		if t.Stats.PageCount > 0 && t.Pages[t.Stats.PageCount-1] != nil {
 			// save data after clear memory page
 			err = f.savePage(nameTable, t.Stats.PageCount-1)
 			if err != nil {
