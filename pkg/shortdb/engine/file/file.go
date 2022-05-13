@@ -153,11 +153,6 @@ func (f *file) Close() error {
 		_ = databaseFile.Close() // #nosec
 	}()
 
-	payload, err := proto.Marshal(f.database)
-	if err != nil {
-		return err
-	}
-
 	// init io_uring
 	err = io_uring.Init()
 	if err != nil {
@@ -176,7 +171,7 @@ func (f *file) Close() error {
 
 	// save last page
 	for tableName := range f.database.Tables {
-		err = f.savePage(tableName, f.database.Tables[tableName].Stats.PageCount-1)
+		err = f.savePage(tableName, f.database.Tables[tableName].Stats.PageCount)
 		if err != nil {
 			return err
 		}
@@ -186,6 +181,11 @@ func (f *file) Close() error {
 		if err != nil {
 			return err
 		}
+	}
+
+	payload, err := proto.Marshal(f.database)
+	if err != nil {
+		return err
 	}
 
 	// save database

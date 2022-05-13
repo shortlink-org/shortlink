@@ -31,7 +31,7 @@ func BenchmarkEngine(b *testing.B) {
 		qCreateTable, err := parser.New("create table users (id integer, name string, active bool)")
 		assert.Nil(b, err)
 
-		_, _ = (*store).Exec(qCreateTable.Query)
+		_, _ = store.Exec(qCreateTable.Query)
 	})
 
 	b.Run("INSERT INTO USERS", func(b *testing.B) {
@@ -39,12 +39,12 @@ func BenchmarkEngine(b *testing.B) {
 			qInsertUsers, err := parser.New("insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false')")
 			assert.Nil(b, err)
 
-			err = (*store).Insert(qInsertUsers.Query)
+			err = store.Insert(qInsertUsers.Query)
 			assert.Nil(b, err)
 		}
 
 		// save data
-		err = (*store).Close()
+		err = store.Close()
 		assert.Nil(b, err)
 	})
 
@@ -53,7 +53,7 @@ func BenchmarkEngine(b *testing.B) {
 			qInsertUsers, err := parser.New("select id, name, active from users limit 5")
 			assert.Nil(b, err)
 
-			resp, err := (*store).Select(qInsertUsers.Query)
+			resp, err := store.Select(qInsertUsers.Query)
 			assert.Nil(b, err)
 			assert.Equal(b, 5, len(resp))
 		}
