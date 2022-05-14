@@ -8,6 +8,7 @@ enum Type {
   TYPE_UNSPECIFIED = 0;
 
   TYPE_BTREE = 1;
+  TYPE_HASH = 2;
 }
 
 message Index {

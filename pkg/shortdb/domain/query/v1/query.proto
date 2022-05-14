@@ -5,6 +5,7 @@ package shortdb.domain.query.v1;
 option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1";
 
 import "shortdb/domain/field/v1/field.proto";
+import "shortdb/domain/index/v1/index.proto";
 
 // Type is the type of SQL query, e.g. SELECT/UPDATE
 enum Type {
@@ -84,15 +85,16 @@ message Query {
   string database = 2;
   string table_name = 3;
   map<string, shortdb.domain.field.v1.Type> table_fields = 4;
-  repeated Condition conditions = 5;
-  map<string, string> updates = 6;
-  repeated Array inserts = 7;
+  map<string, shortdb.domain.index.v1.Index> table_index = 5;
+  repeated Condition conditions = 6;
+  map<string, string> updates = 7;
+  repeated Array inserts = 8;
   // Used for SELECT (i.e. SELECTed field names) and INSERT (INSERTEDed field names)
-  repeated string fields = 8;
-  map<string, string> aliases = 9;
-  repeated string order_fields = 10;
-  repeated string order_dir = 11;
-  repeated Join joins = 12;
-  int32 max_rows = 13;
-  int32 limit = 14;
+  repeated string fields = 9;
+  map<string, string> aliases = 10;
+  repeated string order_fields = 11;
+  repeated string order_dir = 12;
+  repeated Join joins = 13;
+  int32 max_rows = 14;
+  int32 limit = 15;
 }
