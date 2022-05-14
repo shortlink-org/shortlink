@@ -13,6 +13,10 @@ func (f *file) CreateTable(query *v1.Query) error {
 	f.mc.Lock()
 	defer f.mc.Unlock()
 
+	if f.database.Tables == nil {
+		f.database.Tables = make(map[string]*table.Table)
+	}
+
 	// check
 	if f.database.Tables[query.TableName] != nil {
 		return fmt.Errorf("at CREATE TABLE: exist table")

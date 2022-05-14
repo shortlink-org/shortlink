@@ -28,7 +28,7 @@ func (c *Cursor) Advance() {
 		c.PageId = int32(c.RowId / c.Table.Option.PageSize)
 	}
 
-	if c.Table.Stats.RowsCount == c.RowId {
+	if (c.Table.Stats.RowsCount - 1) == c.RowId {
 		c.EndOfTable = true
 	} else {
 		c.RowId += 1
