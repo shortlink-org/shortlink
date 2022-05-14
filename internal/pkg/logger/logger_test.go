@@ -88,10 +88,7 @@ func TestOutputLogrus(t *testing.T) {
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
-
-	if !reflect.DeepEqual(expected, response) {
-		assert.Fail(t, "Expected: %s\ngot: %s", expected, response)
-	}
+	assert.Equal(t, expected, response)
 }
 
 func BenchmarkOutputLogrus(bench *testing.B) {
@@ -132,7 +129,7 @@ func TestFieldsZap(t *testing.T) {
 		"@level":     "info",
 		"@timestamp": expectedTime,
 		"@msg":       "Hello World",
-		"@caller":    "logger/logger_test.go:125",
+		"@caller":    "logger/logger_test.go:122",
 		"first":      float64(1),
 		"hello":      "world",
 	}
@@ -171,10 +168,7 @@ func TestFieldsLogrus(t *testing.T) {
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
-
-	if !reflect.DeepEqual(expected, response) {
-		assert.Errorf(t, err, "Expected: %s\ngot: %s", expected, response)
-	}
+	assert.Equal(t, expected, response)
 }
 
 func TestSetLevel(t *testing.T) {
