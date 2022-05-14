@@ -18,9 +18,15 @@ This database with support SQL language.
 - Engine:
   - file
 
-#### Example work with repl
+#### Example work with REPL
 
-[![asciicast](https://asciinema.org/a/494334.svg)](https://asciinema.org/a/494334)
+```
+> create table users (id integer, name string, active bool);
+> insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false');
+> select id, name, active from users;
+```
+
+[![asciicast](https://asciinema.org/a/ElqLr756zSjpwFCuAQgSbXxBB.svg)](https://asciinema.org/a/ElqLr756zSjpwFCuAQgSbXxBB)
 
 #### Docker build
 
