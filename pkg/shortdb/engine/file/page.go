@@ -6,7 +6,7 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	table "github.com/batazor/shortlink/pkg/shortdb/table/v1"
+	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
 )
 
 func (f *file) getPage(nameTable string, page int32) error {
