@@ -44,6 +44,7 @@ proto-generate: ## Generate proto-files
 		--path=pkg/shortdb/domain/index/v1 \
 		--path=pkg/shortdb/domain/page/v1 \
 		--path=pkg/shortdb/domain/table/v1 \
+		--path=pkg/shortdb/domain/field/v1 \
 		--path=pkg/shortdb/domain/database/v1 \
 		--path=pkg/shortdb/domain/session/v1 \
 		--template=ops/proto/shortdb/buf.gen.yaml \

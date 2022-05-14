@@ -3,8 +3,6 @@ package file
 import (
 	"fmt"
 
-	"github.com/spf13/viper"
-
 	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
 
 	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
@@ -23,17 +21,7 @@ func (f *file) CreateTable(query *v1.Query) error {
 		return fmt.Errorf("at CREATE TABLE: exist table")
 	}
 
-	f.database.Tables[query.TableName] = &table.Table{
-		Name:   query.TableName,
-		Fields: query.TableFields,
-		Stats: &table.TableStats{
-			RowsCount: 0,
-			PageCount: -1,
-		},
-		Option: &table.Option{
-			PageSize: viper.GetInt64("SHORTDB_PAGE_SIZE"),
-		},
-	}
+	f.database.Tables[query.TableName] = table.New(query)
 
 	return nil
 }
