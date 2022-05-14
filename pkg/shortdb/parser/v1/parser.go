@@ -6,10 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	field "github.com/batazor/shortlink/pkg/shortdb/domain/field/v1"
-
 	"github.com/batazor/shortlink/internal/pkg/types/vector"
-	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
+	field "github.com/batazor/shortlink/pkg/shortdb/domain/field/v1"
+	query "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
 )
 
 const (
@@ -55,10 +54,8 @@ var (
 
 func New(sql string) (*Parser, error) {
 	parser := &Parser{
-		Sql: sql,
-		Query: &v1.Query{
-			Limit: -1,
-		},
+		Sql:   sql,
+		Query: query.New(),
 	}
 
 	// Parse
@@ -71,7 +68,7 @@ func New(sql string) (*Parser, error) {
 }
 
 // Parse - main function that returns the "query struct" or an error
-func (p *Parser) Parse() (*v1.Query, error) {
+func (p *Parser) Parse() (*query.Query, error) {
 	q, err := p.doParse()
 	p.Error = err.Error()
 	if p.Error == "" {
@@ -87,7 +84,7 @@ func (p *Parser) Parse() (*v1.Query, error) {
 	return q, nil
 }
 
-func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maintidx
+func (p *Parser) doParse() (*query.Query, error) { // nolint:gocyclo,gocognit,maintidx
 	for {
 		if p.I >= int32(len(p.Sql)) {
 			return p.Query, fmt.Errorf(p.Error)
@@ -97,28 +94,28 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 		case Step_STEP_UNSPECIFIED:
 			switch strings.ToUpper(p.peek()) {
 			case "SELECT":
-				p.Query.Type = v1.Type_TYPE_SELECT
+				p.Query.Type = query.Type_TYPE_SELECT
 				p.pop()
 				p.Step = Step_STEP_SELECT_FIELD
 			case "INSERT INTO":
-				p.Query.Type = v1.Type_TYPE_INSERT
+				p.Query.Type = query.Type_TYPE_INSERT
 				p.pop()
 				p.Step = Step_STEP_INSERT_TABLE
 			case "UPDATE":
-				p.Query.Type = v1.Type_TYPE_UPDATE
+				p.Query.Type = query.Type_TYPE_UPDATE
 				p.Query.Updates = map[string]string{}
 				p.pop()
 				p.Step = Step_STEP_UPDATE_TABLE
 			case "DELETE FROM":
-				p.Query.Type = v1.Type_TYPE_DELETE
+				p.Query.Type = query.Type_TYPE_DELETE
 				p.pop()
 				p.Step = Step_STEP_UPDATE_TABLE
 			case "CREATE TABLE":
-				p.Query.Type = v1.Type_TYPE_CREATE_TABLE
+				p.Query.Type = query.Type_TYPE_CREATE_TABLE
 				p.pop()
 				p.Step = Step_STEP_CREATE_TABLE_NAME
 			case "DROP TABLE":
-				p.Query.Type = v1.Type_TYPE_DROP_TABLE
+				p.Query.Type = query.Type_TYPE_DROP_TABLE
 				p.pop()
 				p.Step = Step_STEP_DROP_TABLE_NAME
 			default:
@@ -224,7 +221,7 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 			if !isIdentifier(identifier) {
 				return p.Query, fmt.Errorf("at WHERE: expected field")
 			}
-			p.Query.Conditions = append(p.Query.Conditions, &v1.Condition{LValue: identifier, LValueIsField: true})
+			p.Query.Conditions = append(p.Query.Conditions, &query.Condition{LValue: identifier, LValueIsField: true})
 			p.pop()
 			p.Step = Step_STEP_WHERE_OPERATOR
 		case Step_STEP_WHERE_OPERATOR:
@@ -232,7 +229,7 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 
 			operator := p.peek()
 			currentCondition.Operator = getOperator(operator)
-			if currentCondition.Operator == v1.Operator_OPERATOR_UNSPECIFIED {
+			if currentCondition.Operator == query.Operator_OPERATOR_UNSPECIFIED {
 				return p.Query, fmt.Errorf("at WHERE: unknown operator")
 			}
 
@@ -349,7 +346,7 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 			p.Step = Step_STEP_ORDER_FIELD
 		case Step_STEP_JOIN:
 			joinType := p.peek()
-			p.Query.Joins = append(p.Query.Joins, &v1.Join{Type: joinType, Table: "UNKNOWN"})
+			p.Query.Joins = append(p.Query.Joins, &query.Join{Type: joinType, Table: "UNKNOWN"})
 			p.pop()
 			p.Step = Step_STEP_JOIN_TABLE
 		case Step_STEP_JOIN_TABLE:
@@ -370,11 +367,11 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 			if len(op1split) != 2 { // nolint:gomnd
 				return p.Query, fmt.Errorf("at ON: expected <tablename>.<fieldname>")
 			}
-			currentCondition := &v1.JoinCondition{LTable: op1split[0], LOperand: op1split[1]}
+			currentCondition := &query.JoinCondition{LTable: op1split[0], LOperand: op1split[1]}
 
 			operator := p.peek()
 			currentCondition.Operator = getOperator(operator)
-			if currentCondition.Operator == v1.Operator_OPERATOR_UNSPECIFIED {
+			if currentCondition.Operator == query.Operator_OPERATOR_UNSPECIFIED {
 				return p.Query, fmt.Errorf("at ON: unknown operator")
 			}
 
@@ -437,7 +434,7 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 			if openingParens != "(" {
 				return p.Query, fmt.Errorf("at INSERT INTO: expected opening parens")
 			}
-			p.Query.Inserts = append(p.Query.Inserts, &v1.Query_Array{})
+			p.Query.Inserts = append(p.Query.Inserts, &query.Query_Array{})
 			p.pop()
 			p.Step = Step_STEP_INSERT_VALUES
 		case Step_STEP_INSERT_VALUES:
@@ -647,7 +644,7 @@ func (p *Parser) validate() error { // nolint:gocyclo,gocognit
 		return fmt.Errorf("at WHERE: empty WHERE clause")
 	}
 
-	if p.Query.Type == v1.Type_TYPE_UNSPECIFIED {
+	if p.Query.Type == query.Type_TYPE_UNSPECIFIED {
 		return fmt.Errorf("query type cannot be empty")
 	}
 
@@ -655,12 +652,12 @@ func (p *Parser) validate() error { // nolint:gocyclo,gocognit
 		return fmt.Errorf("table name cannot be empty")
 	}
 
-	if len(p.Query.Conditions) == 0 && (p.Query.Type == v1.Type_TYPE_UPDATE || p.Query.Type == v1.Type_TYPE_DELETE) {
+	if len(p.Query.Conditions) == 0 && (p.Query.Type == query.Type_TYPE_UPDATE || p.Query.Type == query.Type_TYPE_DELETE) {
 		return fmt.Errorf("at WHERE: WHERE clause is mandatory for UPDATE & DELETE")
 	}
 
 	for _, c := range p.Query.Conditions {
-		if c.Operator == v1.Operator_OPERATOR_UNSPECIFIED {
+		if c.Operator == query.Operator_OPERATOR_UNSPECIFIED {
 			return fmt.Errorf("at WHERE: condition without operator")
 		}
 
@@ -673,11 +670,11 @@ func (p *Parser) validate() error { // nolint:gocyclo,gocognit
 		}
 	}
 
-	if p.Query.Type == v1.Type_TYPE_INSERT && len(p.Query.Inserts) == 0 {
+	if p.Query.Type == query.Type_TYPE_INSERT && len(p.Query.Inserts) == 0 {
 		return fmt.Errorf("at INSERT INTO: need at least one row to insert")
 	}
 
-	if p.Query.Type == v1.Type_TYPE_INSERT {
+	if p.Query.Type == query.Type_TYPE_INSERT {
 		for _, i := range p.Query.Inserts {
 			if len(i.Items) != len(p.Query.Fields) {
 				return fmt.Errorf("at INSERT INTO: value count doesn't match field count")
@@ -712,21 +709,21 @@ func min(a, b int) int {
 	return b
 }
 
-func getOperator(operator string) v1.Operator {
+func getOperator(operator string) query.Operator {
 	switch operator {
 	case "=":
-		return v1.Operator_OPERATOR_EQ
+		return query.Operator_OPERATOR_EQ
 	case ">":
-		return v1.Operator_OPERATOR_GT
+		return query.Operator_OPERATOR_GT
 	case ">=":
-		return v1.Operator_OPERATOR_GTE
+		return query.Operator_OPERATOR_GTE
 	case "<":
-		return v1.Operator_OPERATOR_LT
+		return query.Operator_OPERATOR_LT
 	case "<=":
-		return v1.Operator_OPERATOR_LTE
+		return query.Operator_OPERATOR_LTE
 	case "!=":
-		return v1.Operator_OPERATOR_NE
+		return query.Operator_OPERATOR_NE
 	default:
-		return v1.Operator_OPERATOR_UNSPECIFIED
+		return query.Operator_OPERATOR_UNSPECIFIED
 	}
 }
