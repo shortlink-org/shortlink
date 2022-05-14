@@ -6,7 +6,7 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
+	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
 )
 
 func (f *file) getPage(nameTable string, page int32) error {
@@ -27,11 +27,11 @@ func (f *file) addPage(nameTable string) (int32, error) {
 
 	if t.Stats.RowsCount%t.Option.PageSize == 0 {
 		if t.Pages == nil {
-			t.Pages = make(map[int32]*table.Page, 0)
+			t.Pages = make(map[int32]*page.Page, 0)
 		}
 
 		t.Stats.PageCount += 1
-		t.Pages[t.Stats.PageCount] = &table.Page{Rows: []*table.Row{}}
+		t.Pages[t.Stats.PageCount] = &page.Page{Rows: []*page.Row{}}
 
 		// create a page file
 		newPageFile, err := f.createFile(f.pageName(nameTable))
@@ -104,8 +104,8 @@ func (f *file) clearPages(nameTable string) error {
 	return nil
 }
 
-func (f *file) loadPage(path string) (*table.Page, error) {
-	page := table.Page{}
+func (f *file) loadPage(path string) (*page.Page, error) {
+	page := page.Page{}
 
 	payload, err := os.ReadFile(path)
 	if err != nil {

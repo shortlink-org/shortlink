@@ -2,7 +2,11 @@ syntax = "proto3";
 
 package shortdb.table.v1;
 
-option go_package = "github.com/batazor/shortlink/pkg/shortdb/table/v1";
+option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1";
+
+import "shortdb/domain/page/v1/page.proto";
+import "shortdb/domain/index/v1/index.proto";
+import "shortdb/domain/table/v1/stats.proto";
 
 enum Type {
   TYPE_UNSPECIFIED = 0;
@@ -10,19 +14,6 @@ enum Type {
   TYPE_INTEGER = 1;
   TYPE_STRING = 2;
   TYPE_BOOLEAN = 3;
-}
-
-message Row {
-  map<string, bytes> value = 2;
-}
-
-message Page {
-  repeated Row rows = 1;
-}
-
-message TableStats {
-  int64 rows_count = 1;
-  int32 page_count = 2;
 }
 
 message Option {
@@ -33,13 +24,9 @@ message Table {
   string name = 1;
   map<string, Type> fields = 2;
 
-  map<int32, Page> pages = 3;
+  map<int32, shortdb.page.v1.Page> pages = 3;
+  map<string, shortdb.index.v1.Index> index = 4;
 
-  TableStats stats = 4;
-  Option option = 5;
-}
-
-message DataBase {
-  string name = 1;
-  map<string, Table> tables = 2;
+  TableStats stats = 5;
+  Option option = 6;
 }

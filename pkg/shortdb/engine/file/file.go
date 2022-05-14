@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
+	database "github.com/batazor/shortlink/pkg/shortdb/domain/database/v1"
 	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
 
 	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
@@ -21,7 +22,7 @@ type file struct {
 
 	path string
 
-	database *table.DataBase
+	database *database.DataBase
 }
 
 func New(opts ...options.Option) (*file, error) {
@@ -33,7 +34,7 @@ func New(opts ...options.Option) (*file, error) {
 
 	var err error
 	f := &file{
-		database: &table.DataBase{
+		database: &database.DataBase{
 			Name:   viper.GetString("SHORTDB_DEFAULT_DATABASE"),
 			Tables: make(map[string]*table.Table),
 		},

@@ -1,8 +1,8 @@
 package engine
 
 import (
+	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
 	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
-	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
 	"github.com/batazor/shortlink/pkg/shortdb/engine/file"
 	"github.com/batazor/shortlink/pkg/shortdb/engine/options"
 )
@@ -16,7 +16,7 @@ type Engine interface {
 	DropTable(name string) error
 
 	// Command
-	Select(query *v1.Query) ([]*table.Row, error)
+	Select(query *v1.Query) ([]*page.Row, error)
 	Update(query *v1.Query) error
 	Insert(query *v1.Query) error
 	Delete(query *v1.Query) error

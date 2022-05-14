@@ -3,13 +3,13 @@ package file
 import (
 	"fmt"
 
-	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
+	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
 
 	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
 	"github.com/batazor/shortlink/pkg/shortdb/engine/file/cursor"
 )
 
-func (f *file) Select(query *v1.Query) ([]*table.Row, error) {
+func (f *file) Select(query *v1.Query) ([]*page.Row, error) {
 	f.mc.Lock()
 	defer f.mc.Unlock()
 
@@ -20,7 +20,7 @@ func (f *file) Select(query *v1.Query) ([]*table.Row, error) {
 	}
 
 	// response
-	response := make([]*table.Row, 0)
+	response := make([]*page.Row, 0)
 
 	currentRow, err := cursor.New(t, false)
 	if err != nil {
@@ -37,7 +37,7 @@ func (f *file) Select(query *v1.Query) ([]*table.Row, error) {
 			}
 
 			if t.Pages == nil {
-				t.Pages = make(map[int32]*table.Page, 0)
+				t.Pages = make(map[int32]*page.Page, 0)
 			}
 
 			t.Pages[currentRow.PageId] = payload
@@ -102,7 +102,7 @@ func (f *file) Insert(query *v1.Query) error {
 		}
 
 		if t.Pages == nil {
-			t.Pages = make(map[int32]*table.Page, 0)
+			t.Pages = make(map[int32]*page.Page, 0)
 		}
 
 		t.Pages[t.Stats.PageCount] = payload
@@ -125,7 +125,7 @@ func (f *file) Insert(query *v1.Query) error {
 	}
 
 	// check values and create row record
-	record := table.Row{
+	record := page.Row{
 		Value: make(map[string][]byte),
 	}
 	for index, field := range query.Fields {

@@ -1,6 +1,7 @@
 package cursor
 
 import (
+	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
 	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
 )
 
@@ -35,7 +36,7 @@ func (c *Cursor) Advance() {
 	}
 }
 
-func (c *Cursor) Value() (*table.Row, error) {
+func (c *Cursor) Value() (*page.Row, error) {
 	c.wc.RLock()
 	defer c.wc.RUnlock()
 
@@ -43,16 +44,16 @@ func (c *Cursor) Value() (*table.Row, error) {
 		return nil, &ErrorGetPage{}
 	}
 
-	page := c.Table.Pages[c.PageId]
-	if len(page.Rows) == 0 {
-		page.Rows = make([]*table.Row, c.Table.Option.PageSize)
+	p := c.Table.Pages[c.PageId]
+	if len(p.Rows) == 0 {
+		p.Rows = make([]*page.Row, c.Table.Option.PageSize)
 	}
 
-	rowNum := int(c.RowId) % len(page.Rows)
+	rowNum := int(c.RowId) % len(p.Rows)
 
-	if page.Rows[rowNum] == nil {
-		page.Rows[rowNum] = &table.Row{}
+	if p.Rows[rowNum] == nil {
+		p.Rows[rowNum] = &page.Row{}
 	}
 
-	return page.Rows[rowNum], nil
+	return p.Rows[rowNum], nil
 }
