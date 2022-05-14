@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package shortdb.parser.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/pkg/database/parser/v1";
+option go_package = "github.com/batazor/shortlink/internal/pkg/shortdb/parser/v1";
 
-import "shortdb/query/v1/query.proto";
+import "shortdb/domain/query/v1/query.proto";
 
 // WARNING: this numbers used for inside use
 //          don't this numbers as is

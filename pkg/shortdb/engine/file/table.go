@@ -5,8 +5,9 @@ import (
 
 	"github.com/spf13/viper"
 
-	v1 "github.com/batazor/shortlink/pkg/shortdb/query/v1"
-	table "github.com/batazor/shortlink/pkg/shortdb/table/v1"
+	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
+
+	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
 )
 
 func (f *file) CreateTable(query *v1.Query) error {

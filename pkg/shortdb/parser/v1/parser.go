@@ -6,9 +6,10 @@ import (
 	"strconv"
 	"strings"
 
+	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
+
 	"github.com/batazor/shortlink/internal/pkg/types/vector"
-	v1 "github.com/batazor/shortlink/pkg/shortdb/query/v1"
-	table "github.com/batazor/shortlink/pkg/shortdb/table/v1"
+	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
 )
 
 const (

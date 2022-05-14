@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package shortdb.query.v1;
 
-option go_package = "github.com/batazor/shortlink/pkg/shortdb/query/v1";
+option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1";
 
-import "shortdb/table/v1/table.proto";
+import "shortdb/domain/table/v1/table.proto";
 
 // Type is the type of SQL query, e.g. SELECT/UPDATE
 enum Type {
