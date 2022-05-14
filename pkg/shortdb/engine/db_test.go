@@ -6,10 +6,15 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/goleak"
 
 	"github.com/batazor/shortlink/pkg/shortdb/engine/file"
 	parser "github.com/batazor/shortlink/pkg/shortdb/parser/v1"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestDatabase(t *testing.T) {
 	// set engine
