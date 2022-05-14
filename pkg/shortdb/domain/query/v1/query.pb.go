@@ -7,13 +7,11 @@
 package v1
 
 import (
-	"reflect"
-	"sync"
-
-	"google.golang.org/protobuf/reflect/protoreflect"
-	"google.golang.org/protobuf/runtime/protoimpl"
-
 	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	reflect "reflect"
+	sync "sync"
 )
 
 const (
