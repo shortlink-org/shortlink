@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
+	field "github.com/batazor/shortlink/pkg/shortdb/domain/field/v1"
 
 	"github.com/batazor/shortlink/internal/pkg/types/vector"
 	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
@@ -508,7 +508,7 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 			}
 
 			if p.Query.TableFields == nil {
-				p.Query.TableFields = map[string]table.Type{}
+				p.Query.TableFields = map[string]field.Type{}
 			}
 
 			// append field to table
@@ -517,15 +517,15 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 				case "int":
 					fallthrough
 				case "integer":
-					p.Query.TableFields[identifier] = table.Type_TYPE_INTEGER
+					p.Query.TableFields[identifier] = field.Type_TYPE_INTEGER
 				case "text":
 					fallthrough
 				case "string":
-					p.Query.TableFields[identifier] = table.Type_TYPE_STRING
+					p.Query.TableFields[identifier] = field.Type_TYPE_STRING
 				case "bool":
 					fallthrough
 				case "boolean":
-					p.Query.TableFields[identifier] = table.Type_TYPE_BOOLEAN
+					p.Query.TableFields[identifier] = field.Type_TYPE_BOOLEAN
 				default:
 					return p.Query, fmt.Errorf("at CREATE TABLE: unsupported type of field")
 				}
@@ -582,8 +582,8 @@ func (p *Parser) peek() string {
 
 // pop - same as peek(), but advancing our "i" index
 func (p *Parser) pop() string {
-	peeked, len := p.peekWithLength()
-	p.I += len
+	peeked, count := p.peekWithLength()
+	p.I += count
 	p.popWhitespace()
 
 	return peeked
