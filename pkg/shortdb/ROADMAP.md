@@ -1,4 +1,4 @@
-#### SQL ROADMAP
+#### SQL PARSER ROADMAP
 
 - [x] SELECT
   - [x] ALIAS `AS`
@@ -22,6 +22,7 @@
 ### Engine ROADMAP
 
 - [x] filesystem
+  - [x] pages for table
 
 ### OTHER ROADMAP
 
