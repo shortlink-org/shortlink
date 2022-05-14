@@ -22,7 +22,7 @@ ingress-nginx:
     config:
       enable-opentracing: "true"
       jaeger-service-name: nginx-ingress
-      # zipkin-collector-host: zipkin.jaeger-operator
+      # zipkin-collector-host: grafana-tempo.grafana
       jaeger-collector-host: grafana-tempo.grafana
 
     # Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
