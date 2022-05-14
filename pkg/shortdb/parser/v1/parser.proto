@@ -65,7 +65,7 @@ message Parser {
   int32 i = 1;
   string sql = 2;
   Step step = 3;
-  shortdb.query.v1.Query query = 4;
+  shortdb.domain.query.v1.Query query = 4;
   string error = 5;
   string next_update_field = 6;
 }
