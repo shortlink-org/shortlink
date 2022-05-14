@@ -56,3 +56,16 @@ $> docker buildx build --platform=linux/amd64 --load -t shortdb -f ops/dockerfil
 | SELECT_USERS-4                              | 13066 |   91571 |
 | SELECT_USERS_WITH_WHERE_id=99_AND_LIMIT_2-4 |  6096 |  210703 |
 | SELECT_USERS_FULL_SCAN-4                    |   202 | 5813380 |
+
+### Benchmark Parser
+
+> cpu: Intel(R) Core(TM) i3-7300 CPU @ 4.00GHz
+
+| Name             | Count |  ns/op |
+|:-----------------|------:|-------:|
+| **CREATE_TABLE** |       |        |
+| CREATE_TABLE-4   | 10000 | 105080 |
+| **SELECT**       |       |        |
+| SELECT-4         | 11912 |  90804 |
+| **INSERT INTO**  |       |        |
+| INSERT_INTO-4    | 16987 |  70963 |
