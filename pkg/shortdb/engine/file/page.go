@@ -66,6 +66,10 @@ func (f *file) addPage(nameTable string) (int32, error) {
 func (f *file) savePage(nameTable string, pageCount int32) error {
 	t := f.database.Tables[nameTable]
 
+	if pageCount == -1 {
+		return nil
+	}
+
 	// save date
 	openFile, err := f.createFile(fmt.Sprintf("%s_%s_%d.page", f.database.Name, nameTable, pageCount))
 	if err != nil {

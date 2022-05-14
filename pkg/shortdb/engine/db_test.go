@@ -29,24 +29,28 @@ func TestDatabase(t *testing.T) {
 		assert.Nil(t, err)
 
 		_, _ = store.Exec(qCreateTable.Query)
-	})
-
-	t.Run("INSERT INTO USERS SINGLE", func(t *testing.T) {
-		qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false')"))
-		assert.Nil(t, err)
-
-		err = store.Insert(qInsertUsers.Query)
-		assert.Nil(t, err)
-
-		err = store.Insert(qInsertUsers.Query)
-		assert.Nil(t, err)
-
-		err = store.Insert(qInsertUsers.Query)
-		assert.Nil(t, err)
 
 		// save data
 		err = store.Close()
 		assert.Nil(t, err)
+	})
+
+	t.Run("INSERT INTO USERS SINGLE", func(t *testing.T) {
+		qInsertUsers, errParser := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false')"))
+		assert.Nil(t, errParser)
+
+		errParser = store.Insert(qInsertUsers.Query)
+		assert.Nil(t, errParser)
+
+		errParser = store.Insert(qInsertUsers.Query)
+		assert.Nil(t, errParser)
+
+		errParser = store.Insert(qInsertUsers.Query)
+		assert.Nil(t, errParser)
+
+		// save data
+		errClose := store.Close()
+		assert.Nil(t, errClose)
 	})
 
 	t.Run("INSERT INTO USERS", func(t *testing.T) {
@@ -91,12 +95,30 @@ func TestDatabase(t *testing.T) {
 		assert.Nil(t, err)
 	})
 
-	t.Run("SELECT USERS", func(t *testing.T) {
-		qInsertUsers, err := parser.New("select id, name, active from users limit 300")
+	t.Run("SELECT USERS WITH LIMIT 300", func(t *testing.T) {
+		qSelectUsers, err := parser.New("select id, name, active from users limit 300")
 		assert.Nil(t, err)
 
-		resp, err := store.Select(qInsertUsers.Query)
+		resp, err := store.Select(qSelectUsers.Query)
 		assert.Nil(t, err)
 		assert.Equal(t, 300, len(resp))
+	})
+
+	t.Run("SELECT USERS WITH WHERE id=99 AND LIMIT 2", func(t *testing.T) {
+		qSelectUsers, err := parser.New("select id, name, active from users where id='99' limit 2")
+		assert.Nil(t, err)
+
+		resp, err := store.Select(qSelectUsers.Query)
+		assert.Nil(t, err)
+		assert.Equal(t, 2, len(resp))
+	})
+
+	t.Run("SELECT USERS FULL SCAN", func(t *testing.T) {
+		qSelectUsers, err := parser.New("select id, name, active from users")
+		assert.Nil(t, err)
+
+		resp, err := store.Select(qSelectUsers.Query)
+		assert.Nil(t, err)
+		assert.Equal(t, 1383, len(resp))
 	})
 }

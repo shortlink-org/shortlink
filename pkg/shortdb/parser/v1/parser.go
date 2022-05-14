@@ -254,6 +254,12 @@ func (p *Parser) doParse() (*v1.Query, error) { // nolint:gocyclo,gocognit,maint
 			}
 			p.Query.Conditions[len(p.Query.Conditions)-1] = currentCondition
 			p.pop()
+
+			operator := p.peek()
+			if strings.ToUpper(operator) == LIMIT {
+				p.Step = Step_STEP_LIMIT
+				continue
+			}
 			p.Step = Step_STEP_WHERE_AND
 		case Step_STEP_WHERE_AND:
 			andRWord := p.peek()

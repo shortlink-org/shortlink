@@ -24,11 +24,12 @@ func BenchmarkEngine(b *testing.B) {
 	})
 
 	b.Run("CREATE TABLE", func(b *testing.B) {
-		// create table
-		qCreateTable, err := parser.New("create table users (id integer, name string, active bool)")
-		assert.Nil(b, err)
+		for i := 0; i < b.N; i++ {
+			qCreateTable, err := parser.New("create table users (id integer, name string, active bool)")
+			assert.Nil(b, err)
 
-		_, _ = store.Exec(qCreateTable.Query)
+			_, _ = store.Exec(qCreateTable.Query)
+		}
 	})
 
 	b.Run("INSERT INTO USERS", func(b *testing.B) {
@@ -53,6 +54,26 @@ func BenchmarkEngine(b *testing.B) {
 			resp, err := store.Select(qInsertUsers.Query)
 			assert.Nil(b, err)
 			assert.Equal(b, 5, len(resp))
+		}
+	})
+
+	b.Run("SELECT USERS WITH WHERE id=99 AND LIMIT 2", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			qSelectUsers, err := parser.New("select id, name, active from users where id='99' limit 2")
+			assert.Nil(b, err)
+
+			_, err = store.Select(qSelectUsers.Query)
+			assert.Nil(b, err)
+		}
+	})
+
+	b.Run("SELECT USERS FULL SCAN", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			qSelectUsers, err := parser.New("select id, name, active from users")
+			assert.Nil(b, err)
+
+			_, err = store.Select(qSelectUsers.Query)
+			assert.Nil(b, err)
 		}
 	})
 }

@@ -18,9 +18,6 @@ func (f *file) Select(query *v1.Query) ([]*table.Row, error) {
 		return nil, fmt.Errorf("at SELECT: not exist table")
 	}
 
-	// set flags
-	isLimit := query.Limit >= 0
-
 	// response
 	response := make([]*table.Row, 0)
 
@@ -29,7 +26,7 @@ func (f *file) Select(query *v1.Query) ([]*table.Row, error) {
 		return nil, fmt.Errorf("at SELECT: error create a new cursor")
 	}
 
-	for !currentRow.EndOfTable && isLimit {
+	for !currentRow.EndOfTable {
 		// load data
 		if t.Pages[currentRow.PageId] == nil {
 			pagePath := fmt.Sprintf("%s/%s_%s_%d.page", f.path, f.database.Name, t.Name, currentRow.PageId)
@@ -56,14 +53,16 @@ func (f *file) Select(query *v1.Query) ([]*table.Row, error) {
 				return nil, fmt.Errorf("at SELECT: incorrect name fields %s in table %s", field, query.TableName)
 			}
 		}
-		response = append(response, record)
+		if query.IsFilter(record, t.Fields) {
+			response = append(response, record)
 
-		if isLimit {
-			query.Limit -= 1
-
-			if query.Limit < 1 {
-				isLimit = false
+			if query.IsLimit() {
+				query.Limit--
 			}
+		}
+
+		if !query.IsLimit() {
+			break
 		}
 
 		currentRow.Advance()
@@ -114,9 +113,6 @@ func (f *file) Insert(query *v1.Query) error {
 		return fmt.Errorf("at INSERT INTO: error create a new cursor")
 	}
 
-	// iterator to next value
-	currentRow.Advance()
-
 	row, err := currentRow.Value()
 	if err != nil {
 		switch err.(type) {
@@ -142,6 +138,9 @@ func (f *file) Insert(query *v1.Query) error {
 
 	// update stats
 	t.Stats.RowsCount += 1
+
+	// iterator to next value
+	currentRow.Advance()
 
 	return nil
 }
