@@ -95,7 +95,10 @@ func (r *repl) Run() { // nolint:gocyclo,gocognit
 			case ".save":
 				if err := r.save(); err != nil {
 					pterm.FgRed.Println(err)
+					continue
 				}
+
+				pterm.FgGreen.Println("Saved!")
 			default:
 				pterm.FgRed.Println("incorrect command")
 			}
@@ -106,7 +109,7 @@ func (r *repl) Run() { // nolint:gocyclo,gocognit
 			}
 
 			p, err := parser.New(t)
-			if err.Error() != "" {
+			if err != nil {
 				pterm.FgRed.Println(err)
 				continue
 			}
