@@ -8,6 +8,7 @@ import (
 
 	"github.com/batazor/shortlink/internal/pkg/types/vector"
 	field "github.com/batazor/shortlink/pkg/shortdb/domain/field/v1"
+	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/index/v1"
 	query "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
 )
 
@@ -33,6 +34,8 @@ const (
 	CREATE_TABLE            = "CREATE TABLE"
 	DROP_TABLE              = "DROP_TABLE"
 	LIMIT                   = "LIMIT"
+	CREATE_INDEX            = "CREATE INDEX"
+	DELETE_INDEX            = "DELETE INDEX"
 )
 
 var reservedWords = []string{
@@ -42,7 +45,7 @@ var reservedWords = []string{
 	ON_DUPLICATE_KEY_UPDATE, ORDER_BY, ASC,
 	DESC, LEFT_JOIN, RIGHT_JOIN, INNER_JOIN,
 	JOIN, ON, AS, CREATE_TABLE, DROP_TABLE,
-	LIMIT,
+	LIMIT, CREATE_INDEX, DELETE_INDEX,
 }
 
 var (
@@ -118,6 +121,10 @@ func (p *Parser) doParse() (*query.Query, error) { // nolint:gocyclo,gocognit,ma
 				p.Query.Type = query.Type_TYPE_DROP_TABLE
 				p.pop()
 				p.Step = Step_STEP_DROP_TABLE_NAME
+			case "CREATE INDEX":
+				p.Query.Type = query.Type_TYPE_CREATE_INDEX
+				p.pop()
+				p.Step = Step_STEP_CREATE_INDEX_NAME
 			default:
 				return nil, fmt.Errorf("incorrect sql-expression")
 			}
@@ -567,6 +574,63 @@ func (p *Parser) doParse() (*query.Query, error) { // nolint:gocyclo,gocognit,ma
 			}
 
 			p.Query.Limit = int32(limit)
+		case Step_STEP_CREATE_INDEX_NAME:
+			if len(p.Query.Indexs) == 0 {
+				p.Query.Indexs = []*v1.Index{}
+			}
+
+			// set name index of table
+			p.Query.Indexs = append(p.Query.Indexs, &v1.Index{
+				Name:   p.peek(),
+				Type:   0,
+				Fields: []string{},
+			})
+			p.pop()
+
+			if p.peek() != "ON" {
+				return p.Query, fmt.Errorf("at INDEX: incorrect sql-expression")
+			}
+
+			p.Step = Step_STEP_CREATE_INDEX_TABLE
+		case Step_STEP_CREATE_INDEX_TABLE:
+			_ = p.pop()
+			// set name table
+			p.Query.TableName = p.peek()
+			p.pop()
+			p.Step = Step_STEP_CREATE_INDEX_TYPE
+		case Step_STEP_CREATE_INDEX_TYPE:
+			_ = p.pop()
+			// get type index
+			switch strings.ToUpper(p.peek()) {
+			case "BTREE":
+				p.Query.Indexs[len(p.Query.Indexs)-1].Type = v1.Type_TYPE_BTREE
+			case "HASH":
+				p.Query.Indexs[len(p.Query.Indexs)-1].Type = v1.Type_TYPE_HASH
+			default:
+				return p.Query, fmt.Errorf("at INDEX: incorrect type of index - %s", strings.ToUpper(p.peek()))
+			}
+			p.pop()
+
+			p.Step = Step_STEP_CREATE_INDEX_PAYLOAD
+		case Step_STEP_CREATE_INDEX_PAYLOAD:
+			if p.peek() == "(" || p.peek() == "," {
+				p.pop()
+			}
+
+			// set field for index
+			p.Query.Indexs[len(p.Query.Indexs)-1].Fields = append(p.Query.Indexs[len(p.Query.Indexs)-1].Fields, p.peek())
+			p.pop()
+
+			if p.peek() == ")" {
+				p.pop()
+			}
+
+			if p.peek() == ";" {
+				p.Step = Step_STEP_SEMICOLON
+				continue
+			}
+
+			p.Step = Step_STEP_CREATE_INDEX_PAYLOAD
 		}
 	}
 }
