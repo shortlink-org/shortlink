@@ -52,6 +52,7 @@ jobs:
           FILTER_REGEX_EXCLUDE: .*(README\.md|Chart\.yaml|NOTES.txt).*
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
+          VALIDATE_ANSIBLE: false
           ANSIBLE_DIRECTORY: ops/ansible
           VALIDATE_KUBERNETES_KUBEVAL: false
           VALIDATE_JSCPD: false
