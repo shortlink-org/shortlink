@@ -24,6 +24,10 @@ enum Type {
   TYPE_CREATE_TABLE = 5;
   // TYPE_DROP_TABLE represents a DROP TABLE query
   TYPE_DROP_TABLE = 6;
+  // TYPE_CREATE_INDEX represents a CREATE INDEX query
+  TYPE_CREATE_INDEX = 7;
+  // TYPE_CREATE_INDEX represents a DELETE INDEX query
+  TYPE_DELETE_INDEX = 8;
 }
 
 // Operator is between operands in a condition
@@ -85,7 +89,7 @@ message Query {
   string database = 2;
   string table_name = 3;
   map<string, shortdb.domain.field.v1.Type> table_fields = 4;
-  map<string, shortdb.domain.index.v1.Index> table_index = 5;
+  repeated shortdb.domain.index.v1.Index indexs = 5;
   repeated Condition conditions = 6;
   map<string, string> updates = 7;
   repeated Array inserts = 8;

@@ -12,6 +12,7 @@ enum Type {
 }
 
 message Index {
-  Type name = 1;
-  bytes payload = 2;
+  string name = 1;
+  Type type = 2;
+  repeated string fields = 3;
 }
