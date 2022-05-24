@@ -69,7 +69,7 @@ Feature: SQL Parser
       | CREATE TABLE users ( id integer, name text );                         |                                                              |
       | CREATE INDEX userId                                                   | at INDEX: incorrect sql-expression                           |
       | CREATE INDEX ON users USING BTREE (id, email);                        | at INDEX: incorrect sql-expression                           |
-      | CREATE INDEX userId ON users USING BTREE (id, email);                 |                                                              |
       | CREATE INDEX userId ON users USING RAND (id, email);                  | at INDEX: incorrect type of index - RAND                     |
+      | CREATE INDEX userId ON users USING BTREE (id, email);                 |                                                              |
 #      | DROP TABLE                                                            | table name cannot be empty                                  |
 #      | DROP TABLE users                                                      |                                                             |
