@@ -27,7 +27,7 @@ COPY --from=deps /app/node_modules ./node_modules
 RUN npm run generate
 
 # Production image, copy all the files and run next
-FROM nginxinc/nginx-unprivileged:1.21-alpine
+FROM nginxinc/nginx-unprivileged:1.22-alpine
 
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
