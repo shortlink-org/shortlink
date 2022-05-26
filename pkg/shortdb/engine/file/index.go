@@ -28,6 +28,6 @@ func (f *file) CreateIndex(query *v1.Query) error {
 }
 
 func (f *file) DropIndex(name string) error {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }

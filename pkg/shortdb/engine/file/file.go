@@ -12,7 +12,7 @@ import (
 	database "github.com/batazor/shortlink/pkg/shortdb/domain/database/v1"
 	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
 
-	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
+	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
 	"github.com/batazor/shortlink/pkg/shortdb/engine/options"
 	"github.com/batazor/shortlink/pkg/shortdb/io_uring"
 )
@@ -216,7 +216,7 @@ func (f *file) createFile(name string) (*os.File, error) {
 }
 
 func (f *file) writeFile(name string, payload []byte) error {
-	err := os.WriteFile(name, payload, 0o644) // #nosec
+	err := os.WriteFile(name, payload, 0o644) // nolint:gomnd
 	if err != nil {
 		return err
 	}
