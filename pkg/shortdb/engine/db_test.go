@@ -126,4 +126,12 @@ func TestDatabase(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, 1383, len(resp))
 	})
+
+	t.Run("CREATE INDEX BTREE", func(t *testing.T) {
+		qCreateIndex, err := parser.New("CREATE INDEX userId ON users USING BTREE (id);")
+		assert.Nil(t, err)
+
+		err = store.CreateIndex(qCreateIndex.Query)
+		assert.Nil(t, err)
+	})
 }
