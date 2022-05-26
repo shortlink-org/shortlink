@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: grafana
-    version: 6.29.2
+    version: 6.29.5
     repository: https://grafana.github.io/helm-charts
     condition: grafana.enabled
     tags:
@@ -26,13 +26,13 @@ dependencies:
     tags:
       - monitoring
   - name: promtail
-    version: 4.2.0
+    version: 4.2.1
     repository: https://grafana.github.io/helm-charts
     condition: promtail.enabled
     tags:
       - monitoring
   - name: tempo
-    version: 0.15.1
+    version: 0.15.3
     repository: https://grafana.github.io/helm-charts
     condition: tempo.enabled
     tags:
