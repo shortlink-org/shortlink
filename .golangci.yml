@@ -697,7 +697,7 @@ linters-settings:
   nestif:
     # Minimal complexity of if statements to report.
     # Default: 5
-    min-complexity: 5
+    min-complexity: 8
 
   nilnil:
     # Checks that there is no simultaneous return of `nil` error and an invalid value.

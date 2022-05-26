@@ -4,7 +4,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/types/vector"
 )
 
-func Filter[V vector.Type](LValue V, RValue V, operator Operator) bool {
+func Filter[V vector.Type](LValue, RValue V, operator Operator) bool {
 	switch operator {
 	case Operator_OPERATOR_EQ:
 		return LValue == RValue
@@ -23,7 +23,7 @@ func Filter[V vector.Type](LValue V, RValue V, operator Operator) bool {
 	}
 }
 
-func FilterBool(LValue bool, RValue bool, operator Operator) bool {
+func FilterBool(LValue, RValue bool, operator Operator) bool {
 	switch operator {
 	case Operator_OPERATOR_EQ:
 		return LValue == RValue

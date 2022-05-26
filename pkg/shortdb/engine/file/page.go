@@ -19,6 +19,7 @@ func (f *file) getPage(nameTable string, page int32) error {
 	}
 
 	t.Pages[page] = pageFile
+
 	return nil
 }
 

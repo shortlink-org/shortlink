@@ -42,6 +42,7 @@ func (q *Query) IsFilter(record *page.Row, fields map[string]field.Type) bool {
 			if err != nil {
 				return false
 			}
+
 			return FilterBool(LValue.(bool), RValue.(bool), condition.Operator)
 		case field.Type_TYPE_UNSPECIFIED:
 			fallthrough

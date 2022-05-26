@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
+	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
 
-	"github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
 	"github.com/batazor/shortlink/pkg/shortdb/engine/file/cursor"
 )
 

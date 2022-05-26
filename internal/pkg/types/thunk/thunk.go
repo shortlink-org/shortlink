@@ -17,5 +17,6 @@ func (t *Thunk[T]) Force() T {
 	}
 
 	t.o.Set(t.doer())
+
 	return t.o.Apply()
 }
