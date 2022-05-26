@@ -76,4 +76,14 @@ func BenchmarkEngine(b *testing.B) {
 			assert.Nil(b, err)
 		}
 	})
+
+	b.Run("CREATE INDEX BTREE", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			qCreateIndex, err := parser.New("CREATE INDEX userId ON users USING BTREE (id);")
+			assert.Nil(b, err)
+
+			err = store.CreateIndex(qCreateIndex.Query)
+			assert.Nil(b, err)
+		}
+	})
 }

@@ -79,6 +79,10 @@ func (f *file) Exec(query *v1.Query) (interface{}, error) {
 		return nil, f.CreateTable(query)
 	case v1.Type_TYPE_DROP_TABLE:
 		return nil, f.DropTable(query.TableName)
+	case v1.Type_TYPE_CREATE_INDEX:
+		return nil, f.CreateIndex(query)
+	case v1.Type_TYPE_DELETE_INDEX:
+		return nil, f.DropIndex(query.TableName)
 	}
 
 	return nil, nil

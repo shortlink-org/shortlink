@@ -15,6 +15,10 @@ type Engine interface {
 	CreateTable(query *v1.Query) error
 	DropTable(name string) error
 
+	// Index
+	CreateIndex(query *v1.Query) error
+	DropIndex(name string) error
+
 	// Command
 	Select(query *v1.Query) ([]*page.Row, error)
 	Update(query *v1.Query) error
