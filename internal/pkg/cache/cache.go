@@ -11,6 +11,7 @@ import (
 	db "github.com/batazor/shortlink/internal/pkg/db/redis"
 )
 
+// New returns a new cache.Client.
 func New(ctx context.Context) (*cache.Cache, error) {
 	store := &db.Store{}
 	err := store.Init(ctx)

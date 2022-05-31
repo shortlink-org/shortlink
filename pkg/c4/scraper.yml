@@ -2,6 +2,7 @@ configuration:
   pkgs:
     - "github.com/batazor/shortlink"
 
+# Scrapers
 rules:
   - name_regexp: ".*"
     pkg_regexps:

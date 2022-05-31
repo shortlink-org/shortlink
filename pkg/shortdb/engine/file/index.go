@@ -28,6 +28,9 @@ func (f *file) CreateIndex(query *v1.Query) error {
 }
 
 func (f *file) DropIndex(name string) error {
+	f.mc.Lock()
+	defer f.mc.Unlock()
+
 	// TODO implement me
 	panic("implement me")
 }
