@@ -49,6 +49,7 @@ func (s *Server) Use(
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
 ) (*Server, error) {
+
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi

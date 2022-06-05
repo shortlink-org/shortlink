@@ -21,7 +21,6 @@ minikube-up: ## run minikube for dev mode
 		--extra-config=apiserver.service-account-issuer=api \
 		--extra-config=apiserver.service-account-api-audiences=api,spire-server \
 		--extra-config=apiserver.authorization-mode=Node,RBAC \
-		--extra-config=apiserver.enable-admission-plugins=PodSecurityPolicy \
 		--extra-config=apiserver.audit-policy-file=/etc/ssl/certs/audit-policy.yaml \
 		--extra-config=apiserver.audit-log-path=- \
 		--extra-config=kubelet.authentication-token-webhook=true
@@ -41,4 +40,8 @@ minikube-clear:  ## minikube clear
 	@minikube image rm image
 
 minikube-down: ## minikube delete
-	@minikube delete
+	@echo "minikube down disabled because I wouldn't delete minikube"
+	# @minikube delete
+
+minikube-stop: ## minikube stop
+	@minikube stop

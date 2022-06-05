@@ -36,6 +36,7 @@ func RunAPIServer(
 	link_query link_cqrs.LinkQueryServiceClient,
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
 ) (*API, error) {
+
 	var server API
 
 	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit

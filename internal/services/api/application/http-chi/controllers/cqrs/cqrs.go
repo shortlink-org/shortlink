@@ -24,6 +24,7 @@ func Routes(
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
 ) chi.Router {
+
 	r := chi.NewRouter()
 
 	h := &Handler{
