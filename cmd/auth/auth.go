@@ -7,9 +7,7 @@ import (
 	"fmt"
 	"net/url"
 
-	kratos "github.com/ory/kratos-client-go/client"
-	"github.com/ory/kratos-client-go/client/health"
-	"github.com/ory/kratos-client-go/client/version"
+	kratos "github.com/ory/kratos-client-go"
 )
 
 func main() {
@@ -19,26 +17,22 @@ func main() {
 		return
 	}
 
-	admin := kratos.NewHTTPClientWithConfig(
-		nil,
-		&kratos.TransportConfig{
-			Schemes:  []string{adminURL.Scheme},
-			Host:     adminURL.Host,
-			BasePath: adminURL.Path,
+	_ = kratos.NewAPIClient(
+		&kratos.Configuration{
+			Host:             adminURL.Host,
+			Scheme:           adminURL.Scheme,
+			DefaultHeader:    nil,
+			UserAgent:        "",
+			Debug:            false,
+			Servers:          nil,
+			OperationServers: nil,
+			HTTPClient:       nil,
 		},
 	)
 
-	vers, err := admin.Version.GetVersion(version.NewGetVersionParams())
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println(vers.GetPayload().Version)
+	vers := kratos.NewVersion()
+	fmt.Printf(`%s\n`, vers)
 
-	ok, err := admin.Health.IsInstanceAlive(health.NewIsInstanceAliveParams())
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println(ok.Payload.Status)
+	health := kratos.NewHealthStatus()
+	fmt.Printf(`%s`, health.Status)
 }

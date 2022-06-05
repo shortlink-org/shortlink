@@ -26,7 +26,7 @@ func (f *file) getPage(nameTable string, page int32) error {
 func (f *file) addPage(nameTable string) (int32, error) {
 	t := f.database.Tables[nameTable]
 
-	if t.Stats.RowsCount%t.Option.PageSize == 0 {
+	if t.Stats.RowsCount%t.Option.PageSize == 0 { // nolint:nestif
 		if t.Pages == nil {
 			t.Pages = make(map[int32]*page.Page, 0)
 		}
