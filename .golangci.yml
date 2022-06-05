@@ -726,13 +726,11 @@ linters-settings:
     # Default: []
     allow-no-explanation:
       - gomnd
-      - scopelint
       - decorder
       - copylocks
       - govet
       - lll
       - errcheck
-      - typecheck
       - gocognit
       - contextcheck
       - maintidx
@@ -1290,6 +1288,7 @@ linters:
     - ifshort
     - predeclared
     - tagliatelle
+    - typecheck
 #    - goheader
 #    - asciicheck
 #    - bidichk
@@ -1340,7 +1339,6 @@ linters:
 #    - promlinter
 #    - revive
 #    - rowserrcheck
-#    - scopelint
 #    - sqlclosecheck
 #    - staticcheck
 #    - structcheck
@@ -1349,7 +1347,6 @@ linters:
 #    - testpackage
 #    - thelper
 #    - tparallel
-#    - typecheck
 #    - unconvert
 #    - unparam
 #    - unused

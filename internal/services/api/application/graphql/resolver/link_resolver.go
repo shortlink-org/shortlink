@@ -14,6 +14,7 @@ func (r *Resolver) Link(ctx context.Context, args struct {
 	Hash *string
 },
 ) (*LinkResolver, error) {
+
 	response, err := r.LinkServiceClient.Get(ctx, &link_rpc.GetRequest{Hash: *args.Hash})
 	if err != nil {
 		return nil, err

@@ -23,6 +23,7 @@ type Handler struct {
 func Routes(
 	link_rpc link_rpc.LinkServiceClient,
 ) chi.Router {
+
 	r := chi.NewRouter()
 
 	h := &Handler{
