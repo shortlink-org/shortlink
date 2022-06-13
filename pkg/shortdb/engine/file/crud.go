@@ -19,6 +19,10 @@ func (f *file) Select(query *v1.Query) ([]*page.Row, error) {
 		return nil, fmt.Errorf("at SELECT: not exist table")
 	}
 
+	if len(query.Fields) == 0 {
+		return nil, fmt.Errorf("at SELECT: expected field to SELECT")
+	}
+
 	// response
 	response := make([]*page.Row, 0)
 
