@@ -51,7 +51,7 @@ require (
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/ory/kratos-client-go v0.10.1
 	github.com/prometheus/client_golang v1.12.2
-	github.com/pterm/pterm v0.12.41
+	github.com/pterm/pterm v0.12.42
 	github.com/rabbitmq/amqp091-go v1.3.4
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.8.1
@@ -81,6 +81,8 @@ require (
 )
 
 require (
+	atomicgo.dev/cursor v0.1.1 // indirect
+	atomicgo.dev/keyboard v0.2.8 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20210617225240-d185dfc1b5a1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
@@ -92,6 +94,7 @@ require (
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/cnf/structhash v0.0.0-20201127153200-e1b16c1ebc08 // indirect
+	github.com/containerd/console v1.0.3 // indirect
 	github.com/containerd/continuity v0.3.0 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
 	github.com/coreos/go-systemd/v22 v22.3.2 // indirect
@@ -146,6 +149,7 @@ require (
 	github.com/klauspost/compress v1.15.6 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
+	github.com/lithammer/fuzzysearch v1.1.5 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
