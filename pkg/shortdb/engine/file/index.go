@@ -14,7 +14,7 @@ func (f *file) CreateIndex(query *v1.Query) error {
 	t := f.database.Tables[query.TableName]
 
 	if t.Index == nil {
-		t.Index = make(map[string]*index.Index)
+		t.Index = make(map[string]*v2.Index)
 	}
 
 	// check
@@ -38,14 +38,36 @@ func (f *file) CreateIndex(query *v1.Query) error {
 		cmd, err := parser.New(fmt.Sprintf("SELECT %s from %s", strings.Join(query.Indexs[i].Fields, ","), query.TableName))
 		rows, err := f.Select(cmd.Query)
 		if err != nil {
-			return err
+			// NOTE: ignore empty table
 		}
 
 		// build index
-		tree := index.New(t.Index[query.Indexs[i].Name], rows)
+		tree, err := index.New(t.Index[query.Indexs[i].Name], rows)
+		if err != nil {
+			return err
+		}
 
 		// save to file
-		f.database.Tables[query.TableName].Index[query.Indexs[i].Name] = tree
+		payload, err := tree.Marshal()
+		if err != nil {
+			return err
+		}
+
+		// save date
+		openFile, err := f.createFile(fmt.Sprintf("%s_%s_%s.index.json", f.database.Name, query.TableName, query.Indexs[i].Name))
+		if err != nil {
+			return err
+		}
+
+		defer func() {
+			_ = openFile.Close() // #nosec
+		}()
+
+		// Write something
+		err = f.writeFile(openFile.Name(), payload)
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil

@@ -1,14 +1,10 @@
 package index
 
-type TreeIndex interface {
-	int
-}
-
 // Index - interface of index
-type Index interface {
-	Find(key any) []byte
-	Insert(T any) error
-	Delete(key any) error
+type Index[T any] interface {
+	Find(key T) []byte
+	Insert(key T) error
+	Delete(key T) error
 
 	Marshal() ([]byte, error)
 	UnMarshal([]byte, interface{}) error

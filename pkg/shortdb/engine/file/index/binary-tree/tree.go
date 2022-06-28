@@ -1,5 +1,9 @@
 package binary_tree
 
+import (
+	"encoding/json"
+)
+
 // Tree is a binary tree.
 type Tree[T any] struct {
 	// cmp compares two T values.
@@ -11,8 +15,7 @@ type Tree[T any] struct {
 }
 
 func (t *Tree[T]) Marshal() ([]byte, error) {
-	//TODO implement me
-	panic("implement me")
+	return json.Marshal(t)
 }
 
 func (t *Tree[T]) UnMarshal(bytes []byte, i interface{}) error {
@@ -45,7 +48,7 @@ func (t *Tree[T]) find(key T) *Tree[T] {
 	}
 }
 
-func (t *Tree[T]) Insert(key any) error {
+func (t *Tree[T]) Insert(key T) error {
 	t.insert(key)
 	return nil
 }
@@ -123,6 +126,6 @@ func (t *Tree[T]) Max() *Tree[T] {
 	return t.right.Max()
 }
 
-func (t *Tree[T]) Value() any {
+func (t *Tree[T]) Value() *T {
 	return t.val
 }

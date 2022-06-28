@@ -10,10 +10,10 @@ import (
 	binary_tree "github.com/batazor/shortlink/pkg/shortdb/engine/file/index/binary-tree"
 )
 
-func New(index *index.Index, rows []*page.Row) *Index {
-	var tree Index
+func New(in *index.Index, rows []*page.Row) (Index[any], error) {
+	var tree Index[any]
 
-	switch index.Type {
+	switch in.Type {
 	case v2.Type_TYPE_BINARY_SEARCH:
 		tree = binary_tree.New(func(a, b any) int {
 			switch x, y := reflect.TypeOf(a), reflect.TypeOf(b); true {
@@ -26,9 +26,12 @@ func New(index *index.Index, rows []*page.Row) *Index {
 
 		for i := range rows {
 			v, _ := strconv.Atoi(string(rows[i].GetValue()["id"]))
-			tree.Insert(v)
+			err := tree.Insert(v)
+			if err != nil {
+				return nil, err
+			}
 		}
 	}
 
-	return &tree
+	return tree, nil
 }
