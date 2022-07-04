@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-FROM maven:3.8.5-jdk-11-slim as builder
+FROM maven:3.8.6-jdk-11-slim as builder
 
 ARG CI_COMMIT_TAG
 WORKDIR /app
