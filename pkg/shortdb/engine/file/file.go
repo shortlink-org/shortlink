@@ -18,7 +18,7 @@ import (
 )
 
 type file struct {
-	mc sync.Mutex
+	mc sync.RWMutex
 
 	path string
 
