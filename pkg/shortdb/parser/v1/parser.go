@@ -602,6 +602,8 @@ func (p *Parser) doParse() (*query.Query, error) { // nolint:gocyclo,gocognit,ma
 			_ = p.pop()
 			// get type index
 			switch strings.ToUpper(p.peek()) {
+			case "BINARY":
+				p.Query.Indexs[len(p.Query.Indexs)-1].Type = v1.Type_TYPE_BINARY_SEARCH
 			case "BTREE":
 				p.Query.Indexs[len(p.Query.Indexs)-1].Type = v1.Type_TYPE_BTREE
 			case "HASH":

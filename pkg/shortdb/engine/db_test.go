@@ -127,8 +127,8 @@ func TestDatabase(t *testing.T) {
 		assert.Equal(t, 1383, len(resp))
 	})
 
-	t.Run("CREATE INDEX BTREE", func(t *testing.T) {
-		qCreateIndex, err := parser.New("CREATE INDEX userId ON users USING BTREE (id);")
+	t.Run("CREATE INDEX BINARY", func(t *testing.T) {
+		qCreateIndex, err := parser.New("CREATE INDEX userId ON users USING BINARY (id);")
 		assert.Nil(t, err)
 
 		err = store.CreateIndex(qCreateIndex.Query)

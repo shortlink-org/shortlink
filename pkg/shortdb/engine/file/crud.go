@@ -19,6 +19,10 @@ func (f *file) Select(query *v1.Query) ([]*page.Row, error) {
 		return nil, fmt.Errorf("at SELECT: not exist table")
 	}
 
+	if len(query.Fields) == 0 {
+		return nil, fmt.Errorf("at SELECT: expected field to SELECT")
+	}
+
 	// response
 	response := make([]*page.Row, 0)
 
@@ -78,6 +82,20 @@ func (f *file) Update(query *v1.Query) error {
 }
 
 func (f *file) Insert(query *v1.Query) error {
+	err := f.insertToTable(query)
+	if err != nil {
+		return err
+	}
+
+	err = f.insertToIndex(query)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (f *file) insertToTable(query *v1.Query) error {
 	f.mc.Lock()
 	defer f.mc.Unlock()
 
@@ -143,6 +161,11 @@ func (f *file) Insert(query *v1.Query) error {
 	// iterator to next value
 	currentRow.Advance()
 
+	return nil
+}
+
+func (f *file) insertToIndex(query *v1.Query) error {
+	// TODO implement me
 	return nil
 }
 

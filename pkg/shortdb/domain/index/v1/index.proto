@@ -9,6 +9,7 @@ enum Type {
 
   TYPE_BTREE = 1;
   TYPE_HASH = 2;
+  TYPE_BINARY_SEARCH = 3;
 }
 
 message Index {
