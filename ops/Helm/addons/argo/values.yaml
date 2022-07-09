@@ -1,0 +1,81 @@
+# Common default values for argo-cd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+argo:
+  enabled: true
+
+argo-cd:
+  fullnameOverride: argocd
+
+  controller:
+    metrics:
+      enabled: true
+      applicationLabels:
+        enabled: true
+    serviceMonitor:
+      enabled: true
+    rules:
+      enabled: true
+
+  redis:
+    metrics:
+      enabled: true
+    serviceMonitor:
+      enabled: true
+
+  dex:
+    enabled: true
+
+    metrics:
+      enabled: true
+    serviceMonitor:
+      enabled: true
+
+  server:
+    rbacConfig:
+      policy.csv: |
+        p, role:org-admin, applications, *, */*, allow
+        p, role:org-admin, clusters, get, *, allow
+        p, role:org-admin, repositories, get, *, allow
+        p, role:org-admin, repositories, create, *, allow
+        p, role:org-admin, repositories, update, *, allow
+        p, role:org-admin, repositories, delete, *, allow
+        g, devops, role:admin
+        g, gitlab, role:org-admin
+      policy.default: role:readonly
+
+    additionalApplications:
+      - name: shortlink
+        namespace: shortlink
+        finalizers:
+          - resources-finalizer.argocd.argoproj.io
+        destination:
+          name: ''
+          namespace: shortlink
+          server: 'https://kubernetes.default.svc'
+        source:
+          path: argocd
+          repoURL: 'git@github.com:batazor/shortlink.git'
+          targetRevision: HEAD
+          directory:
+            recurse: true
+        project: shortlink
+        syncPolicy:
+          automated: null
+          syncOptions:
+            - CreateNamespace=true
+          retry:
+            limit: 2
+            backoff:
+              duration: 5s
+              maxDuration: 5m0s
+              factor: 2
+
+    additionalProjects:
+      - name: shortlink
+        description: Shortlink service (Microservice example)
+
+  configs:
+    secret:
+      gitlabSecret: "secret-gitlab"
