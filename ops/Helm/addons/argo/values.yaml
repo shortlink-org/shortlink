@@ -51,9 +51,9 @@ argo-cd:
         finalizers:
           - resources-finalizer.argocd.argoproj.io
         destination:
-          name: ''
+          name: in-cluster
           namespace: shortlink
-          server: 'https://kubernetes.default.svc'
+          server: ''
         source:
           path: argocd
           repoURL: 'git@github.com:batazor/shortlink.git'
@@ -75,6 +75,11 @@ argo-cd:
     additionalProjects:
       - name: shortlink
         description: Shortlink service (Microservice example)
+        sourceRepos:
+          - '*'
+        destinations:
+          - server: https://kubernetes.default.svc
+            namespace: '*'
 
   configs:
     secret:
