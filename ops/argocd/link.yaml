@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: shortlink-link
+  namespace: shortlink
+spec:
+  destination:
+    name: in-cluster
+    namespace: shortlink
+    server: ''
+  source:
+    path: ops/Helm/shortlink-link
+    repoURL: 'git@github.com:batazor/shortlink.git'
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  project: shortlink
