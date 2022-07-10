@@ -16,5 +16,7 @@ spec:
     repoURL: 'git@github.com:batazor/shortlink.git'
     targetRevision: HEAD
     helm:
+      version: v3
+      releaseName: shortlink-landing
       valueFiles:
         - values.yaml
