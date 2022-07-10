@@ -78,7 +78,7 @@ argo-cd:
         sourceRepos:
           - '*'
         destinations:
-          - server: https://kubernetes.default.svc
+          - server: '*'
             namespace: '*'
 
   configs:
