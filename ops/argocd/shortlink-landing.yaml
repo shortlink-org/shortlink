@@ -1,18 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shortlink-link
+  name: shortlink-landing
   namespace: shortlink
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
+  project: shortlink
   destination:
     name: in-cluster
     namespace: shortlink
     server: ''
   source:
-    path: ops/Helm/shortlink-link
+    path: ops/Helm/shortlink-landing
     repoURL: 'git@github.com:batazor/shortlink.git'
     targetRevision: HEAD
     helm:
       valueFiles:
         - values.yaml
-  project: shortlink
