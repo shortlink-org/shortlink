@@ -81,6 +81,22 @@ argo-cd:
           - server: '*'
             namespace: '*'
 
+  repoServer:
+    initContainers: []
+#      - name: download-tools
+#        image: alpine:3.8
+#        command: [sh, -c]
+#        args:
+#          - wget -qO- https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz | tar -xvzf - &&
+#            mv linux-amd64/helm /custom-tools/
+#        volumeMounts:
+#          - mountPath: /custom-tools
+#            name: custom-tools
+
+    volumes:
+      - name: custom-tools
+        emptyDir: {}
+
   configs:
     secret:
       gitlabSecret: "secret-gitlab"
