@@ -2,11 +2,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: shortlink-landing
-  namespace: shortlink
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  project: shortlink
   destination:
     name: in-cluster
     namespace: shortlink
@@ -16,7 +14,18 @@ spec:
     repoURL: 'git@github.com:batazor/shortlink.git'
     targetRevision: HEAD
     helm:
-      version: v3
-      releaseName: shortlink-landing
       valueFiles:
         - values.yaml
+  project: shortlink
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 5s
+        maxDuration: 3m0s
+        factor: 2

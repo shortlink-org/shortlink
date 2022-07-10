@@ -84,3 +84,9 @@ argo-cd:
   configs:
     secret:
       gitlabSecret: "secret-gitlab"
+
+argo-events:
+  fullnameOverride: argo-events
+
+argo-workflows:
+  fullnameOverride: argo-workflows
