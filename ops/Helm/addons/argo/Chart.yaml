@@ -20,3 +20,27 @@ dependencies:
     condition: argo.enabled
     tags:
       - ci/cd
+  - name: argo-events
+    version: 2.0.3
+    repository: https://argoproj.github.io/argo-helm
+    condition: argo.enabled
+    tags:
+      - ci/cd
+  - name: argo-rollouts
+    version: 2.17.0
+    repository: https://argoproj.github.io/argo-helm
+    condition: argo.enabled
+    tags:
+      - ci/cd
+  - name: argo-workflows
+    version: 0.16.6
+    repository: https://argoproj.github.io/argo-helm
+    condition: argo.enabled
+    tags:
+      - ci/cd
+  - name: argocd-image-updater
+    version: 0.8.0
+    repository: https://argoproj.github.io/argo-helm
+    condition: argo.enabled
+    tags:
+      - ci/cd
