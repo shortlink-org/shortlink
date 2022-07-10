@@ -23,19 +23,40 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
+type ShortDBHeartBeat struct {
+	// Heartbeat interval in milliseconds
+	Interval int `json:"interval,omitempty"`
+}
+
+type ShortDBKeepAlive struct {
+	// Keep alive is enabled
+	Enabled bool `json:"enabled,omitempty"`
+	// Keep alive messages interval in seconds
+	Interval int `json:"interval,omitempty"`
+}
+
 // ShortDBSpec defines the desired state of ShortDB
 type ShortDBSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of ShortDB. Edit shortdb_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	// Deployments count
+	Deployments int `json:"deployments,omitempty"`
+	// Heartbeat configuration
+	HeartBeat *ShortDBHeartBeat `json:"heartbeat,omitempty"`
+	// Keepalive configuration
+	Keepalive *ShortDBKeepAlive `json:"keepalive,omitempty"`
 }
 
 // ShortDBStatus defines the observed state of ShortDB
 type ShortDBStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+	// All nodes are prepared and ready
+	Deployed bool `json:"deployed"`
+	// How many nodes isn't available
+	BrokenNodes int `json:"brokenNodes"`
 }
 
 //+kubebuilder:object:root=true

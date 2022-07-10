@@ -35,13 +35,39 @@ spec:
           spec:
             description: ShortDBSpec defines the desired state of ShortDB
             properties:
-              foo:
-                description: Foo is an example field of ShortDB. Edit shortdb_types.go
-                  to remove/update
-                type: string
+              deployments:
+                description: Deployments count
+                type: integer
+              heartbeat:
+                description: Heartbeat configuration
+                properties:
+                  interval:
+                    description: Heartbeat interval in milliseconds
+                    type: integer
+                type: object
+              keepalive:
+                description: Keepalive configuration
+                properties:
+                  enabled:
+                    description: Keep alive is enabled
+                    type: boolean
+                  interval:
+                    description: Keep alive messages interval in seconds
+                    type: integer
+                type: object
             type: object
           status:
             description: ShortDBStatus defines the observed state of ShortDB
+            properties:
+              brokenNodes:
+                description: How many nodes isn't available
+                type: integer
+              deployed:
+                description: All nodes are prepared and ready
+                type: boolean
+            required:
+            - brokenNodes
+            - deployed
             type: object
         type: object
     served: true
