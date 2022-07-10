@@ -1,0 +1,54 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: mutating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /mutate-shortdb-shortdb-shortlink-v1alpha1-shortdb
+  failurePolicy: Fail
+  name: mshortdb.kb.io
+  rules:
+  - apiGroups:
+    - shortdb.shortdb.shortlink
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - shortdbs
+  sideEffects: None
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-shortdb-shortdb-shortlink-v1alpha1-shortdb
+  failurePolicy: Fail
+  name: vshortdb.kb.io
+  rules:
+  - apiGroups:
+    - shortdb.shortdb.shortlink
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - shortdbs
+  sideEffects: None
