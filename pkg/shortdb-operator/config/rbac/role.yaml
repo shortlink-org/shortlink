@@ -6,6 +6,25 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - apps/v1
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - apps/v1
+  resources:
+  - statefulsets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
   - shortdb.shortdb.shortlink
   resources:
   - shortdbs
@@ -29,5 +48,16 @@ rules:
   - shortdbs/status
   verbs:
   - get
+  - patch
+  - update
+- apiGroups:
+  - v1
+  resources:
+  - configmaps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
   - patch
   - update

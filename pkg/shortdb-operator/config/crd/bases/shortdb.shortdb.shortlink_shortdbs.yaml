@@ -55,6 +55,12 @@ spec:
                     description: Keep alive messages interval in seconds
                     type: integer
                 type: object
+              maxCPU:
+                description: Maximum cpu limit (100 = full power)
+                type: integer
+              maxMemory:
+                description: Maximum memory limit in GB (for example, 4)
+                type: integer
             type: object
           status:
             description: ShortDBStatus defines the observed state of ShortDB

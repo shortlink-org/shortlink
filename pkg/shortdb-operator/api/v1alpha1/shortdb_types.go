@@ -42,6 +42,10 @@ type ShortDBSpec struct {
 
 	// Deployments count
 	Deployments int `json:"deployments,omitempty"`
+	// Maximum memory limit in GB (for example, 4)
+	MaxMemory *int `json:"maxMemory,omitempty"`
+	// Maximum cpu limit (100 = full power)
+	MaxCPU *int `json:"maxCPU,omitempty"`
 	// Heartbeat configuration
 	HeartBeat *ShortDBHeartBeat `json:"heartbeat,omitempty"`
 	// Keepalive configuration
