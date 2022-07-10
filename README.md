@@ -35,25 +35,26 @@ made along with its context and consequences.
 
 ##### Services
 
-| Service     | Description                                 | Language/Framework        | Docs                                     |
-|-------------|---------------------------------------------|---------------------------|------------------------------------------|
-| landing     | Welcome page                                | JS/JQuery                 |                                          |
-| docs        | Example blog                                | [Hugo](https://gohugo.io) | https://batazor.github.io/shortlink/     |
-| next        | UI service                                  | JS/NextJS                 | [docs](./ui/next/README.md)              |
-| api         | GateWay                                     | Go                        | [docs](./docs/services/README.md)        |
-| link        | Link service                                | Go                        | [docs](./docs/services/README.md)        |
-| newsletter  | Newsletter service                          | Rust                      |                                          |
-| proxy       | Proxy service for redirect to original URL  | TypeScript                |                                          |
-| bot         | Telegram bot                                | JAVA                      |                                          |
-| billing     | Billing service                             | Go                        |                                          |
-| logger      | Logger service                              | Go                        |                                          |
-| metadata    | Parser site by API                          | Go                        |                                          |
-| notify      | Send notify to smtp, slack, telegram        | Go                        |                                          |
-| shortctl    | Shortlink CLI                               | Go                        | [docs](./docs/shortctl.md)               |
-| csi         | CSI example                                 | Go                        |                                          |
-| ory/kratos  | User management service                     | Go                        | [docs](https://www.ory.sh/kratos/docs/)  |
-| ory/hydra   | OAuth 2.0 Provider                          | Go                        | [docs](https://www.ory.sh/keto/docs/)    |
-| shortdb | Custom database | Go | [docs](./pkg/shortdb/README.md) |
+| Service          | Description                                  | Language/Framework        | Docs                                     |
+|------------------|----------------------------------------------|---------------------------|------------------------------------------|
+| landing          | Welcome page                                 | JS/JQuery                 |                                          |
+| docs             | Example blog                                 | [Hugo](https://gohugo.io) | https://batazor.github.io/shortlink/     |
+| next             | UI service                                   | JS/NextJS                 | [docs](./ui/next/README.md)              |
+| api              | GateWay                                      | Go                        | [docs](./docs/services/README.md)        |
+| link             | Link service                                 | Go                        | [docs](./docs/services/README.md)        |
+| newsletter       | Newsletter service                           | Rust                      |                                          |
+| proxy            | Proxy service for redirect to original URL   | TypeScript                |                                          |
+| bot              | Telegram bot                                 | JAVA                      |                                          |
+| billing          | Billing service                              | Go                        |                                          |
+| logger           | Logger service                               | Go                        |                                          |
+| metadata         | Parser site by API                           | Go                        |                                          |
+| notify           | Send notify to smtp, slack, telegram         | Go                        |                                          |
+| shortctl         | Shortlink CLI                                | Go                        | [docs](./docs/shortctl.md)               |
+| csi              | CSI example                                  | Go                        |                                          |
+| ory/kratos       | User management service                      | Go                        | [docs](https://www.ory.sh/kratos/docs/)  |
+| ory/hydra        | OAuth 2.0 Provider                           | Go                        | [docs](https://www.ory.sh/keto/docs/)    |
+| shortdb          | Custom database                              | Go | [docs](./pkg/shortdb/README.md)          |
+| shortdb-operator | Kubernetes Operator for [shortdb]((./pkg/shortdb/README.md)) database | Go | [docs](./pkg/shortdb-operator/README.md) |
 
 ### Run
 
