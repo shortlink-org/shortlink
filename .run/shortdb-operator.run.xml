@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="shortdb-operator" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="shortdb">
+    <module name="shortlink" />
+    <working_directory value="$PROJECT_DIR$/pkg/shortdb-operator" />
+    <envs>
+      <env name="ENABLE_WEBHOOKS" value="false" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="github.com/batazor/shortlink/pkg/shortdb-operator" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/pkg/shortdb-operator/main.go" />
+    <method v="2" />
+  </configuration>
+</component>
