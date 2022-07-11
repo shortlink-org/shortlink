@@ -26,9 +26,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// calculate response
-	sum := k + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11"
-	hash := sha1.Sum([]byte(sum))
-	str := base64.StdEncoding.EncodeToString(hash[:])
+	hash := func(key string) string {
+		h := sha1.New()
+		h.Write([]byte(key))
+		h.Write([]byte("258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))
+		return base64.StdEncoding.EncodeToString(h.Sum(nil))
+	}(k)
 
 	hj, ok := w.(http.Hijacker)
 	if !ok {
@@ -49,7 +52,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	_, _ = bufrw.WriteString("HTTP/1.1 101 Switching Protocols\r\n")
 	_, _ = bufrw.WriteString("Upgrade: websocket\r\n")
 	_, _ = bufrw.WriteString("Connection: Upgrade\r\n")
-	_, _ = bufrw.WriteString("Sec-Websocket-Accept: " + str + "\r\n\r\n")
+	_, _ = bufrw.WriteString("Sec-Websocket-Accept: " + hash + "\r\n\r\n")
 	_ = bufrw.Flush()
 
 	// respond to client
