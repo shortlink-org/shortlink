@@ -2,7 +2,6 @@
 cli-build:
 	@go build \
 		-a \
-		-mod mod \
 		-ldflags "-s -w" \
 		-installsuffix cgo \
 		-trimpath \
