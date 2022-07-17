@@ -70,6 +70,8 @@ golint:
     - golangci-lint run --out-format code-climate | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
   rules:
     - when: always
+  # TODO: drop this once golangci/golangci-lint:v1.47.0 is released
+  allow_failure: true
 
 go_fuzz_test:
   extends: .fuzz_base

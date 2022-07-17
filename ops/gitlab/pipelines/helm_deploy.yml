@@ -74,10 +74,10 @@ history:
 drop:
   extends:
     - .job_template_helm
+  tags:
+    - docker
   script:
-    - helm del -n $HELM_NAMESPACE $RELEASE_NAME $HELM_ARG;
+    - helm del -n $HELM_NAMESPACE $RELEASE_NAME;
   environment:
     name: ${PROVIDER}/${RELEASE_NAME}
     action: stop
-  tags:
-    - docker

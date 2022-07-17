@@ -19,7 +19,7 @@ func (t *Tree[T]) Marshal() ([]byte, error) {
 }
 
 func (t *Tree[T]) UnMarshal(bytes []byte, i interface{}) error {
-	//TODO implement me
+	// TODO implement me
 	panic("implement me")
 }
 
@@ -64,15 +64,19 @@ func (t *Tree[T]) insert(key T) *Tree[T] {
 		if t.Left == nil {
 			t.Left = New(t.cmp)
 			t.Left.Val = &key
+
 			return t.Left
 		}
+
 		return t.Left.insert(key)
 	case cmp > 0:
 		if t.Right == nil {
 			t.Right = New(t.cmp)
 			t.Right.Val = &key
+
 			return t.Right
 		}
+
 		return t.Right.insert(key)
 	default:
 		return t

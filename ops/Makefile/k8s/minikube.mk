@@ -13,7 +13,7 @@ minikube-up: ## run minikube for dev mode
 		--driver=docker \
 		--container-runtime=containerd \
 		--listen-address=0.0.0.0 \
-		--addons=pod-security-policy,ingress,istio \
+		--addons=pod-security-policy,ingress \
 		--feature-gates="GracefulNodeShutdown=true" \
 		--extra-config=apiserver.tracing-config-file=/etc/ssl/certs/tracing-config-file.yaml \
 		--extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \

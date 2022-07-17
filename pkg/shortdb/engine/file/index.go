@@ -36,6 +36,9 @@ func (f *file) CreateIndex(query *v1.Query) error {
 		// get all values
 		// TODO: use pattern iterator
 		cmd, err := parser.New(fmt.Sprintf("SELECT %s from %s", strings.Join(query.Indexs[i].Fields, ","), query.TableName))
+		if err != nil {
+			return err
+		}
 		rows, err := f.Select(cmd.Query)
 		if err != nil {
 			// NOTE: ignore empty table
