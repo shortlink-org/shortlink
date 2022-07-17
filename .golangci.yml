@@ -58,7 +58,7 @@ run:
   #
   # Allowed values: readonly|vendor|mod
   # By default, it isn't set.
-  modules-download-mode: vendor
+  modules-download-mode: readonly
 
   # Allow multiple parallel golangci-lint instances running.
   # If false (default) - golangci-lint acquires file lock on start.

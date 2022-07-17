@@ -7,6 +7,10 @@ import (
 	"net/http"
 )
 
+const (
+	BUFFER_SIZE = 1024
+)
+
 func Handler(w http.ResponseWriter, r *http.Request) {
 	// check headers
 	if r.Header.Get("Upgrade") != "websocket" {
@@ -30,6 +34,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		h := sha1.New()
 		h.Write([]byte(key))
 		h.Write([]byte("258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))
+
 		return base64.StdEncoding.EncodeToString(h.Sum(nil))
 	}(k)
 
@@ -56,7 +61,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	_ = bufrw.Flush()
 
 	// respond to client
-	buf := make([]byte, 1024)
+	buf := make([]byte, BUFFER_SIZE)
 	for {
 		n, err := bufrw.Read(buf)
 		if err != nil {
