@@ -9,11 +9,11 @@ minikube-up: ## run minikube for dev mode
 	@minikube start \
 		--nodes 3 \
 		--cpus 4 \
-		--memory "6192" \
+		--memory "12192" \
 		--driver=docker \
 		--container-runtime=containerd \
 		--listen-address=0.0.0.0 \
-		--addons=pod-security-policy,ingress \
+		--addons=pod-security-policy,ingress,istio \
 		--feature-gates="GracefulNodeShutdown=true" \
 		--extra-config=apiserver.tracing-config-file=/etc/ssl/certs/tracing-config-file.yaml \
 		--extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \
@@ -40,8 +40,7 @@ minikube-clear:  ## minikube clear
 	@minikube image rm image
 
 minikube-down: ## minikube delete
-	@echo "minikube down disabled because I wouldn't delete minikube"
-	# @minikube delete
+	@minikube delete
 
 minikube-stop: ## minikube stop
 	@minikube stop
