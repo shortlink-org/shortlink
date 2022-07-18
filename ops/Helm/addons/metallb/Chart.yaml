@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: metallb
-    version: 0.12.1
+    version: 0.13.3
     repository: https://metallb.github.io/metallb
     condition: metallb.enabled
     tags:
