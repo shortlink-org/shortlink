@@ -75,7 +75,7 @@ require (
 	google.golang.org/grpc v1.48.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.0
-	k8s.io/kubernetes v1.24.3
+	k8s.io/kubernetes v1.13.0
 	k8s.io/mount-utils v0.24.3
 	k8s.io/utils v0.0.0-20220713171938-56c0de1e6f5e
 )
@@ -115,7 +115,6 @@ require (
 	github.com/go-kit/log v0.2.0 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
-	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/snappy v0.0.4 // indirect
