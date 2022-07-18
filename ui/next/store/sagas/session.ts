@@ -37,7 +37,8 @@ function* watchFetchSession() {
 }
 
 // @ts-ignore
-function* loginAuth(action: { payload: any }) { // eslint-disable-line
+function* loginAuth(action: { payload: any }) {
+  // eslint-disable-line
   // eslint-disable-line
   // eslint-disable-line
   try {

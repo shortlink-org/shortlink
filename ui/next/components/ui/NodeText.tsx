@@ -13,11 +13,13 @@ const ScrollableCodeBox = styled(CodeBox)`
   overflow-x: auto;
 `
 
-const Content = ({ node, attributes }: Props) => { // eslint-disable-line
+const Content = ({ attributes }: Props) => {
+  // eslint-disable-line
   switch (attributes.text.id) {
-    case 1050015:
+    case 1050015: {
       // This text node contains lookup secrets. Let's make them a bit more beautiful!
-      const secrets = (attributes.text.context as any).secrets.map( // eslint-disable-line
+      const secrets = (attributes.text.context as any).secrets.map(
+        // eslint-disable-line
         (text: UiText, k: number) => (
           <div
             key={k} // eslint-disable-line
@@ -37,6 +39,7 @@ const Content = ({ node, attributes }: Props) => { // eslint-disable-line
           <div className="row">{secrets}</div>
         </div>
       )
+    }
   }
 
   return (

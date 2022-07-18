@@ -65,7 +65,7 @@ const Forgot: NextPage = () => {
       .push(`/auth/forget?flow=${flow?.id}`, undefined, { shallow: true })
       .then(() =>
         ory
-          .submitSelfServiceRecoveryFlow(String(flow?.id), undefined, values)
+          .submitSelfServiceRecoveryFlow(String(flow?.id), values)
           .then(({ data }) => {
             // Form submission was successful, show the message to the user!
             setFlow(data)

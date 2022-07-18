@@ -15,37 +15,35 @@ console.info('API_URI', API_URI)
 const securityHeaders = [
   {
     key: 'X-DNS-Prefetch-Control',
-    value: 'on'
+    value: 'on',
   },
   {
     key: 'X-XSS-Protection',
-    value: '1; mode=block'
+    value: '1; mode=block',
   },
   {
     key: 'X-Frame-Options',
-    value: 'SAMEORIGIN'
+    value: 'SAMEORIGIN',
   },
   {
     key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
   },
   {
     key: 'X-Content-Type-Options',
-    value: 'nosniff'
+    value: 'nosniff',
   },
   {
     key: 'Referrer-Policy',
-    value: 'origin-when-cross-origin'
-  }
+    value: 'origin-when-cross-origin',
+  },
 ]
 
 if (!isProd) {
-  securityHeaders.push(
-    {
-      key: 'Strict-Transport-Security',
-      value: 'max-age=63072000; includeSubDomains; preload'
-    },
-  )
+  securityHeaders.push({
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
+  })
 }
 
 const NEXT_CONFIG = {
@@ -59,7 +57,7 @@ const NEXT_CONFIG = {
     styledComponents: true,
   },
   images: {
-    loader: "custom",
+    loader: 'custom',
     // domains: ['images.unsplash.com', 'www.dropbox.com', 'www.tailwind-kit.com'],
     // formats: ['image/webp'],
   },
@@ -71,11 +69,13 @@ const NEXT_CONFIG = {
   webpack5: true,
   trailingSlash: true,
   headers: () => {
-    return [{
-      // Apply these headers to all routes in your application.
-      source: '/:path*',
-      headers: securityHeaders,
-    }]
+    return [
+      {
+        // Apply these headers to all routes in your application.
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+    ]
   },
 }
 
