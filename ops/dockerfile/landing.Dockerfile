@@ -12,7 +12,7 @@ RUN npm config set ignore-scripts false
 WORKDIR /app
 COPY ./ui/landing/package.json ./ui/landing/package-lock.json ./
 
-RUN npm ci --force
+RUN npm ci --cache .npm --prefer-offline --force
 
 # Rebuild the source code only when needed
 FROM node:18.6-alpine as builder
