@@ -1,8 +1,17 @@
+import { UiNode, UiNodeInputAttributes } from '@ory/client'
 import { getNodeLabel } from '@ory/integrations/ui'
 import Button from '@mui/material/Button'
 
+import { NodeInputProps } from './helpers'
+
 // @ts-ignore
-export function NodeInputButton({ node, attributes, setValue, disabled, dispatchSubmit}) {
+export function NodeInputButton<T>({
+  node,
+  attributes,
+  setValue,
+  disabled,
+  dispatchSubmit,
+}: NodeInputProps) {
   // Some attributes have dynamic JavaScript - this is for example required for WebAuthn.
   const onClick = () => {
     // This section is only used for WebAuthn. The script is loaded via a <script> node

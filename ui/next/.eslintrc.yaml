@@ -80,6 +80,7 @@ rules:
     ['error', { functions: false, classes: false, variables: true }]
   '@typescript-eslint/ban-ts-comment': off
   react/react-in-jsx-scope: off
+  react/no-unused-prop-types: off
 settings:
   import/resolver:
     babel-module:

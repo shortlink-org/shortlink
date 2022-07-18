@@ -13,7 +13,7 @@ module.exports = {
     },
     extract: {
       md: (content) => {
-        return content.match(/[^<>"'`\s]*/);
+        return content.match(/[^<>"'`\s]*/)
       },
     },
   },
@@ -26,7 +26,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
-    require("@tailwindcss/forms")({
+    require('@tailwindcss/forms')({
       strategy: 'class', // only generate classes
     }),
     require('@tailwindcss/line-clamp'),
