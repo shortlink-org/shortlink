@@ -63,40 +63,6 @@ class MyApp extends App<MyAppProps> {
   }
 }
 
-// MyApp.getInitialProps = wrapper.getInitialAppProps(
-//   (store) =>
-//     async ({ Component, ctx }) => {
-//       // Init Kratos API
-//       const NEXT_PUBLIC_API_URI =
-//         process.env.NEXT_PUBLIC_API_URI || 'http://shortlink-api-kratos-public.shortlink:80'
-//
-//       if (ctx.req?.headers) {
-//         // @ts-ignore
-//         const response = await fetch(`${NEXT_PUBLIC_API_URI}/sessions/whoami`, {
-//           headers: ctx.req?.headers,
-//         })
-//
-//         // @ts-ignore
-//         const session = await response.json()
-//
-//         // Save in store
-//         store.dispatch({ type: SESSION_FETCH_SUCCEEDED, payload: session })
-//       }
-//
-//       return {
-//         pageProps: {
-//           // Call page-level getInitialProps
-//           // DON'T FORGET TO PROVIDE STORE TO PAGE
-//           ...(Component.getInitialProps
-//             ? await Component.getInitialProps({ ...ctx, store })
-//             : {}),
-//           // Some custom thing for all pages
-//           pathname: ctx.pathname,
-//         },
-//       }
-//     },
-// )
-
 export default wrapper.withRedux(MyApp)
 
 // If you want to start measuring performance in your app, pass a function
