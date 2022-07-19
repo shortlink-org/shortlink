@@ -13,6 +13,7 @@ This UI for shortlink application
 - Pretty code base
   - Typescript
   - ESLint/Prettier
+- Storybook (for UI)
 
 ### Getting start
 
@@ -30,3 +31,10 @@ $> Ready on http://127.0.0.1:3000/next/auth/login
 | `API_URI`       | `http://localhost:7070` | API port              |
 | `PROXY_URI`     | `http://localhost:3030` | Proxy service address |
 | `SENTRY_ENABLE` | `false`                 | Init Sentry           |
+
+
+### Storybook
+
+```
+$> npm run storybook
+```
