@@ -292,11 +292,11 @@ linters-settings:
       captLocal:
         # Whether to restrict checker to params only.
         # Default: true
-        paramsOnly: false
+        paramsOnly: true
       elseif:
         # Whether to skip balanced if-else pairs.
         # Default: true
-        skipBalanced: false
+        skipBalanced: true
       hugeParam:
         # Size in bytes that makes the warning trigger.
         # Default: 80
@@ -1153,17 +1153,68 @@ linters-settings:
     # The following configurations enable all checks.
     # All checks are enabled by default.
     test:
-      first: false
-      name: false
-      begin: false
+      # Check *testing.T is first param (or after context.Context) of helper function.
+      # Default: true
+      first: true
+      # Check *testing.T param has name t.
+      # Default: true
+      name: true
+      # Check t.Helper() begins helper function.
+      # Default: true
+      begin: true
     benchmark:
-      first: false
-      name: false
-      begin: false
+      # Check *testing.B is first param (or after context.Context) of helper function.
+      # Default: true
+      first: true
+      # Check *testing.B param has name b.
+      # Default: true
+      name: true
+      # Check b.Helper() begins helper function.
+      # Default: true
+      begin: true
     tb:
-      first: false
-      name: false
-      begin: false
+      # Check *testing.TB is first param (or after context.Context) of helper function.
+      # Default: true
+      first: true
+      # Check *testing.TB param has name tb.
+      # Default: true
+      name: true
+      # Check tb.Helper() begins helper function.
+      # Default: true
+      begin: true
+    fuzz:
+      # Check *testing.F is first param (or after context.Context) of helper function.
+      # Default: true
+      first: true
+      # Check *testing.F param has name f.
+      # Default: true
+      name: true
+      # Check f.Helper() begins helper function.
+      # Default: true
+      begin: true
+
+  usestdlibvars:
+    # Suggest the use of http.MethodXX
+    # Default: true
+    http-method: true
+    # Suggest the use of http.StatusXX
+    # Default: true
+    http-status-code: true
+    # Suggest the use of time.Weekday
+    # Default: true
+    time-weekday: true
+    # Suggest the use of time.Month
+    # Default: false
+    time-month: true
+    # Suggest the use of time.Layout
+    # Default: false
+    time-layout: true
+    # Suggest the use of crypto.Hash
+    # Default: false
+    crypto-hash: true
+    # Suggest the use of pc.DefaultXXPath
+    # Default: false
+    default-rpc-path: true
 
   unparam:
     # Inspect exported functions.
@@ -1267,111 +1318,43 @@ linters-settings:
 linters:
 #  # Enable all available linters.
 #  # Default: false
-#  enable-all: true
+  enable-all: true
 #  # Disable specific linter
 #  # https://golangci-lint.run/usage/linters/#disabled-by-default-linters--e--enable
   disable:
-    - containedctx
-    - goconst
-    - gochecknoinits
-    - depguard
-    - gomodguard
-    - gomoddirectives
-    - dupl
-    - forbidigo
-    - wsl
-    - forcetypeassert
-    - gci
-    - gochecknoglobals
-    - decorder
-    - grouper
+    - scopelint
     - ifshort
-    - predeclared
-    - tagliatelle
-    - typecheck
-#    - goheader
-#    - asciicheck
-#    - bidichk
-#    - bodyclose
-#    - contextcheck
-#    - cyclop
-#    - deadcode
-#    - dogsled
-#    - durationcheck
-#    - errcheck
-#    - errname
-#    - errorlint
-#    - exhaustive
-#    - exhaustivestruct
-#    - exportloopref
-#    - funlen
-#    - gocritic
-#    - gocyclo
-#    - godot
-#    - godox
-#    - goerr113
-#    - gofmt
-#    - gofumpt
-#    - goimports
-#    - golint
-#    - gomnd
-#    - goprintffuncname
-#    - gosec
-#    - gosimple
-#    - govet
-#    - importas
-#    - ineffassign
-#    - interfacer
-#    - ireturn
-#    - lll
-#    - makezero
-#    - maligned
-#    - misspell
-#    - nakedret
-#    - nestif
-#    - nilerr
-#    - nilnil
-#    - nlreturn
-#    - noctx
-#    - nolintlint
-#    - paralleltest
-#    - prealloc
-#    - promlinter
-#    - revive
-#    - rowserrcheck
-#    - sqlclosecheck
-#    - staticcheck
-#    - structcheck
-#    - stylecheck
-#    - tenv
-#    - testpackage
-#    - thelper
-#    - tparallel
-#    - unconvert
-#    - unparam
-#    - unused
-#    - varcheck
-#    - varnamelen
-#    - wastedassign
-#    - whitespace
-#    - wrapcheck
+#    - containedctx
+#    - goconst
+#    - gochecknoinits
+#    - depguard
+#    - gomodguard
+#    - gomoddirectives
+#    - dupl
+#    - forbidigo
+#    - wsl
+#    - forcetypeassert
+#    - gci
+#    - gochecknoglobals
+#    - decorder
+#    - grouper
 
   # Enable presets.
   # https://golangci-lint.run/usage/linters
-  presets:
-    - bugs
-    - comment
-    - complexity
-    - error
-    - format
-    - import
-    - metalinter
-    - module
-    - performance
-    - sql
-    - style
-    - test
-    - unused
+#  presets:
+#    - bugs
+#    - comment
+#    - complexity
+#    - error
+#    - format
+#    - import
+#    - metalinter
+#    - module
+#    - performance
+#    - sql
+#    - style
+#    - test
+#    - unused
 
   # Run only fast linters from enabled linters set (first run won't be fast)
   # Default: false
