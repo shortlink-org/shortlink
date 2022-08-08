@@ -15,7 +15,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: argo-cd
-    version: 4.9.14
+    version: 4.10.5
     repository: https://argoproj.github.io/argo-helm
     condition: argo.enabled
     tags:
@@ -33,7 +33,7 @@ dependencies:
     tags:
       - ci/cd
   - name: argo-workflows
-    version: 0.16.7
+    version: 0.16.8
     repository: https://argoproj.github.io/argo-helm
     condition: argo.enabled
     tags:
