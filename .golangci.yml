@@ -65,9 +65,9 @@ run:
   allow-parallel-runners: false
 
   # Define the Go version limit.
-  # Mainly related to generics support in go1.18.
+  # Mainly related to generics support in go1.19.
   # Default: use Go version from the go.mod file, fallback on the env var `GOVERSION`, fallback on 1.17
-  go: '1.18'
+  go: '1.19'
 
 
 # output configuration options
@@ -449,7 +449,7 @@ linters-settings:
   gosimple:
     # Select the Go version to target.
     # Default: 1.13
-    go: "1.18"
+    go: "1.19"
     # https://staticcheck.io/docs/options#checks
     checks: [ "all" ]
 
@@ -1122,14 +1122,14 @@ linters-settings:
   staticcheck:
     # Select the Go version to target.
     # Default: 1.13
-    go: "1.18"
+    go: "1.19"
     # https://staticcheck.io/docs/options#checks
     checks: [ "all" ]
 
   stylecheck:
     # Select the Go version to target.
     # Default: 1.13
-    go: "1.18"
+    go: "1.19"
     # https://staticcheck.io/docs/options#checks
     checks: [ "all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022" ]
     # https://staticcheck.io/docs/options#dot_import_whitelist
