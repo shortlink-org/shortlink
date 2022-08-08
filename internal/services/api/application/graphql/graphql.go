@@ -95,6 +95,7 @@ func (api *API) Run(
 	link_query link_cqrs.LinkQueryServiceClient,
 	sitemap_rpc sitemap_rpc.SitemapServiceClient,
 ) error {
+
 	api.ctx = ctx
 	api.linkServiceClient = link_rpc
 
