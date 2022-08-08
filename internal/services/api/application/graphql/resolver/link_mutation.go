@@ -14,7 +14,6 @@ func (r *Resolver) CreateLink(ctx context.Context, args *struct {
 	Describe *string
 },
 ) (*LinkResolver, error) {
-
 	newLink := &v1.Link{
 		Url:      *args.URL,
 		Hash:     *args.Hash,
@@ -39,7 +38,6 @@ func (r *Resolver) UpdateLink(ctx context.Context, args *struct {
 	Describe *string
 },
 ) (*bool, error) {
-
 	updateLink := &v1.Link{
 		Url:      *args.URL,
 		Hash:     *args.Hash,
@@ -62,7 +60,6 @@ func (r *Resolver) DeleteLink(ctx context.Context, args *struct {
 	Hash *string
 },
 ) (bool, error) {
-
 	_, err := r.LinkServiceClient.Delete(ctx, &link_rpc.DeleteRequest{Hash: *args.Hash})
 	if err != nil {
 		return false, err
