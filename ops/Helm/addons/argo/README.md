@@ -1,6 +1,6 @@
-# dashboard
+# argo
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,15 +14,57 @@ Kubernetes: `>= 1.21.0 || >= v1.21.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/dashboard | kubernetes-dashboard | 5.4.1 |
+| https://argoproj.github.io/argo-helm | argo-cd | 4.10.5 |
+| https://argoproj.github.io/argo-helm | argo-events | 2.0.3 |
+| https://argoproj.github.io/argo-helm | argo-rollouts | 2.18.0 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.16.8 |
+| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.8.0 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| kubernetes-dashboard.enabled | bool | `true` |  |
-| kubernetes-dashboard.fullnameOverride | string | `"kubernetes-dashboard"` |  |
-| kubernetes-dashboard.rbac.clusterAdminRole | bool | `true` |  |
+| argo-cd.configs.secret.gitlabSecret | string | `"secret-gitlab"` |  |
+| argo-cd.controller.metrics.applicationLabels.enabled | bool | `true` |  |
+| argo-cd.controller.metrics.enabled | bool | `true` |  |
+| argo-cd.controller.rules.enabled | bool | `true` |  |
+| argo-cd.controller.serviceMonitor.enabled | bool | `true` |  |
+| argo-cd.dex.enabled | bool | `true` |  |
+| argo-cd.dex.metrics.enabled | bool | `true` |  |
+| argo-cd.dex.serviceMonitor.enabled | bool | `true` |  |
+| argo-cd.fullnameOverride | string | `"argocd"` |  |
+| argo-cd.redis.metrics.enabled | bool | `true` |  |
+| argo-cd.redis.serviceMonitor.enabled | bool | `true` |  |
+| argo-cd.repoServer.initContainers | list | `[]` |  |
+| argo-cd.repoServer.volumes[0].emptyDir | object | `{}` |  |
+| argo-cd.repoServer.volumes[0].name | string | `"custom-tools"` |  |
+| argo-cd.server.additionalApplications[0].destination.name | string | `"in-cluster"` |  |
+| argo-cd.server.additionalApplications[0].destination.namespace | string | `"shortlink"` |  |
+| argo-cd.server.additionalApplications[0].destination.server | string | `""` |  |
+| argo-cd.server.additionalApplications[0].finalizers[0] | string | `"resources-finalizer.argocd.argoproj.io"` |  |
+| argo-cd.server.additionalApplications[0].name | string | `"shortlink"` |  |
+| argo-cd.server.additionalApplications[0].namespace | string | `"shortlink"` |  |
+| argo-cd.server.additionalApplications[0].project | string | `"shortlink"` |  |
+| argo-cd.server.additionalApplications[0].source.directory.recurse | bool | `true` |  |
+| argo-cd.server.additionalApplications[0].source.path | string | `"argocd"` |  |
+| argo-cd.server.additionalApplications[0].source.repoURL | string | `"git@github.com:batazor/shortlink.git"` |  |
+| argo-cd.server.additionalApplications[0].source.targetRevision | string | `"HEAD"` |  |
+| argo-cd.server.additionalApplications[0].syncPolicy.automated | string | `nil` |  |
+| argo-cd.server.additionalApplications[0].syncPolicy.retry.backoff.duration | string | `"5s"` |  |
+| argo-cd.server.additionalApplications[0].syncPolicy.retry.backoff.factor | int | `2` |  |
+| argo-cd.server.additionalApplications[0].syncPolicy.retry.backoff.maxDuration | string | `"5m0s"` |  |
+| argo-cd.server.additionalApplications[0].syncPolicy.retry.limit | int | `2` |  |
+| argo-cd.server.additionalApplications[0].syncPolicy.syncOptions[0] | string | `"CreateNamespace=true"` |  |
+| argo-cd.server.additionalProjects[0].description | string | `"Shortlink service (Microservice example)"` |  |
+| argo-cd.server.additionalProjects[0].destinations[0].namespace | string | `"*"` |  |
+| argo-cd.server.additionalProjects[0].destinations[0].server | string | `"*"` |  |
+| argo-cd.server.additionalProjects[0].name | string | `"shortlink"` |  |
+| argo-cd.server.additionalProjects[0].sourceRepos[0] | string | `"*"` |  |
+| argo-cd.server.rbacConfig."policy.csv" | string | `"p, role:org-admin, applications, *, */*, allow\np, role:org-admin, clusters, get, *, allow\np, role:org-admin, repositories, get, *, allow\np, role:org-admin, repositories, create, *, allow\np, role:org-admin, repositories, update, *, allow\np, role:org-admin, repositories, delete, *, allow\ng, devops, role:admin\ng, gitlab, role:org-admin\n"` |  |
+| argo-cd.server.rbacConfig."policy.default" | string | `"role:readonly"` |  |
+| argo-events.fullnameOverride | string | `"argo-events"` |  |
+| argo-workflows.fullnameOverride | string | `"argo-workflows"` |  |
+| argo.enabled | bool | `true` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.10.0](https://github.com/norwoodj/helm-docs/releases/v1.10.0)
+Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
