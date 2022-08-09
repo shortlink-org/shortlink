@@ -24,7 +24,7 @@ services:
     ports:
       - 9093:9090
     volumes:
-      - ./ops/docker-compose/tooling/prometheus/:/etc/prometheus/
+      - ./ops/docker-compose/tooling/observability/prometheus/:/etc/prometheus/
     logging:
       driver: ${LOGGER_DRIVER}
       options:

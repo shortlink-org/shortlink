@@ -25,7 +25,7 @@ services:
 #      - ${DNS_IP}
 #    dns_search: ${DNS_SEARCH}
     volumes:
-      - ./ops/docker-compose/tooling/grafana/provisioning:/etc/grafana/provisioning/
+      - ./ops/docker-compose/tooling/observability/grafana/provisioning:/etc/grafana/provisioning/
 #    logging:
 #      driver: ${LOGGER_DRIVER}
 #      options:
