@@ -13,16 +13,16 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: mongo:5.0.3
+    image: bitnami/mongodb:6.0
     init: true
     restart: on-failure
     container_name: mongo
     ports:
       - "27017:27017"
     environment:
-      MONGO_INITDB_ROOT_USERNAME: shortlink
-      MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: shortlink
+      MONGODB_USERNAME: shortlink
+      MONGODB_PASSWORD: password
+      MONGODB_DATABASE: shortlink
 #    logging:
 #      driver: fluent-bit
 #      options:
