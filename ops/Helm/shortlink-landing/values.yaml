@@ -15,7 +15,7 @@ serviceAccount:
 # ==============================================================================
 enabled: true
 
-host: shortlink.ddns.net
+host: arhitecture.ddns.net
 
 ingress:
   enabled: false
@@ -32,7 +32,7 @@ ingress:
   tls:
     - secretName: shortlink-ingress-tls
       hosts:
-        - shortlink.ddns.net
+        - arhitecture.ddns.net
 
 deploy:
   replicaCount: 1
