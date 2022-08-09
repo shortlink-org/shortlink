@@ -29,8 +29,7 @@ up: ## Run for specific job
 	@COMPOSE_PROFILES=dns,gateway,opentracing,postgres,prometheus docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/coredns.yaml \
-		-f ops/docker-compose/application/auth.yaml \
-		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/database/edgedb.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose
