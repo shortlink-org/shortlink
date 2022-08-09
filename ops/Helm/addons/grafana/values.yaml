@@ -16,7 +16,7 @@ grafana:
   grafana.ini:
     server:
       # this host can be localhost
-      root_url: https://shortlink.ddns.net/grafana
+      root_url: https://arhitecture.ddns.net/grafana
 
   serviceMonitor:
     enabled: true
@@ -39,14 +39,14 @@ grafana:
       nginx.ingress.kubernetes.io/use-regex: "true"
 
     hosts:
-      - shortlink.ddns.net
+      - arhitecture.ddns.net
 
     path: /grafana/?(.*)
 
     tls:
       - secretName: shortlink-ingress-tls
         hosts:
-          - shortlink.ddns.net
+          - arhitecture.ddns.net
 
   sidecar:
     dashboards:

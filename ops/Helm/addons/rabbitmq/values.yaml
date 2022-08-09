@@ -58,7 +58,7 @@ rabbitmq:
       nginx.ingress.kubernetes.io/rewrite-target: /$1
       nginx.ingress.kubernetes.io/use-regex: "true"
 
-    hostname: shortlink.ddns.net
+    hostname: arhitecture.ddns.net
     path: /rabbitmq/?(.*)
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)

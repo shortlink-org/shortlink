@@ -9,7 +9,7 @@ kube-prometheus-stack:
     alertmanagerSpec:
       routePrefix: /alertmanager/
       logFormat: json
-      externalUrl: https://shortlink.ddns.net/alertmanager
+      externalUrl: https://arhitecture.ddns.net/alertmanager
       alertmanagerConfigSelector:
         matchLabels:
           alertmanagerConfig: shortlink
@@ -26,7 +26,7 @@ kube-prometheus-stack:
         nginx.ingress.kubernetes.io/enable-opentracing: "true"
 
       hosts:
-        - shortlink.ddns.net
+        - arhitecture.ddns.net
 
       paths:
         - /alertmanager
@@ -38,7 +38,7 @@ kube-prometheus-stack:
       tls:
         - secretName: shortlink-ingress-tls
           hosts:
-          - shortlink.ddns.net
+          - arhitecture.ddns.net
 
     config:
       global:
@@ -83,7 +83,7 @@ kube-prometheus-stack:
         nginx.ingress.kubernetes.io/enable-opentracing: "true"
 
       hosts:
-        - shortlink.ddns.net
+        - arhitecture.ddns.net
 
       paths:
         - /prometheus
@@ -95,7 +95,7 @@ kube-prometheus-stack:
       tls:
         - secretName: shortlink-ingress-tls
           hosts:
-          - shortlink.ddns.net
+          - arhitecture.ddns.net
 
   grafana:
     enabled: false
