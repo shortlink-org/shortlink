@@ -27,7 +27,7 @@ services:
       - "9411"          # Zipkin
       - "3100"          # tempo
     volumes:
-      - ./ops/docker-compose/tooling/tempo/tempo-local.yaml:/etc/tempo.yaml
+      - ./ops/docker-compose/tooling/observability/tempo/tempo-local.yaml:/etc/tempo.yaml
       - /data/tempo:/tmp/tempo
 
   jaeger-query:
@@ -43,4 +43,4 @@ services:
     ports:
       - "16686:16686"  # jaeger-ui
     volumes:
-      - ./ops/docker-compose/tooling/tempo/tempo-query.yaml:/etc/tempo-query.yaml
+      - ./ops/docker-compose/tooling/observability/tempo/tempo-query.yaml:/etc/tempo-query.yaml
