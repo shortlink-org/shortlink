@@ -33,7 +33,7 @@ dependencies:
     tags:
       - ci/cd
   - name: argo-workflows
-    version: 0.16.8
+    version: 0.16.9
     repository: https://argoproj.github.io/argo-helm
     condition: argo.enabled
     tags:
