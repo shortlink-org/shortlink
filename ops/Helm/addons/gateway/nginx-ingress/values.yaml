@@ -39,9 +39,9 @@ ingress-nginx:
 
     service:
       type: LoadBalancer
-#      nodePorts:
-#        http: 80
-#        https: 443
+      nodePorts:
+        http: 80
+        https: 443
 
     admissionWebhooks:
       enabled: false
