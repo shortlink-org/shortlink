@@ -29,7 +29,7 @@ up: ## Run for specific job
 	@COMPOSE_PROFILES=dns,flower docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns.yaml \
-		-f ops/docker-compose/tooling/saas/airflow/airflow.yaml \
+		-f ops/docker-compose/mq/redpanda.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose
