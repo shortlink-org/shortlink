@@ -39,7 +39,8 @@ container_scanning:
     DOCKERFILE_PATH: $DOCKERFILE_PATH
   allow_failure: true
   needs:
-    - build
+    - build:base
+    - build:ui
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
