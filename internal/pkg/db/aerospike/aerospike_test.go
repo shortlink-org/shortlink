@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestETCD(t *testing.T) {
+func TestAerospike(t *testing.T) {
 	store := Store{}
 	ctx := context.Background()
 
