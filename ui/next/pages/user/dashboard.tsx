@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { Layout } from 'components'
 import Box from '@mui/material/Box'
-import Chart from 'components/widgets/Chart'
 import Deposits from 'components/widgets/Deposits'
 import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
@@ -32,20 +31,6 @@ function Dashboard() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               <Profile />
-
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
 
               {/* Recent Deposits */}
               <Grid item xs={12} md={4} lg={3}>
