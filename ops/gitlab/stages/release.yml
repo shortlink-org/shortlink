@@ -21,34 +21,6 @@ release:
   rules:
     - if: $CI_COMMIT_TAG  # Run this job when a tag is created manually
 
-goreleaser:
-  stage: release
-  image:
-    name: goreleaser/goreleaser
-    entrypoint: [ "" ]
-  services:
-    - docker:dind
-  variables:
-    GOPATH: $CI_PROJECT_DIR/.go
-
-    # Optionally use GitLab's built-in image registry.
-    DOCKER_REGISTRY: $CI_REGISTRY
-    DOCKER_USERNAME: $CI_REGISTRY_USER
-    DOCKER_PASSWORD: $CI_REGISTRY_PASSWORD
-    GIT_DEPTH: 0
-  before_script:
-    - mkdir -p .go
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  script:
-    - goreleaser release --rm-dist --skip-validate --skip-publish
-  tags:
-    - docker
-  needs: [ ]
-  interruptible: true
-  retry: 2
-  rules:
-    - if: $CI_COMMIT_TAG
-
 pages:
   stage: release
   variables:
