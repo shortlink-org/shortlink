@@ -651,18 +651,15 @@ linters-settings:
     # Default: []
     allow-no-explanation:
       - gomnd
-      - decorder
       - copylocks
       - govet
       - lll
       - errcheck
-      - gocognit
       - contextcheck
       - maintidx
       - nestif
       - gocyclo
       - nilerr
-      - prealloc
       - structcheck
       - durationcheck
     # Enable to require an explanation of nonzero length after each nolint directive.
@@ -678,10 +675,10 @@ linters-settings:
 
     # Report pre-allocation suggestions only on simple loops that have no returns/breaks/continues/gotos in them.
     # Default: true
-    simple: false
+    simple: true
     # Report pre-allocation suggestions on range loops.
     # Default: true
-    range-loops: false
+    range-loops: true
     # Report pre-allocation suggestions on for loops.
     # Default: false
     for-loops: true
@@ -692,15 +689,7 @@ linters-settings:
     # Default: false
     strict: true
     # Please refer to https://github.com/yeya24/promlinter#usage for detailed usage.
-    disabled-linters:
-     - Help
-     - MetricUnits
-     - Counter
-     - HistogramSummaryReserved
-     - MetricTypeInName
-     - ReservedChars
-     - CamelCase
-     - UnitAbbreviations
+    disabled-linters: []
 
   revive:
     # Maximum number of open files at the same time.
@@ -741,7 +730,7 @@ linters-settings:
       - name: argument-limit
         severity: warning
         disabled: false
-        arguments: [4]
+        arguments: [ 4 ]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#atomic
       - name: atomic
         severity: warning
@@ -750,7 +739,7 @@ linters-settings:
       - name: banned-characters
         severity: warning
         disabled: false
-        arguments: ["Ω","Σ","σ", "7"]
+        arguments: [ "Ω", "Σ", "σ", "7" ]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#bare-return
       - name: bare-return
         severity: warning
@@ -848,8 +837,8 @@ linters-settings:
         severity: warning
         disabled: false
         arguments:
-        - "checkPrivateReceivers"
-        - "sayRepetitiveInsteadOfStutters"
+          - "checkPrivateReceivers"
+          - "sayRepetitiveInsteadOfStutters"
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#file-header
       - name: file-header
         severity: warning
@@ -990,8 +979,8 @@ linters-settings:
         severity: warning
         disabled: false
         arguments:
-        - [ "ID" ] # AllowList
-        - [ "VM" ] # DenyList
+          - [ "ID" ] # AllowList
+          - [ "VM" ] # DenyList
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#var-declaration
       - name: var-declaration
         severity: warning
@@ -1068,7 +1057,7 @@ linters-settings:
   tenv:
     # The option `all` will run against whole test files (`_test.go`) regardless of method/function signatures.
     # By default, only methods that take `*testing.T`, `*testing.B`, and `testing.TB` as arguments are checked.
-    all: false
+    all: true
 
   testpackage:
     # regexp pattern to skip files
@@ -1241,45 +1230,29 @@ linters-settings:
 
 # TODO: fix
 linters:
-#  # Enable all available linters.
-#  # Default: false
+   # Enable all available linters.
+   # Default: false
   enable-all: true
-#  # Disable specific linter
-#  # https://golangci-lint.run/usage/linters/#disabled-by-default-linters--e--enable
-  disable:
-    - scopelint
-    - ifshort
-#    - containedctx
-#    - goconst
-#    - gochecknoinits
-#    - depguard
-#    - gomodguard
-#    - gomoddirectives
-#    - dupl
-#    - forbidigo
-#    - wsl
-#    - forcetypeassert
-#    - gci
-#    - gochecknoglobals
-#    - decorder
-#    - grouper
+  # Disable specific linter
+  # https://golangci-lint.run/usage/linters/#disabled-by-default-linters--e--enable
+  disable: []
 
   # Enable presets.
   # https://golangci-lint.run/usage/linters
-#  presets:
-#    - bugs
-#    - comment
-#    - complexity
-#    - error
-#    - format
-#    - import
-#    - metalinter
-#    - module
-#    - performance
-#    - sql
-#    - style
-#    - test
-#    - unused
+  #  presets:
+  #    - bugs
+  #    - comment
+  #    - complexity
+  #    - error
+  #    - format
+  #    - import
+  #    - metalinter
+  #    - module
+  #    - performance
+  #    - sql
+  #    - style
+  #    - test
+  #    - unused
 
   # Run only fast linters from enabled linters set (first run won't be fast)
   # Default: false
@@ -1290,7 +1263,7 @@ issues:
   # it can be disabled by this option.
   # To list all excluded by default patterns execute `golangci-lint run --help`.
   # Default: true.
-  exclude-use-default: false
+  exclude-use-default: true
 
   # If set to true exclude and exclude-rules regular expressions become case-sensitive.
   # Default: false
@@ -1318,7 +1291,7 @@ issues:
   # much better don't allow issues in new code.
   #
   # Default: false.
-  new: true
+  new: false
 
   # Show only new issues created after git revision `REV`.
   new-from-rev: HEAD
