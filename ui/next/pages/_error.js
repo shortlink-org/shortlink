@@ -35,12 +35,6 @@ export default function Error() {
 }
 
 // @ts-ignore
-Error.getInitialProps = ({ res, err }) => {
-  const statusCode = (res && err && err.statusCode) || 404
-  return { statusCode }
-}
-
-// @ts-ignore
 function Error404() {
   // eslint-disable-line
   // eslint-disable-line
