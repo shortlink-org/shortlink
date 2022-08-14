@@ -1,6 +1,6 @@
 # DATABASE =============================================================================================================
 postgresql:
-  stage: deploy
+  stage: database
   variables:
     RELEASE_NAME: postgresql
     HELM_PATH: ops/Helm/addons/store/postgresql
@@ -14,7 +14,7 @@ postgresql:
     - when: manual
 
 redis:
-  stage: deploy
+  stage: database
   variables:
     RELEASE_NAME: redis
     HELM_PATH: ops/Helm/addons/store/redis
