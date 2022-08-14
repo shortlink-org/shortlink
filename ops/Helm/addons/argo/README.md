@@ -1,6 +1,6 @@
 # argo
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -19,6 +19,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.18.0 |
 | https://argoproj.github.io/argo-helm | argo-workflows | 0.16.9 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.8.0 |
+| https://charts.bitnami.com/bitnami | common | 1.16.1 |
 
 ## Values
 

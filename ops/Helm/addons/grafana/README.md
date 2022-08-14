@@ -1,6 +1,6 @@
 # grafana
 
-![Version: 0.3.12](https://img.shields.io/badge/Version-0.3.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,8 +14,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.bitnami.com/bitnami | common | 1.16.1 |
 | https://grafana.github.io/helm-charts | grafana | 6.32.13 |
-| https://grafana.github.io/helm-charts | loki | 2.13.3 |
+| https://grafana.github.io/helm-charts | loki | 2.14.1 |
 | https://grafana.github.io/helm-charts | promtail | 5.1.0 |
 | https://grafana.github.io/helm-charts | tempo | 0.15.8 |
 
