@@ -40,7 +40,12 @@ func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *http.ServeMux {
 	// Expose a readiness check on /ready
 	commonMux.HandleFunc("/ready", sentryHandler.HandleFunc(health.ReadyEndpoint))
 
-	go http.ListenAndServe("0.0.0.0:9090", commonMux) // nolint:errcheck
+	go func() {
+		err := http.ListenAndServe("0.0.0.0:9090", commonMux)
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}()
 	log.Info("Run monitoring", field.Fields{
 		"addr": "0.0.0.0:9090",
 	})
