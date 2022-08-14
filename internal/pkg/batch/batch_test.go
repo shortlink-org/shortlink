@@ -33,7 +33,7 @@ func TestNew(t *testing.T) {
 			return nil
 		}
 
-		b, err := New(context.TODO(), aggrCB)
+		b, err := New(context.Background(), aggrCB)
 		assert.Nil(t, err)
 
 		go b.Run(ctx)
