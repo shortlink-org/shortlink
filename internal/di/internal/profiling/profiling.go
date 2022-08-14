@@ -11,7 +11,7 @@ import (
 type PprofEndpoint *http.ServeMux
 
 func New(log logger.Logger) PprofEndpoint {
-	// Create an "common" listener
+	// Create "common" listener
 	pprofMux := http.NewServeMux()
 
 	// Registration pprof-handlers
@@ -21,7 +21,12 @@ func New(log logger.Logger) PprofEndpoint {
 	pprofMux.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
 	pprofMux.HandleFunc("/debug/pprof/trace", pprof.Trace)
 
-	go http.ListenAndServe("0.0.0.0:7071", pprofMux) // nolint:errcheck
+	go func() {
+		err := http.ListenAndServe("0.0.0.0:7071", pprofMux)
+		if err != nil {
+			log.Error(err.Error())
+		}
+	}()
 	log.Info("Run profiling", field.Fields{
 		"addr": "0.0.0.0:7071",
 	})
