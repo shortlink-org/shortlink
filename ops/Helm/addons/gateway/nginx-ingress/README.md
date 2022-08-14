@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.2.0 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.2.1 |
 
 ## Values
 
@@ -58,6 +58,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress-nginx.controller.metrics.serviceMonitor.enabled | bool | `true` |  |
 | ingress-nginx.controller.metrics.serviceMonitor.namespaceSelector.matchNames[0] | string | `"nginx-ingress"` |  |
 | ingress-nginx.controller.podSecurityContext.fsGroup | int | `1001` |  |
+| ingress-nginx.controller.service.nodePorts.http | int | `80` |  |
+| ingress-nginx.controller.service.nodePorts.https | int | `443` |  |
 | ingress-nginx.controller.service.type | string | `"LoadBalancer"` |  |
 | ingress-nginx.defaultBackend.enabled | bool | `true` |  |
 | ingress-nginx.enabled | bool | `true` |  |

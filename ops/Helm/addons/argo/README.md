@@ -14,10 +14,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 4.10.5 |
+| https://argoproj.github.io/argo-helm | argo-cd | 4.10.6 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.0.3 |
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.18.0 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.16.8 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.16.9 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.8.0 |
 
 ## Values
