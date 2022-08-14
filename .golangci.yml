@@ -62,7 +62,7 @@ run:
 
   # Allow multiple parallel golangci-lint instances running.
   # If false (default) - golangci-lint acquires file lock on start.
-  allow-parallel-runners: false
+  allow-parallel-runners: true
 
   # Define the Go version limit.
   # Mainly related to generics support in go1.19.
@@ -99,7 +99,7 @@ output:
   path-prefix: ""
 
   # Sort results by: filepath, line and column.
-  sort-results: false
+  sort-results: true
 
 
 # All available settings of specific linters.
@@ -107,15 +107,15 @@ linters-settings:
   bidichk:
     # The following configurations check for all mentioned invisible unicode runes.
     # All runes are enabled by default.
-    left-to-right-embedding: false
-    right-to-left-embedding: false
-    pop-directional-formatting: false
-    left-to-right-override: false
-    right-to-left-override: false
-    left-to-right-isolate: false
-    right-to-left-isolate: false
-    first-strong-isolate: false
-    pop-directional-isolate: false
+    left-to-right-embedding: true
+    right-to-left-embedding: true
+    pop-directional-formatting: true
+    left-to-right-override: true
+    right-to-left-override: true
+    left-to-right-isolate: true
+    right-to-left-isolate: true
+    first-strong-isolate: true
+    pop-directional-isolate: true
 
   cyclop:
     # The maximal code complexity to report.
@@ -205,13 +205,13 @@ linters-settings:
     # Check whether fmt.Errorf uses the %w verb for formatting errors.
     # See the https://github.com/polyfloyd/go-errorlint for caveats.
     # Default: true
-    errorf: false
+    errorf: true
     # Check for plain type assertions and type switches.
     # Default: true
-    asserts: false
+    asserts: true
     # Check for plain error comparisons.
     # Default: true
-    comparison: false
+    comparison: true
 
   exhaustive:
     # Check switch statements in generated files also.
@@ -258,11 +258,7 @@ linters-settings:
     # See https://go-critic.github.io/overview#checks-overview.
     # To check which checks are enabled run `GL_DEBUG=gocritic golangci-lint run`.
     # By default, list of stable checks is used.
-    enabled-checks:
-      - nestingReduce
-      - unnamedResult
-      - ruleguard
-      - truncateCmp
+    enabled-checks: []
 
     # Which checks should be disabled; can't be combined with 'enabled-checks'.
     # Default: []
@@ -277,12 +273,7 @@ linters-settings:
       - performance
       - experimental
       - opinionated
-    disabled-tags:
-      - diagnostic
-      - style
-      - performance
-      - experimental
-      - opinionated
+    disabled-tags: []
 
     # Settings passed to gocritic.
     # The settings key is the name of a supported gocritic checker.
@@ -395,12 +386,12 @@ linters-settings:
   gofmt:
     # Simplify code: gofmt with `-s` option.
     # Default: true
-    simplify: false
+    simplify: true
 
   gofumpt:
     # Select the Go version to target.
     # Default: 1.15
-    lang-version: "1.17"
+    lang-version: "1.19"
 
     # Module path which contains the source code being formatted.
     # Default: empty string
@@ -490,37 +481,7 @@ linters-settings:
 
     # To specify a set of rules to explicitly exclude.
     # Available rules: https://github.com/securego/gosec#available-rules
-    excludes:
-      - G101
-      - G102
-      - G103
-      - G104
-      - G106
-      - G107
-      - G108
-      - G109
-      - G110
-      - G201
-      - G202
-      - G203
-      - G204
-      - G301
-      - G302
-      - G303
-      - G304
-      - G305
-      - G306
-      - G307
-      - G401
-      - G402
-      - G403
-      - G404
-      - G501
-      - G502
-      - G503
-      - G504
-      - G505
-      - G601
+    excludes: []
 
     # Exclude generated files
     # Default: false
@@ -574,43 +535,7 @@ linters-settings:
     enable-all: true
     # Disable analyzers by name.
     # Run `go tool vet help` to see all analyzers.
-    disable:
-      - asmdecl
-      - assign
-      - atomic
-      - atomicalign
-      - bools
-      - buildtag
-      - cgocall
-      - composites
-      - copylocks
-      - deepequalerrors
-      - errorsas
-      - fieldalignment
-      - findcall
-      - framepointer
-      - httpresponse
-      - ifaceassert
-      - loopclosure
-      - lostcancel
-      - nilfunc
-      - nilness
-      - printf
-      - reflectvaluecompare
-      - shadow
-      - shift
-      - sigchanyzer
-      - sortslice
-      - stdmethods
-      - stringintconv
-      - structtag
-      - testinggoroutine
-      - tests
-      - unmarshal
-      - unreachable
-      - unsafeptr
-      - unusedresult
-      - unusedwrite
+    disable: []
 
   importas:
     # Do not allow unaliased imports of aliased packages.
