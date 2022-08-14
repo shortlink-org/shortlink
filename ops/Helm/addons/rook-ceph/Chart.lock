@@ -1,6 +1,9 @@
 dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.16.1
 - name: rook-ceph
   repository: https://charts.rook.io/release
   version: v1.9.9
-digest: sha256:adc4ad67ad563e12d6ef0f53e27655fb9aff4f07e48a60d64d70cee88ef278f5
-generated: "2022-08-13T09:40:46.879217284Z"
+digest: sha256:4c45e9c1b0c35d02df4145e6a29e00e1714db837681119b0c934d885c2092f05
+generated: "2022-08-15T02:37:06.286036914+03:00"

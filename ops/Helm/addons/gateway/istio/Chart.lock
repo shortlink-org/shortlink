@@ -1,9 +1,12 @@
 dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.16.1
 - name: base
   repository: https://istio-release.storage.googleapis.com/charts
   version: 1.14.3
 - name: istiod
   repository: https://istio-release.storage.googleapis.com/charts
   version: 1.14.3
-digest: sha256:5e9336406299a858390dbe0ef6c90dc7646ba7abae80663e035a6b52dbcb9905
-generated: "2022-08-07T02:44:56.390109008Z"
+digest: sha256:9f5e5acff4216fa975dddc1174f7147c52a3c2719c4f551e2d9b839c424ffe2e
+generated: "2022-08-15T02:34:34.991918221+03:00"

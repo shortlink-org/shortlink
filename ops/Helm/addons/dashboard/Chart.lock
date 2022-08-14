@@ -1,6 +1,9 @@
 dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.16.1
 - name: kubernetes-dashboard
   repository: https://kubernetes.github.io/dashboard
   version: 5.8.0
-digest: sha256:54059c2854e4734d1b33d9adcff0e577b36e8472e796833e5de3b029ba5fa2ed
-generated: "2022-08-14T14:27:42.095246545Z"
+digest: sha256:1e385140c0103af54a97a3d6184990e6aa907b1f8f3d9ffc6387b34933e21017
+generated: "2022-08-15T02:33:46.10800914+03:00"

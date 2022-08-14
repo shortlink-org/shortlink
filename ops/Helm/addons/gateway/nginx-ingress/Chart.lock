@@ -1,6 +1,9 @@
 dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.16.1
 - name: ingress-nginx
   repository: https://kubernetes.github.io/ingress-nginx
   version: 4.2.1
-digest: sha256:65d655ed93b787ab2c64a3f3db284548af76ef1c73d3d80ab0b0913529172bd2
-generated: "2022-08-10T07:28:13.842661542Z"
+digest: sha256:abe5f82e7fbdbb821ad025abdd4cf2447843443fa49cc6c9bbbf93d0e6f94515
+generated: "2022-08-15T02:35:09.341907916+03:00"

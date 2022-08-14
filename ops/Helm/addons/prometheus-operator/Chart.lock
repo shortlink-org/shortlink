@@ -1,6 +1,9 @@
 dependencies:
+- name: common
+  repository: https://charts.bitnami.com/bitnami
+  version: 1.16.1
 - name: kube-prometheus-stack
   repository: https://prometheus-community.github.io/helm-charts
   version: 36.6.2
-digest: sha256:d89a2a25933a5f224f7599d2ceeca248b1e1007b908c4730f706dad5b505d492
-generated: "2022-07-16T14:21:10.146241378Z"
+digest: sha256:06dd896902c7c64e7201b365e2c974f5b1f34d0bea9fb4e6a62c01774c6737b0
+generated: "2022-08-15T02:36:37.633491176+03:00"
