@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 
+	"github.com/jackc/pgx/v5"
 	"github.com/opentracing/opentracing-go"
 
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"

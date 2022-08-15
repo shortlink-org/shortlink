@@ -1,6 +1,8 @@
 package postgres
 
 import (
+	"github.com/jackc/pgx/v5/pgxpool"
+
 	"github.com/batazor/shortlink/internal/pkg/batch"
 )
 
