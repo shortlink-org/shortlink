@@ -22,7 +22,8 @@ const (
 )
 
 // WARNING: this numbers used for inside use
-//          don't this numbers as is
+//
+//	don't this numbers as is
 type Step int32
 
 const (
