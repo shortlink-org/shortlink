@@ -17,7 +17,7 @@ dependencies:
     version: 1.16.1
     repository: https://charts.bitnami.com/bitnami
   - name: redis
-    version: 16.13.2
+    version: 17.0.10
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
     tags:
