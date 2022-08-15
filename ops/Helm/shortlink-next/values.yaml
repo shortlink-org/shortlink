@@ -5,12 +5,28 @@
 nameOverride: ""
 fullnameOverride: ""
 
+## @param commonLabels Add labels to all the deployed resources
+commonLabels: {}
+
+## @param commonAnnotations Add annotations to all the deployed resources
+commonAnnotations: {}
+
+## Pods Service Account
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 serviceAccount:
-  # Specifies whether a service account should be created
+  ## @param serviceAccount.create Specifies whether a service account should be created
   create: true
-  # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
+
+  ## @param serviceAccount.name The name of the ServiceAccount to use.
+  ## If not set and create is true, a name is generated using the `helpers.fullname` template
   name: shortlink
+
+  ## @param serviceAccount.annotations Annotations for service account. Evaluated as a template.
+  ## Only used if `create` is `true`.
+  annotations: {}
+
+  ## @param serviceAccount.automountServiceAccountToken Auto-mount the service account token in the pod
+  automountServiceAccountToken: false
 
 # ==============================================================================
 enabled: true

@@ -28,6 +28,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| commonAnnotations | object | `{}` |  |
+| commonLabels | object | `{}` |  |
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
 | deploy.env.API_LINK_SERVICE | string | `"http://shortlink-api.shortlink:7070"` |  |
@@ -93,6 +95,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
 | service.port | int | `3020` |  |
 | service.type | string | `"ClusterIP"` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.automountServiceAccountToken | bool | `false` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
 

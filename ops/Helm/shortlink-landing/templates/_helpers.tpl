@@ -36,13 +36,10 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "helpers.labels" -}}
-app.kubernetes.io/name: {{ include "helpers.name" . }}
-helm.sh/chart: {{ include "helpers.chart" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+{{- include "common.labels.standard" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/part-of: shortlink
 track: stable
 {{- end -}}

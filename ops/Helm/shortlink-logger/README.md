@@ -28,6 +28,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| commonAnnotations | object | `{}` |  |
+| commonLabels | object | `{}` |  |
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
@@ -74,6 +76,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.automountServiceAccountToken | bool | `false` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
 
