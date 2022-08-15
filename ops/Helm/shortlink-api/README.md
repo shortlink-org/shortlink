@@ -30,6 +30,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | NetworkPolicy.enabled | bool | `false` |  |
+| commonAnnotations | object | `{}` |  |
+| commonLabels | object | `{}` |  |
 | database.postgres.enable | bool | `true` |  |
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` |  |
@@ -188,7 +190,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
 | service.port | int | `7070` |  |
 | service.type | string | `"ClusterIP"` |  |
-| serviceAccount.create | bool | `false` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.automountServiceAccountToken | bool | `false` |  |
+| serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
 
 ----------------------------------------------

@@ -34,9 +34,13 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | chaosMesh.podChaos.enabled | bool | `false` |  |
 | chaosMesh.podChaos.labelSelectors."app.kubernetes.io/part-of" | string | `"shortlink"` |  |
 | chaosMesh.podChaos.scheduler | string | `"@every 5m"` |  |
+| commonAnnotations | object | `{}` |  |
+| commonLabels | object | `{}` |  |
 | fullnameOverride | string | `""` |  |
 | nameOverride | string | `""` |  |
-| serviceAccount.create | string | `"create"` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.automountServiceAccountToken | bool | `false` |  |
+| serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
 
 ----------------------------------------------
