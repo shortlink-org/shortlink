@@ -5,27 +5,27 @@
 nameOverride: ""
 fullnameOverride: ""
 
-## @param commonLabels Add labels to all the deployed resources
+# -- Add labels to all the deployed resources
 commonLabels: {}
 
-## @param commonAnnotations Add annotations to all the deployed resources
+# -- Add annotations to all the deployed resources
 commonAnnotations: {}
 
-## Pods Service Account
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+# -- Pods Service Account
+# @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 serviceAccount:
-  ## @param serviceAccount.create Specifies whether a service account should be created
+  # -- Specifies whether a service account should be created
   create: true
 
-  ## @param serviceAccount.name The name of the ServiceAccount to use.
-  ## If not set and create is true, a name is generated using the `helpers.fullname` template
+  # -- The name of the ServiceAccount to use.
+  # If not set and create is true, a name is generated using the `helpers.fullname` template
   name: shortlink
 
-  ## @param serviceAccount.annotations Annotations for service account. Evaluated as a template.
-  ## Only used if `create` is `true`.
+  # -- Annotations for service account. Evaluated as a template.
+  # Only used if `create` is `true`.
   annotations: {}
 
-  ## @param serviceAccount.automountServiceAccountToken Auto-mount the service account token in the pod
+  # -- Auto-mount the service account token in the pod
   automountServiceAccountToken: false
 
 # ==============================================================================
@@ -65,29 +65,27 @@ deploy:
 
   terminationGracePeriodSeconds: 90
 
-  ## Annotations to be added to controller pods
-  ##
+  # -- Annotations to be added to controller pods
   annotations: {}
 
   image:
     repository: batazor/shortlink-logger
     tag: latest
-    ## Global imagePullPolicy
-    ## Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
-    ## Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    # -- Global imagePullPolicy
+    # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
     pullPolicy: IfNotPresent
 
-  ## Node labels and tolerations for pod assignment
-  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
-  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+  # -- Node labels and tolerations for pod assignment
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
   nodeSelector: {}
-  #  shortlink: "true"
 
   tolerations: []
 
   affinity: []
 
-  # define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
       path: /live
@@ -97,7 +95,7 @@ deploy:
     successThreshold: 1
     failureThreshold: 1
 
-  # define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
       path: /ready
@@ -108,7 +106,7 @@ deploy:
     failureThreshold: 30
 
   resources:
-    # We usually recommend not to specify default resources and to leave this as a conscious
+    # -- We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -120,13 +118,12 @@ deploy:
       memory: 32Mi
 
   podSecurityContext:
-    # fsGroup is the group ID associated with the container
+    # -- fsGroup is the group ID associated with the container
     fsGroup: 1000
 
-  ## Security Context policies for controller pods
-  ## See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
-  ## notes on enabling and using sysctls
-  ##
+  # -- Security Context policies for controller pods
+  # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+  # notes on enabling and using sysctls
   securityContext:
     allowPrivilegeEscalation: false
     runAsNonRoot: true
@@ -139,3 +136,13 @@ deploy:
     capabilities:
       drop:
         - ALL
+
+# Prometheus Operator ServiceMonitor configuration
+monitoring:
+  # -- Creates a Prometheus Operator ServiceMonitor
+  enabled: true
+  # -- Additional labels that can be used so PodMonitor will be discovered by Prometheus
+  labels:
+    release: prometheus-operator
+  # -- The label to use to retrieve the job name from.
+  jobLabel: ""

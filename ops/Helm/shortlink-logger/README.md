@@ -28,58 +28,41 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| commonAnnotations | object | `{}` |  |
-| commonLabels | object | `{}` |  |
+| commonAnnotations | object | `{}` | Add annotations to all the deployed resources |
+| commonLabels | object | `{}` | Add labels to all the deployed resources |
 | deploy.affinity | list | `[]` |  |
-| deploy.annotations | object | `{}` |  |
+| deploy.annotations | object | `{}` | Annotations to be added to controller pods |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
 | deploy.env.TRACER_URI | string | `"grafana-tempo.grafana:6831"` |  |
-| deploy.image.pullPolicy | string | `"IfNotPresent"` |  |
+| deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"batazor/shortlink-logger"` |  |
 | deploy.image.tag | string | `"latest"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
-| deploy.livenessProbe.failureThreshold | int | `1` |  |
-| deploy.livenessProbe.httpGet.path | string | `"/live"` |  |
-| deploy.livenessProbe.httpGet.port | int | `9090` |  |
-| deploy.livenessProbe.initialDelaySeconds | int | `5` |  |
-| deploy.livenessProbe.periodSeconds | int | `5` |  |
-| deploy.livenessProbe.successThreshold | int | `1` |  |
-| deploy.nodeSelector | object | `{}` |  |
-| deploy.podSecurityContext.fsGroup | int | `1000` |  |
-| deploy.readinessProbe.failureThreshold | int | `30` |  |
-| deploy.readinessProbe.httpGet.path | string | `"/ready"` |  |
-| deploy.readinessProbe.httpGet.port | int | `9090` |  |
-| deploy.readinessProbe.initialDelaySeconds | int | `5` |  |
-| deploy.readinessProbe.periodSeconds | int | `5` |  |
-| deploy.readinessProbe.successThreshold | int | `1` |  |
+| deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/live","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.nodeSelector | object | `{}` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
+| deploy.podSecurityContext.fsGroup | int | `1000` | fsGroup is the group ID associated with the container |
+| deploy.readinessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/ready","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.replicaCount | int | `1` |  |
-| deploy.resources.limits.cpu | string | `"100m"` |  |
-| deploy.resources.limits.memory | string | `"128Mi"` |  |
+| deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | deploy.resources.requests.cpu | string | `"10m"` |  |
 | deploy.resources.requests.memory | string | `"32Mi"` |  |
-| deploy.securityContext.allowPrivilegeEscalation | bool | `false` |  |
-| deploy.securityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| deploy.securityContext.readOnlyRootFilesystem | bool | `true` |  |
-| deploy.securityContext.runAsGroup | int | `1000` |  |
-| deploy.securityContext.runAsNonRoot | bool | `true` |  |
-| deploy.securityContext.runAsUser | int | `1000` |  |
+| deploy.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}` | Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls |
 | deploy.strategy.rollingUpdate.maxSurge | int | `1` |  |
 | deploy.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
 | deploy.strategy.type | string | `"RollingUpdate"` |  |
 | deploy.terminationGracePeriodSeconds | int | `90` |  |
 | deploy.tolerations | list | `[]` |  |
 | fullnameOverride | string | `""` |  |
+| monitoring.enabled | bool | `true` | Creates a Prometheus Operator ServiceMonitor |
+| monitoring.jobLabel | string | `""` | The label to use to retrieve the job name from. |
+| monitoring.labels | object | `{"release":"prometheus-operator"}` | Additional labels that can be used so PodMonitor will be discovered by Prometheus |
 | nameOverride | string | `""` |  |
 | secret.enabled | bool | `false` |  |
 | secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.automountServiceAccountToken | bool | `false` |  |
-| serviceAccount.create | bool | `true` |  |
-| serviceAccount.name | string | `"shortlink"` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

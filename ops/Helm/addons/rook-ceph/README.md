@@ -35,7 +35,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.enabled | bool | `true` |  |
 | ingress.tls[0].hosts[0] | string | `"arhitecture.ddns.net"` |  |
 | ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
-| ingress.type | string | `"nginx"` |  |
+| ingress.type | string | `"nginx"` | Type ingress-controller: nginx, istio |
 | rook-ceph.enabled | bool | `true` |  |
 | rook-ceph.monitoring.enabled | bool | `true` |  |
 
