@@ -9,7 +9,8 @@ SHORTLINK_HELM_UI       := ${SHORTLINK_HELM_PATH}/shortlink-next
 SHORTLINK_HELM_LANDING  := ${SHORTLINK_HELM_PATH}/shortlink-landing
 SHORTLINK_HELM_PROXY    := ${SHORTLINK_HELM_PATH}/shortlink-proxy
 SHORTLINK_HELM_BOT      := ${SHORTLINK_HELM_PATH}/shortlink-bot
-SHORTLINK_HELM_SERVICES := api auth bot ingress landing link logger metadata notify proxy ui
+SHORTLINK_HELM_SERVICES := api bot landing link logger metadata next notify proxy
+SHORTLINK_HELM_ADDONS := argo cert-manager dashboard flagger flux gateway/istio gateway/istio-ingress gateway/nginx-ingress grafana keda kyverno metallb prometheus-operator rabbitmq rook-ceph store/postgresql store/redis
 
 helm-init: ## helm init
 	# add custom repo for helm
@@ -22,8 +23,13 @@ helm-init: ## helm init
 	@helm repo update
 
 helm-lint: ## Check Helm chart by linter
+	helm lint --quiet --with-subcharts ${SHORTLINK_HELM_PATH}/chaos
+
 	for i in $(SHORTLINK_HELM_SERVICES); do \
-		helm lint ${SHORTLINK_HELM_PATH}/shortlink-$$i; \
+		helm lint --quiet --with-subcharts ${SHORTLINK_HELM_PATH}/shortlink-$$i; \
+  	done; \
+  	for i in $(SHORTLINK_HELM_ADDONS); do \
+		helm lint --quiet --with-subcharts ${SHORTLINK_HELM_PATH}/addons/$$i; \
   	done
 
 # HELM TASKS ===========================================================================================================
