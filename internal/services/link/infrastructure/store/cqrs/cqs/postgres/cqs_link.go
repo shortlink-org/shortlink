@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/jackc/pgx/v4"
 
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 )

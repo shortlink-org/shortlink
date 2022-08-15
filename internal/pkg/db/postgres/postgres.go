@@ -10,8 +10,8 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	"github.com/jackc/pgx/v4"
-	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
@@ -45,9 +45,6 @@ func (p *Store) Init(ctx context.Context) error {
 		return err
 	}
 
-	// Set binary format for correct work with pgBouncer
-	cnf.PreferSimpleProtocol = true
-
 	// Create pool config
 	cnfPool, err := pgxpool.ParseConfig("")
 	if err != nil {
@@ -57,7 +54,7 @@ func (p *Store) Init(ctx context.Context) error {
 	cnfPool.ConnConfig = cnf
 
 	// Connect to Postgres
-	p.client, err = pgxpool.ConnectConfig(ctx, cnfPool)
+	p.client, err = pgxpool.NewWithConfig(ctx, cnfPool)
 	if err != nil {
 		return err
 	}

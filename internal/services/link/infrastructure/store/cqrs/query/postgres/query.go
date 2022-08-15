@@ -7,7 +7,7 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/golang/protobuf/ptypes/timestamp"
-	"github.com/jackc/pgx/v4/pgxpool"
+	"github.com/jackc/pgx/v5/pgxpool"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
