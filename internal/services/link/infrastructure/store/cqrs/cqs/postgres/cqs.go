@@ -4,8 +4,6 @@ import (
 	"context"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/jackc/pgx/v4/pgxpool"
-
 	"github.com/batazor/shortlink/internal/pkg/db"
 )
 
