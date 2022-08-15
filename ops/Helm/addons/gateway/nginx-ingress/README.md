@@ -61,7 +61,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress-nginx.controller.podSecurityContext.fsGroup | int | `1001` |  |
 | ingress-nginx.controller.service.nodePorts.http | int | `80` |  |
 | ingress-nginx.controller.service.nodePorts.https | int | `443` |  |
-| ingress-nginx.controller.service.type | string | `"LoadBalancer"` |  |
+| ingress-nginx.controller.service.type | string | `"NodePort"` |  |
 | ingress-nginx.defaultBackend.enabled | bool | `true` |  |
 | ingress-nginx.enabled | bool | `true` |  |
 | ingress-nginx.podSecurityPolicy.enabled | bool | `false` |  |

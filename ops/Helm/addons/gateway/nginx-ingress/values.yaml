@@ -38,7 +38,7 @@ ingress-nginx:
       fsGroup: 1001
 
     service:
-      type: LoadBalancer
+      type: NodePort
       nodePorts:
         http: 80
         https: 443

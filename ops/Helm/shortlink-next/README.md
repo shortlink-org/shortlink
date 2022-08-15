@@ -36,14 +36,14 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe.failureThreshold | int | `1` |  |
 | deploy.livenessProbe.httpGet.path | string | `"/"` |  |
-| deploy.livenessProbe.httpGet.port | int | `80` |  |
+| deploy.livenessProbe.httpGet.port | int | `8080` |  |
 | deploy.livenessProbe.initialDelaySeconds | int | `15` |  |
 | deploy.livenessProbe.periodSeconds | int | `30` |  |
 | deploy.livenessProbe.successThreshold | int | `1` |  |
 | deploy.nodeSelector | list | `[]` |  |
 | deploy.readinessProbe.failureThreshold | int | `30` |  |
 | deploy.readinessProbe.httpGet.path | string | `"/"` |  |
-| deploy.readinessProbe.httpGet.port | int | `80` |  |
+| deploy.readinessProbe.httpGet.port | int | `8080` |  |
 | deploy.readinessProbe.initialDelaySeconds | int | `15` |  |
 | deploy.readinessProbe.periodSeconds | int | `30` |  |
 | deploy.readinessProbe.successThreshold | int | `1` |  |
@@ -73,7 +73,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | ingress.type | string | `"nginx"` |  |
 | nameOverride | string | `""` |  |
-| service.port | int | `80` |  |
+| service.port | int | `8080` |  |
 | service.type | string | `"ClusterIP"` |  |
 | serviceAccount.create | bool | `true` |  |
 | serviceAccount.name | string | `"shortlink"` |  |
