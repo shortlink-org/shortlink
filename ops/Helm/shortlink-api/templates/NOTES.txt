@@ -4,8 +4,6 @@ APP VERSION: {{ .Chart.AppVersion }}
 
 ** Please be patient while the chart is being deployed **
 
-Chart released!!!
-
 1. Get the URL by running these commands:
 
 {{- if contains "LoadBalancer" .Values.service.type }}
@@ -31,6 +29,4 @@ Chart released!!!
 
 {{- end }}
 
-{{- include "common.warnings.rollingTag" .Values.image }}
-{{- include "common.warnings.rollingTag" .Values.cloneStaticSiteFromGit.image }}
-{{- include "common.warnings.rollingTag" .Values.metrics.image }}
+{{- include "common.warnings.rollingTag" .Values.deploy.image }}

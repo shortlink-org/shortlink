@@ -90,7 +90,6 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.type | string | `"nginx"` |  |
 | kratos.enabled | bool | `true` |  |
 | kratos.fullnameOverride | string | `"kratos"` |  |
-| kratos.image.tag | string | `"v0.9.0-alpha.3"` |  |
 | kratos.ingress.admin.enabled | bool | `false` |  |
 | kratos.ingress.public.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | kratos.ingress.public.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
