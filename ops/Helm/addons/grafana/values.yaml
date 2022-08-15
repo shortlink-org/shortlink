@@ -7,7 +7,7 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
-  ## Deploy default dashboards.
+  # Deploy default dashboards.
   ##
   defaultDashboardsEnabled: true
 
@@ -53,7 +53,7 @@ grafana:
       enabled: true
       label: grafana_dashboard
 
-      ## Annotations for Grafana dashboard configmaps
+      # Annotations for Grafana dashboard configmaps
       ##
       annotations: {}
       multicluster: false
@@ -61,7 +61,7 @@ grafana:
       enabled: true
       defaultDatasourceEnabled: true
 
-      ## Annotations for Grafana datasource configmaps
+      # Annotations for Grafana datasource configmaps
       ##
       annotations: {}
 

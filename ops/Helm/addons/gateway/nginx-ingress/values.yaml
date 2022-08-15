@@ -5,17 +5,17 @@
 ingress-nginx:
   enabled: true
 
-  ## Default 404 backend
+  # Default 404 backend
   defaultBackend:
     enabled: true
 
-  ## If true, create & use Pod Security Policy resources
-  ## https://kubernetes.io/docs/concepts/policy/pod-security-policy/
+  # If true, create & use Pod Security Policy resources
+  # https://kubernetes.io/docs/concepts/policy/pod-security-policy/
   podSecurityPolicy:
     enabled: false
 
-  ## nginx configuration
-  ## Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
+  # nginx configuration
+  # Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
   controller:
 
     # Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
@@ -30,7 +30,7 @@ ingress-nginx:
     # is merged
     hostNetwork: false
 
-    ## DaemonSet or Deployment
+    # DaemonSet or Deployment
     ##
     kind: Deployment
 

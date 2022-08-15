@@ -31,8 +31,8 @@ kube-prometheus-stack:
       paths:
         - /alertmanager
 
-      ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
-      ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
+      # For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
+      # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
       pathType: Prefix
 
       tls:
@@ -68,7 +68,7 @@ kube-prometheus-stack:
 
       serviceMonitorSelector: {}
 
-      ## How long to retain metrics
+      # How long to retain metrics
       retention: 3d
 
     ingress:
@@ -88,8 +88,8 @@ kube-prometheus-stack:
       paths:
         - /prometheus
 
-      ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
-      ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
+      # For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
+      # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
       pathType: Prefix
 
       tls:
