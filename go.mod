@@ -44,7 +44,7 @@ require (
 	github.com/lib/pq v1.10.6
 	github.com/luna-duclos/instrumentedsql v1.1.3
 	github.com/luna-duclos/instrumentedsql/opentracing v0.0.0-20201103091713-40d03108b6f4
-	github.com/mattn/go-sqlite3 v1.14.14
+	github.com/mattn/go-sqlite3 v1.14.15
 	github.com/nats-io/nats.go v1.16.0
 	github.com/opentracing-contrib/go-grpc v0.0.0-20210225150812-73cb765af46e
 	github.com/opentracing-contrib/go-stdlib v1.0.0
