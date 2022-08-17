@@ -18,7 +18,7 @@ dependencies:
     version: 1.16.1
     repository: https://charts.bitnami.com/bitnami
   - name: kube-prometheus-stack
-    version: 39.7.0
+    version: 39.8.0
     repository: https://prometheus-community.github.io/helm-charts
     condition: kube-prometheus-stack.enabled
     tags:
