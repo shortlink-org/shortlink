@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: common
-    version: 1.17.0
+    version: 2.0.0
     repository: https://charts.bitnami.com/bitnami
   - name: metallb
     version: 0.13.4
