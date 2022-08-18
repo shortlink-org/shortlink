@@ -18,7 +18,7 @@ dependencies:
     version: 1.16.1
     repository: https://charts.bitnami.com/bitnami
   - name: argo-cd
-    version: 4.10.6
+    version: 4.10.7
     repository: https://argoproj.github.io/argo-helm
     condition: argo.enabled
     tags:
