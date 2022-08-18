@@ -15,7 +15,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: common
-    version: 1.17.0
+    version: 1.17.1
     repository: https://charts.bitnami.com/bitnami
   - name: argo-cd
     version: 4.10.7
