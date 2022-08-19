@@ -12,71 +12,6 @@ volumes:
 
 services:
 
-#  auth:
-#    <<: *network
-#    build:
-#      context: .
-#      dockerfile: ops/dockerfile/auth.Dockerfile
-#      shm_size: 1gb
-#    depends_on:
-#      - coredns
-#      - kratos
-#    container_name: auth
-#    restart: on-failure
-#    environment: []
-#    cpu_quota: 20000
-#    mem_limit: 500m
-#    logging:
-#      driver: ${LOGGER_DRIVER}
-#      options:
-#        loki-url: ${LOGGER_DRIVER_URL}
-#        max-size: ${LOGGER_MAX_SIZE}
-
-  # -------------------------------------------------------------------------- #
-  # ORY HYDRA
-  # OAuth 2.0 and OpenID Certified® OpenID Connect Server
-  # https://www.ory.sh/hydra/
-  # https://github.com/ory/hydra
-  # -------------------------------------------------------------------------- #
-
-#  hydra:
-#    <<: *network
-#    depends_on:
-#      - coredns
-#      - hydra-migrate
-#    image: oryd/hydra
-#    container_name: app-hydra
-#    ports:
-#      - "4444:4444" # Public port
-#      - "4445:4445" # Admin port
-#      - "5555:5555" # Port for hydra token user
-#    command:
-#      serve all --dangerous-force-http
-#    environment:
-#      - URLS_SELF_ISSUER=http://127.0.0.1:4444
-#      - URLS_CONSENT=http://127.0.0.1:9000/oauth2/consent
-#      - URLS_LOGIN=http://127.0.0.1:9000/oauth2/login
-#      - URLS_LOGOUT=http://127.0.0.1:9000/oauth2/logout
-#      - SECRETS_SYSTEM=youReallyNeedToChangeThis
-#      - OIDC_SUBJECT_IDENTIFIERS_SUPPORTED_TYPES=public,pairwise
-#      - OIDC_SUBJECT_IDENTIFIERS_PAIRWISE_SALT=youReallyNeedToChangeThis
-#      - HYDRA_ADMIN_URL=http://127.0.0.1:4445
-#      - DSN=postgres://${DB_USER}:${DB_PASSWORD}@postgresql-db:${DB_PORT}/${DB_NAME}?sslmode=disable&max_conns=20&max_idle_conns=4
-#    restart: unless-stopped
-
-#  hydra-migrate:
-#    <<: *network
-#    depends_on:
-#      - coredns
-#      - kratos_db
-#    image: oryd/hydra
-#    container_name: hydra-migrate
-#    environment:
-#      DSN: "postgres://${AUTH_DB_USER}:${AUTH_DB_PASS}@kratos_db:5432/${AUTH_DB}?sslmode=disable&max_conns=20&max_idle_conns=4"
-#    command:
-#      migrate sql -e --yes
-#    restart: on-failure
-
   # -------------------------------------------------------------------------- #
   # ORY KRATOS
   # User database, self-login infrastructure, 2FA authentication
@@ -94,6 +29,10 @@ services:
     container_name: kratos
     environment:
       DSN: sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
+      LOG_LEVEL: warning
+      TRACING_PROVIDERS_JAEGER_PROPAGATION: b3
+      TRACING_PROVIDERS_JAEGER_SAMPLING_TYPE: const
+      TRACING_PROVIDERS_JAEGER_SAMPLING_VALUE: 1
     ports:
       - "4433:4433"
       - "4434:4434"
@@ -124,49 +63,6 @@ services:
       - type: bind
         source: ./ops/docker-compose/application/auth
         target: /etc/config/kratos
-
-#  kratos-selfservice-ui-node:
-#    <<: *network
-#    depends_on:
-#      - coredns
-#    image: oryd/kratos-selfservice-ui-node:v0.5.5-alpha.1
-#    container_name: kratos-ui-node
-#    environment:
-#      - PORT=4455
-#      - SECURITY_MODE=
-#      - KRATOS_BROWSER_URL=http://127.0.0.1:4433/
-#      - KRATOS_PUBLIC_URL=http://kratos:4433/
-#      - KRATOS_ADMIN_URL=http://kratos:4434/
-#    ports:
-#      - "4455:4455"
-#    restart: on-failure
-
-  # -------------------------------------------------------------------------- #
-  # ORY KETO
-  # User and Policies management, a.k.a. the permission mapping users to
-  # characters
-  # https://www.ory.sh/keto/
-  # https://github.com/ory/keto
-  # -------------------------------------------------------------------------- #
-#  keto:
-#    <<: *network
-#    depends_on:
-#      - coredns
-##      - keto_db
-##      - keto_migrate
-#    image: oryd/keto:v0.6.0-alpha.1
-#    command: serve
-#    ports:
-#      - "4466:4466"
-#      - "4467:4467"
-#    environment:
-#      DSN: memory
-#      TRACING_PROVIDER: jaeger
-#      TRACING_PROVIDER_JAEGER_SAMPLING_SERVER_URL: http://jaeger:5778/sampling
-#      TRACING_PROVIDER_JAEGER_LOCAL_AGENT_ADDRESS: jaeger:6831
-#      TRACING_PROVIDER_JAEGER_SAMPLING_TYPE: const
-#      TRACING_PROVIDER_JAEGER_SAMPLING_VALUE: 1
-#    restart: on-failure
 
   # -------------------------------------------------------------------------- #
   # ORY mailslurper

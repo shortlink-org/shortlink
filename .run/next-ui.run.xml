@@ -3,13 +3,11 @@
     <package-json value="$PROJECT_DIR$/ui/next/package.json" />
     <command value="run" />
     <scripts>
-      <script value="start" />
+      <script value="start:dev" />
     </scripts>
-    <node-interpreter value="$USER_HOME$/.nvm/versions/node/v18.0.0/bin/node" />
+    <node-interpreter value="node" />
     <package-manager value="npm" />
-    <envs>
-      <env name="API_URI" value="http://127.0.0.1:3000" />
-    </envs>
+    <envs />
     <method v="2" />
   </configuration>
 </component>

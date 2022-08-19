@@ -66,7 +66,6 @@ const NEXT_CONFIG = {
 
     return config
   },
-  webpack5: true,
   trailingSlash: true,
   headers: () => {
     return [
