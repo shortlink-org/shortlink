@@ -33,6 +33,7 @@ up: ## Run for specific job
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
+		-f ops/docker-compose/database/postgres.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose
