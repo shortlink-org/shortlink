@@ -26,10 +26,13 @@ dep: ## Install dependencies for this project
 export CURRENT_UID=$(id -u):$(id -g)
 
 up: ## Run for specific job
-	@COMPOSE_PROFILES=dns,flower docker-compose \
+	@COMPOSE_PROFILES=dns,opentracing docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns.yaml \
-		-f ops/docker-compose/mq/redpanda.yaml \
+		-f ops/docker-compose/application/auth.yaml \
+		-f ops/docker-compose/tooling/observability/grafana.yaml \
+		-f ops/docker-compose/tooling/observability/grafana-loki.yaml \
+		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose

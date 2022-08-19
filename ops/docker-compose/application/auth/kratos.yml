@@ -3,7 +3,7 @@
 # This file contains the configuration for your Kratos container.
 # Reference: https://www.ory.sh/kratos/docs/reference/configuration
 
-version: v0.9.0-alpha.3
+version: v0.10.1
 
 dsn: memory
 
@@ -15,7 +15,7 @@ identity:
 
 serve:
   public:
-    # Kratos uses cookies so you must always connect from "127.0.0.1"
+    # Kratos uses cookies, so you must always connect from "127.0.0.1"
     base_url: http://127.0.0.1:4433/
     cors:
       enabled: true
@@ -150,3 +150,15 @@ courier:
   smtp:
     connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
     from_address: no-reply@shortlink.com
+
+tracing:
+  service_name: Ory Kratos
+  providers:
+    jaeger:
+      # propagation: b3
+      sampling:
+        # type: const
+        # value: 1
+        server_url: http://jaeger-agent:5778/sampling
+      local_agent_address: jaeger-agent:6831
+  provider: jaeger
