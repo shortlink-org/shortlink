@@ -13,10 +13,8 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: postgres:14-alpine
+    image: postgres:15beta3-alpine
     command: -c 'config_file=/etc/postgresql/postgresql.conf'
-    profiles:
-      - postgres
     init: true
     restart: on-failure
     container_name: postgres
@@ -49,8 +47,6 @@ services:
       - postgres
       - coredns
     image: docker.io/bitnami/pgbouncer:1
-    profiles:
-      - postgres
     restart: on-failure
     container_name: pgbouncer
     ports:
