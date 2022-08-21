@@ -343,7 +343,7 @@ kratos:
                   - hook: session
 
       log:
-        level: debug
+        level: info
         format: json
         leak_sensitive_values: true
 
@@ -366,9 +366,21 @@ kratos:
           from_address: no-reply@shortlink.com
 
     development: true
-    # autoMigrate is relying on a simple initContainer mechanism
-    # Do not turn it on if the replicaCount > 1
-    autoMigrate: false
+
+    # -- Enables database migration
+    automigration:
+      enabled: true
+      # -- Configure the way to execute database migration. Possible values: job, initContainer
+      # When set to job, the migration will be executed as a job on release or upgrade.
+      # When set to initContainer, the migration will be executed when kratos pod is created
+      # Defaults to job
+      type: job
+
+    # -- Parameters for the Prometheus ServiceMonitor objects.
+    # Reference: https://docs.openshift.com/container-platform/4.6/rest_api/monitoring_apis/servicemonitor-monitoring-coreos-com-v1.html
+    serviceMonitor:
+      # -- switch to false to prevent creating the ServiceMonitor
+      enabled: true
 
     #  You can add multiple identity schemas here
     identitySchemas:
