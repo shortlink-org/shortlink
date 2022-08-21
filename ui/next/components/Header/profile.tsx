@@ -31,7 +31,7 @@ export default function Profile() {
         // Something else happened!
         return Promise.reject(err)
       })
-  })
+  }, [])
 
   const profile = [
     {

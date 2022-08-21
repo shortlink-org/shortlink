@@ -29,7 +29,6 @@ services:
     container_name: kratos
     environment:
       DSN: sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
-      LOG_LEVEL: warning
       TRACING_PROVIDERS_JAEGER_PROPAGATION: b3
       TRACING_PROVIDERS_JAEGER_SAMPLING_TYPE: const
       TRACING_PROVIDERS_JAEGER_SAMPLING_VALUE: 1

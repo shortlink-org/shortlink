@@ -26,7 +26,7 @@ const SignIn: NextPage = () => {
     refresh,
     // AAL = Authorization Assurance Level. This implies that we want to upgrade the AAL, meaning that we want
     // to perform two-factor authentication/verification.
-    aal,
+    aal
   } = router.query
 
   useEffect(() => {
@@ -51,7 +51,7 @@ const SignIn: NextPage = () => {
       .initializeSelfServiceLoginFlowForBrowsers(
         Boolean(refresh),
         aal ? String(aal) : undefined,
-        returnTo ? String(returnTo) : undefined,
+        returnTo ? String(returnTo) : undefined
       )
       .then(({ data }) => {
         setFlow(data)
@@ -66,7 +66,7 @@ const SignIn: NextPage = () => {
       .push(`/auth/login?flow=${flow?.id}`, undefined, { shallow: true })
       .then(() =>
         ory
-          .submitSelfServiceLoginFlow(String(flow?.id), undefined, values)
+          .submitSelfServiceLoginFlow(String(flow?.id), values, values)
           // We logged in successfully! Let's bring the user home.
           .then(() => {
             if (flow?.return_to) {
@@ -86,7 +86,7 @@ const SignIn: NextPage = () => {
             }
 
             return Promise.reject(err)
-          }),
+          })
       )
 
   return (
@@ -125,7 +125,7 @@ const SignIn: NextPage = () => {
                 </span>
               </h3>
 
-              <Flow onSubmit={onSubmit} flow={flow} />
+              <Flow key={"login"} onSubmit={onSubmit} flow={flow} />
 
               <div className="flex items-center justify-between">
                 <Link href="/auth/forgot" variant="body2">

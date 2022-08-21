@@ -66,7 +66,7 @@ const NEXT_CONFIG = {
 
     return config
   },
-  trailingSlash: true,
+  trailingSlash: false,
   headers: () => {
     return [
       {
