@@ -5,7 +5,7 @@ import { FormEvent } from 'react'
 import { NodeInputProps } from './helpers'
 
 // @ts-ignore
-export function NodeInputButton<T>({
+export function NodeInputButton<T>({ // eslint-disable-line
   node,
   attributes,
   setValue,
@@ -34,7 +34,7 @@ export function NodeInputButton<T>({
   return (
     <Button
       name={attributes.name}
-      onClick={(e) => {onClick(e)}}
+      onClick={onClick}
       className="bg-sky-600 hover:bg-sky-700"
       value={attributes.value || ''}
       disabled={attributes.disabled || disabled}

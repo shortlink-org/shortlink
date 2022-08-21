@@ -3,8 +3,7 @@ import { Checkbox } from '@ory/themes'
 
 import { NodeInputProps } from './helpers'
 
-export function NodeInputCheckbox<T>({
-  // eslint-disable-line
+export function NodeInputCheckbox<T>({ // eslint-disable-line
   node,
   attributes,
   setValue,
