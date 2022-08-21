@@ -48,7 +48,7 @@ const SignUp: NextPage = () => {
     // Otherwise we initialize it
     ory
       .initializeSelfServiceRegistrationFlowForBrowsers(
-        returnTo ? String(returnTo) : undefined,
+        returnTo ? String(returnTo) : undefined
       )
       .then(({ data }) => {
         setFlow(data)
@@ -83,7 +83,7 @@ const SignUp: NextPage = () => {
             }
 
             return Promise.reject(err)
-          }),
+          })
       )
 
   return (
