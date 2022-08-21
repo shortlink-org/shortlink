@@ -12,9 +12,11 @@ import (
 	"github.com/go-chi/cors"
 	"github.com/go-chi/render"
 	"github.com/opentracing/opentracing-go"
+	"github.com/swaggo/http-swagger"
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	_ "github.com/batazor/shortlink/docs/api"
 	_ "github.com/batazor/shortlink/internal/pkg/i18n"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	cqrs_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/cqrs"
@@ -29,6 +31,20 @@ import (
 )
 
 // Run HTTP-server
+// @title Shortlink API
+// @version 1.0
+// @description Shortlink API
+// @termsOfService http://swagger.io/terms/
+//
+// @contact.name Shortlink repository
+// @contact.url https://github.com/batazor/shortlink/issues
+// @contact.email support@swagger.io
+//
+// @license.name MIT
+// @license.url http://www.opensource.org/licenses/MIT
+//
+// @host localhost:7070
+// @BasePath /api
 func (api *API) Run(
 	ctx context.Context,
 	i18n *message.Printer,
@@ -85,6 +101,7 @@ func (api *API) Run(
 	r.Mount("/api/links", link_api.Routes(link_rpc))
 	r.Mount("/api/cqrs", cqrs_api.Routes(link_command, link_query))
 	r.Mount("/api/sitemap", sitemap_api.Routes(sitemap_rpc))
+	r.Mount("/api/swagger/{param}", httpSwagger.Handler())
 
 	srv := http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),

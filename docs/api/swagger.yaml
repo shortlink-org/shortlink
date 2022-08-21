@@ -1,0 +1,107 @@
+basePath: /api
+definitions:
+  timestamppb.Timestamp:
+    properties:
+      nanos:
+        description: |-
+          Non-negative fractions of a second at nanosecond resolution. Negative
+          second values with fractions must still have non-negative nanos values
+          that count forward in time. Must be from 0 to 999,999,999
+          inclusive.
+        type: integer
+      seconds:
+        description: |-
+          Represents seconds of UTC time since Unix epoch
+          1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
+          9999-12-31T23:59:59Z inclusive.
+        type: integer
+    type: object
+  v1.GetResponse:
+    properties:
+      link:
+        $ref: '#/definitions/v1.Link'
+    type: object
+  v1.Link:
+    properties:
+      created_at:
+        $ref: '#/definitions/timestamppb.Timestamp'
+        description: Create at
+      describe:
+        description: Describe of link
+        type: string
+      hash:
+        description: Hash by URL + salt
+        type: string
+      updated_at:
+        $ref: '#/definitions/timestamppb.Timestamp'
+        description: Update at
+      url:
+        description: URL
+        type: string
+    type: object
+  v1.Links:
+    properties:
+      link:
+        items:
+          $ref: '#/definitions/v1.Link'
+        type: array
+    type: object
+  v1.ListResponse:
+    properties:
+      links:
+        $ref: '#/definitions/v1.Links'
+    type: object
+host: localhost:7070
+info:
+  contact:
+    email: support@swagger.io
+    name: Shortlink repository
+    url: https://github.com/batazor/shortlink/issues
+  description: Shortlink API
+  license:
+    name: MIT
+    url: http://www.opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Shortlink API
+  version: "1.0"
+paths:
+  /links:
+    get:
+      consumes:
+      - application/json
+      description: List links
+      operationId: list-links
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.ListResponse'
+      summary: List links
+  /links/{hash}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete link
+      operationId: delete-link
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      summary: Delete link
+    get:
+      consumes:
+      - application/json
+      description: Get link
+      operationId: get-link
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.GetResponse'
+      summary: Get link
+swagger: "2.0"
