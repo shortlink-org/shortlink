@@ -5,7 +5,7 @@ interface Props {
   attributes: UiNodeImageAttributes
 }
 
-export const NodeImage = ({ node, attributes }: Props) => (
+export const NodeImage = ({ node, attributes }: Props) => ( // eslint-disable-line
   <img
     data-testid={`node/image/${attributes.id}`}
     src={attributes.src}

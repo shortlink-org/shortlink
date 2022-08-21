@@ -112,8 +112,7 @@ function* watchDeleteLink() {
 function* updateLink(action) {
   try {
     // @ts-ignore
-    const response = yield fetch(`/api/links/${action.payload._id}`, {
-      // eslint-disable-line
+    const response = yield fetch(`/api/links/${action.payload._id}`, { // eslint-disable-line
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
