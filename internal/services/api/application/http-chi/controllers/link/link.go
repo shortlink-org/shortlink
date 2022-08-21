@@ -118,6 +118,15 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 }
 
 // Get ...
+// @Summary Get link
+// @Description Get link
+// @ID get-link
+// @Accept  json
+// @Produce  json
+// @Group Links
+// @Success 200 {object} link_rpc.GetResponse
+// @NotFound 404 {object} link_rpc.GetResponse
+// @Router /links/{hash} [get]
 func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -167,6 +176,14 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 }
 
 // List ...
+// @Summary List links
+// @Description List links
+// @ID list-links
+// @Accept  json
+// @Produce  json
+// @Group Links
+// @Success 200 {object} link_rpc.ListResponse
+// @Router /links [get]
 func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -211,6 +228,14 @@ func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 }
 
 // Delete ...
+// @Summary Delete link
+// @Description Delete link
+// @ID delete-link
+// @Accept  json
+// @Produce  json
+// @Group Links
+// @Success 200 ""
+// @Router /links/{hash} [delete]
 func (h *Handler) Delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 

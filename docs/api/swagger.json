@@ -1,0 +1,147 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Shortlink API",
+        "title": "Shortlink API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "Shortlink repository",
+            "url": "https://github.com/batazor/shortlink/issues",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "http://www.opensource.org/licenses/MIT"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:7070",
+    "basePath": "/api",
+    "paths": {
+        "/links": {
+            "get": {
+                "description": "List links",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "List links",
+                "operationId": "list-links",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.ListResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/links/{hash}": {
+            "get": {
+                "description": "Get link",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get link",
+                "operationId": "get-link",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.GetResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete link",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete link",
+                "operationId": "delete-link",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "timestamppb.Timestamp": {
+            "type": "object",
+            "properties": {
+                "nanos": {
+                    "description": "Non-negative fractions of a second at nanosecond resolution. Negative\nsecond values with fractions must still have non-negative nanos values\nthat count forward in time. Must be from 0 to 999,999,999\ninclusive.",
+                    "type": "integer"
+                },
+                "seconds": {
+                    "description": "Represents seconds of UTC time since Unix epoch\n1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to\n9999-12-31T23:59:59Z inclusive.",
+                    "type": "integer"
+                }
+            }
+        },
+        "v1.GetResponse": {
+            "type": "object",
+            "properties": {
+                "link": {
+                    "$ref": "#/definitions/v1.Link"
+                }
+            }
+        },
+        "v1.Link": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "description": "Create at",
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "describe": {
+                    "description": "Describe of link",
+                    "type": "string"
+                },
+                "hash": {
+                    "description": "Hash by URL + salt",
+                    "type": "string"
+                },
+                "updated_at": {
+                    "description": "Update at",
+                    "$ref": "#/definitions/timestamppb.Timestamp"
+                },
+                "url": {
+                    "description": "URL",
+                    "type": "string"
+                }
+            }
+        },
+        "v1.Links": {
+            "type": "object",
+            "properties": {
+                "link": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/v1.Link"
+                    }
+                }
+            }
+        },
+        "v1.ListResponse": {
+            "type": "object",
+            "properties": {
+                "links": {
+                    "$ref": "#/definitions/v1.Links"
+                }
+            }
+        }
+    }
+}
