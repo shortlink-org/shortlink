@@ -13,6 +13,7 @@ dep: ## Install dependencies for this project
 	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 	@go install github.com/securego/gosec/cmd/gosec@latest
 	@go install moul.io/protoc-gen-gotemplate@latest
+	@go install github.com/cloudflare/cfssl/cmd/...@latest
 
 	# for NodeJS
 	@npm install -g grpc-tools grpc_tools_node_protoc_ts
@@ -26,14 +27,17 @@ dep: ## Install dependencies for this project
 export CURRENT_UID=$(id -u):$(id -g)
 
 up: ## Run for specific job
-	@COMPOSE_PROFILES=dns,opentracing docker-compose \
+	@COMPOSE_PROFILES=dns,opentracing,gateway docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns.yaml \
 		-f ops/docker-compose/application/auth.yaml \
+		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/database/redis.yaml \
+		-f ops/docker-compose/database/postgres.yaml \
+		-f ops/docker-compose/mq/rabbitmq.yaml \
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
-		-f ops/docker-compose/database/postgres.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker-compose

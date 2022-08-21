@@ -6,9 +6,6 @@
       <env name="GRPC_CLIENT_PORT" value="443" />
       <env name="GRPC_SERVER_PORT" value="50053" />
       <env name="MQ_ENABLED" value="true" />
-      <env name="MQ_RABBIT_URI" value="amqp://admin:admin@rabbitmq.rabbitmq:5672" />
-      <env name="STORE_POSTGRES_URI" value="postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable" />
-      <env name="STORE_REDIS_URI" value="shortlink-redis-master.redis:6379" />
       <env name="STORE_TYPE" value="postgres" />
     </envs>
     <kind value="PACKAGE" />
