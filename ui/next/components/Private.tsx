@@ -36,7 +36,7 @@ export default function withAuthSync(Child: any) {
           // Something else happened!
           return Promise.reject(err)
         })
-    })
+    }, [])
 
     // If this is an token we just render the component that was passed with all its props
     return <Child {...props} />

@@ -169,7 +169,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
         {nodes.map((node, k) => {
           const id = getNodeId(node) as keyof Values
           return (
-            <FormControl margin="normal" fullWidth>
+            <FormControl margin="normal" key={`${id}-${k}`} fullWidth>
               <Node
                 key={`${id}-${k}`}
                 disabled={isLoading}

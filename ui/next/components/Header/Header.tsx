@@ -109,7 +109,7 @@ const Header = () => {
         // Something else happened!
         Promise.reject(err),
       )
-  })
+  }, [])
 
   const theme = useTheme()
   const [open, setOpen] = useState(false)

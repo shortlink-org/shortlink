@@ -107,7 +107,7 @@ selfservice:
       enabled: true
       ui_url: http://127.0.0.1:3000/next/auth/verify
       after:
-        default_browser_return_url: http://127.0.0.1:3000/next/
+        default_browser_return_url: http://127.0.0.1:3000/next/auth/verify
 
     logout:
       after:
@@ -129,7 +129,7 @@ selfservice:
             - hook: session
 
 log:
-  level: debug
+  level: trace
   format: json
   leak_sensitive_values: true
 
@@ -150,6 +150,7 @@ courier:
   smtp:
     connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
     from_address: no-reply@shortlink.com
+    from_name: Shortlink
 
 tracing:
   service_name: Ory Kratos

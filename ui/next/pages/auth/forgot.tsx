@@ -7,12 +7,10 @@ import {
 import { AxiosError } from 'axios'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
 import { Layout } from 'components'
 
 import ory from '../../pkg/sdk'
-import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
+import { handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
 
 const Forgot: NextPage = () => {
