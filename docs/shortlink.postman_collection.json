@@ -191,7 +191,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\"identifier\": \"registration-api@user.org\", \"password\": \"fhAzi860a\"}"
+											"raw": "{\"identifier\": \"postman@gmail.com\", \"password\": \"fhAzi860a\", \"method\": \"password\"}"
 										},
 										"url": {
 											"raw": "{{newLogin}}",
@@ -273,7 +273,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\"password\": \"fhAzi860a\"}"
+											"raw": "{\"traits.name.first\": \"{{$randomFirstName}}\", \"password\": \"fhAzi860a\",  \"method\": \"password\"}"
 										},
 										"url": {
 											"raw": "{{updatePassword}}",
@@ -298,7 +298,7 @@
 												"exec": [
 													"var jsonData = JSON.parse(responseBody);",
 													"",
-													"postman.setGlobalVariable(\"recovery\", jsonData.methods.link.config.action);"
+													"postman.setGlobalVariable(\"recovery\", jsonData.ui.action);"
 												],
 												"type": "text/javascript"
 											}
@@ -330,7 +330,7 @@
 								{
 									"name": "Recovery",
 									"request": {
-										"method": "POST",
+										"method": "GET",
 										"header": [
 											{
 												"key": "Accept",
@@ -361,7 +361,7 @@
 												"exec": [
 													"var jsonData = JSON.parse(responseBody);",
 													"",
-													"postman.setGlobalVariable(\"verification\", jsonData.methods.link.config.action);"
+													"postman.setGlobalVariable(\"verification\", jsonData.ui.action);"
 												],
 												"type": "text/javascript"
 											}
@@ -369,9 +369,15 @@
 									],
 									"request": {
 										"method": "GET",
-										"header": [],
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
 										"url": {
-											"raw": "{{AUTH.HTTP_API}}/self-service/verification/api?Accept=application/json",
+											"raw": "{{AUTH.HTTP_API}}/self-service/verification/api",
 											"host": [
 												"{{AUTH.HTTP_API}}"
 											],
@@ -379,12 +385,6 @@
 												"self-service",
 												"verification",
 												"api"
-											],
-											"query": [
-												{
-													"key": "Accept",
-													"value": "application/json"
-												}
 											]
 										}
 									},
@@ -393,7 +393,7 @@
 								{
 									"name": "Verification",
 									"request": {
-										"method": "POST",
+										"method": "GET",
 										"header": [],
 										"url": {
 											"raw": "{{verification}}",
@@ -1057,13 +1057,13 @@
 											}
 										],
 										"url": {
-											"raw": "{{API_GATEWAY.HTTP_API}}/api/link/{{link.hash}}",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/links/{{link.hash}}",
 											"host": [
 												"{{API_GATEWAY.HTTP_API}}"
 											],
 											"path": [
 												"api",
-												"link",
+												"links",
 												"{{link.hash}}"
 											]
 										}
@@ -1083,14 +1083,13 @@
 											}
 										],
 										"url": {
-											"raw": "{{API_GATEWAY.HTTP_API}}/api/link/list",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/links",
 											"host": [
 												"{{API_GATEWAY.HTTP_API}}"
 											],
 											"path": [
 												"api",
-												"link",
-												"list"
+												"links"
 											]
 										}
 									},
@@ -1109,13 +1108,13 @@
 											}
 										],
 										"url": {
-											"raw": "{{API_GATEWAY.HTTP_API}}/api/link/list?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/links/list?filter={\"hash\":{\"eq\":\"5888cab\",\"ne\":\"test\"},\"url\":{\"eq\":\"https://example.com\"}}",
 											"host": [
 												"{{API_GATEWAY.HTTP_API}}"
 											],
 											"path": [
 												"api",
-												"link",
+												"links",
 												"list"
 											],
 											"query": [
@@ -1164,13 +1163,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{API_GATEWAY.HTTP_API}}/api/link",
+											"raw": "{{API_GATEWAY.HTTP_API}}/api/links",
 											"host": [
 												"{{API_GATEWAY.HTTP_API}}"
 											],
 											"path": [
 												"api",
-												"link"
+												"links"
 											]
 										}
 									},

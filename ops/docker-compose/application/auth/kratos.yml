@@ -161,5 +161,5 @@ tracing:
         # type: const
         # value: 1
         server_url: http://jaeger-agent:5778/sampling
-      local_agent_address: jaeger-agent:6831
+      local_agent_address: jaeger-agent:5778
   provider: jaeger
