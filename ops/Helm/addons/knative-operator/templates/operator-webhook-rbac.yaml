@@ -1,0 +1,33 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "knative-operator.fullname" . }}-operator-webhook
+  labels:
+    app.kubernetes.io/part-of: knative-operator
+    eventing.knative.dev/release: devel
+  {{- include "knative-operator.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: '{{ include "knative-operator.fullname" . }}-knative-operator-webhook'
+subjects:
+- kind: ServiceAccount
+  name: '{{ include "knative-operator.fullname" . }}-operator-webhook'
+  namespace: '{{ .Release.Namespace }}'
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "knative-operator.fullname" . }}-operator-webhook
+  labels:
+    app.kubernetes.io/part-of: knative-operator
+    operator.knative.dev/release: v1.6.1
+  {{- include "knative-operator.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: '{{ include "knative-operator.fullname" . }}-knative-operator-webhook'
+subjects:
+- kind: ServiceAccount
+  name: '{{ include "knative-operator.fullname" . }}-operator-webhook'
+  namespace: '{{ .Release.Namespace }}'

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "knative-operator.fullname" . }}-operator-webhook-certs
+  labels:
+    app.kubernetes.io/component: webhook
+    app.kubernetes.io/part-of: knative-operator
+    operator.knative.dev/release: v1.6.1
+  {{- include "knative-operator.labels" . | nindent 4 }}
