@@ -2,7 +2,7 @@
 export KIND=v0.11.1
 
 ct-lint: ### Check Helm chart by ct lint
-	@docker run -it \
+	@docker run --rm -it \
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-v ${PWD}:/home \
 		quay.io/helmpack/chart-testing bash -c "cd /home && ct lint --all --config ct.yaml"

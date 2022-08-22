@@ -14,8 +14,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 1.16.1 |
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 36.6.2 |
+| https://charts.bitnami.com/bitnami | common | 2.0.0 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 39.9.0 |
 
 ## Values
 

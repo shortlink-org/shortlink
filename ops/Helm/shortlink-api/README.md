@@ -22,8 +22,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 1.16.1 |
-| https://k8s.ory.sh/helm/charts | kratos | 0.24.5 |
+| https://charts.bitnami.com/bitnami | common | 2.0.0 |
+| https://k8s.ory.sh/helm/charts | kratos | 0.25.0 |
 
 ## Values
 
@@ -88,7 +88,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kratos.ingress.public.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
 | kratos.ingress.public.tls[0].hosts[0] | string | `"arhitecture.ddns.net"` |  |
 | kratos.ingress.public.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
-| kratos.kratos.autoMigrate | bool | `false` |  |
+| kratos.kratos.automigration | object | `{"enabled":true,"type":"job"}` | Enables database migration |
+| kratos.kratos.automigration.type | string | `"job"` | Configure the way to execute database migration. Possible values: job, initContainer When set to job, the migration will be executed as a job on release or upgrade. When set to initContainer, the migration will be executed when kratos pod is created Defaults to job |
 | kratos.kratos.config.courier.smtp.connection_uri | string | `"smtps://test:test@mailslurper:1025/?skip_ssl_verify=true"` |  |
 | kratos.kratos.config.courier.smtp.from_address | string | `"no-reply@shortlink.com"` |  |
 | kratos.kratos.config.dsn | string | `"memory"` |  |
@@ -102,7 +103,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kratos.kratos.config.identity.schemas[0].url | string | `"file:///etc/config/identity.default.schema.json"` |  |
 | kratos.kratos.config.log.format | string | `"json"` |  |
 | kratos.kratos.config.log.leak_sensitive_values | bool | `true` |  |
-| kratos.kratos.config.log.level | string | `"debug"` |  |
+| kratos.kratos.config.log.level | string | `"info"` |  |
 | kratos.kratos.config.secrets.cookie[0] | string | `"PLEASE-CHANGE-ME-I-AM-VERY-INSECURE"` |  |
 | kratos.kratos.config.selfservice.allowed_return_urls[0] | string | `"*"` |  |
 | kratos.kratos.config.selfservice.allowed_return_urls[1] | string | `"http://*"` |  |
@@ -163,6 +164,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kratos.kratos.config.session.lifespan | string | `"720h"` |  |
 | kratos.kratos.development | bool | `true` |  |
 | kratos.kratos.identitySchemas."identity.default.schema.json" | string | `"{\n  \"$id\": \"https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json\",\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"Person\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"traits\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"email\": {\n          \"type\": \"string\",\n          \"format\": \"email\",\n          \"title\": \"E-Mail\",\n          \"minLength\": 3,\n          \"ory.sh/kratos\": {\n            \"credentials\": {\n              \"password\": {\n                \"identifier\": true\n              }\n            },\n            \"verification\": {\n              \"via\": \"email\"\n            },\n            \"recovery\": {\n              \"via\": \"email\"\n            }\n          }\n        },\n        \"name\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"first\": {\n              \"title\": \"First Name\",\n              \"type\": \"string\"\n            },\n            \"last\": {\n              \"title\": \"Last Name\",\n              \"type\": \"string\"\n            }\n          }\n        }\n      },\n      \"required\": [\n        \"email\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n}\n"` |  |
+| kratos.kratos.serviceMonitor | object | `{"enabled":true}` | Parameters for the Prometheus ServiceMonitor objects. Reference: https://docs.openshift.com/container-platform/4.6/rest_api/monitoring_apis/servicemonitor-monitoring-coreos-com-v1.html |
+| kratos.kratos.serviceMonitor.enabled | bool | `true` | switch to false to prevent creating the ServiceMonitor |
 | monitoring.enabled | bool | `true` | Creates a Prometheus Operator ServiceMonitor |
 | monitoring.jobLabel | string | `""` | The label to use to retrieve the job name from. |
 | monitoring.labels | object | `{"release":"prometheus-operator"}` | Additional labels that can be used so PodMonitor will be discovered by Prometheus |
