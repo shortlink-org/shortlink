@@ -12,3 +12,17 @@ rabbitmq:
   needs: []
   rules:
     - when: manual
+
+kafka:
+  stage: mq
+  variables:
+    RELEASE_NAME: kafka
+    HELM_PATH: ops/Helm/addons/mq/kafka
+    HELM_NAMESPACE: kafka
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
