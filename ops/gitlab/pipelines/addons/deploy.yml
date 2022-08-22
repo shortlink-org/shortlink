@@ -58,3 +58,17 @@ flagger:
   needs: []
   rules:
     - when: manual
+
+knative:
+  stage: deploy
+  variables:
+    RELEASE_NAME: knative
+    HELM_PATH: ops/Helm/addons/knative-operator
+    HELM_NAMESPACE: knative
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: [ ]
+  rules:
+    - when: manual

@@ -1,0 +1,169 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "knative-operator.fullname" . }}-operator-webhook
+  labels:
+    app.kubernetes.io/component: operator-webhook
+    operator.knative.dev/release: v1.6.1
+  {{- include "knative-operator.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app: operator-webhook
+      role: operator-webhook
+    {{- include "knative-operator.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: operator-webhook
+        app.kubernetes.io/component: operator-webhook
+        app.kubernetes.io/name: knative-operator
+        app.kubernetes.io/version: 1.6.1
+        operator.knative.dev/release: v1.6.1
+        role: operator-webhook
+      {{- include "knative-operator.selectorLabels" . | nindent 8 }}
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+        sidecar.istio.io/inject: "false"
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: webhook
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: SYSTEM_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: CONFIG_LOGGING_NAME
+          value: config-logging
+        - name: CONFIG_OBSERVABILITY_NAME
+          value: config-observability
+        - name: WEBHOOK_NAME
+          value: operator-webhook
+        - name: WEBHOOK_PORT
+          value: "8443"
+        - name: METRICS_DOMAIN
+          value: knative.dev/operator
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ .Values.kubernetesClusterDomain }}
+        image: {{ .Values.operatorWebhook.operatorWebhook.image.repository }}:{{ .Values.operatorWebhook.operatorWebhook.image.tag
+          | default .Chart.AppVersion }}
+        livenessProbe:
+          failureThreshold: 6
+          httpGet:
+            httpHeaders:
+            - name: k-kubelet-probe
+              value: webhook
+            port: 8443
+            scheme: HTTPS
+          initialDelaySeconds: 120
+          periodSeconds: 1
+        name: operator-webhook
+        ports:
+        - containerPort: 9090
+          name: metrics
+        - containerPort: 8008
+          name: profiling
+        - containerPort: 8443
+          name: https-webhook
+        readinessProbe:
+          httpGet:
+            httpHeaders:
+            - name: k-kubelet-probe
+              value: webhook
+            port: 8443
+            scheme: HTTPS
+          periodSeconds: 1
+        resources: {{- toYaml .Values.operatorWebhook.operatorWebhook.resources | nindent
+          10 }}
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - all
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+      serviceAccountName: {{ include "knative-operator.fullname" . }}-operator-webhook
+      terminationGracePeriodSeconds: 300
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "knative-operator.fullname" . }}-knative-operator
+  labels:
+    app.kubernetes.io/part-of: knative-operator
+    operator.knative.dev/release: v1.6.1
+  {{- include "knative-operator.labels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "knative-operator.fullname" . }}-operator-webhook
+  labels:
+    app.kubernetes.io/part-of: knative-operator
+    operator.knative.dev/release: v1.6.1
+  {{- include "knative-operator.labels" . | nindent 4 }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "knative-operator.fullname" . }}-knative-operator
+  labels:
+    app.kubernetes.io/part-of: knative-operator
+    operator.knative.dev/release: v1.6.1
+  {{- include "knative-operator.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.knativeOperator.replicas }}
+  selector:
+    matchLabels:
+      name: knative-operator
+    {{- include "knative-operator.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: knative-operator
+        app.kubernetes.io/part-of: knative-operator
+        app.kubernetes.io/version: 1.6.1
+        name: knative-operator
+      {{- include "knative-operator.selectorLabels" . | nindent 8 }}
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      containers:
+      - env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: SYSTEM_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: METRICS_DOMAIN
+          value: knative.dev/operator
+        - name: CONFIG_LOGGING_NAME
+          value: config-logging
+        - name: CONFIG_OBSERVABILITY_NAME
+          value: config-observability
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ .Values.kubernetesClusterDomain }}
+        image: {{ .Values.knativeOperator.knativeOperator.image.repository }}:{{ .Values.knativeOperator.knativeOperator.image.tag
+          | default .Chart.AppVersion }}
+        imagePullPolicy: IfNotPresent
+        name: knative-operator
+        ports:
+        - containerPort: 9090
+          name: metrics
+        resources: {}
+      serviceAccountName: {{ include "knative-operator.fullname" . }}-knative-operator
