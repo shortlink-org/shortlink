@@ -14,11 +14,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 1.16.1 |
-| https://grafana.github.io/helm-charts | grafana | 6.32.13 |
+| https://charts.bitnami.com/bitnami | common | 2.0.0 |
+| https://grafana.github.io/helm-charts | grafana | 6.32.17 |
 | https://grafana.github.io/helm-charts | loki | 2.14.1 |
-| https://grafana.github.io/helm-charts | promtail | 5.1.0 |
-| https://grafana.github.io/helm-charts | tempo | 0.15.8 |
+| https://grafana.github.io/helm-charts | promtail | 6.3.0 |
+| https://grafana.github.io/helm-charts | tempo | 0.16.1 |
 
 ## Values
 

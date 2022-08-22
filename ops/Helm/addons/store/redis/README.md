@@ -14,8 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 1.16.1 |
-| https://charts.bitnami.com/bitnami | redis | 16.13.2 |
+| https://charts.bitnami.com/bitnami | redis | 17.1.0 |
 
 ## Values
 

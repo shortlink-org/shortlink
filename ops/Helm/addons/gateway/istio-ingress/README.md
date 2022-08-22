@@ -14,13 +14,13 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 1.16.1 |
 | https://istio-release.storage.googleapis.com/charts | gateway | 1.14.3 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| gateway.global.logAsJson | bool | `true` |  |
 | gateway.service.ports[0].name | string | `"status-port"` |  |
 | gateway.service.ports[0].port | int | `15021` |  |
 | gateway.service.ports[0].protocol | string | `"TCP"` |  |

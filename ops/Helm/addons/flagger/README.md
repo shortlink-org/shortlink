@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 1.16.1 |
+| https://charts.bitnami.com/bitnami | common | 2.0.0 |
 | https://flagger.app | flagger | 1.22.1 |
 
 ## Values
