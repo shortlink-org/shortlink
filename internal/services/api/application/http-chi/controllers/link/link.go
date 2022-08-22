@@ -40,6 +40,15 @@ func Routes(
 }
 
 // Add ...
+// @Summary Add link
+// @Description Add link
+// @ID add-link
+// @Accept  json
+// @Produce  json
+// @Group Links
+// @Success 200 {object} link_rpc.AddResponse
+// @Router /links [post]
+// @Param link body link_rpc.AddRequest true "Link"
 func (h *Handler) Add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -79,6 +88,15 @@ func (h *Handler) Add(w http.ResponseWriter, r *http.Request) {
 }
 
 // Update ...
+// @Summary Update link
+// @Description Update link
+// @ID update-link
+// @Accept  json
+// @Produce  json
+// @Group Links
+// @Success 200 {object} link_rpc.UpdateResponse
+// @Router /links [put]
+// @Param link body link_rpc.UpdateRequest true "Link"
 func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -127,6 +145,7 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} link_rpc.GetResponse
 // @NotFound 404 {object} link_rpc.GetResponse
 // @Router /links/{hash} [get]
+// @Param hash path string true "Hash"
 func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -236,6 +255,7 @@ func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 // @Group Links
 // @Success 200 ""
 // @Router /links/{hash} [delete]
+// @Param hash path string true "Hash"
 func (h *Handler) Delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 

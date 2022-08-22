@@ -45,6 +45,7 @@ import (
 //
 // @host localhost:7070
 // @BasePath /api
+// @schemes http https
 func (api *API) Run(
 	ctx context.Context,
 	i18n *message.Printer,
