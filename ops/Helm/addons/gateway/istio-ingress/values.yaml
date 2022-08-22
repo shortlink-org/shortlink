@@ -21,3 +21,6 @@ gateway:
         port: 50051
         targetPort: 50051
         protocol: TCP
+
+  global:
+    logAsJson: true
