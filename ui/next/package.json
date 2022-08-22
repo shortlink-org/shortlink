@@ -18,7 +18,7 @@
     "lint:fix": "$(npm bin)/eslint --fix ./",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "swagger": "npx swagger-typescript-api -p ../../api/swagger.json -o ./store/api -n api.ts"
+    "swagger": "npx swagger-typescript-api -p ../../api/swagger.json -o ./store/api -d -r --modular --axios"
   },
   "husky": {
     "hooks": {
