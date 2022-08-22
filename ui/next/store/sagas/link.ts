@@ -1,11 +1,12 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import * as t from 'store/types'
+import API from "./api"
 
 // @ts-ignore
 function* fetchLinkById(id) {
   try {
     // @ts-ignore
-    const response = yield fetch(`/api/links/${id}`)
+    const response = yield API.links.getLink(id)
 
     // @ts-ignore
     const link = yield response.json()
@@ -29,14 +30,11 @@ function* watchFetchLinkById() {
 function* fetchLinkList() {
   try {
     // @ts-ignore
-    const response = yield fetch(`/api/links`)
-
-    // @ts-ignore
-    const links = yield response.json()
+    const response = yield API.links.listLinks()
 
     yield put({
       type: t.LINK_FETCH_LIST_SUCCEEDED,
-      payload: links,
+      payload: response.data,
     })
   } catch (error) {
     yield put({
@@ -53,13 +51,7 @@ function* watchFetchLinkList() {
 function* addLink(action: { payload: any }) {
   try {
     // @ts-ignore
-    const response = yield fetch('/api/links', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(action.payload),
-    })
+    yield API.links.addLink(action.payload)
 
     // @ts-ignore
     const newLink = yield response.json()
@@ -81,12 +73,10 @@ function* watchAddLink() {
   yield takeLatest(t.LINK_ADD_REQUESTED, addLink)
 }
 
-function* deleteLink(action: { payload: any }) {
+function* deleteLink(action: { payload: string }) {
   try {
     // @ts-ignore
-    const response = yield fetch(`/api/links/${action.payload}`, {
-      method: 'DELETE',
-    })
+    const response = yield API.links.deleteLink(action.payload)
 
     // @ts-ignore
     const deletedLink = yield response.json()
@@ -112,20 +102,11 @@ function* watchDeleteLink() {
 function* updateLink(action) {
   try {
     // @ts-ignore
-    const response = yield fetch(`/api/links/${action.payload._id}`, { // eslint-disable-line
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(action.payload),
-    })
-
-    // @ts-ignore
-    const updatedLink = yield response.json()
+    const response = yield API.links.updateLink(action.payload._id, action.payload)
 
     yield put({
       type: t.LINK_UPDATE_SUCCEEDED,
-      payload: updatedLink.data,
+      payload: response.data,
     })
   } catch (error) {
     yield put({

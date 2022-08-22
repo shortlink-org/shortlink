@@ -66,7 +66,7 @@ export function LinkTable() {
 
   return (
     <Layout>
-      <Statistic />
+      <Statistic count={state.list.length} />
 
       <MaterialTable
         icons={tableIcons}

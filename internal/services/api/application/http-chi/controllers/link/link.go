@@ -95,7 +95,7 @@ func (h *Handler) Add(w http.ResponseWriter, r *http.Request) {
 // @Produce  json
 // @Group Links
 // @Success 200 {object} link_rpc.UpdateResponse
-// @Router /links [put]
+// @Router /links/:hash [put]
 // @Param link body link_rpc.UpdateRequest true "Link"
 func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")

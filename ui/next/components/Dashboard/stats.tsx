@@ -1,4 +1,8 @@
-export default function Statistic() {
+interface StatisticProps {
+  count: number;
+}
+
+export default function Statistic({ count }: StatisticProps) {
   return (
     <div className="px-4 py-4 my-3 rounded mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-14 lg:px-8 lg:py-10 bg-white">
       <div className="flex flex-col lg:items-center lg:flex-row">
@@ -19,7 +23,7 @@ export default function Statistic() {
             </svg>
           </div>
           <h3 className="text-4xl font-extrabold sm:text-5xl xl:text-6xl">
-            9 312 435
+            {count}
           </h3>
         </div>
         <div className="lg:w-1/2">
