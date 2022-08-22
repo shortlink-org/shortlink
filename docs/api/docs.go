@@ -45,36 +45,6 @@ const docTemplate = `{
                     }
                 }
             },
-            "put": {
-                "description": "Update link",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Update link",
-                "operationId": "update-link",
-                "parameters": [
-                    {
-                        "description": "Link",
-                        "name": "link",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/v1.UpdateRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/v1.UpdateResponse"
-                        }
-                    }
-                }
-            },
             "post": {
                 "description": "Add link",
                 "consumes": [
@@ -101,6 +71,38 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/v1.AddResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/links/:hash": {
+            "put": {
+                "description": "Update link",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update link",
+                "operationId": "update-link",
+                "parameters": [
+                    {
+                        "description": "Link",
+                        "name": "link",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/v1.UpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/v1.UpdateResponse"
                         }
                     }
                 }
