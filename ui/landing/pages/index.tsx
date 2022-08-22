@@ -4,7 +4,6 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import * as React from 'react'
 // @ts-ignore
-import SwipeableViews from 'react-swipeable-views'
 import Divider from '@mui/material/Divider'
 import { useTheme } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
@@ -59,10 +58,6 @@ const Home: NextPage = () => {
     setValue(newValue);
   };
 
-  const handleChangeIndex = (index: number) => {
-    setValue(index);
-  };
-
   return (
     <div className={styles.container}>
       <Script
@@ -100,110 +95,106 @@ const Home: NextPage = () => {
               textColor="inherit"
               variant="fullWidth"
               aria-label="full width tabs example"
+              selectionFollowsFocus
             >
               <Tab label="Application" {...a11yProps(0)} />
               <Tab label="Infrastructure" {...a11yProps(1)} />
               <Tab label="Docs" {...a11yProps(2)} />
             </Tabs>
           </AppBar>
-          <SwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-            index={value}
-            onChangeIndex={handleChangeIndex}
-          >
-            <TabPanel value={value} index={0} dir={theme.direction}>
-              <Typography variant="h5" component="h4" align={"center"}>
-                Shortlink service (Microservice example)
-              </Typography>
 
-              <Stack
-                spacing={{ xs: 1, sm: 2, md: 4 }}
-                direction="row"
-                divider={<Divider orientation="vertical" flexItem />}
-                mt={2}
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Link href="/next">
-                  <Button variant="outlined">
-                    Next
-                  </Button>
-                </Link>
-              </Stack>
-            </TabPanel>
+          <TabPanel value={value} index={0}>
+            <Typography variant="h5" align={"center"}>
+              Shortlink service (Microservice example)
+            </Typography>
 
-            <TabPanel value={value} index={1} dir={theme.direction}>
-              <Typography variant="h5" component="h4" align={"center"}>
-                Infrastructure services
-              </Typography>
+            <Stack
+              spacing={{ xs: 1, sm: 2, md: 4 }}
+              direction="row"
+              divider={<Divider orientation="vertical" flexItem />}
+              mt={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Link href="/next">
+                <Button variant="outlined">
+                  Next
+                </Button>
+              </Link>
+            </Stack>
+          </TabPanel>
 
-              <Stack
-                spacing={{ xs: 1, sm: 2, md: 4 }}
-                direction="row"
-                divider={<Divider orientation="vertical" flexItem />}
-                mt={2}
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Link href="/prometheus">
-                  <Button variant="outlined">
-                    Prometheus
-                  </Button>
-                </Link>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            <Typography variant="h5" align={"center"}>
+              Infrastructure services
+            </Typography>
 
-                <Link href="/grafana">
-                  <Button variant="outlined">
-                    Grafana
-                  </Button>
-                </Link>
+            <Stack
+              spacing={{ xs: 1, sm: 2, md: 4 }}
+              direction="row"
+              divider={<Divider orientation="vertical" flexItem />}
+              mt={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Link href="/prometheus">
+                <Button variant="outlined">
+                  Prometheus
+                </Button>
+              </Link>
 
-                <Link href="/rabbitmq">
-                  <Button variant="outlined">
-                    RabbitMQ
-                  </Button>
-                </Link>
+              <Link href="/grafana">
+                <Button variant="outlined">
+                  Grafana
+                </Button>
+              </Link>
 
-                <Link href="/kyverno/#/">
-                  <Button variant="outlined">
-                    Kyverno
-                  </Button>
-                </Link>
-              </Stack>
-            </TabPanel>
+              <Link href="/rabbitmq">
+                <Button variant="outlined">
+                  RabbitMQ
+                </Button>
+              </Link>
 
-            <TabPanel value={value} index={2} dir={theme.direction}>
-              <Typography variant="h5" component="h4" align={"center"}>
-                Documentation and etc...
-              </Typography>
+              <Link href="/kyverno/#/">
+                <Button variant="outlined">
+                  Kyverno
+                </Button>
+              </Link>
+            </Stack>
+          </TabPanel>
 
-              <Stack
-                spacing={{ xs: 1, sm: 2, md: 4 }}
-                direction="row"
-                divider={<Divider orientation="vertical" flexItem />}
-                mt={2}
-                justifyContent="center"
-                alignItems="center"
-              >
-                <Link href="https://github.com/batazor/shortlink">
-                  <Button variant="outlined">
-                    GitHub
-                  </Button>
-                </Link>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            <Typography variant="h5" align={"center"}>
+              Documentation and etc...
+            </Typography>
 
-                <Link href="https://gitlab.com/shortlink-org/shortlink/">
-                  <Button variant="outlined">
-                    GitLab
-                  </Button>
-                </Link>
+            <Stack
+              spacing={{ xs: 1, sm: 2, md: 4 }}
+              direction="row"
+              divider={<Divider orientation="vertical" flexItem />}
+              mt={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Link href="https://github.com/batazor/shortlink">
+                <Button variant="outlined">
+                  GitHub
+                </Button>
+              </Link>
 
-                <Link href="https://shortlink-org.gitlab.io/shortlink/">
-                  <Button variant="outlined">
-                    Swagger API
-                  </Button>
-                </Link>
-              </Stack>
-            </TabPanel>
-          </SwipeableViews>
+              <Link href="https://gitlab.com/shortlink-org/shortlink/">
+                <Button variant="outlined">
+                  GitLab
+                </Button>
+              </Link>
+
+              <Link href="https://shortlink-org.gitlab.io/shortlink/">
+                <Button variant="outlined">
+                  Swagger API
+                </Button>
+              </Link>
+            </Stack>
+          </TabPanel>
         </Box>
       </Grid>
     </div>
