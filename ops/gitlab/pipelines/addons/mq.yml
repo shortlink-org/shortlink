@@ -3,7 +3,7 @@ rabbitmq:
   stage: mq
   variables:
     RELEASE_NAME: rabbitmq
-    HELM_PATH: ops/Helm/addons/rabbitmq
+    HELM_PATH: ops/Helm/addons/mq/rabbitmq
     HELM_NAMESPACE: rabbitmq
   trigger:
     include:
