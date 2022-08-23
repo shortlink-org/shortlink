@@ -21,7 +21,8 @@ services:
       - 3100:3100
     volumes:
     - ./ops/docker-compose/tooling/observability/loki/local-config.yaml:/etc/loki/local-config.yaml
-    - /data/loki:/loki
+    # issue: https://github.com/grafana/loki/issues/5513
+    # - /data/loki:/loki
 
   promtail:
     <<: *network

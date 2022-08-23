@@ -114,6 +114,10 @@ grafana:
               datasourceUid: loki
             nodeGraph:
               enabled: true
+            search:
+              hide: true
+            spanBar:
+              type: Duration
             serviceMap:
               datasourceUid: prometheus
             tracesToLogs:

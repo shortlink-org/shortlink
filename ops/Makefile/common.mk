@@ -28,7 +28,7 @@ dep: ## Install dependencies for this project
 export CURRENT_UID=$(id -u):$(id -g)
 
 up: ## Run for specific job
-	@COMPOSE_PROFILES=dns,opentracing,gateway docker-compose \
+	@COMPOSE_PROFILES=dns,observability,gateway docker-compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns.yaml \
 		-f ops/docker-compose/application/auth.yaml \
@@ -36,6 +36,7 @@ up: ## Run for specific job
 		-f ops/docker-compose/database/redis.yaml \
 		-f ops/docker-compose/database/postgres.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
+		-f ops/docker-compose/tooling/observability/prometheus.yaml \
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
@@ -54,7 +55,6 @@ run: ## Run this project in docker-compose
 		-f ops/docker-compose/application/ui-next.yaml \
 		-f ops/docker-compose/database/mongo.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus.yaml \
-		-f ops/docker-compose/tooling/observability/opentracing.yaml \
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
@@ -70,7 +70,6 @@ down: ## Down docker-compose
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus.yaml \
-		-f ops/docker-compose/tooling/observability/opentracing.yaml \
 		-f ops/docker-compose/tooling/observability/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik.yaml \
 		-f ops/docker-compose/application/auth.yaml \
