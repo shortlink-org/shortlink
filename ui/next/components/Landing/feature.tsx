@@ -1,10 +1,10 @@
 import React from 'react'
 import {
-  AnnotationIcon,
+  EnvelopeIcon,
   GlobeAltIcon,
-  LightningBoltIcon,
+  SparklesIcon,
   ScaleIcon,
-} from '@heroicons/react/outline'
+} from '@heroicons/react/24/outline'
 
 const features = [
   {
@@ -23,13 +23,13 @@ const features = [
     name: 'Transfers are instant',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: LightningBoltIcon,
+    icon: SparklesIcon,
   },
   {
     name: 'Mobile notifications',
     description:
       'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: AnnotationIcon,
+    icon: EnvelopeIcon,
   },
 ]
 
