@@ -2,7 +2,6 @@ package postgres
 
 import (
 	"context"
-	"database/sql"
 	"embed"
 	"fmt"
 	"strings"
@@ -15,6 +14,8 @@ import (
 	"github.com/johejo/golang-migrate-extra/source/iofs"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
+	"github.com/uptrace/opentelemetry-go-extra/otelsql"
+	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 
 	"github.com/batazor/shortlink/internal/pkg/db/options"
 )
@@ -78,7 +79,7 @@ func (p *Store) migrate() error {
 	uri := strings.Join([]string{p.config.URI, "x-multi-statement=true"}, "&")
 
 	// Create connect
-	db, err := sql.Open("postgres", uri)
+	db, err := otelsql.Open("postgres", uri, otelsql.WithAttributes(semconv.DBSystemPostgreSQL), otelsql.WithDBName("PostgreSQL"))
 	if err != nil {
 		return err
 	}

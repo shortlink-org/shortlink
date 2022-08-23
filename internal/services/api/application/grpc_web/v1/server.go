@@ -3,15 +3,12 @@ package v1
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"net"
 	"net/http"
 	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"github.com/opentracing/opentracing-go"
-	"github.com/opentracing/opentracing-go/ext"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc/status"
 
@@ -31,15 +28,12 @@ type API struct {
 	RPC  *rpc.RPCServer
 }
 
-var grpcGatewayTag = opentracing.Tag{Key: string(ext.Component), Value: "grpc-gateway"}
-
 // Run HTTP-server
 func (api *API) Run(
 	ctx context.Context,
 	i18n *message.Printer,
 	config api_type.Config,
 	log logger.Logger,
-	tracer *opentracing.Tracer,
 
 	// Delivery
 	link_rpc link_rpc.LinkServiceClient,
@@ -68,7 +62,7 @@ func (api *API) Run(
 
 	api.http = http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),
-		Handler: api.tracingWrapper(mux), // nolint:contextcheck
+		Handler: mux, // nolint:contextcheck
 		BaseContext: func(_ net.Listener) context.Context {
 			return ctx
 		},
@@ -98,27 +92,6 @@ func (api *API) Close() error {
 	}
 
 	return nil
-}
-
-func (api *API) tracingWrapper(h http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		parentSpanContext, err := opentracing.GlobalTracer().Extract(
-			opentracing.HTTPHeaders,
-			opentracing.HTTPHeadersCarrier(r.Header),
-		)
-
-		if err == nil || errors.Is(err, opentracing.ErrSpanContextNotFound) {
-			serverSpan := opentracing.GlobalTracer().StartSpan(
-				"ServeHTTP",
-				// this is magical, it attaches the new span to the parent parentSpanContext, and creates an unparented one if empty.
-				ext.RPCServerOption(parentSpanContext),
-				grpcGatewayTag,
-			)
-			r = r.WithContext(opentracing.ContextWithSpan(r.Context(), serverSpan))
-			defer serverSpan.Finish()
-		}
-		h.ServeHTTP(w, r)
-	})
 }
 
 func (api *API) CustomHTTPError(_ context.Context, _ *runtime.ServeMux, marshaler runtime.Marshaler, w http.ResponseWriter, _ *http.Request, err error) {

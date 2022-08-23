@@ -11,7 +11,6 @@ import (
 
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-	"github.com/opentracing/opentracing-go"
 	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
@@ -87,7 +86,6 @@ func (api *API) Run(
 	i18n *message.Printer,
 	config api_type.Config,
 	log logger.Logger,
-	tracer *opentracing.Tracer,
 
 	// delivery
 	link_rpc link_rpc.LinkServiceClient,

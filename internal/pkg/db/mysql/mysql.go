@@ -2,7 +2,6 @@ package mysql
 
 import (
 	"context"
-	"database/sql"
 	"embed"
 	"fmt"
 
@@ -13,6 +12,8 @@ import (
 	_ "github.com/johejo/golang-migrate-extra/source/file"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
 	"github.com/spf13/viper"
+	"github.com/uptrace/opentelemetry-go-extra/otelsql"
+	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 )
 
 //go:embed migrations/*.sql
@@ -51,7 +52,7 @@ func (s *Store) Close() error {
 // Migrate ...
 func (s *Store) migrate() error {
 	// Create connect
-	db, err := sql.Open("mysql", s.config.URI)
+	db, err := otelsql.Open("mysql", s.config.URI, otelsql.WithAttributes(semconv.DBSystemMySQL), otelsql.WithDBName("MySQL"))
 	if err != nil {
 		return err
 	}

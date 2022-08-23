@@ -10,7 +10,9 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/render"
-	"github.com/opentracing/opentracing-go"
+	"github.com/riandyrn/otelchi"
+	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
@@ -35,7 +37,7 @@ func (api *API) Run(
 	db *db.Store,
 	config api_type.Config,
 	log logger.Logger,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 
 	// Services
 	accountService *account_application.AccountService,
@@ -78,7 +80,7 @@ func (api *API) Run(
 	r.Use(middleware.Timeout(config.Timeout))
 
 	// Additional middleware
-	r.Use(additionalMiddleware.NewTracing(tracer))
+	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(additionalMiddleware.Logger(log))
 
 	r.NotFound(handler.NotFoundHandler)

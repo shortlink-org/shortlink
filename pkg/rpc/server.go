@@ -7,9 +7,10 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/recovery"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
-	otgrpc "github.com/opentracing-contrib/go-grpc"
-	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
@@ -20,7 +21,7 @@ import (
 )
 
 // InitServer ...
-func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func(), error) {
+func InitServer(log logger.Logger, tracer *trace.TracerProvider) (*RPCServer, func(), error) {
 	viper.SetDefault("GRPC_SERVER_ENABLED", true) // gRPC server enable
 	if !viper.GetBool("GRPC_SERVER_ENABLED") {
 		return nil, nil, nil
@@ -68,8 +69,8 @@ func InitServer(log logger.Logger, tracer *opentracing.Tracer) (*RPCServer, func
 	}
 
 	if tracer != nil {
-		incerceptorStreamServerList = append(incerceptorStreamServerList, otgrpc.OpenTracingStreamServerInterceptor(*tracer, otgrpc.LogPayloads()))
-		incerceptorUnaryServerList = append(incerceptorUnaryServerList, otgrpc.OpenTracingServerInterceptor(*tracer, otgrpc.LogPayloads()))
+		incerceptorStreamServerList = append(incerceptorStreamServerList, otelgrpc.StreamServerInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
+		incerceptorUnaryServerList = append(incerceptorUnaryServerList, otelgrpc.UnaryServerInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
 	}
 
 	if isEnableLogger {

@@ -7,7 +7,6 @@ package api_application
 import (
 	"context"
 
-	"github.com/opentracing/opentracing-go"
 	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -24,7 +23,6 @@ type API interface {
 		i18n *message.Printer,
 		config api_type.Config,
 		log logger.Logger,
-		tracer *opentracing.Tracer,
 
 		// delivery
 		link_rpc link_rpc.LinkServiceClient,

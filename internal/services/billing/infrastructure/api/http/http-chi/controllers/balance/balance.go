@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
 	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1"
 )
@@ -34,7 +34,7 @@ func (api *BalanceAPI) update(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)

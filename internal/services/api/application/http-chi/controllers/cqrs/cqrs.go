@@ -5,9 +5,9 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 )
@@ -50,7 +50,7 @@ func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	response, err := h.LinkQueryServiceClient.Get(r.Context(), &link_cqrs.GetRequest{Hash: hash})
 	var errorLink *v1.NotFoundError
@@ -84,7 +84,7 @@ func (h *Handler) GetByAllCQRS(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	search := r.URL.Query().Get("search")
 	response, err := h.LinkQueryServiceClient.List(r.Context(), &link_cqrs.ListRequest{Filter: search})

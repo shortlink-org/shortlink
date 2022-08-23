@@ -11,7 +11,8 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/render"
-	"github.com/opentracing/opentracing-go"
+	"github.com/riandyrn/otelchi"
+	"github.com/spf13/viper"
 	"github.com/swaggo/http-swagger"
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -51,7 +52,6 @@ func (api *API) Run(
 	i18n *message.Printer,
 	config api_type.Config,
 	log logger.Logger,
-	tracer *opentracing.Tracer,
 
 	// Delivery
 	link_rpc link_rpc.LinkServiceClient,
@@ -94,7 +94,7 @@ func (api *API) Run(
 	r.Use(middleware.Timeout(config.Timeout))
 
 	// Additional middleware
-	r.Use(additionalMiddleware.NewTracing(tracer))
+	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(additionalMiddleware.Logger(log))
 
 	r.NotFound(handler.NotFoundHandler)

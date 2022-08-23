@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/opentracing/opentracing-go"
+	"github.com/uptrace/opentelemetry-go-extra/otelzap"
+	"go.opentelemetry.io/otel/attribute"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
@@ -14,7 +15,7 @@ import (
 )
 
 type zapLogger struct {
-	logger *zap.Logger
+	logger *otelzap.Logger
 }
 
 func (log *zapLogger) init(config Configuration) error {
@@ -35,11 +36,12 @@ func (log *zapLogger) init(config Configuration) error {
 		EncodeCaller:   zapcore.ShortCallerEncoder,
 	}
 
-	log.logger = zap.New(zapcore.NewCore(
+	// Wrap zap logger to extend Zap with API that accepts a context.Context.
+	log.logger = otelzap.New(zap.New(zapcore.NewCore(
 		zapcore.NewJSONEncoder(encoderCfg),
 		zapcore.Lock(zapcore.AddSync(config.Writer)),
 		logLevel,
-	), zap.AddCaller(), zap.AddCallerSkip(1))
+	), zap.AddCaller(), zap.AddCallerSkip(1)))
 
 	return nil
 }
@@ -51,20 +53,6 @@ func (log *zapLogger) Close() error {
 
 func (log *zapLogger) Get() interface{} {
 	return log.logger
-}
-
-func (log *zapLogger) SetConfig(config Configuration) error {
-	var err error
-	logLevel := log.setLogLevel(config.Level)
-
-	cfg := zap.Config{
-		Level: logLevel,
-	}
-	if log.logger, err = cfg.Build(); err != nil {
-		return err
-	}
-
-	return nil
 }
 
 func (log *zapLogger) converter(fields ...field.Fields) []zap.Field {
@@ -116,7 +104,7 @@ func (log *zapLogger) Fatal(msg string, fields ...field.Fields) {
 func (log *zapLogger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)
@@ -133,7 +121,7 @@ func (log *zapLogger) Warn(msg string, fields ...field.Fields) {
 func (log *zapLogger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)
@@ -148,14 +136,14 @@ func (log *zapLogger) Error(msg string, fields ...field.Fields) {
 }
 
 func (log *zapLogger) ErrorWithContext(ctx context.Context, msg string, fields ...field.Fields) {
-	tags := []opentracing.Tag{{
+	tags := []attribute.KeyValue{{
 		Key:   "error",
-		Value: true,
+		Value: attribute.BoolValue(true),
 	}}
 
 	fields, err := tracer.NewTraceFromContext(ctx, msg, tags, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)
@@ -172,7 +160,7 @@ func (log *zapLogger) Info(msg string, fields ...field.Fields) {
 func (log *zapLogger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)
@@ -189,7 +177,7 @@ func (log *zapLogger) Debug(msg string, fields ...field.Fields) {
 func (log *zapLogger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to opentracing: %s", err.Error()))
+		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)

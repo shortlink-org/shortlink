@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
@@ -109,7 +109,7 @@ func NewTariffApplication(logger logger.Logger, store *billing_store.BillingStor
 func NewBillingAPIServer(
 	ctx context.Context,
 	logger logger.Logger,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	rpcServer *rpc.RPCServer,
 	db *db.Store,
 
@@ -155,6 +155,6 @@ func NewBillingService(
 	}, nil
 }
 
-func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ, tracer *opentracing.Tracer) (*BillingService, func(), error) {
+func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ, tracer *trace.TracerProvider) (*BillingService, func(), error) {
 	panic(wire.Build(BillingSet))
 }

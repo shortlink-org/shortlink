@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
@@ -73,7 +73,6 @@ func NewAPIApplication(
 	ctx context.Context,
 	i18n *message.Printer,
 	logger logger.Logger,
-	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
 
 	// delivery
@@ -88,7 +87,6 @@ func NewAPIApplication(
 		ctx,
 		i18n,
 		logger,
-		tracer,
 		rpcServer,
 
 		// delivery
@@ -117,6 +115,6 @@ func NewAPIService(
 	}, nil
 }
 
-func InitializeAPIService(ctx context.Context, i18n *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*APIService, func(), error) {
+func InitializeAPIService(ctx context.Context, i18n *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *trace.TracerProvider) (*APIService, func(), error) {
 	panic(wire.Build(APISet))
 }

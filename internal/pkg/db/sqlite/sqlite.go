@@ -5,11 +5,10 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/luna-duclos/instrumentedsql"
-	"github.com/luna-duclos/instrumentedsql/opentracing"
-	"github.com/mattn/go-sqlite3"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 	"github.com/spf13/viper"
+	"github.com/uptrace/opentelemetry-go-extra/otelsql"
+	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 )
 
 // Config ...
@@ -33,8 +32,8 @@ func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	s.setConfig()
 
-	sql.Register("instrumented-sqlite", instrumentedsql.WrapDriver(&sqlite3.SQLiteDriver{}, instrumentedsql.WithTracer(opentracing.NewTracer(false))))
-	if s.client, err = sql.Open("instrumented-sqlite", s.config.Path); err != nil {
+	s.client, err = otelsql.Open("sqlite", s.config.Path, otelsql.WithAttributes(semconv.DBSystemSqlite), otelsql.WithDBName("SQLite"))
+	if err != nil {
 		return err
 	}
 

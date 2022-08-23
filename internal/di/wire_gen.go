@@ -33,7 +33,7 @@ import (
 	"github.com/getsentry/sentry-go/http"
 	cache2 "github.com/go-redis/cache/v8"
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 	"net/http"
@@ -57,20 +57,20 @@ func InitializeFullService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	printer := i18n.New(context)
-	tracer, cleanup3, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup4, err := rpc.InitServer(logger, tracer)
+	rpcServer, cleanup4, err := rpc.InitServer(logger, tracerProvider)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup5, err := rpc.InitClient(logger, tracer)
+	clientConn, cleanup5, err := rpc.InitClient(logger, tracerProvider)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -133,7 +133,7 @@ func InitializeFullService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewFullService(context, configConfig, logger, printer, rpcServer, clientConn, mq, dbStore, cacheCache, handler, serveMux, tracer, pprofEndpoint, autoMaxProAutoMaxPro)
+	service, err := NewFullService(context, configConfig, logger, printer, rpcServer, clientConn, mq, dbStore, cacheCache, handler, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -184,7 +184,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler, logger)
-	tracer, cleanup4, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
@@ -200,7 +200,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup6, err := rpc.InitClient(logger, tracer)
+	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -209,7 +209,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup7, err := rpc.InitServer(logger, tracer)
+	rpcServer, cleanup7, err := rpc.InitServer(logger, tracerProvider)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -219,7 +219,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	apiService, cleanup8, err := InitAPIService(context, printer, clientConn, rpcServer, logger, tracer)
+	apiService, cleanup8, err := InitAPIService(context, printer, clientConn, rpcServer, logger, tracerProvider)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -230,7 +230,7 @@ func InitializeAPIService() (*ServiceAPI, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serviceAPI, err := NewAPIService(context, configConfig, logger, printer, handler, serveMux, tracer, pprofEndpoint, autoMaxProAutoMaxPro, clientConn, apiService)
+	serviceAPI, err := NewAPIService(context, configConfig, logger, printer, handler, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, clientConn, apiService)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -278,7 +278,7 @@ func InitializeBillingService() (*ServiceBilling, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler, logger)
-	tracer, cleanup4, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
@@ -302,7 +302,7 @@ func InitializeBillingService() (*ServiceBilling, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup7, err := rpc.InitClient(logger, tracer)
+	clientConn, cleanup7, err := rpc.InitClient(logger, tracerProvider)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -312,7 +312,7 @@ func InitializeBillingService() (*ServiceBilling, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup8, err := rpc.InitServer(logger, tracer)
+	rpcServer, cleanup8, err := rpc.InitServer(logger, tracerProvider)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -335,7 +335,7 @@ func InitializeBillingService() (*ServiceBilling, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	billingService, cleanup10, err := InitBillingService(context, clientConn, rpcServer, logger, dbStore, mq, tracer)
+	billingService, cleanup10, err := InitBillingService(context, clientConn, rpcServer, logger, dbStore, mq, tracerProvider)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -348,7 +348,7 @@ func InitializeBillingService() (*ServiceBilling, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serviceBilling, err := NewBillingService(context, configConfig, logger, serveMux, tracer, mq, autoMaxProAutoMaxPro, billingService)
+	serviceBilling, err := NewBillingService(context, configConfig, logger, serveMux, tracerProvider, mq, autoMaxProAutoMaxPro, billingService)
 	if err != nil {
 		cleanup10()
 		cleanup9()
@@ -407,7 +407,7 @@ func InitializeLinkService() (*ServiceLink, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler, logger)
-	tracer, cleanup5, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup5, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -435,7 +435,7 @@ func InitializeLinkService() (*ServiceLink, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup8, err := rpc.InitServer(logger, tracer)
+	rpcServer, cleanup8, err := rpc.InitServer(logger, tracerProvider)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -446,7 +446,7 @@ func InitializeLinkService() (*ServiceLink, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup9, err := rpc.InitClient(logger, tracer)
+	clientConn, cleanup9, err := rpc.InitClient(logger, tracerProvider)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -484,7 +484,7 @@ func InitializeLinkService() (*ServiceLink, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serviceLink, err := NewLinkService(context, configConfig, logger, mq, handler, serveMux, tracer, dbStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn, linkService)
+	serviceLink, err := NewLinkService(context, configConfig, logger, mq, handler, serveMux, tracerProvider, dbStore, pprofEndpoint, autoMaxProAutoMaxPro, rpcServer, clientConn, linkService)
 	if err != nil {
 		cleanup10()
 		cleanup9()
@@ -536,7 +536,7 @@ func InitializeLoggerService() (*ServiceLogger, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler, logger)
-	tracer, cleanup4, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
@@ -570,7 +570,7 @@ func InitializeLoggerService() (*ServiceLogger, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serviceLogger, err := NewLoggerService(context, configConfig, logger, serveMux, tracer, mq, autoMaxProAutoMaxPro, loggerService)
+	serviceLogger, err := NewLoggerService(context, configConfig, logger, serveMux, tracerProvider, mq, autoMaxProAutoMaxPro, loggerService)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -630,7 +630,7 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	tracer, cleanup6, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup6, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -639,7 +639,7 @@ func InitializeMetadataService() (*ServiceMetadata, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup7, err := rpc.InitServer(logger, tracer)
+	rpcServer, cleanup7, err := rpc.InitServer(logger, tracerProvider)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -730,7 +730,7 @@ func InitializeNotifyService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	serveMux := monitoring.New(handler, logger)
-	tracer, cleanup5, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup5, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -747,7 +747,7 @@ func InitializeNotifyService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewNotifyService(context, configConfig, logger, mq, serveMux, tracer, autoMaxProAutoMaxPro)
+	service, err := NewNotifyService(context, configConfig, logger, mq, serveMux, tracerProvider, autoMaxProAutoMaxPro)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -785,7 +785,7 @@ type Service struct {
 	ClientRPC *grpc.ClientConn
 
 	// Observability
-	Tracer        *opentracing.Tracer
+	Tracer        *trace.TracerProvider
 	Sentry        *sentryhttp.Handler
 	Monitoring    *http.ServeMux
 	PprofEndpoint profiling.PprofEndpoint
@@ -810,7 +810,7 @@ func NewFullService(ctx2 context.Context,
 	mq v1.MQ, db2 *db.Store, cache3 *cache2.Cache,
 
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
@@ -843,7 +843,7 @@ type ServiceAPI struct {
 }
 
 // InitAPIService =====================================================================================================
-func InitAPIService(ctx2 context.Context, i18n2 *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*di.APIService, func(), error) {
+func InitAPIService(ctx2 context.Context, i18n2 *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *trace.TracerProvider) (*di.APIService, func(), error) {
 	return di.InitializeAPIService(ctx2, i18n2, runRPCClient, runRPCServer, log, tracer)
 }
 
@@ -858,7 +858,7 @@ func NewAPIService(ctx2 context.Context,
 	cfg *config.Config,
 	log logger.Logger, i18n2 *message.Printer,
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	clientRPC *grpc.ClientConn,
@@ -888,7 +888,7 @@ type ServiceBilling struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitBillingService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ, tracer *opentracing.Tracer) (*billing_di.BillingService, func(), error) {
+func InitBillingService(ctx2 context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ, tracer *trace.TracerProvider) (*billing_di.BillingService, func(), error) {
 	return billing_di.InitializeBillingService(ctx2, runRPCClient, runRPCServer, log, db2, mq, tracer)
 }
 
@@ -902,7 +902,7 @@ func NewBillingService(ctx2 context.Context,
 
 	cfg *config.Config,
 	log logger.Logger, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	mq v1.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
@@ -946,7 +946,7 @@ func NewLinkService(ctx2 context.Context,
 	log logger.Logger,
 	mq v1.MQ,
 	sentryHandler *sentryhttp.Handler, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer, db2 *db.Store,
+	tracer *trace.TracerProvider, db2 *db.Store,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	serverRPC *rpc.RPCServer,
@@ -993,7 +993,7 @@ func NewLoggerService(ctx2 context.Context,
 
 	cfg *config.Config,
 	log logger.Logger, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	mq v1.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	loggerService *di3.LoggerService,
@@ -1065,7 +1065,7 @@ func NewNotifyService(ctx2 context.Context,
 	cfg *config.Config,
 	log logger.Logger,
 	mq v1.MQ, monitoring2 *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{

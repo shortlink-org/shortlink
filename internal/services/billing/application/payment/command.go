@@ -4,8 +4,9 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/opentracing/opentracing-go"
-	opentracinglog "github.com/opentracing/opentracing-go/log"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
@@ -18,20 +19,20 @@ func CommandPaymentCreate(ctx context.Context, in *billing.Payment) (*eventsourc
 	in.Id = aggregateId
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "command: UpdateBalance")
-	span.SetTag("aggregate id", aggregateId)
-	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_CREATE.String())
-	defer span.Finish()
+	_, span := otel.Tracer("command").Start(ctx, "UpdateBalance")
+	span.SetAttributes(attribute.String("aggregate id", aggregateId))
+	span.SetAttributes(attribute.String("command type", billing.Command_COMMAND_PAYMENT_CREATE.String()))
+	defer span.End()
 
 	payload, err := protojson.Marshal(in)
 	if err != nil {
-		span.SetTag("error", true)
-		span.SetTag("message", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return nil, err
 	}
 
-	span.LogFields(opentracinglog.String("log", string(payload)))
+	span.SetAttributes(attribute.String("log", string(payload)))
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_PAYMENT_CREATE.String(),
@@ -44,20 +45,20 @@ func CommandPaymentCreate(ctx context.Context, in *billing.Payment) (*eventsourc
 
 func CommandPaymentUpdateBalance(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "command: UpdateBalance")
-	span.SetTag("aggregate id", in.Id)
-	span.SetTag("command type", billing.Command_COMMAND_BALANCE_UPDATE.String())
-	defer span.Finish()
+	_, span := otel.Tracer("command").Start(ctx, "UpdateBalance")
+	span.SetAttributes(attribute.String("aggregate id", in.Id))
+	span.SetAttributes(attribute.String("command type", billing.Command_COMMAND_BALANCE_UPDATE.String()))
+	defer span.End()
 
 	payload, err := protojson.Marshal(in)
 	if err != nil {
-		span.SetTag("error", true)
-		span.SetTag("message", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return nil, err
 	}
 
-	span.LogFields(opentracinglog.String("log", string(payload)))
+	span.SetAttributes(attribute.String("log", string(payload)))
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_BALANCE_UPDATE.String(),
@@ -72,20 +73,20 @@ func CommandPaymentClose(ctx context.Context, in *billing.Payment) (*eventsourci
 	in.Status = billing.StatusPayment_STATUS_PAYMENT_CLOSE
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "command: PaymentClose")
-	span.SetTag("aggregate id", in.Id)
-	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_CLOSE.String())
-	defer span.Finish()
+	_, span := otel.Tracer("command").Start(ctx, "PaymentClose")
+	span.SetAttributes(attribute.String("aggregate id", in.Id))
+	span.SetAttributes(attribute.String("command type", billing.Command_COMMAND_PAYMENT_CLOSE.String()))
+	defer span.End()
 
 	payload, err := protojson.Marshal(in)
 	if err != nil {
-		span.SetTag("error", true)
-		span.SetTag("message", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return nil, err
 	}
 
-	span.LogFields(opentracinglog.String("log", string(payload)))
+	span.SetAttributes(attribute.String("log", string(payload)))
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_PAYMENT_CLOSE.String(),
@@ -100,20 +101,20 @@ func CommandPaymentApprove(ctx context.Context, in *billing.Payment) (*eventsour
 	in.Status = billing.StatusPayment_STATUS_PAYMENT_APPROVE
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "command: PaymentApprove")
-	span.SetTag("aggregate id", in.Id)
-	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_APPROVE.String())
-	defer span.Finish()
+	_, span := otel.Tracer("command").Start(ctx, "PaymentApprove")
+	span.SetAttributes(attribute.String("aggregate id", in.Id))
+	span.SetAttributes(attribute.String("command type", billing.Command_COMMAND_PAYMENT_APPROVE.String()))
+	defer span.End()
 
 	payload, err := protojson.Marshal(in)
 	if err != nil {
-		span.SetTag("error", true)
-		span.SetTag("message", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return nil, err
 	}
 
-	span.LogFields(opentracinglog.String("log", string(payload)))
+	span.SetAttributes(attribute.String("log", string(payload)))
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_PAYMENT_APPROVE.String(),
@@ -128,20 +129,20 @@ func CommandPaymentReject(ctx context.Context, in *billing.Payment) (*eventsourc
 	in.Status = billing.StatusPayment_STATUS_PAYMENT_REJECT
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "command: PaymentReject")
-	span.SetTag("aggregate id", in.Id)
-	span.SetTag("command type", billing.Command_COMMAND_PAYMENT_REJECT.String())
-	defer span.Finish()
+	_, span := otel.Tracer("command").Start(ctx, "PaymentReject")
+	span.SetAttributes(attribute.String("aggregate id", in.Id))
+	span.SetAttributes(attribute.String("command type", billing.Command_COMMAND_PAYMENT_REJECT.String()))
+	defer span.End()
 
 	payload, err := protojson.Marshal(in)
 	if err != nil {
-		span.SetTag("error", true)
-		span.SetTag("message", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return nil, err
 	}
 
-	span.LogFields(opentracinglog.String("log", string(payload)))
+	span.SetAttributes(attribute.String("log", string(payload)))
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_PAYMENT_REJECT.String(),

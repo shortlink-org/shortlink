@@ -11,7 +11,7 @@ import (
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/go-redis/cache/v8"
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
@@ -60,7 +60,7 @@ func NewLinkService(
 	mq v1.MQ,
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	db *db.Store,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

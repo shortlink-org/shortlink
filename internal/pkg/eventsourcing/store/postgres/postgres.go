@@ -7,7 +7,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
@@ -63,24 +63,24 @@ func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bo
 
 func (s *Store) Save(ctx context.Context, events []*eventsourcing.Event) error {
 	// start tracing
-	span, newCtx := opentracing.StartSpanFromContext(ctx, "store: Save")
-	defer span.Finish()
+	newCtx, span := otel.Tracer("store").Start(ctx, "Save")
+	defer span.End()
 
 	return s.save(newCtx, events, false)
 }
 
 func (s *Store) SafeSave(ctx context.Context, events []*eventsourcing.Event) error {
 	// start tracing
-	span, newCtx := opentracing.StartSpanFromContext(ctx, "store: SafeSave")
-	defer span.Finish()
+	newCtx, span := otel.Tracer("store").Start(ctx, "SafeSave")
+	defer span.End()
 
 	return s.save(newCtx, events, true)
 }
 
 func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Snapshot, []*eventsourcing.Event, error) {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "store: Load")
-	defer span.Finish()
+	_, span := otel.Tracer("store").Start(ctx, "Load")
+	defer span.End()
 
 	// get snapshot if exist
 	querySnaphot := psql.Select("aggregate_id", "aggregate_type", "aggregate_version", "payload").

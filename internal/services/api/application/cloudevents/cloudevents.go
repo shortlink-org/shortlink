@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/opentracing/opentracing-go"
 	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -38,7 +37,6 @@ func (api *API) Run(
 	i18n *message.Printer,
 	config api_type.Config,
 	log logger.Logger,
-	tracer *opentracing.Tracer,
 
 	// Delivery
 	link_rpc link_rpc.LinkServiceClient,

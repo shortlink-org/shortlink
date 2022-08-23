@@ -8,9 +8,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/opentracing/opentracing-go"
-
 	"github.com/google/wire"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
 	"github.com/batazor/shortlink/internal/di/internal/config"
@@ -48,7 +47,7 @@ func NewLoggerService(
 	cfg *config.Config,
 	log logger.Logger,
 	monitoring *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	mq v1.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	loggerService *di.LoggerService,

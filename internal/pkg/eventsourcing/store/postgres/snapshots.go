@@ -7,7 +7,9 @@ import (
 	"time"
 
 	"github.com/jackc/pgx/v5"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
 
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 )
@@ -58,9 +60,9 @@ func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapsh
 	// TODO: use worker pool
 
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "SaveSnapshot")
-	span.SetTag("snapshot aggregate id", snapshot.AggregateId)
-	defer span.Finish()
+	_, span := otel.Tracer("snapshot").Start(ctx, "SaveSnapshot")
+	span.SetAttributes(attribute.String("aggregate id", snapshot.AggregateId))
+	defer span.End()
 
 	query := psql.Insert("billing.snapshots").
 		Columns("aggregate_id", "aggregate_type", "aggregate_version", "payload").
@@ -78,8 +80,8 @@ func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapsh
 		return nil
 	}
 	if errScan.Error() != "" {
-		span.SetTag("error", true)
-		span.SetTag("message", errScan.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return errScan
 	}

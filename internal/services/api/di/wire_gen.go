@@ -16,14 +16,14 @@ import (
 	v1_4 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 )
 
 // Injectors from di.go:
 
-func InitializeAPIService(ctx context.Context, i18n *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*APIService, func(), error) {
+func InitializeAPIService(ctx context.Context, i18n *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *trace.TracerProvider) (*APIService, func(), error) {
 	metadataServiceClient, err := NewMetadataRPCClient(runRPCClient)
 	if err != nil {
 		return nil, nil, err
@@ -44,7 +44,7 @@ func InitializeAPIService(ctx context.Context, i18n *message.Printer, runRPCClie
 	if err != nil {
 		return nil, nil, err
 	}
-	api, err := NewAPIApplication(ctx, i18n, log, tracer, runRPCServer, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	api, err := NewAPIApplication(ctx, i18n, log, runRPCServer, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -108,7 +108,6 @@ func NewAPIApplication(
 	ctx context.Context,
 	i18n *message.Printer, logger2 logger.Logger,
 
-	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
 
 	metadataClient v1_4.MetadataServiceClient,
@@ -120,8 +119,7 @@ func NewAPIApplication(
 
 	apiService, err := api_application.RunAPIServer(
 		ctx,
-		i18n, logger2, tracer,
-		rpcServer,
+		i18n, logger2, rpcServer,
 
 		link_rpc,
 		link_command,
