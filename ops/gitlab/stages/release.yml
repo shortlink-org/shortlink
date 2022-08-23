@@ -11,6 +11,7 @@ release:
     name: 'Release $CI_COMMIT_TAG'
     description: 'Created using the release-cli $EXTRA_DESCRIPTION' # $EXTRA_DESCRIPTION must be defined
     tag_name: '$CI_COMMIT_TAG'                                      # elsewhere in the pipeline.
+    tag_message: 'Created using the release-cli $EXTRA_DESCRIPTION' # $EXTRA_DESCRIPTION must be defined elsewhere in the pipeline.
     ref: '$CI_COMMIT_TAG'
     assets: # Optional, multiple asset links
       links:
