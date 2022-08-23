@@ -23,6 +23,17 @@ ingester:
   max_block_bytes: 1_000_000           # cut the head block when it hits this size or ...
   max_block_duration: 5m               #   this much time passes
 
+querier:
+  max_concurrent_queries: 100
+  search:
+    prefer_self: 50   # only if you're using external endpoints
+
+query_frontend:
+  max_outstanding_per_tenant: 2000
+  search:
+    concurrent_jobs: 2000
+    target_bytes_per_job: 400_000_000
+
 compactor:
   compaction:
     compaction_window: 1h              # blocks in this time window will be compacted together
@@ -34,6 +45,7 @@ storage:
   trace:
     backend: local                     # backend configuration to use
     block:
+      version: vParquet                # version of the block storage to use
       bloom_filter_false_positive: .05 # bloom filter false positive rate.  lower values create larger filters but fewer false positives
       index_downsample_bytes: 1000     # number of bytes per index record
       encoding: zstd                   # block encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd
@@ -44,3 +56,6 @@ storage:
     pool:
       max_workers: 100                 # the worker pool mainly drives querying, but is also used for polling the blocklist
       queue_depth: 10000
+
+usage_report:
+  reporting_enabled: false

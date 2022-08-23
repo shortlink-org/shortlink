@@ -24,7 +24,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| grafana."grafana.ini".server.root_url | string | `"https://arhitecture.ddns.net/grafana"` |  |
+| grafana."grafana.ini".server.root_url | string | `"https://architecture.ddns.net/grafana"` |  |
 | grafana.adminPassword | string | `"shortlink"` |  |
 | grafana.dashboardProviders."dashboardproviders.yaml".apiVersion | int | `1` |  |
 | grafana.dashboardProviders."dashboardproviders.yaml".providers[0].disableDeletion | bool | `false` |  |
@@ -93,9 +93,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | grafana.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | grafana.ingress.enabled | bool | `true` |  |
-| grafana.ingress.hosts[0] | string | `"arhitecture.ddns.net"` |  |
+| grafana.ingress.hosts[0] | string | `"architecture.ddns.net"` |  |
 | grafana.ingress.path | string | `"/grafana/?(.*)"` |  |
-| grafana.ingress.tls[0].hosts[0] | string | `"arhitecture.ddns.net"` |  |
+| grafana.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
 | grafana.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | grafana.namespaceOverride | string | `""` |  |
 | grafana.serviceMonitor.enabled | bool | `true` |  |

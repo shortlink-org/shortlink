@@ -22,7 +22,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | kube-prometheus-stack.alertmanager.alertmanagerSpec.alertmanagerConfigSelector.matchLabels.alertmanagerConfig | string | `"shortlink"` |  |
-| kube-prometheus-stack.alertmanager.alertmanagerSpec.externalUrl | string | `"https://arhitecture.ddns.net/alertmanager"` |  |
+| kube-prometheus-stack.alertmanager.alertmanagerSpec.externalUrl | string | `"https://architecture.ddns.net/alertmanager"` |  |
 | kube-prometheus-stack.alertmanager.alertmanagerSpec.logFormat | string | `"json"` |  |
 | kube-prometheus-stack.alertmanager.alertmanagerSpec.routePrefix | string | `"/alertmanager/"` |  |
 | kube-prometheus-stack.alertmanager.config.global.resolve_timeout | string | `"5m"` |  |
@@ -40,11 +40,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | kube-prometheus-stack.alertmanager.ingress.enabled | bool | `true` |  |
-| kube-prometheus-stack.alertmanager.ingress.hosts[0] | string | `"arhitecture.ddns.net"` |  |
+| kube-prometheus-stack.alertmanager.ingress.hosts[0] | string | `"architecture.ddns.net"` |  |
 | kube-prometheus-stack.alertmanager.ingress.ingressClassName | string | `"nginx"` |  |
 | kube-prometheus-stack.alertmanager.ingress.pathType | string | `"Prefix"` |  |
 | kube-prometheus-stack.alertmanager.ingress.paths[0] | string | `"/alertmanager"` |  |
-| kube-prometheus-stack.alertmanager.ingress.tls[0].hosts[0] | string | `"arhitecture.ddns.net"` |  |
+| kube-prometheus-stack.alertmanager.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
 | kube-prometheus-stack.alertmanager.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | kube-prometheus-stack.coreDns.enabled | bool | `false` |  |
 | kube-prometheus-stack.enabled | bool | `true` |  |
@@ -54,11 +54,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kube-prometheus-stack.prometheus.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | kube-prometheus-stack.prometheus.ingress.enabled | bool | `true` |  |
-| kube-prometheus-stack.prometheus.ingress.hosts[0] | string | `"arhitecture.ddns.net"` |  |
+| kube-prometheus-stack.prometheus.ingress.hosts[0] | string | `"architecture.ddns.net"` |  |
 | kube-prometheus-stack.prometheus.ingress.ingressClassName | string | `"nginx"` |  |
 | kube-prometheus-stack.prometheus.ingress.pathType | string | `"Prefix"` |  |
 | kube-prometheus-stack.prometheus.ingress.paths[0] | string | `"/prometheus"` |  |
-| kube-prometheus-stack.prometheus.ingress.tls[0].hosts[0] | string | `"arhitecture.ddns.net"` |  |
+| kube-prometheus-stack.prometheus.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
 | kube-prometheus-stack.prometheus.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | kube-prometheus-stack.prometheus.prometheusSpec.retention | string | `"3d"` |  |
 | kube-prometheus-stack.prometheus.prometheusSpec.routePrefix | string | `"/prometheus/"` |  |

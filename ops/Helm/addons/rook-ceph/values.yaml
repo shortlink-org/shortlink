@@ -4,7 +4,7 @@ rook-ceph:
   monitoring:
     enabled: true
 
-host: arhitecture.ddns.net
+host: architecture.ddns.net
 
 ingress:
   enabled: true
@@ -26,4 +26,4 @@ ingress:
   tls:
     - secretName: shortlink-ingress-tls
       hosts:
-        - arhitecture.ddns.net
+        - architecture.ddns.net

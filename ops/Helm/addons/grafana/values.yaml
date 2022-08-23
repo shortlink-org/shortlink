@@ -16,7 +16,7 @@ grafana:
   grafana.ini:
     server:
       # this host can be localhost
-      root_url: https://arhitecture.ddns.net/grafana
+      root_url: https://architecture.ddns.net/grafana
 
   serviceMonitor:
     enabled: true
@@ -39,14 +39,14 @@ grafana:
       nginx.ingress.kubernetes.io/use-regex: "true"
 
     hosts:
-      - arhitecture.ddns.net
+      - architecture.ddns.net
 
     path: /grafana/?(.*)
 
     tls:
       - secretName: shortlink-ingress-tls
         hosts:
-          - arhitecture.ddns.net
+          - architecture.ddns.net
 
   sidecar:
     dashboards:
@@ -70,6 +70,7 @@ grafana:
       apiVersion: 1
       datasources:
         - name: Prometheus
+          uid: prometheus
           type: prometheus
           url: http://prometheus-operated.prometheus-operator:9090/prometheus
           access: proxy
@@ -78,6 +79,7 @@ grafana:
             timeInterval: 10s
             queryTimeout: 30s
             httpMethod: POST
+            alertmanagerUid: alertmanager
 
         - name: Loki
           type: loki
@@ -86,6 +88,7 @@ grafana:
           url: http://grafana-loki:3100
           jsonData:
             maxLines: 1000
+            alertmanagerUid: alertmanager
             derivedFields:
               # Field with internal link pointing to data source in Grafana.
               # Right now, Grafana supports only Jaeger and Zipkin data sources as link targets.
@@ -107,12 +110,26 @@ grafana:
           url: http://grafana-tempo:3100
           editable: false
           jsonData:
+            lokiSearch:
+              datasourceUid: loki
             nodeGraph:
               enabled: true
+            serviceMap:
+              datasourceUid: prometheus
             tracesToLogs:
               datasourceUid: loki
               filterBySpanID: true
               filterByTraceID: true
+              mapTagNamesEnabled: true
+
+        - name: Alertmanager
+          type: alertmanager
+          uid: alertmanager
+          editable: false
+          url: http://prometheus-alertmanager.prometheus-operator:9093
+          readOnly: false
+          jsonData:
+            implementation: mimir
 
   dashboardProviders:
     dashboardproviders.yaml:
@@ -162,7 +179,8 @@ promtail:
   enabled: true
 
   config:
-    lokiAddress: http://grafana-loki:3100/loki/api/v1/push
+    clients:
+      - url: http://grafana-loki:3100/loki/api/v1/push
 
   extraScrapeConfigs:
     - job_name: syslog
@@ -205,6 +223,41 @@ tempo:
 
   tempo:
     searchEnabled: true
+    metricsGenerator:
+      enabled: true
+      remoteWriteUrl: http://prometheus-operated.prometheus-operator:9090/api/v1/write
+
+    ingester:
+      trace_idle_period: 10s               # the length of time after a trace has not received spans to consider it complete and flush it
+      max_block_bytes: 1_000_000           # cut the head block when it hits this size or ...
+      max_block_duration: 5m               #   this much time passes
+
+    querier:
+      max_concurrent_queries: 100
+      search:
+        prefer_self: 50   # only if you're using external endpoints
+
+    query_frontend:
+      max_outstanding_per_tenant: 2000
+      search:
+        concurrent_jobs: 2000
+        target_bytes_per_job: 400_000_000
+
+    storage:
+      trace:
+        backend: local
+        block:
+          version: vParquet                # version of the block storage to use
+          bloom_filter_false_positive: .05 # bloom filter false positive rate.  lower values create larger filters but fewer false positives
+          index_downsample_bytes: 1000     # number of bytes per index record
+          encoding: zstd                   # block encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd
+        local:
+          path: /var/tempo/traces
+        wal:
+          path: /var/tempo/wal
+        pool:
+          max_workers: 100                 # the worker pool mainly drives querying, but is also used for polling the blocklist
+          queue_depth: 10000
 
   serviceMonitor:
     enabled: true

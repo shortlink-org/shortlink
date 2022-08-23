@@ -45,7 +45,7 @@ policy-reporter:
         nginx.ingress.kubernetes.io/use-regex: "true"
 
       hosts:
-        - host: arhitecture.ddns.net
+        - host: architecture.ddns.net
           paths:
             - path: /kyverno/?(.*)
               pathType: Prefix
@@ -53,7 +53,7 @@ policy-reporter:
       tls:
         - secretName: shortlink-ingress-tls
           hosts:
-            - arhitecture.ddns.net
+            - architecture.ddns.net
 
   kyvernoPlugin:
     enabled: true
