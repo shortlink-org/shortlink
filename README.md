@@ -17,7 +17,7 @@ Shortlink service
 
 ### High Level Architecture 🚀
 
-![shortlink-arhitecture](./docs/shortlink-arhitecture.png)
+![shortlink-architecture](./docs/shortlink-architecture.png)
 
 ### Architecture (miro.com)
 
@@ -121,7 +121,7 @@ make skaffold-debug
 
 ### HTTP API
 
-![arhitecture.json](./docs/arhitecture.png)
+![architecture.json](./docs/architecture.png)
 
 + Import [Postman link](./docs/shortlink.postman_collection.json) for
   test HTTP API

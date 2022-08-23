@@ -50,7 +50,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.tolerations | list | `[]` |  |
 | enabled | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
-| host | string | `"arhitecture.ddns.net"` |  |
+| host | string | `"architecture.ddns.net"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
@@ -60,7 +60,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/next/$2"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.tls[0].hosts[0] | string | `"arhitecture.ddns.net"` |  |
+| ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
 | ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | ingress.type | string | `"nginx"` | Type ingress-controller: nginx, istio |
 | monitoring.enabled | bool | `true` | Creates a Prometheus Operator ServiceMonitor |

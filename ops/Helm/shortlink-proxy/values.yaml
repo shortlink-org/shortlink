@@ -48,7 +48,7 @@ secret:
 # ==============================================================================
 enabled: true
 
-host: arhitecture.ddns.net
+host: architecture.ddns.net
 
 ingress:
   enabled: false
@@ -67,7 +67,7 @@ ingress:
   tls:
     - secretName: shortlink-ingress-tls
       hosts:
-        - arhitecture.ddns.net
+        - architecture.ddns.net
 
 # ==============================================================================
 deploy:

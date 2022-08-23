@@ -50,6 +50,16 @@ function a11yProps(index: number) {
   };
 }
 
+function getCard(name: string, url: string) {
+  return (
+    <Link href={url}>
+      <Button variant="outlined">
+        {name}
+      </Button>
+    </Link>
+  )
+}
+
 const Home: NextPage = () => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -116,11 +126,7 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <Link href="/next">
-                <Button variant="outlined">
-                  Next
-                </Button>
-              </Link>
+              {getCard("Next", "/next")}
             </Stack>
           </TabPanel>
 
@@ -137,29 +143,14 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <Link href="/prometheus">
-                <Button variant="outlined">
-                  Prometheus
-                </Button>
-              </Link>
+              {getCard("Prometheus", "/prometheus")}
+              {getCard("AlertManager", "/alertmanager")}
 
-              <Link href="/grafana">
-                <Button variant="outlined">
-                  Grafana
-                </Button>
-              </Link>
+              {getCard("Grafana", "/grafana")}
 
-              <Link href="/rabbitmq">
-                <Button variant="outlined">
-                  RabbitMQ
-                </Button>
-              </Link>
+              {getCard("RabbitMQ", "/rabbitmq")}
 
-              <Link href="/kyverno/#/">
-                <Button variant="outlined">
-                  Kyverno
-                </Button>
-              </Link>
+              {getCard("Kyverno", "/kyverno/#/")}
             </Stack>
           </TabPanel>
 
@@ -176,23 +167,11 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <Link href="https://github.com/batazor/shortlink">
-                <Button variant="outlined">
-                  GitHub
-                </Button>
-              </Link>
+              {getCard("GitHub", "https://github.com/batazor/shortlink")}
 
-              <Link href="https://gitlab.com/shortlink-org/shortlink/">
-                <Button variant="outlined">
-                  GitLab
-                </Button>
-              </Link>
+              {getCard("GitLab", "https://gitlab.com/shortlink-org/shortlink/")}
 
-              <Link href="https://shortlink-org.gitlab.io/shortlink/">
-                <Button variant="outlined">
-                  Swagger API
-                </Button>
-              </Link>
+              {getCard("Swagger API", "https://shortlink-org.gitlab.io/shortlink/")}
             </Stack>
           </TabPanel>
         </Box>

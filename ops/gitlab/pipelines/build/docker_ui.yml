@@ -13,7 +13,7 @@ stages:
 # BUILD ================================================================================================================
 build:
   variables:
-    DOCKERFILE_ARGS: --build-arg API_URI=https://arhitecture.ddns.net
+    DOCKERFILE_ARGS: --build-arg API_URI=https://architecture.ddns.net
   extends:
     - .template_build
     - .matrix_build_ui

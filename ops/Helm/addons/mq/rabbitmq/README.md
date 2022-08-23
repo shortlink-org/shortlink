@@ -45,7 +45,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | rabbitmq.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | rabbitmq.ingress.certManager | bool | `true` |  |
 | rabbitmq.ingress.enabled | bool | `true` |  |
-| rabbitmq.ingress.hostname | string | `"arhitecture.ddns.net"` |  |
+| rabbitmq.ingress.hostname | string | `"architecture.ddns.net"` |  |
 | rabbitmq.ingress.path | string | `"/rabbitmq/?(.*)"` |  |
 | rabbitmq.ingress.pathType | string | `"Prefix"` |  |
 | rabbitmq.ingress.tls | bool | `true` |  |
