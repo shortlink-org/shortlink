@@ -13,7 +13,9 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.36.2
+    image: prom/prometheus:v2.38.0
+    profiles:
+      - observability
     container_name: prometheus
     restart: always
     command:

@@ -14,7 +14,6 @@ SHORTLINK_HELM_ADDONS := argo cert-manager dashboard flagger flux gateway/istio 
 
 helm-init: ## helm init
 	# add custom repo for helm
-	@helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
 	@helm repo add istio https://storage.googleapis.com/istio-release/releases/1.5.4/charts/
 	@helm repo add stable https://charts.helm.sh/stable
 	@helm repo add jetstack https://charts.jetstack.io

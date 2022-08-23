@@ -5,26 +5,32 @@ deleteDatasources: []
 
 datasources:
   - name: Prometheus
+    uid: prometheus
     type: prometheus
     access: proxy
     isDefault: true
     url: http://prometheus:9090
+    editable: true
     jsonData:
       timeInterval: 10s
       queryTimeout: 30s
       httpMethod: POST
+      alertmanagerUid: alertmanager
 
   - name: Loki
     type: loki
+    uid: loki
     access: proxy
     url: http://loki:3100
+    editable: true
     jsonData:
       maxLines: 1000
+      alertmanagerUid: alertmanager
       derivedFields:
         # Field with internal link pointing to data source in Grafana.
         # Right now, Grafana supports only Jaeger and Zipkin data sources as link targets.
         # datasourceUid value can be anything, but it should be unique across all defined data source uids.
-        - datasourceUid: jaeger
+        - datasourceUid: tempo
           matcherRegex: 'traceID":"(\w+)'
           name: TraceID
           # url will be interpreted as query for the datasource
@@ -39,11 +45,37 @@ datasources:
     type: tempo
     uid: tempo
     url: http://jaeger-query:16686
-    editable: false
+    editable: true
+    jsonData:
+      lokiSearch:
+        datasourceUid: loki
+      nodeGraph:
+        enabled: true
+      search:
+        hide: true
+      spanBar:
+        type: Duration
+      serviceMap:
+        datasourceUid: prometheus
+      tracesToLogs:
+        datasourceUid: loki
+        filterBySpanID: true
+        filterByTraceID: true
+        mapTagNamesEnabled: true
+
+  - name: Alertmanager
+    type: alertmanager
+    uid: alertmanager
+    editable: true
+    url: http://prometheus-alertmanager.prometheus-operator:9093
+    readOnly: false
+    jsonData:
+      implementation: mimir
 
   - name: PostgreSQL
     type: postgres
     url: postgres:5432
+    editable: true
     user: postgres
     password: shortlink
     database: shortlink
@@ -56,6 +88,7 @@ datasources:
     type: elasticsearch
     access: proxy
     url: http://elasticsearch:9200/
+    editable: true
     database: shortlink.shortlink.link_view
     jsonData:
       timeField: "@timestamp"

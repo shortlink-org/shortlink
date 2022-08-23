@@ -1,11 +1,19 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
 
   grafana:
+    <<: *network
     depends_on:
       - coredns
-    image: grafana/grafana:9.1.0
+    image: grafana/grafana:9.1.1
     container_name: grafana
     restart: on-failure
     environment:
@@ -21,9 +29,6 @@ services:
       - 3030:3000
     networks:
       - simple
-#    dns:
-#      - ${DNS_IP}
-#    dns_search: ${DNS_SEARCH}
     volumes:
       - ./ops/docker-compose/tooling/observability/grafana/provisioning:/etc/grafana/provisioning/
 #    logging:
