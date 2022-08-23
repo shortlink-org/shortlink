@@ -1,0 +1,74 @@
+bugsCharts:
+  title: "Charts for bugs"
+  charts:
+    - title: "Monthly bugs created"
+      description: "Open bugs created per month"
+      type: bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: issue
+          issuable_state: opened
+          filter_labels:
+            - bug
+          group_by: month
+          period_limit: 24
+
+    - title: "Weekly bugs by severity"
+      type: stacked-bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: issue
+          issuable_state: opened
+          filter_labels:
+            - bug
+          collection_labels:
+            - S1
+            - S2
+            - S3
+            - S4
+          group_by: week
+          period_limit: 104
+
+    - title: "Monthly bugs by team"
+      type: line
+      query:
+        data_source: issuables
+        params:
+          issuable_type: merge_request
+          issuable_state: opened
+          filter_labels:
+            - bug
+          collection_labels:
+            - Manage
+            - Plan
+            - Create
+          group_by: month
+          period_limit: 24
+
+dora:
+  title: "DORA charts"
+  charts:
+    - title: "DORA deployment frequency"
+      type: bar # or line
+      query:
+        data_source: dora
+        params:
+          metric: deployment_frequency
+          group_by: day
+          period_limit: 10
+      projects:
+        only:
+          - 38
+    - title: "DORA lead time for changes"
+      description: "DORA lead time for changes"
+      type: bar
+      query:
+        data_source: dora
+        params:
+          metric: lead_time_for_changes
+          group_by: day
+          environment_tiers:
+            - staging
+          period_limit: 30
