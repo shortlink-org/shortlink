@@ -9,6 +9,9 @@ include:
 # List of the variables: https://gitlab.com/gitlab-org/security-products/sast#settings
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
+variables:
+  SAST_EXPERIMENTAL_FEATURES: "true"
+
 bandit-sast:
   rules:
     - when: always
