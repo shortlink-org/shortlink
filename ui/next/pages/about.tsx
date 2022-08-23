@@ -1,5 +1,5 @@
 import React from 'react'
-import { PaperClipIcon } from '@heroicons/react/solid'
+import { PaperClipIcon } from '@heroicons/react/24/solid'
 import { Layout } from 'components'
 // @ts-ignore
 import UndrawCoworkers from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
