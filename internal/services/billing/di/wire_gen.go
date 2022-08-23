@@ -23,13 +23,13 @@ import (
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 )
 
 // Injectors from di.go:
 
-func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ, tracer *opentracing.Tracer) (*BillingService, func(), error) {
+func InitializeBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ, tracer *trace.TracerProvider) (*BillingService, func(), error) {
 	billingStore, err := NewBillingStore(ctx, log, db2)
 	if err != nil {
 		return nil, nil, err
@@ -143,7 +143,7 @@ func NewTariffApplication(logger2 logger.Logger, store *billing_store.BillingSto
 func NewBillingAPIServer(
 	ctx context.Context, logger2 logger.Logger,
 
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	rpcServer *rpc.RPCServer, db2 *db.Store,
 
 	accountService *account_application.AccountService,

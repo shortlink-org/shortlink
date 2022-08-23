@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"go.opentelemetry.io/otel/trace"
 
-	"github.com/batazor/shortlink/internal/services/api/application/http-chi/helpers"
 	v1 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 )
 
@@ -43,7 +43,7 @@ func (h *Handler) Parse(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", helpers.RegisterSpan(r.Context()))
+	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Parse link
 	_, err = h.SitemapServiceClient.Parse(r.Context(), &request)

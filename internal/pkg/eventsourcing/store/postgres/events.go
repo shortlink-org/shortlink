@@ -5,7 +5,9 @@ import (
 	"errors"
 
 	"github.com/jackc/pgx/v5"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
 
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 )
@@ -16,9 +18,9 @@ type Events interface {
 
 func (s *Store) addEvent(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "addEvent")
-	span.SetTag("event id", event.Id)
-	defer span.Finish()
+	_, span := otel.Tracer("aggregate").Start(ctx, "addEvent")
+	span.SetAttributes(attribute.String("event_id", event.Id))
+	defer span.End()
 
 	entities := psql.Insert("billing.events").
 		Columns("aggregate_id", "aggregate_type", "type", "payload", "version").
@@ -35,8 +37,8 @@ func (s *Store) addEvent(ctx context.Context, event *eventsourcing.Event) error 
 		return nil
 	}
 	if errScan.Error() != "" {
-		span.SetTag("error", true)
-		span.SetTag("message", errScan.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return errScan
 	}

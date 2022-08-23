@@ -19,7 +19,7 @@ helm-chart:
     # install Helm
     - wget https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz
     - tar -xvf helm-${HELM_VERSION}-linux-amd64.tar.gz
-    - mv linux-amd64/helm /usr/bin/helm
+    - mv -u linux-amd64/helm /usr/bin/helm
   script:
     - helm package $HELM_CHART_PATH
     - HELM_CHART_VERSION=$(helm show chart $HELM_CHART_PATH | yq e .version -)

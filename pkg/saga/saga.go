@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/batazor/shortlink/pkg/saga/dag"
@@ -72,9 +74,9 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	g := errgroup.Group{}
 
 	// start tracing
-	span, newCtx := opentracing.StartSpanFromContext(s.ctx, fmt.Sprintf("saga: %s", s.name))
-	span.SetTag("saga", s.name)
-	defer span.Finish()
+	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(s.ctx, fmt.Sprintf("saga: %s", s.name))
+	span.SetAttributes(attribute.String("saga", s.name))
+	defer span.End()
 
 	for _, step := range initSteps {
 		step.ctx = &newCtx
@@ -83,8 +85,8 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 
 	err = g.Wait()
 	if err != nil {
-		span.SetTag("error", true)
-		span.SetTag("message", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		errReject := s.Reject(initSteps)
 
@@ -96,8 +98,8 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	for _, rootStep := range initSteps {
 		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
 		if errGetVertex != nil {
-			span.SetTag("error", true)
-			span.SetTag("message", err.Error())
+			span.RecordError(err)
+			span.SetStatus(codes.Error, err.Error())
 
 			return errGetVertex
 		}
@@ -113,8 +115,8 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 
 	initChildrenStep, err = s.validateRun(initChildrenStep)
 	if err != nil {
-		span.SetTag("error", true)
-		span.SetTag("message", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return err
 	}

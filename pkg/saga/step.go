@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
 
 	"github.com/batazor/shortlink/pkg/saga/dag"
 )
@@ -23,9 +25,9 @@ type Step struct {
 
 func (s *Step) Run() error {
 	// start tracing
-	span, newCtx := opentracing.StartSpanFromContext(*s.ctx, fmt.Sprintf("step: %s", s.name))
-	span.SetTag("step", s.name)
-	defer span.Finish()
+	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(*s.ctx, fmt.Sprintf("saga: %s", s.name))
+	span.SetAttributes(attribute.String("step", s.name))
+	defer span.End()
 
 	s.status = RUN
 	err := s.then(newCtx)
@@ -40,9 +42,9 @@ func (s *Step) Run() error {
 
 func (s *Step) Reject() error {
 	// start tracing
-	span, newCtx := opentracing.StartSpanFromContext(*s.ctx, fmt.Sprintf("step: %s", s.name))
-	span.SetTag("step", s.name)
-	defer span.Finish()
+	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(*s.ctx, fmt.Sprintf("saga: %s", s.name))
+	span.SetAttributes(attribute.String("step", s.name))
+	defer span.End()
 
 	s.status = REJECT
 
@@ -53,6 +55,8 @@ func (s *Step) Reject() error {
 
 	err := s.reject(newCtx)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 		s.status = FAIL
 		return err
 	}

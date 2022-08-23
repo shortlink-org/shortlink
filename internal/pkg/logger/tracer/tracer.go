@@ -4,9 +4,8 @@ import (
 	"context"
 	"runtime"
 
-	"github.com/opentracing/opentracing-go"
-	opentracinglog "github.com/opentracing/opentracing-go/log"
-	"github.com/uber/jaeger-client-go"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
 
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
 )
@@ -14,7 +13,7 @@ import (
 func NewTraceFromContext(
 	ctx context.Context,
 	msg string,
-	tags []opentracing.Tag,
+	tags []attribute.KeyValue,
 	fields ...field.Fields,
 ) ([]field.Fields, error) { // nolint:contextcheck,maintidx
 
@@ -22,25 +21,22 @@ func NewTraceFromContext(
 		ctx = context.Background()
 	}
 
-	span, _ := opentracing.StartSpanFromContext(ctx, getNameFunc())
-	defer span.Finish()
+	_, span := otel.Tracer("logger").Start(ctx, getNameFunc())
+	defer span.End()
 
-	span.LogFields(ZapFieldsToOpentracing(fields...)...)
-	span.LogFields(opentracinglog.String("log", msg))
+	span.SetAttributes(ZapFieldsToOpenTelemetry(fields...)...)
+	span.SetAttributes(attribute.String("log", msg))
+	span.SetAttributes(tags...)
 
-	for key := range tags {
-		span.SetTag(tags[key].Key, tags[key].Value)
+	// Get span ID
+
+	if len(fields) == 0 {
+		fields = make([]field.Fields, 0)
 	}
 
-	if traceID, ok := span.Context().(jaeger.SpanContext); ok {
-		if len(fields) == 0 {
-			fields = make([]field.Fields, 0)
-		}
-
-		fields = append(fields, field.Fields{ // nozero
-			"traceID": traceID.TraceID().String(),
-		})
-	}
+	fields = append(fields, field.Fields{ // nozero
+		"traceID": span.SpanContext().TraceID().String(),
+	})
 
 	return fields, nil
 }
@@ -54,29 +50,29 @@ func getNameFunc() string {
 	return f.Name()
 }
 
-// ZapFieldsToOpentracing returns a table of standard opentracing field based on
+// ZapFieldsToOpenTelemetry returns a table of standard openTelemetry field based on
 // the inputed table of Zap field.
-func ZapFieldsToOpentracing(fields ...field.Fields) []opentracinglog.Field {
-	opentracingFields := make([]opentracinglog.Field, 0, len(fields))
+func ZapFieldsToOpenTelemetry(fields ...field.Fields) []attribute.KeyValue {
+	openTelemetryFields := make([]attribute.KeyValue, 0, len(fields))
 
 	for key := range fields {
 		for k := range fields[key] {
 			switch v := fields[key][k].(type) {
 			case string:
-				opentracingFields = append(opentracingFields, opentracinglog.String(k, v))
+				openTelemetryFields = append(openTelemetryFields, attribute.String(k, v))
 			case bool:
-				opentracingFields = append(opentracingFields, opentracinglog.Bool(k, v))
+				openTelemetryFields = append(openTelemetryFields, attribute.Bool(k, v))
 			case int:
-				opentracingFields = append(opentracingFields, opentracinglog.Int(k, v))
+				openTelemetryFields = append(openTelemetryFields, attribute.Int(k, v))
 			case int32:
-				opentracingFields = append(opentracingFields, opentracinglog.Int32(k, v))
+				openTelemetryFields = append(openTelemetryFields, attribute.Int(k, int(v)))
 			case int64:
-				opentracingFields = append(opentracingFields, opentracinglog.Int64(k, v))
+				openTelemetryFields = append(openTelemetryFields, attribute.Int64(k, v))
 			case error:
-				opentracingFields = append(opentracingFields, opentracinglog.String(k, v.Error()))
+				openTelemetryFields = append(openTelemetryFields, attribute.String(k, v.Error()))
 			}
 		}
 	}
 
-	return opentracingFields
+	return openTelemetryFields
 }

@@ -133,7 +133,6 @@ make skaffold-debug
 - gRPC-gateway
 - GraphQL
 - ***Optional***
-    - go-kit
     - [CloudEvents](https://cloudevents.io/)
 
 ### MQ

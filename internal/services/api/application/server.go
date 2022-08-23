@@ -4,14 +4,12 @@ import (
 	"context"
 	"time"
 
-	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/services/api/application/cloudevents"
-	gokit "github.com/batazor/shortlink/internal/services/api/application/go-kit"
 	"github.com/batazor/shortlink/internal/services/api/application/graphql"
 	grpcweb "github.com/batazor/shortlink/internal/services/api/application/grpc_web/v1"
 	http_chi "github.com/batazor/shortlink/internal/services/api/application/http-chi"
@@ -27,7 +25,6 @@ func RunAPIServer(
 	ctx context.Context,
 	i18n *message.Printer,
 	log logger.Logger,
-	tracer *opentracing.Tracer,
 	rpcServer *rpc.RPCServer,
 
 	// delivery
@@ -38,7 +35,7 @@ func RunAPIServer(
 ) (*API, error) {
 	var server API
 
-	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents, go-kit
+	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents
 	// API port
 	viper.SetDefault("API_PORT", 7070) // nolint:gomnd
 	// Request Timeout (seconds)
@@ -54,8 +51,6 @@ func RunAPIServer(
 	switch serverType {
 	case "http-chi":
 		server = &http_chi.API{}
-	case "go-kit":
-		server = &gokit.API{}
 	case "gRPC-web":
 		server = &grpcweb.API{
 			RPC: rpcServer,
@@ -71,7 +66,7 @@ func RunAPIServer(
 	g := errgroup.Group{}
 
 	g.Go(func() error {
-		return server.Run(ctx, i18n, config, log, tracer, link_rpc, link_command, link_query, sitemap_rpc)
+		return server.Run(ctx, i18n, config, log, link_rpc, link_command, link_query, sitemap_rpc)
 	})
 
 	return &server, nil

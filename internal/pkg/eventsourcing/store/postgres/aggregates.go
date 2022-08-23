@@ -8,7 +8,8 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/codes"
 
 	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
 )
@@ -20,8 +21,8 @@ type Aggregates interface {
 
 func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "addAggregate")
-	defer span.Finish()
+	_, span := otel.Tracer("aggregate").Start(ctx, "addAggregate")
+	defer span.End()
 
 	entities := psql.Insert("billing.aggregates").
 		Columns("id", "type", "version").
@@ -38,8 +39,8 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 		return nil
 	}
 	if errScan.Error() != "" {
-		span.SetTag("error", true)
-		span.SetTag("message", errScan.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return errScan
 	}
@@ -49,8 +50,8 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 
 func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
-	span, _ := opentracing.StartSpanFromContext(ctx, "updateAggregate")
-	defer span.Finish()
+	_, span := otel.Tracer("aggregate").Start(ctx, "updateAggregate")
+	defer span.End()
 
 	entities := psql.Update("billing.aggregates").
 		Set("version", event.Version).
@@ -62,16 +63,16 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 
 	q, args, err := entities.ToSql()
 	if err != nil {
-		span.SetTag("error", true)
-		span.SetTag("message", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return err
 	}
 
 	row, err := s.db.Exec(ctx, q, args...)
 	if err != nil {
-		span.SetTag("error", true)
-		span.SetTag("message", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
 
 		return err
 	}

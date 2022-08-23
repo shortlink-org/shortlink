@@ -18,7 +18,10 @@ func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*GetLinkRespo
 	go notify.Publish(ctx, v1.METHOD_GET, req.Link.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
 
 	// inject spanId in response header
-	helpers.RegisterSpan(ctx)
+	errSendHeader := helpers.RegisterSpan(ctx)
+	if errSendHeader != nil {
+		return nil, errSendHeader
+	}
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -49,7 +52,10 @@ func (api *API) GetLinks(ctx context.Context, req *GetLinksRequest) (*GetLinksRe
 	go notify.Publish(ctx, v1.METHOD_LIST, req.Filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
 
 	// inject spanId in response header
-	helpers.RegisterSpan(ctx)
+	errSendHeader := helpers.RegisterSpan(ctx)
+	if errSendHeader != nil {
+		return nil, errSendHeader
+	}
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -84,7 +90,10 @@ func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*Create
 	go notify.Publish(ctx, v1.METHOD_ADD, req, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
 
 	// inject spanId in response header
-	helpers.RegisterSpan(ctx)
+	errSendHeader := helpers.RegisterSpan(ctx)
+	if errSendHeader != nil {
+		return nil, errSendHeader
+	}
 
 	c := <-responseCh
 	switch r := c.(type) {
@@ -115,7 +124,10 @@ func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*empty.
 	go notify.Publish(ctx, v1.METHOD_DELETE, req.Link.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
 
 	// inject spanId in response header
-	helpers.RegisterSpan(ctx)
+	errSendHeader := helpers.RegisterSpan(ctx)
+	if errSendHeader != nil {
+		return nil, errSendHeader
+	}
 
 	c := <-responseCh
 	switch r := c.(type) {

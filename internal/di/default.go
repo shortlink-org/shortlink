@@ -11,7 +11,7 @@ import (
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	redisCache "github.com/go-redis/cache/v8"
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
@@ -50,7 +50,7 @@ type Service struct {
 	ClientRPC *grpc.ClientConn
 
 	// Observability
-	Tracer        *opentracing.Tracer
+	Tracer        *trace.TracerProvider
 	Sentry        *sentryhttp.Handler
 	Monitoring    *http.ServeMux
 	PprofEndpoint profiling.PprofEndpoint
@@ -89,7 +89,7 @@ func NewFullService(
 	// Observability
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {

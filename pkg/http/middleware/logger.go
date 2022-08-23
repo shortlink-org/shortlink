@@ -4,8 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/opentracing/opentracing-go"
-	"github.com/uber/jaeger-client-go"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
@@ -41,11 +40,8 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 		}
 
 		// Get span ID
-		span := opentracing.SpanFromContext(r.Context())
-		if span != nil {
-			traceID := span.Context().(jaeger.SpanContext).TraceID().String()
-			fields["traceID"] = traceID
-		}
+		span := trace.LinkFromContext(r.Context()).SpanContext
+		fields["traceID"] = span.TraceID().String()
 
 		c.logZ.Info("request completed", fields)
 	}

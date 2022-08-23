@@ -10,7 +10,7 @@ import (
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
@@ -31,7 +31,7 @@ type ServiceAPI struct {
 }
 
 // InitAPIService =====================================================================================================
-func InitAPIService(ctx context.Context, i18n *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *opentracing.Tracer) (*api_di.APIService, func(), error) {
+func InitAPIService(ctx context.Context, i18n *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *trace.TracerProvider) (*api_di.APIService, func(), error) {
 	return api_di.InitializeAPIService(ctx, i18n, runRPCClient, runRPCServer, log, tracer)
 }
 
@@ -54,7 +54,7 @@ func NewAPIService(
 	i18n *message.Printer,
 	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 	clientRPC *grpc.ClientConn,

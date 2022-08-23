@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/opentracing/opentracing-go"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/propagation"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -55,9 +57,6 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 	mq.wg.Lock()
 	defer mq.wg.Unlock()
 
-	sp := opentracing.SpanFromContext(ctx)
-	defer sp.Finish()
-
 	// create exchange
 	err := mq.ch.ExchangeDeclare(
 		target,   // name
@@ -79,7 +78,8 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 	}
 
 	// Inject the span context into the AMQP header.
-	err = opentracing.GlobalTracer().Inject(sp.Context(), opentracing.TextMap, amqpHeadersCarrier(msg.Headers))
+	tc := propagation.TraceContext{}
+	tc.Inject(ctx, amqpHeadersCarrier(msg.Headers))
 	if err != nil {
 		mq.log.Warn(err.Error())
 	}
@@ -157,26 +157,17 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 			ctx := context.Background()
 
 			// Extract the span context out of the AMQP header.
-			spanCtx, errSpan := opentracing.GlobalTracer().Extract(opentracing.TextMap, amqpHeadersCarrier(msg.Headers))
-			if errSpan != nil {
-				mq.log.Warn(errSpan.Error())
-			}
+			tc := propagation.TraceContext{}
+			spanCtx := tc.Extract(ctx, amqpHeadersCarrier(msg.Headers))
 
-			span := opentracing.StartSpan(
-				"AMQP: ConsumeMessage",
-				opentracing.FollowsFrom(spanCtx),
-			)
-			span.SetTag("queue", q.Name)
-
-			// Update the context with the span for the subsequent reference.
-			ctx = opentracing.ContextWithSpan(ctx, span)
+			spanCtx, span := otel.Tracer("AMQP").Start(spanCtx, "ConsumeMessage")
+			span.SetAttributes(attribute.String("queue", q.Name))
+			defer span.End()
 
 			message.Chan <- query.ResponseMessage{
 				Body:    msg.Body,
-				Context: ctx,
+				Context: spanCtx,
 			}
-
-			span.Finish()
 		}
 
 		return nil

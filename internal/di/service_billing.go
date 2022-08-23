@@ -9,7 +9,7 @@ import (
 	"net/http"
 
 	"github.com/google/wire"
-	"github.com/opentracing/opentracing-go"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
 	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
@@ -32,7 +32,7 @@ type ServiceBilling struct {
 }
 
 // InitMetaService =====================================================================================================
-func InitBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ, tracer *opentracing.Tracer) (*billing_di.BillingService, func(), error) {
+func InitBillingService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db *db.Store, mq v1.MQ, tracer *trace.TracerProvider) (*billing_di.BillingService, func(), error) {
 	return billing_di.InitializeBillingService(ctx, runRPCClient, runRPCServer, log, db, mq, tracer)
 }
 
@@ -54,7 +54,7 @@ func NewBillingService(
 	cfg *config.Config,
 	log logger.Logger,
 	monitoring *http.ServeMux,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 	mq v1.MQ,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 

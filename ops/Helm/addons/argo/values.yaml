@@ -88,7 +88,7 @@ argo-cd:
 #        command: [sh, -c]
 #        args:
 #          - wget -qO- https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz | tar -xvzf - &&
-#            mv linux-amd64/helm /custom-tools/
+#            mv -u linux-amd64/helm /custom-tools/
 #        volumeMounts:
 #          - mountPath: /custom-tools
 #            name: custom-tools

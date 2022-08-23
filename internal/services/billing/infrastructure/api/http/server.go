@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/opentracing/opentracing-go"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
@@ -25,7 +25,7 @@ type API interface {
 		db *db.Store,
 		config api_type.Config,
 		log logger.Logger,
-		tracer *opentracing.Tracer,
+		tracer *trace.TracerProvider,
 
 		// services
 		accountService *account_application.AccountService,
@@ -41,7 +41,7 @@ func (s *Server) Use(
 	ctx context.Context,
 	db *db.Store,
 	log logger.Logger,
-	tracer *opentracing.Tracer,
+	tracer *trace.TracerProvider,
 
 	// services
 	accountService *account_application.AccountService,
