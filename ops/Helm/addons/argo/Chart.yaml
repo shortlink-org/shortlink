@@ -30,7 +30,7 @@ dependencies:
     tags:
       - ci/cd
   - name: argo-rollouts
-    version: 2.18.0
+    version: 2.19.0
     repository: https://argoproj.github.io/argo-helm
     condition: argo.enabled
     tags:
