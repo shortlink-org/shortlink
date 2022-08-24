@@ -145,7 +145,16 @@ const Home: NextPage = () => {
             >
               {getCard("Prometheus", "/prometheus")}
               {getCard("AlertManager", "/alertmanager")}
+            </Stack>
 
+            <Stack
+              spacing={{ xs: 1, sm: 2, md: 4 }}
+              direction="row"
+              divider={<Divider orientation="vertical" flexItem />}
+              mt={2}
+              justifyContent="center"
+              alignItems="center"
+            >
               {getCard("Grafana", "/grafana")}
 
               {getCard("RabbitMQ", "/rabbitmq")}
