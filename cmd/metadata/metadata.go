@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	viper.SetDefault("SERVICE_NAME", "metadata")
+	viper.SetDefault("SERVICE_NAME", "shortlink-metadata")
 
 	// Init a new service
 	service, cleanup, err := di.InitializeMetadataService()

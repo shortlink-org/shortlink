@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	viper.SetDefault("SERVICE_NAME", "billing")
+	viper.SetDefault("SERVICE_NAME", "shortlink-billing")
 
 	// Init a new service
 	service, cleanup, err := di.InitializeBillingService()
