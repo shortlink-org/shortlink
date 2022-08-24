@@ -108,6 +108,8 @@ func (mq *Kafka) setConfig() *sarama.Config {
 	// sarama config
 	config := sarama.NewConfig()
 
+	config.ClientID = viper.GetString("SERVICE_NAME")
+
 	config.Producer.Partitioner = sarama.NewRandomPartitioner
 	config.Producer.RequiredAcks = sarama.WaitForAll
 	config.Producer.Retry.Max = 5

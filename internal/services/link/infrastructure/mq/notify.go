@@ -28,19 +28,19 @@ func New(mq mq.MQ, log logger.Logger, service *link_application.Service) (*Event
 	}
 
 	// Subscribe on metadata
-	event.SubscribeCQRSGetMetadata()
+	// event.SubscribeCQRSGetMetadata()
 
 	// Subscribe on metadata
-	err := event.SubscribeCQRSNewLink()
-	if err != nil {
-		return nil, err
-	}
+	// err := event.SubscribeCQRSNewLink()
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	// Subscribe a new link
-	err = event.SubscribeNewLink()
-	if err != nil {
-		return nil, err
-	}
+	// err = event.SubscribeNewLink()
+	// if err != nil {
+	// 	return nil, err
+	// }
 
 	return event, nil
 }
