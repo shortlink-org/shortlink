@@ -180,8 +180,11 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
 				Id: in.Url,
 			})
+			if err != nil {
+				return err
+			}
 
-			return err
+			return nil
 		}).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
