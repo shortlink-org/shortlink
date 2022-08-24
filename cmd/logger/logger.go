@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	viper.SetDefault("SERVICE_NAME", "logger")
+	viper.SetDefault("SERVICE_NAME", "shortlink-logger")
 
 	// Init a new service
 	service, cleanup, err := di.InitializeLoggerService()

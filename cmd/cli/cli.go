@@ -22,7 +22,7 @@ import (
 )
 
 func init() {
-	viper.SetDefault("SERVICE_NAME", "cli")
+	viper.SetDefault("SERVICE_NAME", "shortlink-cli")
 
 	rootCmd := &cobra.Command{
 		Use:   "shortctl",

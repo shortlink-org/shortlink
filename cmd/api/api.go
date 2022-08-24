@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	viper.SetDefault("SERVICE_NAME", "api")
+	viper.SetDefault("SERVICE_NAME", "shortlink-api")
 
 	// Init a new service
 	service, cleanup, err := di.InitializeAPIService()

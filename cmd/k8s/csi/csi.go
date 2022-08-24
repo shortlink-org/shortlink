@@ -16,7 +16,7 @@ import (
 )
 
 func init() {
-	viper.SetDefault("SERVICE_NAME", "csi")
+	viper.SetDefault("SERVICE_NAME", "shortlink-csi")
 
 	rootCmd := &cobra.Command{
 		Use:   "shortctl-csi",
