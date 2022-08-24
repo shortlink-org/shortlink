@@ -34,6 +34,8 @@ up: ## Run for specific job
 		-f ops/docker-compose/database/redis.yaml \
 		-f ops/docker-compose/database/postgres.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
+		-f ops/docker-compose/mq/kafka.yaml \
+		-f ops/docker-compose/mq/kafka-ui.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus.yaml \
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-loki.yaml \
