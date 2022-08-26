@@ -68,8 +68,12 @@ kube-prometheus-stack:
     prometheusSpec:
       routePrefix: /prometheus/
 
-      serviceMonitorNamespaceSelector: {}
+      # disabled for knative
+      serviceMonitorSelectorNilUsesHelmValues: false
+      # disabled for knative
+      podMonitorSelectorNilUsesHelmValues: false
 
+      serviceMonitorNamespaceSelector: {}
       serviceMonitorSelector: {}
 
       # How long to retain metrics

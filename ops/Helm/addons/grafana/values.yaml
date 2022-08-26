@@ -51,19 +51,10 @@ grafana:
   sidecar:
     dashboards:
       enabled: true
-      label: grafana_dashboard
-
-      # Annotations for Grafana dashboard configmaps
-      ##
-      annotations: {}
-      multicluster: false
+      searchNamespace: ALL
     datasources:
       enabled: true
-      defaultDatasourceEnabled: true
-
-      # Annotations for Grafana datasource configmaps
-      ##
-      annotations: {}
+      searchNamespace: ALL
 
   datasources:
     datasources.yaml:
