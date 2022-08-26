@@ -22,7 +22,7 @@ dependencies:
     version: 2.0.1
     repository: https://charts.bitnami.com/bitnami
   - name: kratos
-    version: 0.25.0
+    version: 0.25.1
     repository: https://k8s.ory.sh/helm/charts
     condition: kratos.enabled
     tags:
