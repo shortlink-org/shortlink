@@ -1,7 +1,7 @@
 .job_template_helm:
   stage: action
   image:
-    name: alpine/helm:3.9.3
+    name: alpine/helm:3.9.4
     entrypoint: [""]
   retry: 2
   when: manual
