@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: knative-eventing
+---
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeEventing
+metadata:
+  name: knative-eventing
+  namespace: knative-eventing
+spec:
+  source:
+    kafka:
+      enabled: true
+    rabbitmq:
+      enabled: true
+    redis:
+      enabled: true
+    gitlab:
+      enabled: true
+    github:
+      enabled: true
