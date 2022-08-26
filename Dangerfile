@@ -1,6 +1,6 @@
-require_relative 'danger/lib/gitlab_danger'
+require_relative 'ops/danger/lib/gitlab_danger'
 
-danger.import_plugin('danger/plugins/helper.rb')
+danger.import_plugin('ops/danger/plugins/helper.rb')
 
 RELEASE_TEAM = %w[
     batazor
