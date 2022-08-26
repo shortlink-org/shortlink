@@ -14,7 +14,7 @@ deploy:
     - docker
   stage: deploy
   image:
-    name: alpine/helm:3.9.3
+    name: alpine/helm:3.9.4
     entrypoint: [ "" ]
   script:
     - echo "helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
