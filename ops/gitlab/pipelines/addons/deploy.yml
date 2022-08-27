@@ -2,9 +2,9 @@
 argo:
   stage: deploy
   variables:
-    RELEASE_NAME: argo
+    RELEASE_NAME: argocd
     HELM_PATH: ops/Helm/addons/argo
-    HELM_NAMESPACE: argo
+    HELM_NAMESPACE: argocd
     ENVIRONMENT_URL: $ENVIRONMENT_URL/argo
   trigger:
     include:

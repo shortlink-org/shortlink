@@ -1,6 +1,7 @@
 # Common default values for argo-cd.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+# Ref: https://github.com/argoproj/argo-cd
 
 argo:
   enabled: true
@@ -8,20 +9,18 @@ argo:
 argo-cd:
   fullnameOverride: argocd
 
+  global:
+    logging:
+      format: json
+
   controller:
     metrics:
       enabled: true
       applicationLabels:
         enabled: true
-    serviceMonitor:
-      enabled: true
+      serviceMonitor:
+        enabled: true
     rules:
-      enabled: true
-
-  redis:
-    metrics:
-      enabled: true
-    serviceMonitor:
       enabled: true
 
   dex:
@@ -29,10 +28,60 @@ argo-cd:
 
     metrics:
       enabled: true
-    serviceMonitor:
-      enabled: true
+      serviceMonitor:
+        enabled: true
+
+  redis:
+    enabled: false
+
+  externalRedis:
+    host: shortlink-redis-master.redis
 
   server:
+    extraArgs:
+      - --rootpath
+      - /argocd
+      - --basehref
+      - /argocd
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+    ingress:
+      enabled: true
+
+      ingressClassName: nginx
+
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+        nginx.ingress.kubernetes.io/configuration-snippet: |-
+          proxy_ssl_server_name on;
+          proxy_ssl_name $host;
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/secure-backends: "true"
+        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentracing: "true"
+
+      hosts:
+        - architecture.ddns.net
+
+      paths:
+        - /argocd(/|$)(.*)
+
+      tls:
+        - secretName: shortlink-ingress-tls
+          hosts:
+            - architecture.ddns.net
+
+      https: true
+
+    config:
+      url: https://architecture.ddns.net/argocd
+
     rbacConfig:
       policy.csv: |
         p, role:org-admin, applications, *, */*, allow
@@ -45,61 +94,32 @@ argo-cd:
         g, gitlab, role:org-admin
       policy.default: role:readonly
 
-    additionalApplications:
-      - name: shortlink
-        namespace: shortlink
-        finalizers:
-          - resources-finalizer.argocd.argoproj.io
-        destination:
-          name: in-cluster
-          namespace: shortlink
-          server: ''
-        source:
-          path: argocd
-          repoURL: 'git@github.com:batazor/shortlink.git'
-          targetRevision: HEAD
-          directory:
-            recurse: true
-        project: shortlink
-        syncPolicy:
-          automated: null
-          syncOptions:
-            - CreateNamespace=true
-          retry:
-            limit: 2
-            backoff:
-              duration: 5s
-              maxDuration: 5m0s
-              factor: 2
-
-    additionalProjects:
-      - name: shortlink
-        description: Shortlink service (Microservice example)
-        sourceRepos:
-          - '*'
-        destinations:
-          - server: '*'
-            namespace: '*'
+    extensions:
+      enabled: true
 
   repoServer:
-    initContainers: []
-#      - name: download-tools
-#        image: alpine:3.8
-#        command: [sh, -c]
-#        args:
-#          - wget -qO- https://get.helm.sh/helm-v2.16.1-linux-amd64.tar.gz | tar -xvzf - &&
-#            mv -u linux-amd64/helm /custom-tools/
-#        volumeMounts:
-#          - mountPath: /custom-tools
-#            name: custom-tools
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
 
     volumes:
       - name: custom-tools
         emptyDir: {}
 
-  configs:
-    secret:
-      gitlabSecret: "secret-gitlab"
+  applicationSet:
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+
+  notifications:
+    argocdUrl: https://architecture.ddns.net/argocd
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
 
 argo-events:
   fullnameOverride: argo-events
