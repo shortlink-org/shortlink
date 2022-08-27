@@ -56,7 +56,7 @@ require (
 	github.com/srikrsna/protoc-gen-gotag v0.6.2
 	github.com/stretchr/testify v1.8.0
 	github.com/swaggo/http-swagger v1.3.3
-	github.com/swaggo/swag v1.8.4
+	github.com/swaggo/swag v1.8.5
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.15
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.15
