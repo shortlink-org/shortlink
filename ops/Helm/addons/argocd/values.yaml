@@ -116,10 +116,19 @@ argo-cd:
   notifications:
     argocdUrl: https://architecture.ddns.net/argocd
 
+    secret: {}
+
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
+
+  configs:
+    repositories:
+      shortlink:
+        url: https://github.com/batazor/shortlink
+        name: shortlink
+        type: git
 
 argo-events:
   fullnameOverride: argo-events

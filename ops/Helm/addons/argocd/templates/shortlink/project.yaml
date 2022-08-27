@@ -13,13 +13,11 @@ spec:
     - '*'
   # Only permit applications to deploy to the guestbook namespace in the same cluster
   destinations:
-    - namespace: shortlink
-      server: https://kubernetes.default.svc
-  roles:
-    # A role which provides read-only access to all applications in the project
-    - name: read-only
-      description: Read-only privileges to shortlink-oidc-group
-      policies:
-        - p, proj:shortlink-oidc-group:read-only, applications, get, shortlink-oidc-group/*, allow
-      groups:
-        - shortlink-oidc-group
+    - namespace: '*'
+      server: '*'
+  # Deny all cluster-scoped resources from being created, except for Namespace
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  orphanedResources:
+    warn: true
