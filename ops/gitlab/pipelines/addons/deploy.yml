@@ -3,9 +3,9 @@ argo:
   stage: deploy
   variables:
     RELEASE_NAME: argocd
-    HELM_PATH: ops/Helm/addons/argo
+    HELM_PATH: ops/Helm/addons/argocd
     HELM_NAMESPACE: argocd
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/argo
+    ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'

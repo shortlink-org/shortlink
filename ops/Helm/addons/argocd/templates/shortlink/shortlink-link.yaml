@@ -1,0 +1,17 @@
+{{/*apiVersion: argoproj.io/v1alpha1*/}}
+{{/*kind: Application*/}}
+{{/*metadata:*/}}
+{{/*  name: shortlink-link*/}}
+{{/*  namespace: argocd*/}}
+{{/*spec:*/}}
+{{/*  project: shortlink*/}}
+{{/*  destination:*/}}
+{{/*    namespace: shortlink*/}}
+{{/*    server: https://kubernetes.default.svc*/}}
+{{/*  source:*/}}
+{{/*    path: ops/Helm/shortlink-link*/}}
+{{/*    repoURL: 'git@github.com:batazor/shortlink.git'*/}}
+{{/*    targetRevision: main*/}}
+{{/*    helm:*/}}
+{{/*      valueFiles:*/}}
+{{/*        - values.yaml*/}}
