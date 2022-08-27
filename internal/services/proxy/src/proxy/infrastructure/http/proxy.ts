@@ -25,7 +25,9 @@ class ProxyController implements interfaces.Controller {
       const link = await this.linkService.get(hash)
       res.redirect(301, link)
     } catch (error) {
-      res.status(400).json(error)
+      log.error(error)
+      // @ts-ignore
+      res.status(400).json({ error: error.message })
     }
   }
 }
