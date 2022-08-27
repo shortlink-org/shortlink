@@ -1,6 +1,4 @@
 import { injectable } from 'inversify'
-// @ts-ignore
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args))
 
 interface Link {
   url: string,
@@ -10,10 +8,17 @@ interface Link {
 export class LinkService {
   public async get(hash: string): Promise<string> {
     // TODO: use gRPC
-    const resp = await fetch(`${process.env.API_LINK_SERVICE}/api/links/${hash}`)
-    const link: unknown = await resp.json()
+    try {
+      const resp = await fetch(`${process.env.API_LINK_SERVICE}/api/links/${hash}`)
+      if (!resp.ok) {
+        throw new Error(`${resp.status} ${resp.statusText}`)
+      }
 
-    // @ts-ignore
-    return link.url
+      const link: Link = await resp.json()
+      return link.url
+    } catch (err) {
+      // @ts-ignore
+      throw new Error(err)
+    }
   }
 }
