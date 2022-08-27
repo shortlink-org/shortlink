@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-notifications-secret
+stringData:
+  slack-token: a5tA5KhnyF8eOrNi20RFT9N8
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+data:
+  service.slack: |
+    token: $slack-token
+    username: argocd # optional username
+    icon: :dart: # optional icon for the message (supports both emoij and url notation)
