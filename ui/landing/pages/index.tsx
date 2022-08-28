@@ -161,6 +161,17 @@ const Home: NextPage = () => {
 
               {getCard("Kyverno", "/kyverno/#/")}
             </Stack>
+
+            <Stack
+              spacing={{ xs: 1, sm: 2, md: 4 }}
+              direction="row"
+              divider={<Divider orientation="vertical" flexItem />}
+              mt={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              {getCard("ArgoCD", "/argocd")}
+            </Stack>
           </TabPanel>
 
           <TabPanel value={value} index={2} dir={theme.direction}>
