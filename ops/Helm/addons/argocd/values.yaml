@@ -116,7 +116,15 @@ argo-cd:
   notifications:
     argocdUrl: https://architecture.ddns.net/argocd
 
-    secret: {}
+    secret:
+      items:
+        slack-token: <SECRET>
+
+    notifiers:
+      service.slack: |
+        token: $slack-token
+        username: argocd # optional username
+        icon: :dart: # optional icon for the message (supports both emoij and url notation)
 
     metrics:
       enabled: true

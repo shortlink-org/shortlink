@@ -6,17 +6,17 @@ metadata:
     - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
-    name: in-cluster
+    name: ''
     namespace: shortlink
-    server: ''
+    server: 'https://kubernetes.default.svc'
   source:
     path: ops/Helm/shortlink-link
-    repoURL: 'git@github.com:batazor/shortlink.git'
+    repoURL: 'https://github.com/batazor/shortlink'
     targetRevision: HEAD
-    directory:
-      recurse: false
-      jsonnet:
-        tlas: []
+    helm:
+      parameters:
+        - name: serviceAccount.create
+          value: 'false'
   project: shortlink
   syncPolicy:
     automated:
