@@ -82,6 +82,8 @@ argo-cd:
     config:
       url: https://architecture.ddns.net/argocd
 
+    configAnnotations: {}
+
     rbacConfig:
       policy.csv: |
         p, role:org-admin, applications, *, */*, allow
