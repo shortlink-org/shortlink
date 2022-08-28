@@ -1,3 +1,4 @@
+{{- if and (.Capabilities.APIVersions.Has "operator.knative.dev/v1beta1") -}}
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -20,3 +21,4 @@ spec:
       enabled: true
     github:
       enabled: true
+{{- end }}
