@@ -13,3 +13,4 @@ echo "Waiting for namespace deletion to process..."
 wait 12
 kubectl get namespaces
 echo "...done."
+rm temp.json
