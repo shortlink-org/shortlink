@@ -170,7 +170,8 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("ArgoCD", "/argocd")}
+              {getCard("Argo CD", "/argocd")}
+              {getCard("Argo Workflows", "/argoworkflows")}
             </Stack>
           </TabPanel>
 

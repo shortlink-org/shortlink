@@ -162,7 +162,9 @@ make skaffold-debug
   + Minikube
   + Backup/Restore [(Velero)](https://velero.io/)
   + Custom CSI driver (fork [csi-driver-host-pat](https://github.com/kubernetes-csi/csi-driver-host-path))
-+ Istio
++ Ingress
+  + Istio
+  + Nginx
 + MetalLB
 + [kyverno](https://kyverno.io/) - Kubernetes Native Policy Management
 + Storage
@@ -252,6 +254,7 @@ ansible-playbook playbooks/playbook.yml
 
 - [GitLab CI](./ops/gitlab/README.md)
 - [GitHub CI](./.github/DOCS.md)
+- ArgoCD
 
 ## -~- THE END -~-
 
