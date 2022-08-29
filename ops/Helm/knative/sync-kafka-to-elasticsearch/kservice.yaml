@@ -9,6 +9,6 @@ spec:
         autoscaling.knative.dev/minScale: "0"
     spec:
       containers:
-        - image: gcr.io/knative-samples/helloworld-go
-          ports:
-            - containerPort: 8080
+        - # This corresponds to
+          # https://github.com/knative/eventing/tree/main/cmd/event_display/main.go
+          image: gcr.io/knative-releases/knative.dev/eventing/cmd/event_display
