@@ -38,3 +38,7 @@ helm-docs: ### Generate HELM docs
 		--workdir="/helm-docs" \
 		-u "$(id -u)" \
 		jnorwood/helm-docs:v1.11.0
+
+helm-update: ### Update Helm charts
+	@find . -name "Chart.yaml" | xargs dirname | xargs -L 1 bash -c 'cd "$0" && rm Chart.lock || helm dependencies build --skip-refresh'
+	@make helm-docs

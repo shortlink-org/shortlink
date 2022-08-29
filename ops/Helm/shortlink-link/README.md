@@ -1,6 +1,6 @@
 # shortlink-link
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink link service
 
@@ -22,7 +22,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.0.0 |
+| file://../shortlink-common | shortlink-common | 0.1.0 |
 
 ## Values
 
@@ -33,9 +33,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` | Annotations to be added to controller pods |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
-| deploy.env.MQ_ENABLED | string | `"false"` |  |
+| deploy.env.MQ_ENABLED | string | `"true"` |  |
+| deploy.env.MQ_KAFKA_URI | string | `"kafka-kafka-bootstrap.kafka:9092"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
-| deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
+| deploy.env.MQ_TYPE | string | `"kafka"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
 | deploy.env.STORE_REDIS_URI | string | `"shortlink-redis-master.redis:6379"` |  |
 | deploy.env.TRACER_URI | string | `"grafana-tempo.grafana:6831"` |  |

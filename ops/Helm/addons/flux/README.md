@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.0.0 |
+| file://../../shortlink-common | shortlink-common | 0.1.0 |
 | https://charts.fluxcd.io | flux | 1.13.2 |
 | https://charts.fluxcd.io | helm-operator | 1.4.3 |
 

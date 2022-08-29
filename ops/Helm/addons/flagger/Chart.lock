@@ -1,9 +1,9 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.1.0
 - name: flagger
   repository: https://flagger.app
   version: 1.22.1
-digest: sha256:140e89bdadae93e8a0e50e55c3a7d367f7cc02a3b38aeced859dcdf2aaecf60a
-generated: "2022-08-24T01:23:29.029277416Z"
+digest: sha256:9be4cb0114bec1c3d90d2eead39bb567c7e46a6125da880714ac3b265f2df546
+generated: "2022-08-29T04:50:10.961318746+03:00"

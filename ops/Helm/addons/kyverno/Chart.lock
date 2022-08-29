@@ -1,7 +1,7 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.1.0
 - name: kyverno
   repository: https://kyverno.github.io/kyverno
   version: v2.5.3
@@ -11,5 +11,5 @@ dependencies:
 - name: kyverno-policies
   repository: https://kyverno.github.io/kyverno
   version: v2.5.4
-digest: sha256:308951cf35d67e53eb7d78a144990f77e6757841602d3c0a2d6876063250c767
-generated: "2022-08-26T23:29:07.792017295Z"
+digest: sha256:701f0cf3ea9bbaa1dd07c909fde048ceb300ade714036c3456dd279875640888
+generated: "2022-08-29T04:48:19.117369226+03:00"

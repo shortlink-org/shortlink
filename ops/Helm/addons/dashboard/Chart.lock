@@ -1,9 +1,9 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.1.0
 - name: kubernetes-dashboard
   repository: https://kubernetes.github.io/dashboard
   version: 5.10.0
-digest: sha256:d1e5a06942e4374022ab7a545469d97a7e32b2f14716ba9db449747bc7a65372
-generated: "2022-08-27T10:19:29.648578469Z"
+digest: sha256:0c231e38c28f7e3ac7fe72dc302abe5d3f04de12452dbe1849262029c4d76a65
+generated: "2022-08-29T04:50:21.493329434+03:00"

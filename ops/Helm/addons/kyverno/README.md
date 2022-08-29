@@ -14,10 +14,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.0.0 |
-| https://kyverno.github.io/kyverno | kyverno | v2.5.2 |
-| https://kyverno.github.io/kyverno | kyverno-policies | v2.5.2 |
-| https://kyverno.github.io/policy-reporter | policy-reporter | 2.11.1 |
+| file://../../shortlink-common | shortlink-common | 0.1.0 |
+| https://kyverno.github.io/kyverno | kyverno | v2.5.3 |
+| https://kyverno.github.io/kyverno | kyverno-policies | v2.5.4 |
+| https://kyverno.github.io/policy-reporter | policy-reporter | 2.11.3 |
 
 ## Values
 

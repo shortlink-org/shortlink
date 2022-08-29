@@ -1,9 +1,9 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.1.0
 - name: keda
   repository: https://kedacore.github.io/charts
   version: 2.8.1
-digest: sha256:1a9ba639ff4adf6153f8468b99b53d17e03e9e102fa6bdf056b02e7998d640c9
-generated: "2022-08-24T01:20:33.325285861Z"
+digest: sha256:7c55608fe7cada08ca052a549d5882bc81a7c261253bad555d8f660240a13a1e
+generated: "2022-08-29T04:50:16.29312282+03:00"
