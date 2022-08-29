@@ -86,6 +86,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
     const values = emptyState<T>()
     nodes.forEach((node) => {
       // This only makes sense for text nodes
+      // @ts-ignore
       if (isUiNodeInputAttributes(node.attributes)) {
         if (
           node.attributes.type === 'button' ||
@@ -167,6 +168,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
         {!hideGlobalMessages ? <Messages messages={flow.ui.messages} /> : null}
 
         {nodes.map((node, k) => {
+          // @ts-ignore
           const id = getNodeId(node) as keyof Values
           return (
             <FormControl margin="normal" key={`${id}-${k}`} fullWidth>
@@ -183,6 +185,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
                         ...state,
                         values: {
                           ...state.values,
+                          // @ts-ignore
                           [getNodeId(node)]: value,
                         },
                       }),

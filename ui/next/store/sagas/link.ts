@@ -1,6 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import * as t from 'store/types'
-import API from "./api"
+import API from './api'
 
 // @ts-ignore
 function* fetchLinkById(id) {
@@ -102,7 +102,10 @@ function* watchDeleteLink() {
 function* updateLink(action) {
   try {
     // @ts-ignore
-    const response = yield API.links.updateLink(action.payload._id, action.payload)
+    const response = yield API.links.updateLink(
+      action.payload._id,
+      action.payload,
+    )
 
     yield put({
       type: t.LINK_UPDATE_SUCCEEDED,

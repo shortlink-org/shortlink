@@ -39,7 +39,10 @@ export function NodeInputButton<T>({ // eslint-disable-line
       value={attributes.value || ''}
       disabled={attributes.disabled || disabled}
     >
-      {getNodeLabel(node)}
+      {
+        // @ts-ignore
+        getNodeLabel(node)
+      }
     </Button>
   )
 }

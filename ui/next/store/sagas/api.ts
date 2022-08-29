@@ -1,4 +1,4 @@
-import { Api, ApiConfig } from "../api/Api";
+import { Api, ApiConfig } from '../api/Api'
 
 const config: ApiConfig = {
   baseUrl: '/api',

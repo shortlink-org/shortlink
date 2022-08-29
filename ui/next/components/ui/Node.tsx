@@ -29,22 +29,27 @@ export const Node = ({
   disabled,
   dispatchSubmit,
 }: Props) => {
+  // @ts-ignore
   if (isUiNodeImageAttributes(node.attributes)) {
     return <NodeImage node={node} attributes={node.attributes} />
   }
 
+  // @ts-ignore
   if (isUiNodeScriptAttributes(node.attributes)) {
     return <NodeScript node={node} attributes={node.attributes} />
   }
 
+  // @ts-ignore
   if (isUiNodeTextAttributes(node.attributes)) {
     return <NodeText node={node} attributes={node.attributes} />
   }
 
+  // @ts-ignore
   if (isUiNodeAnchorAttributes(node.attributes)) {
     return <NodeAnchor node={node} attributes={node.attributes} />
   }
 
+  // @ts-ignore
   if (isUiNodeInputAttributes(node.attributes)) {
     return (
       <NodeInput

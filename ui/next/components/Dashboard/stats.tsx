@@ -1,5 +1,5 @@
 interface StatisticProps {
-  count: number;
+  count: number
 }
 
 export default function Statistic({ count }: StatisticProps) {
