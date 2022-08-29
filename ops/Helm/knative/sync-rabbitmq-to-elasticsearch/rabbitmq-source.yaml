@@ -1,0 +1,24 @@
+apiVersion: sources.knative.dev/v1beta1
+kind: RabbitmqSource
+metadata:
+  name: sync-rabbitmq-to-elasticsearch
+spec:
+  rabbitmqClusterReference:
+    # Configure name if a RabbitMQ Cluster Operator is being used.
+    name: shortlink
+    # Configure connectionSecret if an external RabbitMQ cluster is being used.
+    connectionSecret:
+      name: rabbitmq-secret-credentials
+  rabbitmqResourcesConfig:
+    parallelism: 10
+    exchangeName: "shortlink.link.event.new"
+    queueName: "sync-rabbitmq-to-elasticsearch"
+  delivery:
+    retry: 5
+    backoffPolicy: "linear"
+    backoffDelay: "PT1S"
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: sync-rabbitmq-to-elasticsearch
