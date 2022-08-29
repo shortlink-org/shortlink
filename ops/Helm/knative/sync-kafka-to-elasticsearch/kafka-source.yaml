@@ -1,0 +1,15 @@
+apiVersion: sources.knative.dev/v1beta1
+kind: KafkaSource
+metadata:
+  name: sync-kafka-to-elasticsearch
+spec:
+  consumerGroup: knative-group
+  bootstrapServers:
+    - kafka-kafka-bootstrap.kafka:9092 # note the kafka namespace
+  topics:
+    - shortlink.link.event.created
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: sync-kafka-to-elasticsearch
