@@ -16,7 +16,10 @@ export function NodeInputCheckbox<T>({ // eslint-disable-line
       defaultChecked={attributes.value === true}
       onChange={(e) => setValue(e.target.checked)}
       disabled={attributes.disabled || disabled}
-      label={getNodeLabel(node)}
+      label={
+        // @ts-ignore
+        getNodeLabel(node)
+      }
       state={
         node.messages.find(({ type }) => type === 'error') ? 'error' : undefined
       }
