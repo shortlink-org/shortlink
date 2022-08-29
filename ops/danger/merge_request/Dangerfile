@@ -1,0 +1,17 @@
+unless gitlab.mr_title[0] == gitlab.mr_title[0].upcase
+  warn("Please capitalize the merge request title")
+end
+
+if gitlab.mr_body.empty?
+  fail("Please provide a merge request description")
+end
+
+if gitlab.mr_title.length > 72
+  warn "The title of this merge requests it too long"
+end
+
+unless gitlab.mr_json["force_remove_source_branch"]
+  warn "The source branch can be removed after the merge request is merged, please consider setting this option"
+end
+
+# vim: ft=ruby

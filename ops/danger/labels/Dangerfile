@@ -1,0 +1,35 @@
+required_labels = %w[devops::release]
+required_labels << "Category:Release Orchestration"
+required_labels << "group::release management" if RELEASE_TEAM.include?(gitlab.mr_author)
+
+TYPE_TO_LABEL = {
+  'added' => ['feature'],
+  'fixed' => ['bug'],
+  'changed' => ['backstage'],
+  'deprecated' => ['backstage'],
+  'security' => ['security'],
+  'removed' => ['backstage'],
+  'performance' => ['performance', 'backstage'],
+  'other' => ['backstage'],
+  nil => []
+}
+
+INHERIRABLE_LABELS = TYPE_TO_LABEL.values.flatten +  %w[Deliverable]
+
+def inherited_labels
+  gitlab.api
+    .merge_request_closes_issues( gitlab.mr_json['project_id'], gitlab.mr_json['iid'])
+    .flat_map { |i| i.labels }
+    .compact
+    .uniq
+    .select { |label| INHERIRABLE_LABELS.include?(label) }
+end
+
+mr_labels = gitlab.mr_labels | required_labels | inherited_labels
+gitlab.api.update_merge_request(
+  gitlab.mr_json['project_id'],
+  gitlab.mr_json['iid'],
+  labels: mr_labels.join(",")
+)
+
+# vim: ft=ruby
