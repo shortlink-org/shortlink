@@ -1,34 +1,71 @@
-# Kafka-UI Helm Chart
+# kafka-ui
 
-## Configuration
+![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
-Most of the Helm charts parameters are common, follow table describe unique parameters related to application configuration.
+A Helm chart for kafka-UI
 
-### Kafka-UI parameters
+## Values
 
-| Parameter                                | Description                                                                                                                                    | Default |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `existingConfigMap`                      | Name of the existing ConfigMap with Kafka-UI environment variables                                                                             | `nil`   |
-| `existingSecret`                         | Name of the existing Secret with Kafka-UI environment variables                                                                                | `nil`   |
-| `envs.secret`                            | Set of the sensitive environment variables to pass to Kafka-UI                                                                                 | `{}`    |
-| `envs.config`                            | Set of the environment variables to pass to Kafka-UI                                                                                           | `{}`    |
-| `yamlApplicationConfigConfigMap`         | Map with name and keyName keys, name refers to the existing ConfigMap, keyName refers to the ConfigMap key with Kafka-UI config in Yaml format | `{}`    |
-| `yamlApplicationConfig`                  | Kafka-UI config in Yaml format                                                                                                                 | `{}`    |
-| `networkPolicy.enabled`                  | Enable network policies                                                                                                                        | `false` |
-| `networkPolicy.egressRules.customRules`  | Custom network egress policy rules                                                                                                             | `[]`    |
-| `networkPolicy.ingressRules.customRules` | Custom network ingress policy rules                                                                                                            | `[]`    |
-| `podLabels`                              | Extra labels for Kafka-UI pod                                                                                                                  | `{}`    |
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| affinity | object | `{}` |  |
+| autoscaling.enabled | bool | `false` |  |
+| autoscaling.maxReplicas | int | `100` |  |
+| autoscaling.minReplicas | int | `1` |  |
+| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
+| env | object | `{}` |  |
+| envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS | string | `"kafka-kafka-bootstrap:9092"` |  |
+| envs.config.KAFKA_CLUSTERS_0_NAME | string | `"shortlink"` |  |
+| envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER | string | `"kafka-zookeeper-client:2181"` |  |
+| envs.config.MANAGEMENT_HEALTH_LDAP_ENABLED | string | `"FALSE"` |  |
+| envs.config.SERVER_SERVLET_CONTEXT_PATH | string | `"/kafka-ui"` |  |
+| envs.config.SPRING_SECURITY_USER_NAME | string | `"redacted"` |  |
+| envs.config.SPRING_SECURITY_USER_PASSWORD | string | `"redacted"` |  |
+| envs.secret | object | `{}` |  |
+| existingConfigMap | string | `""` |  |
+| existingSecret | string | `""` |  |
+| fullnameOverride | string | `""` |  |
+| host | string | `"architecture.ddns.net"` |  |
+| image.pullPolicy | string | `"IfNotPresent"` |  |
+| image.registry | string | `"docker.io"` |  |
+| image.repository | string | `"provectuslabs/kafka-ui"` |  |
+| image.tag | string | `""` |  |
+| imagePullSecrets | list | `[]` |  |
+| ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
+| ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
+| ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$2"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
+| ingress.enabled | bool | `true` |  |
+| ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
+| ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| ingress.type | string | `"nginx"` | Type ingress-controller: nginx, istio |
+| initContainers | object | `{}` |  |
+| nameOverride | string | `""` |  |
+| networkPolicy.egressRules.customRules | list | `[]` |  |
+| networkPolicy.enabled | bool | `false` |  |
+| networkPolicy.ingressRules.customRules | list | `[]` |  |
+| nodeSelector | object | `{}` |  |
+| podAnnotations | object | `{}` |  |
+| podLabels | object | `{}` |  |
+| podSecurityContext | object | `{}` |  |
+| replicaCount | int | `1` |  |
+| resources.limits.cpu | string | `"200m"` |  |
+| resources.limits.memory | string | `"512Mi"` |  |
+| securityContext | object | `{}` |  |
+| service.port | int | `80` |  |
+| service.type | string | `"ClusterIP"` |  |
+| serviceAccount.annotations | object | `{}` |  |
+| serviceAccount.create | bool | `true` |  |
+| serviceAccount.name | string | `""` |  |
+| tolerations | list | `[]` |  |
+| volumeMounts | object | `{}` |  |
+| volumes | object | `{}` |  |
+| yamlApplicationConfig | object | `{}` |  |
+| yamlApplicationConfigConfigMap | object | `{}` |  |
 
-
-## Example
-
-To install Kafka-UI need to execute follow:
-``` bash
-helm repo add kafka-ui https://provectus.github.io/kafka-ui
-helm install kafka-ui kafka-ui/kafka-ui --set envs.config.KAFKA_CLUSTERS_0_NAME=local --set envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
-```
-To connect to Kafka-UI web application need to execute:
-``` bash
-kubectl port-forward svc/kafka-ui 8080:80
-```
-Open the `http://127.0.0.1:8080` on the browser to access Kafka-UI.
+----------------------------------------------
+Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

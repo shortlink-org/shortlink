@@ -14,8 +14,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.0.0 |
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.2.1 |
+| file://../../shortlink-common | shortlink-common | 0.1.0 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.2.3 |
 
 ## Values
 

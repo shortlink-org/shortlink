@@ -1,12 +1,12 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.1.0
 - name: flux
   repository: https://charts.fluxcd.io
   version: 1.13.2
 - name: helm-operator
   repository: https://charts.fluxcd.io
   version: 1.4.3
-digest: sha256:cf5ef225a58e94ee07ef70867f940c271e6cd4887300a0aab0e3b6cd51625116
-generated: "2022-08-24T01:22:45.565760779Z"
+digest: sha256:5dd5fb1a6fd96b4fb0a768fa3c123179a797ba4f477abd84b99571347d512a34
+generated: "2022-08-29T04:49:57.66793414+03:00"

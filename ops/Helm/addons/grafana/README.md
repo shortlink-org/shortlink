@@ -14,9 +14,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.0.0 |
-| https://grafana.github.io/helm-charts | grafana | 6.32.17 |
-| https://grafana.github.io/helm-charts | loki | 2.14.1 |
+| file://../../shortlink-common | shortlink-common | 0.1.0 |
+| https://grafana.github.io/helm-charts | grafana | 6.33.2 |
+| https://grafana.github.io/helm-charts | loki | 2.15.2 |
 | https://grafana.github.io/helm-charts | promtail | 6.3.0 |
 | https://grafana.github.io/helm-charts | tempo | 0.16.1 |
 
@@ -54,13 +54,16 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.datasources."datasources.yaml".apiVersion | int | `1` |  |
 | grafana.datasources."datasources.yaml".datasources[0].access | string | `"proxy"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].isDefault | bool | `true` |  |
+| grafana.datasources."datasources.yaml".datasources[0].jsonData.alertmanagerUid | string | `"alertmanager"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.httpMethod | string | `"POST"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.queryTimeout | string | `"30s"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].jsonData.timeInterval | string | `"10s"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].name | string | `"Prometheus"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].type | string | `"prometheus"` |  |
+| grafana.datasources."datasources.yaml".datasources[0].uid | string | `"prometheus"` |  |
 | grafana.datasources."datasources.yaml".datasources[0].url | string | `"http://prometheus-operated.prometheus-operator:9090/prometheus"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].access | string | `"proxy"` |  |
+| grafana.datasources."datasources.yaml".datasources[1].jsonData.alertmanagerUid | string | `"alertmanager"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[0].datasourceUid | string | `"tempo"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[0].matcherRegex | string | `"traceID\":\"(\\w+)"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].jsonData.derivedFields[0].name | string | `"TraceID"` |  |
@@ -74,14 +77,26 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.datasources."datasources.yaml".datasources[1].uid | string | `"loki"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].url | string | `"http://grafana-loki:3100"` |  |
 | grafana.datasources."datasources.yaml".datasources[2].editable | bool | `false` |  |
+| grafana.datasources."datasources.yaml".datasources[2].jsonData.lokiSearch.datasourceUid | string | `"loki"` |  |
 | grafana.datasources."datasources.yaml".datasources[2].jsonData.nodeGraph.enabled | bool | `true` |  |
+| grafana.datasources."datasources.yaml".datasources[2].jsonData.search.hide | bool | `true` |  |
+| grafana.datasources."datasources.yaml".datasources[2].jsonData.serviceMap.datasourceUid | string | `"prometheus"` |  |
+| grafana.datasources."datasources.yaml".datasources[2].jsonData.spanBar.type | string | `"Duration"` |  |
 | grafana.datasources."datasources.yaml".datasources[2].jsonData.tracesToLogs.datasourceUid | string | `"loki"` |  |
 | grafana.datasources."datasources.yaml".datasources[2].jsonData.tracesToLogs.filterBySpanID | bool | `true` |  |
 | grafana.datasources."datasources.yaml".datasources[2].jsonData.tracesToLogs.filterByTraceID | bool | `true` |  |
+| grafana.datasources."datasources.yaml".datasources[2].jsonData.tracesToLogs.mapTagNamesEnabled | bool | `true` |  |
 | grafana.datasources."datasources.yaml".datasources[2].name | string | `"Tempo"` |  |
 | grafana.datasources."datasources.yaml".datasources[2].type | string | `"tempo"` |  |
 | grafana.datasources."datasources.yaml".datasources[2].uid | string | `"tempo"` |  |
 | grafana.datasources."datasources.yaml".datasources[2].url | string | `"http://grafana-tempo:3100"` |  |
+| grafana.datasources."datasources.yaml".datasources[3].editable | bool | `false` |  |
+| grafana.datasources."datasources.yaml".datasources[3].jsonData.implementation | string | `"prometheus"` |  |
+| grafana.datasources."datasources.yaml".datasources[3].name | string | `"Alertmanager"` |  |
+| grafana.datasources."datasources.yaml".datasources[3].readOnly | bool | `false` |  |
+| grafana.datasources."datasources.yaml".datasources[3].type | string | `"alertmanager"` |  |
+| grafana.datasources."datasources.yaml".datasources[3].uid | string | `"alertmanager"` |  |
+| grafana.datasources."datasources.yaml".datasources[3].url | string | `"http://prometheus-alertmanager.prometheus-operator:9093"` |  |
 | grafana.defaultDashboardsEnabled | bool | `true` |  |
 | grafana.enabled | bool | `true` |  |
 | grafana.imageRenderer.enabled | bool | `false` |  |
@@ -101,15 +116,12 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.serviceMonitor.enabled | bool | `true` |  |
 | grafana.serviceMonitor.interval | string | `"1m"` |  |
 | grafana.serviceMonitor.selfMonitor | bool | `true` |  |
-| grafana.sidecar.dashboards.annotations | object | `{}` |  |
 | grafana.sidecar.dashboards.enabled | bool | `true` |  |
-| grafana.sidecar.dashboards.label | string | `"grafana_dashboard"` |  |
-| grafana.sidecar.dashboards.multicluster | bool | `false` |  |
-| grafana.sidecar.datasources.annotations | object | `{}` |  |
-| grafana.sidecar.datasources.defaultDatasourceEnabled | bool | `true` |  |
+| grafana.sidecar.dashboards.searchNamespace | string | `"ALL"` |  |
 | grafana.sidecar.datasources.enabled | bool | `true` |  |
+| grafana.sidecar.datasources.searchNamespace | string | `"ALL"` |  |
 | loki.enabled | bool | `true` |  |
-| promtail.config.lokiAddress | string | `"http://grafana-loki:3100/loki/api/v1/push"` |  |
+| promtail.config.clients[0].url | string | `"http://grafana-loki:3100/loki/api/v1/push"` |  |
 | promtail.enabled | bool | `true` |  |
 | promtail.extraScrapeConfigs[0].job_name | string | `"syslog"` |  |
 | promtail.extraScrapeConfigs[0].syslog.labels.job | string | `"syslog"` |  |
@@ -134,7 +146,26 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | promtail.syslogService.type | string | `"LoadBalancer"` |  |
 | tempo.enabled | bool | `true` |  |
 | tempo.serviceMonitor.enabled | bool | `true` |  |
+| tempo.tempo.ingester.max_block_bytes | int | `1000000` |  |
+| tempo.tempo.ingester.max_block_duration | string | `"5m"` |  |
+| tempo.tempo.ingester.trace_idle_period | string | `"10s"` |  |
+| tempo.tempo.metricsGenerator.enabled | bool | `true` |  |
+| tempo.tempo.metricsGenerator.remoteWriteUrl | string | `"http://prometheus-operated.prometheus-operator:9090/api/v1/write"` |  |
+| tempo.tempo.querier.max_concurrent_queries | int | `100` |  |
+| tempo.tempo.querier.search.prefer_self | int | `50` |  |
+| tempo.tempo.query_frontend.max_outstanding_per_tenant | int | `2000` |  |
+| tempo.tempo.query_frontend.search.concurrent_jobs | int | `2000` |  |
+| tempo.tempo.query_frontend.search.target_bytes_per_job | int | `400000000` |  |
 | tempo.tempo.searchEnabled | bool | `true` |  |
+| tempo.tempo.storage.trace.backend | string | `"local"` |  |
+| tempo.tempo.storage.trace.block.bloom_filter_false_positive | float | `0.05` |  |
+| tempo.tempo.storage.trace.block.encoding | string | `"zstd"` |  |
+| tempo.tempo.storage.trace.block.index_downsample_bytes | int | `1000` |  |
+| tempo.tempo.storage.trace.block.version | string | `"vParquet"` |  |
+| tempo.tempo.storage.trace.local.path | string | `"/var/tempo/traces"` |  |
+| tempo.tempo.storage.trace.pool.max_workers | int | `100` |  |
+| tempo.tempo.storage.trace.pool.queue_depth | int | `10000` |  |
+| tempo.tempo.storage.trace.wal.path | string | `"/var/tempo/wal"` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

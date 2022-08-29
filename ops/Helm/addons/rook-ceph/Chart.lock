@@ -1,9 +1,9 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.1.0
 - name: rook-ceph
   repository: https://charts.rook.io/release
   version: v1.9.9
-digest: sha256:ccf883286df3d51d4d7bd3b6db20cd93f965f6a6b29a83019f1b494d07744c4e
-generated: "2022-08-24T01:18:32.80888716Z"
+digest: sha256:81a8de2b7fc8cec344772040c3f9dd62dbbb2023ce4c7fb275e9b07a6a82b4f3
+generated: "2022-08-29T04:49:47.084457117+03:00"

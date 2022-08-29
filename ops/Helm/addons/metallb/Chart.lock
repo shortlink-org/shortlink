@@ -1,9 +1,9 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.1.0
 - name: metallb
   repository: https://metallb.github.io/metallb
   version: 0.13.4
-digest: sha256:2d7978fa3f9276918c2e7da0b7c51866ab80adc39045ab727859a504409e4bc5
-generated: "2022-08-24T01:19:07.386942866Z"
+digest: sha256:01b7c52399ebdf5c168dd53e2a9fee6d74e66e71695404bc83c8b1ece1630b54
+generated: "2022-08-29T04:49:52.142637572+03:00"

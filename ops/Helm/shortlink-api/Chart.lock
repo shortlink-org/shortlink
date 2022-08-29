@@ -1,9 +1,9 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
+- name: shortlink-common
+  repository: file://../shortlink-common
+  version: 0.1.0
 - name: kratos
   repository: https://k8s.ory.sh/helm/charts
   version: 0.25.1
-digest: sha256:b32e95a14d512adc994046c7c1d8e83f3e4f95a96ccbcb784b4c14dab44f21a7
-generated: "2022-08-26T14:06:41.081402216Z"
+digest: sha256:33f711d4d14c71294cdb3dac3721f5bff81de914e77c88a3df117e91d3f6b651
+generated: "2022-08-29T04:48:08.639746467+03:00"

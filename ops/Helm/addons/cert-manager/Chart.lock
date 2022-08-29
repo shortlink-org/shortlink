@@ -1,9 +1,9 @@
 dependencies:
-- name: common
-  repository: https://charts.bitnami.com/bitnami
-  version: 2.0.1
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.1.0
 - name: cert-manager
   repository: https://charts.jetstack.io
   version: v1.9.1
-digest: sha256:cbe596ed7253741b0da340cf694ab5cfb6b0d7ef718aadc69ff77bea4370586e
-generated: "2022-08-24T01:24:41.59333998Z"
+digest: sha256:c5fe0cc6c560525ab25ff2503e4f396db6c89f1eb4b0bf736ecdcf3355489bc6
+generated: "2022-08-29T04:50:05.776337403+03:00"

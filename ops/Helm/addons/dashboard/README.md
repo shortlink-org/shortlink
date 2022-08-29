@@ -14,8 +14,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.0.0 |
-| https://kubernetes.github.io/dashboard | kubernetes-dashboard | 5.9.0 |
+| file://../../shortlink-common | shortlink-common | 0.1.0 |
+| https://kubernetes.github.io/dashboard | kubernetes-dashboard | 5.10.0 |
 
 ## Values
 
