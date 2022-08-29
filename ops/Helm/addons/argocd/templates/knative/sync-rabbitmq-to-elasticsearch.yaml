@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sync-rabbitmq-to-elasticsearch
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: shortlink
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: 'https://github.com/batazor/shortlink'
+    targetRevision: HEAD
+    path: ops/Helm/knative/sync-rabbitmq-to-elasticsearch
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

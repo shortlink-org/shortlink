@@ -1,0 +1,14 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: sync-rabbitmq-to-elasticsearch
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+    spec:
+      containers:
+        - # This corresponds to
+          # https://github.com/knative/eventing/tree/main/cmd/event_display/main.go
+          image: gcr.io/knative-releases/knative.dev/eventing/cmd/event_display
