@@ -26,3 +26,17 @@ kafka:
   needs: []
   rules:
     - when: manual
+
+kafka-ui:
+  stage: mq
+  variables:
+    RELEASE_NAME: kafka-ui
+    HELM_PATH: ops/Helm/addons/mq/kafka-ui
+    HELM_NAMESPACE: kafka
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual

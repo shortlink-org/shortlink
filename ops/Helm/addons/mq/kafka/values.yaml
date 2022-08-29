@@ -4,3 +4,7 @@
 
 strimzi-kafka-operator:
   enabled: true
+
+  watchNamespaces:
+    - shortlink
+  watchAnyNamespace: true
