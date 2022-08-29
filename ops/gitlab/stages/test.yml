@@ -56,6 +56,7 @@ license_scanning:
     - when: always
 
 # DANGER ===============================================================================================================
+# TODO: fix
 danger-review:
   image: registry.gitlab.com/gitlab-org/gitlab-build-images:danger
   stage: test

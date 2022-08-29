@@ -3,12 +3,15 @@ version: '2.4'
 services:
 
   logger:
+    depends_on:
+      - coredns
     build:
       context: .
       dockerfile: ops/dockerfile/logger.Dockerfile
       shm_size: 1gb
-    depends_on:
-      - coredns
+      cache_from:
+        - shortlink-logger
+    image: shortlink-logger
     container_name: logger
     restart: on-failure
     environment:

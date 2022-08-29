@@ -11,12 +11,15 @@ services:
 
   link:
     <<: *network
+    depends_on:
+      - coredns
     build:
       context: .
       dockerfile: ops/dockerfile/link.Dockerfile
       shm_size: 1gb
-    depends_on:
-      - coredns
+      cache_from:
+        - shortlink-link
+    image: shortlink-link
     container_name: link
     restart: on-failure
     environment:

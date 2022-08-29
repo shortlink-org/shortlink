@@ -3,12 +3,15 @@ version: '2.4'
 services:
 
   ui-next:
+    depends_on:
+      - coredns
     build:
       context: .
       dockerfile: ops/dockerfile/ui-next.Dockerfile
       shm_size: 1gb
-    depends_on:
-      - coredns
+      cache_from:
+        - ui-next
+    image: ui-next
     container_name: ui-next
     ports:
       # HTTP UI

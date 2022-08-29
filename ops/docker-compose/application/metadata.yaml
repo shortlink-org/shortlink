@@ -11,12 +11,15 @@ services:
 
   metadata:
     <<: *network
+    depends_on:
+      - coredns
     build:
       context: .
       dockerfile: ops/dockerfile/metadata.Dockerfile
       shm_size: 1gb
-    depends_on:
-      - coredns
+      cache_from:
+        - shortlink-metadata
+    image: shortlink-metadata
     container_name: metadata
     restart: on-failure
     environment:

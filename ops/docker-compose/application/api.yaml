@@ -11,12 +11,15 @@ services:
 
   api:
     <<: *network
+    depends_on:
+      - coredns
     build:
       context: .
       dockerfile: ops/dockerfile/api.Dockerfile
       shm_size: 1gb
-    depends_on:
-      - coredns
+      cache_from:
+        - shortlink-api
+    image: shortlink-api
     container_name: api
     ports:
       # API
