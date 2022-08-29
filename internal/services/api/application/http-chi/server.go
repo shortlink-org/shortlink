@@ -13,11 +13,9 @@ import (
 	"github.com/go-chi/render"
 	"github.com/riandyrn/otelchi"
 	"github.com/spf13/viper"
-	"github.com/swaggo/http-swagger"
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	_ "github.com/batazor/shortlink/docs/api"
 	_ "github.com/batazor/shortlink/internal/pkg/i18n"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	cqrs_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/cqrs"
@@ -102,7 +100,6 @@ func (api *API) Run(
 	r.Mount("/api/links", link_api.Routes(link_rpc))
 	r.Mount("/api/cqrs", cqrs_api.Routes(link_command, link_query))
 	r.Mount("/api/sitemap", sitemap_api.Routes(sitemap_rpc))
-	r.Mount("/api/swagger/{param}", httpSwagger.Handler())
 
 	srv := http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),

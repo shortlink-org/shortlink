@@ -72,7 +72,7 @@ made along with its context and consequences.
 git submodule update --init --recursive
 ```
 
-##### docker-compose
+##### docker compose
 
 ###### For run
 ```
