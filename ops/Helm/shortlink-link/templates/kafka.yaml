@@ -2,7 +2,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: shortlink.links
+  name: shortlink.link.event.created
   namespace: kafka
   labels:
     strimzi.io/cluster: kafka

@@ -1,11 +1,10 @@
 apiVersion: v2                                   # The chart API version (required)
 appVersion: "1.0.0"                              # The version of the app that this contains (optional)
-name: shortlink-link                             # The name of the chart (required)
-description: Shortlink link service              # A single-sentence description of this project (optional)
-version: 0.6.1                                   # A SemVer 2 version (required)
+name: shortlink-common                           # The name of the chart (required)
+description: Shortlink common templates          # A single-sentence description of this project (optional)
+version: 0.1.0                                   # A SemVer 2 version (required)
 kubeVersion: ">= 1.22.0 || >= v1.22.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
-keywords:                                        # A list of keywords about this project (optional)
-  - link
+keywords:
   - shortlink
 home: https://batazor.github.io/shortlink/       # The URL of this project's home page (optional)
 sources:                                         # A list of URLs to source code for this project (optional)
@@ -15,9 +14,9 @@ maintainers:
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: application                                # It is the type of chart (optional)
+type: library                                    # It is the type of chart (optional)
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
-  - name: shortlink-common
-    version: 0.1.0
-    repository: "file://../shortlink-common"
+  - name: common
+    version: 2.0.1
+    repository: https://charts.bitnami.com/bitnami
