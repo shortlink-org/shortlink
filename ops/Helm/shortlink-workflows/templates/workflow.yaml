@@ -1,12 +1,44 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: shortlink-
+  name: shortlink
+  namespace: {{ .Release.Namespace }}
+  generateName: hello-world-
 spec:
-  entrypoint: whalesay
+  serviceAccountName: argo
+  entrypoint: containerA
+  arguments:
+    parameters:
+      - name: message
+        value: hello world
   templates:
-    - name: whalesay
-      container:
-        image: docker/whalesay
-        command: [cowsay]
-        args: ["Hello, world!"]
+    - name: containerA
+      dag:
+        tasks:
+          - name: containerA
+            templateRef:
+              name: shortlink-template
+              template: templateContainer
+            arguments:
+              parameters: [{name: message, value: A}]
+          - name: containerB
+            dependencies: [containerA]
+            templateRef:
+              name: shortlink-template
+              template: templateContainer
+            arguments:
+              parameters: [{name: message, value: B}]
+          - name: containerC
+            dependencies: [ containerA ]
+            templateRef:
+              name: shortlink-template
+              template: templateContainer
+            arguments:
+              parameters: [{name: message, value: C}]
+          - name: containerD
+            dependencies: [ containerB, containerC ]
+            templateRef:
+              name: shortlink-template
+              template: templateContainer
+            arguments:
+              parameters: [{name: message, value: D}]
