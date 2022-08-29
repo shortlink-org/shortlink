@@ -1,0 +1,9 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: {{ .Values.rabbitmq.clusterName }}
+spec:
+  replicas: 1
+  terminationGracePeriodSeconds: 60
+  persistence:
+    storage: 0
