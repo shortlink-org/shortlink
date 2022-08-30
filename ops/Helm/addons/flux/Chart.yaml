@@ -18,7 +18,7 @@ dependencies:
     version: 0.1.0
     repository: "file://../../shortlink-common"
   - name: flux
-    version: 1.13.2
+    version: 1.13.3
     repository: https://charts.fluxcd.io
     condition: flux.enabled
   - name: helm-operator
