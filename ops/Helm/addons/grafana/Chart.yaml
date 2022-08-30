@@ -17,7 +17,7 @@ dependencies:
     version: 0.1.0
     repository: "file://../../shortlink-common"
   - name: grafana
-    version: 6.33.2
+    version: 6.34.0
     repository: https://grafana.github.io/helm-charts
     condition: grafana.enabled
     tags:
