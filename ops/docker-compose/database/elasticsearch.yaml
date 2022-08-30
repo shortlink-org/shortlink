@@ -44,3 +44,11 @@ services:
 #      driver: fluent-bit
 #      options:
 #        tag: cassandra
+
+   dejavu:
+    image: appbaseio/dejavu:3.6.0
+    container_name: dejavu
+    ports:
+      - '1358:1358'
+    links:
+      - elasticsearch
