@@ -15,8 +15,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../shortlink-common | shortlink-common | 0.1.0 |
-| https://grafana.github.io/helm-charts | grafana | 6.33.2 |
-| https://grafana.github.io/helm-charts | loki | 2.15.2 |
+| https://grafana.github.io/helm-charts | grafana | 6.34.0 |
+| https://grafana.github.io/helm-charts | loki | 2.16.0 |
 | https://grafana.github.io/helm-charts | promtail | 6.3.0 |
 | https://grafana.github.io/helm-charts | tempo | 0.16.1 |
 

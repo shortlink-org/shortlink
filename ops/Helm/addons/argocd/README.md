@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.3.6 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.4.0 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.0.4 |
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.20.0 |
 | https://argoproj.github.io/argo-helm | argo-workflows | 0.17.1 |
@@ -79,6 +79,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-workflows.controller.metricsConfig.enabled | bool | `true` |  |
 | argo-workflows.controller.serviceMonitor.enabled | bool | `true` |  |
 | argo-workflows.controller.telemetryConfig.enabled | bool | `true` |  |
+| argo-workflows.controller.workflowNamespaces[0] | string | `"shortlink"` |  |
+| argo-workflows.controller.workflowNamespaces[1] | string | `"shortlink-workflows"` |  |
 | argo-workflows.fullnameOverride | string | `"argo-workflows"` |  |
 | argo-workflows.server.extraArgs[0] | string | `"--basehref"` |  |
 | argo-workflows.server.extraArgs[1] | string | `"/argoworkflows/"` |  |
