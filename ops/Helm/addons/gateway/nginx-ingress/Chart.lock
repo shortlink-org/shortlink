@@ -1,0 +1,9 @@
+dependencies:
+- name: shortlink-common
+  repository: file://../../../shortlink-common
+  version: 0.1.0
+- name: ingress-nginx
+  repository: https://kubernetes.github.io/ingress-nginx
+  version: 4.2.3
+digest: sha256:5a6e38d0b1de62c27d570db8b9c3ccb328769bed7f76f5513dff71e507632170
+generated: "2022-08-31T13:08:14.286026754+03:00"

@@ -15,7 +15,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../shortlink-common | shortlink-common | 0.1.0 |
-| https://charts.fluxcd.io | flux | 1.13.2 |
+| https://charts.fluxcd.io | flux | 1.13.3 |
 | https://charts.fluxcd.io | helm-operator | 1.4.3 |
 
 ## Values
