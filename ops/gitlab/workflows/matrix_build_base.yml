@@ -10,21 +10,21 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "./cmd/api"
-      - APPLICATION: auth
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/auth
-        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "./cmd/auth"
-      - APPLICATION: notify
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/notify
-        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "./cmd/notify"
-      - APPLICATION: csi
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/csi
-        DOCKERFILE_PATH: ops/dockerfile/csi.Dockerfile
-      - APPLICATION: logger
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
-        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "./cmd/logger"
+#      - APPLICATION: auth
+#        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/auth
+#        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+#        CMD_PATH: "./cmd/auth"
+#      - APPLICATION: notify
+#        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/notify
+#        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+#        CMD_PATH: "./cmd/notify"
+#      - APPLICATION: csi
+#        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/csi
+#        DOCKERFILE_PATH: ops/dockerfile/csi.Dockerfile
+#      - APPLICATION: logger
+#        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
+#        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+#        CMD_PATH: "./cmd/logger"
       - APPLICATION: metadata
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/metadata
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
@@ -36,9 +36,9 @@
       - APPLICATION: proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/proxy
         DOCKERFILE_PATH: ops/dockerfile/proxy.Dockerfile
-      - APPLICATION: bot
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot
-        DOCKERFILE_PATH: ops/dockerfile/bot.Dockerfile
+#      - APPLICATION: bot
+#        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot
+#        DOCKERFILE_PATH: ops/dockerfile/bot.Dockerfile
       - APPLICATION: kafka-to-elasticsearch
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/kafka-to-elasticsearch
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
