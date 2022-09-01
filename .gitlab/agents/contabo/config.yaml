@@ -15,7 +15,8 @@ gitops:
     default_namespace: shortlink
     # Paths inside of the repository to scan for manifest files.
     # Directories with names starting with a dot are ignored.
-    paths: []
+    paths:
+      - glob: '/.gitlab/manifest/*.{yaml,yml,json}'
     # Reconcile timeout defines whether the applier should wait
     # until all applied resources have been reconciled, and if so,
     # how long to wait.
