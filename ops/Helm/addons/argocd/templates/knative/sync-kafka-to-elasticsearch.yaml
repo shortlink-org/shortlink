@@ -1,20 +1,31 @@
-{{- if and (.Capabilities.APIVersions.Has "argoproj.io/v1alpha1") -}}
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
   name: sync-kafka-to-elasticsearch
 spec:
-  project: shortlink
-  destination:
-    name: ''
-    namespace: shortlink
-    server: 'https://kubernetes.default.svc'
-  source:
-    repoURL: 'https://github.com/batazor/shortlink'
-    targetRevision: HEAD
-    path: ops/Helm/knative/sync-kafka-to-elasticsearch
+  generators:
+  - list:
+      elements:
+        - cluster: in-cluster
+          url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: knative
+    spec:
+      project: shortlink
+      source:
+        repoURL: 'https://github.com/batazor/shortlink'
+        targetRevision: HEAD
+        path: ops/Helm/knative
+        directory:
+          recurse: true
+      destination:
+        name: ''
+        namespace: knative
+        server: 'https://kubernetes.default.svc'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-{{- end}}
+    preserveResourcesOnDeletion: true

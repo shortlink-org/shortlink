@@ -1,4 +1,3 @@
-{{- if and (.Capabilities.APIVersions.Has "operator.knative.dev/v1beta1") -}}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -168,4 +167,3 @@ spec:
       eventing.knative.dev/source: apiserver-source-controller
   podMetricsEndpoints:
     - port: metrics
-{{- end }}
