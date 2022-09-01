@@ -9,7 +9,9 @@ build:
   - image: shortlink-bot
     context: ../../
     docker:
-      dockerfile: ops/dockerfile/notify.Dockerfile
+      dockerfile: ops/dockerfile/go.Dockerfile
+      buildArgs:
+        CMD_PATH: "./cmd/bot"
     sync:
       infer:
         - 'cmd/notify/**'

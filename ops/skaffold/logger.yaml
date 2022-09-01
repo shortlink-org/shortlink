@@ -9,7 +9,9 @@ build:
   - image: shortlink-logger
     context: ../../
     docker:
-      dockerfile: ops/dockerfile/logger.Dockerfile
+      dockerfile: ops/dockerfile/go.Dockerfile
+      buildArgs:
+        CMD_PATH: "./cmd/logger"
     sync:
       infer:
         - 'cmd/logger/**'

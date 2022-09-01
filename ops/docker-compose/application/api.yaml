@@ -15,7 +15,9 @@ services:
       - coredns
     build:
       context: .
-      dockerfile: ops/dockerfile/api.Dockerfile
+      dockerfile: ops/dockerfile/go.Dockerfile
+      args:
+          CMD_PATH: "./cmd/api"
       shm_size: 1gb
       cache_from:
         - shortlink-api

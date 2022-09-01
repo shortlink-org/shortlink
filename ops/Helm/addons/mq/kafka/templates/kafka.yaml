@@ -1,4 +1,4 @@
-{{- if and .Values.ingress.enabled (.Capabilities.APIVersions.Has "kafka.strimzi.io/v1beta2") -}}
+{{- if and (.Capabilities.APIVersions.Has "kafka.strimzi.io/v1beta2") -}}
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:

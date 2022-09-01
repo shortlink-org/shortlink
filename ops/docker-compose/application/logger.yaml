@@ -7,7 +7,9 @@ services:
       - coredns
     build:
       context: .
-      dockerfile: ops/dockerfile/logger.Dockerfile
+      dockerfile: ops/dockerfile/go.Dockerfile
+      args:
+        CMD_PATH: "./cmd/logger"
       shm_size: 1gb
       cache_from:
         - shortlink-logger
