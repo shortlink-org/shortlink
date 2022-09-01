@@ -4,9 +4,6 @@ kind: Application
 metadata:
   name: {{ include "helpers.fullname" . }}
   namespace: argocd
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: "{{ .Values.deploy.image.repository }}:~0"
-    argocd-image-updater.argoproj.io/{{ .Values.deploy.image.repository }}.update-strategy: semver
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:

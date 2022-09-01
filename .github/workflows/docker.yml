@@ -30,7 +30,9 @@ jobs:
     - name: Build and push [api]
       uses: docker/build-push-action@v3
       with:
-        files: ops/dockerfile/api.Dockerfile
+        files: ops/dockerfile/go.Dockerfile
+        build-args:
+          CMD_PATH: "./cmd/api"
         context: .
         push: ${{ github.event_name != 'pull_request' }}
         tags: latest
@@ -39,7 +41,9 @@ jobs:
     - name: Build and push [metadata]
       uses: docker/build-push-action@v3
       with:
-        files: ops/dockerfile/metadata.Dockerfile
+        files: ops/dockerfile/go.Dockerfile
+        build-args:
+          CMD_PATH: "./cmd/metadata"
         context: .
         push: ${{ github.event_name != 'pull_request' }}
         tags: latest
@@ -48,7 +52,9 @@ jobs:
     - name: Build and push [logger]
       uses: docker/build-push-action@v3
       with:
-        files: ops/dockerfile/logger.Dockerfile
+        files: ops/dockerfile/go.Dockerfile
+        build-args:
+          CMD_PATH: "./cmd/logger"
         context: .
         push: ${{ github.event_name != 'pull_request' }}
         tags: latest

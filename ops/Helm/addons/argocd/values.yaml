@@ -40,9 +40,9 @@ argo-cd:
   server:
     extraArgs:
       - --rootpath
-      - /argocd
+      - /argo/cd
       - --basehref
-      - /argocd
+      - /argo/cd
 
     metrics:
       enabled: true
@@ -70,7 +70,7 @@ argo-cd:
         - architecture.ddns.net
 
       paths:
-        - /argocd(/|$)(.*)
+        - /argo/cd(/|$)(.*)
 
       tls:
         - secretName: shortlink-ingress-tls
@@ -156,7 +156,6 @@ argo-workflows:
 
     workflowNamespaces:
       - shortlink
-      - shortlink-workflows
 
     # -- enable persistence using postgres
     # postgresql:
@@ -168,14 +167,14 @@ argo-workflows:
   server:
     extraArgs:
       - --basehref
-      - /argoworkflows/
+      - /argo/workflows/
       - --auth-mode=server
 
     extraEnv:
       - name: BASE_HREF
-        value: /argoworkflows
+        value: /argo/workflows
       - name: ARGO_BASE_HREF
-        value: /argoworkflows
+        value: /argo/workflows
 
     ingress:
       enabled: true
@@ -195,7 +194,7 @@ argo-workflows:
         - architecture.ddns.net
 
       paths:
-        - /argoworkflows/?(.*)
+        - /argo/workflows/?(.*)
 
       tls:
         - secretName: shortlink-ingress-tls
@@ -237,7 +236,7 @@ argo-rollouts:
         - architecture.ddns.net
 
       paths:
-        - /argodashboard?(.*)
+        - /argo/dashboard?(.*)
 
       tls:
         - secretName: shortlink-ingress-tls

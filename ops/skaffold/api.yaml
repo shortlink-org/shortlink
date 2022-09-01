@@ -9,7 +9,9 @@ build:
   - image: shortlink-api
     context: ../../
     docker:
-      dockerfile: ops/dockerfile/api.Dockerfile
+      dockerfile: ops/dockerfile/go.Dockerfile
+      buildArgs:
+        CMD_PATH: "./cmd/api"
     sync:
       infer:
         - 'cmd/api/**'

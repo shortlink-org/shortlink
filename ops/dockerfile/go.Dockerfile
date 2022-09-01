@@ -2,6 +2,7 @@
 
 FROM --platform=$BUILDPLATFORM golang:1.19-alpine AS builder
 
+ARG CMD_PATH
 ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
 ARG SKAFFOLD_GO_GCFLAGS
@@ -26,7 +27,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -ldflags "-s -w -X main.CI_COMMIT_TAG=$CI_COMMIT_TAG" \
   -installsuffix cgo \
   -trimpath \
-  -o app ./cmd/logger
+  -o app $CMD_PATH
 
 FROM alpine:3.16
 
@@ -34,16 +35,17 @@ FROM alpine:3.16
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
 ENV GOTRACEBACK=all
 
+# 50051: gRPC
 # 9090: metrics
-EXPOSE 9090
+EXPOSE 50051 9090
 
 # Install dependencies
 RUN \
   apk update && \
   apk add --no-cache curl
 
-RUN addgroup -S logger && adduser -S -g logger logger
-USER logger
+RUN addgroup -S golang && adduser -S -g golang golang
+USER golang
 
 HEALTHCHECK \
   --interval=5s \

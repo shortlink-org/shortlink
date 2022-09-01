@@ -9,7 +9,9 @@ build:
   - image: shortlink-metadata
     context: ../../
     docker:
-      dockerfile: ops/dockerfile/metadata.Dockerfile
+      dockerfile: ops/dockerfile/go.Dockerfile
+      buildArgs:
+          CMD_PATH: "./cmd/metadata"
     sync:
       infer:
         - 'cmd/metadata/**'
