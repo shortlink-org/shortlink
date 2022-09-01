@@ -201,3 +201,56 @@ argo-workflows:
         - secretName: shortlink-ingress-tls
           hosts:
             - architecture.ddns.net
+
+argocd-apps:
+  # -- Deploy Argo CD Applications within this helm release
+  # @default -- `[]` (See [values.yaml])
+  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
+  applications: [ ]
+
+  # -- Deploy Argo CD Projects within this helm release
+  # @default -- `[]` (See [values.yaml])
+  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
+  projects: [ ]
+
+argo-rollouts:
+  fullnameOverride: argo-rollouts
+
+  dashboard:
+    enabled: true
+
+    ingress:
+      enabled: true
+
+      ingressClassName: nginx
+
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/backend-protocol: HTTP
+        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentracing: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
+
+      hosts:
+        - architecture.ddns.net
+
+      paths:
+        - /argodashboard?(.*)
+
+      tls:
+        - secretName: shortlink-ingress-tls
+          hosts:
+            - architecture.ddns.net
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+argocd-image-updater:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true

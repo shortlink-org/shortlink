@@ -20,6 +20,12 @@ dependencies:
     condition: argo.enabled
     tags:
       - ci/cd
+  - name: argocd-apps
+    version: 0.0.1
+    repository: https://argoproj.github.io/argo-helm
+    condition: argo.enabled
+    tags:
+      - ci/cd
   - name: argo-events
     version: 2.0.4
     repository: https://argoproj.github.io/argo-helm
