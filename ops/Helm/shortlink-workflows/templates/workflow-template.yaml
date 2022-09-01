@@ -1,4 +1,4 @@
-{{- if and .Values.ingress.enabled (.Capabilities.APIVersions.Has "argoproj.io/v1alpha1") -}}
+{{- if and (.Capabilities.APIVersions.Has "argoproj.io/v1alpha1") -}}
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
