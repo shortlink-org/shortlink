@@ -1,3 +1,4 @@
+{{- if and .Values.ingress.enabled (.Capabilities.APIVersions.Has "argoproj.io/v1alpha1") -}}
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
@@ -26,3 +27,4 @@ spec:
           maxDuration: "1m"  # Must be a string. Default unit is seconds. Could also be a Duration, e.g.: "2m", "6h", "1d"
         affinity:
           nodeAntiAffinity: { }
+{{- end }}

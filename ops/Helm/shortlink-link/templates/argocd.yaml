@@ -1,3 +1,4 @@
+{{- if and .Values.ingress.enabled (.Capabilities.APIVersions.Has "argoproj.io/v1alpha1") -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -34,4 +35,4 @@ spec:
         duration: 10s
         maxDuration: 3m0s
         factor: 2
----
+{{- end }}
