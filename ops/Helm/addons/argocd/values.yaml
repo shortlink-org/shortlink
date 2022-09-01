@@ -250,6 +250,17 @@ argo-rollouts:
       enabled: true
 
 argocd-image-updater:
+  fullnameOverride: argocd-image-updater
+
+  updateStrategy:
+    type: Recreate
+
+  registries:
+    - name: GitLab
+      api_url: https://registry.gitlab.com
+      ping: yes
+      default: true
+
   metrics:
     enabled: true
     serviceMonitor:
