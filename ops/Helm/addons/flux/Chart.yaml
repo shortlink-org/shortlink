@@ -22,6 +22,6 @@ dependencies:
     repository: https://charts.fluxcd.io
     condition: flux.enabled
   - name: helm-operator
-    version: 1.4.3
+    version: 1.4.4
     repository: https://charts.fluxcd.io
     condition: flux.enabled
