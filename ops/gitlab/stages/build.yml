@@ -19,8 +19,8 @@ docker:ui:
     include:
       - local: 'ops/gitlab/pipelines/build/docker_ui.yml'
     strategy: depend
-  needs:
-    - job: DEPENDENCY
+  needs: []
+#    - job: DEPENDENCY
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
