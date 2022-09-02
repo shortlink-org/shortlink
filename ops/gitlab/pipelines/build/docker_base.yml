@@ -1,9 +1,7 @@
 include:
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/templates/build.yml
-  - local: /ops/gitlab/workflows/matrix_build_base.yml
-  - local: /ops/gitlab/workflows/matrix_build_ui.yml
-  - template: Security/Container-Scanning.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/Container-Scanning.gitlab-ci.yml
+#  - template: Security/Container-Scanning.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/Container-Scanning.gitlab-ci.yml
 
 stages:
   - .pre
@@ -14,24 +12,21 @@ stages:
 build:
   extends:
     - .template_build
-    - .matrix_build_base
 
 # TODO: fix this job
 # SECURITY =============================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/container_scanning/
 
-container_scanning:
-  extends:
-    - .matrix_build_base
-  stage: security
-  variables:
-    GIT_STRATEGY: fetch
-    CI_APPLICATION_REPOSITORY: $REGISTRY_IMAGE
-    CI_APPLICATION_TAG: $CI_COMMIT_TAG
-    DOCKERFILE_PATH: $DOCKERFILE_PATH
-  allow_failure: true
-  needs:
-    - build
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
+#container_scanning:
+#  stage: security
+#  variables:
+#    GIT_STRATEGY: fetch
+#    DOCKERFILE_PATH: $DOCKERFILE_PATH
+#  before_script:
+#    - export DOCKER_IMAGE="$REGISTRY_IMAGE:$CI_COMMIT_TAG"
+#  needs:
+#    - build
+#  rules:
+#    - if: $CI_COMMIT_TAG
+#      when: on_success
+
