@@ -15,4 +15,4 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-next
         DOCKERFILE_PATH: ops/dockerfile/ui-next.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://architecture.ddns.net"
-        CMD_PATH: "--build-arg CMD_PATH=/app/landing"
+        CMD_PATH: "--build-arg CMD_PATH=/app/next"
