@@ -2,6 +2,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: sync-kafka-to-elasticsearch
+  annotations:
+    "helm.sh/hook": post-install
 spec:
   generators:
   - list:

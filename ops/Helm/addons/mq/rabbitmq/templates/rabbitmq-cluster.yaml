@@ -2,6 +2,8 @@ apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
   name: {{ .Values.rabbitmq.clusterName }}
+  annotations:
+    "helm.sh/hook": post-install
 spec:
   replicas: 1
   terminationGracePeriodSeconds: 60

@@ -14,21 +14,6 @@ argo:
   rules:
     - when: manual
 
-flux:
-  stage: deploy
-  variables:
-    RELEASE_NAME: flux
-    HELM_PATH: ops/Helm/addons/flux
-    HELM_NAMESPACE: flux
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/flux
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
-
 keda:
   stage: deploy
   variables:

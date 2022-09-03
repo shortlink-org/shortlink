@@ -3,6 +3,8 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: {{ include "helpers.fullname" . }}
+  annotations:
+    "helm.sh/hook": post-install
 spec:
   kafka:
     version: 3.2.0

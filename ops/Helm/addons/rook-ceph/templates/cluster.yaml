@@ -1,5 +1,3 @@
-{{- if and (.Capabilities.APIVersions.Has "ceph.rook.io/v1") -}}
-
 #################################################################################################################
 # Define the settings for the rook-ceph cluster with common settings for a production cluster.
 # All nodes with available raw devices will be used for the Ceph cluster. At least three nodes are required
@@ -10,6 +8,8 @@ apiVersion: ceph.rook.io/v1
 kind: CephCluster
 metadata:
   name: rook-ceph
+  annotations:
+    "helm.sh/hook": post-install
 spec:
   cephVersion:
     # The container image used to launch the Ceph daemon pods (mon, mgr, osd, mds, rgw).
@@ -311,5 +311,3 @@ spec:
         disabled: false
       osd:
         disabled: false
-
-{{- end }}
