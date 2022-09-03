@@ -3,6 +3,8 @@ kind: AppProject
 metadata:
   name: shortlink
   namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": post-install
   # Finalizer that ensures that project is not deleted until it is not referenced by any application
   finalizers:
     - resources-finalizer.argocd.argoproj.io

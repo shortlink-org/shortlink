@@ -4,6 +4,8 @@ metadata:
   name: config-alertmanager
   labels:
     alertmanagerConfig: shortlink
+  annotations:
+    "helm.sh/hook": post-install
 spec:
   route:
     groupBy: ['job']

@@ -4,7 +4,8 @@
 
 email: mymail@gmail.com
 
-annotations: {}
+annotations:
+  "helm.sh/hook": post-install
 
 cert-manager:
   enabled: true
