@@ -2,8 +2,6 @@ apiVersion: ceph.rook.io/v1
 kind: CephBlockPool
 metadata:
   name: replicapool
-  annotations:
-    "helm.sh/hook": post-install
 spec:
   failureDomain: host
   replicated:
@@ -14,8 +12,6 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
    name: rook-ceph-block
-   annotations:
-     "helm.sh/hook": post-install
 # Change "rook-ceph" provisioner prefix to match the operator namespace if needed
 provisioner: rook-ceph.rbd.csi.ceph.com
 parameters:
