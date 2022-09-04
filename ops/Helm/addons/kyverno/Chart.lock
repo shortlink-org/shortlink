@@ -1,0 +1,15 @@
+dependencies:
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.2.0
+- name: kyverno
+  repository: https://kyverno.github.io/kyverno
+  version: v2.5.3
+- name: policy-reporter
+  repository: https://kyverno.github.io/policy-reporter
+  version: 2.11.3
+- name: kyverno-policies
+  repository: https://kyverno.github.io/kyverno
+  version: v2.5.5
+digest: sha256:29dc20d65e5d7fe44166184111ba0fc429710edf7b231e999ee1011633073361
+generated: "2022-09-04T23:19:42.270841667+03:00"

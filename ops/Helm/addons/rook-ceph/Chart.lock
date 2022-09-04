@@ -1,0 +1,9 @@
+dependencies:
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.2.0
+- name: rook-ceph
+  repository: https://charts.rook.io/release
+  version: v1.10.0
+digest: sha256:6ecb916ab5ce3d26f9af7bab597f3d1cb43d0c99963c9c89c6bcb3bba1ab7525
+generated: "2022-09-04T23:20:38.337731873+03:00"

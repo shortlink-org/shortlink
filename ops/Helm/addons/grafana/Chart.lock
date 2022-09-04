@@ -1,0 +1,18 @@
+dependencies:
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.2.0
+- name: grafana
+  repository: https://grafana.github.io/helm-charts
+  version: 6.35.0
+- name: loki
+  repository: https://grafana.github.io/helm-charts
+  version: 2.16.0
+- name: promtail
+  repository: https://grafana.github.io/helm-charts
+  version: 6.3.0
+- name: tempo
+  repository: https://grafana.github.io/helm-charts
+  version: 0.16.1
+digest: sha256:ce9ebd9fda0bd24e63cba792ffdb0a374e9651c980a18a4987d4cdd9c4811eef
+generated: "2022-09-04T23:20:09.519002382+03:00"
