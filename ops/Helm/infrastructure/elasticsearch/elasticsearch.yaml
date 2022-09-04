@@ -2,7 +2,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: elasticsearch
-  namespace: elasticsearch
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
 spec:
   project: shortlink
   source:
@@ -14,5 +16,18 @@ spec:
       valueFiles:
         - values.yaml
   destination:
+    name: ''
     server: "https://kubernetes.default.svc"
     namespace: elasticsearch
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
