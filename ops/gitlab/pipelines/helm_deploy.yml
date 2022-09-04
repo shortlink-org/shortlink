@@ -68,3 +68,4 @@ drop:
   environment:
     name: ${PROVIDER}/${RELEASE_NAME}
     action: stop
+  when: manual
