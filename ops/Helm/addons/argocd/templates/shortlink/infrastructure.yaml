@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: infrastructure
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: in-cluster
+            url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: knative
+    spec:
+      project: shortlink
+      source:
+        repoURL: 'https://github.com/batazor/shortlink'
+        targetRevision: HEAD
+        path: ops/Helm/infrastructure
+        directory:
+          recurse: true
+      destination:
+        name: ''
+        namespace: knative
+        server: 'https://kubernetes.default.svc'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+  syncPolicy:
+    preserveResourcesOnDeletion: true

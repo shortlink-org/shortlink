@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: elasticsearch
+  namespace: elasticsearch
+spec:
+  project: shortlink
+  source:
+    chart: elasticsearch
+    repoURL: https://helm.elastic.co
+    targetRevision: 7.17.3
+    helm:
+      releaseName: elasticsearch
+      valueFiles:
+        - values.yaml
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: elasticsearch
