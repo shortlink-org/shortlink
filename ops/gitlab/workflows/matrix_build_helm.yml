@@ -7,8 +7,6 @@
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-landing
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-link
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-logger
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-metadata
