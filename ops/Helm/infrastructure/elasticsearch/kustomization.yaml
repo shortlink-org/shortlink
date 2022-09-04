@@ -1,0 +1,8 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+helmCharts:
+  - name: elasticsearch
+    repo: https://helm.elastic.co
+    version: 7.17.3
+    releaseName: elasticsearch
+    namespace: elasticsearch
