@@ -6,3 +6,4 @@ helmCharts:
     version: 7.17.3
     releaseName: elasticsearch
     namespace: elasticsearch
+    valuesFile: values.yaml
