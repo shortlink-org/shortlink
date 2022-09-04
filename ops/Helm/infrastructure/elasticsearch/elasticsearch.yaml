@@ -14,7 +14,7 @@ spec:
     helm:
       releaseName: elasticsearch
       valueFiles:
-        - values.yaml
+        - https://raw.githubusercontent.com/batazor/shortlink/main/ops/Helm/infrastructure/elasticsearch/values.yaml
   destination:
     name: ''
     server: "https://kubernetes.default.svc"
