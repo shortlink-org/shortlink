@@ -30,23 +30,21 @@ serviceAccount:
   # -- Auto-mount the service account token in the pod
   automountServiceAccountToken: false
 
-# nginx-ingress
 ingress:
-  enabled: false
-  # -- Type ingress-controller: nginx, istio
+  enabled: true
   type: nginx
   annotations:
-    kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     nginx.ingress.kubernetes.io/enable-opentracing: "true"
     kubernetes.io/tls-acme: "true"
 
-  tls:
-    - secretName: shortlink-ingress-tls
-      hosts:
-        - architecture.ddns.net
+  hostname: architecture.ddns.net
+  path: /api/?(.*)
+  service:
+    name: shortlink-api
+    port: 7070
 
 # ==============================================================================
 # This secret for dev-stand. For production use CI-variables
@@ -198,7 +196,6 @@ kratos:
     public:
       enabled: true
       annotations:
-        kubernetes.io/ingress.class: nginx
         cert-manager.io/cluster-issuer: cert-manager-production
         nginx.ingress.kubernetes.io/enable-modsecurity: "true"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
