@@ -16,6 +16,5 @@ publish:
     # Add the token for the scoped packages URL.
     # with the project where your package is located.
     - npm config set //${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
-    - cd $PACKAGE_PATH
   script:
     - echo "Publishing $APPLICATION"
