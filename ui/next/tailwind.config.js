@@ -3,17 +3,6 @@
 module.exports = {
   mode: "jit",
   darkMode: 'class',
-  purge: {
-    enabled: true,
-    content: [
-      './pages/**/*.{js,ts,jsx,tsx}',
-      './components/**/*.{js,ts,jsx,tsx}',
-      './stories/**/*.{js,ts,jsx,tsx}',
-    ],
-    options: {
-      safelist: ['dark'], // specific classes
-    },
-  },
   content: {
     files: [
       './pages/**/*.{js,ts,jsx,tsx}',
@@ -29,6 +18,9 @@ module.exports = {
       md: (content) => {
         return content.match(/[^<>"'`\s]*/)
       },
+    },
+    options: {
+      safelist: ['dark'], // specific classes
     },
   },
   important: '#__next',

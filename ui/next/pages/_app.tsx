@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import * as React from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
 import { wrapper } from 'store/store'
 import Fab from '@mui/material/Fab'
@@ -13,7 +13,9 @@ import { StyledEngineProvider } from '@mui/material/styles'
 import theme from '../theme/theme'
 import 'public/assets/styles.css'
 import ScrollTop from 'components/ScrollTop'
+import darkTheme from "../theme/darkTheme";
 import createEmotionCache from '../theme/createEmotionCache'
+import ColorModeContext from "../theme/ColorModeContext";
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import reportWebVitals from '../pkg/reportWebVitals'
 
@@ -24,31 +26,34 @@ interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
 
-class MyApp extends App<MyAppProps> {
-  render() {
-    const {
-      Component,
-      emotionCache = clientSideEmotionCache,
-      pageProps,
-    } = this.props
+const MyApp = (props: MyAppProps) => {
+  const {
+    Component,
+    emotionCache = clientSideEmotionCache,
+    pageProps,
+  } = props
 
-    return (
-      <React.StrictMode>
-        <CacheProvider value={emotionCache}>
-          <Head>
-            <meta
-              name="viewport"
-              content="initial-scale=1, width=device-width"
-            />
-          </Head>
-          <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-              <CssBaseline />
+  const [darkMode, setDarkMode] = useState(true)
+  console.warn('darkMode', darkMode)
+
+  return (
+    <React.StrictMode>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <meta
+            name="viewport"
+            content="initial-scale=1, width=device-width"
+          />
+        </Head>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={darkMode ? darkTheme : theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
               <NextThemeProvider enableSystem attribute="class">
                 <Component {...pageProps} />
               </NextThemeProvider>
-              <ScrollTop {...this.props}>
+              <ScrollTop {...props}>
                 <Fab
                   color="secondary"
                   size="small"
@@ -58,12 +63,12 @@ class MyApp extends App<MyAppProps> {
                   <KeyboardArrowUpIcon />
                 </Fab>
               </ScrollTop>
-            </ThemeProvider>
-          </StyledEngineProvider>
-        </CacheProvider>
-      </React.StrictMode>
-    )
-  }
+            </ColorModeContext.Provider>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </CacheProvider>
+    </React.StrictMode>
+  )
 }
 
 export default wrapper.withRedux(MyApp)
