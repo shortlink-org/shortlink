@@ -36,7 +36,7 @@ export default function Profile() {
   const profile = [
     {
       name: 'Your Profile',
-      link: '#',
+      link: '/user/profile',
     },
     {
       name: 'Sign out',

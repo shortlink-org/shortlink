@@ -101,16 +101,26 @@ function AddUrl() {
               component="form"
               sx={{
                 '& > :not(style)': { m: 1, width: '25ch' },
+                maxWidth: '100%',
               }}
               noValidate
               autoComplete="off"
               onSubmit={handleSubmit}
             >
-              <TextField label="Your URL" name="url" onChange={handleChange} />
+              <TextField
+                variant="outlined"
+                label="Your URL"
+                name="url"
+                required
+                fullWidth
+                onChange={handleChange}
+              />
 
               <TextField
+                variant="outlined"
                 label="Describe"
                 name="describe"
+                fullWidth
                 onChange={handleChange}
               />
 

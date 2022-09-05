@@ -26,7 +26,7 @@ export function NodeInputSubmit<T>({
       value={attributes.value || ''}
       disabled={attributes.disabled || disabled}
     >
-      label={
+      {
         // @ts-ignore
         getNodeLabel(node)
       }

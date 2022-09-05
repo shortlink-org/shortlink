@@ -1,10 +1,24 @@
 /* eslint-disable */
 
 module.exports = {
+  mode: "jit",
+  darkMode: 'class',
+  purge: {
+    enabled: true,
+    content: [
+      './pages/**/*.{js,ts,jsx,tsx}',
+      './components/**/*.{js,ts,jsx,tsx}',
+      './stories/**/*.{js,ts,jsx,tsx}',
+    ],
+    options: {
+      safelist: ['dark'], // specific classes
+    },
+  },
   content: {
     files: [
       './pages/**/*.{js,ts,jsx,tsx}',
       './components/**/*.{js,ts,jsx,tsx}',
+      './stories/**/*.{js,ts,jsx,tsx}',
     ],
     transform: {
       md: (content) => {
@@ -17,18 +31,28 @@ module.exports = {
       },
     },
   },
-  // important: '#__next',
+  important: '#__next',
   theme: {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],
       body: ['Roboto Mono', 'Menlo', 'monospace'],
     },
+    extend: {
+      typography: theme => ({
+        dark: {
+          css: {
+            color: 'white',
+          },
+        },
+      }),
+    },
+  },
+  variants: {
+    typography: ['dark'],
   },
   plugins: [
     require('@tailwindcss/typography'),
-    require('@tailwindcss/forms')({
-      strategy: 'class', // only generate classes
-    }),
+    require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/aspect-ratio'),
   ],
