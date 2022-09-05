@@ -33,8 +33,7 @@ const MyApp = (props: MyAppProps) => {
     pageProps,
   } = props
 
-  const [darkMode, setDarkMode] = useState(true)
-  console.warn('darkMode', darkMode)
+  const [darkMode, setDarkMode] = useState(false)
 
   return (
     <React.StrictMode>
