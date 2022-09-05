@@ -32,7 +32,6 @@ $> Ready on http://127.0.0.1:3000/next/auth/login
 | `PROXY_URI`     | `http://localhost:3030` | Proxy service address |
 | `SENTRY_ENABLE` | `false`                 | Init Sentry           |
 
-
 ### Storybook
 
 ```
