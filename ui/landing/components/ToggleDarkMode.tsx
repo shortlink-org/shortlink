@@ -2,7 +2,7 @@ import MoonIcon from "@heroicons/react/24/solid/MoonIcon";
 import SunIcon from "@heroicons/react/24/solid/SunIcon";
 import { useTheme as nextUseTheme } from 'next-themes'
 import { useState, useContext, useEffect } from "react"
-import ColorModeContext from "../../theme/ColorModeContext"
+import ColorModeContext from "../../next/theme/ColorModeContext"
 
 const ToggleDarkMode = () => {
   // @ts-ignore

@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import Script from 'next/script'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
 import * as React from 'react'
 // @ts-ignore
 import Divider from '@mui/material/Divider'
@@ -15,6 +14,7 @@ import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Link from 'next/link'
+import ToggleDarkMode from '../components/ToggleDarkMode'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <Script
         src="https://www.googletagmanager.com/gtag/js?id=G-DBZDFPJCJ9"
         strategy="afterInteractive"
@@ -110,6 +110,7 @@ const Home: NextPage = () => {
               <Tab label="Application" {...a11yProps(0)} />
               <Tab label="Infrastructure" {...a11yProps(1)} />
               <Tab label="Docs" {...a11yProps(2)} />
+              <Tab icon={<ToggleDarkMode />} aria-label="person" />
             </Tabs>
           </AppBar>
 
