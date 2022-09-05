@@ -1,5 +1,3 @@
-import MoonIcon from "@heroicons/react/24/solid/MoonIcon";
-import SunIcon from "@heroicons/react/24/solid/SunIcon";
 import { useTheme as nextUseTheme } from 'next-themes'
 import { useState, useContext, useEffect } from "react"
 import ColorModeContext from "../../next/theme/ColorModeContext"
@@ -19,25 +17,30 @@ const ToggleDarkMode = () => {
   // @ts-ignore
   const onClick = e => {
     setDarkMode(!darkMode)
-    setTheme(e)
+    setTheme(darkMode ? 'light' : 'dark')
   }
 
   const renderThemeChanger = () => {
     if (!mounted) return null;
 
-    const currentTheme = theme === "system" ? systemTheme : theme ;
-
-    if (currentTheme ==="dark") {
-      return (
-        <SunIcon className="w-10 h-10 text-yellow-500 " role="button" onClick={() => onClick('light')} />
-      )
-    }
-
-    else {
-      return (
-        <MoonIcon className="w-10 h-10 text-gray-900 " role="button" onClick={() => onClick('dark')} />
-      )
-    }
+    return (
+      <div className="toggleWrapper">
+        <input type="checkbox" className="dn" id="dn" onClick={onClick} checked={darkMode} />
+        <label htmlFor="dn" className="toggle">
+          <span className="toggle__handler">
+            <span className="crater crater--1"></span>
+            <span className="crater crater--2"></span>
+            <span className="crater crater--3"></span>
+          </span>
+          <span className="star star--1"></span>
+          <span className="star star--2"></span>
+          <span className="star star--3"></span>
+          <span className="star star--4"></span>
+          <span className="star star--5"></span>
+          <span className="star star--6"></span>
+        </label>
+      </div>
+    )
   }
 
   return renderThemeChanger()

@@ -90,6 +90,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <ToggleDarkMode />
+
       <Grid
         container
         direction="row"
@@ -110,7 +112,6 @@ const Home: NextPage = () => {
               <Tab label="Application" {...a11yProps(0)} />
               <Tab label="Infrastructure" {...a11yProps(1)} />
               <Tab label="Docs" {...a11yProps(2)} />
-              <Tab icon={<ToggleDarkMode />} aria-label="person" />
             </Tabs>
           </AppBar>
 
