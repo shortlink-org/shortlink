@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="bg-white dark:bg-gray-800 w-full py-8">
       <div className="max-w-screen-xl mx-auto px-4">
-        <ul className="max-w-screen-md mx-auto text-lg font-light flex flex-wrap justify-between">
+        <ul className="max-w-screen-md mx-auto text-lg font-light flex flex-wrap justify-between dark:prose-dark dark:md:prose-xl-dark">
           <li className="my-2 cursor-pointer">
             <Link href="/faq" passHref>
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">

@@ -16,6 +16,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import SearchForm from '../SearchForm'
 import Notification from './notification'
+import ToggleDarkMode from './ToggleDarkMode'
 import Profile from './profile'
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import ory from '../../pkg/sdk'
@@ -162,6 +163,8 @@ const Header = () => {
         </Link>
 
         <SearchForm />
+
+        <ToggleDarkMode />
 
         {hasSession ? (
           <Fragment>

@@ -6,6 +6,7 @@ import { wrapper } from 'store/store'
 import Fab from '@mui/material/Fab'
 import App, { AppProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import { StyledEngineProvider } from '@mui/material/styles'
@@ -44,7 +45,9 @@ class MyApp extends App<MyAppProps> {
             <ThemeProvider theme={theme}>
               {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
               <CssBaseline />
-              <Component {...pageProps} />
+              <NextThemeProvider enableSystem attribute="class">
+                <Component {...pageProps} />
+              </NextThemeProvider>
               <ScrollTop {...this.props}>
                 <Fab
                   color="secondary"
