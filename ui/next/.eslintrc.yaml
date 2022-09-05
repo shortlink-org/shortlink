@@ -82,6 +82,8 @@ rules:
   react/react-in-jsx-scope: off
   react/no-unused-prop-types: off
   '@next/next/no-img-element': off
+  react/jsx-no-constructed-context-values: off
+  '@typescript-eslint/no-unused-vars': off
 settings:
   import/resolver:
     babel-module:

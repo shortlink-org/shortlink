@@ -13,7 +13,8 @@ const ScrollableCodeBox = styled(CodeBox)`
   overflow-x: auto;
 `
 
-const Content = ({ attributes }: Props) => { // eslint-disable-line
+const Content = ({ attributes }: Props) => {
+  // eslint-disable-line
   switch (attributes.text.id) {
     case 1050015: {
       // This text node contains lookup secrets. Let's make them a bit more beautiful!

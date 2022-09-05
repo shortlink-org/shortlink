@@ -2,7 +2,6 @@ import type { NextPage } from 'next'
 import Script from 'next/script'
 import Head from 'next/head'
 import * as React from 'react'
-import Image from 'next/image'
 // @ts-ignore
 import Divider from '@mui/material/Divider'
 import { useTheme } from '@mui/material/styles'
@@ -16,7 +15,6 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Link from 'next/link'
 import ToggleDarkMode from '../components/ToggleDarkMode'
-import nextIcon from '../public/images/nextjs-3.svg'
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -52,11 +50,10 @@ function a11yProps(index: number) {
   };
 }
 
-function getCard(name: string, url: string, icon: React.ReactNode) {
+function getCard(name: string, url: string) {
   return (
     <Link href={url}>
       <Button variant="outlined">
-        <nextIcon />
         {name}
       </Button>
     </Link>
@@ -131,7 +128,7 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("Next", "/next", nextIcon)}
+              {getCard("Next", "/next")}
             </Stack>
           </TabPanel>
 
@@ -148,8 +145,8 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("Prometheus", "/prometheus", null)}
-              {getCard("AlertManager", "/alertmanager", null)}
+              {getCard("Prometheus", "/prometheus")}
+              {getCard("AlertManager", "/alertmanager")}
             </Stack>
 
             <Stack
@@ -160,11 +157,11 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("Grafana", "/grafana", null)}
+              {getCard("Grafana", "/grafana")}
 
-              {getCard("RabbitMQ", "/rabbitmq", null)}
+              {getCard("RabbitMQ", "/rabbitmq")}
 
-              {getCard("Kyverno", "/kyverno/#/", null)}
+              {getCard("Kyverno", "/kyverno/#/")}
             </Stack>
 
             <Stack
@@ -175,8 +172,8 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("Argo CD", "/argo/cd", null)}
-              {getCard("Argo Workflows", "/argo/workflows", null)}
+              {getCard("Argo CD", "/argo/cd")}
+              {getCard("Argo Workflows", "/argo/workflows")}
               {/*{getCard("Argo Dashboard", "/argo/dashboard")}*/}
             </Stack>
           </TabPanel>
@@ -194,11 +191,11 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("GitHub", "https://github.com/batazor/shortlink", null)}
+              {getCard("GitHub", "https://github.com/batazor/shortlink")}
 
-              {getCard("GitLab", "https://gitlab.com/shortlink-org/shortlink/", null)}
+              {getCard("GitLab", "https://gitlab.com/shortlink-org/shortlink/")}
 
-              {getCard("Swagger API", "https://shortlink-org.gitlab.io/shortlink/", null)}
+              {getCard("Swagger API", "https://shortlink-org.gitlab.io/shortlink/")}
             </Stack>
           </TabPanel>
         </Box>

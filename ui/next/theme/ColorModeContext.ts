@@ -1,6 +1,6 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
 // @ts-ignore
-const ColorModeContext = createContext();
+const ColorModeContext = createContext()
 
-export default ColorModeContext;
+export default ColorModeContext

@@ -5,7 +5,8 @@ import { NodeInputHidden } from './NodeInputHidden'
 import { NodeInputSubmit } from './NodeInputSubmit'
 import { NodeInputProps } from './helpers'
 
-export function NodeInput<T>(props: NodeInputProps) { // eslint-disable-line
+// @ts-ignore
+export function NodeInput<T>(props: NodeInputProps) {
   const { attributes } = props
 
   switch (attributes.type) {

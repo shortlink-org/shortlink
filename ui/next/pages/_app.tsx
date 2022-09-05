@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Head from 'next/head'
 import { wrapper } from 'store/store'
 import Fab from '@mui/material/Fab'
-import App, { AppProps } from 'next/app'
+import { AppProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -13,9 +13,9 @@ import { StyledEngineProvider } from '@mui/material/styles'
 import theme from '../theme/theme'
 import 'public/assets/styles.css'
 import ScrollTop from 'components/ScrollTop'
-import darkTheme from "../theme/darkTheme";
+import darkTheme from '../theme/darkTheme'
 import createEmotionCache from '../theme/createEmotionCache'
-import ColorModeContext from "../theme/ColorModeContext";
+import ColorModeContext from '../theme/ColorModeContext'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import reportWebVitals from '../pkg/reportWebVitals'
 
@@ -27,11 +27,7 @@ interface MyAppProps extends AppProps {
 }
 
 const MyApp = (props: MyAppProps) => {
-  const {
-    Component,
-    emotionCache = clientSideEmotionCache,
-    pageProps,
-  } = props
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   const [darkMode, setDarkMode] = useState(false)
 
@@ -39,10 +35,7 @@ const MyApp = (props: MyAppProps) => {
     <React.StrictMode>
       <CacheProvider value={emotionCache}>
         <Head>
-          <meta
-            name="viewport"
-            content="initial-scale=1, width=device-width"
-          />
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={darkMode ? darkTheme : theme}>

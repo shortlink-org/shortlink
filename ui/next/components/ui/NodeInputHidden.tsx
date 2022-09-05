@@ -1,6 +1,7 @@
 import { NodeInputProps } from './helpers'
 
-export function NodeInputHidden<T>({ attributes }: NodeInputProps) { // eslint-disable-line
+export function NodeInputHidden<T>({ attributes }: NodeInputProps) {
+  // eslint-disable-line
   // Render a hidden input field
   return (
     <input

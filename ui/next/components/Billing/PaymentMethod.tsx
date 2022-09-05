@@ -21,7 +21,6 @@ const Index = () => (
               height={38}
               href="https://tuk-cdn.s3.amazonaws.com/assets/master.png"
               transform="translate(-55 -80)"
-              fill="none"
               fillRule="evenodd"
             />
           </svg>
