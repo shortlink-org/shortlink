@@ -25,7 +25,7 @@ const ToggleDarkMode = () => {
 
     return (
       <div className="toggleWrapper">
-        <input type="checkbox" className="dn" id="dn" onClick={onClick} checked={darkMode} />
+        <input type="checkbox" className="dn" id="dn" onClick={onClick} checked={!darkMode} />
         <label htmlFor="dn" className="toggle">
           <span className="toggle__handler">
             <span className="crater crater--1"></span>
