@@ -15,8 +15,8 @@ limitations under the License.
 */
 
 // Package v1alpha1 contains API Schema definitions for the shortdb v1alpha1 API group
-//+kubebuilder:object:generate=true
-//+groupName=shortdb.shortdb.shortlink
+// +kubebuilder:object:generate=true
+// +groupName=shortdb.shortdb.shortlink
 package v1alpha1
 
 import (

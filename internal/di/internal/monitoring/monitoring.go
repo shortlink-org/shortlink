@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
-	"github.com/go-chi/chi/v5"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"
@@ -15,7 +14,7 @@ import (
 )
 
 // New - Monitoring endpoints
-func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *chi.Mux {
+func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *http.ServeMux {
 	// Create a new Prometheus registry
 	registry := prometheus.NewRegistry()
 
@@ -30,7 +29,7 @@ func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *chi.Mux {
 	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) // nolint:gomnd
 
 	// Create a "common" listener
-	commonMux := chi.NewMux()
+	commonMux := http.NewServeMux()
 
 	// Expose prometheus metrics on /metrics
 	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.Handler()))
