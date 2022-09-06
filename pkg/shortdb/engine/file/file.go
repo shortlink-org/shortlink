@@ -216,7 +216,7 @@ func (f *file) createFile(name string) (*os.File, error) {
 }
 
 func (f *file) writeFile(name string, payload []byte) error {
-	err := os.WriteFile(name, payload, 0o644) // nolint:gomnd
+	err := os.WriteFile(name, payload, 0o600) // nolint:gomnd
 	if err != nil {
 		return err
 	}

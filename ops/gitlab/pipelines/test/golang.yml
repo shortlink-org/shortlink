@@ -6,7 +6,7 @@ include:
 
 code_intelligence_go:
   stage: .pre
-  image: sourcegraph/lsif-go:v1
+  image: sourcegraph/lsif-go:v1.9
   allow_failure: true # recommended
   script:
     - lsif-go
@@ -38,7 +38,7 @@ gotest:
     CGO_CFLAGS: "-g -O2 -Wno-return-local-addr"
   before_script:
     - mkdir -p .go
-    - apk add --no-cache make git gcc musl-dev
+    - apk add --no-cache make git gcc musl-dev liburing
     - go install gotest.tools/gotestsum@latest
   script:
     - $GOPATH/bin/gotestsum --junitfile report.xml --format testname -- -tags=unit ./...
