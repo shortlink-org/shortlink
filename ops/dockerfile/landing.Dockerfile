@@ -22,6 +22,8 @@ ENV API_URI=${API_URI}
 
 WORKDIR /app
 COPY ./ui/landing /app/
+# TODO: fix/drop
+COPY ./ui/next /next
 COPY --from=deps /app/node_modules ./node_modules
 
 RUN npm run generate
