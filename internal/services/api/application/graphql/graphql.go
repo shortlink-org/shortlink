@@ -44,7 +44,7 @@ func (api *API) GetHandler() *relay.Handler {
 		}
 
 		if !info.IsDir() { // nolint:nestif
-			file, errReadFile := os.ReadFile(path) // #nosec
+			file, errReadFile := os.ReadFile(filepath.Clean(path))
 			if errReadFile != nil {
 				return errReadFile
 			}
