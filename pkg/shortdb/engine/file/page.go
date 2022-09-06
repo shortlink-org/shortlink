@@ -3,6 +3,7 @@ package file
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"google.golang.org/protobuf/proto"
 
@@ -108,7 +109,7 @@ func (f *file) clearPages(nameTable string) error {
 func (f *file) loadPage(path string) (*page.Page, error) {
 	page := page.Page{}
 
-	payload, err := os.ReadFile(path)
+	payload, err := os.ReadFile(filepath.Clean(path))
 	if err != nil {
 		return nil, err
 	}
