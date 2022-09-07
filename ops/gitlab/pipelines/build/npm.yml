@@ -11,10 +11,17 @@ publish:
   variables:
     NPM_TOKEN: $CI_JOB_TOKEN
   before_script:
+    - git sparse-checkout set ui/ui-kit
     # Set URL for your scoped packages.
-    - npm config set @shortlink:registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
+    - npm config set @shortlink-org/shortlink ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
     # Add the token for the scoped packages URL.
     # with the project where your package is located.
-    - npm config set //${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
+    - npm config set -- //${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
+    - cat .npmrc
   script:
-    - echo "Publishing $APPLICATION"
+    - npm install --force
+    - npm run build
+    - npm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
+  rules:
+    - when: always
+
