@@ -11,16 +11,20 @@ publish:
   variables:
     NPM_TOKEN: $CI_JOB_TOKEN
   before_script:
-    # Set URL for your scoped packages.
-    - npm config set @shortlink-org/shortlink ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
-    # Add the token for the scoped packages URL.
-    # with the project where your package is located.
-    - npm config set -- //${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}
-    - cat .npmrc
+    - |
+      {
+        echo "//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
+        echo "@${CI_PROJECT_ROOT_NAMESPACE}/shortlink=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
+      } | tee -a ~/.npmrc
   script:
-    - npm install --force
+    - cd ./ui/ui-kit
+    - npm ci --cache .npm --prefer-offline --force
     - npm run build
     - npm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - .npm/
   rules:
     - when: always
 
