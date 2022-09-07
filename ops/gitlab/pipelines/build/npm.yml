@@ -11,7 +11,6 @@ publish:
   variables:
     NPM_TOKEN: $CI_JOB_TOKEN
   before_script:
-    - git sparse-checkout set ui/ui-kit
     # Set URL for your scoped packages.
     - npm config set @shortlink-org/shortlink ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
     # Add the token for the scoped packages URL.
