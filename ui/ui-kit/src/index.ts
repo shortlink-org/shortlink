@@ -1,2 +1,1 @@
-// hello world
-console.log('hello world');
+export { ToggleDarkMode } from './ToggleDarkMode/ToggleDarkMode'

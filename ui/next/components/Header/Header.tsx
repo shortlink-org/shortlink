@@ -1,5 +1,6 @@
 import { useEffect, useState, Fragment } from 'react'
 import Link from 'next/link'
+import { useTheme as nextUseTheme } from 'next-themes'
 import Button from '@mui/material/Button'
 import { AxiosError } from 'axios'
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
@@ -13,10 +14,10 @@ import Divider from '@mui/material/Divider'
 import List from '@mui/material/List'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 
 import SearchForm from '../SearchForm'
 import Notification from './notification'
-import ToggleDarkMode from './ToggleDarkMode'
 import Profile from './profile'
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import ory from '../../pkg/sdk'
@@ -99,6 +100,8 @@ const Header = () => {
   )
   const [hasSession, setHasSession] = useState<boolean>(false)
 
+  const { setTheme } = nextUseTheme()
+
   useEffect(() => {
     ory
       .toSession()
@@ -123,6 +126,7 @@ const Header = () => {
     setOpen(false)
   }
 
+  // @ts-ignore
   return [
     <AppBar key="appbar" position="fixed" open={open}>
       <Toolbar>
