@@ -3,6 +3,10 @@
 const webpack = require('webpack')
 const withSourceMaps = require('@zeit/next-source-maps')
 
+// pass the modules you would like to see transpiled
+const withTM = require('next-transpile-modules')(['@shortlink-org/ui-kit']);
+module.exports = withTM({});
+
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
 const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
