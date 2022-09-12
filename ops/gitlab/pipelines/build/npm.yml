@@ -21,6 +21,7 @@ publish:
     - npm ci --cache .npm --prefer-offline --force
     - npm run build
     - npm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
+  allow_failure: true
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
