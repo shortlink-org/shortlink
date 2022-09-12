@@ -2,6 +2,9 @@ import { useTheme as nextUseTheme } from 'next-themes'
 import React, { useState, useContext, useEffect } from 'react'
 import { ColorModeContext } from './ColorModeContext'
 
+// @ts-ignore
+import './styles.css'
+
 export const ToggleDarkMode = () => {
   // @ts-ignore
   const { setTheme } = nextUseTheme()
@@ -15,7 +18,7 @@ export const ToggleDarkMode = () => {
   const { darkMode, setDarkMode } = useContext(ColorModeContext)
 
   // @ts-ignore
-  const onClick = () => {
+  const onChange = () => {
     setDarkMode(!darkMode)
     setTheme(darkMode ? 'light' : 'dark')
   }
@@ -28,7 +31,7 @@ export const ToggleDarkMode = () => {
         type="checkbox"
         className="dn"
         id="dn"
-        onClick={onClick}
+        onChange={onChange}
         checked={!darkMode}
       />
       <label htmlFor="dn" className="toggle">
