@@ -1,4 +1,4 @@
 import { createContext } from 'react'
 
 // @ts-ignore
-export const Context = createContext()
+export const ColorModeContext = createContext()

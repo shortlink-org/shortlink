@@ -1,6 +1,6 @@
 import { useTheme as nextUseTheme } from 'next-themes'
 import React, { useState, useContext, useEffect } from 'react'
-export { Context } from './ColorModeContext'
+import { ColorModeContext } from './ColorModeContext'
 
 export const ToggleDarkMode = () => {
   // @ts-ignore
@@ -12,7 +12,7 @@ export const ToggleDarkMode = () => {
   }, [])
 
   // @ts-ignore
-  const { darkMode, setDarkMode } = useContext(Context)
+  const { darkMode, setDarkMode } = useContext(ColorModeContext)
 
   // @ts-ignore
   const onClick = () => {
