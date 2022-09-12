@@ -37,7 +37,7 @@ export default [
       typescript({ tsconfig: "./tsconfig.json" }),
       terser()
     ],
-    external: ["react", "react-dom", "styled-components", "next-themes"]
+    external: ["react", "react-dom", "styled-components", "next-themes", "@emotion/cache", "@mui/material"]
   },
   // {
   //   input: "dist/esm/index.d.ts",

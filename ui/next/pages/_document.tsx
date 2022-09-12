@@ -1,8 +1,8 @@
 import * as React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
-import theme from '../theme/theme'
-import createEmotionCache from '../theme/createEmotionCache'
+// @ts-ignore
+import { darkTheme, lightTheme, createEmotionCache } from '@shortlink-org/ui-kit'
 
 class MyDocument extends Document {
   render() {
@@ -11,7 +11,7 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="theme-color" content={lightTheme.palette.primary.main} />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

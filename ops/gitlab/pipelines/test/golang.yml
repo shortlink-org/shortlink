@@ -92,5 +92,6 @@ go_fuzz_test:
     - clang -fsanitize=fuzzer link_fuzz_target.a -o link_fuzz_target
     - $GITLAB_COV_FUZZ_PATH/gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target
   allow_failure: true # recommended
+  needs: []
   rules:
     - when: always
