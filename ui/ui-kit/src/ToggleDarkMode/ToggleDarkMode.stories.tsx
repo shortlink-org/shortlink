@@ -5,7 +5,6 @@ import { withReactContext } from 'storybook-react-context'
 
 import ToggleDarkMode  from './ToggleDarkMode'
 import { ColorModeContext } from './ColorModeContext'
-import './styles.css'
 
 export default {
   title: 'ToggleDarkMode',
@@ -20,7 +19,7 @@ export default {
 } as Meta<typeof React.Component>;
 
 const Template: Story<any> = (args) => {
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(ColorModeContext)
 
   return (
     <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>

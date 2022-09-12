@@ -15,9 +15,10 @@ import 'public/assets/styles.css'
 import ScrollTop from 'components/ScrollTop'
 import darkTheme from '../theme/darkTheme'
 import createEmotionCache from '../theme/createEmotionCache'
-import ColorModeContext from '../theme/ColorModeContext'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import reportWebVitals from '../pkg/reportWebVitals'
+// @ts-ignore
+import { ColorModeContext } from '@shortlink-org/ui-kit'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()

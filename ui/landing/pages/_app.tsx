@@ -8,8 +8,9 @@ import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import theme from '../../next/theme/theme';
 import createEmotionCache from '../src/createEmotionCache';
 import '../public/assets/styles.css'
-import ColorModeContext from "../../next/theme/ColorModeContext";
 import darkTheme from "../../next/theme/darkTheme";
+// @ts-ignore
+import { ColorModeContext } from '@shortlink-org/ui-kit'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();

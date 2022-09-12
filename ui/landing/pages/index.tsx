@@ -14,7 +14,8 @@ import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Link from 'next/link'
-import ToggleDarkMode from '../components/ToggleDarkMode'
+// @ts-ignore
+import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 
 interface TabPanelProps {
   children?: React.ReactNode;
