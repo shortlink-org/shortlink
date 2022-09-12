@@ -10,15 +10,12 @@ import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import { StyledEngineProvider } from '@mui/material/styles'
-import theme from '../theme/theme'
 import 'public/assets/styles.css'
 import ScrollTop from 'components/ScrollTop'
-import darkTheme from '../theme/darkTheme'
-import createEmotionCache from '../theme/createEmotionCache'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import reportWebVitals from '../pkg/reportWebVitals'
 // @ts-ignore
-import { ColorModeContext } from '@shortlink-org/ui-kit'
+import { darkTheme, lightTheme, ColorModeContext, createEmotionCache } from '@shortlink-org/ui-kit'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -39,7 +36,7 @@ const MyApp = (props: MyAppProps) => {
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={darkMode ? darkTheme : theme}>
+          <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
