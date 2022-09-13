@@ -18,7 +18,7 @@ export default function Discounted() {
           <div className="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">
             <a
               href="#"
-              className="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-white dark:bg-gray-800 hover:text-gray-700 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
+              className="flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-white hover:text-gray-700 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out"
             >
               Buy Discounted License
             </a>

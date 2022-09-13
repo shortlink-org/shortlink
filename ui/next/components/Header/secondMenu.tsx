@@ -11,15 +11,15 @@ const solutions = [
     icon: IconOne,
   },
   {
-    name: 'Automations',
-    description: 'Create your own targeted content',
-    href: '/automations',
+    name: 'Contacts',
+    description: 'Send us an email',
+    href: '/contact',
     icon: IconTwo,
   },
   {
     name: 'Reports',
     description: 'Keep track of your growth',
-    href: '/reports',
+    href: '/user/reports',
     icon: IconThree,
   },
 ]

@@ -49,6 +49,16 @@ function ProfileContent() {
       <NextSeo
         title="Profile"
         description="Profile page for your account."
+        openGraph={{
+          title: "Profile",
+          description: "Profile page for your account.",
+          type: "profile",
+          profile: {
+            firstName: "John",
+            lastName: "Doe",
+            username: "johndoe",
+          }
+        }}
       />
 
       <Welcome

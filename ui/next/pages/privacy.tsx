@@ -1,13 +1,46 @@
 import React from 'react'
 import { Layout } from 'components'
-import { NextSeo } from "next-seo";
+import { ArticleJsonLd, NextSeo } from "next-seo";
 
 export const PrivacyContent = () => (
   <Layout>
     <NextSeo
       title="Privacy"
       description="Privacy page for shortlink."
+      openGraph={{
+        title: "Privacy",
+        description: "Privacy page for shortlink.",
+        type: "article",
+        article: {
+          publishedTime: "2021-08-01T05:00:00.000Z",
+          modifiedTime: "2021-08-01T05:00:00.000Z",
+          section: "Privacy",
+          authors: [
+            "https://batazor.ru",
+          ],
+          tags: [ "shortlink", "privacy" ],
+        }
+      }}
     />
+    <ArticleJsonLd
+      url="https://architecture.ddns.net/next/about"
+      title="Privacy"
+      images={[
+        'https://architecture.ddns.net/images/logo.png',
+      ]}
+      datePublished="2021-08-01T05:00:00.000Z"
+      dateModified="2021-08-01T05:00:00.000Z"
+      authorName={[
+        {
+          name: 'Login Viktor',
+          url: 'https://batazor.ru',
+        },
+      ]}
+      publisherName="Login Viktor"
+      publisherLogo="https://architecture.ddns.net/images/logo.png"
+      description="Privacy page for shortlink."
+    />
+
     <section className="bg-white dark:bg-gray-800 rounded-md">
       <div className="px-4 py-24 mb-20 text-left md:text-center">
         <h1 className="mb-4 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">

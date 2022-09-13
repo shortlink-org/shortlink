@@ -1,23 +1,30 @@
-import { createStore, applyMiddleware } from 'redux'
-import { createWrapper } from 'next-redux-wrapper'
+import { createStore, applyMiddleware, Store } from 'redux'
+import { createWrapper, Context } from 'next-redux-wrapper'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import createMiddleware from 'redux-saga'
+import createSagaMiddleware, { Task } from 'redux-saga'
 
 import rootReducer from './reducers'
 import rootSaga from './sagas'
 
-// Create the middleware
-const sagaMiddleware = createMiddleware()
+export interface SagaStore extends Store {
+  sagaTask?: Task;
+}
 
-// Add an extra parameter for applying middleware:
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
-)
+const makeStore = (context: Context) => {
+  // Create the middleware
+  const sagaMiddleware = createSagaMiddleware()
 
-// Run your sagas on server
-sagaMiddleware.run(rootSaga)
+  // Add an extra parameter for applying middleware:
+  let store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(sagaMiddleware)),
+  )
 
-const makeStore = () => store
+  // Run your sagas on server
+  sagaMiddleware.run(rootSaga)
 
-export const wrapper = createWrapper(makeStore)
+  return store
+}
+
+// export an assembled wrapper
+export const wrapper = createWrapper<Store<any>>(makeStore, {debug: false})
