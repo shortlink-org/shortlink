@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Script from 'next/script'
 import Head from 'next/head'
 import * as React from 'react'
-import { NextSeo } from 'next-seo'
+import { NextSeo, ArticleJsonLd, BreadcrumbJsonLd } from "next-seo";
 // @ts-ignore
 import Divider from '@mui/material/Divider'
 import { useTheme } from '@mui/material/styles'
@@ -89,6 +89,67 @@ const Home: NextPage = () => {
       <NextSeo
         title="Main"
         description="Routing by project a shortlink."
+        openGraph={{
+          title: "Main",
+          description: "Routing by project a shortlink.",
+          type: "article",
+          article: {
+            publishedTime: "2021-08-01T05:00:00.000Z",
+            modifiedTime: "2021-08-01T05:00:00.000Z",
+            section: "FAQ",
+            authors: [
+              "https://batazor.ru",
+            ],
+            tags: [ "shortlink" ],
+          }
+        }}
+      />
+      <ArticleJsonLd
+        url="https://architecture.ddns.net/"
+        title="Main"
+        images={[
+          'https://architecture.ddns.net/images/logo.png',
+        ]}
+        datePublished="2021-08-01T05:00:00.000Z"
+        dateModified="2021-08-01T05:00:00.000Z"
+        authorName={[
+          {
+            name: 'Login Viktor',
+            url: 'https://batazor.ru',
+          },
+        ]}
+        publisherName="Login Viktor"
+        publisherLogo="https://architecture.ddns.net/images/logo.png"
+        description="Routing by project a shortlink."
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: 'Next UI',
+            item: 'https://architecture.ddns.net/next',
+          },
+          {
+            position: 2,
+            name: 'Prometheus',
+            item: 'https://architecture.ddns.net/prometheus/',
+          },
+          {
+            position: 3,
+            name: 'Grafana',
+            item: 'https://architecture.ddns.net/grafana/',
+          },
+          {
+            position: 4,
+            name: 'Argo CD',
+            item: 'https://architecture.ddns.net/argo/cd/',
+          },
+          {
+            position: 5,
+            name: 'GitHab',
+            item: 'https://github.com/batazor/shortlink',
+          },
+        ]}
       />
       
       <Head>

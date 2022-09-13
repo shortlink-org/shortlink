@@ -14,7 +14,7 @@ import { Flow } from '../../components/ui/Flow'
 
 import ory from '../../pkg/sdk'
 import { handleFlowError } from '../../pkg/errors'
-import { NextSeo } from "next-seo";
+import { BreadcrumbJsonLd, NextSeo } from "next-seo";
 
 // Renders the registration page
 const SignUp: NextPage = () => {
@@ -92,6 +92,25 @@ const SignUp: NextPage = () => {
       <NextSeo
         title="Registration"
         description="Registration a new account"
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: 'Login page',
+            item: 'https://architecture.ddns.net/next/auth/login',
+          },
+          {
+            position: 2,
+            name: 'Gorgot Password',
+            item: 'https://architecture.ddns.net/next/auth/forgot',
+          },
+          {
+            position: 3,
+            name: 'Registration page',
+            item: 'https://architecture.ddns.net/next/auth/registration',
+          },
+        ]}
       />
 
       <div className="flex h-full p-4 rotate">

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Head from 'next/head'
 import { wrapper } from 'store/store'
 import Fab from '@mui/material/Fab'
-import { AppProps } from 'next/app'
+import { AppInitialProps } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -16,12 +16,12 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import reportWebVitals from '../pkg/reportWebVitals'
 // @ts-ignore
 import { darkTheme, lightTheme, ColorModeContext, createEmotionCache } from '@shortlink-org/ui-kit'
-import { DefaultSeo } from 'next-seo'
+import { DefaultSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
-interface MyAppProps extends AppProps {
+interface MyAppProps extends AppInitialProps {
   emotionCache?: EmotionCache
 }
 
@@ -59,6 +59,22 @@ const MyApp = (props: MyAppProps) => {
           titleTemplate={'Shortlink | %s'}
           defaultTitle={'Shortlink'}
         />
+
+        {/* @ts-ignore */}
+        <SiteLinksSearchBoxJsonLd
+          url="https://architecture.ddns.net/"
+          potentialActions={[
+            {
+              target: 'https://architecture.ddns.net/search?q',
+              queryInput: 'search_term_string',
+            },
+            {
+              target: 'android-app://com.shortlink/https/architecture.ddns.net/search?q',
+              queryInput: 'search_term_string',
+            },
+          ]}
+        />
+
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

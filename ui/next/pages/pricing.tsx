@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { Layout } from 'components'
 import Discounted from 'components/Billing/Discounted'
-import { NextSeo } from "next-seo";
+import { ArticleJsonLd, NextSeo } from "next-seo";
 
 const tiers = [
   {
@@ -59,6 +59,38 @@ export function Pricing() {
     <Layout>
       <NextSeo
         title="Pricing"
+        description="Pricing page for shortlink."
+        openGraph={{
+          title: "Pricing",
+          description: "Pricing page for shortlink.",
+          type: "article",
+          article: {
+            publishedTime: "2021-08-01T05:00:00.000Z",
+            modifiedTime: "2021-08-01T05:00:00.000Z",
+            section: "Pricing",
+            authors: [
+              "https://batazor.ru",
+            ],
+            tags: [ "shortlink", "pricing" ],
+          }
+        }}
+      />
+      <ArticleJsonLd
+        url="https://architecture.ddns.net/next/about"
+        title="Pricing"
+        images={[
+          'https://architecture.ddns.net/images/logo.png',
+        ]}
+        datePublished="2021-08-01T05:00:00.000Z"
+        dateModified="2021-08-01T05:00:00.000Z"
+        authorName={[
+          {
+            name: 'Login Viktor',
+            url: 'https://batazor.ru',
+          },
+        ]}
+        publisherName="Login Viktor"
+        publisherLogo="https://architecture.ddns.net/images/logo.png"
         description="Pricing page for shortlink."
       />
       <Container

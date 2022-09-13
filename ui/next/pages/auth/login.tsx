@@ -12,7 +12,7 @@ import {
 import ory from '../../pkg/sdk'
 import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
-import { NextSeo } from "next-seo";
+import { BreadcrumbJsonLd, NextSeo } from "next-seo";
 
 const SignIn: NextPage = () => {
   const [flow, setFlow] = useState<SelfServiceLoginFlow>()
@@ -95,6 +95,25 @@ const SignIn: NextPage = () => {
       <NextSeo
         title="Login"
         description="Login to your account"
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: 'Login page',
+            item: 'https://architecture.ddns.net/next/auth/login',
+          },
+          {
+            position: 2,
+            name: 'Gorgot Password',
+            item: 'https://architecture.ddns.net/next/auth/forgot',
+          },
+          {
+            position: 3,
+            name: 'Registration page',
+            item: 'https://architecture.ddns.net/next/auth/registration',
+          },
+        ]}
       />
 
       <div className="flex h-full p-4 rotate">
