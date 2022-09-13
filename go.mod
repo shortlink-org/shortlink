@@ -39,7 +39,7 @@ require (
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/krzysztofreczek/go-structurizr v0.1.25
 	github.com/kubernetes-csi/csi-test/v4 v4.4.0
-	github.com/lib/pq v1.10.6
+	github.com/lib/pq v1.10.7
 	github.com/mattn/go-sqlite3 v1.14.15
 	github.com/nats-io/nats.go v1.16.0
 	github.com/ory/dockertest/v3 v3.9.1
