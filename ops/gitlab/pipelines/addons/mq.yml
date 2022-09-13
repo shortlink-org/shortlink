@@ -1,18 +1,4 @@
-# DATABASE =============================================================================================================
-rabbitmq:
-  stage: mq
-  variables:
-    RELEASE_NAME: rabbitmq
-    HELM_PATH: ops/Helm/addons/mq/rabbitmq
-    HELM_NAMESPACE: rabbitmq
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
-
+# MQ ===================================================================================================================
 kafka:
   stage: mq
   variables:
