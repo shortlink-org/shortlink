@@ -2,7 +2,11 @@
 
 # shortlink
 
-Shortlink service 
+Shortlink is an open source project that provides a pretty user interface and respects GDPR.   
+We use edge technologies and have many years of experience.  
+
+We're constantly researching the best solutions on the market so that we can benefit  
+our community and solve a problem for millions of people.
 
 [![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/batazor/shortlink)](https://pkg.go.dev/mod/github.com/batazor/shortlink)
 [![codecov](https://codecov.io/gh/batazor/shortlink/branch/main/graph/badge.svg?token=Wxz5bI4QzF)](https://codecov.io/gh/batazor/shortlink)

@@ -23,7 +23,7 @@ export default function Subscribe() {
                 <input
                   id="email"
                   type="text"
-                  className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                  className="px-4 py-2 text-gray-700 bg-white dark:bg-gray-800 border border-gray-300 rounded-lg dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                   placeholder="Email Address"
                 />
 

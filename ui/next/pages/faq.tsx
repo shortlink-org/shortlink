@@ -2,12 +2,12 @@ import { Layout } from 'components'
 
 export const Faq = () => (
   <Layout>
-    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 bg-white rounded">
+    <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 bg-white dark:bg-gray-800 rounded">
       <div className="max-w-xl sm:mx-auto lg:max-w-2xl">
         <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
           <div>
             <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
-              Brand new
+              Thanks for asking!
             </p>
           </div>
           <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
@@ -36,7 +36,7 @@ export const Faq = () => (
               </svg>
               <span className="relative">The</span>
             </span>{' '}
-            quick, brown fox jumps over a lazy dog
+            frequently asked questions
           </h2>
           <p className="text-base text-gray-700 md:text-lg">
             Sed ut perspiciatis unde omnis iste natus error sit voluptatem
@@ -49,83 +49,73 @@ export const Faq = () => (
           <div className="space-y-8">
             <div>
               <p className="mb-4 text-xl font-medium">
-                The quick, brown fox jumps over a lazy dog?
+                What kind of product is this?
               </p>
               <p className="text-gray-700">
-                Space, the final frontier. These are the voyages of the Starship
-                Enterprise. Its five-year mission: to explore strange new
-                worlds.
-                <br />
-                <br />
-                Many say exploration is part of our destiny, but it’s actually
-                our duty to future generations.
+                This service is for creating shortlinks. It's a great way to make sure that
+                your links are easy to remember and share, and it's perfect for when you want to post a link
+                on social media or in an email. Plus, it's free to use!
               </p>
             </div>
             <div>
               <p className="mb-4 text-xl font-medium">
-                The first mate and his Skipper too will do?
+                Is it free?
               </p>
               <p className="text-gray-700">
-                Well, the way they make shows is, they make one show. That
-                show's called a pilot.
-                <br />
-                <br />
-                Then they show that show to the people who make shows, and on
-                the strength of that one show they decide if they're going to
-                make more shows. Some pilots get picked and become television
-                programs.Some don't, become nothing. She starred in one of the
-                ones that became nothing.
+                Yes, it's free! This is something that's always been free and always will be.
+                There are no hidden fees or catches - you can use it as much as you want, for as long as you want.
+                We'll never ask for your payment information or try to upsell you on any features.
               </p>
             </div>
             <div>
               <p className="mb-4 text-xl font-medium">
-                Is the Space Pope reptilian!?
+                Is it safe to use this product?
               </p>
               <p className="text-gray-700">
-                A flower in my garden, a mystery in my panties. Heart attack
-                never stopped old Big Bear. I didn't even know we were calling
-                him Big Bear.
+                Yes, it is safe to use this product.
+                We respect GDPR and the security of our users' data very seriously.
+                We have implemented multiple layers of security to protect users' data,
+                and we will never share user data with any third party without explicit consent from the user.
               </p>
             </div>
           </div>
           <div className="space-y-8">
             <div>
               <p className="mb-4 text-xl font-medium">
-                How much money you got on you?
+                How is this product better than others?
               </p>
               <p className="text-gray-700">
-                The first mate and his Skipper too will do their very best to
-                make the others comfortable in their tropic island nest.
-                <br />
-                <br />
-                Michael Knight a young loner on a crusade to champion the cause
-                of the innocent. The helpless. The powerless in a world of
-                criminals who operate above the law. Here he comes Here comes
-                Speed Racer. He's a demon on wheels.
+                This product is absolutely free, and it's made for easy use by everyone. There are no catches or gimmicks.
+                We want everyone to be able to use this product and get the most out of it.
+                <br /><br />
+
+                The other products out there might charge you a subscription fee, or they might have
+                a lot of complicated features that you don't need. With this product, you get exactly what
+                you need without any extras.
+                <br /><br />
+
+                We also have outstanding customer support. If you ever have any questions or problems,
+                our team is always happy to help. We're here for you 24/7!
               </p>
             </div>
             <div>
               <p className="mb-4 text-xl font-medium">
-                Galaxies Orion's sword globular star cluster?
+                Is there anything I can do to help this product?
               </p>
               <p className="text-gray-700">
-                A business big enough that it could be listed on the NASDAQ goes
-                belly up. Disappears!
-                <br />
-                <br />
-                It ceases to exist without me. No, you clearly don't know who
-                you're talking to, so let me clue you in.
+                Yes! You can help us out by forking our project on GitHub and making commits. We would really appreciate the help!
+                <br /><br />
+
+                Thanks for your interest in our project!
               </p>
             </div>
             <div>
               <p className="mb-4 text-xl font-medium">
-                When has justice ever been as simple as a rule book?
+                Can I deploy this product on my machine?
               </p>
               <p className="text-gray-700">
-                This is not about revenge. This is about justice. A lot of
-                things can change in twelve years, Admiral. Well, that's
-                certainly good to know. About four years. I got tired of hearing
-                how young I looked.
+                Yes, you can deploy this product on your machine.
+                For instructions on how to do so, please consult the readme or read the docs.
               </p>
             </div>
           </div>
