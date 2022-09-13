@@ -1,6 +1,5 @@
 import { useEffect, useState, Fragment } from 'react'
 import Link from 'next/link'
-import { useTheme as nextUseTheme } from 'next-themes'
 import Button from '@mui/material/Button'
 import { AxiosError } from 'axios'
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
@@ -102,8 +101,6 @@ const Header = () => {
     'No valid Ory Session was found.\nPlease sign in to receive one.',
   )
   const [hasSession, setHasSession] = useState<boolean>(false)
-
-  const { setTheme } = nextUseTheme()
 
   useEffect(() => {
     ory
