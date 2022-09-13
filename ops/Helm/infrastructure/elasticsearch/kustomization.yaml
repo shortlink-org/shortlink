@@ -3,7 +3,7 @@ kind: Kustomization
 helmCharts:
   - name: elasticsearch
     repo: https://helm.elastic.co
-    version: 7.17.3
+    version: 8.4.1
     releaseName: elasticsearch
     namespace: elasticsearch
     valuesFile: values.yaml
