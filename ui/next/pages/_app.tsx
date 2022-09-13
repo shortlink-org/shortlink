@@ -16,7 +16,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import reportWebVitals from '../pkg/reportWebVitals'
 // @ts-ignore
 import { darkTheme, lightTheme, ColorModeContext, createEmotionCache } from '@shortlink-org/ui-kit'
-import { DefaultSeo, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { DefaultSeo, SiteLinksSearchBoxJsonLd, LogoJsonLd } from 'next-seo'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -73,6 +73,11 @@ const MyApp = (props: MyAppProps) => {
               queryInput: 'search_term_string',
             },
           ]}
+        />
+
+        <LogoJsonLd
+          logo="https://architecture.ddns.net/images/logo.png"
+          url="https://architecture.ddns.net/"
         />
 
         <StyledEngineProvider injectFirst>

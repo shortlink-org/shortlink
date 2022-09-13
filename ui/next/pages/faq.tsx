@@ -47,8 +47,13 @@ export const Faq = () => (
           acceptedAnswerText: "A shortlink is a short URL that redirects to a longer URL.",
         },
         {
-
-        }
+          questionName: "How do I create a shortlink?",
+          acceptedAnswerText: "You can create a shortlink by clicking on the 'Create' button on the main page.",
+        },
+        {
+          questionName: "Can I use a shortlink for free?",
+          acceptedAnswerText: "Yes, you can use shortlinks for free.",
+        },
       ]}
     />
 
