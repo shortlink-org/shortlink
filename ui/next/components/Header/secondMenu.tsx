@@ -1,7 +1,7 @@
 import { Popover, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 
 const solutions = [
   {
@@ -29,7 +29,7 @@ export default function Example() {
     <div className="top-16 max-w-sm px-4">
       <Popover className="relative">
         {({ open }) => (
-          <>
+          <React.Fragment>
             <Popover.Button
               className={`
                 ${open ? '' : 'text-opacity-90'}
@@ -74,9 +74,7 @@ export default function Example() {
                   </div>
                   <div className="bg-gray-50 p-4">
                     <Link href="/faq">
-                      <span
-                        className="flow-root cursor-pointer rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-50"
-                      >
+                      <span className="flow-root cursor-pointer rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-50">
                         <span className="flex items-center">
                           <span className="text-sm font-medium text-gray-900">
                             Documentation
@@ -91,7 +89,7 @@ export default function Example() {
                 </div>
               </Popover.Panel>
             </Transition>
-          </>
+          </React.Fragment>
         )}
       </Popover>
     </div>

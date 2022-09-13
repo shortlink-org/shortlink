@@ -9,8 +9,8 @@ import Notifications from 'components/Profile/Notifications'
 import withAuthSync from 'components/Private'
 import ory from '../../pkg/sdk'
 import { AxiosError } from 'axios'
-import { NextSeo } from "next-seo";
-import Header from "../../components/Header";
+import { NextSeo } from 'next-seo'
+import Header from '../../components/Header'
 
 function ProfileContent() {
   const [session, setSession] = useState<string>(
@@ -51,18 +51,18 @@ function ProfileContent() {
         title="Profile"
         description="Profile page for your account."
         openGraph={{
-          title: "Profile",
-          description: "Profile page for your account.",
-          type: "profile",
+          title: 'Profile',
+          description: 'Profile page for your account.',
+          type: 'profile',
           profile: {
-            firstName: "John",
-            lastName: "Doe",
-            username: "johndoe",
-          }
+            firstName: 'John',
+            lastName: 'Doe',
+            username: 'johndoe',
+          },
         }}
       />
 
-      <Header title={"Profile"} />
+      <Header title="Profile" />
 
       <Welcome
         nickname={get(session, 'kratos.identity.traits.name.first', 'default')}

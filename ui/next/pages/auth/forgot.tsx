@@ -12,7 +12,7 @@ import { Layout } from 'components'
 import ory from '../../pkg/sdk'
 import { handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
-import { BreadcrumbJsonLd, NextSeo } from "next-seo";
+import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 
 const Forgot: NextPage = () => {
   const [flow, setFlow] = useState<SelfServiceRecoveryFlow>()
@@ -84,10 +84,7 @@ const Forgot: NextPage = () => {
 
   return (
     <Layout>
-      <NextSeo
-        title="Forgot Password"
-        description="Forgot Password"
-      />
+      <NextSeo title="Forgot Password" description="Forgot Password" />
       <BreadcrumbJsonLd
         itemListElements={[
           {

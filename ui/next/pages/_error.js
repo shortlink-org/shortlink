@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout } from 'components'
 
 import UndrawBackInTheDay from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
-import { NextSeo } from "next-seo";
+import { NextSeo } from 'next-seo'
 
 export default function Error() {
   return (

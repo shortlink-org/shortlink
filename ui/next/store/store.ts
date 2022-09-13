@@ -7,7 +7,7 @@ import rootReducer from './reducers'
 import rootSaga from './sagas'
 
 export interface SagaStore extends Store {
-  sagaTask?: Task;
+  sagaTask?: Task
 }
 
 const makeStore = (context: Context) => {
@@ -27,4 +27,4 @@ const makeStore = (context: Context) => {
 }
 
 // export an assembled wrapper
-export const wrapper = createWrapper<Store<any>>(makeStore, {debug: false})
+export const wrapper = createWrapper<Store<any>>(makeStore, { debug: false })

@@ -15,7 +15,12 @@ import ScrollTop from 'components/ScrollTop'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import reportWebVitals from '../pkg/reportWebVitals'
 // @ts-ignore
-import { darkTheme, lightTheme, ColorModeContext, createEmotionCache } from '@shortlink-org/ui-kit'
+import {
+  darkTheme,
+  lightTheme,
+  ColorModeContext,
+  createEmotionCache,
+} from '@shortlink-org/ui-kit'
 import { DefaultSeo, SiteLinksSearchBoxJsonLd, LogoJsonLd } from 'next-seo'
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -56,8 +61,8 @@ const MyApp = (props: MyAppProps) => {
             site: '@shortlink',
             cardType: 'summary_large_image',
           }}
-          titleTemplate={'Shortlink | %s'}
-          defaultTitle={'Shortlink'}
+          titleTemplate="Shortlink | %s"
+          defaultTitle="Shortlink"
         />
 
         {/* @ts-ignore */}
@@ -69,7 +74,8 @@ const MyApp = (props: MyAppProps) => {
               queryInput: 'search_term_string',
             },
             {
-              target: 'android-app://com.shortlink/https/shortlink.best/search?q',
+              target:
+                'android-app://com.shortlink/https/shortlink.best/search?q',
               queryInput: 'search_term_string',
             },
           ]}

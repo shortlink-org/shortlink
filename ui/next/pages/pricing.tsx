@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { Layout } from 'components'
 import Discounted from 'components/Billing/Discounted'
-import { ArticleJsonLd, NextSeo } from "next-seo";
+import { ArticleJsonLd, NextSeo } from 'next-seo'
 
 const tiers = [
   {
@@ -63,27 +63,23 @@ export function Pricing() {
         title="Pricing"
         description="Pricing page for shortlink."
         openGraph={{
-          title: "Pricing",
-          description: "Pricing page for shortlink.",
-          type: "article",
+          title: 'Pricing',
+          description: 'Pricing page for shortlink.',
+          type: 'article',
           article: {
-            publishedTime: "2021-08-01T05:00:00.000Z",
-            modifiedTime: "2021-08-01T05:00:00.000Z",
-            section: "Pricing",
-            authors: [
-              "https://batazor.ru",
-            ],
-            tags: [ "shortlink", "pricing" ],
-          }
+            publishedTime: '2021-08-01T05:00:00.000Z',
+            modifiedTime: '2021-08-01T05:00:00.000Z',
+            section: 'Pricing',
+            authors: ['https://batazor.ru'],
+            tags: ['shortlink', 'pricing'],
+          },
         }}
       />
 
       <ArticleJsonLd
         url="https://shortlink.best/next/about"
         title="Pricing"
-        images={[
-          'https://shortlink.best/images/logo.png',
-        ]}
+        images={['https://shortlink.best/images/logo.png']}
         datePublished="2021-08-01T05:00:00.000Z"
         dateModified="2021-08-01T05:00:00.000Z"
         authorName={[
@@ -194,8 +190,8 @@ export function Pricing() {
                     align: 'center',
                   }}
                   classes={{
-                    title: "mb-4 text-2xl font-semibold",
-                    subheader: "font-light sm:text-lg dark:text-white",
+                    title: 'mb-4 text-2xl font-semibold',
+                    subheader: 'font-light sm:text-lg dark:text-white',
                   }}
                   sx={{
                     backgroundColor: (theme) =>
@@ -206,11 +202,15 @@ export function Pricing() {
                 />
                 <CardContent>
                   <div className="flex justify-center items-baseline my-8">
-                    <span className="mr-2 text-5xl font-extrabold">${tier.price}</span>
-                    <span className="text-gray-500 dark:text-gray-400">/mo</span>
+                    <span className="mr-2 text-5xl font-extrabold">
+                      ${tier.price}
+                    </span>
+                    <span className="text-gray-500 dark:text-gray-400">
+                      /mo
+                    </span>
                   </div>
 
-                  <ul role="list" className="mb-8 space-y-4 text-left">
+                  <ul data-role="list" className="mb-8 space-y-4 text-left">
                     {tier.description.map((line) => (
                       <Typography
                         component="li"

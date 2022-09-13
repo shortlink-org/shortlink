@@ -9,8 +9,8 @@ import Box from '@mui/material/Box'
 import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
-import { NextSeo } from "next-seo";
-import Header from "../../components/Header";
+import { NextSeo } from 'next-seo'
+import Header from '../../components/Header'
 
 function Dashboard() {
   return (
@@ -34,7 +34,7 @@ function Dashboard() {
             overflow: 'auto',
           }}
         >
-          <Header title={"Dashboard"} />
+          <Header title="Dashboard" />
 
           <Profile />
 
