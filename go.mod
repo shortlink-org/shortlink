@@ -56,7 +56,7 @@ require (
 	github.com/stretchr/testify v1.8.0
 	github.com/swaggo/swag v1.8.5
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
-	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.15
+	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.16
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.15
 	go.etcd.io/etcd/client/v3 v3.5.4
 	go.mongodb.org/mongo-driver v1.10.1
