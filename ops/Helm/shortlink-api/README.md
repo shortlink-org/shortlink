@@ -22,7 +22,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.1.0 |
+| file://../shortlink-common | shortlink-common | 0.2.0 |
 | https://k8s.ory.sh/helm/charts | kratos | 0.25.2 |
 
 ## Values
@@ -62,20 +62,20 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | fullnameOverride | string | `""` |  |
 | host | string | `"architecture.ddns.net"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| ingress.enabled | bool | `false` |  |
-| ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
-| ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
-| ingress.type | string | `"nginx"` | Type ingress-controller: nginx, istio |
+| ingress.enabled | bool | `true` |  |
+| ingress.hostname | string | `"architecture.ddns.net"` |  |
+| ingress.path | string | `"/api/?(.*)"` |  |
+| ingress.service.name | string | `"shortlink-api"` |  |
+| ingress.service.port | int | `7070` |  |
+| ingress.type | string | `"nginx"` |  |
 | kratos.enabled | bool | `true` |  |
 | kratos.fullnameOverride | string | `"kratos"` |  |
 | kratos.ingress.admin.enabled | bool | `false` |  |
 | kratos.ingress.public.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kratos.ingress.public.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | kratos.ingress.public.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |

@@ -14,16 +14,14 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-common | shortlink-common | 0.1.0 |
-| https://charts.rook.io/release | rook-ceph | v1.10.0 |
+| file://../../shortlink-common | shortlink-common | 0.2.0 |
+| https://charts.rook.io/release | rook-ceph | v1.10.1 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| host | string | `"architecture.ddns.net"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTPS"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
@@ -33,9 +31,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.annotations."nginx.ingress.kubernetes.io/server-snippet" | string | `"proxy_ssl_verify off;\n"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
-| ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
-| ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
-| ingress.type | string | `"nginx"` | Type ingress-controller: nginx, istio |
+| ingress.hostname | string | `"architecture.ddns.net"` |  |
+| ingress.path | string | `"/ceph-dashboard(/|$)(.*)"` |  |
+| ingress.service.name | string | `"rook-ceph-mgr-dashboard"` |  |
+| ingress.service.port | string | `"https-dashboard"` |  |
+| ingress.type | string | `"nginx"` |  |
 | rook-ceph.enabled | bool | `true` |  |
 | rook-ceph.monitoring.enabled | bool | `true` |  |
 

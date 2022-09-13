@@ -14,11 +14,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-common | shortlink-common | 0.1.0 |
+| file://../../shortlink-common | shortlink-common | 0.2.0 |
 | https://grafana.github.io/helm-charts | grafana | 6.35.0 |
 | https://grafana.github.io/helm-charts | loki | 2.16.0 |
 | https://grafana.github.io/helm-charts | promtail | 6.3.0 |
-| https://grafana.github.io/helm-charts | tempo | 0.16.1 |
+| https://grafana.github.io/helm-charts | tempo | 0.16.2 |
 
 ## Values
 
@@ -101,7 +101,6 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.enabled | bool | `true` |  |
 | grafana.imageRenderer.enabled | bool | `false` |  |
 | grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| grafana.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
 | grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
