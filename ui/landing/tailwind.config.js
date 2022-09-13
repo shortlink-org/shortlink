@@ -2,7 +2,6 @@
 
 module.exports = {
   mode: "jit",
-  darkMode: 'class',
   content: {
     files: [
       './pages/**/*.{js,ts,jsx,tsx}',

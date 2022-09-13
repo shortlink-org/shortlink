@@ -4,6 +4,7 @@ import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import { BeakerIcon } from '@heroicons/react/24/solid'
 import { NextSeo } from "next-seo";
+import Header from "../../components/Header";
 
 const people = [
   {
@@ -70,6 +71,8 @@ export function GroupContent() {
         title="Groups"
         description="Admin groups"
       />
+
+      <Header title={"Admin groups"} />
 
       <section className="text-gray-600 body-font">
         <a

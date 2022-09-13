@@ -5,6 +5,7 @@ import PaymentMethod from 'components/Billing/PaymentMethod'
 import Discounted from 'components/Billing/Discounted'
 import withAuthSync from 'components/Private'
 import { NextSeo, ProductJsonLd } from "next-seo";
+import Header from "../../components/Header";
 
 export function Billing() {
   return (
@@ -76,6 +77,8 @@ export function Billing() {
         gtin13="9780446310789"
         gtin8="0446310786"
       />
+
+      <Header title={"Billing"} />
 
       <Discounted />
 

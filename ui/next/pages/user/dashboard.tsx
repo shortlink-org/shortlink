@@ -10,6 +10,7 @@ import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
 import { NextSeo } from "next-seo";
+import Header from "../../components/Header";
 
 function Dashboard() {
   return (
@@ -33,6 +34,8 @@ function Dashboard() {
             overflow: 'auto',
           }}
         >
+          <Header title={"Dashboard"} />
+
           <Profile />
 
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
