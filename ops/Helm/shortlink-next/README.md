@@ -22,7 +22,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.1.0 |
+| file://../shortlink-common | shortlink-common | 0.2.0 |
 
 ## Values
 
@@ -50,9 +50,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.tolerations | list | `[]` |  |
 | enabled | bool | `true` |  |
 | fullnameOverride | string | `""` |  |
-| host | string | `"architecture.ddns.net"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
@@ -60,9 +58,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/next/$2"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
-| ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
-| ingress.type | string | `"nginx"` | Type ingress-controller: nginx, istio |
+| ingress.hostname | string | `"architecture.ddns.net"` |  |
+| ingress.path | string | `"/next(/|$)(.*)"` |  |
+| ingress.service.name | string | `"shortlink-next"` |  |
+| ingress.service.port | int | `8080` |  |
+| ingress.type | string | `"nginx"` |  |
 | monitoring.enabled | bool | `true` | Creates a Prometheus Operator ServiceMonitor |
 | monitoring.jobLabel | string | `""` | The label to use to retrieve the job name from. |
 | monitoring.labels | object | `{"release":"prometheus-operator"}` | Additional labels that can be used so PodMonitor will be discovered by Prometheus |

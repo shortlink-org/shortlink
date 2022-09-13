@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-common | shortlink-common | 0.1.0 |
+| file://../../shortlink-common | shortlink-common | 0.2.0 |
 | https://kyverno.github.io/kyverno | kyverno | v2.5.3 |
 | https://kyverno.github.io/kyverno | kyverno-policies | v2.5.5 |
 | https://kyverno.github.io/policy-reporter | policy-reporter | 2.11.3 |
@@ -40,7 +40,6 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | policy-reporter.target.loki.sources[0] | string | `"kyverno"` |  |
 | policy-reporter.ui.enabled | bool | `true` |  |
 | policy-reporter.ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| policy-reporter.ui.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |

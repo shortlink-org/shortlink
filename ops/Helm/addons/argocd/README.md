@@ -54,9 +54,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.server.configAnnotations | object | `{}` |  |
 | argo-cd.server.extensions.enabled | bool | `true` |  |
 | argo-cd.server.extraArgs[0] | string | `"--rootpath"` |  |
-| argo-cd.server.extraArgs[1] | string | `"/argocd"` |  |
+| argo-cd.server.extraArgs[1] | string | `"/argo/cd"` |  |
 | argo-cd.server.extraArgs[2] | string | `"--basehref"` |  |
-| argo-cd.server.extraArgs[3] | string | `"/argocd"` |  |
+| argo-cd.server.extraArgs[3] | string | `"/argo/cd"` |  |
 | argo-cd.server.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTPS"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/configuration-snippet" | string | `"proxy_ssl_server_name on;\nproxy_ssl_name $host;"` |  |
@@ -69,7 +69,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.server.ingress.hosts[0] | string | `"architecture.ddns.net"` |  |
 | argo-cd.server.ingress.https | bool | `true` |  |
 | argo-cd.server.ingress.ingressClassName | string | `"nginx"` |  |
-| argo-cd.server.ingress.paths[0] | string | `"/argocd(/|$)(.*)"` |  |
+| argo-cd.server.ingress.paths[0] | string | `"/argo/cd(/|$)(.*)"` |  |
 | argo-cd.server.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
 | argo-cd.server.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | argo-cd.server.metrics.enabled | bool | `true` |  |
@@ -88,7 +88,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-rollouts.dashboard.ingress.enabled | bool | `true` |  |
 | argo-rollouts.dashboard.ingress.hosts[0] | string | `"architecture.ddns.net"` |  |
 | argo-rollouts.dashboard.ingress.ingressClassName | string | `"nginx"` |  |
-| argo-rollouts.dashboard.ingress.paths[0] | string | `"/argodashboard?(.*)"` |  |
+| argo-rollouts.dashboard.ingress.paths[0] | string | `"/argo/dashboard?(.*)"` |  |
 | argo-rollouts.dashboard.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
 | argo-rollouts.dashboard.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | argo-rollouts.fullnameOverride | string | `"argo-rollouts"` |  |
@@ -98,15 +98,14 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-workflows.controller.serviceMonitor.enabled | bool | `true` |  |
 | argo-workflows.controller.telemetryConfig.enabled | bool | `true` |  |
 | argo-workflows.controller.workflowNamespaces[0] | string | `"shortlink"` |  |
-| argo-workflows.controller.workflowNamespaces[1] | string | `"shortlink-workflows"` |  |
 | argo-workflows.fullnameOverride | string | `"argo-workflows"` |  |
 | argo-workflows.server.extraArgs[0] | string | `"--basehref"` |  |
-| argo-workflows.server.extraArgs[1] | string | `"/argoworkflows/"` |  |
+| argo-workflows.server.extraArgs[1] | string | `"/argo/workflows/"` |  |
 | argo-workflows.server.extraArgs[2] | string | `"--auth-mode=server"` |  |
 | argo-workflows.server.extraEnv[0].name | string | `"BASE_HREF"` |  |
-| argo-workflows.server.extraEnv[0].value | string | `"/argoworkflows"` |  |
+| argo-workflows.server.extraEnv[0].value | string | `"/argo/workflows"` |  |
 | argo-workflows.server.extraEnv[1].name | string | `"ARGO_BASE_HREF"` |  |
-| argo-workflows.server.extraEnv[1].value | string | `"/argoworkflows"` |  |
+| argo-workflows.server.extraEnv[1].value | string | `"/argo/workflows"` |  |
 | argo-workflows.server.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTP"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
@@ -117,14 +116,20 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-workflows.server.ingress.enabled | bool | `true` |  |
 | argo-workflows.server.ingress.hosts[0] | string | `"architecture.ddns.net"` |  |
 | argo-workflows.server.ingress.ingressClassName | string | `"nginx"` |  |
-| argo-workflows.server.ingress.paths[0] | string | `"/argoworkflows/?(.*)"` |  |
+| argo-workflows.server.ingress.paths[0] | string | `"/argo/workflows/?(.*)"` |  |
 | argo-workflows.server.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
 | argo-workflows.server.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | argo.enabled | bool | `true` |  |
 | argocd-apps.applications | list | `[]` (See [values.yaml]) | Deploy Argo CD Applications within this helm release # Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/ |
 | argocd-apps.projects | list | `[]` (See [values.yaml]) | Deploy Argo CD Projects within this helm release # Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/ |
+| argocd-image-updater.fullnameOverride | string | `"argocd-image-updater"` |  |
 | argocd-image-updater.metrics.enabled | bool | `true` |  |
 | argocd-image-updater.metrics.serviceMonitor.enabled | bool | `true` |  |
+| argocd-image-updater.registries[0].api_url | string | `"https://registry.gitlab.com"` |  |
+| argocd-image-updater.registries[0].default | bool | `true` |  |
+| argocd-image-updater.registries[0].name | string | `"GitLab"` |  |
+| argocd-image-updater.registries[0].ping | string | `"yes"` |  |
+| argocd-image-updater.updateStrategy.type | string | `"Recreate"` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
