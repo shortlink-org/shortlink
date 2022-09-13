@@ -23,10 +23,10 @@ export const PrivacyContent = () => (
       }}
     />
     <ArticleJsonLd
-      url="https://architecture.ddns.net/next/about"
+      url="https://shortlink.best/next/about"
       title="Privacy"
       images={[
-        'https://architecture.ddns.net/images/logo.png',
+        'https://shortlink.best/images/logo.png',
       ]}
       datePublished="2021-08-01T05:00:00.000Z"
       dateModified="2021-08-01T05:00:00.000Z"
@@ -37,7 +37,7 @@ export const PrivacyContent = () => (
         },
       ]}
       publisherName="Login Viktor"
-      publisherLogo="https://architecture.ddns.net/images/logo.png"
+      publisherLogo="https://shortlink.best/images/logo.png"
       description="Privacy page for shortlink."
     />
 

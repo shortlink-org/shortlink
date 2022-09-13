@@ -40,11 +40,11 @@ const MyApp = (props: MyAppProps) => {
           openGraph={{
             type: 'website',
             locale: 'en_IE',
-            url: 'https://architecture.ddns.net/',
+            url: 'https://shortlink.best/',
             site_name: 'Shortlink',
             images: [
               {
-                url: 'https://architecture.ddns.net/images/logo.png',
+                url: 'https://shortlink.best/images/logo.png',
                 width: 600,
                 height: 600,
                 alt: 'Shortlink service',
@@ -62,22 +62,22 @@ const MyApp = (props: MyAppProps) => {
 
         {/* @ts-ignore */}
         <SiteLinksSearchBoxJsonLd
-          url="https://architecture.ddns.net/"
+          url="https://shortlink.best/"
           potentialActions={[
             {
-              target: 'https://architecture.ddns.net/search?q',
+              target: 'https://shortlink.best/search?q',
               queryInput: 'search_term_string',
             },
             {
-              target: 'android-app://com.shortlink/https/architecture.ddns.net/search?q',
+              target: 'android-app://com.shortlink/https/shortlink.best/search?q',
               queryInput: 'search_term_string',
             },
           ]}
         />
 
         <LogoJsonLd
-          logo="https://architecture.ddns.net/images/logo.png"
-          url="https://architecture.ddns.net/"
+          logo="https://shortlink.best/images/logo.png"
+          url="https://shortlink.best/"
         />
 
         <StyledEngineProvider injectFirst>
