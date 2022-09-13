@@ -10,10 +10,15 @@ import Deposits from 'components/widgets/Deposits'
 import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
+import { NextSeo } from "next-seo";
 
 function Dashboard() {
   return (
     <Layout>
+      <NextSeo
+        title="Dashboard"
+        description="Dashboard page for your account."
+      />
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
 

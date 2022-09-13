@@ -12,6 +12,7 @@ import { Layout } from 'components'
 import ory from '../../pkg/sdk'
 import { handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
+import { NextSeo } from "next-seo";
 
 const Forgot: NextPage = () => {
   const [flow, setFlow] = useState<SelfServiceRecoveryFlow>()
@@ -83,6 +84,11 @@ const Forgot: NextPage = () => {
 
   return (
     <Layout>
+      <NextSeo
+        title="Forgot Password"
+        description="Forgot Password"
+      />
+
       <div className="flex h-full p-4 rotate">
         <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">
           <div className="flex items-stretch bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">

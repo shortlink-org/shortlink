@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { Layout } from 'components'
 import Discounted from 'components/Billing/Discounted'
+import { NextSeo } from "next-seo";
 
 const tiers = [
   {
@@ -56,6 +57,10 @@ const tiers = [
 export function Pricing() {
   return (
     <Layout>
+      <NextSeo
+        title="Pricing"
+        description="Pricing page for shortlink."
+      />
       <Container
         disableGutters
         maxWidth="sm"

@@ -27,7 +27,8 @@ import { fetchLinkList } from 'store'
 import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
 
-import withAuthSync from 'components/Private' // typescript specific import
+import withAuthSync from 'components/Private'
+import { NextSeo } from "next-seo"; // typescript specific import
 
 // specified type as Icons
 const tableIcons: Icons = {
@@ -66,6 +67,11 @@ export function LinkTable() {
 
   return (
     <Layout>
+      <NextSeo
+        title="Links"
+        description="Links page for your account."
+      />
+
       <Statistic count={state.list.length} />
 
       <MaterialTable

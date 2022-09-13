@@ -1,8 +1,13 @@
 import React from 'react'
 import { Layout } from 'components'
+import { NextSeo } from "next-seo";
 
 export const PrivacyContent = () => (
   <Layout>
+    <NextSeo
+      title="Privacy"
+      description="Privacy page for shortlink."
+    />
     <section className="bg-white dark:bg-gray-800 rounded-md">
       <div className="px-4 py-24 mb-20 text-left md:text-center">
         <h1 className="mb-4 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">

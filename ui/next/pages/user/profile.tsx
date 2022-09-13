@@ -9,6 +9,7 @@ import Notifications from 'components/Profile/Notifications'
 import withAuthSync from 'components/Private'
 import ory from '../../pkg/sdk'
 import { AxiosError } from 'axios'
+import { NextSeo } from "next-seo";
 
 function ProfileContent() {
   const [session, setSession] = useState<string>(
@@ -45,6 +46,11 @@ function ProfileContent() {
 
   return (
     <Layout>
+      <NextSeo
+        title="Profile"
+        description="Profile page for your account."
+      />
+
       <Welcome
         nickname={get(session, 'kratos.identity.traits.name.first', 'default')}
       />

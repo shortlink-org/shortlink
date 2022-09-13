@@ -3,10 +3,26 @@ import React from 'react'
 import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
+import { NextSeo } from "next-seo";
 
 export function Audit() {
   return (
     <Layout>
+      <NextSeo
+        title="Audit"
+        description="Audit your account"
+      />
+
+      <div className="px-4 py-4 my-3 rounded mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-14 lg:px-8 lg:py-10 bg-white dark:bg-gray-800">
+        <div className="flex flex-col">
+          <p className="text-gray-800">
+            Keep your business safe with shortlink.
+            We add an audit trail so you can see what's happening in your account in real-time,
+            and review past activity whenever you need to.
+          </p>
+        </div>
+      </div>
+
       <Ready />
 
       <ul className="p-4 lg:p-8 bg-coolGray-100 text-coolGray-800">

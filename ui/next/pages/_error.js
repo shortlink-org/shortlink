@@ -2,10 +2,15 @@ import React from 'react'
 import { Layout } from 'components'
 
 import UndrawBackInTheDay from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
+import { NextSeo } from "next-seo";
 
 export default function Error() {
   return (
     <Layout>
+      <NextSeo
+        title="Error"
+        description="Error page for the shortlink service"
+      />
       <div className="min-w-screen bg-blue-100 flex items-center p-5 lg:p-20 overflow-hidden relative rounded-md">
         <div className="flex-1 min-h-full min-w-full rounded-3xl bg-white dark:bg-gray-800 shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
           <div className="w-full md:w-1/2">

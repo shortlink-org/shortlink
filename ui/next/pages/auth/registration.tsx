@@ -8,12 +8,13 @@ import {
 import { AxiosError } from 'axios'
 import Grid from '@mui/material/Grid'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Flow } from '../../components/ui/Flow'
 
 import ory from '../../pkg/sdk'
 import { handleFlowError } from '../../pkg/errors'
+import { NextSeo } from "next-seo";
 
 // Renders the registration page
 const SignUp: NextPage = () => {
@@ -88,6 +89,11 @@ const SignUp: NextPage = () => {
 
   return (
     <Layout>
+      <NextSeo
+        title="Registration"
+        description="Registration a new account"
+      />
+
       <div className="flex h-full p-4 rotate">
         <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">
           <div className="flex items-stretch bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">
