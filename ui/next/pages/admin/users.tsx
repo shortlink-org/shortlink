@@ -3,8 +3,8 @@ import React from 'react'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import { BeakerIcon } from '@heroicons/react/24/solid'
-import { NextSeo } from "next-seo";
-import Header from "../../components/Header";
+import { NextSeo } from 'next-seo'
+import Header from '../../components/Header'
 
 const people = [
   {
@@ -67,12 +67,9 @@ const people = [
 export function Users() {
   return (
     <Layout>
-      <NextSeo
-        title="Users"
-        description="Admin users page"
-      />
+      <NextSeo title="Users" description="Admin users page" />
 
-      <Header title={"Admin users"} />
+      <Header title="Admin users" />
 
       <section className="text-gray-600 body-font">
         <a

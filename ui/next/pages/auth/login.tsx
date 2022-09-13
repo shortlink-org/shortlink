@@ -12,7 +12,7 @@ import {
 import ory from '../../pkg/sdk'
 import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
-import { BreadcrumbJsonLd, NextSeo } from "next-seo";
+import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 
 const SignIn: NextPage = () => {
   const [flow, setFlow] = useState<SelfServiceLoginFlow>()
@@ -92,10 +92,7 @@ const SignIn: NextPage = () => {
 
   return (
     <Layout>
-      <NextSeo
-        title="Login"
-        description="Login to your account"
-      />
+      <NextSeo title="Login" description="Login to your account" />
       <BreadcrumbJsonLd
         itemListElements={[
           {

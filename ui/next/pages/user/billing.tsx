@@ -4,34 +4,32 @@ import { Layout } from 'components'
 import PaymentMethod from 'components/Billing/PaymentMethod'
 import Discounted from 'components/Billing/Discounted'
 import withAuthSync from 'components/Private'
-import { NextSeo, ProductJsonLd } from "next-seo";
-import Header from "../../components/Header";
+import { NextSeo, ProductJsonLd } from 'next-seo'
+import Header from '../../components/Header'
 
 export function Billing() {
   return (
     <Layout>
-      <NextSeo
-        title="Billing"
-        description="Billing page for your account."
-      />
+      <NextSeo title="Billing" description="Billing page for your account." />
 
       <ProductJsonLd
         productName="Shortlink"
-        description={"Shortlink service"}
-        brand={"Shortlink"}
-        color={"premium"}
-        manufacturerLogo={"https://shortlink.best/images/logo.png"}
-        manufacturerName={"Shortlink"}
-        material={"bright"}
-        slogan={"Shortlink service"}
-        image={"https://shortlink.best/images/logo.png"}
-        url={"https://shortlink.best/"}
-        award={"Best service"}
+        description="Shortlink service"
+        brand="Shortlink"
+        color="premium"
+        manufacturerLogo="https://shortlink.best/images/logo.png"
+        manufacturerName="Shortlink"
+        material="bright"
+        slogan="Shortlink service"
+        image="https://shortlink.best/images/logo.png"
+        url="https://shortlink.best/"
+        award="Best service"
         reviews={[
           {
             author: 'Jim',
             datePublished: '2017-01-06T03:37:40Z',
-            reviewBody: 'This is my favorite product yet! Thanks Nate for the example products and reviews.',
+            reviewBody:
+              'This is my favorite product yet! Thanks Nate for the example products and reviews.',
             name: 'So awesome!!!',
             reviewRating: {
               bestRating: '5',
@@ -78,7 +76,7 @@ export function Billing() {
         gtin8="0446310786"
       />
 
-      <Header title={"Billing"} />
+      <Header title="Billing" />
 
       <Discounted />
 

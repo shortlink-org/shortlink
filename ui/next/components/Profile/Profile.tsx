@@ -57,7 +57,7 @@ export default function Profile() {
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="you@example.com"
-                        defaultValue=''
+                        defaultValue=""
                       />
                     </div>
                     <p className="mt-2 text-sm text-gray-500">
@@ -131,16 +131,42 @@ export default function Profile() {
 
                     <div className="flex justify-between items-center w-full">
                       <div className="items-center text-gray-600 dark:text-gray-400 flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-file" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-file"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path stroke="none" d="M0 0h24v24H0z" />
                           <path d="M14 3v4a1 1 0 0 0 1 1h4" />
                           <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
                         </svg>
-                        <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">Big Project.pdf</p>
-                        <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">37%</p>
+                        <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">
+                          Big Project.pdf
+                        </p>
+                        <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">
+                          37%
+                        </p>
                       </div>
                       <div className="cursor-pointer text-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width={16} height={16} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-x"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path stroke="none" d="M0 0h24v24H0z" />
                           <line x1={18} y1={6} x2={6} y2={18} />
                           <line x1={6} y1={6} x2={18} y2={18} />
@@ -153,16 +179,42 @@ export default function Profile() {
                     </div>
                     <div className="flex justify-between items-center w-full">
                       <div className="items-center text-gray-600 dark:text-gray-400 flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-file" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-file"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path stroke="none" d="M0 0h24v24H0z" />
                           <path d="M14 3v4a1 1 0 0 0 1 1h4" />
                           <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
                         </svg>
-                        <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">Big Project.pdf</p>
-                        <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">77%</p>
+                        <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">
+                          Big Project.pdf
+                        </p>
+                        <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">
+                          77%
+                        </p>
                       </div>
                       <div className="cursor-pointer text-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width={16} height={16} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-x"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path stroke="none" d="M0 0h24v24H0z" />
                           <line x1={18} y1={6} x2={6} y2={18} />
                           <line x1={6} y1={6} x2={18} y2={18} />
@@ -175,16 +227,42 @@ export default function Profile() {
                     </div>
                     <div className="flex justify-between items-center w-full">
                       <div className="items-center text-gray-600 dark:text-gray-400 flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-file" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-file"
+                          width={24}
+                          height={24}
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path stroke="none" d="M0 0h24v24H0z" />
                           <path d="M14 3v4a1 1 0 0 0 1 1h4" />
                           <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
                         </svg>
-                        <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">Big Project.pdf</p>
-                        <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">60%</p>
+                        <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">
+                          Big Project.pdf
+                        </p>
+                        <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">
+                          60%
+                        </p>
                       </div>
                       <div className="cursor-pointer text-gray-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width={16} height={16} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="icon icon-tabler icon-tabler-x"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path stroke="none" d="M0 0h24v24H0z" />
                           <line x1={18} y1={6} x2={6} y2={18} />
                           <line x1={6} y1={6} x2={18} y2={18} />

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout } from 'components'
-import { ArticleJsonLd, NextSeo, CorporateContactJsonLd } from "next-seo";
+import { ArticleJsonLd, NextSeo, CorporateContactJsonLd } from 'next-seo'
 
 export const ContactContent = () => (
   <Layout>
@@ -8,26 +8,22 @@ export const ContactContent = () => (
       title="Contact"
       description="Contact page for shortlink."
       openGraph={{
-        title: "Contact",
-        description: "Contact page for shortlink.",
-        type: "article",
+        title: 'Contact',
+        description: 'Contact page for shortlink.',
+        type: 'article',
         article: {
-          publishedTime: "2021-08-01T05:00:00.000Z",
-          modifiedTime: "2021-08-01T05:00:00.000Z",
-          section: "Contact",
-          authors: [
-            "https://batazor.ru",
-          ],
-          tags: [ "shortlink", "contact" ],
-        }
+          publishedTime: '2021-08-01T05:00:00.000Z',
+          modifiedTime: '2021-08-01T05:00:00.000Z',
+          section: 'Contact',
+          authors: ['https://batazor.ru'],
+          tags: ['shortlink', 'contact'],
+        },
       }}
     />
     <ArticleJsonLd
       url="https://shortlink.best/next/about"
       title="Contact"
-      images={[
-        'https://shortlink.best/images/logo.png',
-      ]}
+      images={['https://shortlink.best/images/logo.png']}
       datePublished="2021-08-01T05:00:00.000Z"
       dateModified="2021-08-01T05:00:00.000Z"
       authorName={[
@@ -41,16 +37,16 @@ export const ContactContent = () => (
       description="Contact page for shortlink."
     />
     <CorporateContactJsonLd
-      url={"https://shortlink.best/next/contact"}
-      logo={"https://shortlink.best/images/logo.png"}
+      url="https://shortlink.best/next/contact"
+      logo="https://shortlink.best/images/logo.png"
       contactPoint={[
         {
-          telephone: "+7 (999) 999-99-99",
-          contactType: "customer service",
-          contactOption: "TollFree",
-          areaServed: "RU",
-          availableLanguage: ["Russian", "English"],
-        }
+          telephone: '+7 (999) 999-99-99',
+          contactType: 'customer service',
+          contactOption: 'TollFree',
+          areaServed: 'RU',
+          availableLanguage: ['Russian', 'English'],
+        },
       ]}
     />
 
@@ -60,8 +56,8 @@ export const ContactContent = () => (
           Contact Us
         </h1>
         <p className="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
-          Got a technical issue? Want to send feedback about a beta feature? Need
-          details about our Business plan? Let us know.
+          Got a technical issue? Want to send feedback about a beta feature?
+          Need details about our Business plan? Let us know.
         </p>
         <form action="#" className="space-y-8">
           <div>
@@ -106,7 +102,7 @@ export const ContactContent = () => (
               rows={6}
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
               placeholder="Leave a comment..."
-              defaultValue={""}
+              defaultValue=""
             />
           </div>
 

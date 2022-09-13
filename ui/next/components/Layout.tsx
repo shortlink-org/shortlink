@@ -20,13 +20,19 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 // @ts-ignore
 export function Layout({ children }) {
   return (
-    <Box sx={{ display: 'flex', height: "100vh" }}>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
       <Header />
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3, gridTemplateRows: 'auto 1fr' }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, gridTemplateRows: 'auto 1fr' }}
+      >
         <DrawerHeader />
-        <Box pt={4} sx={{ display: 'grid', height: '100%', gridTemplateRows: '1fr auto' }}>
+        <Box
+          pt={4}
+          sx={{ display: 'grid', height: '100%', gridTemplateRows: '1fr auto' }}
+        >
           <Container>{children}</Container>
           <Footer />
         </Box>

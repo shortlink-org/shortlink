@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout } from 'components'
-import { ArticleJsonLd, NextSeo } from "next-seo";
+import { ArticleJsonLd, NextSeo } from 'next-seo'
 
 export const PrivacyContent = () => (
   <Layout>
@@ -8,26 +8,22 @@ export const PrivacyContent = () => (
       title="Privacy"
       description="Privacy page for shortlink."
       openGraph={{
-        title: "Privacy",
-        description: "Privacy page for shortlink.",
-        type: "article",
+        title: 'Privacy',
+        description: 'Privacy page for shortlink.',
+        type: 'article',
         article: {
-          publishedTime: "2021-08-01T05:00:00.000Z",
-          modifiedTime: "2021-08-01T05:00:00.000Z",
-          section: "Privacy",
-          authors: [
-            "https://batazor.ru",
-          ],
-          tags: [ "shortlink", "privacy" ],
-        }
+          publishedTime: '2021-08-01T05:00:00.000Z',
+          modifiedTime: '2021-08-01T05:00:00.000Z',
+          section: 'Privacy',
+          authors: ['https://batazor.ru'],
+          tags: ['shortlink', 'privacy'],
+        },
       }}
     />
     <ArticleJsonLd
       url="https://shortlink.best/next/about"
       title="Privacy"
-      images={[
-        'https://shortlink.best/images/logo.png',
-      ]}
+      images={['https://shortlink.best/images/logo.png']}
       datePublished="2021-08-01T05:00:00.000Z"
       dateModified="2021-08-01T05:00:00.000Z"
       authorName={[

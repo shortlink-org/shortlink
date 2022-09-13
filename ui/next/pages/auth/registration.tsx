@@ -14,7 +14,7 @@ import { Flow } from '../../components/ui/Flow'
 
 import ory from '../../pkg/sdk'
 import { handleFlowError } from '../../pkg/errors'
-import { BreadcrumbJsonLd, NextSeo } from "next-seo";
+import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 
 // Renders the registration page
 const SignUp: NextPage = () => {
@@ -89,10 +89,7 @@ const SignUp: NextPage = () => {
 
   return (
     <Layout>
-      <NextSeo
-        title="Registration"
-        description="Registration a new account"
-      />
+      <NextSeo title="Registration" description="Registration a new account" />
       <BreadcrumbJsonLd
         itemListElements={[
           {

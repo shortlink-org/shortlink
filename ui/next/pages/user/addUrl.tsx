@@ -14,8 +14,8 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Link from '@mui/material/Link'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
-import { NextSeo } from "next-seo";
-import Header from "../../components/Header";
+import { NextSeo } from 'next-seo'
+import Header from '../../components/Header'
 
 function AddUrl() {
   const [open, setOpen] = useState(false)
@@ -80,10 +80,7 @@ function AddUrl() {
 
   return (
     <Layout>
-      <NextSeo
-        title="Add link"
-        description="Add a new link"
-      />
+      <NextSeo title="Add link" description="Add a new link" />
       <Grid
         container
         direction="column"
@@ -92,7 +89,7 @@ function AddUrl() {
         className={classes.root}
       >
         <div className="container mx-auto w-5/6 sm:w-2/3 h-full">
-          <Header title={"Add link"} />
+          <Header title="Add link" />
 
           {/* Code block starts */}
           <div className="w-full bg-white dark:bg-gray-800 py-5 flex flex-col xl:flex-row items-start xl:items-center justify-between px-5 xl:px-10 shadow rounded-t">
@@ -101,7 +98,8 @@ function AddUrl() {
                 Add link
               </h2>
               <p className="font-normal text-sm text-gray-600 dark:text-gray-100 mt-1">
-                This is a great place to add a short, friendly link that goes somewhere interesting.
+                This is a great place to add a short, friendly link that goes
+                somewhere interesting.
               </p>
             </div>
 
