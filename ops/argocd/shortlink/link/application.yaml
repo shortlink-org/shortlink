@@ -1,8 +1,7 @@
-{{- if and (.Capabilities.APIVersions.Has "argoproj.io/v1alpha1") -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ include "helpers.fullname" . }}
+  name: shortlink-link
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -19,6 +18,10 @@ spec:
       parameters:
         - name: serviceAccount.create
           value: 'false'
+        - name: deploy.env.STORE_TYPE
+          value: postgres
+        - name: deploy.env.MQ_ENABLED
+          value: 'true'
   project: shortlink
   syncPolicy:
     automated:
@@ -32,4 +35,3 @@ spec:
         duration: 10s
         maxDuration: 3m0s
         factor: 2
-{{- end }}
