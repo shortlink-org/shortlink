@@ -5,7 +5,7 @@ import Copyright from '../Copyright'
 
 export default function Footer() {
   return (
-    <footer className="bg-white dark:bg-gray-800 w-full py-8">
+    <footer className="bg-white dark:bg-gray-800 w-full py-8 mt-5 rounded-t-lg">
       <div className="max-w-screen-xl mx-auto px-4">
         <ul className="max-w-screen-md mx-auto text-lg font-light flex flex-wrap justify-between dark:prose-dark dark:md:prose-xl-dark">
           <li className="my-2 cursor-pointer">
