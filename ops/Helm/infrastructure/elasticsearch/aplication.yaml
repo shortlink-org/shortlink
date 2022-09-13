@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: elasticsearch
+  namespace: argocd
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: shortlink
+    server: 'https://kubernetes.default.svc'
+  source:
+    chart: sealed-secrets
+    repoURL: https://helm.elastic.co
+    targetRevision: 8.4.1
+    helm:
+      releaseName: elasticsearch
+      parameters:
+        - name: clusterName
+          value: shortlink
+        # Shrink default JVM heap.
+        - name: esJavaOpts
+          value: "-Xmx128m -Xms128m"
+        - name: resources.requests.cpu
+          value: 100m
+        - name: resources.requests.memory
+          value: 256Mi
+        - name: persistence.enabled
+          value: "false"
+        - name: ingress.enabled
+          value: "false"
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
