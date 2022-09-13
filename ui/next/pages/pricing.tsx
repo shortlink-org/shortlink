@@ -17,6 +17,7 @@ import { ArticleJsonLd, NextSeo } from "next-seo";
 const tiers = [
   {
     title: 'Free',
+    subheader: 'Best option for personal use & for your next project.',
     price: '0',
     description: [
       '10 users included',
@@ -29,7 +30,7 @@ const tiers = [
   },
   {
     title: 'Pro',
-    subheader: 'Most popular',
+    subheader: 'Most popular choice for small teams.',
     price: '15',
     description: [
       '20 users included',
@@ -42,6 +43,7 @@ const tiers = [
   },
   {
     title: 'Enterprise',
+    subheader: 'Best for large scale uses and extended redistribution rights.',
     price: '30',
     description: [
       '50 users included',
@@ -75,6 +77,7 @@ export function Pricing() {
           }
         }}
       />
+
       <ArticleJsonLd
         url="https://architecture.ddns.net/next/about"
         title="Pricing"
@@ -93,6 +96,7 @@ export function Pricing() {
         publisherLogo="https://architecture.ddns.net/images/logo.png"
         description="Pricing page for shortlink."
       />
+
       <Container
         disableGutters
         maxWidth="sm"
@@ -180,7 +184,7 @@ export function Pricing() {
               sm={tier.title === 'Enterprise' ? 12 : 6}
               md={4}
             >
-              <Card>
+              <Card className="rounded-lg border border-gray-100 shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
                 <CardHeader
                   title={tier.title}
                   subheader={tier.subheader}
@@ -188,6 +192,10 @@ export function Pricing() {
                   action={tier.title === 'Pro' ? <StarIcon /> : null}
                   subheaderTypographyProps={{
                     align: 'center',
+                  }}
+                  classes={{
+                    title: "mb-4 text-2xl font-semibold",
+                    subheader: "font-light sm:text-lg dark:text-white",
                   }}
                   sx={{
                     backgroundColor: (theme) =>
@@ -197,34 +205,34 @@ export function Pricing() {
                   }}
                 />
                 <CardContent>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'baseline',
-                      mb: 2,
-                    }}
-                  >
-                    <Typography
-                      component="h2"
-                      variant="h3"
-                      color="text.primary"
-                    >
-                      ${tier.price}
-                    </Typography>
-                    <Typography variant="h6" color="text.secondary">
-                      /mo
-                    </Typography>
-                  </Box>
-                  <ul>
+                  <div className="flex justify-center items-baseline my-8">
+                    <span className="mr-2 text-5xl font-extrabold">${tier.price}</span>
+                    <span className="text-gray-500 dark:text-gray-400">/mo</span>
+                  </div>
+
+                  <ul role="list" className="mb-8 space-y-4 text-left">
                     {tier.description.map((line) => (
                       <Typography
                         component="li"
                         variant="subtitle1"
                         align="center"
+                        className="flex items-center space-x-3"
                         key={line}
                       >
-                        {line}
+                        <svg
+                          className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+
+                        <span>{line}</span>
                       </Typography>
                     ))}
                   </ul>
