@@ -16,7 +16,7 @@ spec:
       source:
         repoURL: 'https://github.com/batazor/shortlink'
         targetRevision: HEAD
-        path: ops/Helm/knative
+        path: ops/argocd/knative
         directory:
           recurse: true
       destination:
