@@ -79,3 +79,17 @@ stringData:
   name: prometheus-community
   url: https://prometheus-community.github.io/helm-charts
   type: helm
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: elasticsearch
+  namespace: {{ .Release.Namespace }}
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  name: elasticsearch
+  url: https://helm.elastic.co
+  type: helm
