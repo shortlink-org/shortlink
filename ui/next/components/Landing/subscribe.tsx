@@ -20,13 +20,22 @@ export default function Subscribe() {
               </p>
 
               <div className="flex flex-col mt-8 space-y-3 lg:space-y-0 lg:flex-row">
-                <input
-                  id="email"
-                  type="email"
-                  className="px-4 py-2 text-gray-700 bg-white dark:bg-gray-800 border border-gray-300 rounded-lg dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                  placeholder="Enter your email"
-                  required
-                />
+                <div className="relative">
+                  <div className="absolute text-gray-600 dark:text-gray-400 flex items-center pl-4 h-full cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-mail" width={18} height={18} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" />
+                      <rect x={3} y={5} width={18} height={14} rx={2} />
+                      <polyline points="3 7 12 13 21 7" />
+                    </svg>
+                  </div>
+                  <input
+                    id="email"
+                    type="email"
+                    className="px-4 py-2 text-gray-700 bg-white dark:bg-gray-800 border border-gray-300 w-64 h-10 flex items-center pl-12 rounded-lg dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
 
                 <button className="w-full px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-indigo-500 rounded-lg lg:w-auto lg:mx-4 hover:bg-indigo-400 focus:outline-none focus:bg-indigo-400">
                   Subscribe

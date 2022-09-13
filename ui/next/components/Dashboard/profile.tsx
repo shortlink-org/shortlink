@@ -2,7 +2,7 @@ import React from 'react'
 
 function Index() {
   return (
-    <div className="w-full bg-gray-100 dark:bg-gray-800 py-10">
+    <div className="w-full bg-gray-100 dark:bg-gray-800 py-10 rounded-t-lg">
       <div className="container mx-auto px-6 flex items-start justify-center">
         <div className="w-full">
           {/* Card is full width. Use in 12 col grid for best view. */}
