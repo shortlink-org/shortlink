@@ -16,6 +16,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import reportWebVitals from '../pkg/reportWebVitals'
 // @ts-ignore
 import { darkTheme, lightTheme, ColorModeContext, createEmotionCache } from '@shortlink-org/ui-kit'
+import { DefaultSeo } from 'next-seo'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -35,6 +36,29 @@ const MyApp = (props: MyAppProps) => {
         <Head>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
+        <DefaultSeo
+          openGraph={{
+            type: 'website',
+            locale: 'en_IE',
+            url: 'https://architecture.ddns.net/',
+            site_name: 'Shortlink',
+            images: [
+              {
+                url: 'https://architecture.ddns.net/images/logo.png',
+                width: 600,
+                height: 600,
+                alt: 'Shortlink service',
+              },
+            ],
+          }}
+          twitter={{
+            handle: '@shortlink',
+            site: '@shortlink',
+            cardType: 'summary_large_image',
+          }}
+          titleTemplate={'Shortlink | %s'}
+          defaultTitle={'Shortlink'}
+        />
         <StyledEngineProvider injectFirst>
           <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

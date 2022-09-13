@@ -3,6 +3,7 @@ import React from 'react'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import { BeakerIcon } from '@heroicons/react/24/solid'
+import { NextSeo } from "next-seo";
 
 const people = [
   {
@@ -65,6 +66,11 @@ const people = [
 export function Users() {
   return (
     <Layout>
+      <NextSeo
+        title="Users"
+        description="Admin users page"
+      />
+
       <section className="text-gray-600 body-font">
         <a
           href="#"

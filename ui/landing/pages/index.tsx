@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Script from 'next/script'
 import Head from 'next/head'
 import * as React from 'react'
+import { NextSeo } from 'next-seo'
 // @ts-ignore
 import Divider from '@mui/material/Divider'
 import { useTheme } from '@mui/material/styles'
@@ -84,10 +85,13 @@ const Home: NextPage = () => {
           gtag('config', 'G-DBZDFPJCJ9');
         `}
       </Script>
+
+      <NextSeo
+        title="Main"
+        description="Routing by project a shortlink."
+      />
       
       <Head>
-        <title>Shortlink | Landing</title>
-        <meta name="description" content="Routing by project" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

@@ -5,9 +5,11 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
+import { DefaultSeo } from 'next-seo'
 import '../public/assets/styles.css'
 // @ts-ignore
 import { createEmotionCache, darkTheme, lightTheme, ColorModeContext } from '@shortlink-org/ui-kit'
+// import your default seo configuration
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -30,6 +32,29 @@ const MyApp = (props: MyAppProps) => {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
+      <DefaultSeo
+        openGraph={{
+          type: 'website',
+          locale: 'en_IE',
+          url: 'https://architecture.ddns.net/',
+          site_name: 'Shortlink',
+          images: [
+            {
+              url: 'https://architecture.ddns.net/images/logo.png',
+              width: 600,
+              height: 600,
+              alt: 'Shortlink service',
+            },
+          ],
+        }}
+        twitter={{
+          handle: '@shortlink',
+          site: '@shortlink',
+          cardType: 'summary_large_image',
+        }}
+        titleTemplate={'Shortlink | %s'}
+        defaultTitle={'Shortlink'}
+      />
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />

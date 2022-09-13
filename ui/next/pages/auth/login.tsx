@@ -12,6 +12,7 @@ import {
 import ory from '../../pkg/sdk'
 import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
+import { NextSeo } from "next-seo";
 
 const SignIn: NextPage = () => {
   const [flow, setFlow] = useState<SelfServiceLoginFlow>()
@@ -91,6 +92,11 @@ const SignIn: NextPage = () => {
 
   return (
     <Layout>
+      <NextSeo
+        title="Login"
+        description="Login to your account"
+      />
+
       <div className="flex h-full p-4 rotate">
         <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">
           <div className="flex items-stretch bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-indigo-500 sm:border-0">

@@ -3,10 +3,15 @@ import { PaperClipIcon } from '@heroicons/react/24/solid'
 import { Layout } from 'components'
 // @ts-ignore
 import UndrawCoworkers from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
+import { NextSeo } from "next-seo";
 
 function NewComponent() {
   return (
     <div className="sm:flex items-center max-w-screen-xl bg-white dark:bg-gray-800 rounded my-8">
+      <NextSeo
+        title="About"
+        description="About page for shortlink."
+      />
       <div className="sm:w-1/2 p-5">
         <div className="image object-center text-center">
           <UndrawCoworkers />
