@@ -67,7 +67,7 @@ argo-cd:
         nginx.ingress.kubernetes.io/enable-opentracing: "true"
 
       hosts:
-        - architecture.ddns.net
+        - shortlink.best
 
       paths:
         - /argo/cd(/|$)(.*)
@@ -75,12 +75,12 @@ argo-cd:
       tls:
         - secretName: shortlink-ingress-tls
           hosts:
-            - architecture.ddns.net
+            - shortlink.best
 
       https: true
 
     config:
-      url: https://architecture.ddns.net/argocd
+      url: https://shortlink.best/argocd
 
     configAnnotations: {}
 
@@ -116,7 +116,7 @@ argo-cd:
         enabled: true
 
   notifications:
-    argocdUrl: https://architecture.ddns.net/argocd
+    argocdUrl: https://shortlink.best/argocd
 
     secret:
       items:
@@ -191,7 +191,7 @@ argo-workflows:
         nginx.ingress.kubernetes.io/use-regex: "true"
 
       hosts:
-        - architecture.ddns.net
+        - shortlink.best
 
       paths:
         - /argo/workflows/?(.*)
@@ -199,7 +199,7 @@ argo-workflows:
       tls:
         - secretName: shortlink-ingress-tls
           hosts:
-            - architecture.ddns.net
+            - shortlink.best
 
 argocd-apps:
   # -- Deploy Argo CD Applications within this helm release
@@ -233,7 +233,7 @@ argo-rollouts:
         nginx.ingress.kubernetes.io/use-regex: "true"
 
       hosts:
-        - architecture.ddns.net
+        - shortlink.best
 
       paths:
         - /argo/dashboard?(.*)
@@ -241,7 +241,7 @@ argo-rollouts:
       tls:
         - secretName: shortlink-ingress-tls
           hosts:
-            - architecture.ddns.net
+            - shortlink.best
 
   metrics:
     enabled: true

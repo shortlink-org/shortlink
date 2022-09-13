@@ -60,14 +60,14 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.tolerations | list | `[]` |  |
 | external_database | object | `{"enable":false,"ip":"192.168.0.101","port":6379}` | If you want to use an external database |
 | fullnameOverride | string | `""` |  |
-| host | string | `"architecture.ddns.net"` |  |
+| host | string | `"shortlink.best"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"architecture.ddns.net"` |  |
+| ingress.hostname | string | `"shortlink.best"` |  |
 | ingress.path | string | `"/api/?(.*)"` |  |
 | ingress.service.name | string | `"shortlink-api"` |  |
 | ingress.service.port | int | `7070` |  |
@@ -83,10 +83,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | kratos.ingress.public.enabled | bool | `true` |  |
-| kratos.ingress.public.hosts[0].host | string | `"architecture.ddns.net"` |  |
+| kratos.ingress.public.hosts[0].host | string | `"shortlink.best"` |  |
 | kratos.ingress.public.hosts[0].paths[0].path | string | `"/api/auth\\/(.*)"` |  |
 | kratos.ingress.public.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
-| kratos.ingress.public.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
+| kratos.ingress.public.tls[0].hosts[0] | string | `"shortlink.best"` |  |
 | kratos.ingress.public.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | kratos.kratos.automigration | object | `{"enabled":true,"type":"job"}` | Enables database migration |
 | kratos.kratos.automigration.type | string | `"job"` | Configure the way to execute database migration. Possible values: job, initContainer When set to job, the migration will be executed as a job on release or upgrade. When set to initContainer, the migration will be executed when kratos pod is created Defaults to job |
@@ -108,22 +108,22 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kratos.kratos.config.selfservice.allowed_return_urls[0] | string | `"*"` |  |
 | kratos.kratos.config.selfservice.allowed_return_urls[1] | string | `"http://*"` |  |
 | kratos.kratos.config.selfservice.allowed_return_urls[2] | string | `"https://*"` |  |
-| kratos.kratos.config.selfservice.default_browser_return_url | string | `"https://architecture.ddns.net"` |  |
-| kratos.kratos.config.selfservice.flows.error.ui_url | string | `"https://architecture.ddns.net/next/error"` |  |
+| kratos.kratos.config.selfservice.default_browser_return_url | string | `"https://shortlink.best"` |  |
+| kratos.kratos.config.selfservice.flows.error.ui_url | string | `"https://shortlink.best/next/error"` |  |
 | kratos.kratos.config.selfservice.flows.login.lifespan | string | `"10m"` |  |
-| kratos.kratos.config.selfservice.flows.login.ui_url | string | `"https://architecture.ddns.net/next"` |  |
-| kratos.kratos.config.selfservice.flows.logout.after.default_browser_return_url | string | `"https://architecture.ddns.net/next/auth/login"` |  |
+| kratos.kratos.config.selfservice.flows.login.ui_url | string | `"https://shortlink.best/next"` |  |
+| kratos.kratos.config.selfservice.flows.logout.after.default_browser_return_url | string | `"https://shortlink.best/next/auth/login"` |  |
 | kratos.kratos.config.selfservice.flows.recovery.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.flows.recovery.ui_url | string | `"https://architecture.ddns.net/next/auth/recovery"` |  |
+| kratos.kratos.config.selfservice.flows.recovery.ui_url | string | `"https://shortlink.best/next/auth/recovery"` |  |
 | kratos.kratos.config.selfservice.flows.registration.after.oidc.hooks[0].hook | string | `"session"` |  |
 | kratos.kratos.config.selfservice.flows.registration.after.password.hooks[0].hook | string | `"session"` |  |
 | kratos.kratos.config.selfservice.flows.registration.lifespan | string | `"10m"` |  |
-| kratos.kratos.config.selfservice.flows.registration.ui_url | string | `"https://architecture.ddns.net/next/auth/registration"` |  |
+| kratos.kratos.config.selfservice.flows.registration.ui_url | string | `"https://shortlink.best/next/auth/registration"` |  |
 | kratos.kratos.config.selfservice.flows.settings.privileged_session_max_age | string | `"15m"` |  |
-| kratos.kratos.config.selfservice.flows.settings.ui_url | string | `"https://architecture.ddns.net/next/user/profile"` |  |
-| kratos.kratos.config.selfservice.flows.verification.after.default_browser_return_url | string | `"https://architecture.ddns.net/next"` |  |
+| kratos.kratos.config.selfservice.flows.settings.ui_url | string | `"https://shortlink.best/next/user/profile"` |  |
+| kratos.kratos.config.selfservice.flows.verification.after.default_browser_return_url | string | `"https://shortlink.best/next"` |  |
 | kratos.kratos.config.selfservice.flows.verification.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.flows.verification.ui_url | string | `"https://architecture.ddns.net/next/auth/verify"` |  |
+| kratos.kratos.config.selfservice.flows.verification.ui_url | string | `"https://shortlink.best/next/auth/verify"` |  |
 | kratos.kratos.config.selfservice.methods.link.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.oidc.config.providers[0].client_id | string | `"...."` |  |
 | kratos.kratos.config.selfservice.methods.oidc.config.providers[0].client_secret | string | `"...."` |  |
@@ -144,7 +144,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kratos.kratos.config.selfservice.methods.password.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.profile.enabled | bool | `true` |  |
 | kratos.kratos.config.serve.admin.base_url | string | `"http://127.0.0.1:4434/"` |  |
-| kratos.kratos.config.serve.public.base_url | string | `"https://architecture.ddns.net/api/auth"` |  |
+| kratos.kratos.config.serve.public.base_url | string | `"https://shortlink.best/api/auth"` |  |
 | kratos.kratos.config.serve.public.cors.allow_credentials | bool | `true` |  |
 | kratos.kratos.config.serve.public.cors.allowed_headers[0] | string | `"Authorization"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_headers[1] | string | `"Cookie"` |  |
@@ -156,10 +156,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kratos.kratos.config.serve.public.cors.allowed_methods[3] | string | `"PATCH"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_methods[4] | string | `"DELETE"` |  |
 | kratos.kratos.config.serve.public.cors.allowed_origins[0] | string | `"http://127.0.0.1:3000"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_origins[1] | string | `"https://architecture.ddns.net"` |  |
+| kratos.kratos.config.serve.public.cors.allowed_origins[1] | string | `"https://shortlink.best"` |  |
 | kratos.kratos.config.serve.public.cors.debug | bool | `true` |  |
 | kratos.kratos.config.serve.public.cors.enabled | bool | `true` |  |
-| kratos.kratos.config.session.cookie.domain | string | `"https://architecture.ddns.net"` |  |
+| kratos.kratos.config.session.cookie.domain | string | `"https://shortlink.best"` |  |
 | kratos.kratos.config.session.cookie.same_site | string | `"Lax"` |  |
 | kratos.kratos.config.session.lifespan | string | `"720h"` |  |
 | kratos.kratos.development | bool | `true` |  |

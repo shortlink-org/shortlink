@@ -55,7 +55,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.hostname | string | `"architecture.ddns.net"` |  |
+| ingress.hostname | string | `"shortlink.best"` |  |
 | ingress.path | string | `"/"` |  |
 | ingress.service.name | string | `"shortlink-landing"` |  |
 | ingress.service.port | int | `8080` |  |

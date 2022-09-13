@@ -37,7 +37,7 @@ A Helm chart for kafka-UI
 | ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$2"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"architecture.ddns.net"` |  |
+| ingress.hostname | string | `"shortlink.best"` |  |
 | ingress.path | string | `"/kafka-ui(/|$)(.*)"` |  |
 | ingress.service.name | string | `"kafka-ui"` |  |
 | ingress.service.port | int | `80` |  |

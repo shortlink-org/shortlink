@@ -60,7 +60,7 @@ ingress:
     nginx.ingress.kubernetes.io/rewrite-target: /s/$2
     nginx.ingress.kubernetes.io/use-regex: "true"
 
-  hostname: architecture.ddns.net
+  hostname: shortlink.best
   path: /s(/|$)(.*)
   service:
     name: shortlink-proxy

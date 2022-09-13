@@ -39,7 +39,7 @@ ingress:
     nginx.ingress.kubernetes.io/enable-opentracing: "true"
     kubernetes.io/tls-acme: "true"
 
-  hostname: architecture.ddns.net
+  hostname: shortlink.best
   path: /
   service:
     name: shortlink-landing
