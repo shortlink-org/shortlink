@@ -10,7 +10,7 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    chart: sealed-secrets
+    chart: elasticsearch
     repoURL: https://helm.elastic.co
     targetRevision: 7.17.3
     helm:
