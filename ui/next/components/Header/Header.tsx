@@ -20,6 +20,8 @@ import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import SearchForm from '../SearchForm'
 import Notification from './notification'
 import Profile from './profile'
+// @ts-ignore
+import secondMenu from './secondMenu'
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import ory from '../../pkg/sdk'
 
@@ -127,7 +129,6 @@ const Header = () => {
     setOpen(false)
   }
 
-  // @ts-ignore
   return [
     <AppBar key="appbar" position="fixed" open={open}>
       <Toolbar>
@@ -145,29 +146,22 @@ const Header = () => {
           <MenuIcon />
         </IconButton>
 
-        <Typography
-          component="h1"
-          variant="h6"
-          color="inherit"
-          noWrap
-          sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-        >
-          Shortlink
-        </Typography>
+        <Link href="/">
+          <Button href="/" color="inherit" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+            >
+              Shortlink
+            </Typography>
+          </Button>
+        </Link>
 
         <ToggleDarkMode />
 
-        <Link href="/">
-          <Button href="/" color="inherit">
-            Home
-          </Button>
-        </Link>
-
-        <Link href="/pricing">
-          <Button href="/price" color="inherit">
-            Pricing
-          </Button>
-        </Link>
+        { secondMenu() }
 
         <SearchForm />
 

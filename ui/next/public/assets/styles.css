@@ -29,7 +29,8 @@ body,
 /* switch dark mode */
 .toggleWrapper {
   overflow: hidden;
-  transform: translate3d(-20%,-0%,0);
+  min-width: 6em;
+  transition: transform 0.3s ease-in-out;
 }
 .toggleWrapper input {
   position: absolute;
