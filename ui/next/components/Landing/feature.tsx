@@ -70,16 +70,10 @@ export default function Feature() {
         <section className="mx-auto container bg-white pt-16">
           <div className="px-4 lg:px-0">
             <div role="contentinfo" className="flex items-center flex-col px-4">
-              <p
-                tabIndex={0}
-                className="focus:outline-none uppercase text-sm text-center text-gray-500 leading-none"
-              >
+              <p className="focus:outline-none uppercase text-sm text-center text-gray-500 leading-none">
                 in few easy steps
               </p>
-              <h1
-                tabIndex={0}
-                className="focus:outline-none text-4xl lg:text-4xl pt-4 font-extrabold text-center leading-tight text-gray-800 lg:w-7/12 md:w-9/12 xl:w-5/12"
-              >
+              <h1 className="focus:outline-none text-4xl lg:text-4xl pt-4 font-extrabold text-center leading-tight text-gray-800 lg:w-7/12 md:w-9/12 xl:w-5/12">
                 Create Beautiful Landing Pages &amp; Web Apps in a Jiffy
               </h1>
             </div>
@@ -89,12 +83,10 @@ export default function Feature() {
         <div className="pt-16">
           <div className="max-w-8xl mx-auto container">
             <div
-              tabIndex={0}
               aria-label="group of cards"
               className="focus:outline-none flex flex-wrap items-center justify-center sm:justify-between"
             >
               <div
-                tabIndex={0}
                 aria-label="card 1"
                 className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4"
               >
@@ -107,17 +99,13 @@ export default function Feature() {
                     />
                   </div>
                 </div>
-                <h4
-                  tabIndex={0}
-                  className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5"
-                >
+                <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
                   Ready to use
                   <br />
                   components
                 </h4>
               </div>
               <div
-                tabIndex={0}
                 aria-label="card 2"
                 className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4"
               >
@@ -130,17 +118,13 @@ export default function Feature() {
                     />
                   </div>
                 </div>
-                <h4
-                  tabIndex={0}
-                  className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5"
-                >
+                <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
                   Coded by Developers
                   <br />
                   for Developers
                 </h4>
               </div>
               <div
-                tabIndex={0}
                 aria-label="card 3"
                 className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4"
               >
@@ -153,17 +137,13 @@ export default function Feature() {
                     />
                   </div>
                 </div>
-                <h4
-                  tabIndex={0}
-                  className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5"
-                >
+                <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
                   Hight Quality UI
                   <br />
                   you can rely on
                 </h4>
               </div>
               <div
-                tabIndex={0}
                 aria-label="card 4"
                 className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4"
               >
@@ -176,10 +156,7 @@ export default function Feature() {
                     />
                   </div>
                 </div>
-                <h4
-                  tabIndex={0}
-                  className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5"
-                >
+                <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
                   The Last UI kit
                   <br />
                   you’ll ever need

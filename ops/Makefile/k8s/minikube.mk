@@ -12,7 +12,6 @@ minikube-up: ## run minikube for dev mode
 		--memory "12192" \
 		--driver=docker \
 		--container-runtime=containerd \
-		--listen-address=0.0.0.0 \
 		--addons=pod-security-policy,ingress \
 		--feature-gates="GracefulNodeShutdown=true" \
 		--extra-config=apiserver.tracing-config-file=/etc/ssl/certs/tracing-config-file.yaml \
