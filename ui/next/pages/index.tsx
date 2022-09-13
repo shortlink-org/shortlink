@@ -1,6 +1,6 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import { ArticleJsonLd, NextSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
+import { SoftwareAppJsonLd, NextSeo } from "next-seo";
 import Header from 'components/Landing/header'
 import Mobile from 'components/Landing/mobile'
 import Feature from 'components/Landing/feature'
@@ -28,6 +28,14 @@ const Home: NextPage = () => (
           tags: [ "shortlink", "landing" ],
         }
       }}
+    />
+    <SoftwareAppJsonLd
+      name={"Shortlink"}
+      price={"Free"}
+      priceCurrency={"USD"}
+      aggregateRating={{ ratingValue: '5', reviewCount: '8864' }}
+      operatingSystem={"Web"}
+      applicationCategory={"Productivity"}
     />
 
     <Header />

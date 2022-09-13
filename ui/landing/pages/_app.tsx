@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
-import { DefaultSeo, SiteLinksSearchBoxJsonLd } from "next-seo";
+import { DefaultSeo, SiteLinksSearchBoxJsonLd, LogoJsonLd } from "next-seo";
 import '../public/assets/styles.css'
 // @ts-ignore
 import { createEmotionCache, darkTheme, lightTheme, ColorModeContext } from '@shortlink-org/ui-kit'
@@ -71,6 +71,11 @@ const MyApp = (props: MyAppProps) => {
             queryInput: 'search_term_string',
           },
         ]}
+      />
+
+      <LogoJsonLd
+        logo="https://architecture.ddns.net/images/logo.png"
+        url="https://architecture.ddns.net/"
       />
 
       <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
