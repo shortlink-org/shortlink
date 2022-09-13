@@ -6,33 +6,6 @@ import {
   ScaleIcon,
 } from '@heroicons/react/24/outline'
 
-const features = [
-  {
-    name: 'Competitive exchange rates',
-    description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: GlobeAltIcon,
-  },
-  {
-    name: 'No hidden fees',
-    description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: ScaleIcon,
-  },
-  {
-    name: 'Transfers are instant',
-    description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: SparklesIcon,
-  },
-  {
-    name: 'Mobile notifications',
-    description:
-      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
-    icon: EnvelopeIcon,
-  },
-]
-
 export default function Feature() {
   return (
     <React.Fragment>
@@ -94,38 +67,67 @@ export default function Feature() {
       </section>
 
       <div className="py-12 bg-white dark:bg-gray-800 rounded my-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:text-center">
-            <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
-              Transactions
-            </h2>
-            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              A better way to send money
-            </p>
-            <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-              Lorem ipsum dolor sit amet consect adipisicing elit. Possimus
-              magnam voluptatum cupiditate veritatis in accusamus quisquam.
-            </p>
+        <section className="mx-auto container bg-white pt-16">
+          <div className="px-4 lg:px-0">
+            <div role="contentinfo" className="flex items-center flex-col px-4">
+              <p tabIndex={0} className="focus:outline-none uppercase text-sm text-center text-gray-500 leading-none">in few easy steps</p>
+              <h1 tabIndex={0} className="focus:outline-none text-4xl lg:text-4xl pt-4 font-extrabold text-center leading-tight text-gray-800 lg:w-7/12 md:w-9/12 xl:w-5/12">Create Beautiful Landing Pages &amp; Web Apps in a Jiffy</h1>
+            </div>
           </div>
+        </section>
 
-          <div className="mt-10">
-            <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-              {features.map((feature) => (
-                <div key={feature.name} className="relative">
-                  <dt>
-                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                      <feature.icon className="h-6 w-6" aria-hidden="true" />
-                    </div>
-                    <p className="ml-16 text-lg leading-6 font-medium text-gray-900">
-                      {feature.name}
-                    </p>
-                  </dt>
-                  <dd className="mt-2 ml-16 text-base text-gray-500">
-                    {feature.description}
-                  </dd>
+        <div className="pt-16">
+          <div className="max-w-8xl mx-auto container">
+            <div tabIndex={0} aria-label="group of cards" className="focus:outline-none flex flex-wrap items-center justify-center sm:justify-between">
+              <div tabIndex={0} aria-label="card 1" className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4">
+                <div className="w-20 h-20 relative ml-6">
+                  <div className="absolute top-0 right-0 bg-indigo-100 rounded w-16 h-16 mt-2 mr-1" />
+                  <div className="text-white absolute bottom-0 left-0 bg-indigo-700 rounded w-16 h-16 flex items-center justify-center mt-2 mr-3">
+                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG1.svg" alt="drawer" />
+                  </div>
                 </div>
-              ))}
-            </dl>
+                <h4 tabIndex={0} className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
+                  Ready to use<br />
+                  components
+                </h4>
+              </div>
+              <div tabIndex={0} aria-label="card 2" className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4">
+                <div className="w-20 h-20 relative ml-6">
+                  <div className="absolute top-0 right-0 bg-indigo-100 rounded w-16 h-16 mt-2 mr-1" />
+                  <div className="text-white absolute bottom-0 left-0 bg-indigo-700 rounded w-16 h-16 flex items-center justify-center mt-2 mr-3">
+                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG2.svg" alt="check" />
+                  </div>
+                </div>
+                <h4 tabIndex={0} className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
+                  Coded by Developers<br />
+                  for Developers
+                </h4>
+              </div>
+              <div tabIndex={0} aria-label="card 3" className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4">
+                <div className="w-20 h-20 relative ml-6">
+                  <div className="absolute top-0 right-0 bg-indigo-100 rounded w-16 h-16 mt-2 mr-1" />
+                  <div className="text-white absolute bottom-0 left-0 bg-indigo-700 rounded w-16 h-16 flex items-center justify-center mt-2 mr-3">
+                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG3.svg" alt="html tag" />
+                  </div>
+                </div>
+                <h4 tabIndex={0} className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
+                  Hight Quality UI<br />
+                  you can rely on
+                </h4>
+              </div>
+              <div tabIndex={0} aria-label="card 4" className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4">
+                <div className="w-20 h-20 relative ml-6">
+                  <div className="absolute top-0 right-0 bg-indigo-100 rounded w-16 h-16 mt-2 mr-1" />
+                  <div className="text-white absolute bottom-0 left-0 bg-indigo-700 rounded w-16 h-16 flex items-center justify-center mt-2 mr-3">
+                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG4.svg" alt="monitor" />
+                  </div>
+                </div>
+                <h4 tabIndex={0} className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
+                  The Last UI kit<br />
+                  you’ll ever need
+                </h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -29,7 +29,7 @@ import Statistic from 'components/Dashboard/stats'
 
 import withAuthSync from 'components/Private'
 import { NextSeo } from 'next-seo'
-import Header from '../../components/Header' // typescript specific import
+import Header from '../../components/Page/Header' // typescript specific import
 
 // specified type as Icons
 const tableIcons: Icons = {

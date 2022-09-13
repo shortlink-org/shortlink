@@ -10,7 +10,7 @@ import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
 import { NextSeo } from 'next-seo'
-import Header from '../../components/Header'
+import Header from '../../components/Page/Header'
 
 function Dashboard() {
   return (

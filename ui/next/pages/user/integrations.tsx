@@ -4,7 +4,7 @@ import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 import { NextSeo } from 'next-seo'
-import Header from '../../components/Header'
+import Header from '../../components/Page/Header'
 
 export function Intargrations() {
   return (

@@ -4,7 +4,7 @@ import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import { BeakerIcon } from '@heroicons/react/24/solid'
 import { NextSeo } from 'next-seo'
-import Header from '../../components/Header'
+import Header from '../../components/Page/Header'
 
 const people = [
   {

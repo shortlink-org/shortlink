@@ -15,7 +15,7 @@ import Link from '@mui/material/Link'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import { NextSeo } from 'next-seo'
-import Header from '../../components/Header'
+import Header from '../../components/Page/Header'
 
 function AddUrl() {
   const [open, setOpen] = useState(false)
