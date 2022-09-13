@@ -20,7 +20,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 // @ts-ignore
 export function Layout({ children }) {
   return (
-    <Box sx={{ display: 'grid', height: '100vh', gridTemplateRows: 'auto 1fr auto' }}>
+    <Box sx={{ display: 'flex', height: "100vh" }}>
       <CssBaseline />
       <Header />
 
