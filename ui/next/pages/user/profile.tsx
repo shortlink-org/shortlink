@@ -10,6 +10,7 @@ import withAuthSync from 'components/Private'
 import ory from '../../pkg/sdk'
 import { AxiosError } from 'axios'
 import { NextSeo } from "next-seo";
+import Header from "../../components/Header";
 
 function ProfileContent() {
   const [session, setSession] = useState<string>(
@@ -60,6 +61,8 @@ function ProfileContent() {
           }
         }}
       />
+
+      <Header title={"Profile"} />
 
       <Welcome
         nickname={get(session, 'kratos.identity.traits.name.first', 'default')}

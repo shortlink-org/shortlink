@@ -27,6 +27,7 @@ import Statistic from 'components/Dashboard/stats'
 import { fetchLinkList } from 'store'
 import withAuthSync from 'components/Private'
 import { NextSeo } from "next-seo";
+import Header from "../../components/Header";
 
 // @ts-ignore
 const tableIcons = {
@@ -115,6 +116,8 @@ export function LinkTable() {
         title="Links"
         description="Admin links page"
       />
+
+      <Header title={"Admin links"} />
 
       <Statistic />
 

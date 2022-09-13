@@ -15,6 +15,7 @@ import Link from '@mui/material/Link'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import { NextSeo } from "next-seo";
+import Header from "../../components/Header";
 
 function AddUrl() {
   const [open, setOpen] = useState(false)
@@ -91,6 +92,8 @@ function AddUrl() {
         className={classes.root}
       >
         <div className="container mx-auto w-5/6 sm:w-2/3 h-full">
+          <Header title={"Add link"} />
+
           {/* Code block starts */}
           <div className="w-full bg-white dark:bg-gray-800 py-5 flex flex-col xl:flex-row items-start xl:items-center justify-between px-5 xl:px-10 shadow rounded-t">
             <div className="mb-4 sm:mb-0 md:mb-0 lg:mb-0 xl:mb-0 lg:w-1/2">

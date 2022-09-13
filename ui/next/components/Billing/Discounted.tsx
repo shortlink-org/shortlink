@@ -2,7 +2,7 @@ export default function Discounted() {
   return (
     <div className="mt-4 my-4 relative max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 lg:mt-5">
       <div className="max-w-md mx-auto lg:max-w-5xl ">
-        <div className="rounded-lg bg-gray-100 px-6 py-8 sm:p-10 lg:flex lg:items-center bg-gray-800 hover:bg-gray-700">
+        <div className="rounded-lg bg-gray-700 px-6 py-8 sm:p-10 lg:flex lg:items-center bg-gray-800 hover:bg-gray-700">
           <div className="flex-1">
             <div>
               <span className="inline-flex px-4 py-1 rounded-full text-sm leading-5 font-semibold tracking-wide uppercase bg-white dark:bg-gray-800 text-gray-800">

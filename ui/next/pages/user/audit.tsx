@@ -4,6 +4,7 @@ import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 import { NextSeo } from "next-seo";
+import Header from "../../components/Header";
 
 export function Audit() {
   return (
@@ -12,6 +13,8 @@ export function Audit() {
         title="Audit"
         description="Audit your account"
       />
+
+      <Header title={"Audit"} />
 
       <div className="px-4 py-4 my-3 rounded mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-14 lg:px-8 lg:py-10 bg-white dark:bg-gray-800">
         <div className="flex flex-col">

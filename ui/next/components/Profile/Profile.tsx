@@ -92,7 +92,7 @@ export default function Profile() {
                     <label className="block text-sm font-medium text-gray-700">
                       Cover photo
                     </label>
-                    <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+                    <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 my-5">
                       <div className="space-y-1 text-center">
                         <svg
                           className="mx-auto h-12 w-12 text-gray-400"
@@ -127,6 +127,73 @@ export default function Profile() {
                           PNG, JPG, GIF up to 10MB
                         </p>
                       </div>
+                    </div>
+
+                    <div className="flex justify-between items-center w-full">
+                      <div className="items-center text-gray-600 dark:text-gray-400 flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-file" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                        </svg>
+                        <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">Big Project.pdf</p>
+                        <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">37%</p>
+                      </div>
+                      <div className="cursor-pointer text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width={16} height={16} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <line x1={18} y1={6} x2={6} y2={18} />
+                          <line x1={6} y1={6} x2={18} y2={18} />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="relative mb-6 mt-4">
+                      <hr className="h-1 rounded-sm bg-gray-200" />
+                      <hr className="absolute top-0 h-1 w-5/12 rounded-sm bg-indigo-700" />
+                    </div>
+                    <div className="flex justify-between items-center w-full">
+                      <div className="items-center text-gray-600 dark:text-gray-400 flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-file" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                        </svg>
+                        <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">Big Project.pdf</p>
+                        <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">77%</p>
+                      </div>
+                      <div className="cursor-pointer text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width={16} height={16} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <line x1={18} y1={6} x2={6} y2={18} />
+                          <line x1={6} y1={6} x2={18} y2={18} />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="relative mb-6 mt-4">
+                      <hr className="h-1 rounded-sm bg-gray-200" />
+                      <hr className="absolute top-0 h-1 w-9/12 rounded-sm bg-indigo-700" />
+                    </div>
+                    <div className="flex justify-between items-center w-full">
+                      <div className="items-center text-gray-600 dark:text-gray-400 flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-file" width={24} height={24} viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                        </svg>
+                        <p className="text-gray-800 dark:text-gray-100 font-normal text-base tracking-normal ml-2 mr-4">Big Project.pdf</p>
+                        <p className="text-gray-600 dark:text-gray-400 font-normal text-base tracking-normal">60%</p>
+                      </div>
+                      <div className="cursor-pointer text-gray-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-x" width={16} height={16} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <line x1={18} y1={6} x2={6} y2={18} />
+                          <line x1={6} y1={6} x2={18} y2={18} />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="relative mb-8 mt-4">
+                      <hr className="h-1 rounded-sm bg-gray-200" />
+                      <hr className="absolute top-0 h-1 w-7/12 rounded-sm bg-indigo-700" />
                     </div>
                   </div>
                 </div>

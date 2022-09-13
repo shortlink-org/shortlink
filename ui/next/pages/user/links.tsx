@@ -28,7 +28,8 @@ import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
 
 import withAuthSync from 'components/Private'
-import { NextSeo } from "next-seo"; // typescript specific import
+import { NextSeo } from "next-seo";
+import Header from "../../components/Header"; // typescript specific import
 
 // specified type as Icons
 const tableIcons: Icons = {
@@ -71,6 +72,8 @@ export function LinkTable() {
         title="Links"
         description="Links page for your account."
       />
+
+      <Header title={"Links"} />
 
       <Statistic count={state.list.length} />
 

@@ -4,46 +4,11 @@ import { Layout } from 'components'
 // @ts-ignore
 import UndrawCoworkers from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
 import { ArticleJsonLd, NextSeo } from "next-seo";
+import Header from "../components/Header";
 
 function NewComponent() {
   return (
     <div className="sm:flex items-center max-w-screen-xl bg-white dark:bg-gray-800 rounded my-8">
-      <NextSeo
-        title="About"
-        description="About page for shortlink."
-        openGraph={{
-          title: "About",
-          description: "About page for shortlink.",
-          type: "article",
-          article: {
-            publishedTime: "2021-08-01T05:00:00.000Z",
-            modifiedTime: "2021-08-01T05:00:00.000Z",
-            section: "About",
-            authors: [
-              "https://batazor.ru",
-            ],
-            tags: [ "shortlink", "about" ],
-          }
-        }}
-      />
-      <ArticleJsonLd
-        url="https://shortlink.best/next/about"
-        title="About"
-        images={[
-          'https://shortlink.best/images/logo.png',
-        ]}
-        datePublished="2021-08-01T05:00:00.000Z"
-        dateModified="2021-08-01T05:00:00.000Z"
-        authorName={[
-          {
-            name: 'Login Viktor',
-            url: 'https://batazor.ru',
-          },
-        ]}
-        publisherName="Login Viktor"
-        publisherLogo="https://shortlink.best/images/logo.png"
-        description="About page for shortlink."
-      />
       <div className="sm:w-1/2 p-5">
         <div className="image object-center text-center">
           <UndrawCoworkers />
@@ -98,6 +63,43 @@ function NewComponent() {
 
 const About = () => (
   <Layout>
+    <NextSeo
+      title="About"
+      description="About page for shortlink."
+      openGraph={{
+        title: "About",
+        description: "About page for shortlink.",
+        type: "article",
+        article: {
+          publishedTime: "2021-08-01T05:00:00.000Z",
+          modifiedTime: "2021-08-01T05:00:00.000Z",
+          section: "About",
+          authors: [
+            "https://batazor.ru",
+          ],
+          tags: [ "shortlink", "about" ],
+        }
+      }}
+    />
+    <ArticleJsonLd
+      url="https://shortlink.best/next/about"
+      title="About"
+      images={[
+        'https://shortlink.best/images/logo.png',
+      ]}
+      datePublished="2021-08-01T05:00:00.000Z"
+      dateModified="2021-08-01T05:00:00.000Z"
+      authorName={[
+        {
+          name: 'Login Viktor',
+          url: 'https://batazor.ru',
+        },
+      ]}
+      publisherName="Login Viktor"
+      publisherLogo="https://shortlink.best/images/logo.png"
+      description="About page for shortlink."
+    />
+
     <NewComponent />
 
     <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
