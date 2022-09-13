@@ -12,7 +12,7 @@ spec:
   source:
     chart: sealed-secrets
     repoURL: https://helm.elastic.co
-    targetRevision: 8.4.1
+    targetRevision: 7.17.3
     helm:
       releaseName: elasticsearch
       parameters:
