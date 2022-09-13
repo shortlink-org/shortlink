@@ -22,9 +22,10 @@ export default function Subscribe() {
               <div className="flex flex-col mt-8 space-y-3 lg:space-y-0 lg:flex-row">
                 <input
                   id="email"
-                  type="text"
+                  type="email"
                   className="px-4 py-2 text-gray-700 bg-white dark:bg-gray-800 border border-gray-300 rounded-lg dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                  placeholder="Email Address"
+                  placeholder="Enter your email"
+                  required
                 />
 
                 <button className="w-full px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-indigo-500 rounded-lg lg:w-auto lg:mx-4 hover:bg-indigo-400 focus:outline-none focus:bg-indigo-400">
