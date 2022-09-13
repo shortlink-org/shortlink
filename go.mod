@@ -44,7 +44,7 @@ require (
 	github.com/nats-io/nats.go v1.16.0
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/prometheus/client_golang v1.13.0
-	github.com/pterm/pterm v0.12.45
+	github.com/pterm/pterm v0.12.46
 	github.com/rabbitmq/amqp091-go v1.4.0
 	github.com/riandyrn/otelchi v0.4.0
 	github.com/robfig/cron/v3 v3.0.1
