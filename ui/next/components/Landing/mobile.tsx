@@ -9,7 +9,7 @@ export default function MobileApps() {
             Mobile version
           </h2>
           <h1 className="md:text-3xl text-2xl font-medium title-font text-gray-900">
-            Master Cleanse Reliac Heirloom
+            Shortlink service for mobile devices
           </h1>
         </div>
         <div className="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
