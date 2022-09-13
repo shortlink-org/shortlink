@@ -5,7 +5,7 @@ import PaymentMethod from 'components/Billing/PaymentMethod'
 import Discounted from 'components/Billing/Discounted'
 import withAuthSync from 'components/Private'
 import { NextSeo, ProductJsonLd } from 'next-seo'
-import Header from '../../components/Header'
+import Header from '../../components/Page/Header'
 
 export function Billing() {
   return (
