@@ -155,6 +155,8 @@ const Header = () => {
           Shortlink
         </Typography>
 
+        <ToggleDarkMode />
+
         <Link href="/">
           <Button href="/" color="inherit">
             Home
@@ -168,8 +170,6 @@ const Header = () => {
         </Link>
 
         <SearchForm />
-
-        <ToggleDarkMode />
 
         {hasSession ? (
           <Fragment>
