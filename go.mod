@@ -57,9 +57,9 @@ require (
 	github.com/swaggo/swag v1.8.5
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.16
-	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.15
+	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.16
 	go.etcd.io/etcd/client/v3 v3.5.4
-	go.mongodb.org/mongo-driver v1.10.1
+	go.mongodb.org/mongo-driver v1.10.2
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.34.0
 	go.opentelemetry.io/otel v1.9.0
 	go.opentelemetry.io/otel/exporters/jaeger v1.9.0
@@ -196,7 +196,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/subosito/gotenv v1.3.0 // indirect
 	github.com/twmb/murmur3 v1.1.5 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.15 // indirect
+	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.16 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.4 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
