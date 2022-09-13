@@ -40,7 +40,7 @@ export default function Notification(): JSX.Element {
         sx={{ padding: 0 }}
       >
         {/* Dropdown menu */}
-        <div className="right-0 z-20 overflow-hidden bg-white rounded-md shadow-lg w-80 dark:bg-gray-800">
+        <div className="right-0 z-20 overflow-hidden bg-white dark:bg-gray-800 rounded-md shadow-lg w-80">
           <div className="py-2">
             <a className="flex items-center px-4 py-3 -mx-2 transition-colors duration-200 transform border-b hover:bg-gray-100 dark:hover:bg-gray-700 dark:border-gray-700">
               <img

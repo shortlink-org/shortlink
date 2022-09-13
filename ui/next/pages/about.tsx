@@ -6,7 +6,7 @@ import UndrawCoworkers from '../public/assets/images/undraw_back_in_the_day_knsh
 
 function NewComponent() {
   return (
-    <div className="sm:flex items-center max-w-screen-xl bg-white rounded my-8">
+    <div className="sm:flex items-center max-w-screen-xl bg-white dark:bg-gray-800 rounded my-8">
       <div className="sm:w-1/2 p-5">
         <div className="image object-center text-center">
           <UndrawCoworkers />
@@ -18,13 +18,41 @@ function NewComponent() {
             About us
           </span>
           <h2 className="my-4 font-bold text-3xl  sm:text-4xl ">
-            About <span className="text-indigo-600">Our Company</span>
+            About <span className="text-indigo-600">Shortlink</span>
           </h2>
-          <p className="text-gray-700">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid,
-            commodi doloremque, fugiat illum magni minus nisi nulla numquam
-            obcaecati placeat quia, repellat tempore voluptatum.
-          </p>
+
+          <article className="prose dark:prose-invert">
+            <p className="text-gray-700">
+              At shortlink, we're all about making it easy for people to connect and share.
+              Our product is designed to work effectively with links, making it simple and convenient for people to share content and collaborate online.
+              We believe that communication should be easy and accessible for everyone, and our mission is to make sure that's always the case.
+              With shortlink, sharing content and collaborating with others is more convenient than ever before.
+            </p>
+
+            <p className="text-gray-700">
+              We're on a mission to provide the best possible solution for software developers.
+              We want to make it easy for developers to find the best practices and follow them.
+              That's why we created shortlink.
+            </p>
+
+            <p className="text-gray-700">
+              Shortlink is an open source project that provides a pretty user interface and respects GDPR.
+              We use edge technologies and have many years of experience.
+              We're constantly researching the best solutions on the market so that we can benefit our community and
+              solve a problem for millions of people.
+            </p>
+
+            <p className="text-gray-700">
+              We know that there are not enough advanced and flexible solutions out there.
+              That's why we're offering our product for free.
+              We want to help as many people as possible and become market leaders in the process.
+            </p>
+
+            <p className="text-gray-700">
+              If you're looking for the best possible solution, look no further than shortlink.
+              Try it today and see for yourself how easy it is to find the best practices and follow them.
+            </p>
+          </article>
         </div>
       </div>
     </div>
@@ -35,7 +63,7 @@ const About = () => (
   <Layout>
     <NewComponent />
 
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+    <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-lg">
       <div className="px-4 py-5 sm:px-6">
         <h3 className="text-lg leading-6 font-medium text-gray-900">
           Applicant Information
@@ -52,7 +80,7 @@ const About = () => (
               Margot Foster
             </dd>
           </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">
               Application for
             </dt>
@@ -66,7 +94,7 @@ const About = () => (
               margotfoster@example.com
             </dd>
           </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">
               Salary expectation
             </dt>
@@ -84,7 +112,7 @@ const About = () => (
               reprehenderit deserunt qui eu.
             </dd>
           </div>
-          <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          <div className="bg-white dark:bg-gray-800 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Attachments</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
               <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">

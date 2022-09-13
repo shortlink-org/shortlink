@@ -7,7 +7,7 @@ export default function Error() {
   return (
     <Layout>
       <div className="min-w-screen bg-blue-100 flex items-center p-5 lg:p-20 overflow-hidden relative rounded-md">
-        <div className="flex-1 min-h-full min-w-full rounded-3xl bg-white shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
+        <div className="flex-1 min-h-full min-w-full rounded-3xl bg-white dark:bg-gray-800 shadow-xl p-10 lg:p-20 text-gray-800 relative md:flex items-center text-center md:text-left">
           <div className="w-full md:w-1/2">
             <div className="mb-16 md:mb-16 text-gray-600 font-light">
               <h1 className="font-black uppercase text-3xl lg:text-5xl text-yellow-500 mb-10">

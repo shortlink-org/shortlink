@@ -68,7 +68,7 @@ export function Users() {
       <section className="text-gray-600 body-font">
         <a
           href="#"
-          className="group block max-w-xs mx-auto rounded-lg p-6 bg-white ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500"
+          className="group block max-w-xs mx-auto rounded-lg p-6 bg-white dark:bg-gray-800 ring-1 ring-slate-900/5 shadow-lg space-y-3 hover:bg-sky-500 hover:ring-sky-500"
         >
           <div className="flex items-center space-x-3">
             <BeakerIcon className="h-6 w-6 stroke-sky-500 group-hover:stroke-white" />
@@ -117,7 +117,7 @@ export function Users() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200">
                     {people.map((person) => (
                       <tr key={person.email}>
                         <td className="px-6 py-4 whitespace-nowrap">

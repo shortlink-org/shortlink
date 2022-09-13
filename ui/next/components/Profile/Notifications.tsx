@@ -17,7 +17,7 @@ export default function Notifications() {
         <div className="mt-5 md:mt-0 md:col-span-2">
           <form action="#" method="POST">
             <div className="shadow overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
+              <div className="px-4 py-5 bg-white dark:bg-gray-800 space-y-6 sm:p-6">
                 <fieldset>
                   <legend className="text-base font-medium text-gray-900">
                     By Email

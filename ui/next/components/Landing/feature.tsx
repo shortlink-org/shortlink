@@ -93,7 +93,7 @@ export default function Feature() {
         </div>
       </section>
 
-      <div className="py-12 bg-white rounded my-3">
+      <div className="py-12 bg-white dark:bg-gray-800 rounded my-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="lg:text-center">
             <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
@@ -131,7 +131,7 @@ export default function Feature() {
       </div>
 
       <div className="sm:flex flex-wrap justify-center items-center text-center gap-8">
-        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 bg-white mt-6  shadow-lg rounded-lg dark:bg-gray-800">
+        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 bg-white dark:bg-gray-800 mt-6  shadow-lg rounded-lg">
           <div className="flex-shrink-0">
             <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
               <svg
@@ -154,7 +154,7 @@ export default function Feature() {
             build solutions relevant to your business.
           </p>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 mt-6 sm:mt-16 md:mt-20 lg:mt-24 bg-white shadow-lg rounded-lg dark:bg-gray-800">
+        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 mt-6 sm:mt-16 md:mt-20 lg:mt-24 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
           <div className="flex-shrink-0">
             <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
               <svg
@@ -177,7 +177,7 @@ export default function Feature() {
             a connection with your audience.
           </p>
         </div>
-        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 mt-6  px-4 py-4 bg-white shadow-lg rounded-lg dark:bg-gray-800">
+        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 mt-6  px-4 py-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
           <div className="flex-shrink-0">
             <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
               <svg

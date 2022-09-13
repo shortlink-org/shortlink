@@ -93,7 +93,7 @@ function AddUrl() {
                 Add link
               </h2>
               <p className="font-normal text-sm text-gray-600 dark:text-gray-100 mt-1">
-                save a shortlink
+                This is a great place to add a short, friendly link that goes somewhere interesting.
               </p>
             </div>
 

@@ -19,7 +19,7 @@ export default function Personal({ session }) {
         <div className="mt-5 md:mt-0 md:col-span-2">
           <form action="#" method="POST">
             <div className="shadow overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 bg-white sm:p-6">
+              <div className="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
                     <label
@@ -86,7 +86,7 @@ export default function Personal({ session }) {
                       id="country"
                       name="country"
                       autoComplete="country"
-                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white dark:bg-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     >
                       <option>United States</option>
                       <option>Canada</option>
