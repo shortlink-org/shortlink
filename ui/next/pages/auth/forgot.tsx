@@ -93,17 +93,17 @@ const Forgot: NextPage = () => {
           {
             position: 1,
             name: 'Login page',
-            item: 'https://architecture.ddns.net/next/auth/login',
+            item: 'https://shortlink.best/next/auth/login',
           },
           {
             position: 2,
             name: 'Gorgot Password',
-            item: 'https://architecture.ddns.net/next/auth/forgot',
+            item: 'https://shortlink.best/next/auth/forgot',
           },
           {
             position: 3,
             name: 'Registration page',
-            item: 'https://architecture.ddns.net/next/auth/registration',
+            item: 'https://shortlink.best/next/auth/registration',
           },
         ]}
       />

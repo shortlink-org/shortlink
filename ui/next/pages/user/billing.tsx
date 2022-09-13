@@ -19,12 +19,12 @@ export function Billing() {
         description={"Shortlink service"}
         brand={"Shortlink"}
         color={"premium"}
-        manufacturerLogo={"https://architecture.ddns.net/images/logo.png"}
+        manufacturerLogo={"https://shortlink.best/images/logo.png"}
         manufacturerName={"Shortlink"}
         material={"bright"}
         slogan={"Shortlink service"}
-        image={"https://architecture.ddns.net/images/logo.png"}
-        url={"https://architecture.ddns.net/"}
+        image={"https://shortlink.best/images/logo.png"}
+        url={"https://shortlink.best/"}
         award={"Best service"}
         reviews={[
           {
