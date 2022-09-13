@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rabbitmq-cluster-operator
+  name: rabbitmq
   namespace: argocd
 spec:
   project: shortlink
   destination:
     name: ''
-    namespace: rabbitmq-cluster-operator
+    namespace: rabbitmq
     server: 'https://kubernetes.default.svc'
   source:
     path: ops/Helm/addons/mq/rabbitmq
