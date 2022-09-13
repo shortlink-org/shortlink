@@ -40,7 +40,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.externalRedis.host | string | `"shortlink-redis-master.redis"` |  |
 | argo-cd.fullnameOverride | string | `"argocd"` |  |
 | argo-cd.global.logging.format | string | `"json"` |  |
-| argo-cd.notifications.argocdUrl | string | `"https://architecture.ddns.net/argocd"` |  |
+| argo-cd.notifications.argocdUrl | string | `"https://shortlink.best/argocd"` |  |
 | argo-cd.notifications.metrics.enabled | bool | `true` |  |
 | argo-cd.notifications.metrics.serviceMonitor.enabled | bool | `true` |  |
 | argo-cd.notifications.notifiers."service.slack" | string | `"token: $slack-token\nusername: argocd # optional username\nicon: :dart: # optional icon for the message (supports both emoij and url notation)\n"` |  |
@@ -50,7 +50,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.repoServer.metrics.serviceMonitor.enabled | bool | `true` |  |
 | argo-cd.repoServer.volumes[0].emptyDir | object | `{}` |  |
 | argo-cd.repoServer.volumes[0].name | string | `"custom-tools"` |  |
-| argo-cd.server.config.url | string | `"https://architecture.ddns.net/argocd"` |  |
+| argo-cd.server.config.url | string | `"https://shortlink.best/argocd"` |  |
 | argo-cd.server.configAnnotations | object | `{}` |  |
 | argo-cd.server.extensions.enabled | bool | `true` |  |
 | argo-cd.server.extraArgs[0] | string | `"--rootpath"` |  |
@@ -66,11 +66,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/secure-backends" | string | `"true"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect" | string | `"true"` |  |
 | argo-cd.server.ingress.enabled | bool | `true` |  |
-| argo-cd.server.ingress.hosts[0] | string | `"architecture.ddns.net"` |  |
+| argo-cd.server.ingress.hosts[0] | string | `"shortlink.best"` |  |
 | argo-cd.server.ingress.https | bool | `true` |  |
 | argo-cd.server.ingress.ingressClassName | string | `"nginx"` |  |
 | argo-cd.server.ingress.paths[0] | string | `"/argo/cd(/|$)(.*)"` |  |
-| argo-cd.server.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
+| argo-cd.server.ingress.tls[0].hosts[0] | string | `"shortlink.best"` |  |
 | argo-cd.server.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | argo-cd.server.metrics.enabled | bool | `true` |  |
 | argo-cd.server.metrics.serviceMonitor.enabled | bool | `true` |  |
@@ -86,10 +86,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | argo-rollouts.dashboard.ingress.enabled | bool | `true` |  |
-| argo-rollouts.dashboard.ingress.hosts[0] | string | `"architecture.ddns.net"` |  |
+| argo-rollouts.dashboard.ingress.hosts[0] | string | `"shortlink.best"` |  |
 | argo-rollouts.dashboard.ingress.ingressClassName | string | `"nginx"` |  |
 | argo-rollouts.dashboard.ingress.paths[0] | string | `"/argo/dashboard?(.*)"` |  |
-| argo-rollouts.dashboard.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
+| argo-rollouts.dashboard.ingress.tls[0].hosts[0] | string | `"shortlink.best"` |  |
 | argo-rollouts.dashboard.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | argo-rollouts.fullnameOverride | string | `"argo-rollouts"` |  |
 | argo-rollouts.metrics.enabled | bool | `true` |  |
@@ -114,10 +114,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | argo-workflows.server.ingress.enabled | bool | `true` |  |
-| argo-workflows.server.ingress.hosts[0] | string | `"architecture.ddns.net"` |  |
+| argo-workflows.server.ingress.hosts[0] | string | `"shortlink.best"` |  |
 | argo-workflows.server.ingress.ingressClassName | string | `"nginx"` |  |
 | argo-workflows.server.ingress.paths[0] | string | `"/argo/workflows/?(.*)"` |  |
-| argo-workflows.server.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
+| argo-workflows.server.ingress.tls[0].hosts[0] | string | `"shortlink.best"` |  |
 | argo-workflows.server.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | argo.enabled | bool | `true` |  |
 | argocd-apps.applications | list | `[]` (See [values.yaml]) | Deploy Argo CD Applications within this helm release # Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/ |

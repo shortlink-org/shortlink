@@ -105,10 +105,10 @@ const Home: NextPage = () => {
         }}
       />
       <ArticleJsonLd
-        url="https://architecture.ddns.net/"
+        url="https://shortlink.best/"
         title="Main"
         images={[
-          'https://architecture.ddns.net/images/logo.png',
+          'https://shortlink.best/images/logo.png',
         ]}
         datePublished="2021-08-01T05:00:00.000Z"
         dateModified="2021-08-01T05:00:00.000Z"
@@ -119,7 +119,7 @@ const Home: NextPage = () => {
           },
         ]}
         publisherName="Login Viktor"
-        publisherLogo="https://architecture.ddns.net/images/logo.png"
+        publisherLogo="https://shortlink.best/images/logo.png"
         description="Routing by project a shortlink."
       />
       <BreadcrumbJsonLd
@@ -127,22 +127,22 @@ const Home: NextPage = () => {
           {
             position: 1,
             name: 'Next UI',
-            item: 'https://architecture.ddns.net/next',
+            item: 'https://shortlink.best/next',
           },
           {
             position: 2,
             name: 'Prometheus',
-            item: 'https://architecture.ddns.net/prometheus/',
+            item: 'https://shortlink.best/prometheus/',
           },
           {
             position: 3,
             name: 'Grafana',
-            item: 'https://architecture.ddns.net/grafana/',
+            item: 'https://shortlink.best/grafana/',
           },
           {
             position: 4,
             name: 'Argo CD',
-            item: 'https://architecture.ddns.net/argo/cd/',
+            item: 'https://shortlink.best/argo/cd/',
           },
           {
             position: 5,

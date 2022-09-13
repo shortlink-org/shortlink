@@ -31,7 +31,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.annotations."nginx.ingress.kubernetes.io/server-snippet" | string | `"proxy_ssl_verify off;\n"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"architecture.ddns.net"` |  |
+| ingress.hostname | string | `"shortlink.best"` |  |
 | ingress.path | string | `"/ceph-dashboard(/|$)(.*)"` |  |
 | ingress.service.name | string | `"rook-ceph-mgr-dashboard"` |  |
 | ingress.service.port | string | `"https-dashboard"` |  |

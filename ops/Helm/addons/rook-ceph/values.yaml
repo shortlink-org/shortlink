@@ -19,7 +19,7 @@ ingress:
     nginx.ingress.kubernetes.io/server-snippet: |
       proxy_ssl_verify off;
 
-  hostname: architecture.ddns.net
+  hostname: shortlink.best
   path: /ceph-dashboard(/|$)(.*)
   service:
     name: rook-ceph-mgr-dashboard

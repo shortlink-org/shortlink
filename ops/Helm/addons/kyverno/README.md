@@ -46,10 +46,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | policy-reporter.ui.ingress.enabled | bool | `true` |  |
-| policy-reporter.ui.ingress.hosts[0].host | string | `"architecture.ddns.net"` |  |
+| policy-reporter.ui.ingress.hosts[0].host | string | `"shortlink.best"` |  |
 | policy-reporter.ui.ingress.hosts[0].paths[0].path | string | `"/kyverno/?(.*)"` |  |
 | policy-reporter.ui.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
-| policy-reporter.ui.ingress.tls[0].hosts[0] | string | `"architecture.ddns.net"` |  |
+| policy-reporter.ui.ingress.tls[0].hosts[0] | string | `"shortlink.best"` |  |
 | policy-reporter.ui.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | policy-reporter.ui.plugins.kyverno | bool | `true` |  |
 

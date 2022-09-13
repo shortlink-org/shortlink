@@ -102,7 +102,7 @@ ingress:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/use-regex: "true"
 
-  hostname: architecture.ddns.net
+  hostname: shortlink.best
   path: /kafka-ui(/|$)(.*)
   service:
     name: kafka-ui

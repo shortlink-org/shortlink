@@ -28,7 +28,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"architecture.ddns.net"` |  |
+| ingress.hostname | string | `"shortlink.best"` |  |
 | ingress.path | string | `"/rabbitmq/?(.*)"` |  |
 | ingress.service.name | string | `"shortlink"` |  |
 | ingress.service.port | int | `15672` |  |
