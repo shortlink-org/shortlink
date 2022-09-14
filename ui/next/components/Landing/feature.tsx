@@ -1,10 +1,4 @@
 import React from 'react'
-import {
-  EnvelopeIcon,
-  GlobeAltIcon,
-  SparklesIcon,
-  ScaleIcon,
-} from '@heroicons/react/24/outline'
 
 export default function Feature() {
   return (
@@ -74,7 +68,7 @@ export default function Feature() {
                 in few easy steps
               </p>
               <h1 className="focus:outline-none text-4xl lg:text-4xl pt-4 font-extrabold text-center leading-tight text-gray-800 lg:w-7/12 md:w-9/12 xl:w-5/12">
-                Create Beautiful Landing Pages &amp; Web Apps in a Jiffy
+                Create Beautiful Short Links &amp; Use a Powerful Link Management
               </h1>
             </div>
           </div>
@@ -189,6 +183,7 @@ export default function Feature() {
             build solutions relevant to your business.
           </p>
         </div>
+
         <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 mt-6 sm:mt-16 md:mt-20 lg:mt-24 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
           <div className="flex-shrink-0">
             <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
@@ -212,6 +207,7 @@ export default function Feature() {
             a connection with your audience.
           </p>
         </div>
+
         <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 mt-6  px-4 py-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
           <div className="flex-shrink-0">
             <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
