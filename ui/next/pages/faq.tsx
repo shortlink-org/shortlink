@@ -9,7 +9,8 @@ export const Faq = () => (
       description="Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!"
       openGraph={{
         title: 'FAQ',
-        description: 'Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!',
+        description:
+          'Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!',
         type: 'article',
         article: {
           publishedTime: '2021-08-01T05:00:00.000Z',

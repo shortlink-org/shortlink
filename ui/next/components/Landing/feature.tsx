@@ -100,7 +100,8 @@ export default function Feature() {
                   </div>
                 </div>
                 <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
-                  We're a friendly, open source project that respects your privacy
+                  We're a friendly, open source project that respects your
+                  privacy
                 </h4>
               </div>
               <div
@@ -136,7 +137,8 @@ export default function Feature() {
                   </div>
                 </div>
                 <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
-                  We use cutting edge technologies to provide you with the best possible experience
+                  We use cutting edge technologies to provide you with the best
+                  possible experience
                 </h4>
               </div>
               <div
