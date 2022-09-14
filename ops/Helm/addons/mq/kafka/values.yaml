@@ -11,3 +11,5 @@ strimzi-kafka-operator:
 
 kafka-ui:
   enabled: true
+
+  fullnameOverride: kafka-ui
