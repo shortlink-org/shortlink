@@ -5,8 +5,6 @@
 strimzi-kafka-operator:
   enabled: true
 
-  defaultImageTag: 0.31.0
-
   watchNamespaces:
     - shortlink
   watchAnyNamespace: true
