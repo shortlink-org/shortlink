@@ -8,3 +8,6 @@ strimzi-kafka-operator:
   watchNamespaces:
     - shortlink
   watchAnyNamespace: true
+
+kafka-ui:
+  enabled: true
