@@ -52,6 +52,7 @@ if (!isProd) {
 
 const NEXT_CONFIG = {
   basePath: '/next',
+  generateEtags: true,
   env: {
     NEXT_PUBLIC_API_URI: process.env.API_URI,
   },
