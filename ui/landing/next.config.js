@@ -35,6 +35,7 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  generateEtags: true,
   swcMinify: true,
   compiler: {
     // ssr and displayName are configured by default
@@ -45,7 +46,7 @@ const nextConfig = {
 
     return config
   },
-  trailingSlash: true,
+  trailingSlash: false,
   headers: () => {
     return [
       {
