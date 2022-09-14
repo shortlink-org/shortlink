@@ -13,3 +13,31 @@ kafka-ui:
   enabled: true
 
   fullnameOverride: kafka-ui
+
+  envs:
+    secret: {}
+    config:
+      KAFKA_CLUSTERS_0_NAME: shortlink
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-kafka-bootstrap:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: kafka-zookeeper-client:2181
+      SPRING_SECURITY_USER_NAME: "redacted"
+      SPRING_SECURITY_USER_PASSWORD: "redacted"
+      MANAGEMENT_HEALTH_LDAP_ENABLED: "FALSE"
+      SERVER_SERVLET_CONTEXT_PATH: "/kafka-ui"
+
+  ingress:
+    enabled: true
+    type: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentracing: "true"
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+      nginx.ingress.kubernetes.io/use-regex: "true"
+
+    hostname: shortlink.best
+    path: /kafka-ui(/|$)(.*)
+    service:
+      name: kafka-ui
+      port: 80
