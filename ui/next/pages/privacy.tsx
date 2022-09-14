@@ -5,11 +5,11 @@ import { ArticleJsonLd, NextSeo } from 'next-seo'
 export const PrivacyContent = () => (
   <Layout>
     <NextSeo
-      title="Privacy"
-      description="Privacy page for shortlink."
+      title="Privacy Policy"
+      description="At shortlink, we take your privacy seriously. This is why we have a comprehensive privacy policy in place to ensure that your data is protected at all times. Visit our website to learn more about how we keep your information safe and secure."
       openGraph={{
-        title: 'Privacy',
-        description: 'Privacy page for shortlink.',
+        title: 'Privacy Policy',
+        description: 'Privacy policy for shortlink.',
         type: 'article',
         article: {
           publishedTime: '2021-08-01T05:00:00.000Z',
