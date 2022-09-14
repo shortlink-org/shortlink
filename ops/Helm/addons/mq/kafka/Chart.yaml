@@ -24,3 +24,4 @@ dependencies:
   - name: kafka-ui
     version: 0.4.2
     repository: "file://../kafka-ui"
+    condition: kafka-ui.enabled
