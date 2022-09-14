@@ -87,11 +87,11 @@ const Home: NextPage = () => {
       </Script>
 
       <NextSeo
-        title="Main"
-        description="Routing by project a shortlink."
+        title="Routing by project"
+        description="Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you."
         openGraph={{
-          title: "Main",
-          description: "Routing by project a shortlink.",
+          title: "Routing by project",
+          description: "Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you.",
           type: "article",
           article: {
             publishedTime: "2021-08-01T05:00:00.000Z",
@@ -120,7 +120,7 @@ const Home: NextPage = () => {
         ]}
         publisherName="Login Viktor"
         publisherLogo="https://shortlink.best/images/logo.png"
-        description="Routing by project a shortlink."
+        description="Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you."
       />
       <BreadcrumbJsonLd
         itemListElements={[

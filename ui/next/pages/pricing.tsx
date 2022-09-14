@@ -60,11 +60,11 @@ export function Pricing() {
   return (
     <Layout>
       <NextSeo
-        title="Pricing"
-        description="Pricing page for shortlink."
+        title="Pricing Policy"
+        description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
         openGraph={{
-          title: 'Pricing',
-          description: 'Pricing page for shortlink.',
+          title: 'Pricing Policy',
+          description: "Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project.",
           type: 'article',
           article: {
             publishedTime: '2021-08-01T05:00:00.000Z',
@@ -78,7 +78,7 @@ export function Pricing() {
 
       <ArticleJsonLd
         url="https://shortlink.best/next/about"
-        title="Pricing"
+        title="Pricing Policy"
         images={['https://shortlink.best/images/logo.png']}
         datePublished="2021-08-01T05:00:00.000Z"
         dateModified="2021-08-01T05:00:00.000Z"
@@ -90,7 +90,7 @@ export function Pricing() {
         ]}
         publisherName="Login Viktor"
         publisherLogo="https://shortlink.best/images/logo.png"
-        description="Pricing page for shortlink."
+        description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
       />
 
       <Container

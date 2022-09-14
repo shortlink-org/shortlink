@@ -26,10 +26,10 @@ export default function Testimonials() {
         </div>
         <div className="w-full">
           <p className="text-md text-indigo-500 font-bold text-center">
-            Tom Hardy
+            Viktor Login
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-300 text-center">
-            @thom.hardy
+            @batazor
           </p>
         </div>
       </div>

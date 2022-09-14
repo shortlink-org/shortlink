@@ -5,11 +5,11 @@ import { ArticleJsonLd, NextSeo, CorporateContactJsonLd } from 'next-seo'
 export const ContactContent = () => (
   <Layout>
     <NextSeo
-      title="Contact"
-      description="Contact page for shortlink."
+      title="A Better Way to Connect"
+      description="We provide an easy way for you to contact us. You can either fill out the form on this page or use one of the other methods listed below. We will get back to you as soon as possible!"
       openGraph={{
-        title: 'Contact',
-        description: 'Contact page for shortlink.',
+        title: 'A Better Way to Connect',
+        description: 'We provide an easy way for you to contact us. You can either fill out the form on this page or use one of the other methods listed below. We will get back to you as soon as possible!',
         type: 'article',
         article: {
           publishedTime: '2021-08-01T05:00:00.000Z',
@@ -34,7 +34,7 @@ export const ContactContent = () => (
       ]}
       publisherName="Login Viktor"
       publisherLogo="https://shortlink.best/images/logo.png"
-      description="Contact page for shortlink."
+      description="We provide an easy way for you to contact us. You can either fill out the form on this page or use one of the other methods listed below. We will get back to you as soon as possible!"
     />
     <CorporateContactJsonLd
       url="https://shortlink.best/next/contact"
