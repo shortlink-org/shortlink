@@ -16,7 +16,8 @@ const Home: NextPage = () => (
       description="Shortlink is your go-to source for all things URL. We offer a wide range of services, including shortening, tracking, and protecting links. Visit our website today to learn more!"
       openGraph={{
         title: 'Landing',
-        description: 'Shortlink is your go-to source for all things URL. We offer a wide range of services, including shortening, tracking, and protecting links. Visit our website today to learn more!',
+        description:
+          'Shortlink is your go-to source for all things URL. We offer a wide range of services, including shortening, tracking, and protecting links. Visit our website today to learn more!',
         type: 'article',
         article: {
           publishedTime: '2021-08-01T05:00:00.000Z',

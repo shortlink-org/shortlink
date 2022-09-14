@@ -64,7 +64,8 @@ export function Pricing() {
         description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
         openGraph={{
           title: 'Pricing Policy',
-          description: "Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project.",
+          description:
+            "Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project.",
           type: 'article',
           article: {
             publishedTime: '2021-08-01T05:00:00.000Z',
