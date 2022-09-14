@@ -227,6 +227,8 @@ const Home: NextPage = () => {
 
               {getCard("RabbitMQ", "/rabbitmq")}
 
+              {getCard("Kafka", "/kafka-ui")}
+
               {getCard("Kyverno", "/kyverno/#/")}
             </Stack>
 
