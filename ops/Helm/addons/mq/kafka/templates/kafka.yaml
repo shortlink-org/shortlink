@@ -1,4 +1,3 @@
-{{- if and (.Capabilities.APIVersions.Has "kafka.strimzi.io/v1beta2") -}}
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
@@ -32,4 +31,3 @@ spec:
   entityOperator:
     topicOperator: {}
     userOperator: {}
-{{- end }}
