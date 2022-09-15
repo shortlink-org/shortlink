@@ -28,10 +28,11 @@ export default function Statistic({ count }: StatisticProps) {
         </div>
         <div className="lg:w-1/2">
           <p className="text-gray-800">
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque rem aperiam, eaque ipsa quae. Lorem ipsum
-            dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.
+            A table can be a great way to keep track of links. You can add links
+            to the table, delete links from the table, and update links in the
+            table. This can be a great way to organize your links and keep track
+            of them. You can also use the table to share links with others. This
+            can be a great way to share links with friends or family.
           </p>
         </div>
       </div>

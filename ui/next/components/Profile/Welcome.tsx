@@ -13,12 +13,17 @@ export default function Welcome({ nickname }) {
         <div className="w-full sm:w-1/2 md:w-2/4 px-3 text-left">
           <div className="p-5 xl:px-8 md:py-5">
             <h3 className="text-2xl">Welcome, {nickname}!</h3>
-            <h5 className="text-xl mb-3">Lorem ipsum sit amet</h5>
+            <h5 className="text-xl mb-3">nice to meet you!</h5>
             <p className="text-sm text-indigo-200">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro
-              sit asperiores perferendis odit enim natus ipsum reprehenderit eos
-              eum impedit tenetur nemo corporis laboriosam veniam dolores quos
-              necessitatibus, quaerat debitis.
+              Welcome to the Service Shortlink! We are excited to offer this new
+              service to our customers. With the Service Shortlink, you will be
+              able to easily access your favorite services with a short,
+              easy-to-remember URL. Simply enter the URL into your browser and
+              you will be taken directly to the service you requested. We hope
+              you find this new service convenient and easy to use.
+              <br />
+              <br />
+              <b>Thank you for choosing the Service Shortlink!</b>
             </p>
           </div>
         </div>
