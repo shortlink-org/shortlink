@@ -7,7 +7,7 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: sync-kafka-to-elasticsearch
+    namespace: knative
     server: 'https://kubernetes.default.svc'
   source:
     path: ops/argocd/kustomize/sync-kafka-to-elasticsearch
