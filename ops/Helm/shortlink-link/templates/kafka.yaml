@@ -1,15 +1,13 @@
-{{- if (.Capabilities.APIVersions.Has "kafka.strimzi.io/v1beta2") -}}
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: shortlink.link.event.created
+  name: shortlink.link.event.new
   namespace: kafka
   labels:
     strimzi.io/cluster: kafka
 spec:
-  partitions: 3
+  partitions: 1
   replicas: 1
   config:
     retention.ms: 7200000
     segment.bytes: 1073741824
-{{- end }}

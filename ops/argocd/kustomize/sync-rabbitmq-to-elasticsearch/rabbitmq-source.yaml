@@ -6,9 +6,7 @@ spec:
   rabbitmqClusterReference:
     # Configure name if a RabbitMQ Cluster Operator is being used.
     name: shortlink
-    # Configure connectionSecret if an external RabbitMQ cluster is being used.
-    connectionSecret:
-      name: rabbitmq-secret-credentials
+    namespace: rabbitmq
   rabbitmqResourcesConfig:
     parallelism: 10
     exchangeName: "shortlink.link.event.new"

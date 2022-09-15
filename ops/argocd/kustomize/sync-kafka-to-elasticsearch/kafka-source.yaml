@@ -7,7 +7,7 @@ spec:
   bootstrapServers:
     - kafka-kafka-bootstrap.kafka:9092 # note the kafka namespace
   topics:
-    - shortlink.link.event.created
+    - shortlink.link.event.new
   sink:
     ref:
       apiVersion: serving.knative.dev/v1
