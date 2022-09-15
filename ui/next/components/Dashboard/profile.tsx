@@ -41,8 +41,19 @@ function Index() {
                 Las Vegas, Nevada
               </p>
               <p className="text-gray-600 dark:text-gray-100 text-sm tracking-normal font-normal mb-8 text-center w-10/12">
-                The more I deal with the work as something that is my own, as
-                something that is personal, the more successful it is.
+                Hi, I'm Tim. I was born and raised in Las Vegas, Nevada. I love
+                the city and all it has to offer, but I'm always looking for new
+                adventures.
+                <br />
+                <br />
+                I work in sales and enjoy working with people. I've been in the
+                military, so I know how to take orders (and give them). But more
+                importantly, I know how to lead people and get the best out of
+                them.
+                <br />
+                <br />
+                In my free time, I like to play basketball and golf. And of
+                course, spend time with family and friends.
               </p>
               <div className="flex items-start">
                 <div>
