@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import Head from 'next/head'
 import { wrapper } from 'store/store'
 import Fab from '@mui/material/Fab'
-import { AppInitialProps } from 'next/app'
+import { AppInitialProps, NextWebVitalsMetric } from 'next/app'
 import { ThemeProvider } from '@mui/material/styles'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -13,7 +13,6 @@ import { StyledEngineProvider } from '@mui/material/styles'
 import 'public/assets/styles.css'
 import ScrollTop from 'components/ScrollTop'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import reportWebVitals from '../pkg/reportWebVitals'
 // @ts-ignore
 import {
   darkTheme,
@@ -114,7 +113,6 @@ const MyApp = (props: MyAppProps) => {
 
 export default wrapper.withRedux(MyApp)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals()
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+  console.log(metric)
+}
