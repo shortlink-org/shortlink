@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: knative-serving
+  namespace: argocd
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: knative-serving
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ops/argocd/kustomize/knative-serving
+    repoURL: 'https://github.com/batazor/shortlink'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
