@@ -14,21 +14,6 @@ dashboard:
   rules:
     - when: manual
 
-grafana:
-  stage: monitoring
-  variables:
-    RELEASE_NAME: grafana
-    HELM_PATH: ops/Helm/addons/grafana
-    HELM_NAMESPACE: grafana
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/grafana
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
-
 prometheus-operator:
   stage: monitoring
   variables:
