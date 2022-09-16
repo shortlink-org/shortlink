@@ -1,8 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 import ListItemButton from '@mui/material/ListItemButton'
 import Tooltip from '@mui/material/Tooltip'
-import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
 import DashboardIcon from '@mui/icons-material/Dashboard'
@@ -16,6 +14,21 @@ import PersonIcon from '@mui/icons-material/Person'
 import HttpIcon from '@mui/icons-material/Http'
 import PeopleIcon from '@mui/icons-material/People'
 import GroupAddIcon from '@mui/icons-material/GroupAdd'
+import ActiveLink from './ActiveLink'
+import ActiveIcon from './ActiveIcon'
+
+const ListItem = ({ url, icon, name }: any) => (
+  <ActiveLink href={url} key={url} passHref activeClassName="md:text-blue-700">
+    <Tooltip title={name} followCursor enterDelay={500}>
+      <ListItemButton>
+          <ActiveIcon href={url} activeClassName="md:text-blue-700">
+            {icon}
+          </ActiveIcon>
+        <ListItemText primary={name} />
+      </ListItemButton>
+    </Tooltip>
+  </ActiveLink>
+)
 
 const mainMenuList = [
   {
@@ -50,16 +63,7 @@ const mainMenuList = [
   },
 ]
 
-export const mainListItems = mainMenuList.map((item) => (
-  <Link href={item.url} key={item.url} passHref>
-    <ListItemButton>
-      <Tooltip title={item.name}>
-        <ListItemIcon>{item.icon}</ListItemIcon>
-      </Tooltip>
-      <ListItemText primary={item.name} />
-    </ListItemButton>
-  </Link>
-))
+export const mainListItems = mainMenuList.map(item => <ListItem {...item} />)
 
 const otherMenuList = [
   {
@@ -81,16 +85,7 @@ const otherMenuList = [
 
 export const secondaryListItems = [
   <ListSubheader inset>Other options</ListSubheader>,
-  otherMenuList.map((item) => (
-    <Link href={item.url} key={item.url} passHref>
-      <ListItemButton>
-        <Tooltip title={item.name}>
-          <ListItemIcon>{item.icon}</ListItemIcon>
-        </Tooltip>
-        <ListItemText primary={item.name} />
-      </ListItemButton>
-    </Link>
-  )),
+  otherMenuList.map(item => <ListItem {...item} />),
 ]
 
 const adminMenuList = [
@@ -113,14 +108,5 @@ const adminMenuList = [
 
 export const adminListItems = [
   <ListSubheader inset>Admin options</ListSubheader>,
-  adminMenuList.map((item) => (
-    <Link href={item.url} key={item.url} passHref>
-      <ListItemButton>
-        <Tooltip title={item.name}>
-          <ListItemIcon>{item.icon}</ListItemIcon>
-        </Tooltip>
-        <ListItemText primary={item.name} />
-      </ListItemButton>
-    </Link>
-  )),
+  adminMenuList.map(item => <ListItem {...item} />),
 ]
