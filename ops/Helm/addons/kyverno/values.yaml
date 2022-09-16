@@ -34,6 +34,7 @@ policy-reporter:
 
     ingress:
       enabled: true
+      className: nginx
 
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
