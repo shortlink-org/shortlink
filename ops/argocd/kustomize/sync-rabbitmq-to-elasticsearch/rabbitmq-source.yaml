@@ -8,7 +8,7 @@ spec:
     name: shortlink
     namespace: rabbitmq
     connectionSecret:
-      name: shortlink-default-user
+      name: shortlink-default-user.rabbitmq
   rabbitmqResourcesConfig:
     parallelism: 10
     exchangeName: "shortlink.link.event.new"
