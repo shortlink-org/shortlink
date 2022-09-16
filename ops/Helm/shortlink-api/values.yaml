@@ -193,8 +193,10 @@ kratos:
   ingress:
     admin:
       enabled: false
+      className: nginx
     public:
       enabled: true
+      className: nginx
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
         nginx.ingress.kubernetes.io/enable-modsecurity: "true"
