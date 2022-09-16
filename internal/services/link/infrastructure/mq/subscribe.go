@@ -86,7 +86,7 @@ func (e *Event) SubscribeCQRSGetMetadata() {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(metadata_domain.MQ_CQRS_EVENT, getCQRSGetMetadata); err != nil {
+		if err := e.mq.Subscribe(metadata_domain.MQ_EVENT_CQRS_NEW, getCQRSGetMetadata); err != nil {
 			e.log.Error(err.Error())
 		}
 	}()

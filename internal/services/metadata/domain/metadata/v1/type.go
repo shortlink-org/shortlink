@@ -14,5 +14,5 @@ var (
 )
 
 const (
-	MQ_CQRS_EVENT = "shortlink.metadata.cqrs"
+	MQ_EVENT_CQRS_NEW = "shortlink.metadata.cqrs.new"
 )

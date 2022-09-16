@@ -57,20 +57,6 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 	mq.wg.Lock()
 	defer mq.wg.Unlock()
 
-	// create exchange
-	err := mq.ch.ExchangeDeclare(
-		target,   // name
-		"fanout", // type
-		true,     // durable
-		false,    // auto-deleted
-		false,    // internal
-		false,    // no-wait
-		nil,      // arguments
-	)
-	if err != nil {
-		return err
-	}
-
 	msg := amqp.Publishing{
 		ContentType: "text/plain",
 		Body:        message.Payload,
@@ -80,11 +66,8 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 	// Inject the span context into the AMQP header.
 	tc := propagation.TraceContext{}
 	tc.Inject(ctx, amqpHeadersCarrier(msg.Headers))
-	if err != nil {
-		mq.log.Warn(err.Error())
-	}
 
-	err = mq.ch.PublishWithContext(
+	err := mq.ch.PublishWithContext(
 		ctx,
 		target, // exchange
 		"",     // routing key
@@ -100,20 +83,6 @@ func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Me
 }
 
 func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
-	// create a exchange
-	err := mq.ch.ExchangeDeclare(
-		target,   // name
-		"fanout", // type
-		true,     // durable
-		false,    // auto-deleted
-		false,    // internal
-		false,    // no-wait
-		nil,      // arguments
-	)
-	if err != nil {
-		return err
-	}
-
 	// create a queue
 	q, err := mq.ch.QueueDeclare(
 		fmt.Sprintf("%s-%s", target, viper.GetString("SERVICE_NAME")), // name
