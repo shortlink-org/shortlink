@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
-import ListItemIcon, { ListItemIconProps } from "@mui/material/ListItemIcon";
+import ListItemIcon, { ListItemIconProps } from '@mui/material/ListItemIcon'
 import React, { useState, useEffect, ReactElement, Children } from 'react'
-import { UrlObject } from 'url';
+import { UrlObject } from 'url'
 
-declare type Url = string | UrlObject;
+declare type Url = string | UrlObject
 
 type ActiveLinkProps = ListItemIconProps & {
-  href: Url;
+  href: Url
   children: ReactElement
   activeClassName?: string
 }
@@ -27,10 +27,7 @@ const ActiveLink = ({
     if (isReady) {
       // Dynamic route will be matched via props.as
       // Static route will be matched via props.href
-      const linkPathname = new URL(
-        props.href as string,
-        location.href
-      ).pathname
+      const linkPathname = new URL(props.href as string, location.href).pathname
 
       // Using URL().pathname to get rid of query and hash
       const activePathname = new URL(asPath, location.href).pathname
