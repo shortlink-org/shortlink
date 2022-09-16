@@ -11,20 +11,22 @@ rabbitmq-cluster-operator:
   fullnameOverride: rabbitmq
 
   clusterOperator:
+    # disabled because we have issue: https://github.com/bitnami/charts/issues/7879
     metrics:
-      enabled: true
+      enabled: false
 
       serviceMonitor:
-        enabled: true
+        enabled: false
         labels:
           release: prometheus-operator
 
   msgTopologyOperator:
+    # disabled because we have issue: https://github.com/bitnami/charts/issues/7879
     metrics:
-      enabled: true
+      enabled: false
 
       serviceMonitor:
-        enabled: true
+        enabled: false
         labels:
           release: prometheus-operator
 
