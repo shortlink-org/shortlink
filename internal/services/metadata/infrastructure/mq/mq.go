@@ -65,7 +65,7 @@ func (e *Event) add(ctx context.Context, payload interface{}) notify.Response {
 		}
 	}
 
-	err = e.mq.Publish(ctx, metadata.MQ_CQRS_EVENT, query.Message{
+	err = e.mq.Publish(ctx, metadata.MQ_EVENT_CQRS_NEW, query.Message{
 		Key:     nil,
 		Payload: data,
 	})
