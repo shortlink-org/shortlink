@@ -17,20 +17,8 @@ spec:
     targetRevision: 7.17.3
     helm:
       releaseName: elasticsearch
-      parameters:
-        - name: clusterName
-          value: shortlink
-        # Shrink default JVM heap.
-        - name: esJavaOpts
-          value: "-Xmx128m -Xms128m"
-        - name: resources.requests.cpu
-          value: 100m
-        - name: resources.requests.memory
-          value: 256Mi
-        - name: persistence.enabled
-          value: "false"
-        - name: ingress.enabled
-          value: "false"
+      valueFiles:
+        - values.yaml
   syncPolicy:
     automated:
       prune: true
