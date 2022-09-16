@@ -13,3 +13,12 @@ istiod:
     tracer:
       zipkin:
         address: grafana-tempo.grafana:9411
+
+  telemetry:
+    v2:
+      prometheus:
+        enabled: true
+        wasmEnabled: true
+        configOverride:
+          scrapeInterval: 15s
+          scrapeTimeout: 10s
