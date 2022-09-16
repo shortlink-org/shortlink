@@ -17,33 +17,7 @@ import Box from '@mui/material/Box'
 import Link from 'next/link'
 // @ts-ignore
 import { ToggleDarkMode } from '@shortlink-org/ui-kit'
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  dir?: string;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
+import TabPanel from "../components/TabPanel"
 
 function a11yProps(index: number) {
   return {
