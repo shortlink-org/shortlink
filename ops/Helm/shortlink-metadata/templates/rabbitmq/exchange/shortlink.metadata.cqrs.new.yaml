@@ -6,7 +6,7 @@ kind: Exchange
 metadata:
   name: shortlink.metadata.cqrs.new.yaml
 spec:
-  name: shortlink.metadata.cqrs.new.yaml # name of the exchange
+  name: shortlink.metadata.cqrs.new
   vhost: "/"   # default to '/' if not provided
   type: fanout # default to 'direct' if not provided
   autoDelete: false
