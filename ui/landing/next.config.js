@@ -41,6 +41,19 @@ const nextConfig = {
     // ssr and displayName are configured by default
     styledComponents: true,
   },
+  images: {
+    loader: 'custom',
+    domains: ['images.unsplash.com'],
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        // The `src` property hostname must end with `.example.com`,
+        // otherwise the API will respond with 400 Bad Request.
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
   webpack: (config, { isServer, buildId }) => {
     config.plugins.push(new webpack.DefinePlugin({}))
 

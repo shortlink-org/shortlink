@@ -21,9 +21,9 @@ const ListItem = ({ url, icon, name }: any) => (
   <ActiveLink href={url} key={url} passHref activeClassName="md:text-blue-700">
     <Tooltip title={name} followCursor enterDelay={500}>
       <ListItemButton>
-          <ActiveIcon href={url} activeClassName="md:text-blue-700">
-            {icon}
-          </ActiveIcon>
+        <ActiveIcon href={url} activeClassName="md:text-blue-700">
+          {icon}
+        </ActiveIcon>
         <ListItemText primary={name} />
       </ListItemButton>
     </Tooltip>
@@ -63,7 +63,7 @@ const mainMenuList = [
   },
 ]
 
-export const mainListItems = mainMenuList.map(item => <ListItem {...item} />)
+export const mainListItems = mainMenuList.map((item) => <ListItem {...item} />)
 
 const otherMenuList = [
   {
@@ -85,7 +85,7 @@ const otherMenuList = [
 
 export const secondaryListItems = [
   <ListSubheader inset>Other options</ListSubheader>,
-  otherMenuList.map(item => <ListItem {...item} />),
+  otherMenuList.map((item) => <ListItem {...item} />),
 ]
 
 const adminMenuList = [
@@ -108,5 +108,5 @@ const adminMenuList = [
 
 export const adminListItems = [
   <ListSubheader inset>Admin options</ListSubheader>,
-  adminMenuList.map(item => <ListItem {...item} />),
+  adminMenuList.map((item) => <ListItem {...item} />),
 ]
