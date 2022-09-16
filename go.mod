@@ -72,12 +72,12 @@ require (
 	golang.org/x/net v0.0.0-20220826154423-83b083e8dc8b
 	golang.org/x/sync v0.0.0-20220819030929-7fc1605a5dde
 	golang.org/x/text v0.3.8-0.20220817174131-b0ca10ff35f1
-	google.golang.org/genproto v0.0.0-20220916134934-764224ccc2d1
+	google.golang.org/genproto v0.0.0-20220916172020-2692e8806bfa
 	google.golang.org/grpc v1.49.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
 	k8s.io/kubernetes v1.15.0-alpha.0
-	k8s.io/mount-utils v0.25.0
+	k8s.io/mount-utils v0.25.1
 	k8s.io/utils v0.0.0-20220823124924-e9cbc92d1a73
 )
 
