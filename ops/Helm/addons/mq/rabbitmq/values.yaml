@@ -16,6 +16,8 @@ rabbitmq-cluster-operator:
 
       serviceMonitor:
         enabled: true
+        labels:
+          release: prometheus-operator
 
   msgTopologyOperator:
     metrics:
@@ -23,6 +25,8 @@ rabbitmq-cluster-operator:
 
       serviceMonitor:
         enabled: true
+        labels:
+          release: prometheus-operator
 
 ingress:
   enabled: true
