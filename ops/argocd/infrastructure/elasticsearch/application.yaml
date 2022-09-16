@@ -17,8 +17,9 @@ spec:
     targetRevision: 7.17.3
     helm:
       releaseName: elasticsearch
-      valueFiles:
-        - values.yaml
+      fileParameters:
+        - name: clusterName
+          path: values.yaml
   syncPolicy:
     automated:
       prune: true
