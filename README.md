@@ -2,7 +2,7 @@
 
 # shortlink
 
-Shortlink is an open source project that provides a pretty user interface and respects GDPR.   
+Shortlink is an open-source project that provides a pretty user interface and respects GDPR.   
 We use edge technologies and have many years of experience.  
 
 We're constantly researching the best solutions on the market so that we can benefit  
