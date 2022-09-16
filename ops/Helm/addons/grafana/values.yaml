@@ -180,8 +180,7 @@ grafana:
         gnetId: 13277
         datasource: Prometheus
 
-  plugins:
-    - grafana-k6-app
+  plugins: []
 
 loki:
   enabled: true
