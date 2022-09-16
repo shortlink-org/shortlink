@@ -159,10 +159,6 @@ grafana:
         gnetId: 14061
         revision: 1
         datasource: Prometheus
-      ceph:
-        gnetId: 2842
-        revision: 14
-        datasource: Prometheus
       kyverno:
         url: https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json
 
