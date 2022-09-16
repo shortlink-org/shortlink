@@ -5,10 +5,9 @@ metadata:
 spec:
   rabbitmqClusterReference:
     # Configure name if a RabbitMQ Cluster Operator is being used.
-    name: shortlink
     namespace: rabbitmq
     connectionSecret:
-      name: shortlink-default-user.rabbitmq
+      name: shortlink-default-user
   rabbitmqResourcesConfig:
     parallelism: 10
     exchangeName: "shortlink.link.event.new"
