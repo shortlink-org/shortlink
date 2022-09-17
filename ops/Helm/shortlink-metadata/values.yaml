@@ -79,7 +79,7 @@ deploy:
   annotations: {}
 
   image:
-    repository: batazor/shortlink-metadata
+    repository: registry.gitlab.com/shortlink-org/shortlink/metadata
     tag: latest
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
