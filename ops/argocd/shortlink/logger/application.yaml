@@ -1,10 +1,10 @@
-apiVersion: argoproj.io/v1alpha1
+loggerVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shortlink-link
+  name: shortlink-logger
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/link:^0.1
+    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/logger:^0.1
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -13,15 +13,13 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-link
+    path: ops/Helm/shortlink-logger
     repoURL: 'https://github.com/batazor/shortlink'
     targetRevision: HEAD
     helm:
       parameters:
         - name: serviceAccount.create
           value: 'false'
-        - name: deploy.env.STORE_TYPE
-          value: postgres
         - name: deploy.env.MQ_ENABLED
           value: 'true'
   project: shortlink
