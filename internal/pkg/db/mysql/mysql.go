@@ -8,11 +8,11 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
-	"github.com/jmoiron/sqlx"
 	_ "github.com/johejo/golang-migrate-extra/source/file"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
 	"github.com/spf13/viper"
 	"github.com/uptrace/opentelemetry-go-extra/otelsql"
+	"github.com/uptrace/opentelemetry-go-extra/otelsqlx"
 	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 )
 
@@ -26,7 +26,7 @@ func (s *Store) Init(_ context.Context) error {
 	// Set configuration
 	s.setConfig()
 
-	if s.client, err = sqlx.Connect("mysql", s.config.URI); err != nil {
+	if s.client, err = otelsqlx.Connect("mysql", s.config.URI); err != nil {
 		return err
 	}
 
@@ -52,7 +52,7 @@ func (s *Store) Close() error {
 // Migrate ...
 func (s *Store) migrate() error {
 	// Create connect
-	db, err := otelsql.Open("mysql", s.config.URI, otelsql.WithAttributes(semconv.DBSystemMySQL), otelsql.WithDBName("MySQL"))
+	db, err := otelsqlx.Open("mysql", s.config.URI, otelsql.WithAttributes(semconv.DBSystemMySQL), otelsql.WithDBName("MySQL"))
 	if err != nil {
 		return err
 	}
