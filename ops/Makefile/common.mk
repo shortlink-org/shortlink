@@ -56,7 +56,6 @@ down: ## Down docker compose
 	@docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns.yaml \
-		-f ops/docker-compose/tooling/saas/gitlab/gitlab.yaml \
 		-f ops/docker-compose/tooling/saas/airflow/airflow.yaml \
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
