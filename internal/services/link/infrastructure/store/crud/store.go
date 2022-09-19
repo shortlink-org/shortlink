@@ -19,7 +19,6 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/dgraph"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/leveldb"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/mongo"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/mysql"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/postgres"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/ram"
@@ -46,11 +45,6 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 		}
 	case "mongo":
 		s.store, err = mongo.New(ctx, db)
-		if err != nil {
-			return nil, err
-		}
-	case "mysql":
-		s.store, err = mysql.New(ctx, db)
 		if err != nil {
 			return nil, err
 		}
@@ -183,6 +177,6 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram
+	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram
 	s.typeStore = viper.GetString("STORE_TYPE")
 }

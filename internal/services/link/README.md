@@ -15,7 +15,6 @@ Service for work with link-domain (CRUD)
 | MongoDB                         | ✅         | ✅       |
 | Postgres                        | ✅         | ✅       |
 | Redis                           | ❌         | ✅       |
-| MySQL                           | ❌         | ✅       |
 | LevelDB                         | ❌         | ❌       |
 | Badger                          | ❌         | ❌       |
 | SQLite                          | ❌         | ❌       |
@@ -30,4 +29,5 @@ grpcurl -cacert ./ops/cert/intermediate_ca.pem -d '{"url": "http://google.com"}'
 
 ### Changelog
 
+- [19.09.2022] Drop support database: MySQL
 - [04.08.2021] Drop support database: scylla, cassandra
