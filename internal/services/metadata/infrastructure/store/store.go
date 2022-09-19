@@ -44,6 +44,6 @@ func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (*Met
 
 func (s *MetaStore) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram, scylla, cassandra
+	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram, scylla, cassandra
 	s.typeStore = viper.GetString("STORE_TYPE")
 }

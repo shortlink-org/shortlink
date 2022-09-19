@@ -12,7 +12,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db/dgraph"
 	"github.com/batazor/shortlink/internal/pkg/db/leveldb"
 	"github.com/batazor/shortlink/internal/pkg/db/mongo"
-	"github.com/batazor/shortlink/internal/pkg/db/mysql"
 	"github.com/batazor/shortlink/internal/pkg/db/postgres"
 	"github.com/batazor/shortlink/internal/pkg/db/ram"
 	"github.com/batazor/shortlink/internal/pkg/db/redis"
@@ -30,8 +29,6 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 		store.Store = &postgres.Store{}
 	case "mongo":
 		store.Store = &mongo.Store{}
-	case "mysql":
-		store.Store = &mysql.Store{}
 	case "redis":
 		store.Store = &redis.Store{}
 	case "dgraph":
@@ -64,6 +61,6 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram
+	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram
 	s.typeStore = viper.GetString("STORE_TYPE")
 }

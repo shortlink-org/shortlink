@@ -16,7 +16,7 @@ func New(_ context.Context) *message.Printer {
 
 	// Detect language
 	viper.AutomaticEnv()
-	viper.SetDefault("APP_LANGUAGE", "en-gb") // Select: postgres, mongo, mysql, redis, dgraph, sqlite, leveldb, badger, ram
+	viper.SetDefault("APP_LANGUAGE", "en-gb") // Select: en-gb, de-DE, fr-CH
 
 	// Use language.MustParse() to assign the appropriate language tag
 	// for the locale.
