@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "$(npm bin)/next dev",
+    "build": "$(npm bin)/next build",
+    "start": "$(npm bin)/next start",
     "generate": "NODE_ENV=production $(npm bin)/next build && $(npm bin)/next export",
     "lint": "$(npm bin)/eslint ./",
     "lint:fix": "$(npm bin)/eslint --fix ./"
