@@ -14,12 +14,37 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.30.0 |
+| file://../kafka-ui | kafka-ui | 0.4.3 |
+| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.31.0 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| kafka-ui.enabled | bool | `true` |  |
+| kafka-ui.envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS | string | `"kafka-kafka-bootstrap:9092"` |  |
+| kafka-ui.envs.config.KAFKA_CLUSTERS_0_NAME | string | `"shortlink"` |  |
+| kafka-ui.envs.config.KAFKA_CLUSTERS_0_READONLY | string | `"true"` |  |
+| kafka-ui.envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER | string | `"kafka-zookeeper-client:2181"` |  |
+| kafka-ui.envs.config.MANAGEMENT_HEALTH_LDAP_ENABLED | string | `"FALSE"` |  |
+| kafka-ui.envs.config.SERVER_SERVLET_CONTEXT_PATH | string | `"/kafka-ui"` |  |
+| kafka-ui.envs.config.SPRING_SECURITY_USER_NAME | string | `"redacted"` |  |
+| kafka-ui.envs.config.SPRING_SECURITY_USER_PASSWORD | string | `"redacted"` |  |
+| kafka-ui.envs.secret | object | `{}` |  |
+| kafka-ui.fullnameOverride | string | `"kafka-ui"` |  |
+| kafka-ui.image.tag | string | `"master"` |  |
+| kafka-ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/kafka-ui/$2"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
+| kafka-ui.ingress.enabled | bool | `true` |  |
+| kafka-ui.ingress.hostname | string | `"shortlink.best"` |  |
+| kafka-ui.ingress.path | string | `"/kafka-ui(/|$)(.*)"` |  |
+| kafka-ui.ingress.service.name | string | `"kafka-ui"` |  |
+| kafka-ui.ingress.service.port | int | `80` |  |
+| kafka-ui.ingress.type | string | `"nginx"` |  |
 | strimzi-kafka-operator.enabled | bool | `true` |  |
 | strimzi-kafka-operator.watchAnyNamespace | bool | `true` |  |
 | strimzi-kafka-operator.watchNamespaces[0] | string | `"shortlink"` |  |

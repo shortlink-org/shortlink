@@ -17,7 +17,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | file://../../shortlink-common | shortlink-common | 0.2.0 |
 | https://kyverno.github.io/kyverno | kyverno | v2.5.3 |
 | https://kyverno.github.io/kyverno | kyverno-policies | v2.5.5 |
-| https://kyverno.github.io/policy-reporter | policy-reporter | 2.11.3 |
+| https://kyverno.github.io/policy-reporter | policy-reporter | 2.13.0 |
 
 ## Values
 
@@ -45,6 +45,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
+| policy-reporter.ui.ingress.className | string | `"nginx"` |  |
 | policy-reporter.ui.ingress.enabled | bool | `true` |  |
 | policy-reporter.ui.ingress.hosts[0].host | string | `"shortlink.best"` |  |
 | policy-reporter.ui.ingress.hosts[0].paths[0].path | string | `"/kyverno/?(.*)"` |  |

@@ -14,10 +14,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.4.0 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.4.7 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.0.4 |
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.20.0 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.17.1 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.18.0 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 0.0.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.8.0 |
 
@@ -34,6 +34,18 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.controller.metrics.enabled | bool | `true` |  |
 | argo-cd.controller.metrics.serviceMonitor.enabled | bool | `true` |  |
 | argo-cd.controller.rules.enabled | bool | `true` |  |
+| argo-cd.controller.rules.spec[0].alert | string | `"ArgoAppMissing"` |  |
+| argo-cd.controller.rules.spec[0].annotations.description | string | `"Argo CD has not reported any applications data for the past 15 minutes which means that it must be down or not functioning properly.  This needs to be resolved for this cloud to continue to maintain state.\n"` |  |
+| argo-cd.controller.rules.spec[0].annotations.summary | string | `"[Argo CD] No reported applications"` |  |
+| argo-cd.controller.rules.spec[0].expr | string | `"absent(argocd_app_info)\n"` |  |
+| argo-cd.controller.rules.spec[0].for | string | `"15m"` |  |
+| argo-cd.controller.rules.spec[0].labels.severity | string | `"critical"` |  |
+| argo-cd.controller.rules.spec[1].alert | string | `"ArgoAppNotSynced"` |  |
+| argo-cd.controller.rules.spec[1].annotations.description | string | `"The application [{{`{{$labels.name}}`}} has not been synchronized for over\n 12 hours which means that the state of this cloud has drifted away from the\n state inside Git.\n"` |  |
+| argo-cd.controller.rules.spec[1].annotations.summary | string | `"[{{`{{$labels.name}}`}}] Application not synchronized"` |  |
+| argo-cd.controller.rules.spec[1].expr | string | `"argocd_app_info{sync_status!=\"Synced\"} == 1\n"` |  |
+| argo-cd.controller.rules.spec[1].for | string | `"12h"` |  |
+| argo-cd.controller.rules.spec[1].labels.severity | string | `"warning"` |  |
 | argo-cd.dex.enabled | bool | `true` |  |
 | argo-cd.dex.metrics.enabled | bool | `true` |  |
 | argo-cd.dex.metrics.serviceMonitor.enabled | bool | `true` |  |
