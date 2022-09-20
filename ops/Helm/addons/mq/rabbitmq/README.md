@@ -15,7 +15,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../../shortlink-common | shortlink-common | 0.2.0 |
-| https://charts.bitnami.com/bitnami | rabbitmq-cluster-operator | 2.7.2 |
+| https://charts.bitnami.com/bitnami | rabbitmq-cluster-operator | 2.7.4 |
 
 ## Values
 
@@ -33,12 +33,14 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.service.name | string | `"shortlink"` |  |
 | ingress.service.port | int | `15672` |  |
 | ingress.type | string | `"nginx"` |  |
-| rabbitmq-cluster-operator.clusterOperator.metrics.enabled | bool | `true` |  |
-| rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.enabled | bool | `true` |  |
+| rabbitmq-cluster-operator.clusterOperator.metrics.enabled | bool | `false` |  |
+| rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.enabled | bool | `false` |  |
+| rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.labels.release | string | `"prometheus-operator"` |  |
 | rabbitmq-cluster-operator.enabled | bool | `true` |  |
 | rabbitmq-cluster-operator.fullnameOverride | string | `"rabbitmq"` |  |
 | rabbitmq-cluster-operator.msgTopologyOperator.metrics.enabled | bool | `true` |  |
 | rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.enabled | bool | `true` |  |
+| rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.labels.release | string | `"prometheus-operator"` |  |
 | rabbitmq.clusterName | string | `"shortlink"` |  |
 
 ----------------------------------------------

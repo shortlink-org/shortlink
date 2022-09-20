@@ -1,8 +1,14 @@
 # kafka-ui
 
-![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
+![Version: 0.4.3](https://img.shields.io/badge/Version-0.4.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: latest](https://img.shields.io/badge/AppVersion-latest-informational?style=flat-square)
 
 A Helm chart for kafka-UI
+
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| file://../../../shortlink-common | shortlink-common | 0.2.0 |
 
 ## Values
 
@@ -14,13 +20,7 @@ A Helm chart for kafka-UI
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
 | env | object | `{}` |  |
-| envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS | string | `"kafka-kafka-bootstrap:9092"` |  |
-| envs.config.KAFKA_CLUSTERS_0_NAME | string | `"shortlink"` |  |
-| envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER | string | `"kafka-zookeeper-client:2181"` |  |
-| envs.config.MANAGEMENT_HEALTH_LDAP_ENABLED | string | `"FALSE"` |  |
-| envs.config.SERVER_SERVLET_CONTEXT_PATH | string | `"/kafka-ui"` |  |
-| envs.config.SPRING_SECURITY_USER_NAME | string | `"redacted"` |  |
-| envs.config.SPRING_SECURITY_USER_PASSWORD | string | `"redacted"` |  |
+| envs.config | object | `{}` |  |
 | envs.secret | object | `{}` |  |
 | existingConfigMap | string | `""` |  |
 | existingSecret | string | `""` |  |
@@ -30,18 +30,7 @@ A Helm chart for kafka-UI
 | image.repository | string | `"provectuslabs/kafka-ui"` |  |
 | image.tag | string | `""` |  |
 | imagePullSecrets | list | `[]` |  |
-| ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$2"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
-| ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"shortlink.best"` |  |
-| ingress.path | string | `"/kafka-ui(/|$)(.*)"` |  |
-| ingress.service.name | string | `"kafka-ui"` |  |
-| ingress.service.port | int | `80` |  |
-| ingress.type | string | `"nginx"` |  |
+| ingress | object | `{}` |  |
 | initContainers | object | `{}` |  |
 | nameOverride | string | `""` |  |
 | networkPolicy.egressRules.customRules | list | `[]` |  |

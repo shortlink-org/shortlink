@@ -15,9 +15,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../shortlink-common | shortlink-common | 0.2.0 |
-| https://grafana.github.io/helm-charts | grafana | 6.35.0 |
-| https://grafana.github.io/helm-charts | loki | 2.16.0 |
-| https://grafana.github.io/helm-charts | promtail | 6.3.0 |
+| https://grafana.github.io/helm-charts | grafana | 6.38.5 |
+| https://grafana.github.io/helm-charts | loki | 3.0.7 |
+| https://grafana.github.io/helm-charts | promtail | 6.4.0 |
 | https://grafana.github.io/helm-charts | tempo | 0.16.2 |
 
 ## Values
@@ -25,7 +25,6 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | grafana."grafana.ini".server.root_url | string | `"https://shortlink.best/grafana"` |  |
-| grafana.adminPassword | string | `"shortlink"` |  |
 | grafana.dashboardProviders."dashboardproviders.yaml".apiVersion | int | `1` |  |
 | grafana.dashboardProviders."dashboardproviders.yaml".providers[0].disableDeletion | bool | `false` |  |
 | grafana.dashboardProviders."dashboardproviders.yaml".providers[0].editable | bool | `true` |  |
@@ -34,20 +33,28 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.dashboardProviders."dashboardproviders.yaml".providers[0].options.path | string | `"/var/lib/grafana/dashboards/default"` |  |
 | grafana.dashboardProviders."dashboardproviders.yaml".providers[0].orgId | int | `1` |  |
 | grafana.dashboardProviders."dashboardproviders.yaml".providers[0].type | string | `"file"` |  |
-| grafana.dashboards.default.ceph.datasource | string | `"Prometheus"` |  |
-| grafana.dashboards.default.ceph.gnetId | int | `2842` |  |
-| grafana.dashboards.default.ceph.revision | int | `14` |  |
 | grafana.dashboards.default.cert-manager.datasource | string | `"Prometheus"` |  |
 | grafana.dashboards.default.cert-manager.gnetId | int | `11001` |  |
-| grafana.dashboards.default.cert-manager.revision | int | `1` |  |
 | grafana.dashboards.default.go-runtime.datasource | string | `"Prometheus"` |  |
 | grafana.dashboards.default.go-runtime.gnetId | int | `14061` |  |
-| grafana.dashboards.default.go-runtime.revision | int | `1` |  |
 | grafana.dashboards.default.ingress-nginx.url | string | `"https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json"` |  |
+| grafana.dashboards.default.istio-control-plane.datasource | string | `"Prometheus"` |  |
+| grafana.dashboards.default.istio-control-plane.gnetId | int | `7645` |  |
+| grafana.dashboards.default.istio-galley.datasource | string | `"Prometheus"` |  |
+| grafana.dashboards.default.istio-galley.gnetId | int | `7648` |  |
+| grafana.dashboards.default.istio-mesh.datasource | string | `"Prometheus"` |  |
+| grafana.dashboards.default.istio-mesh.gnetId | int | `14061` |  |
+| grafana.dashboards.default.istio-mixer.datasource | string | `"Prometheus"` |  |
+| grafana.dashboards.default.istio-mixer.gnetId | int | `7642` |  |
+| grafana.dashboards.default.istio-service.datasource | string | `"Prometheus"` |  |
+| grafana.dashboards.default.istio-service.gnetId | int | `7636` |  |
+| grafana.dashboards.default.istio-wasm-extension.datasource | string | `"Prometheus"` |  |
+| grafana.dashboards.default.istio-wasm-extension.gnetId | int | `13277` |  |
+| grafana.dashboards.default.istio-workload.datasource | string | `"Prometheus"` |  |
+| grafana.dashboards.default.istio-workload.gnetId | int | `7630` |  |
 | grafana.dashboards.default.kyverno.url | string | `"https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json"` |  |
 | grafana.dashboards.default.node-exporter.datasource | string | `"Prometheus"` |  |
 | grafana.dashboards.default.node-exporter.gnetId | int | `1860` |  |
-| grafana.dashboards.default.node-exporter.revision | int | `21` |  |
 | grafana.dashboards.default.rabbitmq-overview.datasource | string | `"Prometheus"` |  |
 | grafana.dashboards.default.rabbitmq-overview.gnetId | int | `10991` |  |
 | grafana.dashboards.default.rabbitmq-overview.revision | int | `11` |  |
@@ -112,6 +119,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.ingress.tls[0].hosts[0] | string | `"shortlink.best"` |  |
 | grafana.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | grafana.namespaceOverride | string | `""` |  |
+| grafana.plugins | list | `[]` |  |
 | grafana.serviceMonitor.enabled | bool | `true` |  |
 | grafana.serviceMonitor.interval | string | `"1m"` |  |
 | grafana.serviceMonitor.selfMonitor | bool | `true` |  |

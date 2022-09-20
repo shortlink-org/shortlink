@@ -34,12 +34,12 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.annotations | object | `{}` | Annotations to be added to controller pods |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
-| deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@rabbitmq.rabbitmq:5672"` |  |
+| deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@shortlink.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
 | deploy.env.TRACER_URI | string | `"grafana-tempo.grafana:6831"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
-| deploy.image.repository | string | `"batazor/shortlink-metadata"` |  |
+| deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/metadata"` |  |
 | deploy.image.tag | string | `"latest"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/live","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
