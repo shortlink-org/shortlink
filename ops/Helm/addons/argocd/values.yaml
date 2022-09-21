@@ -163,10 +163,15 @@ argo-cd:
     volumes:
       - name: custom-tools
         emptyDir: {}
+      - name: sops-gpg
+        secret:
+          secretName: sops-gpg
 
     volumeMounts:
       - mountPath: /custom-tools
         name: custom-tools
+      - mountPath: /sops-gpg/
+        name: sops-gpg
     # helm secrets wrapper mode installation (optional)
     #  - mountPath: /usr/local/sbin/helm
     #    subPath: helm
