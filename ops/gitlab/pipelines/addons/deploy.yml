@@ -1,3 +1,6 @@
+include:
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
+
 # Deploy ===============================================================================================================
 argo:
   stage: deploy
