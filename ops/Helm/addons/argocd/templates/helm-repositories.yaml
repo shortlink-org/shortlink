@@ -93,3 +93,17 @@ stringData:
   name: elasticsearch
   url: https://helm.elastic.co
   type: helm
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: chaos-mesh
+  namespace: {{ .Release.Namespace }}
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  name: chaos-mesh
+  url: https://charts.chaos-mesh.org
+  type: helm
