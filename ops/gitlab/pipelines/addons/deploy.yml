@@ -22,12 +22,10 @@ argo-secret:
     - .matrix_deploy_provider
   stage: deploy
   image:
-    name: bitnami/kubectl
-    entrypoint: ["/bin/sh", "-c"]
+    name: alpine/k8s:1.25.0
+    entrypoint: [""]
   script:
-    - kubectl create secret generic sops-gpg 
-        --namespace=argocd 
-        --from-file=sops.asc=${GPG_TOKEN}
+    - kubectl create secret generic sops-gpg --namespace=argocd --from-file=sops.asc=${GPG_TOKEN}
   needs: []
   rules:
     - when: manual
