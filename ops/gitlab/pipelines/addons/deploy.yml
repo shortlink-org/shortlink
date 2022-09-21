@@ -21,10 +21,9 @@ argo-secret:
   extends:
     - .matrix_deploy_provider
   stage: deploy
-  services:
-    - name: docker:dind
-      command: [ "--experimental" ]
-  image: bitnami/kubectl
+  image:
+    name: bitnami/kubectl
+    entrypoint: [""]
   script:
     - cat "${GPG_TOKEN} |
       kubectl create secret generic sops-gpg \
