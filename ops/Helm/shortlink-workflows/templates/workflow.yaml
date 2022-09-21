@@ -1,4 +1,3 @@
-{{- if and (.Capabilities.APIVersions.Has "argoproj.io/v1alpha1") -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
@@ -43,4 +42,3 @@ spec:
               template: templateContainer
             arguments:
               parameters: [{name: message, value: D}]
-{{- end }}
