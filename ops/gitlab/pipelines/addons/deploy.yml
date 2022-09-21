@@ -25,7 +25,7 @@ argo-secret:
     name: bitnami/kubectl
     entrypoint: ["/bin/sh", "-c"]
   script:
-    - cat "${GPG_TOKEN} |
+    - cat "${GPG_TOKEN}" |
       kubectl create secret generic sops-gpg \
       --namespace=argocd \
       --from-file=sops.asc=/dev/stdin
