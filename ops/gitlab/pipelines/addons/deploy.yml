@@ -25,16 +25,16 @@ argo-secret:
     name: alpine/k8s:1.25.0
     entrypoint: [""]
   before_script:
-    - kubectl delete secret generic
+    - kubectl delete secret
       --context=shortlink-org/shortlink:${PROVIDER}
       --namespace=argocd
       sops-gpg
   script:
     - kubectl create secret generic
       --context=shortlink-org/shortlink:${PROVIDER}
-      sops-gpg 
       --namespace=argocd 
       --from-file=sops.asc=${GPG_TOKEN}
+      sops-gpg
   needs: []
   rules:
     - when: manual
