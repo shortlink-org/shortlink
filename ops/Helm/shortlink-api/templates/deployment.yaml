@@ -58,11 +58,11 @@ spec:
           {{- end }}
         resources:
           {{- toYaml .Values.deploy.resources | nindent 10 }}
-        {{- if and .Values.secret.enabled -}}
+        {{ if and .Values.secret.enabled }}
         volumeMounts:
           - name: {{ include "helpers.fullname" . }}-grpc
             mountPath: /app/ops/cert/
-        {{- end }}
+        {{ end }}
       {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
