@@ -23,7 +23,7 @@ argo-secret:
   stage: deploy
   image:
     name: bitnami/kubectl
-    entrypoint: ["/bin/sh"]
+    entrypoint: ["/bin/sh", "-c"]
   script:
     - cat "${GPG_TOKEN} |
       kubectl create secret generic sops-gpg \
