@@ -14,6 +14,23 @@ argo:
   rules:
     - when: manual
 
+argo-secret:
+  extends:
+    - .matrix_deploy_provider
+  stage: deploy
+  services:
+    - name: docker:dind
+      command: [ "--experimental" ]
+  image: bitnami/kubectl
+  script:
+    - cat "${GPG_TOKEN} |
+      kubectl create secret generic sops-gpg \
+      --namespace=argocd \
+      --from-file=sops.asc=/dev/stdin
+  needs: []
+  rules:
+    - when: manual
+
 keda:
   stage: deploy
   variables:
