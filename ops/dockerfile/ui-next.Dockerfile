@@ -38,7 +38,7 @@ USER root
 
 # Copy application and custom NGINX configuration
 COPY --from=builder /app/out ./next
-COPY ./ops/dockerfile/conf/ui.local /etc/nginx/conf.d/ui.local
+COPY ./ops/dockerfile/conf/nextjs.local /etc/nginx/conf.d/ui.local
 COPY ./ops/docker-compose/gateway/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./ops/docker-compose/gateway/nginx/templates /etc/nginx/template
 
