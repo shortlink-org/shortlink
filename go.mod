@@ -79,7 +79,7 @@ require (
 	k8s.io/kubernetes v1.15.0-alpha.0
 	k8s.io/mount-utils v0.25.1
 	k8s.io/utils v0.0.0-20220823124924-e9cbc92d1a73
-	knative.dev/pkg v0.0.0-20220920224309-df29e2a20aba
+	knative.dev/pkg v0.0.0-20220921024409-d1d5c849073b
 )
 
 require (
