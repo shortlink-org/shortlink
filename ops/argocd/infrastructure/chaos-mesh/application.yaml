@@ -18,7 +18,16 @@ spec:
     helm:
       releaseName: chaos-mesh
       values: |
+        controllerManager:
+          enableFilterNamespace: true
+
         dashboard:
+          env:
+            DATABASE_DRIVER: postgres
+            DATABASE_DATASOURCE: "postgres://root:password@1.2.3.4:5432/postgres?sslmode=disable"
+            TTL_EVENT: 48h
+            TTL_EXPERIMENT: 96h
+
           ingress:
             enabled: true
 
