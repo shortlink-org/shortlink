@@ -72,7 +72,7 @@ require (
 	golang.org/x/net v0.0.0-20220921203646-d300de134e69
 	golang.org/x/sync v0.0.0-20220819030929-7fc1605a5dde
 	golang.org/x/text v0.3.8-0.20220817174131-b0ca10ff35f1
-	google.golang.org/genproto v0.0.0-20220921223823-23cae91e6737
+	google.golang.org/genproto v0.0.0-20220923205249-dd2d53f1fffc
 	google.golang.org/grpc v1.49.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
