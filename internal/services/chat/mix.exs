@@ -41,7 +41,7 @@ defmodule Chat.MixProject do
       {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:phoenix_live_view, "~> 0.18.0"},
       {:floki, ">= 0.33.1", only: :test},
-      {:phoenix_live_dashboard, "~> 0.6"},
+      {:phoenix_live_dashboard, "~> 0.7"},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.8"},
       {:telemetry_metrics, "~> 0.6"},
