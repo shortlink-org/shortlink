@@ -1,3 +1,5 @@
 setuptools
 sklearn
 matplotlib
+numpy>=1.22.2 # not directly required, pinned by Snyk to avoid a vulnerability
+scikit-learn>=0.24.2 # not directly required, pinned by Snyk to avoid a vulnerability
