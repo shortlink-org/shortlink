@@ -39,7 +39,7 @@ defmodule Chat.MixProject do
       {:postgrex, ">= 0.16.5"},
       {:phoenix_html, "~> 3.2"},
       {:phoenix_live_reload, "~> 1.3", only: :dev},
-      {:phoenix_live_view, "~> 0.18.0"},
+      {:phoenix_live_view, "~> 0.18.1"},
       {:floki, ">= 0.33.1", only: :test},
       {:phoenix_live_dashboard, "~> 0.7"},
       {:esbuild, "~> 0.5", runtime: Mix.env() == :dev},
