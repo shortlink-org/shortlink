@@ -2,7 +2,7 @@
 ansible-up:
   stage: .pre
   when: manual
-  image: quay.io/ansible/creator-ee:v0.8.0
+  image: quay.io/ansible/creator-ee:v0.9.0
   before_script:
     - sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
     - sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
