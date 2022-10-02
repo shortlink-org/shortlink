@@ -46,7 +46,7 @@ require (
 	github.com/prometheus/client_golang v1.13.0
 	github.com/pterm/pterm v0.12.47
 	github.com/rabbitmq/amqp091-go v1.5.0
-	github.com/riandyrn/otelchi v0.4.0
+	github.com/riandyrn/otelchi v0.5.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.5.0
