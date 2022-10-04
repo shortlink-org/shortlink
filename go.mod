@@ -17,7 +17,7 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/edgedb/edgedb-go v0.12.0
 	github.com/elastic/go-elasticsearch/v8 v8.4.0
-	github.com/getsentry/sentry-go v0.13.0
+	github.com/getsentry/sentry-go v0.14.0
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.2
@@ -131,7 +131,7 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/flatbuffers v2.0.0+incompatible // indirect
-	github.com/google/go-cmp v0.5.8 // indirect
+	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gookit/color v1.5.2 // indirect
@@ -203,7 +203,7 @@ require (
 	github.com/twmb/murmur3 v1.1.5 // indirect
 	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.16 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
-	github.com/vmihailenco/msgpack/v5 v5.3.4 // indirect
+	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.1 // indirect
@@ -222,11 +222,11 @@ require (
 	go.opentelemetry.io/contrib v1.0.0 // indirect
 	go.opentelemetry.io/otel/metric v0.31.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90 // indirect
+	golang.org/x/crypto v0.0.0-20220926161630-eccd6366d1be // indirect
 	golang.org/x/exp v0.0.0-20210916165020-5cb4fee858ee // indirect
-	golang.org/x/sys v0.0.0-20220909162455-aba9fc2a8ff2 // indirect
+	golang.org/x/sys v0.0.0-20220928140112-f11e5e49a4ec // indirect
 	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467 // indirect
-	golang.org/x/time v0.0.0-20220609170525-579cf78fd858 // indirect
+	golang.org/x/time v0.0.0-20220922220347-f3bd1da661af // indirect
 	golang.org/x/tools v0.1.12 // indirect
 	google.golang.org/api v0.93.0 // indirect
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
