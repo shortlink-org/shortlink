@@ -73,7 +73,7 @@ require (
 	golang.org/x/sync v0.0.0-20220929204114-8fcdb60fdcc0
 	golang.org/x/text v0.3.8-0.20220817174131-b0ca10ff35f1
 	google.golang.org/genproto v0.0.0-20220930163606-c98284e70a91
-	google.golang.org/grpc v1.49.0
+	google.golang.org/grpc v1.50.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
 	k8s.io/kubernetes v1.15.0-alpha.0
