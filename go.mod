@@ -31,11 +31,11 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
 	github.com/graph-gophers/graphql-go v1.4.0
-	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.2
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.3
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
-	github.com/jackc/pgx/v5 v5.0.1
+	github.com/jackc/pgx/v5 v5.0.2
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/krzysztofreczek/go-structurizr v0.1.27
 	github.com/kubernetes-csi/csi-test/v4 v4.4.0
@@ -56,8 +56,8 @@ require (
 	github.com/stretchr/testify v1.8.0
 	github.com/swaggo/swag v1.8.6
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
-	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.16
-	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.16
+	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.17
+	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.17
 	go.etcd.io/etcd/client/v3 v3.5.5
 	go.mongodb.org/mongo-driver v1.10.3
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.36.1
@@ -73,13 +73,13 @@ require (
 	golang.org/x/sync v0.0.0-20220929204114-8fcdb60fdcc0
 	golang.org/x/text v0.3.8-0.20220817174131-b0ca10ff35f1
 	google.golang.org/genproto v0.0.0-20220930163606-c98284e70a91
-	google.golang.org/grpc v1.49.0
+	google.golang.org/grpc v1.50.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
 	k8s.io/kubernetes v1.15.0-alpha.0
 	k8s.io/mount-utils v0.25.2
 	k8s.io/utils v0.0.0-20220922133306-665eaaec4324
-	knative.dev/pkg v0.0.0-20221006013630-1fb3e679f6d4
+	knative.dev/pkg v0.0.0-20221007211032-8178c3871785
 )
 
 require (
@@ -201,7 +201,7 @@ require (
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	github.com/twmb/murmur3 v1.1.5 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.16 // indirect
+	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.17 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
@@ -220,7 +220,7 @@ require (
 	go.etcd.io/etcd/client/pkg/v3 v3.5.5 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.opentelemetry.io/contrib v1.0.0 // indirect
-	go.opentelemetry.io/otel/metric v0.31.0 // indirect
+	go.opentelemetry.io/otel/metric v0.32.1 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/crypto v0.0.0-20220926161630-eccd6366d1be // indirect
 	golang.org/x/exp v0.0.0-20210916165020-5cb4fee858ee // indirect
@@ -235,9 +235,9 @@ require (
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.25.1 // indirect
-	k8s.io/apimachinery v0.25.1 // indirect
-	k8s.io/client-go v0.25.1 // indirect
+	k8s.io/api v0.25.2 // indirect
+	k8s.io/apimachinery v0.25.2 // indirect
+	k8s.io/client-go v0.25.2 // indirect
 	k8s.io/klog v1.0.0 // indirect
 	k8s.io/klog/v2 v2.80.1 // indirect
 	sigs.k8s.io/json v0.0.0-20220713155537-f223a00ba0e2 // indirect
