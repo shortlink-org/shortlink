@@ -32,7 +32,7 @@ dependencies:
       - automatiozation
       - ui
   - name: kyverno-policies
-    version: v2.5.5
+    version: 2.6.0
     repository: https://kyverno.github.io/kyverno
     condition: kyverno-policies.enabled
     tags:
