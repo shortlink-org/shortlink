@@ -17,7 +17,7 @@ This UI for shortlink application
 
 ### Getting start
 
-```
+```bash
 $> npm ci
 $> npm start
 $>
@@ -34,6 +34,12 @@ $> Ready on http://127.0.0.1:3000/next/auth/login
 
 ### Storybook
 
-```
+```bash
 $> npm run storybook
+```
+
+### Build docker image
+
+```bash
+$> docker buildx build -t next-ui -f ops/dockerfile/ui-next.Dockerfile .
 ```

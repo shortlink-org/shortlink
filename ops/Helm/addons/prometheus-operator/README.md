@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 40.1.0 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 41.4.0 |
 
 ## Values
 

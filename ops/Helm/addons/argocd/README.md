@@ -14,12 +14,12 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.4.7 |
-| https://argoproj.github.io/argo-helm | argo-events | 2.0.4 |
-| https://argoproj.github.io/argo-helm | argo-rollouts | 2.20.0 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.18.0 |
-| https://argoproj.github.io/argo-helm | argocd-apps | 0.0.1 |
-| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.8.0 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.6.0 |
+| https://argoproj.github.io/argo-helm | argo-events | 2.0.6 |
+| https://argoproj.github.io/argo-helm | argo-rollouts | 2.21.1 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.20.1 |
+| https://argoproj.github.io/argo-helm | argocd-apps | 0.0.3 |
+| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.8.1 |
 
 ## Values
 
@@ -58,10 +58,53 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.notifications.notifiers."service.slack" | string | `"token: $slack-token\nusername: argocd # optional username\nicon: :dart: # optional icon for the message (supports both emoij and url notation)\n"` |  |
 | argo-cd.notifications.secret.items.slack-token | string | `"<SECRET>"` |  |
 | argo-cd.redis.enabled | bool | `false` |  |
+| argo-cd.repoServer.env[0].name | string | `"HELM_PLUGINS"` |  |
+| argo-cd.repoServer.env[0].value | string | `"/custom-tools/helm-plugins/"` |  |
+| argo-cd.repoServer.env[1].name | string | `"HELM_SECRETS_SOPS_PATH"` |  |
+| argo-cd.repoServer.env[1].value | string | `"/custom-tools/sops"` |  |
+| argo-cd.repoServer.env[2].name | string | `"HELM_SECRETS_VALS_PATH"` |  |
+| argo-cd.repoServer.env[2].value | string | `"/custom-tools/vals"` |  |
+| argo-cd.repoServer.env[3].name | string | `"HELM_SECRETS_KUBECTL_PATH"` |  |
+| argo-cd.repoServer.env[3].value | string | `"/custom-tools/kubectl"` |  |
+| argo-cd.repoServer.env[4].name | string | `"HELM_SECRETS_CURL_PATH"` |  |
+| argo-cd.repoServer.env[4].value | string | `"/custom-tools/curl"` |  |
+| argo-cd.repoServer.env[5].name | string | `"HELM_SECRETS_VALUES_ALLOW_SYMLINKS"` |  |
+| argo-cd.repoServer.env[5].value | string | `"false"` |  |
+| argo-cd.repoServer.env[6].name | string | `"HELM_SECRETS_VALUES_ALLOW_ABSOLUTE_PATH"` |  |
+| argo-cd.repoServer.env[6].value | string | `"false"` |  |
+| argo-cd.repoServer.env[7].name | string | `"HELM_SECRETS_VALUES_ALLOW_PATH_TRAVERSAL"` |  |
+| argo-cd.repoServer.env[7].value | string | `"false"` |  |
+| argo-cd.repoServer.initContainers[0].args[0] | string | `"mkdir -p /custom-tools/helm-plugins\nwget -qO- https://github.com/jkroepke/helm-secrets/releases/download/v${HELM_SECRETS_VERSION}/helm-secrets.tar.gz | tar -C /custom-tools/helm-plugins -xzf-;\n\nwget -qO /custom-tools/sops https://github.com/mozilla/sops/releases/download/v${SOPS_VERSION}/sops-v${SOPS_VERSION}.linux\nwget -qO /custom-tools/kubectl https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl\n\nwget -qO- https://github.com/variantdev/vals/releases/download/v${VALS_VERSION}/vals_${VALS_VERSION}_linux_amd64.tar.gz | tar -xzf- -C /custom-tools/ vals;\n\n# helm secrets wrapper mode installation (optional)\n# RUN printf '#!/usr/bin/env sh\\nexec %s secrets \"$@\"' \"${HELM_SECRETS_HELM_PATH}\" >\"/usr/local/sbin/helm\" && chmod +x \"/custom-tools/helm\"\n\nchmod +x /custom-tools/*\n"` |  |
+| argo-cd.repoServer.initContainers[0].command[0] | string | `"sh"` |  |
+| argo-cd.repoServer.initContainers[0].command[1] | string | `"-ec"` |  |
+| argo-cd.repoServer.initContainers[0].env[0].name | string | `"HELM_SECRETS_VERSION"` |  |
+| argo-cd.repoServer.initContainers[0].env[0].value | string | `"4.1.1"` |  |
+| argo-cd.repoServer.initContainers[0].env[1].name | string | `"KUBECTL_VERSION"` |  |
+| argo-cd.repoServer.initContainers[0].env[1].value | string | `"1.25.1"` |  |
+| argo-cd.repoServer.initContainers[0].env[2].name | string | `"VALS_VERSION"` |  |
+| argo-cd.repoServer.initContainers[0].env[2].value | string | `"0.18.0"` |  |
+| argo-cd.repoServer.initContainers[0].env[3].name | string | `"SOPS_VERSION"` |  |
+| argo-cd.repoServer.initContainers[0].env[3].value | string | `"3.7.3"` |  |
+| argo-cd.repoServer.initContainers[0].image | string | `"alpine:latest"` |  |
+| argo-cd.repoServer.initContainers[0].name | string | `"download-tools"` |  |
+| argo-cd.repoServer.initContainers[0].volumeMounts[0].mountPath | string | `"/custom-tools"` |  |
+| argo-cd.repoServer.initContainers[0].volumeMounts[0].name | string | `"custom-tools"` |  |
 | argo-cd.repoServer.metrics.enabled | bool | `true` |  |
 | argo-cd.repoServer.metrics.serviceMonitor.enabled | bool | `true` |  |
+| argo-cd.repoServer.rbac[0].apiGroups[0] | string | `""` |  |
+| argo-cd.repoServer.rbac[0].resources[0] | string | `"secrets"` |  |
+| argo-cd.repoServer.rbac[0].verbs[0] | string | `"get"` |  |
+| argo-cd.repoServer.serviceAccount.create | bool | `true` |  |
+| argo-cd.repoServer.serviceAccount.name | string | `"argocd-repo-server"` |  |
+| argo-cd.repoServer.volumeMounts[0].mountPath | string | `"/custom-tools"` |  |
+| argo-cd.repoServer.volumeMounts[0].name | string | `"custom-tools"` |  |
+| argo-cd.repoServer.volumeMounts[1].mountPath | string | `"/sops-gpg/"` |  |
+| argo-cd.repoServer.volumeMounts[1].name | string | `"sops-gpg"` |  |
 | argo-cd.repoServer.volumes[0].emptyDir | object | `{}` |  |
 | argo-cd.repoServer.volumes[0].name | string | `"custom-tools"` |  |
+| argo-cd.repoServer.volumes[1].name | string | `"sops-gpg"` |  |
+| argo-cd.repoServer.volumes[1].secret.secretName | string | `"sops-gpg"` |  |
+| argo-cd.server.config."helm.valuesFileSchemes" | string | `"secrets+gpg-import, secrets+gpg-import-kubernetes, secrets+age-import, secrets+age-import-kubernetes, secrets,secrets+literal, https"` |  |
 | argo-cd.server.config.url | string | `"https://shortlink.best/argocd"` |  |
 | argo-cd.server.configAnnotations | object | `{}` |  |
 | argo-cd.server.extensions.enabled | bool | `true` |  |
