@@ -15,9 +15,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../shortlink-common | shortlink-common | 0.2.0 |
-| https://kyverno.github.io/kyverno | kyverno | v2.5.3 |
-| https://kyverno.github.io/kyverno | kyverno-policies | v2.5.5 |
-| https://kyverno.github.io/policy-reporter | policy-reporter | 2.13.0 |
+| https://kyverno.github.io/kyverno | kyverno | 2.6.0 |
+| https://kyverno.github.io/kyverno | kyverno-policies | 2.6.0 |
+| https://kyverno.github.io/policy-reporter | policy-reporter | 2.13.1 |
 
 ## Values
 
