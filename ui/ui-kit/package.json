@@ -1,11 +1,11 @@
 {
   "name": "@shortlink-org/ui-kit",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "UI kit for shortlink",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c --strictDeprecations --bundleConfigAsCjs",
     "storybook": "$(npm bin)/start-storybook -p 6006",
     "build-storybook": "$(npm bin)/build-storybook",
     "semantic-release": "$(npm bin)/semantic-release",

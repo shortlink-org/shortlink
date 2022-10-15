@@ -1,4 +1,4 @@
-import resolve from "@rollup/plugin-node-resolve"
+import { nodeResolve } from "@rollup/plugin-node-resolve"
 import commonjs from "@rollup/plugin-commonjs"
 import typescript from "@rollup/plugin-typescript"
 import { terser } from "rollup-plugin-terser"
@@ -25,6 +25,7 @@ export default [
       },
     ],
     plugins: [
+      nodeResolve(),
       peerDepsExternal(),
       postcss({
         extract: true,
@@ -32,14 +33,13 @@ export default [
       babel({
         exclude: 'node_modules/**',
       }),
-      resolve(),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
       terser()
     ],
     external: ["react", "react-dom", "styled-components", "next-themes", "@emotion/cache", "@mui/material"]
   },
-  // {
+  // {material
   //   input: "dist/esm/index.d.ts",
   //   output: [{ file: "dist/index.d.ts", format: "esm" }],
   //   plugins: [dts()],
