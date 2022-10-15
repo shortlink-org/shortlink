@@ -25,7 +25,7 @@ const ActiveLink = ({
       // Static route will be matched via props.href
       const linkPathname = new URL(
         (props.as || props.href) as string,
-        location.href
+        location.href,
       ).pathname
 
       // Using URL().pathname to get rid of query and hash
