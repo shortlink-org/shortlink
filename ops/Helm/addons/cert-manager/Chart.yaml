@@ -17,7 +17,7 @@ dependencies:
     version: 0.2.0
     repository: "file://../../shortlink-common"
   - name: cert-manager
-    version: v1.9.1
+    version: v1.10.0
     repository: https://charts.jetstack.io
     condition: cert-manager.enabled
     tags:
