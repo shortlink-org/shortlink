@@ -54,7 +54,7 @@ require (
 	github.com/spf13/viper v1.13.0
 	github.com/srikrsna/protoc-gen-gotag v0.6.2
 	github.com/stretchr/testify v1.8.0
-	github.com/swaggo/swag v1.8.6
+	github.com/swaggo/swag v1.8.7
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.17
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.17
