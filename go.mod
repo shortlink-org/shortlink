@@ -71,7 +71,7 @@ require (
 	go.uber.org/zap v1.23.0
 	golang.org/x/net v0.0.0-20221017152216-f25eb7ecb193
 	golang.org/x/sync v0.0.0-20220929204114-8fcdb60fdcc0
-	golang.org/x/text v0.3.8
+	golang.org/x/text v0.4.0
 	google.golang.org/genproto v0.0.0-20221018160656-63c7b68cfc55
 	google.golang.org/grpc v1.50.1
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
