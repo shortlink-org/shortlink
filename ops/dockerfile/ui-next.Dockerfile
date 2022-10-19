@@ -3,7 +3,7 @@
 ARG API_URI
 
 # Install dependencies only when needed
-FROM node:18.11-alpine as deps
+FROM node:19.0-alpine as deps
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN npm config set ignore-scripts false
@@ -14,7 +14,7 @@ COPY ./ui/next/package.json ./ui/next/package-lock.json ./
 RUN npm ci --cache .npm --prefer-offline --force
 
 # Rebuild the source code only when needed
-FROM node:18.11-alpine as builder
+FROM node:19.0-alpine as builder
 
 ARG API_URI
 ENV API_URI=${API_URI}
