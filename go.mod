@@ -15,7 +15,7 @@ require (
 	github.com/cucumber/godog v0.12.5
 	github.com/dgraph-io/badger/v3 v3.2103.3
 	github.com/dgraph-io/dgo/v2 v2.2.0
-	github.com/edgedb/edgedb-go v0.12.0
+	github.com/edgedb/edgedb-go v0.13.0
 	github.com/elastic/go-elasticsearch/v8 v8.4.0
 	github.com/getsentry/sentry-go v0.14.0
 	github.com/go-chi/chi/v5 v5.0.7
@@ -223,7 +223,8 @@ require (
 	go.opentelemetry.io/otel/metric v0.32.1 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/crypto v0.0.0-20220926161630-eccd6366d1be // indirect
-	golang.org/x/exp v0.0.0-20210916165020-5cb4fee858ee // indirect
+	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e // indirect
+	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
 	golang.org/x/sys v0.1.0 // indirect
 	golang.org/x/term v0.1.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect
