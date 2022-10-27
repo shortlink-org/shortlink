@@ -10,5 +10,18 @@ COPY internal/services/bot /app
 RUN mvn -f /app/pom.xml clean package
 
 FROM openjdk:11.0.16-jre-slim
+
+# Install dependencies
+RUN \
+  apt update && \
+  apt install -y curl
+
+HEALTHCHECK \
+  --interval=5s \
+  --timeout=5s \
+  --retries=3 \
+  CMD curl -f localhost:9090/ready || exit 1
+
 COPY --from=builder /app/target/shortlink-bot-1.0-SNAPSHOT.jar /usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar
+
 ENTRYPOINT ["java", "-jar", "/usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar"]

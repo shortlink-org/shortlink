@@ -7,6 +7,17 @@ FROM node:19.0-alpine as builder
 ARG MAX_OLD_SPACE_SIZE=8192
 ENV NODE_OPTIONS=--max_old_space_size=${MAX_OLD_SPACE_SIZE}
 
+# Install dependencies
+RUN \
+  apk update && \
+  apk add --no-cache curl
+
+HEALTHCHECK \
+  --interval=5s \
+  --timeout=5s \
+  --retries=3 \
+  CMD curl -f localhost:9090/ready || exit 1
+
 WORKDIR /app
 COPY ./internal/services/proxy /app/
 

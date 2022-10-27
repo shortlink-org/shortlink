@@ -13,8 +13,19 @@ RUN apt-get update && \
 COPY requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
-# Финальный этап
+# Final image
 FROM python:3.11-slim
+
+# Install dependencies
+RUN \
+  apk update && \
+  apk add --no-cache curl
+
+HEALTHCHECK \
+  --interval=5s \
+  --timeout=5s \
+  --retries=3 \
+  CMD curl -f localhost:9090/ready || exit 1
 
 WORKDIR /app
 
