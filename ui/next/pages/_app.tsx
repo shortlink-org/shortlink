@@ -35,6 +35,7 @@ const MyApp: FC<AppProps> = ({ Component, ...rest }) => {
   const { emotionCache = clientSideEmotionCache, pageProps } = props
 
   const [darkMode, setDarkMode] = useState(false)
+  const theme = darkMode ? darkTheme : lightTheme
 
   return (
     <React.StrictMode>
@@ -68,6 +69,7 @@ const MyApp: FC<AppProps> = ({ Component, ...rest }) => {
             }}
             titleTemplate="Shortlink | %s"
             defaultTitle="Shortlink"
+            themeColor={theme.palette.primary.main}
           />
 
           {/* @ts-ignore */}
@@ -92,7 +94,7 @@ const MyApp: FC<AppProps> = ({ Component, ...rest }) => {
           />
 
           <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+            <ThemeProvider theme={theme}>
               {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
               <CssBaseline />
               <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
