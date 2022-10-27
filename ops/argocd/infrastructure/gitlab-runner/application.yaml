@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitlab-runner
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: gitlab-runner
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ops/Helm/addons/gitlab-runner
+    repoURL: 'https://github.com/batazor/shortlink'
+    targetRevision: HEAD
+    helm:
+      releaseName: gitlab-runner
+      valueFiles:
+        # default values
+        - values.yaml
+
+        # Method 1: Mount the gpg key from a kubernetes secret as volume
+        # secrets+gpg-import://<key-volume-mount>/<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
+        # secrets+age-import://<key-volume-mount>/<key-name>.txt?<relative/path/to/the/encrypted/secrets.yaml>
+        # Example Method 1: (Assumptions: key-volume-mount=/sops-gpg, key-name=app, secret.yaml is in the root folder)
+        - secrets+gpg-import:///sops-gpg/sops.asc?values.secrets.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
+  ignoreDifferences:
+    - group: kyverno.io
+      kind: ClusterPolicy
+      jqPathExpressions:
+        - .spec.rules[] | select(.name|test("autogen-."))
