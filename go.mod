@@ -15,7 +15,7 @@ require (
 	github.com/cucumber/godog v0.12.5
 	github.com/dgraph-io/badger/v3 v3.2103.3
 	github.com/dgraph-io/dgo/v2 v2.2.0
-	github.com/edgedb/edgedb-go v0.12.0
+	github.com/edgedb/edgedb-go v0.13.0
 	github.com/elastic/go-elasticsearch/v8 v8.4.0
 	github.com/getsentry/sentry-go v0.14.0
 	github.com/go-chi/chi/v5 v5.0.7
@@ -33,14 +33,14 @@ require (
 	github.com/graph-gophers/graphql-go v1.4.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.3
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.12.0
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
-	github.com/jackc/pgx/v5 v5.0.3
+	github.com/jackc/pgx/v5 v5.0.4
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
-	github.com/krzysztofreczek/go-structurizr v0.1.27
+	github.com/krzysztofreczek/go-structurizr v0.1.28
 	github.com/kubernetes-csi/csi-test/v4 v4.4.0
 	github.com/lib/pq v1.10.7
-	github.com/mattn/go-sqlite3 v1.14.15
+	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/nats-io/nats.go v1.18.0
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/prometheus/client_golang v1.13.0
@@ -49,37 +49,37 @@ require (
 	github.com/riandyrn/otelchi v0.5.0
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.9.0
-	github.com/spf13/cobra v1.6.0
+	github.com/spf13/cobra v1.6.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.13.0
 	github.com/srikrsna/protoc-gen-gotag v0.6.2
-	github.com/stretchr/testify v1.8.0
-	github.com/swaggo/swag v1.8.6
+	github.com/stretchr/testify v1.8.1
+	github.com/swaggo/swag v1.8.7
 	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.17
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.17
 	go.etcd.io/etcd/client/v3 v3.5.5
 	go.mongodb.org/mongo-driver v1.10.3
-	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.36.3
-	go.opentelemetry.io/otel v1.11.0
-	go.opentelemetry.io/otel/exporters/jaeger v1.11.0
-	go.opentelemetry.io/otel/sdk v1.11.0
-	go.opentelemetry.io/otel/trace v1.11.0
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.36.4
+	go.opentelemetry.io/otel v1.11.1
+	go.opentelemetry.io/otel/exporters/jaeger v1.11.1
+	go.opentelemetry.io/otel/sdk v1.11.1
+	go.opentelemetry.io/otel/trace v1.11.1
 	go.uber.org/atomic v1.10.0
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/goleak v1.2.0
 	go.uber.org/zap v1.23.0
-	golang.org/x/net v0.0.0-20221014081412-f15817d10f9b
-	golang.org/x/sync v0.0.0-20220929204114-8fcdb60fdcc0
-	golang.org/x/text v0.3.8
-	google.golang.org/genproto v0.0.0-20221014213838-99cd37c6964a
+	golang.org/x/net v0.1.0
+	golang.org/x/sync v0.1.0
+	golang.org/x/text v0.4.0
+	google.golang.org/genproto v0.0.0-20221025140454-527a21cfbd71
 	google.golang.org/grpc v1.50.1
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
 	k8s.io/kubernetes v1.15.0-alpha.0
 	k8s.io/mount-utils v0.25.3
 	k8s.io/utils v0.0.0-20221012122500-cfd413dd9e85
-	knative.dev/pkg v0.0.0-20221014164553-b812affa3893
+	knative.dev/pkg v0.0.0-20221025200856-6ce976ce9255
 )
 
 require (
@@ -223,9 +223,10 @@ require (
 	go.opentelemetry.io/otel/metric v0.32.1 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/crypto v0.0.0-20220926161630-eccd6366d1be // indirect
-	golang.org/x/exp v0.0.0-20210916165020-5cb4fee858ee // indirect
-	golang.org/x/sys v0.0.0-20221010170243-090e33056c14 // indirect
-	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467 // indirect
+	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e // indirect
+	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
+	golang.org/x/sys v0.1.0 // indirect
+	golang.org/x/term v0.1.0 // indirect
 	golang.org/x/tools v0.1.12 // indirect
 	google.golang.org/api v0.93.0 // indirect
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
