@@ -42,6 +42,12 @@ RUN \
   apk update && \
   apk add --no-cache curl util-linux
 
+HEALTHCHECK \
+  --interval=5s \
+  --timeout=5s \
+  --retries=3 \
+  CMD curl -f localhost:9090/ready || exit 1
+
 WORKDIR /app/
 CMD ["./app"]
 COPY --from=builder /go/github.com/batazor/shortlink/app /app

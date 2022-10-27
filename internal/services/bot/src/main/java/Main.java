@@ -18,26 +18,26 @@ public class Main {
     Logger logger = LoggerFactory.getLogger(Main.class);
 
     // Init API
-    LinkApp api = new LinkApp();
+//    LinkApp api = new LinkApp();
 
     // Subscribe on AMQP, exchange: 'shortlink'
-    DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-      String message = new String(delivery.getBody(), "UTF-8");
-      System.out.println(" [x] Received '" + message + "'");
-    };
+//    DeliverCallback deliverCallback = (consumerTag, delivery) -> {
+//      String message = new String(delivery.getBody(), "UTF-8");
+//      System.out.println(" [x] Received '" + message + "'");
+//    };
 
     // RabbitMQ
-    RabbitMQ rabbitmq = new RabbitMQ(deliverCallback);
+//    RabbitMQ rabbitmq = new RabbitMQ(deliverCallback);
 
     // Instantiate Telegram Bots API
-    TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+//    TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
 
     // Registration our bot
-    try {
-      telegramBotsApi.registerBot(new TelegramBot(rabbitmq, api));
-    } catch (TelegramApiException e) {
-      e.printStackTrace();
-    }
+//    try {
+//      telegramBotsApi.registerBot(new TelegramBot(rabbitmq, api));
+//    } catch (TelegramApiException e) {
+//      e.printStackTrace();
+//    }
 
     logger.info("ShortLinkBot successfully started!");
   }

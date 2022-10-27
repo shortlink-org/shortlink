@@ -8,6 +8,30 @@
     <artifactId>shortlink-bot</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <contributors>
+        <contributor>
+            <name>Login Viktor</name>
+            <email>batazor111@gmail.com</email>
+        </contributor>
+    </contributors>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.shortlink</groupId>
+                <artifactId>shortlink-bot</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.shortlink.bot.Bot</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -58,9 +82,8 @@
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
+            <artifactId>slf4j-reload4j</artifactId>
             <version>2.0.3</version>
         </dependency>
     </dependencies>
-
 </project>

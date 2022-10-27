@@ -38,7 +38,13 @@ FROM debian:bullseye
 ENV GOTRACEBACK=all
 
 # Load io_uring
-RUN apt-get update && apt-get install -y liburing-dev
+RUN apt-get update && apt-get install -y liburing-dev curl
+
+HEALTHCHECK \
+  --interval=5s \
+  --timeout=5s \
+  --retries=3 \
+  CMD curl -f localhost:9090/ready || exit 1
 
 WORKDIR /app/
 CMD ["./app"]

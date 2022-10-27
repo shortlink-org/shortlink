@@ -37,6 +37,17 @@ WORKDIR /usr/share/nginx/html
 # Use root user to copy dist folder and modify user access to specific folder
 USER root
 
+# Install dependencies
+RUN \
+  apk update && \
+  apk add --no-cache curl
+
+HEALTHCHECK \
+  --interval=5s \
+  --timeout=5s \
+  --retries=3 \
+  CMD curl -f localhost:8080 || exit 1
+
 # Copy application and custom NGINX configuration
 COPY --from=builder /app/out ./
 COPY ./ops/dockerfile/conf/ui.local /etc/nginx/conf.d/ui.local
