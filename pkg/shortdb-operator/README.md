@@ -1,10 +1,14 @@
 # shortdb-operator
 
-// TODO(user): Add simple overview of use/purpose
+Kubernetes Operator for [shortdb](./pkg/shortdb/README.md) database
 
 ## Description
 
-// TODO(user): An in-depth paragraph about your project and overview of use
+This operator is responsible for managing the shortdb database.
+
+### Security
+
+- SBOM: [shortdb-operator.spdx](./docs/bom/shortdb-operator.spdx)
 
 ## Getting Started
 You’ll need a Kubernetes cluster to run against. You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
