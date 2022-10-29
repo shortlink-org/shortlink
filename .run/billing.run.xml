@@ -8,7 +8,7 @@
       <env name="GRPC_SERVER_PORT" value="50054" />
     </envs>
     <kind value="PACKAGE" />
-    <package value="github.com/batazor/shortlink/cmd/billing" />
+    <package value="github.com/batazor/shortlink/internal/services/billing/cmd" />
     <directory value="$PROJECT_DIR$" />
     <filePath value="$PROJECT_DIR$/cmd/billing/billing.go" />
     <method v="2" />

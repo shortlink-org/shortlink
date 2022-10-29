@@ -4,10 +4,14 @@
 //go:build !wireinject
 // +build !wireinject
 
-package di
+package logger_di
 
 import (
 	"context"
+	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/internal/di/pkg/context"
+	"github.com/batazor/shortlink/internal/di/pkg/logger"
+	"github.com/batazor/shortlink/internal/di/pkg/mq"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/services/logger/application"
@@ -17,27 +21,54 @@ import (
 
 // Injectors from di.go:
 
-func InitializeLoggerService(ctx context.Context, log logger.Logger, mq v1.MQ) (*LoggerService, func(), error) {
-	service, err := NewLoggerApplication(log)
+func InitializeLoggerService() (*LoggerService, func(), error) {
+	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
 	}
-	event, err := InitLoggerMQ(ctx, log, mq, service)
+	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
+		cleanup()
 		return nil, nil, err
 	}
-	loggerService, err := NewLoggerService(log, service, event)
+	service, err := NewLoggerApplication(logger)
 	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	mq, cleanup3, err := mq_di.New(context, logger)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	event, err := InitLoggerMQ(context, logger, mq, service)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	loggerService, err := NewLoggerService(logger, service, event)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
 	return loggerService, func() {
+		cleanup3()
+		cleanup2()
+		cleanup()
 	}, nil
 }
 
 // di.go:
 
 type LoggerService struct {
-	Logger logger.Logger
+	// Common
+	Log logger.Logger
 
 	// Delivery
 	loggerMQ *logger_mq.Event
@@ -47,16 +78,14 @@ type LoggerService struct {
 }
 
 // LoggerService =======================================================================================================
-var LoggerSet = wire.NewSet(
-
-	InitLoggerMQ,
+var LoggerSet = wire.NewSet(di.DefaultSet, mq_di.New, InitLoggerMQ,
 
 	NewLoggerApplication,
 
 	NewLoggerService,
 )
 
-func InitLoggerMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *logger_application.Service) (*logger_mq.Event, error) {
+func InitLoggerMQ(ctx2 context.Context, log logger.Logger, mq v1.MQ, service *logger_application.Service) (*logger_mq.Event, error) {
 	loggerMQ, err := logger_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
@@ -75,6 +104,7 @@ func NewLoggerApplication(logger2 logger.Logger) (*logger_application.Service, e
 }
 
 func NewLoggerService(
+
 	log logger.Logger,
 
 	loggerService *logger_application.Service,
@@ -82,7 +112,8 @@ func NewLoggerService(
 	loggerMQ *logger_mq.Event,
 ) (*LoggerService, error) {
 	return &LoggerService{
-		Logger: log,
+
+		Log: log,
 
 		loggerService: loggerService,
 

@@ -1,7 +1,6 @@
-//go:build wireinject
-
-// The build tag makes sure the stub is not built in the final build.
-
+/*
+Main DI-package
+*/
 package di
 
 import (
@@ -20,11 +19,9 @@ import (
 	ctx "github.com/batazor/shortlink/internal/di/pkg/context"
 	"github.com/batazor/shortlink/internal/di/pkg/flags"
 	"github.com/batazor/shortlink/internal/di/pkg/logger"
-	"github.com/batazor/shortlink/internal/di/pkg/monitoring"
 	mq_di "github.com/batazor/shortlink/internal/di/pkg/mq"
 	"github.com/batazor/shortlink/internal/di/pkg/profiling"
 	"github.com/batazor/shortlink/internal/di/pkg/sentry"
-	"github.com/batazor/shortlink/internal/di/pkg/store"
 	"github.com/batazor/shortlink/internal/di/pkg/traicing"
 	"github.com/batazor/shortlink/internal/pkg/cache"
 	"github.com/batazor/shortlink/internal/pkg/db"

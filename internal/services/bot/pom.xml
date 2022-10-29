@@ -15,23 +15,6 @@
         </contributor>
     </contributors>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.shortlink</groupId>
-                <artifactId>shortlink-bot</artifactId>
-                <version>1.0-SNAPSHOT</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.shortlink.bot.Bot</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>

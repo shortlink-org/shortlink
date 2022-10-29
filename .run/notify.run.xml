@@ -1,8 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="csi" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="k8s">
+  <configuration default="false" name="notify" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="core">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
-    <parameters value="--nodeid=test" />
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
@@ -14,9 +13,9 @@
       </ENTRIES>
     </EXTENSION>
     <kind value="PACKAGE" />
-    <package value="github.com/batazor/shortlink/internal/services/csi/cmd" />
-    <directory value="$PROJECT_DIR$" />
-    <filePath value="$PROJECT_DIR$/cmd/k8s/csi/csi.go" />
+    <package value="github.com/batazor/shortlink/internal/services/notify/cmd" />
+    <directory value="$PROJECT_DIR$/" />
+    <filePath value="$PROJECT_DIR$/cmd/notify/bot.go" />
     <method v="2" />
   </configuration>
 </component>
