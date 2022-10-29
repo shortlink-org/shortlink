@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/grafana:9.1.1
+    image: grafana/grafana:9.2.2
     container_name: grafana
     restart: on-failure
     environment:

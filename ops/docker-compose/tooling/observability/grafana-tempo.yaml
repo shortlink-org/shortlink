@@ -28,7 +28,7 @@ services:
       - "3100"          # tempo
     volumes:
       - ./ops/docker-compose/tooling/observability/tempo/tempo-local.yaml:/etc/tempo.yaml
-      - /data/tempo:/tmp/tempo
+      - $HOME/data/tempo:/tmp/tempo
 
   jaeger-query:
     <<: *network
