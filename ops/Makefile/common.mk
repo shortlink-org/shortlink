@@ -1,8 +1,5 @@
 # APPLICATION TASKS ====================================================================================================
 dep: ## Install dependencies for this project
-	# install protoc
-	@./ops/scripts/install-protobuf.sh
-
 	# install protoc addons
 	@go install github.com/swaggo/swag/cmd/swag@latest
 	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest

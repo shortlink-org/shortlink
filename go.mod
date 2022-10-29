@@ -31,7 +31,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
 	github.com/graph-gophers/graphql-go v1.4.0
-	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0-rc.3
+	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.12.0
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
@@ -55,7 +55,7 @@ require (
 	github.com/srikrsna/protoc-gen-gotag v0.6.2
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/swag v1.8.7
-	github.com/syndtr/goleveldb v1.0.1-0.20190318030020-c3a204f8e965
+	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.17
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.17
 	go.etcd.io/etcd/client/v3 v3.5.5
@@ -140,7 +140,7 @@ require (
 	github.com/hashicorp/go-memdb v1.3.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
-	github.com/hashicorp/golang-lru v0.5.4 // indirect
+	github.com/hashicorp/golang-lru v0.5.5-0.20210104140557-80c98217689d // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/inconshreveable/mousetrap v1.0.1 // indirect
