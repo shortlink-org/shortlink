@@ -2,6 +2,8 @@ go 1.19
 
 use (
 	.
+	./internal/services/api
+	./internal/services/notify
 	./internal/services/wallet
 	./pkg/shortdb-operator
 )

@@ -23,14 +23,12 @@ require (
 	github.com/go-chi/render v1.0.2
 	github.com/go-redis/cache/v8 v8.4.3
 	github.com/go-redis/redis/v8 v8.11.5
-	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/golang/glog v1.0.0
 	github.com/golang/protobuf v1.5.2
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
-	github.com/graph-gophers/graphql-go v1.4.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.12.0
@@ -72,7 +70,6 @@ require (
 	golang.org/x/net v0.1.0
 	golang.org/x/sync v0.1.0
 	golang.org/x/text v0.4.0
-	google.golang.org/genproto v0.0.0-20221027153422-115e99e71e1c
 	google.golang.org/grpc v1.50.1
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
@@ -229,6 +226,7 @@ require (
 	golang.org/x/term v0.1.0 // indirect
 	golang.org/x/tools v0.2.0 // indirect
 	google.golang.org/api v0.100.0 // indirect
+	google.golang.org/genproto v0.0.0-20221027153422-115e99e71e1c // indirect
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
