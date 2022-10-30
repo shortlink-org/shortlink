@@ -3,7 +3,7 @@ package rpc
 import (
 	"fmt"
 
-	middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
+	middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"

@@ -4,10 +4,17 @@
 //go:build !wireinject
 // +build !wireinject
 
-package di
+package notify_di
 
 import (
 	"context"
+	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/internal/di/pkg/context"
+	"github.com/batazor/shortlink/internal/di/pkg/logger"
+	"github.com/batazor/shortlink/internal/di/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
+	"github.com/batazor/shortlink/internal/services/notify/application"
 	"github.com/batazor/shortlink/internal/services/notify/infrastructure/slack"
 	"github.com/batazor/shortlink/internal/services/notify/infrastructure/smtp"
 	"github.com/batazor/shortlink/internal/services/notify/infrastructure/telegram"
@@ -17,19 +24,41 @@ import (
 // Injectors from wire.go:
 
 func InitializeFullBotService() (*Service, func(), error) {
-	context, cleanup, err := NewContext()
+	context, cleanup, err := ctx.New()
 	if err != nil {
+		return nil, nil, err
+	}
+	logger, cleanup2, err := logger_di.New(context)
+	if err != nil {
+		cleanup()
 		return nil, nil, err
 	}
 	bot := InitSlack(context)
 	telegramBot := InitTelegram(context)
 	smtpBot := InitSMTP(context)
-	service, err := NewBotService(bot, telegramBot, smtpBot)
+	mq, cleanup3, err := mq_di.New(context, logger)
 	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	applicationBot, err := NewBotApplication(context, logger, mq)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewBotService(logger, bot, telegramBot, smtpBot, applicationBot)
+	if err != nil {
+		cleanup3()
+		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	return service, func() {
+		cleanup3()
+		cleanup2()
 		cleanup()
 	}, nil
 }
@@ -38,24 +67,20 @@ func InitializeFullBotService() (*Service, func(), error) {
 
 // Service - heplers
 type Service struct {
+	// Common
+	Log logger.Logger
+
+	// Bot
 	slack    *slack.Bot
 	telegram *telegram.Bot
 	smtp     *smtp.Bot
-}
 
-// Context =============================================================================================================
-func NewContext() (context.Context, func(), error) {
-	ctx := context.Background()
-
-	cb := func() {
-		ctx.Done()
-	}
-
-	return ctx, cb, nil
+	// Application
+	botService *application.Bot
 }
 
 // InitSlack - Init slack bot
-func InitSlack(ctx context.Context) *slack.Bot {
+func InitSlack(ctx2 context.Context) *slack.Bot {
 	slackBot := &slack.Bot{}
 	if err := slackBot.Init(); err != nil {
 		return nil
@@ -65,7 +90,7 @@ func InitSlack(ctx context.Context) *slack.Bot {
 }
 
 // InitTelegram - Init telegram bot
-func InitTelegram(ctx context.Context) *telegram.Bot {
+func InitTelegram(ctx2 context.Context) *telegram.Bot {
 	telegramBot := &telegram.Bot{}
 	if err := telegramBot.Init(); err != nil {
 		return nil
@@ -75,7 +100,7 @@ func InitTelegram(ctx context.Context) *telegram.Bot {
 }
 
 // InitSMTP - Init SMTP bot
-func InitSMTP(ctx context.Context) *smtp.Bot {
+func InitSMTP(ctx2 context.Context) *smtp.Bot {
 	smtpBot := &smtp.Bot{}
 	if err := smtpBot.Init(); err != nil {
 		return nil
@@ -85,8 +110,38 @@ func InitSMTP(ctx context.Context) *smtp.Bot {
 }
 
 // FullBotService ======================================================================================================
-var FullBotSet = wire.NewSet(NewContext, InitSlack, InitTelegram, InitSMTP, NewBotService)
+var NotifySet = wire.NewSet(di.DefaultSet, mq_di.New, InitSlack,
+	InitTelegram,
+	InitSMTP,
 
-func NewBotService(slack2 *slack.Bot, telegram2 *telegram.Bot, smtp2 *smtp.Bot) (*Service, error) {
-	return &Service{slack2, telegram2, smtp2}, nil
+	NewBotApplication,
+
+	NewBotService,
+)
+
+func NewBotApplication(ctx2 context.Context, logger2 logger.Logger, mq v1.MQ) (*application.Bot, error) {
+	bot, err := application.New(mq, logger2)
+	if err != nil {
+		return nil, err
+	}
+	bot.Use(ctx2)
+
+	return bot, nil
+}
+
+func NewBotService(
+
+	log logger.Logger, slack2 *slack.Bot, telegram2 *telegram.Bot, smtp2 *smtp.Bot,
+
+	bot *application.Bot,
+) (*Service, error) {
+	return &Service{
+
+		Log: log,
+
+		slack:      slack2,
+		telegram:   telegram2,
+		smtp:       smtp2,
+		botService: bot,
+	}, nil
 }

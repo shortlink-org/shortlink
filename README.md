@@ -39,29 +39,30 @@ made along with its context and consequences.
 
 ##### Services
 
-| Service          | Description                                                             | Language/Framework        | Docs                                        |
-|------------------|-------------------------------------------------------------------------|---------------------------|---------------------------------------------|
-| landing          | Welcome page                                                            | JS/JQuery                 |                                             |
-| docs             | Example blog                                                            | [Hugo](https://gohugo.io) | https://batazor.github.io/shortlink/        |
-| next             | UI service                                                              | JS/NextJS                 | [docs](./ui/next/README.md)                 |
-| api              | GateWay                                                                 | Go                        | [docs](./docs/services/README.md)           |
-| link             | Link service                                                            | Go                        | [docs](./docs/services/README.md)           |
-| newsletter       | Newsletter service                                                      | Rust                      |                                             |
-| proxy            | Proxy service for redirect to original URL                              | TypeScript                |                                             |
-| bot              | Telegram bot                                                            | JAVA                      |                                             |
-| billing          | Billing service                                                         | Go                        |                                             |
-| ws               | Webscoket service                                                       | Go                        | [docs](./internal/services/ws/README.md)    |
-| logger           | Logger service                                                          | Go                        |                                             |
-| metadata         | Parser site by API                                                      | Go                        |                                             |
-| notify           | Send notify to smtp, slack, telegram                                    | Go                        |                                             |
-| shortctl         | Shortlink CLI                                                           | Go                        | [docs](./docs/shortctl.md)                  |
-| csi              | CSI example                                                             | Go                        |                                             |
-| ory/kratos       | User management service                                                 | Go                        | [docs](https://www.ory.sh/kratos/docs/)     |
-| ory/hydra        | OAuth 2.0 Provider                                                      | Go                        | [docs](https://www.ory.sh/keto/docs/)       |
-| shortdb          | Custom database                                                         | Go                        | [docs](./pkg/shortdb/README.md)             |
-| shortdb-operator | Kubernetes Operator for [shortdb]((./pkg/shortdb/README.md)) database   | Go                        | [docs](./pkg/shortdb-operator/README.md)    |
-| stats            | Shortlink stats server                                                  | CPP                       | [docs](./internal/services/stats/README.md) |
-| chat             | Chat service                                                            | Elixir (Phoenix)          | [docs](./internal/services/chat/README.md)   |
+| Service          | Description                                                              | Language/Framework        | Docs                                         |
+|------------------|--------------------------------------------------------------------------|---------------------------|----------------------------------------------|
+| landing          | Welcome page                                                             | JS/JQuery                 |                                              |
+| docs             | Example blog                                                             | [Hugo](https://gohugo.io) | [docs](https://batazor.github.io/shortlink/) |
+| next             | UI service                                                               | JS/NextJS                 | [docs](./ui/next/README.md)                  |
+| api              | GateWay                                                                  | Go                        | [docs](./docs/services/README.md)            |
+| link             | Link service                                                             | Go                        | [docs](./docs/services/README.md)            |
+| newsletter       | Newsletter service                                                       | Rust                      |                                              |
+| proxy            | Proxy service for redirect to original URL                               | TypeScript                |                                              |
+| bot              | Telegram bot                                                             | JAVA                      |                                              |
+| billing          | Billing service                                                          | Go                        |                                              |
+| wallet           | Wallet service                                                           | Go (Solidity)             | [docs](./internal/services/wallet/README.md) |
+| ws               | Webscoket service                                                        | Go                        | [docs](./internal/services/ws/README.md)     |
+| logger           | Logger service                                                           | Go                        |                                              |
+| metadata         | Parser site by API                                                       | Go                        |                                              |
+| notify           | Send notify to smtp, slack, telegram                                     | Go                        |                                              |
+| shortctl         | Shortlink CLI                                                            | Go                        | [docs](./docs/shortctl.md)                   |
+| csi              | CSI example                                                              | Go                        |                                              |
+| ory/kratos       | User management service                                                  | Go                        | [docs](https://www.ory.sh/kratos/docs/)      |
+| ory/hydra        | OAuth 2.0 Provider                                                       | Go                        | [docs](https://www.ory.sh/keto/docs/)        |
+| shortdb          | Custom database                                                          | Go                        | [docs](./pkg/shortdb/README.md)              |
+| shortdb-operator | Kubernetes Operator for [shortdb]((./pkg/shortdb/README.md)) database    | Go                        | [docs](./pkg/shortdb-operator/README.md)     |
+| stats            | Shortlink stats server                                                   | CPP                       | [docs](./internal/services/stats/README.md)  |
+| chat             | Chat service                                                             | Elixir (Phoenix)          | [docs](./internal/services/chat/README.md)   |
 
 ### Run
 

@@ -1,7 +1,6 @@
-//go:build wireinject
-
-// The build tag makes sure the stub is not built in the final build.
-
+/*
+Main DI-package
+*/
 package di
 
 import (
@@ -15,17 +14,15 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
-	"github.com/batazor/shortlink/internal/di/internal/autoMaxPro"
-	"github.com/batazor/shortlink/internal/di/internal/config"
-	ctx "github.com/batazor/shortlink/internal/di/internal/context"
-	"github.com/batazor/shortlink/internal/di/internal/flags"
-	"github.com/batazor/shortlink/internal/di/internal/logger"
-	"github.com/batazor/shortlink/internal/di/internal/monitoring"
-	mq_di "github.com/batazor/shortlink/internal/di/internal/mq"
-	"github.com/batazor/shortlink/internal/di/internal/profiling"
-	"github.com/batazor/shortlink/internal/di/internal/sentry"
-	"github.com/batazor/shortlink/internal/di/internal/store"
-	"github.com/batazor/shortlink/internal/di/internal/traicing"
+	"github.com/batazor/shortlink/internal/di/pkg/autoMaxPro"
+	"github.com/batazor/shortlink/internal/di/pkg/config"
+	ctx "github.com/batazor/shortlink/internal/di/pkg/context"
+	"github.com/batazor/shortlink/internal/di/pkg/flags"
+	"github.com/batazor/shortlink/internal/di/pkg/logger"
+	mq_di "github.com/batazor/shortlink/internal/di/pkg/mq"
+	"github.com/batazor/shortlink/internal/di/pkg/profiling"
+	"github.com/batazor/shortlink/internal/di/pkg/sentry"
+	"github.com/batazor/shortlink/internal/di/pkg/traicing"
 	"github.com/batazor/shortlink/internal/pkg/cache"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/i18n"
