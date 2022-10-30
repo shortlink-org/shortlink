@@ -4,101 +4,257 @@
 //go:build !wireinject
 // +build !wireinject
 
-package di
+package link_di
 
 import (
 	"context"
+	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/internal/di/pkg/context"
+	"github.com/batazor/shortlink/internal/di/pkg/logger"
+	"github.com/batazor/shortlink/internal/di/pkg/mq"
+	"github.com/batazor/shortlink/internal/di/pkg/store"
+	"github.com/batazor/shortlink/internal/di/pkg/traicing"
+	"github.com/batazor/shortlink/internal/pkg/cache"
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1"
+	v1_4 "github.com/batazor/shortlink/internal/pkg/mq/v1"
 	"github.com/batazor/shortlink/internal/services/link/application/link"
 	"github.com/batazor/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/batazor/shortlink/internal/services/link/application/sitemap"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/mq"
-	v1_3 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
-	v1_2 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	v1_2 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/run"
-	v1_4 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
+	v1_3 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/query"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
 	v1_5 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
-	"github.com/go-redis/cache/v8"
+	cache2 "github.com/go-redis/cache/v8"
 	"github.com/google/wire"
 	"google.golang.org/grpc"
 )
 
 // Injectors from di.go:
 
-func InitializeLinkService(ctx context.Context, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, db2 *db.Store, mq v1.MQ, cache2 *cache.Cache) (*LinkService, func(), error) {
-	metadataServiceClient, err := NewMetadataRPCClient(runRPCClient)
+func InitializeLinkService() (*LinkService, func(), error) {
+	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
 	}
-	store, err := NewLinkStore(ctx, log, db2, cache2)
+	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
+		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLinkApplication(log, mq, metadataServiceClient, store)
+	mq, cleanup3, err := mq_di.New(context, logger)
 	if err != nil {
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	cqsStore, err := NewCQSLinkStore(ctx, log, db2, cache2)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	queryStore, err := NewQueryLinkStore(ctx, log, db2, cache2)
+	clientConn, cleanup5, err := rpc.InitClient(logger, tracerProvider)
 	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	link_cqrsService, err := NewLinkCQRSApplication(log, cqsStore, queryStore)
+	metadataServiceClient, err := NewMetadataRPCClient(clientConn)
 	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	sitemapService, err := NewSitemapApplication(log, mq)
+	dbStore, cleanup6, err := store.New(context, logger)
 	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(ctx, log, mq, service)
+	cacheCache, err := cache.New(context)
 	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	link, err := NewLinkCQRSRPCServer(runRPCServer, link_cqrsService, log)
+	crudStore, err := NewLinkStore(context, logger, dbStore, cacheCache)
 	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	v1Link, err := NewLinkRPCServer(runRPCServer, service, log)
+	service, err := NewLinkApplication(logger, mq, metadataServiceClient, crudStore)
 	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	response, err := NewRunRPCServer(runRPCServer, link, v1Link)
+	cqsStore, err := NewCQSLinkStore(context, logger, dbStore, cacheCache)
 	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	sitemap, err := NewSitemapRPCServer(runRPCServer, sitemapService, log)
+	queryStore, err := NewQueryLinkStore(context, logger, dbStore, cacheCache)
 	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(log, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, store, cqsStore, queryStore)
+	link_cqrsService, err := NewLinkCQRSApplication(logger, cqsStore, queryStore)
 	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	sitemapService, err := NewSitemapApplication(logger, mq)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	event, err := InitLinkMQ(context, logger, mq, service)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	rpcServer, cleanup7, err := rpc.InitServer(logger, tracerProvider)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	link, err := NewLinkCQRSRPCServer(rpcServer, link_cqrsService, logger)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	v1Link, err := NewLinkRPCServer(rpcServer, service, logger)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	response, err := NewRunRPCServer(rpcServer, link, v1Link)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	sitemap, err := NewSitemapRPCServer(rpcServer, sitemapService, logger)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	linkService, err := NewLinkService(logger, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
 	return linkService, func() {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 	}, nil
 }
 
 // di.go:
 
 type LinkService struct {
-	Logger logger.Logger
+	// Common
+	Log logger.Logger
 
 	// Delivery
 	linkMQ            *api_mq.Event
 	run               *run.Response
-	linkRPCServer     *v1_2.Link
-	linkCQRSRPCServer *v1_3.Link
-	sitemapRPCServer  *v1_4.Sitemap
+	linkRPCServer     *v1.Link
+	linkCQRSRPCServer *v1_2.Link
+	sitemapRPCServer  *v1_3.Sitemap
 
 	// Application
 	linkService     *link.Service
@@ -114,9 +270,7 @@ type LinkService struct {
 }
 
 // LinkService =========================================================================================================
-var LinkSet = wire.NewSet(
-
-	InitLinkMQ,
+var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, InitLinkMQ,
 
 	NewLinkRPCServer,
 	NewLinkCQRSRPCServer,
@@ -137,7 +291,7 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *link.Service) (*api_mq.Event, error) {
+func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq v1_4.MQ, service *link.Service) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
@@ -146,8 +300,8 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *link.
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store, cache2 *cache.Cache) (*crud.Store, error) {
-	linkStore, err := crud.New(ctx, logger2, db2, cache2)
+func NewLinkStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Store, cache3 *cache2.Cache) (*crud.Store, error) {
+	linkStore, err := crud.New(ctx2, logger2, db2, cache3)
 	if err != nil {
 		return nil, err
 	}
@@ -155,26 +309,26 @@ func NewLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store, cac
 	return linkStore, nil
 }
 
-func NewCQSLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store, cache2 *cache.Cache) (*cqs.Store, error) {
-	store, err := cqs.New(ctx, logger2, db2, cache2)
+func NewCQSLinkStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Store, cache3 *cache2.Cache) (*cqs.Store, error) {
+	store2, err := cqs.New(ctx2, logger2, db2, cache3)
 	if err != nil {
 		return nil, err
 	}
 
-	return store, nil
+	return store2, nil
 }
 
-func NewQueryLinkStore(ctx context.Context, logger2 logger.Logger, db2 *db.Store, cache2 *cache.Cache) (*query.Store, error) {
-	store, err := query.New(ctx, logger2, db2, cache2)
+func NewQueryLinkStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Store, cache3 *cache2.Cache) (*query.Store, error) {
+	store2, err := query.New(ctx2, logger2, db2, cache3)
 	if err != nil {
 		return nil, err
 	}
 
-	return store, nil
+	return store2, nil
 }
 
-func NewLinkApplication(logger2 logger.Logger, mq v1.MQ, metadataService v1_5.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
-	linkService, err := link.New(logger2, mq, metadataService, store)
+func NewLinkApplication(logger2 logger.Logger, mq v1_4.MQ, metadataService v1_5.MetadataServiceClient, store2 *crud.Store) (*link.Service, error) {
+	linkService, err := link.New(logger2, mq, metadataService, store2)
 	if err != nil {
 		return nil, err
 	}
@@ -191,12 +345,12 @@ func NewLinkCQRSApplication(logger2 logger.Logger, cqsStore *cqs.Store, querySto
 	return linkCQRSService, nil
 }
 
-func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1_2.LinkServiceClient, error) {
-	LinkServiceClient := v1_2.NewLinkServiceClient(runRPCClient)
+func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkServiceClient, error) {
+	LinkServiceClient := v1.NewLinkServiceClient(runRPCClient)
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(logger2 logger.Logger, mq v1.MQ) (*sitemap.Service, error) {
+func NewSitemapApplication(logger2 logger.Logger, mq v1_4.MQ) (*sitemap.Service, error) {
 	sitemapService, err := sitemap.New(logger2, mq)
 	if err != nil {
 		return nil, err
@@ -205,16 +359,7 @@ func NewSitemapApplication(logger2 logger.Logger, mq v1.MQ) (*sitemap.Service, e
 	return sitemapService, nil
 }
 
-func NewLinkCQRSRPCServer(runRPCServer *rpc.RPCServer, application *link_cqrs.Service, log logger.Logger) (*v1_3.Link, error) {
-	linkRPCServer, err := v1_3.New(runRPCServer, application, log)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkRPCServer, nil
-}
-
-func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, log logger.Logger) (*v1_2.Link, error) {
+func NewLinkCQRSRPCServer(runRPCServer *rpc.RPCServer, application *link_cqrs.Service, log logger.Logger) (*v1_2.Link, error) {
 	linkRPCServer, err := v1_2.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -223,8 +368,17 @@ func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, lo
 	return linkRPCServer, nil
 }
 
-func NewSitemapRPCServer(runRPCServer *rpc.RPCServer, application *sitemap.Service, log logger.Logger) (*v1_4.Sitemap, error) {
-	sitemapRPCServer, err := v1_4.New(runRPCServer, application, log)
+func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, log logger.Logger) (*v1.Link, error) {
+	linkRPCServer, err := v1.New(runRPCServer, application, log)
+	if err != nil {
+		return nil, err
+	}
+
+	return linkRPCServer, nil
+}
+
+func NewSitemapRPCServer(runRPCServer *rpc.RPCServer, application *sitemap.Service, log logger.Logger) (*v1_3.Sitemap, error) {
+	sitemapRPCServer, err := v1_3.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
 	}
@@ -232,7 +386,7 @@ func NewSitemapRPCServer(runRPCServer *rpc.RPCServer, application *sitemap.Servi
 	return sitemapRPCServer, nil
 }
 
-func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *v1_3.Link, linkRPC *v1_2.Link) (*run.Response, error) {
+func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *v1_2.Link, linkRPC *v1.Link) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
 
@@ -242,6 +396,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_5.MetadataServiceCl
 }
 
 func NewLinkService(
+
 	log logger.Logger,
 
 	linkService *link.Service,
@@ -249,9 +404,9 @@ func NewLinkService(
 	sitemapService *sitemap.Service,
 
 	linkMQ *api_mq.Event, run2 *run.Response,
-	linkRPCServer *v1_2.Link,
-	linkCQRSRPCServer *v1_3.Link,
-	sitemapRPCServer *v1_4.Sitemap,
+	linkRPCServer *v1.Link,
+	linkCQRSRPCServer *v1_2.Link,
+	sitemapRPCServer *v1_3.Sitemap,
 
 	linkStore *crud.Store,
 
@@ -259,7 +414,8 @@ func NewLinkService(
 	queryStore *query.Store,
 ) (*LinkService, error) {
 	return &LinkService{
-		Logger: log,
+
+		Log: log,
 
 		linkService:     linkService,
 		linkCQRSService: linkCQRSService,

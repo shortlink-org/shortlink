@@ -4,13 +4,18 @@
 
 // The build tag makes sure the stub is not built in the final build.
 
-package di
+package notify_di
 
 import (
 	"context"
 
 	"github.com/google/wire"
 
+	"github.com/batazor/shortlink/internal/di"
+	mq_di "github.com/batazor/shortlink/internal/di/pkg/mq"
+	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1"
+	"github.com/batazor/shortlink/internal/services/notify/application"
 	"github.com/batazor/shortlink/internal/services/notify/infrastructure/slack"
 	"github.com/batazor/shortlink/internal/services/notify/infrastructure/smtp"
 	"github.com/batazor/shortlink/internal/services/notify/infrastructure/telegram"
@@ -18,20 +23,16 @@ import (
 
 // Service - heplers
 type Service struct {
+	// Common
+	Log logger.Logger
+
+	// Bot
 	slack    *slack.Bot
 	telegram *telegram.Bot
 	smtp     *smtp.Bot
-}
 
-// Context =============================================================================================================
-func NewContext() (context.Context, func(), error) {
-	ctx := context.Background()
-
-	cb := func() {
-		ctx.Done()
-	}
-
-	return ctx, cb, nil
+	// Application
+	botService *application.Bot
 }
 
 // InitSlack - Init slack bot
@@ -65,16 +66,51 @@ func InitSMTP(ctx context.Context) *smtp.Bot {
 }
 
 // FullBotService ======================================================================================================
-var FullBotSet = wire.NewSet(NewContext, InitSlack, InitTelegram, InitSMTP, NewBotService)
+var NotifySet = wire.NewSet(
+	di.DefaultSet,
+	mq_di.New,
 
-func NewBotService(slack *slack.Bot, telegram *telegram.Bot, smtp *smtp.Bot) (*Service, error) {
+	InitSlack,
+	InitTelegram,
+	InitSMTP,
+
+	// Applications
+	NewBotApplication,
+
+	NewBotService,
+)
+
+func NewBotApplication(ctx context.Context, logger logger.Logger, mq v1.MQ) (*application.Bot, error) {
+	bot, err := application.New(mq, logger)
+	if err != nil {
+		return nil, err
+	}
+	bot.Use(ctx)
+
+	return bot, nil
+}
+
+func NewBotService(
+	// Common
+	log logger.Logger,
+
+	slack *slack.Bot,
+	telegram *telegram.Bot,
+	smtp *smtp.Bot,
+
+	bot *application.Bot,
+) (*Service, error) {
 	return &Service{
-		slack,
-		telegram,
-		smtp,
+		// Common
+		Log: log,
+
+		slack:      slack,
+		telegram:   telegram,
+		smtp:       smtp,
+		botService: bot,
 	}, nil
 }
 
 func InitializeFullBotService() (*Service, func(), error) {
-	panic(wire.Build(FullBotSet))
+	panic(wire.Build(NotifySet))
 }

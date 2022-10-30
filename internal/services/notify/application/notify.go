@@ -16,7 +16,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 	"github.com/batazor/shortlink/internal/pkg/notify"
 	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/notify/di"
 	bot_type "github.com/batazor/shortlink/internal/services/notify/type"
 )
 
@@ -30,12 +29,6 @@ func New(mq mq.MQ, log logger.Logger) (*Bot, error) {
 func (b *Bot) Use(ctx context.Context) {
 	// Subscribe to Event
 	notify.Subscribe(bot_type.METHOD_NEW_LINK, b)
-
-	// Init slack bot
-	_, _, err := di.InitializeFullBotService()
-	if err != nil {
-		panic(err)
-	}
 
 	// TODO: refactoring this code
 	getEventNewLink := query.Response{

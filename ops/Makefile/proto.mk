@@ -1,5 +1,8 @@
 # PROTO TASKS ==========================================================================================================
 
+proto-install: ## Install protoc
+	@./ops/scripts/install-protobuf.sh
+
 proto-lint: ## Check lint
 	@buf ls-files
 	@buf lint

@@ -4,10 +4,15 @@
 //go:build !wireinject
 // +build !wireinject
 
-package di
+package api_di
 
 import (
 	"context"
+	"github.com/batazor/shortlink/internal/di"
+	"github.com/batazor/shortlink/internal/di/pkg/context"
+	"github.com/batazor/shortlink/internal/di/pkg/logger"
+	"github.com/batazor/shortlink/internal/di/pkg/traicing"
+	"github.com/batazor/shortlink/internal/pkg/i18n"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/services/api/application"
 	v1_2 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
@@ -16,43 +21,113 @@ import (
 	v1_4 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
-	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 )
 
 // Injectors from di.go:
 
-func InitializeAPIService(ctx context.Context, i18n *message.Printer, runRPCClient *grpc.ClientConn, runRPCServer *rpc.RPCServer, log logger.Logger, tracer *trace.TracerProvider) (*APIService, func(), error) {
-	metadataServiceClient, err := NewMetadataRPCClient(runRPCClient)
+func InitializeAPIService() (*APIService, func(), error) {
+	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
 	}
-	linkServiceClient, err := NewLinkRPCClient(runRPCClient)
+	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
+		cleanup()
 		return nil, nil, err
 	}
-	linkCommandServiceClient, err := NewLinkCommandRPCClient(runRPCClient)
+	printer := i18n.New(context)
+	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	linkQueryServiceClient, err := NewLinkQueryRPCClient(runRPCClient)
+	rpcServer, cleanup4, err := rpc.InitServer(logger, tracerProvider)
 	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	sitemapServiceClient, err := NewSitemapServiceClient(runRPCClient)
+	clientConn, cleanup5, err := rpc.InitClient(logger, tracerProvider)
 	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	api, err := NewAPIApplication(ctx, i18n, log, runRPCServer, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	metadataServiceClient, err := NewMetadataRPCClient(clientConn)
 	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
-	apiService, err := NewAPIService(log, i18n, api)
+	linkServiceClient, err := NewLinkRPCClient(clientConn)
 	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	linkCommandServiceClient, err := NewLinkCommandRPCClient(clientConn)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	linkQueryServiceClient, err := NewLinkQueryRPCClient(clientConn)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	sitemapServiceClient, err := NewSitemapServiceClient(clientConn)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	api, err := NewAPIApplication(context, printer, logger, rpcServer, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	apiService, err := NewAPIService(logger, api)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 		return nil, nil, err
 	}
 	return apiService, func() {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
 	}, nil
 }
 
@@ -66,9 +141,7 @@ type APIService struct {
 }
 
 // APIService ==========================================================================================================
-var APISet = wire.NewSet(
-
-	NewLinkRPCClient,
+var APISet = wire.NewSet(di.DefaultSet, rpc.InitServer, rpc.InitClient, NewLinkRPCClient,
 	NewLinkCommandRPCClient,
 	NewLinkQueryRPCClient,
 	NewSitemapServiceClient,
@@ -104,9 +177,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceCl
 	return metadataRPCClient, nil
 }
 
-func NewAPIApplication(
-	ctx context.Context,
-	i18n *message.Printer, logger2 logger.Logger,
+func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 logger.Logger,
 
 	rpcServer *rpc.RPCServer,
 
@@ -117,9 +188,7 @@ func NewAPIApplication(
 	sitemap_rpc v1_3.SitemapServiceClient,
 ) (*api_application.API, error) {
 
-	apiService, err := api_application.RunAPIServer(
-		ctx,
-		i18n, logger2, rpcServer,
+	apiService, err := api_application.RunAPIServer(ctx2, i18n2, logger2, rpcServer,
 
 		link_rpc,
 		link_command,
@@ -135,13 +204,12 @@ func NewAPIApplication(
 
 func NewAPIService(
 	log logger.Logger,
-	i18n *message.Printer,
 
 	service *api_application.API,
 ) (*APIService, error) {
 	return &APIService{
-		Logger: log,
-
 		service: service,
+
+		Logger: log,
 	}, nil
 }
