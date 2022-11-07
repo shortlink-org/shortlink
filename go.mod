@@ -15,7 +15,7 @@ require (
 	github.com/cucumber/godog v0.12.5
 	github.com/dgraph-io/badger/v3 v3.2103.3
 	github.com/dgraph-io/dgo/v2 v2.2.0
-	github.com/edgedb/edgedb-go v0.13.0
+	github.com/edgedb/edgedb-go v0.13.1
 	github.com/elastic/go-elasticsearch/v8 v8.4.0
 	github.com/getsentry/sentry-go v0.14.0
 	github.com/go-chi/chi/v5 v5.0.7
