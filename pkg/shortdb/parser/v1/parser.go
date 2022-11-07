@@ -568,7 +568,7 @@ func (p *Parser) doParse() (*query.Query, error) { // nolint:gocyclo,gocognit,ma
 				return p.Query, fmt.Errorf("at LIMIT: empty LIMIT clause")
 			}
 
-			limit, err := strconv.Atoi(countRaw)
+			limit, err := strconv.ParseInt(countRaw, 10, 32)
 			if err != nil {
 				return p.Query, fmt.Errorf("at LIMIT: required number")
 			}
