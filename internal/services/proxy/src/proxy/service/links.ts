@@ -9,7 +9,7 @@ export class LinkService {
   public async get(hash: string): Promise<string> {
     // TODO: use gRPC
     try {
-      const resp = await fetch(`${process.env.API_LINK_SERVICE}/api/links/${hash}`)
+      const resp = await fetch(`${process.env.API_LINK_SERVICE}/api/links/${encodeURIComponent(hash)}`)
       if (!resp.ok) {
         throw new Error(`${resp.status} ${resp.statusText}`)
       }
