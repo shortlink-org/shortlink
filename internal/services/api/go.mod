@@ -3,7 +3,7 @@ module github.com/batazor/shortlink/internal/services/api
 go 1.19
 
 require (
-	github.com/batazor/shortlink v0.0.0-20221109152457-ede1351f7f8f
+	github.com/batazor/shortlink v0.0.0-20221109165251-591eec6d97fc
 	github.com/cloudevents/sdk-go/v2 v2.12.0
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/cors v1.2.1
@@ -118,7 +118,7 @@ require (
 	github.com/xdg-go/scram v1.1.1 // indirect
 	github.com/xdg-go/stringprep v1.0.3 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20181117223130-1be2e3e5546d // indirect
-	go.mongodb.org/mongo-driver v1.10.3 // indirect
+	go.mongodb.org/mongo-driver v1.11.0 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.opentelemetry.io/contrib v1.0.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.36.4 // indirect
