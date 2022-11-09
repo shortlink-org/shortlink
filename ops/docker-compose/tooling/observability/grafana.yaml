@@ -13,11 +13,12 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/grafana:9.2.2
+    image: grafana/grafana:main
     container_name: grafana
     restart: on-failure
     environment:
       - VIRTUAL_HOST=grafana.loc
+      - GF_FEATURE_TOGGLES_ENABLE=flameGraph
       - GF_SERVER_ROOT_URL=http://grafana.loc
       - GF_SERVER_ROUTER_LOGGING=true
       - GF_SECURITY_ADMIN_USER=admin
@@ -25,6 +26,9 @@ services:
       - GF_LOG_CONSOLE_FORMAT=json
       - GF_LOG_FILTERS=alerting.notifier:debug,alerting.notifier.slack:debug,auth:debug
       - GF_INSTALL_PLUGIN=grafana-piechart-panel
+      - GF_DIAGNOSTICS_PROFILING_ENABLED=true
+      - GF_DIAGNOSTICS_PROFILING_ADDR=0.0.0.0
+      - GF_DIAGNOSTICS_PROFILING_PORT=6060
     ports:
       - 3030:3000
     networks:
