@@ -69,6 +69,9 @@ const nextConfig = {
       },
     ]
   },
+  experimental: {
+    forceSwcTransforms: true,
+  },
 }
 
 module.exports = withSourceMaps(nextConfig)

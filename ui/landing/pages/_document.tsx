@@ -3,7 +3,6 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 // @ts-ignore
 import { darkTheme, lightTheme, createEmotionCache } from '@shortlink-org/ui-kit'
-import { SiteLinksSearchBoxJsonLd } from "next-seo";
 
 export default class MyDocument extends Document {
   render() {
