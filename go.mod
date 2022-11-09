@@ -11,7 +11,7 @@ require (
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.12.0
 	github.com/cloudevents/sdk-go/v2 v2.12.0
-	github.com/container-storage-interface/spec v1.6.0
+	github.com/container-storage-interface/spec v1.7.0
 	github.com/cucumber/godog v0.12.5
 	github.com/dgraph-io/badger/v3 v3.2103.4
 	github.com/dgraph-io/dgo/v2 v2.2.0
