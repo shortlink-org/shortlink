@@ -13,7 +13,7 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.12.0
 	github.com/container-storage-interface/spec v1.6.0
 	github.com/cucumber/godog v0.12.5
-	github.com/dgraph-io/badger/v3 v3.2103.3
+	github.com/dgraph-io/badger/v3 v3.2103.4
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/edgedb/edgedb-go v0.13.1
 	github.com/elastic/go-elasticsearch/v8 v8.4.0
@@ -39,7 +39,7 @@ require (
 	github.com/kubernetes-csi/csi-test/v4 v4.4.0
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-sqlite3 v1.14.16
-	github.com/nats-io/nats.go v1.19.0
+	github.com/nats-io/nats.go v1.19.1
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/prometheus/client_golang v1.13.1
 	github.com/pterm/pterm v0.12.49
