@@ -67,7 +67,7 @@ require (
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/goleak v1.2.0
 	go.uber.org/zap v1.23.0
-	golang.org/x/net v0.1.0
+	golang.org/x/net v0.2.0
 	golang.org/x/sync v0.1.0
 	golang.org/x/text v0.4.0
 	google.golang.org/grpc v1.50.1
@@ -174,7 +174,7 @@ require (
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
-	github.com/onsi/gomega v1.24.0 // indirect
+	github.com/onsi/gomega v1.24.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/opencontainers/runc v1.1.3 // indirect
@@ -222,8 +222,8 @@ require (
 	golang.org/x/crypto v0.1.0 // indirect
 	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e // indirect
 	golang.org/x/mod v0.6.0 // indirect
-	golang.org/x/sys v0.1.0 // indirect
-	golang.org/x/term v0.1.0 // indirect
+	golang.org/x/sys v0.2.0 // indirect
+	golang.org/x/term v0.2.0 // indirect
 	golang.org/x/tools v0.2.0 // indirect
 	google.golang.org/api v0.102.0 // indirect
 	google.golang.org/genproto v0.0.0-20221107162902-2d387536bcdd // indirect
