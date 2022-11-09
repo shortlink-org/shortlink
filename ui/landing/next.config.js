@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 const webpack = require('webpack')
-const withSourceMaps = require('@zeit/next-source-maps')
 
 // You can choose which headers to add to the list
 // after learning more below.
@@ -37,6 +36,7 @@ const nextConfig = {
   reactStrictMode: true,
   generateEtags: true,
   swcMinify: true,
+  productionBrowserSourceMaps: true,
   compiler: {
     // ssr and displayName are configured by default
     styledComponents: true,
@@ -74,4 +74,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withSourceMaps(nextConfig)
+module.exports = nextConfig

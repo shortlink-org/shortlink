@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 const webpack = require('webpack')
-const withSourceMaps = require('@zeit/next-source-maps')
 const { withImageLoader } = require('next-image-loader')
 
 // pass the modules you would like to see transpiled
@@ -58,6 +57,7 @@ const NEXT_CONFIG = {
     NEXT_PUBLIC_API_URI: process.env.API_URI,
   },
   swcMinify: true,
+  productionBrowserSourceMaps: true,
   compiler: {
     // ssr and displayName are configured by default
     styledComponents: true,
@@ -131,7 +131,7 @@ if (!isProd) {
   }
 }
 
-let EXPORT_CONFIG = withImageLoader(withSourceMaps(NEXT_CONFIG))
+let EXPORT_CONFIG = withImageLoader(NEXT_CONFIG)
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
