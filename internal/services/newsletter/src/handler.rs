@@ -1,7 +1,7 @@
-use crate::{Context};
-use hyper::{Response, Body, StatusCode};
 use crate::domain::{NewsLetter, SendSubscribeRequest};
 use crate::postgres;
+use crate::Context;
+use hyper::{Body, Response, StatusCode};
 
 pub async fn get_list_subscribes(ctx: Context) -> String {
     let newsletters = postgres::list().await.unwrap();
@@ -21,10 +21,17 @@ pub async fn newsletter_subscribe(mut ctx: Context) -> Response<Body> {
 
     postgres::add(&body.email).await.unwrap();
 
-    Response::new(format!("{}", serde_json::to_string(&NewsLetter{
-        _id: 0,
-        email: body.email,
-    }).unwrap()).into())
+    Response::new(
+        format!(
+            "{}",
+            serde_json::to_string(&NewsLetter {
+                _id: 0,
+                email: body.email,
+            })
+            .unwrap()
+        )
+        .into(),
+    )
 }
 
 pub async fn newsletter_unsubscribe(ctx: Context) -> Response<Body> {
@@ -35,8 +42,15 @@ pub async fn newsletter_unsubscribe(ctx: Context) -> Response<Body> {
 
     postgres::delete(param).await.unwrap();
 
-    Response::new(format!("{}", serde_json::to_string(&NewsLetter{
-        _id: 0,
-        email: param.into(),
-    }).unwrap()).into())
+    Response::new(
+        format!(
+            "{}",
+            serde_json::to_string(&NewsLetter {
+                _id: 0,
+                email: param.into(),
+            })
+            .unwrap()
+        )
+        .into(),
+    )
 }

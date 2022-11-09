@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
 pub(crate) struct SendSubscribeRequest {
@@ -8,6 +8,6 @@ pub(crate) struct SendSubscribeRequest {
 
 #[derive(Serialize, Deserialize)]
 pub struct NewsLetter {
-     pub(crate) _id: i32,
-     pub(crate) email: String
+    pub(crate) _id: i32,
+    pub(crate) email: String,
 }

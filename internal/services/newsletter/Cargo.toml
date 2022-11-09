@@ -1,9 +1,9 @@
-cargo-features = ["edition2021"]
+cargo-features = []
 
 [package]
 name = "newsletter"
 version = "0.1.0"
-rust-version = "1.56"
+rust-version = "1.65"
 authors = ["Login Victor <batazor111@gmail.com>"]
 keywords = ["newsletter"]
 readme = "README.md"
@@ -11,7 +11,7 @@ edition = "2021"
 repository = "https://github.com/batazor/shortlink"
 
 [dependencies]
-futures = { version = "0.3.25", default-features = false, features = ["async-await"] }
+futures = { version = "0.3.25", default-features = true, features = ["async-await"] }
 hyper = { version = "0.14", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
 serde = {version = "1.0.147", features = ["derive"] }

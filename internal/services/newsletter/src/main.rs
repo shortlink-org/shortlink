@@ -1,18 +1,18 @@
-use std::{net::SocketAddr};
+use crate::context::Context;
+use futures::executor::block_on;
 use hyper::{
     service::{make_service_fn, service_fn},
     Body, Request, Response, Server,
 };
 use router::Router;
+use std::net::SocketAddr;
 use std::sync::Arc;
-use crate::context::Context;
-use futures::executor::block_on;
 
-mod domain;
-mod postgres;
-mod handler;
-mod router;
 mod context;
+mod domain;
+mod handler;
+mod postgres;
+mod router;
 
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
 
@@ -28,16 +28,15 @@ pub async fn main() {
     let mut router: Router = Router::new();
     router.get("/api/newsletters", Box::new(handler::get_list_subscribes));
     router.post("/api/newsletter", Box::new(handler::newsletter_subscribe));
-    router.get("/api/newsletter/unsubscribe/:email", Box::new(handler::newsletter_unsubscribe));
+    router.get(
+        "/api/newsletter/unsubscribe/:email",
+        Box::new(handler::newsletter_unsubscribe),
+    );
 
     let shared_router = Arc::new(router);
     let new_service = make_service_fn(move |_| {
         let router_capture = shared_router.clone();
-        async {
-            Ok::<_, Error>(service_fn(move |req| {
-                route(router_capture.clone(), req)
-            }))
-        }
+        async { Ok::<_, Error>(service_fn(move |req| route(router_capture.clone(), req))) }
     });
 
     // We'll bind to 127.0.0.1:7070
@@ -54,10 +53,7 @@ pub async fn main() {
     }
 }
 
-async fn route(
-    router: Arc<Router>,
-    req: Request<hyper::Body>,
-) -> Result<Response<Body>, Error> {
+async fn route(router: Arc<Router>, req: Request<hyper::Body>) -> Result<Response<Body>, Error> {
     let found_handler = router.route(req.uri().path(), req.method());
     let resp = found_handler
         .handler
@@ -72,4 +68,3 @@ async fn shutdown_signal() {
         .await
         .expect("failed to install CTRL+C signal handler");
 }
-
