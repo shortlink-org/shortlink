@@ -125,6 +125,16 @@ grafana:
           jsonData:
             implementation: prometheus
 
+        - name: Phlare
+          type: phlare
+          access: proxy
+          uid: phlare
+          url: http://phlare:4100
+          version: 1
+          basicAuth: false
+          editable: false
+
+
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
@@ -271,3 +281,6 @@ tempo:
 
   serviceMonitor:
     enabled: true
+
+phlare:
+  enabled: true
