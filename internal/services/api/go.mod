@@ -12,7 +12,7 @@ require (
 	github.com/graph-gophers/graphql-go v1.4.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.13.0
 	github.com/riandyrn/otelchi v0.5.0
-	github.com/spf13/viper v1.13.0
+	github.com/spf13/viper v1.14.0
 	go.opentelemetry.io/otel/trace v1.11.1
 	golang.org/x/sync v0.1.0
 	golang.org/x/text v0.4.0
@@ -24,7 +24,7 @@ require (
 require (
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/felixge/httpsnoop v1.0.2 // indirect
-	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/google/uuid v1.3.0 // indirect
@@ -36,11 +36,10 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
-	github.com/spf13/afero v1.8.2 // indirect
+	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/stretchr/testify v1.8.1 // indirect
 	github.com/subosito/gotenv v1.4.1 // indirect
 	go.opentelemetry.io/contrib v1.0.0 // indirect
 	go.opentelemetry.io/otel v1.11.1 // indirect
