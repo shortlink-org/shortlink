@@ -224,7 +224,7 @@ require (
 	golang.org/x/sys v0.2.0 // indirect
 	golang.org/x/term v0.2.0 // indirect
 	golang.org/x/tools v0.2.0 // indirect
-	google.golang.org/genproto v0.0.0-20221107162902-2d387536bcdd // indirect
+	google.golang.org/genproto v0.0.0-20221109142239-94d6d90a7d66 // indirect
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
