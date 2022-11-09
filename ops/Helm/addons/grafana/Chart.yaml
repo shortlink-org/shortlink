@@ -40,3 +40,10 @@ dependencies:
     condition: tempo.enabled
     tags:
       - monitoring
+  - name: phlare
+    version: 0.1.0
+    repository: https://grafana.github.io/helm-charts
+    condition: phlare.enabled
+    tags:
+      - monitoring
+
