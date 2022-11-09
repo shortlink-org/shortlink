@@ -28,12 +28,12 @@ function a11yProps(index: number) {
 
 function getCard(name: string, url: string) {
   return (
-    <Link href={url}>
+    <Link href={url} legacyBehavior>
       <Button variant="outlined">
         {name}
       </Button>
     </Link>
-  )
+  );
 }
 
 const Home: NextPage = () => {

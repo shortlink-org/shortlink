@@ -92,7 +92,7 @@ export default function Profile() {
                       {item.onClick ? (
                         <p>{item.name}</p>
                       ) : (
-                        <Link href={item.link} passHref>
+                        <Link href={item.link} passHref legacyBehavior>
                           <p>{item.name}</p>
                         </Link>
                       )}
@@ -105,5 +105,5 @@ export default function Profile() {
         </Fragment>
       )}
     </Menu>
-  )
+  );
 }

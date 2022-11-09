@@ -55,7 +55,7 @@ export default function Example() {
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid gap-8 bg-white dark:bg-gray-800 p-7 lg:grid-cols-2">
                     {solutions.map((item) => (
-                      <Link href={item.href}>
+                      <Link href={item.href} legacyBehavior>
                         <div className="-m-3 cursor-pointer flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-50">
                           <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-12 sm:w-12">
                             <item.icon aria-hidden="true" />
@@ -73,7 +73,7 @@ export default function Example() {
                     ))}
                   </div>
                   <div className="bg-gray-50 p-4">
-                    <Link href="/faq">
+                    <Link href="/faq" legacyBehavior>
                       <span className="flow-root cursor-pointer rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 focus-visible:ring-opacity-50">
                         <span className="flex items-center">
                           <span className="text-sm font-medium text-gray-900">
@@ -93,7 +93,7 @@ export default function Example() {
         )}
       </Popover>
     </div>
-  )
+  );
 }
 
 function IconOne() {
