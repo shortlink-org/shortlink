@@ -2,6 +2,7 @@
 
 const webpack = require('webpack')
 const withSourceMaps = require('@zeit/next-source-maps')
+const { withImageLoader } = require('next-image-loader')
 
 // pass the modules you would like to see transpiled
 const withTM = require('next-transpile-modules')(['@shortlink-org/ui-kit'])
@@ -73,6 +74,8 @@ const NEXT_CONFIG = {
         hostname: 'images.unsplash.com',
       },
     ],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   webpack: (config, { isServer, buildId }) => {
     config.plugins.push(new webpack.DefinePlugin({}))
@@ -88,6 +91,12 @@ const NEXT_CONFIG = {
         headers: securityHeaders,
       },
     ]
+  },
+  experimental: {
+    forceSwcTransforms: true,
+    images: {
+      allowFutureImage: true,
+    },
   },
 }
 
@@ -122,7 +131,7 @@ if (!isProd) {
   }
 }
 
-let EXPORT_CONFIG = withSourceMaps(NEXT_CONFIG)
+let EXPORT_CONFIG = withImageLoader(withSourceMaps(NEXT_CONFIG))
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins

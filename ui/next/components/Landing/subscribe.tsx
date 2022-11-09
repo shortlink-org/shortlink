@@ -1,4 +1,5 @@
 // @ts-nocheck
+import Image from 'next/image'
 import UndrawDesigner from '../../public/assets/images/undraw_designer_re_5v95.svg'
 
 export default function Subscribe() {
@@ -56,7 +57,7 @@ export default function Subscribe() {
           </div>
 
           <div className="flex items-center justify-center w-full mt-3 lg:mt-0 sm:w-1/2 p-3">
-            <UndrawDesigner />
+            <Image src={UndrawDesigner} alt="undraw designer" />
           </div>
         </div>
       </div>
