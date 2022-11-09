@@ -1,6 +1,6 @@
-use std::env;
-use tokio_postgres::{NoTls, Client};
 use crate::domain::NewsLetter;
+use std::env;
+use tokio_postgres::{Client, NoTls};
 
 type Error = Box<dyn std::error::Error + Send + Sync + 'static>;
 
@@ -8,8 +8,7 @@ pub async fn new() -> Result<Client, Error> {
     let postgres_uri = env::var("STORE_POSTGRES_URI").unwrap();
 
     // Connect to the database.
-    let (client, connection) =
-        tokio_postgres::connect(&postgres_uri, NoTls).await?;
+    let (client, connection) = tokio_postgres::connect(&postgres_uri, NoTls).await?;
 
     // The connection object performs the actual communication with the database,
     // so spawn it off to run on its own.
@@ -25,11 +24,13 @@ pub async fn new() -> Result<Client, Error> {
 pub async fn list() -> std::result::Result<Vec<NewsLetter>, Error> {
     let client = new().await.unwrap();
 
-    let rows = client.query("SELECT id, email FROM shortlink.newsletters", &[]).await;
+    let rows = client
+        .query("SELECT id, email FROM shortlink.newsletters", &[])
+        .await;
 
     let mut newsletters = Vec::new();
     for row in rows.unwrap().as_slice() {
-        newsletters.push(NewsLetter{
+        newsletters.push(NewsLetter {
             _id: 0,
             email: row.get(1),
         });
@@ -40,14 +41,26 @@ pub async fn list() -> std::result::Result<Vec<NewsLetter>, Error> {
 
 pub async fn add(email: &str) -> std::result::Result<(), Error> {
     let client = new().await.unwrap();
-    client.execute("INSERT INTO shortlink.newsletters (email) VALUES ($1)", &[&email]).await.ok();
+    client
+        .execute(
+            "INSERT INTO shortlink.newsletters (email) VALUES ($1)",
+            &[&email],
+        )
+        .await
+        .ok();
 
     Ok(())
 }
 
 pub async fn delete(email: &str) -> std::result::Result<(), Error> {
     let client = new().await.unwrap();
-    client.execute("DELETE FROM shortlink.newsletters WHERE email=$1", &[&email]).await.ok();
+    client
+        .execute(
+            "DELETE FROM shortlink.newsletters WHERE email=$1",
+            &[&email],
+        )
+        .await
+        .ok();
 
     Ok(())
 }

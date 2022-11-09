@@ -1,8 +1,5 @@
 use bytes::Bytes;
-use hyper::{
-    body::to_bytes,
-    Body, Request
-};
+use hyper::{body::to_bytes, Body, Request};
 use route_recognizer::Params;
 
 #[derive(Debug)]
