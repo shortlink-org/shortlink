@@ -150,13 +150,13 @@ const SignIn: NextPage = () => {
               <Flow key="login" onSubmit={onSubmit} flow={flow} />
 
               <div className="flex items-center justify-between">
-                <Link href="/auth/forgot" variant="body2">
+                <Link href="/auth/forgot" variant="body2" legacyBehavior>
                   <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Forgot password?
                   </p>
                 </Link>
 
-                <Link href="/auth/registration" variant="body2">
+                <Link href="/auth/registration" variant="body2" legacyBehavior>
                   <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Don't have an account? Sign Up
                   </p>
@@ -167,7 +167,7 @@ const SignIn: NextPage = () => {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
 export default SignIn

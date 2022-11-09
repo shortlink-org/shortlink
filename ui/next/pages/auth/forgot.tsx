@@ -144,13 +144,13 @@ const Forgot: NextPage = () => {
               <Flow onSubmit={onSubmit} flow={flow} />
 
               <div className="flex items-center justify-between">
-                <Link href="/auth/login">
+                <Link href="/auth/login" legacyBehavior>
                   <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Log in
                   </p>
                 </Link>
 
-                <Link href="/auth/registration">
+                <Link href="/auth/registration" legacyBehavior>
                   <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Don't have an account? Sign Up
                   </p>
@@ -161,7 +161,7 @@ const Forgot: NextPage = () => {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
 export default Forgot

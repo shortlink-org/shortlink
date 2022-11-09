@@ -9,21 +9,21 @@ export default function Footer() {
       <div className="max-w-screen-xl mx-auto px-4">
         <ul className="max-w-screen-md mx-auto text-lg font-light flex flex-wrap justify-between dark:prose-dark dark:md:prose-xl-dark">
           <li className="my-2 cursor-pointer">
-            <Link href="/faq" passHref>
+            <Link href="/faq" passHref legacyBehavior>
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 FAQ
               </span>
             </Link>
           </li>
           <li className="my-2 cursor-pointer">
-            <Link href="/privacy" passHref>
+            <Link href="/privacy" passHref legacyBehavior>
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 Privacy
               </span>
             </Link>
           </li>
           <li className="my-2 cursor-pointer">
-            <Link href="https://github.com/batazor/shortlink" passHref>
+            <Link href="https://github.com/batazor/shortlink" passHref legacyBehavior>
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 Github
               </span>
@@ -112,5 +112,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

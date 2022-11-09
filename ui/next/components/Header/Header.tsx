@@ -143,7 +143,7 @@ const Header = () => {
           <MenuIcon />
         </IconButton>
 
-        <Link href="/">
+        <Link href="/" legacyBehavior>
           <Button
             href="/"
             color="inherit"
@@ -168,7 +168,7 @@ const Header = () => {
             <Notification />
           </Fragment>
         ) : (
-          <Link href="/auth/login">
+          <Link href="/auth/login" legacyBehavior>
             <Button variant="outlined" color="inherit">
               Log in
             </Button>
@@ -215,7 +215,7 @@ const Header = () => {
                     alexis _enache@gmail.com
                   </p>
                 </div>
-                <Link href="/user/profile">
+                <Link href="/user/profile" legacyBehavior>
                   <button
                     aria-label="visit"
                     className=" focus:ring-2 focus:outline-none hover:bg-blue-900 p-2.5 bg-blue-600 rounded-full"
@@ -257,7 +257,7 @@ const Header = () => {
         </Drawer>
       )}
     </Fragment>,
-  ]
+  ];
 }
 
 export default Header

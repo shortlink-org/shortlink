@@ -145,7 +145,7 @@ const SignUp: NextPage = () => {
 
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="/auth/login" variant="body2" underline="hover">
+                  <Link href="/auth/login" variant="body2" underline="hover" legacyBehavior>
                     <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Already have an account? Log in
                     </p>
@@ -157,7 +157,7 @@ const SignUp: NextPage = () => {
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 
 export default SignUp
