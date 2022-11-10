@@ -100,6 +100,15 @@ deploy:
 
   affinity: []
 
+  startupProbe:
+    httpGet:
+      path: /healthz
+      port: 9090
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 1
+
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
