@@ -19,6 +19,12 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      start_period: 1m
+      interval: 30s
+      timeout: 10s
+      retries: 3
 #    logging:
 #      driver: ${LOGGER_DRIVER}
 #      options:

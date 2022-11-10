@@ -155,11 +155,6 @@ make skaffold-debug
 + Development
   + [Skaffold](https://skaffold.dev/)
   + Telepresence
-+ Logger
-  + [Loki](./docs/logger.md)
-+ Prometheus
-  + prometheus-operator
-    + notify: slack, email, telegram
 + HealthCheck
 + Support K8S
   + Helm Chart
@@ -167,9 +162,10 @@ make skaffold-debug
   + Minikube
   + Backup/Restore [(Velero)](https://velero.io/)
   + Custom CSI driver (fork [csi-driver-host-pat](https://github.com/kubernetes-csi/csi-driver-host-path))
-+ Ingress
++ Ingress (Gateway)
   + Istio
   + Nginx
+  + Traefik
 + MetalLB
 + [kyverno](https://kyverno.io/) - Kubernetes Native Policy Management
 + Storage
@@ -177,11 +173,19 @@ make skaffold-debug
     + ceph cluster (3 node)
     + grafana dashboard
     + prometheus metrics
-
-### Gateway
-
-+ Traefik
-+ Nginx
++ Observability
+  + [Jaeger](https://www.jaegertracing.io/) - Distributed tracing
+  + **Prometheus** - Monitoring
+    + [Prometheus](https://prometheus.io/)
+    + prometheus-operator
+      + notify: slack, email, telegram
+  + **Grafana stack (LGTM)**
+    * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization platform.
+    * [Loki](https://github.com/grafana/loki), like Prometheus, but for logs.
+      + [docs](./docs/logger.md)
+    * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization platform.
+    + [OnCall](https://grafana.com/oss/oncall/) - On-call scheduling
+    + [Phlare](https://grafana.com/oss/phlare/) - Profiling
 
 ### UI
 
