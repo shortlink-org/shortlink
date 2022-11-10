@@ -26,11 +26,8 @@ up: ## Run for specific job
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns.yaml \
-		-f ops/docker-compose/mq/rabbitmq.yaml \
-		-f ops/docker-compose/database/redis.yaml \
-		-f ops/docker-compose/tooling/observability/prometheus.yaml \
-		-f ops/docker-compose/tooling/observability/grafana.yaml \
-		-f ops/docker-compose/tooling/observability/grafana-phlare.yaml \
+		-f ops/docker-compose/mq/zookeeper.yaml \
+		-f ops/docker-compose/tooling/saas/nifi/nifi.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker compose
@@ -59,6 +56,7 @@ down: ## Down docker compose
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns.yaml \
 		-f ops/docker-compose/tooling/saas/airflow/airflow.yaml \
+		-f ops/docker-compose/tooling/saas/nifi/nifi.yaml \
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus.yaml \
@@ -76,6 +74,7 @@ down: ## Down docker compose
 		-f ops/docker-compose/database/postgres.yaml \
 		-f ops/docker-compose/database/elasticsearch.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
+		-f ops/docker-compose/mq/zookeeper.yaml \
 		-f ops/docker-compose/mq/kafka.yaml \
 		-f ops/docker-compose/mq/kafka-schema-registry.yaml \
 		-f ops/docker-compose/mq/kafka-connect.yaml \
