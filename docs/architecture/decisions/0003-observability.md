@@ -1,4 +1,4 @@
-# 4. Observability
+# 3. Observability
 
 Date: 2022-10-28
 
@@ -16,6 +16,7 @@ We will add two standard endpoints to each service on port 9090.
 
 - `/metrics` will return a prometheus formatted metrics page
 - `/health` will return a json object with a `status` field that is either `ok` or `error`
+- `/ready` will return a json object with a `status` field that is either `ok` or `error`
 
 + Also, we will add command `HEALTHCHECK` to the dockerfile for each service that will call the `/health` endpoint and check the status.
 + Also, we add k8s liveness and readiness probes to each service that will call the `/health` endpoint and check the status.
