@@ -7,9 +7,9 @@ minikube-up: ## run minikube for dev mode
 	@cp ${PWD}/ops/Makefile/conf/tracing-config-file.yaml ~/.minikube/files/etc/ssl/certs/tracing-config-file.yaml
 
 	@minikube start \
-		--nodes 3 \
-		--cpus 4 \
-		--memory "12192" \
+		--nodes 1 \
+		--cpus  \
+		--memory "4192" \
 		--driver=docker \
 		--container-runtime=containerd \
 		--addons=pod-security-policy,ingress \
