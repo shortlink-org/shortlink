@@ -1,8 +1,17 @@
 version: '2.4'
 
+x-network: &network
+#  networks:
+#    simple:
+#      ipv4_address: ${DATABASE_IP}
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
 
   redis:
+    <<: *network
     depends_on:
       - coredns
     image: redis:7.0-alpine
@@ -11,12 +20,11 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
-#    networks:
-#      simple:
-#        ipv4_address: ${DATABASE_IP}
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      timeout: 5s
+      interval: 5s
+      retries: 10
 #    logging:
 #      driver: fluent-bit
 #      options:

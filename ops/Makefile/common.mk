@@ -27,6 +27,7 @@ up: ## Run for specific job
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
+		-f ops/docker-compose/database/redis.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus.yaml \
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-phlare.yaml \
@@ -49,6 +50,7 @@ run: ## Run this project in docker compose
 		-f ops/docker-compose/tooling/observability/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/grafana-phlare.yaml \
+		-f ops/docker-compose/tooling/observability/grafana-oncall.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
 		up -d --remove-orphans
 

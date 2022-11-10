@@ -10,7 +10,6 @@ x-network: &network
 services:
 
   grafana:
-    <<: *network
     depends_on:
       - coredns
     image: grafana/grafana:main
@@ -29,6 +28,8 @@ services:
       - GF_DIAGNOSTICS_PROFILING_ENABLED=true
       - GF_DIAGNOSTICS_PROFILING_ADDR=0.0.0.0
       - GF_DIAGNOSTICS_PROFILING_PORT=6060
+      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-oncall-app
+      - GF_INSTALL_PLUGINS=grafana-oncall-app
     ports:
       - 3030:3000
     networks:
