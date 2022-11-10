@@ -1,0 +1,18 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.probe" }}
+  {{- if .startupProbe }}
+  startupProbe:
+    {{- toYaml .startupProbe | nindent 4 }}
+  {{- end }}
+
+  {{- if .livenessProbe }}
+  livenessProbe:
+    {{- toYaml .livenessProbe | nindent 4 }}
+  {{- end }}
+
+  {{- if .readinessProbe }}
+  readinessProbe:
+    {{- toYaml .readinessProbe | nindent 4 }}
+  {{- end }}
+{{- end }}
