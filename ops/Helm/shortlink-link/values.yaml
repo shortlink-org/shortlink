@@ -85,6 +85,14 @@ service:
   # nodePort: 7070
   # clusterIP: 172.0.0.1
 
+ports:
+  - name: grpc
+    containerPort: 50051
+    protocol: TCP
+  - name: metrics
+    containerPort: 9090
+    protocol: TCP
+
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   # -- Creates a Prometheus Operator ServiceMonitor
