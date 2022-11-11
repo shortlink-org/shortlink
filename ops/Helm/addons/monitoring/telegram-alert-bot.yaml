@@ -25,7 +25,7 @@ items:
     selector:
       app.kubernetes.io/name: alertmanager-bot
 - apiVersion: apps/v1
-  kind: Deployment
+  kind: {{ .Values.deploy.type | default "Deployment" }}
   metadata:
     labels:
       app.kubernetes.io/name: alertmanager-bot

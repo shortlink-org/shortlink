@@ -56,6 +56,9 @@ ingress:
 
 # ==============================================================================
 deploy:
+  # type: Deployment, Rollout, StatefulSet
+  type: Deployment
+
   replicaCount: 1
 
   env:

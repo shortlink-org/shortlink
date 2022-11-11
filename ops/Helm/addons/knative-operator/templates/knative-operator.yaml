@@ -40,7 +40,7 @@ metadata:
 # limitations under the License.
 
 apiVersion: apps/v1
-kind: Deployment
+kind: {{ .Values.deploy.type | default "Deployment" }}
 metadata:
   name: operator-webhook
   namespace: {{ .Release.Namespace }}
@@ -2725,7 +2725,7 @@ data:
 # limitations under the License.
 
 apiVersion: apps/v1
-kind: Deployment
+kind: {{ .Values.deploy.type | default "Deployment" }}
 metadata:
   name: knative-operator
   namespace: {{ .Release.Namespace }}

@@ -1,6 +1,6 @@
 {{- if .Values.enabled -}}
 apiVersion: apps/v1
-kind: Deployment
+kind: {{ .Values.deploy.type | default "Deployment" }}
 metadata:
   {{- include "shortlink-common.metadata" . | indent 2 }}
 spec:
