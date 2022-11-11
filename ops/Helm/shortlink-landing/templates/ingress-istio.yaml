@@ -2,9 +2,7 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: {{ include "helpers.fullname" . }}
-  labels:
-    {{ include "helpers.labels" . | nindent 4 }}
+  {{- include "shortlink-common.metadata" . | indent 2 }}
 spec:
   hosts:
     - "*"
