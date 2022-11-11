@@ -1,0 +1,12 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.deploymentType" }}
+
+{{- if eq .Values.deploy.type "Rollout" -}}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+{{- else -}}
+apiVersion: apps/v1
+kind: {{ .Values.deploy.type | default "Deployment" }}
+{{- end }}
+{{- end }}

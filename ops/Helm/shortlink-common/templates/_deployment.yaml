@@ -1,17 +1,15 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{- define "shortlink-common.Deployment" }}
-apiVersion: apps/v1
-kind: {{ .Values.deploy.type | default "Deployment" }}
+
+{{- include "shortlink-common.deploymentType" . }}
 metadata:
   {{- include "shortlink-common.metadata" . }}
 spec:
   replicas: {{ .Values.deploy.replicaCount | default 1 }}
+  revisionHistoryLimit: {{ .Values.deploy.revisionHistoryLimit | default 5 }}
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+    {{- include "shortlink-common.deploymentStrategy" . | nindent 4 }}
   selector:
     matchLabels:
       {{- include "shortlink-common.matchLabels" . | indent 6 }}
