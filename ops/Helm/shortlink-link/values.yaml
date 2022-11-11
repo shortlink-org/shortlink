@@ -75,6 +75,10 @@ deploy:
     repository: registry.gitlab.com/shortlink-org/shortlink/link
     tag: 0.13.5
 
+  volumes:
+    - name: grpc
+      mountPath: /app/ops/cert/
+
 service:
   type: ClusterIP
   port: 50051
