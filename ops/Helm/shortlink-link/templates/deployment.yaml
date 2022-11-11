@@ -1,13 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "helpers.fullname" . }}
-  labels:
-    {{ include "helpers.labels" . | nindent 4 }}
-  annotations:
-  {{- if .Values.deploy.annotations }}
-    {{- toYaml .Values.deploy.annotations | nindent 4 }}
-  {{- end }}
+  {{- include "shortlink-common.metadata" . | indent 2 }}
 spec:
   replicas: {{ .Values.deploy.replicaCount }}
   strategy:
