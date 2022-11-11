@@ -22,6 +22,4 @@ spec:
       protocol: TCP
       name: metrics
   selector:
-    app.kubernetes.io/name: {{ include "helpers.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/component: proxy
+    {{- include "shortlink-common.matchLabels" . | indent 2 }}
