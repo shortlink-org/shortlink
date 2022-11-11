@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "helpers.fullname" . }}
-  labels:
-    {{ include "helpers.labels" . | nindent 4 }}
+  {{- include "shortlink-common.metadata" . | indent 2 }}
 spec:
   type: {{ .Values.service.type }}
   {{- if semverCompare ">=1.20" .Capabilities.KubeVersion.Version }}
