@@ -12,8 +12,8 @@
     failureThreshold: 1
   {{- end }}
 
-  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   {{- if .livenessProbe }}
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
       path: /live
@@ -24,8 +24,8 @@
     failureThreshold: 1
   {{- end }}
 
-  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   {{- if .readinessProbe }}
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
       path: /ready
