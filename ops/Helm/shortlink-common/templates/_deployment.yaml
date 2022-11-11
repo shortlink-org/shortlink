@@ -1,0 +1,78 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.Deployment" }}
+apiVersion: apps/v1
+kind: {{ .Values.deploy.type | default "Deployment" }}
+metadata:
+  {{- include "shortlink-common.metadata" . }}
+spec:
+  replicas: {{ .Values.deploy.replicaCount | default 1 }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      {{- include "shortlink-common.matchLabels" . | indent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "shortlink-common.matchLabels" . | indent 8 }}
+      annotations:
+      {{- if .Values.deploy.annotations }}
+        {{- toYaml .Values.deploy.annotations | nindent 8 }}
+      {{- end }}
+    spec:
+    {{- with .Values.deploy.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "helpers.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.deploy.podSecurityContext | nindent 8 }}
+      containers:
+      - name: {{ .Chart.Name }}
+        securityContext:
+          {{- toYaml .Values.deploy.securityContext | nindent 12 }}
+        image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
+        imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
+        ports:
+        - name: grpc
+          containerPort: {{ .Values.service.port }}
+          protocol: TCP
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
+        {{- include "shortlink-common.probe" .Values.deploy | indent 6 }}
+        env:
+          {{- range $key, $value := .Values.deploy.env }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}
+        resources:
+          {{- toYaml .Values.deploy.resources | nindent 10 }}
+        {{ if and .Values.secret.enabled }}
+        volumeMounts:
+          - name: {{ include "helpers.fullname" . }}-grpc
+            mountPath: /app/ops/cert/
+        {{ end }}
+      {{- with .Values.deploy.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.deploy.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.deploy.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      {{- if and .Values.secret.enabled -}}
+      volumes:
+        - name: {{ include "helpers.fullname" . }}-grpc
+          secret:
+            secretName: {{ include "helpers.fullname" . }}-grpc
+      {{- end }}
+{{- end }}
