@@ -16,7 +16,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "helpers.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/component: ui
+    {{- include "shortlink-common.matchLabels" . | indent 2 }}
 {{- end }}
