@@ -59,8 +59,6 @@ deploy:
   # type: Deployment, Rollout, StatefulSet
   type: Deployment
 
-  replicaCount: 1
-
   env:
     MQ_ENABLED: "true"
     MQ_TYPE: "kafka"
@@ -72,19 +70,6 @@ deploy:
     # -- Default store config
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
     STORE_REDIS_URI: shortlink-redis-master.redis:6379
-
-  imagePullSecrets: []
-
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-
-  terminationGracePeriodSeconds: 90
-
-  # -- Annotations to be added to controller pods
-  annotations: {}
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/link
