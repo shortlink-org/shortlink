@@ -1,25 +1,4 @@
-apiVersion: v1
-kind: Service
-metadata:
-  {{- include "shortlink-common.metadata" . | indent 2 }}
-spec:
-  type: {{ .Values.service.type }}
-  {{- if semverCompare ">=1.20" .Capabilities.KubeVersion.Version }}
-  ipFamilyPolicy: PreferDualStack
-  ipFamilies:
-    - IPv4
-  {{- end }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: grpc
-      protocol: TCP
-      name: grpc
-      {{ if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort))) }}
-      nodePort: {{.Values.service.nodePort}}
-      {{- end }}
-    - port: 9090
-      targetPort: metrics
-      protocol: TCP
-      name: metrics
-  selector:
-    {{- include "shortlink-common.matchLabels" . | indent 2 }}
+{{/* vim: set filetype=mustache: */}}
+
+{{- include "shortlink-common.Service" . }}
+

@@ -57,7 +57,7 @@ spec:
         ports:
           {{- range .Values.ports }}
           - name: {{ .name }}
-            containerPort: {{ .containerPort }}
+            containerPort: {{ .port }}
             protocol: {{ .protocol }}
           {{- end }}
         {{- include "shortlink-common.probe" .Values.deploy | indent 6 }}

@@ -1,0 +1,27 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.Service" }}
+apiVersion: v1
+kind: Service
+metadata:
+  {{- include "shortlink-common.metadata" . | indent 2 }}
+spec:
+  type: {{ .Values.service.type }}
+  {{- if semverCompare ">=1.20" .Capabilities.KubeVersion.Version }}
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+    - IPv4
+  {{- end }}
+  ports:
+    {{- range .Values.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .name }}
+      protocol: {{ .protocol }}
+      {{ if (and (eq $.Values.service.type "NodePort") (not (empty .nodePort))) }}
+      nodePort: {{.nodePort}}
+      {{- end }}
+    {{- end }}
+  selector:
+    {{- include "shortlink-common.matchLabels" . | indent 2 }}
+{{- end }}

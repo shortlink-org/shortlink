@@ -87,10 +87,10 @@ service:
 
 ports:
   - name: grpc
-    containerPort: 50051
+    port: 50051
     protocol: TCP
   - name: metrics
-    containerPort: 9090
+    port: 9090
     protocol: TCP
 
 # Prometheus Operator ServiceMonitor configuration
