@@ -32,6 +32,8 @@ spec:
       securityContext:
         # -- fsGroup is the group ID associated with the container
         fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
       containers:
       - name: {{ .Chart.Name }}
         # -- Security Context policies for controller pods
@@ -78,11 +80,11 @@ spec:
           requests:
             cpu: 10m
             memory: 32Mi
-        {{ if and .Values.secret.enabled }}
         volumeMounts:
-          - name: {{ include "helpers.fullname" . }}-grpc
-            mountPath: /app/ops/cert/
-        {{ end }}
+          {{- range .Values.deploy.volumes }}
+          - name: {{ include "helpers.fullname" $ }}-{{ .name }}
+            mountPath: {{ .mountPath | quote }}
+          {{- end }}
       # -- Node labels and tolerations for pod assignment
       # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
       # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
@@ -98,10 +100,10 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      {{- if and .Values.secret.enabled -}}
       volumes:
-        - name: {{ include "helpers.fullname" . }}-grpc
+        {{- range .Values.deploy.volumes }}
+        - name: {{ include "helpers.fullname" $ }}-{{ .name }}
           secret:
-            secretName: {{ include "helpers.fullname" . }}-grpc
-      {{- end }}
+            secretName: {{ include "helpers.fullname" $ }}-{{ .name }}
+        {{- end }}
 {{- end }}
