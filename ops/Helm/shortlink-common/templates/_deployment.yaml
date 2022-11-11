@@ -30,13 +30,30 @@ spec:
     {{- end }}
       serviceAccountName: {{ template "helpers.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.deploy.podSecurityContext | nindent 8 }}
+        # -- fsGroup is the group ID associated with the container
+        fsGroup: 1000
       containers:
       - name: {{ .Chart.Name }}
+        # -- Security Context policies for controller pods
+        # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+        # notes on enabling and using sysctls
         securityContext:
-          {{- toYaml .Values.deploy.securityContext | nindent 12 }}
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          # runAsUser is the user ID used to run the container
+          runAsUser: 1000
+          # runAsGroup is the primary group ID used to run all processes within any container of the pod
+          runAsGroup: 1000
+          # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
         image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
-        imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
+        # -- Global imagePullPolicy
+        # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+        # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+        imagePullPolicy: {{ .Values.deploy.image.pullPolicy | default "IfNotPresent" }}
         ports:
         - name: grpc
           containerPort: {{ .Values.service.port }}
@@ -51,12 +68,24 @@ spec:
             value: {{ $value | quote }}
           {{- end }}
         resources:
-          {{- toYaml .Values.deploy.resources | nindent 10 }}
+          # -- We usually recommend not to specify default resources and to leave this as a conscious
+          # choice for the user. This also increases chances charts run on environments with little
+          # resources, such as Minikube. If you do want to specify resources, uncomment the following
+          # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 32Mi
         {{ if and .Values.secret.enabled }}
         volumeMounts:
           - name: {{ include "helpers.fullname" . }}-grpc
             mountPath: /app/ops/cert/
         {{ end }}
+      # -- Node labels and tolerations for pod assignment
+      # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+      # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
       {{- with .Values.deploy.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

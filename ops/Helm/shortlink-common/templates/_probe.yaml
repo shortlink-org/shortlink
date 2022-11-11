@@ -3,16 +3,36 @@
 {{- define "shortlink-common.probe" }}
   {{- if .startupProbe }}
   startupProbe:
-    {{- toYaml .startupProbe | nindent 4 }}
+    httpGet:
+      path: /healthz
+      port: 9090
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 1
   {{- end }}
 
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   {{- if .livenessProbe }}
   livenessProbe:
-    {{- toYaml .livenessProbe | nindent 4 }}
+    httpGet:
+      path: /live
+      port: 9090
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 1
   {{- end }}
 
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   {{- if .readinessProbe }}
   readinessProbe:
-    {{- toYaml .readinessProbe | nindent 4 }}
+    httpGet:
+      path: /ready
+      port: 9090
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    successThreshold: 1
+    failureThreshold: 30
   {{- end }}
 {{- end }}
