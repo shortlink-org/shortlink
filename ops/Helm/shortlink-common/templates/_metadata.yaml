@@ -1,0 +1,11 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.metadata" }}
+  name: {{ include "helpers.fullname" . }}
+  labels:
+    {{- include "helpers.labels" . | nindent 4 }}
+  annotations:
+  {{- if .annotations }}
+    {{- toYaml .annotations | nindent 4 }}
+  {{- end }}
+{{- end }}
