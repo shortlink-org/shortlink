@@ -4,8 +4,8 @@
 
 {{- if eq .Values.deploy.type "Rollout" -}}
 blueGreen:
-  activeService: rollout-bluegreen-active
-  previewService: rollout-bluegreen-preview
+  activeService: {{ include "helpers.fullname" . }}
+  previewService: {{ include "helpers.fullname" . }}-preview
   autoPromotionEnabled: false
 {{- else -}}
 type: RollingUpdate

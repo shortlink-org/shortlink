@@ -81,17 +81,17 @@ deploy:
 
 service:
   type: ClusterIP
-  port: 50051
-  # nodePort: 7070
   # clusterIP: 172.0.0.1
 
 ports:
   - name: grpc
     port: 50051
     protocol: TCP
+    public: true
   - name: metrics
     port: 9090
     protocol: TCP
+    public: true
 
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
