@@ -1,20 +1,4 @@
-{{- if .Values.enabled -}}
-apiVersion: v1
-kind: Service
-metadata:
-  {{- include "shortlink-common.metadata" . | indent 2 }}
-spec:
-  type: {{ .Values.service.type }}
-  {{- if semverCompare ">=1.20" .Capabilities.KubeVersion.Version }}
-  ipFamilyPolicy: PreferDualStack
-  ipFamilies:
-    - IPv4
-  {{- end }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
-  selector:
-    {{- include "shortlink-common.matchLabels" . | indent 2 }}
-{{- end }}
+{{/* vim: set filetype=mustache: */}}
+
+{{- include "shortlink-common.Service" . }}
+
