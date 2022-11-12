@@ -1,6 +1,6 @@
 {{/* vim: set filetype=mustache: */}}
 
-{{- define "shortlink-common.Service" }}
+{{- define "shortlink-common.service" }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -14,14 +14,28 @@ spec:
   {{- end }}
   ports:
     {{- range .Values.ports }}
+    {{- if .public }}
     - name: {{ .name }}
       port: {{ .port }}
       targetPort: {{ .name }}
       protocol: {{ .protocol }}
       {{ if (and (eq $.Values.service.type "NodePort") (not (empty .nodePort))) }}
       nodePort: {{.nodePort}}
-      {{- end }}
+      {{- end -}}
+    {{- end -}}
     {{- end }}
   selector:
     {{- include "shortlink-common.matchLabels" . | indent 2 }}
+{{- end }}
+
+{{- define "shortlink-common.Service" }}
+
+{{- include "shortlink-common.service" . }}
+---
+
+{{- if eq .Values.deploy.type "Rollout" -}}
+{{ $test := . | deepCopy }}
+{{ $_ := set $test "name" (printf "%s-%s" (include "helpers.fullname" .) "preview") }}
+{{- include "shortlink-common.service" $test }}
+{{- end }}
 {{- end }}
