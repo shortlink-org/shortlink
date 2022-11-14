@@ -3,7 +3,7 @@ module github.com/batazor/shortlink/internal/services/api
 go 1.19
 
 require (
-	github.com/batazor/shortlink v0.0.0-20221112002840-5ac867df7045
+	github.com/batazor/shortlink v0.0.0-20221114093000-9720579baa27
 	github.com/cloudevents/sdk-go/v2 v2.12.0
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/cors v1.2.1
@@ -66,8 +66,8 @@ require (
 	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20200714003250-2b9c44734f2b // indirect
-	github.com/jackc/pgx/v5 v5.0.4 // indirect
-	github.com/jackc/puddle/v2 v2.0.0 // indirect
+	github.com/jackc/pgx/v5 v5.1.0 // indirect
+	github.com/jackc/puddle/v2 v2.1.2 // indirect
 	github.com/jcmturner/aescts/v2 v2.0.0 // indirect
 	github.com/jcmturner/dnsutils/v2 v2.0.0 // indirect
 	github.com/jcmturner/gofork v1.7.6 // indirect
