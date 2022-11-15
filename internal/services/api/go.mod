@@ -3,7 +3,7 @@ module github.com/batazor/shortlink/internal/services/api
 go 1.19
 
 require (
-	github.com/batazor/shortlink v0.0.0-20221114093000-9720579baa27
+	github.com/batazor/shortlink v0.0.0-20221115172038-59cc67e4504f
 	github.com/cloudevents/sdk-go/v2 v2.12.0
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/cors v1.2.1
