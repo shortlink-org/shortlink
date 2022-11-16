@@ -4,6 +4,7 @@ syntax = "proto3";
 package grpc_web.v1;
 
 import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "domain/link/v1/link.proto";
 
@@ -37,10 +38,13 @@ service LinkService {
 }
 
 message GetLinksRequest {
-  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    example: "{\"hash\": \"1234567890\"}"
-    description: "Link hash"
-  }];
+  domain.link.v1.Link link = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "{\"hash\": \"1234567890\"}"
+      description: "Link hash"
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
 
   string filter = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description: "Filter by link"
@@ -54,36 +58,51 @@ message GetLinksResponse {
 }
 
 message GetLinkRequest {
-  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    example: "{\"hash\": \"1234567890\"}"
-    description: "Link hash"
-  }];
+  domain.link.v1.Link link = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "{\"hash\": \"1234567890\"}"
+      description: "Link hash"
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message GetLinkResponse {
-  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    example: "{\"hash\": \"1234567890\"}"
-    description: "Link hash"
-  }];
+  domain.link.v1.Link link = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "{\"hash\": \"1234567890\"}"
+      description: "Link hash"
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message CreateLinkRequest {
-  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    example: "{\"url\": \"https://google.com\"}"
-    description: "Link"
-  }];
+  domain.link.v1.Link link = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "{\"hash\": \"1234567890\"}"
+      description: "Link hash"
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message CreateLinkResponse {
-  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    example: "{\"hash\": \"1234567890\"}"
-    description: "Link hash"
-  }];
+  domain.link.v1.Link link = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "{\"hash\": \"1234567890\"}"
+      description: "Link hash"
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
 }
 
 message DeleteLinkRequest {
-  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-    example: "{\"hash\": \"1234567890\"}"
-    description: "Link hash"
-  }];
+  domain.link.v1.Link link = 1 [
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      example: "{\"hash\": \"1234567890\"}"
+      description: "Link hash"
+    },
+    (google.api.field_behavior) = REQUIRED
+  ];
 }

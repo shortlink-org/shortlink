@@ -36,7 +36,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-// Injectors from di.go:
+// Injectors from wire.go:
 
 func InitializeLinkService() (*LinkService, func(), error) {
 	context, cleanup, err := ctx.New()
@@ -243,7 +243,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}, nil
 }
 
-// di.go:
+// wire.go:
 
 type LinkService struct {
 	// Common

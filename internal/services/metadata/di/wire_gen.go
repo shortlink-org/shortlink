@@ -27,7 +27,7 @@ import (
 	"github.com/google/wire"
 )
 
-// Injectors from di.go:
+// Injectors from wire.go:
 
 func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	context, cleanup, err := ctx.New()
@@ -121,7 +121,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}, nil
 }
 
-// di.go:
+// wire.go:
 
 type MetaDataService struct {
 	// Common

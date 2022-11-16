@@ -19,7 +19,7 @@ import (
 	"github.com/google/wire"
 )
 
-// Injectors from di.go:
+// Injectors from wire.go:
 
 func InitializeLoggerService() (*LoggerService, func(), error) {
 	context, cleanup, err := ctx.New()
@@ -64,7 +64,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 	}, nil
 }
 
-// di.go:
+// wire.go:
 
 type LoggerService struct {
 	// Common
