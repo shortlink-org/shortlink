@@ -2,11 +2,17 @@
 
 {{- define "shortlink-common.deploymentStrategy" }}
 
-{{- if eq .Values.deploy.type "Rollout" -}}
+{{- if and (eq .Values.deploy.type "Rollout") (eq .Values.deploy.strategy "blueGreen") -}}
 blueGreen:
   activeService: {{ include "helpers.fullname" . }}
   previewService: {{ include "helpers.fullname" . }}-preview
   autoPromotionEnabled: false
+{{- if and (eq .Values.deploy.type "Rollout") (eq .Values.deploy.strategy "canary") -}}
+canary:
+  stableService: {{ include "helpers.fullname" . }}
+  canaryService: {{ include "helpers.fullname" . }}-preview
+  dynamicStableScale: true
+  {{ toYaml .Values.deploy.canary | nindent 2 }}
 {{- else -}}
 type: RollingUpdate
 rollingUpdate:
