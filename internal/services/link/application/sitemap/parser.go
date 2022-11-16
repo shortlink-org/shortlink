@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/xml"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/gogo/protobuf/proto"
@@ -51,7 +51,7 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 		return fmt.Errorf(`Incorrect response code: %d for %s`, resp.StatusCode, url)
 	}
 
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
