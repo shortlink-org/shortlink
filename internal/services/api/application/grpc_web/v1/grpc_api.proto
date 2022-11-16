@@ -37,31 +37,53 @@ service LinkService {
 }
 
 message GetLinksRequest {
-  domain.link.v1.Link link = 1;
+  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "{\"hash\": \"1234567890\"}"
+    description: "Link hash"
+  }];
 
-  string filter = 2;
+  string filter = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Filter by link"
+  }];
 }
 
 message GetLinksResponse {
-  repeated domain.link.v1.Link links = 1;
+  repeated domain.link.v1.Link links = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "Links"
+  }];
 }
 
 message GetLinkRequest {
-  domain.link.v1.Link link = 1;
+  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "{\"hash\": \"1234567890\"}"
+    description: "Link hash"
+  }];
 }
 
 message GetLinkResponse {
-  domain.link.v1.Link link = 1;
+  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "{\"hash\": \"1234567890\"}"
+    description: "Link hash"
+  }];
 }
 
 message CreateLinkRequest {
-  domain.link.v1.Link link = 1;
+  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "{\"url\": \"https://google.com\"}"
+    description: "Link"
+  }];
 }
 
 message CreateLinkResponse {
-  domain.link.v1.Link link = 1;
+  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "{\"hash\": \"1234567890\"}"
+    description: "Link hash"
+  }];
 }
 
 message DeleteLinkRequest {
-  domain.link.v1.Link link = 1;
+  domain.link.v1.Link link = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    example: "{\"hash\": \"1234567890\"}"
+    description: "Link hash"
+  }];
 }
