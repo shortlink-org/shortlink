@@ -7,6 +7,7 @@ import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "domain/link/v1/link.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/batazor/shortlink/internal/services/api/application/grpc_web/v1";
 
@@ -40,7 +41,7 @@ service LinkService {
 message GetLinksRequest {
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "{\"hash\": \"1234567890\"}"
+      example: "{\"hash\": \"1234567890\"}",
       description: "Link hash"
     },
     (google.api.field_behavior) = REQUIRED
@@ -60,7 +61,7 @@ message GetLinksResponse {
 message GetLinkRequest {
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "{\"hash\": \"1234567890\"}"
+      example: "{\"hash\": \"1234567890\"}",
       description: "Link hash"
     },
     (google.api.field_behavior) = REQUIRED
@@ -70,7 +71,7 @@ message GetLinkRequest {
 message GetLinkResponse {
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "{\"hash\": \"1234567890\"}"
+      example: "{\"hash\": \"1234567890\"}",
       description: "Link hash"
     },
     (google.api.field_behavior) = REQUIRED
@@ -80,7 +81,7 @@ message GetLinkResponse {
 message CreateLinkRequest {
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "{\"hash\": \"1234567890\"}"
+      example: "{\"hash\": \"1234567890\"}",
       description: "Link hash"
     },
     (google.api.field_behavior) = REQUIRED
@@ -90,7 +91,7 @@ message CreateLinkRequest {
 message CreateLinkResponse {
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "{\"hash\": \"1234567890\"}"
+      example: "{\"hash\": \"1234567890\"}",
       description: "Link hash"
     },
     (google.api.field_behavior) = REQUIRED
@@ -100,7 +101,7 @@ message CreateLinkResponse {
 message DeleteLinkRequest {
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
-      example: "{\"hash\": \"1234567890\"}"
+      example: "{\"hash\": \"1234567890\"}",
       description: "Link hash"
     },
     (google.api.field_behavior) = REQUIRED

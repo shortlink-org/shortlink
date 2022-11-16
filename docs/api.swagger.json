@@ -166,6 +166,7 @@
           },
           {
             "name": "filter",
+            "description": "Filter by link",
             "in": "query",
             "required": false,
             "type": "string"
@@ -273,7 +274,10 @@
         "link": {
           "$ref": "#/definitions/v1Link"
         }
-      }
+      },
+      "required": [
+        "link"
+      ]
     },
     "v1CreateLinkResponse": {
       "type": "object",
@@ -281,7 +285,10 @@
         "link": {
           "$ref": "#/definitions/v1Link"
         }
-      }
+      },
+      "required": [
+        "link"
+      ]
     },
     "v1GetLinkResponse": {
       "type": "object",
@@ -289,7 +296,10 @@
         "link": {
           "$ref": "#/definitions/v1Link"
         }
-      }
+      },
+      "required": [
+        "link"
+      ]
     },
     "v1GetLinksResponse": {
       "type": "object",
@@ -298,7 +308,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/v1Link"
-          }
+          },
+          "description": "Links"
         }
       }
     },
