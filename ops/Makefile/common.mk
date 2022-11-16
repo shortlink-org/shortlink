@@ -12,7 +12,7 @@ dep: ## Install dependencies for this project
 	@go install github.com/cloudflare/cfssl/cmd/...@latest
 
 	# for NodeJS
-	@npm install -g grpc-tools grpc_tools_node_protoc_ts
+	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen
 
 	# install wire
 	@go install github.com/google/wire/cmd/wire@latest

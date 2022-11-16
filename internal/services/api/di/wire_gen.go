@@ -25,7 +25,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-// Injectors from di.go:
+// Injectors from wire.go:
 
 func InitializeAPIService() (*APIService, func(), error) {
 	context, cleanup, err := ctx.New()
@@ -131,12 +131,12 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}, nil
 }
 
-// di.go:
+// wire.go:
 
 type APIService struct {
 	Logger logger.Logger
 
-	// applications
+	// Applications
 	service *api_application.API
 }
 
@@ -203,13 +203,15 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 }
 
 func NewAPIService(
+
 	log logger.Logger,
 
 	service *api_application.API,
 ) (*APIService, error) {
 	return &APIService{
-		service: service,
 
 		Logger: log,
+
+		service: service,
 	}, nil
 }
