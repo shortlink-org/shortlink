@@ -30,7 +30,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-// Injectors from di.go:
+// Injectors from wire.go:
 
 func InitializeBillingService() (*BillingService, func(), error) {
 	context, cleanup, err := ctx.New()
@@ -135,9 +135,10 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}, nil
 }
 
-// di.go:
+// wire.go:
 
 type BillingService struct {
+	// Common
 	Logger logger.Logger
 
 	// Delivery
@@ -239,14 +240,15 @@ func NewBillingAPIServer(ctx2 context.Context, logger2 logger.Logger,
 }
 
 func NewBillingService(
+
 	log logger.Logger,
 
 	httpAPIServer *api.Server,
 ) (*BillingService, error) {
 	return &BillingService{
 
-		httpAPIServer: httpAPIServer,
-
 		Logger: log,
+
+		httpAPIServer: httpAPIServer,
 	}, nil
 }
