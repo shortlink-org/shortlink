@@ -16,7 +16,7 @@ require (
 	github.com/dgraph-io/badger/v3 v3.2103.4
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/edgedb/edgedb-go v0.13.1
-	github.com/elastic/go-elasticsearch/v8 v8.4.0
+	github.com/elastic/go-elasticsearch/v8 v8.5.0
 	github.com/getsentry/sentry-go v0.15.0
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-chi/cors v1.2.1
