@@ -29,7 +29,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -trimpath \
   -o app $CMD_PATH
 
-FROM alpine:3.16
+FROM alpine:3.17
 
 # Define GOTRACEBACK to mark this container as using the Go language runtime
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
