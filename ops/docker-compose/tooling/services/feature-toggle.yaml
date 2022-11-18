@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   db:
-    image: postgres:15beta3-alpine
+    image: postgres:15.1-alpine
     environment:
       POSTGRES_DB: "db"
       POSTGRES_HOST_AUTH_METHOD: "trust"

@@ -3,7 +3,7 @@ use crate::postgres;
 use crate::Context;
 use hyper::{Body, Response, StatusCode};
 
-pub async fn get_list_subscribes(ctx: Context) -> String {
+pub async fn get_list_subscribes(_ctx: Context) -> String {
     let newsletters = postgres::list().await.unwrap();
     format!("{}", serde_json::to_string(&newsletters).unwrap())
 }

@@ -47,7 +47,7 @@ validate:
 plan:
   stage: build
   services:
-    - postgres:15beta3-alpine # Demo service for terraform plan
+    - postgres:15.1-alpine # Demo service for terraform plan
   script:
     - terraform plan -out=$PLAN ops/terraform
     - terraform show --json $PLAN | convert_report > $PLAN_JSON
