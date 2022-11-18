@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: postgres:15beta3-alpine
+    image: postgres:15.1-alpine
     command: -c 'config_file=/etc/postgresql/postgresql.conf'
     init: true
     restart: on-failure
@@ -35,7 +35,7 @@ services:
       retries: 5
     volumes:
       - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
-      - /data/shortlink/store/postgres/data:/var/lib/postgresql/data
+      - ./data/shortlink/store/postgres/data:/var/lib/postgresql/data
 #    logging:
 #      driver: fluent-bit
 #      options:

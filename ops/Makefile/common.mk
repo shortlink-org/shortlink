@@ -26,8 +26,7 @@ up: ## Run for specific job
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns.yaml \
-		-f ops/docker-compose/mq/zookeeper.yaml \
-		-f ops/docker-compose/tooling/saas/nifi/nifi.yaml \
+		-f ops/docker-compose/database/postgres.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker compose
