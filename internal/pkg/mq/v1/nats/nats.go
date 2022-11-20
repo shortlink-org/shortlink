@@ -15,6 +15,10 @@ type NATS struct { // nolint:decorder
 	client *nats.Conn
 }
 
+func New() *NATS {
+	return &NATS{}
+}
+
 func (mq *NATS) Init(ctx context.Context) error {
 	var err error
 

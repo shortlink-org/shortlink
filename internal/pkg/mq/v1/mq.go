@@ -13,6 +13,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/kafka"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/nats"
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/rabbit"
+	"github.com/batazor/shortlink/internal/pkg/mq/v1/redis"
 )
 
 // Use return implementation of MQ
@@ -24,9 +25,11 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) {
 	case "kafka":
 		mq.mq = &kafka.Kafka{}
 	case "nats":
-		mq.mq = &nats.NATS{}
+		mq.mq = nats.New()
 	case "rabbitmq":
 		mq.mq = rabbit.New(log)
+	case "redis":
+		mq.mq = redis.New()
 	default:
 		mq.mq = &kafka.Kafka{}
 	}
@@ -44,6 +47,6 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (MQ, error) {
 
 // setConfig - set configuration
 func (mq *DataBus) setConfig() {
-	viper.SetDefault("MQ_TYPE", "rabbitmq") // Select: kafka, rabbitmq, nats
+	viper.SetDefault("MQ_TYPE", "rabbitmq") // Select: kafka, rabbitmq, nats, redis
 	mq.typeMQ = viper.GetString("MQ_TYPE")
 }
