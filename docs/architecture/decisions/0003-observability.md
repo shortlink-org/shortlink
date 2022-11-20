@@ -12,14 +12,25 @@ We need to be able to monitor the health of our services and be able to collect 
 
 ## Decision
 
-We will add two standard endpoints to each service on port 9090.
+We will add three standard HTTP-endpoints to each service on port 9090.
 
 - `/metrics` will return a prometheus formatted metrics page
-- `/health` will return a json object with a `status` field that is either `ok` or `error`
+- `/healthz` will return a json object with a `status` field that is either `ok` or `error`
 - `/ready` will return a json object with a `status` field that is either `ok` or `error`
 
-+ Also, we will add command `HEALTHCHECK` to the dockerfile for each service that will call the `/health` endpoint and check the status.
-+ Also, we add k8s liveness and readiness probes to each service that will call the `/health` endpoint and check the status.
+#### Dockerfile
+
+We will add command `HEALTHCHECK` to the dockerfile for each service that will call the `/healthz` endpoint and check the status.
+
+#### Helm
+
+Also, we add k8s *-probes to each service that will call the `/healthz` endpoint and check the status.
+
+For Helm-chart we use complete template:
+
+```gotemplate
+{{- include "shortlink-common.probe" .Values.deploy | indent 6 }}
+```
 
 ## Consequences
 
