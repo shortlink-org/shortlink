@@ -8,6 +8,9 @@ Accepted
 
 ## Context
 
+We use event-driven architecture is a software architecture paradigm promoting 
+the production, detection, consumption of, and reaction to event.
+
 - Need set Event naming
 
 ## Decision
