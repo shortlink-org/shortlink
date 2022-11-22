@@ -43,7 +43,7 @@ require (
 	github.com/nats-io/nats.go v1.20.0
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/prometheus/client_golang v1.14.0
-	github.com/pterm/pterm v0.12.49
+	github.com/pterm/pterm v0.12.50
 	github.com/rabbitmq/amqp091-go v1.5.0
 	github.com/riandyrn/otelchi v0.5.0
 	github.com/robfig/cron/v3 v3.0.1
@@ -160,7 +160,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
-	github.com/mattn/go-runewidth v0.0.13 // indirect
+	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mattn/go-tty v0.0.3 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.2-0.20181231171920-c182affec369 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
