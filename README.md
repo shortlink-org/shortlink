@@ -64,6 +64,10 @@ made along with its context and consequences.
 | stats            | Shortlink stats server                                                   | CPP                       | [docs](./internal/services/stats/README.md)  |
 | chat             | Chat service                                                             | Elixir (Phoenix)          | [docs](./internal/services/chat/README.md)   |
 
+### Techradar
+
+[shortlink-techradar](https://radar.thoughtworks.com/?sheetId=https://raw.githubusercontent.com/batazor/shortlink/main/docs/thoughtworks.radar.csv)
+
 ### Run
 
 <details><summary>DETAILS</summary>
