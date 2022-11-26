@@ -18,28 +18,42 @@ This UI for shortlink application
 ### Getting start
 
 ```bash
-$> npm ci
-$> npm start
-$>
-$> Ready on http://127.0.0.1:3000/next/auth/login
+npm ci
+npm start
+
+// Ready on http://127.0.0.1:3000/next/auth/login
 ```
 
-#### ENV
+### ENV
 
-| Name            | Value                   | Description           |
-| --------------- | ----------------------- | --------------------- |
-| `API_URI`       | `http://localhost:7070` | API port              |
-| `PROXY_URI`     | `http://localhost:3030` | Proxy service address |
-| `SENTRY_ENABLE` | `false`                 | Init Sentry           |
+Use `.env` file in `ui/next` directories for setting your UI
 
-### Storybook
-
-```bash
-$> npm run storybook
-```
+| Name            | Value                   | Description                                           |
+|-----------------|-------------------------|-------------------------------------------------------|
+| `API_URI`       | `http://localhost:7070` | API port                                              |
+| `PROXY_URI`     | `http://localhost:3030` | Proxy service address                                 |
+| `SENTRY_ENABLE` | `false`                 | Init Sentry                                           |
+| `NODE_ENV`      |                         | Select: production, development, etc...               |
+| `SENTRY_DSN`    |                         | Your sentry DSN                                       |
 
 ### Build docker image
 
 ```bash
-$> docker buildx build -t next-ui -f ops/dockerfile/ui-next.Dockerfile .
+docker buildx build -t next-ui -f ops/dockerfile/ui-next.Dockerfile .
+```
+
+### UI Screenshot
+
+<details>
+
+| Describe                | Screenshot                               |
+|-------------------------|------------------------------------------|
+| Link Table              | ![link table](../../docs/next-js-ui.png) |
+
+</details>
+
+## Storybook
+
+```bash
+npm run storybook
 ```
