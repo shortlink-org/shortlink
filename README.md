@@ -30,12 +30,17 @@ our community and solve a problem for millions of people.
 - [Event Sourcing](https://miro.com/app/board/o9J_l-6o1U0=/)
 - [C4](./docs/c4)
 
-### Architecture decision records] (ADR)
+### Architecture decision records (ADR)
 
 An architecture decision record (ADR) is a document that captures an important architecture decision 
 made along with its context and consequences.
 
-+ [Docs](https://github.com/joelparkerhenderson/architecture-decision-record)
++ [Decisions](./docs/architecture/decisions)
++ [Docs ADR](https://github.com/joelparkerhenderson/architecture-decision-record)
+
+### Techradar
+
+[shortlink-techradar](https://radar.thoughtworks.com/?sheetId=https://raw.githubusercontent.com/batazor/shortlink/main/docs/thoughtworks.radar.csv)
 
 ##### Services
 
@@ -59,13 +64,13 @@ made along with its context and consequences.
 | stats                   | Stats server                                                          | CPP                       | [docs](./internal/services/stats/README.md)      |
 | wallet                  | Wallet service                                                        | Go (Solidity)             | [docs](./internal/services/wallet/README.md)     |
 | ws                      | Webscoket service                                                     | Go                        | [docs](./internal/services/ws/README.md)         |
-| **Third-party Service** |                                                                       |                           |                                                  |
+
+### Third-party Service
+
+| Service                 | Description                                                           | Language/Framework        | Docs                                             |
+|-------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------------------------------|
 | ory/kratos              | User management service                                               | Go                        | [docs](https://www.ory.sh/kratos/docs/)          |
 | ory/hydra               | OAuth 2.0 Provider                                                    | Go                        | [docs](https://www.ory.sh/keto/docs/)            |
-
-### Techradar
-
-[shortlink-techradar](https://radar.thoughtworks.com/?sheetId=https://raw.githubusercontent.com/batazor/shortlink/main/docs/thoughtworks.radar.csv)
 
 ### Run
 
@@ -93,7 +98,7 @@ make down
 ```
 
 
-##### Kubernetes (1.19+)
+##### Kubernetes (1.21+)
 
 ###### For run
 ```
@@ -127,14 +132,14 @@ make skaffold-debug
 </p>
 </details>
 
-### MQ
+### Configuration
 
 <details><summary>DETAILS</summary>
 <p>
 
-+ [Kafka](https://kafka.apache.org/)
-+ [NATS](https://nats.io/)
-+ [RabbitMQ](https://www.rabbitmq.com/)
+##### [12 factors: ENV](https://12factor.net/config)
+
+[View ENV Variables](./docs/env.md)
 
 </p>
 </details>
@@ -148,6 +153,19 @@ make skaffold-debug
 
 </p>
 </details>
+
+### UI
+
+| Service                 | Description                                                           | Language/Framework        | Docs                                             |
+|-------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------------------------------|
+| landing                 | Welcome page                                                          | JS/NextJS                 | [docs](./ui/landing/README.md)                   |
+| next                    | UI service                                                            | JS/NextJS                 | [docs](./ui/next/README.md)                      |
+| blog                    | Blog for save knowledge and research                                  | [Hugo](https://gohugo.io) | [docs](https://batazor.github.io/shortlink/)     |
+
+
+### Mobile
+
++ `Hello World` on flutter ;-)
 
 ### Cloud-Native stack
 
@@ -172,6 +190,10 @@ make skaffold-debug
     + ceph cluster (3 node)
     + grafana dashboard
     + prometheus metrics
++ MQ
+  + [Kafka](https://kafka.apache.org/)
+  + [NATS](https://nats.io/)
+  + [RabbitMQ](https://www.rabbitmq.com/)
 + Observability
   + [Jaeger](https://www.jaegertracing.io/) - Distributed tracing
   + **Prometheus** - Monitoring
@@ -185,37 +207,10 @@ make skaffold-debug
     * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization platform.
     + [OnCall](https://grafana.com/oss/oncall/) - On-call scheduling
     + [Phlare](https://grafana.com/oss/phlare/) - Profiling
-
-### UI
-
-| Service                 | Description                                                           | Language/Framework        | Docs                                             |
-|-------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------------------------------|
-| landing                 | Welcome page                                                          | JS/NextJS                 | [docs](./ui/landing/README.md)                   |
-| next                    | UI service                                                            | JS/NextJS                 | [docs](./ui/next/README.md)                      |
-| blog                    | Blog for save knowledge and research                                  | [Hugo](https://gohugo.io) | [docs](https://batazor.github.io/shortlink/)     |
-
-
-### Mobile
-
-+ `Hello World` on flutter ;-)
-
-### Configuration
-
-<details><summary>DETAILS</summary>
-<p>
-
-##### [12 factors: ENV](https://12factor.net/config)
-
-[View ENV Variables](./docs/env.md)
-
-</p>
-</details>
-
-### CI/CD
-
-- [GitLab CI](./ops/gitlab/README.md)
-- [GitHub CI](./.github/DOCS.md)
-- ArgoCD
++ CI/CD
+  - [GitLab CI](./ops/gitlab/README.md)
+  - [GitHub CI](./.github/DOCS.md)
+  - ArgoCD
 
 ## -~- THE END -~-
 
