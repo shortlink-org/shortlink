@@ -1,7 +1,5 @@
 # API Services
 
-## Goal
-
 Gateway for external clients
 
 ### HTTP API

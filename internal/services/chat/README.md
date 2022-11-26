@@ -1,5 +1,9 @@
 # Chat
 
+Chat platform
+
+### Getting start
+
 To start your Phoenix server:
 
   * Install dependencies with `mix local.hex` and `mix deps.get`

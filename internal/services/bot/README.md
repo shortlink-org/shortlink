@@ -1,4 +1,6 @@
-### Bot
+# Bot
+
+Integraion with chat-message platform
 
 Bot for:
 - Telegram
