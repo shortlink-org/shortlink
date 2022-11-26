@@ -41,11 +41,6 @@ made along with its context and consequences.
 
 | Service                 | Description                                                           | Language/Framework        | Docs                                             |
 |-------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------------------------------|
-| **UI Service**          |                                                                       |                           |                                                  |
-| landing                 | Welcome page                                                          | JS/NextJS                 | [docs](./ui/landing/README.md)                   |
-| next                    | UI service                                                            | JS/NextJS                 | [docs](./ui/next/README.md)                      |
-| blog                    | Blog for save knowledge and research                                  | [Hugo](https://gohugo.io) | [docs](https://batazor.github.io/shortlink/)     |
-| **Platform Service**    |                                                                       |                           |                                                  |
 | api                     | Internal GateWay                                                      | Go                        | [docs](./internal/services/api/README.md)        |
 | billing                 | Billing service                                                       | Go                        | [docs](./internal/services/billing/README.md)    |
 | bot                     | Telegram bot                                                          | JAVA                      | [docs](./internal/services/bot/README.md)        |
@@ -132,33 +127,29 @@ make skaffold-debug
 </p>
 </details>
 
-### HTTP API
-
-![architecture.json](./docs/architecture.png)
-
-+ Import [Postman link](./docs/shortlink.postman_collection.json) for
-  test HTTP API
-+ Swagger [docs](https://shortlink-org.gitlab.io/shortlink)
-
-###### Support HTTP REST API:
-
-- HTTP (chi)
-- gRPC-gateway
-- GraphQL
-- ***Optional***
-    - [CloudEvents](https://cloudevents.io/)
-
 ### MQ
+
+<details><summary>DETAILS</summary>
+<p>
 
 + [Kafka](https://kafka.apache.org/)
 + [NATS](https://nats.io/)
 + [RabbitMQ](https://www.rabbitmq.com/)
 
+</p>
+</details>
+
 ### OpenTracing
+
+<details><summary>DETAILS</summary>
+<p>
 
 ![http_add_link](./docs/opentracing_add_link.png)
 
-### Cloud-Native
+</p>
+</details>
+
+### Cloud-Native stack
 
 + Development
   + [Skaffold](https://skaffold.dev/)
@@ -197,25 +188,12 @@ make skaffold-debug
 
 ### UI
 
-##### ENV for UI
+| Service                 | Description                                                           | Language/Framework        | Docs                                             |
+|-------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------------------------------|
+| landing                 | Welcome page                                                          | JS/NextJS                 | [docs](./ui/landing/README.md)                   |
+| next                    | UI service                                                            | JS/NextJS                 | [docs](./ui/next/README.md)                      |
+| blog                    | Blog for save knowledge and research                                  | [Hugo](https://gohugo.io) | [docs](https://batazor.github.io/shortlink/)     |
 
-Use `.env` file in `ui/[next/etc]` directories for setting your UI
-
-
-| Name                | Default                                                     | Description                                                                                    |
-|:--------------------|:------------------------------------------------------------|:-----------------------------------------------------------------------------------------------|
-| NODE_ENV            | -                                                           | Select: production, development, etc...                                                        |
-| SENTRY_DSN          | -                                                           | Your sentry DSN                                                                                |
-
-#### UI Screenshot
-
-<details>
-
-| Describe                | Screenshot                           |
-|-------------------------|--------------------------------------|
-| Link Table              | ![link table](./docs/next-js-ui.png) |
-
-</details>
 
 ### Mobile
 
@@ -226,43 +204,9 @@ Use `.env` file in `ui/[next/etc]` directories for setting your UI
 <details><summary>DETAILS</summary>
 <p>
 
-##### [12 factors: ENV](https://12factor.net/config)
+##### [12 factors: ENV](https://12factor.net/config)
 
 [View ENV Variables](./docs/env.md)
-
-</p>
-</details>
-
-### CoreDNS IP table
-
-| Service | Ip address | Description                                    |
-|:--------|:-----------|:-----------------------------------------------|
-| store   | 10.5.0.100 | Main database (postgres/mongo/cassandra/redis) |
-
-##### troubleshooting
-
-Sometimes a container without a specified ip may occupy a binding
-address of another service, which will result in `Address already in
-use`.
-
-### Ansible
-
-<details><summary>DETAILS</summary>
-<p>
-
-##### Vagrant
-
-```
-cd ops/vagrant
-vagrant up
-
-cd ops/ansible
-ansible-playbook playbooks/playbook.yml
-```
-
-##### DNS/HTTP
-
-+ `ui-next.shortlink.vagrant:8081`
 
 </p>
 </details>

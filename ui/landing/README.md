@@ -1,10 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Landing
 
-## Goal
+### Goal
 
 This service made starting page for navigation to all services our platform.
 
-## Getting Started
+### Getting Started
 
 First, run the development server:
 
@@ -12,7 +12,17 @@ First, run the development server:
 npm run dev
 ```
 
-## Learn More
+### ENV
+
+Use `.env` file in `ui/next` directories for setting your UI
+
+### Build docker image
+
+```bash
+docker buildx build -t next-ui -f ops/dockerfile/landing.Dockerfile .
+```
+
+### Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
@@ -20,3 +30,7 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+---
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
