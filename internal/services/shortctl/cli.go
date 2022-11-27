@@ -18,7 +18,7 @@ import (
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/services/cli/internal/tool"
+	"github.com/batazor/shortlink/internal/services/shortctl/internal/tool"
 )
 
 func init() {
