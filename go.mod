@@ -9,7 +9,7 @@ require (
 	github.com/Unleash/unleash-client-go/v3 v3.3.1
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/cloudevents/sdk-go/v2 v2.8.0
+	github.com/cloudevents/sdk-go/v2 v2.9.0
 	github.com/container-storage-interface/spec v1.5.0
 	github.com/cucumber/godog v0.12.5
 	github.com/dgraph-io/badger/v3 v3.2103.2
@@ -51,8 +51,8 @@ require (
 	github.com/ory/dockertest/v3 v3.8.1
 	github.com/ory/kratos-client-go v0.5.5-alpha.4
 	github.com/prometheus/client_golang v1.12.1
-	github.com/pterm/pterm v0.12.39
-	github.com/rabbitmq/amqp091-go v1.3.0
+	github.com/pterm/pterm v0.12.40
+	github.com/rabbitmq/amqp091-go v1.3.2
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.4.0
@@ -71,7 +71,7 @@ require (
 	golang.org/x/net v0.0.0-20220325170049-de3da57026de
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/text v0.3.7
-	google.golang.org/genproto v0.0.0-20220324131243-acbaeb5b85eb
+	google.golang.org/genproto 7be39ac1afc7
 	google.golang.org/grpc v1.45.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.0
