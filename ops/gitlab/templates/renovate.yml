@@ -1,0 +1,30 @@
+# -------- Automatic package upgrades
+# Uses https://gitlab.com/renovate-bot/renovate-runner to update the packages.
+#
+# The automtic updates can be configured using the renovate.json file. See the Renovate
+# documentation for the available options, https://docs.renovatebot.com/configuration-options/
+#
+# To get started:
+#
+# 1. Set the CI/CD variable `RENOVATE_TOKEN` to an access token with `api` and `read_repository`
+#    permissions (for example a Personal Access Token, a Project Access Token, or a Group Access Token).
+# 2. Define a pipeline schedule.
+# 3. Optional: Trigger the new schedule to run the job right away.
+#
+# When the renovate job runs, a merge request is created for each available update.
+# -------------------------------------
+
+include:
+  - project: 'renovate-bot/renovate-runner'
+    file: '/templates/renovate-dind.gitlab-ci.yml'
+
+renovate:
+  variables:
+    RENOVATE_EXTRA_FLAGS: '$CI_PROJECT_PATH'
+    RENOVATE_TOKEN: '$GITLAB_TOKEN'
+    RENOVATE_ONBOARDING_CONFIG_FILE_NAME: '.github/renovate.json'
+  rules:
+    - if: '$GITLAB_TOKEN == null || $GITLAB_TOKEN == ""'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_JOB_MANUAL == "true"'

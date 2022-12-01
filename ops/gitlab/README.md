@@ -75,11 +75,9 @@
 
 ### Variable
 
-| Name | Description |
-| --- | --- |
-| SURGE_LOGIN | |
-| SURGE_TOKEN | |
-| DANGER_GITLAB_API_TOKEN | `API TOKEN` for danger |
+| Name            | Description                                                               |
+|-----------------|---------------------------------------------------------------------------|
+| GITLAB_TOKEN    | Used for danger as `DANGER_GITLAB_API_TOKEN`, `RENOVATE_TOKEN` and etc... |
 
 ---
 
