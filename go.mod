@@ -6,7 +6,7 @@ require (
 	github.com/Masterminds/squirrel v1.5.3
 	github.com/PuerkitoBio/goquery v1.8.0
 	github.com/Shopify/sarama v1.37.2
-	github.com/Unleash/unleash-client-go/v3 v3.7.0
+	github.com/Unleash/unleash-client-go/v3 v3.7.1
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.12.0
