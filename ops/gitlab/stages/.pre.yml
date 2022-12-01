@@ -1,3 +1,6 @@
+include:
+  - local: /ops/gitlab/templates/renovate.yml
+
 # ANSIBLE ==============================================================================================================
 ansible-up:
   stage: .pre
@@ -52,7 +55,8 @@ delete_renovate_branch:
   stage: .pre
   image: alpine:3.16
   script:
-    - echo 123
+    # TODO: add function to delete branch
+    - echo "Delete renovate branch"
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: always
