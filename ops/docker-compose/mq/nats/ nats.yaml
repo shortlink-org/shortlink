@@ -1,0 +1,25 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  nats:
+    <<: *network
+    depends_on:
+      - coredns
+    image: nats:2.9-alpine
+    entrypoint: "/gnatsd -DV"
+    hostname: nats-server
+    container_name: nats
+    restart: on-failure
+    ports:
+      - '4222:4222'
+      - '8080:8080' # websocket
+    volumes:
+      - ./ops/docker-compose/mq/nats/nats.conf:/nats/conf/nats.conf
