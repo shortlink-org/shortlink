@@ -11,6 +11,8 @@ import (
 	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
+	"go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo"
 
 	storeOptions "github.com/batazor/shortlink/internal/pkg/db/options"
 )
@@ -26,7 +28,9 @@ func (m *Store) Init(ctx context.Context) error {
 	m.setConfig()
 
 	// Connect to MongoDB
-	m.client, err = mongo.NewClient(options.Client().ApplyURI(m.config.URI))
+	opts := options.Client().ApplyURI(m.config.URI)
+	opts.Monitor = otelmongo.NewMonitor()
+	m.client, err = mongo.NewClient(opts)
 	if err != nil {
 		return err
 	}
@@ -36,14 +40,11 @@ func (m *Store) Init(ctx context.Context) error {
 		return err
 	}
 
-	// TODO: check correct ping
 	// Check connect
-	//ctx, cancel = context.WithTimeout(context.Background(), 2*time.Second)
-	//defer cancel()
-	//err = m.client.Ping(ctx, readpref.Primary())
-	//if err != nil {
-	//	return err
-	//}
+	err = m.client.Ping(ctx, readpref.Primary())
+	if err != nil {
+		return err
+	}
 
 	// Apply migration
 	err = m.migrate()
