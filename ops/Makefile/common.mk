@@ -27,8 +27,6 @@ dev: ## Run for development mode
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f ops/docker-compose/tooling/observability/grafana.yaml \
-		-f ops/docker-compose/tooling/observability/grafana-loki.yaml \
-		-f ops/docker-compose/tooling/observability/grafana-phlare.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker compose
@@ -81,5 +79,6 @@ down: ## Down docker compose
 		-f ops/docker-compose/mq/kafka-connect.yaml \
 		-f ops/docker-compose/mq/kafka-connector-postgres.yaml \
 		-f ops/docker-compose/mq/kafka-connector-elasticsearch.yaml \
+		-f ops/docker-compose/mq/nats/nats.yaml \
 	down --remove-orphans
 	@docker network prune -f
