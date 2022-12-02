@@ -8,7 +8,7 @@ A Helm chart for kafka-UI
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../../shortlink-common | shortlink-common | 0.2.0 |
+| file://../../../shortlink-common | shortlink-common | 0.2.1 |
 
 ## Values
 

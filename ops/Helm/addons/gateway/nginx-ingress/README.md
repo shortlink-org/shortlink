@@ -14,8 +14,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../../shortlink-common | shortlink-common | 0.2.0 |
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.3.0 |
+| file://../../../shortlink-common | shortlink-common | 0.2.1 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.4.0 |
 
 ## Values
 
@@ -27,7 +27,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress-nginx.controller.config.jaeger-service-name | string | `"nginx-ingress"` |  |
 | ingress-nginx.controller.hostNetwork | bool | `false` |  |
 | ingress-nginx.controller.ingressClassResource.default | bool | `true` |  |
-| ingress-nginx.controller.kind | string | `"Deployment"` |  |
+| ingress-nginx.controller.kind. | string | `nil` |  |
 | ingress-nginx.controller.metrics.enabled | bool | `true` |  |
 | ingress-nginx.controller.metrics.prometheusRule.additionalLabels.app | string | `"kube-prometheus-stack"` |  |
 | ingress-nginx.controller.metrics.prometheusRule.additionalLabels.release | string | `"prometheus-operator"` |  |

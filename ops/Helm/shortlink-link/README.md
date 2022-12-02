@@ -22,7 +22,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.2.0 |
+| file://../shortlink-common | shortlink-common | 0.2.1 |
 
 ## Values
 
@@ -30,8 +30,6 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 |-----|------|---------|-------------|
 | commonAnnotations | object | `{}` | Add annotations to all the deployed resources |
 | commonLabels | object | `{}` | Add labels to all the deployed resources |
-| deploy.affinity | list | `[]` |  |
-| deploy.annotations | object | `{}` | Annotations to be added to controller pods |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
 | deploy.env.MQ_ENABLED | string | `"true"` |  |
 | deploy.env.MQ_KAFKA_URI | string | `"kafka-kafka-bootstrap.kafka:9092"` |  |
@@ -40,24 +38,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
 | deploy.env.STORE_REDIS_URI | string | `"shortlink-redis-master.redis:6379"` |  |
 | deploy.env.TRACER_URI | string | `"grafana-tempo.grafana:6831"` |  |
-| deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/link"` |  |
 | deploy.image.tag | string | `"0.13.5"` |  |
-| deploy.imagePullSecrets | list | `[]` |  |
-| deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/live","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.nodeSelector | object | `{}` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
-| deploy.podSecurityContext.fsGroup | int | `1000` | fsGroup is the group ID associated with the container |
-| deploy.readinessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/ready","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.replicaCount | int | `1` |  |
-| deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
-| deploy.resources.requests.cpu | string | `"10m"` |  |
-| deploy.resources.requests.memory | string | `"32Mi"` |  |
-| deploy.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}` | Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls |
-| deploy.strategy.rollingUpdate.maxSurge | int | `1` |  |
-| deploy.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
-| deploy.strategy.type | string | `"RollingUpdate"` |  |
-| deploy.terminationGracePeriodSeconds | int | `90` |  |
-| deploy.tolerations | list | `[]` |  |
+| deploy.type | string | `"Deployment"` |  |
+| deploy.volumes[0].mountPath | string | `"/app/ops/cert/"` |  |
+| deploy.volumes[0].name | string | `"grpc"` |  |
 | fullnameOverride | string | `""` | fullnameOverride String to fully override nginx.fullname template |
 | ingress.enabled | bool | `true` |  |
 | ingress.type | string | `"istio"` |  |
@@ -65,11 +50,18 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | monitoring.jobLabel | string | `""` | The label to use to retrieve the job name from. |
 | monitoring.labels | object | `{"release":"prometheus-operator"}` | Additional labels that can be used so PodMonitor will be discovered by Prometheus |
 | nameOverride | string | `""` | nameOverride String to partially override nginx.fullname template (will maintain the release name) |
+| ports[0].name | string | `"grpc"` |  |
+| ports[0].port | int | `50051` |  |
+| ports[0].protocol | string | `"TCP"` |  |
+| ports[0].public | bool | `true` |  |
+| ports[1].name | string | `"metrics"` |  |
+| ports[1].port | int | `9090` |  |
+| ports[1].protocol | string | `"TCP"` |  |
+| ports[1].public | bool | `true` |  |
 | secret.enabled | bool | `false` |  |
 | secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
-| service.port | int | `50051` |  |
 | service.type | string | `"ClusterIP"` |  |
 
 ----------------------------------------------
