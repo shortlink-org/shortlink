@@ -17,12 +17,12 @@ common:
 
 schema_config:
   configs:
-    - from: 2020-10-24
-      store: boltdb-shipper
+    - from: 2022-11-30
+      store: tsdb
       object_store: filesystem
-      schema: v11
+      schema: v12
       index:
-        prefix: index_
+        prefix: tsdb_index_
         period: 24h
 
 ruler:
