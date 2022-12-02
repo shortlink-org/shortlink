@@ -14,11 +14,12 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-common | shortlink-common | 0.2.0 |
-| https://grafana.github.io/helm-charts | grafana | 6.43.1 |
-| https://grafana.github.io/helm-charts | loki | 3.3.0 |
-| https://grafana.github.io/helm-charts | promtail | 6.6.0 |
-| https://grafana.github.io/helm-charts | tempo | 0.16.3 |
+| file://../../shortlink-common | shortlink-common | 0.2.1 |
+| https://grafana.github.io/helm-charts | grafana | 6.44.11 |
+| https://grafana.github.io/helm-charts | loki | 3.5.0 |
+| https://grafana.github.io/helm-charts | phlare | 0.1.1 |
+| https://grafana.github.io/helm-charts | promtail | 6.6.3 |
+| https://grafana.github.io/helm-charts | tempo | 0.16.6 |
 
 ## Values
 
@@ -104,6 +105,14 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.datasources."datasources.yaml".datasources[3].type | string | `"alertmanager"` |  |
 | grafana.datasources."datasources.yaml".datasources[3].uid | string | `"alertmanager"` |  |
 | grafana.datasources."datasources.yaml".datasources[3].url | string | `"http://prometheus-alertmanager.prometheus-operator:9093"` |  |
+| grafana.datasources."datasources.yaml".datasources[4].access | string | `"proxy"` |  |
+| grafana.datasources."datasources.yaml".datasources[4].basicAuth | bool | `false` |  |
+| grafana.datasources."datasources.yaml".datasources[4].editable | bool | `false` |  |
+| grafana.datasources."datasources.yaml".datasources[4].name | string | `"Phlare"` |  |
+| grafana.datasources."datasources.yaml".datasources[4].type | string | `"phlare"` |  |
+| grafana.datasources."datasources.yaml".datasources[4].uid | string | `"phlare"` |  |
+| grafana.datasources."datasources.yaml".datasources[4].url | string | `"http://phlare:4100"` |  |
+| grafana.datasources."datasources.yaml".datasources[4].version | int | `1` |  |
 | grafana.defaultDashboardsEnabled | bool | `true` |  |
 | grafana.enabled | bool | `true` |  |
 | grafana.imageRenderer.enabled | bool | `false` |  |
@@ -128,6 +137,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.sidecar.datasources.enabled | bool | `true` |  |
 | grafana.sidecar.datasources.searchNamespace | string | `"ALL"` |  |
 | loki.enabled | bool | `true` |  |
+| phlare.enabled | bool | `true` |  |
 | promtail.config.clients[0].url | string | `"http://grafana-loki:3100/loki/api/v1/push"` |  |
 | promtail.enabled | bool | `true` |  |
 | promtail.extraScrapeConfigs[0].job_name | string | `"syslog"` |  |

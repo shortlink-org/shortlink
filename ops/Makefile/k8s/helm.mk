@@ -1,14 +1,5 @@
 # KUBERNETES TASKS =====================================================================================================
 SHORTLINK_HELM_PATH     := ops/Helm
-SHORTLINK_HELM_API      := ${SHORTLINK_HELM_PATH}/shortlink-api
-SHORTLINK_HELM_LOGGER   := ${SHORTLINK_HELM_PATH}/shortlink-logger
-SHORTLINK_HELM_METADATA := ${SHORTLINK_HELM_PATH}/shortlink-metadata
-SHORTLINK_HELM_LINK     := ${SHORTLINK_HELM_PATH}/shortlink-link
-SHORTLINK_HELM_BOT      := ${SHORTLINK_HELM_PATH}/shortlink-bot
-SHORTLINK_HELM_UI       := ${SHORTLINK_HELM_PATH}/shortlink-next
-SHORTLINK_HELM_LANDING  := ${SHORTLINK_HELM_PATH}/shortlink-landing
-SHORTLINK_HELM_PROXY    := ${SHORTLINK_HELM_PATH}/shortlink-proxy
-SHORTLINK_HELM_BOT      := ${SHORTLINK_HELM_PATH}/shortlink-bot
 SHORTLINK_HELM_SERVICES := api bot landing link logger metadata next notify proxy
 SHORTLINK_HELM_ADDONS := argo cert-manager dashboard flagger flux gateway/istio gateway/istio-ingress gateway/nginx-ingress grafana keda kyverno metallb prometheus-operator mq/rabbitmq rook-ceph store/postgresql store/redis
 
