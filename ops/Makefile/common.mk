@@ -26,7 +26,7 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/observability/grafana.yaml \
+		-f ops/docker-compose/database/neo4j/neo4j.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker compose
@@ -72,6 +72,7 @@ down: ## Down docker compose
 		-f ops/docker-compose/database/patroni.yaml \
 		-f ops/docker-compose/database/postgres.yaml \
 		-f ops/docker-compose/database/elasticsearch.yaml \
+		-f ops/docker-compose/database/neo4j/neo4j.yaml \
 		-f ops/docker-compose/mq/rabbitmq.yaml \
 		-f ops/docker-compose/mq/zookeeper.yaml \
 		-f ops/docker-compose/mq/kafka.yaml \
