@@ -9,6 +9,8 @@ server {
   listen 80 default_server;
   server_name ui.local;
 
+  proxy_cache cache;
+
   include templates/default.conf;
 
   # return 301 https://$host$request_uri;

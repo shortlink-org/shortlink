@@ -34,7 +34,7 @@ run: ## Run this project in docker compose
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f ops/docker-compose/tooling/observability/fluent-bit.yaml \
-		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/application/api.yaml \
 		-f ops/docker-compose/application/metadata.yaml \
@@ -60,7 +60,9 @@ down: ## Down docker compose
 		-f ops/docker-compose/tooling/observability/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus.yaml \
 		-f ops/docker-compose/tooling/observability/fluent-bit.yaml \
-		-f ops/docker-compose/gateway/traefik.yaml \
+		-f ops/docker-compose/gateway/caddy/caddy.yaml \
+		-f ops/docker-compose/gateway/nginx/nginx.yaml \
+		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/application/api.yaml \

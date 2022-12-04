@@ -30,8 +30,8 @@ services:
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./ops/docker-compose/gateway/traefik/dynamic_conf.toml:/conf/dynamic_conf.toml
-      - ./ops/docker-compose/gateway/traefik/traefik.toml:/traefik.toml
+      - ./ops/docker-compose/gateway/traefik/conf/dynamic_conf.toml:/conf/dynamic_conf.toml
+      - ./ops/docker-compose/gateway/traefik/conf/traefik.toml:/traefik.toml
       - ./ops/cert:/cert
     logging:
       driver: ${LOGGER_DRIVER}
