@@ -1,4 +1,4 @@
-import http from 'k6/http';
+import tracing, { Http } from 'k6/x/tracing'
 import { check, sleep } from 'k6';
 import { uuidv4 } from "https://jslib.k6.io/k6-utils/1.0.0/index.js";
 
@@ -10,6 +10,10 @@ const params = {
     'Content-Type': 'application/json',
   },
 };
+
+export function setup() {
+  console.log(`Running xk6-distributed-tracing v${tracing.version}`, tracing);
+}
 
 export let options = {
   ext: {
@@ -31,6 +35,10 @@ export let options = {
 };
 
 export default function() {
+  const http = new Http({
+    propagator: "w3c",
+  });
+
   // vu code
   const payload = JSON.stringify({
     url: `https://example.com/${uuidv4()}`,
@@ -39,5 +47,6 @@ export default function() {
 
   let res = http.post(`${BASE_URL}/api`, payload, params);
   check(res, { 'status was 201': r => r.status === 201 });
+  console.log(`trace_id=${res.trace_id}`);
   sleep(1);
 }
