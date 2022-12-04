@@ -6,6 +6,7 @@ package db
 import (
 	"context"
 
+	"github.com/batazor/shortlink/internal/pkg/db/neo4j"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/db/badger"
@@ -39,6 +40,8 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 		store.Store = &badger.Store{}
 	case "ram":
 		store.Store = &ram.Store{}
+	case "neo4j":
+		store.Store = &neo4j.Store{}
 	case "sqlite":
 		// disabled because it complicates cross-compilation
 		// store.Store = &sqlite.Store{}
@@ -61,6 +64,6 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram
+	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, neo4j, ram
 	s.typeStore = viper.GetString("STORE_TYPE")
 }
