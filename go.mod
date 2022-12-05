@@ -40,7 +40,8 @@ require (
 	github.com/kubernetes-csi/csi-test/v4 v4.4.0
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-sqlite3 v1.14.16
-	github.com/nats-io/nats.go v1.20.0
+	github.com/nats-io/nats.go v1.21.0
+	github.com/neo4j/neo4j-go-driver/v5 v5.3.0
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/prometheus/client_golang v1.14.0
 	github.com/pterm/pterm v0.12.50
@@ -173,7 +174,6 @@ require (
 	github.com/nats-io/nats-server/v2 v2.9.6 // indirect
 	github.com/nats-io/nkeys v0.3.0 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
-	github.com/neo4j/neo4j-go-driver/v5 v5.3.0 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.24.1 // indirect
