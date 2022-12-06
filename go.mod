@@ -61,11 +61,11 @@ require (
 	go.etcd.io/etcd/client/v3 v3.5.6
 	go.mongodb.org/mongo-driver v1.11.0
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.36.4
-	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.36.4
-	go.opentelemetry.io/otel v1.11.1
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.37.0
+	go.opentelemetry.io/otel v1.11.2
 	go.opentelemetry.io/otel/exporters/jaeger v1.11.1
 	go.opentelemetry.io/otel/sdk v1.11.1
-	go.opentelemetry.io/otel/trace v1.11.1
+	go.opentelemetry.io/otel/trace v1.11.2
 	go.uber.org/atomic v1.10.0
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/goleak v1.2.0
@@ -219,7 +219,7 @@ require (
 	go.etcd.io/etcd/client/pkg/v3 v3.5.6 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.opentelemetry.io/contrib v1.0.0 // indirect
-	go.opentelemetry.io/otel/metric v0.32.1 // indirect
+	go.opentelemetry.io/otel/metric v0.34.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/crypto v0.1.0 // indirect
 	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e // indirect
