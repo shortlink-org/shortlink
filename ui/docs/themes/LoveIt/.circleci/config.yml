@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build-check:
     docker:
-      - image: cibuilds/hugo:0.106
+      - image: cibuilds/hugo:0.108
     working_directory: ~/LoveIt
     steps:
       - checkout

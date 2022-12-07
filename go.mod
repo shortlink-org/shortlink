@@ -60,27 +60,27 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.17
 	go.etcd.io/etcd/client/v3 v3.5.6
 	go.mongodb.org/mongo-driver v1.11.0
-	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.36.4
+	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.37.0
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.37.0
 	go.opentelemetry.io/otel v1.11.2
-	go.opentelemetry.io/otel/exporters/jaeger v1.11.1
-	go.opentelemetry.io/otel/sdk v1.11.1
+	go.opentelemetry.io/otel/exporters/jaeger v1.11.2
+	go.opentelemetry.io/otel/sdk v1.11.2
 	go.opentelemetry.io/otel/trace v1.11.2
 	go.uber.org/atomic v1.10.0
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/goleak v1.2.0
 	go.uber.org/zap v1.24.0
-	golang.org/x/net v0.2.0
+	golang.org/x/net v0.3.0
 	golang.org/x/sync v0.1.0
 	golang.org/x/text v0.5.0
-	google.golang.org/genproto v0.0.0-20221205194025-8222ab48f5fc
+	google.golang.org/genproto v0.0.0-20221206210731-b1a01be3a5f6
 	google.golang.org/grpc v1.51.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
 	k8s.io/kubernetes v1.15.0-alpha.0
 	k8s.io/mount-utils v0.25.4
 	k8s.io/utils v0.0.0-20221128185143-99ec85e7a448
-	knative.dev/pkg v0.0.0-20221117013641-f5c1a03ab4f1
+	knative.dev/pkg v0.0.0-20221206173513-f4eb77830e7e
 )
 
 require (
@@ -226,7 +226,6 @@ require (
 	golang.org/x/mod v0.6.0 // indirect
 	golang.org/x/sys v0.2.0 // indirect
 	golang.org/x/term v0.2.0 // indirect
-	golang.org/x/time v0.1.0 // indirect
 	golang.org/x/tools v0.2.0 // indirect
 	google.golang.org/api v0.103.0 // indirect
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
