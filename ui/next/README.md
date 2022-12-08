@@ -8,12 +8,13 @@ This UI for shortlink application
 - Auth (Kratos)
 - Monitoring (Sentry)
 - Pretty UI
-  - tailwind CSS
+  - TailwindCSS
   - Material-UI
 - Pretty code base
   - Typescript
   - ESLint/Prettier
 - Storybook (for UI)
+- Cypress (for E2E)
 
 ### Getting start
 
