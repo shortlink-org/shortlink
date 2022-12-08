@@ -4,10 +4,7 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import { Layout } from 'components'
 import { useRouter } from 'next/router'
-import {
-  LoginFlow,
-  UpdateLoginFlowBody,
-} from '@ory/client'
+import { LoginFlow, UpdateLoginFlowBody } from '@ory/client'
 
 import ory from '../../pkg/sdk'
 import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
@@ -170,7 +167,7 @@ const SignIn: NextPage = () => {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
 export default SignIn

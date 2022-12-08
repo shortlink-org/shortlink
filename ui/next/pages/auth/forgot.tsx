@@ -1,9 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import {
-  RecoveryFlow,
-  UpdateRecoveryFlowBody,
-} from '@ory/client'
+import { RecoveryFlow, UpdateRecoveryFlowBody } from '@ory/client'
 import { AxiosError } from 'axios'
 import type { NextPage } from 'next'
 import Link from 'next/link'
@@ -64,9 +61,9 @@ const Forgot: NextPage = () => {
       .push(`/auth/forget?flow=${flow?.id}`, undefined, { shallow: true })
       .then(() =>
         ory
-            .updateRecoveryFlow({
-              flow: String(flow?.id),
-              updateRecoveryFlowBody: values,
+          .updateRecoveryFlow({
+            flow: String(flow?.id),
+            updateRecoveryFlowBody: values,
           })
           .then(({ data }) => {
             // Form submission was successful, show the message to the user!
@@ -164,7 +161,7 @@ const Forgot: NextPage = () => {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
 export default Forgot

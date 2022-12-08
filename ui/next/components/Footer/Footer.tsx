@@ -23,7 +23,11 @@ export default function Footer() {
             </Link>
           </li>
           <li className="my-2 cursor-pointer">
-            <Link href="https://github.com/batazor/shortlink" passHref legacyBehavior>
+            <Link
+              href="https://github.com/batazor/shortlink"
+              passHref
+              legacyBehavior
+            >
               <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
                 Github
               </span>
@@ -112,5 +116,5 @@ export default function Footer() {
         </div>
       </div>
     </footer>
-  );
+  )
 }

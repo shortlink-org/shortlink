@@ -29,13 +29,13 @@ npm start
 
 Use `.env` file in `ui/next` directories for setting your UI
 
-| Name            | Value                   | Description                                           |
-|-----------------|-------------------------|-------------------------------------------------------|
-| `API_URI`       | `http://localhost:7070` | API port                                              |
-| `PROXY_URI`     | `http://localhost:3030` | Proxy service address                                 |
-| `SENTRY_ENABLE` | `false`                 | Init Sentry                                           |
-| `NODE_ENV`      |                         | Select: production, development, etc...               |
-| `SENTRY_DSN`    |                         | Your sentry DSN                                       |
+| Name            | Value                   | Description                             |
+| --------------- | ----------------------- | --------------------------------------- |
+| `API_URI`       | `http://localhost:7070` | API port                                |
+| `PROXY_URI`     | `http://localhost:3030` | Proxy service address                   |
+| `SENTRY_ENABLE` | `false`                 | Init Sentry                             |
+| `NODE_ENV`      |                         | Select: production, development, etc... |
+| `SENTRY_DSN`    |                         | Your sentry DSN                         |
 
 ### Build docker image
 
@@ -47,9 +47,9 @@ docker buildx build -t next-ui -f ops/dockerfile/ui-next.Dockerfile .
 
 <details>
 
-| Describe                | Screenshot                               |
-|-------------------------|------------------------------------------|
-| Link Table              | ![link table](../../docs/next-js-ui.png) |
+| Describe   | Screenshot                               |
+| ---------- | ---------------------------------------- |
+| Link Table | ![link table](../../docs/next-js-ui.png) |
 
 </details>
 

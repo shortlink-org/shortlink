@@ -257,7 +257,7 @@ const Header = () => {
         </Drawer>
       )}
     </Fragment>,
-  ];
+  ]
 }
 
 export default Header
