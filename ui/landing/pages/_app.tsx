@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
-import Head from 'next/head';
-import { AppProps, NextWebVitalsMetric } from 'next/app';
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { CacheProvider, EmotionCache } from '@emotion/react';
+import Head from 'next/head'
+import { AppProps, NextWebVitalsMetric } from 'next/app'
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import { CacheProvider, EmotionCache } from '@emotion/react'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
-import { DefaultSeo, SiteLinksSearchBoxJsonLd, LogoJsonLd } from "next-seo";
+import { DefaultSeo, SiteLinksSearchBoxJsonLd, LogoJsonLd } from 'next-seo'
 import '../public/assets/styles.css'
 // @ts-ignore
-import { createEmotionCache, darkTheme, lightTheme, ColorModeContext } from '@shortlink-org/ui-kit'
+import {
+  createEmotionCache,
+  darkTheme,
+  lightTheme,
+  ColorModeContext,
+} from '@shortlink-org/ui-kit'
 // import your default seo configuration
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -19,11 +24,7 @@ interface MyAppProps extends AppProps {
 }
 
 const MyApp = (props: MyAppProps) => {
-  const {
-    Component,
-    emotionCache = clientSideEmotionCache,
-    pageProps,
-  } = props
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   const [darkMode, setDarkMode] = useState(false)
   const theme = darkMode ? darkTheme : lightTheme
@@ -54,11 +55,10 @@ const MyApp = (props: MyAppProps) => {
           site: '@shortlink',
           cardType: 'summary_large_image',
         }}
-        titleTemplate={'Shortlink | %s'}
-        defaultTitle={'Shortlink'}
+        titleTemplate="Shortlink | %s"
+        defaultTitle="Shortlink"
         themeColor={theme.palette.primary.main}
       />
-
 
       {/* @ts-ignore */}
       <SiteLinksSearchBoxJsonLd
@@ -90,7 +90,7 @@ const MyApp = (props: MyAppProps) => {
         </ColorModeContext.Provider>
       </ThemeProvider>
     </CacheProvider>
-  );
+  )
 }
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
