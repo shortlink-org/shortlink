@@ -1,3 +1,4 @@
+// @ts-ignore
 describe('E2E Test', () => {
     beforeEach(() => {
         cy.visit('/')
