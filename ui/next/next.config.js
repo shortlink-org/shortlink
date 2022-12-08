@@ -80,6 +80,12 @@ const NEXT_CONFIG = {
   webpack: (config, { isServer, buildId }) => {
     config.plugins.push(new webpack.DefinePlugin({}))
 
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
+
     return config
   },
   trailingSlash: false,

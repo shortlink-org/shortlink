@@ -5,7 +5,8 @@ import { ColorModeContext } from './ColorModeContext'
 // @ts-ignore
 import './styles.css'
 
-export const ToggleDarkMode = () => {
+// @ts-ignore
+export const ToggleDarkMode = ({ id }) => {
   // @ts-ignore
   const { setTheme } = nextUseTheme()
   const [mounted, setMounted] = useState(false)
@@ -26,7 +27,7 @@ export const ToggleDarkMode = () => {
   if (!mounted) return null
 
   return (
-    <div className="toggleWrapper">
+    <div id={id} className="toggleWrapper">
       <input
         type="checkbox"
         className="dn"

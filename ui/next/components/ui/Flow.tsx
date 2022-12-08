@@ -1,14 +1,14 @@
 import {
-  SelfServiceLoginFlow,
-  SelfServiceRecoveryFlow,
-  SelfServiceRegistrationFlow,
-  SelfServiceSettingsFlow,
-  SelfServiceVerificationFlow,
-  SubmitSelfServiceLoginFlowBody,
-  SubmitSelfServiceRecoveryFlowBody,
-  SubmitSelfServiceRegistrationFlowBody,
-  SubmitSelfServiceSettingsFlowBody,
-  SubmitSelfServiceVerificationFlowBody,
+  LoginFlow,
+  RecoveryFlow,
+  RegistrationFlow,
+  SettingsFlow,
+  VerificationFlow,
+  UpdateLoginFlowBody,
+  UpdateRecoveryFlowBody,
+  UpdateRegistrationFlowBody,
+  UpdateSettingsFlowBody,
+  UpdateVerificationFlowBody,
   UiNode,
 } from '@ory/client'
 import { getNodeId } from '@ory/integrations/ui'
@@ -20,11 +20,11 @@ import { Messages } from './Messages'
 import { Node } from './Node'
 
 export type Values = Partial<
-  | SubmitSelfServiceLoginFlowBody
-  | SubmitSelfServiceRegistrationFlowBody
-  | SubmitSelfServiceRecoveryFlowBody
-  | SubmitSelfServiceSettingsFlowBody
-  | SubmitSelfServiceVerificationFlowBody
+  | UpdateLoginFlowBody
+  | UpdateRegistrationFlowBody
+  | UpdateRecoveryFlowBody
+  | UpdateSettingsFlowBody
+  | UpdateVerificationFlowBody
 >
 
 export type Methods =
@@ -39,11 +39,11 @@ export type Methods =
 export type Props<T> = {
   // The flow
   flow?:
-    | SelfServiceLoginFlow
-    | SelfServiceRegistrationFlow
-    | SelfServiceSettingsFlow
-    | SelfServiceVerificationFlow
-    | SelfServiceRecoveryFlow
+    | LoginFlow
+    | RegistrationFlow
+    | SettingsFlow
+    | VerificationFlow
+    | RecoveryFlow
   // Only show certain nodes. We will always render the default nodes for CSRF tokens.
   only?: Methods
   // Is triggered on submission

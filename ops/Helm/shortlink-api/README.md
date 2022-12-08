@@ -125,7 +125,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kratos.kratos.config.selfservice.flows.settings.ui_url | string | `"https://shortlink.best/next/user/profile"` |  |
 | kratos.kratos.config.selfservice.flows.verification.after.default_browser_return_url | string | `"https://shortlink.best/next"` |  |
 | kratos.kratos.config.selfservice.flows.verification.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.flows.verification.ui_url | string | `"https://shortlink.best/next/auth/verify"` |  |
+| kratos.kratos.config.selfservice.flows.verification.ui_url | string | `"https://shortlink.best/next/auth/verification"` |  |
 | kratos.kratos.config.selfservice.methods.link.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.oidc.config.providers[0].client_id | string | `"...."` |  |
 | kratos.kratos.config.selfservice.methods.oidc.config.providers[0].client_secret | string | `"...."` |  |
