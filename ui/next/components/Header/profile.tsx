@@ -17,7 +17,7 @@ export default function Profile() {
 
   useEffect(() => {
     ory
-      .createSelfServiceLogoutFlowUrlForBrowsers()
+      .createBrowserLogoutFlow()
       .then(({ data }) => {
         setLogoutToken(data.logout_token)
       })
@@ -43,7 +43,7 @@ export default function Profile() {
       link: `#`,
       onClick: () =>
         ory
-          .submitSelfServiceLogoutFlow(logoutToken)
+          .updateLogoutFlow({ token: logoutToken })
           .then(() => router.push('/auth/login'))
           .then(() => router.reload()),
     },

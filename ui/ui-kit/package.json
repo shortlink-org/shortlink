@@ -1,6 +1,6 @@
 {
   "name": "@shortlink-org/ui-kit",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "UI kit for shortlink",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -9,7 +9,7 @@
     "storybook": "$(npm bin)/start-storybook -p 6006",
     "build-storybook": "$(npm bin)/build-storybook",
     "semantic-release": "$(npm bin)/semantic-release",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "files": [
     "src"
@@ -49,7 +49,7 @@
     "postcss": "^8.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup": "^3.6.0",
+    "rollup": "3.7.0",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",

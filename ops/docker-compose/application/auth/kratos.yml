@@ -105,9 +105,9 @@ selfservice:
 
     verification:
       enabled: true
-      ui_url: http://127.0.0.1:3000/next/auth/verify
+      ui_url: http://127.0.0.1:3000/next/auth/verification
       after:
-        default_browser_return_url: http://127.0.0.1:3000/next/auth/verify
+        default_browser_return_url: http://127.0.0.1:3000/next/auth/verification
 
     logout:
       after:

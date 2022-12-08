@@ -7,12 +7,11 @@ import { CacheProvider, EmotionCache } from '@emotion/react'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { DefaultSeo, SiteLinksSearchBoxJsonLd, LogoJsonLd } from 'next-seo'
 import '../public/assets/styles.css'
-// @ts-ignore
 import {
   createEmotionCache,
   darkTheme,
   lightTheme,
-  ColorModeContext,
+  ColorModeContext, // @ts-ignore
 } from '@shortlink-org/ui-kit'
 // import your default seo configuration
 

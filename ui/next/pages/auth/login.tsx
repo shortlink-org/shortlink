@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { Layout } from 'components'
 import { useRouter } from 'next/router'
 import {
-  SelfServiceLoginFlow,
-  SubmitSelfServiceLoginFlowBody,
+  LoginFlow,
+  UpdateLoginFlowBody,
 } from '@ory/client'
 
 import ory from '../../pkg/sdk'
@@ -15,7 +15,7 @@ import { Flow } from '../../components/ui/Flow'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 
 const SignIn: NextPage = () => {
-  const [flow, setFlow] = useState<SelfServiceLoginFlow>()
+  const [flow, setFlow] = useState<LoginFlow>()
 
   // Get ?flow=... from the URL
   const router = useRouter()
@@ -39,7 +39,7 @@ const SignIn: NextPage = () => {
     // If ?flow=.. was in the URL, we fetch it
     if (flowId) {
       ory
-        .getSelfServiceLoginFlow(String(flowId))
+        .getLoginFlow(String(flowId))
         .then(({ data }) => {
           setFlow(data)
         })
@@ -49,25 +49,28 @@ const SignIn: NextPage = () => {
 
     // Otherwise we initialize it
     ory
-      .initializeSelfServiceLoginFlowForBrowsers(
-        Boolean(refresh),
-        aal ? String(aal) : undefined,
-        returnTo ? String(returnTo) : undefined,
-      )
+      .createBrowserLoginFlow({
+        refresh: Boolean(refresh),
+        aal: aal ? String(aal) : undefined,
+        returnTo: returnTo ? String(returnTo) : undefined,
+      })
       .then(({ data }) => {
         setFlow(data)
       })
       .catch(handleFlowError(router, 'login', setFlow))
   }, [flowId, router, router.isReady, aal, refresh, returnTo, flow])
 
-  const onSubmit = (values: SubmitSelfServiceLoginFlowBody) =>
+  const onSubmit = (values: UpdateLoginFlowBody) =>
     router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
       .push(`/auth/login?flow=${flow?.id}`, undefined, { shallow: true })
       .then(() =>
         ory
-          .submitSelfServiceLoginFlow(String(flow?.id), values, values)
+          .updateLoginFlow({
+            flow: String(flow?.id),
+            updateLoginFlowBody: values,
+          })
           // We logged in successfully! Let's bring the user home.
           .then(() => {
             if (flow?.return_to) {
@@ -102,7 +105,7 @@ const SignIn: NextPage = () => {
           },
           {
             position: 2,
-            name: 'Gorgot Password',
+            name: 'Forgot Password',
             item: 'https://shortlink.best/next/auth/forgot',
           },
           {
