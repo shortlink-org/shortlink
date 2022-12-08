@@ -1,5 +1,5 @@
 import { loadEnvConfig } from '@next/env'
-import { defineConfig } from "cypress"
+import { defineConfig } from 'cypress'
 
 const { combinedEnv } = loadEnvConfig(process.cwd())
 
@@ -18,4 +18,4 @@ export default defineConfig({
       // implement node event listeners here
     },
   },
-});
+})

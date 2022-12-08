@@ -1,10 +1,7 @@
 // @ts-nocheck
 import type { NextPage } from 'next'
 import { Layout } from 'components'
-import {
-  RegistrationFlow,
-  UpdateRegistrationFlowBody,
-} from '@ory/client'
+import { RegistrationFlow, UpdateRegistrationFlowBody } from '@ory/client'
 import { AxiosError } from 'axios'
 import Grid from '@mui/material/Grid'
 import { useRouter } from 'next/router'
@@ -64,10 +61,10 @@ const SignUp: NextPage = () => {
       .push(`/auth/registration?flow=${flow?.id}`, undefined, { shallow: true })
       .then(() =>
         ory
-        .updateRegistrationFlow({
+          .updateRegistrationFlow({
             flow: String(flow?.id),
             updateRegistrationFlowBody: values,
-        })
+          })
           .then(({ data }) => {
             // If we ended up here, it means we are successfully signed up!
             //
@@ -148,7 +145,12 @@ const SignUp: NextPage = () => {
 
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link href="/auth/login" variant="body2" underline="hover" legacyBehavior>
+                  <Link
+                    href="/auth/login"
+                    variant="body2"
+                    underline="hover"
+                    legacyBehavior
+                  >
                     <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Already have an account? Log in
                     </p>
@@ -160,7 +162,7 @@ const SignUp: NextPage = () => {
         </div>
       </div>
     </Layout>
-  );
+  )
 }
 
 export default SignUp

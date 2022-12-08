@@ -93,7 +93,7 @@ export default function Example() {
         )}
       </Popover>
     </div>
-  );
+  )
 }
 
 function IconOne() {
