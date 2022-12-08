@@ -13,7 +13,7 @@ import './proxy/infrastructure/http/proxy'
 
 const APP = express.default()
 const PORT = process.env.PORT || 3020
-const log: Logger = new Logger()
+const log: Logger<any> = new Logger()
 const SERVER_HTTP = http.createServer(APP)
 
 // configuration application

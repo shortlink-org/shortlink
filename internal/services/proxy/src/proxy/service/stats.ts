@@ -11,7 +11,7 @@ import TYPES from '../../types'
 import StatsRepository from "../infrastructure/store";
 import {MQ_EVENT_LINK_NEW} from "../domain/event";
 
-const log: Logger = new Logger()
+const log: Logger<any> = new Logger()
 
 @injectable()
 export class StatsService {
