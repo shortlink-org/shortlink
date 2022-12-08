@@ -22,9 +22,8 @@ body,
     @apply text-white bg-indigo-500;
   }
 
-
-  .btn{
-    @apply inline-block px-5 py-3 rounded-lg hover:bg-indigo-600 transition duration-300 shadow-lg bg-indigo-500 text-white capitalize tracking-wider font-semibold text-sm sm:text-xl focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 whitespace-nowrap
+  .btn {
+    @apply inline-block px-5 py-3 rounded-lg hover:bg-indigo-600 transition duration-300 shadow-lg bg-indigo-500 text-white capitalize tracking-wider font-semibold text-sm sm:text-xl focus:outline-none focus:ring-4 focus:ring-indigo-500 focus:ring-opacity-50 whitespace-nowrap;
   }
 }
 
@@ -34,7 +33,7 @@ body,
   top: 5em;
   right: 1em;
   overflow: hidden;
-  transform: translate3d(-50%,-50%,0);
+  transform: translate3d(-50%, -50%, 0);
 }
 .toggleWrapper input {
   position: absolute;
@@ -48,17 +47,17 @@ body,
   height: 50px;
   background-color: #83d8ff;
   border-radius: 84px;
-  transition: background-color 200ms cubic-bezier(0.445,0.05,0.55,0.95);
+  transition: background-color 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 .toggle:before {
-  content: "";
+  content: '';
   position: absolute;
   left: -50px;
   top: 15px;
   font-size: 18px;
 }
 .toggle:after {
-  content: "";
+  content: '';
   position: absolute;
   right: -48px;
   top: 15px;
@@ -75,8 +74,8 @@ body,
   height: 44px;
   background-color: #ffcf96;
   border-radius: 50px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  transition: all 400ms cubic-bezier(0.68,-0.55,0.265,1.55);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: all 400ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   transform: rotate(-45deg);
 }
 .toggle__handler .crater {
@@ -107,7 +106,7 @@ body,
 .star {
   position: absolute;
   background-color: #ffffff;
-  transition: all 300ms cubic-bezier(0.445,0.05,0.55,0.95);
+  transition: all 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
   border-radius: 50%;
 }
 .star--1 {
@@ -131,9 +130,11 @@ body,
   width: 30px;
   height: 3px;
 }
-.star--4, .star--5, .star--6 {
+.star--4,
+.star--5,
+.star--6 {
   opacity: 0;
-  transition: all 300ms 0 cubic-bezier(0.445,0.05,0.55,0.95);
+  transition: all 300ms 0 cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 .star--4 {
   top: 16px;
@@ -141,7 +142,7 @@ body,
   z-index: 0;
   width: 2px;
   height: 2px;
-  transform: translate3d(3px,0,0);
+  transform: translate3d(3px, 0, 0);
 }
 .star--5 {
   top: 32px;
@@ -149,7 +150,7 @@ body,
   z-index: 0;
   width: 3px;
   height: 3px;
-  transform: translate3d(3px,0,0);
+  transform: translate3d(3px, 0, 0);
 }
 .star--6 {
   top: 36px;
@@ -157,7 +158,7 @@ body,
   z-index: 0;
   width: 2px;
   height: 2px;
-  transform: translate3d(3px,0,0);
+  transform: translate3d(3px, 0, 0);
 }
 input:checked + .toggle {
   background-color: #749dd6;
@@ -170,7 +171,7 @@ input:checked + .toggle:after {
 }
 input:checked + .toggle .toggle__handler {
   background-color: #ffe5b5;
-  transform: translate3d(40px,0,0) rotate(0);
+  transform: translate3d(40px, 0, 0) rotate(0);
 }
 input:checked + .toggle .toggle__handler .crater {
   opacity: 1;
@@ -182,24 +183,25 @@ input:checked + .toggle .star--1 {
 input:checked + .toggle .star--2 {
   width: 4px;
   height: 4px;
-  transform: translate3d(-5px,0,0);
+  transform: translate3d(-5px, 0, 0);
 }
 input:checked + .toggle .star--3 {
   width: 2px;
   height: 2px;
-  transform: translate3d(-7px,0,0);
+  transform: translate3d(-7px, 0, 0);
 }
-input:checked + .toggle .star--4, input:checked + .toggle .star--5, input:checked + .toggle .star--6 {
+input:checked + .toggle .star--4,
+input:checked + .toggle .star--5,
+input:checked + .toggle .star--6 {
   opacity: 1;
-  transform: translate3d(0,0,0);
+  transform: translate3d(0, 0, 0);
 }
 input:checked + .toggle .star--4 {
-  transition: all 300ms 200ms cubic-bezier(0.445,0.05,0.55,0.95);
+  transition: all 300ms 200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 input:checked + .toggle .star--5 {
-  transition: all 300ms 300ms cubic-bezier(0.445,0.05,0.55,0.95);
+  transition: all 300ms 300ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
 input:checked + .toggle .star--6 {
-  transition: all 300ms 400ms cubic-bezier(0.445,0.05,0.55,0.95);
+  transition: all 300ms 400ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
 }
-

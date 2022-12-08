@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Script from 'next/script'
 import Head from 'next/head'
 import * as React from 'react'
-import { NextSeo, ArticleJsonLd, BreadcrumbJsonLd } from "next-seo";
+import { NextSeo, ArticleJsonLd, BreadcrumbJsonLd } from 'next-seo'
 // @ts-ignore
 import Divider from '@mui/material/Divider'
 import { useTheme } from '@mui/material/styles'
@@ -17,32 +17,30 @@ import Box from '@mui/material/Box'
 import Link from 'next/link'
 // @ts-ignore
 import { ToggleDarkMode } from '@shortlink-org/ui-kit'
-import TabPanel from "../components/TabPanel"
+import TabPanel from '../components/TabPanel'
 
 function a11yProps(index: number) {
   return {
     id: `full-width-tab-${index}`,
     'aria-controls': `full-width-tabpanel-${index}`,
-  };
+  }
 }
 
 function getCard(name: string, url: string) {
   return (
     <Link href={url} legacyBehavior>
-      <Button variant="outlined">
-        {name}
-      </Button>
+      <Button variant="outlined">{name}</Button>
     </Link>
-  );
+  )
 }
 
 const Home: NextPage = () => {
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const theme = useTheme()
+  const [value, setValue] = React.useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+    setValue(newValue)
+  }
 
   return (
     <div>
@@ -64,26 +62,23 @@ const Home: NextPage = () => {
         title="Routing by project"
         description="Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you."
         openGraph={{
-          title: "Routing by project",
-          description: "Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you.",
-          type: "article",
+          title: 'Routing by project',
+          description:
+            "Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you.",
+          type: 'article',
           article: {
-            publishedTime: "2021-08-01T05:00:00.000Z",
-            modifiedTime: "2021-08-01T05:00:00.000Z",
-            section: "FAQ",
-            authors: [
-              "https://batazor.ru",
-            ],
-            tags: [ "shortlink" ],
-          }
+            publishedTime: '2021-08-01T05:00:00.000Z',
+            modifiedTime: '2021-08-01T05:00:00.000Z',
+            section: 'FAQ',
+            authors: ['https://batazor.ru'],
+            tags: ['shortlink'],
+          },
         }}
       />
       <ArticleJsonLd
         url="https://shortlink.best/"
         title="Main"
-        images={[
-          'https://shortlink.best/images/logo.png',
-        ]}
+        images={['https://shortlink.best/images/logo.png']}
         datePublished="2021-08-01T05:00:00.000Z"
         dateModified="2021-08-01T05:00:00.000Z"
         authorName={[
@@ -125,7 +120,7 @@ const Home: NextPage = () => {
           },
         ]}
       />
-      
+
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -156,7 +151,7 @@ const Home: NextPage = () => {
           </AppBar>
 
           <TabPanel value={value} index={0}>
-            <Typography variant="h5" align={"center"}>
+            <Typography variant="h5" align="center">
               Shortlink service (Microservice example)
             </Typography>
 
@@ -168,12 +163,12 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("Next", "/next")}
+              {getCard('Next', '/next')}
             </Stack>
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <Typography variant="h5" align={"center"}>
+            <Typography variant="h5" align="center">
               Infrastructure services
             </Typography>
 
@@ -185,8 +180,8 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("Prometheus", "/prometheus")}
-              {getCard("AlertManager", "/alertmanager")}
+              {getCard('Prometheus', '/prometheus')}
+              {getCard('AlertManager', '/alertmanager')}
             </Stack>
 
             <Stack
@@ -197,13 +192,13 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("Grafana", "/grafana")}
+              {getCard('Grafana', '/grafana')}
 
-              {getCard("RabbitMQ", "/rabbitmq")}
+              {getCard('RabbitMQ', '/rabbitmq')}
 
-              {getCard("Kafka", "/kafka-ui")}
+              {getCard('Kafka', '/kafka-ui')}
 
-              {getCard("Kyverno", "/kyverno/#/")}
+              {getCard('Kyverno', '/kyverno/#/')}
             </Stack>
 
             <Stack
@@ -214,14 +209,14 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("Argo CD", "/argo/cd")}
-              {getCard("Argo Workflows", "/argo/workflows")}
+              {getCard('Argo CD', '/argo/cd')}
+              {getCard('Argo Workflows', '/argo/workflows')}
               {/*{getCard("Argo Dashboard", "/argo/dashboard")}*/}
             </Stack>
           </TabPanel>
 
           <TabPanel value={value} index={2} dir={theme.direction}>
-            <Typography variant="h5" align={"center"}>
+            <Typography variant="h5" align="center">
               Documentation and etc...
             </Typography>
 
@@ -233,11 +228,14 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard("GitHub", "https://github.com/batazor/shortlink")}
+              {getCard('GitHub', 'https://github.com/batazor/shortlink')}
 
-              {getCard("GitLab", "https://gitlab.com/shortlink-org/shortlink/")}
+              {getCard('GitLab', 'https://gitlab.com/shortlink-org/shortlink/')}
 
-              {getCard("Swagger API", "https://shortlink-org.gitlab.io/shortlink/")}
+              {getCard(
+                'Swagger API',
+                'https://shortlink-org.gitlab.io/shortlink/',
+              )}
             </Stack>
           </TabPanel>
         </Box>

@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 module.exports = {
-  mode: "jit",
+  mode: 'jit',
   darkMode: 'class',
   content: {
     files: [
@@ -31,7 +31,7 @@ module.exports = {
       body: ['Roboto Mono', 'Menlo', 'monospace'],
     },
     extend: {
-      typography: theme => ({
+      typography: (theme) => ({
         dark: {
           css: {
             color: 'white',
