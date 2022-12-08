@@ -6,6 +6,7 @@ import statsServer from './proxy/infrastructure/rpc/stats'
 const GRPC_PORT: string | number = process.env.GRPC_PORT || 50051
 
 type StartServerType = () => void
+
 export const startServer: StartServerType = (): void => {
   // create a new gRPC server
   const server: grpc.Server = new grpc.Server();
