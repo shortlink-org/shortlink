@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "ShortLink",
+  "version": "1.0",
+
+  "action": {
+    "default_popup":"popup.html"
+  },
+  "description": "ShortLink is a simple URL shortener.",
+  "icons": {
+    "16":"icons/16.png",
+    "32":"icons/32.png",
+    "48":"icons/48.png",
+    "128":"icons/128.png"
+  },
+
+  "author": "batazor",
+  "background": {},
+  "permissions": [
+    "scripting",
+    "activeTab"
+  ]
+}

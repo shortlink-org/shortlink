@@ -44,26 +44,27 @@ made along with its context and consequences.
 
 ##### Services
 
-| Service                 | Description                                                           | Language/Framework        | Docs                                             |
-|-------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------------------------------|
-| api                     | Internal GateWay                                                      | Go                        | [docs](./internal/services/api/README.md)        |
-| billing                 | Billing service                                                       | Go                        | [docs](./internal/services/billing/README.md)    |
-| bot                     | Telegram bot                                                          | JAVA                      | [docs](./internal/services/bot/README.md)        |
-| chat                    | Chat service                                                          | Elixir (Phoenix)          | [docs](./internal/services/chat/README.md)       |
-| shortdb                 | Custom database                                                       | Go                        | [docs](./pkg/shortdb/README.md)                  |
-| shortdb-operator        | Kubernetes Operator for [shortdb]((./pkg/shortdb/README.md)) database | Go                        | [docs](./pkg/shortdb-operator/README.md)         |
-| csi                     | CSI example                                                           | Go                        | [docs](./internal/services/csi/README.md)        |
-| link                    | Link service                                                          | Go                        | [docs](./internal/services/api/README.md)        |
-| logger                  | Logger service                                                        | Go                        | [docs](./internal/services/logger/README.md)     |
-| metadata                | Parser site by API                                                    | Go                        | [docs](./internal/services/metadata/README.md)   |
-| newsletter              | Newsletter service                                                    | Rust                      | [docs](./internal/services/newsletter/README.md) |
-| notify                  | Send notify to smtp, slack, telegram                                  | Go                        | [docs](./internal/services/notify/README.md)     |
-| proxy                   | Proxy service for redirect to original URL                            | TypeScript                | [docs](./internal/services/proxy/README.md)      |
-| referral                | Referral program                                                      | Python                    | [docs](./internal/services/referral/README.md)   |
-| shortctl                | Shortlink CLI                                                         | Go                        | [docs](./internal/services/cli/README.md)        |
-| stats                   | Stats server                                                          | CPP                       | [docs](./internal/services/stats/README.md)      |
-| wallet                  | Wallet service                                                        | Go (Solidity)             | [docs](./internal/services/wallet/README.md)     |
-| ws                      | Webscoket service                                                     | Go                        | [docs](./internal/services/ws/README.md)         |
+| Service           | Description                                                           | Language/Framework        | Docs                                                     |
+|-------------------|-----------------------------------------------------------------------|---------------------------|----------------------------------------------------------|
+| api               | Internal GateWay                                                      | Go                        | [docs](./internal/services/api/README.md)                |
+| billing           | Billing service                                                       | Go                        | [docs](./internal/services/billing/README.md)            |
+| bot               | Telegram bot                                                          | JAVA                      | [docs](./internal/services/bot/README.md)                |
+| chat              | Chat service                                                          | Elixir (Phoenix)          | [docs](./internal/services/chat/README.md)               |
+| chrome-extension  | Chrome extension                                                      | JavaScript                | [docs](./internal/services/chrome-extension/README.md)   |
+| shortdb           | Custom database                                                       | Go                        | [docs](./pkg/shortdb/README.md)                          |
+| shortdb-operator  | Kubernetes Operator for [shortdb]((./pkg/shortdb/README.md)) database | Go                        | [docs](./pkg/shortdb-operator/README.md)                 |
+| csi               | CSI example                                                           | Go                        | [docs](./internal/services/csi/README.md)                |
+| link              | Link service                                                          | Go                        | [docs](./internal/services/api/README.md)                |
+| logger            | Logger service                                                        | Go                        | [docs](./internal/services/logger/README.md)             |
+| metadata          | Parser site by API                                                    | Go                        | [docs](./internal/services/metadata/README.md)           |
+| newsletter        | Newsletter service                                                    | Rust                      | [docs](./internal/services/newsletter/README.md)         |
+| notify            | Send notify to smtp, slack, telegram                                  | Go                        | [docs](./internal/services/notify/README.md)             |
+| proxy             | Proxy service for redirect to original URL                            | TypeScript                | [docs](./internal/services/proxy/README.md)              |
+| referral          | Referral program                                                      | Python                    | [docs](./internal/services/referral/README.md)           |
+| shortctl          | Shortlink CLI                                                         | Go                        | [docs](./internal/services/cli/README.md)                |
+| stats             | Stats server                                                          | CPP                       | [docs](./internal/services/stats/README.md)              |
+| wallet            | Wallet service                                                        | Go (Solidity)             | [docs](./internal/services/wallet/README.md)             |
+| ws                | Webscoket service                                                     | Go                        | [docs](./internal/services/ws/README.md)                 |
 
 ### Third-party Service
 
