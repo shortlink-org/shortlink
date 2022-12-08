@@ -25,3 +25,14 @@ The UI Kit is documented with Storybook. You can run it locally with:
 ```bash
 npm run storybook
 ```
+
+### Stack
+
+- ReactJS
+- Pretty code base
+  - Typescript
+  - ESLint/Prettier
+- Pretty UI
+  - TailwindCSS
+- Storybook (for UI)
+- Jest

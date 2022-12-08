@@ -22,6 +22,15 @@ Use `.env` file in `ui/next` directories for setting your UI
 docker buildx build -t next-ui -f ops/dockerfile/landing.Dockerfile .
 ```
 
+### Stack
+
+- NextJS (SSR/Static generate content)
+  - ReactJS
+- Pretty code base
+  - Typescript
+  - ESLint/Prettier
+- Cypress (for E2E)
+
 ### Learn More
 
 To learn more about Next.js, take a look at the following resources:
