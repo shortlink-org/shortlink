@@ -125,7 +125,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ToggleDarkMode />
+      <ToggleDarkMode id="ToggleDarkMode" />
 
       <Grid
         container
