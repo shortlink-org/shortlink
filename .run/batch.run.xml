@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="batch" type="GoTestRunConfiguration" factoryName="Go Test" folderName="pkg">
+    <module name="shortlink" />
+    <working_directory value="$PROJECT_DIR$/internal/pkg/batch" />
+    <go_parameters value="-race -v -tags=unit -cover" />
+    <root_directory value="$PROJECT_DIR$" />
+    <kind value="FILE" />
+    <package value="github.com/batazor/shortlink" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/internal/pkg/batch/batch_test.go" />
+    <framework value="gotest" />
+    <method v="2" />
+  </configuration>
+</component>
