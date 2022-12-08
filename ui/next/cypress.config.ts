@@ -6,7 +6,7 @@ const { combinedEnv } = loadEnvConfig(process.cwd())
 export default defineConfig({
   env: combinedEnv,
   e2e: {
-    baseUrl: 'http://localhost:3001',
+    baseUrl: 'http://localhost:3000/next',
     retries: {
       runMode: 3,
     },
