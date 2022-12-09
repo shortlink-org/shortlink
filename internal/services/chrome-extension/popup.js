@@ -38,8 +38,9 @@ function onResult(frames) {
 
     window.navigator.clipboard
         .writeText(links.join("\n"))
-        .then(() => alert("Links copied to clipboard"))
+        .then(() => {
+            alert("Links copied to clipboard")
+            window.close()
+        })
         .catch(() => alert("Could not copy links to clipboard"))
-
-    window.close()
 }
