@@ -50,7 +50,7 @@ made along with its context and consequences.
 | billing           | Billing service                                                       | Go                        | [docs](./internal/services/billing/README.md)            |
 | bot               | Telegram bot                                                          | JAVA                      | [docs](./internal/services/bot/README.md)                |
 | chat              | Chat service                                                          | Elixir (Phoenix)          | [docs](./internal/services/chat/README.md)               |
-| chrome-extension  | Chrome extension                                                      | JavaScript                | [docs](./internal/services/chrome-extension/README.md)   |
+| chrome-extension  | Chrome extension                                                      | JavaScript                | [docs](internal/extension/chrome-extension/README.md)   |
 | shortdb           | Custom database                                                       | Go                        | [docs](./pkg/shortdb/README.md)                          |
 | shortdb-operator  | Kubernetes Operator for [shortdb]((./pkg/shortdb/README.md)) database | Go                        | [docs](./pkg/shortdb-operator/README.md)                 |
 | csi               | CSI example                                                           | Go                        | [docs](./internal/services/csi/README.md)                |
