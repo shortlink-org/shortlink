@@ -27,7 +27,6 @@ function grabURL() {
 }
 
 function onResult(frames) {
-    console.log(frames)
     if (!frames || !frames.length) {
         alert("Could not retrieve links from specified page")
         return
