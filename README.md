@@ -23,8 +23,6 @@ our community and solve a problem for millions of people.
 
 ![shortlink-architecture](./docs/shortlink-architecture.png)
 
-![Visualization of the codebase](./diagram.svg)
-
 ### Architecture (miro.com)
 
 - [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
