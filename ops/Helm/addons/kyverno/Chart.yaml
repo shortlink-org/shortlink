@@ -17,14 +17,14 @@ dependencies:
     version: 0.2.1
     repository: "file://../../shortlink-common"
   - name: kyverno
-    version: 2.6.3
+    version: 2.6.4
     repository: https://kyverno.github.io/kyverno
     condition: kyverno.enabled
     tags:
       - security
       - automatiozation
   - name: policy-reporter
-    version: 2.13.5
+    version: 2.14.0
     repository: https://kyverno.github.io/policy-reporter
     condition: policy-reporter.enabled
     tags:
@@ -32,7 +32,7 @@ dependencies:
       - automatiozation
       - ui
   - name: kyverno-policies
-    version: 2.6.3
+    version: 2.6.4
     repository: https://kyverno.github.io/kyverno
     condition: kyverno-policies.enabled
     tags:
