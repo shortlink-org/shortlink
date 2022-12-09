@@ -1,3 +1,5 @@
+//go:build goexperiment.arenas
+
 /*
 Shortlink application
 

@@ -391,7 +391,7 @@ linters-settings:
   gofumpt:
     # Select the Go version to target.
     # Default: 1.15
-    lang-version: "1.19"
+    lang-version: "1.20"
 
     # Module path which contains the source code being formatted.
     # Default: empty string
@@ -440,7 +440,7 @@ linters-settings:
   gosimple:
     # Select the Go version to target.
     # Default: 1.13
-    go: "1.19"
+    go: "1.20"
     # https://staticcheck.io/docs/options#checks
     checks: [ "all" ]
 
@@ -1036,14 +1036,14 @@ linters-settings:
   staticcheck:
     # Select the Go version to target.
     # Default: 1.13
-    go: "1.19"
+    go: "1.20"
     # https://staticcheck.io/docs/options#checks
     checks: [ "all" ]
 
   stylecheck:
     # Select the Go version to target.
     # Default: 1.13
-    go: "1.19"
+    go: "1.20"
     # https://staticcheck.io/docs/options#checks
     checks: [ "all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022" ]
     # https://staticcheck.io/docs/options#dot_import_whitelist

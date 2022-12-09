@@ -1,11 +1,13 @@
 # syntax=docker/dockerfile:1.4
 
-FROM --platform=$BUILDPLATFORM golang:1.19-alpine AS builder
+FROM --platform=$BUILDPLATFORM golang:1.20-rc-alpine AS builder
 
 ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
 ARG SKAFFOLD_GO_GCFLAGS
 ARG TARGETOS TARGETARCH
+
+ENV GOEXPERIMENT=arenas
 
 WORKDIR /go/github.com/batazor/shortlink
 
