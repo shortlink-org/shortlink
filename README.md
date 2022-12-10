@@ -172,6 +172,8 @@ make skaffold-debug
 + Development
   + [Skaffold](https://skaffold.dev/)
   + Telepresence
++ Security
+  + SOPS
 + HealthCheck
 + Support K8S
   + Helm Chart
