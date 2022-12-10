@@ -1,5 +1,10 @@
 ### Saga manager
 
+In distributed systems, it can be difficult to ensure that a complex 
+operation is completed successfully without encountering errors or failures. 
+A saga is a way of managing these types of operations by breaking them down into smaller, 
+independent steps that can be executed and managed separately.
+
 #### Saga steps of state:
 
 + WAIT -> RUN -> DONE/REJECT
@@ -8,6 +13,8 @@
 #### Example
 
 ```go
+package main
+
 import (
   "github.com/batazor/shortlink/pkg/saga"
 )
