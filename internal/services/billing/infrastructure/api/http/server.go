@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	http_server "github.com/batazor/shortlink/pkg/http/server"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
@@ -15,7 +16,6 @@ import (
 	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
 	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
 	http_chi "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
-	api_type "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 )
 
 // API - general describe of API
@@ -23,11 +23,11 @@ type API interface {
 	Run(
 		ctx context.Context,
 		db *db.Store,
-		config api_type.Config,
+		config http_server.Config,
 		log logger.Logger,
 		tracer *trace.TracerProvider,
 
-		// services
+	// services
 		accountService *account_application.AccountService,
 		orderService *order_application.OrderService,
 		paymentService *payment_application.PaymentService,
@@ -43,7 +43,7 @@ func (s *Server) Use(
 	log logger.Logger,
 	tracer *trace.TracerProvider,
 
-	// services
+// services
 	accountService *account_application.AccountService,
 	orderService *order_application.OrderService,
 	paymentService *payment_application.PaymentService,
@@ -57,7 +57,7 @@ func (s *Server) Use(
 	// Request Timeout (seconds)
 	viper.SetDefault("API_TIMEOUT", 60) // nolint:gomnd
 
-	config := api_type.Config{
+	config := http_server.Config{
 		Port:    viper.GetInt("API_PORT"),
 		Timeout: viper.GetDuration("API_TIMEOUT") * time.Second, // nolint:durationcheck
 	}

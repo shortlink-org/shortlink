@@ -1,4 +1,4 @@
-package api_type
+package http_server
 
 import (
 	"time"
