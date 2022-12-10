@@ -3,9 +3,8 @@ package http_chi
 import (
 	"context"
 	"fmt"
-	"net/http"
-	"time"
 
+	"github.com/batazor/shortlink/pkg/http/server"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
@@ -26,7 +25,6 @@ import (
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/order"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/payment"
 	"github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/tariff"
-	api_type "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/type"
 	"github.com/batazor/shortlink/pkg/http/handler"
 	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
 )
@@ -35,7 +33,7 @@ import (
 func (api *API) Run(
 	ctx context.Context,
 	db *db.Store,
-	config api_type.Config,
+	config http_server.Config,
 	log logger.Logger,
 	tracer *trace.TracerProvider,
 
@@ -119,17 +117,7 @@ func (api *API) Run(
 		tariffRoutes.Routes(router)
 	}))
 
-	srv := http.Server{
-		Addr:    fmt.Sprintf(":%d", config.Port),
-		Handler: r,
-
-		ReadTimeout:  1 * time.Second,                   // the maximum duration for reading the entire request, including the body
-		WriteTimeout: (config.Timeout + 30*time.Second), // the maximum duration before timing out writes of the response
-		// the maximum amount of time to wait for the next request when keep-alive is enabled
-		IdleTimeout: 30 * time.Second, // nolint:gomnd
-		// the amount of time allowed to read request headers
-		ReadHeaderTimeout: 2 * time.Second, // nolint:gomnd
-	}
+	srv := http_server.New(ctx, r, config)
 
 	// start HTTP-server
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))

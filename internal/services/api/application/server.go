@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	http_server "github.com/batazor/shortlink/pkg/http/server"
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/text/message"
@@ -13,7 +14,6 @@ import (
 	"github.com/batazor/shortlink/internal/services/api/application/graphql"
 	grpcweb "github.com/batazor/shortlink/internal/services/api/application/grpc_web/v1"
 	http_chi "github.com/batazor/shortlink/internal/services/api/application/http-chi"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
@@ -27,7 +27,7 @@ func RunAPIServer(
 	log logger.Logger,
 	rpcServer *rpc.RPCServer,
 
-	// delivery
+// delivery
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
@@ -41,7 +41,7 @@ func RunAPIServer(
 	// Request Timeout (seconds)
 	viper.SetDefault("API_TIMEOUT", 60) // nolint:gomnd
 
-	config := api_type.Config{
+	config := http_server.Config{
 		Port:    viper.GetInt("API_PORT"),
 		Timeout: viper.GetDuration("API_TIMEOUT") * time.Second, // nolint:durationcheck
 	}

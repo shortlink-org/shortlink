@@ -4,19 +4,17 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"net"
 	"net/http"
-	"time"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc/status"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
+	"github.com/batazor/shortlink/pkg/http/server"
 	"github.com/batazor/shortlink/pkg/rpc"
 )
 
@@ -24,7 +22,7 @@ import (
 type API struct {
 	LinkServiceServer
 
-	http http.Server
+	http *http.Server
 	RPC  *rpc.RPCServer
 }
 
@@ -32,7 +30,7 @@ type API struct {
 func (api *API) Run(
 	ctx context.Context,
 	i18n *message.Printer,
-	config api_type.Config,
+	config http_server.Config,
 	log logger.Logger,
 
 	// Delivery
@@ -60,20 +58,7 @@ func (api *API) Run(
 		return err
 	}
 
-	api.http = http.Server{
-		Addr:    fmt.Sprintf(":%d", config.Port),
-		Handler: mux, // nolint:contextcheck
-		BaseContext: func(_ net.Listener) context.Context {
-			return ctx
-		},
-
-		ReadTimeout:  1 * time.Second,                 // the maximum duration for reading the entire request, including the body
-		WriteTimeout: config.Timeout + 30*time.Second, // the maximum duration before timing out writes of the response
-		// the maximum amount of time to wait for the next request when keep-alive is enabled
-		IdleTimeout: 30 * time.Second, // nolint:gomnd
-		// the amount of time allowed to read request headers
-		ReadHeaderTimeout: 2 * time.Second, // nolint:gomnd
-	}
+	api.http = http_server.New(ctx, mux, config)
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))

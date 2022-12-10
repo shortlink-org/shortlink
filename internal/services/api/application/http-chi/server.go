@@ -2,11 +2,8 @@ package http_chi
 
 import (
 	"context"
-	"fmt"
-	"net"
-	"net/http"
-	"time"
 
+	"github.com/batazor/shortlink/pkg/http/server"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
@@ -21,7 +18,6 @@ import (
 	cqrs_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/cqrs"
 	link_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/link"
 	sitemap_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/sitemap"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
@@ -48,7 +44,7 @@ import (
 func (api *API) Run(
 	ctx context.Context,
 	i18n *message.Printer,
-	config api_type.Config,
+	config http_server.Config,
 	log logger.Logger,
 
 	// Delivery
@@ -101,21 +97,7 @@ func (api *API) Run(
 	r.Mount("/api/cqrs", cqrs_api.Routes(link_command, link_query))
 	r.Mount("/api/sitemap", sitemap_api.Routes(sitemap_rpc))
 
-	srv := http.Server{
-		Addr:    fmt.Sprintf(":%d", config.Port),
-		Handler: r,
-		BaseContext: func(_ net.Listener) context.Context {
-			return ctx
-		},
-
-		ReadTimeout: 1 * time.Second, // the maximum duration for reading the entire request, including the body
-		// the maximum duration before timing out writes of the response
-		WriteTimeout: config.Timeout + 30*time.Second, // nolint:gomnd
-		// the maximum amount of time to wait for the next request when keep-alive is enabled
-		IdleTimeout: 30 * time.Second, // nolint:gomnd
-		// the amount of time allowed to read request headers
-		ReadHeaderTimeout: 2 * time.Second, // nolint:gomnd
-	}
+	srv := http_server.New(ctx, r, config)
 
 	// start HTTP-server
 	log.Info(i18n.Sprintf("API run on port %d", config.Port))

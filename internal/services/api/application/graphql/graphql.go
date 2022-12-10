@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 
+	http_server "github.com/batazor/shortlink/pkg/http/server"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
 	"golang.org/x/text/message"
@@ -16,7 +17,6 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/db"
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/batazor/shortlink/internal/services/api/application/graphql/resolver"
-	api_type "github.com/batazor/shortlink/internal/services/api/application/type"
 	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
@@ -84,7 +84,7 @@ func (api *API) GetHandler() *relay.Handler {
 func (api *API) Run(
 	ctx context.Context,
 	i18n *message.Printer,
-	config api_type.Config,
+	config http_server.Config,
 	log logger.Logger,
 
 	// delivery
