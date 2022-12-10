@@ -49,7 +49,7 @@ docker buildx build -t next-ui -f ops/dockerfile/ui-next.Dockerfile .
 
 | Describe   | Screenshot                               |
 | ---------- | ---------------------------------------- |
-| Link Table | ![link table](../../docs/next-js-ui.png) |
+| Link Table | ![link table](docs/next-js-ui.png) |
 
 </details>
 
