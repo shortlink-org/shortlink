@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package domain.raft.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/batazor/shortlink/pkg/raft/domain/raft/v1";
+
+enum RaftStatus {
+  RAFT_STATUS_UNSPECIFIED = 0;
+
+  RAFT_STATUS_LEADER = 1;
+  RAFT_STATUS_FOLLOWER = 2;
+  RAFT_STATUS_CANDIDATE = 3;
+  RAFT_STATUS_STOPPED = 4;
+}
+
+message Raft {
+  // id is the unique identifier of the raft node.
+  string id = 1;
+  // peerIds is the list of peer IDs.
+  repeated string peer_ids = 2;
+  // name is the human-readable name of the raft node.
+  string name = 3;
+  // address is the address of the raft node.
+  string address = 4;
+  // status is the status of the raft node.
+  RaftStatus status = 5;
+  // last_heartbeat is the last time the raft node sent a heartbeat.
+  google.protobuf.Timestamp last_heartbeat = 6;
+  // weight is the voting weight of the raft node.
+  int32 weight = 7;
+}
