@@ -22,7 +22,7 @@ dependencies:
     version: 0.2.1
     repository: "file://../shortlink-common"
   - name: kratos
-    version: 0.26.4
+    version: 0.26.5
     repository: https://k8s.ory.sh/helm/charts
     condition: kratos.enabled
     tags:
