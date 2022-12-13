@@ -41,3 +41,13 @@ $> ln -s compile_commands.json ../compile_commands.json # link compile_commands.
 $> conan install --install-folder=deps --build=missing .
 $> bazel build //...
 ```
+
+### Stack
+
+- [C++](https://isocpp.org/)
+- Tooling
+    - [CMake](https://cmake.org/)
+    - [Bazel](https://bazel.build/)
+    - [Conan](https://conan.io/)
+- Observability
+    - [Promehteus](https://prometheus.io/)
