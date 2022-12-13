@@ -38,5 +38,6 @@ $> ln -s compile_commands.json ../compile_commands.json # link compile_commands.
 #### Bazel
 
 ```bash
+$> conan install --install-folder=deps --build=missing .
 $> bazel build //...
 ```
