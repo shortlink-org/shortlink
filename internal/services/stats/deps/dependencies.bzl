@@ -17,7 +17,7 @@ def load_conan_dependencies():
     
     native.new_local_repository(
         name="prometheus-cpp",
-        path="/Users/user/.conan/data/prometheus-cpp/1.0.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc",
+        path="/Users/user/.conan/data/prometheus-cpp/1.1.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc",
         build_file="/Users/user/myprojects/shortlink/internal/services/stats/deps/prometheus-cpp/BUILD",
     )
     

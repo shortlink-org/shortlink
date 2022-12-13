@@ -114,9 +114,9 @@ set(CONAN_LIBS_FMT ${CONAN_PKG_LIBS_FMT} ${CONAN_SYSTEM_LIBS_FMT} ${CONAN_FRAMEW
 #################
 ###  PROMETHEUS-CPP
 #################
-set(CONAN_PROMETHEUS-CPP_ROOT "/Users/user/.conan/data/prometheus-cpp/1.0.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc")
-set(CONAN_INCLUDE_DIRS_PROMETHEUS-CPP "/Users/user/.conan/data/prometheus-cpp/1.0.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc/include")
-set(CONAN_LIB_DIRS_PROMETHEUS-CPP "/Users/user/.conan/data/prometheus-cpp/1.0.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc/lib")
+set(CONAN_PROMETHEUS-CPP_ROOT "/Users/user/.conan/data/prometheus-cpp/1.1.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc")
+set(CONAN_INCLUDE_DIRS_PROMETHEUS-CPP "/Users/user/.conan/data/prometheus-cpp/1.1.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc/include")
+set(CONAN_LIB_DIRS_PROMETHEUS-CPP "/Users/user/.conan/data/prometheus-cpp/1.1.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc/lib")
 set(CONAN_BIN_DIRS_PROMETHEUS-CPP )
 set(CONAN_RES_DIRS_PROMETHEUS-CPP )
 set(CONAN_SRC_DIRS_PROMETHEUS-CPP )
@@ -317,13 +317,13 @@ set(CONAN_CMD_C_FLAGS ${CONAN_C_FLAGS})
 
 set(CONAN_INCLUDE_DIRS "/Users/user/.conan/data/cli11/1.9.1/_/_/package/5ab84d6acfe1f23c4fae0ab88f26e3a396351ac9/include"
 			"/Users/user/.conan/data/fmt/7.1.3/_/_/package/80138d4a58def120da0b8c9199f2b7a4e464a85b/include"
-			"/Users/user/.conan/data/prometheus-cpp/1.0.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc/include"
+			"/Users/user/.conan/data/prometheus-cpp/1.1.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc/include"
 			"/Users/user/.conan/data/civetweb/1.15/_/_/package/77e8df9f2be98ef80d2a9f31ea49eb14597b20b0/include"
 			"/Users/user/.conan/data/libcurl/7.86.0/_/_/package/a097455223234e250d01a2687cf7c15446fbd5d5/include"
 			"/Users/user/.conan/data/openssl/1.1.1s/_/_/package/6841fe8f0f22f6fa260da36a43a94ab525c7ed8d/include"
 			"/Users/user/.conan/data/zlib/1.2.13/_/_/package/6841fe8f0f22f6fa260da36a43a94ab525c7ed8d/include" ${CONAN_INCLUDE_DIRS})
 set(CONAN_LIB_DIRS "/Users/user/.conan/data/fmt/7.1.3/_/_/package/80138d4a58def120da0b8c9199f2b7a4e464a85b/lib"
-			"/Users/user/.conan/data/prometheus-cpp/1.0.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc/lib"
+			"/Users/user/.conan/data/prometheus-cpp/1.1.0/_/_/package/b39e1754fc610f750a6d595455854696692ec5bc/lib"
 			"/Users/user/.conan/data/civetweb/1.15/_/_/package/77e8df9f2be98ef80d2a9f31ea49eb14597b20b0/lib"
 			"/Users/user/.conan/data/libcurl/7.86.0/_/_/package/a097455223234e250d01a2687cf7c15446fbd5d5/lib"
 			"/Users/user/.conan/data/openssl/1.1.1s/_/_/package/6841fe8f0f22f6fa260da36a43a94ab525c7ed8d/lib"
