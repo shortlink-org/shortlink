@@ -4,6 +4,8 @@ package domain.billing.tariff.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1";
 
+import "google/protobuf/field_mask.proto";
+
 enum Event {
   EVENT_UNSPECIFIED = 0;
 
@@ -13,6 +15,8 @@ enum Event {
 }
 
 message Tariff {
+  google.protobuf.FieldMask field_mask = 4;
+
   string id = 1;
   string name = 2;
   string payload = 3;

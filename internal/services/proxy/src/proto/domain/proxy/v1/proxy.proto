@@ -2,9 +2,12 @@ syntax = "proto3";
 
 package domain.proxy.v1;
 
+import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
 
 message Stats {
+  google.protobuf.FieldMask field_mask = 4;
+
   string hash = 1;
   uint64 count_redirect = 2;
 

@@ -4,6 +4,7 @@ package shortdb.domain.table.v1;
 
 option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1";
 
+import "google/protobuf/field_mask.proto";
 import "shortdb/domain/page/v1/page.proto";
 import "shortdb/domain/index/v1/index.proto";
 import "shortdb/domain/table/v1/stats.proto";
@@ -14,6 +15,8 @@ message Option {
 }
 
 message Table {
+  google.protobuf.FieldMask field_mask = 7;
+
   string name = 1;
   map<string, shortdb.domain.field.v1.Type> fields = 2;
 

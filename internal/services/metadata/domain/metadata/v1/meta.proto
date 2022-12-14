@@ -4,9 +4,13 @@ package domain.metadata.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1";
 
+import "google/protobuf/field_mask.proto";
+
 message Meta {
+  google.protobuf.FieldMask field_mask = 5;
+
   string id = 1;
-	string image_url = 2;
-	string description = 3;
-	string keywords = 4;
+  string image_url = 2;
+  string description = 3;
+  string keywords = 4;
 }

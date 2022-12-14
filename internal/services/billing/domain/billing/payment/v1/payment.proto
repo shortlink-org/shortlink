@@ -4,6 +4,8 @@ package domain.billing.payment.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1";
 
+import "google/protobuf/field_mask.proto";
+
 enum StatusPayment {
   STATUS_PAYMENT_UNSPECIFIED = 0;
 
@@ -15,6 +17,8 @@ enum StatusPayment {
 }
 
 message Payment {
+  google.protobuf.FieldMask field_mask = 6;
+
   string id = 1;
   string name = 2;
   StatusPayment status = 3;

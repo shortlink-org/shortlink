@@ -2,8 +2,12 @@ syntax = "proto3";
 
 package domain.newsletter.v1;
 
+import "google/protobuf/field_mask.proto";
+
 // Newsletter
 message Newsletter {
+  google.protobuf.FieldMask field_mask = 3;
+
   string email = 1;
   bool active = 2;
 }

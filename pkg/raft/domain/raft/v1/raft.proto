@@ -4,6 +4,7 @@ package domain.raft.v1;
 
 option go_package = "github.com/batazor/shortlink/pkg/raft/domain/raft/v1";
 
+import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
 
 enum RaftStatus {
@@ -16,6 +17,8 @@ enum RaftStatus {
 }
 
 message Raft {
+  google.protobuf.FieldMask field_mask = 8;
+
   // id is the unique identifier of the raft node.
   string id = 1;
   // peerIds is the list of peer IDs.

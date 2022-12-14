@@ -4,6 +4,7 @@ package shortdb.domain.query.v1;
 
 option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1";
 
+import "google/protobuf/field_mask.proto";
 import "shortdb/domain/field/v1/field.proto";
 import "shortdb/domain/index/v1/index.proto";
 
@@ -81,6 +82,8 @@ message Join {
 
 // Query represents a parsed query
 message Query {
+  google.protobuf.FieldMask field_mask = 16;
+
   message Array {
     repeated string items = 1;
   }
