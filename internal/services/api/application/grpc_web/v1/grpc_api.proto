@@ -3,17 +3,17 @@ syntax = "proto3";
 // buf:lint:ignore
 package grpc_web.v1;
 
+option go_package = "github.com/batazor/shortlink/internal/services/api/application/grpc_web/v1";
+
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";
 import "google/protobuf/empty.proto";
 import "domain/link/v1/link.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
-option go_package = "github.com/batazor/shortlink/internal/services/api/application/grpc_web/v1";
-
 service LinkService {
-    rpc GetLinks(GetLinksRequest) returns (GetLinksResponse) {
-        option(google.api.http) = {
+  rpc GetLinks(GetLinksRequest) returns (GetLinksResponse) {
+    option(google.api.http) = {
         get: "/api/links"
       };
     };
