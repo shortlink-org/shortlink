@@ -1,16 +1,12 @@
-import * as React from "react"
-import Document, { Html, Head, Main, NextScript } from "next/document"
-import createEmotionServer from "@emotion/server/create-instance"
-import {
-  darkTheme,
-  lightTheme,
-  createEmotionCache, // @ts-ignore
-} from "@shortlink-org/ui-kit"
+import * as React from 'react'
+import Document, {Head, Html, Main, NextScript} from 'next/document'
+import createEmotionServer from '@emotion/server/create-instance'
+import {createEmotionCache, lightTheme,} from '@shortlink-org/ui-kit'
 
 export default class MyDocument extends Document {
-  render() {
-    return (
-      <Html lang="en">
+    render() {
+        return (
+            <Html lang="en">
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={lightTheme.palette.primary.main} />
@@ -77,10 +73,10 @@ MyDocument.getInitialProps = async (ctx) => {
   const emotionStyles = extractCriticalToChunks(initialProps.html)
   const emotionStyleTags = emotionStyles.styles.map((style) => (
     <style
-      data-emotion={`${style.key} ${style.ids.join(" ")}`}
-      key={style.key}
+        data-emotion={`${style.key} ${style.ids.join(' ')}`}
+        key={style.key}
       // eslint-disable-next-line react/no-danger
-      dangerouslySetInnerHTML={{ __html: style.css }}
+        dangerouslySetInnerHTML={{ __html: style.css }}
     />
   ))
 
@@ -88,4 +84,4 @@ MyDocument.getInitialProps = async (ctx) => {
     ...initialProps,
     emotionStyleTags,
   }
-};
+}
