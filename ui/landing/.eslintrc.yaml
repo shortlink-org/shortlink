@@ -12,6 +12,7 @@ plugins:
   - '@typescript-eslint'
   - 'react'
   - 'prettier'
+  - 'shortlink'
 extends:
   - eslint:recommended
   - plugin:react/recommended
@@ -77,13 +78,15 @@ rules:
   'jsx-a11y/label-has-associated-control': off
   react/display-name: off
   '@typescript-eslint/no-use-before-define':
-    ['error', { functions: false, classes: false, variables: true }]
+    [ 'error', { functions: false, classes: false, variables: true } ]
   '@typescript-eslint/ban-ts-comment': off
   react/react-in-jsx-scope: off
   react/no-unused-prop-types: off
   '@next/next/no-img-element': off
   react/jsx-no-constructed-context-values: off
   '@typescript-eslint/no-unused-vars': off
+  shortlink/check-author: off
+  shortlink/check-empty-file: error
 settings:
   import/resolver:
     babel-module:
