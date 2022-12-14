@@ -4,7 +4,11 @@ package domain.billing.account.v1;
 
 option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1";
 
+import "google/protobuf/field_mask.proto";
+
 message Account {
+  google.protobuf.FieldMask field_mask = 4;
+
   string id = 1;
   string user_id = 2;
   string tariff_id = 3;

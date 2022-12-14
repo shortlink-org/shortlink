@@ -11,6 +11,7 @@ type Pagination struct {
 type Filter struct { // nolint:unused
 	Pagination *Pagination
 	Search     *StringFilterInput
+	Field_mask *StringFilterInput
 	Url        *StringFilterInput
 	Hash       *StringFilterInput
 	Describe   *StringFilterInput
@@ -33,6 +34,7 @@ type StringFilterInput struct { // nolint:unused
 // GetKeys - return all keys
 func (f *Filter) GetKeys() []string {
 	return []string{
+		"Field_mask",
 		"Url",
 		"Hash",
 		"Describe",
