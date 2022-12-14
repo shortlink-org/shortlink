@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package domain.raft.v1;
 
-import "google/protobuf/timestamp.proto";
-
 option go_package = "github.com/batazor/shortlink/pkg/raft/domain/raft/v1";
+
+import "google/protobuf/timestamp.proto";
 
 enum RaftStatus {
   RAFT_STATUS_UNSPECIFIED = 0;
