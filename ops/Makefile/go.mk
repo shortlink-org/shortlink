@@ -9,9 +9,9 @@ generate: ## Code generation
 	@make fmt
 
 .PHONY: fmt
-fmt: ## Format source using gofmt
+fmt: ## Format source using goimports
 	# Apply go fmt
-	@gofmt -l -s -w cmd pkg internal
+	@goimports -l -local -w cmd pkg internal
 
 gosec: ## Golang security checker
 	@docker run --rm -it -v $(pwd):/app -w /app/ securego/gosec:latest /app/...
