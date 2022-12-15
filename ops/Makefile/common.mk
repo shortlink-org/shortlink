@@ -10,6 +10,7 @@ dep: ## Install dependencies for this project
 	@go install github.com/securego/gosec/cmd/gosec@latest
 	@go install moul.io/protoc-gen-gotemplate@latest
 	@go install github.com/cloudflare/cfssl/cmd/...@latest
+	@go install golang.org/x/tools/cmd/goimports@latest
 
 	# for NodeJS
 	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen
