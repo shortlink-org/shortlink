@@ -23,7 +23,7 @@ grabBtn.addEventListener("click",() => {
  */
 function grabURL() {
     const links = document.querySelectorAll("a")
-    return Array.from(links).map(link => ({href: link.href, text: link.innerText}))
+    return Array.from(links).map(link => ({href: link.href, text: link.text}))
 }
 
 function onResult(frames) {
@@ -33,13 +33,21 @@ function onResult(frames) {
     }
 
     const links = frames.map(frame => frame.result)
-                        .reduce((r1,r2)=>r1.concat(r2))
+        .reduce((r1, r2) => r1.concat(r2))
 
-    window.navigator.clipboard
-        .writeText(links.join("\n"))
-        .then(() => {
-            alert("Links copied to clipboard")
-            window.close()
-        })
-        .catch(() => alert("Could not copy links to clipboard"))
+    openURLPage(links)
+}
+
+function openURLPage(links) {
+    chrome.tabs.create({
+        url: chrome.runtime.getURL("links.html"),
+        active: false,
+    }, (tab) => {
+        setTimeout(() => {
+            chrome.tabs.sendMessage(tab.id, links, (resp) => {
+                // Wait for the tab to finish loading
+                chrome.tabs.update(tab.id, {active: true});
+            })
+        }, 500)
+    })
 }
