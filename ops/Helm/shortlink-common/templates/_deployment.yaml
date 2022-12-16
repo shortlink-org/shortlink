@@ -55,7 +55,7 @@ spec:
         # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy | default "IfNotPresent" }}
         ports:
-          {{- range .Values.ports }}
+          {{- range .Values.deploy.ports }}
           - name: {{ .name }}
             containerPort: {{ .port }}
             protocol: {{ .protocol }}

@@ -1,26 +1,21 @@
 # MINIKUBE TASKS =======================================================================================================
+VARIABLE_NAME ?= containerd
 
 minikube-up: ## run minikube for dev mode
 	# for enable audit
 	@mkdir -p ~/.minikube/files/etc/ssl/certs
-	@cp ${PWD}/ops/Makefile/conf/audit-policy.yaml ~/.minikube/files/etc/ssl/certs/audit-policy.yaml
 	@cp ${PWD}/ops/Makefile/conf/tracing-config-file.yaml ~/.minikube/files/etc/ssl/certs/tracing-config-file.yaml
 
 	@minikube start \
 		--nodes 1 \
-		--cpus  \
+		--cpus 4  \
 		--memory "4192" \
 		--driver=docker \
-		--container-runtime=containerd \
+		--container-runtime=${VARIABLE_NAME} \
 		--addons=pod-security-policy,ingress \
-		--feature-gates="GracefulNodeShutdown=true" \
+		--feature-gates="GracefulNodeShutdown=true,EphemeralContainers=true" \
 		--extra-config=apiserver.tracing-config-file=/etc/ssl/certs/tracing-config-file.yaml \
-		--extra-config=apiserver.service-account-signing-key-file=/var/lib/minikube/certs/sa.key \
-		--extra-config=apiserver.service-account-key-file=/var/lib/minikube/certs/sa.pub \
-		--extra-config=apiserver.service-account-issuer=api \
-		--extra-config=apiserver.service-account-api-audiences=api,spire-server \
 		--extra-config=apiserver.authorization-mode=Node,RBAC \
-		--extra-config=apiserver.audit-policy-file=/etc/ssl/certs/audit-policy.yaml \
 		--extra-config=apiserver.audit-log-path=- \
 		--extra-config=kubelet.authentication-token-webhook=true
 
