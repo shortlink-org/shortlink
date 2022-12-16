@@ -183,6 +183,7 @@ make skaffold-debug
   + Custom CSI driver (fork [csi-driver-host-pat](https://github.com/kubernetes-csi/csi-driver-host-path))
 + Ingress (Gateway)
   + Istio
+    + [kiali](https://kiali.io/) - The Console for Istio Service Mesh
   + Nginx
   + Traefik
 + MetalLB
