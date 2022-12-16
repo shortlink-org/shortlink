@@ -5,5 +5,8 @@ dependencies:
 - name: istiod
   repository: https://istio-release.storage.googleapis.com/charts
   version: 1.16.1
-digest: sha256:c2c32e65f8eca0dc9ddee9335ad491f2d0f3c7a9470b41ce42bd7e02eeece8aa
-generated: "2022-12-12T21:33:05.492687283Z"
+- name: kiali-operator
+  repository: https://kiali.org/helm-charts
+  version: 1.60.0
+digest: sha256:138759a4329f207b4d426093a783b0434b13e4fc0062b0a8915651d182e9136c
+generated: "2022-12-16T13:40:21.092832+03:00"
