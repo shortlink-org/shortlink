@@ -28,3 +28,9 @@ dependencies:
     tags:
       - istio
       - istiod
+  - name: kiali-operator
+    version: 1.60.0
+    repository: https://kiali.org/helm-charts
+    condition: kiali-operator.enabled
+    tags:
+      - kiali

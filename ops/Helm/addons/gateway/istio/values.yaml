@@ -22,3 +22,19 @@ istiod:
         configOverride:
           scrapeInterval: 15s
           scrapeTimeout: 10s
+
+kiali-operator:
+  enabled: true
+
+  cr:
+    create: true
+    namespace: istio-system
+
+    spec:
+      auth:
+        strategy: "token"
+      deployment:
+        accessible_namespaces: [ "shortlink" ]
+        view_only_mode: false
+      server:
+        web_root: "/kiali"
