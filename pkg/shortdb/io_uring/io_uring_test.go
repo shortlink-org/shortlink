@@ -1,4 +1,5 @@
-//go:build (unit && cgo) || (database && badger)
+//go:build !darwin && ((unit && cgo) || (database && badger))
+// +build !darwin
 // +build unit,cgo database,badger
 
 package io_uring
@@ -73,6 +74,10 @@ func TestRead(t *testing.T) {
 }
 
 func TestQueueThreshold(t *testing.T) {
+	if runtime.GOOS == "darwin" {
+		t.Skip("Skipping test on macOS")
+	}
+
 	err := Init()
 	if err != nil {
 		t.Fatal(err)
@@ -107,6 +112,10 @@ func TestQueueThreshold(t *testing.T) {
 }
 
 func TestWrite(t *testing.T) {
+	if runtime.GOOS == "darwin" {
+		t.Skip("Skipping test on macOS")
+	}
+
 	err := Init()
 	if err != nil {
 		t.Fatal(err)
