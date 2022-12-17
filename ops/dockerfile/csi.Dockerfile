@@ -28,7 +28,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -ldflags "-s -w -X main.CI_COMMIT_TAG=$CI_COMMIT_TAG" \
   -installsuffix cgo \
   -trimpath \
-  -o app ./cmd/k8s/csi
+  -o app ./internal/services/csi/cmd
 
 FROM alpine:3.17
 

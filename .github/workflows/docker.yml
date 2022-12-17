@@ -32,7 +32,7 @@ jobs:
       with:
         files: ops/dockerfile/go.Dockerfile
         build-args:
-          CMD_PATH: "./cmd/api"
+          CMD_PATH: "./internal/services/api/cmd/api"
         context: .
         push: ${{ github.event_name != 'pull_request' }}
         tags: latest
