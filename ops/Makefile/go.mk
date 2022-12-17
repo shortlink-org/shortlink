@@ -20,6 +20,7 @@ golint: ## Linter for golang
 	@docker run --rm -it -v $(pwd):/app -w /app/ golangci/golangci-lint:v1.50.1 golangci-lint run ./...
 
 test: ## Run all unit test
+	export CGO_ENABLED=1
 	@go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./...
 
 bench: ## Run benchmark tests

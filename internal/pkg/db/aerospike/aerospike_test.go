@@ -22,7 +22,7 @@ func TestAerospike(t *testing.T) {
 	assert.Nil(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("aerospike/aerospike-server", "5.7.0.8", nil)
+	resource, err := pool.Run("aerospike/aerospike-server", "6.2.0.2", nil)
 	assert.Nil(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet

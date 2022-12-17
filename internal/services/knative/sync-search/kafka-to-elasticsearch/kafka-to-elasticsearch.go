@@ -43,12 +43,12 @@ func main() {
 
 	conf, err := config.JSONToTracingConfig(os.Getenv("K_CONFIG_TRACING"))
 	if err != nil {
-		log.Fatal("Failed to read tracing config, using the on-op default: %v", err)
+		log.Fatal(fmt.Sprintf("Failed to read tracing config, using the on-op default: %v", err))
 	}
 
 	tracer, err := tracing.SetupPublishingWithStaticConfig(zap.L().Sugar(), "", conf)
 	if err != nil {
-		log.Fatal("Failed to initialize tracing: %v ", err)
+		log.Fatal(fmt.Sprintf("Failed to setup tracing: %v", err))
 	}
 	defer func(ctx context.Context) {
 		_ = tracer.Shutdown(ctx)
@@ -56,7 +56,7 @@ func main() {
 
 	err = c.StartReceiver(ctx, service.display)
 	if err != nil {
-		log.Fatal("Error during receiver's runtime: ", err)
+		log.Fatal(fmt.Sprintf("Error during receiver's runtime: %v", err))
 	}
 }
 
@@ -68,7 +68,7 @@ func (s *Service) display(event cloudevents.Event) {
 	_, err := s.elastic.Index("shortlink.event.link.new", nil)
 	if err != nil {
 		// TODO: use logger
-		log.Fatal("Error indexing document: %s", err)
+		log.Fatal(fmt.Sprintf("Error indexing document: %v", err))
 	}
 }
 

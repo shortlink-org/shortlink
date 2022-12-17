@@ -1,3 +1,6 @@
+//go:build !darwin
+// +build !darwin
+
 package io_uring
 
 import (
