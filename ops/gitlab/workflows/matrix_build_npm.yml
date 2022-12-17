@@ -4,5 +4,5 @@
 .matrix_build_npm:
   parallel:
     matrix:
-      - APPLICATION: switch-mode
-        PACKAGE_PATH: "ui/pkg/switch-mode"
+      - APPLICATION: ui-kit
+        PACKAGE_PATH: "ui/pkg/ui-kit"
