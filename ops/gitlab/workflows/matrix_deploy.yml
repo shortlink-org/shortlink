@@ -2,11 +2,13 @@
   parallel:
     matrix:
 #      - PROVIDER: aws
-#        ENVIRONMENT_URL: http://aws-example.com
-#      - PROVIDER: google
-#        ENVIRONMENT_URL: http://google-example.com
-      - PROVIDER: contabo
-        ENVIRONMENT_URL: https://shortlink.best
+      #        ENVIRONMENT_URL: http://aws-example.com
+      #      - PROVIDER: google
+      #        ENVIRONMENT_URL: http://google-example.com
+      #      - PROVIDER: contabo
+      #        ENVIRONMENT_URL: https://shortlink.best
+      - PROVIDER: minikube
+        ENVIRONMENT_URL: http://192.168.49.2
 
 .matrix_deploy_application:
   parallel:
