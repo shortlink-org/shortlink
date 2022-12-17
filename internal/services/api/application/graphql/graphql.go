@@ -101,7 +101,7 @@ func (api *API) Run(
 
 	handler := api.GetHandler()
 
-	http.Handle("/api/query", http.TimeoutHandler(handler, config.Timeout, `{"error":"context deadline exceeded"}`))
+	http.Handle("/api/query", http.TimeoutHandler(handler, config.Timeout, http_server.TimeoutMessage))
 	err := http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil)
 
 	return err

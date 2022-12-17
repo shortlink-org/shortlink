@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"os"
 
+	api_di "github.com/batazor/shortlink/internal/services/api/di"
+	billing_di "github.com/batazor/shortlink/internal/services/billing/di"
+	link_di "github.com/batazor/shortlink/internal/services/link/di"
+	logger_di "github.com/batazor/shortlink/internal/services/logger/di"
+	metadata_di "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/krzysztofreczek/go-structurizr/pkg/scraper"
 	"github.com/krzysztofreczek/go-structurizr/pkg/view"
-
-	"github.com/batazor/shortlink/internal/di"
 )
 
 const (
@@ -18,41 +21,35 @@ const (
 
 func main() {
 	// Init services
-	serviceAPIService, _, err := di.InitializeAPIService()
+	serviceAPIService, _, err := api_di.InitializeAPIService()
 	if err != nil {
 		panic(err)
 	}
 	scrape(serviceAPIService, "APIService")
 
-	serviceBillingService, _, err := di.InitializeBillingService()
+	serviceBillingService, _, err := billing_di.InitializeBillingService()
 	if err != nil {
 		panic(err)
 	}
 	scrape(serviceBillingService, "BillingService")
 
-	serviceLinkService, _, err := di.InitializeLinkService()
+	serviceLinkService, _, err := link_di.InitializeLinkService()
 	if err != nil {
 		panic(err)
 	}
 	scrape(serviceLinkService, "LinkService")
 
-	serviceLoggerService, _, err := di.InitializeLoggerService()
+	serviceLoggerService, _, err := logger_di.InitializeLoggerService()
 	if err != nil {
 		panic(err)
 	}
 	scrape(serviceLoggerService, "LoggerService")
 
-	serviceMetadataService, _, err := di.InitializeMetadataService()
+	serviceMetadataService, _, err := metadata_di.InitializeMetaDataService()
 	if err != nil {
 		panic(err)
 	}
 	scrape(serviceMetadataService, "MetadataService")
-
-	serviceNotifyService, _, err := di.InitializeNotifyService()
-	if err != nil {
-		panic(err)
-	}
-	scrape(serviceNotifyService, "NotifyService")
 }
 
 func scrape(app interface{}, name string) {

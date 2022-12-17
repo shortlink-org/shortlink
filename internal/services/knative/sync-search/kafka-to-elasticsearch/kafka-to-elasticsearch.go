@@ -65,7 +65,11 @@ func (s *Service) display(event cloudevents.Event) {
 	fmt.Printf("☁️  cloudevents.Event\n%s", event)
 
 	// send event to elastic
-	s.elastic.Index("shortlink.event.link.new", nil)
+	_, err := s.elastic.Index("shortlink.event.link.new", nil)
+	if err != nil {
+		// TODO: use logger
+		log.Fatal("Error indexing document: %s", err)
+	}
 }
 
 // HTTP path of the health endpoint used for probing the service.

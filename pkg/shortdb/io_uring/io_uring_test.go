@@ -13,6 +13,10 @@ import (
 )
 
 func TestRead(t *testing.T) {
+	if runtime.GOOS == "darwin" {
+		t.Skip("Skipping test on macOS")
+	}
+
 	err := Init()
 	if err != nil {
 		t.Fatal(err)
