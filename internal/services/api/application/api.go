@@ -24,7 +24,7 @@ type API interface {
 		config http_server.Config,
 		log logger.Logger,
 
-	// delivery
+		// delivery
 		link_rpc link_rpc.LinkServiceClient,
 		link_command link_cqrs.LinkCommandServiceClient,
 		link_query link_cqrs.LinkQueryServiceClient,

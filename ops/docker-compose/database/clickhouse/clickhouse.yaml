@@ -1,0 +1,26 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  clickhouse:
+    <<: *network
+    depends_on:
+      - coredns
+    image: clickhouse/clickhouse-server
+    init: true
+    restart: on-failure
+    container_name: clickhouse
+    environment:
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_GROUP: clickhouse
+      # - CLICKHOUSE_CONFIG=/etc/clickhouse-server/config.xml
+    ports:
+      - "8123:8123"
+      - "9000:9000"
