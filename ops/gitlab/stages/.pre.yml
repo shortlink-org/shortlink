@@ -1,5 +1,6 @@
-include:
-  - local: /ops/gitlab/templates/renovate.yml
+#include:
+# TODO: issue https://gitlab.com/renovate-bot/renovate-runner/-/issues/70
+#  - local: /ops/gitlab/templates/renovate.yml
 
 # ANSIBLE ==============================================================================================================
 ansible-up:
