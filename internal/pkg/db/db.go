@@ -6,13 +6,13 @@ package db
 import (
 	"context"
 
-	"github.com/batazor/shortlink/internal/pkg/db/neo4j"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/db/badger"
 	"github.com/batazor/shortlink/internal/pkg/db/dgraph"
 	"github.com/batazor/shortlink/internal/pkg/db/leveldb"
 	"github.com/batazor/shortlink/internal/pkg/db/mongo"
+	"github.com/batazor/shortlink/internal/pkg/db/neo4j"
 	"github.com/batazor/shortlink/internal/pkg/db/postgres"
 	"github.com/batazor/shortlink/internal/pkg/db/ram"
 	"github.com/batazor/shortlink/internal/pkg/db/redis"
