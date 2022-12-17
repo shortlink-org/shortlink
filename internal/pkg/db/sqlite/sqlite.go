@@ -32,7 +32,7 @@ func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	s.setConfig()
 
-	s.client, err = otelsql.Open("sqlite", s.config.Path, otelsql.WithAttributes(semconv.DBSystemSqlite), otelsql.WithDBName("SQLite"))
+	s.client, err = otelsql.Open("sqlite3", s.config.Path, otelsql.WithAttributes(semconv.DBSystemSqlite), otelsql.WithDBName("SQLite"))
 	if err != nil {
 		return err
 	}
