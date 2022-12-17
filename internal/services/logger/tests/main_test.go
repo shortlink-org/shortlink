@@ -36,23 +36,23 @@ func TestMain(m *testing.M) {
 }
 
 func getCorrectPayloadWithNotNilFieldURLHttpsgooglecom(arg1 string) error {
-	return nil
+	return godog.ErrPending
 }
 
 func getNewAEventFromMQ() error {
-	return nil
+	return godog.ErrPending
 }
 
 func getRandomPayload(arg1 string) error {
-	return nil
+	return godog.ErrPending
 }
 
 func printErrorMessageIncorrectFormatPayloadErrorMessage() error {
-	return nil
+	return godog.ErrPending
 }
 
 func printLinkURLHttpsgooglecom() error {
-	return nil
+	return godog.ErrPending
 }
 
 func InitializeScenario(ctx *godog.ScenarioContext) {
