@@ -1,5 +1,6 @@
 include:
   - local: /ops/gitlab/templates/common.yml
+  # TODO: don't work again after gitlab update
   #  - local: /ops/gitlab/stages/**.yml
   - local: /ops/gitlab/stages/.pre.yml
   - local: /ops/gitlab/stages/test.yml
