@@ -51,8 +51,8 @@ HEALTHCHECK \
 # Copy application and custom NGINX configuration
 COPY --from=builder /app/out ./
 COPY ./ops/dockerfile/conf/ui.local /etc/nginx/conf.d/ui.local
-COPY ./ops/docker-compose/gateway/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./ops/docker-compose/gateway/nginx/templates /etc/nginx/template
+COPY ./ops/docker-compose/gateway/nginx/conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./ops/docker-compose/gateway/nginx/conf/templates /etc/nginx/template
 
 # Setup unprivileged user 1001
 RUN chown -R 1001 /usr/share/nginx/html

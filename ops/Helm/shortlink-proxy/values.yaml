@@ -151,6 +151,9 @@ service:
   # nodePort: 7070
   # clusterIP: 172.0.0.1
 
+secret:
+  enabled: false
+
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   # -- Creates a Prometheus Operator ServiceMonitor
