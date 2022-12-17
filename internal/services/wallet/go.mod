@@ -3,7 +3,7 @@ module github.com/batazor/shortlink/internal/services/wallet
 go 1.19
 
 require (
-	github.com/batazor/shortlink v0.0.0-20221217055618-ca3c865f2367
+	github.com/batazor/shortlink v0.0.0-20221217190346-f5b0596d87e3
 	github.com/ethereum/go-ethereum v1.10.26
 	github.com/google/wire v0.5.0
 	github.com/spf13/viper v1.14.0
