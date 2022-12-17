@@ -7,7 +7,7 @@ blueGreen:
   activeService: {{ include "helpers.fullname" . }}
   previewService: {{ include "helpers.fullname" . }}-preview
   autoPromotionEnabled: false
-{{- if and (eq .Values.deploy.type "Rollout") (eq .Values.deploy.strategy "canary") -}}
+{{- else if and (eq .Values.deploy.type "Rollout") (eq .Values.deploy.strategy "canary") -}}
 canary:
   stableService: {{ include "helpers.fullname" . }}
   canaryService: {{ include "helpers.fullname" . }}-preview
@@ -18,5 +18,4 @@ type: RollingUpdate
 rollingUpdate:
   maxSurge: 1
   maxUnavailable: 0
-{{- end }}
 {{- end }}
