@@ -45,6 +45,8 @@ $> bazel build //...
 ### Stack
 
 - [C++](https://isocpp.org/)
+- DataBase
+    - InfluxDB
 - Tooling
     - [CMake](https://cmake.org/)
     - [Bazel](https://bazel.build/)
