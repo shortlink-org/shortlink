@@ -17,6 +17,9 @@ This database with support SQL language.
   - SELECT, INSERT INTO, CREATE TABLE, etc...
 - Engine:
   - file
+- API
+  - gRPC
+  - [custom protocol](./protocol/README.md)
 
 #### Example work with REPL
 
