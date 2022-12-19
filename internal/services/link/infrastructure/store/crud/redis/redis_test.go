@@ -9,7 +9,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/go-redis/redis/v9"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 

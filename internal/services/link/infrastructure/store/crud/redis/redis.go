@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/go-redis/redis/v9"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/batazor/shortlink/internal/pkg/db"

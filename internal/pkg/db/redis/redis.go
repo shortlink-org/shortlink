@@ -3,7 +3,8 @@ package redis
 import (
 	"context"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/go-redis/redis/extra/redisotel/v9"
+	"github.com/go-redis/redis/v9"
 	"github.com/spf13/viper"
 )
 
@@ -29,9 +30,19 @@ func (s *Store) Init(ctx context.Context) error {
 	s.client = redis.NewUniversalClient(&redis.UniversalOptions{
 		Addrs:    s.config.Host,
 		Username: s.config.Username,
-		Password: s.config.Password, // no password set
-		DB:       0,                 // use default DB
+		Password: s.config.Password,
+		DB:       0, // use default DB
 	})
+
+	// Enable tracing instrumentation.
+	if err := redisotel.InstrumentTracing(s.client); err != nil {
+		return err
+	}
+
+	// Enable metrics instrumentation.
+	if err := redisotel.InstrumentMetrics(s.client); err != nil {
+		return err
+	}
 
 	if _, err := s.client.Ping(ctx).Result(); err != nil {
 		return err
