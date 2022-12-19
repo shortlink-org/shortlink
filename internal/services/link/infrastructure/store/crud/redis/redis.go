@@ -14,13 +14,13 @@ import (
 
 // Store implementation of db interface
 type Store struct {
-	client *redis.Client
+	client redis.UniversalClient
 }
 
 // New store
 func New(ctx context.Context, db *db.Store) (*Store, error) {
 	s := &Store{
-		client: db.Store.GetConn().(*redis.Client),
+		client: db.Store.GetConn().(redis.UniversalClient),
 	}
 
 	return s, nil

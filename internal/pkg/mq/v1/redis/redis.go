@@ -12,7 +12,7 @@ type Config struct{}
 
 type Redis struct {
 	*Config
-	client *redis.Client
+	client redis.UniversalClient
 }
 
 func New() *Redis {

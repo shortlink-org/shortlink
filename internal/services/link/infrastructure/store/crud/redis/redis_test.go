@@ -55,7 +55,7 @@ func TestRedis(t *testing.T) {
 	})
 
 	store := Store{
-		client: st.GetConn().(*redis.Client),
+		client: st.GetConn().(redis.UniversalClient),
 	}
 
 	t.Run("Create", func(t *testing.T) {
