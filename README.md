@@ -62,6 +62,7 @@ made along with its context and consequences.
 | notify           | Send notify to smtp, slack, telegram                                  | Go                 | [docs](./internal/services/notify/README.md)          |
 | proxy            | Proxy service for redirect to original URL                            | TypeScript         | [docs](./internal/services/proxy/README.md)           |
 | referral         | Referral program                                                      | Python             | [docs](./internal/services/referral/README.md)        |
+| search           | Search service                                                        | Coming soon        | [docs](./internal/services/search/README.md)          |
 | shortctl         | Shortlink CLI                                                         | Go                 | [docs](./internal/services/cli/README.md)             |
 | stats            | Stats server                                                          | CPP                | [docs](./internal/services/stats/README.md)           |
 | wallet           | Wallet service                                                        | Go (Solidity)      | [docs](./internal/services/wallet/README.md)          |
