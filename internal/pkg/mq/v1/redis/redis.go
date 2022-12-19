@@ -3,7 +3,7 @@ package redis
 import (
 	"context"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/go-redis/redis/v9"
 
 	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
 )
