@@ -20,7 +20,7 @@ func New(ctx context.Context) (*cache.Cache, error) {
 	}
 
 	s := cache.New(&cache.Options{
-		Redis:      store.GetConn().(*redis.Client),
+		Redis:      store.GetConn().(redis.UniversalClient),
 		LocalCache: cache.NewTinyLFU(1000, 5*time.Minute), // nolint:gomnd
 	})
 

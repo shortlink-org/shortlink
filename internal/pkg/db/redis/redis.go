@@ -9,12 +9,14 @@ import (
 
 // Config ...
 type Config struct {
-	URI string
+	Host     []string
+	Username string
+	Password string
 }
 
 // Store implementation of db interface
 type Store struct {
-	client *redis.Client
+	client redis.UniversalClient
 	config Config
 }
 
@@ -24,10 +26,11 @@ func (s *Store) Init(ctx context.Context) error {
 	s.setConfig()
 
 	// Connect to Redis
-	s.client = redis.NewClient(&redis.Options{
-		Addr:     s.config.URI,
-		Password: "", // no password set
-		DB:       0,  // use default DB
+	s.client = redis.NewUniversalClient(&redis.UniversalOptions{
+		Addrs:    s.config.Host,
+		Username: s.config.Username,
+		Password: s.config.Password, // no password set
+		DB:       0,                 // use default DB
 	})
 
 	if _, err := s.client.Ping(ctx).Result(); err != nil {
@@ -55,9 +58,13 @@ func (s *Store) migrate() error {
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_REDIS_URI", "localhost:6379") // Redis URI
+	viper.SetDefault("STORE_REDIS_URI", "localhost:6379") // Redis Hosts
+	viper.SetDefault("STORE_REDIS_USERNAME", "")          // Redis Username
+	viper.SetDefault("STORE_REDIS_PASSWORD", "")          // Redis Password
 
 	s.config = Config{
-		URI: viper.GetString("STORE_REDIS_URI"),
+		Host:     viper.GetStringSlice("STORE_REDIS_URI"),
+		Username: viper.GetString("STORE_REDIS_USERNAME"),
+		Password: viper.GetString("STORE_REDIS_PASSWORD"),
 	}
 }
