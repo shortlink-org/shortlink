@@ -3,8 +3,6 @@ package cqs
 import (
 	"context"
 
-	"github.com/go-redis/cache/v8"
-
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	v12 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"

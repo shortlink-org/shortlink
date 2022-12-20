@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/go-redis/cache/v8"
+	"github.com/go-redis/cache/v9"
 	"github.com/go-redis/redis/v9"
 
 	db "github.com/batazor/shortlink/internal/pkg/db/redis"

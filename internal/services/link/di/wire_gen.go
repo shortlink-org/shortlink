@@ -31,7 +31,7 @@ import (
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
 	v1_5 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
-	cache2 "github.com/go-redis/cache/v8"
+	cache2 "github.com/go-redis/redis/v9"
 	"github.com/google/wire"
 	"google.golang.org/grpc"
 )

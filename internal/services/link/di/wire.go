@@ -12,7 +12,6 @@ package link_di
 import (
 	"context"
 
-	"github.com/go-redis/cache/v8"
 	"github.com/google/wire"
 	"google.golang.org/grpc"
 
