@@ -1,11 +1,11 @@
 [Unit]
-Description = logger
+Description = api
 After       = network.target
 
 [Service]
 Type = simple
 
-ExecStart = /app/logger
+ExecStart = /app/api
 ExecStop  = /bin/kill $MAINPID
 KillMode  = none
 
