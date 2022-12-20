@@ -39,7 +39,6 @@ require (
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/krzysztofreczek/go-structurizr v0.1.30
 	github.com/kubernetes-csi/csi-test/v4 v4.4.0
-	github.com/kubernetes-csi/csi-test/v5 v5.0.0
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-sqlite3 v1.14.16
 	github.com/nats-io/nats.go v1.21.0
@@ -130,6 +129,7 @@ require (
 	github.com/go-openapi/spec v0.20.6 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
 	github.com/go-redis/redis/extra/rediscmd/v9 v9.0.0-rc.2 // indirect
+	github.com/go-redis/redis/v8 v8.11.3 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/snappy v0.0.4 // indirect
