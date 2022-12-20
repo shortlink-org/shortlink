@@ -10,6 +10,7 @@ package main
 import (
 	"github.com/spf13/viper"
 
+	"github.com/batazor/shortlink/internal/pkg/handle_signal"
 	_ "github.com/batazor/shortlink/internal/pkg/i18n"
 	"github.com/batazor/shortlink/internal/services/api/di"
 )
