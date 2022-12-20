@@ -165,9 +165,10 @@ make skaffold-debug
 | next      | UI service                           | JS/NextJS                 | [docs](./ui/next/README.md)                    |
 | ui-kit    | UI kit for ShortLink                 | JS/React                  | [docs](./ui/ui-kit/README.md)                  |
 
-### Mobile
+### MQ
 
-+ `Hello World` on flutter ;-)
+| [Kafka](https://kafka.apache.org/) | [RabbitMQ](https://www.rabbitmq.com/) | [NATS](https://nats.io/) |
+|------------------------------------|---------------------------------------|--------------------------|
 
 ### Cloud-Native stack
 
@@ -183,41 +184,52 @@ make skaffold-debug
   + Minikube
   + Backup/Restore [(Velero)](https://velero.io/)
   + Custom CSI driver (fork [csi-driver-host-pat](https://github.com/kubernetes-csi/csi-driver-host-path))
-+ Ingress (Gateway)
-  + Istio
-    + [kiali](https://kiali.io/) - The Console for Istio Service Mesh
-  + Nginx
-  + Traefik
 + MetalLB
 + [kyverno](https://kyverno.io/) - Kubernetes Native Policy Management
 + Storage
-  + [rook-ceph](https://rook.io/)
-    + ceph cluster (3 node)
-    + grafana dashboard
-    + prometheus metrics
-+ MQ
-  + [Kafka](https://kafka.apache.org/)
-  + [NATS](https://nats.io/)
-  + [RabbitMQ](https://www.rabbitmq.com/)
-+ Observability
-  + [Jaeger](https://www.jaegertracing.io/) - Distributed tracing
-  + **Prometheus** - Monitoring
-    + [Prometheus](https://prometheus.io/)
+    + [rook-ceph](https://rook.io/)
+        + ceph cluster (3 node)
+        + grafana dashboard
+        + prometheus metrics
++ Ingress (Gateway)
+    + Istio
+        + [kiali](https://kiali.io/) - The Console for Istio Service Mesh
+    + Nginx
+    + Traefik
+
+### Observability
+
++ **[Prometheus](https://prometheus.io/)** - Monitoring system
     + prometheus-operator
-      + notify: slack, email, telegram
-  + **Grafana stack (LGTM)**
-    * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization platform.
+        + notify: slack, email, telegram
+
+---
+
++ **Grafana stack (LGTM)**
+    * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization
+      platform.
     * [Loki](https://github.com/grafana/loki), like Prometheus, but for logs.
-      + [docs](./docs/logger.md)
-    * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization platform.
+        + [docs](./docs/logger.md)
+
+    + [Tempo](https://grafana.com/docs/tempo/latest/), a high volume, high throughput distributed tracing system.
+
+    * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization
+      platform.
+
     + [OnCall](https://grafana.com/oss/oncall/) - On-call scheduling
-    + [Phlare](https://grafana.com/oss/phlare/) - Profiling
-+ CI/CD
-  - [GitLab CI](./ops/gitlab/README.md)
-  - [GitHub CI](./.github/DOCS.md)
-  - ArgoCD
+    + [Phlare](https://grafana.com/oss/phlare/) - Profiling and flame graphs
+
+### Mobile
+
++ `Hello World` on flutter ;-)
+
+### CI/CD
+
+| [GitLab CI](./ops/gitlab/README.md) | [GitHub CI](./.github/DOCS.md) | [ArgoCD](./ops/argocd/README.md) |
+|-------------------------------------|--------------------------------|----------------------------------|
 
 ## -~- THE END -~-
 
 [mergify]: https://mergify.io
+
 [mergify-status]: https://img.shields.io/endpoint.svg?url=https://dashboard.mergify.io/badges/batazor/shortlink&style=flat
