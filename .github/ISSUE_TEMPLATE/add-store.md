@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+<!-- Please fill the following sections with the required information. -->
+
 ### Add store - [NAME]
 
 - [ ] Add implementation for the interface [DB](https://github.com/batazor/shortlink/blob/84fa2a365f09396f92556febde2e711c1682a780/internal/pkg/db/type.go#L9)
