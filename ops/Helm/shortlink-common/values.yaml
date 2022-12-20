@@ -1,3 +1,7 @@
 # Common default values for shortlink-common.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
+admission:
+  replica_count_limit:
+    enabled: true
