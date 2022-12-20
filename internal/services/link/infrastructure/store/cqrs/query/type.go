@@ -3,8 +3,6 @@ package query
 import (
 	"context"
 
-	"github.com/go-redis/cache/v8"
-
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	v12 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"

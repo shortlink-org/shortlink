@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	sentryhttp "github.com/getsentry/sentry-go/http"
-	redisCache "github.com/go-redis/cache/v8"
+	redisCache "github.com/go-redis/redis/v9"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
@@ -43,7 +43,7 @@ type Service struct {
 
 	// Delivery
 	DB        *db.Store
-	Cache     *redisCache.Cache
+	Cache     *redisCache.UniversalClient
 	MQ        v1.MQ
 	ServerRPC *rpc.RPCServer
 	ClientRPC *grpc.ClientConn
@@ -83,7 +83,7 @@ func NewFullService(
 	clientRPC *grpc.ClientConn,
 	mq v1.MQ,
 	db *db.Store,
-	cache *redisCache.Cache,
+	cache *redisCache.UniversalClient,
 
 	// Observability
 	sentryHandler *sentryhttp.Handler,

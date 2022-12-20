@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/go-redis/cache/v8"
+	"github.com/go-redis/redis/v9"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/db"

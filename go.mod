@@ -21,7 +21,7 @@ require (
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.2
-	github.com/go-redis/cache/v8 v8.4.3
+	github.com/go-redis/cache/v9 v9.0.0-beta.1
 	github.com/go-redis/redis/extra/redisotel/v9 v9.0.0-rc.2
 	github.com/go-redis/redis/v9 v9.0.0-rc.2
 	github.com/gogo/protobuf v1.3.2
@@ -129,7 +129,6 @@ require (
 	github.com/go-openapi/spec v0.20.6 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
 	github.com/go-redis/redis/extra/rediscmd/v9 v9.0.0-rc.2 // indirect
-	github.com/go-redis/redis/v8 v8.11.3 // indirect
 	github.com/gofrs/uuid v4.0.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/snappy v0.0.4 // indirect
@@ -225,7 +224,6 @@ require (
 	go.opentelemetry.io/otel/metric v0.34.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/crypto v0.1.0 // indirect
-	golang.org/x/exp v0.0.0-20220722155223-a9213eeb770e // indirect
 	golang.org/x/mod v0.7.0 // indirect
 	golang.org/x/sys v0.3.0 // indirect
 	golang.org/x/term v0.3.0 // indirect
