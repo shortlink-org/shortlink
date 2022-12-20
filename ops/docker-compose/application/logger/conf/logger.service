@@ -1,0 +1,13 @@
+[Unit]
+Description = logger
+After       = network.target
+
+[Service]
+Type = simple
+
+ExecStart = /app/logger
+ExecStop  = /bin/kill $MAINPID
+KillMode  = none
+
+[Install]
+WantedBy = multi-user.target

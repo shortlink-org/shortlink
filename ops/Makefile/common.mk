@@ -27,7 +27,7 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/application/api.yaml \
+		-f ops/docker-compose/application/api/api.yaml \
 		up -d --remove-orphans
 
 run: ## Run this project in docker compose
@@ -37,9 +37,9 @@ run: ## Run this project in docker compose
 		-f ops/docker-compose/tooling/observability/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		-f ops/docker-compose/application/auth.yaml \
-		-f ops/docker-compose/application/api.yaml \
+		-f ops/docker-compose/application/api/api.yaml \
 		-f ops/docker-compose/application/metadata.yaml \
-		-f ops/docker-compose/application/logger.yaml \
+		-f ops/docker-compose/application/logger/logger.yaml \
 		-f ops/docker-compose/application/ui-next.yaml \
 		-f ops/docker-compose/database/mongo.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus.yaml \
@@ -66,9 +66,9 @@ down: ## Down docker compose
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		-f ops/docker-compose/application/auth.yaml \
 		-f ops/docker-compose/application/auth.yaml \
-		-f ops/docker-compose/application/api.yaml \
+		-f ops/docker-compose/application/api/api.yaml \
 		-f ops/docker-compose/application/metadata.yaml \
-		-f ops/docker-compose/application/logger.yaml \
+		-f ops/docker-compose/application/logger/logger.yaml \
 		-f ops/docker-compose/application/ui-next.yaml \
 		-f ops/docker-compose/database/mongo.yaml \
 		-f ops/docker-compose/database/redis.yaml \
