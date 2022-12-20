@@ -2,7 +2,7 @@
 ListenStream = 80
 #ListenStream = 443
 BindIPv6Only = both
-Service      = logger.service
+Service      = api.service
 
 [Install]
 WantedBy = sockets.target
