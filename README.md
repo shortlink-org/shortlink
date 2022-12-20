@@ -35,7 +35,7 @@ our community and solve a problem for millions of people.
 An architecture decision record (ADR) is a document that captures an important architecture decision 
 made along with its context and consequences.
 
-+ [Decisions](./docs/architecture/decisions)
++ [Decisions](./docs/ADR/decisions)
 + [Docs ADR](https://github.com/joelparkerhenderson/architecture-decision-record)
 
 ### Techradar
