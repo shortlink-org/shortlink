@@ -8,10 +8,6 @@ API-service
 package main
 
 import (
-	"os"
-	"os/signal"
-	"syscall"
-
 	"github.com/spf13/viper"
 
 	_ "github.com/batazor/shortlink/internal/pkg/i18n"
@@ -33,10 +29,8 @@ func main() {
 		}
 	}()
 
-	// Handle SIGINT and SIGTERM.
-	sigs := make(chan os.Signal, 1)
-	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-	<-sigs
+	// Handle SIGINT, SIGQUIT and SIGTERM.
+	handle_signal.WaitExitSignal()
 
 	cleanup()
 }
