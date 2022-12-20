@@ -3,9 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
-	"os/signal"
-	"syscall"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
@@ -74,10 +71,8 @@ func main() {
 
 	s.Log.Info("success run CSI plugin")
 
-	// Handle SIGINT and SIGTERM.
-	sigs := make(chan os.Signal, 1)
-	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-	<-sigs
+	// Handle SIGINT, SIGQUIT and SIGTERM.
+	handle_signal.WaitExitSignal()
 
 	// Stop the service gracefully.
 	cleanup()

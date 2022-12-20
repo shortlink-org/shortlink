@@ -6,10 +6,7 @@ Wallet-service
 package main
 
 import (
-	"os"
-	"os/signal"
-	"syscall"
-
+	"github.com/batazor/shortlink/internal/pkg/handle_signal"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/services/wallet/di"
@@ -30,10 +27,8 @@ func main() {
 		}
 	}()
 
-	// Handle SIGINT and SIGTERM.
-	sigs := make(chan os.Signal, 1)
-	signal.Notify(sigs, syscall.SIGINT, syscall.SIGTERM)
-	<-sigs
+	// Handle SIGINT, SIGQUIT and SIGTERM.
+	handle_signal.WaitExitSignal()
 
 	cleanup()
 }

@@ -6,6 +6,7 @@ package query
 import (
 	"context"
 
+	"github.com/go-redis/cache/v9"
 	"github.com/spf13/viper"
 
 	"github.com/batazor/shortlink/internal/pkg/db"

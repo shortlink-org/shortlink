@@ -6,6 +6,7 @@ import (
 	"github.com/batazor/shortlink/internal/pkg/logger"
 	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	v12 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
+	"github.com/go-redis/cache/v9"
 )
 
 type Repository interface {
