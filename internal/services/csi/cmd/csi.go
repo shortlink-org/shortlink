@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/batazor/shortlink/internal/pkg/handle_signal"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
