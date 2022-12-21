@@ -18,7 +18,7 @@ build:
     - internal/services/metadata
     - internal/services/newsletter/src
     - internal/pkg
-    - pkg
+    - pkg/raft
 
 lint:
   use:
