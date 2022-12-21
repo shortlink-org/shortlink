@@ -2,12 +2,12 @@
 
 {{- define "shortlink-common.deploymentStrategy" }}
 
-{{- if and (eq .Values.deploy.type "Rollout") (eq .Values.deploy.strategy "blueGreen") -}}
+{{- if and (eq .Values.deploy.type "BlueGreen") -}}
 blueGreen:
   activeService: {{ include "helpers.fullname" . }}
   previewService: {{ include "helpers.fullname" . }}-preview
   autoPromotionEnabled: false
-{{- else if and (eq .Values.deploy.type "Rollout") (eq .Values.deploy.strategy "canary") -}}
+{{- else if and (eq .Values.deploy.type "Canary") -}}
 canary:
   stableService: {{ include "helpers.fullname" . }}
   canaryService: {{ include "helpers.fullname" . }}-preview
