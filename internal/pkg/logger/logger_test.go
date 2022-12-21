@@ -5,6 +5,7 @@ package logger
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"reflect"
 	"testing"
@@ -20,8 +21,8 @@ func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
 }
 
-// TestOutput ...
-func TestOutputZap(t *testing.T) {
+// TestOutputInfoWithContextZap ...
+func TestOutputInfoWithContextZap(t *testing.T) {
 	var b bytes.Buffer
 
 	conf := Configuration{
@@ -33,14 +34,15 @@ func TestOutputZap(t *testing.T) {
 	log, err := NewLogger(Zap, conf)
 	assert.Nil(t, err, "Error init a logger")
 
-	log.Info("Hello World")
+	log.InfoWithContext(context.Background(), "Hello World")
 
 	expectedTime := time.Now().Format(time.RFC822)
 	expected := map[string]interface{}{
 		"level":     "info",
 		"timestamp": expectedTime,
-		"caller":    "logger/logger_test.go:36",
+		"caller":    "logger/logger_test.go:37",
 		"msg":       "Hello World",
+		"traceID":   "00000000000000000000000000000000",
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
@@ -66,7 +68,7 @@ func BenchmarkOutputZap(bench *testing.B) {
 	}
 }
 
-func TestOutputLogrus(t *testing.T) {
+func TestOutputInfoWithContextLogrus(t *testing.T) {
 	var b bytes.Buffer
 
 	conf := Configuration{
@@ -78,13 +80,14 @@ func TestOutputLogrus(t *testing.T) {
 	log, err := NewLogger(Logrus, conf)
 	assert.Nil(t, err, "Error init a logger")
 
-	log.Info("Hello World")
+	log.InfoWithContext(context.Background(), "Hello World")
 
 	expectedTime := time.Now().Format(time.RFC822)
 	expected := map[string]interface{}{
 		"level":     "info",
 		"timestamp": expectedTime,
 		"msg":       "Hello World",
+		"traceID":   "00000000000000000000000000000000",
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
@@ -119,7 +122,7 @@ func TestFieldsZap(t *testing.T) {
 	log, err := NewLogger(Zap, conf)
 	assert.Nil(t, err, "Error init a logger")
 
-	log.Info("Hello World", field.Fields{
+	log.InfoWithContext(context.Background(), "Hello World", field.Fields{
 		"hello": "world",
 		"first": 1,
 	})
@@ -129,9 +132,10 @@ func TestFieldsZap(t *testing.T) {
 		"level":     "info",
 		"timestamp": expectedTime,
 		"msg":       "Hello World",
-		"caller":    "logger/logger_test.go:122",
+		"caller":    "logger/logger_test.go:125",
 		"first":     float64(1),
 		"hello":     "world",
+		"traceID":   "00000000000000000000000000000000",
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
