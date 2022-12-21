@@ -5,6 +5,8 @@ variables:
   # This will instruct Docker not to start over TLS.
   # DOCKER_TLS_CERTDIR: ""
 
+  PIPELINE_NAME: 'Shortlink pipeline'  # A default is not required.
+
 # DEFAULT ==============================================================================================================
 default:
   services:
