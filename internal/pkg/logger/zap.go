@@ -104,11 +104,11 @@ func (log *zapLogger) Fatal(msg string, fields ...field.Fields) {
 func (log *zapLogger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)
-	log.logger.Fatal(msg, zapFields...)
+	log.logger.Ctx(ctx).Fatal(msg, zapFields...)
 }
 
 // Warn ================================================================================================================
@@ -121,11 +121,11 @@ func (log *zapLogger) Warn(msg string, fields ...field.Fields) {
 func (log *zapLogger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)
-	log.logger.Warn(msg, zapFields...)
+	log.logger.Ctx(ctx).Warn(msg, zapFields...)
 }
 
 // Error ===============================================================================================================
@@ -143,11 +143,11 @@ func (log *zapLogger) ErrorWithContext(ctx context.Context, msg string, fields .
 
 	fields, err := tracer.NewTraceFromContext(ctx, msg, tags, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)
-	log.logger.Error(msg, zapFields...)
+	log.logger.Ctx(ctx).Error(msg, zapFields...)
 }
 
 // Info ================================================================================================================
@@ -160,11 +160,11 @@ func (log *zapLogger) Info(msg string, fields ...field.Fields) {
 func (log *zapLogger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)
-	log.logger.Info(msg, zapFields...)
+	log.logger.Ctx(ctx).Info(msg, zapFields...)
 }
 
 // Debug ===============================================================================================================
@@ -177,9 +177,9 @@ func (log *zapLogger) Debug(msg string, fields ...field.Fields) {
 func (log *zapLogger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	zapFields := log.converter(fields...)
-	log.logger.Debug(msg, zapFields...)
+	log.logger.Ctx(ctx).Debug(msg, zapFields...)
 }

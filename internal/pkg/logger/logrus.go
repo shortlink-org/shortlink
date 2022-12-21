@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/sirupsen/logrus"
+	"github.com/uptrace/opentelemetry-go-extra/otellogrus"
 	"go.opentelemetry.io/otel/attribute"
 
 	"github.com/batazor/shortlink/internal/pkg/logger/field"
@@ -31,6 +32,15 @@ func (log *logrusLogger) init(config Configuration) error {
 			logrus.FieldKeyFunc:  "caller",
 		},
 	}
+
+	// Tracing
+	log.logger.AddHook(otellogrus.NewHook(otellogrus.WithLevels(
+		logrus.FatalLevel,
+		logrus.ErrorLevel,
+		logrus.WarnLevel,
+		logrus.InfoLevel,
+		logrus.DebugLevel,
+	)))
 
 	log.logger.SetReportCaller(false) // TODO: https://github.com/sirupsen/logrus/pull/973
 	log.logger.SetOutput(config.Writer)
@@ -87,10 +97,10 @@ func (log *logrusLogger) Fatal(msg string, fields ...field.Fields) {
 func (log *logrusLogger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
-	log.converter(fields...).Fatal(msg)
+	log.converter(fields...).WithContext(ctx).Fatal(msg)
 }
 
 // Error ===============================================================================================================
@@ -107,10 +117,10 @@ func (log *logrusLogger) ErrorWithContext(ctx context.Context, msg string, field
 
 	fields, err := tracer.NewTraceFromContext(ctx, msg, tags, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
-	log.converter(fields...).Error(msg)
+	log.converter(fields...).WithContext(ctx).Error(msg)
 }
 
 // Warn ================================================================================================================
@@ -122,10 +132,10 @@ func (log *logrusLogger) Warn(msg string, fields ...field.Fields) {
 func (log *logrusLogger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
-	log.converter(fields...).Warn(msg)
+	log.converter(fields...).WithContext(ctx).Warn(msg)
 }
 
 // Info ================================================================================================================
@@ -137,10 +147,10 @@ func (log *logrusLogger) Info(msg string, fields ...field.Fields) {
 func (log *logrusLogger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
-	log.converter(fields...).Info(msg)
+	log.converter(fields...).WithContext(ctx).Info(msg)
 }
 
 // Debug ===============================================================================================================
@@ -152,8 +162,8 @@ func (log *logrusLogger) Debug(msg string, fields ...field.Fields) {
 func (log *logrusLogger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
-	log.converter(fields...).Debug(msg)
+	log.converter(fields...).WithContext(ctx).Debug(msg)
 }
