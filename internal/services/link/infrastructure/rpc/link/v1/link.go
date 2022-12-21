@@ -2,9 +2,10 @@ package v1
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
+
+	"github.com/segmentio/encoding/json"
 
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc/codes"

@@ -3,9 +3,10 @@ package slack
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"errors"
 	"net/http"
+
+	"github.com/segmentio/encoding/json"
 
 	"github.com/spf13/viper"
 

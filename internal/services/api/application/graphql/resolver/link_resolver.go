@@ -2,8 +2,9 @@ package resolver
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
+
+	"github.com/segmentio/encoding/json"
 
 	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"

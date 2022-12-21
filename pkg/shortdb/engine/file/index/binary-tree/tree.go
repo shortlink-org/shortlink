@@ -1,7 +1,7 @@
 package binary_tree
 
 import (
-	"encoding/json"
+	"github.com/segmentio/encoding/json"
 )
 
 // Tree is a binary tree.

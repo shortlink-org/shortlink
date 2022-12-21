@@ -2,8 +2,9 @@ package dgraph
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
+
+	"github.com/segmentio/encoding/json"
 
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"

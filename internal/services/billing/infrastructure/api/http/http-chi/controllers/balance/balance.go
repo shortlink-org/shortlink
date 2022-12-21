@@ -1,8 +1,9 @@
 package balance
 
 import (
-	"encoding/json"
 	"net/http"
+
+	"github.com/segmentio/encoding/json"
 
 	"github.com/go-chi/chi/v5"
 	"go.opentelemetry.io/otel/trace"
