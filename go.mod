@@ -8,6 +8,7 @@ require (
 	github.com/Shopify/sarama v1.37.2
 	github.com/Unleash/unleash-client-go/v3 v3.7.1
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
+	github.com/batazor/shortlink/internal/pkg/logger v0.0.0-20221221012617-f646839eb7fd
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.12.0
 	github.com/cloudevents/sdk-go/v2 v2.12.0
@@ -41,7 +42,7 @@ require (
 	github.com/kubernetes-csi/csi-test/v4 v4.4.0
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-sqlite3 v1.14.16
-	github.com/nats-io/nats.go v1.21.0
+	github.com/nats-io/nats.go v1.22.0
 	github.com/neo4j/neo4j-go-driver/v5 v5.3.0
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/prometheus/client_golang v1.14.0
