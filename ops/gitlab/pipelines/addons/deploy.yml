@@ -29,7 +29,22 @@ argo:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
     strategy: depend
-  needs: []
+  needs: [ ]
+  rules:
+    - when: manual
+
+argo-shortlink:
+  stage: deploy
+  variables:
+    RELEASE_NAME: argocd-shortlink
+    HELM_PATH: ops/Helm/addons/argocd-shortlink
+    HELM_NAMESPACE: argocd
+    ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd-shortlink
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: [ ]
   rules:
     - when: manual
 
@@ -39,7 +54,7 @@ argo-secret:
   stage: deploy
   image:
     name: alpine/k8s:1.25.0
-    entrypoint: [""]
+    entrypoint: [ "" ]
   before_script:
     - kubectl delete secret
       --context=shortlink-org/shortlink:${PROVIDER}
