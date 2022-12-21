@@ -32,6 +32,7 @@ gotest:
   extends:
     - .go-cache
     - .job_teplate_go
+  image: golang:1.20-rc
   coverage: '/coverage: \d+.\d+% of statements/'
   variables:
     GOPATH: $CI_PROJECT_DIR/.go
@@ -40,6 +41,8 @@ gotest:
     - mkdir -p .go
     - apk add --no-cache make git gcc musl-dev liburing
     - go install gotest.tools/gotestsum@latest
+    # Load io_uring
+    - apt-get update && apt-get install -y liburing-dev curl
   script:
     - $GOPATH/bin/gotestsum --junitfile report.xml --format testname -- -tags=unit ./...
   allow_failure: true # recommended
