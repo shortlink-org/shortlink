@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc/status"
 
@@ -32,6 +33,7 @@ func (api *API) Run(
 	i18n *message.Printer,
 	config http_server.Config,
 	log logger.Logger,
+	tracer *trace.TracerProvider,
 
 	// Delivery
 	link_rpc link_rpc.LinkServiceClient,

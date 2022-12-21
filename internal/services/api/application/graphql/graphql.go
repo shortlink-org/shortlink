@@ -12,6 +12,8 @@ import (
 	http_server "github.com/batazor/shortlink/pkg/http/server"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
+	"github.com/uptrace/opentelemetry-go-extra/otelgraphql"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/db"
@@ -35,7 +37,10 @@ type API struct {
 }
 
 // GetHandler ...
-func (api *API) GetHandler() *relay.Handler {
+func (api *API) GetHandler(traceProvider *trace.TracerProvider) *relay.Handler {
+	// tracing
+	tracer := otelgraphql.NewTracer(otelgraphql.WithTracerProvider(*traceProvider))
+
 	buf := bytes.Buffer{}
 
 	err := filepath.Walk("./internal/services/api/application/graphql/schema", func(path string, info os.FileInfo, err error) error {
@@ -74,7 +79,7 @@ func (api *API) GetHandler() *relay.Handler {
 	s := graphql.MustParseSchema(buf.String(), &resolver.Resolver{
 		Store:             api.store,
 		LinkServiceClient: api.linkServiceClient,
-	})
+	}, graphql.Tracer(tracer))
 	handler := relay.Handler{Schema: s}
 
 	return &handler
@@ -86,6 +91,7 @@ func (api *API) Run(
 	i18n *message.Printer,
 	config http_server.Config,
 	log logger.Logger,
+	tracer *trace.TracerProvider,
 
 	// delivery
 	link_rpc link_rpc.LinkServiceClient,
@@ -99,7 +105,7 @@ func (api *API) Run(
 
 	log.Info("Run GraphQL API")
 
-	handler := api.GetHandler()
+	handler := api.GetHandler(tracer)
 
 	http.Handle("/api/query", http.TimeoutHandler(handler, config.Timeout, http_server.TimeoutMessage))
 	err := http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil)

@@ -21,6 +21,7 @@ import (
 	v1_4 "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/batazor/shortlink/pkg/rpc"
 	"github.com/google/wire"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 )
@@ -104,7 +105,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	api, err := NewAPIApplication(context, printer, logger, rpcServer, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -180,6 +181,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceCl
 func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 logger.Logger,
 
 	rpcServer *rpc.RPCServer,
+	tracer *trace.TracerProvider,
 
 	metadataClient v1_4.MetadataServiceClient,
 	link_rpc v1.LinkServiceClient,
@@ -189,6 +191,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 ) (*api_application.API, error) {
 
 	apiService, err := api_application.RunAPIServer(ctx2, i18n2, logger2, rpcServer,
+		tracer,
 
 		link_rpc,
 		link_command,

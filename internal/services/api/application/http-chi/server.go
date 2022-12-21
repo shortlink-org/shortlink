@@ -10,6 +10,7 @@ import (
 	"github.com/go-chi/render"
 	"github.com/riandyrn/otelchi"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
 
@@ -46,6 +47,7 @@ func (api *API) Run(
 	i18n *message.Printer,
 	config http_server.Config,
 	log logger.Logger,
+	tracer *trace.TracerProvider,
 
 	// Delivery
 	link_rpc link_rpc.LinkServiceClient,

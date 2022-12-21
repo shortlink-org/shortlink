@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	http_server "github.com/batazor/shortlink/pkg/http/server"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 
 	"github.com/batazor/shortlink/internal/pkg/logger"
@@ -37,6 +38,7 @@ func (api *API) Run(
 	i18n *message.Printer,
 	config http_server.Config,
 	log logger.Logger,
+	tracer *trace.TracerProvider,
 
 	// Delivery
 	link_rpc link_rpc.LinkServiceClient,
