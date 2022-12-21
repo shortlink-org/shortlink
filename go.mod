@@ -8,7 +8,7 @@ require (
 	github.com/Shopify/sarama v1.37.2
 	github.com/Unleash/unleash-client-go/v3 v3.7.1
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
-	github.com/batazor/shortlink/internal/pkg/logger v0.0.0-20221221012617-f646839eb7fd
+	github.com/batazor/shortlink/internal/pkg/logger v0.0.0-20221221032858-0f142f7cf061
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.12.0
 	github.com/cloudevents/sdk-go/v2 v2.12.0
