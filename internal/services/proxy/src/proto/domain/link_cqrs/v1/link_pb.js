@@ -13,8 +13,12 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = (function() { return this || window || global || self || Function('return this')(); }).call(null);
+var global = (function () {
+    return this || window || global || self || Function('return this')();
+}).call(null);
 
+var google_protobuf_field_mask_pb = require('google-protobuf/google/protobuf/field_mask_pb.js');
+goog.object.extend(proto, google_protobuf_field_mask_pb);
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 goog.object.extend(proto, google_protobuf_timestamp_pb);
 goog.exportSymbol('proto.domain.link_cqrs.v1.LinkView', null, global);
@@ -93,14 +97,15 @@ proto.domain.link_cqrs.v1.LinkView.prototype.toObject = function(opt_includeInst
  */
 proto.domain.link_cqrs.v1.LinkView.toObject = function(includeInstance, msg) {
   var f, obj = {
-    url: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    hash: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    describe: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    imageUrl: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    metaDescription: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    metaKeywords: jspb.Message.getFieldWithDefault(msg, 6, ""),
-    createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
-    updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+      fieldMask: (f = msg.getFieldMask()) && google_protobuf_field_mask_pb.FieldMask.toObject(includeInstance, f),
+      url: jspb.Message.getFieldWithDefault(msg, 1, ""),
+      hash: jspb.Message.getFieldWithDefault(msg, 2, ""),
+      describe: jspb.Message.getFieldWithDefault(msg, 3, ""),
+      imageUrl: jspb.Message.getFieldWithDefault(msg, 4, ""),
+      metaDescription: jspb.Message.getFieldWithDefault(msg, 5, ""),
+      metaKeywords: jspb.Message.getFieldWithDefault(msg, 6, ""),
+      createdAt: (f = msg.getCreatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+      updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -136,17 +141,22 @@ proto.domain.link_cqrs.v1.LinkView.deserializeBinaryFromReader = function(msg, r
       break;
     }
     var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setUrl(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setHash(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
+      switch (field) {
+          case 9:
+              var value = new google_protobuf_field_mask_pb.FieldMask;
+              reader.readMessage(value, google_protobuf_field_mask_pb.FieldMask.deserializeBinaryFromReader);
+              msg.setFieldMask(value);
+              break;
+          case 1:
+              var value = /** @type {string} */ (reader.readString());
+              msg.setUrl(value);
+              break;
+          case 2:
+              var value = /** @type {string} */ (reader.readString());
+              msg.setHash(value);
+              break;
+          case 3:
+              var value = /** @type {string} */ (reader.readString());
       msg.setDescribe(value);
       break;
     case 4:
@@ -199,17 +209,25 @@ proto.domain.link_cqrs.v1.LinkView.prototype.serializeBinary = function() {
  * @suppress {unusedLocalVariables} f is only used for nested messages
  */
 proto.domain.link_cqrs.v1.LinkView.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getUrl();
-  if (f.length > 0) {
-    writer.writeString(
-      1,
-      f
-    );
-  }
-  f = message.getHash();
-  if (f.length > 0) {
-    writer.writeString(
+    var f = undefined;
+    f = message.getFieldMask();
+    if (f != null) {
+        writer.writeMessage(
+            9,
+            f,
+            google_protobuf_field_mask_pb.FieldMask.serializeBinaryToWriter
+        );
+    }
+    f = message.getUrl();
+    if (f.length > 0) {
+        writer.writeString(
+            1,
+            f
+        );
+    }
+    f = message.getHash();
+    if (f.length > 0) {
+        writer.writeString(
       2,
       f
     );
@@ -251,13 +269,50 @@ proto.domain.link_cqrs.v1.LinkView.serializeBinaryToWriter = function(message, w
     );
   }
   f = message.getUpdatedAt();
-  if (f != null) {
-    writer.writeMessage(
-      8,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
-    );
-  }
+    if (f != null) {
+        writer.writeMessage(
+            8,
+            f,
+            google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+        );
+    }
+};
+
+
+/**
+ * optional google.protobuf.FieldMask field_mask = 9;
+ * @return {?proto.google.protobuf.FieldMask}
+ */
+proto.domain.link_cqrs.v1.LinkView.prototype.getFieldMask = function () {
+    return /** @type{?proto.google.protobuf.FieldMask} */ (
+        jspb.Message.getWrapperField(this, google_protobuf_field_mask_pb.FieldMask, 9));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.FieldMask|undefined} value
+ * @return {!proto.domain.link_cqrs.v1.LinkView} returns this
+ */
+proto.domain.link_cqrs.v1.LinkView.prototype.setFieldMask = function (value) {
+    return jspb.Message.setWrapperField(this, 9, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.domain.link_cqrs.v1.LinkView} returns this
+ */
+proto.domain.link_cqrs.v1.LinkView.prototype.clearFieldMask = function () {
+    return this.setFieldMask(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.domain.link_cqrs.v1.LinkView.prototype.hasFieldMask = function () {
+    return jspb.Message.getField(this, 9) != null;
 };
 
 
@@ -265,8 +320,8 @@ proto.domain.link_cqrs.v1.LinkView.serializeBinaryToWriter = function(message, w
  * optional string url = 1;
  * @return {string}
  */
-proto.domain.link_cqrs.v1.LinkView.prototype.getUrl = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+proto.domain.link_cqrs.v1.LinkView.prototype.getUrl = function () {
+    return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 

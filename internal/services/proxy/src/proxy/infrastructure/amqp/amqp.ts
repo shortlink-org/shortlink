@@ -3,7 +3,7 @@ import * as Amqp from "amqp-ts"
 import {injectable} from "inversify"
 import {Logger} from "tslog"
 
-const log: Logger = new Logger()
+const log: Logger<any> = new Logger()
 
 @injectable()
 class AMQPController {
