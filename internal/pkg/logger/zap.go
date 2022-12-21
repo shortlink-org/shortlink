@@ -72,17 +72,17 @@ func (log *zapLogger) setLogLevel(logLevel int) zap.AtomicLevel {
 
 	switch logLevel {
 	case FATAL_LEVEL:
-		atom.SetLevel(zap.FatalLevel)
+		atom.SetLevel(zapcore.Level(zap.FatalLevel))
 	case ERROR_LEVEL:
-		atom.SetLevel(zap.ErrorLevel)
+		atom.SetLevel(zapcore.ErrorLevel)
 	case WARN_LEVEL:
-		atom.SetLevel(zap.WarnLevel)
+		atom.SetLevel(zapcore.WarnLevel)
 	case INFO_LEVEL:
-		atom.SetLevel(zap.InfoLevel)
+		atom.SetLevel(zapcore.InfoLevel)
 	case DEBUG_LEVEL:
-		atom.SetLevel(zap.DebugLevel)
+		atom.SetLevel(zapcore.DebugLevel)
 	default:
-		atom.SetLevel(zap.InfoLevel)
+		atom.SetLevel(zapcore.InfoLevel)
 	}
 
 	return atom
