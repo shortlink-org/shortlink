@@ -209,7 +209,7 @@ make skaffold-debug
     * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization
       platform.
     * [Loki](https://github.com/grafana/loki), like Prometheus, but for logs.
-        + [docs](./docs/logger.md)
+        + [docs](docs/tutorial/logger.md)
 
     + [Tempo](https://grafana.com/docs/tempo/latest/), a high volume, high throughput distributed tracing system.
 
