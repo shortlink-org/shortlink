@@ -1,13 +1,14 @@
 <component name="ProjectRunConfigurationManager">
     <configuration default="false" name="referral" type="PythonConfigurationType" factoryName="Python"
-                   folderName="services">
+                   folderName="python/services">
         <module name="shortlink"/>
         <option name="INTERPRETER_OPTIONS" value=""/>
         <option name="PARENT_ENVS" value="true"/>
         <envs>
             <env name="PYTHONUNBUFFERED" value="1"/>
         </envs>
-        <option name="SDK_HOME" value=""/>
+        <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python"/>
+        <option name="SDK_NAME" value="Python 3.11 (shortlink)"/>
         <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/internal/services/referral"/>
         <option name="IS_MODULE_SDK" value="true"/>
         <option name="ADD_CONTENT_ROOTS" value="true"/>

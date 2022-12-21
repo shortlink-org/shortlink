@@ -1,13 +1,14 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="io_uring" type="GoTestRunConfiguration" factoryName="Go Test" folderName="shortdb">
-    <module name="shortlink" />
-    <working_directory value="$PROJECT_DIR$/pkg/shortdb/io_uring" />
-    <root_directory value="$PROJECT_DIR$" />
-    <kind value="PACKAGE" />
-    <package value="github.com/batazor/shortlink/pkg/shortdb/io_uring" />
-    <directory value="$PROJECT_DIR$" />
-    <filePath value="$PROJECT_DIR$" />
-    <framework value="gotest" />
-    <method v="2" />
+  <configuration default="false" name="io_uring" type="GoTestRunConfiguration" factoryName="Go Test"
+                 folderName="test/shortdb">
+      <module name="shortlink"/>
+      <working_directory value="$PROJECT_DIR$/pkg/shortdb/io_uring"/>
+      <root_directory value="$PROJECT_DIR$"/>
+      <kind value="PACKAGE"/>
+      <package value="github.com/batazor/shortlink/pkg/shortdb/io_uring"/>
+      <directory value="$PROJECT_DIR$"/>
+      <filePath value="$PROJECT_DIR$"/>
+      <framework value="gotest"/>
+      <method v="2"/>
   </configuration>
 </component>
