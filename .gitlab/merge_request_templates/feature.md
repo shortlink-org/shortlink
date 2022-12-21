@@ -8,6 +8,12 @@ correct behavior and avoid possible regressions in the future.
 
 ### New functionality
 
-<!-- For the new functionality we name the template `feature/new-functional-desc`, with a brief description of the changes. -->
+<!-- For the new functionality we name the template `feature/%{first_commit}`, with a brief description of the changes. -->
+
+---------------------------------
 
 /label feature
+
+#### Author
+
+%{co_authored_by}
