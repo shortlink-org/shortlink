@@ -13,6 +13,7 @@ import (
 	"context"
 
 	"github.com/google/wire"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
@@ -85,6 +86,7 @@ func NewAPIApplication(
 	i18n *message.Printer,
 	logger logger.Logger,
 	rpcServer *rpc.RPCServer,
+	tracer *trace.TracerProvider,
 
 	// Delivery
 	metadataClient metadata_rpc.MetadataServiceClient,
@@ -100,6 +102,7 @@ func NewAPIApplication(
 		i18n,
 		logger,
 		rpcServer,
+		tracer,
 
 		// Delivery
 		link_rpc,
