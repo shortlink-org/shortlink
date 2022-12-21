@@ -13,7 +13,7 @@ DOCKER_USERNAME := "batazor"
 DOCKER_BUILDKIT := 1
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
-SHORTLINK_SERVICES := api auth bot csi landing link logger metadata notify proxy ui-next
+SHORTLINK_SERVICES := api billing bot csi landing link logger metadata notify proxy ui-next
 
 docker: docker-login docker-build ## docker login > build > push
 
