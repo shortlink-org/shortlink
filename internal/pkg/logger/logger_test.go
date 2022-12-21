@@ -6,10 +6,11 @@ package logger
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/segmentio/encoding/json"
 
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/goleak"
