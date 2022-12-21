@@ -3,10 +3,11 @@ import http from "http"
 import * as express from "express"
 import * as bodyParser from 'body-parser'
 import helmet from 'helmet'
-import { Logger } from "tslog"
-import { InversifyExpressServer } from "inversify-express-utils"
-import { createTerminus } from "@godaddy/terminus"
+import {Logger} from "tslog"
+import {InversifyExpressServer} from "inversify-express-utils"
+import {createTerminus} from "@godaddy/terminus"
 
+import './opentelemetry'
 import container from "./inversify.config"
 
 import './proxy/infrastructure/http/proxy'
