@@ -13,8 +13,24 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = (function() { return this || window || global || self || Function('return this')(); }).call(null);
+var global = (function () {
+  if (this) {
+    return this;
+  }
+  if (typeof window !== 'undefined') {
+    return window;
+  }
+  if (typeof global !== 'undefined') {
+    return global;
+  }
+  if (typeof self !== 'undefined') {
+    return self;
+  }
+  return Function('return this')();
+}.call(null));
 
+var google_protobuf_field_mask_pb = require('google-protobuf/google/protobuf/field_mask_pb.js');
+goog.object.extend(proto, google_protobuf_field_mask_pb);
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 goog.object.extend(proto, google_protobuf_timestamp_pb);
 goog.exportSymbol('proto.domain.proxy.v1.Stats', null, global);
@@ -71,6 +87,7 @@ proto.domain.proxy.v1.Stats.prototype.toObject = function(opt_includeInstance) {
  */
 proto.domain.proxy.v1.Stats.toObject = function(includeInstance, msg) {
   var f, obj = {
+    fieldMask: (f = msg.getFieldMask()) && google_protobuf_field_mask_pb.FieldMask.toObject(includeInstance, f),
     hash: jspb.Message.getFieldWithDefault(msg, 1, ""),
     countRedirect: jspb.Message.getFieldWithDefault(msg, 2, 0),
     updatedAt: (f = msg.getUpdatedAt()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
@@ -110,16 +127,21 @@ proto.domain.proxy.v1.Stats.deserializeBinaryFromReader = function(msg, reader) 
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setHash(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setCountRedirect(value);
-      break;
-    case 3:
-      var value = new google_protobuf_timestamp_pb.Timestamp;
+      case 4:
+        var value = new google_protobuf_field_mask_pb.FieldMask;
+        reader.readMessage(value, google_protobuf_field_mask_pb.FieldMask.deserializeBinaryFromReader);
+        msg.setFieldMask(value);
+        break;
+      case 1:
+        var value = /** @type {string} */ (reader.readString());
+        msg.setHash(value);
+        break;
+      case 2:
+        var value = /** @type {number} */ (reader.readUint64());
+        msg.setCountRedirect(value);
+        break;
+      case 3:
+        var value = new google_protobuf_timestamp_pb.Timestamp;
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setUpdatedAt(value);
       break;
@@ -152,11 +174,19 @@ proto.domain.proxy.v1.Stats.prototype.serializeBinary = function() {
  */
 proto.domain.proxy.v1.Stats.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getFieldMask();
+  if (f != null) {
+    writer.writeMessage(
+        4,
+        f,
+        google_protobuf_field_mask_pb.FieldMask.serializeBinaryToWriter
+    );
+  }
   f = message.getHash();
   if (f.length > 0) {
     writer.writeString(
-      1,
-      f
+        1,
+        f
     );
   }
   f = message.getCountRedirect();
@@ -169,11 +199,48 @@ proto.domain.proxy.v1.Stats.serializeBinaryToWriter = function(message, writer) 
   f = message.getUpdatedAt();
   if (f != null) {
     writer.writeMessage(
-      3,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+        3,
+        f,
+        google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
+};
+
+
+/**
+ * optional google.protobuf.FieldMask field_mask = 4;
+ * @return {?proto.google.protobuf.FieldMask}
+ */
+proto.domain.proxy.v1.Stats.prototype.getFieldMask = function () {
+  return /** @type{?proto.google.protobuf.FieldMask} */ (
+      jspb.Message.getWrapperField(this, google_protobuf_field_mask_pb.FieldMask, 4));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.FieldMask|undefined} value
+ * @return {!proto.domain.proxy.v1.Stats} returns this
+ */
+proto.domain.proxy.v1.Stats.prototype.setFieldMask = function (value) {
+  return jspb.Message.setWrapperField(this, 4, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.domain.proxy.v1.Stats} returns this
+ */
+proto.domain.proxy.v1.Stats.prototype.clearFieldMask = function () {
+  return this.setFieldMask(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.domain.proxy.v1.Stats.prototype.hasFieldMask = function () {
+  return jspb.Message.getField(this, 4) != null;
 };
 
 
@@ -181,7 +248,7 @@ proto.domain.proxy.v1.Stats.serializeBinaryToWriter = function(message, writer) 
  * optional string hash = 1;
  * @return {string}
  */
-proto.domain.proxy.v1.Stats.prototype.getHash = function() {
+proto.domain.proxy.v1.Stats.prototype.getHash = function () {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 

@@ -74,6 +74,12 @@
             "type": "string"
           },
           {
+            "name": "link.fieldMask",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "link.url",
             "description": "URL",
             "in": "query",
@@ -127,6 +133,12 @@
           }
         },
         "parameters": [
+          {
+            "name": "link.fieldMask",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
           {
             "name": "link.url",
             "description": "URL",
@@ -204,6 +216,12 @@
             "type": "string"
           },
           {
+            "name": "link.fieldMask",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "link.url",
             "description": "URL",
             "in": "query",
@@ -272,7 +290,11 @@
       "type": "object",
       "properties": {
         "link": {
-          "$ref": "#/definitions/v1Link"
+          "$ref": "#/definitions/v1Link",
+          "example": {
+            "hash": "1234567890"
+          },
+          "description": "Link hash"
         }
       },
       "required": [
@@ -283,7 +305,11 @@
       "type": "object",
       "properties": {
         "link": {
-          "$ref": "#/definitions/v1Link"
+          "$ref": "#/definitions/v1Link",
+          "example": {
+            "hash": "1234567890"
+          },
+          "description": "Link hash"
         }
       },
       "required": [
@@ -294,7 +320,11 @@
       "type": "object",
       "properties": {
         "link": {
-          "$ref": "#/definitions/v1Link"
+          "$ref": "#/definitions/v1Link",
+          "example": {
+            "hash": "1234567890"
+          },
+          "description": "Link hash"
         }
       },
       "required": [
@@ -316,6 +346,9 @@
     "v1Link": {
       "type": "object",
       "properties": {
+        "fieldMask": {
+          "type": "string"
+        },
         "url": {
           "type": "string",
           "title": "URL"

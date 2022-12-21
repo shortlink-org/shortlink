@@ -13,8 +13,24 @@
 
 var jspb = require('google-protobuf');
 var goog = jspb;
-var global = (function() { return this || window || global || self || Function('return this')(); }).call(null);
+var global = (function () {
+  if (this) {
+    return this;
+  }
+  if (typeof window !== 'undefined') {
+    return window;
+  }
+  if (typeof global !== 'undefined') {
+    return global;
+  }
+  if (typeof self !== 'undefined') {
+    return self;
+  }
+  return Function('return this')();
+}.call(null));
 
+var google_protobuf_field_mask_pb = require('google-protobuf/google/protobuf/field_mask_pb.js');
+goog.object.extend(proto, google_protobuf_field_mask_pb);
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 goog.object.extend(proto, google_protobuf_timestamp_pb);
 goog.exportSymbol('proto.domain.link.v1.Link', null, global);
@@ -94,6 +110,7 @@ proto.domain.link.v1.Link.prototype.toObject = function(opt_includeInstance) {
  */
 proto.domain.link.v1.Link.toObject = function(includeInstance, msg) {
   var f, obj = {
+    fieldMask: (f = msg.getFieldMask()) && google_protobuf_field_mask_pb.FieldMask.toObject(includeInstance, f),
     url: jspb.Message.getFieldWithDefault(msg, 1, ""),
     hash: jspb.Message.getFieldWithDefault(msg, 2, ""),
     describe: jspb.Message.getFieldWithDefault(msg, 3, ""),
@@ -135,16 +152,21 @@ proto.domain.link.v1.Link.deserializeBinaryFromReader = function(msg, reader) {
     }
     var field = reader.getFieldNumber();
     switch (field) {
-    case 1:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setUrl(value);
-      break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setHash(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
+      case 6:
+        var value = new google_protobuf_field_mask_pb.FieldMask;
+        reader.readMessage(value, google_protobuf_field_mask_pb.FieldMask.deserializeBinaryFromReader);
+        msg.setFieldMask(value);
+        break;
+      case 1:
+        var value = /** @type {string} */ (reader.readString());
+        msg.setUrl(value);
+        break;
+      case 2:
+        var value = /** @type {string} */ (reader.readString());
+        msg.setHash(value);
+        break;
+      case 3:
+        var value = /** @type {string} */ (reader.readString());
       msg.setDescribe(value);
       break;
     case 4:
@@ -186,11 +208,19 @@ proto.domain.link.v1.Link.prototype.serializeBinary = function() {
  */
 proto.domain.link.v1.Link.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getFieldMask();
+  if (f != null) {
+    writer.writeMessage(
+        6,
+        f,
+        google_protobuf_field_mask_pb.FieldMask.serializeBinaryToWriter
+    );
+  }
   f = message.getUrl();
   if (f.length > 0) {
     writer.writeString(
-      1,
-      f
+        1,
+        f
     );
   }
   f = message.getHash();
@@ -218,11 +248,48 @@ proto.domain.link.v1.Link.serializeBinaryToWriter = function(message, writer) {
   f = message.getUpdatedAt();
   if (f != null) {
     writer.writeMessage(
-      5,
-      f,
-      google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+        5,
+        f,
+        google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
     );
   }
+};
+
+
+/**
+ * optional google.protobuf.FieldMask field_mask = 6;
+ * @return {?proto.google.protobuf.FieldMask}
+ */
+proto.domain.link.v1.Link.prototype.getFieldMask = function () {
+  return /** @type{?proto.google.protobuf.FieldMask} */ (
+      jspb.Message.getWrapperField(this, google_protobuf_field_mask_pb.FieldMask, 6));
+};
+
+
+/**
+ * @param {?proto.google.protobuf.FieldMask|undefined} value
+ * @return {!proto.domain.link.v1.Link} returns this
+ */
+proto.domain.link.v1.Link.prototype.setFieldMask = function (value) {
+  return jspb.Message.setWrapperField(this, 6, value);
+};
+
+
+/**
+ * Clears the message field making it undefined.
+ * @return {!proto.domain.link.v1.Link} returns this
+ */
+proto.domain.link.v1.Link.prototype.clearFieldMask = function () {
+  return this.setFieldMask(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {boolean}
+ */
+proto.domain.link.v1.Link.prototype.hasFieldMask = function () {
+  return jspb.Message.getField(this, 6) != null;
 };
 
 
@@ -230,7 +297,7 @@ proto.domain.link.v1.Link.serializeBinaryToWriter = function(message, writer) {
  * optional string url = 1;
  * @return {string}
  */
-proto.domain.link.v1.Link.prototype.getUrl = function() {
+proto.domain.link.v1.Link.prototype.getUrl = function () {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
