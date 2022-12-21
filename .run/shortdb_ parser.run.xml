@@ -1,12 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="saga" type="GoTestRunConfiguration" factoryName="Go Test"
-                 folderName="go/test/pkg">
+  <configuration default="false" name="shortdb: parser" type="GoTestRunConfiguration" factoryName="Go Test"
+                 folderName="test/shortdb">
       <module name="shortlink"/>
-      <working_directory value="$PROJECT_DIR$/pkg/saga"/>
-      <go_parameters value="-tags=unit"/>
+      <working_directory value="$PROJECT_DIR$/pkg/shortdb/parser/v1"/>
       <root_directory value="$PROJECT_DIR$"/>
       <kind value="PACKAGE"/>
-      <package value="github.com/batazor/shortlink/pkg/saga"/>
+      <package value="github.com/batazor/shortlink/pkg/shortdb/parser/v1"/>
       <directory value="$PROJECT_DIR$"/>
       <filePath value="$PROJECT_DIR$"/>
       <framework value="gotest"/>

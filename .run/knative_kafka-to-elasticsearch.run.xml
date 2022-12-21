@@ -1,14 +1,17 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="knative/kafka-to-elasticsearch" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="knative">
-    <module name="shortlink" />
-    <working_directory value="$PROJECT_DIR$" />
-    <envs>
-      <env name="K_CONFIG_TRACING" value="{&quot;backend&quot;:&quot;zipkin&quot;,&quot;debug&quot;:&quot;true&quot;,&quot;sample-rate&quot;:&quot;1&quot;,&quot;zipkin-endpoint&quot;:&quot;http://otel-collector.observability:9411/api/v2/spans&quot;}" />
-    </envs>
-    <kind value="PACKAGE" />
-    <package value="github.com/batazor/shortlink/internal/services/knative/sync-search/kafka-to-elasticsearch" />
-    <directory value="$PROJECT_DIR$" />
-    <filePath value="$PROJECT_DIR$/internal/services/knative/sync-search/kafka-to-elasticsearch/kafka-to-elasticsearch.go" />
-    <method v="2" />
+  <configuration default="false" name="knative/kafka-to-elasticsearch" type="GoApplicationRunConfiguration"
+                 factoryName="Go Application" folderName="go/knative">
+      <module name="shortlink"/>
+      <working_directory value="$PROJECT_DIR$"/>
+      <envs>
+          <env name="K_CONFIG_TRACING"
+               value="{&quot;backend&quot;:&quot;zipkin&quot;,&quot;debug&quot;:&quot;true&quot;,&quot;sample-rate&quot;:&quot;1&quot;,&quot;zipkin-endpoint&quot;:&quot;http://otel-collector.observability:9411/api/v2/spans&quot;}"/>
+      </envs>
+      <kind value="PACKAGE"/>
+      <package value="github.com/batazor/shortlink/internal/services/knative/sync-search/kafka-to-elasticsearch"/>
+      <directory value="$PROJECT_DIR$"/>
+      <filePath
+              value="$PROJECT_DIR$/internal/services/knative/sync-search/kafka-to-elasticsearch/kafka-to-elasticsearch.go"/>
+      <method v="2"/>
   </configuration>
 </component>

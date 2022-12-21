@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="shortdb: benchmark parser" type="GoTestRunConfiguration" factoryName="Go Test"
+  <configuration default="false" name="shortdb: benchmark engine" type="GoTestRunConfiguration" factoryName="Go Test"
                  folderName="test/shortdb">
       <module name="shortlink"/>
-      <working_directory value="$PROJECT_DIR$/pkg/shortdb/parser/v1/tests"/>
+      <working_directory value="$PROJECT_DIR$/pkg/shortdb/engine"/>
       <root_directory value="$PROJECT_DIR$"/>
       <kind value="PACKAGE"/>
-      <package value="github.com/batazor/shortlink/pkg/shortdb/parser/v1/tests"/>
+      <package value="github.com/batazor/shortlink/pkg/shortdb/engine"/>
       <directory value="$PROJECT_DIR$"/>
       <filePath value="$PROJECT_DIR$"/>
       <framework value="gobench"/>

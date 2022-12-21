@@ -1,15 +1,16 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="db/edgedb" type="GoTestRunConfiguration" factoryName="Go Test" folderName="database">
-    <module name="shortlink" />
-    <working_directory value="$PROJECT_DIR$/internal/pkg/db/edgedb" />
-    <go_parameters value="-tags=unit"/>
-    <root_directory value="$PROJECT_DIR$" />
-    <kind value="PACKAGE" />
-    <package value="github.com/batazor/shortlink/internal/pkg/db/edgedb" />
-    <directory value="$PROJECT_DIR$" />
-    <filePath value="$PROJECT_DIR$" />
-    <framework value="gotest" />
-    <pattern value="^\QTestEdgeDB\E$" />
+  <configuration default="false" name="db/edgedb" type="GoTestRunConfiguration" factoryName="Go Test"
+                 folderName="go/test/database">
+      <module name="shortlink"/>
+      <working_directory value="$PROJECT_DIR$/internal/pkg/db/edgedb"/>
+      <go_parameters value="-tags=unit"/>
+      <root_directory value="$PROJECT_DIR$"/>
+      <kind value="PACKAGE"/>
+      <package value="github.com/batazor/shortlink/internal/pkg/db/edgedb"/>
+      <directory value="$PROJECT_DIR$"/>
+      <filePath value="$PROJECT_DIR$"/>
+      <framework value="gotest"/>
+      <pattern value="^\QTestEdgeDB\E$"/>
     <method v="2" />
   </configuration>
 </component>
