@@ -41,6 +41,33 @@ istiod:
           scrapeInterval: 15s
           scrapeTimeout: 10s
 
+istio-ingress:
+  enabled: true
+
+gateway:
+  service:
+    type: LoadBalancer
+    ports:
+      - name: status-port
+        port: 15021
+        targetPort: 15021
+        protocol: TCP
+      - name: http2
+        port: 80
+        targetPort: 80
+        protocol: TCP
+      - name: https
+        port: 443
+        targetPort: 443
+        protocol: TCP
+      - name: grpc
+        port: 50051
+        targetPort: 50051
+        protocol: TCP
+
+  global:
+    logAsJson: true
+
 kiali-operator:
   enabled: true
 

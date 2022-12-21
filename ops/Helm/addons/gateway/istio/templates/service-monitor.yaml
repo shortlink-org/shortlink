@@ -29,3 +29,21 @@ spec:
   endpoints:
     - port: http-monitoring
       interval: 15s
+---
+
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: istio-ingressgateway
+  labels:
+    release: prometheus-operator
+spec:
+  selector:
+    matchLabels:
+      istio: ingressgateway
+  namespaceSelector:
+    matchNames:
+      - istio-system
+  endpoints:
+    - targetPort: http-envoy-prom
+      path: /stats/prometheus
