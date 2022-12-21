@@ -23,11 +23,11 @@ func (log *zapLogger) init(config Configuration) error {
 
 	// To keep the example deterministic, disable timestamps in the output.
 	encoderCfg := zapcore.EncoderConfig{
-		TimeKey:        "@timestamp",
-		LevelKey:       "@level",
+		TimeKey:        "timestamp",
+		LevelKey:       "level",
 		NameKey:        "logger",
-		CallerKey:      "@caller",
-		MessageKey:     "@msg",
+		CallerKey:      "caller",
+		MessageKey:     "msg",
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
 		EncodeLevel:    zapcore.LowercaseLevelEncoder,

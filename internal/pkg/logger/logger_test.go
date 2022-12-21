@@ -37,10 +37,10 @@ func TestOutputZap(t *testing.T) {
 
 	expectedTime := time.Now().Format(time.RFC822)
 	expected := map[string]interface{}{
-		"@level":     "info",
-		"@timestamp": expectedTime,
-		"@caller":    "logger/logger_test.go:36",
-		"@msg":       "Hello World",
+		"level":     "info",
+		"timestamp": expectedTime,
+		"caller":    "logger/logger_test.go:36",
+		"msg":       "Hello World",
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
@@ -82,9 +82,9 @@ func TestOutputLogrus(t *testing.T) {
 
 	expectedTime := time.Now().Format(time.RFC822)
 	expected := map[string]interface{}{
-		"@level":     "info",
-		"@timestamp": expectedTime,
-		"@msg":       "Hello World",
+		"level":     "info",
+		"timestamp": expectedTime,
+		"msg":       "Hello World",
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
@@ -126,12 +126,12 @@ func TestFieldsZap(t *testing.T) {
 
 	expectedTime := time.Now().Format(time.RFC822)
 	expected := map[string]interface{}{
-		"@level":     "info",
-		"@timestamp": expectedTime,
-		"@msg":       "Hello World",
-		"@caller":    "logger/logger_test.go:122",
-		"first":      float64(1),
-		"hello":      "world",
+		"level":     "info",
+		"timestamp": expectedTime,
+		"msg":       "Hello World",
+		"caller":    "logger/logger_test.go:122",
+		"first":     float64(1),
+		"hello":     "world",
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
@@ -160,11 +160,11 @@ func TestFieldsLogrus(t *testing.T) {
 
 	expectedTime := time.Now().Format(time.RFC822)
 	expected := map[string]interface{}{
-		"@level":     "info",
-		"@timestamp": expectedTime,
-		"@msg":       "Hello World",
-		"first":      float64(1),
-		"hello":      "world",
+		"level":     "info",
+		"timestamp": expectedTime,
+		"msg":       "Hello World",
+		"first":     float64(1),
+		"hello":     "world",
 	}
 	var response map[string]interface{}
 	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")

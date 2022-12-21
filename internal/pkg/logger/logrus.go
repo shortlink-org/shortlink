@@ -25,10 +25,10 @@ func (log *logrusLogger) init(config Configuration) error {
 	log.logger.Formatter = &logrus.JSONFormatter{
 		TimestampFormat: config.TimeFormat,
 		FieldMap: logrus.FieldMap{
-			logrus.FieldKeyTime:  "@timestamp",
-			logrus.FieldKeyLevel: "@level",
-			logrus.FieldKeyMsg:   "@msg",
-			logrus.FieldKeyFunc:  "@caller",
+			logrus.FieldKeyTime:  "timestamp",
+			logrus.FieldKeyLevel: "level",
+			logrus.FieldKeyMsg:   "msg",
+			logrus.FieldKeyFunc:  "caller",
 		},
 	}
 
