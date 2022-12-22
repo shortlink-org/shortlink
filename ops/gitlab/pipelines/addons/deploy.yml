@@ -21,25 +21,14 @@ prometheus-operator:
 argo:
   stage: deploy
   variables:
-    RELEASE_NAME: argocd
-    HELM_PATH: ops/Helm/addons/argocd
+    RELEASE_NAME:
+      value: argocd
+      options:
+        - argocd
+        - argo-shortlink
+    HELM_PATH: ops/Helm/addons/$RELEASE_NAME
     HELM_NAMESPACE: argocd
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: [ ]
-  rules:
-    - when: manual
-
-argo-shortlink:
-  stage: deploy
-  variables:
-    RELEASE_NAME: argocd-shortlink
-    HELM_PATH: ops/Helm/addons/argocd-shortlink
-    HELM_NAMESPACE: argocd
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd-shortlink
+    ENVIRONMENT_URL: $ENVIRONMENT_URL/$RELEASE_NAME
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
@@ -70,13 +59,17 @@ argo-secret:
   rules:
     - when: manual
 
-keda:
+addons:
   stage: deploy
   variables:
-    RELEASE_NAME: keda
-    HELM_PATH: ops/Helm/addons/keda
-    HELM_NAMESPACE: keda
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/keda
+    RELEASE_NAME:
+      value: service
+      options:
+        - keda
+        - flagger
+    HELM_PATH: ops/Helm/addons/$RELEASE_NAME
+    HELM_NAMESPACE: $RELEASE_NAME
+    ENVIRONMENT_URL: $ENVIRONMENT_URL/$RELEASE_NAME
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
@@ -85,17 +78,3 @@ keda:
   rules:
     - when: manual
 
-flagger:
-  stage: deploy
-  variables:
-    RELEASE_NAME: flagger
-    HELM_PATH: ops/Helm/addons/flagger
-    HELM_NAMESPACE: ingress-nginx
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/flagger
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual

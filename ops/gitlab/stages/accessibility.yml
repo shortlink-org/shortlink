@@ -2,7 +2,7 @@ include:
   - template: Verify/Browser-Performance.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Browser-Performance.gitlab-ci.yml
   - template: Verify/Accessibility.gitlab-ci.yml       # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Accessibility.gitlab-ci.yml
 
-  - template: Security/DAST.latest.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/DAST.latest.gitlab-ci.yml
+  - template: Security/DAST.gitlab-ci.yml        # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/DAST.latest.gitlab-ci.yml
   - template: Security/DAST-API.gitlab-ci.yml    # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/DAST-API.gitlab-ci.yml
 
 # Configure the scanning tool through the environment variables.
@@ -43,6 +43,7 @@ dast:
     DAST_FULL_SCAN_ENABLED: "true" # do a full scan
     DAST_ZAP_USE_AJAX_SPIDER: "true" # use the ajax spider
     GITLAB_FEATURES: dast
+    DAST_BROWSER_SCAN: "true"
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
