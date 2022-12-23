@@ -1,24 +1,4 @@
-include:
-  - local: /ops/gitlab/workflows/matrix_deploy.yml
-
-# Deploy ===============================================================================================================
-prometheus-operator:
-  stage: addons
-  variables:
-    RELEASE_NAME: prometheus-operator
-    HELM_PATH: ops/Helm/addons/prometheus-operator
-    HELM_NAMESPACE: prometheus-operator
-    HELM_ARG: --set kube-prometheus-stack.alertmanager.config.global.slack_api_url=$SLACK_TOKEN
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/prometheus
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: [ ]
-  rules:
-    - when: manual
-
-argocd:
+argo:
   stage: addons
   variables:
     RELEASE_NAME: argocd
@@ -63,7 +43,7 @@ argo-secret:
   script:
     - kubectl create secret generic
       --context=shortlink-org/shortlink:${PROVIDER}
-      --namespace=argocd 
+      --namespace=argocd
       --from-file=sops.asc=${GPG_TOKEN}
       sops-gpg
   needs: []
