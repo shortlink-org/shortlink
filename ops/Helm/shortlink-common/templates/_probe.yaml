@@ -4,8 +4,8 @@
   {{- if .startupProbe }}
   startupProbe:
     httpGet:
-      path: /healthz
-      port: 9090
+      path: {{ .startupProbe.path | default "/healthz" }}
+      port: {{ .startupProbe.port | default 9090 }}
     initialDelaySeconds: 5
     periodSeconds: 5
     successThreshold: 1
@@ -16,8 +16,8 @@
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
-      path: /live
-      port: 9090
+      path: {{ .livenessProbe.path | default "/live" }}
+      port: {{ .livenessProbe.port | default 9090 }}
     initialDelaySeconds: 5
     periodSeconds: 5
     successThreshold: 1
@@ -28,8 +28,8 @@
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
-      path: /ready
-      port: 9090
+      path: {{ .readinessProbe.path | default "/ready" }}
+      port: {{ .readinessProbe.port | default 9090 }}
     initialDelaySeconds: 5
     periodSeconds: 5
     successThreshold: 1
