@@ -29,4 +29,3 @@ include $(SELF_DIR)/ops/Makefile/terraform.mk
 include $(SELF_DIR)/ops/Makefile/docker.mk
 include $(SELF_DIR)/ops/Makefile/go.mk
 include $(SELF_DIR)/ops/Makefile/k8s/k8s.mk
-include $(SELF_DIR)/ops/Makefile/ui.mk
