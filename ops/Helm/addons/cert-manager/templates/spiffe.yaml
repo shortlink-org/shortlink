@@ -1,0 +1,33 @@
+{{- if .Values."cert-manager-csi-driver-spiffe".enabled -}}
+
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: csi-driver-spiffe-ca
+  namespace: cert-manager
+spec:
+  commonName: csi-driver-spiffe-ca
+  secretName: csi-driver-spiffe-ca
+  duration: 2160h
+  isCA: true
+  issuerRef:
+    name: selfsigned
+    kind: ClusterIssuer
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: csi-driver-spiffe-ca
+spec:
+  ca:
+    secretName: csi-driver-spiffe-ca
+
+{{- end -}}

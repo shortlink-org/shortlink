@@ -2,5 +2,11 @@ dependencies:
 - name: cert-manager
   repository: https://charts.jetstack.io
   version: v1.10.1
-digest: sha256:b50ef4098b745fe3accad06b83d13473a8f61d726d60a8d01913714f228d7d33
-generated: "2022-12-24T00:52:09.376+03:00"
+- name: cert-manager-approver-policy
+  repository: https://charts.jetstack.io
+  version: v0.5.0
+- name: cert-manager-csi-driver-spiffe
+  repository: https://charts.jetstack.io
+  version: v0.2.2
+digest: sha256:dd26cc450375db30d462283bcef0b73fdc9ba530d24526e18c57f10fa3b027b3
+generated: "2022-12-24T01:43:51.266589+03:00"
