@@ -1,6 +1,6 @@
 # METALLB ==============================================================================================================
 metallb:
-  stage: gateway
+  stage: addons
   variables:
     RELEASE_NAME: metallb
     HELM_PATH: ops/Helm/addons/metallb
@@ -15,7 +15,7 @@ metallb:
 
 # NGINX-INGRESS ========================================================================================================
 nginx-ingress:
-  stage: gateway
+  stage: addons
   variables:
     RELEASE_NAME: nginx-ingress
     HELM_PATH: ops/Helm/addons/gateway/nginx-ingress
