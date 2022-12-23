@@ -17,6 +17,15 @@ spec:
     targetRevision: HEAD
     helm:
       releaseName: redis
+      valueFiles:
+        # default values
+        - values.yaml
+
+        # Method 1: Mount the gpg key from a kubernetes secret as volume
+        # secrets+gpg-import://<key-volume-mount>/<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
+        # secrets+age-import://<key-volume-mount>/<key-name>.txt?<relative/path/to/the/encrypted/secrets.yaml>
+        # Example Method 1: (Assumptions: key-volume-mount=/sops-gpg, key-name=app, secret.yaml is in the root folder)
+        - secrets+gpg-import:///sops-gpg/sops.asc?values.sops.yaml
   syncPolicy:
     automated:
       prune: true
