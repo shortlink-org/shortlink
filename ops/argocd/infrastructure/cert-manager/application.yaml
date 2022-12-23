@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: redis
+  name: cert-manager
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,10 +9,10 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: redis
+    namespace: cert-manager
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/store/redis
+    path: ops/Helm/addons/cert-manager
     repoURL: 'https://github.com/batazor/shortlink'
     targetRevision: HEAD
     helm:
