@@ -264,8 +264,7 @@ argo-workflows:
     serviceMonitor:
       enabled: true
 
-    workflowNamespaces:
-      - shortlink
+    workflowNamespaces: []
 
     # -- enable persistence using postgres
     # postgresql:
