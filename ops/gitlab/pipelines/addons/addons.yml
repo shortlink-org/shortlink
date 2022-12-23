@@ -29,18 +29,3 @@ metallb:
   needs: [ ]
   rules:
     - when: manual
-
-# NGINX-INGRESS ========================================================================================================
-nginx-ingress:
-  stage: addons
-  variables:
-    RELEASE_NAME: nginx-ingress
-    HELM_PATH: ops/Helm/addons/gateway/nginx-ingress
-    HELM_NAMESPACE: nginx-ingress
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
