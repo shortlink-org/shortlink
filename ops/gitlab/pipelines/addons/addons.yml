@@ -1,20 +1,3 @@
-# Deploy ===============================================================================================================
-prometheus-operator:
-  stage: addons
-  variables:
-    RELEASE_NAME: prometheus-operator
-    HELM_PATH: ops/Helm/addons/prometheus-operator
-    HELM_NAMESPACE: prometheus-operator
-    HELM_ARG: --set kube-prometheus-stack.alertmanager.config.global.slack_api_url=$SLACK_TOKEN
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/prometheus
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: [ ]
-  rules:
-    - when: manual
-
 # METALLB ==============================================================================================================
 metallb:
   stage: addons
