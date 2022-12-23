@@ -86,8 +86,8 @@ deploy:
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
-      path: /
-      port: 8080
+      path: /nginx-health
+      port: 80
     initialDelaySeconds: 15
     periodSeconds: 30
     successThreshold: 1
@@ -96,8 +96,8 @@ deploy:
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
-      path: /
-      port: 8080
+      path: /nginx-health
+      port: 80
     initialDelaySeconds: 15
     periodSeconds: 30
     successThreshold: 1
