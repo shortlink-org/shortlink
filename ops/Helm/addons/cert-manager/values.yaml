@@ -11,6 +11,9 @@ cert-manager:
 
   installCRDs: true
 
+  extraArgs:
+    - --controllers='*\,-certificaterequests-approver'
+
   prometheus:
     enabled: true
 
@@ -18,3 +21,15 @@ cert-manager:
       enabled: true
       labels:
         release: prometheus-operator
+
+cert-manager-approver-policy:
+  enabled: false
+
+  app:
+    metrics:
+      service:
+        servicemonitor:
+          enabled: true
+
+cert-manager-csi-driver-spiffe:
+    enabled: false
