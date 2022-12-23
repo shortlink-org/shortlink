@@ -20,9 +20,7 @@ spec:
       name: {{ include "helpers.fullname" . }}-staging
     # Enable the HTTP-01 challenge provider
     solvers:
-      - dns01:
-          cloudflare:
-            apiTokenSecretRef:
-              name: cloudflare-api-token-secret
-              key: api-token
+      - http01:
+          ingress:
+            class: nginx
 {{- end }}
