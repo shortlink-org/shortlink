@@ -1,12 +1,15 @@
-import { useTheme as nextUseTheme } from 'next-themes'
-import React, { useState, useContext, useEffect } from 'react'
-import { ColorModeContext } from './ColorModeContext'
+import {useTheme as nextUseTheme} from 'next-themes'
+import React, {useContext, useEffect, useState} from 'react'
+import {ColorModeContext} from './ColorModeContext'
 
 // @ts-ignore
 import './styles.css'
 
-// @ts-ignore
-export const ToggleDarkMode = ({ id }) => {
+type ToggleDarkModeProps = {
+  id: string
+}
+
+export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id}) => {
   // @ts-ignore
   const { setTheme } = nextUseTheme()
   const [mounted, setMounted] = useState(false)
