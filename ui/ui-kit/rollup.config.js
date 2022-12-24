@@ -42,7 +42,19 @@ export default [
   {
     input: "dist/esm/types/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "es" }],
-    plugins: [dts.default()],
-    external: [/\.css$/u],
+    plugins: [
+      postcss({
+        extract: 'styles.css', // this will generate a specific file not being used, but we need this part of code
+        autoModules: true,
+        include: '**/*.css',
+        extensions: ['.css'],
+        plugins: [],
+      }),
+      dts({
+        compilerOptions: {
+          baseUrl: 'src',
+        },
+      }),
+    ],
   },
 ];
