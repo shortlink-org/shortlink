@@ -45,7 +45,7 @@ require (
 	github.com/neo4j/neo4j-go-driver/v5 v5.3.0
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/prometheus/client_golang v1.14.0
-	github.com/pterm/pterm v0.12.50
+	github.com/pterm/pterm v0.12.51
 	github.com/rabbitmq/amqp091-go v1.5.0
 	github.com/riandyrn/otelchi v0.5.0
 	github.com/robfig/cron/v3 v3.0.1
