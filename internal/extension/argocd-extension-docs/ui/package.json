@@ -1,0 +1,23 @@
+{
+  "name": "argocd-extension-docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "peerDeependencies": {
+    "react": "^18.0.0"
+  },
+  "scripts": {
+    "build": "webpack --config ./webpack.config.js && tar -C dist -cvf dist/extension.tar resources"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "raw-loader": "^4.0.2",
+    "react": "^18.2.0",
+    "ts-loader": "^9.4.2"
+  },
+  "dependencies": {
+    "typescript": "^4.4.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
