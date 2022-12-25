@@ -11,7 +11,11 @@ RUN npm config set ignore-scripts false
 WORKDIR /app
 COPY ./ui/next/package.json ./ui/next/package-lock.json ./
 
-RUN npm ci --cache .npm --prefer-offline --force
+RUN npm config set fetch-retries 5 \
+    npm config set fetch-retry-mintimeout 600000 \
+    npm config set fetch-retry-maxtimeout 1200000 \
+    npm config set fetch-timeout 1800000 \
+    npm ci --cache .npm --prefer-offline --force
 
 # Rebuild the source code only when needed
 FROM node:19.3-alpine as builder
@@ -21,6 +25,7 @@ ENV API_URI=${API_URI}
 
 WORKDIR /app
 COPY ./ui/next /app/
+COPY ./ui/eslint /app/eslint
 COPY --from=deps /app/node_modules ./node_modules
 
 RUN npm run generate

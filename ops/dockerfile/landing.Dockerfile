@@ -21,6 +21,7 @@ ARG API_URI
 ENV API_URI=${API_URI}
 
 WORKDIR /app
+COPY ./ui/eslint /app/eslint
 COPY ./ui/landing /app/
 COPY --from=deps /app/node_modules ./node_modules
 
