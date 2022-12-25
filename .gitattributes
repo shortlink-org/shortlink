@@ -1,3 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
 *.sops.yaml diff=sopsdiffer
+
+# do not show lock files while doing git diff
+package-lock.json -diff
+yarn.lock -diff
+go.sum -diff
