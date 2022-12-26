@@ -21,7 +21,9 @@ ARG API_URI
 ENV API_URI=${API_URI}
 
 WORKDIR /app
-COPY ./ui/eslint /app/eslint
+RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
+
+COPY ./ui/eslint /eslint
 COPY ./ui/landing /app/
 COPY --from=deps /app/node_modules ./node_modules
 
