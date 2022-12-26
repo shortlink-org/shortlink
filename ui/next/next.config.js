@@ -3,10 +3,6 @@
 const webpack = require('webpack')
 const { withImageLoader } = require('next-image-loader')
 
-// pass the modules you would like to see transpiled
-const withTM = require('next-transpile-modules')(['@shortlink-org/ui-kit'])
-module.exports = withTM({})
-
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
 const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
@@ -58,6 +54,7 @@ const NEXT_CONFIG = {
   },
   swcMinify: true,
   productionBrowserSourceMaps: true,
+  transpilePackages: ['@shortlink-org/ui-kit'],
   compiler: {
     // ssr and displayName are configured by default
     styledComponents: true,

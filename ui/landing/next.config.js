@@ -37,6 +37,7 @@ const nextConfig = {
   generateEtags: true,
   swcMinify: true,
   productionBrowserSourceMaps: true,
+  transpilePackages: ['@shortlink-org/ui-kit'],
   compiler: {
     // ssr and displayName are configured by default
     styledComponents: true,
