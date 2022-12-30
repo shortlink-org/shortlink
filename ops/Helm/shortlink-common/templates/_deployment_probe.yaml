@@ -1,0 +1,38 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.probe" }}
+  {{- if .startupProbe }}
+  startupProbe:
+    httpGet:
+      path: {{ .startupProbe.httpGet.path | default "/healthz" }}
+      port: {{ .startupProbe.httpGet.port | default 9090 }}
+    initialDelaySeconds: {{ .startupProbe.initialDelaySeconds | default 5 }}
+    periodSeconds: {{ .startupProbe.periodSeconds | default 5 }}
+    successThreshold: {{ .startupProbe.successThreshold | default 1 }}
+    failureThreshold: {{ .startupProbe.failureThreshold | default 5 }}
+  {{- end }}
+
+  {{- if .livenessProbe }}
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  livenessProbe:
+    httpGet:
+      path: {{ .livenessProbe.httpGet.path | default "/live" }}
+      port: {{ .livenessProbe.httpGet.port | default 9090 }}
+    initialDelaySeconds: {{ .livenessProbe.initialDelaySeconds | default 5 }}
+    periodSeconds: {{ .livenessProbe.periodSeconds | default 5 }}
+    successThreshold: {{ .livenessProbe.successThreshold | default 1 }}
+    failureThreshold: {{ .livenessProbe.failureThreshold | default 5 }}
+  {{- end }}
+
+  {{- if .readinessProbe }}
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  readinessProbe:
+    httpGet:
+      path: {{ .readinessProbe.httpGet.path | default "/ready" }}
+      port: {{ .readinessProbe.httpGet.port | default 9090 }}
+    initialDelaySeconds: {{ .readinessProbe.initialDelaySeconds | default 5 }}
+    periodSeconds: {{ .readinessProbe.periodSeconds | default 5 }}
+    successThreshold: {{ .readinessProbe.successThreshold | default 1 }}
+    failureThreshold: {{ .readinessProbe.failureThreshold | default 30 }}
+  {{- end }}
+{{- end }}
