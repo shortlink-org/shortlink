@@ -83,15 +83,15 @@ service:
   type: ClusterIP
   # clusterIP: 172.0.0.1
 
-ports:
-  - name: grpc
-    port: 50051
-    protocol: TCP
-    public: true
-  - name: metrics
-    port: 9090
-    protocol: TCP
-    public: true
+  ports:
+    - name: grpc
+      port: 50051
+      protocol: TCP
+      public: true
+    - name: metrics
+      port: 9090
+      protocol: TCP
+      public: true
 
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
