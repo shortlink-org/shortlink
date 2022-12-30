@@ -22,8 +22,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.2.0 |
-| https://k8s.ory.sh/helm/charts | kratos | 0.25.6 |
+| file://../shortlink-common | shortlink-common | 0.2.4 |
+| https://k8s.ory.sh/helm/charts | kratos | 0.26.5 |
 
 ## Values
 
@@ -32,8 +32,6 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | NetworkPolicy.enabled | bool | `false` |  |
 | commonAnnotations | object | `{}` | Add annotations to all the deployed resources |
 | commonLabels | object | `{}` | Add labels to all the deployed resources |
-| deploy.affinity | list | `[]` |  |
-| deploy.annotations | object | `{}` | Annotations to be added to controller pods |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress.svc.cluster.local"` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@shortlink.rabbitmq:5672"` |  |
@@ -43,21 +41,13 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/api"` |  |
 | deploy.image.tag | string | `"0.13.5"` |  |
-| deploy.imagePullSecrets | list | `[]` |  |
-| deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/live","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.nodeSelector | list | `[]` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
-| deploy.podSecurityContext.fsGroup | int | `1000` | fsGroup is the group ID associated with the container |
-| deploy.readinessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/ready","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.ports[0].containerPort | int | `7070` |  |
+| deploy.ports[0].name | string | `"http"` |  |
+| deploy.ports[0].protocol | string | `"TCP"` |  |
+| deploy.ports[1].containerPort | int | `9090` |  |
+| deploy.ports[1].name | string | `"metrics"` |  |
+| deploy.ports[1].protocol | string | `"TCP"` |  |
 | deploy.replicaCount | int | `1` |  |
-| deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
-| deploy.resources.requests.cpu | string | `"10m"` |  |
-| deploy.resources.requests.memory | string | `"32Mi"` |  |
-| deploy.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true,"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}` | Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls |
-| deploy.strategy.rollingUpdate.maxSurge | int | `1` |  |
-| deploy.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
-| deploy.strategy.type | string | `"RollingUpdate"` |  |
-| deploy.terminationGracePeriodSeconds | int | `90` |  |
-| deploy.tolerations | list | `[]` |  |
 | external_database | object | `{"enable":false,"ip":"192.168.0.101","port":6379}` | If you want to use an external database |
 | fullnameOverride | string | `""` |  |
 | host | string | `"shortlink.best"` |  |

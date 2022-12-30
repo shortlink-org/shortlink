@@ -22,7 +22,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.2.1 |
+| file://../shortlink-common | shortlink-common | 0.2.4 |
 
 ## Values
 
@@ -36,9 +36,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/ui-next"` |  |
 | deploy.image.tag | string | `"0.13.5"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
-| deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/","port":8080},"initialDelaySeconds":15,"periodSeconds":30,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/nginx-health","port":80},"initialDelaySeconds":15,"periodSeconds":30,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.nodeSelector | list | `[]` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
-| deploy.readinessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/","port":8080},"initialDelaySeconds":15,"periodSeconds":30,"successThreshold":1}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.readinessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/nginx-health","port":80},"initialDelaySeconds":15,"periodSeconds":30,"successThreshold":1}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.replicaCount | int | `1` |  |
 | deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | deploy.resources.requests.cpu | string | `"10m"` |  |
