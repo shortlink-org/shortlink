@@ -114,6 +114,12 @@ service:
   type: ClusterIP
   port: 8080
 
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      public: true
+
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   # -- Creates a Prometheus Operator ServiceMonitor

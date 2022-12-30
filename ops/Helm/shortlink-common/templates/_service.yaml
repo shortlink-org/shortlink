@@ -13,7 +13,7 @@ spec:
     - IPv4
   {{- end }}
   ports:
-    {{- range .Values.ports }}
+    {{- range .Values.service.ports }}
     {{- if .public }}
     - name: {{ .name }}
       port: {{ .port }}
