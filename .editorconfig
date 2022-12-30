@@ -17,7 +17,7 @@ indent_style = tab
 indent_size = 4
 
 # Indentation override for all JS under lib directory
-[**.js]
+[{**.js, **.tsx}]
 indent_style = space
 indent_size = 2
 
