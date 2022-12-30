@@ -77,11 +77,7 @@ spec:
           requests:
             cpu: 10m
             memory: 32Mi
-        volumeMounts:
-          {{- range .Values.deploy.volumes }}
-          - name: {{ include "helpers.fullname" $ }}-{{ .name }}
-            mountPath: {{ .mountPath | quote }}
-          {{- end }}
+        {{- include "shortlink-common.volumeMounts" . | indent 6 }}
       # -- Node labels and tolerations for pod assignment
       # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
       # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
@@ -97,17 +93,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      volumes:
-        {{- range .Values.deploy.volumes }}
-        - name: {{ include "helpers.fullname" $ }}-{{ .name }}
-          {{- if eq .type "secret" }}
-          secret:
-            secretName: {{ include "helpers.fullname" $ }}-{{ .name }}
-          {{- else if eq .type "emptyDir" }}
-          emptyDir: {}
-          {{- else if eq .type "configMap" }}
-          configMap:
-            name: {{ include "helpers.fullname" $ }}-{{ .name }}
-          {{- end }}
-        {{- end }}
+    {{- include "shortlink-common.volumes" . | indent 4 }}
 {{- end }}
