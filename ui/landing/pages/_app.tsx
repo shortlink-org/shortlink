@@ -1,18 +1,14 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import Head from 'next/head'
-import { AppProps, NextWebVitalsMetric } from 'next/app'
-import { ThemeProvider } from '@mui/material/styles'
+import {AppProps, NextWebVitalsMetric} from 'next/app'
+import {ThemeProvider} from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import { CacheProvider, EmotionCache } from '@emotion/react'
-import { ThemeProvider as NextThemeProvider } from 'next-themes'
-import { DefaultSeo, SiteLinksSearchBoxJsonLd, LogoJsonLd } from 'next-seo'
+import {CacheProvider, EmotionCache} from '@emotion/react'
+import {ThemeProvider as NextThemeProvider} from 'next-themes'
+import {Roboto_Mono} from '@next/font/google' // eslint-disable-line
+import {DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd} from 'next-seo'
 import '../public/assets/styles.css'
-import {
-  createEmotionCache,
-  darkTheme,
-  lightTheme,
-  ColorModeContext, // @ts-ignore
-} from '@shortlink-org/ui-kit'
+import {ColorModeContext, createEmotionCache, darkTheme, lightTheme,} from '@shortlink-org/ui-kit'
 // import your default seo configuration
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -21,6 +17,11 @@ const clientSideEmotionCache = createEmotionCache()
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
+
+const fonts = Roboto_Mono({
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
 const MyApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
@@ -84,7 +85,9 @@ const MyApp = (props: MyAppProps) => {
         <CssBaseline />
         <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
           <NextThemeProvider enableSystem attribute="class">
-            <Component {...pageProps} />
+            <main className={`${fonts.variable} font-sans`}>
+              <Component {...pageProps} />
+            </main>
           </NextThemeProvider>
         </ColorModeContext.Provider>
       </ThemeProvider>

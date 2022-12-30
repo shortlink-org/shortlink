@@ -1,5 +1,8 @@
 /* eslint-disable */
 
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
+/** @type {import('tailwindcss').Config} \*/
 module.exports = {
   mode: 'jit',
   darkMode: 'class',
@@ -36,6 +39,9 @@ module.exports = {
           css: {
             color: 'white',
           },
+        },
+        fontFamily: {
+          sans: ['var(--font-inter)', ...fontFamily.sans],
         },
       }),
     },
