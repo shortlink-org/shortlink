@@ -8,8 +8,8 @@ import {ThemeProvider as NextThemeProvider} from 'next-themes'
 import {Roboto_Mono} from '@next/font/google' // eslint-disable-line
 import {DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd} from 'next-seo'
 import '../public/assets/styles.css'
+
 import {ColorModeContext, createEmotionCache, darkTheme, lightTheme,} from '@shortlink-org/ui-kit'
-// import your default seo configuration
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
