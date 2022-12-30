@@ -14,6 +14,7 @@ import 'public/assets/styles.css'
 import ScrollTop from 'components/ScrollTop'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
+// @ts-ignore
 import {ColorModeContext, createEmotionCache, darkTheme, lightTheme,} from '@shortlink-org/ui-kit'
 import {DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd} from 'next-seo'
 
