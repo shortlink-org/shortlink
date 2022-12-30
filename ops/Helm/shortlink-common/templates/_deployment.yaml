@@ -100,7 +100,14 @@ spec:
       volumes:
         {{- range .Values.deploy.volumes }}
         - name: {{ include "helpers.fullname" $ }}-{{ .name }}
+          {{- if eq .type "secret" }}
           secret:
             secretName: {{ include "helpers.fullname" $ }}-{{ .name }}
+          {{- else if eq .type "emptyDir" }}
+          emptyDir: {}
+          {{- else if eq .type "configMap" }}
+          configMap:
+            name: {{ include "helpers.fullname" $ }}-{{ .name }}
+          {{- end }}
         {{- end }}
 {{- end }}
