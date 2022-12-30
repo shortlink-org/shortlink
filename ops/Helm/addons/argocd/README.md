@@ -1,6 +1,6 @@
 # argo
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,11 +14,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.16.0 |
-| https://argoproj.github.io/argo-helm | argo-events | 2.0.6 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.16.13 |
+| https://argoproj.github.io/argo-helm | argo-events | 2.0.11 |
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.21.1 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.20.12 |
-| https://argoproj.github.io/argo-helm | argocd-apps | 0.0.3 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.22.6 |
+| https://argoproj.github.io/argo-helm | argocd-apps | 0.0.6 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.8.1 |
 
 ## Values
@@ -78,11 +78,11 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.repoServer.initContainers[0].command[0] | string | `"sh"` |  |
 | argo-cd.repoServer.initContainers[0].command[1] | string | `"-ec"` |  |
 | argo-cd.repoServer.initContainers[0].env[0].name | string | `"HELM_SECRETS_VERSION"` |  |
-| argo-cd.repoServer.initContainers[0].env[0].value | string | `"4.1.1"` |  |
+| argo-cd.repoServer.initContainers[0].env[0].value | string | `"4.2.2"` |  |
 | argo-cd.repoServer.initContainers[0].env[1].name | string | `"KUBECTL_VERSION"` |  |
 | argo-cd.repoServer.initContainers[0].env[1].value | string | `"1.25.1"` |  |
 | argo-cd.repoServer.initContainers[0].env[2].name | string | `"VALS_VERSION"` |  |
-| argo-cd.repoServer.initContainers[0].env[2].value | string | `"0.18.0"` |  |
+| argo-cd.repoServer.initContainers[0].env[2].value | string | `"0.21.0"` |  |
 | argo-cd.repoServer.initContainers[0].env[3].name | string | `"SOPS_VERSION"` |  |
 | argo-cd.repoServer.initContainers[0].env[3].value | string | `"3.7.3"` |  |
 | argo-cd.repoServer.initContainers[0].image | string | `"alpine:latest"` |  |
@@ -152,7 +152,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-workflows.controller.metricsConfig.enabled | bool | `true` |  |
 | argo-workflows.controller.serviceMonitor.enabled | bool | `true` |  |
 | argo-workflows.controller.telemetryConfig.enabled | bool | `true` |  |
-| argo-workflows.controller.workflowNamespaces[0] | string | `"shortlink"` |  |
+| argo-workflows.controller.workflowNamespaces | list | `[]` |  |
 | argo-workflows.fullnameOverride | string | `"argo-workflows"` |  |
 | argo-workflows.server.extraArgs[0] | string | `"--basehref"` |  |
 | argo-workflows.server.extraArgs[1] | string | `"/argo/workflows/"` |  |

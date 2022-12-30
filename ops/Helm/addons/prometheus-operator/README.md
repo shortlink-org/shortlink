@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 41.9.1 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 43.2.1 |
 
 ## Values
 
@@ -37,7 +37,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kube-prometheus-stack.alertmanager.enabled | bool | `true` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
 | kube-prometheus-stack.alertmanager.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | kube-prometheus-stack.alertmanager.ingress.enabled | bool | `true` |  |
 | kube-prometheus-stack.alertmanager.ingress.hosts[0] | string | `"shortlink.best"` |  |
@@ -54,7 +54,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kube-prometheus-stack.prometheus.enabled | bool | `true` |  |
 | kube-prometheus-stack.prometheus.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
 | kube-prometheus-stack.prometheus.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | kube-prometheus-stack.prometheus.ingress.enabled | bool | `true` |  |
 | kube-prometheus-stack.prometheus.ingress.hosts[0] | string | `"shortlink.best"` |  |
