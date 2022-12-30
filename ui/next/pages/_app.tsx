@@ -1,27 +1,21 @@
 // @ts-nocheck
 
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import Head from 'next/head'
-import { wrapper } from 'store/store'
-import { Provider } from 'react-redux'
+import {wrapper} from 'store/store'
+import {Provider} from 'react-redux'
 import Fab from '@mui/material/Fab'
-import { AppInitialProps, NextWebVitalsMetric } from 'next/app'
-import { ThemeProvider } from '@mui/material/styles'
-import { ThemeProvider as NextThemeProvider } from 'next-themes'
+import {AppInitialProps, NextWebVitalsMetric} from 'next/app'
+import {StyledEngineProvider, ThemeProvider} from '@mui/material/styles'
+import {ThemeProvider as NextThemeProvider} from 'next-themes'
 import CssBaseline from '@mui/material/CssBaseline'
-import { CacheProvider, EmotionCache } from '@emotion/react'
-import { StyledEngineProvider } from '@mui/material/styles'
+import {CacheProvider, EmotionCache} from '@emotion/react'
 import 'public/assets/styles.css'
 import ScrollTop from 'components/ScrollTop'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-// @ts-ignore
-import {
-  darkTheme,
-  lightTheme,
-  ColorModeContext,
-  createEmotionCache,
-} from '@shortlink-org/ui-kit'
-import { DefaultSeo, SiteLinksSearchBoxJsonLd, LogoJsonLd } from 'next-seo'
+
+import {ColorModeContext, createEmotionCache, darkTheme, lightTheme,} from '@shortlink-org/ui-kit'
+import {DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd} from 'next-seo'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
