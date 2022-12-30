@@ -10,6 +10,7 @@ RUN apk add --no-cache libc6-compat
 RUN npm config set ignore-scripts false
 
 WORKDIR /app
+COPY ./ui/eslint /eslint
 COPY ./ui/landing/package.json ./ui/landing/package-lock.json ./
 
 RUN npm ci --cache .npm --prefer-offline --force
@@ -23,7 +24,6 @@ ENV API_URI=${API_URI}
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
-COPY ./ui/eslint /eslint
 COPY ./ui/landing /app/
 COPY --from=deps /app/node_modules ./node_modules
 
