@@ -137,6 +137,12 @@ deploy:
       drop:
         - ALL
 
+# ==============================================================================
+service:
+  type: ClusterIP
+  ports: []
+
+# ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   # -- Creates a Prometheus Operator ServiceMonitor
