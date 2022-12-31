@@ -55,11 +55,13 @@ spec:
         # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
         imagePullPolicy: {{ .Values.deploy.image.pullPolicy | default "IfNotPresent" }}
         ports:
+        {{- with  .Values.deploy.ports -}}
           {{- range .Values.service.ports }}
           - name: {{ .name }}
             containerPort: {{ .port }}
             protocol: {{ .protocol }}
           {{- end }}
+        {{- end -}}
         {{- include "shortlink-common.probe" .Values.deploy | indent 6 }}
         env:
           {{- range $key, $value := .Values.deploy.env }}
