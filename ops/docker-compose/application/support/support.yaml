@@ -1,0 +1,47 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  support-proxy:
+    <<: *network
+    depends_on:
+      - coredns
+    build:
+      context: .
+      dockerfile: ops/dockerfile/support/support-proxy.Dockerfile
+      cache_from:
+        - support-proxy
+    image: support-proxy
+    container_name: support-proxy
+    ports:
+      - "8080:8080"
+
+  support:
+    <<: *network
+    depends_on:
+      - coredns
+    build:
+      context: .
+      dockerfile: ops/dockerfile/support/support.Dockerfile
+      shm_size: 1gb
+      cache_from:
+        - shortlink-support
+    image: shortlink-support
+    container_name: support
+    restart: on-failure
+    environment:
+      TRACER_URI: jaeger-agent:6831
+    volumes:
+      - type: bind
+        source: ./ops/cert
+        target: /app/ops/cert
+    user: ${CURRENT_UID}
+    ports:
+      - "9000:9000"

@@ -51,10 +51,10 @@ HEALTHCHECK \
   CMD curl -f localhost:8080 || exit 1
 
 # Copy application and custom NGINX configuration
-COPY --from=builder /app/out ./next
 COPY ./ops/dockerfile/conf/nextjs.local /etc/nginx/conf.d/default.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/templates /etc/nginx/template
+COPY --from=builder /app/out ./next
 
 # Setup unprivileged user 1001
 RUN chown -R 1001 /usr/share/nginx/html
