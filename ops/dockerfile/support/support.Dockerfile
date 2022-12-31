@@ -13,6 +13,9 @@ RUN docker-php-ext-install \
         pdo_mysql \
         zip
 
+# Setting module
+COPY ./ops/dockerfile/support/conf/php /usr/local/etc/php/conf.d
+
 # Set the working directory
 WORKDIR /usr/share/nginx/html
 
