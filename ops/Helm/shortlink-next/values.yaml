@@ -45,7 +45,7 @@ ingress:
   path: /next(/|$)(.*)
   service:
     name: shortlink-next
-    port: 80
+    port: 8080
 
 # ==============================================================================
 deploy:
@@ -76,13 +76,13 @@ deploy:
   livenessProbe:
     httpGet:
       path: /live
-      port: 80
+      port: 8080
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
       path: /ready
-      port: 80
+      port: 8080
 
   volumes:
     - name: tmp
@@ -93,7 +93,7 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      port: 80
+      port: 8080
       protocol: TCP
       public: true
 
