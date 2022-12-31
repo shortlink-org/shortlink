@@ -17,6 +17,13 @@ spec:
     targetRevision: HEAD
     helm:
       releaseName: grafana
+      valueFiles:
+        - dashboard.values.yaml
+        - grafana.values.yaml
+        - loki.values.yaml
+        - phlare.values.yaml
+        - promtail.values.yaml
+        - tempo.values.yaml
   syncPolicy:
     automated:
       prune: true
