@@ -57,6 +57,9 @@ ingress:
     match:
       - uri:
           prefix: /infrastructure.rpc.link.v1.LinkService/
+    route:
+      destination:
+        port: 50051
 
 # ==============================================================================
 deploy:

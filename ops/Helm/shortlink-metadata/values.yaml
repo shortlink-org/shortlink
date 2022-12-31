@@ -55,6 +55,9 @@ ingress:
     match:
       - uri:
           prefix: /infrastructure.rpc.metadata.v1.MetadataService/
+    route:
+      destination:
+        port: 50051
 
 # ==============================================================================
 deploy:
