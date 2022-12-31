@@ -1,0 +1,18 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.HPA" }}
+{{- if and .Values.hpa.enabled -}}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  {{- include "shortlink-common.metadata" . | indent 2 }}
+spec:
+  scaleTargetRef:
+    {{- include "shortlink-common.deploymentType" . | indent 4 }}
+    name: {{ .name | default (include "helpers.fullname" .) }}
+  minReplicas: {{ .Values.hpa.minReplicas | default 1 }}
+  maxReplicas: {{ .Values.hpa.maxReplicas | default 5 }}
+  metrics:
+    {{- toYaml .Values.hpa.metrics | nindent 4 }}
+{{- end }}
+{{- end }}
