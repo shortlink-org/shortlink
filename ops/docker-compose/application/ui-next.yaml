@@ -15,14 +15,14 @@ services:
     container_name: ui-next
     ports:
       # HTTP UI
-      - "8080:80"
+      - "8080:8080"
     restart: on-failure
     labels:
       - "traefik.enable=true"
       - "traefik.port=80"
       - "traefik.http.routers.shortlink.rule=Host(`ui.$DOCKER_DOMAIN`)"
-      - "traefik.backend.healthcheck.path=/"
-      - "traefik.backend.healthcheck.port=80"
+      - "traefik.backend.healthcheck.path=/ready"
+      - "traefik.backend.healthcheck.port=8080"
     networks:
       - simple
     dns:

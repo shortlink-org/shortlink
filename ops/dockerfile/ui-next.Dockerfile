@@ -48,7 +48,7 @@ HEALTHCHECK \
   --interval=5s \
   --timeout=5s \
   --retries=3 \
-  CMD curl -f localhost:80 || exit 1
+  CMD curl -f localhost:8080 || exit 1
 
 # Copy application and custom NGINX configuration
 COPY --from=builder /app/out ./next
