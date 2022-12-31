@@ -77,14 +77,6 @@ deploy:
     # -- Default store config
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
 
-  ports:
-    - name: http
-      containerPort: 7070
-      protocol: TCP
-    - name: metrics
-      containerPort: 9090
-      protocol: TCP
-
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/api
     tag: 0.13.5
@@ -98,9 +90,13 @@ NetworkPolicy:
 
 service:
   type: ClusterIP
-  port: 7070
-  # nodePort: 7070
-  # clusterIP: 172.0.0.1
+  ports:
+    - name: http
+      containerPort: 7070
+      protocol: TCP
+    - name: metrics
+      containerPort: 9090
+      protocol: TCP
 
 # Prometheus Operator ServiceMonitor configuration
 monitoring:

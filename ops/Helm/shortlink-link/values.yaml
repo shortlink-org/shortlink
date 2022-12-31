@@ -81,8 +81,6 @@ deploy:
 
 service:
   type: ClusterIP
-  # clusterIP: 172.0.0.1
-
   ports:
     - name: grpc
       port: 50051
