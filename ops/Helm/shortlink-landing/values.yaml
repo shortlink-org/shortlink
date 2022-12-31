@@ -69,15 +69,6 @@ deploy:
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
     pullPolicy: Always
 
-  # -- Node labels and tolerations for pod assignment
-  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
-  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-  nodeSelector: []
-
-  tolerations: []
-
-  affinity: []
-
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
