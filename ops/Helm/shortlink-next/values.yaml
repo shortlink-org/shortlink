@@ -30,7 +30,7 @@ serviceAccount:
 
 # ==============================================================================
 ingress:
-  enabled: false
+  enabled: true
   type: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
@@ -47,13 +47,13 @@ ingress:
     name: shortlink-next
     port: 8080
 
-  istio:
-    match:
-      - uri:
-          prefix: /next
-    route:
-      destination:
-        port: 8080
+  # istio:
+  #  match:
+  #    - uri:
+  #        prefix: /next
+  #  route:
+  #    destination:
+  #      port: 8080
 
 # ==============================================================================
 deploy:
