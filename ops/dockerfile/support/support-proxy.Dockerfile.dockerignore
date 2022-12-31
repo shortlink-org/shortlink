@@ -1,0 +1,8 @@
+.*
+docs
+ops
+*.yml
+
+# Exclude
+!ops/dockerfile/support/conf/*
+!ops/docker-compose/gateway/nginx
