@@ -51,6 +51,11 @@ ingress:
   # type ingress-controller: istio
   type: istio
 
+  istio:
+    match:
+      - uri:
+          prefix: /infrastructure.rpc.metadata.v1.MetadataService/
+
 # ==============================================================================
 deploy:
   replicaCount: 1
