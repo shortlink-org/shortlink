@@ -18,7 +18,7 @@ HEALTHCHECK \
   --interval=5s \
   --timeout=5s \
   --retries=3 \
-  CMD curl -f localhost:8080 || exit 1
+  CMD curl -f localhost:8080/ready || exit 1
 
 # Copy application and custom NGINX configuration
 COPY ./ops/dockerfile/support/conf/nginx/default.conf /etc/nginx/conf.d/default.conf
