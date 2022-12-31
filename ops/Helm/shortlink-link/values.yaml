@@ -53,6 +53,10 @@ ingress:
   enabled: true
   # type ingress-controller: istio
   type: istio
+  istio:
+    match:
+      - uri:
+          prefix: /infrastructure.rpc.link.v1.LinkService/
 
 # ==============================================================================
 deploy:

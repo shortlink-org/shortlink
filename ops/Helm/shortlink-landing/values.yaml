@@ -45,6 +45,14 @@ ingress:
     name: shortlink-landing
     port: 8080
 
+  istio:
+    match:
+      - uri:
+          prefix: /
+    route:
+      destination:
+        port: 8080
+
 deploy:
   replicaCount: 1
 

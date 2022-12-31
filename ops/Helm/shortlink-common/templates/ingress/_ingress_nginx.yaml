@@ -14,6 +14,18 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"
     nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "20"
 
+    {{/* rate limits */}}
+    nginx.ingress.kubernetes.io/limit-connections: "1000"
+    nginx.ingress.kubernetes.io/limit-rpm: "100000"
+    nginx.ingress.kubernetes.io/limit-rps: "10000"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    nginx.ingress.kubernetes.io/limit-rate: "100k"
+    nginx.ingress.kubernetes.io/limit-rate-after: "1m"
+
+    {{/* timeouts */}}
+
+
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:

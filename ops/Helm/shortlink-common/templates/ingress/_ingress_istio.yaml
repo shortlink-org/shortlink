@@ -1,0 +1,53 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.istioIngress" }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  {{- include "shortlink-common.metadata" . | indent 2 }}
+spec:
+  hosts:
+    - "*"
+  gateways:
+    # prefer the <namespace>/<name> format
+    - istio-ingress/istio-ingress
+  http:
+    - match:
+        {{- toYaml .Values.ingress.istio.match | nindent 8 }}
+      route:
+        - destination:
+            host: {{ include "helpers.fullname" . }}
+            port:
+              number: {{ .Values.ingress.istio.route.destination.port | default 50051 }}
+      retries:
+        attempts: 3
+        perTryTimeout: 2s
+        retryOn: "gateway-error,connect-failure,refused-stream,503"
+      timeout: 10s
+
+---
+
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  {{- include "shortlink-common.metadata" . | indent 2 }}
+spec:
+  host:
+    - "*"
+  trafficPolicy:
+    connectionPool:
+      tcp:
+        connectTimeout: 100ms
+        maxConnections: 1000
+      http:
+        http1MaxPendingRequests: 1000
+        http2MaxRequests: 1000
+        maxRequestsPerConnection: 20
+        maxRetries: 5
+    outlierDetection:
+      consecutive5xxErrors: 7
+      interval: 10s
+      baseEjectionTime: 3m
+      maxEjectionPercent: 100
+      minHealthPercent: 50
+{{- end }}
