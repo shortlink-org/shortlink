@@ -116,3 +116,11 @@ kube-prometheus-stack:
   coreDns:
     # disable for GKE
     enabled: true
+
+prometheus-adapter:
+  enabled: true
+
+  fullnameOverride: prometheus-adapter
+
+  prometheus:
+    url: prometheus-operator.prometheus-operator
