@@ -9,6 +9,11 @@ metadata:
     {{- include "helpers.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
+    {{/* retry policies */}}
+    nginx.ingress.kubernetes.io/proxy-next-upstream: "error timeout http_502 http_503 http_504"
+    nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"
+    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "20"
+
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
