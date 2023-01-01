@@ -4,7 +4,7 @@ kind: Secret
 metadata:
   name: {{ include "helpers.fullname" . }}-grpc
   labels:
-    {{ include "helpers.labels" . | nindent 4 }}
+    {{- include "helpers.labels" . | nindent 4 }}
 type: Opaque
 data:
   shortlink-server.pem: |
