@@ -2,6 +2,6 @@
 
 {{ include "shortlink-common.ServiceAccount" . }}
 
-{{ template "shortlink-common.Deployment" . }}
+{{ include "shortlink-common.Deployment" . }}
 
-{{ template "shortlink-common.Service" . }}
+{{ include "shortlink-common.Service" . }}
