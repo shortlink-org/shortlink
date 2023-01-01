@@ -26,7 +26,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-      serviceAccountName: {{ template "helpers.serviceAccountName" . }}
+      serviceAccountName: {{ template "shortlink-common.serviceAccountName" . }}
       securityContext:
         # -- fsGroup is the group ID associated with the container
         fsGroup: 1000
