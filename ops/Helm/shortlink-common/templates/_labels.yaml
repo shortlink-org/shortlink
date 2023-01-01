@@ -13,5 +13,5 @@ track: stable
 {{- end -}}
 
 {{- define "shortlink-common.matchLabels" }}
-{{- include "common.labels.matchLabels" . }}
+{{ include "common.labels.matchLabels" . }}
 {{- end }}
