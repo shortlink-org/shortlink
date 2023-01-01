@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio
+  name: kiali-operator
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -16,7 +16,7 @@ spec:
     repoURL: 'https://github.com/batazor/shortlink'
     targetRevision: HEAD
     helm:
-      releaseName: istio
+      releaseName: kiali-operator
   syncPolicy:
     automated:
       prune: true
