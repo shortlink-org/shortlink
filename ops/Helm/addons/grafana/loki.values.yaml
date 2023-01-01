@@ -1,2 +1,9 @@
 loki:
   enabled: true
+
+  write:
+    replicas: 1
+
+  read:
+    replicas: 1
+
