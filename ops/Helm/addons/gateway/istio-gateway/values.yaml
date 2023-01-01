@@ -1,46 +1,3 @@
-base:
-  enabled: true
-
-istiod:
-  enabled: true
-
-  global:
-    logAsJson: true
-
-    istiod:
-      enableAnalysis: true
-
-    tracer:
-      zipkin:
-        address: grafana-tempo.grafana:9411
-
-  ## Discovery Settings
-  pilot:
-    env:
-      PILOT_ENABLE_INBOUND_PASSTHROUGH: "false"
-      PILOT_ENABLE_HBONE: "true"
-      ENABLE_ENHANCED_RESOURCE_SCOPING: "true"
-
-  # meshConfig defines runtime configuration of components, including Istiod and istio-agent behavior
-  # See https://istio.io/docs/reference/config/istio.mesh.v1alpha1/ for all available options
-  meshConfig:
-    discoverySelectors:
-      - matchLabels:
-          istio-discovery: enabled
-    defaultConfig:
-      proxyMetadata:
-        ISTIO_META_ENABLE_HBONE: "true"
-
-
-  telemetry:
-    v2:
-      prometheus:
-        enabled: true
-        wasmEnabled: true
-        configOverride:
-          scrapeInterval: 15s
-          scrapeTimeout: 10s
-
 istio-ingress:
   enabled: true
 
@@ -68,18 +25,3 @@ gateway:
   global:
     logAsJson: true
 
-kiali-operator:
-  enabled: false
-
-  cr:
-    create: true
-    namespace: istio-system
-
-    spec:
-      auth:
-        strategy: "token"
-      deployment:
-        accessible_namespaces: [ "shortlink" ]
-        view_only_mode: false
-      server:
-        web_root: "/kiali"
