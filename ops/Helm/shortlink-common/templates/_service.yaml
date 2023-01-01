@@ -1,6 +1,7 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{- define "shortlink-common.service" }}
+---
 apiVersion: v1
 kind: Service
 metadata:

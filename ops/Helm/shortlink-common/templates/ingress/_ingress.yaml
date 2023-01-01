@@ -1,9 +1,12 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{- define "shortlink-common.Ingress" }}
-{{- if and .Values.ingress.enabled (eq .Values.ingress.type "nginx") -}}
+{{- if and .Values.ingress.enabled }}
+---
+{{- if (eq .Values.ingress.type "nginx") -}}
 {{ template "shortlink-common.nginxIngress" . }}
-{{- else if and .Values.ingress.enabled (eq .Values.ingress.type "istio") -}}
+{{- else if and (eq .Values.ingress.type "istio") -}}
 {{ template "shortlink-common.istioIngress" . }}
+{{- end }}
 {{- end }}
 {{- end }}
