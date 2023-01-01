@@ -1,11 +1,17 @@
 {{/* vim: set filetype=mustache: */}}
 
-{{- define "shortlink-common.label" }}
-
+{{/*
+Common labels
+*/}}
+{{- define "helpers.labels" -}}
+{{- include "common.labels.standard" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
+app.kubernetes.io/part-of: shortlink
+track: stable
+{{- end -}}
 
 {{- define "shortlink-common.matchLabels" }}
-  app.kubernetes.io/name: {{ include "helpers.name" . }}
-  app.kubernetes.io/instance: {{ .Release.Name }}
-  app.kubernetes.io/component: {{ .Chart.Name }}
+{{- include "common.labels.matchLabels" . }}
 {{- end }}
