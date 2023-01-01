@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: istio-system
+  name: istio-ingress
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,14 +9,14 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: istio-system
+    namespace: istio-ingress
     server: 'https://kubernetes.default.svc'
   source:
     path: ops/Helm/addons/gateway/istio-gateway
     repoURL: 'https://github.com/batazor/shortlink'
     targetRevision: HEAD
     helm:
-      releaseName: istio-system
+      releaseName: istio-ingress
   syncPolicy:
     automated:
       prune: true
