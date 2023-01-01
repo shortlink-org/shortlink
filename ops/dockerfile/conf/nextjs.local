@@ -9,6 +9,7 @@ server {
     gzip_types text/css application/javascript image/svg+xml;
 
     root   /usr/share/nginx/html;
+    index index.html;
 
     location ~* \.(?:ico|gif|jpe?g|png|woff2?|eot|otf|ttf|svg|js|css)$ {
       try_files $uri $uri/;
