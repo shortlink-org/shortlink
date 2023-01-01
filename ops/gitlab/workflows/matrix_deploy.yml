@@ -13,12 +13,6 @@
 .matrix_deploy_application:
   parallel:
     matrix:
-      - RELEASE_NAME: ${CI_PROJECT_NAME}-bot
-        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-bot
-        REGISTRY: ${CI_REGISTRY_IMAGE}/bot
-        HELM_ARG: --set serviceAccount.create=false --set deploy.env.TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
-        HELM_NAMESPACE: ${CI_PROJECT_NAME}
-
       - RELEASE_NAME: ${CI_PROJECT_NAME}-landing
         HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-landing
         REGISTRY: ${CI_REGISTRY_IMAGE}/landing
