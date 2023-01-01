@@ -108,20 +108,12 @@ deploy:
     httpGet:
       path: /live
       port: 9090
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 1
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
       path: /ready
       port: 9090
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 30
 
   resources:
     # -- We usually recommend not to specify default resources and to leave this as a conscious
@@ -157,9 +149,11 @@ deploy:
 
 service:
   type: ClusterIP
-  port: 50051
-  # nodePort: 7070
-  # clusterIP: 172.0.0.1
+  ports:
+    - name: grpc
+      port: 50051
+      protocol: TCP
+      public: true
 
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
