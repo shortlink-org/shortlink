@@ -3,10 +3,8 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ include "helpers.fullname" . }}
-  labels: {{ include "helpers.labels" . | nindent 4 }}
-    {{- if .Values.commonLabels }}
-    {{- include "common.tplvalues.render" (dict "value" .Values.commonLabels "context" $) | nindent 4 }}
-    {{- end }}
+  labels:
+    {{- include "helpers.labels" . | nindent 4 }}
     {{- if .Values.monitoring.labels }}
     {{- include "common.tplvalues.render" ( dict "value" .Values.monitoring.labels "context" $ ) | nindent 4 }}
     {{- end }}
