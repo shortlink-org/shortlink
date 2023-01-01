@@ -26,7 +26,7 @@ spec:
     {{- end -}}
     {{- end }}
   selector:
-    {{- include "shortlink-common.matchLabels" . | indent 2 }}
+    {{- include "shortlink-common.matchLabels" . | indent 4 }}
 {{- end }}
 
 {{- define "shortlink-common.Service" }}
