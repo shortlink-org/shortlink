@@ -10,12 +10,12 @@ metadata:
   {{- with .Values.ingress.annotations }}
   annotations:
     {{/* retry policies */}}
-    nginx.ingress.kubernetes.io/proxy-next-upstream: "error timeout http_502 http_503 http_504"
-    nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"
-    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "20"
+    {{/*    nginx.ingress.kubernetes.io/proxy-next-upstream: "error timeout http_502 http_503 http_504"*/}}
+    {{/*    nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"*/}}
+    {{/*    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "20"*/}}
 
     {{/* rate limits */}}
-    {{/*  Disabled: details - https://github.com/kubernetes/ingress-nginx/issues/9323  */}}
+    {{/*  TODO: Disabled: details - https://github.com/kubernetes/ingress-nginx/issues/9323  */}}
     {{/*    nginx.ingress.kubernetes.io/limit-connections: "1000"*/}}
     {{/*    nginx.ingress.kubernetes.io/limit-rpm: "100000"*/}}
     {{/*    nginx.ingress.kubernetes.io/limit-rps: "10000"*/}}
