@@ -28,6 +28,7 @@ spec:
       syncPolicy:
         automated:
           prune: true
+          allowEmpty: true
           selfHeal: true
   syncPolicy:
     preserveResourcesOnDeletion: true
