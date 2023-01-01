@@ -1,0 +1,865 @@
+---
+# Source: shortlink-api/templates/poddisruptionbudget.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: test-shortlink-api
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: shortlink-api
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: api
+---
+# Source: shortlink-api/charts/kratos/templates/rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kratos
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: shortlink-api/templates/base.yaml
+apiVersion: v1
+kind: ServiceAccount
+---
+# Source: shortlink-api/charts/kratos/templates/configmap-config.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kratos-config
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+data:
+  # Render the kratos config:
+  "kratos.yaml": |
+    courier:
+      smtp:
+        from_address: no-reply@shortlink.com
+    hashers:
+      argon2:
+        iterations: 2
+        key_length: 16
+        memory: 128MB
+        parallelism: 1
+        salt_length: 16
+    identity:
+      default_schema_id: default
+      schemas:
+      - id: default
+        url: file:///etc/config/identity.default.schema.json
+    log:
+      format: json
+      leak_sensitive_values: true
+      level: info
+    selfservice:
+      allowed_return_urls:
+      - '*'
+      - http://*
+      - https://*
+      default_browser_return_url: https://shortlink.best
+      flows:
+        error:
+          ui_url: https://shortlink.best/next/error
+        login:
+          lifespan: 10m
+          ui_url: https://shortlink.best/next
+        logout:
+          after:
+            default_browser_return_url: https://shortlink.best/next/auth/login
+        recovery:
+          enabled: true
+          ui_url: https://shortlink.best/next/auth/recovery
+        registration:
+          after:
+            oidc:
+              hooks:
+              - hook: session
+            password:
+              hooks:
+              - hook: session
+          lifespan: 10m
+          ui_url: https://shortlink.best/next/auth/registration
+        settings:
+          privileged_session_max_age: 15m
+          ui_url: https://shortlink.best/next/user/profile
+        verification:
+          after:
+            default_browser_return_url: https://shortlink.best/next
+          enabled: true
+          ui_url: https://shortlink.best/next/auth/verification
+      methods:
+        link:
+          enabled: true
+        oidc:
+          config:
+            providers:
+            - client_id: '....'
+              client_secret: '....'
+              id: github
+              mapper_url: file:///etc/config/kratos/oidc.github.jsonnet
+              provider: github
+              scope:
+              - user:email
+            - client_id: '....'
+              client_secret: '....'
+              id: gitlab
+              mapper_url: file:///etc/config/kratos/oidc.gitlab.jsonnet
+              provider: gitlab
+              scope:
+              - read_user
+              - openid
+              - profile
+              - email
+          enabled: true
+        password:
+          enabled: true
+        profile:
+          enabled: true
+    serve:
+      admin:
+        base_url: http://127.0.0.1:4434/
+        port: 4434
+      public:
+        base_url: https://shortlink.best/api/auth
+        cors:
+          allow_credentials: true
+          allowed_headers:
+          - Authorization
+          - Cookie
+          - Content-Type
+          - Set-Cookie
+          allowed_methods:
+          - POST
+          - GET
+          - PUT
+          - PATCH
+          - DELETE
+          allowed_origins:
+          - http://127.0.0.1:3000
+          - https://shortlink.best
+          debug: true
+          enabled: true
+        port: 4433
+    session:
+      cookie:
+        domain: https://shortlink.best
+        same_site: Lax
+      lifespan: 720h
+  # Render the identity schemas to disk:
+  identity.default.schema.json: |
+    {
+      "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Person",
+      "type": "object",
+      "properties": {
+        "traits": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email",
+              "title": "E-Mail",
+              "minLength": 3,
+              "ory.sh/kratos": {
+                "credentials": {
+                  "password": {
+                    "identifier": true
+                  }
+                },
+                "verification": {
+                  "via": "email"
+                },
+                "recovery": {
+                  "via": "email"
+                }
+              }
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "first": {
+                  "title": "First Name",
+                  "type": "string"
+                },
+                "last": {
+                  "title": "Last Name",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": [
+            "email"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+---
+# Source: shortlink-api/charts/kratos/templates/service-admin.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kratos-admin
+  namespace: default
+  labels:
+    app.kubernetes.io/component: admin
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http-admin
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: kratos
+    app.kubernetes.io/instance: test
+---
+# Source: shortlink-api/charts/kratos/templates/service-public.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kratos-public
+  namespace: default
+  labels:
+    app.kubernetes.io/component: public
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http-public
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: kratos
+    app.kubernetes.io/instance: test
+---
+# Source: shortlink-api/charts/kratos/templates/statefulset-svc.yaml
+# Headless Service for StatefulSet. See https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#limitations 
+# and https://kubernetes.io/docs/concepts/services-networking/service/#headless-services for details.
+apiVersion: v1
+kind: Service
+metadata:
+  name: kratos-courier
+  namespace: default
+  labels:
+    app.kubernetes.io/component: courier
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+spec:
+  clusterIP: None
+  ports:
+    - port: 80
+      targetPort: http-public
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: kratos-courier
+    app.kubernetes.io/instance: test
+---
+# Source: shortlink-api/charts/kratos/templates/deployment-kratos.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kratos
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+spec:
+  progressDeadlineSeconds: 3600
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 30%
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kratos
+      app.kubernetes.io/instance: test
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kratos
+        helm.sh/chart: kratos-0.26.5
+        app.kubernetes.io/instance: test
+        app.kubernetes.io/version: "v0.10.1"
+        app.kubernetes.io/managed-by: Helm
+      annotations:        
+        checksum/kratos-config: 4aacaeff3b39f321f7f06fd45b26c2c55f0c53fbf16b9092f31cc716add8a6d3
+        checksum/kratos-templates: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        checksum/kratos-secrets: be763ce48c3be536b9b54d1ee6f78739228a8ed42847618a1898abb835349580
+    spec:
+      initContainers:
+      volumes:
+        - name: kratos-config-volume
+          configMap:
+            name: kratos-config
+      automountServiceAccountToken: true
+      serviceAccountName: kratos
+      containers:
+        - name: kratos
+          image: oryd/kratos:v0.10.1
+          imagePullPolicy: IfNotPresent
+          command:
+            - kratos
+          args:
+            - serve
+            - all
+            - --dev
+            - --config
+            - /etc/config/kratos.yaml
+          volumeMounts:
+            - name: kratos-config-volume
+              mountPath: /etc/config
+              readOnly: true
+          env:
+            - name: DSN
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: dsn
+            - name: SECRETS_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: secretsDefault
+                  optional: true
+            - name: SECRETS_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: secretsCookie
+                  optional: true
+            - name: SECRETS_CIPHER
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: secretsCipher
+                  optional: true
+            - name: COURIER_SMTP_CONNECTION_URI
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: smtpConnectionURI
+          ports:
+            - name: http-admin
+              containerPort: 4434
+              protocol: TCP
+            - name: http-public
+              containerPort: 4433
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /admin/health/ready
+              port: 4434
+              httpHeaders:
+                - name: Host
+                  value: '127.0.0.1'
+            failureThreshold: 5
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /admin/health/ready
+              port: 4434
+              httpHeaders:
+                - name: Host
+                  value: '127.0.0.1'
+            failureThreshold: 5
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /admin/health/ready
+              port: 4434
+              httpHeaders:
+                - name: Host
+                  value: '127.0.0.1'
+            failureThreshold: 60
+            periodSeconds: 1
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            null
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 100
+---
+# Source: shortlink-api/charts/kratos/templates/statefulset-mail.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kratos-courier
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kratos-courier
+      app.kubernetes.io/instance: test
+  serviceName: kratos-courier
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kratos-courier
+        app.kubernetes.io/instance: test
+      annotations:        
+        checksum/kratos-config: 4aacaeff3b39f321f7f06fd45b26c2c55f0c53fbf16b9092f31cc716add8a6d3
+        checksum/kratos-templates: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        checksum/kratos-secrets: 67d337ab9807af476d36c0da1193cd1985447bbbf33cf5288eea0e40e64fe5c2
+    spec:
+      serviceAccountName: kratos
+      containers:
+        - name: kratos-courier
+          image: oryd/kratos:v0.10.1
+          imagePullPolicy: IfNotPresent
+          args:
+            - courier
+            - watch 
+            - --config
+            - /etc/config/kratos.yaml
+          volumeMounts:
+            - name: kratos-config-volume
+              mountPath: /etc/config
+              readOnly: true
+          env:
+            - name: LOG_FORMAT
+              value: json
+            - name: LOG_LEVEL
+              value: trace
+            - name: DSN
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: dsn
+            - name: SECRETS_DEFAULT
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: secretsDefault
+                  optional: true
+            - name: SECRETS_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: secretsCookie
+                  optional: true
+            - name: SECRETS_CIPHER
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: secretsCipher
+                  optional: true
+            - name: COURIER_SMTP_CONNECTION_URI
+              valueFrom:
+                secretKeyRef:
+                  name: kratos
+                  key: smtpConnectionURI
+          resources:
+            null
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 100
+      volumes:
+        - name: kratos-config-volume
+          configMap:
+            name: kratos-config
+---
+# Source: shortlink-api/charts/kratos/templates/ingress-public.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kratos-public
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-production
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/enable-opentracing: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "shortlink.best"
+      secretName: shortlink-ingress-tls
+  rules:
+    - host: "shortlink.best"
+      http:
+        paths:
+          - path: /api/auth\/(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: kratos-public
+                port:
+                  name: http
+---
+# Source: shortlink-api/charts/kratos/templates/job-rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kratos-job
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    helm.sh/hook: pre-install, pre-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation
+    helm.sh/hook-weight: "0"
+---
+# Source: shortlink-api/charts/kratos/templates/secrets.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kratos
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    helm.sh/hook: pre-install, pre-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation
+    helm.sh/hook-weight: "0"
+    helm.sh/resource-policy: keep
+type: Opaque
+data:
+  dsn: "bWVtb3J5"
+  # Generate a random secret if the user doesn't give one. User given secret has priority
+  secretsDefault: "c01nZWpteDFlNkdVMTFkWGpMWXd5bWNTWTFLQkZ5N0U="
+  secretsCookie: "UExFQVNFLUNIQU5HRS1NRS1JLUFNLVZFUlktSU5TRUNVUkU="
+  secretsCipher: "T2NxV21Ick8yRDVvNHZDV0l2TVFwRHh6M2xuVnVjY0w="
+  smtpConnectionURI: "c210cHM6Ly90ZXN0OnRlc3RAbWFpbHNsdXJwZXI6MTAyNS8/c2tpcF9zc2xfdmVyaWZ5PXRydWU="
+---
+# Source: shortlink-api/charts/kratos/templates/configmap-migrate.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kratos-migrate
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    helm.sh/hook-weight: "0"
+    helm.sh/hook: "pre-install, pre-upgrade"
+    helm.sh/hook-delete-policy: "before-hook-creation"
+data:
+  # Render the kratos config:
+  "kratos.yaml": |
+    courier:
+      smtp:
+        from_address: no-reply@shortlink.com
+    hashers:
+      argon2:
+        iterations: 2
+        key_length: 16
+        memory: 128MB
+        parallelism: 1
+        salt_length: 16
+    identity:
+      default_schema_id: default
+      schemas:
+      - id: default
+        url: file:///etc/config/identity.default.schema.json
+    log:
+      format: json
+      leak_sensitive_values: true
+      level: info
+    selfservice:
+      allowed_return_urls:
+      - '*'
+      - http://*
+      - https://*
+      default_browser_return_url: https://shortlink.best
+      flows:
+        error:
+          ui_url: https://shortlink.best/next/error
+        login:
+          lifespan: 10m
+          ui_url: https://shortlink.best/next
+        logout:
+          after:
+            default_browser_return_url: https://shortlink.best/next/auth/login
+        recovery:
+          enabled: true
+          ui_url: https://shortlink.best/next/auth/recovery
+        registration:
+          after:
+            oidc:
+              hooks:
+              - hook: session
+            password:
+              hooks:
+              - hook: session
+          lifespan: 10m
+          ui_url: https://shortlink.best/next/auth/registration
+        settings:
+          privileged_session_max_age: 15m
+          ui_url: https://shortlink.best/next/user/profile
+        verification:
+          after:
+            default_browser_return_url: https://shortlink.best/next
+          enabled: true
+          ui_url: https://shortlink.best/next/auth/verification
+      methods:
+        link:
+          enabled: true
+        oidc:
+          config:
+            providers:
+            - client_id: '....'
+              client_secret: '....'
+              id: github
+              mapper_url: file:///etc/config/kratos/oidc.github.jsonnet
+              provider: github
+              scope:
+              - user:email
+            - client_id: '....'
+              client_secret: '....'
+              id: gitlab
+              mapper_url: file:///etc/config/kratos/oidc.gitlab.jsonnet
+              provider: gitlab
+              scope:
+              - read_user
+              - openid
+              - profile
+              - email
+          enabled: true
+        password:
+          enabled: true
+        profile:
+          enabled: true
+    serve:
+      admin:
+        base_url: http://127.0.0.1:4434/
+        port: 4434
+      public:
+        base_url: https://shortlink.best/api/auth
+        cors:
+          allow_credentials: true
+          allowed_headers:
+          - Authorization
+          - Cookie
+          - Content-Type
+          - Set-Cookie
+          allowed_methods:
+          - POST
+          - GET
+          - PUT
+          - PATCH
+          - DELETE
+          allowed_origins:
+          - http://127.0.0.1:3000
+          - https://shortlink.best
+          debug: true
+          enabled: true
+        port: 4433
+    session:
+      cookie:
+        domain: https://shortlink.best
+        same_site: Lax
+      lifespan: 720h
+  # Render the identity schemas to disk:
+  identity.default.schema.json: |
+    {
+      "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Person",
+      "type": "object",
+      "properties": {
+        "traits": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "format": "email",
+              "title": "E-Mail",
+              "minLength": 3,
+              "ory.sh/kratos": {
+                "credentials": {
+                  "password": {
+                    "identifier": true
+                  }
+                },
+                "verification": {
+                  "via": "email"
+                },
+                "recovery": {
+                  "via": "email"
+                }
+              }
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "first": {
+                  "title": "First Name",
+                  "type": "string"
+                },
+                "last": {
+                  "title": "Last Name",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": [
+            "email"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+---
+# Source: shortlink-api/charts/kratos/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "kratos-test-connection"
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['kratos-admin:80/admin/health/ready']
+  restartPolicy: Never
+---
+# Source: shortlink-api/charts/kratos/templates/job-migration.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kratos-automigrate
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kratos
+    helm.sh/chart: kratos-0.26.5
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.10.1"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    helm.sh/hook: pre-install, pre-upgrade
+    helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+    helm.sh/hook-weight: "1"
+spec:
+  template:
+    metadata: 
+      annotations:
+        helm.sh/hook: pre-install, pre-upgrade
+        helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
+        helm.sh/hook-weight: "1"
+      labels:
+        app.kubernetes.io/name: kratos-automigrate
+        app.kubernetes.io/instance: test
+    spec:
+      serviceAccountName: kratos-job
+      automountServiceAccountToken: true
+      containers:
+      - name: kratos-automigrate
+        image: oryd/kratos:v0.10.1
+        imagePullPolicy: IfNotPresent
+        command: ["kratos"]
+        args: ["migrate", "sql", "-e", "--yes", "--config", "/etc/config/kratos.yaml"]
+        env:
+          - name: DSN
+            valueFrom:
+              secretKeyRef:
+                name: kratos
+                key: dsn
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 100
+        volumeMounts:
+          - name: kratos-config-volume
+            mountPath: /etc/config
+            readOnly: true
+      restartPolicy: Never
+      volumes:
+        - name: kratos-config-volume
+          configMap:
+            name: kratos-migrate
+      shareProcessNamespace: false
+  backoffLimit: 10

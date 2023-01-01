@@ -1,0 +1,10 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{ include "shortlink-common.ServiceAccount" . }}
+
+{{ include "shortlink-common.Deployment" . }}
+
+{{ include "shortlink-common.Ingress" . }}
+
+{{ include "shortlink-common.Service" . }}
+
