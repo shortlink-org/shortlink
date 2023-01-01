@@ -1,0 +1,15 @@
+kiali-operator:
+  enabled: false
+
+  cr:
+    create: true
+    namespace: istio-system
+
+    spec:
+      auth:
+        strategy: "token"
+      deployment:
+        accessible_namespaces: [ "shortlink" ]
+        view_only_mode: false
+      server:
+        web_root: "/kiali"
