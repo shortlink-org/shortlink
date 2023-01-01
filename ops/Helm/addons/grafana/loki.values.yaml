@@ -3,7 +3,11 @@ loki:
 
   write:
     replicas: 1
+    persistence:
+      storageClass: "-"
 
   read:
     replicas: 1
+    persistence:
+      storageClass: "-"
 
