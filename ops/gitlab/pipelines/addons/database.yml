@@ -1,0 +1,14 @@
+# DATABASE =============================================================================================================
+redis:
+  stage: addons
+  variables:
+    RELEASE_NAME: redis
+    HELM_PATH: ops/Helm/addons/store/redis
+    HELM_NAMESPACE: redis
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
