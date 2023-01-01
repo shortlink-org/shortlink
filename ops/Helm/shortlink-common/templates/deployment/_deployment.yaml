@@ -2,7 +2,7 @@
 
 {{- define "shortlink-common.Deployment" }}
 ---
-{{- include "shortlink-common.deploymentType" . }}
+{{ include "shortlink-common.deploymentType" . }}
 metadata:
   {{- include "shortlink-common.metadata" . }}
 spec:
