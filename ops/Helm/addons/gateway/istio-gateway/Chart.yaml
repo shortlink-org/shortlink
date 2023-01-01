@@ -14,17 +14,10 @@ engine: gotpl
 type: application                                # It is the type of chart (optional)
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
-  - name: base
+  - name: gateway
     version: 1.16.1
     repository: https://istio-release.storage.googleapis.com/charts
-    condition: base.enabled
+    condition: istio-ingress.enabled
     tags:
       - istio
-      - base
-  - name: istiod
-    version: 1.16.1
-    repository: https://istio-release.storage.googleapis.com/charts
-    condition: istiod.enabled
-    tags:
-      - istio
-      - istiod
+      - gateway

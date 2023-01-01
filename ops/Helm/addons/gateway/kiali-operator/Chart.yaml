@@ -14,17 +14,9 @@ engine: gotpl
 type: application                                # It is the type of chart (optional)
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
-  - name: base
-    version: 1.16.1
-    repository: https://istio-release.storage.googleapis.com/charts
-    condition: base.enabled
+  - name: kiali-operator
+    version: 1.61.0
+    repository: https://kiali.org/helm-charts
+    condition: kiali-operator.enabled
     tags:
-      - istio
-      - base
-  - name: istiod
-    version: 1.16.1
-    repository: https://istio-release.storage.googleapis.com/charts
-    condition: istiod.enabled
-    tags:
-      - istio
-      - istiod
+      - kiali
