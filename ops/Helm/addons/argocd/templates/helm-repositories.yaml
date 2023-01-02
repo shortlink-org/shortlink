@@ -107,3 +107,17 @@ stringData:
   name: chaos-mesh
   url: https://charts.chaos-mesh.org
   type: helm
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: external-secrets
+  namespace: {{ .Release.Namespace }}
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  name: external-secrets
+  url: https://charts.external-secrets.io
+  type: helm
