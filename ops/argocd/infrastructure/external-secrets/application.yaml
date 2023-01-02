@@ -14,7 +14,7 @@ spec:
   source:
     chart: external-secrets
     repoURL: https://emberstack.github.io/helm-charts
-    targetRevision: v0.7.0
+    targetRevision: 0.7.0
     helm:
       releaseName: external-secrets
   syncPolicy:
