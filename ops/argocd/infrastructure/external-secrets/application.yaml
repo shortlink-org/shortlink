@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: reflector
+  name: external-secrets
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,14 +9,14 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: reflector
+    namespace: external-secrets
     server: 'https://kubernetes.default.svc'
   source:
-    chart: reflector
+    chart: external-secrets
     repoURL: https://emberstack.github.io/helm-charts
-    targetRevision: v0.13.2
+    targetRevision: v0.7.0
     helm:
-      releaseName: reflector
+      releaseName: external-secrets
   syncPolicy:
     automated:
       prune: true
