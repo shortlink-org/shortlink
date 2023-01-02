@@ -1,0 +1,15 @@
+name: Fossa
+
+on:
+  push:
+    branches:
+      - main  # Set a branch to deploy
+
+jobs:
+  fossa-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: fossas/fossa-action@main # Use a specific version if locking is preferred
+        with:
+          api-key: ${{secrets.fossaApiKey}}
