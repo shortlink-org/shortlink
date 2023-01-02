@@ -106,6 +106,7 @@ service:
     - name: http
       port: 7070
       protocol: TCP
+      public: true
     - name: metrics
       port: 9090
       protocol: TCP
