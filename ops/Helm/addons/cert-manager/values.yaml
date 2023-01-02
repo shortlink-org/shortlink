@@ -11,8 +11,8 @@ cert-manager:
 
   installCRDs: true
 
-  extraArgs:
-    - --controllers='*\,-certificaterequests-approver'
+#  extraArgs:
+#    - --controllers='*\,-certificaterequests-approver'
 
   prometheus:
     enabled: true
