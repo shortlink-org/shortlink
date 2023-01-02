@@ -17,12 +17,12 @@
 - name: MQ_RABBIT_USERNAME
   valueFrom:
     secretKeyRef:
-      name: shortlink-default-user.rabbitmq
+      name: shortlink-default-user
       key: username
 - name: MQ_RABBIT_PASSPORT
   valueFrom:
     secretKeyRef:
-      name: shortlink-default-user.rabbitmq
+      name: shortlink-default-user
       key: password
 - name: MQ_RABBIT_URI
   value: amqp://$(MQ_RABBIT_USERNAME):$(MQ_RABBIT_PASSPORT)@shortlink.rabbitmq:5672

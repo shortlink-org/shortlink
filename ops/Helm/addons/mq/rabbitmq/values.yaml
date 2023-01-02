@@ -14,6 +14,10 @@ rabbitmq-cluster-operator:
 
   fullnameOverride: rabbitmq
 
+  commonAnnotations:
+    reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+    reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "shortlink"
+
   clusterOperator:
     # disabled because we have issue: https://github.com/bitnami/charts/issues/7879
     metrics:
