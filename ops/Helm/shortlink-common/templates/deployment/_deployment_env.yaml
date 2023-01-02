@@ -19,13 +19,11 @@
     secretKeyRef:
       name: shortlink-default-user
       key: username
-      namespace: rabbitmq
 - name: MQ_RABBIT_PASSPORT
   valueFrom:
     secretKeyRef:
       name: shortlink-default-user
       key: password
-      namespace: rabbitmq
 - name: MQ_RABBIT_URI
   value: amqp://$(MQ_RABBIT_USERNAME):$(MQ_RABBIT_PASSPORT)@shortlink.rabbitmq:5672
 {{- end }}
