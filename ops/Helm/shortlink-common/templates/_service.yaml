@@ -20,7 +20,7 @@ spec:
       port: {{ .port }}
       targetPort: {{ .name }}
       protocol: {{ .protocol }}
-      {{ if (and (eq $.Values.service.type "NodePort") (not (empty .nodePort))) }}
+      {{- if (and (eq $.Values.service.type "NodePort") (not (empty .nodePort))) }}
       nodePort: {{.nodePort}}
       {{- end -}}
     {{- end -}}
