@@ -31,5 +31,5 @@ cert-manager-approver-policy:
         servicemonitor:
           enabled: true
 
-cert-manager-csi-driver-spiffe:
-    enabled: false
+spiffe:
+  enabled: false
