@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - namespace/shortlink.yaml
   - priority-class/standart.yaml
+  - secrets/rabbitmq.yaml
