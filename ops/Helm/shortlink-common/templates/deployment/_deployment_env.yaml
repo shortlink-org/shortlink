@@ -1,0 +1,22 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.env" }}
+  env:
+    {{- range $key, $value := .env }}
+    {{- if eq $key "MQ_TYPE" }}
+    {{- if eq $value "rabbitmq" }}
+      // include template shortlink-common.env-rabbitmq
+      {{- include "shortlink-common.env-rabbitmq" . }}
+    {{- end }}
+    {{- end }}
+    - name: {{ $key }}
+      value: {{ $value | quote }}
+    {{- end }}
+{{- end }}
+
+{{- define "shortlink-common.env-rabbitmq" }}
+- name: MQ_RABBIT_USERNAME
+  secretKeyRef:
+    name: app-env-secret
+    key: username
+{{- end }}
