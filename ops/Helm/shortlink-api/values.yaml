@@ -104,10 +104,10 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      containerPort: 7070
+      port: 7070
       protocol: TCP
     - name: metrics
-      containerPort: 9090
+      port: 9090
       protocol: TCP
 
 # Prometheus Operator ServiceMonitor configuration
