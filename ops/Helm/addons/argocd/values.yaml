@@ -90,7 +90,7 @@ argo-cd:
           proxy_ssl_name $host;
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
         nginx.ingress.kubernetes.io/secure-backends: "true"
-        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentracing: "true"
 
@@ -298,7 +298,7 @@ argo-workflows:
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
         nginx.ingress.kubernetes.io/backend-protocol: HTTP
-        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentracing: "true"
         nginx.ingress.kubernetes.io/rewrite-target: /$1
@@ -340,7 +340,7 @@ argo-rollouts:
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
         nginx.ingress.kubernetes.io/backend-protocol: HTTP
-        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentracing: "true"
         nginx.ingress.kubernetes.io/rewrite-target: /$1
