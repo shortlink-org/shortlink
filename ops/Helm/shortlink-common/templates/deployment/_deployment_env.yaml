@@ -5,18 +5,27 @@
     {{- range $key, $value := .env }}
     {{- if eq $key "MQ_TYPE" }}
     {{- if eq $value "rabbitmq" }}
-      // include template shortlink-common.env-rabbitmq
-      {{- include "shortlink-common.env-rabbitmq" . }}
+      {{- include "shortlink-common.env-rabbitmq" . | nindent 4 }}
     {{- end }}
     {{- end }}
     - name: {{ $key }}
       value: {{ $value | quote }}
-    {{- end }}
+    {{- end -}}
 {{- end }}
 
 {{- define "shortlink-common.env-rabbitmq" }}
 - name: MQ_RABBIT_USERNAME
-  secretKeyRef:
-    name: app-env-secret
-    key: username
+  valueFrom:
+    secretKeyRef:
+      name: shortlink-default-user
+      key: username
+      namespace: rabbitmq
+- name: MQ_RABBIT_PASSPORT
+  valueFrom:
+    secretKeyRef:
+      name: shortlink-default-user
+      key: password
+      namespace: rabbitmq
+- name: MQ_RABBIT_URI
+  value: amqp://$(MQ_RABBIT_USERNAME):$(MQ_RABBIT_PASSPORT)@shortlink.rabbitmq:5672
 {{- end }}
