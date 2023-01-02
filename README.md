@@ -23,6 +23,7 @@ our community and solve a problem for millions of people.
 ### High Level Architecture 🚀
 
 ![shortlink-architecture](./docs/shortlink-architecture.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink?ref=badge_shield)
 
 ### Architecture (miro.com)
 
@@ -235,3 +236,7 @@ make skaffold-debug
 [mergify]: https://mergify.io
 
 [mergify-status]: https://img.shields.io/endpoint.svg?url=https://dashboard.mergify.io/badges/batazor/shortlink&style=flat
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink?ref=badge_large)
