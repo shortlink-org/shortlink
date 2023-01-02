@@ -13,8 +13,8 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     chart: external-secrets
-    repoURL: https://emberstack.github.io/helm-charts
-    targetRevision: 0.7.0
+    repoURL: https://charts.external-secrets.io
+    targetRevision: v0.7.0
     helm:
       releaseName: external-secrets
   syncPolicy:
