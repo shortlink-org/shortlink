@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
+	csi_di "github.com/shortlink-org/shortlink/internal/services/csi/di"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
@@ -42,7 +43,7 @@ func init() {
 	}
 
 	// Generate docs
-	if err := doc.GenMarkdownTree(rootCmd, "./docs"); err != nil {
+	if err := doc.GenMarkdownTree(rootCmd, "./internal/services/csi/docs"); err != nil {
 		log.Fatal(err)
 	}
 }
