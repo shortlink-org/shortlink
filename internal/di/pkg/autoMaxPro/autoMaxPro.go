@@ -5,7 +5,7 @@ import (
 
 	"go.uber.org/automaxprocs/maxprocs"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
 type AutoMaxPro *string

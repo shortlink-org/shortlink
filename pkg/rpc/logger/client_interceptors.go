@@ -8,8 +8,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/status"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 // UnaryClientInterceptor returns a new unary client interceptor that optionally logs the execution of external gRPC calls.

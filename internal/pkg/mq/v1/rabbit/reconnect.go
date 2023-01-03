@@ -8,7 +8,7 @@ import (
 
 	amqp "github.com/rabbitmq/amqp091-go"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
 // Connection amqp.Connection wrapper

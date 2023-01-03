@@ -8,10 +8,10 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	es_postgres "github.com/batazor/shortlink/internal/pkg/eventsourcing/store/postgres"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	es_postgres "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store/postgres"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 // Use return implementation of db

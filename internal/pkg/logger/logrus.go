@@ -8,8 +8,8 @@ import (
 	"github.com/uptrace/opentelemetry-go-extra/otellogrus"
 	"go.opentelemetry.io/otel/attribute"
 
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	"github.com/batazor/shortlink/internal/pkg/logger/tracer"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/tracer"
 )
 
 type logrusLogger struct {

@@ -8,7 +8,7 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 
-	"github.com/batazor/shortlink/pkg/saga/dag"
+	"github.com/shortlink-org/shortlink/pkg/saga/dag"
 )
 
 type Step struct {

@@ -14,8 +14,8 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 // Init returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.

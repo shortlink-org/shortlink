@@ -14,7 +14,7 @@ Shortlink service for get bot by URL
 
 ## Source Code
 
-* <https://github.com/batazor/shortlink>
+* <https://github.com/shortlink-org/shortlink>
 
 ## Requirements
 

@@ -9,16 +9,16 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud"
-	queryStore "github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
-	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
-	"github.com/batazor/shortlink/pkg/saga"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud"
+	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
+	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	"github.com/shortlink-org/shortlink/pkg/saga"
 )
 
 type Service struct {

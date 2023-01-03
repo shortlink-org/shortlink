@@ -12,12 +12,11 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/grpc/status"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
-	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	"github.com/batazor/shortlink/pkg/http/server"
-	"github.com/batazor/shortlink/pkg/rpc"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 // API ...

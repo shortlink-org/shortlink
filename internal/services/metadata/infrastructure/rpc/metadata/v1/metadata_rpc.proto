@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package infrastructure.rpc.metadata.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/metadata/infrastructure/rpc/metadata/v1";
+option go_package = "github.com/shortlink-org/shortlink/internal/metadata/infrastructure/rpc/metadata/v1";
 
 import "domain/metadata/v1/meta.proto";
 

@@ -25,7 +25,7 @@ import (
 	"k8s.io/kubernetes/pkg/volume/util/volumepathhandler"
 	"k8s.io/mount-utils"
 
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 const TopologyKeyNode = "topology.hostpath.csi/node"

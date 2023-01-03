@@ -14,7 +14,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo"
 
-	storeOptions "github.com/batazor/shortlink/internal/pkg/db/options"
+	storeOptions "github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
 
 //go:embed migrations/*.json

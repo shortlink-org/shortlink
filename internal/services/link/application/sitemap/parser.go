@@ -9,11 +9,11 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
-	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	domain "github.com/batazor/shortlink/internal/services/link/domain/sitemap/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/sitemap/v1"
 )
 
 type Service struct {

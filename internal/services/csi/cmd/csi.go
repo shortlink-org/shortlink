@@ -4,13 +4,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/batazor/shortlink/internal/pkg/handle_signal"
+	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
 
-	csi_driver "github.com/batazor/shortlink/internal/services/csi"
-	"github.com/batazor/shortlink/internal/services/csi/di"
+	csi_driver "github.com/shortlink-org/shortlink/internal/services/csi"
 )
 
 func init() {

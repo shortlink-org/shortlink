@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 type Service struct {

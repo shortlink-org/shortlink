@@ -5,9 +5,9 @@ import (
 
 	"github.com/go-redis/cache/v9"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	v12 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	v12 "github.com/shortlink-org/shortlink/internal/services/link/domain/link_cqrs/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 type Repository interface {

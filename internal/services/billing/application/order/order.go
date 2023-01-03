@@ -3,9 +3,9 @@ package order_application
 import (
 	"context"
 
-	event_store "github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/order/v1"
+	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/order/v1"
 )
 
 type OrderService struct {

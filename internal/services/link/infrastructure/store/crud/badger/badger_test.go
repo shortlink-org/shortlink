@@ -10,8 +10,8 @@ import (
 	"github.com/dgraph-io/badger/v3"
 	"github.com/stretchr/testify/assert"
 
-	db "github.com/batazor/shortlink/internal/pkg/db/badger"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/mock"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/badger"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
 )
 
 //func TestMain(m *testing.M) {

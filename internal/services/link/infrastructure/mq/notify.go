@@ -5,9 +5,9 @@ MQ Endpoint
 package api_mq
 
 import (
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
-	link_application "github.com/batazor/shortlink/internal/services/link/application/link"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	link_application "github.com/shortlink-org/shortlink/internal/services/link/application/link"
 )
 
 type Event struct {

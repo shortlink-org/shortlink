@@ -3,10 +3,10 @@ package crud
 import (
 	"context"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
 	"github.com/go-redis/cache/v9"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 type Repository interface {

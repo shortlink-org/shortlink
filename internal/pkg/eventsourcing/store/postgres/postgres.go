@@ -9,8 +9,8 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.opentelemetry.io/otel"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/v1"
 )
 
 type Store struct {

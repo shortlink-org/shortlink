@@ -6,8 +6,8 @@ import (
 
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 
 	"github.com/go-chi/chi/v5/middleware"
 )

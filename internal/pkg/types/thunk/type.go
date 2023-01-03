@@ -1,7 +1,7 @@
 package thunk
 
 import (
-	"github.com/batazor/shortlink/internal/pkg/types/options"
+	"github.com/shortlink-org/shortlink/internal/pkg/types/options"
 )
 
 type Thunk[T any] struct {

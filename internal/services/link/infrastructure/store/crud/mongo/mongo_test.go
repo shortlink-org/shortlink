@@ -15,11 +15,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/atomic"
 
-	db "github.com/batazor/shortlink/internal/pkg/db/mongo"
-	"github.com/batazor/shortlink/internal/pkg/db/options"
-	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/mock"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/mongo"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 // TODO: Problem with testing into GitLab CI

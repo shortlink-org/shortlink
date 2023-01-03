@@ -10,13 +10,13 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	bot_type "github.com/batazor/shortlink/internal/services/notify/type"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	bot_type "github.com/shortlink-org/shortlink/internal/services/notify/type"
 )
 
 func New(mq mq.MQ, log logger.Logger) (*Bot, error) {

@@ -2,7 +2,7 @@
 
 #### Namespace deletion stuck
 
-Script: https://github.com/batazor/shortlink/tree/main/ops/Helm/tooling
+Script: https://github.com/shortlink-org/shortlink/tree/main/ops/Helm/tooling
 
 ```
 $> kubectl proxy

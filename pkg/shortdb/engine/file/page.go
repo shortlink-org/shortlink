@@ -7,7 +7,7 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
+	page "github.com/shortlink-org/shortlink/pkg/shortdb/domain/page/v1"
 )
 
 func (f *file) getPage(nameTable string, page int32) error {

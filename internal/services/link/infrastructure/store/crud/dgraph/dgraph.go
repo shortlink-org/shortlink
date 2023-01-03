@@ -10,10 +10,10 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 // DGraphLink implementation of db interface

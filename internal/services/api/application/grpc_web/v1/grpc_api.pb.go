@@ -9,8 +9,8 @@
 package v1
 
 import (
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"

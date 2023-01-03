@@ -12,8 +12,8 @@ import (
 	"go.opentelemetry.io/otel/propagation"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
 )
 
 type RabbitMQ struct {

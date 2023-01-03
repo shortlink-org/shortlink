@@ -16,7 +16,7 @@ import (
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(
 		m,
-		goleak.IgnoreTopFunction("github.com/batazor/shortlink/internal/pkg/batch.(*Config).Run"),
+		goleak.IgnoreTopFunction("github.com/shortlink-org/shortlink/internal/pkg/batch.(*Config).Run"),
 	)
 }
 

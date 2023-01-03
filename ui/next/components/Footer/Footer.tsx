@@ -24,7 +24,7 @@ export default function Footer() {
           </li>
           <li className="my-2 cursor-pointer">
             <Link
-              href="https://github.com/batazor/shortlink"
+              href="https://github.com/shortlink-org/shortlink"
               passHref
               legacyBehavior
             >

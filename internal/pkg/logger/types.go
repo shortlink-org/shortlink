@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 const (

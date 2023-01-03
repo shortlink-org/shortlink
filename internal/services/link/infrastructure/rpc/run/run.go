@@ -1,7 +1,7 @@
 package run
 
 import (
-	"github.com/batazor/shortlink/pkg/rpc"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type Response struct{}

@@ -9,8 +9,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"
+	tariff_application "github.com/shortlink-org/shortlink/internal/services/billing/application/tariff"
+	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
 )
 
 type TariffAPI struct {

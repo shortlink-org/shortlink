@@ -15,10 +15,10 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/atomic"
 
-	"github.com/batazor/shortlink/internal/pkg/db/options"
-	db "github.com/batazor/shortlink/internal/pkg/db/postgres"
-	"github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/mock"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/postgres"
+	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
 )
 
 var linkUniqId atomic.Int64

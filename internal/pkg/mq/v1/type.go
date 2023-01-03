@@ -4,7 +4,7 @@ import (
 	"context"
 	"io"
 
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
 )
 
 // MQ - common interface of DataBus

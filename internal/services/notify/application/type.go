@@ -1,9 +1,9 @@
 package application
 
 import (
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	v1 "github.com/batazor/shortlink/internal/pkg/mq/v1"
-	"github.com/batazor/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 )
 
 type Bot struct {

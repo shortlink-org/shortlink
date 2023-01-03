@@ -3,7 +3,7 @@ package mongo
 import (
 	"go.mongodb.org/mongo-driver/mongo"
 
-	"github.com/batazor/shortlink/internal/pkg/batch"
+	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 )
 
 // Config ...

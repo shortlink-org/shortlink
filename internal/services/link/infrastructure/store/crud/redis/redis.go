@@ -7,9 +7,9 @@ import (
 	"github.com/go-redis/redis/v9"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 // Store implementation of db interface

@@ -1,7 +1,7 @@
 package file
 
 import (
-	"github.com/batazor/shortlink/pkg/shortdb/engine/options"
+	"github.com/shortlink-org/shortlink/pkg/shortdb/engine/options"
 )
 
 type Option func(file *file) error

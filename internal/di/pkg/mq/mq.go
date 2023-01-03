@@ -5,8 +5,8 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	v1 "github.com/batazor/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
 )
 
 func New(ctx context.Context, log logger.Logger) (v1.MQ, func(), error) {

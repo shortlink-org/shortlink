@@ -14,8 +14,8 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/batazor/shortlink/internal/pkg/db/options"
-	db "github.com/batazor/shortlink/internal/pkg/db/postgres"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/postgres"
 )
 
 func BenchmarkPostgresSerial(b *testing.B) {

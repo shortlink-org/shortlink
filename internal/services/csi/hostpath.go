@@ -35,16 +35,16 @@ import (
 	"k8s.io/kubernetes/pkg/volume/util/volumepathhandler"
 	utilexec "k8s.io/utils/exec"
 
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 const (
 	kib    int64 = 1024
-	mib    int64 = kib * 1024
-	gib    int64 = mib * 1024
-	gib100 int64 = gib * 100
-	tib    int64 = gib * 1024
-	tib100 int64 = tib * 100
+	mib          = kib * 1024
+	gib          = mib * 1024
+	gib100       = gib * 100
+	tib          = gib * 1024
+	tib100       = tib * 100
 )
 
 type hostPathVolume struct {

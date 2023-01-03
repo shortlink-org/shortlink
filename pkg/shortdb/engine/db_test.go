@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/batazor/shortlink/pkg/shortdb/engine/file"
-	parser "github.com/batazor/shortlink/pkg/shortdb/parser/v1"
+	"github.com/shortlink-org/shortlink/pkg/shortdb/engine/file"
+	parser "github.com/shortlink-org/shortlink/pkg/shortdb/parser/v1"
 	"github.com/stretchr/testify/assert"
 )
 

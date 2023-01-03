@@ -9,11 +9,11 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	mq "github.com/batazor/shortlink/internal/pkg/mq/v1"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	logger_application "github.com/batazor/shortlink/internal/services/logger/application"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
 )
 
 type Event struct {

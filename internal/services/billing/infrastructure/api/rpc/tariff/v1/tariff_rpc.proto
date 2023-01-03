@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package infrastructure.api.rpc.tariff.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/tariff_rpc";
+option go_package = "github.com/shortlink-org/shortlink/internal/billing/infrastructure/tariff_rpc";
 
 import "google/protobuf/empty.proto";
 import "domain/billing/tariff/v1/tariff.proto";

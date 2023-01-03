@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 func getFilter(filter *query.Filter) bson.D {

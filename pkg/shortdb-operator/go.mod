@@ -1,4 +1,4 @@
-module github.com/batazor/shortlink/pkg/shortdb-operator
+module github.com/shortlink-org/shortlink/pkg/shortdb-operator
 
 go 1.20
 

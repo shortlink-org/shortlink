@@ -1,10 +1,10 @@
 package engine
 
 import (
-	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
-	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
-	"github.com/batazor/shortlink/pkg/shortdb/engine/file"
-	"github.com/batazor/shortlink/pkg/shortdb/engine/options"
+	page "github.com/shortlink-org/shortlink/pkg/shortdb/domain/page/v1"
+	v1 "github.com/shortlink-org/shortlink/pkg/shortdb/domain/query/v1"
+	"github.com/shortlink-org/shortlink/pkg/shortdb/engine/file"
+	"github.com/shortlink-org/shortlink/pkg/shortdb/engine/options"
 )
 
 type Engine interface {

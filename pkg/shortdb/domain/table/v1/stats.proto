@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shortdb.domain.table.v1;
 
-option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1";
+option go_package = "github.com/shortlink-org/shortlink/pkg/shortdb/domain/table/v1";
 
 message TableStats {
   int64 rows_count = 1;

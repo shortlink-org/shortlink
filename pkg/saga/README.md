@@ -16,7 +16,7 @@ independent steps that can be executed and managed separately.
 package main
 
 import (
-  "github.com/batazor/shortlink/pkg/saga"
+  "github.com/shortlink-org/shortlink/pkg/saga"
 )
 
 func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {

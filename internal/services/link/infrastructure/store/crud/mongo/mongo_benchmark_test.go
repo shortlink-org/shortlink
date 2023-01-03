@@ -14,8 +14,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"go.mongodb.org/mongo-driver/mongo"
 
-	db "github.com/batazor/shortlink/internal/pkg/db/mongo"
-	"github.com/batazor/shortlink/internal/pkg/db/options"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/mongo"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
 
 func BenchmarkPostgresSerial(b *testing.B) {

@@ -1,4 +1,4 @@
-module github.com/batazor/shortlink/internal/services/notify
+module github.com/shortlink-org/shortlink/internal/services/notify
 
 go 1.20
 

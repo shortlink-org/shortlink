@@ -5,10 +5,10 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/query"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	metadata_domain "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 func (e *Event) SubscribeNewLink() error {

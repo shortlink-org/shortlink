@@ -3,9 +3,9 @@ package event_store
 import (
 	"context"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
-	"github.com/batazor/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 )
 
 // EventStore saves the events from an aggregate

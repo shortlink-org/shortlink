@@ -8,9 +8,9 @@ import (
 	"github.com/Masterminds/squirrel"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 // Store implementation of db interface

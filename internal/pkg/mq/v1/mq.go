@@ -8,12 +8,12 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/kafka"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/nats"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/rabbit"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1/redis"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/kafka"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/nats"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/rabbit"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/redis"
 )
 
 // Use return implementation of MQ

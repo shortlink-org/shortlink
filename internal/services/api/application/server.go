@@ -4,21 +4,21 @@ import (
 	"context"
 	"time"
 
-	http_server "github.com/batazor/shortlink/pkg/http/server"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/text/message"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/services/api/application/cloudevents"
-	"github.com/batazor/shortlink/internal/services/api/application/graphql"
-	grpcweb "github.com/batazor/shortlink/internal/services/api/application/grpc_web/v1"
-	http_chi "github.com/batazor/shortlink/internal/services/api/application/http-chi"
-	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
-	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	"github.com/batazor/shortlink/pkg/rpc"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/services/api/application/cloudevents"
+	"github.com/shortlink-org/shortlink/internal/services/api/application/graphql"
+	grpcweb "github.com/shortlink-org/shortlink/internal/services/api/application/grpc_web/v1"
+	http_chi "github.com/shortlink-org/shortlink/internal/services/api/application/http-chi"
+	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 // runAPIServer - start HTTP-server

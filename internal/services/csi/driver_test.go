@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
 func TestDriver(t *testing.T) {

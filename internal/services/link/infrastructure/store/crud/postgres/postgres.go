@@ -16,11 +16,11 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/batazor/shortlink/internal/pkg/batch"
-	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/pkg/db/options"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/batch"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
