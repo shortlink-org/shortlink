@@ -7,6 +7,7 @@ package main
 
 import (
 	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
+	logger_di "github.com/shortlink-org/shortlink/internal/services/logger/di"
 	"github.com/spf13/viper"
 )
 

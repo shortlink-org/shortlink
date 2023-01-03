@@ -16,6 +16,7 @@ import (
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
+	"github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 

@@ -7,6 +7,7 @@ package main
 
 import (
 	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
+	metadata_di "github.com/shortlink-org/shortlink/internal/services/metadata/di"
 	"github.com/spf13/viper"
 )
 

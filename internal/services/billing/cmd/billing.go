@@ -6,8 +6,10 @@ Billing-service
 package main
 
 import (
-	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
 	"github.com/spf13/viper"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
+	billing_di "github.com/shortlink-org/shortlink/internal/services/billing/di"
 )
 
 func main() {

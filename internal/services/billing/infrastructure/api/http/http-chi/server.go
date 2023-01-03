@@ -26,6 +26,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/tariff"
 	"github.com/shortlink-org/shortlink/pkg/http/handler"
 	additionalMiddleware "github.com/shortlink-org/shortlink/pkg/http/middleware"
+	"github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 // Run HTTP-server
