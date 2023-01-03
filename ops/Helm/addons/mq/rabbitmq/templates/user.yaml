@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.rabbitmq.clusterName }}-credentials
+type: Opaque
+stringData:
+  # Note that Messaging Topology Operator does not watch this secret. Updating this secret object won't update actual user credentials.
+  username: {{ .Values.rabbitmq.credentials.username | default "admin" | quote }}
+  # As a workaround, you can add a label or annotation to the User object to trigger a Reconile loop and credentials will be updated.
+  password: {{ .Values.rabbitmq.credentials.password | default "admin" | quote }} 
+
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: User
+metadata:
+  name: {{ .Values.rabbitmq.clusterName }}-user
+spec:
+  rabbitmqClusterReference:
+    name: {{ .Values.rabbitmq.clusterName }}
+  importCredentialsSecret:
+    name: {{ .Values.rabbitmq.clusterName }}-credentials
+
+---
+apiVersion: rabbitmq.com/v1beta1
+kind: Permission
+metadata:
+  name: {{ .Values.rabbitmq.clusterName }}-permission
+spec:
+  vhost: {{ .Values.rabbitmq.credentials.vhost | default "/" | quote }}
+  user: {{ .Values.rabbitmq.clusterName }}-user
+  permissions:
+    write: {{ .Values.rabbitmq.credentials.permissions.write | default ".*" | quote }}
+    configure: {{ .Values.rabbitmq.credentials.permissions.configure | default ".*" | quote }}
+    read: {{ .Values.rabbitmq.credentials.permissions.read | default ".*" | quote }}
+  rabbitmqClusterReference:
+    name: {{ .Values.rabbitmq.clusterName }}
