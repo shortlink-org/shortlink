@@ -6,29 +6,37 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:  # added using https://github.com/step-security/secure-workflows
+  contents: read
+
 jobs:
   # Reference https://github.com/marketplace/actions/helm-chart-testing
   lint-test:
     runs-on: ubuntu-latest
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@ebacdc22ef6c2cfb85ee5ded8f2e640f4c776dd5 # v2.0.0
+        with:
+          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3.2.0
         with:
           fetch-depth: 0
 
       - name: Run chart-testing (lint)
         id: lint
-        uses: helm/chart-testing-action@v2.3.1
+        uses: helm/chart-testing-action@afea100a513515fbd68b0e72a7bb0ae34cb62aec # v2.3.1
         with:
           command: lint
           config: ct.yaml
 
       - name: Create kind cluster
-        uses: helm/kind-action@v1.5.0
+        uses: helm/kind-action@d8ccf8fb623ce1bb360ae2f45f323d9d5c5e9f00 # v1.5.0
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@v2.3.1
+        uses: helm/chart-testing-action@afea100a513515fbd68b0e72a7bb0ae34cb62aec # v2.3.1
         with:
           command: install
           config: ct.yaml
