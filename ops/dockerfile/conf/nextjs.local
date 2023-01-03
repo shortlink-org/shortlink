@@ -14,10 +14,6 @@ server {
       try_files $uri $uri/;
     }
 
-    location ~ /.+ {
-      try_files $uri $uri.html $uri =404;
-    }
-
     location / {
       index index.html;
       try_files $uri $uri/ /index.html =404;
