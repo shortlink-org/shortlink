@@ -15,7 +15,7 @@ our community and solve a problem for millions of people.
 [![LICENSE](https://img.shields.io/github/license/shortlink-org/shortlink.svg)](https://github.com/shortlink-org/shortlink/blob/main/LICENSE)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3510/badge)](https://bestpractices.coreinfrastructure.org/projects/3510)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/shortlink-org/shortlink)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink?ref=badge_shield)
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink.svg?type=shield)](https://app.fossa.com/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink?ref=badge_shield)
 
 </div>
 
@@ -234,7 +234,7 @@ make skaffold-debug
 
 ### License
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink.svg?type=large)](https://app.fossa.com/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink?ref=badge_large)
 
 [mergify]: https://mergify.io
 
