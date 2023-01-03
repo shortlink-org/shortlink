@@ -5,6 +5,7 @@ package main
 
 import (
 	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
+	notify_di "github.com/shortlink-org/shortlink/internal/services/notify/di"
 	"github.com/spf13/viper"
 )
 
