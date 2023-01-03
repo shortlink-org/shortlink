@@ -1,0 +1,49 @@
+# Common default values for prometheus-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+kube-prometheus-stack:
+  prometheus:
+    enabled: true
+
+    prometheusSpec:
+      routePrefix: /prometheus/
+
+      # disabled for knative
+      serviceMonitorSelectorNilUsesHelmValues: false
+      # disabled for knative
+      podMonitorSelectorNilUsesHelmValues: false
+
+      serviceMonitorNamespaceSelector: {}
+      serviceMonitorSelector: {}
+
+      # How long to retain metrics
+      retention: 3d
+
+    ingress:
+      enabled: true
+
+      # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+      # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+      ingressClassName: nginx
+
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentracing: "false"
+
+      hosts:
+        - shortlink.best
+
+      paths:
+        - /prometheus
+
+      # For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
+      # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
+      pathType: Prefix
+
+      tls:
+        - secretName: shortlink-ingress-tls
+          hosts:
+            - shortlink.best

@@ -1,0 +1,7 @@
+prometheus-adapter:
+  enabled: true
+
+  fullnameOverride: prometheus-adapter
+
+  prometheus:
+    url: prometheus-operator.prometheus-operator

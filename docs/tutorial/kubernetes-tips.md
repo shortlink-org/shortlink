@@ -2,8 +2,6 @@
 
 #### Namespace deletion stuck
 
-Script: https://github.com/shortlink-org/shortlink/tree/main/ops/Helm/tooling
-
 ```
 $> kubectl proxy
 Starting to serve on 127.0.0.1:8001
