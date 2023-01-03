@@ -23,6 +23,7 @@ import (
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 	"github.com/shortlink-org/shortlink/pkg/http/handler"
 	additionalMiddleware "github.com/shortlink-org/shortlink/pkg/http/middleware"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 // Run HTTP-server
