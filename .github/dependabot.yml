@@ -1,0 +1,96 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/extension/argocd-extension-docs/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: maven
+    directory: /internal/services/bot
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/services/knative/sync-search/kafka-to-elasticsearch
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/services/notify
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/services/proxy
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /internal/services/referral
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/services/wallet
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /pkg/ml
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /pkg/shortdb-operator
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /pkg/shortdb-operator
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /ui/eslint/eslint-plugin-shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /ui/landing
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /ui/next/components/Footer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /ui/next/components/Header
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /ui/next/components/Testimonials
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /ui/next
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /ui/ui-kit
+    schedule:
+      interval: daily
