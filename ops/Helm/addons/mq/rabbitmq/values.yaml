@@ -9,6 +9,16 @@ secret:
 rabbitmq:
   clusterName: shortlink
 
+  credentials:
+    username: shortlink
+    password: shortlink
+    tags: administrator
+    vhost: /
+    permissions:
+      configure: .*
+      write: .*
+      read: .*
+
 rabbitmq-cluster-operator:
   enabled: true
 
