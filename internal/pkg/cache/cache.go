@@ -7,7 +7,7 @@ import (
 	"github.com/go-redis/cache/v9"
 	"github.com/go-redis/redis/v9"
 
-	db "github.com/batazor/shortlink/internal/pkg/db/redis"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/redis"
 )
 
 // New returns a new cache.Client.

@@ -6,10 +6,8 @@ Get information by links
 package main
 
 import (
-	"github.com/batazor/shortlink/internal/pkg/handle_signal"
+	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
 	"github.com/spf13/viper"
-
-	"github.com/batazor/shortlink/internal/services/metadata/di"
 )
 
 func main() {

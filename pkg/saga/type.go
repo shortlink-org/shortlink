@@ -1,7 +1,7 @@
 package saga
 
 import (
-	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
 type StepState int

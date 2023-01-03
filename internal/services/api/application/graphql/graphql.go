@@ -9,19 +9,19 @@ import (
 	"os"
 	"path/filepath"
 
-	http_server "github.com/batazor/shortlink/pkg/http/server"
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/uptrace/opentelemetry-go-extra/otelgraphql"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/services/api/application/graphql/resolver"
-	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
-	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/services/api/application/graphql/resolver"
+	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 )
 
 //go:embed schema/*.graphqls

@@ -9,7 +9,7 @@ Accepted
 ## Context
 
 We need some identifier for entities that will be unique throughout the service.
-A more detailed description of the problem can be found in the issue [#762](https://github.com/batazor/shortlink/issues/762)
+A more detailed description of the problem can be found in the issue [#762](https://github.com/shortlink-org/shortlink/issues/762)
 
 ##### Docs
 

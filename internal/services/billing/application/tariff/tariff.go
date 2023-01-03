@@ -5,9 +5,9 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"
-	billing_store "github.com/batazor/shortlink/internal/services/billing/infrastructure/store"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
+	billing_store "github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/store"
 )
 
 type TariffService struct {

@@ -14,8 +14,8 @@ import (
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/assert"
 
-	db "github.com/batazor/shortlink/internal/pkg/db/dgraph"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/mock"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/dgraph"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
 )
 
 func TestDgraph(t *testing.T) {

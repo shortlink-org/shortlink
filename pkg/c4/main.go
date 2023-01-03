@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"os"
 
-	api_di "github.com/batazor/shortlink/internal/services/api/di"
-	billing_di "github.com/batazor/shortlink/internal/services/billing/di"
-	link_di "github.com/batazor/shortlink/internal/services/link/di"
-	logger_di "github.com/batazor/shortlink/internal/services/logger/di"
-	metadata_di "github.com/batazor/shortlink/internal/services/metadata/di"
 	"github.com/krzysztofreczek/go-structurizr/pkg/scraper"
 	"github.com/krzysztofreczek/go-structurizr/pkg/view"
+	api_di "github.com/shortlink-org/shortlink/internal/services/api/di"
+	billing_di "github.com/shortlink-org/shortlink/internal/services/billing/di"
+	link_di "github.com/shortlink-org/shortlink/internal/services/link/di"
+	logger_di "github.com/shortlink-org/shortlink/internal/services/logger/di"
+	metadata_di "github.com/shortlink-org/shortlink/internal/services/metadata/di"
 )
 
 const (

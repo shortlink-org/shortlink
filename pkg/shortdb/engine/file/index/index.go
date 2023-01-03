@@ -4,10 +4,10 @@ import (
 	"reflect"
 	"strconv"
 
-	index "github.com/batazor/shortlink/pkg/shortdb/domain/index/v1"
-	v2 "github.com/batazor/shortlink/pkg/shortdb/domain/index/v1"
-	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
-	binary_tree "github.com/batazor/shortlink/pkg/shortdb/engine/file/index/binary-tree"
+	index "github.com/shortlink-org/shortlink/pkg/shortdb/domain/index/v1"
+	v2 "github.com/shortlink-org/shortlink/pkg/shortdb/domain/index/v1"
+	page "github.com/shortlink-org/shortlink/pkg/shortdb/domain/page/v1"
+	binary_tree "github.com/shortlink-org/shortlink/pkg/shortdb/engine/file/index/binary-tree"
 )
 
 func New(in *index.Index, rows []*page.Row) (Index[any], error) {

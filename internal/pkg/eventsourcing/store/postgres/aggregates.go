@@ -11,7 +11,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/codes"
 
-	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
+	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/v1"
 )
 
 type Aggregates interface {

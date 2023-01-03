@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/pkg/db/options"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
 
 // Config ...

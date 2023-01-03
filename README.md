@@ -8,13 +8,13 @@ We use edge technologies and have many years of experience.
 We're constantly researching the best solutions on the market so that we can benefit  
 our community and solve a problem for millions of people.
 
-[![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/batazor/shortlink)](https://pkg.go.dev/mod/github.com/batazor/shortlink)
-[![codecov](https://codecov.io/gh/batazor/shortlink/branch/main/graph/badge.svg?token=Wxz5bI4QzF)](https://codecov.io/gh/batazor/shortlink)
-[![Go Report Card](https://goreportcard.com/badge/github.com/batazor/shortlink)](https://goreportcard.com/report/github.com/batazor/shortlink)
-[![Releases](https://img.shields.io/github/release-pre/batazor/shortlink.svg)](https://github.com/batazor/shortlink/releases)
-[![LICENSE](https://img.shields.io/github/license/batazor/shortlink.svg)](https://github.com/batazor/shortlink/blob/main/LICENSE)
+[![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/shortlink-org/shortlink)](https://pkg.go.dev/mod/github.com/shortlink-org/shortlink)
+[![codecov](https://codecov.io/gh/shortlink-org/shortlink/branch/main/graph/badge.svg?token=Wxz5bI4QzF)](https://codecov.io/gh/shortlink-org/shortlink)
+[![Go Report Card](https://goreportcard.com/badge/github.com/shortlink-org/shortlink)](https://goreportcard.com/report/github.com/shortlink-org/shortlink)
+[![Releases](https://img.shields.io/github/release-pre/shortlink-org/shortlink.svg)](https://github.com/shortlink-org/shortlink/releases)
+[![LICENSE](https://img.shields.io/github/license/shortlink-org/shortlink.svg)](https://github.com/shortlink-org/shortlink/blob/main/LICENSE)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3510/badge)](https://bestpractices.coreinfrastructure.org/projects/3510)
-[![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/batazor/shortlink)
+[![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/shortlink-org/shortlink)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fbatazor%2Fshortlink?ref=badge_shield)
 
 </div>
@@ -42,7 +42,7 @@ made along with its context and consequences.
 
 ### Techradar
 
-[shortlink-techradar](https://radar.thoughtworks.com/?sheetId=https://raw.githubusercontent.com/batazor/shortlink/main/docs/thoughtworks.radar.csv)
+[shortlink-techradar](https://radar.thoughtworks.com/?sheetId=https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/thoughtworks.radar.csv)
 
 ##### Services
 
@@ -238,4 +238,4 @@ make skaffold-debug
 
 [mergify]: https://mergify.io
 
-[mergify-status]: https://img.shields.io/endpoint.svg?url=https://dashboard.mergify.io/badges/batazor/shortlink&style=flat
+[mergify-status]: https://img.shields.io/endpoint.svg?url=https://dashboard.mergify.io/badges/shortlink-org/shortlink&style=flat

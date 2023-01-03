@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/syndtr/goleveldb/leveldb"
 
-	db "github.com/batazor/shortlink/internal/pkg/db/leveldb"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/mock"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/leveldb"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
 )
 
 func TestLevelDB(t *testing.T) {

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shortdb.domain.index.v1;
 
-option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/index/v1";
+option go_package = "github.com/shortlink-org/shortlink/pkg/shortdb/domain/index/v1";
 
 enum Type {
   TYPE_UNSPECIFIED = 0;

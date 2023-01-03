@@ -5,7 +5,7 @@ plugins:
   manifests.sdk.operatorframework.io/v2: {}
   scorecard.sdk.operatorframework.io/v2: {}
 projectName: shortdb-operator
-repo: github.com/batazor/shortlink/pkg/shortdb-operator
+repo: github.com/shortlink-org/shortlink/pkg/shortdb-operator
 resources:
 - api:
     crdVersion: v1
@@ -14,7 +14,7 @@ resources:
   domain: shortdb.shortlink
   group: shortdb
   kind: ShortDB
-  path: github.com/batazor/shortlink/pkg/shortdb-operator/api/v1alpha1
+  path: github.com/shortlink-org/shortlink/pkg/shortdb-operator/api/v1alpha1
   version: v1alpha1
   webhooks:
     defaulting: true

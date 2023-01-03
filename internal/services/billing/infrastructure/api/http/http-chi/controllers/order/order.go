@@ -9,8 +9,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/order/v1"
+	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
+	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/order/v1"
 )
 
 type OrderAPI struct {

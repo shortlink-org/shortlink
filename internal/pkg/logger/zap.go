@@ -10,8 +10,8 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	"github.com/batazor/shortlink/internal/pkg/logger/tracer"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/tracer"
 )
 
 type zapLogger struct {

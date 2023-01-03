@@ -16,9 +16,9 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	grpc_logger "github.com/batazor/shortlink/pkg/rpc/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	grpc_logger "github.com/shortlink-org/shortlink/pkg/rpc/logger"
 )
 
 // InitServer ...

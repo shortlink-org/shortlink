@@ -13,8 +13,8 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 
-	db "github.com/batazor/shortlink/internal/pkg/db/redis"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/mock"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/redis"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
 )
 
 func TestRedis(t *testing.T) {

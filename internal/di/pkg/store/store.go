@@ -3,8 +3,8 @@ package store
 import (
 	"context"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
 // New - return db

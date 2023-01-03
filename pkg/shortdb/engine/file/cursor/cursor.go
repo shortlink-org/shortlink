@@ -1,8 +1,8 @@
 package cursor
 
 import (
-	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
-	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
+	page "github.com/shortlink-org/shortlink/pkg/shortdb/domain/page/v1"
+	table "github.com/shortlink-org/shortlink/pkg/shortdb/domain/table/v1"
 )
 
 func New(table *table.Table, isEnd bool) (*Cursor, error) {

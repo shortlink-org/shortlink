@@ -8,14 +8,14 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	event_store "github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	account "github.com/batazor/shortlink/internal/services/billing/domain/billing/account/v1"
-	tariff "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1"
-	"github.com/batazor/shortlink/internal/services/billing/infrastructure/store/postgres"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	account "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/account/v1"
+	tariff "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
+	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/store/postgres"
 )
 
 // Use return implementation of db

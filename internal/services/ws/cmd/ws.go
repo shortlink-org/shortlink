@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/batazor/shortlink/internal/services/ws"
+	"github.com/shortlink-org/shortlink/internal/services/ws"
 )
 
 func main() {

@@ -8,9 +8,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	rpc "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
-	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	rpc "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 var metaMock = rpc.Meta{

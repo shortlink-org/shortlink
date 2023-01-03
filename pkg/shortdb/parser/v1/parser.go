@@ -6,10 +6,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/batazor/shortlink/internal/pkg/types/vector"
-	field "github.com/batazor/shortlink/pkg/shortdb/domain/field/v1"
-	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/index/v1"
-	query "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/types/vector"
+	field "github.com/shortlink-org/shortlink/pkg/shortdb/domain/field/v1"
+	v1 "github.com/shortlink-org/shortlink/pkg/shortdb/domain/index/v1"
+	query "github.com/shortlink-org/shortlink/pkg/shortdb/domain/query/v1"
 )
 
 const (

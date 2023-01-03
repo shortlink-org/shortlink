@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shortdb.domain.database.v1;
 
-option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/database/v1";
+option go_package = "github.com/shortlink-org/shortlink/pkg/shortdb/domain/database/v1";
 
 import "shortdb/domain/table/v1/table.proto";
 

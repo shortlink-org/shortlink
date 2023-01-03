@@ -7,11 +7,11 @@
 package wallet_di
 
 import (
-	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/di/pkg/context"
-	"github.com/batazor/shortlink/internal/di/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger"
 	"github.com/google/wire"
+	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
 // Injectors from di.go:

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.billing.tariff.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/services/billing/domain/billing/tariff/v1";
+option go_package = "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1";
 
 import "google/protobuf/field_mask.proto";
 

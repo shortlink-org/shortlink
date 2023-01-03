@@ -6,9 +6,9 @@ import (
 
 	"github.com/golang/protobuf/ptypes/empty"
 
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/api/application/grpc_web/helpers"
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/internal/services/api/application/grpc_web/helpers"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // GetLink ...

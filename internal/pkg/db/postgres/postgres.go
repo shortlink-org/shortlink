@@ -17,7 +17,7 @@ import (
 	"github.com/uptrace/opentelemetry-go-extra/otelsql"
 	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
 
-	"github.com/batazor/shortlink/internal/pkg/db/options"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
 
 var (

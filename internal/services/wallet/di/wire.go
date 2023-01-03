@@ -12,8 +12,8 @@ package wallet_di
 import (
 	"github.com/google/wire"
 
-	"github.com/batazor/shortlink/internal/di"
-	"github.com/batazor/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
 type WalletService struct {

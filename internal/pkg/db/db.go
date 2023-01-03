@@ -8,16 +8,16 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/pkg/db/badger"
-	"github.com/batazor/shortlink/internal/pkg/db/dgraph"
-	"github.com/batazor/shortlink/internal/pkg/db/leveldb"
-	"github.com/batazor/shortlink/internal/pkg/db/mongo"
-	"github.com/batazor/shortlink/internal/pkg/db/neo4j"
-	"github.com/batazor/shortlink/internal/pkg/db/postgres"
-	"github.com/batazor/shortlink/internal/pkg/db/ram"
-	"github.com/batazor/shortlink/internal/pkg/db/redis"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/badger"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/dgraph"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/leveldb"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/mongo"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/neo4j"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/ram"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/redis"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 // Use return implementation of db

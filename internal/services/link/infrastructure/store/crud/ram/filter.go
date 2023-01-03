@@ -4,8 +4,8 @@ import (
 	"reflect"
 	"strings"
 
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/query"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocognit

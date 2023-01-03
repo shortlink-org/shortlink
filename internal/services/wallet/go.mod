@@ -1,4 +1,4 @@
-module github.com/batazor/shortlink/internal/services/wallet
+module github.com/shortlink-org/shortlink/internal/services/wallet
 
 go 1.20
 

@@ -10,9 +10,9 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	v1 "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
-	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	v1 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
+	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
 )
 
 type Service struct {

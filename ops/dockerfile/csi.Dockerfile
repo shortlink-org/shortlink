@@ -9,7 +9,7 @@ ARG TARGETOS TARGETARCH
 
 ENV GOEXPERIMENT=arenas
 
-WORKDIR /go/github.com/batazor/shortlink
+WORKDIR /go/github.com/shortlink-org/shortlink
 
 # Load dependencies
 COPY go.mod go.sum ./
@@ -52,4 +52,4 @@ HEALTHCHECK \
 
 WORKDIR /app/
 CMD ["./app"]
-COPY --from=builder /go/github.com/batazor/shortlink/app /app
+COPY --from=builder /go/github.com/shortlink-org/shortlink/app /app

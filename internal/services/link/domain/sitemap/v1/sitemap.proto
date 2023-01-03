@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.sitemap.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/services/link/domain/sitemap/v1";
+option go_package = "github.com/shortlink-org/shortlink/internal/services/link/domain/sitemap/v1";
 
 import "tagger/tagger.proto";
 import "google/protobuf/timestamp.proto";

@@ -7,8 +7,8 @@
 package v1
 
 import (
-	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/field/v1"
-	v11 "github.com/batazor/shortlink/pkg/shortdb/domain/index/v1"
+	v1 "github.com/shortlink-org/shortlink/pkg/shortdb/domain/field/v1"
+	v11 "github.com/shortlink-org/shortlink/pkg/shortdb/domain/index/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	fieldmaskpb "google.golang.org/protobuf/types/known/fieldmaskpb"

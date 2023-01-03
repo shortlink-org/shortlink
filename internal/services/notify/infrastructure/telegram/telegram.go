@@ -6,8 +6,8 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	bot_type "github.com/batazor/shortlink/internal/services/notify/type"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	bot_type "github.com/shortlink-org/shortlink/internal/services/notify/type"
 )
 
 type Bot struct {

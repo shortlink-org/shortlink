@@ -323,7 +323,7 @@ export class HttpClient<SecurityDataType = unknown> {
  * @license MIT (http://www.opensource.org/licenses/MIT)
  * @termsOfService http://swagger.io/terms/
  * @baseUrl http://localhost:7070/api
- * @contact Shortlink repository <support@swagger.io> (https://github.com/batazor/shortlink/issues)
+ * @contact Shortlink repository <support@swagger.io> (https://github.com/shortlink-org/shortlink/issues)
  *
  * Shortlink API
  */

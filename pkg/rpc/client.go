@@ -13,10 +13,10 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 
-	grpc_logger "github.com/batazor/shortlink/pkg/rpc/logger"
+	grpc_logger "github.com/shortlink-org/shortlink/pkg/rpc/logger"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 // InitClient - set up a connection to the server.

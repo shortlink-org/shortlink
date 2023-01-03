@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"go.opentelemetry.io/otel/trace"
 
-	v1 "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 )
 
 type Handler struct {

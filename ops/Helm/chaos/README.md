@@ -14,7 +14,7 @@ Chaos service
 
 ## Source Code
 
-* <https://github.com/batazor/shortlink>
+* <https://github.com/shortlink-org/shortlink>
 
 ## Requirements
 

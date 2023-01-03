@@ -4,18 +4,18 @@ import (
 	"context"
 	"time"
 
-	http_server "github.com/batazor/shortlink/pkg/http/server"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	account_application "github.com/batazor/shortlink/internal/services/billing/application/account"
-	order_application "github.com/batazor/shortlink/internal/services/billing/application/order"
-	payment_application "github.com/batazor/shortlink/internal/services/billing/application/payment"
-	tariff_application "github.com/batazor/shortlink/internal/services/billing/application/tariff"
-	http_chi "github.com/batazor/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
+	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
+	payment_application "github.com/shortlink-org/shortlink/internal/services/billing/application/payment"
+	tariff_application "github.com/shortlink-org/shortlink/internal/services/billing/application/tariff"
+	http_chi "github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
 )
 
 // API - general describe of API
@@ -27,7 +27,7 @@ type API interface {
 		log logger.Logger,
 		tracer *trace.TracerProvider,
 
-	// services
+		// services
 		accountService *account_application.AccountService,
 		orderService *order_application.OrderService,
 		paymentService *payment_application.PaymentService,
@@ -43,7 +43,7 @@ func (s *Server) Use(
 	log logger.Logger,
 	tracer *trace.TracerProvider,
 
-// services
+	// services
 	accountService *account_application.AccountService,
 	orderService *order_application.OrderService,
 	paymentService *payment_application.PaymentService,

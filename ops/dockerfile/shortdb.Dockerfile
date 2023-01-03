@@ -7,7 +7,7 @@ ARG CI_COMMIT_TAG
 ARG SKAFFOLD_GO_GCFLAGS
 ARG TARGETOS TARGETARCH
 
-WORKDIR /go/github.com/batazor/shortlink
+WORKDIR /go/github.com/shortlink-org/shortlink
 
 # Load io_uring
 RUN apt-get update && apt-get install -y liburing-dev
@@ -48,4 +48,4 @@ HEALTHCHECK \
 
 WORKDIR /app/
 CMD ["./app"]
-COPY --from=builder /go/github.com/batazor/shortlink/app /app
+COPY --from=builder /go/github.com/shortlink-org/shortlink/app /app

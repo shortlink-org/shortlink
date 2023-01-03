@@ -6,8 +6,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 
-	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/session/v1"
-	"github.com/batazor/shortlink/pkg/shortdb/repl"
+	v1 "github.com/shortlink-org/shortlink/pkg/shortdb/domain/session/v1"
+	"github.com/shortlink-org/shortlink/pkg/shortdb/repl"
 )
 
 func main() {

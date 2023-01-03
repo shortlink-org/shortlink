@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"sync"
 
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
-	rpc "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	rpc "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 type Store struct {

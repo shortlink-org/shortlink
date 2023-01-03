@@ -10,8 +10,8 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	bot_type "github.com/batazor/shortlink/internal/services/notify/type"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	bot_type "github.com/shortlink-org/shortlink/internal/services/notify/type"
 )
 
 type Bot struct {

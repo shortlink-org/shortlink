@@ -7,7 +7,7 @@
 package v1
 
 import (
-	v1 "github.com/batazor/shortlink/internal/services/link/domain/link_cqrs/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link_cqrs/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

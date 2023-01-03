@@ -6,7 +6,7 @@
 package main
 
 import (
-	"github.com/batazor/shortlink/pkg/raft"
+	"github.com/shortlink-org/shortlink/pkg/raft"
 )
 
 func main() {

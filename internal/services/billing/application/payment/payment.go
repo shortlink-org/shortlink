@@ -8,13 +8,13 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	event_store "github.com/batazor/shortlink/internal/pkg/eventsourcing/store"
-	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/logger/field"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1"
-	"github.com/batazor/shortlink/pkg/saga"
+	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
+	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1"
+	"github.com/shortlink-org/shortlink/pkg/saga"
 )
 
 type PaymentService struct {

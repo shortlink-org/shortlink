@@ -3,7 +3,6 @@ package http_chi
 import (
 	"context"
 
-	"github.com/batazor/shortlink/pkg/http/server"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
@@ -14,16 +13,16 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	_ "github.com/batazor/shortlink/internal/pkg/i18n"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	cqrs_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/cqrs"
-	link_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/link"
-	sitemap_api "github.com/batazor/shortlink/internal/services/api/application/http-chi/controllers/sitemap"
-	link_cqrs "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
-	link_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	sitemap_rpc "github.com/batazor/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	"github.com/batazor/shortlink/pkg/http/handler"
-	additionalMiddleware "github.com/batazor/shortlink/pkg/http/middleware"
+	_ "github.com/shortlink-org/shortlink/internal/pkg/i18n"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	cqrs_api "github.com/shortlink-org/shortlink/internal/services/api/application/http-chi/controllers/cqrs"
+	link_api "github.com/shortlink-org/shortlink/internal/services/api/application/http-chi/controllers/link"
+	sitemap_api "github.com/shortlink-org/shortlink/internal/services/api/application/http-chi/controllers/sitemap"
+	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
+	"github.com/shortlink-org/shortlink/pkg/http/handler"
+	additionalMiddleware "github.com/shortlink-org/shortlink/pkg/http/middleware"
 )
 
 // Run HTTP-server
@@ -33,7 +32,7 @@ import (
 // @termsOfService http://swagger.io/terms/
 //
 // @contact.name Shortlink repository
-// @contact.url https://github.com/batazor/shortlink/issues
+// @contact.url https://github.com/shortlink-org/shortlink/issues
 // @contact.email support@swagger.io
 //
 // @license.name MIT

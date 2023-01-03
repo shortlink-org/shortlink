@@ -3,8 +3,8 @@ package file
 import (
 	"fmt"
 
-	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
-	table "github.com/batazor/shortlink/pkg/shortdb/domain/table/v1"
+	v1 "github.com/shortlink-org/shortlink/pkg/shortdb/domain/query/v1"
+	table "github.com/shortlink-org/shortlink/pkg/shortdb/domain/table/v1"
 )
 
 func (f *file) CreateTable(query *v1.Query) error {

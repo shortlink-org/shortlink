@@ -3,7 +3,7 @@
 - name: deploy UI by NEXT
   docker_container:
     name: ui
-    image: batazor/shortlink-ui-next
+    image: shortlink-org/shortlink-ui-next
     ports:
       - "5080:80"
   when: inventory_hostname in groups['ui']

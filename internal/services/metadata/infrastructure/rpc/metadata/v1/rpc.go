@@ -6,9 +6,9 @@ package v1
 import (
 	"context"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	metadata "github.com/batazor/shortlink/internal/services/metadata/application"
-	"github.com/batazor/shortlink/pkg/rpc"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type Metadata struct {

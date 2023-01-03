@@ -1,3 +1,3 @@
 ### ROADMAP
 
-The plans for the project are described in [project page](https://github.com/batazor/shortlink/projects)
+The plans for the project are described in [project page](https://github.com/shortlink-org/shortlink/projects)

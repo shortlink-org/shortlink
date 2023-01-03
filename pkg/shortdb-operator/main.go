@@ -31,8 +31,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	shortdbv1alpha1 "github.com/batazor/shortlink/pkg/shortdb-operator/api/v1alpha1"
-	"github.com/batazor/shortlink/pkg/shortdb-operator/controllers"
+	shortdbv1alpha1 "github.com/shortlink-org/shortlink/pkg/shortdb-operator/api/v1alpha1"
+	"github.com/shortlink-org/shortlink/pkg/shortdb-operator/controllers"
 	//+kubebuilder:scaffold:imports
 )
 

@@ -29,7 +29,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.applicationSet.metrics.serviceMonitor.enabled | bool | `true` |  |
 | argo-cd.configs.repositories.shortlink.name | string | `"shortlink"` |  |
 | argo-cd.configs.repositories.shortlink.type | string | `"git"` |  |
-| argo-cd.configs.repositories.shortlink.url | string | `"https://github.com/batazor/shortlink"` |  |
+| argo-cd.configs.repositories.shortlink.url | string | `"https://github.com/shortlink-org/shortlink"` |  |
 | argo-cd.controller.metrics.applicationLabels.enabled | bool | `true` |  |
 | argo-cd.controller.metrics.enabled | bool | `true` |  |
 | argo-cd.controller.metrics.serviceMonitor.enabled | bool | `true` |  |

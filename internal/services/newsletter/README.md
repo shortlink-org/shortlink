@@ -10,7 +10,7 @@ The service sends messages to everyone who has subscribed to the newsletter.
 
 ### Roadmap
 
-See  this [project](https://github.com/batazor/shortlink/projects/20)
+See  this [project](https://github.com/shortlink-org/shortlink/projects/20)
 
 ### Running the Binaries
 

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shortdb.domain.page.v1;
 
-option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1";
+option go_package = "github.com/shortlink-org/shortlink/pkg/shortdb/domain/page/v1";
 
 message Row {
   map<string, bytes> value = 2;

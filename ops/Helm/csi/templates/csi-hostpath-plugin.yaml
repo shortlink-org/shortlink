@@ -60,7 +60,7 @@ spec:
           - mountPath: /csi-data-dir
             name: csi-data-dir
         - name: hostpath
-          image: batazor/shortlink-csi
+          image: shortlink-org/shortlink-csi
           imagePullPolicy: IfNotPresent
           args:
             - "--endpoint=$(CSI_ENDPOINT)"

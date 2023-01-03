@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shortdb.domain.query.v1;
 
-option go_package = "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1";
+option go_package = "github.com/shortlink-org/shortlink/pkg/shortdb/domain/query/v1";
 
 import "google/protobuf/field_mask.proto";
 import "shortdb/domain/field/v1/field.proto";

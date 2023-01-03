@@ -8,10 +8,10 @@ import (
 	"github.com/c-bata/go-prompt"
 	"github.com/pterm/pterm"
 
-	session "github.com/batazor/shortlink/pkg/shortdb/domain/session/v1"
-	"github.com/batazor/shortlink/pkg/shortdb/engine"
-	"github.com/batazor/shortlink/pkg/shortdb/engine/file"
-	parser "github.com/batazor/shortlink/pkg/shortdb/parser/v1"
+	session "github.com/shortlink-org/shortlink/pkg/shortdb/domain/session/v1"
+	"github.com/shortlink-org/shortlink/pkg/shortdb/engine"
+	"github.com/shortlink-org/shortlink/pkg/shortdb/engine/file"
+	parser "github.com/shortlink-org/shortlink/pkg/shortdb/parser/v1"
 )
 
 type repl struct {

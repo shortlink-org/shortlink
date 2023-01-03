@@ -14,12 +14,12 @@ import (
 
 	"github.com/google/wire"
 
-	"github.com/batazor/shortlink/internal/di"
-	mq_di "github.com/batazor/shortlink/internal/di/pkg/mq"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1"
-	logger_application "github.com/batazor/shortlink/internal/services/logger/application"
-	logger_mq "github.com/batazor/shortlink/internal/services/logger/infrastructure/mq"
+	"github.com/shortlink-org/shortlink/internal/di"
+	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
+	logger_mq "github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
 )
 
 type LoggerService struct {

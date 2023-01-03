@@ -1,11 +1,11 @@
-import type { NextPage } from 'next'
+import type {NextPage} from 'next'
 import Script from 'next/script'
 import Head from 'next/head'
 import * as React from 'react'
-import { NextSeo, ArticleJsonLd, BreadcrumbJsonLd } from 'next-seo'
+import {ArticleJsonLd, BreadcrumbJsonLd, NextSeo} from 'next-seo'
 // @ts-ignore
 import Divider from '@mui/material/Divider'
-import { useTheme } from '@mui/material/styles'
+import {useTheme} from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Link from 'next/link'
 // @ts-ignore
-import { ToggleDarkMode } from '@shortlink-org/ui-kit'
+import {ToggleDarkMode} from '@shortlink-org/ui-kit'
 import TabPanel from '../components/TabPanel'
 
 function a11yProps(index: number) {
@@ -116,7 +116,7 @@ const Home: NextPage = () => {
           {
             position: 5,
             name: 'GitHab',
-            item: 'https://github.com/batazor/shortlink',
+            item: 'https://github.com/shortlink-org/shortlink',
           },
         ]}
       />
@@ -228,7 +228,7 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard('GitHub', 'https://github.com/batazor/shortlink')}
+              {getCard('GitHub', 'https://github.com/shortlink-org/shortlink')}
 
               {getCard('GitLab', 'https://gitlab.com/shortlink-org/shortlink/')}
 

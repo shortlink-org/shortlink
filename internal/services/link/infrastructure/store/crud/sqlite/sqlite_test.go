@@ -12,8 +12,8 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 
-	db "github.com/batazor/shortlink/internal/pkg/db/sqlite"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/crud/mock"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/sqlite"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
 )
 
 //func TestMain(m *testing.M) {

@@ -5,9 +5,9 @@ Link Service. Infrastructure layer. RPC EndpointRPC Endpoint
 package v1
 
 import (
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	link_application "github.com/batazor/shortlink/internal/services/link/application/link"
-	"github.com/batazor/shortlink/pkg/rpc"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	link_application "github.com/shortlink-org/shortlink/internal/services/link/application/link"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type Link struct {

@@ -9,7 +9,7 @@ import (
 	"go.opentelemetry.io/otel/codes"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/batazor/shortlink/pkg/saga/dag"
+	"github.com/shortlink-org/shortlink/pkg/saga/dag"
 )
 
 type Saga struct {

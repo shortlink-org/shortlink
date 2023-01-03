@@ -11,14 +11,14 @@ import (
 
 	"github.com/google/wire"
 
-	"github.com/batazor/shortlink/internal/di"
-	mq_di "github.com/batazor/shortlink/internal/di/pkg/mq"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1"
-	"github.com/batazor/shortlink/internal/services/notify/application"
-	"github.com/batazor/shortlink/internal/services/notify/infrastructure/slack"
-	"github.com/batazor/shortlink/internal/services/notify/infrastructure/smtp"
-	"github.com/batazor/shortlink/internal/services/notify/infrastructure/telegram"
+	"github.com/shortlink-org/shortlink/internal/di"
+	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/services/notify/application"
+	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/slack"
+	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/smtp"
+	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/telegram"
 )
 
 // Service - heplers

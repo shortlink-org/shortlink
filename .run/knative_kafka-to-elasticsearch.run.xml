@@ -8,7 +8,7 @@
                value="{&quot;backend&quot;:&quot;zipkin&quot;,&quot;debug&quot;:&quot;true&quot;,&quot;sample-rate&quot;:&quot;1&quot;,&quot;zipkin-endpoint&quot;:&quot;http://otel-collector.observability:9411/api/v2/spans&quot;}"/>
       </envs>
       <kind value="PACKAGE"/>
-      <package value="github.com/batazor/shortlink/internal/services/knative/sync-search/kafka-to-elasticsearch"/>
+      <package value="github.com/shortlink-org/shortlink/internal/services/knative/sync-search/kafka-to-elasticsearch"/>
       <directory value="$PROJECT_DIR$"/>
       <filePath
               value="$PROJECT_DIR$/internal/services/knative/sync-search/kafka-to-elasticsearch/kafka-to-elasticsearch.go"/>

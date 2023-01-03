@@ -29,7 +29,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
-	shortdbv1alpha1 "github.com/batazor/shortlink/pkg/shortdb-operator/api/v1alpha1"
+	shortdbv1alpha1 "github.com/shortlink-org/shortlink/pkg/shortdb-operator/api/v1alpha1"
 )
 
 // ShortDBReconciler reconciles a ShortDB object

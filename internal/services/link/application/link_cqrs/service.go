@@ -1,10 +1,10 @@
 package link_cqrs
 
 import (
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
-	"github.com/batazor/shortlink/internal/services/link/infrastructure/store/cqrs/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/cqrs/query"
 )
 
 type Service struct {

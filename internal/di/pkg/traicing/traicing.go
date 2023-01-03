@@ -6,8 +6,8 @@ import (
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/traicing"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/traicing"
 )
 
 func New(ctx context.Context, log logger.Logger) (*trace.TracerProvider, func(), error) {

@@ -14,19 +14,19 @@ import (
 
 	"github.com/google/wire"
 
-	"github.com/batazor/shortlink/internal/di"
-	mq_di "github.com/batazor/shortlink/internal/di/pkg/mq"
-	"github.com/batazor/shortlink/internal/di/pkg/store"
-	"github.com/batazor/shortlink/internal/pkg/db"
-	"github.com/batazor/shortlink/internal/pkg/logger"
-	"github.com/batazor/shortlink/internal/pkg/mq/v1"
-	"github.com/batazor/shortlink/internal/pkg/notify"
-	metadata "github.com/batazor/shortlink/internal/services/metadata/application"
-	metadata_domain "github.com/batazor/shortlink/internal/services/metadata/domain/metadata/v1"
-	metadata_mq "github.com/batazor/shortlink/internal/services/metadata/infrastructure/mq"
-	metadata_rpc "github.com/batazor/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
-	meta_store "github.com/batazor/shortlink/internal/services/metadata/infrastructure/store"
-	"github.com/batazor/shortlink/pkg/rpc"
+	"github.com/shortlink-org/shortlink/internal/di"
+	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application"
+	metadata_domain "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
+	metadata_mq "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
+	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type MetaDataService struct {

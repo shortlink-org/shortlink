@@ -1,6 +1,6 @@
 package bot_type
 
-import "github.com/batazor/shortlink/internal/pkg/notify"
+import "github.com/shortlink-org/shortlink/internal/pkg/notify"
 
 var (
 	METHOD_NEW_LINK      = notify.NewEventID()

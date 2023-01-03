@@ -13,7 +13,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: ops/Helm/addons/gateway/nginx-ingress
-    repoURL: 'https://github.com/batazor/shortlink'
+    repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
       releaseName: nginx-ingress

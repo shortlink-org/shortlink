@@ -1,4 +1,4 @@
-module github.com/batazor/shortlink
+module github.com/shortlink-org/shortlink
 
 go 1.20
 

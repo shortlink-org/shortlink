@@ -13,7 +13,7 @@ const docTemplate = `{
         "termsOfService": "http://swagger.io/terms/",
         "contact": {
             "name": "Shortlink repository",
-            "url": "https://github.com/batazor/shortlink/issues",
+            "url": "https://github.com/shortlink-org/shortlink/issues",
             "email": "support@swagger.io"
         },
         "license": {

@@ -9,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/batazor/shortlink/internal/services/metadata/infrastructure/store/mock"
+	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store/mock"
 )
 
 func TestRAM(t *testing.T) {

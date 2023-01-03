@@ -9,8 +9,8 @@ import (
 	"go.opentelemetry.io/otel/codes"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	eventsourcing "github.com/batazor/shortlink/internal/pkg/eventsourcing/v1"
-	billing "github.com/batazor/shortlink/internal/services/billing/domain/billing/payment/v1"
+	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/v1"
+	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1"
 )
 
 func CommandPaymentCreate(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {

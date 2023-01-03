@@ -6,7 +6,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"github.com/batazor/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
 )
 
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)

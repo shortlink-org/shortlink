@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package infrastructure.api.rpc.payment.v1;
 
-option go_package = "github.com/batazor/shortlink/internal/billing/infrastructure/payment_rpc";
+option go_package = "github.com/shortlink-org/shortlink/internal/billing/infrastructure/payment_rpc";
 
 import "google/protobuf/empty.proto";
 import "domain/billing/payment/v1/payment.proto";

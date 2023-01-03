@@ -8,7 +8,7 @@ import (
 
 	"github.com/graph-gophers/graphql-go"
 
-	link "github.com/batazor/shortlink/internal/services/link/domain/link/v1"
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 type LinkResolver struct {

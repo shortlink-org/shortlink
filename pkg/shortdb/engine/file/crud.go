@@ -3,10 +3,10 @@ package file
 import (
 	"fmt"
 
-	page "github.com/batazor/shortlink/pkg/shortdb/domain/page/v1"
-	v1 "github.com/batazor/shortlink/pkg/shortdb/domain/query/v1"
+	page "github.com/shortlink-org/shortlink/pkg/shortdb/domain/page/v1"
+	v1 "github.com/shortlink-org/shortlink/pkg/shortdb/domain/query/v1"
 
-	"github.com/batazor/shortlink/pkg/shortdb/engine/file/cursor"
+	"github.com/shortlink-org/shortlink/pkg/shortdb/engine/file/cursor"
 )
 
 func (f *file) Select(query *v1.Query) ([]*page.Row, error) {
