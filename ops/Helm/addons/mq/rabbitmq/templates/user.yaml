@@ -1,7 +1,7 @@
 kind: Secret
 apiVersion: v1
 metadata:
-  name: {{ .Values.rabbitmq.clusterName }}-default-usersecret
+  name: {{ .Values.rabbitmq.clusterName }}-default-user
   annotations:
     argocd.argoproj.io/hook: PreSync
 stringData:
