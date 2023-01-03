@@ -1,0 +1,20 @@
+{
+    "name": "shortlink-org/support",
+    "description": "support services",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "ShortlinkOrg\\Support\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Victor Login",
+            "email": "batazor111@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "behat/behat": "^3.12"
+    }
+}
