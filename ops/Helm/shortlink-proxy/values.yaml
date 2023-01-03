@@ -98,20 +98,12 @@ deploy:
     httpGet:
       path: /ready
       port: 3020
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 1
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
       path: /ready
       port: 3020
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 30
 
   resources:
     # -- We usually recommend not to specify default resources and to leave this as a conscious
@@ -147,9 +139,12 @@ deploy:
 
 service:
   type: ClusterIP
-  port: 3020
-  # nodePort: 7070
-  # clusterIP: 172.0.0.1
+  ports:
+    - name: http
+      port: 3020
+      targetPort: 3020
+      protocol: TCP
+      public: true
 
 secret:
   enabled: false
