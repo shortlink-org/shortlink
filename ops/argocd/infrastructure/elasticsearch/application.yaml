@@ -14,7 +14,7 @@ spec:
   source:
     chart: elasticsearch
     repoURL: https://helm.elastic.co
-    targetRevision: 7.17.3
+    targetRevision: 8.5.1
     helm:
       releaseName: elasticsearch
       values: |
