@@ -10,6 +10,7 @@ This service implements the support services for our platform.
   - **OPCache** is a PHP module that improves performance by storing precompiled script bytecode in shared memory.
 - **Composer** is a dependency manager for PHP.
 
-#### BDD
+#### Best Practices
 
 - [**Behat**](https://docs.behat.org/en/latest/index.html) is a PHP framework for BDD.
+- rector is a tool to automatically upgrade and refactor PHP 5.3+ code.
