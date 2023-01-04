@@ -1,6 +1,5 @@
 # Include Makefile
 include $(SELF_DIR)/ops/Makefile/k8s/helm.mk
-include $(SELF_DIR)/ops/Makefile/k8s/check.mk
 include $(SELF_DIR)/ops/Makefile/k8s/ct.mk
 include $(SELF_DIR)/ops/Makefile/k8s/k8s.velero.mk
 include $(SELF_DIR)/ops/Makefile/k8s/kubeadm.mk

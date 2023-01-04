@@ -1,0 +1,14 @@
+teleport-cluster:
+  enabled: true
+
+  clusterName: teleport.shortlink.best
+
+  kubeClusterName: shortlink
+
+  chartMode: custom
+
+  operator:
+    enabled: true
+
+  persistence:
+    enabled: false

@@ -1,0 +1,11 @@
+teleport-kube-agent:
+  enabled: true
+
+  kubeClusterName: shortlink
+
+  apps:
+    - name: grafana
+      uri: http://grafana.grafana
+
+  log:
+    format: json
