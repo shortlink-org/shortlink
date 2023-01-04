@@ -8,6 +8,9 @@
 name: Labeler
 on: [pull_request]
 
+permissions:  # added using https://github.com/step-security/secure-workflows
+  contents: read
+
 jobs:
   label:
 
@@ -17,6 +20,11 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: actions/labeler@v4
+    - name: Harden Runner
+      uses: step-security/harden-runner@ebacdc22ef6c2cfb85ee5ded8f2e640f4c776dd5 # v2.0.0
+      with:
+        egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+
+    - uses: actions/labeler@5c7539237e04b714afd8ad9b4aed733815b9fab4 # v4.0.2
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
