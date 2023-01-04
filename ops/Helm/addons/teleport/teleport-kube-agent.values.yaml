@@ -11,3 +11,6 @@ teleport-kube-agent:
 
   log:
     format: json
+
+  podSecurityPolicy:
+    enabled: false
