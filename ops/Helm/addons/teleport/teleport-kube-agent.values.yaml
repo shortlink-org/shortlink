@@ -3,6 +3,8 @@ teleport-kube-agent:
 
   kubeClusterName: shortlink
 
+  proxyAddr: ":3080"
+
   apps:
     - name: grafana
       uri: http://grafana.grafana
