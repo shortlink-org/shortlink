@@ -1,0 +1,254 @@
+# Common default values for ory/kratos.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+# Kratos ===============================================================================================================
+kratos:
+  enabled: true
+
+  fullnameOverride: kratos
+
+  ingress:
+    admin:
+      enabled: false
+      className: nginx
+    public:
+      enabled: true
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
+        nginx.ingress.kubernetes.io/enable-opentracing: "false"
+        kubernetes.io/tls-acme: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
+      hosts:
+        - host: shortlink.best
+          paths:
+            - path: /api/auth\/(.*)
+              pathType: Prefix
+      tls:
+        - secretName: shortlink-ingress-tls
+          hosts:
+            - shortlink.best
+
+  kratos:
+    config:
+      dsn: memory
+
+      identity:
+        default_schema_id: default
+        schemas:
+          - id: default
+            url: file:///etc/config/identity.default.schema.json
+
+      serve:
+        public:
+          # Kratos uses cookies so you must always connect from "127.0.0.1"
+          base_url: https://shortlink.best/api/auth
+          cors:
+            enabled: true
+            debug: true
+            allowed_origins:
+              - "http://127.0.0.1:3000"
+              - "https://shortlink.best"
+            allowed_methods:
+              - POST
+              - GET
+              - PUT
+              - PATCH
+              - DELETE
+            allowed_headers:
+              - Authorization
+              - Cookie
+              - Content-Type
+              - Set-Cookie
+            allow_credentials: true
+        admin:
+          base_url: http://127.0.0.1:4434/
+
+      session:
+        # 30 days
+        lifespan: 720h
+        cookie:
+          domain: https://shortlink.best
+          same_site: Lax
+
+      selfservice:
+        default_browser_return_url: https://shortlink.best
+        allowed_return_urls:
+          - "*"
+          - http://*
+          - https://*
+
+        methods:
+          password:
+            enabled: true
+          profile:
+            enabled: true
+          link:
+            enabled: true
+          oidc:
+            enabled: true
+            config:
+              providers:
+                # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+                - id: github
+                  provider: github
+                  # Replace this with the OAuth2 Client ID provided by GitHub
+                  client_id: ....
+                  # Replace this with the OAuth2 Client Secret provided by GitHub
+                  client_secret: ....
+                  mapper_url: file:///etc/config/kratos/oidc.github.jsonnet
+                  scope:
+                    - user:email
+                # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
+                - id: gitlab
+                  provider: gitlab
+                  # Replace this with the OAuth2 Client ID provided by GitLab
+                  client_id: ....
+                  # Replace this with the OAuth2 Client Secret provided by GitLab
+                  client_secret: ....
+                  mapper_url: file:///etc/config/kratos/oidc.gitlab.jsonnet
+                  scope:
+                    - read_user
+                    - openid
+                    - profile
+                    - email
+
+        # These `ui_url` values are entirely dependant upon your setup.
+        # For this example, the React-app runs in development mode on the default port of 3000.
+        # You can see how this would change for a production environment or other solutions.
+        flows:
+          error:
+            ui_url: https://shortlink.best/next/error
+
+          settings:
+            ui_url: https://shortlink.best/next/user/profile
+            # Sessions older than a minute requires the user to sign in again before
+            # the password is changed.
+            privileged_session_max_age: 15m
+
+          recovery:
+            enabled: true
+            ui_url: https://shortlink.best/next/auth/recovery
+
+          verification:
+            enabled: true
+            ui_url: https://shortlink.best/next/auth/verification
+            after:
+              default_browser_return_url: https://shortlink.best/next
+
+          logout:
+            after:
+              default_browser_return_url: https://shortlink.best/next/auth/login
+
+          login:
+            ui_url: https://shortlink.best/next
+            lifespan: 10m
+
+          registration:
+            lifespan: 10m
+            ui_url: https://shortlink.best/next/auth/registration
+            after:
+              password:
+                hooks:
+                  - hook: session
+              oidc:
+                hooks:
+                  - hook: session
+
+      log:
+        level: info
+        format: json
+        leak_sensitive_values: true
+
+      secrets:
+        cookie:
+          # This is an example; secret must be this length (32 chars).
+          - PLEASE-CHANGE-ME-I-AM-VERY-INSECURE
+
+      hashers:
+        argon2:
+          parallelism: 1
+          memory: 128MB
+          iterations: 2
+          salt_length: 16
+          key_length: 16
+
+      courier:
+        smtp:
+          connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
+          from_address: no-reply@shortlink.com
+
+    development: true
+
+    # -- Enables database migration
+    automigration:
+      enabled: true
+      # -- Configure the way to execute database migration. Possible values: job, initContainer
+      # When set to job, the migration will be executed as a job on release or upgrade.
+      # When set to initContainer, the migration will be executed when kratos pod is created
+      # Defaults to job
+      type: job
+
+    # -- Parameters for the Prometheus ServiceMonitor objects.
+    # Reference: https://docs.openshift.com/container-platform/4.6/rest_api/monitoring_apis/servicemonitor-monitoring-coreos-com-v1.html
+    serviceMonitor:
+      # -- switch to false to prevent creating the ServiceMonitor
+      enabled: true
+
+    #  You can add multiple identity schemas here
+    identitySchemas:
+      "identity.default.schema.json": |
+        {
+          "$id": "https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json",
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "title": "Person",
+          "type": "object",
+          "properties": {
+            "traits": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "title": "E-Mail",
+                  "minLength": 3,
+                  "ory.sh/kratos": {
+                    "credentials": {
+                      "password": {
+                        "identifier": true
+                      }
+                    },
+                    "verification": {
+                      "via": "email"
+                    },
+                    "recovery": {
+                      "via": "email"
+                    }
+                  }
+                },
+                "name": {
+                  "type": "object",
+                  "properties": {
+                    "first": {
+                      "title": "First Name",
+                      "type": "string"
+                    },
+                    "last": {
+                      "title": "Last Name",
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "required": [
+                "email"
+              ],
+              "additionalProperties": false
+            }
+          }
+        }
