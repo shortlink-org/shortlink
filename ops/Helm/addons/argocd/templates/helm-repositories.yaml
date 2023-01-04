@@ -121,3 +121,17 @@ stringData:
   name: external-secrets
   url: https://charts.external-secrets.io
   type: helm
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: teleport
+  namespace: {{ .Release.Namespace }}
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  name: teleport
+  url: https://charts.releases.teleport.dev
+  type: helm
