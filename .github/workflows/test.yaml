@@ -1,0 +1,28 @@
+name: CodeCov
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+steps:
+  - name: Checkout
+    uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b # v3.2.0
+    with:
+      fetch-depth: 0
+
+  - uses: actions/setup-go@v2
+    with:
+      go-version: '1.20'
+
+  - name: Run coverage
+    run: go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./...
+
+  - uses: codecov/codecov-action@v3
+    with:
+      token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+      files: ./coverage.txt # optional
+      flags: unittests # optional
+      fail_ci_if_error: true # optional (default = false)
+      verbose: true # optional (default = false)
