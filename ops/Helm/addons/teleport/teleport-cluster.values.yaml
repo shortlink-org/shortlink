@@ -12,3 +12,6 @@ teleport-cluster:
 
   persistence:
     enabled: false
+
+  podSecurityPolicy:
+    enabled: false
