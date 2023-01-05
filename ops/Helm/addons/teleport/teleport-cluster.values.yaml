@@ -23,8 +23,8 @@ teleport-cluster:
     type: local
     connectorName: ""
 
-  tls:
-    existingSecretName: shortlink-ingress-tls
+  acme: true
+  acmeEmail: batazor111@gmail.com
 
   operator:
     enabled: true
