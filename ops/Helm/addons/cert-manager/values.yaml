@@ -6,8 +6,12 @@ email: mymail@gmail.com
 
 annotations: {}
 
-cert-manager:
+certManager:
   enabled: true
+
+  # type: http, cloudflare
+  # default: http
+  type: cloudflare
 
   installCRDs: true
 

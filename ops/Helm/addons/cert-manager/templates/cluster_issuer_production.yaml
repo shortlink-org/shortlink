@@ -20,7 +20,15 @@ spec:
       name: {{ include "helpers.fullname" . }}-production
     # Enable the HTTP-01 challenge provider
     solvers:
+    {{- if eq .Values.certManager.type "cloudflare" -}}
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token-secret
+              key: api-token
+    {{- else -}}
       - http01:
           ingress:
             class: nginx
+    {{- end }}
 {{- end }}
