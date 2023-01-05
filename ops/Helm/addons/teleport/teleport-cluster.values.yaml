@@ -7,6 +7,9 @@ teleport-cluster:
 
   chartMode: standalone
 
+  authentication:
+    connectorName: "local"
+
   acme: true
   acmeEmail: batazor111@gmail.com
 
@@ -18,3 +21,6 @@ teleport-cluster:
 
   podSecurityPolicy:
     enabled: false
+
+  log:
+    format: json
