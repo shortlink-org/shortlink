@@ -23,8 +23,8 @@ teleport-cluster:
     type: local
     connectorName: ""
 
-  acme: false
-  acmeEmail: batazor111@gmail.com
+  tls:
+    existingSecretName: cert-manager-production
 
   operator:
     enabled: true
