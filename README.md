@@ -182,6 +182,9 @@ make skaffold-debug
 + Security
   + SOPS
   + [Teleport](https://goteleport.com/) - Identity-Native Infrastructure Access
+  + cert-manager
+    + cloudfare
+    + spiffe
 + HealthCheck
 + Support K8S
   + Helm Chart
