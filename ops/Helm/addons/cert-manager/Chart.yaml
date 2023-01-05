@@ -14,10 +14,10 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: cert-manager
-    alias: cert_manager
+    alias: certmanager
     version: v1.10.1
     repository: https://charts.jetstack.io
-    condition: cert_manager.enabled
+    condition: certmanager.enabled
     tags:
       - security
       - tls
