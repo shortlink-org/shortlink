@@ -19,7 +19,7 @@ spec:
       name: {{ include "helpers.fullname" . }}-staging
     # Enable the HTTP-01 challenge provider
     solvers:
-    {{- if eq .Values.cert_manager.type "cloudflare" }}
+    {{- if eq .Values.certmanager.type "cloudflare" }}
       - dns01:
           cloudflare:
             apiTokenSecretRef:
