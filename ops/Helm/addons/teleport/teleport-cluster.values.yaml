@@ -2,6 +2,7 @@ ingress:
   enabled: true
   type: nginx
   annotations:
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
