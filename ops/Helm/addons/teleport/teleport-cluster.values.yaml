@@ -20,7 +20,8 @@ teleport-cluster:
   chartMode: standalone
 
   authentication:
-    connectorName: "local"
+    type: local
+    connectorName: ""
 
   acme: true
   acmeEmail: batazor111@gmail.com
