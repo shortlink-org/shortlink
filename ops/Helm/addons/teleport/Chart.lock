@@ -5,5 +5,8 @@ dependencies:
 - name: teleport-kube-agent
   repository: https://charts.releases.teleport.dev
   version: 11.1.4
-digest: sha256:614514e731fb651f161bd95a9da1327874f8d591d5c3d8505713107a4e18bc19
-generated: "2023-01-05T03:46:13.763536+06:00"
+- name: shortlink-common
+  repository: file://../../shortlink-common
+  version: 0.2.18
+digest: sha256:86f9ae401206763f94d5e96954227f1f37081e12322a59a05c002c048c9152bc
+generated: "2023-01-05T22:16:23.119892+06:00"
