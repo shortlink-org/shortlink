@@ -37,3 +37,8 @@ teleport-cluster:
 
   service:
     type: ClusterIP
+
+  highAvailability:
+    certManager:
+      enabled: true
+      issuerName: cert-manager-production
