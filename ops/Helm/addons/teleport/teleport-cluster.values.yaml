@@ -23,9 +23,8 @@ teleport-cluster:
     type: local
     connectorName: ""
 
-  acme: true
+  acme: false
   acmeEmail: batazor111@gmail.com
-  acmeURI: https://acme-v02.api.letsencrypt.org/directory
 
   operator:
     enabled: true
