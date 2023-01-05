@@ -1,0 +1,17 @@
+apiVersion: resources.teleport.dev/v5
+kind: TeleportRole
+metadata:
+  name: guest
+spec:
+  allow:
+    rules:
+      - resources: ['user', 'role']
+        verbs: ['list', 'read']
+
+---
+apiVersion: resources.teleport.dev/v2
+kind: TeleportUser
+metadata:
+  name: guest
+spec:
+  roles: ['guest']
