@@ -4,7 +4,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 
-  hostname: shortlink.best
+  hostname: teleport.shortlink.best
   path: /
   service:
     name: teleport
