@@ -32,6 +32,9 @@ ingress-nginx:
     ##
     kind: Deployment
 
+    extraArgs:
+      enable-ssl-passthrough: ""
+
     podSecurityContext:
       fsGroup: 1001
 
