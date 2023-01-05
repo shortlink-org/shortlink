@@ -7,6 +7,9 @@ teleport-cluster:
 
   chartMode: custom
 
+  acme: true
+  acmeEmail: batazor111@gmail.com
+
   operator:
     enabled: true
 
