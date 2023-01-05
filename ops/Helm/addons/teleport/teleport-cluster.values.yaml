@@ -23,8 +23,10 @@ teleport-cluster:
     type: local
     connectorName: ""
 
-  tls:
-    existingSecretName: cert-manager-production
+  highAvailability:
+    certManager:
+      enabled: true
+      issuerName: cert-manager-production
 
   operator:
     enabled: true
@@ -37,3 +39,6 @@ teleport-cluster:
 
   log:
     format: json
+
+  service:
+    type: ClusterIP
