@@ -3,6 +3,11 @@ ingress:
   type: nginx
   annotations:
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    cert-manager.io/cluster-issuer: cert-manager-production
+    nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/enable-opentracing: "true"
+    kubernetes.io/tls-acme: "true"
 
   hostname: teleport.shortlink.best
   path: /
@@ -23,10 +28,8 @@ teleport-cluster:
     type: local
     connectorName: ""
 
-  highAvailability:
-    certManager:
-      enabled: true
-      issuerName: cert-manager-production
+  tls:
+    existingSecretName: shortlink-ingress-tls
 
   operator:
     enabled: true
