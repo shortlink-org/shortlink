@@ -42,3 +42,4 @@ teleport-cluster:
     certManager:
       enabled: true
       issuerName: cert-manager-production
+      issuerKind: ClusterIssuer
