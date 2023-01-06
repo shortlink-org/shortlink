@@ -42,6 +42,12 @@ spec:
       name: istio-sidecar-injector
       jqPathExpressions:
         - .webhooks[].namespaceSelector.matchExpressions[] | select(.key == "control-plane")
+    # https://github.com/argoproj/argo-cd/issues/9323#issuecomment-1218974391
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      name: istiod-default-validator
+      jsonPointers:
+        - /webhooks/0/failurePolicy
     - group: kyverno.io
       kind: ClusterPolicy
       jqPathExpressions:
