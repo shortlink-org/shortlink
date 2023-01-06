@@ -7,7 +7,7 @@ kiali-operator:
 
     spec:
       auth:
-        strategy: "token"
+        strategy: anonymous
       deployment:
         accessible_namespaces: [ "shortlink" ]
         view_only_mode: false
