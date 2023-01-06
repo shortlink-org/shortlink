@@ -15,7 +15,7 @@ require (
 	github.com/cucumber/godog v0.12.6
 	github.com/dgraph-io/badger/v3 v3.2103.5
 	github.com/dgraph-io/dgo/v2 v2.2.0
-	github.com/edgedb/edgedb-go v0.13.3
+	github.com/edgedb/edgedb-go v0.13.4
 	github.com/elastic/go-elasticsearch/v8 v8.5.0
 	github.com/getsentry/sentry-go v0.16.0
 	github.com/go-chi/chi/v5 v5.0.8
@@ -206,6 +206,7 @@ require (
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/segmentio/asm v1.1.3 // indirect
+	github.com/sigurn/crc16 v0.0.0-20211026045750-20ab5afb07e3 // indirect
 	github.com/smartystreets/assertions v1.0.0 // indirect
 	github.com/spf13/afero v1.9.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
