@@ -214,6 +214,9 @@ make skaffold-debug
   
 ### Observability
 
+<details><summary>DETAILS</summary>
+<p>
+
 + **[Prometheus](https://prometheus.io/)** - Monitoring system
     + prometheus-operator
         + notify: slack, email, telegram
@@ -234,6 +237,9 @@ make skaffold-debug
     + [OnCall](https://grafana.com/oss/oncall/) - On-call scheduling
     + [Phlare](https://grafana.com/oss/phlare/) - Profiling and flame graphs
 
+</p>
+</details>
+  
 ### Mobile
 
 + `Hello World` on flutter ;-)
