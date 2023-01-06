@@ -177,6 +177,9 @@ make skaffold-debug
 
 ### Cloud-Native stack
 
+<details><summary>DETAILS</summary>
+<p>
+
 + Development
   + [Skaffold](https://skaffold.dev/)
   + Telepresence
@@ -206,6 +209,9 @@ make skaffold-debug
     + Nginx
     + Traefik
 
+</p>
+</details>
+  
 ### Observability
 
 + **[Prometheus](https://prometheus.io/)** - Monitoring system
