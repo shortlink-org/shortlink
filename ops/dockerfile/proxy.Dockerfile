@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-FROM node:19.3-alpine as builder
+FROM node:19.4-alpine as builder
 
 # WARNING: if container limit < MAX_OLD_SPACE_SIZE => Killed
 # Docs: https://developer.ibm.com/languages/node-js/articles/nodejs-memory-management-in-container-environments/
