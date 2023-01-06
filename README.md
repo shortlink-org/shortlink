@@ -26,8 +26,9 @@ our community and solve a problem for millions of people.
 
 ![shortlink-architecture](./docs/shortlink-architecture.png)
 
-### Architecture (miro.com)
+### Architecture
 
+- [Docs in Notion](https://shortlink-org.notion.site/Low-level-f61e3d5ab4ad484784cada86de569eba)
 - [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
 - [Auth](https://miro.com/app/board/o9J_lA5Wmhg=/)
 - [Event Sourcing](https://miro.com/app/board/o9J_l-6o1U0=/)
