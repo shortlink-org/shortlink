@@ -36,6 +36,12 @@ spec:
       kind: ClusterPolicy
       jqPathExpressions:
         - .spec.rules[] | select(.name|test("autogen-."))
+    # https://github.com/argoproj/argo-cd/issues/9323#issuecomment-1219867562
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      name: istio-sidecar-injector
+      jqPathExpressions:
+        - .webhooks[].namespaceSelector.matchExpressions[] | select(.key == "control-plane")
     - group: kyverno.io
       kind: ClusterPolicy
       jqPathExpressions:
