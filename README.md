@@ -46,7 +46,7 @@ made along with its context and consequences.
 
 [shortlink-techradar](https://radar.thoughtworks.com/?sheetId=https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/thoughtworks.radar.csv)
 
-##### Services
+### Services
 
 | Service           | Description                                                           | Language/Framework | Docs                                                  |
 |-------------------|-----------------------------------------------------------------------|--------------------|-------------------------------------------------------|
