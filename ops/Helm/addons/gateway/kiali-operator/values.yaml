@@ -8,8 +8,14 @@ kiali-operator:
     spec:
       auth:
         strategy: anonymous
+      kiali_feature_flags:
+        certificates_information_indicators:
+          enabled: true
+          secrets:
+            - cacerts
+            - istio-ca-secret
       deployment:
-        accessible_namespaces: [ "shortlink" ]
+        accessible_namespaces: ["**"]
         view_only_mode: false
       server:
         web_root: "/kiali"
