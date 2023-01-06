@@ -1,11 +1,13 @@
 replicaCount: 1
 
+deploy: {}
+
 image:
   registry: docker.io
   repository: provectuslabs/kafka-ui
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "v0.5.0"
 
 imagePullSecrets: []
 nameOverride: ""
