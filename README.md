@@ -80,6 +80,19 @@ made along with its context and consequences.
 | ory/kratos              | User management service                                               | Go                        | [docs](https://www.ory.sh/kratos/docs/)          |
 | ory/hydra               | OAuth 2.0 Provider                                                    | Go                        | [docs](https://www.ory.sh/keto/docs/)            |
 
+### UI
+
+| Service   | Description                          | Language/Framework        | Docs                                           |
+|-----------|--------------------------------------|---------------------------|------------------------------------------------|
+| landing   | Welcome page                         | JS/NextJS                 | [docs](./ui/landing/README.md)                 |
+| next      | UI service                           | JS/NextJS                 | [docs](./ui/next/README.md)                    |
+| ui-kit    | UI kit for ShortLink                 | JS/React                  | [docs](./ui/ui-kit/README.md)                  |
+
+### MQ
+
+| [Kafka](https://kafka.apache.org/) | [RabbitMQ](https://www.rabbitmq.com/) | [NATS](https://nats.io/) |
+|------------------------------------|---------------------------------------|--------------------------|
+
 ### Run
 
 <details><summary>DETAILS</summary>
@@ -161,19 +174,6 @@ make skaffold-debug
 
 </p>
 </details>
-
-### UI
-
-| Service   | Description                          | Language/Framework        | Docs                                           |
-|-----------|--------------------------------------|---------------------------|------------------------------------------------|
-| landing   | Welcome page                         | JS/NextJS                 | [docs](./ui/landing/README.md)                 |
-| next      | UI service                           | JS/NextJS                 | [docs](./ui/next/README.md)                    |
-| ui-kit    | UI kit for ShortLink                 | JS/React                  | [docs](./ui/ui-kit/README.md)                  |
-
-### MQ
-
-| [Kafka](https://kafka.apache.org/) | [RabbitMQ](https://www.rabbitmq.com/) | [NATS](https://nats.io/) |
-|------------------------------------|---------------------------------------|--------------------------|
 
 ### Cloud-Native stack
 
