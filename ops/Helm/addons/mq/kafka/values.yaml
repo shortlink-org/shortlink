@@ -14,9 +14,6 @@ kafka-ui:
 
   fullnameOverride: kafka-ui
 
-  image:
-    tag: master
-
   envs:
     secret: {}
     config:
