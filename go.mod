@@ -12,7 +12,7 @@ require (
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.12.0
 	github.com/cloudevents/sdk-go/v2 v2.12.0
 	github.com/container-storage-interface/spec v1.7.0
-	github.com/cucumber/godog v0.12.5
+	github.com/cucumber/godog v0.12.6
 	github.com/dgraph-io/badger/v3 v3.2103.5
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/edgedb/edgedb-go v0.13.3
@@ -137,7 +137,7 @@ require (
 	github.com/go-openapi/spec v0.20.6 // indirect
 	github.com/go-openapi/swag v0.19.15 // indirect
 	github.com/go-redis/redis/extra/rediscmd/v9 v9.0.0-rc.2 // indirect
-	github.com/gofrs/uuid v4.0.0+incompatible // indirect
+	github.com/gofrs/uuid v4.2.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/flatbuffers v2.0.0+incompatible // indirect
@@ -147,7 +147,7 @@ require (
 	github.com/gookit/color v1.5.2 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
-	github.com/hashicorp/go-memdb v1.3.0 // indirect
+	github.com/hashicorp/go-memdb v1.3.2 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-uuid v1.0.3 // indirect
 	github.com/hashicorp/golang-lru v0.5.5-0.20210104140557-80c98217689d // indirect
