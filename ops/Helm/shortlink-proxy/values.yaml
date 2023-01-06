@@ -55,7 +55,6 @@ deploy:
   env:
     MQ_ENABLED: "false"
     MQ_TYPE: "rabbitmq"
-    MQ_RABBIT_URI: "amqp://admin:admin@shortlink.rabbitmq:5672"
     TRACER_URI: grafana-tempo.grafana:6831
     API_LINK_SERVICE: http://shortlink-api.shortlink:7070
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
