@@ -1,22 +1,22 @@
 {{/* vim: set filetype=mustache: */}}
 
-{{- define "shortlink-common.deploymentStrategy" }}
-
-{{- if and (eq .Values.deploy.type "BlueGreen") -}}
-blueGreen:
-  activeService: {{ include "helpers.fullname" . }}
-  previewService: {{ include "helpers.fullname" . }}-preview
-  autoPromotionEnabled: false
-{{- else if and (eq .Values.deploy.type "Canary") -}}
-canary:
-  stableService: {{ include "helpers.fullname" . }}
-  canaryService: {{ include "helpers.fullname" . }}-preview
-  dynamicStableScale: true
-  {{ toYaml .Values.deploy.canary | nindent 2 }}
-{{- else -}}
-type: RollingUpdate
-rollingUpdate:
-  maxSurge: 1
-  maxUnavailable: 0
+{{- define "shortlink-common.deploymentStrategy" -}}
+strategy:
+{{- if and (eq .Values.deploy.strategy.type "BlueGreen") }}
+  blueGreen:
+    activeService: {{ include "helpers.fullname" . }}
+    previewService: {{ include "helpers.fullname" . }}-preview
+    autoPromotionEnabled: false
+{{- else if and (eq .Values.deploy.strategy.type "Canary") }}
+  canary:
+    stableService: {{ include "helpers.fullname" . }}
+    canaryService: {{ include "helpers.fullname" . }}-preview
+    dynamicStableScale: true
+    {{- toYaml .Values.deploy.strategy.canary | nindent 2 }}
+{{- else }}
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
 {{- end }}
 {{- end }}
