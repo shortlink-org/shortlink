@@ -40,7 +40,7 @@ require (
 	github.com/krzysztofreczek/go-structurizr v0.1.32
 	github.com/kubernetes-csi/csi-test/v4 v4.4.0
 	github.com/lib/pq v1.10.7
-	github.com/mattn/go-sqlite3/v2 v2.0.3+incompatible
+	github.com/mattn/go-sqlite3/v2 v2.0.6+incompatible
 	github.com/nats-io/nats.go v1.22.1
 	github.com/neo4j/neo4j-go-driver/v5 v5.3.0
 	github.com/ory/dockertest/v3 v3.9.1
