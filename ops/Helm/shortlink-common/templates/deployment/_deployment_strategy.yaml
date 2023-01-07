@@ -13,6 +13,15 @@ strategy:
     canaryService: {{ include "helpers.fullname" . }}-preview
 {{/*    dynamicStableScale: true*/}}
     {{- toYaml .Values.deploy.strategy.canary | nindent 2 }}
+    trafficRouting:
+    {{ if eq .Values.ingress.enabled true }}
+      {{ if eq .Values.ingress.type "nginx" }}
+      nginx:
+        # Reference to an Ingress which has a rule pointing to the stable service (e.g. rollouts-demo-stable)
+        # This ingress will be cloned with a new name, in order to achieve NGINX traffic splitting.
+        stableIngress: {{ include "helpers.fullname" . }}
+      {{ end }}
+    {{ end }}
 {{- else }}
   type: RollingUpdate
   rollingUpdate:
