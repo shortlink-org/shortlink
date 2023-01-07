@@ -4,6 +4,8 @@
 
 {{ include "shortlink-common.Deployment" . }}
 
+{{ include "shortlink-common.HPA" . }}
+
 {{ include "shortlink-common.Ingress" . }}
 
 {{ include "shortlink-common.Service" . }}
