@@ -8,8 +8,7 @@ metadata:
 spec:
   replicas: {{ .Values.deploy.replicaCount | default 1 }}
   revisionHistoryLimit: {{ .Values.deploy.revisionHistoryLimit | default 5 }}
-  strategy:
-    {{- include "shortlink-common.deploymentStrategy" . | nindent 4 }}
+  {{- include "shortlink-common.deploymentStrategy" . | nindent 2 }}
   selector:
     matchLabels:
       {{- include "shortlink-common.matchLabels" . | indent 6 }}

@@ -71,13 +71,22 @@ secret:
 
 # ==============================================================================
 deploy:
-  replicaCount: 1
+  type: Rollout
+
+  replicaCount: 3
 
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+    type: Canary
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {}
+        - setWeight: 40
+        - pause: { duration: 10 }
+        - setWeight: 60
+        - pause: { duration: 10 }
+        - setWeight: 80
+        - pause: { duration: 10 }
 
   env:
     MQ_ENABLED: "false"
