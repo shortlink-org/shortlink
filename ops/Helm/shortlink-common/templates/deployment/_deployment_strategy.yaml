@@ -11,7 +11,7 @@ strategy:
   canary:
     stableService: {{ include "helpers.fullname" . }}
     canaryService: {{ include "helpers.fullname" . }}-preview
-    dynamicStableScale: true
+{{/*    dynamicStableScale: true*/}}
     {{- toYaml .Values.deploy.strategy.canary | nindent 2 }}
 {{- else }}
   type: RollingUpdate
