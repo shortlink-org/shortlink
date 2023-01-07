@@ -79,9 +79,7 @@ deploy:
     type: Canary
     canary:
       steps:
-        - setWeight: 20
-        - pause: {}
-        - setWeight: 40
+        - setWeight: 30
         - pause: { duration: 10 }
         - setWeight: 60
         - pause: { duration: 10 }
