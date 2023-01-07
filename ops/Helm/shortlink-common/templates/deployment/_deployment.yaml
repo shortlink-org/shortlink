@@ -67,11 +67,11 @@ spec:
           # resources, such as Minikube. If you do want to specify resources, uncomment the following
           # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
           limits:
-            cpu: 100m
-            memory: 128Mi
+            cpu: {{ .Values.deploy.resources.limits.cpu | default "100m" }}
+            memory: {{ .Values.deploy.resources.limits.memory | default "128Mi" }}
           requests:
-            cpu: 10m
-            memory: 32Mi
+            cpu: {{ .Values.deploy.resources.requests.cpu | default "10m" }}
+            memory: {{ .Values.deploy.resources.requests.memory | default "32Mi" }}
         {{- include "shortlink-common.volumeMounts" . | indent 6 }}
       # -- Node labels and tolerations for pod assignment
       # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector

@@ -1,0 +1,27 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.VPA" }}
+{{- if and .Values.vpa.enabled -}}
+---
+apiVersion: autoscaling.k8s.io/v1beta2
+kind: VerticalPodAutoscaler
+metadata:
+  {{- include "shortlink-common.metadata" . }}
+spec:
+  targetRef:
+    {{- include "shortlink-common.deploymentType" . | nindent 4 }}
+    name: {{ include "helpers.fullname" . }}
+  updatePolicy:
+    updateMode: "Auto"
+  resourcePolicy:
+    containerPolicies:
+      - containerName: '*'
+    minAllowed:
+      cpu: {{ .Values.deploy.resources.requests.cpu | default "10m" }}
+      memory: {{ .Values.deploy.resources.requests.memory | default "32Mi" }}
+    maxAllowed:
+      cpu: {{ .Values.deploy.resources.limits.cpu | default "100m" }}
+      memory: {{ .Values.deploy.resources.limits.memory | default "128Mi" }}
+    controlledResources: ["cpu", "memory"]
+{{- end }}
+{{- end }}
