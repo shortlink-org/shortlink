@@ -66,6 +66,13 @@ deploy:
   # type: Deployment, Rollout, StatefulSet
   type: Deployment
 
+  strategy:
+    type: RollingUpdate
+
+  resources:
+    limits: {}
+    requests: {}
+
   env:
     MQ_ENABLED: "false"
     MQ_TYPE: "kafka"
