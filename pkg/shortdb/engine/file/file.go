@@ -6,6 +6,7 @@ import (
 	"os"
 	"sync"
 
+	"github.com/sourcegraph/conc"
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
@@ -121,13 +122,13 @@ func (f *file) init() error {
 	}()
 
 	payload := []byte{}
-	var wg sync.WaitGroup
-	wg.Add(1)
+	var wg conc.WaitGroup
 
 	// Read a file.
 	err = io_uring.ReadFile(fileOpenFile.Name(), func(buf []byte) {
-		payload = buf
-		wg.Done()
+		wg.Go(func() {
+			payload = buf
+		})
 	})
 	if err != nil {
 		return err
@@ -172,8 +173,7 @@ func (f *file) Close() error {
 		}
 	}()
 
-	var wg sync.WaitGroup
-	wg.Add(1)
+	var wg conc.WaitGroup
 
 	// save last page
 	for tableName := range f.database.Tables {
@@ -196,7 +196,7 @@ func (f *file) Close() error {
 
 	// save database
 	err = io_uring.WriteFile(databaseFile.Name(), payload, 0o644, func(n int) { // nolint:gomnd
-		defer wg.Done()
+		wg.Go(func() {})
 		// handle n
 	})
 	if err != nil {
