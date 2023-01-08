@@ -80,11 +80,18 @@ deploy:
     canary:
       steps:
         - setWeight: 30
-        - pause: { duration: 10 }
+        - pause:
+            duration: 10
         - setWeight: 60
-        - pause: { duration: 10 }
+        - pause:
+            duration: 10
         - setWeight: 80
-        - pause: { duration: 10 }
+        - pause:
+            duration: 10
+
+  resources:
+    limits: {}
+    requests: {}
 
   env:
     MQ_ENABLED: "false"

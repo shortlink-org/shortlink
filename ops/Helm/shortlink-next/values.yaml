@@ -67,6 +67,10 @@ deploy:
       maxSurge: 1
       maxUnavailable: 0
 
+  resources:
+    limits: {}
+    requests: {}
+
   terminationGracePeriodSeconds: 90
 
   # -- Annotations to be added to controller pods
