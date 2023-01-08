@@ -1,4 +1,4 @@
-# 11. application architecture documentation
+# 11. Application architecture documentation
 
 Date: 2023-01-07
 
@@ -12,7 +12,7 @@ We want to have a standard documentation for easy understanding of
 the logic of the platform and its architecture.
 
 We research:
-- 4C model
+- [4C model](https://c4model.com/)
 - 4+1 model
 - ARC42
 - archimate model
@@ -24,7 +24,8 @@ We research:
 
 ## Decision
 
-The change that we're proposing or have agreed to implement.
++ We use the [4C model](https://c4model.com/) for the documentation of the application architecture.
++ We use [archi editor](https://www.archimatetool.com/) for the documentation of the application architecture.
 
 ## Consequences
 

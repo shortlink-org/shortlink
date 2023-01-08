@@ -21,6 +21,7 @@ for information team about cases for updated ADR.
 - **Organization**
     - [ADR-0001](./decisions/0001-record-architecture-decisions.md) - Record architecture decisions
     - [ADR-0006](./decisions/0006-codeowner.md) - Codeowner
+    - [ADR-0011](./decisions/0011-application-architecture-documentation.md) - Application architecture documentation
 - **Naming**
     - [ADR-0002](./decisions/0002-implement-as-event-naming.md) - Implement as event naming
     - [ADR-0009](./decisions/0009-naming-spans-and-attributes.md) - Naming spans and attributes
