@@ -28,6 +28,7 @@ We research:
 
 + We use the [4C model](https://c4model.com/) for the documentation of the application architecture.
 + We use [archi editor](https://www.archimatetool.com/) for the documentation of the application architecture.
+  + [C4 Model, Architecture Viewpoint and Archi 4.7](https://www.archimatetool.com/blog/2020/04/18/c4-model-architecture-viewpoint-and-archi-4-7/)
 
 ### Architecture documentation
 
