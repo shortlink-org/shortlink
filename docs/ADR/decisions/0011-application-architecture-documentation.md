@@ -21,12 +21,22 @@ We research:
   - PlantUML-C4
 - OpenAPI specification
 - Gherkin
+- Miro
+- Notion
 
 ## Decision
 
 + We use the [4C model](https://c4model.com/) for the documentation of the application architecture.
 + We use [archi editor](https://www.archimatetool.com/) for the documentation of the application architecture.
 
+### Architecture documentation
+
+- [Docs in Notion](https://shortlink-org.notion.site/Low-level-f61e3d5ab4ad484784cada86de569eba)
+- [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
+- [Auth](https://miro.com/app/board/o9J_lA5Wmhg=/)
+- [Event Sourcing](https://miro.com/app/board/o9J_l-6o1U0=/)
+- [C4](./docs/c4)
+
 ## Consequences
 
-What becomes easier or more difficult to do and any risks introduced by the change that will need to be mitigated.
++ We have a standard documentation for the application architecture.

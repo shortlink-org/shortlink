@@ -26,14 +26,6 @@ our community and solve a problem for millions of people.
 
 ![shortlink-architecture](./docs/shortlink-architecture.png)
 
-### Architecture
-
-- [Docs in Notion](https://shortlink-org.notion.site/Low-level-f61e3d5ab4ad484784cada86de569eba)
-- [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
-- [Auth](https://miro.com/app/board/o9J_lA5Wmhg=/)
-- [Event Sourcing](https://miro.com/app/board/o9J_l-6o1U0=/)
-- [C4](./docs/c4)
-
 ### Architecture decision records (ADR)
 
 An architecture decision record (ADR) is a document that captures an important architecture decision 
@@ -42,9 +34,9 @@ made along with its context and consequences.
 + [Decisions](./docs/ADR/decisions)
 + [Docs ADR](https://github.com/joelparkerhenderson/architecture-decision-record)
 
-### Techradar
+### Architecture
 
-[shortlink-techradar](https://radar.thoughtworks.com/?sheetId=https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/thoughtworks.radar.csv)
+You can find the architecture documentation [here](./docs/ADR/decisions/0011-application-architecture-documentation.md).
 
 ### Services
 
