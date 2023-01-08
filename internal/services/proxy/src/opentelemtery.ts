@@ -1,15 +1,21 @@
-const {NodeTracerProvider} = require('@opentelemetry/sdk-trace-node');
-const {registerInstrumentations} = require('@opentelemetry/instrumentation');
-const {HttpInstrumentation} = require('@opentelemetry/instrumentation-http');
-const {ExpressInstrumentation} = require('@opentelemetry/instrumentation-express');
+import * as opentelemetry from "@opentelemetry/sdk-node";
+import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
+import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
+import { Resource } from "@opentelemetry/resources";
+import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
+import { NodeTracerProvider } from "@opentelemetry/sdk-trace-node";
+import { registerInstrumentations } from "@opentelemetry/instrumentation";
+import { ConsoleSpanExporter, BatchSpanProcessor } from "@opentelemetry/sdk-trace-base";
 
-const provider = new NodeTracerProvider();
-provider.register();
+// For troubleshooting, set the log level to DiagLogLevel.DEBUG
+diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 
-registerInstrumentations({
-    instrumentations: [
-        // Express instrumentation expects HTTP layer to be instrumented
-        new HttpInstrumentation(),
-        new ExpressInstrumentation(),
-    ],
+const sdk = new opentelemetry.NodeSDK({
+  traceExporter: new opentelemetry.tracing.ConsoleSpanExporter(),
+  instrumentations: [getNodeAutoInstrumentations()],
+  resource: new Resource({
+    [SemanticResourceAttributes.SERVICE_NAME]: process.env.SERVICE_NAME,
+  }),
 });
+
+sdk.start()

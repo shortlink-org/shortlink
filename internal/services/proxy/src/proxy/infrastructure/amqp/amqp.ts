@@ -7,9 +7,15 @@ const log: Logger<any> = new Logger()
 
 @injectable()
 class AMQPController {
-  public connection: Amqp.Connection
+  public connection: Amqp.Connection | undefined
 
   constructor() {
+    if (process.env.MQ_ENABLED === 'false' || process.env.MQ_ENABLED === undefined) {
+      log.info('AMQP disabled')
+
+      return
+    }
+
     const MQ_RABBIT_URI = process.env.MQ_RABBIT_URI
 
     this.connection = new Amqp.Connection(MQ_RABBIT_URI)

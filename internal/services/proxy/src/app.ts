@@ -7,7 +7,7 @@ import {Logger} from "tslog"
 import {InversifyExpressServer} from "inversify-express-utils"
 import {createTerminus} from "@godaddy/terminus"
 
-import './opentelemetry'
+import './opentelemtery'
 import container from "./inversify.config"
 
 import './proxy/infrastructure/http/proxy'
