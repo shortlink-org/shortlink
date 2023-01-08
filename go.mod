@@ -51,6 +51,7 @@ require (
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/encoding v0.3.6
 	github.com/sirupsen/logrus v1.9.0
+	github.com/sourcegraph/conc v0.1.0
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.14.0
