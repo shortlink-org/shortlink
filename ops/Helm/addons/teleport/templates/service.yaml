@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: teleport-ui
+  labels:
+    app: teleport
+spec:
+  type: NodePort
+  ports:
+    - name: https
+      nodePort: 4443
+      port: 443
+      protocol: TCP
+      targetPort: 3080
+  selector:
+    app: teleport
