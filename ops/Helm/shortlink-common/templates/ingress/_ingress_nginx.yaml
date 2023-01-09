@@ -30,6 +30,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- with .Values.ingress.spec }}
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
   ingressClassName: nginx
 {{- if .Values.ingress.tls }}
   tls:

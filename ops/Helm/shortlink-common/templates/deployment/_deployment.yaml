@@ -6,6 +6,9 @@
 metadata:
   {{- include "shortlink-common.metadata" . }}
 spec:
+  {{- with .Values.deploy.spec }}
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
   replicas: {{ .Values.deploy.replicaCount | default 1 }}
   revisionHistoryLimit: {{ .Values.deploy.revisionHistoryLimit | default 5 }}
   {{- include "shortlink-common.deploymentStrategy" . | nindent 2 }}

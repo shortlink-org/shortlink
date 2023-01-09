@@ -8,6 +8,9 @@ kind: VerticalPodAutoscaler
 metadata:
   {{- include "shortlink-common.metadata" . }}
 spec:
+  {{- with .Values.vpa.spec }}
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
   targetRef:
     {{- include "shortlink-common.deploymentType" . | nindent 4 }}
     name: {{ include "helpers.fullname" . }}

@@ -6,6 +6,9 @@ kind: VirtualService
 metadata:
   {{- include "shortlink-common.metadata" . | indent 2 }}
 spec:
+  {{- with .Values.ingress.spec }}
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
   hosts:
     - "*"
   gateways:
