@@ -40,7 +40,7 @@ teleport-cluster:
     spec:
       ports:
         - name: https
-          port: 443
+          port: 4443
           targetPort: 3080
           protocol: TCP
 
