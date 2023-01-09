@@ -43,14 +43,10 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/landing
         DOCKERFILE_PATH: ops/dockerfile/landing.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
-        CMD_PATH: ""
       - APPLICATION: ui-next
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-next
         DOCKERFILE_PATH: ops/dockerfile/ui-next.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
-        CMD_PATH: ""
       - APPLICATION: ui-kit
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-kit
         DOCKERFILE_PATH: ops/dockerfile/ui-next.Dockerfile
-        DOCKERFILE_ARGS: ""
-        CMD_PATH: ""
