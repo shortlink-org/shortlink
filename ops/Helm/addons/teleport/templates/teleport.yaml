@@ -23,7 +23,7 @@ data:
       listen_addr: 0.0.0.0:3027
       kube_cluster_name: shortlink
     proxy_service:
-      public_addr: 'teleport.shortlink.best:4443'
+      public_addr: 'teleport.shortlink.best:443'
       kube_listen_addr: 0.0.0.0:3026
       mysql_listen_addr: 0.0.0.0:3036
       enabled: true
