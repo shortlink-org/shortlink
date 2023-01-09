@@ -39,7 +39,7 @@ teleport-cluster:
     type: NodePort
     spec:
       ports:
-        - name: https
+        - name: https2
           port: 4443
           targetPort: 3080
           protocol: TCP
