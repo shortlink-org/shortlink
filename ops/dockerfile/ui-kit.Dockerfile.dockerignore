@@ -1,0 +1,15 @@
+.*
+cmd
+docs
+ds
+internal
+ops
+pkg
+ui
+*.yml
+
+# Exclude
+!ui/ui-kit
+!ops/dockerfile/conf/landing.local
+!ops/dockerfile/conf/ui.local
+!ops/docker-compose/gateway/nginx
