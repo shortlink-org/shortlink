@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import {ColorModeContext} from './ColorModeContext'
 
 // @ts-ignore
-import styles from './styles.css'
+import './styles.css'
 
 type ToggleDarkModeProps = {
   id: string
