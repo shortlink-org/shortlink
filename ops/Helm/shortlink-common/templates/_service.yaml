@@ -8,6 +8,9 @@ kind: Service
 metadata:
   {{- include "shortlink-common.metadata" . | indent 2 }}
 spec:
+  {{- with .Values.service.spec }}
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
   type: {{ .Values.service.type }}
   {{- if semverCompare ">=1.20" .Capabilities.KubeVersion.Version }}
   ipFamilyPolicy: PreferDualStack

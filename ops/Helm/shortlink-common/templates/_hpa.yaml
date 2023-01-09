@@ -8,6 +8,9 @@ kind: HorizontalPodAutoscaler
 metadata:
   {{- include "shortlink-common.metadata" . }}
 spec:
+  {{- with .Values.hpa.spec }}
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
   minReplicas: {{ .Values.hpa.minReplicas | default 1 }}
   maxReplicas: {{ .Values.hpa.maxReplicas | default 5 }}
   scaleTargetRef:
