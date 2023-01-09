@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: teleport
+data:
+  teleport.yaml: |
+    teleport:
+      log:
+        severity: INFO
+        output: stderr
+        format:
+          output: json
+          extra_fields: ["timestamp","level","component","caller"]
+    auth_service:
+      enabled: true
+      cluster_name: teleport.shortlink.best
+      authentication:
+        type: "local"
+        local_auth: true
+        second_factor: "otp"
+    kubernetes_service:
+      enabled: true
+      listen_addr: 0.0.0.0:3027
+      kube_cluster_name: shortlink
+    proxy_service:
+      public_addr: 'teleport.shortlink.best:4443'
+      kube_listen_addr: 0.0.0.0:3026
+      mysql_listen_addr: 0.0.0.0:3036
+      enabled: true
+      https_keypairs:
+        - key_file: /etc/teleport-tls/tls.key
+          cert_file: /etc/teleport-tls/tls.crt
+    ssh_service:
+      enabled: false

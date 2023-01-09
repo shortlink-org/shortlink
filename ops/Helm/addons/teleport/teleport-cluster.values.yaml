@@ -17,7 +17,7 @@ teleport-cluster:
 
   kubeClusterName: shortlink
 
-  chartMode: standalone
+  chartMode: custom
 
   authentication:
     type: local
@@ -36,7 +36,13 @@ teleport-cluster:
     format: json
 
   service:
-    type: ClusterIP
+    type: NodePort
+    spec:
+      ports:
+        - name: https
+          port: 443
+          targetPort: 3080
+          protocol: TCP
 
   highAvailability:
     certManager:
