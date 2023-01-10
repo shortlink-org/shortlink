@@ -2,6 +2,7 @@
 
 const webpack = require('webpack')
 const { withImageLoader } = require('next-image-loader')
+const withExportImages = require('next-export-optimize-images')
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
@@ -95,12 +96,7 @@ const NEXT_CONFIG = {
       },
     ]
   },
-  experimental: {
-    forceSwcTransforms: true,
-    images: {
-      allowFutureImage: true,
-    },
-  },
+  experimental: {},
 }
 
 if (!isProd) {
@@ -155,7 +151,7 @@ if (isEnableSentry) {
     // https://github.com/getsentry/sentry-webpack-plugin#options.
   }
 
-  EXPORT_CONFIG = withSentryConfig(EXPORT_CONFIG, SentryWebpackPluginOptions)
+  EXPORT_CONFIG = withExportImages(withSentryConfig(EXPORT_CONFIG, SentryWebpackPluginOptions))
 }
 
 module.exports = EXPORT_CONFIG
