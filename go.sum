@@ -264,12 +264,8 @@ github.com/cilium/ebpf v0.4.0/go.mod h1:4tRaxcgiL706VnOzHOdBlY8IEAIdxINsQBcU4xJJ
 github.com/cilium/ebpf v0.6.2/go.mod h1:4tRaxcgiL706VnOzHOdBlY8IEAIdxINsQBcU4xJJXRs=
 github.com/cilium/ebpf v0.7.0/go.mod h1:/oI2+1shJiTGAMgl6/RgJr36Eo1jzrRcAWbcXO2usCA=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
-github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.12.0 h1:iMJy7/VX/+/ZImJo7dffvg/ZPwrp4PprnnyKPK1mOok=
-github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.12.0/go.mod h1:g7VsRXXYILOchM36AReyfd2bJFJyyE+PMuYa65CxjGo=
 github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.13.0 h1:Mf5y5GYVusfOpPQsKHOvr9c3Y76fZnSZzuZo+LQr/aU=
 github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.13.0/go.mod h1:vgBrMXc1h8htR8PUlGViBcNEkri4fw98nY8Tqsgdtfs=
-github.com/cloudevents/sdk-go/v2 v2.12.0 h1:p1k+ysVOZtNiXfijnwB3WqZNA3y2cGOiKQygWkUHCEI=
-github.com/cloudevents/sdk-go/v2 v2.12.0/go.mod h1:xDmKfzNjM8gBvjaF8ijFjM1VYOVUEeUfapHMUX1T5To=
 github.com/cloudevents/sdk-go/v2 v2.13.0 h1:2zxDS8RyY1/wVPULGGbdgniGXSzLaRJVl136fLXGsYw=
 github.com/cloudevents/sdk-go/v2 v2.13.0/go.mod h1:xDmKfzNjM8gBvjaF8ijFjM1VYOVUEeUfapHMUX1T5To=
 github.com/cloudflare/golz4 v0.0.0-20150217214814-ef862a3cdc58/go.mod h1:EOBUe0h4xcZ5GoxqC5SDxFQ8gwyZPKQoEzownBlhI80=
@@ -1175,8 +1171,6 @@ github.com/nats-io/nuid v1.0.1/go.mod h1:19wcPz3Ph3q0Jbyiqsd0kePYG7A95tJPxeL+1OS
 github.com/nbio/st v0.0.0-20140626010706-e9e8d9816f32/go.mod h1:9wM+0iRr9ahx58uYLpLIr5fm8diHn0JbqRycJi6w0Ms=
 github.com/ncw/swift v1.0.47/go.mod h1:23YIA4yWVnGwv2dQlN4bB7egfYX6YLn0Yo/S6zZO/ZM=
 github.com/neo4j/neo4j-go-driver v1.8.1-0.20200803113522-b626aa943eba/go.mod h1:ncO5VaFWh0Nrt+4KT4mOZboaczBZcLuHrG+/sUeP8gI=
-github.com/neo4j/neo4j-go-driver/v5 v5.3.0 h1:lHar0TrufgbFWo8uYoVVBDemYlPVxw3+sRJOxPmf1uE=
-github.com/neo4j/neo4j-go-driver/v5 v5.3.0/go.mod h1:Vff8OwT7QpLm7L2yYr85XNWe9Rbqlbeb9asNXJTHO4k=
 github.com/neo4j/neo4j-go-driver/v5 v5.4.0 h1:5uq+kGYS768hQJQR2RG3D0gEmlf6XiWdPZs1z1QjYaA=
 github.com/neo4j/neo4j-go-driver/v5 v5.4.0/go.mod h1:Vff8OwT7QpLm7L2yYr85XNWe9Rbqlbeb9asNXJTHO4k=
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
@@ -2490,8 +2484,6 @@ k8s.io/utils v0.0.0-20210819203725-bdf08cb9a70a/go.mod h1:jPW/WVKK9YHAvNhRxK0md/
 k8s.io/utils v0.0.0-20210930125809-cb0fa318a74b/go.mod h1:jPW/WVKK9YHAvNhRxK0md/EJ228hCsBRufyofKtW8HA=
 k8s.io/utils v0.0.0-20221128185143-99ec85e7a448 h1:KTgPnR10d5zhztWptI952TNtt/4u5h3IzDXkdIMuo2Y=
 k8s.io/utils v0.0.0-20221128185143-99ec85e7a448/go.mod h1:OLgZIPagt7ERELqWJFomSt595RzquPNLL48iOWgYOg0=
-knative.dev/pkg v0.0.0-20230104193420-027482598489 h1:H0ob8ZMGbUNgP68wnPkVaSh7do9nVCxvELQ9IKXSW8o=
-knative.dev/pkg v0.0.0-20230104193420-027482598489/go.mod h1:IeUSNPPUpQnM35SjpnfCx0w5/V2RpEc+nmke6oPwpD0=
 knative.dev/pkg v0.0.0-20230110013450-dc20e472128f h1:vORnIzNNy3efqsjBYwkHw1IZf/mC3J4sFfhurtJosh8=
 knative.dev/pkg v0.0.0-20230110013450-dc20e472128f/go.mod h1:IeUSNPPUpQnM35SjpnfCx0w5/V2RpEc+nmke6oPwpD0=
 modernc.org/b v1.0.0/go.mod h1:uZWcZfRj1BpYzfN9JTerzlNUnnPsV9O2ZA8JsRcubNg=
