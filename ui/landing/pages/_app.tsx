@@ -1,12 +1,12 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
-import {AppProps, NextWebVitalsMetric} from 'next/app'
-import {ThemeProvider} from '@mui/material/styles'
+import { AppProps, NextWebVitalsMetric } from 'next/app'
+import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import {CacheProvider, EmotionCache} from '@emotion/react'
-import {ThemeProvider as NextThemeProvider} from 'next-themes'
-import {Roboto_Mono} from '@next/font/google' // eslint-disable-line
-import {DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd} from 'next-seo'
+import { CacheProvider, EmotionCache } from '@emotion/react'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
+import { Roboto_Mono } from '@next/font/google' // eslint-disable-line
+import { DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import '../public/assets/styles.css'
 
 // @ts-ignore

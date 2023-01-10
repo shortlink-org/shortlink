@@ -1,6 +1,7 @@
 /* eslint-disable */
 
 const webpack = require('webpack')
+const withExportImages = require('next-export-optimize-images')
 
 // You can choose which headers to add to the list
 // after learning more below.
@@ -75,4 +76,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = withExportImages(nextConfig)

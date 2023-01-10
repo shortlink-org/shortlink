@@ -1,8 +1,8 @@
 import * as React from 'react'
-import Document, {Head, Html, Main, NextScript} from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
 // @ts-ignore
-import {createEmotionCache, lightTheme} from '@shortlink-org/ui-kit'
+import { createEmotionCache, lightTheme } from '@shortlink-org/ui-kit'
 
 export default class MyDocument extends Document {
   render() {
