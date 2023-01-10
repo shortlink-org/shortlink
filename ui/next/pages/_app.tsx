@@ -1,15 +1,15 @@
 // @ts-nocheck
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Head from 'next/head'
-import {wrapper} from 'store/store'
-import {Provider} from 'react-redux'
+import { wrapper } from 'store/store'
+import { Provider } from 'react-redux'
 import Fab from '@mui/material/Fab'
-import {AppInitialProps, NextWebVitalsMetric} from 'next/app'
-import {StyledEngineProvider, ThemeProvider} from '@mui/material/styles'
-import {ThemeProvider as NextThemeProvider} from 'next-themes'
+import { AppInitialProps, NextWebVitalsMetric } from 'next/app'
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import CssBaseline from '@mui/material/CssBaseline'
-import {CacheProvider, EmotionCache} from '@emotion/react'
+import { CacheProvider, EmotionCache } from '@emotion/react'
 import 'public/assets/styles.css'
 import ScrollTop from 'components/ScrollTop'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -115,7 +115,7 @@ const MyApp: FC<AppProps> = ({ Component, ...rest }) => {
   )
 }
 
-export default wrapper.withRedux(MyApp)
+export default MyApp
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
   console.log(metric)
