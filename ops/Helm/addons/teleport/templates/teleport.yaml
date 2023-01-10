@@ -16,9 +16,9 @@ data:
       cluster_name: teleport.shortlink.best
       authentication:
         # types: local, github, gitlab
-        type: github
-        # local_auth: true
-        # second_factor: "otp"
+        type: local
+        local_auth: true
+        second_factor: "otp"
     kubernetes_service:
       enabled: true
       listen_addr: 0.0.0.0:3027
