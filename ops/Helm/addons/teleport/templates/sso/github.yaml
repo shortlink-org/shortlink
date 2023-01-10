@@ -1,0 +1,21 @@
+version: v3
+kind: github
+metadata:
+  # Connector name that will be used with `tsh --auth=github login`
+  name: github
+spec:
+  # Client ID of your GitHub OAuth App
+  client_id: {{ .Values.github.client_id }}
+  # Client secret of your GitHub OAuth App
+  client_secret: {{ .Values.github.client_secret }}
+  # Connector display name that will be shown on the Web UI login screen
+  display: GitHub
+  # Callback URL that will be called after successful authentication
+  redirect_url: https://teleport.shortlink.best/v1/webapi/github/callback
+  # Mapping of org/team memberships onto allowed roles
+  teams_to_roles:
+    - organization: shortlink-org # GitHub organization name
+      team: shortlink-org # GitHub team name within that organization
+      # Maps octocats/admins to the "access" Teleport role
+      roles:
+        - access
