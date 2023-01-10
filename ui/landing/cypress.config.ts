@@ -1,5 +1,5 @@
-import {loadEnvConfig} from '@next/env'
-import {defineConfig} from 'cypress'
+import { loadEnvConfig } from '@next/env'
+import { defineConfig } from 'cypress'
 
 const { combinedEnv } = loadEnvConfig(process.cwd())
 

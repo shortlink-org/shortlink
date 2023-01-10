@@ -78,7 +78,7 @@ rules:
   'jsx-a11y/label-has-associated-control': off
   react/display-name: off
   '@typescript-eslint/no-use-before-define':
-    [ 'error', { functions: false, classes: false, variables: true } ]
+    ['error', { functions: false, classes: false, variables: true }]
   '@typescript-eslint/ban-ts-comment': off
   react/react-in-jsx-scope: off
   react/no-unused-prop-types: off
