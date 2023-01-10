@@ -7,6 +7,11 @@ spec:
     rules:
       - resources: ['user', 'role']
         verbs: ['list', 'read']
+    request:
+      roles: [ 'editor' ]
+      thresholds:
+        - approve: 1
+          deny: 1
 
 ---
 apiVersion: resources.teleport.dev/v2
