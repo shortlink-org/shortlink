@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/pkg/shortdb-operator
 go 1.20
 
 require (
-	github.com/onsi/ginkgo/v2 v2.6.1
+	github.com/onsi/ginkgo/v2 v2.7.0
 	github.com/onsi/gomega v1.24.2
 	k8s.io/api v0.26.0
 	k8s.io/apimachinery v0.26.0
