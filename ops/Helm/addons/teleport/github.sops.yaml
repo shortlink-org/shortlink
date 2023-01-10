@@ -1,0 +1,32 @@
+github:
+    client_id: ENC[AES256_GCM,data:Xpxim/1cBdXLWxpZn+EHLs+x7BE=,iv:rLbN8U0b3c4nioV/biox1/bJFvvSgiCkktUWEroce/o=,tag:vOzI5Wh8BRTEPMq7zh2VMw==,type:str]
+    client_secret: ENC[AES256_GCM,data:PZ/GH+aiTI9Yzyt7FEf+HzioSIK6/5p+W7j9shgCYBZQGP1My2BNCg==,iv:Nu/EK3X5zw/PtpW9Cwg9ZPCNs+0n9SkJtXhaZhL70Is=,tag:B7chowvH6PxAhnYWCIbb2w==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-01-10T06:48:54Z"
+    mac: ENC[AES256_GCM,data:N6FuItd2TM+XaUL65C32KM/b5vFddFt83uZQFu6qaSP5yJwOPlA7dykhskVEvS/RZtDUkeVT+WQncubzQSp1yBg3aMo+pJuDQ/Fz/XsHZLEGHXmUov+Is5xPXRfu8dfHHcDKtLNxDwSxMqU0jsmd5F3R4O1kQKry22HXZVhIoao=,iv:9rSvVoRh4BCEowSggycoQ9Uh7aIMS0GPLPdGXAR/NyE=,tag:DeUObLtS6aS6z0/lCqCWFw==,type:str]
+    pgp:
+        - created_at: "2023-01-10T06:47:31Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQGMAxDrDE6S/SFjAQv7BuXmGX4w2WTCn6rW6A0aIEpPrKJKYg8WFiNCXvcMlJgz
+            Lw1T7dadLVahjBEodAcPH1pQf0EkB9auFw7Z0EvCedER4XUFamg94HJ9FzdCa6og
+            LGB8lJcyA59s5cjMY1kMS8gsX3oRWFvtEkgG94suXsaRTvmbRKb8XWzmyXqoDHzG
+            n5Oem4WL3ekBml6cXZvc8x0aeNtwU/4PLWclx88T4hRcudgD4sRgMlp3N88BDe8I
+            NuRhzevDfD85JmtRM2Z3Kerel5w/cGecxveNsn8vZvG0TPiTT/uOud8NWcD+DDgI
+            2P6ix4bef6w8Oq5b5sQ1R+DmH+s4ot5gdAE+DtSXa0xkZEGOASl9WHEpEPGGojrE
+            8gMSDN9E+LIFyidp24J704LNom5/Sk2JPO/7rACwSdq2EAg2UQz93WLAl4DPBwCu
+            2WwB1mfJKGAiUmJAo18J6MrgP5mzRGRzMuuGMWx0W/1H1SKQrXonsDHRVs/ZOKj7
+            TQaCm+kJyejoVbIrgV0o1GYBCQIQI4/JlJr+Vb7gfAdURFxB5xsuD0f+Px7kxdIf
+            k49b6g7M0Tyv3Qksm6AQpP2dKav/PFtO3BR6OQWmME78iG69+Blb3OvPAtEiuqbb
+            Zm6iVHfSuxinbhdOvntSoorQ238ngBQ=
+            =1yZf
+            -----END PGP MESSAGE-----
+          fp: C92AE33AF20998F8CA09E819A842078E859DE4F1
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3
