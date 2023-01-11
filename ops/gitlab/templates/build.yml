@@ -1,7 +1,7 @@
 .template_build:
   stage: build
   services:
-    - name: docker:23.0.0-rc.1-dind-rootless
+    - name: docker:23.0.0-rc.1-dind
       command: [ "--experimental" ]
   image: docker:23.0.0-rc.1-cli
   variables:
