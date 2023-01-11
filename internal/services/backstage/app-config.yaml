@@ -3,7 +3,7 @@ app:
   baseUrl: http://localhost:3000
 
 organization:
-  name: My Company
+  name: ShortLink
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -28,8 +28,9 @@ backend:
   # This is for local development only, it is not recommended to use this in production
   # The production database configuration is stored in app-config.production.yaml
   database:
-    client: better-sqlite3
-    connection: ':memory:'
+    # config options: https://node-postgres.com/apis/client
+    client: pg
+    connection: postgres://postgres:shortlink@localhost:5432/shortlink?sslmode=disable
   cache:
     store: memory
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
@@ -79,26 +80,26 @@ catalog:
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
-      target: ../../examples/entities.yaml
+      target: ../../shortlink-org/entities.yaml
 
     # Local example template
     - type: file
-      target: ../../examples/template/template.yaml
+      target: ../../shortlink-org/template/template.yaml
       rules:
         - allow: [Template]
 
     # Local example organizational data
     - type: file
-      target: ../../examples/org.yaml
+      target: ../../shortlink-org/org.yaml
       rules:
         - allow: [User, Group]
 
     ## Uncomment these lines to add more example data
     # - type: url
-    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/shortlink-org/all.yaml
 
     ## Uncomment these lines to add an example org
     # - type: url
-    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
+    #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/shortlink-org/acme-corp.yaml
     #   rules:
     #     - allow: [User, Group]

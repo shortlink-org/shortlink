@@ -6,7 +6,9 @@
       <script value="dev" />
     </scripts>
     <node-interpreter value="project" />
-    <envs />
+    <envs>
+      <env name="STORE_POSTGRES_URI" value="postgres://postgres:shortlink@localhost:5432/shortlink?sslmode=disable" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>
