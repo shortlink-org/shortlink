@@ -12,6 +12,7 @@ export PROJECT_NAME
 DOCKER_USERNAME := "batazor"
 DOCKER_BUILDKIT := 1
 DOCKER_CONTENT_TRUST := 1
+BUILDX_GIT_LABELS := 1
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
 SHORTLINK_SERVICES := api billing bot csi landing link logger metadata notify proxy ui-next
