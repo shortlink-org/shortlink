@@ -14,6 +14,7 @@ import (
 	"strings"
 
 	"github.com/pterm/pterm"
+	"github.com/pterm/pterm/putils"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
@@ -51,15 +52,15 @@ func init() {
 	}
 
 	// Generate docs
-	if err := doc.GenMarkdownTree(rootCmd, "./docs"); err != nil {
+	if err := doc.GenMarkdownTree(rootCmd, "./internal/services/shortctl"); err != nil {
 		log.Fatal(err)
 	}
 }
 
 func main() {
 	err := pterm.DefaultBigText.WithLetters(
-		pterm.NewLettersFromStringWithStyle("Short", pterm.NewStyle(pterm.FgCyan)),
-		pterm.NewLettersFromStringWithStyle("Link", pterm.NewStyle(pterm.FgLightMagenta))).
+		putils.LettersFromStringWithStyle("Short", pterm.NewStyle(pterm.FgCyan)),
+		putils.LettersFromStringWithStyle("Link", pterm.NewStyle(pterm.FgLightMagenta))).
 		Render()
 	if err != nil {
 		panic(err)
