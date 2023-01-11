@@ -71,10 +71,11 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 
 ### Third-party Service
 
-| Service                 | Description                                                           | Language/Framework        | Docs                                             |
-|-------------------------|-----------------------------------------------------------------------|---------------------------|--------------------------------------------------|
-| ory/kratos              | User management service                                               | Go                        | [docs](https://www.ory.sh/kratos/docs/)          |
-| ory/hydra               | OAuth 2.0 Provider                                                    | Go                        | [docs](https://www.ory.sh/keto/docs/)            |
+| Service     | Description                                                     | Language/Framework | Docs                                    |
+|-------------|-----------------------------------------------------------------|--------------------|-----------------------------------------|
+| ory/kratos  | User management service                                         | Go                 | [docs](https://www.ory.sh/kratos/docs/) |
+| ory/hydra   | OAuth 2.0 Provider                                              | Go                 | [docs](https://www.ory.sh/keto/docs/)   |
+| backstage   | Backstage is an open platform for building developer portals.   | TypeScript         | [docs](https://backstage.io/docs/)      |
 
 ### UI
 
