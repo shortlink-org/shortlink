@@ -27,10 +27,6 @@ docker_build:
 	@echo "Building ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}"
 	@docker buildx build --platform=linux/amd64 \
 		--force-rm \
-		--opt attest:provenance=mode=min,inline-only=false \
-		--opt build-arg:BUILDKIT_SBOM_SCAN_STAGE=true \
-		--opt build-arg:BUILDKIT_SBOM_SCAN_CONTEXT=true \
-		--opt attest:sbom= \
 		--push \
 		-t ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG} \
 		-f ops/dockerfile/$(SERVICE).Dockerfile .

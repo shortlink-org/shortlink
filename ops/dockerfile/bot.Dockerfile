@@ -1,5 +1,11 @@
 # syntax=docker/dockerfile:1.4
 
+# Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
+# enable scanning for the intermediate build stage
+ARG BUILDKIT_SBOM_SCAN_STAGE=true
+# scan the build context only if the build is run to completion
+ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
+
 FROM maven:3.8.6-jdk-11-slim as builder
 
 ARG CI_COMMIT_TAG
