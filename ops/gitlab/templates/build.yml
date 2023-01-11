@@ -21,6 +21,9 @@
     - docker buildx build 
       --platform=linux/amd64
       --opt attest:provenance=mode=min,inline-only=false
+      --opt build-arg:BUILDKIT_SBOM_SCAN_STAGE=true 
+      --opt build-arg:BUILDKIT_SBOM_SCAN_CONTEXT=true 
+      --opt attest:sbom= 
       --push $CMD_PATH $DOCKERFILE_ARGS
       -t ${REGISTRY_IMAGE}:latest
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
