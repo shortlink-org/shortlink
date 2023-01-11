@@ -56,6 +56,7 @@ import {
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
+import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -143,6 +144,10 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">
       {cicdContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route if={isAdrAvailable} path="/adrs" title="ADRs">
+      <EntityAdrContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/api" title="API">

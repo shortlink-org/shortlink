@@ -4,7 +4,8 @@ metadata:
   name: backstage
   description: An example of a Backstage application.
   # Example for optional annotations
-  # annotations:
+   annotations:
+     backstage.io/adr-location: ../../docs/ADR/decisions
   #   github.com/project-slug: backstage/backstage
   #   backstage.io/techdocs-ref: dir:.
 spec:
