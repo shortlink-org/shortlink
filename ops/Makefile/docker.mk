@@ -11,6 +11,7 @@ export PROJECT_NAME
 
 DOCKER_USERNAME := "batazor"
 DOCKER_BUILDKIT := 1
+DOCKER_CONTENT_TRUST := 1
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
 SHORTLINK_SERVICES := api billing bot csi landing link logger metadata notify proxy ui-next
@@ -25,6 +26,7 @@ docker_build:
 	@echo "Building ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}"
 	@docker buildx build --platform=linux/amd64 \
 		--force-rm \
+		--opt attest:provenance=mode=min,inline-only=false \
 		--push \
 		-t ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG} \
 		-f ops/dockerfile/$(SERVICE).Dockerfile .

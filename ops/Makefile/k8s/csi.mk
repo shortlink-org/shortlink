@@ -4,7 +4,9 @@
 SNAPSHOTTER_VERSION=v3.0.1
 
 csi-build: ## Build the CSI container
-		@echo docker buildx build --platform=linux/amd64 image ${CI_REGISTRY_IMAGE}-csi:${CI_COMMIT_TAG}
+		@echo docker buildx build \
+			--platform=linux/amd64 \
+			image ${CI_REGISTRY_IMAGE}-csi:${CI_COMMIT_TAG}
 		@docker buildx build --platform=linux/amd64 --no-cache -t ${CI_REGISTRY_IMAGE}-csi -f ops/dockerfile/csi.Dockerfile .
 
 csi-up: ## Deploy CSI plugin
