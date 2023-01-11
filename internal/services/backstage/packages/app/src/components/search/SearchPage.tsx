@@ -7,6 +7,7 @@ import {
   CATALOG_FILTER_EXISTS,
 } from '@backstage/plugin-catalog-react';
 import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
+import { AdrSearchResultListItem } from '@backstage/plugin-adr';
 
 import { SearchType } from '@backstage/plugin-search';
 import {
@@ -123,6 +124,13 @@ const SearchPage = () => {
                             result={document}
                             highlight={highlight}
                             rank={rank}
+                          />
+                        );
+                      case 'adr':
+                        return (
+                          <AdrSearchResultListItem
+                            key={document.location}
+                            result={document}
                           />
                         );
                       case 'techdocs':
