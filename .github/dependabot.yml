@@ -105,3 +105,29 @@ updates:
     directory: /ui/ui-kit
     schedule:
       interval: daily
+
+
+  - package-ecosystem: npm
+    directory: /internal/services/backstage
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/services/backstage/packages/app
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /internal/services/backstage/packages/backend
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/services/backstage/packages/backend
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/services/backstage/shortlink-org/template/content
+    schedule:
+      interval: daily
