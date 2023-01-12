@@ -2305,7 +2305,7 @@
     "@babel/helper-validator-identifier" "^7.19.1"
     to-fast-properties "^2.0.0"
 
-"@backstage/app-defaults@^1.0.9":
+"@backstage/app-defaults@^1.0.10":
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/@backstage/app-defaults/-/app-defaults-1.0.10.tgz#0c1ac246e555d0175b5bf7161174e087a02959dc"
   integrity sha512-H7YCEm0Vx7nLS7JIdgWf2ab8xgMUoJhkpwcqfdbcVFym9ytTcgx6nIHhyJyZHZwOIUzISmen1FYjO5cN563p0A==
@@ -7605,7 +7605,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
 "app@link:packages/app":
   version "0.0.0"
   dependencies:
-    "@backstage/app-defaults" "^1.0.9"
+    "@backstage/app-defaults" "^1.0.10"
     "@backstage/catalog-model" "^1.1.4"
     "@backstage/cli" "^0.22.0"
     "@backstage/core-app-api" "^1.3.0"
