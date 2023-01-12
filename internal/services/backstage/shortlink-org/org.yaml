@@ -3,7 +3,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
-  name: guest
+  name: batazor
 spec:
   memberOf: [guests]
 ---
@@ -11,7 +11,7 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
-  name: guests
+  name: shortlink-org
 spec:
   type: team
   children: []
