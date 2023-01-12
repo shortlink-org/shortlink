@@ -3504,7 +3504,7 @@
     react-helmet "6.1.0"
     react-use "^17.2.4"
 
-"@backstage/plugin-techdocs@^1.4.1", "@backstage/plugin-techdocs@^1.4.2":
+"@backstage/plugin-techdocs@^1.4.2":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs/-/plugin-techdocs-1.4.2.tgz#59891a805fd23244a3a7c3d2d1802fb23d1fba11"
   integrity sha512-5VVThV9qEUR5LGj4BSrTv5s7XM66AY6hCT9Z5o8N6B5XKmlIHeQVdlW96gBslvuRIWs+/ZaLxH85BcX6/luVOQ==
@@ -6329,7 +6329,7 @@
     "@testing-library/dom" "^8.5.0"
     "@types/react-dom" "^18.0.0"
 
-"@testing-library/user-event@^14.0.0":
+"@testing-library/user-event@^14.0.0", "@testing-library/user-event@^14.4.3":
   version "14.4.3"
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.4.3.tgz#af975e367743fa91989cd666666aec31a8f50591"
   integrity sha512-kCUc5MEwaEMakkO5x7aoD+DLi02ehmEM2QCGWvNqAS1dV/fAvORWEjnjsEIvml59M7Y5kCkWN6fCCyPOe8OL6Q==
@@ -6864,19 +6864,12 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@<18.0.0":
+"@types/react-dom@<18.0.0", "@types/react-dom@^17", "@types/react-dom@^18.0.0", "@types/react-dom@^18.0.10":
   version "17.0.18"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.18.tgz#8f7af38f5d9b42f79162eea7492e5a1caff70dc2"
   integrity sha512-rLVtIfbwyur2iFKykP2w0pl/1unw26b5td16d5xMgp7/yjTHomkyxPYChFoCr/FtEX1lN9wY6lFj1qvKdS5kDw==
   dependencies:
     "@types/react" "^17"
-
-"@types/react-dom@^18.0.0", "@types/react-dom@^18.0.10":
-  version "18.0.10"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.10.tgz#3b66dec56aa0f16a6cc26da9e9ca96c35c0b4352"
-  integrity sha512-E42GW/JA4Qv15wQdqJq8DL4JhNpB3prJgjgapN3qJT9K2zO5IIAQh4VXvCEDupoqAwnz0cY4RlXeC/ajX5SFHg==
-  dependencies:
-    "@types/react" "*"
 
 "@types/react-redux@^7.1.20":
   version "7.1.25"
@@ -7634,7 +7627,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@backstage/plugin-search" "^1.0.5"
     "@backstage/plugin-search-react" "^1.3.0"
     "@backstage/plugin-tech-radar" "^0.5.19"
-    "@backstage/plugin-techdocs" "^1.4.1"
+    "@backstage/plugin-techdocs" "^1.4.2"
     "@backstage/plugin-techdocs-module-addons-contrib" "^1.0.7"
     "@backstage/plugin-techdocs-react" "^1.1.0"
     "@backstage/plugin-user-settings" "^0.6.0"
