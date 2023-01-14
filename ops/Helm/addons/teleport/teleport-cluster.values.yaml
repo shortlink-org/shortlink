@@ -44,10 +44,12 @@ teleport-cluster:
       issuerName: cert-manager-production
       issuerKind: ClusterIssuer
 
-  # Extra volumes to mount into the Teleport pods
-  # https://kubernetes.io/docs/concepts/storage/volumes/
+  extraVolumeMounts:
+    - mountPath: /storage
+      name: storage
+
   extraVolumes:
-    - name: "data"
+    - name: storage
       hostPath:
-        path: "/data/teleport"
+        path: /data/teleport/storage
         type: DirectoryOrCreate
