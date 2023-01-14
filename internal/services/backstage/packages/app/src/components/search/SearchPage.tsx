@@ -129,7 +129,7 @@ const SearchPage = () => {
                       case 'adr':
                         return (
                           <AdrSearchResultListItem
-                            key={document.location}
+                            key={document.location} // @ts-ignore
                             result={document}
                           />
                         );

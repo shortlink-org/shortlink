@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: shortlink.best
+  description: Landing page for shortlink.best
+  links:
+    - url: https://shortlink.best
+      title: Landing page
+spec:
+  owner: shortlink-org

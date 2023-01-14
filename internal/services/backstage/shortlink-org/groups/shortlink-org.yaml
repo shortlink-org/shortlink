@@ -1,0 +1,13 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: shortlink-org
+  description: The domain unit
+spec:
+  type: shortlink-org
+  profile:
+    displayName: ShortLink
+    email: main@example.com
+    picture: https://example.com/groups/bu-infrastructure.jpeg
+  children:
+    - devops

@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: shortlink-domains
+  description: A collection of all Backstage shortlink domains
+spec:
+  targets:
+    - ./domains/shortlink.best.yaml

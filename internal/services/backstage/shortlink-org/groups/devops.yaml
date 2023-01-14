@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: devops
+  description: The DevOps unit
+spec:
+  type: devops-unit
+  profile:
+    displayName: DevOps
+    email: devops@example.com
+    picture: https://example.com/groups/bu-infrastructure.jpeg
+  parent: shortlink-org
+  children: []
+  members:
+    - batazor
