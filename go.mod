@@ -65,7 +65,7 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.18
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.18
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.18
-	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.17
+	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.18
 	go.etcd.io/etcd/client/v3 v3.5.6
 	go.mongodb.org/mongo-driver v1.11.1
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.37.0
@@ -236,7 +236,7 @@ require (
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/contrib v1.12.0 // indirect
 	go.opentelemetry.io/otel/metric v0.34.0 // indirect
-	go.uber.org/multierr v1.8.0 // indirect
+	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/crypto v0.1.0 // indirect
 	golang.org/x/exp v0.0.0-20220827204233-334a2380cb91 // indirect
 	golang.org/x/mod v0.7.0 // indirect
