@@ -63,7 +63,7 @@ require (
 	github.com/uptrace/go-clickhouse/chdebug v0.2.9
 	github.com/uptrace/go-clickhouse/chotel v0.2.9
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.18
-	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.17
+	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.18
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.17
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.17
 	go.etcd.io/etcd/client/v3 v3.5.6
