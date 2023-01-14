@@ -6,14 +6,12 @@ spec:
   allow:
     rules:
       - resources: ['user', 'role']
-        verbs: ['list', 'create', 'read', 'update', 'delete']
-    review_requests:
-      roles: [ 'editor' ]
+        verbs: ['list','create','read','update','delete']
 
 ---
 apiVersion: resources.teleport.dev/v2
 kind: TeleportUser
 metadata:
-  name: shortlink
+  name: admin
 spec:
   roles: ['admin']
