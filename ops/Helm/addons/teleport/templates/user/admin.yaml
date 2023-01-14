@@ -1,17 +1,6 @@
-apiVersion: resources.teleport.dev/v5
-kind: TeleportRole
-metadata:
-  name: admin
-spec:
-  allow:
-    rules:
-      - resources: ['user', 'role']
-        verbs: ['list','create','read','update','delete']
-
----
 apiVersion: resources.teleport.dev/v2
 kind: TeleportUser
 metadata:
   name: admin
 spec:
-  roles: ['admin']
+  roles: ['editor']
