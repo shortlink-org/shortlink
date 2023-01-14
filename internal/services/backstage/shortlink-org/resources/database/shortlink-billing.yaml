@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: shortlink-billing-db
+  description: Stores billing data for shortlink
+spec:
+  type: database
+  owner: shortlink-org
+  system: shortlink-billing

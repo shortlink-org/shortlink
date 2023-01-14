@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: batazor
+spec:
+  profile:
+    displayName: Login Viktor
+    email: batazor111@gmail.com
+    picture: https://example.com/staff/jenny-with-party-hat.jpeg
+  memberOf: [devops]

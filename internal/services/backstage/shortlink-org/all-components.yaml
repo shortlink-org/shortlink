@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: shortlink-components
+  description: A collection of all Backstage shortlink components
+spec:
+  targets:
+    - ./components/shortlink-api.yaml
+    - ./components/shortlink-billing.yaml

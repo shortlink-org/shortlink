@@ -1,0 +1,15 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: backend
+  description: The BackEnd unit
+spec:
+  type: backend-unit
+  profile:
+    displayName: BackEnd
+    email: backend@example.com
+    picture: https://example.com/groups/bu-infrastructure.jpeg
+  parent: shortlink-org
+  children: []
+  members:
+    - batazor

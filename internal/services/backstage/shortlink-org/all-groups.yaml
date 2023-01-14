@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: shortlink-groups
+  description: A collection of all Backstage shortlink groups
+spec:
+  targets:
+    - ./groups/shortlink-org.yaml
+    - ./groups/devops.yaml
+    - ./groups/backend.yaml
+    - ./groups/frontend.yaml

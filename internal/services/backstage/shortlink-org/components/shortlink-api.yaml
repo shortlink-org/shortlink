@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: shortlink-api
+  description: Shortlink API
+  links:
+    - url: https://github.com/shortlink-org/shortlink/tree/main/internal/services/api
+      title: GitHub Repo
+      icon: github
+  tags:
+    - go
+spec:
+  type: service
+  lifecycle: production
+  owner: shortlink-org
+  system: shortlink
+  providesApis:
+    - shortlink-api

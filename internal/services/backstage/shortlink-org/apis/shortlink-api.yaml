@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: shortlink-api
+  description: The ShortLink API
+  tags:
+    - shortlink
+    - api
+  annotations:
+    # The annotation is deprecated, we use placeholders (see below) instead, remove it later.
+    backstage.io/definition-at-location: 'url:https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/api.swagger.json'
+spec:
+  type: openapi
+  lifecycle: production
+  owner: shortlink-org
+  definition:
+    $text: https://github.com/shortlink-org/shortlink/blob/main/docs/api.swagger.json

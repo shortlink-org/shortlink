@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: shortlink-billing
+  description: Billing service for shortlink
+  links:
+    - url: https://github.com/shortlink-org/shortlink/tree/main/internal/services/billing
+      title: GitHub Repo
+      icon: github
+spec:
+  type: service
+  lifecycle: production
+  owner: shortlink-org
+  system: shortlink
+  dependsOn:
+    - resource:shortlink-billing-db
