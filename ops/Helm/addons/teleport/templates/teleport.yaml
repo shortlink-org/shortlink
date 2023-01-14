@@ -9,7 +9,7 @@ data:
         type: sqlite
         sync: NORMAL
         journal: WAL
-        path: /var/lib/teleport/backend/
+        path: /storage
       log:
         severity: INFO
         output: stderr
