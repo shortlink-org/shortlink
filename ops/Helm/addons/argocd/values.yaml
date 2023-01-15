@@ -255,18 +255,6 @@ argo-cd:
         name: shortlink
         type: git
 
-    cm:
-      dex.config: |
-        connectors:
-        - type: github
-          id: github
-          name: GitHub
-          config:
-            clientID: aabbccddeeff00112233
-            clientSecret: $dex.github.clientSecret # Alternatively $<some_K8S_secret>:dex.github.clientSecret
-            orgs:
-              - name: shortlink-org
-
 argo-events:
   fullnameOverride: argo-events
 
