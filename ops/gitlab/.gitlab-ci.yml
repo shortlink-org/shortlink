@@ -30,4 +30,5 @@ workflow:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       variables:
         PIPELINE_NAME: 'MR pipeline: $CI_COMMIT_BRANCH'
+    - when: always
 
