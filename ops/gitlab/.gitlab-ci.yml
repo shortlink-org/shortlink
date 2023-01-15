@@ -5,7 +5,6 @@ include:
   - local: /ops/gitlab/stages/.pre.yml
     rules:
       - if: $CI_COMMIT_REF_NAME == "master"
-        when: always
   - local: /ops/gitlab/stages/test.yml
   - local: /ops/gitlab/stages/build.yml
   - local: /ops/gitlab/stages/deploy.yml
