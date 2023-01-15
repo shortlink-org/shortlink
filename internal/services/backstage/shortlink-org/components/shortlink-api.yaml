@@ -9,6 +9,10 @@ metadata:
       icon: github
   tags:
     - go
+  annotations:
+    'backstage.io/kubernetes-namespace': shortlink
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/name=shortlink-api'
+    backstage.io/techdocs-ref: dir:.
 spec:
   type: service
   lifecycle: production
