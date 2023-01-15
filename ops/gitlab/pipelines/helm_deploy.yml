@@ -17,7 +17,7 @@ deploy:
     name: alpine/helm:3.10.2
     entrypoint: [ "" ]
   script:
-    - helm upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
+    - helm secrets upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
       --kube-context=shortlink-org/shortlink:${PROVIDER}
       --install
       --atomic
