@@ -1,4 +1,5 @@
-#include:
+include:
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
 # TODO: issue https://gitlab.com/renovate-bot/renovate-runner/-/issues/70
 #  - local: /ops/gitlab/templates/renovate.yml
 
