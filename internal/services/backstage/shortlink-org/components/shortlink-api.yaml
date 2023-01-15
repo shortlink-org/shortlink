@@ -14,6 +14,8 @@ metadata:
     'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/name=shortlink-api'
     backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/internal/services/api
     backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/internal/services/api
+    prometheus.io/alert: 'Excessive Memory Usage'
+    prometheus.io/rule: memUsage|component,node_memory_active_bytes|instance,sum by (instance) (node_cpu_seconds_total)
 spec:
   type: service
   lifecycle: production

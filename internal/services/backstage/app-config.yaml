@@ -57,6 +57,11 @@ proxy:
     headers:
       Cookie:
         $env: ARGOCD_AUTH_TOKEN
+  '/prometheus/api':
+    # url to the api and path of your hosted prometheus instance
+    target: https://shortlink.best/prometheus/api/v1/
+    headers:
+      Authorization: ${YOUR_AUTH_TOKEN_IF_PROMETHEUS_IS_SECURED}
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
