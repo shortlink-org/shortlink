@@ -12,7 +12,8 @@ metadata:
   annotations:
     'backstage.io/kubernetes-namespace': shortlink
     'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/name=shortlink-api'
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/internal/services/api
+    backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/internal/services/api
 spec:
   type: service
   lifecycle: production
