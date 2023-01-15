@@ -52,7 +52,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.externalRedis.host | string | `"shortlink-redis-master.redis"` |  |
 | argo-cd.fullnameOverride | string | `"argocd"` |  |
 | argo-cd.global.logging.format | string | `"json"` |  |
-| argo-cd.notifications.argocdUrl | string | `"https://shortlink.best/argocd"` |  |
+| argo-cd.notifications.argocdUrl | string | `"https://shortlink.best/argo/cd"` |  |
 | argo-cd.notifications.metrics.enabled | bool | `true` |  |
 | argo-cd.notifications.metrics.serviceMonitor.enabled | bool | `true` |  |
 | argo-cd.notifications.notifiers."service.slack" | string | `"token: $slack-token\nusername: argocd # optional username\nicon: :dart: # optional icon for the message (supports both emoij and url notation)\n"` |  |
@@ -105,7 +105,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.repoServer.volumes[1].name | string | `"sops-gpg"` |  |
 | argo-cd.repoServer.volumes[1].secret.secretName | string | `"sops-gpg"` |  |
 | argo-cd.server.config."helm.valuesFileSchemes" | string | `"secrets+gpg-import, secrets+gpg-import-kubernetes, secrets+age-import, secrets+age-import-kubernetes, secrets,secrets+literal, https"` |  |
-| argo-cd.server.config.url | string | `"https://shortlink.best/argocd"` |  |
+| argo-cd.server.config.url | string | `"https://shortlink.best/argo/cd"` |  |
 | argo-cd.server.configAnnotations | object | `{}` |  |
 | argo-cd.server.extensions.enabled | bool | `true` |  |
 | argo-cd.server.extraArgs[0] | string | `"--rootpath"` |  |
