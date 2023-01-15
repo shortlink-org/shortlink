@@ -36,3 +36,5 @@ for information team about cases for updated ADR.
     - [ADR-0005](./decisions/0005-postgres-optimization.md) - Postgres optimization
 - **Service**
     - [ADR-0008](./decisions/0008-product-metrics-by-services.md) - Product metrics by services
+- **Security**
+    - [ADR-0013](./decisions/0013-security.md) - Security
