@@ -5,7 +5,7 @@ argo:
     HELM_PATH: ops/Helm/addons/argocd
     HELM_NAMESPACE: argocd
     ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd
-    HELM_ARG: -f ${HELM_CHART_PATH}/values.sops.yaml
+    HELM_ARG: -f ${HELM_PATH}/values.sops.yaml
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
