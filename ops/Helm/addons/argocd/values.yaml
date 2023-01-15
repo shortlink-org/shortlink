@@ -108,7 +108,7 @@ argo-cd:
       https: true
 
     config:
-      url: https://shortlink.best/argocd
+      url: https://shortlink.best/argo/cd/
 
       helm.valuesFileSchemes: >-
         secrets+gpg-import, secrets+gpg-import-kubernetes,
@@ -231,7 +231,7 @@ argo-cd:
         enabled: true
 
   notifications:
-    argocdUrl: https://shortlink.best/argocd
+    argocdUrl: https://shortlink.best/argo/cd
 
     secret:
       items:
