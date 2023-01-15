@@ -9,13 +9,11 @@ stages:
 
 deploy:
   extends:
+    - .job_template_helm
     - .matrix_deploy_provider
   tags:
     - docker
   stage: deploy
-  image:
-    name: alpine/helm:3.10.2
-    entrypoint: [ "" ]
   script:
     - helm secrets upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
       --kube-context=shortlink-org/shortlink:${PROVIDER}
@@ -29,7 +27,6 @@ deploy:
       --set deploy.image.repository=$REGISTRY
       --set ingress.enabled=true
       --set deploy.annotations."app\.gitlab\.com\/app"=$CI_PROJECT_PATH_SLUG,deploy.annotations."app\.gitlab\.com\/env"=$CI_ENVIRONMENT_SLUG;
-  retry: 2
   environment:
     name: ${PROVIDER}/${RELEASE_NAME}
     deployment_tier: production
