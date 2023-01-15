@@ -63,6 +63,12 @@ import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { EntityTodoContent } from '@backstage/plugin-todo';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import {
+  EntityPrometheusContent,
+  EntityPrometheusAlertCard,
+  EntityPrometheusGraphCard,
+} from '@roadiehq/backstage-plugin-prometheus';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -144,6 +150,13 @@ const overviewContent = (
     <Grid item md={8} xs={12}>
       <EntityHasSubcomponentsCard variant="gridItem" />
     </Grid>
+
+    <Grid item md={8}>
+      <EntityPrometheusAlertCard />
+    </Grid>
+    <Grid item md={6}>
+      <EntityPrometheusGraphCard />
+    </Grid>
   </Grid>
 );
 
@@ -155,6 +168,10 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/kubernetes" title="Kubernetes">
       <EntityKubernetesContent refreshIntervalMs={30000} />
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/prometheus" title="Prometheus">
+      <EntityPrometheusContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/todo" title="Todo">
