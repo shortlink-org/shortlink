@@ -1,6 +1,10 @@
 .job_template_helm:
   stage: action
   image:
-    name: alpine/helm:3.10.2
+    name: alpine/helm:3.10.3
     entrypoint: [""]
+  before_script:
+    - helm plugin install https://github.com/jkroepke/helm-secrets
+    - apk add --no-cache gnupg
+    - gpg --import ${GPG_TOKEN}
   retry: 2
