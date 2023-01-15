@@ -329,8 +329,24 @@ argocd-apps:
 argo-rollouts:
   fullnameOverride: argo-rollouts
 
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 20m
+      memory: 16Mi
+
   dashboard:
     enabled: true
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 20m
+        memory: 16Mi
 
     ingress:
       enabled: true
@@ -364,6 +380,14 @@ argo-rollouts:
 
 argocd-image-updater:
   fullnameOverride: argocd-image-updater
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 16Mi
 
   updateStrategy:
     type: Recreate
