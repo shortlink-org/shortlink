@@ -61,9 +61,12 @@ import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { EntityTodoContent } from '@backstage/plugin-todo';
 
 const techdocsContent = (
   <EntityTechdocsContent>
+    {/* @ts-ignore */}
     <TechDocsAddons>
       <ReportIssue />
     </TechDocsAddons>
@@ -152,6 +155,10 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/kubernetes" title="Kubernetes">
       <EntityKubernetesContent refreshIntervalMs={30000} />
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/todo" title="Todo">
+      <EntityTodoContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/ci-cd" title="CI/CD">

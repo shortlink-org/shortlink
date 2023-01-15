@@ -88,6 +88,7 @@ const routes = (
       path="/docs/:namespace/:kind/:name/*"
       element={<TechDocsReaderPage />}
     >
+      {/* @ts-ignore */}
       <TechDocsAddons>
         <ReportIssue />
       </TechDocsAddons>
