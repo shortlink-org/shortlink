@@ -9,15 +9,15 @@ testkube:
     enabled: true
 
   nats:
-    enabled: true
+    enabled: false
 
-#  testkube-api:
-#    nats:
-#      enabled: false
-#      uri: "nats://shortlink.nats"
-#
-#    minio:
-#      enabled: false
+  testkube-api:
+    nats:
+      enabled: true
+      uri: "nats://shortlink.nats"
+
+    minio:
+      enabled: false
 
   testkube-dashboard:
     ingress:
