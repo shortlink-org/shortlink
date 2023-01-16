@@ -13,11 +13,6 @@ grafana:
 
   # adminPassword: shortlink
 
-  grafana.ini:
-    server:
-      # this host can be localhost
-      root_url: https://shortlink.best/grafana
-
   serviceMonitor:
     enabled: true
     selfMonitor: true
