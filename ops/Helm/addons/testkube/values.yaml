@@ -8,6 +8,9 @@ testkube:
   mongodb:
     enabled: false
 
+  nats:
+    enabled: false
+
   testkube-api:
     nats:
       enabled: false
