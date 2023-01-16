@@ -1,0 +1,9 @@
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: mongodb
+spec:
+  members: 3
+  arbiters: 1
+  type: ReplicaSet
+  version: "6.0"
