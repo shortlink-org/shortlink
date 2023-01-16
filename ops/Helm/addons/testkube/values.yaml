@@ -13,7 +13,7 @@ testkube:
 
   testkube-api:
     nats:
-      enabled: true
+      enabled: false
       uri: "nats://shortlink.nats"
 
     minio:
