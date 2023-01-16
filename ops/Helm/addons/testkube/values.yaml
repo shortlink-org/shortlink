@@ -1,0 +1,33 @@
+# Common default values for argo-cd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+testkube:
+  enabled: true
+
+  mongodb:
+    enabled: false
+
+  testkube-api:
+    nats:
+      enabled: false
+
+    minio:
+      enabled: false
+
+  testkube-dashboard:
+    ingress:
+      enabled: true
+
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentracing: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
+
+      path: /testkube/?(.*)
+      ## Hostnames must be provided if Ingress is enabled.
+      hosts:
+        - shortlink.best
