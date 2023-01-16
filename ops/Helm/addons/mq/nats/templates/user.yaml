@@ -1,0 +1,13 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: {{ .Values.rabbitmq.clusterName }}-default-user
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+stringData:
+  default_user.conf: |
+    default_user = {{ .Values.rabbitmq.credentials.username }}
+    default_pass = {{ .Values.rabbitmq.credentials.password }}
+  username: {{ .Values.rabbitmq.credentials.username }}
+  password: {{ .Values.rabbitmq.credentials.password }}
+type: Opaque
