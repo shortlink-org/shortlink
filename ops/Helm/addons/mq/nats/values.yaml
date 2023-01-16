@@ -5,6 +5,9 @@
 nats:
   enabled: true
 
+  image:
+    tag: 0.8.3
+
   resources:
     limits:
       cpu: 100m
