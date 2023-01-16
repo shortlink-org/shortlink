@@ -87,7 +87,7 @@ require (
 	google.golang.org/protobuf v1.28.1
 	k8s.io/kubernetes v1.15.0-alpha.0
 	k8s.io/mount-utils v0.26.0
-	k8s.io/utils v0.0.0-20221128185143-99ec85e7a448
+	k8s.io/utils v0.0.0-20230115233650-391b47cb4029
 	knative.dev/pkg v0.0.0-20230113013451-8abadb0a3c19
 )
 
