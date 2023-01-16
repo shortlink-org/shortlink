@@ -18,7 +18,4 @@ nats:
       memory: 50Mi
 
   cluster:
-    size: 1
-
-    auth:
-      enabled: false
+    create: false
