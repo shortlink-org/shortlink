@@ -42,7 +42,7 @@ gotest:
     - apk add --no-cache make git gcc musl-dev liburing
     - go install gotest.tools/gotestsum@latest
     # Load io_uring
-    - apt-get update && apt-get install -y liburing-dev curl
+    - apt-get update && apt-get install --no-install-recommends -y liburing-dev curl
   script:
     - $GOPATH/bin/gotestsum --junitfile report.xml --format testname -- -tags=unit ./...
   allow_failure: true # recommended

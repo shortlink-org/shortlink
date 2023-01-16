@@ -16,7 +16,7 @@ ARG TARGETOS TARGETARCH
 WORKDIR /go/github.com/shortlink-org/shortlink
 
 # Load io_uring
-RUN apt-get update && apt-get install -y liburing-dev
+RUN apt-get update && apt-get install --no-install-recommends -y liburing-dev
 
 # Load dependencies
 COPY go.mod go.sum ./
@@ -44,7 +44,7 @@ FROM debian:11.6
 ENV GOTRACEBACK=all
 
 # Load io_uring
-RUN apt-get update && apt-get install -y liburing-dev curl
+RUN apt-get update && apt-get install --no-install-recommends -y liburing-dev curl
 
 HEALTHCHECK \
   --interval=5s \
