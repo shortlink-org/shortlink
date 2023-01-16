@@ -6,18 +6,18 @@ testkube:
   enabled: true
 
   mongodb:
-    enabled: false
+    enabled: true
 
   nats:
-    enabled: false
+    enabled: true
 
-  testkube-api:
-    nats:
-      enabled: false
-      uri: "nats://shortlink.nats"
-
-    minio:
-      enabled: false
+#  testkube-api:
+#    nats:
+#      enabled: false
+#      uri: "nats://shortlink.nats"
+#
+#    minio:
+#      enabled: false
 
   testkube-dashboard:
     ingress:
