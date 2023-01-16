@@ -24,13 +24,8 @@ testkube:
 
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
-        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-        nginx.ingress.kubernetes.io/enable-opentracing: "true"
-        nginx.ingress.kubernetes.io/rewrite-target: /$1
-        nginx.ingress.kubernetes.io/use-regex: "true"
 
-      path: /testkube/?(.*)
+      path: /
       ## Hostnames must be provided if Ingress is enabled.
       hosts:
-        - shortlink.best
+        - testkube.shortlink.best
