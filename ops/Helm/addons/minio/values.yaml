@@ -1,0 +1,15 @@
+# Common default values for argo-cd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+minio:
+  enabled: true
+
+tenant:
+  enabled: true
+
+  tenant:
+    image:
+      tag: RELEASE.2023-01-12T02-06-16Z
+    pools:
+      - servers: 1
