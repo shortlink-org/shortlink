@@ -1,4 +1,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://github.com/argoproj-labs/argocd-image-updater/manifests/base
+  - https://github.com/argoproj-labs/argocd-image-updater/tree/f96b1344af08773285ad4875c4bdf9923cd6c483/manifests/base
