@@ -3307,16 +3307,16 @@
     "@backstage/plugin-permission-common" "^0.7.2"
     "@backstage/plugin-search-common" "^1.2.0"
 
-"@backstage/plugin-catalog-graph@^0.2.25":
-  version "0.2.25"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-graph/-/plugin-catalog-graph-0.2.25.tgz#144ad711356eb67c7b88a6c9e044be012286d772"
-  integrity sha512-kVPCgSkhEZ1IeyQnF6flp++r8Y3DR46XAscFP/Y2hlte26ghGhjkhIMKUMp73Q/lYH1sGtPcOgRobkmiKP1vDQ==
+"@backstage/plugin-catalog-graph@^0.2.26":
+  version "0.2.26"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-graph/-/plugin-catalog-graph-0.2.26.tgz#9f4e79b88dfee1ab178a6207721653f1447c77d6"
+  integrity sha512-6HUlVU/08shwWWhqETDj+t/zmLTdCh5WT/U44AdXvb2c+mW4/GBdyw32C3tJI0GqwojYiiOhle4T14/Jx8QcDQ==
   dependencies:
-    "@backstage/catalog-client" "^1.2.0"
-    "@backstage/catalog-model" "^1.1.4"
-    "@backstage/core-components" "^0.12.2"
-    "@backstage/core-plugin-api" "^1.2.0"
-    "@backstage/plugin-catalog-react" "^1.2.3"
+    "@backstage/catalog-client" "^1.3.0"
+    "@backstage/catalog-model" "^1.1.5"
+    "@backstage/core-components" "^0.12.3"
+    "@backstage/core-plugin-api" "^1.3.0"
+    "@backstage/plugin-catalog-react" "^1.2.4"
     "@backstage/theme" "^0.2.16"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
@@ -8178,7 +8178,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@backstage/plugin-api-docs" "^0.8.14"
     "@backstage/plugin-catalog" "^1.7.2"
     "@backstage/plugin-catalog-common" "^1.0.9"
-    "@backstage/plugin-catalog-graph" "^0.2.25"
+    "@backstage/plugin-catalog-graph" "^0.2.26"
     "@backstage/plugin-catalog-import" "^0.9.3"
     "@backstage/plugin-catalog-react" "^1.2.3"
     "@backstage/plugin-github-actions" "^0.5.13"
