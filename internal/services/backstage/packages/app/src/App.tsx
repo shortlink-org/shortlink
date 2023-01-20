@@ -97,7 +97,14 @@ const routes = (
     <Route path="/api-docs" element={<ApiExplorerPage />} />
     <Route
       path="/tech-radar"
-      element={<TechRadarPage width={1500} height={800} />}
+      element={
+        <TechRadarPage
+          width={1500}
+          height={800}
+          title="Tech Radar"
+          subtitle="A radar of technologies at ShortLink"
+          pageTitle="ShortLink Tech Radar"
+        />}
     />
     <Route
       path="/catalog-import"
