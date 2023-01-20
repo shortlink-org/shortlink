@@ -40,6 +40,38 @@ export class ShortLinkTechRadar implements TechRadarApi {
           description:
             'Excepteur **sint** occaecat *cupidatat* non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n```ts\nconst x = "3";\n```\n',
         },
+        {
+          url: "#",
+          key: "kubernetes",
+          id: "kubernetes",
+          title: "Kubernetes",
+          quadrant: "platforms",
+          description: "Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications.",
+          timeline: [
+            {
+              moved: 0,
+              ringId: "adopt",
+              date: new Date("2020-08-06"),
+              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+            },
+          ]
+        },
+        {
+          title: "GitLab",
+          quadrant: "tools",
+          url: "#",
+          key: "gitlab",
+          id: "gitlab",
+          description: "GitLab is a web-based DevOps lifecycle tool that provides a Git-repository manager providing wiki, issue-tracking and continuous integration and deployment pipeline features, using an open-source license, developed by GitLab Inc.",
+          timeline: [
+            {
+              moved: 0,
+              ringId: "adopt",
+              date: new Date("2020-08-06"),
+              description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+            },
+          ],
+        }
       ],
     };
   }

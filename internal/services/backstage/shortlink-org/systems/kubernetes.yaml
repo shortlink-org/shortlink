@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: kubernetes
+  description: Kubernetes cluster
+spec:
+  owner: shortlink-org
+  domain: kubernetes.local
