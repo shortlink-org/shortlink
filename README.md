@@ -29,6 +29,8 @@ our community and solve a problem for millions of people.
 ### High Level Architecture 🚀
 
 ![shortlink-architecture](./docs/shortlink-architecture.png)
+_Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the repo if you want us to continue developing and improving ShortLink! 😀_
+
 
 ### Architecture decision records (ADR)
 
