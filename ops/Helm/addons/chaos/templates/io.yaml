@@ -36,6 +36,7 @@ data:
         - name: {{ include "helpers.fullname" . }}
           mountPath: /var/lib/{{ include "helpers.fullname" . }}
           mountPropagation: Bidirectional
+          readOnly: 'true'
     volumeMounts:
     - name: {{ include "helpers.fullname" . }}
       mountPath: /var/lib/{{ include "helpers.fullname" . }}
