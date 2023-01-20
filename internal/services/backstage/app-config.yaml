@@ -1,6 +1,19 @@
 app:
   title: Scaffolded Backstage App
   baseUrl: http://localhost:3000
+  support:
+    url: https://github.com/shortlink-org/shortlink/issues
+    items:
+      - title: ShortLink Community
+        icon: chat
+        links:
+          - url: https://github.com/shortlink-org/shortlink/discussions
+            title: Support and community
+      - title: ShortLink News
+        icon: docs
+        links:
+          - url: https://github.com/shortlink-org/shortlink/releases
+            title: ShortLink Release
 
 organization:
   name: ShortLink
