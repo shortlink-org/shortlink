@@ -25,6 +25,7 @@ data:
       ports:
       - containerPort: 65534
       securityContext:
+        readOnlyRootFilesystem: true
         privileged: true
       command:
         - /usr/local/bin/chaosfs
