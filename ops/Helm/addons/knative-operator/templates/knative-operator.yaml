@@ -2293,6 +2293,7 @@ metadata:
     operator.knative.dev/release: "v1.7.0"
     app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/part-of: knative-operator
+automountServiceAccountToken: false
 
 ---
 # Copyright 2020 The Knative Authors
@@ -2483,6 +2484,7 @@ metadata:
     operator.knative.dev/release: "v1.7.0"
     app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/part-of: knative-operator
+automountServiceAccountToken: false
 
 ---
 # Copyright 2022 The Knative Authors
