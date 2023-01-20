@@ -22,6 +22,8 @@ grafana:
         datasource: Prometheus
       kyverno:
         url: https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json
+      kubescape:
+        url: https://raw.githubusercontent.com/dwertent/kubescape/master/httphandler/examples/prometheus/grafana-kubescape-dashboard.json
       istio-mesh:
         gnetId: 14061
         datasource: Prometheus
