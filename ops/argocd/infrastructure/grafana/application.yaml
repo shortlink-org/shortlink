@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kubescape
+  name: grafana
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -9,16 +9,21 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: kubescape
+    namespace: grafana
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/kubescape
+    path: ops/Helm/addons/grafana
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
-      releaseName: kubescape
+      releaseName: grafana
       valueFiles:
-        - values.yaml
+        - dashboard.values.yaml
+        - grafana.values.yaml
+        - loki.values.yaml
+        - phlare.values.yaml
+        - promtail.values.yaml
+        - tempo.values.yaml
 
         # ### Method 2: Fetch the gpg/age key from kubernetes secret
         # secrets+gpg-import-kubernetes://<namespace>/<secret-name>#<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
