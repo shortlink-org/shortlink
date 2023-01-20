@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: OpenCost
+  description: Open source cost monitoring for cloud native environments
+  links:
+    - url: https://www.opencost.io/
+      title: Website
+      icon: link
+  tags:
+    - kubernetes
+    - prometheus
+  annotations:
+    'backstage.io/kubernetes-namespace': opencost
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/name=opencost'
+    backstage.io/techdocs-ref: 'dir:opencost'
+spec:
+  type: service
+  lifecycle: experimental
+  owner: shortlink-org
+  system: kubernetes
