@@ -30,7 +30,6 @@ spec:
     {{- end }}
       serviceAccountName: {{ template "shortlink-common.serviceAccountName" . }}
       securityContext:
-        readOnlyRootFilesystem: {{ ((.Values.deploy).securityContext).readOnlyRootFilesystem | default true }}
         # -- fsGroup is the group ID associated with the container
         fsGroup: 1000
         runAsUser: 1000
