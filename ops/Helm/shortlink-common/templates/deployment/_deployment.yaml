@@ -30,7 +30,7 @@ spec:
     {{- end }}
       serviceAccountName: {{ template "shortlink-common.serviceAccountName" . }}
       securityContext:
-        readOnlyRootFilesystem: true
+        readOnlyRootFilesystem: {{ .Values.deploy.securityContext.readOnlyRootFilesystem | default true }}
         # -- fsGroup is the group ID associated with the container
         fsGroup: 1000
         runAsUser: 1000
@@ -48,7 +48,7 @@ spec:
           # runAsGroup is the primary group ID used to run all processes within any container of the pod
           runAsGroup: 1000
           # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
-          readOnlyRootFilesystem: true
+          readOnlyRootFilesystem: {{ .Values.deploy.securityContext.readOnlyRootFilesystem | default true }}
           capabilities:
             drop:
               - ALL
