@@ -7,10 +7,12 @@ csi-build: ## Build the CSI container
 		@echo docker buildx build \
 			--platform=linux/amd64 \
 			--provenance=true \
+			--sbom=true \
 			image ${CI_REGISTRY_IMAGE}-csi:${CI_COMMIT_TAG}
 		@docker buildx build \
 			--platform=linux/amd64 \
 			--provenance=true \
+			--sbom=true \
 			--no-cache \
 			-t ${CI_REGISTRY_IMAGE}-csi \
 			-f ops/dockerfile/csi.Dockerfile .
