@@ -110,6 +110,8 @@ argo-cd:
     config:
       url: https://shortlink.best/argo/cd
 
+      statusbadge.enabled: "true"
+
       helm.valuesFileSchemes: >-
         secrets+gpg-import, secrets+gpg-import-kubernetes,
         secrets+age-import, secrets+age-import-kubernetes,
