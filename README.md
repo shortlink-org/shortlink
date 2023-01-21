@@ -166,44 +166,6 @@ make skaffold-debug
 </p>
 </details>
 
-### OpenTracing
-
-<details><summary>DETAILS</summary>
-<p>
-
-![http_add_link](./docs/opentracing_add_link.png)
-
-</p>
-</details>
-
-### Observability
-
-<details><summary>DETAILS</summary>
-<p>
-
-+ **[Prometheus](https://prometheus.io/)** - Monitoring system
-    + prometheus-operator
-        + notify: slack, email, telegram
-
----
-
-+ **Grafana stack (LGTM)**
-    * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization
-      platform.
-    * [Loki](https://github.com/grafana/loki), like Prometheus, but for logs.
-        + [docs](docs/tutorial/logger.md)
-
-    + [Tempo](https://grafana.com/docs/tempo/latest/), a high volume, high throughput distributed tracing system.
-
-    * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization
-      platform.
-
-    + [OnCall](https://grafana.com/oss/oncall/) - On-call scheduling
-    + [Phlare](https://grafana.com/oss/phlare/) - Profiling and flame graphs
-
-</p>
-</details>
-  
 ### Mobile
 
 + `Hello World` on flutter ;-)
