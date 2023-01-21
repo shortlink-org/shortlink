@@ -96,6 +96,9 @@ deploy:
       path: /
       port: 8080
 
+  securityContext:
+    readOnlyRootFilesystem: false
+
   volumes:
     - name: tmp
       mountPath: /tmp
