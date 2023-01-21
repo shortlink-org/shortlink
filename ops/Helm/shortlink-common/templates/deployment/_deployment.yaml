@@ -30,7 +30,7 @@ spec:
     {{- end }}
       serviceAccountName: {{ template "shortlink-common.serviceAccountName" . }}
       securityContext:
-        readOnlyRootFilesystem: {{ .Values.deploy.securityContext.readOnlyRootFilesystem | default true }}
+        readOnlyRootFilesystem: {{ ((.Values.deploy).securityContext).readOnlyRootFilesystem | default true }}
         # -- fsGroup is the group ID associated with the container
         fsGroup: 1000
         runAsUser: 1000
@@ -48,11 +48,11 @@ spec:
           # runAsGroup is the primary group ID used to run all processes within any container of the pod
           runAsGroup: 1000
           # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
-          readOnlyRootFilesystem: {{ .Values.deploy.securityContext.readOnlyRootFilesystem | default true }}
+          readOnlyRootFilesystem: {{ ((.Values.deploy).securityContext).readOnlyRootFilesystem | default true }}
           capabilities:
             drop:
               - ALL
-        image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag }}"
+        image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag | default .Chart.AppVersion }}"
         # -- Global imagePullPolicy
         # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
         # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
