@@ -49,46 +49,46 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 
 ### Services
 
-| Service           | Description                                                           | Language/Framework | Docs                                                  |
-|-------------------|-----------------------------------------------------------------------|--------------------|-------------------------------------------------------|
-| api               | Internal GateWay                                                      | Go                 | [docs](./internal/services/api/README.md)             |
-| billing           | Billing service                                                       | Go                 | [docs](./internal/services/billing/README.md)         |
-| bot               | Telegram bot                                                          | JAVA               | [docs](./internal/services/bot/README.md)             |
-| chat              | Chat service                                                          | Elixir (Phoenix)   | [docs](./internal/services/chat/README.md)            |
-| chrome-extension  | Chrome extension                                                      | JavaScript         | [docs](internal/extension/chrome-extension/README.md) |
-| shortdb           | Custom database                                                       | Go                 | [docs](./pkg/shortdb/README.md)                       |
-| shortdb-operator  | Kubernetes Operator for [shortdb]((./pkg/shortdb/README.md)) database | Go                 | [docs](./pkg/shortdb-operator/README.md)              |
-| csi               | CSI example                                                           | Go                 | [docs](./internal/services/csi/README.md)             |
-| link              | Link service                                                          | Go                 | [docs](./internal/services/api/README.md)             |
-| logger            | Logger service                                                        | Go                 | [docs](./internal/services/logger/README.md)          |
-| merch             | Merch store                                                           | Coming soon        | [docs](./internal/services/merch/README.md)           |
-| metadata          | Parser site by API                                                    | Go                 | [docs](./internal/services/metadata/README.md)        |
-| newsletter        | Newsletter service                                                    | Rust               | [docs](./internal/services/newsletter/README.md)      |
-| notify            | Send notify to smtp, slack, telegram                                  | Go                 | [docs](./internal/services/notify/README.md)          |
-| proxy             | Proxy service for redirect to original URL                            | TypeScript         | [docs](./internal/services/proxy/README.md)           |
-| referral          | Referral program                                                      | Python             | [docs](./internal/services/referral/README.md)        |
-| search            | Search service                                                        | Coming soon        | [docs](./internal/services/search/README.md)          |
-| shortctl          | Shortlink CLI                                                         | Go                 | [docs](./internal/services/cli/README.md)             |
-| stats             | Stats server                                                          | CPP                | [docs](./internal/services/stats/README.md)           |
-| support           | Support service                                                       | PHP                | [docs](./internal/services/support/README.md)         |
-| wallet            | Wallet service                                                        | Go (Solidity)      | [docs](./internal/services/wallet/README.md)          |
-| ws                | Webscoket service                                                     | Go                 | [docs](./internal/services/ws/README.md)              |
+| Service           | Description                                                           | Language/Framework | Docs                                                  | Status                                                                            |
+|-------------------|-----------------------------------------------------------------------|--------------------|-------------------------------------------------------|-----------------------------------------------------------------------------------|
+| api               | Internal GateWay                                                      | Go                 | [docs](./internal/services/api/README.md)             | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-api)        |
+| billing           | Billing service                                                       | Go                 | [docs](./internal/services/billing/README.md)         | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-billing)    |
+| bot               | Telegram bot                                                          | JAVA               | [docs](./internal/services/bot/README.md)             | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-bot)        |
+| chat              | Chat service                                                          | Elixir (Phoenix)   | [docs](./internal/services/chat/README.md)            | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-chat)       |
+| chrome-extension  | Chrome extension                                                      | JavaScript         | [docs](internal/extension/chrome-extension/README.md) |                                                                                   |
+| shortdb           | Custom database                                                       | Go                 | [docs](./pkg/shortdb/README.md)                       | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortldb)             |
+| shortdb-operator  | Kubernetes Operator for [shortdb]((./pkg/shortdb/README.md)) database | Go                 | [docs](./pkg/shortdb-operator/README.md)              | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortldb-operator)    |
+| csi               | CSI example                                                           | Go                 | [docs](./internal/services/csi/README.md)             | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-csi)        |
+| link              | Link service                                                          | Go                 | [docs](./internal/services/api/README.md)             | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-link)       |
+| logger            | Logger service                                                        | Go                 | [docs](./internal/services/logger/README.md)          | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-logger)     |
+| merch             | Merch store                                                           | Coming soon        | [docs](./internal/services/merch/README.md)           | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-merch)      |
+| metadata          | Parser site by API                                                    | Go                 | [docs](./internal/services/metadata/README.md)        | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-metadata)   |
+| newsletter        | Newsletter service                                                    | Rust               | [docs](./internal/services/newsletter/README.md)      | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-newsletter) |
+| notify            | Send notify to smtp, slack, telegram                                  | Go                 | [docs](./internal/services/notify/README.md)          | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-notify)     |
+| proxy             | Proxy service for redirect to original URL                            | TypeScript         | [docs](./internal/services/proxy/README.md)           | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-proxy)      |
+| referral          | Referral program                                                      | Python             | [docs](./internal/services/referral/README.md)        | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-referral)   |
+| search            | Search service                                                        | Coming soon        | [docs](./internal/services/search/README.md)          | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-search)     |
+| shortctl          | Shortlink CLI                                                         | Go                 | [docs](./internal/services/cli/README.md)             |                                                                                   |
+| stats             | Stats server                                                          | CPP                | [docs](./internal/services/stats/README.md)           | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-stats)      |
+| support           | Support service                                                       | PHP                | [docs](./internal/services/support/README.md)         | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-support)    |
+| wallet            | Wallet service                                                        | Go (Solidity)      | [docs](./internal/services/wallet/README.md)          |                                                                                   |
+| ws                | Webscoket service                                                     | Go                 | [docs](./internal/services/ws/README.md)              | ![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-ws)         |
 
 ### Third-party Service
 
-| Service     | Description                                                     | Language/Framework | Docs                                    |
-|-------------|-----------------------------------------------------------------|--------------------|-----------------------------------------|
-| ory/kratos  | User management service                                         | Go                 | [docs](https://www.ory.sh/kratos/docs/) |
-| ory/hydra   | OAuth 2.0 Provider                                              | Go                 | [docs](https://www.ory.sh/keto/docs/)   |
-| backstage   | Backstage is an open platform for building developer portals.   | TypeScript         | [docs](https://backstage.io/docs/)      |
+| Service     | Description                                                     | Language/Framework | Docs                                    | Status                                                                 |
+|-------------|-----------------------------------------------------------------|--------------------|-----------------------------------------|------------------------------------------------------------------------|
+| ory/kratos  | User management service                                         | Go                 | [docs](https://www.ory.sh/kratos/docs/) | ![App Status](https://shortlink.best/argo/cd/api/badge?name=auth)      |
+| ory/hydra   | OAuth 2.0 Provider                                              | Go                 | [docs](https://www.ory.sh/keto/docs/)   | ![App Status](https://shortlink.best/argo/cd/api/badge?name=auth)      |
+| backstage   | Backstage is an open platform for building developer portals.   | TypeScript         | [docs](https://backstage.io/docs/)      | ![App Status](https://shortlink.best/argo/cd/api/badge?name=backstage) |
 
 ### UI
 
-| Service   | Description                          | Language/Framework        | Docs                                           |
-|-----------|--------------------------------------|---------------------------|------------------------------------------------|
-| landing   | Welcome page                         | JS/NextJS                 | [docs](./ui/landing/README.md)                 |
-| next      | UI service                           | JS/NextJS                 | [docs](./ui/next/README.md)                    |
-| ui-kit    | UI kit for ShortLink                 | JS/React                  | [docs](./ui/ui-kit/README.md)                  |
+| Service   | Description                          | Language/Framework        | Docs                           | Status                                                                                                                                          |
+|-----------|--------------------------------------|---------------------------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| landing   | Welcome page                         | JS/NextJS                 | [docs](./ui/landing/README.md) | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-landing)](https://shortlink.best/argo/cd/applications/shortlink-landing) |
+| next      | UI service                           | JS/NextJS                 | [docs](./ui/next/README.md)    | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-next)](https://shortlink.best/argo/cd/applications/shortlink-next)       |
+| ui-kit    | UI kit for ShortLink                 | JS/React                  | [docs](./ui/ui-kit/README.md)  | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-ui-kit)](https://shortlink.best/argo/cd/applications/shortlink-ui-kit)   |
 
 ### Docs
 
