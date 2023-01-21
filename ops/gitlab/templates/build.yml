@@ -1,9 +1,9 @@
 .template_build:
   stage: build
   services:
-    - name: docker:23.0.0-rc.1-dind
+    - name: docker:23.0.0-rc.3-dind
       command: [ "--experimental" ]
-  image: docker:23.0.0-rc.1-cli
+  image: docker:23.0.0-rc.3-cli
   variables:
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
@@ -21,6 +21,7 @@
   script:
     - docker buildx build 
       --platform=linux/amd64
+      --provenance=true
       --push $CMD_PATH $DOCKERFILE_ARGS
       -t ${REGISTRY_IMAGE}:latest
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
