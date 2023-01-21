@@ -22,6 +22,7 @@
     - docker buildx build 
       --platform=linux/amd64
       --provenance=true
+      --sbom=true
       --push $CMD_PATH $DOCKERFILE_ARGS
       -t ${REGISTRY_IMAGE}:latest
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}

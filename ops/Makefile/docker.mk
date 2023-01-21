@@ -13,6 +13,8 @@ DOCKER_USERNAME := "batazor"
 DOCKER_BUILDKIT := 1
 DOCKER_CONTENT_TRUST := 1
 BUILDX_GIT_LABELS := 1
+BUILDX_EXPERIMENTAL := 1
+SOURCE_DATE_EPOCH := $(git log -1 --pretty=%ct)
 CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
 CI_COMMIT_TAG := latest
 SHORTLINK_SERVICES := api billing bot csi landing link logger metadata notify proxy ui-next
@@ -27,6 +29,7 @@ docker_build:
 	@echo "Building ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG}"
 	@docker buildx build --platform=linux/amd64 \
 		--provenance=true \
+		--sbom=true \
 		--force-rm \
 		--push \
 		-t ${CI_REGISTRY_IMAGE}-$(SERVICE):${CI_COMMIT_TAG} \
