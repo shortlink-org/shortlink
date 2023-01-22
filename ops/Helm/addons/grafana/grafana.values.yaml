@@ -19,7 +19,11 @@ grafana:
     interval: "1m"
 
   imageRenderer:
-    enabled: false
+    enabled: true
+    serviceMonitor:
+      enabled: true
+      selfMonitor: true
+      interval: "1m"
 
   ingress:
     enabled: true
@@ -43,10 +47,19 @@ grafana:
           - shortlink.best
 
   sidecar:
+    alerts:
+      enabled: true
+      searchNamespace: ALL
     dashboards:
       enabled: true
       searchNamespace: ALL
     datasources:
+      enabled: true
+      searchNamespace: ALL
+    plugins:
+      enabled: true
+      searchNamespace: ALL
+    notifiers:
       enabled: true
       searchNamespace: ALL
 
@@ -143,3 +156,7 @@ grafana:
           path: /var/lib/grafana/dashboards/default
 
   plugins: []
+
+  grafana.ini:
+    [server]
+      serve_from_sub_path = true
