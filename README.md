@@ -49,6 +49,9 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 
 ### Services
 
+<details><summary>DETAILS</summary>
+<p>
+
 | Service          | Description                                                           | Language/Framework | Docs                                                  | Status                                                                                                                                                              |
 |------------------|-----------------------------------------------------------------------|--------------------|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | api              | Internal GateWay                                                      | Go                 | [docs](./internal/services/api/README.md)             | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-api&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-api)               |
@@ -74,7 +77,13 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 | wallet           | Wallet service                                                        | Go (Solidity)      | [docs](./internal/services/wallet/README.md)          |                                                                                                                                                                     |
 | ws               | Webscoket service                                                     | Go                 | [docs](./internal/services/ws/README.md)              | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-ws&revision=true)                                                                            |
 
+</p>
+</details>
+
 ### Third-party Service
+
+<details><summary>DETAILS</summary>
+<p>
 
 | Service       | Description                                                             | Language/Framework | Docs                                                | Status                                                                                                                                                |
 |---------------|-------------------------------------------------------------------------|--------------------|-----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -87,7 +96,13 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 | nginx-ingress | Ingress controller for Kubernetes using NGINX                           | Go                 | [docs](https://kubernetes.github.io/ingress-nginx/) | [![App Status](https://shortlink.best/argo/cd/api/badge?name=nginx-ingress&revision=true)](https://shortlink.best/argo/cd/applications/nginx-ingress) | 
 | kafka         | Kafka is used as a message broker                                       | Java               | [docs](https://kafka.apache.org/)                   | [![App Status](https://shortlink.best/argo/cd/api/badge?name=kafka&revision=true)](https://shortlink.best/argo/cd/applications/kafka)                 |         
 
+</p>
+</details>
+
 ### UI
+
+<details><summary>DETAILS</summary>
+<p>
 
 | Service   | Description                          | Language/Framework        | Docs                           | Status                                                                                                                                                        |
 |-----------|--------------------------------------|---------------------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -95,9 +110,8 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 | next      | UI service                           | JS/NextJS                 | [docs](./ui/next/README.md)    | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-next&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-next)       |
 | ui-kit    | UI kit for ShortLink                 | JS/React                  | [docs](./ui/ui-kit/README.md)  | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-ui-kit&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-ui-kit)   |
 
-### Docs
-
-- [Ops](./ops/README.md)
+</p>
+</details>
 
 ### Run
 
