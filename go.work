@@ -4,5 +4,6 @@ use (
 	.
 	./internal/services/notify
 	./internal/services/wallet
+	./internal/services/knative/sync-search/kafka-to-elasticsearch
 	./pkg/shortdb-operator
 )
