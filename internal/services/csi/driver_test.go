@@ -9,7 +9,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/kubernetes-csi/csi-test/v4/pkg/sanity"
+	"github.com/kubernetes-csi/csi-test/v5/pkg/sanity"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/sync/errgroup"
 
