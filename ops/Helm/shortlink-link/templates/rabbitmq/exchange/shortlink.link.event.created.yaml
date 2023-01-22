@@ -1,6 +1,6 @@
 # More on direct exchange and other exchange types, see: https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges.
 
-{{- if and .Values.deploy.env.MQ_ENABLED (eq .Values.deploy.env.MQ_TYPE "rabbitmq") -}}
+{{- if and .Values.deploy.env.MQ_ENABLED (eq .Values.deploy.env.MQ_TYPE "rabbitmq") }}
 apiVersion: rabbitmq.com/v1beta1
 kind: Exchange
 metadata:
