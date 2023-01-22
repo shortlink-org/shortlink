@@ -135,9 +135,6 @@ argo-cd:
     extensions:
       enabled: true
 
-      image:
-        tag: "v0.2.1"
-
   repoServer:
     serviceAccount:
       create: true
