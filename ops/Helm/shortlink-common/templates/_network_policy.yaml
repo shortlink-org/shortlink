@@ -1,0 +1,58 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.NetworkPolicy" }}
+{{- if and .Values.networkPolicy.enabled }}
+---
+kind: NetworkPolicy
+metadata:
+  {{- include "shortlink-common.metadata" . }}
+spec:
+  podSelector: {}
+  egress:
+    {{- range .Values.networkPolicy.egress }}
+    - ports:
+        {{- range .ports }}
+        - port: {{ .port }}
+          protocol: {{ .protocol }}
+        {{- end }}
+      to:
+        {{- range .to }}
+        - namespaceSelector:
+            matchLabels:
+              {{- range .namespaceSelector }}
+              {{ .key }}: {{ .value }}
+              {{- end }}
+          podSelector:
+            matchLabels:
+              {{- range .podSelector }}
+              {{ .key }}: {{ .value }}
+              {{- end }}
+        {{- end }}
+    {{- end }}
+  ingress:
+    {{- range .Values.networkPolicy.ingress }}
+    - from:
+        {{- range .from }}
+        - namespaceSelector:
+            matchLabels:
+              {{- range .namespaceSelector }}
+                {{- toYaml . | nindent 14 }}
+              {{- end }}
+          podSelector:
+            matchLabels:
+              {{- range .podSelector }}
+                {{- toYaml . | nindent 14 }}
+              {{- end }}
+        {{- end }}
+      ports:
+        {{- range .ports }}
+        - port: {{ .port }}
+          protocol: {{ .protocol }}
+        {{- end }}
+    {{- end }}
+  policyTypes:
+    {{- if .Values.networkPolicy.policyTypes }}
+    {{- toYaml .Values.networkPolicy.policyTypes | nindent 4 }}
+    {{- end }}
+{{- end }}
+{{- end }}
