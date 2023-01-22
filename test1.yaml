@@ -1,0 +1,162 @@
+---
+# Source: shortlink-landing/templates/poddisruptionbudget.yaml
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: test-shortlink-landing
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: shortlink-landing
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/component: landing
+---
+# Source: shortlink-landing/templates/base.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: test-shortlink-landing
+  labels: 
+    app.kubernetes.io/name: shortlink-landing
+    helm.sh/chart: shortlink-landing-0.6.1
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: shortlink
+    track: stable
+  annotations:
+---
+# Source: shortlink-landing/templates/base.yaml
+apiVersion: v1
+kind: Service
+metadata:  
+    name: test-shortlink-landing
+    labels:
+      app.kubernetes.io/name: shortlink-landing
+      helm.sh/chart: shortlink-landing-0.6.1
+      app.kubernetes.io/instance: test
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/version: "1.0.0"
+      app.kubernetes.io/part-of: shortlink
+      track: stable
+    annotations:
+spec:
+  type: ClusterIP
+  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
+      protocol: TCP
+  selector:    
+    app.kubernetes.io/name: shortlink-landing
+    app.kubernetes.io/instance: test
+---
+# Source: shortlink-landing/templates/base.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-shortlink-landing
+  labels:
+    app.kubernetes.io/name: shortlink-landing
+    helm.sh/chart: shortlink-landing-0.6.1
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "1.0.0"
+    app.kubernetes.io/part-of: shortlink
+    track: stable
+  annotations:
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:      
+      app.kubernetes.io/name: shortlink-landing
+      app.kubernetes.io/instance: test
+  template:
+    metadata:
+      labels:        
+        app.kubernetes.io/name: shortlink-landing
+        app.kubernetes.io/instance: test
+      annotations:
+    spec:
+      serviceAccountName: test-shortlink-landing
+      securityContext:
+        # -- fsGroup is the group ID associated with the container
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+      - name: shortlink-landing
+        # -- Security Context policies for controller pods
+        # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+        # notes on enabling and using sysctls
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          # runAsUser is the user ID used to run the container
+          runAsUser: 1000
+          # runAsGroup is the primary group ID used to run all processes within any container of the pod
+          runAsGroup: 1000
+          # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+              - ALL
+        image: "registry.gitlab.com/shortlink-org/shortlink/landing:0.13.79"
+        # -- Global imagePullPolicy
+        # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+        # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 8080
+            protocol: TCP      
+        # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+        livenessProbe:
+          httpGet:
+            path: /live
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          successThreshold: 1
+          failureThreshold: 30      
+        env:
+        resources:
+          # -- We usually recommend not to specify default resources and to leave this as a conscious
+          # choice for the user. This also increases chances charts run on environments with little
+          # resources, such as Minikube. If you do want to specify resources, uncomment the following
+          # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 32Mi      
+        volumeMounts:
+          - name: test-shortlink-landing-tmp
+            mountPath: "/tmp"
+            readOnly: false
+      # -- Node labels and tolerations for pod assignment
+      # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+      # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature    
+      volumes:
+        - name: test-shortlink-landing-tmp
+          emptyDir: { }
