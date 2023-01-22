@@ -39,7 +39,7 @@ require (
 	github.com/kubernetes-csi/csi-test/v4 v4.4.0
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-sqlite3 v1.14.16
-	github.com/nats-io/nats.go v1.22.1
+	github.com/nats-io/nats.go v1.23.0
 	github.com/neo4j/neo4j-go-driver/v5 v5.4.0
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/prometheus/client_golang v1.14.0
@@ -230,7 +230,7 @@ require (
 	go.opentelemetry.io/contrib v1.12.0 // indirect
 	go.opentelemetry.io/otel/metric v0.34.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
-	golang.org/x/crypto v0.1.0 // indirect
+	golang.org/x/crypto v0.5.0 // indirect
 	golang.org/x/exp v0.0.0-20220827204233-334a2380cb91 // indirect
 	golang.org/x/mod v0.7.0 // indirect
 	golang.org/x/sys v0.4.0 // indirect
