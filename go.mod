@@ -57,7 +57,7 @@ require (
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/swag v1.8.9
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
-	github.com/uptrace/go-clickhouse v0.2.9
+	github.com/uptrace/go-clickhouse v0.3.0
 	github.com/uptrace/go-clickhouse/chdebug v0.2.9
 	github.com/uptrace/go-clickhouse/chotel v0.3.0
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.18
