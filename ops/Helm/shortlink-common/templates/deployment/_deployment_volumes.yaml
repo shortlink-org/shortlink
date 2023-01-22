@@ -5,7 +5,7 @@
     {{- range .Values.deploy.volumes }}
     - name: {{ include "helpers.fullname" $ }}-{{ .name }}
       mountPath: {{ .mountPath | quote }}
-      readOnly: {{ .readOnly | default true }}
+      readOnly: {{ .readOnly | default false }}
     {{- end }}
 {{- end }}
 

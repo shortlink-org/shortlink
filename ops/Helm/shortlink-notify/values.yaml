@@ -131,7 +131,7 @@ deploy:
     # runAsGroup is the primary group ID used to run all processes within any container of the pod
     runAsGroup: 1000
     # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
-    readOnlyRootFilesystem: true
+    readOnlyRootFilesystem: "true"
     capabilities:
       drop:
         - ALL
