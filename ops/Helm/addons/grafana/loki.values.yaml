@@ -1,6 +1,9 @@
 loki:
   enabled: true
 
+  storage:
+    type: filesystem
+
   write:
     replicas: 1
     persistence:
@@ -10,4 +13,8 @@ loki:
     replicas: 1
     persistence:
       storageClass: "-"
+
+  backend:
+    replicas: 1
+
 
