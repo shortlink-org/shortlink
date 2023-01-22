@@ -7,7 +7,6 @@ import (
 	"context"
 	"net/http"
 
-	sentryhttp "github.com/getsentry/sentry-go/http"
 	redisCache "github.com/go-redis/redis/v9"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
@@ -22,7 +21,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/sentry"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
@@ -50,21 +48,18 @@ type Service struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Sentry        *sentryhttp.Handler
 	Monitoring    *http.ServeMux
 	PprofEndpoint profiling.PprofEndpoint
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, cache.New, i18n.New)
+var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, monitoring.New, cache.New, i18n.New)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
 	DefaultSet,
 	NewFullService,
 	store.New,
-	sentry.New,
-	monitoring.New,
 	profiling.New,
 	mq_di.New,
 	rpc.InitServer,
@@ -86,7 +81,6 @@ func NewFullService(
 	cache *redisCache.UniversalClient,
 
 	// Observability
-	sentryHandler *sentryhttp.Handler,
 	monitoring *http.ServeMux,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
@@ -109,7 +103,6 @@ func NewFullService(
 		// Observability
 		Tracer:        tracer,
 		Monitoring:    monitoring,
-		Sentry:        sentryHandler,
 		PprofEndpoint: pprofHTTP,
 	}, nil
 }

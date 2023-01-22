@@ -12,6 +12,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
@@ -25,6 +26,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
+	"net/http"
 )
 
 // Injectors from wire.go:
@@ -39,6 +41,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	serveMux := monitoring.New(logger)
 	dbStore, cleanup3, err := store.New(context, logger)
 	if err != nil {
 		cleanup2()
@@ -101,7 +104,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metaDataService, err := NewMetaDataService(logger, service, event, metadata, metaStore)
+	metaDataService, err := NewMetaDataService(logger, serveMux, service, event, metadata, metaStore)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -126,6 +129,9 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 type MetaDataService struct {
 	// Common
 	Log logger.Logger
+
+	// Observability
+	Monitoring *http.ServeMux
 
 	// Delivery
 	metadataMQ        *metadata_mq.Event
@@ -189,7 +195,7 @@ func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *metadata.Ser
 
 func NewMetaDataService(
 
-	log logger.Logger,
+	log logger.Logger, monitoring2 *http.ServeMux,
 
 	service *metadata.Service,
 
@@ -201,6 +207,8 @@ func NewMetaDataService(
 	return &MetaDataService{
 
 		Log: log,
+
+		Monitoring: monitoring2,
 
 		service: service,
 
