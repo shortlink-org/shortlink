@@ -46,7 +46,7 @@ defmodule Chat.MixProject do
       {:swoosh, "~> 1.9"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.21"},
+      {:gettext, "~> 0.22"},
       {:jason, "~> 1.4"},
       {:plug_cowboy, "~> 2.6"}
     ]
