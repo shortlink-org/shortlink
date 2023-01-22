@@ -138,8 +138,10 @@ make run
 make down
 ```
 
-
 ##### Kubernetes (1.21+)
+
+<details><summary>DETAILS</summary>
+<p>
 
 ###### For run
 ```
@@ -152,7 +154,13 @@ make helm-shortlink-up
 make minikube-down
 ```
 
+</p>
+</details>
+
 ##### Skaffold [(link)](https://skaffold.dev/)
+
+<details><summary>DETAILS</summary>
+<p>
 
 ###### For run
 ```
@@ -181,6 +189,9 @@ make skaffold-debug
 ##### [12 factors: ENV](https://12factor.net/config)
 
 [View ENV Variables](./docs/env.md)
+
+</p>
+</details>
 
 </p>
 </details>
