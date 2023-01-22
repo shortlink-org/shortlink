@@ -1,14 +1,15 @@
 loki:
   enabled: true
 
-  deployment:
-    isSingleBinary: true
+  loki:
+    deployment:
+      isSingleBinary: true
 
-  commonConfig:
-    replication_factor: 1
+    commonConfig:
+      replication_factor: 1
 
-  storage:
-    type: filesystem
+    storage:
+      type: filesystem
 
   write:
     replicas: 0
