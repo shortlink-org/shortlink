@@ -115,3 +115,16 @@ monitoring:
     release: prometheus-operator
   # -- The label to use to retrieve the job name from.
   jobLabel: ""
+
+networkPolicy:
+  enabled: true
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: nginx-ingress
+      ports:
+        - protocol: TCP
+          port: 8080
