@@ -3,7 +3,6 @@ package monitoring
 import (
 	"net/http"
 
-	sentryhttp "github.com/getsentry/sentry-go/http"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"
@@ -14,7 +13,7 @@ import (
 )
 
 // New - Monitoring endpoints
-func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *http.ServeMux {
+func New(log logger.Logger) *http.ServeMux {
 	// Create a new Prometheus registry
 	registry := prometheus.NewRegistry()
 
@@ -32,13 +31,13 @@ func New(sentryHandler *sentryhttp.Handler, log logger.Logger) *http.ServeMux {
 	commonMux := http.NewServeMux()
 
 	// Expose prometheus metrics on /metrics
-	commonMux.Handle("/metrics", sentryHandler.Handle(promhttp.Handler()))
+	commonMux.Handle("/metrics", promhttp.Handler())
 
 	// Expose a liveness check on /live
-	commonMux.HandleFunc("/live", sentryHandler.HandleFunc(health.LiveEndpoint))
+	commonMux.HandleFunc("/live", health.LiveEndpoint)
 
 	// Expose a readiness check on /ready
-	commonMux.HandleFunc("/ready", sentryHandler.HandleFunc(health.ReadyEndpoint))
+	commonMux.HandleFunc("/ready", health.ReadyEndpoint)
 
 	go func() {
 		err := http.ListenAndServe("0.0.0.0:9090", commonMux)

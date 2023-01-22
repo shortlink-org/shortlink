@@ -11,6 +11,7 @@ package metadata_di
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/google/wire"
 
@@ -32,6 +33,9 @@ import (
 type MetaDataService struct {
 	// Common
 	Log logger.Logger
+
+	// Observability
+	Monitoring *http.ServeMux
 
 	// Delivery
 	metadataMQ        *metadata_mq.Event
@@ -108,6 +112,9 @@ func NewMetaDataService(
 	// Common
 	log logger.Logger,
 
+	// Observability
+	monitoring *http.ServeMux,
+
 	// Application
 	service *metadata.Service,
 
@@ -121,6 +128,9 @@ func NewMetaDataService(
 	return &MetaDataService{
 		// Common
 		Log: log,
+
+		// Observability
+		Monitoring: monitoring,
 
 		// Application
 		service: service,

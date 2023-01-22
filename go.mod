@@ -15,7 +15,6 @@ require (
 	github.com/dgraph-io/badger/v3 v3.2103.5
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/edgedb/edgedb-go v0.13.4
-	github.com/getsentry/sentry-go v0.17.0
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.2
@@ -181,13 +180,12 @@ require (
 	github.com/nats-io/nkeys v0.3.0 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/onsi/ginkgo/v2 v2.7.0 // indirect
-	github.com/onsi/gomega v1.24.2 // indirect
+	github.com/onsi/gomega v1.25.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/opencontainers/runc v1.1.4 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.6 // indirect
 	github.com/pierrec/lz4/v4 v4.1.17 // indirect
-	github.com/pingcap/errors v0.11.5-0.20201126102027-b0a155152ca3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
