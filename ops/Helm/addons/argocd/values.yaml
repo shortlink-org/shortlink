@@ -188,10 +188,8 @@ argo-cd:
     volumeMounts:
       - mountPath: /custom-tools
         name: custom-tools
-        readOnly: 'true'
       - mountPath: /sops-gpg/
         name: sops-gpg
-        readOnly: 'true'
     # helm secrets wrapper mode installation (optional)
     #  - mountPath: /usr/local/sbin/helm
     #    subPath: helm
@@ -227,7 +225,6 @@ argo-cd:
         volumeMounts:
           - mountPath: /custom-tools
             name: custom-tools
-            readOnly: 'true'
 
   applicationSet:
     metrics:
