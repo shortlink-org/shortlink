@@ -1,6 +1,9 @@
 loki:
   enabled: true
 
+  deployment:
+    isSingleBinary: true
+
   commonConfig:
     replication_factor: 1
 
