@@ -57,8 +57,8 @@ require (
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/swag v1.8.9
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
-	github.com/uptrace/go-clickhouse v0.2.9
-	github.com/uptrace/go-clickhouse/chdebug v0.2.9
+	github.com/uptrace/go-clickhouse v0.3.0
+	github.com/uptrace/go-clickhouse/chdebug v0.3.0
 	github.com/uptrace/go-clickhouse/chotel v0.2.9
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.18
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.18
@@ -83,7 +83,7 @@ require (
 	google.golang.org/grpc v1.53.0-dev
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
-	k8s.io/kubernetes v1.26.1
+	k8s.io/kubernetes v1.15.0-alpha.0
 	k8s.io/mount-utils v0.26.1
 	k8s.io/utils v0.0.0-20230115233650-391b47cb4029
 )
@@ -167,7 +167,7 @@ require (
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
-	github.com/mattn/go-isatty v0.0.16 // indirect
+	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mattn/go-tty v0.0.3 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.2 // indirect
@@ -230,7 +230,7 @@ require (
 	go.opentelemetry.io/otel/metric v0.34.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/exp v0.0.0-20220827204233-334a2380cb91 // indirect
+	golang.org/x/exp v0.0.0-20230118134722-a68e582fa157 // indirect
 	golang.org/x/mod v0.7.0 // indirect
 	golang.org/x/sys v0.4.0 // indirect
 	golang.org/x/term v0.4.0 // indirect
@@ -242,5 +242,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.26.1 // indirect
+	k8s.io/klog v1.0.0 // indirect
 	k8s.io/klog/v2 v2.80.2-0.20221028030830-9ae4992afb54 // indirect
 )
