@@ -5,12 +5,12 @@ loki:
     type: filesystem
 
   write:
-    replicas: 0
+    replicas: 1
     persistence:
       storageClass: "-"
 
   read:
-    replicas: 0
+    replicas: 1
     persistence:
       storageClass: "-"
 
