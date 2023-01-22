@@ -20,4 +20,8 @@ loki:
   backend:
     replicas: 1
 
+  grafana-agent-operator:
+    image:
+      tag: v0.30.2
+
 
