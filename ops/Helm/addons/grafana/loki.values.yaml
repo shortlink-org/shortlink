@@ -8,12 +8,12 @@ loki:
     type: filesystem
 
   write:
-    replicas: 1
+    replicas: 0
     persistence:
       storageClass: "-"
 
   read:
-    replicas: 1
+    replicas: 0
     persistence:
       storageClass: "-"
 
