@@ -65,7 +65,8 @@ deploy:
 
   env:
     MQ_ENABLED: "false"
-    MQ_TYPE: "rabbitmq"
+    MQ_TYPE: "kafka"
+    MQ_KAFKA_URI: "kafka-kafka-bootstrap.kafka:9092"
     TRACER_URI: grafana-tempo.grafana:6831
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 
