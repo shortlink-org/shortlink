@@ -23,6 +23,10 @@ loki:
   tableManager:
     enabled: true
 
+  monitoring:
+    selfMonitoring:
+      enabled: false
+
   grafana-agent-operator:
     image:
       tag: v0.30.2
