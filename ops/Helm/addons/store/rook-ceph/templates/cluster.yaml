@@ -15,23 +15,7 @@ spec:
     enabled: true
   placement:
     all:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: role
-                  operator: In
-                  values:
-                    - storage-node
     mon:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: role
-                  operator: In
-                  values:
-                    - storage-mon-node
       tolerations:
         - effect: NoSchedule
           key: node-role.kubernetes.io/control-plane
