@@ -10,7 +10,7 @@ minio:
       tag: v4.5.8
 
   tenants:
-    - name: shortlink
+    - name: default
 
       pools:
         - servers: 1
