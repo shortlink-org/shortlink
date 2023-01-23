@@ -11,6 +11,9 @@ loki:
     storage:
       type: filesystem
 
+  test:
+    enabled: false
+
   write:
     replicas: 0
     persistence:
