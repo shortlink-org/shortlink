@@ -1,4 +1,3 @@
-{{- if and (.Capabilities.APIVersions.Has "monitoring.coreos.com/v1") -}}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -20,4 +19,3 @@ spec:
   - port: http-metrics
     path: /metrics
     interval: 5s
-{{- end }}
