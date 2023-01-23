@@ -9,24 +9,15 @@ minio:
     image:
       tag: v4.5.8
 
-node:
-  enabled: true
+  tenants:
+    - name: shortlink
 
-  tenant:
-    name: shortlink
+      pools:
+        - servers: 1
+          volumesPerServer: 1
 
-    pools:
-      - servers: 1
-        volumesPerServer: 1
+      metrics:
+        enabled: true
 
-    metrics:
-      enabled: true
-
-    prometheusOperator: true
-
-    features:
-      bucketDNS: true
-
-  ingress:
-    console:
-      enabled: true
+      s3:
+        bucketDNS: true
