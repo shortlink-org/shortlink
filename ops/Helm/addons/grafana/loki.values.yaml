@@ -17,12 +17,12 @@ loki:
   write:
     replicas: 0
     persistence:
-      storageClass: "-"
+      storageClass: rook-ceph-block
 
   read:
     replicas: 0
     persistence:
-      storageClass: "-"
+      storageClass: rook-ceph-block
 
   backend:
     replicas: 0
