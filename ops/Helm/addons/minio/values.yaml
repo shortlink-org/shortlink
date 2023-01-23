@@ -5,11 +5,13 @@
 minio:
   enabled: true
 
+  operator:
+    image:
+      tag: v4.5.8
+
 tenant:
   enabled: true
 
   tenant:
-    image:
-      tag: RELEASE.2023-01-12T02-06-16Z
     pools:
       - servers: 1
