@@ -15,17 +15,14 @@ loki:
     enabled: false
 
   write:
-    replicas: 0
+    replicas: 1
     persistence:
       storageClass: rook-ceph-block
 
   read:
-    replicas: 0
+    replicas: 1
     persistence:
       storageClass: rook-ceph-block
-
-  backend:
-    replicas: 0
 
   singleBinary:
     persistence:
