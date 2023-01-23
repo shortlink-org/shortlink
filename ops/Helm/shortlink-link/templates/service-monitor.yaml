@@ -1,4 +1,3 @@
-{{- if and .Values.monitoring.enabled (.Capabilities.APIVersions.Has "monitoring.coreos.com/v1") -}}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -22,4 +21,3 @@ spec:
       - {{ .Release.Namespace }}
   endpoints:
   - port: metrics
-{{- end }}
