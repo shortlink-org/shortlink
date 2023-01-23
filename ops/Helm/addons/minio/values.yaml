@@ -15,6 +15,7 @@ minio:
       pools:
         - servers: 1
           volumesPerServer: 1
+          storageClassName: rook-ceph-block
 
       metrics:
         enabled: true
