@@ -3,3 +3,15 @@ CHART VERSION: {{ .Chart.Version }}
 APP VERSION: {{ .Chart.AppVersion }}
 
 ** Please be patient while the chart is being deployed **
+
+Get JWT token:
+
+```
+kubectl -n minio get secret console-sa-secret -o jsonpath="{.data.token}" | base64 --decode
+```
+
+Get Console URL:
+
+```
+kubectl --namespace minio port-forward svc/console 9090:9090
+```

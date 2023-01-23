@@ -15,3 +15,11 @@ tenant:
   tenant:
     pools:
       - servers: 1
+        volumesPerServer: 1
+    metrics:
+      enabled: true
+    prometheusOperator: true
+
+  ingress:
+    console:
+      enabled: true
