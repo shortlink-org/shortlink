@@ -86,7 +86,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/link
-    tag: 0.13.81
+    tag: 0.13.83
 
   volumes:
     - name: grpc
