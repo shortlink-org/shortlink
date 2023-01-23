@@ -27,6 +27,10 @@ loki:
   backend:
     replicas: 0
 
+  singleBinary:
+    persistence:
+      storageClass: rook-ceph-block
+
   tableManager:
     enabled: true
 
