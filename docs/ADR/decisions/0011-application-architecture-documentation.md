@@ -11,10 +11,12 @@ Accepted
 We want to have a standard documentation for easy understanding of 
 the logic of the platform and its architecture.
 
-We research:
+We research models:
 - [4C model](https://c4model.com/)
 - 4+1 model
 - ARC42
+
+We research tools:
 - archimate model
   - archi -> neo4j -> grafana
 - PlantUML
@@ -23,6 +25,7 @@ We research:
 - Gherkin
 - Miro
 - Notion
+- [diagrams](https://diagrams.mingrammer.com/)
 
 ## Decision
 
