@@ -20,6 +20,7 @@ dependencies:
     repository: https://operator.min.io/
     condition: minio.enabled
   - name: tenant
+    alias: node
     version: 4.5.8
     repository: https://operator.min.io/
-    condition: tenant.enabled
+    condition: node.enabled
