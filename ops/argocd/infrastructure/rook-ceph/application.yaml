@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rook-ceph
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: rook-ceph
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ops/Helm/addons/store/rook-ceph
+    repoURL: 'https://github.com/shortlink-org/shortlink'
+    targetRevision: HEAD
+    helm:
+      releaseName: rook-ceph
+      valueFiles:
+        # default values
+        - values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
+  ignoreDifferences:
+    - group: kyverno.io
+      kind: ClusterPolicy
+      jqPathExpressions:
+        - .spec.rules[] | select(.name|test("autogen-."))
