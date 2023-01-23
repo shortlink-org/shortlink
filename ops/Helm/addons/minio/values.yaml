@@ -13,6 +13,8 @@ tenant:
   enabled: true
 
   tenant:
+    name: shortlink
+
     pools:
       - servers: 1
         volumesPerServer: 1
