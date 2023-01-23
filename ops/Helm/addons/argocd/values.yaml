@@ -130,6 +130,7 @@ argo-cd:
         p, role:org-admin, repositories, delete, *, allow
         g, devops, role:admin
         g, gitlab, role:org-admin
+        g, shortlink-org:devops, role:org-admin
       policy.default: role:readonly
 
     extensions:
