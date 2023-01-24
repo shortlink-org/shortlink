@@ -29,7 +29,7 @@ loki:
       storageClass: rook-ceph-block
 
   tableManager:
-    enabled: true
+    enabled: false
 
   monitoring:
     selfMonitoring:
