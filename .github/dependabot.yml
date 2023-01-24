@@ -131,3 +131,9 @@ updates:
     directory: /internal/services/backstage/shortlink-org/template/content
     schedule:
       interval: daily
+
+
+  - package-ecosystem: gomod
+    directory: /internal/services/knative/sync-search/kafka-to-elasticsearch
+    schedule:
+      interval: daily
