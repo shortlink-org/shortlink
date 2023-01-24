@@ -82,7 +82,7 @@ require (
 	google.golang.org/grpc v1.53.0-dev
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.2.0
 	google.golang.org/protobuf v1.28.1
-	k8s.io/kubernetes v1.15.0-alpha.0
+	k8s.io/kubernetes v1.26.1
 	k8s.io/mount-utils v0.26.1
 	k8s.io/utils v0.0.0-20230115233650-391b47cb4029
 )
@@ -238,6 +238,5 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.26.1 // indirect
-	k8s.io/klog v1.0.0 // indirect
 	k8s.io/klog/v2 v2.80.2-0.20221028030830-9ae4992afb54 // indirect
 )
