@@ -14,9 +14,5 @@ spec:
   dashboard:
     enabled: true
   placement:
-    all:
-    mon:
-      tolerations:
-        - effect: NoSchedule
-          key: node-role.kubernetes.io/control-plane
-          operator: Exists
+    all: {}
+    mon: {}
