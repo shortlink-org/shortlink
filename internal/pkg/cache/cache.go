@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/go-redis/cache/v9"
-	"github.com/go-redis/redis/v9"
+	"github.com/redis/go-redis/v9"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/redis"
 )

@@ -9,8 +9,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/go-redis/redis/v9"
-	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/redis"
