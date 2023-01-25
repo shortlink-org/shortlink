@@ -14,16 +14,16 @@ loki:
   write:
     replicas: 1
     persistence:
-      storageClass: rook-ceph-block
+      storageClass: rook-local-storage
 
   read:
     replicas: 1
     persistence:
-      storageClass: rook-ceph-block
+      storageClass: rook-local-storage
 
   singleBinary:
     persistence:
-      storageClass: rook-ceph-block
+      storageClass: rook-local-storage
 
   tableManager:
     enabled: false
