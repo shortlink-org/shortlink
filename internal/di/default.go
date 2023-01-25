@@ -7,8 +7,8 @@ import (
 	"context"
 	"net/http"
 
-	redisCache "github.com/go-redis/redis/v9"
 	"github.com/google/wire"
+	redisCache "github.com/redis/go-redis/v9"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
