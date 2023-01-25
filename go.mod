@@ -19,7 +19,7 @@ require (
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.2
 	github.com/go-redis/cache/v9 v9.0.0
-	github.com/go-redis/redis/extra/redisotel/v9 v9.0.0-rc.2
+	github.com/go-redis/redis/extra/redisotel/v9 v9.0.0-rc.4
 	github.com/go-redis/redis/v9 v9.0.0-rc.2
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.15.2
