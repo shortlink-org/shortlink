@@ -15,4 +15,6 @@ spec:
     enabled: true
   placement:
     all: {}
-    mon: {}
+    mon:
+      count: 1
+      allowMultiplePerNode: false
