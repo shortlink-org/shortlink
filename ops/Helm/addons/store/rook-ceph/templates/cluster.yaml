@@ -9,7 +9,7 @@ spec:
   dataDirHostPath: /var/lib/rook
   mon:
     count: 1
-    allowMultiplePerNode: false
+    allowMultiplePerNode: true
   # enable the ceph dashboard for viewing cluster status
   dashboard:
     enabled: true
