@@ -12,5 +12,5 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: rook-local-storage
-provisioner: rook-ceph.nfs.csi.ceph.com
+provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
