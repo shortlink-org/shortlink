@@ -13,8 +13,6 @@ spec:
   # enable the ceph dashboard for viewing cluster status
   dashboard:
     enabled: true
-  placement:
-    all: {}
-    mon:
-      count: 1
-      allowMultiplePerNode: false
+  storage:
+    useAllNodes: true
+    useAllDevices: true
