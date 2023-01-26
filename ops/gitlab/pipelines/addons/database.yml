@@ -12,17 +12,3 @@ redis:
   needs: []
   rules:
     - when: manual
-
-rook:
-  stage: addons
-  variables:
-    RELEASE_NAME: rook
-    HELM_PATH: ops/Helm/addons/storage/rook
-    HELM_NAMESPACE: rook-ceph
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
