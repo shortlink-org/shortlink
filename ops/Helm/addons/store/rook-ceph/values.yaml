@@ -5,7 +5,7 @@ rook-ceph:
     enabled: true
 
 ingress:
-  enabled: true
+  enabled: false
   type: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
