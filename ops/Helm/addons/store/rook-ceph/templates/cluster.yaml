@@ -13,7 +13,7 @@ spec:
       - name: pg_autoscaler
         enabled: true
   mon:
-    count: 1
+    count: 3
     allowMultiplePerNode: true
     volumeClaimTemplate:
       spec:
