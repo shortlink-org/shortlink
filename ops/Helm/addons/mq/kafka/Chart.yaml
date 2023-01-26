@@ -15,7 +15,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: strimzi-kafka-operator
-    version: 0.32.0
+    version: 0.33.0
     repository: https://strimzi.io/charts/
     condition: strimzi-kafka-operator.enabled
     tags:
