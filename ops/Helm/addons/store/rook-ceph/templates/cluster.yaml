@@ -7,9 +7,20 @@ spec:
   cephVersion:
     image: quay.io/ceph/ceph:v17.2.5
   dataDirHostPath: /var/lib/rook
+  mgr:
+    count: 1
+    modules:
+      - name: pg_autoscaler
+        enabled: true
   mon:
     count: 1
     allowMultiplePerNode: true
+    volumeClaimTemplate:
+      spec:
+        storageClassName: rook-local-storage
+        resources:
+          requests:
+            storage: 10Gi
   # enable the ceph dashboard for viewing cluster status
   dashboard:
     enabled: true
