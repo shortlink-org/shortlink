@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM node:19.4-alpine as builder
+FROM node:19.5-alpine as builder
 
 # WARNING: if container limit < MAX_OLD_SPACE_SIZE => Killed
 # Docs: https://developer.ibm.com/languages/node-js/articles/nodejs-memory-management-in-container-environments/
@@ -20,7 +20,7 @@ RUN npm ci --cache .npm --prefer-offline --force
 
 RUN npm run build
 
-FROM node:19.4-alpine
+FROM node:19.5-alpine
 
 # Install dependencies
 RUN \
