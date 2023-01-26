@@ -29,7 +29,7 @@ serviceAccount:
   automountServiceAccountToken: false
 
 ingress:
-  enabled: true
+  enabled: false
   type: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
