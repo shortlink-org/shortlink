@@ -15,7 +15,7 @@ minio:
       pools:
         - servers: 1
           volumesPerServer: 1
-          storageClassName: rook-local-storage
+          storageClassName: local-path
 
       metrics:
         enabled: true
