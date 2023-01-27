@@ -17,7 +17,7 @@ spec:
   mon:
     # This is one of the tweaks - normally you'd want more than one monitor and
     # you'd want to spread them out
-    count: 1
+    count: 3
     allowMultiplePerNode: true
     volumeClaimTemplate:
       spec:
