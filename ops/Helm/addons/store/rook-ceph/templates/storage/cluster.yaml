@@ -6,13 +6,17 @@ metadata:
 spec:
   cephVersion:
     image: quay.io/ceph/ceph:v17.2.5
+    allowUnsupported: false
   dataDirHostPath: /var/lib/rook
+  skipUpgradeChecks: false
+  continueUpgradeAfterChecksEvenIfNotHealthy: false
   mgr:
-    count: 1
     modules:
       - name: pg_autoscaler
         enabled: true
   mon:
+    # This is one of the tweaks - normally you'd want more than one monitor and
+    # you'd want to spread them out
     count: 1
     allowMultiplePerNode: true
     volumeClaimTemplate:
@@ -21,9 +25,16 @@ spec:
         resources:
           requests:
             storage: 10Gi
+  rbdMirroring:
+    workers: 0
+  crashCollector:
+    disable: false
+  cleanupPolicy:
+    confirmation: ""
   # enable the ceph dashboard for viewing cluster status
   dashboard:
     enabled: true
+    ssl: true
   storage:
     useAllNodes: true
     useAllDevices: true
