@@ -5,7 +5,7 @@ rook-ceph:
     enabled: true
 
 ingress:
-  enabled: false
+  enabled: true
   type: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
@@ -23,4 +23,4 @@ ingress:
   path: /ceph-dashboard(/|$)(.*)
   service:
     name: rook-ceph-mgr-dashboard
-    port: https-dashboard
+    port: 7000
