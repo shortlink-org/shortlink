@@ -6045,10 +6045,10 @@
     moment "^2.29.1"
     react-use "^17.2.4"
 
-"@roadiehq/backstage-plugin-prometheus@^2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@roadiehq/backstage-plugin-prometheus/-/backstage-plugin-prometheus-2.2.3.tgz#13779f42cb7a227f0c549a49586da27c3d42722b"
-  integrity sha512-a8NHCYAO1IHnD6guC44MndGm144oM7ZZyv/bD+Vv4n5VgvxVG0lOx1DT5JnHe2bYM0Xujs6HRIZMP2VbUKvX6w==
+"@roadiehq/backstage-plugin-prometheus@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@roadiehq/backstage-plugin-prometheus/-/backstage-plugin-prometheus-2.3.0.tgz#bf81566269771582038c4e7b74e91cf74f3265e8"
+  integrity sha512-oj6XuT9s9PTlHdW3JyCl5cZRSlR65xEtoT/86p0YzDl67stycNa9GSbQ2xUJ926Jdx3eivg2IRkWTXg/kmlZ9w==
   dependencies:
     "@backstage/catalog-model" "^1.1.5"
     "@backstage/core-components" "^0.12.3"
@@ -7813,7 +7813,7 @@ anymatch@^3.0.3, anymatch@~3.1.2:
     "@material-ui/core" "^4.12.4"
     "@material-ui/icons" "^4.9.1"
     "@roadiehq/backstage-plugin-argo-cd" "^2.2.4"
-    "@roadiehq/backstage-plugin-prometheus" "^2.2.3"
+    "@roadiehq/backstage-plugin-prometheus" "^2.3.0"
     history "^5.3.0"
     react "^18.2.0"
     react-dom "^18.2.0"
