@@ -34,8 +34,8 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-    nginx.ingress.kubernetes.io/enable-opentracing: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
+    nginx.ingress.kubernetes.io/enable-opentracing: "false"
     kubernetes.io/tls-acme: "true"
 
   hostname: shortlink.best
