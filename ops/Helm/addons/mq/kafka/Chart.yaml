@@ -23,5 +23,5 @@ dependencies:
       - mq
   - name: kafka-ui
     version: 0.5.2
-    repository: "file://../kafka-ui"
+    repository: https://provectus.github.io/kafka-ui
     condition: kafka-ui.enabled
