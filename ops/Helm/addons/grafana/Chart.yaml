@@ -20,7 +20,7 @@ dependencies:
     tags:
       - monitoring
   - name: loki
-    version: 4.4.1
+    version: 4.4.2
     repository: https://grafana.github.io/helm-charts
     condition: loki.enabled
     tags:
