@@ -28,7 +28,7 @@ kafka-ui:
 
   ingress:
     enabled: true
-    type: nginx
+    ingressClassName: nginx
     annotations:
       cert-manager.io/cluster-issuer: cert-manager-production
       nginx.ingress.kubernetes.io/enable-modsecurity: "false"
@@ -38,7 +38,10 @@ kafka-ui:
       nginx.ingress.kubernetes.io/use-regex: "true"
 
     hostname: shortlink.best
+
     path: /kafka-ui(/|$)(.*)
-    service:
-      name: kafka-ui
-      port: 80
+
+    tls:
+      - secretName: shortlink-ingress-tls
+        hosts:
+          - shortlink.best
