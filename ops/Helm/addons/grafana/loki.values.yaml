@@ -14,16 +14,16 @@ loki:
   write:
     replicas: 1
     persistence:
-      lstorageClass: local-path
+      storageClass: local-path
 
   read:
     replicas: 1
     persistence:
-      lstorageClass: local-path
+      storageClass: local-path
 
   singleBinary:
     persistence:
-      lstorageClass: local-path
+      storageClass: local-path
 
   tableManager:
     enabled: false
