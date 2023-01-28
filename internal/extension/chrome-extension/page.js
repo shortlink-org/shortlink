@@ -13,7 +13,9 @@ function addURLToContainer(links) {
         var item = document.createElement("li");
 
         // Set the item's inner HTML to include the link and text
-        item.innerHTML = "<a href='" + links[i].href + "'>" + links[i].text + "</a>";
+        var newElement = document.createElement('a');
+        newElement.innerHTML = "<a href='" + links[i].href + "'>" + links[i].text + "</a>";
+        item.appendChild(newElement) ;
 
         // Add the item to the list
         list.appendChild(item);
