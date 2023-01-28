@@ -26,9 +26,9 @@ yamlApplicationConfig: {}
 #    clusters:
 #      - name: shortlink
 #        bootstrapServers: kafka-kafka-bootstrap:9092
-  # spring:
-  #   security:
-  #     oauth2:
+#  spring:
+#    security:
+#      oauth2:
 #    auth:
 #      type: disabled
 #    management:
@@ -66,6 +66,15 @@ networkPolicy:
 
 podAnnotations: {}
 podLabels: {}
+
+## Annotations to be added to kafka-ui Deployment
+##
+annotations: {}
+
+## Set field schema as HTTPS for readines and liveness probe
+##
+probes:
+  useHttpsScheme: false
 
 podSecurityContext: {}
   # fsGroup: 2000
