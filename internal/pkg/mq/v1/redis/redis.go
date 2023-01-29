@@ -3,6 +3,8 @@ package redis
 import (
 	"context"
 
+	"github.com/redis/go-redis/v9"
+
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
 )
 
