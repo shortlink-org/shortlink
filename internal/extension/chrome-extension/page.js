@@ -14,8 +14,9 @@ function addURLToContainer(links) {
 
         // Set the item's inner HTML to include the link and text
         var newLinkElement = document.createElement('a');
-        newLinkElement = newLinkElement.setAttribute('href', links[i].href);
-        newLinkElement = newElement.innerHTML = links[i].text;
+        newLinkElement = newLinkElement.setAttribute('href', links[i].href)
+          .setAttribute('text', links[i].text)
+          .setAttribute('target', '_blank');
         item.appendChild(newElement);
 
         // Add the item to the list
