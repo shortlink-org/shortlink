@@ -26,6 +26,9 @@ kafka-ui:
       MANAGEMENT_HEALTH_LDAP_ENABLED: "FALSE"
       SERVER_SERVLET_CONTEXT_PATH: "/kafka-ui"
 
+  probes:
+    useHttpsScheme: true
+
   ingress:
     enabled: true
     ingressClassName: nginx
