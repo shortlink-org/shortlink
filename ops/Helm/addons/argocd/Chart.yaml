@@ -27,7 +27,7 @@ dependencies:
     tags:
       - ci/cd
   - name: argo-events
-    version: 2.1.1
+    version: 2.1.2
     repository: https://argoproj.github.io/argo-helm
     condition: argo.enabled
     tags:
