@@ -42,6 +42,5 @@ kafka-ui:
     path: /kafka-ui(/|$)(.*)
 
     tls:
-      - secretName: shortlink-ingress-tls
-        hosts:
-          - shortlink.best
+      enabled: true
+      secretName: shortlink-ingress-tls
