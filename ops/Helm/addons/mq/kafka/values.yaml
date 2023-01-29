@@ -27,7 +27,7 @@ kafka-ui:
       SERVER_SERVLET_CONTEXT_PATH: "/kafka-ui"
 
   probes:
-    useHttpsScheme: true
+    useHttpsScheme: false
 
   ingress:
     enabled: true
