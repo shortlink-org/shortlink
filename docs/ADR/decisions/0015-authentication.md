@@ -10,8 +10,19 @@ Accepted
 
 We need to decide how we will authenticate users. We have a few options:
 
-* OIDC (OpenID Connect)
-* 2FA
+* **OIDC** (OpenID Connect)
+  * **OAuth 2.0**
+    * [RFC 6749](https://tools.ietf.org/html/rfc6749) - The OAuth 2.0 Authorization Framework
+    * [RFC 6750](https://tools.ietf.org/html/rfc6750) - The OAuth 2.0 Authorization Framework: Bearer Token Usage
+    * [RFC 8414](https://tools.ietf.org/html/rfc8414) - OAuth 2.0 Authorization Server Metadata
+    * [RFC 8705](https://tools.ietf.org/html/rfc8705) - OAuth 2.0 Token Exchange
+    * [RFC 8693](https://tools.ietf.org/html/rfc8693) - OAuth 2.0 Device Authorization Grant
+  * **JWT**
+    * [RFC 7515](https://tools.ietf.org/html/rfc7515) - JSON Web Signature (JWS)
+    * [RFC 7516](https://tools.ietf.org/html/rfc7516) - JSON Web Encryption (JWE)
+    * [RFC 7519](https://tools.ietf.org/html/rfc7519) - JSON Web Token (JWT)
+    * [RFC 7523](https://tools.ietf.org/html/rfc7523) - JSON Web Token (JWT) Profile for OAuth 2.0 Client Authentication and Authorization Grants
+* **2FA**
 
 ## Decision
 
