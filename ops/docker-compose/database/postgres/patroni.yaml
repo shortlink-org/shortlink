@@ -42,7 +42,7 @@ services:
     depends_on:
       - coredns
     image: batazor/patroni
-    env_file: ops/docker-compose/database/postgres/patroni.env
+    env_file: ops/docker-compose/database/postgres/conf/patroni.env
     hostname: haproxy
     container_name: patroni-haproxy
     ports:
@@ -59,7 +59,7 @@ services:
     depends_on:
       - coredns
     image: batazor/patroni
-    env_file: ops/docker-compose/database/postgres/patroni.env
+    env_file: ops/docker-compose/database/postgres/conf/patroni.env
     hostname: patroni1
     container_name: patroni-patroni1
     environment:
@@ -71,7 +71,7 @@ services:
     depends_on:
       - coredns
     image: batazor/patroni
-    env_file: ops/docker-compose/database/postgres/patroni.env
+    env_file: ops/docker-compose/database/postgres/conf/patroni.env
     hostname: patroni2
     container_name: patroni-patroni2
     environment:
@@ -83,7 +83,7 @@ services:
     depends_on:
       - coredns
     image: batazor/patroni
-    env_file: ops/docker-compose/database/postgres/patroni.env
+    env_file: ops/docker-compose/database/postgres/conf/patroni.env
     hostname: patroni3
     container_name: patroni-patroni3
     environment:

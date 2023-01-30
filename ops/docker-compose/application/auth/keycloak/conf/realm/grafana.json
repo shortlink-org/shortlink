@@ -1,0 +1,37 @@
+{
+  "id": "grafana",
+  "realm": "grafana",
+  "sslRequired": "none",
+  "enabled": true,
+  "clients": [
+    {
+      "id": "e99e3515-b603-4201-a137-b054b0bc7a94",
+      "clientId": "grafana",
+      "name": "grafana",
+      "enabled": true,
+      "rootUrl": "http://localhost:3030",
+      "adminUrl": "http://localhost:3030",
+      "baseUrl": "http://localhost:3030",
+      "redirectUris": [
+        "http://localhost:3030/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3030"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "email": "grafana@shortlink.best",
+      "username": "grafana",
+      "enabled": true,
+      "credentials": [
+        {
+          "temporary": false,
+          "type": "password",
+          "value": "grafana"
+        }
+      ]
+    }
+  ]
+}

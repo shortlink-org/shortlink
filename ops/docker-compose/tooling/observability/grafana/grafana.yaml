@@ -12,24 +12,37 @@ services:
   grafana:
     depends_on:
       - coredns
+      - keycloak
     image: grafana/grafana:main
     container_name: grafana
     restart: on-failure
     environment:
-      - VIRTUAL_HOST=grafana.loc
-      - GF_FEATURE_TOGGLES_ENABLE=flameGraph
-      - GF_SERVER_ROOT_URL=http://grafana.loc
-      - GF_SERVER_ROUTER_LOGGING=true
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=shortlink
-      - GF_LOG_CONSOLE_FORMAT=json
-      - GF_LOG_FILTERS=alerting.notifier:debug,alerting.notifier.slack:debug,auth:debug
-      - GF_INSTALL_PLUGIN=grafana-piechart-panel
-      - GF_DIAGNOSTICS_PROFILING_ENABLED=true
-      - GF_DIAGNOSTICS_PROFILING_ADDR=0.0.0.0
-      - GF_DIAGNOSTICS_PROFILING_PORT=6060
-      - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=grafana-oncall-app
-      - GF_INSTALL_PLUGINS=grafana-oncall-app
+      GF_SERVER_ROOT_URL: http://localhost:3030
+      GF_FEATURE_TOGGLES_ENABLE: flameGraph
+      GF_SERVER_ROUTER_LOGGING: true
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: shortlink
+      GF_LOG_CONSOLE_FORMAT: json
+      GF_LOG_FILTERS: alerting.notifier:debug,alerting.notifier.slack:debug,auth:debug
+      GF_INSTALL_PLUGIN: grafana-piechart-panel
+      GF_DIAGNOSTICS_PROFILING_ENABLED: true
+      GF_DIAGNOSTICS_PROFILING_ADDR: "0.0.0.0"
+      GF_DIAGNOSTICS_PROFILING_PORT: "6060"
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: grafana-oncall-app
+      GF_INSTALL_PLUGINS: grafana-oncall-app
+      GF_AUTH_BASIC_ENABLED: true
+      GF_AUTH_DISABLE_LOGIN_FORM: false
+      GF_AUTH_GENERIC_OAUTH_TLS_SKIP_VERIFY_INSECURE: true
+      GF_AUTH_GENERIC_OAUTH_ENABLED: true
+      GF_AUTH_GENERIC_OAUTH_NAME: Keycloak
+      GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: true
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
+      GF_AUTH_GENERIC_OAUTH_EMAIL_ATTRIBUTE_NAME: "email:primary"
+      GF_AUTH_GENERIC_OAUTH_SCOPES: "profile email"
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: http://localhost:8080/realms/grafana/protocol/openid-connect/auth
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: http://keycloak:8080/realms/grafana/protocol/openid-connect/token
+      GF_AUTH_GENERIC_OAUTH_API_URL: http://keycloak:8080/realms/grafana/protocol/openid-connect/userinfo
+      GF_AUTH_GENERIC_OAUTH_ROLE_ATTRIBUTE_PATH: "contains(roles[*], 'Admin') && 'Admin' || contains(roles[*], 'Editor') && 'Editor' || 'Viewer'"
     ports:
       - 3030:3000
     networks:

@@ -37,13 +37,13 @@ run: ## Run this project in docker compose
 	@docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/observability/fluent-bit.yaml \
+		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
-		-f ops/docker-compose/application/auth.yaml \
+		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
 		-f ops/docker-compose/application/api/api.yaml \
-		-f ops/docker-compose/application/metadata.yaml \
+		-f ops/docker-compose/application/metadata/metadata.yaml \
 		-f ops/docker-compose/application/logger/logger.yaml \
-		-f ops/docker-compose/application/ui-next.yaml \
+		-f ops/docker-compose/application/ui-next/ui-next.yaml \
 		-f ops/docker-compose/database/mongo.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana.yaml \
@@ -63,30 +63,30 @@ down: ## Down docker compose
 		-f ops/docker-compose/tooling/observability/grafana/grafana.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
-		-f ops/docker-compose/tooling/observability/fluent-bit.yaml \
+		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/caddy/caddy.yaml \
 		-f ops/docker-compose/gateway/nginx/nginx.yaml \
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		-f ops/docker-compose/application/auth/keycloak/keycloak.yaml \
-		-f ops/docker-compose/application/auth.yaml \
+		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
 		-f ops/docker-compose/application/api/api.yaml \
-		-f ops/docker-compose/application/metadata.yaml \
+		-f ops/docker-compose/application/metadata/metadata.yaml \
 		-f ops/docker-compose/application/logger/logger.yaml \
 		-f ops/docker-compose/application/support/support.yaml \
-		-f ops/docker-compose/application/ui-next.yaml \
-		-f ops/docker-compose/database/mongo.yaml \
-		-f ops/docker-compose/database/redis.yaml \
-		-f ops/docker-compose/database/patroni.yaml \
-		-f ops/docker-compose/database/postgres.yaml \
-		-f ops/docker-compose/database/elasticsearch.yaml \
+		-f ops/docker-compose/application/ui-next/ui-next.yaml \
+		-f ops/docker-compose/database/mongo/mongo.yaml \
+		-f ops/docker-compose/database/redis/redis.yaml \
+		-f ops/docker-compose/database/postgres/patroni.yaml \
+		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/database/elasticsearch/elasticsearch.yaml \
 		-f ops/docker-compose/database/neo4j/neo4j.yaml \
-		-f ops/docker-compose/mq/rabbitmq.yaml \
-		-f ops/docker-compose/mq/zookeeper.yaml \
-		-f ops/docker-compose/mq/kafka.yaml \
-		-f ops/docker-compose/mq/kafka-schema-registry.yaml \
-		-f ops/docker-compose/mq/kafka-connect.yaml \
-		-f ops/docker-compose/mq/kafka-connector-postgres.yaml \
-		-f ops/docker-compose/mq/kafka-connector-elasticsearch.yaml \
+		-f ops/docker-compose/mq/rabbitmq/rabbitmq.yaml \
+		-f ops/docker-compose/mq/kafka/zookeeper.yaml \
+		-f ops/docker-compose/mq/kafka/kafka.yaml \
+		-f ops/docker-compose/mq/kafka/kafka-schema-registry.yaml \
+		-f ops/docker-compose/mq/kafka/kafka-connect.yaml \
+		-f ops/docker-compose/mq/kafka/kafka-connector-postgres.yaml \
+		-f ops/docker-compose/mq/kafka/kafka-connector-elasticsearch.yaml \
 		-f ops/docker-compose/mq/nats/nats.yaml \
 	down --remove-orphans
 	@docker network prune -f
