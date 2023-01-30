@@ -13,7 +13,7 @@ jobs:
         with:
           egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
 
-      - uses: wow-actions/auto-assign@29f11298e95007331c6d3ef4b0a536a6ff5940b1 # v3.0.1
+      - uses: wow-actions/auto-assign@67fafa03df61d7e5f201734a2fa60d1ab111880d # v3.0.2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CONFIG_FILE: .github/auto-assign.yml
