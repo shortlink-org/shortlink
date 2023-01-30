@@ -10,7 +10,7 @@ strimzi-kafka-operator:
   watchAnyNamespace: true
 
 kafka-ui:
-  enabled: false
+  enabled: true
 
   fullnameOverride: kafka-ui
 
