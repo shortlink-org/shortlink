@@ -10,8 +10,7 @@ Accepted
 
 We need to decide how we will authenticate users. We have a few options:
 
-* OAuth2
-* JWT
+* OIDC (OpenID Connect)
 * 2FA
 
 ## Decision
