@@ -15,23 +15,40 @@ services:
       - coredns
       - postgres
     image: quay.io/keycloak/keycloak:20.0.3
-    command: start-dev
+    command: ["start-dev", "--import-realm"]
     container_name: keycloak
     restart: on-failure
     ports:
       - 8080:8080
     environment:
-      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
-      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN:-admin}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
       KEYCLOAK_USER: ${KEYCLOAK_USER}
       KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
 
-      DB_VENDOR: POSTGRES
-      DB_ADDR: postgres
-      DB_DATABASE: shortlink
-      DB_USER: postgres
-      DB_PASSWORD: shortlink
-      DB_SCHEMA: public
-#      KEYCLOAK_IMPORT: /tmp/realm.json
-#    volumes:
-#      - ./ops/docker-compose/application/auth/keycloak/conf/realm.json:/tmp/realm.json
+      KC_DB: postgres
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: shortlink
+      KC_DB_URL: "jdbc:postgresql://postgres:5432/shortlink"
+
+      KC_METRICS_ENABLED: true
+      KC_HEALTH_ENABLED: true
+
+      KC_FEATURES: ${KC_FEATURES}
+      KC_REALM_NAME: ${KC_REALM_NAME:-shortlink}
+
+      GF_URL: grafana:${GRAFANA_PORT:-3000}
+      GF_ADMIN_USERNAME: ${GRAFANA_ADMIN_USERNAME:-admin}
+      GF_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-shortlink}
+    volumes:
+      - ./ops/docker-compose/application/auth/keycloak/conf/realm/shortlink.json:/opt/keycloak/data/import/realm.json:ro
+
+  prometheus:
+    <<: *network
+    depends_on:
+      - coredns
+    image: prom/prometheus:v2.41.0
+    profiles:
+      - prometheus
+    volumes:
+      - ./ops/docker-compose/application/auth/keycloak/conf/keycloak-target.json:/etc/prometheus/targets/keycloak-server.json
