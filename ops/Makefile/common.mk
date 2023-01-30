@@ -27,7 +27,8 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/database/postgres.yaml \
+		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/application/auth/keycloak/keycloak.yaml \
 		up -d --remove-orphans --build
 
 run: ## Run this project in docker compose

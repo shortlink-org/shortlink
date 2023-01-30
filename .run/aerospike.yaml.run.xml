@@ -1,14 +1,13 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="aerospike.yaml" type="docker-deploy" factoryName="docker-compose.yml"
-                 folderName="docker/database" server-name="Docker">
+  <configuration default="false" name="aerospike/aerospike.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" folderName="docker/database" server-name="Docker">
     <deployment type="docker-compose.yml">
       <settings>
-        <option name="envFilePath" value="$PROJECT_DIR$/.env"/>
+        <option name="envFilePath" value="$PROJECT_DIR$/.env" />
         <option name="envVars">
           <list>
             <DockerEnvVarImpl>
-              <option name="name" value="COMPOSE_PROFILES"/>
-              <option name="value" value="dns"/>
+              <option name="name" value="COMPOSE_PROFILES" />
+              <option name="value" value="dns" />
             </DockerEnvVarImpl>
           </list>
         </option>
@@ -18,7 +17,7 @@
             <option value="ops/docker-compose/tooling/services/coredns.yaml" />
           </list>
         </option>
-        <option name="sourceFilePath" value="ops/docker-compose/database/aerospike.yaml" />
+        <option name="sourceFilePath" value="ops/docker-compose/database/aerospike/aerospike.yaml" />
         <option name="upAlwaysRecreate" value="true" />
         <option name="upDetach" value="false" />
       </settings>

@@ -34,7 +34,7 @@ services:
       timeout: 1m
       retries: 5
     volumes:
-      - ./ops/docker-compose/database/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./ops/docker-compose/database/postgres/conf/postgresql.conf:/etc/postgresql/postgresql.conf
       - ./data/shortlink/store/postgres/data:/var/lib/postgresql/data
 #    logging:
 #      driver: fluent-bit
