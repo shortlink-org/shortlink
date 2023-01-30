@@ -95,6 +95,7 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 | istio         | Istio is an open platform to connect, manage, and secure microservices. | Go                 | [docs](https://istio.io/latest/docs/)               | [![App Status](https://shortlink.best/argo/cd/api/badge?name=istio&revision=true)](https://shortlink.best/argo/cd/applications/istio)                 |         
 | nginx-ingress | Ingress controller for Kubernetes using NGINX                           | Go                 | [docs](https://kubernetes.github.io/ingress-nginx/) | [![App Status](https://shortlink.best/argo/cd/api/badge?name=nginx-ingress&revision=true)](https://shortlink.best/argo/cd/applications/nginx-ingress) | 
 | kafka         | Kafka is used as a message broker                                       | Java               | [docs](https://kafka.apache.org/)                   | [![App Status](https://shortlink.best/argo/cd/api/badge?name=kafka&revision=true)](https://shortlink.best/argo/cd/applications/kafka)                 |         
+| keycloak      | Keycloak is an open source identity and access management solution      | Java               | [docs](https://www.keycloak.org/documentation.html) | [![App Status](https://shortlink.best/argo/cd/api/badge?name=keycloak&revision=true)](https://shortlink.best/argo/cd/applications/keycloak)           | 
 
 </p>
 </details>
