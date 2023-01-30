@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.39.1
+    image: prom/prometheus:v2.41.0
     profiles:
       - observability
     container_name: prometheus
@@ -26,7 +26,7 @@ services:
     ports:
       - 9093:9090
     volumes:
-      - ./ops/docker-compose/tooling/observability/prometheus/:/etc/prometheus/
+      - ./ops/docker-compose/tooling/observability/prometheus/conf/:/etc/prometheus/
     logging:
       driver: ${LOGGER_DRIVER}
       options:

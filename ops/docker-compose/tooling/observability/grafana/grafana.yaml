@@ -21,7 +21,7 @@ services:
       - GF_SERVER_ROOT_URL=http://grafana.loc
       - GF_SERVER_ROUTER_LOGGING=true
       - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=test
+      - GF_SECURITY_ADMIN_PASSWORD=shortlink
       - GF_LOG_CONSOLE_FORMAT=json
       - GF_LOG_FILTERS=alerting.notifier:debug,alerting.notifier.slack:debug,auth:debug
       - GF_INSTALL_PLUGIN=grafana-piechart-panel
@@ -35,7 +35,7 @@ services:
     networks:
       - simple
     volumes:
-      - ./ops/docker-compose/tooling/observability/grafana/provisioning:/etc/grafana/provisioning/
+      - ./ops/docker-compose/tooling/observability/grafana/conf/provisioning:/etc/grafana/provisioning/
 #    logging:
 #      driver: ${LOGGER_DRIVER}
 #      options:
