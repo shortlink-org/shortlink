@@ -39,3 +39,5 @@ for information team about cases for updated ADR.
     - [ADR-0008](./decisions/0008-product-metrics-by-services.md) - Product metrics by services
 - **Security**
     - [ADR-0013](./decisions/0013-security.md) - Security
+- **Third-party**
+    - [ADR-0015](./decisions/0015-authentication.md) - Authentication
