@@ -42,7 +42,7 @@ services:
         target: /var/lib/sqlite
         read_only: false
       - type: bind
-        source: ./ops/docker-compose/application/auth
+        source: ./ops/docker-compose/application/auth/conf
         target: /etc/config/kratos
 
   kratos_migrate:
@@ -60,7 +60,7 @@ services:
         target: /var/lib/sqlite
         read_only: false
       - type: bind
-        source: ./ops/docker-compose/application/auth
+        source: ./ops/docker-compose/application/auth/conf
         target: /etc/config/kratos
 
   # -------------------------------------------------------------------------- #
