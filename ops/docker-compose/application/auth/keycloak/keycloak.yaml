@@ -1,0 +1,37 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  keycloak:
+    <<: *network
+    depends_on:
+      - coredns
+      - postgres
+    image: quay.io/keycloak/keycloak:20.0.3
+    command: start-dev
+    container_name: keycloak
+    restart: on-failure
+    ports:
+      - 8080:8080
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: shortlink
+      DB_USER: postgres
+      DB_PASSWORD: shortlink
+      DB_SCHEMA: public
+#      KEYCLOAK_IMPORT: /tmp/realm.json
+#    volumes:
+#      - ./ops/docker-compose/application/auth/keycloak/conf/realm.json:/tmp/realm.json
