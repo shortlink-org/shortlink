@@ -34,14 +34,14 @@ services:
       KC_METRICS_ENABLED: true
       KC_HEALTH_ENABLED: true
 
-      KC_FEATURES: ${KC_FEATURES}
+      KC_FEATURES: ${KC_FEATURES:-impersonation}
       KC_REALM_NAME: ${KC_REALM_NAME:-shortlink}
 
       GF_URL: grafana:${GRAFANA_PORT:-3000}
       GF_ADMIN_USERNAME: ${GRAFANA_ADMIN_USERNAME:-admin}
       GF_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-shortlink}
     volumes:
-      - ./ops/docker-compose/application/auth/keycloak/conf/realm/shortlink.json:/opt/keycloak/data/import/realm.json:ro
+      - ./ops/docker-compose/application/auth/keycloak/conf/realm:/opt/keycloak/data/import:ro
 
   prometheus:
     <<: *network

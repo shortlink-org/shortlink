@@ -44,9 +44,9 @@ services:
   pgbouncer:
     <<: *network
     depends_on:
-      - postgres
       - coredns
-    image: docker.io/bitnami/pgbouncer:1
+      - postgres
+    image: docker.io/bitnami/pgbouncer:1.18.0
     restart: on-failure
     container_name: pgbouncer
     ports:
@@ -66,8 +66,8 @@ services:
   wal-g:
     <<: *network
     depends_on:
-      - postgres
       - coredns
+      - postgres
     image: docker.io/bitnami/wal-g:1.1.0
     container_name: wal-g
     profiles:
