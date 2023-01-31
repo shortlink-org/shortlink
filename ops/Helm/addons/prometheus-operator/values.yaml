@@ -17,4 +17,8 @@ kube-prometheus-stack:
     # disable for GKE
     enabled: true
 
+  global:
+    serviceMonitor:
+      enableHttp2: false
+
 
