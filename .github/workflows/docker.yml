@@ -28,7 +28,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push [api]
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         files: ops/dockerfile/go.Dockerfile
         build-args:
@@ -39,7 +39,7 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Build and push [metadata]
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         files: ops/dockerfile/go.Dockerfile
         build-args:
@@ -50,7 +50,7 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Build and push [logger]
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         files: ops/dockerfile/go.Dockerfile
         build-args:
@@ -61,7 +61,7 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Build and push [csi]
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         files: ops/dockerfile/csi.Dockerfile
         context: .
@@ -70,7 +70,7 @@ jobs:
         labels: ${{ steps.meta.outputs.labels }}
 
     - name: Build and push [landing]
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         files: ops/dockerfile/landing.Dockerfile
         context: .
