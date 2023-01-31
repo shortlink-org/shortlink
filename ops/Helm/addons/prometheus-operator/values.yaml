@@ -16,9 +16,3 @@ kube-prometheus-stack:
   coreDns:
     # disable for GKE
     enabled: true
-
-  global:
-    serviceMonitor:
-      enableHttp2: false
-
-
