@@ -24,6 +24,10 @@ type Event struct {
 }
 
 func New(mq mq.MQ, log logger.Logger, service *logger_application.Service) (*Event, error) {
+	if mq == nil {
+		return nil, fmt.Errorf("MQ is nil")
+	}
+
 	event := &Event{
 		mq:  mq,
 		log: log,
