@@ -16,3 +16,6 @@ kube-prometheus-stack:
   coreDns:
     # disable for GKE
     enabled: true
+
+prometheus-operator-crds:
+  enabled: true
