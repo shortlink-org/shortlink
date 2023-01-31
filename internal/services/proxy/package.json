@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npx tsc --skipLibCheck",
     "start": "npx tsc --skipLibCheck && NODE_ENV=development node ./dist/app.js",
-    "prod": "npx tsc --skipLibCheck && NODE_ENV=production node ./dist/app.js",
+    "prod": "NODE_ENV=production node ./dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate:deploy": "cd prisma && npx prisma migrate deploy"
   },
