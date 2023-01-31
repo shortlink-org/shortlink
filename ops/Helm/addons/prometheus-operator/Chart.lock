@@ -5,5 +5,8 @@ dependencies:
 - name: prometheus-adapter
   repository: https://prometheus-community.github.io/helm-charts
   version: 4.1.1
-digest: sha256:7044a3363df6b91090596c994e927f6da2e71a5cd346db2217d5041e84613bac
-generated: "2023-01-31T18:12:05.25436+06:00"
+- name: prometheus-operator-crds
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 1.1.0
+digest: sha256:06597c47ca42761c661e413d77a20443ca8eb9eaf7f264d24d200d78335a4f72
+generated: "2023-02-01T02:28:49.895243+06:00"
