@@ -35,6 +35,10 @@ We research next third-party authentication:
 
 ## Consequences
 
+Use this scheme:
+
+![authentication.png](./images/authentication.png)
+
 ### Step 1. Try to use Keycloak
 
 1. Install Keycloak
