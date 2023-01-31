@@ -67,7 +67,7 @@ policy-reporter:
 
   target:
     loki:
-      host: http://grafana-loki.grafana:3100
+      host: http://loki.grafana:3100
       minimumPriority: "warning"
       skipExistingOnStartup: true
       sources:
