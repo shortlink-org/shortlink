@@ -1,5 +1,4 @@
 import * as opentelemetry from "@opentelemetry/sdk-node";
-import { getNodeAutoInstrumentations } from "@opentelemetry/auto-instrumentations-node";
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 import { Resource } from "@opentelemetry/resources";
 import { SemanticResourceAttributes } from "@opentelemetry/semantic-conventions";
@@ -12,7 +11,7 @@ diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 
 const sdk = new opentelemetry.NodeSDK({
   traceExporter: new opentelemetry.tracing.ConsoleSpanExporter(),
-  instrumentations: [getNodeAutoInstrumentations()],
+  instrumentations: [],
   resource: new Resource({
     [SemanticResourceAttributes.SERVICE_NAME]: process.env.SERVICE_NAME,
   }),
