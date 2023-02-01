@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 
+	"github.com/redis/go-redis/extra/redisotel/v9"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
 )
@@ -34,16 +35,14 @@ func (s *Store) Init(ctx context.Context) error {
 	})
 
 	// Enable tracing instrumentation.
-	// TODO: enable after fix redisotel v9.0.1
-	//if err := redisotel.InstrumentTracing(s.client); err != nil {
-	//	return err
-	//}
+	if err := redisotel.InstrumentTracing(s.client); err != nil {
+		return err
+	}
 
 	// Enable metrics instrumentation.
-	// TODO: enable after fix redisotel v9.0.1
-	//if err := redisotel.InstrumentMetrics(s.client); err != nil {
-	//	return err
-	//}
+	if err := redisotel.InstrumentMetrics(s.client); err != nil {
+		return err
+	}
 
 	if _, err := s.client.Ping(ctx).Result(); err != nil {
 		return err

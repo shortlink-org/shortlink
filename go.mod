@@ -42,6 +42,7 @@ require (
 	github.com/prometheus/client_golang v1.14.0
 	github.com/pterm/pterm v0.12.54
 	github.com/rabbitmq/amqp091-go v1.6.0
+	github.com/redis/go-redis/extra/redisotel/v9 v9.0.2
 	github.com/redis/go-redis/v9 v9.0.2
 	github.com/riandyrn/otelchi v0.5.0
 	github.com/robfig/cron/v3 v3.0.1
@@ -191,6 +192,7 @@ require (
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
+	github.com/redis/go-redis/extra/rediscmd/v9 v9.0.2 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/segmentio/asm v1.1.3 // indirect
@@ -235,6 +237,5 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.26.1 // indirect
-	k8s.io/klog v1.0.0 // indirect
 	k8s.io/klog/v2 v2.80.2-0.20221028030830-9ae4992afb54 // indirect
 )
