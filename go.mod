@@ -62,7 +62,7 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.20
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.19
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.19
-	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.19
+	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.20
 	go.etcd.io/etcd/client/v3 v3.5.6
 	go.mongodb.org/mongo-driver v1.11.1
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.38.0
@@ -237,5 +237,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.26.1 // indirect
+	k8s.io/klog v1.0.0 // indirect
 	k8s.io/klog/v2 v2.80.2-0.20221028030830-9ae4992afb54 // indirect
 )
