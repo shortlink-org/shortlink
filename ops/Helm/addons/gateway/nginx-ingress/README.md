@@ -21,9 +21,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress-nginx.controller.admissionWebhooks.enabled | bool | `false` |  |
-| ingress-nginx.controller.config.enable-opentracing | string | `"true"` |  |
+| ingress-nginx.controller.config.enable-opentracing | string | `"false"` |  |
 | ingress-nginx.controller.config.jaeger-collector-host | string | `"grafana-tempo.grafana"` |  |
 | ingress-nginx.controller.config.jaeger-service-name | string | `"nginx-ingress"` |  |
+| ingress-nginx.controller.extraArgs.enable-ssl-passthrough | string | `""` |  |
 | ingress-nginx.controller.hostNetwork | bool | `false` |  |
 | ingress-nginx.controller.ingressClassResource.default | bool | `true` |  |
 | ingress-nginx.controller.kind | string | `"Deployment"` |  |

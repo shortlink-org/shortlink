@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-common | shortlink-common | 0.2.4 |
+| file://../../shortlink-common | shortlink-common | 0.2.13 |
 
 ## Values
 

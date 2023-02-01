@@ -1,6 +1,6 @@
 # kafka
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.6](https://img.shields.io/badge/Version-0.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,8 +14,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../kafka-ui | kafka-ui | 0.4.3 |
-| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.32.0 |
+| https://provectus.github.io/kafka-ui | kafka-ui | 0.5.2 |
+| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.33.0 |
 
 ## Values
 
@@ -34,17 +34,18 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | kafka-ui.fullnameOverride | string | `"kafka-ui"` |  |
 | kafka-ui.image.tag | string | `"master"` |  |
 | kafka-ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
 | kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/kafka-ui/$2"` |  |
 | kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | kafka-ui.ingress.enabled | bool | `true` |  |
-| kafka-ui.ingress.hostname | string | `"shortlink.best"` |  |
+| kafka-ui.ingress.host | string | `"shortlink.best"` |  |
+| kafka-ui.ingress.ingressClassName | string | `"nginx"` |  |
 | kafka-ui.ingress.path | string | `"/kafka-ui(/|$)(.*)"` |  |
-| kafka-ui.ingress.service.name | string | `"kafka-ui"` |  |
-| kafka-ui.ingress.service.port | int | `80` |  |
-| kafka-ui.ingress.type | string | `"nginx"` |  |
+| kafka-ui.ingress.tls.enabled | bool | `true` |  |
+| kafka-ui.ingress.tls.secretName | string | `"shortlink-ingress-tls"` |  |
+| kafka-ui.probes.useHttpsScheme | bool | `false` |  |
 | strimzi-kafka-operator.enabled | bool | `true` |  |
 | strimzi-kafka-operator.watchAnyNamespace | bool | `true` |  |
 | strimzi-kafka-operator.watchNamespaces[0] | string | `"shortlink"` |  |

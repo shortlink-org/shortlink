@@ -22,7 +22,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.2.4 |
+| file://../shortlink-common | shortlink-common | 0.2.25 |
 
 ## Values
 
@@ -31,37 +31,41 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | commonAnnotations | object | `{}` | Add annotations to all the deployed resources |
 | commonLabels | object | `{}` | Add labels to all the deployed resources |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
-| deploy.env.MQ_ENABLED | string | `"true"` |  |
+| deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_KAFKA_URI | string | `"kafka-kafka-bootstrap.kafka:9092"` |  |
-| deploy.env.MQ_RABBIT_URI | string | `"amqp://admin:admin@shortlink.rabbitmq:5672"` |  |
 | deploy.env.MQ_TYPE | string | `"kafka"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
 | deploy.env.STORE_REDIS_URI | string | `"shortlink-redis-master.redis:6379"` |  |
 | deploy.env.TRACER_URI | string | `"grafana-tempo.grafana:6831"` |  |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/link"` |  |
-| deploy.image.tag | string | `"0.13.5"` |  |
+| deploy.image.tag | string | `"0.13.88"` |  |
+| deploy.resources.limits | object | `{}` |  |
+| deploy.resources.requests | object | `{}` |  |
+| deploy.strategy.type | string | `"RollingUpdate"` |  |
 | deploy.type | string | `"Deployment"` |  |
 | deploy.volumes[0].mountPath | string | `"/app/ops/cert/"` |  |
 | deploy.volumes[0].name | string | `"grpc"` |  |
 | fullnameOverride | string | `""` | fullnameOverride String to fully override nginx.fullname template |
 | ingress.enabled | bool | `true` |  |
+| ingress.istio.match[0].uri.prefix | string | `"/infrastructure.rpc.link.v1.LinkService/"` |  |
+| ingress.istio.route.destination.port | int | `50051` |  |
 | ingress.type | string | `"istio"` |  |
 | monitoring.enabled | bool | `true` | Creates a Prometheus Operator ServiceMonitor |
 | monitoring.jobLabel | string | `""` | The label to use to retrieve the job name from. |
 | monitoring.labels | object | `{"release":"prometheus-operator"}` | Additional labels that can be used so PodMonitor will be discovered by Prometheus |
 | nameOverride | string | `""` | nameOverride String to partially override nginx.fullname template (will maintain the release name) |
-| ports[0].name | string | `"grpc"` |  |
-| ports[0].port | int | `50051` |  |
-| ports[0].protocol | string | `"TCP"` |  |
-| ports[0].public | bool | `true` |  |
-| ports[1].name | string | `"metrics"` |  |
-| ports[1].port | int | `9090` |  |
-| ports[1].protocol | string | `"TCP"` |  |
-| ports[1].public | bool | `true` |  |
 | secret.enabled | bool | `false` |  |
 | secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
+| service.ports[0].name | string | `"grpc"` |  |
+| service.ports[0].port | int | `50051` |  |
+| service.ports[0].protocol | string | `"TCP"` |  |
+| service.ports[0].public | bool | `true` |  |
+| service.ports[1].name | string | `"metrics"` |  |
+| service.ports[1].port | int | `9090` |  |
+| service.ports[1].protocol | string | `"TCP"` |  |
+| service.ports[1].public | bool | `true` |  |
 | service.type | string | `"ClusterIP"` |  |
 
 ----------------------------------------------

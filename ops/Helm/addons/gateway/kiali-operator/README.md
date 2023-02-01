@@ -14,53 +14,20 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://istio-release.storage.googleapis.com/charts | base | 1.16.1 |
-| https://istio-release.storage.googleapis.com/charts | gateway | 1.16.1 |
-| https://istio-release.storage.googleapis.com/charts | istiod | 1.16.1 |
-| https://kiali.org/helm-charts | kiali-operator | 1.61.0 |
+| https://kiali.org/helm-charts | kiali-operator | 1.63.1 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| base.enabled | bool | `true` |  |
-| gateway.global.logAsJson | bool | `true` |  |
-| gateway.service.ports[0].name | string | `"status-port"` |  |
-| gateway.service.ports[0].port | int | `15021` |  |
-| gateway.service.ports[0].protocol | string | `"TCP"` |  |
-| gateway.service.ports[0].targetPort | int | `15021` |  |
-| gateway.service.ports[1].name | string | `"http2"` |  |
-| gateway.service.ports[1].port | int | `80` |  |
-| gateway.service.ports[1].protocol | string | `"TCP"` |  |
-| gateway.service.ports[1].targetPort | int | `80` |  |
-| gateway.service.ports[2].name | string | `"https"` |  |
-| gateway.service.ports[2].port | int | `443` |  |
-| gateway.service.ports[2].protocol | string | `"TCP"` |  |
-| gateway.service.ports[2].targetPort | int | `443` |  |
-| gateway.service.ports[3].name | string | `"grpc"` |  |
-| gateway.service.ports[3].port | int | `50051` |  |
-| gateway.service.ports[3].protocol | string | `"TCP"` |  |
-| gateway.service.ports[3].targetPort | int | `50051` |  |
-| gateway.service.type | string | `"LoadBalancer"` |  |
-| istio-ingress.enabled | bool | `true` |  |
-| istiod.enabled | bool | `true` |  |
-| istiod.global.istiod.enableAnalysis | bool | `true` |  |
-| istiod.global.logAsJson | bool | `true` |  |
-| istiod.global.tracer.zipkin.address | string | `"grafana-tempo.grafana:9411"` |  |
-| istiod.meshConfig.defaultConfig.proxyMetadata.ISTIO_META_ENABLE_HBONE | string | `"true"` |  |
-| istiod.meshConfig.discoverySelectors[0].matchLabels.istio-discovery | string | `"enabled"` |  |
-| istiod.pilot.env.ENABLE_ENHANCED_RESOURCE_SCOPING | string | `"true"` |  |
-| istiod.pilot.env.PILOT_ENABLE_HBONE | string | `"true"` |  |
-| istiod.pilot.env.PILOT_ENABLE_INBOUND_PASSTHROUGH | string | `"false"` |  |
-| istiod.telemetry.v2.prometheus.configOverride.scrapeInterval | string | `"15s"` |  |
-| istiod.telemetry.v2.prometheus.configOverride.scrapeTimeout | string | `"10s"` |  |
-| istiod.telemetry.v2.prometheus.enabled | bool | `true` |  |
-| istiod.telemetry.v2.prometheus.wasmEnabled | bool | `true` |  |
 | kiali-operator.cr.create | bool | `true` |  |
 | kiali-operator.cr.namespace | string | `"istio-system"` |  |
-| kiali-operator.cr.spec.auth.strategy | string | `"token"` |  |
-| kiali-operator.cr.spec.deployment.accessible_namespaces[0] | string | `"shortlink"` |  |
+| kiali-operator.cr.spec.auth.strategy | string | `"anonymous"` |  |
+| kiali-operator.cr.spec.deployment.accessible_namespaces[0] | string | `"**"` |  |
 | kiali-operator.cr.spec.deployment.view_only_mode | bool | `false` |  |
+| kiali-operator.cr.spec.kiali_feature_flags.certificates_information_indicators.enabled | bool | `true` |  |
+| kiali-operator.cr.spec.kiali_feature_flags.certificates_information_indicators.secrets[0] | string | `"cacerts"` |  |
+| kiali-operator.cr.spec.kiali_feature_flags.certificates_information_indicators.secrets[1] | string | `"istio-ca-secret"` |  |
 | kiali-operator.cr.spec.server.web_root | string | `"/kiali"` |  |
 | kiali-operator.enabled | bool | `true` |  |
 
