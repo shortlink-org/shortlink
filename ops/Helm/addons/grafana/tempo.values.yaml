@@ -8,8 +8,8 @@ tempo:
 
     ingester:
       trace_idle_period: 10s               # the length of time after a trace has not received spans to consider it complete and flush it
-      max_block_bytes: 1_000_000           # cut the head block when it hits this size or ...
-      max_block_duration: 5m               #   this much time passes
+      max_block_bytes: 500_000_000         # cut the head block when it hits this size or ...
+      max_block_duration: 30m              # this much time passes
 
     querier:
       max_concurrent_queries: 100
@@ -26,17 +26,17 @@ tempo:
       trace:
         backend: local
         block:
-          version: vParquet                # version of the block storage to use
+          version: v2                      # version of the block storage to use
           bloom_filter_false_positive: .05 # bloom filter false positive rate.  lower values create larger filters but fewer false positives
-          index_downsample_bytes: 1000     # number of bytes per index record
-          encoding: zstd                   # block encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd
+          v2_index_downsample_bytes: 1000  # number of bytes per index record
+          v2_encoding: zstd                # block encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd
         local:
           path: /var/tempo/traces
         wal:
           path: /var/tempo/wal
         pool:
-          max_workers: 100                 # the worker pool mainly drives querying, but is also used for polling the blocklist
-          queue_depth: 10000
+          max_workers: 400                 # the worker pool mainly drives querying, but is also used for polling the blocklist
+          queue_depth: 30000
 
   serviceMonitor:
     enabled: true
