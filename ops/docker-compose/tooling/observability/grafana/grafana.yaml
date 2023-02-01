@@ -12,7 +12,6 @@ services:
   grafana:
     depends_on:
       - coredns
-      - keycloak
     image: grafana/grafana:main
     container_name: grafana
     restart: on-failure

@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/tempo:1.5.0
+    image: grafana/tempo:2.0.0
     profiles:
       - observability
     command: ["-config.file=/etc/tempo.yaml"]
@@ -27,7 +27,7 @@ services:
       - "9411"          # Zipkin
       - "3100"          # tempo
     volumes:
-      - ./ops/docker-compose/tooling/observability/tempo/tempo-local.yaml:/etc/tempo.yaml
+      - ./ops/docker-compose/tooling/observability/grafana/conf/tempo/tempo-local.yaml:/etc/tempo.yaml
       - $HOME/data/tempo:/tmp/tempo
 
   jaeger-query:
@@ -35,7 +35,7 @@ services:
     depends_on:
       - coredns
       - jaeger-agent
-    image: grafana/tempo-query:1.5.0
+    image: grafana/tempo-query:2.0.0
     profiles:
       - observability
     command: ["--grpc-storage-plugin.configuration-file=/etc/tempo-query.yaml"]
@@ -43,4 +43,4 @@ services:
     ports:
       - "16686:16686"  # jaeger-ui
     volumes:
-      - ./ops/docker-compose/tooling/observability/tempo/tempo-query.yaml:/etc/tempo-query.yaml
+      - ./ops/docker-compose/tooling/observability/grafana/conf/tempo/tempo-query.yaml:/etc/tempo-query.yaml
