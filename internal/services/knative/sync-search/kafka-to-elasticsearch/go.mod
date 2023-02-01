@@ -37,7 +37,7 @@ require (
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.4.0 // indirect
 	google.golang.org/api v0.107.0 // indirect
-	google.golang.org/genproto v0.0.0-20230127162408-596548ed4efa // indirect
+	google.golang.org/genproto v0.0.0-20230131230820-1c016267d619 // indirect
 	google.golang.org/grpc v1.53.0-dev // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
