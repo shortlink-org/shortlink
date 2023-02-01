@@ -1,6 +1,6 @@
 # kyverno
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,10 +14,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-common | shortlink-common | 0.2.4 |
 | https://kyverno.github.io/kyverno | kyverno | 2.6.5 |
 | https://kyverno.github.io/kyverno | kyverno-policies | 2.6.5 |
-| https://kyverno.github.io/policy-reporter | policy-reporter | 2.14.1 |
+| https://kyverno.github.io/policy-reporter | policy-reporter | 2.15.0 |
 
 ## Values
 
@@ -34,15 +33,15 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | policy-reporter.monitoring.enabled | bool | `true` |  |
 | policy-reporter.networkPolicy.enabled | bool | `false` |  |
 | policy-reporter.rest.enabled | bool | `true` |  |
-| policy-reporter.target.loki.host | string | `"http://grafana-loki.grafana:3100"` |  |
+| policy-reporter.target.loki.host | string | `"http://loki.grafana:3100"` |  |
 | policy-reporter.target.loki.minimumPriority | string | `"warning"` |  |
 | policy-reporter.target.loki.skipExistingOnStartup | bool | `true` |  |
 | policy-reporter.target.loki.sources[0] | string | `"kyverno"` |  |
 | policy-reporter.ui.enabled | bool | `true` |  |
 | policy-reporter.ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
+| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | policy-reporter.ui.ingress.className | string | `"nginx"` |  |

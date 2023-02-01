@@ -1,6 +1,6 @@
 # argo
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.19.4](https://img.shields.io/badge/AppVersion-5.19.4-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,12 +14,12 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.16.13 |
-| https://argoproj.github.io/argo-helm | argo-events | 2.0.11 |
-| https://argoproj.github.io/argo-helm | argo-rollouts | 2.21.1 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.22.6 |
-| https://argoproj.github.io/argo-helm | argocd-apps | 0.0.6 |
-| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.8.1 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.19.12 |
+| https://argoproj.github.io/argo-helm | argo-events | 2.1.2 |
+| https://argoproj.github.io/argo-helm | argo-rollouts | 2.22.2 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.22.9 |
+| https://argoproj.github.io/argo-helm | argocd-apps | 0.0.7 |
+| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.8.3 |
 
 ## Values
 
@@ -51,6 +51,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.dex.metrics.serviceMonitor.enabled | bool | `true` |  |
 | argo-cd.externalRedis.host | string | `"shortlink-redis-master.redis"` |  |
 | argo-cd.fullnameOverride | string | `"argocd"` |  |
+| argo-cd.global.image.tag | string | `"v2.6.0-rc6"` |  |
 | argo-cd.global.logging.format | string | `"json"` |  |
 | argo-cd.notifications.argocdUrl | string | `"https://shortlink.best/argo/cd"` |  |
 | argo-cd.notifications.metrics.enabled | bool | `true` |  |
@@ -80,7 +81,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.repoServer.initContainers[0].env[0].name | string | `"HELM_SECRETS_VERSION"` |  |
 | argo-cd.repoServer.initContainers[0].env[0].value | string | `"4.2.2"` |  |
 | argo-cd.repoServer.initContainers[0].env[1].name | string | `"KUBECTL_VERSION"` |  |
-| argo-cd.repoServer.initContainers[0].env[1].value | string | `"1.25.1"` |  |
+| argo-cd.repoServer.initContainers[0].env[1].value | string | `"1.26.1"` |  |
 | argo-cd.repoServer.initContainers[0].env[2].name | string | `"VALS_VERSION"` |  |
 | argo-cd.repoServer.initContainers[0].env[2].value | string | `"0.21.0"` |  |
 | argo-cd.repoServer.initContainers[0].env[3].name | string | `"SOPS_VERSION"` |  |
@@ -105,6 +106,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.repoServer.volumes[1].name | string | `"sops-gpg"` |  |
 | argo-cd.repoServer.volumes[1].secret.secretName | string | `"sops-gpg"` |  |
 | argo-cd.server.config."helm.valuesFileSchemes" | string | `"secrets+gpg-import, secrets+gpg-import-kubernetes, secrets+age-import, secrets+age-import-kubernetes, secrets,secrets+literal, https"` |  |
+| argo-cd.server.config."statusbadge.enabled" | string | `"true"` |  |
 | argo-cd.server.config.url | string | `"https://shortlink.best/argo/cd"` |  |
 | argo-cd.server.configAnnotations | object | `{}` |  |
 | argo-cd.server.extensions.enabled | bool | `true` |  |
@@ -115,9 +117,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.server.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTPS"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/configuration-snippet" | string | `"proxy_ssl_server_name on;\nproxy_ssl_name $host;"` |  |
-| argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
+| argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/secure-backends" | string | `"true"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect" | string | `"true"` |  |
 | argo-cd.server.ingress.enabled | bool | `true` |  |
@@ -129,15 +131,15 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-cd.server.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | argo-cd.server.metrics.enabled | bool | `true` |  |
 | argo-cd.server.metrics.serviceMonitor.enabled | bool | `true` |  |
-| argo-cd.server.rbacConfig."policy.csv" | string | `"p, role:org-admin, applications, *, */*, allow\np, role:org-admin, clusters, get, *, allow\np, role:org-admin, repositories, get, *, allow\np, role:org-admin, repositories, create, *, allow\np, role:org-admin, repositories, update, *, allow\np, role:org-admin, repositories, delete, *, allow\ng, devops, role:admin\ng, gitlab, role:org-admin\n"` |  |
+| argo-cd.server.rbacConfig."policy.csv" | string | `"p, role:org-admin, applications, *, */*, allow\np, role:org-admin, clusters, get, *, allow\np, role:org-admin, repositories, get, *, allow\np, role:org-admin, repositories, create, *, allow\np, role:org-admin, repositories, update, *, allow\np, role:org-admin, repositories, delete, *, allow\ng, devops, role:admin\ng, gitlab, role:org-admin\ng, shortlink-org:devops, role:org-admin\n"` |  |
 | argo-cd.server.rbacConfig."policy.default" | string | `"role:readonly"` |  |
 | argo-events.fullnameOverride | string | `"argo-events"` |  |
 | argo-rollouts.dashboard.enabled | bool | `true` |  |
 | argo-rollouts.dashboard.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTP"` |  |
-| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
+| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
 | argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | argo-rollouts.dashboard.ingress.enabled | bool | `true` |  |
@@ -146,9 +148,17 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-rollouts.dashboard.ingress.paths[0] | string | `"/argo/dashboard?(.*)"` |  |
 | argo-rollouts.dashboard.ingress.tls[0].hosts[0] | string | `"shortlink.best"` |  |
 | argo-rollouts.dashboard.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| argo-rollouts.dashboard.resources.limits.cpu | string | `"100m"` |  |
+| argo-rollouts.dashboard.resources.limits.memory | string | `"128Mi"` |  |
+| argo-rollouts.dashboard.resources.requests.cpu | string | `"20m"` |  |
+| argo-rollouts.dashboard.resources.requests.memory | string | `"16Mi"` |  |
 | argo-rollouts.fullnameOverride | string | `"argo-rollouts"` |  |
 | argo-rollouts.metrics.enabled | bool | `true` |  |
 | argo-rollouts.metrics.serviceMonitor.enabled | bool | `true` |  |
+| argo-rollouts.resources.limits.cpu | string | `"100m"` |  |
+| argo-rollouts.resources.limits.memory | string | `"128Mi"` |  |
+| argo-rollouts.resources.requests.cpu | string | `"20m"` |  |
+| argo-rollouts.resources.requests.memory | string | `"16Mi"` |  |
 | argo-workflows.controller.metricsConfig.enabled | bool | `true` |  |
 | argo-workflows.controller.serviceMonitor.enabled | bool | `true` |  |
 | argo-workflows.controller.telemetryConfig.enabled | bool | `true` |  |
@@ -163,9 +173,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argo-workflows.server.extraEnv[1].value | string | `"/argo/workflows"` |  |
 | argo-workflows.server.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTP"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
+| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | argo-workflows.server.ingress.enabled | bool | `true` |  |
@@ -184,6 +194,10 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | argocd-image-updater.registries[0].default | bool | `true` |  |
 | argocd-image-updater.registries[0].name | string | `"GitLab"` |  |
 | argocd-image-updater.registries[0].ping | string | `"yes"` |  |
+| argocd-image-updater.resources.limits.cpu | string | `"100m"` |  |
+| argocd-image-updater.resources.limits.memory | string | `"128Mi"` |  |
+| argocd-image-updater.resources.requests.cpu | string | `"10m"` |  |
+| argocd-image-updater.resources.requests.memory | string | `"16Mi"` |  |
 | argocd-image-updater.updateStrategy.type | string | `"Recreate"` |  |
 
 ----------------------------------------------

@@ -1,6 +1,6 @@
 # rook-ceph
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,8 +14,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-common | shortlink-common | 0.2.4 |
-| https://charts.rook.io/release | rook-ceph | v1.10.8 |
+| file://../../../shortlink-common | shortlink-common | 0.2.25 |
+| https://charts.rook.io/release | rook-ceph | v1.10.10 |
 
 ## Values
 
@@ -23,18 +23,16 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 |-----|------|---------|-------------|
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTPS"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/ceph-dashboard/$2"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/server-snippet" | string | `"proxy_ssl_verify off;\n"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.hostname | string | `"shortlink.best"` |  |
 | ingress.path | string | `"/ceph-dashboard(/|$)(.*)"` |  |
 | ingress.service.name | string | `"rook-ceph-mgr-dashboard"` |  |
-| ingress.service.port | string | `"https-dashboard"` |  |
+| ingress.service.port | int | `7000` |  |
 | ingress.type | string | `"nginx"` |  |
 | rook-ceph.enabled | bool | `true` |  |
 | rook-ceph.monitoring.enabled | bool | `true` |  |

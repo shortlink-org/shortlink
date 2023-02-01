@@ -1,6 +1,6 @@
 # shortlink-landing
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink landing service
 
@@ -22,7 +22,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.2.4 |
+| file://../shortlink-common | shortlink-common | 0.2.25 |
 
 ## Values
 
@@ -30,32 +30,33 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 |-----|------|---------|-------------|
 | commonAnnotations | object | `{}` | Add annotations to all the deployed resources |
 | commonLabels | object | `{}` | Add labels to all the deployed resources |
-| deploy.affinity | list | `[]` |  |
 | deploy.annotations | object | `{}` | Annotations to be added to controller pods |
 | deploy.image.pullPolicy | string | `"Always"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/landing"` |  |
-| deploy.image.tag | string | `"0.13.5"` |  |
+| deploy.image.tag | string | `"0.13.88"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
-| deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/","port":8080},"initialDelaySeconds":10,"periodSeconds":30,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.nodeSelector | list | `[]` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
-| deploy.readinessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/","port":8080},"initialDelaySeconds":10,"periodSeconds":30,"successThreshold":1}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":8080}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":8080}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.replicaCount | int | `1` |  |
-| deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
-| deploy.resources.requests.cpu | string | `"10m"` |  |
-| deploy.resources.requests.memory | string | `"32Mi"` |  |
+| deploy.resources.limits | object | `{}` |  |
+| deploy.resources.requests | object | `{}` |  |
 | deploy.strategy.rollingUpdate.maxSurge | int | `1` |  |
 | deploy.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
 | deploy.strategy.type | string | `"RollingUpdate"` |  |
 | deploy.terminationGracePeriodSeconds | int | `90` |  |
-| deploy.tolerations | list | `[]` |  |
+| deploy.volumes[0].mountPath | string | `"/tmp"` |  |
+| deploy.volumes[0].name | string | `"tmp"` |  |
+| deploy.volumes[0].type | string | `"emptyDir"` |  |
 | fullnameOverride | string | `""` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
 | ingress.enabled | bool | `false` |  |
 | ingress.hostname | string | `"shortlink.best"` |  |
+| ingress.istio.match[0].uri.prefix | string | `"/"` |  |
+| ingress.istio.route.destination.port | int | `8080` |  |
 | ingress.path | string | `"/"` |  |
 | ingress.service.name | string | `"shortlink-landing"` |  |
 | ingress.service.port | int | `8080` |  |
@@ -64,7 +65,15 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | monitoring.jobLabel | string | `""` | The label to use to retrieve the job name from. |
 | monitoring.labels | object | `{"release":"prometheus-operator"}` | Additional labels that can be used so PodMonitor will be discovered by Prometheus |
 | nameOverride | string | `""` |  |
-| service.port | int | `8080` |  |
+| networkPolicy.enabled | bool | `true` |  |
+| networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels.name | string | `"nginx-ingress"` |  |
+| networkPolicy.ingress[0].ports[0].port | int | `8080` |  |
+| networkPolicy.ingress[0].ports[0].protocol | string | `"TCP"` |  |
+| networkPolicy.policyTypes[0] | string | `"Ingress"` |  |
+| service.ports[0].name | string | `"http"` |  |
+| service.ports[0].port | int | `8080` |  |
+| service.ports[0].protocol | string | `"TCP"` |  |
+| service.ports[0].public | bool | `true` |  |
 | service.type | string | `"ClusterIP"` |  |
 
 ----------------------------------------------
