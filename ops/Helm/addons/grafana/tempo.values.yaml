@@ -2,7 +2,6 @@ tempo:
   enabled: true
 
   tempo:
-    searchEnabled: true
     metricsGenerator:
       enabled: true
       remoteWriteUrl: http://prometheus-operated.prometheus-operator:9090/api/v1/write
@@ -41,3 +40,8 @@ tempo:
 
   serviceMonitor:
     enabled: true
+
+  persistence:
+    enabled: true
+    storageClass: local-path
+    size: 10Gi
