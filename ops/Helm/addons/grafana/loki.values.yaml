@@ -1,6 +1,8 @@
 loki:
   enabled: true
 
+  nameOverride: loki
+
   loki:
     commonConfig:
       replication_factor: 1
