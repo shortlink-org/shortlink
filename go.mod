@@ -60,7 +60,7 @@ require (
 	github.com/uptrace/go-clickhouse/chdebug v0.3.0
 	github.com/uptrace/go-clickhouse/chotel v0.3.0
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.20
-	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.19
+	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.20
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.19
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.19
 	go.etcd.io/etcd/client/v3 v3.5.6
@@ -237,5 +237,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.26.1 // indirect
+	k8s.io/klog v1.0.0 // indirect
 	k8s.io/klog/v2 v2.80.2-0.20221028030830-9ae4992afb54 // indirect
 )
