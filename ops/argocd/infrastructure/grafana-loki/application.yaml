@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: grafana
+  name: grafana-loki
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -12,29 +12,21 @@ spec:
     namespace: grafana
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/grafana
+    path: ops/Helm/addons/grafana-loki
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
-      releaseName: grafana
+      releaseName: grafana-loki
       valueFiles:
-        - dashboard.values.yaml
-        - grafana.values.yaml
-        - phlare.values.yaml
-        - tempo.values.yaml
-
-        # ### Method 2: Fetch the gpg/age key from kubernetes secret
-        # secrets+gpg-import-kubernetes://<namespace>/<secret-name>#<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
-        # secrets+age-import-kubernetes://<namespace>/<secret-name>#<key-name>.txt?<relative/path/to/the/encrypted/secrets.yaml>
-        # Example Method 2: (Assumptions: namespace=argocd, secret-name=sops-gpg, key-name=app, secret.yaml is in the root folder)
-        - secrets+gpg-import-kubernetes://argocd/sops-gpg#sops.asc?secret.sops.yaml
+        - loki.values.yaml
+        - promtail.values.yaml
   syncPolicy:
     automated:
       prune: true
       allowEmpty: true
       selfHeal: true
     syncOptions:
-      - CreateNamespace=true
+      - CreateNamespace=false
       - ServerSideApply=true
     retry:
       limit: 2
