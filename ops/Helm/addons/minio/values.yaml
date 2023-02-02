@@ -9,16 +9,16 @@ minio:
     image:
       tag: v4.5.8
 
-  tenants:
-    - name: default
-
-      pools:
-        - servers: 1
-          volumesPerServer: 1
-          storageClassName: local-path
-
-      metrics:
-        enabled: true
-
-      s3:
-        bucketDNS: true
+  tenants: []
+#    - name: default
+#
+#      pools:
+#        - servers: 1
+#          volumesPerServer: 1
+#          storageClassName: local-path
+#
+#      metrics:
+#        enabled: true
+#
+#      s3:
+#        bucketDNS: true
