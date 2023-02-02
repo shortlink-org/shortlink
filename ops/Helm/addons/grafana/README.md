@@ -83,7 +83,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.datasources."datasources.yaml".datasources[1].name | string | `"Loki"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].type | string | `"loki"` |  |
 | grafana.datasources."datasources.yaml".datasources[1].uid | string | `"loki"` |  |
-| grafana.datasources."datasources.yaml".datasources[1].url | string | `"http://grafana-loki:3100"` |  |
+| grafana.datasources."datasources.yaml".datasources[1].url | string | `"http://grafana-grafana-loki:3100"` |  |
 | grafana.datasources."datasources.yaml".datasources[2].editable | bool | `false` |  |
 | grafana.datasources."datasources.yaml".datasources[2].jsonData.lokiSearch.datasourceUid | string | `"loki"` |  |
 | grafana.datasources."datasources.yaml".datasources[2].jsonData.nodeGraph.enabled | bool | `true` |  |
@@ -138,7 +138,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | grafana.sidecar.datasources.searchNamespace | string | `"ALL"` |  |
 | loki.enabled | bool | `true` |  |
 | phlare.enabled | bool | `true` |  |
-| promtail.config.clients[0].url | string | `"http://grafana-loki:3100/loki/api/v1/push"` |  |
+| promtail.config.clients[0].url | string | `"http://grafana-grafana-loki:3100/loki/api/v1/push"` |  |
 | promtail.enabled | bool | `true` |  |
 | promtail.extraScrapeConfigs[0].job_name | string | `"syslog"` |  |
 | promtail.extraScrapeConfigs[0].syslog.labels.job | string | `"syslog"` |  |
