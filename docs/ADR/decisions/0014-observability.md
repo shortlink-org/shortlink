@@ -37,3 +37,9 @@ We use [OpenTelemetry](https://opentelemetry.io/) for tracing and metrics.
 
   + [OnCall](https://grafana.com/oss/oncall/) - On-call scheduling
   + [Phlare](https://grafana.com/oss/phlare/) - Profiling and flame graphs
+
+### Common prometheus metrics
+
++ Add default metrics for prometheus
++ [Exposing the software version to Prometheus](https://www.robustperception.io/exposing-the-software-version-to-prometheus)
+  + Example: [Add opencost_build_info metric](https://github.com/opencost/opencost/pull/1577/files) 
