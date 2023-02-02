@@ -54,45 +54,45 @@ kube-prometheus-stack:
           - receiver: 'null'
             matchers:
               - alertname =~ "InfoInhibitor|Watchdog"
-          - match:
-            receiver: slack
-            continue: true
-          - match:
-            receiver: email
-            continue: true
-          - match:
-            receiver: telegram
-            continue: true
+#          - match:
+#            receiver: slack
+#            continue: true
+#          - match:
+#            receiver: email
+#            continue: true
+#          - match:
+#            receiver: telegram
+#            continue: true
       receivers:
         - name: 'null'
-        - name: slack
-          slack_configs:
-            - channel: "#monitoring"
-              api_url: "https://hooks.slack.com/services/..."
-              send_resolved: false
-              title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] Monitoring Event Notification'
-              text: >-
-                {{ range .Alerts }}
-                  *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-                  *Description:* {{ .Annotations.description }}
-                  *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:> *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
-                  *Details:*
-                  {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
-                  {{ end }}
-                {{ end }}
-        - name: email
-          email_configs:
-            - to: user@gmail.com
-              from: user@gmail.com
-              smarthost: smtp.gmail.com:587
-              auth_username: user@gmail.com
-              auth_identity: user@gmail.com
-              auth_password: you_auth_token
-        - name: telegram
-          telegram_config:
-            - send_resolved: true
-              bot_token: 'you_bot_token'
-              chat_id: 'you_chat_id'
+#        - name: slack
+#          slack_configs:
+#            - channel: "#monitoring"
+#              api_url: "https://hooks.slack.com/services/..."
+#              send_resolved: false
+#              title: '[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] Monitoring Event Notification'
+#              text: >-
+#                {{ range .Alerts }}
+#                  *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+#                  *Description:* {{ .Annotations.description }}
+#                  *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:> *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
+#                  *Details:*
+#                  {{ range .Labels.SortedPairs }} • *{{ .Name }}:* `{{ .Value }}`
+#                  {{ end }}
+#                {{ end }}
+#        - name: email
+#          email_configs:
+#            - to: user@gmail.com
+#              from: user@gmail.com
+#              smarthost: smtp.gmail.com:587
+#              auth_username: user@gmail.com
+#              auth_identity: user@gmail.com
+#              auth_password: you_auth_token
+#        - name: telegram
+#          telegram_config:
+#            - send_resolved: true
+#              bot_token: 'you_bot_token'
+#              chat_id: 'you_chat_id'
 
       templates:
         - '/etc/alertmanager/config/*.tmpl'
