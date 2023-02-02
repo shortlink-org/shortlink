@@ -18,7 +18,7 @@ func New(log logger.Logger) *http.ServeMux {
 	registry := prometheus.NewRegistry()
 
 	// Add Go module build info.
-	registry.MustRegister(collectors.NewBuildInfoCollector())
+	_ = prometheus.Register(collectors.NewBuildInfoCollector())
 
 	// Create a metrics-exposing Handler for the Prometheus registry
 	// The healthcheck related metrics will be prefixed with the provided namespace
