@@ -21,7 +21,6 @@ spec:
         - values.yaml
         - alertmanager.values.yaml
         - prometheus.values.yaml
-        - prometheus-adapter.values.yaml
   syncPolicy:
     automated:
       prune: true
