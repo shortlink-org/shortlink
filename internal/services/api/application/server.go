@@ -2,13 +2,15 @@ package api_application
 
 import (
 	"context"
+	"net/http"
 	"time"
 
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/text/message"
+
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/services/api/application/cloudevents"
@@ -28,6 +30,7 @@ func RunAPIServer(
 	log logger.Logger,
 	rpcServer *rpc.RPCServer,
 	tracer *trace.TracerProvider,
+	monitoring *http.ServeMux,
 
 	// delivery
 	link_rpc link_rpc.LinkServiceClient,

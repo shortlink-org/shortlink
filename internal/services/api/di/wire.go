@@ -11,6 +11,7 @@ package api_di
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
@@ -28,6 +29,7 @@ import (
 )
 
 type APIService struct {
+	// Common
 	Logger logger.Logger
 
 	// Applications
@@ -87,6 +89,7 @@ func NewAPIApplication(
 	logger logger.Logger,
 	rpcServer *rpc.RPCServer,
 	tracer *trace.TracerProvider,
+	monitoring *http.ServeMux,
 
 	// Delivery
 	metadataClient metadata_rpc.MetadataServiceClient,
@@ -103,6 +106,7 @@ func NewAPIApplication(
 		logger,
 		rpcServer,
 		tracer,
+		monitoring,
 
 		// Delivery
 		link_rpc,

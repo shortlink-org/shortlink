@@ -12,6 +12,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -24,6 +25,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
+	"net/http"
 )
 
 // Injectors from wire.go:
@@ -52,6 +54,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	serveMux := monitoring.New(logger)
 	clientConn, cleanup5, err := rpc.InitClient(logger, tracerProvider)
 	if err != nil {
 		cleanup4()
@@ -105,7 +108,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, serveMux, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -135,6 +138,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 // wire.go:
 
 type APIService struct {
+	// Common
 	Logger logger.Logger
 
 	// Applications
@@ -181,7 +185,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceCl
 func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 logger.Logger,
 
 	rpcServer *rpc.RPCServer,
-	tracer *trace.TracerProvider,
+	tracer *trace.TracerProvider, monitoring2 *http.ServeMux,
 
 	metadataClient v1_4.MetadataServiceClient,
 	link_rpc v1.LinkServiceClient,
@@ -191,9 +195,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 ) (*api_application.API, error) {
 
 	apiService, err := api_application.RunAPIServer(ctx2, i18n2, logger2, rpcServer,
-		tracer,
-
-		link_rpc,
+		tracer, monitoring2, link_rpc,
 		link_command,
 		link_query,
 		sitemap_rpc,

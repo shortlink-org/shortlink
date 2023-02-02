@@ -1,17 +1,15 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="api" type="GoApplicationRunConfiguration" factoryName="Go Application"
-                 folderName="go/services">
-      <module name="shortlink"/>
-      <working_directory value="$PROJECT_DIR$"/>
-      <envs>
-          <env name="GOEXPERIMENT" value="arenas"/>
-          <env name="GRPC_CLIENT_PORT" value="443"/>
-          <env name="MQ_RABBIT_URI" value="amqp://admin:admin@rabbitmq.rabbitmq:5672"/>
-          <env name="STORE_POSTGRES_URI"
-               value="postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode\=disable&amp;pool_timeout\=20&amp;connect_timeout\=20"/>
-      </envs>
-      <EXTENSION ID="net.ashald.envfile">
-          <option name="IS_ENABLED" value="false"/>
+  <configuration default="false" name="api" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="go/services">
+    <module name="shortlink" />
+    <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="GOEXPERIMENT" value="arenas" />
+      <env name="GRPC_CLIENT_PORT" value="443" />
+      <env name="MQ_RABBIT_URI" value="amqp://admin:admin@rabbitmq.rabbitmq:5672" />
+      <env name="STORE_POSTGRES_URI" value="postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode\=disable&amp;pool_timeout\=20&amp;connect_timeout\=20" />
+    </envs>
+    <EXTENSION ID="net.ashald.envfile">
+      <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
       <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
       <option name="IS_IGNORE_MISSING_FILES" value="false" />
