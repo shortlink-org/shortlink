@@ -13,6 +13,8 @@ grafana:
 
   # adminPassword: shortlink
 
+  revisionHistoryLimit: 3
+
   serviceMonitor:
     enabled: true
     selfMonitor: true
