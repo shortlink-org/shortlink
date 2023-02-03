@@ -20,10 +20,3 @@ dependencies:
     tags:
       - auth
       - kratos
-  - name: hydra
-    version: 0.27.1
-    repository: https://k8s.ory.sh/helm/charts
-    condition: hydra.enabled
-    tags:
-      - auth
-      - hydra

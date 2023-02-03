@@ -18,7 +18,6 @@ spec:
     helm:
       releaseName: auth
       valueFiles:
-        - hydra.values.yaml
         - kratos.values.yaml
   syncPolicy:
     automated:
