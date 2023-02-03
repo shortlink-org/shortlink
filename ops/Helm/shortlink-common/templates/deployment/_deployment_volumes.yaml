@@ -1,15 +1,18 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{- define "shortlink-common.volumeMounts" }}
+  {{- with .Values.deploy.volumes }}
   volumeMounts:
     {{- range .Values.deploy.volumes }}
     - name: {{ include "helpers.fullname" $ }}-{{ .name }}
       mountPath: {{ .mountPath | quote }}
       readOnly: {{ .readOnly | default false }}
     {{- end }}
+  {{- end }}
 {{- end }}
 
 {{- define "shortlink-common.volumes" }}
+  {{- with .Values.deploy.volumes }}
   volumes:
     {{- range .Values.deploy.volumes }}
     - name: {{ include "helpers.fullname" $ }}-{{ .name }}
@@ -23,4 +26,5 @@
         name: {{ include "helpers.fullname" $ }}-{{ .name }}
       {{- end }}
     {{- end }}
+  {{- end }}
 {{- end }}
