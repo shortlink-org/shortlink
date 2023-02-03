@@ -35,8 +35,10 @@ kind: DestinationRule
 metadata:
   {{- include "shortlink-common.metadata" . | indent 2 }}
 spec:
-  host:
-    - "*"
+  host: {{ .name | default (include "helpers.fullname" .) }}.{{ .Release.Namespace }}.svc.cluster.local
+  {{- with .Values.ingress.istio.destinationRule }}
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
   trafficPolicy:
     connectionPool:
       tcp:
