@@ -1,0 +1,12 @@
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDashboard
+metadata:
+  name: istio-wasm-extension
+  labels:
+    app: grafana
+spec:
+  grafanaCom:
+    # Ref: https://grafana.com/dashboards/13277
+    id: 13277
+    datasource: Prometheus
+  json: ""

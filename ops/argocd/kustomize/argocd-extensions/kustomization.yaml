@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - argocd-extension-docs/extension.yaml
   - rollout-extension/extension.yaml
+  - grafana-dashboard/argo-cd.yaml

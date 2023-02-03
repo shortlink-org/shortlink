@@ -1,0 +1,12 @@
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDashboard
+metadata:
+  name: istio-workload
+  labels:
+    app: grafana
+spec:
+  grafanaCom:
+    # Ref: https://grafana.com/dashboards/7630
+    id: 7630
+    datasource: Prometheus
+  json: ""

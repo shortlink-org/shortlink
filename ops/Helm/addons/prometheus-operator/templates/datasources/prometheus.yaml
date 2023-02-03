@@ -1,0 +1,18 @@
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDataSource
+metadata:
+  name: prometheus
+spec:
+  name: prometheus.yaml
+  datasources:
+    - name: Prometheus
+      uid: prometheus
+      type: prometheus
+      url: http://prometheus-operated.prometheus-operator:9090/prometheus
+      access: proxy
+      isDefault: true
+      jsonData:
+        timeInterval: 10s
+        queryTimeout: 30s
+        httpMethod: POST
+        alertmanagerUid: alertmanager

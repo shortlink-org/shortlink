@@ -1,0 +1,12 @@
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDashboard
+metadata:
+  name: cert-manager
+  labels:
+    app: grafana
+spec:
+  grafanaCom:
+    # Ref: https://grafana.com/dashboards/11001
+    id: 11001
+    datasource: Prometheus
+  json: ""
