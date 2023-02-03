@@ -1,0 +1,12 @@
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDashboard
+metadata:
+  name: istio-service
+  labels:
+    app: grafana
+spec:
+  grafanaCom:
+    # Ref: https://grafana.com/dashboards/7636
+    id: 7636
+    datasource: Prometheus
+  json: ""

@@ -1,0 +1,12 @@
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDashboard
+metadata:
+  name: node-exporter
+  labels:
+    app: grafana
+spec:
+  grafanaCom:
+    # Ref: https://grafana.com/dashboards/1860
+    id: 1860
+    datasource: Prometheus
+  json: ""
