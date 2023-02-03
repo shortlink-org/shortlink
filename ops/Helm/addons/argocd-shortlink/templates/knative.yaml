@@ -29,6 +29,6 @@ spec:
         automated:
           prune: true
           allowEmpty: true
-          selfHeal: true
+          selfHeal: false
   syncPolicy:
     preserveResourcesOnDeletion: true
