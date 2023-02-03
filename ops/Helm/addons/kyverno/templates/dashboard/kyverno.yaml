@@ -1,8 +1,0 @@
-apiVersion: integreatly.org/v1alpha1
-kind: GrafanaDashboard
-metadata:
-  name: kyverno
-  labels:
-    app: grafana
-spec:
-  url: https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json
