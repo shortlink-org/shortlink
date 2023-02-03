@@ -139,7 +139,7 @@ grafana:
           type: phlare
           access: proxy
           uid: phlare
-          url: http://phlare:4100
+          url: http://grafana-phlare:4100
           version: 1
           basicAuth: false
           editable: false
