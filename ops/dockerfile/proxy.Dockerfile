@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM node:19.5-alpine as builder
+FROM node:19.6-alpine as builder
 
 # WARNING: if container limit < MAX_OLD_SPACE_SIZE => Killed
 # Docs: https://developer.ibm.com/languages/node-js/articles/nodejs-memory-management-in-container-environments/
