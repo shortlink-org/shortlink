@@ -133,7 +133,7 @@ grafana:
           url: http://prometheus-alertmanager.prometheus-operator:9093
           readOnly: false
           jsonData:
-            implementation: prometheus
+            implementation: mimir
 
         - name: Phlare
           type: phlare
