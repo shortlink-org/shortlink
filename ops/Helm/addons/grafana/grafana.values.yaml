@@ -78,7 +78,8 @@ grafana:
         options:
           path: /var/lib/grafana/dashboards/default
 
-  plugins: []
+  plugins:
+    - grafana-oncall-app
 
   grafana.ini:
     server:
