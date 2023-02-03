@@ -1,2 +1,17 @@
 phlare:
   enabled: true
+
+  phlare:
+    components:
+      querier:
+        kind: Deployment
+        replicaCount: 1
+      distributor:
+        kind: Deployment
+        replicaCount: 1
+      agent:
+        kind: Deployment
+        replicaCount: 1
+      ingester:
+        kind: StatefulSet
+        replicaCount: 1
