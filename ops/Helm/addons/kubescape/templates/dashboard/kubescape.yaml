@@ -1,8 +1,0 @@
-apiVersion: integreatly.org/v1alpha1
-kind: GrafanaDashboard
-metadata:
-  name: kubescape
-  labels:
-    app: grafana
-spec:
-  url: https://raw.githubusercontent.com/dwertent/kubescape/master/httphandler/examples/prometheus/grafana-kubescape-dashboard.json

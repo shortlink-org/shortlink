@@ -1,8 +1,0 @@
-apiVersion: integreatly.org/v1alpha1
-kind: GrafanaDashboard
-metadata:
-  name: argo-cd
-  labels:
-    app: grafana
-spec:
-  url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json

@@ -18,6 +18,7 @@ spec:
     helm:
       releaseName: grafana
       valueFiles:
+        - dashboard.values.yaml
         - grafana.values.yaml
         - phlare.values.yaml
         - tempo.values.yaml
