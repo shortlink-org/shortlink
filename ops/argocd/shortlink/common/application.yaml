@@ -20,6 +20,9 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: false
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true

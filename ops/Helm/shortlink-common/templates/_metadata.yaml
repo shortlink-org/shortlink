@@ -7,8 +7,8 @@
       {{- include "common.tplvalues.render" (dict "value" .Values.commonLabels "context" $) | nindent 4 }}
     {{- end }}
     {{- include "helpers.labels" . | nindent 4 }}
+  {{- with .Values.annotations }}
   annotations:
-  {{- if .annotations }}
-    {{- toYaml .annotations | nindent 4 }}
+    {{- toYaml . | indent 4 }}
   {{- end }}
 {{- end }}
