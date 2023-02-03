@@ -36,7 +36,6 @@ ingress:
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
     nginx.ingress.kubernetes.io/enable-opentracing: "false"
-    kubernetes.io/tls-acme: "true"
 
   hostname: shortlink.best
   path: /api/?(.*)

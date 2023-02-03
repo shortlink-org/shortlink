@@ -21,13 +21,12 @@ kratos:
         nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
         nginx.ingress.kubernetes.io/enable-opentracing: "false"
-        kubernetes.io/tls-acme: "true"
         nginx.ingress.kubernetes.io/rewrite-target: /$1
         nginx.ingress.kubernetes.io/use-regex: "true"
       hosts:
         - host: shortlink.best
           paths:
-            - path: /api/auth\/(.*)
+            - path: /api/auth/?(.*)
               pathType: Prefix
       tls:
         - secretName: shortlink-ingress-tls
