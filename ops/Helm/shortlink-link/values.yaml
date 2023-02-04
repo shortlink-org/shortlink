@@ -91,6 +91,7 @@ deploy:
   volumes:
     - name: grpc
       mountPath: /app/ops/cert/
+      type: emptyDir
 
 service:
   type: ClusterIP
