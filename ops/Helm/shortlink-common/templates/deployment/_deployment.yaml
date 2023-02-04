@@ -19,8 +19,8 @@ spec:
     metadata:
       labels:
         {{- include "shortlink-common.matchLabels" . | indent 8 }}
+      {{- with .Values.deploy.annotations }}
       annotations:
-      {{- if .Values.deploy.annotations }}
         {{- toYaml .Values.deploy.annotations | nindent 8 }}
       {{- end }}
     spec:
