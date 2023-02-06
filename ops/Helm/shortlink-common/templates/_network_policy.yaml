@@ -1,7 +1,7 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{- define "shortlink-common.NetworkPolicy" }}
-{{- if and .Values.networkPolicy.enabled }}
+{{- if and .Values.networkPolic .Values.networkPolicy.enabled }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
