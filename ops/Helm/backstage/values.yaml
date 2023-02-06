@@ -1,0 +1,122 @@
+# Common default values for shortlink.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+# -- Add labels to all the deployed resources
+commonLabels: {}
+
+# -- Add annotations to all the deployed resources
+commonAnnotations: {}
+
+# -- Pods Service Account
+# @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+
+  # -- The name of the ServiceAccount to use.
+  # If not set and create is true, a name is generated using the `helpers.fullname` template
+  # name: shortlink
+
+  # -- Annotations for service account. Evaluated as a template.
+  # Only used if `create` is `true`.
+  annotations: {}
+
+  # -- Auto-mount the service account token in the pod
+  automountServiceAccountToken: false
+
+# ==============================================================================
+ingress:
+  enabled: true
+  type: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-production
+    nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
+    nginx.ingress.kubernetes.io/enable-opentracing: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /next/$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
+
+  hostname: shortlink.best
+  path: /backstage(/|$)(.*)
+  service:
+    name: shortlink-next
+    port: 8080
+
+  # istio:
+  #  match:
+  #    - uri:
+  #        prefix: /next
+  #  route:
+  #    destination:
+  #      port: 8080
+
+# ==============================================================================
+deploy:
+  replicaCount: 1
+
+  imagePullSecrets: []
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  resources:
+    limits: {}
+    requests: {}
+
+  terminationGracePeriodSeconds: 90
+
+  # -- Annotations to be added to controller pods
+  annotations: {}
+
+  image:
+    repository: registry.gitlab.com/shortlink-org/shortlink/backstage
+    tag: 0.13.89
+    # -- Global imagePullPolicy
+    # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    pullPolicy: Always
+
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 7007
+
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 7007
+
+  securityContext:
+    readOnlyRootFilesystem: false
+
+  volumes:
+    - name: tmp
+      mountPath: /tmp
+      type: emptyDir
+
+service:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 7007
+      protocol: TCP
+      public: true
+
+# Prometheus Operator ServiceMonitor configuration
+monitoring:
+  # -- Creates a Prometheus Operator ServiceMonitor
+  enabled: true
+  # -- Additional labels that can be used so PodMonitor will be discovered by Prometheus
+  labels:
+    release: prometheus-operator
+  # -- The label to use to retrieve the job name from.
+  jobLabel: ""

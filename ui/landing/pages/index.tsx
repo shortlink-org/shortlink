@@ -237,6 +237,8 @@ const Home: NextPage = () => {
                 'Swagger API',
                 'https://shortlink-org.gitlab.io/shortlink/',
               )}
+
+              {getCard('Backstage', 'https://shortlink.best/backstage')}
             </Stack>
           </TabPanel>
         </Box>
