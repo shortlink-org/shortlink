@@ -37,7 +37,7 @@ ingress:
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
     nginx.ingress.kubernetes.io/enable-opentracing: "false"
-    nginx.ingress.kubernetes.io/rewrite-target: /next/$2
+    nginx.ingress.kubernetes.io/rewrite-target: /backstage/$2
     nginx.ingress.kubernetes.io/use-regex: "true"
 
   hostname: shortlink.best
