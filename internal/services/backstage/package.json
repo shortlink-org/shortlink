@@ -2,9 +2,7 @@
   "name": "root",
   "version": "1.0.0",
   "private": true,
-  "engines": {
-    "node": "16 || 18"
-  },
+  "engines": {},
   "scripts": {
     "dev": "concurrently \"yarn start\" \"yarn start-backend\"",
     "start": "yarn workspace app start",

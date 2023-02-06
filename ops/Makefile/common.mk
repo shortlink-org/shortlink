@@ -27,8 +27,7 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
+		-f ops/docker-compose/database/postgres/postgres.yaml \
 		up -d --remove-orphans --build
 
 run: ## Run this project in docker compose

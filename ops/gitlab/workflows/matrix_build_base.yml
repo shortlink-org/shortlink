@@ -50,3 +50,6 @@
       - APPLICATION: ui-kit
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-kit
         DOCKERFILE_PATH: ops/dockerfile/ui-kit.Dockerfile
+      - APPLICATION: backstage
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/backstage
+        DOCKERFILE_PATH: ops/dockerfile/backstage.Dockerfile
