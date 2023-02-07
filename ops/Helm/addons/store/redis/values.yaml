@@ -9,7 +9,9 @@ redis:
 
   master:
     persistence:
-      enabled: false
+      enabled: true
+      size: 1Gi
+      storageClass: local-path
 
     resources:
       limits:
