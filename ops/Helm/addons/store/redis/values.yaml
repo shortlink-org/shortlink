@@ -8,6 +8,8 @@ redis:
   fullnameOverride: shortlink-redis
 
   master:
+    kind: Deployment
+
     persistence:
       enabled: true
       size: 1Gi
