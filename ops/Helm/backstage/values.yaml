@@ -77,7 +77,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/backstage
-    tag: 0.13.90
+    tag: 0.13.92
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
