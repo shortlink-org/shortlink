@@ -381,6 +381,31 @@ argo-rollouts:
 argocd-image-updater:
   fullnameOverride: argocd-image-updater
 
+  config:
+    applicationsAPIKind: kubernetes
+    # argocd:
+    #  serverAddress: argocd-server
+    #  insecure: false
+    gitCommitUser: argocd-image-updater
+    gitCommitMail: argocd@shortlink.best
+    gitCommitTemplate: |
+      build: automatic update of {{ .AppName }}
+      
+      {{ range .AppChanges -}}
+      updates image {{ .Image }} tag '{{ .OldTag }}' to '{{ .NewTag }}'
+      {{ end -}}
+
+      Signed-off-by: {{ .CommitUser }} <{{ .CommitMail }}>
+
+    # sshConfig: |
+    #   Host github.com
+    #   HostName github.com
+    #     User git
+    #     IdentityFile /etc/ssh/ssh-privatekey
+    #     IdentitiesOnly yes
+    #     StrictHostKeyChecking no
+    #     UserKnownHostsFile /dev/null
+
   resources:
     limits:
       cpu: 100m

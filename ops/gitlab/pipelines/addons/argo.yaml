@@ -47,6 +47,12 @@ argo-secret:
       --namespace=argocd
       --from-file=sops.asc=${GPG_TOKEN}
       sops-gpg
+
+    - kubectl create secret generic
+      --context=shortlink-org/shortlink:${PROVIDER}
+      --namespace=argocd
+      --from-file=sshPrivateKey=${ARGO_SSH_TOKEN}
+      git-creds
   needs: []
   rules:
     - when: manual
