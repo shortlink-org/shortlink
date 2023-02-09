@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: redis
-    version: 17.7.2
+    version: 17.7.3
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
     tags:
