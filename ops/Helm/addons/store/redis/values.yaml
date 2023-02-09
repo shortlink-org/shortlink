@@ -11,8 +11,7 @@ redis:
     kind: Deployment
 
     persistence:
-      enabled: true
-      size: 1Gi
+      enabled: false
       storageClass: local-path
 
     resources:
