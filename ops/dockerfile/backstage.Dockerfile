@@ -1,5 +1,5 @@
 # Stage 1 - Create yarn install skeleton layer
-FROM node:18-bullseye-slim AS packages
+FROM node:19-bullseye-slim AS packages
 
 WORKDIR /app
 COPY ./internal/services/backstage/package.json ./internal/services/backstage/yarn.lock ./
@@ -10,7 +10,7 @@ COPY ./internal/services/backstage/packages packages
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
-FROM node:18-bullseye-slim AS build
+FROM node:19-bullseye-slim AS build
 
 # install sqlite3 dependencies
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
@@ -39,7 +39,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM node:18-bullseye-slim
+FROM node:19-bullseye-slim
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
