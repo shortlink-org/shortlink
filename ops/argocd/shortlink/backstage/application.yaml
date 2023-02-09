@@ -4,7 +4,8 @@ metadata:
   name: backstage
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/backstage:^0.1
+    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/backstage:0.1.x
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
