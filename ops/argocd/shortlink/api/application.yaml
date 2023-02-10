@@ -15,7 +15,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: ops/Helm/shortlink-api
-    repoURL: 'https://github.com/shortlink-org/shortlink'
+    repoURL: git@github.com:shortlink-org/shortlink.git
     targetRevision: HEAD
     helm:
       valueFiles:
