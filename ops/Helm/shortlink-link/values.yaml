@@ -88,11 +88,6 @@ deploy:
     repository: registry.gitlab.com/shortlink-org/shortlink/link
     tag: 0.13.94
 
-  volumes:
-    - name: grpc
-#      mountPath: /app/ops/cert/
-#      type: emptyDir
-
 service:
   type: ClusterIP
   ports:
