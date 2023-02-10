@@ -96,7 +96,9 @@ const NEXT_CONFIG = {
       },
     ]
   },
-  experimental: {},
+  experimental: {
+    forceSwcTransforms: true,
+  },
 }
 
 if (!isProd) {
