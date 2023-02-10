@@ -395,7 +395,7 @@ argocd-image-updater:
       updates image {{ .Image }} tag '{{ .OldTag }}' to '{{ .NewTag }}'
       {{ end -}}
 
-      Signed-off-by: {{ .CommitUser }} <{{ .CommitMail }}>
+      Signed-off-by: argocd <argocd@shortlink.best>
 
     # sshConfig: |
     #   Host github.com
