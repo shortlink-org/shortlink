@@ -14,7 +14,7 @@ require (
 	github.com/cucumber/godog v0.12.6
 	github.com/dgraph-io/badger/v3 v3.2103.5
 	github.com/dgraph-io/dgo/v2 v2.2.0
-	github.com/edgedb/edgedb-go v0.13.4
+	github.com/edgedb/edgedb-go v0.13.5
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.2
