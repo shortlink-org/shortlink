@@ -4,7 +4,7 @@ metadata:
   name: shortlink-api
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/api:0.1.x
+    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/api:0.13.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
   finalizers:
     - resources-finalizer.argocd.argoproj.io
