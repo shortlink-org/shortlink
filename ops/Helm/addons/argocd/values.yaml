@@ -366,7 +366,7 @@ argo-rollouts:
         - shortlink.best
 
       paths:
-        - /rollouts
+        - /argo/rollouts
 
       tls:
         - secretName: shortlink-ingress-tls
