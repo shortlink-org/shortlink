@@ -329,16 +329,23 @@ argocd-apps:
 argo-rollouts:
   fullnameOverride: argo-rollouts
 
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 20m
-      memory: 16Mi
+  controller:
+    extraArgs:
+      - --basehref
+      - /argo/rollouts/
+      - --auth-mode=server
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 20m
+        memory: 16Mi
 
   dashboard:
     enabled: true
+    readonly: true
 
     resources:
       limits:
@@ -366,7 +373,7 @@ argo-rollouts:
         - shortlink.best
 
       paths:
-        - /argo/dashboard?(.*)
+        - /argo/rollouts?(.*)
 
       tls:
         - secretName: shortlink-ingress-tls
