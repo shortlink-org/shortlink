@@ -361,14 +361,12 @@ argo-rollouts:
         nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
         nginx.ingress.kubernetes.io/enable-opentracing: "false"
-        nginx.ingress.kubernetes.io/rewrite-target: /$1
-        nginx.ingress.kubernetes.io/use-regex: "true"
 
       hosts:
         - shortlink.best
 
       paths:
-        - /rollouts?(.*)
+        - /rollouts
 
       tls:
         - secretName: shortlink-ingress-tls
