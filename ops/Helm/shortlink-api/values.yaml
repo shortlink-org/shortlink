@@ -38,18 +38,18 @@ ingress:
     nginx.ingress.kubernetes.io/enable-opentracing: "false"
 
   hostname: shortlink.best
-  path: /api/?(.*)
+  path: /api(/|$)(.*)
   service:
     name: shortlink-api
     port: 7070
 
-  istio:
-    match:
-      - uri:
-          prefix: /api
-    route:
-      destination:
-        port: 7070
+  # istio:
+  #  match:
+  #    - uri:
+  #        prefix: /api
+  #  route:
+  #    destination:
+  #      port: 7070
 
 # ==============================================================================
 # This secret for dev-stand. For production use CI-variables
