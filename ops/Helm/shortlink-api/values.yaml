@@ -38,7 +38,7 @@ ingress:
     nginx.ingress.kubernetes.io/enable-opentracing: "false"
 
   hostname: shortlink.best
-  path: /api(/|$)(.*)
+  path: /api
   service:
     name: shortlink-api
     port: 7070
