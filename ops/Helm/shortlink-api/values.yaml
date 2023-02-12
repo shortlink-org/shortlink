@@ -41,7 +41,7 @@ ingress:
   path: /api
   service:
     name: shortlink-api
-    port: 7070
+    port: 8080
 
   # istio:
   #  match:
@@ -131,7 +131,7 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      port: 7070
+      port: 8080
       protocol: TCP
       public: true
     - name: metrics
