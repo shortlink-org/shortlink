@@ -97,6 +97,7 @@ deploy:
     MQ_TYPE: "rabbitmq"
     TRACER_URI: grafana-tempo.grafana:6831
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress.svc.cluster.local
+    API_PORT: 8080
 
     # -- Default store config
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
@@ -126,7 +127,7 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      port: 7070
+      port: 8080
       protocol: TCP
       public: true
     - name: metrics
