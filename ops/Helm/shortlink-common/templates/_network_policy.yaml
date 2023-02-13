@@ -1,7 +1,7 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{- define "shortlink-common.NetworkPolicy" }}
-{{- if and .Values.networkPolic .Values.networkPolicy.enabled }}
+{{- if and .Values.networkPolicy .Values.networkPolicy.enabled }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -31,26 +31,22 @@ spec:
         {{- end }}
     {{- end }}
   ingress:
-    {{- range .Values.networkPolicy.ingress }}
     - from:
-        {{- range .from }}
-        - namespaceSelector:
-            matchLabels:
-              {{- range .namespaceSelector }}
-                {{- toYaml . | nindent 14 }}
-              {{- end }}
-          podSelector:
-            matchLabels:
-              {{- range .podSelector }}
-                {{- toYaml . | nindent 14 }}
-              {{- end }}
-        {{- end }}
+      {{- range .Values.networkPolicy.ingress.from }}
+      - namespaceSelector:
+          matchLabels:
+            {{- range .namespaceSelector }}
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+      {{- end }}
+      - podSelector:
+          matchLabels:
+            {{- include "shortlink-common.matchLabels" . | indent 14 }}
       ports:
-        {{- range .ports }}
+        {{- range .Values.networkPolicy.ingress.ports }}
         - port: {{ .port }}
           protocol: {{ .protocol }}
         {{- end }}
-    {{- end }}
   policyTypes:
     {{- if .Values.networkPolicy.policyTypes }}
     {{- toYaml .Values.networkPolicy.policyTypes | nindent 4 }}
