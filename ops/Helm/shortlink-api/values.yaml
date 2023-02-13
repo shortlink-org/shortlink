@@ -38,10 +38,10 @@ ingress:
     nginx.ingress.kubernetes.io/enable-opentracing: "false"
 
   hostname: shortlink.best
-  path: /api
+  path: /api(/|$)(.*)
   service:
     name: shortlink-api
-    port: 8080
+    port: 7070
 
   # istio:
   #  match:
@@ -102,17 +102,12 @@ deploy:
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
 
   image:
-    repository: registry.gitlab.com/shortlink-org/shortlink/landing
-    tag: 0.13.94
+    repository: registry.gitlab.com/shortlink-org/shortlink/api
+    tag: 0.13.96
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
     pullPolicy: IfNotPresent
-
-  volumes:
-    - name: tmp
-      mountPath: /tmp
-      type: emptyDir
 
 hpa:
   enabled: true
@@ -131,7 +126,7 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      port: 8080
+      port: 7070
       protocol: TCP
       public: true
     - name: metrics
