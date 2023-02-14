@@ -25,19 +25,21 @@
     call-me-maybe "^1.0.1"
     js-yaml "^4.1.0"
 
-"@asyncapi/avro-schema-parser@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@asyncapi/avro-schema-parser/-/avro-schema-parser-0.3.0.tgz#6922acc559ef999c57e81297d78ffe680fc92b3c"
-  integrity sha512-gWAqS2CKxbChdX8hZY+5EYQl6atP8FTSBvoG5mGGQ89XUoNdlLX14lsvbgvBnDj5sSwqfs+b5Mh5PUZMR/8maA==
+"@asyncapi/avro-schema-parser@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@asyncapi/avro-schema-parser/-/avro-schema-parser-1.1.0.tgz#5d0491b53331f0748d8f6e8c33781c27cafe0f30"
+  integrity sha512-7J7pzSw0/jF2bXy/Mf+80VKJfXRRfyLTJz413MkKLbLXbbz9rV4sVpYfp31ofqXgyZ9bhfmHJzunbi0Bt7Jcww==
+  dependencies:
+    avsc "^5.7.3"
 
-"@asyncapi/openapi-schema-parser@^2.0.0":
+"@asyncapi/openapi-schema-parser@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@asyncapi/openapi-schema-parser/-/openapi-schema-parser-2.0.1.tgz#4d6e82cced907b14e0ad6f98261ff2562d968d96"
   integrity sha512-algbtdM1gcAOa8+V8kp7WeBhdaNac82jmZUXx8YjyNfRVo02N2juDrjeBAGJd+FNva9Mb4MM7qfkJoAFpTL5VQ==
   dependencies:
     "@openapi-contrib/openapi-schema-to-json-schema" "^3.0.0"
 
-"@asyncapi/parser@^1.17.0":
+"@asyncapi/parser@^1.18.0":
   version "1.18.1"
   resolved "https://registry.yarnpkg.com/@asyncapi/parser/-/parser-1.18.1.tgz#5185754eb0fdf2a481a260e96766a443fcd4b391"
   integrity sha512-7sU9DajLV+vA2vShTYmD5lbtbTY6TOcGxB4Z4IcpRp8x5pejOsN32iU05eIYCnuamsi5SMscFxoi6fIO2vPK3Q==
@@ -52,19 +54,18 @@
     node-fetch "^2.6.0"
     tiny-merge-patch "^0.1.2"
 
-"@asyncapi/react-component@1.0.0-next.44":
-  version "1.0.0-next.44"
-  resolved "https://registry.yarnpkg.com/@asyncapi/react-component/-/react-component-1.0.0-next.44.tgz#c5cb7747493f0f3e4df06a56d87a9c4c7f165eb7"
-  integrity sha512-kKV6LQktwD4Q46arAUABNBQpkKS7VDgnXUr8j0eKjhYl3eVQVuTKAP5MvqQPIIYRSIzc+s8sZhO3IMmK0MqjCA==
+"@asyncapi/react-component@1.0.0-next.47":
+  version "1.0.0-next.47"
+  resolved "https://registry.yarnpkg.com/@asyncapi/react-component/-/react-component-1.0.0-next.47.tgz#1c81945232defc16053f8057cc42c4a89cbb1cce"
+  integrity sha512-zVktJkXEwDFAcI3gyN33QyC+e7l2g+yHt6vbht5xCMniH1PqkPvQczDUwEfY47lpHAJn7YYGMT4XpiipzIPtlw==
   dependencies:
-    "@asyncapi/avro-schema-parser" "^0.3.0"
-    "@asyncapi/openapi-schema-parser" "^2.0.0"
-    "@asyncapi/parser" "^1.17.0"
+    "@asyncapi/avro-schema-parser" "^1.1.0"
+    "@asyncapi/openapi-schema-parser" "^2.0.1"
+    "@asyncapi/parser" "^1.18.0"
     highlight.js "^10.7.2"
     isomorphic-dompurify "^0.13.0"
     marked "^4.0.14"
     openapi-sampler "^1.2.1"
-    react-icons "^4.4.0"
     use-resize-observer "^8.0.0"
 
 "@asyncapi/specs@^4.1.1":
@@ -2764,18 +2765,18 @@
     react-use "^17.2.4"
     remark-gfm "^3.0.1"
 
-"@backstage/plugin-api-docs@^0.8.14":
-  version "0.8.14"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-api-docs/-/plugin-api-docs-0.8.14.tgz#bd2dc3ff8c4075467f828b82aee42c01146cf8c3"
-  integrity sha512-RopVBqlefPS2Te0stbgUbO4xKdaPZyfIlvMXgFITbKCl/C93uR2W78Ba5UhnzqXB/dsLMNpqn3gyH2Fwb4PmAg==
+"@backstage/plugin-api-docs@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-api-docs/-/plugin-api-docs-0.9.0.tgz#f565bbce4e5c54609578030f22603abc218d955a"
+  integrity sha512-qx9R3wRX1EhS1jUAyGMiJ30Rbp3kn3/bc1o1HVhQpqjFz4noyVvpjzAFHQsN4hCTTTXCZjCir9Nwh44PzTY3+Q==
   dependencies:
-    "@asyncapi/react-component" "1.0.0-next.44"
-    "@backstage/catalog-model" "^1.1.5"
-    "@backstage/core-components" "^0.12.3"
-    "@backstage/core-plugin-api" "^1.3.0"
-    "@backstage/plugin-catalog" "^1.7.2"
-    "@backstage/plugin-catalog-react" "^1.2.4"
-    "@backstage/theme" "^0.2.16"
+    "@asyncapi/react-component" "1.0.0-next.47"
+    "@backstage/catalog-model" "^1.2.0"
+    "@backstage/core-components" "^0.12.4"
+    "@backstage/core-plugin-api" "^1.4.0"
+    "@backstage/plugin-catalog" "^1.8.0"
+    "@backstage/plugin-catalog-react" "^1.3.0"
+    "@backstage/theme" "^0.2.17"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
     "@material-ui/lab" "4.0.0-alpha.57"
@@ -3008,7 +3009,7 @@
     yaml "^2.0.0"
     zen-observable "^0.10.0"
 
-"@backstage/plugin-catalog@^1.7.2", "@backstage/plugin-catalog@^1.8.0":
+"@backstage/plugin-catalog@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.8.0.tgz#1a584963a82f0079637345bc63c82af8cba8f4ee"
   integrity sha512-nMhezA+f//hi2Ql0R02zl75iOWKLLourBo2dI8xKSjTiUrb5oBt7qvC2UpyoccslI2Nk5b4noovH9jtLMNB8nA==
@@ -7533,6 +7534,11 @@ available-typed-arrays@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
+
+avsc@^5.7.3:
+  version "5.7.7"
+  resolved "https://registry.yarnpkg.com/avsc/-/avsc-5.7.7.tgz#8d1b5fd85904cc96a1e439450633ff33f4aff57b"
+  integrity sha512-9cYNccliXZDByFsFliVwk5GvTq058Fj513CiR4E60ndDwmuXzTJEp/Bp8FyuRmGyYupLjHLs+JA9/CBoVS4/NQ==
 
 aws-sdk@^2.840.0:
   version "2.1314.0"
@@ -17556,11 +17562,6 @@ react-hook-form@^7.12.2:
   version "7.43.1"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.43.1.tgz#0d0d7822f3f7fc05ffc41d5f012b49b90fcfa0f0"
   integrity sha512-+s3+s8LLytRMriwwuSqeLStVjRXFGxgjjx2jED7Z+wz1J/88vpxieRQGvJVvzrzVxshZ0BRuocFERb779m2kNg==
-
-react-icons@^4.4.0:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.7.1.tgz#0f4b25a5694e6972677cb189d2a72eabea7a8345"
-  integrity sha512-yHd3oKGMgm7zxo3EA7H2n7vxSoiGmHk5t6Ou4bXsfcgWyhfDKMpyKfhHR6Bjnn63c+YXBLBPUql9H4wPJM6sXw==
 
 react-immutable-proptypes@2.2.0:
   version "2.2.0"
