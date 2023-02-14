@@ -8,7 +8,9 @@ kind: NetworkPolicy
 metadata:
   {{- include "shortlink-common.metadata" . }}
 spec:
-  podSelector: {}
+  podSelector:
+    matchLabels:
+      {{- include "shortlink-common.matchLabels" . | indent 6 }}
   egress:
     {{- range .Values.networkPolicy.egress }}
     - ports:
@@ -39,9 +41,13 @@ spec:
               {{- toYaml . | nindent 14 }}
             {{- end }}
       {{- end }}
+      {{- range .Values.networkPolicy.ingress.from }}
       - podSelector:
           matchLabels:
-            {{- include "shortlink-common.matchLabels" . | indent 14 }}
+            {{- range .podSelector }}
+              {{- toYaml . | nindent 14 }}
+            {{- end }}
+      {{- end }}
       ports:
         {{- range .Values.networkPolicy.ingress.ports }}
         - port: {{ .port }}
