@@ -1,0 +1,23 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: shortlink-landing
+  description: Shortlink Landing Page
+  links:
+    - url: https://github.com/shortlink-org/shortlink/tree/main/ui/landing
+      title: GitHub Repo
+      icon: github
+  tags:
+    - frontend
+    - nextjs
+  annotations:
+    'backstage.io/kubernetes-namespace': shortlink
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/name=shortlink-landing'
+    backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/ui/landing
+    backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/ui/landing
+    lighthouse.com/website-url: https://shortlink.org
+spec:
+  type: service
+  lifecycle: production
+  owner: shortlink-org
+  system: shortlink

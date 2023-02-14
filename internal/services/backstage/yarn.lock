@@ -3119,6 +3119,30 @@
     luxon "^3.0.0"
     react-use "^17.2.4"
 
+"@backstage/plugin-lighthouse-common@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-lighthouse-common/-/plugin-lighthouse-common-0.1.0.tgz#af7581b170004d54a4424e9d9e8ec474c7ec7eaf"
+  integrity sha512-ogWVSykHolNf/oRBtnyIw3Qi/zl22rPaaF+5lSPhvEZ3KJEep7a0nPCHm8RYYyoqLPrqzvpYmQ4sWnw6vV96LQ==
+  dependencies:
+    "@backstage/config" "^1.0.6"
+
+"@backstage/plugin-lighthouse@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-lighthouse/-/plugin-lighthouse-0.4.0.tgz#3fbfeca6f37986e954695c4a0072f6401b82a75f"
+  integrity sha512-G5CB7bbxvuD0Be5oQ5n2KyjQQVqMtoMQLkpp+07k+vDu1PNKMY4rUwyHYvEQ7S7u5M3UvTIV0gffrjG25CUfrA==
+  dependencies:
+    "@backstage/catalog-model" "^1.2.0"
+    "@backstage/config" "^1.0.6"
+    "@backstage/core-components" "^0.12.4"
+    "@backstage/core-plugin-api" "^1.4.0"
+    "@backstage/plugin-catalog-react" "^1.3.0"
+    "@backstage/plugin-lighthouse-common" "^0.1.0"
+    "@backstage/theme" "^0.2.17"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.57"
+    react-use "^17.2.4"
+
 "@backstage/plugin-org@^0.6.4":
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-org/-/plugin-org-0.6.5.tgz#79b819c5596dc94cfef3a30ca0de303eb8c6c023"

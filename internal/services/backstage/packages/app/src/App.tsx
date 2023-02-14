@@ -14,6 +14,7 @@ import { NextScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffold
 import { orgPlugin } from '@backstage/plugin-org';
 import { SearchPage } from '@backstage/plugin-search';
 import { TechRadarPage } from '@backstage/plugin-tech-radar';
+import { LighthousePage } from '@backstage/plugin-lighthouse';
 import {
   TechDocsIndexPage,
   techdocsPlugin,
@@ -75,6 +76,7 @@ const routes = (
   <FlatRoutes>
     <Route path="/" element={<Navigate to="catalog" />} />
     <Route path="/catalog" element={<CatalogIndexPage />} />
+    <Route path="/lighthouse" element={<LighthousePage />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
