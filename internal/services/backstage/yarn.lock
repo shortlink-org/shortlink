@@ -2348,7 +2348,7 @@
     winston "^3.2.1"
     winston-transport "^4.5.0"
 
-"@backstage/backend-common@^0.18.1", "@backstage/backend-common@^0.18.2":
+"@backstage/backend-common@^0.18.2":
   version "0.18.2"
   resolved "https://registry.yarnpkg.com/@backstage/backend-common/-/backend-common-0.18.2.tgz#776e7473ba15c74ca8ffb062d80a253b1b704dd7"
   integrity sha512-tc1q2FHp+gR64PQssAVjgoYeIdrB1gqDcl6RjHr4lB8AsobsqTdryx8BrUJQA8e/da5tTeR+LEA/v6fGHpArHw==
@@ -2808,17 +2808,17 @@
     winston "^3.2.1"
     yn "^4.0.0"
 
-"@backstage/plugin-auth-backend@^0.17.4":
-  version "0.17.4"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.17.4.tgz#84d9333b0419ac2b93502a3de37bd4240615039d"
-  integrity sha512-i6Fkmn287sDffg2d75i5ld/0p1iDsQCjQP8/7FNJejLODexUh2B+JaxHaKwnUTVuMxM/a1KFAOA1Fq5rA2tCuA==
+"@backstage/plugin-auth-backend@^0.18.0":
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.18.0.tgz#404c86cc3d1e4a9e7e6e87b79a079114c04efe75"
+  integrity sha512-HC2sbFQcSx4B/d+KqZqt7M2KuBJj5M9SPHihJSRxhELDNKqBgF8I6naCoDlsEfExWmqh//JVAD3kyR5YlyyIDA==
   dependencies:
-    "@backstage/backend-common" "^0.18.1"
-    "@backstage/catalog-client" "^1.3.0"
-    "@backstage/catalog-model" "^1.1.5"
+    "@backstage/backend-common" "^0.18.2"
+    "@backstage/catalog-client" "^1.3.1"
+    "@backstage/catalog-model" "^1.2.0"
     "@backstage/config" "^1.0.6"
     "@backstage/errors" "^1.1.4"
-    "@backstage/plugin-auth-node" "^0.2.10"
+    "@backstage/plugin-auth-node" "^0.2.11"
     "@backstage/types" "^1.0.2"
     "@davidzemon/passport-okta-oauth" "^0.0.5"
     "@google-cloud/firestore" "^6.0.0"
