@@ -15,6 +15,9 @@ app:
           - url: https://github.com/shortlink-org/shortlink/releases
             title: ShortLink Release
 
+lighthouse:
+  baseUrl: https://shortlink.best
+
 kubernetes:
   serviceLocatorMethod:
     type: 'multiTenant'
