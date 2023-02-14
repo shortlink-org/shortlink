@@ -17,6 +17,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
@@ -39,7 +40,8 @@ import (
 
 type LinkService struct {
 	// Common
-	Log logger.Logger
+	Log    logger.Logger
+	Config *config.Config
 
 	// Delivery
 	linkMQ            *api_mq.Event
@@ -200,6 +202,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataS
 func NewLinkService(
 	// Common
 	log logger.Logger,
+	config *config.Config,
 
 	// Application
 	linkService *link.Service,
@@ -222,7 +225,8 @@ func NewLinkService(
 ) (*LinkService, error) {
 	return &LinkService{
 		// Common
-		Log: log,
+		Log:    log,
+		Config: config,
 
 		// Application
 		linkService:     linkService,

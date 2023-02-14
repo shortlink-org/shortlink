@@ -10,6 +10,7 @@ import (
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
@@ -39,6 +40,12 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
@@ -117,7 +124,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	billingService, err := NewBillingService(logger, server)
+	billingService, err := NewBillingService(logger, configConfig, server)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -140,6 +147,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 type BillingService struct {
 	// Common
 	Logger logger.Logger
+	Config *config.Config
 
 	// Delivery
 	httpAPIServer    *api.Server
@@ -241,13 +249,14 @@ func NewBillingAPIServer(ctx2 context.Context, logger2 logger.Logger,
 
 func NewBillingService(
 
-	log logger.Logger,
+	log logger.Logger, config2 *config.Config,
 
 	httpAPIServer *api.Server,
 ) (*BillingService, error) {
 	return &BillingService{
 
 		Logger: log,
+		Config: config2,
 
 		httpAPIServer: httpAPIServer,
 	}, nil

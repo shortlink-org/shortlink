@@ -15,6 +15,7 @@ import (
 	"github.com/google/wire"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
@@ -24,7 +25,8 @@ import (
 
 type LoggerService struct {
 	// Common
-	Log logger.Logger
+	Log    logger.Logger
+	Config *config.Config
 
 	// Delivery
 	loggerMQ *logger_mq.Event
@@ -68,6 +70,7 @@ func NewLoggerApplication(logger logger.Logger) (*logger_application.Service, er
 func NewLoggerService(
 	// Common
 	log logger.Logger,
+	config *config.Config,
 
 	// Application
 	loggerService *logger_application.Service,
@@ -77,7 +80,8 @@ func NewLoggerService(
 ) (*LoggerService, error) {
 	return &LoggerService{
 		// Common
-		Log: log,
+		Log:    log,
+		Config: config,
 
 		// Application
 		loggerService: loggerService,

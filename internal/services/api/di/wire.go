@@ -19,6 +19,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	api_application "github.com/shortlink-org/shortlink/internal/services/api/application"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
@@ -31,6 +32,7 @@ import (
 type APIService struct {
 	// Common
 	Logger logger.Logger
+	Config *config.Config
 
 	// Applications
 	service *api_application.API
@@ -124,12 +126,14 @@ func NewAPIApplication(
 func NewAPIService(
 	// Common
 	log logger.Logger,
+	config *config.Config,
 
 	service *api_application.API,
 ) (*APIService, error) {
 	return &APIService{
 		// Common
 		Logger: log,
+		Config: config,
 
 		service: service,
 	}, nil

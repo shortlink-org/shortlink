@@ -12,6 +12,7 @@ import (
 	"github.com/google/wire"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
@@ -24,7 +25,8 @@ import (
 // Service - heplers
 type Service struct {
 	// Common
-	Log logger.Logger
+	Log    logger.Logger
+	Config *config.Config
 
 	// Bot
 	slack    *slack.Bot
@@ -93,6 +95,7 @@ func NewBotApplication(ctx context.Context, logger logger.Logger, mq v1.MQ) (*ap
 func NewBotService(
 	// Common
 	log logger.Logger,
+	config *config.Config,
 
 	slack *slack.Bot,
 	telegram *telegram.Bot,
@@ -102,7 +105,8 @@ func NewBotService(
 ) (*Service, error) {
 	return &Service{
 		// Common
-		Log: log,
+		Log:    log,
+		Config: config,
 
 		slack:      slack,
 		telegram:   telegram,

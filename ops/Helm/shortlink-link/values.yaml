@@ -77,7 +77,7 @@ deploy:
     MQ_ENABLED: "false"
     MQ_TYPE: "kafka"
     MQ_KAFKA_URI: "kafka-kafka-bootstrap.kafka:9092"
-    TRACER_URI: grafana-tempo.grafana:6831
+    TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 
     # -- Default store config

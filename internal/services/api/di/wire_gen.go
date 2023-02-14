@@ -10,6 +10,7 @@ import (
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
@@ -37,6 +38,12 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
@@ -117,7 +124,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	apiService, err := NewAPIService(logger, api)
+	apiService, err := NewAPIService(logger, configConfig, api)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -140,6 +147,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 type APIService struct {
 	// Common
 	Logger logger.Logger
+	Config *config.Config
 
 	// Applications
 	service *api_application.API
@@ -209,13 +217,14 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 
 func NewAPIService(
 
-	log logger.Logger,
+	log logger.Logger, config2 *config.Config,
 
 	service *api_application.API,
 ) (*APIService, error) {
 	return &APIService{
 
 		Logger: log,
+		Config: config2,
 
 		service: service,
 	}, nil

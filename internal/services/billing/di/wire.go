@@ -16,6 +16,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
@@ -35,6 +36,7 @@ import (
 type BillingService struct {
 	// Common
 	Logger logger.Logger
+	Config *config.Config
 
 	// Delivery
 	httpAPIServer    *api.Server
@@ -158,6 +160,7 @@ func NewBillingAPIServer(
 func NewBillingService(
 	// Common
 	log logger.Logger,
+	config *config.Config,
 
 	// Delivery
 	httpAPIServer *api.Server,
@@ -165,6 +168,7 @@ func NewBillingService(
 	return &BillingService{
 		// Common
 		Logger: log,
+		Config: config,
 
 		// Delivery
 		httpAPIServer: httpAPIServer,
