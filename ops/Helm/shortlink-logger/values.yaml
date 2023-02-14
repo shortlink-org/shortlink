@@ -54,7 +54,7 @@ deploy:
     MQ_TYPE: kafka
     MQ_KAFKA_URI: kafka-kafka-bootstrap.kafka:9092
     MQ_KAFKA_CONSUMER_GROUP: shortlink-logger
-    TRACER_URI: grafana-tempo.grafana:6831
+    TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
 
   imagePullSecrets: []
 

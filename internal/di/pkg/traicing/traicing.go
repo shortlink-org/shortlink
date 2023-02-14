@@ -11,7 +11,7 @@ import (
 )
 
 func New(ctx context.Context, log logger.Logger) (*trace.TracerProvider, func(), error) {
-	viper.SetDefault("TRACER_URI", "localhost:14268") // Tracing addr:host
+	viper.SetDefault("TRACER_URI", "localhost:14268/api/traces") // Tracing addr:host
 
 	config := traicing.Config{
 		ServiceName: viper.GetString("SERVICE_NAME"),

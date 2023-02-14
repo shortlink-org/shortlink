@@ -52,7 +52,7 @@ deploy:
   env:
     MQ_ENABLED: "false"
     MQ_TYPE: "rabbitmq"
-    TRACER_URI: grafana-tempo.grafana:6831
+    TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
 
   imagePullSecrets: []
 

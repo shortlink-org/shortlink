@@ -16,6 +16,7 @@ import (
 	"github.com/google/wire"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
@@ -32,7 +33,8 @@ import (
 
 type MetaDataService struct {
 	// Common
-	Log logger.Logger
+	Log    logger.Logger
+	Config *config.Config
 
 	// Observability
 	Monitoring *http.ServeMux
@@ -111,6 +113,7 @@ func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *metadata.Ser
 func NewMetaDataService(
 	// Common
 	log logger.Logger,
+	config *config.Config,
 
 	// Observability
 	monitoring *http.ServeMux,
@@ -127,7 +130,8 @@ func NewMetaDataService(
 ) (*MetaDataService, error) {
 	return &MetaDataService{
 		// Common
-		Log: log,
+		Log:    log,
+		Config: config,
 
 		// Observability
 		Monitoring: monitoring,

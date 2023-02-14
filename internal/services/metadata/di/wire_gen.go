@@ -10,6 +10,7 @@ import (
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
@@ -38,6 +39,12 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	logger, cleanup2, err := logger_di.New(context)
 	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
@@ -104,7 +111,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metaDataService, err := NewMetaDataService(logger, serveMux, service, event, metadata, metaStore)
+	metaDataService, err := NewMetaDataService(logger, configConfig, serveMux, service, event, metadata, metaStore)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -128,7 +135,8 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 
 type MetaDataService struct {
 	// Common
-	Log logger.Logger
+	Log    logger.Logger
+	Config *config.Config
 
 	// Observability
 	Monitoring *http.ServeMux
@@ -195,7 +203,7 @@ func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *metadata.Ser
 
 func NewMetaDataService(
 
-	log logger.Logger, monitoring2 *http.ServeMux,
+	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
 
 	service *metadata.Service,
 
@@ -206,7 +214,8 @@ func NewMetaDataService(
 ) (*MetaDataService, error) {
 	return &MetaDataService{
 
-		Log: log,
+		Log:    log,
+		Config: config2,
 
 		Monitoring: monitoring2,
 
