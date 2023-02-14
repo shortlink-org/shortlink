@@ -86,13 +86,13 @@ deploy:
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
-      path: /
+      path: /backstage
       port: 7007
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
-      path: /
+      path: /backstage
       port: 7007
 
   securityContext:
