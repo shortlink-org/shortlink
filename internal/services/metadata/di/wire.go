@@ -14,10 +14,13 @@ import (
 	"net/http"
 
 	"github.com/google/wire"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -37,7 +40,10 @@ type MetaDataService struct {
 	Config *config.Config
 
 	// Observability
-	Monitoring *http.ServeMux
+	Tracer        *trace.TracerProvider
+	Monitoring    *http.ServeMux
+	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Delivery
 	metadataMQ        *metadata_mq.Event
@@ -117,6 +123,9 @@ func NewMetaDataService(
 
 	// Observability
 	monitoring *http.ServeMux,
+	tracer *trace.TracerProvider,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Application
 	service *metadata.Service,
@@ -134,7 +143,10 @@ func NewMetaDataService(
 		Config: config,
 
 		// Observability
-		Monitoring: monitoring,
+		Tracer:        tracer,
+		Monitoring:    monitoring,
+		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 
 		// Application
 		service: service,

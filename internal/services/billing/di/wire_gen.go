@@ -10,9 +10,12 @@ import (
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
@@ -29,6 +32,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/store"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"go.opentelemetry.io/otel/trace"
+	"net/http"
 )
 
 // Injectors from wire.go:
@@ -49,21 +53,32 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	serveMux := monitoring.New(logger)
 	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup4, err := rpc.InitServer(logger, tracerProvider)
+	pprofEndpoint := profiling.New(logger)
+	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	dbStore, cleanup5, err := store.New(context, logger)
+	rpcServer, cleanup5, err := rpc.InitServer(logger, tracerProvider)
 	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	dbStore, cleanup6, err := store.New(context, logger)
+	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -72,6 +87,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	billingStore, err := NewBillingStore(context, logger, dbStore)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -81,6 +97,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	accountService, err := NewAccountApplication(logger, billingStore)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -90,6 +107,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	orderService, err := NewOrderApplication(logger, billingStore)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -99,6 +117,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	paymentService, err := NewPaymentApplication(logger, billingStore)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -108,6 +127,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	tariffService, err := NewTariffApplication(logger, billingStore)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -117,6 +137,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	server, err := NewBillingAPIServer(context, logger, tracerProvider, rpcServer, dbStore, accountService, orderService, paymentService, tariffService)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -124,8 +145,9 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	billingService, err := NewBillingService(logger, configConfig, server)
+	billingService, err := NewBillingService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, server)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -134,6 +156,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		return nil, nil, err
 	}
 	return billingService, func() {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -148,6 +171,12 @@ type BillingService struct {
 	// Common
 	Logger logger.Logger
 	Config *config.Config
+
+	// Observability
+	Tracer        *trace.TracerProvider
+	Monitoring    *http.ServeMux
+	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Delivery
 	httpAPIServer    *api.Server
@@ -249,7 +278,10 @@ func NewBillingAPIServer(ctx2 context.Context, logger2 logger.Logger,
 
 func NewBillingService(
 
-	log logger.Logger, config2 *config.Config,
+	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
+	tracer *trace.TracerProvider,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	httpAPIServer *api.Server,
 ) (*BillingService, error) {
@@ -257,6 +289,11 @@ func NewBillingService(
 
 		Logger: log,
 		Config: config2,
+
+		Tracer:        tracer,
+		Monitoring:    monitoring2,
+		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 
 		httpAPIServer: httpAPIServer,
 	}, nil
