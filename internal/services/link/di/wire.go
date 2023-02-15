@@ -11,14 +11,18 @@ package link_di
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/go-redis/cache/v9"
 	"github.com/google/wire"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -42,6 +46,12 @@ type LinkService struct {
 	// Common
 	Log    logger.Logger
 	Config *config.Config
+
+	// Observability
+	Tracer        *trace.TracerProvider
+	Monitoring    *http.ServeMux
+	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Delivery
 	linkMQ            *api_mq.Event
@@ -204,6 +214,12 @@ func NewLinkService(
 	log logger.Logger,
 	config *config.Config,
 
+	// Observability
+	monitoring *http.ServeMux,
+	tracer *trace.TracerProvider,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+
 	// Application
 	linkService *link.Service,
 	linkCQRSService *link_cqrs.Service,
@@ -227,6 +243,12 @@ func NewLinkService(
 		// Common
 		Log:    log,
 		Config: config,
+
+		// Observability
+		Tracer:        tracer,
+		Monitoring:    monitoring,
+		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 
 		// Application
 		linkService:     linkService,

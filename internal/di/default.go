@@ -50,17 +50,17 @@ type Service struct {
 	Tracer        *trace.TracerProvider
 	Monitoring    *http.ServeMux
 	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, monitoring.New, cache.New, i18n.New)
+var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, monitoring.New, cache.New, i18n.New, profiling.New)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
 	DefaultSet,
 	NewFullService,
 	store.New,
-	profiling.New,
 	mq_di.New,
 	rpc.InitServer,
 	rpc.InitClient,
@@ -104,6 +104,7 @@ func NewFullService(
 		Tracer:        tracer,
 		Monitoring:    monitoring,
 		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 	}, nil
 }
 

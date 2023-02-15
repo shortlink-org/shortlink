@@ -10,9 +10,15 @@ import (
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"go.opentelemetry.io/otel/trace"
+	"net/http"
 )
 
 // Injectors from wire.go:
@@ -27,13 +33,32 @@ func InitializeSCIDriver() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewSCIDriver(logger, context)
+	serveMux := monitoring.New(logger)
+	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
+	pprofEndpoint := profiling.New(logger)
+	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewSCIDriver(logger, context, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup4()
+		cleanup3()
 		cleanup2()
 		cleanup()
 	}, nil
@@ -43,8 +68,15 @@ func InitializeSCIDriver() (*Service, func(), error) {
 
 // Service - heplers
 type Service struct {
+	// Common
 	Ctx context.Context
 	Log logger.Logger
+
+	// Observability
+	Tracer        *trace.TracerProvider
+	Monitoring    *http.ServeMux
+	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
 
 // Context =============================================================================================================
@@ -62,9 +94,21 @@ func NewContext() (context.Context, func(), error) {
 // CSI =================================================================================================================
 var CSISet = wire.NewSet(di.DefaultSet, NewSCIDriver)
 
-func NewSCIDriver(log logger.Logger, ctx2 context.Context) (*Service, error) {
+func NewSCIDriver(
+
+	log logger.Logger, ctx2 context.Context, monitoring2 *http.ServeMux,
+	tracer *trace.TracerProvider,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+) (*Service, error) {
 	return &Service{
+
 		Ctx: ctx2,
 		Log: log,
+
+		Tracer:        tracer,
+		Monitoring:    monitoring2,
+		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 	}, nil
 }

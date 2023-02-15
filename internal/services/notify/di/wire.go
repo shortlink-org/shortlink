@@ -8,12 +8,16 @@ package notify_di
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/google/wire"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
 	"github.com/shortlink-org/shortlink/internal/services/notify/application"
@@ -27,6 +31,12 @@ type Service struct {
 	// Common
 	Log    logger.Logger
 	Config *config.Config
+
+	// Observability
+	Tracer        *trace.TracerProvider
+	Monitoring    *http.ServeMux
+	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Bot
 	slack    *slack.Bot
@@ -97,6 +107,12 @@ func NewBotService(
 	log logger.Logger,
 	config *config.Config,
 
+	// Observability
+	monitoring *http.ServeMux,
+	tracer *trace.TracerProvider,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+
 	slack *slack.Bot,
 	telegram *telegram.Bot,
 	smtp *smtp.Bot,
@@ -107,6 +123,12 @@ func NewBotService(
 		// Common
 		Log:    log,
 		Config: config,
+
+		// Observability
+		Tracer:        tracer,
+		Monitoring:    monitoring,
+		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 
 		slack:      slack,
 		telegram:   telegram,
