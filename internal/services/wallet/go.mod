@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/ethereum/go-ethereum v1.11.0
 	github.com/google/wire v0.5.0
-	github.com/shortlink-org/shortlink v0.0.0-20230216001340-443a998a442b
+	github.com/shortlink-org/shortlink v0.0.0-20230216024800-e9b44bba4fdb
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.1
 )
