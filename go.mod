@@ -56,9 +56,9 @@ require (
 	github.com/stretchr/testify v1.8.1
 	github.com/swaggo/swag v1.8.10
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
-	github.com/uptrace/go-clickhouse v0.3.0
-	github.com/uptrace/go-clickhouse/chdebug v0.3.0
-	github.com/uptrace/go-clickhouse/chotel v0.3.0
+	github.com/uptrace/go-clickhouse v0.3.1
+	github.com/uptrace/go-clickhouse/chdebug v0.3.1
+	github.com/uptrace/go-clickhouse/chotel v0.3.1
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.21
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.21
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.21
@@ -122,7 +122,7 @@ require (
 	github.com/eapache/go-resiliency v1.3.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20230111030713-bf00bc1b83b6 // indirect
 	github.com/eapache/queue v1.1.0 // indirect
-	github.com/fatih/color v1.13.0 // indirect
+	github.com/fatih/color v1.14.1 // indirect
 	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
@@ -226,7 +226,7 @@ require (
 	go.opentelemetry.io/otel/metric v0.36.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
-	golang.org/x/exp v0.0.0-20230118134722-a68e582fa157 // indirect
+	golang.org/x/exp v0.0.0-20230213192124-5e25df0256eb // indirect
 	golang.org/x/mod v0.7.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/term v0.5.0 // indirect
