@@ -512,6 +512,8 @@ github.com/evanphx/json-patch v4.11.0+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQL
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
 github.com/fatih/color v1.13.0 h1:8LOYc1KYPPmyKMuN8QV2DNRWNbLo6LZ0iLs8+mlH53w=
 github.com/fatih/color v1.13.0/go.mod h1:kLAiJbzzSOZDVNGyDpeOxJ47H46qBXwg5ILebYFFOfk=
+github.com/fatih/color v1.14.1 h1:qfhVLaG5s+nCROl1zJsZRxFeYrHLqWroPOQ8BWiNb4w=
+github.com/fatih/color v1.14.1/go.mod h1:2oHN61fhTpgcxD3TSWCgKDiH1+x4OiDVVGH8WlgGZGg=
 github.com/fatih/structtag v1.2.0/go.mod h1:mBJUNpUnHmRKrKlQQlmCrh5PuhftFbNv8Ys4/aAZl94=
 github.com/felixge/httpsnoop v1.0.1/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
 github.com/felixge/httpsnoop v1.0.2/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
@@ -1466,10 +1468,16 @@ github.com/ugorji/go v1.1.4/go.mod h1:uQMGLiO92mf5W77hV/PUCpI3pbzQx3CRekS0kk+RGr
 github.com/ugorji/go/codec v0.0.0-20181204163529-d75b2dcb6bc8/go.mod h1:VFNgLljTbGfSG7qAOspJ7OScBnGdDN/yBr0sguwnwf0=
 github.com/uptrace/go-clickhouse v0.3.0 h1:DfvcWPUjjei3yO6wrO3QI/xre00/oC9w/CgkbESCOK8=
 github.com/uptrace/go-clickhouse v0.3.0/go.mod h1:q+5KRIM9OF3cLW37ALdhyLyhLfXZMuFWuDIIR99Vblk=
+github.com/uptrace/go-clickhouse v0.3.1 h1:5wIoHZ0vCqX48gPgNHBIgW4089TkNZZOd+6Bso3thno=
+github.com/uptrace/go-clickhouse v0.3.1/go.mod h1:ZkFYp+b3tn7YiHR6yMnHqGetPfFZhbVYVTsTGBIbdCY=
 github.com/uptrace/go-clickhouse/chdebug v0.3.0 h1:kkltblHKlCrtTDeoUZP1/mis/1MVGmYo53NW7m+iWLM=
 github.com/uptrace/go-clickhouse/chdebug v0.3.0/go.mod h1:FYF3p8Aom9bbUYdIEfpZZssv9V15BgSpoVdCcbHTksw=
+github.com/uptrace/go-clickhouse/chdebug v0.3.1 h1:eAMrKXmF3MQ2ggdvRb+JZ3wELwLWaE4kTudxNLppgRc=
+github.com/uptrace/go-clickhouse/chdebug v0.3.1/go.mod h1:g1TT4y+3ooH/15oJyiE0TiQrWWowtTLEgEtV9P0/PvE=
 github.com/uptrace/go-clickhouse/chotel v0.3.0 h1:7JvIuE9gntWXnND3yA2HG722K4QMsVylp1TzwK0lxjk=
 github.com/uptrace/go-clickhouse/chotel v0.3.0/go.mod h1:aXvo93RNGjcTtQuwViWfmLsagXkyd7oGUcpxVcu2q2g=
+github.com/uptrace/go-clickhouse/chotel v0.3.1 h1:HA6ZC2H7tkaAs5Uh/00AswfDCMW2eB3xCnV5WW/PhXo=
+github.com/uptrace/go-clickhouse/chotel v0.3.1/go.mod h1:6Cx6McOrYvjCjqA0qoR7XPoq25A+p7JVrH35I0fF3hI=
 github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.21 h1:FkXgtaA8GXdYjN/GOf+XbKX3HXFAOMD3FRNxwVn7htM=
 github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.21/go.mod h1:mYg+ZJ9KW7byW8uBm29f19H0BdjxQSA6IMlL+syKjTY=
 github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.21 h1:OXsouNDvuET5o1A4uvoCnAXuuNke8JlfZWceciyUlC8=
@@ -1698,6 +1706,8 @@ golang.org/x/exp v0.0.0-20200207192155-f17229e696bd/go.mod h1:J/WKrq2StrnmMY6+EH
 golang.org/x/exp v0.0.0-20200224162631-6cc2880d07d6/go.mod h1:3jZMyOhIsHpP37uCMkUooju7aAi5cS1Q23tOzKc+0MU=
 golang.org/x/exp v0.0.0-20230118134722-a68e582fa157 h1:fiNkyhJPUvxbRPbCqY/D9qdjmPzfHcpK3P4bM4gioSY=
 golang.org/x/exp v0.0.0-20230118134722-a68e582fa157/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
+golang.org/x/exp v0.0.0-20230213192124-5e25df0256eb h1:PaBZQdo+iSDyHT053FjUCgZQ/9uqVwPOcl7KSWhKn6w=
+golang.org/x/exp v0.0.0-20230213192124-5e25df0256eb/go.mod h1:CxIveKay+FTh1D0yPZemJVgC/95VzuuOLq5Qi4xnoYc=
 golang.org/x/image v0.0.0-20180708004352-c73c2afc3b81/go.mod h1:ux5Hcp/YLpHSI86hEcLt0YII63i6oz57MZXIpbrjZUs=
 golang.org/x/image v0.0.0-20190227222117-0694c2d4d067/go.mod h1:kZ7UVZpmo3dzQBMxlp+ypCbDeSB+sBbTgSJuh5dn5js=
 golang.org/x/image v0.0.0-20190802002840-cff245a6509b/go.mod h1:FeLwcggjj3mMvU+oOTbSwawSJRM1uh48EjtB4UJZlP0=
