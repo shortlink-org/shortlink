@@ -22,8 +22,6 @@ services:
     ports:
       - "24224:24224"
       - "24224:24224/udp"
-    networks:
-      - simple
     volumes:
       - ./ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.conf:/fluent-bit/etc/fluent-bit.conf
       - ./ops/docker-compose/tooling/observability/fluent-bit/parsers.conf:/fluent-bit/etc/parsers.conf

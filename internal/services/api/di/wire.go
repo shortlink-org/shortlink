@@ -19,7 +19,9 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	api_application "github.com/shortlink-org/shortlink/internal/services/api/application"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
@@ -36,6 +38,12 @@ type APIService struct {
 
 	// Applications
 	service *api_application.API
+
+	// Observability
+	Tracer        *trace.TracerProvider
+	Monitoring    *http.ServeMux
+	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
 
 // APIService ==========================================================================================================
@@ -55,7 +63,6 @@ var APISet = wire.NewSet(
 
 	// Applications
 	NewAPIApplication,
-
 	NewAPIService,
 )
 
@@ -128,12 +135,24 @@ func NewAPIService(
 	log logger.Logger,
 	config *config.Config,
 
+	// Observability
+	monitoring *http.ServeMux,
+	tracer *trace.TracerProvider,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+
 	service *api_application.API,
 ) (*APIService, error) {
 	return &APIService{
 		// Common
 		Logger: log,
 		Config: config,
+
+		// Observability
+		Tracer:        tracer,
+		Monitoring:    monitoring,
+		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 
 		service: service,
 	}, nil

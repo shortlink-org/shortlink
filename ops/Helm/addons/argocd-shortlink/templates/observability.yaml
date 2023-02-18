@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: observability
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: in-cluster
+            url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: observability
+    spec:
+      project: shortlink
+      source:
+        repoURL: 'https://github.com/shortlink-org/shortlink'
+        targetRevision: HEAD
+        path: ops/argocd/observability
+        directory:
+          recurse: true
+      destination:
+        name: ''
+        namespace: argocd
+        server: 'https://kubernetes.default.svc'
+      syncPolicy:
+        automated:
+          prune: true
+          allowEmpty: true
+          selfHeal: false
+  syncPolicy:
+    preserveResourcesOnDeletion: false

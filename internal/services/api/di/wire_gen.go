@@ -10,10 +10,12 @@ import (
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -47,23 +49,33 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	printer := i18n.New(context)
+	serveMux := monitoring.New(logger)
 	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup4, err := rpc.InitServer(logger, tracerProvider)
+	pprofEndpoint := profiling.New(logger)
+	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(logger)
-	clientConn, cleanup5, err := rpc.InitClient(logger, tracerProvider)
+	printer := i18n.New(context)
+	rpcServer, cleanup5, err := rpc.InitServer(logger, tracerProvider)
 	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider)
+	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -72,6 +84,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	metadataServiceClient, err := NewMetadataRPCClient(clientConn)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -81,6 +94,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	linkServiceClient, err := NewLinkRPCClient(clientConn)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -90,6 +104,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	linkCommandServiceClient, err := NewLinkCommandRPCClient(clientConn)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -99,6 +114,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	linkQueryServiceClient, err := NewLinkQueryRPCClient(clientConn)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -108,6 +124,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	sitemapServiceClient, err := NewSitemapServiceClient(clientConn)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -117,6 +134,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, serveMux, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -124,8 +142,9 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	apiService, err := NewAPIService(logger, configConfig, api)
+	apiService, err := NewAPIService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, api)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -134,6 +153,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		return nil, nil, err
 	}
 	return apiService, func() {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -151,6 +171,12 @@ type APIService struct {
 
 	// Applications
 	service *api_application.API
+
+	// Observability
+	Tracer        *trace.TracerProvider
+	Monitoring    *http.ServeMux
+	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
 
 // APIService ==========================================================================================================
@@ -161,7 +187,6 @@ var APISet = wire.NewSet(di.DefaultSet, rpc.InitServer, rpc.InitClient, NewLinkR
 	NewMetadataRPCClient,
 
 	NewAPIApplication,
-
 	NewAPIService,
 )
 
@@ -217,7 +242,10 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 
 func NewAPIService(
 
-	log logger.Logger, config2 *config.Config,
+	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
+	tracer *trace.TracerProvider,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	service *api_application.API,
 ) (*APIService, error) {
@@ -225,6 +253,11 @@ func NewAPIService(
 
 		Logger: log,
 		Config: config2,
+
+		Tracer:        tracer,
+		Monitoring:    monitoring2,
+		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 
 		service: service,
 	}, nil

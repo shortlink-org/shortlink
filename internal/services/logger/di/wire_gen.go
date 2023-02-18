@@ -10,14 +10,20 @@ import (
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
 	"github.com/shortlink-org/shortlink/internal/services/logger/application"
 	"github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
+	"go.opentelemetry.io/otel/trace"
+	"net/http"
 )
 
 // Injectors from wire.go:
@@ -38,33 +44,58 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLoggerApplication(logger)
+	serveMux := monitoring.New(logger)
+	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup3, err := mq_di.New(context, logger)
+	pprofEndpoint := profiling.New(logger)
+	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
 	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewLoggerApplication(logger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	mq, cleanup5, err := mq_di.New(context, logger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	event, err := InitLoggerMQ(context, logger, mq, service)
 	if err != nil {
+		cleanup5()
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	loggerService, err := NewLoggerService(logger, configConfig, service, event)
+	loggerService, err := NewLoggerService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event)
 	if err != nil {
+		cleanup5()
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	return loggerService, func() {
+		cleanup5()
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -77,6 +108,12 @@ type LoggerService struct {
 	// Common
 	Log    logger.Logger
 	Config *config.Config
+
+	// Observability
+	Tracer        *trace.TracerProvider
+	Monitoring    *http.ServeMux
+	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Delivery
 	loggerMQ *logger_mq.Event
@@ -113,7 +150,10 @@ func NewLoggerApplication(logger2 logger.Logger) (*logger_application.Service, e
 
 func NewLoggerService(
 
-	log logger.Logger, config2 *config.Config,
+	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
+	tracer *trace.TracerProvider,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	loggerService *logger_application.Service,
 
@@ -123,6 +163,11 @@ func NewLoggerService(
 
 		Log:    log,
 		Config: config2,
+
+		Tracer:        tracer,
+		Monitoring:    monitoring2,
+		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 
 		loggerService: loggerService,
 
