@@ -45,7 +45,7 @@ require (
 	github.com/rabbitmq/amqp091-go v1.7.0
 	github.com/redis/go-redis/extra/redisotel/v9 v9.0.2
 	github.com/redis/go-redis/v9 v9.0.2
-	github.com/riandyrn/otelchi v0.5.0
+	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/encoding v0.3.6
 	github.com/sirupsen/logrus v1.9.0
