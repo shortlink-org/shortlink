@@ -61,6 +61,7 @@ down: ## Down docker compose
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
 		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
+		-f ops/docker-compose/tooling/observability/pyroscope/pyroscope.yaml \
 		-f ops/docker-compose/gateway/caddy/caddy.yaml \
 		-f ops/docker-compose/gateway/nginx/nginx.yaml \
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
