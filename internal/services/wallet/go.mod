@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/ethereum/go-ethereum v1.11.1
 	github.com/google/wire v0.5.0
-	github.com/shortlink-org/shortlink v0.0.0-20230216024800-e9b44bba4fdb
+	github.com/shortlink-org/shortlink v0.0.0-20230217223955-bb301fd98cec
 	github.com/spf13/viper v1.15.0
 	github.com/stretchr/testify v1.8.1
 )
@@ -140,7 +140,7 @@ require (
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/text v0.7.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
-	google.golang.org/genproto v0.0.0-20230209215440-0dfe4f8abfcc // indirect
+	google.golang.org/genproto v0.0.0-20230216225411-c8e22ba71e44 // indirect
 	google.golang.org/grpc v1.53.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
