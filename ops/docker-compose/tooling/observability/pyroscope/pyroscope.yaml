@@ -1,0 +1,41 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  pyroscope:
+    <<: *network
+    depends_on:
+      - coredns
+    image: pyroscope/pyroscope:latest
+    command:
+      - 'server'
+    container_name: pyroscope
+    restart: on-failure
+    ports:
+      - "4040:4040"
+
+  app:
+    <<: *network
+    depends_on:
+      - coredns
+    image: pyroscope/pyroscope:latest
+    user: root
+    privileged: true
+    pid: 'host'
+    volumes:
+      - /lib/modules:/lib/modules
+    command:
+      - 'connect'
+      - '--spy-name'
+      - 'ebpfspy'
+      - '--pid'
+      - '-1'
+      - '--server-address'
+      - 'http://pyroscope:4040'

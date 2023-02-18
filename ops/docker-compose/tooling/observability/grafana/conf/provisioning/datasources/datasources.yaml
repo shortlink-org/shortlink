@@ -103,4 +103,11 @@ datasources:
     basicAuth: false
     editable: false
 
+  - name: Pyroscope
+    type: pyroscope-datasource
+    access: proxy
+    uid: pyroscope
+    jsonData:
+      path: http://pyroscope:4040
+
 
