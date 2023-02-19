@@ -146,7 +146,8 @@ const Home: NextPage = () => {
             >
               <Tab label="Application" {...a11yProps(0)} />
               <Tab label="Infrastructure" {...a11yProps(1)} />
-              <Tab label="Docs" {...a11yProps(2)} />
+              <Tab label="Observability" {...a11yProps(2)} />
+              <Tab label="Docs" {...a11yProps(3)} />
             </Tabs>
           </AppBar>
 
@@ -181,25 +182,9 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard('Prometheus', '/prometheus')}
-              {getCard('AlertManager', '/alertmanager')}
-            </Stack>
-
-            <Stack
-              spacing={{ xs: 1, sm: 2, md: 4 }}
-              direction="row"
-              divider={<Divider orientation="vertical" flexItem />}
-              mt={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              {getCard('Grafana', '/grafana')}
-
               {getCard('RabbitMQ', '/rabbitmq')}
 
               {getCard('Kafka', '/kafka-ui')}
-
-              {getCard('Kyverno', '/kyverno/#/')}
             </Stack>
 
             <Stack
@@ -217,6 +202,39 @@ const Home: NextPage = () => {
           </TabPanel>
 
           <TabPanel value={value} index={2} dir={theme.direction}>
+            <Typography variant="h5" align="center">
+              Observability
+            </Typography>
+
+            <Stack
+              spacing={{ xs: 1, sm: 2, md: 4 }}
+              direction="row"
+              divider={<Divider orientation="vertical" flexItem />}
+              mt={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              {getCard('Prometheus', '/prometheus')}
+              {getCard('AlertManager', '/alertmanager')}
+            </Stack>
+
+            <Stack
+              spacing={{ xs: 1, sm: 2, md: 4 }}
+              direction="row"
+              divider={<Divider orientation="vertical" flexItem />}
+              mt={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              {getCard('Grafana', '/grafana')}
+
+              {getCard('Pyroscope', 'https://pyroscope.shortlink.best')}
+
+              {getCard('Kyverno', '/kyverno/#/')}
+            </Stack>
+          </TabPanel>
+
+          <TabPanel value={value} index={3} dir={theme.direction}>
             <Typography variant="h5" align="center">
               Documentation and etc...
             </Typography>
