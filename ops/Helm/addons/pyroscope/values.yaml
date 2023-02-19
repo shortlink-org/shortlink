@@ -11,7 +11,7 @@ pyroscope:
       nginx.ingress.kubernetes.io/enable-opentracing: "false"
 
     hosts:
-      - host: shortlink.best
+      - host: pyroscope.shortlink.best
         paths:
           - path: /
             pathType: Prefix
