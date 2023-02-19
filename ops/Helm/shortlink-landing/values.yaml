@@ -40,7 +40,6 @@ ingress:
 
   hostname: shortlink.best
   path: /
-  pathType: Exact
   service:
     name: shortlink-landing
     port: 8080
