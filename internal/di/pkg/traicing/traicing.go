@@ -11,11 +11,13 @@ import (
 )
 
 func New(ctx context.Context, log logger.Logger) (*trace.TracerProvider, func(), error) {
-	viper.SetDefault("TRACER_URI", "localhost:14268/api/traces") // Tracing addr:host
+	viper.SetDefault("TRACER_URI", "localhost:14268/api/traces")         // Tracing addr:host
+	viper.SetDefault("PYROSCOPE_URI", "http://pyroscope.pyroscope:4040") // Pyroscope addr:host
 
 	config := traicing.Config{
-		ServiceName: viper.GetString("SERVICE_NAME"),
-		URI:         viper.GetString("TRACER_URI"),
+		ServiceName:  viper.GetString("SERVICE_NAME"),
+		URI:          viper.GetString("TRACER_URI"),
+		PyroscopeURI: viper.GetString("PYROSCOPE_URI"),
 	}
 
 	tracer, tracerClose, err := traicing.Init(ctx, config, log)
