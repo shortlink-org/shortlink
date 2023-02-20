@@ -6,6 +6,7 @@ package traicing
 import (
 	"context"
 
+	otelpyroscope "github.com/pyroscope-io/otel-profiling-go"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/jaeger"
 	"go.opentelemetry.io/otel/propagation"
@@ -20,14 +21,14 @@ import (
 
 // Init returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
 func Init(ctx context.Context, cnf Config, log logger.Logger) (trace.TracerProvider, func(), error) {
-	exp, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(cnf.URI)))
+	exporter, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(cnf.URI)))
 	if err != nil {
 		return nil, nil, err
 	}
 
 	tp := tracesdk.NewTracerProvider(
 		// Always be sure to batch in production.
-		tracesdk.WithBatcher(exp),
+		tracesdk.WithBatcher(exporter),
 		// Record information about this application in a Resource.
 		tracesdk.WithResource(resource.NewWithAttributes(
 			semconv.SchemaURL,
@@ -36,12 +37,20 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (trace.TracerProvi
 	)
 
 	cleanup := func() {
-		_ = exp.Shutdown(ctx)
+		_ = exporter.Shutdown(ctx)
 		_ = tp.Shutdown(ctx)
 	}
 
 	// Register the global Tracer provider
-	otel.SetTracerProvider(tp)
+	otel.SetTracerProvider(otelpyroscope.NewTracerProvider(
+		tp,
+		otelpyroscope.WithAppName(cnf.ServiceName),
+		otelpyroscope.WithPyroscopeURL(cnf.URI),
+		otelpyroscope.WithRootSpanOnly(true),
+		otelpyroscope.WithAddSpanName(true),
+		otelpyroscope.WithProfileURL(true),
+		otelpyroscope.WithProfileBaselineURL(true),
+	))
 
 	// Register the W3C trace context and baggage propagators so data is propagated across services/processes
 	otel.SetTextMapPropagator(
@@ -50,10 +59,6 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (trace.TracerProvi
 			propagation.Baggage{},
 		),
 	)
-
-	// Register our TracerProvider as the global so any imported
-	// instrumentation in the future will default to using it.
-	otel.SetTracerProvider(tp)
 
 	log.Info(`Tracing enable`, field.Fields{
 		"uri": cnf.URI,
