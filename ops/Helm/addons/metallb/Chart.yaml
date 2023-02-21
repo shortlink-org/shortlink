@@ -17,7 +17,7 @@ dependencies:
     version: 0.2.13
     repository: "file://../../shortlink-common"
   - name: metallb
-    version: 0.13.7
+    version: 0.13.9
     repository: https://metallb.github.io/metallb
     condition: metallb.enabled
     tags:
