@@ -22,6 +22,7 @@ advantage of PGO in future versions of Go.
 
 ### Additional tutorials and docs
 
+- [Profile-guided optimization](https://go.dev/doc/pgo)
 - [What is continuous profiling?](https://www.cncf.io/blog/2022/05/31/what-is-continuous-profiling/)
 - [What happens when you profile a continuous profiler?](https://pyroscope.io/blog/profile-continuous-profiler/)
 
@@ -50,6 +51,9 @@ We will use PGO for our application.
 
 We will get a little faster application.
 
+The standard approach is to store a pprof CPU profile with filename `default.pgo` in 
+the main package directory of the profiled binary, and build with go build -pgo=auto, 
+which will pick up default.pgo files automatically.
 
 ### Example work with pgo
 
@@ -57,7 +61,7 @@ We will get a little faster application.
 # Get profile
 $> curl -s  http://localhost:7071/debug/pprof/profile\?seconds\=30 > ./cpu.out
 # Merging profiles
-$> go tool pprof -proto a.pprof b.pprof > merged.pprof
+$> go tool pprof -proto a.pprof b.pprof > default.pgo
 # Build
-$> go build -o app -pgo=./cpu.out ./internal/services/api/cmd/api.go
+$> go build -o app -pgo=auto ./internal/services/api/cmd/api.go
 ```
