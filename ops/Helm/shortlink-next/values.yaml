@@ -73,7 +73,7 @@ deploy:
   terminationGracePeriodSeconds: 90
 
   # -- Annotations to be added to controller pods
-  annotations: {}
+  annotations: []
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/ui-next
