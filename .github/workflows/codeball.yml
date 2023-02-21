@@ -15,7 +15,7 @@ jobs:
           egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
 
       - name: Codeball
-        uses: sturdy-dev/codeball-action@b9dc4e06cac09555e0e71bebe1594928eecdb28f # v2
+        uses: sturdy-dev/codeball-action@102067b9f537482cee112577655c85fda56d8926 # v2.6.0
         with:
           # For all configuration options see https://github.com/sturdy-dev/codeball-action/blob/v2/action.yml
           approvePullRequests: "true"
