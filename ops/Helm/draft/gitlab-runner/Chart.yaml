@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: gitlab-runner
-    version: 0.49.2
+    version: 0.50.1
     repository: https://charts.gitlab.io
     condition: gitlab-runner.enabled
     tags:
