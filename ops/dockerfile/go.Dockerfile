@@ -8,6 +8,7 @@ ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 FROM --platform=$BUILDPLATFORM golang:1.20-alpine AS builder
 
+ARG PGO_PATH
 ARG CMD_PATH
 ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
@@ -15,6 +16,7 @@ ARG SKAFFOLD_GO_GCFLAGS
 ARG TARGETOS TARGETARCH
 
 ENV GOEXPERIMENT=arenas
+ENV PGO_PATH=auto
 
 WORKDIR /go/github.com/shortlink-org/shortlink
 
@@ -31,6 +33,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH \
   go build \
   -a \
+  -pgo=${PGO_PATH} \
   -gcflags="${SKAFFOLD_GO_GCFLAGS}" \
   -ldflags "-s -w -X main.CI_COMMIT_TAG=$CI_COMMIT_TAG" \
   -installsuffix cgo \
