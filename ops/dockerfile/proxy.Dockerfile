@@ -23,7 +23,7 @@ COPY ./internal/services/proxy /app/
 
 RUN mkdir -p /home/node/.npm
 RUN chown -R 1000:1000 /home/node/.npm
-RUN npm ci --cache .npm --prefer-offline --force
+RUN npm ci --prefer-offline --force
 RUN npm run build
 
 HEALTHCHECK \
