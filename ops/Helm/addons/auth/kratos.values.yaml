@@ -91,31 +91,6 @@ kratos:
             enabled: true
           oidc:
             enabled: true
-            config:
-              providers:
-                # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-                - id: github
-                  provider: github
-                  # Replace this with the OAuth2 Client ID provided by GitHub
-                  client_id: ....
-                  # Replace this with the OAuth2 Client Secret provided by GitHub
-                  client_secret: ....
-                  mapper_url: file:///etc/config/kratos/oidc.github.jsonnet
-                  scope:
-                    - user:email
-                # this is `<provider-id>` in the Authorization callback URL. DO NOT CHANGE IT ONCE SET!
-                - id: gitlab
-                  provider: gitlab
-                  # Replace this with the OAuth2 Client ID provided by GitLab
-                  client_id: ....
-                  # Replace this with the OAuth2 Client Secret provided by GitLab
-                  client_secret: ....
-                  mapper_url: file:///etc/config/kratos/oidc.gitlab.jsonnet
-                  scope:
-                    - read_user
-                    - openid
-                    - profile
-                    - email
 
         # These `ui_url` values are entirely dependant upon your setup.
         # For this example, the React-app runs in development mode on the default port of 3000.
