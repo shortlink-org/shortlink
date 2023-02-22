@@ -32,7 +32,7 @@ serviceAccount:
 enabled: true
 
 ingress:
-  enabled: false
+  enabled: true
   type: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
