@@ -6,6 +6,9 @@ import helmet from 'helmet'
 import {Logger} from "tslog"
 import {InversifyExpressServer} from "inversify-express-utils"
 import {createTerminus} from "@godaddy/terminus"
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 import './opentelemtery'
 import container from "./inversify.config"
