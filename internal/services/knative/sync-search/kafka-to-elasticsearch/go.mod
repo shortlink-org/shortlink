@@ -19,7 +19,7 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
@@ -37,7 +37,7 @@ require (
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.6.0 // indirect
 	google.golang.org/api v0.110.0 // indirect
-	google.golang.org/genproto v0.0.0-20230216225411-c8e22ba71e44 // indirect
+	google.golang.org/genproto v0.0.0-20230222225845-10f96fb3dbec // indirect
 	google.golang.org/grpc v1.53.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect

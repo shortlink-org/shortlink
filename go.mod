@@ -242,7 +242,6 @@ require (
 	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/exp v0.0.0-20230213192124-5e25df0256eb // indirect
 	golang.org/x/mod v0.8.0 // indirect
-	golang.org/x/oauth2 v0.5.0 // indirect
 	golang.org/x/sys v0.5.0 // indirect
 	golang.org/x/term v0.5.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
