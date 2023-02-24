@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import * as dotenv from 'dotenv'
 import * as Amqp from "amqp-ts"
 import {injectable} from "inversify"
 import {Logger} from "tslog"
@@ -10,6 +10,8 @@ class AMQPController {
   public connection: Amqp.Connection | undefined
 
   constructor() {
+    dotenv.config()
+
     if (process.env.MQ_ENABLED === 'false' || process.env.MQ_ENABLED === undefined) {
       log.info('AMQP disabled')
 
