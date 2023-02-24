@@ -14,27 +14,24 @@ services:
     depends_on:
       - coredns
     # NOTE: Please use the latest version here!
-    image: docker.redpanda.com/vectorized/redpanda:v21.11.15
+    image: docker.redpanda.com/vectorized/redpanda:v22.3.11
     container_name: redpanda
     restart: always
     command:
       - redpanda
       - start
-      - --smp
-      - '1'
-      - --reserve-memory
-      - 0M
+      # Tells Seastar (the framework Redpanda uses under the hood) to use 1 core on the system.
+      - --smp 1
+      # The amount of memory to make available to Redpanda.
+      - --memory 1G
       - --overprovisioned
       - --node-id
       - '0'
-      - --kafka-addr
-      - PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
-      - --advertise-kafka-addr
-      - PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092
-      - --pandaproxy-addr
-      - PLAINTEXT://0.0.0.0:28082,OUTSIDE://0.0.0.0:8082
-      - --advertise-pandaproxy-addr
-      - PLAINTEXT://redpanda:28082,OUTSIDE://localhost:8082
+      - --kafka-addr PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      - --advertise-kafka-addr PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092
+      - --schema-registry-addr internal://0.0.0.0:8081,external://0.0.0.0:18081
+      - --pandaproxy-addr PLAINTEXT://0.0.0.0:28082,OUTSIDE://0.0.0.0:8082
+      - --advertise-pandaproxy-addr PLAINTEXT://redpanda:28082,OUTSIDE://localhost:8082
     ports:
       - 8081:8081
       - 8082:8082
@@ -46,3 +43,28 @@ services:
       options:
         loki-url: ${LOGGER_DRIVER_URL}
         max-size: ${LOGGER_MAX_SIZE}
+
+  console:
+    <<: *network
+    depends_on:
+      - coredns
+      - redpanda
+    image: docker.redpanda.com/vectorized/console:v2.2.0
+    container_name: console
+    entrypoint: /bin/sh
+    command: -c 'echo "$$CONSOLE_CONFIG_FILE" > /tmp/config.yml; /app/console'
+    environment:
+      CONFIG_FILEPATH: /tmp/config.yml
+      CONSOLE_CONFIG_FILE: |
+        kafka:
+          brokers: ["redpanda:9092"]
+          schemaRegistry:
+            enabled: true
+            urls: ["http://redpanda:8081"]
+        redpanda:
+          adminApi:
+            enabled: true
+            urls: ["http://redpanda:9644"]
+    ports:
+      - 8080:8080
+
