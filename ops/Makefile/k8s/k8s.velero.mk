@@ -3,7 +3,7 @@ velero-up:
 	@kubectl apply -f ops/Helm/velero/minio/00-minio-deployment.yaml
 	@velero install \
 		--provider aws \
-		--plugins velero/velero-plugin-for-aws:v1.0.0 \
+		--plugins velero/velero-plugin-for-aws:v1.6.1 \
 		--bucket velero \
 		--secret-file ./ops/Helm/velero/credentials-velero \
 		--use-volume-snapshots=false \

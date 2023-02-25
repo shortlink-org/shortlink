@@ -1,7 +1,7 @@
 # CSI TASKS ============================================================================================================
 
 # Change to the latest supported snapshotter version
-SNAPSHOTTER_VERSION=v3.0.1
+SNAPSHOTTER_VERSION=v6.2.1
 
 csi-build: ## Build the CSI container
 		@echo docker buildx build \

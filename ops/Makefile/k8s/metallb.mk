@@ -1,6 +1,6 @@
 # MetalLB TASKS ========================================================================================================
 METALLB_SECRET := "$(openssl rand -base64 128)"
-METALLB_VERSION := v0.9.6
+METALLB_VERSION := v0.13.9
 
 metallb-up: ## Run MetalLB
 	@kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/${METALLB_VERSION}/manifests/namespace.yaml
