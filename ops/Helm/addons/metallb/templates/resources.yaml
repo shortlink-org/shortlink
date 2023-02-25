@@ -1,0 +1,16 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: loadbalanced
+spec:
+  addresses:
+  - 10.5.0.50/24
+---
+
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: l2advertisement1
+spec:
+  ipAddressPools:
+    - loadbalanced
