@@ -1,6 +1,18 @@
 metallb:
   enabled: true
 
+  prometheus:
+    scrapeAnnotations: true
+
+    podMonitor:
+      enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+    prometheusRule:
+      enabled: true
+
   configInline:
     address-pools:
     - name: default

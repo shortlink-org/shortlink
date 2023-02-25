@@ -21,11 +21,6 @@ spec:
       valueFiles:
         # default values
         - values.yaml
-      parameters:
-        - name: serviceAccount.create
-          value: 'false'
-        - name: deploy.env.MQ_ENABLED
-          value: 'true'
   project: shortlink
   syncPolicy:
     automated:

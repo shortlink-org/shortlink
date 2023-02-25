@@ -29,6 +29,23 @@ serviceAccount:
   automountServiceAccountToken: false
 
 # ==============================================================================
+# This secret for dev-stand. For production use CI-variables
+secret:
+  enabled: false
+  grpcServerCert: |
+    -----BEGIN CERTIFICATE-----
+    Your cert...
+    -----END CERTIFICATE-----
+  grpcServerKey: |
+    -----BEGIN EC PRIVATE KEY-----
+    Your key...
+    -----END EC PRIVATE KEY-----
+  grpcIntermediateCA: |
+    -----BEGIN CERTIFICATE-----
+    Your CA...
+    -----END CERTIFICATE-----
+
+# ==============================================================================
 ingress:
   enabled: true
   type: nginx
@@ -51,7 +68,7 @@ deploy:
   replicaCount: 1
 
   env:
-    MQ_ENABLED: false
+    MQ_ENABLED: "false"
     MQ_TYPE: rabbitmq
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
     API_LINK_SERVICE: http://shortlink-api.shortlink:7070
@@ -142,9 +159,6 @@ service:
       targetPort: 3020
       protocol: TCP
       public: true
-
-secret:
-  enabled: false
 
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
