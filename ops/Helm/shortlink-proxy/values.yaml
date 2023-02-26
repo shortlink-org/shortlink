@@ -92,7 +92,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/proxy
-    tag: 0.14.5
+    tag: 0.14.5.1
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -108,16 +108,16 @@ deploy:
   affinity: []
 
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
-  livenessProbe:
-    httpGet:
-      path: /ready
-      port: 3020
+#  livenessProbe:
+#    httpGet:
+#      path: /ready
+#      port: 3020
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
-  readinessProbe:
-    httpGet:
-      path: /ready
-      port: 3020
+#  readinessProbe:
+#    httpGet:
+#      path: /ready
+#      port: 3020
 
   resources:
     # -- We usually recommend not to specify default resources and to leave this as a conscious
@@ -131,25 +131,21 @@ deploy:
       cpu: 10m
       memory: 64Mi
 
-  podSecurityContext:
-    # -- fsGroup is the group ID associated with the container
-    fsGroup: 1000
-
   # -- Security Context policies for controller pods
   # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
   # notes on enabling and using sysctls
-  securityContext:
-    allowPrivilegeEscalation: false
-    runAsNonRoot: true
-    # runAsUser is the user ID used to run the container
-    runAsUser: 1000
-    # runAsGroup is the primary group ID used to run all processes within any container of the pod
-    runAsGroup: 1000
-    # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
-    readOnlyRootFilesystem: "true"
-    capabilities:
-      drop:
-        - ALL
+  securityContext: {}
+#    allowPrivilegeEscalation: false
+#    runAsNonRoot: true
+#    # runAsUser is the user ID used to run the container
+#    runAsUser: 1000
+#    # runAsGroup is the primary group ID used to run all processes within any container of the pod
+#    runAsGroup: 1000
+#    # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
+#    readOnlyRootFilesystem: "true"
+#    capabilities:
+#      drop:
+#        - ALL
 
 service:
   type: ClusterIP
