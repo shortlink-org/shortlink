@@ -3,14 +3,18 @@ argo-cd:
         cm:
             url: ENC[AES256_GCM,data:DvavBHv3llCfGrT+oG5Ks2yFw+NkvJYLv5JaNMLU1g==,iv:pqxmKwax8epukSL7TgI3awyW5HVorwtEWu/evHH/+2E=,tag:b//Uazc6iISEJjOklkn3hg==,type:str]
             dex.config: ENC[AES256_GCM,data:o3Kd9aITZW22/cDH0FwwkLDU5ldnkj/T1YNRMZ+I/I9asnG6cHYuVyUHPF94eIFWPUwP9bbXY0sJYg9C1aS3NtaptczkaYe8tJtHsfJd0ZFpUV4H2Em2aSaUHeaRg2k/VDpHaBFtAWKTJkCMu8DMtQQu7TUzG54LY3pZXBaDhopggWuklgqt2BPkQXQZ+ww/0hnwBPITzPoOR1aZ+6r2XF1YXmOlS2EZCKpTl4NBSXfTHO+XnCcBg7VtWrfx9PqxbDtVwDNQv2mRCZSRuysfGNDX3BqhhBbAUAmE8Yp3HjVfOYLNGXm6VVzWuPnHgDY5OQJDto0jJTWOUZA/WCta/A==,iv:b7ZxCbKnk5D5ffKnXSzyngZdpz+Y6vCh1//YPOkwwpw=,tag:PqMjPq7HeAn+11hZ46DyIQ==,type:str]
+    notifications:
+        secret:
+            items:
+                slack-token: ENC[AES256_GCM,data:kYpotaZPfGV6Uih7yfJWQ/Y/GrkaZ9XkLzEHBNgBu6VvALk35ekyw1RQ7tb1XtgQ9dy2yQEUJmU=,iv:igcRqi7uSlDp9IV6mOYWx06ojp33c/a4ZTHhfn3CIOA=,tag:48LXSzcI55TZxUvS3pocnA==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-01-15T20:20:14Z"
-    mac: ENC[AES256_GCM,data:qByJ67mYNrNuJqFe8qlYHK1jOvedYldotm2hwLpxEP8cQ0F+faQ9/lI9CiYAFYRQegKscZD8gZ2v8Sy1wuBv7YLnG5Ltj80LebCeh1HUphTF96cycPGSgvRawZSvVhPHri0jEQMShe5RYVfHJ4KBqBl+G+AKp6uddI4rK1zBsHA=,iv:Z8l0GwwnA+1wVuwI8+IULKbCVeCB1aQJL7zEaN9mTd0=,tag:5R19Ul54EnZwlQi0KOMbDQ==,type:str]
+    lastmodified: "2023-02-27T12:40:35Z"
+    mac: ENC[AES256_GCM,data:Jx9jIiNiX/QDZOkeLPe21xTmFTTrGtrMfCKB/wyjIcxfr5VyvS7LSJdVFFh3o0jSamYM1MBQZhoCWvciE1ghOKl+8fjpfvJRZv9/cyvTcmvtDjwe3/AtnMor54IL3SsU3z/yIe4vevHq516x+hp9+QqKDO3sfkbzUl1uRRajEt0=,iv:VIe3xTBxHcJslzn9NxJ8Sb3uf8K+Y/SYEX+lNPVzXP0=,tag:Mq8vx8pz0d1d2QzYzk80dA==,type:str]
     pgp:
         - created_at: "2023-01-15T16:35:29Z"
           enc: |
