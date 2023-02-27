@@ -7,7 +7,7 @@ COPY ./internal/services/backstage/package.json ./internal/services/backstage/ya
 COPY ./internal/services/backstage/packages packages
 # COPY plugins plugins
 
-RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
+RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {} \+
 
 # Stage 2 - Install dependencies and build packages
 FROM node:19-bullseye-slim AS build
@@ -87,6 +87,6 @@ ENV GITHUB_DEVELOPMENT_CLIENT_SECRET ""
 #ENV APP_CONFIG_auth_environment "production"
 #ENV APP_CONFIG_backend_database_connection_host "localhost"
 #ENV APP_CONFIG_backend_database_connection_port "5432"
-ENV NODE_OPTIONS "--max-old-space-size=400"
+ENV NODE_OPTIONS "--max-old-space-size=150"
 
 CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]
