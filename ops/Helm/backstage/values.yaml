@@ -67,7 +67,8 @@ deploy:
       maxUnavailable: 0
 
   resources:
-    limits: {}
+    limits:
+      memory: 248Mi
     requests: {}
 
   terminationGracePeriodSeconds: 90
@@ -77,7 +78,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/backstage
-    tag: 0.14.5.2
+    tag: 0.14.5.4
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -86,15 +87,15 @@ deploy:
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     failureThreshold: 30
-    initialDelaySeconds: 15
-    timeoutSeconds: 15
+    initialDelaySeconds: 300
+    timeoutSeconds: 60
     httpGet:
       path: /healthcheck
       port: 7007
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
-    initialDelaySeconds: 15
+    initialDelaySeconds: 120
     timeoutSeconds: 15
     httpGet:
       path: /healthcheck
