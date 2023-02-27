@@ -134,8 +134,8 @@ deploy:
   # -- Security Context policies for controller pods
   # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
   # notes on enabling and using sysctls
-  securityContext: {}
-#    allowPrivilegeEscalation: false
+  securityContext:
+    allowPrivilegeEscalation: false
 #    runAsNonRoot: true
 #    # runAsUser is the user ID used to run the container
 #    runAsUser: 1000
@@ -143,9 +143,9 @@ deploy:
 #    runAsGroup: 1000
 #    # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
 #    readOnlyRootFilesystem: "true"
-#    capabilities:
-#      drop:
-#        - ALL
+    capabilities:
+      drop:
+        - ALL
 
 service:
   type: ClusterIP
