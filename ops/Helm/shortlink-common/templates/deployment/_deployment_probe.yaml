@@ -10,6 +10,7 @@
     periodSeconds: {{ .startupProbe.periodSeconds | default 5 }}
     successThreshold: {{ .startupProbe.successThreshold | default 1 }}
     failureThreshold: {{ .startupProbe.failureThreshold | default 5 }}
+    timeoutSeconds: {{ .startupProbe.timeoutSeconds | default 5 }}
   {{- end }}
 
   {{- if .livenessProbe }}
@@ -22,6 +23,7 @@
     periodSeconds: {{ .livenessProbe.periodSeconds | default 5 }}
     successThreshold: {{ .livenessProbe.successThreshold | default 1 }}
     failureThreshold: {{ .livenessProbe.failureThreshold | default 5 }}
+    timeoutSeconds: {{ .startupProbe.timeoutSeconds | default 5 }}
   {{- end }}
 
   {{- if .readinessProbe }}
@@ -34,5 +36,6 @@
     periodSeconds: {{ .readinessProbe.periodSeconds | default 5 }}
     successThreshold: {{ .readinessProbe.successThreshold | default 1 }}
     failureThreshold: {{ .readinessProbe.failureThreshold | default 30 }}
+    timeoutSeconds: {{ .startupProbe.timeoutSeconds | default 5 }}
   {{- end }}
 {{- end }}
