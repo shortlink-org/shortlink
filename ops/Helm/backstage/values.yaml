@@ -100,8 +100,14 @@ deploy:
       path: /healthcheck
       port: 7007
 
+  # -- Security Context policies for controller pods
+  # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+  # notes on enabling and using sysctls
   securityContext:
-    readOnlyRootFilesystem: false
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
 
   volumes:
     - name: tmp
