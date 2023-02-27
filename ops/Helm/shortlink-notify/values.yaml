@@ -53,6 +53,7 @@ deploy:
     MQ_ENABLED: "false"
     MQ_TYPE: "rabbitmq"
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
+    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink
 
   imagePullSecrets: []
 
