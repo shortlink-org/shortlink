@@ -230,11 +230,6 @@ argo-cd:
 
   notifications:
     argocdUrl: https://shortlink.best/argo/cd
-
-    secret:
-      items:
-        slack-token: <SECRET>
-
     notifiers:
       service.slack: |
         token: $slack-token
