@@ -112,14 +112,12 @@ deploy:
     httpGet:
       path: /ready
       port: 3020
-    timeoutSeconds: 5
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
       path: /ready
       port: 3020
-    timeoutSeconds: 5
 
   resources:
     # -- We usually recommend not to specify default resources and to leave this as a conscious
