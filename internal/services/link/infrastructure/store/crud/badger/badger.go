@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/dgraph-io/badger/v3"
+	"github.com/dgraph-io/badger/v4"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
