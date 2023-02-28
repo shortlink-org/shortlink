@@ -10,15 +10,22 @@ import (
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
 	"github.com/shortlink-org/shortlink/internal/services/notify/application"
 	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/slack"
 	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/smtp"
 	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/telegram"
+	"go.opentelemetry.io/otel/trace"
+	"net/http"
 )
 
 // Injectors from wire.go:
@@ -33,30 +40,59 @@ func InitializeFullBotService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	configConfig, err := config.New()
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	serveMux := monitoring.New(logger)
+	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	pprofEndpoint := profiling.New(logger)
+	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	bot := InitSlack(context)
 	telegramBot := InitTelegram(context)
 	smtpBot := InitSMTP(context)
-	mq, cleanup3, err := mq_di.New(context, logger)
+	mq, cleanup5, err := mq_di.New(context, logger)
 	if err != nil {
+		cleanup4()
+		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	applicationBot, err := NewBotApplication(context, logger, mq)
 	if err != nil {
+		cleanup5()
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewBotService(logger, bot, telegramBot, smtpBot, applicationBot)
+	service, err := NewBotService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, bot, telegramBot, smtpBot, applicationBot)
 	if err != nil {
+		cleanup5()
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	return service, func() {
+		cleanup5()
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -68,7 +104,14 @@ func InitializeFullBotService() (*Service, func(), error) {
 // Service - heplers
 type Service struct {
 	// Common
-	Log logger.Logger
+	Log    logger.Logger
+	Config *config.Config
+
+	// Observability
+	Tracer        *trace.TracerProvider
+	Monitoring    *http.ServeMux
+	PprofEndpoint profiling.PprofEndpoint
+	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Bot
 	slack    *slack.Bot
@@ -131,13 +174,22 @@ func NewBotApplication(ctx2 context.Context, logger2 logger.Logger, mq v1.MQ) (*
 
 func NewBotService(
 
-	log logger.Logger, slack2 *slack.Bot, telegram2 *telegram.Bot, smtp2 *smtp.Bot,
+	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
+	tracer *trace.TracerProvider,
+	pprofHTTP profiling.PprofEndpoint,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro, slack2 *slack.Bot, telegram2 *telegram.Bot, smtp2 *smtp.Bot,
 
 	bot *application.Bot,
 ) (*Service, error) {
 	return &Service{
 
-		Log: log,
+		Log:    log,
+		Config: config2,
+
+		Tracer:        tracer,
+		Monitoring:    monitoring2,
+		PprofEndpoint: pprofHTTP,
+		AutoMaxPro:    autoMaxProcsOption,
 
 		slack:      slack2,
 		telegram:   telegram2,
