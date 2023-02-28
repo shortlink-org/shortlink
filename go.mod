@@ -13,6 +13,7 @@ require (
 	github.com/container-storage-interface/spec v1.7.0
 	github.com/cucumber/godog v0.12.6
 	github.com/dgraph-io/badger/v3 v3.2103.5
+	github.com/dgraph-io/badger/v4 v4.0.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/edgedb/edgedb-go v0.13.5
 	github.com/ethereum/go-ethereum v1.11.2
