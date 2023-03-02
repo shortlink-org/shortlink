@@ -106,6 +106,7 @@ deploy:
   # notes on enabling and using sysctls
   securityContext:
     allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
     capabilities:
       drop:
         - ALL
