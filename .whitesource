@@ -1,6 +1,16 @@
 {
   "scanSettings": {
-    "baseBranches": []
+    "baseBranches": ["main"]
+  },
+  "scanSettingsSAST": {
+    "enableScan": true,
+    "scanPullRequests": false,
+    "incrementalScan": false,
+    "baseBranches": ["main"]
+  },
+  "checkRunSettingsSAST": {
+    "checkRunConclusionLevel": "failure",
+    "severityThreshold": "high"
   },
   "checkRunSettings": {
     "vulnerableCheckRunConclusionLevel": "failure",
