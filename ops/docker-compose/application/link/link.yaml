@@ -13,6 +13,8 @@ services:
     <<: *network
     depends_on:
       - coredns
+      - redis
+      - postgres
     build:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
@@ -43,7 +45,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.41.0
+    image: prom/prometheus:v2.42.0
     profiles:
       - prometheus
     volumes:

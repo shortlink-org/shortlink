@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 
+	"github.com/pkg/errors"
 	"github.com/redis/go-redis/extra/redisotel/v9"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
@@ -45,7 +46,7 @@ func (s *Store) Init(ctx context.Context) error {
 	}
 
 	if _, err := s.client.Ping(ctx).Result(); err != nil {
-		return err
+		return errors.Wrap(err, "redis ping failed")
 	}
 
 	return nil

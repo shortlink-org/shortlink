@@ -28,6 +28,12 @@ dev: ## Run for development mode
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
+		-f ops/docker-compose/gateway/traefik/traefik.yaml \
+		-f ops/docker-compose/database/redis/redis.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
+		-f ops/docker-compose/mq/rabbitmq/rabbitmq.yaml \
 		up -d --remove-orphans --build
 
 run: ## Run this project in docker compose
