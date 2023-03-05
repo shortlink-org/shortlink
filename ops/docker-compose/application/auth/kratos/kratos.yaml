@@ -24,7 +24,7 @@ services:
     depends_on:
       - coredns
       - kratos_migrate
-    image: oryd/kratos:v0.11.0
+    image: oryd/kratos:v0.11.1
     command: serve -c /etc/config/kratos/kratos.yml --dev --watch-courier
     container_name: kratos
     environment:
@@ -42,14 +42,14 @@ services:
         target: /var/lib/sqlite
         read_only: false
       - type: bind
-        source: ./ops/docker-compose/application/auth/conf
+        source: ./ops/docker-compose/application/auth/kratos/conf
         target: /etc/config/kratos
 
   kratos_migrate:
     <<: *network
     depends_on:
       - coredns
-    image: oryd/kratos:v0.11.0
+    image: oryd/kratos:v0.11.1
     environment:
       DSN: sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
     command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
@@ -60,7 +60,7 @@ services:
         target: /var/lib/sqlite
         read_only: false
       - type: bind
-        source: ./ops/docker-compose/application/auth/conf
+        source: ./ops/docker-compose/application/auth/kratos/conf
         target: /etc/config/kratos
 
   # -------------------------------------------------------------------------- #

@@ -14,7 +14,7 @@ services:
     depends_on:
       - coredns
     # The official v2.0 Traefik docker image
-    image: traefik:v2.8
+    image: traefik:v3.0
     profiles:
       - gateway
     container_name: traefik
@@ -43,7 +43,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.41.0
+    image: prom/prometheus:v2.42.0
     profiles:
       - prometheus
     volumes:

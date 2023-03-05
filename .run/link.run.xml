@@ -1,16 +1,14 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="link" type="GoApplicationRunConfiguration" factoryName="Go Application"
-                 folderName="go/services">
-      <module name="shortlink"/>
-      <working_directory value="$PROJECT_DIR$"/>
-      <envs>
-          <env name="GRPC_CLIENT_PORT" value="443"/>
-          <env name="GRPC_SERVER_PORT" value="50053"/>
-          <env name="MQ_ENABLED" value="true"/>
-          <env name="STORE_TYPE" value="postgres"/>
-      </envs>
-      <kind value="PACKAGE"/>
-      <package value="github.com/shortlink-org/shortlink/internal/services/link/cmd"/>
+  <configuration default="false" name="link" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="go/services">
+    <module name="shortlink" />
+    <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="GRPC_CLIENT_PORT" value="443" />
+      <env name="GRPC_SERVER_PORT" value="50053" />
+      <env name="STORE_TYPE" value="postgres" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="github.com/shortlink-org/shortlink/internal/services/link/cmd" />
     <directory value="$PROJECT_DIR$" />
     <filePath value="$PROJECT_DIR$/cmd/link/link.go" />
     <method v="2" />
