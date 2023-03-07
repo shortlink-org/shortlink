@@ -37,7 +37,7 @@ We research next third-party authentication:
 
 Use this scheme:
 
-![authentication.png](./images/authentication.png)
+![authentication.png](./images/ADR-0015/authentication.png)
 
 ### Step 1. Try to use Keycloak
 

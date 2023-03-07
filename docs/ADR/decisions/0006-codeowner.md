@@ -14,7 +14,7 @@ Accepted
 
 ### Example from GitLab
 
-![gitlab-codeowner](imagesodeowner.png)
+![gitlab-codeowner](images/ADR-0006/codeowner.png)
 
 ### Structure
 
