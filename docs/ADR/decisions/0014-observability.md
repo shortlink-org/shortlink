@@ -16,7 +16,7 @@ We need to set standart tools for observability.
 
 We use [OpenTelemetry](https://opentelemetry.io/) for tracing and metrics.
 
-![http_add_link](./images/opentracing_add_link.png)
+![http_add_link](./images/ADR-0014/opentracing_add_link.png)
 
 ## Consequences
 

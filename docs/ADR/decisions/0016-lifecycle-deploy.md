@@ -16,6 +16,6 @@ We use [argocd-image-updater](https://github.com/argoproj-labs/argocd-image-upda
 
 ## Consequences
 
-![argocd-image-updater](./images/lifecycle-deploy.png)
+![argocd-image-updater](./images/ADR-0016/lifecycle-deploy.png)
 
 + We can update images in ArgoCD use [argocd-image-updater](https://github.com/argoproj-labs/argocd-image-updater#argo-cd-image-updater).

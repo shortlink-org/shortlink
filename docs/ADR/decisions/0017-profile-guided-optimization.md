@@ -45,7 +45,7 @@ We will use PGO for our application.
 4. Push to registry
 5. Deploy application
 
-![Pipeline](./images/profile-guided-optimization.png)
+![Pipeline](./images/ADR-0017/profile-guided-optimization.png)
 
 ## Consequences
 
