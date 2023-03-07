@@ -1,13 +1,13 @@
 .template_build:
   stage: build
   services:
-    - name: docker:23.0.0-rc.3-dind
+    - name: docker:23.0-dind
       command: [ "--experimental" ]
-  image: docker:23.0.0-rc.3-cli
+  image: docker:23.0-cli
   variables:
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
-    DOCKER_BUILDX_VERSION: v0.10.0
+    DOCKER_BUILDX_VERSION: v0.10.4
     BUILDX_GIT_LABELS: 1
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
