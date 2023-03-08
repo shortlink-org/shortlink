@@ -41,5 +41,6 @@ By selecting Cicilium as our network plugin, we expect to achieve the following 
 - Improved network performance and efficiency, thanks to eBPF
 ![ebpf host routing diagram](./images/ADR-0018/ebpf-host-routing-diagram.png)
 - Better security and policy enforcement, thanks to the L7 policy engine
+![cilium policy enforcement](https://docs.cilium.io/en/latest/_images/cilium_bpf_endpoint.svg)
 - Simplified network management and troubleshooting
 - Improved observability and monitoring
