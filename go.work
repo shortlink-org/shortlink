@@ -3,6 +3,5 @@ go 1.20
 use (
 	.
 	./internal/services/knative/sync-search/kafka-to-elasticsearch
-	./internal/services/notify
 	./pkg/shortdb-operator
 )
