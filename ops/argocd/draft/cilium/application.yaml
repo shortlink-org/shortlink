@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cilium
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: idp
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ops/Helm/addons/cilium
+    repoURL: 'https://github.com/shortlink-org/shortlink'
+    targetRevision: HEAD
+    helm:
+      releaseName: cilium
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
+  ignoreDifferences:
+    - group: kyverno.io
+      kind: ClusterPolicy
+      jqPathExpressions:
+        - .spec.rules[] | select(.name|test("autogen-."))
