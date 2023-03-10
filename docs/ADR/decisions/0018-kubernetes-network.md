@@ -4,12 +4,15 @@ Date: 2023-03-07
 
 ## Status
 
-Accepted
+Proposed
 
 ## Context
 
 As we plan the network configuration for our Kubernetes cluster, we need to consider the various network plugins 
 available and select the one that best meets our needs.
+
+Right now, we are using the default network plugin, which is Calico. However, we have identified several CNIs that can 
+provide better performance and security, including Cicilium, Weave, and Flannel.
 
 ## Decision
 

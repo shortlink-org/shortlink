@@ -34,7 +34,7 @@ for information team about cases for updated ADR.
   - [ADR-0003](./decisions/0003-observability-health-check.md) - Observability health check
 - **Network**
   - [ADR-0007](./decisions/0007-optimization-network.md) - Optimization network
-  - [ADR-0018](./decisions/0018-kubernetes-network.md) - Kubernetes network
+  - **Proposed**: [ADR-0018](./decisions/0018-kubernetes-network.md) - Kubernetes network
 - **DataBase**
   - [ADR-0004](./decisions/0004-use-uuid-as-primary-keys.md) - Use UUID as primary keys
   - [ADR-0005](./decisions/0005-postgres-optimization.md) - Postgres optimization
