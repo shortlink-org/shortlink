@@ -192,8 +192,8 @@ require (
 	github.com/nats-io/nats-server/v2 v2.9.6 // indirect
 	github.com/nats-io/nkeys v0.3.0 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
-	github.com/onsi/ginkgo/v2 v2.8.4 // indirect
-	github.com/onsi/gomega v1.27.2 // indirect
+	github.com/onsi/ginkgo/v2 v2.9.0 // indirect
+	github.com/onsi/gomega v1.27.3 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
 	github.com/opencontainers/runc v1.1.4 // indirect
