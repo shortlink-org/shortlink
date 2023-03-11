@@ -22,7 +22,7 @@ argo-cd:
       applicationLabels:
         enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
     rules:
       enabled: true
       spec:
@@ -57,7 +57,7 @@ argo-cd:
     metrics:
       enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
 
   redis:
     enabled: false
@@ -75,7 +75,7 @@ argo-cd:
     metrics:
       enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
 
     ingress:
       enabled: true
@@ -172,7 +172,7 @@ argo-cd:
     metrics:
       enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
 
     volumes:
       - name: custom-tools
@@ -226,7 +226,7 @@ argo-cd:
     metrics:
       enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
 
   notifications:
     argocdUrl: https://shortlink.best/argo/cd
@@ -239,7 +239,7 @@ argo-cd:
     metrics:
       enabled: true
       serviceMonitor:
-        enabled: false
+        enabled: true
 
   configs:
     repositories:
@@ -260,7 +260,7 @@ argo-workflows:
     telemetryConfig:
       enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
 
     workflowNamespaces: []
 
@@ -369,7 +369,7 @@ argo-rollouts:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
 
 argocd-image-updater:
   fullnameOverride: argocd-image-updater
@@ -419,4 +419,4 @@ argocd-image-updater:
   metrics:
     enabled: true
     serviceMonitor:
-      enabled: false
+      enabled: true
