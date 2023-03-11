@@ -277,9 +277,9 @@ argo-workflows:
       - /argo/workflows/
       - --auth-mode=server
 
+    baseHref: /argo/workflows/
+
     extraEnv:
-      - name: BASE_HREF
-        value: /argo/workflows
       - name: ARGO_BASE_HREF
         value: /argo/workflows
 
