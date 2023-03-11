@@ -42,6 +42,7 @@ argo-secret:
       --namespace=argocd
       sops-gpg || true
   script:
+    - kubectl create ns argocd || true
     - kubectl create secret generic
       --context=shortlink-org/shortlink:${PROVIDER}
       --namespace=argocd
