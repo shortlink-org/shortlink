@@ -42,7 +42,7 @@ spec:
         # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
         # notes on enabling and using sysctls
         securityContext:
-          allowPrivilegeEscalation: false
+          allowPrivilegeEscalation: {{ ((.Values.deploy).securityContext).allowPrivilegeEscalation | default false }}
           runAsNonRoot: true
           # runAsUser is the user ID used to run the container
           runAsUser: 1000
