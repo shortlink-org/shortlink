@@ -92,6 +92,9 @@ deploy:
     httpGet:
       path: /healthcheck
       port: 7007
+    httpHeaders:
+      - name: Host
+        value: shortlink.best
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
@@ -100,6 +103,9 @@ deploy:
     httpGet:
       path: /healthcheck
       port: 7007
+    httpHeaders:
+      - name: Host
+        value: shortlink.best
 
   # -- Security Context policies for controller pods
   # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
