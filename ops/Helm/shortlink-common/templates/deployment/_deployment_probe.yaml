@@ -6,6 +6,13 @@
     httpGet:
       path: {{ .startupProbe.httpGet.path | default "/healthz" }}
       port: {{ .startupProbe.httpGet.port | default 9090 }}
+    {{ with .startupProbe.httpHeaders }}
+    httpHeaders:
+      {{- range . }}
+      - name: {{ .name }}
+        value: {{ .value }}
+      {{- end }}
+    {{- end }}
     initialDelaySeconds: {{ .startupProbe.initialDelaySeconds | default 5 }}
     periodSeconds: {{ .startupProbe.periodSeconds | default 5 }}
     successThreshold: {{ .startupProbe.successThreshold | default 1 }}
@@ -19,6 +26,13 @@
     httpGet:
       path: {{ .livenessProbe.httpGet.path | default "/live" }}
       port: {{ .livenessProbe.httpGet.port | default 9090 }}
+    {{ with .livenessProbe.httpHeaders }}
+    httpHeaders:
+      {{- range . }}
+      - name: {{ .name }}
+        value: {{ .value }}
+      {{- end }}
+    {{- end }}
     initialDelaySeconds: {{ .livenessProbe.initialDelaySeconds | default 5 }}
     periodSeconds: {{ .livenessProbe.periodSeconds | default 5 }}
     successThreshold: {{ .livenessProbe.successThreshold | default 1 }}
@@ -32,6 +46,13 @@
     httpGet:
       path: {{ .readinessProbe.httpGet.path | default "/ready" }}
       port: {{ .readinessProbe.httpGet.port | default 9090 }}
+    {{ with .readinessProbe.httpHeaders }}
+    httpHeaders:
+      {{- range . }}
+      - name: {{ .name }}
+        value: {{ .value }}
+      {{- end }}
+    {{- end }}
     initialDelaySeconds: {{ .readinessProbe.initialDelaySeconds | default 5 }}
     periodSeconds: {{ .readinessProbe.periodSeconds | default 5 }}
     successThreshold: {{ .readinessProbe.successThreshold | default 1 }}
