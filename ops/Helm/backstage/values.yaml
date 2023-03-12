@@ -43,8 +43,8 @@ ingress:
   hostname: shortlink.best
   path: /backstage(/|$)(.*)
   service:
-    name: shortlink-next
-    port: 8080
+    name: backstage
+    port: 7007
 
   # istio:
   #  match:
