@@ -92,6 +92,9 @@ deploy:
       path: /ready
       port: 8080
 
+  securityContext:
+    readOnlyRootFilesystem: "false"
+
   volumes:
     - name: tmp
       mountPath: /tmp
@@ -121,9 +124,9 @@ networkPolicy:
     - Ingress
   ingress:
     from:
-      - namespaceSelector:
+      - podSelector:
           matchLabels:
-            name: nginx-ingress
+            app.kubernetes.io/name: nginx-ingress
     ports:
       - protocol: TCP
         port: 8080
