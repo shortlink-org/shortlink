@@ -1,6 +1,9 @@
 loki:
   enabled: true
 
+  global:
+    dnsService: coredns
+
   nameOverride: grafana-loki
 
   loki:
