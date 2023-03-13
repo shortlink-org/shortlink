@@ -1,7 +1,7 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{- define "shortlink-common.metadata" }}
-  name: {{ .name | default (include "helpers.fullname" .) }}
+  name: {{ default (include "helpers.fullname" .) }}
   labels:
     {{- if .Values.commonLabels }}
       {{- include "common.tplvalues.render" (dict "value" .Values.commonLabels "context" $) | nindent 4 }}
