@@ -46,13 +46,14 @@ ingress:
     name: backstage
     port: 7007
 
-  # istio:
-  #  match:
-  #    - uri:
-  #        prefix: /next
-  #  route:
-  #    destination:
-  #      port: 8080
+ingress_ui:
+  path: /backstage(/|$)(.*)
+
+ingress_api:
+  name: backstage-api
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /backstage/api/$2
+  path: /backstage/api(/|$)(.*)
 
 # ==============================================================================
 deploy:

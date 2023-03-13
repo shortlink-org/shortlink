@@ -4,6 +4,12 @@
 
 {{ include "shortlink-common.Deployment" . }}
 
-{{ include "shortlink-common.Ingress" . }}
+{{- $mergedConfigIngressUI := mustMergeOverwrite .Values.ingress .Values.ingress_ui -}}
+{{ $ingress_ui := merge . .Values.ingress_ui }}
+{{ include "shortlink-common.Ingress" $ingress_ui }}
+
+{{- $mergedConfigIngressAPI := mustMergeOverwrite .Values.ingress .Values.ingress_api -}}
+{{ $ingress_api := merge . .Values.ingress_api }}
+{{ include "shortlink-common.Ingress" $ingress_api }}
 
 {{ include "shortlink-common.Service" . }}
