@@ -1,17 +1,16 @@
 {{/* vim: set filetype=mustache: */}}
 
-{{- $defaultConfig := mustDeepCopy . -}}
-{{- $mergedIngressUI := mustMergeOverwrite .Values.ingress .Values.ingress_ui -}}
-{{- $mergedIngressAPI := mustMergeOverwrite .Values.ingress .Values.ingress_api -}}
-
-{{ $ingressUI := merge $defaultConfig $mergedIngressUI }}
-{{ $ingressAPI := merge $defaultConfig $mergedIngressAPI }}
-
 {{ include "shortlink-common.ServiceAccount" . }}
 
 {{ include "shortlink-common.Deployment" . }}
 
-{{ include "shortlink-common.Service" . }}
+{{- $defaultIngress := mustDeepCopy . -}}
+{{- $mergedIngressUI := mustMergeOverwrite $defaultIngress.Values.ingress .Values.ingress_ui -}}
+{{ include "shortlink-common.Ingress" $defaultIngress }}
 
-{{ include "shortlink-common.Ingress" $ingressUI }}
-{{ include "shortlink-common.Ingress" $ingressAPI }}
+
+{{- $defaultIngress = mustDeepCopy . -}}
+{{- $mergedIngressUI = mustMergeOverwrite $defaultIngress.Values.ingress .Values.ingress_api -}}
+{{ include "shortlink-common.Ingress" $defaultIngress }}
+
+{{ include "shortlink-common.Service" . }}
