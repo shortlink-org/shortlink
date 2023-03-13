@@ -10,7 +10,7 @@ phlare:
       profiles.grafana.com/mutex.scrape: "true"
 
     persistence:
-      enabled: true
+      enabled: false
       size: 10Gi
       storageClass: local-path
       accessModes:
