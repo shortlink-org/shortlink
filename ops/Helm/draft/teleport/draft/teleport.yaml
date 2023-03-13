@@ -4,6 +4,9 @@ metadata:
   name: teleport
 data:
   teleport.yaml: |
+    chartMode: standalone
+    clusterName: teleport.shortlink.best
+
     teleport:
       storage:
         type: sqlite
