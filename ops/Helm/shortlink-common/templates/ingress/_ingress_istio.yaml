@@ -4,7 +4,13 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  {{- include "shortlink-common.metadata" . | indent 2 }}
+  name: {{ empty .Values.ingress.name | ternary (include "helpers.fullname" .) .Values.ingress.name }}
+  labels:
+    {{- include "helpers.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   {{- with .Values.ingress.spec }}
     {{- toYaml . | nindent 2 }}

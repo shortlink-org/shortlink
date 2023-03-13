@@ -34,7 +34,7 @@ backend:
   # auth:
   #   keys:
   #     - secret: ${BACKEND_SECRET}
-  baseUrl: http://localhost:7007
+  baseUrl: http://localhost:7007/backstage
   # The listener can also be expressed as a single <host>:<port> string. In this case we bind to
   # all interfaces, the most permissive setting. The right value depends on your specific deployment.
   listen: ':7007'
@@ -60,6 +60,7 @@ backend:
   reading:
     allow:
       - host: github.com
+      - host: localhost
 
 integrations:
   github:
