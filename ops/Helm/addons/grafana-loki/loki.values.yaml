@@ -26,6 +26,7 @@ loki:
       storageClass: local-path
 
   singleBinary:
+    replicas: 1
     persistence:
       storageClass: local-path
 
