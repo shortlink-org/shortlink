@@ -3,7 +3,7 @@ istio-ingress:
 
 gateway:
   service:
-    type: LoadBalancer
+    type: ClusterIP
     ports:
       - name: status-port
         port: 15021
