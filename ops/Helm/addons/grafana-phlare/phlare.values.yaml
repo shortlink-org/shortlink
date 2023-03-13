@@ -35,5 +35,5 @@ phlare:
         kind: Deployment
         replicaCount: 1
       ingester:
-        kind: StatefulSet
+        kind: Deployment
         replicaCount: 1
