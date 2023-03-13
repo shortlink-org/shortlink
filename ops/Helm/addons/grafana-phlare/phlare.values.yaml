@@ -24,16 +24,16 @@ phlare:
         cpu: 10m
         memory: 64Mi
 
-    components:
-      querier:
-        kind: Deployment
-        replicaCount: 1
-      distributor:
-        kind: Deployment
-        replicaCount: 1
-      agent:
-        kind: Deployment
-        replicaCount: 1
-      ingester:
-        kind: Deployment
-        replicaCount: 1
+    components: []
+#      querier:
+#        kind: Deployment
+#        replicaCount: 1
+#      distributor:
+#        kind: Deployment
+#        replicaCount: 1
+#      agent:
+#        kind: Deployment
+#        replicaCount: 1
+#      ingester:
+#        kind: Deployment
+#        replicaCount: 1
