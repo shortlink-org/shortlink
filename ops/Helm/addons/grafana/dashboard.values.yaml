@@ -17,9 +17,6 @@ grafana:
         gnetId: 10991
         revision: 11
         datasource: Prometheus
-      go-runtime:
-        gnetId: 14061
-        datasource: Prometheus
       kyverno:
         url: https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json
       kubescape:
