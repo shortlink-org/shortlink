@@ -41,7 +41,6 @@ ingress:
     nginx.ingress.kubernetes.io/use-regex: "true"
 
   hostname: shortlink.best
-  path: /backstage(/|$)(.*)
   service:
     name: backstage
     port: 7007
