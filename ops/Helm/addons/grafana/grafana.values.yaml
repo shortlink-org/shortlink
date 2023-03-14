@@ -13,6 +13,12 @@ grafana:
 
   # adminPassword: shortlink
 
+  persistence:
+    enabled: true
+    storageClassName: local-path
+    inMemory:
+      enabled: true
+
   revisionHistoryLimit: 3
 
   serviceMonitor:
