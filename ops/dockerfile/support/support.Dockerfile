@@ -1,4 +1,4 @@
-FROM php:8.2-fpm-alpine
+FROM php:8.1-zts-buster
 
 # Install dependencies
 RUN apk add --no-cache \
