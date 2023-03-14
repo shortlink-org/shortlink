@@ -2655,6 +2655,21 @@
     zen-observable "^0.10.0"
     zod "~3.18.0"
 
+"@backstage/core-app-api@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.6.0.tgz#0ec6530eb605ec0d043984096116471bff0278c3"
+  integrity sha512-+HcPbdp6KHWSspw7/BWe/gRY//5SfL88gtJ5VALbfmAQsS7Yk2JBfPQgEJDMVcehwfGfRbsQKD+Kw6nMtjrasw==
+  dependencies:
+    "@backstage/config" "^1.0.7"
+    "@backstage/core-plugin-api" "^1.5.0"
+    "@backstage/types" "^1.0.2"
+    "@backstage/version-bridge" "^1.0.3"
+    "@types/prop-types" "^15.7.3"
+    prop-types "^15.7.2"
+    react-use "^17.2.4"
+    zen-observable "^0.10.0"
+    zod "~3.18.0"
+
 "@backstage/core-components@^0.12.4":
   version "0.12.4"
   resolved "https://registry.yarnpkg.com/@backstage/core-components/-/core-components-0.12.4.tgz#86933ef16b67d7f73d49c1e21edb6edf6a2b07cb"
@@ -2704,6 +2719,18 @@
   integrity sha512-GmQ7jEfV/SmVVYgxo99/FEjBTQNiL5H7jWtgAnwR+pht0UVY3WynW3optASbg76OSc+EpIkNIEXsU2LrMPJDeg==
   dependencies:
     "@backstage/config" "^1.0.6"
+    "@backstage/types" "^1.0.2"
+    "@backstage/version-bridge" "^1.0.3"
+    history "^5.0.0"
+    prop-types "^15.7.2"
+    zen-observable "^0.10.0"
+
+"@backstage/core-plugin-api@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-1.5.0.tgz#1188c89d8149b5805645e16bb67f2167da79dd85"
+  integrity sha512-IEbzBk128loMecy+btbMCd9FpVYg/THSRDe2qMpr9b/Ve21PJNRy5CMoX/P/4Nkplifp3nxWBBVusTgWneaG4Q==
+  dependencies:
+    "@backstage/config" "^1.0.7"
     "@backstage/types" "^1.0.2"
     "@backstage/version-bridge" "^1.0.3"
     history "^5.0.0"
@@ -3217,6 +3244,18 @@
     uuid "^8.0.0"
     zod "~3.18.0"
 
+"@backstage/plugin-permission-common@^0.7.4":
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-permission-common/-/plugin-permission-common-0.7.4.tgz#3597d5bab7c5d364d66ccf0e789b319581dc28db"
+  integrity sha512-AaErJWBugyDr0PLeszpsvpjb1B4IqzEBqrA0ZVcFg82nnEzxBgqY0YFjnP8St8Ekc67I2FwLem6XC9UKu8IBCw==
+  dependencies:
+    "@backstage/config" "^1.0.7"
+    "@backstage/errors" "^1.1.5"
+    "@backstage/types" "^1.0.2"
+    cross-fetch "^3.1.5"
+    uuid "^8.0.0"
+    zod "~3.18.0"
+
 "@backstage/plugin-permission-node@^0.7.5":
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-permission-node/-/plugin-permission-node-0.7.5.tgz#3424a8452bc100196fadeb583226b0aac610a96b"
@@ -3241,6 +3280,18 @@
     "@backstage/config" "^1.0.6"
     "@backstage/core-plugin-api" "^1.4.0"
     "@backstage/plugin-permission-common" "^0.7.3"
+    cross-fetch "^3.1.5"
+    react-use "^17.2.4"
+    swr "^2.0.0"
+
+"@backstage/plugin-permission-react@^0.4.11":
+  version "0.4.11"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-permission-react/-/plugin-permission-react-0.4.11.tgz#8c2b69ecad2de316bafb0fb54ac0807942634734"
+  integrity sha512-x4qQb6P8pgngiOYirefNJMXIYLDlNkKR/75Qsxagl8IA6DnG1miieLOumXAZTNT1aQedIjCka4OO9I4CJzPt8g==
+  dependencies:
+    "@backstage/config" "^1.0.7"
+    "@backstage/core-plugin-api" "^1.5.0"
+    "@backstage/plugin-permission-common" "^0.7.4"
     cross-fetch "^3.1.5"
     react-use "^17.2.4"
     swr "^2.0.0"
@@ -3724,17 +3775,17 @@
   dependencies:
     cross-fetch "^3.1.5"
 
-"@backstage/test-utils@^1.2.5":
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/@backstage/test-utils/-/test-utils-1.2.5.tgz#e2b8902bb54d434359db291ca98f37dba0ea1635"
-  integrity sha512-weHsLvux3pRzQ4m05QtdYhZ6Kmd/7Qjepe94tGiApbUzcZhHlzzkKWja0n+IQQmXwmuXmee5ojbKhm5H34f0/w==
+"@backstage/test-utils@^1.2.6":
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/@backstage/test-utils/-/test-utils-1.2.6.tgz#06c514164212f2569eedb6bc7158f2684c7e8027"
+  integrity sha512-kodnelrqob+S33zzAgBrMNQiQLSpImk2SpKIM3YCqTqF/9uyDjGbTrAE9Boyjm2f2RphHrAM6l57WLzmY/P1fw==
   dependencies:
-    "@backstage/config" "^1.0.6"
-    "@backstage/core-app-api" "^1.5.0"
-    "@backstage/core-plugin-api" "^1.4.0"
-    "@backstage/plugin-permission-common" "^0.7.3"
-    "@backstage/plugin-permission-react" "^0.4.10"
-    "@backstage/theme" "^0.2.17"
+    "@backstage/config" "^1.0.7"
+    "@backstage/core-app-api" "^1.6.0"
+    "@backstage/core-plugin-api" "^1.5.0"
+    "@backstage/plugin-permission-common" "^0.7.4"
+    "@backstage/plugin-permission-react" "^0.4.11"
+    "@backstage/theme" "^0.2.18"
     "@backstage/types" "^1.0.2"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
@@ -3748,6 +3799,13 @@
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/@backstage/theme/-/theme-0.2.17.tgz#89f6900f4cdb5bef838ebb1e71b0d5d582fe8ecc"
   integrity sha512-ztCcMG61E31aYsAxCaCYpaPjFAk0no7Hb2zeiF6TlIpJiw5iCr0dSq42IWETmugk1piVTzv2t/diyjoi50Ll7Q==
+  dependencies:
+    "@material-ui/core" "^4.12.2"
+
+"@backstage/theme@^0.2.18":
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/@backstage/theme/-/theme-0.2.18.tgz#a322577cd6b9498dbff995595c275f2736720f85"
+  integrity sha512-pax/gIQAk3niNbK1b3yd8IsU3nGLJ39GlL+kqTp2dV35DMKcaKp0L+nxS+PxNbxsjwB70TU+2cVQBe+zvtDFZw==
   dependencies:
     "@material-ui/core" "^4.12.2"
 
