@@ -15,7 +15,7 @@ WORKDIR /app
 COPY internal/services/bot /app
 RUN mvn -f /app/pom.xml clean package
 
-FROM openjdk:20-ea-28-jdk-slim
+FROM openjdk:21-ea-13-jdk-slim
 
 # Install dependencies
 RUN \
