@@ -28,7 +28,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
 	github.com/graph-gophers/graphql-go v1.5.0
-	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
+	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.15.2
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
