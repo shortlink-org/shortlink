@@ -15,7 +15,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: kiali-operator
-    version: 1.64.0
+    version: 1.65.0
     repository: https://kiali.org/helm-charts
     condition: kiali-operator.enabled
     tags:
