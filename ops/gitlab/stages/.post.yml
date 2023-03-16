@@ -8,13 +8,14 @@ load artifacts:
     - pipeline: $CI_UPSTREAM_PIPELINE_ID
       job: DEPENDENCY
       artifacts: true
-    - pipeline: $CI_UPSTREAM_PIPELINE_ID
-      job: GOLANG
-      artifacts: true
-    - pipeline: $CI_UPSTREAM_PIPELINE_ID
-      job: SAST
-      artifacts: true
+#    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+#      job: GOLANG
+#      artifacts: true
+#    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+#      job: SAST
+#      artifacts: true
   rules:
+    - when: always
     - if: $CI_COMMIT_TAG
       when: on_success
     - when: never
