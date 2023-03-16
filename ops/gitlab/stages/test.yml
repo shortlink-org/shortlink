@@ -22,8 +22,6 @@ DEPENDENCY:
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/test/dependency.yml'
-      # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/Code-Quality.gitlab-ci.yml
-      - template: Jobs/Code-Quality.gitlab-ci.yml
     strategy: depend
   needs: []
   rules:
