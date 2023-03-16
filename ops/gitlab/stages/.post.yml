@@ -1,0 +1,21 @@
+# Load artifacts from multi-pipeline
+# TODO: Watch https://gitlab.com/gitlab-org/gitlab/issues/202093#note_291607385
+load artifacts:
+  stage: .post
+  script:
+    - echo "Load artifacts from multi-pipeline"
+  needs:
+    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+      job: DEPENDENCY
+      artifacts: true
+    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+      job: GOLANG
+      artifacts: true
+    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+      job: SAST
+      artifacts: true
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+    - when: never
+
