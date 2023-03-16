@@ -5,8 +5,7 @@ load artifacts:
   script:
     - echo "Load artifacts from multi-pipeline"
   needs:
-    - pipeline: $CI_UPSTREAM_PIPELINE_ID
-      job: DEPENDENCY
+    - job: DEPENDENCY
       artifacts: true
 #    - pipeline: $CI_UPSTREAM_PIPELINE_ID
 #      job: GOLANG
