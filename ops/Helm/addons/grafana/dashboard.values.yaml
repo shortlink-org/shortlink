@@ -1,44 +1,44 @@
 grafana:
 
-  dashboards: {}
-#    default:
-#      argocd:
-#        url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
-#      cert-manager:
-#        # Ref: https://grafana.com/dashboards/11001
-#        gnetId: 11001
-#        datasource: Prometheus
-#      node-exporter:
-#        gnetId: 1860
-#        datasource: Prometheus
-#      ingress-nginx:
-#        url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-#      rabbitmq-overview:
-#        gnetId: 10991
-#        revision: 11
-#        datasource: Prometheus
-#      kyverno:
-#        url: https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json
-#      kubescape:
-#        url: https://raw.githubusercontent.com/dwertent/kubescape/master/httphandler/examples/prometheus/grafana-kubescape-dashboard.json
-#      istio-mesh:
-#        gnetId: 14061
-#        datasource: Prometheus
-#      istio-service:
-#        gnetId: 7636
-#        datasource: Prometheus
-#      istio-workload:
-#        gnetId: 7630
-#        datasource: Prometheus
-#      istio-control-plane:
-#        gnetId: 7645
-#        datasource: Prometheus
-#      istio-galley:
-#        gnetId: 7648
-#        datasource: Prometheus
-#      istio-mixer:
-#        gnetId: 7642
-#        datasource: Prometheus
-#      istio-wasm-extension:
-#        gnetId: 13277
-#        datasource: Prometheus
+  dashboards:
+    default:
+      argocd:
+        url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
+      cert-manager:
+        # Ref: https://grafana.com/dashboards/11001
+        gnetId: 11001
+        datasource: Prometheus
+      node-exporter:
+        gnetId: 1860
+        datasource: Prometheus
+      ingress-nginx:
+        url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
+      rabbitmq-overview:
+        gnetId: 10991
+        revision: 11
+        datasource: Prometheus
+      kyverno:
+        url: https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json
+      kubescape:
+        url: https://raw.githubusercontent.com/dwertent/kubescape/master/httphandler/examples/prometheus/grafana-kubescape-dashboard.json
+      istio-mesh:
+        gnetId: 14061
+        datasource: Prometheus
+      istio-service:
+        gnetId: 7636
+        datasource: Prometheus
+      istio-workload:
+        gnetId: 7630
+        datasource: Prometheus
+      istio-control-plane:
+        gnetId: 7645
+        datasource: Prometheus
+      istio-galley:
+        gnetId: 7648
+        datasource: Prometheus
+      istio-mixer:
+        gnetId: 7642
+        datasource: Prometheus
+      istio-wasm-extension:
+        gnetId: 13277
+        datasource: Prometheus
