@@ -7,7 +7,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # Install dependencies only when needed
-FROM node:19.7-alpine as deps
+FROM node:19.8-alpine as deps
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN npm config set ignore-scripts false
@@ -18,7 +18,7 @@ COPY ./ui/ui-kit/package.json ./ui/ui-kit/package-lock.json ./
 RUN npm ci --cache .npm --prefer-offline --force
 
 # Rebuild the source code only when needed
-FROM node:19.7-alpine as builder
+FROM node:19.8-alpine as builder
 
 WORKDIR /app
 COPY ./ui/ui-kit /app/
