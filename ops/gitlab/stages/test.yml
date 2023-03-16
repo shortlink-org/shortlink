@@ -1,6 +1,6 @@
 include:
-  - template: Jobs/Secret-Detection.gitlab-ci.yml     # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/Secret-Detection.gitlab-ci.yml
-  - template: Jobs/License-Scanning.gitlab-ci.yml     # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/License-Scanning.gitlab-ci.yml
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/License-Scanning.gitlab-ci.yml
+  - template: Jobs/License-Scanning.gitlab-ci.yml
 
 # GOLANG ===============================================================================================================
 GOLANG:
@@ -75,12 +75,12 @@ danger-review:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
 
 # SECRET-DETECTION =====================================================================================================
-# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/secret_detection
-#
-# Configure the scanning tool through the environment variables.
-# List of the variables: https://gitlab.com/gitlab-org/security-products/secret_detection#available-variables
-# How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 secret_detection:
+  stage: test
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/test/secret.yml'
+    strategy: depend
   needs: []
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
