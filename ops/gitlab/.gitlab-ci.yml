@@ -14,6 +14,7 @@ include:
   - local: /ops/gitlab/stages/release.yml
     rules:
       - if: $CI_COMMIT_TAG
+  - local: /ops/gitlab/stages/.post.yml
 
 stages:
   - test
