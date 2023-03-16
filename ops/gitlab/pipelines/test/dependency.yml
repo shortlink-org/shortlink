@@ -1,5 +1,19 @@
 include:
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/Code-Quality.gitlab-ci.yml
+  - template: Jobs/Code-Quality.gitlab-ci.yml
+
+# CODE QUALITY =========================================================================================================
+code_quality:
+  artifacts:
+    paths: [gl-code-quality-report.json]
+
+code_quality_html:
+  extends: code_quality
+  variables:
+    REPORT_FORMAT: html
+  artifacts:
+    paths: [gl-code-quality-report.html]
 
 # DEPENDENCY ===========================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/
