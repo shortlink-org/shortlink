@@ -9,7 +9,7 @@
 #
 # Once the commands have been run, you can build the image using `yarn build-image`
 
-FROM node:19-bullseye-slim@sha256:bd46b316736662adcf0e5610b40c0490cfdfdeb83ac7eda02e9fd74b44326b35
+FROM node:19-bullseye-slim@sha256:f408d4aa8edcf42d35bfe16c88f4d4aa1ba9101e9aff5f3acf57e9ee2aba42f4
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
