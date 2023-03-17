@@ -1,7 +1,7 @@
 import { check } from 'k6';
 import { writer, produce, reader, consume, createTopic } from 'k6/x/kafka';
 
-const bootstrapServers = ['kafka-kafka-bootstrap.kafka:9092'];
+const bootstrapServers = ['shortlink-kafka-bootstrap.kafka:9092'];
 const kafkaTopic = 'shortlink.link.event.new';
 
 createTopic(bootstrapServers[0], kafkaTopic);

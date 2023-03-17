@@ -22,7 +22,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | kafka-ui.enabled | bool | `true` |  |
-| kafka-ui.envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS | string | `"kafka-kafka-bootstrap:9092"` |  |
+| kafka-ui.envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS | string | `"shortlink-kafka-bootstrap:9092"` |  |
 | kafka-ui.envs.config.KAFKA_CLUSTERS_0_NAME | string | `"shortlink"` |  |
 | kafka-ui.envs.config.KAFKA_CLUSTERS_0_READONLY | string | `"true"` |  |
 | kafka-ui.envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER | string | `"kafka-zookeeper-client:2181"` |  |

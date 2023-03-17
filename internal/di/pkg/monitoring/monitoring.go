@@ -13,12 +13,15 @@ import (
 )
 
 // New - Monitoring endpoints
-func New(log logger.Logger) *http.ServeMux {
+func New(log logger.Logger) (*http.ServeMux, error) {
 	// Create a new Prometheus registry
 	registry := prometheus.NewRegistry()
 
 	// Add Go module build info.
-	_ = prometheus.Register(collectors.NewBuildInfoCollector())
+	err := prometheus.Register(collectors.NewBuildInfoCollector())
+	if err != nil {
+		return nil, err
+	}
 
 	// Create a metrics-exposing Handler for the Prometheus registry
 	// The healthcheck related metrics will be prefixed with the provided namespace
@@ -49,5 +52,5 @@ func New(log logger.Logger) *http.ServeMux {
 		"addr": "0.0.0.0:9090",
 	})
 
-	return commonMux
+	return commonMux, nil
 }
