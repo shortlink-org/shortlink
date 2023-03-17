@@ -2,12 +2,13 @@
 
 {{- define "shortlink-common.deploymentStrategy" -}}
 strategy:
-{{- if and (eq .Values.deploy.strategy.type "BlueGreen") }}
+{{- if .Values.deploy.strategy }}
+  {{- if eq .Values.deploy.strategy.type "BlueGreen" }}
   blueGreen:
     activeService: {{ include "helpers.fullname" . }}
     previewService: {{ include "helpers.fullname" . }}-preview
     autoPromotionEnabled: false
-{{- else if and (eq .Values.deploy.strategy.type "Canary") }}
+  {{- else if eq .Values.deploy.strategy.type "Canary" }}
   canary:
     stableService: {{ include "helpers.fullname" . }}
     canaryService: {{ include "helpers.fullname" . }}-preview
@@ -28,6 +29,7 @@ strategy:
       {{- end }}
     {{- end }}
     {{- toYaml .Values.deploy.strategy.canary | nindent 4 }}
+    {{- end }}
 {{- else }}
   type: RollingUpdate
   rollingUpdate:

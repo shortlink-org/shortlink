@@ -2,15 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-nameOverride: ""
-fullnameOverride: ""
-
-# -- Add labels to all the deployed resources
-commonLabels: {}
-
-# -- Add annotations to all the deployed resources
-commonAnnotations: {}
-
 # -- Pods Service Account
 # @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 serviceAccount:
@@ -20,10 +11,6 @@ serviceAccount:
   # -- The name of the ServiceAccount to use.
   # If not set and create is true, a name is generated using the `helpers.fullname` template
   # name: shortlink
-
-  # -- Annotations for service account. Evaluated as a template.
-  # Only used if `create` is `true`.
-  annotations: {}
 
   # -- Auto-mount the service account token in the pod
   automountServiceAccountToken: false
@@ -50,21 +37,13 @@ deploy:
   replicaCount: 1
 
   env:
-    MQ_ENABLED: "true"
+    MQ_ENABLED: true
     MQ_TYPE: kafka
     MQ_KAFKA_URI: kafka-kafka-bootstrap.kafka:9092
     MQ_KAFKA_CONSUMER_GROUP: shortlink-logger
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
 
   imagePullSecrets: []
-
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
-
-  terminationGracePeriodSeconds: 90
 
   # -- Annotations to be added to controller pods
   annotations: []
@@ -146,10 +125,4 @@ service:
 # ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
-  # -- Creates a Prometheus Operator ServiceMonitor
   enabled: true
-  # -- Additional labels that can be used so PodMonitor will be discovered by Prometheus
-  labels:
-    release: prometheus-operator
-  # -- The label to use to retrieve the job name from.
-  jobLabel: ""

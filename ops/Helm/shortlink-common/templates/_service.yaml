@@ -11,7 +11,7 @@ spec:
   {{- with .Values.service.spec }}
     {{- toYaml . | nindent 2 }}
   {{- end }}
-  type: {{ .Values.service.type }}
+  type: {{ .Values.service.type | default "ClusterIP" }}
   {{- if semverCompare ">=1.20" .Capabilities.KubeVersion.Version }}
   ipFamilyPolicy: PreferDualStack
   ipFamilies:

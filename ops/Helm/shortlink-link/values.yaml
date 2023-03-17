@@ -2,18 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# -- nameOverride String to partially override nginx.fullname template (will maintain the release name)
-nameOverride: ""
-
-# -- fullnameOverride String to fully override nginx.fullname template
-fullnameOverride: ""
-
-# -- Add labels to all the deployed resources
-commonLabels: {}
-
-# -- Add annotations to all the deployed resources
-commonAnnotations: {}
-
 # -- Pods Service Account
 # @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 serviceAccount:
@@ -23,10 +11,6 @@ serviceAccount:
   # -- The name of the ServiceAccount to use.
   # If not set and create is true, a name is generated using the `helpers.fullname` template
   # name: shortlink
-
-  # -- Annotations for service account. Evaluated as a template.
-  # Only used if `create` is `true`.
-  annotations: {}
 
   # -- Auto-mount the service account token in the pod
   automountServiceAccountToken: false
@@ -66,17 +50,14 @@ deploy:
   # type: Deployment, Rollout, StatefulSet
   type: Deployment
 
-  strategy:
-    type: RollingUpdate
-
   resources:
     limits: {}
     requests: {}
 
   env:
-    MQ_ENABLED: "false"
-    MQ_TYPE: "kafka"
-    MQ_KAFKA_URI: "kafka-kafka-bootstrap.kafka:9092"
+    MQ_ENABLED: true
+    MQ_TYPE: kafka
+    MQ_KAFKA_URI: kafka-kafka-bootstrap.kafka:9092
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 
@@ -102,10 +83,4 @@ service:
 
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
-  # -- Creates a Prometheus Operator ServiceMonitor
   enabled: true
-  # -- Additional labels that can be used so PodMonitor will be discovered by Prometheus
-  labels:
-    release: prometheus-operator
-  # -- The label to use to retrieve the job name from.
-  jobLabel: ""
