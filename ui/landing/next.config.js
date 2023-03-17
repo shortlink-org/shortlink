@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-const webpack = require('webpack')
 const withExportImages = require('next-export-optimize-images')
 
 // You can choose which headers to add to the list
@@ -56,11 +55,6 @@ const nextConfig = {
       },
     ],
   },
-  webpack: (config, { isServer, buildId }) => {
-    config.plugins.push(new webpack.DefinePlugin({}))
-
-    return config
-  },
   trailingSlash: false,
   headers: () => {
     return [
@@ -73,6 +67,20 @@ const nextConfig = {
   },
   experimental: {
     forceSwcTransforms: true,
+    turbo: {
+      loaders: {
+        '.md': [
+          {
+            loader: '@mdx-js/loader',
+            options: {
+              format: 'md',
+            },
+          },
+        ],
+        // Option-less format
+        '.mdx': '@mdx-js/loader',
+      }
+    }
   },
 }
 
