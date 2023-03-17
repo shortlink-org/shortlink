@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: cilium
-    version: 1.13.0
+    version: 1.13.1
     repository: https://helm.cilium.io/
     condition: cilium.enabled
     tags:
