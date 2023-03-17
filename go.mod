@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink
 go 1.20
 
 require (
-	github.com/Masterminds/squirrel v1.5.3
+	github.com/Masterminds/squirrel v1.5.4
 	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/Shopify/sarama v1.38.1
 	github.com/Unleash/unleash-client-go/v3 v3.7.3
