@@ -75,17 +75,6 @@ const NEXT_CONFIG = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
-  webpack: (config, { isServer, buildId }) => {
-    config.plugins.push(new webpack.DefinePlugin({}))
-
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
-
-    return config
-  },
   trailingSlash: false,
   headers: () => {
     return [
@@ -98,6 +87,21 @@ const NEXT_CONFIG = {
   },
   experimental: {
     forceSwcTransforms: true,
+    turbo: {
+      loaders: {
+        '.md': [
+          {
+            loader: '@mdx-js/loader',
+            options: {
+              format: 'md',
+            },
+          },
+        ],
+        // Option-less format
+        '.mdx': '@mdx-js/loader',
+        '.svg': '@svgr/webpack',
+      }
+    }
   },
 }
 
