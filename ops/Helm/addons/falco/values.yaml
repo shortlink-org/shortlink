@@ -1,0 +1,9 @@
+# Common default values for falcosecurity.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+falcosecurity:
+  enabled: true
+
+  driver:
+    kind: modern-bpf
