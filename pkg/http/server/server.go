@@ -16,7 +16,7 @@ func New(ctx context.Context, handler http.Handler, config Config) *http.Server 
 			return ctx
 		},
 
-		ReadTimeout:  1 * time.Second,                // the maximum duration for reading the entire request, including the body
+		ReadTimeout:  5 * time.Second,                // the maximum duration for reading the entire request, including the body
 		WriteTimeout: config.Timeout + 5*time.Second, // the maximum duration before timing out writes of the response
 		// the maximum amount of time to wait for the next request when keep-alive is enabled
 		IdleTimeout: 30 * time.Second, // nolint:gomnd
