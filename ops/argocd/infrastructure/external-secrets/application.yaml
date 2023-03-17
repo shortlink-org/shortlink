@@ -14,9 +14,16 @@ spec:
   source:
     chart: external-secrets
     repoURL: https://charts.external-secrets.io
-    targetRevision: v0.7.0
+    targetRevision: v0.8.0
     helm:
       releaseName: external-secrets
+      values: |
+        metrics:
+          service:
+            enabled: true
+        
+        serviceMonitor:
+          enabled: true
   syncPolicy:
     automated:
       prune: true
