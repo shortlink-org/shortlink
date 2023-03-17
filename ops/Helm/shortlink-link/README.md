@@ -30,7 +30,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 |-----|------|---------|-------------|
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
 | deploy.env.MQ_ENABLED | bool | `true` |  |
-| deploy.env.MQ_KAFKA_URI | string | `"kafka-kafka-bootstrap.kafka:9092"` |  |
+| deploy.env.MQ_KAFKA_URI | string | `"shortlink-kafka-bootstrap.kafka:9092"` |  |
 | deploy.env.MQ_TYPE | string | `"kafka"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
 | deploy.env.STORE_REDIS_URI | string | `"shortlink-redis-master.redis:6379"` |  |

@@ -32,7 +32,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.env.MQ_ENABLED | bool | `true` |  |
 | deploy.env.MQ_KAFKA_CONSUMER_GROUP | string | `"shortlink-logger"` |  |
-| deploy.env.MQ_KAFKA_URI | string | `"kafka-kafka-bootstrap.kafka:9092"` |  |
+| deploy.env.MQ_KAFKA_URI | string | `"shortlink-kafka-bootstrap.kafka:9092"` |  |
 | deploy.env.MQ_TYPE | string | `"kafka"` |  |
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |

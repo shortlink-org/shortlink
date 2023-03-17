@@ -5,7 +5,7 @@ metadata:
 spec:
   consumerGroup: knative-group
   bootstrapServers:
-    - kafka-kafka-bootstrap.kafka:9092 # note the kafka namespace
+    - shortlink-kafka-bootstrap.kafka:9092 # note the kafka namespace
   topics:
     - shortlink.link.event.new
   sink:
