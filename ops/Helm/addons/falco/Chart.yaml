@@ -17,6 +17,6 @@ dependencies:
   - name: falco
     version: 3.1.2
     repository: https://falcosecurity.github.io/charts
-    condition: falcosecurity.enabled
+    condition: falco.enabled
     tags:
       - security
