@@ -11,6 +11,8 @@ falco:
 falco-exporter:
   enabled: true
 
+  fullnameOverride: falco-exporter
+
   serviceMonitor:
     enabled: true
 
