@@ -165,7 +165,7 @@ const Home: NextPage = () => {
               alignItems="center"
             >
               {getCard('Next', '/next')}
-              {getCard('ui-kit', '/storybook')}
+              {getCard('ui-kit', '/storybook/')}
             </Stack>
           </TabPanel>
 

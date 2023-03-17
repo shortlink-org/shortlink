@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | redis | 17.6.0 |
+| https://charts.bitnami.com/bitnami | redis | 17.8.5 |
 
 ## Values
 
@@ -24,7 +24,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | redis.auth.password | string | `""` |  |
 | redis.enabled | bool | `true` |  |
 | redis.fullnameOverride | string | `"shortlink-redis"` |  |
+| redis.master.kind | string | `"Deployment"` |  |
 | redis.master.persistence.enabled | bool | `false` |  |
+| redis.master.persistence.storageClass | string | `"local-path"` |  |
 | redis.master.resources.limits.cpu | string | `"500m"` |  |
 | redis.master.resources.limits.memory | string | `"256Mi"` |  |
 | redis.master.resources.requests.cpu | string | `"10m"` |  |

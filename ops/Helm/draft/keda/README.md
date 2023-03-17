@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kedacore.github.io/charts | keda | 2.9.4 |
+| https://kedacore.github.io/charts | keda | 2.10.1 |
 
 ## Values
 

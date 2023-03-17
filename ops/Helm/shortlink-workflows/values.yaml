@@ -12,9 +12,5 @@ serviceAccount:
   # If not set and create is true, a name is generated using the `helpers.fullname` template
   # name: shortlink
 
-  # -- Annotations for service account. Evaluated as a template.
-  # Only used if `create` is `true`.
-  annotations: {}
-
   # -- Auto-mount the service account token in the pod
   automountServiceAccountToken: false

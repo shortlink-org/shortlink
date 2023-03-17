@@ -26,6 +26,7 @@ spec:
         {{- end }}
         {{- end }}
     spec:
+      terminationGracePeriodSeconds: {{ .Values.deploy.terminationGracePeriodSeconds | default 60 }}
     {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

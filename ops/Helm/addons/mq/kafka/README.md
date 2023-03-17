@@ -14,8 +14,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://provectus.github.io/kafka-ui | kafka-ui | 0.5.2 |
-| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.33.0 |
+| https://provectus.github.io/kafka-ui | kafka-ui | 0.6.0 |
+| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.33.2 |
 
 ## Values
 

@@ -1,6 +1,6 @@
-# shortlink-landing
+# backstage
 
-![Version: 0.6.1](https://img.shields.io/badge/Version-0.6.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink landing service
 
@@ -22,56 +22,47 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.2.25 |
+| file://../shortlink-common | shortlink-common | 0.4.0 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| commonAnnotations | object | `{}` | Add annotations to all the deployed resources |
-| commonLabels | object | `{}` | Add labels to all the deployed resources |
-| deploy.annotations | object | `{}` | Annotations to be added to controller pods |
+| deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.image.pullPolicy | string | `"Always"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
-| deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/landing"` |  |
-| deploy.image.tag | string | `"0.13.88"` |  |
+| deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/backstage"` |  |
+| deploy.image.tag | string | `"0.14.9"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
-| deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":8080}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":8080}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.livenessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":300,"timeoutSeconds":60}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.readinessProbe | object | `{"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":120,"timeoutSeconds":15}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.replicaCount | int | `1` |  |
-| deploy.resources.limits | object | `{}` |  |
+| deploy.resources.limits.memory | string | `"248Mi"` |  |
 | deploy.resources.requests | object | `{}` |  |
+| deploy.securityContext | object | `{"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":"false"}` | Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls |
 | deploy.strategy.rollingUpdate.maxSurge | int | `1` |  |
 | deploy.strategy.rollingUpdate.maxUnavailable | int | `0` |  |
 | deploy.strategy.type | string | `"RollingUpdate"` |  |
-| deploy.terminationGracePeriodSeconds | int | `90` |  |
 | deploy.volumes[0].mountPath | string | `"/tmp"` |  |
 | deploy.volumes[0].name | string | `"tmp"` |  |
 | deploy.volumes[0].type | string | `"emptyDir"` |  |
-| fullnameOverride | string | `""` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
-| ingress.enabled | bool | `false` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/backstage/$2"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
+| ingress.enabled | bool | `true` |  |
 | ingress.hostname | string | `"shortlink.best"` |  |
-| ingress.istio.match[0].uri.prefix | string | `"/"` |  |
-| ingress.istio.route.destination.port | int | `8080` |  |
-| ingress.path | string | `"/"` |  |
-| ingress.service.name | string | `"shortlink-landing"` |  |
-| ingress.service.port | int | `8080` |  |
+| ingress.service.name | string | `"backstage"` |  |
+| ingress.service.port | int | `7007` |  |
 | ingress.type | string | `"nginx"` |  |
-| monitoring.enabled | bool | `true` | Creates a Prometheus Operator ServiceMonitor |
-| monitoring.jobLabel | string | `""` | The label to use to retrieve the job name from. |
-| monitoring.labels | object | `{"release":"prometheus-operator"}` | Additional labels that can be used so PodMonitor will be discovered by Prometheus |
-| nameOverride | string | `""` |  |
-| networkPolicy.enabled | bool | `true` |  |
-| networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels.name | string | `"nginx-ingress"` |  |
-| networkPolicy.ingress[0].ports[0].port | int | `8080` |  |
-| networkPolicy.ingress[0].ports[0].protocol | string | `"TCP"` |  |
-| networkPolicy.policyTypes[0] | string | `"Ingress"` |  |
+| ingress_api.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/backstage/api/$2"` |  |
+| ingress_api.name | string | `"backstage-api"` |  |
+| ingress_api.path | string | `"/backstage/api(/|$)(.*)"` |  |
+| ingress_ui.path | string | `"/backstage(/|$)(.*)"` |  |
+| monitoring.enabled | bool | `true` |  |
 | service.ports[0].name | string | `"http"` |  |
-| service.ports[0].port | int | `8080` |  |
+| service.ports[0].port | int | `7007` |  |
 | service.ports[0].protocol | string | `"TCP"` |  |
 | service.ports[0].public | bool | `true` |  |
 | service.type | string | `"ClusterIP"` |  |

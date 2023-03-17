@@ -1,6 +1,6 @@
 # KUBERNETES TASKS =====================================================================================================
 SHORTLINK_HELM_PATH     := ops/Helm
-SHORTLINK_HELM_SERVICES := api bot common landing link logger metadata next notify proxy
+SHORTLINK_HELM_SERVICES := api bot common landing link logger metadata next notify proxy workflows
 SHORTLINK_HELM_ADDONS   := argocd cert-manager flagger gateway/istio gateway/nginx-ingress grafana keda knative-operator kyverno metallb prometheus-operator mq/rabbitmq rook-ceph store/postgresql store/redis
 
 helm-init: ## helm init
@@ -15,8 +15,6 @@ helm-init: ## helm init
 	@helm repo update
 
 helm-lint: ## Check Helm chart by linter
-	helm lint --quiet --with-subcharts ${SHORTLINK_HELM_PATH}/chaos
-
 	for i in $(SHORTLINK_HELM_SERVICES); do \
 		helm lint --quiet --with-subcharts ${SHORTLINK_HELM_PATH}/shortlink-$$i; \
   	done; \

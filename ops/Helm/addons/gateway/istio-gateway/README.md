@@ -14,7 +14,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://istio-release.storage.googleapis.com/charts | gateway | 1.17.0-beta.1 |
+| https://istio-release.storage.googleapis.com/charts | gateway | 1.17.1 |
 
 ## Values
 
@@ -37,7 +37,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | gateway.service.ports[3].port | int | `50051` |  |
 | gateway.service.ports[3].protocol | string | `"TCP"` |  |
 | gateway.service.ports[3].targetPort | int | `50051` |  |
-| gateway.service.type | string | `"LoadBalancer"` |  |
+| gateway.service.type | string | `"ClusterIP"` |  |
 | istio-ingress.enabled | bool | `true` |  |
 
 ----------------------------------------------

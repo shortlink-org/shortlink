@@ -1,6 +1,6 @@
 # shortlink-api
 
-![Version: 0.11.1](https://img.shields.io/badge/Version-0.11.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.12.0](https://img.shields.io/badge/Version-0.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink API service
 
@@ -22,23 +22,21 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.2.25 |
+| file://../shortlink-common | shortlink-common | 0.4.0 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | NetworkPolicy.enabled | bool | `false` |  |
-| commonAnnotations | object | `{}` | Add annotations to all the deployed resources |
-| commonLabels | object | `{}` | Add labels to all the deployed resources |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress.svc.cluster.local"` |  |
 | deploy.env.MQ_ENABLED | string | `"false"` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
-| deploy.env.TRACER_URI | string | `"grafana-tempo.grafana:6831"` |  |
+| deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/api"` |  |
-| deploy.image.tag | string | `"0.13.88"` |  |
+| deploy.image.tag | string | `"0.14.9"` |  |
 | deploy.replicaCount | int | `3` |  |
 | deploy.resources.limits | object | `{}` |  |
 | deploy.resources.requests | object | `{}` |  |
@@ -46,34 +44,27 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.strategy.canary.steps[1].pause.duration | int | `10` |  |
 | deploy.strategy.canary.steps[2].setWeight | int | `60` |  |
 | deploy.strategy.canary.steps[3].pause.duration | int | `10` |  |
-| deploy.strategy.canary.steps[4].setWeight | int | `80` |  |
+| deploy.strategy.canary.steps[4].setWeight | int | `100` |  |
 | deploy.strategy.canary.steps[5].pause.duration | int | `10` |  |
 | deploy.strategy.type | string | `"Canary"` |  |
 | deploy.type | string | `"Rollout"` |  |
 | external_database | object | `{"enable":false,"ip":"192.168.0.101","port":6379}` | If you want to use an external database |
-| fullnameOverride | string | `""` |  |
 | hpa.enabled | bool | `true` |  |
 | hpa.metrics[0].resource.name | string | `"cpu"` |  |
 | hpa.metrics[0].resource.target.averageUtilization | int | `80` |  |
 | hpa.metrics[0].resource.target.type | string | `"Utilization"` |  |
 | hpa.metrics[0].type | string | `"Resource"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."kubernetes.io/tls-acme" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.hostname | string | `"shortlink.best"` |  |
-| ingress.istio.match[0].uri.prefix | string | `"/api"` |  |
-| ingress.istio.route.destination.port | int | `7070` |  |
-| ingress.path | string | `"/api/?(.*)"` |  |
+| ingress.path | string | `"/api(/|$)(.*)"` |  |
 | ingress.service.name | string | `"shortlink-api"` |  |
 | ingress.service.port | int | `7070` |  |
 | ingress.type | string | `"nginx"` |  |
-| monitoring.enabled | bool | `true` | Creates a Prometheus Operator ServiceMonitor |
-| monitoring.jobLabel | string | `""` | The label to use to retrieve the job name from. |
-| monitoring.labels | object | `{"release":"prometheus-operator"}` | Additional labels that can be used so PodMonitor will be discovered by Prometheus |
-| nameOverride | string | `""` |  |
+| monitoring.enabled | bool | `true` |  |
 | secret.enabled | bool | `false` |  |
 | secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
