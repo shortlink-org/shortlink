@@ -7,3 +7,16 @@ falco:
 
   driver:
     kind: modern-bpf
+
+falco-exporter:
+  enabled: true
+
+  serviceMonitor:
+    enabled: true
+
+  grafanaDashboard:
+    enabled: true
+    namespace: grafana
+
+  prometheusRules:
+    enabled: true
