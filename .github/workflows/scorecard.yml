@@ -14,6 +14,10 @@ on:
   push:
     branches: [ "main" ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 # Declare default permissions as read only.
 permissions: read-all
 
@@ -24,11 +28,12 @@ jobs:
     permissions:
       # Needed to upload the results to code-scanning dashboard.
       security-events: write
-      # Needed to publish results and get a badge (see publish_results below).
+      # Used to receive a badge. (Upcoming feature)
       id-token: write
-      # Uncomment the permissions below if installing in a private repository.
-      # contents: read
-      # actions: read
+      # Needs for private repositories.
+      contents: read
+      actions: read
+    if: github.repository == 'shortlink-org/shortlink'
 
     steps:
       - name: Harden Runner

@@ -5,6 +5,10 @@ on:
     branches:
       - main  # Set a branch to deploy
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   Build-and-Push-Docker-Image:
     runs-on: ubuntu-latest
