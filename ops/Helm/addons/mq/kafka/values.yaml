@@ -24,8 +24,8 @@ kafka-ui:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-kafka-bootstrap:9092
       KAFKA_CLUSTERS_0_ZOOKEEPER: kafka-zookeeper-client:2181
       KAFKA_CLUSTERS_0_READONLY: "true"
-#      SPRING_SECURITY_USER_NAME: "redacted"
-#      SPRING_SECURITY_USER_PASSWORD: "redacted"
+      SPRING_SECURITY_USER_NAME: "redacted"
+      SPRING_SECURITY_USER_PASSWORD: "redacted"
       MANAGEMENT_HEALTH_LDAP_ENABLED: "FALSE"
       SERVER_SERVLET_CONTEXT_PATH: "/kafka-ui"
 
