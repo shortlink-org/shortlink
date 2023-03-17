@@ -8,6 +8,10 @@ falco:
   driver:
     kind: modern-bpf
 
+  falco:
+    grpc:
+      enabled: true
+
 falco-exporter:
   enabled: true
 
