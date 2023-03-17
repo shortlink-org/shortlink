@@ -1,10 +1,10 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: {{ include "helpers.fullname" . }}
+  name: shortlink
 spec:
   kafka:
-    version: 3.3.2
+    version: 3.4.0
     replicas: 1
     listeners:
       - name: plain
