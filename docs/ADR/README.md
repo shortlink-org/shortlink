@@ -45,3 +45,5 @@ for information team about cases for updated ADR.
   - [ADR-0013](./decisions/0013-security.md) - Security
 - **Golang**
   - [ADR-0017](./decisions/0017-profile-guided-optimization.md) - Profile-guided optimization
+- **Front-end**
+  - [ADR-0019](./decisions/0019-front-end-testing.md) - Front-end testings
