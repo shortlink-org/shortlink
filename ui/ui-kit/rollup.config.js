@@ -50,19 +50,13 @@ export default [
         typescript,
         tsconfig: './tsconfig.json',
         noEmitOnError: false,
-        // declaration: true,
-        // declarationDir: './build',
+        declaration: true,
       }),
       commonjs({
         include: 'node_modules/**',
       }),
       filesize(),
-      // babel({
-      //   exclude: 'node_modules/**',
-      // }),
-      // terser()
     ],
-    // external: ["react", "react-dom", "styled-components", "next-themes", "@emotion/cache", "@mui/material"]
     external: ['react', 'react-dom', 'prop-types', 'styled-components', "@mui/material"],
   },
   // {
