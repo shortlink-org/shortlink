@@ -79,8 +79,8 @@ const nextConfig = {
         ],
         // Option-less format
         '.mdx': '@mdx-js/loader',
-      }
-    }
+      },
+    },
   },
 }
 

@@ -9,8 +9,12 @@ import { Roboto_Mono } from '@next/font/google' // eslint-disable-line
 import { DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import '../public/assets/styles.css'
 
-// @ts-ignore
-import {ColorModeContext, createEmotionCache, darkTheme, lightTheme,} from '@shortlink-org/ui-kit'
+import {
+  ColorModeContext,
+  createEmotionCache,
+  darkTheme,
+  lightTheme, // @ts-ignore
+} from '@shortlink-org/ui-kit'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
