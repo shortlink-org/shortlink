@@ -1,9 +1,13 @@
 // @ts-ignore
-describe('E2E Test', () => {
+describe('Landing: Tabs', () => {
   beforeEach(() => {
     cy.visit('/')
   })
+
   it('Click toggle switch', () => {
-    cy.get('.toggle__handler').click()
+    cy.get('#full-width-tab-0').click()
+    cy.get('#full-width-tab-1').click()
+    cy.get('#full-width-tab-2').click()
+    cy.get('#full-width-tab-3').click()
   })
 })

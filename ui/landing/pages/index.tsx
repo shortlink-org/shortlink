@@ -134,7 +134,7 @@ const Home: NextPage = () => {
         alignItems="center"
       >
         <Box sx={{ bgcolor: 'background.paper', width: 700 }}>
-          <AppBar position="static">
+          <AppBar position="static" id="menu">
             <Tabs
               value={value}
               onChange={handleChange}
