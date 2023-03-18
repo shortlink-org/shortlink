@@ -21,7 +21,7 @@ DEPENDENCY:
   stage: test
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/test/dependency.yml'
+      - local: 'ops/gitlab/pipelines/test/security.yml'
     strategy: depend
   needs: []
   rules:
