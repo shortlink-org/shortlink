@@ -6,8 +6,10 @@
     - name: {{ $key }}
       value: {{ $value | quote }}
     {{- end -}}
+    {{- if .env }}
     {{- if and (eq .env.MQ_ENABLED true) (eq .env.MQ_TYPE "rabbitmq") }}
       {{- include "shortlink-common.env-rabbitmq" .env | nindent 4 }}
+    {{- end }}
     {{- end }}
 {{- end }}
 
