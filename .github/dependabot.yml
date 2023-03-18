@@ -137,3 +137,9 @@ updates:
     directory: /internal/services/knative/sync-search/kafka-to-elasticsearch
     schedule:
       interval: daily
+
+
+  - package-ecosystem: npm
+    directory: /ui/landing/eslint-plugin-shortlink
+    schedule:
+      interval: daily
