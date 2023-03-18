@@ -80,7 +80,7 @@ deploy:
     requests: {}
 
   env:
-    MQ_ENABLED: "false"
+    MQ_ENABLED: false
     MQ_TYPE: "rabbitmq"
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress.svc.cluster.local

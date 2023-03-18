@@ -37,7 +37,7 @@ deploy:
   replicaCount: 1
 
   env:
-    MQ_ENABLED: "false"
+    MQ_ENABLED: false
     MQ_TYPE: "rabbitmq"
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
     TELEGRAM_BOT_TOKEN: "YOUR_TELEGRAM_TOKEN"
