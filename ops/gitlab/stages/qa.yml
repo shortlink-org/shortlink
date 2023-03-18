@@ -1,45 +1,12 @@
-include:
-  - template: Security/API-Fuzzing.latest.gitlab-ci.yml     # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/API-Fuzzing.latest.gitlab-ci.yml
-  - template: Verify/Load-Performance-Testing.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Load-Performance-Testing.gitlab-ci.yml
-
-# API-Fuzzing ==========================================================================================================
-# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/api_fuzzing/
-
-# Configure the scanning tool through the environment variables.
-# List of the variables: https://docs.gitlab.com/ee/user/application_security/api_fuzzing/#available-variables
-# How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
-
-variables:
-  FUZZAPI_PROFILE: Quick-10
-
-  # Perform testing using a Postman Collection v2.1
-  # All of the APIs defined in the collection will be
-  # tested.
-  FUZZAPI_POSTMAN_COLLECTION: ./docs/shortlink.postman_collection.json
-
-  # The target API instance to be tested. This must be
-  # a test deployment. NEVER fuzz a production environment.
-  FUZZAPI_TARGET_URL: ${FUZZAPI_TARGET_URL}
-
-  # Provide auth token for target being tested. This variable
-  # is set in the CI configuration as a secret.
-  # FUZZAPI_OVERRIDES_ENV: '{"headers":{"Authorization":"Token REDACTED"}}'
-
-# TODO: fix
-apifuzzer_fuzz:
+api:loadtest:
   stage: qa
-  allow_failure: true
-  needs: []
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-
-# PERFORMANCE ==========================================================================================================
-
-# Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/load_performance_testing.html
-load_performance:
-  stage: qa
-  needs: []
+  image:
+    name: loadimpact/k6:latest
+    entrypoint: [ '' ]
+  variables:
+    API_URL: $ENVIRONMENT_URL
+  script:
+    - k6 run ./internal/services/api/tests/performance/get_link.js
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success

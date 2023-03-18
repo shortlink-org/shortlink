@@ -33,7 +33,12 @@ func InitializeSCIDriver() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux := monitoring.New(logger)
+	serveMux, err := monitoring.New(logger)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()

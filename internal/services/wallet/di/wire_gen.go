@@ -14,7 +14,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
-// Injectors from di.go:
+// Injectors from wire.go:
 
 func InitializeWalletService() (*WalletService, func(), error) {
 	context, cleanup, err := ctx.New()
@@ -38,7 +38,7 @@ func InitializeWalletService() (*WalletService, func(), error) {
 	}, nil
 }
 
-// di.go:
+// wire.go:
 
 type WalletService struct {
 	Logger logger.Logger
