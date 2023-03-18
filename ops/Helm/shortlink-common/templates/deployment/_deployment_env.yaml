@@ -3,14 +3,12 @@
 {{- define "shortlink-common.env" }}
   env:
     {{- range $key, $value := .env }}
-    {{- if and (eq $key "MQ_TYPE") (eq $value "true") }}
-    {{- if eq $value "rabbitmq" }}
-      {{- include "shortlink-common.env-rabbitmq" . | nindent 4 }}
-    {{- end }}
-    {{- end }}
     - name: {{ $key }}
       value: {{ $value | quote }}
     {{- end -}}
+    {{- if and (eq .env.MQ_ENABLED true) (eq .env.MQ_TYPE "rabbitmq") }}
+      {{- include "shortlink-common.env-rabbitmq" .env | nindent 4 }}
+    {{- end }}
 {{- end }}
 
 {{- define "shortlink-common.env-rabbitmq" }}
