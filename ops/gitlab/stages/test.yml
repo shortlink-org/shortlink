@@ -119,6 +119,7 @@ ui:landing:
     - npm run cypress:headless
   artifacts:
     when: always
+    name: "cypress-${CI_COMMIT_REF_SLUG}"
     paths:
       - ./ui/landing/cypress/videos/**/*.mp4
       - ./ui/landing/cypress/screenshots/**/*.png
