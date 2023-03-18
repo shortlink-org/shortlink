@@ -7,7 +7,7 @@ export let options = {
 };
 
 export default function() {
-  let res = http.get('http://localhost:7070/api/link/83873db19');
+  let res = http.get(`${process.env.API_URL}/api/links`);
   check(res, {
     'status is 200': r => r.status === 200,
   });
