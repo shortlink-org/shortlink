@@ -33,7 +33,7 @@ services:
       GRPC_CLIENT_HOST: traefik
       GRPC_CLIENT_PORT: 443
       LOG_LEVEL: 4
-      MQ_ENABLED: "true"
+      MQ_ENABLED: true
       MQ_KAFKA_URI: kafka-1:9092,kafka-2:9092
       TRACER_URI: jaeger-agent:6831
     labels:

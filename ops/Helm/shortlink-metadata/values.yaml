@@ -51,7 +51,7 @@ deploy:
   replicaCount: 1
 
   env:
-    MQ_ENABLED: "false"
+    MQ_ENABLED: false
     MQ_TYPE: "kafka"
     MQ_KAFKA_URI: "shortlink-kafka-bootstrap.kafka:9092"
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
