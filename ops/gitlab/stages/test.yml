@@ -102,3 +102,34 @@ SAST:
       when: never
     - if: $CI_COMMIT_TAG
       when: on_success
+
+# LANDINGS =============================================================================================================
+
+ui:landing:
+  stage: test
+  image: cypress/browsers:node-18.14.1-chrome-111.0.5563.64-1-ff-111.0-edge-111.0.1661.43-1
+  before_script:
+    - cd ./ui/landing
+  script:
+    # install dependencies
+    - npm ci
+    # start the server in the background
+    - npm run dev &
+    # run Cypress tests
+    - npm run cypress:headless
+  artifacts:
+    when: always
+    paths:
+      - ./ui/landing/cypress/videos/**/*.mp4
+      - ./ui/landing/cypress/screenshots/**/*.png
+    expire_in: 1 day
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+      - .npm/
+  needs:
+    - pipeline: applications
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
