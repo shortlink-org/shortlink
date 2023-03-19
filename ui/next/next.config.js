@@ -1,7 +1,5 @@
 /* eslint-disable */
 
-const webpack = require('webpack')
-const { withImageLoader } = require('next-image-loader')
 const withExportImages = require('next-export-optimize-images')
 
 // ENVIRONMENT VARIABLE ================================================================================================
@@ -47,7 +45,7 @@ if (!isProd) {
   })
 }
 
-const NEXT_CONFIG = {
+let NEXT_CONFIG = {
   basePath: '/next',
   generateEtags: true,
   env: {
@@ -85,6 +83,15 @@ const NEXT_CONFIG = {
       },
     ]
   },
+  webpack: (config, { isServer, buildId }) => {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
+
+    return config
+  },
   experimental: {
     forceSwcTransforms: true,
     turbo: {
@@ -99,9 +106,9 @@ const NEXT_CONFIG = {
         ],
         // Option-less format
         '.mdx': '@mdx-js/loader',
-        '.svg': '@svgr/webpack',
       }
-    }
+    },
+    swcTraceProfiling: true,
   },
 }
 
@@ -136,8 +143,6 @@ if (!isProd) {
   }
 }
 
-let EXPORT_CONFIG = withImageLoader(NEXT_CONFIG)
-
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
 if (isEnableSentry) {
@@ -157,9 +162,9 @@ if (isEnableSentry) {
     // https://github.com/getsentry/sentry-webpack-plugin#options.
   }
 
-  EXPORT_CONFIG = withExportImages(
-    withSentryConfig(EXPORT_CONFIG, SentryWebpackPluginOptions),
+  NEXT_CONFIG = withExportImages(
+    withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions),
   )
 }
 
-module.exports = EXPORT_CONFIG
+module.exports = NEXT_CONFIG
