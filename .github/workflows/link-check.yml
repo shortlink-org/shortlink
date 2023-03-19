@@ -22,7 +22,7 @@ jobs:
 
       - name: Link Checker
         id: lychee
-        uses: lycheeverse/lychee-action@d322e38893906cef8788eefe9c63694c562c7dfa # for v1.6.1
+        uses: lycheeverse/lychee-action@a12cbb3a4921899299dcc58a6136bcdd0d1fbf1c # for v1.6.1
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
