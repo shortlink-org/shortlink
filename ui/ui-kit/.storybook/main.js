@@ -5,13 +5,23 @@ module.exports = {
   ],
   addons: [
     "@storybook/addon-links",
-    "@storybook/addon-essentials",
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        actions: true,
+        backgrounds: true,
+        controls: false,
+        docs: false, // https://github.com/hipstersmoothie/react-docgen-typescript-plugin/issues/83
+        viewport: true,
+        toolbars: true,
+      },
+    },
     "@storybook/addon-postcss",
     "@storybook/addon-interactions"
   ],
   framework: '@storybook/react',
   core: {
-    builder: '@storybook/builder-webpack5',
+    builder: 'webpack5',
   },
   features: {
     interactionsDebugger: true,

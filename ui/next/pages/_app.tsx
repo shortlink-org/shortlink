@@ -15,8 +15,13 @@ import ScrollTop from 'components/ScrollTop'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 // @ts-ignore
-import {ColorModeContext, createEmotionCache, darkTheme, lightTheme,} from '@shortlink-org/ui-kit'
-import {DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd} from 'next-seo'
+import {
+  ColorModeContext,
+  createEmotionCache,
+  darkTheme,
+  lightTheme,
+} from '@shortlink-org/ui-kit'
+import { DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()

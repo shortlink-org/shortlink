@@ -57,7 +57,7 @@ export default function Subscribe() {
           </div>
 
           <div className="flex items-center justify-center w-full mt-3 lg:mt-0 sm:w-1/2 p-3">
-            <Image src={UndrawDesigner} alt="undraw designer" />
+            <UndrawDesigner />
           </div>
         </div>
       </div>
