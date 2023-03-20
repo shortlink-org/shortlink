@@ -63,7 +63,7 @@ argo-cd:
     enabled: false
 
   externalRedis:
-    host: shortlink-redis-master.redis
+    host: dragonfly.dragonfly
 
   server:
     extraArgs:
