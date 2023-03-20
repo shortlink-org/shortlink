@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dragonfly
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: dragonfly
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ops/Helm/addons/store/dragonfly
+    repoURL: 'https://github.com/shortlink-org/shortlink'
+    targetRevision: HEAD
+    helm:
+      releaseName: dragonfly
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
+  ignoreDifferences:
+    - group: dragonfly.io
+      kind: ClusterPolicy
+      jqPathExpressions:
+        - .spec.rules[] | select(.name|test("autogen-."))

@@ -1,0 +1,38 @@
+# Common default values for dragonfly.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+dragonfly:
+  enabled: true
+
+  fullnameOverride: dragonfly
+
+  podSecurityContext:
+    fsGroup: 2000
+
+  securityContext:
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+
+  serviceMonitor:
+    enabled: true
+
+  prometheusRule:
+    enabled: true
+
+  storage:
+    enabled: true
+    storageClassName: local-path
+    requests: 5Gi
+
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 10m
+      memory: 64Mi
