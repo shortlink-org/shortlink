@@ -5,6 +5,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+const REFRESH_INTERVAL = 10000
+
 func (c *Config) FeatureToogleRun() error {
 	viper.SetDefault("FEATURE_TOGGLE_ENABLE", false)
 	viper.SetDefault("FEATURE_TOGGLE_API", "http://localhost:4242/api/")
@@ -18,7 +20,7 @@ func (c *Config) FeatureToogleRun() error {
 		unleash.WithListener(&unleash.DebugListener{}),
 		unleash.WithAppName(viper.GetString("SERVICE_NAME")),
 		unleash.WithUrl(viper.GetString("FEATURE_TOGGLE_API")),
-		unleash.WithRefreshInterval(10000), // nolint:gomnd
+		unleash.WithRefreshInterval(REFRESH_INTERVAL),
 	)
 	if err != nil {
 		return err

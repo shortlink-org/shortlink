@@ -9,6 +9,8 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
+const HISTORY_LIMIT = 100
+
 func (r *repl) init() error {
 	r.mc.Lock()
 	defer r.mc.Unlock()
@@ -71,8 +73,8 @@ func (r *repl) close() error {
 	}()
 
 	// Save last 100 record
-	if len(r.session.History) > 100 { // nolint:gomnd
-		r.session.History = r.session.History[100:]
+	if len(r.session.History) > HISTORY_LIMIT {
+		r.session.History = r.session.History[HISTORY_LIMIT:]
 	}
 
 	payload, err := proto.Marshal(r.session)
