@@ -95,4 +95,5 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
     {{- include "shortlink-common.volumes" . | indent 4 }}
+    automountServiceAccountToken: {{ .Values.deploy.automountServiceAccountToken | default true }}
 {{- end }}
