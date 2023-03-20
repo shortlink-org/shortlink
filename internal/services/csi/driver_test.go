@@ -18,7 +18,7 @@ import (
 
 func TestDriver(t *testing.T) {
 	// Create a new context
-	ctx := context.Background() // nolint:staticcheck
+	ctx := context.Background()
 
 	// TODO: add test
 	t.SkipNow()

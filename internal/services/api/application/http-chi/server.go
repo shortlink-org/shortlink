@@ -26,6 +26,8 @@ import (
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
+const MAX_AGE = 300
+
 // Run HTTP-server
 // @title Shortlink API
 // @version 1.0
@@ -72,7 +74,7 @@ func (api *API) Run(
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: true,
-		MaxAge:           300, // nolint:gomnd
+		MaxAge:           MAX_AGE,
 		// Debug:            true,
 	})
 
