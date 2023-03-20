@@ -1,0 +1,27 @@
+version: '2.4'
+
+x-network: &network
+#  networks:
+#    simple:
+#      ipv4_address: ${DATABASE_IP}
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  dragonfly:
+    <<: *network
+    depends_on:
+      - coredns
+    image: docker.dragonflydb.io/dragonflydb/dragonfl
+    ulimits:
+      memlock: -1
+    restart: on-failure
+    container_name: dragonfly
+    ports:
+      - "6379:6379"
+    # For better performance, consider `host` mode instead `port` to avoid docker NAT.
+    # `host` mode is NOT currently supported in Swarm Mode.
+    # https://docs.docker.com/compose/compose-file/compose-file-v3/#network_mode
+    # network_mode: "host"

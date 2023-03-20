@@ -80,6 +80,7 @@ down: ## Down docker compose
 		-f ops/docker-compose/application/ui-next/ui-next.yaml \
 		-f ops/docker-compose/database/mongo/mongo.yaml \
 		-f ops/docker-compose/database/redis/redis.yaml \
+		-f ops/docker-compose/database/dragonfly/dragonfly.yaml \
 		-f ops/docker-compose/database/postgres/patroni.yaml \
 		-f ops/docker-compose/database/postgres/postgres.yaml \
 		-f ops/docker-compose/database/elasticsearch/elasticsearch.yaml \
