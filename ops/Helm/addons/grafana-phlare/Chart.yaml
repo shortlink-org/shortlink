@@ -15,7 +15,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: phlare
-    version: 0.5.2
+    version: 0.5.3
     repository: https://grafana.github.io/helm-charts
     condition: phlare.enabled
     tags:
