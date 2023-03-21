@@ -5,6 +5,20 @@
 testkube:
   enabled: true
 
+  mongodb:
+    enabled: true
+
+  nats:
+    enabled: false
+
+#  testkube-api:
+#    nats:
+#      enabled: false
+#      uri: "nats://shortlink.nats"
+
+    minio:
+      enabled: false
+
   testkube-dashboard:
     ingress:
       enabled: true
@@ -17,3 +31,7 @@ testkube:
           secretName: testkube-tls
 
     apiServerEndpoint: "https://testkube-api.shortlink.best"
+#
+#  testkube-operator:
+#    webhook:
+#      enabled: false
