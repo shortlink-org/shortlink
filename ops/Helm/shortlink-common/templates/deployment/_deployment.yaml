@@ -27,6 +27,7 @@ spec:
         {{- end }}
     spec:
       terminationGracePeriodSeconds: {{ .Values.deploy.terminationGracePeriodSeconds | default 60 }}
+      automountServiceAccountToken: {{ .Values.deploy.automountServiceAccountToken | default true }}
     {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -95,5 +96,4 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
     {{- include "shortlink-common.volumes" . | indent 4 }}
-    automountServiceAccountToken: {{ .Values.deploy.automountServiceAccountToken | default true }}
 {{- end }}
