@@ -243,8 +243,7 @@ argo-cd:
 
   configs:
     cm:
-      annotations:
-        application.resourceTrackingMethod: annotation
+      application.resourceTrackingMethod: annotation
 
     repositories:
       shortlink:
