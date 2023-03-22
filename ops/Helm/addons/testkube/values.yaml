@@ -8,6 +8,9 @@ testkube:
   mongodb:
     enabled: true
 
+    persistence:
+      enabled: false
+
   nats:
     enabled: false
 
