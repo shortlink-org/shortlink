@@ -242,6 +242,10 @@ argo-cd:
         enabled: true
 
   configs:
+    cm:
+      annotations:
+        application.resourceTrackingMethod: annotation
+
     repositories:
       shortlink:
         url: https://github.com/shortlink-org/shortlink
