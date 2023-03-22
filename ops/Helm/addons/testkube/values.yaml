@@ -11,10 +11,9 @@ testkube:
   nats:
     enabled: false
 
-#  testkube-api:
-#    nats:
-#      enabled: false
-#      uri: "nats://shortlink.nats"
+  testkube-api:
+    nats:
+      enabled: false
 
     minio:
       enabled: false
@@ -39,7 +38,5 @@ testkube:
           secretName: testkube-tls
 
     apiServerEndpoint: "https://testkube.shortlink.best"
-#
-#  testkube-operator:
-#    webhook:
-#      enabled: false
+
+  testkube-operator: {}
