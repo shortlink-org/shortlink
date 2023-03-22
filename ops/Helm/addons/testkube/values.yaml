@@ -16,7 +16,7 @@ testkube:
 
   testkube-api:
     nats:
-      enabled: false
+      enabled: true
 
     minio:
       enabled: false
