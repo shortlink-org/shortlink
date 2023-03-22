@@ -2,6 +2,7 @@
 
 {{- define "shortlink-common.ServiceMonitor" -}}
 {{- if and .Values.monitoring .Values.monitoring.enabled }}
+---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
