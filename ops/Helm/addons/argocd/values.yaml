@@ -372,6 +372,8 @@ argo-rollouts:
       enabled: true
 
 argocd-image-updater:
+  enabled: false
+
   fullnameOverride: argocd-image-updater
 
   config:
