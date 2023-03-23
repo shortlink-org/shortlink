@@ -17,6 +17,7 @@ spec:
     targetRevision: HEAD
     helm:
       releaseName: prometheus-operator
+      skipCrds: true
       valueFiles:
         - values.yaml
         - alertmanager.values.yaml
