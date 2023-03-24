@@ -37,3 +37,19 @@ cert-manager-approver-policy:
 
 spiffe:
   enabled: true
+
+  app:
+    driver:
+      resources:
+        requests:
+          cpu: 5m
+          memory: 5Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
+
+    approver:
+      metrics:
+        service:
+          servicemonitor:
+            enabled: true
