@@ -9,10 +9,6 @@ secret:
 rabbitmq:
   clusterName: shortlink
 
-  credentials:
-    username: shortlink
-    password: shortlink
-
 rabbitmq-cluster-operator:
   enabled: true
 
@@ -21,10 +17,10 @@ rabbitmq-cluster-operator:
   clusterOperator:
     # disabled because we have issue: https://github.com/bitnami/charts/issues/7879
     metrics:
-      enabled: false
+      enabled: true
 
       serviceMonitor:
-        enabled: false
+        enabled: true
         labels:
           release: prometheus-operator
 
