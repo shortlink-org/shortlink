@@ -21,3 +21,8 @@ spec:
       kind: '*'
   orphanedResources:
     warn: true
+    ignore:
+      - kind: ConfigMap
+        name: istio-ca-root-cert
+      - kind: PolicyReport
+        name: '*'
