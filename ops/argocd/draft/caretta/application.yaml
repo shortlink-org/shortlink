@@ -14,7 +14,7 @@ spec:
   source:
     chart: caretta
     repoURL: https://helm.groundcover.com/
-    targetRevision: 0.0.14
+    targetRevision: 0.*
     helm:
       releaseName: caretta
       values: |

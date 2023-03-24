@@ -14,7 +14,7 @@ spec:
   source:
     chart: chaos-mesh
     repoURL: https://charts.chaos-mesh.org
-    targetRevision: 2.3.2
+    targetRevision: 2.*
     helm:
       releaseName: chaos-mesh
       values: |

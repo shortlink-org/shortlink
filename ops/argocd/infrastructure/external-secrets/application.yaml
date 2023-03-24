@@ -14,7 +14,7 @@ spec:
   source:
     chart: external-secrets
     repoURL: https://charts.external-secrets.io
-    targetRevision: v0.8.0
+    targetRevision: v0.8.*
     helm:
       releaseName: external-secrets
       values: |
