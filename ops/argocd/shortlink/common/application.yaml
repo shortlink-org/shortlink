@@ -19,7 +19,7 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: true
+      selfHeal: false
     managedNamespaceMetadata:
       labels:
         istio-injection: enabled
