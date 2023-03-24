@@ -15,6 +15,7 @@ argo-cd:
 
     logging:
       format: json
+      level: warn
 
   controller:
     metrics:
