@@ -40,7 +40,5 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@e8788873172cb653a90ca2e819d79d65a66d4e76 # v2.4.0
-        with:
-          command: install
-          config: ct.yaml
+        if: steps.list-changed.outputs.changed == 'true'
+        run: ct install --target-branch ${{ github.event.repository.default_branch }}
