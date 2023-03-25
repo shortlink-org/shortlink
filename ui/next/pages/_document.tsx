@@ -14,6 +14,7 @@ class MyDocument extends Document {
           <meta charSet="utf-8" />
           {/* PWA primary color */}
           <meta name="theme-color" content={lightTheme.palette.primary.main} />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
@@ -21,7 +22,7 @@ class MyDocument extends Document {
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}
         </Head>
-        <body className="bg-white dark:bg-gray-800 text-black dark:bg-gray-800 dark:text-white">
+        <body className="bg-white dark:bg-gray-800 text-black dark:text-white">
           <Main />
           <NextScript />
         </body>
