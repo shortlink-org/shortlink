@@ -28,7 +28,7 @@ func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*GetLinkRespo
 	case nil:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
 		return nil, err
-	case notify.Response:
+	case notify.Response[any]:
 		err := r.Error
 		if err != nil {
 			return nil, err
@@ -62,7 +62,7 @@ func (api *API) GetLinks(ctx context.Context, req *GetLinksRequest) (*GetLinksRe
 	case nil:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_LIST")
 		return nil, err
-	case notify.Response:
+	case notify.Response[any]:
 		err := r.Error
 		if err != nil {
 			return nil, err
@@ -100,7 +100,7 @@ func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*Create
 	case nil:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
 		return nil, err
-	case notify.Response:
+	case notify.Response[any]:
 		err := r.Error
 		if err != nil {
 			return nil, err
@@ -134,7 +134,7 @@ func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*empty.
 	case nil:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
 		return &empty.Empty{}, err
-	case notify.Response:
+	case notify.Response[any]:
 		err := r.Error
 		if err != nil {
 			return nil, err

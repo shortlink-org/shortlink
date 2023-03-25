@@ -4,6 +4,7 @@ import (
 	"context"
 	"io"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
 )
 
@@ -21,6 +22,7 @@ type MQ interface {
 
 // DataBus abstract type
 type DataBus struct { // nolint:decorder
+	log    logger.Logger
 	mq     MQ
 	typeMQ string
 }

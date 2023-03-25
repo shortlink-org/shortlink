@@ -8,6 +8,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/account/v1"
 	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // Store abstract type
@@ -20,7 +21,7 @@ type BillingStore struct {
 	EventStore *event_store.Repository
 
 	// Observer interface for subscribe on system event
-	notify.Subscriber // Observer interface for subscribe on system event
+	notify.Subscriber[link.Link]
 }
 
 type Repository interface {

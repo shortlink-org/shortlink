@@ -42,7 +42,7 @@ type Service struct {
 	// Delivery
 	DB        *db.Store
 	Cache     *redisCache.UniversalClient
-	MQ        v1.MQ
+	MQ        *v1.DataBus
 	ServerRPC *rpc.RPCServer
 	ClientRPC *grpc.ClientConn
 
@@ -76,7 +76,7 @@ func NewFullService(
 	// Delivery
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
-	mq v1.MQ,
+	mq *v1.DataBus,
 	db *db.Store,
 	cache *redisCache.UniversalClient,
 

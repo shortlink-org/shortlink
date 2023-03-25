@@ -8,15 +8,15 @@ import (
 
 type Bot struct {
 	// Observer interface for subscribe on system event
-	notify.Subscriber // Observer interface for subscribe on system event
+	notify.Subscriber[any]
 
-	mq  v1.MQ
+	mq  *v1.DataBus
 	log logger.Logger
 }
 
 type Service interface {
 	// Observer interface for subscribe on system event
-	notify.Subscriber // Observer interface for subscribe on system event
+	notify.Subscriber[any]
 
 	Init() error
 	Send(message string) error

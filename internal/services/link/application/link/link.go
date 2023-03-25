@@ -23,10 +23,10 @@ import (
 
 type Service struct {
 	// Observer interface for subscribe on system event
-	notify.Subscriber
+	notify.Subscriber[v1.Link]
 
 	// Delivery
-	mq             mq.MQ
+	mq             *mq.DataBus
 	MetadataClient metadata_rpc.MetadataServiceClient
 
 	// Repository
@@ -35,7 +35,7 @@ type Service struct {
 	logger logger.Logger
 }
 
-func New(logger logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*Service, error) {
+func New(logger logger.Logger, mq *mq.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*Service, error) {
 	service := &Service{
 		logger: logger,
 

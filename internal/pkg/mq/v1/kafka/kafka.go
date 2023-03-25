@@ -64,7 +64,7 @@ func (mq *Kafka) Close() error {
 
 func (k *Kafka) Publish(ctx context.Context, target string, message query.Message) error {
 	_, _, err := k.producer.SendMessage(&sarama.ProducerMessage{
-		Topic:     "shortlink",
+		Topic:     target,
 		Key:       sarama.StringEncoder(message.Key),
 		Value:     sarama.ByteEncoder(message.Payload),
 		Headers:   nil,
@@ -81,7 +81,7 @@ func (mq *Kafka) Subscribe(target string, message query.Response) error {
 		ch: message,
 	}
 
-	if err := mq.consumer.Consume(context.Background(), []string{"shortlink"}, &consumer); err != nil {
+	if err := mq.consumer.Consume(context.Background(), []string{target}, &consumer); err != nil {
 		return err
 	}
 

@@ -105,7 +105,7 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *link.Service) (*api_mq.Event, error) {
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus, service *link.Service) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
@@ -141,7 +141,7 @@ func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, 
 	return store, nil
 }
 
-func NewLinkApplication(logger logger.Logger, mq v1.MQ, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
+func NewLinkApplication(logger logger.Logger, mq *v1.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
 	linkService, err := link.New(logger, mq, metadataService, store)
 	if err != nil {
 		return nil, err
@@ -164,7 +164,7 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(logger logger.Logger, mq v1.MQ) (*sitemap.Service, error) {
+func NewSitemapApplication(logger logger.Logger, mq *v1.DataBus) (*sitemap.Service, error) {
 	sitemapService, err := sitemap.New(logger, mq)
 	if err != nil {
 		return nil, err

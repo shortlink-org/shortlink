@@ -11,6 +11,7 @@ import (
 	"net/http"
 
 	"github.com/google/wire"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/di"
@@ -19,7 +20,6 @@ import (
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
 	"github.com/shortlink-org/shortlink/internal/services/notify/application"
 	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/slack"
 	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/smtp"
@@ -92,7 +92,7 @@ var NotifySet = wire.NewSet(
 	NewBotService,
 )
 
-func NewBotApplication(ctx context.Context, logger logger.Logger, mq v1.MQ) (*application.Bot, error) {
+func NewBotApplication(ctx context.Context, logger logger.Logger, mq *v1.DataBus) (*application.Bot, error) {
 	bot, err := application.New(mq, logger)
 	if err != nil {
 		return nil, err
@@ -113,10 +113,12 @@ func NewBotService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
+	// Bots
 	slack *slack.Bot,
 	telegram *telegram.Bot,
 	smtp *smtp.Bot,
 
+	// Application
 	bot *application.Bot,
 ) (*Service, error) {
 	return &Service{
@@ -130,9 +132,12 @@ func NewBotService(
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 
-		slack:      slack,
-		telegram:   telegram,
-		smtp:       smtp,
+		// Bots
+		slack:    slack,
+		telegram: telegram,
+		smtp:     smtp,
+
+		// Application
 		botService: bot,
 	}, nil
 }
