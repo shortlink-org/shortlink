@@ -69,7 +69,7 @@ func InitializeFullBotService() (*Service, func(), error) {
 	bot := InitSlack(context)
 	telegramBot := InitTelegram(context)
 	smtpBot := InitSMTP(context)
-	mq, cleanup5, err := mq_di.New(context, logger)
+	dataBus, cleanup5, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -77,7 +77,7 @@ func InitializeFullBotService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	applicationBot, err := NewBotApplication(context, logger, mq)
+	applicationBot, err := NewBotApplication(context, logger, dataBus)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -167,7 +167,7 @@ var NotifySet = wire.NewSet(di.DefaultSet, mq_di.New, InitSlack,
 	NewBotService,
 )
 
-func NewBotApplication(ctx2 context.Context, logger2 logger.Logger, mq v1.MQ) (*application.Bot, error) {
+func NewBotApplication(ctx2 context.Context, logger2 logger.Logger, mq *v1.DataBus) (*application.Bot, error) {
 	bot, err := application.New(mq, logger2)
 	if err != nil {
 		return nil, err
@@ -196,9 +196,10 @@ func NewBotService(
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 
-		slack:      slack2,
-		telegram:   telegram2,
-		smtp:       smtp2,
+		slack:    slack2,
+		telegram: telegram2,
+		smtp:     smtp2,
+
 		botService: bot,
 	}, nil
 }

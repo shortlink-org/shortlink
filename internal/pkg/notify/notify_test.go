@@ -24,42 +24,45 @@ func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
 }
 
-type subscriber struct{}
+type mockSubscriber[T any] struct {
+	Payload T
+}
 
-func (subscriber) Notify(ctx context.Context, event uint32, payload interface{}) Response {
-	return Response{
-		Payload: nil,
+func (mockSubscriber[T]) Notify(ctx context.Context, event uint32, payload T) Response[T] {
+	return Response[T]{
+		Name:    "RESPONSE_STORE_ADD",
+		Payload: payload,
 		Error:   nil,
 	}
 }
 
 func TestSubscribe(t *testing.T) {
-	sub := subscriber{}
+	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event
 	Subscribe(0, sub)
 	Subscribe(1, sub)
-	assert.Equal(t, len(subsribers.subsribers), 2)
+	assert.Equal(t, len(subscribers.subscriberMap), 2)
 }
 
 func TestUnsubscribe(t *testing.T) {
-	sub := subscriber{}
+	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event
 	Subscribe(0, sub)
 	Subscribe(1, sub)
 	Subscribe(2, sub)
-	assert.Equal(t, len(subsribers.subsribers), 3)
+	assert.Equal(t, len(subscribers.subscriberMap), 3)
 
 	// Unsubscribe from Event
 	UnSubscribe(0, sub)
-	assert.Equal(t, len(subsribers.subsribers), 2)
+	assert.Equal(t, len(subscribers.subscriberMap), 2)
 }
 
 // TODO: Need kafka-service or add mock
 func TestPublish(t *testing.T) {
 	ctx := context.Background()
-	sub := subscriber{}
+	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event
 	Subscribe(METHOD_ADD, sub)
@@ -67,7 +70,7 @@ func TestPublish(t *testing.T) {
 	Subscribe(METHOD_LIST, sub)
 	Subscribe(METHOD_UPDATE, sub)
 	Subscribe(METHOD_DELETE, sub)
-	assert.Equal(t, len(subsribers.subsribers), 5)
+	assert.Equal(t, len(subscribers.subscriberMap), 5)
 
 	responseCh := make(chan interface{})
 
@@ -83,12 +86,13 @@ func TestPublish(t *testing.T) {
 			}
 		}
 	case <-time.After(1 * time.Millisecond):
+		t.Error("timeout")
 		return
 	}
 }
 
 func TestClean(t *testing.T) {
-	sub := subscriber{}
+	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event
 	Subscribe(METHOD_ADD, sub)
@@ -96,9 +100,9 @@ func TestClean(t *testing.T) {
 	Subscribe(METHOD_LIST, sub)
 	Subscribe(METHOD_UPDATE, sub)
 	Subscribe(METHOD_DELETE, sub)
-	assert.Equal(t, len(subsribers.subsribers), 5)
+	assert.Equal(t, len(subscribers.subscriberMap), 5)
 
 	// Unsubscribe from all Event
 	Clean()
-	assert.Equal(t, len(subsribers.subsribers), 0)
+	assert.Equal(t, len(subscribers.subscriberMap), 0)
 }

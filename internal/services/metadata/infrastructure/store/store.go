@@ -42,6 +42,15 @@ func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ *db.Store) (*Met
 	return s, nil
 }
 
+// Notify - ...
+func (s *MetaStore) Notify(ctx context.Context, event uint32, payload any) notify.Response[any] {
+	return notify.Response[any]{
+		Name:    "RESPONSE_STORE_ADD",
+		Payload: payload,
+		Error:   nil,
+	}
+}
+
 func (s *MetaStore) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram, scylla, cassandra

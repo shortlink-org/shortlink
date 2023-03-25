@@ -59,7 +59,7 @@ var LoggerSet = wire.NewSet(
 	NewLoggerService,
 )
 
-func InitLoggerMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *logger_application.Service) (*logger_mq.Event, error) {
+func InitLoggerMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
 	loggerMQ, err := logger_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err

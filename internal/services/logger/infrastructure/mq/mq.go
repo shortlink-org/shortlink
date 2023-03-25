@@ -17,13 +17,13 @@ import (
 )
 
 type Event struct {
-	mq  mq.MQ
+	mq  *mq.DataBus
 	log logger.Logger
 
 	service *logger_application.Service
 }
 
-func New(mq mq.MQ, log logger.Logger, service *logger_application.Service) (*Event, error) {
+func New(mq *mq.DataBus, log logger.Logger, service *logger_application.Service) (*Event, error) {
 	if mq == nil {
 		return nil, fmt.Errorf("MQ is nil")
 	}

@@ -7,12 +7,13 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	bot_type "github.com/shortlink-org/shortlink/internal/services/notify/type"
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/notify/domain/events"
 )
 
 type Bot struct {
 	// Observer interface for subscribe on system event
-	notify.Subscriber // Observer interface for subscribe on system event
+	notify.Subscriber[link.Link]
 
 	from string
 	pass string
@@ -26,29 +27,29 @@ func (b *Bot) Init() error {
 	b.setConfig()
 
 	// Subscribe to Event
-	notify.Subscribe(bot_type.METHOD_SEND_NEW_LINK, b)
+	notify.Subscribe(events.METHOD_SEND_NEW_LINK, b)
 
 	return nil
 }
 
-func (b *Bot) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response {
+func (b *Bot) Notify(ctx context.Context, event uint32, payload any) notify.Response[any] {
 	switch event {
-	case bot_type.METHOD_SEND_NEW_LINK:
+	case events.METHOD_SEND_NEW_LINK:
 		{
-			if err := b.Send(payload.(string)); err != nil {
-				return notify.Response{
+			if err := b.send(payload.(string)); err != nil {
+				return notify.Response[any]{
 					Error: err,
 				}
 			}
 
-			return notify.Response{}
+			return notify.Response[any]{}
 		}
 	default:
-		return notify.Response{}
+		return notify.Response[any]{}
 	}
 }
 
-func (b *Bot) Send(message string) error {
+func (b *Bot) send(message string) error {
 	msg := `To: "Some User" <vitya.login@yandex.ru>
 From: "Other User" <vitya.login@yandex.ru>
 Subject: Add new link!!

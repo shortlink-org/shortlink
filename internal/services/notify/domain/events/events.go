@@ -1,4 +1,4 @@
-package bot_type
+package events
 
 import "github.com/shortlink-org/shortlink/internal/pkg/notify"
 

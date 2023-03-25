@@ -80,7 +80,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup5, err := mq_di.New(context, logger)
+	dataBus, cleanup5, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -139,7 +139,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLinkApplication(logger, mq, metadataServiceClient, crudStore)
+	service, err := NewLinkApplication(logger, dataBus, metadataServiceClient, crudStore)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -183,7 +183,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	sitemapService, err := NewSitemapApplication(logger, mq)
+	sitemapService, err := NewSitemapApplication(logger, dataBus)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -194,7 +194,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(context, logger, mq, service)
+	event, err := InitLinkMQ(context, logger, dataBus, service)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -343,7 +343,7 @@ var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClie
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq v1_4.MQ, service *link.Service) (*api_mq.Event, error) {
+func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq *v1_4.DataBus, service *link.Service) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
@@ -379,7 +379,7 @@ func NewQueryLinkStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Stor
 	return store2, nil
 }
 
-func NewLinkApplication(logger2 logger.Logger, mq v1_4.MQ, metadataService v1_5.MetadataServiceClient, store2 *crud.Store) (*link.Service, error) {
+func NewLinkApplication(logger2 logger.Logger, mq *v1_4.DataBus, metadataService v1_5.MetadataServiceClient, store2 *crud.Store) (*link.Service, error) {
 	linkService, err := link.New(logger2, mq, metadataService, store2)
 	if err != nil {
 		return nil, err
@@ -402,7 +402,7 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkServiceClient, erro
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(logger2 logger.Logger, mq v1_4.MQ) (*sitemap.Service, error) {
+func NewSitemapApplication(logger2 logger.Logger, mq *v1_4.DataBus) (*sitemap.Service, error) {
 	sitemapService, err := sitemap.New(logger2, mq)
 	if err != nil {
 		return nil, err

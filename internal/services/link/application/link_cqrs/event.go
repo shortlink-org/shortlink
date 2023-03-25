@@ -23,7 +23,7 @@ func (s *Service) EventHandlers() {
 	// Proxy
 }
 
-func (s *Service) Notify(ctx context.Context, event uint32, payload interface{}) notify.Response {
+func (s *Service) Notify(ctx context.Context, event uint32, payload any) notify.Response[any] {
 	switch event {
 	case link.METHOD_ADD:
 		{
@@ -32,7 +32,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 				s.logger.ErrorWithContext(ctx, err.Error())
 			}
 
-			return notify.Response{}
+			return notify.Response[any]{}
 		}
 	case link.METHOD_UPDATE:
 		{
@@ -41,7 +41,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 				s.logger.ErrorWithContext(ctx, err.Error())
 			}
 
-			return notify.Response{}
+			return notify.Response[any]{}
 		}
 	case link.METHOD_DELETE:
 		{
@@ -50,7 +50,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 				s.logger.ErrorWithContext(ctx, err.Error())
 			}
 
-			return notify.Response{}
+			return notify.Response[any]{}
 		}
 	case metadata.METHOD_ADD:
 		fallthrough
@@ -61,9 +61,9 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload interface{})
 				s.logger.ErrorWithContext(ctx, err.Error())
 			}
 
-			return notify.Response{}
+			return notify.Response[any]{}
 		}
 	default:
-		return notify.Response{}
+		return notify.Response[any]{}
 	}
 }
