@@ -34,7 +34,6 @@ secret:
 
 # ==============================================================================
 deploy:
-  replicaCount: 1
 
   env:
     MQ_ENABLED: true
@@ -43,47 +42,9 @@ deploy:
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink
 
-  imagePullSecrets: []
-
-  # -- Annotations to be added to controller pods
-  annotations: []
-
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/notify
     tag: 0.14.19
-    # -- Global imagePullPolicy
-    # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
-    # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-    pullPolicy: IfNotPresent
-
-  # -- Node labels and tolerations for pod assignment
-  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
-  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-  nodeSelector: {}
-
-  tolerations: []
-
-  affinity: []
-
-  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
-  livenessProbe:
-    httpGet:
-      path: /live
-      port: 9090
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 1
-
-  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
-  readinessProbe:
-    httpGet:
-      path: /ready
-      port: 9090
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 30
 
   resources:
     # -- We usually recommend not to specify default resources and to leave this as a conscious
@@ -96,26 +57,6 @@ deploy:
     requests:
       cpu: 10m
       memory: 32Mi
-
-  podSecurityContext:
-    # -- fsGroup is the group ID associated with the container
-    fsGroup: 1000
-
-  # -- Security Context policies for controller pods
-  # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
-  # notes on enabling and using sysctls
-  securityContext:
-    allowPrivilegeEscalation: false
-    runAsNonRoot: true
-    # runAsUser is the user ID used to run the container
-    runAsUser: 1000
-    # runAsGroup is the primary group ID used to run all processes within any container of the pod
-    runAsGroup: 1000
-    # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
-    readOnlyRootFilesystem: "true"
-    capabilities:
-      drop:
-        - ALL
 
 # ==============================================================================
 service:
