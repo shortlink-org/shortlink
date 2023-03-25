@@ -43,6 +43,5 @@ spec:
         memory: 2Gi
         cpu: "1"
   entityOperator:
-    topicOperator:
-      watchedNamespaces: "*"
+    topicOperator: {}
     userOperator: {}
