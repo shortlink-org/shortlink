@@ -4,7 +4,7 @@ metadata:
   name: shortlink.link.event.new
   namespace: kafka
   labels:
-    strimzi.io/cluster: kafka
+    strimzi.io/cluster: shortlink
 spec:
   partitions: 1
   replicas: 1
