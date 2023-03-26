@@ -42,7 +42,6 @@ output:
   # Sort results by: filepath, line and column.
   sort-results: true
 
-
 # All available settings of specific linters.
 linters-settings:
 
@@ -730,10 +729,6 @@ linters-settings:
         severity: warning
         disabled: false
 
-  rowserrcheck:
-    packages:
-      - github.com/jmoiron/sqlx
-
   staticcheck:
     # Select the Go version to target.
     # Default: 1.13
@@ -866,7 +861,6 @@ linters:
     - deadcode # deprecated
     - varcheck # deprecated
     - structcheck # deprecated
-#    - revive # use as a single linter
     - musttag
 
 issues:

@@ -1029,10 +1029,6 @@ linters-settings:
         severity: warning
         disabled: false
 
-  rowserrcheck:
-    packages:
-      - github.com/jmoiron/sqlx
-
   staticcheck:
     # Select the Go version to target.
     # Default: 1.13
