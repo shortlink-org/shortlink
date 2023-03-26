@@ -58,7 +58,7 @@ golint:
     - .go-cache
     - .job_teplate_go
   image:
-    name: golangci/golangci-lint:v1.52.1-alpine
+    name: golangci/golangci-lint:v1.52.2-alpine
     entrypoint: [""]
   before_script:
     - mkdir -p .go
