@@ -17,15 +17,12 @@ import (
 )
 
 type RabbitMQ struct {
-	wg sync.Mutex
-
-	URI  string
-	conn *Connection
-	ch   *Channel
-
+	log           logger.Logger
+	conn          *Connection
+	ch            *Channel
+	URI           string
 	reconnectTime int
-
-	log logger.Logger
+	wg            sync.Mutex
 }
 
 func New(log logger.Logger) *RabbitMQ {
@@ -132,12 +129,13 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 
 			spanCtx, span := otel.Tracer("AMQP").Start(spanCtx, "ConsumeMessage")
 			span.SetAttributes(attribute.String("queue", q.Name))
-			defer span.End()
 
 			message.Chan <- query.ResponseMessage{
 				Body:    msg.Body,
 				Context: spanCtx,
 			}
+
+			span.End()
 		}
 
 		return nil

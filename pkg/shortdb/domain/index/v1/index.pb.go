@@ -74,12 +74,11 @@ func (Type) EnumDescriptor() ([]byte, []int) {
 
 type Index struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Name          string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Name   string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Type   Type     `protobuf:"varint,2,opt,name=type,proto3,enum=shortdb.domain.index.v1.Type" json:"type,omitempty"`
-	Fields []string `protobuf:"bytes,3,rep,name=fields,proto3" json:"fields,omitempty"`
+	Fields        []string `protobuf:"bytes,3,rep,name=fields,proto3" json:"fields,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Type          Type `protobuf:"varint,2,opt,name=type,proto3,enum=shortdb.domain.index.v1.Type" json:"type,omitempty"`
 }
 
 func (x *Index) Reset() {

@@ -12,15 +12,13 @@ import (
 )
 
 type Step struct {
+	Options
 	ctx    *context.Context
-	name   string
-	status StepState
 	then   func(ctx context.Context) error
 	reject func(ctx context.Context) error
 	dag    *dag.Dag
-
-	// options
-	Options
+	name   string
+	status StepState
 }
 
 func (s *Step) Run() error {

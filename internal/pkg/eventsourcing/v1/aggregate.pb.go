@@ -25,14 +25,13 @@ const (
 // that all aggregates should have
 type BaseAggregate struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	FieldMask     *fieldmaskpb.FieldMask `protobuf:"bytes,5,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Type          string                 `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,5,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Type      string                 `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
-	Version   int32                  `protobuf:"varint,3,opt,name=version,proto3" json:"version,omitempty"`
-	Changes   []*Event               `protobuf:"bytes,4,rep,name=changes,proto3" json:"changes,omitempty"`
+	Changes       []*Event `protobuf:"bytes,4,rep,name=changes,proto3" json:"changes,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Version       int32 `protobuf:"varint,3,opt,name=version,proto3" json:"version,omitempty"`
 }
 
 func (x *BaseAggregate) Reset() {

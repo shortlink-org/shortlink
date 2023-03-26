@@ -44,15 +44,31 @@ func (s *BillingStore) Use(ctx context.Context, log logger.Logger, db *db.Store)
 		s.EventStore = &event_store.Repository{}
 	}
 
-	_ = s.Account.Init(ctx, db)
-	_ = s.Tariff.Init(ctx, db)
-	_, _ = s.EventStore.Use(ctx, log, db)
+	err := s.Account.Init(ctx, db)
+	if err != nil {
+		return nil, err
+	}
+
+	err = s.Tariff.Init(ctx, db)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = s.EventStore.Use(ctx, log, db)
+	if err != nil {
+		return nil, err
+	}
 
 	log.Info("init billingStore", field.Fields{
 		"db": s.typeStore,
 	})
 
 	return s, nil
+}
+
+// Notify - implementation of notify.Subscriber interface
+func (s *BillingStore) Notify(ctx context.Context, event uint32, payload any) notify.Response[any] {
+	return notify.Response[any]{}
 }
 
 func (s *BillingStore) setConfig() {

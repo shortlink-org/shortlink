@@ -34,15 +34,15 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 	}
 
 	row := s.db.QueryRow(ctx, q, args...)
-	errScan := row.Scan()
-	if errors.Is(errScan, pgx.ErrNoRows) {
+	err = row.Scan()
+	if errors.Is(err, pgx.ErrNoRows) {
 		return nil
 	}
-	if errScan.Error() != "" {
+	if err.Error() != "" {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
 
-		return errScan
+		return err
 	}
 
 	return nil

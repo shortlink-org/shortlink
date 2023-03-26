@@ -25,13 +25,12 @@ const (
 // URL is a structure of <url> in <sitemap>
 type Url struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Loc           string `protobuf:"bytes,1,opt,name=loc,proto3" json:"loc,omitempty" xml:"loc"`
+	LastMod       string `protobuf:"bytes,2,opt,name=last_mod,json=lastMod,proto3" json:"last_mod,omitempty" xml:"lastmod"`
+	ChangeFreq    string `protobuf:"bytes,3,opt,name=change_freq,json=changeFreq,proto3" json:"change_freq,omitempty" xml:"changefreq"`
 	unknownFields protoimpl.UnknownFields
-
-	Loc        string  `protobuf:"bytes,1,opt,name=loc,proto3" json:"loc,omitempty" xml:"loc"`
-	LastMod    string  `protobuf:"bytes,2,opt,name=last_mod,json=lastMod,proto3" json:"last_mod,omitempty" xml:"lastmod"`
-	ChangeFreq string  `protobuf:"bytes,3,opt,name=change_freq,json=changeFreq,proto3" json:"change_freq,omitempty" xml:"changefreq"`
-	Priority   float32 `protobuf:"fixed32,4,opt,name=priority,proto3" json:"priority,omitempty" xml:"priority"`
+	sizeCache     protoimpl.SizeCache
+	Priority      float32 `protobuf:"fixed32,4,opt,name=priority,proto3" json:"priority,omitempty" xml:"priority"`
 }
 
 func (x *Url) Reset() {
@@ -97,10 +96,9 @@ func (x *Url) GetPriority() float32 {
 // Sitemap is a structure of <sitemap>
 type Sitemap struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Url []*Url `protobuf:"bytes,1,rep,name=url,proto3" json:"url,omitempty" xml:"url"`
+	Url           []*Url `protobuf:"bytes,1,rep,name=url,proto3" json:"url,omitempty" xml:"url"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Sitemap) Reset() {

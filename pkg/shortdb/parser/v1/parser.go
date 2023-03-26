@@ -49,7 +49,7 @@ var reservedWords = []string{
 }
 
 var (
-	r, _ = regexp.Compile("[a-zA-Z0-9]")
+	r, _ = regexp.Compile("[a-zA-Z0-9]") // nolint:errcheck
 
 	// TypeFieldTable - list of support type fields of table
 	typeFieldTable = []string{"int", "integer", "string", "text", "boolean", "bool"}
@@ -758,7 +758,7 @@ func isIdentifier(s string) bool {
 		}
 	}
 
-	matched, _ := regexp.MatchString("[a-zA-Z_][a-zA-Z_0-9]*", s)
+	matched, _ := regexp.MatchString("[a-zA-Z_][a-zA-Z_0-9]*", s) // nolint:errcheck
 
 	return matched
 }

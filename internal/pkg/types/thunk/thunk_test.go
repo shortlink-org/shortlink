@@ -9,8 +9,7 @@ import (
 func TestThunkFib(t *testing.T) {
 	cache := make([]*Thunk[int], 41)
 
-	var fib func(int) int
-	fib = func(n int) int {
+	fib := func(n int) int {
 		return cache[n-1].Force() + cache[n-2].Force()
 	}
 

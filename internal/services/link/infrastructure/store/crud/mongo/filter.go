@@ -15,7 +15,7 @@ func getFilter(filter *query.Filter) bson.D {
 	r := reflect.ValueOf(filter)
 
 	for _, key := range filter.GetKeys() {
-		val := reflect.Indirect(r).FieldByName(key).Interface().(*query.StringFilterInput)
+		val := reflect.Indirect(r).FieldByName(key).Interface().(*query.StringFilterInput) // nolint:errcheck
 
 		// Skip empty value
 		if val == nil {

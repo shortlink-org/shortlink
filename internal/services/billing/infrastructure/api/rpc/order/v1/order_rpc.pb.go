@@ -24,10 +24,9 @@ const (
 
 type OrderHistoryResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	List []*v1.Order `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List          []*v1.Order `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderHistoryResponse) Reset() {
@@ -71,10 +70,9 @@ func (x *OrderHistoryResponse) GetList() []*v1.Order {
 
 type OrderCreateRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Order         *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderCreateRequest) Reset() {
@@ -118,10 +116,9 @@ func (x *OrderCreateRequest) GetOrder() *v1.Order {
 
 type OrderCreateResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Order         *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderCreateResponse) Reset() {
@@ -165,10 +162,9 @@ func (x *OrderCreateResponse) GetOrder() *v1.Order {
 
 type OrderUpdateRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Order         *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderUpdateRequest) Reset() {
@@ -212,10 +208,9 @@ func (x *OrderUpdateRequest) GetOrder() *v1.Order {
 
 type OrderUpdateResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Order         *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderUpdateResponse) Reset() {
@@ -259,10 +254,9 @@ func (x *OrderUpdateResponse) GetOrder() *v1.Order {
 
 type OrderCloseRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Order         *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderCloseRequest) Reset() {
@@ -306,10 +300,9 @@ func (x *OrderCloseRequest) GetOrder() *v1.Order {
 
 type OrderCloseResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Order         *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderCloseResponse) Reset() {
@@ -353,10 +346,9 @@ func (x *OrderCloseResponse) GetOrder() *v1.Order {
 
 type OrderApproveRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Order         *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderApproveRequest) Reset() {
@@ -400,10 +392,9 @@ func (x *OrderApproveRequest) GetOrder() *v1.Order {
 
 type OrderApproveResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Order         *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *OrderApproveResponse) Reset() {

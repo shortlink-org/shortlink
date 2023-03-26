@@ -57,8 +57,8 @@ const (
 )
 
 // Configuration - options for logger
-type Configuration struct { // nolint:decorder
-	Level      int
+type Configuration struct {
 	Writer     io.Writer
 	TimeFormat string
+	Level      int
 }

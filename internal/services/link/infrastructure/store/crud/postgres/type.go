@@ -8,9 +8,9 @@ import (
 
 // Config ...
 type Config struct {
+	job  *batch.Config
 	URI  string
 	mode int
-	job  *batch.Config
 }
 
 // Store implementation of db interface

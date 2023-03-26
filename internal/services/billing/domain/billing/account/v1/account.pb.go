@@ -72,13 +72,12 @@ func (Event) EnumDescriptor() ([]byte, []int) {
 
 type Account struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	FieldMask     *fieldmaskpb.FieldMask `protobuf:"bytes,4,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	TariffId      string                 `protobuf:"bytes,3,opt,name=tariff_id,json=tariffId,proto3" json:"tariff_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,4,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	UserId    string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	TariffId  string                 `protobuf:"bytes,3,opt,name=tariff_id,json=tariffId,proto3" json:"tariff_id,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Account) Reset() {
@@ -143,10 +142,9 @@ func (x *Account) GetTariffId() string {
 
 type Accounts struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	List []*Account `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List          []*Account `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Accounts) Reset() {

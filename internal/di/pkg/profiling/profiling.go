@@ -14,7 +14,7 @@ import (
 
 type PprofEndpoint *http.ServeMux
 
-func New(log logger.Logger) PprofEndpoint {
+func New(log logger.Logger) (PprofEndpoint, error) {
 	// Create "common" listener
 	pprofMux := http.NewServeMux()
 
@@ -40,7 +40,7 @@ func New(log logger.Logger) PprofEndpoint {
 	runtime.SetMutexProfileFraction(5)
 	runtime.SetBlockProfileRate(5)
 
-	pyroscope.Start(pyroscope.Config{
+	_, err := pyroscope.Start(pyroscope.Config{
 		ApplicationName: viper.GetString("SERVICE_NAME"),
 		ServerAddress:   "http://pyroscope.pyroscope:4040",
 		Logger:          nil,
@@ -60,6 +60,9 @@ func New(log logger.Logger) PprofEndpoint {
 			pyroscope.ProfileBlockDuration,
 		},
 	})
+	if err != nil {
+		return nil, err
+	}
 
-	return pprofMux
+	return pprofMux, nil
 }

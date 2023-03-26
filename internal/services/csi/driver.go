@@ -31,8 +31,8 @@ const (
 )
 
 type identityServer struct {
-	name string
 	log  logger.Logger
+	name string
 }
 
 type nodeServer struct {
@@ -41,27 +41,22 @@ type nodeServer struct {
 }
 
 type controllerServer struct {
-	caps   []*csi.ControllerServiceCapability
 	nodeID string
+	caps   []*csi.ControllerServiceCapability
 }
 
 type driver struct {
+	log               logger.Logger
+	srv               *grpc.Server
+	ids               *identityServer
+	ns                *nodeServer
+	cs                *controllerServer
 	name              string
 	nodeID            string
 	endpoint          string
 	maxVolumesPerNode int64
-
-	log logger.Logger
-	srv *grpc.Server
-
-	ids *identityServer
-	ns  *nodeServer
-	cs  *controllerServer
-
-	// ready defines whether the driver is ready to function. This value will
-	// be used by the `Identity` service via the `Probe()` method.
-	readyMu sync.Mutex // protects ready
-	ready   bool
+	readyMu           sync.Mutex
+	ready             bool
 }
 
 // NewDriver returns a CSI plugin that contains the necessary gRPC

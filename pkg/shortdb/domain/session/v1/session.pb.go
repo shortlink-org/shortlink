@@ -22,18 +22,13 @@ const (
 
 // Session
 type Session struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// current database
+	state           protoimpl.MessageState
 	CurrentDatabase string `protobuf:"bytes,1,opt,name=current_database,json=currentDatabase,proto3" json:"current_database,omitempty"`
-	// raw input
-	Raw string `protobuf:"bytes,2,opt,name=raw,proto3" json:"raw,omitempty"`
-	// flag for run command
-	Exec bool `protobuf:"varint,3,opt,name=exec,proto3" json:"exec,omitempty"`
-	// history query
-	History []string `protobuf:"bytes,4,rep,name=history,proto3" json:"history,omitempty"`
+	Raw             string `protobuf:"bytes,2,opt,name=raw,proto3" json:"raw,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	History         []string `protobuf:"bytes,4,rep,name=history,proto3" json:"history,omitempty"`
+	sizeCache       protoimpl.SizeCache
+	Exec            bool `protobuf:"varint,3,opt,name=exec,proto3" json:"exec,omitempty"`
 }
 
 func (x *Session) Reset() {

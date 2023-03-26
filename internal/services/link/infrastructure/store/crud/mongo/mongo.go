@@ -25,7 +25,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 
 	// Set configuration
 	s.setConfig()
-	s.client = db.Store.GetConn().(*mongo.Client)
+	s.client = db.Store.GetConn().(*mongo.Client) // nolint:errcheck
 
 	// Create batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
@@ -33,7 +33,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 			sources := make([]*v1.Link, len(args))
 
 			for key := range args {
-				sources[key] = args[key].Item.(*v1.Link)
+				sources[key] = args[key].Item.(*v1.Link) // nolint:errcheck
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
@@ -242,9 +242,7 @@ func (m *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 		Link: []*v1.Link{},
 	}
 
-	for item := range sources {
-		links.Link = append(links.Link, sources[item])
-	}
+	links.Link = append(links.Link, sources...)
 
 	return links, nil
 }

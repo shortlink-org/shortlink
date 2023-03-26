@@ -13,15 +13,11 @@ import (
 
 // Store abstract type
 type BillingStore struct {
-	typeStore string
-
-	// Repositories
-	Account    AccountRepository
-	Tariff     TariffRepository
-	EventStore *event_store.Repository
-
-	// Observer interface for subscribe on system event
+	Account AccountRepository
+	Tariff  TariffRepository
 	notify.Subscriber[link.Link]
+	EventStore *event_store.Repository
+	typeStore  string
 }
 
 type Repository interface {

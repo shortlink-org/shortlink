@@ -17,7 +17,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net"
 	"net/url"
 	"os"
@@ -50,11 +49,11 @@ const (
 type hostPathVolume struct {
 	VolName       string     `json:"volName"`
 	VolID         string     `json:"volID"`
-	VolSize       int64      `json:"volSize"`
 	VolPath       string     `json:"volPath"`
-	VolAccessType accessType `json:"volAccessType"`
 	ParentVolID   string     `json:"parentVolID,omitempty"`
 	ParentSnapID  string     `json:"parentSnapID,omitempty"`
+	VolSize       int64      `json:"volSize"`
+	VolAccessType accessType `json:"volAccessType"`
 }
 
 type hostPathSnapshot struct {
@@ -100,7 +99,7 @@ func getSnapshotID(file string) (bool, string) {
 
 func discoverExistingSnapshots() {
 	glog.V(4).Infof("discovering existing snapshots in %s", dataRoot) // nolint:gomnd
-	files, err := ioutil.ReadDir(dataRoot)
+	files, err := os.ReadDir(dataRoot)
 	if err != nil {
 		glog.Errorf("failed to discover snapshots under %s: %v", dataRoot, err)
 	}
@@ -214,9 +213,9 @@ func getVolumeByName(volName string) (hostPathVolume, error) {
 }
 
 func getSnapshotByName(name string) (hostPathSnapshot, error) {
-	for _, snapshot := range hostPathVolumeSnapshots {
+	for _, snapshot := range hostPathVolumeSnapshots { // nolint:govet
 		if snapshot.Name == name {
-			return snapshot, nil
+			return snapshot, nil // nolint:govet
 		}
 	}
 

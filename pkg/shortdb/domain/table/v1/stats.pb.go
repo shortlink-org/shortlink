@@ -22,11 +22,10 @@ const (
 
 type TableStats struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	RowsCount int64 `protobuf:"varint,1,opt,name=rows_count,json=rowsCount,proto3" json:"rows_count,omitempty"`
-	PageCount int32 `protobuf:"varint,2,opt,name=page_count,json=pageCount,proto3" json:"page_count,omitempty"`
+	RowsCount     int64 `protobuf:"varint,1,opt,name=rows_count,json=rowsCount,proto3" json:"rows_count,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	PageCount     int32 `protobuf:"varint,2,opt,name=page_count,json=pageCount,proto3" json:"page_count,omitempty"`
 }
 
 func (x *TableStats) Reset() {

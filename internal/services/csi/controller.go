@@ -426,11 +426,11 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 	snapshot.Id = snapshotID
 	snapshot.VolID = volumeID
 	snapshot.Path = file
-	snapshot.CreationTime = *creationTime
+	snapshot.CreationTime = *creationTime // nolint:govet
 	snapshot.SizeBytes = hostPathVolume.VolSize
 	snapshot.ReadyToUse = true
 
-	hostPathVolumeSnapshots[snapshotID] = snapshot
+	hostPathVolumeSnapshots[snapshotID] = snapshot // nolint:govet
 
 	return &csi.CreateSnapshotResponse{
 		Snapshot: &csi.Snapshot{
@@ -480,15 +480,15 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	if len(req.GetSnapshotId()) != 0 {
 		snapshotID := req.SnapshotId
 		if snapshot, ok := hostPathVolumeSnapshots[snapshotID]; ok { // nolint:govet
-			return convertSnapshot(snapshot), nil
+			return convertSnapshot(snapshot), nil // nolint:govet
 		}
 	}
 
 	// case 2: SourceVolumeId is not empty, return snapshots that match the source volume id.
 	if len(req.GetSourceVolumeId()) != 0 {
-		for _, snapshot := range hostPathVolumeSnapshots {
+		for _, snapshot := range hostPathVolumeSnapshots { // nolint:govet
 			if snapshot.VolID == req.SourceVolumeId {
-				return convertSnapshot(snapshot), nil
+				return convertSnapshot(snapshot), nil // nolint:govet
 			}
 		}
 	}
@@ -502,7 +502,7 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	sort.Strings(sortedKeys)
 
 	for _, key := range sortedKeys {
-		snap := hostPathVolumeSnapshots[key]
+		snap := hostPathVolumeSnapshots[key] // nolint:govet
 		snapshot := csi.Snapshot{
 			SnapshotId:     snap.Id,
 			SourceVolumeId: snap.VolID,
@@ -608,7 +608,7 @@ func (d *driver) ControllerExpandVolume(ctx context.Context, req *csi.Controller
 	}, nil
 }
 
-func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse {
+func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse { // nolint:govet
 	entries := []*csi.ListSnapshotsResponse_Entry{
 		{
 			Snapshot: &csi.Snapshot{

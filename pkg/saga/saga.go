@@ -13,18 +13,12 @@ import (
 )
 
 type Saga struct {
-	ctx   context.Context
-	name  string
-	steps map[string]*Step
-
-	// A Directed acyclic graph or DAG  describes the workflow processes and
-	// how are they related each other.
-	dag *dag.Dag
-
-	errorList []error
-
-	// options
+	ctx context.Context
 	Options
+	steps     map[string]*Step
+	dag       *dag.Dag
+	name      string
+	errorList []error
 }
 
 func (s *Saga) AddStep(name string, setters ...Option) *BuilderStep {
@@ -98,8 +92,8 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	for _, rootStep := range initSteps {
 		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
 		if errGetVertex != nil {
-			span.RecordError(err)
-			span.SetStatus(codes.Error, err.Error())
+			span.RecordError(errGetVertex)
+			span.SetStatus(codes.Error, errGetVertex.Error())
 
 			return errGetVertex
 		}

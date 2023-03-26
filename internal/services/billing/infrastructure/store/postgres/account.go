@@ -17,7 +17,13 @@ type Account struct {
 }
 
 func (a *Account) Init(ctx context.Context, db *db.Store) error {
-	a.client = db.Store.GetConn().(*pgxpool.Pool)
+	var ok bool
+
+	a.client, ok = db.Store.GetConn().(*pgxpool.Pool)
+	if !ok {
+		return errors.New("can't get db connection")
+	}
+
 	return nil
 }
 

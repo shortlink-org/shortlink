@@ -51,7 +51,11 @@ func (d *Dag) AddEdge(from, to string) error {
 		return fmt.Errorf("not found vertex by id: %s", to)
 	}
 
-	toVertex := toVertexRaw.(*Vertex)
+	toVertex, ok := toVertexRaw.(*Vertex)
+	if !ok {
+		return errors.New("incorrect type assertion")
+	}
+
 	fromVertex.children = append(fromVertex.children, toVertex)
 	toVertex.parents = append(toVertex.parents, fromVertex)
 

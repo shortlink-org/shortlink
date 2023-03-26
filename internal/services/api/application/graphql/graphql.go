@@ -25,7 +25,7 @@ import (
 )
 
 //go:embed schema/*.graphqls
-var schema embed.FS
+var schema embed.FS //nolint:unused
 
 // API ...
 type API struct {
@@ -56,17 +56,14 @@ func (api *API) GetHandler(traceProvider *trace.TracerProvider) *relay.Handler {
 
 			// Add a newline if the file does not end in a newline.
 			if len(file) > 0 && file[len(file)-1] != '\n' {
-				if errWriteByte := buf.WriteByte('\n'); err != nil {
+				if errWriteByte := buf.WriteByte('\n'); errWriteByte != nil {
 					panic(errWriteByte)
 				}
 			}
 
-			if err != nil {
-				panic(err)
-			}
-
-			if _, err := buf.Write(file); err != nil {
-				panic(err)
+			_, errWrite := buf.Write(file)
+			if errWrite != nil {
+				panic(errWrite)
 			}
 		}
 

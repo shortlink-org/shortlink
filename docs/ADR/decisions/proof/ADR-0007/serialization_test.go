@@ -10,11 +10,11 @@ import (
 
 var (
 	payload = struct {
+		Name     string    `json:"name"`
 		Ballance int64     `json:"ballance"`
 		User     int64     `json:"user"`
-		Name     string    `json:"name"`
-		Uid      uuid.UUID `json:"uid"`
 		Quality  int64     `json:"quality"`
+		Uid      uuid.UUID `json:"uid"`
 	}{
 		Ballance: 100,
 		User:     1,

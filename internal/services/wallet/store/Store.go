@@ -233,15 +233,13 @@ func (_Store *StoreTransactorSession) SetItem(key [32]byte, value [32]byte) (*ty
 
 // StoreItemSetIterator is returned from FilterItemSet and is used to iterate over the raw logs and unpacked data for ItemSet events raised by the Store contract.
 type StoreItemSetIterator struct {
-	Event *StoreItemSet // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
+	sub      ethereum.Subscription
+	fail     error
+	Event    *StoreItemSet
+	contract *bind.BoundContract
+	logs     chan types.Log
+	event    string
+	done     bool
 }
 
 // Next advances the iterator to the subsequent event, returning whether there
@@ -300,9 +298,9 @@ func (it *StoreItemSetIterator) Close() error {
 
 // StoreItemSet represents a ItemSet event raised by the Store contract.
 type StoreItemSet struct {
+	Raw   types.Log
 	Key   [32]byte
 	Value [32]byte
-	Raw   types.Log // Blockchain specific contextual infos
 }
 
 // FilterItemSet is a free log retrieval operation binding the contract event 0xe79e73da417710ae99aa2088575580a60415d359acfad9cdd3382d59c80281d4.

@@ -40,7 +40,7 @@ func (f *file) CreateIndex(query *v1.Query) error {
 			return err
 		}
 		rows, err := f.Select(cmd.Query)
-		if err != nil {
+		if err != nil { // nolint:staticcheck
 			// NOTE: ignore empty table
 		}
 

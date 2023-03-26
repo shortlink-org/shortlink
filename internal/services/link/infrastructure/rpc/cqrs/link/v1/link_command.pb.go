@@ -24,10 +24,9 @@ const (
 
 type AddRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *AddRequest) Reset() {
@@ -71,10 +70,9 @@ func (x *AddRequest) GetLink() *v1.Link {
 
 type AddResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *AddResponse) Reset() {
@@ -118,10 +116,9 @@ func (x *AddResponse) GetLink() *v1.Link {
 
 type UpdateRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateRequest) Reset() {
@@ -165,10 +162,9 @@ func (x *UpdateRequest) GetLink() *v1.Link {
 
 type UpdateResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UpdateResponse) Reset() {
@@ -212,10 +208,9 @@ func (x *UpdateResponse) GetLink() *v1.Link {
 
 type DeleteRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Hash          string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Hash string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteRequest) Reset() {

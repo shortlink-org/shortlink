@@ -23,14 +23,13 @@ const (
 
 type Meta struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	FieldMask     *fieldmaskpb.FieldMask `protobuf:"bytes,5,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	ImageUrl      string                 `protobuf:"bytes,2,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Keywords      string                 `protobuf:"bytes,4,opt,name=keywords,proto3" json:"keywords,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	FieldMask   *fieldmaskpb.FieldMask `protobuf:"bytes,5,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Id          string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	ImageUrl    string                 `protobuf:"bytes,2,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	Description string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Keywords    string                 `protobuf:"bytes,4,opt,name=keywords,proto3" json:"keywords,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Meta) Reset() {

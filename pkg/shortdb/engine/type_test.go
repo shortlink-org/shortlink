@@ -13,7 +13,7 @@ import (
 
 func BenchmarkEngine(b *testing.B) {
 	// set engine
-	path := fmt.Sprintf("/tmp/shortdb_test_unit")
+	path := "/tmp/shortdb_test_unit"
 
 	store, err := New("file", file.SetName("testDatabase"), file.SetPath(path))
 	assert.Nil(b, err)
@@ -25,20 +25,21 @@ func BenchmarkEngine(b *testing.B) {
 
 	b.Run("CREATE TABLE", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			qCreateTable, err := parser.New("create table users (id integer, name string, active bool)")
-			assert.Nil(b, err)
+			qCreateTable, errParserNew := parser.New("create table users (id integer, name string, active bool)")
+			assert.Nil(b, errParserNew)
 
-			_, _ = store.Exec(qCreateTable.Query)
+			_, err = store.Exec(qCreateTable.Query)
+			assert.Nil(b, err)
 		}
 	})
 
 	b.Run("INSERT INTO USERS", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
-			assert.Nil(b, err)
+			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
+			assert.Nil(b, errParserNew)
 
-			err = store.Insert(qInsertUsers.Query)
-			assert.Nil(b, err)
+			errInsert := store.Insert(qInsertUsers.Query)
+			assert.Nil(b, errInsert)
 		}
 
 		// save data

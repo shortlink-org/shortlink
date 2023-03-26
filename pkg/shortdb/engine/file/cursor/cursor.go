@@ -41,7 +41,7 @@ func (c *Cursor) Value() (*page.Row, error) {
 	defer c.wc.RUnlock()
 
 	if c.Table.Pages == nil {
-		return nil, &ErrorGetPage{}
+		return nil, ErrorGetPage
 	}
 
 	p := c.Table.Pages[c.PageId]

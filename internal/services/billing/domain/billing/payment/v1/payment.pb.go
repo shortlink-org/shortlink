@@ -81,15 +81,14 @@ func (StatusPayment) EnumDescriptor() ([]byte, []int) {
 
 type Payment struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	FieldMask     *fieldmaskpb.FieldMask `protobuf:"bytes,6,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	UserId        string                 `protobuf:"bytes,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,6,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name      string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Status    StatusPayment          `protobuf:"varint,3,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
-	UserId    string                 `protobuf:"bytes,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Amount    int64                  `protobuf:"varint,5,opt,name=amount,proto3" json:"amount,omitempty"`
+	Amount        int64 `protobuf:"varint,5,opt,name=amount,proto3" json:"amount,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Status        StatusPayment `protobuf:"varint,3,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
 }
 
 func (x *Payment) Reset() {
@@ -168,10 +167,9 @@ func (x *Payment) GetAmount() int64 {
 
 type Payments struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	List []*Payment `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List          []*Payment `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Payments) Reset() {

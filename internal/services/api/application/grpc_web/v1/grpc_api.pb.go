@@ -28,11 +28,10 @@ const (
 
 type GetLinksRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	Filter        string   `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link   *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
-	Filter string   `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLinksRequest) Reset() {
@@ -83,10 +82,9 @@ func (x *GetLinksRequest) GetFilter() string {
 
 type GetLinksResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Links []*v1.Link `protobuf:"bytes,1,rep,name=links,proto3" json:"links,omitempty"`
+	Links         []*v1.Link `protobuf:"bytes,1,rep,name=links,proto3" json:"links,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLinksResponse) Reset() {
@@ -130,10 +128,9 @@ func (x *GetLinksResponse) GetLinks() []*v1.Link {
 
 type GetLinkRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLinkRequest) Reset() {
@@ -177,10 +174,9 @@ func (x *GetLinkRequest) GetLink() *v1.Link {
 
 type GetLinkResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetLinkResponse) Reset() {
@@ -224,10 +220,9 @@ func (x *GetLinkResponse) GetLink() *v1.Link {
 
 type CreateLinkRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CreateLinkRequest) Reset() {
@@ -271,10 +266,9 @@ func (x *CreateLinkRequest) GetLink() *v1.Link {
 
 type CreateLinkResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *CreateLinkResponse) Reset() {
@@ -318,10 +312,9 @@ func (x *CreateLinkResponse) GetLink() *v1.Link {
 
 type DeleteLinkRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DeleteLinkRequest) Reset() {

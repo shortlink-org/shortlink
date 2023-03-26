@@ -23,25 +23,18 @@ const (
 )
 
 type LinkView struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,9,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	// URL
-	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	// Hash by URL + salt
-	Hash string `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
-	// Describe of link
-	Describe string `protobuf:"bytes,3,opt,name=describe,proto3" json:"describe,omitempty"`
-	// Metadata
-	ImageUrl        string `protobuf:"bytes,4,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	MetaDescription string `protobuf:"bytes,5,opt,name=meta_description,json=metaDescription,proto3" json:"meta_description,omitempty"`
-	MetaKeywords    string `protobuf:"bytes,6,opt,name=meta_keywords,json=metaKeywords,proto3" json:"meta_keywords,omitempty"`
-	// Create at
-	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	// Update at
-	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	state           protoimpl.MessageState
+	FieldMask       *fieldmaskpb.FieldMask `protobuf:"bytes,9,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	CreatedAt       *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt       *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Url             string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	Hash            string                 `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
+	Describe        string                 `protobuf:"bytes,3,opt,name=describe,proto3" json:"describe,omitempty"`
+	ImageUrl        string                 `protobuf:"bytes,4,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	MetaDescription string                 `protobuf:"bytes,5,opt,name=meta_description,json=metaDescription,proto3" json:"meta_description,omitempty"`
+	MetaKeywords    string                 `protobuf:"bytes,6,opt,name=meta_keywords,json=metaKeywords,proto3" json:"meta_keywords,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *LinkView) Reset() {
@@ -141,10 +134,9 @@ func (x *LinkView) GetUpdatedAt() *timestamppb.Timestamp {
 
 type LinksView struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Links []*LinkView `protobuf:"bytes,1,rep,name=links,proto3" json:"links,omitempty"`
+	Links         []*LinkView `protobuf:"bytes,1,rep,name=links,proto3" json:"links,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *LinksView) Reset() {

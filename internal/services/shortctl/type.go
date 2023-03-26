@@ -7,10 +7,8 @@ type ENV struct {
 	value    string
 	kind     string
 	describe string
-
-	// for match comments
-	pos      token.Pos
 	fileName string
+	pos      token.Pos
 }
 
 type Config struct {

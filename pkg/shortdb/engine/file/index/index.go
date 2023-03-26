@@ -25,8 +25,12 @@ func New(in *index.Index, rows []*page.Row) (Index[any], error) {
 		})
 
 		for i := range rows {
-			v, _ := strconv.Atoi(string(rows[i].GetValue()["id"]))
-			err := tree.Insert(v)
+			v, err := strconv.Atoi(string(rows[i].GetValue()["id"]))
+			if err != nil {
+				return nil, err
+			}
+
+			err = tree.Insert(v)
 			if err != nil {
 				return nil, err
 			}

@@ -2,7 +2,6 @@ package repl
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strings"
 
@@ -27,7 +26,7 @@ func (r *repl) init() error {
 	}()
 
 	// read file
-	payload, err := ioutil.ReadFile(path) // #nosec
+	payload, err := os.ReadFile(path) // #nosec
 	if err != nil {
 		return err
 	}
