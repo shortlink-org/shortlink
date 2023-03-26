@@ -10,11 +10,11 @@ type Message struct {
 }
 
 type ResponseMessage struct {
-	Body    []byte
 	Context context.Context
+	Body    []byte
 }
 
 type Response struct {
-	Key  []byte               // routing key
-	Chan chan ResponseMessage // payload
+	Chan chan ResponseMessage
+	Key  []byte
 }

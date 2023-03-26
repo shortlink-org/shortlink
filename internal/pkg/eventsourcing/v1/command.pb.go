@@ -24,15 +24,13 @@ const (
 // that all commands should have
 type BaseCommand struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Type string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	// AggregateID represents the id of the aggregate to apply to
+	Type          string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
 	AggregateId   string `protobuf:"bytes,2,opt,name=aggregate_id,json=aggregateId,proto3" json:"aggregate_id,omitempty"`
 	AggregateType string `protobuf:"bytes,3,opt,name=aggregate_type,json=aggregateType,proto3" json:"aggregate_type,omitempty"`
-	Version       int32  `protobuf:"varint,4,opt,name=version,proto3" json:"version,omitempty"`
 	Payload       string `protobuf:"bytes,5,opt,name=payload,proto3" json:"payload,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+	Version       int32 `protobuf:"varint,4,opt,name=version,proto3" json:"version,omitempty"`
 }
 
 func (x *BaseCommand) Reset() {

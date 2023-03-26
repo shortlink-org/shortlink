@@ -23,7 +23,13 @@ type Store struct {
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
 func (s *Store) Init(ctx context.Context, db *db.Store) error {
-	s.db = db.Store.GetConn().(*pgxpool.Pool)
+	var ok bool
+
+	s.db, ok = db.Store.GetConn().(*pgxpool.Pool)
+	if !ok {
+		return errors.New("Error get connection to PostgreSQL")
+	}
+
 	return nil
 }
 

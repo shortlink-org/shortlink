@@ -22,10 +22,9 @@ const (
 
 type Row struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Value         map[string][]byte `protobuf:"bytes,2,rep,name=value,proto3" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	unknownFields protoimpl.UnknownFields
-
-	Value map[string][]byte `protobuf:"bytes,2,rep,name=value,proto3" json:"value,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Row) Reset() {
@@ -69,10 +68,9 @@ func (x *Row) GetValue() map[string][]byte {
 
 type Page struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Rows []*Row `protobuf:"bytes,1,rep,name=rows,proto3" json:"rows,omitempty"`
+	Rows          []*Row `protobuf:"bytes,1,rep,name=rows,proto3" json:"rows,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Page) Reset() {

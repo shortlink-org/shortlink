@@ -11,9 +11,9 @@ import (
 
 // Config ...
 type Config struct {
-	Host     []string
 	Username string
 	Password string
+	Host     []string
 }
 
 // Store implementation of db interface
@@ -60,11 +60,6 @@ func (s *Store) GetConn() interface{} {
 // Close ...
 func (s *Store) Close() error {
 	return s.client.Close()
-}
-
-// Migrate ...
-func (s *Store) migrate() error {
-	return nil
 }
 
 // setConfig - set configuration

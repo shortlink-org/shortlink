@@ -23,10 +23,9 @@ const (
 
 type MetadataServiceGetRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Id            string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *MetadataServiceGetRequest) Reset() {
@@ -70,10 +69,9 @@ func (x *MetadataServiceGetRequest) GetId() string {
 
 type MetadataServiceGetResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          *v1.Meta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta *v1.Meta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *MetadataServiceGetResponse) Reset() {
@@ -117,10 +115,9 @@ func (x *MetadataServiceGetResponse) GetMeta() *v1.Meta {
 
 type MetadataServiceSetRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Id            string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *MetadataServiceSetRequest) Reset() {
@@ -164,10 +161,9 @@ func (x *MetadataServiceSetRequest) GetId() string {
 
 type MetadataServiceSetResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Meta          *v1.Meta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Meta *v1.Meta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *MetadataServiceSetResponse) Reset() {

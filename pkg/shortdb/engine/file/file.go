@@ -2,7 +2,6 @@ package file
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"sync"
 
@@ -19,11 +18,9 @@ import (
 )
 
 type file struct {
-	mc sync.RWMutex
-
-	path string
-
 	database *database.DataBase
+	path     string
+	mc       sync.RWMutex
 }
 
 func New(opts ...options.Option) (*file, error) {
@@ -49,10 +46,7 @@ func New(opts ...options.Option) (*file, error) {
 
 	// if not set path, set temp directory
 	if f.path == "" {
-		f.path, err = ioutil.TempDir(os.TempDir(), "shortdb_")
-		if err != nil {
-			return nil, err
-		}
+		f.path = os.TempDir()
 	}
 
 	// init db

@@ -24,10 +24,9 @@ const (
 
 type TariffRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Tariff        *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TariffRequest) Reset() {
@@ -71,10 +70,9 @@ func (x *TariffRequest) GetTariff() *v1.Tariff {
 
 type TariffResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Tariff        *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TariffResponse) Reset() {
@@ -118,10 +116,9 @@ func (x *TariffResponse) GetTariff() *v1.Tariff {
 
 type TariffsResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	List []*v1.Tariff `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List          []*v1.Tariff `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TariffsResponse) Reset() {
@@ -165,10 +162,9 @@ func (x *TariffsResponse) GetList() []*v1.Tariff {
 
 type TariffCreateRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Tariff        *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TariffCreateRequest) Reset() {
@@ -212,10 +208,9 @@ func (x *TariffCreateRequest) GetTariff() *v1.Tariff {
 
 type TariffCreateResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Tariff        *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TariffCreateResponse) Reset() {
@@ -259,10 +254,9 @@ func (x *TariffCreateResponse) GetTariff() *v1.Tariff {
 
 type TariffUpdateRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Tariff        *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TariffUpdateRequest) Reset() {
@@ -306,10 +300,9 @@ func (x *TariffUpdateRequest) GetTariff() *v1.Tariff {
 
 type TariffUpdateResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Tariff        *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TariffUpdateResponse) Reset() {
@@ -353,10 +346,9 @@ func (x *TariffUpdateResponse) GetTariff() *v1.Tariff {
 
 type TariffCloseRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Tariff        *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TariffCloseRequest) Reset() {
@@ -400,10 +392,9 @@ func (x *TariffCloseRequest) GetTariff() *v1.Tariff {
 
 type TariffCloseResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Tariff        *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *TariffCloseResponse) Reset() {

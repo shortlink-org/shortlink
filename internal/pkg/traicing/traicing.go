@@ -37,8 +37,20 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (trace.TracerProvi
 	)
 
 	cleanup := func() {
-		_ = exporter.Shutdown(ctx)
-		_ = tp.Shutdown(ctx)
+		err := exporter.Shutdown(ctx)
+		if err != nil {
+			log.Error(`Tracing disable`, field.Fields{
+				"uri": cnf.URI,
+				"err": err,
+			})
+		}
+		err = tp.Shutdown(ctx)
+		if err != nil {
+			log.Error(`Tracing disable`, field.Fields{
+				"uri": cnf.URI,
+				"err": err,
+			})
+		}
 	}
 
 	// Register the global Tracer provider

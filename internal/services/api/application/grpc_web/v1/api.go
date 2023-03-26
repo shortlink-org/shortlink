@@ -70,9 +70,7 @@ func (api *API) GetLinks(ctx context.Context, req *GetLinksRequest) (*GetLinksRe
 		links := r.Payload.([]*v1.Link) // nolint:errcheck
 
 		response := v1.Links{}
-		for key := range links {
-			response.Link = append(response.Link, links[key])
-		}
+		response.Link = append(response.Link, links...)
 
 		return &GetLinksResponse{
 			Links: response.Link,

@@ -10,8 +10,8 @@ import (
 )
 
 type Config struct {
-	URI           []string // addresses of available kafka brokers
 	ConsumerGroup string
+	URI           []string
 }
 
 type Kafka struct { // nolint:decorder

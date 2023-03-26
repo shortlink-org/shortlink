@@ -84,7 +84,8 @@ func (t *Tree[T]) insert(key T) *Tree[T] {
 }
 
 func (t *Tree[T]) Delete(key T) error {
-	_ = t.Delete(key)
+	t.delete(key)
+
 	return nil
 }
 

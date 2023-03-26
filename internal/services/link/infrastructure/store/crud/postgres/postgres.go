@@ -27,19 +27,23 @@ var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
 // New store
 func New(ctx context.Context, db *db.Store) (*Store, error) {
+	var ok bool
 	s := &Store{}
 
 	// Set configuration
 	s.setConfig()
-	s.client = db.Store.GetConn().(*pgxpool.Pool)
+	s.client, ok = db.Store.GetConn().(*pgxpool.Pool)
+	if !ok {
+		return nil, errors.New("Error get connection to PostgreSQL")
+	}
 
 	// Create batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) interface{} {
+		cb := func(args []*batch.Item) interface{} { // nolint:errcheck
 			sources := make([]*v1.Link, len(args))
 
 			for key := range args {
-				sources[key] = args[key].Item.(*v1.Link)
+				sources[key] = args[key].Item.(*v1.Link) // nolint:errcheck
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
@@ -277,9 +281,7 @@ func (p *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 		Link: []*v1.Link{},
 	}
 
-	for item := range sources {
-		response.Link = append(response.Link, sources[item])
-	}
+	response.Link = append(response.Link, sources...)
 
 	return response, nil
 }

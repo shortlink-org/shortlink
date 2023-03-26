@@ -23,11 +23,10 @@ const (
 
 type DataBase struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Tables        map[string]*v1.Table `protobuf:"bytes,2,rep,name=tables,proto3" json:"tables,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Name          string               `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Name   string               `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Tables map[string]*v1.Table `protobuf:"bytes,2,rep,name=tables,proto3" json:"tables,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *DataBase) Reset() {

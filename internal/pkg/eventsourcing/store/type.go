@@ -23,11 +23,7 @@ type EventStore interface {
 
 // Store abstract type
 type Repository struct {
-	typeStore string
-
-	// Base interface
 	EventStore
-
-	// Observer interface for subscribe on system event
 	notify.Subscriber[link.Link]
+	typeStore string
 }

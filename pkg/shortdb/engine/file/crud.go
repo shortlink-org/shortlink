@@ -134,12 +134,7 @@ func (f *file) insertToTable(query *v1.Query) error {
 
 	row, err := currentRow.Value()
 	if err != nil {
-		switch err.(type) {
-		case *cursor.ErrorGetPage:
-			// hmm...
-		default:
-			return fmt.Errorf("at INSERT INTO: error get value from cursor")
-		}
+		return fmt.Errorf("at INSERT INTO: error get value from cursor")
 	}
 
 	// check values and create row record

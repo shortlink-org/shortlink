@@ -7,14 +7,9 @@ import (
 )
 
 type Cursor struct {
-	wc sync.RWMutex
-
-	// table name
-	Table *table.Table
-	// page position
-	PageId int32
-	// row position
-	RowId int64
-	// Indicates a position one past the last element
+	Table      *table.Table
+	RowId      int64
+	wc         sync.RWMutex
+	PageId     int32
 	EndOfTable bool
 }

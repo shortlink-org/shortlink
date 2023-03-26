@@ -1,11 +1,7 @@
 package cursor
 
 import (
-	"fmt"
+	"errors"
 )
 
-type ErrorGetPage struct{}
-
-func (e *ErrorGetPage) Error() string {
-	return fmt.Sprintf("not found page")
-}
+var ErrorGetPage = errors.New("not found page")

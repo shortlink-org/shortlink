@@ -24,10 +24,9 @@ const (
 
 type PaymentRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Payment       *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PaymentRequest) Reset() {
@@ -71,10 +70,9 @@ func (x *PaymentRequest) GetPayment() *v1.Payment {
 
 type PaymentResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Payment       *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PaymentResponse) Reset() {
@@ -118,10 +116,9 @@ func (x *PaymentResponse) GetPayment() *v1.Payment {
 
 type PaymentsResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	List []*v1.Payment `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	List          []*v1.Payment `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PaymentsResponse) Reset() {
@@ -165,10 +162,9 @@ func (x *PaymentsResponse) GetList() []*v1.Payment {
 
 type PaymentCreateRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Payment       *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PaymentCreateRequest) Reset() {
@@ -212,10 +208,9 @@ func (x *PaymentCreateRequest) GetPayment() *v1.Payment {
 
 type PaymentCreateResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Payment       *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PaymentCreateResponse) Reset() {
@@ -259,10 +254,9 @@ func (x *PaymentCreateResponse) GetPayment() *v1.Payment {
 
 type PaymentCloseRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Payment       *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PaymentCloseRequest) Reset() {
@@ -306,10 +300,9 @@ func (x *PaymentCloseRequest) GetPayment() *v1.Payment {
 
 type PaymentCloseResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Payment       *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PaymentCloseResponse) Reset() {

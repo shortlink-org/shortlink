@@ -7,15 +7,13 @@ import (
 
 // Config
 type Config struct {
-	sync.Mutex
-
-	Size     int           // Size is the max entries limit
-	Interval time.Duration // Interval is the flush interval
+	cb       func([]*Item) interface{}
+	items    []*Item
+	Size     int
+	Interval time.Duration
 	Worker   int
-	Retries  int // Retries is count for try fault exec a command
-
-	items []*Item
-	cb    func([]*Item) interface{} // is the flush callback function used to flush entries.
+	Retries  int
+	sync.Mutex
 }
 
 // Item

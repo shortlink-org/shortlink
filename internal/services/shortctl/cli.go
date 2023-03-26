@@ -130,7 +130,7 @@ func (*Config) setConfigDocs(path string, config *Config) { // nolint:gocognit
 											if arg.Obj != nil {
 												switch variable := arg.Obj.Decl.(type) {
 												case *ast.AssignStmt:
-													c := variable.Rhs[0].(*ast.CallExpr)
+													c := variable.Rhs[0].(*ast.CallExpr) // nolint:errcheck
 
 													str := []interface{}{}
 													for i := range c.Args {

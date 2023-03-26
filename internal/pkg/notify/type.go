@@ -19,10 +19,10 @@ type Notify[T any] struct { // nolint:decorder
 	sync.RWMutex
 }
 
-type Response[T any] struct { // nolint:decorder
-	Name    string
+type Response[T any] struct {
 	Payload T
 	Error   error
+	Name    string
 }
 
 type Callback struct { // nolint:decorder

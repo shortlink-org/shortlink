@@ -43,11 +43,6 @@ func (b *Store) Close() error {
 	return b.client.Close()
 }
 
-// Migrate ...
-func (b *Store) migrate() error {
-	return nil
-}
-
 // setConfig - set configuration
 func (b *Store) setConfig() {
 	viper.AutomaticEnv()

@@ -15,9 +15,7 @@ type Repository interface {
 
 // Store abstract type
 type MetaStore struct {
-	typeStore string
-	Store     Repository
-
-	// Observer interface for subscribe on system event
+	Store Repository
 	notify.Subscriber[link.Link]
+	typeStore string
 }

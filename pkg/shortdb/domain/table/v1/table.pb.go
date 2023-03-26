@@ -26,10 +26,9 @@ const (
 
 type Option struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	PageSize int64 `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	PageSize      int64 `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Option) Reset() {
@@ -73,16 +72,15 @@ func (x *Option) GetPageSize() int64 {
 
 type Table struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	FieldMask     *fieldmaskpb.FieldMask `protobuf:"bytes,7,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	Fields        map[string]v1.Type     `protobuf:"bytes,2,rep,name=fields,proto3" json:"fields,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=shortdb.domain.field.v1.Type"`
+	Pages         map[int32]*v11.Page    `protobuf:"bytes,3,rep,name=pages,proto3" json:"pages,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Index         map[string]*v12.Index  `protobuf:"bytes,4,rep,name=index,proto3" json:"index,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Stats         *TableStats            `protobuf:"bytes,5,opt,name=stats,proto3" json:"stats,omitempty"`
+	Option        *Option                `protobuf:"bytes,6,opt,name=option,proto3" json:"option,omitempty"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,7,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Name      string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Fields    map[string]v1.Type     `protobuf:"bytes,2,rep,name=fields,proto3" json:"fields,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=shortdb.domain.field.v1.Type"`
-	Pages     map[int32]*v11.Page    `protobuf:"bytes,3,rep,name=pages,proto3" json:"pages,omitempty" protobuf_key:"varint,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Index     map[string]*v12.Index  `protobuf:"bytes,4,rep,name=index,proto3" json:"index,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Stats     *TableStats            `protobuf:"bytes,5,opt,name=stats,proto3" json:"stats,omitempty"`
-	Option    *Option                `protobuf:"bytes,6,opt,name=option,proto3" json:"option,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Table) Reset() {

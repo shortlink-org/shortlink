@@ -16,16 +16,14 @@ import (
 
 // Config ...
 type Config struct {
-	mode int
 	job  *batch.Config
+	mode int
 }
 
 // Store implementation of db interface
 type Store struct {
-	// sync.Map solver problem with cache contention
-	links sync.Map
-
 	config Config
+	links  sync.Map
 }
 
 // New store
@@ -43,7 +41,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 			}
 
 			for key := range args {
-				source := args[key].Item.(*v1.Link)
+				source := args[key].Item.(*v1.Link) // nolint:errcheck
 				data, errSingleWrite := s.singleWrite(ctx, source)
 				if errSingleWrite != nil {
 					return errSingleWrite

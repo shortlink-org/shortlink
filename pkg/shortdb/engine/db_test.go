@@ -17,7 +17,7 @@ func TestMain(m *testing.M) {
 
 func TestDatabase(t *testing.T) {
 	// set engine
-	path := fmt.Sprintf("/tmp/shortdb_test_unit")
+	path := "/tmp/shortdb_test_unit"
 
 	store, err := New("file", file.SetName("testDatabase"), file.SetPath(path))
 	assert.Nil(t, err)
@@ -29,18 +29,19 @@ func TestDatabase(t *testing.T) {
 
 	t.Run("CREATE TABLE", func(t *testing.T) {
 		// create table
-		qCreateTable, err := parser.New("create table users (id integer, name string, active bool)")
-		assert.Nil(t, err)
+		qCreateTable, errParser := parser.New("create table users (id integer, name string, active bool)")
+		assert.Nil(t, errParser)
 
-		_, _ = store.Exec(qCreateTable.Query)
+		_, errExec := store.Exec(qCreateTable.Query)
+		assert.Nil(t, errExec)
 
 		// save data
-		err = store.Close()
-		assert.Nil(t, err)
+		errClose := store.Close()
+		assert.Nil(t, errClose)
 	})
 
 	t.Run("INSERT INTO USERS SINGLE", func(t *testing.T) {
-		qInsertUsers, errParser := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false')"))
+		qInsertUsers, errParser := parser.New("insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false')")
 		assert.Nil(t, errParser)
 
 		errParser = store.Insert(qInsertUsers.Query)
@@ -59,11 +60,11 @@ func TestDatabase(t *testing.T) {
 
 	t.Run("INSERT INTO USERS", func(t *testing.T) {
 		for i := 0; i < 1000; i++ {
-			qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
-			assert.Nil(t, err)
+			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
+			assert.Nil(t, errParserNew)
 
-			err = store.Insert(qInsertUsers.Query)
-			assert.Nil(t, err)
+			errInsert := store.Insert(qInsertUsers.Query)
+			assert.Nil(t, errInsert)
 		}
 
 		// save data
@@ -73,11 +74,11 @@ func TestDatabase(t *testing.T) {
 
 	t.Run("INSERT INTO USERS +173", func(t *testing.T) {
 		for i := 0; i < 173; i++ {
-			qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
-			assert.Nil(t, err)
+			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
+			assert.Nil(t, errParserNew)
 
-			err = store.Insert(qInsertUsers.Query)
-			assert.Nil(t, err)
+			errInsert := store.Insert(qInsertUsers.Query)
+			assert.Nil(t, errInsert)
 		}
 
 		// save data
@@ -87,11 +88,11 @@ func TestDatabase(t *testing.T) {
 
 	t.Run("INSERT INTO USERS +207", func(t *testing.T) {
 		for i := 0; i < 207; i++ {
-			qInsertUsers, err := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
-			assert.Nil(t, err)
+			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
+			assert.Nil(t, errParserNew)
 
-			err = store.Insert(qInsertUsers.Query)
-			assert.Nil(t, err)
+			errInsert := store.Insert(qInsertUsers.Query)
+			assert.Nil(t, errInsert)
 		}
 
 		// save data

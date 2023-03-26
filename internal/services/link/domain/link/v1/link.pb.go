@@ -82,20 +82,14 @@ func (LinkEvent) EnumDescriptor() ([]byte, []int) {
 
 type Link struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	FieldMask     *fieldmaskpb.FieldMask `protobuf:"bytes,6,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	Url           string                 `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	Hash          string                 `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
+	Describe      string                 `protobuf:"bytes,3,opt,name=describe,proto3" json:"describe,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,6,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	// URL
-	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	// Hash by URL + salt
-	Hash string `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
-	// Describe of link
-	Describe string `protobuf:"bytes,3,opt,name=describe,proto3" json:"describe,omitempty"`
-	// Create at
-	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	// Update at
-	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Link) Reset() {
@@ -174,10 +168,9 @@ func (x *Link) GetUpdatedAt() *timestamppb.Timestamp {
 
 type Links struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Link []*Link `protobuf:"bytes,1,rep,name=link,proto3" json:"link,omitempty"`
+	Link          []*Link `protobuf:"bytes,1,rep,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Links) Reset() {

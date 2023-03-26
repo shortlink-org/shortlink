@@ -24,18 +24,16 @@ const (
 // Event describe a change that happened to the Aggregate
 type Event struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	AggregateId   string                 `protobuf:"bytes,1,opt,name=aggregate_id,json=aggregateId,proto3" json:"aggregate_id,omitempty"`
+	AggregateType string                 `protobuf:"bytes,2,opt,name=aggregate_type,json=aggregateType,proto3" json:"aggregate_type,omitempty"`
+	Id            string                 `protobuf:"bytes,3,opt,name=id,proto3" json:"id,omitempty"`
+	Type          string                 `protobuf:"bytes,5,opt,name=type,proto3" json:"type,omitempty"`
+	Payload       string                 `protobuf:"bytes,6,opt,name=payload,proto3" json:"payload,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	AggregateId   string `protobuf:"bytes,1,opt,name=aggregate_id,json=aggregateId,proto3" json:"aggregate_id,omitempty"`
-	AggregateType string `protobuf:"bytes,2,opt,name=aggregate_type,json=aggregateType,proto3" json:"aggregate_type,omitempty"`
-	Id            string `protobuf:"bytes,3,opt,name=id,proto3" json:"id,omitempty"`
-	Version       int32  `protobuf:"varint,4,opt,name=version,proto3" json:"version,omitempty"`
-	Type          string `protobuf:"bytes,5,opt,name=type,proto3" json:"type,omitempty"`
-	Payload       string `protobuf:"bytes,6,opt,name=payload,proto3" json:"payload,omitempty"`
-	// Create at
-	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Version       int32 `protobuf:"varint,4,opt,name=version,proto3" json:"version,omitempty"`
 }
 
 func (x *Event) Reset() {

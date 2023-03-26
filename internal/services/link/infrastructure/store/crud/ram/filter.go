@@ -18,7 +18,7 @@ func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocog
 	l := reflect.ValueOf(link)
 
 	for _, key := range filter.GetKeys() {
-		val := reflect.Indirect(r).FieldByName(key).Interface().(*query.StringFilterInput)
+		val := reflect.Indirect(r).FieldByName(key).Interface().(*query.StringFilterInput) // nolint:errcheck
 
 		// Skip empty value
 		if val == nil {
@@ -27,7 +27,7 @@ func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocog
 
 		// Eq
 		if val.Eq != nil {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) // nolint:errcheck
 			if linkValue != *val.Eq {
 				return false
 			}
@@ -35,7 +35,7 @@ func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocog
 
 		// Ne
 		if val.Ne != nil {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) // nolint:errcheck
 			if linkValue == *val.Ne {
 				return false
 			}
@@ -43,7 +43,7 @@ func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocog
 
 		// Lt
 		if val.Lt != nil {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) // nolint:errcheck
 			if linkValue > *val.Lt {
 				return false
 			}
@@ -51,7 +51,7 @@ func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocog
 
 		// Le
 		if val.Le != nil {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) // nolint:errcheck
 			if linkValue >= *val.Le {
 				return false
 			}
@@ -59,7 +59,7 @@ func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocog
 
 		// Gt
 		if val.Gt != nil {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) // nolint:errcheck
 			if linkValue < *val.Gt {
 				return false
 			}
@@ -67,7 +67,7 @@ func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocog
 
 		// Ge
 		if val.Ge != nil {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) // nolint:errcheck
 			if linkValue <= *val.Ge {
 				return false
 			}
@@ -75,7 +75,7 @@ func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocog
 
 		// Contains
 		if val.Contains != nil {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) // nolint:errcheck
 			if !strings.Contains(linkValue, *val.Contains) {
 				return false
 			}
@@ -83,7 +83,7 @@ func isFilterSuccess(link *v1.Link, filter *query.Filter) bool { // nolint:gocog
 
 		// NotContains
 		if val.Contains != nil {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) // nolint:errcheck
 			if strings.Contains(linkValue, *val.NotContains) {
 				return false
 			}

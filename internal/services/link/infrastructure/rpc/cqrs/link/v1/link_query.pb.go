@@ -23,10 +23,9 @@ const (
 
 type GetRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Hash          string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Hash string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetRequest) Reset() {
@@ -70,10 +69,9 @@ func (x *GetRequest) GetHash() string {
 
 type GetResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Link          *v1.LinkView `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Link *v1.LinkView `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetResponse) Reset() {
@@ -117,10 +115,9 @@ func (x *GetResponse) GetLink() *v1.LinkView {
 
 type ListRequest struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Filter        string `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Filter string `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ListRequest) Reset() {
@@ -164,10 +161,9 @@ func (x *ListRequest) GetFilter() string {
 
 type ListResponse struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Links         *v1.LinksView `protobuf:"bytes,1,opt,name=links,proto3" json:"links,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Links *v1.LinksView `protobuf:"bytes,1,opt,name=links,proto3" json:"links,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ListResponse) Reset() {

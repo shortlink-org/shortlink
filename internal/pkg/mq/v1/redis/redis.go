@@ -12,7 +12,7 @@ type Config struct{}
 
 type Redis struct {
 	*Config
-	client redis.UniversalClient
+	client redis.UniversalClient //nolint:unused
 }
 
 func New() *Redis {

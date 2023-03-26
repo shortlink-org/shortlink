@@ -197,16 +197,15 @@ func (Step) EnumDescriptor() ([]byte, []int) {
 }
 
 type Parser struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	I               int32     `protobuf:"varint,1,opt,name=i,proto3" json:"i,omitempty"`
-	Sql             string    `protobuf:"bytes,2,opt,name=sql,proto3" json:"sql,omitempty"`
-	Step            Step      `protobuf:"varint,3,opt,name=step,proto3,enum=shortdb.parser.v1.Step" json:"step,omitempty"`
+	state           protoimpl.MessageState
 	Query           *v1.Query `protobuf:"bytes,4,opt,name=query,proto3" json:"query,omitempty"`
+	Sql             string    `protobuf:"bytes,2,opt,name=sql,proto3" json:"sql,omitempty"`
 	Error           string    `protobuf:"bytes,5,opt,name=error,proto3" json:"error,omitempty"`
 	NextUpdateField string    `protobuf:"bytes,6,opt,name=next_update_field,json=nextUpdateField,proto3" json:"next_update_field,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
+	I               int32 `protobuf:"varint,1,opt,name=i,proto3" json:"i,omitempty"`
+	Step            Step  `protobuf:"varint,3,opt,name=step,proto3,enum=shortdb.parser.v1.Step" json:"step,omitempty"`
 }
 
 func (x *Parser) Reset() {

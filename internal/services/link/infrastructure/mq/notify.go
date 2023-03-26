@@ -11,7 +11,7 @@ import (
 )
 
 type Event struct {
-	mq  mq.DataBus
+	mq  *mq.DataBus
 	log logger.Logger
 
 	// Application

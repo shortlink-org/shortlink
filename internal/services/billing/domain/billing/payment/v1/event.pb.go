@@ -80,13 +80,12 @@ func (Event) EnumDescriptor() ([]byte, []int) {
 
 type EventPaymentCreated struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Id            string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name          string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	UserId        string `protobuf:"bytes,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Id     string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name   string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Status StatusPayment `protobuf:"varint,3,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
-	UserId string        `protobuf:"bytes,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Status        StatusPayment `protobuf:"varint,3,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
 }
 
 func (x *EventPaymentCreated) Reset() {
@@ -151,11 +150,10 @@ func (x *EventPaymentCreated) GetUserId() string {
 
 type EventPaymentApproved struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Id            string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Id     string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Status StatusPayment `protobuf:"varint,2,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Status        StatusPayment `protobuf:"varint,2,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
 }
 
 func (x *EventPaymentApproved) Reset() {
@@ -206,11 +204,10 @@ func (x *EventPaymentApproved) GetStatus() StatusPayment {
 
 type EventPaymentRejected struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Id            string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Id     string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Status StatusPayment `protobuf:"varint,2,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Status        StatusPayment `protobuf:"varint,2,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
 }
 
 func (x *EventPaymentRejected) Reset() {
@@ -261,11 +258,10 @@ func (x *EventPaymentRejected) GetStatus() StatusPayment {
 
 type EventPaymentClosed struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Id            string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Id     string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Status StatusPayment `protobuf:"varint,2,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Status        StatusPayment `protobuf:"varint,2,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
 }
 
 func (x *EventPaymentClosed) Reset() {
@@ -316,11 +312,10 @@ func (x *EventPaymentClosed) GetStatus() StatusPayment {
 
 type EventBalanceUpdated struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Id            string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Id     string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Amount int64  `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	Amount        int64 `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *EventBalanceUpdated) Reset() {

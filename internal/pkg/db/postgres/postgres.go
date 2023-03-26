@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Masterminds/squirrel"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/jackc/pgx/v5"
@@ -21,8 +20,6 @@ import (
 )
 
 var (
-	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
-
 	//go:embed migrations/*.sql
 	migrations embed.FS
 )

@@ -13,10 +13,9 @@ import (
 
 // Connection amqp.Connection wrapper
 type Connection struct {
+	log logger.Logger
 	*amqp.Connection
 	delay int
-
-	log logger.Logger
 }
 
 // Channel wrap amqp.Connection.Channel, get a auto reconnect channel

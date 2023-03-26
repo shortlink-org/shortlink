@@ -166,19 +166,13 @@ func (Operator) EnumDescriptor() ([]byte, []int) {
 // Condition is a single boolean condition in a WHERE clause
 type Condition struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	LValue        string `protobuf:"bytes,1,opt,name=l_value,json=lValue,proto3" json:"l_value,omitempty"`
+	RValue        string `protobuf:"bytes,4,opt,name=r_value,json=rValue,proto3" json:"r_value,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	// LValue is the left hand side operand
-	LValue string `protobuf:"bytes,1,opt,name=l_value,json=lValue,proto3" json:"l_value,omitempty"`
-	// LValueIsField determines if Operand1 is a literal or a field name
-	LValueIsField bool `protobuf:"varint,2,opt,name=l_value_is_field,json=lValueIsField,proto3" json:"l_value_is_field,omitempty"`
-	// Operator is e.g. "=", ">"
-	Operator Operator `protobuf:"varint,3,opt,name=operator,proto3,enum=shortdb.domain.query.v1.Operator" json:"operator,omitempty"`
-	// RValue is the right hand side operand
-	RValue string `protobuf:"bytes,4,opt,name=r_value,json=rValue,proto3" json:"r_value,omitempty"`
-	// RValueIsField determines if Operand2 is a literal or a field name
-	RValueIsField bool `protobuf:"varint,5,opt,name=r_value_is_field,json=rValueIsField,proto3" json:"r_value_is_field,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Operator      Operator `protobuf:"varint,3,opt,name=operator,proto3,enum=shortdb.domain.query.v1.Operator" json:"operator,omitempty"`
+	LValueIsField bool     `protobuf:"varint,2,opt,name=l_value_is_field,json=lValueIsField,proto3" json:"l_value_is_field,omitempty"`
+	RValueIsField bool     `protobuf:"varint,5,opt,name=r_value_is_field,json=rValueIsField,proto3" json:"r_value_is_field,omitempty"`
 }
 
 func (x *Condition) Reset() {
@@ -251,19 +245,13 @@ func (x *Condition) GetRValueIsField() bool {
 // Condition is a single boolean condition in a WHERE clause
 type JoinCondition struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	LTable        string `protobuf:"bytes,1,opt,name=l_table,json=lTable,proto3" json:"l_table,omitempty"`
+	LOperand      string `protobuf:"bytes,2,opt,name=l_operand,json=lOperand,proto3" json:"l_operand,omitempty"`
+	RTable        string `protobuf:"bytes,4,opt,name=r_table,json=rTable,proto3" json:"r_table,omitempty"`
+	ROperand      string `protobuf:"bytes,5,opt,name=r_operand,json=rOperand,proto3" json:"r_operand,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	// LHS table name
-	LTable string `protobuf:"bytes,1,opt,name=l_table,json=lTable,proto3" json:"l_table,omitempty"`
-	// Level operand is the left hand side operand
-	LOperand string `protobuf:"bytes,2,opt,name=l_operand,json=lOperand,proto3" json:"l_operand,omitempty"`
-	// Operator is e.g. "=", ">"
-	Operator Operator `protobuf:"varint,3,opt,name=operator,proto3,enum=shortdb.domain.query.v1.Operator" json:"operator,omitempty"`
-	// RHS table name
-	RTable string `protobuf:"bytes,4,opt,name=r_table,json=rTable,proto3" json:"r_table,omitempty"`
-	// Right operand1 is the right hand side operand
-	ROperand string `protobuf:"bytes,5,opt,name=r_operand,json=rOperand,proto3" json:"r_operand,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	Operator      Operator `protobuf:"varint,3,opt,name=operator,proto3,enum=shortdb.domain.query.v1.Operator" json:"operator,omitempty"`
 }
 
 func (x *JoinCondition) Reset() {
@@ -335,12 +323,11 @@ func (x *JoinCondition) GetROperand() string {
 
 type Join struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	Type          string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Table         string `protobuf:"bytes,2,opt,name=table,proto3" json:"table,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	Type       string           `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Table      string           `protobuf:"bytes,2,opt,name=table,proto3" json:"table,omitempty"`
-	Conditions []*JoinCondition `protobuf:"bytes,3,rep,name=conditions,proto3" json:"conditions,omitempty"`
+	Conditions    []*JoinCondition `protobuf:"bytes,3,rep,name=conditions,proto3" json:"conditions,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Join) Reset() {
@@ -398,27 +385,25 @@ func (x *Join) GetConditions() []*JoinCondition {
 
 // Query represents a parsed query
 type Query struct {
+	TableFields   map[string]v1.Type `protobuf:"bytes,4,rep,name=table_fields,json=tableFields,proto3" json:"table_fields,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=shortdb.domain.field.v1.Type"`
+	Aliases       map[string]string  `protobuf:"bytes,10,rep,name=aliases,proto3" json:"aliases,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
+	FieldMask     *fieldmaskpb.FieldMask `protobuf:"bytes,16,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	Updates       map[string]string      `protobuf:"bytes,7,rep,name=updates,proto3" json:"updates,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
+	Database      string                 `protobuf:"bytes,2,opt,name=database,proto3" json:"database,omitempty"`
+	TableName     string                 `protobuf:"bytes,3,opt,name=table_name,json=tableName,proto3" json:"table_name,omitempty"`
+	Fields        []string               `protobuf:"bytes,9,rep,name=fields,proto3" json:"fields,omitempty"`
+	Indexs        []*v11.Index           `protobuf:"bytes,5,rep,name=indexs,proto3" json:"indexs,omitempty"`
+	Conditions    []*Condition           `protobuf:"bytes,6,rep,name=conditions,proto3" json:"conditions,omitempty"`
+	Inserts       []*Query_Array         `protobuf:"bytes,8,rep,name=inserts,proto3" json:"inserts,omitempty"`
 	unknownFields protoimpl.UnknownFields
-
-	FieldMask   *fieldmaskpb.FieldMask `protobuf:"bytes,16,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Type        Type                   `protobuf:"varint,1,opt,name=type,proto3,enum=shortdb.domain.query.v1.Type" json:"type,omitempty"`
-	Database    string                 `protobuf:"bytes,2,opt,name=database,proto3" json:"database,omitempty"`
-	TableName   string                 `protobuf:"bytes,3,opt,name=table_name,json=tableName,proto3" json:"table_name,omitempty"`
-	TableFields map[string]v1.Type     `protobuf:"bytes,4,rep,name=table_fields,json=tableFields,proto3" json:"table_fields,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3,enum=shortdb.domain.field.v1.Type"`
-	Indexs      []*v11.Index           `protobuf:"bytes,5,rep,name=indexs,proto3" json:"indexs,omitempty"`
-	Conditions  []*Condition           `protobuf:"bytes,6,rep,name=conditions,proto3" json:"conditions,omitempty"`
-	Updates     map[string]string      `protobuf:"bytes,7,rep,name=updates,proto3" json:"updates,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	Inserts     []*Query_Array         `protobuf:"bytes,8,rep,name=inserts,proto3" json:"inserts,omitempty"`
-	// Used for SELECT (i.e. SELECTed field names) and INSERT (INSERTEDed field names)
-	Fields      []string          `protobuf:"bytes,9,rep,name=fields,proto3" json:"fields,omitempty"`
-	Aliases     map[string]string `protobuf:"bytes,10,rep,name=aliases,proto3" json:"aliases,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	OrderFields []string          `protobuf:"bytes,11,rep,name=order_fields,json=orderFields,proto3" json:"order_fields,omitempty"`
-	OrderDir    []string          `protobuf:"bytes,12,rep,name=order_dir,json=orderDir,proto3" json:"order_dir,omitempty"`
-	Joins       []*Join           `protobuf:"bytes,13,rep,name=joins,proto3" json:"joins,omitempty"`
-	MaxRows     int32             `protobuf:"varint,14,opt,name=max_rows,json=maxRows,proto3" json:"max_rows,omitempty"`
-	Limit       int32             `protobuf:"varint,15,opt,name=limit,proto3" json:"limit,omitempty"`
+	OrderFields   []string `protobuf:"bytes,11,rep,name=order_fields,json=orderFields,proto3" json:"order_fields,omitempty"`
+	OrderDir      []string `protobuf:"bytes,12,rep,name=order_dir,json=orderDir,proto3" json:"order_dir,omitempty"`
+	Joins         []*Join  `protobuf:"bytes,13,rep,name=joins,proto3" json:"joins,omitempty"`
+	Type          Type     `protobuf:"varint,1,opt,name=type,proto3,enum=shortdb.domain.query.v1.Type" json:"type,omitempty"`
+	sizeCache     protoimpl.SizeCache
+	MaxRows       int32 `protobuf:"varint,14,opt,name=max_rows,json=maxRows,proto3" json:"max_rows,omitempty"`
+	Limit         int32 `protobuf:"varint,15,opt,name=limit,proto3" json:"limit,omitempty"`
 }
 
 func (x *Query) Reset() {
@@ -567,10 +552,9 @@ func (x *Query) GetLimit() int32 {
 
 type Query_Array struct {
 	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Items []string `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	Items         []string `protobuf:"bytes,1,rep,name=items,proto3" json:"items,omitempty"`
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Query_Array) Reset() {

@@ -12,11 +12,10 @@ import (
 
 // Channel amqp.Channel wapper
 type Channel struct {
-	*amqp.Channel
-	closed int32
-	delay  int
-
 	log logger.Logger
+	*amqp.Channel
+	delay  int
+	closed int32
 }
 
 // IsClosed indicate closed by developer
