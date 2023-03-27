@@ -7,6 +7,7 @@ import Container from '@mui/material/Container'
 import { styled } from '@mui/material/styles'
 import Header from './Header'
 import Footer from './Footer'
+import PushNotificationLayout from 'components/PushNotificationLayout'
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -20,23 +21,25 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 // @ts-ignore
 export function Layout({ children }) {
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
-      <CssBaseline />
-      <Header />
+    <PushNotificationLayout>
+      <Box sx={{ display: 'flex', height: '100vh' }}>
+        <CssBaseline />
+        <Header />
 
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, gridTemplateRows: 'auto 1fr' }}
-      >
-        <DrawerHeader />
         <Box
-          pt={4}
-          sx={{ display: 'grid', height: '100%', gridTemplateRows: '1fr auto' }}
+          component="main"
+          sx={{ flexGrow: 1, p: 3, gridTemplateRows: 'auto 1fr' }}
         >
-          <Container>{children}</Container>
-          <Footer />
+          <DrawerHeader />
+          <Box
+            pt={4}
+            sx={{ display: 'grid', height: '100%', gridTemplateRows: '1fr auto' }}
+          >
+            <Container>{children}</Container>
+            <Footer />
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </PushNotificationLayout>
   )
 }

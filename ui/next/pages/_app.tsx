@@ -13,6 +13,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react'
 import 'public/assets/styles.css'
 import ScrollTop from 'components/ScrollTop'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import 'react-toastify/dist/ReactToastify.css'
 
 // @ts-ignore
 import {

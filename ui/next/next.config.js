@@ -1,5 +1,5 @@
 /* eslint-disable */
-
+const withOffline = require('next-offline')
 const withExportImages = require('next-export-optimize-images')
 
 // ENVIRONMENT VARIABLE ================================================================================================
@@ -49,7 +49,18 @@ let NEXT_CONFIG = {
   basePath: '/next',
   generateEtags: true,
   env: {
+    // ShortLink API
     NEXT_PUBLIC_API_URI: process.env.API_URI,
+
+    // Firebase
+    NEXT_PUBLIC_FIREBASE_VAPID_KEY: process.env.FIREBASE_VAPID_KEY,
+    NEXT_PUBLIC_FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: process.env.FIREBASE_STORAGE_BUCKET,
+    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    NEXT_PUBLIC_FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
+    NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
   },
   swcMinify: true,
   productionBrowserSourceMaps: true,
@@ -106,7 +117,7 @@ let NEXT_CONFIG = {
         ],
         // Option-less format
         '.mdx': '@mdx-js/loader',
-      }
+      },
     },
     swcTraceProfiling: true,
   },
@@ -162,8 +173,8 @@ if (isEnableSentry) {
     // https://github.com/getsentry/sentry-webpack-plugin#options.
   }
 
-  NEXT_CONFIG = withExportImages(
-    withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions),
+  NEXT_CONFIG = withOffline(
+    withExportImages(withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions)),
   )
 }
 
