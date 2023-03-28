@@ -29,6 +29,15 @@ RUN npm run build-storybook
 # Production image, copy all the files and run next
 FROM nginxinc/nginx-unprivileged:1.23-alpine
 
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="ui-kit"
+LABEL org.opencontainers.image.description="UI Kit"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
+
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
 
