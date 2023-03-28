@@ -8,6 +8,7 @@ services:
     image: cassandra:4.0.1
     restart: on-failure
     container_name: cassandra
+    init: true
     ports:
       - "7000:7000"
       - "9042:9042"

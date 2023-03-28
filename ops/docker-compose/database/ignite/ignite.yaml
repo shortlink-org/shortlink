@@ -8,6 +8,7 @@ services:
     image: apacheignite/ignite:2.11.0
     restart: on-failure
     container_name: ignite
+    init: true
     ports:
       - "10800:10800"
     networks:

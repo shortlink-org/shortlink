@@ -17,5 +17,6 @@ services:
     init: true
     restart: on-failure
     container_name: tarantool
+    init: true
     ports:
       - "3301:3301"

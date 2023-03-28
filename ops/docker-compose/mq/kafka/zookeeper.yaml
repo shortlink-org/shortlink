@@ -16,6 +16,7 @@ services:
     image: confluentinc/cp-zookeeper:7.3.0
     hostname: zookeeper
     container_name: zookeeper
+    init: true
     ports:
       - 2181:2181
       - 2888:2888

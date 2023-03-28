@@ -27,6 +27,7 @@ services:
     image: oryd/kratos:v0.11.1
     command: serve -c /etc/config/kratos/kratos.yml --dev --watch-courier
     container_name: kratos
+    init: true
     environment:
       DSN: sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
       TRACING_PROVIDERS_JAEGER_PROPAGATION: b3

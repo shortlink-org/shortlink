@@ -19,6 +19,7 @@ services:
       - prometheus
     restart: on-failure
     container_name: postgres-exporter
+    init: true
     ports:
       - 9187:9187
     environment:

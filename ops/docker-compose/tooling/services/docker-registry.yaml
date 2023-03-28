@@ -5,6 +5,7 @@ services:
   registry:
     image: registry:2
     container_name: registry
+    init: true
     restart: on-failure
     environment:
       REGISTRY_LOG_LEVEL: info

@@ -18,6 +18,7 @@ services:
     profiles:
       - gateway
     container_name: traefik
+    init: true
     ports:
       # The HTTP port
       - "80:80"

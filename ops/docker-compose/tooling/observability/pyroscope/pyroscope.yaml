@@ -17,6 +17,7 @@ services:
     command:
       - 'server'
     container_name: pyroscope
+    init: true
     restart: on-failure
     ports:
       - "4040:4040"

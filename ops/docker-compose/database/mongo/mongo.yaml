@@ -14,9 +14,9 @@ services:
     depends_on:
       - coredns
     image: bitnami/mongodb:6.0
-    init: true
     restart: on-failure
     container_name: mongo
+    init: true
     ports:
       - "27017:27017"
     environment:
@@ -33,6 +33,7 @@ services:
 #    <<: *network
 #    <<: *mongo
 #    container_name: mongo_initial_state
+#    init: true
 #    depends_on:
 #      - mongo
 #    command: >

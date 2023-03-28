@@ -9,6 +9,7 @@ services:
     init: true
     restart: on-failure
     container_name: rethinkdb
+    init: true
     ports:
       - "28080:8080" # UI port
       - "28015:28015"

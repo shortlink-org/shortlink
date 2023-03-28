@@ -16,6 +16,7 @@ services:
     # NOTE: Please use the latest version here!
     image: docker.redpanda.com/vectorized/redpanda:v22.3.11
     container_name: redpanda
+    init: true
     restart: always
     command:
       - redpanda
@@ -51,6 +52,7 @@ services:
       - redpanda
     image: docker.redpanda.com/vectorized/console:v2.2.0
     container_name: console
+    init: true
     entrypoint: /bin/sh
     command: -c 'echo "$$CONSOLE_CONFIG_FILE" > /tmp/config.yml; /app/console'
     environment:

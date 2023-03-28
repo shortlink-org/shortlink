@@ -8,6 +8,7 @@ services:
     image: edgedb/edgedb:2
     restart: on-failure
     container_name: edgedb
+    init: true
     ports:
       - "5656:5656"
     environment:

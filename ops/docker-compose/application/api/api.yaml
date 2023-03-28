@@ -23,6 +23,7 @@ services:
         - shortlink-api
     image: shortlink-api
     container_name: api
+    init: true
     ports:
       # API
       - "7080:7070"

@@ -14,6 +14,7 @@ services:
       - coredns
     image: grafana/grafana:main
     container_name: grafana
+    init: true
     restart: on-failure
     environment:
       GF_SERVER_ROOT_URL: http://localhost:3030

@@ -23,6 +23,7 @@ services:
         - shortlink-metadata
     image: shortlink-metadata
     container_name: metadata
+    init: true
     restart: on-failure
     environment:
       TRACER_URI: jaeger-agent:6831

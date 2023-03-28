@@ -20,6 +20,7 @@ services:
         - support-proxy
     image: support-proxy
     container_name: support-proxy
+    init: true
     ports:
       - "8080:8080"
 
@@ -35,6 +36,7 @@ services:
         - shortlink-support
     image: shortlink-support
     container_name: support
+    init: true
     restart: on-failure
     environment:
       TRACER_URI: jaeger-agent:6831
