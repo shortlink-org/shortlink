@@ -34,7 +34,9 @@ LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlin
 # Install dependencies
 RUN \
   apk update && \
-  apk add --no-cache curl
+  apk add --no-cache curl tini
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \

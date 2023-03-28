@@ -53,7 +53,9 @@ LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlin
 ENV GOTRACEBACK=all
 
 # Load io_uring
-RUN apt-get update && apt-get install --no-install-recommends -y liburing-dev curl
+RUN apt-get update && apt-get install --no-install-recommends -y liburing-dev curl tini
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \

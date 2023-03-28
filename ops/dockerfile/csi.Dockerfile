@@ -57,7 +57,9 @@ EXPOSE 9090
 # Install dependencies
 RUN \
   apk update && \
-  apk add --no-cache curl util-linux
+  apk add --no-cache curl util-linux tini
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \
