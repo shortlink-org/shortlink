@@ -42,6 +42,16 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
 
 FROM alpine:3.17
 
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="shortlink-${CMD_PATH}"
+LABEL org.opencontainers.image.description="shortlink-${CMD_PATH}"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
+LABEL org.opencontainers.image.revision=$CI_COMMIT_SHA
+
 # Define GOTRACEBACK to mark this container as using the Go language runtime
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
 ENV GOTRACEBACK=all

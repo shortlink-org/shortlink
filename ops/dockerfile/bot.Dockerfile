@@ -17,6 +17,15 @@ RUN mvn -f /app/pom.xml clean package
 
 FROM openjdk:21-ea-13-jdk-slim
 
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="shortlink-bot"
+LABEL org.opencontainers.image.description="shortlink-bot"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
+
 # Install dependencies
 RUN \
   apt update && \
