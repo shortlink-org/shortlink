@@ -29,7 +29,9 @@ LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlin
 # Install dependencies
 RUN \
   apt update && \
-  apt install -y curl
+  apt install -y curl tini
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \
@@ -39,4 +41,4 @@ HEALTHCHECK \
 
 COPY --from=builder /app/target/shortlink-bot-1.0-SNAPSHOT.jar /usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar
 
-ENTRYPOINT ["java", "-jar", "/usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar"]

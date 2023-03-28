@@ -25,7 +25,7 @@ ENV NODE_OPTIONS=--max_old_space_size=${MAX_OLD_SPACE_SIZE}
 # Install dependencies
 RUN \
   apk update && \
-  apk add --no-cache curl
+  apk add --no-cache curl tini
 
 USER node
 RUN mkdir -p /home/node/.npm/_cacache
@@ -35,6 +35,8 @@ COPY ./internal/services/proxy /app/
 
 RUN npm ci --cache .npm --prefer-offline --force
 RUN npm run build
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \

@@ -63,10 +63,12 @@ EXPOSE 50051 9090
 # Install dependencies
 RUN \
   apk update && \
-  apk add --no-cache curl
+  apk add --no-cache curl tini
 
 RUN addgroup -S golang && adduser -S -g golang golang
 USER golang
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \
