@@ -16,6 +16,7 @@ services:
     image: rabbitmq:3.11-management-alpine
     hostname: rabbitmq
     container_name: rabbitmq
+    init: true
     ports:
       - "5672:5672"
       - "15672:15672"

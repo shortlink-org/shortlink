@@ -17,6 +17,7 @@ services:
     profiles:
       - observability
     container_name: prometheus
+    init: true
     restart: always
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'

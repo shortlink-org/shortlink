@@ -15,6 +15,7 @@ services:
         - shortlink-logger
     image: shortlink-logger
     container_name: logger
+    init: true
     restart: on-failure
     environment:
       MQ_ENABLED: true

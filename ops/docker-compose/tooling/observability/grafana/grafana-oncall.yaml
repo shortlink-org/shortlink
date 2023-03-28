@@ -34,6 +34,7 @@ services:
         condition: service_healthy
     image: grafana/oncall:latest
     container_name: oncall
+    init: true
     command: sh -c "uwsgi --ini uwsgi.ini"
     environment: *oncall-environment
     restart: on-failure
@@ -49,6 +50,7 @@ services:
         condition: service_healthy
     image: grafana/oncall:latest
     container_name: oncall_db_migration
+    init: true
     command: python manage.py migrate --noinput
     environment: *oncall-environment
     volumes:
@@ -58,6 +60,7 @@ services:
     <<: *network
     image: grafana/oncall:latest
     container_name: oncall_celery
+    init: true
     restart: always
     command: sh -c "./celery_with_exporter.sh"
     environment: *oncall-environment

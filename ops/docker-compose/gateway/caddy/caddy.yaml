@@ -7,6 +7,7 @@ services:
       - coredns
     image: caddy:2-alpine
     container_name: caddy
+    init: true
     ports:
       - "80:80"
       - "443:443"

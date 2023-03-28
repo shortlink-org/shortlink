@@ -14,8 +14,8 @@ services:
     depends_on:
       - coredns
     image: aerospike/aerospike-server:6.2.0.2
-    init: true
     restart: on-failure
     container_name: aerospikedb
+    init: true
     ports:
       - "3000:3000"

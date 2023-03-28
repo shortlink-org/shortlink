@@ -7,6 +7,7 @@ services:
       - coredns
     image: scylladb/scylla
     container_name: scylla
+    init: true
     restart: on-failure
     command: "--smp 1 --memory 256M"
     networks:

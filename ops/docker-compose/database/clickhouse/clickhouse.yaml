@@ -17,6 +17,7 @@ services:
     init: true
     restart: on-failure
     container_name: clickhouse
+    init: true
     environment:
       CLICKHOUSE_USER: clickhouse
       CLICKHOUSE_GROUP: clickhouse

@@ -18,6 +18,7 @@ services:
     init: true
     restart: on-failure
     container_name: redis
+    init: true
     ports:
       - "6379:6379"
     healthcheck:

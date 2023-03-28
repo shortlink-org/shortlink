@@ -17,6 +17,7 @@ services:
     restart: on-failure
     hostname: neo4j
     container_name: neo4j
+    init: true
     ports:
       - "7474:7474" # remote interface
       - "7687:7687" # BoltDB

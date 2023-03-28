@@ -17,6 +17,7 @@ services:
     image: confluentinc/cp-kafka:7.0.0
     restart: on-failure
     container_name: kafka_1
+    init: true
     ports:
       - '9092:9092'
     environment:
@@ -41,6 +42,7 @@ services:
   kafka_2:
     <<: *kafka_1
     container_name: kafka_2
+    init: true
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: INSIDE://:9097,OUTSIDE://localhost:9095
@@ -61,6 +63,7 @@ services:
   kafka_3:
     <<: *kafka_1
     container_name: kafka_3
+    init: true
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: INSIDE://:9099,OUTSIDE://localhost:9098
@@ -87,6 +90,7 @@ services:
       - kafka_3
     hostname: kafka-client
     container_name: kafka-client
+    init: true
     ports:
       - "9092"
     environment:

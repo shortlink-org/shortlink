@@ -24,6 +24,7 @@ services:
       - db
     image: unleashorg/unleash-server
     container_name: unleash
+    init: true
     command: npm run start
     restart: always
     environment:

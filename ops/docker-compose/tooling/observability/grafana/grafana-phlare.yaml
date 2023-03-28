@@ -15,6 +15,7 @@ services:
       - coredns
     image: grafana/phlare:latest
     container_name: phlare
+    init: true
     command: -config.file=/etc/phlare/config.yaml
     restart: on-failure
     ports:

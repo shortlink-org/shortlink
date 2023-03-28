@@ -18,6 +18,7 @@ services:
     init: true
     restart: on-failure
     container_name: postgres
+    init: true
     ports:
       - "5432:5432"
     environment:
@@ -49,6 +50,7 @@ services:
     image: bitnami/pgbouncer:1.18.0
     restart: on-failure
     container_name: pgbouncer
+    init: true
     ports:
       - 6432:6432
     environment:
@@ -70,6 +72,7 @@ services:
       - postgres
     image: docker.io/bitnami/wal-g:1.1.0
     container_name: wal-g
+    init: true
     profiles:
       - postgres
     restart: on-failure

@@ -17,6 +17,7 @@ services:
     image: quay.io/keycloak/keycloak:20.0.3
     command: ["start-dev", "--import-realm"]
     container_name: keycloak
+    init: true
     restart: on-failure
     ports:
       - 8080:8080

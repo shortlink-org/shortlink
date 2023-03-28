@@ -25,6 +25,7 @@ services:
         - shortlink-link
     image: shortlink-link
     container_name: link
+    init: true
     restart: on-failure
     environment:
       TRACER_URI: jaeger-agent:6831

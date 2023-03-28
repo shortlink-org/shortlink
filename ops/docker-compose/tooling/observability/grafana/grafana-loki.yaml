@@ -15,6 +15,7 @@ services:
       - coredns
     image: grafana/loki:2.7.0
     container_name: loki
+    init: true
     command: -config.file=/etc/loki/local-config.yaml
     restart: on-failure
     ports:
@@ -30,6 +31,7 @@ services:
       - coredns
     image: grafana/promtail:2.6.1
     container_name: promtail
+    init: true
     command: -config.file=/etc/promtail/config.yml
     volumes:
       - /var/log:/var/log

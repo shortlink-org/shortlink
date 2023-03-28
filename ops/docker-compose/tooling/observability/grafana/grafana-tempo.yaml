@@ -18,6 +18,7 @@ services:
       - observability
     command: ["-config.file=/etc/tempo.yaml"]
     container_name: jaeger-agent
+    init: true
     ports:
       - "55680"         # OpenTelemetry
       - "6831:6831/udp" # Jaeger - Thrift Compact
@@ -40,6 +41,7 @@ services:
       - observability
     command: ["--grpc-storage-plugin.configuration-file=/etc/tempo-query.yaml"]
     container_name: jaeger-query
+    init: true
     ports:
       - "16686:16686"  # jaeger-ui
     volumes:

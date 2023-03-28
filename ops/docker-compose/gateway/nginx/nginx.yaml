@@ -8,6 +8,7 @@ services:
       - default_backend
     image: nginx:1.21-alpine
     container_name: nginx
+    init: true
     ports:
       - "80:80"
       - "443:443"
@@ -26,6 +27,7 @@ services:
       - coredns
     image: nginx:1.21-alpine
     container_name: default_backend
+    init: true
     networks:
       - simple
     dns:

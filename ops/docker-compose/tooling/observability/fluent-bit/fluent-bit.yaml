@@ -15,6 +15,7 @@ services:
       - coredns
     image: grafana/fluent-bit-plugin-loki:latest
     container_name: fluent-bit
+    init: true
     restart: on-failure
     environment:
       - VIRTUAL_HOST=loki.loc

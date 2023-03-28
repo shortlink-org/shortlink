@@ -19,6 +19,7 @@ services:
       memlock: -1
     restart: on-failure
     container_name: dragonfly
+    init: true
     ports:
       - "6379:6379"
     # For better performance, consider `host` mode instead `port` to avoid docker NAT.
