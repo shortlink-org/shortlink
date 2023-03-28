@@ -10,7 +10,7 @@ argo-cd:
   fullnameOverride: argocd
 
   global:
-     image:
+    image:
       tag: v2.7.0-rc1
 
     logging:
