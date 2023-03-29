@@ -30,7 +30,7 @@ func TestPostgres(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(t, err, "Could not connect to docker")
+	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("postgres", "latest", []string{
@@ -52,7 +52,7 @@ func TestPostgres(t *testing.T) {
 		var err error
 
 		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
-		assert.Nil(t, err, "Cannot set ENV")
+		require.NoError(t, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
 		if err != nil {
@@ -66,7 +66,7 @@ func TestPostgres(t *testing.T) {
 			t.Fatalf("Could not purge resource: %s", errPurge)
 		}
 
-		assert.Nil(t, err, "Could not connect to docker")
+		require.NoError(t, err, "Could not connect to docker")
 	}
 
 	t.Cleanup(func() {
@@ -82,7 +82,7 @@ func TestPostgres(t *testing.T) {
 
 	t.Run("Create [single]", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
@@ -90,56 +90,56 @@ func TestPostgres(t *testing.T) {
 	t.Run("Create [batch]", func(t *testing.T) {
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		assert.Nil(t, err, "Cannot set ENV")
+		require.NoError(t, err, "Cannot set ENV")
 
 		storeBatchMode := Store{
 			client: st.GetConn().(*pgxpool.Pool),
 		}
 
 		source, err := getLink()
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
 		source, err = getLink()
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
 		source, err = getLink()
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
 		source, err = getLink()
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 8)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
+		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 }
 

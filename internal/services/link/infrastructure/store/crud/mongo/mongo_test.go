@@ -36,18 +36,18 @@ func TestMongo(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(t, err, "Could not connect to docker")
+	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("mongo", "latest", nil)
-	assert.Nil(t, err, "Could not start resource")
+	require.NoError(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
 		var err error
 
 		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
-		assert.Nil(t, err, "Cannot set ENV")
+		require.NoError(t, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
 		if err != nil {
@@ -56,7 +56,7 @@ func TestMongo(t *testing.T) {
 
 		return nil
 	}); err != nil {
-		assert.Nil(t, err, "Could not connect to docker")
+		require.NoError(t, err, "Could not connect to docker")
 	}
 
 	t.Cleanup(func() {
@@ -72,7 +72,7 @@ func TestMongo(t *testing.T) {
 
 	t.Run("Create [single]", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
@@ -80,51 +80,51 @@ func TestMongo(t *testing.T) {
 	t.Run("Create [batch]", func(t *testing.T) {
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		assert.Nil(t, err, "Cannot set ENV")
+		require.NoError(t, err, "Cannot set ENV")
 
 		storeBatchMode := Store{
 			client: st.GetConn().(*mongo.Client),
 		}
 
 		source, err := getLink()
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
 		source, err = getLink()
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
 		source, err = getLink()
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 
 		source, err = getLink()
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 5)
 	})
 
@@ -138,12 +138,12 @@ func TestMongo(t *testing.T) {
 			Hash: &query.StringFilterInput{Eq: &mock.GetLink.Hash},
 		}
 		links, err := store.List(ctx, filter)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
+		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 }
 

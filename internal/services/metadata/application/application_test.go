@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	rpc "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
@@ -25,17 +26,17 @@ func TestSet(t *testing.T) {
 	// Init logger
 	conf := logger.Configuration{}
 	log, err := logger.NewLogger(logger.Zap, conf)
-	assert.Nil(t, err, "Error init a logger")
+	require.NoError(t, err, "Error init a logger")
 
 	// Create store
 	st := &meta_store.MetaStore{}
 	st.Use(ctx, log, nil)
 
 	r, err := New(st)
-	assert.Nil(t, err)
+	require.NoError(t, err)
 
 	meta, err := r.Set(ctx, url)
-	assert.Nil(t, err, "Error get body")
+	require.NoError(t, err, "Error get body")
 
 	// Check content
 	assert.Equal(t, metaMock.ImageUrl, meta.ImageUrl)

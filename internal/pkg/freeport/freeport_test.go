@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 )
 
@@ -18,7 +19,7 @@ func TestMain(m *testing.M) {
 
 func TestGetFreePort(t *testing.T) {
 	port, err := GetFreePort()
-	assert.Nil(t, err)
+	require.NoError(t, err)
 	assert.NotEqual(t, port, 0)
 
 	// Try to listen on the port
@@ -26,7 +27,7 @@ func TestGetFreePort(t *testing.T) {
 	defer func() {
 		_ = l.Close()
 	}()
-	assert.Nil(t, err)
+	require.NoError(t, err)
 }
 
 func BenchmarkGetFreePort(b *testing.B) {

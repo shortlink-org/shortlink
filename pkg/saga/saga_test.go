@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -31,7 +32,7 @@ func TestNewSaga(t *testing.T) {
 		Level: logger.DEBUG_LEVEL,
 	}
 	log, err := logger.NewLogger(logger.Zap, conf)
-	assert.Nil(t, err, "Error init a logger")
+	require.NoError(t, err, "Error init a logger")
 
 	t.Run("create simple saga", func(t *testing.T) {
 		const SAGA_NAME = "Number magic"
@@ -136,7 +137,7 @@ func TestNewSaga(t *testing.T) {
 		// Run saga
 		err := sagaNumber.Play(nil)
 		assert.Equal(t, wallet.value, 30)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 	})
 
 	t.Run("create simple saga with reject", func(t *testing.T) {
@@ -257,6 +258,6 @@ func TestNewSaga(t *testing.T) {
 		// Run saga
 		err := sagaNumber.Play(nil)
 		assert.Equal(t, wallet.value, 3) // amount: 10+10+10-9-9-9=3
-		assert.Nil(t, err)
+		require.NoError(t, err)
 	})
 }

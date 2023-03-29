@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
@@ -31,7 +31,7 @@ func BenchmarkRAMSerial(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			data.Url = fmt.Sprintf("%s/%d", data.Url, i)
 			_, err := store.Add(ctx, data)
-			assert.Nil(b, err)
+			require.NoError(b, err)
 		}
 	})
 
@@ -43,14 +43,14 @@ func BenchmarkRAMSerial(b *testing.B) {
 
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		data := mock.AddLink
 
 		for i := 0; i < b.N; i++ {
 			data.Url = fmt.Sprintf("%s/%d", data.Url, i)
 			_, err := store.Add(ctx, data)
-			assert.Nil(b, err)
+			require.NoError(b, err)
 		}
 	})
 }
@@ -71,7 +71,7 @@ func BenchmarkRAMParallel(b *testing.B) {
 			for pb.Next() {
 				data.Url = fmt.Sprintf("%s/%d", data.Url, atom.Load())
 				_, err := store.Add(ctx, data)
-				assert.Nil(b, err)
+				require.NoError(b, err)
 
 				atom.Inc()
 			}
@@ -83,7 +83,7 @@ func BenchmarkRAMParallel(b *testing.B) {
 
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		// create a db
 		store := Store{}
@@ -95,7 +95,7 @@ func BenchmarkRAMParallel(b *testing.B) {
 			for pb.Next() {
 				data.Url = fmt.Sprintf("%s/%d", data.Url, atom.Load())
 				_, err := store.Add(ctx, data)
-				assert.Nil(b, err)
+				require.NoError(b, err)
 
 				atom.Inc()
 			}

@@ -12,6 +12,7 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRedPanda(t *testing.T) {
@@ -20,7 +21,7 @@ func TestRedPanda(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(t, err, "Could not connect to docker")
+	require.NoError(t, err, "Could not connect to docker")
 
 	// create a network with Client.CreateNetwork()
 	network, err := pool.Client.CreateNetwork(docker.CreateNetworkOptions{
@@ -88,6 +89,6 @@ func TestRedPanda(t *testing.T) {
 	})
 
 	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, mq.Close())
+		require.NoError(t, mq.Close())
 	})
 }
