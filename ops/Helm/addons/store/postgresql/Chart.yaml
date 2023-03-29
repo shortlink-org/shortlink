@@ -13,9 +13,9 @@ engine: gotpl
 type: application                                # It is the type of chart (optional)
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
-  - name: postgresql
+  - name: pgo
     version: 5.3.1
-    repository: oci://registry.developers.crunchydata.com/crunchydata/pgo
+    repository: oci://registry.developers.crunchydata.com/crunchydata
     alias: postgresql
     condition: postgresql.enabled
     tags:

@@ -15,7 +15,7 @@ deprecated: false                                # Whether this chart is depreca
 dependencies:
   - name: dragonfly
     version: v1.0.0
-    repository: oci://ghcr.io/dragonflydb/dragonfly/helm/dragonfly
+    repository: oci://ghcr.io/dragonflydb/dragonfly/helm
     condition: dragonfly.enabled
     tags:
       - dragonfly
