@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
 	csi_di "github.com/shortlink-org/shortlink/internal/services/csi/di"
@@ -77,4 +78,7 @@ func main() {
 
 	// Stop the service gracefully.
 	cleanup()
+
+	// Exit Code 143: Graceful Termination (SIGTERM)
+	os.Exit(143)
 }
