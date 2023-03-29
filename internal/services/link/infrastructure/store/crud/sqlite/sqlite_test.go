@@ -11,6 +11,7 @@ import (
 
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/sqlite"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
@@ -24,11 +25,11 @@ func TestSQLite(t *testing.T) {
 	ctx := context.Background()
 
 	err := os.Setenv("STORE_SQLITE_PATH", "/tmp/links-test.sqlite")
-	assert.Nil(t, err, "Cannot set ENV")
+	require.NoError(t, err, "Cannot set ENV")
 
 	st := db.Store{}
 	err = st.Init(ctx)
-	assert.Nil(t, err)
+	require.NoError(t, err)
 
 	store := Store{
 		client: st.GetConn().(*sql.DB),
@@ -36,28 +37,28 @@ func TestSQLite(t *testing.T) {
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
+		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 
 	t.Run("Close", func(t *testing.T) {
 		errDeleteFile := os.Remove(viper.GetString("STORE_SQLITE_PATH"))
-		assert.Nil(t, errDeleteFile)
+		require.NoError(t, errDeleteFile)
 	})
 }

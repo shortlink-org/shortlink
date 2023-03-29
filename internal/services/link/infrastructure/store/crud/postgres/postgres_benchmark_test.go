@@ -12,8 +12,6 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/ory/dockertest/v3"
-	"github.com/stretchr/testify/assert"
-
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/postgres"
 )
@@ -25,7 +23,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(b, err, "Could not connect to docker")
+	require.NoError(b, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("postgres", "latest", []string{
@@ -47,7 +45,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 		var err error
 
 		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
 		if err != nil {
@@ -61,7 +59,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 			b.Fatalf("Could not purge resource: %s", errPurge)
 		}
 
-		assert.Nil(b, err, "Could not connect to docker")
+		require.NoError(b, err, "Could not connect to docker")
 	}
 
 	b.Cleanup(func() {
@@ -81,10 +79,10 @@ func BenchmarkPostgresSerial(b *testing.B) {
 
 		for i := 0; i < b.N; i++ {
 			source, err := getLink()
-			assert.Nil(b, err)
+			require.NoError(b, err)
 
 			_, err = store.Add(ctx, source)
-			assert.Nil(b, err)
+			require.NoError(b, err)
 		}
 	})
 
@@ -98,14 +96,14 @@ func BenchmarkPostgresSerial(b *testing.B) {
 
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		for i := 0; i < b.N; i++ {
 			source, err := getLink()
-			assert.Nil(b, err)
+			require.NoError(b, err)
 
 			_, err = storeBatchMode.Add(ctx, source)
-			assert.Nil(b, err)
+			require.NoError(b, err)
 		}
 	})
 }
@@ -117,7 +115,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(b, err, "Could not connect to docker")
+	require.NoError(b, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("postgres", "latest", []string{
@@ -139,7 +137,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		var err error
 
 		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
 		if err != nil {
@@ -153,7 +151,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 			b.Fatalf("Could not purge resource: %s", errPurge)
 		}
 
-		assert.Nil(b, err, "Could not connect to docker")
+		require.NoError(b, err, "Could not connect to docker")
 	}
 
 	b.Cleanup(func() {
@@ -174,10 +172,10 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
 				source, err := getLink()
-				assert.Nil(b, err)
+				require.NoError(b, err)
 
 				_, err = store.Add(ctx, source)
-				assert.Nil(b, err)
+				require.NoError(b, err)
 			}
 		})
 	})
@@ -187,7 +185,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		// create a db
 		storeBatchMode := Store{
@@ -197,10 +195,10 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
 				source, err := getLink()
-				assert.Nil(b, err)
+				require.NoError(b, err)
 
 				_, err = storeBatchMode.Add(ctx, source)
-				assert.Nil(b, err)
+				require.NoError(b, err)
 			}
 		})
 	})

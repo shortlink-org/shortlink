@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/ory/dockertest/v3"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestClickHouse(t *testing.T) {
@@ -19,18 +19,18 @@ func TestClickHouse(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(t, err, "Could not connect to docker")
+	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("clickhouse/clickhouse-server", "latest", nil)
-	assert.Nil(t, err, "Could not start resource")
+	require.NoError(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
 		var err error
 
 		err = os.Setenv("STORE_CLICKHOUSE_URI", fmt.Sprintf("clickhouse://localhost:%s/default?sslmode=disable", resource.GetPort("9000/tcp")))
-		assert.Nil(t, err, "Cannot set ENV")
+		require.NoError(t, err, "Cannot set ENV")
 
 		err = store.Init(ctx)
 		if err != nil {
@@ -39,7 +39,7 @@ func TestClickHouse(t *testing.T) {
 
 		return nil
 	}); err != nil {
-		assert.Nil(t, err, "Could not connect to docker")
+		require.NoError(t, err, "Could not connect to docker")
 	}
 
 	t.Cleanup(func() {
@@ -50,6 +50,6 @@ func TestClickHouse(t *testing.T) {
 	})
 
 	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
+		require.NoError(t, store.Close())
 	})
 }

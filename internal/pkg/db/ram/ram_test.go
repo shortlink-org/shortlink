@@ -7,7 +7,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 )
 
@@ -22,10 +22,10 @@ func TestRAM(t *testing.T) {
 	ctx := context.Background()
 
 	err := store.Init(ctx)
-	assert.Nil(t, err)
+	require.NoError(t, err)
 
 	// Run tests
 	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
+		require.NoError(t, store.Close())
 	})
 }

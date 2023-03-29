@@ -7,9 +7,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/stretchr/testify/require"
 )
 
 // TestLink ...
@@ -19,12 +18,12 @@ func TestLink(t *testing.T) {
 	// Init logger
 	conf := logger.Configuration{}
 	log, err := logger.NewLogger(logger.Zap, conf)
-	assert.Nil(t, err, "Error init a logger")
+	require.NoError(t, err, "Error init a logger")
 
 	var st Store
 	s, err := st.Use(ctx, log)
-	assert.Nil(t, err, "Error init a db")
+	require.NoError(t, err, "Error init a db")
 
 	// Init db
-	assert.Nil(t, s.Store.Init(ctx), "Error  create a new link list")
+	require.NoError(t, s.Store.Init(ctx), "Error  create a new link list")
 }

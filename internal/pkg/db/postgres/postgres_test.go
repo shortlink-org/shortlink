@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/ory/dockertest/v3"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestPostgres(t *testing.T) {
@@ -19,7 +19,7 @@ func TestPostgres(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(t, err, "Could not connect to docker")
+	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("postgres", "latest", []string{
@@ -41,7 +41,7 @@ func TestPostgres(t *testing.T) {
 		var err error
 
 		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
-		assert.Nil(t, err, "Cannot set ENV")
+		require.NoError(t, err, "Cannot set ENV")
 
 		err = store.Init(ctx)
 		if err != nil {
@@ -55,7 +55,7 @@ func TestPostgres(t *testing.T) {
 			t.Fatalf("Could not purge resource: %s", errPurge)
 		}
 
-		assert.Nil(t, err, "Could not connect to docker")
+		require.NoError(t, err, "Could not connect to docker")
 	}
 
 	t.Cleanup(func() {

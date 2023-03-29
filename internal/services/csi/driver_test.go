@@ -10,7 +10,7 @@ import (
 	"testing"
 
 	"github.com/kubernetes-csi/csi-test/v5/pkg/sanity"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -27,7 +27,7 @@ func TestDriver(t *testing.T) {
 	conf := logger.Configuration{}
 	log, err := logger.NewLogger(logger.Zap, conf)
 	if err != nil {
-		assert.Nil(t, err, "Error init a logger")
+		require.NoError(t, err, "Error init a logger")
 		t.Fatal()
 	}
 

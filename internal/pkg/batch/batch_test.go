@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 )
 
@@ -38,7 +39,7 @@ func TestNew(t *testing.T) {
 		}
 
 		b, err := New(context.Background(), aggrCB)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 
 		go b.Run(ctx)
 
@@ -46,7 +47,7 @@ func TestNew(t *testing.T) {
 		for key := range request {
 			wg.Add(1)
 			res, err := b.Push(request[key])
-			assert.Nil(t, err)
+			require.NoError(t, err)
 			go func(key int) {
 				assert.Equal(t, <-res, request[key])
 				wg.Done()
@@ -78,14 +79,14 @@ func TestNew(t *testing.T) {
 		request := []string{"A", "B", "C", "D"}
 
 		b, err := New(ctx, aggrCB)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 
 		go b.Run(ctx)
 
 		for key := range request {
 			wg.Add(1)
 			res, err := b.Push(request[key])
-			assert.Nil(t, err)
+			require.NoError(t, err)
 			go func() {
 				assert.Equal(t, <-res, "ctx close")
 				wg.Done()

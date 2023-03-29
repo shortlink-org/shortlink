@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 )
 
@@ -21,7 +22,7 @@ func TestNewURL(t *testing.T) {
 		link := &Link{Url: URL}
 		err := NewURL(&Link{Url: URL})
 
-		assert.Nil(t, err, "Assert nil. Got: %s", err)
+		require.NoError(t, err, "Assert nil. Got: %s", err)
 		assert.Equal(t, link.Url, URL)
 	})
 
