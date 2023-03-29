@@ -3,6 +3,8 @@
   image:
     name: alpine/helm:3.11.2
     entrypoint: [""]
+  variables:
+    HELM_EXPERIMENTAL_OCI: 1
   before_script:
     - helm plugin install https://github.com/jkroepke/helm-secrets
     - |
