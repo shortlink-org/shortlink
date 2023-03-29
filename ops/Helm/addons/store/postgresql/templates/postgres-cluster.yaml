@@ -18,7 +18,7 @@ spec:
     pgbackrest:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.41-4
       repos:
-        - name: shortlink
+        - name: shortlink-repo
           volume:
             volumeClaimSpec:
               storageClassName: local-path
