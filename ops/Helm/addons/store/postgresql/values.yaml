@@ -5,34 +5,41 @@
 postgresql:
   enabled: true
 
-  global:
-    postgresql:
-      auth:
-        username: "postgres"
-        password: "shortlink"
-        postgresPassword: "shortlink"
-        database: "shortlink"
+  debug: false
 
-  auth:
-    username: "postgres"
-    password: "shortlink"
-    postgresPassword: "shortlink"
-    database: "shortlink"
+  resources:
+    controller: {}
+    upgrade: {}
 
-  primary:
-    persistence:
-      enabled: false
-
-  readReplicas:
-    persistence:
-      enabled: false
-
-  metrics:
-    enabled: true
-
-    serviceMonitor:
-      enabled: true
-
-    prometheusRule:
-      enabled: true
-
+#
+#  global:
+#    postgresql:
+#      auth:
+#        username: "postgres"
+#        password: "shortlink"
+#        postgresPassword: "shortlink"
+#        database: "shortlink"
+#
+#  auth:
+#    username: "postgres"
+#    password: "shortlink"
+#    postgresPassword: "shortlink"
+#    database: "shortlink"
+#
+#  primary:
+#    persistence:
+#      enabled: false
+#
+#  readReplicas:
+#    persistence:
+#      enabled: false
+#
+#  metrics:
+#    enabled: true
+#
+#    serviceMonitor:
+#      enabled: true
+#
+#    prometheusRule:
+#      enabled: true
+#

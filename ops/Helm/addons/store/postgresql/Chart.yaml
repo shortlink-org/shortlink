@@ -14,8 +14,9 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: postgresql
-    version: 12.2.6
-    repository: https://charts.bitnami.com/bitnami
+    version: 5.3.1
+    repository: oci://registry.developers.crunchydata.com/crunchydata/pgo
+    alias: postgresql
     condition: postgresql.enabled
     tags:
       - postgresql
