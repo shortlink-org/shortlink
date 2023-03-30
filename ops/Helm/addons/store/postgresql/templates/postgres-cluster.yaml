@@ -8,8 +8,7 @@ spec:
   instances:
     - name: shortlink
       annotations:
-        reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
-        reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "shortlink"
+        replicator.v1.mittwald.de/replicate-to: "shortlink"
       dataVolumeClaimSpec:
         storageClassName: local-path
         accessModes:

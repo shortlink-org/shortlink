@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: reflector
+  name: kubernetes-replicator
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -12,17 +12,12 @@ spec:
     namespace: external-secrets
     server: 'https://kubernetes.default.svc'
   source:
-    chart: reflector
-    repoURL: https://emberstack.github.io/helm-charts
-    targetRevision: 7.*
+    chart: kubernetes-replicator
+    repoURL: https://helm.mittwald.de
+    targetRevision: 2.*
     helm:
-      releaseName: reflector
+      releaseName: kubernetes-replicator
       values: |
-        fullnameOverride: reflector
-        
-        cron:
-          enabled: "true"
-        
         resources:
           limits:
             cpu: 100m
@@ -39,7 +34,6 @@ spec:
       - CreateNamespace=true
       - ServerSideApply=true
       - ApplyOutOfSyncOnly=true
-      - SkipDryRunOnMissingResource=true
     retry:
       limit: 2
       backoff:
