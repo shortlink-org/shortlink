@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: external-secrets
+  name: reflector
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -12,18 +12,24 @@ spec:
     namespace: external-secrets
     server: 'https://kubernetes.default.svc'
   source:
-    chart: external-secrets
-    repoURL: https://charts.external-secrets.io
-    targetRevision: v0.8.*
+    chart: reflector
+    repoURL: https://emberstack.github.io/helm-charts
+    targetRevision: 7.*
     helm:
-      releaseName: external-secrets
+      releaseName: reflector
       values: |
-        metrics:
-          service:
-            enabled: true
+        fullnameOverride: reflector
         
-        serviceMonitor:
-          enabled: true
+        cron:
+          enabled: "true"
+        
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 2m
+            memory: 16Mi
   syncPolicy:
     automated:
       prune: true
