@@ -37,8 +37,8 @@ deploy:
 
   env:
     MQ_ENABLED: true
-    MQ_TYPE: "kafka"
-    MQ_RABBIT_URI: amqp://shortlink:shortlink@shortlink.rabbitmq:5672/
+    MQ_TYPE: kafka
+    MQ_KAFKA_URI: shortlink-kafka-bootstrap.kafka:9092
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink
 
