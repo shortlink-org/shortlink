@@ -7,8 +7,9 @@ spec:
   postgresVersion: 15
   instances:
     - name: shortlink
-      annotations:
-        replicator.v1.mittwald.de/replicate-to: "shortlink"
+      metadata:
+        annotations:
+          replicator.v1.mittwald.de/replicate-to: "shortlink"
       dataVolumeClaimSpec:
         storageClassName: local-path
         accessModes:
