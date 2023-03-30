@@ -35,7 +35,6 @@ spec:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbouncer:ubi8-1.18-0
       replicas: 1
       port: 5432
-      poolMode: transaction
       poolSize: 10
       resources:
         requests:
@@ -44,3 +43,9 @@ spec:
         limits:
           cpu: 100m
           memory: 128Mi
+  users:
+    - name: shortlink
+      databases:
+        - link
+        - support
+        - billing
