@@ -47,3 +47,5 @@ for information team about cases for updated ADR.
   - [ADR-0017](./decisions/0017-profile-guided-optimization.md) - Profile-guided optimization
 - **Front-end**
   - [ADR-0019](./decisions/0019-front-end-testing.md) - Front-end testings
+- **Research**
+  - [ADR-0020](./decisions/0020-research-summary.md) - Research summary
