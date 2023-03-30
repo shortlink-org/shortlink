@@ -1,26 +1,57 @@
 basePath: /api
 definitions:
-  github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link:
+  fieldmaskpb.FieldMask:
+    properties:
+      paths:
+        description: The set of field mask paths.
+        items:
+          type: string
+        type: array
+    type: object
+  github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link:
     properties:
       created_at:
         $ref: '#/definitions/timestamppb.Timestamp'
-        description: Create at
       describe:
-        description: Describe of link
         type: string
+      field_mask:
+        $ref: '#/definitions/fieldmaskpb.FieldMask'
       hash:
-        description: Hash by URL + salt
         type: string
       updated_at:
         $ref: '#/definitions/timestamppb.Timestamp'
-        description: Update at
       url:
-        description: URL
         type: string
     type: object
-  github.com_batazor_shortlink_internal_services_link_infrastructure_rpc_link_v1.Link:
+  github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.AddRequest:
     properties:
-      LinkServiceServer: {}
+      link:
+        $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link'
+    type: object
+  github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.AddResponse:
+    properties:
+      link:
+        $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link'
+    type: object
+  github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.GetResponse:
+    properties:
+      link:
+        $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link'
+    type: object
+  github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.ListResponse:
+    properties:
+      links:
+        $ref: '#/definitions/v1.Links'
+    type: object
+  github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.UpdateRequest:
+    properties:
+      link:
+        $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link'
+    type: object
+  github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.UpdateResponse:
+    properties:
+      link:
+        $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link'
     type: object
   timestamppb.Timestamp:
     properties:
@@ -38,44 +69,14 @@ definitions:
           9999-12-31T23:59:59Z inclusive.
         type: integer
     type: object
-  v1.AddRequest:
-    properties:
-      link:
-        $ref: '#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link'
-    type: object
-  v1.AddResponse:
-    properties:
-      link:
-        $ref: '#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link'
-    type: object
-  v1.GetResponse:
-    properties:
-      link:
-        $ref: '#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link'
-    type: object
   v1.Links:
     properties:
       link:
         items:
-          $ref: '#/definitions/github.com_batazor_shortlink_internal_services_link_infrastructure_rpc_link_v1.Link'
+          $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link'
         type: array
     type: object
-  v1.ListResponse:
-    properties:
-      links:
-        $ref: '#/definitions/v1.Links'
-    type: object
-  v1.UpdateRequest:
-    properties:
-      link:
-        $ref: '#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link'
-    type: object
-  v1.UpdateResponse:
-    properties:
-      link:
-        $ref: '#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link'
-    type: object
-host: localhost:7070
+host: shortlink.best
 info:
   contact:
     email: support@swagger.io
@@ -101,7 +102,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/v1.ListResponse'
+            $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.ListResponse'
       summary: List links
     post:
       consumes:
@@ -114,14 +115,14 @@ paths:
         name: link
         required: true
         schema:
-          $ref: '#/definitions/v1.AddRequest'
+          $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.AddRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/v1.AddResponse'
+            $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.AddResponse'
       summary: Add link
   /links/:hash:
     put:
@@ -135,14 +136,14 @@ paths:
         name: link
         required: true
         schema:
-          $ref: '#/definitions/v1.UpdateRequest'
+          $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.UpdateRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/v1.UpdateResponse'
+            $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.UpdateResponse'
       summary: Update link
   /links/{hash}:
     delete:
@@ -179,7 +180,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/v1.GetResponse'
+            $ref: '#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.GetResponse'
       summary: Get link
 schemes:
 - http

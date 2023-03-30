@@ -197,6 +197,13 @@ make skaffold-debug
 </p>
 </details>
 
+### ChatGTP || OpenIA
+
+This service support [ChatGTP](https://chat.openai.com/chat) as plugin.  
+You can use it for ChatGTP by link `https://shortlink.best/.well-known/ai-plugin.json`
+
+You can read official docs [here](https://platform.openai.com/docs/plugins/getting-started/running-a-plugin) for more information.
+
 ### Mobile
 
 + `Hello World` on flutter ;-)

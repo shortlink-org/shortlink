@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "ShortLink plugin for OpenIA",
+  "name_for_model": "shortlink",
+  "description_for_human": "Manages your shortlinks!",
+  "description_for_model": "An app for managing a user's shortlinks",
+  "api": {
+    "type": "openapi",
+    "url": "https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/api/swagger.json",
+    "has_user_authentication": false
+  },
+  "auth": {
+    "type": "none"
+  },
+  "logo_url": "https://shortlink.best/images/logo.png",
+  "legal_info_url": "https://shortlink.best/",
+  "contact_email": "batazor111@gmail.com"
+}

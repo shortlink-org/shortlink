@@ -19,7 +19,7 @@
         },
         "version": "1.0"
     },
-    "host": "localhost:7070",
+    "host": "shortlink.best",
     "basePath": "/api",
     "paths": {
         "/links": {
@@ -37,7 +37,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.ListResponse"
+                            "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.ListResponse"
                         }
                     }
                 }
@@ -59,7 +59,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/v1.AddRequest"
+                            "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.AddRequest"
                         }
                     }
                 ],
@@ -67,7 +67,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.AddResponse"
+                            "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.AddResponse"
                         }
                     }
                 }
@@ -91,7 +91,7 @@
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/v1.UpdateRequest"
+                            "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.UpdateRequest"
                         }
                     }
                 ],
@@ -99,7 +99,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.UpdateResponse"
+                            "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.UpdateResponse"
                         }
                     }
                 }
@@ -129,7 +129,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/v1.GetResponse"
+                            "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.GetResponse"
                         }
                     }
                 }
@@ -162,35 +162,87 @@
         }
     },
     "definitions": {
-        "github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link": {
+        "fieldmaskpb.FieldMask": {
+            "type": "object",
+            "properties": {
+                "paths": {
+                    "description": "The set of field mask paths.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link": {
             "type": "object",
             "properties": {
                 "created_at": {
-                    "description": "Create at",
                     "$ref": "#/definitions/timestamppb.Timestamp"
                 },
                 "describe": {
-                    "description": "Describe of link",
                     "type": "string"
                 },
+                "field_mask": {
+                    "$ref": "#/definitions/fieldmaskpb.FieldMask"
+                },
                 "hash": {
-                    "description": "Hash by URL + salt",
                     "type": "string"
                 },
                 "updated_at": {
-                    "description": "Update at",
                     "$ref": "#/definitions/timestamppb.Timestamp"
                 },
                 "url": {
-                    "description": "URL",
                     "type": "string"
                 }
             }
         },
-        "github.com_batazor_shortlink_internal_services_link_infrastructure_rpc_link_v1.Link": {
+        "github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.AddRequest": {
             "type": "object",
             "properties": {
-                "LinkServiceServer": {}
+                "link": {
+                    "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link"
+                }
+            }
+        },
+        "github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.AddResponse": {
+            "type": "object",
+            "properties": {
+                "link": {
+                    "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link"
+                }
+            }
+        },
+        "github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.GetResponse": {
+            "type": "object",
+            "properties": {
+                "link": {
+                    "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link"
+                }
+            }
+        },
+        "github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.ListResponse": {
+            "type": "object",
+            "properties": {
+                "links": {
+                    "$ref": "#/definitions/v1.Links"
+                }
+            }
+        },
+        "github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.UpdateRequest": {
+            "type": "object",
+            "properties": {
+                "link": {
+                    "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link"
+                }
+            }
+        },
+        "github_com_shortlink-org_shortlink_internal_services_link_infrastructure_rpc_link_v1.UpdateResponse": {
+            "type": "object",
+            "properties": {
+                "link": {
+                    "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link"
+                }
             }
         },
         "timestamppb.Timestamp": {
@@ -206,62 +258,14 @@
                 }
             }
         },
-        "v1.AddRequest": {
-            "type": "object",
-            "properties": {
-                "link": {
-                    "$ref": "#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link"
-                }
-            }
-        },
-        "v1.AddResponse": {
-            "type": "object",
-            "properties": {
-                "link": {
-                    "$ref": "#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link"
-                }
-            }
-        },
-        "v1.GetResponse": {
-            "type": "object",
-            "properties": {
-                "link": {
-                    "$ref": "#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link"
-                }
-            }
-        },
         "v1.Links": {
             "type": "object",
             "properties": {
                 "link": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/github.com_batazor_shortlink_internal_services_link_infrastructure_rpc_link_v1.Link"
+                        "$ref": "#/definitions/github_com_shortlink-org_shortlink_internal_services_link_domain_link_v1.Link"
                     }
-                }
-            }
-        },
-        "v1.ListResponse": {
-            "type": "object",
-            "properties": {
-                "links": {
-                    "$ref": "#/definitions/v1.Links"
-                }
-            }
-        },
-        "v1.UpdateRequest": {
-            "type": "object",
-            "properties": {
-                "link": {
-                    "$ref": "#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link"
-                }
-            }
-        },
-        "v1.UpdateResponse": {
-            "type": "object",
-            "properties": {
-                "link": {
-                    "$ref": "#/definitions/github.com_batazor_shortlink_internal_services_link_domain_link_v1.Link"
                 }
             }
         }

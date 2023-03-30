@@ -41,7 +41,7 @@ const MAX_AGE = 300
 // @license.name MIT
 // @license.url http://www.opensource.org/licenses/MIT
 //
-// @host localhost:7070
+// @host shortlink.best
 // @BasePath /api
 // @schemes http https
 func (api *API) Run(
