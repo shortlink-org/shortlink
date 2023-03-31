@@ -168,12 +168,6 @@ kratos:
       # Defaults to job
       type: job
 
-    serviceMonitor:
-      enabled: true
-
-      labels:
-        release: prometheus-operator
-
     #  You can add multiple identity schemas here
     identitySchemas:
       "identity.default.schema.json": |
@@ -264,3 +258,10 @@ kratos:
             },
           },
         }
+
+
+  serviceMonitor:
+    enabled: true
+
+    labels:
+        release: prometheus-operator
