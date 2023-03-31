@@ -20,7 +20,6 @@ metadata:
   annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
   {{- end }}
 spec:
-  jobLabel: ""
   selector:
     matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
   namespaceSelector:
