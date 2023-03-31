@@ -1,6 +1,8 @@
 include:
-  - template: Security/SAST.gitlab-ci.yml
-  - template: Security/SAST-IaC.latest.gitlab-ci.yml
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST.latest.gitlab-ci.yml
+  - template: Jobs/SAST.latest.gitlab-ci.yml
+  # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST-IaC.latest.gitlab-ci.yml
+  - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
 
 # SAST =================================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/sast/
@@ -12,15 +14,7 @@ include:
 variables:
   SAST_EXPERIMENTAL_FEATURES: "true"
 
-bandit-sast:
-  rules:
-    - when: always
-
 brakeman-sast:
-  rules:
-    - when: always
-
-eslint-sast:
   rules:
     - when: always
 
@@ -29,10 +23,8 @@ flawfinder-sast:
     - when: always
 
 kubesec-sast:
-  rules:
-    - when: always
-
-gosec-sast:
+  variables:
+    SECURE_LOG_LEVEL: "debug"
   rules:
     - when: always
 
@@ -60,6 +52,10 @@ security-code-scan-sast:
   rules:
     - when: always
 
+semgrep-sast:
+  rules:
+    - when: always
+
 sobelow-sast:
   rules:
     - when: always
@@ -67,3 +63,8 @@ sobelow-sast:
 spotbugs-sast:
   rules:
     - when: always
+
+kics-iac-sast:
+  rules:
+    - when: always
+
