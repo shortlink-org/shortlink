@@ -5,14 +5,14 @@ go 1.20
 require (
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.13.0
 	github.com/cloudevents/sdk-go/v2 v2.13.0
-	github.com/elastic/go-elasticsearch/v8 v8.6.0
+	github.com/elastic/go-elasticsearch/v8 v8.7.0
 	go.uber.org/zap v1.24.0
 	knative.dev/pkg v0.0.0-20230329200100-696cac83c169
 )
 
 require (
 	contrib.go.opencensus.io/exporter/zipkin v0.1.2 // indirect
-	github.com/elastic/elastic-transport-go/v8 v8.0.0-20211216131617-bbee439d559c // indirect
+	github.com/elastic/elastic-transport-go/v8 v8.2.0 // indirect
 	github.com/go-kit/log v0.2.1 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
