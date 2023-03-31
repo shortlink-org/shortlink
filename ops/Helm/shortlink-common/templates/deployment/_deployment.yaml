@@ -20,7 +20,7 @@ spec:
       labels:
         {{- include "shortlink-common.matchLabels" . | indent 8 }}
         {{- if .Values.deploy.annotations }}
-          {{- if ge (len .Values.deploy.annotations) 1 }}}
+          {{- if ge (len .Values.deploy.annotations) 1 }}
       annotations:
           {{- toYaml .Values.deploy.annotations | nindent 8 }}
         {{- end }}
