@@ -7,7 +7,6 @@ dep: ## Install dependencies for this project
 	@go install github.com/srikrsna/protoc-gen-gotag@latest
 	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
-	@go install github.com/securego/gosec/cmd/gosec@latest
 	@go install moul.io/protoc-gen-gotemplate@latest
 	@go install github.com/cloudflare/cfssl/cmd/...@latest
 	@go install golang.org/x/tools/cmd/goimports@latest

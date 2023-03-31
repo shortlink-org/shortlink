@@ -13,9 +13,6 @@ fmt: ## Format source using goimports
 	# Apply go fmt
 	@goimports -l -local -w cmd pkg internal
 
-gosec: ## Golang security checker
-	@docker run --rm -it -v $(pwd):/app -w /app/ securego/gosec:latest /app/...
-
 golint: ## Linter for golang
 	@docker run --rm -it -v $(pwd):/app -w /app/ golangci/golangci-lint:v1.52.2-alpine golangci-lint run ./...
 
