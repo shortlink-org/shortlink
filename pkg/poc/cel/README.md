@@ -1,5 +1,9 @@
 ## Common Expression Language
 
+### Goal of the POC
+
+The goal of this...
+
 ### Example
 
 #### Rules
