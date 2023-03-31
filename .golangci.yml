@@ -266,13 +266,9 @@ linters-settings:
       - G505
       - G601
 
-    # To specify a set of rules to explicitly exclude.
-    # Available rules: https://github.com/securego/gosec#available-rules
-    excludes: []
-
     # Exclude generated files
     # Default: false
-    exclude-generated: true
+    exclude-generated: false
 
     # To specify the configuration of rules.
     # The configuration of rules is not fully documented by gosec:
