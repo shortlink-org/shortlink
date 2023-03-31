@@ -1,5 +1,5 @@
 # Production image, copy all the files and run next
-FROM nginxinc/nginx-unprivileged:1.23-alpine
+FROM ghcr.io/nginxinc/nginx-unprivileged:1.23-alpine
 
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
