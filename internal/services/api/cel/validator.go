@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"reflect"
 	"sort"
 	"time"
 
@@ -32,6 +33,10 @@ type EvaluateInput struct {
 	Claims Claims `json:"claims"`
 	Now    int64  `json:"now"`
 }
+
+var (
+	expectedValue = "my-audience"
+)
 
 func main() {
 	rulesPath := "./internal/services/api/cel/rules"
@@ -67,8 +72,9 @@ func setupRoutes(r *chi.Mux, compiledRules map[string]*cel.Program) chi.Router {
 
 		for ruleName, compiledRule := range compiledRules {
 			result, err := evaluateRule(compiledRule, map[string]interface{}{
-				"claims": map[string]interface{}{"exp": input.Claims.Exp, "aud": input.Claims.Aud},
-				"now":    nowTimestamp,
+				"claims":            map[string]interface{}{"exp": input.Claims.Exp, "aud": input.Claims.Aud},
+				"now":               nowTimestamp,
+				"expected_audience": expectedValue,
 			})
 			if err != nil {
 				http.Error(w, fmt.Sprintf("Error evaluating rule '%s': %v", ruleName, err), http.StatusInternalServerError)
@@ -115,6 +121,7 @@ func compileRules(rules map[string]string) (map[string]*cel.Program, error) {
 			decls.NewVar(
 				"claims",
 				decls.NewMapType(decls.String, decls.Dyn)),
+			decls.NewVar("expected_audience", decls.String),
 			decls.NewVar("now", decls.Timestamp),
 			decls.NewVar("aud", decls.String),
 		),
@@ -125,10 +132,7 @@ func compileRules(rules map[string]string) (map[string]*cel.Program, error) {
 
 	compiledRules := make(map[string]*cel.Program)
 	for name, rule := range rules {
-		ast, iss := env.Compile(rule)
-		if iss.Err() != nil {
-			return nil, iss.Err()
-		}
+		ast := compile(env, rule, cel.BoolType)
 		program, err := env.Program(ast)
 		if err != nil {
 			return nil, err
@@ -204,4 +208,20 @@ func report(result ref.Val, details *cel.EvalDetails, err error) {
 			fmt.Printf("%d: %v (%T)\n", id, v, v)
 		}
 	}
+}
+
+// compile will parse and check an expression `expr` against a given
+// environment `env` and determine whether the resulting type of the expression
+// matches the `exprType` provided as input.
+func compile(env *cel.Env, expr string, celType *cel.Type) *cel.Ast {
+	ast, iss := env.Compile(expr)
+	if iss.Err() != nil {
+		glog.Exit(iss.Err())
+	}
+	if !reflect.DeepEqual(ast.OutputType(), celType) {
+		glog.Exitf(
+			"Got %v, wanted %v result type", ast.OutputType(), celType)
+	}
+	//fmt.Printf("%s\n\n", strings.ReplaceAll(expr, "\t", " "))
+	return ast
 }
