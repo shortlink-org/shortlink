@@ -5,6 +5,8 @@
 kyverno:
   enabled: true
 
+  hostNetwork: true
+
   serviceMonitor:
     enabled: true
 
