@@ -1,0 +1,8 @@
+// Check whether the JSON Web Token is intended for a specific audience.
+//
+// Args:
+//   claims - authentication claims.
+//   aud    - expected audience value.
+// Returns: true if the audience value in the token matches the expected value.
+//
+claims["aud"] == "my-audience"
