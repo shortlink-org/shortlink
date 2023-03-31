@@ -5,4 +5,4 @@
 //   expected_audience - the expected audience value.
 // Returns: true if the audience matches the expected value.
 //
-claims["aud"] == expected_audience
+claims.aud == expected_audience
