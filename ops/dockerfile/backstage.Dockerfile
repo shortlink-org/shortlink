@@ -56,13 +56,11 @@ LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlin
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential curl tini && \
+    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential curl && \
     yarn config set python /usr/bin/python3
 
 # From here on we use the least-privileged `node` user to run the backend.
 USER node
-
-ENTRYPOINT ["/sbin/tini", "--"]
 
 # This should create the app dir as `node`.
 # If it is instead created as `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
