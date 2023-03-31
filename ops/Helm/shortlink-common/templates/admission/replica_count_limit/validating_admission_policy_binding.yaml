@@ -2,14 +2,13 @@
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicyBinding
 metadata:
-  name: "demo-binding-production.example.com"
+  name: replica-limit-max
 spec:
-  policy: "demo-policy.example.com"
+  policy: replica-limit-max
   paramsRef:
-    name: "demo-params-production.example.com"
+    name: replica-limit-max
   matchResources:
     namespaceSelector:
-      - key: environment,
-        operator: In,
-        values: [ "production" ]
+      matchLabels:
+        kubernetes.io/metadata.name: {{ .Release.Namespace }}
 {{- end }}
