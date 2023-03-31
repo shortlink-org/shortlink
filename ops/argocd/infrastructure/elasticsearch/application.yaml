@@ -12,30 +12,11 @@ spec:
     namespace: elasticsearch
     server: 'https://kubernetes.default.svc'
   source:
-    chart: elasticsearch
-    repoURL: https://helm.elastic.co
-    targetRevision: 8.*
+    path: ops/Helm/addons/store/elastic-operator
+    repoURL: 'https://github.com/shortlink-org/shortlink'
+    targetRevision: HEAD
     helm:
       releaseName: elasticsearch
-      values: |
-        clusterName: shortlink
-
-        replicas: 1
-        minimumMasterNodes: 1
-
-        # Shrink default JVM heap.
-        esJavaOpts: "-Xmx128m -Xms128m"
-
-        resources:
-          requests:
-            cpu: 100m
-            memory: 256Mi
-
-        persistence:
-          enabled: false
-
-        ingress:
-          enabled: false
   syncPolicy:
     automated:
       prune: true
