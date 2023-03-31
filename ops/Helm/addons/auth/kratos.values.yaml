@@ -168,11 +168,11 @@ kratos:
       # Defaults to job
       type: job
 
-    # -- Parameters for the Prometheus ServiceMonitor objects.
-    # Reference: https://docs.openshift.com/container-platform/4.6/rest_api/monitoring_apis/servicemonitor-monitoring-coreos-com-v1.html
     serviceMonitor:
-      # -- switch to false to prevent creating the ServiceMonitor
       enabled: true
+
+      labels:
+        release: prometheus-operator
 
     #  You can add multiple identity schemas here
     identitySchemas:
