@@ -9,7 +9,7 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: argocd
+    namespace: storage
     server: 'https://kubernetes.default.svc'
   source:
     path: ops/argocd/kustomize/local-path-provisioner
