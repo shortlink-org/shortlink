@@ -1,0 +1,24 @@
+apiVersion: v2                                   # The chart API version (required)
+appVersion: "1.0.0"                              # The version of the app that this contains (optional)
+name: elastic-operator                           # The name of the chart (required)
+version: 1.0.0                                   # A SemVer 2 version (required)
+kubeVersion: ">= 1.22.0 || >= v1.22.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
+keywords:                                        # A list of keywords about this project (optional)
+  - elasticsearch
+  - operator
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application                                # It is the type of chart (optional)
+deprecated: false                                # Whether this chart is deprecated (optional, boolean)
+dependencies:
+  - name: eck-operator
+    alias: elastic-operator
+    version: 2.6.1
+    repository: https://helm.elastic.co
+    condition: elastic-operator.enabled
+    tags:
+      - elasticsearch
+      - store
