@@ -16,7 +16,7 @@ deprecated: false                                # Whether this chart is depreca
 dependencies:
   - name: eck-operator
     alias: elastic-operator
-    version: 2.6.1
+    version: 2.7.0
     repository: https://helm.elastic.co
     condition: elastic-operator.enabled
     tags:
