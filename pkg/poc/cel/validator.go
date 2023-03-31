@@ -29,7 +29,7 @@ type EvaluateInput struct {
 var expectedValue = "my-audience"
 
 func main() {
-	rulesPath := "./internal/services/api/cel/rules"
+	rulesPath := "./pkg/poc/cel/rules"
 	rules, err := loadRules(rulesPath)
 	if err != nil {
 		fmt.Printf("Error loading rules: %v\n", err)
