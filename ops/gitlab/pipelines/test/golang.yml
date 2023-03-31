@@ -20,7 +20,6 @@ gotest:
   extends:
     - .go-cache
     - .job_teplate_go
-  image: golang:1.20-alpine
   coverage: '/coverage: \d+.\d+% of statements/'
   variables:
     GOPATH: $CI_PROJECT_DIR/.go
