@@ -1,4 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://raw.githubusercontent.com/opencost/opencost/e83493e4e832a256aadd1579f4cb7b06b2c315cd/kubernetes/opencost.yaml
+  - https://raw.githubusercontent.com/opencost/opencost/develop/kubernetes/opencost.yaml
+  - namespace/limit_range.yaml

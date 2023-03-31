@@ -2,3 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - https://raw.githubusercontent.com/keycloak/keycloak-quickstarts/d501f6dce4a40bee2011c335e7fe2bffe3fa79ec/kubernetes-examples/keycloak.yaml
+  - namespace/limit_range.yaml

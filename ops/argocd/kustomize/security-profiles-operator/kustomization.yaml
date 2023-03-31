@@ -12,5 +12,5 @@ commonLabels:
   app: security-profiles-operator
 
 resources:
-  - https://github.com/kubernetes-sigs/security-profiles-operator/tree/6d9cf0a3aadf57752a34a4c19713ea041e54f3e8/deploy/kustomize-deployment
+  - https://github.com/kubernetes-sigs/security-profiles-operator/tree/v0.7.1/deploy/kustomize-deployment
   - seccomp_profile.yaml
