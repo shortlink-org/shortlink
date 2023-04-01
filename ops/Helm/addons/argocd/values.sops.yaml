@@ -7,14 +7,15 @@ argo-cd:
         secret:
             items:
                 slack-token: ENC[AES256_GCM,data:kYpotaZPfGV6Uih7yfJWQ/Y/GrkaZ9XkLzEHBNgBu6VvALk35ekyw1RQ7tb1XtgQ9dy2yQEUJmU=,iv:igcRqi7uSlDp9IV6mOYWx06ojp33c/a4ZTHhfn3CIOA=,tag:48LXSzcI55TZxUvS3pocnA==,type:str]
+                grafana-api-key: ENC[AES256_GCM,data:3gTW4/eXOi0KRz1sA8TW5kghI0i6eSyEkJ33QVcbawDpz1P1RcKh0BDMXKmCyw==,iv:hH1FbvKgj6a4jm9R/1cLqtmesn0940iVF8rEoE7NMzo=,tag:q6QAiiTXgg8MH3lzB44KaA==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-02-27T12:40:35Z"
-    mac: ENC[AES256_GCM,data:Jx9jIiNiX/QDZOkeLPe21xTmFTTrGtrMfCKB/wyjIcxfr5VyvS7LSJdVFFh3o0jSamYM1MBQZhoCWvciE1ghOKl+8fjpfvJRZv9/cyvTcmvtDjwe3/AtnMor54IL3SsU3z/yIe4vevHq516x+hp9+QqKDO3sfkbzUl1uRRajEt0=,iv:VIe3xTBxHcJslzn9NxJ8Sb3uf8K+Y/SYEX+lNPVzXP0=,tag:Mq8vx8pz0d1d2QzYzk80dA==,type:str]
+    lastmodified: "2023-04-01T21:18:40Z"
+    mac: ENC[AES256_GCM,data:nYa282NLtm5iRo4OmMfj/kq0nUksiyBF0ZAZhJuSgNnYaikJGs9oL783UJO8BzMf9kT/GyBsRqNUoncNVZjv8FiTuWFJQGvh959jfmjZWty/V4HWDbP6DtRAryMxnn+eYd4nZVMactzGFTata7lrWQ3lEPvPK9en7bXt9qEMzLs=,iv:lX+gizNp81JV6LYkE1d4xW23jr8wHZ3qLQ5/pXZEpdU=,tag:Ac6+lmm3/Z/3zgyUEN2zLA==,type:str]
     pgp:
         - created_at: "2023-01-15T16:35:29Z"
           enc: |

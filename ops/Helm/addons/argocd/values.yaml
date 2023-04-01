@@ -237,6 +237,11 @@ argo-cd:
         username: argocd # optional username
         icon: :dart: # optional icon for the message (supports both emoij and url notation)
 
+    context:
+      service.grafana: |
+        apiUrl: https://shortlink.best/grafana/api
+        apiKey: $grafana-api-key
+
     metrics:
       enabled: true
       serviceMonitor:
