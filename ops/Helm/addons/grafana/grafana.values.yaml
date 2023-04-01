@@ -19,7 +19,7 @@ grafana:
     inMemory:
       enabled: true
 
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 2
 
   serviceMonitor:
     enabled: true
@@ -28,6 +28,9 @@ grafana:
 
   imageRenderer:
     enabled: true
+
+    revisionHistoryLimit: 2
+
     serviceMonitor:
       enabled: true
       selfMonitor: true
