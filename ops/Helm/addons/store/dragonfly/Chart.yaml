@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: dragonfly
-    version: v1.0.0
+    version: v1.1.0
     repository: oci://ghcr.io/dragonflydb/dragonfly/helm
     condition: dragonfly.enabled
     tags:
