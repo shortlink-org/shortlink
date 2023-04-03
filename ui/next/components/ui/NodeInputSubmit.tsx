@@ -18,10 +18,6 @@ export function NodeInputSubmit<T>({
       variant="contained"
       color="primary"
       type="submit"
-      onClick={(e) => {
-        // On click, we set this value, and once set, dispatch the submission!
-        setValue(attributes.value).then(() => dispatchSubmit(e))
-      }}
       className="bg-sky-600 hover:bg-sky-700"
       value={attributes.value || ''}
       disabled={attributes.disabled || disabled}

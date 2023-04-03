@@ -2,7 +2,7 @@
 // - a message is received while the app has focus
 // - the user clicks on an app notification created by a service worker
 //   `messaging.onBackgroundMessage` handler.
-import { getMessaging, getToken } from "firebase/messaging"
+import { getMessaging, getToken } from 'firebase/messaging'
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import localforage from 'localforage'
@@ -39,7 +39,7 @@ const firebaseCloudMessaging = {
       if (status && status === 'granted') {
         // Get new token from Firebase
 
-        const fcmToken = await getToken(messaging,{
+        const fcmToken = await getToken(messaging, {
           vapidKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY,
         })
 

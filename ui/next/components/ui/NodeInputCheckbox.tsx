@@ -14,7 +14,7 @@ export function NodeInputCheckbox<T>({
   return (
     <Checkbox
       name={attributes.name}
-      defaultChecked={attributes.value === true}
+      defaultChecked={attributes.value}
       onChange={(e) => setValue(e.target.checked)}
       disabled={attributes.disabled || disabled}
       label={
