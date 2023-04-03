@@ -30,7 +30,7 @@ npm start
 Use `.env` file in `ui/next` directories for setting your UI
 
 | Name                           | Value                   | Description                             |
-|--------------------------------|-------------------------|-----------------------------------------|
+| ------------------------------ | ----------------------- | --------------------------------------- |
 | `NODE_ENV`                     |                         | Select: production, development, etc... |
 | **ShortLink API**              |                         |                                         |
 | `API_URI`                      | `http://localhost:7070` | API port                                |

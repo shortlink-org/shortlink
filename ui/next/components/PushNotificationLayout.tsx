@@ -55,10 +55,10 @@ function PushNotificationLayout({ children }) {
   }
 
   return (
-    <>
+    <React.Fragment>
       <ToastContainer />
       {children}
-    </>
+    </React.Fragment>
   )
 }
 

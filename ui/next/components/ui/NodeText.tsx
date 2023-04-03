@@ -1,5 +1,4 @@
-import { UiNode, UiNodeTextAttributes } from '@ory/client'
-import { UiText } from '@ory/client'
+import { UiNode, UiNodeTextAttributes, UiText } from '@ory/client'
 import { CodeBox, P } from '@ory/themes'
 import React from 'react'
 import styled from 'styled-components'

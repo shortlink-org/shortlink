@@ -33,7 +33,11 @@ export function Layout({ children }) {
           <DrawerHeader />
           <Box
             pt={4}
-            sx={{ display: 'grid', height: '100%', gridTemplateRows: '1fr auto' }}
+            sx={{
+              display: 'grid',
+              height: '100%',
+              gridTemplateRows: '1fr auto',
+            }}
           >
             <Container>{children}</Container>
             <Footer />
