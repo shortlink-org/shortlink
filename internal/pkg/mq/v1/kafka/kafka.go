@@ -95,8 +95,8 @@ func (mq *Kafka) UnSubscribe(target string) error {
 // setConfig - Construct a new Sarama configuration.
 func (mq *Kafka) setConfig() *sarama.Config {
 	viper.AutomaticEnv()
-	viper.SetDefault("MQ_KAFKA_URI", "localhost:9092")       // Kafka URI
-	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP", "shortlink") // Kafka consumer group
+	viper.SetDefault("MQ_KAFKA_URI", "localhost:9092")                           // Kafka URI
+	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP", viper.GetString("SERVICE_NAME")) // Kafka consumer group
 
 	mq.Config = &Config{
 		URI: []string{
