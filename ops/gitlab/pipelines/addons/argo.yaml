@@ -5,6 +5,9 @@ prometheus-operator:crd:
   extends:
     - .matrix_deploy_provider
   stage: addons
+  image:
+    name: alpine/helm:3.11.2
+    entrypoint: [""]
   script:
     - kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml || true
     - kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml || true
@@ -18,7 +21,7 @@ prometheus-operator:crd:
   rules:
     - when: manual
   environment:
-    name: ${PROVIDER}/prometheus-operator:crd
+    name: ${PROVIDER}/prometheus-operator-crd
     deployment_tier: production
     url: $ENVIRONMENT_URL
     kubernetes:
