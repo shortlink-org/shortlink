@@ -44,7 +44,7 @@ require (
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.14.0
-	github.com/pterm/pterm v0.12.57
+	github.com/pterm/pterm v0.12.58
 	github.com/pyroscope-io/client v0.7.0
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.0
@@ -152,7 +152,7 @@ require (
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/pprof v0.0.0-20210720184732-4bb14d4b1be1 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
-	github.com/gookit/color v1.5.2 // indirect
+	github.com/gookit/color v1.5.3 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
