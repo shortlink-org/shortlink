@@ -25,7 +25,6 @@ deploy:
       --create-namespace=true
       --set deploy.image.tag=$CI_COMMIT_TAG
       --set deploy.image.repository=$REGISTRY
-      --set ingress.enabled=true
       --set deploy.annotations."app\.gitlab\.com\/app"=$CI_PROJECT_PATH_SLUG,deploy.annotations."app\.gitlab\.com\/env"=$CI_ENVIRONMENT_SLUG;
   environment:
     name: ${PROVIDER}/${RELEASE_NAME}
