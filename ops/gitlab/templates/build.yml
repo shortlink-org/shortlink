@@ -3,7 +3,7 @@
   services:
     - name: docker:24.0.0-beta.1-dind
       command: [ "--experimental" ]
-  image: 24.0.0-beta.1-cli
+  image: docker:24.0.0-beta.1-cli
   variables:
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
