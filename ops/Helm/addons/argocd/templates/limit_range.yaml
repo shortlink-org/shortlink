@@ -1,5 +1,5 @@
 apiVersion: v1
-  LimitRange
+kind: LimitRange
 metadata:
   name: cpu-memory-limits
 spec:
