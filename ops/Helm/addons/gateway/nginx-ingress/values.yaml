@@ -30,7 +30,7 @@ ingress-nginx:
 
     # DaemonSet or Deployment
     ##
-    kind: Deployment
+    kind: DaemonSet
 
     podSecurityContext:
       fsGroup: 1001
