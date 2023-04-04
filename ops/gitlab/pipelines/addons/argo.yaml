@@ -21,6 +21,8 @@ prometheus-operator:crd:
     name: ${PROVIDER}/prometheus-operator:crd
     deployment_tier: production
     url: $ENVIRONMENT_URL
+    kubernetes:
+      namespace: default
 
 argo:
   stage: addons
