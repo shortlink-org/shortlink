@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: kratos
-    version: 0.29.0
+    version: 0.30.0
     repository: https://k8s.ory.sh/helm/charts
     condition: kratos.enabled
     tags:
