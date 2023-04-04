@@ -6,8 +6,8 @@ prometheus-operator:crd:
     - .matrix_deploy_provider
   stage: addons
   image:
-    name: alpine/helm:3.11.2
-    entrypoint: [""]
+    name: alpine/k8s:1.26.3
+    entrypoint: [ "" ]
   script:
     - kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml || true
     - kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml || true
@@ -63,7 +63,7 @@ argo-secret:
     - .matrix_deploy_provider
   stage: addons
   image:
-    name: alpine/k8s:1.25.0
+    name: alpine/k8s:1.26.3
     entrypoint: [ "" ]
   before_script:
     - kubectl delete secret
