@@ -3,10 +3,9 @@
 # Declare variables to be passed into your templates.
 # Ref: https://github.com/argoproj/argo-cd
 
-argo:
+argo-cd:
   enabled: true
 
-argo-cd:
   fullnameOverride: argocd
 
   global:
@@ -255,9 +254,13 @@ argo-cd:
         type: git
 
 argo-events:
+  enabled: false
+
   fullnameOverride: argo-events
 
 argo-workflows:
+  enabled: false
+
   fullnameOverride: argo-workflows
 
   controller:
@@ -315,6 +318,8 @@ argo-workflows:
             - shortlink.best
 
 argocd-apps:
+  enabled: true
+
   # -- Deploy Argo CD Applications within this helm release
   # @default -- `[]` (See [values.yaml])
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
@@ -326,6 +331,8 @@ argocd-apps:
   projects: [ ]
 
 argo-rollouts:
+  enabled: true
+
   fullnameOverride: argo-rollouts
 
   controller:
