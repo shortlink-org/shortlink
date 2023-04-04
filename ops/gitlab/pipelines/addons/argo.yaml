@@ -1,4 +1,9 @@
+include:
+  - local: /ops/gitlab/workflows/matrix_deploy.yml
+
 prometheus-operator:crd:
+  extends:
+    - .matrix_deploy_provider
   stage: addons
   script:
     - kubectl apply --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml || true
@@ -12,6 +17,10 @@ prometheus-operator:crd:
   needs: [ ]
   rules:
     - when: manual
+  environment:
+    name: ${PROVIDER}/prometheus-operator:crd
+    deployment_tier: production
+    url: $ENVIRONMENT_URL
 
 argo:
   stage: addons
