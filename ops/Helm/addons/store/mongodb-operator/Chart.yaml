@@ -16,7 +16,7 @@ deprecated: false                                # Whether this chart is depreca
 dependencies:
   - name: community-operator
     alias: mongodb
-    version: 0.7.8
+    version: 0.7.9
     repository: https://mongodb.github.io/helm-charts
     condition: mongodb.enabled
     tags:
