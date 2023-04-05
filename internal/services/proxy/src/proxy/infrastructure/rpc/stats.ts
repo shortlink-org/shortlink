@@ -3,11 +3,11 @@ import { Timestamp } from 'google-protobuf/google/protobuf/timestamp_pb';
 
 import {Stats} from "../../../proto/domain/proxy/v1/proxy_pb";
 import { StatsRequest, StatsResponse } from '../../../proto/infrastructure/rpc/proxy/v1/proxy_pb'
-import { StatsServiceService, IStatsServiceServer } from '../../../proto/infrastructure/rpc/proxy/v1/proxy_grpc_pb'
+import { StatsServiceClient } from '../../../proto/infrastructure/rpc/proxy/v1/proxy_grpc_pb'
 import {injectable} from "inversify";
 
 @injectable()
-class StatsServer implements IStatsServiceServer {
+class StatsServer {
   [name: string]: grpc.UntypedHandleCall;
   /**
    * Return stats by use URL
@@ -16,21 +16,23 @@ class StatsServer implements IStatsServiceServer {
   stats = (url: grpc.ServerUnaryCall<StatsRequest, StatsResponse>): StatsResponse => {
     const resp: StatsResponse = new StatsResponse()
 
-    console.info(`hash: ${url.request.getHash()}`)
+    console.info(`hash: ${url.request.hash}`)
 
     let stats = new Stats()
-    stats.setCountRedirect(0)
+    // @ts-ignore
+    stats.countRedirect = 0
 
     const timestamp = new Timestamp();
     timestamp.fromDate(new Date());
-    stats.setUpdatedAt(timestamp)
+    // @ts-ignore
+    stats.updatedAt = timestamp
 
-    resp.setStats(stats)
+    resp.stats = stats
     return resp
   }
 }
 
 export default {
-  service: StatsServiceService, // Service interface
-  handler: new StatsServer(),   // Service interface definitions
+  service: StatsServiceClient.service, // Service interface
+  handler: new StatsServer(),  // Service interface definitions
 }
