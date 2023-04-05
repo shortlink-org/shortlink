@@ -34,7 +34,7 @@ func New(runRPCServer *rpc.RPCServer, application *metadata.Service, log logger.
 }
 
 func (m *Metadata) Get(ctx context.Context, req *MetadataServiceGetRequest) (*MetadataServiceGetResponse, error) {
-	meta, err := m.service.Get(ctx, req.Id)
+	meta, err := m.service.Get(ctx, req.Url)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func (m *Metadata) Get(ctx context.Context, req *MetadataServiceGetRequest) (*Me
 }
 
 func (m *Metadata) Set(ctx context.Context, req *MetadataServiceSetRequest) (*MetadataServiceSetResponse, error) {
-	meta, err := m.service.Set(ctx, req.Id)
+	meta, err := m.service.Set(ctx, req.Url)
 	if err != nil {
 		return nil, err
 	}

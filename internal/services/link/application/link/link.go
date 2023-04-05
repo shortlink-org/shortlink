@@ -178,7 +178,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_METADATA_GET).
 		Then(func(ctx context.Context) error {
 			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
-				Id: in.Url,
+				Url: in.Url,
 			})
 			if err != nil {
 				return err

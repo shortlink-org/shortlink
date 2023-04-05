@@ -13,7 +13,6 @@ services:
     <<: *network
     depends_on:
       - coredns
-    # The official v2.0 Traefik docker image
     image: traefik:v3.0
     profiles:
       - gateway

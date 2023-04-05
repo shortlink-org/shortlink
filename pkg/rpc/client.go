@@ -33,8 +33,8 @@ func InitClient(log logger.Logger, tracer *trace.TracerProvider) (*grpc.ClientCo
 	viper.SetDefault("GRPC_CLIENT_CERT_PATH", "ops/cert/intermediate_ca.pem") // gRPC client cert
 	certFile := viper.GetString("GRPC_CLIENT_CERT_PATH")
 
-	viper.SetDefault("GRPC_CLIENT_LOGGER_ENABLE", true) // Enable logging for gRPC-client
-	isEnableLogger := viper.GetBool("GRPC_CLIENT_LOGGER_ENABLE")
+	viper.SetDefault("GRPC_CLIENT_LOGGER_ENABLED", true) // Enable logging for gRPC-client
+	isEnableLogger := viper.GetBool("GRPC_CLIENT_LOGGER_ENABLED")
 
 	// UnaryClien
 	incerceptorUnaryClientList := []grpc.UnaryClientInterceptor{

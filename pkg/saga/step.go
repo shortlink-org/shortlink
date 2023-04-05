@@ -25,12 +25,17 @@ func (s *Step) Run() error {
 	// start tracing
 	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(*s.ctx, fmt.Sprintf("saga: %s", s.name))
 	span.SetAttributes(attribute.String("step", s.name))
+	span.SetAttributes(attribute.String("status", "run"))
 	defer span.End()
 
 	s.status = RUN
 	err := s.then(newCtx)
 	if err != nil {
 		s.status = REJECT
+
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+
 		return err
 	}
 	s.status = DONE
@@ -42,6 +47,7 @@ func (s *Step) Reject() error {
 	// start tracing
 	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(*s.ctx, fmt.Sprintf("saga: %s", s.name))
 	span.SetAttributes(attribute.String("step", s.name))
+	span.SetAttributes(attribute.String("status", "reject"))
 	defer span.End()
 
 	s.status = REJECT

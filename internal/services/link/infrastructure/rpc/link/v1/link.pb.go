@@ -24,9 +24,10 @@ const (
 
 type GetRequest struct {
 	state         protoimpl.MessageState
-	Hash          string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
-	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Hash string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
 }
 
 func (x *GetRequest) Reset() {
@@ -70,9 +71,10 @@ func (x *GetRequest) GetHash() string {
 
 type GetResponse struct {
 	state         protoimpl.MessageState
-	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
-	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
 func (x *GetResponse) Reset() {
@@ -116,9 +118,10 @@ func (x *GetResponse) GetLink() *v1.Link {
 
 type ListRequest struct {
 	state         protoimpl.MessageState
-	Filter        string `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
-	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Filter string `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
 }
 
 func (x *ListRequest) Reset() {
@@ -162,9 +165,10 @@ func (x *ListRequest) GetFilter() string {
 
 type ListResponse struct {
 	state         protoimpl.MessageState
-	Links         *v1.Links `protobuf:"bytes,1,opt,name=links,proto3" json:"links,omitempty"`
-	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Links *v1.Links `protobuf:"bytes,1,opt,name=links,proto3" json:"links,omitempty"`
 }
 
 func (x *ListResponse) Reset() {
@@ -208,9 +212,10 @@ func (x *ListResponse) GetLinks() *v1.Links {
 
 type AddRequest struct {
 	state         protoimpl.MessageState
-	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
-	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
 func (x *AddRequest) Reset() {
@@ -254,9 +259,10 @@ func (x *AddRequest) GetLink() *v1.Link {
 
 type AddResponse struct {
 	state         protoimpl.MessageState
-	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
-	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
 func (x *AddResponse) Reset() {
@@ -300,9 +306,10 @@ func (x *AddResponse) GetLink() *v1.Link {
 
 type UpdateRequest struct {
 	state         protoimpl.MessageState
-	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
-	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
 func (x *UpdateRequest) Reset() {
@@ -346,9 +353,10 @@ func (x *UpdateRequest) GetLink() *v1.Link {
 
 type UpdateResponse struct {
 	state         protoimpl.MessageState
-	Link          *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
-	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
 func (x *UpdateResponse) Reset() {
@@ -392,9 +400,10 @@ func (x *UpdateResponse) GetLink() *v1.Link {
 
 type DeleteRequest struct {
 	state         protoimpl.MessageState
-	Hash          string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
-	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Hash string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
 }
 
 func (x *DeleteRequest) Reset() {
@@ -504,13 +513,13 @@ var file_infrastructure_rpc_link_v1_link_proto_rawDesc = []byte{
 	0x75, 0x63, 0x74, 0x75, 0x72, 0x65, 0x2e, 0x72, 0x70, 0x63, 0x2e, 0x6c, 0x69, 0x6e, 0x6b, 0x2e,
 	0x76, 0x31, 0x2e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
 	0x1a, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
-	0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x00, 0x42, 0x50, 0x5a, 0x4e, 0x67, 0x69,
-	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x62, 0x61, 0x74, 0x61, 0x7a, 0x6f, 0x72,
-	0x2f, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x6c, 0x69, 0x6e, 0x6b, 0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72,
-	0x6e, 0x61, 0x6c, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x73, 0x2f, 0x6c, 0x69, 0x6e,
-	0x6b, 0x2f, 0x69, 0x6e, 0x66, 0x72, 0x61, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x75, 0x72, 0x65,
-	0x2f, 0x72, 0x70, 0x63, 0x2f, 0x6c, 0x69, 0x6e, 0x6b, 0x2f, 0x76, 0x31, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x22, 0x00, 0x42, 0x56, 0x5a, 0x54, 0x67, 0x69,
+	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x6c, 0x69,
+	0x6e, 0x6b, 0x2d, 0x6f, 0x72, 0x67, 0x2f, 0x73, 0x68, 0x6f, 0x72, 0x74, 0x6c, 0x69, 0x6e, 0x6b,
+	0x2f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63,
+	0x65, 0x73, 0x2f, 0x6c, 0x69, 0x6e, 0x6b, 0x2f, 0x69, 0x6e, 0x66, 0x72, 0x61, 0x73, 0x74, 0x72,
+	0x75, 0x63, 0x74, 0x75, 0x72, 0x65, 0x2f, 0x72, 0x70, 0x63, 0x2f, 0x6c, 0x69, 0x6e, 0x6b, 0x2f,
+	0x76, 0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (

@@ -36,7 +36,7 @@
 ################################################################
 [http.routers.link]
   entryPoints = ["websecure"]
-  rule = "PathPrefix(`/infrastructure.rpc.link.v1.LinkService/`, `/infrastructure.rpc.cqrs.link.v1.LinkCommandService/`, `/infrastructure.rpc.cqrs.link.v1.LinkQueryService/`, `/infrastructure.rpc.sitemap.v1.SitemapService/`)"
+  rule = "PathPrefix(`/infrastructure.rpc.link.v1.LinkService/`) || PathPrefix(`/infrastructure.rpc.cqrs.link.v1.LinkCommandService/) || PathPrefix(/infrastructure.rpc.cqrs.link.v1.LinkQueryService/) || PathPrefix(/infrastructure.rpc.sitemap.v1.SitemapService/`)"
   service = "link"
   [http.routers.link.tls]
     certResolver = "default"
@@ -74,7 +74,7 @@
 ################################################################
 [http.routers.billing]
   entryPoints = ["websecure"]
-  rule = "PathPrefix(`/infrastructure.api.rpc.payment.v1.PaymentService/`, `/infrastructure.api.rpc.order.v1.OrderService/`, `/infrastructure.api.rpc.tariff.v1.TariffService/`)"
+  rule = "PathPrefix(`/infrastructure.api.rpc.payment.v1.PaymentService/) || PathPrefix(/infrastructure.api.rpc.order.v1.OrderService/) || PathPrefix(/infrastructure.api.rpc.tariff.v1.TariffService/`)"
   service = "billing"
   [http.routers.billing.tls]
     certResolver = "default"
