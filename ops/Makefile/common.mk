@@ -12,7 +12,7 @@ dep: ## Install dependencies for this project
 	@go install golang.org/x/tools/cmd/goimports@latest
 
 	# for NodeJS
-	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen
+	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen protoc-gen-ts
 
 	# install wire
 	@go install github.com/google/wire/cmd/wire@latest
@@ -29,6 +29,7 @@ dev: ## Run for development mode
 		-f ops/docker-compose/database/postgres/postgres.yaml \
 		-f ops/docker-compose/database/redis/redis.yaml \
 		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
+		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		up -d --remove-orphans --build
 
 run: ## Run this project in docker compose

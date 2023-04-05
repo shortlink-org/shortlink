@@ -42,8 +42,8 @@ func InitServer(log logger.Logger, tracer *trace.TracerProvider) (*RPCServer, fu
 	viper.SetDefault("GRPC_SERVER_KEY_PATH", "ops/cert/shortlink-server-key.pem") // gRPC server key
 	keyFile := viper.GetString("GRPC_SERVER_KEY_PATH")
 
-	viper.SetDefault("GRPC_SERVER_LOGGER_ENABLE", true) // Enable logging for gRPC-client
-	isEnableLogger := viper.GetBool("GRPC_SERVER_LOGGER_ENABLE")
+	viper.SetDefault("GRPC_SERVER_LOGGER_ENABLED", true) // Enable logging for gRPC-client
+	isEnableLogger := viper.GetBool("GRPC_SERVER_LOGGER_ENABLED")
 
 	endpoint := fmt.Sprintf("%s:%d", grpc_host, grpc_port)
 	lis, err := net.Listen("tcp", endpoint)

@@ -22,10 +22,9 @@ Service for work with link-domain (CRUD)
 
 ### Example request
 
-##### Add new link
-```
-grpcurl -cacert ./ops/cert/intermediate_ca.pem -d '{"url": "http://google.com"}' localhost:50052 link_rpc.Link/Add
-```
+We support reflection for request. You can use [Postman](https://www.postman.com/) or [grpcurl](https://github.com/fullstorydev/grpcurl) for test.
+
+![postman](https://blog.postman.com/wp-content/uploads/2022/01/grpc-author-msg.gif)
 
 ### Changelog
 

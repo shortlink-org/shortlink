@@ -3,7 +3,6 @@
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
     <envs>
-      <env name="GRPC_CLIENT_PORT" value="443" />
       <env name="GRPC_SERVER_PORT" value="50053" />
       <env name="STORE_TYPE" value="postgres" />
     </envs>
