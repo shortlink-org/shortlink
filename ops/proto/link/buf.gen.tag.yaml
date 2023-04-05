@@ -1,4 +1,7 @@
-version: v1beta1
+version: v1
+
+managed:
+  enabled: true
 
 plugins:
   - name: gotag
