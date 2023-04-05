@@ -37,3 +37,5 @@ spec:
       kind: ClusterPolicy
       jqPathExpressions:
         - .spec.rules[] | select(.name|test("autogen-."))
+    - kind: ValidatingWebhookConfiguration
+      name: elastic-operator.elasticsearch.k8s.elastic.co
