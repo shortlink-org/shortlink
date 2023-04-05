@@ -50,6 +50,7 @@ let NEXT_CONFIG = {
   generateEtags: true,
   env: {
     // ShortLink API
+    NEXT_PUBLIC_SERVICE_NAME: "shortlink-next",
     NEXT_PUBLIC_API_URI: process.env.API_URI,
 
     // Firebase

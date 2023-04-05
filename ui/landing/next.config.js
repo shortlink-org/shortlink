@@ -35,6 +35,10 @@ const securityHeaders = [
 const nextConfig = {
   reactStrictMode: true,
   generateEtags: true,
+  env: {
+    // ShortLink API
+    NEXT_PUBLIC_SERVICE_NAME: "shortlink-landing",
+  },
   swcMinify: true,
   productionBrowserSourceMaps: true,
   transpilePackages: ['@shortlink-org/ui-kit'],
