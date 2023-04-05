@@ -1,32 +1,30 @@
 // @ts-ignore
 import React, { useState } from 'react'
-import { Story, Meta } from '@storybook/react'
-import { withReactContext } from 'storybook-react-context'
+import { StoryObj, Meta, Preview } from '@storybook/react'
 
 import ToggleDarkMode  from './ToggleDarkMode'
 import { ColorModeContext } from './ColorModeContext'
 
-export default {
+const meta: Meta<any> = {
   title: 'ToggleDarkMode',
   component: ToggleDarkMode,
   argTypes: {},
   decorators: [
-    withReactContext({
-      Context: ColorModeContext,
-      initialState: false,
-    }),
+    Story => {
+      const [darkMode, setDarkMode] = useState(ColorModeContext)
+
+      return (
+        <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
+          <Story />
+        </ColorModeContext.Provider>
+      )
+    },
   ],
-} as Meta<typeof React.Component>;
-
-const Template: Story<any> = (args) => {
-  const [darkMode, setDarkMode] = useState(ColorModeContext)
-
-  return (
-    <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-      <ToggleDarkMode {...args} />
-    </ColorModeContext.Provider>
-  )
 }
+
+export default meta
+
+const Template = (args) => <ToggleDarkMode {...args} />
 
 export const Default = Template.bind({});
 Default.args = {};
