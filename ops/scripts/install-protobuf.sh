@@ -1,7 +1,7 @@
 #!/bin/sh
 set -ex
 
-export PROTOBUF_VERSION=21.5
+export PROTOBUF_VERSION=22.2
 export basename=protoc-$PROTOBUF_VERSION-linux-x86_64.zip
 
 case "$(uname -sr)" in
