@@ -281,6 +281,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -337,6 +338,7 @@
         "links": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/v1Link"
           },
           "description": "Links"

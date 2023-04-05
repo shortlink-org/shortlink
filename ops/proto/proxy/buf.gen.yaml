@@ -1,15 +1,15 @@
-version: v1beta1
+version: v1
 
 plugins:
-  - name: js
-    out: internal/services/proxy/src/proto
-    opt: import_style=commonjs,binary
+#  - name: js
+#    out: internal/services/proxy/src/proto
+#    opt: import_style=commonjs,binary
+#
+#  - name: grpc
+#    out: internal/services/proxy/src/proto
+#    opt: grpc_js
+#    path: grpc_tools_node_protoc_plugin
 
-  - name: grpc
+  - name: es
     out: internal/services/proxy/src/proto
-    opt: grpc_js
-    path: grpc_tools_node_protoc_plugin
-
-  - name: ts
-    out: internal/services/proxy/src/proto
-    opt: grpc_js
+    opt: target=ts
