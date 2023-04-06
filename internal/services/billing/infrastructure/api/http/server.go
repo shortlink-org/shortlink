@@ -2,7 +2,6 @@ package api
 
 import (
 	"context"
-	"time"
 
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/spf13/viper"
@@ -55,11 +54,11 @@ func (s *Server) Use(
 	// API port
 	viper.SetDefault("API_PORT", 7070) // nolint:gomnd
 	// Request Timeout (seconds)
-	viper.SetDefault("API_TIMEOUT", 60) // nolint:gomnd
+	viper.SetDefault("API_TIMEOUT", "60s")
 
 	config := http_server.Config{
 		Port:    viper.GetInt("API_PORT"),
-		Timeout: viper.GetDuration("API_TIMEOUT") * time.Second, // nolint:durationcheck
+		Timeout: viper.GetDuration("API_TIMEOUT"),
 	}
 
 	serverType := viper.GetString("API_TYPE")
