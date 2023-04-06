@@ -1,20 +1,20 @@
 /*
 Message Queue
 */
-package v1
+package mq
 
 import (
 	"context"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/kafka"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/nats"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/rabbit"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/redis"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/kafka"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/nats"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/rabbit"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/redis"
 )
 
 // Use return implementation of MQ

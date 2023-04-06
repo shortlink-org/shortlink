@@ -19,7 +19,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/services/logger/application"
 	"github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
 	"go.opentelemetry.io/otel/trace"
@@ -141,8 +141,8 @@ var LoggerSet = wire.NewSet(di.DefaultSet, mq_di.New, InitLoggerMQ,
 	NewLoggerService,
 )
 
-func InitLoggerMQ(ctx2 context.Context, log logger.Logger, mq *v1.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
-	loggerMQ, err := logger_mq.New(mq, log, service)
+func InitLoggerMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
+	loggerMQ, err := logger_mq.New(mq2, log, service)
 	if err != nil {
 		return nil, err
 	}

@@ -11,7 +11,7 @@ import (
 	"net/http"
 
 	"github.com/google/wire"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/di"

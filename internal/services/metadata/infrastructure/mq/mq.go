@@ -11,8 +11,8 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
-	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"

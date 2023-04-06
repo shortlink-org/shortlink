@@ -2,10 +2,10 @@
   <configuration default="false" name="mq/kafka" type="GoTestRunConfiguration" factoryName="Go Test"
                  folderName="go/test/mq">
       <module name="shortlink"/>
-      <working_directory value="$PROJECT_DIR$/internal/pkg/mq/v1/kafka"/>
+      <working_directory value="$PROJECT_DIR$/internal/pkg/mq/kafka"/>
       <root_directory value="$PROJECT_DIR$"/>
       <kind value="PACKAGE"/>
-      <package value="github.com/shortlink-org/shortlink/internal/pkg/mq/v1/kafka"/>
+      <package value="github.com/shortlink-org/shortlink/internal/pkg/mq/kafka"/>
       <directory value="$PROJECT_DIR$"/>
       <filePath value="$PROJECT_DIR$"/>
       <framework value="gotest"/>

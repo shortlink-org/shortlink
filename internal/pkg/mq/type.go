@@ -1,11 +1,11 @@
-package v1
+package mq
 
 import (
 	"context"
 	"io"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
 // MQ - common interface of DataBus

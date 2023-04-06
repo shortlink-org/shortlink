@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 )
 
 func New(ctx context.Context, log logger.Logger) (*v1.DataBus, func(), error) {

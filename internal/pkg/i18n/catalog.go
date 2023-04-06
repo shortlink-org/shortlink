@@ -9,8 +9,8 @@ import (
 )
 
 type dictionary struct {
-	data  string
 	index []uint32
+	data  string
 }
 
 func (d *dictionary) Lookup(key string) (data string, ok bool) {

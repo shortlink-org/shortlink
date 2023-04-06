@@ -19,7 +19,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/services/notify/application"
 	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/slack"
 	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/smtp"
@@ -173,8 +173,8 @@ var NotifySet = wire.NewSet(di.DefaultSet, mq_di.New, InitSlack,
 	NewBotService,
 )
 
-func NewBotApplication(ctx2 context.Context, logger2 logger.Logger, mq *v1.DataBus) (*application.Bot, error) {
-	bot, err := application.New(mq, logger2)
+func NewBotApplication(ctx2 context.Context, logger2 logger.Logger, mq2 *mq.DataBus) (*application.Bot, error) {
+	bot, err := application.New(mq2, logger2)
 	if err != nil {
 		return nil, err
 	}

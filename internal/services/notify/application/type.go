@@ -2,7 +2,7 @@ package application
 
 import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 )
 

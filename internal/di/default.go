@@ -9,6 +9,7 @@ import (
 
 	"github.com/google/wire"
 	redisCache "github.com/redis/go-redis/v9"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
@@ -27,7 +28,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
@@ -42,7 +42,7 @@ type Service struct {
 	// Delivery
 	DB        *db.Store
 	Cache     *redisCache.UniversalClient
-	MQ        *v1.DataBus
+	MQ        *mq.DataBus
 	ServerRPC *rpc.RPCServer
 	ClientRPC *grpc.ClientConn
 
@@ -76,7 +76,7 @@ func NewFullService(
 	// Delivery
 	serverRPC *rpc.RPCServer,
 	clientRPC *grpc.ClientConn,
-	mq *v1.DataBus,
+	mq *mq.DataBus,
 	db *db.Store,
 	cache *redisCache.UniversalClient,
 
