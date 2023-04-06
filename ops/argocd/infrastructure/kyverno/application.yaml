@@ -21,15 +21,17 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
       - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+      - PrunePropagationPolicy=foreground
     retry:
-      limit: 2
+      limit: 3
       backoff:
-        duration: 10s
+        duration: 5s
         maxDuration: 3m0s
         factor: 2
   ignoreDifferences:
