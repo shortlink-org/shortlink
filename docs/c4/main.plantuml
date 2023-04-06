@@ -1,0 +1,108 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+!include https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5/users.puml
+
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+AddElementTag("Coming soon", $fontColor="orange")
+
+Person(user, "Customer", "People that need products", $sprite="users")
+Person(administrator, "Administrator", "Manages the system", "red")
+
+System_Boundary(shortlink, "Shortlink System") {
+    System_Boundary(billingBoundary, "Billing Boundary") {
+        Container(billing, "Billing Service", "Go", "Billing service")
+        Container(wallet, "Wallet Service", "Go (Solidity)", "Wallet service")
+        Container(referral, "Referral Service", "Python", "Referral program")
+    }
+
+    System_Boundary(APIBoundary, "API Boundary") {
+        Container(api, "API Gateway", "Go", "Gateway for api, proxy, link, auth")
+        Container(ws, "Websocket Service", "Go", "Websocket service")
+    }
+
+    System_Boundary(k8sBoundary, "Kubernetes Boundary") {
+        Container(csi, "CSI Example", "Go", "CSI example")
+    }
+
+    System_Boundary(cliBoundary, "CLI Boundary") {
+        Container(shortctl, "Shortlink CLI", "Go", "Shortlink CLI")
+    }
+
+    System_Boundary(shortDBBoundary, "ShortDB Boundary") {
+        Container(shortdb, "ShortDB", "Go", "Custom database")
+        Container(shortdb_operator, "ShortDB Operator", "Go", "Kubernetes Operator for ShortDB")
+    }
+    
+    System_Boundary(deliveryBoundary, "Delivery Boundary") {
+        Container(merch, "Merch Store", "Coming soon", "Merch store", $tags="Coming soon")
+    }
+    
+    System_Boundary(linkBoundary, "Link Boundary") {
+        Container(link, "Link Service", "Go", "Link service")
+        Container(metadata, "Metadata Service", "Go", "Parser site by API")
+        Container(proxy, "Proxy Service", "TypeScript", "Proxy service for redirect to original URL")
+    }
+    
+    System_Boundary(supportBoundary, "Support Boundary") {
+        Container(support, "Support Service", "PHP", "Support service")
+    }
+    
+    System_Boundary(additionalBoundary, "Additional Boundar") {
+        Container(logger, "Logger Service", "Go", "Logger service")
+        Container(newsletter, "Newsletter Service", "Rust", "Newsletter service")
+        Container(stats, "Stats Server", "CPP", "Stats server")
+    }
+    
+    System_Boundary(externalBoundary, "External Boundary") {
+        Container(notify, "Notify Service", "Go", "Send notify to smtp, slack, telegram")
+        System(bot, "Telegram Bot", "Java", "Telegram bot (External Client)")
+    }
+    
+    System_Boundary(searchBoundary, "Search Boundary") {
+        Container(search, "Search Service", "Coming soon", "Search service", $tags="Coming soon")
+    }
+    
+    System_Boundary(chatBoundary, "Chat Boundary") {
+        Container(chat, "Chat Service", "Elixir (Phoenix)", "Chat service")
+    }
+    
+    ContainerQueue(systemQueue, "System Queue", "Kafka or RabbitMQ")
+}
+
+System(chrome_extension, "Chrome Extension", "JavaScript", "Chrome extension (External Client)")
+
+Rel(user, APIBoundary, "https or ws")
+Rel(administrator, APIBoundary, "Manages the system", "https or ws")
+Rel(chrome_extension, APIBoundary, "https")
+
+Rel(api, linkBoundary, "Uses")
+Rel(api, billingBoundary, "Uses")
+Rel(api, additionalBoundary, "Uses")
+Rel(api, searchBoundary, "Uses")
+Rel(api, deliveryBoundary, "Uses")
+Rel(api, chatBoundary, "Uses")
+Rel(api, supportBoundary, "Uses")
+
+Rel(link, metadata, "Uses")
+Rel(linkBoundary, systemQueue, "Uses")
+Rel(link, shortDBBoundary, "Uses")
+
+Rel(externalBoundary, systemQueue, "Uses")
+
+Rel(chatBoundary, systemQueue, "Uses")
+
+Rel(shortdb_operator, shortdb, "Uses")
+
+Rel(systemQueue, additionalBoundary, "Uses")
+Rel(systemQueue, externalBoundary, "Uses")
+
+Rel(cliBoundary, k8sBoundary, "Uses")
+
+LAYOUT_WITH_LEGEND()
+@enduml
