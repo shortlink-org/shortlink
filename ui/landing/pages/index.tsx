@@ -230,7 +230,7 @@ const Home: NextPage = () => {
 
               {getCard('Pyroscope', 'https://pyroscope.shortlink.best')}
 
-              {getCard('Kyverno', '/kyverno/#/')}
+              {getCard('Kyverno', '/kyverno/')}
             </Stack>
           </TabPanel>
 
