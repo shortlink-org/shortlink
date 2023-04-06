@@ -17,7 +17,7 @@ import (
 type repl struct {
 	engine  engine.Engine
 	session *session.Session
-	mc      sync.Mutex
+	mu      sync.Mutex
 }
 
 func New(s *session.Session) (*repl, error) {

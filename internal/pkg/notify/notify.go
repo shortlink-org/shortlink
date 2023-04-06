@@ -24,15 +24,15 @@ func NewEventID() uint32 {
 
 // Subscribe adds a subscriber to the specified event.
 func Subscribe(event uint32, subscriber Subscriber[any]) {
-	subscribers.Lock()
+	subscribers.mu.Lock()
 	subscribers.subscriberMap[event] = append(subscribers.subscriberMap[event], subscriber)
-	subscribers.Unlock()
+	subscribers.mu.Unlock()
 }
 
 // UnSubscribe removes a subscriber from the specified event.
 func UnSubscribe(event uint32, subscriber Subscriber[any]) {
-	subscribers.Lock()
-	defer subscribers.Unlock()
+	subscribers.mu.Lock()
+	defer subscribers.mu.Unlock()
 
 	for _, v := range subscribers.subscriberMap[event] {
 		if subscriber == v {
@@ -46,8 +46,8 @@ func UnSubscribe(event uint32, subscriber Subscriber[any]) {
 // If a callback is provided, it returns the first successful response that matches the response filter.
 func Publish(ctx context.Context, event uint32, payload any, cb *Callback) {
 	responses := map[string]Response[any]{}
-	subscribers.RLock()
-	defer subscribers.RUnlock()
+	subscribers.mu.RLock()
+	defer subscribers.mu.RUnlock()
 	if len(subscribers.subscriberMap[event]) == 0 && cb != nil {
 		cb.CB <- nil
 	}

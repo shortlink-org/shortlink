@@ -11,8 +11,8 @@ import (
 const HISTORY_LIMIT = 100
 
 func (r *repl) init() error {
-	r.mc.Lock()
-	defer r.mc.Unlock()
+	r.mu.Lock()
+	defer r.mu.Unlock()
 
 	path := fmt.Sprintf("%s/repl.history", os.TempDir())
 
@@ -57,8 +57,8 @@ func (r *repl) save() error {
 }
 
 func (r *repl) close() error {
-	r.mc.Lock()
-	defer r.mc.Unlock()
+	r.mu.Lock()
+	defer r.mu.Unlock()
 
 	path := fmt.Sprintf("%s/repl.history", os.TempDir())
 

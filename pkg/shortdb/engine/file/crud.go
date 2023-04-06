@@ -10,8 +10,8 @@ import (
 )
 
 func (f *file) Select(query *v1.Query) ([]*page.Row, error) {
-	f.mc.Lock()
-	defer f.mc.Unlock()
+	f.mu.Lock()
+	defer f.mu.Unlock()
 
 	// check table
 	t := f.database.Tables[query.TableName]
@@ -96,8 +96,8 @@ func (f *file) Insert(query *v1.Query) error {
 }
 
 func (f *file) insertToTable(query *v1.Query) error {
-	f.mc.Lock()
-	defer f.mc.Unlock()
+	f.mu.Lock()
+	defer f.mu.Unlock()
 
 	// check the table's existence
 	t := f.database.Tables[query.TableName]

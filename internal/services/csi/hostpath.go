@@ -182,9 +182,9 @@ func (d *driver) Run(ctx context.Context) error {
 		go func() {
 			<-ctx.Done()
 			d.log.Info("server stopped")
-			d.readyMu.Lock()
+			d.mu.Lock()
 			d.ready = false
-			d.readyMu.Unlock()
+			d.mu.Unlock()
 			d.srv.GracefulStop()
 		}()
 

@@ -9,7 +9,7 @@ import (
 type Cursor struct {
 	Table      *table.Table
 	RowId      int64
-	wc         sync.RWMutex
+	mu         sync.RWMutex
 	PageId     int32
 	EndOfTable bool
 }

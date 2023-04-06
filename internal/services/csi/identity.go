@@ -53,8 +53,8 @@ func (d *driver) Probe(ctx context.Context, req *csi.ProbeRequest) (*csi.ProbeRe
 	d.log.InfoWithContext(ctx, "probe called", field.Fields{
 		"method": "probe",
 	})
-	d.readyMu.Lock()
-	defer d.readyMu.Unlock()
+	d.mu.Lock()
+	defer d.mu.Unlock()
 
 	return &csi.ProbeResponse{
 		Ready: &wrappers.BoolValue{
