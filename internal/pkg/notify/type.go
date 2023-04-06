@@ -15,8 +15,8 @@ type Subscriber[T any] interface {
 }
 
 type Notify[T any] struct { // nolint:decorder
+	mu            sync.RWMutex
 	subscriberMap map[uint32][]Subscriber[T]
-	sync.RWMutex
 }
 
 type Response[T any] struct {

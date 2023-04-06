@@ -20,7 +20,7 @@ import (
 type file struct {
 	database *database.DataBase
 	path     string
-	mc       sync.RWMutex
+	mu       sync.RWMutex
 }
 
 func New(opts ...options.Option) (*file, error) {
@@ -84,8 +84,8 @@ func (f *file) Exec(query *v1.Query) (interface{}, error) {
 }
 
 func (f *file) init() error {
-	f.mc.Lock()
-	defer f.mc.Unlock()
+	f.mu.Lock()
+	defer f.mu.Unlock()
 
 	// create directory if not exist
 	err := os.MkdirAll(f.path, os.ModePerm)
@@ -142,8 +142,8 @@ func (f *file) init() error {
 }
 
 func (f *file) Close() error {
-	f.mc.Lock()
-	defer f.mc.Unlock()
+	f.mu.Lock()
+	defer f.mu.Unlock()
 
 	// create database if not exist
 	databaseFile, err := f.createFile(fmt.Sprintf("%s.db", f.database.Name))

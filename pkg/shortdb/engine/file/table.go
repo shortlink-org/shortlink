@@ -8,8 +8,8 @@ import (
 )
 
 func (f *file) CreateTable(query *v1.Query) error {
-	f.mc.Lock()
-	defer f.mc.Unlock()
+	f.mu.Lock()
+	defer f.mu.Unlock()
 
 	if f.database.Tables == nil {
 		f.database.Tables = make(map[string]*table.Table)

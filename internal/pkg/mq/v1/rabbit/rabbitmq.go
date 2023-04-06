@@ -22,7 +22,7 @@ type RabbitMQ struct {
 	ch            *Channel
 	URI           string
 	reconnectTime int
-	wg            sync.Mutex
+	mu            sync.Mutex
 }
 
 func New(log logger.Logger) *RabbitMQ {
@@ -51,8 +51,8 @@ func (mq *RabbitMQ) Init(_ context.Context) error {
 }
 
 func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Message) error {
-	mq.wg.Lock()
-	defer mq.wg.Unlock()
+	mq.mu.Lock()
+	defer mq.mu.Unlock()
 
 	msg := amqp.Publishing{
 		ContentType: "text/plain",
@@ -145,8 +145,8 @@ func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
 }
 
 func (mq *RabbitMQ) UnSubscribe(target string) error {
-	mq.wg.Lock()
-	defer mq.wg.Unlock()
+	mq.mu.Lock()
+	defer mq.mu.Unlock()
 
 	return nil
 }

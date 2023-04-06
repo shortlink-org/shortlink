@@ -13,7 +13,7 @@ type Config struct {
 	Interval time.Duration
 	Worker   int
 	Retries  int
-	sync.Mutex
+	mu       sync.Mutex
 }
 
 // Item

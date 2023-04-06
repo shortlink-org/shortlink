@@ -55,7 +55,7 @@ type driver struct {
 	nodeID            string
 	endpoint          string
 	maxVolumesPerNode int64
-	readyMu           sync.Mutex
+	mu                sync.Mutex
 	ready             bool
 }
 

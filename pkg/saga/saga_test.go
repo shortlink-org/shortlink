@@ -17,7 +17,7 @@ import (
 )
 
 type Wallet struct {
-	sync.Mutex
+	mu sync.Mutex
 
 	value int
 }
@@ -50,15 +50,15 @@ func TestNewSaga(t *testing.T) {
 		}
 
 		addFunc := func(ctx context.Context) error {
-			wallet.Lock()
+			wallet.mu.Lock()
 			wallet.value += 10
-			wallet.Unlock()
+			wallet.mu.Unlock()
 			return nil
 		}
 		rejectFunc := func(ctx context.Context) error {
-			wallet.Lock()
+			wallet.mu.Lock()
 			wallet.value -= 10
-			wallet.Unlock()
+			wallet.mu.Unlock()
 			return nil
 		}
 		printFunc := func(ctx context.Context) error {
@@ -157,15 +157,15 @@ func TestNewSaga(t *testing.T) {
 		}
 
 		addFunc := func(ctx context.Context) error {
-			wallet.Lock()
+			wallet.mu.Lock()
 			wallet.value += 10
-			wallet.Unlock()
+			wallet.mu.Unlock()
 			return nil
 		}
 		rejectFunc := func(ctx context.Context) error {
-			wallet.Lock()
+			wallet.mu.Lock()
 			wallet.value -= 9 // For check work addFunc after saga.Play ;-)
-			wallet.Unlock()
+			wallet.mu.Unlock()
 			return nil
 		}
 		printFunc := func(ctx context.Context) error {
