@@ -20,9 +20,9 @@ ingress:
   type: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
-    nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
-    nginx.ingress.kubernetes.io/enable-opentracing: "false"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/enable-opentracing: "true"
 
   hostname: shortlink.best
   path: /api(/|$)(.*)
