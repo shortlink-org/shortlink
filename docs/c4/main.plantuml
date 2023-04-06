@@ -75,7 +75,7 @@ System_Boundary(shortlink, "Shortlink System") {
     ContainerQueue(systemQueue, "System Queue", "Kafka or RabbitMQ")
 }
 
-System(chrome_extension, "Chrome Extension", "JavaScript", "Chrome extension (External Client)")
+Container_Ext(chrome_extension, "Chrome Extension", "JavaScript", "Chrome extension (External Client)")
 
 Rel(user, APIBoundary, "https or ws")
 Rel(administrator, APIBoundary, "Manages the system", "https or ws")
@@ -90,17 +90,16 @@ Rel(api, chatBoundary, "Uses")
 Rel(api, supportBoundary, "Uses")
 
 Rel(link, metadata, "Uses")
-Rel(linkBoundary, systemQueue, "Uses")
 Rel(link, shortDBBoundary, "Uses")
-
-Rel(externalBoundary, systemQueue, "Uses")
-
-Rel(chatBoundary, systemQueue, "Uses")
 
 Rel(shortdb_operator, shortdb, "Uses")
 
-Rel(systemQueue, additionalBoundary, "Uses")
-Rel(systemQueue, externalBoundary, "Uses")
+BiRel(systemQueue, additionalBoundary, "Uses")
+BiRel(systemQueue, externalBoundary, "Uses")
+BiRel(systemQueue, billingBoundary, "Uses")
+BiRel(systemQueue, linkBoundary, "Uses")
+BiRel(systemQueue, chatBoundary, "Uses")
+BiRel(systemQueue, supportBoundary, "Uses")
 
 Rel(cliBoundary, k8sBoundary, "Uses")
 
