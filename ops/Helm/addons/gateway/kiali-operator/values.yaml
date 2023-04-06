@@ -1,9 +1,11 @@
 kiali-operator:
   enabled: true
 
+  onlyViewOnlyMode: false
+
   cr:
     create: true
-    namespace: istio-system
+    namespace: ""
 
     spec:
       auth:
