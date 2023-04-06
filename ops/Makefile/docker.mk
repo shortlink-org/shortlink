@@ -11,7 +11,8 @@ export PROJECT_NAME
 
 DOCKER_USERNAME := "batazor"
 DOCKER_BUILDKIT := 1
-DOCKER_CONTENT_TRUST := 1
+# disable becouse more images don't have signature
+DOCKER_CONTENT_TRUST := 0
 BUILDX_GIT_LABELS := 1
 BUILDX_EXPERIMENTAL := 1
 SOURCE_DATE_EPOCH := $(git log -1 --pretty=%ct)
