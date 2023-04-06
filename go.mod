@@ -35,7 +35,6 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
 	github.com/jackc/pgx/v5 v5.3.1
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
-	github.com/krzysztofreczek/go-structurizr v0.1.32
 	github.com/kubernetes-csi/csi-test/v5 v5.0.0
 	github.com/lib/pq v1.10.7
 	github.com/mattn/go-sqlite3 v1.14.16
@@ -110,7 +109,6 @@ require (
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
-	github.com/cnf/structhash v0.0.0-20201127153200-e1b16c1ebc08 // indirect
 	github.com/codemodus/kace v0.5.1 // indirect
 	github.com/containerd/console v1.0.3 // indirect
 	github.com/containerd/continuity v0.3.0 // indirect
