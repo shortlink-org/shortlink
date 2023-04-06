@@ -35,7 +35,7 @@ type Raft interface {
 type RaftRole uint8
 
 const (
-	Follower RaftRole = iota
+	Follower RaftRole = iota + 1
 	Candidate
 	Leader
 )
