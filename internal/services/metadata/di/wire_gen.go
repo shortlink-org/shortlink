@@ -21,10 +21,10 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1_2 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/application"
-	v1_3 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
+	v1_2 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
@@ -200,12 +200,12 @@ var MetaDataSet = wire.NewSet(di.DefaultSet, mq_di.New, store.New, rpc.InitServe
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx2 context.Context, log logger.Logger, mq *v1_2.DataBus) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(mq)
+func InitMetadataMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(mq2)
 	if err != nil {
 		return nil, err
 	}
-	notify.Subscribe(v1_3.METHOD_ADD, metadataMQ)
+	notify.Subscribe(v1_2.METHOD_ADD, metadataMQ)
 
 	return metadataMQ, nil
 }

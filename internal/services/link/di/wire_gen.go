@@ -23,7 +23,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1_4 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
@@ -35,7 +35,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/cqrs/query"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud"
-	v1_5 "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	v1_4 "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
@@ -349,8 +349,8 @@ var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClie
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq *v1_4.DataBus, service *link.Service) (*api_mq.Event, error) {
-	linkMQ, err := api_mq.New(mq, log, service)
+func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus, service *link.Service) (*api_mq.Event, error) {
+	linkMQ, err := api_mq.New(mq2, log, service)
 	if err != nil {
 		return nil, err
 	}
@@ -385,8 +385,8 @@ func NewQueryLinkStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Stor
 	return store2, nil
 }
 
-func NewLinkApplication(logger2 logger.Logger, mq *v1_4.DataBus, metadataService v1_5.MetadataServiceClient, store2 *crud.Store) (*link.Service, error) {
-	linkService, err := link.New(logger2, mq, metadataService, store2)
+func NewLinkApplication(logger2 logger.Logger, mq2 *mq.DataBus, metadataService v1_4.MetadataServiceClient, store2 *crud.Store) (*link.Service, error) {
+	linkService, err := link.New(logger2, mq2, metadataService, store2)
 	if err != nil {
 		return nil, err
 	}
@@ -408,8 +408,8 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkServiceClient, erro
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(logger2 logger.Logger, mq *v1_4.DataBus) (*sitemap.Service, error) {
-	sitemapService, err := sitemap.New(logger2, mq)
+func NewSitemapApplication(logger2 logger.Logger, mq2 *mq.DataBus) (*sitemap.Service, error) {
+	sitemapService, err := sitemap.New(logger2, mq2)
 	if err != nil {
 		return nil, err
 	}
@@ -448,8 +448,8 @@ func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *v1_2.Link, linkRP
 	return run.Run(runRPCServer)
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_5.MetadataServiceClient, error) {
-	metadataRPCClient := v1_5.NewMetadataServiceClient(runRPCClient)
+func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceClient, error) {
+	metadataRPCClient := v1_4.NewMetadataServiceClient(runRPCClient)
 	return metadataRPCClient, nil
 }
 

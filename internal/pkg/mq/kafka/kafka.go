@@ -9,7 +9,7 @@ import (
 	"github.com/heptiolabs/healthcheck"
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
 type Config struct {

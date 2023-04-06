@@ -10,8 +10,8 @@ import (
 	"github.com/gogo/protobuf/proto"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/sitemap/v1"
 )

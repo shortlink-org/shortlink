@@ -12,8 +12,8 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/notify/domain/events"

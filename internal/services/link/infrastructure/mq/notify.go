@@ -6,7 +6,7 @@ package api_mq
 
 import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	link_application "github.com/shortlink-org/shortlink/internal/services/link/application/link"
 )
 
