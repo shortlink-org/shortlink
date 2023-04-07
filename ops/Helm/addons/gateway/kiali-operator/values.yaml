@@ -23,4 +23,4 @@ kiali-operator:
         web_root: "/kiali"
       external_services:
         prometheus:
-          url: prometheus-prometheus.prometheus-operator:9090
+          url: prometheus-prometheus.prometheus-operator:9090/
