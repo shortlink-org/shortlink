@@ -24,15 +24,14 @@ The goal of the project is to demonstrate the practical application of microserv
 </div>
 
 </div>
-
-The project covers the entire process - from identifying Bounded Contexts to implementing microservices using 
-cutting-edge technologies and best practices.  
-We're constantly researching the best solutions on the market so that we can benefit our 
-community and solve a problem for millions of people.
-
 <hr />
 
 ### High Level Architecture 🚀
+
+The project covers the entire process - from identifying Bounded Contexts to implementing microservices using
+cutting-edge technologies and best practices.  
+We're constantly researching the best solutions on the market so that we can benefit our
+community and solve a problem for millions of people.
 
 ![shortlink-architecture](./docs/shortlink-architecture.png)
 _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the repo if you want us to continue developing and improving ShortLink! 😀_
