@@ -6,10 +6,6 @@
 !define ui https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/ui
 !define services https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/services
 
-!include ui/landing/landing.puml
-
-!include ui/next/next.puml
-!include ui/next/gateway.puml
-
-!include ui/ui_kit/ui_kit.puml
+!include services/billing/service.puml
+!include services/billing/db.puml
 ```
