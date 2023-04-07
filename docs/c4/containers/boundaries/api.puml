@@ -1,0 +1,4 @@
+System_Boundary(APIBoundary, "API Boundary") {
+    !include services/api/service.puml
+    !include services/api/ws.puml
+}
