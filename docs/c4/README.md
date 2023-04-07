@@ -9,5 +9,5 @@ LAYOUT_WITH_LEGEND()
 !include actors/customer.puml
 !include boundaries/gateway.puml
 
-customer -[hidden]-> gatewayBoundary
+customer --> gatewayBoundary
 ```
