@@ -7,8 +7,8 @@
 
 !include ui/landing/landing.puml
 
-'!include ui/next/gateway.puml
-'!include ui/next/next.puml
+!include ui/next/next.puml
+!include ui/next/gateway.puml
 
 !include ui/ui_kit/ui_kit.puml
 ```
