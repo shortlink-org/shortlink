@@ -7,5 +7,5 @@
 !define services https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/services
 !define boundaries https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/boundaries
 
-!include services/ws/service.puml
+!include boundaries/api.puml
 ```
