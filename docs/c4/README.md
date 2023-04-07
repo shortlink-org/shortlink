@@ -10,7 +10,9 @@ LAYOUT_WITH_LEGEND()
 
 !include boundaries/gateway.puml
 !include boundaries/auth.puml
+!include boundaries/link.puml
 
 customer --> gatewayBoundary : uses
 gatewayBoundary --> authBoundary : check auth
+gatewayBoundary --> linkBoundary : create link
 ```
