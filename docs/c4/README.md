@@ -7,7 +7,10 @@ LAYOUT_TOP_DOWN()
 LAYOUT_WITH_LEGEND()
 
 !include actors/customer.puml
-!include boundaries/gateway.puml
 
-customer --> gatewayBoundary
+!include boundaries/gateway.puml
+!include boundaries/auth.puml
+
+customer --> gatewayBoundary : uses
+gatewayBoundary --> authBoundary : check auth
 ```
