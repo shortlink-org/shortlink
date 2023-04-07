@@ -4,7 +4,9 @@
 
 - [ORY/Kratos](https://www.ory.sh/kratos/docs/quickstart/) - Identity and User Management
 
-### Use case diagram
+### Architecture
+
+#### Use case diagram
 
 The use case diagram shows which functionality of the developed software system is 
 available to each group of users.
@@ -33,7 +35,7 @@ customer --> UC3
 customer --> UC4
 ```
 
-**Use cases**
+**Use cases**:
 
 - [UC-1](https://www.ory.sh/docs/oauth2-oidc/custom-login-consent/flow#sequence-diagram) - Authenticate
 - [UC-2](https://www.ory.sh/docs/oauth2-oidc/oidc-logout#logout-logic-diagram) - Log out
