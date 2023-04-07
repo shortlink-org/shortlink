@@ -32,4 +32,4 @@ kiali-operator:
           # Public facing URL of Grafana
           url: 'https://shortlink.best/grafana'
         prometheus:
-          url: prometheus-prometheus.prometheus-operator:9090/
+          url: 'http://prometheus-prometheus.prometheus-operator:9090/'
