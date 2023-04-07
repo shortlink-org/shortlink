@@ -1,2 +1,2 @@
-ContainerDb(billing_db, "Database", "Postgre SQL", "Order, tariffs, etc.")
+ContainerDb(billing_db, "Database", "Postgre SQL", "Order, tariffs, etc.", $sprite="postgresql")
 Rel(billing, billing_db, "Read / Write", "Sync, TCP")
