@@ -1,4 +1,4 @@
 System_Boundary(paymentBoundary, "API Boundary") {
-    !include services/billintg/service.puml
+    !include services/billing/service.puml
     !include services/wallet/service.puml
 }
