@@ -1,2 +1,2 @@
-ContainerDb(metadata_db, "Database", "Postgre SQL", "Meta informations about links")
+ContainerDb(metadata_db, "Database", "Postgre SQL", "Meta informations about links", $sprite="postgresql")
 Rel(metadata, metadata_db, "Read / Write", "Sync, TCP")
