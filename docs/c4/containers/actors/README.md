@@ -4,6 +4,7 @@
 ' Components
 !define actors https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/actors
 !define ui https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/ui
+!define services https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/services
 
 !include actors/courier.puml
 

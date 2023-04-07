@@ -1,0 +1,2 @@
+ContainerDb(billing_db, "Database", "Postgre SQL", "Order, tariffs, etc.")
+Rel(billing, billing_db, "Read / Write", "Sync, TCP")
