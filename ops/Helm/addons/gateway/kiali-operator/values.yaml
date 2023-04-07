@@ -33,3 +33,14 @@ kiali-operator:
           url: 'https://shortlink.best/grafana'
         prometheus:
           url: 'http://prometheus-prometheus.prometheus-operator:9090'
+        istio:
+          component_status:
+            enabled: true
+            components:
+              - app_label: "istiod"
+                is_core: true
+                is_proxy: false
+              - app_label: "istio-ingress"
+                is_core: true
+                is_proxy: true
+                namespace: istio-ingress
