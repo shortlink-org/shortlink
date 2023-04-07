@@ -2,7 +2,7 @@
 
 !include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/common.puml
 
-actors/courier.puml
+'!include actors/courier.puml
 
 Person(user, "Customer", "People that need products", $sprite="users")
 Person(administrator, "Administrator", "Manages the system", "red")
