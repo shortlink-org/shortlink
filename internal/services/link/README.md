@@ -16,9 +16,7 @@ We use C4 model for describe architecture.
 
 ```plantuml
 !include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/common.puml
-
-LAYOUT_TOP_DOWN()
-LAYOUT_WITH_LEGEND()
+!include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/c1.puml
 
 !include actors/customer.puml
 
