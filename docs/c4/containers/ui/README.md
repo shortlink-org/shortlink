@@ -5,13 +5,10 @@
 !define actors https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/actors
 !define ui https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/ui
 
-!include actors/courier.puml
+!include ui/landing/landing.puml
 
-!include actors/customer.puml
+!include ui/next/gateway.puml
+!include ui/next/next.puml
 
-!include actors/manager.puml
-
-!include actors/moderator.puml
-
-!include actors/support.puml
+!include ui/ui-kit/ui-kit.puml
 ```
