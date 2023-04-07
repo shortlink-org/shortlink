@@ -1,0 +1,2 @@
+Container_Ext(api_gateway, "API Gateway", "Api Gateway", "Routing traffic from shortlink web application, authentication, authorization")
+Rel(next, api_gateway, "Uses", "HTTPS")
