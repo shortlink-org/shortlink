@@ -1,4 +1,4 @@
-System_Boundary(APIBoundary, "API Boundary") {
+System_Boundary(gatewayBoundary, "Gateway Boundary") {
     !include services/api/service.puml
     !include services/ws/service.puml
 }
