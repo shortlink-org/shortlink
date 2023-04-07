@@ -6,14 +6,14 @@
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
 
 ' Components
-!define actors https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/actors
-!define ui https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/ui
-!define services https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/services
-!define boundaries https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/boundaries
+!include actors https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/actors
+!include ui https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/ui
+!include services https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/services
+!include boundaries https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/boundaries
 
 ' Icons
-!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
-!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!include FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
 
 ' Actors
 !include FONTAWESOME/users.puml
