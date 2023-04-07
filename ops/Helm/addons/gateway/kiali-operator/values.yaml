@@ -21,3 +21,6 @@ kiali-operator:
         view_only_mode: false
       server:
         web_root: "/kiali"
+      external_services:
+        prometheus:
+          url: prometheus-prometheus.prometheus-operator:9090
