@@ -5,5 +5,7 @@
 {{ include "shortlink-common.Deployment" . }}
 
 {{ include "shortlink-common.Ingress" . }}
-
+Ï
 {{ include "shortlink-common.Service" . }}
+
+{{ include "shortlink-common.ServiceMonitor" . }}

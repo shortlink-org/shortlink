@@ -1,0 +1,143 @@
+# Common default values for shortlink.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Pods Service Account
+# @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+
+  # -- The name of the ServiceAccount to use.
+  # If not set and create is true, a name is generated using the `helpers.fullname` template
+  # name: shortlink
+
+  # -- Auto-mount the service account token in the pod
+  automountServiceAccountToken: false
+
+# ==============================================================================
+# This secret for dev-stand. For production use CI-variables
+secret:
+  enabled: false
+  grpcServerCert: |
+    -----BEGIN CERTIFICATE-----
+    Your cert...
+    -----END CERTIFICATE-----
+  grpcServerKey: |
+    -----BEGIN EC PRIVATE KEY-----
+    Your key...
+    -----END EC PRIVATE KEY-----
+  grpcIntermediateCA: |
+    -----BEGIN CERTIFICATE-----
+    Your CA...
+    -----END CERTIFICATE-----
+
+# ==============================================================================
+ingress:
+  enabled: true
+  # type ingress-controller: istio
+  type: istio
+
+  istio:
+    match:
+      - uri:
+          prefix: /infrastructure.api.rpc.payment.v1.PaymentService/
+      - uri:
+          prefix: /infrastructure.api.rpc.tariff.v1.TariffService/
+      - uri:
+          prefix: /infrastructure.api.rpc.order.v1.OrderService/
+    route:
+      destination:
+        port: 50051
+
+# ==============================================================================
+deploy:
+  replicaCount: 1
+
+  env:
+    MQ_ENABLED: false
+    MQ_TYPE: "kafka"
+    MQ_KAFKA_URI: "shortlink-kafka-bootstrap.kafka:9092"
+    TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
+    GRPC_CLIENT_HOST: istio-ingress.istio-ingress
+
+    # -- Default store config
+    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
+
+  imagePullSecrets: []
+
+  # -- Annotations to be added to controller pods
+  annotations: []
+
+  image:
+    repository: registry.gitlab.com/shortlink-org/shortlink/billing
+    tag: 0.14.32
+    # -- Global imagePullPolicy
+    # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    pullPolicy: IfNotPresent
+
+  # -- Node labels and tolerations for pod assignment
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+  nodeSelector: []
+
+  tolerations: []
+
+  affinity: []
+
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  livenessProbe:
+    httpGet:
+      path: /live
+      port: 9090
+
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 9090
+
+  resources:
+    # -- We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+  podSecurityContext:
+    # -- fsGroup is the group ID associated with the container
+    fsGroup: 1000
+
+  # -- Security Context policies for controller pods
+  # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+  # notes on enabling and using sysctls
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsNonRoot: true
+    # runAsUser is the user ID used to run the container
+    runAsUser: 1000
+    # runAsGroup is the primary group ID used to run all processes within any container of the pod
+    runAsGroup: 1000
+    # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
+    readOnlyRootFilesystem: "true"
+    capabilities:
+      drop:
+        - ALL
+
+service:
+  type: ClusterIP
+  ports:
+    - name: grpc
+      port: 50051
+      protocol: TCP
+      public: true
+
+# Prometheus Operator ServiceMonitor configuration
+monitoring:
+  enabled: true

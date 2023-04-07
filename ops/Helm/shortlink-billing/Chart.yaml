@@ -1,0 +1,23 @@
+apiVersion: v2                                            # The chart API version (required)
+appVersion: "1.0.0"                                       # The version of the app that this contains (optional)
+name: shortlink-billing                                   # The name of the chart (required)
+description: Shortlink service for get billing by URL     # A single-sentence description of this project (optional)
+version: 0.1.0                                            # A SemVer 2 version (required)
+kubeVersion: ">= 1.22.0 || >= v1.22.0-0"                  # A SemVer range of compatible Kubernetes versions (optional)
+keywords:                                                 # A list of keywords about this project (optional)
+  - billing
+  - shortlink
+home: https://batazor.github.io/shortlink/                # The URL of this project's home page (optional)
+sources:                                                  # A list of URLs to source code for this project (optional)
+  - https://github.com/shortlink-org/shortlink
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application                                         # It is the type of chart (optional)
+deprecated: false                                         # Whether this chart is deprecated (optional, boolean)
+dependencies:
+  - name: shortlink-common
+    version: 0.4.12
+    repository: "file://../shortlink-common"

@@ -9,3 +9,5 @@
 {{ include "shortlink-common.Service" . }}
 
 {{ include "shortlink-common.NetworkPolicy" . }}
+
+{{ include "shortlink-common.ServiceMonitor" . }}
