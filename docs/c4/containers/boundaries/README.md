@@ -7,5 +7,15 @@
 !define services https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/services
 !define boundaries https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/boundaries
 
-!include boundaries/api.puml
+!include boundaries/chat.puml
+!include boundaries/delivery.puml
+!include boundaries/gateway.puml
+!include boundaries/integration.puml
+!include boundaries/link.puml
+!include boundaries/marketing.puml
+!include boundaries/notification.puml
+!include boundaries/payment.puml
+!include boundaries/platform.puml
+!include boundaries/search.puml
+!include boundaries/shortdb.puml
 ```
