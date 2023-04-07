@@ -1,0 +1,2 @@
+ContainerDb(newsletter_db, "Database", "Postgre SQL", "Logs")
+Rel(newsletter, newsletter_db, "Read / Write", "Sync, TCP")

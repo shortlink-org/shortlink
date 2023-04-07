@@ -7,4 +7,5 @@
 !define services https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/services
 
 !include services/newsletter/service.puml
+!include services/newsletter/db.puml
 ```
