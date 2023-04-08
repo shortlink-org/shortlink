@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
+	http_client "github.com/shortlink-org/shortlink/pkg/http/client"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	v1 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
@@ -48,7 +49,9 @@ func (r *Service) Set(ctx context.Context, url string) (*v1.Meta, error) {
 		return nil, err
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	client := http_client.New()
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}

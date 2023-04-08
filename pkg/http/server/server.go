@@ -6,12 +6,17 @@ import (
 	"net"
 	"net/http"
 	"time"
+
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"go.opentelemetry.io/otel/trace"
 )
 
-func New(ctx context.Context, handler http.Handler, config Config) *http.Server {
-	return &http.Server{
+func New(ctx context.Context, h http.Handler, config Config, tracer *trace.TracerProvider) *http.Server {
+	handler := http.TimeoutHandler(h, config.Timeout, fmt.Sprintf(`{"error": "%s"}`, TimeoutMessage))
+
+	server := &http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),
-		Handler: http.TimeoutHandler(handler, config.Timeout, fmt.Sprintf(`{"error": "%s"}`, TimeoutMessage)),
+		Handler: handler,
 		BaseContext: func(_ net.Listener) context.Context {
 			return ctx
 		},
@@ -23,4 +28,10 @@ func New(ctx context.Context, handler http.Handler, config Config) *http.Server 
 		// the amount of time allowed to read request headers
 		ReadHeaderTimeout: 2 * time.Second, // nolint:gomnd
 	}
+
+	if tracer != nil {
+		server.Handler = otelhttp.NewHandler(handler, "")
+	}
+
+	return server
 }
