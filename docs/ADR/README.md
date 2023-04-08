@@ -23,6 +23,7 @@ for information team about cases for updated ADR.
   - [ADR-0006](./decisions/0006-codeowner.md) - Codeowner
   - [ADR-0011](./decisions/0011-application-architecture-documentation.md) - Application architecture documentation
   - [ADR-0012](./decisions/0012-use-monorepository.md) - Use monorepository
+  - [ADR-0021](./decisions/0021-microservice-structure.md) - Microservice structure
 - **Lifecycle**
   - [ADR-0016](./decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
 - **Naming**
