@@ -14,4 +14,6 @@ type Config struct {
 type Store struct {
 	client *pgxpool.Pool
 	config Config
+
+	tracer Tracer
 }

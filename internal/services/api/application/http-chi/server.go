@@ -101,7 +101,7 @@ func (api *API) Run(
 	r.Mount("/api/cqrs", cqrs_api.Routes(link_command, link_query))
 	r.Mount("/api/sitemap", sitemap_api.Routes(sitemap_rpc))
 
-	srv := http_server.New(ctx, r, config)
+	srv := http_server.New(ctx, r, config, tracer)
 
 	// start HTTP-server
 	log.Info(i18n.Sprintf("API run on port %d", config.Port))

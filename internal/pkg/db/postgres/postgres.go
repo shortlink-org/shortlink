@@ -12,11 +12,10 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
+	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	"github.com/spf13/viper"
 	"github.com/uptrace/opentelemetry-go-extra/otelsql"
 	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
-
-	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
 
 var (
@@ -42,6 +41,9 @@ func (p *Store) Init(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+
+	// Instrument the pgxpool config with OpenTelemetry.
+	cnf.Tracer = &p.tracer
 
 	// Create pool config
 	cnfPool, err := pgxpool.ParseConfig("")
