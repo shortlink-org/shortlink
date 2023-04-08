@@ -8,6 +8,7 @@ import (
 	"github.com/Shopify/sarama"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
@@ -92,11 +93,15 @@ func (k *Kafka) Publish(ctx context.Context, target string, message query.Messag
 }
 
 func (mq *Kafka) Subscribe(target string, message query.Response) error {
-	consumer := Consumer{
+	consumer := &Consumer{
 		ch: message,
 	}
 
-	if err := mq.consumer.Consume(context.Background(), []string{target}, &consumer); err != nil {
+	// OpenTelemetry
+	handler := otelsarama.WrapConsumerGroupHandler(consumer)
+
+	err := mq.consumer.Consume(context.Background(), []string{target}, handler)
+	if err != nil {
 		return err
 	}
 

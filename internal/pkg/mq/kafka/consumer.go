@@ -12,12 +12,12 @@ type Consumer struct {
 	ch query.Response
 }
 
-// Setup is run at the beginning of a new session, before ConsumeClaim
+// Setup is run at the beginning of a new session, before ConsumeClaim.
 func (consumer *Consumer) Setup(sarama.ConsumerGroupSession) error {
 	return nil
 }
 
-// Cleanup is run at the end of a session, once all ConsumeClaim goroutines have exited
+// Cleanup is run at the end of a session, once all ConsumeClaim goroutines have exited.
 func (consumer *Consumer) Cleanup(sarama.ConsumerGroupSession) error {
 	return nil
 }
