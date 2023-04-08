@@ -117,7 +117,7 @@ func (api *API) Run(
 		tariffRoutes.Routes(router)
 	}))
 
-	srv := http_server.New(ctx, r, config)
+	srv := http_server.New(ctx, r, config, tracer)
 
 	// start HTTP-server
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))

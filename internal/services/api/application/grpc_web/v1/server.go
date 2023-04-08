@@ -61,7 +61,7 @@ func (api *API) Run(
 		return err
 	}
 
-	api.http = http_server.New(ctx, mux, config)
+	api.http = http_server.New(ctx, mux, config, tracer)
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))
