@@ -70,6 +70,7 @@ deploy:
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 
     # -- Default store config
+    STORE_TYPE: postgres
     STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
     STORE_REDIS_URI: shortlink-redis-master.redis:6379
 
