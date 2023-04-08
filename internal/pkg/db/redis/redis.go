@@ -45,6 +45,7 @@ func (s *Store) Init(ctx context.Context) error {
 		return err
 	}
 
+	// Check connect
 	if _, err := s.client.Ping(ctx).Result(); err != nil {
 		return errors.Wrap(err, "redis ping failed")
 	}

@@ -57,6 +57,12 @@ func (p *Store) Init(ctx context.Context) error {
 		return err
 	}
 
+	// Check connect
+	err = p.client.Ping(ctx)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
