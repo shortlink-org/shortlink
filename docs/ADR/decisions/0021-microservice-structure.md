@@ -40,7 +40,10 @@ The project README should contain the following sections:
 - Project description
 - C4 container diagram
 - C4 component diagram
+- ERD diagram (if needed)
 - C4 use case diagram
+
+For **the use case diagram**, we add a _sequence diagram_ for each use case.
 
 ## Consequences
 
