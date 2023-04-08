@@ -23,7 +23,12 @@ istiod:
 
   # meshConfig defines runtime configuration of components, including Istiod and istio-agent behavior
   # See https://istio.io/docs/reference/config/istio.mesh.v1alpha1/ for all available options
-#  meshConfig:
+  meshConfig:
+    extensionProviders:
+      - name: otel
+        envoyOtelAls:
+          service: grafana-tempo.grafana.svc.cluster.local
+          port: 4317
 #    discoverySelectors:
 #      - matchLabels:
 #          istio-discovery: enabled
