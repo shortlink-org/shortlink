@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/segmentio/encoding/json"
+	http_client "github.com/shortlink-org/shortlink/pkg/http/client"
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
@@ -61,7 +62,9 @@ func (b *Bot) send(ctx context.Context, message string) error {
 		return err
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	client := http_client.New()
+
+	resp, err := client.Do(req)
 	if err != nil || resp.StatusCode != 200 {
 		return errors.New("Don't send message to slack")
 	}

@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/gogo/protobuf/proto"
+	http_client "github.com/shortlink-org/shortlink/pkg/http/client"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
@@ -41,7 +42,9 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 		return err
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	client := http_client.New()
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return err
 	}
