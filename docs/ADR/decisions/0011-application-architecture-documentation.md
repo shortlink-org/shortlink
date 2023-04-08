@@ -45,6 +45,10 @@ We research tools:
 - [Auth](https://miro.com/app/board/o9J_lA5Wmhg=/)
 - [Event Sourcing](https://miro.com/app/board/o9J_l-6o1U0=/)
 
+### References
+
+- [Example C4 shop-service](https://gitlab.com/microarch-ru/microservices/system-design)
+
 ### We analyze next tools and documentation models:
 
 - [archi editor](https://www.archimatetool.com/)
