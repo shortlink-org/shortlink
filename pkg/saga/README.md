@@ -61,7 +61,7 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
     Then(youNotifyFunc)
   
   // Run saga
-  err := sagaAddLink.Play()
+  err := sagaAddLink.Play(nil)
   return err
 }
 ```
