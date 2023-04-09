@@ -17,5 +17,5 @@ plugins:
     opt: paths=source_relative,logtostderr=true,allow_delete_body=true
 
   - name: openapiv2
-    out: internal/services/api/application
+    out: internal/services/api/docs
     opt: logtostderr=true
