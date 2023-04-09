@@ -1,8 +1,8 @@
 ## Auth service
 
-### Requirements
+### ADR
 
-- [ORY/Kratos](https://www.ory.sh/kratos/docs/quickstart/) - Identity and User Management
+- [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
 
 ### Architecture
 

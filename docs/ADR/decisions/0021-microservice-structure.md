@@ -24,6 +24,10 @@ We will use the following structure:
 ├── docs/c4/containers/services
 ├── internal/services/{{serviceName}}
 │   ├── application/
+│   ├── docs/
+│   │   └── ADR/
+│   │       └── decisions/
+│   │           └── 0001-init.md
 │   ├── cmd/
 │   ├── di/
 │   ├── domain/
@@ -44,6 +48,14 @@ The project README should contain the following sections:
 - C4 use case diagram
 
 For **the use case diagram**, we add a _sequence diagram_ for each use case.
+
+### ADR: 0001-init.md
+
+The ADR should contain the following sections:
+
+- Status
+- Goal
+- Docs
 
 ## Consequences
 
