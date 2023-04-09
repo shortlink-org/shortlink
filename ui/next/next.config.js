@@ -92,7 +92,13 @@ let NEXT_CONFIG = {
       {
         // Apply these headers to all routes in your application.
         source: '/:path*',
-        headers: securityHeaders,
+        headers: [
+          ...securityHeaders,
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=14400, s-maxage=14400, stale-while-revalidate=86400',
+          }
+        ],
       },
     ]
   },
