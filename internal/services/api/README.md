@@ -6,14 +6,14 @@ Gateway for external clients
 
 ![architecture.json](./docs/API.png)
 
-+ Import [Postman link](./docs/postman/shortlink.postman_collection.json) for
-  test HTTP API
++ Import [Postman link](./docs/postman/shortlink.postman_collection.json) for test HTTP API
 + Swagger [docs](https://shortlink-org.gitlab.io/shortlink)
 
 ###### Support HTTP REST API:
 
 - HTTP (chi)
-- gRPC-gateway
 - GraphQL
 - ***Optional***
     - [CloudEvents](https://cloudevents.io/)
+- **Deprecated**
+  - gRPC-gateway
