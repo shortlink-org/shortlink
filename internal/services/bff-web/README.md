@@ -1,5 +1,9 @@
 ## BFF: web
 
+### Docs
+
+- [API](./docs/api.yaml) - API documentation in Swagger format
+
 ### ADR
 
 - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
