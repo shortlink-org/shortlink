@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/loki:2.7.0
+    image: grafana/loki:2.8.0
     container_name: loki
     init: true
     command: -config.file=/etc/loki/local-config.yaml
@@ -29,7 +29,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/promtail:2.6.1
+    image: grafana/promtail:2.8.0
     container_name: promtail
     init: true
     command: -config.file=/etc/promtail/config.yml

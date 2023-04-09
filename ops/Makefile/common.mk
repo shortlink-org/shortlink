@@ -29,7 +29,9 @@ dev: ## Run for development mode
 		-f ops/docker-compose/database/postgres/postgres.yaml \
 		-f ops/docker-compose/database/redis/redis.yaml \
 		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
+		-f ops/docker-compose/application/auth/hydra/hydra.yaml \
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 		up -d --remove-orphans --build
 
 run: ## Run this project in docker compose
@@ -39,6 +41,7 @@ run: ## Run this project in docker compose
 		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
+		-f ops/docker-compose/application/auth/hydra/hydra.yaml \
 		-f ops/docker-compose/application/api/api.yaml \
 		-f ops/docker-compose/application/metadata/metadata.yaml \
 		-f ops/docker-compose/application/logger/logger.yaml \
@@ -69,6 +72,7 @@ down: ## Down docker compose
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		-f ops/docker-compose/application/auth/keycloak/keycloak.yaml \
 		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
+		-f ops/docker-compose/application/auth/hydra/hydra.yaml \
 		-f ops/docker-compose/application/api/api.yaml \
 		-f ops/docker-compose/application/metadata/metadata.yaml \
 		-f ops/docker-compose/application/logger/logger.yaml \
