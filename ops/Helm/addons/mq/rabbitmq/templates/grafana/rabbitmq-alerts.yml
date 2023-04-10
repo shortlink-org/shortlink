@@ -63,7 +63,7 @@ data:
             "showIn": 0,
             "step": "30s",
             "tags": [],
-            "textFormat": "alert name: {{alertname}}, namespace: {{namespace}}, RabbitMQ cluster: {{rabbitmq_cluster}}, severity: {{severity}}",
+            "textFormat": "alert name: {{ "{{" }}alertname}}, namespace: {{ "{{" }}namespace}}, RabbitMQ cluster: {{ "{{" }}rabbitmq_cluster}}, severity: {{ "{{" }}severity}}",
             "titleFormat": "",
             "type": "tags",
             "useValueForTime": false
@@ -464,14 +464,14 @@ data:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{alertname}}",
+              "legendFormat": "{{ "{{" }}alertname}}",
               "refId": "A"
             },
             {
               "expr": "(max_over_time(ALERTS:rabbitmq_alert_state_discrete{alert_state_numeric=\"2\", namespace=~\"$namespace\", rabbitmq_cluster=~\"$rabbitmq_cluster\", severity=~\"$severity\", alertname=~\"$alert_name\"}[$__interval]) == 1) * 2",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{alertname}}",
+              "legendFormat": "{{ "{{" }}alertname}}",
               "refId": "B"
             }
           ],
