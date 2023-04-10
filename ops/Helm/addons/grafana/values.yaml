@@ -65,12 +65,10 @@ grafana:
       enabled: true
       SCProvider: true
       searchNamespace: ALL
-      watchMethod: SLEEP
       folderAnnotation: grafana_dashboard_folder
       provider:
         allowUiUpdates: true
-        foldersFromFilesStructure: true
-        updateIntervalSeconds: 30
+        foldersFromFilesStructure: false
     datasources:
       enabled: true
       searchNamespace: ALL
