@@ -4,5 +4,7 @@ metadata:
   name: kyverno-dashboard
   labels:
     grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: Security
 data:
   kyverno-dashboard.json.url: "https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json"
