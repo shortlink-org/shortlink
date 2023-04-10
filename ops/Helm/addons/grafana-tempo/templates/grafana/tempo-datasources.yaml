@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tempo-datasources
+  labels:
+    grafana_datasource: 'true' # default value for: sidecar.datasources.label
+stringData:
+  tempo.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: Tempo
+        type: tempo
+        uid: tempo
+        url: http://grafana-tempo:3100
+        editable: false
+        jsonData:
+          lokiSearch:
+            datasourceUid: loki
+          nodeGraph:
+            enabled: true
+          search:
+            hide: true
+          spanBar:
+            type: Duration
+          serviceMap:
+            datasourceUid: prometheus
+          tracesToLogs:
+            datasourceUid: loki
+            filterBySpanID: true
+            filterByTraceID: true
+            mapTagNamesEnabled: true
