@@ -5,7 +5,7 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: cert-manager
+    grafana_dashboard_folder: Security
 data:
   # https://grafana.com/grafana/dashboards/11001
   cert-manager-dashboard.json.url: "https://grafana.com/api/dashboards/11001/revisions/1/download"
