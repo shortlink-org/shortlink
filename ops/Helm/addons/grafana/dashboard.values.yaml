@@ -16,21 +16,3 @@ grafana:
         url: https://raw.githubusercontent.com/kyverno/grafana-dashboard/master/grafana/dashboard.json
       kubescape:
         url: https://raw.githubusercontent.com/dwertent/kubescape/master/httphandler/examples/prometheus/grafana-kubescape-dashboard.json
-      istio-service:
-        gnetId: 7636
-        datasource: Prometheus
-      istio-workload:
-        gnetId: 7630
-        datasource: Prometheus
-      istio-control-plane:
-        gnetId: 7645
-        datasource: Prometheus
-      istio-galley:
-        gnetId: 7648
-        datasource: Prometheus
-      istio-mixer:
-        gnetId: 7642
-        datasource: Prometheus
-      istio-wasm-extension:
-        gnetId: 13277
-        datasource: Prometheus
