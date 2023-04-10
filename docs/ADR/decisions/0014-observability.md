@@ -1,4 +1,4 @@
-# 14. observability common
+# 14. Standardizing Observability Tools
 
 Date: 2023-01-21
 
@@ -8,7 +8,8 @@ Accepted
 
 ## Context
 
-We need to set standart tools for observability.
+In order to maintain a consistent and effective approach to observability across our systems, 
+we need to establish standard tools for monitoring, tracing, and logging.
 
 ## Decision
 
