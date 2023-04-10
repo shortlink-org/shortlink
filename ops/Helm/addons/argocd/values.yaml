@@ -385,7 +385,7 @@ argo-rollouts:
       enabled: true
 
 argocd-image-updater:
-  enabled: false
+  enabled: true
 
   fullnameOverride: argocd-image-updater
 
