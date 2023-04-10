@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: istio-control-plane-dashboard
+  labels:
+    grafana_dashboard: "true"
+data:
+  # https://grafana.com/grafana/dashboards/7645
+  istio-control-plane-dashboard.json.url: "https://grafana.com/api/dashboards/7645/revisions/162/download"
