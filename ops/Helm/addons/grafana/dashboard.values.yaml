@@ -4,10 +4,6 @@ grafana:
     default:
       argocd:
         url: https://raw.githubusercontent.com/argoproj/argo-cd/master/examples/dashboard.json
-      cert-manager:
-        # Ref: https://grafana.com/dashboards/11001
-        gnetId: 11001
-        datasource: Prometheus
       node-exporter:
         url: https://raw.githubusercontent.com/rfmoz/grafana-dashboards/master/prometheus/node-exporter-full.json
       ingress-nginx:
