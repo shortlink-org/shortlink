@@ -63,12 +63,8 @@ grafana:
       searchNamespace: ALL
     dashboards:
       enabled: true
-      SCProvider: false
       searchNamespace: ALL
       folderAnnotation: grafana_dashboard_folder
-      provider:
-        allowUiUpdates: true
-        foldersFromFilesStructure: false
     datasources:
       enabled: true
       searchNamespace: ALL
