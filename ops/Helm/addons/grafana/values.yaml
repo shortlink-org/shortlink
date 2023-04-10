@@ -64,6 +64,7 @@ grafana:
     dashboards:
       enabled: true
       searchNamespace: ALL
+      folder: /tmp/dashboards
       folderAnnotation: grafana_dashboard_folder
     datasources:
       enabled: true
