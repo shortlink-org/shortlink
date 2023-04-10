@@ -35,7 +35,7 @@ defmodule Chat.MixProject do
     [
       {:phoenix, "~> 1.7.2"},
       {:phoenix_ecto, "~> 4.4"},
-      {:ecto_sql, "~> 3.9"},
+      {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.16.5"},
       {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.4", only: :dev},
