@@ -70,6 +70,7 @@ grafana:
       provider:
         allowUiUpdates: true
         foldersFromFilesStructure: true
+        updateIntervalSeconds: 30
     datasources:
       enabled: true
       searchNamespace: ALL
