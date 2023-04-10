@@ -4,6 +4,8 @@ metadata:
   name: istio-mixer-dashboard
   labels:
     grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder:  Istio
 data:
   # https://grafana.com/grafana/dashboards/7642
   istio-mixer-dashboard.json.url: "https://grafana.com/api/dashboards/7642/revisions/43/download"

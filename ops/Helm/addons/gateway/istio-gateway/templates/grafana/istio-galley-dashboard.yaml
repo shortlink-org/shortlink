@@ -4,6 +4,8 @@ metadata:
   name: istio-galley-dashboard
   labels:
     grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder:  Istio
 data:
   # https://grafana.com/grafana/dashboards/7648
   istio-galley-dashboard.json.url: https://grafana.com/api/dashboards/7648/revisions/3/download

@@ -1,10 +1,11 @@
----
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: rabbitmq-alerts-grafana-dashboard
   labels:
     grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: RabbitMQ
 data:
   rabbitmq-alerts-grafana-dashboard.json: |-
     {

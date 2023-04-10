@@ -4,5 +4,7 @@ metadata:
   name: kubescape-dashboard
   labels:
     grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: Security
 data:
   kubescape-dashboard.json.url: "https://raw.githubusercontent.com/dwertent/kubescape/master/httphandler/examples/prometheus/grafana-kubescape-dashboard.json"

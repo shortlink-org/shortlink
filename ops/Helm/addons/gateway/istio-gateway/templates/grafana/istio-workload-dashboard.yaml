@@ -4,6 +4,8 @@ metadata:
   name: istio-workload-dashboard
   labels:
     grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder:  Istio
 data:
   # https://grafana.com/grafana/dashboards/7630
   istio-workload-dashboard.json.url: "https://grafana.com/api/dashboards/7630/revisions/162/download"

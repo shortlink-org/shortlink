@@ -4,5 +4,7 @@ metadata:
   name: node-exporter-dashboard
   labels:
     grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: Hardware
 data:
   node-exporter-dashboard.json.url: "https://raw.githubusercontent.com/rfmoz/grafana-dashboards/master/prometheus/node-exporter-full.json"
