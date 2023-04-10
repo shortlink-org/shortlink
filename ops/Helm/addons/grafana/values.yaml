@@ -67,7 +67,6 @@ grafana:
       searchNamespace: ALL
       folderAnnotation: grafana_dashboard_folder
       provider:
-        name: grafana_dashboard_folder
         allowUiUpdates: true
         foldersFromFilesStructure: false
     datasources:
