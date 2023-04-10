@@ -5,7 +5,7 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: RabbitMQ
+    grafana_dashboard_folder: /tmp/dashboards/RabbitMQ
 data:
   # https://grafana.com/grafana/dashboards/11350
   erlang-memory-allocators-dashboard.json.url: https://grafana.com/api/dashboards/11350/revisions/5/download
