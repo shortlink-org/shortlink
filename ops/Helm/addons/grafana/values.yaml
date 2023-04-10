@@ -63,8 +63,13 @@ grafana:
       searchNamespace: ALL
     dashboards:
       enabled: true
+      SCProvider: true
       searchNamespace: ALL
+      watchMethod: SLEEP
       folderAnnotation: grafana_dashboard_folder
+      provider:
+        allowUiUpdates: true
+        foldersFromFilesStructure: true
     datasources:
       enabled: true
       searchNamespace: ALL
