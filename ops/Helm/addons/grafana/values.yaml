@@ -63,7 +63,7 @@ grafana:
       searchNamespace: ALL
     dashboards:
       enabled: true
-      SCProvider: true
+      SCProvider: false
       searchNamespace: ALL
       folderAnnotation: grafana_dashboard_folder
       provider:
