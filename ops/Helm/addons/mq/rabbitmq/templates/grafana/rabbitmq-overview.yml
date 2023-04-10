@@ -5,7 +5,7 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: RabbitMQ
+    grafana_dashboard_folder: /tmp/dashboards/RabbitMQ
 data:
   # https://grafana.com/grafana/dashboards/10991
   rabbitmq-overview-dashboard.json.url: "https://grafana.com/api/dashboards/10991/revisions/11/download"

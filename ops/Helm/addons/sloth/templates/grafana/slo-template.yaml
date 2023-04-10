@@ -5,7 +5,7 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: Analytics
+    grafana_dashboard_folder: /tmp/dashboards/Analytics
 data:
   # https://grafana.com/grafana/dashboards/14348
   slo-dashboard.json.url: "https://grafana.com/api/dashboards/14348/revisions/5/download"

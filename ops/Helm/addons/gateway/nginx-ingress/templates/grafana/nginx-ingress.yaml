@@ -5,6 +5,6 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: "Ingress Nginx"
+    grafana_dashboard_folder: /tmp/dashboards/Nginx
 data:
   ingress-nginx-dashboard.json.url: "https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json"
