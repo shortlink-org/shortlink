@@ -5,6 +5,8 @@ metadata:
   name: rabbitmq-queue-grafana-dashboard
   labels:
     grafana_dashboard: "1"
+  annotations:
+    grafana_dashboard_folder: RabbitMQ
 data:
   rabbitmq-queue-grafana-dashboard.json: |-
     {
