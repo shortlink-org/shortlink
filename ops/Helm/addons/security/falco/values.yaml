@@ -23,6 +23,7 @@ falco-exporter:
   grafanaDashboard:
     enabled: true
     namespace: grafana
+    folder: Security
 
   prometheusRules:
     enabled: true

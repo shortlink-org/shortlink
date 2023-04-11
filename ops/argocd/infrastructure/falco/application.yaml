@@ -12,7 +12,7 @@ spec:
     namespace: falco
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/falco
+    path: ops/Helm/addons/security/falco
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

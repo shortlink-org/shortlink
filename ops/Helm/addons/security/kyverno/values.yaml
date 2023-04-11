@@ -71,6 +71,11 @@ policy-reporter:
   monitoring:
     enabled: true
 
+  grafana:
+    folder:
+      annotation: grafana_dashboard_folder
+      name: Security
+
   global:
     plugins:
       kyverno: true
