@@ -254,12 +254,12 @@ argo-cd:
         type: git
 
 argo-events:
-  enabled: false
+  enabled: true
 
   fullnameOverride: argo-events
 
 argo-workflows:
-  enabled: false
+  enabled: true
 
   fullnameOverride: argo-workflows
 
