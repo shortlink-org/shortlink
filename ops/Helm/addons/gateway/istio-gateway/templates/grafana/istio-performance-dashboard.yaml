@@ -5,7 +5,7 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: /tmp/dashboards/Istio
+    grafana_dashboard_folder: Istio
 data:
   # https://grafana.com/grafana/dashboards/11829
   istio-performance-dashboard.json.url: "https://grafana.com/api/dashboards/11829/revisions/162/download"

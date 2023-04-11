@@ -66,6 +66,8 @@ grafana:
       searchNamespace: ALL
       folder: /tmp/dashboards
       folderAnnotation: grafana_dashboard_folder
+      provider:
+        foldersFromFilesStructure: true
     datasources:
       enabled: true
       searchNamespace: ALL
