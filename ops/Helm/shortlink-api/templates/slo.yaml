@@ -1,0 +1,25 @@
+{{ $name := include "helpers.fullname" . }}
+
+apiVersion: openslo/v1alpha
+kind: SLO
+metadata:
+  name: {{ $name }}
+  displayName: Requests Availability
+spec:
+  service: {{ $name }}
+  description: "Common SLO based on availability for HTTP request responses."
+  budgetingMethod: Occurrences
+  objectives:
+    - ratioMetrics:
+        good:
+          source: prometheus
+          queryType: promql
+          query: sum(rate(http_request_duration_seconds_bucket{job="{{ $name }}", le="0.5"}[{{.window}}])) by (method, path, status) / sum(rate(http_request_duration_seconds_count{job="{{ $name }}"}[{{.window}}])) by (method, path, status) * 100
+        total:
+          source: prometheus
+          queryType: promql
+          query: sum(rate(http_requests_total{job="{{ $name }}"}[{{.window}}])) by (method, path, status)
+      target: 99.9
+  timeWindows:
+    - count: 30
+      unit: Day
