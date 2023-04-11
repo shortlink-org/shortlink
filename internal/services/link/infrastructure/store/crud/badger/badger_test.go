@@ -1,5 +1,4 @@
 //go:build unit || (database && badger)
-// +build unit database,badger
 
 package badger
 
@@ -9,6 +8,7 @@ import (
 
 	"github.com/dgraph-io/badger/v4"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/badger"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"

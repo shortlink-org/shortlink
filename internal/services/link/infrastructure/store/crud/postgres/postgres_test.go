@@ -1,5 +1,4 @@
 //go:build unit || (database && postgres)
-// +build unit database,postgres
 
 package postgres
 
@@ -13,6 +12,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"

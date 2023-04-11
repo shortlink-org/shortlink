@@ -1,5 +1,4 @@
 //go:build unit || (database && mongo)
-// +build unit database,mongo
 
 package mongo
 
@@ -12,6 +11,7 @@ import (
 
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/atomic"
 

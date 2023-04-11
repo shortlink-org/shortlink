@@ -13,6 +13,7 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/dgraph"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"

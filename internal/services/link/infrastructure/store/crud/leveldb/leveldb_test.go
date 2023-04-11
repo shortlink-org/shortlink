@@ -1,5 +1,4 @@
 //go:build unit || (database && leveldb)
-// +build unit database,leveldb
 
 package leveldb
 
@@ -8,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/syndtr/goleveldb/leveldb"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/leveldb"
