@@ -81,6 +81,12 @@ func (api *API) Run(
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(additionalMiddleware.Logger(log))
 
+	metrics, err := additionalMiddleware.NewMetrics()
+	if err != nil {
+		return err
+	}
+	r.Use(metrics)
+
 	r.NotFound(handler.NotFoundHandler)
 
 	// Init routes

@@ -95,6 +95,12 @@ func (api *API) Run(
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(additionalMiddleware.Logger(log))
 
+	metrics, err := additionalMiddleware.NewMetrics()
+	if err != nil {
+		return err
+	}
+	r.Use(metrics)
+
 	r.NotFound(handler.NotFoundHandler)
 
 	r.Mount("/api/links", link_api.Routes(link_rpc))
@@ -105,7 +111,7 @@ func (api *API) Run(
 
 	// start HTTP-server
 	log.Info(i18n.Sprintf("API run on port %d", config.Port))
-	err := srv.ListenAndServe()
+	err = srv.ListenAndServe()
 
 	return err
 }
