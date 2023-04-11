@@ -62,7 +62,7 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: github/super-linter@45fc0d88288beee4701c62761281edfee85655d7 # v4.10.2
+        uses: github/super-linter@45fc0d88288beee4701c62761281edfee85655d7 # v5.0.0
         env:
           FILTER_REGEX_EXCLUDE: .*(README\.md|Chart\.yaml|NOTES.txt).*
           VALIDATE_ALL_CODEBASE: false
