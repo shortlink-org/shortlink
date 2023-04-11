@@ -3,8 +3,8 @@ module github.com/shortlink-org/shortlink/internal/services/knative/sync-search/
 go 1.20
 
 require (
-	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.13.0
-	github.com/cloudevents/sdk-go/v2 v2.13.0
+	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.14.0
+	github.com/cloudevents/sdk-go/v2 v2.14.0
 	github.com/elastic/go-elasticsearch/v8 v8.7.0
 	go.uber.org/zap v1.24.0
 	knative.dev/pkg v0.0.0-20230411013349-ef19121ff3df
