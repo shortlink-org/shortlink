@@ -7,6 +7,6 @@ metadata:
 spec:
   config:
     domain:
-      "knative.example.com": "knative.shortlink.best"
+      knative.shortlink.best: ""
     istio:
       local-gateway.knative-serving.knative-local-gateway: "knative-local-gateway.istio-ingress.svc.cluster.local"
