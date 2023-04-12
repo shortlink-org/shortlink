@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: shortlink
+  labels:
+    istio-injection: enabled
   annotations:
     chaos-mesh.org/inject: enabled
-    istio-injection: enabled
