@@ -1,0 +1,67 @@
+# Link: https://github.com/onzack/grafana-dashboards/blob/main/prometheus/recording-rules/onzack-cluster-monitoring-recording-rules.yaml
+
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: standard-cluster-monitoring-recording-rules
+spec:
+  groups:
+    - name: common
+      rules:
+        - record: instance:kube_node_role
+          expr: topk by (node) (1,kube_node_role * on(node) group_left(instance) label_replace(node_uname_info, "node", "$1", "nodename", "(.*)"))
+    - name: cpu
+      rules:
+        - record: node_cpu_seconds_total:sum_rate5m
+          expr: sum by (cpu,instance,node,role) (rate(node_cpu_seconds_total{mode!="idle"}[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: kube_node_status_capacity:cpu:sum
+          expr: sum by (node,role) (kube_node_status_capacity{resource="cpu"} * on(node) group_left(role) instance:kube_node_role)
+        - record: role:kube_node_status_capacity:cpu:avg
+          expr: avg by (role) (kube_node_status_capacity{resource="cpu"} * on(node) group_left(role) instance:kube_node_role)
+        - record: kube_node_status_allocatable:cpu:sum
+          expr: sum by (node,role) (kube_node_status_allocatable{resource="cpu"}* on(node) group_left(role) instance:kube_node_role)
+        - record: role:kube_node_status_allocatable:cpu:avg
+          expr: avg by (role) (kube_node_status_allocatable{resource="cpu"} * on(node) group_left(role) instance:kube_node_role)
+    - name: memory
+      rules:
+        - record: node_memory_MemUsed_bytes:sum
+          expr: |-
+            sum by (instance,node,role) (
+              (node_memory_MemTotal_bytes{job="node-exporter"} - node_memory_MemAvailable_bytes{job="node-exporter"}) * on(instance) group_left(node,role) instance:kube_node_role
+            )
+        - record: kube_node_status_capacity:memory:sum
+          expr: sum by (node,role) (kube_node_status_capacity{resource="memory"} * on(node) group_left(role) instance:kube_node_role)
+        - record: role:kube_node_status_capacity:memory:avg
+          expr: avg by (role) (kube_node_status_capacity{resource="memory"} * on(node) group_left(role) instance:kube_node_role)
+        - record: kube_node_status_allocatable:memory:sum
+          expr: sum by (node,role) (kube_node_status_allocatable{resource="memory"} * on(node) group_left(role) instance:kube_node_role)
+        - record: role:kube_node_status_allocatable:memory:avg
+          expr: avg by (role) (kube_node_status_allocatable{resource="memory"} * on(node) group_left(role) instance:kube_node_role)
+    - name: storage
+      rules:
+        - record: node_disk_read_bytes_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_disk_read_bytes_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_disk_reads_completed_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_disk_reads_completed_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_disk_read_time_seconds_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_disk_read_time_seconds_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_disk_written_bytes_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_disk_written_bytes_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_disk_writes_completed_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_disk_writes_completed_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_disk_write_time_seconds_total:sum_rate5m
+          expr: sum by (instance,node,role)(rate(node_disk_write_time_seconds_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+    - name: network
+      rules:
+        - record: node_network_receive_bytes_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_network_receive_bytes_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_network_receive_packets_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_network_receive_packets_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_network_receive_drop_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_network_receive_drop_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_network_transmit_bytes_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_network_transmit_bytes_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_network_transmit_packets_total:sum_rate5m
+          expr: sum by (instance,node,role) (rate(node_network_transmit_packets_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
+        - record: node_network_transmit_drop_total:sum_rate5m
+          expr: sum by (instance,node,role)(rate(node_network_transmit_drop_total[5m]) * on(instance) group_left(node,role) instance:kube_node_role)
