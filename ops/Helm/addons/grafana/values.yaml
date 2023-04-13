@@ -14,36 +14,36 @@ grafana:
   # adminPassword: shortlink
 
   persistence:
-    enabled: false
+    enabled: true
     storageClassName: local-path
     inMemory:
       enabled: true
 
   revisionHistoryLimit: 2
 
-#  serviceMonitor:
-#    enabled: true
-#    selfMonitor: true
-#    interval: "1m"
+  serviceMonitor:
+    enabled: true
+    selfMonitor: true
+    interval: "1m"
 
   imageRenderer:
-    enabled: false
+    enabled: true
 
     revisionHistoryLimit: 2
 
-#    serviceMonitor:
-#      enabled: true
-#      selfMonitor: true
-#      interval: "1m"
+    serviceMonitor:
+      enabled: true
+      selfMonitor: true
+      interval: "1m"
 
   ingress:
     enabled: true
 
     annotations:
       cert-manager.io/cluster-issuer: cert-manager-production
-      nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
-      nginx.ingress.kubernetes.io/enable-opentracing: "false"
+      nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentracing: "true"
 
     hosts:
       - grafana.shortlink.best
@@ -55,26 +55,26 @@ grafana:
         hosts:
           - grafana.shortlink.best
 
-  sidecar: {}
-#    alerts:
-#      enabled: true
-#      searchNamespace: ALL
-#    dashboards:
-#      enabled: false
-#      searchNamespace: ALL
-#      folder: /tmp/dashboards
-#      folderAnnotation: grafana_dashboard_folder
-#      provider:
-#        foldersFromFilesStructure: true
-#    datasources:
-#      enabled: true
-#      searchNamespace: ALL
-#    plugins:
-#      enabled: true
-#      searchNamespace: ALL
-#    notifiers:
-#      enabled: true
-#      searchNamespace: ALL
+  sidecar:
+    alerts:
+      enabled: true
+      searchNamespace: ALL
+    dashboards:
+      enabled: true
+      searchNamespace: ALL
+      folder: /tmp/dashboards
+      folderAnnotation: grafana_dashboard_folder
+      provider:
+        foldersFromFilesStructure: true
+    datasources:
+      enabled: true
+      searchNamespace: ALL
+    plugins:
+      enabled: true
+      searchNamespace: ALL
+    notifiers:
+      enabled: true
+      searchNamespace: ALL
 
 #  dashboardProviders:
 #    dashboardproviders.yaml:
@@ -89,10 +89,10 @@ grafana:
 #        options:
 #          path: /var/lib/grafana/dashboards/default
 
-#  plugins:
-#    - flant-statusmap-panel
-#    - grafana-polystat-panel
+  plugins:
+    - flant-statusmap-panel
+    - grafana-polystat-panel
 
-#  grafana.ini:
-#    reporting:
-#      enabled: true
+  grafana.ini:
+    reporting:
+      enabled: true
