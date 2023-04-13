@@ -37,10 +37,8 @@ spec:
     {{- end }}
       serviceAccountName: {{ template "shortlink-common.serviceAccountName" . }}
       securityContext:
-        # -- fsGroup is the group ID associated with the container
-        fsGroup: 1000
-        runAsUser: 1000
-        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - name: {{ .Chart.Name }}
         # -- Security Context policies for controller pods
