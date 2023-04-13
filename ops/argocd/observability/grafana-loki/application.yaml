@@ -16,6 +16,7 @@ spec:
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
+      skipCrds: true
       releaseName: grafana-loki
       valueFiles:
         - loki.values.yaml
