@@ -60,7 +60,7 @@ grafana:
       enabled: true
       searchNamespace: ALL
     dashboards:
-      enabled: true
+      enabled: false
       searchNamespace: ALL
       folder: /tmp/dashboards
       folderAnnotation: grafana_dashboard_folder
