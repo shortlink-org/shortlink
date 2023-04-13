@@ -106,7 +106,7 @@ const Home: NextPage = () => {
           {
             position: 3,
             name: 'Grafana',
-            item: 'https://shortlink.best/grafana/',
+            item: 'https://grafana.shortlink.best',
           },
           {
             position: 4,
@@ -226,7 +226,7 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard('Grafana', '/grafana')}
+              {getCard('Grafana', 'https://grafana.shortlink.best')}
 
               {getCard('Pyroscope', 'https://pyroscope.shortlink.best')}
 
