@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pilot-dashboard
+  labels:
+    grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: Istio
+data:
+  istio-control-plane-dashboard.json.url: "https://storage.googleapis.com/istio-release/releases/1.17.2/grafana/pilot-dashboard.json"
