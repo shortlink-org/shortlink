@@ -55,26 +55,26 @@ grafana:
         hosts:
           - grafana.shortlink.best
 
-  sidecar:
-    alerts:
-      enabled: true
-      searchNamespace: ALL
-    dashboards:
-      enabled: false
-      searchNamespace: ALL
-      folder: /tmp/dashboards
-      folderAnnotation: grafana_dashboard_folder
-      provider:
-        foldersFromFilesStructure: true
-    datasources:
-      enabled: true
-      searchNamespace: ALL
-    plugins:
-      enabled: true
-      searchNamespace: ALL
-    notifiers:
-      enabled: true
-      searchNamespace: ALL
+  sidecar: {}
+#    alerts:
+#      enabled: true
+#      searchNamespace: ALL
+#    dashboards:
+#      enabled: false
+#      searchNamespace: ALL
+#      folder: /tmp/dashboards
+#      folderAnnotation: grafana_dashboard_folder
+#      provider:
+#        foldersFromFilesStructure: true
+#    datasources:
+#      enabled: true
+#      searchNamespace: ALL
+#    plugins:
+#      enabled: true
+#      searchNamespace: ALL
+#    notifiers:
+#      enabled: true
+#      searchNamespace: ALL
 
 #  dashboardProviders:
 #    dashboardproviders.yaml:
