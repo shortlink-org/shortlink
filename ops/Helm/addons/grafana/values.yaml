@@ -21,20 +21,20 @@ grafana:
 
   revisionHistoryLimit: 2
 
-  serviceMonitor:
-    enabled: true
-    selfMonitor: true
-    interval: "1m"
+#  serviceMonitor:
+#    enabled: true
+#    selfMonitor: true
+#    interval: "1m"
 
   imageRenderer:
     enabled: false
 
     revisionHistoryLimit: 2
 
-    serviceMonitor:
-      enabled: true
-      selfMonitor: true
-      interval: "1m"
+#    serviceMonitor:
+#      enabled: true
+#      selfMonitor: true
+#      interval: "1m"
 
   ingress:
     enabled: true
@@ -93,6 +93,6 @@ grafana:
 #    - flant-statusmap-panel
 #    - grafana-polystat-panel
 
-  grafana.ini:
-    reporting:
-      enabled: true
+#  grafana.ini:
+#    reporting:
+#      enabled: true
