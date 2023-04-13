@@ -41,21 +41,19 @@ grafana:
 
     annotations:
       cert-manager.io/cluster-issuer: cert-manager-production
-      nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
-      nginx.ingress.kubernetes.io/enable-opentracing: "false"
-      nginx.ingress.kubernetes.io/rewrite-target: /$1
-      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentracing: "true"
 
     hosts:
-      - shortlink.best
+      - grafana.shortlink.best
 
-    path: /grafana/?(.*)
+    path: /
 
     tls:
-      - secretName: shortlink-ingress-tls
+      - secretName: grafana-ingress-tls
         hosts:
-          - shortlink.best
+          - grafana.shortlink.best
 
   sidecar:
     alerts:
