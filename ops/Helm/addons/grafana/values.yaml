@@ -89,9 +89,9 @@ grafana:
 #        options:
 #          path: /var/lib/grafana/dashboards/default
 
-  plugins:
-    - flant-statusmap-panel
-    - grafana-polystat-panel
+#  plugins:
+#    - flant-statusmap-panel
+#    - grafana-polystat-panel
 
   grafana.ini:
     reporting:
