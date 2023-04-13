@@ -38,6 +38,8 @@ istiod:
 
   telemetry:
     v2:
+      metadataExchange:
+        wasmEnabled: true
       prometheus:
         enabled: true
         wasmEnabled: true
