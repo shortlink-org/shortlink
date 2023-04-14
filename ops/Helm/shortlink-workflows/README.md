@@ -18,7 +18,7 @@ Shortlink workflows
 
 ## Requirements
 
-Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
+Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|

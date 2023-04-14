@@ -24,7 +24,7 @@
     + spiffe
   + [kubescape](https://github.com/kubescape/kubescape) - Kubernetes security auditing
 + HealthCheck
-+ Support K8S
++ Support K8S (support version 1.24+)
   + Helm Chart
     + [pingcap/chaos-meshh](https://github.com/pingcap/chaos-mesh)
   + Minikube
