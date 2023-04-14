@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
-import { Roboto_Mono } from '@next/font/google' // eslint-disable-line
+import { Roboto_Mono } from 'next/font/google' // eslint-disable-line
 import { DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import '../public/assets/styles.css'
 

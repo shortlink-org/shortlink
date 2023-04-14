@@ -1,6 +1,8 @@
 /* eslint-disable */
-const withOffline = require('next-offline')
 const withExportImages = require('next-export-optimize-images')
+const withPWA = require('next-pwa')({
+  dest: 'public'
+})
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
@@ -181,8 +183,8 @@ if (isEnableSentry) {
     // https://github.com/getsentry/sentry-webpack-plugin#options.
   }
 
-  NEXT_CONFIG = withOffline(
-    withExportImages(withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions)),
+  NEXT_CONFIG = withPWA(
+    withExportImages(withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions))
   )
 }
 
