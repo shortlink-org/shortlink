@@ -27,13 +27,13 @@ dependencies:
     tags:
       - ci/cd
   - name: argo-events
-    version: 2.1.6
+    version: 2.2.0
     repository: https://argoproj.github.io/argo-helm
     condition: argo-events.enabled
     tags:
       - ci/cd
   - name: argo-rollouts
-    version: 2.23.0
+    version: 2.25.0
     repository: https://argoproj.github.io/argo-helm
     condition: argo-rollouts.enabled
     tags:
