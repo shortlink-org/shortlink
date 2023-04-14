@@ -13,6 +13,22 @@ kyverno:
     additionalLabels:
       release: prometheus-operator
 
+  webhooksCleanup:
+    enabled: true
+
+  cleanupController:
+    serviceMonitor:
+      enabled: true
+
+      additionalLabels:
+        release: prometheus-operator
+
+    logging:
+      format: json
+
+    tracing:
+      enabled: true
+
 kyverno-policies:
   enabled: true
 
