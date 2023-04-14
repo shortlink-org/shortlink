@@ -17,6 +17,8 @@ kyverno:
     enabled: true
 
   cleanupController:
+    enabled: true
+
     serviceMonitor:
       enabled: true
 
