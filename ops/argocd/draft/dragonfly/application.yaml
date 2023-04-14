@@ -21,7 +21,7 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
@@ -33,7 +33,7 @@ spec:
         maxDuration: 3m0s
         factor: 2
   ignoreDifferences:
-    - group: dragonfly.io
+    - group: kyverno.io
       kind: ClusterPolicy
       jqPathExpressions:
         - .spec.rules[] | select(.name|test("autogen-."))
