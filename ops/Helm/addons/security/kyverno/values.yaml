@@ -5,16 +5,35 @@
 kyverno:
   enabled: true
 
-  hostNetwork: true
+  admissionController:
+    hostNetwork: true
 
-  serviceMonitor:
-    enabled: true
+    serviceMonitor:
+      enabled: true
 
-    additionalLabels:
-      release: prometheus-operator
+      additionalLabels:
+        release: prometheus-operator
 
   webhooksCleanup:
     enabled: true
+
+  reportsController:
+    enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+      additionalLabels:
+        release: prometheus-operator
+
+  backgroundController:
+    enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+      additionalLabels:
+        release: prometheus-operator
 
   cleanupController:
     enabled: true
