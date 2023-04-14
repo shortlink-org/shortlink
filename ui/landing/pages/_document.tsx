@@ -11,6 +11,8 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={lightTheme.palette.primary.main} />
+          <link rel="manifest" href="/static/manifest.json" />
+
           <link rel="shortcut icon" href="/static/favicon.ico" />
           <link
             rel="stylesheet"

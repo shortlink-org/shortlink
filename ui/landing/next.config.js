@@ -1,6 +1,9 @@
 /* eslint-disable */
 
 const withExportImages = require('next-export-optimize-images')
+const withPWA = require('next-pwa')({
+  dest: 'public'
+})
 
 // You can choose which headers to add to the list
 // after learning more below.
@@ -105,4 +108,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withExportImages(nextConfig)
+module.exports = withPWA(withExportImages(nextConfig))
