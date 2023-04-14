@@ -1,7 +1,7 @@
 kiali-operator:
   enabled: true
 
-  onlyViewOnlyMode: false
+  onlyViewOnlyMode: true
 
   cr:
     create: true
@@ -25,15 +25,21 @@ kiali-operator:
         tracing:
           enabled: true
           in_cluster_url: 'http://grafana-tempo.grafana:3100'
-          use_grpc: true
+          use_grpc: false
         grafana:
           enabled: true
           in_cluster_url: 'http://grafana.grafana:80'
           # Public facing URL of Grafana
           url: 'https://shortlink.best/grafana'
         prometheus:
-          url: 'http://prometheus-prometheus.prometheus-operator:9090'
+          url: 'http://prometheus-prometheus.prometheus-operator:9090/'
+        custom_dashboards:
+          enabled: true
+          label_selector: "app=grafana"
+          namespace: "grafana"
+          folder: "Kiali"
         istio:
+          root_namespace: "istio-system"
           component_status:
             enabled: true
             components:
