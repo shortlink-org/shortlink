@@ -17,6 +17,7 @@ spec:
     targetRevision: HEAD
     helm:
       releaseName: grafana-loki
+      skipCrds: true
       valueFiles:
         - loki.values.yaml
         - promtail.values.yaml
