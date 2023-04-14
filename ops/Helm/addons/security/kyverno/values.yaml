@@ -6,7 +6,7 @@ kyverno:
   enabled: true
 
   admissionController:
-    hostNetwork: true
+    hostNetwork: false
 
     serviceMonitor:
       enabled: true
