@@ -8,9 +8,34 @@ kiali-operator:
     namespace: ""
 
     spec:
+      istio_namespace: "istio-system"
       auth:
         strategy: anonymous
       kiali_feature_flags:
+        ui_defaults:
+          graph:
+            find_options:
+              - description: "Find: slow edges (> 1s)"
+                expression: "rt > 1000"
+              - description: "Find: unhealthy nodes"
+                expression: "! healthy"
+              - description: "Find: unknown nodes"
+                expression: "name = unknown"
+            hide_options:
+              - description: "Hide: healthy nodes"
+                expression: "healthy"
+              - description: "Hide: unknown nodes"
+                expression: "name = unknown"
+          metrics_inbound:
+            aggregations:
+              - display_name: Istio Network
+                label: topology_istio_io_network
+              - display_name: Istio Revision
+                label: istio_io_rev
+          metrics_outbound:
+            aggregations:
+              - display_name: Istio Revision
+                label: istio_io_rev
         certificates_information_indicators:
           enabled: true
           secrets:
@@ -39,6 +64,9 @@ kiali-operator:
           namespace: "grafana"
           folder: "Kiali"
         istio:
+          config_map_name: "istio"
+          istiod_deployment_name: "istiod"
+          istio_sidecar_injector_config_map_name: "istio-sidecar-injector"
           root_namespace: "istio-system"
           component_status:
             enabled: true
