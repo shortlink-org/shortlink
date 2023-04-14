@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: etcd-dashboard
+  labels:
+    grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: Kubernetes
+data:
+  etcd-dashboard.json.url: "https://etcd.io/docs/v3.5/op-guide/grafana.json"
