@@ -55,6 +55,8 @@ kyverno-policies:
 
   podSecuritySeverity: low
 
+  background: false
+
   validationFailureActionByPolicy:
     disallow-capabilities-strict: audit
     disallow-host-path: audit
