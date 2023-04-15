@@ -21,23 +21,6 @@ grafana:
 
   revisionHistoryLimit: 2
 
-  containerSecurityContext:
-    capabilites:
-      drop:
-        - ALL
-
-  initChownData:
-    securityContext:
-      capabilites:
-        drop:
-          - ALL
-
-  downloadDashboards:
-    securityContext:
-      capabilites:
-        drop:
-          - ALL
-
   serviceMonitor:
     enabled: true
     selfMonitor: true
@@ -73,11 +56,6 @@ grafana:
           - grafana.shortlink.best
 
   sidecar:
-    securityContext:
-      capabilites:
-        drop:
-          - ALL
-          -
     alerts:
       enabled: true
       searchNamespace: ALL
