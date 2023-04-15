@@ -49,8 +49,11 @@ kiali-operator:
       external_services:
         tracing:
           enabled: true
+          auth:
+            type: none
           in_cluster_url: 'http://grafana-tempo.grafana:3100'
-          use_grpc: false
+          url: 'http://grafana-tempo.grafana:16686/'
+          use_grpc: true
         grafana:
           enabled: true
           in_cluster_url: 'http://grafana.grafana:80'
