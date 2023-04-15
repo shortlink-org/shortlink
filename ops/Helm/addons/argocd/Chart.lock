@@ -17,5 +17,8 @@ dependencies:
 - name: argocd-image-updater
   repository: https://argoproj.github.io/argo-helm
   version: 0.8.5
-digest: sha256:ac93fe8da68b0b8c9673054be480ce1301f192878659a2b063f3ed32213ea729
-generated: "2023-04-14T14:15:13.331172566Z"
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 17.9.4
+digest: sha256:8fe6a87fdce3c4d087f411467b638247a4384760e9dba42773402c85454dd216
+generated: "2023-04-15T04:26:17.953748+02:00"

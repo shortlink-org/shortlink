@@ -63,7 +63,7 @@ argo-cd:
     enabled: false
 
   externalRedis:
-    host: shortlink-redis-master.redis
+    host: redis-master.argocd
 
   server:
     extraArgs:
@@ -435,3 +435,40 @@ argocd-image-updater:
     enabled: true
     serviceMonitor:
       enabled: true
+
+redis:
+  fullnameOverride: redis
+
+  master:
+    kind: Deployment
+
+    persistence:
+      enabled: false
+      storageClass: local-path
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+  auth:
+    enabled: false
+    password: ""
+
+  metrics:
+    enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+    prometheusRule:
+      enabled: true
+
+  replica:
+    replicaCount: 0
+
+    persistence:
+      enabled: false
