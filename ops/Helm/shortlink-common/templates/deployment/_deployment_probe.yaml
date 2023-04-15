@@ -35,6 +35,7 @@
       {{- end }}
     initialDelaySeconds: {{ .livenessProbe.initialDelaySeconds | default 5 }}
     periodSeconds: {{ .livenessProbe.periodSeconds | default 5 }}
+    terminationGracePeriodSeconds: {{ .livenessProbe.periodSeconds | default 5 }}
     successThreshold: {{ .livenessProbe.successThreshold | default 1 }}
     failureThreshold: {{ .livenessProbe.failureThreshold | default 5 }}
     timeoutSeconds: {{ .livenessProbe.timeoutSeconds | default 5 }}
