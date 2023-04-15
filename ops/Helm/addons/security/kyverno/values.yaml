@@ -53,6 +53,8 @@ kyverno:
 kyverno-policies:
   enabled: true
 
+  podSecuritySeverity: low
+
   failurePolicy: Ignore
 
 policy-reporter:
