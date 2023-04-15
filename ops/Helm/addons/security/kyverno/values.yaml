@@ -55,6 +55,11 @@ kyverno-policies:
 
   podSecuritySeverity: low
 
+  validationFailureActionByPolicy:
+    disallow-capabilities-strict: audit
+    disallow-host-path: audit
+    disallow-host-ports: audit
+
   failurePolicy: Ignore
 
 policy-reporter:
