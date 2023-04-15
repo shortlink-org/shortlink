@@ -44,7 +44,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.15.0
 	github.com/prometheus/client_model v0.3.0
-	github.com/pterm/pterm v0.12.58
+	github.com/pterm/pterm v0.12.59
 	github.com/pyroscope-io/client v0.7.0
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.0
