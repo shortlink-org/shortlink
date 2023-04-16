@@ -2,7 +2,6 @@ import React from 'react'
 
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
-import Box from '@mui/material/Box'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
