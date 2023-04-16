@@ -30,7 +30,10 @@ module.exports = {
   ],
   framework: {
     name: "@storybook/react-webpack5",
-    options: {}
+    options: {
+      fsCache: true,
+      lazyCompilation: true,
+    }
   },
   features: {
     interactionsDebugger: true

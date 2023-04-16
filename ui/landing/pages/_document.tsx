@@ -1,37 +1,40 @@
-import * as React from 'react'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
+import { getInitColorSchemeScript } from '@mui/material/styles'
 // @ts-ignore
 import { createEmotionCache, lightTheme } from '@shortlink-org/ui-kit'
+import PropTypes from 'prop-types'
 
-export default class MyDocument extends Document {
-  render() {
-    return (
-      <Html lang="en">
-        <Head>
-          {/* PWA primary color */}
-          <meta name="theme-color" content={lightTheme.palette.primary.main} />
-          <link rel="manifest" href="/static/manifest.json" />
+export default function MyDocument(props: any) {
+  const { emotionStyleTags } = props
 
-          <link rel="shortcut icon" href="/static/favicon.ico" />
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          />
-          {/* Inject MUI styles first to match with the prepend: true configuration. */}
-          {(this.props as any).emotionStyleTags}
-        </Head>
-        <body className="bg-white text-black dark:bg-gray-800 dark:text-white">
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    )
-  }
+  return (
+    <Html lang="en">
+      <Head>
+        {/* PWA primary color */}
+        <meta name="theme-color" content={lightTheme.palette.primary.main} />
+        <link rel="manifest" href="/manifest.json" />
+
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        />
+        {/* Inject MUI styles first to match with to prepend: true configuration. */}
+        {emotionStyleTags}
+      </Head>
+      <body className="bg-white text-black dark:bg-gray-800 dark:text-white">
+        {getInitColorSchemeScript()}
+        <Main />
+        <NextScript />
+      </body>
+    </Html>
+  )
 }
 
 // `getInitialProps` belongs to `_document` (instead of `_app`),
 // it's compatible with static-site generation (SSG).
+// @ts-ignore
 MyDocument.getInitialProps = async (ctx) => {
   // Resolution order
   //
@@ -57,21 +60,21 @@ MyDocument.getInitialProps = async (ctx) => {
 
   const originalRenderPage = ctx.renderPage
 
-  // You can consider sharing the same emotion cache between all the SSR requests to speed up performance.
+  // You can consider sharing the same Emotion cache between all the SSR requests to speed up performance.
   // However, be aware that it can have global side effects.
   const cache = createEmotionCache()
   const { extractCriticalToChunks } = createEmotionServer(cache)
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App: any) =>
+      enhanceApp: (App: any) => // @ts-ignore
         function EnhanceApp(props) {
           return <App emotionCache={cache} {...props} />
         },
     })
 
   const initialProps = await Document.getInitialProps(ctx)
-  // This is important. It prevents emotion to render invalid HTML.
+  // This is important. It prevents Emotion to render invalid HTML.
   // See https://github.com/mui/material-ui/issues/26561#issuecomment-855286153
   const emotionStyles = extractCriticalToChunks(initialProps.html)
   const emotionStyleTags = emotionStyles.styles.map((style) => (
@@ -87,4 +90,9 @@ MyDocument.getInitialProps = async (ctx) => {
     ...initialProps,
     emotionStyleTags,
   }
+}
+
+MyDocument.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  emotionStyleTags: PropTypes.array.isRequired,
 }

@@ -2,7 +2,7 @@
 
 const withExportImages = require('next-export-optimize-images')
 const withPWA = require('next-pwa')({
-  dest: 'public'
+  dest: 'public',
 })
 
 // You can choose which headers to add to the list
@@ -40,7 +40,7 @@ const nextConfig = {
   generateEtags: true,
   env: {
     // ShortLink API
-    NEXT_PUBLIC_SERVICE_NAME: "shortlink-landing",
+    NEXT_PUBLIC_SERVICE_NAME: 'shortlink-landing',
   },
   swcMinify: true,
   productionBrowserSourceMaps: true,
@@ -73,7 +73,7 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'private, max-age=0, s-maxage=0, stale-while-revalidate=0',
-          }
+          },
         ],
       },
       {
@@ -83,8 +83,9 @@ const nextConfig = {
           ...securityHeaders,
           {
             key: 'Cache-Control',
-            value: 'public, max-age=14400, s-maxage=14400, stale-while-revalidate=86400',
-          }
+            value:
+              'public, max-age=14400, s-maxage=14400, stale-while-revalidate=86400',
+          },
         ],
       },
     ]
