@@ -11,7 +11,7 @@
     "build-storybook": "node_modules/.bin/storybook build",
     "semantic-release": "node_modules/.bin/semantic-release",
     "test": "NODE_ENV=test jest",
-    "chromatic": "npx chromatic --project-token=ccd4cff8fb35"
+    "chromatic": "npx chromatic --project-token=secret"
   },
   "files": [
     "src"
@@ -53,6 +53,7 @@
     "@storybook/react": "^7.0.5",
     "@storybook/react-webpack5": "7.0.5",
     "@storybook/testing-library": "^0.1.0",
+    "@svgr/rollup": "7.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
