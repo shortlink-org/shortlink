@@ -14,6 +14,10 @@ export const lightTheme = createTheme({
     error: {
       main: red.A400,
     },
+    text: {
+      primary: grey[50],
+      secondary: grey[50],
+    },
   },
 })
 
@@ -31,11 +35,11 @@ export const darkTheme = createTheme({
       main: red.A400,
     },
     background: {
-      default: grey[900],
+      default: grey[50],
     },
     text: {
-      primary: grey[900],
-      secondary: grey[800],
+      primary: grey[50],
+      secondary: grey[50],
     },
   },
 })

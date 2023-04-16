@@ -32,7 +32,7 @@ const MyApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   const [darkMode, setDarkMode] = useState(false)
-  const theme = darkMode === 'dark' ? darkTheme : lightTheme
+  const theme = darkMode ? darkTheme : lightTheme
 
   return (
     <CacheProvider value={emotionCache}>

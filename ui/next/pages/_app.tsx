@@ -34,7 +34,7 @@ const MyApp = ({ Component, ...rest }) => {
   const { emotionCache = clientSideEmotionCache, pageProps } = props
 
   const [darkMode, setDarkMode] = useState(false)
-  const theme = darkMode === 'dark' ? darkTheme : lightTheme
+  const theme = darkMode ? darkTheme : lightTheme
 
   return (
     <React.StrictMode>
