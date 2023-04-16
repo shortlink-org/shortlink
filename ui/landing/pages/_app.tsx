@@ -31,7 +31,7 @@ const fonts = Roboto_Mono({
 const MyApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState<'light' | 'dark'>('light')
   const theme = darkMode ? darkTheme : lightTheme
 
   return (

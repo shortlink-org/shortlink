@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import React, { useState } from 'react'
 import Head from 'next/head'
 import { wrapper } from 'store/store'
@@ -15,12 +13,11 @@ import ScrollTop from 'components/ScrollTop'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import 'react-toastify/dist/ReactToastify.css'
 
-// @ts-ignore
 import {
   ColorModeContext,
   createEmotionCache,
   darkTheme,
-  lightTheme,
+  lightTheme, // @ts-ignore
 } from '@shortlink-org/ui-kit'
 import { DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
@@ -31,11 +28,12 @@ interface MyAppProps extends AppInitialProps {
   emotionCache?: EmotionCache
 }
 
-const MyApp: FC<AppProps> = ({ Component, ...rest }) => {
+// @ts-ignore
+const MyApp = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { emotionCache = clientSideEmotionCache, pageProps } = props
 
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState<'light' | 'dark'>('light')
   const theme = darkMode ? darkTheme : lightTheme
 
   return (
