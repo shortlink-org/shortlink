@@ -1,6 +1,6 @@
 import {useTheme as nextUseTheme} from 'next-themes'
 import React, {useContext, useEffect, useState} from 'react'
-import {ColorModeContext} from './ColorModeContext'
+import {ColorModeContext} from '../theme/ColorModeContext'
 
 // @ts-ignore
 import './styles.css'

@@ -1,13 +1,14 @@
 // @ts-ignore
-import React, { useState } from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { StoryObj, Meta, Preview } from '@storybook/react'
 
-import ToggleDarkMode  from './ToggleDarkMode'
+import Header  from './Header'
 import { ColorModeContext } from '../theme/ColorModeContext'
+import {useTheme as nextUseTheme} from "next-themes";
 
 const meta: Meta<any> = {
-  title: 'ToggleDarkMode',
-  component: ToggleDarkMode,
+  title: 'Header',
+  component: Header,
   argTypes: {},
   decorators: [
     Story => {
@@ -24,7 +25,7 @@ const meta: Meta<any> = {
 
 export default meta
 
-const Template = (args) => <ToggleDarkMode {...args} />
+const Template = (args) => <Header title={'Header'} {...args} />
 
 export const Default = Template.bind({});
 Default.args = {};
