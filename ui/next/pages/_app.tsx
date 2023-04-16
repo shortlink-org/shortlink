@@ -33,8 +33,8 @@ const MyApp = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { emotionCache = clientSideEmotionCache, pageProps } = props
 
-  const [darkMode, setDarkMode] = useState<'light' | 'dark'>('light')
-  const theme = darkMode ? darkTheme : lightTheme
+  const [darkMode, setDarkMode] = useState(false)
+  const theme = darkMode === 'dark' ? darkTheme : lightTheme
 
   return (
     <React.StrictMode>

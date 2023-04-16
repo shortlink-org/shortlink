@@ -10,7 +10,7 @@ import withAuthSync from 'components/Private'
 import ory from '../../pkg/sdk'
 import { AxiosError } from 'axios'
 import { NextSeo } from 'next-seo'
-import Header from '../../components/Page/Header'
+import { Header } from '@shortlink-org/ui-kit'
 
 function ProfileContent() {
   const [session, setSession] = useState<string>(
