@@ -43,6 +43,4 @@ npm:
     strategy: depend
   needs: []
   rules:
-    - changes:
-        - 'ui/ui-kit/package.json'
-
+    - when: always
