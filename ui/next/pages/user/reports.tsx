@@ -4,7 +4,7 @@ import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 import { NextSeo } from 'next-seo'
-import Header from '../../components/Page/Header'
+import { Header } from '@shortlink-org/ui-kit'
 
 export function Reports() {
   return (
