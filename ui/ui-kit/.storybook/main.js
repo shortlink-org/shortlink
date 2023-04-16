@@ -34,6 +34,7 @@ module.exports = {
       },
     },
     "@storybook/addon-interactions",
+    '@storybook/addon-controls',
   ],
   framework: {
     name: "@storybook/react-webpack5",
