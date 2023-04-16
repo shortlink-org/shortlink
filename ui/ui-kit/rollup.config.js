@@ -6,6 +6,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
 import dts from "rollup-plugin-dts"
 import filesize from 'rollup-plugin-filesize'
+import svgr from '@svgr/rollup'
 
 const packageJson = require("./package.json")
 
@@ -38,6 +39,7 @@ export default [
     ],
     plugins: [
       peerDepsExternal(), // Preferably set as first plugin.
+      svgr(),
       postcss({
         extract: 'index.css',
         autoModules: true,

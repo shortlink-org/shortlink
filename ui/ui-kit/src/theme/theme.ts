@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles'
-import { red } from '@mui/material/colors'
+import { red, grey } from '@mui/material/colors'
 
 // Create a theme instance.
 export const lightTheme = createTheme({
@@ -31,11 +31,11 @@ export const darkTheme = createTheme({
       main: red.A400,
     },
     background: {
-      default: '#070919',
+      default: grey[900],
     },
     text: {
-      primary: '#f1f5f9',
-      secondary: '#94a3b8',
+      primary: grey[900],
+      secondary: grey[800],
     },
   },
 })

@@ -12,10 +12,10 @@ type ToggleDarkModeProps = {
 export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id}) => {
   // @ts-ignore
   const { setTheme } = nextUseTheme()
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState<'light' | 'dark'>('light')
 
   useEffect(() => {
-    setMounted(true)
+    setMounted('light')
   }, [])
 
   // @ts-ignore
