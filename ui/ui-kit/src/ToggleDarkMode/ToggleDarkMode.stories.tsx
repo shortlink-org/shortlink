@@ -5,7 +5,7 @@ import { StoryObj, Meta, Preview } from '@storybook/react'
 import ToggleDarkMode  from './ToggleDarkMode'
 
 const meta: Meta<any> = {
-  title: 'ToggleDarkMode',
+  title: 'UI/ToggleDarkMode',
   component: ToggleDarkMode,
 }
 
