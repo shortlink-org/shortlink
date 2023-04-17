@@ -39,6 +39,7 @@ for information team about cases for updated ADR.
 - **DataBase**
   - [ADR-0004](./decisions/0004-use-uuid-as-primary-keys.md) - Use UUID as primary keys
   - [ADR-0005](./decisions/0005-postgres-optimization.md) - Postgres optimization
+  - [ADR-0020](./decisions/0020-postgresql-operator.md) - Research summary of PostgreSQL Operators
 - **Service**
   - [ADR-0008](./decisions/0008-product-metrics-by-services.md) - Product metrics by services
   - [ADR-0015](./decisions/0015-authentication.md) - Authentication
@@ -48,5 +49,3 @@ for information team about cases for updated ADR.
   - [ADR-0017](./decisions/0017-profile-guided-optimization.md) - Profile-guided optimization
 - **Front-end**
   - [ADR-0019](./decisions/0019-front-end-testing.md) - Front-end testings
-- **Research**
-  - [ADR-0020](./decisions/0020-research-summary.md) - Research summary
