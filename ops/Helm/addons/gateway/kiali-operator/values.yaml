@@ -25,7 +25,7 @@ kiali-operator:
           url: 'http://grafana-tempo.grafana:16686/'
           use_grpc: true
         grafana:
-          enabled: true
+          enabled: false
           in_cluster_url: 'http://grafana.grafana:80'
           # Public facing URL of Grafana
           url: 'https://shortlink.best/grafana'
