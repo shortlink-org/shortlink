@@ -7,6 +7,7 @@ import Button from '@mui/material/Button'
 const meta: Meta<any> = {
   title: 'UI/Button',
   component: Button,
+  tags: ['autodocs'],
 }
 
 export default meta
