@@ -16,7 +16,7 @@ adr new Implement as Unix shell scripts
 For update ADR we use GIT, so we can get date each updated and we use git message
 for information team about cases for updated ADR.
 
-### ADR
+### Architecture Decision Log (ADL):
 
 - **Organization**
   - [ADR-0001](./decisions/0001-record-architecture-decisions.md) - Record architecture decisions
@@ -31,8 +31,8 @@ for information team about cases for updated ADR.
   - [ADR-0009](./decisions/0009-naming-spans-and-attributes.md) - Naming spans and attributes
   - [ADR-0010](./decisions/0010-logger-format.md) - Logger format
 - **Observability**
-  - [ADR-0014](./decisions/0014-observability.md) - Standardizing Observability Tools
   - [ADR-0003](./decisions/0003-observability-health-check.md) - Observability health check
+  - [ADR-0014](./decisions/0014-observability.md) - Standardizing Observability Tools
 - **Network**
   - [ADR-0007](./decisions/0007-optimization-network.md) - Optimization network
   - **Proposed**: [ADR-0018](./decisions/0018-kubernetes-network.md) - Kubernetes network
