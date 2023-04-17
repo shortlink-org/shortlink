@@ -35,8 +35,15 @@ spec:
         cpu: "1"
   zookeeper:
     replicas: 3
+    template:
+      pod:
+        metadata:
+          labels:
+            sidecar.istio.io/inject: "false"
     storage:
-      type: ephemeral
+      type: local-path
+      size: 10Gi
+      deleteClaim: false
     resources:
       requests:
         memory: 100Mi
