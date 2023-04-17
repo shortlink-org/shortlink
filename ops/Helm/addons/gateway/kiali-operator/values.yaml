@@ -24,9 +24,9 @@ kiali-operator:
           enabled: true
           auth:
             type: none
-          in_cluster_url: 'http://grafana-tempo.grafana:3100'
+          in_cluster_url: 'http://grafana-tempo.grafana:16686'
           url: 'http://grafana-tempo.grafana:16686/'
-          use_grpc: true
+          use_grpc: false
         grafana:
           enabled: false
           in_cluster_url: 'http://grafana.grafana:80'
