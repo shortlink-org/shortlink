@@ -41,9 +41,7 @@ spec:
           labels:
             sidecar.istio.io/inject: "false"
     storage:
-      type: local-path
-      size: 10Gi
-      deleteClaim: false
+      type: ephemeral
     resources:
       requests:
         memory: 100Mi
