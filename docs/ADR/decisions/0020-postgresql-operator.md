@@ -1,4 +1,4 @@
-# 20. research summary
+# 20. Research summary of PostgreSQL Operators
 
 Date: 2023-03-30
 
