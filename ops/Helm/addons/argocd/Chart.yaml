@@ -51,7 +51,7 @@ dependencies:
     tags:
       - ci/cd
   - name: redis
-    version: 17.9.4
+    version: 17.9.5
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
     tags:
