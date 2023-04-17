@@ -11,39 +11,9 @@ kiali-operator:
       istio_namespace: "istio-system"
       auth:
         strategy: anonymous
-      kiali_feature_flags:
-        ui_defaults:
-          graph:
-            find_options:
-              - description: "Find: slow edges (> 1s)"
-                expression: "rt > 1000"
-              - description: "Find: unhealthy nodes"
-                expression: "! healthy"
-              - description: "Find: unknown nodes"
-                expression: "name = unknown"
-            hide_options:
-              - description: "Hide: healthy nodes"
-                expression: "healthy"
-              - description: "Hide: unknown nodes"
-                expression: "name = unknown"
-          metrics_inbound:
-            aggregations:
-              - display_name: Istio Network
-                label: topology_istio_io_network
-              - display_name: Istio Revision
-                label: istio_io_rev
-          metrics_outbound:
-            aggregations:
-              - display_name: Istio Revision
-                label: istio_io_rev
-        certificates_information_indicators:
-          enabled: true
-          secrets:
-            - cacerts
-            - istio-ca-secret
       deployment:
         accessible_namespaces: ["**"]
-        view_only_mode: false
+        view_only_mode: true
       server:
         web_root: "/kiali"
       external_services:
