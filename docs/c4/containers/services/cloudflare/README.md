@@ -3,5 +3,4 @@
 
 !include services/cloudflare/ext.puml
 !include services/cloudflare/service.puml
-!include services/cloudflare/db.puml
 ```
