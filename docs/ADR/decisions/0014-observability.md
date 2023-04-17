@@ -19,6 +19,13 @@ We use [OpenTelemetry](https://opentelemetry.io/) for tracing and metrics.
 
 ![http_add_link](./images/ADR-0014/opentracing_add_link.png)
 
+### Kiali && Istio
+
++ [Kiali](https://kiali.io/) - Kiali is an open source project for service mesh observability, 
+  configuration, and validation. It provides dashboards, observability, and control of the service mesh and your microservices.
+
+![kiali](./images/ADR-0014/kiali.png)
+
 ## Consequences
 
 + We use [OpenTelemetry](https://opentelemetry.io/) for tracing and metrics.
