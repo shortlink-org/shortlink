@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: kubernetes-replicator
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
