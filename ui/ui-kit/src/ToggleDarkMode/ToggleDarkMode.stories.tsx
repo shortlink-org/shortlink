@@ -7,6 +7,7 @@ import ToggleDarkMode  from './ToggleDarkMode'
 const meta: Meta<any> = {
   title: 'UI/ToggleDarkMode',
   component: ToggleDarkMode,
+  tags: ['autodocs'],
 }
 
 export default meta
