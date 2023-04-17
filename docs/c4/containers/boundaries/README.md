@@ -1,6 +1,7 @@
 ```plantuml
 !include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/common.puml
 
+!include boundaries/auth.puml
 !include boundaries/chat.puml
 !include boundaries/delivery.puml
 !include boundaries/gateway.puml
