@@ -18,6 +18,7 @@ spec:
   template:
     metadata:
       labels:
+        {{- include "helpers.labels" . | nindent 4 }}
         {{- include "shortlink-common.matchLabels" . | indent 8 }}
         {{- if .Values.deploy.annotations }}
           {{- if ge (len .Values.deploy.annotations) 1 }}

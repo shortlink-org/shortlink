@@ -16,7 +16,7 @@ spec:
     {{- toYaml . | nindent 2 }}
   {{- end }}
   hosts:
-    - "*"
+    - {{ include "helpers.fullname" . }}
   gateways:
     # prefer the <namespace>/<name> format
     - istio-ingress/istio-ingress

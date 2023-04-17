@@ -9,6 +9,9 @@ kiali-operator:
 
     spec:
       istio_namespace: "istio-system"
+      istio_labels:
+        app_label_name: "app.kubernetes.io/name"
+        version_label_name: "app.kubernetes.io/version"
       auth:
         strategy: anonymous
       deployment:
