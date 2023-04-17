@@ -54,6 +54,14 @@ argo-cd:
   dex:
     enabled: true
 
+    resources:
+      limits:
+        cpu: 50m
+        memory: 64Mi
+      requests:
+        cpu: 10m
+        memory: 32Mi
+
     metrics:
       enabled: true
       serviceMonitor:
@@ -223,6 +231,14 @@ argo-cd:
             name: custom-tools
 
   applicationSet:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+
     metrics:
       enabled: true
       serviceMonitor:
@@ -451,6 +467,14 @@ redis:
 
   replica:
     replicaCount: 0
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
 
     persistence:
       enabled: false
