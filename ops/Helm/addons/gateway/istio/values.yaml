@@ -21,6 +21,13 @@ istiod:
   # meshConfig defines runtime configuration of components, including Istiod and istio-agent behavior
   # See https://istio.io/docs/reference/config/istio.mesh.v1alpha1/ for all available options
   meshConfig:
+    enableTracing: true
+    defaultConfig:
+      tracing:
+        sampling: 100.0
+        zipkin:
+          address: grafana-tempo.grafana.svc.cluster.local:9411
+
     extensionProviders:
       - name: otel
         envoyOtelAls:
