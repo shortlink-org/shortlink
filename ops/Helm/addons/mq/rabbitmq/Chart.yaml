@@ -18,7 +18,7 @@ dependencies:
     repository: "file://../../../shortlink-common"
   - name: rabbitmq-cluster-operator
     version: 3.2.10
-    repository: https://charts.bitnami.com/bitnami
+    repository: oci://registry-1.docker.io/bitnamicharts
     condition: rabbitmq-cluster-operator.enabled
     tags:
       - rabbitmq

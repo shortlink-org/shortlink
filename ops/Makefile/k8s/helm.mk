@@ -12,7 +12,7 @@ helm-init: ## helm init
 	@helm repo add jetstack https://charts.jetstack.io
 	@helm repo add ory https://k8s.ory.sh/helm/charts
 	@helm repo add rook-release https://charts.rook.io/release
-	@helm repo add bitnami https://charts.bitnami.com/bitnami
+	@helm repo add bitnami oci://registry-1.docker.io/bitnamicharts
 	@helm repo add kiali https://kiali.org/helm-charts
 	@helm repo update
 
