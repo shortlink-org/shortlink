@@ -6,6 +6,8 @@ chaos-mesh:
   controllerManager:
     replicaCount: 1
 
+    enableFilterNamespace: true
+
     resources:
       limits:
         cpu: 500m
