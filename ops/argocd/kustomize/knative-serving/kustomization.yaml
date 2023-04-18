@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - namespace/namespace.yaml
   - knative-serving.yaml
+  - network/sidecar.yaml
