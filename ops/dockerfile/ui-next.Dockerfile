@@ -35,7 +35,7 @@ COPY --from=deps /app/node_modules ./node_modules
 RUN npm run generate
 
 # Production image, copy all the files and run next
-FROM ghcr.io/nginxinc/nginx-unprivileged:1.23-alpine
+FROM ghcr.io/nginxinc/nginx-unprivileged:1.24-alpine
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-next"
