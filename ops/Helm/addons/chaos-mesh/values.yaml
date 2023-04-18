@@ -31,6 +31,25 @@ chaos-mesh:
   dashboard:
     securityMode: false
 
+    # env:
+    #  DATABASE_DRIVER: postgres
+    #  DATABASE_DATASOURCE: "postgres://root:password@1.2.3.4:5432/postgres?sslmode=disable"
+    #  TTL_EVENT: 48h
+    #  TTL_EXPERIMENT: 96h
+
+    ingress:
+      enabled: false
+
+      ingressClassName: nginx
+
+      hosts:
+        - name: dashboard.local
+          tls: false
+          tlsSecret: dashboard.local-tls
+
+      paths:
+        - /chaos
+
     resources:
       limits:
         cpu: 500m
