@@ -1,0 +1,58 @@
+# Common default values for shortlink.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+chaos-mesh:
+  controllerManager:
+    replicaCount: 1
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1024Mi
+      requests:
+        cpu: 25m
+        memory: 256Mi
+
+  chaosDaemon:
+    runtime: containerd
+    socketPath: /run/containerd/containerd.sock
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1024Mi
+      requests:
+        cpu: 150m
+        memory: 256Mi
+
+  dashboard:
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1024Mi
+      requests:
+        cpu: 25m
+        memory: 256Mi
+
+  dnsServer:
+    create: true
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1024Mi
+      requests:
+        cpu: 10m
+        memory: 70Mi
+
+  bpfki:
+    create: true
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1024Mi
+      requests:
+        cpu: 250m
+        memory: 512Mi
