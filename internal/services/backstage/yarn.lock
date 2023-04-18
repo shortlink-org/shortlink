@@ -2465,20 +2465,36 @@
   resolved "https://registry.yarnpkg.com/@backstage/cli-common/-/cli-common-0.1.12.tgz#8e1ea10da38554b9bc910e0da532b73af4669a2f"
   integrity sha512-CoXAcIQprLAuk4gsJyqrZHRyZ5Mpfpr87lBzhSBWgriMTVgKH5bfMqZmGzm5TTZRlOIX09RLINp9e3kLkfO3Fg==
 
-"@backstage/cli@^0.22.5":
-  version "0.22.5"
-  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.22.5.tgz#e1b84f351939c3fb8d67fad14c0ab3645c41a714"
-  integrity sha512-m+6VAoly4YX+5VQfYa2VGGY5vftTvbTDm3zHAGC78ZWg6bSG6h2uzX0qpyzIrhaKGKHK1Ebq+s4YAGFoATMFHQ==
+"@backstage/cli-node@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@backstage/cli-node/-/cli-node-0.1.0.tgz#187e4ce67536971bdcf13bd3f6f4bdd8962a302a"
+  integrity sha512-BP9F5VACQueW/PClvXg1N7NNcsSXNOzW87CDuAe4HzO1H6rBmT13i18HdX7JjHdBLQvwi+vy/yLt4Viejr4Rug==
   dependencies:
     "@backstage/cli-common" "^0.1.12"
-    "@backstage/config" "^1.0.7"
-    "@backstage/config-loader" "^1.1.9"
     "@backstage/errors" "^1.1.5"
-    "@backstage/eslint-plugin" "^0.1.2"
+    "@backstage/types" "^1.0.2"
+    "@manypkg/get-packages" "^1.1.3"
+    "@yarnpkg/parsers" "^3.0.0-rc.4"
+    fs-extra "10.1.0"
+    semver "^7.3.2"
+    zod "^3.21.4"
+
+"@backstage/cli@^0.22.6":
+  version "0.22.6"
+  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.22.6.tgz#27b49ec71ba3ef5e12cd763831b7552073fd80cd"
+  integrity sha512-lePOHi2vPmT0lZJjsypYrXXnM9GBJUx5x3zWXCHalLaIX9yWvTscLe+wwwjzp/PZfunk6Pil5dlpMzYjUViIGQ==
+  dependencies:
+    "@backstage/cli-common" "^0.1.12"
+    "@backstage/cli-node" "^0.1.0"
+    "@backstage/config" "^1.0.7"
+    "@backstage/config-loader" "^1.2.0"
+    "@backstage/errors" "^1.1.5"
+    "@backstage/eslint-plugin" "^0.1.3"
     "@backstage/release-manifests" "^0.0.9"
     "@backstage/types" "^1.0.2"
     "@esbuild-kit/cjs-loader" "^2.4.1"
     "@manypkg/get-packages" "^1.1.3"
+    "@octokit/oauth-app" "^4.2.0"
     "@octokit/request" "^6.0.0"
     "@pmmmwh/react-refresh-webpack-plugin" "^0.5.7"
     "@rollup/plugin-commonjs" "^23.0.0"
@@ -2489,12 +2505,13 @@
     "@spotify/eslint-config-react" "^14.0.0"
     "@spotify/eslint-config-typescript" "^14.0.0"
     "@sucrase/webpack-loader" "^2.0.0"
+    "@svgr/core" "6.5.x"
     "@svgr/plugin-jsx" "6.5.x"
     "@svgr/plugin-svgo" "6.5.x"
     "@svgr/rollup" "6.5.x"
     "@svgr/webpack" "6.5.x"
-    "@swc/core" "^1.3.9"
-    "@swc/helpers" "^0.4.7"
+    "@swc/core" "^1.3.46"
+    "@swc/helpers" "^0.5.0"
     "@swc/jest" "^0.2.22"
     "@types/jest" "^29.0.0"
     "@types/webpack-env" "^1.15.2"
@@ -2567,12 +2584,33 @@
     yaml "^2.0.0"
     yml-loader "^2.1.0"
     yn "^4.0.0"
-    zod "~3.18.0"
+    zod "^3.21.4"
 
 "@backstage/config-loader@^1.1.9":
   version "1.1.9"
   resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-1.1.9.tgz#4fb327b5adc52ba7569ac68defc22f02eafad7c5"
   integrity sha512-cqC9B1c7h1dvE/xXmE6U4s2FvfPI+kHS2daS7a+sIx3fnEuZQLbP63PGdMqvbOXF3dd+tX1JTYg6cunsDYzIRg==
+  dependencies:
+    "@backstage/cli-common" "^0.1.12"
+    "@backstage/config" "^1.0.7"
+    "@backstage/errors" "^1.1.5"
+    "@backstage/types" "^1.0.2"
+    "@types/json-schema" "^7.0.6"
+    ajv "^8.10.0"
+    chokidar "^3.5.2"
+    fs-extra "10.1.0"
+    json-schema "^0.4.0"
+    json-schema-merge-allof "^0.8.1"
+    json-schema-traverse "^1.0.0"
+    node-fetch "^2.6.7"
+    typescript-json-schema "^0.55.0"
+    yaml "^2.0.0"
+    yup "^0.32.9"
+
+"@backstage/config-loader@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-1.2.0.tgz#bfce0d76f910db8e4ce4fd90c4060b80d7e93ef5"
+  integrity sha512-V7WnumwiALYLozQzCLToABnj7Rl2hc5JE5W7+8X8TxgrbNwwCUbYHqh+ojIz+YCG0+bgUfV5FWkpaBF8I7Z7nQ==
   dependencies:
     "@backstage/cli-common" "^0.1.12"
     "@backstage/config" "^1.0.7"
@@ -2677,10 +2715,10 @@
     cross-fetch "^3.1.5"
     serialize-error "^8.0.1"
 
-"@backstage/eslint-plugin@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@backstage/eslint-plugin/-/eslint-plugin-0.1.2.tgz#dbf9e2d2d113433b7b442ba43a1ef3d0056042b9"
-  integrity sha512-C+lkQvb/QSHBbXeSCUXZgV35VquhFItFyS1DIzJogC7EIDrlxOldLodCVXUWhOOEyqaVzPUhgVfUAkpfjtt9ww==
+"@backstage/eslint-plugin@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@backstage/eslint-plugin/-/eslint-plugin-0.1.3.tgz#f4f7cca89f0068db14166e275076c71d07b5f37d"
+  integrity sha512-Owj7PXHMA2jROdJGsKwoQGRRyHhuhWm4Vja5TXULFa0BQfqT/gWDg8fMyv8VonX9SL1/f/4O498OsgR8tQ5Qcg==
   dependencies:
     "@manypkg/get-packages" "^1.1.3"
     minimatch "^5.1.2"
@@ -5516,7 +5554,7 @@
     "@octokit/types" "^9.0.0"
     universal-user-agent "^6.0.0"
 
-"@octokit/oauth-app@^4.0.6", "@octokit/oauth-app@^4.0.7":
+"@octokit/oauth-app@^4.0.6", "@octokit/oauth-app@^4.0.7", "@octokit/oauth-app@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@octokit/oauth-app/-/oauth-app-4.2.0.tgz#f965496b1d957c3ff0275a5d5233b380181ce72b"
   integrity sha512-gyGclT77RQMkVUEW3YBeAKY+LBSc5u3eC9Wn/Uwt3WhuKuu9mrV18EnNpDqmeNll+mdV02yyBROU29Tlili6gg==
@@ -6117,7 +6155,7 @@
     "@svgr/babel-plugin-transform-react-native-svg" "^6.5.1"
     "@svgr/babel-plugin-transform-svg-component" "^6.5.1"
 
-"@svgr/core@^6.5.1":
+"@svgr/core@6.5.x", "@svgr/core@^6.5.1":
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/@svgr/core/-/core-6.5.1.tgz#d3e8aa9dbe3fbd747f9ee4282c1c77a27410488a"
   integrity sha512-/xdLSWxK5QkqG524ONSjvg3V/FkNyCv538OIBdQqPNaAta3AsXj/Bd2FbvR87yMbXO2hFSWiAe/Q6IkVPDw+mw==
@@ -6527,7 +6565,7 @@
   resolved "https://registry.yarnpkg.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.3.51.tgz#7863dc645e149b92df85ce6fa872bee44a24f540"
   integrity sha512-dTKAdSd0e2Sfz3Sl3m6RGLQbk6jdSIh8TlFomF4iiHDHq4PxLTzjaOVvKUAP5wux9DtBnAgZeSHMuQfM4aL9oA==
 
-"@swc/core@^1.3.9":
+"@swc/core@^1.3.46":
   version "1.3.51"
   resolved "https://registry.yarnpkg.com/@swc/core/-/core-1.3.51.tgz#612de4c9be8d7237f74521ed9044db6b540c5e26"
   integrity sha512-/fdKlrs2NacLeOKrVZjCPfw5GeUIyBcJg0GDBn0+qwC3Y6k85m4aswK1sfRDF3nzyeXXoBr7YBb+/cSdFq9pVw==
@@ -6543,10 +6581,10 @@
     "@swc/core-win32-ia32-msvc" "1.3.51"
     "@swc/core-win32-x64-msvc" "1.3.51"
 
-"@swc/helpers@^0.4.7":
-  version "0.4.14"
-  resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.4.14.tgz#1352ac6d95e3617ccb7c1498ff019654f1e12a74"
-  integrity sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==
+"@swc/helpers@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.5.0.tgz#bf1d807b60f7290d0ec763feea7ccdeda06e85f1"
+  integrity sha512-SjY/p4MmECVVEWspzSRpQEM3sjR17sP8PbGxELWrT+YZMBfiUyt1MRUNjMV23zohwlG2HYtCQOsCwsTHguXkyg==
   dependencies:
     tslib "^2.4.0"
 
@@ -22425,6 +22463,11 @@ zod-to-json-schema@~3.18.0:
   version "3.18.2"
   resolved "https://registry.yarnpkg.com/zod-to-json-schema/-/zod-to-json-schema-3.18.2.tgz#ce540062c6b57e5cc170aae57dad5eeb76d64f7b"
   integrity sha512-Vv1emSad6nJGRJUD/cdVxSgxtT3PnaUiHHZ+PxDU5vx+klM9eDekuIj6lO+tZTbATK+6ktJfY2C+WXn2mMX3Jw==
+
+zod@^3.21.4:
+  version "3.21.4"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.21.4.tgz#10882231d992519f0a10b5dd58a38c9dabbb64db"
+  integrity sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==
 
 zod@~3.18.0:
   version "3.18.0"
