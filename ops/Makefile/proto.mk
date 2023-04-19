@@ -43,6 +43,11 @@ proto-generate: ## Generate proto-files
 		--config=ops/proto/billing/buf.yaml
 
 	@buf generate \
+		--path=internal/services/referral/domain \
+		--template=ops/proto/referral/buf.gen.yaml \
+		--config=ops/proto/referral/buf.yaml
+
+	@buf generate \
 		--path=internal/pkg/eventsourcing/v1 \
 		--template=ops/proto/eventsourcing/buf.gen.yaml \
 		--config=ops/proto/eventsourcing/buf.yaml

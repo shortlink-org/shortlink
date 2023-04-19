@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package domain.referral.v1;
+
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+
+enum ReferralEvent {
+  REFERRAL_EVENT_UNSPECIFIED = 0;
+
+  REFERRAL_EVENT_ADD = 1;
+  REFERRAL_EVENT_GET = 2;
+  REFERRAL_EVENT_LIST = 3;
+  REFERRAL_EVENT_UPDATE = 4;
+  REFERRAL_EVENT_DELETE = 5;
+}
+
+message Referral {
+  // Identifier of the referral
+  string id = 1;
+  // Name of the referral
+  string name = 2;
+
+  // Create at
+  google.protobuf.Timestamp created_at = 3;
+  // Update at
+  google.protobuf.Timestamp updated_at = 4;
+
+  google.protobuf.FieldMask field_mask = 5;
+}
+
+message Referrals {
+  repeated Referral referrals = 1;
+}
