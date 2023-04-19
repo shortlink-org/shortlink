@@ -6,7 +6,7 @@ import (
 	"runtime"
 
 	"github.com/pyroscope-io/client/pyroscope"
-	_ "github.com/pyroscope-io/godeltaprof/http/pprof"
+	pypprof "github.com/pyroscope-io/godeltaprof/http/pprof"
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -25,6 +25,9 @@ func New(log logger.Logger) (PprofEndpoint, error) {
 	pprofMux.HandleFunc("/debug/pprof/profile", pprof.Profile)
 	pprofMux.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
 	pprofMux.HandleFunc("/debug/pprof/trace", pprof.Trace)
+	pprofMux.HandleFunc("/debug/pprof/delta_heap", pypprof.Heap)
+	pprofMux.HandleFunc("/debug/pprof/delta_block", pypprof.Block)
+	pprofMux.HandleFunc("/debug/pprof/delta_mutex", pypprof.Mutex)
 
 	go func() {
 		err := http.ListenAndServe("0.0.0.0:7071", pprofMux)
