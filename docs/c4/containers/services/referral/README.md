@@ -3,4 +3,5 @@
 
 !include services/referral/ext.puml
 !include services/referral/service.puml
+!include services/referral/db.puml
 ```

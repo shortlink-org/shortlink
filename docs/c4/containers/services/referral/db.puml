@@ -1,0 +1,2 @@
+ContainerDb(referral_db, "Database", "Postgre SQL", "Referral", $sprite="postgresql")
+Rel(referral, referral_db, "Read / Write", "Sync, TCP")
