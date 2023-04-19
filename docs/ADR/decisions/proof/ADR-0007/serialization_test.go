@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/bytedance/sonic"
 	"github.com/google/uuid"
 	enc "github.com/segmentio/encoding/json"
 )
@@ -44,6 +45,19 @@ func BenchmarkMarshalSegmentio(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		_, err := enc.Marshal(payload)
+		if err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
+// simple benchmark sonic serialization
+func BenchmarkMarshalSonic(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		_, err := sonic.Marshal(payload)
 		if err != nil {
 			b.Fatal(err)
 		}
