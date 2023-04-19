@@ -46,6 +46,7 @@ require (
 	github.com/prometheus/client_model v0.3.0
 	github.com/pterm/pterm v0.12.59
 	github.com/pyroscope-io/client v0.7.0
+	github.com/pyroscope-io/godeltaprof v0.1.0
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.0
 	github.com/redis/go-redis/extra/redisotel/v9 v9.0.2
@@ -206,7 +207,6 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/common v0.42.0 // indirect
 	github.com/prometheus/procfs v0.9.0 // indirect
-	github.com/pyroscope-io/godeltaprof v0.1.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/redis/go-redis/extra/rediscmd/v9 v9.0.2 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect

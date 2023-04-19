@@ -77,25 +77,4 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (trace.TracerProvi
 	})
 
 	return tp, cleanup, nil
-
-	// cfg := &config.Configuration{
-	// 	RPCMetrics:  true,
-	// 	Sampler: &config.SamplerConfig{
-	// 		Type:  "const",
-	// 		Param: 1,
-	// 	},
-	// 	Reporter: &config.ReporterConfig{
-	// 		LogSpans:           false,
-	// 		LocalAgentHostPort: cnf.URI,
-	// 	},
-	// }
-	// zapLogger, ok := log.Get().(*zap.Logger)
-	// if !ok {
-	// 	return nil, nil, errors.New("incorrect type assertion")
-	// }
-	//
-	// tracer, closer, err := cfg.NewTracer(config.Logger(zapJaeger.NewLogger(zapLogger)))
-	// if err != nil {
-	// 	return nil, nil, err
-	// }
 }

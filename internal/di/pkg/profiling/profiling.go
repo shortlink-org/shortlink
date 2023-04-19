@@ -6,6 +6,7 @@ import (
 	"runtime"
 
 	"github.com/pyroscope-io/client/pyroscope"
+	_ "github.com/pyroscope-io/godeltaprof/http/pprof"
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
