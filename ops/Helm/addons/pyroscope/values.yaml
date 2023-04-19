@@ -30,7 +30,7 @@ pyroscope:
       memory: 64Mi
 
 pyroscope-ebpf:
-  enabled: true
+  enabled: false
 
   args:
     - "ebpf"
