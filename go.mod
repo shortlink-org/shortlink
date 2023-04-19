@@ -46,7 +46,7 @@ require (
 	github.com/prometheus/client_model v0.3.0
 	github.com/pterm/pterm v0.12.59
 	github.com/pyroscope-io/client v0.7.0
-	github.com/pyroscope-io/godeltaprof v0.1.0
+	github.com/pyroscope-io/godeltaprof v0.1.1
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.0
 	github.com/redis/go-redis/extra/redisotel/v9 v9.0.2
