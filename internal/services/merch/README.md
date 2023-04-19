@@ -72,16 +72,16 @@ Lay_U(domain_layer, infrastructure_layer)
 
 !include actors/customer.puml
 
-rectangle Basket {
+rectangle "Basket CRUD" {
   usecase (UC-1 Add item to basket) as UC1
   usecase (UC-2 Remove item from basket) as UC2
   usecase (UC-3 Update item quantity in basket) as UC3
   usecase (UC-4 View items in basket) as UC4
   
-  url of UC1 is [[./usecases/UC-1.md]]
-  url of UC2 is [[./usecases/UC-2.md]]
-  url of UC3 is [[./usecases/UC-3.md]]
-  url of UC4 is [[./usecases/UC-4.md]]
+  url of UC1 is [[./usecases/crud/UC-1.md]]
+  url of UC2 is [[./usecases/crud/UC-2.md]]
+  url of UC3 is [[./usecases/crud/UC-3.md]]
+  url of UC4 is [[./usecases/crud/UC-4.md]]
 }
 
 customer --> UC1
@@ -92,7 +92,8 @@ customer --> UC4
 
 **Use cases**:
 
-- [UC-1](./usecases/UC-1.md) - Add item to basket
-- [UC-2](./usecases/UC-2.md) - Remove item from basket
-- [UC-3](./usecases/UC-3.md) - Update item quantity in basket
-- [UC-4](./usecases/UC-4.md) - View items in basket
+- [UC-1](./usecases/crud_item/UC-1.md) - UC-1 CRUD Item
+- [UC-2](./usecases/crud_order/UC-2.md) - UC-2 CRUD Order
+- [UC-3](./usecases/use_basket/UC-3.md) - UC-3 Use basket
+- [UC-4](./usecases/delivery_order_to_customer/UC-4.md) - UC-4 Delivery order to customer
+

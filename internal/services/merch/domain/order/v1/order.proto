@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package domain.order.v1;
+
+import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+
+import "domain/item/v1/item.proto";
+
+enum OrderEvent {
+  ORDER_EVENT_UNSPECIFIED = 0;
+
+  ORDER_EVENT_ADD = 1;
+  ORDER_EVENT_GET = 2;
+  ORDER_EVENT_LIST = 3;
+  ORDER_EVENT_UPDATE = 4;
+  ORDER_EVENT_DELETE = 5;
+}
+
+message Order {
+  string customer_id = 1;
+  Items items = 2;
+}
+
+message Orders {
+  repeated Order orders = 1;
+}
