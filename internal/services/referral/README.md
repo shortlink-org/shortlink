@@ -48,8 +48,8 @@ manager --> UC1
 
 **Use cases**:
 
-- [UC-1](./application/crud_referral/README.md) - CRUD referral
-- [UC-2](./application/use_referral/README.md) - Use referral
+- [UC-1](./usecases/crud_referral/README.md) - CRUD referral
+- [UC-2](./usecases/use_referral/README.md) - Use referral
 
 ### Getting Started
 
