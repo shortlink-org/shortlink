@@ -6,14 +6,14 @@ from usecases.crud_referral.crud import CRUDReferralService
 from usecases.use_referral.use import UseReferralService
 
 from infrastructure.repository.redis import Repository
-from di.logger.logger import logger
+from di.logger.logger import LoguruJsonProvider
+
 
 class Core(containers.DeclarativeContainer):
   config = providers.Configuration("config")
 
-  logger = providers.Resource(
-    logger,
-  )
+  logger = LoguruJsonProvider()
+
 
 class Application(containers.DeclarativeContainer):
   config = providers.Configuration()
