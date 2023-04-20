@@ -1,3 +1,13 @@
-Flask==2.2.3
+dependency-injector
+fastapi
+uvicorn
+aioredis
 opentelemetry-api==1.17.0
+protobuf
 setuptools>=67.6.1 # not directly required, pinned by Snyk to avoid a vulnerability
+
+# For testing:
+pytest
+pytest-asyncio
+pytest-cov
+httpx

@@ -17,6 +17,8 @@ Use referral:
 graph LR
     style Customer fill:#f1c232
     style Referral fill:#9dcc7a
+    style Email fill:#f5f5f5
 
     Customer -- uses --> Referral
+    Customer -- read --> Email -- uses --> Referral
 ```
