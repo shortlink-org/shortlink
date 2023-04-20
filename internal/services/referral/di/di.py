@@ -20,7 +20,7 @@ class Application(containers.DeclarativeContainer):
 
   redis = providers.Singleton(
     Repository,
-    host=config.redis_host,
+    host="localhost",
   )
 
   core = providers.Container(
