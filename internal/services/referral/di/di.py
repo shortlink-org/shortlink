@@ -32,10 +32,10 @@ class Application(containers.DeclarativeContainer):
 
   referral_service = providers.Factory(
     CRUDReferralService,
-    redis=redis,
+    repository=redis,
   )
 
   use_service = providers.Factory(
     UseReferralService,
-    redis=redis,
+    repository=redis,
   )

@@ -6,6 +6,7 @@ from redis.exceptions import (
    ConnectionError,
    TimeoutError
 )
+from google.protobuf.json_format import MessageToJson
 
 from domain.referral.v1.referral_pb2 import Referral, Referrals
 from .repository import AbstractRepository
@@ -20,17 +21,24 @@ class Repository(AbstractRepository):
     # ping to check if redis is up
     self._redis.ping()
 
-  def add(self, referral: Referral):
-    pass
+  async def add(self, referral: Referral):
+    await self._redis.set(referral.id, MessageToJson(referral))
 
-  def get(self, referral_id: str) -> Referral:
-    pass
+  async def get(self, referral_id: str) -> Referral:
+    referral = Referral()
+    referral.ParseFromString(await self._redis.get(referral_id))
+    return referral
 
-  def update(self, referral: Referral):
-    pass
+  async def update(self, referral: Referral):
+    await self._redis.set(referral.id, MessageToJson(referral))
 
-  def delete(self, referral_id: str):
-    pass
+  async def delete(self, referral_id: str):
+    await self._redis.delete(referral_id)
 
-  def list(self) -> Referrals:
-    pass
+  async def list(self) -> Referrals:
+    referrals = Referrals()
+    for referral_id in await self._redis.keys():
+      referral = Referral()
+      referral.ParseFromString(await self._redis.get(referral_id))
+      referrals.referrals.append(referral)
+    return referrals

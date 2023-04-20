@@ -1,33 +1,25 @@
 """CRUD Referral use case."""
 
-import redis
 from google.protobuf.json_format import MessageToJson
 
-from domain.referral.v1.referral_pb2 import Referral as ReferralModel, Referrals as ReferralsModel
+from infrastructure.repository.referral.repository import AbstractRepository
+from domain.referral.v1.referral_pb2 import Referral, Referrals
 
-class CRUDReferralService:
-  def __init__(self, redis: redis) -> None:
-    self._redis = redis
+class CRUDReferralService(AbstractRepository):
+  def __init__(self, repository: AbstractRepository) -> None:
+    self._repository = repository
 
-  async def create(self, referral: ReferralModel) -> ReferralModel:
-    await self._redis.set(referral.id, MessageToJson(referral))
+  async def add(self, referral: Referral) -> Referral:
+    await self._repository.add(referral)
 
-  async def get(self, referral_id: str) -> ReferralModel:
-    referral = ReferralModel()
-    referral.ParseFromString(await self._redis.get(referral_id))
-    return referral
+  async def get(self, referral_id: str) -> Referral:
+    await self._repository.get(referral_id)
 
-  async def update(self, referral: ReferralModel) -> ReferralModel:
-    await self._redis.set(referral.id, MessageToJson(referral))
+  async def update(self, referral: Referral) -> Referral:
+    await self._repository.update(referral)
 
   async def delete(self, referral_id: str) -> None:
-    await self._redis.delete(referral_id)
+    await self._repository.delete(referral_id)
 
-  async def list(self, limit: int, offset: int) -> ReferralsModel:
-    referrals = ReferralsModel()
-    for referral_id in await self._redis.keys():
-      referral = ReferralModel()
-      referral.ParseFromString(await self._redis.get(referral_id))
-      referrals.referrals.append(referral)
-    return referrals
-
+  async def list(self) -> Referrals:
+    await self._repository.list()
