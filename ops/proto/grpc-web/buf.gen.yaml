@@ -4,11 +4,11 @@ managed:
   enabled: true
 
 plugins:
-  - name: go
+  - plugin: buf.build/protocolbuffers/go
     out: internal/services/api/application
     opt: paths=source_relative
 
-  - name: go-grpc
+  - plugin: buf.build/grpc/go
     out: internal/services/api/application
     opt: paths=source_relative,require_unimplemented_servers=false
 
