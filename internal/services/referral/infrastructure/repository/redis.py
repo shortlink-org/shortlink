@@ -1,8 +1,7 @@
-from typing import AsyncIterator
-from aioredis import from_url, Redis
+import redis as Redis
 
-async def init_redis_pool(host: str, password: str) -> AsyncIterator[Redis]:
-    session = from_url(f"redis://{host}", password=password, encoding="utf-8", decode_responses=True)
-    yield session
-    session.close()
-    await session.wait_closed()
+class Repository:
+  def __init__(self, host: str):
+    pool = Redis.ConnectionPool(host=host, port=6379, db=0)
+    self._redis = Redis.Redis(connection_pool=pool)
+

@@ -1,9 +1,10 @@
 dependency-injector
 fastapi
 uvicorn
-aioredis
+redis
 opentelemetry-api==1.17.0
 protobuf
+loguru
 setuptools>=67.6.1 # not directly required, pinned by Snyk to avoid a vulnerability
 
 # For testing:

@@ -2,18 +2,22 @@
 
 import sys
 
+from fastapi import FastAPI, Depends
 from dependency_injector.wiring import Provide, inject
 
 from usecases.crud_referral.crud import CRUDReferralService
 from usecases.use_referral.use import UseReferralService
-from di.di import Container
+from di.logger.logger import logger
+from di.di import Application
 
 @inject
 def main(
-  referral_service: CRUDReferralService = Provide[Container.referral_service],
-  use_service: UseReferralService = Provide[Container.use_service],
+  logger: logger = Provide[Application.core.logger],
+  referral_service: CRUDReferralService = Provide[Application.referral_service],
+  use_service: UseReferralService = Provide[Application.use_service],
 ) -> None:
-  print(referral_service)
+  # logger.info("Starting application")
+  ...
 
 # from flask import Flask
 # from opentelemetry import metrics
@@ -33,10 +37,11 @@ def main(
 #         # Return a response
 #         return "Hello, world!"
 
+app = FastAPI()
 
 if __name__ == '__main__':
-  container = Container()
-  container.init_resources()
-  container.wire(modules=[__name__])
+  application = Application()
+  application.init_resources()
+  application.wire(modules=[__name__])
 
   main(*sys.argv[1:])
