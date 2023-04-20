@@ -9,3 +9,6 @@ plugins:
 
   - plugin: buf.build/protocolbuffers/python
     out: internal/services/referral
+
+  - plugin: buf.build/protocolbuffers/pyi
+    out: internal/services/referral

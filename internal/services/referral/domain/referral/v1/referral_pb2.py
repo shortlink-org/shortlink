@@ -15,7 +15,7 @@ from google.protobuf import field_mask_pb2 as google_dot_protobuf_dot_field__mas
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!domain/referral/v1/referral.proto\x12\x12\x64omain.referral.v1\x1a google/protobuf/field_mask.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xdf\x01\n\x08Referral\x12\x0e\n\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n\x04name\x18\x02 \x01(\tR\x04name\x12\x39\n\ncreated_at\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\tcreatedAt\x12\x39\n\nupdated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\tupdatedAt\x12\x39\n\nfield_mask\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.FieldMaskR\tfieldMask\"G\n\tReferrals\x12:\n\treferrals\x18\x01 \x03(\x0b\x32\x1c.domain.referral.v1.ReferralR\treferrals*\xae\x01\n\rReferralEvent\x12\x1e\n\x1aREFERRAL_EVENT_UNSPECIFIED\x10\x00\x12\x16\n\x12REFERRAL_EVENT_ADD\x10\x01\x12\x16\n\x12REFERRAL_EVENT_GET\x10\x02\x12\x17\n\x13REFERRAL_EVENT_LIST\x10\x03\x12\x19\n\x15REFERRAL_EVENT_UPDATE\x10\x04\x12\x19\n\x15REFERRAL_EVENT_DELETE\x10\x05\x42\x91\x01\n\x16\x63om.domain.referral.v1B\rReferralProtoP\x01\xa2\x02\x03\x44RX\xaa\x02\x12\x44omain.Referral.V1\xca\x02\x12\x44omain\\Referral\\V1\xe2\x02\x1e\x44omain\\Referral\\V1\\GPBMetadata\xea\x02\x14\x44omain::Referral::V1b\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n!domain/referral/v1/referral.proto\x12\x12\x64omain.referral.v1\x1a google/protobuf/field_mask.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xf8\x01\n\x08Referral\x12\x0e\n\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n\x04name\x18\x02 \x01(\tR\x04name\x12\x17\n\x07user_id\x18\x03 \x01(\tR\x06userId\x12\x39\n\ncreated_at\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\tcreatedAt\x12\x39\n\nupdated_at\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.TimestampR\tupdatedAt\x12\x39\n\nfield_mask\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.FieldMaskR\tfieldMask\"G\n\tReferrals\x12:\n\treferrals\x18\x01 \x03(\x0b\x32\x1c.domain.referral.v1.ReferralR\treferrals*\xae\x01\n\rReferralEvent\x12\x1e\n\x1aREFERRAL_EVENT_UNSPECIFIED\x10\x00\x12\x16\n\x12REFERRAL_EVENT_ADD\x10\x01\x12\x16\n\x12REFERRAL_EVENT_GET\x10\x02\x12\x17\n\x13REFERRAL_EVENT_LIST\x10\x03\x12\x19\n\x15REFERRAL_EVENT_UPDATE\x10\x04\x12\x19\n\x15REFERRAL_EVENT_DELETE\x10\x05\x42\x91\x01\n\x16\x63om.domain.referral.v1B\rReferralProtoP\x01\xa2\x02\x03\x44RX\xaa\x02\x12\x44omain.Referral.V1\xca\x02\x12\x44omain\\Referral\\V1\xe2\x02\x1e\x44omain\\Referral\\V1\\GPBMetadata\xea\x02\x14\x44omain::Referral::V1b\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -24,10 +24,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n\026com.domain.referral.v1B\rReferralProtoP\001\242\002\003DRX\252\002\022Domain.Referral.V1\312\002\022Domain\\Referral\\V1\342\002\036Domain\\Referral\\V1\\GPBMetadata\352\002\024Domain::Referral::V1'
-  _globals['_REFERRALEVENT']._serialized_start=424
-  _globals['_REFERRALEVENT']._serialized_end=598
+  _globals['_REFERRALEVENT']._serialized_start=449
+  _globals['_REFERRALEVENT']._serialized_end=623
   _globals['_REFERRAL']._serialized_start=125
-  _globals['_REFERRAL']._serialized_end=348
-  _globals['_REFERRALS']._serialized_start=350
-  _globals['_REFERRALS']._serialized_end=421
+  _globals['_REFERRAL']._serialized_end=373
+  _globals['_REFERRALS']._serialized_start=375
+  _globals['_REFERRALS']._serialized_end=446
 # @@protoc_insertion_point(module_scope)
