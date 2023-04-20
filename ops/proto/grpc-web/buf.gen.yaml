@@ -12,10 +12,10 @@ plugins:
     out: internal/services/api/application
     opt: paths=source_relative,require_unimplemented_servers=false
 
-  - name: grpc-gateway
+  - plugin: buf.build/grpc-ecosystem/gateway
     out: internal/services/api/application
     opt: paths=source_relative,logtostderr=true,allow_delete_body=true
 
-  - name: openapiv2
+  - plugin: buf.build/grpc-ecosystem/openapiv2
     out: internal/services/api/docs
     opt: logtostderr=true
