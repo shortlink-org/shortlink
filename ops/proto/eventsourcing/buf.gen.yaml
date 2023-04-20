@@ -4,10 +4,10 @@ managed:
   enabled: true
 
 plugins:
-  - name: go
+  - plugin: buf.build/protocolbuffers/go
     out: internal/pkg
     opt: paths=source_relative
 
-  - name: go-grpc
+  - plugin: buf.build/grpc/go
     out: internal/pkg
     opt: paths=source_relative
