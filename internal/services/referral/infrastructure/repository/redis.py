@@ -1,7 +1,19 @@
-import redis as Redis
+from redis.backoff import ExponentialBackoff
+from redis.retry import Retry
+from redis.client import Redis
+from redis.exceptions import (
+   BusyLoadingError,
+   ConnectionError,
+   TimeoutError
+)
 
 class Repository:
   def __init__(self, host: str):
-    pool = Redis.ConnectionPool(host=host, port=6379, db=0)
-    self._redis = Redis.Redis(connection_pool=pool)
+    # Run 3 retries with exponential backoff strategy
+    retry = Retry(ExponentialBackoff(), 3)
+
+    self._redis = Redis(host=host, port=6379, retry=retry, retry_on_error=[BusyLoadingError, ConnectionError, TimeoutError])
+
+    # ping to check if redis is up
+    self._redis.ping()
 

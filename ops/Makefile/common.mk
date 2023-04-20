@@ -2,11 +2,7 @@
 dep: ## Install dependencies for this project
 	# install protoc addons
 	@go install github.com/swaggo/swag/cmd/swag@latest
-	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 	@go install github.com/srikrsna/protoc-gen-gotag@latest
-	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
-	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 	@go install moul.io/protoc-gen-gotemplate@latest
 	@go install github.com/cloudflare/cfssl/cmd/...@latest
 	@go install golang.org/x/tools/cmd/goimports@latest
@@ -26,12 +22,7 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/database/postgres/postgres.yaml \
 		-f ops/docker-compose/database/redis/redis.yaml \
-		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
-		-f ops/docker-compose/application/auth/hydra/hydra.yaml \
-		-f ops/docker-compose/application/auth/keto/keto.yaml \
-		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 		up -d --remove-orphans --build
 
