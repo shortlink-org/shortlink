@@ -2,10 +2,14 @@ dependency-injector
 fastapi
 uvicorn
 redis
-opentelemetry-api==1.17.0
 protobuf
 loguru
 setuptools>=67.7.0 # not directly required, pinned by Snyk to avoid a vulnerability
+
+# Opentelemetry
+opentelemetry-api==1.17.0
+opentelemetry-sdk
+opentelemetry-exporter-otlp
 
 # For testing:
 pytest

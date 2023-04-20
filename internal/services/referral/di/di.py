@@ -7,12 +7,14 @@ from usecases.use_referral.use import UseReferralService
 
 from infrastructure.repository.redis import Repository
 from di.logger.logger import LoguruJsonProvider
+from di.opentelemetry.opentelemetry import OpenTelemetryProvider
 
 
 class Core(containers.DeclarativeContainer):
   config = providers.Configuration("config")
 
   logger = LoguruJsonProvider()
+  tracer = OpenTelemetryProvider()
 
 
 class Application(containers.DeclarativeContainer):
