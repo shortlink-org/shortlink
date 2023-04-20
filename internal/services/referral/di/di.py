@@ -5,7 +5,7 @@ from dependency_injector import containers, providers
 from usecases.crud_referral.crud import CRUDReferralService
 from usecases.use_referral.use import UseReferralService
 
-from infrastructure.repository.redis import Repository
+from infrastructure.repository.referral.redis import Repository
 from di.logger.logger import LoguruJsonProvider
 from di.opentelemetry.opentelemetry import OpenTelemetryProvider
 
