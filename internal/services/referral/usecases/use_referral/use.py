@@ -2,7 +2,15 @@
 
 from domain.referral.v1.referral_pb2 import Referral as ReferralModel
 
-class UseReferralService:
-  def __init__(self) -> None: ...
+import redis
 
-  def use(self, referral_id: int) -> None: ...
+class UseReferralService:
+  def __init__(self, redis: redis) -> None:
+    self._redis = redis
+
+  async def use(self, referral_id: int) -> ReferralModel:
+    referral = ReferralModel()
+    referral.ParseFromString(await self._redis.get(referral_id))
+    await self._redis.set(referral.id, referral.SerializeToString())
+    return referral
+
