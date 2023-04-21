@@ -1,2 +1,2 @@
-ContainerDb(referral_db, "Database", "Postgre SQL", "Referral", $sprite="postgresql")
+ContainerDb(referral_db, "Database", "Redis", "Referral", $sprite="redis")
 Rel(referral, referral_db, "Read / Write", "Sync, TCP")
