@@ -12,7 +12,9 @@ def register_routes(app, referral_service: CRUDReferralService, use_service: Use
 
     @app.route("/", methods=["GET"])
     def list() -> Referrals:
-        return referral_service.list()
+        referrals = Referrals()
+        referrals.referrals.extend(referral_service.list())
+        return MessageToJson(referrals)
 
     @app.route("/<id>", methods=["GET"])
     async def get(id: str) -> Referral:
