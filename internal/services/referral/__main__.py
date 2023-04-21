@@ -3,17 +3,17 @@
 import sys
 
 from dependency_injector.wiring import Provide, inject
-from quart import Quart
 
 from usecases.crud_referral.crud import CRUDReferralService
 from usecases.use_referral.use import UseReferralService
 from di.logger.logger import LoguruJsonProvider
-from di.di import Application, Core
+from di.di import Application
 from infrastructure.http.routes import register_routes
+from di.http.server import QuartProvider
 
 @inject
 def main(
-  app: Quart = Provide[Application.core.app],
+  app: QuartProvider = Provide[Application.core.app],
   logger: LoguruJsonProvider = Provide[Application.core.logger],
   referral_service: CRUDReferralService = Provide[Application.referral_service],
   use_service: UseReferralService = Provide[Application.use_service],
@@ -41,6 +41,6 @@ def main(
 if __name__ == '__main__':
   application = Application()
   application.init_resources()
-  application.wire(modules=[__name__, Core])
+  application.wire(modules=[__name__])
 
   main(*sys.argv[1:])
