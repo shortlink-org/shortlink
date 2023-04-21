@@ -8,6 +8,7 @@ from usecases.use_referral.use import UseReferralService
 from infrastructure.repository.referral.redis import Repository
 from di.logger.logger import LoguruJsonProvider
 from di.opentelemetry.opentelemetry import OpenTelemetryProvider
+from di.http.server import QuartProvider
 
 
 class Core(containers.DeclarativeContainer):
@@ -15,6 +16,7 @@ class Core(containers.DeclarativeContainer):
 
   logger = LoguruJsonProvider()
   tracer = OpenTelemetryProvider()
+  app = QuartProvider()
 
 
 class Application(containers.DeclarativeContainer):

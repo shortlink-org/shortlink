@@ -10,6 +10,7 @@ from google.protobuf.json_format import MessageToJson
 
 from domain.referral.v1.referral_pb2 import Referral, Referrals
 from .repository import AbstractRepository
+from usecases.crud_referral.error import ReferralNotFound
 
 class Repository(AbstractRepository):
   def __init__(self, host: str):
@@ -22,23 +23,29 @@ class Repository(AbstractRepository):
     self._redis.ping()
 
   async def add(self, referral: Referral):
-    await self._redis.set(referral.id, MessageToJson(referral))
+    self._redis.set(referral.id, MessageToJson(referral))
 
   async def get(self, referral_id: str) -> Referral:
+    payload = self._redis.get(referral_id)
+
+    if payload is None:
+      raise ReferralNotFound
+
     referral = Referral()
-    referral.ParseFromString(await self._redis.get(referral_id))
+    referral.ParseFromString(payload)
     return referral
 
   async def update(self, referral: Referral):
-    await self._redis.set(referral.id, MessageToJson(referral))
+    self._redis.set(referral.id, MessageToJson(referral))
 
   async def delete(self, referral_id: str):
-    await self._redis.delete(referral_id)
+    self._redis.delete(referral_id)
 
-  async def list(self) -> Referrals:
-    referrals = Referrals()
-    for referral_id in await self._redis.keys():
+  def list(self) -> Referrals:
+    referrals = Referrals
+    referrals.referrals = []
+    for referral_id in self._redis.keys():
       referral = Referral()
-      referral.ParseFromString(await self._redis.get(referral_id))
+      referral.ParseFromString(self._redis.get(referral_id))
       referrals.referrals.append(referral)
-    return referrals
+    return referrals.referrals

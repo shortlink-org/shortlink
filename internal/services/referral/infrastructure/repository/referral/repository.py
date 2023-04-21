@@ -17,7 +17,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def delete(self, referral_id: str):
+    def delete(self, referral_id: str) -> None:
         raise NotImplementedError
 
     @abc.abstractmethod
