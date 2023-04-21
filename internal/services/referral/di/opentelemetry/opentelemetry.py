@@ -3,6 +3,8 @@ from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+import pyroscope
+
 
 class OpenTelemetryProvider(providers.Provider):
     def _provide(self, *args, **kwargs):
@@ -12,5 +14,11 @@ class OpenTelemetryProvider(providers.Provider):
         otlp_exporter = OTLPSpanExporter()
         span_processor = BatchSpanProcessor(otlp_exporter)
         trace.get_tracer_provider().add_span_processor(span_processor)
+
+        # pyroscope
+        pyroscope.configure(
+            application_name="referral-service",
+            server_address="http://pyroscope.pyroscope:4040",
+        )
 
         return tracer

@@ -10,6 +10,7 @@ setuptools>=67.7.1 # not directly required, pinned by Snyk to avoid a vulnerabil
 opentelemetry-api==1.17.0
 opentelemetry-sdk
 opentelemetry-exporter-otlp
+pyroscope-io
 
 # For testing:
 pytest
