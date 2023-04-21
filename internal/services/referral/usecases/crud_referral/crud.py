@@ -1,4 +1,5 @@
 """CRUD Referral use case."""
+
 from typing import List
 
 from infrastructure.repository.referral.repository import AbstractRepository
