@@ -13,7 +13,7 @@ from google.protobuf.json_format import MessageToJson, ParseDict
 
 from domain.referral.v1.referral_pb2 import Referral
 from .repository import AbstractRepository
-from usecases.crud_referral.error import ReferralNotFound
+from domain.referral.v1.exception import ReferralNotFound
 
 class Repository(AbstractRepository):
   def __init__(self, host: str):
