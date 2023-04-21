@@ -1,7 +1,7 @@
 """HTTP endpoint for the infrastructure."""
 
-from quart import abort
-from google.protobuf.json_format import MessageToJson
+from quart import abort, request
+from google.protobuf.json_format import MessageToJson, ParseDict
 
 from usecases.crud_referral.crud import CRUDReferralService
 from usecases.use_referral.use import UseReferralService
@@ -17,22 +17,37 @@ def register_routes(app, referral_service: CRUDReferralService, use_service: Use
     @app.route("/<id>", methods=["GET"])
     async def get(id: str) -> Referral:
         try:
-          return await referral_service.get(id)
+          return MessageToJson(referral_service.get(id))
         except ReferralNotFound:
           abort(404)
+        else:
+          abort(500)
 
     @app.route("/", methods=["POST"])
-    async def add(referral: Referral) -> Referral:
-        return await referral_service.add(referral)
+    async def add() -> Referral:
+        data = await request.get_json()
+        referral = Referral()
+        ParseDict(data, referral)
+        return (MessageToJson(referral_service.add(referral)), 201)
 
-    # @app.route("/<id>", methods=["PUT"])
-    # async def update(id: str, referral: Referral) -> Referral:
-    #     return await referral_service.update(id, referral)
+    @app.route("/<id>", methods=["PUT"])
+    async def update(id: str) -> Referral:
+        data = await request.get_json()
+        referral = Referral()
+        ParseDict(data, referral)
+        referral.id = id
+        return MessageToJson(referral_service.update(referral))
 
     @app.route("/<id>", methods=["DELETE"])
-    async def delete(id: str) -> None:
-      return await referral_service.delete(id)
+    def delete(id: str):
+        referral_service.delete(id)
+        return ('', 204)
 
-    # @app.route("/use", methods=["POST"])
-    # async def use(referral: Referral) -> Referral:
-    #     return await use_service.use(referral)
+    @app.route("/use/<id>", methods=["GET"])
+    async def use(id: str) -> Referral:
+        try:
+          return MessageToJson(use_service.use(id))
+        except ReferralNotFound:
+          abort(404)
+        else:
+          abort(500)
