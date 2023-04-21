@@ -1,6 +1,6 @@
 import abc
 
-from domain.referral.v1.referral_pb2 import Referral, Referrals
+from domain.referral.v1.referral_pb2 import Referral
 
 
 class AbstractRepository(abc.ABC):
@@ -21,5 +21,5 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def list(self) -> Referrals:
+    def list(self) -> list[Referral]:
         raise NotImplementedError
