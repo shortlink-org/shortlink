@@ -1,9 +1,9 @@
 dependency-injector
-fastapi
 uvicorn
 redis
 protobuf
 loguru
+quart
 setuptools>=67.7.0 # not directly required, pinned by Snyk to avoid a vulnerability
 
 # Opentelemetry
