@@ -6,7 +6,7 @@ from google.protobuf.json_format import MessageToJson, ParseDict
 from usecases.crud_referral.crud import CRUDReferralService
 from usecases.use_referral.use import UseReferralService
 from domain.referral.v1.referral_pb2 import Referral, Referrals
-from usecases.crud_referral.error import ReferralNotFound
+from domain.referral.v1.exception import ReferralNotFound
 
 def register_routes(app, referral_service: CRUDReferralService, use_service: UseReferralService):
 
