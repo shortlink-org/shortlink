@@ -21,7 +21,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: cd ./ui/ui-kit
       - run: npm install -g npm
-      - run: npm ci --cache .npm --prefer-offline --force
+      - run: npm ci
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
