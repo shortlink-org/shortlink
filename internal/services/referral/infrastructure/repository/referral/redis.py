@@ -39,12 +39,12 @@ class Repository(AbstractRepository):
         return referral
 
     def update(self, referral: Referral) -> Referral:
-            self._redis.set(referral.id, MessageToJson(referral))
-            return referral
+        self._redis.set(referral.id, MessageToJson(referral))
+        return referral
 
     def delete(self, referral_id: str) -> None:
-            self._redis.delete(referral_id)
-            return
+        self._redis.delete(referral_id)
+        return
 
     def list(self) -> List[Referral]:
         referrals = []
