@@ -6,7 +6,7 @@ from domain.referral.v1.referral_pb2 import Referral
 
 class AbstractRepository(abc.ABC):
     @abc.abstractmethod
-    def add(self, referral: Referral):
+    def add(self, referral: Referral) -> Referral:
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -14,7 +14,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def update(self, referral: Referral):
+    def update(self, referral: Referral) -> Referral:
         raise NotImplementedError
 
     @abc.abstractmethod
