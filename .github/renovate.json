@@ -6,5 +6,8 @@
   "major": {
     "automerge": false
   },
-  "commitBody": "Signed-off-by: {{{gitAuthor}}}"
+  "commitBody": "Signed-off-by: {{{gitAuthor}}}",
+  "docker-compose": {
+    "fileMatch": ["ops/docker-compose/**/*\\.ya?ml$"]
+  }
 }
