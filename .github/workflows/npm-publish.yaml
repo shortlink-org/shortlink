@@ -1,8 +1,11 @@
 name: Publish Package to npmjs
 
 on:
-  release:
-    types: [created]
+  changes:
+    paths:
+      - 'ui/ui-kit/**'
+    branches:
+      - 'main'
 
 jobs:
   build:
