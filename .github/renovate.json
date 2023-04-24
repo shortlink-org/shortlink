@@ -12,6 +12,9 @@
     {
       "fileMatch": [
         "**/ops/docker-compose/*.yaml"
+      ],
+      "matchStrings": [
+        "image: (.*)"
       ]
     }
   ]
