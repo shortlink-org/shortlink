@@ -8,14 +8,12 @@
     "automerge": false
   },
   "commitBody": "Signed-off-by: {{{gitAuthor}}}",
-  "regexManagers": [
-    {
-      "fileMatch": [
-        "**/ops/docker-compose/*.yaml"
-      ],
-      "matchStrings": [
-        "image: (.*)"
-      ]
-    }
-  ]
+  "docker-compose": {
+    "fileMatch": [
+      "**/ops/docker-compose/*.yaml"
+    ],
+    "matchStrings": [
+      "image: (.*)"
+    ]
+  }
 }
