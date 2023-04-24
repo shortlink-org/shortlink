@@ -5,10 +5,10 @@ import (
 )
 
 type UnitOfWork[T any] interface {
-	RegisterNew(in T) error
-	RegisterDirty(in T) error
-	RegisterClean(in T) error
-	RegisterDeleted(in T) error
+	RegisterNew(in ...T) error
+	RegisterDirty(in ...T) error
+	RegisterClean(in ...T) error
+	RegisterDeleted(in ...T) error
 
 	Commit(ctx context.Context) error
 	Rollback(ctx context.Context) error
