@@ -1,8 +1,5 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "labels": [
-    "dependencies"
-  ],
   "extends": ["config:base"],
   "rangeStrategy": "bump",
   "baseBranches": ["main"],
@@ -10,8 +7,5 @@
   "major": {
     "automerge": false
   },
-  "commitBody": "Signed-off-by: {{{gitAuthor}}}",
-  "docker-compose": {
-    "fileMatch": ["ops/docker-compose/.+\\.yaml$"]
-  }
+  "commitBody": "Signed-off-by: {{{gitAuthor}}}"
 }
