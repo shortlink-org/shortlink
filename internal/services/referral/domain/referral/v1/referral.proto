@@ -5,6 +5,7 @@ package domain.referral.v1;
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
 
+// EVENTS ======================================================================
 enum ReferralEvent {
   REFERRAL_EVENT_UNSPECIFIED = 0;
 
@@ -15,6 +16,60 @@ enum ReferralEvent {
   REFERRAL_EVENT_DELETE = 5;
 }
 
+// COMMANDS ====================================================================
+enum ReferralCommand {
+  REFERRAL_COMMAND_UNSPECIFIED = 0;
+
+  REFERRAL_COMMAND_ADD = 1;
+  REFERRAL_COMMAND_UPDATE = 2;
+  REFERRAL_COMMAND_DELETE = 3;
+}
+
+// Add a referral to the system -----------------------------------------------
+message ReferralAddCommand {
+  // Name of the referral
+  string name = 1;
+  string user_id = 2;
+}
+
+// Update a referral in the system --------------------------------------------
+message ReferralUpdateCommand {
+  // Identifier of the referral
+  string id = 1;
+  // Name of the referral
+  string name = 2;
+  string user_id = 3;
+
+  google.protobuf.FieldMask field_mask = 4;
+}
+
+// Delete a referral from the system ------------------------------------------
+message ReferralDeleteCommand {
+  // Identifier of the referral
+  string id = 1;
+}
+
+// QUERIES =====================================================================
+enum ReferralQuery {
+  REFERRAL_QUERY_UNSPECIFIED = 0;
+
+  REFERRAL_QUERY_GET = 1;
+  REFERRAL_QUERY_LIST = 2;
+}
+
+// Get a referral from the system ---------------------------------------------
+message ReferralGetQuery {
+  // Identifier of the referral
+  string id = 1;
+}
+
+// List referrals from the system ---------------------------------------------
+message ReferralListQuery {
+  // Filter by user
+  string user_id = 1;
+}
+
+// ENTITIES ====================================================================
 message Referral {
   // Identifier of the referral
   string id = 1;
