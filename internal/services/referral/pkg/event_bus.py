@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Callable, List
+from typing import Callable
 
 
 class EventBus:
