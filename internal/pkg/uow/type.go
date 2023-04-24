@@ -23,20 +23,3 @@ type Query[T any] struct {
 	Modified []T
 	Deleted  []T
 }
-
-//
-//type useCase struct{}
-//
-//func (uc *useCase) Handle(ctx context.Context, uow UnitOfWork) error {
-//	if err := uow.Commit(ctx); err != nil {
-//		if err := uow.Rollback(ctx); err != nil {
-//			return err
-//		}
-//		return err
-//	}
-//	return nil
-//}
-//
-//type UseCase[In any] interface {
-//	Handle(ctx context.Context, in In) error
-//}
