@@ -13,5 +13,11 @@
     "fileMatch": [
       "^.*\/?ops\/docker-compose\/.*\.ya?ml$"
     ]
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["^github.com/mattn/go-sqlite3$"],
+      "allowedVersions": "<2.0.0"
+    }
+  ]
 }
