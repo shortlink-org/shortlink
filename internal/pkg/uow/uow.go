@@ -14,22 +14,22 @@ func New[T any](ctx context.Context, unitOfWork UnitOfWork[T]) *Query[T] {
 	}
 }
 
-func (q *Query[T]) RegisterNew(entity T) error {
-	q.New = append(q.New, entity)
+func (q *Query[T]) RegisterNew(entity ...T) error {
+	q.New = append(q.New, entity...)
 	return nil
 }
 
-func (q *Query[T]) RegisterDirty(entity T) error {
-	q.Modified = append(q.Modified, entity)
+func (q *Query[T]) RegisterDirty(entity ...T) error {
+	q.Modified = append(q.Modified, entity...)
 	return nil
 }
 
-func (q *Query[T]) RegisterClean(entity T) error {
+func (q *Query[T]) RegisterClean(entity ...T) error {
 	return nil
 }
 
-func (q *Query[T]) RegisterDeleted(entity T) error {
-	q.Deleted = append(q.Deleted, entity)
+func (q *Query[T]) RegisterDeleted(entity ...T) error {
+	q.Deleted = append(q.Deleted, entity...)
 	return nil
 }
 

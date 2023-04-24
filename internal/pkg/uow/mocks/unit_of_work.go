@@ -28,12 +28,18 @@ func (_m *UnitOfWork[T]) Commit(ctx context.Context) error {
 }
 
 // RegisterClean provides a mock function with given fields: in
-func (_m *UnitOfWork[T]) RegisterClean(in T) error {
-	ret := _m.Called(in)
+func (_m *UnitOfWork[T]) RegisterClean(in ...T) error {
+	_va := make([]interface{}, len(in))
+	for _i := range in {
+		_va[_i] = in[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(T) error); ok {
-		r0 = rf(in)
+	if rf, ok := ret.Get(0).(func(...T) error); ok {
+		r0 = rf(in...)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -42,12 +48,18 @@ func (_m *UnitOfWork[T]) RegisterClean(in T) error {
 }
 
 // RegisterDeleted provides a mock function with given fields: in
-func (_m *UnitOfWork[T]) RegisterDeleted(in T) error {
-	ret := _m.Called(in)
+func (_m *UnitOfWork[T]) RegisterDeleted(in ...T) error {
+	_va := make([]interface{}, len(in))
+	for _i := range in {
+		_va[_i] = in[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(T) error); ok {
-		r0 = rf(in)
+	if rf, ok := ret.Get(0).(func(...T) error); ok {
+		r0 = rf(in...)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -56,12 +68,18 @@ func (_m *UnitOfWork[T]) RegisterDeleted(in T) error {
 }
 
 // RegisterDirty provides a mock function with given fields: in
-func (_m *UnitOfWork[T]) RegisterDirty(in T) error {
-	ret := _m.Called(in)
+func (_m *UnitOfWork[T]) RegisterDirty(in ...T) error {
+	_va := make([]interface{}, len(in))
+	for _i := range in {
+		_va[_i] = in[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(T) error); ok {
-		r0 = rf(in)
+	if rf, ok := ret.Get(0).(func(...T) error); ok {
+		r0 = rf(in...)
 	} else {
 		r0 = ret.Error(0)
 	}
@@ -70,12 +88,18 @@ func (_m *UnitOfWork[T]) RegisterDirty(in T) error {
 }
 
 // RegisterNew provides a mock function with given fields: in
-func (_m *UnitOfWork[T]) RegisterNew(in T) error {
-	ret := _m.Called(in)
+func (_m *UnitOfWork[T]) RegisterNew(in ...T) error {
+	_va := make([]interface{}, len(in))
+	for _i := range in {
+		_va[_i] = in[_i]
+	}
+	var _ca []interface{}
+	_ca = append(_ca, _va...)
+	ret := _m.Called(_ca...)
 
 	var r0 error
-	if rf, ok := ret.Get(0).(func(T) error); ok {
-		r0 = rf(in)
+	if rf, ok := ret.Get(0).(func(...T) error); ok {
+		r0 = rf(in...)
 	} else {
 		r0 = ret.Error(0)
 	}
