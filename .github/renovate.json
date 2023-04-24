@@ -7,5 +7,12 @@
   "major": {
     "automerge": false
   },
-  "commitBody": "Signed-off-by: {{{gitAuthor}}}"
+  "commitBody": "Signed-off-by: {{{gitAuthor}}}",
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "**/ops/docker-compose/*.yaml"
+      ]
+    }
+  ]
 }
