@@ -11,7 +11,7 @@
   "commitMessage": "chore(deps): update {{{depName}}} to {{{newVersion}}}",
   "docker-compose": {
     "fileMatch": [
-      "**/ops/docker-compose/*.ya?ml"
+      "^.*/ops/docker-compose/.*\\.ya?ml$"
     ]
   }
 }
