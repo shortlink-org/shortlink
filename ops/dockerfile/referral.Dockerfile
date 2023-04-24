@@ -16,7 +16,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && \
     apt-get install -y --no-install-recommends gcc
 
-COPY requirements.txt .
+COPY internal/services/referral/requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
 # Final image
@@ -33,10 +33,10 @@ LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlin
 
 # Install dependencies
 RUN \
-  apk update && \
-  apk add --no-cache curl tini
+  apt-get update && \
+  apt-get install -y curl tini
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \
@@ -54,4 +54,5 @@ RUN pip install --no-cache /wheels/*
 RUN addgroup --system referall && adduser --system --group referall
 USER referall
 
-COPY main.py .
+COPY internal/services/referral/ .
+CMD ["python", "__main__.py"]
