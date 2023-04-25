@@ -64,6 +64,7 @@ services:
 
   # Backup
   # Docs: https://github.com/wal-g/wal-g/blob/master/docs/PostgreSQL.md
+  # Bitnami delete the image from docker hub
   # wal-g:
   #  <<: *network
   #  depends_on:
