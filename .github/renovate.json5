@@ -8,11 +8,11 @@
     "automerge": false
   },
   "commitBody": "Signed-off-by: {{{gitAuthor}}}",
-//  "docker-compose": {
-//    "fileMatch": [
-//      "^.*\/?ops\/docker-compose\/.*\.ya?ml$"
-//    ]
-//  },
+  "docker-compose": {
+    "fileMatch": [
+      "^.*\/?ops\/docker-compose\/.*\.ya?ml$"
+    ]
+  },
   "packageRules": [
     {
       "matchPackagePatterns": ["^github.com/mattn/go-sqlite3$"],
