@@ -87,7 +87,7 @@ services:
 
   kafka-connect-debezium-ui:
     <<: *network
-    image: debezium/debezium-ui:1.8
+    image: debezium/debezium-ui:1.9
     container_name: kafka-connect-debezium-ui
     init: true
     ports:
