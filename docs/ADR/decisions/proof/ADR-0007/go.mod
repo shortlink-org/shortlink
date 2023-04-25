@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/docs/ADR/decisions/proof/ADR-0007
 go 1.20
 
 require (
-	github.com/bytedance/sonic v1.8.7
+	github.com/bytedance/sonic v1.8.8
 	github.com/google/uuid v1.3.0
 	github.com/segmentio/encoding v0.3.6
 )
