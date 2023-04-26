@@ -10,6 +10,7 @@ stages:
 #  - action
 
 .distributed:
+  image: node:20.0-alpine
   interruptible: true
   only:
     - main
