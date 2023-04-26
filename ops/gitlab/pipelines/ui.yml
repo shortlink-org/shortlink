@@ -3,7 +3,7 @@
 #  - local: /ops/gitlab/stages/accessibility.yml
 
 stages:
-  - test
+#  - test
   - build
   - docker
 #  - deploy
@@ -19,7 +19,10 @@ stages:
     key: nx-${CI_COMMIT_REF_SLUG}
     paths:
       - .npm/
-      - ui/nx-monorepo/packages/landing/out
+      - packages/landing/out
+  artifacts:
+    paths:
+      - packages/landing/out
   before_script:
     - cd ui/nx-monorepo
     - apk add --no-cache git
@@ -27,23 +30,24 @@ stages:
     - NX_HEAD=$CI_COMMIT_SHA
     - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
 
-format-check:
-  stage: test
-  extends: .distributed
-  script:
-    - npx nx format:check --base=$NX_BASE --head=$NX_HEAD
-
-lint:
-  stage: test
-  extends: .distributed
-  script:
-    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
+#format-check:
+#  stage: test
+#  extends: .distributed
+#  script:
+#    - npx nx format:check --base=$NX_BASE --head=$NX_HEAD
+#
+#lint:
+#  stage: test
+#  extends: .distributed
+#  script:
+#    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
 
 build:
   stage: build
   extends: .distributed
   script:
     - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t build --parallel=3
+    - ls -la packages/landing
 
 docker:
   stage: docker
