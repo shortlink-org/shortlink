@@ -16,9 +16,7 @@ stages:
   variables:
     GIT_DEPTH: 0
   cache:
-    key:
-      files:
-        - package-lock.json
+    key: nx-${CI_COMMIT_REF_SLUG}
     paths:
       - .npm/
   before_script:
@@ -53,6 +51,8 @@ docker:
     REGISTRY_IMAGE: ${REGISTRY_IMAGE}
     DOCKERFILE_PATH: ${DOCKERFILE_PATH}
     DOCKERFILE_ARGS: ${DOCKERFILE_ARGS}
+    CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
+    CACHE_PATH: .npm/
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/build/docker_base.yml'

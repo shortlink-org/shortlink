@@ -23,6 +23,7 @@
       --platform=linux/amd64
       --provenance=true
       --sbom=true
+      --build-arg APP_ENV=ci
       --push $CMD_PATH $DOCKERFILE_ARGS
       -t ${REGISTRY_IMAGE}:latest
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
@@ -30,5 +31,9 @@
   tags:
     - docker
   retry: 2
+  cache:
+    key: $CACHE_KEY
+    paths:
+      - $CACHE_PATH
   rules:
     - when: always
