@@ -19,6 +19,7 @@ stages:
     key: nx-${CI_COMMIT_REF_SLUG}
     paths:
       - .npm/
+      - ui/nx-monorepo/packages/landing/out
   before_script:
     - cd ui/nx-monorepo
     - apk add --no-cache git
