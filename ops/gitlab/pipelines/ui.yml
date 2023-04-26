@@ -46,7 +46,8 @@ build:
   stage: build
   extends: .distributed
   script:
-    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t build --parallel=3
+    - npm run build
+    - npx nx export landing
     - ls -la packages/landing
 
 docker:
