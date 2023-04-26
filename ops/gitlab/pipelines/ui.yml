@@ -19,7 +19,7 @@ stages:
     key: nx-${CI_COMMIT_REF_SLUG}
     paths:
       - .npm/
-      - packages/landing/out
+      - ui/nx-monorepo/packages/landing/out
   artifacts:
     paths:
       - packages/landing/out
