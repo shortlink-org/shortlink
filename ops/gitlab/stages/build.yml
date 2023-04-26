@@ -1,5 +1,6 @@
 include:
 - local: /ops/gitlab/workflows/matrix_build_base.yml
+- local: /ops/gitlab/workflows/matrix_build_ui.yml
 - local: /ops/gitlab/workflows/matrix_build_helm.yml
 - local: /ops/gitlab/workflows/matrix_build_npm.yml
 
