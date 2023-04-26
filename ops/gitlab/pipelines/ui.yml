@@ -52,7 +52,7 @@ docker:
     DOCKERFILE_PATH: ${DOCKERFILE_PATH}
     DOCKERFILE_ARGS: ${DOCKERFILE_ARGS}
     CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
-    CACHE_PATH: .npm/
+    CACHE_PATH: [".npm", "ui/nx-monorepo/packages/landing/out"]
     CI_COMMIT_TAG: test
   trigger:
     include:
