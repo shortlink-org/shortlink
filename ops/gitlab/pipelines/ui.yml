@@ -5,6 +5,7 @@
 stages:
   - test
   - build
+  - docker
 #  - deploy
 #  - accessibility
 #  - action
@@ -12,9 +13,8 @@ stages:
 .distributed:
   image: node:20.0-alpine
   interruptible: true
-  only:
-    - main
-    - merge_requests
+  variables:
+    GIT_DEPTH: 0
   cache:
     key:
       files:
@@ -44,3 +44,15 @@ build:
   extends: .distributed
   script:
     - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t build --parallel=3
+
+docker:
+  stage: docker
+  variables:
+    APPLICATION: ${APPLICATION}
+    REGISTRY_IMAGE: ${REGISTRY_IMAGE}
+    DOCKERFILE_PATH: ${DOCKERFILE_PATH}
+    DOCKERFILE_ARGS: ${DOCKERFILE_ARGS}
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/build/docker_base.yml'
+    strategy: depend
