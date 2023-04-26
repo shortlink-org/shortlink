@@ -1,0 +1,23 @@
+{
+  "name": "shortlink",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx nx run-many -t build --all --parallel"
+  },
+  "private": true,
+  "devDependencies": {
+    "@nrwl/eslint-plugin-nx": "15.9.2",
+    "@nrwl/next": "15.9.2",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/react": "15.9.2",
+    "@types/react-is": "18.2.0",
+    "eslint": "^8.39.0",
+    "nx": "15.9.2",
+    "typescript": "^5.0.4"
+  },
+  "workspaces": [
+    "packages/eslint/*",
+    "packages/*"
+  ]
+}
