@@ -3,7 +3,7 @@
 # REGISTRY_IMAGE  - Registry image
 # DOCKERFILE_PATH - Path to Dockerfile
 # CMD_PATH        - Path to binary file
-.matrix_build_base:
+.matrix_build_ui:
   parallel:
     matrix:
       - APPLICATION: landing
