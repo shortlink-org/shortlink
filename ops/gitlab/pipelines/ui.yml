@@ -1,8 +1,43 @@
-include:
-  - local: /ops/gitlab/pipelines/helm_deploy.yml
-  - local: /ops/gitlab/stages/accessibility.yml
+#include:
+#  - local: /ops/gitlab/pipelines/helm_deploy.yml
+#  - local: /ops/gitlab/stages/accessibility.yml
 
 stages:
+  - test
   - deploy
   - accessibility
   - action
+
+.distributed:
+  interruptible: true
+  only:
+    - main
+    - merge_requests
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - .npm/
+  before_script:
+    - npm ci --cache .npm --prefer-offline
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+
+format-check:
+  stage: test
+  extends: .distributed
+  script:
+    - npx nx format:check --base=$NX_BASE --head=$NX_HEAD
+
+lint:
+  stage: test
+  extends: .distributed
+  script:
+    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
+
+build:
+  stage: build
+  extends: .distributed
+  script:
+    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t build --parallel=3
