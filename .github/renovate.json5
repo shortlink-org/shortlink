@@ -11,7 +11,12 @@
   "docker-compose": {
     "fileMatch": [
       "^.*\/?ops\/docker-compose\/.*\.ya?ml$"
-    ]
+    ],
+  },
+  "gitlabci": {
+    "fileMatch": [
+      "^.*\/?ops\/gitlab\/.*\.ya?ml$"
+    ],
   },
   "packageRules": [
     {
