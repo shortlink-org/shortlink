@@ -53,6 +53,7 @@ docker:
     DOCKERFILE_ARGS: ${DOCKERFILE_ARGS}
     CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
     CACHE_PATH: .npm/
+    CI_COMMIT_TAG: test
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/build/docker_base.yml'
