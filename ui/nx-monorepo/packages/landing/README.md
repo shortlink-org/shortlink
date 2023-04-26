@@ -9,12 +9,12 @@ This service made starting page for navigation to all services our platform.
 First, run the development server:
 
 ```bash
-npm run dev
+npx nx dev landing
 ```
 
 ### ENV
 
-Use `.env` file in `ui/next` directories for setting your UI
+Use `.env` file in `packages/landing` directories for setting your UI
 
 ### Build docker image
 
@@ -30,6 +30,21 @@ docker buildx build -t next-ui -f ops/dockerfile/landing.Dockerfile .
   - Typescript
   - ESLint/Prettier
 - Cypress (for E2E)
+
+### Dockerfile
+
+```mermaid
+stateDiagram-v2
+    APP_ENV=development --> cache : run npm install
+    APP_ENV=ci --> cache : use cache
+    cache --> [*]
+```
+
+**Run:**
+
+  ```bash
+  docker build -t test --build-arg APP_ENV=ci -f ops/dockerfile/landing.Dockerfile .
+  ```
 
 ### Learn More
 

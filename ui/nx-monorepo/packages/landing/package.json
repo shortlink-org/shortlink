@@ -6,7 +6,7 @@
     "dev": "npx next dev -p 3001",
     "build": "npx next build",
     "start": "npx next start",
-    "generate": "NODE_ENV=production npx next build && npx next export",
+    "export": "npx next export",
     "lint": "npx eslint ./",
     "lint:fix": "npx eslint --fix ./",
     "prettier": "npx prettier -w -c .",
