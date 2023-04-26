@@ -1,6 +1,5 @@
 include:
 - local: /ops/gitlab/workflows/matrix_build_base.yml
-- local: /ops/gitlab/workflows/matrix_build_ui.yml
 - local: /ops/gitlab/workflows/matrix_build_helm.yml
 - local: /ops/gitlab/workflows/matrix_build_npm.yml
 
@@ -35,8 +34,6 @@ helm-chart:
       when: on_success
 
 ui:
-  extends:
-    - .matrix_build_ui
   stage: build
   trigger:
     include:
