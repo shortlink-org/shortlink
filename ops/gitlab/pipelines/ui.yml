@@ -4,9 +4,10 @@
 
 stages:
   - test
-  - deploy
-  - accessibility
-  - action
+  - build
+#  - deploy
+#  - accessibility
+#  - action
 
 .distributed:
   interruptible: true
