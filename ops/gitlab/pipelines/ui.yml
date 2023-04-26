@@ -52,8 +52,8 @@ docker:
     DOCKERFILE_PATH: ${DOCKERFILE_PATH}
     DOCKERFILE_ARGS: ${DOCKERFILE_ARGS}
     CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
-    CACHE_PATH: [".npm", "ui/nx-monorepo/packages/landing/out"]
-    CI_COMMIT_TAG: test
+    CACHE_PATH: ui/nx-monorepo/packages/landing/out
+    CI_COMMIT_TAG: test # DELETE THIS LINE
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/build/docker_base.yml'
