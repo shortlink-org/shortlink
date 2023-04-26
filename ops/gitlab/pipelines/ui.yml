@@ -21,6 +21,7 @@ stages:
     paths:
       - .npm/
   before_script:
+    - cd ui/nx-monorepo
     - npm ci --cache .npm --prefer-offline
     - NX_HEAD=$CI_COMMIT_SHA
     - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
