@@ -1,4 +1,5 @@
-#include:
+include:
+  - local: /ops/gitlab/workflows/matrix_build_ui.yml
 #  - local: /ops/gitlab/pipelines/helm_deploy.yml
 #  - local: /ops/gitlab/stages/accessibility.yml
 
@@ -20,9 +21,6 @@ stages:
     paths:
       - .npm/
       - ui/nx-monorepo/packages/landing/out
-  artifacts:
-    paths:
-      - packages/landing/out
   before_script:
     - cd ui/nx-monorepo
     - apk add --no-cache git
@@ -51,6 +49,8 @@ build:
     - ls -la packages/landing
 
 docker:
+  extends:
+    - .matrix_build_ui
   stage: docker
   variables:
     APPLICATION: ${APPLICATION}
@@ -58,7 +58,7 @@ docker:
     DOCKERFILE_PATH: ${DOCKERFILE_PATH}
     DOCKERFILE_ARGS: ${DOCKERFILE_ARGS}
     CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
-    CACHE_PATH: ui/nx-monorepo/packages/landing/out
+    CACHE_PATH: ${CACHE_PATH}
     CI_COMMIT_TAG: test # DELETE THIS LINE
   trigger:
     include:
