@@ -62,9 +62,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 # From here on we use the least-privileged `node` user to run the backend.
 USER node
 
-# This should create the app dir as `node`.
-# If it is instead created as `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
-# If this occurs, then ensure BuildKit is enabled (`DOCKER_BUILDKIT=1`) so the app dir is correctly created as `node`.
+# This should create the app dir AS `node`.
+# If it is instead created AS `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
+# If this occurs, then ensure BuildKit is enabled (`DOCKER_BUILDKIT=1`) so the app dir is correctly created AS `node`.
 WORKDIR /app
 
 # Copy the install dependencies from the build stage and context

@@ -21,7 +21,7 @@ WORKDIR /go/github.com/shortlink-org/shortlink
 COPY go.mod go.sum ./
 RUN go mod download
 
-# COPY the source code as the last step
+# COPY the source code AS the last step
 COPY . .
 
 # Build project
@@ -47,7 +47,7 @@ LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.url="http://shortlink.best/"
 LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
 
-# Define GOTRACEBACK to mark this container as using the Go language runtime
+# Define GOTRACEBACK to mark this container AS using the Go language runtime
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
 ENV GOTRACEBACK=all
 
