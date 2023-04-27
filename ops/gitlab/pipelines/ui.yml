@@ -1,6 +1,7 @@
 include:
   - local: /ops/gitlab/workflows/matrix_build_ui.yml
   - local: /ops/gitlab/workflows/matrix_build_npm.yml
+  - local: /ops/gitlab/templates/cache_ui.yaml
 #  - local: /ops/gitlab/pipelines/helm_deploy.yml
 #  - local: /ops/gitlab/stages/accessibility.yml
 
@@ -11,15 +12,6 @@ stages:
 #  - deploy
 #  - accessibility
 #  - action
-
-.cache:
-  cache:
-    key: nx-${CI_COMMIT_REF_SLUG}
-    paths:
-      - .npm/
-      - packages/landing/out
-      - packages/ui-kit/dist
-      - packages/ui-kit/storybook-static
 
 .distributed:
   extends: .cache
@@ -69,7 +61,7 @@ docker:
     CI_COMMIT_TAG: test # DELETE THIS LINE
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/build/docker_base.yml'
+      - local: 'ops/gitlab/pipelines/build/docker_ui.yml'
     strategy: depend
 
 #npm:

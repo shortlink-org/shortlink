@@ -31,7 +31,5 @@
   tags:
     - docker
   retry: 2
-  cache:
-    key: $CACHE_KEY
   rules:
     - when: always
