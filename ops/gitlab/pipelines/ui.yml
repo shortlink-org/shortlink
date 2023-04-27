@@ -22,7 +22,7 @@ stages:
       - ui/nx-monorepo/packages/ui-kit/storybook-static
 
 .distributed:
-  expends: .cache
+  extends: .cache
   image: node:20.0-alpine
   interruptible: true
   variables:
