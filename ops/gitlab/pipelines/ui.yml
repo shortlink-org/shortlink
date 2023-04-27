@@ -53,10 +53,6 @@ docker:
     - .matrix_build_ui
   stage: artifacts
   variables:
-    APPLICATION: ${APPLICATION}
-    REGISTRY_IMAGE: ${REGISTRY_IMAGE}
-    DOCKERFILE_PATH: ${DOCKERFILE_PATH}
-    DOCKERFILE_ARGS: ${DOCKERFILE_ARGS}
     CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
     CI_COMMIT_TAG: test # DELETE THIS LINE
   trigger:
@@ -64,12 +60,11 @@ docker:
       - local: 'ops/gitlab/pipelines/build/docker_ui.yml'
     strategy: depend
 
-#npm:
-#  extends:
-#    - .cache
-#    - .matrix_build_npm
-#  stage: artifacts
-#  trigger:
-#    include:
-#      - local: 'ops/gitlab/pipelines/build/npm.yml'
-#    strategy: depend
+npm:
+  extends:
+    - .matrix_build_npm
+  stage: artifacts
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/build/npm.yml'
+    strategy: depend

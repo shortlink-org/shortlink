@@ -13,3 +13,4 @@
       - APPLICATION: storybook
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-kit
         DOCKERFILE_PATH: ops/dockerfile/storybook.Dockerfile
+        DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"

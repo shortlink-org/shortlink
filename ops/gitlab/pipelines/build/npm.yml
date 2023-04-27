@@ -1,13 +1,16 @@
 include:
   - local: /ops/gitlab/templates/common.yml
+  - local: /ops/gitlab/templates/cache_ui.yaml
 
 stages:
   - .pre
   - publish
 
 publish:
+  extends:
+    - .cache
   stage: publish
-  image: node:18-alpine
+  image: node:20-alpine
   variables:
     NPM_TOKEN: $CI_JOB_TOKEN
   before_script:
@@ -19,10 +22,5 @@ publish:
   script:
     - npm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
   allow_failure: true
-  cache:
-    key: $CACHE_KEY
-    paths:
-      - $CACHE_PATH
   rules:
     - when: always
-
