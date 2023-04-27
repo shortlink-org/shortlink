@@ -7,8 +7,7 @@ include:
 stages:
 #  - test
   - build
-  - docker
-  - publish
+  - artifacts
 #  - deploy
 #  - accessibility
 #  - action
@@ -53,7 +52,7 @@ build:
 docker:
   extends:
     - .matrix_build_ui
-  stage: docker
+  stage: artifacts
   variables:
     APPLICATION: ${APPLICATION}
     REGISTRY_IMAGE: ${REGISTRY_IMAGE}
@@ -70,7 +69,7 @@ docker:
 npm:
   extends:
     - .matrix_build_npm
-  stage: publish
+  stage: artifacts
   variables:
     CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
     CACHE_PATH: ${CACHE_PATH}
@@ -78,4 +77,3 @@ npm:
     include:
       - local: 'ops/gitlab/pipelines/build/npm.yml'
     strategy: depend
-  needs: []
