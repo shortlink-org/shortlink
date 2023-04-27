@@ -33,7 +33,5 @@
   retry: 2
   cache:
     key: $CACHE_KEY
-    paths:
-      - $CACHE_PATH
   rules:
     - when: always

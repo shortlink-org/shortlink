@@ -24,8 +24,8 @@ RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npm
 COPY ./ui/nx-monorepo/ ./
 
 RUN npm ci --cache .npm --prefer-offline --force
-RUN npm run build
-RUN npx nx export landing
+RUN npx nx run landing:build
+RUN npx nx run landing:export
 
 FROM development-builder AS cache
 

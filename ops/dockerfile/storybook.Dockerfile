@@ -1,5 +1,8 @@
 # syntax=docker/dockerfile:1.5
 
+# Defining environment
+ARG APP_ENV=development
+
 # Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
 # enable scanning for the intermediate build stage
 ARG BUILDKIT_SBOM_SCAN_STAGE=true
@@ -7,24 +10,27 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # Install dependencies only when needed
-FROM node:20.0-alpine AS deps
+FROM node:20.0-alpine AS development-builder
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN npm config set ignore-scripts false
 
 WORKDIR /app
-COPY ./ui/ui-kit/package.json ./ui/ui-kit/package-lock.json ./
+RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
+
+COPY ./ui/nx-monorepo/ ./
 
 RUN npm ci --cache .npm --prefer-offline --force
+RUN npx nx run @shortlink-org/ui-kit:build-storybook
 
-# Rebuild the source code only when needed
-FROM node:20.0-alpine AS builder
+FROM development-builder AS cache
 
-WORKDIR /app
-COPY ./ui/ui-kit /app/
-COPY --from=deps /app/node_modules ./node_modules
+COPY --from=development-builder /app/packages/ui-kit/storybook-static /app/storybook-static
 
-RUN npm run build-storybook
+FROM alpine:3.17 AS ci-builder
+FROM ${APP_ENV}-builder AS cache
+
+COPY ./ui/nx-monorepo/packages/ui-kit/storybook-static /app/storybook-static
 
 # Production image, copy all the files and run next
 FROM ghcr.io/nginxinc/nginx-unprivileged:1.24-alpine
@@ -61,7 +67,7 @@ HEALTHCHECK \
 COPY ./ops/dockerfile/conf/ui.local /etc/nginx/conf.d/default.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/templates /etc/nginx/template
-COPY --from=builder /app/storybook-static .
+COPY --from=cache /app/storybook-static ./
 
 # Setup unprivileged user 1001
 RUN chown -R 1001 /usr/share/nginx/html
