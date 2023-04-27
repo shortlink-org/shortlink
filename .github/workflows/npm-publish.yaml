@@ -3,7 +3,7 @@ name: Publish Package to npmjs
 on:
   push:
     paths:
-      - 'ui/ui-kit/**'
+      - 'ui/nx-monorepo/packages/ui-kit/**'
     branches:
       - 'main'
 
@@ -20,10 +20,10 @@ jobs:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
       - run: npm install -g npm
-        working-directory: ./ui/ui-kit
+        working-directory: ./ui/nx-monorepo/packages/ui-kit
       - run: npm ci
-        working-directory: ./ui/ui-kit
+        working-directory: ./ui/nx-monorepo/packages/ui-kit
       - run: npm publish --provenance --access public
-        working-directory: ./ui/ui-kit
+        working-directory: ./ui/nx-monorepo/packages/ui-kit
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
