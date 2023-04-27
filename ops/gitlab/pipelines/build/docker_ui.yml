@@ -6,6 +6,3 @@ build:
   extends:
     - .cache
     - .template_build
-  script:
-    - pwd
-    - ls -la ui/nx-monorepo/packages/*
