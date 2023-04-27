@@ -1,0 +1,8 @@
+.cache:
+  cache:
+    key: nx-${CI_COMMIT_REF_SLUG}
+    paths:
+      - .npm/
+      - packages/landing/out
+      - packages/ui-kit/dist
+      - packages/ui-kit/storybook-static
