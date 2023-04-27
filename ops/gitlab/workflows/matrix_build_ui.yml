@@ -3,6 +3,7 @@
 # REGISTRY_IMAGE  - Registry image
 # DOCKERFILE_PATH - Path to Dockerfile
 # CMD_PATH        - Path to binary file
+# CACHE_PATH      - Path to cache
 .matrix_build_ui:
   parallel:
     matrix:
@@ -11,3 +12,7 @@
         DOCKERFILE_PATH: ops/dockerfile/landing.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
         CACHE_PATH: ui/nx-monorepo/packages/landing/out
+      - APPLICATION: ui-kit
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-kit
+        DOCKERFILE_PATH: ops/dockerfile/ui-kit.Dockerfile
+        CACHE_PATH: ui/nx-monorepo/packages/ui-kit/storybook-static
