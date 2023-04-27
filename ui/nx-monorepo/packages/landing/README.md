@@ -16,12 +16,6 @@ npx nx dev landing
 
 Use `.env` file in `packages/landing` directories for setting your UI
 
-### Build docker image
-
-```bash
-docker buildx build -t next-ui -f ops/dockerfile/landing.Dockerfile .
-```
-
 ### Stack
 
 - NextJS (SSR/Static generate content)
