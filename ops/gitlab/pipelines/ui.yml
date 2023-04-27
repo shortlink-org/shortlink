@@ -1,5 +1,6 @@
 include:
   - local: /ops/gitlab/workflows/matrix_build_ui.yml
+  - local: /ops/gitlab/workflows/matrix_build_npm.yml
 #  - local: /ops/gitlab/pipelines/helm_deploy.yml
 #  - local: /ops/gitlab/stages/accessibility.yml
 
@@ -7,6 +8,7 @@ stages:
 #  - test
   - build
   - docker
+  - publish
 #  - deploy
 #  - accessibility
 #  - action
@@ -45,8 +47,8 @@ build:
   extends: .distributed
   script:
     - npm run build
-    - npx nx export landing
-    - ls -la packages/landing
+    - npm run build-storybook
+    - npm run export
 
 docker:
   extends:
@@ -64,3 +66,16 @@ docker:
     include:
       - local: 'ops/gitlab/pipelines/build/docker_base.yml'
     strategy: depend
+
+npm:
+  extends:
+    - .matrix_build_npm
+  stage: publish
+  variables:
+    CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
+    CACHE_PATH: ${CACHE_PATH}
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/build/npm.yml'
+    strategy: depend
+  needs: []

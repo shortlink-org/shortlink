@@ -13,5 +13,20 @@
     "build": {
       "dependsOn": ["^build"]
     }
+  },
+  "projects": {
+    "@shortlink-org/ui-kit": {
+      "architect": {
+        "build": {
+          "builder": "@nrwl/react/plugins/bundle-rollup",
+          "options": {
+            "configuration": "production"
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build"
+        }
+      }
+    }
   }
 }

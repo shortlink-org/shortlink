@@ -17,15 +17,13 @@ publish:
         echo "@${CI_PROJECT_ROOT_NAMESPACE}/shortlink=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
       } | tee -a ~/.npmrc
   script:
-    - cd ./ui/ui-kit
-    - npm ci --cache .npm --prefer-offline --force
-    - npm run build
+    - cd $CACHE_PATH
     - npm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/
   allow_failure: true
   cache:
-    key: $CI_COMMIT_REF_SLUG
+    key: $CACHE_KEY
     paths:
-      - .npm/
+      - $CACHE_PATH
   rules:
     - when: always
 

@@ -1,4 +1,5 @@
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import React from 'react'
+import { ChevronRightIcon } from '@heroicons/react/24/outline'
 
 export function GithubRepository({ url, title }: { url: string, title: string }): JSX.Element {
   return (
