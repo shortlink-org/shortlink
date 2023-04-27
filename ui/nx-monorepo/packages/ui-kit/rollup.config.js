@@ -59,7 +59,7 @@ export default [
       }),
       filesize(),
     ],
-    external: ['react', 'react-dom', 'prop-types', 'styled-components', "@mui/material"],
+    external: ['react', 'react-is', 'react-dom', 'prop-types', 'styled-components', "@mui/material", "@emotion/react"],
   },
   // {
   //   name: packageJson.name,
@@ -79,6 +79,6 @@ export default [
   //       },
   //     }),
   //   ],
-  //   external: ['react', 'react-dom', 'prop-types', 'styled-components', "@mui/material"],
+  //   external: ['react', 'react-is', 'react-dom', 'prop-types', 'styled-components', "@mui/material", "@emotion/react"],
   // },
 ];
