@@ -34,7 +34,7 @@ COPY --from=development-builder /app/packages/landing/out /app/out
 FROM alpine:3.17 AS ci-builder
 FROM ${APP_ENV}-builder AS cache
 
-COPY ./packages/landing/out /app/out
+COPY ./ui/nx-monorepo/packages/landing/out /app/out
 
 # Production image, copy all the files and run next
 FROM ghcr.io/nginxinc/nginx-unprivileged:1.24-alpine
