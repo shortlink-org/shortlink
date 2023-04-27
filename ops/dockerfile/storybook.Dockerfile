@@ -30,7 +30,7 @@ COPY --from=development-builder /app/packages/ui-kit/storybook-static /app/story
 FROM alpine:3.17 AS ci-builder
 FROM ${APP_ENV}-builder AS cache
 
-COPY ./packages/ui-kit/storybook-static /app/storybook-static
+COPY ./ui/nx-monorepo/packages/ui-kit/storybook-static /app/storybook-static
 
 # Production image, copy all the files and run next
 FROM ghcr.io/nginxinc/nginx-unprivileged:1.24-alpine
