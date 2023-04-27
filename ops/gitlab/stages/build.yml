@@ -1,7 +1,6 @@
 include:
 - local: /ops/gitlab/workflows/matrix_build_base.yml
 - local: /ops/gitlab/workflows/matrix_build_helm.yml
-- local: /ops/gitlab/workflows/matrix_build_npm.yml
 
 # BUILD IMAGE ==========================================================================================================
 docker:
@@ -44,16 +43,3 @@ ui:
 #  rules:
 #    - if: $CI_COMMIT_TAG
 #      when: on_success
-
-npm:
-  extends:
-    - .matrix_build_npm
-  stage: build
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/build/npm.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - changes:
-        - 'ui/ui-kit/package.json'

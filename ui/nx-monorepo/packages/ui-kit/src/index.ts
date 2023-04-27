@@ -5,4 +5,7 @@ export { createEmotionCache } from './theme/createEmotionCache'
 
 // Components exports
 export { ToggleDarkMode } from './ToggleDarkMode/ToggleDarkMode'
+// export { GithubRepository } from './Card/GithubRepository'
+
+// Layout exports
 export { Header } from './Header/Header'
