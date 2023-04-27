@@ -17,9 +17,9 @@ stages:
     key: nx-${CI_COMMIT_REF_SLUG}
     paths:
       - .npm/
-      - ui/nx-monorepo/packages/landing/out
-      - ui/nx-monorepo/packages/ui-kit/dist
-      - ui/nx-monorepo/packages/ui-kit/storybook-static
+      - packages/landing/out
+      - packages/ui-kit/dist
+      - packages/ui-kit/storybook-static
 
 .distributed:
   extends: .cache
