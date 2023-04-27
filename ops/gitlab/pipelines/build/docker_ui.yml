@@ -6,6 +6,6 @@ build:
   extends:
     - .cache
     - .template_build
-  scripts:
+  script:
     - pwd
     - ls -la
