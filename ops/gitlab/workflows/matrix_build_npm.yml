@@ -1,10 +1,8 @@
 # NOTE:
 # APPLICATION   - Name application
 # PACKAGE_PATH  - Path to package.json
-# CACHE_KEY     - Cache key
 .matrix_build_npm:
   parallel:
     matrix:
       - APPLICATION: ui-kit
         PACKAGE_PATH: "ui/nx-monorepo/packages/ui-kit"
-        CACHE_PATH: "ui/nx-monorepo/packages/ui-kit"

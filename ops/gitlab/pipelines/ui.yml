@@ -12,16 +12,21 @@ stages:
 #  - accessibility
 #  - action
 
-.distributed:
-  image: node:20.0-alpine
-  interruptible: true
-  variables:
-    GIT_DEPTH: 0
+.cache:
   cache:
     key: nx-${CI_COMMIT_REF_SLUG}
     paths:
       - .npm/
       - ui/nx-monorepo/packages/landing/out
+      - ui/nx-monorepo/packages/ui-kit/dist
+      - ui/nx-monorepo/packages/ui-kit/storybook-static
+
+.distributed:
+  expends: .cache
+  image: node:20.0-alpine
+  interruptible: true
+  variables:
+    GIT_DEPTH: 0
   before_script:
     - cd ui/nx-monorepo
     - apk add --no-cache git
@@ -59,21 +64,18 @@ docker:
     DOCKERFILE_PATH: ${DOCKERFILE_PATH}
     DOCKERFILE_ARGS: ${DOCKERFILE_ARGS}
     CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
-    CACHE_PATH: ${CACHE_PATH}
     CI_COMMIT_TAG: test # DELETE THIS LINE
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/build/docker_base.yml'
     strategy: depend
 
-npm:
-  extends:
-    - .matrix_build_npm
-  stage: artifacts
-  variables:
-    CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
-    CACHE_PATH: ${CACHE_PATH}
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/build/npm.yml'
-    strategy: depend
+#npm:
+#  extends:
+#    - .cache
+#    - .matrix_build_npm
+#  stage: artifacts
+#  trigger:
+#    include:
+#      - local: 'ops/gitlab/pipelines/build/npm.yml'
+#    strategy: depend
