@@ -7,9 +7,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c --strictDeprecations --bundleConfigAsCjs",
-    "storybook": "node_modules/.bin/storybook dev -p 6006",
-    "build-storybook": "node_modules/.bin/storybook build",
-    "semantic-release": "node_modules/.bin/semantic-release",
+    "storybook": "npx storybook dev -p 6006",
+    "build-storybook": "npx storybook build",
+    "semantic-release": "npx semantic-release",
     "test": "NODE_ENV=test jest",
     "chromatic": "npx chromatic --project-token=secret"
   },
