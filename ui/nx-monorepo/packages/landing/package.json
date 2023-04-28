@@ -6,7 +6,7 @@
     "dev": "npx next dev -p 3001",
     "build": "npx next build",
     "start": "npx next start",
-    "export": "npx next export",
+    "export": "npx next export && npx next-export-optimize-images",
     "lint": "npx eslint ./",
     "lint:fix": "npx eslint --fix ./",
     "prettier": "npx prettier -w -c .",
