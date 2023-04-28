@@ -22,7 +22,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.4.0 |
+| file://../shortlink-common | shortlink-common | 0.4.17 |
 
 ## Values
 
@@ -32,19 +32,22 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.env.MQ_ENABLED | bool | `true` |  |
 | deploy.env.MQ_KAFKA_URI | string | `"shortlink-kafka-bootstrap.kafka:9092"` |  |
 | deploy.env.MQ_TYPE | string | `"kafka"` |  |
-| deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
+| deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` |  |
 | deploy.env.STORE_REDIS_URI | string | `"shortlink-redis-master.redis:6379"` |  |
+| deploy.env.STORE_TYPE | string | `"postgres"` | Default store config |
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/link"` |  |
-| deploy.image.tag | string | `"0.14.9"` |  |
-| deploy.resources.limits | object | `{}` |  |
-| deploy.resources.requests | object | `{}` |  |
+| deploy.image.tag | string | `"0.14.39"` |  |
+| deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| deploy.resources.requests.cpu | string | `"10m"` |  |
+| deploy.resources.requests.memory | string | `"32Mi"` |  |
 | deploy.type | string | `"Deployment"` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.istio.match[0].uri.prefix | string | `"/infrastructure.rpc.link.v1.LinkService/"` |  |
 | ingress.istio.route.destination.port | int | `50051` |  |
 | ingress.type | string | `"istio"` |  |
 | monitoring.enabled | bool | `true` |  |
+| podDisruptionBudget.enabled | bool | `false` |  |
 | secret.enabled | bool | `false` |  |
 | secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |

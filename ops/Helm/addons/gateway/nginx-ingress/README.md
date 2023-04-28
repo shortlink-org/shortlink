@@ -14,20 +14,19 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.5.2 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.6.0 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress-nginx.controller.admissionWebhooks.enabled | bool | `false` |  |
-| ingress-nginx.controller.config.enable-opentracing | string | `"false"` |  |
+| ingress-nginx.controller.config.enable-opentracing | string | `"true"` |  |
 | ingress-nginx.controller.config.jaeger-collector-host | string | `"grafana-tempo.grafana"` |  |
 | ingress-nginx.controller.config.jaeger-service-name | string | `"nginx-ingress"` |  |
-| ingress-nginx.controller.extraArgs.enable-ssl-passthrough | string | `""` |  |
 | ingress-nginx.controller.hostNetwork | bool | `false` |  |
 | ingress-nginx.controller.ingressClassResource.default | bool | `true` |  |
-| ingress-nginx.controller.kind | string | `"Deployment"` |  |
+| ingress-nginx.controller.kind | string | `"DaemonSet"` |  |
 | ingress-nginx.controller.metrics.enabled | bool | `true` |  |
 | ingress-nginx.controller.metrics.prometheusRule.additionalLabels.app | string | `"kube-prometheus-stack"` |  |
 | ingress-nginx.controller.metrics.prometheusRule.additionalLabels.release | string | `"prometheus-operator"` |  |

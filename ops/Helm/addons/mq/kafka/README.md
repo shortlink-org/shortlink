@@ -1,6 +1,6 @@
 # kafka
 
-![Version: 0.2.6](https://img.shields.io/badge/Version-0.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.7](https://img.shields.io/badge/Version-0.2.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,8 +14,8 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://provectus.github.io/kafka-ui | kafka-ui | 0.6.0 |
-| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.33.2 |
+| https://provectus.github.io/kafka-ui | kafka-ui | 0.6.2 |
+| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.34.0 |
 
 ## Values
 
@@ -34,9 +34,9 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kafka-ui.fullnameOverride | string | `"kafka-ui"` |  |
 | kafka-ui.image.tag | string | `"master"` |  |
 | kafka-ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/kafka-ui/$2"` |  |
 | kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | kafka-ui.ingress.enabled | bool | `true` |  |
