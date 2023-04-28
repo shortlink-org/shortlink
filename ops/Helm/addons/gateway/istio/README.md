@@ -14,8 +14,8 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://istio-release.storage.googleapis.com/charts | base | 1.17.1 |
-| https://istio-release.storage.googleapis.com/charts | istiod | 1.17.1 |
+| https://istio-release.storage.googleapis.com/charts | base | 1.17.2 |
+| https://istio-release.storage.googleapis.com/charts | istiod | 1.17.2 |
 
 ## Values
 
@@ -25,7 +25,15 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | istiod.enabled | bool | `true` |  |
 | istiod.global.istiod.enableAnalysis | bool | `true` |  |
 | istiod.global.logAsJson | bool | `true` |  |
-| istiod.global.tracer.zipkin.address | string | `"grafana-tempo.grafana:9411"` |  |
+| istiod.global.tracer.zipkin.address | string | `"grafana-tempo.grafana.svc.cluster.local:9411"` |  |
+| istiod.meshConfig.defaultConfig.tracing.sampling | float | `100` |  |
+| istiod.meshConfig.defaultConfig.tracing.zipkin.address | string | `"grafana-tempo.grafana.svc.cluster.local:9411"` |  |
+| istiod.meshConfig.enableTracing | bool | `true` |  |
+| istiod.meshConfig.extensionProviders[0].envoyOtelAls.port | int | `4317` |  |
+| istiod.meshConfig.extensionProviders[0].envoyOtelAls.service | string | `"grafana-tempo.grafana.svc.cluster.local"` |  |
+| istiod.meshConfig.extensionProviders[0].name | string | `"otel"` |  |
+| istiod.pilot.traceSampling | float | `100` |  |
+| istiod.telemetry.v2.metadataExchange.wasmEnabled | bool | `true` |  |
 | istiod.telemetry.v2.prometheus.configOverride.scrapeInterval | string | `"15s"` |  |
 | istiod.telemetry.v2.prometheus.configOverride.scrapeTimeout | string | `"10s"` |  |
 | istiod.telemetry.v2.prometheus.enabled | bool | `true` |  |
