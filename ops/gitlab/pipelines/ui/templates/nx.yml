@@ -1,0 +1,15 @@
+include:
+  - local: /ops/gitlab/pipelines/ui/templates/cache.yml
+
+.distributed:
+  extends: .cache
+  image: node:20.0-alpine
+  interruptible: true
+  variables:
+    GIT_DEPTH: 0
+  before_script:
+    - cd ui/nx-monorepo
+    - apk add --no-cache git
+    - npm ci --cache .npm --prefer-offline
+    - NX_HEAD=$CI_COMMIT_SHA
+    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}

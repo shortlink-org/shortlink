@@ -1,0 +1,7 @@
+build:
+  stage: build
+  extends: .distributed
+  script:
+    - npm run build
+    - npm run build-storybook
+    - npm run export

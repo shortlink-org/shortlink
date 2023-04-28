@@ -1,0 +1,26 @@
+include:
+  - local: /ops/gitlab/workflows/matrix_build_ui.yml
+  - local: /ops/gitlab/workflows/matrix_build_npm.yml
+
+# DOCKER ===============================================================================================================
+docker:
+  extends:
+    - .matrix_build_ui
+  stage: artifacts
+  variables:
+    CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
+    CI_COMMIT_TAG: test # DELETE THIS LINE
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/build/docker_ui.yml'
+    strategy: depend
+
+# NPM PUBLISH ==========================================================================================================
+npm:
+  extends:
+    - .matrix_build_npm
+  stage: artifacts
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/build/npm.yml'
+    strategy: depend

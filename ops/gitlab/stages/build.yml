@@ -36,7 +36,7 @@ ui:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/ui.yml'
+      - local: 'ops/gitlab/pipelines/ui/ui.yml'
     strategy: depend
   needs:
     - job: HELM
