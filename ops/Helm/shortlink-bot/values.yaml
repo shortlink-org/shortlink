@@ -129,3 +129,8 @@ service:
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   enabled: true
+
+# ==============================================================================
+# PodDisruptionBudget
+podDisruptionBudget:
+  enabled: false

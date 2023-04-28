@@ -125,6 +125,8 @@ deploy:
       drop:
         - ALL
 
+# ==============================================================================
+# Service configuration
 service:
   type: ClusterIP
   ports:
@@ -134,6 +136,12 @@ service:
       protocol: TCP
       public: true
 
+# ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   enabled: true
+
+# ==============================================================================
+# PodDisruptionBudget
+podDisruptionBudget:
+  enabled: false

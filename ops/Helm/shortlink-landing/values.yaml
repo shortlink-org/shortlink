@@ -84,10 +84,18 @@ service:
       protocol: TCP
       public: true
 
+# ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   enabled: true
 
+# ==============================================================================
+# PodDisruptionBudget
+podDisruptionBudget:
+  enabled: false
+
+# ==============================================================================
+# NetworkPolicy
 networkPolicy:
   enabled: true
   policyTypes:
