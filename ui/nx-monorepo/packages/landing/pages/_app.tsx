@@ -91,6 +91,7 @@ const MyApp = (props: MyAppProps) => {
         <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
           <NextThemeProvider enableSystem attribute="class">
             <main className={`${fonts.variable} font-sans`}>
+              {/* @ts-ignore */}
               <Component {...pageProps} />
             </main>
           </NextThemeProvider>
