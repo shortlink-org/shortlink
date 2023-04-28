@@ -1,14 +1,13 @@
 # syntax=docker/dockerfile:1.5
 
-# Defining environment
-ARG APP_ENV=development
-
 # Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
 # enable scanning for the intermediate build stage
 ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
+# Defining environment
+ARG APP_ENV=development
 ARG API_URI
 
 # Install dependencies only when needed

@@ -12,7 +12,6 @@ applications:
     strategy: depend
   needs:
     - pipeline: docker
-    - job: helm-chart
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success

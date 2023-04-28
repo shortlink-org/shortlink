@@ -6,10 +6,10 @@ include:
 #  - local: /ops/gitlab/stages/accessibility.yml
 
 stages:
-#  - test
+  - test
   - build
   - artifacts
-#  - deploy
+  - deploy
 #  - accessibility
 #  - action
 
@@ -26,17 +26,17 @@ stages:
     - NX_HEAD=$CI_COMMIT_SHA
     - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
 
-#format-check:
-#  stage: test
-#  extends: .distributed
-#  script:
-#    - npx nx format:check --base=$NX_BASE --head=$NX_HEAD
-#
-#lint:
-#  stage: test
-#  extends: .distributed
-#  script:
-#    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
+format-check:
+  stage: test
+  extends: .distributed
+  script:
+    - npx nx format:check --base=$NX_BASE --head=$NX_HEAD
+
+lint:
+  stage: test
+  extends: .distributed
+  script:
+    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
 
 build:
   stage: build
