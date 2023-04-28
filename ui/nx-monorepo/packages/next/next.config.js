@@ -183,9 +183,7 @@ if (isEnableSentry) {
     // https://github.com/getsentry/sentry-webpack-plugin#options.
   }
 
-  NEXT_CONFIG = withPWA(
-    withExportImages(withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions))
-  )
+  NEXT_CONFIG = withExportImages(withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions))
 }
 
-module.exports = NEXT_CONFIG
+module.exports = withPWA(NEXT_CONFIG)
