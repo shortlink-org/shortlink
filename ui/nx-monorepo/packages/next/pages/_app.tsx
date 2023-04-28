@@ -51,7 +51,7 @@ const MyApp = ({ Component, ...rest }) => {
               type: 'website',
               locale: 'en_IE',
               url: 'https://shortlink.best/',
-              site_name: 'Shortlink',
+              siteName: 'Shortlink',
               images: [
                 {
                   url: 'https://shortlink.best/images/logo.png',
