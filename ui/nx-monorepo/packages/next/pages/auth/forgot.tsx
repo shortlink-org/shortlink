@@ -1,5 +1,6 @@
-import { useRouter } from 'next/router'
+// @ts-nocheck
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { RecoveryFlow, UpdateRecoveryFlowBody } from '@ory/client'
 import { AxiosError } from 'axios'
 import type { NextPage } from 'next'

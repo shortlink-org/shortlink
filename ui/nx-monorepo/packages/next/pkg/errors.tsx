@@ -10,9 +10,11 @@ export function handleGetFlowError<S>(
   resetFlow: Dispatch<SetStateAction<S | undefined>>,
 ) {
   return async (err: AxiosError) => {
+    // @ts-ignore
     switch (err.response?.data.error?.id) {
       case 'session_aal2_required':
         // 2FA is enabled and enforced, but user did not perform 2fa yet!
+        // @ts-ignore
         window.location.href = err.response?.data.redirect_browser_to
         return
       case 'session_already_available':
@@ -21,6 +23,7 @@ export function handleGetFlowError<S>(
         return
       case 'session_refresh_required':
         // We need to re-authenticate to perform this action
+        // @ts-ignore
         window.location.href = err.response?.data.redirect_browser_to
         return
       case 'self_service_flow_return_to_forbidden':
@@ -50,6 +53,7 @@ export function handleGetFlowError<S>(
         return
       case 'browser_location_change_required':
         // Ory Kratos asked us to point the user to this URL.
+        // @ts-ignore
         window.location.href = err.response.data.redirect_browser_to
         return
     }
