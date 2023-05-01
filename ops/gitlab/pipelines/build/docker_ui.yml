@@ -1,6 +1,6 @@
 include:
   - local: /ops/gitlab/pipelines/build/docker_base.yml
-  - local: /ops/gitlab/templates/cache_ui.yaml
+  - local: /ops/gitlab/pipelines/ui/templates/cache.yml
 
 build:
   extends:
