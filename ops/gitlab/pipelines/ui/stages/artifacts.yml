@@ -10,7 +10,6 @@ docker:
   stage: artifacts
   variables:
     CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
-    CI_COMMIT_TAG: test # DELETE THIS LINE
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/build/docker_ui.yml'
