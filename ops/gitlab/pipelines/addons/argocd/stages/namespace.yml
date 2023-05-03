@@ -1,0 +1,5 @@
+# Create namespace for argocd
+namespace:create:
+  stage: namespace
+  script:
+    - kubectl create namespace argocd || true

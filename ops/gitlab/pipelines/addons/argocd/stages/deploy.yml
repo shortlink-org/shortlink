@@ -1,0 +1,14 @@
+argocd:
+  stage: deploy
+  variables:
+    RELEASE_NAME: argocd
+    HELM_PATH: ops/Helm/addons/argocd
+    HELM_NAMESPACE: argocd
+    ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd
+    HELM_ARG: -f ${HELM_PATH}/values.sops.yaml -f ${HELM_PATH}/notify.values.yaml
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  rules:
+    - when: on_success
