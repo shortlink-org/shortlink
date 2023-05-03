@@ -1,7 +1,10 @@
 # Create namespace for argocd
 namespace:create:
   stage: .pre
+  image:
+    name: alpine/k8s:1.27.1
+    entrypoint: [ "" ]
   script:
-    - kubectl create namespace argocd || true
+    - kubectl create namespace argocd
   allow_failure: true
 
