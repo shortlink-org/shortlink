@@ -4,6 +4,7 @@ include:
 # STAGING RELEASE ======================================================================================================
 applications:
   extends:
+    - .matrix_deploy_provider
     - .matrix_deploy_application
   stage: deploy
   trigger:

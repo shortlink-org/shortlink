@@ -31,6 +31,19 @@ infrastructure:
       - local: 'ops/gitlab/pipelines/helm_additional.yml'
   when: manual
 
+# ARGO CD ==============================================================================================================
+argo-cd:
+  extends:
+    - .matrix_deploy_provider
+  stage: addons
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/addons/argocd/argocd.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
 # Set secret credential
 dockerfile:
   extends:
