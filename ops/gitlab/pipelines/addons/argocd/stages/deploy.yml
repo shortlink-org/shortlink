@@ -10,5 +10,7 @@ argocd:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
     strategy: depend
+  allow_failure: true
   rules:
     - when: on_success
+    - when: manual
