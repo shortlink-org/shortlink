@@ -1,0 +1,13 @@
+shortlink:
+  stage: addons
+  variables:
+    RELEASE_NAME: argocd-shortlink
+    HELM_PATH: ops/Helm/addons/argocd-shortlink
+    HELM_NAMESPACE: argocd
+    ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd-shortlink
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  rules:
+    - when: on_success

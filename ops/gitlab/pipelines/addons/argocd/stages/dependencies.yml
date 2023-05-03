@@ -1,10 +1,5 @@
-include:
-  - local: /ops/gitlab/workflows/matrix_deploy.yml
-
 prometheus-operator:crd:
-  extends:
-    - .matrix_deploy_provider
-  stage: addons
+  stage: dependencies
   image:
     name: alpine/k8s:1.27.1
     entrypoint: [ "" ]
@@ -17,72 +12,11 @@ prometheus-operator:crd:
     - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml || true
     - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml || true
     - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml || true
-  needs: [ ]
   rules:
-    - when: manual
+    - when: on_success
   environment:
     name: ${PROVIDER}/prometheus-operator-crd
     deployment_tier: production
     url: $ENVIRONMENT_URL
     kubernetes:
       namespace: default
-
-argo:
-  stage: addons
-  variables:
-    RELEASE_NAME: argocd
-    HELM_PATH: ops/Helm/addons/argocd
-    HELM_NAMESPACE: argocd
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd
-    HELM_ARG: -f ${HELM_PATH}/values.sops.yaml -f ${HELM_PATH}/notify.values.yaml
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: [ ]
-  rules:
-    - when: manual
-
-argo-shortlink:
-  stage: addons
-  variables:
-    RELEASE_NAME: argocd-shortlink
-    HELM_PATH: ops/Helm/addons/argocd-shortlink
-    HELM_NAMESPACE: argocd
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd-shortlink
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: [ ]
-  rules:
-    - when: manual
-
-argo-secret:
-  extends:
-    - .matrix_deploy_provider
-  stage: addons
-  image:
-    name: alpine/k8s:1.27.1
-    entrypoint: [ "" ]
-  before_script:
-    - kubectl delete secret
-      --context=shortlink-org/shortlink:${PROVIDER}
-      --namespace=argocd
-      sops-gpg || true
-  script:
-    - kubectl create ns argocd || true
-    - kubectl create secret generic
-      --context=shortlink-org/shortlink:${PROVIDER}
-      --namespace=argocd
-      --from-file=sops.asc=${GPG_TOKEN}
-      sops-gpg
-
-    - kubectl create secret generic
-      --context=shortlink-org/shortlink:${PROVIDER}
-      --namespace=argocd
-      --from-file=sshPrivateKey=${ARGO_SSH_TOKEN}
-      git-creds
-  needs: []
-  rules:
-    - when: manual
