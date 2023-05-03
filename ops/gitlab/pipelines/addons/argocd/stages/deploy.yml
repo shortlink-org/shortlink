@@ -1,6 +1,7 @@
 argocd:
   stage: deploy
   variables:
+    PROVIDER: $PROVIDER
     RELEASE_NAME: argocd
     HELM_PATH: ops/Helm/addons/argocd
     HELM_NAMESPACE: argocd

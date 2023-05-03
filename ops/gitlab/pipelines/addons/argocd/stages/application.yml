@@ -1,6 +1,7 @@
 shortlink:
   stage: application
   variables:
+    PROVIDER: $PROVIDER
     RELEASE_NAME: argocd-shortlink
     HELM_PATH: ops/Helm/addons/argocd-shortlink
     HELM_NAMESPACE: argocd
@@ -9,6 +10,6 @@ shortlink:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
     strategy: depend
-  needs: []
+  needs: [ ]
   rules:
     - when: manual
