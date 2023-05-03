@@ -2,6 +2,7 @@
 redis:
   stage: addons
   variables:
+    PROVIDER: $PROVIDER
     RELEASE_NAME: redis
     HELM_PATH: ops/Helm/addons/store/redis
     HELM_NAMESPACE: redis
