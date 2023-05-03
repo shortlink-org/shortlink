@@ -14,11 +14,11 @@ prometheus-operator:crd:
       - NAME: monitoring.coreos.com_servicemonitors.yaml
       - NAME: monitoring.coreos.com_thanosrulers.yaml
   script:
-    - kubectl apply \
-      --force-conflicts \
-      --server-side \
-      --context=shortlink-org/shortlink:${PROVIDER} \
-      -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.${NAME}.yaml
+    - kubectl apply 
+      --force-conflicts 
+      --server-side 
+      --context=shortlink-org/shortlink:${PROVIDER} 
+      -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.${NAME}.yaml
   rules:
     - when: on_success
     - when: manual
@@ -48,4 +48,5 @@ dockerfile:
       --from-file=.dockerconfigjson=/root/.docker/config.json
       --type=kubernetes.io/dockerconfigjson
   allow_failure: true
-  when: manual
+  rules:
+    - when: manual
