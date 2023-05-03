@@ -7,4 +7,5 @@ namespace:create:
   script:
     - kubectl --context=shortlink-org/shortlink:${PROVIDER} \
       create namespace argocd
-  allow_failure: true
+  rules:
+    - when: manual
