@@ -1,5 +1,5 @@
 shortlink:
-  stage: addons
+  stage: application
   variables:
     RELEASE_NAME: argocd-shortlink
     HELM_PATH: ops/Helm/addons/argocd-shortlink
