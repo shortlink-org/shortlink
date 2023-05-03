@@ -7,8 +7,7 @@ include:
   - local: ops/gitlab/pipelines/addons/argocd/stages/application.yml
 
 stages:
-  - namespace
-  - dependencies
+  - .pre
   - secrets
   - deploy
   - application
