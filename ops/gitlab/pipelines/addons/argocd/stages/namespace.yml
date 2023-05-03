@@ -3,3 +3,5 @@ namespace:create:
   stage: namespace
   script:
     - kubectl create namespace argocd || true
+  allow_failure: true
+

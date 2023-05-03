@@ -14,6 +14,8 @@ prometheus-operator:crd:
     - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml || true
   rules:
     - when: on_success
+    - when: manual
+  allow_failure: true
   environment:
     name: ${PROVIDER}/prometheus-operator-crd
     deployment_tier: production
