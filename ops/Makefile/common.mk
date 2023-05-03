@@ -1,3 +1,8 @@
+# COMMON TASKS =========================================================================================================
+.PHONY: confirm
+confirm: ## Confirm before running a task
+	@echo 'Are you sure? [y/N] ' && read ans && [ $${ans:-N} = y ]
+
 # APPLICATION TASKS ====================================================================================================
 dep: ## Install dependencies for this project
 	# install protoc addons
@@ -49,7 +54,7 @@ run: ## Run this project in docker compose
 		-f ops/docker-compose/mq/rabbitmq.yaml \
 		up -d --remove-orphans
 
-down: ## Down docker compose
+down: confirm ## Down docker compose
 	@docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
