@@ -35,7 +35,7 @@ infrastructure:
 argo-cd:
   extends:
     - .matrix_deploy_provider
-  stage: addons
+  stage: .pre
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/addons/argocd/argocd.yml'
