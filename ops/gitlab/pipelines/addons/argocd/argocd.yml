@@ -1,7 +1,7 @@
 include:
   - local: /ops/gitlab/templates/common.yml
-  - local: ops/gitlab/pipelines/addons/argocd/stages/dependencies.yml
   - local: ops/gitlab/pipelines/addons/argocd/stages/namespace.yml
+  - local: ops/gitlab/pipelines/addons/argocd/stages/dependencies.yml
   - local: ops/gitlab/pipelines/addons/argocd/stages/secrets.yml
   - local: ops/gitlab/pipelines/addons/argocd/stages/deploy.yml
   - local: ops/gitlab/pipelines/addons/argocd/stages/application.yml
