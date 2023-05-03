@@ -14,17 +14,13 @@ spec:
     namespace: velero
     server: 'https://kubernetes.default.svc'
   source:
-    chart: velero
-    repoURL: https://vmware-tanzu.github.io/helm-charts
-    targetRevision: 2.*
+    path: ops/Helm/addons/store/velero
+    repoURL: 'https://github.com/shortlink-org/shortlink'
+    targetRevision: HEAD
     helm:
       releaseName: velero
-      values: |
-        metrics:
-          serviceMonitor:
-            enabled: true
-          prometheusRule:
-            enabled: true
+      valueFiles:
+        - values.yaml
   syncPolicy:
     automated:
       prune: true
