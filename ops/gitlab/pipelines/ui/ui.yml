@@ -1,10 +1,7 @@
 include:
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/pipelines/ui/templates/nx.yml
-  - local: /ops/gitlab/pipelines/ui/stages/test.yml
-  - local: /ops/gitlab/pipelines/ui/stages/build.yml
-  - local: /ops/gitlab/pipelines/ui/stages/artifacts.yml
-  - local: /ops/gitlab/pipelines/ui/stages/accessibility.yml
+  - local: /ops/gitlab/pipelines/ui/stages/**
 
 stages:
   - test
