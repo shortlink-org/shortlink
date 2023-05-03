@@ -42,7 +42,7 @@ require (
 	github.com/neo4j/neo4j-go-driver/v5 v5.8.0
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/pkg/errors v0.9.1
-	github.com/prometheus/client_golang v1.15.0
+	github.com/prometheus/client_golang v1.15.1
 	github.com/prometheus/client_model v0.3.0
 	github.com/pterm/pterm v0.12.59
 	github.com/pyroscope-io/client v0.7.0
