@@ -29,3 +29,23 @@ prometheus-operator:crd:
     url: $ENVIRONMENT_URL
     kubernetes:
       namespace: default
+
+# Set secret credential
+dockerfile:
+  stage: .pre
+  services:
+    - name: docker:dind
+      command: [ "--experimental" ]
+  image: docker:latest
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - apk add curl
+  script:
+    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    - chmod +x kubectl
+    - ./kubectl create secret generic regcred
+      --context=shortlink-org/shortlink:${PROVIDER}
+      --from-file=.dockerconfigjson=/root/.docker/config.json
+      --type=kubernetes.io/dockerconfigjson
+  allow_failure: true
+  when: manual
