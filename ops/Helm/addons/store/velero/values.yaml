@@ -23,6 +23,11 @@ velero:
       add: []
     readOnlyRootFilesystem: true
 
+  configuration:
+    volumeSnapshotLocation:
+      - name: default
+        provider: aws
+
   metrics:
     serviceMonitor:
       enabled: true
