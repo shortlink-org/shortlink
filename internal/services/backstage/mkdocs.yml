@@ -5,3 +5,15 @@ nav:
 
 plugins:
   - techdocs-core
+  - search
+  - awesome-pages
+  - macros
+  - alias
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
