@@ -3,15 +3,22 @@ prometheus-operator:crd:
   image:
     name: alpine/k8s:1.27.1
     entrypoint: [ "" ]
+  parallel:
+    matrix:
+      - NAME: monitoring.coreos.com_alertmanagerconfigs.yaml
+      - NAME: monitoring.coreos.com_alertmanagers.yaml
+      - NAME: monitoring.coreos.com_podmonitors.yaml
+      - NAME: monitoring.coreos.com_probes.yaml
+      - NAME: monitoring.coreos.com_prometheuses.yaml
+      - NAME: monitoring.coreos.com_prometheusrules.yaml
+      - NAME: monitoring.coreos.com_servicemonitors.yaml
+      - NAME: monitoring.coreos.com_thanosrulers.yaml
   script:
-    - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml || true
-    - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml || true
-    - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml || true
-    - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml || true
-    - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml || true
-    - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml || true
-    - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml || true
-    - kubectl apply --force-conflicts --server-side -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml || true
+    - kubectl apply \
+      --force-conflicts \
+      --server-side \
+      --context=shortlink-org/shortlink:${PROVIDER} \
+      -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.0/example/prometheus-operator-crd/monitoring.coreos.${NAME}.yaml
   rules:
     - when: on_success
     - when: manual
