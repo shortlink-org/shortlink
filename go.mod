@@ -66,7 +66,7 @@ require (
 	github.com/uptrace/go-clickhouse v0.3.1
 	github.com/uptrace/go-clickhouse/chdebug v0.3.1
 	github.com/uptrace/go-clickhouse/chotel v0.3.1
-	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.21
+	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.0
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.21
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.21
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.21
@@ -227,7 +227,7 @@ require (
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
 	github.com/twmb/murmur3 v1.1.5 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.21 // indirect
+	github.com/uptrace/opentelemetry-go-extra/otelutil v0.2.0 // indirect
 	github.com/urfave/cli/v2 v2.25.1 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
@@ -246,7 +246,7 @@ require (
 	go.etcd.io/etcd/api/v3 v3.5.8 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.8 // indirect
 	go.opencensus.io v0.24.0 // indirect
-	go.opentelemetry.io/contrib v1.14.0 // indirect
+	go.opentelemetry.io/contrib v1.16.1 // indirect
 	go.opentelemetry.io/otel/metric v0.38.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
