@@ -12,10 +12,12 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.14.0
 	github.com/container-storage-interface/spec v1.8.0
 	github.com/cucumber/godog v0.12.6
+	github.com/deepmap/oapi-codegen v1.8.2
 	github.com/dgraph-io/badger/v4 v4.1.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/edgedb/edgedb-go v0.13.6
 	github.com/ethereum/go-ethereum v1.11.6
+	github.com/getkin/kin-openapi v0.61.0
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.2
@@ -138,6 +140,7 @@ require (
 	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/frankban/quicktest v1.14.4 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
+	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
@@ -198,7 +201,7 @@ require (
 	github.com/nats-io/nats-server/v2 v2.9.6 // indirect
 	github.com/nats-io/nkeys v0.4.4 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
-	github.com/onsi/ginkgo/v2 v2.9.3 // indirect
+	github.com/onsi/ginkgo/v2 v2.9.4 // indirect
 	github.com/onsi/gomega v1.27.6 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect

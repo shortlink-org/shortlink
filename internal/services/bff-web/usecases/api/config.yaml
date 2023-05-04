@@ -1,0 +1,8 @@
+package: api
+generate:
+  - chi-server
+  - client
+  - types
+output: api.gen.go
+compatibility:
+  apply-chi-middleware-first-to-last: true
