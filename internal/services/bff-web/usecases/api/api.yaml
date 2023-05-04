@@ -43,14 +43,10 @@ paths:
           description: OK
           content:
             application/json:
-            schema:
-              $ref: '#/components/schemas/Links'
-        '404':
-          description: Not Found
-          content:
-            application/json:
               schema:
-                $ref: '#/components/responses/ErrorNotFound'
+                $ref: '#/components/schemas/Links'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
 
 components:
   parameters:
@@ -77,8 +73,8 @@ components:
         default: 0
 
   responses:
-    ErrorNotFound:
-      description: ErrorNotFound
+    NotFoundError:
+      description: Not Found
       content:
         application/json:
           schema:

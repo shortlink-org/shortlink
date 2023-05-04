@@ -25,3 +25,7 @@ customer -> bff_web : Request
 bff_web -down-> auth : Proxy
 bff_web -> billing : Proxy
 ```
+
+### Use cases
+
+- [UC-1](./usecases/api/UC-1.md) - API implementation
