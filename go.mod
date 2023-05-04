@@ -67,7 +67,7 @@ require (
 	github.com/uptrace/go-clickhouse/chdebug v0.3.1
 	github.com/uptrace/go-clickhouse/chotel v0.3.1
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.1.21
-	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.1.21
+	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.2.0
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.1.21
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.1.21
 	go.etcd.io/etcd/client/v3 v3.5.8
@@ -227,7 +227,7 @@ require (
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
 	github.com/twmb/murmur3 v1.1.5 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelutil v0.1.21 // indirect
+	github.com/uptrace/opentelemetry-go-extra/otelutil v0.2.0 // indirect
 	github.com/urfave/cli/v2 v2.25.1 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
