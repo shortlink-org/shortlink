@@ -56,24 +56,6 @@ license_scanning:
     - if: $CI_COMMIT_TAG
       when: on_success
 
-# DANGER ===============================================================================================================
-# TODO: fix
-danger-review:
-  image: registry.gitlab.com/gitlab-org/gitlab-build-images:danger
-  stage: test
-  variables:
-    DANGER_GITLAB_API_TOKEN: $GITLAB_TOKEN
-  script:
-    - git version
-    - danger --dangerfile=ops/danger/Dangerfile
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-
 # SECRET-DETECTION =====================================================================================================
 secret_detection:
   stage: test
