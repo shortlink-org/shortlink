@@ -1,0 +1,15 @@
+.crd_tempates:
+  stage: .pre
+  image:
+    name: alpine/k8s:1.27.1
+    entrypoint: [ "" ]
+  script:
+    - kubectl apply
+      --force-conflicts
+      --server-side
+      --context=shortlink-org/shortlink:${PROVIDER}
+      --validate=false
+      -f ${NAME}
+  allow_failure: true
+  rules:
+    - when: manual
