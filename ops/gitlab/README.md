@@ -75,9 +75,9 @@
 
 ### Variable
 
-| Name            | Description                                                               |
-|-----------------|---------------------------------------------------------------------------|
-| GITLAB_TOKEN    | Used for danger as `DANGER_GITLAB_API_TOKEN`, `RENOVATE_TOKEN` and etc... |
+| Name         | Description                          |
+|--------------|--------------------------------------|
+| GITLAB_TOKEN | Used for `RENOVATE_TOKEN` and etc... |
 
 ---
 
