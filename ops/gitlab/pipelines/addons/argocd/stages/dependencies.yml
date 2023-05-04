@@ -18,7 +18,7 @@ prometheus-operator:crd:
       --force-conflicts 
       --server-side 
       --context=shortlink-org/shortlink:${PROVIDER} 
-      -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.${NAME}.yaml
+      -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/${NAME}
   rules:
     - when: manual
   allow_failure: true
