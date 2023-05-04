@@ -17,7 +17,6 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/edgedb/edgedb-go v0.13.6
 	github.com/ethereum/go-ethereum v1.11.6
-	github.com/getkin/kin-openapi v0.61.0
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.2
@@ -78,10 +77,10 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.41.1
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.41.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.41.1
-	go.opentelemetry.io/otel v1.15.1
+	go.opentelemetry.io/otel v1.16.0-rc.1
 	go.opentelemetry.io/otel/exporters/jaeger v1.15.1
 	go.opentelemetry.io/otel/sdk v1.15.1
-	go.opentelemetry.io/otel/trace v1.15.1
+	go.opentelemetry.io/otel/trace v1.16.0-rc.1
 	go.uber.org/atomic v1.11.0
 	go.uber.org/automaxprocs v1.5.2
 	go.uber.org/goleak v1.2.1
@@ -140,7 +139,6 @@ require (
 	github.com/felixge/httpsnoop v1.0.3 // indirect
 	github.com/frankban/quicktest v1.14.4 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
-	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
@@ -250,7 +248,7 @@ require (
 	go.etcd.io/etcd/client/pkg/v3 v3.5.8 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/contrib v1.14.0 // indirect
-	go.opentelemetry.io/otel/metric v0.38.1 // indirect
+	go.opentelemetry.io/otel/metric v1.16.0-rc.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/exp v0.0.0-20230321023759-10a507213a29 // indirect

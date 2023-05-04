@@ -99,9 +99,10 @@ deploy:
 hpa:
   enabled: true
   metrics:
-    - type: Resource
-      resource:
+    - type: ContainerResource
+      containerResource:
         name: cpu
+        container: application
         target:
           type: Utilization
           averageUtilization: 80
