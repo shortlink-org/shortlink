@@ -1,7 +1,7 @@
 /*
 Metadata Service. Application layer
 */
-package metadata
+package parsers
 
 import (
 	"context"
