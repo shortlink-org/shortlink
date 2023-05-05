@@ -4,6 +4,6 @@
   "main": "dist/index.js",
   "devDependencies": {},
   "scripts": {
-    "build": "tsc index.ts --outDir dist"
+    "build": "npx swc index.ts -o ./dist/index.js"
   }
 }

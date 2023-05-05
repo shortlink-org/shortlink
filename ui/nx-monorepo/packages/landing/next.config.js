@@ -92,6 +92,7 @@ const nextConfig = {
   },
   experimental: {
     forceSwcTransforms: true,
+    swcTraceProfiling: true,
     turbo: {
       loaders: {
         '.md': [
