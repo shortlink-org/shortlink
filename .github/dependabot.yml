@@ -188,3 +188,9 @@ updates:
     directory: /ui/nx-monorepo/packages/ui-kit
     schedule:
       interval: daily
+
+
+  - package-ecosystem: pip
+    directory: /poc/ml-diff/ml
+    schedule:
+      interval: daily
