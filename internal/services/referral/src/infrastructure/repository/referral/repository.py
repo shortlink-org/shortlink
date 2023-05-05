@@ -1,7 +1,7 @@
 import abc
 from typing import List
 
-from domain.referral.v1.referral_pb2 import Referral
+from src.domain.referral.v1.referral_pb2 import Referral
 
 
 class AbstractRepository(abc.ABC):

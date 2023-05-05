@@ -10,9 +10,9 @@ from redis.exceptions import (
 )
 from google.protobuf.json_format import MessageToJson, ParseDict
 
-from domain.referral.v1.referral_pb2 import Referral
+from src.domain.referral.v1.referral_pb2 import Referral
 from .repository import AbstractRepository
-from domain.referral.v1.exception import ReferralNotFound
+from src.domain.referral.v1.exception import ReferralNotFound
 
 class Repository(AbstractRepository):
     def __init__(self, host: str):

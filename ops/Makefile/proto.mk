@@ -1,8 +1,5 @@
 # PROTO TASKS ==========================================================================================================
 
-proto-install: ## Install protoc
-	@./ops/scripts/install-protobuf.sh
-
 proto-lint: ## Check lint
 	@buf ls-files
 	@buf lint
@@ -43,7 +40,7 @@ proto-generate: ## Generate proto-files
 		--config=ops/proto/billing/buf.yaml
 
 	@buf generate \
-		--path=internal/services/referral/domain \
+		--path=internal/services/referral/src/domain \
 		--template=ops/proto/referral/buf.gen.yaml \
 		--config=ops/proto/referral/buf.yaml
 
@@ -68,4 +65,3 @@ proto-generate: ## Generate proto-files
 		--path=internal/services/api/application/grpc_web \
 		--template=ops/proto/grpc-web/buf.gen.yaml \
 		--config=ops/proto/grpc-web/buf.yaml
-
