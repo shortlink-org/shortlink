@@ -40,6 +40,8 @@ We will use the GitLab CI/CD to deploy our services to Kubernetes.
 
 We will use ArgoCD to manage our Kubernetes cluster.
 
+ - [Introduction to Continuous Delivery and GitOps using Argo CD](https://academy.akuity.io/courses/gitops-argocd-intro)
+
 ### Secrets
 
 We will use SOPS to manage our secrets.
