@@ -4,12 +4,12 @@ import sys
 
 from dependency_injector.wiring import Provide, inject
 
-from usecases.crud_referral.crud import CRUDReferralService
-from usecases.use_referral.use import UseReferralService
-from di.logger.logger import LoguruJsonProvider
-from di.di import Application, Core
-from infrastructure.http.routes import register_routes
-from di.http.server import QuartProvider
+from src.usecases.crud_referral.crud import CRUDReferralService
+from src.usecases.use_referral.use import UseReferralService
+from src.di.core import LoguruJsonProvider
+from src.di.di import Application, Core
+from src.infrastructure.http.routes import register_routes
+from src.di.core import QuartProvider
 
 @inject
 def main(

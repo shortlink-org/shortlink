@@ -1,12 +1,11 @@
 """Containers module."""
 
 from dependency_injector import containers, providers
-from testcontainers.redis import RedisContainer
 
-from usecases.crud_referral.crud import CRUDReferralService
-from usecases.use_referral.use import UseReferralService
-from infrastructure.repository.referral.redis import Repository
-from di.core import Core
+from src.usecases.crud_referral.crud import CRUDReferralService
+from src.usecases.use_referral.use import UseReferralService
+from src.infrastructure.repository.referral.redis import Repository
+from src.di.core import Core
 
 class Application(containers.DeclarativeContainer):
     config = providers.Configuration()

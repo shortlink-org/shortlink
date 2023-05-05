@@ -1,8 +1,8 @@
 """Use Referral Use Case Module."""
 
-from infrastructure.repository.referral.repository import AbstractRepository
-from domain.referral.v1.referral_pb2 import Referral
-from pkg.event_bus import EventBus
+from src.infrastructure.repository.referral.repository import AbstractRepository
+from src.domain.referral.v1.referral_pb2 import Referral
+from src.pkg.event_bus import EventBus
 
 class UseReferralService():
   def __init__(self, repository: AbstractRepository, event_bus: EventBus) -> None:

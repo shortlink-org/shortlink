@@ -2,11 +2,11 @@
 
 from dependency_injector import containers, providers
 
-from di.logger.logger import LoguruJsonProvider
-from di.observability.opentelemetry import OpenTelemetryProvider
-from di.observability.prometheus import PrometheusMetricsProvider
-from di.http.server import QuartProvider
-from pkg.event_bus import EventBus
+from src.di.logger.logger import LoguruJsonProvider
+from src.di.observability.opentelemetry import OpenTelemetryProvider
+from src.di.observability.prometheus import PrometheusMetricsProvider
+from src.di.http.server import QuartProvider
+from src.pkg.event_bus import EventBus
 
 
 class Core(containers.DeclarativeContainer):

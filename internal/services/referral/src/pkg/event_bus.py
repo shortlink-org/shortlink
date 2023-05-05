@@ -1,7 +1,6 @@
 from collections import defaultdict
 from typing import Callable
 
-
 class EventBus:
     def __init__(self):
         self._listeners = defaultdict(list)
