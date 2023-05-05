@@ -1,7 +1,6 @@
 package worker_pool
 
 import (
-	"fmt"
 	"sync"
 	"testing"
 )
@@ -25,8 +24,7 @@ func Test_WorkerPool(t *testing.T) {
 	}()
 
 	go func() {
-		for resp := range wp.Result {
-			fmt.Println(resp)
+		for range wp.Result {
 			wg.Done()
 		}
 	}()
