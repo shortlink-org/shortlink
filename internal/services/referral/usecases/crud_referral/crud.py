@@ -1,7 +1,8 @@
 """CRUD Referral use case."""
 
 from infrastructure.repository.referral.repository import AbstractRepository
-from domain.referral.v1.referral_pb2 import Referral, REFERRAL_EVENT_ADD, REFERRAL_EVENT_UPDATE, REFERRAL_EVENT_DELETE, ReferralEvent
+from domain.referral.v1.referral_pb2 import Referral
+from domain.referral.v1.events_pb2 import REFERRAL_EVENT_ADD, REFERRAL_EVENT_UPDATE, REFERRAL_EVENT_DELETE, ReferralEvent
 from pkg.event_bus import EventBus
 
 class CRUDReferralService(AbstractRepository):
