@@ -1,6 +1,7 @@
 """Containers module."""
 
 from dependency_injector import containers, providers
+from testcontainers.redis import RedisContainer
 
 from usecases.crud_referral.crud import CRUDReferralService
 from usecases.use_referral.use import UseReferralService
