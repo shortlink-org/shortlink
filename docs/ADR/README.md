@@ -24,8 +24,6 @@ for information team about cases for updated ADR.
   - [ADR-0011](./decisions/0011-application-architecture-documentation.md) - Application architecture documentation
   - [ADR-0012](./decisions/0012-use-monorepository.md) - Use monorepository
   - [ADR-0021](./decisions/0021-microservice-structure.md) - Microservice structure
-- **Lifecycle**
-  - [ADR-0016](./decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
 - **Naming**
   - [ADR-0002](./decisions/0002-implement-as-event-naming.md) - Implement as event naming
   - [ADR-0009](./decisions/0009-naming-spans-and-attributes.md) - Naming spans and attributes
@@ -51,3 +49,4 @@ for information team about cases for updated ADR.
   - [ADR-0019](./decisions/0019-front-end-testing.md) - Front-end testings
 - **Kubernetes**
   - [ADR-0022](./decisions/0022-kubernetes.md) - Kubernetes
+  - [ADR-0016](./decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
