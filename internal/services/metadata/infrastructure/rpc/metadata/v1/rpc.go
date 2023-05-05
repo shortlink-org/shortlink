@@ -7,7 +7,7 @@ import (
 	"context"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application"
+	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
