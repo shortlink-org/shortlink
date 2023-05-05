@@ -1,6 +1,6 @@
 //go:build unit
 
-package metadata
+package parsers
 
 import (
 	"context"

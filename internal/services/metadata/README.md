@@ -13,3 +13,9 @@ Service got get metadata by URL.
 ```
 grpcurl -cacert ./ops/cert/intermediate_ca.pem -d '{"Id": "http://google.com"}' localhost:50052 metadata_rpc.Metadata/Set
 ```
+
+### Use Case
+
+**Use cases**:
+
+- [UC-1](./application/parsers/README.md) Parse metadata from URL
