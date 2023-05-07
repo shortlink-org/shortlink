@@ -25,6 +25,8 @@ terraform-up:
 
 # K8S ==================================================================================================================
 infrastructure:
+  extends:
+    - .matrix_deploy_provider
   stage: .pre
   trigger:
     include:
