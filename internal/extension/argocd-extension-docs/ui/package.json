@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "peerDeependencies": {
-    "react": "^18.0.0"
+    "react": "^18.2.0"
   },
   "scripts": {
     "build": "webpack --config ./webpack.config.js && tar -C dist -cvf dist/extension.tar resources"
