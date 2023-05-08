@@ -14,7 +14,7 @@ code_intelligence_go:
     reports:
       lsif: dump.lsif
   rules:
-    - when: always
+    - when: manual # very long running job, only run manually
 
 gotest:
   extends:
@@ -37,6 +37,7 @@ gotest:
     when: always
     reports:
       junit: report.xml
+  needs: []
   rules:
     - when: always
 
@@ -63,6 +64,7 @@ golint:
     paths:
       - gl-code-quality-report.json
     expire_in: 7 days
+  needs: []
   rules:
     - when: always
 
