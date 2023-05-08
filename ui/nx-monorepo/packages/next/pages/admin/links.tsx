@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { forwardRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import MaterialTable from 'material-table'
+import MaterialTable from '@material-table/core'
 import Tooltip from '@mui/material/Tooltip'
 import { formatRelative } from 'date-fns'
 import AddBox from '@mui/icons-material/AddBox'
