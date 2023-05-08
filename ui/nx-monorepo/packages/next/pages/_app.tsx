@@ -33,13 +33,11 @@ const MyApp = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { emotionCache = clientSideEmotionCache, pageProps } = props
 
-  // const [darkMode, setDarkMode] = useState(false)
-  const darkMode = true
-  const setDarkMode = () => {}
+  const [darkMode, setDarkMode] = useState(false)
   const theme = darkMode ? darkTheme : lightTheme
 
   return (
-    // <React.StrictMode>
+    <React.StrictMode>
       <Provider store={store}>
         <CacheProvider value={emotionCache}>
           <Head>
@@ -117,7 +115,7 @@ const MyApp = ({ Component, ...rest }) => {
           </StyledEngineProvider>
         </CacheProvider>
       </Provider>
-    // </React.StrictMode>
+    </React.StrictMode>
   )
 }
 
