@@ -1,5 +1,4 @@
 //go:build unit || (database && clickhouse)
-// +build unit database,clickhouse
 
 package clickhouse
 

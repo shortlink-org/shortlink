@@ -1,5 +1,4 @@
 //go:build unit || (database && etcd)
-// +build unit database,etcd
 
 package etcd
 

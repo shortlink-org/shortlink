@@ -1,5 +1,4 @@
 //go:build unit || (mq && kafka)
-// +build unit mq,kafka
 
 package kafka
 

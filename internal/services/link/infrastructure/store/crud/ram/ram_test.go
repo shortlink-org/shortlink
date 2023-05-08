@@ -1,5 +1,4 @@
 //go:build unit || (database && ram)
-// +build unit database,ram
 
 package ram
 
@@ -11,15 +10,15 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
 )
 
-// TODO: problem with goleak
-//func TestMain(m *testing.M) {
-//	goleak.VerifyTestMain(m)
-//}
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"))
+}
 
 func TestRAM(t *testing.T) {
 	store := Store{}

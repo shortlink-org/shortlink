@@ -1,5 +1,4 @@
 //go:build unit || (database && redis)
-// +build unit database,redis
 
 package edgedb
 

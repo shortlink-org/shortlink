@@ -1,5 +1,4 @@
 //go:build unit || (database && dgraph)
-// +build unit database,dgraph
 
 package dgraph
 

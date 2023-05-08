@@ -1,5 +1,4 @@
 //go:build unit || (database && aerospike)
-// +build unit database,aerospike
 
 package aerospike
 

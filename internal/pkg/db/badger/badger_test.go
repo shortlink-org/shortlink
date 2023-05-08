@@ -1,5 +1,4 @@
 //go:build unit || (database && badger)
-// +build unit database,badger
 
 package badger
 
