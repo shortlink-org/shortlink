@@ -14,7 +14,7 @@ code_intelligence_go:
     reports:
       lsif: dump.lsif
   rules:
-    - when: manual # very long running job, only run manually
+    - when: manual # very long-running job, only run manually
 
 gotest:
   extends:

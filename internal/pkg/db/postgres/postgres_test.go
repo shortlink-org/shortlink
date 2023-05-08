@@ -1,5 +1,4 @@
 //go:build unit || (database && postgres)
-// +build unit database,postgres
 
 package postgres
 

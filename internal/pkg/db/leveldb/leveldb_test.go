@@ -1,5 +1,4 @@
 //go:build unit || (database && leveldb)
-// +build unit database,leveldb
 
 package leveldb
 

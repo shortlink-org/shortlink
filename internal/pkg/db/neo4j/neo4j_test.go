@@ -1,5 +1,4 @@
 //go:build unit || (database && neo4j)
-// +build unit database,neo4j
 
 package neo4j
 

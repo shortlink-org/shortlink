@@ -1,6 +1,4 @@
 //go:build !darwin && ((unit && cgo) || (database && badger))
-// +build !darwin
-// +build unit,cgo database,badger
 
 package io_uring
 
