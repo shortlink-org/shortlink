@@ -23,7 +23,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	"github.com/shortlink-org/shortlink/internal/services/metadata/application"
+	"github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
 	v1_2 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
@@ -183,7 +183,7 @@ type MetaDataService struct {
 	metadataRPCServer *v1.Metadata
 
 	// Application
-	service *metadata.Service
+	service *parsers.Service
 
 	// Repository
 	metadataStore *meta_store.MetaStore
@@ -220,8 +220,8 @@ func NewMetaDataStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Store
 	return metadataStore, nil
 }
 
-func NewMetaDataApplication(store2 *meta_store.MetaStore) (*metadata.Service, error) {
-	metadataService, err := metadata.New(store2)
+func NewMetaDataApplication(store2 *meta_store.MetaStore) (*parsers.Service, error) {
+	metadataService, err := parsers.New(store2)
 	if err != nil {
 		return nil, err
 	}
@@ -229,7 +229,7 @@ func NewMetaDataApplication(store2 *meta_store.MetaStore) (*metadata.Service, er
 	return metadataService, nil
 }
 
-func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *metadata.Service, log logger.Logger) (*v1.Metadata, error) {
+func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *parsers.Service, log logger.Logger) (*v1.Metadata, error) {
 	metadataRPCServer, err := v1.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -245,7 +245,7 @@ func NewMetaDataService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-	service *metadata.Service,
+	service *parsers.Service,
 
 	metadataMQ *metadata_mq.Event,
 	metadataRPCServer *v1.Metadata,

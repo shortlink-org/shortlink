@@ -42,7 +42,6 @@ require (
 	github.com/nats-io/nats.go v1.25.0
 	github.com/neo4j/neo4j-go-driver/v5 v5.8.0
 	github.com/ory/dockertest/v3 v3.10.0
-	github.com/pkg/errors v0.9.1
 	github.com/prometheus/client_golang v1.15.1
 	github.com/prometheus/client_model v0.4.0
 	github.com/pterm/pterm v0.12.59
@@ -50,8 +49,8 @@ require (
 	github.com/pyroscope-io/godeltaprof v0.1.1
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.1
-	github.com/redis/go-redis/extra/redisotel/v9 v9.0.4
 	github.com/redis/go-redis/v9 v9.0.4
+	github.com/redis/rueidis v1.0.2
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/encoding v0.3.6
@@ -77,10 +76,10 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.41.1
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.41.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.41.1
-	go.opentelemetry.io/otel v1.16.0-rc.1
+	go.opentelemetry.io/otel v1.15.1
 	go.opentelemetry.io/otel/exporters/jaeger v1.15.1
 	go.opentelemetry.io/otel/sdk v1.15.1
-	go.opentelemetry.io/otel/trace v1.16.0-rc.1
+	go.opentelemetry.io/otel/trace v1.15.1
 	go.uber.org/atomic v1.11.0
 	go.uber.org/automaxprocs v1.5.2
 	go.uber.org/goleak v1.2.1
@@ -155,7 +154,7 @@ require (
 	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect
 	github.com/google/flatbuffers v2.0.8+incompatible // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
-	github.com/google/pprof v0.0.0-20210720184732-4bb14d4b1be1 // indirect
+	github.com/google/pprof v0.0.0-20230207041349-798e818bf904 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gookit/color v1.5.3 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
@@ -207,12 +206,12 @@ require (
 	github.com/opencontainers/runc v1.1.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.7 // indirect
 	github.com/pierrec/lz4/v4 v4.1.17 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/common v0.42.0 // indirect
 	github.com/prometheus/procfs v0.9.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
-	github.com/redis/go-redis/extra/rediscmd/v9 v9.0.4 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.10.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
@@ -249,7 +248,7 @@ require (
 	go.etcd.io/etcd/client/pkg/v3 v3.5.8 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/contrib v1.16.1 // indirect
-	go.opentelemetry.io/otel/metric v1.16.0-rc.1 // indirect
+	go.opentelemetry.io/otel/metric v0.38.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/exp v0.0.0-20230321023759-10a507213a29 // indirect
