@@ -8,8 +8,6 @@ docker:
   extends:
     - .matrix_build_ui
   stage: artifacts
-  variables:
-    CACHE_KEY: nx-${CI_COMMIT_REF_SLUG}
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/build/docker_ui.yml'
