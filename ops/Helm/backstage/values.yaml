@@ -30,14 +30,7 @@ ingress:
     name: backstage
     port: 7007
 
-ingress_ui:
   path: /
-
-ingress_api:
-  name: backstage-api
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /api/$2
-  path: /api(/|$)(.*)
 
 # ==============================================================================
 deploy:
