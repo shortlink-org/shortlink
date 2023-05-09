@@ -34,8 +34,13 @@ HELM:
 # LICENSE ==============================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
 license_scanning:
-  extends: .rules_tag
   interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 # SECRET-DETECTION =====================================================================================================
 secret_detection:
@@ -57,7 +62,12 @@ SAST:
 
 # CODE QUALITY =========================================================================================================
 code_quality:
-  extends: .rules_tag
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 code_quality_html:
   extends: code_quality
