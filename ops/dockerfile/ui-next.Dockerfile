@@ -9,6 +9,7 @@ ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 # Defining environment
 ARG APP_ENV=development
 ARG API_URI
+ENV API_URI=${API_URI}
 
 # Install dependencies only when needed
 FROM node:20.1-alpine AS development-builder
