@@ -14,8 +14,6 @@ GOLANG:
     include:
       - local: 'ops/gitlab/pipelines/test/golang.yml'
     strategy: depend
-  needs: []
-  rules:
 
 # HELM =================================================================================================================
 HELM:
