@@ -24,22 +24,24 @@ build: ## Build the CSI container
 			-f ops/dockerfile/csi.Dockerfile .
 
 up: ## Deploy CSI plugin
-		# Apply VolumeSnapshot CRDs
-		@kubectl apply -f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml"
-		@kubectl apply -f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml"
-		@kubectl apply -f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml"
+		@kubectl apply  --prune --applyset=external-snapshotter \
+			# Apply VolumeSnapshot CRDs
+			-f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml" \
+			-f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml" \
+			-f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml" \
 
-		# Create snapshot controller
-		@kubectl apply -f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml"
-		@kubectl apply -f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml"
+			# Create snapshot controller
+			-f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml" \
+			-f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml" \
 
-		# applying RBAC rules
-		@kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-provisioner/v2.0.3/deploy/kubernetes/rbac.yaml
-		@kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-attacher/v3.0.1/deploy/kubernetes/rbac.yaml
-		@kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.1/deploy/kubernetes/csi-snapshotter/rbac-csi-snapshotter.yaml
-		@kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-resizer/v1.0.1/deploy/kubernetes/rbac.yaml
+			# applying RBAC rules
+			-f https://raw.githubusercontent.com/kubernetes-csi/external-provisioner/v2.0.3/deploy/kubernetes/rbac.yaml \
+			-f https://raw.githubusercontent.com/kubernetes-csi/external-attacher/v3.0.1/deploy/kubernetes/rbac.yaml \
+			-f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/v3.0.1/deploy/kubernetes/csi-snapshotter/rbac-csi-snapshotter.yaml \
+			-f https://raw.githubusercontent.com/kubernetes-csi/external-resizer/v1.0.1/deploy/kubernetes/rbac.yaml \
 
-		@kubectl apply -f /home/batazor/myproejct/shortlink/ops/Helm/csi/templates/
+			-f /home/batazor/myproejct/shortlink/ops/Helm/csi/templates/
 
 example: ## Deploy examples for CSI
-	@kubectl apply -f ops/Helm/csi/examples/
+	@kubectl apply --prune --applyset=csi-example \
+		-f ops/Helm/csi/examples/

@@ -5,6 +5,8 @@
     entrypoint: [ "" ]
   script:
     - kubectl apply
+      --prune 
+      --applyset=crd-${NAME}
       --force-conflicts
       --server-side
       --context=shortlink-org/shortlink:${PROVIDER}
