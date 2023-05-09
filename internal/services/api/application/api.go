@@ -7,7 +7,7 @@ package api_application
 import (
 	"context"
 
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 

@@ -28,7 +28,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 )
 
 // Service - heplers

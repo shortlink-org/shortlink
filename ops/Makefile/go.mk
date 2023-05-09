@@ -2,7 +2,7 @@
 
 generate: ## Code generation
 	# Generate from .go code
-	@go generate -tags=wireinject ./...
+	@go generate -tags=wireinject ./internal/...
 
 	@make proto-lint
 	@make proto-generate
@@ -11,7 +11,7 @@ generate: ## Code generation
 .PHONY: fmt
 fmt: ## Format source using goimports
 	# Apply go fmt
-	@goimports -l -local -w cmd pkg internal
+	@goimports -l -local -w internal
 
 golint: ## Linter for golang
 	@docker run --rm -it -v $(pwd):/app -w /app/ golangci/golangci-lint:v1.52.2-alpine golangci-lint run ./...

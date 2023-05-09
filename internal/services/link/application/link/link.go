@@ -14,11 +14,11 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/internal/pkg/saga"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud"
 	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
-	"github.com/shortlink-org/shortlink/pkg/saga"
 )
 
 type Service struct {

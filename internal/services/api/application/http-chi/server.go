@@ -13,6 +13,9 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
+	additionalMiddleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware"
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	_ "github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	cqrs_api "github.com/shortlink-org/shortlink/internal/services/api/application/http-chi/controllers/cqrs"
@@ -21,9 +24,6 @@ import (
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	"github.com/shortlink-org/shortlink/pkg/http/handler"
-	additionalMiddleware "github.com/shortlink-org/shortlink/pkg/http/middleware"
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 const MAX_AGE = 300

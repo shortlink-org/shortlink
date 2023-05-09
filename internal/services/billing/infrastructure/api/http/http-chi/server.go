@@ -14,6 +14,9 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
+	additionalMiddleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware"
+	"github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
 	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
@@ -24,9 +27,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/order"
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/payment"
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/tariff"
-	"github.com/shortlink-org/shortlink/pkg/http/handler"
-	additionalMiddleware "github.com/shortlink-org/shortlink/pkg/http/middleware"
-	"github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 // Run HTTP-server

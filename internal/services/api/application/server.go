@@ -9,9 +9,10 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/text/message"
 
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/api/application/cloudevents"
 	"github.com/shortlink-org/shortlink/internal/services/api/application/graphql"
 	grpcweb "github.com/shortlink-org/shortlink/internal/services/api/application/grpc_web/v1"
@@ -19,7 +20,6 @@ import (
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 // runAPIServer - start HTTP-server

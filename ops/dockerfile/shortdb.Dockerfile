@@ -35,7 +35,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -ldflags "-s -w -X main.CI_COMMIT_TAG=$CI_COMMIT_TAG" \
   -installsuffix cgo \
   -trimpath \
-  -o app ./internal/pkg/shortdb/cli
+  -o app ./internal/services/shortdb/cli
 
 FROM debian:11.7
 

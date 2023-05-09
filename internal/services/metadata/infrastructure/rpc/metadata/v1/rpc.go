@@ -7,8 +7,8 @@ import (
 	"context"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type Metadata struct {

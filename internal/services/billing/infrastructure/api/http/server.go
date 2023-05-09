@@ -3,7 +3,7 @@ package api
 import (
 	"context"
 
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"

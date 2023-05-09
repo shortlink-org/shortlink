@@ -50,14 +50,14 @@ proto-generate: ## Generate proto-files
 		--config=ops/proto/eventsourcing/buf.yaml
 
 	@buf generate \
-		--path=pkg/shortdb/parser/v1 \
-		--path=pkg/shortdb/domain/query/v1 \
-		--path=pkg/shortdb/domain/index/v1 \
-		--path=pkg/shortdb/domain/page/v1 \
-		--path=pkg/shortdb/domain/table/v1 \
-		--path=pkg/shortdb/domain/field/v1 \
-		--path=pkg/shortdb/domain/database/v1 \
-		--path=pkg/shortdb/domain/session/v1 \
+		--path=internal/services/shortdb/parser/v1 \
+		--path=internal/services/shortdb/domain/query/v1 \
+		--path=internal/services/shortdb/domain/index/v1 \
+		--path=internal/services/shortdb/domain/page/v1 \
+		--path=internal/services/shortdb/domain/table/v1 \
+		--path=internal/services/shortdb/domain/field/v1 \
+		--path=internal/services/shortdb/domain/database/v1 \
+		--path=internal/services/shortdb/domain/session/v1 \
 		--template=ops/proto/shortdb/buf.gen.yaml \
 		--config=ops/proto/shortdb/buf.yaml
 
