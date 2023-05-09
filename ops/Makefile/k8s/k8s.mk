@@ -1,4 +1,5 @@
 # Include Makefile
+include $(SELF_DIR)/ops/Makefile/k8s/common.mk
 include $(SELF_DIR)/ops/Makefile/k8s/helm.mk
 include $(SELF_DIR)/ops/Makefile/k8s/ct.mk
 include $(SELF_DIR)/ops/Makefile/k8s/k8s.velero.mk
