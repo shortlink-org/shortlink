@@ -1,9 +1,15 @@
+SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
+
+# INCLUDE ==============================================================================================================
+# Include Makefile
+include $(SELF_DIR)/../../../ops/Makefile/common.mk
+
 # CSI TASKS ============================================================================================================
 
 # Change to the latest supported snapshotter version
 SNAPSHOTTER_VERSION=v6.2.1
 
-csi-build: ## Build the CSI container
+build: ## Build the CSI container
 		@echo docker buildx build \
 			--platform=linux/amd64 \
 			--provenance=true \
@@ -17,7 +23,7 @@ csi-build: ## Build the CSI container
 			-t ${CI_REGISTRY_IMAGE}-csi \
 			-f ops/dockerfile/csi.Dockerfile .
 
-csi-up: ## Deploy CSI plugin
+up: ## Deploy CSI plugin
 		# Apply VolumeSnapshot CRDs
 		@kubectl apply -f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml"
 		@kubectl apply -f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml"
@@ -35,5 +41,5 @@ csi-up: ## Deploy CSI plugin
 
 		@kubectl apply -f /home/batazor/myproejct/shortlink/ops/Helm/csi/templates/
 
-csi-example: ## Deploy examples for CSI
-	@kubectl apply -f /home/batazor/myproejct/shortlink/ops/Helm/csi/examples/
+example: ## Deploy examples for CSI
+	@kubectl apply -f ops/Helm/csi/examples/
