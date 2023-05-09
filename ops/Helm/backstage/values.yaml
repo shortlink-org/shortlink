@@ -24,22 +24,20 @@ ingress:
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     nginx.ingress.kubernetes.io/enable-opentracing: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /backstage/$2
-    nginx.ingress.kubernetes.io/use-regex: "true"
 
-  hostname: shortlink.best
+  hostname: backstage.shortlink.best
   service:
     name: backstage
     port: 7007
 
 ingress_ui:
-  path: /backstage(/|$)(.*)
+  path: /
 
 ingress_api:
   name: backstage-api
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /backstage/api/$2
-  path: /backstage/api(/|$)(.*)
+    nginx.ingress.kubernetes.io/rewrite-target: /api/$2
+  path: /api(/|$)(.*)
 
 # ==============================================================================
 deploy:
