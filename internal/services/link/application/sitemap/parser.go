@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/gogo/protobuf/proto"
-	http_client "github.com/shortlink-org/shortlink/pkg/http/client"
+	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"

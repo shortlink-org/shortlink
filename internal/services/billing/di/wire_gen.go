@@ -21,6 +21,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/billing/application/account"
 	"github.com/shortlink-org/shortlink/internal/services/billing/application/order"
 	"github.com/shortlink-org/shortlink/internal/services/billing/application/payment"
@@ -30,7 +31,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/rpc/payment/v1"
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/rpc/tariff/v1"
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/store"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"go.opentelemetry.io/otel/trace"
 	"net/http"
 )

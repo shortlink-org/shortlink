@@ -1,8 +1,8 @@
 from google.protobuf import field_mask_pb2 as _field_mask_pb2
 from google.protobuf import timestamp_pb2 as _timestamp_pb2
-from src.domain.referral.v1 import commands_pb2 as _commands_pb2
-from src.domain.referral.v1 import events_pb2 as _events_pb2
-from src.domain.referral.v1 import queries_pb2 as _queries_pb2
+from domain.referral.v1 import commands_pb2 as _commands_pb2
+from domain.referral.v1 import events_pb2 as _events_pb2
+from domain.referral.v1 import queries_pb2 as _queries_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message

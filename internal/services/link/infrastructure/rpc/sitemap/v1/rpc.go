@@ -6,8 +6,8 @@ package v1
 
 import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	sitemap_application "github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type Sitemap struct {

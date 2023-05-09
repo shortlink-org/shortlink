@@ -25,12 +25,12 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
 	metadata_domain "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 	metadata_mq "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type MetaDataService struct {
