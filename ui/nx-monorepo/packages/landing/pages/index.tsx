@@ -182,7 +182,7 @@ const Home: NextPage = () => {
               justifyContent="center"
               alignItems="center"
             >
-              {getCard('RabbitMQ', '/rabbitmq')}
+              {getCard('RabbitMQ', '/rabbitmq/')}
 
               {getCard('Kafka', '/kafka-ui')}
             </Stack>
@@ -256,7 +256,7 @@ const Home: NextPage = () => {
                 'https://shortlink-org.gitlab.io/shortlink/',
               )}
 
-              {getCard('Backstage', 'https://shortlink.best/backstage')}
+              {getCard('Backstage', 'https://backstage.shortlink.best/')}
             </Stack>
           </TabPanel>
         </Box>
