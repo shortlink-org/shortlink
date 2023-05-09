@@ -16,16 +16,6 @@ module.exports = {
       }
     },
     {
-      name: '@storybook/addon-docs',
-      options: {
-        mdxPluginOptions: {
-          mdxCompileOptions: {
-            remarkPlugins: [remarkGfm],
-          },
-        },
-      },
-    },
-    {
       name: '@storybook/addon-styling',
       options: {
         // Check out https://github.com/storybookjs/addon-styling/blob/main/docs/api.md
@@ -46,7 +36,5 @@ module.exports = {
   features: {
     interactionsDebugger: true
   },
-  docs: {
-    autodocs: 'tag',
-  }
+  docs: {}
 };
