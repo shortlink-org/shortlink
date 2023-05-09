@@ -7,7 +7,6 @@ import GithubRepository  from './GithubRepository'
 const meta: Meta<any> = {
   title: 'UI/GithubRepository',
   component: GithubRepository,
-  tags: ['autodocs'],
 }
 
 export default meta
