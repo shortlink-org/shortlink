@@ -1,5 +1,3 @@
-import sys
-
 from loguru import logger
 from dependency_injector import providers
 from opentelemetry.trace import Span
@@ -9,7 +7,8 @@ class LoguruJsonProvider(providers.Provider):
     def _provide(self, *args, **kwargs):
       logger.remove()
       logger_format = (
-        "{{'time': '{time}', 'level': '{level}', 'message': '{message}', 'file': '{file}:{line}', 'trace_id': '{trace_id}', 'extra': {extra}}}"
+        "{{'time': '{time}', 'level': '{level}', 'message': '{message}', 'file': '{file}:{line}', 'trace_id': '{"
+        "trace_id}', 'extra': {extra}}}"
       )
       logger.add(lambda msg: print(msg.rstrip()), format=logger_format,
                  filter=lambda record: self.process_record(record))

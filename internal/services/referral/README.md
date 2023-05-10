@@ -51,8 +51,10 @@ manager --> UC1
 - [UC-1](src/usecases/crud_referral/README.md) - CRUD referral
 - [UC-2](src/usecases/use_referral/README.md) - Use referral
 
-### Getting Started
+### Getting started
 
-```
-$> python3 main.py
+We use Makefile for build and deploy.
+
+```bash
+$> make help # show help message with all commands and targets
 ```

@@ -25,7 +25,11 @@ class Repository(AbstractRepository):
         URI = os.environ.get("DATABASE_URI")
         parsed_uri = urlparse(URI)
 
-        self._redis = Redis(host=parsed_uri.hostname, port=parsed_uri.port, retry=retry, retry_on_error=[BusyLoadingError, ConnectionError, TimeoutError])
+        self._redis = Redis(
+            host=parsed_uri.hostname,
+            port=parsed_uri.port,
+            retry=retry,
+            retry_on_error=[BusyLoadingError, ConnectionError, TimeoutError])
 
         # ping to check if redis is up
         self._redis.ping()
