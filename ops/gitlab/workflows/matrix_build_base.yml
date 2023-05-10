@@ -46,3 +46,6 @@
       - APPLICATION: backstage
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/backstage
         DOCKERFILE_PATH: ops/dockerfile/backstage.Dockerfile
+      - APPLICATION: referral
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/referral
+        DOCKERFILE_PATH: ops/dockerfile/referral.Dockerfile
