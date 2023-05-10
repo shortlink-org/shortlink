@@ -40,7 +40,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -trimpath \
   -o app $CMD_PATH
 
-FROM alpine:3.17
+FROM alpine:3.18
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-${CMD_PATH}"
