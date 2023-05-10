@@ -1,6 +1,6 @@
 """CRUD Referral use case."""
 
-from src.infrastructure.repository.referral.redis import AbstractRepository
+from src.infrastructure.repository.referral.repository_redis import AbstractRepository
 from src.domain.referral.v1.referral_pb2 import Referral
 from src.domain.referral.v1.events_pb2 import REFERRAL_EVENT_ADD, REFERRAL_EVENT_UPDATE, REFERRAL_EVENT_DELETE, ReferralEvent
 from src.pkg.event_bus import EventBus
