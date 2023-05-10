@@ -37,7 +37,6 @@ class Repository(AbstractRepository):
     def delete(self, referral_id: str) -> None:
         """Delete referral."""
         self._referrals.pop(referral_id, None)
-        return
 
     def list(self) -> list[Referral]:
         """List all referrals."""

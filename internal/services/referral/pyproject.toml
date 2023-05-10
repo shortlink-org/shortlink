@@ -11,10 +11,14 @@ extend-exclude = [
 ]
 
 select = [
-  "E",   # pycodestyle
-  "F",   # pyflakes
-  "UP",  # pyupgrade
-  "D",   # pydocstyle
+  "E", "W", # pycodestyle
+  "F",      # pyflakes
+  "UP",     # pyupgrade
+  "D",      # pydocstyle
+  "N",      # pylint
+  "PL",     # pylint
+  "RUF",    # ruff
+  "TID",    # tidy
 ]
 
 [tool.ruff.pydocstyle]

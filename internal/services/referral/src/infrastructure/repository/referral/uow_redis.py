@@ -1,6 +1,6 @@
 """Redis Unit of Work."""
 
-import src.infrastructure.repository.referral.uow as uow
+from src.infrastructure.repository.referral import uow
 from src.infrastructure.repository.referral.repository_redis import Repository
 
 class RedisUnitOfWork(uow.AbstractUnitOfWork):
