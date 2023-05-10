@@ -2,7 +2,7 @@
 
 Shortlink it's sandbox for experiments
 
-### Gettings started
+### Getting started
 
 We use Makefile for build and deploy.
 

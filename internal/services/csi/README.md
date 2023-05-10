@@ -8,7 +8,7 @@ Driver for Container Storage Interface (CSI) for Kubernetes.
 
 ### shortctl docs - [link](./docs/shortctl-csi.md)
 
-### Gettings started
+### Getting started
 
 We use Makefile for build and deploy.
 
