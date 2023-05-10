@@ -11,10 +11,11 @@ from src.pkg.event_bus import EventBus
 
 
 class Core(containers.DeclarativeContainer):
-  config = providers.Singleton(Config)
+    """Core container."""
+    config = providers.Singleton(Config)
 
-  logger = LoguruJsonProvider()
-  tracer = providers.Singleton(OpenTelemetryProvider)
-  app = QuartProvider()
-  eventBus = providers.Singleton(EventBus)
-  prometheus_metrics = PrometheusMetricsProvider()
+    logger = LoguruJsonProvider()
+    tracer = providers.Singleton(OpenTelemetryProvider)
+    app = QuartProvider()
+    eventBus = providers.Singleton(EventBus)
+    prometheus_metrics = PrometheusMetricsProvider()

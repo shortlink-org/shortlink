@@ -18,6 +18,7 @@ def main(
     referral_service: CRUDReferralService = Provide[Application.referral_service],
     use_service: UseReferralService = Provide[Application.use_service],
 ) -> None:
+    """Application entrypoint."""
     register_routes(app, referral_service, use_service)
     logger.info("Starting application")
     app.run(host='localhost', port=8000, debug=True, use_reloader=False)

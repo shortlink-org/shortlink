@@ -1,6 +1,7 @@
+"""Implementation of Referral Repository using RAM as storage."""
+
 import json
 import os
-from typing import List
 from urllib.parse import urlparse
 from redis.backoff import ExponentialBackoff
 from redis.retry import Retry
@@ -17,7 +18,10 @@ from .repository import AbstractRepository
 from src.domain.referral.v1.exception import ReferralNotFound
 
 class Repository(AbstractRepository):
+    """Repository implementation for referral domain."""
+
     def __init__(self):
+        """Initialize Redis connection."""
         # Run 3 retries with exponential backoff strategy
         retry = Retry(ExponentialBackoff(), 3)
 
@@ -35,6 +39,7 @@ class Repository(AbstractRepository):
         self._redis.ping()
 
     def get(self, referral_id: str) -> Referral:
+        """Get referral."""
         payload = json.loads(self._redis.get(referral_id))
 
         if payload is None:
@@ -45,18 +50,22 @@ class Repository(AbstractRepository):
         return referral
 
     def add(self, referral: Referral) -> Referral:
+        """Add referral."""
         self._redis.set(referral.id, MessageToJson(referral))
         return referral
 
     def update(self, referral: Referral) -> Referral:
+        """Update referral."""
         self._redis.set(referral.id, MessageToJson(referral))
         return referral
 
     def delete(self, referral_id: str) -> None:
+        """Delete referral."""
         self._redis.delete(referral_id)
         return
 
-    def list(self) -> List[Referral]:
+    def list(self) -> list[Referral]:
+        """List all referrals."""
         referrals = []
         for referral_id in self._redis.scan_iter('*'):
             referral = Referral()

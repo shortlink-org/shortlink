@@ -1,5 +1,4 @@
 """HTTP endpoint for the infrastructure."""
-from typing import Tuple
 
 from quart import abort, request
 from google.protobuf.json_format import MessageToJson, ParseDict
@@ -10,6 +9,7 @@ from src.domain.referral.v1.referral_pb2 import Referral, Referrals
 from src.domain.referral.v1.exception import ReferralNotFound
 
 def register_routes(app, referral_service: CRUDReferralService, use_service: UseReferralService):
+    """Register routes."""
 
     @app.route("/", methods=["GET"])
     def list() -> Referrals:
@@ -27,7 +27,7 @@ def register_routes(app, referral_service: CRUDReferralService, use_service: Use
             raise e
 
     @app.route("/", methods=["POST"])
-    async def add() -> Tuple[Referral, int]:
+    async def add() -> tuple[Referral, int]:
         data = await request.get_json()
         referral = Referral()
         ParseDict(data, referral)

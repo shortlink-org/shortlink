@@ -10,5 +10,12 @@ extend-exclude = [
   "src/domain/referral/v1/*_pb2_grpc.py",
 ]
 
+select = [
+  "E",   # pycodestyle
+  "F",   # pyflakes
+  "UP",  # pyupgrade
+  "D",   # pydocstyle
+]
+
 [tool.ruff.pydocstyle]
 convention = "google"

@@ -9,6 +9,8 @@ from src.di.core import Core
 from src.infrastructure.repository.referral.uow_redis import RedisUnitOfWork
 
 class Application(containers.DeclarativeContainer):
+    """Application container."""
+
     referral_repository = providers.Singleton(
         Repository,
     )
