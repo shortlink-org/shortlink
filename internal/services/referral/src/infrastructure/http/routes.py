@@ -6,7 +6,7 @@ from google.protobuf.json_format import MessageToJson, ParseDict
 from src.usecases.crud_referral.crud import CRUDReferralService
 from src.usecases.use_referral.use import UseReferralService
 from src.domain.referral.v1.referral_pb2 import Referral, Referrals
-from src.domain.referral.v1.exception import ReferralNotFound
+from src.domain.referral.v1.exception import ReferralNotFoundError
 
 def register_routes(app, referral_service: CRUDReferralService, use_service: UseReferralService):
     """Register routes."""
@@ -21,7 +21,7 @@ def register_routes(app, referral_service: CRUDReferralService, use_service: Use
     async def get(id: str) -> Referral:
         try:
           return MessageToJson(referral_service.get(id))
-        except ReferralNotFound:
+        except ReferralNotFoundError:
           abort(404)
         except Exception as e:
             raise e
@@ -50,5 +50,5 @@ def register_routes(app, referral_service: CRUDReferralService, use_service: Use
     async def use(id: str) -> Referral:
         try:
           return MessageToJson(use_service.use(id))
-        except ReferralNotFound:
+        except ReferralNotFoundError:
           abort(404)

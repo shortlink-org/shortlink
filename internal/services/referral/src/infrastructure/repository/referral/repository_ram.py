@@ -4,7 +4,7 @@ from google.protobuf.json_format import MessageToJson, ParseDict
 
 from src.domain.referral.v1.referral_pb2 import Referral
 from .repository import AbstractRepository
-from src.domain.referral.v1.exception import ReferralNotFound
+from src.domain.referral.v1.exception import ReferralNotFoundError
 
 class Repository(AbstractRepository):
     """Repository implementation for referral domain."""
@@ -18,7 +18,7 @@ class Repository(AbstractRepository):
         payload = self._referrals.get(referral_id)
 
         if payload is None:
-            raise ReferralNotFound
+            raise ReferralNotFoundError
 
         referral = Referral()
         ParseDict(payload, referral)

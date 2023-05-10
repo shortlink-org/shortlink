@@ -5,5 +5,8 @@ SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 include $(SELF_DIR)/../../../ops/Makefile/common.mk
 
 # REFERRAL TASKS =======================================================================================================
-test:
+test: ## Run tests
 	@pytest tests
+
+lint: ## Run linter
+	@ruff check --fix .

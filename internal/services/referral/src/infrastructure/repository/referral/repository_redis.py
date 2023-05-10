@@ -15,7 +15,7 @@ from google.protobuf.json_format import MessageToJson, ParseDict
 
 from src.domain.referral.v1.referral_pb2 import Referral
 from .repository import AbstractRepository
-from src.domain.referral.v1.exception import ReferralNotFound
+from src.domain.referral.v1.exception import ReferralNotFoundError
 
 class Repository(AbstractRepository):
     """Repository implementation for referral domain."""
@@ -42,9 +42,9 @@ class Repository(AbstractRepository):
         """Get referral."""
         referral_data = self._redis.get(referral_id)
 
-        # If the referral_id doesn't exist in the Redis database, raise a ReferralNotFound exception
+        # If the referral_id doesn't exist in the Redis database, raise a ReferralNotFoundError exception
         if referral_data is None:
-            raise ReferralNotFound(f"Referral with id {referral_id} not found")
+            raise ReferralNotFoundError(f"Referral with id {referral_id} not found")
 
         # If the referral_id exists, load the json data and return the Referral object
         payload = json.loads(referral_data)
