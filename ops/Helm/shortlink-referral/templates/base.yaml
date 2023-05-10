@@ -7,5 +7,3 @@
 {{ include "shortlink-common.Service" . }}
 
 {{ include "shortlink-common.ServiceMonitor" . }}
-
-{{ include "shortlink-common.PodDisruptionBudget" . }}
