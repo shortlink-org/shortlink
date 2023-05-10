@@ -27,7 +27,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 	require.NoError(b, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("postgres", "latest", []string{
+	resource, err := pool.Run("postgres", "15.2-alpine", []string{
 		"POSTGRES_USER=postgres",
 		"POSTGRES_PASSWORD=shortlink",
 		"POSTGRES_DB=shortlink",
@@ -119,7 +119,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 	require.NoError(b, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("postgres", "latest", []string{
+	resource, err := pool.Run("postgres", "15.2-alpine", []string{
 		"POSTGRES_USER=postgres",
 		"POSTGRES_PASSWORD=shortlink",
 		"POSTGRES_DB=shortlink",

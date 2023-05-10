@@ -175,7 +175,11 @@ func (p *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 		}
 	case options.MODE_SINGLE_WRITE:
 		data, err := p.singleWrite(ctx, source)
-		return data, err
+		if err != nil {
+			return nil, err
+		}
+
+		return data, nil
 	}
 
 	return nil, nil
