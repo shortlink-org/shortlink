@@ -40,11 +40,14 @@ class Repository(AbstractRepository):
 
     def get(self, referral_id: str) -> Referral:
         """Get referral."""
-        payload = json.loads(self._redis.get(referral_id))
+        referral_data = self._redis.get(referral_id)
 
-        if payload is None:
-            raise ReferralNotFound
+        # If the referral_id doesn't exist in the Redis database, raise a ReferralNotFound exception
+        if referral_data is None:
+            raise ReferralNotFound(f"Referral with id {referral_id} not found")
 
+        # If the referral_id exists, load the json data and return the Referral object
+        payload = json.loads(referral_data)
         referral = Referral()
         ParseDict(payload, referral)
         return referral

@@ -1,11 +1,11 @@
 """Exception for referral domain."""
 
-class ReferralNotFound(BaseException):
-    """Exception for referral not found."""
-    def __init__(self):
-        """Initialize exception."""
-        pass
+class ReferralNotFound(Exception):
+    """Exception raised when a referral is not found in the repository."""
+
+    def __init__(self, message="Referral not found"):
+        self.message = message
+        super().__init__(self.message)
 
     def __str__(self):
-        """Return string representation of exception."""
-        return 'Referral not found'
+        return self.message
