@@ -27,7 +27,7 @@ FROM development-builder AS cache
 
 COPY --from=development-builder /app/packages/ui-kit/storybook-static /app/storybook-static
 
-FROM alpine:3.17 AS ci-builder
+FROM alpine:3.18 AS ci-builder
 FROM ${APP_ENV}-builder AS cache
 
 COPY ./ui/nx-monorepo/packages/ui-kit/storybook-static /app/storybook-static
