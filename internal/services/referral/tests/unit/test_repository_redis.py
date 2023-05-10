@@ -4,7 +4,7 @@ from testcontainers.redis import RedisContainer
 from redis.exceptions import ConnectionError
 from src.infrastructure.repository.referral.repository_redis import Repository
 from src.domain.referral.v1.referral_pb2 import Referral
-from src.domain.referral.v1.exception import ReferralNotFound
+from src.domain.referral.v1.exception import ReferralNotFoundError
 
 
 @pytest.fixture(scope="module")
@@ -39,8 +39,8 @@ def test_get_referral_not_found(repository):
     # Given a non-existing referral id
     non_existing_referral_id = "non_existing_id"
 
-    # When getting the referral, it should raise ReferralNotFound
-    with pytest.raises(ReferralNotFound):
+    # When getting the referral, it should raise ReferralNotFoundError
+    with pytest.raises(ReferralNotFoundError):
         repository.get(non_existing_referral_id)
 
 
@@ -84,8 +84,8 @@ def test_delete_referral_success(repository):
     # When deleting the referral
     repository.delete(referral_id)
 
-    # Then the referral should be removed, and trying to get it should raise ReferralNotFound
-    with pytest.raises(ReferralNotFound):
+    # Then the referral should be removed, and trying to get it should raise ReferralNotFoundError
+    with pytest.raises(ReferralNotFoundError):
         repository.get(referral_id)
 
 

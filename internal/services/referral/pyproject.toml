@@ -8,6 +8,7 @@ extend-exclude = [
   "src/domain/referral/v1/*.pyi",
   "src/domain/referral/v1/*_pb2.py",
   "src/domain/referral/v1/*_pb2_grpc.py",
+  "tests/*",
 ]
 
 select = [
