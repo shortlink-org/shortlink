@@ -1,4 +1,3 @@
-import json
 from typing import List
 
 from google.protobuf.json_format import MessageToJson, ParseDict
@@ -7,7 +6,7 @@ from src.domain.referral.v1.referral_pb2 import Referral
 from .repository import AbstractRepository
 from src.domain.referral.v1.exception import ReferralNotFound
 
-class InMemoryRepository(AbstractRepository):
+class Repository(AbstractRepository):
     def __init__(self):
         self._referrals = {}
 
