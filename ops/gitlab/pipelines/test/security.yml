@@ -14,7 +14,8 @@ code_quality:
   variables:
     REPORT_FORMAT: ${REPORT_FORMAT}
   artifacts:
-    paths: [${ARTIFACT_NAME}]
+    paths:
+      - ${ARTIFACT_NAME}
 
 # DEPENDENCY ===========================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/
