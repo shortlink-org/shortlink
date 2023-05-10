@@ -2,6 +2,7 @@
 
 from collections import defaultdict
 from collections.abc import Callable
+from typing import Any
 
 class EventBus:
     """Event bus implementation."""
@@ -10,15 +11,21 @@ class EventBus:
         """Initialize event bus."""
         self._listeners = defaultdict(list)
 
-    def subscribe(self, event_type: str, listener: Callable):
+    def subscribe(self, event_type: str, listener: Callable[..., Any]) -> None:
         """Subscribe event."""
         self._listeners[event_type].append(listener)
 
-    def unsubscribe(self, event_type: str, listener: Callable):
+    def unsubscribe(self, event_type: str, listener: Callable[..., Any]) -> None:
         """Unsubscribe event."""
-        self._listeners[event_type].remove(listener)
+        if listener in self._listeners[event_type]:
+            self._listeners[event_type].remove(listener)
 
-    def publish(self, event_type: str, *args, **kwargs):
+    def publish(self, event_type: str, *args, **kwargs) -> list[Any]:
         """Publish event."""
+        results = []
         for listener in self._listeners[event_type]:
-            listener(*args, **kwargs)
+            try:
+                results.append(listener(*args, **kwargs))
+            except Exception as e:
+                print(f"Exception occurred while publishing event: {e}")
+        return results
