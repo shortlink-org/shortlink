@@ -6,7 +6,7 @@ from dependency_injector.wiring import Provide, inject
 
 from src.usecases.crud_referral.crud import CRUDReferralService
 from src.usecases.use_referral.use import UseReferralService
-from src.di.core import LoguruJsonProvider
+from src.di.core import LoguruJsonProvider, PrometheusMetricsProvider
 from src.di.di import Application, Core
 from src.infrastructure.http.routes import register_routes
 from src.di.core import QuartProvider
@@ -17,6 +17,7 @@ def main(
     logger: LoguruJsonProvider = Provide[Application.core.logger],
     referral_service: CRUDReferralService = Provide[Application.referral_service],
     use_service: UseReferralService = Provide[Application.use_service],
+    prometheus_metrics: PrometheusMetricsProvider = Provide[Application.core.prometheus_metrics],
 ) -> None:
     """Application entrypoint."""
     register_routes(app, referral_service, use_service)

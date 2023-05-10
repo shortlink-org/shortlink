@@ -18,4 +18,4 @@ class Core(containers.DeclarativeContainer):
     tracer = providers.Singleton(OpenTelemetryProvider)
     app = QuartProvider()
     event_bus = providers.Singleton(EventBus)
-    prometheus_metrics = PrometheusMetricsProvider()
+    prometheus_metrics = providers.Singleton(PrometheusMetricsProvider)
