@@ -6,7 +6,7 @@ testkube:
   enabled: true
 
   mongodb:
-    enabled: true
+    enabled: false
 
     persistence:
       enabled: false
@@ -16,7 +16,7 @@ testkube:
 
   testkube-api:
     nats:
-      enabled: true
+      enabled: false
 
     minio:
       enabled: false
