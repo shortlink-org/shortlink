@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shortlink-api
+  name: shortlink-referral
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
-    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/api:0.15.x
+    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/referral:0.15.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -15,18 +15,12 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-api
+    path: ops/Helm/shortlink-referral
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
       valueFiles:
         - values.yaml
-
-        # Method 1: Mount the gpg key from a kubernetes secret as volume
-        # secrets+gpg-import://<key-volume-mount>/<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
-        # secrets+age-import://<key-volume-mount>/<key-name>.txt?<relative/path/to/the/encrypted/secrets.yaml>
-        # Example Method 1: (Assumptions: key-volume-mount=/sops-gpg, key-name=app, secret.yaml is in the root folder)
-        # - secrets+gpg-import:///sops-gpg/sops.asc?values.sops.yaml
   project: shortlink
   syncPolicy:
     automated:
