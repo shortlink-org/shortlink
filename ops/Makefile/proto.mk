@@ -40,7 +40,7 @@ proto-generate: ## Generate proto-files
 		--config=ops/proto/billing/buf.yaml
 
 	@buf generate \
-		--path=internal/services/referral/src/domain \
+		--path=internal/services/referral/src \
 		--template=ops/proto/referral/buf.gen.yaml \
 		--config=ops/proto/referral/buf.yaml
 
