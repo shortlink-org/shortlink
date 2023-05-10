@@ -52,3 +52,11 @@ def register_routes(app, referral_service: CRUDReferralService, use_service: Use
           return MessageToJson(use_service.use(id))
         except ReferralNotFoundError:
           abort(404)
+
+    @app.route('/ready', methods=["GET"])
+    async def ready():
+        return 'Ready!'
+
+    @app.route('/live', methods=["GET"])
+    async def live():
+        return 'Live!'
