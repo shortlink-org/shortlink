@@ -6,28 +6,30 @@ from src.usecases.crud_referral.crud import CRUDReferralService
 from src.usecases.use_referral.use import UseReferralService
 from src.infrastructure.repository.referral.repository_redis import Repository
 from src.di.core import Core
+from src.infrastructure.repository.referral.uow_redis import RedisUnitOfWork
 
 class Application(containers.DeclarativeContainer):
-    config = providers.Configuration()
-
-    redis = providers.Singleton(
+    referral_repository = providers.Singleton(
         Repository,
-        host="localhost",
+    )
+
+    referral_uow = providers.Factory(
+        RedisUnitOfWork,
+        repository=referral_repository,
     )
 
     core = providers.Container(
         Core,
-        config=config.core,
     )
 
     referral_service = providers.Factory(
         CRUDReferralService,
-        repository=redis,
+        uow=referral_uow,
         event_bus=core.eventBus,
     )
 
     use_service = providers.Factory(
         UseReferralService,
-        repository=redis,
+        uow=referral_uow,
         event_bus=core.eventBus,
     )

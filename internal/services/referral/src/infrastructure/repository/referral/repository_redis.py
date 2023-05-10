@@ -1,5 +1,7 @@
 import json
+import os
 from typing import List
+from urllib.parse import urlparse
 from redis.backoff import ExponentialBackoff
 from redis.retry import Retry
 from redis.client import Redis
@@ -15,11 +17,15 @@ from .repository import AbstractRepository
 from src.domain.referral.v1.exception import ReferralNotFound
 
 class Repository(AbstractRepository):
-    def __init__(self, host: str):
+    def __init__(self):
         # Run 3 retries with exponential backoff strategy
         retry = Retry(ExponentialBackoff(), 3)
 
-        self._redis = Redis(host=host, port=6379, retry=retry, retry_on_error=[BusyLoadingError, ConnectionError, TimeoutError])
+        # parse DATABASE_URI as host, port, db
+        URI = os.environ.get("DATABASE_URI")
+        parsed_uri = urlparse(URI)
+
+        self._redis = Redis(host=parsed_uri.hostname, port=parsed_uri.port, retry=retry, retry_on_error=[BusyLoadingError, ConnectionError, TimeoutError])
 
         # ping to check if redis is up
         self._redis.ping()
@@ -48,7 +54,7 @@ class Repository(AbstractRepository):
 
     def list(self) -> List[Referral]:
         referrals = []
-        for referral_id in self._redis.keys():
+        for referral_id in self._redis.scan_iter('*'):
             referral = Referral()
             payload = json.loads(self._redis.get(referral_id))
             ParseDict(payload, referral)
