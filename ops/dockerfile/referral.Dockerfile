@@ -31,6 +31,14 @@ LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.url="http://shortlink.best/"
 LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
 
+# HTTP API
+EXPOSE 8000
+# Prometheus metrics
+EXPOSE 9090
+
+WORKDIR /app
+ENV PYTHONPATH="$PYTHONPATH:$PWD"
+
 # Install dependencies
 RUN \
   apt-get update && \
@@ -42,9 +50,7 @@ HEALTHCHECK \
   --interval=5s \
   --timeout=5s \
   --retries=3 \
-  CMD curl -f localhost:9090/ready || exit 1
-
-WORKDIR /app
+  CMD curl -f localhost:8000/ready || exit 1
 
 COPY --from=builder /app/wheels /wheels
 COPY --from=builder /app/requirements.txt .
@@ -55,4 +61,4 @@ RUN addgroup --system referall && adduser --system --group referall
 USER referall
 
 COPY internal/services/referral/ .
-CMD ["python", "__main__.py"]
+CMD ["python", "src/__main__.py"]
