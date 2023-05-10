@@ -1,6 +1,11 @@
-class ReferralNotFound(BaseException):
-  def __init__(self):
-    pass
+"""Exception for referral domain."""
 
-  def __str__(self):
-    return 'Referral not found'
+class ReferralNotFound(BaseException):
+    """Exception for referral not found."""
+    def __init__(self):
+        """Initialize exception."""
+        pass
+
+    def __str__(self):
+        """Return string representation of exception."""
+        return 'Referral not found'

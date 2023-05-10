@@ -1,3 +1,5 @@
+"""OpenTelemetry provider."""
+
 from dependency_injector import providers
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
@@ -7,6 +9,7 @@ import pyroscope
 
 
 class OpenTelemetryProvider(providers.Provider):
+    """OpenTelemetry provider."""
     def _provide(self, *args, **kwargs):
         trace.set_tracer_provider(TracerProvider())
         tracer = trace.get_tracer(__name__)

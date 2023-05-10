@@ -1,8 +1,6 @@
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
-import json
-import os
 import numpy as np
 
 # Read in data

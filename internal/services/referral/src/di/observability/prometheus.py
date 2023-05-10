@@ -1,3 +1,5 @@
+"""Prometheus metrics provider."""
+
 from opentelemetry import metrics
 from opentelemetry.exporter.prometheus import PrometheusMetricReader
 from opentelemetry.sdk.metrics import MeterProvider
@@ -6,6 +8,7 @@ from prometheus_client import start_http_server
 from dependency_injector import providers
 
 class PrometheusMetricsProvider(providers.Provider):
+    """Prometheus metrics provider."""
     def _provide(self, *args, **kwargs):
         reader = PrometheusMetricReader()
         resource = Resource.create(attributes={SERVICE_NAME: "referral-service"})
