@@ -17,5 +17,5 @@ class Core(containers.DeclarativeContainer):
     logger = LoguruJsonProvider()
     tracer = providers.Singleton(OpenTelemetryProvider)
     app = QuartProvider()
-    eventBus = providers.Singleton(EventBus)
+    event_bus = providers.Singleton(EventBus)
     prometheus_metrics = PrometheusMetricsProvider()

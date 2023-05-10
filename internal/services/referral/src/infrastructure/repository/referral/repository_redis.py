@@ -26,8 +26,8 @@ class Repository(AbstractRepository):
         retry = Retry(ExponentialBackoff(), 3)
 
         # parse DATABASE_URI as host, port, db
-        URI = os.environ.get("DATABASE_URI")
-        parsed_uri = urlparse(URI)
+        uri = os.environ.get("DATABASE_URI")
+        parsed_uri = urlparse(uri)
 
         self._redis = Redis(
             host=parsed_uri.hostname,
@@ -62,7 +62,6 @@ class Repository(AbstractRepository):
     def delete(self, referral_id: str) -> None:
         """Delete referral."""
         self._redis.delete(referral_id)
-        return
 
     def list(self) -> list[Referral]:
         """List all referrals."""

@@ -1,7 +1,7 @@
 """Unit of Work interface."""
 
 import abc
-import src.infrastructure.repository.referral.repository as repository
+from src.infrastructure.repository.referral import repository
 
 
 class AbstractUnitOfWork(abc.ABC):

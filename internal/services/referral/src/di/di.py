@@ -27,11 +27,11 @@ class Application(containers.DeclarativeContainer):
     referral_service = providers.Factory(
         CRUDReferralService,
         uow=referral_uow,
-        event_bus=core.eventBus,
+        event_bus=core.event_bus,
     )
 
     use_service = providers.Factory(
         UseReferralService,
         uow=referral_uow,
-        event_bus=core.eventBus,
+        event_bus=core.event_bus,
     )
