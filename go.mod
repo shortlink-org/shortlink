@@ -50,7 +50,7 @@ require (
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.1
 	github.com/redis/go-redis/v9 v9.0.4
-	github.com/redis/rueidis v1.0.2
+	github.com/redis/rueidis v1.0.3-0.20230509132959-7431ec19be59
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/encoding v0.3.6

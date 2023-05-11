@@ -3,8 +3,7 @@ package redis
 import (
 	"context"
 
-	"github.com/redis/go-redis/v9"
-
+	"github.com/redis/rueidis"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
@@ -12,7 +11,7 @@ type Config struct{}
 
 type Redis struct {
 	*Config
-	client redis.UniversalClient //nolint:unused
+	client rueidis.Client //nolint:unused
 }
 
 func New() *Redis {
