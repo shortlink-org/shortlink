@@ -9,7 +9,8 @@ import (
 	"testing"
 
 	"github.com/ory/dockertest/v3"
-	"github.com/redis/go-redis/v9"
+	"github.com/ory/dockertest/v3/docker"
+	"github.com/redis/rueidis"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -27,7 +28,13 @@ func TestRedis(t *testing.T) {
 	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("redis", "6.0-alpine", nil)
+	resource, err := pool.RunWithOptions(&dockertest.RunOptions{
+		Repository: "redis",
+		Tag:        "7-alpine",
+	}, func(config *docker.HostConfig) {
+		config.AutoRemove = true
+		config.RestartPolicy = docker.RestartPolicy{Name: "no"}
+	})
 	require.NoError(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
@@ -55,7 +62,7 @@ func TestRedis(t *testing.T) {
 	})
 
 	store := Store{
-		client: st.GetConn().(redis.UniversalClient),
+		client: st.GetConn().(rueidis.Client),
 	}
 
 	t.Run("Create", func(t *testing.T) {
