@@ -9,7 +9,11 @@ that includes both local and Redis-based caching.
 This package is designed to be imported and used in other Go applications.
 
 ```go
-import "github.com/shortlink-org/shortlink/internal/pkg/cache"
+import (
+	"github.com/go-redis/cache/v9"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/cache"
+)
 ```
 
 ## Features
@@ -37,7 +41,13 @@ if err != nil {
 You can add values to the cache using the `Set`, `SetXX`, or `SetNX` functions:
 
 ```go
-statusCmd := cacheClient.Set(ctx, "key", "value", time.Minute)
+key := "myKey"
+value := "myValue"
+
+err := cacheClient.Set(ctx, cache.Item{
+  Key:   key,
+  Value: value,
+})
 ```
 
 ### Getting Values
@@ -45,12 +55,9 @@ statusCmd := cacheClient.Set(ctx, "key", "value", time.Minute)
 Retrieve values from the cache using the `Get` function:
 
 ```go
-stringCmd := cacheClient.Get(ctx, "key")
-value, err := stringCmd.Result()
-if err != nil {
-    log.Fatal(err)
-}
-fmt.Println(value)
+key := "myKey"
+resp := cache2.Item{}
+err := cacheClient.Get(ctx, key, &resp)
 ```
 
 ### Deleting Values
@@ -58,7 +65,7 @@ fmt.Println(value)
 You can delete one or more values from the cache using the `Del` function:
 
 ```go
-intCmd := cacheClient.Del(ctx, "key1", "key2")
+err := cacheClient.Delete(ctx, "key1")
 ```
 
 ## Requirements
