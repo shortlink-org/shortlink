@@ -107,73 +107,9 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 
  - [README](./ui/nx-monorepo/README.md)
 
-### Run
+### Contributing
 
-<details><summary>DETAILS</summary>
-<p>
-
-##### Require
-
-###### Install GIT sub-repository
-
-```
-git submodule update --init --recursive
-```
-
-##### docker compose
-
-###### For run
-```
-make run
-```
-
-###### For down
-```
-make down
-```
-
-##### Kubernetes (1.26+)
-
-<details><summary>DETAILS</summary>
-<p>
-
-###### For run
-```
-make minikube-up
-make helm-shortlink-up
-```
-
-###### For down
-```
-make minikube-down
-```
-
-</p>
-</details>
-
-##### Skaffold [(link)](https://skaffold.dev/)
-
-<details><summary>DETAILS</summary>
-<p>
-
-###### For run
-```
-make skaffold-init
-make skaffold-up
-```
-
-###### For down
-```
-make skaffold-down
-```
-
-###### Debug mode
-```
-make skaffold-debug
-```
-
-</p>
-</details>
+ - [Getting Started](./CONTRIBUTING.md#getting-started)
 
 ### Configuration
 
