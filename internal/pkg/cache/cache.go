@@ -5,7 +5,8 @@ import (
 	"time"
 
 	"github.com/go-redis/cache/v9"
-	"github.com/redis/go-redis/v9"
+	"github.com/redis/rueidis"
+	"github.com/redis/rueidis/rueidiscompat"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/redis"
 )
@@ -18,8 +19,12 @@ func New(ctx context.Context) (*cache.Cache, error) {
 		return nil, err
 	}
 
+	adapter := &client{
+		rueidiscompat.NewAdapter(store.GetConn().(rueidis.Client)),
+	}
+
 	s := cache.New(&cache.Options{
-		Redis:      store.GetConn().(redis.UniversalClient),
+		Redis:      adapter,
 		LocalCache: cache.NewTinyLFU(1000, 5*time.Minute), // nolint:gomnd
 	})
 
