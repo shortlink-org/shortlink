@@ -32,6 +32,13 @@ kafka-ui:
   probes:
     useHttpsScheme: false
 
+  # TODO: add config for oauth2
+  # yamlApplicationConfig:
+  #  spring:
+  #    security:
+  #      oauth2:
+
+
   ingress:
     enabled: true
     ingressClassName: nginx
