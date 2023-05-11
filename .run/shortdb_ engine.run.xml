@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="shortdb: engine" type="GoTestRunConfiguration" factoryName="Go Test" folderName="test/shortdb">
+  <configuration default="false" name="shortdb: engine" type="GoTestRunConfiguration" factoryName="Go Test" folderName="shortdb">
     <module name="shortlink" />
-    <working_directory value="$PROJECT_DIR$/pkg/shortdb/engine" />
+    <working_directory value="$PROJECT_DIR$/internal/services/shortdb/engine" />
     <go_parameters value="-tags=unit" />
     <root_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />
