@@ -152,11 +152,6 @@ kratos:
           salt_length: 16
           key_length: 16
 
-      courier:
-        smtp:
-          connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
-          from_address: no-reply@shortlink.com
-
     development: true
 
     # -- Enables database migration

@@ -40,7 +40,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kratos.kratos.automigration | object | `{"enabled":true,"type":"job"}` | Enables database migration |
 | kratos.kratos.automigration.type | string | `"job"` | Configure the way to execute database migration. Possible values: job, initContainer When set to job, the migration will be executed as a job on release or upgrade. When set to initContainer, the migration will be executed when kratos pod is created Defaults to job |
 | kratos.kratos.config.courier.smtp.connection_uri | string | `"smtps://test:test@mailslurper:1025/?skip_ssl_verify=true"` |  |
-| kratos.kratos.config.courier.smtp.from_address | string | `"no-reply@shortlink.com"` |  |
+| kratos.kratos.config.courier.smtp.from_address | string | `"no-reply@shortlink.best"` |  |
 | kratos.kratos.config.dsn | string | `"memory"` |  |
 | kratos.kratos.config.hashers.argon2.iterations | int | `2` |  |
 | kratos.kratos.config.hashers.argon2.key_length | int | `16` |  |
