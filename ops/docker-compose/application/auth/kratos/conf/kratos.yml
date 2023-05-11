@@ -149,7 +149,7 @@ hashers:
 courier:
   smtp:
     connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
-    from_address: no-reply@shortlink.com
+    from_address: no-reply@shortlink.best
     from_name: Shortlink
 
 tracing:
