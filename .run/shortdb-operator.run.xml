@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="shortdb-operator" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="shortdb">
     <module name="shortlink" />
-    <working_directory value="$PROJECT_DIR$/pkg/shortdb-operator" />
+    <working_directory value="$PROJECT_DIR$/internal/services/shortdb-operator" />
     <envs>
       <env name="ENABLE_WEBHOOKS" value="false" />
     </envs>
