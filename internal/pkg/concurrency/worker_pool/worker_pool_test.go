@@ -8,9 +8,7 @@ import (
 func Test_WorkerPool(t *testing.T) {
 	wp := New(10)
 
-	f := func() {
-		t.Log("Hello")
-	}
+	f := func() {}
 
 	wg := sync.WaitGroup{}
 	done := make(chan struct{})
