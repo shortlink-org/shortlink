@@ -54,12 +54,14 @@ license_scanning:
 
 # SECRET-DETECTION =====================================================================================================
 secret_detection:
-  extends: .rules_tag
   stage: test
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/test/secret.yml'
     strategy: depend
+  needs: []
+  rules:
+    - when: always
 
 # SAST =================================================================================================================
 SAST:
