@@ -70,14 +70,14 @@ func (c *Connection) Channel() (*Channel, error) {
 
 // Dial wrap amqp.Dial, dial and get a reconnect connection
 func (mq *RabbitMQ) Dial() error {
-	conn, err := amqp.Dial(mq.URI)
+	conn, err := amqp.Dial(mq.config.URI)
 	if err != nil {
 		return err
 	}
 
 	mq.conn = &Connection{
 		Connection: conn,
-		delay:      mq.reconnectTime,
+		delay:      mq.config.ReconnectTime,
 		log:        mq.log,
 	}
 
@@ -94,9 +94,9 @@ func (mq *RabbitMQ) Dial() error {
 			// reconnect if not closed by developer
 			for {
 				// wait 1s for reconnect
-				time.Sleep(time.Duration(mq.reconnectTime) * time.Second)
+				time.Sleep(time.Duration(mq.config.ReconnectTime) * time.Second)
 
-				conn, err := amqp.Dial(mq.URI)
+				conn, err := amqp.Dial(mq.config.URI)
 				if err == nil {
 					mq.conn.Connection = conn
 					mq.log.Info("reconnect success")
