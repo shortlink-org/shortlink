@@ -6,6 +6,7 @@
   script:
     - export KUBECTL_APPLYSET=true
     - kubectl apply
+      -n default
       --prune 
       --applyset=crd-${APPLYSET}
       --force-conflicts

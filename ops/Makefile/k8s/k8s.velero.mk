@@ -1,6 +1,6 @@
 # VELERO TASKS =========================================================================================================
 velero-up:
-	@kubectl apply --prune --applyset=velero \
+	@kubectl apply -n default --prune --applyset=velero \
 		-f ops/Helm/velero/minio/00-minio-deployment.yaml
 
 	@velero install \

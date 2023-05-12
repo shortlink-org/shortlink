@@ -24,7 +24,7 @@ build: ## Build the CSI container
 			-f ops/dockerfile/csi.Dockerfile .
 
 up: ## Deploy CSI plugin
-		@kubectl apply  --prune --applyset=external-snapshotter \
+		@kubectl apply -n default --prune --applyset=external-snapshotter \
 			# Apply VolumeSnapshot CRDs
 			-f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml" \
 			-f "https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml" \
@@ -43,5 +43,5 @@ up: ## Deploy CSI plugin
 			-f /home/batazor/myproejct/shortlink/ops/Helm/csi/templates/
 
 example: ## Deploy examples for CSI
-	@kubectl apply --prune --applyset=csi-example \
+	@kubectl apply -n default --prune --applyset=csi-example \
 		-f ops/Helm/csi/examples/
