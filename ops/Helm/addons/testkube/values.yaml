@@ -12,11 +12,11 @@ testkube:
       enabled: false
 
   nats:
-    enabled: false
+    enabled: true
 
   testkube-api:
     nats:
-      enabled: false
+      enabled: true
 
     minio:
       enabled: false
