@@ -194,3 +194,19 @@ updates:
     directory: /poc/ml-diff/ml
     schedule:
       interval: daily
+
+
+  - package-ecosystem: gomod
+    directory: /internal/services/shortctl
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /internal/services/shortdb-operator
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/services/shortdb-operator
+    schedule:
+      interval: daily
