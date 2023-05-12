@@ -4,6 +4,7 @@
     name: alpine/k8s:1.27.1
     entrypoint: [ "" ]
   script:
+    - export KUBECTL_APPLYSET=true
     - kubectl apply
       --prune 
       --applyset=crd-${NAME}
