@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/nats-io/nats.go"
-
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
@@ -33,12 +32,12 @@ func (mq *NATS) Close() error {
 	return nil
 }
 
-func (mq *NATS) Publish(ctx context.Context, target string, message query.Message) error {
-	err := mq.client.Publish(string(message.Key), message.Payload)
+func (mq *NATS) Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error {
+	err := mq.client.Publish(string(routingKey), payload)
 	return err
 }
 
-func (mq *NATS) Subscribe(target string, message query.Response) error {
+func (mq *NATS) Subscribe(ctx context.Context, target string, message query.Response) error {
 	_, err := mq.client.Subscribe(string(message.Key), func(m *nats.Msg) {
 		message.Chan <- query.ResponseMessage{
 			Body: m.Data,

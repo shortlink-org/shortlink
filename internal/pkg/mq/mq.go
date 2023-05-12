@@ -50,12 +50,12 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (*DataBus, error)
 }
 
 // Subscribe - subscribe to a topic
-func (mq *DataBus) Subscribe(target string, message query.Response) error {
+func (mq *DataBus) Subscribe(ctx context.Context, target string, message query.Response) error {
 	mq.log.Info("subscribe to topic", field.Fields{
 		"topic": target,
 	})
 
-	return mq.mq.Subscribe(target, message)
+	return mq.mq.Subscribe(ctx, target, message)
 }
 
 // UnSubscribe - unsubscribe to a topic
@@ -68,12 +68,12 @@ func (mq *DataBus) UnSubscribe(target string) error {
 }
 
 // Publish - publish to a topic
-func (mq *DataBus) Publish(ctx context.Context, target string, message query.Message) error {
+func (mq *DataBus) Publish(ctx context.Context, target string, key []byte, payload []byte) error {
 	mq.log.Info("publish to topic", field.Fields{
 		"topic": target,
 	})
 
-	return mq.mq.Publish(ctx, target, message)
+	return mq.mq.Publish(ctx, target, key, payload)
 }
 
 // Close - close connection

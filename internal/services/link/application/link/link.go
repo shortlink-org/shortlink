@@ -12,7 +12,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	"github.com/shortlink-org/shortlink/internal/pkg/saga"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
@@ -199,10 +198,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 				return err
 			}
 
-			err = s.mq.Publish(ctx, v1.MQ_EVENT_LINK_CREATED, query.Message{
-				Key:     nil,
-				Payload: data,
-			})
+			err = s.mq.Publish(ctx, v1.MQ_EVENT_LINK_CREATED, nil, data)
 			if err != nil {
 				return err
 			}

@@ -12,7 +12,6 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/sitemap/v1"
 )
@@ -72,10 +71,7 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 			return errMarshal
 		}
 
-		errPublish := s.mq.Publish(ctx, link.MQ_EVENT_LINK_NEW, query.Message{
-			Key:     nil,
-			Payload: data,
-		})
+		errPublish := s.mq.Publish(ctx, link.MQ_EVENT_LINK_NEW, nil, data)
 		if errPublish != nil {
 			return errPublish
 		}

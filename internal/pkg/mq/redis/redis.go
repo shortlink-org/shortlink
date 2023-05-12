@@ -28,12 +28,12 @@ func (r Redis) Close() error {
 	panic("implement me")
 }
 
-func (r Redis) Publish(ctx context.Context, target string, message query.Message) error {
+func (r Redis) Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error {
 	// TODO implement me
 	panic("implement me")
 }
 
-func (r Redis) Subscribe(target string, message query.Response) error {
+func (r Redis) Subscribe(ctx context.Context, target string, message query.Response) error {
 	// TODO implement me
 	panic("implement me")
 }

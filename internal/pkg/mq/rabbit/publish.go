@@ -4,17 +4,16 @@ import (
 	"context"
 
 	amqp "github.com/rabbitmq/amqp091-go"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"go.opentelemetry.io/otel/propagation"
 )
 
-func (mq *RabbitMQ) Publish(ctx context.Context, target string, message query.Message) error {
+func (mq *RabbitMQ) Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error {
 	mq.mu.Lock()
 	defer mq.mu.Unlock()
 
 	msg := amqp.Publishing{
 		ContentType: "text/plain",
-		Body:        message.Payload,
+		Body:        payload,
 		Headers:     make(amqp.Table),
 	}
 

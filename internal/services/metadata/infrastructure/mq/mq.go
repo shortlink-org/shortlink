@@ -12,7 +12,6 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
@@ -66,10 +65,7 @@ func (e *Event) add(ctx context.Context, payload interface{}) notify.Response[an
 		}
 	}
 
-	err = e.mq.Publish(ctx, metadata.MQ_EVENT_CQRS_NEW, query.Message{
-		Key:     nil,
-		Payload: data,
-	})
+	err = e.mq.Publish(ctx, metadata.MQ_EVENT_CQRS_NEW, nil, data)
 
 	return notify.Response[any]{
 		Name:    "RESPONSE_MQ_ADD",

@@ -7,10 +7,9 @@ import (
 
 	"github.com/Shopify/sarama"
 	"github.com/heptiolabs/healthcheck"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama"
-
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
 type Config struct {
@@ -78,11 +77,11 @@ func (mq *Kafka) Close() error {
 	return err
 }
 
-func (k *Kafka) Publish(ctx context.Context, target string, message query.Message) error {
+func (k *Kafka) Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error {
 	_, _, err := k.producer.SendMessage(&sarama.ProducerMessage{
 		Topic:     target,
-		Key:       sarama.StringEncoder(message.Key),
-		Value:     sarama.ByteEncoder(message.Payload),
+		Key:       sarama.StringEncoder(routingKey),
+		Value:     sarama.ByteEncoder(payload),
 		Headers:   nil,
 		Metadata:  nil,
 		Offset:    0,
@@ -92,7 +91,7 @@ func (k *Kafka) Publish(ctx context.Context, target string, message query.Messag
 	return err
 }
 
-func (mq *Kafka) Subscribe(target string, message query.Response) error {
+func (mq *Kafka) Subscribe(ctx context.Context, target string, message query.Response) error {
 	consumer := &Consumer{
 		ch: message,
 	}
@@ -100,7 +99,7 @@ func (mq *Kafka) Subscribe(target string, message query.Response) error {
 	// OpenTelemetry
 	handler := otelsarama.WrapConsumerGroupHandler(consumer)
 
-	err := mq.consumer.Consume(context.Background(), []string{target}, handler)
+	err := mq.consumer.Consume(ctx, []string{target}, handler)
 	if err != nil {
 		return err
 	}
