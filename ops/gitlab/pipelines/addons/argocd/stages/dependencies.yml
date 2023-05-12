@@ -7,13 +7,21 @@ prometheus-operator:crd:
   parallel:
     matrix:
       - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml
+        APPLYSET: alertmanagerconfigs
       - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
+        APPLYSET: alertmanagers
       - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+        APPLYSET: podmonitors
       - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml
+        APPLYSET: probes
       - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml
+        APPLYSET: prometheuses
       - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+        APPLYSET: prometheusrules
       - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+        APPLYSET: servicemonitors
       - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.64.1/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
+        APPLYSET: thanosrulers
   environment:
     name: ${PROVIDER}/prometheus-operator-crd
     deployment_tier: production
@@ -26,6 +34,7 @@ istio:crd:
   extends: .crd_templates
   variables:
     NAME: https://raw.githubusercontent.com/istio/istio/master/manifests/charts/base/crds/crd-all.gen.yaml
+    APPLYSET: istio
   environment:
     name: ${PROVIDER}/istio-crd
     deployment_tier: production
