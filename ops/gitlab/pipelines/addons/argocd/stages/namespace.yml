@@ -5,7 +5,6 @@ namespace:create:
     name: alpine/k8s:1.27.1
     entrypoint: [ "" ]
   script:
-    - kubectl --context=shortlink-org/shortlink:${PROVIDER} \
-      create namespace argocd
+    - kubectl --context=shortlink-org/shortlink:${PROVIDER} create namespace argocd
   rules:
     - when: manual
