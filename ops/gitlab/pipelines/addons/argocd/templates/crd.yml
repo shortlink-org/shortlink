@@ -7,7 +7,7 @@
     - export KUBECTL_APPLYSET=true
     - kubectl apply
       --prune 
-      --applyset=crd-${NAME}
+      --applyset=crd-${APPLYSET}
       --force-conflicts
       --server-side
       --context=shortlink-org/shortlink:${PROVIDER}
