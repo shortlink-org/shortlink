@@ -15,8 +15,8 @@ type MQ interface {
 	io.Closer // Closer is the interface that wraps the basic Close method.
 
 	// Pub/Sub a pattern
-	Publish(ctx context.Context, target string, message query.Message) error
-	Subscribe(target string, message query.Response) error
+	Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error
+	Subscribe(ctx context.Context, target string, message query.Response) error
 	UnSubscribe(target string) error
 }
 

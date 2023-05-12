@@ -4,11 +4,6 @@ import (
 	"context"
 )
 
-type Message struct {
-	Key     []byte // routing key
-	Payload []byte // payload
-}
-
 type ResponseMessage struct {
 	Context context.Context
 	Body    []byte
