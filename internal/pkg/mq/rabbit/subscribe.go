@@ -13,66 +13,55 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
-func (mq *RabbitMQ) Subscribe(target string, message query.Response) error {
-	// create a queue
-	q, err := mq.ch.QueueDeclare(
-		fmt.Sprintf("%s-%s", target, viper.GetString("SERVICE_NAME")), // name
-		true,  // durable
-		false, // delete when unused
-		false, // exclusive
-		false, // no-wait
-		nil,   // arguments
-	)
-	if err != nil {
-		return err
-	}
+func (mq *RabbitMQ) Subscribe(ctx context.Context, target string, message query.Response) error {
+	queueName := fmt.Sprintf("%s-%s", target, viper.GetString("SERVICE_NAME"))
 
-	err = mq.ch.QueueBind(
-		q.Name,
-		"*",
-		target,
+	q, err := mq.ch.QueueDeclare(
+		queueName,
+		true,
+		false,
+		false,
 		false,
 		nil,
 	)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to declare queue: %w", err)
 	}
 
-	msgs, err := mq.ch.Consume(
-		q.Name, // queue
-		"",     // consumer
-		true,   // auto-ack
-		false,  // exclusive
-		false,  // no-local
-		false,  // no-wait
-		nil,    // args
-	)
+	err = mq.ch.QueueBind(q.Name, "*", target, false, nil)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to bind queue: %w", err)
 	}
 
-	g := errgroup.Group{}
+	msgs, err := mq.ch.Consume(q.Name, "", true, false, false, false, nil)
+	if err != nil {
+		return fmt.Errorf("failed to consume messages: %w", err)
+	}
+
+	g, ctx := errgroup.WithContext(ctx)
 
 	g.Go(func() error {
-		for msg := range msgs {
-			ctx := context.Background()
+		for {
+			select {
+			case msg, ok := <-msgs:
+				if !ok {
+					return nil
+				}
 
-			// Extract the span context out of the AMQP header.
-			tc := propagation.TraceContext{}
-			spanCtx := tc.Extract(ctx, amqpHeadersCarrier(msg.Headers))
+				spanCtx := propagation.TraceContext{}.Extract(ctx, amqpHeadersCarrier(msg.Headers))
+				spanCtx, span := otel.Tracer("AMQP").Start(spanCtx, "ConsumeMessage")
+				span.SetAttributes(attribute.String("queue", q.Name))
 
-			spanCtx, span := otel.Tracer("AMQP").Start(spanCtx, "ConsumeMessage")
-			span.SetAttributes(attribute.String("queue", q.Name))
+				message.Chan <- query.ResponseMessage{
+					Body:    msg.Body,
+					Context: spanCtx,
+				}
 
-			message.Chan <- query.ResponseMessage{
-				Body:    msg.Body,
-				Context: spanCtx,
+				span.End()
+			case <-ctx.Done():
+				return ctx.Err()
 			}
-
-			span.End()
 		}
-
-		return nil
 	})
 
 	return g.Wait()
