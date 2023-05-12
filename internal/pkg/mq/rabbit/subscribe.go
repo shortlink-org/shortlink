@@ -71,5 +71,10 @@ func (mq *RabbitMQ) UnSubscribe(target string) error {
 	mq.mu.Lock()
 	defer mq.mu.Unlock()
 
+	err := mq.ch.QueueUnbind(fmt.Sprintf("%s-%s", target, viper.GetString("SERVICE_NAME")), "*", target, nil)
+	if err != nil {
+		return fmt.Errorf("failed to unbind queue: %w", err)
+	}
+
 	return nil
 }
