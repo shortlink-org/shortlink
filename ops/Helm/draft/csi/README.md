@@ -5,7 +5,7 @@
 1. Deploy the CSI plugin and sidecars
 
 ```
-kubectl apply --prune --applyset=csi-driver -f ./templates
+kubectl apply -n default --prune --applyset=csi-driver -f ./templates
 ```
 
 #### Info

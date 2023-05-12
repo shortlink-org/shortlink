@@ -3,7 +3,7 @@ METALLB_SECRET := "$(openssl rand -base64 128)"
 METALLB_VERSION := v0.13.9
 
 metallb-up: ## Run MetalLB
-	@kubectl apply --prune --applyset=metallb-namespace \
+	@kubectl apply -n default --prune --applyset=metallb-namespace \
 		-f https://raw.githubusercontent.com/metallb/metallb/${METALLB_VERSION}/manifests/namespace.yaml \
 		-f https://raw.githubusercontent.com/metallb/metallb/${METALLB_VERSION}/manifests/metallb.yaml
 
@@ -11,7 +11,7 @@ metallb-up: ## Run MetalLB
 	@kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="${METALLB_SECRET}"
 
 	# Apply configuration
-	@kubectl apply --prune --applyset=metallb-config \
+	@kubectl apply -n default --prune --applyset=metallb-config \
 		-f ops/Helm/addons/metallb/metallb.yaml
 
 metallb-down: ## Down MetalLB
