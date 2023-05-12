@@ -8,11 +8,13 @@ import (
 )
 
 type RabbitMQ struct {
-	log    logger.Logger
-	conn   *Connection
-	ch     *Channel
+	mu sync.Mutex
+
 	config *Config
-	mu     sync.Mutex
+
+	log  logger.Logger
+	conn *Connection
+	ch   *Channel
 }
 
 func New(log logger.Logger) *RabbitMQ {
