@@ -2,6 +2,7 @@ package rabbit
 
 import (
 	"context"
+	"fmt"
 	"sync"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -47,6 +48,14 @@ func (mq *RabbitMQ) Close() error {
 
 	if err := mq.ch.Close(); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func (r *RabbitMQ) Check(ctx context.Context) error {
+	if r.conn.IsClosed() {
+		return fmt.Errorf("connection is closed")
 	}
 
 	return nil
