@@ -23,6 +23,8 @@ testkube:
 
     uiIngress:
       enabled: true
+      hosts:
+        - testkube.shortlink.best
 
   testkube-dashboard:
     ingress:
