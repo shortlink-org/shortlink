@@ -21,6 +21,9 @@ testkube:
     minio:
       enabled: false
 
+    uiIngress:
+      enabled: true
+
   testkube-dashboard:
     ingress:
       enabled: true
