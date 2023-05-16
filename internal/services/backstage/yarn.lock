@@ -3416,6 +3416,34 @@
     react-use "^17.2.4"
     zen-observable "^0.10.0"
 
+"@backstage/plugin-catalog@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.11.0.tgz#9ead8b9f3f948412a03a23178e79b3ce6d129562"
+  integrity sha512-74Z6NJJJ9MDQnk1p1XBsWU/i0m7Sk2cLBa14OTSg4lnINOMaaxVDNvkYLjc0+2pAWF6gdx7dOc9KAbFlVJ4S1w==
+  dependencies:
+    "@backstage/catalog-client" "^1.4.1"
+    "@backstage/catalog-model" "^1.3.0"
+    "@backstage/core-components" "^0.13.1"
+    "@backstage/core-plugin-api" "^1.5.1"
+    "@backstage/errors" "^1.1.5"
+    "@backstage/integration-react" "^1.1.13"
+    "@backstage/plugin-catalog-common" "^1.0.13"
+    "@backstage/plugin-catalog-react" "^1.6.0"
+    "@backstage/plugin-search-common" "^1.2.3"
+    "@backstage/plugin-search-react" "^1.6.0"
+    "@backstage/theme" "^0.3.0"
+    "@backstage/types" "^1.0.2"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@types/react" "^16.13.1 || ^17.0.0"
+    history "^5.0.0"
+    lodash "^4.17.21"
+    pluralize "^8.0.0"
+    react-helmet "6.1.0"
+    react-use "^17.2.4"
+    zen-observable "^0.10.0"
+
 "@backstage/plugin-github-actions@^0.5.17":
   version "0.5.17"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-github-actions/-/plugin-github-actions-0.5.17.tgz#e0770d7e69d917be051a9026a7c476da679a8fed"
