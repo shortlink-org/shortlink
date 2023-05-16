@@ -36,9 +36,9 @@ stateDiagram-v2
 
 **Run:**
 
-  ```bash
-  docker build -t test --build-arg APP_ENV=ci -f ops/dockerfile/landing.Dockerfile .
-  ```
+```bash
+docker build -t test --build-arg APP_ENV=ci -f ops/dockerfile/landing.Dockerfile .
+```
 
 ### Learn More
 
