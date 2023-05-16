@@ -3766,6 +3766,25 @@
     uuid "^8.3.2"
     winston "^3.2.1"
 
+"@backstage/plugin-search-backend-node@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend-node/-/plugin-search-backend-node-1.2.1.tgz#fd2d327dfea9296331f2c2523dc8eee2b2e6a2bc"
+  integrity sha512-nZvpMFCOMIdMEB35IKg97uKkRj/WHpaC0SZmzBvMnt/04uXRFaTo5hLN5oFHh1m4i6LYlQRM680hGMnQD5OBXA==
+  dependencies:
+    "@backstage/backend-common" "^0.18.5"
+    "@backstage/backend-plugin-api" "^0.5.2"
+    "@backstage/backend-tasks" "^0.5.2"
+    "@backstage/config" "^1.0.7"
+    "@backstage/errors" "^1.1.5"
+    "@backstage/plugin-permission-common" "^0.7.5"
+    "@backstage/plugin-search-common" "^1.2.3"
+    "@types/lunr" "^2.3.3"
+    lodash "^4.17.21"
+    lunr "^2.3.9"
+    ndjson "^2.0.0"
+    uuid "^8.3.2"
+    winston "^3.2.1"
+
 "@backstage/plugin-search-backend@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend/-/plugin-search-backend-1.3.0.tgz#c568a79f56880dffb45becd7b12dd887ccb75500"
