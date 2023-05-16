@@ -20,6 +20,11 @@ export default function MyDocument(props: any) {
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
+        <script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          async
+          defer
+        />
         {/* Inject MUI styles first to match with to prepend: true configuration. */}
         {emotionStyleTags}
       </Head>
@@ -69,7 +74,7 @@ MyDocument.getInitialProps = async (ctx) => {
     originalRenderPage({
       enhanceApp: (
         App: any, // @ts-ignore
-      ) =>
+      ) => // @ts-ignore
         function EnhanceApp(props) {
           return <App emotionCache={cache} {...props} />
         },

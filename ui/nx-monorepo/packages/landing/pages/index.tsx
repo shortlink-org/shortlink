@@ -32,6 +32,7 @@ const Home: NextPage = () => {
   }
 
   const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
+  const CLOUDFLARE_SITE_KEY = process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY
 
   return (
     <div>
@@ -117,6 +118,8 @@ const Home: NextPage = () => {
       </Head>
 
       <ToggleDarkMode id="ToggleDarkMode" />
+
+      <div className="cf-turnstile" data-sitekey={CLOUDFLARE_SITE_KEY} data-callback="javascriptCallback" />
 
       <Grid
         container
