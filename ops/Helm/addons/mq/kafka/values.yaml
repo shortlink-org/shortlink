@@ -9,6 +9,13 @@ strimzi-kafka-operator:
     - shortlink
   watchAnyNamespace: true
 
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    labelValue: "true"
+    annotations:
+      grafana_dashboard_folder: Kafka
+
 kafka-ui:
   enabled: true
 
