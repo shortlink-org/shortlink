@@ -2764,23 +2764,6 @@
     "@backstage/types" "^1.0.2"
     lodash "^4.17.21"
 
-"@backstage/core-app-api@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.7.0.tgz#5a50fd95568a9f751f79f1234ee40e8aea004e1e"
-  integrity sha512-LutecBkyjN5eHQuSWO1mHKUk3/rVXgn6gVCiB5PjbDNIhvvJCvMwisXlz4YkL+8Y6+epuER+q3SleKpiT6u5kA==
-  dependencies:
-    "@backstage/config" "^1.0.7"
-    "@backstage/core-plugin-api" "^1.5.1"
-    "@backstage/types" "^1.0.2"
-    "@backstage/version-bridge" "^1.0.4"
-    "@types/prop-types" "^15.7.3"
-    "@types/react" "^16.13.1 || ^17.0.0"
-    history "^5.0.0"
-    prop-types "^15.7.2"
-    react-use "^17.2.4"
-    zen-observable "^0.10.0"
-    zod "^3.21.4"
-
 "@backstage/core-app-api@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.8.0.tgz#b027cb069954041714be6bb0fba2802c10fa073a"
@@ -3647,13 +3630,13 @@
     react-use "^17.2.4"
     swr "^2.0.0"
 
-"@backstage/plugin-proxy-backend@^0.2.38":
-  version "0.2.38"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-proxy-backend/-/plugin-proxy-backend-0.2.38.tgz#eca56347a22e596e065cf1390e8b4c6c1c42a405"
-  integrity sha512-XdTfh3zZkoyNfjfBjp5InagZgGj5FFCrca0TShUTN1Jq8/SINk7O+OofMFe+IQPKxuYUnaq9GzLgSC7w3LzRNw==
+"@backstage/plugin-proxy-backend@^0.2.39":
+  version "0.2.39"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-proxy-backend/-/plugin-proxy-backend-0.2.39.tgz#ecd1e5f72002318140ffcc547d1184bbc848b28a"
+  integrity sha512-XWLpGWUspk7t1p0nqOP9/Uw7VgSNu0cpt0SncLSoMn3uVPXMdv9xqPcFrW9V2mvlYWXXhTIyHs+zZjngKsDKuw==
   dependencies:
-    "@backstage/backend-common" "^0.18.4"
-    "@backstage/backend-plugin-api" "^0.5.1"
+    "@backstage/backend-common" "^0.18.5"
+    "@backstage/backend-plugin-api" "^0.5.2"
     "@backstage/config" "^1.0.7"
     "@types/express" "^4.17.6"
     express "^4.17.1"
