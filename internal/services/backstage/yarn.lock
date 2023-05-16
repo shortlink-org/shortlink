@@ -3486,15 +3486,6 @@
     winston "^3.2.1"
     yn "^4.0.0"
 
-"@backstage/plugin-kubernetes-common@^0.6.2":
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-common/-/plugin-kubernetes-common-0.6.2.tgz#0557e019502cb91500b623c98c9422ce740130da"
-  integrity sha512-wOLKlo1bW6qpnr+V6qaongqDWrmmiw/0Q+3pnjUl8nJKlwXznucqfeSJSaBNIaRJIfXwE9hgR6BRu4FIhyi4Bg==
-  dependencies:
-    "@backstage/catalog-model" "^1.3.0"
-    "@backstage/plugin-permission-common" "^0.7.5"
-    "@kubernetes/client-node" "0.18.1"
-
 "@backstage/plugin-kubernetes-common@^0.6.3":
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-common/-/plugin-kubernetes-common-0.6.3.tgz#3e3876a28b06c581c235dc81998aad42aa191028"
@@ -3504,19 +3495,20 @@
     "@backstage/plugin-permission-common" "^0.7.5"
     "@kubernetes/client-node" "0.18.1"
 
-"@backstage/plugin-kubernetes@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes/-/plugin-kubernetes-0.8.0.tgz#3bf46912ef8675ec3b1253b6aaea126988706273"
-  integrity sha512-U8bzoTIgbeCWeWa4qoZTfiPLq/lWcE4IHJ9h5o/GkeX39m7ZOdm0jAiOJKCEw79eVPJ1w1ZmYqjL3GthG249kA==
+"@backstage/plugin-kubernetes@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes/-/plugin-kubernetes-0.9.0.tgz#861cff107aa463026abe4208ebde3d68cadb6649"
+  integrity sha512-u7TV0+fisB4tDGkaGkBhYC+AlcKEXeODyVGpKbHgt7OGsZabMlGna+sGgsUNa37SYH+OB4o47OPrJZUEjC0wxQ==
   dependencies:
     "@backstage/catalog-model" "^1.3.0"
     "@backstage/config" "^1.0.7"
-    "@backstage/core-components" "^0.13.0"
+    "@backstage/core-components" "^0.13.1"
     "@backstage/core-plugin-api" "^1.5.1"
     "@backstage/errors" "^1.1.5"
-    "@backstage/plugin-catalog-react" "^1.5.0"
-    "@backstage/plugin-kubernetes-common" "^0.6.2"
-    "@backstage/theme" "^0.2.19"
+    "@backstage/plugin-catalog-react" "^1.6.0"
+    "@backstage/plugin-kubernetes-common" "^0.6.3"
+    "@backstage/theme" "^0.3.0"
+    "@kubernetes-models/apimachinery" "^1.1.0"
     "@kubernetes/client-node" "0.18.1"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
@@ -5313,6 +5305,15 @@
   dependencies:
     ioredis "^5.3.2"
 
+"@kubernetes-models/apimachinery@^1.1.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@kubernetes-models/apimachinery/-/apimachinery-1.2.0.tgz#3199192962c354ed64f8401a51c1a7a071eace25"
+  integrity sha512-y9ls/waQMX0/2yzc5D05yC3AOvOx/xhDq8OvywnhcU/0p7OOT1F1tx76Uvtke1GotwZzmxzIKLud/S7qwqW4XQ==
+  dependencies:
+    "@kubernetes-models/base" "^4.0.2"
+    "@kubernetes-models/validate" "^3.1.0"
+    tslib "^2.4.0"
+
 "@kubernetes-models/apimachinery@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@kubernetes-models/apimachinery/-/apimachinery-1.1.1.tgz#7bcbc6d69351e98223b6885aae0701047f9d1b32"
@@ -5331,6 +5332,15 @@
     is-plain-object "^5.0.0"
     tslib "^2.4.0"
 
+"@kubernetes-models/base@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@kubernetes-models/base/-/base-4.0.2.tgz#c23f6b7064c3f97ea2626a7cd9d5b6e3f9f71862"
+  integrity sha512-V4FIMk9VZbEMnOdvB3HxiYmsnt36KaUtUDOpZrfEqWCkAD90bQgT1YjflgOAFEJujdNfA/EDrozK+AzrzopsQA==
+  dependencies:
+    "@kubernetes-models/validate" "^3.1.0"
+    is-plain-object "^5.0.0"
+    tslib "^2.4.0"
+
 "@kubernetes-models/validate@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@kubernetes-models/validate/-/validate-3.0.1.tgz#a94a07e92061f9cf48edcfb1b7235e18f57e2caf"
@@ -5338,6 +5348,16 @@
   dependencies:
     ajv "^8.11.0"
     ajv-formats "^2.1.1"
+    tslib "^2.4.0"
+
+"@kubernetes-models/validate@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@kubernetes-models/validate/-/validate-3.1.0.tgz#eb924063433d6ec410b093ec5b12030a802b7010"
+  integrity sha512-JFKbb3o5hxTfy36qutPSkblUrU2TkXnIiZEbrhRewQJkvI95rJvjzyAAEp1qlLq2q3bkZpD4lGqFyRwudhQQEw==
+  dependencies:
+    ajv "^8.11.0"
+    ajv-formats "^2.1.1"
+    ajv-formats-draft2019 "^1.6.1"
     tslib "^2.4.0"
 
 "@kubernetes/client-node@0.18.1":
@@ -8407,6 +8427,16 @@ aggregate-error@^3.0.0, aggregate-error@^3.1.0:
     clean-stack "^2.0.0"
     indent-string "^4.0.0"
 
+ajv-formats-draft2019@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/ajv-formats-draft2019/-/ajv-formats-draft2019-1.6.1.tgz#6affe2220e7828360793776f1976de0420acccfb"
+  integrity sha512-JQPvavpkWDvIsBp2Z33UkYCtXCSpW4HD3tAZ+oL4iEFOk9obQZffx0yANwECt6vzr6ET+7HN5czRyqXbnq/u0Q==
+  dependencies:
+    punycode "^2.1.1"
+    schemes "^1.4.0"
+    smtp-address-parser "^1.0.3"
+    uri-js "^4.4.1"
+
 ajv-formats@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ajv-formats/-/ajv-formats-2.1.1.tgz#6e669400659eb74973bbf2e33327180a0996b520"
@@ -9952,7 +9982,7 @@ command-exists@^1.2.9:
   resolved "https://registry.yarnpkg.com/command-exists/-/command-exists-1.2.9.tgz#c50725af3808c8ab0260fd60b01fbfa25b954f69"
   integrity sha512-LTQ/SGc+s0Xc0Fu5WaKnR0YiygZkm9eKFvyS+fRsU7/ZWFF8ykFM6Pc9aCVf1+xasOOZpO3BAVgVrKvsqKHV7w==
 
-commander@^2.20.0:
+commander@^2.19.0, commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -11205,6 +11235,11 @@ dir-glob@^3.0.1:
   integrity sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==
   dependencies:
     path-type "^4.0.0"
+
+discontinuous-range@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"
+  integrity sha512-c68LpLbO+7kP/b1Hr1qs8/BJ09F5khZGTxqxZuhzxpmwJKOgRFHJWIb9/KmqnqHhLdO55aOxFH/EGBvUQbL/RQ==
 
 dns-equal@^1.0.0:
   version "1.0.0"
@@ -16870,6 +16905,11 @@ moment@^2.29.1:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
+moo@^0.5.0:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/moo/-/moo-0.5.2.tgz#f9fe82473bc7c184b0d32e2215d3f6e67278733c"
+  integrity sha512-iSAJLHYKnX41mKcJKjqvnAN9sf0LMDTXDEvFv+ffuRR9a1MIuXLjMNL6EsnDHSkKLTWNqQQ5uo61P4EbU4NU+Q==
+
 morgan@^1.10.0:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.10.0.tgz#091778abc1fc47cd3509824653dae1faab6b17d7"
@@ -16993,6 +17033,16 @@ ndjson@^2.0.0:
     readable-stream "^3.6.0"
     split2 "^3.0.0"
     through2 "^4.0.0"
+
+nearley@^2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/nearley/-/nearley-2.20.1.tgz#246cd33eff0d012faf197ff6774d7ac78acdd474"
+  integrity sha512-+Mc8UaAebFzgV+KpI5n7DasuuQCHA89dmwm7JXw3TV43ukfNQ9DnBH3Mdb2g/I4Fdxc26pwimBWvjIw0UAILSQ==
+  dependencies:
+    commander "^2.19.0"
+    moo "^0.5.0"
+    railroad-diagrams "^1.0.0"
+    randexp "0.4.6"
 
 negotiator@0.6.3, negotiator@^0.6.3:
   version "0.6.3"
@@ -19118,6 +19168,11 @@ raf@^3.4.0:
   dependencies:
     performance-now "^2.1.0"
 
+railroad-diagrams@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/railroad-diagrams/-/railroad-diagrams-1.0.0.tgz#eb7e6267548ddedfb899c1b90e57374559cddb7e"
+  integrity sha512-cz93DjNeLY0idrCNOH6PviZGRN9GJhsdm9hpn1YCS879fj4W+x5IFJhhkRZcwVgMmFF7R82UA/7Oh+R8lLZg6A==
+
 ramda-adjunct@=4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/ramda-adjunct/-/ramda-adjunct-4.0.0.tgz#99873cc707e86207ec7e757385144b3f235b7c59"
@@ -19127,6 +19182,14 @@ ramda@=0.29.0:
   version "0.29.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.29.0.tgz#fbbb67a740a754c8a4cbb41e2a6e0eb8507f55fb"
   integrity sha512-BBea6L67bYLtdbOqfp8f58fPMqEwx0doL+pAi8TZyp2YWz8R9G8z9x75CZI8W+ftqhFHCpEX2cRnUUXK130iKA==
+
+randexp@0.4.6:
+  version "0.4.6"
+  resolved "https://registry.yarnpkg.com/randexp/-/randexp-0.4.6.tgz#e986ad5e5e31dae13ddd6f7b3019aa7c87f60ca3"
+  integrity sha512-80WNmd9DA0tmZrw9qQa62GPPWfuXJknrmVmLcxvq4uZBdYqb1wYoKTmnlGUchvVWe0XiLupYkBoXVOxz3C8DYQ==
+  dependencies:
+    discontinuous-range "1.0.0"
+    ret "~0.1.10"
 
 randexp@^0.5.3:
   version "0.5.3"
@@ -20043,6 +20106,11 @@ ret@^0.2.0:
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.2.2.tgz#b6861782a1f4762dce43402a71eb7a283f44573c"
   integrity sha512-M0b3YWQs7R3Z917WRQy1HHA7Ba7D8hvZg6UE5mLykJxQVE2ju0IXbGlaHPPlkY+WN7wFP+wUMXmBFA0aV6vYGQ==
 
+ret@~0.1.10:
+  version "0.1.15"
+  resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
+  integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
+
 retry-request@^5.0.0:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/retry-request/-/retry-request-5.0.2.tgz#143d85f90c755af407fcc46b7166a4ba520e44da"
@@ -20302,6 +20370,13 @@ schema-utils@^4.0.0:
     ajv "^8.9.0"
     ajv-formats "^2.1.1"
     ajv-keywords "^5.1.0"
+
+schemes@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/schemes/-/schemes-1.4.0.tgz#9d03302275e562488dd3afa7b654ed42e00569ec"
+  integrity sha512-ImFy9FbCsQlVgnE3TCWmLPCFnVzx0lHL/l+umHplDqAKd0dzFpnS6lFZIpagBlYhKwzVmlV36ec0Y1XTu8JBAQ==
+  dependencies:
+    extend "^3.0.0"
 
 screenfull@^5.1.0:
   version "5.2.0"
@@ -20596,6 +20671,13 @@ smart-buffer@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
+
+smtp-address-parser@^1.0.3:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/smtp-address-parser/-/smtp-address-parser-1.0.10.tgz#9fc4ed6021f13dc3d8f591e0ad0d50454073025e"
+  integrity sha512-Osg9LmvGeAG/hyao4mldbflLOkkr3a+h4m1lwKCK5U8M6ZAr7tdXEz/+/vr752TSGE4MNUlUl9cIK2cB8cgzXg==
+  dependencies:
+    nearley "^2.20.1"
 
 sockjs@^0.3.24:
   version "0.3.24"
@@ -22180,7 +22262,7 @@ update-browserslist-db@^1.0.10:
     escalade "^3.1.1"
     picocolors "^1.0.0"
 
-uri-js@^4.2.2:
+uri-js@^4.2.2, uri-js@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/uri-js/-/uri-js-4.4.1.tgz#9b1a52595225859e55f669d928f88c6c57f2a77e"
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
