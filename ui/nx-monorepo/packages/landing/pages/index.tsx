@@ -2,6 +2,7 @@ import { NextPage } from 'next'
 import Script from 'next/script'
 import Head from 'next/head'
 import React, { useState } from 'react'
+import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
 import { ArticleJsonLd, BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import {
   useTheme,
@@ -36,6 +37,11 @@ const Home: NextPage = () => {
 
   return (
     <div>
+      <Script
+        id={DEFAULT_SCRIPT_ID}
+        src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
+        strategy="afterInteractive"
+      />
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"
@@ -119,8 +125,6 @@ const Home: NextPage = () => {
 
       <ToggleDarkMode id="ToggleDarkMode" />
 
-      <div className="cf-turnstile" data-sitekey={CLOUDFLARE_SITE_KEY} data-callback="javascriptCallback" />
-
       <Grid
         container
         direction="row"
@@ -148,6 +152,7 @@ const Home: NextPage = () => {
           <TabPanel value={value} index={0}>
             <TabContent
               title="Shortlink service (Microservice example)"
+              key="shortlink"
               cards={[
                 { name: 'Next', url: '/next' },
                 { name: 'ui-kit', url: '/storybook/' },
@@ -158,6 +163,7 @@ const Home: NextPage = () => {
           <TabPanel value={value} index={1} dir={theme.direction}>
             <TabContent
               title="Infrastructure services"
+              key="infrastructure"
               cards={[
                 { name: 'RabbitMQ', url: '/rabbitmq/' },
                 { name: 'Kafka', url: '/kafka-ui' },
@@ -170,6 +176,7 @@ const Home: NextPage = () => {
           <TabPanel value={value} index={2} dir={theme.direction}>
             <TabContent
               title="Observability services"
+              key="observability"
               cards={[
                 { name: 'Prometheus', url: '/prometheus' },
                 { name: 'AlertManager', url: '/alertmanager' },
@@ -183,6 +190,7 @@ const Home: NextPage = () => {
           <TabPanel value={value} index={3} dir={theme.direction}>
             <TabContent
               title="Documentation and etc..."
+              key="docs"
               cards={[
                 {
                   name: 'GitHub',
@@ -202,6 +210,9 @@ const Home: NextPage = () => {
           </TabPanel>
         </Box>
       </Grid>
+
+      {/* @ts-ignore */}
+      <Turnstile siteKey={CLOUDFLARE_SITE_KEY} injectScript={false} className="fixed left-4 bottom-4" />
     </div>
   )
 }

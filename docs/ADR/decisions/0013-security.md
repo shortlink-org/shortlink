@@ -1,4 +1,4 @@
-# 13. Security
+# 13. Enhancing Security Measures
 
 Date: 2023-01-16
 
@@ -8,16 +8,18 @@ Accepted
 
 ## Context
 
-We need to encrypt secret data for deployment to enhance the security of our application.
+The necessity to bolster the security of our application has been identified, particularly in relation to the encryption of secret data during deployment.
 
 ## Decision
 
-### Secrets Management
+### Management of Secrets
 
-We will use [SOPS](https://github.com/mozilla/sops) to encrypt secret data, ensuring it is protected during deployment.
+To protect secret data during deployment, we have decided to utilize [SOPS](https://github.com/mozilla/sops).
 
-- for **HELM** we will use [helm-secrets](https://github.com/jkroepke/helm-secrets/wiki/Usage) plugin.
-- for **ArgoCD** we use - [Argo CD Integration](https://github.com/jkroepke/helm-secrets/blob/main/docs/ArgoCD%20Integration.md).
+- For **HELM**, the [helm-secrets](https://github.com/jkroepke/helm-secrets/wiki/Usage) plugin will be employed.
+- For **ArgoCD**, we will integrate with [Argo CD Integration](https://github.com/jkroepke/helm-secrets/blob/main/docs/ArgoCD%20Integration.md).
+
+The following diagram illustrates the process:
 
 ```mermaid
 graph TD
@@ -36,18 +38,16 @@ graph TD
     style H fill:#f9a825,stroke:#333,stroke-width:2px
 ```  
 
-### Kubernetes Security
+### Security in Kubernetes
 
-We will use [kubescape](https://github.com/kubescape/kubescape) to scan our cluster for security issues.
+To identify potential security issues within our cluster, we will use [kubescape](https://github.com/kubescape/kubescape).
 
-### Supply chain
+### Supply Chain Security
 
-We will use [SLSA](https://slsa.dev/) to ensure that our supply chain is secure.
-
-We add flags `--sbom=true` and `--provenance=true` for docker build.
+To ensure the security of our supply chain, we will adopt [SLSA](https://slsa.dev/). For docker builds, the flags `--sbom=true` and `--provenance=true` will be added.
 
 ## Consequences
 
-+ We will need to use SOPS to decrypt secret data before deploying.
-+ We will need to use kubescape to scan our cluster for security issues.
-+ We will need to use SLSA to ensure that our supply chain is secure.
++ The use of SOPS will be required to decrypt secret data prior to deployment.
++ Kubescape will be used to regularly scan our cluster for potential security issues.
++ SLSA will be adopted to ensure the security of our supply chain.
