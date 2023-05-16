@@ -3818,6 +3818,25 @@
     qs "^6.9.4"
     react-use "^17.3.2"
 
+"@backstage/plugin-search-react@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-react/-/plugin-search-react-1.6.0.tgz#de4c215a31fe2173a56e5ef6308659ae1ddb6ef7"
+  integrity sha512-9smdCoqeze+nj59hSSKfBlxZr8GjowXsOumm54qKT9qbONJDEHNlQuoFWvN4pCh3QyXdhYnj2W3VaM/eaKBEGg==
+  dependencies:
+    "@backstage/core-components" "^0.13.1"
+    "@backstage/core-plugin-api" "^1.5.1"
+    "@backstage/plugin-search-common" "^1.2.3"
+    "@backstage/theme" "^0.3.0"
+    "@backstage/types" "^1.0.2"
+    "@backstage/version-bridge" "^1.0.4"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@types/react" "^16.13.1 || ^17.0.0"
+    lodash "^4.17.21"
+    qs "^6.9.4"
+    react-use "^17.3.2"
+
 "@backstage/plugin-search@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-search/-/plugin-search-1.2.0.tgz#b578e05f8093fe6c6e63e999fd343e8e9b2c74c4"
