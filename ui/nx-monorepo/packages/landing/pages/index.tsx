@@ -1,23 +1,20 @@
-import type { NextPage } from 'next'
+import { NextPage } from 'next'
 import Script from 'next/script'
 import Head from 'next/head'
-import * as React from 'react'
+import React, { useState } from 'react'
 import { ArticleJsonLd, BreadcrumbJsonLd, NextSeo } from 'next-seo'
-// @ts-ignore
-import Divider from '@mui/material/Divider'
-import { useTheme } from '@mui/material/styles'
-import AppBar from '@mui/material/AppBar'
-import Grid from '@mui/material/Grid'
-import Stack from '@mui/material/Stack'
-import Tabs from '@mui/material/Tabs'
-import Button from '@mui/material/Button'
-import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-import Link from 'next/link'
+import {
+  useTheme,
+  AppBar,
+  Grid,
+  Tabs,
+  Tab,
+  Box,
+} from '@mui/material'
 // @ts-ignore
 import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import TabPanel from '../components/TabPanel'
+import TabContent from '../components/TabContent'
 
 function a11yProps(index: number) {
   return {
@@ -26,26 +23,20 @@ function a11yProps(index: number) {
   }
 }
 
-function getCard(name: string, url: string) {
-  return (
-    <Link href={url} legacyBehavior>
-      <Button variant="outlined">{name}</Button>
-    </Link>
-  )
-}
-
 const Home: NextPage = () => {
   const theme = useTheme()
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = useState(0)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
 
+  const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
+
   return (
     <div>
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-DBZDFPJCJ9"
+        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
@@ -54,7 +45,7 @@ const Home: NextPage = () => {
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-DBZDFPJCJ9');
+          gtag('config', '${GA_ID}');
         `}
       </Script>
 
@@ -133,7 +124,7 @@ const Home: NextPage = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Box sx={{ bgcolor: 'background.paper', width: 700 }}>
+        <Box sx={{ bgcolor: 'background.paper', width: 800 }}>
           <AppBar position="static" id="menu">
             <Tabs
               value={value}
@@ -152,112 +143,59 @@ const Home: NextPage = () => {
           </AppBar>
 
           <TabPanel value={value} index={0}>
-            <Typography variant="h5" align="center">
-              Shortlink service (Microservice example)
-            </Typography>
-
-            <Stack
-              spacing={{ xs: 1, sm: 2, md: 4 }}
-              direction="row"
-              divider={<Divider orientation="vertical" flexItem />}
-              mt={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              {getCard('Next', '/next')}
-              {getCard('ui-kit', '/storybook/')}
-            </Stack>
+            <TabContent
+              title="Shortlink service (Microservice example)"
+              cards={[
+                { name: 'Next', url: '/next' },
+                { name: 'ui-kit', url: '/storybook/' },
+              ]}
+            />
           </TabPanel>
 
           <TabPanel value={value} index={1} dir={theme.direction}>
-            <Typography variant="h5" align="center">
-              Infrastructure services
-            </Typography>
-
-            <Stack
-              spacing={{ xs: 1, sm: 2, md: 4 }}
-              direction="row"
-              divider={<Divider orientation="vertical" flexItem />}
-              mt={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              {getCard('RabbitMQ', '/rabbitmq/')}
-
-              {getCard('Kafka', '/kafka-ui')}
-            </Stack>
-
-            <Stack
-              spacing={{ xs: 1, sm: 2, md: 4 }}
-              direction="row"
-              divider={<Divider orientation="vertical" flexItem />}
-              mt={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              {getCard('Argo CD', '/argo/cd')}
-              {getCard('Argo Workflows', '/argo/workflows')}
-              {/*{getCard("Argo Dashboard", "/argo/dashboard")}*/}
-            </Stack>
+            <TabContent
+              title="Infrastructure services"
+              cards={[
+                { name: 'RabbitMQ', url: '/rabbitmq/' },
+                { name: 'Kafka', url: '/kafka-ui' },
+                { name: 'Argo CD', url: '/argo/cd' },
+                { name: 'Argo Workflows', url: '/argo/workflows' },
+              ]}
+            />
           </TabPanel>
 
           <TabPanel value={value} index={2} dir={theme.direction}>
-            <Typography variant="h5" align="center">
-              Observability
-            </Typography>
-
-            <Stack
-              spacing={{ xs: 1, sm: 2, md: 4 }}
-              direction="row"
-              divider={<Divider orientation="vertical" flexItem />}
-              mt={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              {getCard('Prometheus', '/prometheus')}
-              {getCard('AlertManager', '/alertmanager')}
-            </Stack>
-
-            <Stack
-              spacing={{ xs: 1, sm: 2, md: 4 }}
-              direction="row"
-              divider={<Divider orientation="vertical" flexItem />}
-              mt={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              {getCard('Grafana', 'https://grafana.shortlink.best')}
-
-              {getCard('Pyroscope', 'https://pyroscope.shortlink.best')}
-
-              {getCard('Kyverno', '/kyverno/')}
-            </Stack>
+            <TabContent
+              title="Observability services"
+              cards={[
+                { name: 'Prometheus', url: '/prometheus' },
+                { name: 'AlertManager', url: '/alertmanager' },
+                { name: 'Grafana', url: 'https://grafana.shortlink.best' },
+                { name: 'Pyroscope', url: 'https://pyroscope.shortlink.best' },
+                { name: 'Kyverno', url: '/kyverno/' },
+              ]}
+            />
           </TabPanel>
 
           <TabPanel value={value} index={3} dir={theme.direction}>
-            <Typography variant="h5" align="center">
-              Documentation and etc...
-            </Typography>
-
-            <Stack
-              spacing={{ xs: 1, sm: 2, md: 4 }}
-              direction="row"
-              divider={<Divider orientation="vertical" flexItem />}
-              mt={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              {getCard('GitHub', 'https://github.com/shortlink-org/shortlink')}
-
-              {getCard('GitLab', 'https://gitlab.com/shortlink-org/shortlink/')}
-
-              {getCard(
-                'Swagger API',
-                'https://shortlink-org.gitlab.io/shortlink/',
-              )}
-
-              {getCard('Backstage', 'https://backstage.shortlink.best/')}
-            </Stack>
+            <TabContent
+              title="Documentation and etc..."
+              cards={[
+                {
+                  name: 'GitHub',
+                  url: 'https://github.com/shortlink-org/shortlink',
+                },
+                {
+                  name: 'GitLab',
+                  url: 'https://gitlab.com/shortlink-org/shortlink/',
+                },
+                {
+                  name: 'Swagger API',
+                  url: 'https://shortlink-org.gitlab.io/shortlink/',
+                },
+                { name: 'Backstage', url: 'https://backstage.shortlink.best/' },
+              ]}
+            />
           </TabPanel>
         </Box>
       </Grid>
@@ -265,4 +203,5 @@ const Home: NextPage = () => {
   )
 }
 
+// @ts-ignore
 export default Home
