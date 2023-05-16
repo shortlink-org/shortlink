@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="landing" type="js.build_tools.npm" folderName="ui">
+  <configuration default="false" name="landing" type="js.build_tools.npm" folderName="landing">
     <package-json value="$PROJECT_DIR$/ui/nx-monorepo/packages/landing/package.json" />
     <command value="run" />
     <scripts>
@@ -7,7 +7,10 @@
     </scripts>
     <node-interpreter value="project" />
     <package-manager value="npm" />
-    <envs />
+    <envs>
+      <env name="NEXT_PUBLIC_CLOUDFLARE_SITE_KEY" value="0x4AAAAAAAEzDnfy4idw0bBk" />
+      <env name="NEXT_PUBLIC_GOOGLE_ANALYTICS_ID" value="G-DBZDFPJCJ9" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>

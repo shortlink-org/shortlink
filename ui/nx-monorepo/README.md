@@ -5,6 +5,7 @@ This repository is a monorepo for the nx workspace.
 ### ADR
 
 - [ADR-0001: Init. Use Nx](./docs/adr/0001-init.md)
+- [ADR-0002: Implementing Security Measures in UI](./docs/adr/0002-security.md)
 
 ### Services
 

@@ -32,7 +32,7 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => (
 
 function getCard(name: string, url: string) {
   return (
-    <Link href={url} legacyBehavior>
+    <Link href={url} key={url} legacyBehavior>
       <Button variant="outlined">{name}</Button>
     </Link>
   )
