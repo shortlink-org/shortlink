@@ -2764,23 +2764,6 @@
     "@backstage/types" "^1.0.2"
     lodash "^4.17.21"
 
-"@backstage/core-app-api@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.7.0.tgz#5a50fd95568a9f751f79f1234ee40e8aea004e1e"
-  integrity sha512-LutecBkyjN5eHQuSWO1mHKUk3/rVXgn6gVCiB5PjbDNIhvvJCvMwisXlz4YkL+8Y6+epuER+q3SleKpiT6u5kA==
-  dependencies:
-    "@backstage/config" "^1.0.7"
-    "@backstage/core-plugin-api" "^1.5.1"
-    "@backstage/types" "^1.0.2"
-    "@backstage/version-bridge" "^1.0.4"
-    "@types/prop-types" "^15.7.3"
-    "@types/react" "^16.13.1 || ^17.0.0"
-    history "^5.0.0"
-    prop-types "^15.7.2"
-    react-use "^17.2.4"
-    zen-observable "^0.10.0"
-    zod "^3.21.4"
-
 "@backstage/core-app-api@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.8.0.tgz#b027cb069954041714be6bb0fba2802c10fa073a"
@@ -4229,17 +4212,17 @@
     winston "^3.2.1"
     yn "^4.0.0"
 
-"@backstage/plugin-todo@^0.2.19":
-  version "0.2.19"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-todo/-/plugin-todo-0.2.19.tgz#c577f6eafcb72ee25ee97af049cec342c206859d"
-  integrity sha512-1fMsE+BbrXFuORzbxghOijfG2QkqXLJBiWT0+3eG5S+Shi+kegjwzf5yDtXbGqSDyDPVdVSirBPdgW78yj6pzQ==
+"@backstage/plugin-todo@^0.2.20":
+  version "0.2.20"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-todo/-/plugin-todo-0.2.20.tgz#23ece9b069c8b98e68459619566c5058d5b075eb"
+  integrity sha512-Z00dRErGLknSr96O6d1p6QoDaFPxTy/g9ZoBPNRRWxrUunvIRkF1EJm5dtuYBgPIHUbfhrH2cGO14wfyTPy6NQ==
   dependencies:
     "@backstage/catalog-model" "^1.3.0"
-    "@backstage/core-components" "^0.13.0"
+    "@backstage/core-components" "^0.13.1"
     "@backstage/core-plugin-api" "^1.5.1"
     "@backstage/errors" "^1.1.5"
-    "@backstage/plugin-catalog-react" "^1.5.0"
-    "@backstage/theme" "^0.2.19"
+    "@backstage/plugin-catalog-react" "^1.6.0"
+    "@backstage/theme" "^0.3.0"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
     "@material-ui/lab" "4.0.0-alpha.61"
