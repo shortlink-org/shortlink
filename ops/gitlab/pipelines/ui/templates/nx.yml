@@ -3,7 +3,7 @@ include:
 
 .distributed:
   extends: .cache
-  image: node:20.1-alpine
+  image: node:20.2-alpine
   interruptible: true
   variables:
     GIT_DEPTH: 0
