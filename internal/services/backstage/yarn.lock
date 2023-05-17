@@ -2765,21 +2765,6 @@
     "@backstage/config" "^1.0.7"
     "@backstage/errors" "^1.1.5"
 
-"@backstage/integration-react@^1.1.12":
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/@backstage/integration-react/-/integration-react-1.1.12.tgz#04928a5c68b670ede2f24fcd9a5ae8f379e1c660"
-  integrity sha512-Tj5DuDm9jvLt/CI3r989jrkGakXP6vHFAgSnFlENw80dj6m3N9No7cAO8NA0sosMwyLHfXOdP+tS4PmBCKyYSQ==
-  dependencies:
-    "@backstage/config" "^1.0.7"
-    "@backstage/core-components" "^0.13.0"
-    "@backstage/core-plugin-api" "^1.5.1"
-    "@backstage/integration" "^1.4.4"
-    "@backstage/theme" "^0.2.19"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    react-use "^17.2.4"
-
 "@backstage/integration-react@^1.1.13":
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/@backstage/integration-react/-/integration-react-1.1.13.tgz#a7f0cb589d1bc70576df35a6c3815cd0d04e3014"
@@ -3720,17 +3705,17 @@
     p-limit "^3.1.0"
     winston "^3.2.1"
 
-"@backstage/plugin-techdocs-module-addons-contrib@^1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs-module-addons-contrib/-/plugin-techdocs-module-addons-contrib-1.0.12.tgz#d886ea8855ecbe9f3024206d81f324c85a8ead58"
-  integrity sha512-Zpa115h1Ze+m1+/RqEhvwOqp6w4GKty5Eu7D1Ff0LcAGZVKCT5+0ef1J8jX4TaaUs/5eOpxKzumb7FGTN1h8Rg==
+"@backstage/plugin-techdocs-module-addons-contrib@^1.0.13":
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs-module-addons-contrib/-/plugin-techdocs-module-addons-contrib-1.0.13.tgz#376f599e2186d130e415f1a6fb8ac25bf151263c"
+  integrity sha512-z8CYHzqbka96P8qzjX2PttAf9yQIF6kYZEKBS7dkRxEhcOBYqoimyDNhzIhgK0GxO289EXh+bB78fdv6Qfc8kg==
   dependencies:
-    "@backstage/core-components" "^0.13.0"
+    "@backstage/core-components" "^0.13.1"
     "@backstage/core-plugin-api" "^1.5.1"
-    "@backstage/integration" "^1.4.4"
-    "@backstage/integration-react" "^1.1.12"
-    "@backstage/plugin-techdocs-react" "^1.1.5"
-    "@backstage/theme" "^0.2.19"
+    "@backstage/integration" "^1.4.5"
+    "@backstage/integration-react" "^1.1.13"
+    "@backstage/plugin-techdocs-react" "^1.1.6"
+    "@backstage/theme" "^0.3.0"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
     "@material-ui/lab" "4.0.0-alpha.61"
@@ -3772,25 +3757,6 @@
     p-limit "^3.1.0"
     recursive-readdir "^2.2.2"
     winston "^3.2.1"
-
-"@backstage/plugin-techdocs-react@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs-react/-/plugin-techdocs-react-1.1.5.tgz#f2ebdf21d3758eb08e92be45f9efc520ca055bb1"
-  integrity sha512-SJNMy5+rt8Mz1pqb30gD82oMYJ16g9r3+oFwhF0tvq5BEaEHfO66wNRcShdgPJfQEAUKaaFW/KNzKfK/DsSu9g==
-  dependencies:
-    "@backstage/catalog-model" "^1.3.0"
-    "@backstage/config" "^1.0.7"
-    "@backstage/core-components" "^0.13.0"
-    "@backstage/core-plugin-api" "^1.5.1"
-    "@backstage/version-bridge" "^1.0.4"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    "@material-ui/styles" "^4.11.0"
-    "@types/react" "^16.13.1 || ^17.0.0"
-    jss "~10.10.0"
-    lodash "^4.17.21"
-    react-helmet "6.1.0"
-    react-use "^17.2.4"
 
 "@backstage/plugin-techdocs-react@^1.1.6":
   version "1.1.6"
