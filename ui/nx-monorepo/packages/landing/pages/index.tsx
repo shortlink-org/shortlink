@@ -183,6 +183,8 @@ const Home: NextPage = () => {
                 { name: 'Grafana', url: 'https://grafana.shortlink.best' },
                 { name: 'Pyroscope', url: 'https://pyroscope.shortlink.best' },
                 { name: 'Kyverno', url: '/kyverno/' },
+                { name: 'Testkube', url: 'https://testkube.shortlink.best' },
+                { name: 'TraceTest', url: 'https://tracetest.shortlink.best' },
               ]}
             />
           </TabPanel>
