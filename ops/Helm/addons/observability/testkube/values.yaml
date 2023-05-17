@@ -48,3 +48,22 @@ testkube:
     apiServerEndpoint: "https://testkube.shortlink.best"
 
   testkube-operator: {}
+
+tracetest:
+  postgresql:
+    enabled: false
+
+  telemetry:
+    exporters:
+      collector:
+        exporter:
+          collector:
+            endpoint: http://grafana-tempo.grafana:4317
+
+  resources:
+    limits:
+      cpu: 300m
+      memory: 512Mi
+    requests:
+      cpu: 10m
+      memory: 126Mi
