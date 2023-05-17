@@ -6,9 +6,13 @@ tracetest:
   postgresql:
     enabled: true
 
-    persistence:
+    global:
       storageClass: local-path
-      size: 1Gi
+
+    primary:
+      persistence:
+        storageClass: local-path
+        size: 1Gi
 
   telemetry:
     exporters:
