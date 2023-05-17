@@ -14,7 +14,7 @@ spec:
     namespace: pyroscope
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/pyroscope
+    path: ops/Helm/addons/observability/pyroscope
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
