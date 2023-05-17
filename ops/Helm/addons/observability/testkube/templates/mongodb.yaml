@@ -2,6 +2,7 @@ apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
   name: mongodb
+  namespace: mongodb
 spec:
   members: 3
   arbiters: 1
@@ -13,9 +14,20 @@ spec:
   users:
     - name: testkube
       db: testkube
-      scramCredentialsSecretName: testkube
+      scramCredentialsSecretName: testkube-scram
       passwordSecretRef:
         name: testkube-password
       roles:
         - name: userAdminAnyDatabase
           db: testkube
+
+# the user credentials will be generated from this secret
+# once the credentials are generated, this secret is no longer required
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-user-password
+type: Opaque
+stringData:
+  password: "super-secret-password"
