@@ -4,7 +4,11 @@
 
 tracetest:
   postgresql:
-    enabled: false
+    enabled: true
+
+    persistence:
+      storageClass: local-path
+      size: 1Gi
 
   telemetry:
     exporters:
