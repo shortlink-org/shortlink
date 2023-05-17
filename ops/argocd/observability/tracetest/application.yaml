@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: testkube
+  name: tracetest
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
@@ -11,22 +11,16 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: testkube
+    namespace: tracetest
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/observability/testkube
+    path: ops/Helm/addons/observability/tracetest
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
-      releaseName: testkube
+      releaseName: tracetest
       valueFiles:
-        - testkube.values.yaml
-
-        # ### Method 2: Fetch the gpg/age key from kubernetes secret
-        # secrets+gpg-import-kubernetes://<namespace>/<secret-name>#<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
-        # secrets+age-import-kubernetes://<namespace>/<secret-name>#<key-name>.txt?<relative/path/to/the/encrypted/secrets.yaml>
-        # Example Method 2: (Assumptions: namespace=argocd, secret-name=sops-gpg, key-name=app, secret.yaml is in the root folder)
-        - secrets+gpg-import-kubernetes://argocd/sops-gpg#sops.asc?secret.sops.yaml
+        - tracetest.values.yaml
   syncPolicy:
     automated:
       prune: true
