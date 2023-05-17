@@ -4,8 +4,7 @@ metadata:
   name: mongodb
   namespace: mongodb
 spec:
-  members: 3
-  arbiters: 1
+  members: 1
   type: ReplicaSet
   version: "6.0.5"
   security:
