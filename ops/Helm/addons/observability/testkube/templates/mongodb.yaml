@@ -16,7 +16,7 @@ spec:
       db: testkube
       scramCredentialsSecretName: testkube-scram
       passwordSecretRef:
-        name: testkube-password
+        name: testkube-user-password
       roles:
         - name: userAdminAnyDatabase
           db: testkube
@@ -27,7 +27,8 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: my-user-password
+  name: testkube-user-password
+  namespace: mongodb
 type: Opaque
 stringData:
   password: "super-secret-password"
