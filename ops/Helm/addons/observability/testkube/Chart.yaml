@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: testkube
-    version: 1.11.216
+    version: 1.11.220
     repository: https://kubeshop.github.io/helm-charts
     condition: testkube.enabled
   - name: tracetest
