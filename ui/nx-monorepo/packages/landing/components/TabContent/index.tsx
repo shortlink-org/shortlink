@@ -18,12 +18,14 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => (
       {title}
     </Typography>
     <Stack
-      spacing={{ xs: 1, sm: 2, md: 4 }}
-      direction="row"
+      spacing={{ xs: 1, sm: 1, md: 2 }}
+      direction={{ xs: 'column', sm: 'row' }}
       divider={<Divider orientation="vertical" flexItem />}
       mt={2}
       justifyContent="center"
       alignItems="center"
+      useFlexGap
+      flexWrap="wrap"
     >
       {cards.map((card) => getCard(card.name, card.url))}
     </Stack>
