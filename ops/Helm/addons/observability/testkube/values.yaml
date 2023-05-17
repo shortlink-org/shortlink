@@ -60,6 +60,20 @@ tracetest:
           collector:
             endpoint: http://grafana-tempo.grafana:4317
 
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: tracetest.shortlink.best
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: tracetest-tls
+        hosts:
+          - tracetest.shortlink.best
+
+
   resources:
     limits:
       cpu: 300m
