@@ -8,11 +8,7 @@ spec:
   arbiters: 1
   type: ReplicaSet
   version: "6.0.5"
-  podSpec:
-    persistence:
-      single:
-        storage: "2Gi"
-        storageClass: local-path
+  persistent: false
   security:
     authentication:
       modes: [ "SCRAM" ]
