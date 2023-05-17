@@ -1,6 +1,7 @@
 package api_mq
 
 import (
+	"context"
 	"fmt"
 
 	"google.golang.org/protobuf/proto"
@@ -18,7 +19,8 @@ func (e *Event) SubscribeNewLink() error {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(link.MQ_EVENT_LINK_NEW, getNewLink); err != nil {
+		err := e.mq.Subscribe(context.Background(), link.MQ_EVENT_LINK_NEW, getNewLink)
+		if err != nil {
 			e.log.Error(err.Error())
 		}
 	}()
@@ -53,7 +55,7 @@ func (e *Event) SubscribeCQRSNewLink() error {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(link.MQ_EVENT_LINK_CREATED, getCreatedLink); err != nil {
+		if err := e.mq.Subscribe(context.Background(), link.MQ_EVENT_LINK_CREATED, getCreatedLink); err != nil {
 			e.log.Error(err.Error())
 		}
 	}()
@@ -86,7 +88,7 @@ func (e *Event) SubscribeCQRSGetMetadata() {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(metadata_domain.MQ_EVENT_CQRS_NEW, getCQRSGetMetadata); err != nil {
+		if err := e.mq.Subscribe(context.Background(), metadata_domain.MQ_EVENT_CQRS_NEW, getCQRSGetMetadata); err != nil {
 			e.log.Error(err.Error())
 		}
 	}()

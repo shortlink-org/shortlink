@@ -5,6 +5,7 @@ MQ Endpoint
 package logger_mq
 
 import (
+	"context"
 	"fmt"
 
 	"google.golang.org/protobuf/proto"
@@ -47,7 +48,7 @@ func (e *Event) Subscribe() {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(v1.MQ_EVENT_LINK_CREATED, getEventNewLink); err != nil {
+		if err := e.mq.Subscribe(context.Background(), v1.MQ_EVENT_LINK_CREATED, getEventNewLink); err != nil {
 			e.log.Error(err.Error())
 		}
 	}()
