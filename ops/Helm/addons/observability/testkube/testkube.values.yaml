@@ -21,6 +21,11 @@ testkube:
     minio:
       enabled: false
 
+    mongodb:
+      dsn: "mongodb://testkube-mongodb:27017"
+      secretName: testkube-secrets
+      secretKey: mongo-dsn
+
     uiIngress:
       enabled: true
       annotations:
