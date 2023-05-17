@@ -1,4 +1,4 @@
-# Common default values for argo-cd.
+# Common default values for testkube.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -23,6 +23,10 @@ testkube:
 
     uiIngress:
       enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/auth-url: "http://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "http://$host/oauth2/start?rd=$escaped_request_uri"
+        nginx.ingress.kubernetes.io/access-control-allow-origin: "*"
       hosts:
         - testkube.shortlink.best
 
@@ -35,6 +39,9 @@ testkube:
         nginx.ingress.kubernetes.io/enable-modsecurity: "true"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentracing: "true"
+        nginx.ingress.kubernetes.io/auth-url: "http://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "http://$host/oauth2/start?rd=$escaped_request_uri"
+        nginx.ingress.kubernetes.io/access-control-allow-origin: "*"
 
       hosts:
         - testkube.shortlink.best
@@ -48,36 +55,3 @@ testkube:
     apiServerEndpoint: "https://testkube.shortlink.best"
 
   testkube-operator: {}
-
-tracetest:
-  postgresql:
-    enabled: false
-
-  telemetry:
-    exporters:
-      collector:
-        exporter:
-          collector:
-            endpoint: http://grafana-tempo.grafana:4317
-
-  ingress:
-    enabled: true
-    className: nginx
-    hosts:
-      - host: tracetest.shortlink.best
-        paths:
-          - path: /
-            pathType: ImplementationSpecific
-    tls:
-      - secretName: tracetest-tls
-        hosts:
-          - tracetest.shortlink.best
-
-
-  resources:
-    limits:
-      cpu: 300m
-      memory: 512Mi
-    requests:
-      cpu: 10m
-      memory: 126Mi
