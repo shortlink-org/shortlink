@@ -4,11 +4,14 @@ metadata:
   name: mongodb
   namespace: mongodb
 spec:
-  members: 3
-  arbiters: 1
-  type: ReplicaSet
+  type: Standalone
   version: "6.0.5"
-  persistent: false
+  persistent: true
+  podSpec:
+    persistence:
+      single:
+        storageClass: "local-path"
+        size: 2Gi
   security:
     authentication:
       modes: [ "SCRAM" ]
