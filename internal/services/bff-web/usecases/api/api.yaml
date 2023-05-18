@@ -3,10 +3,10 @@ openapi: 3.0.1
 servers:
   - url: http://localhost:8080/api
     description: Local server
-  - description: Production server
-    url: https://shortlink.best/api
-  - description: Mock server
-    url: https://shortlink.best/mock
+  - url: https://shortlink.best/api
+    description: Production server
+  - url: https://shortlink.best/mock
+    description: Mock server
 
 # Available options: https://github.com/json-schema-faker/json-schema-faker/tree/master/docs#available-options
 x-json-schema-faker:
@@ -25,6 +25,7 @@ info:
 tags:
   - name: Link
   - name: Billing
+  - name: Referral
 
 paths:
   /links:

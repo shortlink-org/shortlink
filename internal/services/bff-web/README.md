@@ -28,4 +28,4 @@ bff_web -> billing : Proxy
 
 ### Use cases
 
-- [UC-1](./usecases/api/UC-1.md) - API implementation
+- [UC-1](./usecases/api/README.md) - API implementation

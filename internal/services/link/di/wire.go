@@ -1,6 +1,5 @@
 //go:generate wire
 //go:build wireinject
-// +build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
 
@@ -13,7 +12,6 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/go-redis/cache/v9"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
