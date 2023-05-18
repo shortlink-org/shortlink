@@ -91,7 +91,7 @@ require (
 	google.golang.org/grpc v1.55.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0
 	google.golang.org/protobuf v1.30.0
-	k8s.io/kubernetes v1.27.1
+	k8s.io/kubernetes v1.27.2
 	k8s.io/mount-utils v0.27.1
 	k8s.io/utils v0.0.0-20230406110748-d93618cff8a2
 )
@@ -204,7 +204,7 @@ require (
 	github.com/onsi/gomega v1.27.6 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.2 // indirect
-	github.com/opencontainers/runc v1.1.5 // indirect
+	github.com/opencontainers/runc v1.1.6 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.7 // indirect
 	github.com/pierrec/lz4/v4 v4.1.17 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
