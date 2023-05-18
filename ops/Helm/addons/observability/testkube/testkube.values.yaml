@@ -36,6 +36,8 @@ testkube:
         - testkube.shortlink.best
 
   testkube-dashboard:
+    apiServerEndpoint: "https://testkube.shortlink.best/results/v1"
+
     ingress:
       enabled: true
 

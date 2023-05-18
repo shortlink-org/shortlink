@@ -2,7 +2,6 @@ apiVersion: executor.testkube.io/v1
 kind: Executor
 metadata:
   name: cypress-v10-executor
-  namespace: testkube
 spec:
   image: kubeshop/testkube-cypress-executor:1.1.7-cypress10   # <-- we're buidling cypress versions
   types:
