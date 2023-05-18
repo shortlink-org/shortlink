@@ -38,14 +38,3 @@ spec:
       roles:
         - name: userAdminAnyDatabase
           db: testkube
-
-# the user credentials will be generated from this secret
-# once the credentials are generated, this secret is no longer required
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: testkube-user-password
-type: Opaque
-stringData:
-  password: "super-secret-password"

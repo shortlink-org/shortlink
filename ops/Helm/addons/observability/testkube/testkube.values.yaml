@@ -22,7 +22,7 @@ testkube:
       enabled: false
 
     mongodb:
-      dsn: "mongodb://mongodb-svc:27017"
+      dsn: "mongodb://testkube@mongodb-svc:27017/testkube"
       secretName: testkube-user-password
       secretKey: password
 
