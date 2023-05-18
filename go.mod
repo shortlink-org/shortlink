@@ -92,7 +92,7 @@ require (
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.3.0
 	google.golang.org/protobuf v1.30.0
 	k8s.io/kubernetes v1.27.2
-	k8s.io/mount-utils v0.27.1
+	k8s.io/mount-utils v0.27.2
 	k8s.io/utils v0.0.0-20230406110748-d93618cff8a2
 )
 
@@ -268,6 +268,6 @@ require (
 )
 
 replace (
-	k8s.io/apimachinery => k8s.io/apimachinery v0.27.1
-	k8s.io/mount-utils => k8s.io/mount-utils v0.27.1
+	k8s.io/apimachinery => k8s.io/apimachinery v0.27.2
+	k8s.io/mount-utils => k8s.io/mount-utils v0.27.2
 )
