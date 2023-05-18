@@ -22,9 +22,9 @@ testkube:
       enabled: false
 
     mongodb:
-      dsn: "mongodb://testkube-mongodb:27017"
+      dsn: "mongodb://mongodb-svc:27017"
       secretName: testkube-user-password
-      secretKey: mongo-dsn
+      secretKey: password
 
     uiIngress:
       enabled: true
