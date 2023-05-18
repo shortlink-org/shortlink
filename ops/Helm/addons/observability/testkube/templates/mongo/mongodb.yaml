@@ -1,7 +1,7 @@
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
-  name: mongodb
+  name: mongodb-testkube
 spec:
   members: 1
   type: ReplicaSet
@@ -31,15 +31,15 @@ spec:
       modes: [ "SCRAM" ]
   users:
     - name: testkube
-      db: admin
+      db: testkube
       scramCredentialsSecretName: testkube-admin
       passwordSecretRef:
         name: testkube-user-password
       roles:
         - name: clusterAdmin
-          db: admin
+          db: testkube
         - name: userAdminAnyDatabase
-          db: admin
+          db: testkube
 
 # the user credentials will be generated from this secret
 # once the credentials are generated, this secret is no longer required
