@@ -1,0 +1,17 @@
+apiVersion: tests.testkube.io/v3
+kind: Test
+metadata:
+  name: shortlink-links-integrations
+  namespace: testkube
+spec:
+  type: k6/script
+  content:
+    type: git-dir
+    repository:
+      type: git
+      uri: https://github.com/shortlink-org/shortlink.git
+      branch: main
+      path: internal/services/api/tests/integrations
+  executionRequest:
+    args:
+      - internal/services/api/tests/integrations/k6-crud.js
