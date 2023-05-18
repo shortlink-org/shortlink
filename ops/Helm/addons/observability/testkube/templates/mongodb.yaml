@@ -4,14 +4,28 @@ metadata:
   name: mongodb
   namespace: mongodb
 spec:
-  type: Standalone
+  members: 1
+  type: ReplicaSet
   version: "6.0.5"
-  persistent: true
-  podSpec:
-    persistence:
-      single:
-        storageClass: "local-path"
-        size: 2Gi
+  statefulSet:
+    spec:
+      volumeClaimTemplates:
+        - metadata:
+            name: data-volume
+          spec:
+            accessModes: [ "ReadWriteOnce" ]
+            storageClassName: local-path
+            resources:
+              requests:
+                storage: 2G
+        - metadata:
+            name: logs-volume
+          spec:
+            accessModes: [ "ReadWriteOnce" ]
+            storageClassName: local-path
+            resources:
+              requests:
+                storage: 1G
   security:
     authentication:
       modes: [ "SCRAM" ]
