@@ -32,13 +32,11 @@ spec:
   users:
     - name: testkube
       db: testkube
-      scramCredentialsSecretName: testkube-admin
+      scramCredentialsSecretName: testkube
       passwordSecretRef:
         name: testkube-user-password
       roles:
-        - name: clusterAdmin
-          db: testkube
-        - name: userAdminAnyDatabase
+        - name: readWrite
           db: testkube
 
 # the user credentials will be generated from this secret
