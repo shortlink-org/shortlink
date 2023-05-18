@@ -22,9 +22,8 @@ testkube:
       enabled: false
 
     mongodb:
-      dsn: "mongodb://testkube@mongodb-svc:27017/testkube"
-      secretName: testkube-user-password
-      secretKey: password
+      secretName: mongodb-testkube-testkube
+      secretKey: connectionString.standard
 
     uiIngress:
       enabled: true
