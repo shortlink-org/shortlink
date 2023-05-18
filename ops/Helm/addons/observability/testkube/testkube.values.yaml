@@ -8,9 +8,6 @@ testkube:
   mongodb:
     enabled: false
 
-    persistence:
-      enabled: false
-
   nats:
     enabled: true
 
@@ -23,7 +20,7 @@ testkube:
 
     mongodb:
       secretName: mongodb-testkube-testkube
-      secretKey: connectionString.standard
+      secretKey: connectionString.standardSrv
 
     uiIngress:
       enabled: true
