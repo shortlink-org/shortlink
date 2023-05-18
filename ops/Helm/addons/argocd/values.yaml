@@ -233,8 +233,8 @@ argo-cd:
   applicationSet:
     resources:
       limits:
-        cpu: 100m
-        memory: 128Mi
+        cpu: 150m
+        memory: 256Mi
       requests:
         cpu: 50m
         memory: 64Mi
@@ -349,7 +349,7 @@ argo-rollouts:
     resources:
       limits:
         cpu: 100m
-        memory: 128Mi
+        memory: 256Mi
       requests:
         cpu: 20m
         memory: 16Mi
@@ -447,7 +447,7 @@ redis:
     resources:
       limits:
         cpu: 500m
-        memory: 256Mi
+        memory: 350Mi
       requests:
         cpu: 10m
         memory: 64Mi
