@@ -37,9 +37,9 @@ spec:
         name: testkube-user-password
       roles:
         - name: clusterAdmin
-          db: admin
+          db: testkube
         - name: userAdminAnyDatabase
-          db: admin
+          db: testkube
         - name: dbAdmin
           db: testkube
 
