@@ -6,6 +6,7 @@ spec:
   members: 1
   type: ReplicaSet
   version: "6.0.5"
+  featureCompatibilityVersion: "6.0"
   statefulSet:
     spec:
       volumeClaimTemplates:

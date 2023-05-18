@@ -23,7 +23,7 @@ testkube:
 
     mongodb:
       dsn: "mongodb://testkube-mongodb:27017"
-      secretName: testkube-secrets
+      secretName: testkube-user-password
       secretKey: mongo-dsn
 
     uiIngress:
