@@ -49,3 +49,9 @@ metadata:
 type: Opaque
 stringData:
   password: "super-secret-password"
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mongodb-database
