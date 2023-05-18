@@ -31,17 +31,15 @@ spec:
       modes: [ "SCRAM" ]
   users:
     - name: testkube
-      db: testkube
-      scramCredentialsSecretName: testkube
+      db: admin
+      scramCredentialsSecretName: testkube-admin
       passwordSecretRef:
         name: testkube-user-password
       roles:
         - name: clusterAdmin
-          db: testkube
+          db: admin
         - name: userAdminAnyDatabase
-          db: testkube
-        - name: dbAdmin
-          db: testkube
+          db: admin
 
 # the user credentials will be generated from this secret
 # once the credentials are generated, this secret is no longer required
