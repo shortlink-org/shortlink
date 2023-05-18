@@ -31,6 +31,11 @@ testkube:
       #  nginx.ingress.kubernetes.io/access-control-allow-origin: "*"
       hosts:
         - testkube.shortlink.best
+      tlsenabled: true
+      tls:
+        - hosts:
+            - testkube.shortlink.best
+          secretName: testkube-tls
 
   testkube-dashboard:
     apiServerEndpoint: "https://testkube.shortlink.best/results/v1"
