@@ -1,4 +1,4 @@
-package api
+package http
 
 import (
 	"context"
@@ -18,7 +18,7 @@ import (
 
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	serverAPI "github.com/shortlink-org/shortlink/internal/services/bff-web/usecases/api"
+	serverAPI "github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/http/api"
 )
 
 // Run HTTP-server
