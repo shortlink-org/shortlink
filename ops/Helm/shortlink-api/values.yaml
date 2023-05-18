@@ -97,7 +97,7 @@ deploy:
     pullPolicy: IfNotPresent
 
 hpa:
-  enabled: true
+  enabled: false
   metrics:
     - type: ContainerResource
       containerResource:
