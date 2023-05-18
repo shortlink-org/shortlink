@@ -20,7 +20,7 @@ testkube:
 
     mongodb:
       secretName: mongodb-testkube-testkube
-      secretKey: connectionString.standardSrv
+      secretKey: connectionString.standard
 
     uiIngress:
       enabled: true
