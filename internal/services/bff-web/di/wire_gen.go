@@ -18,7 +18,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/api"
+	http2 "github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/http"
 	"go.opentelemetry.io/otel/trace"
 	"net/http"
 )
@@ -99,7 +99,7 @@ type BFFWebService struct {
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Delivery
-	httpAPIServer *api.Server
+	httpAPIServer *http2.Server
 }
 
 // BFFWebService =======================================================================================================
@@ -111,9 +111,9 @@ var BFFWebServiceSet = wire.NewSet(di.DefaultSet, BFFWebAPIService,
 func BFFWebAPIService(ctx2 context.Context, logger2 logger.Logger,
 
 	tracer *trace.TracerProvider,
-) (*api.Server, error) {
+) (*http2.Server, error) {
 
-	API := api.Server{}
+	API := http2.Server{}
 	apiService, err := API.Run(ctx2, logger2, tracer)
 	if err != nil {
 		return nil, err
@@ -127,7 +127,7 @@ func NewBFFWebService(ctx2 context.Context, logger2 logger.Logger, config2 *conf
 	tracer *trace.TracerProvider, monitoring2 *http.ServeMux,
 	pprofEndpoint profiling.PprofEndpoint, autoMaxPro2 autoMaxPro.AutoMaxPro,
 
-	httpAPIServer *api.Server,
+	httpAPIServer *http2.Server,
 ) *BFFWebService {
 	return &BFFWebService{
 
