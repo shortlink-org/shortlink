@@ -2,7 +2,6 @@ apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
   name: mongodb
-  namespace: mongodb
 spec:
   members: 1
   type: ReplicaSet
@@ -46,7 +45,6 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: testkube-user-password
-  namespace: mongodb
 type: Opaque
 stringData:
   password: "super-secret-password"
