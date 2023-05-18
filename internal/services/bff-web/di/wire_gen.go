@@ -7,6 +7,7 @@
 package bff_web_di
 
 import (
+	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
@@ -17,13 +18,14 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/api"
 	"go.opentelemetry.io/otel/trace"
 	"net/http"
 )
 
 // Injectors from wire.go:
 
-func InitializeBFFWebService() (*BillingService, func(), error) {
+func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
@@ -66,8 +68,16 @@ func InitializeBFFWebService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	billingService := NewBFFWebServiceSet(logger, configConfig, tracerProvider, serveMux, pprofEndpoint, autoMaxProAutoMaxPro)
-	return billingService, func() {
+	server, err := BFFWebAPIService(context, logger, tracerProvider)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	bffWebService := NewBFFWebService(context, logger, configConfig, tracerProvider, serveMux, pprofEndpoint, autoMaxProAutoMaxPro, server)
+	return bffWebService, func() {
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -77,7 +87,7 @@ func InitializeBFFWebService() (*BillingService, func(), error) {
 
 // wire.go:
 
-type BillingService struct {
+type BFFWebService struct {
 	// Common
 	Logger logger.Logger
 	Config *config.Config
@@ -87,18 +97,39 @@ type BillingService struct {
 	Monitoring    *http.ServeMux
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
+
+	// Delivery
+	httpAPIServer *api.Server
 }
 
 // BFFWebService =======================================================================================================
-var BFFWebServiceSet = wire.NewSet(di.DefaultSet, NewBFFWebServiceSet)
+var BFFWebServiceSet = wire.NewSet(di.DefaultSet, BFFWebAPIService,
 
-func NewBFFWebServiceSet(logger2 logger.Logger, config2 *config.Config,
+	NewBFFWebService,
+)
+
+func BFFWebAPIService(ctx2 context.Context, logger2 logger.Logger,
+
+	tracer *trace.TracerProvider,
+) (*api.Server, error) {
+
+	API := api.Server{}
+	apiService, err := API.Run(ctx2, logger2, tracer)
+	if err != nil {
+		return nil, err
+	}
+
+	return apiService, nil
+}
+
+func NewBFFWebService(ctx2 context.Context, logger2 logger.Logger, config2 *config.Config,
 
 	tracer *trace.TracerProvider, monitoring2 *http.ServeMux,
 	pprofEndpoint profiling.PprofEndpoint, autoMaxPro2 autoMaxPro.AutoMaxPro,
 
-) *BillingService {
-	return &BillingService{
+	httpAPIServer *api.Server,
+) *BFFWebService {
+	return &BFFWebService{
 
 		Logger: logger2,
 		Config: config2,
@@ -107,5 +138,7 @@ func NewBFFWebServiceSet(logger2 logger.Logger, config2 *config.Config,
 		Monitoring:    monitoring2,
 		PprofEndpoint: pprofEndpoint,
 		AutoMaxPro:    autoMaxPro2,
+
+		httpAPIServer: httpAPIServer,
 	}
 }

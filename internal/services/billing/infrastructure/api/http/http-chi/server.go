@@ -128,6 +128,9 @@ func (api *API) Run(
 	// start HTTP-server
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))
 	err = srv.ListenAndServe()
+	if err != nil {
+		return err
+	}
 
-	return err
+	return nil
 }

@@ -9,6 +9,7 @@ BFF Web Service DI-package
 package bff_web_di
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/google/wire"
@@ -19,9 +20,11 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+
+	"github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/api"
 )
 
-type BillingService struct {
+type BFFWebService struct {
 	// Common
 	Logger logger.Logger
 	Config *config.Config
@@ -31,17 +34,40 @@ type BillingService struct {
 	Monitoring    *http.ServeMux
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
+
+	// Delivery
+	httpAPIServer *api.Server
 }
 
 // BFFWebService =======================================================================================================
 var BFFWebServiceSet = wire.NewSet(
 	di.DefaultSet,
 
-	NewBFFWebServiceSet,
+	// Infrastructure
+	BFFWebAPIService,
+
+	NewBFFWebService,
 )
 
-func NewBFFWebServiceSet(
+func BFFWebAPIService(
 	// Common
+	ctx context.Context,
+	logger logger.Logger,
+	tracer *trace.TracerProvider,
+) (*api.Server, error) {
+	// Run API server
+	API := api.Server{}
+	apiService, err := API.Run(ctx, logger, tracer)
+	if err != nil {
+		return nil, err
+	}
+
+	return apiService, nil
+}
+
+func NewBFFWebService(
+	// Common
+	ctx context.Context,
 	logger logger.Logger,
 	config *config.Config,
 
@@ -50,8 +76,11 @@ func NewBFFWebServiceSet(
 	monitoring *http.ServeMux,
 	pprofEndpoint profiling.PprofEndpoint,
 	autoMaxPro autoMaxPro.AutoMaxPro,
-) *BillingService {
-	return &BillingService{
+
+	// Delivery
+	httpAPIServer *api.Server,
+) *BFFWebService {
+	return &BFFWebService{
 		// Common
 		Logger: logger,
 		Config: config,
@@ -61,9 +90,12 @@ func NewBFFWebServiceSet(
 		Monitoring:    monitoring,
 		PprofEndpoint: pprofEndpoint,
 		AutoMaxPro:    autoMaxPro,
+
+		// Delivery
+		httpAPIServer: httpAPIServer,
 	}
 }
 
-func InitializeBFFWebService() (*BillingService, func(), error) {
+func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	panic(wire.Build(BFFWebServiceSet))
 }

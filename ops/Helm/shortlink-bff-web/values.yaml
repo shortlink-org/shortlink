@@ -103,7 +103,7 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      port: 8080
+      port: 7070
       protocol: TCP
       public: true
 
