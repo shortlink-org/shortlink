@@ -36,7 +36,7 @@ spec:
       passwordSecretRef:
         name: testkube-user-password
       roles:
-        - name: userAdminAnyDatabase
+        - name: dbAdmin
           db: testkube
 
 # the user credentials will be generated from this secret
