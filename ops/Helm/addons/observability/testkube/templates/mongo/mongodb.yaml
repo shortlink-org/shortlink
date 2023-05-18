@@ -1,7 +1,7 @@
 apiVersion: mongodbcommunity.mongodb.com/v1
 kind: MongoDBCommunity
 metadata:
-  name: mongodb-testkube
+  name: mongodb
 spec:
   members: 1
   type: ReplicaSet
