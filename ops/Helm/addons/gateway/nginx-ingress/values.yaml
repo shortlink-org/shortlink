@@ -37,8 +37,8 @@ ingress-nginx:
     ##
     kind: Deployment
 
-    podSecurityContext:
-      fsGroup: 1001
+#    podSecurityContext:
+#      fsGroup: 1001
 
     service:
       type: NodePort
