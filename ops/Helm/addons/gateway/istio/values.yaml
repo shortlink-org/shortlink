@@ -12,7 +12,7 @@ istiod:
 
     tracer:
       zipkin:
-        address: grafana-tempo.grafana.svc.cluster.local:9411
+        address: grafana-tempo.grafana:9411
 
   ## Discovery Settings
   pilot:
@@ -32,7 +32,7 @@ istiod:
     extensionProviders:
       - name: otel
         envoyOtelAls:
-          service: grafana-tempo.grafana.svc.cluster.local
+          service: grafana-tempo.grafana
           port: 4317
 #    discoverySelectors:
 #      - matchLabels:
