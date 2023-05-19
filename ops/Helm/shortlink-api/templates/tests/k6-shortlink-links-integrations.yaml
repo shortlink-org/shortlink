@@ -3,6 +3,11 @@ kind: Test
 metadata:
   name: k6-shortlink-links-integrations
   namespace: testkube
+  labels:
+    {{- with .Values.commonLabels }}
+      {{- include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4 }}
+    {{- end }}
+    {{- include "helpers.labels" . | nindent 4 }}
 spec:
   type: k6/script
   content:
