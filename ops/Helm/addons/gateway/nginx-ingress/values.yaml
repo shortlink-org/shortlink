@@ -19,7 +19,7 @@ ingress-nginx:
       opentelemetry-config: "/etc/nginx/opentelemetry.toml"
       opentelemetry-operation-name: "HTTP $request_method $service_name $uri"
       opentelemetry-trust-incoming-span: "true"
-      otlp-collector-host: "garfana-tempo.grafana.svc.cluster.local"
+      otlp-collector-host: "grafana-tempo.grafana.svc.cluster.local"
       otlp-collector-port: "4317"
       otel-max-queuesize: "2048"
       otel-schedule-delay-millis: "5000"
