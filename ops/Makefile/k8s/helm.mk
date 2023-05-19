@@ -32,6 +32,14 @@ helm-docs: ### Generate HELM docs
 		-u "$(id -u)" \
 		jnorwood/helm-docs:v1.11.0
 
-helm-update: ### Update Helm charts
-	@find . -name "Chart.yaml" -exec bash -c 'cd "$(dirname "$1")" && rm Chart.lock || true && helm dependencies build --skip-refresh' _ {} \;
+.PHONY: helm-update-charts
+helm-update-charts: ### Update Helm charts
+	# Find all files named "Chart.yaml" in the current directory and its subdirectories
+	@find . -name "Chart.yaml" | xargs -I '{}' -P 8 bash -c ' \
+            dir=$$(dirname "{}"); \
+            cd "$$dir"; \
+            rm Chart.lock || true; \
+            helm dependencies build --skip-refresh \
+        '
+
 	@make helm-docs
