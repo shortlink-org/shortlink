@@ -35,7 +35,7 @@ spec:
       timeout: 10s
 
 
-{{- if and .Values.ingress.istio.destinationRule.enabled }}
+{{- if and false }}
 ---
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
