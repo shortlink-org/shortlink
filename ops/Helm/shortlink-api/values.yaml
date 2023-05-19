@@ -39,23 +39,6 @@ ingress:
   #      port: 7070
 
 # ==============================================================================
-# This secret for dev-stand. For production use CI-variables
-secret:
-  enabled: false
-  grpcServerCert: |
-    -----BEGIN CERTIFICATE-----
-    Your cert...
-    -----END CERTIFICATE-----
-  grpcServerKey: |
-    -----BEGIN EC PRIVATE KEY-----
-    Your key...
-    -----END EC PRIVATE KEY-----
-  grpcIntermediateCA: |
-    -----BEGIN CERTIFICATE-----
-    Your CA...
-    -----END CERTIFICATE-----
-
-# ==============================================================================
 deploy:
   type: Rollout
 

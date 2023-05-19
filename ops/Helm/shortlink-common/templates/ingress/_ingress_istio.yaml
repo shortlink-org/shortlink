@@ -34,8 +34,9 @@ spec:
         retryOn: "gateway-error,connect-failure,refused-stream,503"
       timeout: 10s
 
----
 
+{{- if and .Values.ingress.istio.destinationRule.enabled }}
+---
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
@@ -61,4 +62,5 @@ spec:
       baseEjectionTime: 3m
       maxEjectionPercent: 100
       minHealthPercent: 50
+{{- end }}
 {{- end }}
