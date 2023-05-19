@@ -7,4 +7,5 @@ spec:
     - hosts:
       - "./*"              # current namespace
       - "istio-system/*"   # istio-system services
+      - "istio-ingress/*"  # istio-ingress services
       - "grafana/*"        # grafana services
