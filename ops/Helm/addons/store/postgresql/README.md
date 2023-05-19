@@ -14,7 +14,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 12.4.2 |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 12.5.2 |
 
 ## Values
 

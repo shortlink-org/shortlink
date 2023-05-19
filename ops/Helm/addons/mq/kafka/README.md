@@ -14,8 +14,8 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://provectus.github.io/kafka-ui | kafka-ui | 0.6.2 |
-| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.34.0 |
+| https://provectus.github.io/kafka-ui | kafka-ui | 0.7.0 |
+| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.35.0 |
 
 ## Values
 
@@ -46,6 +46,10 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kafka-ui.ingress.tls.enabled | bool | `true` |  |
 | kafka-ui.ingress.tls.secretName | string | `"shortlink-ingress-tls"` |  |
 | kafka-ui.probes.useHttpsScheme | bool | `false` |  |
+| strimzi-kafka-operator.dashboards.annotations.grafana_dashboard_folder | string | `"Kafka"` |  |
+| strimzi-kafka-operator.dashboards.enabled | bool | `true` |  |
+| strimzi-kafka-operator.dashboards.label | string | `"grafana_dashboard"` |  |
+| strimzi-kafka-operator.dashboards.labelValue | string | `"true"` |  |
 | strimzi-kafka-operator.enabled | bool | `true` |  |
 | strimzi-kafka-operator.watchAnyNamespace | bool | `true` |  |
 | strimzi-kafka-operator.watchNamespaces[0] | string | `"shortlink"` |  |

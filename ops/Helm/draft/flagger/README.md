@@ -15,7 +15,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../shortlink-common | shortlink-common | 0.2.13 |
-| https://flagger.app | flagger | 1.30.0 |
+| https://flagger.app | flagger | 1.31.0 |
 
 ## Values
 

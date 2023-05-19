@@ -1,6 +1,6 @@
 # backstage
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink landing service
 
@@ -22,7 +22,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.4.17 |
+| file://../shortlink-common | shortlink-common | 0.5.2 |
 
 ## Values
 
@@ -31,7 +31,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.image.pullPolicy | string | `"Always"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/backstage"` |  |
-| deploy.image.tag | string | `"0.14.39"` |  |
+| deploy.image.tag | string | `"0.15.40"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":300,"timeoutSeconds":60}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.readinessProbe | object | `{"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":120,"timeoutSeconds":15}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
@@ -49,17 +49,12 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/backstage/$2"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"shortlink.best"` |  |
+| ingress.hostname | string | `"backstage.shortlink.best"` |  |
+| ingress.path | string | `"/"` |  |
 | ingress.service.name | string | `"backstage"` |  |
 | ingress.service.port | int | `7007` |  |
 | ingress.type | string | `"nginx"` |  |
-| ingress_api.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/backstage/api/$2"` |  |
-| ingress_api.name | string | `"backstage-api"` |  |
-| ingress_api.path | string | `"/backstage/api(/|$)(.*)"` |  |
-| ingress_ui.path | string | `"/backstage(/|$)(.*)"` |  |
 | monitoring.enabled | bool | `true` |  |
 | service.ports[0].name | string | `"http"` |  |
 | service.ports[0].port | int | `7007` |  |
