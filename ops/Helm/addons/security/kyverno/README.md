@@ -65,7 +65,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | policy-reporter.ui.enabled | bool | `true` |  |
 | policy-reporter.ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |

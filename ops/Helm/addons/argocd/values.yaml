@@ -100,7 +100,7 @@ argo-cd:
         nginx.ingress.kubernetes.io/secure-backends: "true"
         nginx.ingress.kubernetes.io/enable-modsecurity: "true"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-        nginx.ingress.kubernetes.io/enable-opentracing: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
       hosts:
         - shortlink.best
@@ -300,7 +300,7 @@ argo-workflows:
         nginx.ingress.kubernetes.io/backend-protocol: HTTP
         nginx.ingress.kubernetes.io/enable-modsecurity: "true"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-        nginx.ingress.kubernetes.io/enable-opentracing: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
         nginx.ingress.kubernetes.io/rewrite-target: /$1
         nginx.ingress.kubernetes.io/use-regex: "true"
 
@@ -364,7 +364,7 @@ argo-rollouts:
         nginx.ingress.kubernetes.io/backend-protocol: HTTP
         nginx.ingress.kubernetes.io/enable-modsecurity: "true"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-        nginx.ingress.kubernetes.io/enable-opentracing: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
       hosts:
         - shortlink.best
