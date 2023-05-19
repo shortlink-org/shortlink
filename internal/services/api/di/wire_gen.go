@@ -93,16 +93,6 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metadataServiceClient, err := NewMetadataRPCClient(clientConn)
-	if err != nil {
-		cleanup6()
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
 	linkServiceClient, err := NewLinkRPCClient(clientConn)
 	if err != nil {
 		cleanup6()
@@ -143,7 +133,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, serveMux, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, serveMux, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -231,7 +221,6 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 	rpcServer *rpc.RPCServer,
 	tracer *trace.TracerProvider, monitoring2 *http.ServeMux,
 
-	metadataClient v1_4.MetadataServiceClient,
 	link_rpc v1.LinkServiceClient,
 	link_command v1_2.LinkCommandServiceClient,
 	link_query v1_2.LinkQueryServiceClient,

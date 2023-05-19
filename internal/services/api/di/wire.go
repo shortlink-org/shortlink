@@ -100,7 +100,6 @@ func NewAPIApplication(
 	monitoring *http.ServeMux,
 
 	// Delivery
-	metadataClient metadata_rpc.MetadataServiceClient,
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,

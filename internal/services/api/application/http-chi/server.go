@@ -72,7 +72,7 @@ func (api *API) Run(
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-		ExposedHeaders:   []string{"Link"},
+		ExposedHeaders:   []string{""},
 		AllowCredentials: true,
 		MaxAge:           MAX_AGE,
 		// Debug:            true,

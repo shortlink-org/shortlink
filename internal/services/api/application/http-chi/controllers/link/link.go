@@ -20,7 +20,7 @@ type Handler struct {
 	LinkServiceClient link_rpc.LinkServiceClient
 }
 
-// Routes creates a REST router
+// Routes create a REST router
 func Routes(
 	link_rpc link_rpc.LinkServiceClient,
 ) chi.Router {
@@ -141,7 +141,7 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 // @Description Get link
 // @ID get-link
 // @Accept  json
-// @Produce  json
+// @Produce json
 // @Group Links
 // @Success 200 {object} link_rpc.GetResponse
 // @NotFound 404 {object} link_rpc.GetResponse
@@ -194,8 +194,8 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 // @Summary List links
 // @Description List links
 // @ID list-links
-// @Accept  json
-// @Produce  json
+// @Accept json
+// @Produce json
 // @Group Links
 // @Success 200 {object} link_rpc.ListResponse
 // @Router /links [get]
@@ -241,8 +241,8 @@ func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 // @Summary Delete link
 // @Description Delete link
 // @ID delete-link
-// @Accept  json
-// @Produce  json
+// @Accept json
+// @Produce json
 // @Group Links
 // @Success 200 ""
 // @Router /links/{hash} [delete]
