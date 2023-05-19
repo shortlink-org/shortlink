@@ -24,9 +24,10 @@ istiod:
     enableTracing: true
     defaultConfig:
       tracing:
-        sampling: 100.0
+        max_path_tag_length: 99999
+        sampling: 100
         zipkin:
-          address: grafana-tempo.grafana.svc.cluster.local:9411
+          address: grafana-tempo.grafana:9411
 
     extensionProviders:
       - name: otel
