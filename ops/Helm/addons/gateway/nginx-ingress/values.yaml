@@ -13,9 +13,6 @@ ingress-nginx:
   # Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
   controller:
 
-    nodeSelector:
-      kubernetes.io/hostname: node1
-
     # Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
     config:
       enable-opentracing: "true"
@@ -35,10 +32,10 @@ ingress-nginx:
 
     # DaemonSet or Deployment
     ##
-    kind: Deployment
+    kind: DaemonSet
 
-#    podSecurityContext:
-#      fsGroup: 1001
+    podSecurityContext:
+      fsGroup: 1001
 
     service:
       type: NodePort
