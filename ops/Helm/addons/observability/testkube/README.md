@@ -29,7 +29,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | testkube.testkube-dashboard.apiServerEndpoint | string | `"https://testkube.shortlink.best"` |  |
 | testkube.testkube-dashboard.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | testkube.testkube-dashboard.ingress.enabled | bool | `true` |  |
 | testkube.testkube-dashboard.ingress.hosts[0] | string | `"testkube.shortlink.best"` |  |

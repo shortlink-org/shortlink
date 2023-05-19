@@ -57,7 +57,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | hpa.metrics[0].type | string | `"ContainerResource"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.hostname | string | `"shortlink.best"` |  |

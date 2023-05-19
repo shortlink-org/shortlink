@@ -26,7 +26,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kratos.ingress.admin.enabled | bool | `false` |  |
 | kratos.ingress.public.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"true"` |  |
+| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
