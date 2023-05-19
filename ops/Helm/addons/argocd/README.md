@@ -14,13 +14,13 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.29.1 |
-| https://argoproj.github.io/argo-helm | argo-events | 2.2.0 |
-| https://argoproj.github.io/argo-helm | argo-rollouts | 2.26.1 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.25.1 |
-| https://argoproj.github.io/argo-helm | argocd-apps | 1.0.0 |
-| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.0 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 17.10.1 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.34.1 |
+| https://argoproj.github.io/argo-helm | argo-events | 2.3.3 |
+| https://argoproj.github.io/argo-helm | argo-rollouts | 2.28.0 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.27.0 |
+| https://argoproj.github.io/argo-helm | argocd-apps | 1.0.1 |
+| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 17.11.2 |
 
 ## Values
 
@@ -28,8 +28,8 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 |-----|------|---------|-------------|
 | argo-cd.applicationSet.metrics.enabled | bool | `true` |  |
 | argo-cd.applicationSet.metrics.serviceMonitor.enabled | bool | `true` |  |
-| argo-cd.applicationSet.resources.limits.cpu | string | `"100m"` |  |
-| argo-cd.applicationSet.resources.limits.memory | string | `"128Mi"` |  |
+| argo-cd.applicationSet.resources.limits.cpu | string | `"150m"` |  |
+| argo-cd.applicationSet.resources.limits.memory | string | `"256Mi"` |  |
 | argo-cd.applicationSet.resources.requests.cpu | string | `"50m"` |  |
 | argo-cd.applicationSet.resources.requests.memory | string | `"64Mi"` |  |
 | argo-cd.configs.repositories.shortlink.name | string | `"shortlink"` |  |
@@ -61,7 +61,6 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argo-cd.enabled | bool | `true` |  |
 | argo-cd.externalRedis.host | string | `"redis-master.argocd"` |  |
 | argo-cd.fullnameOverride | string | `"argocd"` |  |
-| argo-cd.global.image.tag | string | `"v2.7.0-rc2"` |  |
 | argo-cd.global.logging.format | string | `"json"` |  |
 | argo-cd.global.logging.level | string | `"warn"` |  |
 | argo-cd.redis.enabled | bool | `false` |  |
@@ -159,7 +158,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argo-rollouts.dashboard.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
 | argo-rollouts.dashboard.readonly | bool | `true` |  |
 | argo-rollouts.dashboard.resources.limits.cpu | string | `"100m"` |  |
-| argo-rollouts.dashboard.resources.limits.memory | string | `"128Mi"` |  |
+| argo-rollouts.dashboard.resources.limits.memory | string | `"256Mi"` |  |
 | argo-rollouts.dashboard.resources.requests.cpu | string | `"20m"` |  |
 | argo-rollouts.dashboard.resources.requests.memory | string | `"16Mi"` |  |
 | argo-rollouts.enabled | bool | `true` |  |
@@ -218,7 +217,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | redis.master.persistence.enabled | bool | `false` |  |
 | redis.master.persistence.storageClass | string | `"local-path"` |  |
 | redis.master.resources.limits.cpu | string | `"500m"` |  |
-| redis.master.resources.limits.memory | string | `"256Mi"` |  |
+| redis.master.resources.limits.memory | string | `"350Mi"` |  |
 | redis.master.resources.requests.cpu | string | `"10m"` |  |
 | redis.master.resources.requests.memory | string | `"64Mi"` |  |
 | redis.metrics.enabled | bool | `true` |  |

@@ -21,7 +21,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | minio.enabled | bool | `true` |  |
-| minio.operator.image.tag | string | `"v4.5.8"` |  |
+| minio.operator.image.tag | string | `"v5.0.4"` |  |
 | minio.tenants | list | `[]` |  |
 
 ----------------------------------------------
