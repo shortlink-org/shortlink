@@ -24,7 +24,7 @@ ingress-nginx:
 
     # Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
     config:
-      enable-opentracing: "true"
+      enable-opentelemetry: "true"
       opentelemetry-config: "/etc/nginx/opentelemetry.toml"
       opentelemetry-operation-name: "HTTP $request_method $service_name $uri"
       opentelemetry-trust-incoming-span: "true"
