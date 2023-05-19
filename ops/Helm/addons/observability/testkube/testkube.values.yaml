@@ -43,6 +43,11 @@ testkube:
             - testkube.shortlink.best
           secretName: testkube-tls
 
+    prometheus:
+      enabled: true
+      monitoringLabels:
+        release: prometheus-operator
+
   testkube-dashboard:
     apiServerEndpoint: "https://testkube.shortlink.best/results/v1"
 
