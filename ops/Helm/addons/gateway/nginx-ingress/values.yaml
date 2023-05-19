@@ -15,20 +15,9 @@ ingress-nginx:
 
     # Will add custom configuration options to Nginx https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/
     config:
-      enable-opentelemetry: "true"
-      jaeger-service-name: nginx-ingress
-#      opentelemetry-config: "/etc/nginx/opentelemetry.toml"
-#      opentelemetry-operation-name: "HTTP $request_method $service_name $uri"
-#      opentelemetry-trust-incoming-span: "true"
-      jaeger-collector-host: "grafana-tempo.grafana"
-#      otlp-collector-port: "4317"
-#      otel-max-queuesize: "2048"
-#      otel-schedule-delay-millis: "5000"
-#      otel-max-export-batch-size: "512"
-#      otel-service-name: "nginx-proxy" # Opentelemetry resource name
-#      otel-sampler: "AlwaysOn" # Also: AlwaysOff, TraceIdRatioBased
-#      otel-sampler-ratio: "1.0"
-#      otel-sampler-parent-based: "false"
+      enable-opentracing: "true"
+      zipkin-service-name: nginx-ingress
+      zipkin-collector-host: "grafana-tempo.grafana"
 
     # Required for use with CNI based kubernetes installations (such as ones set up by kubeadm),
     # since CNI and hostport don't mix yet. Can be deprecated once https://github.com/kubernetes/kubernetes/issues/23920
