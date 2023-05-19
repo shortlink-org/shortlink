@@ -210,3 +210,8 @@ updates:
     directory: /internal/services/shortdb-operator
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/services/bff-web
+    schedule:
+      interval: daily
