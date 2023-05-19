@@ -28,7 +28,7 @@ ingress-nginx:
     hostNetwork: false
 
     opentelemetry:
-      enabled: false
+      enabled: true
 
     ingressClassResource:
       default: true
