@@ -1,0 +1,9 @@
+apiVersion: executor.testkube.io/v1
+kind: Executor
+metadata:
+  name: cypress-v12-executor
+  namespace: testkube
+spec:
+  image: kubeshop/testkube-cypress-executor:1.11.22-cypress12   # <-- we're buidling cypress versions
+  types:
+    - cypress:v12/test # <-- just create different test type with naming convention "framework:version/type"
