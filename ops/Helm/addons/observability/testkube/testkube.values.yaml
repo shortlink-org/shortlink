@@ -27,7 +27,7 @@ testkube:
       className: nginx
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
-        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
       # TODO: add oauth2
@@ -56,7 +56,7 @@ testkube:
 
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
-        nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
         # TODO: add oauth2
