@@ -7,6 +7,7 @@ spec:
     - hosts:
       - "./*"                # current namespace
       - "istio-system/*"     # istio-system services
+      - "istio-ingress/*"    # istio-ingress services
       - "knative-eventing/*" # knative-eventing services
       - "knative/*"          # knative-operator services
       - "kafka/*"            # kafka services
