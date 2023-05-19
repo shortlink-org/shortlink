@@ -7,5 +7,6 @@ spec:
     - hosts:
       - "./*"                   # current namespace
       - "istio-system/*"        # istio-system services
+      - "istio-ingress/*"    # istio-ingress services
       - "prometheus-operator/*" # prometheus-operator services
       - "kube-system/*"         # kube-system services
