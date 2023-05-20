@@ -37,6 +37,10 @@ loki:
     enabled: false
 
   monitoring:
+    selfMonitoring:
+      grafanaAgent:
+        installOperator: false
+
     rules:
       additionalGroups:
         - name: additional-loki-rules
