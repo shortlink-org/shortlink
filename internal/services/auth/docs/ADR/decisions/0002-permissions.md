@@ -59,7 +59,7 @@ fine-grained control over user actions.
 
 ## Consequences
 
-Props:
+**Props**:
 
 - The system will be more secure, as permissions will be managed centrally by SpiceDB.
 - Permissions can be easily managed and updated.
@@ -73,3 +73,10 @@ While ORY Keto offered an attribute-based access control (ABAC) model,
 which initially seemed appealing, we found that SpiceDB's model 
 for defining and evaluating access control lists (ACLs) was more suitable 
 for our needs and offered better scalability for our growing application.
+
+### Proof of Concept
+
+**Example Permission**:
+
+- [ORY/Keto](./proof/ADR-0002/permissions/permissions-v1.ts)
+- [SpiceDB](./proof/ADR-0002/permissions/permissions-v1.zed)
