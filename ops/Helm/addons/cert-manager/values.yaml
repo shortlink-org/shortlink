@@ -15,7 +15,8 @@ certmanager:
 
   installCRDs: true
 
-#  extraArgs:
+  extraArgs:
+    - --logging-format=json
 #    - --controllers='*\,-certificaterequests-approver'
 
   prometheus:
