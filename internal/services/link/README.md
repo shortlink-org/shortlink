@@ -8,6 +8,11 @@ Service for work with link-domain.
   * SQRS operations for link
   * parse sitemap and save links
 
+### ADR
+
+- [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
+- [ADR-0002](./docs/ADR/decisions/0002-store-provider.md) - Store Provider Selection
+
 ### Architecture
 
 We use C4 model for describe architecture.
@@ -29,41 +34,42 @@ gatewayBoundary --> authBoundary : check auth
 gatewayBoundary --> linkBoundary : create link
 ```
 
-### Store provider
+#### Use case diagram
 
-<details><summary>Click to expand</summary>
+```plantuml
+!include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/common.puml
+!include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/usecase.puml
 
-> support - enabled batch mode; filter, etc...  
-> scale - scalability/single mode
+!include actors/customer.puml
 
-| Name                            | Support   | Scale    |
-|---------------------------------|-----------|----------|
-| RAM                             | ✅         | ❌       |
-| MongoDB                         | ✅         | ✅       |
-| Postgres                        | ✅         | ✅       |
-| Redis                           | ❌         | ✅       |
-| LevelDB                         | ❌         | ❌       |
-| Badger                          | ❌         | ❌       |
-| SQLite                          | ❌         | ❌       |
-| DGraph                          | ❌         | ✅       |
+rectangle LinkService {
+  usecase (UC-1 Create Link) as UC1
+  usecase (UC-2 Read Link) as UC2
+  usecase (UC-3 Update Link) as UC3
+  usecase (UC-4 Delete Link) as UC4
+  usecase (UC-5 SQRS operations for Link) as UC5
+  usecase (UC-6 Parse Sitemap and Save Links) as UC6
+}
 
-</details>
+customer --> UC1
+customer --> UC2
+customer --> UC3
+customer --> UC4
+customer --> UC5
+customer --> UC6
+```
+
+**Use cases**:
+
+- UC-1 - Create Link
+- UC-2 - Read Link
+- UC-3 - Update Link
+- UC-4 - Delete Link
+- UC-5 - SQRS operations for Link
+- UC-6 - Parse Sitemap and Save Links
 
 ### Example request
-
-<details><summary>Click to expand</summary>
 
 We support reflection for request. You can use [Postman](https://www.postman.com/) or [grpcurl](https://github.com/fullstorydev/grpcurl) for test.
 
 ![postman](https://blog.postman.com/wp-content/uploads/2022/01/grpc-author-msg.gif)
-
-</details>
-
-### Changelog
-
-<details><summary>Click to expand</summary>
-
-- [19.09.2022] Drop support database: MySQL
-- [04.08.2021] Drop support database: scylla, cassandra
-
-</details>
