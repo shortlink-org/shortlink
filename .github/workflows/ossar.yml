@@ -26,6 +26,7 @@ permissions:
 
 jobs:
   OSSAR-Scan:
+    if: github.repository == 'shortlink-org/shortlink'
     # OSSAR runs on windows-latest.
     # ubuntu-latest and macos-latest support coming soon
     permissions:
