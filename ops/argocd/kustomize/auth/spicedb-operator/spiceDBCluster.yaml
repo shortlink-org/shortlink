@@ -1,0 +1,9 @@
+apiVersion: authzed.com/v1alpha1
+kind: SpiceDBCluster
+metadata:
+  name: shortlink
+spec:
+  config:
+    replicas: 1
+    datastoreEngine: memory
+  secretName: shortlink-spicedb-config
