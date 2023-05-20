@@ -13,7 +13,7 @@ permissions:  # added using https://github.com/step-security/secure-workflows
 
 jobs:
   stale:
-
+    if: github.repository == 'shortlink-org/shortlink'
     permissions:
       issues: write  # for actions/stale to close stale issues
       pull-requests: write  # for actions/stale to close stale PRs

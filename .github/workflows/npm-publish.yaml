@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   build:
+    if: github.repository == 'shortlink-org/shortlink'
     runs-on: ubuntu-latest
     permissions:
       contents: read
