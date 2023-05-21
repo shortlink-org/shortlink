@@ -1,14 +1,19 @@
 apiVersion: tests.testkube.io/v1
-kind: Test
+kind: TestSuite
 metadata:
   name: shortlink-landing-test-suites
   namespace: testkube
+  labels:
+    {{- with .Values.commonLabels }}
+      {{- include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4 }}
+    {{- end }}
+    {{- include "helpers.labels" . | nindent 4 }}
 spec:
   description: Test suite for shortlink landing page
   steps:
     - execute:
         name: shortlink-landing-cypress-main-page
-    - delay:
-        duration: 100
+        namespace: testkube
     - execute:
         name: shortlink-landing-k6-main-page
+        namespace: testkube
