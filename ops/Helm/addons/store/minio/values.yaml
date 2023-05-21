@@ -5,8 +5,6 @@
 minio:
   enabled: true
 
-  operator:
-    image:
-      tag: v5.0.4
+  operator: {}
 
   tenants: []
