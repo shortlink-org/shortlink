@@ -2,7 +2,7 @@
 
 ### CI/CD
 
-| [GitLab CI](./gitlab/README.md) | [GitHub CI](../.github/README.md) | [ArgoCD](./argocd/README.md) |
+| [GitLab CI](./gitlab/README.md) | [GitHub CI](../.github/DOCS.md) | [ArgoCD](./argocd/README.md) |
 |------------------------------------|---------------------------------|---------------------------------|
 
 
