@@ -1,7 +1,7 @@
 apiVersion: tests.testkube.io/v3
 kind: Test
 metadata:
-  name: shortlink-landing
+  name: shortlink-landing-k6-main-page
   namespace: testkube
   labels:
     {{- with .Values.commonLabels }}
@@ -9,20 +9,14 @@ metadata:
     {{- end }}
     {{- include "helpers.labels" . | nindent 4 }}
 spec:
-  type: cypress/project
+  type: k6/script
   content:
     type: git-dir
     repository:
       type: git
       uri: https://github.com/shortlink-org/shortlink.git
       branch: main
-      path: ui/nx-monorepo/packages/landing
+      path: ui/nx-monorepo/packages/landing/test/e2e/k6
   executionRequest:
-    variables:
-      CYPRESS_CUSTOM_ENV:
-        name: CYPRESS_CUSTOM_ENV
-        value: "CYPRESS_CUSTOM_ENV_value"
-        type: basic
     args:
-      - "--env"
-      - "NON_CYPRESS_ENV=NON_CYPRESS_ENV_value"
+      - ui/nx-monorepo/packages/landing/test/e2e/k6/http_main_page.js

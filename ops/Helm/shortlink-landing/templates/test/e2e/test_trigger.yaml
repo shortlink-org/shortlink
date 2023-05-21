@@ -20,8 +20,8 @@ spec:
       - type: Available
         status: "True"
   action: run
-  execution: test
+  execution: testsuite
   delay: 20s
   testSelector:
-    name: shortlink-landing
+    name: shortlink-landing-test-suites
     namespace: testkube
