@@ -43,6 +43,18 @@ testkube:
             - testkube.shortlink.best
           secretName: testkube-tls
 
+    storage:
+      endpoint: ""
+      endpoint_port: "9000"
+      accessKeyId: "minio"
+      accessKey: "minio123"
+      region: ""
+      token: ""
+      bucket: "testkube-artifacts"
+      expiration: 0
+      SSL: false
+      scrapperEnabled: true
+
     prometheus:
       enabled: true
       monitoringLabels:
