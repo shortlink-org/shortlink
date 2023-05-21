@@ -19,4 +19,4 @@ spec:
       path: ui/nx-monorepo/packages/landing/test/e2e/k6
   executionRequest:
     args:
-      - ui/nx-monorepo/packages/landing/test/e2e/k6/http_main_page.js
+      - http_main_page.js
