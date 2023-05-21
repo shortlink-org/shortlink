@@ -4,7 +4,9 @@ import { defineConfig } from 'cypress'
 const { combinedEnv } = loadEnvConfig(process.cwd())
 
 export default defineConfig({
-  env: combinedEnv,
+  env: {
+    ...combinedEnv,
+  },
   e2e: {
     baseUrl: 'http://localhost:3001',
     retries: {
