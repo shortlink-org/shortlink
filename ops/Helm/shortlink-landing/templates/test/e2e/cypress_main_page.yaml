@@ -19,9 +19,9 @@ spec:
       path: ui/nx-monorepo/packages/landing
   executionRequest:
     variables:
-      CYPRESS_CUSTOM_ENV:
-        name: CYPRESS_CUSTOM_ENV
-        value: "CYPRESS_CUSTOM_ENV_value"
+      CYPRESS_BASE_URL:
+        name: CYPRESS_BASE_URL
+        value: "https://shortlink.org"
         type: basic
     args:
       - "--env"
