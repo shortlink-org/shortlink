@@ -76,6 +76,12 @@ export default () => {
     'Delete call succeeded': (r) => r && r.status === grpc.StatusOK,
   });
 
+  // Negative test: Get method should fail after Delete
+  getResponse = client.invoke('LinkService/Get', getRequest);
+  check(getResponse, {
+    'Get call failed after delete': (r) => r && r.status !== grpc.StatusOK,
+  });
+
   // Close the connection at the end of the test
   client.close();
 };
