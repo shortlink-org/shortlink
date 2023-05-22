@@ -17,8 +17,7 @@ spec:
       uri: https://github.com/shortlink-org/shortlink.git
       branch: main
       path: internal/services/api/tests/integrations
-    executionRequest:
-      activeDeadlineSeconds: 60
   executionRequest:
+    activeDeadlineSeconds: 60
     args:
       - internal/services/api/tests/integrations/k6-crud.js
