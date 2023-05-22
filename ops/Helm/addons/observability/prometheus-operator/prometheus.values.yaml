@@ -20,6 +20,13 @@ kube-prometheus-stack:
       # How long to retain metrics
       retention: 3d
 
+      enableFeatures:
+        - exemplar-storage
+        - memory-snapshot-on-shutdown
+        - new-service-discovery-manager
+        - auto-gomaxprocs
+        - native-histograms
+
     ingress:
       enabled: true
 
