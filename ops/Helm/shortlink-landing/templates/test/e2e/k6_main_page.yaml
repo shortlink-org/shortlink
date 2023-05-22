@@ -17,6 +17,14 @@ spec:
       uri: https://github.com/shortlink-org/shortlink.git
       branch: main
       path: ui/nx-monorepo/packages/landing/test/e2e/k6
+    executionRequest:
+      activeDeadlineSeconds: 60
   executionRequest:
+    variables:
+      CYPRESS_BASE_URL:
+        name: TARGET_HOSTNAME
+        value: "https://shortlink-landing.shortlink:8080"
+        type: basic
     args:
+      - --secret-variable-reference K6_PROJECT_ID=secret_env=K6_PROJECT_ID
       - http_main_page.js

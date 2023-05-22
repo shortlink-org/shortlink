@@ -17,6 +17,8 @@ spec:
       uri: https://github.com/shortlink-org/shortlink.git
       branch: main
       path: ui/nx-monorepo/packages/landing
+    executionRequest:
+      activeDeadlineSeconds: 120
   executionRequest:
     variables:
       CYPRESS_BASE_URL:
