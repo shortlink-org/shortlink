@@ -20,9 +20,9 @@ tracing.instrumentHTTP({
 
 export default () => {
   // eslint-disable-next-line no-undef
-  const TARGET_HOSTNAME = __ENV.TARGET_HOSTNAME || 'localhost:3001'
+  const TARGET_HOSTNAME = __ENV.TARGET_HOSTNAME || 'http://localhost:3001'
 
-  const res = http.get(`http://${TARGET_HOSTNAME}/`, {
+  const res = http.get(`${TARGET_HOSTNAME}/`, {
     headers: {
       'trace-id': 'instrumented/get',
     },
