@@ -8,7 +8,7 @@ export let options = {
       // eslint-disable-next-line no-undef
       projectID: __ENV.K6_PROJECT_ID,
       // Test runs with the same name groups test runs together
-      name: 'HTTP main page',
+      name: 'gRPC LinkService CRUD',
     },
   },
 }
