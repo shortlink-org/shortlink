@@ -34,6 +34,7 @@ helm-docs: ### Generate HELM docs
 
 .PHONY: helm-update-charts
 helm-update-charts: ### Update Helm charts
+	@helm repo update
 	# Find all files named "Chart.yaml" in the current directory and its subdirectories
 	@find . -name "Chart.yaml" | xargs -I '{}' -P 8 bash -c ' \
             dir=$$(dirname "{}"); \
