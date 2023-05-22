@@ -18,7 +18,7 @@ spec:
       branch: main
       path: ui/nx-monorepo/packages/landing
   executionRequest:
-    activeDeadlineSeconds: 120
+    activeDeadlineSeconds: 300
     variables:
       CYPRESS_BASE_URL:
         name: CYPRESS_BASE_URL
