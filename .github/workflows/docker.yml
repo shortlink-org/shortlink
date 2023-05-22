@@ -49,8 +49,8 @@ jobs:
         with:
           context: .
           file: ops/dockerfile/go.Dockerfile
-          build-args:
-            CMD_PATH: {{ format('./internal/services/{0}/cmd', matrix.service) }}
+          build-args: |
+            CMD_PATH: ${{ format('./internal/services/{0}/cmd', matrix.service) }}
           push: ${{ github.event_name != 'pull_request' }}
           tags: latest
           labels: ${{ steps.meta.outputs.labels }}
