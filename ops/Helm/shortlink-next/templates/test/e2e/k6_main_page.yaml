@@ -1,7 +1,7 @@
 apiVersion: tests.testkube.io/v3
 kind: Test
 metadata:
-  name: shortlink-landing-k6-browser-main-page
+  name: shortlink-next-k6-http-main-page
   namespace: testkube
   labels:
     {{- with .Values.commonLabels }}
@@ -16,14 +16,14 @@ spec:
       type: git
       uri: https://github.com/shortlink-org/shortlink.git
       branch: main
-      path: ui/nx-monorepo/packages/landing/test/e2e
+      path: ui/nx-monorepo/packages/next/test/e2e
     executionRequest:
       activeDeadlineSeconds: 60
   executionRequest:
     variables:
       CYPRESS_BASE_URL:
         name: TARGET_HOSTNAME
-        value: "https://shortlink-landing.shortlink:8080"
+        value: "https://shortlink-next.shortlink:8080"
         type: basic
     args:
       - --secret-variable-reference K6_PROJECT_ID=secret_env=K6_PROJECT_ID
