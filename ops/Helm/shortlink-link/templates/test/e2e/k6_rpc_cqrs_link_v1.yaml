@@ -1,7 +1,7 @@
 apiVersion: tests.testkube.io/v3
 kind: Test
 metadata:
-  name: shortlink-link-k6-rpc-cqrs-link-v1
+  name: shortlink-link-k6-rpc-link-v1
   namespace: testkube
   labels:
     {{- with .Values.commonLabels }}
@@ -27,4 +27,4 @@ spec:
         type: basic
     args:
       - --secret-variable-reference K6_PROJECT_ID=secret_env=K6_PROJECT_ID
-      - k6_rpc_cqrs_link_v1.js
+      - k6_rpc_link_v1.js
