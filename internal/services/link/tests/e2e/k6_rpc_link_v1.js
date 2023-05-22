@@ -1,8 +1,7 @@
 import grpc from 'k6/net/grpc';
 import { check } from 'k6';
 
-// eslint-disable-next-line import/no-mutable-exports
-export let options = {
+export const options = {
   ext: {
     loadimpact: {
       // eslint-disable-next-line no-undef
