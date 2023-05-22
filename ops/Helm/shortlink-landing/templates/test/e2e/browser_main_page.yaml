@@ -17,9 +17,8 @@ spec:
       uri: https://github.com/shortlink-org/shortlink.git
       branch: main
       path: ui/nx-monorepo/packages/landing/test/e2e
-    executionRequest:
-      activeDeadlineSeconds: 60
   executionRequest:
+    activeDeadlineSeconds: 60
     variables:
       CYPRESS_BASE_URL:
         name: TARGET_HOSTNAME
