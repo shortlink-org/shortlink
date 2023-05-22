@@ -1,0 +1,74 @@
+apiVersion: minio.min.io/v2
+kind: Tenant
+metadata:
+  name: shortlink
+scheduler:
+  name: ""
+spec:
+  configuration:
+    name: shortlink-env-configuration
+  credsSecret:
+    name: shortlink-secret
+  exposeServices:
+    console: true
+    minio: true
+  imagePullSecret: {}
+  log:
+    audit:
+      diskCapacityGB: 5
+    db:
+      resources: {}
+      volumeClaimTemplate:
+        metadata:
+          name: shortlink-log
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: "5368709120"
+          storageClassName: local-path
+        status: {}
+    resources: {}
+  mountPath: /export
+  pools:
+  - affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: v1.min.io/tenant
+              operator: In
+              values:
+              - shortlink
+            - key: v1.min.io/pool
+              operator: In
+              values:
+              - pool-0
+          topologyKey: kubernetes.io/hostname
+    name: pool-0
+    resources:
+      limits:
+        memory: 32Gi
+      requests:
+        memory: 2Gi
+    servers: 4
+    volumeClaimTemplate:
+      metadata:
+        name: data
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: "2684354560"
+        storageClassName: local-path
+      status: {}
+    volumesPerServer: 1
+  prometheus:
+    diskCapacityGB: 5
+    resources: {}
+    storageClassName: local-path
+  requestAutoCert: true
+  users:
+  - name: shortlink-user-0
