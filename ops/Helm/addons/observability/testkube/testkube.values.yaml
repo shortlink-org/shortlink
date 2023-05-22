@@ -44,10 +44,8 @@ testkube:
           secretName: testkube-tls
 
     storage:
-      endpoint_port: "9000"
       region: ""
       token: ""
-      bucket: "testkube"
       expiration: 0
       SSL: false
       scrapperEnabled: true
