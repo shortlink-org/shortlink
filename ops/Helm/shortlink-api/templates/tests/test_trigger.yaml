@@ -1,7 +1,7 @@
 apiVersion: tests.testkube.io/v1
 kind: TestTrigger
 metadata:
-  name: shortlink-links
+  name: shortlink-api
   namespace: testkube
 spec:
   resource: deployment
@@ -23,5 +23,5 @@ spec:
   execution: test
   delay: 20s
   testSelector:
-    name: shortlink-links-integrations
+    name: shortlink-api-crud
     namespace: testkube
