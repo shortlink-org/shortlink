@@ -1,0 +1,22 @@
+apiVersion: tests.testkube.io/v1
+kind: TestSuite
+metadata:
+  name: shortlink-next
+  namespace: testkube
+  labels:
+    {{- with .Values.commonLabels }}
+      {{- include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4 }}
+    {{- end }}
+    {{- include "helpers.labels" . | nindent 4 }}
+spec:
+  description: Test suite for shortlink next page
+  steps:
+    - execute:
+        name: shortlink-next-cypress-main-page
+        namespace: testkube
+    - execute:
+        name: shortlink-next-k6-http-main-page
+        namespace: testkube
+    - execute:
+        name: shortlink-next-k6-browser-main-page
+        namespace: testkube
