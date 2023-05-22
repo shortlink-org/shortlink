@@ -28,6 +28,13 @@ spec:
         name: K6_PROMETHEUS_RW_SERVER_URL
         value: "http://prometheus-prometheus.prometheus-operator:9090"
         type: basic
+      K6_PROJECT_ID:
+        name: K6_PROJECT_ID
+        valueFrom:
+          secretKeyRef:
+            name: secret-env
+            key: K6_PROJECT_ID
+        type: secret
     args:
       - -o experimental-prometheus-rw
       - internal/services/api/tests/integrations/k6-crud.js
