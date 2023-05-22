@@ -2,8 +2,7 @@ import { check } from 'k6'
 import http from 'k6/http'
 import tracing from "k6/experimental/tracing"
 
-// eslint-disable-next-line import/no-mutable-exports
-export let options = {
+export const options = {
   ext: {
     loadimpact: {
       // eslint-disable-next-line no-undef
