@@ -1,0 +1,30 @@
+apiVersion: tests.testkube.io/v3
+kind: Test
+metadata:
+  name: shortlink-link-k6-rpc-sitemap-v1
+  namespace: testkube
+  labels:
+    {{- with .Values.commonLabels }}
+      {{- include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4 }}
+      {{- end }}
+      {{- include "helpers.labels" . | nindent 4 }}
+spec:
+  type: k6/script
+  content:
+    type: git-dir
+    repository:
+      type: git
+      uri: https://github.com/shortlink-org/shortlink.git
+      branch: main
+      path: internal/services/link/tests/e2e
+    executionRequest:
+      activeDeadlineSeconds: 60
+  executionRequest:
+    variables:
+      CYPRESS_BASE_URL:
+        name: TARGET_HOSTNAME
+        value: "https://shortlink-link.shortlink:50051"
+        type: basic
+    args:
+      - --secret-variable-reference K6_PROJECT_ID=secret_env=K6_PROJECT_ID
+      - k6_rpc_sitemap_v1.js
