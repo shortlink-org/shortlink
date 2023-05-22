@@ -24,10 +24,15 @@ spec:
         name: K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM
         value: "true"
         type: basic
+      K6_PROMETHEUS_RW_SERVER_URL:
+        name: K6_PROMETHEUS_RW_SERVER_URL
+        value: "http://prometheus-prometheus.prometheus-operator:9090"
+        type: basic
       CYPRESS_BASE_URL:
         name: TARGET_HOSTNAME
         value: "https://shortlink-landing.shortlink:8080"
         type: basic
     args:
+      - -o experimental-prometheus-rw
       - --secret-variable-reference K6_PROJECT_ID=secret-env=K6_PROJECT_ID
       - http_main_page.js
