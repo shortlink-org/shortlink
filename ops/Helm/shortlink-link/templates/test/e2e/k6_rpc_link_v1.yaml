@@ -25,5 +25,5 @@ spec:
         value: "https://shortlink-link.shortlink:50051"
         type: basic
     args:
-      - --secret-variable-reference K6_PROJECT_ID=secret_env=K6_PROJECT_ID
+      - --secret-variable-reference K6_PROJECT_ID=secret-env=K6_PROJECT_ID
       - k6_rpc_cqrs_link_v1.js
