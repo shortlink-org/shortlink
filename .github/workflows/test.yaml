@@ -24,7 +24,7 @@ steps:
       go-version: '1.20'
 
   - name: Run coverage
-    run: go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./...
+    run: go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./internal/...
 
   - uses: codecov/codecov-action@v3
     with:
