@@ -35,6 +35,9 @@ spec:
             name: secret-env
             key: K6_PROJECT_ID
         type: secret
+      K6_OUT:
+        name: K6_OUT
+        value: "experimental-prometheus-rw"
+        type: basic
     args:
-      - -o experimental-prometheus-rw
       - k6_rpc_sitemap_v1.js
