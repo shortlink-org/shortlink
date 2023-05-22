@@ -44,13 +44,10 @@ testkube:
           secretName: testkube-tls
 
     storage:
-      endpoint: ""
       endpoint_port: "9000"
-      accessKeyId: "minio"
-      accessKey: "minio123"
       region: ""
       token: ""
-      bucket: "testkube-artifacts"
+      bucket: "testkube"
       expiration: 0
       SSL: false
       scrapperEnabled: true
