@@ -10,7 +10,7 @@ require (
 	github.com/google/wire v0.5.0
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/spf13/viper v1.15.0
-	go.opentelemetry.io/otel/trace v1.15.1
+	go.opentelemetry.io/otel/trace v1.16.0
 	golang.org/x/sync v0.2.0
 	google.golang.org/protobuf v1.30.0
 )
