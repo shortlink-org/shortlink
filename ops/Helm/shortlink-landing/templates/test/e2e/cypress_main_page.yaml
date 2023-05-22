@@ -24,6 +24,20 @@ spec:
         name: CYPRESS_BASE_URL
         value: "https://shortlink.best"
         type: basic
+      CYPRESS_PROJECT_ID:
+        name: K6_PROJECT_ID
+        valueFrom:
+          secretKeyRef:
+            name: secret-env
+            key: CYPRESS_PROJECT_ID
+        type: secret
+      CYPRESS_PROJECT_KEY:
+        name: K6_PROJECT_ID
+        valueFrom:
+          secretKeyRef:
+            name: secret-env
+            key: CYPRESS_PROJECT_KEY
+        type: secret
     args:
       - "--env"
       - "NON_CYPRESS_ENV=NON_CYPRESS_ENV_value"
