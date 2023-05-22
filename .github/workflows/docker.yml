@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        service: ['api', 'metadata', 'logger', 'csi', 'landing']
+        service: ['api', 'metadata', 'logger', 'csi']
 
     steps:
       - name: Checkout
@@ -48,11 +48,11 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ops/dockerfile/${{ matrix.service == 'csi' || matrix.service == 'landing' ? matrix.service : 'go' }}.Dockerfile
+          file: ops/dockerfile/go.Dockerfile
           build-args:
             CMD_PATH: "./internal/services/${{ matrix.service }}/cmd"
           push: ${{ github.event_name != 'pull_request' }}
-          tags: name/app:${{ matrix.service }}
+          tags: latest
           labels: ${{ steps.meta.outputs.labels }}
 
       # sign container images
