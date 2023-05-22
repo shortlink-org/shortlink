@@ -35,4 +35,4 @@ spec:
     args:
       - -o experimental-prometheus-rw
       - --secret-variable-reference K6_PROJECT_ID=secret-env=K6_PROJECT_ID
-      - http_main_page.js
+      - k6_http_main_page.js
