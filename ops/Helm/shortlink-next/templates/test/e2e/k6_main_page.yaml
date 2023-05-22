@@ -20,6 +20,10 @@ spec:
   executionRequest:
     activeDeadlineSeconds: 60
     variables:
+      K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM:
+        name: K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM
+        value: "true"
+        type: basic
       CYPRESS_BASE_URL:
         name: TARGET_HOSTNAME
         value: "https://shortlink-next.shortlink:8080"

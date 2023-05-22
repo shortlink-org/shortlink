@@ -19,5 +19,10 @@ spec:
       path: internal/services/api/tests/integrations
   executionRequest:
     activeDeadlineSeconds: 60
+    variables:
+      K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM:
+        name: K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM
+        value: "true"
+        type: basic
     args:
       - internal/services/api/tests/integrations/k6-crud.js
