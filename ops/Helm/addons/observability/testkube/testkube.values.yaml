@@ -30,10 +30,9 @@ testkube:
         nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-      # TODO: add oauth2
-      #  nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
-      #  nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
-      #  nginx.ingress.kubernetes.io/access-control-allow-origin: "*"
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+        nginx.ingress.kubernetes.io/access-control-allow-origin: "*"
       hosts:
         - testkube.shortlink.best
       path: /results
@@ -66,9 +65,8 @@ testkube:
         nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-        # TODO: add oauth2
-        # nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
-        # nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
+        nginx.ingress.kubernetes.io/auth-url: "https://$host/oauth2/auth"
+        nginx.ingress.kubernetes.io/auth-signin: "https://$host/oauth2/start?rd=$escaped_request_uri"
 
       hosts:
         - testkube.shortlink.best
