@@ -12,6 +12,7 @@ require (
 
 require (
 	contrib.go.opencensus.io/exporter/zipkin v0.1.2 // indirect
+	github.com/benbjohnson/clock v1.3.3 // indirect
 	github.com/elastic/elastic-transport-go/v8 v8.2.0 // indirect
 	github.com/go-kit/log v0.2.1 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
@@ -27,6 +28,8 @@ require (
 	github.com/openzipkin/zipkin-go v0.3.0 // indirect
 	github.com/prometheus/client_golang v1.15.1 // indirect
 	github.com/prometheus/client_model v0.4.0 // indirect
+	github.com/prometheus/common v0.44.0 // indirect
+	github.com/prometheus/procfs v0.10.0 // indirect
 	github.com/stretchr/testify v1.8.3 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
