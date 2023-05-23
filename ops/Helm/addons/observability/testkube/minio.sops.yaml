@@ -2,9 +2,8 @@ testkube:
     testkube-api:
         storage:
             endpoint: ENC[AES256_GCM,data:62aN7GsFWkf00c9R+HMnOMI0spRR9ss=,iv:b/qng/lw/BzoYjFd/5j3WtxBrf5cnGpx3qoaCzh5XMs=,tag:OOwb4wSOWsZuTfFb34/5nw==,type:str]
-            accessKeyId: ENC[AES256_GCM,data:1LDT6pkXVW8B8Isgod6l0hNLiXg=,iv:FL/u8/jnevhauz28Oacnd4vX4mKyTFAWVCCNkD8hFhQ=,tag:OiRsdHuy+RBzNDxTRD6Fog==,type:str]
-            accessKey: ENC[AES256_GCM,data:mdiVQat8W/VPGKIIcHv5jpgnV9jpcWrTY4zux6eI0uiY9LfD6Z6vDA==,iv:BxLcyIy1UCqKJIcFf2pAbi4mHJAOMtvyFiAR6zD2L0o=,tag:8AywZbIZhRVQor2K4cI7kw==,type:str]
-            endpoint_port: ENC[AES256_GCM,data:wEt+OQ==,iv:/P4fAlXN3ZDy5szWJcASK78ibSUX2yPvjPwrhol3leA=,tag:P0oarvqPg98wElpZLGzY4A==,type:str]
+            accessKeyId: ENC[AES256_GCM,data:x/e8PQ1YOdunZndtXyBjtJfwuvw=,iv:s7Bk6u23hTLtO7HKHQV/Xh7OJlAe7554bk6JGLiZqQk=,tag:B7XapxczqEDNA6oZJQJ/Qg==,type:str]
+            accessKey: ENC[AES256_GCM,data:HQB6ZKrX695mB6COPM65ua7qNt6UYMqf8XTuZxZk6cbrMKe/f3k6iw==,iv:K3HAHrH0/jYANw/JN97rQ++shKZWAn+E3zvzT/fXnTY=,tag:NavNBXR4x55uTwg5d2mWzA==,type:str]
             bucket: ENC[AES256_GCM,data:n+vm67muKtw=,iv:LQFUYSGm4JrQFP5cg7g5wc0S6BNBqq4peQl7A3MTw+k=,tag:m6SyGy96RePhChA9t5/DmA==,type:str]
 sops:
     kms: []
@@ -12,8 +11,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-05-23T09:43:40Z"
-    mac: ENC[AES256_GCM,data:bXI0VN02UFFVqMR3rMv6S8LTUzpFKcsCvj7yr12kC6zZpJ0OMByzPpHSv0GB/yAd4Cji7VRBpYe3MZ+FO6aWdIBxpvNZHOu3tlcIlW6inYXOJs3hYwM/uzjRqWEFd4w5NSMFV56J2kJYZcP8fp4DSV/58kSKb+AeuCbJjB6PwC8=,iv:KwR2dDx8ZvB7+pn3zLwkoRmDSJQL2qMaZbpgFLHbIak=,tag:L8go1TpXK5uBoexGySJKtw==,type:str]
+    lastmodified: "2023-05-23T11:51:49Z"
+    mac: ENC[AES256_GCM,data:rg5xTkysZNNkrM/NVUMqoibXT4wcPFsmEU0n4VuzROhRw/3Ck63c/y27acWnH414zvoGxUn2r/wUD1OcSqzEopg4af4HHFIoQnFKDRStqZg0Le6H9bfsblt61A+95T1sxUqeXDO4XEjvF+7HUNsqmcPF0rs1R6Hfqt3MFv6alzE=,iv:pGzaDgniAQMMMZAu1BTIifPtXbzUEjyHZJ88vrt8AhI=,tag:vGddXGGV/GLQ1J6mAyQJFA==,type:str]
     pgp:
         - created_at: "2023-05-22T16:13:46Z"
           enc: |
