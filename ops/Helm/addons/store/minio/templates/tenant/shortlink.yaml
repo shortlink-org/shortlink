@@ -5,6 +5,8 @@ metadata:
 scheduler:
   name: ""
 spec:
+  features:
+    bucketDNS: true
   configuration:
     name: shortlink-env-configuration
   credsSecret:
@@ -13,23 +15,6 @@ spec:
     console: true
     minio: true
   imagePullSecret: {}
-  log:
-    audit:
-      diskCapacityGB: 5
-    db:
-      resources: {}
-      volumeClaimTemplate:
-        metadata:
-          name: shortlink-log
-        spec:
-          accessModes:
-          - ReadWriteOnce
-          resources:
-            requests:
-              storage: "5368709120"
-          storageClassName: local-path
-        status: {}
-    resources: {}
   mountPath: /export
   pools:
   - affinity:
@@ -49,10 +34,10 @@ spec:
     name: pool-0
     resources:
       limits:
-        memory: 32Gi
+        memory: 8Gi
       requests:
         memory: 2Gi
-    servers: 4
+    servers: 2
     volumeClaimTemplate:
       metadata:
         name: data
@@ -65,10 +50,10 @@ spec:
         storageClassName: local-path
       status: {}
     volumesPerServer: 1
-  prometheus:
-    diskCapacityGB: 5
-    resources: {}
-    storageClassName: local-path
-  requestAutoCert: true
+  prometheusOperator:
+    labels:
+      release: prometheus-operator
+  requestAutoCert: false
   users:
   - name: shortlink-user-0
+  - name: testkube-user-0
