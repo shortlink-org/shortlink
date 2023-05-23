@@ -40,7 +40,7 @@ require (
 	github.com/kubernetes-csi/csi-test/v5 v5.0.0
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.16
-	github.com/nats-io/nats.go v1.25.0
+	github.com/nats-io/nats.go v1.26.0
 	github.com/neo4j/neo4j-go-driver/v5 v5.8.1
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/prometheus/client_golang v1.15.1
