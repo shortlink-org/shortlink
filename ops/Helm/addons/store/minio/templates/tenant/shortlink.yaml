@@ -12,7 +12,6 @@ spec:
   exposeServices:
     console: true
     minio: true
-  imagePullSecret: {}
   mountPath: /export
   pools:
   - affinity:
@@ -46,7 +45,6 @@ spec:
           requests:
             storage: "2684354560"
         storageClassName: local-path
-      status: {}
     volumesPerServer: 1
   prometheusOperator:
     labels:
