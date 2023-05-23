@@ -20,4 +20,4 @@ spec:
   testSelector:
     labelSelector:
       matchLabels:
-        {{- include "shortlink-common.matchLabels" . | nindent 4 }}
+        {{- include "shortlink-common.matchLabels" . | nindent 8 }}
