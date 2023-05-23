@@ -45,7 +45,7 @@ spec:
           requests:
             storage: "2684354560"
         storageClassName: local-path
-    volumesPerServer: 1
+    volumesPerServer: 2
   prometheusOperator:
     labels:
       release: prometheus-operator
