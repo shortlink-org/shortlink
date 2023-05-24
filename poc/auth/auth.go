@@ -43,7 +43,7 @@ func Migrations(ctx context.Context) error {
 	}
 
 	for _, schema := range permissionsData {
-		request := &pb.WriteSchemaRequest{Schema: schema}
+		request := &pb.WriteSchemaRequest{Schema: string(schema)}
 		_, err = client.WriteSchema(ctx, request)
 		if err != nil {
 			return fmt.Errorf("Failed to write schema: %w", err)
