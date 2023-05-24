@@ -26,7 +26,6 @@ require (
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/golang/glog v1.1.1
-	github.com/golang/protobuf v1.5.3
 	github.com/google/cel-go v0.15.3
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
@@ -67,10 +66,10 @@ require (
 	github.com/uptrace/go-clickhouse v0.3.1
 	github.com/uptrace/go-clickhouse/chdebug v0.3.1
 	github.com/uptrace/go-clickhouse/chotel v0.3.1
-	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.0
-	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.2.0
-	github.com/uptrace/opentelemetry-go-extra/otelsql v0.2.0
-	github.com/uptrace/opentelemetry-go-extra/otelzap v0.2.0
+	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.1-0.20230524101603-bb2bda74cee3
+	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.2.1-0.20230524101603-bb2bda74cee3
+	github.com/uptrace/opentelemetry-go-extra/otelsql v0.2.1-0.20230524101603-bb2bda74cee3
+	github.com/uptrace/opentelemetry-go-extra/otelzap v0.2.1-0.20230524101603-bb2bda74cee3
 	go.etcd.io/etcd/client/v3 v3.5.9
 	go.mongodb.org/mongo-driver v1.12.0-prerelease
 	go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama v0.42.0
@@ -250,7 +249,7 @@ require (
 	go.etcd.io/etcd/api/v3 v3.5.9 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.9 // indirect
 	go.opencensus.io v0.24.0 // indirect
-	go.opentelemetry.io/contrib v1.16.1 // indirect
+	go.opentelemetry.io/contrib v1.17.0 // indirect
 	go.opentelemetry.io/otel/metric v1.16.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.9.0 // indirect
