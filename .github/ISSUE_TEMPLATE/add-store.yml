@@ -4,16 +4,16 @@ labels:
   - feature_request
   - store
 body:
-  - attributes:
+  - type: markdown
+    attributes:
       value: Add database - [NAME]
-    type: markdown
   - type: textarea
     attributes:
       label: Why do we need this database?
-  - attributes:
+  - type: checkboxes
+    id: checklist
+    attributes:
       label: Todo
-      id: checklist
-      type: checkboxes
       options:
         - label: Add implementation for the interface [DB](https://github.com/shortlink-org/shortlink/blob/84fa2a365f09396f92556febde2e711c1682a780/internal/pkg/db/type.go#L9)
           required: true
