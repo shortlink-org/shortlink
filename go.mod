@@ -9,7 +9,6 @@ require (
 	github.com/Unleash/unleash-client-go/v3 v3.7.4
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v0.8.1-0.20230523153226-8681b8ed9f56
-	github.com/authzed/grpcutil v0.0.0-20230509155820-7a6fedb71dbc
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cloudevents/sdk-go/v2 v2.14.0
 	github.com/container-storage-interface/spec v1.8.0
@@ -26,6 +25,7 @@ require (
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/golang/glog v1.1.1
+	github.com/golang/protobuf v1.5.3
 	github.com/google/cel-go v0.15.3
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
@@ -50,7 +50,7 @@ require (
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.1
 	github.com/redis/go-redis/v9 v9.0.4
-	github.com/redis/rueidis v1.0.5
+	github.com/redis/rueidis v1.0.6-0.20230524122913-cd8d23d21458
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/encoding v0.3.6
