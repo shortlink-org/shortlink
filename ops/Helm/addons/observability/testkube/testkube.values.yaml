@@ -77,4 +77,15 @@ testkube:
             - testkube.shortlink.best
           secretName: testkube-tls
 
+    oauth2:
+      enabled: true
+      args:
+        - --provider=github
+        - --email-domain="*"
+        - --scope="user:email"
+      image:
+        registry: "docker.io"
+        repository: bitnami/oauth2-proxy
+        tag: latest
+
   testkube-operator: {}
