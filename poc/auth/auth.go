@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 
 	pb "github.com/authzed/authzed-go/proto/authzed/api/v1"
-	authzed "github.com/authzed/authzed-go/v1"
-	"github.com/authzed/grpcutil"
+	"github.com/authzed/authzed-go/v1"
 	"github.com/spf13/viper"
+	"google.golang.org/grpc"
 )
 
 var (
@@ -18,16 +18,20 @@ var (
 	permissions embed.FS
 )
 
+type insecureMetadataCreds map[string]string
+
+func (c insecureMetadataCreds) RequireTransportSecurity() bool { return false }
+func (c insecureMetadataCreds) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) {
+	return c, nil
+}
+
 func Migrations(ctx context.Context) error {
 	viper.SetDefault("SPICE_DB_API", "shortlink.auth:50051")
 	viper.SetDefault("SPICE_DB_COMMON_KEY", "secret-shortlink-preshared-key")
 
 	client, err := authzed.NewClient(
 		viper.GetString("SPICE_DB_API"),
-		// NOTE: For SpiceDB behind TLS, use:
-		// grpcutil.WithBearerToken("secret-shortlink-preshared-key"),
-		// grpcutil.WithSystemCerts(grpcutil.VerifyCA),
-		grpcutil.WithInsecureBearerToken(viper.GetString("SPICE_DB_COMMON_KEY")),
+		grpc.WithPerRPCCredentials(insecureMetadataCreds{"authorization": "Bearer " + viper.GetString("SPICE_DB_COMMON_KEY")}),
 	)
 	if err != nil {
 		return err
