@@ -27,7 +27,7 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/golang/glog v1.1.1
 	github.com/golang/protobuf v1.5.3
-	github.com/google/cel-go v0.15.2
+	github.com/google/cel-go v0.15.3
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
 	github.com/graph-gophers/graphql-go v1.5.0
