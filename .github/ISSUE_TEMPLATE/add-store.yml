@@ -6,11 +6,11 @@ labels:
 body:
   - type: markdown
     attributes:
-      value: Add database - [NAME]
+      value: Add database
   - type: textarea
     attributes:
       label: Why do we need this database?
-  - type: checkboxes
+  - type: tasklist
     id: checklist
     attributes:
       label: Todo
