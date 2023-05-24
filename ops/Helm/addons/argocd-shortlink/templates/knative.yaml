@@ -23,7 +23,7 @@ spec:
           recurse: true
       destination:
         name: ''
-        namespace: argocd
+        namespace: knative
         server: 'https://kubernetes.default.svc'
       syncPolicy:
         automated:
