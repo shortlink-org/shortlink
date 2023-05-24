@@ -19,7 +19,7 @@ and GitHub Codespaces.
   - [Example](../../../skaffold.yaml)
 - [Devfile.io](https://devfile.io/) provides a shareable, flexible, and standardized developer workspace definition 
   that's optimized for cloud-native environments.
-  - [Example](./proof/ADR-0024/devfile.yaml)
+  - [Example](./proof/ADR-0024/devfile/README.md)
 - [GitHub Codespaces](https://github.com/features/codespaces) offers a fully-configurable, cloud-hosted development 
   environment that can be accessed directly from Visual Studio Code, a web browser, or the GitHub Desktop app.
 
