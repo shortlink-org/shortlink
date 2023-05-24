@@ -84,8 +84,6 @@ testkube:
         - --email-domain="*"
         - --scope="user:email"
       image:
-        registry: "docker.io"
-        repository: bitnami/oauth2-proxy
-        tag: latest
+        tag: v7.2.1
 
   testkube-operator: {}
