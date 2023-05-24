@@ -69,7 +69,7 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.1-0.20230524101603-bb2bda74cee3
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.2.1-0.20230524101603-bb2bda74cee3
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.2.1-0.20230524101603-bb2bda74cee3
-	github.com/uptrace/opentelemetry-go-extra/otelzap v0.2.1-0.20230524101603-bb2bda74cee3
+	github.com/uptrace/opentelemetry-go-extra/otelzap v0.2.1
 	go.etcd.io/etcd/client/v3 v3.5.9
 	go.mongodb.org/mongo-driver v1.12.0-prerelease
 	go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama v0.42.0
@@ -230,7 +230,7 @@ require (
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
 	github.com/twmb/murmur3 v1.1.5 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelutil v0.2.0 // indirect
+	github.com/uptrace/opentelemetry-go-extra/otelutil v0.2.1 // indirect
 	github.com/urfave/cli/v2 v2.25.1 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
