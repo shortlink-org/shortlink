@@ -1,24 +1,30 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: shortlink
+  name: shortlink-infrastructure
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   generators:
     - list:
         elements:
-          - cluster: in-cluster
-            url: https://kubernetes.default.svc
+          - scope: shortlink
+            preserveResourcesOnDeletion: true
+          - scope: observability
+            preserveResourcesOnDeletion: false
+          - scope: infrastructure
+            preserveResourcesOnDeletion: false
+          - scope: knative
+            preserveResourcesOnDeletion: true
   template:
     metadata:
-      name: shortlink
+      name: {{scope}}
     spec:
       project: shortlink
       source:
         repoURL: 'https://github.com/shortlink-org/shortlink'
         targetRevision: HEAD
-        path: ops/argocd/shortlink
+        path: ops/argocd/{{scope}}
         directory:
           recurse: true
       destination:
@@ -31,7 +37,7 @@ spec:
           allowEmpty: true
           selfHeal: true
   syncPolicy:
-    preserveResourcesOnDeletion: true
+    preserveResourcesOnDeletion: {{preserveResourcesOnDeletion}}
     ignoreDifferences:
       - group: kyverno.io
         kind: ClusterPolicy
