@@ -14,6 +14,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
@@ -25,8 +26,8 @@ func TestMain(m *testing.M) {
 func TestOutputInfoWithContextZap(t *testing.T) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
@@ -40,7 +41,7 @@ func TestOutputInfoWithContextZap(t *testing.T) {
 	expected := map[string]interface{}{
 		"level":     "info",
 		"timestamp": expectedTime,
-		"caller":    "logger/logger_test.go:37",
+		"caller":    "logger/logger_test.go:38",
 		"msg":       "Hello World",
 		"traceID":   "00000000000000000000000000000000",
 	}
@@ -55,8 +56,8 @@ func TestOutputInfoWithContextZap(t *testing.T) {
 func BenchmarkOutputZap(bench *testing.B) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
@@ -71,8 +72,8 @@ func BenchmarkOutputZap(bench *testing.B) {
 func TestOutputInfoWithContextLogrus(t *testing.T) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
@@ -97,8 +98,8 @@ func TestOutputInfoWithContextLogrus(t *testing.T) {
 func BenchmarkOutputLogrus(bench *testing.B) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
@@ -113,8 +114,8 @@ func BenchmarkOutputLogrus(bench *testing.B) {
 func TestFieldsZap(t *testing.T) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
@@ -132,7 +133,7 @@ func TestFieldsZap(t *testing.T) {
 		"level":     "info",
 		"timestamp": expectedTime,
 		"msg":       "Hello World",
-		"caller":    "logger/logger_test.go:125",
+		"caller":    "logger/logger_test.go:126",
 		"first":     float64(1),
 		"hello":     "world",
 		"traceID":   "00000000000000000000000000000000",
@@ -148,8 +149,8 @@ func TestFieldsZap(t *testing.T) {
 func TestFieldsLogrus(t *testing.T) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
@@ -181,8 +182,8 @@ func TestSetLevel(t *testing.T) {
 	for _, logger := range loggerList {
 		var b bytes.Buffer
 
-		conf := Configuration{
-			Level:      FATAL_LEVEL,
+		conf := config.Configuration{
+			Level:      config.FATAL_LEVEL,
 			Writer:     &b,
 			TimeFormat: time.RFC822,
 		}
