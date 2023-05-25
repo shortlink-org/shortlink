@@ -14,7 +14,7 @@ applications:
   needs:
     # NOTE: We use ArgoCD for deploy applications, except for UI [landing]
     # - pipeline: docker
-    - pipeline: ui
+    - ui
   rules:
     - if: $CI_COMMIT_TAG
 
