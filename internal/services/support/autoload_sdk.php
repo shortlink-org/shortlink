@@ -14,7 +14,7 @@ putenv('OTEL_PROPAGATORS=b3,baggage,tracecontext');
 echo 'autoloading SDK example starting...' . PHP_EOL;
 
 // Composer autoloader will execute SDK/_autoload.php which will register global instrumentation from environment configuration
-require dirname(__DIR__) . '/vendor/autoload.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $instrumentation = new \OpenTelemetry\API\Common\Instrumentation\CachedInstrumentation('shortlink-support');
 
