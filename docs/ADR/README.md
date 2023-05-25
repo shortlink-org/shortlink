@@ -24,6 +24,7 @@ for information team about cases for updated ADR.
   - [ADR-0011](./decisions/0011-application-architecture-documentation.md) - Application architecture documentation
   - [ADR-0012](./decisions/0012-use-monorepository.md) - Use monorepository
   - [ADR-0021](./decisions/0021-microservice-structure.md) - Microservice structure
+  - [ADR-0024](./decisions/0024-selecting-a-development-tool-for-remote-machine.md) - Selecting a Development Tool for Remote Machine
 - **Naming**
   - [ADR-0002](./decisions/0002-implement-as-event-naming.md) - Implement as event naming
   - [ADR-0009](./decisions/0009-naming-spans-and-attributes.md) - Naming spans and attributes
@@ -44,6 +45,7 @@ for information team about cases for updated ADR.
   - [ADR-0015](./decisions/0015-authentication.md) - Authentication
 - **Security**
   - [ADR-0013](./decisions/0013-security.md) - Enhancing Security Measures
+  - [ADR-0025](./decisions/0025-configuration.md) - Application Configuration Redesign
 - **Golang**
   - [ADR-0017](./decisions/0017-profile-guided-optimization.md) - Profile-guided optimization
 - **Front-end**

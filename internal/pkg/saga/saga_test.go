@@ -13,6 +13,7 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
 )
 
 type Wallet struct {
@@ -27,8 +28,8 @@ func TestMain(m *testing.M) {
 
 func TestNewSaga(t *testing.T) {
 	// Init logger
-	conf := logger.Configuration{
-		Level: logger.DEBUG_LEVEL,
+	conf := config.Configuration{
+		Level: config.DEBUG_LEVEL,
 	}
 	log, err := logger.NewLogger(logger.Zap, conf)
 	require.NoError(t, err, "Error init a logger")

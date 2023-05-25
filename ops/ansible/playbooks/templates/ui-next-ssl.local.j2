@@ -1,5 +1,9 @@
 server {
-	listen 443 ssl;
+	# Enable QUIC and HTTP/3.
+  listen 443 quic reuseport;
+
+  # Enable HTTP/2 (optional).
+  listen 443 ssl http2;
 
 	root   /usr/share/nginx/html;
 

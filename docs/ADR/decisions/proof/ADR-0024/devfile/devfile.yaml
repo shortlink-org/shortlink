@@ -1,0 +1,20 @@
+schemaVersion: 2.2.0
+metadata:
+  name: ShortLink services
+  version: 0.1.0
+  description: ShortLink services
+  tags:
+    - ShortLink
+  architectures:
+    - amd64
+  displayName: ShortLink services
+components:
+  - name: shortlink-api
+    container:
+      endpoints:
+        - name: http
+          targetPort: 7071
+        - name: metrics
+          targetPort: 9090
+      image: registry.gitlab.com/shortlink-org/shortlink/api:latest
+commands: []
