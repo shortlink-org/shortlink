@@ -112,21 +112,6 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 
  - [Getting Started](./CONTRIBUTING.md#getting-started)
 
-### Configuration
-
-<details><summary>DETAILS</summary>
-<p>
-
-##### [12 factors: ENV](https://12factor.net/config)
-
-[View ENV Variables](./docs/env.md)
-
-</p>
-</details>
-
-</p>
-</details>
-
 ### ChatGTP || OpenIA
 
 This service support [ChatGTP](https://chat.openai.com/chat) as plugin.  
