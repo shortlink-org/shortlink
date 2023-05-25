@@ -66,6 +66,10 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 
 	// Run root steps
 	g := errgroup.Group{}
+	// set limiter for goroutines if it's set
+	if s.limiter > 0 {
+		g.SetLimit(s.limiter)
+	}
 
 	// start tracing
 	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(s.ctx, fmt.Sprintf("saga: %s", s.name))
@@ -140,7 +144,7 @@ func (s *Saga) getRootSteps() (map[string]*Step, error) {
 }
 
 func (s *Saga) validateRun(steps map[string]*Step) (map[string]*Step, error) {
-	// skip if status of all parents step not DONE
+	// skip if status of all parents steps not DONE
 	doneSteps := make(map[string]*Step)
 	for _, step := range steps {
 		vertex, errGetVertex := s.dag.GetVertex(step.name)
@@ -204,7 +208,7 @@ func (s *Saga) Reject(rejectSteps map[string]*Step) error {
 }
 
 func (s *Saga) validateReject(steps map[string]*Step) (map[string]*Step, error) {
-	// skip if status of all parents step ROLLBACK
+	// skip the status of all parents step ROLLBACK's
 	doneSteps := make(map[string]*Step)
 	for _, step := range steps {
 		vertex, errGetVertex := s.dag.GetVertex(step.name)

@@ -7,8 +7,26 @@ independent steps that can be executed and managed separately.
 
 #### Saga steps of state:
 
-+ WAIT -> RUN -> DONE/REJECT
++ INIT -> WAIT -> RUN -> DONE/REJECT
 + REJECT -> FAIL/ROLLBACK
+
+```mermaid
+graph LR
+  INIT[Initialization] -->|Initialization Complete| WAIT[Waiting]
+  WAIT -->|Waiting Complete| RUN[Running]
+  RUN -->|Running Complete| DONE[Done]
+  RUN -->|Error Occurred| REJECT[Rejection]
+  REJECT -->|Rejection Handled| FAIL[Failure]
+  REJECT -->|Rollback Triggered| ROLLBACK[Rollback]
+
+  style INIT fill:#FFADAD
+  style WAIT fill:#FFD6A5
+  style RUN fill:#FDFFB6
+  style DONE fill:#CAFFBF
+  style REJECT fill:#9BF6FF
+  style FAIL fill:#A0C4FF
+  style ROLLBACK fill:#BDB2FF
+```
 
 #### Example
 
@@ -65,6 +83,11 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
   return err
 }
 ```
+
+### Options
+
+- **Logger** - add logger for saga
+- **SetLimiter** - set limiter for goroutines (default unlimited)
 
 ### OpenTracing
 
