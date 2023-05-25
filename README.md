@@ -45,10 +45,6 @@ made along with its context and consequences.
 + [Decisions](./docs/ADR/decisions)
 + [Docs ADR](https://github.com/joelparkerhenderson/architecture-decision-record)
 
-### Architecture
-
-You can find the architecture documentation [here](./docs/ADR/decisions/0011-application-architecture-documentation.md).
-
 ### Services
 
 <details><summary>DETAILS</summary>
