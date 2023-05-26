@@ -3,12 +3,21 @@ package worker_pool
 import (
 	"sync"
 	"testing"
+
+	"go.uber.org/goleak"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func Test_WorkerPool(t *testing.T) {
 	wp := New(10)
 
-	f := func() {}
+	f := func() (interface{}, error) {
+		// some operation
+		return nil, nil
+	}
 
 	wg := sync.WaitGroup{}
 	done := make(chan struct{})
@@ -18,6 +27,7 @@ func Test_WorkerPool(t *testing.T) {
 			wg.Add(1)
 			wp.Push(f)
 		}
+
 		close(done)
 	}()
 
@@ -30,4 +40,8 @@ func Test_WorkerPool(t *testing.T) {
 	<-done
 	wg.Wait()
 	close(wp.Result)
+
+	t.Cleanup(func() {
+		wp.Close()
+	})
 }

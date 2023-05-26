@@ -1,18 +1,18 @@
 package worker_pool
 
 type WP interface {
-	Push(task ...func())
+	Push(task ...func()) error
 }
 
 type WorkerPool struct {
-	taskQueue chan func()
-	Result    chan interface{}
+	taskQueue chan Task
+	Result    chan Result
 }
 
 func New(workerNum int) *WorkerPool {
 	wp := &WorkerPool{
-		taskQueue: make(chan func()),
-		Result:    make(chan interface{}),
+		taskQueue: make(chan Task, workerNum),
+		Result:    make(chan Result, workerNum),
 	}
 
 	for i := 0; i < workerNum; i++ {
@@ -22,8 +22,13 @@ func New(workerNum int) *WorkerPool {
 	return wp
 }
 
-func (wp *WorkerPool) Push(task ...func()) {
+func (wp *WorkerPool) Push(task ...Task) {
 	for _, t := range task {
 		wp.taskQueue <- t
 	}
+}
+
+// Close closes the task queue channel
+func (wp *WorkerPool) Close() {
+	close(wp.taskQueue)
 }

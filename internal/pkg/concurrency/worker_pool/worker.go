@@ -1,12 +1,19 @@
 package worker_pool
 
-type worker struct {
-	taskQueue chan func()
-	result    chan interface{}
+type Task func() (interface{}, error)
+
+type Result struct {
+	Value interface{}
+	Error error
 }
 
-func NewWorker(taskQueue chan func(), result chan interface{}) *worker {
-	w := &worker{
+type Worker struct {
+	taskQueue <-chan Task
+	result    chan<- Result
+}
+
+func NewWorker(taskQueue <-chan Task, result chan<- Result) *Worker {
+	w := &Worker{
 		taskQueue: taskQueue,
 		result:    result,
 	}
@@ -16,10 +23,9 @@ func NewWorker(taskQueue chan func(), result chan interface{}) *worker {
 	return w
 }
 
-func (w *worker) run() {
-	for {
-		task := <-w.taskQueue
-		task()
-		w.result <- struct{}{}
+func (w *Worker) run() {
+	for task := range w.taskQueue {
+		result, err := task()
+		w.result <- Result{result, err}
 	}
 }
