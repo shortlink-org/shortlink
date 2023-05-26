@@ -2,7 +2,7 @@
   <configuration default="false" name="saga" type="GoTestRunConfiguration" factoryName="Go Test" folderName="pkg">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$/internal/pkg/saga" />
-    <go_parameters value="-tags=unit --race" />
+    <go_parameters value="-race -v -tags=unit -cover" />
     <root_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />
     <package value="github.com/shortlink-org/shortlink/internal/pkg/saga" />
