@@ -21,11 +21,12 @@ func TestMain(m *testing.M) {
 }
 
 func TestRAM(t *testing.T) {
-	store := Store{}
-
 	ctx := context.Background()
 
 	t.Run("Create [single]", func(t *testing.T) {
+		store, err := New(ctx)
+		require.NoError(t, err)
+
 		link, errAdd := store.Add(ctx, mock.AddLink)
 		require.NoError(t, errAdd)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
@@ -37,43 +38,53 @@ func TestRAM(t *testing.T) {
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		require.NoError(t, err, "Cannot set ENV")
 
-		storeBatchMode := Store{}
-
-		link, err := storeBatchMode.Add(ctx, mock.AddLink)
+		storeBatchMode, err := New(ctx)
 		require.NoError(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 
-		link, err = storeBatchMode.Add(ctx, mock.AddLink)
-		require.NoError(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		for i := 0; i < 4; i++ {
+			link, errBatchMode := storeBatchMode.Add(ctx, mock.AddLink)
+			require.NoError(t, errBatchMode)
+			assert.Equal(t, link.Hash, mock.GetLink.Hash)
+			assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		}
 
-		link, err = storeBatchMode.Add(ctx, mock.AddLink)
-		require.NoError(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
-
-		link, err = storeBatchMode.Add(ctx, mock.AddLink)
-		require.NoError(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		t.Cleanup(func() {
+			errClose := storeBatchMode.Close()
+			require.NoError(t, errClose)
+		})
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		link, err := store.Get(ctx, mock.GetLink.Hash)
+		store, err := New(ctx)
+		require.NoError(t, err)
+
+		link, err := store.Add(ctx, mock.GetLink)
+		require.NoError(t, err)
+
+		link, err = store.Get(ctx, mock.GetLink.Hash)
 		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
+		store, err := New(ctx)
+		require.NoError(t, err)
+
+		_, err = store.Add(ctx, mock.GetLink)
+		require.NoError(t, err)
+
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
+		store, err := New(ctx)
+		require.NoError(t, err)
+
+		link, err := store.Add(ctx, mock.GetLink)
+
+		require.NoError(t, store.Delete(ctx, link.Hash))
 	})
 }

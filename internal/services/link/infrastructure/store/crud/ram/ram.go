@@ -8,7 +8,6 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
@@ -27,7 +26,7 @@ type Store struct {
 }
 
 // New store
-func New(ctx context.Context, db *db.Store) (*Store, error) {
+func New(ctx context.Context) (*Store, error) {
 	s := &Store{}
 
 	// Set configuration
@@ -135,6 +134,12 @@ func (ram *Store) Delete(_ context.Context, id string) error {
 	return nil
 }
 
+// Close ...
+func (ram *Store) Close() error {
+	ram.config.job.Stop()
+	return nil
+}
+
 func (ram *Store) singleWrite(_ context.Context, source *v1.Link) (*v1.Link, error) {
 	err := v1.NewURL(source) // Create a new link
 	if err != nil {
@@ -149,7 +154,7 @@ func (ram *Store) singleWrite(_ context.Context, source *v1.Link) (*v1.Link, err
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
+	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // Mode writes to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
 
 	s.config = Config{
 		mode: viper.GetInt("STORE_MODE_WRITE"),
