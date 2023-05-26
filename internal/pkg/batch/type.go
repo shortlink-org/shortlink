@@ -1,14 +1,12 @@
 package batch
 
 import (
-	"context"
 	"sync"
 	"time"
 )
 
-// Config
-type Config struct {
-	ctx      context.Context
+// Batch is a structure for batch processing
+type Batch struct {
 	callback func([]*Item) interface{}
 	items    []*Item
 	interval time.Duration

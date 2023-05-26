@@ -26,7 +26,6 @@ func TestNew(t *testing.T) {
 		eg, ctx := errgroup.WithContext(ctx)
 
 		aggrCB := func(args []*Item) interface{} {
-			// Get string
 			for _, item := range args {
 				time.Sleep(time.Microsecond * 100) // Emulate long work
 
@@ -36,7 +35,7 @@ func TestNew(t *testing.T) {
 			return nil
 		}
 
-		b, err := New(context.Background(), aggrCB)
+		b, err := New(ctx, aggrCB)
 		require.NoError(t, err)
 
 		requests := []string{"A", "B", "C", "D"}
