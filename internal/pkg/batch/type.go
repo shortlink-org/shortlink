@@ -1,6 +1,7 @@
 package batch
 
 import (
+	"context"
 	"sync"
 	"time"
 )
@@ -11,6 +12,10 @@ type Batch struct {
 	items    []*Item
 	interval time.Duration
 	mu       sync.Mutex
+
+	ctx        context.Context
+	done       chan struct{}
+	cancelFunc context.CancelFunc
 }
 
 // Item represents an item that can be pushed to the batch.

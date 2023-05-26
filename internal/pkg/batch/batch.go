@@ -10,9 +10,15 @@ import (
 
 // New creates a new batch Config with a specified callback function.
 func New(ctx context.Context, cb func([]*Item) interface{}, opts ...Option) (*Batch, error) {
+	ctx, cancelFunc := context.WithCancel(ctx)
+
 	b := &Batch{
 		callback: cb,
-		interval: time.Millisecond * 100, // nolint:gomnd
+		interval: time.Millisecond * 100, // default interval
+
+		ctx:        ctx,
+		done:       make(chan struct{}),
+		cancelFunc: cancelFunc,
 	}
 
 	// Apply options
@@ -39,23 +45,47 @@ func (b *Batch) Push(item interface{}) chan interface{} {
 // run starts a loop flushing at the specified interval.
 func (b *Batch) run(ctx context.Context) {
 	ticker := time.NewTicker(b.interval)
+	defer ticker.Stop() // Stop the ticker
 
 	for {
 		select {
 		case <-ctx.Done():
-			b.mu.Lock()
-			for _, item := range b.items {
-				item.CallbackChannel <- struct{}{}
-			}
-			b.mu.Unlock()
+			b.clearItems()
+			close(b.done)
+			return
 
 		case <-ticker.C:
-			b.mu.Lock()
-			if len(b.items) > 0 {
-				b.callback(b.items)
-				b.items = []*Item{}
-			}
-			b.mu.Unlock()
+			b.flushItems()
 		}
 	}
+}
+
+func (b *Batch) clearItems() {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+
+	for _, item := range b.items {
+		item.CallbackChannel <- struct{}{}
+	}
+}
+
+func (b *Batch) flushItems() {
+	b.mu.Lock()
+	defer b.mu.Unlock()
+
+	if len(b.items) > 0 {
+		// Check if the context is done before invoking the callback
+		select {
+		case <-b.ctx.Done():
+			return
+		default:
+			b.callback(b.items)
+			b.items = []*Item{}
+		}
+	}
+}
+
+// Stop cancels the Batch's context, effectively stopping the run goroutine.
+func (b *Batch) Stop() {
+	b.cancelFunc()
 }

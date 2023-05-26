@@ -14,10 +14,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(
-		m,
-		goleak.IgnoreTopFunction("github.com/shortlink-org/shortlink/internal/pkg/batch.(*Config).run"),
-	)
+	goleak.VerifyTestMain(m)
 }
 
 func TestNew(t *testing.T) {
@@ -37,6 +34,7 @@ func TestNew(t *testing.T) {
 
 		b, err := New(ctx, aggrCB)
 		require.NoError(t, err)
+		t.Cleanup(b.Stop)
 
 		requests := []string{"A", "B", "C", "D"}
 		for key := range requests {
@@ -75,6 +73,7 @@ func TestNew(t *testing.T) {
 
 		b, err := New(ctx, aggrCB)
 		require.NoError(t, err)
+		t.Cleanup(b.Stop)
 
 		for key := range requests {
 			request := requests[key]
