@@ -8,7 +8,7 @@ import (
 
 // Config ...
 type Config struct {
-	job  *batch.Config
+	job  *batch.Batch
 	URI  string
 	mode int
 }

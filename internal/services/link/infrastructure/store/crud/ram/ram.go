@@ -16,7 +16,7 @@ import (
 
 // Config ...
 type Config struct {
-	job  *batch.Config
+	job  *batch.Batch
 	mode int
 }
 
