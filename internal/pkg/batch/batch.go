@@ -8,65 +8,50 @@ import (
 	"time"
 )
 
-// TODO: add config for as timeout, retries, etc...
-// New - create a new batch
-func New(_ context.Context, cb func([]*Item) interface{}) (*Config, error) {
-	cnf := Config{
-		cb:       cb,
-		Interval: time.Millisecond * 100, // nolint:gomnd
+// New creates a new batch Config with a specified callback function.
+func New(ctx context.Context, cb func([]*Item) interface{}) (*Config, error) {
+	c := &Config{
+		ctx:      ctx,
+		callback: cb,
+		interval: time.Millisecond * 100, // nolint:gomnd
 	}
 
-	return &cnf, nil
+	go c.run()
+	return c, nil
 }
 
-func (c *Config) Push(item interface{}) (chan interface{}, error) {
-	// create new item
-	el := NewItem(item)
-
+// Push adds an item to the batch.
+func (c *Config) Push(item interface{}) chan interface{} {
 	c.mu.Lock()
-	c.items = append(c.items, el)
-	c.mu.Unlock()
-
-	return el.CB, nil
+	defer c.mu.Unlock()
+	newItem := &Item{
+		CallbackChannel: make(chan interface{}),
+		Item:            item,
+	}
+	c.items = append(c.items, newItem)
+	return newItem.CallbackChannel
 }
 
-// run - starts a loop flushing at the Interval
-func (c *Config) Run(ctx context.Context) {
-	ticker := time.NewTicker(c.Interval)
+// run starts a loop flushing at the specified interval.
+func (c *Config) run() {
+	ticker := time.NewTicker(c.interval)
 
 	for {
 		select {
-		case <-ctx.Done():
+		case <-c.ctx.Done():
 			c.mu.Lock()
-
-			// skip if items empty
-			for key := range c.items {
-				c.items[key].CB <- "ctx close"
+			for _, item := range c.items {
+				item.CallbackChannel <- struct{}{}
 			}
-
 			c.mu.Unlock()
+
 		case <-ticker.C:
 			c.mu.Lock()
-
-			// skip if items empty
 			if len(c.items) > 0 {
-				// apply func for all items
-				c.cb(c.items)
-
-				// clear items
+				c.callback(c.items)
 				c.items = []*Item{}
 			}
-
 			c.mu.Unlock()
 		}
-	}
-}
-
-func NewItem(item interface{}) *Item {
-	cb := make(chan interface{})
-
-	return &Item{
-		CB:   cb,
-		Item: item,
 	}
 }

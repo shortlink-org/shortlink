@@ -37,7 +37,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 		return nil, errors.New("Error get connection to PostgreSQL")
 	}
 
-	// Create batch job
+	// Create a batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
 		cb := func(args []*batch.Item) interface{} { // nolint:errcheck
 			sources := make([]*v1.Link, len(args))
@@ -50,14 +50,14 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CB <- errors.New("Error write to PostgreSQL")
+					args[index].CallbackChannel <- errors.New("Error write to PostgreSQL")
 				}
 
 				return errBatchWrite
 			}
 
 			for key, item := range dataList.Link {
-				args[key].CB <- item
+				args[key].CallbackChannel <- item
 			}
 
 			return nil
@@ -68,8 +68,6 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 		if err != nil {
 			return nil, err
 		}
-
-		go s.config.job.Run(ctx)
 	}
 
 	return s, nil
@@ -159,10 +157,7 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 func (p *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	switch p.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb, err := p.config.job.Push(source)
-		if err != nil {
-			return nil, err
-		}
+		cb := p.config.job.Push(source)
 
 		res := <-cb
 		switch data := res.(type) {

@@ -1,23 +1,22 @@
 package batch
 
 import (
+	"context"
 	"sync"
 	"time"
 )
 
 // Config
 type Config struct {
-	cb       func([]*Item) interface{}
+	ctx      context.Context
+	callback func([]*Item) interface{}
 	items    []*Item
-	Size     int
-	Interval time.Duration
-	Worker   int
-	Retries  int
+	interval time.Duration
 	mu       sync.Mutex
 }
 
-// Item
+// Item represents an item that can be pushed to the batch.
 type Item struct {
-	CB   chan interface{}
-	Item interface{}
+	CallbackChannel chan interface{}
+	Item            interface{}
 }

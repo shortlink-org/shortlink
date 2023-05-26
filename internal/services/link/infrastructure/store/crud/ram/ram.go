@@ -33,7 +33,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 	// Set configuration
 	s.setConfig()
 
-	// Create batch job
+	// Create a batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
 		cb := func(args []*batch.Item) interface{} {
 			if len(args) == 0 {
@@ -47,7 +47,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 					return errSingleWrite
 				}
 
-				args[key].CB <- data
+				args[key].CallbackChannel <- data
 			}
 
 			return nil
@@ -58,8 +58,6 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 		if err != nil {
 			return nil, err
 		}
-
-		go s.config.job.Run(ctx)
 	}
 
 	return s, nil
@@ -107,10 +105,7 @@ func (ram *Store) List(_ context.Context, filter *query.Filter) (*v1.Links, erro
 func (ram *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	switch ram.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb, err := ram.config.job.Push(source)
-		if err != nil {
-			return nil, err
-		}
+		cb := ram.config.job.Push(source)
 
 		res := <-cb
 		switch data := res.(type) {

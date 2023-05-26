@@ -40,14 +40,14 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CB <- query2.StoreError{Value: "Error write to MongoDB"}
+					args[index].CallbackChannel <- query2.StoreError{Value: "Error write to MongoDB"}
 				}
 
 				return errBatchWrite
 			}
 
 			for key, item := range dataList.Link {
-				args[key].CB <- item
+				args[key].CallbackChannel <- item
 			}
 
 			return nil
@@ -58,8 +58,6 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 		if err != nil {
 			return nil, err
 		}
-
-		go s.config.job.Run(ctx)
 	}
 
 	return s, nil
@@ -69,15 +67,12 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	switch s.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb, err := s.config.job.Push(source)
-		if err != nil {
-			return nil, err
-		}
+		cb := s.config.job.Push(source)
 
 		res := <-cb
 		switch data := res.(type) {
 		case error:
-			return nil, err
+			return nil, data
 		case query2.StoreError:
 			return nil, errors.New(data.Value)
 		case *v1.Link:

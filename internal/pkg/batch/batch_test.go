@@ -4,13 +4,13 @@ package batch
 
 import (
 	"context"
-	"sync"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
+	"golang.org/x/sync/errgroup"
 )
 
 func TestMain(m *testing.M) {
@@ -22,16 +22,15 @@ func TestMain(m *testing.M) {
 
 func TestNew(t *testing.T) {
 	t.Run("Create new a batch", func(t *testing.T) {
-		// Add events
-		wg := sync.WaitGroup{}
-
 		ctx := context.Background()
+		eg, ctx := errgroup.WithContext(ctx)
+
 		aggrCB := func(args []*Item) interface{} {
 			// Get string
 			for _, item := range args {
 				time.Sleep(time.Microsecond * 100) // Emulate long work
 
-				item.CB <- item.Item.(string)
+				item.CallbackChannel <- item.Item.(string)
 			}
 
 			return nil
@@ -40,57 +39,55 @@ func TestNew(t *testing.T) {
 		b, err := New(context.Background(), aggrCB)
 		require.NoError(t, err)
 
-		go b.Run(ctx)
+		requests := []string{"A", "B", "C", "D"}
+		for key := range requests {
+			request := requests[key]
+			res := b.Push(request)
 
-		request := []string{"A", "B", "C", "D"}
-		for key := range request {
-			wg.Add(1)
-			res, err := b.Push(request[key])
-			require.NoError(t, err)
-			go func(key int) {
-				assert.Equal(t, <-res, request[key])
-				wg.Done()
-			}(key)
+			eg.Go(func() error {
+				assert.Equal(t, <-res, request)
+				return nil
+			})
 		}
 
-		wg.Wait()
+		err = eg.Wait()
+		require.NoError(t, err)
 	})
 
 	t.Run("Check close context", func(t *testing.T) {
-		// Add events
-		wg := sync.WaitGroup{}
+		ctx := context.Background()
+		ctx, cancelFunc := context.WithTimeout(ctx, time.Millisecond*10)
+		defer cancelFunc()
+
+		eg, ctx := errgroup.WithContext(ctx)
 
 		aggrCB := func(args []*Item) interface{} {
 			// Get string
 			for _, item := range args {
-				time.Sleep(time.Microsecond * 100) // Emulate long work
+				time.Sleep(time.Second * 10) // Emulate long work
 
-				item.CB <- item.Item.(string)
+				item.CallbackChannel <- item.Item.(string)
 			}
 
 			return nil
 		}
 
-		ctx := context.Background()
-		ctx, cancel := context.WithCancel(ctx)
-		cancel()
-
-		request := []string{"A", "B", "C", "D"}
+		requests := []string{"A", "B", "C", "D"}
 
 		b, err := New(ctx, aggrCB)
 		require.NoError(t, err)
 
-		go b.Run(ctx)
+		for key := range requests {
+			request := requests[key]
+			res := b.Push(request)
 
-		for key := range request {
-			wg.Add(1)
-			res, err := b.Push(request[key])
-			require.NoError(t, err)
-			go func() {
-				assert.Equal(t, <-res, "ctx close")
-				wg.Done()
-			}()
+			eg.Go(func() error {
+				assert.Equal(t, struct{}{}, <-res)
+				return nil
+			})
 		}
-		wg.Wait()
+
+		err = eg.Wait()
+		require.NoError(t, err)
 	})
 }
