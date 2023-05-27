@@ -11,7 +11,7 @@ type Options struct {
 
 type Option func(*Options)
 
-func Logger(logger logger.Logger) Option {
+func SetLogger(logger logger.Logger) Option {
 	return func(args *Options) {
 		args.logger = logger
 	}

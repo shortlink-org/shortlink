@@ -86,7 +86,7 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 
 ### Options
 
-- **Logger** - add logger for saga
+- **SetLogger** - add logger for saga
 - **SetLimiter** - set limiter for goroutines (default unlimited)
 
 ### OpenTracing

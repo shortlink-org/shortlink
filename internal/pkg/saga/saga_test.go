@@ -67,7 +67,7 @@ func TestNewSaga(t *testing.T) {
 		}
 
 		// create a new saga for work with number
-		sagaNumber, errs := New(SAGA_NAME, Logger(log)).
+		sagaNumber, errs := New(SAGA_NAME, SetLogger(log)).
 			WithContext(ctx).
 			Build()
 		// check error
@@ -174,7 +174,7 @@ func TestNewSaga(t *testing.T) {
 		}
 
 		// create a new saga for work with number
-		sagaNumber, errs := New(SAGA_NAME, Logger(log)).
+		sagaNumber, errs := New(SAGA_NAME, SetLogger(log)).
 			WithContext(ctx).
 			Build()
 		// check error
