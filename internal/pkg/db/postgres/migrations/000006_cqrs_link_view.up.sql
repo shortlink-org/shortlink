@@ -5,17 +5,18 @@ CREATE SCHEMA IF NOT EXISTS shortlink;
 COMMENT ON SCHEMA shortlink IS 'Shortlink schema';
 
 -- CQRS for links ======================================================================================================
-create table shortlink.link_view
+CREATE TABLE shortlink.link_view
 (
-	id UUID default uuid_generate_v4() not null,
-	url varchar(255) not null,
-	hash varchar(20) not null,
-	describe text,
-	created_at TIMESTAMP default current_timestamp,
-	updated_at TIMESTAMP default current_timestamp
-) WITH (fillfactor = 100);
+  id UUID DEFAULT uuid_generate_v4() NOT NULL,
+  url VARCHAR(2048) NOT NULL,
+  hash VARCHAR(20) NOT NULL,
+  describe TEXT,
+  created_at TIMESTAMP DEFAULT current_timestamp,
+  updated_at TIMESTAMP DEFAULT current_timestamp
+) WITH (FILLFACTOR = 80);
 
-comment on table shortlink.link_view is 'CQRS for links';
+COMMENT ON TABLE shortlink.link_view IS 'CQRS for links';
 
-create index link_view_hash_index
-	on shortlink.link_view (hash);
+-- Creating an index concurrently to avoid locking the table
+CREATE INDEX CONCURRENTLY link_view_hash_index
+  ON shortlink.link_view (hash);
