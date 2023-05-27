@@ -30,16 +30,16 @@ func (p *Store) Init(ctx context.Context) error {
 	}
 
 	// Connect to Postgres
-	p.client, err = pgxpool.NewWithConfig(ctx, p.config.poolConfig)
-	if err != nil {
-		return err
-	}
-
-	// Check connect
-	err = p.client.Ping(ctx)
-	if err != nil {
-		return err
-	}
+	// p.client, err = pgxpool.NewWithConfig(ctx, p.config.poolConfig)
+	// if err != nil {
+	// 	return err
+	// }
+	//
+	// // Check connect
+	// err = p.client.Ping(ctx)
+	// if err != nil {
+	// 	return err
+	// }
 
 	return nil
 }
