@@ -30,13 +30,16 @@ func TestMerge(t *testing.T) {
 	// Merge channels
 	chMerged := Merge(ch1, ch2)
 
+	ticker := time.NewTicker(1 * time.Second)
+	defer ticker.Stop()
+
 	// We're expecting 10 elements
 	for i := 0; i < 10; i++ {
 		select {
 		case result, ok := <-chMerged:
 			require.True(t, ok, "channel was closed prematurely")
 			t.Logf("Received: %v", result)
-		case <-time.After(1 * time.Second):
+		case <-ticker.C:
 			require.Fail(t, "test timed out")
 		}
 	}

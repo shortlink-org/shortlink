@@ -76,6 +76,9 @@ func TestPublish(t *testing.T) {
 	// Publish
 	go Publish(ctx, METHOD_ADD, "hello world", &Callback{responseCh, "RESPONSE_STORE_ADD"})
 
+	ticker := time.NewTicker(1 * time.Millisecond)
+	defer ticker.Stop()
+
 	select {
 	case c := <-responseCh:
 		{
@@ -84,7 +87,7 @@ func TestPublish(t *testing.T) {
 				assert.Equal(t, "hello world", r)
 			}
 		}
-	case <-time.After(1 * time.Millisecond):
+	case <-ticker.C:
 		t.Error("timeout")
 		return
 	}
