@@ -1,6 +1,7 @@
 package channel
 
 import (
+	"context"
 	"testing"
 	"time"
 
@@ -30,8 +31,9 @@ func TestMerge(t *testing.T) {
 	// Merge channels
 	chMerged := Merge(ch1, ch2)
 
-	ticker := time.NewTicker(1 * time.Second)
-	defer ticker.Stop()
+	ctx := context.Background()
+	ctx, cancel := context.WithTimeout(ctx, 1*time.Second)
+	defer cancel()
 
 	// We're expecting 10 elements
 	for i := 0; i < 10; i++ {
@@ -39,7 +41,7 @@ func TestMerge(t *testing.T) {
 		case result, ok := <-chMerged:
 			require.True(t, ok, "channel was closed prematurely")
 			t.Logf("Received: %v", result)
-		case <-ticker.C:
+		case <-ctx.Done():
 			require.Fail(t, "test timed out")
 		}
 	}
