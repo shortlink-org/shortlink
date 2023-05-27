@@ -20,7 +20,7 @@ func (p *Store) migrate() error {
 		return err
 	}
 
-	m, err := migrate.NewWithSourceInstance("iofs", driver, p.config.configConnect.ConnString())
+	m, err := migrate.NewWithSourceInstance("iofs", driver, p.config.config.ConnString())
 	if err != nil {
 		return err
 	}
