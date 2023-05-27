@@ -1,0 +1,47 @@
+package channel
+
+import (
+	"testing"
+	"time"
+
+	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
+)
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
+
+func TestMerge(t *testing.T) {
+	// Create two channels
+	ch1 := make(chan interface{}, 5)
+	ch2 := make(chan interface{}, 5)
+
+	// Populate channels with some data
+	for i := 0; i < 5; i++ {
+		ch1 <- i
+		ch2 <- i + 5
+	}
+
+	// Close channels after data has been sent
+	close(ch1)
+	close(ch2)
+
+	// Merge channels
+	chMerged := Merge(ch1, ch2)
+
+	// We're expecting 10 elements
+	for i := 0; i < 10; i++ {
+		select {
+		case result, ok := <-chMerged:
+			require.True(t, ok, "channel was closed prematurely")
+			t.Logf("Received: %v", result)
+		case <-time.After(1 * time.Second):
+			require.Fail(t, "test timed out")
+		}
+	}
+
+	// Test if a merged channel is closed after all data is received
+	_, ok := <-chMerged
+	require.False(t, ok, "channel was not closed as expected")
+}
