@@ -62,7 +62,7 @@ made along with its context and consequences.
 | Notification Boundary | notify           | Send notify to smtp, slack, telegram                                              | Go                 | [docs](./internal/services/notify/README.md)                                | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-notify&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-notify)         |                                                                  
 | Chat Boundary         | chat             | Chat service                                                                      | Elixir (Phoenix)   | [docs](./internal/services/chat/README.md)                                  | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-chat&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-chat)             |                                                                   
 | Integration Boundary  | chrome-extension | Chrome extension                                                                  | JavaScript         | [docs](./internal/extension/chrome-extension/README.md)                     |                                                                                                                                                                     |                                                                         
-| Integration Boundary  | ai-plugin        | ChatGTP plugin                                                                    | JSON               | [docs](./ui/nx-monorepo/packages/landing/public/.well-known/ai-plugin.json) |                                                                                                                                                                     |
+| Integration Boundary  | ai-plugin        | ChatGPT plugin                                                                    | JSON               | [docs](./ui/nx-monorepo/packages/landing/public/.well-known/ai-plugin.json) |                                                                                                                                                                     |
 | ShortDB Boundary      | shortdb          | Custom database                                                                   | Go                 | [docs](./internal/services/shortdb/README.md)                               | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortldb&revision=true)](https://shortlink.best/argo/cd/applications/shortldb)                         |                                                                          
 | ShortDB Boundary      | shortdb-operator | Kubernetes Operator for [shortdb](./internal/services/shortdb/README.md) database | Go                 | [docs](./internal/services/shortdb-operator/README.md)                      | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortldb-operator&revision=true)](https://shortlink.best/argo/cd/applications/shortldb-operator)       |                                                                 
 | Platform Boundary     | csi              | CSI example                                                                       | Go                 | [docs](./internal/services/csi/README.md)                                   | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-csi&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-csi)               |                                                                     
@@ -108,10 +108,10 @@ made along with its context and consequences.
 
  - [Getting Started](./CONTRIBUTING.md#getting-started)
 
-### ChatGTP || OpenAI
+### ChatGPT || OpenAI
 
-This service support [ChatGTP](https://chat.openai.com/chat) as plugin.  
-You can use it for ChatGTP by link `https://shortlink.best/.well-known/ai-plugin.json`
+This service support [ChatGPT](https://chat.openai.com/chat) as plugin.  
+You can use it for ChatGPT by link `https://shortlink.best/.well-known/ai-plugin.json`
 
 You can read official docs [here](https://platform.openai.com/docs/plugins/getting-started/running-a-plugin) for more information.
 
