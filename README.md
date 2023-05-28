@@ -108,7 +108,7 @@ made along with its context and consequences.
 
  - [Getting Started](./CONTRIBUTING.md#getting-started)
 
-### ChatGTP || OpenIA
+### ChatGTP || OpenAI
 
 This service support [ChatGTP](https://chat.openai.com/chat) as plugin.  
 You can use it for ChatGTP by link `https://shortlink.best/.well-known/ai-plugin.json`
