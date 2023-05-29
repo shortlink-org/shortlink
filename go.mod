@@ -49,7 +49,7 @@ require (
 	github.com/pyroscope-io/godeltaprof v0.1.1
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.1
-	github.com/redis/go-redis/v9 v9.0.4
+	github.com/redis/go-redis/v9 v9.0.5
 	github.com/redis/rueidis v1.0.6-0.20230526140351-b85e52833016
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
