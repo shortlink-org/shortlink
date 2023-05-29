@@ -1,17 +1,8 @@
+'use client'
+
 import { NextPage } from 'next'
-import Script from 'next/script'
-import Head from 'next/head'
 import React, { useState } from 'react'
-import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from '@marsidev/react-turnstile'
-import { ArticleJsonLd, BreadcrumbJsonLd, NextSeo } from 'next-seo'
-import {
-  useTheme,
-  AppBar,
-  Grid,
-  Tabs,
-  Tab,
-  Box,
-} from '@mui/material'
+import { useTheme, AppBar, Grid, Tabs, Tab, Box } from '@mui/material'
 // @ts-ignore
 import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import TabPanel from '../components/TabPanel'
@@ -32,97 +23,8 @@ const Home: NextPage = () => {
     setValue(newValue)
   }
 
-  const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
-  const CLOUDFLARE_SITE_KEY = process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY
-
   return (
-    <div>
-      <Script
-        id={DEFAULT_SCRIPT_ID}
-        src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
-        strategy="afterInteractive"
-      />
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-        strategy="afterInteractive"
-      />
-      <Script id="google-analytics" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', '${GA_ID}');
-        `}
-      </Script>
-
-      <NextSeo
-        title="Routing by project"
-        description="Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you."
-        openGraph={{
-          title: 'Routing by project',
-          description:
-            "Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you.",
-          type: 'article',
-          article: {
-            publishedTime: '2021-08-01T05:00:00.000Z',
-            modifiedTime: '2021-08-01T05:00:00.000Z',
-            section: 'FAQ',
-            authors: ['https://batazor.ru'],
-            tags: ['shortlink'],
-          },
-        }}
-      />
-      <ArticleJsonLd
-        url="https://shortlink.best/"
-        title="Main"
-        images={['https://shortlink.best/images/logo.png']}
-        datePublished="2021-08-01T05:00:00.000Z"
-        dateModified="2021-08-01T05:00:00.000Z"
-        authorName={[
-          {
-            name: 'Login Viktor',
-            url: 'https://batazor.ru',
-          },
-        ]}
-        publisherName="Login Viktor"
-        publisherLogo="https://shortlink.best/images/logo.png"
-        description="Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you."
-      />
-      <BreadcrumbJsonLd
-        itemListElements={[
-          {
-            position: 1,
-            name: 'Next UI',
-            item: 'https://shortlink.best/next',
-          },
-          {
-            position: 2,
-            name: 'Prometheus',
-            item: 'https://shortlink.best/prometheus/',
-          },
-          {
-            position: 3,
-            name: 'Grafana',
-            item: 'https://grafana.shortlink.best',
-          },
-          {
-            position: 4,
-            name: 'Argo CD',
-            item: 'https://shortlink.best/argo/cd/',
-          },
-          {
-            position: 5,
-            name: 'GitHab',
-            item: 'https://github.com/shortlink-org/shortlink',
-          },
-        ]}
-      />
-
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+    <React.Fragment>
       <ToggleDarkMode id="ToggleDarkMode" />
 
       <Grid
@@ -212,10 +114,7 @@ const Home: NextPage = () => {
           </TabPanel>
         </Box>
       </Grid>
-
-      {/* @ts-ignore */}
-      <Turnstile siteKey={CLOUDFLARE_SITE_KEY} injectScript={false} className="fixed left-4 bottom-4" />
-    </div>
+    </React.Fragment>
   )
 }
 
