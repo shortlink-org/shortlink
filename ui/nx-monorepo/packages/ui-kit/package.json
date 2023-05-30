@@ -19,6 +19,9 @@
   "publishConfig": {
     "@shortlink-org:shortlink": "https://gitlab.com/api/v4/projects/15775100/packages/npm/"
   },
+  "repository": {
+    "url": "https://github.com/shortlink-org/shortlink"
+  },
   "keywords": [
     "darkmode",
     "switch"
@@ -81,7 +84,6 @@
     "webpack": "5.84.1"
   },
   "readme": "./README.md",
-  "_id": "@shortlink-org/ui-kit@1.1.3",
   "dependencies": {
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tailwindcss/forms": "0.5.3",
