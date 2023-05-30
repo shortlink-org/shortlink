@@ -5,7 +5,8 @@ The UI Kit is a collection of React components that are used in the Shortlink ap
 ### Installation
 
 ```bash
-npm install @shortlink/ui-kit
+npm install @shortlink/ui-kit # for GitLab registry
+npm i shortlink-ui-kit        # for NPM registry
 ```
 
 ### Usage
