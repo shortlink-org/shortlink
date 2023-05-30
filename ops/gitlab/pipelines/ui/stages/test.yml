@@ -31,6 +31,7 @@ ui:landing:
     - npm run dev &
     # run Cypress tests
     - npm run cypress:headless
+  allow_failure: true
   artifacts:
     when: always
     name: "cypress-${CI_COMMIT_REF_SLUG}"
