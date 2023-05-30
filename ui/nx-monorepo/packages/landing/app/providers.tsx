@@ -13,7 +13,7 @@ import {
   darkTheme,
   lightTheme, // @ts-ignore
 } from '@shortlink-org/ui-kit'
-import { Turnstile } from "@marsidev/react-turnstile"
+import { Turnstile } from '@marsidev/react-turnstile'
 
 const cache = createCache({ key: 'next' })
 
@@ -34,8 +34,12 @@ export function Providers({ children }) {
             {getInitColorSchemeScript()}
             {children}
 
-            {/* @ts-ignore */}
-            <Turnstile siteKey={CLOUDFLARE_SITE_KEY} injectScript={false} className="captcha" />
+            <Turnstile
+              // @ts-ignore
+              siteKey={CLOUDFLARE_SITE_KEY}
+              injectScript={false}
+              className="captcha"
+            />
           </ColorModeContext.Provider>
         </ThemeProvider>
       </CacheProvider>

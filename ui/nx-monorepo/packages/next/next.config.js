@@ -1,7 +1,8 @@
 /* eslint-disable */
 const withExportImages = require('next-export-optimize-images')
 const withPWA = require('next-pwa')({
-  dest: 'public'
+  dest: 'public',
+  maximumFileSizeToCacheInBytes: 5000000,
 })
 
 // ENVIRONMENT VARIABLE ================================================================================================

@@ -1,6 +1,6 @@
 import { check } from 'k6'
 import http from 'k6/http'
-import tracing from "k6/experimental/tracing"
+import tracing from 'k6/experimental/tracing'
 
 export const options = {
   ext: {
@@ -15,7 +15,7 @@ export const options = {
 
 tracing.instrumentHTTP({
   // possible values: "w3c", "jaeger"
-  propagator: "w3c",
+  propagator: 'w3c',
 })
 
 export default () => {

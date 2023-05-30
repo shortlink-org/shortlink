@@ -4,7 +4,12 @@ import { Organization, WithContext } from 'schema-dts'
 import Script from 'next/script'
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google'
-import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL, Turnstile } from "@marsidev/react-turnstile"
+import {
+  DEFAULT_ONLOAD_NAME,
+  DEFAULT_SCRIPT_ID,
+  SCRIPT_URL,
+  Turnstile,
+} from '@marsidev/react-turnstile'
 
 import { Providers } from './providers'
 import '../public/assets/styles.css'
@@ -18,11 +23,13 @@ const robotoMono = Roboto_Mono({
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'ShortLink | Routing by project',
-    description: 'Shortlink is the simplest way to manage your projects. It\'s an online platform that lets you create, share, and track links for you.',
+    description:
+      "Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you.",
     openGraph: {
       type: 'website',
       title: 'ShortLink | Routing by project',
-      description: 'Shortlink is the simplest way to manage your projects. It\'s an online platform that lets you create, share, and track links for you.',
+      description:
+        "Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you.",
       locale: 'en_IE',
       url: 'https://shortlink.best/',
       siteName: 'ShortLink',
@@ -66,6 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${robotoMono.className} font-sans`}>
       <Script
+        id="json-ld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
@@ -75,6 +83,7 @@ export default function RootLayout({
         strategy="afterInteractive"
       />
       <Script
+        id="google-analytics-script"
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"
       />
@@ -89,9 +98,7 @@ export default function RootLayout({
       </Script>
 
       <body className="bg-white text-black dark:bg-gray-800 dark:text-white">
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
