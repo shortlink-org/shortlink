@@ -3,6 +3,8 @@ kind: Namespace
 metadata:
   labels:
     control-plane: controller-manager
+    # TODO: tuning https://kubernetes.io/docs/concepts/security/pod-security-admission/
+    pod-security.kubernetes.io/enforce: privileged
   name: system
 ---
 apiVersion: apps/v1

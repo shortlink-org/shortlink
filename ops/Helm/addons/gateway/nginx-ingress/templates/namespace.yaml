@@ -4,3 +4,5 @@ metadata:
   name: {{ .Release.Namespace }}
   labels:
     istio-injection: disabled
+    # TODO: tuning https://kubernetes.io/docs/concepts/security/pod-security-admission/
+    pod-security.kubernetes.io/enforce: privileged
