@@ -7,6 +7,7 @@ include:
   - local: /ops/gitlab/pipelines/ui/stages/accessibility.yml
 
 stages:
+  - publish
   - test
   - build
   - artifacts
