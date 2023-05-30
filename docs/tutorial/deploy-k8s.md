@@ -21,3 +21,7 @@ helm upgrade --install contabo gitlab/gitlab-agent \
 kubectl label --overwrite ns <namespace> \
   pod-security.kubernetes.io/enforce=privileged
 ```
+
+3. [Install Istio with Pod Security Admission](https://preliminary.istio.io/latest/docs/setup/additional-setup/pod-security-admission/)
+
+- Setting istio-cni and Calico [docs](https://github.com/istio/istio/tree/master/manifests/charts/istio-cni)
