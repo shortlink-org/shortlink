@@ -56,7 +56,7 @@ function PushNotificationLayout({ children }) {
 
   return (
     <React.Fragment>
-      <ToastContainer />
+      <ToastContainer key="ToastContainer" />
       {children}
     </React.Fragment>
   )
