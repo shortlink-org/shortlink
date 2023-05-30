@@ -32,7 +32,7 @@ jobs:
         working-directory: ./ui/nx-monorepo/packages/ui-kit
       - run: npm ci
         working-directory: ./ui/nx-monorepo/packages/ui-kit
-      - run: sed -i 's/@shortlink-org\/ui-kit/@batazor\/ui-kit/g' package.json
+      - run: sed -i 's/@shortlink-org\/ui-kit/ui-kit/g' package.json
         working-directory: ./ui/nx-monorepo/packages/ui-kit
       - run: npm publish --provenance --access public --registry https://registry.npmjs.org --scope=@batazor
         working-directory: ./ui/nx-monorepo/packages/ui-kit
