@@ -36,7 +36,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 	resp := &domain.LinkView{}
 
 	// create a new saga for get link by hash
-	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -78,7 +78,7 @@ func (s *Service) List(ctx context.Context, filter *query.Filter) (*domain.Links
 	resp := &domain.LinksView{}
 
 	// create a new saga for get link by hash
-	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {

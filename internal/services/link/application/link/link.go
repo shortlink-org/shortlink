@@ -72,8 +72,8 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 
 	resp := &v1.Link{}
 
-	// create a new saga for get link by hash
-	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+	// create a new saga for a get link by hash
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -114,8 +114,8 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 
 	resp := &v1.Links{}
 
-	// create a new saga for get list of link
-	sagaListLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+	// create a new saga for a get list of a link
+	sagaListLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -153,7 +153,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	)
 
 	// saga for create a new link
-	sagaAddLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+	sagaAddLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -229,8 +229,8 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 		SAGA_STEP_STORE_DELETE = "SAGA_STEP_STORE_DELETE"
 	)
 
-	// create a new saga for delete link by hash
-	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+	// create a new saga for a delete link by hash
+	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
