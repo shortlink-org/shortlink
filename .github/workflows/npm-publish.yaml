@@ -32,7 +32,7 @@ jobs:
         working-directory: ./ui/nx-monorepo/packages/ui-kit
       - run: npm ci
         working-directory: ./ui/nx-monorepo/packages/ui-kit
-      - run: npm publish --provenance --access public --registry https://registry.npmjs.org --userconfig $NPM_CONFIG_USERCONFIG
+      - run: npm publish --provenance --access public --registry https://registry.npmjs.org
         working-directory: ./ui/nx-monorepo/packages/ui-kit
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
