@@ -148,7 +148,7 @@ func (s *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
 
 	responses, err := s.list(ctx)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 	}
 
 	links := &v1.Links{

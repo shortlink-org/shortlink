@@ -65,7 +65,7 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 
 	rows, err := lite.client.QueryContext(ctx, query, args...)
 	if err != nil || rows.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 	}
 	defer rows.Close() // nolint:errcheck
 
@@ -77,7 +77,7 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 		var result v1.Link
 		err = rows.Scan(&result.Url, &result.Hash, &result.Describe)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
 		response.Link = append(response.Link, &result)

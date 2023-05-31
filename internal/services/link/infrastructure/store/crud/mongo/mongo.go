@@ -40,7 +40,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CallbackChannel <- query2.StoreError{Value: "Error write to MongoDB"}
+					args[index].CallbackChannel <- fmt.Errorf("error write to MongoDB")
 				}
 
 				return errBatchWrite
@@ -73,8 +73,6 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 		switch data := res.(type) {
 		case error:
 			return nil, data
-		case query2.StoreError:
-			return nil, errors.New(data.Value)
 		case *v1.Link:
 			return data, nil
 		default:
@@ -126,11 +124,11 @@ func (m *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, err
 	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, filterQuery)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query2.ErrNotFound}
 	}
 
 	if cur.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query2.ErrNotFound}
 	}
 
 	// Here's an array in which you can db the decoded documents
@@ -139,12 +137,12 @@ func (m *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, err
 	}
 
 	// Finding multiple documents returns a cursor
-	// Iterating through the cursor allows us to decode documents one at a time
+	// Iterating through the cursor allows us to decode document one at a time
 	for cur.Next(ctx) {
 		// create a value into which the single document can be decoded
 		var elem v1.Link
 		if errDecode := cur.Decode(&elem); errDecode != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query2.ErrNotFound}
 		}
 
 		links.Link = append(links.Link, &elem)

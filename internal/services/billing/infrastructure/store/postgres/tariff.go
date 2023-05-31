@@ -3,7 +3,6 @@ package postgres
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
@@ -12,6 +11,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
 	v12 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
 type Tariff struct {
@@ -74,7 +74,7 @@ func (t *Tariff) List(ctx context.Context, filter interface{}) (*v1.Tariffs, err
 		var result v1.Tariff
 		err = rows.Scan(&result.Id, &result.Name, &result.Payload)
 		if err != nil {
-			return nil, &v12.NotFoundError{Link: &v12.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v12.NotFoundError{Link: &v12.Link{}, Err: query.ErrNotFound}
 		}
 
 		response.List = append(response.List, &result)

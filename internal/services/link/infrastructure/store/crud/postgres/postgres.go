@@ -127,7 +127,7 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 
 	rows, err := p.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: query.ErrNotFound}
 	}
 
 	response := &domain.Links{
@@ -142,7 +142,7 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 		)
 		err = rows.Scan(&result.Url, &result.Hash, &result.Describe, &created_ad, &updated_at)
 		if err != nil {
-			return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: query.ErrNotFound}
 		}
 		result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
 		result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}

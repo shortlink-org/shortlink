@@ -45,7 +45,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
 	list, err := s.client.Do(ctx, s.client.B().Scan().Cursor(0).Match("*").Count(100).Build()).AsScanEntry()
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 	}
 
 	values, err := s.client.Do(ctx, s.client.B().Mget().Key(list.Elements...).Build()).ToArray()
@@ -59,11 +59,11 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 
 		value, errAsBytes := item.AsBytes()
 		if errAsBytes != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
 		if err = protojson.Unmarshal(value, &response); err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
 		links.Link = append(links.Link, &response)

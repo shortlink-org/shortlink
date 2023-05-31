@@ -1198,8 +1198,6 @@ linters-settings:
       - .Errorf(
       - errors.New(
       - errors.Unwrap(
-      - .Wrap(
-      - .Wrapf(
       - .WithMessage(
       - .WithMessagef(
       - .WithStack(

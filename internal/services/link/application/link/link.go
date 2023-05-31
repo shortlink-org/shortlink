@@ -100,7 +100,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 	}
 
 	if resp == nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: hash}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: hash}, Err: queryStore.ErrNotFound}
 	}
 
 	return resp, nil
