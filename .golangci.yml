@@ -90,20 +90,6 @@ linters-settings:
       - io.Copy(os.Stdout)
 
   errchkjson:
-    # With check-error-free-encoding set to true, errchkjson does warn about errors
-    # from json encoding functions that are safe to be ignored,
-    # because they are not possible to happen.
-    #
-    # if check-error-free-encoding is set to true and errcheck linter is enabled,
-    # it is recommended to add the following exceptions to prevent from false positives:
-    #
-    #     linters-settings:
-    #       errcheck:
-    #         exclude-functions:
-    #           - encoding/json.Marshal
-    #           - encoding/json.MarshalIndent
-    #
-    # Default: false
     check-error-free-encoding: true
 
   exhaustive:
@@ -114,10 +100,6 @@ linters-settings:
     # even if all enum members are not listed.
     # Default: false
     default-signifies-exhaustive: true
-    # Enum members matching the supplied regex do not have to be listed in
-    # switch statements to satisfy exhaustiveness.
-    # Default: ""
-    ignore-enum-members: "Example.+"
     # Consider enums only in package scopes, not in inner scopes.
     # Default: false
     package-scope-only: true
@@ -225,8 +207,6 @@ linters-settings:
       - '42'
 
   gosimple:
-    # Select the Go version to target.
-    # Default: 1.13
     go: "1.20"
     # https://staticcheck.io/docs/options#checks
     checks: [ "all" ]
@@ -287,17 +267,6 @@ linters-settings:
     # Report about shadowed variables.
     # Default: false
     check-shadowing: true
-
-    # Settings per analyzer.
-    settings:
-      # Analyzer name, run `go tool vet help` to see all analyzers.
-      printf:
-        # Run `go tool vet help printf` to see available settings for `printf` analyzer.
-        funcs:
-          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Infof
-          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Warnf
-          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Errorf
-          - (github.com/golangci/golangci-lint/pkg/logutils.Log).Fatalf
 
     # Enable all analyzers.
     # Default: false
@@ -734,17 +703,12 @@ linters-settings:
 
   stylecheck:
     # Select the Go version to target.
-    # Default: 1.13
     go: "1.20"
     # https://staticcheck.io/docs/options#checks
     checks: [ "all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022" ]
     # https://staticcheck.io/docs/options#dot_import_whitelist
-    dot-import-whitelist:
-      - fmt
     # https://staticcheck.io/docs/options#initialisms
     initialisms: [ "ACL", "API", "ASCII", "CPU", "CSS", "DNS", "EOF", "GUID", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "QPS", "RAM", "RPC", "SLA", "SMTP", "SQL", "SSH", "TCP", "TLS", "TTL", "UDP", "UI", "GID", "UID", "UUID", "URI", "URL", "UTF8", "VM", "XML", "XMPP", "XSRF", "XSS" ]
-    # https://staticcheck.io/docs/options#http_status_code_whitelist
-    http-status-code-whitelist: [ "200", "400", "404", "500" ]
 
   tenv:
     # The option `all` will run against whole test files (`_test.go`) regardless of method/function signatures.
@@ -838,6 +802,9 @@ linters-settings:
     ignorePackageGlobs:
       - encoding/*
       - github.com/pkg/*
+
+  wsl:
+    allow-assign-and-anything: true
 
 linters:
   # Enable all available linters.
