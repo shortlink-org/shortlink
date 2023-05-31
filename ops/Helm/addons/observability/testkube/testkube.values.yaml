@@ -79,10 +79,6 @@ testkube:
 
     oauth2:
       enabled: true
-      args:
-        - --provider=github
-        - --email-domain="*"
-        - --scope="user:email"
       image:
         tag: v7.4.0
 
