@@ -84,6 +84,6 @@ testkube:
         - --email-domain="*"
         - --scope="user:email"
       image:
-        tag: v7.2.1
+        tag: v7.4.0
 
   testkube-operator: {}
