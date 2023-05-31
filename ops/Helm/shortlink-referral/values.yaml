@@ -20,11 +20,8 @@ deploy:
   replicaCount: 1
 
   env:
-    MQ_ENABLED: true
-    MQ_TYPE: kafka
-    MQ_KAFKA_URI: shortlink-kafka-bootstrap.kafka:9092
-    MQ_KAFKA_CONSUMER_GROUP: shortlink-logger
-    TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
+    DATABASE_URI: redis://shortlink-redis-master.redis:6379/0
+    OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://grafana-tempo.grafana:4317/api/traces
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/referral
