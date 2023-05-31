@@ -13,7 +13,8 @@ spec:
       cpu: 800m
       memory: 1Gi
   persistence:
-    storage: 0
+    storageClassName: local-path
+    storage: 1Gi
   rabbitmq:
     # Disable RABBITMQ_LOGS=- which is set in
     # https://github.com/docker-library/rabbitmq/blob/ece63d4534cc44abd6b1ec35bbd9aa0d21e87e1d/3.9/ubuntu/Dockerfile#L211
