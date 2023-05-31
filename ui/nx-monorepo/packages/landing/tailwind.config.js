@@ -27,7 +27,6 @@ module.exports = {
       safelist: ['dark'], // specific classes
     },
   },
-  important: '#__next',
   theme: {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],
