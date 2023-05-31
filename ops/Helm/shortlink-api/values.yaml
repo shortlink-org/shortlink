@@ -12,9 +12,6 @@ serviceAccount:
   # If not set and create is true, a name is generated using the `helpers.fullname` template
   # name: shortlink
 
-  # -- Auto-mount the service account token in the pod
-  automountServiceAccountToken: false
-
 ingress:
   enabled: true
   type: nginx
