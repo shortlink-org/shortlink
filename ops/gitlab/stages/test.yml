@@ -6,6 +6,8 @@ include:
   # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST-IaC.latest.gitlab-ci.yml
   - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
   - local: /ops/gitlab/templates/rules.yml
+    rules:
+      - if: $CI_COMMIT_TAG
 
 # GOLANG ===============================================================================================================
 GOLANG:
@@ -75,7 +77,6 @@ secret_detection:
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
 sast:
-  extends: .rules_tag
   variables:
     SAST_EXCLUDED_PATHS: docs
     SAST_EXPERIMENTAL_FEATURES: "true"
