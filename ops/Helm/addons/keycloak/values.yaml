@@ -20,6 +20,12 @@ keycloak:
 
   production: true
 
+  livenessProbe:
+    enabled: false
+
+  readinessProbe:
+    enabled: false
+
   resources:
     limits:
       cpu: 100m
