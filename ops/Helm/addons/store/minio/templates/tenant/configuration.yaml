@@ -3,4 +3,5 @@ kind: Secret
 metadata:
   name: shortlink-env-configuration
 type: Opaque
-data: {}
+data:
+  config.env: {{ .Values.EnvConfig | b64enc }}
