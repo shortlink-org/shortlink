@@ -1,7 +1,7 @@
 # NX MONOREPO ==========================================================================================================
 format-check:
+  extends: .nx
   stage: test
-  extends: .distributed
   script:
     - npx nx format:check --base=$NX_BASE --head=$NX_HEAD
   rules:
@@ -9,8 +9,8 @@ format-check:
       when: never
 
 lint:
+  extends: .nx
   stage: test
-  extends: .distributed
   script:
     - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
   rules:
@@ -20,6 +20,7 @@ lint:
 # LANDINGS =============================================================================================================
 
 ui:landing:
+  extends: .nx
   stage: test
   image: cypress/browsers:node-18.14.1-chrome-111.0.5563.64-1-ff-111.0-edge-111.0.1661.43-1
   before_script:
@@ -39,11 +40,4 @@ ui:landing:
       - ./ui/landing/cypress/videos/**/*.mp4
       - ./ui/landing/cypress/screenshots/**/*.png
     expire_in: 1 day
-  cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - node_modules/
-      - .npm/
   needs: []
-  rules:
-    - if: $CI_COMMIT_TAG

@@ -1,6 +1,6 @@
 build:
+  extends: .nx
   stage: build
-  extends: .distributed
   script:
     - npm run build
     - npm run build-storybook
