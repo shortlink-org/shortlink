@@ -23,11 +23,8 @@ ui:landing:
   extends: .nx
   stage: test
   image: cypress/browsers:node-18.14.1-chrome-111.0.5563.64-1-ff-111.0-edge-111.0.1661.43-1
-  before_script:
-    - cd ./ui/nx-monorepo/packages/landing
   script:
-    # install dependencies
-    - npm ci
+    - cd ./ui/nx-monorepo/packages/landing
     # start the server in the background
     - npm run dev &
     # run Cypress tests
