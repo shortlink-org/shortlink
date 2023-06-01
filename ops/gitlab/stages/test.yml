@@ -9,6 +9,8 @@ include:
   - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
     rules:
       - if: $CI_COMMIT_TAG
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/Secret-Detection.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
   - local: /ops/gitlab/templates/rules.yml
 
 # GOLANG ===============================================================================================================
@@ -59,17 +61,6 @@ license_scanning:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_COMMIT_TAG
-
-# SECRET-DETECTION =====================================================================================================
-secret_detection:
-  stage: test
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/test/secret.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: always
 
 # SAST =================================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/sast/
