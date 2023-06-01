@@ -78,8 +78,6 @@ secret_detection:
 # List of the variables: https://gitlab.com/gitlab-org/security-products/sast#settings
 # How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
 
-sast:
-  variables:
-    SAST_EXCLUDED_PATHS: docs
-    SAST_EXPERIMENTAL_FEATURES: "true"
-  stage: test
+variables:
+  SAST_EXCLUDED_PATHS: docs
+  SAST_EXPERIMENTAL_FEATURES: "true"
