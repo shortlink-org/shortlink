@@ -6,6 +6,7 @@ namespace:create:
     entrypoint: [ "" ]
   script:
     - kubectl --context=shortlink-org/shortlink:${PROVIDER} create namespace argocd
-    - kubectl label --overwrite ns argocd pod-security.kubernetes.io/enforce=privileged
+    - kubectl --context=shortlink-org/shortlink:${PROVIDER} label 
+      --overwrite ns argocd pod-security.kubernetes.io/enforce=privileged
   rules:
     - when: manual
