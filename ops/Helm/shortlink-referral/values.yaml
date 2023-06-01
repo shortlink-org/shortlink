@@ -39,7 +39,7 @@ deploy:
     initialDelaySeconds: 5
     periodSeconds: 5
     successThreshold: 1
-    failureThreshold: 1
+    failureThreshold: 5
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
