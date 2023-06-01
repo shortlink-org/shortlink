@@ -1,6 +1,10 @@
 include:
   # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/License-Scanning.gitlab-ci.yml
   - template: Jobs/License-Scanning.gitlab-ci.yml
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST.latest.gitlab-ci.yml
+  - template: Security/SAST.gitlab-ci.yml
+  # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST-IaC.latest.gitlab-ci.yml
+  - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
   - local: /ops/gitlab/templates/rules.yml
 
 # GOLANG ===============================================================================================================
@@ -64,10 +68,15 @@ secret_detection:
     - when: always
 
 # SAST =================================================================================================================
-SAST:
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/sast/
+#
+# Configure the scanning tool through the environment variables.
+# List of the variables: https://gitlab.com/gitlab-org/security-products/sast#settings
+# How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
+
+sast:
   extends: .rules_tag
+  variables:
+    SAST_EXCLUDED_PATHS: docs
+    SAST_EXPERIMENTAL_FEATURES: "true"
   stage: test
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/test/sast.yml'
-    strategy: depend
