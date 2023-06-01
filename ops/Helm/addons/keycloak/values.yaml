@@ -38,6 +38,17 @@ keycloak:
     ingressClassName: nginx
     hostname: keycloak.shortlink.best
 
+    annotations:
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+    extraTls:
+      - secretName: keycloak-ingress-tls
+        hosts:
+        - keycloak.shortlink.best
+
   rbac:
     create: true
 
