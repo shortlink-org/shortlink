@@ -22,7 +22,7 @@ lint:
 ui:landing:
   extends: .nx
   stage: test
-  image: cypress/browsers:node-18.14.1-chrome-111.0.5563.64-1-ff-111.0-edge-111.0.1661.43-1
+  image: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
   script:
     - cd ./ui/nx-monorepo/packages/landing
     # start the server in the background
