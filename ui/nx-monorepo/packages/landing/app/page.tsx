@@ -71,6 +71,7 @@ const Home: NextPage = () => {
                 { name: 'Kafka', url: '/kafka-ui' },
                 { name: 'Argo CD', url: '/argo/cd' },
                 { name: 'Argo Workflows', url: '/argo/workflows' },
+                { name: 'Keycloak', url: 'https://keycloak.shortlink.best' },
               ]}
             />
           </TabPanel>

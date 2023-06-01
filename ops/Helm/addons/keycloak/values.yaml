@@ -36,6 +36,7 @@ keycloak:
   ingress:
     enabled: true
     ingressClassName: nginx
+    hostname: keycloak.shortlink.best
 
   rbac:
     create: true
