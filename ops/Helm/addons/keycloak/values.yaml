@@ -5,4 +5,45 @@
 
 # Kratos ===============================================================================================================
 keycloak:
-  enabled: false
+  enabled: true
+
+  global:
+    storageClass: local-path
+
+  auth:
+    adminUser: user
+    # adminPassword: get-from-secret
+
+  production: true
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 126Mi
+    requests:
+      cpu: 20m
+      memory: 64Mi
+
+  startupProbe:
+    enabled: true
+
+  terminationGracePeriodSeconds: 60
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+
+  rbac:
+    create: true
+
+  metrics:
+    enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+    prometheusRule:
+      enabled: true
+
+  keycloakConfigCli:
+    enabled: true
