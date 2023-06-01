@@ -1,0 +1,11 @@
+- name: Enforce Container Scanning in cluster connected through my-gitlab-agent for default and kube-system namespaces
+  enabled: true
+  rules:
+    - type: schedule
+      cadence: '0 10 * * *'
+      agents:
+        <agent-name>:
+          namespaces:
+            - 'shortlink'
+  actions:
+    - scan: container_scanning
