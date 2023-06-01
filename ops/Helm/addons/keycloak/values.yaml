@@ -29,6 +29,9 @@ keycloak:
 
   terminationGracePeriodSeconds: 60
 
+  tls:
+    enabled: true
+
   ingress:
     enabled: true
     ingressClassName: nginx
