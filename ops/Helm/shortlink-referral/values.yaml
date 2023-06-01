@@ -20,7 +20,7 @@ deploy:
   replicaCount: 1
 
   env:
-    DATABASE_URI: redis://shortlink-redis-master.redis:6379/0
+    DATABASE_URI: redis://shortlink-redis-master.redis:6379/1
     OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://grafana-tempo.grafana:4317/api/traces
 
   image:
