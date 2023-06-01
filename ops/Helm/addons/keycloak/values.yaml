@@ -28,9 +28,6 @@ keycloak:
       cpu: 20m
       memory: 64Mi
 
-  startupProbe:
-    enabled: true
-
   terminationGracePeriodSeconds: 60
 
   tls:
