@@ -30,9 +30,12 @@ services:
     init: true
     environment:
       DSN: sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
-      TRACING_PROVIDERS_JAEGER_PROPAGATION: b3
+      TRACING_PROVIDERS_JAEGER_PROPAGATION: jaeger
       TRACING_PROVIDERS_JAEGER_SAMPLING_TYPE: const
       TRACING_PROVIDERS_JAEGER_SAMPLING_VALUE: 1
+      ### Jaeger ###
+      TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL: http://jaeger-agent:5778/sampling
+      TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS: jaeger-agent:6831
     ports:
       - "4433:4433"
       - "4434:4434"
