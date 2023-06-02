@@ -447,10 +447,10 @@ redis:
     resources:
       limits:
         cpu: 500m
-        memory: 350Mi
+        memory: 500Mi
       requests:
         cpu: 10m
-        memory: 64Mi
+        memory: 126Mi
 
   auth:
     enabled: false
