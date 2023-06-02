@@ -51,6 +51,7 @@ if (!isProd) {
 let NEXT_CONFIG = {
   basePath: '/next',
   generateEtags: true,
+  output: !isProd ? null : 'export',
   env: {
     // ShortLink API
     NEXT_PUBLIC_SERVICE_NAME: "shortlink-next",
@@ -116,6 +117,9 @@ let NEXT_CONFIG = {
   },
   experimental: {
     forceSwcTransforms: true,
+    swcTraceProfiling: true,
+    instrumentationHook: true,
+    appDir: true,
     turbo: {
       loaders: {
         '.md': [
@@ -130,7 +134,6 @@ let NEXT_CONFIG = {
         '.mdx': '@mdx-js/loader',
       },
     },
-    swcTraceProfiling: true,
   },
 }
 

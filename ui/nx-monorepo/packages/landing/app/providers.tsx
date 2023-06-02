@@ -25,7 +25,7 @@ export function Providers({ children }) {
   const theme = darkMode ? darkTheme : lightTheme
 
   return (
-    <NextThemeProvider>
+    <NextThemeProvider enableSystem attribute="class">
       <CacheProvider value={cache}>
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

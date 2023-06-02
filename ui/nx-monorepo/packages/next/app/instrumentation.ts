@@ -1,5 +1,5 @@
 import { registerOTel } from '@vercel/otel'
 
 export function register() {
-  registerOTel('landing')
+  registerOTel('ui-next')
 }
