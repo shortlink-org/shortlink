@@ -11,6 +11,7 @@ import { Layout } from 'components'
 
 import {
   ColorModeContext,
+  createEmotionCache,
   darkTheme,
   lightTheme, // @ts-ignore
 } from '@shortlink-org/ui-kit'
@@ -20,7 +21,9 @@ import Fab from '@mui/material/Fab'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import ScrollTop from '../components/ScrollTop'
 
-const cache = createCache({ key: 'next' })
+// You can consider sharing the same emotion cache between all the SSR requests to speed up performance.
+// However, be aware that it can have global side effects.
+const cache = createEmotionCache()
 
 // @ts-ignore
 export function Providers({ Component, ...rest }) {

@@ -86,7 +86,7 @@ export default function RootLayout({
         `}
       </Script>
 
-      <body className="bg-white text-black dark:bg-gray-800 dark:text-white">
+      <body className="bg-white dark:bg-gray-800 text-black dark:text-white">
         {/* @ts-ignore */}
         <Providers>{children}</Providers>
       </body>
