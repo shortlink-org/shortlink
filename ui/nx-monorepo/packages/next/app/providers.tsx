@@ -7,6 +7,7 @@ import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { getInitColorSchemeScript } from '@mui/material/styles'
+import { Layout } from 'components'
 
 import {
   ColorModeContext,
@@ -38,7 +39,10 @@ export function Providers({ Component, ...rest }) {
               <CssBaseline />
               <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
                 {getInitColorSchemeScript()}
-                {rest.children}
+
+                <Layout>
+                  {rest.children}
+                </Layout>
 
                 {/* TODO: improve page up */}
                 <ScrollTop>
