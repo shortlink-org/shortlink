@@ -19,6 +19,7 @@ keycloak:
 #    truststorePassword: "changeit"
 
   production: false
+  proxy: edge
 
   livenessProbe:
     enabled: false
