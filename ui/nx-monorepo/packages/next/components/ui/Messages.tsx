@@ -1,16 +1,19 @@
 import { UiText } from '@ory/client'
-import { Alert, AlertContent } from '@ory/themes'
 
 interface MessageProps {
   message: UiText
 }
 
 export const Message = ({ message }: MessageProps) => (
-  <Alert severity={message.type === 'error' ? 'error' : 'info'}>
-    <AlertContent data-testid={`ui/message/${message.id}`}>
+  <div
+    className={`alert ${
+      message.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+    }`}
+  >
+    <p className="text-white" data-testid={`ui/message/${message.id}`}>
       {message.text}
-    </AlertContent>
-  </Alert>
+    </p>
+  </div>
 )
 
 interface MessagesProps {

@@ -3,6 +3,7 @@ import commonjs from "@rollup/plugin-commonjs"
 import ts from "@rollup/plugin-typescript"
 import typescript from 'typescript'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
+import terser from '@rollup/plugin-terser'
 import postcss from 'rollup-plugin-postcss'
 import dts from "rollup-plugin-dts"
 import filesize from 'rollup-plugin-filesize'
@@ -58,6 +59,7 @@ export default [
         include: 'node_modules/**',
       }),
       filesize(),
+      terser(),
     ],
     external: ['react', 'react-is', 'react-dom', 'prop-types', 'styled-components', "@mui/material", "@emotion/react"],
   },

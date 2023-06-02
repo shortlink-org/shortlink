@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const withPWA = require('next-pwa')({
+const withPWA = require("@ducanh2912/next-pwa").default({
   dest: 'public',
 })
 
@@ -41,20 +41,7 @@ const nextConfig = {
     instrumentationHook: true,
     appDir: true,
     // webVitalsAttribution: ["CLS", "FCP", "FID", "INP", "LCP", "TTFB"],
-    turbo: {
-      loaders: {
-        '.md': [
-          {
-            loader: '@mdx-js/loader',
-            options: {
-              format: 'md',
-            },
-          },
-        ],
-        // Option-less format
-        '.mdx': '@mdx-js/loader',
-      },
-    },
+    turbo: {},
   },
 }
 

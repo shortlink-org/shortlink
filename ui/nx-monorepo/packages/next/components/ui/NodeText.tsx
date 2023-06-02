@@ -1,16 +1,10 @@
 import { UiNode, UiNodeTextAttributes, UiText } from '@ory/client'
-import { CodeBox, P } from '@ory/themes'
 import React from 'react'
-import styled from 'styled-components'
 
 interface Props {
   node: UiNode
   attributes: UiNodeTextAttributes
 }
-
-const ScrollableCodeBox = styled(CodeBox)`
-  overflow-x: auto;
-`
 
 const Content = ({ attributes }: Props) => {
   // eslint-disable-line
@@ -42,17 +36,22 @@ const Content = ({ attributes }: Props) => {
   }
 
   return (
-    <div data-testid={`node/text/${attributes.id}/text`}>
-      <ScrollableCodeBox code={attributes.text.text} />
+    <div
+      className="overflow-x-auto"
+      data-testid={`node/text/${attributes.id}/text`}
+    >
+      <pre className="whitespace-pre overflow-x-scroll">
+        {attributes.text.text}
+      </pre>
     </div>
   )
 }
 
 export const NodeText = ({ node, attributes }: Props) => (
   <React.Fragment>
-    <P data-testid={`node/text/${attributes.id}/label`}>
+    <p className="font-normal" data-testid={`node/text/${attributes.id}/label`}>
       {node.meta?.label?.text}
-    </P>
+    </p>
     <Content node={node} attributes={attributes} />
   </React.Fragment>
 )
