@@ -14,9 +14,9 @@ keycloak:
     adminUser: user
     # adminPassword: get-from-secret
 
-  spi:
-    hostnameVerificationPolicy: "ANY"
-    truststorePassword: "changeit"
+  spi: {}
+#    hostnameVerificationPolicy: "ANY"
+#    truststorePassword: "changeit"
 
   production: true
 
