@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useState, useEffect, Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'

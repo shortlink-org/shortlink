@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import Link, { LinkProps } from 'next/link'
 import React, { useState, useEffect, ReactElement, Children } from 'react'
 
