@@ -1,11 +1,9 @@
 import React from 'react'
-import { Metadata, ResolvingMetadata } from 'next'
+import { Metadata } from 'next'
 import { Organization, WithContext } from 'schema-dts'
 import Script from 'next/script'
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google'
-import { wrapper } from 'store/store'
-import { Provider } from 'react-redux'
 
 import { Providers } from './providers'
 import 'public/assets/styles.css'
@@ -19,14 +17,13 @@ const robotoMono = Roboto_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'ShortLink',
+    title: 'Landing Page Service | Shortlink',
     description:
-      "Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you.",
+      'Shortlink is your go-to source for all things URL. We offer a wide range of services, including shortening, tracking, and protecting links. Visit our website today to learn more!',
     openGraph: {
       type: 'website',
-      title: 'ShortLink',
-      description:
-        "Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you.",
+      title: 'Landing Page Service | Shortlink',
+      description: 'Shortlink is your go-to source for all things URL. We offer a wide range of services, including shortening, tracking, and protecting links. Visit our website today to learn more!',
       locale: 'en_IE',
       url: 'https://shortlink.best/',
       siteName: 'ShortLink',
@@ -90,6 +87,7 @@ export default function RootLayout({
       </Script>
 
       <body className="bg-white text-black dark:bg-gray-800 dark:text-white">
+        {/* @ts-ignore */}
         <Providers>{children}</Providers>
       </body>
     </html>
