@@ -9,7 +9,7 @@ require (
 	github.com/go-chi/render v1.0.2
 	github.com/google/wire v0.5.0
 	github.com/riandyrn/otelchi v0.5.1
-	github.com/shortlink-org/shortlink v0.0.0-20230603143920-bb68c719b7f6
+	github.com/shortlink-org/shortlink v0.0.0-20230603230812-7842bc90fc84
 	github.com/spf13/viper v1.16.0
 	go.opentelemetry.io/otel/trace v1.16.0
 	golang.org/x/sync v0.2.0
@@ -109,7 +109,7 @@ require (
 	github.com/redis/go-redis/v9 v9.0.5 // indirect
 	github.com/redis/rueidis v1.0.6 // indirect
 	github.com/rogpeppe/go-internal v1.10.0 // indirect
-	github.com/sirupsen/logrus v1.9.2 // indirect
+	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/cobra v1.7.0 // indirect
