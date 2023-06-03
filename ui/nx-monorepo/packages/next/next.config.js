@@ -51,7 +51,7 @@ if (!isProd) {
 let NEXT_CONFIG = {
   basePath: '/next',
   generateEtags: true,
-  output: !isProd ? null : 'export',
+  output: !isProd ? 'standalone' : 'export',
   env: {
     // ShortLink API
     NEXT_PUBLIC_SERVICE_NAME: "shortlink-next",

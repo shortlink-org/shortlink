@@ -43,7 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
       images: 'https://shortlink.best/images/logo.png',
     },
     viewport: 'initial-scale=1, width=device-width',
-    manifest: '/manifest.json',
+    manifest: '/next/manifest.json',
     icons: ['/favicon.ico'],
   }
 }

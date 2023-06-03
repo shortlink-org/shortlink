@@ -1,14 +1,15 @@
 import { AxiosError } from 'axios'
-import { NextRouter } from 'next/router'
 import { Dispatch, SetStateAction } from 'react'
 import { toast } from 'react-toastify'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 
 // A small function to help us deal with errors coming from fetching a flow.
 export function handleGetFlowError<S>(
-  router: NextRouter,
+  router: AppRouterInstance,
   flowType: 'login' | 'registration' | 'settings' | 'recovery' | 'verification',
   resetFlow: Dispatch<SetStateAction<S | undefined>>,
 ) {
+  console.info('TEST handleGetFlowError', flowType, resetFlow)
   return async (err: AxiosError) => {
     // @ts-ignore
     switch (err.response?.data.error?.id) {

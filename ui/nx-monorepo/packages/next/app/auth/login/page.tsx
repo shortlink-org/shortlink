@@ -4,91 +4,91 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { LoginFlow, UpdateLoginFlowBody } from '@ory/client'
 
 import ory from '../../../pkg/sdk'
 import { handleGetFlowError, handleFlowError } from '../../../pkg/errors'
 import { Flow } from '../../../components/ui/Flow'
+import { AxiosError } from "axios";
 
 const SignIn: NextPage = () => {
   const [flow, setFlow] = useState<LoginFlow>()
 
   // Get ?flow=... from the URL
-  // const router = useRouter()
-  // const {
-  //   return_to: returnTo,
-  //   flow: flowId,
-  //   // Refresh means we want to refresh the session. This is needed, for example, when we want to update the password
-  //   // of a user.
-  //   refresh,
-  //   // AAL = Authorization Assurance Level. This implies that we want to upgrade the AAL, meaning that we want
-  //   // to perform two-factor authentication/verification.
-  //   aal,
-  // } = router.query
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-  // useEffect(() => {
-  //   // If the router is not ready yet, or we already have a flow, do nothing.
-  //   if (!router.isReady || flow) {
-  //     return
-  //   }
-  //
-  //   // If ?flow=.. was in the URL, we fetch it
-  //   if (flowId) {
-  //     ory
-  //       .getLoginFlow(String(flowId))
-  //       .then(({ data }) => {
-  //         setFlow(data)
-  //       })
-  //       .catch(handleGetFlowError(router, 'login', setFlow))
-  //     return
-  //   }
-  //
-  //   // Otherwise we initialize it
-  //   ory
-  //     .createBrowserLoginFlow({
-  //       refresh: Boolean(refresh),
-  //       aal: aal ? String(aal) : undefined,
-  //       returnTo: returnTo ? String(returnTo) : undefined,
-  //     })
-  //     .then(({ data }) => {
-  //       setFlow(data)
-  //     })
-  //     .catch(handleFlowError(router, 'login', setFlow))
-  // }, [flowId, router, router.isReady, aal, refresh, returnTo, flow])
+  const flowId = searchParams.get('flow')
+  const returnTo = searchParams.get('return_to')
+  const refresh = searchParams.get('refresh')
+  const aal = searchParams.get('aal')
 
-  const onSubmit = (values: UpdateLoginFlowBody) => {}
-    // router
-    //   // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
-    //   // his data when she/he reloads the page.
-    //   .push(`/auth/login?flow=${flow?.id}`, undefined, { shallow: true })
-    //   .then(() =>
-    //     ory
-    //       .updateLoginFlow({
-    //         flow: String(flow?.id),
-    //         updateLoginFlowBody: values,
-    //       })
-    //       // We logged in successfully! Let's bring the user home.
-    //       .then(() => {
-    //         if (flow?.return_to) {
-    //           window.location.href = flow?.return_to
-    //           return
-    //         }
-    //         router.push('/')
-    //       })
-    //       .then(() => {})
-    //       .catch(handleFlowError(router, 'login', setFlow))
-    //       .catch((err: AxiosError) => {
-    //         // If the previous handler did not catch the error it's most likely a form validation error
-    //         if (err.response?.status === 400) {
-    //           // Yup, it is!
-    //           setFlow(err.response?.data)
-    //           return
-    //         }
-    //
-    //         return Promise.reject(err)
-    //       }),
-    //   )
+  useEffect(() => {
+    // If the router is not ready yet, or we already have a flow, do nothing.
+    if (flow) {
+      return
+    }
+
+    // If ?flow=.. was in the URL, we fetch it
+    if (flowId) {
+      ory // @ts-ignore
+        .getLoginFlow(flowId)
+        .then(({ data }) => {
+          console.info('TEST', data)
+          setFlow(data)
+        })
+        .catch(handleGetFlowError(router, 'login', setFlow))
+      return
+    }
+
+    // Otherwise, we initialize itc
+    ory
+      .createBrowserLoginFlow({
+        refresh: Boolean(refresh),
+        aal: aal ? String(aal) : undefined,
+        returnTo: returnTo ? String(returnTo) : undefined,
+      })
+      .then(({ data }) => {
+        setFlow(data)
+      })
+      .catch(handleFlowError(router, 'login', setFlow))
+  }, [flowId, router, aal, refresh, returnTo, flow])
+
+  const onSubmit = async (values: UpdateLoginFlowBody) => {
+    await router
+      // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
+      // his data when she/he reloads the page.
+      .push(`/auth/login?flow=${flow?.id}`, { forceOptimisticNavigation: true })
+
+    ory
+      .updateLoginFlow({
+        flow: String(flow?.id),
+        updateLoginFlowBody: values,
+      })
+      // We logged in successfully! Let's bring the user home.
+      .then(() => {
+        if (flow?.return_to) {
+          window.location.href = flow?.return_to
+          return
+        }
+        router.push('/')
+      })
+      .then(() => {})
+      .catch(handleFlowError(router, 'login', setFlow))
+      .catch((err: AxiosError) => {
+        // If the previous handler did not catch the error, it's most likely a form validation error
+        if (err.response?.status === 400) {
+          // Yup, it is!
+          // @ts-ignore
+          setFlow(err.response?.data)
+          return
+        }
+
+        return Promise.reject(err)
+      })
+  }
 
   return (
     // <NextSeo title="Login" description="Login to your account" />
@@ -148,13 +148,13 @@ const SignIn: NextPage = () => {
         <Flow key="login" onSubmit={onSubmit} flow={flow} />
 
         <div className="flex items-center justify-between">
-          <Link href="/auth/forgot" variant="body2" legacyBehavior>
+          <Link href="/auth/forgot" legacyBehavior>
             <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
               Forgot password?
             </p>
           </Link>
 
-          <Link href="/auth/registration" variant="body2" legacyBehavior>
+          <Link href="/auth/registration" legacyBehavior>
             <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
               Don't have an account? Sign Up
             </p>

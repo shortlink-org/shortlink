@@ -37,7 +37,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
         if (req.user.active) {
           next()
         } else {
-          // If no session is found, redirect to login.
+          // If no session is found, redirect to log in.
           res.redirect('/next/auth/login')
         }
       })

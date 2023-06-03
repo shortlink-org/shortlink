@@ -38,7 +38,7 @@ export default function withAuthSync(Child: any) {
         })
     }, [])
 
-    // If this is an token we just render the component that was passed with all its props
+    // If this is a token, we just render the component that was passed with all its props
     return <Child {...props} />
   }
 }
