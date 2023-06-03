@@ -1,15 +1,16 @@
+'use client'
+
 // @ts-nocheck
-import React from 'react'
-import { Layout } from 'components'
+import React, { Fragment } from 'react'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
-import { NextSeo } from 'next-seo'
+// @ts-ignore
 import { Header } from '@shortlink-org/ui-kit'
 
 export function Reports() {
   return (
-    <Layout>
-      <NextSeo title="Reports" description="Reports page for your account." />
+    <Fragment>
+      {/*<NextSeo title="Reports" description="Reports page for your account." />*/}
 
       <Header title="Reports" />
 
@@ -164,7 +165,7 @@ export function Reports() {
       </div>
 
       <Ready />
-    </Layout>
+    </Fragment>
   )
 }
 

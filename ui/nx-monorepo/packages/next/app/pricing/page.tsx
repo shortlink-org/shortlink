@@ -54,7 +54,6 @@ const tiers = [
   },
 ]
 
-
 export const Pricing = () => (
   // <NextSeo
   //   title="Pricing Policy"
@@ -92,7 +91,6 @@ export const Pricing = () => (
   // />
 
   <Fragment>
-
     <div className="container mx-auto px-5 py-10 sm:max-w-sm">
       <Typography
         component="h1"
@@ -199,9 +197,7 @@ export const Pricing = () => (
                 <span className="mr-2 text-5xl font-extrabold">
                   ${tier.price}
                 </span>
-                <span className="text-gray-500 dark:text-gray-400">
-                  /mo
-                </span>
+                <span className="text-gray-500 dark:text-gray-400">/mo</span>
               </div>
 
               <ul data-role="list" className="mb-8 space-y-4 text-left">

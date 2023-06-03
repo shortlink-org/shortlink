@@ -78,10 +78,10 @@ export const Faq = () => (
               What kind of product is this?
             </p>
             <p className="text-gray-700">
-              This service is for creating shortlinks. It's a great way to
-              make sure that your links are easy to remember and share, and
-              it's perfect for when you want to post a link on social media or
-              in an email. Plus, it's free to use!
+              This service is for creating shortlinks. It's a great way to make
+              sure that your links are easy to remember and share, and it's
+              perfect for when you want to post a link on social media or in an
+              email. Plus, it's free to use!
             </p>
           </div>
           <div>
@@ -90,10 +90,9 @@ export const Faq = () => (
             </p>
             <p className="text-gray-700">
               Yes, it's free! This is something that's always been free and
-              always will be. There are no hidden fees or catches - you can
-              use it as much as you want, for as long as you want. We'll never
-              ask for your payment information or try to upsell you on any
-              features.
+              always will be. There are no hidden fees or catches - you can use
+              it as much as you want, for as long as you want. We'll never ask
+              for your payment information or try to upsell you on any features.
             </p>
           </div>
           <div>
@@ -117,14 +116,14 @@ export const Faq = () => (
             </p>
             <p className="text-gray-700">
               This product is absolutely free, and it's made for easy use by
-              everyone. There are no catches or gimmicks. We want everyone to
-              be able to use this product and get the most out of it.
+              everyone. There are no catches or gimmicks. We want everyone to be
+              able to use this product and get the most out of it.
               <br />
               <br />
-              The other products out there might charge you a subscription
-              fee, or they might have a lot of complicated features that you
-              don't need. With this product, you get exactly what you need
-              without any extras.
+              The other products out there might charge you a subscription fee,
+              or they might have a lot of complicated features that you don't
+              need. With this product, you get exactly what you need without any
+              extras.
               <br />
               <br />
               We also have outstanding customer support. If you ever have any
@@ -149,9 +148,8 @@ export const Faq = () => (
               Can I deploy this product on my machine?
             </p>
             <p className="text-gray-700">
-              Yes, you can deploy this product on your machine. For
-              instructions on how to do so, please consult the readme or read
-              the docs.
+              Yes, you can deploy this product on your machine. For instructions
+              on how to do so, please consult the readme or read the docs.
             </p>
           </div>
         </div>

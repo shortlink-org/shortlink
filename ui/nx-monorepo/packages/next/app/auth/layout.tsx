@@ -7,9 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <div className="flex h-full p-4 rotate">
-      <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">
-        {children}
-      </div>
+      <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">{children}</div>
     </div>
   )
 }

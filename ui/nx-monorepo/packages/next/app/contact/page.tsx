@@ -56,8 +56,8 @@ export const ContactContent = () => (
         Contact Us
       </h1>
       <p className="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
-        Got a technical issue? Want to send feedback about a beta feature?
-        Need details about our Business plan? Let us know.
+        Got a technical issue? Want to send feedback about a beta feature? Need
+        details about our Business plan? Let us know.
       </p>
       <form action="#" className="space-y-8">
         <div>

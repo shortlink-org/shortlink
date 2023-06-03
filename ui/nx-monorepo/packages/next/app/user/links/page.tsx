@@ -1,6 +1,8 @@
+'use client'
+
 // @ts-nocheck
 
-import React, { forwardRef, useEffect } from 'react'
+import React, { forwardRef, Fragment, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import MaterialTable, { Icons } from '@material-table/core'
 import Tooltip from '@mui/material/Tooltip'
@@ -24,12 +26,10 @@ import Search from '@mui/icons-material/Search'
 import ViewColumn from '@mui/icons-material/ViewColumn'
 import Link from '@mui/material/Link'
 import { fetchLinkList } from 'store'
-import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
 
 import withAuthSync from 'components/Private'
-import { NextSeo } from 'next-seo'
-import Header from '../../components/Page/Header' // typescript specific import
+import Header from '../../../components/Page/Header' // typescript specific import
 
 // specified type as Icons
 const tableIcons: Icons = {
@@ -67,8 +67,8 @@ export function LinkTable() {
   }, [dispatch])
 
   return (
-    <Layout>
-      <NextSeo title="Links" description="Links page for your account." />
+    <Fragment>
+      {/*<NextSeo title="Links" description="Links page for your account." />*/}
 
       <Header title="Links" />
 
@@ -152,7 +152,7 @@ export function LinkTable() {
         }}
         title="Link Table"
       />
-    </Layout>
+    </Fragment>
   )
 }
 

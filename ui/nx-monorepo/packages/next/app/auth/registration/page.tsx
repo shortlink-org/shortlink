@@ -61,7 +61,9 @@ const SignUp: NextPage = () => {
     await router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
-      .push(`/auth/registration?flow=${flow?.id}`, { forceOptimisticNavigation: true })
+      .push(`/auth/registration?flow=${flow?.id}`, {
+        forceOptimisticNavigation: true,
+      })
 
     ory
       .updateRegistrationFlow({
@@ -162,10 +164,7 @@ const SignUp: NextPage = () => {
 
         <Grid container justifyContent="flex-end">
           <Grid item>
-            <Link
-              href="/auth/login"
-              legacyBehavior
-            >
+            <Link href="/auth/login" legacyBehavior>
               <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                 Already have an account? Log in
               </p>

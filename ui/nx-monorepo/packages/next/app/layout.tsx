@@ -23,7 +23,8 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       title: 'Landing Page Service | Shortlink',
-      description: 'Shortlink is your go-to source for all things URL. We offer a wide range of services, including shortening, tracking, and protecting links. Visit our website today to learn more!',
+      description:
+        'Shortlink is your go-to source for all things URL. We offer a wide range of services, including shortening, tracking, and protecting links. Visit our website today to learn more!',
       locale: 'en_IE',
       url: 'https://shortlink.best/',
       siteName: 'ShortLink',

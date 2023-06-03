@@ -1,15 +1,15 @@
+'use client'
+
 // @ts-nocheck
-import React from 'react'
-import { Layout } from 'components'
+import React, { Fragment } from 'react'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
-import { NextSeo } from 'next-seo'
-import Header from '../../components/Page/Header'
+import Header from '../../../components/Page/Header'
 
 export function Audit() {
   return (
-    <Layout>
-      <NextSeo title="Audit" description="Audit your account" />
+    <Fragment>
+      {/*<NextSeo title="Audit" description="Audit your account" />*/}
 
       <Header title="Audit" />
 
@@ -123,7 +123,7 @@ export function Audit() {
           </article>
         </li>
       </ul>
-    </Layout>
+    </Fragment>
   )
 }
 

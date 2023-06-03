@@ -1,10 +1,9 @@
+'use client'
+
 // @ts-nocheck
-import React from 'react'
-import { Layout } from 'components'
+import React, { Fragment } from 'react'
 import withAuthSync from 'components/Private'
 import { BeakerIcon } from '@heroicons/react/24/solid'
-import { NextSeo } from 'next-seo'
-import Header from '../../components/Page/Header'
 
 const people = [
   {
@@ -66,11 +65,9 @@ const people = [
 
 export function GroupContent() {
   return (
-    <Layout>
-      <NextSeo title="Groups" description="Admin groups" />
+    // <NextSeo title="Groups" description="Admin groups" />
 
-      <Header title="Admin groups" />
-
+    <Fragment>
       <section className="text-gray-600 body-font my-10">
         <a
           href="#"
@@ -178,7 +175,7 @@ export function GroupContent() {
           </div>
         </div>
       </div>
-    </Layout>
+    </Fragment>
   )
 }
 

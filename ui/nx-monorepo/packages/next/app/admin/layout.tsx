@@ -9,9 +9,7 @@ export default function RootLayout({
   return (
     <Fragment>
       <Header title="Admin users" />
-      <section className="text-gray-600 body-font">
-        {children}
-      </section>
+      <section className="text-gray-600 body-font">{children}</section>
     </Fragment>
   )
 }

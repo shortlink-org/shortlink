@@ -1,15 +1,16 @@
+'use client'
+
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import get from 'lodash/get'
-import { Layout } from 'components'
 import Welcome from 'components/Profile/Welcome'
 import Profile from 'components/Profile/Profile'
 import Personal from 'components/Profile/Personal'
 import Notifications from 'components/Profile/Notifications'
 import withAuthSync from 'components/Private'
-import ory from '../../pkg/sdk'
+import ory from '../../../pkg/sdk'
 import { AxiosError } from 'axios'
-import { NextSeo } from 'next-seo'
+// @ts-ignore
 import { Header } from '@shortlink-org/ui-kit'
 
 function ProfileContent() {
@@ -46,21 +47,21 @@ function ProfileContent() {
   }, [])
 
   return (
-    <Layout>
-      <NextSeo
-        title="Profile"
-        description="Profile page for your account."
-        openGraph={{
-          title: 'Profile',
-          description: 'Profile page for your account.',
-          type: 'profile',
-          profile: {
-            firstName: 'John',
-            lastName: 'Doe',
-            username: 'johndoe',
-          },
-        }}
-      />
+    <Fragment>
+      {/*<NextSeo*/}
+      {/*  title="Profile"*/}
+      {/*  description="Profile page for your account."*/}
+      {/*  openGraph={{*/}
+      {/*    title: 'Profile',*/}
+      {/*    description: 'Profile page for your account.',*/}
+      {/*    type: 'profile',*/}
+      {/*    profile: {*/}
+      {/*      firstName: 'John',*/}
+      {/*      lastName: 'Doe',*/}
+      {/*      username: 'johndoe',*/}
+      {/*    },*/}
+      {/*  }}*/}
+      {/*/>*/}
 
       <Header title="Profile" />
 
@@ -85,7 +86,7 @@ function ProfileContent() {
       </div>
 
       <Notifications />
-    </Layout>
+    </Fragment>
   )
 }
 

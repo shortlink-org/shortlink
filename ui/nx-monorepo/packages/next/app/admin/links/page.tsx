@@ -1,5 +1,7 @@
+'use client'
+
 // @ts-nocheck
-import React, { forwardRef, useEffect } from 'react'
+import React, { forwardRef, Fragment, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import MaterialTable from '@material-table/core'
 import Tooltip from '@mui/material/Tooltip'
@@ -22,12 +24,10 @@ import Save from '@mui/icons-material/Save'
 import Search from '@mui/icons-material/Search'
 import ViewColumn from '@mui/icons-material/ViewColumn'
 import Link from '@mui/material/Link'
-import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
 import { fetchLinkList } from 'store'
 import withAuthSync from 'components/Private'
-import { NextSeo } from 'next-seo'
-import Header from '../../components/Page/Header'
+import Header from '../../../components/Page/Header'
 
 // @ts-ignore
 const tableIcons = {
@@ -60,14 +60,9 @@ const columns = [
   {
     title: 'URL',
     field: 'url',
+    // @ts-ignore
     render: (rowData) => (
-      <Link
-        href={rowData.url}
-        target="_blank"
-        rel="noopener"
-        variant="p"
-        underline="hover"
-      >
+      <Link href={rowData.url} target="_blank" rel="noopener" underline="hover">
         {rowData.url}
       </Link>
     ),
@@ -77,10 +72,12 @@ const columns = [
   {
     title: 'Created at',
     field: 'createdAt',
+    // @ts-ignore
     render: (rowData) => (
-      <Tooltip arrow title={rowData.createdAt} interactive>
+      <Tooltip arrow title={rowData.createdAt}>
         <span>
           {formatRelative(new Date(rowData.createdAt), new Date(), {
+            // @ts-ignore
             addSuffix: true,
           })}
         </span>
@@ -90,10 +87,12 @@ const columns = [
   {
     title: 'Updated at',
     field: 'updatedAt',
+    // @ts-ignore
     render: (rowData) => (
-      <Tooltip arrow title={rowData.updatedAt} interactive>
+      <Tooltip arrow title={rowData.updatedAt}>
         <span>
           {formatRelative(new Date(rowData.updatedAt), new Date(), {
+            // @ts-ignore
             addSuffix: true,
           })}
         </span>
@@ -103,6 +102,7 @@ const columns = [
 ]
 
 export function LinkTable() {
+  // @ts-ignore
   const state = useSelector((rootState) => rootState.link)
   const dispatch = useDispatch()
 
@@ -111,12 +111,10 @@ export function LinkTable() {
   }, [dispatch])
 
   return (
-    <Layout>
-      <NextSeo title="Links" description="Admin links page" />
+    <Fragment>
+      {/*<NextSeo title="Links" description="Admin links page" />*/}
 
-      <Header title="Admin links" />
-
-      <Statistic />
+      <Statistic count={50} />
 
       <MaterialTable
         icons={tableIcons}
@@ -152,7 +150,7 @@ export function LinkTable() {
         }}
         title="Link Table"
       />
-    </Layout>
+    </Fragment>
   )
 }
 

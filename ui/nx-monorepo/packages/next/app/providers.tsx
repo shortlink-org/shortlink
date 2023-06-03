@@ -43,9 +43,7 @@ export function Providers({ Component, ...rest }) {
               <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
                 {getInitColorSchemeScript()}
 
-                <Layout>
-                  {rest.children}
-                </Layout>
+                <Layout>{rest.children}</Layout>
 
                 {/* TODO: improve page up */}
                 <ScrollTop>

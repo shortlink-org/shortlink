@@ -1,6 +1,8 @@
+'use client'
+
 // @ts-nocheck
 
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
@@ -12,10 +14,8 @@ import FileCopyIcon from '@mui/icons-material/FileCopy'
 import Grid from '@mui/material/Grid'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Link from '@mui/material/Link'
-import { Layout } from 'components'
 import withAuthSync from 'components/Private'
-import { NextSeo } from 'next-seo'
-import Header from '../../components/Page/Header'
+import Header from '../../../components/Page/Header'
 
 function AddUrl() {
   const [open, setOpen] = useState(false)
@@ -79,8 +79,8 @@ function AddUrl() {
   }
 
   return (
-    <Layout>
-      <NextSeo title="Add link" description="Add a new link" />
+    <Fragment>
+      {/*<NextSeo title="Add link" description="Add a new link" />*/}
       <Grid
         container
         direction="column"
@@ -194,7 +194,7 @@ function AddUrl() {
           </Alert>
         </Snackbar>
       </Grid>
-    </Layout>
+    </Fragment>
   )
 }
 

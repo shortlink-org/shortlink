@@ -1,24 +1,24 @@
+'use client'
+
 // @ts-nocheck
-import React from 'react'
+import React, { Fragment } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
-import { Layout } from 'components'
 import Box from '@mui/material/Box'
 import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
-import { NextSeo } from 'next-seo'
-import Header from '../../components/Page/Header'
+import Header from '../../../components/Page/Header'
 
 function Dashboard() {
   return (
-    <Layout>
-      <NextSeo
-        title="Dashboard"
-        description="Dashboard page for your account."
-      />
+    <Fragment>
+      {/*<NextSeo*/}
+      {/*  title="Dashboard"*/}
+      {/*  description="Dashboard page for your account."*/}
+      {/*/>*/}
 
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -52,7 +52,7 @@ function Dashboard() {
           </Container>
         </Box>
       </Box>
-    </Layout>
+    </Fragment>
   )
 }
 
