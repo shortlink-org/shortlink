@@ -92,7 +92,6 @@ export default function RootLayout({
       </Script>
 
       <body>
-        {/* @ts-ignore */}
         <Providers>{children}</Providers>
       </body>
     </html>

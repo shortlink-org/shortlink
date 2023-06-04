@@ -2,18 +2,18 @@ import React from 'react'
 
 export default function MobileApps() {
   return (
-    <section className="text-gray-600 body-font">
+    <section className="text-gray-600 dark:text-gray-300 body-font">
       <div className="container px-5 py-24 mx-auto flex items-center md:flex-row flex-col">
         <div className="flex flex-col md:pr-10 md:mb-0 mb-6 pr-0 w-full md:w-auto md:text-left text-center">
-          <h2 className="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">
+          <h2 className="text-xs text-indigo-500 dark:text-indigo-300 tracking-widest font-medium title-font mb-1">
             Mobile version
           </h2>
-          <h1 className="md:text-3xl text-2xl font-medium title-font text-gray-900">
+          <h1 className="md:text-3xl text-2xl font-medium title-font text-gray-900 dark:text-gray-100">
             Shortlink service for mobile devices
           </h1>
         </div>
         <div className="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
-          <button className="bg-gray-200 hover:bg-gray-300 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none">
+          <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"
@@ -27,7 +27,7 @@ export default function MobileApps() {
               <span className="title-font font-medium">Google Play</span>
             </span>
           </button>
-          <button className="bg-gray-200 hover:bg-gray-300 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 focus:outline-none">
+          <button className="bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 inline-flex py-3 px-5 rounded-lg items-center hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="currentColor"

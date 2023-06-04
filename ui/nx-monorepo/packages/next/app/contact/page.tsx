@@ -93,7 +93,7 @@ export const ContactContent = () => (
         <div className="sm:col-span-2">
           <label
             htmlFor="message"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
             Your message
           </label>

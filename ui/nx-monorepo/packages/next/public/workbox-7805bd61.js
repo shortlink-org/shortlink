@@ -1305,7 +1305,7 @@ define(['exports'], (function (exports) { 'use strict';
           return cache.match(cacheKey, matchOptions);
         }
       }
-
+      return;
     }
 
     /*

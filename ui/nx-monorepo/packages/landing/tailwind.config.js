@@ -10,7 +10,6 @@ module.exports = {
       './app/**/*.{js,ts,jsx,tsx,mdx}',
       './components/**/*.{js,ts,jsx,tsx}',
       './stories/**/*.{js,ts,jsx,tsx}',
-      '../../next/components/**/*.{js,ts,jsx,tsx}',
     ],
     transform: {
       md: (content) => {

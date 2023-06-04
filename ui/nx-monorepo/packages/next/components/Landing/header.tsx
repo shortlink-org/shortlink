@@ -1,8 +1,8 @@
 export default function Header() {
   return (
-    <div className="relative bg-gray-100 rounded-lg">
+    <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg">
       <div className="max-w-7xl mx-auto rounded-lg">
-        <div className="relative pt-1 px-3 z-10 pb-8 bg-gray-100 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+        <div className="relative pt-1 px-3 z-10 pb-8 bg-gray-100 dark:bg-gray-800 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
           <svg
             className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2"
             fill="currentColor"
@@ -15,13 +15,13 @@ export default function Header() {
 
           <main className="mx-auto max-w-7xl px-4 sm:mt-6 sm:px-6 md:mt-8 lg:mt-10 lg:px-8 xl:mt-14">
             <div className="sm:text-center lg:text-left">
-              <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+              <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-gray-100 sm:text-5xl md:text-6xl">
                 <span className="block xl:inline">Shorten your links</span>{' '}
-                <span className="block text-indigo-600 xl:inline">
+                <span className="block text-indigo-600 xl:inline dark:text-indigo-300">
                   in one click
                 </span>
               </h1>
-              <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+              <p className="mt-3 text-base text-gray-500 dark:text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
                 Get full control over your links in one place. <br />
                 Easily create, manage, and track your links. <br />
                 Get started today!
