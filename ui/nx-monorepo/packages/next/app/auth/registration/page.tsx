@@ -76,7 +76,7 @@ const SignUp: NextPage = () => {
         // You can do cool stuff here, like having access to the identity which just signed up:
         console.log('This is the user session: ', data, data.identity)
 
-        // continue_with is a list of actions that the user might need to take before the registration is complete.
+        // Continue_with is a list of actions that the user might need to take before the registration is complete.
         // It could, for example, contain a link to the verification form.
         if (data.continue_with) {
           // eslint-disable-next-line no-restricted-syntax
@@ -85,14 +85,14 @@ const SignUp: NextPage = () => {
               case 'show_verification_ui':
                 // eslint-disable-next-line no-await-in-loop
                 // @ts-ignore
-                await router.push(`/auth/verification?flow=${item.flow.id}`)
+                router.push(`/auth/verification?flow=${item.flow.id}`)
                 return
             }
           }
         }
 
         // If continue_with did not contain anything, we can just return to the home page.
-        await router.push(flow?.return_to || '/')
+        router.push(flow?.return_to || '/')
       })
       .catch(handleFlowError(router, 'registration', setFlow))
       .catch((err: AxiosError) => {

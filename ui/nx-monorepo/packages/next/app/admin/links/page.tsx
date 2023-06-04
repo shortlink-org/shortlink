@@ -27,7 +27,6 @@ import Link from '@mui/material/Link'
 import Statistic from 'components/Dashboard/stats'
 import { fetchLinkList } from 'store'
 import withAuthSync from 'components/Private'
-import Header from '../../../components/Page/Header'
 
 // @ts-ignore
 const tableIcons = {
@@ -101,7 +100,7 @@ const columns = [
   },
 ]
 
-export function LinkTable() {
+function LinkTable() {
   // @ts-ignore
   const state = useSelector((rootState) => rootState.link)
   const dispatch = useDispatch()

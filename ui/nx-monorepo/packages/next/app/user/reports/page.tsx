@@ -7,7 +7,7 @@ import withAuthSync from 'components/Private'
 // @ts-ignore
 import { Header } from '@shortlink-org/ui-kit'
 
-export function Reports() {
+function Reports() {
   return (
     <Fragment>
       {/*<NextSeo title="Reports" description="Reports page for your account." />*/}

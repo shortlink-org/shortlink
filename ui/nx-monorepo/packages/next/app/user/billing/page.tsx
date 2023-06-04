@@ -7,7 +7,7 @@ import Discounted from 'components/Billing/Discounted'
 import withAuthSync from 'components/Private'
 import Header from '../../../components/Page/Header'
 
-export function Billing() {
+function Billing() {
   return (
     <Fragment>
       {/*<NextSeo title="Billing" description="Billing page for your account." />*/}

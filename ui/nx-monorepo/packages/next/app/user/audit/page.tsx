@@ -6,7 +6,7 @@ import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 import Header from '../../../components/Page/Header'
 
-export function Audit() {
+function Audit() {
   return (
     <Fragment>
       {/*<NextSeo title="Audit" description="Audit your account" />*/}

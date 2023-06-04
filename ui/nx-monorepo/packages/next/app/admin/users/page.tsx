@@ -63,7 +63,7 @@ const people = [
   // More people...
 ]
 
-export function Users() {
+function Users() {
   return (
     // <NextSeo title="Users" description="Admin users page" />
 

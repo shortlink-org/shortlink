@@ -2,8 +2,10 @@
 
 // @ts-nocheck
 import React, { Fragment } from 'react'
+// @ts-ignore
 import withAuthSync from 'components/Private'
 import { BeakerIcon } from '@heroicons/react/24/solid'
+import { NextPage } from 'next'
 
 const people = [
   {
@@ -63,10 +65,10 @@ const people = [
   // More people...
 ]
 
-export function GroupContent() {
-  return (
-    // <NextSeo title="Groups" description="Admin groups" />
+function GroupContent() {
+  // <NextSeo title="Groups" description="Admin groups" />
 
+  return (
     <Fragment>
       <section className="text-gray-600 body-font my-10">
         <a

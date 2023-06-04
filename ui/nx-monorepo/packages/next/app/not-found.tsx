@@ -13,8 +13,12 @@ export default function NotFound() {
             <h1 className="font-black uppercase text-3xl lg:text-5xl text-yellow-500 mb-10 dark:text-yellow-300">
               You seem to be lost!
             </h1>
-            <p className="dark:text-gray-200">The page you're looking for isn't available.</p>
-            <p className="dark:text-gray-200">Try searching again or use the Go Back button below.</p>
+            <p className="dark:text-gray-200">
+              The page you're looking for isn't available.
+            </p>
+            <p className="dark:text-gray-200">
+              Try searching again or use the Go Back button below.
+            </p>
           </div>
           <div className="mb-20 md:mb-0">
             <button className="text-lg font-light outline-none focus:outline-none transform transition-all hover:scale-110 text-yellow-500 hover:text-yellow-600 dark:text-yellow-300 dark:hover:text-yellow-400">

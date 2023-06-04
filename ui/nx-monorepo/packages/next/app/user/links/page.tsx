@@ -58,7 +58,7 @@ const tableIcons: Icons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 }
 
-export function LinkTable() {
+function LinkTable() {
   const state = useSelector((rootState) => rootState.link)
   const dispatch = useDispatch()
 

@@ -1,6 +1,6 @@
 'use client'
 
-// @ts-nocheck
+// @ts-ignore
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
@@ -94,6 +94,7 @@ const Verification: NextPage = () => {
           case 410:
             // eslint-disable-next-line no-case-declarations
             // @ts-ignore
+            // eslint-disable-next-line no-case-declarations
             const newFlowID = err.response.data.use_flow_id
             router
               // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
