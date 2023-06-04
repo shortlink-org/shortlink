@@ -66,7 +66,11 @@ export default function RootLayout({
   const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
 
   return (
-    <html lang="en" className={`${robotoMono.className} font-sans`}>
+    <html
+      lang="en"
+      className={`${robotoMono.className} font-sans`}
+      suppressHydrationWarning
+    >
       <Script
         id="json-ld"
         type="application/ld+json"
@@ -87,7 +91,7 @@ export default function RootLayout({
         `}
       </Script>
 
-      <body className="bg-white dark:bg-gray-800 text-black dark:text-white">
+      <body>
         {/* @ts-ignore */}
         <Providers>{children}</Providers>
       </body>

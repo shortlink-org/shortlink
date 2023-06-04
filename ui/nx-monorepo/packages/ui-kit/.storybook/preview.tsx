@@ -7,10 +7,10 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import '@fontsource/material-icons';
 import { ThemeProvider } from '@mui/material/styles'
+import { ThemeProvider as TailWindProvider } from 'next-themes'
 
 import '../src/theme/styles.css'
-import {ColorModeContext} from '../src/theme/ColorModeContext'
-import {darkTheme, lightTheme} from '../src/theme/theme'
+import {ColorModeContext, darkTheme, lightTheme} from "../src"
 
 const preview: Preview = {
   decorators: [
@@ -20,9 +20,11 @@ const preview: Preview = {
 
       return (
         <ThemeProvider theme={theme}>
-          <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-            <Story />
-          </ColorModeContext.Provider>
+          <TailWindProvider enableSystem attribute="class">
+            <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
+              <Story />
+            </ColorModeContext.Provider>
+          </TailWindProvider>
         </ThemeProvider>
       )
     },

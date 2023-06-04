@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 module.exports = {
-  mode: 'jit',
   darkMode: 'class',
   content: {
     files: [
@@ -37,9 +36,6 @@ module.exports = {
         },
       }),
     },
-  },
-  variants: {
-    typography: ['dark'],
   },
   plugins: [
     require('@tailwindcss/typography'),

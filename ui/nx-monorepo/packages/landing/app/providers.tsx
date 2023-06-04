@@ -25,24 +25,27 @@ export function Providers({ children }) {
   const theme = darkMode ? darkTheme : lightTheme
 
   return (
-    <NextThemeProvider enableSystem attribute="class">
+    <ThemeProvider theme={theme}>
       <CacheProvider value={cache}>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
+        <NextThemeProvider enableSystem attribute="class">
           <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-            {getInitColorSchemeScript()}
-            {children}
+            <div className="text-black dark:bg-gray-800 dark:text-white">
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+              {getInitColorSchemeScript()}
 
-            <Turnstile
-              // @ts-ignore
-              siteKey={CLOUDFLARE_SITE_KEY}
-              injectScript={false}
-              className="captcha"
-            />
+              {children}
+
+              <Turnstile
+                // @ts-ignore
+                siteKey={CLOUDFLARE_SITE_KEY}
+                injectScript={false}
+                className="captcha"
+              />
+            </div>
           </ColorModeContext.Provider>
-        </ThemeProvider>
+        </NextThemeProvider>
       </CacheProvider>
-    </NextThemeProvider>
+    </ThemeProvider>
   )
 }

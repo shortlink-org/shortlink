@@ -1,8 +1,9 @@
 // @ts-ignore
-import React, { useState } from 'react'
-import { StoryObj, Meta, Preview } from '@storybook/react'
+import React from 'react'
+import { Meta } from '@storybook/react'
 
 import ToggleDarkMode  from './ToggleDarkMode'
+import Header  from '../Header/Header'
 
 const meta: Meta<any> = {
   title: 'UI/ToggleDarkMode',
@@ -15,3 +16,12 @@ const Template = (args) => <ToggleDarkMode {...args} />
 
 export const Default = Template.bind({});
 Default.args = {};
+
+export const WithHeader = () => {
+  return (
+    <>
+      <Header title={'Header'} />
+      <ToggleDarkMode />
+    </>
+  )
+}

@@ -23,6 +23,9 @@ const Home: NextPage = () => {
     setValue(newValue)
   }
 
+  const appBarColor = theme.palette.mode === 'dark' ? 'inherit' : 'primary'
+  const textColor = theme.palette.mode === 'dark' ? 'secondary' : 'inherit'
+
   return (
     <React.Fragment>
       <ToggleDarkMode id="ToggleDarkMode" />
@@ -33,13 +36,13 @@ const Home: NextPage = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Box sx={{ bgcolor: 'background.paper', width: 800 }}>
-          <AppBar position="static" id="menu">
+        <Box sx={{ width: 700 }}>
+          <AppBar position="static" id="menu" color={appBarColor}>
             <Tabs
               value={value}
               onChange={handleChange}
               indicatorColor="secondary"
-              textColor="inherit"
+              textColor={textColor}
               variant="fullWidth"
               aria-label="full width tabs example"
               selectionFollowsFocus

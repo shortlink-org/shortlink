@@ -1,5 +1,7 @@
+import PropTypes from 'prop-types'
 import * as React from 'react'
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -12,7 +14,7 @@ function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
@@ -20,9 +22,20 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography component="div">{children}</Typography>
+        </Box>
+      )}
+    </Box>
   )
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  dir: PropTypes.string,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 }
 
 export default TabPanel

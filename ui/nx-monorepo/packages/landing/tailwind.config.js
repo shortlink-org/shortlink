@@ -4,7 +4,6 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} \*/
 module.exports = {
-  mode: 'jit',
   darkMode: 'class',
   content: {
     files: [
@@ -44,9 +43,6 @@ module.exports = {
         },
       }),
     },
-  },
-  variants: {
-    typography: ['dark'],
   },
   plugins: [
     require('@tailwindcss/typography'),

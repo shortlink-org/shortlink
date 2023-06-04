@@ -4,16 +4,10 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} \*/
 module.exports = {
-  mode: 'jit',
   darkMode: 'class',
-  content: {
-    files: [
-      './src/**/*.{js,ts,jsx,tsx}',
-    ],
-    options: {
-      safelist: ['dark'], // specific classes
-    },
-  },
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],
@@ -31,9 +25,6 @@ module.exports = {
         },
       }),
     },
-  },
-  variants: {
-    typography: ['dark'],
   },
   plugins: [
     require('@tailwindcss/typography'),

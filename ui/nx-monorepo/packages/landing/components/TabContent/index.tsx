@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { Button, Divider, Stack, Typography } from '@mui/material'
+import { Button, Divider, Stack, Typography, useTheme } from '@mui/material'
 
 interface Card {
   name: string
@@ -12,30 +12,44 @@ interface TabContentProps {
   cards: Card[]
 }
 
-const TabContent: React.FC<TabContentProps> = ({ title, cards }) => (
-  <React.Fragment>
-    <Typography variant="h5" align="center">
-      {title}
-    </Typography>
-    <Stack
-      spacing={{ xs: 1, sm: 1, md: 2 }}
-      direction={{ xs: 'column', sm: 'row' }}
-      divider={<Divider orientation="vertical" flexItem />}
-      mt={2}
-      justifyContent="center"
-      alignItems="center"
-      useFlexGap
-      flexWrap="wrap"
-    >
-      {cards.map((card) => getCard(card.name, card.url))}
-    </Stack>
-  </React.Fragment>
-)
+const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
+  const theme = useTheme()
 
-function getCard(name: string, url: string) {
+  return (
+    <div>
+      <Typography
+        variant="h5"
+        align="center"
+        color={theme.palette.mode === 'dark' ? 'primary' : 'inherit'}
+      >
+        {title}
+      </Typography>
+      <Stack
+        spacing={{ xs: 1, sm: 1, md: 2 }}
+        direction={{ xs: 'column', sm: 'row' }}
+        divider={<Divider orientation="vertical" flexItem />}
+        mt={2}
+        justifyContent="center"
+        alignItems="center"
+        useFlexGap
+        flexWrap="wrap"
+      >
+        {cards.map((card) => getCard(card.name, card.url, theme))}
+      </Stack>
+    </div>
+  )
+}
+
+// @ts-ignore
+function getCard(name: string, url: string, theme) {
   return (
     <Link href={url} key={url}>
-      <Button variant="outlined">{name}</Button>
+      <Button
+        variant="outlined"
+        color={theme.palette.mode === 'dark' ? 'primary' : 'inherit'}
+      >
+        {name}
+      </Button>
     </Link>
   )
 }

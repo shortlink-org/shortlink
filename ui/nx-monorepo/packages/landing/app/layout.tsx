@@ -1,5 +1,5 @@
 import React from 'react'
-import { Metadata, ResolvingMetadata } from 'next'
+import { Metadata } from 'next'
 import { Organization, WithContext } from 'schema-dts'
 import Script from 'next/script'
 // eslint-disable-next-line camelcase
@@ -8,7 +8,6 @@ import {
   DEFAULT_ONLOAD_NAME,
   DEFAULT_SCRIPT_ID,
   SCRIPT_URL,
-  Turnstile,
 } from '@marsidev/react-turnstile'
 
 import { Providers } from './providers'
@@ -71,7 +70,11 @@ export default function RootLayout({
   const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
 
   return (
-    <html lang="en" className={`${robotoMono.className} font-sans`}>
+    <html
+      lang="en"
+      className={`${robotoMono.className} font-sans`}
+      suppressHydrationWarning
+    >
       <Script
         id="json-ld"
         type="application/ld+json"
@@ -97,7 +100,7 @@ export default function RootLayout({
         `}
       </Script>
 
-      <body className="bg-white text-black dark:bg-gray-800 dark:text-white">
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>
