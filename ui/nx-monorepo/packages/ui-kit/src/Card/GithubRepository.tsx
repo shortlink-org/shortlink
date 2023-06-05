@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
 
 export function GithubRepository({ url, title }: { url: string, title: string }): JSX.Element {

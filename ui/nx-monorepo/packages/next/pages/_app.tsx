@@ -5,7 +5,11 @@ import Head from 'next/head'
 import { wrapper } from 'store/store'
 import { Provider } from 'react-redux'
 import Fab from '@mui/material/Fab'
-import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
+import {
+  getInitColorSchemeScript,
+  StyledEngineProvider,
+  ThemeProvider,
+} from '@mui/material/styles'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider } from '@emotion/react'
@@ -36,69 +40,69 @@ const MyApp = ({ Component, ...rest }) => {
 
   return (
     <React.StrictMode>
-      <Provider store={store}>
-        <CacheProvider value={emotionCache}>
-          <Head>
-            <meta
-              name="viewport"
-              content="initial-scale=1, width=device-width"
+      <NextThemeProvider enableSystem attribute="class">
+        <Provider store={store}>
+          <CacheProvider value={emotionCache}>
+            <Head>
+              <meta
+                name="viewport"
+                content="initial-scale=1, width=device-width"
+              />
+            </Head>
+            <DefaultSeo
+              openGraph={{
+                type: 'website',
+                locale: 'en_IE',
+                url: 'https://shortlink.best/',
+                siteName: 'Shortlink',
+                images: [
+                  {
+                    url: 'https://shortlink.best/images/logo.png',
+                    width: 600,
+                    height: 600,
+                    alt: 'Shortlink service',
+                  },
+                ],
+              }}
+              twitter={{
+                handle: '@shortlink',
+                site: '@shortlink',
+                cardType: 'summary_large_image',
+              }}
+              titleTemplate="Shortlink | %s"
+              defaultTitle="Shortlink"
+              themeColor={theme.palette.primary.main}
             />
-          </Head>
-          <DefaultSeo
-            openGraph={{
-              type: 'website',
-              locale: 'en_IE',
-              url: 'https://shortlink.best/',
-              siteName: 'Shortlink',
-              images: [
+
+            {/* @ts-ignore */}
+            <SiteLinksSearchBoxJsonLd
+              url="https://shortlink.best/"
+              potentialActions={[
                 {
-                  url: 'https://shortlink.best/images/logo.png',
-                  width: 600,
-                  height: 600,
-                  alt: 'Shortlink service',
+                  target: 'https://shortlink.best/search?q',
+                  queryInput: 'search_term_string',
                 },
-              ],
-            }}
-            twitter={{
-              handle: '@shortlink',
-              site: '@shortlink',
-              cardType: 'summary_large_image',
-            }}
-            titleTemplate="Shortlink | %s"
-            defaultTitle="Shortlink"
-            themeColor={theme.palette.primary.main}
-          />
+                {
+                  target:
+                    'android-app://com.shortlink/https/shortlink.best/search?q',
+                  queryInput: 'search_term_string',
+                },
+              ]}
+            />
 
-          {/* @ts-ignore */}
-          <SiteLinksSearchBoxJsonLd
-            url="https://shortlink.best/"
-            potentialActions={[
-              {
-                target: 'https://shortlink.best/search?q',
-                queryInput: 'search_term_string',
-              },
-              {
-                target:
-                  'android-app://com.shortlink/https/shortlink.best/search?q',
-                queryInput: 'search_term_string',
-              },
-            ]}
-          />
+            <LogoJsonLd
+              logo="https://shortlink.best/images/logo.png"
+              url="https://shortlink.best/"
+            />
 
-          <LogoJsonLd
-            logo="https://shortlink.best/images/logo.png"
-            url="https://shortlink.best/"
-          />
-
-          <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-              <CssBaseline />
-              <NextThemeProvider enableSystem attribute="class">
+            <StyledEngineProvider injectFirst>
+              <ThemeProvider theme={theme}>
                 <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-                  <div className="bg-white dark:bg-gray-800 text-black dark:text-white">
-                    <Component {...pageProps} />
-                  </div>
+                  {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                  <CssBaseline />
+                  {getInitColorSchemeScript()}
+
+                  <Component {...pageProps} />
 
                   <ScrollTop {...props}>
                     <Fab
@@ -111,11 +115,11 @@ const MyApp = ({ Component, ...rest }) => {
                     </Fab>
                   </ScrollTop>
                 </ColorModeContext.Provider>
-              </NextThemeProvider>
-            </ThemeProvider>
-          </StyledEngineProvider>
-        </CacheProvider>
-      </Provider>
+              </ThemeProvider>
+            </StyledEngineProvider>
+          </CacheProvider>
+        </Provider>
+      </NextThemeProvider>
     </React.StrictMode>
   )
 }

@@ -7,11 +7,12 @@ import './styles.css'
 
 type ToggleDarkModeProps = {
   id: string
+  onChange?: (theme: string) => void
 }
 
-export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id}) => {
+export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id, onChange}) => {
   // @ts-ignore
-  const { setTheme } = useTheme()
+  const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -22,9 +23,11 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id}) => {
   const { darkMode, setDarkMode } = useContext(ColorModeContext)
 
   // @ts-ignore
-  const onChange = () => {
+  const onChangeTheme = () => {
     setDarkMode(!darkMode)
-    setTheme(darkMode ? 'light' : 'dark')
+    let newTheme = darkMode ? 'light' : 'dark'
+    setTheme(newTheme)
+    onChange && onChange(newTheme)
   }
 
   if (!mounted) return null
@@ -35,7 +38,7 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id}) => {
         type="checkbox"
         className="dn"
         id="dn"
-        onChange={onChange}
+        onChange={onChangeTheme}
         checked={!darkMode}
       />
       <label htmlFor="dn" className="toggle">

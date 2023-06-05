@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React from 'react'
+import * as React from 'react'
 import { Button, Divider, Stack, Typography, useTheme } from '@mui/material'
 
 interface Card {

@@ -1,4 +1,5 @@
 import { useEffect, useState, Fragment } from 'react'
+import { useTheme as useNextTheme } from 'next-themes'
 import Link from 'next/link'
 import Button from '@mui/material/Button'
 import { AxiosError } from 'axios'
@@ -102,6 +103,8 @@ const Header = () => {
   )
   const [hasSession, setHasSession] = useState<boolean>(false)
 
+  const { setTheme } = useNextTheme()
+
   useEffect(() => {
     ory
       .toSession()
@@ -124,6 +127,10 @@ const Header = () => {
 
   const handleDrawerClose = () => {
     setOpen(false)
+  }
+
+  const onChangeTheme = (theme: string) => {
+    setTheme(theme)
   }
 
   return [
@@ -155,7 +162,7 @@ const Header = () => {
           </Button>
         </Link>
 
-        <ToggleDarkMode />
+        <ToggleDarkMode onChange={onChangeTheme} />
 
         {secondMenu()}
 

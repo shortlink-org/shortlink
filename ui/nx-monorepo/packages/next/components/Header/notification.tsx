@@ -2,7 +2,7 @@ import Badge from '@mui/material/Badge'
 import Menu from '@mui/material/Menu'
 import Fade from '@mui/material/Fade'
 import IconButton from '@mui/material/IconButton'
-import React from 'react'
+import * as React from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 
 export default function Notification(): JSX.Element {

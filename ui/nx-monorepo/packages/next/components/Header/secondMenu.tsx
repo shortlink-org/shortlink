@@ -26,7 +26,7 @@ const solutions = [
 
 export default function Example() {
   return (
-    <div className="top-16 max-w-sm px-4 dark:bg-gray-900">
+    <div className="top-16 max-w-sm px-4">
       <Popover className="relative">
         {({ open }) => (
           <Fragment>

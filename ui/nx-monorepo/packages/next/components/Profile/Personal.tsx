@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react'
+import * as React from 'react'
 import _ from 'lodash'
 
 export default function Personal({ session }) {
@@ -8,10 +8,10 @@ export default function Personal({ session }) {
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <div className="px-4 sm:px-0">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
+            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">
               Personal Information
             </h3>
-            <p className="mt-1 text-sm text-gray-600">
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
               Use a permanent address where you can receive mail.
             </p>
           </div>

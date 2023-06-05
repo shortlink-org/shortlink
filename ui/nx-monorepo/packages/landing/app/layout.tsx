@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { Metadata } from 'next'
 import { Organization, WithContext } from 'schema-dts'
 import Script from 'next/script'

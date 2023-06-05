@@ -1,10 +1,10 @@
-import React from 'react'
+import * as React from 'react'
 
 export default function Feature() {
   return (
     <React.Fragment>
-      <section className="container mx-auto px-6 p-10">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
+      <section className="container mx-auto px-6 p-10 dark:bg-gray-900">
+        <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-white p-10">
           Features
         </h2>
         <div className="flex items-center flex-wrap mb-20">
@@ -61,13 +61,13 @@ export default function Feature() {
       </section>
 
       <div className="py-12 bg-white dark:bg-gray-800 rounded my-3">
-        <section className="mx-auto container bg-white pt-16">
+        <section className="mx-auto container bg-white dark:bg-gray-800 pt-16">
           <div className="px-4 lg:px-0">
             <div role="contentinfo" className="flex items-center flex-col px-4">
-              <p className="focus:outline-none uppercase text-sm text-center text-gray-500 leading-none">
+              <p className="focus:outline-none uppercase text-sm text-center text-gray-500 dark:text-gray-300 leading-none">
                 in few easy steps
               </p>
-              <h1 className="focus:outline-none text-4xl lg:text-4xl pt-4 font-extrabold text-center leading-tight text-gray-800 lg:w-7/12 md:w-9/12 xl:w-5/12">
+              <h1 className="focus:outline-none text-4xl lg:text-4xl pt-4 font-extrabold text-center leading-tight text-gray-800 dark:text-white lg:w-7/12 md:w-9/12 xl:w-5/12">
                 Create Beautiful Short Links &amp; Use a Powerful Link
                 Management
               </h1>
