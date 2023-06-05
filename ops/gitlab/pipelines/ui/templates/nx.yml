@@ -7,8 +7,6 @@ include:
   interruptible: true
   variables:
     GIT_DEPTH: 0
-    NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: G-DBZDFPJCJ9
-    NEXT_PUBLIC_CLOUDFLARE_SITE_KEY: 0x4AAAAAAAEzDnfy4idw0bBk
   before_script:
     - cd ui/nx-monorepo
     - echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
