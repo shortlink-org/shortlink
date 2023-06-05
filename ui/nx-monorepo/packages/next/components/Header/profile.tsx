@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { useState, useEffect, Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
@@ -45,7 +45,7 @@ export default function Profile() {
         ory
           .updateLogoutFlow({ token: logoutToken })
           .then(() => router.push('/auth/login'))
-          .then(() => router.refresh()),
+          .then(() => router.reload()),
     },
   ]
 

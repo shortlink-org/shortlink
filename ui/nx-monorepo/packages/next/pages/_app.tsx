@@ -1,14 +1,14 @@
+// @ts-ignore
 import React, { useState } from 'react'
 import Head from 'next/head'
 // @ts-ignore
 import { wrapper } from 'store/store'
 import { Provider } from 'react-redux'
 import Fab from '@mui/material/Fab'
-import { AppInitialProps, NextWebVitalsMetric } from 'next/app'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import CssBaseline from '@mui/material/CssBaseline'
-import { CacheProvider, EmotionCache } from '@emotion/react'
+import { CacheProvider } from '@emotion/react'
 import '../public/assets/styles.css'
 // @ts-ignore
 import ScrollTop from 'components/ScrollTop'
@@ -25,10 +25,6 @@ import { DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
-
-interface MyAppProps extends AppInitialProps {
-  emotionCache?: EmotionCache
-}
 
 // @ts-ignore
 const MyApp = ({ Component, ...rest }) => {
@@ -98,21 +94,24 @@ const MyApp = ({ Component, ...rest }) => {
             <ThemeProvider theme={theme}>
               {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
               <CssBaseline />
-              <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-                <NextThemeProvider enableSystem attribute="class">
-                  <Component {...pageProps} />
-                </NextThemeProvider>
-                <ScrollTop {...props}>
-                  <Fab
-                    color="secondary"
-                    size="small"
-                    aria-label="scroll back to top"
-                    className="bg-red-600 hover:bg-red-700"
-                  >
-                    <KeyboardArrowUpIcon />
-                  </Fab>
-                </ScrollTop>
-              </ColorModeContext.Provider>
+              <NextThemeProvider enableSystem attribute="class">
+                <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
+                  <div className="bg-white dark:bg-gray-800 text-black dark:text-white">
+                    <Component {...pageProps} />
+                  </div>
+
+                  <ScrollTop {...props}>
+                    <Fab
+                      color="secondary"
+                      size="small"
+                      aria-label="scroll back to top"
+                      className="bg-red-600 hover:bg-red-700"
+                    >
+                      <KeyboardArrowUpIcon />
+                    </Fab>
+                  </ScrollTop>
+                </ColorModeContext.Provider>
+              </NextThemeProvider>
             </ThemeProvider>
           </StyledEngineProvider>
         </CacheProvider>
@@ -122,7 +121,3 @@ const MyApp = ({ Component, ...rest }) => {
 }
 
 export default MyApp
-
-export function reportWebVitals(metric: NextWebVitalsMetric) {
-  console.log(metric)
-}

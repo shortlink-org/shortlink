@@ -1,3 +1,4 @@
+// @ts-ignore
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import createEmotionServer from '@emotion/server/create-instance'
 import { getInitColorSchemeScript } from '@mui/material/styles'
@@ -22,7 +23,7 @@ class MyDocument extends Document {
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}
         </Head>
-        <body className="bg-white dark:bg-gray-800 text-black dark:text-white">
+        <body>
           {getInitColorSchemeScript()}
           <Main />
           <NextScript />

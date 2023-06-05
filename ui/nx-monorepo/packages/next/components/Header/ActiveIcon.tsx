@@ -1,6 +1,7 @@
-import { usePathname } from 'next/navigation'
-import ListItemIcon, { ListItemIconProps } from '@mui/material/ListItemIcon'
+// @ts-ignore
 import React, { useState, useEffect, ReactElement, Children } from 'react'
+import { useRouter } from 'next/router'
+import ListItemIcon, { ListItemIconProps } from '@mui/material/ListItemIcon'
 import { UrlObject } from 'url'
 
 declare type Url = string | UrlObject
@@ -16,20 +17,45 @@ const ActiveLink = ({
   activeClassName,
   ...props
 }: ActiveLinkProps) => {
-  const pathname = usePathname()
+  const { asPath, isReady } = useRouter()
 
   const child = Children.only(children)
   const childClassName = child.props.className || ''
+  const [className, setClassName] = useState(childClassName)
 
-  const isActive = pathname.startsWith(props.href as string)
-  const newClassName = isActive
-    ? `${childClassName} ${activeClassName}`.trim()
-    : childClassName
+  useEffect(() => {
+    // Check if the router fields are updated client-side
+    if (isReady) {
+      // Dynamic route will be matched via props.as
+      // Static route will be matched via props.href
+      const linkPathname = new URL(props.href as string, location.href).pathname
+
+      // Using URL().pathname to get rid of query and hash
+      const activePathname = new URL(asPath, location.href).pathname
+
+      const newClassName =
+        linkPathname === activePathname
+          ? `${childClassName} ${activeClassName}`.trim()
+          : childClassName
+
+      if (newClassName !== className) {
+        setClassName(newClassName)
+      }
+    }
+  }, [
+    asPath,
+    isReady,
+    props.href,
+    childClassName,
+    activeClassName,
+    setClassName,
+    className,
+  ])
 
   return (
     <ListItemIcon {...props}>
       {React.cloneElement(child, {
-        className: newClassName || null,
+        className: className || null,
       })}
     </ListItemIcon>
   )

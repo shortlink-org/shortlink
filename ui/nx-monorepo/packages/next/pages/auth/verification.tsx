@@ -45,7 +45,7 @@ const Verification: NextPage = () => {
       return
     }
 
-    // Otherwise we initialize it
+    // Otherwise, we initialize it
     ory
       .createBrowserVerificationFlow({
         returnTo: returnTo ? String(returnTo) : undefined,
