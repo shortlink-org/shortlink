@@ -1,11 +1,11 @@
-// @ts-ignore
 import * as React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
+// @ts-ignore
 import { lightTheme } from '@shortlink-org/ui-kit'
 import { renderStatic } from '../pkg/renderer'
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx) {
+  static async getInitialProps(ctx: any) {
     const page = await ctx.renderPage()
     const { css, ids } = await renderStatic(page.html)
     const initialProps = await Document.getInitialProps(ctx)
@@ -16,7 +16,7 @@ class MyDocument extends Document {
           {initialProps.styles}
           <style
             data-emotion={`css ${ids.join(' ')}`}
-            dangerouslySetInnerHTML={{ __html: css }}
+            dangerouslySetInnerHTML={{ __html: css }} // eslint-disable-line react/no-danger
           />
         </React.Fragment>
       ),
@@ -26,6 +26,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en" suppressHydrationWarning>
+        {/* @ts-ignore */}
         <Head>
           <meta charSet="utf-8" />
           {/* PWA primary color */}
@@ -38,6 +39,7 @@ class MyDocument extends Document {
         </Head>
         <body className="bg-white text-black dark:bg-black dark:text-white">
           <Main />
+          {/* @ts-ignore */}
           <NextScript />
         </body>
       </Html>
