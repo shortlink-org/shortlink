@@ -45,7 +45,7 @@ export default function Profile() {
         ory
           .updateLogoutFlow({ token: logoutToken })
           .then(() => router.push('/auth/login'))
-          .then(() => router.reload()),
+          .then(() => router.refresh()),
     },
   ]
 

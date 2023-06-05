@@ -1,13 +1,11 @@
 // @ts-nocheck
 
-'use client'
-
 import React, { useEffect } from 'react'
 import { getMessaging, onMessage } from 'firebase/messaging'
 import 'firebase/compat/messaging'
 import { firebaseCloudMessaging } from '../config/firebase.config'
 import { ToastContainer, toast } from 'react-toastify'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 function PushNotificationLayout({ children }) {
   const router = useRouter()

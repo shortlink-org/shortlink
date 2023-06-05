@@ -1,6 +1,6 @@
 /* eslint-disable */
 const withExportImages = require('next-export-optimize-images')
-const withPWA = require('@ducanh2912/next-pwa').default({
+const withPWA = require("@ducanh2912/next-pwa").default({
   dest: 'public',
   maximumFileSizeToCacheInBytes: 5000000,
 })
@@ -12,13 +12,48 @@ const API_URI = process.env.API_URI || 'http://localhost:7070'
 
 console.info('API_URI', API_URI)
 
+// You can choose which headers to add to the list
+// after learning more below.
+const securityHeaders = [
+  {
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on',
+  },
+  {
+    key: 'X-XSS-Protection',
+    value: '1; mode=block',
+  },
+  {
+    key: 'X-Frame-Options',
+    value: 'SAMEORIGIN',
+  },
+  {
+    key: 'Permissions-Policy',
+    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
+  },
+  {
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
+  },
+  {
+    key: 'Referrer-Policy',
+    value: 'origin-when-cross-origin',
+  },
+]
+
+if (!isProd) {
+  securityHeaders.push({
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
+  })
+}
+
 let NEXT_CONFIG = {
   basePath: '/next',
   generateEtags: true,
-  output: !isProd ? 'standalone' : 'export',
   env: {
     // ShortLink API
-    NEXT_PUBLIC_SERVICE_NAME: 'shortlink-next',
+    NEXT_PUBLIC_SERVICE_NAME: "shortlink-next",
     NEXT_PUBLIC_API_URI: process.env.API_URI,
 
     // Firebase
@@ -55,6 +90,21 @@ let NEXT_CONFIG = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   trailingSlash: false,
+  headers: () => {
+    return [
+      {
+        // Apply these headers to all routes in your application.
+        source: '/:path*',
+        headers: [
+          ...securityHeaders,
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=14400, s-maxage=14400, stale-while-revalidate=86400',
+          }
+        ],
+      },
+    ]
+  },
   webpack: (config, { isServer, buildId }) => {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -66,9 +116,6 @@ let NEXT_CONFIG = {
   },
   experimental: {
     forceSwcTransforms: true,
-    swcTraceProfiling: true,
-    instrumentationHook: true,
-    appDir: true,
     turbo: {
       loaders: {
         '.md': [
@@ -83,6 +130,7 @@ let NEXT_CONFIG = {
         '.mdx': '@mdx-js/loader',
       },
     },
+    swcTraceProfiling: true,
   },
 }
 
@@ -136,9 +184,7 @@ if (isEnableSentry) {
     // https://github.com/getsentry/sentry-webpack-plugin#options.
   }
 
-  NEXT_CONFIG = withExportImages(
-    withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions),
-  )
+  NEXT_CONFIG = withExportImages(withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions))
 }
 
 module.exports = withPWA(NEXT_CONFIG)
