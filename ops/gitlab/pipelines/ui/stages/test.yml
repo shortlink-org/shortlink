@@ -24,6 +24,7 @@ ui:landing:
   stage: test
   image: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
   script:
+    - export NX_SKIP_NX_CACHE="true"
     # start the server in the background
     - npx nx run landing:dev &
     # run Cypress tests

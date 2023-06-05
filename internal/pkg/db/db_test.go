@@ -7,6 +7,8 @@ import (
 	"testing"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
+
 	"github.com/stretchr/testify/require"
 )
 
@@ -15,7 +17,7 @@ func TestLink(t *testing.T) {
 	ctx := context.Background()
 
 	// Init logger
-	conf := logger.Configuration{}
+	conf := config.Configuration{}
 	log, err := logger.NewLogger(logger.Zap, conf)
 	require.NoError(t, err, "Error init a logger")
 

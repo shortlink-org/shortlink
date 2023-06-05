@@ -1,4 +1,4 @@
-//go:build !darwin
+//go:build linux
 
 // Package io_uring implements a high-level Go wrapper to perform
 // file read/write operations using liburing.

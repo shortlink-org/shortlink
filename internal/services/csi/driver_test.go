@@ -23,7 +23,7 @@ func TestDriver(t *testing.T) {
 	t.SkipNow()
 
 	// Init logger
-	conf := logger.Configuration{}
+	conf := config.Configuration{}
 	log, err := logger.NewLogger(logger.Zap, conf)
 	if err != nil {
 		require.NoError(t, err, "Error init a logger")
