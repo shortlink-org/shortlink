@@ -1,6 +1,5 @@
 import { Layout } from 'components'
 import { ArticleJsonLd, NextSeo, FAQPageJsonLd } from 'next-seo'
-import React from 'react'
 
 export const Faq = () => (
   <Layout>

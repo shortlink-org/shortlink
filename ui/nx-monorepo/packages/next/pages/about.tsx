@@ -1,4 +1,3 @@
-import React from 'react'
 import { Layout } from 'components'
 import UndrawCoworkers from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
 import { ArticleJsonLd, NextSeo } from 'next-seo'

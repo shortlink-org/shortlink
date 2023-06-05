@@ -1,6 +1,6 @@
 /* eslint-disable */
 const withExportImages = require('next-export-optimize-images')
-const withPWA = require("@ducanh2912/next-pwa").default({
+const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
   maximumFileSizeToCacheInBytes: 5000000,
 })
@@ -53,7 +53,7 @@ let NEXT_CONFIG = {
   generateEtags: true,
   env: {
     // ShortLink API
-    NEXT_PUBLIC_SERVICE_NAME: "shortlink-next",
+    NEXT_PUBLIC_SERVICE_NAME: 'shortlink-next',
     NEXT_PUBLIC_API_URI: process.env.API_URI,
 
     // Firebase
@@ -99,8 +99,9 @@ let NEXT_CONFIG = {
           ...securityHeaders,
           {
             key: 'Cache-Control',
-            value: 'public, max-age=14400, s-maxage=14400, stale-while-revalidate=86400',
-          }
+            value:
+              'public, max-age=14400, s-maxage=14400, stale-while-revalidate=86400',
+          },
         ],
       },
     ]
@@ -184,7 +185,9 @@ if (isEnableSentry) {
     // https://github.com/getsentry/sentry-webpack-plugin#options.
   }
 
-  NEXT_CONFIG = withExportImages(withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions))
+  NEXT_CONFIG = withExportImages(
+    withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions),
+  )
 }
 
 module.exports = withPWA(NEXT_CONFIG)

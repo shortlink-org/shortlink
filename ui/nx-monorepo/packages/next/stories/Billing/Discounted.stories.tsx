@@ -1,4 +1,3 @@
-import React from 'react'
 import type { ComponentStoryObj, ComponentMeta } from '@storybook/react'
 import DiscountedComponent from '../../components/Billing/Discounted'
 

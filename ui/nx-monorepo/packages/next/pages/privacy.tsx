@@ -1,4 +1,3 @@
-import React from 'react'
 import { Layout } from 'components'
 import { ArticleJsonLd, NextSeo } from 'next-seo'
 

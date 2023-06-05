@@ -1,4 +1,3 @@
-import React from 'react'
 import type { NextPage } from 'next'
 import { SoftwareAppJsonLd, NextSeo } from 'next-seo'
 import Header from 'components/Landing/header'
