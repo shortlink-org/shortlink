@@ -9,9 +9,6 @@ argo-cd:
   fullnameOverride: argocd
 
   global:
-    # image:
-    #   tag: v2.7.0
-
     logging:
       format: json
       level: warn
@@ -76,9 +73,9 @@ argo-cd:
   server:
     extraArgs:
       - --rootpath
-      - /argo/cd
+      - /cd
       - --basehref
-      - /argo/cd
+      - /cd
 
     metrics:
       enabled: true
@@ -103,20 +100,20 @@ argo-cd:
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
       hosts:
-        - shortlink.best
+        - argo.shortlink.best
 
       paths:
-        - /argo/cd(/|$)(.*)
+        - /cd(/|$)(.*)
 
       tls:
-        - secretName: shortlink-ingress-tls
+        - secretName: argo-ingress-tls
           hosts:
-            - shortlink.best
+            - argo.shortlink.best
 
       https: true
 
     config:
-      url: https://shortlink.best/argo/cd
+      url: https://shortlink.best/cd
 
       statusbadge.enabled: "true"
 
@@ -281,14 +278,14 @@ argo-workflows:
   server:
     extraArgs:
       - --basehref
-      - /argo/workflows/
+      - /workflows/
       - --auth-mode=server
 
-    baseHref: /argo/workflows/
+    baseHref: /workflows/
 
     extraEnv:
       - name: ARGO_BASE_HREF
-        value: /argo/workflows
+        value: /workflows
 
     ingress:
       enabled: true
@@ -305,15 +302,15 @@ argo-workflows:
         nginx.ingress.kubernetes.io/use-regex: "true"
 
       hosts:
-        - shortlink.best
+        - argo.shortlink.best
 
       paths:
-        - /argo/workflows/?(.*)
+        - /workflows/?(.*)
 
       tls:
-        - secretName: shortlink-ingress-tls
+        - secretName: argo-ingress-tls
           hosts:
-            - shortlink.best
+            - argo.shortlink.best
 
 argocd-apps:
   enabled: true
@@ -369,15 +366,15 @@ argo-rollouts:
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
       hosts:
-        - shortlink.best
+        - argo.shortlink.best
 
       paths:
-        - /argo/rollouts
+        - /rollouts
 
       tls:
-        - secretName: shortlink-ingress-tls
+        - secretName: argo-ingress-tls
           hosts:
-            - shortlink.best
+            - argo.shortlink.best
 
   metrics:
     enabled: true

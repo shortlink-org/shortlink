@@ -39,7 +39,6 @@ const nextConfig = {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
     instrumentationHook: true,
-    appDir: true,
     // webVitalsAttribution: ["CLS", "FCP", "FID", "INP", "LCP", "TTFB"],
     turbo: {},
   },

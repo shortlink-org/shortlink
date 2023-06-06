@@ -72,8 +72,9 @@ const Home: NextPage = () => {
               cards={[
                 { name: 'RabbitMQ', url: '/rabbitmq/' },
                 { name: 'Kafka', url: '/kafka-ui' },
-                { name: 'Argo CD', url: '/argo/cd' },
-                { name: 'Argo Workflows', url: '/argo/workflows' },
+                { name: 'Argo CD', url: 'https://argo.shortlink.best/cd' },
+                { name: 'Argo Rollout', url: 'https://argo.shortlink.best/rollout' },
+                { name: 'Argo Workflows', url: 'https://argo.shortlink.best/workflows' },
                 { name: 'Keycloak', url: 'https://keycloak.shortlink.best' },
               ]}
             />
