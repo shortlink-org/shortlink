@@ -16,7 +16,7 @@ services:
       - coredns
       - postgres
       - kafka-connect-debezium
-    image: curlimages/curl:8.1.1
+    image: curlimages/curl:8.1.2
     profiles:
       - postgres
     restart: on-failure
