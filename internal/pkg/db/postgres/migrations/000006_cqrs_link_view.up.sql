@@ -18,5 +18,6 @@ CREATE TABLE shortlink.link_view
 COMMENT ON TABLE shortlink.link_view IS 'CQRS for links';
 
 -- Creating an index concurrently to avoid locking the table
-CREATE INDEX CONCURRENTLY link_view_hash_index
+-- We can't use concurrent index because golang-migrate doesn't support it
+CREATE INDEX link_view_hash_index
   ON shortlink.link_view (hash);

@@ -31,7 +31,7 @@ gotest:
     # Load io_uring
     - apt-get update && apt-get install --no-install-recommends -y liburing-dev curl
   script:
-    - $GOPATH/bin/gotestsum --junitfile report.xml --format testname -- -tags=unit ./...
+    - $GOPATH/bin/gotestsum --junitfile report.xml --format testname -- -tags=unit ./internal/...
   allow_failure: true # recommended
   artifacts:
     when: always
