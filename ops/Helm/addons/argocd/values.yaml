@@ -334,6 +334,8 @@ argo-rollouts:
   fullnameOverride: argo-rollouts
 
   controller:
+    replicas: 1
+
     resources:
       limits:
         cpu: 100m
