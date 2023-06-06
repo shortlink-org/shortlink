@@ -39,6 +39,6 @@ ui:
       - local: 'ops/gitlab/pipelines/ui/ui.yml'
     strategy: depend
   needs: []
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
+#  rules:
+#    - if: $CI_COMMIT_TAG
+#      when: on_success
