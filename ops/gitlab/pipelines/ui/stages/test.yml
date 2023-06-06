@@ -18,4 +18,5 @@ ui:landing:
       - ./ui/landing/cypress/videos/**/*.mp4
       - ./ui/landing/cypress/screenshots/**/*.png
     expire_in: 2 day
-  needs: []
+  needs:
+    - job: build
