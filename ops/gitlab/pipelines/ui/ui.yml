@@ -9,8 +9,8 @@ include:
 
 stages:
   - publish
-  - test
   - build
+  - test
   - artifacts
   - deploy
   - accessibility

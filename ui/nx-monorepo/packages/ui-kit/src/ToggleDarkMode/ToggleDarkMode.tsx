@@ -32,6 +32,8 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id, onChange}) =>
 
   if (!mounted) return null
 
+  const labelText = darkMode ? 'Switch to light mode' : 'Switch to dark mode';
+
   return (
     <div id={id} className="toggleWrapper">
       <input
@@ -40,6 +42,7 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id, onChange}) =>
         id="dn"
         onChange={onChangeTheme}
         checked={!darkMode}
+        aria-label={labelText}
       />
       <label htmlFor="dn" className="toggle">
         <span className="toggle__handler">

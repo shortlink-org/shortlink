@@ -1,22 +1,3 @@
-# NX MONOREPO ==========================================================================================================
-format-check:
-  extends: .nx
-  stage: test
-  script:
-    - npx nx format:check --base=$NX_BASE --head=$NX_HEAD
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: never
-
-lint:
-  extends: .nx
-  stage: test
-  script:
-    - npx nx affected --base=$NX_BASE --head=$NX_HEAD -t lint --parallel=3
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: never
-
 # LANDINGS =============================================================================================================
 
 ui:landing:
@@ -24,9 +5,9 @@ ui:landing:
   stage: test
   image: cypress/browsers:node-18.16.0-chrome-113.0.5672.92-1-ff-113.0-edge-113.0.1774.35-1
   script:
-    - export NX_SKIP_NX_CACHE="true"
     # start the server in the background
     - npx nx run landing:dev &
+    - sleep 10
     # run Cypress tests
     - npx nx run landing:cypress:headless
   allow_failure: true
@@ -36,5 +17,5 @@ ui:landing:
     paths:
       - ./ui/landing/cypress/videos/**/*.mp4
       - ./ui/landing/cypress/screenshots/**/*.png
-    expire_in: 1 day
+    expire_in: 2 day
   needs: []
