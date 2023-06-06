@@ -15,8 +15,8 @@ ui:landing:
     when: always
     name: "cypress-${CI_COMMIT_REF_SLUG}"
     paths:
-      - ./ui/landing/cypress/videos/**/*.mp4
-      - ./ui/landing/cypress/screenshots/**/*.png
+      # - ./ui/nx-monorepo/packages/landing/cypress/videos/**/*.mp4
+      - ./ui/nx-monorepo/packages/landing/cypress/screenshots/**/*.png
     expire_in: 2 day
   needs:
     - job: build
