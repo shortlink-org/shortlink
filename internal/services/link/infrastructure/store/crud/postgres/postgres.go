@@ -4,6 +4,7 @@ package postgres
 import (
 	"context"
 	"database/sql"
+	"embed"
 	"errors"
 	"fmt"
 
@@ -19,25 +20,37 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+var (
+	//go:embed migrations/*.sql
+	migrations embed.FS
+
+	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+)
 
 // New store
 func New(ctx context.Context, db *db.Store) (*Store, error) {
 	var ok bool
 	s := &Store{}
 
-	// Set configuration
+	// Set configuration -----------------------------------------------------------------------------------------------
 	s.setConfig()
 	s.client, ok = db.Store.GetConn().(*pgxpool.Pool)
 	if !ok {
 		return nil, errors.New("Error get connection to PostgreSQL")
 	}
 
-	// Create a batch job
+	// Migration -------------------------------------------------------------------------------------------------------
+	err := migrate.Migration(ctx, db, migrations, viper.GetString("SERVICE_NAME"))
+	if err != nil {
+		return nil, err
+	}
+
+	// Create a batch job ----------------------------------------------------------------------------------------------
 	if s.config.mode == options.MODE_BATCH_WRITE {
 		cb := func(args []*batch.Item) interface{} { // nolint:errcheck
 			sources := make([]*domain.Link, len(args))
@@ -73,7 +86,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 	return s, nil
 }
 
-// Get ...
+// Get - get link
 func (p *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
@@ -107,7 +120,7 @@ func (p *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 	return &response, nil
 }
 
-// List ...
+// List - list links
 func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, error) {
 	// query builder
 	links := psql.Select("url, hash, describe, created_at, updated_at").
@@ -153,7 +166,7 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 	return response, nil
 }
 
-// Add ...
+// Add - add link
 func (p *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, error) {
 	switch p.config.mode {
 	case options.MODE_BATCH_WRITE:
@@ -180,12 +193,12 @@ func (p *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 	return nil, nil
 }
 
-// Update ...
+// Update - update link
 func (p *Store) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) {
 	return nil, nil
 }
 
-// Delete ...
+// Delete - delete link
 func (p *Store) Delete(ctx context.Context, id string) error {
 	// query builder
 	request := psql.Delete("shortlink.links").

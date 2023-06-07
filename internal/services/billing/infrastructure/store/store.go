@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
 	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
@@ -35,13 +36,17 @@ func (s *BillingStore) Use(ctx context.Context, log logger.Logger, db *db.Store)
 
 	switch s.typeStore {
 	case "postgres":
-		s.Account = &postgres.Account{}
-		s.Tariff = &postgres.Tariff{}
-		s.EventStore = &event_store.Repository{}
+		fallthrough
 	default:
 		s.Account = &postgres.Account{}
 		s.Tariff = &postgres.Tariff{}
 		s.EventStore = &event_store.Repository{}
+
+		// Migration ---------------------------------------------------------------------------------------------------
+		err := migrate.Migration(ctx, db, postgres.Migrations, viper.GetString("SERVICE_NAME"))
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	err := s.Account.Init(ctx, db)

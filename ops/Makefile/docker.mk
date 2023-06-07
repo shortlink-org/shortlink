@@ -58,6 +58,7 @@ dev: ## Run for development mode
 		-f ops/docker-compose/database/redis/redis.yaml \
 		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
+		-f ops/docker-compose/database/postgres/postgres.yaml \
 		up -d --remove-orphans --build
 
 run: ## Run this project in docker compose

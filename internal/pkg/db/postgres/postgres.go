@@ -22,23 +22,17 @@ func (p *Store) Init(ctx context.Context) error {
 		return err
 	}
 
-	// Apply migration
-	err = p.migrate()
+	// Connect to Postgres
+	p.client, err = pgxpool.NewWithConfig(ctx, p.config.config)
 	if err != nil {
 		return err
 	}
 
-	// Connect to Postgres
-	// p.client, err = pgxpool.NewWithConfig(ctx, p.config.poolConfig)
-	// if err != nil {
-	// 	return err
-	// }
-	//
-	// // Check connect
-	// err = p.client.Ping(ctx)
-	// if err != nil {
-	// 	return err
-	// }
+	// Check connect
+	err = p.client.Ping(ctx)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

@@ -86,9 +86,6 @@ CREATE TABLE billing.aggregates(
 ) WITH (fillfactor = 100);
 ALTER TABLE
     billing.aggregates ADD PRIMARY KEY("id");
--- We can't use concurrent index because golang-migrate doesn't support it
-CREATE INDEX "aggregate_type_index" ON
-    billing.aggregates("type");
 COMMENT ON COLUMN
     billing.aggregates."version" IS 'При каждом изменении сущности обновляется столбец';
 ALTER TABLE

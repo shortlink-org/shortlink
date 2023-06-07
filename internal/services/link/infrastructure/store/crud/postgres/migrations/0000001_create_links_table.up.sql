@@ -13,10 +13,10 @@ CREATE TABLE IF NOT EXISTS links
 
 COMMENT ON TABLE links IS 'Link list';
 
-CREATE UNIQUE INDEX IF NOT EXISTS links_id_uindex
+CREATE UNIQUE INDEX links_id_uindex
     ON links (id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS links_hash_uindex
+CREATE UNIQUE INDEX links_hash_uindex
     ON links (hash);
 
 -- INCLUDE-index
