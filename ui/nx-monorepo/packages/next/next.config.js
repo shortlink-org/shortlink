@@ -1,5 +1,5 @@
 /* eslint-disable */
-const withExportImages = require('next-export-optimize-images')
+const { withSentryConfig } = require("@sentry/nextjs");
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
   maximumFileSizeToCacheInBytes: 5000000,
@@ -185,9 +185,7 @@ if (isEnableSentry) {
     // https://github.com/getsentry/sentry-webpack-plugin#options.
   }
 
-  NEXT_CONFIG = withExportImages(
-    withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions),
-  )
+  NEXT_CONFIG = withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions)
 }
 
 module.exports = withPWA(NEXT_CONFIG)

@@ -73,8 +73,14 @@ const Home: NextPage = () => {
                 { name: 'RabbitMQ', url: '/rabbitmq/' },
                 { name: 'Kafka', url: '/kafka-ui/' },
                 { name: 'Argo CD', url: 'https://argo.shortlink.best' },
-                { name: 'Argo Rollout', url: 'https://argo.shortlink.best/rollout' },
-                { name: 'Argo Workflows', url: 'https://argo.shortlink.best/workflows' },
+                {
+                  name: 'Argo Rollout',
+                  url: 'https://argo.shortlink.best/rollout',
+                },
+                {
+                  name: 'Argo Workflows',
+                  url: 'https://argo.shortlink.best/workflows',
+                },
                 { name: 'Keycloak', url: 'https://keycloak.shortlink.best' },
               ]}
             />
