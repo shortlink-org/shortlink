@@ -20,7 +20,6 @@ spec:
     helm:
       releaseName: mongodb
       valueFiles:
-        # default values
         - values.yaml
   syncPolicy:
     automated:

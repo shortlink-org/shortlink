@@ -2,7 +2,6 @@ include:
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/workflows/matrix_deploy.yml
   - local: ops/gitlab/pipelines/addons/addons.yml
-  - local: ops/gitlab/pipelines/addons/database.yml
 
 stages:
   - .pre

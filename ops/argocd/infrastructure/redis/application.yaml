@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gitlab-runner
+  name: redis
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
@@ -11,22 +11,16 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: gitlab-runner
+    namespace: redis
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/gitlab-runner
+    path: ops/Helm/addons/store/redis
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
-      releaseName: gitlab-runner
+      releaseName: redis
       valueFiles:
         - values.yaml
-
-        # Method 1: Mount the gpg key from a kubernetes secret as volume
-        # secrets+gpg-import://<key-volume-mount>/<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
-        # secrets+age-import://<key-volume-mount>/<key-name>.txt?<relative/path/to/the/encrypted/secrets.yaml>
-        # Example Method 1: (Assumptions: key-volume-mount=/sops-gpg, key-name=app, secret.yaml is in the root folder)
-        - secrets+gpg-import:///sops-gpg/sops.asc?values.sops.yaml
   syncPolicy:
     automated:
       prune: true

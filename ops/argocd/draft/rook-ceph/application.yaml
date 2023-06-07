@@ -20,7 +20,6 @@ spec:
     helm:
       releaseName: rook-ceph
       valueFiles:
-        # default values
         - values.yaml
   syncPolicy:
     automated:
