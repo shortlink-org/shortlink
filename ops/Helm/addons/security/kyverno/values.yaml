@@ -20,7 +20,7 @@ kyverno:
         release: prometheus-operator
 
   webhooksCleanup:
-    enabled: true
+    enabled: false
 
   reportsController:
     enabled: true
