@@ -333,6 +333,12 @@ argo-rollouts:
   controller:
     replicas: 1
 
+    extraArgs:
+      - --rootpath
+      - /rollouts
+      - --basehref
+      - /rollouts
+
     resources:
       limits:
         cpu: 100m
