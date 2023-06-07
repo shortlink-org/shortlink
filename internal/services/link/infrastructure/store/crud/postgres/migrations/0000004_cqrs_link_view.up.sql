@@ -1,9 +1,3 @@
--- ShortLink Schema ====================================================================================================
-
-CREATE SCHEMA IF NOT EXISTS shortlink;
-
-COMMENT ON SCHEMA shortlink IS 'Shortlink schema';
-
 -- CQRS for links ======================================================================================================
 CREATE TABLE shortlink.link_view
 (
