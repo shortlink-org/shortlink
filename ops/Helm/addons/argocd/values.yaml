@@ -71,12 +71,6 @@ argo-cd:
     host: redis-master.argocd
 
   server:
-    extraArgs:
-      - --rootpath
-      - /cd
-      - --basehref
-      - /cd
-
     metrics:
       enabled: true
       serviceMonitor:
@@ -102,9 +96,6 @@ argo-cd:
       hosts:
         - argo.shortlink.best
 
-      paths:
-        - /cd(/|$)(.*)
-
       tls:
         - secretName: argo-ingress-tls
           hosts:
@@ -113,7 +104,7 @@ argo-cd:
       https: true
 
     config:
-      url: https://argo.shortlink.best/cd
+      url: https://argo.shortlink.best
 
       statusbadge.enabled: "true"
 
