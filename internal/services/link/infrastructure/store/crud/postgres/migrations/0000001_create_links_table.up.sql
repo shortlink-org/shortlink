@@ -1,7 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- Create a table for links
-CREATE TABLE IF NOT EXISTS links
+CREATE TABLE links
 (
     id       UUID NOT NULL DEFAULT uuid_generate_v4(),
              CONSTRAINT id_links PRIMARY KEY(id),
@@ -21,4 +21,4 @@ CREATE UNIQUE INDEX links_hash_uindex
 
 -- INCLUDE-index
 -- as example: SELECT id, url, hash FROM links WHERE id = 10;
-CREATE UNIQUE INDEX IF NOT EXISTS links_list ON links USING btree (hash) INCLUDE (url);
+CREATE UNIQUE INDEX links_list ON links USING btree (hash) INCLUDE (url);

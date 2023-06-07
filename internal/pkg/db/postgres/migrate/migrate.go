@@ -30,7 +30,7 @@ func Migration(ctx context.Context, db *db.Store, fs embed.FS, tableName string)
 	uri := strings.Builder{}
 	uri.WriteString(client.Config().ConnString())
 	uri.WriteString("&x-migrations-table=")
-	uri.WriteString(fmt.Sprintf("migrations_%s", tableName))
+	uri.WriteString(fmt.Sprintf("schema_migrations_%s", strings.Replace(tableName, "-", "_", -1)))
 
 	m, err := migrate.NewWithSourceInstance("iofs", driver, uri.String())
 	if err != nil {
