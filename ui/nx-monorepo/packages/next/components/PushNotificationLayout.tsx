@@ -17,6 +17,7 @@ function PushNotificationLayout({ children }) {
     // Event listener that listens for the push notification event in the background
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.addEventListener('message', (event) => {
+        // eslint-disable-next-line no-console
         console.log('event for the service worker', event)
       })
     }
@@ -26,10 +27,12 @@ function PushNotificationLayout({ children }) {
       try {
         const token = await firebaseCloudMessaging.init()
         if (token) {
+          // eslint-disable-next-line no-console
           console.log('token', token)
           getMessage()
         }
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(error)
       }
     }

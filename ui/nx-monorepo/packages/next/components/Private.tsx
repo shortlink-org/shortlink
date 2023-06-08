@@ -6,10 +6,10 @@ import ory from '../pkg/sdk'
 
 export default function withAuthSync(Child: any) {
   return (props?: any) => {
-    const [session, setSession] = useState<string>( // eslint-disable-line
+    const [session, setSession] = useState<string>(
       'No valid Ory Session was found.\nPlease sign in to receive one.',
     )
-    const [hasSession, setHasSession] = useState<boolean>(false) // eslint-disable-line
+    const [hasSession, setHasSession] = useState<boolean>(false)
     const router = useRouter()
 
     useEffect(() => {

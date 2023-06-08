@@ -3,7 +3,6 @@ import TextField from '@mui/material/TextField'
 import { NodeInputProps } from './helpers'
 
 export function NodeInputDefault<T>(props: NodeInputProps) {
-  // eslint-disable-line
   const { node, attributes, value = '', setValue, disabled } = props
 
   // Some attributes have dynamic JavaScript - this is for example required for WebAuthn.

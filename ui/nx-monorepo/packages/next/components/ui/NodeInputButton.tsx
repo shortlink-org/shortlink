@@ -6,7 +6,6 @@ import { NodeInputProps } from './helpers'
 
 // @ts-ignore
 export function NodeInputButton<T>({
-  // eslint-disable-line
   node,
   attributes,
   setValue,

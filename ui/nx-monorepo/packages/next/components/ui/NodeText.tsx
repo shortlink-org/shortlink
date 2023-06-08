@@ -7,15 +7,13 @@ interface Props {
 }
 
 function Content({ attributes }: Props) {
-  // eslint-disable-line
   switch (attributes.text.id) {
     case 1050015: {
       // This text node contains lookup secrets. Let's make them a bit more beautiful!
       const secrets = (attributes.text.context as any).secrets.map(
-        // eslint-disable-line
         (text: UiText, k: number) => (
           <div
-            key={k} // eslint-disable-line
+            key={k}
             data-testid={`node/text/${attributes.id}/lookup_secret`}
             className="col-xs-3"
           >

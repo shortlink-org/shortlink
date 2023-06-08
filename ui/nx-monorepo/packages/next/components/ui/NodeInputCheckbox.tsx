@@ -4,7 +4,6 @@ import React, { ChangeEvent } from 'react'
 import { NodeInputProps } from './helpers'
 
 export function NodeInputCheckbox<T>({
-  // eslint-disable-line
   node,
   attributes,
   setValue,

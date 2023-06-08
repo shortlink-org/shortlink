@@ -7,8 +7,8 @@
     "build": "npx next build",
     "start": "npx next start",
     "export": "npx next export",
-    "lint": "npx eslint ./",
-    "lint:fix": "npx eslint --fix ./",
+    "lint": "npx eslint ./ --max-warnings 0 --report-unused-disable-directives",
+    "lint:fix": "npm run lint -- --fix",
     "prettier": "npx prettier -w -c .",
     "cypress": "NODE_ENV=test npx cypress open",
     "cypress:headless": "NODE_ENV=test cypress run"

@@ -9,7 +9,6 @@ export function handleGetFlowError<S>(
   flowType: 'login' | 'registration' | 'settings' | 'recovery' | 'verification',
   resetFlow: Dispatch<SetStateAction<S | undefined>>,
 ) {
-  console.info('TEST handleGetFlowError', flowType, resetFlow)
   return async (err: AxiosError) => {
     // @ts-ignore
     switch (err.response?.data.error?.id) {

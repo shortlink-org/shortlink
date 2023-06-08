@@ -3,7 +3,6 @@ import { getNodeLabel } from '@ory/integrations/ui'
 
 import { NodeInputProps } from './helpers'
 
-/* eslint-disable */
 // @ts-ignore
 export function NodeInputSubmit<T>({
   node,

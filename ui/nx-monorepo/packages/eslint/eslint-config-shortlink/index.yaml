@@ -4,7 +4,7 @@ env:
   es2021: true
 parser: '@typescript-eslint/parser'
 parserOptions:
-  ecmaVersion: 12
+  ecmaVersion: latest
   sourceType: module
   ecmaFeatures:
     jsx: true
@@ -16,16 +16,19 @@ extends:
   - plugin:react-hooks/recommended
   - plugin:react/jsx-runtime
   - plugin:import/warnings
-  - plugin:import/typescript
   - plugin:@next/next/recommended
   - plugin:storybook/recommended
   - plugin:jsx-a11y/recommended
   - plugin:import/recommended
   - prettier
 plugins:
-  - 'react'
-  - 'prettier'
-#  - 'shortlink'
+  - react
+  - react-hooks
+  - prettier
+  - storybook
+  - import
+  - jsx-a11y
+#  - shortlink
 ignorePatterns:
   - '!.storybook'
 settings:
@@ -67,7 +70,9 @@ rules:
     },
   ]
   no-underscore-dangle: off
-  no-console: off
+  no-console: warn
+  no-debugger: error
+  object-shorthand: error
   default-param-last: off
   import/no-self-import: off
   jsx-a11y/click-events-have-key-events: off
@@ -101,14 +106,20 @@ rules:
   react/jsx-no-constructed-context-values: off
   react/display-name: off
   '@next/next/no-html-link-for-pages': off
+  import/no-default-export: error
 overrides:
-  - files: ['*.ts', '*.tsx']
+  - files:
+      - '*.ts'
+      - '*.tsx'
     extends:
       - plugin:@typescript-eslint/recommended
       - plugin:@typescript-eslint/eslint-recommended
       - plugin:@typescript-eslint/recommended-requiring-type-checking
+      - plugin:import/typescript
     parserOptions:
       project: true
+#        - tsconfig.json
+#        - cypress/tsconfig.json
     plugins:
       - '@typescript-eslint'
     rules:
@@ -127,3 +138,30 @@ overrides:
       '@typescript-eslint/restrict-template-expressions': off
       '@typescript-eslint/no-extra-semi': off
       '@typescript-eslint/no-implied-eval': off
+      import/no-default-export: off
+  - files:
+      - '**/__tests__/**'
+      - '**/__mocks__/**'
+    env:
+      jest: true
+    extends:
+      - plugin:testing-library/react
+      - plugin:jest-dom/recommended
+    rules:
+      testing-library/no-render-in-setup: error
+      testing-library/no-wait-for-empty-callback: error
+      testing-library/prefer-explicit-assert: error
+      testing-library/prefer-presence-queries: error
+      testing-library/prefer-screen-queries: error
+      testing-library/prefer-wait-for: error
+  - files:
+      - '**/__mocks__/**'
+    rules:
+      import/no-anonymous-default-export: off
+      import/no-default-export: off
+  - files:
+      - '**/cypress/**'
+    extends:
+      - plugin:cypress/recommended
+    env:
+      'cypress/globals': true

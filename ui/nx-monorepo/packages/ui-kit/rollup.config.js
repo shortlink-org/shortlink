@@ -9,7 +9,6 @@ import postcss from 'rollup-plugin-postcss'
 import typescript from 'typescript'
 // import dts from 'rollup-plugin-dts'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageJson = require('./package.json')
 
 const globals = {
@@ -22,6 +21,7 @@ const globals = {
   'react/jsx-runtime': 'jsxRuntime',
 }
 
+// eslint-disable-next-line import/no-default-export
 export default [
   {
     input: 'src/index.ts',

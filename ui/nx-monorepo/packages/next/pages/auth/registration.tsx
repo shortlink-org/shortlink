@@ -68,11 +68,8 @@ const SignUp: NextPage = () => {
       })
       .then(async ({ data }) => {
         // If we ended up here, it means we are successfully signed up!
-        //
-        // You can do cool stuff here, like having access to the identity which just signed up:
-        console.log('This is the user session: ', data, data.identity)
 
-        // continue_with is a list of actions that the user might need to take before the registration is complete.
+        // Continue_with is a list of actions that the user might need to take before the registration is complete.
         // It could, for example, contain a link to the verification form.
         if (data.continue_with) {
           // eslint-disable-next-line no-restricted-syntax

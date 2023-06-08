@@ -18,7 +18,7 @@ function ProfileContent() {
   const [session, setSession] = useState<string>(
     'No valid Ory Session was found.\nPlease sign in to receive one.',
   )
-  const [hasSession, setHasSession] = useState<boolean>(false) // eslint-disable-line
+  const [hasSession, setHasSession] = useState<boolean>(false)
 
   useEffect(() => {
     ory
