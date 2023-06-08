@@ -1,6 +1,6 @@
 import { useTheme } from 'next-themes'
-import React, {useState, useEffect, useContext} from 'react'
-import {ColorModeContext} from '../theme/ColorModeContext'
+import React, { useState, useEffect, useContext } from 'react'
+import { ColorModeContext } from '../theme/ColorModeContext'
 
 // @ts-ignore
 import './styles.css'
@@ -10,7 +10,10 @@ type ToggleDarkModeProps = {
   onChange?: (theme: string) => void
 }
 
-export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id, onChange}) => {
+export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({
+  id,
+  onChange,
+}) => {
   // @ts-ignore
   const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -32,7 +35,7 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({id, onChange}) =>
 
   if (!mounted) return null
 
-  const labelText = darkMode ? 'Switch to light mode' : 'Switch to dark mode';
+  const labelText = darkMode ? 'Switch to light mode' : 'Switch to dark mode'
 
   return (
     <div id={id} className="toggleWrapper">

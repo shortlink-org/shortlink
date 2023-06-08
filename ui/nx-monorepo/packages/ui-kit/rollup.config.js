@@ -1,15 +1,16 @@
-import {nodeResolve} from "@rollup/plugin-node-resolve"
-import commonjs from "@rollup/plugin-commonjs"
-import ts from "@rollup/plugin-typescript"
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import ts from '@rollup/plugin-typescript'
 import typescript from 'typescript'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import terser from '@rollup/plugin-terser'
 import postcss from 'rollup-plugin-postcss'
-import dts from "rollup-plugin-dts"
+import dts from 'rollup-plugin-dts'
 import filesize from 'rollup-plugin-filesize'
 import svgr from '@svgr/rollup'
 
-const packageJson = require("./package.json")
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const packageJson = require('./package.json')
 
 const globals = {
   react: 'React',
@@ -23,18 +24,18 @@ const globals = {
 
 export default [
   {
-    input: "src/index.ts",
+    input: 'src/index.ts',
     output: [
       {
         name: packageJson.name,
         file: packageJson.main,
-        format: "umd",
+        format: 'umd',
         sourcemap: true,
         globals,
       },
       {
         file: packageJson.module,
-        format: "esm",
+        format: 'esm',
         sourcemap: true,
       },
     ],
@@ -61,7 +62,15 @@ export default [
       filesize(),
       terser(),
     ],
-    external: ['react', 'react-is', 'react-dom', 'prop-types', 'styled-components', "@mui/material", "@emotion/react"],
+    external: [
+      'react',
+      'react-is',
+      'react-dom',
+      'prop-types',
+      'styled-components',
+      '@mui/material',
+      '@emotion/react',
+    ],
   },
   // {
   //   name: packageJson.name,
@@ -83,4 +92,4 @@ export default [
   //   ],
   //   external: ['react', 'react-is', 'react-dom', 'prop-types', 'styled-components', "@mui/material", "@emotion/react"],
   // },
-];
+]

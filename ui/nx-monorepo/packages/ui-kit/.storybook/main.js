@@ -1,19 +1,19 @@
 import remarkGfm from 'remark-gfm'
 
 module.exports = {
-  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    "@storybook/addon-links",
+    '@storybook/addon-links',
     {
-    name: '@storybook/addon-essentials',
+      name: '@storybook/addon-essentials',
       options: {
         actions: true,
         backgrounds: true,
         controls: false,
         docs: false, // https://github.com/hipstersmoothie/react-docgen-typescript-plugin/issues/83
         viewport: true,
-        toolbars: true
-      }
+        toolbars: true,
+      },
     },
     {
       name: '@storybook/addon-styling',
@@ -23,18 +23,18 @@ module.exports = {
         postCss: true,
       },
     },
-    "@storybook/addon-interactions",
+    '@storybook/addon-interactions',
     '@storybook/addon-controls',
   ],
   framework: {
-    name: "@storybook/react-webpack5",
+    name: '@storybook/react-webpack5',
     options: {
       fsCache: true,
       lazyCompilation: true,
-    }
+    },
   },
   features: {
-    interactionsDebugger: true
+    interactionsDebugger: true,
   },
-  docs: {}
-};
+  docs: {},
+}

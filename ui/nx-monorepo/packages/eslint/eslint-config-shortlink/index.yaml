@@ -1,0 +1,97 @@
+env:
+  browser: true
+  node: true
+  es2021: true
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaVersion: 12
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+  - airbnb
+  - airbnb/hooks
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:import/typescript
+  - plugin:@typescript-eslint/recommended
+  - plugin:@next/next/recommended
+  - prettier
+plugins:
+  - '@typescript-eslint'
+  - 'react'
+  - 'prettier'
+#  - 'shortlink'
+settings:
+  import/resolver:
+    babel-module:
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
+    node:
+      extensions: ['.js', '.jsx', '.ts', '.tsx']
+      paths: ['server']
+rules:
+  semi: ['error', 'never']
+  default-case: off
+  react/jsx-filename-extension: off
+  #  react/jsx-filename-extension: [1, { extensions: ['.ts', '.tsx'] }]
+  react/jsx-fragments: [1, 'element']
+  import/extensions: off
+  import/default: off
+  no-alert: off
+  consistent-return: off
+  react-hooks/exhaustive-deps: off
+  spaced-comment: off
+  import/first: off
+  import/no-extraneous-dependencies: off
+  import/prefer-default-export: off
+  import/order: off
+  react/jsx-key: off
+  react/button-has-type: off
+  no-underscore-dangle: off
+  no-console: off
+  default-param-last: off
+  '@typescript-eslint/no-explicit-any': off
+  '@typescript-eslint/no-empty-function': off
+  import/no-self-import: off
+  jsx-a11y/click-events-have-key-events: off
+  jsx-a11y/no-static-element-interactions: off
+  no-fallthrough: off
+  react/no-array-index-key: off
+  no-new-func: off
+  import/export: off
+  react/require-default-props: off
+  import/no-useless-path-segments: off
+  import/no-named-as-default: off
+  import/no-named-as-default-member: off
+  import/no-relative-packages: off
+  react/destructuring-assignment: off
+  '@typescript-eslint/explicit-module-boundary-types': off
+  react/prop-types: off
+  react/function-component-definition: off
+  jsx-a11y/anchor-is-valid: off
+  react/jsx-props-no-spreading: off
+  prettier/prettier: warn
+  react/no-unescaped-entities: off
+  import/no-cycle: [0, { ignoreExternal: true }]
+  prefer-const: off
+  # needed because of https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md#how-to-use & https://stackoverflow.com/questions/63818415/react-was-used-before-it-was-defined
+  no-use-before-define: off
+  import/namespace: off
+  import/no-unresolved: off
+  import/no-duplicates: off
+  'jsx-a11y/label-has-associated-control': off
+  react/display-name: off
+  '@typescript-eslint/no-use-before-define':
+    ['error', { functions: false, classes: false, variables: true }]
+  '@typescript-eslint/ban-ts-comment': off
+  react/react-in-jsx-scope: off
+  react/no-unused-prop-types: off
+  '@next/next/no-img-element': off
+  react/jsx-no-constructed-context-values: off
+  '@typescript-eslint/no-unused-vars': off
+  shortlink/check-author: off
+  shortlink/check-empty-file: off
+  no-restricted-globals: off
+  no-unused-expressions: off

@@ -13,6 +13,9 @@
     "build-storybook": "npx storybook build",
     "semantic-release": "npx semantic-release",
     "test": "NODE_ENV=test jest",
+    "lint": "npx eslint ./",
+    "lint:fix": "npx eslint --fix ./",
+    "prettier": "npx prettier -w -c .",
     "chromatic": "npx chromatic --project-token=secret"
   },
   "files": [
