@@ -5,7 +5,6 @@ WORKDIR /app
 COPY ./internal/services/backstage/package.json ./internal/services/backstage/yarn.lock ./
 
 COPY ./internal/services/backstage/packages packages
-# COPY plugins plugins
 
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {} \+
 
@@ -31,7 +30,6 @@ RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid
 COPY --chown=node:node ./internal/services/backstage .
 
 RUN yarn tsc
-# RUN yarn --cwd packages/backend backstage-cli backend:bundle --build-dependencies
 RUN yarn --cwd packages/backend build
 
 RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
