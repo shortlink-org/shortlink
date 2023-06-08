@@ -18,11 +18,15 @@ extends:
   - plugin:import/warnings
   - plugin:import/typescript
   - plugin:@next/next/recommended
+  - plugin:storybook/recommended
+  - plugin:jsx-a11y/recommended
   - prettier
 plugins:
   - 'react'
   - 'prettier'
 #  - 'shortlink'
+ignorePatterns:
+  - '!.storybook'
 settings:
   react:
     version: 'detect'
