@@ -6,10 +6,10 @@ import { Layout } from 'components'
 import { useRouter } from 'next/router'
 import { VerificationFlow, UpdateVerificationFlowBody } from '@ory/client'
 
+import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import ory from '../../pkg/sdk'
 import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
-import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 
 const Verification: NextPage = () => {
   const [flow, setFlow] = useState<VerificationFlow>()
@@ -38,6 +38,8 @@ const Verification: NextPage = () => {
             case 403:
               // Status code 403 implies some other issue (e.g. CSRF) - let's reload!
               return router.push('/verification')
+            default:
+            // Otherwise, we nothitng - the error will be handled by the Flow component
           }
 
           throw err
@@ -58,6 +60,8 @@ const Verification: NextPage = () => {
           case 400:
             // Status code 400 implies the user is already signed in
             return router.push('/')
+          default:
+          // Otherwise, we nothitng - the error will be handled by the Flow component
         }
 
         throw err
@@ -99,6 +103,8 @@ const Verification: NextPage = () => {
               .getVerificationFlow({ id: newFlowID })
               .then(({ data }) => setFlow(data))
             return
+          default:
+          // Otherwise, we nothitng - the error will be handled by the Flow component
         }
 
         throw err

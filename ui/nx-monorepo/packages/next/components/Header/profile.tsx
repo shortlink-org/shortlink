@@ -26,6 +26,8 @@ export default function Profile() {
           case 401:
             // do nothing, the user is not logged in
             return
+          default:
+          // Otherwise, we nothitng - the error will be handled by the Flow component
         }
 
         // Something else happened!
@@ -53,7 +55,7 @@ export default function Profile() {
   return (
     <Menu as="div" className="ml-3 relative">
       {({ open }) => (
-        <Fragment>
+        <>
           <div>
             <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
               <span className="sr-only">Open user menu</span>
@@ -102,7 +104,7 @@ export default function Profile() {
               ))}
             </Menu.Items>
           </Transition>
-        </Fragment>
+        </>
       )}
     </Menu>
   )

@@ -8,11 +8,7 @@ type ActiveLinkProps = LinkProps & {
   activeClassName?: string
 }
 
-const ActiveLink = ({
-  children,
-  activeClassName,
-  ...props
-}: ActiveLinkProps) => {
+function ActiveLink({ children, activeClassName, ...props }: ActiveLinkProps) {
   const { asPath, isReady } = useRouter()
 
   const child = Children.only(children)

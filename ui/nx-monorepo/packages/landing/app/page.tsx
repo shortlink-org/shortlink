@@ -27,7 +27,7 @@ const Home: NextPage = () => {
   const textColor = theme.palette.mode === 'dark' ? 'secondary' : 'inherit'
 
   return (
-    <React.Fragment>
+    <>
       <ToggleDarkMode id="ToggleDarkMode" />
 
       <Grid
@@ -125,7 +125,7 @@ const Home: NextPage = () => {
           </TabPanel>
         </Box>
       </Grid>
-    </React.Fragment>
+    </>
   )
 }
 

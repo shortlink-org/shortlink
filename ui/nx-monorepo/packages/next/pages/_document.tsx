@@ -12,13 +12,13 @@ class MyDocument extends Document {
     return {
       ...initialProps,
       styles: (
-        <React.Fragment>
+        <>
           {initialProps.styles}
           <style
             data-emotion={`css ${ids.join(' ')}`}
             dangerouslySetInnerHTML={{ __html: css }} // eslint-disable-line react/no-danger
           />
-        </React.Fragment>
+        </>
       ),
     }
   }

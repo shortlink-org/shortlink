@@ -11,8 +11,7 @@ import {
   UpdateVerificationFlowBody,
   UiNode,
 } from '@ory/client'
-import { getNodeId } from '@ory/integrations/ui'
-import { isUiNodeInputAttributes } from '@ory/integrations/ui'
+import { getNodeId, isUiNodeInputAttributes } from '@ory/integrations/ui'
 import { Component, FormEvent } from 'react'
 import FormControl from '@mui/material/FormControl'
 

@@ -11,13 +11,15 @@ const meta: Meta<any> = {
 
 export default meta
 
-const Template = (args) => (
-  <GithubRepository
-    title="GitHub Repository"
-    url="https://github.com/shortlink-org/shortlink"
-    {...args}
-  />
-)
+function Template(args) {
+  return (
+    <GithubRepository
+      title="GitHub Repository"
+      url="https://github.com/shortlink-org/shortlink"
+      {...args}
+    />
+  )
+}
 
 export const Default = Template.bind({})
 Default.args = {}

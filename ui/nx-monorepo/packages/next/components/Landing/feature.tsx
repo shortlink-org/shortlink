@@ -2,7 +2,7 @@ import * as React from 'react'
 
 export default function Feature() {
   return (
-    <React.Fragment>
+    <>
       <section className="container mx-auto px-6 p-10 dark:bg-gray-900">
         <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-white p-10">
           Features
@@ -233,6 +233,6 @@ export default function Feature() {
           </p>
         </div>
       </div>
-    </React.Fragment>
+    </>
   )
 }

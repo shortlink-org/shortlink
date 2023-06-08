@@ -1,8 +1,8 @@
 // @ts-ignore
 import { Layout } from 'components'
 
-import UndrawBackInTheDay from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
 import { NextSeo } from 'next-seo'
+import UndrawBackInTheDay from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
 
 export default function Error() {
   return (
@@ -22,7 +22,10 @@ export default function Error() {
               <p>Try searching again or use the Go Back button below.</p>
             </div>
             <div className="mb-20 md:mb-0">
-              <button className="text-lg font-light outline-none focus:outline-none transform transition-all hover:scale-110 text-yellow-500 hover:text-yellow-600">
+              <button
+                type="button"
+                className="text-lg font-light outline-none focus:outline-none transform transition-all hover:scale-110 text-yellow-500 hover:text-yellow-600"
+              >
                 <i className="mdi mdi-arrow-left mr-2" />
                 Go Back
               </button>

@@ -7,10 +7,10 @@ import type { NextPage } from 'next'
 import Link from 'next/link'
 import { Layout } from 'components'
 
+import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import ory from '../../pkg/sdk'
 import { handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
-import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 
 const Forgot: NextPage = () => {
   const [flow, setFlow] = useState<RecoveryFlow>()
@@ -77,6 +77,8 @@ const Forgot: NextPage = () => {
                 // Status code 400 implies the form validation had an error
                 setFlow(err.response?.data)
                 return
+              default:
+              // Otherwise, we nothitng - the error will be handled by the Flow component
             }
 
             throw err

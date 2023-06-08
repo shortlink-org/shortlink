@@ -4,9 +4,8 @@ import React, { useState } from 'react'
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
-import { ThemeProvider } from '@mui/material/styles'
+import { ThemeProvider, getInitColorSchemeScript } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
-import { getInitColorSchemeScript } from '@mui/material/styles'
 
 import {
   ColorModeContext,

@@ -29,7 +29,7 @@ export default function Example() {
     <div className="top-16 max-w-sm px-4">
       <Popover className="relative">
         {({ open }) => (
-          <Fragment>
+          <>
             <Popover.Button
               className={`
                 ${open ? '' : 'text-opacity-90'}
@@ -84,7 +84,7 @@ export default function Example() {
                 </div>
               </Popover.Panel>
             </Transition>
-          </Fragment>
+          </>
         )}
       </Popover>
     </div>

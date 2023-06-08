@@ -17,18 +17,25 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd'
 import ActiveLink from './ActiveLink'
 import ActiveIcon from './ActiveIcon'
 
-const ListItem = ({ url, icon, name }: any) => (
-  <ActiveLink href={url} key={url} passHref activeClassName="md:text-blue-700">
-    <Tooltip title={name} followCursor enterDelay={500}>
-      <ListItemButton>
-        <ActiveIcon href={url} activeClassName="md:text-blue-700">
-          {icon}
-        </ActiveIcon>
-        <ListItemText primary={name} />
-      </ListItemButton>
-    </Tooltip>
-  </ActiveLink>
-)
+function ListItem({ url, icon, name }: any) {
+  return (
+    <ActiveLink
+      href={url}
+      key={url}
+      passHref
+      activeClassName="md:text-blue-700"
+    >
+      <Tooltip title={name} followCursor enterDelay={500}>
+        <ListItemButton>
+          <ActiveIcon href={url} activeClassName="md:text-blue-700">
+            {icon}
+          </ActiveIcon>
+          <ListItemText primary={name} />
+        </ListItemButton>
+      </Tooltip>
+    </ActiveLink>
+  )
+}
 
 const mainMenuList = [
   {

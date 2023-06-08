@@ -57,6 +57,8 @@ export function handleGetFlowError<S>(
         // @ts-ignore
         window.location.href = err.response.data.redirect_browser_to
         return
+      default:
+      // Otherwise, we nothitng - the error will be handled by the Flow component
     }
 
     switch (err.response?.status) {
@@ -65,6 +67,8 @@ export function handleGetFlowError<S>(
         resetFlow(undefined)
         await router.push(`/auth/${flowType}`)
         return
+      default:
+      // Otherwise, we nothitng - the error will be handled by the Flow component
     }
 
     // We are not able to handle the error? Return it.

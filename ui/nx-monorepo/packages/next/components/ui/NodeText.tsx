@@ -6,7 +6,7 @@ interface Props {
   attributes: UiNodeTextAttributes
 }
 
-const Content = ({ attributes }: Props) => {
+function Content({ attributes }: Props) {
   // eslint-disable-line
   switch (attributes.text.id) {
     case 1050015: {
@@ -33,6 +33,8 @@ const Content = ({ attributes }: Props) => {
         </div>
       )
     }
+    default:
+    // Otherwise, we nothitng - the error will be handled by the Flow component
   }
 
   return (
@@ -47,11 +49,16 @@ const Content = ({ attributes }: Props) => {
   )
 }
 
-export const NodeText = ({ node, attributes }: Props) => (
-  <React.Fragment>
-    <p className="font-normal" data-testid={`node/text/${attributes.id}/label`}>
-      {node.meta?.label?.text}
-    </p>
-    <Content node={node} attributes={attributes} />
-  </React.Fragment>
-)
+export function NodeText({ node, attributes }: Props) {
+  return (
+    <>
+      <p
+        className="font-normal"
+        data-testid={`node/text/${attributes.id}/label`}
+      >
+        {node.meta?.label?.text}
+      </p>
+      <Content node={node} attributes={attributes} />
+    </>
+  )
+}

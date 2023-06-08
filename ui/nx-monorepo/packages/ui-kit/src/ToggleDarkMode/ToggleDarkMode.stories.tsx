@@ -12,14 +12,18 @@ const meta: Meta<any> = {
 
 export default meta
 
-const Template = (args) => <ToggleDarkMode {...args} />
+function Template(args) {
+  return <ToggleDarkMode {...args} />
+}
 
 export const Default = Template.bind({})
 Default.args = {}
 
-export const WithHeader = () => (
-  <React.Fragment>
-    <Header title="Header" />
-    <ToggleDarkMode />
-  </React.Fragment>
-)
+export function WithHeader() {
+  return (
+    <>
+      <Header title="Header" />
+      <ToggleDarkMode />
+    </>
+  )
+}

@@ -11,7 +11,9 @@ const meta: Meta<any> = {
 
 export default meta
 
-const Template = (args) => <Header title="Header" {...args} />
+function Template(args) {
+  return <Header title="Header" {...args} />
+}
 
 export const Default = Template.bind({})
 Default.args = {}

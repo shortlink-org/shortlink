@@ -37,7 +37,10 @@ export default function Welcome({ nickname }) {
             >
               Find out more?
             </a>
-            <button className="w-full py-2 px-4 rounded text-white bg-indigo-900 hover:bg-gray-900 focus:outline-none transition duration-150 ease-in-out">
+            <button
+              type="button"
+              className="w-full py-2 px-4 rounded text-white bg-indigo-900 hover:bg-gray-900 focus:outline-none transition duration-150 ease-in-out"
+            >
               No thanks
             </button>
           </div>

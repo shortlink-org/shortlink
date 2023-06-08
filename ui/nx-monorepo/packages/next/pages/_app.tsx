@@ -31,7 +31,7 @@ import { DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 const clientSideEmotionCache = createEmotionCache()
 
 // @ts-ignore
-const MyApp = ({ Component, ...rest }) => {
+function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest)
   const { emotionCache = clientSideEmotionCache, pageProps } = props
 

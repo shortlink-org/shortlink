@@ -11,7 +11,9 @@ const meta: Meta<any> = {
 
 export default meta
 
-const Template = (args) => <Button {...args}>Text</Button>
+function Template(args) {
+  return <Button {...args}>Text</Button>
+}
 
 export const Default = Template.bind({})
 Default.args = {}

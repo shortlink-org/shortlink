@@ -22,13 +22,13 @@ interface Props {
   dispatchSubmit: FormDispatcher
 }
 
-export const Node = ({
+export function Node({
   node,
   value,
   setValue,
   disabled,
   dispatchSubmit,
-}: Props) => {
+}: Props) {
   // @ts-ignore
   if (isUiNodeImageAttributes(node.attributes)) {
     return <NodeImage node={node} attributes={node.attributes} />

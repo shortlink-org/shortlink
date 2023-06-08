@@ -7,18 +7,18 @@ interface Props {
 }
 
 // @ts-ignore
-export const NodeAnchor = (
-  { node, attributes }: Props, // eslint-disable-line
-) => (
-  <Button
-    onClick={(e) => {
-      e.stopPropagation()
-      e.preventDefault()
-      window.location.href = attributes.href
-    }}
-  >
-    {attributes.title.text}
-  </Button>
-)
+export function NodeAnchor({ node, attributes }: Props) {
+  return (
+    <Button
+      onClick={(e) => {
+        e.stopPropagation()
+        e.preventDefault()
+        window.location.href = attributes.href
+      }}
+    >
+      {attributes.title.text}
+    </Button>
+  )
+}
 
 export default NodeAnchor

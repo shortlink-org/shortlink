@@ -7,11 +7,11 @@ import Grid from '@mui/material/Grid'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import { Flow } from '../../components/ui/Flow'
 
 import ory from '../../pkg/sdk'
 import { handleFlowError } from '../../pkg/errors'
-import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 
 // Renders the registration page
 const SignUp: NextPage = () => {
@@ -24,7 +24,7 @@ const SignUp: NextPage = () => {
   // Get ?flow=... from the URL
   const { flow: flowId, return_to: returnTo } = router.query
 
-  // In this effect we either initiate a new registration flow, or we fetch an existing registration flow.
+  // In this effect, we either initiate a new registration flow, or we fetch an existing registration flow.
   useEffect(() => {
     // If the router is not ready yet, or we already have a flow, do nothing.
     if (!router.isReady || flow) {
@@ -81,6 +81,8 @@ const SignUp: NextPage = () => {
                 // eslint-disable-next-line no-await-in-loop
                 await router.push(`/auth/verification?flow=${item.flow.id}`)
                 return
+              default:
+              // Otherwise, we nothitng - the error will be handled by the Flow component
             }
           }
         }

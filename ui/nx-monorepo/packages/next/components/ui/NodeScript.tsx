@@ -6,7 +6,7 @@ interface Props {
   attributes: UiNodeScriptAttributes
 }
 
-export const NodeScript = ({ attributes }: Props) => {
+export function NodeScript({ attributes }: Props) {
   useEffect(() => {
     const script = document.createElement('script')
 

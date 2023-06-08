@@ -6,10 +6,10 @@ import { Layout } from 'components'
 import { useRouter } from 'next/router'
 import { LoginFlow, UpdateLoginFlowBody } from '@ory/client'
 
+import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import ory from '../../pkg/sdk'
 import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
-import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 
 const SignIn: NextPage = () => {
   const [flow, setFlow] = useState<LoginFlow>()

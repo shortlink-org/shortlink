@@ -1,4 +1,4 @@
-import type { ComponentStoryObj, ComponentMeta } from '@storybook/react'
+import type { StoryObj, Meta } from '@storybook/react'
 import DiscountedComponent from '../../components/Billing/Discounted'
 
 export default {
@@ -9,13 +9,13 @@ export default {
   title: 'Billing',
   component: DiscountedComponent,
   parameters: {},
-} as ComponentMeta<any>
+} as Meta<any>
 
 /*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
+ *👇 Render functions are a framework-specific feature to allow you to control on how the component renders.
  * See https://storybook.js.org/docs/7.0/react/api/csf
  * to learn how to use render functions.
  */
-export const Discounted: ComponentStoryObj<typeof DiscountedComponent> = {
+export const Discounted: StoryObj<typeof DiscountedComponent> = {
   render: () => <DiscountedComponent />,
 }

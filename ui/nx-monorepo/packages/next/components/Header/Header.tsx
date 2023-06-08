@@ -176,7 +176,7 @@ const Header = () => {
           </Fragment>
         ) : (
           <Link href="/auth/login" legacyBehavior>
-            <Button variant="outlined" color="inherit">
+            <Button type="submit" variant="outlined" color="inherit">
               Log in
             </Button>
           </Link>

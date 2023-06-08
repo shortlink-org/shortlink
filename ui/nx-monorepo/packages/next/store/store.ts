@@ -15,7 +15,7 @@ const makeStore = (context: Context) => {
   const sagaMiddleware = createSagaMiddleware()
 
   // Add an extra parameter for applying middleware:
-  let store = createStore(
+  const store = createStore(
     rootReducer,
     composeWithDevTools(applyMiddleware(sagaMiddleware)),
   )

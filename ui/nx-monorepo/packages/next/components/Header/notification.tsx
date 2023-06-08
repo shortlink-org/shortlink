@@ -16,7 +16,7 @@ export default function Notification(): JSX.Element {
   }
 
   return (
-    <React.Fragment>
+    <>
       <IconButton
         color="inherit"
         aria-controls="simple-menu"
@@ -94,6 +94,6 @@ export default function Notification(): JSX.Element {
           </a>
         </div>
       </Menu>
-    </React.Fragment>
+    </>
   )
 }

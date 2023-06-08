@@ -21,8 +21,10 @@ export function NodeInput<T>(props: NodeInputProps) {
       // Render a button
       return <NodeInputButton {...props} />
     case 'submit':
-      // Render the submit button
+      // Render the submitted button
       return <NodeInputSubmit {...props} />
+    default:
+    // Otherwise, we nothitng - the error will be handled by the Flow component
   }
 
   // Render a generic text input field.
