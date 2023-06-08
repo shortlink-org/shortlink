@@ -29,7 +29,7 @@ spec:
         - secrets+gpg-import-kubernetes://argocd/sops-gpg#sops.asc?values.sops.yaml
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       allowEmpty: true
       selfHeal: true
     managedNamespaceMetadata:
