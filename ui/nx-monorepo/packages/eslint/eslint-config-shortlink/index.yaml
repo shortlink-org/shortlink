@@ -10,20 +10,22 @@ parserOptions:
     jsx: true
 extends:
   - eslint:recommended
-  - plugin:react/recommended
   - airbnb
   - airbnb/hooks
+  - plugin:react/recommended
+  - plugin:react-hooks/recommended
+  - plugin:react/jsx-runtime
   - plugin:import/warnings
   - plugin:import/typescript
-  - plugin:@typescript-eslint/recommended
   - plugin:@next/next/recommended
   - prettier
 plugins:
-  - '@typescript-eslint'
   - 'react'
   - 'prettier'
 #  - 'shortlink'
 settings:
+  react:
+    version: 'detect'
   import/resolver:
     babel-module:
       extensions: ['.js', '.jsx', '.ts', '.tsx']
@@ -43,8 +45,6 @@ rules:
   no-underscore-dangle: off
   no-console: off
   default-param-last: off
-  '@typescript-eslint/no-explicit-any': off
-  '@typescript-eslint/no-empty-function': off
   import/no-self-import: off
   jsx-a11y/click-events-have-key-events: off
   jsx-a11y/no-static-element-interactions: off
@@ -69,11 +69,37 @@ rules:
   # needed because of https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/no-use-before-define.md#how-to-use & https://stackoverflow.com/questions/63818415/react-was-used-before-it-was-defined
   no-use-before-define: off
   'jsx-a11y/label-has-associated-control': off
-  '@typescript-eslint/ban-ts-comment': off
   react/react-in-jsx-scope: off
   '@next/next/no-img-element': off
   react/no-unused-prop-types: off
   no-restricted-globals: off
   no-unused-expressions: off
-  '@typescript-eslint/no-unused-vars': off
   react/jsx-no-constructed-context-values: off
+  react/display-name: off
+  '@next/next/no-html-link-for-pages': off
+overrides:
+  - files: ['*.ts', '*.tsx']
+    extends:
+      - plugin:@typescript-eslint/recommended
+      - plugin:@typescript-eslint/eslint-recommended
+      - plugin:@typescript-eslint/recommended-requiring-type-checking
+    parserOptions:
+      project: true
+    plugins:
+      - '@typescript-eslint'
+    rules:
+      '@typescript-eslint/no-unused-vars': off
+      '@typescript-eslint/ban-ts-comment': off
+      '@typescript-eslint/no-explicit-any': off
+      '@typescript-eslint/no-empty-function': off
+      '@typescript-eslint/no-unsafe-call': off
+      '@typescript-eslint/no-unsafe-member-access': off
+      '@typescript-eslint/no-unsafe-assignment': off
+      '@typescript-eslint/no-unsafe-return': off
+      '@typescript-eslint/no-floating-promises': off
+      '@typescript-eslint/no-unsafe-argument': off
+      '@typescript-eslint/no-misused-promises': off
+      '@typescript-eslint/require-await': off
+      '@typescript-eslint/restrict-template-expressions': off
+      '@typescript-eslint/no-extra-semi': off
+      '@typescript-eslint/no-implied-eval': off

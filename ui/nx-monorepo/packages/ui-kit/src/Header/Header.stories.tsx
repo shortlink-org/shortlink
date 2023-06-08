@@ -1,5 +1,3 @@
-// @ts-ignore
-import React, { useContext, useEffect, useState } from 'react'
 import { Meta } from '@storybook/react'
 
 import Header from './Header'

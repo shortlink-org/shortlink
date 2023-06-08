@@ -70,7 +70,9 @@ const mainMenuList = [
   },
 ]
 
-export const mainListItems = mainMenuList.map((item) => <ListItem {...item} />)
+export const mainListItems = mainMenuList.map((item) => (
+  <ListItem key={item.url} {...item} />
+))
 
 const otherMenuList = [
   {
@@ -91,8 +93,10 @@ const otherMenuList = [
 ]
 
 export const secondaryListItems = [
-  <ListSubheader inset>Other options</ListSubheader>,
-  otherMenuList.map((item) => <ListItem {...item} />),
+  <ListSubheader key="other options" inset>
+    Other options
+  </ListSubheader>,
+  otherMenuList.map((item) => <ListItem key={item.url} {...item} />),
 ]
 
 const adminMenuList = [
@@ -114,6 +118,8 @@ const adminMenuList = [
 ]
 
 export const adminListItems = [
-  <ListSubheader inset>Admin options</ListSubheader>,
-  adminMenuList.map((item) => <ListItem {...item} />),
+  <ListSubheader key="admin options" inset>
+    Admin options
+  </ListSubheader>,
+  adminMenuList.map((item) => <ListItem key={item.url} {...item} />),
 ]

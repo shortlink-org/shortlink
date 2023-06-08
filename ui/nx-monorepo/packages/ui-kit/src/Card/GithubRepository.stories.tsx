@@ -1,6 +1,4 @@
-// @ts-ignore
-import React, { useContext, useEffect, useState } from 'react'
-import { StoryObj, Meta, Preview } from '@storybook/react'
+import { Meta } from '@storybook/react'
 
 import GithubRepository from './GithubRepository'
 

@@ -1,5 +1,3 @@
-// @ts-ignore
-import * as React from 'react'
 import { Meta } from '@storybook/react'
 
 import ToggleDarkMode from './ToggleDarkMode'
@@ -23,7 +21,7 @@ export function WithHeader() {
   return (
     <>
       <Header title="Header" />
-      <ToggleDarkMode />
+      <ToggleDarkMode id="toggle" />
     </>
   )
 }

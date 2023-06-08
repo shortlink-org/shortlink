@@ -5,7 +5,7 @@ import typescript from 'typescript'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import terser from '@rollup/plugin-terser'
 import postcss from 'rollup-plugin-postcss'
-import dts from 'rollup-plugin-dts'
+// import dts from 'rollup-plugin-dts'
 import filesize from 'rollup-plugin-filesize'
 import svgr from '@svgr/rollup'
 

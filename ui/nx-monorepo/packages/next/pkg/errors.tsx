@@ -20,7 +20,7 @@ export function handleGetFlowError<S>(
         return
       case 'session_already_available':
         // User is already signed in, let's redirect them home!
-        await router.push('/')
+        router.push('/')
         return
       case 'session_refresh_required':
         // We need to re-authenticate to perform this action
@@ -31,13 +31,13 @@ export function handleGetFlowError<S>(
         // The flow expired, let's request a new one.
         toast.error('The return_to address is not allowed.')
         resetFlow(undefined)
-        await router.push(`/auth/${flowType}`)
+        router.push(`/auth/${flowType}`)
         return
       case 'self_service_flow_expired':
         // The flow expired, let's request a new one.
         toast.error('Your interaction expired, please fill out the form again.')
         resetFlow(undefined)
-        await router.push(`/auth/${flowType}`)
+        router.push(`/auth/${flowType}`)
         return
       case 'security_csrf_violation':
         // A CSRF violation occurred. Best to just refresh the flow!
@@ -45,12 +45,12 @@ export function handleGetFlowError<S>(
           'A security violation was detected, please fill out the form again.',
         )
         resetFlow(undefined)
-        await router.push(`/auth/${flowType}`)
+        router.push(`/auth/${flowType}`)
         return
       case 'security_identity_mismatch':
         // The requested item was intended for someone else. Let's request a new flow...
         resetFlow(undefined)
-        await router.push(`/auth/${flowType}`)
+        router.push(`/auth/${flowType}`)
         return
       case 'browser_location_change_required':
         // Ory Kratos asked us to point the user to this URL.
@@ -65,7 +65,7 @@ export function handleGetFlowError<S>(
       case 410:
         // The flow expired, let's request a new one.
         resetFlow(undefined)
-        await router.push(`/auth/${flowType}`)
+        router.push(`/auth/${flowType}`)
         return
       default:
       // Otherwise, we nothitng - the error will be handled by the Flow component

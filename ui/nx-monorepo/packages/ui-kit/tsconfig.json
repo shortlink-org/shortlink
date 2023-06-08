@@ -22,11 +22,10 @@
     "strictNullChecks": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src/**/*", "typings.d.ts"],
+  "include": ["src/**/*", "*.ts", "typings.d.ts"],
   "exclude": [
     "dist",
     "node_modules",
-    "src/**/*.test.tsx",
-    "src/**/*.stories.tsx"
+    "src/**/*.test.tsx"
   ]
 }

@@ -23,7 +23,7 @@ const firebaseCloudMessaging = {
   init: async () => {
     // Initialize the Firebase app with the credentials
     const app = initializeApp(firebaseConfig)
-    const analytics = getAnalytics(app)
+    getAnalytics(app)
 
     try {
       const messaging = getMessaging()
