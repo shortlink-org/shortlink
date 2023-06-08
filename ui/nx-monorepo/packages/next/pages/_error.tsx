@@ -1,7 +1,8 @@
 // @ts-ignore
+import { NextSeo } from 'next-seo'
+
 import { Layout } from 'components'
 
-import { NextSeo } from 'next-seo'
 import UndrawBackInTheDay from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
 
 export default function Error() {

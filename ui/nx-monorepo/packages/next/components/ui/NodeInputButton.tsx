@@ -1,5 +1,5 @@
-import { getNodeLabel } from '@ory/integrations/ui'
 import Button from '@mui/material/Button'
+import { getNodeLabel } from '@ory/integrations/ui'
 import { FormEvent } from 'react'
 
 import { NodeInputProps } from './helpers'

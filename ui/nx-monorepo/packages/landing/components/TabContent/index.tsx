@@ -1,6 +1,6 @@
+import { Button, Divider, Stack, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 import * as React from 'react'
-import { Button, Divider, Stack, Typography, useTheme } from '@mui/material'
 
 interface Card {
   name: string

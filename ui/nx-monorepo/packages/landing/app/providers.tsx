@@ -1,18 +1,17 @@
 'use client'
 
-import React, { useState } from 'react'
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
-import { ThemeProvider as NextThemeProvider } from 'next-themes'
-import { ThemeProvider, getInitColorSchemeScript } from '@mui/material/styles'
+import { Turnstile } from '@marsidev/react-turnstile'
 import CssBaseline from '@mui/material/CssBaseline'
-
+import { ThemeProvider, getInitColorSchemeScript } from '@mui/material/styles'
 import {
   ColorModeContext,
   darkTheme,
   lightTheme, // @ts-ignore
 } from '@shortlink-org/ui-kit'
-import { Turnstile } from '@marsidev/react-turnstile'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
+import React, { useState } from 'react'
 
 const cache = createCache({ key: 'next' })
 

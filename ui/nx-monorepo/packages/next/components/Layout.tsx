@@ -1,13 +1,15 @@
 // @ts-nocheck
 
-import * as React from 'react'
-import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
+import CssBaseline from '@mui/material/CssBaseline'
 import { styled } from '@mui/material/styles'
+import * as React from 'react'
+
 import PushNotificationLayout from 'components/PushNotificationLayout'
-import Header from './Header'
+
 import Footer from './Footer'
+import Header from './Header'
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',

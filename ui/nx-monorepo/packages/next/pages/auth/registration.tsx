@@ -1,17 +1,18 @@
 // @ts-nocheck
-import type { NextPage } from 'next'
-import { Layout } from 'components'
+import Grid from '@mui/material/Grid'
 import { RegistrationFlow, UpdateRegistrationFlowBody } from '@ory/client'
 import { AxiosError } from 'axios'
-import Grid from '@mui/material/Grid'
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import type { NextPage } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
-import { Flow } from '../../components/ui/Flow'
+import React, { useEffect, useState } from 'react'
 
-import ory from '../../pkg/sdk'
+import { Layout } from 'components'
+
+import { Flow } from '../../components/ui/Flow'
 import { handleFlowError } from '../../pkg/errors'
+import ory from '../../pkg/sdk'
 
 // Renders the registration page
 const SignUp: NextPage = () => {

@@ -1,7 +1,8 @@
-import * as React from 'react'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
-// @ts-ignore
 import { lightTheme } from '@shortlink-org/ui-kit'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+import * as React from 'react'
+// @ts-ignore
+
 import { renderStatic } from '../pkg/renderer'
 
 class MyDocument extends Document {

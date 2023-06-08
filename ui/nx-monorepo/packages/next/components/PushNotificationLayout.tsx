@@ -1,10 +1,12 @@
 // @ts-nocheck
 
-import React, { useEffect } from 'react'
 import { getMessaging, onMessage } from 'firebase/messaging'
+import React, { useEffect } from 'react'
 import 'firebase/compat/messaging'
 import { ToastContainer, toast } from 'react-toastify'
+// eslint-disable-next-line import/order
 import { useRouter } from 'next/router'
+
 import { firebaseCloudMessaging } from '../config/firebase.config'
 
 function PushNotificationLayout({ children }) {

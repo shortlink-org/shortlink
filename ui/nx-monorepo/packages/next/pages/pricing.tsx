@@ -1,15 +1,16 @@
+import StarIcon from '@mui/icons-material/StarBorder'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
-import Grid from '@mui/material/Grid'
-import StarIcon from '@mui/icons-material/StarBorder'
-import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import { ArticleJsonLd, NextSeo } from 'next-seo'
+
 import { Layout } from 'components'
 import Discounted from 'components/Billing/Discounted'
-import { ArticleJsonLd, NextSeo } from 'next-seo'
 
 const tiers = [
   {

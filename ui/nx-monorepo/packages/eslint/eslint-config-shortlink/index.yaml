@@ -20,6 +20,7 @@ extends:
   - plugin:@next/next/recommended
   - plugin:storybook/recommended
   - plugin:jsx-a11y/recommended
+  - plugin:import/recommended
   - prettier
 plugins:
   - 'react'
@@ -31,11 +32,8 @@ settings:
   react:
     version: 'detect'
   import/resolver:
-    babel-module:
-      extensions: ['.js', '.jsx', '.ts', '.tsx']
-    node:
-      extensions: ['.js', '.jsx', '.ts', '.tsx']
-      paths: ['server']
+    node: true
+    typescript: true
 rules:
   semi: ['error', 'never']
   react/jsx-filename-extension: [1, { extensions: ['.ts', '.tsx'] }]
@@ -45,7 +43,29 @@ rules:
   consistent-return: off
   import/no-extraneous-dependencies: off
   import/prefer-default-export: off
-  import/order: off
+  import/order: [
+    'error',
+    {
+      'newlines-between': 'always',
+      pathGroups: [
+        {
+          pattern: '$/**',
+          group: 'internal',
+        },
+      ],
+      pathGroupsExcludedImportTypes: ['builtin'],
+      groups: [
+        ['builtin', 'external'],
+        ['internal'],
+        ['parent', 'sibling', 'index'],
+        'unknown',
+      ],
+      alphabetize: {
+        order: 'asc',
+        caseInsensitive: true,
+      },
+    },
+  ]
   no-underscore-dangle: off
   no-console: off
   default-param-last: off

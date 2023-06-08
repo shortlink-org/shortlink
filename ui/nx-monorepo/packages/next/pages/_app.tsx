@@ -1,31 +1,30 @@
 // @ts-ignore
-import React, { useState } from 'react'
-import Head from 'next/head'
-// @ts-ignore
-import { wrapper } from 'store/store'
-import { Provider } from 'react-redux'
+import { CacheProvider } from '@emotion/react'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import CssBaseline from '@mui/material/CssBaseline'
 import Fab from '@mui/material/Fab'
 import {
   getInitColorSchemeScript,
   StyledEngineProvider,
   ThemeProvider,
 } from '@mui/material/styles'
-import { ThemeProvider as NextThemeProvider } from 'next-themes'
-import CssBaseline from '@mui/material/CssBaseline'
-import { CacheProvider } from '@emotion/react'
-import '../public/assets/styles.css'
-// @ts-ignore
-import ScrollTop from 'components/ScrollTop'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import 'react-toastify/dist/ReactToastify.css'
-
 import {
   ColorModeContext,
   createEmotionCache,
   darkTheme,
   lightTheme, // @ts-ignore
 } from '@shortlink-org/ui-kit'
+import Head from 'next/head'
 import { DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
+import { StrictMode, useState } from 'react'
+import 'react-toastify/dist/ReactToastify.css'
+import { Provider } from 'react-redux'
+
+import ScrollTop from 'components/ScrollTop'
+import { wrapper } from 'store/store'
+
+import '../public/assets/styles.css'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -39,7 +38,7 @@ function MyApp({ Component, ...rest }) {
   const theme = darkMode ? darkTheme : lightTheme
 
   return (
-    <React.StrictMode>
+    <StrictMode>
       <NextThemeProvider enableSystem attribute="class">
         <Provider store={store}>
           <CacheProvider value={emotionCache}>
@@ -120,7 +119,7 @@ function MyApp({ Component, ...rest }) {
           </CacheProvider>
         </Provider>
       </NextThemeProvider>
-    </React.StrictMode>
+    </StrictMode>
   )
 }
 

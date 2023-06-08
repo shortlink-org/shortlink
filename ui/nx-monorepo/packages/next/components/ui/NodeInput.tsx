@@ -1,9 +1,9 @@
+import { NodeInputProps } from './helpers'
 import { NodeInputButton } from './NodeInputButton'
 import { NodeInputCheckbox } from './NodeInputCheckbox'
 import { NodeInputDefault } from './NodeInputDefault'
 import { NodeInputHidden } from './NodeInputHidden'
 import { NodeInputSubmit } from './NodeInputSubmit'
-import { NodeInputProps } from './helpers'
 
 // @ts-ignore
 export function NodeInput<T>(props: NodeInputProps) {

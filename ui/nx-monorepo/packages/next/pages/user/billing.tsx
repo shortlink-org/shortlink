@@ -1,9 +1,11 @@
 // @ts-nocheck
-import { Layout } from 'components'
-import PaymentMethod from 'components/Billing/PaymentMethod'
-import Discounted from 'components/Billing/Discounted'
-import withAuthSync from 'components/Private'
 import { NextSeo, ProductJsonLd } from 'next-seo'
+
+import { Layout } from 'components'
+import Discounted from 'components/Billing/Discounted'
+import PaymentMethod from 'components/Billing/PaymentMethod'
+import withAuthSync from 'components/Private'
+
 import Header from '../../components/Page/Header'
 
 export function Billing() {

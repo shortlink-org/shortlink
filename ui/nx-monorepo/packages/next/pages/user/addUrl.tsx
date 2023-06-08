@@ -1,20 +1,22 @@
 // @ts-nocheck
 
-import React, { useState } from 'react'
-import TextField from '@mui/material/TextField'
-import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
-import Snackbar from '@mui/material/Snackbar'
-import Alert from '@mui/material/Alert'
-import Typography from '@mui/material/Typography'
-import IconButton from '@mui/material/IconButton'
 import FileCopyIcon from '@mui/icons-material/FileCopy'
+import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import IconButton from '@mui/material/IconButton'
 import Link from '@mui/material/Link'
+import Snackbar from '@mui/material/Snackbar'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import { NextSeo } from 'next-seo'
+import React, { useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
-import { NextSeo } from 'next-seo'
+
 import Header from '../../components/Page/Header'
 
 function AddUrl() {

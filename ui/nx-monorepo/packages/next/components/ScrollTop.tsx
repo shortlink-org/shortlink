@@ -1,7 +1,7 @@
-import * as React from 'react'
-import PropTypes from 'prop-types'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 import Zoom from '@mui/material/Zoom'
+import PropTypes from 'prop-types'
+import * as React from 'react'
 
 export default function ScrollTop(props?: any) {
   const { children, window } = props

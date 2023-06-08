@@ -1,4 +1,5 @@
 import { HYDRATE } from 'next-redux-wrapper'
+
 import * as t from 'store/types'
 
 const initialState = {

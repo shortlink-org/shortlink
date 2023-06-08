@@ -1,3 +1,4 @@
+import FormControl from '@mui/material/FormControl'
 import {
   LoginFlow,
   RecoveryFlow,
@@ -13,7 +14,6 @@ import {
 } from '@ory/client'
 import { getNodeId, isUiNodeInputAttributes } from '@ory/integrations/ui'
 import { Component, FormEvent } from 'react'
-import FormControl from '@mui/material/FormControl'
 
 import { Messages } from './Messages'
 import { Node } from './Node'

@@ -1,16 +1,17 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { RecoveryFlow, UpdateRecoveryFlowBody } from '@ory/client'
 import { AxiosError } from 'axios'
 import type { NextPage } from 'next'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
+import React, { useEffect, useState } from 'react'
+
 import { Layout } from 'components'
 
-import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
-import ory from '../../pkg/sdk'
-import { handleFlowError } from '../../pkg/errors'
 import { Flow } from '../../components/ui/Flow'
+import { handleFlowError } from '../../pkg/errors'
+import ory from '../../pkg/sdk'
 
 const Forgot: NextPage = () => {
   const [flow, setFlow] = useState<RecoveryFlow>()

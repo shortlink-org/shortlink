@@ -1,8 +1,10 @@
 // @ts-nocheck
-import { Layout } from 'components'
-import withAuthSync from 'components/Private'
 import { BeakerIcon } from '@heroicons/react/24/solid'
 import { NextSeo } from 'next-seo'
+
+import { Layout } from 'components'
+import withAuthSync from 'components/Private'
+
 import Header from '../../components/Page/Header'
 
 const people = [

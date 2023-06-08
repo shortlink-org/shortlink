@@ -1,8 +1,8 @@
+import { Menu, Transition } from '@headlessui/react'
 import { AxiosError } from 'axios'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect, Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import Link from 'next/link'
 
 import ory from '../../pkg/sdk'
 

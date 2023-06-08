@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 import { Dispatch, SetStateAction } from 'react'
 import { toast } from 'react-toastify'
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 
 // A small function to help us deal with errors coming from fetching a flow.
 export function handleGetFlowError<S>(

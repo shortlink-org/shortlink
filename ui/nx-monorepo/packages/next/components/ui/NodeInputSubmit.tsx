@@ -1,5 +1,5 @@
-import { getNodeLabel } from '@ory/integrations/ui'
 import Button from '@mui/material/Button'
+import { getNodeLabel } from '@ory/integrations/ui'
 
 import { NodeInputProps } from './helpers'
 

@@ -1,15 +1,17 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
-import get from 'lodash/get'
-import { Layout } from 'components'
-import Welcome from 'components/Profile/Welcome'
-import Profile from 'components/Profile/Profile'
-import Personal from 'components/Profile/Personal'
-import Notifications from 'components/Profile/Notifications'
-import withAuthSync from 'components/Private'
-import { AxiosError } from 'axios'
-import { NextSeo } from 'next-seo'
 import { Header } from '@shortlink-org/ui-kit'
+import { AxiosError } from 'axios'
+import get from 'lodash/get'
+import { NextSeo } from 'next-seo'
+import React, { useEffect, useState } from 'react'
+
+import { Layout } from 'components'
+import withAuthSync from 'components/Private'
+import Notifications from 'components/Profile/Notifications'
+import Personal from 'components/Profile/Personal'
+import Profile from 'components/Profile/Profile'
+import Welcome from 'components/Profile/Welcome'
+
 import ory from '../../pkg/sdk'
 
 function ProfileContent() {

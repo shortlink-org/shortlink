@@ -1,5 +1,5 @@
-import { UiNode, UiNodeAnchorAttributes } from '@ory/client'
 import Button from '@mui/material/Button'
+import { UiNode, UiNodeAnchorAttributes } from '@ory/client'
 
 interface Props {
   node: UiNode

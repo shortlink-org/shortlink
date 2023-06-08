@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
 import { AxiosError } from 'axios'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+
 import ory from '../pkg/sdk'
 
 export default function withAuthSync(Child: any) {

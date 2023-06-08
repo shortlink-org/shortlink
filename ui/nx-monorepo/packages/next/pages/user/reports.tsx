@@ -1,9 +1,10 @@
 // @ts-nocheck
+import { Header } from '@shortlink-org/ui-kit'
+import { NextSeo } from 'next-seo'
+
 import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
-import { NextSeo } from 'next-seo'
-import { Header } from '@shortlink-org/ui-kit'
 
 export function Reports() {
   return (

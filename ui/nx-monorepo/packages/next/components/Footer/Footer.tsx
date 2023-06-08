@@ -1,6 +1,7 @@
 /* tslint:disable */
 
 import Link from 'next/link'
+
 import Copyright from '../Copyright'
 
 export default function Footer() {

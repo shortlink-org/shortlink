@@ -1,6 +1,6 @@
 // @ts-nocheck
-import * as React from 'react'
 import _ from 'lodash'
+import * as React from 'react'
 
 export default function Personal({ session }) {
   return (

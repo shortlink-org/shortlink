@@ -1,4 +1,5 @@
 import type { StoryObj, Meta } from '@storybook/react'
+
 import DiscountedComponent from '../../components/Billing/Discounted'
 
 export default {

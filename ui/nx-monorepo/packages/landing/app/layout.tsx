@@ -1,14 +1,14 @@
-import * as React from 'react'
-import { Metadata } from 'next'
-import { Organization, WithContext } from 'schema-dts'
-import Script from 'next/script'
-// eslint-disable-next-line camelcase
-import { Roboto_Mono } from 'next/font/google'
 import {
   DEFAULT_ONLOAD_NAME,
   DEFAULT_SCRIPT_ID,
   SCRIPT_URL,
 } from '@marsidev/react-turnstile'
+import { Metadata } from 'next'
+// eslint-disable-next-line camelcase
+import { Roboto_Mono } from 'next/font/google'
+import Script from 'next/script'
+import * as React from 'react'
+import { Organization, WithContext } from 'schema-dts'
 
 import { Providers } from './providers'
 import 'public/assets/styles.css'

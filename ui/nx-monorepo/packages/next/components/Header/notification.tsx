@@ -1,9 +1,9 @@
+import NotificationsIcon from '@mui/icons-material/Notifications'
 import Badge from '@mui/material/Badge'
-import Menu from '@mui/material/Menu'
 import Fade from '@mui/material/Fade'
 import IconButton from '@mui/material/IconButton'
+import Menu from '@mui/material/Menu'
 import * as React from 'react'
-import NotificationsIcon from '@mui/icons-material/Notifications'
 
 export default function Notification(): JSX.Element {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)

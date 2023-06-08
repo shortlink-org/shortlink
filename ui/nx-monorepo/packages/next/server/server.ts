@@ -1,7 +1,7 @@
+import cookieParser from 'cookie-parser'
 import express from 'express'
 import next from 'next'
 // @ts-ignore
-import cookieParser from 'cookie-parser'
 
 import protect from './middleware/auth'
 

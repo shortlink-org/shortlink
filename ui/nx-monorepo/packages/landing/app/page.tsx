@@ -1,12 +1,13 @@
 'use client'
 
+import { useTheme, AppBar, Grid, Tabs, Tab, Box } from '@mui/material'
+import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import { NextPage } from 'next'
 import React, { useState } from 'react'
-import { useTheme, AppBar, Grid, Tabs, Tab, Box } from '@mui/material'
 // @ts-ignore
-import { ToggleDarkMode } from '@shortlink-org/ui-kit'
-import TabPanel from '../components/TabPanel'
+
 import TabContent from '../components/TabContent'
+import TabPanel from '../components/TabPanel'
 
 function a11yProps(index: number) {
   return {

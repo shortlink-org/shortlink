@@ -1,14 +1,16 @@
 // @ts-nocheck
-import CssBaseline from '@mui/material/CssBaseline'
+import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
+import CssBaseline from '@mui/material/CssBaseline'
 import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
+import { NextSeo } from 'next-seo'
+
 import { Layout } from 'components'
-import Box from '@mui/material/Box'
-import Orders from 'components/widgets/Orders'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
-import { NextSeo } from 'next-seo'
+import Orders from 'components/widgets/Orders'
+
 import Header from '../../components/Page/Header'
 
 function Dashboard() {

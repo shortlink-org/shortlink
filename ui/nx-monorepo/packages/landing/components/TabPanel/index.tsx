@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
-import * as React from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import PropTypes from 'prop-types'
+import * as React from 'react'
 
 interface TabPanelProps {
   children?: React.ReactNode

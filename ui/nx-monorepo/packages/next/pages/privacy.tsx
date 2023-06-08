@@ -1,5 +1,6 @@
-import { Layout } from 'components'
 import { ArticleJsonLd, NextSeo } from 'next-seo'
+
+import { Layout } from 'components'
 
 export function PrivacyContent() {
   return (

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+
 import linkReducer from 'store/reducers/link'
 import sessionReducer from 'store/reducers/session'
 
