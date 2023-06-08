@@ -24,6 +24,11 @@ ingress:
 
   path: /
 
+  tls:
+    - secretName: backstage-tls
+      hosts:
+        - backstage.shortlink.best
+
 # ==============================================================================
 deploy:
   replicaCount: 1
