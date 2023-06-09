@@ -3574,25 +3574,6 @@
     "@backstage/plugin-permission-common" "^0.7.5"
     "@backstage/types" "^1.0.2"
 
-"@backstage/plugin-search-react@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-react/-/plugin-search-react-1.6.0.tgz#de4c215a31fe2173a56e5ef6308659ae1ddb6ef7"
-  integrity sha512-9smdCoqeze+nj59hSSKfBlxZr8GjowXsOumm54qKT9qbONJDEHNlQuoFWvN4pCh3QyXdhYnj2W3VaM/eaKBEGg==
-  dependencies:
-    "@backstage/core-components" "^0.13.1"
-    "@backstage/core-plugin-api" "^1.5.1"
-    "@backstage/plugin-search-common" "^1.2.3"
-    "@backstage/theme" "^0.3.0"
-    "@backstage/types" "^1.0.2"
-    "@backstage/version-bridge" "^1.0.4"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    "@types/react" "^16.13.1 || ^17.0.0"
-    lodash "^4.17.21"
-    qs "^6.9.4"
-    react-use "^17.3.2"
-
 "@backstage/plugin-search-react@^1.6.1":
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-search-react/-/plugin-search-react-1.6.1.tgz#abf09f3466a5fd7d9fa5e8c562f18ad67a940c95"
@@ -3612,10 +3593,10 @@
     qs "^6.9.4"
     react-use "^17.3.2"
 
-"@backstage/plugin-search@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-search/-/plugin-search-1.3.0.tgz#1c323948e6934a33bf9aa48a4aac691e116abfd2"
-  integrity sha512-gmW32sLcTw6euHCi1C5boKE3CdpFWMhR/gajhh6uGRFYdhU838EfjSgP4qJ2ldEy+BSkFnixb4lVsIyeiObhEQ==
+"@backstage/plugin-search@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search/-/plugin-search-1.3.1.tgz#c10286479552c4887d7ba2d1b0fda0fda8e26973"
+  integrity sha512-Rr3M5i208MJWwd6UkADNDRktA5vwZDtBCm2SoViz3TFGVsCQ6c2QIiRnILxnrdueE6VryqtgTAyd5nVKEK/VfQ==
   dependencies:
     "@backstage/catalog-model" "^1.3.0"
     "@backstage/config" "^1.0.7"
@@ -3624,7 +3605,7 @@
     "@backstage/errors" "^1.1.5"
     "@backstage/plugin-catalog-react" "^1.6.0"
     "@backstage/plugin-search-common" "^1.2.3"
-    "@backstage/plugin-search-react" "^1.6.0"
+    "@backstage/plugin-search-react" "^1.6.1"
     "@backstage/theme" "^0.3.0"
     "@backstage/types" "^1.0.2"
     "@backstage/version-bridge" "^1.0.4"
