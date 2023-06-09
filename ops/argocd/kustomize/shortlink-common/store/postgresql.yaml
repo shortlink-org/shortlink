@@ -44,12 +44,12 @@ spec:
         - name: "DATA_SOURCE_USER"
           valueFrom:
             secretKeyRef:
-              name: postgres.shortlink-postgresql.credentials
+              name: postgres.shortlink-postgresql.credentials.postgresql.acid.zalan.do
               key: username
         - name: "DATA_SOURCE_PASS"
           valueFrom:
             secretKeyRef:
-              name: postgres.shortlink-postgresql.credentials
+              name: postgres.shortlink-postgresql.credentials.postgresql.acid.zalan.do
               key: password
 
 ---
