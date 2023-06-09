@@ -36,31 +36,31 @@ func TestPostgres(t *testing.T) {
 	}
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
-	if err := pool.Retry(func() error {
-		var err error
+	if errRetry := pool.Retry(func() error {
+		var errSetenv error
 
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
-		require.NoError(t, err, "Cannot set ENV")
+		errSetenv = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
+		require.NoError(t, errSetenv, "Cannot set ENV")
 
-		err = store.Init(ctx)
-		if err != nil {
-			return err
+		errInit := store.Init(ctx)
+		if errInit != nil {
+			return errInit
 		}
 
 		return nil
-	}); err != nil {
+	}); errRetry != nil {
 		// When you're done, kill and remove the container
 		if errPurge := pool.Purge(resource); errPurge != nil {
 			t.Fatalf("Could not purge resource: %s", errPurge)
 		}
 
-		require.NoError(t, err, "Could not connect to docker")
+		require.NoError(t, errRetry, "Could not connect to docker")
 	}
 
 	t.Cleanup(func() {
 		// When you're done, kill and remove the container
-		if err := pool.Purge(resource); err != nil {
-			t.Fatalf("Could not purge resource: %s", err)
+		if errPurge := pool.Purge(resource); errPurge != nil {
+			t.Fatalf("Could not purge resource: %s", errPurge)
 		}
 	})
 }

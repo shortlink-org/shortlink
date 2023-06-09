@@ -11,40 +11,32 @@ import (
 	"github.com/authzed/authzed-go/v1"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+	"gopkg.in/yaml.v3"
 )
 
-var (
-	//go:embed permissions/*
-	permissions embed.FS
-)
-
-type insecureMetadataCreds map[string]string
-
-func (c insecureMetadataCreds) RequireTransportSecurity() bool { return false }
-func (c insecureMetadataCreds) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) {
-	return c, nil
-}
-
-func Migrations(ctx context.Context) error {
+// Migrations run the migrations for the authzed service.
+func Migrations(ctx context.Context, fs embed.FS) error {
 	viper.SetDefault("SPICE_DB_API", "shortlink.spicedb:50051")
 	viper.SetDefault("SPICE_DB_COMMON_KEY", "secret-shortlink-preshared-key")
 
 	client, err := authzed.NewClient(
 		viper.GetString("SPICE_DB_API"),
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithPerRPCCredentials(insecureMetadataCreds{"authorization": "Bearer " + viper.GetString("SPICE_DB_COMMON_KEY")}),
+		grpc.WithBlock(),
 	)
 	if err != nil {
 		return err
 	}
 
-	permissionsData, err := GetPermissions(permissions)
+	permissionsData, err := GetPermissions(fs)
 	if err != nil {
 		return err
 	}
 
-	for _, schema := range permissionsData {
-		request := &pb.WriteSchemaRequest{Schema: string(schema)}
-		_, err = client.WriteSchema(ctx, request)
+	for i := range permissionsData {
+		_, err = client.WriteSchema(ctx, permissionsData[i])
 		if err != nil {
 			return fmt.Errorf("Failed to write schema: %w", err)
 		}
@@ -53,7 +45,8 @@ func Migrations(ctx context.Context) error {
 	return nil
 }
 
-func GetPermissions(fsys fs.FS) ([][]byte, error) {
+// GetPermissions returns a list of permissions from the embedded permissions directory.
+func GetPermissions(fsys fs.FS) ([]*pb.WriteSchemaRequest, error) {
 	var zedFileData [][]byte
 
 	err := fs.WalkDir(fsys, ".", func(path string, d fs.DirEntry, err error) error {
@@ -61,10 +54,10 @@ func GetPermissions(fsys fs.FS) ([][]byte, error) {
 			return err
 		}
 
-		if !d.IsDir() && filepath.Ext(d.Name()) == ".zed" {
-			fileData, err := fs.ReadFile(fsys, path)
-			if err != nil {
-				return fmt.Errorf("Failed to read file: %w", err)
+		if !d.IsDir() && filepath.Ext(d.Name()) == ".yaml" {
+			fileData, errReadFile := fs.ReadFile(fsys, path)
+			if errReadFile != nil {
+				return fmt.Errorf("failed to read file: %w", errReadFile)
 			}
 
 			zedFileData = append(zedFileData, fileData)
@@ -74,8 +67,31 @@ func GetPermissions(fsys fs.FS) ([][]byte, error) {
 	})
 
 	if err != nil {
-		return nil, fmt.Errorf("Failed to walk directory: %w", err)
+		return nil, fmt.Errorf("failed to walk directory: %w", err)
 	}
 
-	return zedFileData, nil
+	schemas, err := GetSchema(zedFileData)
+	if err != nil {
+		return nil, fmt.Errorf("failed to get schema: %w", err)
+	}
+
+	return schemas, nil
+}
+
+// GetSchema returns a list of schema from the embedded schema directory.
+func GetSchema(files [][]byte) ([]*pb.WriteSchemaRequest, error) {
+	schemaData := make([]*pb.WriteSchemaRequest, 0, len(files))
+
+	for _, file := range files {
+		schema := &pb.WriteSchemaRequest{}
+
+		err := yaml.Unmarshal(file, schema)
+		if err != nil {
+			return nil, fmt.Errorf("Failed to unmarshal schema: %w", err)
+		}
+
+		schemaData = append(schemaData, schema)
+	}
+
+	return schemaData, nil
 }
