@@ -1,19 +1,52 @@
-apiVersion: postgresql.cnpg.io/v1
-kind: Cluster
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
 metadata:
   name: shortlink
 spec:
-  instances: 1
-  imageName: ghcr.io/cloudnative-pg/postgresql:16beta1
-  storage:
-    size: 6Gi
-    storageClass: local-path
+  postgresVersion: 15
+  instances:
+    - name: shortlink
+      dataVolumeClaimSpec:
+        storageClassName: local-path
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: 1Gi
+  backups:
+    pgbackrest:
+      repos:
+        - name: repo1
+          volume:
+            volumeClaimSpec:
+              storageClassName: local-path
+              accessModes:
+                - "ReadWriteOnce"
+              resources:
+                requests:
+                  storage: 1Gi
+  proxy:
+    pgBouncer:
+      replicas: 1
+      port: 5432
+      poolSize: 10
+      resources:
+        requests:
+          cpu: 2m
+          memory: 56Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
   monitoring:
-    enablePodMonitor: true
-  bootstrap:
-    pg_basebackup:
-      database: shortlink
-      owner: shortlink
-      secret:
-        name: shortlink-database-secret
-      source: shortlink-cluster
+    pgmonitor:
+      exporter: {}
+  users:
+    - name: shortlink-link
+      databases:
+        - link
+    - name: shortlink-support
+      databases:
+        - support
+    - name: shortlink-billing
+      databases:
+        - billing
