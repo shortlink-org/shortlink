@@ -5,5 +5,23 @@
 postgres-operator:
   enabled: true
 
+  enableJsonLogging: true
+
+  configUsers:
+    enable_password_rotation: true
+
+  configKubernetes:
+    enable_cross_namespace_secret: true
+    enable_readiness_probe: true
+    share_pgsocket_with_sidecars: true
+
+  configTeamsApi:
+    enable_postgres_team_crd: true
+
+  enableStreams: true
+
+  rbac:
+    createAggregateClusterRoles: true
+
 postgres-operator-ui-charts:
   enabled: true
