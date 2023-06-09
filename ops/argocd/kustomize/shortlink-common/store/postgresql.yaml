@@ -3,11 +3,7 @@ kind: postgresql
 metadata:
   name: shortlink-postgresql
   labels:
-    application: spilo
     team: shortlink
-  annotations:
-    argocd.argoproj.io/compare-options: IgnoreExtraneous
-    argocd.argoproj.io/sync-options: Prune=false
 spec:
   teamId: shortlink
   volume:
