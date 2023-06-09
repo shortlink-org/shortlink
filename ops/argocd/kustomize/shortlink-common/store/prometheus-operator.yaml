@@ -29,7 +29,6 @@ spec:
     pgBouncer:
       replicas: 1
       port: 5432
-      poolSize: 10
       resources:
         requests:
           cpu: 2m
