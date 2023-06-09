@@ -69,6 +69,7 @@ Before settling on the Zalando operator, we assessed alternative solutions:
 - The [PGO, the Postgres Operator from Crunchy Data](https://access.crunchydata.com/documentation/postgres-operator/v5/) 
   was evaluated but was found lacking in features necessary for our needs, such as control over users and roles and 
   the ability to share secrets between Kubernetes namespaces.
+  - Example configuration for PGO: [link](./proof/ADR-0020/postgres-cluster.yaml)
 - **bitnami/postgresql** was previously in use, but due to the superior feature set of the Zalando Postgres Operator, 
   we decided to discontinue its use.
 
