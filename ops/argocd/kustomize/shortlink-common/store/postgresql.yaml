@@ -6,10 +6,8 @@ spec:
   teamId: shortlink
   volume:
     size: 2Gi
-  numberOfInstances: 3
-  patroni:
-    synchronous_mode: true
-  enableMasterLoadBalancer: true
+  numberOfInstances: 1
+  enableMasterLoadBalancer: false
   users:
     links:
       - superuser
