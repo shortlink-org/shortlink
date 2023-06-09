@@ -1,0 +1,76 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: shortlink-postgresql
+spec:
+  teamId: shortlink
+  volume:
+    size: 2Gi
+  numberOfInstances: 3
+  patroni:
+    synchronous_mode: true
+  enableMasterLoadBalancer: true
+  users:
+    links:
+      - superuser
+      - createdb
+      - shortlink-link
+    billing:
+      - superuser
+      - createdb
+      - shortlink-billing
+  databases:
+    links: user_links
+    billing: user_billing
+  preparedDatabases:
+    links: {}
+    billing: {}
+  postgresql:
+    version: 15
+
+  sidecars:
+    - name: "exporter"
+      image: "wrouesnel/postgres_exporter"
+      ports:
+        - name: exporter
+          containerPort: 9187
+          protocol: TCP
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256M
+        requests:
+          cpu: 5m
+          memory: 50M
+      env:
+        - name: "DATA_SOURCE_URI"
+          value: 127.0.0.1:5432
+        - name: "DATA_SOURCE_USER"
+          valueFrom:
+            secretKeyRef:
+              name: postgres.shortlink-postgresql.credentials
+              key: username
+        - name: "DATA_SOURCE_PASS"
+          valueFrom:
+            secretKeyRef:
+              name: postgres.shortlink-postgresql.credentials
+              key: password
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pg-exporter
+  labels:
+    app: pg-exporter
+spec:
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+    - name: exporter
+      port: 9187
+      targetPort: exporter
+  selector:
+    application: spilo
+    team: shortlink
