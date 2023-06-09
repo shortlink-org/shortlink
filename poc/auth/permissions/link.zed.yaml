@@ -1,0 +1,51 @@
+schema: |-
+    /**
+    * user represents a user that can be granted role(s)
+    */
+    definition user {}
+
+    /**
+    * link represents a link protected by Authzed.
+    */
+    definition link {
+        /**
+        * writer indicates that the user is a writer on the document.
+        */
+        relation writer: user
+
+        /**
+        * reader indicates that the user is a reader on the document.
+        */
+        relation reader: user
+
+        /**
+        * edit indicates that the user has permission to edit the document.
+        */
+        permission edit = writer
+
+        /**
+        * view indicates that the user has permission to view the document, if they
+        * are a `reader` *or* have `edit` permission.
+        */
+        permission view = reader + edit
+    }
+
+relationships: |-
+  link:firstlink#writer@user:tom
+  link:firstlink#reader@user:fred
+  link:secondlink#reader@user:tom
+
+assertions:
+  assertTrue:
+    - "link:firstlink#view@user:tom"
+    - "link:firstlink#view@user:fred"
+    - "link:secondlink#view@user:tom"
+  assertFalse:
+    - "link:secondlink#view@user:fred"
+
+validation:
+  link:firstlink#view:
+    - "[user:tom] is <link:firstlink#writer>"
+    - "[user:fred] is <link:firstlink#reader>"
+  link:secondlink#view:
+    - "[user:tom] is <link:secondlink#reader>"
