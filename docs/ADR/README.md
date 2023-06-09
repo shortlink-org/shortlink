@@ -39,7 +39,7 @@ for information team about cases for updated ADR.
 - **DataBase**
   - [ADR-0004](./decisions/0004-use-uuid-as-primary-keys.md) - Use UUID as primary keys
   - [ADR-0005](./decisions/0005-postgres-optimization.md) - Postgres optimization
-  - [ADR-0020](./decisions/0020-postgresql-operator.md) - Research summary of PostgreSQL Operators
+  - [ADR-0020](./decisions/0020-postgresql-operator.md) - Research Summary and Decision for PostgreSQL Operators: Choosing CloudNativePG
 - **Service**
   - [ADR-0008](./decisions/0008-product-metrics-by-services.md) - Product metrics by services
   - [ADR-0015](./decisions/0015-authentication.md) - Authentication
