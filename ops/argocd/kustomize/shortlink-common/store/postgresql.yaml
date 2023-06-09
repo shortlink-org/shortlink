@@ -2,22 +2,22 @@ apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
   name: shortlink-postgresql
+  labels:
+    application: spilo
+    team: shortlink
 spec:
   teamId: shortlink
   volume:
-    size: 2Gi
+    size: 6Gi
+    storageClass: "local-path"
   numberOfInstances: 1
   enableMasterLoadBalancer: false
   users:
-    links:
-      - superuser
-      - createdb
-    billing:
-      - superuser
-      - createdb
+    shortlink-link: []
+    shortlink-billing: []
   databases:
-    links: user_links
-    billing: user_billing
+    links: shortlink-link
+    billing: shortlink-billing
   preparedDatabases:
     links: {}
     billing: {}
