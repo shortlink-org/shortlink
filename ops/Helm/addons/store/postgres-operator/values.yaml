@@ -25,3 +25,10 @@ postgres-operator:
 
 postgres-operator-ui:
   enabled: true
+
+  envs:
+    appUrl: http://postgres-operator-postgres-operator-ui.postgres-operator:80
+    operatorApiUrl: http://postgres-operator.postgres-operator:8080
+    teams:
+      - shortlink
+
