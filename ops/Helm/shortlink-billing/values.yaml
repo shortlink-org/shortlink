@@ -55,8 +55,13 @@ deploy:
 
     # -- Default store config
     STORE_TYPE: postgres
-    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
     STORE_REDIS_URI: shortlink-redis-master.redis:6379
+
+  envSecret:
+    - name: STORE_POSTGRES_URI
+      secretKeyRef:
+        name: shortlink-pguser-shortlink-billing
+        key: pgbouncer-jdbc-uri
 
   imagePullSecrets: []
 

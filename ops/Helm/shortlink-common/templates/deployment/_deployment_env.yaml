@@ -11,6 +11,14 @@
       {{- include "shortlink-common.env-rabbitmq" .env | nindent 4 }}
     {{- end }}
     {{- end }}
+
+    {{- range .envSecret }}
+    - name: {{ .name }}
+      valueFrom:
+        secretKeyRef:
+          name: {{ .secretKeyRef.name }}
+          key: {{ .secretKeyRef.key }}
+    {{- end -}}
 {{- end }}
 
 {{- define "shortlink-common.env-rabbitmq" }}
