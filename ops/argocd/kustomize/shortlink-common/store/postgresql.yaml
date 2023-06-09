@@ -14,11 +14,9 @@ spec:
     links:
       - superuser
       - createdb
-      - shortlink-link
     billing:
       - superuser
       - createdb
-      - shortlink-billing
   databases:
     links: user_links
     billing: user_billing
