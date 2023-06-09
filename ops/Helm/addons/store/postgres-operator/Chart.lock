@@ -1,9 +1,6 @@
 dependencies:
-- name: postgres-operator
-  repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator
-  version: 1.10.0
-- name: postgres-operator-ui
-  repository: https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
-  version: 1.10.0
-digest: sha256:2c4bb8c56df39affdfc992ac95e14071b21e1d69d7629e5541fa289899e1b7c3
-generated: "2023-06-09T15:05:08.003042+02:00"
+- name: cloudnative-pg
+  repository: https://cloudnative-pg.github.io/charts
+  version: 0.18.0
+digest: sha256:7c7832cf5def10c910b52fbc42a600173f57e634a50821689f0b6818471d378b
+generated: "2023-06-09T17:13:21.372453+02:00"

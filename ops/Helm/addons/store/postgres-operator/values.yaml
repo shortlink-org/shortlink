@@ -2,33 +2,13 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-postgres-operator:
+cloudnative-pg:
   enabled: true
 
-  enableJsonLogging: true
-
-  configUsers:
-    enable_password_rotation: true
-
-  configKubernetes:
-    enable_cross_namespace_secret: true
-    enable_readiness_probe: true
-    share_pgsocket_with_sidecars: true
-
-  configTeamsApi:
-    enable_postgres_team_crd: true
-
-  enableStreams: true
-
-  rbac:
-    createAggregateClusterRoles: true
-
-postgres-operator-ui:
-  enabled: true
-
-  envs:
-    appUrl: http://postgres-operator-postgres-operator-ui.postgres-operator:80
-    operatorApiUrl: http://postgres-operator.postgres-operator:8080
-    teams:
-      - shortlink
-
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+    requests:
+      cpu: 10m
+      memory: 128Mi
