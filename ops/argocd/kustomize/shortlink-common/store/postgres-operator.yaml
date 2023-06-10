@@ -39,7 +39,7 @@ spec:
   monitoring:
     pgmonitor:
       exporter:
-        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.3.2-0
+        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.3.1-0
   users:
     - name: shortlink-link
       databases:
