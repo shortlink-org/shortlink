@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Namespace, Context } from "@ory/keto-namespace-types"
 
 class User implements Namespace {}
