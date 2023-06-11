@@ -69,7 +69,7 @@ deploy:
     - name: STORE_POSTGRES_URI
       secretKeyRef:
         name: shortlink-postgres-pguser-shortlink-link
-        key: pgbouncer-uri
+        key: uri
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/link
