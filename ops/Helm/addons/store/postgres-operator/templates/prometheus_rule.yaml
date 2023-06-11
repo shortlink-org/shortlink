@@ -13,7 +13,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             summary: 'Postgres Exporter running on {{"{{"}} $labels.job {{"}}"}} (instance: {{"{{"}} $labels.instance {{"}}"}}) is encountering scrape errors processing queries. Error count: ( {{"{{"}} $value {{"}}"}} )'
 
@@ -25,7 +25,7 @@ spec:
           labels:
             service: system
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: 'Metrics exporter service for {{"{{"}} $labels.job {{"}}"}} running on {{"{{"}} $labels.instance {{"}}"}} has been down at least 50% of the time for the last 5 minutes. Service may be flapping or down.'
             summary: 'Prometheus Exporter Service Down'
@@ -38,7 +38,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             summary: 'postgres_exporter running on {{"{{"}} $labels.job {{"}}"}} is unable to communicate with the configured database'
 
@@ -51,7 +51,7 @@ spec:
         #    labels:
         #      service: postgresql
         #      severity: critical
-        #      severity_num: 300
+        #      # severity_num: 300
         #    annotations:
         #      summary: '{{"{{"}} $labels.job {{"}}"}} is not running at least version 11.5 of PostgreSQL'
 
@@ -68,7 +68,7 @@ spec:
         #    labels:
         #      service: postgresql
         #      severity: critical
-        #      severity_num: 300
+        #      # severity_num: 300
         #    annotations:
         #      summary: '{{"{{"}} $labels.job {{"}}"}} has changed from replica to primary'
 
@@ -81,7 +81,7 @@ spec:
         #    labels:
         #      service: postgresql
         #      severity: critical
-        #      severity_num: 300
+        #      # severity_num: 300
         #    annotations:
         #      description: 'Connection metric is absent from target (Prod). Check that postgres_exporter can connect to PostgreSQL.'
 
@@ -97,7 +97,7 @@ spec:
         #    labels:
         #      service: postgresql
         #      severity: critical
-        #      severity_num: 300
+        #      # severity_num: 300
         #    annotations:
         #      description: 'Configuration settings on {{"{{"}} $labels.job {{"}}"}} have changed from previously known valid state. To reset current config to a valid state after alert fires, run monitor.pg_settings_checksum_set_valid().'
         #      summary: 'PGSQL Instance settings checksum'
@@ -110,7 +110,7 @@ spec:
         #    labels:
         #      service: postgresql
         #      severity: critical
-        #      severity_num: 300
+        #      # severity_num: 300
         #    annotations:
         #      description: '{{"{{"}} $labels.job {{"}}"}} has at least one data checksum failure in database {{"{{"}} $labels.dbname {{"}}"}}. See pg_stat_database system catalog for more information.'
         #      summary: 'PGSQL Data Checksum failure'
@@ -121,7 +121,7 @@ spec:
           labels:
             service: postgresql
             severity: warning
-            severity_num: 200
+            # severity_num: 200
           annotations:
             description: '{{"{{"}} $labels.job {{"}}"}} has at least one session idle in transaction for over 5 minutes.'
             summary: 'PGSQL Instance idle transactions'
@@ -132,7 +132,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: '{{"{{"}} $labels.job {{"}}"}} has at least one session idle in transaction for over 15 minutes.'
             summary: 'PGSQL Instance idle transactions'
@@ -143,7 +143,7 @@ spec:
           labels:
             service: postgresql
             severity: warning
-            severity_num: 200
+            # severity_num: 200
           annotations:
             description: '{{"{{"}} $labels.job {{"}}"}} has at least one query running for over 12 hours.'
             summary: 'PGSQL Max Query Runtime'
@@ -154,7 +154,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: '{{"{{"}} $labels.job {{"}}"}} has at least one query running for over 1 day.'
             summary: 'PGSQL Max Query Runtime'
@@ -165,7 +165,7 @@ spec:
           labels:
             service: postgresql
             severity: warning
-            severity_num: 200
+            # severity_num: 200
           annotations:
             description: '{{"{{"}} $labels.job {{"}}"}} is using 75% or more of available connections ({{"{{"}} $value {{"}}"}}%)'
             summary: 'PGSQL Instance connections'
@@ -176,7 +176,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: '{{"{{"}} $labels.job {{"}}"}} is using 90% or more of available connections ({{"{{"}} $value {{"}}"}}%)'
             summary: 'PGSQL Instance connections'
@@ -187,7 +187,7 @@ spec:
           labels:
             service: postgresql
             severity: warning
-            severity_num: 200
+            # severity_num: 200
           annotations:
             summary: 'Disk predicted to be full in 24 hours'
             description: 'Disk on {{"{{"}} $labels.pg_cluster {{"}}"}}:{{"{{"}} $labels.kubernetes_pod_name {{"}}"}} is predicted to fill in 24 hrs based on current usage'
@@ -198,7 +198,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             summary: '{{"{{"}} $labels.pg_cluster {{"}}"}} has had a switchover/failover event. Please check this cluster for more details'
 
@@ -208,7 +208,7 @@ spec:
           labels:
             service: postgresql
             severity: warning
-            severity_num: 200
+            # severity_num: 200
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.deployment {{"}}"}} over 75% disk usage at mount point "{{"{{"}} $labels.mount_point {{"}}"}}": {{"{{"}} $value {{"}}"}}%'
             summary: PGSQL Instance usage warning
@@ -219,7 +219,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.deployment {{"}}"}} over 90% disk usage at mount point "{{"{{"}} $labels.mount_point {{"}}"}}": {{"{{"}} $value {{"}}"}}%'
             summary: 'PGSQL Instance size critical'
@@ -230,7 +230,7 @@ spec:
           labels:
             service: postgresql
             severity: warning
-            severity_num: 200
+            # severity_num: 200
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} has at least one replica lagging over 50MB behind.'
             summary: 'PGSQL Instance replica lag warning'
@@ -241,7 +241,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} has at least one replica lagging over 100MB behind.'
             summary: 'PGSQL Instance replica lag warning'
@@ -252,7 +252,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} has one or more inactive replication slots'
             summary: 'PGSQL Instance inactive replication slot'
@@ -263,7 +263,7 @@ spec:
           labels:
             service: postgresql
             severity: warning
-            severity_num: 200
+            # severity_num: 200
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} is over 50% towards transaction id wraparound.'
             summary: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} transaction id wraparound imminent'
@@ -274,7 +274,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} is over 75% towards transaction id wraparound.'
             summary: 'PGSQL Instance transaction id wraparound imminent'
@@ -285,7 +285,7 @@ spec:
           labels:
             service: postgresql
             severity: warning
-            severity_num: 200
+            # severity_num: 200
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} is over 110% beyond autovacuum_freeze_max_age value. Autovacuum may need tuning to better keep up.'
             summary: 'PGSQL Instance emergency vacuum imminent'
@@ -296,7 +296,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} is over 125% beyond autovacuum_freeze_max_age value. Autovacuum needs tuning to better keep up.'
             summary: 'PGSQL Instance emergency vacuum imminent'
@@ -307,7 +307,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} has a recent failing archive command'
             summary: 'Seconds since the last recorded failure of the archive_command'
@@ -318,7 +318,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: 'Count of sequences on instance {{"{{"}} $labels.job {{"}}"}} at over 75% usage: {{"{{"}} $value {{"}}"}}. Run following query to see full sequence status: SELECT * FROM monitor.sequence_status() WHERE percent >= 75'
 
@@ -328,7 +328,7 @@ spec:
           labels:
             service: postgresql
             severity: critical
-            severity_num: 300
+            # severity_num: 300
           annotations:
             description: 'One or more settings in the pg_settings system catalog on system {{"{{"}} $labels.job {{"}}"}} are in a pending_restart state. Check the system catalog for which settings are pending and review postgresql.conf for changes.'
 
@@ -355,7 +355,7 @@ spec:
     #    labels:
     #       service: postgresql
     #       severity: critical
-    #       severity_num: 300
+    #       # severity_num: 300
     #    annotations:
     #       summary: 'Full backup for stanza [main] on system {{"{{"}} $labels.job {{"}}"}} has not completed in the last week.'
     #
@@ -365,7 +365,7 @@ spec:
     #    labels:
     #       service: postgresql
     #       severity: critical
-    #       severity_num: 300
+    #       # severity_num: 300
     #    annotations:
     #       summary: 'Incremental backup for stanza [main] on system {{"{{"}} $labels.job {{"}}"}} has not completed in the last 24 hours.'
     #
@@ -384,7 +384,7 @@ spec:
     #    labels:
     #       service: postgresql
     #       severity: critical
-    #       severity_num: 300
+    #       # severity_num: 300
     #    annotations:
     #       summary: 'Expected runtime of full backup for stanza [main] has exceeded 4 hours'
     #
@@ -394,7 +394,7 @@ spec:
     #    labels:
     #       service: postgresql
     #       severity: critical
-    #       severity_num: 300
+    #       # severity_num: 300
     #    annotations:
     #       summary: 'Expected runtime of diff backup for stanza [main] has exceeded 1 hour'
     ##
@@ -411,6 +411,6 @@ spec:
     #    labels:
     #      service: postgresql
     #      severity: critical
-    #      severity_num: 300
+    #      # severity_num: 300
     #    annotations:
     #      description: 'Backup Full status missing for Prod. Check that pgbackrest info command is working on target system.'
