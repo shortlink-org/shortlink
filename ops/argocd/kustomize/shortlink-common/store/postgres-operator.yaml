@@ -19,6 +19,13 @@ spec:
         resources:
           requests:
             storage: 1Gi
+      walVolumeClaimSpec:
+        storageClassName: local-path
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: 1Gi
   databaseInitSQL:
     name: shortlink-init-sql
     key: init.sql
