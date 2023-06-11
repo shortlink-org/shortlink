@@ -9,7 +9,7 @@ CREATE SCHEMA IF NOT EXISTS shortlink;
 COMMENT ON SCHEMA shortlink IS 'Shortlink schema';
 
 -- Create a table for links
-CREATE TABLE shortlink.links
+CREATE TABLE link.links
 (
     id       UUID NOT NULL DEFAULT uuid_generate_v4(),
              CONSTRAINT id_links PRIMARY KEY(id),
@@ -19,14 +19,14 @@ CREATE TABLE shortlink.links
     json     jsonb        not null
 ) WITH (fillfactor = 100);
 
-COMMENT ON TABLE shortlink.links IS 'Link list';
+COMMENT ON TABLE link.links IS 'Link list';
 
 CREATE UNIQUE INDEX links_id_uindex
-    ON shortlink.links (id);
+    ON link.links (id);
 
 CREATE UNIQUE INDEX links_hash_uindex
-    ON shortlink.links (hash);
+    ON link.links (hash);
 
 -- INCLUDE-index
 -- as example: SELECT id, url, hash FROM links WHERE id = 10;
-CREATE UNIQUE INDEX links_list ON shortlink.links USING btree (hash) INCLUDE (url);
+CREATE UNIQUE INDEX links_list ON link.links USING btree (hash) INCLUDE (url);

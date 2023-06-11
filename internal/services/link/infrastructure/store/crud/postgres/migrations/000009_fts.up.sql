@@ -7,5 +7,5 @@ END
 $$ LANGUAGE 'plpgsql' IMMUTABLE;
 
 -- We can't use concurrent index because golang-migrate doesn't support it
-CREATE INDEX idx_fts_link_view ON shortlink.link_view
+CREATE INDEX idx_fts_link_view ON link.link_view
   USING gin(make_tsvector_link_view(meta_description, meta_keywords));

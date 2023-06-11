@@ -8,4 +8,4 @@ CREATE DOMAIN link AS jsonb CHECK (
     END
 );
 
-AlTER TABLE shortlink.links ALTER column json TYPE link USING json::link;
+AlTER TABLE link.links ALTER column json TYPE link USING json::link;

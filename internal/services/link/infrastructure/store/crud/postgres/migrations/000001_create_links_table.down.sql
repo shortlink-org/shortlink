@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS shortlink.links;
+DROP TABLE IF EXISTS link.links;
