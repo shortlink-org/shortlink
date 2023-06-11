@@ -23,8 +23,7 @@ async function main() {
     const { stdout } = await execPromisified(`kubectl -n ${namespace} get secret ${secretName} -o json`);
     const secret = JSON.parse(stdout);
     const keyValueBase64 = secret.data[key];
-    const keyValue = Buffer.from(keyValueBase64, 'base64').toString();
-    const keyValueDecoded = decodeURIComponent(keyValue);
+    const keyValueDecoded = Buffer.from(keyValueBase64, 'base64').toString().replace('.svc', '');
 
     let envConfig = fs.readFileSync('.env', 'utf8').split(os.EOL);
     let newConfig = envConfig.map(line => {
