@@ -35,9 +35,6 @@ deploy:
     TELEGRAM_BOT_TOKEN: "YOUR_TELEGRAM_TOKEN"
     TELEGRAM_BOT_USERNAME: "shortlink_my_bot"
 
-    # -- Default store config
-    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
-
   imagePullSecrets: []
 
   # -- Annotations to be added to controller pods

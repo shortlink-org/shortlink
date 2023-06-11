@@ -53,9 +53,6 @@ deploy:
     API_LINK_SERVICE: http://shortlink-api.shortlink:7070
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 
-    # -- Default store config
-    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
-
   imagePullSecrets: []
 
   # -- Annotations to be added to controller pods

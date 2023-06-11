@@ -65,9 +65,6 @@ deploy:
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress.svc.cluster.local
 
-    # -- Default store config
-    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
-
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/api
     tag: 0.16.5
