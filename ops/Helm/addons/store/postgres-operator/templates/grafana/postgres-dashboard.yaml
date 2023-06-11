@@ -5,6 +5,15 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: DataBase
+    grafana_dashboard_folder: DataBase/Postgres
 data:
-  postgres-dashboard.json.url: "https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-configmap.yaml"
+  postgres_bloat_details.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/Bloat_Details.json"
+  postgres_crud_summary.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/CRUD_Details.json"
+  postgres_etcd_summary.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/ETCD_Details.json"
+  postgres_PGBackrest.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/PGBackrest.json"
+  postgres_PGBouncer.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/PGBouncer.json"
+  postgres_PG_Details.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/PG_Details.json"
+  postgres_PG_Overview.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/PG_Overview.json"
+  postgres_Prometheus_Alerts.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/Prometheus_Alerts.json"
+  postgres_QueryStatistics.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/QueryStatistics.json"
+  postgres_TableSize_Details.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/TableSize_Details.json"
