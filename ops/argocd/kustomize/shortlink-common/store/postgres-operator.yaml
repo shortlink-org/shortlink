@@ -39,6 +39,9 @@ spec:
                   storage: 1Gi
   proxy:
     pgBouncer:
+      metadata:
+        annotations:
+          sidecar.istio.io/inject: "false"
       replicas: 1
       port: 5432
       resources:
@@ -59,9 +62,9 @@ spec:
         - link
         - billing
       options: "SUPERUSER"
-    - name: shortlink-link
+    - name: link
       databases:
         - link
-    - name: shortlink-billing
+    - name: billing
       databases:
         - billing
