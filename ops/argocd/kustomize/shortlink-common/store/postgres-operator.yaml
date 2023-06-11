@@ -41,6 +41,12 @@ spec:
       exporter:
         image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.3.1-0
   users:
+    - name: admin
+      databases:
+        - postgres
+        - link
+        - billing
+      options: "SUPERUSER"
     - name: shortlink-link
       databases:
         - link
