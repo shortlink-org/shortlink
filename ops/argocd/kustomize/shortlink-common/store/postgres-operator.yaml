@@ -59,12 +59,12 @@ spec:
     - name: admin
       databases:
         - postgres
-        - link
+        - shortlink
         - billing
       options: "SUPERUSER"
     - name: link
       databases:
-        - link
+        - shortlink
     - name: billing
       databases:
         - billing
