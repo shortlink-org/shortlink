@@ -31,7 +31,7 @@ spec:
         ## Monitor for data block checksum failures. Only works in PG12+
         - alert: PGDataChecksum
           expr: ccp_data_checksum_failure_count > 0
-          for 60s
+          for: 60s
           labels:
             service: postgresql
             severity: critical
