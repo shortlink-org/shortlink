@@ -60,7 +60,7 @@ deploy:
   envSecret:
     - name: STORE_POSTGRES_URI
       secretKeyRef:
-        name: shortlink-postgres-pguser-shortlink-billing
+        name: shortlink-postgres-pguser-billing
         key: uri
 
   imagePullSecrets: []
