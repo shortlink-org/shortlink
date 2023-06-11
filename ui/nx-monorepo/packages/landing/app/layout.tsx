@@ -1,8 +1,3 @@
-import {
-  DEFAULT_ONLOAD_NAME,
-  DEFAULT_SCRIPT_ID,
-  SCRIPT_URL,
-} from '@marsidev/react-turnstile'
 import { Metadata } from 'next'
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google'
@@ -79,11 +74,6 @@ export default function RootLayout({
         id="json-ld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-      <Script
-        id={DEFAULT_SCRIPT_ID}
-        src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
-        strategy="afterInteractive"
       />
       <Script
         id="google-analytics-script"

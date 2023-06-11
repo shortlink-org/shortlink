@@ -1,6 +1,7 @@
 'use client'
 
 import { useTheme, AppBar, Grid, Tabs, Tab, Box } from '@mui/material'
+// @ts-ignore
 import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import { NextPage } from 'next'
 import React, { useState } from 'react'
