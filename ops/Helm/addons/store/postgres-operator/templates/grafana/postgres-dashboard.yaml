@@ -5,15 +5,15 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: DataBase/Postgres
+    grafana_dashboard_folder: Postgres
 data:
-  postgres_bloat_details.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/Bloat_Details.json"
-  postgres_crud_summary.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/CRUD_Details.json"
-  postgres_etcd_summary.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/ETCD_Details.json"
-  postgres_PGBackrest.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/PGBackrest.json"
-  postgres_PGBouncer.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/PGBouncer.json"
-  postgres_PG_Details.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/PG_Details.json"
-  postgres_PG_Overview.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/PG_Overview.json"
-  postgres_Prometheus_Alerts.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/Prometheus_Alerts.json"
-  postgres_QueryStatistics.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/QueryStatistics.json"
-  postgres_TableSize_Details.json.url: "https://raw.githubusercontent.com/CrunchyData/pgmonitor/main/grafana/common/TableSize_Details.json"
+  postgres_crud_details.json.url: "https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/dashboards/crud_details.json"
+  postgres_pgbackrest.json.url: "https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/dashboards/pgbackrest.json"
+  postgres_pod_details.json.url: "https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/dashboards/pod_details.json"
+  postgres_pod_details2.json.url: "https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/dashboards/pod_details2.json"
+  postgres_postgres_overview.json.url: "https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/dashboards/postgres_overview.json"
+  postgres_details.json.url: "https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/dashboards/postgresql_details.json"
+  postgres_service_health.json.url: "https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/dashboards/postgresql_service_health.json"
+  postgres_prometheus_alerts.json.url: "https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/dashboards/prometheus_alerts.json"
+  postgres_query_statistics.json.url: "https://raw.githubusercontent.com/CrunchyData/postgres-operator-examples/main/kustomize/monitoring/dashboards/query_statistics.json"
+
