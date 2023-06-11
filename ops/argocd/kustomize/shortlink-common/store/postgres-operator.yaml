@@ -13,18 +13,18 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  backups:
-    pgbackrest:
-      repos:
-        - name: repo1
-          volume:
-            volumeClaimSpec:
-              storageClassName: local-path
-              accessModes:
-                - "ReadWriteOnce"
-              resources:
-                requests:
-                  storage: 1Gi
+#  backups:
+#    pgbackrest:
+#      repos:
+#        - name: repo1
+#          volume:
+#            volumeClaimSpec:
+#              storageClassName: local-path
+#              accessModes:
+#                - "ReadWriteOnce"
+#              resources:
+#                requests:
+#                  storage: 1Gi
   proxy:
     pgBouncer:
       replicas: 1
