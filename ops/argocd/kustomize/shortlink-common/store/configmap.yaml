@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shortlink-init-sql
+data:
+  init.sql: |
+    ALTER DATABASE link OWNER TO shortlink_link;
+    ALTER DATABASE billing OWNER TO shortlink_billing;
