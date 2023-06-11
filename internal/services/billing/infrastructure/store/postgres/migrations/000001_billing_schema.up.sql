@@ -1,6 +1,6 @@
 -- BILLING SCHEMA ======================================================================================================
 
-CREATE SCHEMA billing;
+CREATE SCHEMA IF NOT EXISTS billing;
 
 COMMENT ON SCHEMA billing IS 'Billing schema';
 

@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 alter table billing.tariff alter column created_at set default now();
 alter table billing.tariff alter column updated_at set default now();
 alter table billing.tariff alter column id set default uuid_generate_v4();
