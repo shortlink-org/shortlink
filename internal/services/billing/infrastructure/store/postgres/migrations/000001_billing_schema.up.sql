@@ -1,5 +1,9 @@
 -- BILLING SCHEMA ======================================================================================================
 
+-- for local development
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS pg_prewarm;
+ALTER SYSTEM SET shared_preload_libraries = 'pg_prewarm';
 CREATE SCHEMA IF NOT EXISTS billing;
 
 COMMENT ON SCHEMA billing IS 'Billing schema';
