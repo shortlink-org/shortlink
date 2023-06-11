@@ -6,7 +6,7 @@ data:
   init.sql: |
     -- link database
     \c link;
-    CREATE SCHEMA link;
+    CREATE SCHEMA AUTHORIZATION link;
     GRANT ALL PRIVILEGES ON DATABASE link TO link;
     ALTER DATABASE link OWNER TO link;
     
@@ -17,7 +17,7 @@ data:
      
     -- billing database
     \c billing;
-    CREATE SCHEMA billing;
+    CREATE SCHEMA AUTHORIZATION billing;
     GRANT ALL PRIVILEGES ON DATABASE billing TO billing;
     ALTER DATABASE billing OWNER TO billing;
     
