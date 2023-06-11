@@ -50,6 +50,8 @@ func buildURI(client *pgxpool.Pool, tableName string) string {
 	}
 
 	uri.WriteString(connStr)
+	uri.WriteString("&dbname=")
+	uri.WriteString(client.Config().ConnConfig.Database)
 	uri.WriteString("&x-migrations-table=")
 	uri.WriteString(fmt.Sprintf("schema_migrations_%s", strings.Replace(tableName, "-", "_", -1)))
 	return uri.String()
