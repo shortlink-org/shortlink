@@ -15,7 +15,7 @@ spec:
             severity: critical
             severity_num: 300
           annotations:
-            summary: 'Postgres Exporter running on "{{ $labels.job }}" (instance: "{{ $labels.instance }}") is encountering scrape errors processing queries. Error count: ( "{{ $value }}" )'
+            summary: 'Postgres Exporter running on {{"{{"}} $labels.job {{"}}"}} (instance: {{"{{"}} $labels.instance {{"}}"}}) is encountering scrape errors processing queries. Error count: ( {{"{{"}} $value {{"}}"}} )'
 
         ########## POSTGRESQL RULES ##########
         - alert: PGIsUp
@@ -26,7 +26,7 @@ spec:
             severity: critical
             severity_num: 300
           annotations:
-            summary: 'postgres_exporter running on "{{ $labels.job }}" is unable to communicate with the configured database'
+            summary: 'postgres_exporter running on {{"{{"}} $labels.job {{"}}"}} is unable to communicate with the configured database'
 
         ## Monitor for data block checksum failures. Only works in PG12+
         - alert: PGDataChecksum
@@ -37,7 +37,7 @@ spec:
             severity: critical
             severity_num: 300
           annotations:
-            description: '"{{ $labels.job }}" has at least one data checksum failure in database {{ $labels.dbname }}. See pg_stat_database system catalog for more information.'
+            description: '{{"{{"}} $labels.job {{"}}"}} has at least one data checksum failure in database {{"{{"}} $labels.dbname {{"}}"}}. See pg_stat_database system catalog for more information.'
             summary: 'PGSQL Data Checksum failure'
 
         - alert: PGIdleTxn
@@ -48,7 +48,7 @@ spec:
             severity: warning
             severity_num: 200
           annotations:
-            description: '"{{ $labels.job }}" has at least one session idle in transaction for over 5 minutes.'
+            description: '{{"{{"}} $labels.job {{"}}"}} has at least one session idle in transaction for over 5 minutes.'
             summary: 'PGSQL Instance idle transactions'
 
           - alert: PGIdleTxn
@@ -59,7 +59,7 @@ spec:
               severity: critical
               severity_num: 300
             annotations:
-              description: '"{{ $labels.job }}" has at least one session idle in transaction for over 15 minutes.'
+              description: '{{"{{"}} $labels.job {{"}}"}} has at least one session idle in transaction for over 15 minutes.'
               summary: 'PGSQL Instance idle transactions'
 
           - alert: PGQueryTime
@@ -70,7 +70,7 @@ spec:
               severity: warning
               severity_num: 200
             annotations:
-              description: '"{{ $labels.job }}" has at least one query running for over 12 hours.'
+              description: '{{"{{"}} $labels.job {{"}}"}} has at least one query running for over 12 hours.'
               summary: 'PGSQL Max Query Runtime'
 
           - alert: PGQueryTime
@@ -81,7 +81,7 @@ spec:
               severity: critical
               severity_num: 300
             annotations:
-              description: '"{{ $labels.job }}" has at least one query running for over 1 day.'
+              description: '{{"{{"}} $labels.job {{"}}"}} has at least one query running for over 1 day.'
               summary: 'PGSQL Max Query Runtime'
 
           - alert: PGConnPerc
@@ -92,7 +92,7 @@ spec:
               severity: warning
               severity_num: 200
             annotations:
-              description: '"{{ $labels.job }}" is using 75% or more of available connections ("{{ $value }}"%)'
+              description: '{{"{{"}} $labels.job {{"}}"}} is using 75% or more of available connections ({{"{{"}} $value {{"}}"}}%)'
               summary: 'PGSQL Instance connections'
 
           - alert: PGConnPerc
@@ -103,7 +103,7 @@ spec:
               severity: critical
               severity_num: 300
             annotations:
-              description: '"{{ $labels.job }}" is using 90% or more of available connections ("{{ $value }}"%)'
+              description: '{{"{{"}} $labels.job {{"}}"}} is using 90% or more of available connections ({{"{{"}} $value {{"}}"}}%)'
               summary: 'PGSQL Instance connections'
 
           - alert: PGDBSize
@@ -114,7 +114,7 @@ spec:
               severity: warning
               severity_num: 200
             annotations:
-              description: 'PGSQL Instance "{{ $labels.job }}" over 100GB in size: "{{ $value }}" bytes'
+              description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} over 100GB in size: {{"{{"}} $value {{"}}"}} bytes'
               summary: 'PGSQL Instance size warning'
 
           - alert: PGDBSize
@@ -125,7 +125,7 @@ spec:
               severity: critical
               severity_num: 300
             annotations:
-              description: 'PGSQL Instance "{{ $labels.job }}" over 250GB in size: "{{ $value }}" bytes'
+              description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} over 250GB in size: {{"{{"}} $value {{"}}"}} bytes'
               summary: 'PGSQL Instance size critical'
 
           - alert: PGReplicationByteLag
@@ -136,7 +136,7 @@ spec:
               severity: warning
               severity_num: 200
             annotations:
-              description: 'PGSQL Instance "{{ $labels.job }}" has at least one replica lagging over 50MB behind.'
+              description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} has at least one replica lagging over 50MB behind.'
               summary: 'PGSQL Instance replica lag warning'
 
           - alert: PGReplicationByteLag
@@ -147,7 +147,7 @@ spec:
               severity: critical
               severity_num: 300
             annotations:
-              description: 'PGSQL Instance "{{ $labels.job }}" has at least one replica lagging over 100MB behind.'
+              description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} has at least one replica lagging over 100MB behind.'
               summary: 'PGSQL Instance replica lag warning'
 
           - alert: PGReplicationSlotsInactive
@@ -158,7 +158,7 @@ spec:
               severity: critical
               severity_num: 300
             annotations:
-              description: 'PGSQL Instance "{{ $labels.job }}" has one or more inactive replication slots'
+              description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} has one or more inactive replication slots'
               summary: 'PGSQL Instance inactive replication slot'
 
           - alert: PGXIDWraparound
@@ -169,8 +169,8 @@ spec:
               severity: warning
               severity_num: 200
             annotations:
-              description: 'PGSQL Instance "{{ $labels.job }}" is over 50% towards transaction id wraparound.'
-              summary: 'PGSQL Instance "{{ $labels.job }}" transaction id wraparound imminent'
+              description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} is over 50% towards transaction id wraparound.'
+              summary: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} transaction id wraparound imminent'
 
           - alert: PGXIDWraparound
             expr: ccp_transaction_wraparound_percent_towards_wraparound > 75
@@ -180,7 +180,7 @@ spec:
               severity: critical
               severity_num: 300
             annotations:
-              description: 'PGSQL Instance "{{ $labels.job }}" is over 75% towards transaction id wraparound.'
+              description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} is over 75% towards transaction id wraparound.'
               summary: 'PGSQL Instance transaction id wraparound imminent'
 
           - alert: PGEmergencyVacuum
@@ -191,7 +191,7 @@ spec:
               severity: warning
               severity_num: 200
             annotations:
-              description: 'PGSQL Instance "{{ $labels.job }}" is over 110% beyond autovacuum_freeze_max_age value. Autovacuum may need tuning to better keep up.'
+              description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} is over 110% beyond autovacuum_freeze_max_age value. Autovacuum may need tuning to better keep up.'
               summary: 'PGSQL Instance emergency vacuum imminent'
 
           - alert: PGEmergencyVacuum
@@ -202,7 +202,7 @@ spec:
               severity: critical
               severity_num: 300
             annotations:
-              description: 'PGSQL Instance "{{ $labels.job }}" is over 125% beyond autovacuum_freeze_max_age value. Autovacuum needs tuning to better keep up.'
+              description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} is over 125% beyond autovacuum_freeze_max_age value. Autovacuum needs tuning to better keep up.'
               summary: 'PGSQL Instance emergency vacuum imminent'
 
           - alert: PGArchiveCommandStatus
@@ -213,7 +213,7 @@ spec:
                 severity: critical
                 severity_num: 300
             annotations:
-                description: 'PGSQL Instance "{{ $labels.job }}" has a recent failing archive command'
+                description: 'PGSQL Instance {{"{{"}} $labels.job {{"}}"}} has a recent failing archive command'
                 summary: 'Seconds since the last recorded failure of the archive_command'
 
           - alert: PGSequenceExhaustion
@@ -224,7 +224,7 @@ spec:
                 severity: critical
                 severity_num: 300
             annotations:
-                description: 'Count of sequences on instance "{{ $labels.job }}" at over 75% usage: "{{ $value }}". Run following query to see full sequence status: SELECT * FROM monitor.sequence_status() WHERE percent >= 75'
+                description: 'Count of sequences on instance {{"{{"}} $labels.job {{"}}"}} at over 75% usage: {{"{{"}} $value {{"}}"}}. Run following query to see full sequence status: SELECT * FROM monitor.sequence_status() WHERE percent >= 75'
 
           - alert: PGSettingsPendingRestart
             expr: ccp_settings_pending_restart_count > 0
@@ -234,7 +234,7 @@ spec:
                 severity: critical
                 severity_num: 300
             annotations:
-                description: 'One or more settings in the pg_settings system catalog on system "{{ $labels.job }}" are in a pending_restart state. Check the system catalog for which settings are pending and review postgresql.conf for changes.'
+                description: 'One or more settings in the pg_settings system catalog on system {{"{{"}} $labels.job {{"}}"}} are in a pending_restart state. Check the system catalog for which settings are pending and review postgresql.conf for changes.'
 
           ########## PGBACKREST RULES ##########
           ##
@@ -261,7 +261,7 @@ spec:
           #       severity: critical
           #       severity_num: 300
           #    annotations:
-          #       summary: 'Full backup for stanza [main] on system "{{ $labels.job }}" has not completed in the last week.'
+          #       summary: 'Full backup for stanza [main] on system {{"{{"}} $labels.job {{"}}"}} has not completed in the last week.'
           #
           #  - alert: PGBackRestLastCompletedIncr_main
           #    expr: ccp_backrest_last_incr_backup_time_since_completion_seconds{stanza="main"} > 129600
@@ -271,7 +271,7 @@ spec:
           #       severity: critical
           #       severity_num: 300
           #    annotations:
-          #       summary: 'Incremental backup for stanza [main] on system "{{ $labels.job }}" has not completed in the last 24 hours.'
+          #       summary: 'Incremental backup for stanza [main] on system {{"{{"}} $labels.job {{"}}"}} has not completed in the last 24 hours.'
           #
           #
           ## Runtime monitoring is handled with a single metric:
