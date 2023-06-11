@@ -10,11 +10,12 @@ const meta: Meta<any> = {
 
 export default meta
 
-function Template(args) {
+function Template(args: any) {
   return <ToggleDarkMode {...args} />
 }
 
 export const Default = Template.bind({})
+// @ts-ignore
 Default.args = {}
 
 export function WithHeader() {
