@@ -1,11 +1,11 @@
 apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
-  name: shortlink
+  name: shortlink-postgres
 spec:
   postgresVersion: 15
   instances:
-    - name: shortlink-postgres
+    - name: shortlink
       dataVolumeClaimSpec:
         storageClassName: local-path
         accessModes:
