@@ -68,7 +68,7 @@ deploy:
   envSecret:
     - name: STORE_POSTGRES_URI
       secretKeyRef:
-        name: shortlink-pguser-shortlink-link
+        name: shortlink-postgres-pguser-shortlink-link
         key: pgbouncer-uri
 
   image:
