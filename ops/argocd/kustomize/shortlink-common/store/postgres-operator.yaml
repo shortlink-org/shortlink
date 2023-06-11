@@ -44,9 +44,8 @@ spec:
     - name: shortlink-link
       databases:
         - link
-    - name: shortlink-support
-      databases:
-        - support
+      options: "LOGIN"
     - name: shortlink-billing
       databases:
         - billing
+      options: "LOGIN"
