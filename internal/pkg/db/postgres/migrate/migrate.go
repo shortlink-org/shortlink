@@ -27,12 +27,9 @@ func Migration(ctx context.Context, db *db.Store, fs embed.FS, tableName string)
 		return err
 	}
 
-	uri := strings.Builder{}
-	uri.WriteString(client.Config().ConnString())
-	uri.WriteString("&x-migrations-table=")
-	uri.WriteString(fmt.Sprintf("schema_migrations_%s", strings.Replace(tableName, "-", "_", -1)))
+	uri := buildURI(client, tableName)
 
-	m, err := migrate.NewWithSourceInstance("iofs", driver, uri.String())
+	m, err := migrate.NewWithSourceInstance("iofs", driver, uri)
 	if err != nil {
 		return err
 	}
@@ -43,4 +40,17 @@ func Migration(ctx context.Context, db *db.Store, fs embed.FS, tableName string)
 	}
 
 	return nil
+}
+
+func buildURI(client *pgxpool.Pool, tableName string) string {
+	uri := strings.Builder{}
+	connStr := client.Config().ConnString()
+	if !strings.Contains(connStr, "?") {
+		connStr += "?"
+	}
+
+	uri.WriteString(connStr)
+	uri.WriteString("&x-migrations-table=")
+	uri.WriteString(fmt.Sprintf("schema_migrations_%s", strings.Replace(tableName, "-", "_", -1)))
+	return uri.String()
 }
