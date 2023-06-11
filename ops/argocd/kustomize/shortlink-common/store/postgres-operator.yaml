@@ -43,9 +43,9 @@ spec:
   users:
     - name: shortlink-link
       databases:
-        - public
         - link
+        - public
     - name: shortlink-billing
       databases:
-        - public
         - billing
+        - public
