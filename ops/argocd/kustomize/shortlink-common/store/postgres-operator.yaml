@@ -5,7 +5,7 @@ metadata:
 spec:
   postgresVersion: 15
   instances:
-    - name: shortlink
+    - name: shortlink-postgres
       dataVolumeClaimSpec:
         storageClassName: local-path
         accessModes:
