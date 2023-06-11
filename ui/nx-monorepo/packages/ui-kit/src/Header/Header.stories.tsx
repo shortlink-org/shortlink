@@ -9,9 +9,10 @@ const meta: Meta<any> = {
 
 export default meta
 
-function Template(args) {
+function Template(args: any) {
   return <Header title="Header" {...args} />
 }
 
 export const Default = Template.bind({})
+// @ts-ignore
 Default.args = {}

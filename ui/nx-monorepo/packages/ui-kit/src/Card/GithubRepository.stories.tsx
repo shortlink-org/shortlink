@@ -9,7 +9,7 @@ const meta: Meta<any> = {
 
 export default meta
 
-function Template(args) {
+function Template(args: any) {
   return (
     <GithubRepository
       title="GitHub Repository"
@@ -20,4 +20,5 @@ function Template(args) {
 }
 
 export const Default = Template.bind({})
+// @ts-ignore
 Default.args = {}
