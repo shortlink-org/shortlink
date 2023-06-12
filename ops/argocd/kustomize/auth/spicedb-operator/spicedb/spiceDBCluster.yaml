@@ -17,15 +17,15 @@ spec:
             metadata:
               annotations:
                 sidecar.istio.io/inject: "false"
-#            spec:
-#              containers:
-#                - name: spicedb
-#                  env:
-#                    - name: SPICEDB_DATASTORE_CONN_URI
-#                      valueFrom:
-#                        secretKeyRef:
-#                          name: spicedb-postgres-pguser-spicedb
-#                          key: uri
+            spec:
+              containers:
+                - name: spicedb
+                  env:
+                    - name: SPICEDB_DATASTORE_CONN_URI
+                      valueFrom:
+                        secretKeyRef:
+                          name: spicedb-postgres-pguser-spicedb
+                          key: uri
     - kind: Job
       patch:
         spec:
