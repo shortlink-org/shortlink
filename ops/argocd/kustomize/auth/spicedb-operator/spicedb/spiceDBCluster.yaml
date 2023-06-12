@@ -8,13 +8,13 @@ spec:
     datastoreEngine: postgres
   secretName: shortlink-spicedb-config
   patches:
-    - kind: Deployment
-      patch:
-        spec:
-          template:
-            spec:
-              containers:
-                - name: spicedb
+#    - kind: Deployment
+#      patch:
+#        spec:
+#          template:
+#            spec:
+#              containers:
+#                - name: spicedb
 #                  env:
 #                    - name: SPICEDB_DATASTORE_CONN_URI
 #                      valueFrom:
@@ -28,7 +28,6 @@ spec:
             spec:
               containers:
                 - name: migrate
-                  image: 'ghcr.io/authzed/spicedb:v1.22.0-rc8'
                   env:
                   - name: SPICEDB_DATASTORE_CONN_URI
                     valueFrom:
