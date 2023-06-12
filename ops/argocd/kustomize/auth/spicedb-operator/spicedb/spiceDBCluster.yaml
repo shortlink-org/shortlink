@@ -2,16 +2,21 @@ apiVersion: authzed.com/v1alpha1
 kind: SpiceDBCluster
 metadata:
   name: shortlink
+  annotations:
+    sidecar.istio.io/inject: "false"
 spec:
   config:
     replicas: 1
     datastoreEngine: postgres
   secretName: shortlink-spicedb-config
   patches:
-#    - kind: Deployment
-#      patch:
-#        spec:
-#          template:
+    - kind: Deployment
+      patch:
+        spec:
+          template:
+            metadata:
+              annotations:
+                sidecar.istio.io/inject: "false"
 #            spec:
 #              containers:
 #                - name: spicedb
@@ -25,6 +30,9 @@ spec:
       patch:
         spec:
           template:
+            metadata:
+              annotations:
+                sidecar.istio.io/inject: "false"
             spec:
               containers:
                 - name: migrate
