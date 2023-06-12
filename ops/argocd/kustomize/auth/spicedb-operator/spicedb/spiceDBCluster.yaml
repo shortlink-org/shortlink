@@ -21,3 +21,16 @@ spec:
                         secretKeyRef:
                           name: spicedb-postgres-pguser-spicedb
                           key: uri
+    - kind: Job
+      patch:
+        spec:
+        template:
+          spec:
+          containers:
+            - name: migrate
+              env:
+              - name: SPICEDB_DATASTORE_CONN_URI
+                valueFrom:
+                  secretKeyRef:
+                  name: spicedb-postgres-pguser-spicedb
+                  key: uri
