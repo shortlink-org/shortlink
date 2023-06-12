@@ -2,6 +2,9 @@ schema: |-
     /** user represents a registered user's account in our application */
     definition user {}
   
+    /** anonymoususer represents an unauthenticated user */
+    definition anonymoususer {}
+  
     /** organization represents an organization that contains documents */
     definition organization {
         /** administrator indicates that the user is an admin of the org */
