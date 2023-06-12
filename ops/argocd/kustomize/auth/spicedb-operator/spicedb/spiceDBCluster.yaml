@@ -6,4 +6,9 @@ spec:
   config:
     replicas: 1
     datastoreEngine: memory
-  secretName: shortlink-spicedb-config
+  presharedKey:
+    key: preshared_key
+    secretName: shortlink-spicedb-config
+  datastoreUri:
+    secretName: spicedb-postgres-pguser-spicedb
+    key: uri
