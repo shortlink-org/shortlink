@@ -26,12 +26,12 @@ spec:
         spec:
           template:
             spec:
-            containers:
-              - name: migrate
-                image: 'ghcr.io/authzed/spicedb:v1.22.0-rc8'
-                env:
-                - name: SPICEDB_DATASTORE_CONN_URI
-                  valueFrom:
-                    secretKeyRef:
-                    name: spicedb-postgres-pguser-spicedb
-                    key: uri
+              containers:
+                - name: migrate
+                  image: 'ghcr.io/authzed/spicedb:v1.22.0-rc8'
+                  env:
+                  - name: SPICEDB_DATASTORE_CONN_URI
+                    valueFrom:
+                      secretKeyRef:
+                      name: spicedb-postgres-pguser-spicedb
+                      key: uri
