@@ -21,7 +21,8 @@ We want to have a fast and highly available PostgreSQL instance.
 1. **LoadBalancer**
     - [pgBouncer](https://www.pgbouncer.org/)
 2. **Optimization**
-    - [pgTune](https://pgtune.leopard.in.ua/)
+    - For optimizing PostgreSQL configurations, we will use the tool available at [pgtune.leopard.in.ua](https://pgtune.leopard.in.ua/#/). 
+      This tool generates configuration files that provide the optimal settings based on the system's hardware and expected workload, improving database performance.
 3. **LoadTest**
     - [Percona-Lab/sysbench-tpcc](https://github.com/Percona-Lab/sysbench-tpcc)
 
