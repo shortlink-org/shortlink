@@ -15,28 +15,39 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Migrations run the migrations for the authzed service.
-func Migrations(ctx context.Context, fs embed.FS) error {
+type Auth struct {
+	client *authzed.Client
+}
+
+func New() (*Auth, error) {
+	var err error
+	auth := &Auth{}
+
 	viper.SetDefault("SPICE_DB_API", "shortlink.spicedb:50051")
 	viper.SetDefault("SPICE_DB_COMMON_KEY", "secret-shortlink-preshared-key")
 
-	client, err := authzed.NewClient(
+	auth.client, err = authzed.NewClient(
 		viper.GetString("SPICE_DB_API"),
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithPerRPCCredentials(insecureMetadataCreds{"authorization": "Bearer " + viper.GetString("SPICE_DB_COMMON_KEY")}),
 		grpc.WithBlock(),
 	)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
+	return auth, nil
+}
+
+// Migrations run the migrations for the authzed service.
+func (a *Auth) Migrations(ctx context.Context, fs embed.FS) error {
 	permissionsData, err := GetPermissions(fs)
 	if err != nil {
 		return err
 	}
 
 	for i := range permissionsData {
-		_, err = client.WriteSchema(ctx, permissionsData[i])
+		_, err = a.client.WriteSchema(ctx, permissionsData[i])
 		if err != nil {
 			return fmt.Errorf("Failed to write schema: %w", err)
 		}
