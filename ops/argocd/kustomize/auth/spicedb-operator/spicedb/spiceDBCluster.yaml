@@ -5,19 +5,5 @@ metadata:
 spec:
   config:
     replicas: 1
-    datastoreEngine: postgres
+    datastoreEngine: memory
   secretName: shortlink-spicedb-config
-  patches:
-    - kind: Deployment
-      patch:
-        spec:
-          template:
-            spec:
-              containers:
-                - name: spicedb
-                  env:
-                    - name: SPICEDB_DATASTORE_CONN_URI
-                      valueFrom:
-                        secretKeyRef:
-                          name: spicedb-postgres-pguser-spicedb
-                          key: uri
