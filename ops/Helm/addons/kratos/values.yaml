@@ -194,6 +194,9 @@ kratos:
                     },
                     "recovery": {
                       "via": "email"
+                    },
+                    "totp": {
+                      "account_name": true
                     }
                   }
                 },
