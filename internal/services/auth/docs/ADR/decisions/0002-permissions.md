@@ -57,6 +57,13 @@ Rel(link, share, "Uses")
 This structure allows for a flexible and secure permission management system that supports 
 fine-grained control over user actions.
 
+### Architecture SpiceDB
+
+![Architecture SpiceDB](https://authzed.com/docs/assets/images/arch-b08d49b895f89454b2dff988c77e34a0.svg)
+
+> Docs:
+> - [Architecture](https://authzed.com/blog/spicedb-architecture)
+
 ## Consequences
 
 **Props**:

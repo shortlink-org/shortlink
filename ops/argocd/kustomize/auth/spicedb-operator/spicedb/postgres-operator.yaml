@@ -19,6 +19,11 @@ spec:
         resources:
           requests:
             storage: 1Gi
+  patroni:
+    dynamicConfiguration:
+      postgresql:
+        parameters:
+          track_commit_timestamp: "on"
   backups:
     pgbackrest:
       metadata:
