@@ -20,6 +20,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
+	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -28,6 +29,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
+	"github.com/shortlink-org/shortlink/internal/services/link/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/mq"
 	v1_2 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -81,6 +83,14 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
 	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	auth, err := permission.Permission(context, logger)
+	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -270,7 +280,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
+	linkService, err := NewLinkService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, auth, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -314,6 +324,9 @@ type LinkService struct {
 	linkCQRSRPCServer *v1_2.Link
 	sitemapRPCServer  *v1_3.Sitemap
 
+	// Jobs
+	authPermission *auth.Auth
+
 	// Application
 	linkService     *link.Service
 	linkCQRSService *link_cqrs.Service
@@ -328,9 +341,7 @@ type LinkService struct {
 }
 
 // LinkService =========================================================================================================
-var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, InitLinkMQ,
-
-	NewLinkRPCServer,
+var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, InitLinkMQ, permission.Permission, NewLinkRPCServer,
 	NewLinkCQRSRPCServer,
 	NewSitemapRPCServer,
 	NewRunRPCServer,
@@ -460,6 +471,8 @@ func NewLinkService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
+	authPermission *auth.Auth,
+
 	linkService *link.Service,
 	linkCQRSService *link_cqrs.Service,
 	sitemapService *sitemap.Service,
@@ -483,6 +496,8 @@ func NewLinkService(
 		Monitoring:    monitoring2,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
+
+		authPermission: authPermission,
 
 		linkService:     linkService,
 		linkCQRSService: linkCQRSService,

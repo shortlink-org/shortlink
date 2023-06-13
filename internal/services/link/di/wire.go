@@ -23,6 +23,7 @@ import (
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
+	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
@@ -30,6 +31,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
+	"github.com/shortlink-org/shortlink/internal/services/link/di/pkg/permission"
 	api_mq "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/mq"
 	cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -59,6 +61,9 @@ type LinkService struct {
 	linkCQRSRPCServer *cqrs.Link
 	sitemapRPCServer  *sitemap_rpc.Sitemap
 
+	// Jobs
+	authPermission *auth.Auth
+
 	// Application
 	linkService     *link.Service
 	linkCQRSService *link_cqrs.Service
@@ -82,6 +87,9 @@ var LinkSet = wire.NewSet(
 
 	// Delivery
 	InitLinkMQ,
+
+	// Jobs
+	permission.Permission,
 
 	NewLinkRPCServer,
 	NewLinkCQRSRPCServer,
@@ -219,6 +227,9 @@ func NewLinkService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
+	// Jobs
+	authPermission *auth.Auth,
+
 	// Application
 	linkService *link.Service,
 	linkCQRSService *link_cqrs.Service,
@@ -248,6 +259,9 @@ func NewLinkService(
 		Monitoring:    monitoring,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
+
+		// Jobs
+		authPermission: authPermission,
 
 		// Application
 		linkService:     linkService,
