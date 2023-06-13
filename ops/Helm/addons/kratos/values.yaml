@@ -94,6 +94,13 @@ kratos:
             enabled: true
           oidc:
             enabled: true
+          lookup_secret:
+            enabled: true
+          totp:
+            enabled: true
+            config:
+              # The "issuer" is the name in the TOTP application users see when getting a one-time password.
+              issuer: shortlink.best
 
         # These `ui_url` values are entirely dependant upon your setup.
         # For this example, the React-app runs in development mode on the default port of 3000.
@@ -187,6 +194,9 @@ kratos:
                     "credentials": {
                       "password": {
                         "identifier": true
+                      },
+                      "totp": {
+                        "account_name": true
                       }
                     },
                     "verification": {
@@ -194,9 +204,6 @@ kratos:
                     },
                     "recovery": {
                       "via": "email"
-                    },
-                    "totp": {
-                      "account_name": true
                     }
                   }
                 },
