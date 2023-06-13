@@ -1,5 +1,5 @@
 ## Knative functions
 
-| Name                                                           | Description                            |
-|----------------------------------------------------------------|----------------------------------------|
-| [kafka-to-elasticsearch](./sync-search/kafka-to-elasticsearch) | Syncs data from Kafka to Elasticsearch |
+| Name                                                 | Description                            |
+|------------------------------------------------------|----------------------------------------|
+| [kafka-to-elasticsearch](./kafka-to-elasticsearch)   | Syncs data from Kafka to Elasticsearch |

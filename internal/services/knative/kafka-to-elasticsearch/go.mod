@@ -1,4 +1,4 @@
-module github.com/shortlink-org/shortlink/internal/services/knative/sync-search/kafka-to-elasticsearch
+module github.com/shortlink-org/shortlink/internal/services/kafka-to-elasticsearch
 
 go 1.20
 
