@@ -18,7 +18,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/services/link/di/pkg/permission"
+	"github.com/shortlink-org/shortlink/internal/services/auth/di/pkg/permission"
 	"go.opentelemetry.io/otel/trace"
 	"net/http"
 )

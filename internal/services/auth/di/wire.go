@@ -20,7 +20,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/services/link/di/pkg/permission"
+	"github.com/shortlink-org/shortlink/internal/services/auth/di/pkg/permission"
 )
 
 type LinkService struct {
