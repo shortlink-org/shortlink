@@ -19,5 +19,12 @@ func Permission(ctx context.Context, log logger.Logger) (*auth.Auth, error) {
 		return nil, err
 	}
 
+	err = permission.Migrations(ctx, permissions)
+	if err != nil {
+		return nil, err
+	}
+
+	log.Info("Permission migrations completed")
+
 	return permission, nil
 }
