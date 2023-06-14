@@ -55,10 +55,7 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/database/redis/redis.yaml \
-		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
-		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/database/cockroachdb/cockroachdb.yaml \
 		up -d --remove-orphans --build
 
 run: ## Run this project in docker compose
@@ -107,13 +104,26 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/application/logger/logger.yaml \
 		-f ops/docker-compose/application/support/support.yaml \
 		-f ops/docker-compose/application/ui-next/ui-next.yaml \
-		-f ops/docker-compose/database/mongo/mongo.yaml \
-		-f ops/docker-compose/database/redis/redis.yaml \
+		-f ops/docker-compose/database/aerospike/aerospike.yaml \
+		-f ops/docker-compose/database/cassandra/cassandra.yaml \
+		-f ops/docker-compose/database/clickhouse/clickhouse.yaml \
+		-f ops/docker-compose/database/cockroachdb/cockroachdb.yaml \
+		-f ops/docker-compose/database/dgraph/dgraph.yaml \
 		-f ops/docker-compose/database/dragonfly/dragonfly.yaml \
-		-f ops/docker-compose/database/postgres/patroni.yaml \
-		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/database/edgedb/edgedb.yaml \
 		-f ops/docker-compose/database/elasticsearch/elasticsearch.yaml \
+		-f ops/docker-compose/database/etcd/etcd.yaml \
+		-f ops/docker-compose/database/foundation/foundation.yaml \
+		-f ops/docker-compose/database/ignite/ignite.yaml \
+		-f ops/docker-compose/database/mongo/mongo.yaml \
 		-f ops/docker-compose/database/neo4j/neo4j.yaml \
+		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/database/postgres/patroni.yaml \
+		-f ops/docker-compose/database/redis/redis.yaml \
+		-f ops/docker-compose/database/rethinkdb/rethinkdb.yaml \
+		-f ops/docker-compose/database/scylla/scylla.yaml \
+		-f ops/docker-compose/database/tarantool/tarantool.yaml \
+		-f ops/docker-compose/database/tidb/tidb.yaml \
 		-f ops/docker-compose/mq/rabbitmq/rabbitmq.yaml \
 		-f ops/docker-compose/mq/kafka/zookeeper.yaml \
 		-f ops/docker-compose/mq/kafka/kafka.yaml \
