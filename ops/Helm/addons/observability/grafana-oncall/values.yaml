@@ -42,6 +42,9 @@ oncall:
   postgresql:
     enabled: true
 
+  mariadb:
+    enabled: false
+
   rabbitmq:
     enabled: true
 
