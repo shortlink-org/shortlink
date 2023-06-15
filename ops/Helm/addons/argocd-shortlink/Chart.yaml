@@ -13,4 +13,11 @@ maintainers:
 engine: gotpl
 type: application                                # It is the type of chart (optional)
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
-dependencies: [ ]                                 # A list of the chart requirements (optional)
+dependencies:
+  - name: kargo
+    version: 0.1.0-rc.11
+    repository: oci://ghcr.io/akuity/kargo-charts
+    condition: kargo.enabled
+    tags:
+      - kargo
+      - gitops
