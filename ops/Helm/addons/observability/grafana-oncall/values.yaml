@@ -85,19 +85,19 @@ oncall:
         prometheusRule:
           enabled: true
 
-      replica:
-        replicaCount: 0
+    replica:
+      replicaCount: 0
 
-        resources:
-          limits:
-            cpu: 500m
-            memory: 256Mi
-          requests:
-            cpu: 10m
-            memory: 64Mi
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 10m
+          memory: 64Mi
 
-        persistence:
-          enabled: false
+      persistence:
+        enabled: false
 
   grafana:
     enabled: false
