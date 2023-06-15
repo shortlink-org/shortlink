@@ -43,7 +43,7 @@ require (
 	github.com/nats-io/nats.go v1.27.0
 	github.com/neo4j/neo4j-go-driver/v5 v5.9.0
 	github.com/ory/dockertest/v3 v3.10.0
-	github.com/prometheus/client_golang v1.15.1
+	github.com/prometheus/client_golang v1.16.0
 	github.com/prometheus/client_model v0.4.0
 	github.com/pterm/pterm v0.12.62
 	github.com/pyroscope-io/client v0.7.1
@@ -214,7 +214,7 @@ require (
 	github.com/pkg/term v1.2.0-beta.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/common v0.44.0 // indirect
-	github.com/prometheus/procfs v0.10.0 // indirect
+	github.com/prometheus/procfs v0.10.1 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
