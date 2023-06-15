@@ -14,7 +14,7 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: oncall
-    version: 1.2.42
+    version: 1.2.44
     repository: https://grafana.github.io/helm-charts
     condition: oncall.enabled
     tags:
