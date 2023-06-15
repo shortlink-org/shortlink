@@ -52,7 +52,8 @@ oncall:
     enabled: false
 
   externalRedis:
-    host: redis-master.grafana
+    host: grafana-oncall-redis-master.grafana
+    password: ""
 
   grafana:
     enabled: false
