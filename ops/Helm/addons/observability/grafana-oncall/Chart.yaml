@@ -19,11 +19,3 @@ dependencies:
     condition: oncall.enabled
     tags:
       - monitoring
-  - name: redis
-    version: 17.11.5
-    repository: oci://registry-1.docker.io/bitnamicharts
-    condition: redis.enabled
-    tags:
-      - redis
-      - store
-

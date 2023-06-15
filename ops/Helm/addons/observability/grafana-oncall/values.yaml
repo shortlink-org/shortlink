@@ -37,13 +37,13 @@ oncall:
     enabled: false
 
   database:
-    type: postgresql
+    type: mysql
 
   postgresql:
-    enabled: true
+    enabled: false
 
   mariadb:
-    enabled: false
+    enabled: true
 
   rabbitmq:
     enabled: true
