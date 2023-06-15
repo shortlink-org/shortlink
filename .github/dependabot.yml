@@ -215,3 +215,13 @@ updates:
     directory: /internal/services/bff-web
     schedule:
       interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/pkg/k8s/kube-secret-fetcher
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /ui/nx-monorepo/packages/eslint/eslint-config-shortlink
+    schedule:
+      interval: daily
