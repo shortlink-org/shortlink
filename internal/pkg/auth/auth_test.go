@@ -73,9 +73,7 @@ func TestSpiceDB(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if errRetry := pool.Retry(func() error {
-		var errSetenv error
-
-		errSetenv = os.Setenv("SPICE_DB_API", fmt.Sprintf("localhost:%s", resource.GetPort("50051/tcp")))
+		errSetenv := os.Setenv("SPICE_DB_API", fmt.Sprintf("localhost:%s", resource.GetPort("50051/tcp")))
 		require.NoError(t, errSetenv, "Cannot set ENV")
 
 		client, err = New()

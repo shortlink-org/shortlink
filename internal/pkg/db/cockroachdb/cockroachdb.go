@@ -2,10 +2,8 @@ package cockroachdb
 
 import (
 	"context"
-	"net/url"
-	"strconv"
 
-	"github.com/cockroachdb/cockroach-go/v2/crdb/crdbpgxv5"
+	"github.com/jackc/pgx/v5"
 	"github.com/spf13/viper"
 )
 
@@ -17,8 +15,8 @@ type Config struct {
 
 // Store implementation of db interface
 type Store struct {
-	client *crdbpgx.Client
-	config Config
+	client *pgx.Conn
+	config *pgx.ConnConfig
 }
 
 // Init ...
@@ -29,7 +27,7 @@ func (s *Store) Init(ctx context.Context) error {
 		return err
 	}
 
-	s.client, err = crdbpgx.NewClient(s.config.host, s.config.port)
+	s.client, err = pgx.ConnectConfig(ctx, s.config)
 	if err != nil {
 		return err
 	}
@@ -44,29 +42,27 @@ func (s *Store) GetConn() interface{} {
 
 // Close ...
 func (s *Store) Close() error {
-	s.client.Close()
+	err := s.client.Close(context.Background())
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
 // setConfig - set configuration
 func (s *Store) setConfig() error {
+	var err error
+
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_AEROSPIKE_URI", "tcp://localhost:3000") // Aerospike URI
+	viper.SetDefault("STORE_COCKROACHDB_URI", "postgresql://root@localhost:26257?sslmode=disable") // CockroachDB URI
 
-	conf, err := url.Parse(viper.GetString("STORE_AEROSPIKE_URI"))
+	s.config, err = pgx.ParseConfig(viper.GetString("STORE_COCKROACHDB_URI"))
 	if err != nil {
 		return err
 	}
 
-	port, err := strconv.Atoi(conf.Port())
-	if err != nil {
-		return err
-	}
-
-	s.config = Config{
-		host: conf.Hostname(),
-		port: port,
-	}
+	s.config.RuntimeParams["application_name"] = viper.GetString("SERVICE_NAME")
 
 	return nil
 }

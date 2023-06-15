@@ -1,6 +1,6 @@
-//go:build unit || (database && postgres)
+//go:build unit || (database && cockroachdb)
 
-package postgres
+package cockroachdb
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestPostgres(t *testing.T) {
+func TestCockroachDB(t *testing.T) {
 	store := Store{}
 	ctx := context.Background()
 
@@ -21,10 +21,14 @@ func TestPostgres(t *testing.T) {
 	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("postgres", "15.3-alpine", []string{
-		"POSTGRES_USER=postgres",
-		"POSTGRES_PASSWORD=shortlink",
-		"POSTGRES_DB=shortlink",
+	resource, err := pool.RunWithOptions(&dockertest.RunOptions{
+		Repository: "cockroachdb/cockroach",
+		Tag:        "v23.1.3",
+		Env: []string{
+			"COCKROACH_PASSWORD=password",
+			"COCKROACH_DATABASE=shortlink",
+		},
+		Cmd: []string{"start-single-node", "--insecure"},
 	})
 	if err != nil {
 		// When you're done, kill and remove the container
@@ -37,7 +41,7 @@ func TestPostgres(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if errRetry := pool.Retry(func() error {
-		errSetenv := os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
+		errSetenv := os.Setenv("STORE_COCKROACHDB_URI", fmt.Sprintf("postgresql://root:password@localhost:%s/shortlink?sslmode=disable", resource.GetPort("26257/tcp"))) // Note that the port has changed
 		require.NoError(t, errSetenv, "Cannot set ENV")
 
 		errInit := store.Init(ctx)
