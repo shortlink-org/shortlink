@@ -18,8 +18,7 @@ x-config: &config
 services:
 
   fdb-coordinator:
-    <<: *network
-    <<: *config
+    <<: [*network, *config]
     depends_on:
       - coredns
     container_name: fdb-coordinator
@@ -29,8 +28,7 @@ services:
 
 
   fdb-server-1:
-    <<: *network
-    <<: *config
+    <<: [*network, *config]
     depends_on:
       - coredns
       - fdb-coordinator
@@ -39,8 +37,7 @@ services:
     init: true
 
   fdb-server-2:
-    <<: *network
-    <<: *config
+    <<: [*network, *config]
     depends_on:
       - coredns
       - fdb-coordinator
@@ -49,8 +46,7 @@ services:
     init: true
 
   fdb-server-3:
-    <<: *network
-    <<: *config
+    <<: [*network, *config]
     depends_on:
       - coredns
       - fdb-coordinator

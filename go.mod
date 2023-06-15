@@ -11,6 +11,7 @@ require (
 	github.com/authzed/authzed-go v0.8.1-0.20230612165940-221b911afa2d
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cloudevents/sdk-go/v2 v2.14.0
+	github.com/cockroachdb/cockroach-go/v2 v2.3.5
 	github.com/container-storage-interface/spec v1.8.0
 	github.com/cucumber/godog v0.12.6
 	github.com/dgraph-io/badger/v4 v4.1.0
@@ -265,7 +266,7 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	k8s.io/apimachinery v0.27.2 // indirect
+	k8s.io/apimachinery v0.27.3 // indirect
 	k8s.io/klog/v2 v2.90.1 // indirect
 )
 
