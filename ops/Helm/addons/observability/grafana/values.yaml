@@ -92,6 +92,7 @@ grafana:
   plugins:
     - flant-statusmap-panel
     - grafana-polystat-panel
+    - grafana-oncall-app
 
   grafana.ini:
     reporting:
