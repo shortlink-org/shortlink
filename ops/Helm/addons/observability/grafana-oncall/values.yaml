@@ -46,7 +46,13 @@ oncall:
     enabled: true
 
   rabbitmq:
-    enabled: true
+    enabled: false
+
+  externalRabbitmq:
+    host: shortlink.rabbitmq
+    port: 5672
+    user: quest
+    password: quest
 
   redis:
     enabled: true
