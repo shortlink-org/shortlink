@@ -11,8 +11,9 @@ correct behavior and avoid possible regressions in the future.
 <!-- Which issue(s) this PR fixes -->
 Fixes #
 
-### ✅ Before submitting, please be sure to check this list
-
-* [ ] your branch will not cause merge conflict with main branch
-* [ ] unit tests are included
-* [ ] you are not committing extraneous files or sensitive data
+```[tasklist]
+### Before submitting, please be sure to check this list
+- [ ] your branch will not cause merge conflict with the main branch
+- [ ] unit tests are included
+- [ ] you are not committing extraneous files or sensitive data
+```
