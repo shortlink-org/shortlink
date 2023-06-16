@@ -1,2 +1,16 @@
 [serviceweaver]
+name = "notify-ha"
 binary = "./notify-ha"
+
+[single]
+listeners.hello = {address = "localhost:12345"}
+
+[multi]
+listeners.hello = {address = "localhost:12345"}
+
+[gke]
+regions = ["us-west1"]
+listeners.hello = {public_hostname = "hello.example.com"}
+
+[kube]
+listeners.hello = {public = true}

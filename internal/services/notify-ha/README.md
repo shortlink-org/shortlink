@@ -7,7 +7,7 @@ Notify is a service that sends notifications to the user.
 - [Go](https://golang.org/)
 - [weaver](https://serviceweaver.dev/)
 
-### Command
+### weaver commands
 
 #### Single
 

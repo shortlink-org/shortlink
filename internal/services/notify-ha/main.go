@@ -1,4 +1,4 @@
-//go:generate weaver generate .
+//go:generate go run github.com/ServiceWeaver/weaver/cmd/weaver generate .
 
 package main
 
@@ -11,29 +11,37 @@ import (
 	"github.com/ServiceWeaver/weaver"
 )
 
-func main() {
-	// Get a network listener on address "localhost:12345".
-	root := weaver.Init(context.Background())
-	opts := weaver.ListenerOptions{LocalAddress: "localhost:12345"}
-	lis, err := root.Listener("hello", opts)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("hello listener available on %v\n", lis)
+type app struct {
+	weaver.Implements[weaver.Main]
+	reverser weaver.Ref[Reverser]
+	hello    weaver.Listener
+}
 
-	// Get a client to the Reverser component.
-	reverser, err := weaver.Get[Reverser](root)
-	if err != nil {
-		log.Fatal(err)
-	}
+func (app *app) Main(ctx context.Context) error {
+	fmt.Printf("hello listener available on %v\n", app.hello)
 
 	// Serve the /hello endpoint.
-	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
-		reversed, err := reverser.Reverse(r.Context(), r.URL.Query().Get("name"))
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-		fmt.Fprintf(w, "Hello, %s!\n", reversed)
-	})
-	http.Serve(lis, nil)
+	http.Handle("/hello", weaver.InstrumentHandlerFunc("hello",
+		func(w http.ResponseWriter, r *http.Request) {
+			name := r.URL.Query().Get("name")
+			if name == "" {
+				name = "World"
+			}
+			reversed, err := app.reverser.Get().Reverse(ctx, name)
+			if err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+			fmt.Fprintf(w, "Hello, %s!\n", reversed)
+		}))
+
+	return http.Serve(app.hello, nil)
+}
+
+func main() {
+	// Get a network listener on address "localhost:12345".
+	err := weaver.Run(context.Background())
+	if err != nil {
+		log.Fatal(err)
+	}
 }
