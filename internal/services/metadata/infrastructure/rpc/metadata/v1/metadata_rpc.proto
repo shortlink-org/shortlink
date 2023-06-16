@@ -12,7 +12,7 @@ service MetadataService {
 }
 
 message MetadataServiceGetRequest {
-  string id = 1;
+  string url = 1;
 }
 
 message MetadataServiceGetResponse {
@@ -20,7 +20,7 @@ message MetadataServiceGetResponse {
 }
 
 message MetadataServiceSetRequest {
-  string id = 1;
+  string url = 1;
 }
 
 message MetadataServiceSetResponse {

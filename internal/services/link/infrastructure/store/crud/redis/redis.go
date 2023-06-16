@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/redis/go-redis/v9"
+	"github.com/redis/rueidis"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
@@ -14,13 +14,13 @@ import (
 
 // Store implementation of db interface
 type Store struct {
-	client redis.UniversalClient
+	client rueidis.Client
 }
 
 // New store
 func New(ctx context.Context, db *db.Store) (*Store, error) {
 	s := &Store{
-		client: db.Store.GetConn().(redis.UniversalClient),
+		client: db.Store.GetConn().(rueidis.Client),
 	}
 
 	return s, nil
@@ -28,7 +28,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 
 // Get ...
 func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
-	val, err := s.client.Get(ctx, id).Result()
+	val, err := s.client.Do(ctx, s.client.B().Get().Key(id).Build()).ToString()
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
@@ -43,20 +43,27 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 // List ...
 func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
-	keys := s.client.Keys(ctx, "*")
+	list, err := s.client.Do(ctx, s.client.B().Scan().Cursor(0).Match("*").Count(100).Build()).AsScanEntry()
+	if err != nil {
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
+	}
+
+	values, err := s.client.Do(ctx, s.client.B().Mget().Key(list.Elements...).Build()).ToArray()
+
 	links := &v1.Links{
 		Link: []*v1.Link{},
 	}
 
-	for _, key := range keys.Val() {
+	for _, item := range values {
 		var response v1.Link
-		val, err := s.client.Get(ctx, key).Result()
-		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+
+		value, errAsBytes := item.AsBytes()
+		if errAsBytes != nil {
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
-		if err = protojson.Unmarshal([]byte(val), &response); err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		if err = protojson.Unmarshal(value, &response); err != nil {
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
 		links.Link = append(links.Link, &response)
@@ -73,11 +80,8 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	}
 
 	val, err := protojson.Marshal(source)
+	err = s.client.Do(ctx, s.client.B().Set().Key(source.Hash).Value(rueidis.BinaryString(val)).Build()).Error()
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed marsharing link: %s", source.Url)}
-	}
-
-	if err = s.client.Set(ctx, source.Hash, val, 0).Err(); err != nil {
 		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
@@ -91,7 +95,9 @@ func (s *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 
 // Delete ...
 func (s *Store) Delete(ctx context.Context, id string) error {
-	if err := s.client.Del(ctx, id).Err(); err != nil {
+	err := s.client.Do(ctx, s.client.B().Del().Key(id).Build()).Error()
+
+	if err != nil {
 		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}
 

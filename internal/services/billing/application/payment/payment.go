@@ -13,8 +13,8 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/internal/pkg/saga"
 	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1"
-	"github.com/shortlink-org/shortlink/pkg/saga"
 )
 
 type PaymentService struct {
@@ -152,7 +152,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 	)
 
 	// saga for create a new payment
-	sagaAddPayment, errs := saga.New(SAGA_NAME, saga.Logger(p.logger)).
+	sagaAddPayment, errs := saga.New(SAGA_NAME, saga.SetLogger(p.logger)).
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, p.logger, errs); err != nil {

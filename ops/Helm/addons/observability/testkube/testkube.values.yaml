@@ -1,0 +1,78 @@
+# Common default values for testkube.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+testkube:
+  enabled: true
+
+  mongodb:
+    enabled: false
+
+  nats:
+    enabled: true
+
+  testkube-api:
+    nats:
+      enabled: true
+
+    minio:
+      enabled: false
+
+    mongodb:
+      secretName: mongodb-testkube-testkube
+      secretKey: connectionString.standard
+
+    uiIngress:
+      enabled: true
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+      hosts:
+        - testkube.shortlink.best
+      path: /results
+      tlsenabled: true
+      tls:
+        - hosts:
+            - testkube.shortlink.best
+          secretName: testkube-tls
+
+    storage:
+      region: ""
+      token: ""
+      expiration: 0
+      SSL: false
+      scrapperEnabled: true
+
+    prometheus:
+      enabled: true
+      monitoringLabels:
+        release: prometheus-operator
+
+  testkube-dashboard:
+    apiServerEndpoint: "https://testkube.shortlink.best/results/v1"
+
+    ingress:
+      enabled: true
+
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+      hosts:
+        - testkube.shortlink.best
+
+      tlsenabled: true
+      tls:
+        - hosts:
+            - testkube.shortlink.best
+          secretName: testkube-tls
+
+    oauth2:
+      enabled: false
+
+  testkube-operator: {}

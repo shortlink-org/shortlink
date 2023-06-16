@@ -68,7 +68,7 @@ func local_request_LinkService_GetLinks_0(ctx context.Context, marshaler runtime
 }
 
 var (
-	filter_LinkService_GetLink_0 = &utilities.DoubleArray{Encoding: map[string]int{"link": 0, "hash": 1}, Base: []int{1, 1, 1, 0}, Check: []int{0, 1, 2, 3}}
+	filter_LinkService_GetLink_0 = &utilities.DoubleArray{Encoding: map[string]int{"link": 0, "hash": 1}, Base: []int{1, 2, 3, 2, 0, 0}, Check: []int{0, 1, 1, 2, 4, 3}}
 )
 
 func request_LinkService_GetLink_0(ctx context.Context, marshaler runtime.Marshaler, client LinkServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -172,7 +172,7 @@ func local_request_LinkService_CreateLink_0(ctx context.Context, marshaler runti
 }
 
 var (
-	filter_LinkService_DeleteLink_0 = &utilities.DoubleArray{Encoding: map[string]int{"link": 0, "hash": 1}, Base: []int{1, 1, 1, 0}, Check: []int{0, 1, 2, 3}}
+	filter_LinkService_DeleteLink_0 = &utilities.DoubleArray{Encoding: map[string]int{"link": 0, "hash": 1}, Base: []int{1, 2, 3, 2, 0, 0}, Check: []int{0, 1, 1, 2, 4, 3}}
 )
 
 func request_LinkService_DeleteLink_0(ctx context.Context, marshaler runtime.Marshaler, client LinkServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
@@ -353,7 +353,7 @@ func RegisterLinkServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 // RegisterLinkServiceHandlerFromEndpoint is same as RegisterLinkServiceHandler but
 // automatically dials to "endpoint" and closes the connection when "ctx" gets done.
 func RegisterLinkServiceHandlerFromEndpoint(ctx context.Context, mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) (err error) {
-	conn, err := grpc.Dial(endpoint, opts...)
+	conn, err := grpc.DialContext(ctx, endpoint, opts...)
 	if err != nil {
 		return err
 	}

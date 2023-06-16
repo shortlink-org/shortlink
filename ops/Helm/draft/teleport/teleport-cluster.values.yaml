@@ -1,8 +1,6 @@
 ingress:
   enabled: true
   type: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
 
   hostname: teleport.shortlink.best
   path: /

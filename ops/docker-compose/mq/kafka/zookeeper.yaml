@@ -13,9 +13,10 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: confluentinc/cp-zookeeper:7.3.0
+    image: confluentinc/cp-zookeeper:7.4.0
     hostname: zookeeper
     container_name: zookeeper
+    init: true
     ports:
       - 2181:2181
       - 2888:2888

@@ -6,6 +6,8 @@ Wallet-service
 package main
 
 import (
+	"os"
+
 	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
 	wallet_di "github.com/shortlink-org/shortlink/internal/services/wallet/di"
 	"github.com/spf13/viper"
@@ -30,4 +32,7 @@ func main() {
 	handle_signal.WaitExitSignal()
 
 	cleanup()
+
+	// Exit Code 143: Graceful Termination (SIGTERM)
+	os.Exit(143)
 }

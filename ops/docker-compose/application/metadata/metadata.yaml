@@ -23,6 +23,7 @@ services:
         - shortlink-metadata
     image: shortlink-metadata
     container_name: metadata
+    init: true
     restart: on-failure
     environment:
       TRACER_URI: jaeger-agent:6831
@@ -43,7 +44,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.42.0
+    image: prom/prometheus:v2.44.0
     profiles:
       - prometheus
     volumes:

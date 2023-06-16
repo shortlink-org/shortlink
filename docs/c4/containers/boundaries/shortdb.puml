@@ -1,0 +1,6 @@
+System_Boundary(shortdbBoundary, "ShortDB Boundary") {
+    !include services/shortdb/service.puml
+    !include services/shortdb-operator/service.puml
+}
+
+shortdb -> shortdb_operator

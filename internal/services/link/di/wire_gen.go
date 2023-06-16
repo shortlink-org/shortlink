@@ -20,13 +20,16 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
+	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1_4 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
+	"github.com/shortlink-org/shortlink/internal/services/link/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/mq"
 	v1_2 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -35,8 +38,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/cqrs/query"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud"
-	v1_5 "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
+	v1_4 "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 	"net/http"
@@ -72,7 +74,13 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup3()
@@ -80,7 +88,15 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup5, err := mq_di.New(context, logger)
+	auth, err := permission.Permission(context, logger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	dataBus, cleanup5, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -139,7 +155,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLinkApplication(logger, mq, metadataServiceClient, crudStore)
+	service, err := NewLinkApplication(logger, dataBus, metadataServiceClient, crudStore)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -183,7 +199,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	sitemapService, err := NewSitemapApplication(logger, mq)
+	sitemapService, err := NewSitemapApplication(logger, dataBus)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -194,7 +210,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(context, logger, mq, service)
+	event, err := InitLinkMQ(context, logger, dataBus, service)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -264,7 +280,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
+	linkService, err := NewLinkService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, auth, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -308,6 +324,9 @@ type LinkService struct {
 	linkCQRSRPCServer *v1_2.Link
 	sitemapRPCServer  *v1_3.Sitemap
 
+	// Jobs
+	authPermission *auth.Auth
+
 	// Application
 	linkService     *link.Service
 	linkCQRSService *link_cqrs.Service
@@ -322,9 +341,7 @@ type LinkService struct {
 }
 
 // LinkService =========================================================================================================
-var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, InitLinkMQ,
-
-	NewLinkRPCServer,
+var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, InitLinkMQ, permission.Permission, NewLinkRPCServer,
 	NewLinkCQRSRPCServer,
 	NewSitemapRPCServer,
 	NewRunRPCServer,
@@ -343,8 +360,8 @@ var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClie
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq v1_4.MQ, service *link.Service) (*api_mq.Event, error) {
-	linkMQ, err := api_mq.New(mq, log, service)
+func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus, service *link.Service) (*api_mq.Event, error) {
+	linkMQ, err := api_mq.New(mq2, log, service)
 	if err != nil {
 		return nil, err
 	}
@@ -379,8 +396,8 @@ func NewQueryLinkStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Stor
 	return store2, nil
 }
 
-func NewLinkApplication(logger2 logger.Logger, mq v1_4.MQ, metadataService v1_5.MetadataServiceClient, store2 *crud.Store) (*link.Service, error) {
-	linkService, err := link.New(logger2, mq, metadataService, store2)
+func NewLinkApplication(logger2 logger.Logger, mq2 *mq.DataBus, metadataService v1_4.MetadataServiceClient, store2 *crud.Store) (*link.Service, error) {
+	linkService, err := link.New(logger2, mq2, metadataService, store2)
 	if err != nil {
 		return nil, err
 	}
@@ -402,8 +419,8 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkServiceClient, erro
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(logger2 logger.Logger, mq v1_4.MQ) (*sitemap.Service, error) {
-	sitemapService, err := sitemap.New(logger2, mq)
+func NewSitemapApplication(logger2 logger.Logger, mq2 *mq.DataBus) (*sitemap.Service, error) {
+	sitemapService, err := sitemap.New(logger2, mq2)
 	if err != nil {
 		return nil, err
 	}
@@ -442,8 +459,8 @@ func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *v1_2.Link, linkRP
 	return run.Run(runRPCServer)
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_5.MetadataServiceClient, error) {
-	metadataRPCClient := v1_5.NewMetadataServiceClient(runRPCClient)
+func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceClient, error) {
+	metadataRPCClient := v1_4.NewMetadataServiceClient(runRPCClient)
 	return metadataRPCClient, nil
 }
 
@@ -453,6 +470,8 @@ func NewLinkService(
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+
+	authPermission *auth.Auth,
 
 	linkService *link.Service,
 	linkCQRSService *link_cqrs.Service,
@@ -477,6 +496,8 @@ func NewLinkService(
 		Monitoring:    monitoring2,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
+
+		authPermission: authPermission,
 
 		linkService:     linkService,
 		linkCQRSService: linkCQRSService,

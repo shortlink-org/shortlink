@@ -12,17 +12,14 @@ serviceAccount:
   # If not set and create is true, a name is generated using the `helpers.fullname` template
   # name: shortlink
 
-  # -- Auto-mount the service account token in the pod
-  automountServiceAccountToken: false
-
 ingress:
   enabled: true
   type: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
-    nginx.ingress.kubernetes.io/enable-opentracing: "false"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
   hostname: shortlink.best
   path: /api(/|$)(.*)
@@ -37,23 +34,6 @@ ingress:
   #  route:
   #    destination:
   #      port: 7070
-
-# ==============================================================================
-# This secret for dev-stand. For production use CI-variables
-secret:
-  enabled: false
-  grpcServerCert: |
-    -----BEGIN CERTIFICATE-----
-    Your cert...
-    -----END CERTIFICATE-----
-  grpcServerKey: |
-    -----BEGIN EC PRIVATE KEY-----
-    Your key...
-    -----END EC PRIVATE KEY-----
-  grpcIntermediateCA: |
-    -----BEGIN CERTIFICATE-----
-    Your CA...
-    -----END CERTIFICATE-----
 
 # ==============================================================================
 deploy:
@@ -81,27 +61,25 @@ deploy:
 
   env:
     MQ_ENABLED: false
-    MQ_TYPE: "rabbitmq"
+    MQ_TYPE: "kafka"
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress.svc.cluster.local
 
-    # -- Default store config
-    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
-
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/api
-    tag: 0.14.19
+    tag: 0.16.6
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
     pullPolicy: IfNotPresent
 
 hpa:
-  enabled: true
+  enabled: false
   metrics:
-    - type: Resource
-      resource:
+    - type: ContainerResource
+      containerResource:
         name: cpu
+        container: application
         target:
           type: Utilization
           averageUtilization: 80
@@ -120,9 +98,15 @@ service:
       port: 9090
       protocol: TCP
 
+# ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   enabled: true
+
+# ==============================================================================
+# PodDisruptionBudget
+podDisruptionBudget:
+  enabled: false
 
 # -- If you want to use an external database
 external_database:

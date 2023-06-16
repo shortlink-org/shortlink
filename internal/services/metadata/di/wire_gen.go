@@ -21,14 +21,14 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1_2 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	"github.com/shortlink-org/shortlink/internal/services/metadata/application"
-	v1_3 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
+	"github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
+	v1_2 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"go.opentelemetry.io/otel/trace"
 	"net/http"
 )
@@ -63,7 +63,13 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup3()
@@ -97,7 +103,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup6, err := mq_di.New(context, logger)
+	dataBus, cleanup6, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -106,7 +112,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitMetadataMQ(context, logger, mq)
+	event, err := InitMetadataMQ(context, logger, dataBus)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -177,7 +183,7 @@ type MetaDataService struct {
 	metadataRPCServer *v1.Metadata
 
 	// Application
-	service *metadata.Service
+	service *parsers.Service
 
 	// Repository
 	metadataStore *meta_store.MetaStore
@@ -194,12 +200,12 @@ var MetaDataSet = wire.NewSet(di.DefaultSet, mq_di.New, store.New, rpc.InitServe
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx2 context.Context, log logger.Logger, mq v1_2.MQ) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(mq)
+func InitMetadataMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(mq2)
 	if err != nil {
 		return nil, err
 	}
-	notify.Subscribe(v1_3.METHOD_ADD, metadataMQ)
+	notify.Subscribe(v1_2.METHOD_ADD, metadataMQ)
 
 	return metadataMQ, nil
 }
@@ -214,8 +220,8 @@ func NewMetaDataStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Store
 	return metadataStore, nil
 }
 
-func NewMetaDataApplication(store2 *meta_store.MetaStore) (*metadata.Service, error) {
-	metadataService, err := metadata.New(store2)
+func NewMetaDataApplication(store2 *meta_store.MetaStore) (*parsers.Service, error) {
+	metadataService, err := parsers.New(store2)
 	if err != nil {
 		return nil, err
 	}
@@ -223,7 +229,7 @@ func NewMetaDataApplication(store2 *meta_store.MetaStore) (*metadata.Service, er
 	return metadataService, nil
 }
 
-func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *metadata.Service, log logger.Logger) (*v1.Metadata, error) {
+func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *parsers.Service, log logger.Logger) (*v1.Metadata, error) {
 	metadataRPCServer, err := v1.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -239,7 +245,7 @@ func NewMetaDataService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-	service *metadata.Service,
+	service *parsers.Service,
 
 	metadataMQ *metadata_mq.Event,
 	metadataRPCServer *v1.Metadata,

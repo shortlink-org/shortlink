@@ -2,6 +2,10 @@ go 1.20
 
 use (
 	.
-	./internal/services/knative/sync-search/kafka-to-elasticsearch
-	./pkg/shortdb-operator
+
+	./docs/ADR/decisions/proof/ADR-0007
+	./internal/services/bff-web
+	./internal/services/knative/kafka-to-elasticsearch
+	./internal/services/shortctl
+	./internal/services/shortdb-operator
 )

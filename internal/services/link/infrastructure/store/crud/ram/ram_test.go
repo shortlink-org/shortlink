@@ -1,5 +1,4 @@
 //go:build unit || (database && ram)
-// +build unit database,ram
 
 package ram
 
@@ -10,24 +9,26 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
 )
 
-// TODO: problem with goleak
-//func TestMain(m *testing.M) {
-//	goleak.VerifyTestMain(m)
-//}
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"))
+}
 
 func TestRAM(t *testing.T) {
-	store := Store{}
-
 	ctx := context.Background()
 
 	t.Run("Create [single]", func(t *testing.T) {
+		store, err := New(ctx)
+		require.NoError(t, err)
+
 		link, errAdd := store.Add(ctx, mock.AddLink)
-		assert.Nil(t, errAdd)
+		require.NoError(t, errAdd)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
@@ -35,45 +36,55 @@ func TestRAM(t *testing.T) {
 	t.Run("Create [batch]", func(t *testing.T) {
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		assert.Nil(t, err, "Cannot set ENV")
+		require.NoError(t, err, "Cannot set ENV")
 
-		storeBatchMode := Store{}
+		storeBatchMode, err := New(ctx)
+		require.NoError(t, err)
 
-		link, err := storeBatchMode.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		for i := 0; i < 4; i++ {
+			link, errBatchMode := storeBatchMode.Add(ctx, mock.AddLink)
+			require.NoError(t, errBatchMode)
+			assert.Equal(t, link.Hash, mock.GetLink.Hash)
+			assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		}
 
-		link, err = storeBatchMode.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
-
-		link, err = storeBatchMode.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
-
-		link, err = storeBatchMode.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		t.Cleanup(func() {
+			errClose := storeBatchMode.Close()
+			require.NoError(t, errClose)
+		})
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		link, err := store.Get(ctx, mock.GetLink.Hash)
-		assert.Nil(t, err)
+		store, err := New(ctx)
+		require.NoError(t, err)
+
+		link, err := store.Add(ctx, mock.GetLink)
+		require.NoError(t, err)
+
+		link, err = store.Get(ctx, mock.GetLink.Hash)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
+		store, err := New(ctx)
+		require.NoError(t, err)
+
+		_, err = store.Add(ctx, mock.GetLink)
+		require.NoError(t, err)
+
 		links, err := store.List(ctx, nil)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
+		store, err := New(ctx)
+		require.NoError(t, err)
+
+		link, err := store.Add(ctx, mock.GetLink)
+
+		require.NoError(t, store.Delete(ctx, link.Hash))
 	})
 }

@@ -1,9 +1,9 @@
 dependencies:
 - name: shortlink-common
   repository: file://../../../shortlink-common
-  version: 0.4.6
+  version: 0.5.5
 - name: rabbitmq-cluster-operator
-  repository: https://charts.bitnami.com/bitnami
-  version: 3.2.7
-digest: sha256:c8eb4ee8c016be4ab55078f08b6700da64fc1497b595040044ca3dfd69ca1452
-generated: "2023-03-19T03:27:07.061119+01:00"
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 3.4.2
+digest: sha256:efbc5eea9c014a24d4922a3da505296b226ab7d9e9a978d4caa6a06efa32bda3
+generated: "2023-06-15T22:55:53.426907+02:00"

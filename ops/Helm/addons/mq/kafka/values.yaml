@@ -9,6 +9,13 @@ strimzi-kafka-operator:
     - shortlink
   watchAnyNamespace: true
 
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    labelValue: "true"
+    annotations:
+      grafana_dashboard_folder: Kafka
+
 kafka-ui:
   enabled: true
 
@@ -32,14 +39,21 @@ kafka-ui:
   probes:
     useHttpsScheme: false
 
+  # TODO: add config for oauth2
+  # yamlApplicationConfig:
+  #  spring:
+  #    security:
+  #      oauth2:
+
+
   ingress:
     enabled: true
     ingressClassName: nginx
     annotations:
       cert-manager.io/cluster-issuer: cert-manager-production
       nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
-      nginx.ingress.kubernetes.io/enable-opentracing: "false"
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
       nginx.ingress.kubernetes.io/rewrite-target: /kafka-ui/$2
       nginx.ingress.kubernetes.io/use-regex: "true"
 

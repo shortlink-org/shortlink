@@ -32,8 +32,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	// calculate response
 	hash := func(key string) string {
 		h := sha1.New()
-		h.Write([]byte(key))
-		h.Write([]byte("258EAFA5-E914-47DA-95CA-C5AB0DC85B11"))
+		h.Write([]byte(key))                                    // nolint:errcheck
+		h.Write([]byte("258EAFA5-E914-47DA-95CA-C5AB0DC85B11")) // nolint:errcheck
 
 		return base64.StdEncoding.EncodeToString(h.Sum(nil))
 	}(k)
@@ -54,10 +54,10 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}()
 
 	// write headers
-	_, _ = bufrw.WriteString("HTTP/1.1 101 Switching Protocols\r\n")
-	_, _ = bufrw.WriteString("Upgrade: websocket\r\n")
-	_, _ = bufrw.WriteString("Connection: Upgrade\r\n")
-	_, _ = bufrw.WriteString("Sec-Websocket-Accept: " + hash + "\r\n\r\n")
+	_, _ = bufrw.WriteString("HTTP/1.1 101 Switching Protocols\r\n")       // nolint:errcheck
+	_, _ = bufrw.WriteString("Upgrade: websocket\r\n")                     // nolint:errcheck
+	_, _ = bufrw.WriteString("Connection: Upgrade\r\n")                    // nolint:errcheck
+	_, _ = bufrw.WriteString("Sec-Websocket-Accept: " + hash + "\r\n\r\n") // nolint:errcheck
 	_ = bufrw.Flush()
 
 	// respond to client

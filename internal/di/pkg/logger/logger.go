@@ -7,13 +7,14 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
 )
 
 func New(_ context.Context) (logger.Logger, func(), error) {
-	viper.SetDefault("LOG_LEVEL", logger.INFO_LEVEL)
+	viper.SetDefault("LOG_LEVEL", config.INFO_LEVEL)
 	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
 
-	conf := logger.Configuration{
+	conf := config.Configuration{
 		Level:      viper.GetInt("LOG_LEVEL"),
 		TimeFormat: viper.GetString("LOG_TIME_FORMAT"),
 	}

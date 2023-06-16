@@ -6,10 +6,10 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 )
 
-func New(ctx context.Context, log logger.Logger) (v1.MQ, func(), error) {
+func New(ctx context.Context, log logger.Logger) (*v1.DataBus, func(), error) {
 	viper.SetDefault("MQ_ENABLED", "false") // Enabled MQ
 
 	if viper.GetBool("MQ_ENABLED") {

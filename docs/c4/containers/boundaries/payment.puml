@@ -1,0 +1,4 @@
+System_Boundary(paymentBoundary, "Payment Boundary") {
+    !include services/billing/service.puml
+    !include services/wallet/service.puml
+}

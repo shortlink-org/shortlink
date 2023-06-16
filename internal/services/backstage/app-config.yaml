@@ -1,6 +1,6 @@
 app:
   title: Scaffolded Backstage App
-  baseUrl: http://localhost:3000/backstage
+  baseUrl: http://localhost:3000
   support:
     url: https://github.com/shortlink-org/shortlink/issues
     items:
@@ -34,7 +34,7 @@ backend:
   # auth:
   #   keys:
   #     - secret: ${BACKEND_SECRET}
-  baseUrl: http://localhost:7007/backstage
+  baseUrl: http://localhost:7007
   # The listener can also be expressed as a single <host>:<port> string. In this case we bind to
   # all interfaces, the most permissive setting. The right value depends on your specific deployment.
   listen: ':7007'
@@ -82,11 +82,6 @@ proxy:
     headers:
       Cookie:
         $env: ARGOCD_AUTH_TOKEN
-  '/prometheus/api':
-    # url to the api and path of your hosted prometheus instance
-    target: https://shortlink.best/prometheus/api/v1/
-    headers:
-      Authorization: ${YOUR_AUTH_TOKEN_IF_PROMETHEUS_IS_SECURED}
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs

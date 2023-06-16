@@ -6,19 +6,19 @@ package api_mq
 
 import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	link_application "github.com/shortlink-org/shortlink/internal/services/link/application/link"
 )
 
 type Event struct {
-	mq  mq.MQ
+	mq  *mq.DataBus
 	log logger.Logger
 
 	// Application
 	service *link_application.Service
 }
 
-func New(mq mq.MQ, log logger.Logger, service *link_application.Service) (*Event, error) {
+func New(mq *mq.DataBus, log logger.Logger, service *link_application.Service) (*Event, error) {
 	event := &Event{
 		mq:  mq,
 		log: log,

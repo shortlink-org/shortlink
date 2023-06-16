@@ -6,12 +6,14 @@ import (
 
 // Config ...
 type Config struct {
-	URI  string
-	mode int
+	mode   int
+	config *pgxpool.Config
 }
 
 // Store implementation of db interface
 type Store struct {
 	client *pgxpool.Pool
-	config Config
+	config *Config
+
+	tracer Tracer
 }

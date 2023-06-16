@@ -1,7 +1,6 @@
 include:
 - local: /ops/gitlab/workflows/matrix_build_base.yml
 - local: /ops/gitlab/workflows/matrix_build_helm.yml
-- local: /ops/gitlab/workflows/matrix_build_npm.yml
 
 # BUILD IMAGE ==========================================================================================================
 docker:
@@ -14,7 +13,7 @@ docker:
     strategy: depend
   needs:
     - job: GOLANG
-    - job: DEPENDENCY
+    - job: HELM
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
@@ -33,18 +32,13 @@ helm-chart:
     - if: $CI_COMMIT_TAG
       when: on_success
 
-npm:
-  extends:
-    - .matrix_build_npm
+ui:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/build/npm.yml'
+      - local: 'ops/gitlab/pipelines/ui/ui.yml'
     strategy: depend
   needs: []
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
-      changes:
-        - 'ui/**'
-

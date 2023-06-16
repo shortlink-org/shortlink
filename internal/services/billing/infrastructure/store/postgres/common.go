@@ -1,7 +1,14 @@
 package postgres
 
 import (
+	"embed"
+
 	"github.com/Masterminds/squirrel"
 )
 
-var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+var (
+	//go:embed migrations/*.sql
+	Migrations embed.FS
+
+	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+)

@@ -4,6 +4,7 @@ metadata:
   name: shortlink-bot
   namespace: argocd
   annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
     argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/link:0.14.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
   finalizers:
@@ -19,7 +20,6 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-        # default values
         - values.yaml
       parameters: []
   project: shortlink
@@ -27,10 +27,11 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
       backoff:

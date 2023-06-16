@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubernetes-replicator
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: external-secrets
+    server: 'https://kubernetes.default.svc'
+  source:
+    chart: kubernetes-replicator
+    repoURL: https://helm.mittwald.de
+    targetRevision: 2.*
+    helm:
+      releaseName: kubernetes-replicator
+      values: |
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 2m
+            memory: 16Mi
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
+  ignoreDifferences:
+    - group: kyverno.io
+      kind: ClusterPolicy
+      jqPathExpressions:
+        - .spec.rules[] | select(.name|test("autogen-."))

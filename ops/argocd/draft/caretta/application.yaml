@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: caretta
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -14,7 +16,7 @@ spec:
   source:
     chart: caretta
     repoURL: https://helm.groundcover.com/
-    targetRevision: 0.0.14
+    targetRevision: 0.*
     helm:
       releaseName: caretta
       values: |
@@ -24,10 +26,11 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
       backoff:

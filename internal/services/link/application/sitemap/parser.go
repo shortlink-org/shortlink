@@ -8,10 +8,10 @@ import (
 	"net/http"
 
 	"github.com/gogo/protobuf/proto"
+	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/sitemap/v1"
 )
@@ -20,10 +20,10 @@ type Service struct {
 	logger logger.Logger
 
 	// Delivery
-	mq mq.MQ
+	mq *mq.DataBus
 }
 
-func New(logger logger.Logger, mq mq.MQ) (*Service, error) {
+func New(logger logger.Logger, mq *mq.DataBus) (*Service, error) {
 	service := &Service{
 		logger: logger,
 
@@ -41,7 +41,9 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 		return err
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	client := http_client.New()
+
+	resp, err := client.Do(req)
 	if err != nil {
 		return err
 	}
@@ -69,10 +71,7 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 			return errMarshal
 		}
 
-		errPublish := s.mq.Publish(ctx, link.MQ_EVENT_LINK_NEW, query.Message{
-			Key:     nil,
-			Payload: data,
-		})
+		errPublish := s.mq.Publish(ctx, link.MQ_EVENT_LINK_NEW, nil, data)
 		if errPublish != nil {
 			return errPublish
 		}

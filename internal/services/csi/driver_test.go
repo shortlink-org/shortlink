@@ -1,5 +1,4 @@
 //go:build k8s
-// +build k8s
 
 package csi
 
@@ -10,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/kubernetes-csi/csi-test/v5/pkg/sanity"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -18,16 +17,16 @@ import (
 
 func TestDriver(t *testing.T) {
 	// Create a new context
-	ctx := context.Background() // nolint:staticcheck
+	ctx := context.Background()
 
 	// TODO: add test
 	t.SkipNow()
 
 	// Init logger
-	conf := logger.Configuration{}
+	conf := config.Configuration{}
 	log, err := logger.NewLogger(logger.Zap, conf)
 	if err != nil {
-		assert.Nil(t, err, "Error init a logger")
+		require.NoError(t, err, "Error init a logger")
 		t.Fatal()
 	}
 

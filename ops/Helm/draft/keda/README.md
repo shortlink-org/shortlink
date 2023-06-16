@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
+Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kedacore.github.io/charts | keda | 2.10.1 |
+| https://kedacore.github.io/charts | keda | 2.10.2 |
 
 ## Values
 

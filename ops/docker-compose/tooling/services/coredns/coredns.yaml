@@ -6,6 +6,7 @@ services:
     profiles:
       - dns
     container_name: coredns
+    init: true
     command: -conf /etc/coredns/Corefile
     restart: always
     expose:

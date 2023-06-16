@@ -1,0 +1,51 @@
+apiVersion: mongodbcommunity.mongodb.com/v1
+kind: MongoDBCommunity
+metadata:
+  name: mongodb
+spec:
+  members: 1
+  type: ReplicaSet
+  version: "6.0.5"
+  featureCompatibilityVersion: "6.0"
+  statefulSet:
+    spec:
+      volumeClaimTemplates:
+        - metadata:
+            name: data-volume
+          spec:
+            accessModes: [ "ReadWriteOnce" ]
+            storageClassName: local-path
+            resources:
+              requests:
+                storage: 2G
+        - metadata:
+            name: logs-volume
+          spec:
+            accessModes: [ "ReadWriteOnce" ]
+            storageClassName: local-path
+            resources:
+              requests:
+                storage: 1G
+  security:
+    authentication:
+      modes: [ "SCRAM" ]
+  users:
+    - name: testkube
+      db: testkube
+      scramCredentialsSecretName: testkube
+      passwordSecretRef:
+        name: testkube-user-password
+      roles:
+        - name: readWrite
+          db: testkube
+
+# the user credentials will be generated from this secret
+# once the credentials are generated, this secret is no longer required
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: testkube-user-password
+type: Opaque
+stringData:
+  password: "super-secret-password"

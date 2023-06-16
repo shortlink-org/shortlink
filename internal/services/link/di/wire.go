@@ -1,6 +1,5 @@
 //go:generate wire
 //go:build wireinject
-// +build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
 
@@ -24,12 +23,15 @@ import (
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
+	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
+	"github.com/shortlink-org/shortlink/internal/services/link/di/pkg/permission"
 	api_mq "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/mq"
 	cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -39,7 +41,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/cqrs/query"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type LinkService struct {
@@ -59,6 +60,9 @@ type LinkService struct {
 	linkRPCServer     *link_rpc.Link
 	linkCQRSRPCServer *cqrs.Link
 	sitemapRPCServer  *sitemap_rpc.Sitemap
+
+	// Jobs
+	authPermission *auth.Auth
 
 	// Application
 	linkService     *link.Service
@@ -84,6 +88,9 @@ var LinkSet = wire.NewSet(
 	// Delivery
 	InitLinkMQ,
 
+	// Jobs
+	permission.Permission,
+
 	NewLinkRPCServer,
 	NewLinkCQRSRPCServer,
 	NewSitemapRPCServer,
@@ -105,7 +112,7 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *link.Service) (*api_mq.Event, error) {
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus, service *link.Service) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
@@ -141,7 +148,7 @@ func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, 
 	return store, nil
 }
 
-func NewLinkApplication(logger logger.Logger, mq v1.MQ, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
+func NewLinkApplication(logger logger.Logger, mq *v1.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
 	linkService, err := link.New(logger, mq, metadataService, store)
 	if err != nil {
 		return nil, err
@@ -164,7 +171,7 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(logger logger.Logger, mq v1.MQ) (*sitemap.Service, error) {
+func NewSitemapApplication(logger logger.Logger, mq *v1.DataBus) (*sitemap.Service, error) {
 	sitemapService, err := sitemap.New(logger, mq)
 	if err != nil {
 		return nil, err
@@ -220,6 +227,9 @@ func NewLinkService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
+	// Jobs
+	authPermission *auth.Auth,
+
 	// Application
 	linkService *link.Service,
 	linkCQRSService *link_cqrs.Service,
@@ -249,6 +259,9 @@ func NewLinkService(
 		Monitoring:    monitoring,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
+
+		// Jobs
+		authPermission: authPermission,
 
 		// Application
 		linkService:     linkService,

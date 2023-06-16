@@ -5,10 +5,6 @@
 nats:
   enabled: true
 
-  image:
-    repository: natsio/nats-operator
-    tag: 0.8.3
-
   resources:
     limits:
       cpu: 100m

@@ -5,15 +5,7 @@
 # -- Pods Service Account
 # @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 serviceAccount:
-  # -- Specifies whether a service account should be created
   create: true
-
-  # -- The name of the ServiceAccount to use.
-  # If not set and create is true, a name is generated using the `helpers.fullname` template
-  # name: shortlink
-
-  # -- Auto-mount the service account token in the pod
-  automountServiceAccountToken: false
 
 # ==============================================================================
 ingress:
@@ -22,8 +14,8 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
-    nginx.ingress.kubernetes.io/enable-opentracing: "false"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /next/$2
     nginx.ingress.kubernetes.io/use-regex: "true"
 
@@ -56,7 +48,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/ui-next
-    tag: 0.14.19
+    tag: 0.16.5
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -82,6 +74,8 @@ deploy:
       mountPath: /tmp
       type: emptyDir
 
+# ==============================================================================
+# Service configuration
 service:
   type: ClusterIP
   ports:
@@ -90,6 +84,12 @@ service:
       protocol: TCP
       public: true
 
+# ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   enabled: true
+
+# ==============================================================================
+# PodDisruptionBudget
+podDisruptionBudget:
+  enabled: false

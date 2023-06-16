@@ -1,5 +1,4 @@
 //go:build unit || (database && dgraph)
-// +build unit database,dgraph
 
 package dgraph
 
@@ -13,6 +12,7 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/dgraph"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
@@ -27,7 +27,7 @@ func TestDgraph(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(t, err, "Could not connect to docker")
+	require.NoError(t, err, "Could not connect to docker")
 
 	// create a network with Client.CreateNetwork()
 	network, err := pool.Client.CreateNetwork(docker.CreateNetworkOptions{
@@ -47,7 +47,7 @@ func TestDgraph(t *testing.T) {
 		Name:         "test-dgraph-zero",
 		NetworkID:    network.ID,
 	})
-	assert.Nil(t, err, "Could not start resource")
+	require.NoError(t, err, "Could not start resource")
 
 	ALPHA, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository: "dgraph/dgraph",
@@ -102,25 +102,25 @@ func TestDgraph(t *testing.T) {
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
+		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 }

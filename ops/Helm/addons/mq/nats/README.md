@@ -10,7 +10,7 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
+Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
@@ -22,8 +22,6 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 |-----|------|---------|-------------|
 | nats.cluster.create | bool | `false` |  |
 | nats.enabled | bool | `true` |  |
-| nats.image.repository | string | `"natsio/nats-operator"` |  |
-| nats.image.tag | string | `"0.8.3"` |  |
 | nats.resources.limits.cpu | string | `"100m"` |  |
 | nats.resources.limits.memory | string | `"256Mi"` |  |
 | nats.resources.requests.cpu | string | `"20m"` |  |

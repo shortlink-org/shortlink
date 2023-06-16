@@ -1,9 +1,10 @@
-//go:generate protoc -I../../../../../link/domain/link/v1 --gotemplate_out=all=true,template_dir=template:. link.proto
+//go:generate protoc -I../../../../../link/domain/link/domain --gotemplate_out=all=true,template_dir=template:. link.proto
 package postgres
 
 import (
 	"context"
 	"database/sql"
+	"embed"
 	"errors"
 	"fmt"
 
@@ -19,41 +20,57 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
+	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+var (
+	//go:embed migrations/*.sql
+	migrations embed.FS
+
+	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+)
 
 // New store
 func New(ctx context.Context, db *db.Store) (*Store, error) {
+	var ok bool
 	s := &Store{}
 
-	// Set configuration
+	// Set configuration -----------------------------------------------------------------------------------------------
 	s.setConfig()
-	s.client = db.Store.GetConn().(*pgxpool.Pool)
+	s.client, ok = db.Store.GetConn().(*pgxpool.Pool)
+	if !ok {
+		return nil, errors.New("Error get connection to PostgreSQL")
+	}
 
-	// Create batch job
+	// Migration -------------------------------------------------------------------------------------------------------
+	err := migrate.Migration(ctx, db, migrations, viper.GetString("SERVICE_NAME"))
+	if err != nil {
+		return nil, err
+	}
+
+	// Create a batch job ----------------------------------------------------------------------------------------------
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) interface{} {
-			sources := make([]*v1.Link, len(args))
+		cb := func(args []*batch.Item) interface{} { // nolint:errcheck
+			sources := make([]*domain.Link, len(args))
 
 			for key := range args {
-				sources[key] = args[key].Item.(*v1.Link)
+				sources[key] = args[key].Item.(*domain.Link) // nolint:errcheck
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
 			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CB <- errors.New("Error write to PostgreSQL")
+					args[index].CallbackChannel <- errors.New("Error write to PostgreSQL")
 				}
 
 				return errBatchWrite
 			}
 
 			for key, item := range dataList.Link {
-				args[key].CB <- item
+				args[key].CallbackChannel <- item
 			}
 
 			return nil
@@ -64,15 +81,13 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 		if err != nil {
 			return nil, err
 		}
-
-		go s.config.job.Run(ctx)
 	}
 
 	return s, nil
 }
 
-// Get ...
-func (p *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
+// Get - get link
+func (p *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("shortlink.links").
@@ -84,29 +99,29 @@ func (p *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	rows, err := p.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 	if rows.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
-	var response v1.Link
+	var response domain.Link
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+			return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 		}
 	}
 
 	if response.Hash == "" {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
-// List ...
-func (p *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
+// List - list links
+func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, error) {
 	// query builder
 	links := psql.Select("url, hash, describe, created_at, updated_at").
 		From("shortlink.links")
@@ -125,22 +140,22 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 
 	rows, err := p.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: query.ErrNotFound}
 	}
 
-	response := &v1.Links{
-		Link: []*v1.Link{},
+	response := &domain.Links{
+		Link: []*domain.Link{},
 	}
 
 	for rows.Next() {
-		var result v1.Link
+		var result domain.Link
 		var (
 			created_ad sql.NullTime
 			updated_at sql.NullTime
 		)
 		err = rows.Scan(&result.Url, &result.Hash, &result.Describe, &created_ad, &updated_at)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: query.ErrNotFound}
 		}
 		result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
 		result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
@@ -151,38 +166,39 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 	return response, nil
 }
 
-// Add ...
-func (p *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
+// Add - add link
+func (p *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, error) {
 	switch p.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb, err := p.config.job.Push(source)
-		if err != nil {
-			return nil, err
-		}
+		cb := p.config.job.Push(source)
 
 		res := <-cb
 		switch data := res.(type) {
 		case error:
 			return nil, data
-		case *v1.Link:
+		case *domain.Link:
 			return data, nil
 		default:
 			return nil, nil
 		}
 	case options.MODE_SINGLE_WRITE:
 		data, err := p.singleWrite(ctx, source)
-		return data, err
+		if err != nil {
+			return nil, err
+		}
+
+		return data, nil
 	}
 
 	return nil, nil
 }
 
-// Update ...
-func (p *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
+// Update - update link
+func (p *Store) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) {
 	return nil, nil
 }
 
-// Delete ...
+// Delete - delete link
 func (p *Store) Delete(ctx context.Context, id string) error {
 	// query builder
 	request := psql.Delete("shortlink.links").
@@ -194,14 +210,14 @@ func (p *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = p.client.Exec(ctx, q, args...)
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+		return &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
 	}
 
 	return nil
 }
 
-func (p *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	err := v1.NewURL(source)
+func (p *Store) singleWrite(ctx context.Context, source *domain.Link) (*domain.Link, error) {
+	err := domain.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -229,16 +245,16 @@ func (p *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+		return nil, &domain.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
 	}
 
 	return source, nil
 }
 
-func (p *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, error) {
+func (p *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain.Links, error) {
 	// Create a new link
 	for key := range sources {
-		err := v1.NewURL(sources[key])
+		err := domain.NewURL(sources[key])
 		if err != nil {
 			return nil, err
 		}
@@ -265,21 +281,19 @@ func (p *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 	row := p.client.QueryRow(ctx, q, args...)
 	errScan := row.Scan(&sources)
 	if errors.Is(errScan, pgx.ErrNoRows) {
-		return &v1.Links{
-			Link: []*v1.Link{},
+		return &domain.Links{
+			Link: []*domain.Link{},
 		}, nil
 	}
 	if errScan != nil {
 		return nil, fmt.Errorf("Error save link")
 	}
 
-	response := &v1.Links{
-		Link: []*v1.Link{},
+	response := &domain.Links{
+		Link: []*domain.Link{},
 	}
 
-	for item := range sources {
-		response.Link = append(response.Link, sources[item])
-	}
+	response.Link = append(response.Link, sources...)
 
 	return response, nil
 }

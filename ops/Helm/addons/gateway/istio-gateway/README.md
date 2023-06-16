@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
+Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://istio-release.storage.googleapis.com/charts | gateway | 1.17.1 |
+| https://istio-release.storage.googleapis.com/charts | gateway | 1.17.2 |
 
 ## Values
 

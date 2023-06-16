@@ -11,9 +11,10 @@ services:
 
   schema_registry:
     <<: *network
-    image: confluentinc/cp-schema-registry:7.0.0
+    image: confluentinc/cp-schema-registry:7.4.0
     hostname: schema_registry
     container_name: schema_registry
+    init: true
     depends_on:
       - coredns
       - zookeeper

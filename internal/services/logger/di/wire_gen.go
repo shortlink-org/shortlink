@@ -19,7 +19,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/services/logger/application"
 	"github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
 	"go.opentelemetry.io/otel/trace"
@@ -56,7 +56,13 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup3()
@@ -72,7 +78,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup5, err := mq_di.New(context, logger)
+	dataBus, cleanup5, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -80,7 +86,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLoggerMQ(context, logger, mq, service)
+	event, err := InitLoggerMQ(context, logger, dataBus, service)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -135,8 +141,8 @@ var LoggerSet = wire.NewSet(di.DefaultSet, mq_di.New, InitLoggerMQ,
 	NewLoggerService,
 )
 
-func InitLoggerMQ(ctx2 context.Context, log logger.Logger, mq v1.MQ, service *logger_application.Service) (*logger_mq.Event, error) {
-	loggerMQ, err := logger_mq.New(mq, log, service)
+func InitLoggerMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
+	loggerMQ, err := logger_mq.New(mq2, log, service)
 	if err != nil {
 		return nil, err
 	}

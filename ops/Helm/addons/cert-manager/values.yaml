@@ -15,7 +15,8 @@ certmanager:
 
   installCRDs: true
 
-#  extraArgs:
+  extraArgs:
+    - --logging-format=json
 #    - --controllers='*\,-certificaterequests-approver'
 
   prometheus:
@@ -36,4 +37,20 @@ cert-manager-approver-policy:
           enabled: true
 
 spiffe:
-  enabled: true
+  enabled: false
+
+  app:
+    driver:
+      resources:
+        requests:
+          cpu: 5m
+          memory: 5Mi
+        limits:
+          cpu: 100m
+          memory: 128Mi
+
+    approver:
+      metrics:
+        service:
+          servicemonitor:
+            enabled: true

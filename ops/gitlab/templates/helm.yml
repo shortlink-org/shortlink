@@ -1,8 +1,10 @@
 .job_template_helm:
   stage: action
   image:
-    name: alpine/helm:3.11.2
+    name: alpine/helm:3.12.1
     entrypoint: [""]
+  variables:
+    HELM_EXPERIMENTAL_OCI: 1
   before_script:
     - helm plugin install https://github.com/jkroepke/helm-secrets
     - |

@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: mongodb
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -18,16 +20,16 @@ spec:
     helm:
       releaseName: mongodb
       valueFiles:
-        # default values
         - values.yaml
   syncPolicy:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
       backoff:

@@ -22,18 +22,21 @@ services:
       ETCD_INITIAL_CLUSTER_STATE: new
       ETCD_INITIAL_CLUSTER_TOKEN: tutorial
     container_name: patroni-etcd1
+    init: true
     hostname: etcd1
     command: etcd -name etcd1 -initial-advertise-peer-urls http://etcd1:2380
 
   etcd2:
     <<: *etcd
     container_name: patroni-etcd2
+    init: true
     hostname: etcd2
     command: etcd -name etcd2 -initial-advertise-peer-urls http://etcd2:2380
 
   etcd3:
     <<: *etcd
     container_name: patroni-etcd3
+    init: true
     hostname: etcd3
     command: etcd -name etcd3 -initial-advertise-peer-urls http://etcd3:2380
 
@@ -45,6 +48,7 @@ services:
     env_file: ops/docker-compose/database/postgres/conf/patroni.env
     hostname: haproxy
     container_name: patroni-haproxy
+    init: true
     ports:
       - "5000:5000"
       - "5001:5001"
@@ -62,6 +66,7 @@ services:
     env_file: ops/docker-compose/database/postgres/conf/patroni.env
     hostname: patroni1
     container_name: patroni-patroni1
+    init: true
     environment:
       <<: *haproxy_env
       PATRONI_NAME: patroni1
@@ -74,6 +79,7 @@ services:
     env_file: ops/docker-compose/database/postgres/conf/patroni.env
     hostname: patroni2
     container_name: patroni-patroni2
+    init: true
     environment:
       <<: *haproxy_env
       PATRONI_NAME: patroni2
@@ -86,6 +92,7 @@ services:
     env_file: ops/docker-compose/database/postgres/conf/patroni.env
     hostname: patroni3
     container_name: patroni-patroni3
+    init: true
     environment:
       <<: *haproxy_env
       PATRONI_NAME: patroni3

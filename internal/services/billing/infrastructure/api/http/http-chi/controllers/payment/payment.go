@@ -114,7 +114,7 @@ func (api *PaymentAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`))
+	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
 }
 
 // close a payment
@@ -141,5 +141,5 @@ func (api *PaymentAPI) close(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`))
+	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
 }

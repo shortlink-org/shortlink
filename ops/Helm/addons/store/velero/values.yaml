@@ -1,0 +1,54 @@
+# Common default values for velero.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+velero:
+  enabled: true
+
+  initContainers:
+    - name: velero-plugin-for-csi
+      image: velero/velero-plugin-for-csi:v0.5.0
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /target
+          name: plugins
+
+  podSecurityContext:
+    fsGroup: 1337
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop: ["ALL"]
+      add: []
+    readOnlyRootFilesystem: true
+
+  configuration:
+    volumeSnapshotLocation:
+      - name: default
+        provider: aws
+
+  metrics:
+    serviceMonitor:
+      enabled: true
+    nodeAgentPodMonitor:
+      enabled: true
+    prometheusRule:
+      enabled: true
+      spec:
+       - alert: VeleroBackupPartialFailures
+         annotations:
+           message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups.
+         expr: |-
+           velero_backup_partial_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+         for: 15m
+         labels:
+           severity: warning
+       - alert: VeleroBackupFailures
+         annotations:
+           message: Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups.
+         expr: |-
+           velero_backup_failure_total{schedule!=""} / velero_backup_attempt_total{schedule!=""} > 0.25
+         for: 15m
+         labels:
+           severity: warning

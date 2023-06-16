@@ -1,5 +1,4 @@
 //go:build unit
-// +build unit
 
 package logger
 
@@ -11,10 +10,11 @@ import (
 	"time"
 
 	"github.com/segmentio/encoding/json"
-
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
@@ -26,14 +26,14 @@ func TestMain(m *testing.M) {
 func TestOutputInfoWithContextZap(t *testing.T) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
 
 	log, err := NewLogger(Zap, conf)
-	assert.Nil(t, err, "Error init a logger")
+	require.NoError(t, err, "Error init a logger")
 
 	log.InfoWithContext(context.Background(), "Hello World")
 
@@ -46,7 +46,7 @@ func TestOutputInfoWithContextZap(t *testing.T) {
 		"traceID":   "00000000000000000000000000000000",
 	}
 	var response map[string]interface{}
-	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
+	require.NoError(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
 		assert.Equal(t, expected, response)
@@ -56,8 +56,8 @@ func TestOutputInfoWithContextZap(t *testing.T) {
 func BenchmarkOutputZap(bench *testing.B) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
@@ -72,14 +72,14 @@ func BenchmarkOutputZap(bench *testing.B) {
 func TestOutputInfoWithContextLogrus(t *testing.T) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
 
 	log, err := NewLogger(Logrus, conf)
-	assert.Nil(t, err, "Error init a logger")
+	require.NoError(t, err, "Error init a logger")
 
 	log.InfoWithContext(context.Background(), "Hello World")
 
@@ -91,15 +91,15 @@ func TestOutputInfoWithContextLogrus(t *testing.T) {
 		"traceID":   "00000000000000000000000000000000",
 	}
 	var response map[string]interface{}
-	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
+	require.NoError(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 	assert.Equal(t, expected, response)
 }
 
 func BenchmarkOutputLogrus(bench *testing.B) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
@@ -114,14 +114,14 @@ func BenchmarkOutputLogrus(bench *testing.B) {
 func TestFieldsZap(t *testing.T) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
 
 	log, err := NewLogger(Zap, conf)
-	assert.Nil(t, err, "Error init a logger")
+	require.NoError(t, err, "Error init a logger")
 
 	log.InfoWithContext(context.Background(), "Hello World", field.Fields{
 		"hello": "world",
@@ -139,7 +139,7 @@ func TestFieldsZap(t *testing.T) {
 		"traceID":   "00000000000000000000000000000000",
 	}
 	var response map[string]interface{}
-	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
+	require.NoError(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
 		assert.Equal(t, expected, response)
@@ -149,14 +149,14 @@ func TestFieldsZap(t *testing.T) {
 func TestFieldsLogrus(t *testing.T) {
 	var b bytes.Buffer
 
-	conf := Configuration{
-		Level:      INFO_LEVEL,
+	conf := config.Configuration{
+		Level:      config.INFO_LEVEL,
 		Writer:     &b,
 		TimeFormat: time.RFC822,
 	}
 
 	log, err := NewLogger(Logrus, conf)
-	assert.Nil(t, err, "Error init a logger")
+	require.NoError(t, err, "Error init a logger")
 
 	log.Info("Hello World", field.Fields{
 		"hello": "world",
@@ -172,7 +172,7 @@ func TestFieldsLogrus(t *testing.T) {
 		"hello":     "world",
 	}
 	var response map[string]interface{}
-	assert.Nil(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
+	require.NoError(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 	assert.Equal(t, expected, response)
 }
 
@@ -182,14 +182,14 @@ func TestSetLevel(t *testing.T) {
 	for _, logger := range loggerList {
 		var b bytes.Buffer
 
-		conf := Configuration{
-			Level:      FATAL_LEVEL,
+		conf := config.Configuration{
+			Level:      config.FATAL_LEVEL,
 			Writer:     &b,
 			TimeFormat: time.RFC822,
 		}
 
 		log, err := NewLogger(logger, conf)
-		assert.Nil(t, err, "Error init a logger")
+		require.NoError(t, err, "Error init a logger")
 
 		log.Info("Hello World")
 

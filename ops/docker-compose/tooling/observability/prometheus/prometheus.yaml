@@ -13,10 +13,11 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.42.0
+    image: prom/prometheus:v2.44.0
     profiles:
       - observability
     container_name: prometheus
+    init: true
     restart: always
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'

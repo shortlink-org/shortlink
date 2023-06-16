@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	rpc "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
@@ -14,9 +15,7 @@ type Repository interface {
 
 // Store abstract type
 type MetaStore struct {
+	Store Repository
+	notify.Subscriber[link.Link]
 	typeStore string
-	Store     Repository
-
-	// Observer interface for subscribe on system event
-	notify.Subscriber // Observer interface for subscribe on system event
 }

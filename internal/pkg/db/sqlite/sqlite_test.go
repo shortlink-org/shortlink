@@ -1,5 +1,4 @@
 //go:build unit || (database && sqlite)
-// +build unit database,sqlite
 
 package sqlite
 
@@ -7,7 +6,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestMain(m *testing.M) {
@@ -21,9 +20,9 @@ func TestSQLite(t *testing.T) {
 	ctx := context.Background()
 
 	err := store.Init(ctx)
-	assert.Nil(t, err)
+	require.NoError(t, err)
 
 	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
+		require.NoError(t, store.Close())
 	})
 }

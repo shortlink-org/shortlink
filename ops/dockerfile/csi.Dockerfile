@@ -21,7 +21,7 @@ WORKDIR /go/github.com/shortlink-org/shortlink
 COPY go.mod go.sum ./
 RUN go mod download
 
-# COPY the source code as the last step
+# COPY the source code AS the last step
 COPY . .
 
 # Build project
@@ -36,9 +36,18 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -trimpath \
   -o app ./internal/services/csi/cmd
 
-FROM alpine:3.17
+FROM alpine:3.18
 
-# Define GOTRACEBACK to mark this container as using the Go language runtime
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="shortlink-csi"
+LABEL org.opencontainers.image.description="shortlink-csi"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
+
+# Define GOTRACEBACK to mark this container AS using the Go language runtime
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
 ENV GOTRACEBACK=all
 
@@ -48,7 +57,9 @@ EXPOSE 9090
 # Install dependencies
 RUN \
   apk update && \
-  apk add --no-cache curl util-linux
+  apk add --no-cache curl util-linux tini
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \

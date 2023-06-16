@@ -10,21 +10,21 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
+Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../../shortlink-common | shortlink-common | 0.2.13 |
-| https://charts.bitnami.com/bitnami | rabbitmq-cluster-operator | 3.2.5 |
+| file://../../../shortlink-common | shortlink-common | 0.5.2 |
+| oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.3.2 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
@@ -33,8 +33,8 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.service.name | string | `"shortlink"` |  |
 | ingress.service.port | int | `15672` |  |
 | ingress.type | string | `"nginx"` |  |
-| rabbitmq-cluster-operator.clusterOperator.metrics.enabled | bool | `false` |  |
-| rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.enabled | bool | `false` |  |
+| rabbitmq-cluster-operator.clusterOperator.metrics.enabled | bool | `true` |  |
+| rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.enabled | bool | `true` |  |
 | rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.labels.release | string | `"prometheus-operator"` |  |
 | rabbitmq-cluster-operator.enabled | bool | `true` |  |
 | rabbitmq-cluster-operator.fullnameOverride | string | `"rabbitmq"` |  |
@@ -42,8 +42,6 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.enabled | bool | `true` |  |
 | rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.labels.release | string | `"prometheus-operator"` |  |
 | rabbitmq.clusterName | string | `"shortlink"` |  |
-| rabbitmq.credentials.password | string | `"shortlink"` |  |
-| rabbitmq.credentials.username | string | `"shortlink"` |  |
 | secret.read[0] | string | `"shortlink"` |  |
 
 ----------------------------------------------

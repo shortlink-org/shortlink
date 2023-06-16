@@ -12,12 +12,12 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/grpc/status"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	"github.com/shortlink-org/shortlink/pkg/http/server"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 // API ...
@@ -61,7 +61,7 @@ func (api *API) Run(
 		return err
 	}
 
-	api.http = http_server.New(ctx, mux, config)
+	api.http = http_server.New(ctx, mux, config, tracer)
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
 	log.Info(fmt.Sprintf("API run on port %d", config.Port))
@@ -101,6 +101,6 @@ func (api *API) CustomHTTPError(_ context.Context, _ *runtime.ServeMux, marshale
 	})
 
 	if jErr != nil {
-		_, _ = w.Write([]byte(fallback)) // #nosec
+		_, _ = w.Write([]byte(fallback)) // nolint:errcheck
 	}
 }

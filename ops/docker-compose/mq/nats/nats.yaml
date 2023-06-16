@@ -17,6 +17,7 @@ services:
     entrypoint: "/gnatsd -DV"
     hostname: nats-server
     container_name: nats
+    init: true
     restart: on-failure
     ports:
       - '4222:4222'

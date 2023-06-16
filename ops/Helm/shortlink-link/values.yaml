@@ -5,15 +5,7 @@
 # -- Pods Service Account
 # @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 serviceAccount:
-  # -- Specifies whether a service account should be created
   create: true
-
-  # -- The name of the ServiceAccount to use.
-  # If not set and create is true, a name is generated using the `helpers.fullname` template
-  # name: shortlink
-
-  # -- Auto-mount the service account token in the pod
-  automountServiceAccountToken: false
 
 # ==============================================================================
 # This secret for dev-stand. For production use CI-variables
@@ -51,8 +43,16 @@ deploy:
   type: Deployment
 
   resources:
-    limits: {}
-    requests: {}
+    # -- We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
 
   env:
     MQ_ENABLED: true
@@ -62,12 +62,18 @@ deploy:
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 
     # -- Default store config
-    STORE_POSTGRES_URI: postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable
+    STORE_TYPE: postgres
     STORE_REDIS_URI: shortlink-redis-master.redis:6379
+
+  envSecret:
+    - name: STORE_POSTGRES_URI
+      secretKeyRef:
+        name: shortlink-postgres-pguser-link
+        key: uri
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/link
-    tag: 0.14.19
+    tag: 0.16.6
 
 service:
   type: ClusterIP
@@ -81,6 +87,12 @@ service:
       protocol: TCP
       public: true
 
+# ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   enabled: true
+
+# ==============================================================================
+# PodDisruptionBudget
+podDisruptionBudget:
+  enabled: false

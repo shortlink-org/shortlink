@@ -8,12 +8,7 @@ pkg
 ui
 *.yml
 
-# NextJS cache
-ui/next/.next
-ui/next/out
-
 # Exclude
-!ui/next
+!ui/nx-monorepo
 !ops/dockerfile/conf/nextjs.local
 !ops/docker-compose/gateway/nginx
-!ui/eslint

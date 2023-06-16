@@ -1,0 +1,9 @@
+{
+  "name": "eslint-plugin-shortlink",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "build": "npx swc index.ts -o ./dist/index.js"
+  }
+}

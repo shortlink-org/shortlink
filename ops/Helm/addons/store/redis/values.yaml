@@ -29,11 +29,11 @@ redis:
   metrics:
     enabled: true
 
-  serviceMonitor:
-    enabled: true
+    serviceMonitor:
+      enabled: true
 
-  prometheusRule:
-    enabled: true
+    prometheusRule:
+      enabled: true
 
   replica:
     replicaCount: 0

@@ -8,7 +8,6 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
@@ -16,26 +15,24 @@ import (
 
 // Config ...
 type Config struct {
+	job  *batch.Batch
 	mode int
-	job  *batch.Config
 }
 
 // Store implementation of db interface
 type Store struct {
-	// sync.Map solver problem with cache contention
-	links sync.Map
-
 	config Config
+	links  sync.Map
 }
 
 // New store
-func New(ctx context.Context, db *db.Store) (*Store, error) {
+func New(ctx context.Context) (*Store, error) {
 	s := &Store{}
 
 	// Set configuration
 	s.setConfig()
 
-	// Create batch job
+	// Create a batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
 		cb := func(args []*batch.Item) interface{} {
 			if len(args) == 0 {
@@ -43,13 +40,13 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 			}
 
 			for key := range args {
-				source := args[key].Item.(*v1.Link)
+				source := args[key].Item.(*v1.Link) // nolint:errcheck
 				data, errSingleWrite := s.singleWrite(ctx, source)
 				if errSingleWrite != nil {
 					return errSingleWrite
 				}
 
-				args[key].CB <- data
+				args[key].CallbackChannel <- data
 			}
 
 			return nil
@@ -60,8 +57,6 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 		if err != nil {
 			return nil, err
 		}
-
-		go s.config.job.Run(ctx)
 	}
 
 	return s, nil
@@ -109,10 +104,7 @@ func (ram *Store) List(_ context.Context, filter *query.Filter) (*v1.Links, erro
 func (ram *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	switch ram.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb, err := ram.config.job.Push(source)
-		if err != nil {
-			return nil, err
-		}
+		cb := ram.config.job.Push(source)
 
 		res := <-cb
 		switch data := res.(type) {
@@ -142,6 +134,12 @@ func (ram *Store) Delete(_ context.Context, id string) error {
 	return nil
 }
 
+// Close ...
+func (ram *Store) Close() error {
+	ram.config.job.Stop()
+	return nil
+}
+
 func (ram *Store) singleWrite(_ context.Context, source *v1.Link) (*v1.Link, error) {
 	err := v1.NewURL(source) // Create a new link
 	if err != nil {
@@ -156,7 +154,7 @@ func (ram *Store) singleWrite(_ context.Context, source *v1.Link) (*v1.Link, err
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
+	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // Mode writes to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
 
 	s.config = Config{
 		mode: viper.GetInt("STORE_MODE_WRITE"),

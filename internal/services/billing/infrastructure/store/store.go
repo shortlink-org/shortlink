@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
 	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
@@ -35,24 +36,44 @@ func (s *BillingStore) Use(ctx context.Context, log logger.Logger, db *db.Store)
 
 	switch s.typeStore {
 	case "postgres":
-		s.Account = &postgres.Account{}
-		s.Tariff = &postgres.Tariff{}
-		s.EventStore = &event_store.Repository{}
+		fallthrough
 	default:
 		s.Account = &postgres.Account{}
 		s.Tariff = &postgres.Tariff{}
 		s.EventStore = &event_store.Repository{}
+
+		// Migration ---------------------------------------------------------------------------------------------------
+		err := migrate.Migration(ctx, db, postgres.Migrations, viper.GetString("SERVICE_NAME"))
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	_ = s.Account.Init(ctx, db)
-	_ = s.Tariff.Init(ctx, db)
-	_, _ = s.EventStore.Use(ctx, log, db)
+	err := s.Account.Init(ctx, db)
+	if err != nil {
+		return nil, err
+	}
+
+	err = s.Tariff.Init(ctx, db)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = s.EventStore.Use(ctx, log, db)
+	if err != nil {
+		return nil, err
+	}
 
 	log.Info("init billingStore", field.Fields{
 		"db": s.typeStore,
 	})
 
 	return s, nil
+}
+
+// Notify - implementation of notify.Subscriber interface
+func (s *BillingStore) Notify(ctx context.Context, event uint32, payload any) notify.Response[any] {
+	return notify.Response[any]{}
 }
 
 func (s *BillingStore) setConfig() {

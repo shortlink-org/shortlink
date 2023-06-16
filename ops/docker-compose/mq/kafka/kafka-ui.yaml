@@ -18,6 +18,7 @@ services:
       - kafka_3
     image: provectuslabs/kafka-ui
     container_name: kafka-ui
+    init: true
     ports:
       - "8050:8080"
     restart: always

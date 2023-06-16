@@ -18,11 +18,11 @@ Shortlink service for get metadata by URL
 
 ## Requirements
 
-Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
+Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.4.0 |
+| file://../shortlink-common | shortlink-common | 0.5.2 |
 
 ## Values
 
@@ -31,14 +31,14 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
-| deploy.env.MQ_ENABLED | string | `"false"` |  |
+| deploy.env.MQ_ENABLED | bool | `false` |  |
 | deploy.env.MQ_KAFKA_URI | string | `"shortlink-kafka-bootstrap.kafka:9092"` |  |
 | deploy.env.MQ_TYPE | string | `"kafka"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/metadata"` |  |
-| deploy.image.tag | string | `"0.14.9"` |  |
+| deploy.image.tag | string | `"0.15.40"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.nodeSelector | list | `[]` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
@@ -55,6 +55,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.istio.route.destination.port | int | `50051` |  |
 | ingress.type | string | `"istio"` |  |
 | monitoring.enabled | bool | `true` |  |
+| podDisruptionBudget.enabled | bool | `false` |  |
 | secret.enabled | bool | `false` |  |
 | secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
 | secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |

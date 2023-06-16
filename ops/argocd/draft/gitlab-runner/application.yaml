@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: gitlab-runner
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -18,7 +20,6 @@ spec:
     helm:
       releaseName: gitlab-runner
       valueFiles:
-        # default values
         - values.yaml
 
         # Method 1: Mount the gpg key from a kubernetes secret as volume
@@ -30,10 +31,11 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
       backoff:

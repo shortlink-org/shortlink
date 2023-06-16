@@ -3,51 +3,44 @@ package redis
 import (
 	"context"
 
-	"github.com/pkg/errors"
-	"github.com/redis/go-redis/extra/redisotel/v9"
-	"github.com/redis/go-redis/v9"
+	"github.com/redis/rueidis"
+	"github.com/redis/rueidis/rueidisotel"
 	"github.com/spf13/viper"
 )
 
 // Config ...
 type Config struct {
-	Host     []string
 	Username string
 	Password string
+	Host     []string
 }
 
 // Store implementation of db interface
 type Store struct {
-	client redis.UniversalClient
+	client rueidis.Client
 	config Config
 }
 
 // Init ...
 func (s *Store) Init(ctx context.Context) error {
+	var err error
+
 	// Set configuration
 	s.setConfig()
 
 	// Connect to Redis
-	s.client = redis.NewUniversalClient(&redis.UniversalOptions{
-		Addrs:    s.config.Host,
-		Username: s.config.Username,
-		Password: s.config.Password,
-		DB:       0, // use default DB
+	s.client, err = rueidis.NewClient(rueidis.ClientOption{
+		InitAddress: s.config.Host,
+		Username:    s.config.Username,
+		Password:    s.config.Password,
+		SelectDB:    0, // use default DB
 	})
+	if err != nil {
+		return err
+	}
 
 	// Enable tracing instrumentation.
-	if err := redisotel.InstrumentTracing(s.client); err != nil {
-		return err
-	}
-
-	// Enable metrics instrumentation.
-	if err := redisotel.InstrumentMetrics(s.client); err != nil {
-		return err
-	}
-
-	if _, err := s.client.Ping(ctx).Result(); err != nil {
-		return errors.Wrap(err, "redis ping failed")
-	}
+	s.client = rueidisotel.WithClient(s.client)
 
 	return nil
 }
@@ -59,11 +52,7 @@ func (s *Store) GetConn() interface{} {
 
 // Close ...
 func (s *Store) Close() error {
-	return s.client.Close()
-}
-
-// Migrate ...
-func (s *Store) migrate() error {
+	s.client.Close()
 	return nil
 }
 

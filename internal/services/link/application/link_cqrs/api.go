@@ -6,10 +6,10 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/saga"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link_cqrs/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
-	"github.com/shortlink-org/shortlink/pkg/saga"
 )
 
 func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error {
@@ -36,14 +36,14 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 	resp := &domain.LinkView{}
 
 	// create a new saga for get link by hash
-	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
 		return nil, err
 	}
 
-	// add step: get link from store
+	// add step: get a link from store
 	_, errs = sagaGetLink.AddStep(SAGA_STEP_STORE_GET).
 		Then(func(ctx context.Context) error {
 			var err error
@@ -63,7 +63,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 	}
 
 	if resp == nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: hash}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: hash}, Err: query.ErrNotFound}
 	}
 
 	return resp, nil
@@ -78,7 +78,7 @@ func (s *Service) List(ctx context.Context, filter *query.Filter) (*domain.Links
 	resp := &domain.LinksView{}
 
 	// create a new saga for get link by hash
-	sagaGetLink, errs := saga.New(SAGA_NAME, saga.Logger(s.logger)).
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
@@ -105,7 +105,7 @@ func (s *Service) List(ctx context.Context, filter *query.Filter) (*domain.Links
 	}
 
 	if resp == nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: ""}, Err: fmt.Errorf("Not found links")}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: ""}, Err: query.ErrNotFound}
 	}
 
 	return resp, nil

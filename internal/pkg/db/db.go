@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db/badger"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/cockroachdb"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/dgraph"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/leveldb"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/mongo"
@@ -26,6 +27,8 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 	store.setConfig()
 
 	switch store.typeStore {
+	case "cockroachdb":
+		store.Store = &cockroachdb.Store{}
 	case "postgres":
 		store.Store = &postgres.Store{}
 	case "mongo":

@@ -3,7 +3,7 @@
 # This file contains the configuration for your Kratos container.
 # Reference: https://www.ory.sh/kratos/docs/reference/configuration
 
-version: v0.10.1
+version: v0.13.0
 
 dsn: memory
 
@@ -54,9 +54,17 @@ selfservice:
   methods:
     password:
       enabled: true
+    totp:
+      config:
+        issuer: Kratos
+      enabled: true
+    lookup_secret:
+      enabled: true
     profile:
       enabled: true
     link:
+      enabled: true
+    code:
       enabled: true
     oidc:
       enabled: true
@@ -98,13 +106,18 @@ selfservice:
       # Sessions older than a minute requires the user to sign in again before
       # the password is changed.
       privileged_session_max_age: 15m
+      required_aal: highest_available
 
     recovery:
       enabled: true
+      notify_unknown_recipients: true
+      use: code
       ui_url: http://127.0.0.1:3000/next/auth/recovery
 
     verification:
       enabled: true
+      notify_unknown_recipients: true
+      use: code
       ui_url: http://127.0.0.1:3000/next/auth/verification
       after:
         default_browser_return_url: http://127.0.0.1:3000/next/auth/verification
@@ -124,6 +137,7 @@ selfservice:
         password:
           hooks:
             - hook: session
+            - hook: show_verification_ui
         oidc:
           hooks:
             - hook: session
@@ -149,7 +163,7 @@ hashers:
 courier:
   smtp:
     connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true
-    from_address: no-reply@shortlink.com
+    from_address: no-reply@shortlink.best
     from_name: Shortlink
 
 tracing:

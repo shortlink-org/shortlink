@@ -11,6 +11,8 @@ spec:
         port: 9092
         type: internal
         tls: false
+        configuration:
+          useServiceDnsDomain: true
       - name: tls
         port: 9093
         type: internal
@@ -33,6 +35,11 @@ spec:
         cpu: "1"
   zookeeper:
     replicas: 3
+    template:
+      pod:
+        metadata:
+          labels:
+            sidecar.istio.io/inject: "false"
     storage:
       type: ephemeral
     resources:
@@ -42,4 +49,6 @@ spec:
       limits:
         memory: 2Gi
         cpu: "1"
-  entityOperator: {}
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}

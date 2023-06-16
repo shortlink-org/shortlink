@@ -4,7 +4,8 @@ metadata:
   name: shortlink-logger
   namespace: argocd
   annotations:
-    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/logger:0.14.x
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
+    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/logger:0.15.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -19,17 +20,17 @@ spec:
     targetRevision: HEAD
     helm:
       valueFiles:
-        # default values
         - values.yaml
   project: shortlink
   syncPolicy:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
       backoff:

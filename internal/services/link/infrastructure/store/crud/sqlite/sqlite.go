@@ -58,14 +58,14 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")
-	query, args, err := links.ToSql()
+	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
 	}
 
-	rows, err := lite.client.QueryContext(ctx, query, args...)
+	rows, err := lite.client.QueryContext(ctx, q, args...)
 	if err != nil || rows.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 	}
 	defer rows.Close() // nolint:errcheck
 
@@ -77,7 +77,7 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 		var result v1.Link
 		err = rows.Scan(&result.Url, &result.Hash, &result.Describe)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
 		response.Link = append(response.Link, &result)

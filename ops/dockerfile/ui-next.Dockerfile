@@ -6,36 +6,46 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
+# Defining environment
+ARG APP_ENV=development
 ARG API_URI
 
 # Install dependencies only when needed
-FROM node:19.8-alpine as deps
+FROM node:20.3-alpine AS development-builder
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
 RUN npm config set ignore-scripts false
 
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
-COPY ./ui/eslint /eslint
-COPY ./ui/next/package.json ./ui/next/package-lock.json ./
+COPY ./ui/nx-monorepo/ ./
 
 RUN npm ci --cache .npm --prefer-offline --force
+RUN npx nx run ui-next:build
+RUN npx nx run ui-next:export
 
-# Rebuild the source code only when needed
-FROM node:19.8-alpine as builder
+FROM development-builder AS cache
 
-ARG API_URI
-ENV API_URI=${API_URI}
+COPY --from=development-builder /app/packages/next/out /app/out
 
-WORKDIR /app
-COPY ./ui/next /app/
-COPY --from=deps /app/node_modules ./node_modules
+FROM alpine:3.18 AS ci-builder
+FROM ${APP_ENV}-builder AS cache
 
-RUN npm run generate
+COPY ./ui/nx-monorepo/packages/next/out /app/out
 
 # Production image, copy all the files and run next
-FROM nginxinc/nginx-unprivileged:1.23-alpine
+FROM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine
+
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="shortlink-next"
+LABEL org.opencontainers.image.description="shortlink-next"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
 
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
@@ -60,7 +70,7 @@ HEALTHCHECK \
 COPY ./ops/dockerfile/conf/nextjs.local /etc/nginx/conf.d/default.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/templates /etc/nginx/template
-COPY --from=builder /app/out ./next
+COPY --from=cache /app/out ./next
 
 # Setup unprivileged user 1001
 RUN chown -R 1001 /usr/share/nginx/html

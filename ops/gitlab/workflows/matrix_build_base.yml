@@ -10,6 +10,10 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./internal/services/api/cmd"
+      - APPLICATION: auth
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/auth
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/auth/cmd"
       - APPLICATION: notify
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/notify
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
@@ -29,6 +33,10 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/link
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./internal/services/link/cmd"
+      - APPLICATION: billing
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/billing
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/billing/cmd"
       - APPLICATION: proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/proxy
         DOCKERFILE_PATH: ops/dockerfile/proxy.Dockerfile
@@ -38,18 +46,14 @@
       - APPLICATION: kafka-to-elasticsearch
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/kafka-to-elasticsearch
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/services/knative/sync-search/kafka-to-elasticsearch"
-      - APPLICATION: landing
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/landing
-        DOCKERFILE_PATH: ops/dockerfile/landing.Dockerfile
-        DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
-      - APPLICATION: ui-next
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-next
-        DOCKERFILE_PATH: ops/dockerfile/ui-next.Dockerfile
-        DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
-      - APPLICATION: ui-kit
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-kit
-        DOCKERFILE_PATH: ops/dockerfile/ui-kit.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/knative/kafka-to-elasticsearch"
       - APPLICATION: backstage
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/backstage
         DOCKERFILE_PATH: ops/dockerfile/backstage.Dockerfile
+      - APPLICATION: referral
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/referral
+        DOCKERFILE_PATH: ops/dockerfile/referral.Dockerfile
+      - APPLICATION: bff-web
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff-web
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/bff-web/cmd"

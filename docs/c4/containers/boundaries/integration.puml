@@ -1,0 +1,4 @@
+System_Boundary(integrationBoundary, "Integration Boundary") {
+    !include services/chrome-extension/service.puml
+    !include services/ai-plugin/service.puml
+}

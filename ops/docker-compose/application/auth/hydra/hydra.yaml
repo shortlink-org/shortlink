@@ -1,0 +1,62 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+volumes:
+  hydra-sqlite:
+
+services:
+
+  # -------------------------------------------------------------------------- #
+  # ORY HYDRA
+  # OAuth2 and OpenID Connect server
+  # https://www.ory.sh/hydra/
+  # -------------------------------------------------------------------------- #
+
+  hydra:
+    <<: *network
+    depends_on:
+      - coredns
+      - hydra_migrate
+    image: oryd/hydra:v2.2
+    command: serve -c /etc/config/hydra/hydra.yml all --dev
+    container_name: hydra
+    init: true
+    environment:
+      DSN: sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
+    ports:
+      - "4444:4444" # Public port
+      - "4445:4445" # Admin port
+      - "5555:5555" # Port for hydra token user
+    restart: on-failure
+    volumes:
+      - type: volume
+        source: hydra-sqlite
+        target: /var/lib/sqlite
+        read_only: false
+      - type: bind
+        source: ./ops/docker-compose/application/auth/hydra/conf
+        target: /etc/config/hydra
+
+  hydra_migrate:
+    <<: *network
+    depends_on:
+      - coredns
+    image: oryd/hydra:v2.2
+    environment:
+      - DSN=sqlite:///var/lib/sqlite/db.sqlite?_fk=true
+    command: migrate -c /etc/config/hydra/hydra.yml sql -e --yes
+    volumes:
+      - type: volume
+        source: hydra-sqlite
+        target: /var/lib/sqlite
+        read_only: false
+      - type: bind
+        source: ./ops/docker-compose/application/auth/hydra/conf
+        target: /etc/config/hydra
+    restart: on-failure

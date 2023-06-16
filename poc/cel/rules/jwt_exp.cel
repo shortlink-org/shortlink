@@ -1,0 +1,8 @@
+// Check whether a JSON Web Token has expired by inspecting the 'exp' claim.
+//
+// Args:
+//   claims - authentication claims.
+//   now    - timestamp indicating the current system time.
+// Returns: true if the token has expired.
+//
+timestamp(claims["exp"]) < now

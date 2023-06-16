@@ -3,18 +3,15 @@
 # Declare variables to be passed into your templates.
 # Ref: https://github.com/argoproj/argo-cd
 
-argo:
+argo-cd:
   enabled: true
 
-argo-cd:
   fullnameOverride: argocd
 
   global:
-    # image:
-    #  tag: v2.6.0-rc7
-
     logging:
       format: json
+      level: warn
 
   controller:
     metrics:
@@ -54,6 +51,14 @@ argo-cd:
   dex:
     enabled: true
 
+    resources:
+      limits:
+        cpu: 50m
+        memory: 64Mi
+      requests:
+        cpu: 10m
+        memory: 32Mi
+
     metrics:
       enabled: true
       serviceMonitor:
@@ -63,15 +68,9 @@ argo-cd:
     enabled: false
 
   externalRedis:
-    host: shortlink-redis-master.redis
+    host: redis-master.argocd
 
   server:
-    extraArgs:
-      - --rootpath
-      - /argo/cd
-      - --basehref
-      - /argo/cd
-
     metrics:
       enabled: true
       serviceMonitor:
@@ -91,24 +90,21 @@ argo-cd:
         nginx.ingress.kubernetes.io/ssl-redirect: "true"
         nginx.ingress.kubernetes.io/secure-backends: "true"
         nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
-        nginx.ingress.kubernetes.io/enable-opentracing: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
       hosts:
-        - shortlink.best
-
-      paths:
-        - /argo/cd(/|$)(.*)
+        - argo.shortlink.best
 
       tls:
-        - secretName: shortlink-ingress-tls
+        - secretName: argo-ingress-tls
           hosts:
-            - shortlink.best
+            - argo.shortlink.best
 
       https: true
 
     config:
-      url: https://shortlink.best/argo/cd
+      url: https://argo.shortlink.best
 
       statusbadge.enabled: "true"
 
@@ -199,9 +195,9 @@ argo-cd:
           - name: HELM_SECRETS_VERSION
             value: "4.4.2"
           - name: KUBECTL_VERSION
-            value: "1.26.2"
+            value: "1.27.0"
           - name: VALS_VERSION
-            value: "0.23.0"
+            value: "0.24.0"
           - name: SOPS_VERSION
             value: "3.7.3"
         args:
@@ -223,18 +219,13 @@ argo-cd:
             name: custom-tools
 
   applicationSet:
-    metrics:
-      enabled: true
-      serviceMonitor:
-        enabled: true
-
-  notifications:
-    argocdUrl: https://shortlink.best/argo/cd
-    notifiers:
-      service.slack: |
-        token: $slack-token
-        username: argocd # optional username
-        icon: :dart: # optional icon for the message (supports both emoij and url notation)
+    resources:
+      limits:
+        cpu: 150m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
 
     metrics:
       enabled: true
@@ -249,9 +240,13 @@ argo-cd:
         type: git
 
 argo-events:
+  enabled: false
+
   fullnameOverride: argo-events
 
 argo-workflows:
+  enabled: false
+
   fullnameOverride: argo-workflows
 
   controller:
@@ -274,14 +269,14 @@ argo-workflows:
   server:
     extraArgs:
       - --basehref
-      - /argo/workflows/
+      - /workflows/
       - --auth-mode=server
 
-    baseHref: /argo/workflows/
+    baseHref: /workflows/
 
     extraEnv:
       - name: ARGO_BASE_HREF
-        value: /argo/workflows
+        value: /workflows
 
     ingress:
       enabled: true
@@ -292,23 +287,25 @@ argo-workflows:
         cert-manager.io/cluster-issuer: cert-manager-production
         nginx.ingress.kubernetes.io/backend-protocol: HTTP
         nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
-        nginx.ingress.kubernetes.io/enable-opentracing: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
         nginx.ingress.kubernetes.io/rewrite-target: /$1
         nginx.ingress.kubernetes.io/use-regex: "true"
 
       hosts:
-        - shortlink.best
+        - argo.shortlink.best
 
       paths:
-        - /argo/workflows/?(.*)
+        - /workflows/?(.*)
 
       tls:
-        - secretName: shortlink-ingress-tls
+        - secretName: argo-ingress-tls
           hosts:
-            - shortlink.best
+            - argo.shortlink.best
 
 argocd-apps:
+  enabled: true
+
   # -- Deploy Argo CD Applications within this helm release
   # @default -- `[]` (See [values.yaml])
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
@@ -320,9 +317,13 @@ argocd-apps:
   projects: [ ]
 
 argo-rollouts:
+  enabled: true
+
   fullnameOverride: argo-rollouts
 
   controller:
+    replicas: 1
+
     resources:
       limits:
         cpu: 100m
@@ -338,7 +339,7 @@ argo-rollouts:
     resources:
       limits:
         cpu: 100m
-        memory: 128Mi
+        memory: 256Mi
       requests:
         cpu: 20m
         memory: 16Mi
@@ -352,19 +353,19 @@ argo-rollouts:
         cert-manager.io/cluster-issuer: cert-manager-production
         nginx.ingress.kubernetes.io/backend-protocol: HTTP
         nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "false"
-        nginx.ingress.kubernetes.io/enable-opentracing: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
       hosts:
-        - shortlink.best
+        - argo.shortlink.best
 
       paths:
-        - /argo/rollouts
+        - /rollouts
 
       tls:
-        - secretName: shortlink-ingress-tls
+        - secretName: argo-ingress-tls
           hosts:
-            - shortlink.best
+            - argo.shortlink.best
 
   metrics:
     enabled: true
@@ -372,6 +373,8 @@ argo-rollouts:
       enabled: true
 
 argocd-image-updater:
+  enabled: false
+
   fullnameOverride: argocd-image-updater
 
   config:
@@ -420,3 +423,48 @@ argocd-image-updater:
     enabled: true
     serviceMonitor:
       enabled: true
+
+redis:
+  fullnameOverride: redis
+
+  master:
+    kind: Deployment
+
+    persistence:
+      enabled: false
+      storageClass: local-path
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 500Mi
+      requests:
+        cpu: 10m
+        memory: 126Mi
+
+  auth:
+    enabled: false
+    password: ""
+
+  metrics:
+    enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+    prometheusRule:
+      enabled: true
+
+  replica:
+    replicaCount: 0
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+    persistence:
+      enabled: false

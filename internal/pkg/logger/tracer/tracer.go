@@ -29,7 +29,6 @@ func NewTraceFromContext(
 	span.SetAttributes(tags...)
 
 	// Get span ID
-
 	if len(fields) == 0 {
 		fields = make([]field.Fields, 0)
 	}

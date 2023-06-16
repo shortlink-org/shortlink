@@ -7,7 +7,7 @@ include:
 ansible-up:
   stage: .pre
   when: manual
-  image: quay.io/ansible/creator-ee:v0.14.1
+  image: quay.io/ansible/creator-ee:v0.18.0
   before_script:
     - sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-Linux-*
     - sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-Linux-*
@@ -25,37 +25,31 @@ terraform-up:
 
 # K8S ==================================================================================================================
 infrastructure:
+  extends:
+    - .matrix_deploy_provider
   stage: .pre
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_additional.yml'
   when: manual
 
-# Set secret credential
-dockerfile:
+# ARGO CD ==============================================================================================================
+argo-cd:
   extends:
     - .matrix_deploy_provider
   stage: .pre
-  services:
-    - name: docker:dind
-      command: [ "--experimental" ]
-  image: docker:latest
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - apk add curl
-  script:
-    - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-    - chmod +x kubectl
-    - ./kubectl create secret generic regcred 
-      --context=shortlink-org/shortlink:${PROVIDER}
-      --from-file=.dockerconfigjson=/root/.docker/config.json 
-      --type=kubernetes.io/dockerconfigjson
-  when: manual
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/addons/argocd/argocd.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
 
 # SCHEDULE =============================================================================================================
 delete_renovate_branch:
   stage: .pre
-  image: alpine:3.17
+  image: alpine:3.18
   script:
     # TODO: add function to delete branch
     - echo "Delete renovate branch"

@@ -7,13 +7,13 @@ stages:
   - test
 
 before_script:
-  - cd pkg/flutter/shortlink
+  - cd ui/flutter/shortlink
   - flutter pub get
   - flutter clean
 
 build:
   stage: build
-  image: cirrusci/flutter:2.2.0
+  image: cirrusci/flutter:3.7.7
   script:
     - flutter build apk
   tags:

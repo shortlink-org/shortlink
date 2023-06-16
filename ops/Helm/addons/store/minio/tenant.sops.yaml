@@ -1,0 +1,32 @@
+accesskey: ENC[AES256_GCM,data:Ca0n4VeBtbZU8xXVJ5cNjWMXp/Q=,iv:BcNFgGJzaWy6lxydyXVPkV4pWEw5AqEeoZhNkkoWWck=,tag:xp2W9jwVQWnL71fJVfb5gQ==,type:str]
+secretkey: ENC[AES256_GCM,data:WTJ98vv2b58jae14zfQ+Y0erhbM=,iv:+roTXf6HmlnUoUnayXD6J61ZqGApjVXndfb2Wq/agbA=,tag:DFf3qFDw8TFAHf0gzp5rfw==,type:str]
+EnvConfig: ENC[AES256_GCM,data:zKH3aNJhuUJmh4SVbkwIXxDCFXBRWOHtxjWPC0Z8zPspsih7ny2Bn5UMbHhB3ENYkkgLPyJ5Cwbu3ek6X42xzeVM6o/af7qplN7mXk2ydXCxB210mzF4zJYPlJQJHit4K8OVmmQiXRfYOIL0pGKk4yxCEff0SA3xDeSaKtTaDApQoD442w+Nzmy7aSWJnNHcNdiiMr2nB4MVy4kXsF8CNb91IpulMlWLf+X/Nek=,iv:bPzJr/1eGT6VUoIi9FLp3DaXMRU48OlQs9r2hJDvH08=,tag:5FrnhA0FVBCISiSojYhWuA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-06-01T13:18:00Z"
+    mac: ENC[AES256_GCM,data:CEwFwyzq5hvBzH2PGjlUP63TqN9YuKha7+6DFTJCGZ5qMixaHPNh/00jMkZrYY1okYoL3IizlHZmiBXiNURMER9vF011348nqrxRKcKOk+wYDRVimRRD02U8CzuBFmt0sOoq+5CQ/S2o85Ggyy5Otq1cKhGRniA/XmfbZYeI9dY=,iv:JQ6jiHVBsfBEjJ+L8O2CDCi2L1dcu3zPdv8LghW7v5s=,tag:wNIoKBpcTl28PZUYR54tdg==,type:str]
+    pgp:
+        - created_at: "2023-06-01T12:37:42Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQGMAxDrDE6S/SFjAQv+NBhKqMKdoBKn35aA57+0lU77wUURjL8h/B4DXrrqWdtG
+            TU3XIkQw8VMkzyk58ll3qEdv4dmk+uuKPkxmFoKApQGGQB9ktilB7cMmEddOHgtb
+            hRn0SWq0bP1eNBcopmi8gRDBZn/f7D2Qxr9xW6LD4q2IbefCYM/bxx3ocJkgNBte
+            wdrFz8dwFVmlt1QttAgg6gBAG8kx9fV9HPgHXtI2cgp0qnlBGo63xshnUlTr8ceZ
+            T+9HCJm3B/SsU5KDZxVqVWb2nXyMMNrbVmmWwhTOEIwDQCTM0r8nPWnQy3Qe0Hky
+            iHjCHB8xkI0yEbFGQ8br637vk+alXLeCeJU+FUhGy1lQjFVqBNkbc4XgmDcJgAU7
+            uYKGpYTsBTrxlzujl6CH6cHq5+WGsL2ZyR34gc9Pr2CFZinGlPjH9K5AyvCu4137
+            KuqTnFQAoq7zq1l8M/CsIgIkVZ5wrpAkcXtNOekkZ039PnKUQkDe+jbrE+1RwtjU
+            z+2l5WfKWIUAfcL6ZKry1GgBCQIQ0mstvxHAqVUlBEJZLWhRrnhfEumBdWw3RXOQ
+            v0W38um3tX8kX1IHjnQiS8LR48UPvtlxZxGlMuNvpapmpPvYzzUDFuaY7yhX1a2Q
+            OUQD4Oo5U/UlxEZwoP6Oc0LN7x56a2oE3A==
+            =W/+A
+            -----END PGP MESSAGE-----
+          fp: C92AE33AF20998F8CA09E819A842078E859DE4F1
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3

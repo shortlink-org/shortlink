@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package domain.referral.v1;
+
+// QUERIES =====================================================================
+enum ReferralQuery {
+  REFERRAL_QUERY_UNSPECIFIED = 0;
+
+  REFERRAL_QUERY_GET = 1;
+  REFERRAL_QUERY_LIST = 2;
+}
+
+// Get a referral from the system ---------------------------------------------
+message ReferralGetQuery {
+  // Identifier of the referral
+  string id = 1;
+}
+
+// List referrals from the system ---------------------------------------------
+message ReferralListQuery {
+  // Filter by user
+  string user_id = 1;
+}

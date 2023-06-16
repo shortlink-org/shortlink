@@ -15,15 +15,28 @@ istiod:
         address: grafana-tempo.grafana:9411
 
   ## Discovery Settings
-#  pilot:
-#    env:
-#      PILOT_ENABLE_INBOUND_PASSTHROUGH: "false"
-#      PILOT_ENABLE_HBONE: "true"
-#      ENABLE_ENHANCED_RESOURCE_SCOPING: "true"
+  pilot:
+    traceSampling: 100.0
+
+  istio_cni:
+    enabled: true
 
   # meshConfig defines runtime configuration of components, including Istiod and istio-agent behavior
   # See https://istio.io/docs/reference/config/istio.mesh.v1alpha1/ for all available options
-#  meshConfig:
+  meshConfig:
+    enableTracing: true
+    defaultConfig:
+      tracing:
+        max_path_tag_length: 99999
+        sampling: 100
+        zipkin:
+          address: grafana-tempo.grafana:9411
+
+    extensionProviders:
+      - name: otel
+        envoyOtelAls:
+          service: grafana-tempo.grafana
+          port: 4317
 #    discoverySelectors:
 #      - matchLabels:
 #          istio-discovery: enabled
@@ -33,6 +46,8 @@ istiod:
 
   telemetry:
     v2:
+      metadataExchange:
+        wasmEnabled: true
       prometheus:
         enabled: true
         wasmEnabled: true

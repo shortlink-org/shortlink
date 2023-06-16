@@ -1,10 +1,7 @@
 package query
 
-// NotFoundError - not found link
-type StoreError struct {
-	Value string
-}
+import "errors"
 
-func (e *StoreError) Error() string {
-	return e.Value
-}
+var (
+	ErrNotFound = errors.New("not found links")
+)

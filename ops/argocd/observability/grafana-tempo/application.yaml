@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: grafana-tempo
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -12,7 +14,7 @@ spec:
     namespace: grafana
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/grafana-tempo
+    path: ops/Helm/addons/observability/grafana-tempo
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
@@ -23,10 +25,11 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
     syncOptions:
       - CreateNamespace=false
-      - ServerSideApply=true
+#      - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
       backoff:

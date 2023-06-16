@@ -1,0 +1,37 @@
+kratos:
+    kratos:
+        config:
+            courier:
+                smtp:
+                    local_name: ENC[AES256_GCM,data:PNLsXJpL77PDUKe3sV4=,iv:/MEKc2V4ve+b1gDE6dL5RlU++VHQlRmFEEDjdhuA0dY=,tag:ql1YnPsez/rjrzAtCuqkFQ==,type:str]
+                    connection_uri: ENC[AES256_GCM,data:SSUWntH5axMUMWwKEGm0e9Nbc/K7tmMq2d88+XJWbAItxUfBCeMALILtVdZOrWSvCu9B/iAkQsC4DevaDgs/EJP+lQ==,iv:QmpX7APytg1fd9104lDYqBduF6jT3TUoKy8ww9GNk7U=,tag:EKH8QV2Trxr2SbUQlY3XOA==,type:str]
+                    from_address: ENC[AES256_GCM,data:C9OxVTTKBHeLwCjJNPSl9rmrwl1rGsk=,iv:8Go2ccZLdmh4OIZhVdrWs00K2fACKCUBdUGO/974yEE=,tag:etvexVEnX9rTjZTsCHShCw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2023-05-11T13:27:35Z"
+    mac: ENC[AES256_GCM,data:Ye1t4FfwHHXx/2tJqCSOD+KM8Ta7Dp3S53hcdl1rr42vVFzdtJ4uMVF/m9dhCEom6rn1Ni47zKVYHxDIb+yLEIr9NYnSn8mTLoT84yytWyPHF+kEYZh6TYivFsbp7Q4jY39KcPYDWIKO70DJ9rf7OdVNoq1PvHI1gx53l3ZYv60=,iv:BaQk812X0MckkcDxbSdK3m0NxQHNrjujpuGeXJe/WaU=,tag:ni2DRBkzzv3wG3LK22xZog==,type:str]
+    pgp:
+        - created_at: "2023-05-11T13:27:17Z"
+          enc: |
+            -----BEGIN PGP MESSAGE-----
+
+            hQGMAxDrDE6S/SFjAQwAt5RH5KBiId0bidW1jTgCgDt01FF/2MUadQcJQL2l+OU7
+            xBQLVTnBhui4sksx5fiuZ1U1UWZdf2VIGr2YMvW/H39R7BIQWpwPDTDCIUngtqND
+            fXcdy4t11KvB+6ZzByzheUT3tNcJlr3pJ+AT1+3+blZpZ4WYgmBZV5h8sRCzNB8x
+            nFAIMpW5wACtxgMzXBCJA8FUBsA85h9ahsxBAPJx5iXgnbvUmEwkL8y9RUOo01jJ
+            yJmbsAr4CkMty+qD/o5m8uY4E1B+2hmsAfQwMNsrz0B4TjA5zIgeHXSqKPslxy3/
+            8DVsD5L7qujvEgr6qxvp8TZ4bNTwDfsRUzMe6/x0gbGq6D9CUvCwBaoNU1pOFW1C
+            sJTNe+UOjlvd18EVxPIqIncqL4BSNITj5dFUe6S3/aaFvSlx9062iSA2LNHsfAtw
+            +fjDodvzGUkvcnAbtruKOp5iRf2cerIByMorgdez0EX90t+VCikhQDO5CZgyPlaz
+            sneUPUOnZiH9AKKlHOGs1GgBCQIQ+iZWKkFG6VgIrhWZHN7DYyPHQojnHRtdJv7Y
+            aqUDrByr7DXtPToV8nM1RrbxsjiBlF6pJsBBtePVRBIa9PZ8bkndGcjWZ5mliAc/
+            NsLS1Kw1Jw8AmEGxpc0fRM2TSmYdHtOOyg==
+            =umV1
+            -----END PGP MESSAGE-----
+          fp: C92AE33AF20998F8CA09E819A842078E859DE4F1
+    unencrypted_suffix: _unencrypted
+    version: 3.7.3

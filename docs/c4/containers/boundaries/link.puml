@@ -1,0 +1,7 @@
+System_Boundary(linkBoundary, "Link Boundary") {
+    !include services/link/service.puml
+    !include services/proxy/service.puml
+    !include services/metadata/service.puml
+}
+
+link --> metadata

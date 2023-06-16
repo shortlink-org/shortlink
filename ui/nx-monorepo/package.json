@@ -1,0 +1,60 @@
+{
+  "name": "shortlink",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx nx run-many -t build --all --parallel",
+    "build-storybook": "npx nx run-many -t build-storybook --all --parallel",
+    "export": "npx nx run-many -t export --all --parallel"
+  },
+  "private": true,
+  "devDependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/server": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@nrwl/eslint-plugin-nx": "16.4.0-beta.9",
+    "@nrwl/next": "16.4.0-beta.9",
+    "@nrwl/nx-cloud": "16.0.5",
+    "@nrwl/react": "16.4.0-beta.9",
+    "@nrwl/rollup": "16.4.0-beta.9",
+    "@rollup/plugin-replace": "5.0.2",
+    "@rollup/plugin-terser": "^0.4.3",
+    "@surma/rollup-plugin-off-main-thread": "2.2.3",
+    "@swc/cli": "0.1.62",
+    "@swc/core": "1.3.64",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/estree": "1.0.1",
+    "@types/node": "^20.2.5",
+    "@types/react": "^18.2.12",
+    "@types/react-dom": "18.2.5",
+    "@types/react-is": "18.2.0",
+    "eslint": "^8.42.0",
+    "eslint-config-shortlink": "*",
+    "eslint-plugin-cypress": "^2.13.3",
+    "eslint-plugin-jest-dom": "^5.0.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-shortlink": "*",
+    "eslint-plugin-storybook": "^0.6.12",
+    "eslint-plugin-testing-library": "^5.11.0",
+    "nx": "16.4.0-beta.9",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.1.3"
+  },
+  "workspaces": [
+    "packages/eslint/*",
+    "packages/*"
+  ],
+  "dependencies": {
+    "@ducanh2912/next-pwa": "^8.7.1",
+    "@headlessui/react": "1.7.15",
+    "@heroicons/react": "2.0.18",
+    "@mui/material": "^5.13.5",
+    "@shortlink-org/ui-kit": "1.3.6",
+    "next": "^13.4.6",
+    "next-themes": "^0.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
+

@@ -1,6 +1,5 @@
 //go:generate wire
 //go:build wireinject
-// +build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
 
@@ -24,14 +23,14 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
+	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
 	metadata_domain "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 	metadata_mq "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type MetaDataService struct {
@@ -76,7 +75,7 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx context.Context, log logger.Logger, mq v1.MQ) (*metadata_mq.Event, error) {
+func InitMetadataMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus) (*metadata_mq.Event, error) {
 	metadataMQ, err := metadata_mq.New(mq)
 	if err != nil {
 		return nil, err

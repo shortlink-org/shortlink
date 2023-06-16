@@ -1,0 +1,100 @@
+# Common default values for grafana.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+oncall:
+  enabled: false
+
+  base_url: https://grafana.shortlink.best
+
+  engine:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 5m
+        memory: 50Mi
+
+  celery:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 5m
+        memory: 50Mi
+
+  oncall: {}
+
+  ingress:
+    enabled: false
+
+  ingress-nginx:
+    enabled: false
+
+  cert-manager:
+    enabled: false
+
+  database:
+    type: mysql
+
+  postgresql:
+    enabled: false
+
+  mariadb:
+    enabled: true
+
+  rabbitmq:
+    enabled: true
+
+  redis:
+    enabled: true
+
+    master:
+      kind: Deployment
+
+      persistence:
+        enabled: false
+        storageClass: local-path
+
+      resources:
+        limits:
+          cpu: 500m
+          memory: 500Mi
+        requests:
+          cpu: 10m
+          memory: 56Mi
+
+      auth:
+        enabled: false
+        password: ""
+
+      metrics:
+        enabled: true
+
+        serviceMonitor:
+          enabled: true
+
+        prometheusRule:
+          enabled: true
+
+    replica:
+      replicaCount: 0
+
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 10m
+          memory: 64Mi
+
+      persistence:
+        enabled: false
+
+  grafana:
+    enabled: false
+
+  externalGrafana:
+    url: https://grafana.shortlink.best

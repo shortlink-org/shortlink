@@ -1,6 +1,5 @@
 //go:generate wire
 //go:build wireinject
-// +build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
 
@@ -22,7 +21,7 @@ import (
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
 	logger_mq "github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
 )
@@ -59,7 +58,7 @@ var LoggerSet = wire.NewSet(
 	NewLoggerService,
 )
 
-func InitLoggerMQ(ctx context.Context, log logger.Logger, mq v1.MQ, service *logger_application.Service) (*logger_mq.Event, error) {
+func InitLoggerMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
 	loggerMQ, err := logger_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err

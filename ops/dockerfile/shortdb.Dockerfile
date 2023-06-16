@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM golang:1.20-rc AS builder
+FROM --platform=$BUILDPLATFORM golang:1.20-alpine AS builder
 
 ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y liburing-dev
 COPY go.mod go.sum ./
 RUN go mod download
 
-# COPY the source code as the last step
+# COPY the source code AS the last step
 COPY . .
 
 # Build project
@@ -35,16 +35,27 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -ldflags "-s -w -X main.CI_COMMIT_TAG=$CI_COMMIT_TAG" \
   -installsuffix cgo \
   -trimpath \
-  -o app ./internal/pkg/shortdb/cli
+  -o app ./internal/services/shortdb/cli
 
-FROM debian:11.6
+FROM debian:12.0
 
-# Define GOTRACEBACK to mark this container as using the Go language runtime
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="shortdb"
+LABEL org.opencontainers.image.description="ShortLink Database"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
+
+# Define GOTRACEBACK to mark this container AS using the Go language runtime
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
 ENV GOTRACEBACK=all
 
 # Load io_uring
-RUN apt-get update && apt-get install --no-install-recommends -y liburing-dev curl
+RUN apt-get update && apt-get install --no-install-recommends -y liburing-dev curl tini
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \

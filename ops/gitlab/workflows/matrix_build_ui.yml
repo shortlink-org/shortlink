@@ -1,0 +1,20 @@
+# NOTE:
+# APPLICATION     - Name application
+# REGISTRY_IMAGE  - Registry image
+# DOCKERFILE_PATH - Path to Dockerfile
+# CMD_PATH        - Path to binary file
+.matrix_build_ui:
+  parallel:
+    matrix:
+      - APPLICATION: landing
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/landing
+        DOCKERFILE_PATH: ops/dockerfile/landing.Dockerfile
+        DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
+      - APPLICATION: ui-next
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-next
+        DOCKERFILE_PATH: ops/dockerfile/ui-next.Dockerfile
+        DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
+      - APPLICATION: storybook
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-kit
+        DOCKERFILE_PATH: ops/dockerfile/storybook.Dockerfile
+        DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"

@@ -3,16 +3,16 @@ package api_application
 import (
 	"context"
 	"net/http"
-	"time"
 
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/text/message"
 
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/api/application/cloudevents"
 	"github.com/shortlink-org/shortlink/internal/services/api/application/graphql"
 	grpcweb "github.com/shortlink-org/shortlink/internal/services/api/application/grpc_web/v1"
@@ -20,7 +20,6 @@ import (
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 // runAPIServer - start HTTP-server
@@ -44,11 +43,11 @@ func RunAPIServer(
 	// API port
 	viper.SetDefault("API_PORT", 7070) // nolint:gomnd
 	// Request Timeout (seconds)
-	viper.SetDefault("API_TIMEOUT", 60) // nolint:gomnd
+	viper.SetDefault("API_TIMEOUT", "60s")
 
 	config := http_server.Config{
 		Port:    viper.GetInt("API_PORT"),
-		Timeout: viper.GetDuration("API_TIMEOUT") * time.Second, // nolint:durationcheck
+		Timeout: viper.GetDuration("API_TIMEOUT"),
 	}
 
 	serverType := viper.GetString("API_TYPE")

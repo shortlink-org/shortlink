@@ -14,9 +14,10 @@ services:
     depends_on:
       - coredns
       - postgres
-    image: quay.io/keycloak/keycloak:20.0.3
+    image: quay.io/keycloak/keycloak:21.1.1
     command: ["start-dev", "--import-realm"]
     container_name: keycloak
+    init: true
     restart: on-failure
     ports:
       - 8080:8080
@@ -47,7 +48,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.42.0
+    image: prom/prometheus:v2.44.0
     profiles:
       - prometheus
     volumes:

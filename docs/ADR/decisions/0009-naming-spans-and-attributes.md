@@ -1,4 +1,4 @@
-# 9. naming spans and attributes
+# 9. Naming spans and attributes
 
 Date: 2022-12-21
 

@@ -20,7 +20,7 @@ type Handler struct {
 	LinkServiceClient link_rpc.LinkServiceClient
 }
 
-// Routes creates a REST router
+// Routes create a REST router
 func Routes(
 	link_rpc link_rpc.LinkServiceClient,
 ) chi.Router {
@@ -141,7 +141,7 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 // @Description Get link
 // @ID get-link
 // @Accept  json
-// @Produce  json
+// @Produce json
 // @Group Links
 // @Success 200 {object} link_rpc.GetResponse
 // @NotFound 404 {object} link_rpc.GetResponse
@@ -163,22 +163,17 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 
 	response, err := h.LinkServiceClient.Get(r.Context(), &link_rpc.GetRequest{Hash: hash})
 	if err != nil {
+		var errorLink *v1.NotFoundError
+
+		if errors.Is(err, errorLink) {
+			w.WriteHeader(http.StatusNotFound)
+			_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+
+			return
+		}
+
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint:errcheck
-
-		return
-	}
-
-	var errorLink *v1.NotFoundError
-	if errors.As(err, &errorLink) {
-		w.WriteHeader(http.StatusNotFound)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
-
-		return
-	}
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 
 		return
 	}
@@ -199,8 +194,8 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 // @Summary List links
 // @Description List links
 // @ID list-links
-// @Accept  json
-// @Produce  json
+// @Accept json
+// @Produce json
 // @Group Links
 // @Success 200 {object} link_rpc.ListResponse
 // @Router /links [get]
@@ -215,20 +210,15 @@ func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 
 	response, err := h.LinkServiceClient.List(r.Context(), &link_rpc.ListRequest{Filter: filter})
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		var errorLink *v1.NotFoundError
 
-		return
-	}
+		if errors.Is(err, errorLink) {
+			w.WriteHeader(http.StatusNotFound)
+			_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 
-	var errorLink *v1.NotFoundError
-	if errors.As(err, &errorLink) {
-		w.WriteHeader(http.StatusNotFound)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+			return
+		}
 
-		return
-	}
-	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
 
@@ -251,8 +241,8 @@ func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 // @Summary Delete link
 // @Description Delete link
 // @ID delete-link
-// @Accept  json
-// @Produce  json
+// @Accept json
+// @Produce json
 // @Group Links
 // @Success 200 ""
 // @Router /links/{hash} [delete]
@@ -281,5 +271,5 @@ func (h *Handler) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`))
+	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
 }

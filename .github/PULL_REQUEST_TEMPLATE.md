@@ -1,18 +1,13 @@
-<!-- 
-Hi, and thank you for the time you dedicated to this pull request! 
-Please provide a description of the work you have done and be sure to link to the relative open issue if is present.
+<!-- The webpack team is currently a beta pilot for GitHub Copilot for Pull Requests, please leave this template unchanged for now -->
 
-Be aware that all the work you have done should include also the relative unit tests to assure the
-correct behavior and avoid possible regressions in the future.
--->
+<!-- Thanks for submitting a pull request! Please provide enough information so that others can review your pull request. -->
+<!-- Explain the **motivation** for making this change. What existing problem does the pull request solve? -->
+<!-- Try to link to an open issue for more information. -->
 
-### 📄 What has changed
+## Summary 
+<!-- cspell:disable-next-line -->
+copilot:summary
 
-<!-- Which issue(s) this PR fixes -->
-Fixes #
-
-### ✅ Before submitting, please be sure to check this list
-
-* [ ] your branch will not cause merge conflict with main branch
-* [ ] unit tests are included
-* [ ] you are not committing extraneous files or sensitive data
+## Details 
+<!-- cspell:disable-next-line -->
+copilot:walkthrough

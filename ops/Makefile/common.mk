@@ -1,96 +1,19 @@
-# APPLICATION TASKS ====================================================================================================
-dep: ## Install dependencies for this project
-	# install protoc addons
-	@go install github.com/swaggo/swag/cmd/swag@latest
-	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-	@go install github.com/srikrsna/protoc-gen-gotag@latest
-	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
-	@go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
-	@go install github.com/securego/gosec/cmd/gosec@latest
-	@go install moul.io/protoc-gen-gotemplate@latest
-	@go install github.com/cloudflare/cfssl/cmd/...@latest
-	@go install golang.org/x/tools/cmd/goimports@latest
+# BASE CONFIG ==========================================================================================================
+.SILENT: ;               # no need for @
+.ONESHELL: ;             # recipes execute in same shell
+.NOTPARALLEL: ;          # wait for this target to finish
+.EXPORT_ALL_VARIABLES: ; # send all vars to shell
+default: help;           # default target
+Makefile: ;              # skip prerequisite discovery
 
-	# for NodeJS
-	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen
+# HELP =================================================================================================================
+# This will output the help for each task
+# thanks to https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+.PHONY: help
+help: ## Display this help screen
+	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
-	# install wire
-	@go install github.com/google/wire/cmd/wire@latest
-
-	#i18n
-	@go install golang.org/x/text/cmd/gotext@latest
-
-export CURRENT_UID=$(id -u):$(id -g)
-
-dev: ## Run for development mode
-	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
-		-f docker-compose.yaml \
-		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/database/postgres/postgres.yaml \
-		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
-		-f ops/docker-compose/gateway/traefik/traefik.yaml \
-		-f ops/docker-compose/database/redis/redis.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
-		-f ops/docker-compose/mq/rabbitmq/rabbitmq.yaml \
-		up -d --remove-orphans --build
-
-run: ## Run this project in docker compose
-	@docker compose \
-		-f docker-compose.yaml \
-		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
-		-f ops/docker-compose/gateway/traefik/traefik.yaml \
-		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
-		-f ops/docker-compose/application/api/api.yaml \
-		-f ops/docker-compose/application/metadata/metadata.yaml \
-		-f ops/docker-compose/application/logger/logger.yaml \
-		-f ops/docker-compose/application/ui-next/ui-next.yaml \
-		-f ops/docker-compose/database/mongo.yaml \
-		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-loki.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-phlare.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-oncall.yaml \
-		-f ops/docker-compose/mq/rabbitmq.yaml \
-		up -d --remove-orphans
-
-down: ## Down docker compose
-	@docker compose \
-		-f docker-compose.yaml \
-		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/saas/airflow/airflow.yaml \
-		-f ops/docker-compose/tooling/saas/nifi/nifi.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
-		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
-		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
-		-f ops/docker-compose/tooling/observability/pyroscope/pyroscope.yaml \
-		-f ops/docker-compose/gateway/caddy/caddy.yaml \
-		-f ops/docker-compose/gateway/nginx/nginx.yaml \
-		-f ops/docker-compose/gateway/traefik/traefik.yaml \
-		-f ops/docker-compose/application/auth/keycloak/keycloak.yaml \
-		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
-		-f ops/docker-compose/application/api/api.yaml \
-		-f ops/docker-compose/application/metadata/metadata.yaml \
-		-f ops/docker-compose/application/logger/logger.yaml \
-		-f ops/docker-compose/application/support/support.yaml \
-		-f ops/docker-compose/application/ui-next/ui-next.yaml \
-		-f ops/docker-compose/database/mongo/mongo.yaml \
-		-f ops/docker-compose/database/redis/redis.yaml \
-		-f ops/docker-compose/database/postgres/patroni.yaml \
-		-f ops/docker-compose/database/postgres/postgres.yaml \
-		-f ops/docker-compose/database/elasticsearch/elasticsearch.yaml \
-		-f ops/docker-compose/database/neo4j/neo4j.yaml \
-		-f ops/docker-compose/mq/rabbitmq/rabbitmq.yaml \
-		-f ops/docker-compose/mq/kafka/zookeeper.yaml \
-		-f ops/docker-compose/mq/kafka/kafka.yaml \
-		-f ops/docker-compose/mq/kafka/kafka-schema-registry.yaml \
-		-f ops/docker-compose/mq/kafka/kafka-connect.yaml \
-		-f ops/docker-compose/mq/kafka/kafka-connector-postgres.yaml \
-		-f ops/docker-compose/mq/kafka/kafka-connector-elasticsearch.yaml \
-		-f ops/docker-compose/mq/nats/nats.yaml \
-	down --remove-orphans
-	@docker network prune -f
+# COMMON TASKS =========================================================================================================
+.PHONY: confirm
+confirm:
+	@echo 'Are you sure? [y/N] ' && read ans && [ $${ans:-N} = y ]

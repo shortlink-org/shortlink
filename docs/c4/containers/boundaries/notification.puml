@@ -1,0 +1,5 @@
+System_Boundary(notificationBoundary, "Notification Boundary") {
+    !include services/bot/service.puml
+    !include services/newsletter/service.puml
+    !include services/notify/service.puml
+}

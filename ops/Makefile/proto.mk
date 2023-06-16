@@ -1,8 +1,5 @@
 # PROTO TASKS ==========================================================================================================
 
-proto-install: ## Install protoc
-	@./ops/scripts/install-protobuf.sh
-
 proto-lint: ## Check lint
 	@buf ls-files
 	@buf lint
@@ -43,19 +40,24 @@ proto-generate: ## Generate proto-files
 		--config=ops/proto/billing/buf.yaml
 
 	@buf generate \
+		--path=internal/services/referral/src \
+		--template=ops/proto/referral/buf.gen.yaml \
+		--config=ops/proto/referral/buf.yaml
+
+	@buf generate \
 		--path=internal/pkg/eventsourcing/v1 \
 		--template=ops/proto/eventsourcing/buf.gen.yaml \
 		--config=ops/proto/eventsourcing/buf.yaml
 
 	@buf generate \
-		--path=pkg/shortdb/parser/v1 \
-		--path=pkg/shortdb/domain/query/v1 \
-		--path=pkg/shortdb/domain/index/v1 \
-		--path=pkg/shortdb/domain/page/v1 \
-		--path=pkg/shortdb/domain/table/v1 \
-		--path=pkg/shortdb/domain/field/v1 \
-		--path=pkg/shortdb/domain/database/v1 \
-		--path=pkg/shortdb/domain/session/v1 \
+		--path=internal/services/shortdb/parser/v1 \
+		--path=internal/services/shortdb/domain/query/v1 \
+		--path=internal/services/shortdb/domain/index/v1 \
+		--path=internal/services/shortdb/domain/page/v1 \
+		--path=internal/services/shortdb/domain/table/v1 \
+		--path=internal/services/shortdb/domain/field/v1 \
+		--path=internal/services/shortdb/domain/database/v1 \
+		--path=internal/services/shortdb/domain/session/v1 \
 		--template=ops/proto/shortdb/buf.gen.yaml \
 		--config=ops/proto/shortdb/buf.yaml
 
@@ -63,5 +65,3 @@ proto-generate: ## Generate proto-files
 		--path=internal/services/api/application/grpc_web \
 		--template=ops/proto/grpc-web/buf.gen.yaml \
 		--config=ops/proto/grpc-web/buf.yaml
-	@mv ./internal/services/api/application/grpc_web/v1/grpc_api.swagger.json ./docs/api.swagger.json
-

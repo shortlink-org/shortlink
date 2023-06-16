@@ -1,0 +1,14 @@
+# Common default values for elastic-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+elastic-operator:
+  enabled: true
+
+  resources:
+    requests:
+      cpu: 5m
+      memory: 30Mi
+
+  global:
+    kubeVersion: 1.26.0

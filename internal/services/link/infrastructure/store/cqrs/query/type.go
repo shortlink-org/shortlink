@@ -17,9 +17,8 @@ type Repository interface {
 
 // Store abstract type
 type Store struct {
-	cache *cache.Cache
-	log   logger.Logger
-
-	typeStore string
+	log       logger.Logger
 	store     Repository
+	cache     *cache.Cache
+	typeStore string
 }

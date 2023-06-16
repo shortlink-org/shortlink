@@ -4,17 +4,18 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/bytedance/sonic"
 	"github.com/google/uuid"
 	enc "github.com/segmentio/encoding/json"
 )
 
 var (
 	payload = struct {
+		Name     string    `json:"name"`
 		Ballance int64     `json:"ballance"`
 		User     int64     `json:"user"`
-		Name     string    `json:"name"`
-		Uid      uuid.UUID `json:"uid"`
 		Quality  int64     `json:"quality"`
+		Uid      uuid.UUID `json:"uid"`
 	}{
 		Ballance: 100,
 		User:     1,
@@ -44,6 +45,19 @@ func BenchmarkMarshalSegmentio(b *testing.B) {
 
 	for i := 0; i < b.N; i++ {
 		_, err := enc.Marshal(payload)
+		if err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
+// simple benchmark sonic serialization
+func BenchmarkMarshalSonic(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		_, err := sonic.Marshal(payload)
 		if err != nil {
 			b.Fatal(err)
 		}

@@ -1,0 +1,18 @@
+version: v0.11.1-alpha.0
+
+log:
+  level: debug
+
+namespaces:
+  - name: shortlink
+    id: 1
+
+serve:
+  read:
+    host: 0.0.0.0
+    port: 4466
+  write:
+    host: 0.0.0.0
+    port: 4467
+
+dsn: memory

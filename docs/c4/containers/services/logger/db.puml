@@ -1,0 +1,2 @@
+ContainerDb(logger_db, "Database", "Postgre SQL", "Logs", $sprite="postgresql")
+Rel(logger, logger_db, "Read / Write", "Sync, TCP")

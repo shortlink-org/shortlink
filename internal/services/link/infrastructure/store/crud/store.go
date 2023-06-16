@@ -71,7 +71,7 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 	case "ram":
 		fallthrough
 	default:
-		s.store, err = ram.New(ctx, db)
+		s.store, err = ram.New(ctx)
 		if err != nil {
 			return nil, err
 		}

@@ -29,6 +29,11 @@ spec:
         automated:
           prune: true
           allowEmpty: true
-          selfHeal: false
+          selfHeal: true
   syncPolicy:
     preserveResourcesOnDeletion: true
+    ignoreDifferences:
+      - group: kyverno.io
+        kind: ClusterPolicy
+        jqPathExpressions:
+          - .spec.rules[] | select(.name|test("autogen-."))

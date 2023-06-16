@@ -1,5 +1,4 @@
 //go:build unit || (database && postgres)
-// +build unit database,postgres
 
 package postgres
 
@@ -10,7 +9,7 @@ import (
 	"testing"
 
 	"github.com/ory/dockertest/v3"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestPostgres(t *testing.T) {
@@ -19,10 +18,10 @@ func TestPostgres(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(t, err, "Could not connect to docker")
+	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("postgres", "latest", []string{
+	resource, err := pool.Run("postgres", "15.3-alpine", []string{
 		"POSTGRES_USER=postgres",
 		"POSTGRES_PASSWORD=shortlink",
 		"POSTGRES_DB=shortlink",
@@ -37,31 +36,29 @@ func TestPostgres(t *testing.T) {
 	}
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
-	if err := pool.Retry(func() error {
-		var err error
+	if errRetry := pool.Retry(func() error {
+		errSetenv := os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
+		require.NoError(t, errSetenv, "Cannot set ENV")
 
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
-		assert.Nil(t, err, "Cannot set ENV")
-
-		err = store.Init(ctx)
-		if err != nil {
-			return err
+		errInit := store.Init(ctx)
+		if errInit != nil {
+			return errInit
 		}
 
 		return nil
-	}); err != nil {
+	}); errRetry != nil {
 		// When you're done, kill and remove the container
 		if errPurge := pool.Purge(resource); errPurge != nil {
 			t.Fatalf("Could not purge resource: %s", errPurge)
 		}
 
-		assert.Nil(t, err, "Could not connect to docker")
+		require.NoError(t, errRetry, "Could not connect to docker")
 	}
 
 	t.Cleanup(func() {
 		// When you're done, kill and remove the container
-		if err := pool.Purge(resource); err != nil {
-			t.Fatalf("Could not purge resource: %s", err)
+		if errPurge := pool.Purge(resource); errPurge != nil {
+			t.Fatalf("Could not purge resource: %s", errPurge)
 		}
 	})
 }

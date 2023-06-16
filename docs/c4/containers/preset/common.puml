@@ -1,0 +1,26 @@
+' C4-PlantUML
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Dynamic.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Deployment.puml
+
+' Components
+!define actors https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/actors
+!define ui https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/ui
+!define services https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/services
+!define boundaries https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/boundaries
+
+' Icons
+!define DEVICONS https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/devicons
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!define SPRITESURL https://raw.githubusercontent.com/plantuml-stdlib/gilbarbara-plantuml-sprites/v1.0/sprites
+
+' Actors
+!include FONTAWESOME/users.puml
+!include FONTAWESOME/user_ninja.puml
+
+' Software
+!include DEVICONS/postgresql.puml
+!include DEVICONS/redis.puml
+!include SPRITESURL/cloudflare.puml

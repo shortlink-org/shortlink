@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: kyverno
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -12,7 +14,7 @@ spec:
     namespace: kyverno
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/kyverno
+    path: ops/Helm/addons/security/kyverno
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
@@ -21,14 +23,17 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+      - Replace=true
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true
+      - PrunePropagationPolicy=foreground
     retry:
-      limit: 2
+      limit: 3
       backoff:
-        duration: 10s
+        duration: 5s
         maxDuration: 3m0s
         factor: 2
   ignoreDifferences:

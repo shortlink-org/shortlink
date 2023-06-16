@@ -81,7 +81,7 @@ func (l *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 		var response v1.Link
 		err := protojson.Unmarshal(value, &response)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
 		links.Link = append(links.Link, &response)
@@ -90,7 +90,7 @@ func (l *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 	iterator.Release()
 	err := iterator.Error()
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 	}
 
 	return links, nil

@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: rabbitmq
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -18,7 +20,6 @@ spec:
     helm:
       releaseName: rabbitmq
       valueFiles:
-        # default values
         - values.yaml
 
         # ### Method 2: Fetch the gpg/age key from kubernetes secret
@@ -28,12 +29,16 @@ spec:
         - secrets+gpg-import-kubernetes://argocd/sops-gpg#sops.asc?values.sops.yaml
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+#      - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
       backoff:

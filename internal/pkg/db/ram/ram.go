@@ -36,11 +36,6 @@ func (_ *Store) Close() error {
 	return nil
 }
 
-// Migrate ...
-func (_ *Store) migrate() error {
-	return nil
-}
-
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()

@@ -1,0 +1,2 @@
+ContainerDb(link_db, "Database", "Postgre SQL", "Links", $sprite="postgresql")
+Rel(link, link_db, "Read / Write", "Sync, TCP")

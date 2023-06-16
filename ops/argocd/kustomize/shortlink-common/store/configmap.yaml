@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shortlink-init-sql
+data:
+  init.sql: |
+    -- link database
+    \c link;
+    CREATE SCHEMA AUTHORIZATION link;
+    GRANT ALL PRIVILEGES ON DATABASE link TO link;
+    ALTER DATABASE link OWNER TO link;
+    
+    -- enable extensions for link database
+    CREATE EXTENSION "uuid-ossp";
+    CREATE EXTENSION pg_prewarm;
+    ALTER SYSTEM SET shared_preload_libraries = 'pg_prewarm';
+     
+    -- billing database
+    \c billing;
+    CREATE SCHEMA AUTHORIZATION billing;
+    GRANT ALL PRIVILEGES ON DATABASE billing TO billing;
+    ALTER DATABASE billing OWNER TO billing;
+    
+    -- enable extensions for billing database
+    CREATE EXTENSION "uuid-ossp";
+    CREATE EXTENSION pg_prewarm;
+    ALTER SYSTEM SET shared_preload_libraries = 'pg_prewarm';

@@ -1,6 +1,5 @@
 //go:generate wire
 //go:build wireinject
-// +build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
 
@@ -23,12 +22,12 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	api_application "github.com/shortlink-org/shortlink/internal/services/api/application"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type APIService struct {
@@ -101,7 +100,6 @@ func NewAPIApplication(
 	monitoring *http.ServeMux,
 
 	// Delivery
-	metadataClient metadata_rpc.MetadataServiceClient,
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,

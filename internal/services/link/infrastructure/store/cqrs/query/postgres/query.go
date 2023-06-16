@@ -19,10 +19,14 @@ var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
 // New ...
 func New(ctx context.Context, db *db.Store) (*Store, error) {
+	var ok bool
 	s := &Store{}
 
 	// Set configuration
-	s.client = db.Store.GetConn().(*pgxpool.Pool)
+	s.client, ok = db.Store.GetConn().(*pgxpool.Pool)
+	if !ok {
+		return nil, fmt.Errorf("error get connection")
+	}
 
 	return s, nil
 }
@@ -77,7 +81,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 
 	rows, err := s.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 	}
 
 	response := &v12.LinksView{
@@ -92,7 +96,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 		)
 		err = rows.Scan(&result.Hash, &result.Describe, &result.MetaDescription, &created_ad, &updated_at)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 		result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
 		result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}

@@ -163,9 +163,10 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		mounter := mount.New("")
 		path := getVolumePath(volumeId)
 
-		if err := mounter.Mount(path, targetPath, "", options); err != nil {
+		err = mounter.Mount(path, targetPath, "", options)
+		if err != nil {
 			var errList strings.Builder
-			errList.WriteString(err.Error())
+			errList.WriteString(err.Error()) // nolint:errcheck
 
 			return nil, status.Error(codes.Internal, fmt.Sprintf("failed to mount device: %s at %s: %s", path, targetPath, errList.String()))
 		}
@@ -202,7 +203,7 @@ func (d *driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublish
 	}
 
 	// Unmount only if the target path is really a mount point.
-	notMnt, err := mount.IsNotMountPoint(mount.New(""), targetPath)
+	notMnt, err := mount.IsNotMountPoint(mount.New(""), targetPath) // nolint:staticcheck
 	if err != nil {
 		if !os.IsNotExist(err) {
 			return nil, status.Error(codes.Internal, err.Error())

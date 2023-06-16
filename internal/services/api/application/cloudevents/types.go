@@ -11,6 +11,6 @@ type API struct {
 
 // Example message
 type Example struct {
-	Sequence int    `json:"id"`
 	Message  string `json:"message"`
+	Sequence int    `json:"id"`
 }

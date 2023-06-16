@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM python:3.11-slim as builder
+FROM python:3.11-slim AS builder
 
 WORKDIR /app
 
@@ -16,24 +16,42 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && \
     apt-get install -y --no-install-recommends gcc
 
-COPY requirements.txt .
+COPY internal/services/referral/requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
 # Final image
 FROM python:3.11-slim
 
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="shortlink-referral"
+LABEL org.opencontainers.image.description="shortlink-referral"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
+
+# HTTP API
+EXPOSE 8000
+# Prometheus metrics
+EXPOSE 9090
+
+WORKDIR /app
+ENV PYTHONPATH="$PYTHONPATH:$PWD"
+ENV PYTHONUNBUFFERED=1
+
 # Install dependencies
 RUN \
-  apk update && \
-  apk add --no-cache curl
+  apt-get update && \
+  apt-get install -y curl tini
+
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \
   --timeout=5s \
   --retries=3 \
-  CMD curl -f localhost:9090/ready || exit 1
-
-WORKDIR /app
+  CMD curl -f localhost:8000/ready || exit 1
 
 COPY --from=builder /app/wheels /wheels
 COPY --from=builder /app/requirements.txt .
@@ -43,4 +61,5 @@ RUN pip install --no-cache /wheels/*
 RUN addgroup --system referall && adduser --system --group referall
 USER referall
 
-COPY main.py .
+COPY internal/services/referral/ .
+CMD ["python", "src/__main__.py"]

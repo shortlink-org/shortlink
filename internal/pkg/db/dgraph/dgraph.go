@@ -35,11 +35,11 @@ type Config struct { // nolint:decorder
 }
 
 // Store ...
-type Store struct { // nolint:decorder
+type Store struct {
+	logger logger.Logger
 	conn   *grpc.ClientConn
 	client *dgo.Dgraph
 	config Config
-	logger logger.Logger
 }
 
 func New(logger logger.Logger) *Store {

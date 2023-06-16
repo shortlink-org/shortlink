@@ -113,13 +113,13 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: external-secrets
+  name: emberstack
   namespace: {{ .Release.Namespace }}
   labels:
     argocd.argoproj.io/secret-type: repository
 stringData:
-  name: external-secrets
-  url: https://charts.external-secrets.io
+  name: emberstack
+  url: https://emberstack.github.io/helm-charts
   type: helm
 
 ---

@@ -8,7 +8,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 	"github.com/spf13/viper"
 	"github.com/uptrace/opentelemetry-go-extra/otelsql"
-	semconv "go.opentelemetry.io/otel/semconv/v1.12.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.20.0"
 )
 
 // Config ...
@@ -65,11 +65,6 @@ func (s *Store) GetConn() interface{} {
 // Close ...
 func (s *Store) Close() error {
 	return s.client.Close()
-}
-
-// Migrate ...
-func (s *Store) migrate() error {
-	return nil
 }
 
 // setConfig - set configuration

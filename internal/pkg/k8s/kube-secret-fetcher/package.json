@@ -1,0 +1,12 @@
+{
+  "name": "kube-secret-fetcher",
+  "version": "1.0.0",
+  "description": "Fetches Kubernetes secrets and writes them to a .env file",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "yargs": "^17.7.2"
+  }
+}

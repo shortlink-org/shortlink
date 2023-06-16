@@ -1,5 +1,4 @@
 //go:build unit || (database && redis)
-// +build unit database,redis
 
 package redis
 
@@ -9,7 +8,11 @@ import (
 	"os"
 	"testing"
 
+	"github.com/ory/dockertest/v3"
+	"github.com/ory/dockertest/v3/docker"
+	"github.com/redis/rueidis"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/redis"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
@@ -22,18 +25,24 @@ func TestRedis(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(t, err, "Could not connect to docker")
+	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("redis", "6.0-alpine", nil)
-	assert.Nil(t, err, "Could not start resource")
+	resource, err := pool.RunWithOptions(&dockertest.RunOptions{
+		Repository: "redis",
+		Tag:        "7-alpine",
+	}, func(config *docker.HostConfig) {
+		config.AutoRemove = true
+		config.RestartPolicy = docker.RestartPolicy{Name: "no"}
+	})
+	require.NoError(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
 		var err error
 
 		err = os.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
-		assert.Nil(t, err, "Cannot set ENV")
+		require.NoError(t, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
 		if err != nil {
@@ -42,7 +51,7 @@ func TestRedis(t *testing.T) {
 
 		return nil
 	}); err != nil {
-		assert.Nil(t, err, "Could not connect to docker")
+		require.NoError(t, err, "Could not connect to docker")
 	}
 
 	t.Cleanup(func() {
@@ -53,30 +62,30 @@ func TestRedis(t *testing.T) {
 	})
 
 	store := Store{
-		client: st.GetConn().(redis.UniversalClient),
+		client: st.GetConn().(rueidis.Client),
 	}
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
-		assert.Nil(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		assert.Nil(t, store.Delete(ctx, mock.GetLink.Hash))
+		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 }

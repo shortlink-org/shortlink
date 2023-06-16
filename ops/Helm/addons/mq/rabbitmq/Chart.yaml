@@ -2,7 +2,7 @@ apiVersion: v2                                   # The chart API version (requir
 appVersion: "1.0.0"                              # The version of the app that this contains (optional)
 name: rabbitmq                                   # The name of the chart (required)
 version: 0.2.2                                   # A SemVer 2 version (required)
-kubeVersion: ">= 1.22.0 || >= v1.22.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
 keywords:                                        # A list of keywords about this project (optional)
   - rabbitmq
 maintainers:
@@ -14,11 +14,11 @@ type: application                                # It is the type of chart (opti
 deprecated: false                                # Whether this chart is deprecated (optional, boolean)
 dependencies:
   - name: shortlink-common
-    version: 0.4.6
+    version: 0.5.5
     repository: "file://../../../shortlink-common"
   - name: rabbitmq-cluster-operator
-    version: 3.2.7
-    repository: https://charts.bitnami.com/bitnami
+    version: 3.4.2
+    repository: oci://registry-1.docker.io/bitnamicharts
     condition: rabbitmq-cluster-operator.enabled
     tags:
       - rabbitmq

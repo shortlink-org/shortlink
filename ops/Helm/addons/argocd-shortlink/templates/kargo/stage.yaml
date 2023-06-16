@@ -1,0 +1,28 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Environment
+metadata:
+  name: stage
+spec:
+  subscriptions:
+    repos:
+      git:
+        - repoURL: git@github.com:shortlink-org/shortlink.git
+          branch: main
+  promotionMechanisms:
+    gitRepoUpdates:
+      - repoURL: git@github.com:shortlink-org/shortlink.git
+        writeBranch: env/test
+    argoCDAppUpdates:
+      - appName: kargo-demo-test
+        appNamespace: argocd
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: PromotionPolicy
+metadata:
+  name: stage
+environment: test
+authorizedPromoters:
+  - subjectType: User
+    name: kubernetes-admin
+enableAutoPromotion: true

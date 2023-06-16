@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM maven:3.8.6-jdk-11-slim as builder
+FROM maven:3.8.6-jdk-11-slim AS builder
 
 ARG CI_COMMIT_TAG
 WORKDIR /app
@@ -15,12 +15,23 @@ WORKDIR /app
 COPY internal/services/bot /app
 RUN mvn -f /app/pom.xml clean package
 
-FROM openjdk:21-ea-13-jdk-slim
+FROM openjdk:21-ea-20-slim-bullseye
+
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="shortlink-bot"
+LABEL org.opencontainers.image.description="shortlink-bot"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
 
 # Install dependencies
 RUN \
   apt update && \
-  apt install -y curl
+  apt install -y curl tini
+
+ENTRYPOINT ["/sbin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \
@@ -30,4 +41,4 @@ HEALTHCHECK \
 
 COPY --from=builder /app/target/shortlink-bot-1.0-SNAPSHOT.jar /usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar
 
-ENTRYPOINT ["java", "-jar", "/usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar"]

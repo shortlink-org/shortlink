@@ -1,0 +1,19 @@
+.crd_templates:
+  stage: .pre
+  image:
+    name: alpine/k8s:1.27.2
+    entrypoint: [ "" ]
+  script:
+    - export KUBECTL_APPLYSET=true
+    - kubectl apply
+      -n default
+      --prune 
+      --applyset=crd-${APPLYSET}
+      --force-conflicts
+      --server-side
+      --context=shortlink-org/shortlink:${PROVIDER}
+      --validate=false
+      -f ${NAME}
+  allow_failure: true
+  rules:
+    - when: manual

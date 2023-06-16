@@ -26,6 +26,7 @@ permissions:
 
 jobs:
   OSSAR-Scan:
+    if: github.repository == 'shortlink-org/shortlink'
     # OSSAR runs on windows-latest.
     # ubuntu-latest and macos-latest support coming soon
     permissions:
@@ -36,12 +37,12 @@ jobs:
 
     steps:
     - name: Harden Runner
-      uses: step-security/harden-runner@1f99358870fe1c846a3ccba386cc2b2246836776 # v2.2.1
+      uses: step-security/harden-runner@128a63446a954579617e875aaab7d2978154e969 # v2.4.0
       with:
         egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
 
     - name: Checkout repository
-      uses: actions/checkout@24cb9080177205b6e8c946b17badbe402adc938f # v3.4.0
+      uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
 
     # Ensure a compatible version of dotnet is installed.
     # The [Microsoft Security Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet v3.1.201.
@@ -60,6 +61,6 @@ jobs:
 
       # Upload results to the Security tab
     - name: Upload OSSAR results
-      uses: github/codeql-action/upload-sarif@168b99b3c22180941ae7dbdd5f5c9678ede476ba # v2.2.7
+      uses: github/codeql-action/upload-sarif@6c089f53dd51dc3fc7e599c3cb5356453a52ca9e # v2.20.0
       with:
         sarif_file: ${{ steps.ossar.outputs.sarifFile }}

@@ -1,7 +1,12 @@
 app:
-  baseUrl: https://shortlink.best/backstage
+  baseUrl: https://backstage.shortlink.best/
 
 backend:
+  cors:
+    origin: https://backstage.shortlink.best
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+
   # config options: https://node-postgres.com/api/client
 #  database:
 #    client: pg

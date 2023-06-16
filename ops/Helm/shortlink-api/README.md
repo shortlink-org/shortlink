@@ -1,6 +1,6 @@
 # shortlink-api
 
-![Version: 0.12.0](https://img.shields.io/badge/Version-0.12.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.13.0](https://img.shields.io/badge/Version-0.13.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink API service
 
@@ -18,11 +18,11 @@ Shortlink API service
 
 ## Requirements
 
-Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
+Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.4.0 |
+| file://../shortlink-common | shortlink-common | 0.5.2 |
 
 ## Values
 
@@ -30,13 +30,13 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 |-----|------|---------|-------------|
 | NetworkPolicy.enabled | bool | `false` |  |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress.svc.cluster.local"` |  |
-| deploy.env.MQ_ENABLED | string | `"false"` |  |
-| deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
+| deploy.env.MQ_ENABLED | bool | `false` |  |
+| deploy.env.MQ_TYPE | string | `"kafka"` |  |
 | deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/api"` |  |
-| deploy.image.tag | string | `"0.14.9"` |  |
+| deploy.image.tag | string | `"0.15.40"` |  |
 | deploy.replicaCount | int | `3` |  |
 | deploy.resources.limits | object | `{}` |  |
 | deploy.resources.requests | object | `{}` |  |
@@ -49,15 +49,16 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.strategy.type | string | `"Canary"` |  |
 | deploy.type | string | `"Rollout"` |  |
 | external_database | object | `{"enable":false,"ip":"192.168.0.101","port":6379}` | If you want to use an external database |
-| hpa.enabled | bool | `true` |  |
-| hpa.metrics[0].resource.name | string | `"cpu"` |  |
-| hpa.metrics[0].resource.target.averageUtilization | int | `80` |  |
-| hpa.metrics[0].resource.target.type | string | `"Utilization"` |  |
-| hpa.metrics[0].type | string | `"Resource"` |  |
+| hpa.enabled | bool | `false` |  |
+| hpa.metrics[0].containerResource.container | string | `"application"` |  |
+| hpa.metrics[0].containerResource.name | string | `"cpu"` |  |
+| hpa.metrics[0].containerResource.target.averageUtilization | int | `80` |  |
+| hpa.metrics[0].containerResource.target.type | string | `"Utilization"` |  |
+| hpa.metrics[0].type | string | `"ContainerResource"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.hostname | string | `"shortlink.best"` |  |
 | ingress.path | string | `"/api(/|$)(.*)"` |  |
@@ -65,10 +66,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.service.port | int | `7070` |  |
 | ingress.type | string | `"nginx"` |  |
 | monitoring.enabled | bool | `true` |  |
-| secret.enabled | bool | `false` |  |
-| secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
+| podDisruptionBudget.enabled | bool | `false` |  |
 | service.ports[0].name | string | `"http"` |  |
 | service.ports[0].port | int | `7070` |  |
 | service.ports[0].protocol | string | `"TCP"` |  |

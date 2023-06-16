@@ -1,16 +1,15 @@
 # Stage 1 - Create yarn install skeleton layer
-FROM node:19-bullseye-slim AS packages
+FROM node:20-bullseye-slim AS packages
 
 WORKDIR /app
 COPY ./internal/services/backstage/package.json ./internal/services/backstage/yarn.lock ./
 
 COPY ./internal/services/backstage/packages packages
-# COPY plugins plugins
 
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {} \+
 
 # Stage 2 - Install dependencies and build packages
-FROM node:19-bullseye-slim AS build
+FROM node:20-bullseye-slim AS build
 
 # install sqlite3 dependencies
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
@@ -31,7 +30,6 @@ RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid
 COPY --chown=node:node ./internal/services/backstage .
 
 RUN yarn tsc
-# RUN yarn --cwd packages/backend backstage-cli backend:bundle --build-dependencies
 RUN yarn --cwd packages/backend build
 
 RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
@@ -39,7 +37,17 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM node:19-bullseye-slim
+FROM node:20-bullseye-slim
+
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="Backstage"
+LABEL org.opencontainers.image.description="Backstage"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
+
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
@@ -52,9 +60,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 # From here on we use the least-privileged `node` user to run the backend.
 USER node
 
-# This should create the app dir as `node`.
-# If it is instead created as `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
-# If this occurs, then ensure BuildKit is enabled (`DOCKER_BUILDKIT=1`) so the app dir is correctly created as `node`.
+# This should create the app dir AS `node`.
+# If it is instead created AS `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
+# If this occurs, then ensure BuildKit is enabled (`DOCKER_BUILDKIT=1`) so the app dir is correctly created AS `node`.
 WORKDIR /app
 
 # Copy the install dependencies from the build stage and context

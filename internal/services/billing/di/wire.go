@@ -1,6 +1,5 @@
 //go:generate wire
 //go:build wireinject
-// +build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
 
@@ -24,6 +23,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
 	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
 	payment_application "github.com/shortlink-org/shortlink/internal/services/billing/application/payment"
@@ -33,7 +33,6 @@ import (
 	payment_rpc "github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/rpc/payment/v1"
 	tariff_rpc "github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/rpc/tariff/v1"
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/store"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type BillingService struct {

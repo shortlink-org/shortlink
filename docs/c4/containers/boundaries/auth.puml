@@ -1,0 +1,5 @@
+System_Boundary(authBoundary, "Auth Boundary") {
+    !include services/auth/service.puml
+
+    auth --> keto
+}

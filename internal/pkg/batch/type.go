@@ -1,25 +1,25 @@
 package batch
 
 import (
+	"context"
 	"sync"
 	"time"
 )
 
-// Config
-type Config struct {
-	sync.Mutex
+// Batch is a structure for batch processing
+type Batch struct {
+	callback func([]*Item) interface{}
+	items    []*Item
+	interval time.Duration
+	mu       sync.Mutex
 
-	Size     int           // Size is the max entries limit
-	Interval time.Duration // Interval is the flush interval
-	Worker   int
-	Retries  int // Retries is count for try fault exec a command
-
-	items []*Item
-	cb    func([]*Item) interface{} // is the flush callback function used to flush entries.
+	ctx        context.Context
+	done       chan struct{}
+	cancelFunc context.CancelFunc
 }
 
-// Item
+// Item represents an item that can be pushed to the batch.
 type Item struct {
-	CB   chan interface{}
-	Item interface{}
+	CallbackChannel chan interface{}
+	Item            interface{}
 }

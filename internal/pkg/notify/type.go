@@ -5,24 +5,24 @@ import (
 	"sync"
 )
 
-type Publisher interface {
-	Subscribe(event *int, subscriber Subscriber)
-	UnSubscribe(subscriber Subscriber)
+type Publisher[T any] interface {
+	Subscribe(event *int, subscriber Subscriber[T])
+	UnSubscribe(subscriber Subscriber[T])
 }
 
-type Subscriber interface { // nolint:decorder
-	Notify(ctx context.Context, event uint32, payload interface{}) Response
+type Subscriber[T any] interface {
+	Notify(ctx context.Context, event uint32, payload T) Response[T]
 }
 
-type Notify struct { // nolint:decorder
-	subsribers map[uint32][]Subscriber
-	sync.RWMutex
+type Notify[T any] struct { // nolint:decorder
+	mu            sync.RWMutex
+	subscriberMap map[uint32][]Subscriber[T]
 }
 
-type Response struct { // nolint:decorder
-	Name    string
-	Payload interface{}
+type Response[T any] struct {
+	Payload T
 	Error   error
+	Name    string
 }
 
 type Callback struct { // nolint:decorder

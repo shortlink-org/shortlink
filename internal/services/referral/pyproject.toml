@@ -1,0 +1,26 @@
+[project]
+# Support Python 3.11+.
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 120
+extend-exclude = [
+  "src/domain/referral/v1/*.pyi",
+  "src/domain/referral/v1/*_pb2.py",
+  "src/domain/referral/v1/*_pb2_grpc.py",
+  "tests/*",
+]
+
+select = [
+  "E", "W", # pycodestyle
+  "F",      # pyflakes
+  "UP",     # pyupgrade
+  "D",      # pydocstyle
+  "N",      # pylint
+  "PL",     # pylint
+  "RUF",    # ruff
+  "TID",    # tidy
+]
+
+[tool.ruff.pydocstyle]
+convention = "google"

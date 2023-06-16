@@ -1,0 +1,12 @@
+# Create namespace for argocd
+namespace:create:
+  stage: .pre
+  image:
+    name: alpine/k8s:1.27.2
+    entrypoint: [ "" ]
+  script:
+    - kubectl --context=shortlink-org/shortlink:${PROVIDER} create namespace argocd
+    - kubectl --context=shortlink-org/shortlink:${PROVIDER} label 
+      --overwrite ns argocd pod-security.kubernetes.io/enforce=privileged
+  rules:
+    - when: manual

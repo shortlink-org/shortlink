@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   db:
-    image: postgres:15.1-alpine
+    image: postgres:15.3-alpine
     environment:
       POSTGRES_DB: "db"
       POSTGRES_HOST_AUTH_METHOD: "trust"
@@ -24,6 +24,7 @@ services:
       - db
     image: unleashorg/unleash-server
     container_name: unleash
+    init: true
     command: npm run start
     restart: always
     environment:

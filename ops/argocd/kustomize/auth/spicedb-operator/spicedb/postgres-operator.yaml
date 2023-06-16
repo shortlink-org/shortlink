@@ -1,0 +1,55 @@
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: spicedb-postgres
+spec:
+  postgresVersion: 15
+  metadata:
+    annotations:
+      sidecar.istio.io/inject: "false"
+  instances:
+    - name: spicedb
+      metadata:
+        annotations:
+          sidecar.istio.io/inject: "false"
+      dataVolumeClaimSpec:
+        storageClassName: local-path
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: 1Gi
+  patroni:
+    dynamicConfiguration:
+      postgresql:
+        parameters:
+          track_commit_timestamp: "on"
+  backups:
+    pgbackrest:
+      metadata:
+        annotations:
+          sidecar.istio.io/inject: "false"
+      repos:
+        - name: repo1
+          volume:
+            volumeClaimSpec:
+              storageClassName: local-path
+              accessModes:
+                - "ReadWriteOnce"
+              resources:
+                requests:
+                  storage: 1Gi
+  monitoring:
+    pgmonitor:
+      exporter:
+        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.3.1-0
+  users:
+    - name: admin
+      databases:
+        - postgres
+        - spicedb
+      options: "SUPERUSER"
+    - name: spicedb
+      databases:
+        - spicedb
+      options: "SUPERUSER"

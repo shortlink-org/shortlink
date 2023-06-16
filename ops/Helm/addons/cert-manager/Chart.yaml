@@ -2,7 +2,7 @@ apiVersion: v2                                   # The chart API version (requir
 appVersion: "1.0.0"                              # The version of the app that this contains (optional)
 name: cert-manager                               # The name of the chart (required)
 version: 0.3.2                                   # A SemVer 2 version (required)
-kubeVersion: ">= 1.22.0 || >= v1.22.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
 keywords:                                        # A list of keywords about this project (optional)
   - cert-manager
 maintainers:
@@ -15,14 +15,14 @@ deprecated: false                                # Whether this chart is depreca
 dependencies:
   - name: cert-manager
     alias: certmanager
-    version: v1.11.0
+    version: v1.12.2
     repository: https://charts.jetstack.io
     condition: certmanager.enabled
     tags:
       - security
       - tls
   - name: cert-manager-approver-policy
-    version: v0.6.2
+    version: v0.7.0
     repository: https://charts.jetstack.io
     condition: cert-manager-approver-policy.enabled
     tags:
@@ -30,7 +30,7 @@ dependencies:
       - tls
   - name: cert-manager-csi-driver-spiffe
     alias: spiffe
-    version: 0.3.0
+    version: v0.4.0
     repository: https://charts.jetstack.io
     condition: spiffe.enabled
     tags:

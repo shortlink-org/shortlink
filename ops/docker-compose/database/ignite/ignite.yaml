@@ -5,9 +5,10 @@ services:
   ignite:
     depends_on:
       - coredns
-    image: apacheignite/ignite:2.11.0
+    image: apacheignite/ignite:2.15.0
     restart: on-failure
     container_name: ignite
+    init: true
     ports:
       - "10800:10800"
     networks:

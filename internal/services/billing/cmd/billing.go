@@ -6,6 +6,8 @@ Billing-service
 package main
 
 import (
+	"os"
+
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
@@ -31,4 +33,7 @@ func main() {
 	handle_signal.WaitExitSignal()
 
 	cleanup()
+
+	// Exit Code 143: Graceful Termination (SIGTERM)
+	os.Exit(143)
 }

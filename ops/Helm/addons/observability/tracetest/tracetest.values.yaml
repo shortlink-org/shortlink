@@ -1,0 +1,48 @@
+# Common default values for tracetest.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+tracetest:
+  postgresql:
+    enabled: true
+
+    global:
+      storageClass: local-path
+
+    primary:
+      persistence:
+        storageClass: local-path
+        size: 1Gi
+
+  telemetry:
+    exporters:
+      collector:
+        exporter:
+          collector:
+            endpoint: http://grafana-tempo.grafana:4317
+
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+    hosts:
+      - host: tracetest.shortlink.best
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - secretName: tracetest-tls
+        hosts:
+          - tracetest.shortlink.best
+
+  resources:
+    limits:
+      cpu: 300m
+      memory: 512Mi
+    requests:
+      cpu: 10m
+      memory: 126Mi

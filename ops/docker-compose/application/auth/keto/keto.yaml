@@ -1,0 +1,32 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  # -------------------------------------------------------------------------- #
+  # ORY KETO
+  # Access control policy engine
+  # https://www.ory.sh/keto/
+  # -------------------------------------------------------------------------- #
+
+  keto:
+    <<: *network
+    depends_on:
+    - coredns
+    image: oryd/keto:v0.11.1-alpha.0
+    environment: {}
+    command: serve -c /home/ory/keto.yml
+    container_name: keto
+    init: true
+    ports:
+      - "4466:4466"
+      - "4467:4467"
+    restart: on-failure
+    volumes:
+      - ./ops/docker-compose/application/auth/keto/conf:/home/ory

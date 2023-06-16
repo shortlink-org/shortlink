@@ -1,4 +1,4 @@
-# 14. observability common
+# 14. Standardizing Observability Tools
 
 Date: 2023-01-21
 
@@ -8,7 +8,8 @@ Accepted
 
 ## Context
 
-We need to set standart tools for observability.
+In order to maintain a consistent and effective approach to observability across our systems, 
+we need to establish standard tools for monitoring, tracing, and logging.
 
 ## Decision
 
@@ -17,6 +18,13 @@ We need to set standart tools for observability.
 We use [OpenTelemetry](https://opentelemetry.io/) for tracing and metrics.
 
 ![http_add_link](./images/ADR-0014/opentracing_add_link.png)
+
+### Kiali && Istio
+
++ [Kiali](https://kiali.io/) - Kiali is an open source project for service mesh observability, 
+  configuration, and validation. It provides dashboards, observability, and control of the service mesh and your microservices.
+
+![kiali](./images/ADR-0014/kiali.png)
 
 ## Consequences
 

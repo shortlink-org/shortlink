@@ -13,7 +13,7 @@ type Config struct {
 }
 
 // Store implementation of db interface
-type Store struct { // nolint:decorder
+type Store struct {
 	client *badger.DB
 	config Config
 }
@@ -41,11 +41,6 @@ func (s *Store) GetConn() interface{} {
 // Close ...
 func (b *Store) Close() error {
 	return b.client.Close()
-}
-
-// Migrate ...
-func (b *Store) migrate() error {
-	return nil
 }
 
 // setConfig - set configuration

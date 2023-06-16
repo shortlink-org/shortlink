@@ -24,14 +24,14 @@ class StatsRepository {
     let stats = new Stats()
 
     if (resp !== null) {
-      stats.setHash(resp.hash)
-      stats.setCountRedirect(resp.count_redirect)
+      stats.hash = resp.hash
+      // @ts-ignore
+      stats.countRedirect = resp.count_redirect
 
       const timestamp = new Timestamp();
       timestamp.fromDate(resp.updated_at);
-      stats.setUpdatedAt(timestamp)
-
-      stats.setUpdatedAt(timestamp)
+      // @ts-ignore
+      stats.updatedAt = timestamp
     }
 
     return stats
@@ -59,7 +59,7 @@ class StatsRepository {
   update = async (payload: Stats): Promise<Stats> => {
     await prisma.stats.update({
       where: {
-        hash: payload.getHash(),
+        hash: payload.hash,
       },
       data: payload,
     })

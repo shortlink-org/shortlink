@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: postgres:15.2-alpine
+    image: postgres:15.3-alpine
     command: -c 'config_file=/etc/postgresql/postgresql.conf'
     init: true
     restart: on-failure
@@ -46,9 +46,10 @@ services:
     depends_on:
       - coredns
       - postgres
-    image: bitnami/pgbouncer:1.18.0
+    image: bitnami/pgbouncer:1.19.1
     restart: on-failure
     container_name: pgbouncer
+    init: true
     ports:
       - 6432:6432
     environment:
@@ -63,18 +64,20 @@ services:
 
   # Backup
   # Docs: https://github.com/wal-g/wal-g/blob/master/docs/PostgreSQL.md
-  wal-g:
-    <<: *network
-    depends_on:
-      - coredns
-      - postgres
-    image: docker.io/bitnami/wal-g:1.1.0
-    container_name: wal-g
-    profiles:
-      - postgres
-    restart: on-failure
-    user: root
-    command: --walg-file-prefix=/tmp/backups --pghost=postgres --pguser=postgres --pgpassword=shortlink --pgdatabase=shortlink backup-push /var/lib/postgresql/data
-    volumes:
-      - /data/shortlink/store/postgres/data:/var/lib/postgresql/data
-      - /data/shortlink/store/postgres/backups:/tmp/backups
+  # Bitnami delete the image from docker hub
+  # wal-g:
+  #  <<: *network
+  #  depends_on:
+  #    - coredns
+  #    - postgres
+  #  image: docker.io/bitnami/wal-g:1.1.0
+  #  container_name: wal-g
+  #  init: true
+  #  profiles:
+  #    - postgres
+  #  restart: on-failure
+  #  user: root
+  #  command: --walg-file-prefix=/tmp/backups --pghost=postgres --pguser=postgres --pgpassword=shortlink --pgdatabase=shortlink backup-push /var/lib/postgresql/data
+  #  volumes:
+  #    - /data/shortlink/store/postgres/data:/var/lib/postgresql/data
+  #    - /data/shortlink/store/postgres/backups:/tmp/backups

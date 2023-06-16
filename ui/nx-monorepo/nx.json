@@ -1,0 +1,33 @@
+{
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx-cloud",
+      "options": {
+        "accessToken": "Yzg1N2NjZTYtOGVkYi00NGE4LWFlMjItNDJhNjI0M2Q5ZWE3fHJlYWQ=",
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "extends": "nx/presets/npm.json",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"]
+    }
+  },
+  "projects": {
+    "@shortlink-org/ui-kit": {
+      "architect": {
+        "build": {
+          "builder": "@nrwl/react/plugins/bundle-rollup",
+          "options": {
+            "configuration": "production"
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build"
+        }
+      }
+    }
+  }
+}

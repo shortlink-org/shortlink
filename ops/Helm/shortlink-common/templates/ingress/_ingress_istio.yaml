@@ -34,8 +34,9 @@ spec:
         retryOn: "gateway-error,connect-failure,refused-stream,503"
       timeout: 10s
 
----
 
+{{- if and false }}
+---
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
@@ -54,11 +55,12 @@ spec:
         http1MaxPendingRequests: 1000
         http2MaxRequests: 1000
         maxRequestsPerConnection: 20
-        maxRetries: 5
+        maxRetries: 3
     outlierDetection:
       consecutive5xxErrors: 7
       interval: 10s
       baseEjectionTime: 3m
       maxEjectionPercent: 100
       minHealthPercent: 50
+{{- end }}
 {{- end }}

@@ -18,11 +18,11 @@ Shortlink UI service
 
 ## Requirements
 
-Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
+Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.4.0 |
+| file://../shortlink-common | shortlink-common | 0.5.2 |
 
 ## Values
 
@@ -31,7 +31,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.image.pullPolicy | string | `"Always"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/ui-next"` |  |
-| deploy.image.tag | string | `"0.14.9"` |  |
+| deploy.image.tag | string | `"0.15.40"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"httpGet":{"path":"/","port":8080}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.readinessProbe | object | `{"httpGet":{"path":"/","port":8080}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
@@ -43,9 +43,9 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | deploy.volumes[0].name | string | `"tmp"` |  |
 | deploy.volumes[0].type | string | `"emptyDir"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentracing" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"false"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/next/$2"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
@@ -55,6 +55,7 @@ Kubernetes: `>= 1.22.0 || >= v1.22.0-0`
 | ingress.service.port | int | `8080` |  |
 | ingress.type | string | `"nginx"` |  |
 | monitoring.enabled | bool | `true` |  |
+| podDisruptionBudget.enabled | bool | `false` |  |
 | service.ports[0].name | string | `"http"` |  |
 | service.ports[0].port | int | `8080` |  |
 | service.ports[0].protocol | string | `"TCP"` |  |

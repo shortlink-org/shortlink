@@ -16,9 +16,9 @@ build:
     - internal/services/eventsourcing
     - internal/services/link
     - internal/services/metadata
+    - internal/services/referral
     - internal/services/newsletter/src
-    - internal/pkg
-    - pkg/raft
+    - internal/pkg/raft
 
 lint:
   use:

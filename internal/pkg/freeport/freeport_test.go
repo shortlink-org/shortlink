@@ -1,5 +1,4 @@
 //go:build unit
-// +build unit
 
 package freeport
 
@@ -8,7 +7,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 )
 
@@ -18,15 +17,14 @@ func TestMain(m *testing.M) {
 
 func TestGetFreePort(t *testing.T) {
 	port, err := GetFreePort()
-	assert.Nil(t, err)
-	assert.NotEqual(t, port, 0)
+	require.NoError(t, err)
 
 	// Try to listen on the port
 	l, err := net.Listen("tcp", "localhost"+":"+strconv.Itoa(port))
 	defer func() {
 		_ = l.Close()
 	}()
-	assert.Nil(t, err)
+	require.NoError(t, err)
 }
 
 func BenchmarkGetFreePort(b *testing.B) {

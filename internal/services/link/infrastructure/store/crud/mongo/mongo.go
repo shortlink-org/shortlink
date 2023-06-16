@@ -25,7 +25,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 
 	// Set configuration
 	s.setConfig()
-	s.client = db.Store.GetConn().(*mongo.Client)
+	s.client = db.Store.GetConn().(*mongo.Client) // nolint:errcheck
 
 	// Create batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
@@ -33,21 +33,21 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 			sources := make([]*v1.Link, len(args))
 
 			for key := range args {
-				sources[key] = args[key].Item.(*v1.Link)
+				sources[key] = args[key].Item.(*v1.Link) // nolint:errcheck
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
 			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CB <- query2.StoreError{Value: "Error write to MongoDB"}
+					args[index].CallbackChannel <- fmt.Errorf("error write to MongoDB")
 				}
 
 				return errBatchWrite
 			}
 
 			for key, item := range dataList.Link {
-				args[key].CB <- item
+				args[key].CallbackChannel <- item
 			}
 
 			return nil
@@ -58,8 +58,6 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 		if err != nil {
 			return nil, err
 		}
-
-		go s.config.job.Run(ctx)
 	}
 
 	return s, nil
@@ -69,17 +67,12 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	switch s.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb, err := s.config.job.Push(source)
-		if err != nil {
-			return nil, err
-		}
+		cb := s.config.job.Push(source)
 
 		res := <-cb
 		switch data := res.(type) {
 		case error:
-			return nil, err
-		case query2.StoreError:
-			return nil, errors.New(data.Value)
+			return nil, data
 		case *v1.Link:
 			return data, nil
 		default:
@@ -131,11 +124,11 @@ func (m *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, err
 	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, filterQuery)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query2.ErrNotFound}
 	}
 
 	if cur.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query2.ErrNotFound}
 	}
 
 	// Here's an array in which you can db the decoded documents
@@ -144,12 +137,12 @@ func (m *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, err
 	}
 
 	// Finding multiple documents returns a cursor
-	// Iterating through the cursor allows us to decode documents one at a time
+	// Iterating through the cursor allows us to decode document one at a time
 	for cur.Next(ctx) {
 		// create a value into which the single document can be decoded
 		var elem v1.Link
 		if errDecode := cur.Decode(&elem); errDecode != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("Not found links")}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query2.ErrNotFound}
 		}
 
 		links.Link = append(links.Link, &elem)
@@ -242,9 +235,7 @@ func (m *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 		Link: []*v1.Link{},
 	}
 
-	for item := range sources {
-		links.Link = append(links.Link, sources[item])
-	}
+	links.Link = append(links.Link, sources...)
 
 	return links, nil
 }

@@ -19,12 +19,12 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/api/application"
 	v1_2 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	v1_3 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 	v1_4 "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
@@ -61,7 +61,13 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(logger)
+	if err != nil {
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup3()
@@ -80,16 +86,6 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider)
 	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	metadataServiceClient, err := NewMetadataRPCClient(clientConn)
-	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -137,7 +133,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, serveMux, metadataServiceClient, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, serveMux, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -225,7 +221,6 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 	rpcServer *rpc.RPCServer,
 	tracer *trace.TracerProvider, monitoring2 *http.ServeMux,
 
-	metadataClient v1_4.MetadataServiceClient,
 	link_rpc v1.LinkServiceClient,
 	link_command v1_2.LinkCommandServiceClient,
 	link_query v1_2.LinkQueryServiceClient,

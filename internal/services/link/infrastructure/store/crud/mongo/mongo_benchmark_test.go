@@ -1,5 +1,4 @@
 //go:build unit || (database && mongo)
-// +build unit database,mongo
 
 package mongo
 
@@ -11,7 +10,8 @@ import (
 	"testing"
 
 	"github.com/ory/dockertest/v3"
-	"github.com/stretchr/testify/assert"
+	"github.com/ory/dockertest/v3/docker"
+	"github.com/stretchr/testify/require"
 	"go.mongodb.org/mongo-driver/mongo"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/mongo"
@@ -25,18 +25,24 @@ func BenchmarkPostgresSerial(b *testing.B) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(b, err, "Could not connect to docker")
+	require.NoError(b, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("mongo", "latest", nil)
-	assert.Nil(b, err, "Could not start resource")
+	resource, err := pool.RunWithOptions(&dockertest.RunOptions{
+		Repository: "mongo",
+		Tag:        "latest",
+	}, func(config *docker.HostConfig) {
+		config.AutoRemove = true
+		config.RestartPolicy = docker.RestartPolicy{Name: "no"}
+	})
+	require.NoError(b, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
 		var err error
 
 		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
 		if err != nil {
@@ -45,7 +51,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 
 		return nil
 	}); err != nil {
-		assert.Nil(b, err, "Could not connect to docker")
+		require.NoError(b, err, "Could not connect to docker")
 	}
 
 	b.Cleanup(func() {
@@ -65,10 +71,10 @@ func BenchmarkPostgresSerial(b *testing.B) {
 
 		for i := 0; i < b.N; i++ {
 			source, err := getLink()
-			assert.Nil(b, err)
+			require.NoError(b, err)
 
 			_, err = store.Add(ctx, source)
-			assert.Nil(b, err)
+			require.NoError(b, err)
 		}
 	})
 
@@ -82,14 +88,14 @@ func BenchmarkPostgresSerial(b *testing.B) {
 
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		for i := 0; i < b.N; i++ {
 			source, err := getLink()
-			assert.Nil(b, err)
+			require.NoError(b, err)
 
 			_, err = storeBatchMode.Add(ctx, source)
-			assert.Nil(b, err)
+			require.NoError(b, err)
 		}
 	})
 }
@@ -101,16 +107,16 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(b, err, "Could not connect to docker")
+	require.NoError(b, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.Run("mongo", "latest", nil)
-	assert.Nil(b, err, "Could not start resource")
+	require.NoError(b, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err = pool.Retry(func() error {
 		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
 		if err != nil {
@@ -119,7 +125,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 		return nil
 	}); err != nil {
-		assert.Nil(b, err, "Could not connect to docker")
+		require.NoError(b, err, "Could not connect to docker")
 	}
 
 	b.Cleanup(func() {
@@ -140,10 +146,10 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
 				source, err := getLink()
-				assert.Nil(b, err)
+				require.NoError(b, err)
 
 				_, err = store.Add(ctx, source)
-				assert.Nil(b, err)
+				require.NoError(b, err)
 			}
 		})
 	})
@@ -153,7 +159,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		assert.Nil(b, err, "Cannot set ENV")
+		require.NoError(b, err, "Cannot set ENV")
 
 		// create a db
 		storeBatchMode := Store{
@@ -163,10 +169,10 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
 				source, err := getLink()
-				assert.Nil(b, err)
+				require.NoError(b, err)
 
 				_, err = storeBatchMode.Add(ctx, source)
-				assert.Nil(b, err)
+				require.NoError(b, err)
 			}
 		})
 	})

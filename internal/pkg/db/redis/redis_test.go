@@ -1,5 +1,4 @@
 //go:build unit || (database && redis)
-// +build unit database,redis
 
 package redis
 
@@ -8,9 +7,11 @@ import (
 	"fmt"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/ory/dockertest/v3"
-	"github.com/stretchr/testify/assert"
+	"github.com/ory/dockertest/v3/docker"
+	"github.com/stretchr/testify/require"
 )
 
 func TestRedis(t *testing.T) {
@@ -19,28 +20,34 @@ func TestRedis(t *testing.T) {
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
-	assert.Nil(t, err, "Could not connect to docker")
+	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("redis", "6.0-alpine", nil)
-	assert.Nil(t, err, "Could not start resource")
+	resource, err := pool.RunWithOptions(&dockertest.RunOptions{
+		Repository: "redis",
+		Tag:        "7-alpine",
+	}, func(config *docker.HostConfig) {
+		config.AutoRemove = true
+		config.RestartPolicy = docker.RestartPolicy{Name: "no"}
+	})
+	require.NoError(t, err, "Could not start resource")
+
+	// setting the max wait time for the container to start
+	pool.MaxWait = time.Minute * 5
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
-	if err := pool.Retry(func() error {
-		var err error
+	err = pool.Retry(func() error {
+		errSetenv := os.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
+		require.NoError(t, errSetenv, "Cannot set ENV")
 
-		err = os.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
-		assert.Nil(t, err, "Cannot set ENV")
-
-		err = store.Init(ctx)
-		if err != nil {
-			return err
+		errInit := store.Init(ctx)
+		if errInit != nil {
+			return errInit
 		}
 
 		return nil
-	}); err != nil {
-		assert.Nil(t, err, "Could not connect to docker")
-	}
+	})
+	require.NoError(t, err, "Could not connect to Docker")
 
 	t.Cleanup(func() {
 		// When you're done, kill and remove the container
@@ -50,6 +57,6 @@ func TestRedis(t *testing.T) {
 	})
 
 	t.Run("Close", func(t *testing.T) {
-		assert.Nil(t, store.Close())
+		require.NoError(t, store.Close())
 	})
 }

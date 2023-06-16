@@ -79,7 +79,7 @@ func (api *TariffAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`))
+	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
 }
 
 // List ...
@@ -117,5 +117,5 @@ func (api *TariffAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`))
+	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
 }

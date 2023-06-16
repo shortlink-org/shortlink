@@ -15,16 +15,16 @@
         }
     ],
     "require-dev": {
-        "behat/behat": "^3.12",
-        "rector/rector": "^0.15.21"
+        "behat/behat": "^3.13.0",
+        "rector/rector": "^0.17.1"
     },
     "require": {
         "open-telemetry/api": "^0.0.17",
         "open-telemetry/sdk": "^0.0.17",
-        "symfony/http-client": "^6.2.7",
-        "guzzlehttp/promises": "^1.5.2",
-        "php-http/message-factory": "^1.0.2",
-        "nyholm/psr7": "^1.5.1",
+        "symfony/http-client": "^6.3.0",
+        "guzzlehttp/promises": "^2.0.0",
+        "php-http/message-factory": "^1.1.0",
+        "nyholm/psr7": "^1.8.0",
         "open-telemetry/sdk-contrib": "^0.0.17"
     },
     "config": {

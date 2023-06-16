@@ -5,38 +5,34 @@ package logger
 
 import (
 	"errors"
-	"os"
-	"time"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/logrus"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/zap"
 )
 
 // NewLogger - return new an instance of logger
-func NewLogger(loggerInstance int, config Configuration) (Logger, error) {
+func NewLogger(loggerInstance int, config config.Configuration) (Logger, error) {
 	var log Logger
+
+	// Check config and set default values if needed
+	err := config.Validate()
+	if err != nil {
+		return nil, err
+	}
 
 	switch loggerInstance {
 	case Zap:
-		log = &zapLogger{}
+		log, err = zap.New(config)
 	case Logrus:
-		log = &logrusLogger{}
+		log, err = logrus.New(config)
 	default:
-		return nil, errors.New("Invalid logger instance")
+		return nil, errors.New("invalid logger instance")
 	}
 
-	// Init logger
-	validateConfig(&config)
-	if err := log.init(config); err != nil {
+	if err != nil {
 		return nil, err
 	}
 
 	return log, nil
-}
-
-func validateConfig(config *Configuration) {
-	if config.Writer == nil {
-		config.Writer = os.Stdout
-	}
-
-	if config.TimeFormat == "" {
-		config.TimeFormat = time.RFC3339Nano
-	}
 }

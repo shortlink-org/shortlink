@@ -6,6 +6,7 @@ import (
 	"runtime"
 
 	"github.com/pyroscope-io/client/pyroscope"
+	pypprof "github.com/pyroscope-io/godeltaprof/http/pprof"
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -14,7 +15,7 @@ import (
 
 type PprofEndpoint *http.ServeMux
 
-func New(log logger.Logger) PprofEndpoint {
+func New(log logger.Logger) (PprofEndpoint, error) {
 	// Create "common" listener
 	pprofMux := http.NewServeMux()
 
@@ -24,6 +25,9 @@ func New(log logger.Logger) PprofEndpoint {
 	pprofMux.HandleFunc("/debug/pprof/profile", pprof.Profile)
 	pprofMux.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
 	pprofMux.HandleFunc("/debug/pprof/trace", pprof.Trace)
+	pprofMux.HandleFunc("/debug/pprof/delta_heap", pypprof.Heap)
+	pprofMux.HandleFunc("/debug/pprof/delta_block", pypprof.Block)
+	pprofMux.HandleFunc("/debug/pprof/delta_mutex", pypprof.Mutex)
 
 	go func() {
 		err := http.ListenAndServe("0.0.0.0:7071", pprofMux)
@@ -40,7 +44,7 @@ func New(log logger.Logger) PprofEndpoint {
 	runtime.SetMutexProfileFraction(5)
 	runtime.SetBlockProfileRate(5)
 
-	pyroscope.Start(pyroscope.Config{
+	_, err := pyroscope.Start(pyroscope.Config{
 		ApplicationName: viper.GetString("SERVICE_NAME"),
 		ServerAddress:   "http://pyroscope.pyroscope:4040",
 		Logger:          nil,
@@ -60,6 +64,9 @@ func New(log logger.Logger) PprofEndpoint {
 			pyroscope.ProfileBlockDuration,
 		},
 	})
+	if err != nil {
+		return nil, err
+	}
 
-	return pprofMux
+	return pprofMux, nil
 }

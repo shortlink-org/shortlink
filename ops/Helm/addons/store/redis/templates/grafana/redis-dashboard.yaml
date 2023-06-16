@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-dashboard
+  labels:
+    grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: DataBase
+data:
+  redis-dashboard.json.url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/ops/Helm/addons/store/redis/config/grafana/redis-dashboard.json"

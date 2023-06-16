@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: grafana
   namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
@@ -12,14 +14,13 @@ spec:
     namespace: grafana
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/grafana
+    path: ops/Helm/addons/observability/grafana
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
       releaseName: grafana
       valueFiles:
-        - dashboard.values.yaml
-        - grafana.values.yaml
+        - values.yaml
 
         # ### Method 2: Fetch the gpg/age key from kubernetes secret
         # secrets+gpg-import-kubernetes://<namespace>/<secret-name>#<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
@@ -30,10 +31,14 @@ spec:
     automated:
       prune: true
       allowEmpty: true
-      selfHeal: false
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
       backoff:

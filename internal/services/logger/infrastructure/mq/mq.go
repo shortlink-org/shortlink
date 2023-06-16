@@ -5,25 +5,26 @@ MQ Endpoint
 package logger_mq
 
 import (
+	"context"
 	"fmt"
 
 	"google.golang.org/protobuf/proto"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	mq "github.com/shortlink-org/shortlink/internal/pkg/mq/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/v1/query"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
 )
 
 type Event struct {
-	mq  mq.MQ
+	mq  *mq.DataBus
 	log logger.Logger
 
 	service *logger_application.Service
 }
 
-func New(mq mq.MQ, log logger.Logger, service *logger_application.Service) (*Event, error) {
+func New(mq *mq.DataBus, log logger.Logger, service *logger_application.Service) (*Event, error) {
 	if mq == nil {
 		return nil, fmt.Errorf("MQ is nil")
 	}
@@ -47,7 +48,7 @@ func (e *Event) Subscribe() {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(v1.MQ_EVENT_LINK_CREATED, getEventNewLink); err != nil {
+		if err := e.mq.Subscribe(context.Background(), v1.MQ_EVENT_LINK_CREATED, getEventNewLink); err != nil {
 			e.log.Error(err.Error())
 		}
 	}()

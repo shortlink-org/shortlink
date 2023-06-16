@@ -2,11 +2,9 @@
 
 # shortlink 
 
-Shortlink is an open-source project that provides a pretty user interface and respects GDPR.   
-We use edge technologies and have many years of experience.  
+Shortlink is an open-source educational project that provides a pretty user interface and respects GDPR. 
 
-We're constantly researching the best solutions on the market so that we can benefit  
-our community and solve a problem for millions of people.
+The goal of the project is to demonstrate the practical application of microservices architecture.
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/shortlink)](https://artifacthub.io/packages/search?repo=shortlink)
 [![PkgGoDev](https://pkg.go.dev/badge/mod/github.com/shortlink-org/shortlink)](https://pkg.go.dev/mod/github.com/shortlink-org/shortlink)
@@ -26,10 +24,14 @@ our community and solve a problem for millions of people.
 </div>
 
 </div>
-
 <hr />
 
 ### High Level Architecture 🚀
+
+The project covers the entire process - from identifying Bounded Contexts to implementing microservices using
+cutting-edge technologies and best practices.  
+We're constantly researching the best solutions on the market so that we can benefit our
+community and solve a problem for millions of people.
 
 ![shortlink-architecture](./docs/shortlink-architecture.png)
 _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the repo if you want us to continue developing and improving ShortLink! 😀_
@@ -43,39 +45,37 @@ made along with its context and consequences.
 + [Decisions](./docs/ADR/decisions)
 + [Docs ADR](https://github.com/joelparkerhenderson/architecture-decision-record)
 
-### Architecture
-
-You can find the architecture documentation [here](./docs/ADR/decisions/0011-application-architecture-documentation.md).
-
 ### Services
 
 <details><summary>DETAILS</summary>
 <p>
 
-| Service          | Description                                                         | Language/Framework | Docs                                                  | Status                                                                                                                                                              |
-|------------------|---------------------------------------------------------------------|--------------------|-------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| api              | Internal GateWay                                                    | Go                 | [docs](./internal/services/api/README.md)             | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-api&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-api)               |
-| billing          | Billing service                                                     | Go                 | [docs](./internal/services/billing/README.md)         | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-billing&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-billing)       |
-| bot              | Telegram bot                                                        | JAVA               | [docs](./internal/services/bot/README.md)             | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-bot&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-bot)               |                                                                    
-| chat             | Chat service                                                        | Elixir (Phoenix)   | [docs](./internal/services/chat/README.md)            | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-chat&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-chat)             |                                                                   
-| chrome-extension | Chrome extension                                                    | JavaScript         | [docs](internal/extension/chrome-extension/README.md) |                                                                                                                                                                     |                                                                         
-| shortdb          | Custom database                                                     | Go                 | [docs](./pkg/shortdb/README.md)                       | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortldb&revision=true)](https://shortlink.best/argo/cd/applications/shortldb)                         |                                                                          
-| shortdb-operator | Kubernetes Operator for [shortdb](./pkg/shortdb/README.md) database | Go                 | [docs](./pkg/shortdb-operator/README.md)              | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortldb-operator&revision=true)](https://shortlink.best/argo/cd/applications/shortldb-operator)       |                                                                 
-| csi              | CSI example                                                         | Go                 | [docs](./internal/services/csi/README.md)             | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-csi&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-csi)               |                                                                     
-| link             | Link service                                                        | Go                 | [docs](./internal/services/api/README.md)             | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-link&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-link)             |                                                                    
-| logger           | Logger service                                                      | Go                 | [docs](./internal/services/logger/README.md)          | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-logger&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-logger)         |                                                                  
-| merch            | Merch store                                                         | Coming soon        | [docs](./internal/services/merch/README.md)           | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-merch&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-merch)           |                                                                   
-| metadata         | Parser site by API                                                  | Go                 | [docs](./internal/services/metadata/README.md)        | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-metadata&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-metadata)     |                                                                
-| newsletter       | Newsletter service                                                  | Rust               | [docs](./internal/services/newsletter/README.md)      | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-newsletter&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-newsletter) |                                                              
-| notify           | Send notify to smtp, slack, telegram                                | Go                 | [docs](./internal/services/notify/README.md)          | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-notify&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-notify)         |                                                                  
-| proxy            | Proxy service for redirect to original URL                          | TypeScript         | [docs](./internal/services/proxy/README.md)           | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-proxy&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-proxy)           |                                                                   
-| referral         | Referral program                                                    | Python             | [docs](./internal/services/referral/README.md)        | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-referral&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-referral)     |                                                                
-| search           | Search service                                                      | Coming soon        | [docs](./internal/services/search/README.md)          | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-search&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-search)         |                                                                  
-| shortctl         | Shortlink CLI                                                       | Go                 | [docs](./internal/services/cli/README.md)             |                                                                                                                                                                     |                                                                   
-| stats            | Stats server                                                        | CPP                | [docs](./internal/services/stats/README.md)           | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-stats&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-stats)           |                                                                   
-| support          | Support service                                                     | PHP                | [docs](./internal/services/support/README.md)         | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-support&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-support)       |                                                                 
-| wallet           | Wallet service                                                      | Go (Solidity)      | [docs](./internal/services/wallet/README.md)          |                                                                                                                                                                     |
-| ws               | Websocket service                                                   | Go                 | [docs](./internal/services/ws/README.md)              | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-ws&revision=true)                                                                            |
+| Bounded Context       | Service          | Description                                                                       | Language/Framework | Docs                                                                        | Status                                                                                                                                                              |
+|-----------------------|------------------|-----------------------------------------------------------------------------------|--------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| API Boundary          | api              | Internal GateWay                                                                  | Go                 | [docs](./internal/services/api/README.md)                                   | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-api&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-api)               |
+| API Boundary          | ws               | Websocket service                                                                 | Go                 | [docs](./internal/services/ws/README.md)                                    |                                                                                                                                                                     |
+| API Boundary          | bff-web          | BFF for web                                                                       | Go                 | [docs](./internal/services/bff-web/README.md)                               | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-bff-web&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-bff-web)       |
+| Payment Boundary      | billing          | Billing service                                                                   | Go                 | [docs](./internal/services/billing/README.md)                               | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-billing&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-billing)       |
+| Payment Boundary      | wallet           | Wallet service                                                                    | Go (Solidity)      | [docs](./internal/services/wallet/README.md)                                |                                                                                                                                                                     |
+| Notification Boundary | bot              | Telegram bot                                                                      | JAVA               | [docs](./internal/services/bot/README.md)                                   |                                                                                                                                                                     |                                                                    
+| Notification Boundary | newsletter       | Newsletter service                                                                | Rust               | [docs](./internal/services/newsletter/README.md)                            | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-newsletter&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-newsletter) |                                                              
+| Notification Boundary | notify           | Send notify to smtp, slack, telegram                                              | Go                 | [docs](./internal/services/notify/README.md)                                | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-notify&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-notify)         |                                                                  
+| Chat Boundary         | chat             | Chat service                                                                      | Elixir (Phoenix)   | [docs](./internal/services/chat/README.md)                                  | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-chat&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-chat)             |                                                                   
+| Integration Boundary  | chrome-extension | Chrome extension                                                                  | JavaScript         | [docs](./internal/extension/chrome-extension/README.md)                     |                                                                                                                                                                     |                                                                         
+| Integration Boundary  | ai-plugin        | ChatGPT plugin                                                                    | JSON               | [docs](./ui/nx-monorepo/packages/landing/public/.well-known/ai-plugin.json) |                                                                                                                                                                     |
+| ShortDB Boundary      | shortdb          | Custom database                                                                   | Go                 | [docs](./internal/services/shortdb/README.md)                               | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortldb&revision=true)](https://shortlink.best/argo/cd/applications/shortldb)                         |                                                                          
+| ShortDB Boundary      | shortdb-operator | Kubernetes Operator for [shortdb](./internal/services/shortdb/README.md) database | Go                 | [docs](./internal/services/shortdb-operator/README.md)                      | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortldb-operator&revision=true)](https://shortlink.best/argo/cd/applications/shortldb-operator)       |                                                                 
+| Platform Boundary     | csi              | CSI example                                                                       | Go                 | [docs](./internal/services/csi/README.md)                                   | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-csi&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-csi)               |                                                                     
+| Platform Boundary     | logger           | Logger service                                                                    | Go                 | [docs](./internal/services/logger/README.md)                                | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-logger&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-logger)         |                                                                  
+| Platform Boundary     | shortctl         | Shortlink CLI                                                                     | Go                 | [docs](./internal/services/cli/README.md)                                   |                                                                                                                                                                     |                                                                   
+| Link Boundary         | link             | Link service                                                                      | Go                 | [docs](./internal/services/api/README.md)                                   | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-link&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-link)             |                                                                    
+| Link Boundary         | proxy            | Proxy service for redirect to original URL                                        | TypeScript         | [docs](./internal/services/proxy/README.md)                                 | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-proxy&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-proxy)           |                                                                   
+| Link Boundary         | metadata         | Parser site by API                                                                | Go                 | [docs](./internal/services/metadata/README.md)                              | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-metadata&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-metadata)     |                                                                
+| Marketing Boundary    | referral         | Referral program                                                                  | Python             | [docs](./internal/services/referral/README.md)                              | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-referral&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-referral)     |                                                                
+| Marketing Boundary    | stats            | Stats server                                                                      | CPP                | [docs](./internal/services/stats/README.md)                                 | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-stats&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-stats)           |                                                                   
+| Delivery Boundary     | merch            | Merch store                                                                       | Coming soon        | [docs](./internal/services/merch/README.md)                                 | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-merch&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-merch)           |                                                                   
+| Delivery Boundary     | support          | Support service                                                                   | PHP                | [docs](./internal/services/support/README.md)                               | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-support&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-support)       |                                                                 
+| Search Boundary       | search           | Search service                                                                    | Coming soon        | [docs](./internal/services/search/README.md)                                | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-search&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-search)         |                                                                  
 
 </p>
 </details>
@@ -102,104 +102,26 @@ You can find the architecture documentation [here](./docs/ADR/decisions/0011-app
 
 ### UI
 
-<details><summary>DETAILS</summary>
-<p>
+ - [README](./ui/nx-monorepo/README.md)
 
-| Service   | Description                          | Language/Framework        | Docs                           | Status                                                                                                                                                        |
-|-----------|--------------------------------------|---------------------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| landing   | Welcome page                         | JS/NextJS                 | [docs](./ui/landing/README.md) | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-landing&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-landing) |
-| next      | UI service                           | JS/NextJS                 | [docs](./ui/next/README.md)    | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-next&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-next)       |
-| ui-kit    | UI kit for ShortLink                 | JS/React                  | [docs](./ui/ui-kit/README.md)  | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-ui-kit&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-ui-kit)   |
+### Contributing
 
-</p>
-</details>
+ - [Getting Started](./CONTRIBUTING.md#getting-started)
 
-### Run
+### ChatGPT || OpenAI
 
-<details><summary>DETAILS</summary>
-<p>
+This service support [ChatGPT](https://chat.openai.com/chat) as plugin.  
+You can use it for ChatGPT by link `https://shortlink.best/.well-known/ai-plugin.json`
 
-##### Require
-
-###### Install GIT sub-repository
-
-```
-git submodule update --init --recursive
-```
-
-##### docker compose
-
-###### For run
-```
-make run
-```
-
-###### For down
-```
-make down
-```
-
-##### Kubernetes (1.21+)
-
-<details><summary>DETAILS</summary>
-<p>
-
-###### For run
-```
-make minikube-up
-make helm-shortlink-up
-```
-
-###### For down
-```
-make minikube-down
-```
-
-</p>
-</details>
-
-##### Skaffold [(link)](https://skaffold.dev/)
-
-<details><summary>DETAILS</summary>
-<p>
-
-###### For run
-```
-make skaffold-init
-make skaffold-up
-```
-
-###### For down
-```
-make skaffold-down
-```
-
-###### Debug mode
-```
-make skaffold-debug
-```
-
-</p>
-</details>
-
-### Configuration
-
-<details><summary>DETAILS</summary>
-<p>
-
-##### [12 factors: ENV](https://12factor.net/config)
-
-[View ENV Variables](./docs/env.md)
-
-</p>
-</details>
-
-</p>
-</details>
+You can read official docs [here](https://platform.openai.com/docs/plugins/getting-started/running-a-plugin) for more information.
 
 ### Mobile
 
 + `Hello World` on flutter ;-)
+
+### Network
+
+- [Cloudfare](https://www.cloudflare.com/) - DNS, CDN, DDoS protection.
 
 ### License
 
