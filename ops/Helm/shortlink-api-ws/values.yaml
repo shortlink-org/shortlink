@@ -22,7 +22,7 @@ ingress:
     nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
   hostname: shortlink.best
-  path: /api(/|$)(.*)
+  path: /ws(/|$)(.*)
   service:
     name: shortlink-api
     port: 7070
