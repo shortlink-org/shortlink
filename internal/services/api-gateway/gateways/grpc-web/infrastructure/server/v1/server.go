@@ -2,18 +2,17 @@ package v1
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
-
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/segmentio/encoding/json"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc/status"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -53,7 +52,7 @@ func (api *API) Run(
 	)
 
 	// DefaultContextTimeout is used for gRPC call context.WithTimeout whenever a Grpc-Timeout inbound
-	// header isn't present. If the value is 0 the sent `context` will not have a timeout.
+	// header isn't present. If the value is 0, the sent `context` will not have a timeout.
 	runtime.DefaultContextTimeout = config.Timeout
 
 	err := RegisterLinkServiceHandlerServer(ctx, mux, api)
@@ -64,7 +63,9 @@ func (api *API) Run(
 	api.http = http_server.New(ctx, mux, config, tracer)
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
-	log.Info(fmt.Sprintf("API run on port %d", config.Port))
+	log.Info("Run HTTP server", field.Fields{
+		"port": config.Port,
+	})
 	err = api.http.ListenAndServe()
 	if err != nil {
 		return err
