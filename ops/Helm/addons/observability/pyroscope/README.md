@@ -29,7 +29,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | pyroscope-ebpf.enabled | bool | `false` |  |
 | pyroscope.enabled | bool | `true` |  |
 | pyroscope.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | pyroscope.ingress.className | string | `"nginx"` |  |

@@ -1,4 +1,4 @@
-# shortlink-api
+# shortlink-api-graphql
 
 ![Version: 0.13.0](https://img.shields.io/badge/Version-0.13.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
@@ -22,21 +22,19 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.2 |
+| file://../shortlink-common | shortlink-common | 0.5.5 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| NetworkPolicy.enabled | bool | `false` |  |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress.svc.cluster.local"` |  |
 | deploy.env.MQ_ENABLED | bool | `false` |  |
 | deploy.env.MQ_TYPE | string | `"kafka"` |  |
-| deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/api"` |  |
-| deploy.image.tag | string | `"0.15.40"` |  |
+| deploy.image.tag | string | `"0.16.9"` |  |
 | deploy.replicaCount | int | `3` |  |
 | deploy.resources.limits | object | `{}` |  |
 | deploy.resources.requests | object | `{}` |  |
@@ -56,12 +54,12 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | hpa.metrics[0].containerResource.target.type | string | `"Utilization"` |  |
 | hpa.metrics[0].type | string | `"ContainerResource"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.hostname | string | `"shortlink.best"` |  |
-| ingress.path | string | `"/api(/|$)(.*)"` |  |
+| ingress.path | string | `"/graphql(/|$)(.*)"` |  |
 | ingress.service.name | string | `"shortlink-api"` |  |
 | ingress.service.port | int | `7070` |  |
 | ingress.type | string | `"nginx"` |  |

@@ -14,7 +14,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 6.56.5 |
+| https://grafana.github.io/helm-charts | grafana | 6.57.2 |
 
 ## Values
 
@@ -33,7 +33,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | grafana.imageRenderer.serviceMonitor.interval | string | `"1m"` |  |
 | grafana.imageRenderer.serviceMonitor.selfMonitor | bool | `true` |  |
 | grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | grafana.ingress.enabled | bool | `true` |  |
@@ -47,6 +47,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | grafana.persistence.storageClassName | string | `"local-path"` |  |
 | grafana.plugins[0] | string | `"flant-statusmap-panel"` |  |
 | grafana.plugins[1] | string | `"grafana-polystat-panel"` |  |
+| grafana.plugins[2] | string | `"grafana-oncall-app"` |  |
 | grafana.revisionHistoryLimit | int | `2` |  |
 | grafana.serviceMonitor.enabled | bool | `true` |  |
 | grafana.serviceMonitor.interval | string | `"1m"` |  |

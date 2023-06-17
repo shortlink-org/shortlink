@@ -14,13 +14,13 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.34.1 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.36.2 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.3.3 |
-| https://argoproj.github.io/argo-helm | argo-rollouts | 2.28.0 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.27.0 |
-| https://argoproj.github.io/argo-helm | argocd-apps | 1.0.1 |
+| https://argoproj.github.io/argo-helm | argo-rollouts | 2.31.0 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.29.2 |
+| https://argoproj.github.io/argo-helm | argocd-apps | 1.2.0 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 17.11.2 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 17.11.5 |
 
 ## Values
 
@@ -112,34 +112,30 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argo-cd.repoServer.volumes[1].secret.secretName | string | `"sops-gpg"` |  |
 | argo-cd.server.config."helm.valuesFileSchemes" | string | `"secrets+gpg-import, secrets+gpg-import-kubernetes, secrets+age-import, secrets+age-import-kubernetes, secrets,secrets+literal, https"` |  |
 | argo-cd.server.config."statusbadge.enabled" | string | `"true"` |  |
-| argo-cd.server.config.url | string | `"https://shortlink.best/argo/cd"` |  |
+| argo-cd.server.config.url | string | `"https://argo.shortlink.best"` |  |
 | argo-cd.server.configAnnotations | object | `{}` |  |
 | argo-cd.server.extensions.enabled | bool | `true` |  |
-| argo-cd.server.extraArgs[0] | string | `"--rootpath"` |  |
-| argo-cd.server.extraArgs[1] | string | `"/argo/cd"` |  |
-| argo-cd.server.extraArgs[2] | string | `"--basehref"` |  |
-| argo-cd.server.extraArgs[3] | string | `"/argo/cd"` |  |
 | argo-cd.server.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTPS"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/configuration-snippet" | string | `"proxy_ssl_server_name on;\nproxy_ssl_name $host;"` |  |
-| argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/secure-backends" | string | `"true"` |  |
 | argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect" | string | `"true"` |  |
 | argo-cd.server.ingress.enabled | bool | `true` |  |
-| argo-cd.server.ingress.hosts[0] | string | `"shortlink.best"` |  |
+| argo-cd.server.ingress.hosts[0] | string | `"argo.shortlink.best"` |  |
 | argo-cd.server.ingress.https | bool | `true` |  |
 | argo-cd.server.ingress.ingressClassName | string | `"nginx"` |  |
-| argo-cd.server.ingress.paths[0] | string | `"/argo/cd(/|$)(.*)"` |  |
-| argo-cd.server.ingress.tls[0].hosts[0] | string | `"shortlink.best"` |  |
-| argo-cd.server.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| argo-cd.server.ingress.tls[0].hosts[0] | string | `"argo.shortlink.best"` |  |
+| argo-cd.server.ingress.tls[0].secretName | string | `"argo-ingress-tls"` |  |
 | argo-cd.server.metrics.enabled | bool | `true` |  |
 | argo-cd.server.metrics.serviceMonitor.enabled | bool | `true` |  |
 | argo-cd.server.rbacConfig."policy.csv" | string | `"p, role:org-admin, applications, *, */*, allow\np, role:org-admin, clusters, get, *, allow\np, role:org-admin, repositories, get, *, allow\np, role:org-admin, repositories, create, *, allow\np, role:org-admin, repositories, update, *, allow\np, role:org-admin, repositories, delete, *, allow\ng, shortlink-org:devops, role:org-admin\n"` |  |
 | argo-cd.server.rbacConfig."policy.default" | string | `"role:readonly"` |  |
 | argo-events.enabled | bool | `false` |  |
 | argo-events.fullnameOverride | string | `"argo-events"` |  |
+| argo-rollouts.controller.replicas | int | `1` |  |
 | argo-rollouts.controller.resources.limits.cpu | string | `"100m"` |  |
 | argo-rollouts.controller.resources.limits.memory | string | `"128Mi"` |  |
 | argo-rollouts.controller.resources.requests.cpu | string | `"20m"` |  |
@@ -147,15 +143,15 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argo-rollouts.dashboard.enabled | bool | `true` |  |
 | argo-rollouts.dashboard.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTP"` |  |
-| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | argo-rollouts.dashboard.ingress.enabled | bool | `true` |  |
-| argo-rollouts.dashboard.ingress.hosts[0] | string | `"shortlink.best"` |  |
+| argo-rollouts.dashboard.ingress.hosts[0] | string | `"argo.shortlink.best"` |  |
 | argo-rollouts.dashboard.ingress.ingressClassName | string | `"nginx"` |  |
-| argo-rollouts.dashboard.ingress.paths[0] | string | `"/argo/rollouts"` |  |
-| argo-rollouts.dashboard.ingress.tls[0].hosts[0] | string | `"shortlink.best"` |  |
-| argo-rollouts.dashboard.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| argo-rollouts.dashboard.ingress.paths[0] | string | `"/rollouts"` |  |
+| argo-rollouts.dashboard.ingress.tls[0].hosts[0] | string | `"argo.shortlink.best"` |  |
+| argo-rollouts.dashboard.ingress.tls[0].secretName | string | `"argo-ingress-tls"` |  |
 | argo-rollouts.dashboard.readonly | bool | `true` |  |
 | argo-rollouts.dashboard.resources.limits.cpu | string | `"100m"` |  |
 | argo-rollouts.dashboard.resources.limits.memory | string | `"256Mi"` |  |
@@ -171,25 +167,25 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argo-workflows.controller.workflowNamespaces | list | `[]` |  |
 | argo-workflows.enabled | bool | `false` |  |
 | argo-workflows.fullnameOverride | string | `"argo-workflows"` |  |
-| argo-workflows.server.baseHref | string | `"/argo/workflows/"` |  |
+| argo-workflows.server.baseHref | string | `"/workflows/"` |  |
 | argo-workflows.server.extraArgs[0] | string | `"--basehref"` |  |
-| argo-workflows.server.extraArgs[1] | string | `"/argo/workflows/"` |  |
+| argo-workflows.server.extraArgs[1] | string | `"/workflows/"` |  |
 | argo-workflows.server.extraArgs[2] | string | `"--auth-mode=server"` |  |
 | argo-workflows.server.extraEnv[0].name | string | `"ARGO_BASE_HREF"` |  |
-| argo-workflows.server.extraEnv[0].value | string | `"/argo/workflows"` |  |
+| argo-workflows.server.extraEnv[0].value | string | `"/workflows"` |  |
 | argo-workflows.server.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTP"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | argo-workflows.server.ingress.enabled | bool | `true` |  |
-| argo-workflows.server.ingress.hosts[0] | string | `"shortlink.best"` |  |
+| argo-workflows.server.ingress.hosts[0] | string | `"argo.shortlink.best"` |  |
 | argo-workflows.server.ingress.ingressClassName | string | `"nginx"` |  |
-| argo-workflows.server.ingress.paths[0] | string | `"/argo/workflows/?(.*)"` |  |
-| argo-workflows.server.ingress.tls[0].hosts[0] | string | `"shortlink.best"` |  |
-| argo-workflows.server.ingress.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
+| argo-workflows.server.ingress.paths[0] | string | `"/workflows/?(.*)"` |  |
+| argo-workflows.server.ingress.tls[0].hosts[0] | string | `"argo.shortlink.best"` |  |
+| argo-workflows.server.ingress.tls[0].secretName | string | `"argo-ingress-tls"` |  |
 | argocd-apps.applications | list | `[]` (See [values.yaml]) | Deploy Argo CD Applications within this helm release # Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/ |
 | argocd-apps.enabled | bool | `true` |  |
 | argocd-apps.projects | list | `[]` (See [values.yaml]) | Deploy Argo CD Projects within this helm release # Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/ |
@@ -217,9 +213,9 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | redis.master.persistence.enabled | bool | `false` |  |
 | redis.master.persistence.storageClass | string | `"local-path"` |  |
 | redis.master.resources.limits.cpu | string | `"500m"` |  |
-| redis.master.resources.limits.memory | string | `"350Mi"` |  |
+| redis.master.resources.limits.memory | string | `"500Mi"` |  |
 | redis.master.resources.requests.cpu | string | `"10m"` |  |
-| redis.master.resources.requests.memory | string | `"64Mi"` |  |
+| redis.master.resources.requests.memory | string | `"126Mi"` |  |
 | redis.metrics.enabled | bool | `true` |  |
 | redis.metrics.prometheusRule.enabled | bool | `true` |  |
 | redis.metrics.serviceMonitor.enabled | bool | `true` |  |

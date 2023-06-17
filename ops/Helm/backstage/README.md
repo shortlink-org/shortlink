@@ -22,7 +22,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.2 |
+| file://../shortlink-common | shortlink-common | 0.5.5 |
 
 ## Values
 
@@ -31,7 +31,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.image.pullPolicy | string | `"Always"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/backstage"` |  |
-| deploy.image.tag | string | `"0.15.40"` |  |
+| deploy.image.tag | string | `"0.16.9"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":300,"timeoutSeconds":60}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.readinessProbe | object | `{"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":120,"timeoutSeconds":15}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
@@ -46,7 +46,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.volumes[0].name | string | `"tmp"` |  |
 | deploy.volumes[0].type | string | `"emptyDir"` |  |
 | ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
@@ -54,6 +54,8 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | ingress.path | string | `"/"` |  |
 | ingress.service.name | string | `"backstage"` |  |
 | ingress.service.port | int | `7007` |  |
+| ingress.tls[0].hosts[0] | string | `"backstage.shortlink.best"` |  |
+| ingress.tls[0].secretName | string | `"backstage-tls"` |  |
 | ingress.type | string | `"nginx"` |  |
 | monitoring.enabled | bool | `true` |  |
 | service.ports[0].name | string | `"http"` |  |

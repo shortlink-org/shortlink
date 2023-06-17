@@ -14,8 +14,8 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.jetstack.io | certmanager(cert-manager) | v1.11.2 |
-| https://charts.jetstack.io | cert-manager-approver-policy | v0.6.3 |
+| https://charts.jetstack.io | certmanager(cert-manager) | v1.12.2 |
+| https://charts.jetstack.io | cert-manager-approver-policy | v0.7.0 |
 | https://charts.jetstack.io | spiffe(cert-manager-csi-driver-spiffe) | v0.4.0 |
 
 ## Values
@@ -26,6 +26,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | cert-manager-approver-policy.app.metrics.service.servicemonitor.enabled | bool | `true` |  |
 | cert-manager-approver-policy.enabled | bool | `false` |  |
 | certmanager.enabled | bool | `true` |  |
+| certmanager.extraArgs[0] | string | `"--logging-format=json"` |  |
 | certmanager.installCRDs | bool | `true` |  |
 | certmanager.prometheus.enabled | bool | `true` |  |
 | certmanager.prometheus.servicemonitor.enabled | bool | `true` |  |

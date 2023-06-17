@@ -1,8 +1,8 @@
-# shortlink-logger
+# shortlink-auth
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-Shortlink logger service
+Shortlink Auth Service
 
 **Homepage:** <https://batazor.github.io/shortlink/>
 
@@ -30,19 +30,16 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 |-----|------|---------|-------------|
 | deploy.affinity | list | `[]` |  |
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
-| deploy.env.MQ_ENABLED | bool | `true` |  |
-| deploy.env.MQ_KAFKA_CONSUMER_GROUP | string | `"shortlink-logger"` |  |
-| deploy.env.MQ_KAFKA_URI | string | `"shortlink-kafka-bootstrap.kafka:9092"` |  |
-| deploy.env.MQ_TYPE | string | `"kafka"` |  |
+| deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
-| deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/logger"` |  |
+| deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/auth"` |  |
 | deploy.image.tag | string | `"0.16.9"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
-| deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/live","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.nodeSelector | object | `{}` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
+| deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.nodeSelector | list | `[]` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
 | deploy.podSecurityContext.fsGroup | int | `1000` | fsGroup is the group ID associated with the container |
-| deploy.readinessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/ready","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":9090}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.replicaCount | int | `1` |  |
 | deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | deploy.resources.requests.cpu | string | `"10m"` |  |
@@ -51,11 +48,10 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.tolerations | list | `[]` |  |
 | monitoring.enabled | bool | `true` |  |
 | podDisruptionBudget.enabled | bool | `false` |  |
-| secret.enabled | bool | `false` |  |
-| secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
-| service.ports | list | `[]` |  |
+| service.ports[0].name | string | `"http"` |  |
+| service.ports[0].port | int | `7070` |  |
+| service.ports[0].protocol | string | `"TCP"` |  |
+| service.ports[0].public | bool | `true` |  |
 | service.type | string | `"ClusterIP"` |  |
 
 ----------------------------------------------

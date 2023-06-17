@@ -1,6 +1,6 @@
-# auth
+# kratos
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,7 +14,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://k8s.ory.sh/helm/charts | kratos | 0.33.1 |
+| https://k8s.ory.sh/helm/charts | kratos | 0.33.3 |
 
 ## Values
 
@@ -25,7 +25,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kratos.ingress.admin.className | string | `"nginx"` |  |
 | kratos.ingress.admin.enabled | bool | `false` |  |
 | kratos.ingress.public.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
@@ -37,7 +37,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kratos.ingress.public.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
 | kratos.ingress.public.tls[0].hosts[0] | string | `"shortlink.best"` |  |
 | kratos.ingress.public.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
-| kratos.kratos.automigration | object | `{"enabled":true,"type":"job"}` | Enables database migration |
+| kratos.kratos.automigration | object | `{"enabled":false,"type":"job"}` | Enables database migration |
 | kratos.kratos.automigration.type | string | `"job"` | Configure the way to execute database migration. Possible values: job, initContainer When set to job, the migration will be executed as a job on release or upgrade. When set to initContainer, the migration will be executed when kratos pod is created Defaults to job |
 | kratos.kratos.config.dsn | string | `"memory"` |  |
 | kratos.kratos.config.hashers.argon2.iterations | int | `2` |  |
@@ -72,9 +72,12 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kratos.kratos.config.selfservice.flows.verification.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.flows.verification.ui_url | string | `"https://shortlink.best/next/auth/verification"` |  |
 | kratos.kratos.config.selfservice.methods.link.enabled | bool | `true` |  |
+| kratos.kratos.config.selfservice.methods.lookup_secret.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.oidc.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.password.enabled | bool | `true` |  |
 | kratos.kratos.config.selfservice.methods.profile.enabled | bool | `true` |  |
+| kratos.kratos.config.selfservice.methods.totp.config.issuer | string | `"shortlink.best"` |  |
+| kratos.kratos.config.selfservice.methods.totp.enabled | bool | `true` |  |
 | kratos.kratos.config.serve.admin.base_url | string | `"http://127.0.0.1:4434/"` |  |
 | kratos.kratos.config.serve.public.base_url | string | `"https://shortlink.best/api/auth"` |  |
 | kratos.kratos.config.serve.public.cors.allow_credentials | bool | `true` |  |
@@ -95,9 +98,10 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kratos.kratos.config.session.cookie.same_site | string | `"Lax"` |  |
 | kratos.kratos.config.session.lifespan | string | `"720h"` |  |
 | kratos.kratos.development | bool | `true` |  |
-| kratos.kratos.identitySchemas."identity.default.schema.json" | string | `"{\n  \"$id\": \"https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json\",\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"Person\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"traits\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"email\": {\n          \"type\": \"string\",\n          \"format\": \"email\",\n          \"title\": \"E-Mail\",\n          \"minLength\": 3,\n          \"ory.sh/kratos\": {\n            \"credentials\": {\n              \"password\": {\n                \"identifier\": true\n              }\n            },\n            \"verification\": {\n              \"via\": \"email\"\n            },\n            \"recovery\": {\n              \"via\": \"email\"\n            }\n          }\n        },\n        \"name\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"first\": {\n              \"title\": \"First Name\",\n              \"type\": \"string\"\n            },\n            \"last\": {\n              \"title\": \"Last Name\",\n              \"type\": \"string\"\n            }\n          }\n        }\n      },\n      \"required\": [\n        \"email\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n}\n"` |  |
+| kratos.kratos.identitySchemas."identity.default.schema.json" | string | `"{\n  \"$id\": \"https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json\",\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"Person\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"traits\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"email\": {\n          \"type\": \"string\",\n          \"format\": \"email\",\n          \"title\": \"E-Mail\",\n          \"minLength\": 3,\n          \"ory.sh/kratos\": {\n            \"credentials\": {\n              \"password\": {\n                \"identifier\": true\n              },\n              \"totp\": {\n                \"account_name\": true\n              }\n            },\n            \"verification\": {\n              \"via\": \"email\"\n            },\n            \"recovery\": {\n              \"via\": \"email\"\n            }\n          }\n        },\n        \"name\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"first\": {\n              \"title\": \"First Name\",\n              \"type\": \"string\"\n            },\n            \"last\": {\n              \"title\": \"Last Name\",\n              \"type\": \"string\"\n            }\n          }\n        }\n      },\n      \"required\": [\n        \"email\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n}\n"` |  |
 | kratos.kratos.identitySchemas."oidc.github.jsonnet" | string | `"local claims = {\n  email_verified: false,\n} + std.extVar('claims');\n\n{\n  identity: {\n    traits: {\n      // Allowing unverified email addresses enables account\n      // enumeration attacks, especially if the value is used for\n      // e.g. verification or as a password login identifier.\n      //\n      // Therefore we only return the email if it (a) exists and (b) is marked verified\n      // by GitHub.\n      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,\n    },\n    metadata_public: {\n      github_username: claims.username,\n    }\n  },\n}\n"` |  |
 | kratos.kratos.identitySchemas."oidc.gitlab.jsonnet" | string | `"local claims = {\n  email_verified: false,\n} + std.extVar('claims');\n{\n  identity: {\n    traits: {\n      // Allowing unverified email addresses enables account\n      // enumeration attacks,  if the value is used for\n      // verification or as a password login identifier.\n      //\n      // Therefore we only return the email if it (a) exists and (b) is marked verified\n      // by GitLab.\n      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,\n    },\n  },\n}\n"` |  |
+| kratos.secret.hashSumEnabled | bool | `false` |  |
 | kratos.serviceMonitor.enabled | bool | `true` |  |
 | kratos.serviceMonitor.labels.release | string | `"prometheus-operator"` |  |
 

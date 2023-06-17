@@ -14,16 +14,16 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kyverno.github.io/kyverno | kyverno | 3.0.0-beta.1 |
-| https://kyverno.github.io/kyverno | kyverno-policies | 2.7.3 |
-| https://kyverno.github.io/policy-reporter | policy-reporter | 2.19.0 |
+| https://kyverno.github.io/kyverno | kyverno | 3.0.1 |
+| https://kyverno.github.io/kyverno | kyverno-policies | 3.0.0 |
+| https://kyverno.github.io/policy-reporter | policy-reporter | 2.19.2 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | kyverno-policies.background | bool | `false` |  |
-| kyverno-policies.enabled | bool | `false` |  |
+| kyverno-policies.enabled | bool | `true` |  |
 | kyverno-policies.failurePolicy | string | `"Ignore"` |  |
 | kyverno-policies.podSecuritySeverity | string | `"low"` |  |
 | kyverno-policies.validationFailureActionByPolicy.disallow-capabilities-strict | string | `"audit"` |  |
@@ -32,19 +32,31 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kyverno.admissionController.hostNetwork | bool | `false` |  |
 | kyverno.admissionController.serviceMonitor.additionalLabels.release | string | `"prometheus-operator"` |  |
 | kyverno.admissionController.serviceMonitor.enabled | bool | `true` |  |
+| kyverno.admissionController.tracing.address | string | `"grafana-tempo.grafana"` |  |
+| kyverno.admissionController.tracing.enabled | bool | `true` |  |
+| kyverno.admissionController.tracing.port | int | `4317` |  |
 | kyverno.backgroundController.enabled | bool | `true` |  |
 | kyverno.backgroundController.serviceMonitor.additionalLabels.release | string | `"prometheus-operator"` |  |
 | kyverno.backgroundController.serviceMonitor.enabled | bool | `true` |  |
+| kyverno.backgroundController.tracing.address | string | `"grafana-tempo.grafana"` |  |
+| kyverno.backgroundController.tracing.enabled | bool | `true` |  |
+| kyverno.backgroundController.tracing.port | int | `4317` |  |
 | kyverno.cleanupController.enabled | bool | `true` |  |
 | kyverno.cleanupController.logging.format | string | `"json"` |  |
+| kyverno.cleanupController.networkPolicy.enabled | bool | `true` |  |
 | kyverno.cleanupController.serviceMonitor.additionalLabels.release | string | `"prometheus-operator"` |  |
 | kyverno.cleanupController.serviceMonitor.enabled | bool | `true` |  |
+| kyverno.cleanupController.tracing.address | string | `"grafana-tempo.grafana"` |  |
 | kyverno.cleanupController.tracing.enabled | bool | `true` |  |
+| kyverno.cleanupController.tracing.port | int | `4317` |  |
 | kyverno.enabled | bool | `true` |  |
 | kyverno.reportsController.enabled | bool | `true` |  |
 | kyverno.reportsController.serviceMonitor.additionalLabels.release | string | `"prometheus-operator"` |  |
 | kyverno.reportsController.serviceMonitor.enabled | bool | `true` |  |
-| kyverno.webhooksCleanup.enabled | bool | `true` |  |
+| kyverno.reportsController.tracing.address | string | `"grafana-tempo.grafana"` |  |
+| kyverno.reportsController.tracing.enabled | bool | `true` |  |
+| kyverno.reportsController.tracing.port | int | `4317` |  |
+| kyverno.webhooksCleanup.enabled | bool | `false` |  |
 | policy-reporter.enabled | bool | `true` |  |
 | policy-reporter.global.plugins.kyverno | bool | `true` |  |
 | policy-reporter.grafana.folder.annotation | string | `"grafana_dashboard_folder"` |  |
@@ -64,7 +76,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | policy-reporter.target.loki.sources[0] | string | `"kyverno"` |  |
 | policy-reporter.ui.enabled | bool | `true` |  |
 | policy-reporter.ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |

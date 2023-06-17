@@ -1,6 +1,6 @@
-# grafana
+# grafana-oncall
 
-![Version: 0.7.3](https://img.shields.io/badge/Version-0.7.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,56 +14,51 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 6.56.5 |
+| https://grafana.github.io/helm-charts | oncall | 1.2.44 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| grafana."grafana.ini".auth.anonymous.enabled | bool | `true` |  |
-| grafana."grafana.ini".auth.anonymous.hide_version | bool | `true` |  |
-| grafana."grafana.ini".auth.anonymous.org_name | string | `"Main Org."` |  |
-| grafana."grafana.ini".auth.anonymous.org_role | string | `"Viewer"` |  |
-| grafana."grafana.ini".reporting.enabled | bool | `true` |  |
-| grafana.defaultDashboardsEnabled | bool | `true` |  |
-| grafana.enabled | bool | `true` |  |
-| grafana.imageRenderer.enabled | bool | `true` |  |
-| grafana.imageRenderer.revisionHistoryLimit | int | `2` |  |
-| grafana.imageRenderer.serviceMonitor.enabled | bool | `true` |  |
-| grafana.imageRenderer.serviceMonitor.interval | string | `"1m"` |  |
-| grafana.imageRenderer.serviceMonitor.selfMonitor | bool | `true` |  |
-| grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
-| grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| grafana.ingress.enabled | bool | `true` |  |
-| grafana.ingress.hosts[0] | string | `"grafana.shortlink.best"` |  |
-| grafana.ingress.path | string | `"/"` |  |
-| grafana.ingress.tls[0].hosts[0] | string | `"grafana.shortlink.best"` |  |
-| grafana.ingress.tls[0].secretName | string | `"grafana-ingress-tls"` |  |
-| grafana.namespaceOverride | string | `""` |  |
-| grafana.persistence.enabled | bool | `true` |  |
-| grafana.persistence.inMemory.enabled | bool | `true` |  |
-| grafana.persistence.storageClassName | string | `"local-path"` |  |
-| grafana.plugins[0] | string | `"flant-statusmap-panel"` |  |
-| grafana.plugins[1] | string | `"grafana-polystat-panel"` |  |
-| grafana.revisionHistoryLimit | int | `2` |  |
-| grafana.serviceMonitor.enabled | bool | `true` |  |
-| grafana.serviceMonitor.interval | string | `"1m"` |  |
-| grafana.serviceMonitor.selfMonitor | bool | `true` |  |
-| grafana.sidecar.alerts.enabled | bool | `true` |  |
-| grafana.sidecar.alerts.searchNamespace | string | `"ALL"` |  |
-| grafana.sidecar.dashboards.enabled | bool | `true` |  |
-| grafana.sidecar.dashboards.folder | string | `"/tmp/dashboards"` |  |
-| grafana.sidecar.dashboards.folderAnnotation | string | `"grafana_dashboard_folder"` |  |
-| grafana.sidecar.dashboards.provider.foldersFromFilesStructure | bool | `true` |  |
-| grafana.sidecar.dashboards.searchNamespace | string | `"ALL"` |  |
-| grafana.sidecar.datasources.enabled | bool | `true` |  |
-| grafana.sidecar.datasources.searchNamespace | string | `"ALL"` |  |
-| grafana.sidecar.notifiers.enabled | bool | `true` |  |
-| grafana.sidecar.notifiers.searchNamespace | string | `"ALL"` |  |
-| grafana.sidecar.plugins.enabled | bool | `true` |  |
-| grafana.sidecar.plugins.searchNamespace | string | `"ALL"` |  |
+| oncall.base_url | string | `"https://grafana.shortlink.best"` |  |
+| oncall.celery.resources.limits.cpu | string | `"100m"` |  |
+| oncall.celery.resources.limits.memory | string | `"100Mi"` |  |
+| oncall.celery.resources.requests.cpu | string | `"5m"` |  |
+| oncall.celery.resources.requests.memory | string | `"50Mi"` |  |
+| oncall.cert-manager.enabled | bool | `false` |  |
+| oncall.database.type | string | `"mysql"` |  |
+| oncall.enabled | bool | `false` |  |
+| oncall.engine.resources.limits.cpu | string | `"100m"` |  |
+| oncall.engine.resources.limits.memory | string | `"100Mi"` |  |
+| oncall.engine.resources.requests.cpu | string | `"5m"` |  |
+| oncall.engine.resources.requests.memory | string | `"50Mi"` |  |
+| oncall.externalGrafana.url | string | `"https://grafana.shortlink.best"` |  |
+| oncall.grafana.enabled | bool | `false` |  |
+| oncall.ingress-nginx.enabled | bool | `false` |  |
+| oncall.ingress.enabled | bool | `false` |  |
+| oncall.mariadb.enabled | bool | `true` |  |
+| oncall.oncall | object | `{}` |  |
+| oncall.postgresql.enabled | bool | `false` |  |
+| oncall.rabbitmq.enabled | bool | `true` |  |
+| oncall.redis.enabled | bool | `true` |  |
+| oncall.redis.master.auth.enabled | bool | `false` |  |
+| oncall.redis.master.auth.password | string | `""` |  |
+| oncall.redis.master.kind | string | `"Deployment"` |  |
+| oncall.redis.master.metrics.enabled | bool | `true` |  |
+| oncall.redis.master.metrics.prometheusRule.enabled | bool | `true` |  |
+| oncall.redis.master.metrics.serviceMonitor.enabled | bool | `true` |  |
+| oncall.redis.master.persistence.enabled | bool | `false` |  |
+| oncall.redis.master.persistence.storageClass | string | `"local-path"` |  |
+| oncall.redis.master.resources.limits.cpu | string | `"500m"` |  |
+| oncall.redis.master.resources.limits.memory | string | `"500Mi"` |  |
+| oncall.redis.master.resources.requests.cpu | string | `"10m"` |  |
+| oncall.redis.master.resources.requests.memory | string | `"56Mi"` |  |
+| oncall.redis.replica.persistence.enabled | bool | `false` |  |
+| oncall.redis.replica.replicaCount | int | `0` |  |
+| oncall.redis.replica.resources.limits.cpu | string | `"500m"` |  |
+| oncall.redis.replica.resources.limits.memory | string | `"256Mi"` |  |
+| oncall.redis.replica.resources.requests.cpu | string | `"10m"` |  |
+| oncall.redis.replica.resources.requests.memory | string | `"64Mi"` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

@@ -22,7 +22,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.2 |
+| file://../shortlink-common | shortlink-common | 0.5.5 |
 
 ## Values
 
@@ -32,13 +32,12 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.env.MQ_ENABLED | bool | `false` |  |
 | deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
-| deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` | Default store config |
 | deploy.env.TELEGRAM_BOT_TOKEN | string | `"YOUR_TELEGRAM_TOKEN"` |  |
 | deploy.env.TELEGRAM_BOT_USERNAME | string | `"shortlink_my_bot"` |  |
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/bot"` |  |
-| deploy.image.tag | string | `"0.15.40"` |  |
+| deploy.image.tag | string | `"0.16.9"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/live","port":9090},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.nodeSelector | list | `[]` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |

@@ -22,7 +22,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.2 |
+| file://../shortlink-common | shortlink-common | 0.5.5 |
 
 ## Values
 
@@ -32,12 +32,14 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.env.MQ_ENABLED | bool | `true` |  |
 | deploy.env.MQ_KAFKA_URI | string | `"shortlink-kafka-bootstrap.kafka:9092"` |  |
 | deploy.env.MQ_TYPE | string | `"kafka"` |  |
-| deploy.env.STORE_POSTGRES_URI | string | `"postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable"` |  |
 | deploy.env.STORE_REDIS_URI | string | `"shortlink-redis-master.redis:6379"` |  |
 | deploy.env.STORE_TYPE | string | `"postgres"` | Default store config |
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
+| deploy.envSecret[0].name | string | `"STORE_POSTGRES_URI"` |  |
+| deploy.envSecret[0].secretKeyRef.key | string | `"uri"` |  |
+| deploy.envSecret[0].secretKeyRef.name | string | `"shortlink-postgres-pguser-link"` |  |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/link"` |  |
-| deploy.image.tag | string | `"0.15.40"` |  |
+| deploy.image.tag | string | `"0.16.9"` |  |
 | deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | deploy.resources.requests.cpu | string | `"10m"` |  |
 | deploy.resources.requests.memory | string | `"32Mi"` |  |

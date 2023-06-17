@@ -15,7 +15,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://provectus.github.io/kafka-ui | kafka-ui | 0.7.0 |
-| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.35.0 |
+| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.35.1 |
 
 ## Values
 
@@ -34,7 +34,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kafka-ui.fullnameOverride | string | `"kafka-ui"` |  |
 | kafka-ui.image.tag | string | `"master"` |  |
 | kafka-ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"true"` |  |
+| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
 | kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
 | kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/kafka-ui/$2"` |  |

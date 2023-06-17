@@ -27,13 +27,13 @@ helm-lint: ## Check Helm chart by linter
 # HELM TASKS ===========================================================================================================
 helm-docs: ### Generate HELM docs
 	@docker run --rm \
-		-v ${PWD}:/helm-docs \
+		-v ${PWD}/ops/Helm:/helm-docs \
 		--workdir="/helm-docs" \
 		-u "$(id -u)" \
 		jnorwood/helm-docs:v1.11.0
 
-.PHONY: helm-update-charts
-helm-update-charts: ### Update Helm charts
+.PHONY: helm-upgrade
+helm-upgrade: ### Upgrade all helm charts
 	@helm repo update
 	# Find all files named "Chart.yaml" in the current directory and its subdirectories
 	@find . -name "Chart.yaml" | xargs -I '{}' -P 8 bash -c ' \

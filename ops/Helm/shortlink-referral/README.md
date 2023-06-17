@@ -22,21 +22,18 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.2 |
+| file://../shortlink-common | shortlink-common | 0.5.5 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| deploy.env.MQ_ENABLED | bool | `true` |  |
-| deploy.env.MQ_KAFKA_CONSUMER_GROUP | string | `"shortlink-logger"` |  |
-| deploy.env.MQ_KAFKA_URI | string | `"shortlink-kafka-bootstrap.kafka:9092"` |  |
-| deploy.env.MQ_TYPE | string | `"kafka"` |  |
-| deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
+| deploy.env.DATABASE_URI | string | `"redis://shortlink-redis-master.redis:6379/1"` |  |
+| deploy.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT | string | `"http://grafana-tempo.grafana:4317/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/referral"` |  |
-| deploy.image.tag | string | `"0.15.40"` |  |
-| deploy.livenessProbe | object | `{"failureThreshold":1,"httpGet":{"path":"/live","port":8000},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.image.tag | string | `"0.16.9"` |  |
+| deploy.livenessProbe | object | `{"failureThreshold":5,"httpGet":{"path":"/live","port":8000},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.podSecurityContext.fsGroup | int | `1000` | fsGroup is the group ID associated with the container |
 | deploy.readinessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/ready","port":8000},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.replicaCount | int | `1` |  |

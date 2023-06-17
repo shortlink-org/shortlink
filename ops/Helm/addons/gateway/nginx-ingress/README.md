@@ -14,19 +14,32 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.6.1 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.7.0 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | ingress-nginx.controller.admissionWebhooks.enabled | bool | `false` |  |
-| ingress-nginx.controller.config.enable-opentracing | string | `"true"` |  |
-| ingress-nginx.controller.config.jaeger-collector-host | string | `"grafana-tempo.grafana"` |  |
-| ingress-nginx.controller.config.jaeger-service-name | string | `"nginx-ingress"` |  |
+| ingress-nginx.controller.config.enable-opentelemetry | string | `"true"` |  |
+| ingress-nginx.controller.config.opentelemetry-config | string | `"/etc/nginx/opentelemetry.toml"` |  |
+| ingress-nginx.controller.config.opentelemetry-operation-name | string | `"HTTP $request_method $service_name $uri"` |  |
+| ingress-nginx.controller.config.opentelemetry-trust-incoming-span | string | `"true"` |  |
+| ingress-nginx.controller.config.otel-max-export-batch-size | string | `"512"` |  |
+| ingress-nginx.controller.config.otel-max-queuesize | string | `"2048"` |  |
+| ingress-nginx.controller.config.otel-sampler | string | `"AlwaysOn"` |  |
+| ingress-nginx.controller.config.otel-sampler-parent-based | string | `"false"` |  |
+| ingress-nginx.controller.config.otel-sampler-ratio | string | `"1.0"` |  |
+| ingress-nginx.controller.config.otel-schedule-delay-millis | string | `"5000"` |  |
+| ingress-nginx.controller.config.otel-service-name | string | `"nginx-ingress"` |  |
+| ingress-nginx.controller.config.otlp-collector-host | string | `"grafana-tempo.grafana"` |  |
+| ingress-nginx.controller.config.otlp-collector-port | string | `"4317"` |  |
+| ingress-nginx.controller.config.server-snippet | string | `"opentelemetry_attribute \"ingress.namespace\" \"$namespace\";\nopentelemetry_attribute \"ingress.service_name\" \"$service_name\";\nopentelemetry_attribute \"ingress.name\" \"$ingress_name\";\nopentelemetry_attribute \"ingress.upstream\" \"$proxy_upstream_name\";\n"` |  |
+| ingress-nginx.controller.extraEnvs[0].name | string | `"NODE_IP"` |  |
+| ingress-nginx.controller.extraEnvs[0].valueFrom.fieldRef.fieldPath | string | `"status.hostIP"` |  |
 | ingress-nginx.controller.hostNetwork | bool | `false` |  |
 | ingress-nginx.controller.ingressClassResource.default | bool | `true` |  |
-| ingress-nginx.controller.kind | string | `"DaemonSet"` |  |
+| ingress-nginx.controller.kind | string | `"Deployment"` |  |
 | ingress-nginx.controller.metrics.enabled | bool | `true` |  |
 | ingress-nginx.controller.metrics.prometheusRule.additionalLabels.app | string | `"kube-prometheus-stack"` |  |
 | ingress-nginx.controller.metrics.prometheusRule.additionalLabels.release | string | `"prometheus-operator"` |  |
@@ -58,6 +71,8 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | ingress-nginx.controller.metrics.serviceMonitor.additionalLabels.release | string | `"prometheus-operator"` |  |
 | ingress-nginx.controller.metrics.serviceMonitor.enabled | bool | `true` |  |
 | ingress-nginx.controller.metrics.serviceMonitor.namespaceSelector.matchNames[0] | string | `"nginx-ingress"` |  |
+| ingress-nginx.controller.nodeSelector."kubernetes.io/hostname" | string | `"node1"` |  |
+| ingress-nginx.controller.opentelemetry.enabled | bool | `true` |  |
 | ingress-nginx.controller.podSecurityContext.fsGroup | int | `1001` |  |
 | ingress-nginx.controller.service.nodePorts.http | int | `80` |  |
 | ingress-nginx.controller.service.nodePorts.https | int | `443` |  |
