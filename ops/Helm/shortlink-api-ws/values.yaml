@@ -24,7 +24,7 @@ ingress:
   hostname: shortlink.best
   path: /ws(/|$)(.*)
   service:
-    name: shortlink-api
+    name: shortlink-api-ws
     port: 7070
 
   # istio:
