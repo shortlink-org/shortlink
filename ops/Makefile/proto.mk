@@ -70,6 +70,6 @@ proto-generate: ## Generate proto-files
 
 	# API-gateway service ---------------------------------------------------------------------------
 	@buf generate \
-		--path=internal/services/api-gateway/application/grpc_web \
+		--path=internal/services/api-gateway/gateways/grpc-web/infrastructure/server/v1 \
 		--template=ops/proto/api-gateway/buf.gen.yaml \
 		--config=ops/proto/api-gateway/buf.yaml

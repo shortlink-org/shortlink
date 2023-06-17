@@ -8,7 +8,7 @@ deps:
 build:
   roots:
     - internal/services/link
-    - internal/services/api-gateway/application
+    - internal/services/api-gateway/gateways/grpc-web/infrastructure
 
 lint:
   use:

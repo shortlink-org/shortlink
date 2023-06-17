@@ -1,0 +1,256 @@
+swagger: "2.0"
+info:
+  title: buf:lint:ignore
+  version: version not set
+tags:
+  - name: LinkService
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /api/grpc:
+    post:
+      operationId: LinkService_CreateLink
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1CreateLinkResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1CreateLinkRequest'
+      tags:
+        - LinkService
+  /api/grpc/{link.hash}:
+    delete:
+      operationId: LinkService_DeleteLink
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: link.hash
+          description: Hash by URL + salt
+          in: path
+          required: true
+          type: string
+        - name: link.fieldMask
+          in: query
+          required: false
+          type: string
+        - name: link.url
+          description: URL
+          in: query
+          required: false
+          type: string
+        - name: link.describe
+          description: Describe of link
+          in: query
+          required: false
+          type: string
+        - name: link.createdAt
+          description: Create at
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: link.updatedAt
+          description: Update at
+          in: query
+          required: false
+          type: string
+          format: date-time
+      tags:
+        - LinkService
+  /api/grpc/link/{link.hash}:
+    get:
+      operationId: LinkService_GetLink
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1GetLinkResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: link.hash
+          description: Hash by URL + salt
+          in: path
+          required: true
+          type: string
+        - name: link.fieldMask
+          in: query
+          required: false
+          type: string
+        - name: link.url
+          description: URL
+          in: query
+          required: false
+          type: string
+        - name: link.describe
+          description: Describe of link
+          in: query
+          required: false
+          type: string
+        - name: link.createdAt
+          description: Create at
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: link.updatedAt
+          description: Update at
+          in: query
+          required: false
+          type: string
+          format: date-time
+      tags:
+        - LinkService
+  /api/grpc/links:
+    get:
+      operationId: LinkService_GetLinks
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1GetLinksResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: link.fieldMask
+          in: query
+          required: false
+          type: string
+        - name: link.url
+          description: URL
+          in: query
+          required: false
+          type: string
+        - name: link.hash
+          description: Hash by URL + salt
+          in: query
+          required: false
+          type: string
+        - name: link.describe
+          description: Describe of link
+          in: query
+          required: false
+          type: string
+        - name: link.createdAt
+          description: Create at
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: link.updatedAt
+          description: Update at
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter
+          description: Filter by link
+          in: query
+          required: false
+          type: string
+      tags:
+        - LinkService
+definitions:
+  protobufAny:
+    type: object
+    properties:
+      '@type':
+        type: string
+    additionalProperties: {}
+  rpcStatus:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      details:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/protobufAny'
+  v1CreateLinkRequest:
+    type: object
+    properties:
+      link:
+        $ref: '#/definitions/v1Link'
+        example:
+          hash: "1234567890"
+        description: Link hash
+    required:
+      - link
+  v1CreateLinkResponse:
+    type: object
+    properties:
+      link:
+        $ref: '#/definitions/v1Link'
+        example:
+          hash: "1234567890"
+        description: Link hash
+    required:
+      - link
+  v1GetLinkResponse:
+    type: object
+    properties:
+      link:
+        $ref: '#/definitions/v1Link'
+        example:
+          hash: "1234567890"
+        description: Link hash
+    required:
+      - link
+  v1GetLinksResponse:
+    type: object
+    properties:
+      links:
+        type: array
+        items:
+          type: object
+          $ref: '#/definitions/v1Link'
+        description: Links
+  v1Link:
+    type: object
+    properties:
+      fieldMask:
+        type: string
+      url:
+        type: string
+        title: URL
+      hash:
+        type: string
+        title: Hash by URL + salt
+      describe:
+        type: string
+        title: Describe of link
+      createdAt:
+        type: string
+        format: date-time
+        title: Create at
+      updatedAt:
+        type: string
+        format: date-time
+        title: Update at

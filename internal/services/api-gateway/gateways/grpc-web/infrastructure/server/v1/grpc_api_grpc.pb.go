@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             (unknown)
-// source: grpc-web/v1/grpc_api.proto
+// source: server/v1/grpc_api.proto
 
 // buf:lint:ignore
 
@@ -22,10 +22,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	LinkService_GetLinks_FullMethodName   = "/grpc-web.v1.LinkService/GetLinks"
-	LinkService_GetLink_FullMethodName    = "/grpc-web.v1.LinkService/GetLink"
-	LinkService_CreateLink_FullMethodName = "/grpc-web.v1.LinkService/CreateLink"
-	LinkService_DeleteLink_FullMethodName = "/grpc-web.v1.LinkService/DeleteLink"
+	LinkService_GetLinks_FullMethodName   = "/server.v1.LinkService/GetLinks"
+	LinkService_GetLink_FullMethodName    = "/server.v1.LinkService/GetLink"
+	LinkService_CreateLink_FullMethodName = "/server.v1.LinkService/CreateLink"
+	LinkService_DeleteLink_FullMethodName = "/server.v1.LinkService/DeleteLink"
 )
 
 // LinkServiceClient is the client API for LinkService service.
@@ -196,7 +196,7 @@ func _LinkService_DeleteLink_Handler(srv interface{}, ctx context.Context, dec f
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var LinkService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc-web.v1.LinkService",
+	ServiceName: "server.v1.LinkService",
 	HandlerType: (*LinkServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -217,5 +217,5 @@ var LinkService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "grpc-web/v1/grpc_api.proto",
+	Metadata: "server/v1/grpc_api.proto",
 }

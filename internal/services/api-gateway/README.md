@@ -11,14 +11,16 @@ leveraging multiple communication protocols and API designs.
 
 ### HTTP API
 
-+ Import [Postman link](./docs/postman/shortlink.postman_collection.json) for test HTTP API
-+ Swagger [docs](https://shortlink-org.gitlab.io/shortlink)
-
 ### Supported Protocols:
 
 - **HTTP REST API:** Implemented using 'chi' for optimal integration and high performance.
+  - Import [Postman link](./docs/postman/shortlink.postman_collection.json) for test HTTP API
+  - Swagger [docs](https://shortlink-org.gitlab.io/shortlink)
 - **GraphQL API:** An excellent alternative to REST APIs for handling complex, interrelated data structures.
+- **WebSocket API:** A protocol that enables two-way persistent communication channels over TCP connections.
+  - [WebSocket API Docs](./gateways/ws/README.md)
 - **gRPC-gateway:** Provides a way to call gRPC methods over HTTP, making your gRPC service more accessible to more client types.
+  - Swagger [docs](./docs/server/v1/grpc_api.swagger.yaml)
 - **CloudEvents (Optional):** An open-standard specification for defining event data in a common way, facilitating interoperability across services, platforms, and systems.
     - [CloudEvents Docs](https://cloudevents.io/)
 
