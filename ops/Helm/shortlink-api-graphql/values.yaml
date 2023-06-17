@@ -39,21 +39,13 @@ ingress:
 deploy:
   type: Rollout
 
-  replicaCount: 3
+  replicaCount: 1
 
   strategy:
     type: Canary
     canary:
       steps:
-        - setWeight: 30
-        - pause:
-            duration: 10
-        - setWeight: 60
-        - pause:
-            duration: 10
         - setWeight: 100
-        - pause:
-            duration: 10
 
   resources:
     limits:
