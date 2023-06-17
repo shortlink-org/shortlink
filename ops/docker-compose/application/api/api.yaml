@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
       args:
-          CMD_PATH: "./internal/services/api/cmd"
+          CMD_PATH: "./internal/services/api-gateway/cmd"
       shm_size: 1gb
       cache_from:
         - shortlink-api

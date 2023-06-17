@@ -3,12 +3,12 @@ package api
 import (
 	"context"
 
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
 	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
@@ -48,9 +48,6 @@ func (s *Server) Use(
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
 ) (*Server, error) {
-	var server API
-
-	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi
 	// API port
 	viper.SetDefault("API_PORT", 7070) // nolint:gomnd
 	// Request Timeout (seconds)
@@ -61,14 +58,7 @@ func (s *Server) Use(
 		Timeout: viper.GetDuration("API_TIMEOUT"),
 	}
 
-	serverType := viper.GetString("API_TYPE")
-
-	switch serverType {
-	case "http-chi":
-		server = &http_chi.API{}
-	default:
-		server = &http_chi.API{}
-	}
+	server := &http_chi.API{}
 
 	g := errgroup.Group{}
 

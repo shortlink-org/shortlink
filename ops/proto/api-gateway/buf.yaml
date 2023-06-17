@@ -8,7 +8,7 @@ deps:
 build:
   roots:
     - internal/services/link
-    - internal/services/api/application
+    - internal/services/api-gateway/application
 
 lint:
   use:

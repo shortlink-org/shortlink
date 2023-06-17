@@ -22,7 +22,7 @@ customer --> paymentBoundary : Builds a shopping basket
 !include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/common.puml
 !include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/c1.puml
 
-!include services/api/ext.puml
+!include services/api-gateway/ext.puml
 Container_Ext(mq, "Message queue", "RabbitMQ, Kafka, etc.")
 
 System_Boundary(merchBoundary, "Merch boundary") {

@@ -6,10 +6,26 @@
 .matrix_build_base:
   parallel:
     matrix:
-      - APPLICATION: api
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api
+      - APPLICATION: api-cloudevents
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-cloudevents
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/services/api/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/api-gateway/gateways/cloudevents/cmd"
+      - APPLICATION: api-graphql
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-graphql
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/api-gateway/gateways/graphql/cmd"
+      - APPLICATION: api-grpc-web
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-grpc-web
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/api-gateway/gateways/grpc-web/cmd"
+      - APPLICATION: api-http-chi
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-http-chi
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/api-gateway/gateways/http-chi/cmd"
+      - APPLICATION: ws
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ws
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/api-gateway/gateways/ws/cmd"
       - APPLICATION: auth
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/auth
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
