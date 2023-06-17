@@ -24,7 +24,7 @@ ingress:
   hostname: shortlink.best
   path: /grpc(/|$)(.*)
   service:
-    name: shortlink-api
+    name: shortlink-api-grpc-web
     port: 7070
 
   # istio:

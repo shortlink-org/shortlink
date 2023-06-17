@@ -24,7 +24,7 @@ ingress:
   hostname: shortlink.best
   path: /graphql(/|$)(.*)
   service:
-    name: shortlink-api
+    name: shortlink-api-graphql
     port: 7070
 
   # istio:
