@@ -62,7 +62,7 @@ deploy:
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress.svc.cluster.local
 
   image:
-    repository: registry.gitlab.com/shortlink-org/shortlink/api
+    repository: registry.gitlab.com/shortlink-org/shortlink/api-grpc-web
     tag: 0.16.13
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
@@ -100,9 +100,3 @@ monitoring:
 # PodDisruptionBudget
 podDisruptionBudget:
   enabled: false
-
-# -- If you want to use an external database
-external_database:
-  enable: false
-  ip: 192.168.0.101
-  port: 6379

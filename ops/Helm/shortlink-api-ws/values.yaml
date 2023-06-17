@@ -98,9 +98,3 @@ monitoring:
 # PodDisruptionBudget
 podDisruptionBudget:
   enabled: false
-
-# -- If you want to use an external database
-external_database:
-  enable: false
-  ip: 192.168.0.101
-  port: 6379
