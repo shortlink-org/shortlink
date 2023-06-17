@@ -1,13 +1,13 @@
 .template_build:
   stage: build
   services:
-    - name: docker:24.0.0-beta.2-dind
+    - name: docker:24.0.2-dind
       command: [ "--experimental" ]
-  image: docker:24.0.0-beta.2-cli
+  image: docker:24.0.2-cli
   variables:
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
-    DOCKER_BUILDX_VERSION: v0.10.4
+    DOCKER_BUILDX_VERSION: v0.11.0
     BUILDX_GIT_LABELS: 1
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
