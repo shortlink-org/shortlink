@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shortlink-api-grpc
+  name: shortlink-api-ws
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
-    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/api-grpc-web:0.15.x
+    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/ws:0.15.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -15,11 +15,11 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-api-grpc
+    path: ops/Helm/shortlink-api-ws
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
-      releaseName: shortlink-api-grpc
+      releaseName: shortlink-api-ws
       valueFiles:
         - values.yaml
   project: shortlink

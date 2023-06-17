@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
-    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/api:0.15.x
+    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/api-graphql:0.15.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -15,19 +15,13 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-api
+    path: ops/Helm/shortlink-api-graphql
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
+      releaseName: shortlink-api-graphql
       valueFiles:
         - values.yaml
-      parameters:
-        - name: "deploy.env.API_TYPE"
-          value: graphql
-        - name: "deploy.env.BASE_PATH"
-          value: "/api/graphql"
-        - name: "ingress.path"
-          value: "/api/graphql(/|$)(.*)"
   project: shortlink
   syncPolicy:
     automated:

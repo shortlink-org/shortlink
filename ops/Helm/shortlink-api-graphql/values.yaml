@@ -1,0 +1,112 @@
+# Common default values for shortlink.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Pods Service Account
+# @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+
+  # -- The name of the ServiceAccount to use.
+  # If not set and create is true, a name is generated using the `helpers.fullname` template
+  # name: shortlink
+
+ingress:
+  enabled: true
+  type: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-production
+    nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+  hostname: shortlink.best
+  path: /graphql(/|$)(.*)
+  service:
+    name: shortlink-api
+    port: 7070
+
+  # istio:
+  #  match:
+  #    - uri:
+  #        prefix: /api
+  #  route:
+  #    destination:
+  #      port: 7070
+
+# ==============================================================================
+deploy:
+  type: Rollout
+
+  replicaCount: 3
+
+  strategy:
+    type: Canary
+    canary:
+      steps:
+        - setWeight: 30
+        - pause:
+            duration: 10
+        - setWeight: 60
+        - pause:
+            duration: 10
+        - setWeight: 100
+        - pause:
+            duration: 10
+
+  resources:
+    limits: {}
+    requests: {}
+
+  env:
+    MQ_ENABLED: false
+    MQ_TYPE: "kafka"
+    TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
+    GRPC_CLIENT_HOST: istio-ingress.istio-ingress.svc.cluster.local
+
+  image:
+    repository: registry.gitlab.com/shortlink-org/shortlink/api
+    tag: 0.16.9
+    # -- Global imagePullPolicy
+    # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    pullPolicy: IfNotPresent
+
+hpa:
+  enabled: false
+  metrics:
+    - type: ContainerResource
+      containerResource:
+        name: cpu
+        container: application
+        target:
+          type: Utilization
+          averageUtilization: 80
+
+service:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 7070
+      protocol: TCP
+      public: true
+    - name: metrics
+      port: 9090
+      protocol: TCP
+
+# ==============================================================================
+# Prometheus Operator ServiceMonitor configuration
+monitoring:
+  enabled: true
+
+# ==============================================================================
+# PodDisruptionBudget
+podDisruptionBudget:
+  enabled: false
+
+# -- If you want to use an external database
+external_database:
+  enable: false
+  ip: 192.168.0.101
+  port: 6379
