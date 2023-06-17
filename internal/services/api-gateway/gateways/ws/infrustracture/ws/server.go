@@ -7,6 +7,8 @@ import (
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
@@ -29,7 +31,10 @@ func (ws *WS) Run(ctx context.Context, log logger.Logger) (*WS, error) {
 		return nil
 	})
 
-	log.Info("WS server started")
+	log.Info("WS server started", field.Fields{
+		"port":      8080,
+		"base_path": viper.GetString("BASE_PATH"),
+	})
 
 	return server, nil
 }
