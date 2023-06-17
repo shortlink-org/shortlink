@@ -59,10 +59,22 @@ const Home: NextPage = () => {
           <TabPanel value={value} index={0}>
             <TabContent
               title="Shortlink service (Microservice example)"
-              key="shortlink"
+              key="shortlink-ui"
               cards={[
                 { name: 'Next', url: '/next' },
                 { name: 'ui-kit', url: '/storybook/' },
+              ]}
+            />
+
+            <TabContent
+              title="Shortlink API"
+              key="shortlink-api"
+              cards={[
+                { name: 'HTTP', url: '/api' },
+                { name: 'gRPC-web', url: '/grpc/' },
+                { name: 'CloudEvents', url: '/cloudevents/' },
+                { name: 'GraphQL', url: '/graphql/' },
+                { name: 'WebSocket', url: '/ws/' },
               ]}
             />
           </TabPanel>
@@ -74,6 +86,14 @@ const Home: NextPage = () => {
               cards={[
                 { name: 'RabbitMQ', url: '/rabbitmq/' },
                 { name: 'Kafka', url: '/kafka-ui/' },
+                { name: 'Keycloak', url: 'https://keycloak.shortlink.best' },
+              ]}
+            />
+
+            <TabContent
+              title="Argo"
+              key="infrastructure"
+              cards={[
                 { name: 'Argo CD', url: 'https://argo.shortlink.best' },
                 {
                   name: 'Argo Rollout',
@@ -83,7 +103,6 @@ const Home: NextPage = () => {
                   name: 'Argo Workflows',
                   url: 'https://argo.shortlink.best/workflows',
                 },
-                { name: 'Keycloak', url: 'https://keycloak.shortlink.best' },
               ]}
             />
           </TabPanel>
