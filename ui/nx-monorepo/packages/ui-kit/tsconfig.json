@@ -23,9 +23,5 @@
     "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*", "*.ts", "typings.d.ts"],
-  "exclude": [
-    "dist",
-    "node_modules",
-    "src/**/*.test.tsx"
-  ]
+  "exclude": ["dist", "node_modules", "src/**/*.test.tsx"]
 }

@@ -16,7 +16,7 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
   const theme = useTheme()
 
   return (
-    <div className={"my-5"}>
+    <div className="my-5">
       <Typography
         variant="h5"
         align="center"
