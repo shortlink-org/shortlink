@@ -45,19 +45,15 @@ deploy:
     type: Canary
     canary:
       steps:
-        - setWeight: 30
-        - pause:
-            duration: 10
-        - setWeight: 60
-        - pause:
-            duration: 10
         - setWeight: 100
-        - pause:
-            duration: 10
 
   resources:
-    limits: {}
-    requests: {}
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 5m
+      memory: 64Mi
 
   env:
     TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
@@ -86,7 +82,7 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      port: 7070
+      port: 8080
       protocol: TCP
       public: true
     - name: metrics

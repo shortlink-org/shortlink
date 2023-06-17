@@ -56,8 +56,12 @@ deploy:
             duration: 10
 
   resources:
-    limits: {}
-    requests: {}
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 5m
+      memory: 64Mi
 
   env:
     MQ_ENABLED: false
