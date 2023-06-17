@@ -5,8 +5,8 @@ import (
 	"context"
 	"embed"
 	"fmt"
+	"io/fs"
 	"net/http"
-	"os"
 	"path/filepath"
 
 	"github.com/graph-gophers/graphql-go"
@@ -45,28 +45,18 @@ func (api *API) GetHandler(traceProvider *trace.TracerProvider) *relay.Handler {
 
 	buf := bytes.Buffer{}
 
-	err := filepath.Walk("./internal/services/api-gateway/gateways/graphql/infrastructure/server/schema", func(path string, info os.FileInfo, err error) error {
+	err := fs.WalkDir(schema, ".", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
 
-		if !info.IsDir() { // nolint:nestif
-			file, errReadFile := os.ReadFile(filepath.Clean(path))
+		if !d.IsDir() && filepath.Ext(d.Name()) == ".graphqls" {
+			fileData, errReadFile := fs.ReadFile(schema, path)
 			if errReadFile != nil {
-				return errReadFile
+				return fmt.Errorf("failed to read file: %w", errReadFile)
 			}
 
-			// Add a newline if the file does not end in a newline.
-			if len(file) > 0 && file[len(file)-1] != '\n' {
-				if errWriteByte := buf.WriteByte('\n'); errWriteByte != nil {
-					panic(errWriteByte)
-				}
-			}
-
-			_, errWrite := buf.Write(file)
-			if errWrite != nil {
-				panic(errWrite)
-			}
+			buf.Write(fileData)
 		}
 
 		return nil
