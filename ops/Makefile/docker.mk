@@ -41,7 +41,7 @@ dep: ## Install dependencies for this project
 	@go install golang.org/x/tools/cmd/goimports@latest
 
 	# for NodeJS
-	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen protoc-gen-ts
+	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen protoc-gen-ts @bufbuild/protobuf @bufbuild/protoc-gen-es @bufbuild/buf
 
 	# install wire
 	@go install github.com/google/wire/cmd/wire@latest
@@ -55,7 +55,7 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/database/cockroachdb/cockroachdb.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-loki.yaml \
 		up -d --remove-orphans --build
 
 run: ## Run this project in docker compose

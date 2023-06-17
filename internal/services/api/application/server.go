@@ -22,7 +22,7 @@ import (
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 )
 
-// runAPIServer - start HTTP-server
+// RunAPIServer - start HTTP-server
 func RunAPIServer(
 	ctx context.Context,
 	i18n *message.Printer,
@@ -39,7 +39,8 @@ func RunAPIServer(
 ) (*API, error) {
 	var server API
 
-	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, gRPC-web, graphql, cloudevents
+	viper.SetDefault("API_TYPE", "http-chi") // Select: http-chi, grpc-web, graphql, cloudevents
+	viper.SetDefault("BASE_PATH", "/api")    // Base path for API endpoints
 	// API port
 	viper.SetDefault("API_PORT", 7070) // nolint:gomnd
 	// Request Timeout (seconds)
@@ -55,7 +56,7 @@ func RunAPIServer(
 	switch serverType {
 	case "http-chi":
 		server = &http_chi.API{}
-	case "gRPC-web":
+	case "grpc-web":
 		server = &grpcweb.API{
 			RPC: rpcServer,
 		}

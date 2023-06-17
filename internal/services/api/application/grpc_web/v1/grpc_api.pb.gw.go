@@ -255,7 +255,7 @@ func RegisterLinkServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/grpc_web.v1.LinkService/GetLinks", runtime.WithHTTPPathPattern("/api/links"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/grpc_web.v1.LinkService/GetLinks", runtime.WithHTTPPathPattern("/api/grpc/links"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -280,7 +280,7 @@ func RegisterLinkServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/grpc_web.v1.LinkService/GetLink", runtime.WithHTTPPathPattern("/api/link/{link.hash}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/grpc_web.v1.LinkService/GetLink", runtime.WithHTTPPathPattern("/api/grpc/link/{link.hash}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -305,7 +305,7 @@ func RegisterLinkServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/grpc_web.v1.LinkService/CreateLink", runtime.WithHTTPPathPattern("/api"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/grpc_web.v1.LinkService/CreateLink", runtime.WithHTTPPathPattern("/api/grpc"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -330,7 +330,7 @@ func RegisterLinkServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/grpc_web.v1.LinkService/DeleteLink", runtime.WithHTTPPathPattern("/api/{link.hash}"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/grpc_web.v1.LinkService/DeleteLink", runtime.WithHTTPPathPattern("/api/grpc/{link.hash}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -394,7 +394,7 @@ func RegisterLinkServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/grpc_web.v1.LinkService/GetLinks", runtime.WithHTTPPathPattern("/api/links"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/grpc_web.v1.LinkService/GetLinks", runtime.WithHTTPPathPattern("/api/grpc/links"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -416,7 +416,7 @@ func RegisterLinkServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/grpc_web.v1.LinkService/GetLink", runtime.WithHTTPPathPattern("/api/link/{link.hash}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/grpc_web.v1.LinkService/GetLink", runtime.WithHTTPPathPattern("/api/grpc/link/{link.hash}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -438,7 +438,7 @@ func RegisterLinkServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/grpc_web.v1.LinkService/CreateLink", runtime.WithHTTPPathPattern("/api"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/grpc_web.v1.LinkService/CreateLink", runtime.WithHTTPPathPattern("/api/grpc"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -460,7 +460,7 @@ func RegisterLinkServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/grpc_web.v1.LinkService/DeleteLink", runtime.WithHTTPPathPattern("/api/{link.hash}"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/grpc_web.v1.LinkService/DeleteLink", runtime.WithHTTPPathPattern("/api/grpc/{link.hash}"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -480,13 +480,13 @@ func RegisterLinkServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 }
 
 var (
-	pattern_LinkService_GetLinks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "links"}, ""))
+	pattern_LinkService_GetLinks_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"api", "grpc", "links"}, ""))
 
-	pattern_LinkService_GetLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "link", "link.hash"}, ""))
+	pattern_LinkService_GetLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"api", "grpc", "link", "link.hash"}, ""))
 
-	pattern_LinkService_CreateLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"api"}, ""))
+	pattern_LinkService_CreateLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"api", "grpc"}, ""))
 
-	pattern_LinkService_DeleteLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1}, []string{"api", "link.hash"}, ""))
+	pattern_LinkService_DeleteLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"api", "grpc", "link.hash"}, ""))
 )
 
 var (

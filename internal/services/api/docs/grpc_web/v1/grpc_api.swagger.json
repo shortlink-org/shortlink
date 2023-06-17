@@ -16,7 +16,7 @@
     "application/json"
   ],
   "paths": {
-    "/api": {
+    "/api/grpc": {
       "post": {
         "operationId": "LinkService_CreateLink",
         "responses": {
@@ -48,7 +48,7 @@
         ]
       }
     },
-    "/api/link/{link.hash}": {
+    "/api/grpc/link/{link.hash}": {
       "get": {
         "operationId": "LinkService_GetLink",
         "responses": {
@@ -115,7 +115,7 @@
         ]
       }
     },
-    "/api/links": {
+    "/api/grpc/links": {
       "get": {
         "operationId": "LinkService_GetLinks",
         "responses": {
@@ -189,7 +189,7 @@
         ]
       }
     },
-    "/api/{link.hash}": {
+    "/api/grpc/{link.hash}": {
       "delete": {
         "operationId": "LinkService_DeleteLink",
         "responses": {

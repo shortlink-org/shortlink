@@ -14,26 +14,26 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 service LinkService {
   rpc GetLinks(GetLinksRequest) returns (GetLinksResponse) {
     option(google.api.http) = {
-        get: "/api/links"
+        get: "/api/grpc/links"
       };
     };
 
     rpc GetLink(GetLinkRequest) returns (GetLinkResponse) {
         option(google.api.http) = {
-        get: "/api/link/{link.hash}"
+        get: "/api/grpc/link/{link.hash}"
       };
     };
 
     rpc CreateLink(CreateLinkRequest) returns (CreateLinkResponse) {
         option(google.api.http) = {
-        post: "/api"
+        post: "/api/grpc"
         body: "*"
       };
     };
 
     rpc DeleteLink(DeleteLinkRequest) returns (google.protobuf.Empty) {
         option(google.api.http) = {
-        delete: "/api/{link.hash}"
+        delete: "/api/grpc/{link.hash}"
       };
     };
 }

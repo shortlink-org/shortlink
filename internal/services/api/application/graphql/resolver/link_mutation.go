@@ -58,8 +58,7 @@ func (r *Resolver) UpdateLink(ctx context.Context, args *struct {
 // DeleteLink ...
 func (r *Resolver) DeleteLink(ctx context.Context, args *struct {
 	Hash *string
-},
-) (bool, error) {
+}) (bool, error) {
 	_, err := r.LinkServiceClient.Delete(ctx, &link_rpc.DeleteRequest{Hash: *args.Hash})
 	if err != nil {
 		return false, err

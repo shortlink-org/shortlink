@@ -11,13 +11,15 @@ import (
 
 	"github.com/graph-gophers/graphql-go"
 	"github.com/graph-gophers/graphql-go/relay"
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
+	"github.com/spf13/viper"
 	"github.com/uptrace/opentelemetry-go-extra/otelgraphql"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/services/api/application/graphql/resolver"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -100,11 +102,12 @@ func (api *API) Run(
 	api.ctx = ctx
 	api.linkServiceClient = link_rpc
 
-	log.Info("Run GraphQL API")
-
 	handler := api.GetHandler(tracer)
+	path := fmt.Sprintf("%s/query", viper.GetString("BASE_PATH"))
 
-	http.Handle("/api/query", http.TimeoutHandler(handler, config.Timeout, http_server.TimeoutMessage))
+	log.Info("Run GraphQL API", field.Fields{"base_path": path})
+
+	http.Handle(path, http.TimeoutHandler(handler, config.Timeout, http_server.TimeoutMessage))
 	err := http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil)
 
 	return err

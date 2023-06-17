@@ -1,5 +1,5 @@
 /*
-API
+API Gateway - is a common entry point for all an external requests.
 */
 
 package api_application
@@ -7,10 +7,10 @@ package api_application
 import (
 	"context"
 
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"

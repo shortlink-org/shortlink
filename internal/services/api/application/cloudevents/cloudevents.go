@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
+	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
+
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
@@ -53,7 +55,7 @@ func (api *API) Run(
 
 	// New endpoint (HTTP)
 	cloudevents.WithPort(config.Port)
-	cloudevents.WithPath("/")
+	cloudevents.WithPath(viper.GetString("BASE_PATH"))
 
 	c, err := cloudevents.NewClientHTTP()
 	if err != nil {

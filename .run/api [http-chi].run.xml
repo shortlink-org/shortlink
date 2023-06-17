@@ -1,11 +1,12 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="api" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="services">
+  <configuration default="false" name="api [http-chi]" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="api-gateway">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
     <envs>
+      <env name="GRPC_SERVER_PORT" value="50051" />
+      <env name="GRPC_CLIENT_PORT" value="443" />
+      <env name="API_TYPE" value="http-chi" />
       <env name="GOEXPERIMENT" value="arenas" />
-      <env name="MQ_RABBIT_URI" value="amqp://admin:admin@rabbitmq.rabbitmq:5672" />
-      <env name="STORE_POSTGRES_URI" value="postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode\=disable&amp;pool_timeout\=20&amp;connect_timeout\=20" />
     </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
