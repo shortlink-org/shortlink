@@ -7,6 +7,7 @@ export { createEmotionCache } from './theme/createEmotionCache'
 export { ToggleDarkMode } from './ToggleDarkMode/ToggleDarkMode'
 export { GithubRepository } from './Card/GithubRepository'
 export { Timeline } from './Timeline/Timeline'
+export { Spotlight } from './Spotlight/Spotlight'
 
 // Layout exports
 export { Header } from './Header/Header'
