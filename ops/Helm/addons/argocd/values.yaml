@@ -14,12 +14,21 @@ argo-cd:
       level: warn
 
   controller:
+    resources:
+      limits:
+        cpu: 50m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
     metrics:
       enabled: true
       applicationLabels:
         enabled: true
       serviceMonitor:
         enabled: true
+
     rules:
       enabled: true
       spec:
@@ -187,6 +196,14 @@ argo-cd:
     #    subPath: helm
     #    name: custom-tools
 
+    resources:
+      limits:
+        cpu: 50m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
     initContainers:
       - name: download-tools
         image: alpine:latest
@@ -238,6 +255,20 @@ argo-cd:
         url: https://github.com/shortlink-org/shortlink
         name: shortlink
         type: git
+
+  notifications:
+    resources:
+      limits:
+        cpu: 50m
+        memory: 128Mi
+      requests:
+        cpu: 5m
+        memory: 36Mi
+
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
 
 argo-events:
   enabled: false
@@ -448,6 +479,14 @@ redis:
 
   metrics:
     enabled: true
+
+    resources:
+      limits:
+        cpu: 50m
+        memory: 64Mi
+      requests:
+        cpu: 5m
+        memory: 16Mi
 
     serviceMonitor:
       enabled: true
