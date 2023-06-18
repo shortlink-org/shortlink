@@ -5,7 +5,12 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} \*/
 module.exports = {
   darkMode: 'class',
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: {
+    files: ['./src/**/*.{js,ts,jsx,tsx}'],
+    options: {
+      safelist: ['dark'], // specific classes
+    },
+  },
   theme: {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],

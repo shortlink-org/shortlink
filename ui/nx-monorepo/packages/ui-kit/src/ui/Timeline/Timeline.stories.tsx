@@ -4,11 +4,6 @@ import { Meta, StoryFn } from '@storybook/react'
 
 import Timeline, { TimelineProps } from './Timeline'
 
-interface Event {
-  date: string
-  description: string
-}
-
 const meta: Meta<TimelineProps> = {
   title: 'UI/Timeline',
   component: Timeline,

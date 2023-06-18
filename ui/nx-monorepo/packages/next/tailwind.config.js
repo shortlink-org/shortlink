@@ -1,7 +1,8 @@
 /* eslint-disable */
 
+const { fontFamily } = require("tailwindcss/defaultTheme");
+
 module.exports = {
-  mode: 'jit',
   darkMode: 'class',
   content: {
     files: [
@@ -17,12 +18,17 @@ module.exports = {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],
       body: ['Roboto Mono', 'Menlo', 'monospace'],
+      inter: ['Inter', 'sans-serif'],
+      caveat: ['Caveat', 'cursive'],
     },
     extend: {
       typography: (theme) => ({
         dark: {
           css: {
             color: 'white',
+          },
+          fontFamily: {
+            sans: ['var(--font-inter)', ...fontFamily.sans],
           },
         },
       }),

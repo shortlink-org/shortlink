@@ -11,3 +11,4 @@ export { Spotlight } from './effect/Spotlight/Spotlight'
 
 // Layout exports
 export { Header } from './page/Header/Header'
+export { PriceTable } from './page/PriceTable/PriceTable'

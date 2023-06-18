@@ -17,17 +17,19 @@ import { ColorModeContext, darkTheme, lightTheme } from '../src'
 const preview: Preview = {
   decorators: [
     (Story) => {
-      const [darkMode, setDarkMode] = useState(ColorModeContext)
+      const [darkMode, setDarkMode] = useState(false)
       const theme = darkMode ? darkTheme : lightTheme
 
       return (
-        <ThemeProvider theme={theme}>
-          <TailWindProvider enableSystem attribute="class">
+        <TailWindProvider enableSystem attribute="class">
+          <ThemeProvider theme={theme}>
             <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-              <Provider><Story /></Provider>
+              <Provider>
+                <Story />
+              </Provider>
             </ColorModeContext.Provider>
-          </TailWindProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </TailWindProvider>
       )
     },
   ],

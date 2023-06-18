@@ -7,10 +7,7 @@ type SpotlightProps = {
   className?: string
 }
 
-export function Spotlight({
-  children,
-  className = '',
-}: SpotlightProps) {
+export function Spotlight({ children, className = '' }: SpotlightProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mousePosition = MousePosition()
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
