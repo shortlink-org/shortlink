@@ -10,6 +10,8 @@ module.exports = {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],
       body: ['Roboto Mono', 'Menlo', 'monospace'],
+      inter: ['Inter', 'sans-serif'],
+      caveat: ['Caveat', 'cursive'],
     },
     extend: {
       typography: (theme) => ({
