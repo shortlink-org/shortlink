@@ -5,7 +5,7 @@ import { useTheme, AppBar, Grid, Tabs, Tab, Box } from '@mui/material'
 import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import { NextPage } from 'next'
 import React, { useState } from 'react'
-// @ts-ignore
+import '@shortlink-org/ui-kit/dist/cjs/index.css'
 
 import TabContent from '../components/TabContent'
 import TabPanel from '../components/TabPanel'

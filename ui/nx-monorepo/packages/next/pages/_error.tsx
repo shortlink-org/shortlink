@@ -1,5 +1,6 @@
 // @ts-ignore
 import { NextSeo } from 'next-seo'
+import Balancer from 'react-wrap-balancer'
 
 import { Layout } from 'components'
 
@@ -17,7 +18,7 @@ export default function Error() {
           <div className="w-full md:w-1/2">
             <div className="mb-16 md:mb-16 text-gray-600 font-light">
               <h1 className="font-black uppercase text-3xl lg:text-5xl text-yellow-500 mb-10">
-                You seem to be lost!
+                <Balancer>You seem to be lost!</Balancer>
               </h1>
               <p>The page you're looking for isn't available.</p>
               <p>Try searching again or use the Go Back button below.</p>

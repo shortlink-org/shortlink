@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Preview } from '@storybook/react'
+import { Provider } from 'react-wrap-balancer'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -22,7 +23,7 @@ const preview: Preview = {
         <ThemeProvider theme={theme}>
           <TailWindProvider enableSystem attribute="class">
             <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-              <Story />
+              <Provider><Story /></Provider>
             </ColorModeContext.Provider>
           </TailWindProvider>
         </ThemeProvider>

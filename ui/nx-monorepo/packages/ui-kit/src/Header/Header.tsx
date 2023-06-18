@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Balancer from 'react-wrap-balancer'
 
 type AppProps = {
   title: string
@@ -9,7 +10,7 @@ export function Header({ title }: AppProps) {
     <div className="my-6 lg:my-10 container px-6 mx-auto flex flex-col md:flex-row items-center justify-between pb-4 border-b border-gray-300 dark:border-gray-700 transition-colors duration-500">
       <div>
         <h4 className="text-2xl md:text-3xl font-bold leading-tight text-gray-800 dark:text-gray-100 transition-colors duration-500">
-          {title}
+          <Balancer>{title}</Balancer>
         </h4>
       </div>
       <div className="mt-6 md:mt-0">

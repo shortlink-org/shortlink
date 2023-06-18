@@ -10,6 +10,7 @@
     "start": "npx ts-node --project tsconfig.server.json server/server.ts",
     "start:dev": "cp .env.dev .env.local && npm start",
     "start:k8s": "cp .env.k8s .env.local && npm start",
+    "start:prod": "cp .env.prod .env.local && npm start",
     "export": "NODE_ENV=production npx next export",
     "type-check": "tsc",
     "next-lint": "npx next lint",

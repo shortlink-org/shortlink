@@ -20,9 +20,11 @@ import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { StrictMode, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { Provider } from 'react-redux'
+import { Provider as BalancerProvider } from 'react-wrap-balancer'
 
 import ScrollTop from 'components/ScrollTop'
 import { wrapper } from 'store/store'
+import '@shortlink-org/ui-kit/dist/cjs/index.css'
 
 import '../public/assets/styles.css'
 
@@ -101,7 +103,7 @@ function MyApp({ Component, ...rest }) {
                   <CssBaseline />
                   {getInitColorSchemeScript()}
 
-                  <Component {...pageProps} />
+                  <BalancerProvider><Component {...pageProps} /></BalancerProvider>
 
                   <ScrollTop {...props}>
                     <Fab
