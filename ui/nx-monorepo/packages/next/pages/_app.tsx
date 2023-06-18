@@ -103,7 +103,9 @@ function MyApp({ Component, ...rest }) {
                   <CssBaseline />
                   {getInitColorSchemeScript()}
 
-                  <BalancerProvider><Component {...pageProps} /></BalancerProvider>
+                  <BalancerProvider>
+                    <Component {...pageProps} />
+                  </BalancerProvider>
 
                   <ScrollTop {...props}>
                     <Fab

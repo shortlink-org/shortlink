@@ -69,7 +69,10 @@ export default function Feature() {
                 in few easy steps
               </p>
               <h1 className="focus:outline-none text-4xl lg:text-4xl pt-4 font-extrabold text-center leading-tight text-gray-800 dark:text-white lg:w-7/12 md:w-9/12 xl:w-5/12">
-                <Balancer>Create Beautiful Short Links &amp; Use a Powerful Link Management</Balancer>
+                <Balancer>
+                  Create Beautiful Short Links &amp; Use a Powerful Link
+                  Management
+                </Balancer>
               </h1>
             </div>
           </div>
