@@ -119,10 +119,6 @@ You can read official docs [here](https://platform.openai.com/docs/plugins/getti
 
 + `Hello World` on flutter ;-)
 
-### Network
-
-- [Cloudfare](https://www.cloudflare.com/) - DNS, CDN, DDoS protection.
-
 ### License
 
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink.svg?type=large)](https://app.fossa.com/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink?ref=badge_large)
