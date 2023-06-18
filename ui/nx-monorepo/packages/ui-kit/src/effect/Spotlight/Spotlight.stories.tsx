@@ -3,7 +3,7 @@ import { Meta, StoryFn } from '@storybook/react'
 import Spotlight, { SpotlightCard } from './Spotlight'
 
 export default {
-  title: 'Components/Spotlight',
+  title: 'Effect/Spotlight',
   component: Spotlight,
 } as Meta
 

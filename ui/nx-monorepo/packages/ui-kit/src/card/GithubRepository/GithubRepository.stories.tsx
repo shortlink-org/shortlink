@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react'
 import GithubRepository from './GithubRepository'
 
 const meta: Meta<any> = {
-  title: 'UI/GithubRepository',
+  title: 'Card/GithubRepository',
   component: GithubRepository,
 }
 
