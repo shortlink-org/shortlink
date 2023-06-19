@@ -15,7 +15,7 @@
     "type-check": "tsc",
     "next-lint": "npx next lint",
     "prettier": "npx prettier -w -c .",
-    "lint": "npx eslint ./ --max-warnings 0 --report-unused-disable-directives",
+    "lint": "npx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
     "lint:fix": "npm run lint -- --fix",
     "swagger": "npx swagger-typescript-api -p ../../api/swagger.json -o ./store/api -d -r --modular --axios",
     "sitemap": "npx next-sitemap --config config/sitemap.config.js",
