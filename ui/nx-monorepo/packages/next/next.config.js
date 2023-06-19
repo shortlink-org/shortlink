@@ -13,7 +13,7 @@ const API_URI = process.env.API_URI || 'http://localhost:7070'
 console.info('API_URI', API_URI)
 
 // You can choose which headers to add to the list
-// after learning more below.
+// after the learning more below.
 const securityHeaders = [
   {
     key: 'X-DNS-Prefetch-Control',
@@ -86,7 +86,8 @@ let NEXT_CONFIG = {
         hostname: 'images.unsplash.com',
       },
     ],
-    dangerouslyAllowSVG: true,
+    dangerouslyAllowSVG: false,
+    contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   trailingSlash: false,
