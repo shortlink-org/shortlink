@@ -73,3 +73,9 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff-web
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./internal/services/bff-web/cmd"
+      - APPLICATION: support
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/support
+        DOCKERFILE_PATH: ops/dockerfile/support/support.Dockerfile
+      - APPLICATION: support-proxy
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/support-proxy
+        DOCKERFILE_PATH: ops/dockerfile/support/support-proxy.Dockerfile
