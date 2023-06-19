@@ -7,6 +7,8 @@ applications:
     - .matrix_deploy_provider
     - .matrix_deploy_application
   stage: deploy
+  variables:
+    PROVIDER: $PROVIDER
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
