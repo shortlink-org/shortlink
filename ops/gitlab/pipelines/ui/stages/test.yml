@@ -1,3 +1,14 @@
+# Common ===============================================================================================================
+lint:
+  extends: .nx
+  stage: test
+  script:
+    - npx nx run-many --target=lint:gitlab --all --parallel
+  allow_failure: true
+  artifacts:
+    reports:
+      codequality: ./ui/nx-monorepo/gl-codequality.json
+
 # LANDINGS =============================================================================================================
 
 ui:landing:

@@ -1,8 +1,8 @@
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
-import { ArticleJsonLd, NextSeo } from 'next-seo'
 // @ts-ignore
 import { PriceTable } from '@shortlink-org/ui-kit'
+import { ArticleJsonLd, NextSeo } from 'next-seo'
 
 import { Layout } from 'components'
 import Discounted from 'components/Billing/Discounted'
