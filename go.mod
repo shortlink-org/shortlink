@@ -173,6 +173,7 @@ require (
 	github.com/mattn/go-tty v0.0.4 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/moby/sys/mountinfo v0.6.2 // indirect
 	github.com/moby/term v0.5.0 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/nats-io/nats-server/v2 v2.9.6 // indirect
@@ -244,6 +245,11 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	k8s.io/apimachinery v0.0.0 // indirect
+	k8s.io/klog/v2 v2.90.1 // indirect
+	k8s.io/kubernetes v1.27.3 // indirect
+	k8s.io/mount-utils v0.0.0 // indirect
+	k8s.io/utils v0.0.0-20230209194617-a36077c30491 // indirect
 )
 
 replace (

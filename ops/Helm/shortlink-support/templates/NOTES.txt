@@ -4,4 +4,4 @@ APP VERSION: {{ .Chart.AppVersion }}
 
 ** Please be patient while the chart is being deployed **
 
-{{- include "common.warnings.rollingTag" .Values.deploy.image }}
+{{/*{{- include "common.warnings.rollingTag" .Values.deploy.image }}*/}}

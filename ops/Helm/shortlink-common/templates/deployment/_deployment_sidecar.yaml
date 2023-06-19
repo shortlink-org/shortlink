@@ -1,0 +1,45 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.deployment_sidecar" }}
+- name: {{ (.Values.deploy).name | default "application" }}
+  # -- Security Context policies for controller pods
+  # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+  # notes on enabling and using sysctls
+  securityContext:
+    allowPrivilegeEscalation: {{ ((.Values.deploy).securityContext).allowPrivilegeEscalation | default false }}
+    runAsNonRoot: true
+    # runAsUser is the user ID used to run the container
+    runAsUser: 1000
+    # runAsGroup is the primary group ID used to run all processes within any container of the pod
+    runAsGroup: 1000
+    # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
+    readOnlyRootFilesystem: {{ ((.Values.deploy).securityContext).readOnlyRootFilesystem | default true }}
+    capabilities:
+      drop:
+        - ALL
+  image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag | default .Chart.AppVersion }}"
+  # -- Global imagePullPolicy
+  # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+  # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+  imagePullPolicy: {{ .Values.deploy.image.pullPolicy | default "IfNotPresent" }}
+  ports:
+    {{- range .Values.service.ports }}
+    - name: {{ .name }}
+      containerPort: {{ .port }}
+      protocol: {{ .protocol }}
+    {{- end }}
+  {{- include "shortlink-common.probe" .Values.deploy }}
+  {{- include "shortlink-common.env" .Values.deploy }}
+  resources:
+    # -- We usually recommend not specifying default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    limits:
+      cpu: {{ ((.Values.deploy.resources).limits).cpu | default "100m" }}
+      memory: {{ ((.Values.deploy.resources).limits).memory | default "128Mi" }}
+    requests:
+      cpu: {{ ((.Values.deploy.resources).requests).cpu | default "10m" }}
+      memory: {{ ((.Values.deploy.resources).requests).memory | default "32Mi" }}
+  {{ include "shortlink-common.volumeMounts" . }}
+{{- end }}
