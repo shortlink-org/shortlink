@@ -31,6 +31,9 @@ const nextConfig = {
         hostname: 'images.unsplash.com',
       },
     ],
+    dangerouslyAllowSVG: false,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   trailingSlash: false,
   experimental: {
