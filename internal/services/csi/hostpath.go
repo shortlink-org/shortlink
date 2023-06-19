@@ -26,11 +26,11 @@ import (
 
 	"github.com/container-storage-interface/spec/lib/go/csi"
 	"github.com/golang/glog"
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"k8s.io/kubernetes/pkg/volume/util/volumepathhandler"
 	utilexec "k8s.io/utils/exec"
 
@@ -57,13 +57,13 @@ type hostPathVolume struct {
 }
 
 type hostPathSnapshot struct {
-	Name         string              `json:"name"`
-	Id           string              `json:"id"`
-	VolID        string              `json:"volID"`
-	Path         string              `json:"path"`
-	CreationTime timestamp.Timestamp `json:"creationTime"`
-	SizeBytes    int64               `json:"sizeBytes"`
-	ReadyToUse   bool                `json:"readyToUse"`
+	Name         string                `json:"name"`
+	Id           string                `json:"id"`
+	VolID        string                `json:"volID"`
+	Path         string                `json:"path"`
+	CreationTime timestamppb.Timestamp `json:"creationTime"`
+	SizeBytes    int64                 `json:"sizeBytes"`
+	ReadyToUse   bool                  `json:"readyToUse"`
 }
 
 var (

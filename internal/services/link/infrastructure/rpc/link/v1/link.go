@@ -6,10 +6,9 @@ import (
 	"fmt"
 
 	"github.com/segmentio/encoding/json"
-
-	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/emptypb" //nolint:importas // false positive
 
 	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
@@ -72,11 +71,11 @@ func (l *Link) Update(ctx context.Context, in *UpdateRequest) (*UpdateResponse, 
 	}, nil
 }
 
-func (l *Link) Delete(ctx context.Context, in *DeleteRequest) (*empty.Empty, error) {
+func (l *Link) Delete(ctx context.Context, in *DeleteRequest) (*emptypb.Empty, error) {
 	_, err := l.service.Delete(ctx, in.Hash)
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
 
-	return &empty.Empty{}, nil
+	return &emptypb.Empty{}, nil
 }

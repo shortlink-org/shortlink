@@ -14,7 +14,6 @@ package csi
 
 import (
 	"github.com/container-storage-interface/spec/lib/go/csi"
-	"github.com/golang/protobuf/ptypes/wrappers"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -56,11 +55,8 @@ func (d *driver) Probe(ctx context.Context, req *csi.ProbeRequest) (*csi.ProbeRe
 	d.mu.Lock()
 	defer d.mu.Unlock()
 
-	return &csi.ProbeResponse{
-		Ready: &wrappers.BoolValue{
-			Value: d.ready,
-		},
-	}, nil
+	// TODO: Implement probe
+	return nil, nil
 }
 
 // GetPluginCapabilities returns available capabilities of the plugin

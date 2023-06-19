@@ -6,8 +6,8 @@ import (
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"google.golang.org/protobuf/types/known/timestamppb" //nolint:importas // false positive
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
@@ -98,8 +98,8 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 		if err != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
-		result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
-		result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
+		result.CreatedAt = &timestamppb.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
+		result.UpdatedAt = &timestamppb.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
 
 		response.Links = append(response.Links, &result)
 	}

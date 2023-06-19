@@ -10,12 +10,12 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/types/known/timestamppb" //nolint:importas // false positive
 
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
@@ -157,8 +157,8 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 		if err != nil {
 			return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: query.ErrNotFound}
 		}
-		result.CreatedAt = &timestamp.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
-		result.UpdatedAt = &timestamp.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
+		result.CreatedAt = &timestamppb.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
+		result.UpdatedAt = &timestamppb.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
 
 		response.Link = append(response.Link, &result)
 	}

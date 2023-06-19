@@ -10,7 +10,6 @@ require (
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v0.8.1-0.20230612165940-221b911afa2d
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/container-storage-interface/spec v1.8.0
 	github.com/cucumber/godog v0.12.6
 	github.com/dgraph-io/badger/v4 v4.1.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
@@ -24,7 +23,6 @@ require (
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.16.2
 	github.com/golang/glog v1.1.1
-	github.com/golang/protobuf v1.5.3
 	github.com/google/cel-go v0.16.0
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
@@ -33,7 +31,6 @@ require (
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
 	github.com/jackc/pgx/v5 v5.4.1
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
-	github.com/kubernetes-csi/csi-test/v5 v5.0.0
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/nats-io/nats.go v1.27.0
@@ -79,15 +76,11 @@ require (
 	go.uber.org/automaxprocs v1.5.2
 	go.uber.org/goleak v1.2.1
 	go.uber.org/zap v1.24.0
-	golang.org/x/net v0.11.0
 	golang.org/x/sync v0.3.0
 	golang.org/x/text v0.10.0
 	google.golang.org/grpc v1.56.0
 	google.golang.org/protobuf v1.30.0
 	gopkg.in/yaml.v3 v3.0.1
-	k8s.io/kubernetes v1.27.3
-	k8s.io/mount-utils v0.27.3
-	k8s.io/utils v0.0.0-20230505201702-9f6742963106
 )
 
 require (
@@ -138,12 +131,11 @@ require (
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/go-stack/stack v1.8.1 // indirect
-	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
 	github.com/gofrs/uuid v4.4.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
+	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect
 	github.com/google/flatbuffers v2.0.8+incompatible // indirect
-	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/pprof v0.0.0-20230510103437-eeec1cb781c3 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gookit/color v1.5.3 // indirect
@@ -181,7 +173,6 @@ require (
 	github.com/mattn/go-tty v0.0.4 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
-	github.com/moby/sys/mountinfo v0.6.2 // indirect
 	github.com/moby/term v0.5.0 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/nats-io/nats-server/v2 v2.9.6 // indirect
@@ -241,6 +232,7 @@ require (
 	golang.org/x/crypto v0.10.0 // indirect
 	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1 // indirect
 	golang.org/x/mod v0.10.0 // indirect
+	golang.org/x/net v0.11.0 // indirect
 	golang.org/x/sys v0.9.0 // indirect
 	golang.org/x/term v0.9.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
@@ -252,8 +244,6 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	k8s.io/apimachinery v0.27.3 // indirect
-	k8s.io/klog/v2 v2.90.1 // indirect
 )
 
 replace (

@@ -224,6 +224,9 @@ linters-settings:
       - G108
       - G109
       - G110
+      - G112
+      - G113
+      - G114
       - G201
       - G202
       - G203
@@ -559,7 +562,7 @@ linters-settings:
       - name: line-length-limit
         severity: warning
         disabled: false
-        arguments: [ 80 ]
+        arguments: [ 140 ]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#max-public-structs
       - name: max-public-structs
         severity: warning

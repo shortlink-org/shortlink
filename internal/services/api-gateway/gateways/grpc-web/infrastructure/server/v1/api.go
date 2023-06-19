@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/golang/protobuf/ptypes/empty"
+	"google.golang.org/protobuf/types/known/emptypb"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
@@ -115,7 +115,7 @@ func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*Create
 }
 
 // DeleteLink ...
-func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*empty.Empty, error) {
+func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*emptypb.Empty, error) {
 	responseCh := make(chan interface{})
 
 	go notify.Publish(ctx, v1.METHOD_DELETE, req.Link.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
@@ -130,16 +130,16 @@ func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*empty.
 	switch r := c.(type) {
 	case nil:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
-		return &empty.Empty{}, err
+		return &emptypb.Empty{}, err
 	case notify.Response[any]:
 		err := r.Error
 		if err != nil {
 			return nil, err
 		}
 
-		return &empty.Empty{}, nil
+		return &emptypb.Empty{}, nil
 	default:
 		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
-		return &empty.Empty{}, err
+		return &emptypb.Empty{}, err
 	}
 }
