@@ -51,14 +51,15 @@ const Home: NextPage = () => {
             >
               <Tab label="Application" {...a11yProps(0)} />
               <Tab label="Infrastructure" {...a11yProps(1)} />
-              <Tab label="Observability" {...a11yProps(2)} />
-              <Tab label="Docs" {...a11yProps(3)} />
+              <Tab label="Security" {...a11yProps(2)} />
+              <Tab label="Observability" {...a11yProps(3)} />
+              <Tab label="Docs" {...a11yProps(4)} />
             </Tabs>
           </AppBar>
 
           <TabPanel value={value} index={0}>
             <TabContent
-              title="Shortlink service (Microservice example)"
+              title="Shortlink UI"
               key="shortlink-ui"
               cards={[
                 { name: 'Next', url: '/next' },
@@ -109,6 +110,17 @@ const Home: NextPage = () => {
 
           <TabPanel value={value} index={2} dir={theme.direction}>
             <TabContent
+              title="Security"
+              key="observability"
+              cards={[
+                { name: 'Armosec', url: 'https://cloud.armosec.io/compliance/shortlink' },
+                { name: 'KubeShark', url: 'https://kubeshark.shortlink.best' },
+              ]}
+            />
+          </TabPanel>
+
+          <TabPanel value={value} index={3} dir={theme.direction}>
+            <TabContent
               title="Observability services"
               key="observability"
               cards={[
@@ -123,7 +135,7 @@ const Home: NextPage = () => {
             />
           </TabPanel>
 
-          <TabPanel value={value} index={3} dir={theme.direction}>
+          <TabPanel value={value} index={4} dir={theme.direction}>
             <TabContent
               title="Documentation and etc..."
               key="docs"

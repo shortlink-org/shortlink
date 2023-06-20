@@ -12,11 +12,11 @@ kubeshark:
     ingress:
       enabled: true
 
-      host: kubeshark.shortlink.org
+      host: kubeshark.shortlink.best
 
       tls:
         - hosts:
-            - kubeshark.shortlink.org
+            - kubeshark.shortlink.kubeshark
           secretName: kubeshark-tls
 
       auth:
