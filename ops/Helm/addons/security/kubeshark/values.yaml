@@ -1,0 +1,27 @@
+# Common default values for kubescape.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+kubeshark:
+  enabled: true
+
+  tap:
+    proxy:
+      host: 0.0.0.0
+
+    ingress:
+      enabled: true
+
+      host: kubeshark.shortlink.org
+
+      tls:
+        - hosts:
+            - kubeshark.shortlink.org
+          secretName: kubeshark-tls
+
+      auth:
+        approvedDomains:
+          - gmail.com
+
+      certManager: cert-manager-production
+
