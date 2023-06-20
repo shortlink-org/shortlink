@@ -23,5 +23,5 @@ This table shows the status of the services deploy to the cluster by ArgoCD.
 
 | Service   | Status                                                                                                                                                  |
 |-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| next      | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-next&revision=true)](https://shortlink.best/argo/cd/applications/shortlink-next) |
-| ui-kit    | [![App Status](https://shortlink.best/argo/cd/api/badge?name=shortlink-next&revision=true)](https://shortlink.best/argo/cd/applications/ui-kit)         |
+| next      | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-next&revision=true)](https://argo.shortlink.best/applications/shortlink-next) |
+| ui-kit    | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-next&revision=true)](https://argo.shortlink.best/applications/ui-kit)         |

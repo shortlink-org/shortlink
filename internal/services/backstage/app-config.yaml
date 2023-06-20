@@ -75,7 +75,7 @@ integrations:
 
 proxy:
   '/argocd/api':
-    target: https://shortlink.best/argo/cd/api/v1/
+    target: https://argo.shortlink.best/api/v1/
     changeOrigin: true
     # only if your argocd api has self-signed cert
     secure: false
