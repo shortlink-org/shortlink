@@ -162,7 +162,7 @@
     "@aws-sdk/util-utf8-browser" "^3.0.0"
     tslib "^1.11.1"
 
-"@aws-sdk/abort-controller@3.347.0", "@aws-sdk/abort-controller@^3.310.0", "@aws-sdk/abort-controller@^3.347.0":
+"@aws-sdk/abort-controller@3.347.0", "@aws-sdk/abort-controller@^3.347.0":
   version "3.347.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/abort-controller/-/abort-controller-3.347.0.tgz#8f1dc9f7e2030b3eabe2f05722d3d99e783e295f"
   integrity sha512-P/2qE6ntYEmYG4Ez535nJWZbXqgbkJx8CMz7ChEuEg3Gp3dvVYEKg+iEUEvlqQ2U5dWP5J3ehw5po9t86IsVPQ==
@@ -219,7 +219,7 @@
     "@smithy/types" "^1.0.0"
     tslib "^2.5.0"
 
-"@aws-sdk/client-s3@^3.310.0", "@aws-sdk/client-s3@^3.350.0":
+"@aws-sdk/client-s3@^3.350.0":
   version "3.354.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.354.0.tgz#21b5cc518aebda7c73fe810746772c68e91e7735"
   integrity sha512-AEvHJipD/YhHRbS3l6uyLc6yNHF7vtmInwlQC+v4r61DeqnkHetboam2lMx5WsEJLBkKwfdsFkIEGVjI6OrjpQ==
@@ -503,7 +503,7 @@
     "@aws-sdk/types" "3.347.0"
     tslib "^2.5.0"
 
-"@aws-sdk/credential-providers@^3.310.0", "@aws-sdk/credential-providers@^3.350.0":
+"@aws-sdk/credential-providers@^3.350.0":
   version "3.354.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/credential-providers/-/credential-providers-3.354.0.tgz#873d2122545428c7d0c59267aabb0a8a019cd64b"
   integrity sha512-GjkSKGWL+lbEVAYGRvE2kdKn8lnhLEBB98yKMz6k9VhqVBrMPZVGTFTlNNtPRZ7IfnnmgLnk6IHtue9xgaycfg==
@@ -918,7 +918,7 @@
     "@aws-sdk/types" "3.347.0"
     tslib "^2.5.0"
 
-"@aws-sdk/types@3.347.0", "@aws-sdk/types@^3.222.0", "@aws-sdk/types@^3.310.0", "@aws-sdk/types@^3.347.0":
+"@aws-sdk/types@3.347.0", "@aws-sdk/types@^3.222.0", "@aws-sdk/types@^3.347.0":
   version "3.347.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.347.0.tgz#4affe91de36ef227f6375d64a6efda8d4ececd5d"
   integrity sha512-GkCMy79mdjU9OTIe5KT58fI/6uqdf8UmMdWqVHmFJ+UpEzOci7L/uw4sOXWo7xpPzLs6cJ7s5ouGZW4GRPmHFA==
@@ -2346,7 +2346,7 @@
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
 
-"@backstage/backend-app-api@^0.4.3", "@backstage/backend-app-api@^0.4.4":
+"@backstage/backend-app-api@^0.4.4":
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/@backstage/backend-app-api/-/backend-app-api-0.4.4.tgz#287f7da3b31fb2e6abdf080a7b808762deaffe1b"
   integrity sha512-rNopjcRruieCxVgZYUTkYZ2DPOKIBClJ3SfliVwH+fsXMBd2IsrRJugdv1zQzYEyj/YtzigtLLrj/iq3omZqZA==
@@ -2380,70 +2380,6 @@
     stoppable "^1.1.0"
     winston "^3.2.1"
     winston-transport "^4.5.0"
-
-"@backstage/backend-common@^0.18.5":
-  version "0.18.5"
-  resolved "https://registry.yarnpkg.com/@backstage/backend-common/-/backend-common-0.18.5.tgz#d9c84396414c1df13df3892a9cb9e5b193ab5381"
-  integrity sha512-zVSNH5loujEr8AMnah7mZkBK9xS7CXmssiS6lGht627+rwwwHgegHuutkjqe/0MDJRd/of+ScDIbrbI7vxiszA==
-  dependencies:
-    "@aws-sdk/abort-controller" "^3.310.0"
-    "@aws-sdk/client-s3" "^3.310.0"
-    "@aws-sdk/credential-providers" "^3.310.0"
-    "@aws-sdk/types" "^3.310.0"
-    "@backstage/backend-app-api" "^0.4.3"
-    "@backstage/backend-dev-utils" "^0.1.1"
-    "@backstage/backend-plugin-api" "^0.5.2"
-    "@backstage/cli-common" "^0.1.12"
-    "@backstage/config" "^1.0.7"
-    "@backstage/config-loader" "^1.3.0"
-    "@backstage/errors" "^1.1.5"
-    "@backstage/integration" "^1.4.5"
-    "@backstage/integration-aws-node" "^0.1.3"
-    "@backstage/types" "^1.0.2"
-    "@google-cloud/storage" "^6.0.0"
-    "@keyv/memcache" "^1.3.5"
-    "@keyv/redis" "^2.5.3"
-    "@kubernetes/client-node" "0.18.1"
-    "@manypkg/get-packages" "^1.1.3"
-    "@octokit/rest" "^19.0.3"
-    "@types/cors" "^2.8.6"
-    "@types/dockerode" "^3.3.0"
-    "@types/express" "^4.17.6"
-    "@types/luxon" "^3.0.0"
-    "@types/webpack-env" "^1.15.2"
-    archiver "^5.0.2"
-    base64-stream "^1.0.0"
-    compression "^1.7.4"
-    concat-stream "^2.0.0"
-    cors "^2.8.5"
-    dockerode "^3.3.1"
-    express "^4.17.1"
-    express-promise-router "^4.1.0"
-    fs-extra "10.1.0"
-    git-url-parse "^13.0.0"
-    helmet "^6.0.0"
-    isomorphic-git "^1.23.0"
-    jose "^4.6.0"
-    keyv "^4.5.2"
-    knex "^2.0.0"
-    lodash "^4.17.21"
-    logform "^2.3.2"
-    luxon "^3.0.0"
-    minimatch "^5.0.0"
-    minimist "^1.2.5"
-    morgan "^1.10.0"
-    node-fetch "^2.6.7"
-    node-forge "^1.3.1"
-    pg "^8.3.0"
-    raw-body "^2.4.1"
-    selfsigned "^2.0.0"
-    stoppable "^1.1.0"
-    tar "^6.1.12"
-    uuid "^8.3.2"
-    winston "^3.2.1"
-    winston-transport "^4.5.0"
-    yauzl "^2.10.0"
-    yn "^4.0.0"
 
 "@backstage/backend-common@^0.19.0":
   version "0.19.0"
@@ -2514,7 +2450,7 @@
   resolved "https://registry.yarnpkg.com/@backstage/backend-dev-utils/-/backend-dev-utils-0.1.1.tgz#5a10998436df08adb86066f1d685421de5d05f1c"
   integrity sha512-5emcwuBp7WtJlUkuS5Ex7bJVaZUJkU330J24QMqwYmd+/ujf2S7m6aLUyE+lr5yH5xQ7kZY27u9QZv6hWmLytw==
 
-"@backstage/backend-plugin-api@^0.5.2", "@backstage/backend-plugin-api@^0.5.3":
+"@backstage/backend-plugin-api@^0.5.3":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@backstage/backend-plugin-api/-/backend-plugin-api-0.5.3.tgz#210f7b1f7d41bc9ab6b5675eb65e1c09fc772d9f"
   integrity sha512-RVaLgdtSeEFY5Dr+9hgiJFQEeYIcVRRtFDEJIIMioUezL8sOsf/VFcXgXq3RhvQciPSiNhv3OJoV80tmK8ZSsw==
@@ -2700,7 +2636,7 @@
     yn "^4.0.0"
     zod "^3.21.4"
 
-"@backstage/config-loader@^1.3.0", "@backstage/config-loader@^1.3.1":
+"@backstage/config-loader@^1.3.1":
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-1.3.1.tgz#a8242b7b6e57eafd2402e88c326ee2b055d9d913"
   integrity sha512-srUczMgAFr++5CC0hkbS1kjYRFOgcGqQIwL490x9WYnlUnyNN+6M3J31Y7yXpPOiQr9E85V98v2vXHWqLSAhfg==
@@ -2808,7 +2744,7 @@
     prop-types "^15.7.2"
     zen-observable "^0.10.0"
 
-"@backstage/errors@^1.1.5", "@backstage/errors@^1.2.0":
+"@backstage/errors@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@backstage/errors/-/errors-1.2.0.tgz#5e6ad4c3d567a04eaee1bf8f2ce1ff48352f509a"
   integrity sha512-APZ7jtnfY9uAFMwAJhhTgFANdOhQU6hzBLPeajTiblrpgyiiBc8E6lQ//3eO20lxR/c5xSj8hD54KcVUROpXgA==
@@ -2825,7 +2761,7 @@
     "@manypkg/get-packages" "^1.1.3"
     minimatch "^5.1.2"
 
-"@backstage/integration-aws-node@^0.1.3", "@backstage/integration-aws-node@^0.1.4":
+"@backstage/integration-aws-node@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@backstage/integration-aws-node/-/integration-aws-node-0.1.4.tgz#64d2b1ce1c9c8768c24180a4f23ac2eb74785c17"
   integrity sha512-SOBoOlv0q12ccZFNd0nKPokYY9rmsYkL0HfxWXkweNjdi6nQfEgjAgTu/wbDyS0x9jU4VAO12mCR91IUNUqYvQ==
@@ -3952,7 +3888,7 @@
     "@emotion/styled" "^11.10.5"
     "@mui/material" "^5.12.2"
 
-"@backstage/types@^1.0.2", "@backstage/types@^1.1.0":
+"@backstage/types@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@backstage/types/-/types-1.1.0.tgz#cf33e0c20584e329308acca2e5fa0435f04d4ea5"
   integrity sha512-lpzZD52WHCg+i7anibmIwC3045KVOAUJ8Reoeh74+14SAQ8DTT9aUAxmH8mOFnWzDSr7XnbY5ms8Y8qWRzn2VA==
