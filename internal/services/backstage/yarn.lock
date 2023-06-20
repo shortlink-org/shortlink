@@ -1231,6 +1231,28 @@
     tslib "^2.2.0"
     uuid "^8.3.0"
 
+"@azure/identity@^3.2.1":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@azure/identity/-/identity-3.2.3.tgz#dc6a4bc4c798c06dd8a3af2869f83ddadf332e26"
+  integrity sha512-knIbl7p2i8r3qPsLW2W84esmDPr36RqieLC72OeuqYk4+0TRNthUhWTs655P9S9Pm3TVVxcFsS3Le9SXIWBIFA==
+  dependencies:
+    "@azure/abort-controller" "^1.0.0"
+    "@azure/core-auth" "^1.3.0"
+    "@azure/core-client" "^1.4.0"
+    "@azure/core-rest-pipeline" "^1.1.0"
+    "@azure/core-tracing" "^1.0.0"
+    "@azure/core-util" "^1.0.0"
+    "@azure/logger" "^1.0.0"
+    "@azure/msal-browser" "^2.37.1"
+    "@azure/msal-common" "^13.1.0"
+    "@azure/msal-node" "^1.17.3"
+    events "^3.0.0"
+    jws "^4.0.0"
+    open "^8.0.0"
+    stoppable "^1.1.0"
+    tslib "^2.2.0"
+    uuid "^8.3.0"
+
 "@azure/logger@^1.0.0":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@azure/logger/-/logger-1.0.4.tgz#28bc6d0e5b3c38ef29296b32d35da4e483593fa1"
@@ -1238,14 +1260,14 @@
   dependencies:
     tslib "^2.2.0"
 
-"@azure/msal-browser@^2.26.0":
+"@azure/msal-browser@^2.26.0", "@azure/msal-browser@^2.37.1":
   version "2.37.1"
   resolved "https://registry.yarnpkg.com/@azure/msal-browser/-/msal-browser-2.37.1.tgz#7e3fa7df9c6e74eb1fb640e73ef3b5b4407ee98d"
   integrity sha512-EoKQISEpIY39Ru1OpWkeFZBcwp6Y0bG81bVmdyy4QJebPPDdVzfm62PSU0XFIRc3bqjZ4PBKBLMYLuo9NZYAow==
   dependencies:
     "@azure/msal-common" "13.1.0"
 
-"@azure/msal-common@13.1.0":
+"@azure/msal-common@13.1.0", "@azure/msal-common@^13.1.0":
   version "13.1.0"
   resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-13.1.0.tgz#73a787ec1e7880c30b187cf451404af547d95339"
   integrity sha512-wj+ULrRB0HTuMmtrMjg8j3guCx32GE2BCPbsMCZkHgL1BZetC3o/Su5UJEQMX1HNc9CrIaQNx5WaKWHygYDe0g==
@@ -1255,7 +1277,7 @@
   resolved "https://registry.yarnpkg.com/@azure/msal-common/-/msal-common-7.6.0.tgz#b52e97ef540275f72611cff57937dfa0b34cdcca"
   integrity sha512-XqfbglUTVLdkHQ8F9UQJtKseRr3sSnr9ysboxtoswvaMVaEfvyLtMoHv9XdKUfOc0qKGzNgRFd9yRjIWVepl6Q==
 
-"@azure/msal-node@^1.10.0":
+"@azure/msal-node@^1.10.0", "@azure/msal-node@^1.17.3":
   version "1.17.3"
   resolved "https://registry.yarnpkg.com/@azure/msal-node/-/msal-node-1.17.3.tgz#1a0bbecb0b3e5e63d50ccb27c9cb3bae5a6c1b65"
   integrity sha512-slsa+388bQQWnWH1V91KL+zV57rIp/0OQFfF0EmVMY8gnEIkAnpWWFUVBTTMbxEyjEFMk5ZW9xiHvHBcYFHzDw==
@@ -2500,40 +2522,57 @@
     lodash "^4.17.21"
     uuid "^8.0.0"
 
+"@backstage/catalog-model@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@backstage/catalog-model/-/catalog-model-1.4.0.tgz#5098a528ade258248443a6cd7dafe3c8f2693615"
+  integrity sha512-znl2Rw7GWLNNDdFSFYlJ5T0sacCYcspeNnP2zXm0+mDg2Xk4yumRvGUBP6BevhFAPcVYsWc0qW8Q/TPX6qoIag==
+  dependencies:
+    "@backstage/config" "^1.0.8"
+    "@backstage/errors" "^1.2.0"
+    "@backstage/types" "^1.1.0"
+    ajv "^8.10.0"
+    json-schema "^0.4.0"
+    lodash "^4.17.21"
+    uuid "^8.0.0"
+
 "@backstage/cli-common@^0.1.12":
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/@backstage/cli-common/-/cli-common-0.1.12.tgz#8e1ea10da38554b9bc910e0da532b73af4669a2f"
   integrity sha512-CoXAcIQprLAuk4gsJyqrZHRyZ5Mpfpr87lBzhSBWgriMTVgKH5bfMqZmGzm5TTZRlOIX09RLINp9e3kLkfO3Fg==
 
-"@backstage/cli-node@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@backstage/cli-node/-/cli-node-0.1.0.tgz#187e4ce67536971bdcf13bd3f6f4bdd8962a302a"
-  integrity sha512-BP9F5VACQueW/PClvXg1N7NNcsSXNOzW87CDuAe4HzO1H6rBmT13i18HdX7JjHdBLQvwi+vy/yLt4Viejr4Rug==
+"@backstage/cli-node@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@backstage/cli-node/-/cli-node-0.1.1.tgz#c6410a52411262780730543f9d4726a49a72818a"
+  integrity sha512-Mvx/TTMT3/ctfliMEWnA82H9ElyRWgAY30t5M8Vkcoi7BHm11DC8URhFB+hLcThV7yTdO2FzMIk6/z9szHW6Zw==
   dependencies:
     "@backstage/cli-common" "^0.1.12"
-    "@backstage/errors" "^1.1.5"
-    "@backstage/types" "^1.0.2"
+    "@backstage/errors" "^1.2.0"
+    "@backstage/types" "^1.1.0"
     "@manypkg/get-packages" "^1.1.3"
     "@yarnpkg/parsers" "^3.0.0-rc.4"
     fs-extra "10.1.0"
     semver "^7.3.2"
     zod "^3.21.4"
 
-"@backstage/cli@^0.22.7":
-  version "0.22.7"
-  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.22.7.tgz#777fb9be41c541b404567b1460356398888b13ae"
-  integrity sha512-+lhTVNMIuN2C1tiasTRydoO9F9QYQwXJT87eQODvRzw590oi4cyD51BaZYdXy4w8pcaOUn1Vcs52pb5JGKwdfQ==
+"@backstage/cli@^0.22.8":
+  version "0.22.8"
+  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.22.8.tgz#b03efa5fc0db643a240ff5ede614faa5d03505cb"
+  integrity sha512-MSI8fgouvrw8OMqnC9UaryMy7lqGMj5aqq+KItrxO7GxCIIhfjROestSZb3MBMA6KNsSCXkVPiBDCA/Ok/RneQ==
   dependencies:
+    "@backstage/catalog-model" "^1.4.0"
     "@backstage/cli-common" "^0.1.12"
-    "@backstage/cli-node" "^0.1.0"
-    "@backstage/config" "^1.0.7"
-    "@backstage/config-loader" "^1.3.0"
-    "@backstage/errors" "^1.1.5"
+    "@backstage/cli-node" "^0.1.1"
+    "@backstage/config" "^1.0.8"
+    "@backstage/config-loader" "^1.3.1"
+    "@backstage/errors" "^1.2.0"
     "@backstage/eslint-plugin" "^0.1.3"
+    "@backstage/integration" "^1.5.0"
     "@backstage/release-manifests" "^0.0.9"
-    "@backstage/types" "^1.0.2"
+    "@backstage/types" "^1.1.0"
     "@esbuild-kit/cjs-loader" "^2.4.1"
     "@manypkg/get-packages" "^1.1.3"
+    "@octokit/graphql" "^5.0.0"
+    "@octokit/graphql-schema" "^13.7.0"
     "@octokit/oauth-app" "^4.2.0"
     "@octokit/request" "^6.0.0"
     "@pmmmwh/react-refresh-webpack-plugin" "^0.5.7"
@@ -2564,6 +2603,7 @@
     chalk "^4.0.0"
     chokidar "^3.3.1"
     commander "^9.1.0"
+    cross-fetch "^3.1.5"
     cross-spawn "^7.0.3"
     css-loader "^6.5.1"
     diff "^5.0.0"
@@ -2582,6 +2622,7 @@
     express "^4.17.1"
     fork-ts-checker-webpack-plugin "^7.0.0-alpha.8"
     fs-extra "10.1.0"
+    git-url-parse "^13.0.0"
     glob "^7.1.7"
     global-agent "^3.0.0"
     handlebars "^4.7.3"
@@ -2649,12 +2690,43 @@
     yaml "^2.0.0"
     yup "^0.32.9"
 
+"@backstage/config-loader@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-1.3.1.tgz#a8242b7b6e57eafd2402e88c326ee2b055d9d913"
+  integrity sha512-srUczMgAFr++5CC0hkbS1kjYRFOgcGqQIwL490x9WYnlUnyNN+6M3J31Y7yXpPOiQr9E85V98v2vXHWqLSAhfg==
+  dependencies:
+    "@backstage/cli-common" "^0.1.12"
+    "@backstage/config" "^1.0.8"
+    "@backstage/errors" "^1.2.0"
+    "@backstage/types" "^1.1.0"
+    "@types/json-schema" "^7.0.6"
+    ajv "^8.10.0"
+    chokidar "^3.5.2"
+    fs-extra "10.1.0"
+    json-schema "^0.4.0"
+    json-schema-merge-allof "^0.8.1"
+    json-schema-traverse "^1.0.0"
+    lodash "^4.17.21"
+    minimist "^1.2.5"
+    node-fetch "^2.6.7"
+    typescript-json-schema "^0.55.0"
+    yaml "^2.0.0"
+    yup "^0.32.9"
+
 "@backstage/config@^1.0.7":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@backstage/config/-/config-1.0.7.tgz#f6929fb5af80ca36fae8b385f957f9c0a64a72a6"
   integrity sha512-8Fh3QJl0PltQZ9nCNr9UsYoRNCbfhJQR+1z1JUur7hTgJ/yCVnVPmESrpBWR27NCT7IBNtRv0jZhzj/BYZfFgA==
   dependencies:
     "@backstage/types" "^1.0.2"
+    lodash "^4.17.21"
+
+"@backstage/config@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@backstage/config/-/config-1.0.8.tgz#283a4900c7aae216bd4e3dce4389ce060f989884"
+  integrity sha512-Y7JLnBrXX0G7z+Zj4vRwp/Mb8fLhCc1K/LqRRQUHMmnTDb3T7xMgpM3+0ZPpedWqslWrC2OYRrOE5PQxpFnmdg==
+  dependencies:
+    "@backstage/types" "^1.1.0"
     lodash "^4.17.21"
 
 "@backstage/core-app-api@^1.8.0":
@@ -2743,6 +2815,15 @@
     cross-fetch "^3.1.5"
     serialize-error "^8.0.1"
 
+"@backstage/errors@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@backstage/errors/-/errors-1.2.0.tgz#5e6ad4c3d567a04eaee1bf8f2ce1ff48352f509a"
+  integrity sha512-APZ7jtnfY9uAFMwAJhhTgFANdOhQU6hzBLPeajTiblrpgyiiBc8E6lQ//3eO20lxR/c5xSj8hD54KcVUROpXgA==
+  dependencies:
+    "@backstage/types" "^1.1.0"
+    cross-fetch "^3.1.5"
+    serialize-error "^8.0.1"
+
 "@backstage/eslint-plugin@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@backstage/eslint-plugin/-/eslint-plugin-0.1.3.tgz#f4f7cca89f0068db14166e275076c71d07b5f37d"
@@ -2786,6 +2867,21 @@
   dependencies:
     "@backstage/config" "^1.0.7"
     "@backstage/errors" "^1.1.5"
+    "@octokit/auth-app" "^4.0.0"
+    "@octokit/rest" "^19.0.3"
+    cross-fetch "^3.1.5"
+    git-url-parse "^13.0.0"
+    lodash "^4.17.21"
+    luxon "^3.0.0"
+
+"@backstage/integration@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.5.0.tgz#6c5da6495e8f73535ee0bd203785a0c89d4445ad"
+  integrity sha512-rMs3eGiSN+A/oYnOL2u+w96drbxvXBP16G7Eoy6FZWelANWO/nDpZ8DxFBBWxfj0U/ZeS33DfYH7aIWyPzivoA==
+  dependencies:
+    "@azure/identity" "^3.2.1"
+    "@backstage/config" "^1.0.8"
+    "@backstage/errors" "^1.2.0"
     "@octokit/auth-app" "^4.0.0"
     "@octokit/rest" "^19.0.3"
     cross-fetch "^3.1.5"
@@ -3857,6 +3953,11 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@backstage/types/-/types-1.0.2.tgz#a12cdc7c1ec7e0d99cb2e30903b9dfd97c1050c9"
   integrity sha512-wE4AAP3je00UlVNV5faIto414aOUNv30CmvNmxgImNKelPRYJsMEicM9slwkrNMyFLqTMITeXJvQvMofUk3Wxg==
+
+"@backstage/types@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@backstage/types/-/types-1.1.0.tgz#cf33e0c20584e329308acca2e5fa0435f04d4ea5"
+  integrity sha512-lpzZD52WHCg+i7anibmIwC3045KVOAUJ8Reoeh74+14SAQ8DTT9aUAxmH8mOFnWzDSr7XnbY5ms8Y8qWRzn2VA==
 
 "@backstage/version-bridge@^1.0.4":
   version "1.0.4"
@@ -5485,6 +5586,14 @@
     "@octokit/types" "^9.0.0"
     is-plain-object "^5.0.0"
     universal-user-agent "^6.0.0"
+
+"@octokit/graphql-schema@^13.7.0":
+  version "13.10.0"
+  resolved "https://registry.yarnpkg.com/@octokit/graphql-schema/-/graphql-schema-13.10.0.tgz#7e47d846a7f3f0f57e23ad5fcd75dcfd57fea967"
+  integrity sha512-D9ci/oCYOIea/AFmWUxD67aMaoMw392Nu4sxaO+kW+w/aeDeyECpGuztzXASyCn53ROPTweAg1fk7Payzmu5xQ==
+  dependencies:
+    graphql "^16.0.0"
+    graphql-tag "^2.10.3"
 
 "@octokit/graphql@^5.0.0":
   version "5.0.6"
@@ -12407,6 +12516,13 @@ graphql-language-service@^5.0.6:
   dependencies:
     nullthrows "^1.0.0"
     vscode-languageserver-types "^3.17.1"
+
+graphql-tag@^2.10.3:
+  version "2.12.6"
+  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.6.tgz#d441a569c1d2537ef10ca3d1633b48725329b5f1"
+  integrity sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==
+  dependencies:
+    tslib "^2.1.0"
 
 graphql-ws@^5.4.1:
   version "5.13.1"
