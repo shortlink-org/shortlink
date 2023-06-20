@@ -236,6 +236,8 @@ argo-cd:
             name: custom-tools
 
   applicationSet:
+    replicaCount: 2
+
     resources:
       limits:
         cpu: 250m
