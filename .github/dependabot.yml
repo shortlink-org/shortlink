@@ -225,3 +225,13 @@ updates:
     directory: /ui/nx-monorepo/packages/eslint/eslint-config-shortlink
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/services/api-gateway
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/services/csi
+    schedule:
+      interval: daily
