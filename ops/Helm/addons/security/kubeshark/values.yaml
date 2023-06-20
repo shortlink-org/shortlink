@@ -5,6 +5,9 @@
 kubeshark:
   enabled: true
 
+  namespaces:
+    - shortlink
+
   tap:
     proxy:
       host: 0.0.0.0
