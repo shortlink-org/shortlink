@@ -14,10 +14,10 @@ kubeshark:
 
       host: kubeshark.shortlink.best
 
-      tls:
-        - hosts:
-            - kubeshark.shortlink.kubeshark
-          secretName: kubeshark-tls
+#      tls:
+#        - secretName: kubeshark-tls
+#          hosts:
+#            - kubeshark.shortlink.best
 
       auth:
         approvedDomains:
