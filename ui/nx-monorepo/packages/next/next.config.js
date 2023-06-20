@@ -56,6 +56,9 @@ let NEXT_CONFIG = {
     NEXT_PUBLIC_SERVICE_NAME: 'shortlink-next',
     NEXT_PUBLIC_API_URI: process.env.API_URI,
 
+    // Sentry
+    NEXT_PUBLIC_SENTRY_DSN: process.env.SENTRY_DSN,
+
     // Firebase
     NEXT_PUBLIC_FIREBASE_VAPID_KEY: process.env.FIREBASE_VAPID_KEY,
     NEXT_PUBLIC_FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
@@ -170,20 +173,15 @@ if (!isProd) {
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
 if (isEnableSentry) {
-  // This file sets a custom webpack configuration to use your Next.js app
-  // with Sentry.
-  // https://nextjs.org/docs/api-reference/next.config.js/introduction
-  // https://docs.sentry.io/platforms/javascript/guides/nextjs/
-  const { withSentryConfig } = require('@sentry/nextjs')
-
   const SentryWebpackPluginOptions = {
-    // Additional config options for the Sentry Webpack plugin. Keep in mind that
-    // the following options are set automatically, and overriding them is not
-    // recommended:
-    //   release, url, org, project, authToken, configFile, stripPrefix,
-    //   urlPrefix, include, ignore
     // For all available options, see:
-    // https://github.com/getsentry/sentry-webpack-plugin#options.
+    // https://github.com/getsentry/sentry-webpack-plugin#options
+
+    // Suppresses source map uploading logs during build
+    silent: true,
+
+    org: 'batazor',
+    project: 'shortlink-next',
   }
 
   NEXT_CONFIG = withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions)
