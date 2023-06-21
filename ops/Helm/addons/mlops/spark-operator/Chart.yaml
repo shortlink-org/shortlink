@@ -1,0 +1,25 @@
+apiVersion: v2                                   
+appVersion: "1.0.0"                              
+name: spark-operator                             
+description: Spark Operator Helm chart
+version: 0.1.0                                   
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         
+keywords:                                        
+  - spark
+  - operator
+  - bigdata
+home: https://batazor.github.io/shortlink/       
+sources:                                         
+  - https://github.com/shortlink-org/shortlink
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application                                
+deprecated: false
+dependencies:
+  - name: spark-operator
+    version: 1.1.27
+    repository: https://googlecloudplatform.github.io/spark-on-k8s-operator
+    condition: spark-operator.enabled

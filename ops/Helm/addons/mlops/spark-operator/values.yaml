@@ -1,0 +1,21 @@
+# Common default values for signadot.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+spark-operator:
+  enabled: true
+
+  podMonitor:
+    enable: true
+
+  resources:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 300Mi
+
+  istio:
+    enabled: true
+
