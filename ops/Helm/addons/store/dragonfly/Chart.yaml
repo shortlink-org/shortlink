@@ -1,17 +1,17 @@
-apiVersion: v2                                   # The chart API version (required)
-appVersion: "1.0.0"                              # The version of the app that this contains (optional)
-name: dragonfly                                  # The name of the chart (required)
-version: 0.1.0                                   # A SemVer 2 version (required)
-kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         # A SemVer range of compatible Kubernetes versions (optional)
-keywords:                                        # A list of keywords about this project (optional)
+apiVersion: v2                                   
+appVersion: "1.0.0"                              
+name: dragonfly                                  
+version: 0.1.0                                   
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         
+keywords:                                        
   - dragonfly
 maintainers:
   - email: batazor111@gmail.com
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: application                                # It is the type of chart (optional)
-deprecated: false                                # Whether this chart is deprecated (optional, boolean)
+type: application                                
+deprecated: false                                
 dependencies:
   - name: dragonfly
     version: v1.4.0
