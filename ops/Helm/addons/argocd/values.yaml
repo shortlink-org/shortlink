@@ -9,6 +9,9 @@ argo-cd:
   fullnameOverride: argocd
 
   global:
+    image:
+      tag: v2.7.6
+
     logging:
       format: json
       level: warn
@@ -17,10 +20,10 @@ argo-cd:
     resources:
       limits:
         cpu: 150m
-        memory: 256Mi
+        memory: 512Mi
       requests:
         cpu: 10m
-        memory: 64Mi
+        memory: 128Mi
 
     metrics:
       enabled: true
@@ -236,8 +239,6 @@ argo-cd:
             name: custom-tools
 
   applicationSet:
-    replicaCount: 2
-
     resources:
       limits:
         cpu: 250m
