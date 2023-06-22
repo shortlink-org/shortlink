@@ -1,7 +1,10 @@
 apiVersion: v2                                   
 appVersion: "1.0.0"                              
 name: calico                                   
-description: Sandbox for developer
+description: |
+  Calico is a pure layer 3 virtual network that allows workloads to communicate with each other using only routable IP addresses. 
+  Calico works on all cloud providers, bare metal, and even supports cross-cloud communication between providers. 
+  Calico is also the most popular choice for Kubernetes Networking and Network Policy.
 version: 0.1.0                                   
 kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         
 keywords:                                        
