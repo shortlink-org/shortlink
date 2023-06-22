@@ -42,6 +42,11 @@ const nextConfig = {
     instrumentationHook: true,
     // webVitalsAttribution: ["CLS", "FCP", "FID", "INP", "LCP", "TTFB"],
     turbo: {},
+    // for Vercel deployment
+    useDeploymentId: true,
+    // if you use with serverActions is desired
+    serverActions: true,
+    useDeploymentIdServerActions: true,
   },
 }
 

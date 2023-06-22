@@ -16,7 +16,10 @@ const robotoMono = Roboto_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'ShortLink | Routing by project',
+    title: {
+      template: '%s | Routing by project',
+      default: 'ShortLink | Routing by project'
+    },
     description:
       "Shortlink is the simplest way to manage your projects. It's an online platform that lets you create, share, and track links for you.",
     openGraph: {
