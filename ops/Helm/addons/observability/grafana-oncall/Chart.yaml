@@ -14,7 +14,7 @@ type: application
 deprecated: false                                
 dependencies:
   - name: oncall
-    version: 1.2.44
+    version: 1.2.46
     repository: https://grafana.github.io/helm-charts
     condition: oncall.enabled
     tags:
