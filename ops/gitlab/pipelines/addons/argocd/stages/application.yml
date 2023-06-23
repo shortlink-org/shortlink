@@ -5,7 +5,7 @@ shortlink:
     RELEASE_NAME: argocd-shortlink
     HELM_PATH: ops/Helm/addons/argocd-shortlink
     HELM_NAMESPACE: argocd
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/argocd-shortlink
+    ENVIRONMENT_URL: https://${ENVIRONMENT_URL}
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'

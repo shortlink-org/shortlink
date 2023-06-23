@@ -5,7 +5,7 @@ argo-cd:
     RELEASE_NAME: argocd
     HELM_PATH: ops/Helm/addons/argocd
     HELM_NAMESPACE: argocd
-    ENVIRONMENT_URL: $ENVIRONMENT_URL/argo/cd
+    ENVIRONMENT_URL: https://argo.${ENVIRONMENT_URL}
     HELM_ARG: -f ${HELM_PATH}/values.sops.yaml -f ${HELM_PATH}/notify.values.yaml
   trigger:
     include:

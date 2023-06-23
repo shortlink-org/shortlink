@@ -2,6 +2,11 @@ ci_access:
   # This agent is accessible from CI jobs in projects in these groups
   groups:
   - id: shortlink-org
+user_access:
+  access_as:
+    agent: {}
+  groups:
+    - id: shortlink-org
 gitops:
   # Manifest projects are watched by the agent. Whenever a project changes,
   # GitLab deploys the changes using the agent.
