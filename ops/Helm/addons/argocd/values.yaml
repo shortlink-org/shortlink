@@ -255,6 +255,11 @@ argo-cd:
         enabled: true
 
   configs:
+    cm:
+      resource.compareoptions: |
+        # disables status field diffing in specified resource types
+        ignoreAggregatedRoles: true
+
     repositories:
       shortlink:
         url: https://github.com/shortlink-org/shortlink
