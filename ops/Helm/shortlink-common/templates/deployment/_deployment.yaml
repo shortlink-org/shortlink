@@ -45,7 +45,7 @@ spec:
       {{- range $a := .Values.sidecars }}
         {{- $r := set $deploy.Values "deploy" $a -}}
         {{- include "shortlink-common.deployment_sidecar" $deploy | indent 6 }}
-      {{- end -}}
+      {{- end }}
       # -- Node labels and tolerations for pod assignment
       # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
       # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
