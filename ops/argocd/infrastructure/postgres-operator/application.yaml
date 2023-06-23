@@ -29,7 +29,7 @@ spec:
         istio-injection: enabled
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+      # - ServerSideApply=true
       - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
