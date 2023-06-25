@@ -21,8 +21,8 @@ argo-cd:
 
     resources:
       limits:
-        cpu: 200m
-        memory: 1Gi
+        cpu: 300m
+        memory: 2Gi
       requests:
         cpu: 30m
         memory: 128Mi
@@ -67,8 +67,8 @@ argo-cd:
 
     resources:
       limits:
-        cpu: 50m
-        memory: 64Mi
+        cpu: 300m
+        memory: 2Gi
       requests:
         cpu: 10m
         memory: 32Mi
@@ -203,8 +203,8 @@ argo-cd:
 
     resources:
       limits:
-        cpu: 150m
-        memory: 256Mi
+        cpu: 300m
+        memory: 2Gi
       requests:
         cpu: 10m
         memory: 64Mi
@@ -243,8 +243,8 @@ argo-cd:
   applicationSet:
     resources:
       limits:
-        cpu: 250m
-        memory: 256Mi
+        cpu: 300m
+        memory: 2Gi
       requests:
         cpu: 50m
         memory: 64Mi
@@ -255,11 +255,6 @@ argo-cd:
         enabled: true
 
   configs:
-    cm:
-      resource.compareoptions: |
-        # disables status field diffing in specified resource types
-        ignoreAggregatedRoles: true
-
     repositories:
       shortlink:
         url: https://github.com/shortlink-org/shortlink
@@ -269,8 +264,8 @@ argo-cd:
   notifications:
     resources:
       limits:
-        cpu: 50m
-        memory: 128Mi
+        cpu: 300m
+        memory: 2Gi
       requests:
         cpu: 5m
         memory: 36Mi
@@ -367,8 +362,8 @@ argo-rollouts:
 
     resources:
       limits:
-        cpu: 100m
-        memory: 128Mi
+        cpu: 300m
+        memory: 2Gi
       requests:
         cpu: 20m
         memory: 16Mi
