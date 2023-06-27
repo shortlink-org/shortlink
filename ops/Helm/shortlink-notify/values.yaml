@@ -8,23 +8,6 @@ serviceAccount:
   create: true
 
 # ==============================================================================
-# This secret for dev-stand. For production use CI-variables
-secret:
-  enabled: false
-  grpcServerCert: |
-    -----BEGIN CERTIFICATE-----
-    Your cert...
-    -----END CERTIFICATE-----
-  grpcServerKey: |
-    -----BEGIN EC PRIVATE KEY-----
-    Your key...
-    -----END EC PRIVATE KEY-----
-  grpcIntermediateCA: |
-    -----BEGIN CERTIFICATE-----
-    Your CA...
-    -----END CERTIFICATE-----
-
-# ==============================================================================
 deploy:
 
   env:
@@ -48,6 +31,18 @@ deploy:
     requests:
       cpu: 10m
       memory: 32Mi
+
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  livenessProbe:
+    httpGet:
+      path: /live
+      port: 9090
+
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 9090
 
 # ==============================================================================
 # Service configuration

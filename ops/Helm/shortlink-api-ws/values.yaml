@@ -27,14 +27,6 @@ ingress:
     name: shortlink-api-ws
     port: 7070
 
-  # istio:
-  #  match:
-  #    - uri:
-  #        prefix: /api
-  #  route:
-  #    destination:
-  #      port: 7070
-
 # ==============================================================================
 deploy:
   type: Rollout
@@ -66,6 +58,18 @@ deploy:
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
     pullPolicy: IfNotPresent
+
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  livenessProbe:
+    httpGet:
+      path: /live
+      port: 9090
+
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  readinessProbe:
+    httpGet:
+      path: /ready
+      port: 9090
 
 hpa:
   enabled: false
