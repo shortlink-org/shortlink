@@ -23,6 +23,7 @@ kafka-ui:
 
   image:
     tag: master
+    pullPolicy: Always
 
   envs:
     secret: {}
