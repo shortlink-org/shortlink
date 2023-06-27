@@ -8,7 +8,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
 	github.com/kubernetes-csi/csi-test/v5 v5.0.0
-	github.com/shortlink-org/shortlink v0.0.0-20230626120957-102ff371246f
+	github.com/shortlink-org/shortlink v0.0.0-20230627165307-60cc82fb33c4
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
 	github.com/stretchr/testify v1.8.4
@@ -17,7 +17,7 @@ require (
 	golang.org/x/sync v0.3.0
 	google.golang.org/grpc v1.56.1
 	google.golang.org/protobuf v1.31.0
-	k8s.io/kubernetes v1.24.14
+	k8s.io/kubernetes v1.15.0-alpha.0
 	k8s.io/mount-utils v0.27.3
 	k8s.io/utils v0.0.0-20230505201702-9f6742963106
 )
