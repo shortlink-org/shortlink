@@ -112,7 +112,10 @@ const Home = () => {
               title="Security"
               key="observability"
               cards={[
-                { name: 'Armosec', url: 'https://cloud.armosec.io/compliance/shortlink' },
+                {
+                  name: 'Armosec',
+                  url: 'https://cloud.armosec.io/compliance/shortlink',
+                },
                 { name: 'KubeShark', url: 'https://kubeshark.shortlink.best' },
                 { name: 'Kyverno', url: '/kyverno/#/' },
               ]}
