@@ -12,7 +12,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.16.0
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/segmentio/encoding v0.3.6
-	github.com/shortlink-org/shortlink v0.0.0-20230629193138-0d41fca7531e
+	github.com/shortlink-org/shortlink v0.0.0-20230629203536-b423c34cd251
 	github.com/spf13/viper v1.16.0
 	github.com/swaggo/swag v1.16.1
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.2
