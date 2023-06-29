@@ -48,7 +48,7 @@ const Home = () => {
               aria-label="full width tabs example"
               selectionFollowsFocus
             >
-              <Tab label="Application" {...a11yProps(0)} />
+              <Tab label="ShortLink" {...a11yProps(0)} />
               <Tab label="Infrastructure" {...a11yProps(1)} />
               <Tab label="Security" {...a11yProps(2)} />
               <Tab label="Observability" {...a11yProps(3)} />
@@ -58,7 +58,7 @@ const Home = () => {
 
           <TabPanel value={value} index={0}>
             <TabContent
-              title="Shortlink UI"
+              title="UI"
               key="shortlink-ui"
               cards={[
                 { name: 'Next', url: '/next' },
