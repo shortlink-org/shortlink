@@ -22,6 +22,11 @@
     {
       "matchPackagePatterns": ["^github.com/mattn/go-sqlite3$"],
       "allowedVersions": "<2.0.0"
+    },
+    {
+      "matchManagers": ["gomod"],
+      "matchPackagePatterns": ["^github.com/shortlink-org/shortlink$"],
+      "ignoreDeps": ["github.com/shortlink-org/shortlink"]
     }
   ]
 }
