@@ -45,7 +45,7 @@ const nextConfig = {
     // for Vercel deployment
     useDeploymentId: true,
     // if you use with serverActions is desired
-    serverActions: true,
+    serverActions: false,
     useDeploymentIdServerActions: true,
   },
 }
