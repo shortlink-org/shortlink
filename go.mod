@@ -8,7 +8,7 @@ require (
 	github.com/Shopify/sarama v1.38.1
 	github.com/Unleash/unleash-client-go/v3 v3.7.4
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
-	github.com/authzed/authzed-go v0.8.1-0.20230629173014-06e3de69fc83
+	github.com/authzed/authzed-go v0.9.0
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cucumber/godog v0.12.6
 	github.com/dgraph-io/badger/v4 v4.1.0
