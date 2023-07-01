@@ -136,10 +136,7 @@ let NEXT_CONFIG = {
       },
     },
     swcTraceProfiling: true,
-  },
-  sentry: {
-    hideSourceMaps: true,
-  },
+  }
 }
 
 if (!isProd) {
