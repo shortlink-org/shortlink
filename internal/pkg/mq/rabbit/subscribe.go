@@ -33,7 +33,7 @@ func (mq *RabbitMQ) Subscribe(ctx context.Context, target string, message query.
 		return fmt.Errorf("failed to bind queue: %w", err)
 	}
 
-	msgs, err := mq.ch.Consume(q.Name, "", true, false, false, false, nil)
+	msgs, err := mq.ch.Consume(ctx, q.Name, "", true, false, false, false, nil)
 	if err != nil {
 		return fmt.Errorf("failed to consume messages: %w", err)
 	}

@@ -1,6 +1,7 @@
 package rabbit
 
 import (
+	"context"
 	"fmt"
 	"sync/atomic"
 	"time"
@@ -35,12 +36,12 @@ func (ch *Channel) Close() error {
 }
 
 // Consume wrap amqp.Channel.Consume, the returned delivery will end only when channel closed by developer
-func (ch *Channel) Consume(queue, consumer string, autoAck, exclusive, noLocal, noWait bool, args amqp.Table) (<-chan amqp.Delivery, error) {
+func (ch *Channel) Consume(ctx context.Context, queue, consumer string, autoAck, exclusive, noLocal, noWait bool, args amqp.Table) (<-chan amqp.Delivery, error) {
 	deliveries := make(chan amqp.Delivery)
 
 	go func() {
 		for {
-			d, err := ch.Channel.Consume(queue, consumer, autoAck, exclusive, noLocal, noWait, args)
+			d, err := ch.Channel.ConsumeWithContext(ctx, queue, consumer, autoAck, exclusive, noLocal, noWait, args)
 			if err != nil {
 				ch.log.Error(fmt.Errorf("consume failed, err: %w", err).Error())
 				time.Sleep(time.Duration(ch.delay) * time.Second)
