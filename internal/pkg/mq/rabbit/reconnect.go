@@ -68,7 +68,7 @@ func (c *Connection) Channel() (*Channel, error) {
 	return channel, nil
 }
 
-// Dial wrap amqp.Dial, dial and get a reconnect connection
+// Dial wrap amqp.Dial, dial and get a reconnected connection
 func (mq *RabbitMQ) Dial() error {
 	conn, err := amqp.Dial(mq.config.URI)
 	if err != nil {
