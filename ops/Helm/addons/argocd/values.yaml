@@ -19,13 +19,13 @@ argo-cd:
   controller:
     replicas: 2
 
-    resources:
-      limits:
-        cpu: 300m
-        memory: 2Gi
-      requests:
-        cpu: 30m
-        memory: 128Mi
+#    resources:
+#      limits:
+#        cpu: 300m
+#        memory: 2Gi
+#      requests:
+#        cpu: 30m
+#        memory: 128Mi
 
     metrics:
       enabled: true
@@ -201,13 +201,13 @@ argo-cd:
     #    subPath: helm
     #    name: custom-tools
 
-    resources:
-      limits:
-        cpu: 300m
-        memory: 2Gi
-      requests:
-        cpu: 10m
-        memory: 64Mi
+#    resources:
+#      limits:
+#        cpu: 300m
+#        memory: 2Gi
+#      requests:
+#        cpu: 10m
+#        memory: 64Mi
 
     initContainers:
       - name: download-tools
@@ -241,13 +241,13 @@ argo-cd:
             name: custom-tools
 
   applicationSet:
-    resources:
-      limits:
-        cpu: 300m
-        memory: 2Gi
-      requests:
-        cpu: 50m
-        memory: 64Mi
+#    resources:
+#      limits:
+#        cpu: 300m
+#        memory: 2Gi
+#      requests:
+#        cpu: 50m
+#        memory: 64Mi
 
     metrics:
       enabled: true
@@ -268,7 +268,7 @@ argo-cd:
         memory: 2Gi
       requests:
         cpu: 5m
-        memory: 36Mi
+        memory: 64Mi
 
     metrics:
       enabled: true
@@ -360,13 +360,13 @@ argo-rollouts:
   controller:
     replicas: 1
 
-    resources:
-      limits:
-        cpu: 300m
-        memory: 2Gi
-      requests:
-        cpu: 20m
-        memory: 16Mi
+#    resources:
+#      limits:
+#        cpu: 300m
+#        memory: 2Gi
+#      requests:
+#        cpu: 20m
+#        memory: 16Mi
 
   dashboard:
     enabled: true
@@ -377,8 +377,8 @@ argo-rollouts:
         cpu: 100m
         memory: 256Mi
       requests:
-        cpu: 20m
-        memory: 16Mi
+        cpu: 10m
+        memory: 64Mi
 
     ingress:
       enabled: true
@@ -438,13 +438,13 @@ argocd-image-updater:
     #     StrictHostKeyChecking no
     #     UserKnownHostsFile /dev/null
 
-  resources:
-    limits:
-      cpu: 100m
-      memory: 128Mi
-    requests:
-      cpu: 10m
-      memory: 16Mi
+#  resources:
+#    limits:
+#      cpu: 100m
+#      memory: 128Mi
+#    requests:
+#      cpu: 10m
+#      memory: 64Mi
 
   updateStrategy:
     type: Recreate
@@ -470,13 +470,13 @@ redis:
       enabled: false
       storageClass: local-path
 
-    resources:
-      limits:
-        cpu: 500m
-        memory: 500Mi
-      requests:
-        cpu: 10m
-        memory: 126Mi
+#    resources:
+#      limits:
+#        cpu: 500m
+#        memory: 500Mi
+#      requests:
+#        cpu: 10m
+#        memory: 126Mi
 
   auth:
     enabled: false
@@ -485,13 +485,13 @@ redis:
   metrics:
     enabled: true
 
-    resources:
-      limits:
-        cpu: 50m
-        memory: 64Mi
-      requests:
-        cpu: 5m
-        memory: 16Mi
+#    resources:
+#      limits:
+#        cpu: 50m
+#        memory: 64Mi
+#      requests:
+#        cpu: 5m
+#        memory: 16Mi
 
     serviceMonitor:
       enabled: true
@@ -502,13 +502,13 @@ redis:
   replica:
     replicaCount: 0
 
-    resources:
-      limits:
-        cpu: 500m
-        memory: 256Mi
-      requests:
-        cpu: 10m
-        memory: 64Mi
+#    resources:
+#      limits:
+#        cpu: 500m
+#        memory: 256Mi
+#      requests:
+#        cpu: 10m
+#        memory: 64Mi
 
     persistence:
       enabled: false
