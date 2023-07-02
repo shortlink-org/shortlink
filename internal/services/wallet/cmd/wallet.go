@@ -8,9 +8,10 @@ package main
 import (
 	"os"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
-	wallet_di "github.com/shortlink-org/shortlink/internal/services/wallet/di"
 	"github.com/spf13/viper"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
+	wallet_di "github.com/shortlink-org/shortlink/internal/services/wallet/di"
 )
 
 func main() {
@@ -29,7 +30,7 @@ func main() {
 	}()
 
 	// Handle SIGINT, SIGQUIT and SIGTERM.
-	handle_signal.WaitExitSignal()
+	graceful_shutdown.GracefulShutdown()
 
 	cleanup()
 

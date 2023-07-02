@@ -5,11 +5,12 @@ import (
 	"log"
 	"os"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
-	csi_di "github.com/shortlink-org/shortlink/internal/services/csi/di"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
+	csi_di "github.com/shortlink-org/shortlink/internal/services/csi/di"
 
 	csi_driver "github.com/shortlink-org/shortlink/internal/services/csi"
 )
@@ -74,7 +75,7 @@ func main() {
 	s.Log.Info("success run CSI plugin")
 
 	// Handle SIGINT, SIGQUIT and SIGTERM.
-	handle_signal.WaitExitSignal()
+	graceful_shutdown.GracefulShutdown()
 
 	// Stop the service gracefully.
 	cleanup()

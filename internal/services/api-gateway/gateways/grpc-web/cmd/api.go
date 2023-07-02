@@ -12,7 +12,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/handle_signal"
+	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
 	_ "github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	api_di "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/grpc-web/di"
 )
@@ -33,7 +33,7 @@ func main() {
 	}()
 
 	// Handle SIGINT, SIGQUIT and SIGTERM.
-	handle_signal.WaitExitSignal()
+	graceful_shutdown.GracefulShutdown()
 
 	cleanup()
 
