@@ -2,6 +2,11 @@
 
 This service is responsible for the merch store.
 
+### ADR
+
+- [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
+- [ADR-0002](./docs/ADR/decisions/0002-use-dapr.md) - Use Dapr
+
 ### Architecture
 
 ### Container diagram
