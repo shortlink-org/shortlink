@@ -97,8 +97,8 @@ customer --> UC4
 
 **Use cases**:
 
-- [UC-1](./usecases/crud_item/UC-1.md) - UC-1 CRUD Item
-- [UC-2](./usecases/crud_order/UC-2.md) - UC-2 CRUD Order
-- [UC-3](./usecases/use_basket/UC-3.md) - UC-3 Use basket
-- [UC-4](./usecases/delivery_order_to_customer/UC-4.md) - UC-4 Delivery order to customer
+- [UC-1](./usecases/crud_item/README.md) - UC-1 CRUD Item
+- [UC-2](./usecases/order-processor/README.md) - UC-2 order processor
+- [UC-3](./usecases/use_basket/README.md) - UC-3 Use basket
+- [UC-4](./usecases/delivery_order_to_customer/README.md) - UC-4 Delivery order to customer
 
