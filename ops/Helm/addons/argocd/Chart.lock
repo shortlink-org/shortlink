@@ -1,7 +1,7 @@
 dependencies:
 - name: argo-cd
   repository: https://argoproj.github.io/argo-helm
-  version: 5.36.13
+  version: 5.36.14
 - name: argocd-apps
   repository: https://argoproj.github.io/argo-helm
   version: 1.2.0
@@ -20,5 +20,5 @@ dependencies:
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 17.11.6
-digest: sha256:97733edaabf29d92a7509d4a1e8993818535739235a75d8236cb2584ee00aa63
-generated: "2023-07-02T10:06:20.071432069Z"
+digest: sha256:0938069fcf79c221c54df5dcf1228ff75807853f86cb3f1ca6794b10c96716fb
+generated: "2023-07-03T18:30:49.743714363Z"
