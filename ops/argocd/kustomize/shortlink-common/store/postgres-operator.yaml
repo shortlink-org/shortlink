@@ -96,3 +96,7 @@ spec:
     - name: billing
       databases:
         - billing
+    - name: monitoring
+      databases:
+        - link
+        - billing
