@@ -22,7 +22,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.5 |
+| file://../shortlink-common | shortlink-common | 0.5.7 |
 
 ## Values
 
@@ -32,7 +32,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT | string | `"http://grafana-tempo.grafana:4317/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/referral"` |  |
-| deploy.image.tag | string | `"0.16.9"` |  |
+| deploy.image.tag | string | `"0.16.16"` |  |
 | deploy.livenessProbe | object | `{"failureThreshold":5,"httpGet":{"path":"/live","port":8000},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.podSecurityContext.fsGroup | int | `1000` | fsGroup is the group ID associated with the container |
 | deploy.readinessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/ready","port":8000},"initialDelaySeconds":5,"periodSeconds":5,"successThreshold":1}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |

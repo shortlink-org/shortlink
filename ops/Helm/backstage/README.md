@@ -22,7 +22,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.5 |
+| file://../shortlink-common | shortlink-common | 0.5.7 |
 
 ## Values
 
@@ -31,7 +31,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.image.pullPolicy | string | `"Always"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/backstage"` |  |
-| deploy.image.tag | string | `"0.16.9"` |  |
+| deploy.image.tag | string | `"0.16.16"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":300,"timeoutSeconds":60}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.readinessProbe | object | `{"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":120,"timeoutSeconds":15}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |

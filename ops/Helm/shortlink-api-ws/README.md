@@ -22,7 +22,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.5 |
+| file://../shortlink-common | shortlink-common | 0.5.7 |
 
 ## Values
 
@@ -32,19 +32,17 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/ws"` |  |
-| deploy.image.tag | string | `"0.16.9"` |  |
+| deploy.image.tag | string | `"0.16.16"` |  |
+| deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":9090}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.replicaCount | int | `1` |  |
-| deploy.resources.limits | object | `{}` |  |
-| deploy.resources.requests | object | `{}` |  |
-| deploy.strategy.canary.steps[0].setWeight | int | `30` |  |
-| deploy.strategy.canary.steps[1].pause.duration | int | `10` |  |
-| deploy.strategy.canary.steps[2].setWeight | int | `60` |  |
-| deploy.strategy.canary.steps[3].pause.duration | int | `10` |  |
-| deploy.strategy.canary.steps[4].setWeight | int | `100` |  |
-| deploy.strategy.canary.steps[5].pause.duration | int | `10` |  |
+| deploy.resources.limits.cpu | string | `"100m"` |  |
+| deploy.resources.limits.memory | string | `"128Mi"` |  |
+| deploy.resources.requests.cpu | string | `"5m"` |  |
+| deploy.resources.requests.memory | string | `"64Mi"` |  |
+| deploy.strategy.canary.steps[0].setWeight | int | `100` |  |
 | deploy.strategy.type | string | `"Canary"` |  |
 | deploy.type | string | `"Rollout"` |  |
-| external_database | object | `{"enable":false,"ip":"192.168.0.101","port":6379}` | If you want to use an external database |
 | hpa.enabled | bool | `false` |  |
 | hpa.metrics[0].containerResource.container | string | `"application"` |  |
 | hpa.metrics[0].containerResource.name | string | `"cpu"` |  |
@@ -57,14 +55,14 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.hostname | string | `"shortlink.best"` |  |
-| ingress.path | string | `"/api(/|$)(.*)"` |  |
-| ingress.service.name | string | `"shortlink-api"` |  |
+| ingress.path | string | `"/ws(/|$)(.*)"` |  |
+| ingress.service.name | string | `"shortlink-api-ws"` |  |
 | ingress.service.port | int | `7070` |  |
 | ingress.type | string | `"nginx"` |  |
 | monitoring.enabled | bool | `true` |  |
 | podDisruptionBudget.enabled | bool | `false` |  |
 | service.ports[0].name | string | `"http"` |  |
-| service.ports[0].port | int | `7070` |  |
+| service.ports[0].port | int | `8080` |  |
 | service.ports[0].protocol | string | `"TCP"` |  |
 | service.ports[0].public | bool | `true` |  |
 | service.ports[1].name | string | `"metrics"` |  |

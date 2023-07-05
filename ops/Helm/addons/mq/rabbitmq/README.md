@@ -14,7 +14,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../../shortlink-common | shortlink-common | 0.5.5 |
+| file://../../../shortlink-common | shortlink-common | 0.5.7 |
 | oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.4.2 |
 
 ## Values

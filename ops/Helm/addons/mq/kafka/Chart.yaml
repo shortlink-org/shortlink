@@ -1,9 +1,9 @@
-apiVersion: v2                                   
-appVersion: "1.0.0"                              
-name: kafka                                      
-version: 0.2.7                                   
-kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         
-keywords:                                        
+apiVersion: v2
+appVersion: "1.0.0"
+name: kafka
+version: 0.2.7
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"
+keywords:
   - kafka
   - mq
 maintainers:
@@ -11,8 +11,8 @@ maintainers:
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: application                                
-deprecated: false                                
+type: application
+deprecated: false
 dependencies:
   - name: strimzi-kafka-operator
     version: 0.35.1

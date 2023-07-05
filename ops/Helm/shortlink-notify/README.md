@@ -22,7 +22,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.5 |
+| file://../shortlink-common | shortlink-common | 0.5.7 |
 
 ## Values
 
@@ -33,16 +33,14 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.env.MQ_TYPE | string | `"kafka"` |  |
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/notify"` |  |
-| deploy.image.tag | string | `"0.16.9"` |  |
+| deploy.image.tag | string | `"0.16.16"` |  |
+| deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":9090}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | deploy.resources.requests.cpu | string | `"10m"` |  |
 | deploy.resources.requests.memory | string | `"32Mi"` |  |
 | monitoring.enabled | bool | `true` |  |
 | podDisruptionBudget.enabled | bool | `false` |  |
-| secret.enabled | bool | `false` |  |
-| secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
 | service.ports | list | `[]` |  |
 | service.type | string | `"ClusterIP"` |  |
 

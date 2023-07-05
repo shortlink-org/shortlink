@@ -14,7 +14,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 6.57.2 |
+| https://grafana.github.io/helm-charts | grafana | 6.57.4 |
 
 ## Values
 

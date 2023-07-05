@@ -14,7 +14,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://provectus.github.io/kafka-ui | kafka-ui | 0.7.0 |
+| https://provectus.github.io/kafka-ui-charts | kafka-ui | 0.7.2 |
 | https://strimzi.io/charts/ | strimzi-kafka-operator | 0.35.1 |
 
 ## Values
@@ -32,6 +32,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kafka-ui.envs.config.SPRING_SECURITY_USER_PASSWORD | string | `"redacted"` |  |
 | kafka-ui.envs.secret | object | `{}` |  |
 | kafka-ui.fullnameOverride | string | `"kafka-ui"` |  |
+| kafka-ui.image.pullPolicy | string | `"Always"` |  |
 | kafka-ui.image.tag | string | `"master"` |  |
 | kafka-ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |

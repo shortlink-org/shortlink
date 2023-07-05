@@ -14,7 +14,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.3.0 |
+| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.4.0 |
 
 ## Values
 

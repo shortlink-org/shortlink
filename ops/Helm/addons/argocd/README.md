@@ -14,13 +14,13 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.36.2 |
-| https://argoproj.github.io/argo-helm | argo-events | 2.3.3 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.37.0 |
+| https://argoproj.github.io/argo-helm | argo-events | 2.4.0 |
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.31.0 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.29.2 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.30.0 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.2.0 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 17.11.5 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 17.11.6 |
 
 ## Values
 
@@ -28,16 +28,13 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 |-----|------|---------|-------------|
 | argo-cd.applicationSet.metrics.enabled | bool | `true` |  |
 | argo-cd.applicationSet.metrics.serviceMonitor.enabled | bool | `true` |  |
-| argo-cd.applicationSet.resources.limits.cpu | string | `"150m"` |  |
-| argo-cd.applicationSet.resources.limits.memory | string | `"256Mi"` |  |
-| argo-cd.applicationSet.resources.requests.cpu | string | `"50m"` |  |
-| argo-cd.applicationSet.resources.requests.memory | string | `"64Mi"` |  |
 | argo-cd.configs.repositories.shortlink.name | string | `"shortlink"` |  |
 | argo-cd.configs.repositories.shortlink.type | string | `"git"` |  |
 | argo-cd.configs.repositories.shortlink.url | string | `"https://github.com/shortlink-org/shortlink"` |  |
 | argo-cd.controller.metrics.applicationLabels.enabled | bool | `true` |  |
 | argo-cd.controller.metrics.enabled | bool | `true` |  |
 | argo-cd.controller.metrics.serviceMonitor.enabled | bool | `true` |  |
+| argo-cd.controller.replicas | int | `2` |  |
 | argo-cd.controller.rules.enabled | bool | `true` |  |
 | argo-cd.controller.rules.spec[0].alert | string | `"ArgoAppMissing"` |  |
 | argo-cd.controller.rules.spec[0].annotations.description | string | `"Argo CD has not reported any applications data for the past 15 minutes which means that it must be down or not functioning properly.  This needs to be resolved for this cloud to continue to maintain state.\n"` |  |
@@ -54,15 +51,22 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argo-cd.dex.enabled | bool | `true` |  |
 | argo-cd.dex.metrics.enabled | bool | `true` |  |
 | argo-cd.dex.metrics.serviceMonitor.enabled | bool | `true` |  |
-| argo-cd.dex.resources.limits.cpu | string | `"50m"` |  |
-| argo-cd.dex.resources.limits.memory | string | `"64Mi"` |  |
+| argo-cd.dex.resources.limits.cpu | string | `"300m"` |  |
+| argo-cd.dex.resources.limits.memory | string | `"2Gi"` |  |
 | argo-cd.dex.resources.requests.cpu | string | `"10m"` |  |
 | argo-cd.dex.resources.requests.memory | string | `"32Mi"` |  |
 | argo-cd.enabled | bool | `true` |  |
 | argo-cd.externalRedis.host | string | `"redis-master.argocd"` |  |
 | argo-cd.fullnameOverride | string | `"argocd"` |  |
+| argo-cd.global.image.tag | string | `"v2.8.0-rc1"` |  |
 | argo-cd.global.logging.format | string | `"json"` |  |
 | argo-cd.global.logging.level | string | `"warn"` |  |
+| argo-cd.notifications.metrics.enabled | bool | `true` |  |
+| argo-cd.notifications.metrics.serviceMonitor.enabled | bool | `true` |  |
+| argo-cd.notifications.resources.limits.cpu | string | `"300m"` |  |
+| argo-cd.notifications.resources.limits.memory | string | `"2Gi"` |  |
+| argo-cd.notifications.resources.requests.cpu | string | `"5m"` |  |
+| argo-cd.notifications.resources.requests.memory | string | `"64Mi"` |  |
 | argo-cd.redis.enabled | bool | `false` |  |
 | argo-cd.repoServer.env[0].name | string | `"HELM_PLUGINS"` |  |
 | argo-cd.repoServer.env[0].value | string | `"/custom-tools/helm-plugins/"` |  |
@@ -86,9 +90,9 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argo-cd.repoServer.initContainers[0].env[0].name | string | `"HELM_SECRETS_VERSION"` |  |
 | argo-cd.repoServer.initContainers[0].env[0].value | string | `"4.4.2"` |  |
 | argo-cd.repoServer.initContainers[0].env[1].name | string | `"KUBECTL_VERSION"` |  |
-| argo-cd.repoServer.initContainers[0].env[1].value | string | `"1.27.0"` |  |
+| argo-cd.repoServer.initContainers[0].env[1].value | string | `"1.27.3"` |  |
 | argo-cd.repoServer.initContainers[0].env[2].name | string | `"VALS_VERSION"` |  |
-| argo-cd.repoServer.initContainers[0].env[2].value | string | `"0.24.0"` |  |
+| argo-cd.repoServer.initContainers[0].env[2].value | string | `"0.25.0"` |  |
 | argo-cd.repoServer.initContainers[0].env[3].name | string | `"SOPS_VERSION"` |  |
 | argo-cd.repoServer.initContainers[0].env[3].value | string | `"3.7.3"` |  |
 | argo-cd.repoServer.initContainers[0].image | string | `"alpine:latest"` |  |
@@ -136,10 +140,6 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argo-events.enabled | bool | `false` |  |
 | argo-events.fullnameOverride | string | `"argo-events"` |  |
 | argo-rollouts.controller.replicas | int | `1` |  |
-| argo-rollouts.controller.resources.limits.cpu | string | `"100m"` |  |
-| argo-rollouts.controller.resources.limits.memory | string | `"128Mi"` |  |
-| argo-rollouts.controller.resources.requests.cpu | string | `"20m"` |  |
-| argo-rollouts.controller.resources.requests.memory | string | `"16Mi"` |  |
 | argo-rollouts.dashboard.enabled | bool | `true` |  |
 | argo-rollouts.dashboard.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
 | argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTP"` |  |
@@ -155,8 +155,8 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argo-rollouts.dashboard.readonly | bool | `true` |  |
 | argo-rollouts.dashboard.resources.limits.cpu | string | `"100m"` |  |
 | argo-rollouts.dashboard.resources.limits.memory | string | `"256Mi"` |  |
-| argo-rollouts.dashboard.resources.requests.cpu | string | `"20m"` |  |
-| argo-rollouts.dashboard.resources.requests.memory | string | `"16Mi"` |  |
+| argo-rollouts.dashboard.resources.requests.cpu | string | `"10m"` |  |
+| argo-rollouts.dashboard.resources.requests.memory | string | `"64Mi"` |  |
 | argo-rollouts.enabled | bool | `true` |  |
 | argo-rollouts.fullnameOverride | string | `"argo-rollouts"` |  |
 | argo-rollouts.metrics.enabled | bool | `true` |  |
@@ -201,10 +201,6 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | argocd-image-updater.registries[0].default | bool | `true` |  |
 | argocd-image-updater.registries[0].name | string | `"GitLab"` |  |
 | argocd-image-updater.registries[0].ping | string | `"yes"` |  |
-| argocd-image-updater.resources.limits.cpu | string | `"100m"` |  |
-| argocd-image-updater.resources.limits.memory | string | `"128Mi"` |  |
-| argocd-image-updater.resources.requests.cpu | string | `"10m"` |  |
-| argocd-image-updater.resources.requests.memory | string | `"16Mi"` |  |
 | argocd-image-updater.updateStrategy.type | string | `"Recreate"` |  |
 | redis.auth.enabled | bool | `false` |  |
 | redis.auth.password | string | `""` |  |
@@ -212,19 +208,11 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | redis.master.kind | string | `"Deployment"` |  |
 | redis.master.persistence.enabled | bool | `false` |  |
 | redis.master.persistence.storageClass | string | `"local-path"` |  |
-| redis.master.resources.limits.cpu | string | `"500m"` |  |
-| redis.master.resources.limits.memory | string | `"500Mi"` |  |
-| redis.master.resources.requests.cpu | string | `"10m"` |  |
-| redis.master.resources.requests.memory | string | `"126Mi"` |  |
 | redis.metrics.enabled | bool | `true` |  |
 | redis.metrics.prometheusRule.enabled | bool | `true` |  |
 | redis.metrics.serviceMonitor.enabled | bool | `true` |  |
 | redis.replica.persistence.enabled | bool | `false` |  |
 | redis.replica.replicaCount | int | `0` |  |
-| redis.replica.resources.limits.cpu | string | `"500m"` |  |
-| redis.replica.resources.limits.memory | string | `"256Mi"` |  |
-| redis.replica.resources.requests.cpu | string | `"10m"` |  |
-| redis.replica.resources.requests.memory | string | `"64Mi"` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

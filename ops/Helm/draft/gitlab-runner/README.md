@@ -14,7 +14,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.gitlab.io | gitlab-runner | 0.53.2 |
+| https://charts.gitlab.io | gitlab-runner | 0.54.0 |
 
 ## Values
 

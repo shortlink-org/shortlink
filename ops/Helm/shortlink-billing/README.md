@@ -22,13 +22,12 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.5 |
+| file://../shortlink-common | shortlink-common | 0.5.7 |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| deploy.affinity | list | `[]` |  |
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
 | deploy.env.MQ_ENABLED | bool | `false` |  |
@@ -42,10 +41,9 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.envSecret[0].secretKeyRef.name | string | `"shortlink-postgres-pguser-billing"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/billing"` |  |
-| deploy.image.tag | string | `"0.16.9"` |  |
+| deploy.image.tag | string | `"0.16.16"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.nodeSelector | list | `[]` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
 | deploy.podSecurityContext.fsGroup | int | `1000` | fsGroup is the group ID associated with the container |
 | deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":9090}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.replicaCount | int | `1` |  |
@@ -53,7 +51,6 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.resources.requests.cpu | string | `"10m"` |  |
 | deploy.resources.requests.memory | string | `"32Mi"` |  |
 | deploy.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":"true","runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}` | Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls |
-| deploy.tolerations | list | `[]` |  |
 | ingress.enabled | bool | `true` |  |
 | ingress.istio.match[0].uri.prefix | string | `"/infrastructure.api.rpc.payment.v1.PaymentService/"` |  |
 | ingress.istio.match[1].uri.prefix | string | `"/infrastructure.api.rpc.tariff.v1.TariffService/"` |  |
