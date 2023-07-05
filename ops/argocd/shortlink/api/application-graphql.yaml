@@ -15,7 +15,7 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-api-graphql
+    path: ops/Helm/shortlink-api/shortlink-api-graphql
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
