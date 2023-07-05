@@ -5,7 +5,7 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: Postgres
+    grafana_dashboard_folder: DataBase/Postgres
 data:
   postgres_crud_details.json.url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/ops/Helm/addons/store/postgres-operator/files/dashboards/crud_details.json"
   postgres_pgbackrest.json.url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/ops/Helm/addons/store/postgres-operator/files/dashboards/pgbackrest.json"
