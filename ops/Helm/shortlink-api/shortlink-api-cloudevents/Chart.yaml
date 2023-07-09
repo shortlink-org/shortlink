@@ -1,8 +1,8 @@
 apiVersion: v2
 appVersion: "1.0.0"
-name: shortlink-api-cloudevents      
-description: Shortlink API service   
-version: 0.13.0  
+name: shortlink-api-cloudevents
+description: Shortlink API service
+version: 0.13.0
 kubeVersion: ">= 1.24.0 || >= v1.24.0-0"
 keywords:
   - api
@@ -21,4 +21,4 @@ deprecated: false
 dependencies:
   - name: shortlink-common
     version: 0.5.7
-    repository: "file://../shortlink-common"
+    repository: "file://../../shortlink-common"
