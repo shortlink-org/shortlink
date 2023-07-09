@@ -1,21 +1,21 @@
-apiVersion: v2                                   
-appVersion: "1.0.0"                              
-name: shortlink-common                           
-description: Shortlink common templates          
+apiVersion: v2
+appVersion: "1.0.0"
+name: shortlink-common
+description: Shortlink common templates
 version: 0.5.7
-kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"
 keywords:
   - shortlink
-home: https://batazor.github.io/shortlink/       
-sources:                                         
+home: https://batazor.github.io/shortlink/
+sources:
   - https://github.com/shortlink-org/shortlink
 maintainers:
   - email: batazor111@gmail.com
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: library                                    
-deprecated: false                                
+type: library
+deprecated: false
 dependencies:
   - name: common
     version: 2.6.0

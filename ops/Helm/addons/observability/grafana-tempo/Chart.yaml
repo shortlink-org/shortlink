@@ -1,9 +1,9 @@
-apiVersion: v2                                   
-appVersion: "1.0.0"                              
-name: grafana-tempo                              
-version: 0.1.0                                   
-kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         
-keywords:                                        
+apiVersion: v2
+appVersion: "1.0.0"
+name: grafana-tempo   
+version: 0.1.0   
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"
+keywords:
   - grafana
   - tracing
 maintainers:
@@ -11,8 +11,8 @@ maintainers:
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: application                                
-deprecated: false                                
+type: application
+deprecated: false
 dependencies:
   - name: tempo
     version: 1.3.1

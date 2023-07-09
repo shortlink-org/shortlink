@@ -1,22 +1,22 @@
-apiVersion: v2                                            
-appVersion: "1.0.0"                                       
-name: shortlink-bot                                     
-description: Shortlink service for get bot by URL       
-version: 0.3.0                                            
-kubeVersion: ">= 1.24.0 || >= v1.24.0-0"                  
-keywords:                                                 
+apiVersion: v2
+appVersion: "1.0.0"
+name: shortlink-bot
+description: Shortlink service for get bot by URL
+version: 0.3.0
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"
+keywords:
   - bot
   - shortlink
-home: https://batazor.github.io/shortlink/                
-sources:                                                  
+home: https://batazor.github.io/shortlink/
+sources:
   - https://github.com/shortlink-org/shortlink
 maintainers:
   - email: batazor111@gmail.com
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: application                                         
-deprecated: false                                         
+type: application
+deprecated: false
 dependencies:
   - name: shortlink-common
     version: 0.5.7

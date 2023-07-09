@@ -1,17 +1,17 @@
-apiVersion: v2                                   
-appVersion: "1.0.0"                              
-name: redis                                      
-version: 0.2.0                                   
-kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         
-keywords:                                        
+apiVersion: v2
+appVersion: "1.0.0"
+name: redis      
+version: 0.2.0   
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"
+keywords:
   - backup
 maintainers:
   - email: batazor111@gmail.com
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: application                                
-deprecated: false                                
+type: application
+deprecated: false
 dependencies:
   - name: velero
     version: 4.1.3

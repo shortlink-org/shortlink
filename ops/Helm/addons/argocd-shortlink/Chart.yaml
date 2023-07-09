@@ -1,8 +1,8 @@
-apiVersion: v2                                   
-appVersion: "1.0.0"                              
-name: argo-shortlink                             
-version: 0.1.1                                   
-kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         
+apiVersion: v2
+appVersion: "1.0.0"
+name: argo-shortlink
+version: 0.1.1
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"
 keywords: 
   - argo
   - ci/cd
@@ -11,8 +11,8 @@ maintainers:
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: application                                
-deprecated: false                                
+type: application
+deprecated: false
 dependencies:
   - name: kargo
     version: 0.1.0-rc.11

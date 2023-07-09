@@ -1,9 +1,9 @@
-apiVersion: v2                                   
-appVersion: "5.19.4"                             
-name: argo                                       
-version: 0.3.14                                  
-kubeVersion: ">= 1.24.0 || >= v1.24.0-0"         
-keywords:                                        
+apiVersion: v2
+appVersion: "5.19.4"
+name: argo
+version: 0.3.14
+kubeVersion: ">= 1.24.0 || >= v1.24.0-0"
+keywords:
   - argo
   - ci/cd
 maintainers:
@@ -11,8 +11,8 @@ maintainers:
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: application                                
-deprecated: false                                
+type: application
+deprecated: false
 dependencies:
   - name: argo-cd
     version: 5.37.1
