@@ -9,11 +9,11 @@ target-branch: main
 # Chart directories separated by a space
 chart-dirs:
   - ops/Helm
+  - ops/Helm/shortlink-api
 
 # TODO: need test all charts
 excluded-charts:
-  - chaos
-  - csi
+  - shortlink-support
 
 chart-repos:
   - incubator=https://charts.helm.sh/incubator
