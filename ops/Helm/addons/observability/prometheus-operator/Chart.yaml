@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: kube-prometheus-stack
-    version: 47.4.0
+    version: 47.5.0
     repository: https://prometheus-community.github.io/helm-charts
     condition: kube-prometheus-stack.enabled
     tags:
