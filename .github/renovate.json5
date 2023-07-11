@@ -3,9 +3,9 @@
   "extends": ["config:base"],
   "rangeStrategy": "bump",
   "baseBranches": ["main"],
-  "automerge": true,
-  "major": {
-    "automerge": false
+  "automerge": false,
+  "patch": {
+    "automerge": true
   },
   "commitBody": "Signed-off-by: {{{gitAuthor}}}",
   "docker-compose": {
