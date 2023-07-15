@@ -14,7 +14,7 @@ services:
     depends_on:
       - zookeeper
       - coredns
-    image: confluentinc/cp-kafka:7.4.0
+    image: confluentinc/cp-kafka:7.4.1
     restart: on-failure
     container_name: kafka_1
     init: true
