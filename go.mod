@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/PuerkitoBio/goquery v1.8.1
-	github.com/Shopify/sarama v1.38.1
+	github.com/Shopify/sarama v1.40.0
 	github.com/Unleash/unleash-client-go/v3 v3.7.4
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v0.9.0
