@@ -1,7 +1,7 @@
 package kafka
 
 import (
-	"github.com/Shopify/sarama"
+	"github.com/IBM/sarama"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
@@ -27,7 +27,7 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 	// NOTE:
 	// Do not move the code below to a goroutine.
 	// The `ConsumeClaim` itself is called within a goroutine, see:
-	// https://github.com/Shopify/sarama/blob/master/consumer_group.go#L27-L29
+	// https://github.com/IBM/sarama/blob/master/consumer_group.go#L27-L29
 	for message := range claim.Messages() {
 		session.MarkMessage(message, "")
 

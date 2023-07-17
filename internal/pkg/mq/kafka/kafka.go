@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Shopify/sarama"
+	"github.com/IBM/sarama"
 	"github.com/heptiolabs/healthcheck"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/Shopify/sarama/otelsarama"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
 type Config struct {
