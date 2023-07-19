@@ -3589,15 +3589,6 @@
     winston "^3.2.1"
     yn "^4.0.0"
 
-"@backstage/plugin-kubernetes-common@^0.6.4":
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-common/-/plugin-kubernetes-common-0.6.4.tgz#a3750706c9bb78b067b722e9f1f101bd0a72dbf3"
-  integrity sha512-bTqyqbht5rRE2ZhailHK7kCvT1E12zgVNmzHTjuL7J7afOHy4oAZRebb7gi3DVHCWJjnZkHkHUcZ8wKE5txkqA==
-  dependencies:
-    "@backstage/catalog-model" "^1.4.0"
-    "@backstage/plugin-permission-common" "^0.7.6"
-    "@kubernetes/client-node" "0.18.1"
-
 "@backstage/plugin-kubernetes-common@^0.6.5":
   version "0.6.5"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-common/-/plugin-kubernetes-common-0.6.5.tgz#8764cb5c6ba0647098f596b3bd18be906ed32086"
@@ -3607,19 +3598,19 @@
     "@backstage/plugin-permission-common" "^0.7.7"
     "@kubernetes/client-node" "0.18.1"
 
-"@backstage/plugin-kubernetes@^0.9.2":
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes/-/plugin-kubernetes-0.9.2.tgz#86a25e62b65632dac8ebcef6663ba993885c6cbe"
-  integrity sha512-MojxUTHph6WyjM+ZCmtcTQ7XT7rhZOl3o+TnmQ+NXSHYtNKrk4Vwi5HExhwSAx7LnarQUQxQwJIo2ZPRtiCAHA==
+"@backstage/plugin-kubernetes@^0.9.3":
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes/-/plugin-kubernetes-0.9.3.tgz#75b5d50b8338e35dbd9b8d1bc2c1fb7521ac7823"
+  integrity sha512-gLQ6VZKDqZofMySV4ZJwLUNqedySRH4I1vaT37kl+cdJr62ingpfhqFdliwZyecauslxLfidZhq3KzaPm0hTsg==
   dependencies:
-    "@backstage/catalog-model" "^1.4.0"
+    "@backstage/catalog-model" "^1.4.1"
     "@backstage/config" "^1.0.8"
-    "@backstage/core-components" "^0.13.2"
-    "@backstage/core-plugin-api" "^1.5.2"
-    "@backstage/errors" "^1.2.0"
-    "@backstage/plugin-catalog-react" "^1.7.0"
-    "@backstage/plugin-kubernetes-common" "^0.6.4"
-    "@backstage/theme" "^0.4.0"
+    "@backstage/core-components" "^0.13.3"
+    "@backstage/core-plugin-api" "^1.5.3"
+    "@backstage/errors" "^1.2.1"
+    "@backstage/plugin-catalog-react" "^1.8.0"
+    "@backstage/plugin-kubernetes-common" "^0.6.5"
+    "@backstage/theme" "^0.4.1"
     "@kubernetes-models/apimachinery" "^1.1.0"
     "@kubernetes-models/base" "^4.0.1"
     "@kubernetes/client-node" "0.18.1"
