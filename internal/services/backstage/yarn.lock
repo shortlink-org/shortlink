@@ -3188,17 +3188,17 @@
     winston "^3.2.1"
     yn "^4.0.0"
 
-"@backstage/plugin-auth-backend@^0.18.4":
-  version "0.18.4"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.18.4.tgz#7cd7a0b68aa542c47f8c9904249029673352c01f"
-  integrity sha512-x8TMXfCppd2cXk5qYlaucL0Iaf9i8MR66muiiyoGRil/I/Oh6lnWm23r46p7Xvs9dn/+EoU/11tKhQsS/9xKVw==
+"@backstage/plugin-auth-backend@^0.18.5":
+  version "0.18.5"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.18.5.tgz#89105134f90103aec3361a107e70ba482f842422"
+  integrity sha512-AADP0N8BmY8kz/uVZUzlXqZsTzBjre8DQygvm6m6ojA3xsWXgv4DZV1nebXHlulamhs0refKHybPXTMhwyvtyA==
   dependencies:
-    "@backstage/backend-common" "^0.19.0"
-    "@backstage/catalog-client" "^1.4.2"
-    "@backstage/catalog-model" "^1.4.0"
+    "@backstage/backend-common" "^0.19.1"
+    "@backstage/catalog-client" "^1.4.3"
+    "@backstage/catalog-model" "^1.4.1"
     "@backstage/config" "^1.0.8"
-    "@backstage/errors" "^1.2.0"
-    "@backstage/plugin-auth-node" "^0.2.15"
+    "@backstage/errors" "^1.2.1"
+    "@backstage/plugin-auth-node" "^0.2.16"
     "@backstage/types" "^1.1.0"
     "@davidzemon/passport-okta-oauth" "^0.0.5"
     "@google-cloud/firestore" "^6.0.0"
