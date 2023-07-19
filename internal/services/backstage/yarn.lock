@@ -3109,30 +3109,31 @@
     lodash "^4.17.21"
     luxon "^3.0.0"
 
-"@backstage/plugin-adr-common@^0.2.10":
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr-common/-/plugin-adr-common-0.2.10.tgz#79fc12d3e688a20ab6229fb472ccf31f01f6c198"
-  integrity sha512-e5d4Irl/RUV1Q8fF96O2U7P9MMS98mMCj6PmoE/v/roLir2TJVpW+XTDEBDxkc35ecLaudhB0sIFnH86+WMSCQ==
+"@backstage/plugin-adr-common@^0.2.11":
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr-common/-/plugin-adr-common-0.2.11.tgz#7ebaa2d15a9bed54ab54f74db44e3c542b5494c1"
+  integrity sha512-gOSVjFW+pFIzSjgbStGz+JNWz/c53CKDait42J1MTnQuij8gmjfWlMLUOgcs1EnwdPd/iEcaP1AjRPPqmHK7Pw==
   dependencies:
-    "@backstage/catalog-model" "^1.4.0"
-    "@backstage/integration" "^1.5.0"
-    "@backstage/plugin-search-common" "^1.2.4"
+    "@backstage/catalog-model" "^1.4.1"
+    "@backstage/integration" "^1.5.1"
+    "@backstage/plugin-search-common" "^1.2.5"
     front-matter "^4.0.2"
+    luxon "^3.0.0"
 
-"@backstage/plugin-adr@^0.6.2":
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr/-/plugin-adr-0.6.2.tgz#77fb8065830e068c67bd05dc907830ac2ff05045"
-  integrity sha512-VBADoZHiXpSy7xqbhZO7lDZmxtftFVAPLygwekI+Ufyg91bXYnm/uNpHbzm1L11vDCEsQ3YChtY6/y4MgAHetg==
+"@backstage/plugin-adr@^0.6.3":
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr/-/plugin-adr-0.6.3.tgz#845a6775bb4e720b05a197388c000d77a34cf59d"
+  integrity sha512-3OrB1rzPkcpb7zNsab0GKWDcKI2sQgwaltNMkA31QPhCrdML4u3V9bEUIYkv7NftZ+S3ANSTlrugNuZr/2vvNg==
   dependencies:
-    "@backstage/catalog-model" "^1.4.0"
-    "@backstage/core-components" "^0.13.2"
-    "@backstage/core-plugin-api" "^1.5.2"
-    "@backstage/integration-react" "^1.1.14"
-    "@backstage/plugin-adr-common" "^0.2.10"
-    "@backstage/plugin-catalog-react" "^1.7.0"
-    "@backstage/plugin-search-common" "^1.2.4"
-    "@backstage/plugin-search-react" "^1.6.2"
-    "@backstage/theme" "^0.4.0"
+    "@backstage/catalog-model" "^1.4.1"
+    "@backstage/core-components" "^0.13.3"
+    "@backstage/core-plugin-api" "^1.5.3"
+    "@backstage/integration-react" "^1.1.15"
+    "@backstage/plugin-adr-common" "^0.2.11"
+    "@backstage/plugin-catalog-react" "^1.8.0"
+    "@backstage/plugin-search-common" "^1.2.5"
+    "@backstage/plugin-search-react" "^1.6.3"
+    "@backstage/theme" "^0.4.1"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
     "@material-ui/lab" "4.0.0-alpha.61"
