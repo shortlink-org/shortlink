@@ -3564,15 +3564,6 @@
     zen-observable "^0.10.0"
     zod "^3.21.4"
 
-"@backstage/plugin-scaffolder-common@^1.3.1":
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-common/-/plugin-scaffolder-common-1.3.1.tgz#777ad5287de28bfb50ab6dc68945394db22d8648"
-  integrity sha512-LLtrh3urwldRbqcV8zBHEFoDT+D08AK+6RRjSv+Pfx1ELnTD5C03TDV6vvx3AXJneXbJF+Tj/LKcUiUJokO7TA==
-  dependencies:
-    "@backstage/catalog-model" "^1.4.0"
-    "@backstage/plugin-permission-common" "^0.7.6"
-    "@backstage/types" "^1.1.0"
-
 "@backstage/plugin-scaffolder-common@^1.3.2":
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-common/-/plugin-scaffolder-common-1.3.2.tgz#fda9ecf1774b4327c0a49ecde3d44681ab9e0f6f"
@@ -7488,10 +7479,15 @@
   resolved "https://registry.yarnpkg.com/@types/lunr/-/lunr-2.3.4.tgz#728f445855818fb17776d10ef4678f278072eb03"
   integrity sha512-j4x4XJwZvorEUbA519VdQ5b9AOU9TSvfi8tvxMAfP8XzNLtFex7A8vFQwqOx3WACbV0KMXbACV3cZl4/gynQ7g==
 
-"@types/luxon@^3.0.0", "@types/luxon@^3.3.0":
+"@types/luxon@^3.0.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-3.3.0.tgz#a61043a62c0a72696c73a0a305c544c96501e006"
   integrity sha512-uKRI5QORDnrGFYgcdAVnHvEIvEZ8noTpP/Bg+HeUzZghwinDlIS87DEenV5r1YoOF9G4x600YsUXLWZ19rmTmg==
+
+"@types/luxon@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-3.3.1.tgz#08727da7d81ee6a6c702b9dc6c8f86be010eb4dc"
+  integrity sha512-XOS5nBcgEeP2PpcqJHjCWhUCAzGfXIU8ILOSLpx2FhxqMW9KdxgCGXNOEKGVBfveKtIpztHzKK5vSRVLyW/NqA==
 
 "@types/markdown-it@^12.2.3":
   version "12.2.3"
