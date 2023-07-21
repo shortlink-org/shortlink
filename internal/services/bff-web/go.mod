@@ -9,7 +9,6 @@ require (
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.5.0
 	github.com/riandyrn/otelchi v0.5.1
-	github.com/shortlink-org/shortlink v0.0.0-20230716145118-ebc97241c6ce
 	github.com/spf13/viper v1.16.0
 	go.opentelemetry.io/otel/trace v1.16.0
 	golang.org/x/sync v0.3.0
