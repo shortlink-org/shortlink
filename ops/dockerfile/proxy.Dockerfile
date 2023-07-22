@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM node:20.4-alpine AS builder
+FROM node:20.5-alpine AS builder
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-proxy"
