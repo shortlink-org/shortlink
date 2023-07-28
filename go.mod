@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink
 go 1.20
 
 require (
-	github.com/IBM/sarama v1.40.0
+	github.com/IBM/sarama v1.40.1
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/Unleash/unleash-client-go/v3 v3.7.4
@@ -162,7 +162,7 @@ require (
 	github.com/jcmturner/rpc/v2 v2.0.3 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jzelinskie/stringz v0.0.1 // indirect
-	github.com/klauspost/compress v1.16.5 // indirect
+	github.com/klauspost/compress v1.16.6 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.4 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
