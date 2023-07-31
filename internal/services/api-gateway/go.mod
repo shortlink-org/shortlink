@@ -25,7 +25,7 @@ require (
 )
 
 require (
-	github.com/IBM/sarama v1.40.0 // indirect
+	github.com/IBM/sarama v1.40.1 // indirect
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/Masterminds/semver/v3 v3.2.1 // indirect
 	github.com/Masterminds/squirrel v1.5.4 // indirect
@@ -83,7 +83,7 @@ require (
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/klauspost/compress v1.16.5 // indirect
+	github.com/klauspost/compress v1.16.6 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
@@ -112,7 +112,7 @@ require (
 	github.com/pyroscope-io/client v0.7.1 // indirect
 	github.com/pyroscope-io/godeltaprof v0.1.1 // indirect
 	github.com/pyroscope-io/otel-profiling-go v0.4.0 // indirect
-	github.com/rabbitmq/amqp091-go v1.8.2-0.20230712162513-77d6683c021c // indirect
+	github.com/rabbitmq/amqp091-go v1.8.2-0.20230728230432-150c971c1efa // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/redis/go-redis/v9 v9.0.5 // indirect
 	github.com/redis/rueidis v1.0.13 // indirect
