@@ -6,7 +6,7 @@ require (
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.14.0
 	github.com/cloudevents/sdk-go/v2 v2.14.0
 	github.com/elastic/go-elasticsearch/v8 v8.9.0
-	go.uber.org/zap v1.24.0
+	go.uber.org/zap v1.25.0
 	knative.dev/pkg v0.0.0-20230802015053-532e0829167f
 )
 
