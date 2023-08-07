@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: redis
-    version: 17.14.5
+    version: 17.14.6
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: redis.enabled
     tags:
