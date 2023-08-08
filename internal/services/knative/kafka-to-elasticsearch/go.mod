@@ -7,7 +7,7 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.14.0
 	github.com/elastic/go-elasticsearch/v8 v8.9.0
 	go.uber.org/zap v1.25.0
-	knative.dev/pkg v0.0.0-20230807013311-7333c861d13b
+	knative.dev/pkg v0.0.0-20230808043333-ea6c1f29b641
 )
 
 require (
@@ -34,9 +34,9 @@ require (
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/goleak v1.2.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/net v0.12.0 // indirect
+	golang.org/x/net v0.14.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
-	golang.org/x/text v0.11.0 // indirect
+	golang.org/x/text v0.12.0 // indirect
 	golang.org/x/tools v0.11.0 // indirect
 	google.golang.org/api v0.126.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20230731193218-e0aa005b6bdf // indirect
