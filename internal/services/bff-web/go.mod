@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/internal/services/bff-web
 
-go 1.20
+go 1.21
 
 require (
 	github.com/deepmap/oapi-codegen v1.13.4

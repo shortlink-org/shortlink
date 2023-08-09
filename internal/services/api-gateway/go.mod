@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/internal/services/api-gateway
 
-go 1.20
+go 1.21
 
 require (
 	github.com/cloudevents/sdk-go/v2 v2.14.0
