@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/internal/services/csi
 
-go 1.20
+go 1.21
 
 require (
 	github.com/container-storage-interface/spec v1.8.0
