@@ -9,6 +9,6 @@
 
 .job_teplate_go:
   stage: test
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.20-alpine
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.21-alpine
   interruptible: true
   needs: []
