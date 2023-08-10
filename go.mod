@@ -22,7 +22,7 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.16.2
-	github.com/golang/glog v1.1.1
+	github.com/golang/glog v1.1.2
 	github.com/google/cel-go v0.17.1
 	github.com/google/uuid v1.3.0
 	github.com/google/wire v0.5.0
@@ -42,7 +42,7 @@ require (
 	github.com/pyroscope-io/client v0.7.1
 	github.com/pyroscope-io/godeltaprof v0.1.2
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
-	github.com/rabbitmq/amqp091-go 2eefdf1e2724
+	github.com/rabbitmq/amqp091-go v1.8.2-0.20230808142725-2eefdf1e2724
 	github.com/redis/go-redis/v9 v9.0.5
 	github.com/redis/rueidis v1.0.14
 	github.com/riandyrn/otelchi v0.5.1
