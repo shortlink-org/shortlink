@@ -3894,15 +3894,15 @@
     "@backstage/plugin-search-backend-node" "^1.2.3"
     "@backstage/plugin-search-common" "^1.2.5"
 
-"@backstage/plugin-search-backend-module-pg@^0.5.8":
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend-module-pg/-/plugin-search-backend-module-pg-0.5.8.tgz#ee0ce392763a1ca625c35a5089b30d5b9632ce76"
-  integrity sha512-XqNkgxMNEjUdFS5A+mIAdzVU+GF6xml1jt2HLsTfjTEenExZPh9z8qyqnd8TPleJIyix3iw1KqI/z1LKVZQQoA==
+"@backstage/plugin-search-backend-module-pg@^0.5.9":
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend-module-pg/-/plugin-search-backend-module-pg-0.5.9.tgz#224de9d56f52d263dfa954d9d97a8f7107645393"
+  integrity sha512-V7ChEbQJOGk6+KnMEftYyLcsfsp7/myFVR/0cHPWIm0SBZ/M+fN2KbJKQJf8sILFJVJidSZOVvVw+0gLg+qZsA==
   dependencies:
-    "@backstage/backend-common" "^0.19.1"
-    "@backstage/backend-plugin-api" "^0.5.4"
+    "@backstage/backend-common" "^0.19.2"
+    "@backstage/backend-plugin-api" "^0.6.0"
     "@backstage/config" "^1.0.8"
-    "@backstage/plugin-search-backend-node" "^1.2.3"
+    "@backstage/plugin-search-backend-node" "^1.2.4"
     "@backstage/plugin-search-common" "^1.2.5"
     knex "^2.0.0"
     lodash "^4.17.21"
@@ -3938,6 +3938,25 @@
     "@backstage/backend-common" "^0.19.1"
     "@backstage/backend-plugin-api" "^0.5.4"
     "@backstage/backend-tasks" "^0.5.4"
+    "@backstage/config" "^1.0.8"
+    "@backstage/errors" "^1.2.1"
+    "@backstage/plugin-permission-common" "^0.7.7"
+    "@backstage/plugin-search-common" "^1.2.5"
+    "@types/lunr" "^2.3.3"
+    lodash "^4.17.21"
+    lunr "^2.3.9"
+    ndjson "^2.0.0"
+    uuid "^8.3.2"
+    winston "^3.2.1"
+
+"@backstage/plugin-search-backend-node@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend-node/-/plugin-search-backend-node-1.2.4.tgz#3d2d6a63ee03b3293b7906664eafc5eac939b9b8"
+  integrity sha512-sdGqx5yCnwZPsFexmsSAZf5SQZ+EbxGMfmukMJ4sA3Nu+qdkWHbk8bN/8GAvkEEZX05VIRHFTfrWjwXqTkPupg==
+  dependencies:
+    "@backstage/backend-common" "^0.19.2"
+    "@backstage/backend-plugin-api" "^0.6.0"
+    "@backstage/backend-tasks" "^0.5.5"
     "@backstage/config" "^1.0.8"
     "@backstage/errors" "^1.2.1"
     "@backstage/plugin-permission-common" "^0.7.7"
