@@ -3481,17 +3481,17 @@
   dependencies:
     "@backstage/backend-plugin-api" "^0.5.4"
 
-"@backstage/plugin-github-actions@^0.6.1":
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-github-actions/-/plugin-github-actions-0.6.1.tgz#6bb0e750473bd6044f16a2140137d5d455e0bc91"
-  integrity sha512-CDeUAUeFygk+ZXpjv9nU+wsv+3k8Du7g1ZnVzKqrJU/93/UVFL5Nt5ErkzV+5KFG0BPtX3MlmByjPuCoF7H2eQ==
+"@backstage/plugin-github-actions@^0.6.2":
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-github-actions/-/plugin-github-actions-0.6.2.tgz#4d308eeae4c02633f0ccdcfd43583a292053a992"
+  integrity sha512-SPkMA7B63uDwm5Ob30j4loShesmcS2FOTIzO058lEMfKRzwInBiefEsjwQT5tqhL71O1iMBq4Im6Ep232COWCw==
   dependencies:
     "@backstage/catalog-model" "^1.4.1"
-    "@backstage/core-components" "^0.13.3"
+    "@backstage/core-components" "^0.13.4"
     "@backstage/core-plugin-api" "^1.5.3"
-    "@backstage/integration" "^1.5.1"
-    "@backstage/integration-react" "^1.1.15"
-    "@backstage/plugin-catalog-react" "^1.8.0"
+    "@backstage/integration" "^1.6.0"
+    "@backstage/integration-react" "^1.1.16"
+    "@backstage/plugin-catalog-react" "^1.8.1"
     "@backstage/theme" "^0.4.1"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
