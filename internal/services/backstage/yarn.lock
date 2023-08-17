@@ -2998,21 +2998,6 @@
     "@backstage/config" "^1.0.8"
     "@backstage/errors" "^1.2.1"
 
-"@backstage/integration-react@^1.1.15":
-  version "1.1.15"
-  resolved "https://registry.yarnpkg.com/@backstage/integration-react/-/integration-react-1.1.15.tgz#669aca0e83584f6afbab6728646c4ddb6a8bf7f3"
-  integrity sha512-lMqZ/nH7f0Bz8OkNquaqJpns6Y3AinFbZRWSh/BsLYguwQthVSE1nnYo8dGPOOxREQaM6dXe2apfv45w/jw6Jw==
-  dependencies:
-    "@backstage/config" "^1.0.8"
-    "@backstage/core-components" "^0.13.3"
-    "@backstage/core-plugin-api" "^1.5.3"
-    "@backstage/integration" "^1.5.1"
-    "@backstage/theme" "^0.4.1"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    react-use "^17.2.4"
-
 "@backstage/integration-react@^1.1.16":
   version "1.1.16"
   resolved "https://registry.yarnpkg.com/@backstage/integration-react/-/integration-react-1.1.16.tgz#40cb5742bc9f2443558308b692235e4ca61316b3"
@@ -3459,35 +3444,6 @@
     qs "^6.9.4"
     react-use "^17.2.4"
     yaml "^2.0.0"
-    zen-observable "^0.10.0"
-
-"@backstage/plugin-catalog@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.12.0.tgz#07f14ac0218d39ee0f6dbc65c2cd49c1d0cb34a1"
-  integrity sha512-mF61DZPHnVWwFZiK9mh3R5gISnAjQAjqR65ZOHg1EU6BkLP4nAyHVdDTeZJkiHbO1y9QYyhkFKw6nJOamFeNGw==
-  dependencies:
-    "@backstage/catalog-client" "^1.4.3"
-    "@backstage/catalog-model" "^1.4.1"
-    "@backstage/core-components" "^0.13.3"
-    "@backstage/core-plugin-api" "^1.5.3"
-    "@backstage/errors" "^1.2.1"
-    "@backstage/integration-react" "^1.1.15"
-    "@backstage/plugin-catalog-common" "^1.0.15"
-    "@backstage/plugin-catalog-react" "^1.8.0"
-    "@backstage/plugin-scaffolder-common" "^1.3.2"
-    "@backstage/plugin-search-common" "^1.2.5"
-    "@backstage/plugin-search-react" "^1.6.3"
-    "@backstage/theme" "^0.4.1"
-    "@backstage/types" "^1.1.0"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    "@types/react" "^16.13.1 || ^17.0.0"
-    history "^5.0.0"
-    lodash "^4.17.21"
-    pluralize "^8.0.0"
-    react-helmet "6.1.0"
-    react-use "^17.2.4"
     zen-observable "^0.10.0"
 
 "@backstage/plugin-catalog@^1.12.1":
@@ -4072,25 +4028,6 @@
   dependencies:
     "@backstage/plugin-permission-common" "^0.7.7"
     "@backstage/types" "^1.1.0"
-
-"@backstage/plugin-search-react@^1.6.3":
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-react/-/plugin-search-react-1.6.3.tgz#0b745ec13758a97bccf527b3ebb15d17f304d9a1"
-  integrity sha512-6u7PT0TjJ2WZHwqMl2to+7Ii1hCpTsotmo/oER0chx3Ut/9XkzFKWxcU51mBSWd+TwYkRGMKCoHCAg8sCsLK/g==
-  dependencies:
-    "@backstage/core-components" "^0.13.3"
-    "@backstage/core-plugin-api" "^1.5.3"
-    "@backstage/plugin-search-common" "^1.2.5"
-    "@backstage/theme" "^0.4.1"
-    "@backstage/types" "^1.1.0"
-    "@backstage/version-bridge" "^1.0.4"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    "@types/react" "^16.13.1 || ^17.0.0"
-    lodash "^4.17.21"
-    qs "^6.9.4"
-    react-use "^17.3.2"
 
 "@backstage/plugin-search-react@^1.6.4":
   version "1.6.4"
