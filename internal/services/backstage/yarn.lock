@@ -3549,17 +3549,17 @@
     "@backstage/plugin-permission-common" "^0.7.7"
     "@kubernetes/client-node" "0.18.1"
 
-"@backstage/plugin-kubernetes@^0.9.3":
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes/-/plugin-kubernetes-0.9.3.tgz#75b5d50b8338e35dbd9b8d1bc2c1fb7521ac7823"
-  integrity sha512-gLQ6VZKDqZofMySV4ZJwLUNqedySRH4I1vaT37kl+cdJr62ingpfhqFdliwZyecauslxLfidZhq3KzaPm0hTsg==
+"@backstage/plugin-kubernetes@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes/-/plugin-kubernetes-0.10.0.tgz#aa450ffdc5a857227fb6e1d2983f3696ca54664a"
+  integrity sha512-k/McpBOA/EBh5P65g2xkT2eKTswTGut9jSDG3ASAHIQ/Vg6lTrDOS/ELZdLTc5GVM9aF02WfndQCrQOZ+wbG9Q==
   dependencies:
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/config" "^1.0.8"
-    "@backstage/core-components" "^0.13.3"
+    "@backstage/core-components" "^0.13.4"
     "@backstage/core-plugin-api" "^1.5.3"
     "@backstage/errors" "^1.2.1"
-    "@backstage/plugin-catalog-react" "^1.8.0"
+    "@backstage/plugin-catalog-react" "^1.8.1"
     "@backstage/plugin-kubernetes-common" "^0.6.5"
     "@backstage/theme" "^0.4.1"
     "@kubernetes-models/apimachinery" "^1.1.0"
