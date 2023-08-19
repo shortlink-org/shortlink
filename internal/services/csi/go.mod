@@ -95,13 +95,13 @@ require (
 	github.com/prometheus/client_model v0.4.0 // indirect
 	github.com/prometheus/common v0.44.0 // indirect
 	github.com/prometheus/procfs v0.10.1 // indirect
-	github.com/pyroscope-io/client v0.7.1 // indirect
+	github.com/pyroscope-io/client v0.7.2 // indirect
 	github.com/pyroscope-io/godeltaprof v0.1.2 // indirect
 	github.com/pyroscope-io/otel-profiling-go v0.4.0 // indirect
 	github.com/rabbitmq/amqp091-go v1.8.2-0.20230808142725-2eefdf1e2724 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
-	github.com/redis/go-redis/v9 v9.0.5 // indirect
-	github.com/redis/rueidis v1.0.14 // indirect
+	github.com/redis/go-redis/v9 v9.1.0 // indirect
+	github.com/redis/rueidis v1.0.15 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
@@ -145,7 +145,7 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/apimachinery v0.27.4 // indirect
+	k8s.io/apimachinery v0.28.0 // indirect
 	k8s.io/klog/v2 v2.100.1 // indirect
 )
 
