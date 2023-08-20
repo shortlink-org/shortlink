@@ -2,7 +2,7 @@
 namespace:create:
   stage: .pre
   image:
-    name: alpine/k8s:1.27.4
+    name: alpine/k8s:1.28.0
     entrypoint: [ "" ]
   script:
     - kubectl --context=shortlink-org/shortlink:${PROVIDER} create namespace argocd
