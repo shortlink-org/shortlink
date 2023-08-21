@@ -51,7 +51,7 @@ dependencies:
     tags:
       - ci/cd
   - name: redis
-    version: 17.15.5
+    version: 17.15.6
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: redis.enabled
     tags:
