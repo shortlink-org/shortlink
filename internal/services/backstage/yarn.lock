@@ -3929,23 +3929,23 @@
     uuid "^8.3.2"
     winston "^3.2.1"
 
-"@backstage/plugin-search-backend-module-techdocs@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend-module-techdocs/-/plugin-search-backend-module-techdocs-0.1.4.tgz#c0e2b1c851a04560b850d3a4dfb69faa7b31b4ba"
-  integrity sha512-eq6Q1ZmwLMNVcEnyk0uSluna4yx95hxyQmE54erCNRj+OM1Zb9P9EqQT2hvSUSUtfrtopdabrzUWpihlLUDu6w==
+"@backstage/plugin-search-backend-module-techdocs@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend-module-techdocs/-/plugin-search-backend-module-techdocs-0.1.5.tgz#7a48ae1e86eff8aef6d4dd13aa6e6b32f951c855"
+  integrity sha512-8Qjt/kkZtLuGuN3A8DenZH9wTeHZVdV8eBufFPjHySxbRn9dPOZe4/UUUQcZBr+uOnB+dDG5wOr+Hy+UGnUpLQ==
   dependencies:
-    "@backstage/backend-common" "^0.19.2"
-    "@backstage/backend-plugin-api" "^0.6.0"
-    "@backstage/backend-tasks" "^0.5.5"
+    "@backstage/backend-common" "^0.19.3"
+    "@backstage/backend-plugin-api" "^0.6.1"
+    "@backstage/backend-tasks" "^0.5.6"
     "@backstage/catalog-client" "^1.4.3"
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/config" "^1.0.8"
     "@backstage/plugin-catalog-common" "^1.0.15"
-    "@backstage/plugin-catalog-node" "^1.4.1"
+    "@backstage/plugin-catalog-node" "^1.4.2"
     "@backstage/plugin-permission-common" "^0.7.7"
-    "@backstage/plugin-search-backend-node" "^1.2.4"
+    "@backstage/plugin-search-backend-node" "^1.2.5"
     "@backstage/plugin-search-common" "^1.2.5"
-    "@backstage/plugin-techdocs-node" "^1.7.4"
+    "@backstage/plugin-techdocs-node" "^1.7.5"
     lodash "^4.17.21"
     node-fetch "^2.6.7"
     p-limit "^3.1.0"
@@ -4081,23 +4081,23 @@
     prop-types "^15.7.2"
     react-use "^17.2.4"
 
-"@backstage/plugin-techdocs-backend@^1.6.5":
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs-backend/-/plugin-techdocs-backend-1.6.5.tgz#e03defa65282946f96d33b3bc68464680a75d5f0"
-  integrity sha512-cHrZPs3ij73DOoWZD/QjlBuVcEcfzcI2/cgY2FUEUkhaBojR4JfxPg+Z64kLhk4AdmybAJmLxk51sysSb73B0Q==
+"@backstage/plugin-techdocs-backend@^1.6.6":
+  version "1.6.6"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs-backend/-/plugin-techdocs-backend-1.6.6.tgz#a8efe9eb60fdfee981eb618a3355e22c2a3dd9d1"
+  integrity sha512-8bIItXDVe4cvwK8ibUDHVBDj6sFUQ0tzLoxo0J5Dt+LLE4WWpolYFr9gDyqqW6kRUMljysbPDEGE2BraGdMWEw==
   dependencies:
-    "@backstage/backend-common" "^0.19.2"
-    "@backstage/backend-plugin-api" "^0.6.0"
+    "@backstage/backend-common" "^0.19.3"
+    "@backstage/backend-plugin-api" "^0.6.1"
     "@backstage/catalog-client" "^1.4.3"
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/config" "^1.0.8"
     "@backstage/errors" "^1.2.1"
-    "@backstage/integration" "^1.6.0"
+    "@backstage/integration" "^1.6.1"
     "@backstage/plugin-catalog-common" "^1.0.15"
     "@backstage/plugin-permission-common" "^0.7.7"
-    "@backstage/plugin-search-backend-module-techdocs" "^0.1.4"
+    "@backstage/plugin-search-backend-module-techdocs" "^0.1.5"
     "@backstage/plugin-search-common" "^1.2.5"
-    "@backstage/plugin-techdocs-node" "^1.7.4"
+    "@backstage/plugin-techdocs-node" "^1.7.5"
     "@types/express" "^4.17.6"
     dockerode "^3.3.1"
     express "^4.17.1"
@@ -4128,10 +4128,10 @@
     photoswipe "^5.3.7"
     react-use "^17.2.4"
 
-"@backstage/plugin-techdocs-node@^1.7.4":
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs-node/-/plugin-techdocs-node-1.7.4.tgz#755e1e8a9af8e5b2e0b40f712503e2a986eaadf4"
-  integrity sha512-+gUyhwCAanMfnMgUC9iBwhkg78SMJB2EKhdw99ZHfGYRwxLjmFoYcSRMVFGMSdFkZ8IvS5fjUSejK+7U/3Nr/Q==
+"@backstage/plugin-techdocs-node@^1.7.5":
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs-node/-/plugin-techdocs-node-1.7.5.tgz#8acd52716e30788853db419e15beeb843061f187"
+  integrity sha512-QGtu3KicGlNaoBN/6uGEj9fUSkfBqD3Eef7HsijlR/puQRniPB3pc/fk1hmJc65Q67L3LgeYIpjQImQ0W+SASw==
   dependencies:
     "@aws-sdk/client-s3" "^3.350.0"
     "@aws-sdk/credential-providers" "^3.350.0"
@@ -4140,11 +4140,11 @@
     "@aws-sdk/types" "^3.347.0"
     "@azure/identity" "^3.2.1"
     "@azure/storage-blob" "^12.5.0"
-    "@backstage/backend-common" "^0.19.2"
+    "@backstage/backend-common" "^0.19.3"
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/config" "^1.0.8"
     "@backstage/errors" "^1.2.1"
-    "@backstage/integration" "^1.6.0"
+    "@backstage/integration" "^1.6.1"
     "@backstage/integration-aws-node" "^0.1.5"
     "@backstage/plugin-search-common" "^1.2.5"
     "@google-cloud/storage" "^6.0.0"
