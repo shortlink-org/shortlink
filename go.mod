@@ -10,7 +10,7 @@ require (
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v0.9.0
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/cucumber/godog v0.12.6
+	github.com/cucumber/godog v0.13.0
 	github.com/dgraph-io/badger/v4 v4.2.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/edgedb/edgedb-go v0.14.0
@@ -110,7 +110,9 @@ require (
 	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/cucumber/gherkin-go/v19 v19.0.3 // indirect
+	github.com/cucumber/gherkin/go/v26 v26.2.0 // indirect
 	github.com/cucumber/messages-go/v16 v16.0.1 // indirect
+	github.com/cucumber/messages/go/v21 v21.0.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/deckarep/golang-set/v2 v2.1.0 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.2.0 // indirect
