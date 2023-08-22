@@ -3957,15 +3957,15 @@
     "@backstage/plugin-search-backend-node" "^1.2.5"
     "@backstage/plugin-search-common" "^1.2.5"
 
-"@backstage/plugin-search-backend-module-pg@^0.5.9":
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend-module-pg/-/plugin-search-backend-module-pg-0.5.9.tgz#224de9d56f52d263dfa954d9d97a8f7107645393"
-  integrity sha512-V7ChEbQJOGk6+KnMEftYyLcsfsp7/myFVR/0cHPWIm0SBZ/M+fN2KbJKQJf8sILFJVJidSZOVvVw+0gLg+qZsA==
+"@backstage/plugin-search-backend-module-pg@^0.5.10":
+  version "0.5.10"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend-module-pg/-/plugin-search-backend-module-pg-0.5.10.tgz#64d7f79719d13dbf482f07ef1d2562e1aa4fc8c0"
+  integrity sha512-Md3JWnUCafcYPhPLY4IrbJ4Ex5NZlKmqsDx20bqhfV7RZaPXa5Mjn85bRvVD1D/Dss2uSRllMTozrR3XhHGBZQ==
   dependencies:
-    "@backstage/backend-common" "^0.19.2"
-    "@backstage/backend-plugin-api" "^0.6.0"
+    "@backstage/backend-common" "^0.19.3"
+    "@backstage/backend-plugin-api" "^0.6.1"
     "@backstage/config" "^1.0.8"
-    "@backstage/plugin-search-backend-node" "^1.2.4"
+    "@backstage/plugin-search-backend-node" "^1.2.5"
     "@backstage/plugin-search-common" "^1.2.5"
     knex "^2.0.0"
     lodash "^4.17.21"
