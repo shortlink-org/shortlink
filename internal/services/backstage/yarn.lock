@@ -2859,6 +2859,21 @@
     "@material-ui/lab" "4.0.0-alpha.61"
     react-use "^17.2.4"
 
+"@backstage/integration-react@^1.1.17":
+  version "1.1.17"
+  resolved "https://registry.yarnpkg.com/@backstage/integration-react/-/integration-react-1.1.17.tgz#3d1db8fa7178d3eb01ae1cd5c06c011845e0f656"
+  integrity sha512-oRvSSy7cdSOpJSHIO0mhYhG86aBXgzzP78WPvsRdplYhAILA+d3xZJVo+V2uzr8s7T3tabbxSTVxdWWOdcK8eQ==
+  dependencies:
+    "@backstage/config" "^1.0.8"
+    "@backstage/core-components" "^0.13.4"
+    "@backstage/core-plugin-api" "^1.5.3"
+    "@backstage/integration" "^1.6.1"
+    "@backstage/theme" "^0.4.1"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    react-use "^17.2.4"
+
 "@backstage/integration@^1.5.1":
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.5.1.tgz#10a64060ba74251cc6256ab8dcb3394d4beb8201"
@@ -3235,6 +3250,37 @@
     yaml "^2.0.0"
     zen-observable "^0.10.0"
 
+"@backstage/plugin-catalog-react@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.8.2.tgz#de5821a55f01c9a00dc6a4a7829fab7612f17041"
+  integrity sha512-HA9ggYiahHpNdj0/JbnbHXnefkouS73r2UY5VWNTySnYysejZWJ1zK6QmJC3WNWcUqAMVZr5ZvjTKCIn5VdGhA==
+  dependencies:
+    "@backstage/catalog-client" "^1.4.3"
+    "@backstage/catalog-model" "^1.4.1"
+    "@backstage/core-components" "^0.13.4"
+    "@backstage/core-plugin-api" "^1.5.3"
+    "@backstage/errors" "^1.2.1"
+    "@backstage/integration" "^1.6.1"
+    "@backstage/plugin-catalog-common" "^1.0.15"
+    "@backstage/plugin-permission-common" "^0.7.7"
+    "@backstage/plugin-permission-react" "^0.4.14"
+    "@backstage/theme" "^0.4.1"
+    "@backstage/types" "^1.1.0"
+    "@backstage/version-bridge" "^1.0.4"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@react-hookz/web" "^23.0.0"
+    "@types/react" "^16.13.1 || ^17.0.0"
+    classnames "^2.2.6"
+    jwt-decode "^3.1.0"
+    lodash "^4.17.21"
+    material-ui-popup-state "^1.9.3"
+    qs "^6.9.4"
+    react-use "^17.2.4"
+    yaml "^2.0.0"
+    zen-observable "^0.10.0"
+
 "@backstage/plugin-catalog@^1.12.2":
   version "1.12.2"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.12.2.tgz#e873c124eea542c2c310bdc0c61de1e4eeaef874"
@@ -3556,17 +3602,17 @@
     zod "^3.21.4"
     zod-to-json-schema "^3.20.4"
 
-"@backstage/plugin-scaffolder-react@^1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-react/-/plugin-scaffolder-react-1.5.2.tgz#be68d0bc8a9d813e773102b84734374953b280da"
-  integrity sha512-TpLQ1vE9v4iMQ05IReLpSifY0K/UC8V7+Epk4b1mFebkwatTjcMBrM8bwDCVcDFi3qMT32cR0Olg7h+S7gqqXA==
+"@backstage/plugin-scaffolder-react@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-react/-/plugin-scaffolder-react-1.5.3.tgz#5869d6ade8ae68e7da27af12b76816b3400af516"
+  integrity sha512-65E4k3F5cAyy3hhWbYa55qYuVHtqQRdWaRsBXrmVY5z/WDxkjtXNPRzEPgINvKtcmPBZx2/BBVgs1vCkn6GfRw==
   dependencies:
     "@backstage/catalog-client" "^1.4.3"
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/core-components" "^0.13.4"
     "@backstage/core-plugin-api" "^1.5.3"
     "@backstage/errors" "^1.2.1"
-    "@backstage/plugin-catalog-react" "^1.8.1"
+    "@backstage/plugin-catalog-react" "^1.8.2"
     "@backstage/plugin-scaffolder-common" "^1.4.0"
     "@backstage/theme" "^0.4.1"
     "@backstage/types" "^1.1.0"
@@ -3597,10 +3643,10 @@
     zod "^3.21.4"
     zod-to-json-schema "^3.20.4"
 
-"@backstage/plugin-scaffolder@^1.14.2":
-  version "1.14.2"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder/-/plugin-scaffolder-1.14.2.tgz#595be090edec678360116f2286fdec251d785ba3"
-  integrity sha512-EMpRkwhHdic4MANNSPQkja39r5wzzujbc5q95+5zDnEGXW6y3JtIAOUu5PRTyqgPWB5a0KWfa8dSbkSQMvjhBQ==
+"@backstage/plugin-scaffolder@^1.14.3":
+  version "1.14.3"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder/-/plugin-scaffolder-1.14.3.tgz#d8dfbb4311aba8665758af6bf1f64d0d88ea1bba"
+  integrity sha512-nqHLjoLrbXXYm1sC5BVhjP86D+eD82jbBOMiXJc4diRsgpBJkDEHzlx5xzJ3zdlrUfEcLjZs9iHDtZnSr6uW6Q==
   dependencies:
     "@backstage/catalog-client" "^1.4.3"
     "@backstage/catalog-model" "^1.4.1"
@@ -3608,13 +3654,13 @@
     "@backstage/core-components" "^0.13.4"
     "@backstage/core-plugin-api" "^1.5.3"
     "@backstage/errors" "^1.2.1"
-    "@backstage/integration" "^1.6.0"
-    "@backstage/integration-react" "^1.1.16"
+    "@backstage/integration" "^1.6.1"
+    "@backstage/integration-react" "^1.1.17"
     "@backstage/plugin-catalog-common" "^1.0.15"
-    "@backstage/plugin-catalog-react" "^1.8.1"
+    "@backstage/plugin-catalog-react" "^1.8.2"
     "@backstage/plugin-permission-react" "^0.4.14"
     "@backstage/plugin-scaffolder-common" "^1.4.0"
-    "@backstage/plugin-scaffolder-react" "^1.5.2"
+    "@backstage/plugin-scaffolder-react" "^1.5.3"
     "@backstage/theme" "^0.4.1"
     "@backstage/types" "^1.1.0"
     "@codemirror/language" "^6.0.0"
