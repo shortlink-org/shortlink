@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/bytedance/sonic v1.10.0
-	github.com/google/uuid v1.3.0
+	github.com/google/uuid v1.3.1
 	github.com/segmentio/encoding v0.3.6
 )
 

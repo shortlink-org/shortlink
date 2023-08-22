@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/container-storage-interface/spec v1.8.0
 	github.com/golang/glog v1.1.2
-	github.com/google/uuid v1.3.0
+	github.com/google/uuid v1.3.1
 	github.com/google/wire v0.5.0
 	github.com/kubernetes-csi/csi-test/v5 v5.0.0
 	github.com/shortlink-org/shortlink v0.0.0-20230720053316-44951a2f1a89
