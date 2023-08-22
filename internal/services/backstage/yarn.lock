@@ -3051,28 +3051,28 @@
     lodash "^4.17.21"
     luxon "^3.0.0"
 
-"@backstage/plugin-adr-common@^0.2.12":
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr-common/-/plugin-adr-common-0.2.12.tgz#80867a7370f4345ccb61fd164a2d8971d6d91eab"
-  integrity sha512-G4bPUvOVGhJYeXA/pRiNBcgrpEg7zN/vbJaCkal+ofNvoQw6K3Af6GeB3rKrxrT6FNgAfWNwFki38+qv1G5KLw==
+"@backstage/plugin-adr-common@^0.2.13":
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr-common/-/plugin-adr-common-0.2.13.tgz#0b1d399523e51af55dc621f5a94630f32099ad61"
+  integrity sha512-E+hiE4gLynWEfnc7l5oCponB7chbr8XwxoCBGgWLruv65rE05mlwSuRABo50YsDtZpwsKiNboF8xx8lpe7Crcg==
   dependencies:
     "@backstage/catalog-model" "^1.4.1"
-    "@backstage/integration" "^1.6.0"
+    "@backstage/integration" "^1.6.1"
     "@backstage/plugin-search-common" "^1.2.5"
     front-matter "^4.0.2"
     luxon "^3.0.0"
 
-"@backstage/plugin-adr@^0.6.4":
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr/-/plugin-adr-0.6.4.tgz#87968a98e0815394a77761410db2efb8b36f6457"
-  integrity sha512-aPfsmu0gHOr7tMA6eH3+83335arGSAxC1nvDoX4ITp90aEj4cUfscO+T7HN95zpAGri3h+3bPv6ApHd10WQhHg==
+"@backstage/plugin-adr@^0.6.5":
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr/-/plugin-adr-0.6.5.tgz#67e16ec2f9f0b6e68b31bb900d84c10d890fa819"
+  integrity sha512-8Y7J85JjqDXhMevW3RLPEtBAzcDOv7cv8xuKcxUrUW/GoHkeHtK1fGwtxVcL0NDG4imX6fROxNkF91iNYEMj/g==
   dependencies:
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/core-components" "^0.13.4"
     "@backstage/core-plugin-api" "^1.5.3"
-    "@backstage/integration-react" "^1.1.16"
-    "@backstage/plugin-adr-common" "^0.2.12"
-    "@backstage/plugin-catalog-react" "^1.8.1"
+    "@backstage/integration-react" "^1.1.17"
+    "@backstage/plugin-adr-common" "^0.2.13"
+    "@backstage/plugin-catalog-react" "^1.8.2"
     "@backstage/plugin-search-common" "^1.2.5"
     "@backstage/plugin-search-react" "^1.6.4"
     "@backstage/theme" "^0.4.1"
