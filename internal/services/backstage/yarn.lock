@@ -3085,17 +3085,17 @@
     react-use "^17.2.4"
     remark-gfm "^3.0.1"
 
-"@backstage/plugin-api-docs@^0.9.8":
-  version "0.9.8"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-api-docs/-/plugin-api-docs-0.9.8.tgz#0244672d870c8e9c5c0faa8180d94837faecae55"
-  integrity sha512-6qqyeFAkfylxfa+0rj6ZsPVTZ0/08oRBOSZdKIkgE5r+qeNgrj2mEyiRi1uOEDitdz2FZPCmCEaX+42O3Jz/CA==
+"@backstage/plugin-api-docs@^0.9.9":
+  version "0.9.9"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-api-docs/-/plugin-api-docs-0.9.9.tgz#6aeb0ba71b4ecddd9d1fa0ba2956ae92c9457bec"
+  integrity sha512-fCXzDY4C63yZODASZy0KAMlm4f+gGl1Oh/K8seF5j3RRaMDTWPMFZ3Wp0ZZQPf/+xf8wqJA9EAdyFn/crctSaA==
   dependencies:
     "@asyncapi/react-component" "1.0.0-next.48"
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/core-components" "^0.13.4"
     "@backstage/core-plugin-api" "^1.5.3"
-    "@backstage/plugin-catalog" "^1.12.2"
-    "@backstage/plugin-catalog-react" "^1.8.1"
+    "@backstage/plugin-catalog" "^1.12.3"
+    "@backstage/plugin-catalog-react" "^1.8.2"
     "@backstage/theme" "^0.4.1"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
@@ -3396,6 +3396,37 @@
     yaml "^2.0.0"
     zen-observable "^0.10.0"
 
+"@backstage/plugin-catalog-react@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.8.2.tgz#de5821a55f01c9a00dc6a4a7829fab7612f17041"
+  integrity sha512-HA9ggYiahHpNdj0/JbnbHXnefkouS73r2UY5VWNTySnYysejZWJ1zK6QmJC3WNWcUqAMVZr5ZvjTKCIn5VdGhA==
+  dependencies:
+    "@backstage/catalog-client" "^1.4.3"
+    "@backstage/catalog-model" "^1.4.1"
+    "@backstage/core-components" "^0.13.4"
+    "@backstage/core-plugin-api" "^1.5.3"
+    "@backstage/errors" "^1.2.1"
+    "@backstage/integration" "^1.6.1"
+    "@backstage/plugin-catalog-common" "^1.0.15"
+    "@backstage/plugin-permission-common" "^0.7.7"
+    "@backstage/plugin-permission-react" "^0.4.14"
+    "@backstage/theme" "^0.4.1"
+    "@backstage/types" "^1.1.0"
+    "@backstage/version-bridge" "^1.0.4"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@react-hookz/web" "^23.0.0"
+    "@types/react" "^16.13.1 || ^17.0.0"
+    classnames "^2.2.6"
+    jwt-decode "^3.1.0"
+    lodash "^4.17.21"
+    material-ui-popup-state "^1.9.3"
+    qs "^6.9.4"
+    react-use "^17.2.4"
+    yaml "^2.0.0"
+    zen-observable "^0.10.0"
+
 "@backstage/plugin-catalog@^1.12.2":
   version "1.12.2"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.12.2.tgz#e873c124eea542c2c310bdc0c61de1e4eeaef874"
@@ -3409,6 +3440,35 @@
     "@backstage/integration-react" "^1.1.16"
     "@backstage/plugin-catalog-common" "^1.0.15"
     "@backstage/plugin-catalog-react" "^1.8.1"
+    "@backstage/plugin-scaffolder-common" "^1.4.0"
+    "@backstage/plugin-search-common" "^1.2.5"
+    "@backstage/plugin-search-react" "^1.6.4"
+    "@backstage/theme" "^0.4.1"
+    "@backstage/types" "^1.1.0"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@types/react" "^16.13.1 || ^17.0.0"
+    history "^5.0.0"
+    lodash "^4.17.21"
+    pluralize "^8.0.0"
+    react-helmet "6.1.0"
+    react-use "^17.2.4"
+    zen-observable "^0.10.0"
+
+"@backstage/plugin-catalog@^1.12.3":
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.12.3.tgz#9938b077fe3c23c65a5e5b876b2fc7c54c04d0bc"
+  integrity sha512-R/K6R9mo9IGWbkpgF2/LR9cucdlqsgikB7Fgx9m/6sLlQ+FoJ3Es5AmW+6X1hPVl82ec9RxeQKUA9QkTAI4+mw==
+  dependencies:
+    "@backstage/catalog-client" "^1.4.3"
+    "@backstage/catalog-model" "^1.4.1"
+    "@backstage/core-components" "^0.13.4"
+    "@backstage/core-plugin-api" "^1.5.3"
+    "@backstage/errors" "^1.2.1"
+    "@backstage/integration-react" "^1.1.17"
+    "@backstage/plugin-catalog-common" "^1.0.15"
+    "@backstage/plugin-catalog-react" "^1.8.2"
     "@backstage/plugin-scaffolder-common" "^1.4.0"
     "@backstage/plugin-search-common" "^1.2.5"
     "@backstage/plugin-search-react" "^1.6.4"
