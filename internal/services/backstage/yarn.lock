@@ -3140,17 +3140,17 @@
     "@types/express" "^4.17.6"
     express "^4.17.1"
 
-"@backstage/plugin-auth-backend@^0.18.6":
-  version "0.18.6"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.18.6.tgz#db3299a111a211e28c321afc02088a98777a9d68"
-  integrity sha512-5Xnjecgi97YPeUtx2SR6R+D4EZ5J8Q9u6zK4aG/xsYLO7Y4AfyVtAXxgPcGYyuE4695K6Qw3g1acLouxHjXoxA==
+"@backstage/plugin-auth-backend@^0.18.7":
+  version "0.18.7"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.18.7.tgz#b01e52da08f0a137c4669281429770a2a842a67e"
+  integrity sha512-ICJJCYJQ45lYPqZwbUKMKP3ADIDglx/enTm5ncjzDS4EgfIsfExRWqdwNMKyOGqPqrVdWawaICPGTxitMtfuJw==
   dependencies:
-    "@backstage/backend-common" "^0.19.2"
+    "@backstage/backend-common" "^0.19.3"
     "@backstage/catalog-client" "^1.4.3"
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/config" "^1.0.8"
     "@backstage/errors" "^1.2.1"
-    "@backstage/plugin-auth-node" "^0.2.17"
+    "@backstage/plugin-auth-node" "^0.2.18"
     "@backstage/types" "^1.1.0"
     "@davidzemon/passport-okta-oauth" "^0.0.5"
     "@google-cloud/firestore" "^6.0.0"
