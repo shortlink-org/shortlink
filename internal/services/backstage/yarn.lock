@@ -2546,10 +2546,10 @@
     semver "^7.5.3"
     zod "^3.21.4"
 
-"@backstage/cli@^0.22.11":
-  version "0.22.11"
-  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.22.11.tgz#cdd2560c4c88b05dc316cc2b7496c12d2a83e973"
-  integrity sha512-KLQI9/l1LLjg7kXdM6wkNCkoslCId6wy7sKB8LLyY6sMf38OiS31aWJxzA5rFlRfrqDKlv1p46Y8V/G/RbrQyw==
+"@backstage/cli@^0.22.12":
+  version "0.22.12"
+  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.22.12.tgz#7199b3cadfb9748eb95358e39d7bd7d152ecdf5d"
+  integrity sha512-gU7RQvTnrZHbsWTlsMHx+5pBRP4ZRt6wUp8ZQAbS7v1sEt3oPawlglreGv/IWWW/zF7zuJWneAe+RZvgzPC/mA==
   dependencies:
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/cli-common" "^0.1.12"
@@ -2558,7 +2558,7 @@
     "@backstage/config-loader" "^1.4.0"
     "@backstage/errors" "^1.2.1"
     "@backstage/eslint-plugin" "^0.1.3"
-    "@backstage/integration" "^1.6.1"
+    "@backstage/integration" "^1.6.2"
     "@backstage/release-manifests" "^0.0.9"
     "@backstage/types" "^1.1.0"
     "@esbuild-kit/cjs-loader" "^2.4.1"
@@ -2878,6 +2878,21 @@
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.6.1.tgz#7243dce252b8b502784a350202434ac983009ed6"
   integrity sha512-hwDAMIAfNage1GhAST7SoLCDauG2nxZNBk+gWV36rdUm7kd9H5MPUDn/1W+MZV3SWJ689oM0AXmsyWrxQfpqbw==
+  dependencies:
+    "@azure/identity" "^3.2.1"
+    "@backstage/config" "^1.0.8"
+    "@backstage/errors" "^1.2.1"
+    "@octokit/auth-app" "^4.0.0"
+    "@octokit/rest" "^19.0.3"
+    cross-fetch "^3.1.5"
+    git-url-parse "^13.0.0"
+    lodash "^4.17.21"
+    luxon "^3.0.0"
+
+"@backstage/integration@^1.6.2":
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.6.2.tgz#83e70aea9d78624a2b6c0c4c3a37675752cdbede"
+  integrity sha512-10XNwGmzoLwcsRPieZLoYRXBBYvdkakT+TY5ucNaGw9QwxvlFZxDel1hIPLJIEctV9yFCkf1iw4ufJBiaHNJjQ==
   dependencies:
     "@azure/identity" "^3.2.1"
     "@backstage/config" "^1.0.8"
