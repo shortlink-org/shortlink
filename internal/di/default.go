@@ -9,17 +9,17 @@ import (
 
 	"github.com/google/wire"
 	redisCache "github.com/redis/go-redis/v9"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	ctx "github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/flags"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/monitoring"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
@@ -28,6 +28,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 )
 

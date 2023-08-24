@@ -12,10 +12,17 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
+type Monitoring struct {
+	Handler  *http.ServeMux
+	Registry *prometheus.Registry
+}
+
 // New - Monitoring endpoints
-func New(log logger.Logger) (*http.ServeMux, error) {
+func New(log logger.Logger) (*Monitoring, error) {
+	monitoring := &Monitoring{}
+
 	// Create a new Prometheus registry
-	registry := prometheus.NewRegistry()
+	monitoring.Registry = prometheus.NewRegistry()
 
 	// Add Go module build info.
 	err := prometheus.Register(collectors.NewBuildInfoCollector())
@@ -25,25 +32,31 @@ func New(log logger.Logger) (*http.ServeMux, error) {
 
 	// Create a metrics-exposing Handler for the Prometheus registry
 	// The healthcheck related metrics will be prefixed with the provided namespace
-	health := healthcheck.NewMetricsHandler(registry, "common")
+	health := healthcheck.NewMetricsHandler(monitoring.Registry, "common")
 
 	// Our app is not happy if we've got more than 100 goroutines running.
 	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) // nolint:gomnd
 
 	// Create a "common" listener
-	commonMux := http.NewServeMux()
+	monitoring.Handler = http.NewServeMux()
 
 	// Expose prometheus metrics on /metrics
-	commonMux.Handle("/metrics", promhttp.Handler())
+	monitoring.Handler.Handle("/metrics", promhttp.HandlerFor(
+		monitoring.Registry,
+		promhttp.HandlerOpts{
+			// Opt into OpenMetrics, e.g., to support exemplars.
+			EnableOpenMetrics: true,
+		},
+	))
 
 	// Expose a liveness check on /live
-	commonMux.HandleFunc("/live", health.LiveEndpoint)
+	monitoring.Handler.HandleFunc("/live", health.LiveEndpoint)
 
 	// Expose a readiness check on /ready
-	commonMux.HandleFunc("/ready", health.ReadyEndpoint)
+	monitoring.Handler.HandleFunc("/ready", health.ReadyEndpoint)
 
 	go func() {
-		err := http.ListenAndServe("0.0.0.0:9090", commonMux)
+		err := http.ListenAndServe("0.0.0.0:9090", monitoring.Handler)
 		if err != nil {
 			log.Error(err.Error())
 		}
@@ -52,5 +65,5 @@ func New(log logger.Logger) (*http.ServeMux, error) {
 		"addr": "0.0.0.0:9090",
 	})
 
-	return commonMux, nil
+	return monitoring, nil
 }
