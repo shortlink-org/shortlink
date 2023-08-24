@@ -176,7 +176,7 @@ type APIService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 }

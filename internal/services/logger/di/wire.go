@@ -10,7 +10,6 @@ package logger_di
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
@@ -21,6 +20,7 @@ import (
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
 	logger_mq "github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
@@ -33,7 +33,7 @@ type LoggerService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -82,7 +82,7 @@ func NewLoggerService(
 	config *config.Config,
 
 	// Observability
-	monitoring *http.ServeMux,
+	monitoring *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

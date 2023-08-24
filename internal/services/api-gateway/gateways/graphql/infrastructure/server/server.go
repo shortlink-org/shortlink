@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
@@ -10,6 +9,7 @@ import (
 	"golang.org/x/text/message"
 
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
@@ -25,7 +25,7 @@ func RunAPIServer(
 	log logger.Logger,
 	rpcServer *rpc.RPCServer,
 	tracer *trace.TracerProvider,
-	monitoring *http.ServeMux,
+	monitoring *monitoring.Monitoring,
 
 	// delivery
 	link_rpc link_rpc.LinkServiceClient,

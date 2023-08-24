@@ -10,7 +10,6 @@ package metadata_di
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
@@ -23,6 +22,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
@@ -40,7 +40,7 @@ type MetaDataService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -121,7 +121,7 @@ func NewMetaDataService(
 	config *config.Config,
 
 	// Observability
-	monitoring *http.ServeMux,
+	monitoring *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

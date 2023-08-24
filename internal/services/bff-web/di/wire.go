@@ -10,7 +10,6 @@ package bff_web_di
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
@@ -20,6 +19,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 
 	api "github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/http"
 )
@@ -31,7 +31,7 @@ type BFFWebService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -73,7 +73,7 @@ func NewBFFWebService(
 
 	// Observability
 	tracer *trace.TracerProvider,
-	monitoring *http.ServeMux,
+	monitoring *monitoring.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
 	autoMaxPro autoMaxPro.AutoMaxPro,
 

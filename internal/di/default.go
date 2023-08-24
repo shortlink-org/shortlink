@@ -5,7 +5,6 @@ package di
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/google/wire"
 	redisCache "github.com/redis/go-redis/v9"
@@ -49,7 +48,7 @@ type Service struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
@@ -82,7 +81,7 @@ func NewFullService(
 	cache *redisCache.UniversalClient,
 
 	// Observability
-	monitoring *http.ServeMux,
+	monitoring *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

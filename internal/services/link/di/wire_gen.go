@@ -15,7 +15,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
@@ -24,6 +23,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
@@ -41,7 +41,6 @@ import (
 	v1_4 "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
-	"net/http"
 )
 
 // Injectors from wire.go:
@@ -62,7 +61,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux, err := monitoring.New(logger)
+	monitoringMonitoring, err := monitoring.New(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -104,7 +103,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider)
+	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -221,7 +220,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup8, err := rpc.InitServer(logger, tracerProvider)
+	rpcServer, cleanup8, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -280,7 +279,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, auth, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
+	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, auth, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -313,7 +312,7 @@ type LinkService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -466,7 +465,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceCl
 
 func NewLinkService(
 
-	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
+	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

@@ -1,4 +1,4 @@
-//go:generate gotext -srclang=en-GB update -out=catalog.go -lang=en-GB,de-DE,fr-CH github.com/shortlink-org/shortlink/internal/services/api-gateway/application/http-chi
+//go:generate gotext -srclang=en-GB update -out=catalog.go -lang=en-GB,de-DE,fr-CH github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server
 
 package i18n
 

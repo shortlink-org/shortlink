@@ -14,13 +14,13 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/billing/application/account"
 	"github.com/shortlink-org/shortlink/internal/services/billing/application/order"
@@ -32,7 +32,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/rpc/tariff/v1"
 	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/store"
 	"go.opentelemetry.io/otel/trace"
-	"net/http"
 )
 
 // Injectors from wire.go:
@@ -53,7 +52,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux, err := monitoring.New(logger)
+	monitoringMonitoring, err := monitoring.New(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -79,7 +78,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup5, err := rpc.InitServer(logger, tracerProvider)
+	rpcServer, cleanup5, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -156,7 +155,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	billingService, err := NewBillingService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, server)
+	billingService, err := NewBillingService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, server)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -185,7 +184,7 @@ type BillingService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -289,7 +288,7 @@ func NewBillingAPIServer(ctx2 context.Context, logger2 logger.Logger,
 
 func NewBillingService(
 
-	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
+	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

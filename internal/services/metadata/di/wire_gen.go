@@ -14,13 +14,13 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
@@ -30,7 +30,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
 	"go.opentelemetry.io/otel/trace"
-	"net/http"
 )
 
 // Injectors from wire.go:
@@ -51,7 +50,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux, err := monitoring.New(logger)
+	monitoringMonitoring, err := monitoring.New(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -122,7 +121,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup7, err := rpc.InitServer(logger, tracerProvider)
+	rpcServer, cleanup7, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -143,7 +142,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metaDataService, err := NewMetaDataService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event, metadata, metaStore)
+	metaDataService, err := NewMetaDataService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event, metadata, metaStore)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -174,7 +173,7 @@ type MetaDataService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -240,7 +239,7 @@ func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *parsers.Serv
 
 func NewMetaDataService(
 
-	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
+	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

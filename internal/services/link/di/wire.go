@@ -10,7 +10,6 @@ package link_di
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/go-redis/cache/v9"
 	"github.com/google/wire"
@@ -26,6 +25,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
@@ -50,7 +50,7 @@ type LinkService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -222,7 +222,7 @@ func NewLinkService(
 	config *config.Config,
 
 	// Observability
-	monitoring *http.ServeMux,
+	monitoring *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

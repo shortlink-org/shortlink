@@ -7,7 +7,6 @@ package csi_di
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
@@ -16,6 +15,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 )
 
 // Service - heplers
@@ -26,7 +26,7 @@ type Service struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
@@ -51,7 +51,7 @@ func NewSCIDriver(
 	ctx context.Context,
 
 	// Observability
-	monitoring *http.ServeMux,
+	monitoring *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

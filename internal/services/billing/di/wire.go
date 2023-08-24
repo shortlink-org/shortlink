@@ -10,7 +10,6 @@ package billing_di
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
@@ -23,6 +22,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
 	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
@@ -42,7 +42,7 @@ type BillingService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -171,7 +171,7 @@ func NewBillingService(
 	config *config.Config,
 
 	// Observability
-	monitoring *http.ServeMux,
+	monitoring *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

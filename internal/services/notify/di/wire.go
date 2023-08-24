@@ -7,11 +7,12 @@ package notify_di
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/google/wire"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"go.opentelemetry.io/otel/trace"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
 
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
@@ -33,7 +34,7 @@ type Service struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -107,7 +108,7 @@ func NewBotService(
 	config *config.Config,
 
 	// Observability
-	monitoring *http.ServeMux,
+	monitoring *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

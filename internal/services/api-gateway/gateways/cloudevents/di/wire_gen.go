@@ -160,7 +160,7 @@ type APIService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
@@ -203,7 +203,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceCl
 
 func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 logger.Logger,
 
-	tracer *trace.TracerProvider, monitoring2 *http.ServeMux,
+	tracer *trace.TracerProvider, monitoring2 *monitoring.Monitoringx,
 
 	link_rpc v1.LinkServiceClient,
 	link_command v1_2.LinkCommandServiceClient,

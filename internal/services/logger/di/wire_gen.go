@@ -14,16 +14,15 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/services/logger/application"
 	"github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
 	"go.opentelemetry.io/otel/trace"
-	"net/http"
 )
 
 // Injectors from wire.go:
@@ -44,7 +43,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux, err := monitoring.New(logger)
+	monitoringMonitoring, err := monitoring.New(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -95,7 +94,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	loggerService, err := NewLoggerService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event)
+	loggerService, err := NewLoggerService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -122,7 +121,7 @@ type LoggerService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -161,7 +160,7 @@ func NewLoggerApplication(logger2 logger.Logger) (*logger_application.Service, e
 
 func NewLoggerService(
 
-	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
+	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
