@@ -27,7 +27,7 @@ func UnaryClientInterceptor(logger logger.Logger) grpc.UnaryClientInterceptor {
 		}
 
 		if err != nil {
-			printLog(logger, err, fields)
+			printLog(ctx, logger, err, fields)
 		}
 
 		return err
@@ -52,7 +52,7 @@ func StreamClientInterceptor(logger logger.Logger) grpc.StreamClientInterceptor 
 		}
 
 		if err != nil {
-			printLog(logger, err, fields)
+			printLog(ctx, logger, err, fields)
 		}
 
 		return clientStream, err

@@ -2,8 +2,9 @@ package rpc
 
 import (
 	"fmt"
+	"time"
 
-	middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/timeout"
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
@@ -13,6 +14,7 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/logger"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -20,7 +22,7 @@ import (
 )
 
 // InitClient - set up a connection to the server.
-func InitClient(log logger.Logger, tracer *trace.TracerProvider) (*grpc.ClientConn, func(), error) {
+func InitClient(log logger.Logger, tracer *trace.TracerProvider, monitoring *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
 	viper.SetDefault("GRPC_CLIENT_TLS_ENABLED", false) // gRPC tls
 	isEnableTLS := viper.GetBool("GRPC_CLIENT_TLS_ENABLED")
 
@@ -36,8 +38,12 @@ func InitClient(log logger.Logger, tracer *trace.TracerProvider) (*grpc.ClientCo
 	viper.SetDefault("GRPC_CLIENT_LOGGER_ENABLED", true) // Enable logging for gRPC-client
 	isEnableLogger := viper.GetBool("GRPC_CLIENT_LOGGER_ENABLED")
 
+	viper.SetDefault("GRPC_CLIENT_TIMEOUT", 10000) // Set timeout for gRPC-client
+	timeoutClient := viper.GetDuration("GRPC_CLIENT_TIMEOUT")
+
 	// UnaryClien
 	incerceptorUnaryClientList := []grpc.UnaryClientInterceptor{
+		timeout.UnaryClientInterceptor(timeoutClient * time.Millisecond),
 		grpc_prometheus.UnaryClientInterceptor,
 	}
 
@@ -58,8 +64,8 @@ func InitClient(log logger.Logger, tracer *trace.TracerProvider) (*grpc.ClientCo
 
 	optionsNewClient := []grpc.DialOption{
 		// Initialize your gRPC server's interceptor.
-		grpc.WithUnaryInterceptor(middleware.ChainUnaryClient(incerceptorUnaryClientList...)),
-		grpc.WithStreamInterceptor(middleware.ChainStreamClient(incerceptorStreamClientList...)),
+		grpc.WithChainUnaryInterceptor(incerceptorUnaryClientList...),
+		grpc.WithChainStreamInterceptor(incerceptorStreamClientList...),
 	}
 	if isEnableTLS {
 		creds, err := credentials.NewClientTLSFromFile(certFile, "")

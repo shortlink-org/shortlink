@@ -29,7 +29,7 @@ func UnaryServerInterceptor(logger logger.Logger) grpc.UnaryServerInterceptor {
 		}
 
 		if err != nil {
-			printLog(logger, err, fields)
+			printLog(ctx, logger, err, fields)
 		}
 
 		return resp, err
@@ -53,7 +53,7 @@ func StreamServerInterceptor(logger logger.Logger) grpc.StreamServerInterceptor 
 		}
 
 		if err != nil {
-			printLog(logger, err, fields)
+			printLog(wrapped.Context(), logger, err, fields)
 		}
 
 		return err

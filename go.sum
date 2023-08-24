@@ -434,8 +434,6 @@ github.com/gorilla/securecookie v1.1.1/go.mod h1:ra0sb63/xPlUeL+yeDciTfxMRAA+MP+
 github.com/gorilla/sessions v1.2.1/go.mod h1:dk2InVEVJ0sfLlnXv9EAgkf6ecYs/i80K/zI+bUmuGM=
 github.com/gorilla/websocket v1.5.0 h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWmnc=
 github.com/gorilla/websocket v1.5.0/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
-github.com/graph-gophers/graphql-go v1.5.0 h1:fDqblo50TEpD0LY7RXk/LFVYEVqo3+tXMNMPSVXA1yc=
-github.com/graph-gophers/graphql-go v1.5.0/go.mod h1:YtmJZDLbF1YYNrlNAuiO5zAStUWc3XZT07iGsVqe1Os=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0-rc.0 h1:mdLirNAJBxnGgyB6pjZLcs6ue/6eZGBui6gXspfq4ks=
 github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0-rc.0/go.mod h1:kdXbOySqcQeTxiqglW7aahTmWZy3Pgi6SYL36yvKeyA=
 github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0 h1:2cz5kSrxzMYHiWOBbKj8itQm+nRykkB8aMv4ThcHYHA=
@@ -687,7 +685,6 @@ github.com/opencontainers/image-spec v1.1.0-rc3 h1:fzg1mXZFj8YdPeNkRXMg+zb88BFV0
 github.com/opencontainers/image-spec v1.1.0-rc3/go.mod h1:X4pATf0uXsnn3g5aiGIsVnJBR4mxhKzfwmvK/B2NTm8=
 github.com/opencontainers/runc v1.1.7 h1:y2EZDS8sNng4Ksf0GUYNhKbTShZJPJg1FiXJNH/uoCk=
 github.com/opencontainers/runc v1.1.7/go.mod h1:CbUumNnWCuTGFukNXahoo/RFBZvDAgRh/smNYNOhA50=
-github.com/opentracing/opentracing-go v1.2.0/go.mod h1:GxEUsuufX4nBwe+T+Wl9TAgYrxe9dPLANfrWvHYVTgc=
 github.com/ory/dockertest/v3 v3.10.0 h1:4K3z2VMe8Woe++invjaTB7VRyQXQy5UY+loujO4aNE4=
 github.com/ory/dockertest/v3 v3.10.0/go.mod h1:nr57ZbRWMqfsdGdFNLHz5jjNdDb7VVFnzAeW1n5N1Lg=
 github.com/pelletier/go-toml/v2 v2.0.9 h1:uH2qQXheeefCCkuBBSLi7jCiSmj3VRh2+Goq2N7Xxu0=
@@ -844,8 +841,6 @@ github.com/uptrace/go-clickhouse/chdebug v0.3.1 h1:eAMrKXmF3MQ2ggdvRb+JZ3wELwLWa
 github.com/uptrace/go-clickhouse/chdebug v0.3.1/go.mod h1:g1TT4y+3ooH/15oJyiE0TiQrWWowtTLEgEtV9P0/PvE=
 github.com/uptrace/go-clickhouse/chotel v0.3.1 h1:HA6ZC2H7tkaAs5Uh/00AswfDCMW2eB3xCnV5WW/PhXo=
 github.com/uptrace/go-clickhouse/chotel v0.3.1/go.mod h1:6Cx6McOrYvjCjqA0qoR7XPoq25A+p7JVrH35I0fF3hI=
-github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.2 h1:Iww8ukMnKImdSqqpbCTDaBKmqp9Zz5GVP4V2bWYLUQo=
-github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.2/go.mod h1:jiEObLqxwe1f3fSscKkrS3tCHHGBLi5gDvKQih+umBU=
 github.com/uptrace/opentelemetry-go-extra/otellogrus v0.2.2 h1:s3quVevwQlgEMCkvscS/VHo92amtyMzRfcuOZqfevrM=
 github.com/uptrace/opentelemetry-go-extra/otellogrus v0.2.2/go.mod h1:IJLBT7ItgUACTEoq6BEw/9HwHWL4BiPirYgKhZS83Lg=
 github.com/uptrace/opentelemetry-go-extra/otelsql v0.2.2 h1:USRngIQppxeyb39XzkVHXwQesKK0+JSwnHE/1c7fgic=
@@ -929,7 +924,6 @@ go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.42.0 h1:pginetY
 go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.42.0/go.mod h1:XiYsayHc36K3EByOO6nbAXnAWbrUxdjUROCEeeROOH8=
 go.opentelemetry.io/otel v1.3.0/go.mod h1:PWIKzi6JCp7sM0k9yZ43VX+T345uNbAkDKwHVjb2PTs=
 go.opentelemetry.io/otel v1.4.1/go.mod h1:StM6F/0fSwpd8dKWDCdRr7uRvEPYdW0hBSlbdTiUde4=
-go.opentelemetry.io/otel v1.6.3/go.mod h1:7BgNga5fNlF/iZjG06hM3yofffp0ofKCDwSXx1GC4dI=
 go.opentelemetry.io/otel v1.16.0 h1:Z7GVAX/UkAXPKsy94IU+i6thsQS4nb7LviLpnaNeW8s=
 go.opentelemetry.io/otel v1.16.0/go.mod h1:vl0h9NUa1D5s1nv3A5vZOYWn8av4K8Ml6JDeHrT/bx4=
 go.opentelemetry.io/otel/exporters/jaeger v1.16.0 h1:YhxxmXZ011C0aDZKoNw+juVWAmEfv/0W2XBOv9aHTaA=
@@ -943,7 +937,6 @@ go.opentelemetry.io/otel/sdk/metric v0.39.0 h1:Kun8i1eYf48kHH83RucG93ffz0zGV1sh4
 go.opentelemetry.io/otel/sdk/metric v0.39.0/go.mod h1:piDIRgjcK7u0HCL5pCA4e74qpK/jk3NiUoAHATVAmiI=
 go.opentelemetry.io/otel/trace v1.3.0/go.mod h1:c/VDhno8888bvQYmbYLqe41/Ldmr/KKunbvWM4/fEjk=
 go.opentelemetry.io/otel/trace v1.4.1/go.mod h1:iYEVbroFCNut9QkwEczV9vMRPHNKSSwYZjulEtsmhFc=
-go.opentelemetry.io/otel/trace v1.6.3/go.mod h1:GNJQusJlUgZl9/TQBPKU/Y/ty+0iVB5fjhKeJGZPGFs=
 go.opentelemetry.io/otel/trace v1.16.0 h1:8JRpaObFoW0pxuVPapkgH8UhHQj+bJW8jJsCZEu5MQs=
 go.opentelemetry.io/otel/trace v1.16.0/go.mod h1:Yt9vYq1SdNz3xdjZZK7wcXv1qv2pwLkqr2QVwea0ef0=
 go.uber.org/atomic v1.3.2/go.mod h1:gD2HeocX3+yG+ygLZcrzQJaqmWj9AIm7n08wl/qW/PE=

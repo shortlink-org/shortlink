@@ -144,7 +144,6 @@ require (
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gookit/color v1.5.4 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
-	github.com/graph-gophers/graphql-go v1.5.0 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.17.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
@@ -209,7 +208,6 @@ require (
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
 	github.com/twmb/murmur3 v1.1.5 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.2 // indirect
 	github.com/uptrace/opentelemetry-go-extra/otelutil v0.2.2 // indirect
 	github.com/urfave/cli/v2 v2.25.5 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
