@@ -3,11 +3,12 @@ package rpc
 import (
 	"fmt"
 	"net"
+	"runtime/debug"
 
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
-	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
-	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
+	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus"
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
@@ -51,24 +52,37 @@ func InitServer(log logger.Logger, tracer *trace.TracerProvider) (*RPCServer, fu
 		return nil, nil, err
 	}
 
+	// Setup metric for panic recoveries.
+	panicsTotal := promauto.With(reg).NewCounter(prometheus.CounterOpts{
+		Name: "grpc_req_panics_recovered_total",
+		Help: "Total number of gRPC requests recovered from internal panic.",
+	})
+	grpcPanicRecoveryHandler := func(p any) (err error) {
+		panicsTotal.Inc()
+		level.Error(rpcLogger).Log("msg", "recovered from panic", "panic", p, "stack", debug.Stack())
+		return status.Errorf(codes.Internal, "%s", p)
+	}
+
 	// UnaryServer
 	incerceptorUnaryServerList := []grpc.UnaryServerInterceptor{
 		grpc_prometheus.UnaryServerInterceptor,
-		grpc_ctxtags.UnaryServerInterceptor(),
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 		// (e.g. logging) can operate on the recovered state instead of being directly affected by any panic
 		grpc_recovery.UnaryServerInterceptor(),
+
+		recovery.UnaryServerInterceptor(recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)),
 	}
 
 	// StreamClient
 	incerceptorStreamServerList := []grpc.StreamServerInterceptor{
 		grpc_prometheus.StreamServerInterceptor,
-		grpc_ctxtags.StreamServerInterceptor(),
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 		// (e.g. logging) can operate on the recovered state instead of being directly affected by any panic
 		grpc_recovery.StreamServerInterceptor(),
+
+		recovery.StreamServerInterceptor(recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)),
 	}
 
 	if tracer != nil {
