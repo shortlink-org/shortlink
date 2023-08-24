@@ -3093,16 +3093,16 @@
     react-use "^17.2.4"
     swagger-ui-react "^5.0.0"
 
-"@backstage/plugin-app-backend@^0.3.49":
-  version "0.3.49"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-app-backend/-/plugin-app-backend-0.3.49.tgz#28363ea19b6f430c5f57b3fe92c6856733f2546a"
-  integrity sha512-JCGYB9RGHXSgWv7aPeSTdHq1cgtN2ceYtR3rbGhwbmgY52toKTB9kx5gXBi8T1YRiJLateNL0Mmr/wae10XPOw==
+"@backstage/plugin-app-backend@^0.3.50":
+  version "0.3.50"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-app-backend/-/plugin-app-backend-0.3.50.tgz#a07087358da44c1e6c7254a76e82c59099ef7380"
+  integrity sha512-DwdD4cbpt3yssdxpJ4be0ExfbnXWpcNkaUZi/ZHmngPWT2xchgEHiOMbs5ZBKllKfEChZGWGhNTSy9bmzrJadg==
   dependencies:
-    "@backstage/backend-common" "^0.19.3"
-    "@backstage/backend-plugin-api" "^0.6.1"
+    "@backstage/backend-common" "^0.19.4"
+    "@backstage/backend-plugin-api" "^0.6.2"
     "@backstage/config" "^1.0.8"
     "@backstage/config-loader" "^1.4.0"
-    "@backstage/plugin-app-node" "^0.1.1"
+    "@backstage/plugin-app-node" "^0.1.2"
     "@backstage/types" "^1.1.0"
     "@types/express" "^4.17.6"
     express "^4.17.1"
@@ -3116,12 +3116,12 @@
     winston "^3.2.1"
     yn "^4.0.0"
 
-"@backstage/plugin-app-node@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-app-node/-/plugin-app-node-0.1.1.tgz#f834b1f6dda76e7e12a07fa611c9b2f7a001b020"
-  integrity sha512-7+j8e/KDn4bU9wwRBGHtu936taf6epvMUkqs0EkkjbYFefTxIEQnjP8Jgf2c9dAYEXXf969KxbH3yf8wG/DSyw==
+"@backstage/plugin-app-node@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-app-node/-/plugin-app-node-0.1.2.tgz#7f87053bd2ae2e4d066826b4ac277d629a7c38dc"
+  integrity sha512-9s/9NyTriPiftmE+yhtSpg2CuMUyGpkqaDrR17YNp5iDJe422GwqQ28d3a7oGcaNIVnTWurYZtoDxVqj2VWihQ==
   dependencies:
-    "@backstage/backend-plugin-api" "^0.6.1"
+    "@backstage/backend-plugin-api" "^0.6.2"
     "@types/express" "^4.17.6"
     express "^4.17.1"
 
