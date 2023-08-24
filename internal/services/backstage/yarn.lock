@@ -4013,17 +4013,17 @@
     qs "^6.9.4"
     react-use "^17.3.2"
 
-"@backstage/plugin-search@^1.3.5":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-search/-/plugin-search-1.3.5.tgz#68b79d9b0821bc74fe594c7c555a57f194ac3b1f"
-  integrity sha512-1S9l8nz3P4kCqs1dHcpZ2hNnyvXtBdCAT+rOJNUS+IU5DabXrwk0T2yKycClnGD5m/AxLzFQWJnFSp7hBjTsnA==
+"@backstage/plugin-search@^1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search/-/plugin-search-1.3.6.tgz#cc5f74f190db5d479219ce1be7abb748a69e0e8b"
+  integrity sha512-j6inRZmG8Rk2SGmmAHyjKxM7qz7ycfQ6AaKHw8iOq+5ym/olUP4nqg8pbkG1zQjbrU3bvDcLuqr4quAm9JdTow==
   dependencies:
     "@backstage/catalog-model" "^1.4.1"
     "@backstage/config" "^1.0.8"
     "@backstage/core-components" "^0.13.4"
     "@backstage/core-plugin-api" "^1.5.3"
     "@backstage/errors" "^1.2.1"
-    "@backstage/plugin-catalog-react" "^1.8.2"
+    "@backstage/plugin-catalog-react" "^1.8.3"
     "@backstage/plugin-search-common" "^1.2.5"
     "@backstage/plugin-search-react" "^1.6.4"
     "@backstage/theme" "^0.4.1"
