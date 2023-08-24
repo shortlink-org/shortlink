@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/timeout"
-	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
 	"go.opentelemetry.io/otel"
@@ -41,15 +41,23 @@ func InitClient(log logger.Logger, tracer *trace.TracerProvider, monitoring *mon
 	viper.SetDefault("GRPC_CLIENT_TIMEOUT", 10000) // Set timeout for gRPC-client
 	timeoutClient := viper.GetDuration("GRPC_CLIENT_TIMEOUT")
 
+	// Setup metrics.
+	clientMetrics := grpc_prometheus.NewClientMetrics(
+		grpc_prometheus.WithClientHandlingTimeHistogram(
+			grpc_prometheus.WithHistogramBuckets([]float64{0.001, 0.01, 0.1, 0.3, 0.6, 1, 3, 6, 9, 20, 30, 60, 90, 120}),
+		),
+	)
+	monitoring.Registry.MustRegister(clientMetrics)
+
 	// UnaryClien
 	incerceptorUnaryClientList := []grpc.UnaryClientInterceptor{
 		timeout.UnaryClientInterceptor(timeoutClient * time.Millisecond),
-		grpc_prometheus.UnaryClientInterceptor,
+		clientMetrics.UnaryClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)),
 	}
 
 	// StreamClient
 	incerceptorStreamClientList := []grpc.StreamClientInterceptor{
-		grpc_prometheus.StreamClientInterceptor,
+		clientMetrics.StreamClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)),
 	}
 
 	if tracer != nil {
@@ -67,6 +75,7 @@ func InitClient(log logger.Logger, tracer *trace.TracerProvider, monitoring *mon
 		grpc.WithChainUnaryInterceptor(incerceptorUnaryClientList...),
 		grpc.WithChainStreamInterceptor(incerceptorStreamClientList...),
 	}
+
 	if isEnableTLS {
 		creds, err := credentials.NewClientTLSFromFile(certFile, "")
 		if err != nil {

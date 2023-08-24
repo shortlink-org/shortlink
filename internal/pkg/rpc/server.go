@@ -56,12 +56,12 @@ func InitServer(log logger.Logger, tracer *trace.TracerProvider, monitoring *mon
 	}
 
 	// Setup metrics.
-	srvMetrics := grpc_prometheus.NewServerMetrics(
+	serverMetrics := grpc_prometheus.NewServerMetrics(
 		grpc_prometheus.WithServerHandlingTimeHistogram(
 			grpc_prometheus.WithHistogramBuckets([]float64{0.001, 0.01, 0.1, 0.3, 0.6, 1, 3, 6, 9, 20, 30, 60, 90, 120}),
 		),
 	)
-	monitoring.Registry.MustRegister(srvMetrics)
+	monitoring.Registry.MustRegister(serverMetrics)
 
 	// Setup metric for panic recoveries.
 	panicsTotal := promauto.With(monitoring.Registry).NewCounter(prometheus.CounterOpts{
@@ -79,7 +79,7 @@ func InitServer(log logger.Logger, tracer *trace.TracerProvider, monitoring *mon
 
 	// UnaryServer
 	incerceptorUnaryServerList := []grpc.UnaryServerInterceptor{
-		srvMetrics.UnaryServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)),
+		serverMetrics.UnaryServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)),
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 		// (e.g., logging) can operate in the recovered state instead of being directly affected by any panic
@@ -88,7 +88,7 @@ func InitServer(log logger.Logger, tracer *trace.TracerProvider, monitoring *mon
 
 	// StreamClient
 	incerceptorStreamServerList := []grpc.StreamServerInterceptor{
-		srvMetrics.StreamServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)),
+		serverMetrics.StreamServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)),
 
 		// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 		// (e.g., logging) can operate in the recovered state instead of being directly affected by any panic
@@ -130,7 +130,7 @@ func InitServer(log logger.Logger, tracer *trace.TracerProvider, monitoring *mon
 			reflection.Register(rpc)
 
 			// After all your registrations, make sure all of the Prometheus metrics are initialized.
-			srvMetrics.InitializeMetrics(rpc)
+			serverMetrics.InitializeMetrics(rpc)
 
 			log.Info("Run gRPC server", field.Fields{"port": grpc_port, "host": grpc_host})
 			err = rpc.Serve(lis)
