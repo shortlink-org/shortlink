@@ -8,7 +8,7 @@ require (
 	github.com/google/uuid v1.3.1
 	github.com/google/wire v0.5.0
 	github.com/kubernetes-csi/csi-test/v5 v5.0.0
-	github.com/shortlink-org/shortlink v0.0.0-20230720053316-44951a2f1a89
+	github.com/shortlink-org/shortlink v0.0.0-20230825074652-e5fc2c0516cc
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
 	github.com/stretchr/testify v1.8.4
@@ -55,6 +55,8 @@ require (
 	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/pprof v0.0.0-20230510103437-eeec1cb781c3 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0-rc.0 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
@@ -164,7 +166,7 @@ replace (
 	k8s.io/controller-manager => k8s.io/controller-manager v0.28.0
 	k8s.io/cri-api => k8s.io/cri-api v0.28.0
 	k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.28.0
-	k8s.io/dynamic-resource-allocation => k8s.io/dynamic-resource-allocation v0.28.0
+	k8s.io/dynamic-resource-allocation => k8s.io/dynamic-resource-allocation v0.28.1
 	k8s.io/kms => k8s.io/kms v0.28.0
 	k8s.io/kube-aggregator => k8s.io/kube-aggregator v0.28.0
 	k8s.io/kube-controller-manager => k8s.io/kube-controller-manager v0.28.0
