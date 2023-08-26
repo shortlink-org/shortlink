@@ -38,6 +38,10 @@ spec:
             name: secret-env
             key: CYPRESS_PROJECT_KEY
         type: secret
+      CYPRESS_CUSTOM_ENV:
+        name: CYPRESS_CUSTOM_ENV
+        value: "CYPRESS_CUSTOM_ENV_value"
+        type: basic
     args:
       - "--env"
       - "NON_CYPRESS_ENV=NON_CYPRESS_ENV_value"
