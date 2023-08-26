@@ -32,7 +32,7 @@ type client struct {
 
 // InitClient - set up a connection to the server.
 func InitClient(log logger.Logger, tracer *trace.TracerProvider, monitoring *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
-	config, err := setConfig(tracer, monitoring, log)
+	config, err := setClientConfig(tracer, monitoring, log)
 
 	// Set up a connection to the server peer
 	conn, err := grpc.Dial(
@@ -53,7 +53,7 @@ func InitClient(log logger.Logger, tracer *trace.TracerProvider, monitoring *mon
 }
 
 // setConfig - set configuration
-func setConfig(tracer *trace.TracerProvider, monitoring *monitoring.Monitoring, log logger.Logger) (*client, error) {
+func setClientConfig(tracer *trace.TracerProvider, monitoring *monitoring.Monitoring, log logger.Logger) (*client, error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
@@ -70,17 +70,18 @@ func setConfig(tracer *trace.TracerProvider, monitoring *monitoring.Monitoring, 
 	config.WithLogger(log)
 	config.WithTimeout()
 
-	err := config.WithTLS()
-	if err != nil {
-		return nil, err
-	}
-
 	// Initialize your gRPC server's interceptor.
 	config.optionsNewClient = append(
 		config.optionsNewClient,
 		grpc.WithChainUnaryInterceptor(config.incerceptorUnaryClientList...),
 		grpc.WithChainStreamInterceptor(config.incerceptorStreamClientList...),
 	)
+
+	// NOTE: made after initialize your gRPC client's interceptor.
+	err := config.WithTLS()
+	if err != nil {
+		return nil, err
+	}
 
 	return config, nil
 }
