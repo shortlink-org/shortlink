@@ -24,7 +24,7 @@ pretty_env_logger = "0.5"
 tera = "1.19"
 env_logger = "0.10.0"
 dotenv = "0.15.0"
-postgres = "0.19.6"
+postgres = "0.19.7"
 tokio-postgres = { version = "^0.7.9" }
 refinery = { version = "0.8", features = ["tokio-postgres"] }
 
