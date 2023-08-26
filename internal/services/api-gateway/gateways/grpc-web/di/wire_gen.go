@@ -29,7 +29,6 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
-	"net/http"
 )
 
 // Injectors from wire.go:
@@ -50,7 +49,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux, err := monitoring.New(logger)
+	monitoringMonitoring, err := monitoring.New(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -77,7 +76,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		return nil, nil, err
 	}
 	printer := i18n.New(context)
-	rpcServer, cleanup5, err := rpc.InitServer(logger, tracerProvider)
+	rpcServer, cleanup5, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -85,7 +84,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider)
+	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -134,7 +133,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, serveMux, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, monitoringMonitoring, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -144,7 +143,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	apiService, err := NewAPIService(logger, configConfig, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, api)
+	apiService, err := NewAPIService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, api)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -220,7 +219,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_5.MetadataServiceCl
 func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 logger.Logger,
 
 	rpcServer *rpc.RPCServer,
-	tracer *trace.TracerProvider, monitoring2 *http.ServeMux,
+	tracer *trace.TracerProvider, monitoring2 *monitoring.Monitoring,
 
 	link_rpc v1_2.LinkServiceClient,
 	link_command v1_3.LinkCommandServiceClient,
@@ -243,7 +242,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 
 func NewAPIService(
 
-	log logger.Logger, config2 *config.Config, monitoring2 *http.ServeMux,
+	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

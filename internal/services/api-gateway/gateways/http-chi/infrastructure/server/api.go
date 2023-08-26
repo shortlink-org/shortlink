@@ -17,6 +17,7 @@ import (
 	additionalMiddleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	cqrs_api "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server/controllers/cqrs"
 	link_api "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server/controllers/link"
 	sitemap_api "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server/controllers/sitemap"
@@ -55,6 +56,7 @@ func (api *API) Run(
 	config http_server.Config,
 	log logger.Logger,
 	tracer *trace.TracerProvider,
+	monitoring *monitoring.Monitoring,
 
 	// Delivery
 	link_rpc link_rpc.LinkServiceClient,

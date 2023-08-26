@@ -4,11 +4,12 @@ import (
 	"context"
 	"testing"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/uow/mocks"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/uow/mocks"
 )
 
-//go:generate mockery --name=UnitOfWork --dir=./ --output=./mocks --outpkg=mocks --case=underscore
+//go:generate mockery --name=UnitOfWork --dir=./ --output=./mocks --outpkg=mocks --exported --case=underscore
 
 type Entity struct {
 	ID   int

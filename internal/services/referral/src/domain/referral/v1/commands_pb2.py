@@ -20,7 +20,6 @@ _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'src.domain.referral.v1.commands_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
-
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n\026com.domain.referral.v1B\rCommandsProtoP\001\242\002\003DRX\252\002\022Domain.Referral.V1\312\002\022Domain\\Referral\\V1\342\002\036Domain\\Referral\\V1\\GPBMetadata\352\002\024Domain::Referral::V1'
   _globals['_REFERRALCOMMAND']._serialized_start=350
