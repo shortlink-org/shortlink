@@ -18,7 +18,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	"go.opentelemetry.io/otel/trace"
-	"net/http"
 )
 
 // Injectors from wire.go:
@@ -33,7 +32,7 @@ func InitializeSCIDriver() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux, err := monitoring.New(logger)
+	monitoringMonitoring, err := monitoring.New(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -59,7 +58,7 @@ func InitializeSCIDriver() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewSCIDriver(logger, context, serveMux, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro)
+	service, err := NewSCIDriver(logger, context, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -85,7 +84,7 @@ type Service struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
@@ -107,7 +106,7 @@ var CSISet = wire.NewSet(di.DefaultSet, NewSCIDriver)
 
 func NewSCIDriver(
 
-	log logger.Logger, ctx2 context.Context, monitoring2 *http.ServeMux,
+	log logger.Logger, ctx2 context.Context, monitoring2 *monitoring.Monitoring,
 	tracer *trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

@@ -3,7 +3,6 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from '@sentry/nextjs'
-import { ProfilingIntegration } from '@sentry/profiling-node'
 
 const SENTRY_DSN = process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN
 
@@ -19,8 +18,5 @@ Sentry.init({
   // set the instrumenter to use OpenTelemetry instead of Sentry
   instrumenter: 'otel',
 
-  integrations: [
-    // Add profiling integration to list of integrations
-    new ProfilingIntegration(),
-  ],
+  integrations: [],
 })

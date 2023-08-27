@@ -18,9 +18,8 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
-	http2 "github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/http"
+	"github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/http"
 	"go.opentelemetry.io/otel/trace"
-	"net/http"
 )
 
 // Injectors from wire.go:
@@ -47,7 +46,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	serveMux, err := monitoring.New(logger)
+	monitoringMonitoring, err := monitoring.New(logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
@@ -76,7 +75,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	bffWebService := NewBFFWebService(context, logger, configConfig, tracerProvider, serveMux, pprofEndpoint, autoMaxProAutoMaxPro, server)
+	bffWebService := NewBFFWebService(context, logger, configConfig, tracerProvider, monitoringMonitoring, pprofEndpoint, autoMaxProAutoMaxPro, server)
 	return bffWebService, func() {
 		cleanup4()
 		cleanup3()
@@ -94,12 +93,12 @@ type BFFWebService struct {
 
 	// Observability
 	Tracer        *trace.TracerProvider
-	Monitoring    *http.ServeMux
+	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Delivery
-	httpAPIServer *http2.Server
+	httpAPIServer *http.Server
 }
 
 // BFFWebService =======================================================================================================
@@ -111,9 +110,9 @@ var BFFWebServiceSet = wire.NewSet(di.DefaultSet, BFFWebAPIService,
 func BFFWebAPIService(ctx2 context.Context, logger2 logger.Logger,
 
 	tracer *trace.TracerProvider,
-) (*http2.Server, error) {
+) (*http.Server, error) {
 
-	API := http2.Server{}
+	API := http.Server{}
 	apiService, err := API.Run(ctx2, logger2, tracer)
 	if err != nil {
 		return nil, err
@@ -124,10 +123,10 @@ func BFFWebAPIService(ctx2 context.Context, logger2 logger.Logger,
 
 func NewBFFWebService(ctx2 context.Context, logger2 logger.Logger, config2 *config.Config,
 
-	tracer *trace.TracerProvider, monitoring2 *http.ServeMux,
+	tracer *trace.TracerProvider, monitoring2 *monitoring.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint, autoMaxPro2 autoMaxPro.AutoMaxPro,
 
-	httpAPIServer *http2.Server,
+	httpAPIServer *http.Server,
 ) *BFFWebService {
 	return &BFFWebService{
 

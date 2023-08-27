@@ -1,8 +1,12 @@
+/**
+ * @type {import('next').NextConfig}
+ */
+
 /* eslint-disable */
 const { withSentryConfig } = require('@sentry/nextjs')
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
-  maximumFileSizeToCacheInBytes: 5000000,
+  maximumFileSizeToCacheInBytes: 10000000,
 })
 
 // ENVIRONMENT VARIABLE ================================================================================================
@@ -11,42 +15,6 @@ const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
 const API_URI = process.env.API_URI || 'http://localhost:7070'
 
 console.info('API_URI', API_URI)
-
-// You can choose which headers to add to the list
-// after the learning more below.
-const securityHeaders = [
-  {
-    key: 'X-DNS-Prefetch-Control',
-    value: 'on',
-  },
-  {
-    key: 'X-XSS-Protection',
-    value: '1; mode=block',
-  },
-  {
-    key: 'X-Frame-Options',
-    value: 'SAMEORIGIN',
-  },
-  {
-    key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()',
-  },
-  {
-    key: 'X-Content-Type-Options',
-    value: 'nosniff',
-  },
-  {
-    key: 'Referrer-Policy',
-    value: 'origin-when-cross-origin',
-  },
-]
-
-if (!isProd) {
-  securityHeaders.push({
-    key: 'Strict-Transport-Security',
-    value: 'max-age=63072000; includeSubDomains; preload',
-  })
-}
 
 let NEXT_CONFIG = {
   basePath: '/next',
@@ -94,22 +62,6 @@ let NEXT_CONFIG = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   trailingSlash: false,
-  headers: () => {
-    return [
-      {
-        // Apply these headers to all routes in your application.
-        source: '/:path*',
-        headers: [
-          ...securityHeaders,
-          {
-            key: 'Cache-Control',
-            value:
-              'public, max-age=14400, s-maxage=14400, stale-while-revalidate=86400',
-          },
-        ],
-      },
-    ]
-  },
   webpack: (config, { isServer, buildId }) => {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -137,6 +89,10 @@ let NEXT_CONFIG = {
     },
     swcTraceProfiling: true,
   }
+}
+
+if (isProd) {
+  NEXT_CONFIG.output = 'export'
 }
 
 if (!isProd) {
