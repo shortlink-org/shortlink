@@ -1,13 +1,13 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"reflect"
 
 	"github.com/golang/glog"
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/common/types/ref"
+	"github.com/segmentio/encoding/json"
 	"google.golang.org/protobuf/encoding/prototext"
 	"google.golang.org/protobuf/proto"
 )
@@ -17,7 +17,7 @@ func evaluateRule(program *cel.Program, inputs map[string]interface{}) (ref.Val,
 	// activation, err := cel.NewEnv()
 	// if err != nil {
 	//	return nil, err
-	//}
+	// }
 	out, _, err := eval(*program, inputs)
 	return out, err
 }
