@@ -40,7 +40,7 @@ require (
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/prometheus/client_golang v1.16.0
 	github.com/prometheus/client_model v0.4.0
-	github.com/pterm/pterm v0.12.66
+	github.com/pterm/pterm v0.12.67
 	github.com/pyroscope-io/client v0.7.2
 	github.com/pyroscope-io/godeltaprof v0.1.2
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
@@ -81,6 +81,7 @@ require (
 	golang.org/x/text v0.12.0
 	google.golang.org/grpc v1.57.0
 	google.golang.org/protobuf v1.31.0
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -251,7 +252,6 @@ require (
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/api v0.26.5 // indirect
 	k8s.io/apimachinery v0.28.1 // indirect
 	k8s.io/klog/v2 v2.100.1 // indirect
