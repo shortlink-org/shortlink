@@ -22,7 +22,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/support
-    tag: 0.16.19
+    tag: 0.16.21
 
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
