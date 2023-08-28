@@ -121,7 +121,7 @@ func setServerConfig(log logger.Logger, tracer *trace.TracerProvider, monitoring
 		return nil, err
 	}
 
-	return nil, nil
+	return config, nil
 }
 
 // WithMetrics - setup metrics.

@@ -13,7 +13,7 @@ ARG CI_COMMIT_TAG
 ARG SKAFFOLD_GO_GCFLAGS
 ARG TARGETOS TARGETARCH
 
-ENV GOEXPERIMENT=arenas
+ENV GOEXPERIMENT=arenas,cgocheck2,loopvar
 
 WORKDIR /go/github.com/shortlink-org/shortlink
 

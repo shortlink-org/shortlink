@@ -2,8 +2,8 @@
 
 ### Middleware
 
-| Name        | Description |
-|-------------|-------------|
-| Logger      |             |
-| NewMetrics  |             |
-| RequestSize |             |
+| Name        | Description                                       |
+|-------------|---------------------------------------------------|
+| Logger      | This middleware logs the request.                 |
+| NewMetrics  | This middleware creates a new prometheus metrics. |
+| RequestSize | This middleware limits the request size.          |

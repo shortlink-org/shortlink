@@ -5,7 +5,7 @@
     <envs>
       <env name="GRPC_CLIENT_PORT" value="443" />
       <env name="API_TYPE" value="http-chi" />
-      <env name="GOEXPERIMENT" value="arenas" />
+      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
     </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
