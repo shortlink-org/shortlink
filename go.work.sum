@@ -860,6 +860,7 @@ github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 h1:d+Bc7a5rLufV
 github.com/RaveNoX/go-jsoncommentstrip v1.0.0 h1:t527LHHE3HmiHrq74QMpNPZpGCIJzTx+apLkMKt4HC0=
 github.com/Shopify/goreferrer v0.0.0-20220729165902-8cddb4f5de06 h1:KkH3I3sJuOLP3TjA/dfr4NAY8bghDwnXiU7cTKxQqo0=
 github.com/Shopify/logrus-bugsnag v0.0.0-20171204204709-577dee27f20d h1:UrqY+r/OJnIp5u0s1SbQ8dVfLCZJsnvazdBP5hS4iRs=
+github.com/Shopify/sarama v1.19.0 h1:9oksLxC6uxVPHPVYUmq6xhr1BOF/hHobWH2UzO67z1s=
 github.com/Shopify/sarama v1.37.2 h1:LoBbU0yJPte0cE5TZCGdlzZRmMgMtZU/XgnUKZg9Cv4=
 github.com/Shopify/sarama v1.37.2/go.mod h1:Nxye/E+YPru//Bpaorfhc3JsSGYwCaDDj+R4bK52U5o=
 github.com/Shopify/toxiproxy v2.1.4+incompatible h1:TKdv8HiTLgE5wdJuEML90aBgNWsokNbMijUGhmcoBJc=
@@ -2182,7 +2183,6 @@ gotest.tools/v3 v3.2.0/go.mod h1:Mcr9QNxkg0uMvy/YElmo4SpXgJKWgQvYrT7Kw5RzJ1A=
 honnef.co/go/tools v0.0.1-2020.1.4 h1:UoveltGrhghAA7ePc+e+QYDHXrBps2PqFZiHkGR/xK8=
 honnef.co/go/tools v0.1.3 h1:qTakTkI6ni6LFD5sBwwsdSO+AQqbSIxOauHTTQKZ/7o=
 k8s.io/api v0.27.1/go.mod h1:z5g/BpAiD+f6AArpqNjkY+cji8ueZDU/WV1jcj5Jk4E=
-k8s.io/api v0.28.1/go.mod h1:uBYwID+66wiL28Kn2tBjBYQdEU0Xk0z5qF8bIBqk/Dg=
 k8s.io/apiextensions-apiserver v0.26.0/go.mod h1:7ez0LTiyW5nq3vADtK6C3kMESxadD51Bh6uz3JOlqWQ=
 k8s.io/apiextensions-apiserver v0.27.1/go.mod h1:8jEvRDtKjVtWmdkhOqE84EcNWJt/uwF8PC4627UZghY=
 k8s.io/apiextensions-apiserver v0.27.3 h1:xAwC1iYabi+TDfpRhxh4Eapl14Hs2OftM2DN5MpgKX4=
@@ -2212,7 +2212,6 @@ k8s.io/cli-runtime v0.28.0/go.mod h1:U+ySmOKBm/JUCmebhmecXeTwNN1RzI7DW4+OM8Oryas
 k8s.io/cli-runtime v0.28.1 h1:7Njc4eD5kaO4tYdSYVJJEs54koYD/vT6gxOq8dEVf9g=
 k8s.io/cli-runtime v0.28.1/go.mod h1:yIThSWkAVLqeRs74CMkq6lNFW42GyJmvMtcNn01SZho=
 k8s.io/client-go v0.27.1/go.mod h1:f8LHMUkVb3b9N8bWturc+EDtVVVwZ7ueTVquFAJb2vA=
-k8s.io/client-go v0.28.1/go.mod h1:pEZA3FqOsVkCc07pFVzK076R+P/eXqsgx5zuuRWukNE=
 k8s.io/cloud-provider v0.27.2 h1:IiQWyFtdzcPOqvrBZE9FCt0CDCx3GUcZhKkykEgKlM4=
 k8s.io/cloud-provider v0.27.3 h1:YylqJpKCB3O2MRnNXshxSVOQTOZE4I0G+cnyOfLwkGA=
 k8s.io/cloud-provider v0.27.4 h1:FkZ1z40+YPm+nEqkojgPbjNQ3QLvU98gsFW3ZbZnrwo=
