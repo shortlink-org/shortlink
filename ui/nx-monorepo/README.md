@@ -5,7 +5,7 @@ This repository is a monorepo for the nx workspace.
 ### ADR
 
 - [ADR-0001](./docs/adr/0001-init.md) - Init. Use Nx
-- [ADR-0002](./docs/adr/0002-security.md) - Implementing Security Measures in UI
+- [ADR-0002](./docs/ADR/decisions/0002-security.md) - Implementing Security Measures in UI
 - [ADR-0003](./docs/adr/0003-transition-to-cloudflare-apps.md) - Transition to Cloudflare Apps
 
 ### Services

@@ -6,7 +6,7 @@
 const { withSentryConfig } = require('@sentry/nextjs')
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
-  maximumFileSizeToCacheInBytes: 10000000,
+  maximumFileSizeToCacheInBytes: 30000000,
 })
 
 // ENVIRONMENT VARIABLE ================================================================================================
@@ -88,7 +88,7 @@ let NEXT_CONFIG = {
       },
     },
     swcTraceProfiling: true,
-  }
+  },
 }
 
 if (isProd) {
