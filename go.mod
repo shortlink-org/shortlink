@@ -28,6 +28,8 @@ require (
 	github.com/google/cel-go v0.17.6
 	github.com/google/uuid v1.3.1
 	github.com/google/wire v0.5.0
+	github.com/grafana/pyroscope-go v1.0.2
+	github.com/grafana/pyroscope-go/godeltaprof v0.1.3
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0-rc.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.0
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
@@ -41,9 +43,6 @@ require (
 	github.com/prometheus/client_golang v1.16.0
 	github.com/prometheus/client_model v0.4.0
 	github.com/pterm/pterm v0.12.67
-	github.com/pyroscope-io/client v1.0.0
-	github.com/pyroscope-io/godeltaprof v0.1.2
-	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.2-0.20230808142725-2eefdf1e2724
 	github.com/redis/go-redis/v9 v9.1.0
 	github.com/redis/rueidis v1.0.16

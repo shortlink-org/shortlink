@@ -5,8 +5,8 @@ import (
 	"net/http/pprof"
 	"runtime"
 
-	"github.com/pyroscope-io/client/pyroscope"
-	pypprof "github.com/pyroscope-io/godeltaprof/http/pprof"
+	"github.com/grafana/pyroscope-go"
+	pypprof "github.com/grafana/pyroscope-go/godeltaprof/http/pprof"
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
