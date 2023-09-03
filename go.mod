@@ -45,7 +45,7 @@ require (
 	github.com/pterm/pterm v0.12.67
 	github.com/rabbitmq/amqp091-go v1.8.2-0.20230808142725-2eefdf1e2724
 	github.com/redis/go-redis/v9 v9.1.0
-	github.com/redis/rueidis v1.0.16
+	github.com/redis/rueidis v1.0.17
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/encoding v0.3.6
