@@ -10,6 +10,7 @@ stages:
 deploy:
   extends:
     - .job_template_helm
+    - .matrix_deploy_provider
   tags:
     - docker
   stage: deploy

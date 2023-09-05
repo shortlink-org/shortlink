@@ -4,17 +4,8 @@ include:
 # STAGING RELEASE ======================================================================================================
 applications:
   extends:
-    - .matrix_deploy_provider
     - .matrix_deploy_application
   stage: deploy
-  variables:
-    PROVIDER: $PROVIDER
-    RELEASE_NAME: $RELEASE_NAME
-    REGISTRY: $REGISTRY
-    HELM_PATH: $HELM_PATH
-    HELM_NAMESPACE: $HELM_NAMESPACE
-    HELM_ARG: $HELM_ARG
-    ENVIRONMENT_URL: https://${ENVIRONMENT_URL}
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
