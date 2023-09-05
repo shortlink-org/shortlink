@@ -11,12 +11,18 @@ metadata:
 spec:
   description: Test suite for shortlink landing page
   steps:
-    - execute:
-        name: shortlink-link-k6-rpc-link-v1
-        namespace: testkube
-    - execute:
-        name: shortlink-link-k6-rpc-cqrs-link-v1
-        namespace: testkube
-    - execute:
-        name: shortlink-link-k6-rpc-sitemap-v1
-        namespace: testkube
+    - stopOnFailure: false
+      execute:
+        - name: shortlink-link-k6-rpc-link-v1
+          namespace: testkube
+          stopOnFailure: false
+    - stopOnFailure: false
+      execute:
+        - name: shortlink-link-k6-rpc-cqrs-link-v1
+          namespace: testkube
+          stopOnFailure: false
+    - stopOnFailure: false
+      execute:
+        - name: shortlink-link-k6-rpc-sitemap-v1
+          namespace: testkube
+          stopOnFailure: false

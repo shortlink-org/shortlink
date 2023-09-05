@@ -11,12 +11,18 @@ metadata:
 spec:
   description: Test suite for shortlink landing page
   steps:
-    - execute:
-        name: shortlink-landing-cypress-main-page
-        namespace: testkube
-    - execute:
-        name: shortlink-landing-k6-http-main-page
-        namespace: testkube
-    - execute:
-        name: shortlink-landing-k6-browser-main-page
-        namespace: testkube
+    - stopOnFailure: false
+      execute:
+        - name: shortlink-landing-cypress-main-page
+          namespace: testkube
+          stopOnFailure: false
+    - stopOnFailure: false
+      execute:
+        - name: shortlink-landing-k6-http-main-page
+          namespace: testkube
+          stopOnFailure: false
+    - stopOnFailure: false
+      execute:
+        - name: shortlink-landing-k6-browser-main-page
+          namespace: testkube
+          stopOnFailure: false

@@ -11,6 +11,8 @@ metadata:
 spec:
   description: Test suite for shortlink landing page
   steps:
-    - execute:
-        name: shortlink-api-http-link-crud
-        namespace: testkube
+    - stopOnFailure: false
+      execute:
+        - name: shortlink-api-http-link-crud
+          namespace: testkube
+          stopOnFailure: false
