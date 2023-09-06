@@ -16,6 +16,7 @@ datasources:
       queryTimeout: 30s
       httpMethod: POST
       alertmanagerUid: alertmanager
+      incrementalQuerying: true
 
   - name: Loki
     type: loki
@@ -38,7 +39,7 @@ datasources:
 
         # Field with external link.
         - matcherRegex: 'traceID":"(\w+)'
-          name: TraceID
+          name: TraceID (external)
           url: "http://localhost:16686/trace/$${__value.raw}"
 
   - name: Tempo
