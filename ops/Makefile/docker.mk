@@ -16,9 +16,6 @@ DOCKER_CONTENT_TRUST := 0
 BUILDX_GIT_LABELS := 1
 BUILDX_EXPERIMENTAL := 1
 SOURCE_DATE_EPOCH := $(git log -1 --pretty=%ct)
-CI_REGISTRY_IMAGE := batazor/${PROJECT_NAME}
-CI_COMMIT_TAG := latest
-SHORTLINK_SERVICES := api billing bot csi landing link logger metadata notify proxy ui-next
 
 # DOCKER TASKS =========================================================================================================
 docker-login: ## Docker login
@@ -57,9 +54,6 @@ dev: ## Run for development mode
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
-		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
-		-f ops/docker-compose/database/postgres/postgres.yaml \
 		up -d --remove-orphans --build
 
 run: ## Run this project in docker compose
