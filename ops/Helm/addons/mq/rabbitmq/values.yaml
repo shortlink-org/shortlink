@@ -26,10 +26,10 @@ rabbitmq-cluster-operator:
 
   msgTopologyOperator:
     metrics:
-      enabled: true
+      enabled: false
 
       serviceMonitor:
-        enabled: true
+        enabled: false
         labels:
           release: prometheus-operator
 
