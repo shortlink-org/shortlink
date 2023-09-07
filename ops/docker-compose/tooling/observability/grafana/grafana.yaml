@@ -48,7 +48,7 @@ services:
     networks:
       - simple
     volumes:
-      - ./ops/docker-compose/tooling/observability/grafana/conf/provisioning:/etc/grafana/provisioning/
+      - ./conf/provisioning:/etc/grafana/provisioning/
 #    logging:
 #      driver: ${LOGGER_DRIVER}
 #      options:

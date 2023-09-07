@@ -1,5 +1,8 @@
 version: '2.4'
 
+include:
+  - ./ops/docker-compose/tooling/observability/grafana/grafana.yaml
+
 x-network: &network
   networks:
     - simple
@@ -21,7 +24,7 @@ services:
     ports:
       - 3100:3100
     volumes:
-    - ./ops/docker-compose/tooling/observability/loki/local-config.yaml:/etc/loki/local-config.yaml
+    - ./ops/docker-compose/tooling/observability/grafana/conf/loki/local-config.yaml:/etc/loki/local-config.yaml
     # issue: https://github.com/grafana/loki/issues/5513
     # - /data/loki:/loki
 
