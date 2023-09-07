@@ -2,19 +2,11 @@
   "migrations": [
     {
       "cli": "nx",
-      "version": "16.6.0-beta.6",
-      "description": "Prefix outputs with {workspaceRoot}/{projectRoot} if needed",
-      "implementation": "./src/migrations/update-15-0-0/prefix-outputs",
+      "version": "16.8.0-beta.3",
+      "description": "Escape $ in env variables",
+      "implementation": "./src/migrations/update-16-8-0/escape-dollar-sign-env-variables",
       "package": "nx",
-      "name": "16.6.0-prefix-outputs"
-    },
-    {
-      "cli": "nx",
-      "version": "16.6.0-beta.0",
-      "description": "Explicitly set 'updateBuildableProjectDepsInPackageJson' to 'true' in targets that rely on that value as the default.",
-      "factory": "./src/migrations/update-16-6-0/explicitly-set-projects-to-update-buildable-deps",
-      "package": "@nrwl/rollup",
-      "name": "explicitly-set-projects-to-update-buildable-deps"
+      "name": "16.8.0-escape-dollar-sign-env"
     }
   ]
 }
