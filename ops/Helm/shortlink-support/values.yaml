@@ -24,17 +24,10 @@ deploy:
     repository: registry.gitlab.com/shortlink-org/shortlink/support
     tag: 0.16.28
 
-  # -- define a startup probe that checks every 5 seconds, starting after 5 seconds
-  startupProbe:
-    enabled: false
-
-  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
-  livenessProbe:
-    enabled: false
-
-  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
-  readinessProbe:
-    enabled: false
+  # TODO: setting startupProbe, livenessProbe, and readinessProbe
+  # startupProbe: {}
+  # livenessProbe: {}
+  # readinessProbe: {}
 
 sidecars:
   - name: proxy
