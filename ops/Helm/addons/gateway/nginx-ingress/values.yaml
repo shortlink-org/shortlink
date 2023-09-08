@@ -25,9 +25,9 @@ ingress-nginx:
       kubernetes.io/hostname: node1
 
     resources:
-      limits:
-        cpu: 100m
-        memory: 120Mi
+      # limits:
+      #   cpu: 100m
+      #   memory: 120Mi
       requests:
         cpu: 100m
         memory: 90Mi
