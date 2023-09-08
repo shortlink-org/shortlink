@@ -14,6 +14,13 @@ kube-prometheus-stack:
       alertmanagerConfigSelector:
         matchLabels:
           alertmanagerConfig: shortlink
+      resources:
+        requests:
+          memory: 50Mi
+          cpu: 20m
+        limits:
+          memory: 400Mi
+          cpu: 200m
 
     ingress:
       enabled: true

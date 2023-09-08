@@ -9,12 +9,28 @@ ingress-nginx:
   defaultBackend:
     enabled: true
 
+    resources:
+      limits:
+        cpu: 10m
+        memory: 20Mi
+      requests:
+        cpu: 10m
+        memory: 20Mi
+
   # nginx configuration
   # Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
   controller:
 
     nodeSelector:
       kubernetes.io/hostname: node1
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 120Mi
+      requests:
+        cpu: 100m
+        memory: 90Mi
 
     extraEnvs:
       - name: NODE_IP
