@@ -32,3 +32,19 @@ calico:
   needs: []
   rules:
     - when: manual
+
+# metrics-server =======================================================================================================
+metrics-server:
+  stage: addons
+  variables:
+    PROVIDER: $PROVIDER
+    RELEASE_NAME: metrics-server
+    HELM_PATH: ops/Helm/addons/observability/metrics-server
+    HELM_NAMESPACE: kube-system
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
