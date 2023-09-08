@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        service: ['api', 'metadata', 'logger', 'csi']
+        service: ['link', 'metadata', 'logger', 'csi']
 
     steps:
       - name: Harden Runner
