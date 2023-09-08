@@ -3,9 +3,9 @@
 # Declare variables to be passed into your templates.
 
 oncall:
-  enabled: false
+  enabled: true
 
-  base_url: https://grafana.shortlink.best
+  base_url: grafana.shortlink.best
 
   engine:
     resources:
@@ -25,10 +25,23 @@ oncall:
         cpu: 5m
         memory: 50Mi
 
-  oncall: {}
-
   ingress:
     enabled: false
+
+    annotations:
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+    extraPaths:
+      - path: "/*"
+        pathType: Prefix
+        backend:
+          service:
+            name: ssl-redirect
+            port:
+              name: use-annotation
 
   ingress-nginx:
     enabled: false
@@ -37,64 +50,38 @@ oncall:
     enabled: false
 
   database:
-    type: mysql
+    type: postgresql
 
   postgresql:
-    enabled: false
+    enabled: true
 
   mariadb:
-    enabled: true
+    enabled: false
 
   rabbitmq:
     enabled: true
 
   redis:
-    enabled: true
+    enabled: false
 
-    master:
-      kind: Deployment
-
-      persistence:
-        enabled: false
-        storageClass: local-path
-
-      resources:
-        limits:
-          cpu: 500m
-          memory: 500Mi
-        requests:
-          cpu: 10m
-          memory: 56Mi
-
-      auth:
-        enabled: false
-        password: ""
-
-      metrics:
-        enabled: true
-
-        serviceMonitor:
-          enabled: true
-
-        prometheusRule:
-          enabled: true
-
-    replica:
-      replicaCount: 0
-
-      resources:
-        limits:
-          cpu: 500m
-          memory: 256Mi
-        requests:
-          cpu: 10m
-          memory: 64Mi
-
-      persistence:
-        enabled: false
+  externalRedis:
+    host: redis-master.grafana
 
   grafana:
     enabled: false
 
   externalGrafana:
     url: https://grafana.shortlink.best
+
+  oncall: {}
+    #slack:
+    #  enabled: true
+    #  commandName: oncall
+    #  clientId: ~
+    #  clientSecret: ~
+    #  signingSecret: ~
+    #  existingSecret: ""
+    #  clientIdKey: ""
+    #  clientSecretKey: ""
+    #  signingSecretKey: ""
+    #  redirectHost: ~
