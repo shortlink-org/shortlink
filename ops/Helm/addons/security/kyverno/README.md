@@ -10,13 +10,13 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kyverno.github.io/kyverno | kyverno | 3.0.1 |
-| https://kyverno.github.io/kyverno | kyverno-policies | 3.0.0 |
-| https://kyverno.github.io/policy-reporter | policy-reporter | 2.19.2 |
+| https://kyverno.github.io/kyverno | kyverno | 3.0.5 |
+| https://kyverno.github.io/kyverno | kyverno-policies | 3.0.4 |
+| https://kyverno.github.io/policy-reporter | policy-reporter | 2.19.4 |
 
 ## Values
 

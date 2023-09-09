@@ -1,6 +1,6 @@
 # shortlink-billing
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink service for get billing by URL
 
@@ -18,11 +18,11 @@ Shortlink service for get billing by URL
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.7 |
+| file://../shortlink-common | shortlink-common | 0.5.9 |
 
 ## Values
 
@@ -41,7 +41,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.envSecret[0].secretKeyRef.name | string | `"shortlink-postgres-pguser-billing"` |  |
 | deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/billing"` |  |
-| deploy.image.tag | string | `"0.16.16"` |  |
+| deploy.image.tag | string | `"0.16.28"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.podSecurityContext.fsGroup | int | `1000` | fsGroup is the group ID associated with the container |

@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 47.3.0 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 50.3.1 |
 
 ## Values
 
@@ -25,6 +25,10 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | kube-prometheus-stack.fullnameOverride | string | `"prometheus"` |  |
 | kube-prometheus-stack.grafana.enabled | bool | `false` |  |
 | kube-prometheus-stack.kubeDns.enabled | bool | `false` |  |
+| kube-prometheus-stack.prometheusOperator.resources.limits.cpu | string | `"200m"` |  |
+| kube-prometheus-stack.prometheusOperator.resources.limits.memory | string | `"200Mi"` |  |
+| kube-prometheus-stack.prometheusOperator.resources.requests.cpu | string | `"10m"` |  |
+| kube-prometheus-stack.prometheusOperator.resources.requests.memory | string | `"50Mi"` |  |
 | kube-prometheus-stack.prometheusOperator.secretFieldSelector | string | `"type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1"` |  |
 
 ----------------------------------------------

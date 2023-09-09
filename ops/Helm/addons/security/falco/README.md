@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://falcosecurity.github.io/charts | falco | 3.3.0 |
+| https://falcosecurity.github.io/charts | falco | 3.6.0 |
 | https://falcosecurity.github.io/charts | falco-exporter | 0.9.6 |
 
 ## Values

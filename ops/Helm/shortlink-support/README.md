@@ -1,6 +1,6 @@
 # shortlink-support
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink support service
 
@@ -18,11 +18,11 @@ Shortlink support service
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.7 |
+| file://../shortlink-common | shortlink-common | 0.5.9 |
 
 ## Values
 
@@ -30,9 +30,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 |-----|------|---------|-------------|
 | deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/support"` |  |
-| deploy.image.tag | string | `"0.16.16"` |  |
-| deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":9090}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
+| deploy.image.tag | string | `"0.16.28"` |  |
 | monitoring.enabled | bool | `true` |  |
 | podDisruptionBudget.enabled | bool | `false` |  |
 | service.ports[0].name | string | `"http"` |  |
@@ -45,7 +43,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | service.ports[1].public | bool | `true` |  |
 | service.type | string | `"ClusterIP"` |  |
 | sidecars[0].image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/support-proxy"` |  |
-| sidecars[0].image.tag | string | `"0.16.16"` |  |
+| sidecars[0].image.tag | string | `"0.16.28"` |  |
 | sidecars[0].name | string | `"proxy"` |  |
 
 ----------------------------------------------

@@ -1,6 +1,6 @@
 # shortlink-link
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink link service
 
@@ -18,11 +18,11 @@ Shortlink link service
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.7 |
+| file://../shortlink-common | shortlink-common | 0.5.9 |
 
 ## Values
 
@@ -39,7 +39,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.envSecret[0].secretKeyRef.key | string | `"uri"` |  |
 | deploy.envSecret[0].secretKeyRef.name | string | `"shortlink-postgres-pguser-link"` |  |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/link"` |  |
-| deploy.image.tag | string | `"0.16.16"` |  |
+| deploy.image.tag | string | `"0.16.28"` |  |
 | deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":9090}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |

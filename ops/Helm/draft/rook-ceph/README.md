@@ -10,12 +10,12 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.7 |
-| https://charts.rook.io/release | rook-ceph | v1.11.9 |
+| file://../shortlink-common | shortlink-common | 0.5.9 |
+| https://charts.rook.io/release | rook-ceph | v1.12.3 |
 
 ## Values
 

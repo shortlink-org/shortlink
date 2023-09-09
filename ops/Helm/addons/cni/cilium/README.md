@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.cilium.io/ | cilium | 1.13.4 |
+| https://helm.cilium.io/ | cilium | 1.14.1 |
 
 ## Values
 

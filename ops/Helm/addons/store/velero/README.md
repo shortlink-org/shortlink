@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://vmware-tanzu.github.io/helm-charts | velero | 4.1.2 |
+| https://vmware-tanzu.github.io/helm-charts | velero | 5.0.2 |
 
 ## Values
 
@@ -27,7 +27,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | velero.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
 | velero.containerSecurityContext.readOnlyRootFilesystem | bool | `true` |  |
 | velero.enabled | bool | `true` |  |
-| velero.initContainers[0].image | string | `"velero/velero-plugin-for-csi:v0.5.0"` |  |
+| velero.initContainers[0].image | string | `"velero/velero-plugin-for-csi:v0.5.1"` |  |
 | velero.initContainers[0].imagePullPolicy | string | `"IfNotPresent"` |  |
 | velero.initContainers[0].name | string | `"velero-plugin-for-csi"` |  |
 | velero.initContainers[0].volumeMounts[0].mountPath | string | `"/target"` |  |

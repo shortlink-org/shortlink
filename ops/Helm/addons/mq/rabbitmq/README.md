@@ -1,6 +1,6 @@
 # rabbitmq
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -10,12 +10,12 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../../shortlink-common | shortlink-common | 0.5.7 |
-| oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.4.2 |
+| file://../../../shortlink-common | shortlink-common | 0.5.9 |
+| oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.8.0 |
 
 ## Values
 

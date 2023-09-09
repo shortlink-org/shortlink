@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.7.1 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.7.2 |
 
 ## Values
 
@@ -74,10 +74,16 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | ingress-nginx.controller.nodeSelector."kubernetes.io/hostname" | string | `"node1"` |  |
 | ingress-nginx.controller.opentelemetry.enabled | bool | `true` |  |
 | ingress-nginx.controller.podSecurityContext.fsGroup | int | `1001` |  |
+| ingress-nginx.controller.resources.requests.cpu | string | `"100m"` |  |
+| ingress-nginx.controller.resources.requests.memory | string | `"90Mi"` |  |
 | ingress-nginx.controller.service.nodePorts.http | int | `80` |  |
 | ingress-nginx.controller.service.nodePorts.https | int | `443` |  |
 | ingress-nginx.controller.service.type | string | `"NodePort"` |  |
 | ingress-nginx.defaultBackend.enabled | bool | `true` |  |
+| ingress-nginx.defaultBackend.resources.limits.cpu | string | `"10m"` |  |
+| ingress-nginx.defaultBackend.resources.limits.memory | string | `"20Mi"` |  |
+| ingress-nginx.defaultBackend.resources.requests.cpu | string | `"10m"` |  |
+| ingress-nginx.defaultBackend.resources.requests.memory | string | `"20Mi"` |  |
 | ingress-nginx.enabled | bool | `true` |  |
 
 ----------------------------------------------

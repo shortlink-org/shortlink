@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kiali.org/helm-charts | kiali-operator | 1.70.0 |
+| https://kiali.org/helm-charts | kiali-operator | 1.73.0 |
 
 ## Values
 

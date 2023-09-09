@@ -10,12 +10,12 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://istio-release.storage.googleapis.com/charts | base | 1.18.0 |
-| https://istio-release.storage.googleapis.com/charts | istiod | 1.18.0 |
+| https://istio-release.storage.googleapis.com/charts | base | 1.19.0 |
+| https://istio-release.storage.googleapis.com/charts | istiod | 1.19.0 |
 
 ## Values
 
@@ -34,6 +34,8 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | istiod.meshConfig.extensionProviders[0].envoyOtelAls.port | int | `4317` |  |
 | istiod.meshConfig.extensionProviders[0].envoyOtelAls.service | string | `"grafana-tempo.grafana"` |  |
 | istiod.meshConfig.extensionProviders[0].name | string | `"otel"` |  |
+| istiod.pilot.env.ENABLE_NATIVE_SIDECARS | string | `"true"` |  |
+| istiod.pilot.env.ISTIO_ENABLE_CONTROLLER_QUEUE_METRICS | string | `"true"` |  |
 | istiod.pilot.traceSampling | float | `100` |  |
 | istiod.telemetry.v2.metadataExchange.wasmEnabled | bool | `true` |  |
 | istiod.telemetry.v2.prometheus.configOverride.scrapeInterval | string | `"15s"` |  |

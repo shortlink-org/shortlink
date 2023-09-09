@@ -1,6 +1,6 @@
 # backstage
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 Shortlink landing service
 
@@ -18,11 +18,11 @@ Shortlink landing service
 
 ## Requirements
 
-Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
+Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.7 |
+| file://../shortlink-common | shortlink-common | 0.5.9 |
 
 ## Values
 
@@ -31,7 +31,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 | deploy.annotations | list | `[]` | Annotations to be added to controller pods |
 | deploy.image.pullPolicy | string | `"Always"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
 | deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/backstage"` |  |
-| deploy.image.tag | string | `"0.16.16"` |  |
+| deploy.image.tag | string | `"0.16.28"` |  |
 | deploy.imagePullSecrets | list | `[]` |  |
 | deploy.livenessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":300,"timeoutSeconds":60}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
 | deploy.readinessProbe | object | `{"httpGet":{"path":"/healthcheck","port":7007},"httpHeaders":[{"name":"Host","value":"shortlink.best"}],"initialDelaySeconds":120,"timeoutSeconds":15}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
