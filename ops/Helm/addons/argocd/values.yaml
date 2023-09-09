@@ -215,11 +215,11 @@ argo-cd:
         command: [ sh, -ec ]
         env:
           - name: HELM_SECRETS_VERSION
-            value: "4.4.2"
+            value: "4.5.0"
           - name: KUBECTL_VERSION
-            value: "1.27.3"
+            value: "1.28.0"
           - name: VALS_VERSION
-            value: "0.25.0"
+            value: "0.27.1"
           - name: SOPS_VERSION
             value: "3.7.3"
         args:
@@ -231,10 +231,10 @@ argo-cd:
             wget -qO /custom-tools/kubectl https://dl.k8s.io/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl
 
             wget -qO- https://github.com/variantdev/vals/releases/download/v${VALS_VERSION}/vals_${VALS_VERSION}_linux_amd64.tar.gz | tar -xzf- -C /custom-tools/ vals;
-            
+
             # helm secrets wrapper mode installation (optional)
             # RUN printf '#!/usr/bin/env sh\nexec %s secrets "$@"' "${HELM_SECRETS_HELM_PATH}" >"/usr/local/sbin/helm" && chmod +x "/custom-tools/helm"
-            
+
             chmod +x /custom-tools/*
         volumeMounts:
           - mountPath: /custom-tools
@@ -274,188 +274,3 @@ argo-cd:
       enabled: true
       serviceMonitor:
         enabled: true
-
-argo-events:
-  enabled: false
-
-  fullnameOverride: argo-events
-
-argo-workflows:
-  enabled: false
-
-  fullnameOverride: argo-workflows
-
-  controller:
-    metricsConfig:
-      enabled: true
-    telemetryConfig:
-      enabled: true
-    serviceMonitor:
-      enabled: true
-
-    workflowNamespaces: []
-
-    # -- enable persistence using postgres
-    # postgresql:
-    #  host: localhost
-    #  port: 5432
-    #  database: argo
-    #  tableName: argo_workflows
-
-  server:
-    extraArgs:
-      - --basehref
-      - /workflows/
-      - --auth-mode=server
-
-    baseHref: /workflows/
-
-    extraEnv:
-      - name: ARGO_BASE_HREF
-        value: /workflows
-
-    ingress:
-      enabled: true
-
-      ingressClassName: nginx
-
-      annotations:
-        cert-manager.io/cluster-issuer: cert-manager-production
-        nginx.ingress.kubernetes.io/backend-protocol: HTTP
-        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-        nginx.ingress.kubernetes.io/rewrite-target: /$1
-        nginx.ingress.kubernetes.io/use-regex: "true"
-
-      hosts:
-        - argo.shortlink.best
-
-      paths:
-        - /workflows/?(.*)
-
-      tls:
-        - secretName: argo-ingress-tls
-          hosts:
-            - argo.shortlink.best
-
-argocd-apps:
-  enabled: true
-
-  # -- Deploy Argo CD Applications within this helm release
-  # @default -- `[]` (See [values.yaml])
-  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
-  applications: [ ]
-
-  # -- Deploy Argo CD Projects within this helm release
-  # @default -- `[]` (See [values.yaml])
-  ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
-  projects: [ ]
-
-argo-rollouts:
-  enabled: true
-
-  fullnameOverride: argo-rollouts
-
-  controller:
-    replicas: 1
-
-#    resources:
-#      limits:
-#        cpu: 300m
-#        memory: 2Gi
-#      requests:
-#        cpu: 20m
-#        memory: 16Mi
-
-  dashboard:
-    enabled: true
-    readonly: true
-
-    resources:
-      limits:
-        cpu: 100m
-        memory: 256Mi
-      requests:
-        cpu: 10m
-        memory: 64Mi
-
-    ingress:
-      enabled: true
-
-      ingressClassName: nginx
-
-      annotations:
-        cert-manager.io/cluster-issuer: cert-manager-production
-        nginx.ingress.kubernetes.io/backend-protocol: HTTP
-        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
-        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-
-      hosts:
-        - argo.shortlink.best
-
-      paths:
-        - /rollouts
-
-      tls:
-        - secretName: argo-ingress-tls
-          hosts:
-            - argo.shortlink.best
-
-  metrics:
-    enabled: true
-    serviceMonitor:
-      enabled: true
-
-argocd-image-updater:
-  enabled: false
-
-  fullnameOverride: argocd-image-updater
-
-  config:
-    applicationsAPIKind: kubernetes
-    # argocd:
-    #  serverAddress: argocd-server
-    #  insecure: false
-    gitCommitUser: argocd-image-updater
-    gitCommitMail: argocd@shortlink.best
-    gitCommitTemplate: |
-      build: automatic update of {{ .AppName }}
-      
-      {{ range .AppChanges -}}
-      updates image {{ .Image }} tag '{{ .OldTag }}' to '{{ .NewTag }}'
-      {{ end -}}
-
-      Signed-off-by: argocd <argocd@shortlink.best>
-
-    # sshConfig: |
-    #   Host github.com
-    #   HostName github.com
-    #     User git
-    #     IdentityFile /etc/ssh/ssh-privatekey
-    #     IdentitiesOnly yes
-    #     StrictHostKeyChecking no
-    #     UserKnownHostsFile /dev/null
-
-#  resources:
-#    limits:
-#      cpu: 100m
-#      memory: 128Mi
-#    requests:
-#      cpu: 10m
-#      memory: 64Mi
-
-  updateStrategy:
-    type: Recreate
-
-  registries:
-    - name: GitLab
-      api_url: https://registry.gitlab.com
-      ping: yes
-      default: true
-
-  metrics:
-    enabled: true
-    serviceMonitor:
-      enabled: true

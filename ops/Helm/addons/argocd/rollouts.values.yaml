@@ -1,0 +1,55 @@
+argo-rollouts:
+  enabled: true
+
+  fullnameOverride: argo-rollouts
+
+  controller:
+    replicas: 1
+
+  #    resources:
+  #      limits:
+  #        cpu: 300m
+  #        memory: 2Gi
+  #      requests:
+  #        cpu: 20m
+  #        memory: 16Mi
+
+  dashboard:
+    enabled: true
+    readonly: true
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+    ingress:
+      enabled: true
+
+      ingressClassName: nginx
+
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/backend-protocol: HTTP
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+      hosts:
+        - argo.shortlink.best
+
+      paths:
+        - /rollouts
+
+      tls:
+        - secretName: argo-ingress-tls
+          hosts:
+            - argo.shortlink.best
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true

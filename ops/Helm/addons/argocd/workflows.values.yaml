@@ -1,0 +1,58 @@
+argo-workflows:
+  enabled: true
+
+  fullnameOverride: argo-workflows
+
+  controller:
+    metricsConfig:
+      enabled: true
+    telemetryConfig:
+      enabled: true
+    serviceMonitor:
+      enabled: true
+
+    workflowNamespaces: []
+
+    # -- enable persistence using postgres
+    # postgresql:
+    #  host: localhost
+    #  port: 5432
+    #  database: argo
+    #  tableName: argo_workflows
+
+  server:
+    extraArgs:
+      - --basehref
+      - /workflows/
+      - --auth-mode=server
+
+    baseHref: /workflows/
+
+    extraEnv:
+      - name: ARGO_BASE_HREF
+        value: /workflows
+
+    ingress:
+      enabled: true
+
+      ingressClassName: nginx
+
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/backend-protocol: HTTP
+        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/use-regex: "true"
+
+      hosts:
+        - argo.shortlink.best
+
+      paths:
+        - /workflows/?(.*)
+
+      tls:
+        - secretName: argo-ingress-tls
+          hosts:
+            - argo.shortlink.best

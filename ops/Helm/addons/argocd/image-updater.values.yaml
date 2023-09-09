@@ -1,0 +1,51 @@
+argocd-image-updater:
+  enabled: false
+
+  fullnameOverride: argocd-image-updater
+
+  config:
+    applicationsAPIKind: kubernetes
+    # argocd:
+    #  serverAddress: argocd-server
+    #  insecure: false
+    gitCommitUser: argocd-image-updater
+    gitCommitMail: argocd@shortlink.best
+    gitCommitTemplate: |
+      build: automatic update of {{ .AppName }}
+
+      {{ range .AppChanges -}}
+      updates image {{ .Image }} tag '{{ .OldTag }}' to '{{ .NewTag }}'
+      {{ end -}}
+
+      Signed-off-by: argocd <argocd@shortlink.best>
+
+    # sshConfig: |
+    #   Host github.com
+    #   HostName github.com
+    #     User git
+    #     IdentityFile /etc/ssh/ssh-privatekey
+    #     IdentitiesOnly yes
+    #     StrictHostKeyChecking no
+    #     UserKnownHostsFile /dev/null
+
+  #  resources:
+  #    limits:
+  #      cpu: 100m
+  #      memory: 128Mi
+  #    requests:
+  #      cpu: 10m
+  #      memory: 64Mi
+
+  updateStrategy:
+    type: Recreate
+
+  registries:
+    - name: GitLab
+      api_url: https://registry.gitlab.com
+      ping: yes
+      default: true
+
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true

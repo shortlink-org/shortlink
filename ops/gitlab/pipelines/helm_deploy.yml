@@ -15,7 +15,13 @@ deploy:
     - docker
   stage: deploy
   script:
-    - helm secrets upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG
+    - |
+      set -e
+      VALUE_FILES=""
+      for file in ${HELM_PATH}/*.values.yaml; do
+        VALUE_FILES="$VALUE_FILES -f $file"
+      done
+    - helm secrets upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG $VALUE_FILES
       --kube-context=shortlink-org/shortlink:${PROVIDER}
       --install
       --atomic
@@ -57,10 +63,9 @@ history:
 drop:
   extends:
     - .job_template_helm
-  tags:
-    - docker
   script:
     - helm del -n $HELM_NAMESPACE $RELEASE_NAME;
+  needs: []
   environment:
     name: ${PROVIDER}/${RELEASE_NAME}
     action: stop
