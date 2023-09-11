@@ -34,4 +34,4 @@ services:
     profiles:
       - prometheus
     volumes:
-      - ./ops/docker-compose/database/postgres/postgres-server.json:/etc/prometheus/targets/postgres-server.json
+      - ./ops/docker-compose/database/postgres/conf/postgres-server.json:/etc/prometheus/targets/postgres-server.json

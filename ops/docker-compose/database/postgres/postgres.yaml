@@ -60,7 +60,7 @@ services:
     extra_hosts:
       - "postgres:${DATABASE_IP}"
     volumes:
-      - ./ops/docker-compose/database/postgres/pgbouncer.ini:/bitnami/pgbouncer/conf/pgbouncer.ini
+      - ./ops/docker-compose/database/postgres/conf/pgbouncer.ini:/bitnami/pgbouncer/conf/pgbouncer.ini
 
   # Backup
   # Docs: https://github.com/wal-g/wal-g/blob/master/docs/PostgreSQL.md
