@@ -1,9 +1,10 @@
 'use client'
 
+import React, { useState } from 'react'
 import { useTheme, AppBar, Grid, Tabs, Tab, Box } from '@mui/material'
 // @ts-ignore
 import { ToggleDarkMode } from '@shortlink-org/ui-kit'
-import React, { useState } from 'react'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import '@shortlink-org/ui-kit/dist/cjs/index.css'
 
 import TabContent from '../TabContent'
@@ -26,6 +27,8 @@ const Home = () => {
 
   const appBarColor = theme.palette.mode === 'dark' ? 'inherit' : 'primary'
   const textColor = theme.palette.mode === 'dark' ? 'secondary' : 'inherit'
+  // @ts-ignore
+  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
   return (
     <>
@@ -37,14 +40,14 @@ const Home = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Box sx={{ width: 700 }}>
-          <AppBar position="static" id="menu" color={appBarColor}>
+        <Box sx={{ width: '100%', maxWidth: 700, px: { xs: 2, md: 0 } }}>
+          <AppBar position="static" id="menu" color={appBarColor} className="mt-[10em] md:mt-0">
             <Tabs
               value={value}
               onChange={handleChange}
               indicatorColor="secondary"
               textColor={textColor}
-              variant="fullWidth"
+              variant={isMobile ? "scrollable" : "fullWidth"}
               aria-label="full width tabs example"
               selectionFollowsFocus
             >

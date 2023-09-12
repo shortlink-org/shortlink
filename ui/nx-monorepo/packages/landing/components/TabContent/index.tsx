@@ -47,6 +47,7 @@ function getCard(name: string, url: string, theme) {
       <Button
         variant="outlined"
         color={theme.palette.mode === 'dark' ? 'primary' : 'inherit'}
+        size="large"
       >
         {name}
       </Button>
