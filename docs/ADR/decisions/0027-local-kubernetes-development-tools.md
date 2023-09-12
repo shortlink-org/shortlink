@@ -26,7 +26,7 @@ we will delve into three prominent solutions: Telepresence, Gefyra, and mirrord.
 | Gefyra       | Uses a VPN to connect Docker containers to the cluster. Focuses on network traffic.                                         | [Gefyra](https://gefyra.dev/)                |
 | mirrord      | Injects itself into the local binary and proxies to an agent in the cluster. Supports multiple local processes.             | [mirrord](https://mirrord.dev/)              |
 
-Given the context and the features of the tools, I'd prefer to try [mirrord](https://mirrord.dev/).
+After evaluating the tools, I find [Telepresence](https://www.telepresence.io/) to be the most user-friendly and stable option for local Kubernetes development.
 
 ## ⚖️ Consequences
 
