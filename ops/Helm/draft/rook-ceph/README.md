@@ -19,22 +19,212 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/ceph-dashboard/$2"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
-| ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"shortlink.best"` |  |
-| ingress.path | string | `"/ceph-dashboard(/|$)(.*)"` |  |
-| ingress.service.name | string | `"rook-ceph-mgr-dashboard"` |  |
-| ingress.service.port | int | `7000` |  |
-| ingress.type | string | `"nginx"` |  |
-| rook-ceph.enabled | bool | `true` |  |
-| rook-ceph.monitoring.enabled | bool | `true` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L11">ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cert-manager-production"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L12">ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"false"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L14">ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L13">ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L15">ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/ceph-dashboard/$2"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L16">ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--enabled"><a href="./values.yaml#L8">ingress.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--hostname"><a href="./values.yaml#L18">ingress.hostname</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--path"><a href="./values.yaml#L19">ingress.path</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/ceph-dashboard(/|$)(.*)"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--service--name"><a href="./values.yaml#L21">ingress.service.name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"rook-ceph-mgr-dashboard"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--service--port"><a href="./values.yaml#L22">ingress.service.port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+7000
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--type"><a href="./values.yaml#L9">ingress.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rook-ceph--enabled"><a href="./values.yaml#L2">rook-ceph.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rook-ceph--monitoring--enabled"><a href="./values.yaml#L5">rook-ceph.monitoring.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

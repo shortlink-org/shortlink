@@ -18,53 +18,646 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| grafana."grafana.ini".auth.anonymous.enabled | bool | `true` |  |
-| grafana."grafana.ini".auth.anonymous.hide_version | bool | `true` |  |
-| grafana."grafana.ini".auth.anonymous.org_name | string | `"Main Org."` |  |
-| grafana."grafana.ini".auth.anonymous.org_role | string | `"Viewer"` |  |
-| grafana."grafana.ini".reporting.enabled | bool | `true` |  |
-| grafana.defaultDashboardsEnabled | bool | `true` |  |
-| grafana.enabled | bool | `true` |  |
-| grafana.imageRenderer.enabled | bool | `true` |  |
-| grafana.imageRenderer.revisionHistoryLimit | int | `2` |  |
-| grafana.imageRenderer.serviceMonitor.enabled | bool | `true` |  |
-| grafana.imageRenderer.serviceMonitor.interval | string | `"1m"` |  |
-| grafana.imageRenderer.serviceMonitor.selfMonitor | bool | `true` |  |
-| grafana.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| grafana.ingress.enabled | bool | `true` |  |
-| grafana.ingress.hosts[0] | string | `"grafana.shortlink.best"` |  |
-| grafana.ingress.path | string | `"/"` |  |
-| grafana.ingress.tls[0].hosts[0] | string | `"grafana.shortlink.best"` |  |
-| grafana.ingress.tls[0].secretName | string | `"grafana-ingress-tls"` |  |
-| grafana.namespaceOverride | string | `""` |  |
-| grafana.persistence.enabled | bool | `true` |  |
-| grafana.persistence.inMemory.enabled | bool | `true` |  |
-| grafana.persistence.storageClassName | string | `"local-path"` |  |
-| grafana.plugins[0] | string | `"flant-statusmap-panel"` |  |
-| grafana.plugins[1] | string | `"grafana-polystat-panel"` |  |
-| grafana.plugins[2] | string | `"grafana-oncall-app"` |  |
-| grafana.revisionHistoryLimit | int | `2` |  |
-| grafana.serviceMonitor.enabled | bool | `true` |  |
-| grafana.serviceMonitor.interval | string | `"1m"` |  |
-| grafana.serviceMonitor.selfMonitor | bool | `true` |  |
-| grafana.sidecar.alerts.enabled | bool | `true` |  |
-| grafana.sidecar.alerts.searchNamespace | string | `"ALL"` |  |
-| grafana.sidecar.dashboards.enabled | bool | `true` |  |
-| grafana.sidecar.dashboards.folder | string | `"/tmp/dashboards"` |  |
-| grafana.sidecar.dashboards.folderAnnotation | string | `"grafana_dashboard_folder"` |  |
-| grafana.sidecar.dashboards.provider.foldersFromFilesStructure | bool | `true` |  |
-| grafana.sidecar.dashboards.searchNamespace | string | `"ALL"` |  |
-| grafana.sidecar.datasources.enabled | bool | `true` |  |
-| grafana.sidecar.datasources.searchNamespace | string | `"ALL"` |  |
-| grafana.sidecar.notifiers.enabled | bool | `true` |  |
-| grafana.sidecar.notifiers.searchNamespace | string | `"ALL"` |  |
-| grafana.sidecar.plugins.enabled | bool | `true` |  |
-| grafana.sidecar.plugins.searchNamespace | string | `"ALL"` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="grafana--"grafana--ini"--auth--anonymous--enabled"><a href="./values.yaml#L103">grafana."grafana.ini".auth.anonymous.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--"grafana--ini"--auth--anonymous--hide_version"><a href="./values.yaml#L112">grafana."grafana.ini".auth.anonymous.hide_version</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--"grafana--ini"--auth--anonymous--org_name"><a href="./values.yaml#L106">grafana."grafana.ini".auth.anonymous.org_name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Main Org."
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--"grafana--ini"--auth--anonymous--org_role"><a href="./values.yaml#L109">grafana."grafana.ini".auth.anonymous.org_role</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Viewer"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--"grafana--ini"--reporting--enabled"><a href="./values.yaml#L99">grafana."grafana.ini".reporting.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--defaultDashboardsEnabled"><a href="./values.yaml#L12">grafana.defaultDashboardsEnabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--enabled"><a href="./values.yaml#L7">grafana.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--imageRenderer--enabled"><a href="./values.yaml#L30">grafana.imageRenderer.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--imageRenderer--revisionHistoryLimit"><a href="./values.yaml#L32">grafana.imageRenderer.revisionHistoryLimit</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+2
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--imageRenderer--serviceMonitor--enabled"><a href="./values.yaml#L35">grafana.imageRenderer.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--imageRenderer--serviceMonitor--interval"><a href="./values.yaml#L37">grafana.imageRenderer.serviceMonitor.interval</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"1m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--imageRenderer--serviceMonitor--selfMonitor"><a href="./values.yaml#L36">grafana.imageRenderer.serviceMonitor.selfMonitor</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L43">grafana.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cert-manager-production"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L44">grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"false"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L46">grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L45">grafana.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--ingress--enabled"><a href="./values.yaml#L40">grafana.ingress.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--ingress--hosts[0]"><a href="./values.yaml#L49">grafana.ingress.hosts[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grafana.shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--ingress--path"><a href="./values.yaml#L51">grafana.ingress.path</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L56">grafana.ingress.tls[0].hosts[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grafana.shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--ingress--tls[0]--secretName"><a href="./values.yaml#L54">grafana.ingress.tls[0].secretName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grafana-ingress-tls"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--namespaceOverride"><a href="./values.yaml#L8">grafana.namespaceOverride</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+""
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--persistence--enabled"><a href="./values.yaml#L17">grafana.persistence.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--persistence--inMemory--enabled"><a href="./values.yaml#L20">grafana.persistence.inMemory.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--persistence--storageClassName"><a href="./values.yaml#L18">grafana.persistence.storageClassName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"local-path"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--plugins[0]"><a href="./values.yaml#L93">grafana.plugins[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"flant-statusmap-panel"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--plugins[1]"><a href="./values.yaml#L94">grafana.plugins[1]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grafana-polystat-panel"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--plugins[2]"><a href="./values.yaml#L95">grafana.plugins[2]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grafana-oncall-app"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--revisionHistoryLimit"><a href="./values.yaml#L22">grafana.revisionHistoryLimit</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+2
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--serviceMonitor--enabled"><a href="./values.yaml#L25">grafana.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--serviceMonitor--interval"><a href="./values.yaml#L27">grafana.serviceMonitor.interval</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"1m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--serviceMonitor--selfMonitor"><a href="./values.yaml#L26">grafana.serviceMonitor.selfMonitor</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--alerts--enabled"><a href="./values.yaml#L60">grafana.sidecar.alerts.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--alerts--searchNamespace"><a href="./values.yaml#L61">grafana.sidecar.alerts.searchNamespace</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ALL"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--dashboards--enabled"><a href="./values.yaml#L63">grafana.sidecar.dashboards.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--dashboards--folder"><a href="./values.yaml#L65">grafana.sidecar.dashboards.folder</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/tmp/dashboards"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--dashboards--folderAnnotation"><a href="./values.yaml#L66">grafana.sidecar.dashboards.folderAnnotation</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grafana_dashboard_folder"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--dashboards--provider--foldersFromFilesStructure"><a href="./values.yaml#L68">grafana.sidecar.dashboards.provider.foldersFromFilesStructure</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--dashboards--searchNamespace"><a href="./values.yaml#L64">grafana.sidecar.dashboards.searchNamespace</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ALL"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--datasources--enabled"><a href="./values.yaml#L70">grafana.sidecar.datasources.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--datasources--searchNamespace"><a href="./values.yaml#L71">grafana.sidecar.datasources.searchNamespace</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ALL"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--notifiers--enabled"><a href="./values.yaml#L76">grafana.sidecar.notifiers.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--notifiers--searchNamespace"><a href="./values.yaml#L77">grafana.sidecar.notifiers.searchNamespace</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ALL"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--plugins--enabled"><a href="./values.yaml#L73">grafana.sidecar.plugins.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--sidecar--plugins--searchNamespace"><a href="./values.yaml#L74">grafana.sidecar.plugins.searchNamespace</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ALL"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

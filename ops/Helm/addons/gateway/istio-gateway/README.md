@@ -18,27 +18,282 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| gateway.global.logAsJson | bool | `true` |  |
-| gateway.service.ports[0].name | string | `"status-port"` |  |
-| gateway.service.ports[0].port | int | `15021` |  |
-| gateway.service.ports[0].protocol | string | `"TCP"` |  |
-| gateway.service.ports[0].targetPort | int | `15021` |  |
-| gateway.service.ports[1].name | string | `"http2"` |  |
-| gateway.service.ports[1].port | int | `80` |  |
-| gateway.service.ports[1].protocol | string | `"TCP"` |  |
-| gateway.service.ports[1].targetPort | int | `80` |  |
-| gateway.service.ports[2].name | string | `"https"` |  |
-| gateway.service.ports[2].port | int | `443` |  |
-| gateway.service.ports[2].protocol | string | `"TCP"` |  |
-| gateway.service.ports[2].targetPort | int | `443` |  |
-| gateway.service.ports[3].name | string | `"grpc"` |  |
-| gateway.service.ports[3].port | int | `50051` |  |
-| gateway.service.ports[3].protocol | string | `"TCP"` |  |
-| gateway.service.ports[3].targetPort | int | `50051` |  |
-| gateway.service.type | string | `"ClusterIP"` |  |
-| istio-ingress.enabled | bool | `true` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="gateway--global--logAsJson"><a href="./values.yaml#L26">gateway.global.logAsJson</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[0]--name"><a href="./values.yaml#L8">gateway.service.ports[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"status-port"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[0]--port"><a href="./values.yaml#L9">gateway.service.ports[0].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+15021
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[0]--protocol"><a href="./values.yaml#L11">gateway.service.ports[0].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[0]--targetPort"><a href="./values.yaml#L10">gateway.service.ports[0].targetPort</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+15021
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[1]--name"><a href="./values.yaml#L12">gateway.service.ports[1].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http2"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[1]--port"><a href="./values.yaml#L13">gateway.service.ports[1].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+80
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[1]--protocol"><a href="./values.yaml#L15">gateway.service.ports[1].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[1]--targetPort"><a href="./values.yaml#L14">gateway.service.ports[1].targetPort</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+80
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[2]--name"><a href="./values.yaml#L16">gateway.service.ports[2].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[2]--port"><a href="./values.yaml#L17">gateway.service.ports[2].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+443
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[2]--protocol"><a href="./values.yaml#L19">gateway.service.ports[2].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[2]--targetPort"><a href="./values.yaml#L18">gateway.service.ports[2].targetPort</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+443
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[3]--name"><a href="./values.yaml#L20">gateway.service.ports[3].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grpc"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[3]--port"><a href="./values.yaml#L21">gateway.service.ports[3].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+50051
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[3]--protocol"><a href="./values.yaml#L23">gateway.service.ports[3].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--ports[3]--targetPort"><a href="./values.yaml#L22">gateway.service.ports[3].targetPort</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+50051
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="gateway--service--type"><a href="./values.yaml#L6">gateway.service.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ClusterIP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="istio-ingress--enabled"><a href="./values.yaml#L2">istio-ingress.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

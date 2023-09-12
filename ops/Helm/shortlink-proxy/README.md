@@ -26,52 +26,658 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| deploy.affinity | list | `[]` |  |
-| deploy.annotations | list | `[]` | Annotations to be added to controller pods |
-| deploy.env.API_LINK_SERVICE | string | `"http://shortlink-api.shortlink:7070"` |  |
-| deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
-| deploy.env.MQ_ENABLED | bool | `false` |  |
-| deploy.env.MQ_TYPE | string | `"rabbitmq"` |  |
-| deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
-| deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
-| deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/proxy"` |  |
-| deploy.image.tag | string | `"0.16.28"` |  |
-| deploy.imagePullSecrets | list | `[]` |  |
-| deploy.livenessProbe | object | `{"failureThreshold":30,"httpGet":{"path":"/ready","port":3020},"initialDelaySeconds":15,"timeoutSeconds":15}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.nodeSelector | list | `[]` | Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
-| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":3020},"initialDelaySeconds":15,"timeoutSeconds":15}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.replicaCount | int | `1` |  |
-| deploy.resources.limits | object | `{"cpu":"100m","memory":"1024Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
-| deploy.resources.requests.cpu | string | `"10m"` |  |
-| deploy.resources.requests.memory | string | `"64Mi"` |  |
-| deploy.securityContext | object | `{"allowPrivilegeEscalation":false,"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":"false"}` | Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls |
-| deploy.tolerations | list | `[]` |  |
-| ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/s/$2"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
-| ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"shortlink.best"` |  |
-| ingress.path | string | `"/s(/|$)(.*)"` |  |
-| ingress.service.name | string | `"shortlink-proxy"` |  |
-| ingress.service.port | int | `3020` |  |
-| ingress.type | string | `"nginx"` |  |
-| monitoring.enabled | bool | `true` |  |
-| podDisruptionBudget.enabled | bool | `false` |  |
-| secret.enabled | bool | `false` |  |
-| secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
-| service.ports[0].name | string | `"http"` |  |
-| service.ports[0].port | int | `3020` |  |
-| service.ports[0].protocol | string | `"TCP"` |  |
-| service.ports[0].public | bool | `true` |  |
-| service.ports[0].targetPort | int | `3020` |  |
-| service.type | string | `"ClusterIP"` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="deploy--affinity"><a href="./values.yaml#L76">deploy.affinity</a></td>
+			<td>
+list
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+[]
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--annotations"><a href="./values.yaml#L59">deploy.annotations</a></td>
+			<td>
+list
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+[]
+</pre>
+</div>
+			</td>
+			<td>Annotations to be added to controller pods</td>
+		</tr>
+		<tr>
+			<td id="deploy--env--API_LINK_SERVICE"><a href="./values.yaml#L53">deploy.env.API_LINK_SERVICE</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://shortlink-api.shortlink:7070"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L54">deploy.env.GRPC_CLIENT_HOST</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"istio-ingress.istio-ingress"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L50">deploy.env.MQ_ENABLED</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L51">deploy.env.MQ_TYPE</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"rabbitmq"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L52">deploy.env.TRACER_URI</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://grafana-tempo.grafana:14268/api/traces"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L67">deploy.image.pullPolicy</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"IfNotPresent"
+</pre>
+</div>
+			</td>
+			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
+		</tr>
+		<tr>
+			<td id="deploy--image--repository"><a href="./values.yaml#L62">deploy.image.repository</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"registry.gitlab.com/shortlink-org/shortlink/proxy"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--image--tag"><a href="./values.yaml#L63">deploy.image.tag</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"0.16.28"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--imagePullSecrets"><a href="./values.yaml#L56">deploy.imagePullSecrets</a></td>
+			<td>
+list
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+[]
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L79">deploy.livenessProbe</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "failureThreshold": 30,
+  "httpGet": {
+    "path": "/ready",
+    "port": 3020
+  },
+  "initialDelaySeconds": 15,
+  "timeoutSeconds": 15
+}
+</pre>
+</div>
+			</td>
+			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
+		</tr>
+		<tr>
+			<td id="deploy--nodeSelector"><a href="./values.yaml#L72">deploy.nodeSelector</a></td>
+			<td>
+list
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+[]
+</pre>
+</div>
+			</td>
+			<td>Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature</td>
+		</tr>
+		<tr>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L88">deploy.readinessProbe</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "httpGet": {
+    "path": "/ready",
+    "port": 3020
+  },
+  "initialDelaySeconds": 15,
+  "timeoutSeconds": 15
+}
+</pre>
+</div>
+			</td>
+			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
+		</tr>
+		<tr>
+			<td id="deploy--replicaCount"><a href="./values.yaml#L47">deploy.replicaCount</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+1
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L100">deploy.resources.limits</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "cpu": "100m",
+  "memory": "1024Mi"
+}
+</pre>
+</div>
+			</td>
+			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L104">deploy.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L105">deploy.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"64Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--securityContext"><a href="./values.yaml#L110">deploy.securityContext</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "allowPrivilegeEscalation": false,
+  "capabilities": {
+    "drop": [
+      "ALL"
+    ]
+  },
+  "readOnlyRootFilesystem": "false"
+}
+</pre>
+</div>
+			</td>
+			<td>Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls</td>
+		</tr>
+		<tr>
+			<td id="deploy--tolerations"><a href="./values.yaml#L74">deploy.tolerations</a></td>
+			<td>
+list
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+[]
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L32">ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cert-manager-production"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L33">ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"false"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L35">ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L34">ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L36">ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/s/$2"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L37">ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--enabled"><a href="./values.yaml#L29">ingress.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--hostname"><a href="./values.yaml#L39">ingress.hostname</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--path"><a href="./values.yaml#L40">ingress.path</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/s(/|$)(.*)"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--service--name"><a href="./values.yaml#L42">ingress.service.name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-proxy"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--service--port"><a href="./values.yaml#L43">ingress.service.port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+3020
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--type"><a href="./values.yaml#L30">ingress.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="monitoring--enabled"><a href="./values.yaml#L131">monitoring.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L136">podDisruptionBudget.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="secret--enabled"><a href="./values.yaml#L13">secret.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="secret--grpcIntermediateCA"><a href="./values.yaml#L22">secret.grpcIntermediateCA</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="secret--grpcServerCert"><a href="./values.yaml#L14">secret.grpcServerCert</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="secret--grpcServerKey"><a href="./values.yaml#L18">secret.grpcServerKey</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L122">service.ports[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L123">service.ports[0].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+3020
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L125">service.ports[0].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L126">service.ports[0].public</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--targetPort"><a href="./values.yaml#L124">service.ports[0].targetPort</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+3020
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--type"><a href="./values.yaml#L120">service.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ClusterIP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

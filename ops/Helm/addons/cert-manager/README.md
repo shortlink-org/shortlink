@@ -20,25 +20,254 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| annotations | object | `{}` |  |
-| cert-manager-approver-policy.app.metrics.service.servicemonitor.enabled | bool | `true` |  |
-| cert-manager-approver-policy.enabled | bool | `false` |  |
-| certmanager.enabled | bool | `true` |  |
-| certmanager.extraArgs[0] | string | `"--logging-format=json"` |  |
-| certmanager.installCRDs | bool | `true` |  |
-| certmanager.prometheus.enabled | bool | `true` |  |
-| certmanager.prometheus.servicemonitor.enabled | bool | `true` |  |
-| certmanager.prometheus.servicemonitor.labels.release | string | `"prometheus-operator"` |  |
-| certmanager.type | string | `"cloudflare"` |  |
-| email | string | `"mymail@gmail.com"` |  |
-| spiffe.app.approver.metrics.service.servicemonitor.enabled | bool | `true` |  |
-| spiffe.app.driver.resources.limits.cpu | string | `"100m"` |  |
-| spiffe.app.driver.resources.limits.memory | string | `"128Mi"` |  |
-| spiffe.app.driver.resources.requests.cpu | string | `"5m"` |  |
-| spiffe.app.driver.resources.requests.memory | string | `"5Mi"` |  |
-| spiffe.enabled | bool | `false` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="annotations"><a href="./values.yaml#L7">annotations</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{}
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="cert-manager-approver-policy--app--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L37">cert-manager-approver-policy.app.metrics.service.servicemonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="cert-manager-approver-policy--enabled"><a href="./values.yaml#L31">cert-manager-approver-policy.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--enabled"><a href="./values.yaml#L10">certmanager.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--extraArgs[0]"><a href="./values.yaml#L19">certmanager.extraArgs[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"--logging-format=json"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--installCRDs"><a href="./values.yaml#L16">certmanager.installCRDs</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--prometheus--enabled"><a href="./values.yaml#L23">certmanager.prometheus.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--prometheus--servicemonitor--enabled"><a href="./values.yaml#L26">certmanager.prometheus.servicemonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--prometheus--servicemonitor--labels--release"><a href="./values.yaml#L28">certmanager.prometheus.servicemonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--type"><a href="./values.yaml#L14">certmanager.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cloudflare"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="email"><a href="./values.yaml#L5">email</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"mymail@gmail.com"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="spiffe--app--approver--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L56">spiffe.app.approver.metrics.service.servicemonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="spiffe--app--driver--resources--limits--cpu"><a href="./values.yaml#L49">spiffe.app.driver.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="spiffe--app--driver--resources--limits--memory"><a href="./values.yaml#L50">spiffe.app.driver.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="spiffe--app--driver--resources--requests--cpu"><a href="./values.yaml#L46">spiffe.app.driver.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"5m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="spiffe--app--driver--resources--requests--memory"><a href="./values.yaml#L47">spiffe.app.driver.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"5Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="spiffe--enabled"><a href="./values.yaml#L40">spiffe.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

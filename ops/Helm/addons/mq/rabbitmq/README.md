@@ -19,30 +19,324 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
-| ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"shortlink.best"` |  |
-| ingress.path | string | `"/rabbitmq/?(.*)"` |  |
-| ingress.service.name | string | `"shortlink"` |  |
-| ingress.service.port | int | `15672` |  |
-| ingress.type | string | `"nginx"` |  |
-| rabbitmq-cluster-operator.clusterOperator.metrics.enabled | bool | `true` |  |
-| rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.enabled | bool | `true` |  |
-| rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.labels.release | string | `"prometheus-operator"` |  |
-| rabbitmq-cluster-operator.enabled | bool | `true` |  |
-| rabbitmq-cluster-operator.fullnameOverride | string | `"rabbitmq"` |  |
-| rabbitmq-cluster-operator.msgTopologyOperator.metrics.enabled | bool | `true` |  |
-| rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.enabled | bool | `true` |  |
-| rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.labels.release | string | `"prometheus-operator"` |  |
-| rabbitmq.clusterName | string | `"shortlink"` |  |
-| secret.read[0] | string | `"shortlink"` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L40">ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cert-manager-production"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L41">ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"false"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L43">ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L42">ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L44">ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/$1"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L45">ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--enabled"><a href="./values.yaml#L37">ingress.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--hostname"><a href="./values.yaml#L47">ingress.hostname</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--path"><a href="./values.yaml#L48">ingress.path</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/rabbitmq/?(.*)"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--service--name"><a href="./values.yaml#L50">ingress.service.name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--service--port"><a href="./values.yaml#L51">ingress.service.port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+15672
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--type"><a href="./values.yaml#L38">ingress.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--enabled"><a href="./values.yaml#L20">rabbitmq-cluster-operator.clusterOperator.metrics.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--serviceMonitor--enabled"><a href="./values.yaml#L23">rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L25">rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rabbitmq-cluster-operator--enabled"><a href="./values.yaml#L13">rabbitmq-cluster-operator.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rabbitmq-cluster-operator--fullnameOverride"><a href="./values.yaml#L15">rabbitmq-cluster-operator.fullnameOverride</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"rabbitmq"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--enabled"><a href="./values.yaml#L29">rabbitmq-cluster-operator.msgTopologyOperator.metrics.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--serviceMonitor--enabled"><a href="./values.yaml#L32">rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L34">rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="rabbitmq--clusterName"><a href="./values.yaml#L10">rabbitmq.clusterName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="secret--read[0]"><a href="./values.yaml#L7">secret.read[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

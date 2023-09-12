@@ -18,24 +18,240 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| dragonfly.enabled | bool | `true` |  |
-| dragonfly.fullnameOverride | string | `"dragonfly"` |  |
-| dragonfly.podSecurityContext.fsGroup | int | `2000` |  |
-| dragonfly.prometheusRule.enabled | bool | `false` |  |
-| dragonfly.resources.limits.cpu | string | `"1000m"` |  |
-| dragonfly.resources.limits.memory | string | `"1Gi"` |  |
-| dragonfly.resources.requests.cpu | string | `"10m"` |  |
-| dragonfly.resources.requests.memory | string | `"64Mi"` |  |
-| dragonfly.securityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| dragonfly.securityContext.readOnlyRootFilesystem | bool | `true` |  |
-| dragonfly.securityContext.runAsNonRoot | bool | `true` |  |
-| dragonfly.securityContext.runAsUser | int | `1000` |  |
-| dragonfly.serviceMonitor.enabled | bool | `true` |  |
-| dragonfly.storage.enabled | bool | `true` |  |
-| dragonfly.storage.requests | string | `"5Gi"` |  |
-| dragonfly.storage.storageClassName | string | `"local-path"` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="dragonfly--enabled"><a href="./values.yaml#L6">dragonfly.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--fullnameOverride"><a href="./values.yaml#L8">dragonfly.fullnameOverride</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"dragonfly"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--podSecurityContext--fsGroup"><a href="./values.yaml#L11">dragonfly.podSecurityContext.fsGroup</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+2000
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--prometheusRule--enabled"><a href="./values.yaml#L25">dragonfly.prometheusRule.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--resources--limits--cpu"><a href="./values.yaml#L34">dragonfly.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"1000m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--resources--limits--memory"><a href="./values.yaml#L35">dragonfly.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"1Gi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--resources--requests--cpu"><a href="./values.yaml#L37">dragonfly.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--resources--requests--memory"><a href="./values.yaml#L38">dragonfly.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"64Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--securityContext--capabilities--drop[0]"><a href="./values.yaml#L16">dragonfly.securityContext.capabilities.drop[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ALL"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--securityContext--readOnlyRootFilesystem"><a href="./values.yaml#L17">dragonfly.securityContext.readOnlyRootFilesystem</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--securityContext--runAsNonRoot"><a href="./values.yaml#L18">dragonfly.securityContext.runAsNonRoot</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--securityContext--runAsUser"><a href="./values.yaml#L19">dragonfly.securityContext.runAsUser</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+1000
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--serviceMonitor--enabled"><a href="./values.yaml#L22">dragonfly.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--storage--enabled"><a href="./values.yaml#L28">dragonfly.storage.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--storage--requests"><a href="./values.yaml#L30">dragonfly.storage.requests</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"5Gi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--storage--storageClassName"><a href="./values.yaml#L29">dragonfly.storage.storageClassName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"local-path"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

@@ -1,0 +1,78 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ if .Files.Get "DOCS.md" }}
+{{ .Files.Get "DOCS.md" }}
+{{ end }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ define "chart.valueDefaultColumnRender" }}
+{{- $defaultValue := (default .Default .AutoDefault)  -}}
+{{- $notationType := .NotationType }}
+{{- if (and (hasPrefix "`" $defaultValue) (hasSuffix "`" $defaultValue) ) -}}
+{{- $defaultValue = (toPrettyJson (fromJson (trimAll "`" (default .Default .AutoDefault) ) ) ) -}}
+{{- $notationType = "json" }}
+{{- end -}}
+{{- if (eq $notationType "tpl" ) }}
+<pre lang="{{ $notationType }}">
+{{ .Key }}: |
+{{- $defaultValue | nindent 2 }}
+</pre>
+{{- else if (eq $notationType "email") }}
+<a href="mailto:{{ $defaultValue }}" style="color: green;">"{{ $defaultValue }}"</a>
+{{- else }}
+<pre lang="{{ $notationType }}">
+{{ $defaultValue }}
+</pre>
+{{- end }}
+{{ end }}
+
+{{ define "chart.typeColumnRender" }}
+{{- if (eq .Type "string/email") }}
+<a href="#stringemail" title="{{- template "chart.valuetypes.email" -}}">{{.Type}}</a>
+{{- else if (eq .Type "k8s/storage/persistent-volume/access-modes" )}}
+<a target="_blank"
+   href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes"
+   >{{- .Type }}</a>
+{{- else }}
+{{ .Type }}
+{{- end }}
+{{ end }}
+
+{{ define "chart.valuesTableHtml" }}
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+	{{- range .Values }}
+		<tr>
+			<td id="{{ .Key | replace "." "--" }}"><a href="./values.yaml#L{{ .LineNumber }}">{{ .Key }}</a></td>
+			<td>{{- template "chart.typeColumnRender" . -}}</td>
+			<td>
+				<div style="max-width: 300px;">{{ template "chart.valueDefaultColumnRender" . }}</div>
+			</td>
+			<td>{{ if .Description }}{{ .Description }}{{ else }}{{ .AutoDescription }}{{ end }}</td>
+		</tr>
+	{{- end }}
+	</tbody>
+</table>
+{{ end }}
+
+{{ template "chart.valuesSectionHtml" . }}
+
+{{ template "helm-docs.versionFooter" . }}

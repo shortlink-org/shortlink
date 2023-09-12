@@ -18,34 +18,380 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| velero.configuration.volumeSnapshotLocation[0].name | string | `"default"` |  |
-| velero.configuration.volumeSnapshotLocation[0].provider | string | `"aws"` |  |
-| velero.containerSecurityContext.allowPrivilegeEscalation | bool | `false` |  |
-| velero.containerSecurityContext.capabilities.add | list | `[]` |  |
-| velero.containerSecurityContext.capabilities.drop[0] | string | `"ALL"` |  |
-| velero.containerSecurityContext.readOnlyRootFilesystem | bool | `true` |  |
-| velero.enabled | bool | `true` |  |
-| velero.initContainers[0].image | string | `"velero/velero-plugin-for-csi:v0.5.1"` |  |
-| velero.initContainers[0].imagePullPolicy | string | `"IfNotPresent"` |  |
-| velero.initContainers[0].name | string | `"velero-plugin-for-csi"` |  |
-| velero.initContainers[0].volumeMounts[0].mountPath | string | `"/target"` |  |
-| velero.initContainers[0].volumeMounts[0].name | string | `"plugins"` |  |
-| velero.metrics.nodeAgentPodMonitor.enabled | bool | `true` |  |
-| velero.metrics.prometheusRule.enabled | bool | `true` |  |
-| velero.metrics.prometheusRule.spec[0].alert | string | `"VeleroBackupPartialFailures"` |  |
-| velero.metrics.prometheusRule.spec[0].annotations.message | string | `"Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups."` |  |
-| velero.metrics.prometheusRule.spec[0].expr | string | `"velero_backup_partial_failure_total{schedule!=\"\"} / velero_backup_attempt_total{schedule!=\"\"} > 0.25"` |  |
-| velero.metrics.prometheusRule.spec[0].for | string | `"15m"` |  |
-| velero.metrics.prometheusRule.spec[0].labels.severity | string | `"warning"` |  |
-| velero.metrics.prometheusRule.spec[1].alert | string | `"VeleroBackupFailures"` |  |
-| velero.metrics.prometheusRule.spec[1].annotations.message | string | `"Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups."` |  |
-| velero.metrics.prometheusRule.spec[1].expr | string | `"velero_backup_failure_total{schedule!=\"\"} / velero_backup_attempt_total{schedule!=\"\"} > 0.25"` |  |
-| velero.metrics.prometheusRule.spec[1].for | string | `"15m"` |  |
-| velero.metrics.prometheusRule.spec[1].labels.severity | string | `"warning"` |  |
-| velero.metrics.serviceMonitor.enabled | bool | `true` |  |
-| velero.podSecurityContext.fsGroup | int | `1337` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="velero--configuration--volumeSnapshotLocation[0]--name"><a href="./values.yaml#L28">velero.configuration.volumeSnapshotLocation[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"default"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--configuration--volumeSnapshotLocation[0]--provider"><a href="./values.yaml#L29">velero.configuration.volumeSnapshotLocation[0].provider</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"aws"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--containerSecurityContext--allowPrivilegeEscalation"><a href="./values.yaml#L20">velero.containerSecurityContext.allowPrivilegeEscalation</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--containerSecurityContext--capabilities--add"><a href="./values.yaml#L23">velero.containerSecurityContext.capabilities.add</a></td>
+			<td>
+list
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+[]
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--containerSecurityContext--capabilities--drop[0]"><a href="./values.yaml#L22">velero.containerSecurityContext.capabilities.drop[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ALL"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--containerSecurityContext--readOnlyRootFilesystem"><a href="./values.yaml#L24">velero.containerSecurityContext.readOnlyRootFilesystem</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--enabled"><a href="./values.yaml#L6">velero.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--initContainers[0]--image"><a href="./values.yaml#L10">velero.initContainers[0].image</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"velero/velero-plugin-for-csi:v0.5.1"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--initContainers[0]--imagePullPolicy"><a href="./values.yaml#L11">velero.initContainers[0].imagePullPolicy</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"IfNotPresent"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--initContainers[0]--name"><a href="./values.yaml#L9">velero.initContainers[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"velero-plugin-for-csi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--initContainers[0]--volumeMounts[0]--mountPath"><a href="./values.yaml#L13">velero.initContainers[0].volumeMounts[0].mountPath</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/target"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--initContainers[0]--volumeMounts[0]--name"><a href="./values.yaml#L14">velero.initContainers[0].volumeMounts[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"plugins"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--nodeAgentPodMonitor--enabled"><a href="./values.yaml#L35">velero.metrics.nodeAgentPodMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--enabled"><a href="./values.yaml#L37">velero.metrics.prometheusRule.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[0]--alert"><a href="./values.yaml#L39">velero.metrics.prometheusRule.spec[0].alert</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"VeleroBackupPartialFailures"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[0]--annotations--message"><a href="./values.yaml#L41">velero.metrics.prometheusRule.spec[0].annotations.message</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} partialy failed backups."
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[0]--expr"><a href="./values.yaml#L42">velero.metrics.prometheusRule.spec[0].expr</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"velero_backup_partial_failure_total{schedule!=\"\"} / velero_backup_attempt_total{schedule!=\"\"} \u003e 0.25"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[0]--for"><a href="./values.yaml#L44">velero.metrics.prometheusRule.spec[0].for</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"15m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[0]--labels--severity"><a href="./values.yaml#L46">velero.metrics.prometheusRule.spec[0].labels.severity</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"warning"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[1]--alert"><a href="./values.yaml#L47">velero.metrics.prometheusRule.spec[1].alert</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"VeleroBackupFailures"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[1]--annotations--message"><a href="./values.yaml#L49">velero.metrics.prometheusRule.spec[1].annotations.message</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Velero backup {{ $labels.schedule }} has {{ $value | humanizePercentage }} failed backups."
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[1]--expr"><a href="./values.yaml#L50">velero.metrics.prometheusRule.spec[1].expr</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"velero_backup_failure_total{schedule!=\"\"} / velero_backup_attempt_total{schedule!=\"\"} \u003e 0.25"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[1]--for"><a href="./values.yaml#L52">velero.metrics.prometheusRule.spec[1].for</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"15m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--prometheusRule--spec[1]--labels--severity"><a href="./values.yaml#L54">velero.metrics.prometheusRule.spec[1].labels.severity</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"warning"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--metrics--serviceMonitor--enabled"><a href="./values.yaml#L33">velero.metrics.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="velero--podSecurityContext--fsGroup"><a href="./values.yaml#L17">velero.podSecurityContext.fsGroup</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+1337
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

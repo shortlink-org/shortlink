@@ -17,9 +17,10 @@ helm-lint: ## Check Helm chart by linter
 helm-docs: ### Generate HELM docs
 	@docker run --rm \
 		-v ${PWD}/ops/Helm:/helm-docs \
+		-v ${PWD}/ops/Makefile/k8s/conf/Helm/README.md.gotmpl:/helm-docs/README.md.gotmpl \
 		--workdir="/helm-docs" \
 		-u "$(id -u)" \
-		jnorwood/helm-docs:v1.11.0
+		jnorwood/helm-docs:v1.11.0 --template-files=/helm-docs/README.md.gotmpl
 
 .PHONY: helm-upgrade
 helm-upgrade: ### Upgrade all helm charts

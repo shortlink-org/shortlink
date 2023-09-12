@@ -26,58 +26,730 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| NetworkPolicy.enabled | bool | `false` |  |
-| deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress.svc.cluster.local"` |  |
-| deploy.env.MQ_ENABLED | bool | `false` |  |
-| deploy.env.MQ_TYPE | string | `"kafka"` |  |
-| deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
-| deploy.image.pullPolicy | string | `"IfNotPresent"` | Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images |
-| deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/api-http"` |  |
-| deploy.image.tag | string | `"0.16.28"` |  |
-| deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":9090}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.replicaCount | int | `3` |  |
-| deploy.resources.limits.cpu | string | `"100m"` |  |
-| deploy.resources.limits.memory | string | `"128Mi"` |  |
-| deploy.resources.requests.cpu | string | `"5m"` |  |
-| deploy.resources.requests.memory | string | `"64Mi"` |  |
-| deploy.strategy.canary.steps[0].setWeight | int | `30` |  |
-| deploy.strategy.canary.steps[1].pause.duration | int | `10` |  |
-| deploy.strategy.canary.steps[2].setWeight | int | `60` |  |
-| deploy.strategy.canary.steps[3].pause.duration | int | `10` |  |
-| deploy.strategy.canary.steps[4].setWeight | int | `100` |  |
-| deploy.strategy.canary.steps[5].pause.duration | int | `10` |  |
-| deploy.strategy.type | string | `"Canary"` |  |
-| deploy.type | string | `"Rollout"` |  |
-| external_database | object | `{"enable":false,"ip":"192.168.0.101","port":6379}` | If you want to use an external database |
-| hpa.enabled | bool | `false` |  |
-| hpa.metrics[0].containerResource.container | string | `"application"` |  |
-| hpa.metrics[0].containerResource.name | string | `"cpu"` |  |
-| hpa.metrics[0].containerResource.target.averageUtilization | int | `80` |  |
-| hpa.metrics[0].containerResource.target.type | string | `"Utilization"` |  |
-| hpa.metrics[0].type | string | `"ContainerResource"` |  |
-| ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| ingress.enabled | bool | `true` |  |
-| ingress.hostname | string | `"shortlink.best"` |  |
-| ingress.path | string | `"/api(/|$)(.*)"` |  |
-| ingress.service.name | string | `"shortlink-api-http"` |  |
-| ingress.service.port | int | `7070` |  |
-| ingress.type | string | `"nginx"` |  |
-| monitoring.enabled | bool | `true` |  |
-| podDisruptionBudget.enabled | bool | `false` |  |
-| service.ports[0].name | string | `"http"` |  |
-| service.ports[0].port | int | `7070` |  |
-| service.ports[0].protocol | string | `"TCP"` |  |
-| service.ports[0].public | bool | `true` |  |
-| service.ports[1].name | string | `"metrics"` |  |
-| service.ports[1].port | int | `9090` |  |
-| service.ports[1].protocol | string | `"TCP"` |  |
-| service.type | string | `"ClusterIP"` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="NetworkPolicy--enabled"><a href="./values.yaml#L104">NetworkPolicy.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L70">deploy.env.GRPC_CLIENT_HOST</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"istio-ingress.istio-ingress.svc.cluster.local"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L67">deploy.env.MQ_ENABLED</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L68">deploy.env.MQ_TYPE</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"kafka"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L69">deploy.env.TRACER_URI</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://grafana-tempo.grafana:14268/api/traces"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L78">deploy.image.pullPolicy</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"IfNotPresent"
+</pre>
+</div>
+			</td>
+			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
+		</tr>
+		<tr>
+			<td id="deploy--image--repository"><a href="./values.yaml#L73">deploy.image.repository</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"registry.gitlab.com/shortlink-org/shortlink/api-http"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--image--tag"><a href="./values.yaml#L74">deploy.image.tag</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"0.16.28"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L81">deploy.livenessProbe</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "httpGet": {
+    "path": "/live",
+    "port": 9090
+  }
+}
+</pre>
+</div>
+			</td>
+			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
+		</tr>
+		<tr>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L87">deploy.readinessProbe</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "httpGet": {
+    "path": "/ready",
+    "port": 9090
+  }
+}
+</pre>
+</div>
+			</td>
+			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
+		</tr>
+		<tr>
+			<td id="deploy--replicaCount"><a href="./values.yaml#L42">deploy.replicaCount</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+3
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--limits--cpu"><a href="./values.yaml#L60">deploy.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--limits--memory"><a href="./values.yaml#L61">deploy.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L63">deploy.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"5m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L64">deploy.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"64Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--strategy--canary--steps[0]--setWeight"><a href="./values.yaml#L48">deploy.strategy.canary.steps[0].setWeight</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+30
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--strategy--canary--steps[1]--pause--duration"><a href="./values.yaml#L50">deploy.strategy.canary.steps[1].pause.duration</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+10
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--strategy--canary--steps[2]--setWeight"><a href="./values.yaml#L51">deploy.strategy.canary.steps[2].setWeight</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+60
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--strategy--canary--steps[3]--pause--duration"><a href="./values.yaml#L53">deploy.strategy.canary.steps[3].pause.duration</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+10
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--strategy--canary--steps[4]--setWeight"><a href="./values.yaml#L54">deploy.strategy.canary.steps[4].setWeight</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+100
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--strategy--canary--steps[5]--pause--duration"><a href="./values.yaml#L56">deploy.strategy.canary.steps[5].pause.duration</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+10
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--strategy--type"><a href="./values.yaml#L45">deploy.strategy.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Canary"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--type"><a href="./values.yaml#L40">deploy.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Rollout"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="external_database"><a href="./values.yaml#L128">external_database</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "enable": false,
+  "ip": "192.168.0.101",
+  "port": 6379
+}
+</pre>
+</div>
+			</td>
+			<td>If you want to use an external database</td>
+		</tr>
+		<tr>
+			<td id="hpa--enabled"><a href="./values.yaml#L93">hpa.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="hpa--metrics[0]--containerResource--container"><a href="./values.yaml#L98">hpa.metrics[0].containerResource.container</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"application"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="hpa--metrics[0]--containerResource--name"><a href="./values.yaml#L97">hpa.metrics[0].containerResource.name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cpu"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="hpa--metrics[0]--containerResource--target--averageUtilization"><a href="./values.yaml#L101">hpa.metrics[0].containerResource.target.averageUtilization</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+80
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="hpa--metrics[0]--containerResource--target--type"><a href="./values.yaml#L100">hpa.metrics[0].containerResource.target.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Utilization"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="hpa--metrics[0]--type"><a href="./values.yaml#L95">hpa.metrics[0].type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ContainerResource"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L19">ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cert-manager-production"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L20">ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"false"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L22">ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L21">ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--enabled"><a href="./values.yaml#L16">ingress.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--hostname"><a href="./values.yaml#L24">ingress.hostname</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--path"><a href="./values.yaml#L25">ingress.path</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/api(/|$)(.*)"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--service--name"><a href="./values.yaml#L27">ingress.service.name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-api-http"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--service--port"><a href="./values.yaml#L28">ingress.service.port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+7070
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--type"><a href="./values.yaml#L17">ingress.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="monitoring--enabled"><a href="./values.yaml#L120">monitoring.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L125">podDisruptionBudget.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L109">service.ports[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L110">service.ports[0].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+7070
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L111">service.ports[0].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L112">service.ports[0].public</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[1]--name"><a href="./values.yaml#L113">service.ports[1].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"metrics"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[1]--port"><a href="./values.yaml#L114">service.ports[1].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+9090
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[1]--protocol"><a href="./values.yaml#L115">service.ports[1].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--type"><a href="./values.yaml#L107">service.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ClusterIP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

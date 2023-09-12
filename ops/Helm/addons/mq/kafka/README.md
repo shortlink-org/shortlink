@@ -19,41 +19,478 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| kafka-ui.enabled | bool | `true` |  |
-| kafka-ui.envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS | string | `"shortlink-kafka-bootstrap:9092"` |  |
-| kafka-ui.envs.config.KAFKA_CLUSTERS_0_NAME | string | `"shortlink"` |  |
-| kafka-ui.envs.config.KAFKA_CLUSTERS_0_READONLY | string | `"true"` |  |
-| kafka-ui.envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER | string | `"kafka-zookeeper-client:2181"` |  |
-| kafka-ui.envs.config.MANAGEMENT_HEALTH_LDAP_ENABLED | string | `"FALSE"` |  |
-| kafka-ui.envs.config.SERVER_SERVLET_CONTEXT_PATH | string | `"/kafka-ui"` |  |
-| kafka-ui.envs.config.SPRING_SECURITY_USER_NAME | string | `"redacted"` |  |
-| kafka-ui.envs.config.SPRING_SECURITY_USER_PASSWORD | string | `"redacted"` |  |
-| kafka-ui.envs.secret | object | `{}` |  |
-| kafka-ui.fullnameOverride | string | `"kafka-ui"` |  |
-| kafka-ui.image.pullPolicy | string | `"Always"` |  |
-| kafka-ui.image.tag | string | `"master"` |  |
-| kafka-ui.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/kafka-ui/$2"` |  |
-| kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
-| kafka-ui.ingress.enabled | bool | `true` |  |
-| kafka-ui.ingress.host | string | `"shortlink.best"` |  |
-| kafka-ui.ingress.ingressClassName | string | `"nginx"` |  |
-| kafka-ui.ingress.path | string | `"/kafka-ui(/|$)(.*)"` |  |
-| kafka-ui.ingress.tls.enabled | bool | `true` |  |
-| kafka-ui.ingress.tls.secretName | string | `"shortlink-ingress-tls"` |  |
-| kafka-ui.probes.useHttpsScheme | bool | `false` |  |
-| strimzi-kafka-operator.dashboards.annotations.grafana_dashboard_folder | string | `"Kafka"` |  |
-| strimzi-kafka-operator.dashboards.enabled | bool | `true` |  |
-| strimzi-kafka-operator.dashboards.label | string | `"grafana_dashboard"` |  |
-| strimzi-kafka-operator.dashboards.labelValue | string | `"true"` |  |
-| strimzi-kafka-operator.enabled | bool | `true` |  |
-| strimzi-kafka-operator.watchAnyNamespace | bool | `true` |  |
-| strimzi-kafka-operator.watchNamespaces[0] | string | `"shortlink"` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="kafka-ui--enabled"><a href="./values.yaml#L20">kafka-ui.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS"><a href="./values.yaml#L32">kafka-ui.envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-kafka-bootstrap:9092"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_NAME"><a href="./values.yaml#L31">kafka-ui.envs.config.KAFKA_CLUSTERS_0_NAME</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_READONLY"><a href="./values.yaml#L34">kafka-ui.envs.config.KAFKA_CLUSTERS_0_READONLY</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_ZOOKEEPER"><a href="./values.yaml#L33">kafka-ui.envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"kafka-zookeeper-client:2181"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--envs--config--MANAGEMENT_HEALTH_LDAP_ENABLED"><a href="./values.yaml#L37">kafka-ui.envs.config.MANAGEMENT_HEALTH_LDAP_ENABLED</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"FALSE"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--envs--config--SERVER_SERVLET_CONTEXT_PATH"><a href="./values.yaml#L38">kafka-ui.envs.config.SERVER_SERVLET_CONTEXT_PATH</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/kafka-ui"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--envs--config--SPRING_SECURITY_USER_NAME"><a href="./values.yaml#L35">kafka-ui.envs.config.SPRING_SECURITY_USER_NAME</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"redacted"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--envs--config--SPRING_SECURITY_USER_PASSWORD"><a href="./values.yaml#L36">kafka-ui.envs.config.SPRING_SECURITY_USER_PASSWORD</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"redacted"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--envs--secret"><a href="./values.yaml#L29">kafka-ui.envs.secret</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{}
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--fullnameOverride"><a href="./values.yaml#L22">kafka-ui.fullnameOverride</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"kafka-ui"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--image--pullPolicy"><a href="./values.yaml#L26">kafka-ui.image.pullPolicy</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Always"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--image--tag"><a href="./values.yaml#L25">kafka-ui.image.tag</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"master"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L54">kafka-ui.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cert-manager-production"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L55">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"false"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L57">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L56">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L58">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/kafka-ui/$2"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L59">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--enabled"><a href="./values.yaml#L51">kafka-ui.ingress.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--host"><a href="./values.yaml#L61">kafka-ui.ingress.host</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--ingressClassName"><a href="./values.yaml#L52">kafka-ui.ingress.ingressClassName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--path"><a href="./values.yaml#L63">kafka-ui.ingress.path</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/kafka-ui(/|$)(.*)"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--tls--enabled"><a href="./values.yaml#L66">kafka-ui.ingress.tls.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--ingress--tls--secretName"><a href="./values.yaml#L67">kafka-ui.ingress.tls.secretName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-ingress-tls"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--probes--useHttpsScheme"><a href="./values.yaml#L41">kafka-ui.probes.useHttpsScheme</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="strimzi-kafka-operator--dashboards--annotations--grafana_dashboard_folder"><a href="./values.yaml#L17">strimzi-kafka-operator.dashboards.annotations.grafana_dashboard_folder</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Kafka"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="strimzi-kafka-operator--dashboards--enabled"><a href="./values.yaml#L13">strimzi-kafka-operator.dashboards.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="strimzi-kafka-operator--dashboards--label"><a href="./values.yaml#L14">strimzi-kafka-operator.dashboards.label</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grafana_dashboard"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="strimzi-kafka-operator--dashboards--labelValue"><a href="./values.yaml#L15">strimzi-kafka-operator.dashboards.labelValue</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="strimzi-kafka-operator--enabled"><a href="./values.yaml#L6">strimzi-kafka-operator.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="strimzi-kafka-operator--watchAnyNamespace"><a href="./values.yaml#L10">strimzi-kafka-operator.watchAnyNamespace</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="strimzi-kafka-operator--watchNamespaces[0]"><a href="./values.yaml#L9">strimzi-kafka-operator.watchNamespaces[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

@@ -18,92 +18,1195 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| kratos.enabled | bool | `true` |  |
-| kratos.fullnameOverride | string | `"kratos"` |  |
-| kratos.ingress.admin.className | string | `"nginx"` |  |
-| kratos.ingress.admin.enabled | bool | `false` |  |
-| kratos.ingress.public.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
-| kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
-| kratos.ingress.public.className | string | `"nginx"` |  |
-| kratos.ingress.public.enabled | bool | `true` |  |
-| kratos.ingress.public.hosts[0].host | string | `"shortlink.best"` |  |
-| kratos.ingress.public.hosts[0].paths[0].path | string | `"/api/auth/?(.*)"` |  |
-| kratos.ingress.public.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
-| kratos.ingress.public.tls[0].hosts[0] | string | `"shortlink.best"` |  |
-| kratos.ingress.public.tls[0].secretName | string | `"shortlink-ingress-tls"` |  |
-| kratos.kratos.automigration | object | `{"enabled":false,"type":"job"}` | Enables database migration |
-| kratos.kratos.automigration.type | string | `"job"` | Configure the way to execute database migration. Possible values: job, initContainer When set to job, the migration will be executed as a job on release or upgrade. When set to initContainer, the migration will be executed when kratos pod is created Defaults to job |
-| kratos.kratos.config.dsn | string | `"memory"` |  |
-| kratos.kratos.config.hashers.argon2.iterations | int | `2` |  |
-| kratos.kratos.config.hashers.argon2.key_length | int | `16` |  |
-| kratos.kratos.config.hashers.argon2.memory | string | `"128MB"` |  |
-| kratos.kratos.config.hashers.argon2.parallelism | int | `1` |  |
-| kratos.kratos.config.hashers.argon2.salt_length | int | `16` |  |
-| kratos.kratos.config.identity.default_schema_id | string | `"default"` |  |
-| kratos.kratos.config.identity.schemas[0].id | string | `"default"` |  |
-| kratos.kratos.config.identity.schemas[0].url | string | `"file:///etc/config/identity.default.schema.json"` |  |
-| kratos.kratos.config.log.format | string | `"json"` |  |
-| kratos.kratos.config.log.leak_sensitive_values | bool | `true` |  |
-| kratos.kratos.config.log.level | string | `"info"` |  |
-| kratos.kratos.config.secrets.cookie[0] | string | `"PLEASE-CHANGE-ME-I-AM-VERY-INSECURE"` |  |
-| kratos.kratos.config.selfservice.allowed_return_urls[0] | string | `"*"` |  |
-| kratos.kratos.config.selfservice.allowed_return_urls[1] | string | `"http://*"` |  |
-| kratos.kratos.config.selfservice.allowed_return_urls[2] | string | `"https://*"` |  |
-| kratos.kratos.config.selfservice.default_browser_return_url | string | `"https://shortlink.best"` |  |
-| kratos.kratos.config.selfservice.flows.error.ui_url | string | `"https://shortlink.best/next/error"` |  |
-| kratos.kratos.config.selfservice.flows.login.lifespan | string | `"10m"` |  |
-| kratos.kratos.config.selfservice.flows.login.ui_url | string | `"https://shortlink.best/next"` |  |
-| kratos.kratos.config.selfservice.flows.logout.after.default_browser_return_url | string | `"https://shortlink.best/next/auth/login"` |  |
-| kratos.kratos.config.selfservice.flows.recovery.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.flows.recovery.ui_url | string | `"https://shortlink.best/next/auth/recovery"` |  |
-| kratos.kratos.config.selfservice.flows.registration.after.oidc.hooks[0].hook | string | `"session"` |  |
-| kratos.kratos.config.selfservice.flows.registration.after.password.hooks[0].hook | string | `"session"` |  |
-| kratos.kratos.config.selfservice.flows.registration.lifespan | string | `"10m"` |  |
-| kratos.kratos.config.selfservice.flows.registration.ui_url | string | `"https://shortlink.best/next/auth/registration"` |  |
-| kratos.kratos.config.selfservice.flows.settings.privileged_session_max_age | string | `"15m"` |  |
-| kratos.kratos.config.selfservice.flows.settings.ui_url | string | `"https://shortlink.best/next/user/profile"` |  |
-| kratos.kratos.config.selfservice.flows.verification.after.default_browser_return_url | string | `"https://shortlink.best/next"` |  |
-| kratos.kratos.config.selfservice.flows.verification.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.flows.verification.ui_url | string | `"https://shortlink.best/next/auth/verification"` |  |
-| kratos.kratos.config.selfservice.methods.link.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.methods.lookup_secret.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.methods.oidc.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.methods.password.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.methods.profile.enabled | bool | `true` |  |
-| kratos.kratos.config.selfservice.methods.totp.config.issuer | string | `"shortlink.best"` |  |
-| kratos.kratos.config.selfservice.methods.totp.enabled | bool | `true` |  |
-| kratos.kratos.config.serve.admin.base_url | string | `"http://127.0.0.1:4434/"` |  |
-| kratos.kratos.config.serve.public.base_url | string | `"https://shortlink.best/api/auth"` |  |
-| kratos.kratos.config.serve.public.cors.allow_credentials | bool | `true` |  |
-| kratos.kratos.config.serve.public.cors.allowed_headers[0] | string | `"Authorization"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_headers[1] | string | `"Cookie"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_headers[2] | string | `"Content-Type"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_headers[3] | string | `"Set-Cookie"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_methods[0] | string | `"POST"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_methods[1] | string | `"GET"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_methods[2] | string | `"PUT"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_methods[3] | string | `"PATCH"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_methods[4] | string | `"DELETE"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_origins[0] | string | `"http://127.0.0.1:3000"` |  |
-| kratos.kratos.config.serve.public.cors.allowed_origins[1] | string | `"https://shortlink.best"` |  |
-| kratos.kratos.config.serve.public.cors.debug | bool | `true` |  |
-| kratos.kratos.config.serve.public.cors.enabled | bool | `true` |  |
-| kratos.kratos.config.session.cookie.domain | string | `"https://shortlink.best"` |  |
-| kratos.kratos.config.session.cookie.same_site | string | `"Lax"` |  |
-| kratos.kratos.config.session.lifespan | string | `"720h"` |  |
-| kratos.kratos.development | bool | `true` |  |
-| kratos.kratos.identitySchemas."identity.default.schema.json" | string | `"{\n  \"$id\": \"https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json\",\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"Person\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"traits\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"email\": {\n          \"type\": \"string\",\n          \"format\": \"email\",\n          \"title\": \"E-Mail\",\n          \"minLength\": 3,\n          \"ory.sh/kratos\": {\n            \"credentials\": {\n              \"password\": {\n                \"identifier\": true\n              },\n              \"totp\": {\n                \"account_name\": true\n              }\n            },\n            \"verification\": {\n              \"via\": \"email\"\n            },\n            \"recovery\": {\n              \"via\": \"email\"\n            }\n          }\n        },\n        \"name\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"first\": {\n              \"title\": \"First Name\",\n              \"type\": \"string\"\n            },\n            \"last\": {\n              \"title\": \"Last Name\",\n              \"type\": \"string\"\n            }\n          }\n        }\n      },\n      \"required\": [\n        \"email\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n}\n"` |  |
-| kratos.kratos.identitySchemas."oidc.github.jsonnet" | string | `"local claims = {\n  email_verified: false,\n} + std.extVar('claims');\n\n{\n  identity: {\n    traits: {\n      // Allowing unverified email addresses enables account\n      // enumeration attacks, especially if the value is used for\n      // e.g. verification or as a password login identifier.\n      //\n      // Therefore we only return the email if it (a) exists and (b) is marked verified\n      // by GitHub.\n      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,\n    },\n    metadata_public: {\n      github_username: claims.username,\n    }\n  },\n}\n"` |  |
-| kratos.kratos.identitySchemas."oidc.gitlab.jsonnet" | string | `"local claims = {\n  email_verified: false,\n} + std.extVar('claims');\n{\n  identity: {\n    traits: {\n      // Allowing unverified email addresses enables account\n      // enumeration attacks,  if the value is used for\n      // verification or as a password login identifier.\n      //\n      // Therefore we only return the email if it (a) exists and (b) is marked verified\n      // by GitLab.\n      [if 'email' in claims && claims.email_verified then 'email' else null]: claims.email,\n    },\n  },\n}\n"` |  |
-| kratos.secret.hashSumEnabled | bool | `false` |  |
-| kratos.serviceMonitor.enabled | bool | `true` |  |
-| kratos.serviceMonitor.labels.release | string | `"prometheus-operator"` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="kratos--enabled"><a href="./values.yaml#L8">kratos.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--fullnameOverride"><a href="./values.yaml#L10">kratos.fullnameOverride</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"kratos"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--admin--className"><a href="./values.yaml#L18">kratos.ingress.admin.className</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--admin--enabled"><a href="./values.yaml#L17">kratos.ingress.admin.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L23">kratos.ingress.public.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cert-manager-production"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L24">kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"false"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L26">kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L25">kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L27">kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/$1"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L28">kratos.ingress.public.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--className"><a href="./values.yaml#L21">kratos.ingress.public.className</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--enabled"><a href="./values.yaml#L20">kratos.ingress.public.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--hosts[0]--host"><a href="./values.yaml#L30">kratos.ingress.public.hosts[0].host</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--hosts[0]--paths[0]--path"><a href="./values.yaml#L32">kratos.ingress.public.hosts[0].paths[0].path</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/api/auth/?(.*)"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--hosts[0]--paths[0]--pathType"><a href="./values.yaml#L33">kratos.ingress.public.hosts[0].paths[0].pathType</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Prefix"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--tls[0]--hosts[0]"><a href="./values.yaml#L37">kratos.ingress.public.tls[0].hosts[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--ingress--public--tls[0]--secretName"><a href="./values.yaml#L35">kratos.ingress.public.tls[0].secretName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-ingress-tls"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--automigration"><a href="./values.yaml#L168">kratos.kratos.automigration</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "enabled": false,
+  "type": "job"
+}
+</pre>
+</div>
+			</td>
+			<td>Enables database migration</td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--automigration--type"><a href="./values.yaml#L174">kratos.kratos.automigration.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"job"
+</pre>
+</div>
+			</td>
+			<td>Configure the way to execute database migration. Possible values: job, initContainer When set to job, the migration will be executed as a job on release or upgrade. When set to initContainer, the migration will be executed when kratos pod is created Defaults to job</td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--dsn"><a href="./values.yaml#L41">kratos.kratos.config.dsn</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"memory"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--hashers--argon2--iterations"><a href="./values.yaml#L161">kratos.kratos.config.hashers.argon2.iterations</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+2
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--hashers--argon2--key_length"><a href="./values.yaml#L163">kratos.kratos.config.hashers.argon2.key_length</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+16
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--hashers--argon2--memory"><a href="./values.yaml#L160">kratos.kratos.config.hashers.argon2.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128MB"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--hashers--argon2--parallelism"><a href="./values.yaml#L159">kratos.kratos.config.hashers.argon2.parallelism</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+1
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--hashers--argon2--salt_length"><a href="./values.yaml#L162">kratos.kratos.config.hashers.argon2.salt_length</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+16
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--identity--default_schema_id"><a href="./values.yaml#L44">kratos.kratos.config.identity.default_schema_id</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"default"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--identity--schemas[0]--id"><a href="./values.yaml#L46">kratos.kratos.config.identity.schemas[0].id</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"default"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--identity--schemas[0]--url"><a href="./values.yaml#L47">kratos.kratos.config.identity.schemas[0].url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"file:///etc/config/identity.default.schema.json"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--log--format"><a href="./values.yaml#L149">kratos.kratos.config.log.format</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"json"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--log--leak_sensitive_values"><a href="./values.yaml#L150">kratos.kratos.config.log.leak_sensitive_values</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--log--level"><a href="./values.yaml#L148">kratos.kratos.config.log.level</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"info"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--secrets--cookie[0]"><a href="./values.yaml#L155">kratos.kratos.config.secrets.cookie[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"PLEASE-CHANGE-ME-I-AM-VERY-INSECURE"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--allowed_return_urls[0]"><a href="./values.yaml#L84">kratos.kratos.config.selfservice.allowed_return_urls[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"*"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--allowed_return_urls[1]"><a href="./values.yaml#L85">kratos.kratos.config.selfservice.allowed_return_urls[1]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://*"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--allowed_return_urls[2]"><a href="./values.yaml#L86">kratos.kratos.config.selfservice.allowed_return_urls[2]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://*"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--default_browser_return_url"><a href="./values.yaml#L82">kratos.kratos.config.selfservice.default_browser_return_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--error--ui_url"><a href="./values.yaml#L110">kratos.kratos.config.selfservice.flows.error.ui_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/next/error"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--login--lifespan"><a href="./values.yaml#L134">kratos.kratos.config.selfservice.flows.login.lifespan</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--login--ui_url"><a href="./values.yaml#L133">kratos.kratos.config.selfservice.flows.login.ui_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/next"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--logout--after--default_browser_return_url"><a href="./values.yaml#L130">kratos.kratos.config.selfservice.flows.logout.after.default_browser_return_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/next/auth/login"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--recovery--enabled"><a href="./values.yaml#L119">kratos.kratos.config.selfservice.flows.recovery.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--recovery--ui_url"><a href="./values.yaml#L120">kratos.kratos.config.selfservice.flows.recovery.ui_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/next/auth/recovery"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--registration--after--oidc--hooks[0]--hook"><a href="./values.yaml#L145">kratos.kratos.config.selfservice.flows.registration.after.oidc.hooks[0].hook</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"session"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--registration--after--password--hooks[0]--hook"><a href="./values.yaml#L142">kratos.kratos.config.selfservice.flows.registration.after.password.hooks[0].hook</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"session"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--registration--lifespan"><a href="./values.yaml#L137">kratos.kratos.config.selfservice.flows.registration.lifespan</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--registration--ui_url"><a href="./values.yaml#L138">kratos.kratos.config.selfservice.flows.registration.ui_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/next/auth/registration"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--settings--privileged_session_max_age"><a href="./values.yaml#L116">kratos.kratos.config.selfservice.flows.settings.privileged_session_max_age</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"15m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--settings--ui_url"><a href="./values.yaml#L113">kratos.kratos.config.selfservice.flows.settings.ui_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/next/user/profile"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--verification--after--default_browser_return_url"><a href="./values.yaml#L126">kratos.kratos.config.selfservice.flows.verification.after.default_browser_return_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/next"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--verification--enabled"><a href="./values.yaml#L123">kratos.kratos.config.selfservice.flows.verification.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--flows--verification--ui_url"><a href="./values.yaml#L124">kratos.kratos.config.selfservice.flows.verification.ui_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/next/auth/verification"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--methods--link--enabled"><a href="./values.yaml#L94">kratos.kratos.config.selfservice.methods.link.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--methods--lookup_secret--enabled"><a href="./values.yaml#L98">kratos.kratos.config.selfservice.methods.lookup_secret.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--methods--oidc--enabled"><a href="./values.yaml#L96">kratos.kratos.config.selfservice.methods.oidc.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--methods--password--enabled"><a href="./values.yaml#L90">kratos.kratos.config.selfservice.methods.password.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--methods--profile--enabled"><a href="./values.yaml#L92">kratos.kratos.config.selfservice.methods.profile.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--methods--totp--config--issuer"><a href="./values.yaml#L103">kratos.kratos.config.selfservice.methods.totp.config.issuer</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--selfservice--methods--totp--enabled"><a href="./values.yaml#L100">kratos.kratos.config.selfservice.methods.totp.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--admin--base_url"><a href="./values.yaml#L72">kratos.kratos.config.serve.admin.base_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://127.0.0.1:4434/"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--base_url"><a href="./values.yaml#L52">kratos.kratos.config.serve.public.base_url</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/api/auth"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allow_credentials"><a href="./values.yaml#L70">kratos.kratos.config.serve.public.cors.allow_credentials</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[0]"><a href="./values.yaml#L66">kratos.kratos.config.serve.public.cors.allowed_headers[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Authorization"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[1]"><a href="./values.yaml#L67">kratos.kratos.config.serve.public.cors.allowed_headers[1]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Cookie"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[2]"><a href="./values.yaml#L68">kratos.kratos.config.serve.public.cors.allowed_headers[2]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Content-Type"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[3]"><a href="./values.yaml#L69">kratos.kratos.config.serve.public.cors.allowed_headers[3]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Set-Cookie"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[0]"><a href="./values.yaml#L60">kratos.kratos.config.serve.public.cors.allowed_methods[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"POST"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[1]"><a href="./values.yaml#L61">kratos.kratos.config.serve.public.cors.allowed_methods[1]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"GET"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[2]"><a href="./values.yaml#L62">kratos.kratos.config.serve.public.cors.allowed_methods[2]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"PUT"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[3]"><a href="./values.yaml#L63">kratos.kratos.config.serve.public.cors.allowed_methods[3]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"PATCH"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[4]"><a href="./values.yaml#L64">kratos.kratos.config.serve.public.cors.allowed_methods[4]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"DELETE"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_origins[0]"><a href="./values.yaml#L57">kratos.kratos.config.serve.public.cors.allowed_origins[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://127.0.0.1:3000"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_origins[1]"><a href="./values.yaml#L58">kratos.kratos.config.serve.public.cors.allowed_origins[1]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--debug"><a href="./values.yaml#L55">kratos.kratos.config.serve.public.cors.debug</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--enabled"><a href="./values.yaml#L54">kratos.kratos.config.serve.public.cors.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--session--cookie--domain"><a href="./values.yaml#L78">kratos.kratos.config.session.cookie.domain</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--session--cookie--same_site"><a href="./values.yaml#L79">kratos.kratos.config.session.cookie.same_site</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Lax"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--config--session--lifespan"><a href="./values.yaml#L76">kratos.kratos.config.session.lifespan</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"720h"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--development"><a href="./values.yaml#L165">kratos.kratos.development</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--identitySchemas--"identity--default--schema--json""><a href="./values.yaml#L178">kratos.kratos.identitySchemas."identity.default.schema.json"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"{\n  \"$id\": \"https://schemas.ory.sh/presets/kratos/quickstart/email-password/identity.schema.json\",\n  \"$schema\": \"http://json-schema.org/draft-07/schema#\",\n  \"title\": \"Person\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"traits\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"email\": {\n          \"type\": \"string\",\n          \"format\": \"email\",\n          \"title\": \"E-Mail\",\n          \"minLength\": 3,\n          \"ory.sh/kratos\": {\n            \"credentials\": {\n              \"password\": {\n                \"identifier\": true\n              },\n              \"totp\": {\n                \"account_name\": true\n              }\n            },\n            \"verification\": {\n              \"via\": \"email\"\n            },\n            \"recovery\": {\n              \"via\": \"email\"\n            }\n          }\n        },\n        \"name\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"first\": {\n              \"title\": \"First Name\",\n              \"type\": \"string\"\n            },\n            \"last\": {\n              \"title\": \"Last Name\",\n              \"type\": \"string\"\n            }\n          }\n        }\n      },\n      \"required\": [\n        \"email\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n}\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--identitySchemas--"oidc--github--jsonnet""><a href="./values.yaml#L231">kratos.kratos.identitySchemas."oidc.github.jsonnet"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"local claims = {\n  email_verified: false,\n} + std.extVar('claims');\n\n{\n  identity: {\n    traits: {\n      // Allowing unverified email addresses enables account\n      // enumeration attacks, especially if the value is used for\n      // e.g. verification or as a password login identifier.\n      //\n      // Therefore we only return the email if it (a) exists and (b) is marked verified\n      // by GitHub.\n      [if 'email' in claims \u0026\u0026 claims.email_verified then 'email' else null]: claims.email,\n    },\n    metadata_public: {\n      github_username: claims.username,\n    }\n  },\n}\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--kratos--identitySchemas--"oidc--gitlab--jsonnet""><a href="./values.yaml#L252">kratos.kratos.identitySchemas."oidc.gitlab.jsonnet"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"local claims = {\n  email_verified: false,\n} + std.extVar('claims');\n{\n  identity: {\n    traits: {\n      // Allowing unverified email addresses enables account\n      // enumeration attacks,  if the value is used for\n      // verification or as a password login identifier.\n      //\n      // Therefore we only return the email if it (a) exists and (b) is marked verified\n      // by GitLab.\n      [if 'email' in claims \u0026\u0026 claims.email_verified then 'email' else null]: claims.email,\n    },\n  },\n}\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--secret--hashSumEnabled"><a href="./values.yaml#L13">kratos.secret.hashSumEnabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--serviceMonitor--enabled"><a href="./values.yaml#L272">kratos.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kratos--serviceMonitor--labels--release"><a href="./values.yaml#L275">kratos.serviceMonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

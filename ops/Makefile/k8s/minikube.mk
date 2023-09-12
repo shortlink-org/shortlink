@@ -4,7 +4,7 @@ VARIABLE_NAME ?= containerd
 minikube-up: ## run minikube for dev mode
 	# for enable audit
 	@mkdir -p ~/.minikube/files/etc/ssl/certs
-	@cp ${PWD}/ops/Makefile/conf/tracing-config-file.yaml ~/.minikube/files/etc/ssl/certs/tracing-config-file.yaml
+	@cp ${PWD}/ops/Makefile/k8s/conf/tracing-config-file.yaml ~/.minikube/files/etc/ssl/certs/tracing-config-file.yaml
 
 	@minikube start \
 		--nodes 1 \

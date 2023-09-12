@@ -26,23 +26,239 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| deploy.env.MQ_ENABLED | bool | `true` |  |
-| deploy.env.MQ_KAFKA_URI | string | `"shortlink-kafka-bootstrap.kafka:9092"` |  |
-| deploy.env.MQ_TYPE | string | `"kafka"` |  |
-| deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
-| deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/notify"` |  |
-| deploy.image.tag | string | `"0.16.28"` |  |
-| deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":9090}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
-| deploy.resources.requests.cpu | string | `"10m"` |  |
-| deploy.resources.requests.memory | string | `"32Mi"` |  |
-| monitoring.enabled | bool | `true` |  |
-| podDisruptionBudget.enabled | bool | `false` |  |
-| service.ports | list | `[]` |  |
-| service.type | string | `"ClusterIP"` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L14">deploy.env.MQ_ENABLED</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--MQ_KAFKA_URI"><a href="./values.yaml#L16">deploy.env.MQ_KAFKA_URI</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-kafka-bootstrap.kafka:9092"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L15">deploy.env.MQ_TYPE</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"kafka"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L17">deploy.env.TRACER_URI</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://grafana-tempo.grafana:14268/api/traces"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--image--repository"><a href="./values.yaml#L20">deploy.image.repository</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"registry.gitlab.com/shortlink-org/shortlink/notify"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--image--tag"><a href="./values.yaml#L21">deploy.image.tag</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"0.16.28"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L36">deploy.livenessProbe</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "httpGet": {
+    "path": "/live",
+    "port": 9090
+  }
+}
+</pre>
+</div>
+			</td>
+			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
+		</tr>
+		<tr>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L42">deploy.readinessProbe</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "httpGet": {
+    "path": "/ready",
+    "port": 9090
+  }
+}
+</pre>
+</div>
+			</td>
+			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L28">deploy.resources.limits</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "cpu": "100m",
+  "memory": "128Mi"
+}
+</pre>
+</div>
+			</td>
+			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L32">deploy.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L33">deploy.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"32Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="monitoring--enabled"><a href="./values.yaml#L56">monitoring.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L61">podDisruptionBudget.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports"><a href="./values.yaml#L51">service.ports</a></td>
+			<td>
+list
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+[]
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--type"><a href="./values.yaml#L50">service.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ClusterIP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)

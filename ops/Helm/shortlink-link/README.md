@@ -26,45 +26,547 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 ## Values
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| deploy.env.GRPC_CLIENT_HOST | string | `"istio-ingress.istio-ingress"` |  |
-| deploy.env.MQ_ENABLED | bool | `true` |  |
-| deploy.env.MQ_KAFKA_URI | string | `"shortlink-kafka-bootstrap.kafka:9092"` |  |
-| deploy.env.MQ_TYPE | string | `"kafka"` |  |
-| deploy.env.STORE_REDIS_URI | string | `"shortlink-redis-master.redis:6379"` |  |
-| deploy.env.STORE_TYPE | string | `"postgres"` | Default store config |
-| deploy.env.TRACER_URI | string | `"http://grafana-tempo.grafana:14268/api/traces"` |  |
-| deploy.envSecret[0].name | string | `"STORE_POSTGRES_URI"` |  |
-| deploy.envSecret[0].secretKeyRef.key | string | `"uri"` |  |
-| deploy.envSecret[0].secretKeyRef.name | string | `"shortlink-postgres-pguser-link"` |  |
-| deploy.image.repository | string | `"registry.gitlab.com/shortlink-org/shortlink/link"` |  |
-| deploy.image.tag | string | `"0.16.28"` |  |
-| deploy.livenessProbe | object | `{"httpGet":{"path":"/live","port":9090}}` | define a liveness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.readinessProbe | object | `{"httpGet":{"path":"/ready","port":9090}}` | define a readiness probe that checks every 5 seconds, starting after 5 seconds |
-| deploy.resources.limits | object | `{"cpu":"100m","memory":"128Mi"}` | We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
-| deploy.resources.requests.cpu | string | `"10m"` |  |
-| deploy.resources.requests.memory | string | `"32Mi"` |  |
-| deploy.type | string | `"Deployment"` |  |
-| ingress.enabled | bool | `true` |  |
-| ingress.istio.match[0].uri.prefix | string | `"/infrastructure.rpc.link.v1.LinkService/"` |  |
-| ingress.istio.route.destination.port | int | `50051` |  |
-| ingress.type | string | `"istio"` |  |
-| monitoring.enabled | bool | `true` |  |
-| podDisruptionBudget.enabled | bool | `false` |  |
-| secret.enabled | bool | `false` |  |
-| secret.grpcIntermediateCA | string | `"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerCert | string | `"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"` |  |
-| secret.grpcServerKey | string | `"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"` |  |
-| service.ports[0].name | string | `"grpc"` |  |
-| service.ports[0].port | int | `50051` |  |
-| service.ports[0].protocol | string | `"TCP"` |  |
-| service.ports[0].public | bool | `true` |  |
-| service.ports[1].name | string | `"metrics"` |  |
-| service.ports[1].port | int | `9090` |  |
-| service.ports[1].protocol | string | `"TCP"` |  |
-| service.ports[1].public | bool | `true` |  |
-| service.type | string | `"ClusterIP"` |  |
+<table height="400px" >
+	<thead>
+		<th>Key</th>
+		<th>Type</th>
+		<th>Default</th>
+		<th>Description</th>
+	</thead>
+	<tbody>
+		<tr>
+			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L62">deploy.env.GRPC_CLIENT_HOST</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"istio-ingress.istio-ingress"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L58">deploy.env.MQ_ENABLED</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--MQ_KAFKA_URI"><a href="./values.yaml#L60">deploy.env.MQ_KAFKA_URI</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-kafka-bootstrap.kafka:9092"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L59">deploy.env.MQ_TYPE</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"kafka"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L66">deploy.env.STORE_REDIS_URI</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-redis-master.redis:6379"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L65">deploy.env.STORE_TYPE</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"postgres"
+</pre>
+</div>
+			</td>
+			<td>Default store config</td>
+		</tr>
+		<tr>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L61">deploy.env.TRACER_URI</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://grafana-tempo.grafana:14268/api/traces"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--envSecret[0]--name"><a href="./values.yaml#L69">deploy.envSecret[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"STORE_POSTGRES_URI"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L72">deploy.envSecret[0].secretKeyRef.key</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"uri"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L71">deploy.envSecret[0].secretKeyRef.name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-postgres-pguser-link"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--image--repository"><a href="./values.yaml#L75">deploy.image.repository</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"registry.gitlab.com/shortlink-org/shortlink/link"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--image--tag"><a href="./values.yaml#L76">deploy.image.tag</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"0.16.28"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L79">deploy.livenessProbe</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "httpGet": {
+    "path": "/live",
+    "port": 9090
+  }
+}
+</pre>
+</div>
+			</td>
+			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
+		</tr>
+		<tr>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L85">deploy.readinessProbe</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "httpGet": {
+    "path": "/ready",
+    "port": 9090
+  }
+}
+</pre>
+</div>
+			</td>
+			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L50">deploy.resources.limits</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{
+  "cpu": "100m",
+  "memory": "128Mi"
+}
+</pre>
+</div>
+			</td>
+			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L54">deploy.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L55">deploy.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"32Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--type"><a href="./values.yaml#L43">deploy.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Deployment"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--enabled"><a href="./values.yaml#L29">ingress.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--istio--match[0]--uri--prefix"><a href="./values.yaml#L35">ingress.istio.match[0].uri.prefix</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/infrastructure.rpc.link.v1.LinkService/"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--istio--route--destination--port"><a href="./values.yaml#L38">ingress.istio.route.destination.port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+50051
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--type"><a href="./values.yaml#L31">ingress.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"istio"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="monitoring--enabled"><a href="./values.yaml#L105">monitoring.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L110">podDisruptionBudget.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="secret--enabled"><a href="./values.yaml#L13">secret.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="secret--grpcIntermediateCA"><a href="./values.yaml#L22">secret.grpcIntermediateCA</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"-----BEGIN CERTIFICATE-----\nYour CA...\n-----END CERTIFICATE-----\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="secret--grpcServerCert"><a href="./values.yaml#L14">secret.grpcServerCert</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"-----BEGIN CERTIFICATE-----\nYour cert...\n-----END CERTIFICATE-----\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="secret--grpcServerKey"><a href="./values.yaml#L18">secret.grpcServerKey</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"-----BEGIN EC PRIVATE KEY-----\nYour key...\n-----END EC PRIVATE KEY-----\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L93">service.ports[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grpc"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L94">service.ports[0].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+50051
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L95">service.ports[0].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L96">service.ports[0].public</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[1]--name"><a href="./values.yaml#L97">service.ports[1].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"metrics"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[1]--port"><a href="./values.yaml#L98">service.ports[1].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+9090
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[1]--protocol"><a href="./values.yaml#L99">service.ports[1].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[1]--public"><a href="./values.yaml#L100">service.ports[1].public</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--type"><a href="./values.yaml#L91">service.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ClusterIP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
