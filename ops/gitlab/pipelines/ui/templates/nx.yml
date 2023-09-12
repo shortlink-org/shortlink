@@ -7,6 +7,7 @@ include:
   interruptible: true
   variables:
     GIT_DEPTH: 0
+    NX_BATCH_MODE: true
   before_script:
     - cd ui/nx-monorepo
     - echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc

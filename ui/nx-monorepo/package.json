@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "npx nx run-many -t build --all --parallel",
-    "build-storybook": "npx nx run-many -t build-storybook --all --parallel",
-    "export": "npx nx run-many -t export --all --parallel"
+    "build": "NX_BATCH_MODE=true npx nx run-many -t build --all --parallel",
+    "build-storybook": "NX_BATCH_MODE=true npx nx run-many -t build-storybook --all --parallel",
+    "export": "NX_BATCH_MODE=true npx nx run-many -t export --all --parallel"
   },
   "private": true,
   "devDependencies": {
