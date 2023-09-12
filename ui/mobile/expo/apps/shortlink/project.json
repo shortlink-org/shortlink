@@ -1,0 +1,110 @@
+{
+  "name": "shortlink",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/shortlink/src",
+  "projectType": "application",
+  "targets": {
+    "start": {
+      "executor": "@nx/expo:start",
+      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "options": {
+        "port": 8081
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "nx start shortlink"
+      }
+    },
+    "run-ios": {
+      "executor": "@nx/expo:run",
+      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "options": {
+        "platform": "ios"
+      }
+    },
+    "run-android": {
+      "executor": "@nx/expo:run",
+      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "options": {
+        "platform": "android"
+      }
+    },
+    "build": {
+      "executor": "@nx/expo:build",
+      "options": {}
+    },
+    "submit": {
+      "executor": "@nx/expo:submit",
+      "options": {}
+    },
+    "build-list": {
+      "executor": "@nx/expo:build-list",
+      "options": {}
+    },
+    "download": {
+      "executor": "@nx/expo:download",
+      "options": {
+        "output": "apps/shortlink/dist"
+      }
+    },
+    "sync-deps": {
+      "executor": "@nx/expo:sync-deps",
+      "options": {}
+    },
+    "ensure-symlink": {
+      "executor": "@nx/expo:ensure-symlink",
+      "options": {}
+    },
+    "prebuild": {
+      "executor": "@nx/expo:prebuild",
+      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "options": {}
+    },
+    "install": {
+      "executor": "@nx/expo:install",
+      "options": {}
+    },
+    "update": {
+      "executor": "@nx/expo:update",
+      "options": {}
+    },
+    "export": {
+      "executor": "@nx/expo:export",
+      "dependsOn": ["ensure-symlink", "sync-deps"],
+      "options": {
+        "platform": "all",
+        "outputDir": "../../dist/apps/shortlink"
+      }
+    },
+    "export-web": {
+      "executor": "@nx/expo:export",
+      "options": {
+        "bundler": "metro"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/shortlink/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/shortlink/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
