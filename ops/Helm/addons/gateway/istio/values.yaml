@@ -19,8 +19,8 @@ istiod:
     traceSampling: 100.0
 
     env:
-      ENABLE_NATIVE_SIDECARS: "true"
-      ISTIO_ENABLE_CONTROLLER_QUEUE_METRICS: "true"
+      ENABLE_NATIVE_SIDECARS: "false"
+      ISTIO_ENABLE_CONTROLLER_QUEUE_METRICS: "false"
 
   istio_cni:
     enabled: true

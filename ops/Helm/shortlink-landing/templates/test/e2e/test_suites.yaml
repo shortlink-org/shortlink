@@ -13,16 +13,10 @@ spec:
   steps:
     - stopOnFailure: false
       execute:
-        - name: shortlink-landing-cypress-main-page
-          namespace: testkube
-          stopOnFailure: false
+        - test: shortlink-landing-cypress-main-page
     - stopOnFailure: false
       execute:
-        - name: shortlink-landing-k6-http-main-page
-          namespace: testkube
-          stopOnFailure: false
+        - test: shortlink-landing-k6-http-main-page
     - stopOnFailure: false
       execute:
-        - name: shortlink-landing-k6-browser-main-page
-          namespace: testkube
-          stopOnFailure: false
+        - test: shortlink-landing-k6-browser-main-page
