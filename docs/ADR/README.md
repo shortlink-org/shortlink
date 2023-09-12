@@ -54,3 +54,4 @@ for information team about cases for updated ADR.
 - **Kubernetes**
   - [ADR-0022](./decisions/0022-kubernetes.md) - Kubernetes
   - [ADR-0016](./decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
+  - [ADR-0027](./decisions/0027-local-kubernetes-development-tools.md) - Local Kubernetes Development Tools
