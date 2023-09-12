@@ -5,6 +5,9 @@ SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 include $(SELF_DIR)/../../../ops/Makefile/common.mk
 
 # REFERRAL TASKS =======================================================================================================
+dep: ## Install dependencies
+	@pip install -r requirements.txt
+
 test: ## Run tests
 	@pytest tests
 
