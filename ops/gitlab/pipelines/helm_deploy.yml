@@ -18,9 +18,15 @@ deploy:
     - |
       set -e
       VALUE_FILES=""
-      for file in ${HELM_PATH}/*.values.yaml; do
-        VALUE_FILES="$VALUE_FILES -f $file"
-      done
+
+      # Check if there are any .values.yaml files
+      if ls ${HELM_PATH}/*.values.yaml 1> /dev/null 2>&1; then
+          for file in ${HELM_PATH}/*.values.yaml; do
+              VALUE_FILES="$VALUE_FILES -f $file"
+          done
+      else
+          echo "No .values.yaml files found in ${HELM_PATH}."
+      fi
     - helm secrets upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG $VALUE_FILES
       --kube-context=shortlink-org/shortlink:${PROVIDER}
       --install
