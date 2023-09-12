@@ -9,8 +9,9 @@ require (
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.5.0
 	github.com/riandyrn/otelchi v0.5.1
+	github.com/shortlink-org/shortlink v0.0.0-20230912162546-6a1d1274f68e
 	github.com/spf13/viper v1.16.0
-	go.opentelemetry.io/otel/trace v1.17.0
+	go.opentelemetry.io/otel/trace v1.18.0
 	golang.org/x/sync v0.3.0
 	google.golang.org/protobuf v1.31.0
 )
@@ -166,9 +167,9 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.43.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.43.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.43.0 // indirect
-	go.opentelemetry.io/otel v1.17.0 // indirect
+	go.opentelemetry.io/otel v1.18.0 // indirect
 	go.opentelemetry.io/otel/exporters/jaeger v1.17.0 // indirect
-	go.opentelemetry.io/otel/metric v1.17.0 // indirect
+	go.opentelemetry.io/otel/metric v1.18.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.17.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
