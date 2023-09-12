@@ -28,7 +28,7 @@ const Home = () => {
   const appBarColor = theme.palette.mode === 'dark' ? 'inherit' : 'primary'
   const textColor = theme.palette.mode === 'dark' ? 'secondary' : 'inherit'
   // @ts-ignore
-  const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'))
 
   return (
     <>
@@ -41,13 +41,18 @@ const Home = () => {
         alignItems="center"
       >
         <Box sx={{ width: '100%', maxWidth: 700, px: { xs: 2, md: 0 } }}>
-          <AppBar position="static" id="menu" color={appBarColor} className="mt-[10em] md:mt-0">
+          <AppBar
+            position="static"
+            id="menu"
+            color={appBarColor}
+            className="mt-[10em] md:mt-0"
+          >
             <Tabs
               value={value}
               onChange={handleChange}
               indicatorColor="secondary"
               textColor={textColor}
-              variant={isMobile ? "scrollable" : "fullWidth"}
+              variant={isMobile ? 'scrollable' : 'fullWidth'}
               aria-label="full width tabs example"
               selectionFollowsFocus
             >
