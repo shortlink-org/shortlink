@@ -6,7 +6,7 @@ from src.domain.referral.v1.events_pb2 import ReferralEvent
 from src.pkg.event_bus import EventBus
 from src.infrastructure.repository.referral.uow_redis import RedisUnitOfWork
 
-class CRUDReferralService():
+class CRUDReferralService:
     """CRUD Referral use case."""
     def __init__(self, uow: RedisUnitOfWork, event_bus: EventBus) -> None:
         """Initialize CRUD Referral use case."""

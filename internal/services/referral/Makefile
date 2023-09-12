@@ -6,10 +6,10 @@ include $(SELF_DIR)/../../../ops/Makefile/common.mk
 
 # REFERRAL TASKS =======================================================================================================
 dep: ## Install dependencies
-	@pip install -r requirements.txt
+	@${VIRTUAL_ENV}/bin/pip install -r requirements.txt
 
 test: ## Run tests
-	@pytest tests
+	@${VIRTUAL_ENV}/bin/pytest --fixtures tests
 
 lint: ## Run linter
 	@ruff check --fix .

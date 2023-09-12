@@ -3,6 +3,8 @@
 ### ADR
 
 - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
+- [ADR-0002](./docs/ADR/decisions/0002-adoption-of-scalene-for-profiling.md) - Adoption of Scalene for Profiling
+- [ADR-0003](./docs/ADR/decisions/0003-adoption-of-allure-for-test-reporting.md) - Adoption of Allure for Test Reporting
 
 **Functionality**:
 
