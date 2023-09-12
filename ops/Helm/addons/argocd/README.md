@@ -14,13 +14,13 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.46.0 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.46.2 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.4.1 |
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.32.0 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.33.2 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.33.3 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.0.2 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.0.4 |
 
 ## Values
 
@@ -88,11 +88,11 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | argo-cd.repoServer.initContainers[0].command[0] | string | `"sh"` |  |
 | argo-cd.repoServer.initContainers[0].command[1] | string | `"-ec"` |  |
 | argo-cd.repoServer.initContainers[0].env[0].name | string | `"HELM_SECRETS_VERSION"` |  |
-| argo-cd.repoServer.initContainers[0].env[0].value | string | `"4.4.2"` |  |
+| argo-cd.repoServer.initContainers[0].env[0].value | string | `"4.5.0"` |  |
 | argo-cd.repoServer.initContainers[0].env[1].name | string | `"KUBECTL_VERSION"` |  |
-| argo-cd.repoServer.initContainers[0].env[1].value | string | `"1.27.3"` |  |
+| argo-cd.repoServer.initContainers[0].env[1].value | string | `"1.28.0"` |  |
 | argo-cd.repoServer.initContainers[0].env[2].name | string | `"VALS_VERSION"` |  |
-| argo-cd.repoServer.initContainers[0].env[2].value | string | `"0.25.0"` |  |
+| argo-cd.repoServer.initContainers[0].env[2].value | string | `"0.27.1"` |  |
 | argo-cd.repoServer.initContainers[0].env[3].name | string | `"SOPS_VERSION"` |  |
 | argo-cd.repoServer.initContainers[0].env[3].value | string | `"3.7.3"` |  |
 | argo-cd.repoServer.initContainers[0].image | string | `"alpine:latest"` |  |
@@ -137,71 +137,6 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | argo-cd.server.metrics.serviceMonitor.enabled | bool | `true` |  |
 | argo-cd.server.rbacConfig."policy.csv" | string | `"p, role:org-admin, applications, *, */*, allow\np, role:org-admin, clusters, get, *, allow\np, role:org-admin, repositories, get, *, allow\np, role:org-admin, repositories, create, *, allow\np, role:org-admin, repositories, update, *, allow\np, role:org-admin, repositories, delete, *, allow\ng, shortlink-org:devops, role:org-admin\n"` |  |
 | argo-cd.server.rbacConfig."policy.default" | string | `"role:readonly"` |  |
-| argo-events.enabled | bool | `false` |  |
-| argo-events.fullnameOverride | string | `"argo-events"` |  |
-| argo-rollouts.controller.replicas | int | `1` |  |
-| argo-rollouts.dashboard.enabled | bool | `true` |  |
-| argo-rollouts.dashboard.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTP"` |  |
-| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| argo-rollouts.dashboard.ingress.enabled | bool | `true` |  |
-| argo-rollouts.dashboard.ingress.hosts[0] | string | `"argo.shortlink.best"` |  |
-| argo-rollouts.dashboard.ingress.ingressClassName | string | `"nginx"` |  |
-| argo-rollouts.dashboard.ingress.paths[0] | string | `"/rollouts"` |  |
-| argo-rollouts.dashboard.ingress.tls[0].hosts[0] | string | `"argo.shortlink.best"` |  |
-| argo-rollouts.dashboard.ingress.tls[0].secretName | string | `"argo-ingress-tls"` |  |
-| argo-rollouts.dashboard.readonly | bool | `true` |  |
-| argo-rollouts.dashboard.resources.limits.cpu | string | `"100m"` |  |
-| argo-rollouts.dashboard.resources.limits.memory | string | `"256Mi"` |  |
-| argo-rollouts.dashboard.resources.requests.cpu | string | `"10m"` |  |
-| argo-rollouts.dashboard.resources.requests.memory | string | `"64Mi"` |  |
-| argo-rollouts.enabled | bool | `true` |  |
-| argo-rollouts.fullnameOverride | string | `"argo-rollouts"` |  |
-| argo-rollouts.metrics.enabled | bool | `true` |  |
-| argo-rollouts.metrics.serviceMonitor.enabled | bool | `true` |  |
-| argo-workflows.controller.metricsConfig.enabled | bool | `true` |  |
-| argo-workflows.controller.serviceMonitor.enabled | bool | `true` |  |
-| argo-workflows.controller.telemetryConfig.enabled | bool | `true` |  |
-| argo-workflows.controller.workflowNamespaces | list | `[]` |  |
-| argo-workflows.enabled | bool | `false` |  |
-| argo-workflows.fullnameOverride | string | `"argo-workflows"` |  |
-| argo-workflows.server.baseHref | string | `"/workflows/"` |  |
-| argo-workflows.server.extraArgs[0] | string | `"--basehref"` |  |
-| argo-workflows.server.extraArgs[1] | string | `"/workflows/"` |  |
-| argo-workflows.server.extraArgs[2] | string | `"--auth-mode=server"` |  |
-| argo-workflows.server.extraEnv[0].name | string | `"ARGO_BASE_HREF"` |  |
-| argo-workflows.server.extraEnv[0].value | string | `"/workflows"` |  |
-| argo-workflows.server.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"cert-manager-production"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol" | string | `"HTTP"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity" | string | `"false"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry" | string | `"true"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules" | string | `"true"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
-| argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
-| argo-workflows.server.ingress.enabled | bool | `true` |  |
-| argo-workflows.server.ingress.hosts[0] | string | `"argo.shortlink.best"` |  |
-| argo-workflows.server.ingress.ingressClassName | string | `"nginx"` |  |
-| argo-workflows.server.ingress.paths[0] | string | `"/workflows/?(.*)"` |  |
-| argo-workflows.server.ingress.tls[0].hosts[0] | string | `"argo.shortlink.best"` |  |
-| argo-workflows.server.ingress.tls[0].secretName | string | `"argo-ingress-tls"` |  |
-| argocd-apps.applications | list | `[]` (See [values.yaml]) | Deploy Argo CD Applications within this helm release # Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/ |
-| argocd-apps.enabled | bool | `true` |  |
-| argocd-apps.projects | list | `[]` (See [values.yaml]) | Deploy Argo CD Projects within this helm release # Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/ |
-| argocd-image-updater.config.applicationsAPIKind | string | `"kubernetes"` |  |
-| argocd-image-updater.config.gitCommitMail | string | `"argocd@shortlink.best"` |  |
-| argocd-image-updater.config.gitCommitTemplate | string | `"build: automatic update of {{ .AppName }}\n\n{{ range .AppChanges -}}\nupdates image {{ .Image }} tag '{{ .OldTag }}' to '{{ .NewTag }}'\n{{ end -}}\n\nSigned-off-by: argocd <argocd@shortlink.best>\n"` |  |
-| argocd-image-updater.config.gitCommitUser | string | `"argocd-image-updater"` |  |
-| argocd-image-updater.enabled | bool | `false` |  |
-| argocd-image-updater.fullnameOverride | string | `"argocd-image-updater"` |  |
-| argocd-image-updater.metrics.enabled | bool | `true` |  |
-| argocd-image-updater.metrics.serviceMonitor.enabled | bool | `true` |  |
-| argocd-image-updater.registries[0].api_url | string | `"https://registry.gitlab.com"` |  |
-| argocd-image-updater.registries[0].default | bool | `true` |  |
-| argocd-image-updater.registries[0].name | string | `"GitLab"` |  |
-| argocd-image-updater.registries[0].ping | string | `"yes"` |  |
-| argocd-image-updater.updateStrategy.type | string | `"Recreate"` |  |
 
 ----------------------------------------------
 Autogenerated from chart metadata using [helm-docs v1.11.0](https://github.com/norwoodj/helm-docs/releases/v1.11.0)
