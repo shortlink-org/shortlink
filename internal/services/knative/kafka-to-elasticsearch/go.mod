@@ -7,7 +7,7 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.14.0
 	github.com/elastic/go-elasticsearch/v8 v8.9.0
 	go.uber.org/zap v1.25.0
-	knative.dev/pkg v0.0.0-20230911130819-09df2b681efd
+	knative.dev/pkg v0.0.0-20230912052245-8d736b687bf4
 )
 
 require (
