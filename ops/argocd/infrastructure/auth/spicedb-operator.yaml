@@ -11,7 +11,7 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: spicedb
+    namespace: spicedb-operator
     server: 'https://kubernetes.default.svc'
   source:
     path: ops/argocd/kustomize/auth/spicedb-operator

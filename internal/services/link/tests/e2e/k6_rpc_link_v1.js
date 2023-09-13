@@ -1,4 +1,4 @@
-import grpc from 'k6/net/grpc';
+import grpc from 'k6/experimental/grpc';
 import { check } from 'k6';
 
 export const options = {
@@ -16,7 +16,7 @@ export const options = {
 const client = new grpc.Client();
 
 // Load the proto file
-client.load(['definitions'], './infrastructure/rpc/link/v1/link.proto');
+client.load(['../../'], 'infrastructure/rpc/link/v1/link.proto');
 
 export default () => {
   // eslint-disable-next-line no-undef
