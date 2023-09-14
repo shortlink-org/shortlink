@@ -1,10 +1,13 @@
 ## Ops
 
-### CI/CD
+### ADR
 
-| [GitLab CI](./gitlab/README.md) | [GitHub CI](../.github/DOCS.md) | [ArgoCD](./argocd/README.md) |
-|------------------------------------|---------------------------------|---------------------------------|
-
+- **CI/CD**
+- [ADR-0001](./docs/ADR/decisions/0001-ci-cd.md) - Use CI/CD
+- [ADR-0016](./docs/ADR/decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
+- **Kubernetes**
+- [ADR-0022](./docs/ADR/decisions/0022-kubernetes.md) - Kubernetes
+- [ADR-0027](./docs/ADR/decisions/0027-local-kubernetes-development-tools.md) - Local Kubernetes Development Tools
 
 ### MQ
 

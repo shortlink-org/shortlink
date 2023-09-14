@@ -51,7 +51,3 @@ for information team about cases for updated ADR.
   - [ADR-0017](./decisions/0017-profile-guided-optimization.md) - Profile-guided optimization
 - **Front-end**
   - [ADR-0019](./decisions/0019-front-end-testing.md) - Front-end testings
-- **Kubernetes**
-  - [ADR-0022](./decisions/0022-kubernetes.md) - Kubernetes
-  - [ADR-0016](./decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
-  - [ADR-0027](./decisions/0027-local-kubernetes-development-tools.md) - Local Kubernetes Development Tools
