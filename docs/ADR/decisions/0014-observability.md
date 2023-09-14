@@ -51,3 +51,7 @@ We use [OpenTelemetry](https://opentelemetry.io/) for tracing and metrics.
 + Add default metrics for prometheus
 + [Exposing the software version to Prometheus](https://www.robustperception.io/exposing-the-software-version-to-prometheus)
   + Example: [Add opencost_build_info metric](https://github.com/opencost/opencost/pull/1577/files) 
+
+### Docs/Articles
+
++ [The RED Method: How to Instrument Your Services](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/)
