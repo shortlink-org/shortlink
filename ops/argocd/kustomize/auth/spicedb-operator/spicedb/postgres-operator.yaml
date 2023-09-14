@@ -39,10 +39,10 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
-  monitoring:
-    pgmonitor:
-      exporter:
-        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.3.1-0
+#  monitoring:
+#    pgmonitor:
+#      exporter:
+#        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.3.1-0
   users:
     - name: admin
       databases:

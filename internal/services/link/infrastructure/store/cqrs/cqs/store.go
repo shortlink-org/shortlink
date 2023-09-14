@@ -5,6 +5,7 @@ package cqs
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/go-redis/cache/v9"
 	"github.com/spf13/viper"
@@ -31,12 +32,12 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 
 	switch s.typeStore {
 	case "postgres":
-		fallthrough
-	default:
 		s.store, err = postgres.New(ctx, db)
 		if err != nil {
 			return nil, err
 		}
+	default:
+		return nil, fmt.Errorf("unknown store type: %s", s.typeStore)
 	}
 
 	log.Info("init cqsStore", field.Fields{
