@@ -1,0 +1,36 @@
+version: '2.4'
+
+include:
+  - ./ops/docker-compose/tooling/observability/grafana/grafana.yaml
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  beyla:
+    <<: *network
+    depends_on:
+      - coredns
+    image: grafana/beyla:latest
+    command:
+      - /beyla
+      - --config=/configs/beyla-config.yml
+    pid: "service:grafana"
+    container_name: beyla
+    init: true
+    restart: on-failure
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      PRINT_TRACES: true
+      OPEN_PORT: 8443
+      SERVICE_NAMESPACE: shortlink
+      OTEL_SERVICE_NAME: beyla
+      OTEL_EXPORTER_OTLP_ENDPOINT: "http://jaeger-agent:4317"
+    volumes:
+      - ./ops/docker-compose/tooling/observability/grafana/conf/beyla/config.yml:/configs/beyla-config.yml

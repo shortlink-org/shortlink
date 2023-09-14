@@ -5,6 +5,7 @@ networks:
     name: ${DOCKER_NETWORK}
     # use the bridge driver, but enable IPv6
     driver: bridge
+    enable_ipv6: true
     driver_opts:
       com.docker.network.enable_ipv6: "true"
     # Using the ipam you can define a specific CIDR block for the new network, and then,

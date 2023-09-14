@@ -53,30 +53,9 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-loki.yaml \
-		up -d --remove-orphans --build
-
-run: ## Run this project in docker compose
-	@docker compose \
-		-f docker-compose.yaml \
-		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
-		-f ops/docker-compose/gateway/traefik/traefik.yaml \
-		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
-		-f ops/docker-compose/application/auth/hydra/hydra.yaml \
-		-f ops/docker-compose/application/auth/keto/keto.yaml \
-		-f ops/docker-compose/application/api/api.yaml \
-		-f ops/docker-compose/application/metadata/metadata.yaml \
-		-f ops/docker-compose/application/logger/logger.yaml \
-		-f ops/docker-compose/application/ui-next/ui-next.yaml \
-		-f ops/docker-compose/database/mongo.yaml \
-		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-loki.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-beyla.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-phlare.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-oncall.yaml \
-		-f ops/docker-compose/mq/rabbitmq.yaml \
-		up -d --remove-orphans
+		up -d --remove-orphans --build
 
 down: confirm ## Down docker compose
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
@@ -84,7 +63,11 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f ops/docker-compose/tooling/saas/airflow/airflow.yaml \
 		-f ops/docker-compose/tooling/saas/nifi/nifi.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-phlare.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-oncall.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-beyla.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
 		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
 		-f ops/docker-compose/tooling/observability/pyroscope/pyroscope.yaml \
