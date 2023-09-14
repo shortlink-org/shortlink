@@ -7,8 +7,9 @@ metadata:
 spec:
   config:
     replicas: 1
+    # TODO: use Postgres
     datastoreEngine: memory
-  secretName: shortlink-spicedb-config
+  # secretName: shortlink-spicedb-config
   patches:
     - kind: Deployment
       patch:
