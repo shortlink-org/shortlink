@@ -15,4 +15,5 @@ spec:
         resources: [ "deployments" ]
   validations:
     - expression: "object.spec.replicas <= params.maxReplicas"
+      message: "The number of replicas must be less than or equal to {{ .Values.admission.replica_count_limit.max_replicas }}"
 {{- end }}
