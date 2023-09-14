@@ -29,8 +29,6 @@ spec:
                       memory: "512Mi"
                       cpu: "200m"
                   env:
-                    - name: SPICEDB_GRPC_PRESHARED_KEY
-                      value: 'test123'
                     - name: SPICEDB_DATASTORE_CONN_URI
                       valueFrom:
                         secretKeyRef:
