@@ -5,6 +5,13 @@
 kubescape:
   enabled: true
 
+  capabilities:
+    networkGenerator: true
+    seccomp: true
+    runtimeObservability: true
+
+  clusterName: shortlink
+
   kubescape:
     serviceMonitor:
       enabled: true

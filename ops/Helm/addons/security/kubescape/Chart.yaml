@@ -13,8 +13,8 @@ engine: gotpl
 type: application
 deprecated: false
 dependencies:
-  - name: kubescape-cloud-operator
+  - name: kubescape-operator
     alias: kubescape
-    version: 1.14.5
+    version: 1.15.3
     repository: https://kubescape.github.io/helm-charts/
     condition: kubescape.enabled
