@@ -8,9 +8,9 @@ spec:
   config:
     replicas: 1
     datastoreEngine: postgres
-  datastoreUri:
-    key: uri
-    secretName: shortlink-spicedb-config
+    datastoreUri:
+      key: uri
+      secretName: shortlink-spicedb-config
   patches:
     - kind: Deployment
       patch:
