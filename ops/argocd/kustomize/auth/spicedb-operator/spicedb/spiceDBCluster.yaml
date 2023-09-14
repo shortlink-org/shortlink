@@ -7,7 +7,7 @@ metadata:
 spec:
   config:
     replicas: 1
-    datastoreEngine: postgres
+    datastoreEngine: memory
   secretName: shortlink-spicedb-config
   patches:
     - kind: Deployment
@@ -28,6 +28,8 @@ spec:
                       memory: "512Mi"
                       cpu: "200m"
                   env:
+                    - name: SPICEDB_GRPC_PRESHARED_KEY
+                      value: 'test123'
                     - name: SPICEDB_DATASTORE_CONN_URI
                       valueFrom:
                         secretKeyRef:
