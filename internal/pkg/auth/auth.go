@@ -23,14 +23,17 @@ func New() (*Auth, error) {
 	var err error
 	auth := &Auth{}
 
-	viper.SetDefault("SPICE_DB_API", "shortlink.spicedb:50051")
+	viper.SetDefault("SPICE_DB_API", "shortlink.spicedb-operator:50051")
 	viper.SetDefault("SPICE_DB_COMMON_KEY", "secret-shortlink-preshared-key")
+	viper.SetDefault("SPICE_DB_TIMEOUT", "5s")
 
 	auth.client, err = authzed.NewClient(
 		viper.GetString("SPICE_DB_API"),
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithPerRPCCredentials(insecureMetadataCreds{"authorization": "Bearer " + viper.GetString("SPICE_DB_COMMON_KEY")}),
-		grpc.WithBlock(),
+		grpc.WithIdleTimeout(viper.GetDuration("SPICE_DB_TIMEOUT")),
+		// grpc.WithBlock(),
+		// grpc.WithReturnConnectionError(),
 	)
 	if err != nil {
 		return nil, err
