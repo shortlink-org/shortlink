@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-cloud-operator) | 1.14.5 |
+| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-operator) | 1.15.3 |
 
 ## Values
 
@@ -26,6 +26,62 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 		<th>Description</th>
 	</thead>
 	<tbody>
+		<tr>
+			<td id="kubescape--capabilities--networkGenerator"><a href="./values.yaml#L9">kubescape.capabilities.networkGenerator</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--capabilities--runtimeObservability"><a href="./values.yaml#L11">kubescape.capabilities.runtimeObservability</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--capabilities--seccomp"><a href="./values.yaml#L10">kubescape.capabilities.seccomp</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--clusterName"><a href="./values.yaml#L13">kubescape.clusterName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
 		<tr>
 			<td id="kubescape--enabled"><a href="./values.yaml#L6">kubescape.enabled</a></td>
 			<td>
@@ -41,7 +97,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L10">kubescape.kubescape.serviceMonitor.enabled</a></td>
+			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L17">kubescape.kubescape.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
