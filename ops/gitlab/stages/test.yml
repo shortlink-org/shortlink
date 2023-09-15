@@ -53,7 +53,7 @@ HELM:
       when: on_success
 
 # LICENSE ==============================================================================================================
-# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/license_compliance/
+# Read more about this feature here: https://docs.gitlab.com/ee/user/compliance/license_compliance/index.html
 license_scanning:
   interruptible: true
   needs: []
