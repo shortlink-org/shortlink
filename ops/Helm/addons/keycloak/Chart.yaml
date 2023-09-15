@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: keycloak
-    version: 16.1.4
+    version: 16.1.5
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: keycloak.enabled
     tags:
