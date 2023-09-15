@@ -9,20 +9,14 @@ metadata:
     {{- end }}
     {{- include "helpers.labels" . | nindent 4 }}
 spec:
-  description: Test suite for shortlink landing page
+  description: Test suite for shortlink link page
   steps:
     - stopOnFailure: false
       execute:
-        - name: shortlink-link-k6-rpc-link-v1
-          namespace: testkube
-          stopOnFailure: false
+        - test: shortlink-link-k6-rpc-link-v1
     - stopOnFailure: false
       execute:
-        - name: shortlink-link-k6-rpc-cqrs-link-v1
-          namespace: testkube
-          stopOnFailure: false
+        - test: shortlink-link-k6-rpc-cqrs-link-v1
     - stopOnFailure: false
       execute:
-        - name: shortlink-link-k6-rpc-sitemap-v1
-          namespace: testkube
-          stopOnFailure: false
+        - test: shortlink-link-k6-rpc-sitemap-v1
