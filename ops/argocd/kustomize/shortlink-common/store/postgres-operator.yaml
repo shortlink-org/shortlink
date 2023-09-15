@@ -64,6 +64,7 @@ spec:
         image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.3.1-0
   patroni:
     dynamicConfiguration:
+      shared_preload_libraries: auto_explain,pgaudit,pg_stat_statements
       postgresql:
         parameters:
           # https://pgtune.leopard.in.ua/#/

@@ -24,6 +24,7 @@ spec:
       postgresql:
         parameters:
           track_commit_timestamp: "on"
+          shared_preload_libraries: auto_explain,pgaudit,pg_stat_statements
   backups:
     pgbackrest:
       metadata:
