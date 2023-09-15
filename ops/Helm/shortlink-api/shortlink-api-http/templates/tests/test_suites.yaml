@@ -13,6 +13,4 @@ spec:
   steps:
     - stopOnFailure: false
       execute:
-        - name: shortlink-api-http-link-crud
-          namespace: testkube
-          stopOnFailure: false
+        - test: shortlink-api-http-link-crud
