@@ -8,16 +8,15 @@ const os = require('os');
 const execPromisified = util.promisify(exec);
 
 async function main() {
-  const argv = yargs(hideBin(process.argv)).argv;
-  const namespace = argv.namespace;
-  const secretName = argv.secret;
-  const key = argv.key;
-  const envKey = argv.envKey;
+  const argv = yargs(hideBin(process.argv)).options({
+    'namespace': { type: 'string', demandOption: true, describe: 'Kubernetes namespace' },
+    'secret': { type: 'string', demandOption: true, describe: 'Secret name' },
+    'key': { type: 'string', demandOption: true, describe: 'Key inside the secret' },
+    'envKey': { type: 'string', demandOption: true, describe: 'Key for the .env file' },
+    'envPath': { type: 'string', default: '.env', describe: 'Path to the .env file' }
+  }).argv;
 
-  if (!namespace || !secretName || !key || !envKey) {
-    console.log("Please provide a namespace, secret name, a key, and an envKey as command line arguments.");
-    process.exit(1);
-  }
+  const { namespace, secret: secretName, key, envKey, envPath } = argv;
 
   try {
     const { stdout } = await execPromisified(`kubectl -n ${namespace} get secret ${secretName} -o json`);
@@ -25,7 +24,7 @@ async function main() {
     const keyValueBase64 = secret.data[key];
     const keyValueDecoded = Buffer.from(keyValueBase64, 'base64').toString().replace('.svc', '');
 
-    let envConfig = fs.readFileSync('.env', 'utf8').split(os.EOL);
+    let envConfig = fs.readFileSync(envPath, 'utf8').split(os.EOL);
     let newConfig = envConfig.map(line => {
       if (line.startsWith(envKey)) {
         return `${envKey}=${keyValueDecoded}`
@@ -37,8 +36,8 @@ async function main() {
       newConfig.push(`${envKey}=${keyValueDecoded}`);
     }
 
-    fs.writeFileSync('.env', newConfig.join(os.EOL));
-    console.log(`Written to .env: ${envKey}=${keyValueDecoded}`);
+    fs.writeFileSync(envPath, newConfig.join(os.EOL));
+    console.log(`Written to ${envPath}: ${envKey}=${keyValueDecoded}`);
   } catch (error) {
     console.error(`Error: ${error}`);
   }

@@ -10,8 +10,7 @@ context={{"repo":"shortlink","owner":"shortlink-org","path":"internal/services/p
 ##### Require
 
 ```
-npm install grpc-tools --global
-npm install grpc_tools_node_protoc_ts --global
+npm install grpc-tools grpc_tools_node_protoc_ts --global
 ```
 
 ##### Migration

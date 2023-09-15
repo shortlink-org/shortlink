@@ -22,5 +22,6 @@ Replace `<namespace>`, `<secret-name>`, `<key>` and `<envKey>` with your values.
 - **secret**: the name of your secret.
 - **key**: the key of the value you want to get from the secret.
 - **envKey**: the key you want to use when writing the secret's value to the .env file.
+- **envPath** _(optional)_: the path to your .env file. 
 
 This script assumes that the .env file is located in the same directory where the script is run.
