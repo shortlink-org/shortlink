@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/internal/services/shortctl
 go 1.21
 
 require (
-	github.com/pterm/pterm v0.12.67
+	github.com/pterm/pterm v0.12.68
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
 )
