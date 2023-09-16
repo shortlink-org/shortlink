@@ -42,11 +42,11 @@
       }
     ]
   },
-  "editable": false,
+  "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1625069717503,
+  "iteration": 1624642171995,
   "links": [
     {
       "icon": "external link",
@@ -115,6 +115,10 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
+          "alias": "Process count",
+          "yaxis": 2
+        },
+        {
           "alias": "Limit",
           "dashes": true
         }
@@ -133,6 +137,24 @@
           "refId": "A"
         },
         {
+          "expr": "avg(ccp_nodemx_process_count{pg_cluster=\"[[cluster]]\",pod=\"[[pod]]\"}) without (instance,ip,role)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "Process count",
+          "refId": "B"
+        },
+        {
+          "expr": "avg((idelta(ccp_nodemx_cpustat_throttled_time{pg_cluster=\"[[cluster]]\",pod=\"[[pod]]\"}[30s])/1000000000)/idelta(ccp_nodemx_cpustat_snap_ts{pg_cluster=\"[[cluster]]\",pod=\"[[pod]]\"}[30s])*100) without (instance,ip,role)",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "% Throttled",
+          "refId": "C"
+        },
+        {
           "expr": "avg((ccp_nodemx_cpucfs_quota_us{pg_cluster=\"[[cluster]]\",pod=\"[[pod]]\"}*100/ccp_nodemx_cpucfs_period_us{pg_cluster=\"[[cluster]]\",pod=\"[[pod]]\"})) without (instance,ip,role)",
           "format": "time_series",
           "hide": false,
@@ -146,7 +168,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "CPU usage",
+      "title": "CPU",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -165,135 +187,6 @@
           "decimals": null,
           "format": "short",
           "label": "Percent",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "Process count",
-          "logBase": 1,
-          "max": null,
-          "min": "0",
-          "show": false
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {
-        "% Throttled": "yellow",
-        "% Used": "blue",
-        "Limit": "red",
-        "Process count": "blue"
-      },
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {},
-          "custom": {},
-          "thresholds": {
-            "mode": "absolute",
-            "steps": []
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "fill": 0,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 8,
-        "x": 8,
-        "y": 0
-      },
-      "hiddenSeries": false,
-      "id": 15,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "7.4.5",
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Limit",
-          "dashes": true
-        },
-        {
-          "alias": "Process count",
-          "yaxis": 2
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "avg(ccp_nodemx_process_count{pg_cluster=\"[[cluster]]\",pod=\"[[pod]]\"}) without (instance,ip,role)",
-          "format": "time_series",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Process count",
-          "refId": "B"
-        },
-        {
-          "expr": "avg((idelta(ccp_nodemx_cpustat_throttled_time{pg_cluster=\"[[cluster]]\",pod=\"[[pod]]\"}[30s])/1000000000)/idelta(ccp_nodemx_cpustat_snap_ts{pg_cluster=\"[[cluster]]\",pod=\"[[pod]]\"}[30s])*100) without (instance,ip,role)",
-          "format": "time_series",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "% Throttled",
-          "refId": "C"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "CPU Throttle",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "short",
-          "label": "",
           "logBase": 1,
           "max": null,
           "min": "0",
@@ -336,7 +229,7 @@
       "gridPos": {
         "h": 6,
         "w": 8,
-        "x": 16,
+        "x": 8,
         "y": 0
       },
       "hiddenSeries": false,
@@ -469,8 +362,8 @@
       "gridPos": {
         "h": 6,
         "w": 8,
-        "x": 0,
-        "y": 6
+        "x": 16,
+        "y": 0
       },
       "hiddenSeries": false,
       "id": 8,
@@ -580,8 +473,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
-        "w": 8,
-        "x": 8,
+        "w": 12,
+        "x": 0,
         "y": 6
       },
       "hiddenSeries": false,
@@ -687,8 +580,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
-        "w": 8,
-        "x": 16,
+        "w": 12,
+        "x": 12,
         "y": 6
       },
       "hiddenSeries": false,
@@ -714,12 +607,7 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "/Reads/",
-          "transform": "negative-Y"
-        }
-      ],
+      "seriesOverrides": [],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
@@ -765,7 +653,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1155,7 +1043,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -1173,6 +1061,6 @@
   },
   "timezone": "browser",
   "title": "POD Details",
-  "uid": "4auP6Mk7k",
+  "uid": "wLzsuGznz",
   "version": 1
 }
