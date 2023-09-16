@@ -9,9 +9,11 @@ kube-prometheus-stack:
     prometheusSpec:
       routePrefix: /prometheus/
 
-      # disabled for knative
+      enableRemoteWriteReceiver: true
+
+      # TODO: disabled for knative
       serviceMonitorSelectorNilUsesHelmValues: false
-      # disabled for knative
+      # TODO: disabled for knative
       podMonitorSelectorNilUsesHelmValues: false
 
       serviceMonitorNamespaceSelector: {}
