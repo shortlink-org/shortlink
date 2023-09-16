@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: shortlink-postgres-pguser-grafana
   annotations:
-    argocd.argoproj.io/sync-options: ApplyOutOfSyncOnly=false
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
 stringData:
   password: "grafana-password"
   verifier: ""
