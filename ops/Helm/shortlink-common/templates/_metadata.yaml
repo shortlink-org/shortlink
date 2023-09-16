@@ -9,6 +9,6 @@
     {{- include "helpers.labels" . | nindent 4 }}
   {{- with .Values.annotations }}
   annotations:
-    {{- toYaml . | indent 4 }}
+    {{- include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4 }}
   {{- end }}
 {{- end }}
