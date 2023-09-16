@@ -29,20 +29,25 @@ istiod:
   # See https://istio.io/docs/reference/config/istio.mesh.v1alpha1/ for all available options
   meshConfig:
     enableTracing: true
-    defaultConfig:
-      tracing:
-        max_path_tag_length: 99999
-        sampling: 100
-        zipkin:
-          address: grafana-tempo.grafana.svc.cluster.local:9411
+    enablePrometheusMerge: true
+#    defaultConfig:
+#      tracing:
+#        max_path_tag_length: 99999
+#        sampling: 100
+#        zipkin:
+#          address: grafana-tempo.grafana.svc.cluster.local:9411
     extensionProviders:
-      - name: zipkin
-        zipkin:
-          service: grafana-tempo.grafana.svc.cluster.local
-          port: 9411
+#      - name: zipkin
+#        zipkin:
+#          service: grafana-tempo.grafana.svc.cluster.local
+#          port: 9411
       - name: otel
         envoyOtelAls:
           service: grafana-tempo.grafana.svc.cluster.local
+          port: 4317
+      - name: otel-tracing
+        opentelemetry:
+          service: otel-collector-collector.grafana.svc.cluster.local
           port: 4317
 #    discoverySelectors:
 #      - matchLabels:

@@ -1,9 +1,9 @@
 apiVersion: telemetry.istio.io/v1alpha1
 kind: Telemetry
 metadata:
-  name: mesh-default
+  name: otel-tracing
 spec:
   tracing:
     - providers:
-        - name: "zipkin"
+        - name: "otel-tracing"
       randomSamplingPercentage: 100
