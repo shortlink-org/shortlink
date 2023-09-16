@@ -3,13 +3,16 @@
 ### ADR
 
 - **CI/CD**
-- [ADR-0001](./docs/ADR/decisions/0001-ci-cd.md) - Use CI/CD
-- [ADR-0016](./docs/ADR/decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
+  - [ADR-0001](./docs/ADR/decisions/0001-ci-cd.md) - Use CI/CD
+  - [ADR-0016](./docs/ADR/decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
 - **Kubernetes**
-- [ADR-0022](./docs/ADR/decisions/0022-kubernetes.md) - Kubernetes
-- [ADR-0027](./docs/ADR/decisions/0027-local-kubernetes-development-tools.md) - Local Kubernetes Development Tools
+  - [ADR-0022](./docs/ADR/decisions/0022-kubernetes.md) - Kubernetes
+  - [ADR-0027](./docs/ADR/decisions/0027-local-kubernetes-development-tools.md) - Local Kubernetes Development Tools
 - **DataBase**
-- [ADR-0002](./docs/ADR/decisions/0002-cache-system.md) - Cache System
+  - [ADR-0002](./docs/ADR/decisions/0002-cache-system.md) - Cache System
+  - **PostgreSQL**
+  - [ADR-0005](./docs/ADR/decisions/0005-postgres-optimization.md) - Postgres optimization
+  - [ADR-0020](./docs/ADR/decisions/0020-postgresql-operator.md) - Research Summary and Decision for PostgreSQL Operators: Choosing Crunchy Postgres Operator
 
 ### MQ
 
