@@ -54,7 +54,6 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (trace.TracerProvi
 	}
 
 	// Register the global Tracer provider
-	// TODO: add pyroscope
 	otel.SetTracerProvider(otelpyroscope.NewTracerProvider(
 		tp,
 		otelpyroscope.WithAppName(cnf.ServiceName),
