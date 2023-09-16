@@ -1,0 +1,7 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: User
+metadata:
+  name: grafana-oncall
+spec:
+  tags:
+    - management
