@@ -10,6 +10,10 @@ data:
     GRANT ALL PRIVILEGES ON DATABASE link TO link;
     ALTER DATABASE link OWNER TO link;
 
+    GRANT CONNECT ON DATABASE link TO grafana;
+    GRANT USAGE ON SCHEMA link TO grafana;
+    ALTER DEFAULT PRIVILEGES IN SCHEMA link GRANT SELECT ON TABLES TO grafana;
+
     ALTER DATABASE link SET statement_timeout = '180s';
 
     -- billing database
@@ -18,7 +22,11 @@ data:
     GRANT ALL PRIVILEGES ON DATABASE billing TO billing;
     ALTER DATABASE billing OWNER TO billing;
 
-    ALTER DATABASE link SET statement_timeout = '600s';
+    GRANT CONNECT ON DATABASE billing TO grafana;
+    GRANT USAGE ON SCHEMA billing TO grafana;
+    ALTER DEFAULT PRIVILEGES IN SCHEMA billing GRANT SELECT ON TABLES TO grafana;
+
+    ALTER DATABASE billing SET statement_timeout = '600s';
 
     -- proxy database
     \c proxy;
@@ -26,4 +34,11 @@ data:
     GRANT ALL PRIVILEGES ON DATABASE proxy TO proxy;
     ALTER DATABASE proxy OWNER TO proxy;
 
-    ALTER DATABASE link SET statement_timeout = '180s';
+    GRANT CONNECT ON DATABASE proxy TO grafana;
+    GRANT USAGE ON SCHEMA proxy TO grafana;
+    ALTER DEFAULT PRIVILEGES IN SCHEMA proxy GRANT SELECT ON TABLES TO grafana;
+
+    ALTER DATABASE proxy SET statement_timeout = '180s';
+
+    -- Grant grafana access to pg_statio_user_tables via pg_read_all_stats role
+    GRANT pg_read_all_stats TO grafana;
