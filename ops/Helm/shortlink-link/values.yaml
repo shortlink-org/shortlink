@@ -7,6 +7,10 @@
 serviceAccount:
   create: true
 
+annotations:
+  instrumentation.opentelemetry.io/inject-go: 'true'
+  sidecar.opentelemetry.io/inject: 'sidecar'
+
 # ==============================================================================
 # This secret for dev-stand. For production use CI-variables
 secret:
