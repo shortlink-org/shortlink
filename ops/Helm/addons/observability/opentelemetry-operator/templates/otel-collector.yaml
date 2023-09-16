@@ -45,3 +45,21 @@ spec:
           exporters:
             - logging
             - otlp
+        metrics:
+          receivers:
+            - otlp
+          processors:
+            - memory_limiter
+            - batch
+          exporters:
+            - logging
+            - otlp
+        logs:
+          receivers:
+            - otlp
+          processors:
+            - memory_limiter
+            - batch
+          exporters:
+            - logging
+            - otlp

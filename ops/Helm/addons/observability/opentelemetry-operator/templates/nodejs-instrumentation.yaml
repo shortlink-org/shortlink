@@ -1,7 +1,7 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: Instrumentation
 metadata:
-  name: go-instrumentation
+  name: nodejs-instrumentation
 spec:
   propagators:
     - tracecontext

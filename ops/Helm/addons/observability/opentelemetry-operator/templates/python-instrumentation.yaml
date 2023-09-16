@@ -1,0 +1,18 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: python-instrumentation
+spec:
+  propagators:
+    - tracecontext
+    - baggage
+  sampler:
+    type: always_on
+  dotnet:
+    env:
+      - name: OTEL_EXPORTER_OTLP_ENDPOINT
+        value: http://otel-collector-collector.grafana.svc.cluster.local:4318
+      - name: OTEL_LOGS_EXPORTER
+        value: otlp_proto_http
+      - name: OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED
+        value: 'true'

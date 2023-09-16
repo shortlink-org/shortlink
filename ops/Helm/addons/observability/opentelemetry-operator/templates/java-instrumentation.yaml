@@ -1,14 +1,18 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: Instrumentation
 metadata:
-  name: go-instrumentation
+  name: java-instrumentation
 spec:
   propagators:
     - tracecontext
     - baggage
   sampler:
     type: always_on
-  go:
+  java:
     env:
       - name: OTEL_EXPORTER_OTLP_ENDPOINT
         value: http://otel-collector-collector.grafana.svc.cluster.local:4317
+      - name: OTEL_INSTRUMENTATION_KAFKA_ENABLED
+        value: 'true'
+      - name: OTEL_INSTRUMENTATION_REDISCALA_ENABLED
+        value: 'true'

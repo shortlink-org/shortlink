@@ -45,6 +45,7 @@ deploy:
   annotations:
     instrumentation.opentelemetry.io/inject-go: 'true'
     sidecar.opentelemetry.io/inject: 'sidecar'
+    instrumentation.opentelemetry.io/otel-go-auto-target-exe: '/app'
 
   resources:
     # -- We usually recommend not to specify default resources and to leave this as a conscious
