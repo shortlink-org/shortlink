@@ -20,7 +20,7 @@ spec:
     helm:
       releaseName: grafana-tempo
       valueFiles:
-        - tempo.values.yaml
+        - values.yaml
   syncPolicy:
     automated:
       prune: true
