@@ -32,7 +32,13 @@ We want to have a fast and highly available PostgreSQL instance.
 2. `shared_buffers` - use for cache [15..25%]
 3. `effective_cache_size` [50%…75%]
 4. `work_mem` - RAM for request (**WARNING**: count_session * work_mem).
-5. `statement_timeout` - timeout for request.
+
+#### For one database
+
+```bash
+# Set timeout (in seconds) before a query cancels:
+ALTER DATABASE mydatabase SET statement_timeout = '60s';
+```
 
 #### For write
 

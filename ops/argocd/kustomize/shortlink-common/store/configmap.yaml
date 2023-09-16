@@ -10,10 +10,7 @@ data:
     GRANT ALL PRIVILEGES ON DATABASE link TO link;
     ALTER DATABASE link OWNER TO link;
 
-    -- enable extensions for link database
-    CREATE EXTENSION "uuid-ossp";
-    CREATE EXTENSION pg_prewarm;
-    ALTER SYSTEM SET shared_preload_libraries = 'pg_prewarm';
+    ALTER DATABASE link SET statement_timeout = '180s';
 
     -- billing database
     \c billing;
@@ -21,11 +18,12 @@ data:
     GRANT ALL PRIVILEGES ON DATABASE billing TO billing;
     ALTER DATABASE billing OWNER TO billing;
 
-    -- enable extensions for billing database
-    CREATE EXTENSION "uuid-ossp";
-    CREATE EXTENSION pg_prewarm;
-    ALTER SYSTEM SET shared_preload_libraries = 'pg_prewarm';
-    CREATE EXTENSION pg_stat_statements;
-    ALTER SYSTEM SET shared_preload_libraries = 'pg_stat_statements';
-    CREATE EXTENSION pgaudit;
-    ALTER SYSTEM SET shared_preload_libraries = 'pgaudit';
+    ALTER DATABASE link SET statement_timeout = '600s';
+
+    -- proxy database
+    \c proxy;
+    CREATE SCHEMA AUTHORIZATION proxy;
+    GRANT ALL PRIVILEGES ON DATABASE proxy TO proxy;
+    ALTER DATABASE proxy OWNER TO proxy;
+
+    ALTER DATABASE link SET statement_timeout = '180s';
