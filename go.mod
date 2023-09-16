@@ -42,7 +42,7 @@ require (
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/prometheus/client_golang v1.16.0
 	github.com/prometheus/client_model v0.4.0
-	github.com/pterm/pterm v0.12.68
+	github.com/pterm/pterm v0.12.69
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.8.2-0.20230808142725-2eefdf1e2724
 	github.com/redis/go-redis/v9 v9.1.0
