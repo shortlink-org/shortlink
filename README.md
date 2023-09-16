@@ -42,8 +42,12 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 An architecture decision record (ADR) is a document that captures an important architecture decision 
 made along with its context and consequences.
 
-+ [Decisions](./docs/ADR/README.md)
 + [Docs ADR](https://github.com/joelparkerhenderson/architecture-decision-record)
+
+**Decisions:**
+  + [main decisions](./docs/ADR/README.md)
+  + [ops decisions](./ops/docs/ADR/README.md)
+  + [ui](./ui/nx-monorepo/docs/ADR/README.md)
 
 ### Services
 
