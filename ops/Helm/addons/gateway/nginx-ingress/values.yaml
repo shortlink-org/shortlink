@@ -52,7 +52,7 @@ ingress-nginx:
       otel-service-name: "nginx-ingress" # Opentelemetry resource name
       otel-sampler: "AlwaysOn" # Also: AlwaysOff, TraceIdRatioBased
       otel-sampler-ratio: "1.0"
-      otel-sampler-parent-based: "false"
+      otel-sampler-parent-based: "true"
       server-snippet: |
         opentelemetry_attribute "ingress.namespace" "$namespace";
         opentelemetry_attribute "ingress.service_name" "$service_name";
