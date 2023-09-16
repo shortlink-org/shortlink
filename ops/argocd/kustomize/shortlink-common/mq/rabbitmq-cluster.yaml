@@ -1,7 +1,7 @@
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
-  name: {{ .Values.rabbitmq.clusterName }}
+  name: shortlink
 spec:
   replicas: 1
   terminationGracePeriodSeconds: 60
