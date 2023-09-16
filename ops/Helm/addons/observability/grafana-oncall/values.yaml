@@ -59,7 +59,15 @@ oncall:
     enabled: false
 
   rabbitmq:
-    enabled: true
+    enabled: false
+
+  externalRabbitmq:
+    host: rabbitmq.grafana
+    port: 5672
+
+    existingSecret: grafana-default-user
+    passwordKey: password
+    usernameKey: username
 
   redis:
     enabled: false
