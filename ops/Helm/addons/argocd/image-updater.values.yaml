@@ -1,7 +1,10 @@
 argocd-image-updater:
-  enabled: false
+  enabled: true
 
   fullnameOverride: argocd-image-updater
+
+  image:
+    tag: latest
 
   config:
     applicationsAPIKind: kubernetes
