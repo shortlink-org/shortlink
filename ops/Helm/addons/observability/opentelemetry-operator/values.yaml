@@ -1,0 +1,9 @@
+opentelemetry-operator:
+  enabled: true
+
+  manager:
+    serviceMonitor:
+      enabled: true
+
+    prometheusRule:
+      enabled: true
