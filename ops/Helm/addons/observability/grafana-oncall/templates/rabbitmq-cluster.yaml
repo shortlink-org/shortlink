@@ -1,7 +1,7 @@
 apiVersion: rabbitmq.com/v1beta1
 kind: RabbitmqCluster
 metadata:
-  name: rabbitmq
+  name: grafana-rabbitmq
 spec:
   replicas: 1
   terminationGracePeriodSeconds: 60

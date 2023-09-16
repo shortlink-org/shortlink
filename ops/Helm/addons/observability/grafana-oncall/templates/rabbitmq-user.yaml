@@ -3,5 +3,6 @@ kind: User
 metadata:
   name: grafana-oncall
 spec:
+  rabbitmqClusterReference: grafana-rabbitmq
   tags:
     - management
