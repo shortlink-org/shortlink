@@ -29,8 +29,8 @@ We want to have a fast and highly available PostgreSQL instance.
 ### Tuning params
 
 1. `max_connections`
-2. `shared_buffers` - use for cache [15..25%]
-3. `effective_cache_size` [50%…75%]
+2. `shared_buffers` - use for cache [15..25%] RAM
+3. `effective_cache_size` [50%…75%] RAM
 4. `work_mem` - RAM for request (**WARNING**: count_session * work_mem).
 
 #### For one database
