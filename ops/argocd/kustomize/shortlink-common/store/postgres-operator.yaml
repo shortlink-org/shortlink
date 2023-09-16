@@ -92,6 +92,12 @@ spec:
         - link
         - billing
       options: "SUPERUSER"
+    - name: grafana
+      databases:
+        - postgres
+        - link
+        - billing
+      options: "LOGIN"
     - name: link
       databases:
         - link
