@@ -32,7 +32,7 @@ spec:
       labels:
         istio-injection: enabled
     syncOptions:
-      - CreateNamespace=false
+      - CreateNamespace=true
       - ServerSideApply=true
       - ApplyOutOfSyncOnly=true
     retry:
