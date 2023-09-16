@@ -16,6 +16,9 @@ oncall:
         cpu: 5m
         memory: 50Mi
 
+  migrate:
+    enabled: false
+
   celery:
     resources:
       limits:
