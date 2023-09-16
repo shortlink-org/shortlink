@@ -35,8 +35,11 @@ istiod:
         sampling: 100
         zipkin:
           address: grafana-tempo.grafana:9411
-
     extensionProviders:
+      - name: zipkin
+        zipkin:
+          service: grafana-tempo.grafana
+          port: 9411
       - name: otel
         envoyOtelAls:
           service: grafana-tempo.grafana
