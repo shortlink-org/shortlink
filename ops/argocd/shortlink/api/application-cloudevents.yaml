@@ -7,6 +7,7 @@ metadata:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
     argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/api-cloudevents:0.x.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
+    argocd-image-updater.argoproj.io/git-repository: git@github.com:shortlink-org/shortlink.git
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
