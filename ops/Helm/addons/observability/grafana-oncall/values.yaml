@@ -68,7 +68,7 @@ oncall:
     host: rabbitmq.grafana
     port: 5672
 
-    existingSecret: grafana-default-user
+    existingSecret: grafana-rabbitmq-default-user
     passwordKey: password
     usernameKey: username
 
