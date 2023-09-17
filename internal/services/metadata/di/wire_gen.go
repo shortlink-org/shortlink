@@ -50,34 +50,38 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, err := monitoring.New(logger)
+	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
+		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	pprofEndpoint, err := profiling.New(logger)
 	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
 	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	dbStore, cleanup5, err := store.New(context, logger)
+	dbStore, cleanup6, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -85,33 +89,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	metaStore, err := NewMetaDataStore(context, logger, dbStore)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	service, err := NewMetaDataApplication(metaStore)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	dataBus, cleanup6, err := mq_di.New(context, logger)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	event, err := InitMetadataMQ(context, logger, dataBus)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -121,8 +98,40 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup7, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	service, err := NewMetaDataApplication(metaStore)
 	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	dataBus, cleanup7, err := mq_di.New(context, logger)
+	if err != nil {
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	event, err := InitMetadataMQ(context, logger, dataBus)
+	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	rpcServer, cleanup8, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -133,6 +142,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metadata, err := NewMetaDataRPCServer(rpcServer, service, logger)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -144,6 +154,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metaDataService, err := NewMetaDataService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event, metadata, metaStore)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -154,6 +165,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	return metaDataService, func() {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -172,7 +184,7 @@ type MetaDataService struct {
 	Config *config.Config
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -240,7 +252,7 @@ func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *parsers.Serv
 func NewMetaDataService(
 
 	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 

@@ -45,27 +45,30 @@ func InitializeFullBotService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, err := monitoring.New(logger)
+	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
-	if err != nil {
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	pprofEndpoint, err := profiling.New(logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
+	pprofEndpoint, err := profiling.New(logger)
 	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
+	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -74,8 +77,9 @@ func InitializeFullBotService() (*Service, func(), error) {
 	bot := InitSlack(context)
 	telegramBot := InitTelegram(context)
 	smtpBot := InitSMTP(context)
-	dataBus, cleanup5, err := mq_di.New(context, logger)
+	dataBus, cleanup6, err := mq_di.New(context, logger)
 	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -84,6 +88,7 @@ func InitializeFullBotService() (*Service, func(), error) {
 	}
 	applicationBot, err := NewBotApplication(context, logger, dataBus)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -93,6 +98,7 @@ func InitializeFullBotService() (*Service, func(), error) {
 	}
 	service, err := NewBotService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, bot, telegramBot, smtpBot, applicationBot)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -101,6 +107,7 @@ func InitializeFullBotService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	return service, func() {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -118,7 +125,7 @@ type Service struct {
 	Config *config.Config
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -185,7 +192,7 @@ func NewBotApplication(ctx2 context.Context, logger2 logger.Logger, mq2 *mq.Data
 func NewBotService(
 
 	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro, slack2 *slack.Bot, telegram2 *telegram.Bot, smtp2 *smtp.Bot,
 

@@ -41,7 +41,7 @@ type BillingService struct {
 	Config *config.Config
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -132,7 +132,7 @@ func NewBillingAPIServer(
 	// Common
 	ctx context.Context,
 	logger logger.Logger,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	rpcServer *rpc.RPCServer,
 	db *db.Store,
 
@@ -172,7 +172,7 @@ func NewBillingService(
 
 	// Observability
 	monitoring *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 

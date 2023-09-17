@@ -9,170 +9,170 @@ consumes:
 produces:
   - application/json
 paths:
-  /api/grpc: |
+  /api/grpc:
     post:
-        operationId: LinkService_CreateLink
-        responses:
-            "200":
-                description: A successful response.
-                schema:
-                    $ref: '#/definitions/v1CreateLinkResponse'
-            default:
-                description: An unexpected error response.
-                schema:
-                    $ref: '#/definitions/rpcStatus'
-        parameters:
-            - name: body
-              in: body
-              required: true
-              schema:
-                $ref: '#/definitions/v1CreateLinkRequest'
-        tags:
-            - LinkService
-  /api/grpc/link/{link.hash}: |
+      operationId: LinkService_CreateLink
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1CreateLinkResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1CreateLinkRequest'
+      tags:
+        - LinkService
+  /api/grpc/link/{link.hash}:
     get:
-        operationId: LinkService_GetLink
-        responses:
-            "200":
-                description: A successful response.
-                schema:
-                    $ref: '#/definitions/v1GetLinkResponse'
-            default:
-                description: An unexpected error response.
-                schema:
-                    $ref: '#/definitions/rpcStatus'
-        parameters:
-            - name: link.hash
-              description: Hash by URL + salt
-              in: path
-              required: true
-              type: string
-            - name: link.fieldMask
-              in: query
-              required: false
-              type: string
-            - name: link.url
-              description: URL
-              in: query
-              required: false
-              type: string
-            - name: link.describe
-              description: Describe of link
-              in: query
-              required: false
-              type: string
-            - name: link.createdAt
-              description: Create at
-              in: query
-              required: false
-              type: string
-              format: date-time
-            - name: link.updatedAt
-              description: Update at
-              in: query
-              required: false
-              type: string
-              format: date-time
-        tags:
-            - LinkService
-  /api/grpc/links: |
+      operationId: LinkService_GetLink
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1GetLinkResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: link.hash
+          description: Hash by URL + salt
+          in: path
+          required: true
+          type: string
+        - name: link.fieldMask
+          in: query
+          required: false
+          type: string
+        - name: link.url
+          description: URL
+          in: query
+          required: false
+          type: string
+        - name: link.describe
+          description: Describe of link
+          in: query
+          required: false
+          type: string
+        - name: link.createdAt
+          description: Create at
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: link.updatedAt
+          description: Update at
+          in: query
+          required: false
+          type: string
+          format: date-time
+      tags:
+        - LinkService
+  /api/grpc/links:
     get:
-        operationId: LinkService_GetLinks
-        responses:
-            "200":
-                description: A successful response.
-                schema:
-                    $ref: '#/definitions/v1GetLinksResponse'
-            default:
-                description: An unexpected error response.
-                schema:
-                    $ref: '#/definitions/rpcStatus'
-        parameters:
-            - name: link.fieldMask
-              in: query
-              required: false
-              type: string
-            - name: link.url
-              description: URL
-              in: query
-              required: false
-              type: string
-            - name: link.hash
-              description: Hash by URL + salt
-              in: query
-              required: false
-              type: string
-            - name: link.describe
-              description: Describe of link
-              in: query
-              required: false
-              type: string
-            - name: link.createdAt
-              description: Create at
-              in: query
-              required: false
-              type: string
-              format: date-time
-            - name: link.updatedAt
-              description: Update at
-              in: query
-              required: false
-              type: string
-              format: date-time
-            - name: filter
-              description: Filter by link
-              in: query
-              required: false
-              type: string
-        tags:
-            - LinkService
-  /api/grpc/{link.hash}: |
+      operationId: LinkService_GetLinks
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            $ref: '#/definitions/v1GetLinksResponse'
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: link.fieldMask
+          in: query
+          required: false
+          type: string
+        - name: link.url
+          description: URL
+          in: query
+          required: false
+          type: string
+        - name: link.hash
+          description: Hash by URL + salt
+          in: query
+          required: false
+          type: string
+        - name: link.describe
+          description: Describe of link
+          in: query
+          required: false
+          type: string
+        - name: link.createdAt
+          description: Create at
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: link.updatedAt
+          description: Update at
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: filter
+          description: Filter by link
+          in: query
+          required: false
+          type: string
+      tags:
+        - LinkService
+  /api/grpc/{link.hash}:
     delete:
-        operationId: LinkService_DeleteLink
-        responses:
-            "200":
-                description: A successful response.
-                schema:
-                    type: object
-                    properties: {}
-            default:
-                description: An unexpected error response.
-                schema:
-                    $ref: '#/definitions/rpcStatus'
-        parameters:
-            - name: link.hash
-              description: Hash by URL + salt
-              in: path
-              required: true
-              type: string
-            - name: link.fieldMask
-              in: query
-              required: false
-              type: string
-            - name: link.url
-              description: URL
-              in: query
-              required: false
-              type: string
-            - name: link.describe
-              description: Describe of link
-              in: query
-              required: false
-              type: string
-            - name: link.createdAt
-              description: Create at
-              in: query
-              required: false
-              type: string
-              format: date-time
-            - name: link.updatedAt
-              description: Update at
-              in: query
-              required: false
-              type: string
-              format: date-time
-        tags:
-            - LinkService
+      operationId: LinkService_DeleteLink
+      responses:
+        "200":
+          description: A successful response.
+          schema:
+            type: object
+            properties: {}
+        default:
+          description: An unexpected error response.
+          schema:
+            $ref: '#/definitions/rpcStatus'
+      parameters:
+        - name: link.hash
+          description: Hash by URL + salt
+          in: path
+          required: true
+          type: string
+        - name: link.fieldMask
+          in: query
+          required: false
+          type: string
+        - name: link.url
+          description: URL
+          in: query
+          required: false
+          type: string
+        - name: link.describe
+          description: Describe of link
+          in: query
+          required: false
+          type: string
+        - name: link.createdAt
+          description: Create at
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: link.updatedAt
+          description: Update at
+          in: query
+          required: false
+          type: string
+          format: date-time
+      tags:
+        - LinkService
 definitions:
   protobufAny:
     type: object

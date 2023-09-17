@@ -25,7 +25,7 @@ type Service struct {
 	Log logger.Logger
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -52,7 +52,7 @@ func NewSCIDriver(
 
 	// Observability
 	monitoring *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {

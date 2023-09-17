@@ -5,16 +5,28 @@ import (
 	"fmt"
 
 	"github.com/jackc/pgx/v5/pgxpool"
+	_ "github.com/jackc/pgx/v5/stdlib"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/sdk/metric"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
 
+// New return new instance of Store
+func New(tracer trace.TracerProvider, metrics *metric.MeterProvider) *Store {
+	return &Store{
+		tracer: Tracer{
+			TracerProvider: tracer,
+		},
+		metrics: metrics,
+	}
+}
+
 // Init ...
 func (p *Store) Init(ctx context.Context) error {
 	var err error
-	p.tracer = Tracer{}
 
 	// Set configuration
 	p.config, err = getConfig(&p.tracer)
@@ -25,13 +37,13 @@ func (p *Store) Init(ctx context.Context) error {
 	// Connect to Postgres
 	p.client, err = pgxpool.NewWithConfig(ctx, p.config.config)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to open the database: %w", err)
 	}
 
 	// Check connect
 	err = p.client.Ping(ctx)
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to ping the database: %w", err)
 	}
 
 	return nil

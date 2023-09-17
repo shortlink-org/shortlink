@@ -2,6 +2,7 @@ package postgres
 
 import (
 	"github.com/jackc/pgx/v5/pgxpool"
+	"go.opentelemetry.io/otel/sdk/metric"
 )
 
 // Config ...
@@ -15,5 +16,6 @@ type Store struct {
 	client *pgxpool.Pool
 	config *Config
 
-	tracer Tracer
+	tracer  Tracer
+	metrics *metric.MeterProvider
 }

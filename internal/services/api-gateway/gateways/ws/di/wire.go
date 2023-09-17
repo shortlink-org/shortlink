@@ -32,7 +32,7 @@ type WSService struct {
 	service *ws.WS
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -60,7 +60,7 @@ func NewWSService(
 
 	// Observability
 	monitoring *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 

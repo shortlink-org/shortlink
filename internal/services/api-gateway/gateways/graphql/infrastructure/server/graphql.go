@@ -39,7 +39,7 @@ type API struct {
 }
 
 // GetHandler ...
-func (api *API) GetHandler(traceProvider *trace.TracerProvider) *relay.Handler {
+func (api *API) GetHandler(traceProvider trace.TracerProvider) *relay.Handler {
 	// tracing
 	tracer := otelgraphql.NewTracer(otelgraphql.WithTracerProvider(*traceProvider))
 
@@ -80,7 +80,7 @@ func (api *API) Run(
 	i18n *message.Printer,
 	config http_server.Config,
 	log logger.Logger,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 
 	// delivery
 	link_rpc link_rpc.LinkServiceClient,

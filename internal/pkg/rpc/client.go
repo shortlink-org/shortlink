@@ -31,7 +31,7 @@ type client struct {
 }
 
 // InitClient - set up a connection to the server.
-func InitClient(log logger.Logger, tracer *trace.TracerProvider, monitoring *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
+func InitClient(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
 	config, err := setClientConfig(tracer, monitoring, log)
 
 	// Set up a connection to the server peer
@@ -53,7 +53,7 @@ func InitClient(log logger.Logger, tracer *trace.TracerProvider, monitoring *mon
 }
 
 // setConfig - set configuration
-func setClientConfig(tracer *trace.TracerProvider, monitoring *monitoring.Monitoring, log logger.Logger) (*client, error) {
+func setClientConfig(tracer trace.TracerProvider, monitoring *monitoring.Monitoring, log logger.Logger) (*client, error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
@@ -128,7 +128,7 @@ func (c *client) WithTLS() error {
 }
 
 // WithTracer - setup tracing
-func (c *client) WithTracer(tracer *trace.TracerProvider) {
+func (c *client) WithTracer(tracer trace.TracerProvider) {
 	if tracer == nil {
 		return
 	}

@@ -7,6 +7,8 @@ import (
 	"context"
 
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/sdk/metric"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db/badger"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/cockroachdb"
@@ -17,12 +19,15 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/ram"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/redis"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/sqlite"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 // Use return implementation of db
-func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) {
+func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, metrics *metric.MeterProvider) (*Store, error) {
+	store := &Store{}
+
 	// Set configuration
 	store.setConfig()
 
@@ -30,7 +35,7 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 	case "cockroachdb":
 		store.Store = &cockroachdb.Store{}
 	case "postgres":
-		store.Store = &postgres.Store{}
+		store.Store = postgres.New(tracer, metrics)
 	case "mongo":
 		store.Store = &mongo.Store{}
 	case "redis":
@@ -46,9 +51,7 @@ func (store *Store) Use(ctx context.Context, log logger.Logger) (*Store, error) 
 	case "neo4j":
 		store.Store = &neo4j.Store{}
 	case "sqlite":
-		// disabled because it complicates cross-compilation
-		// store.Store = &sqlite.Store{}
-		fallthrough
+		store.Store = &sqlite.Store{}
 	default:
 		store.Store = &ram.Store{}
 	}

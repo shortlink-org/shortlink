@@ -43,33 +43,20 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, err := monitoring.New(logger)
+	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
+		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	pprofEndpoint, err := profiling.New(logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	service, err := NewLoggerApplication(logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -77,8 +64,26 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dataBus, cleanup5, err := mq_di.New(context, logger)
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
 	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewLoggerApplication(logger)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	dataBus, cleanup6, err := mq_di.New(context, logger)
+	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -87,6 +92,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 	}
 	event, err := InitLoggerMQ(context, logger, dataBus, service)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -96,6 +102,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 	}
 	loggerService, err := NewLoggerService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event)
 	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -104,6 +111,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		return nil, nil, err
 	}
 	return loggerService, func() {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -120,7 +128,7 @@ type LoggerService struct {
 	Config *config.Config
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -161,7 +169,7 @@ func NewLoggerApplication(logger2 logger.Logger) (*logger_application.Service, e
 func NewLoggerService(
 
 	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 

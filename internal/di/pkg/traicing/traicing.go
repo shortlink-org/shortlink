@@ -10,7 +10,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/traicing"
 )
 
-func New(ctx context.Context, log logger.Logger) (*trace.TracerProvider, func(), error) {
+func New(ctx context.Context, log logger.Logger) (trace.TracerProvider, func(), error) {
 	viper.SetDefault("TRACER_URI", "http://localhost:14268/api/traces")  // Tracing addr:host
 	viper.SetDefault("PYROSCOPE_URI", "http://pyroscope.pyroscope:4040") // Pyroscope addr:host
 
@@ -28,5 +28,5 @@ func New(ctx context.Context, log logger.Logger) (*trace.TracerProvider, func(),
 		return nil, func() {}, nil
 	}
 
-	return &tracer, tracerClose, nil
+	return tracer, tracerClose, nil
 }

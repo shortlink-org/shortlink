@@ -55,7 +55,7 @@ func (api *API) Run(
 	i18n *message.Printer,
 	config http_server.Config,
 	log logger.Logger,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	monitoring *monitoring.Monitoring,
 
 	// Delivery

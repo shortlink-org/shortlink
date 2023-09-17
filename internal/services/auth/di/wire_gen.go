@@ -40,27 +40,30 @@ func InitializeAuthService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, err := monitoring.New(logger)
+	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
-	if err != nil {
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	pprofEndpoint, err := profiling.New(logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
+	pprofEndpoint, err := profiling.New(logger)
 	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
+	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -68,6 +71,7 @@ func InitializeAuthService() (*LinkService, func(), error) {
 	}
 	auth, err := permission.Permission(context, logger)
 	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -76,6 +80,7 @@ func InitializeAuthService() (*LinkService, func(), error) {
 	}
 	linkService, err := NewAuthService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, auth)
 	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -83,6 +88,7 @@ func InitializeAuthService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	return linkService, func() {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -98,7 +104,7 @@ type LinkService struct {
 	Config *config.Config
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -113,7 +119,7 @@ var AuthSet = wire.NewSet(di.DefaultSet, permission.Permission, NewAuthService)
 func NewAuthService(
 
 	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 

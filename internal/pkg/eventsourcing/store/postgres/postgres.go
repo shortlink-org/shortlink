@@ -6,7 +6,6 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgxpool"
 	"go.opentelemetry.io/otel"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
@@ -100,7 +99,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 	}
 
 	var snapshot eventsourcing.Snapshot
-	row := s.db.QueryRow(ctx, q, args...)
+	row := s.db.QueryRowContext(ctx, q, args...)
 	err = row.Scan(&snapshot.AggregateId, &snapshot.AggregateType, &snapshot.AggregateVersion, &snapshot.Payload)
 	if err != nil && !errors.Is(err, pgx.ErrNoRows) {
 		return nil, nil, err
@@ -122,7 +121,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 		return nil, nil, err
 	}
 
-	rows, err := s.db.Query(ctx, q, args...)
+	rows, err := s.db.QueryContext(ctx, q, args...)
 	if err != nil {
 		return nil, nil, err
 	}

@@ -40,7 +40,7 @@ type APIService struct {
 	service domain.API
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -95,7 +95,7 @@ func NewAPIApplication(
 	ctx context.Context,
 	i18n *message.Printer,
 	logger logger.Logger,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	monitoring *monitoring.Monitoring,
 
 	// Delivery
@@ -133,7 +133,7 @@ func NewAPIService(
 
 	// Observability
 	monitoring *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 

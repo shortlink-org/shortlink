@@ -24,6 +24,20 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 		client: db.Store.GetConn().(*sql.DB),
 	}
 
+	// Migration
+	sqlStmt := `
+		CREATE TABLE IF NOT EXISTS links (
+			id integer not null primary key,
+			url      varchar(255) not null,
+			hash     varchar(255) not null,
+			describe text
+		);
+	`
+
+	if _, err := s.client.Exec(sqlStmt); err != nil {
+		return nil, err
+	}
+
 	return s, nil
 }
 

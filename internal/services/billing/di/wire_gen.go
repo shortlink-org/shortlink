@@ -52,33 +52,20 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, err := monitoring.New(logger)
+	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
+		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	pprofEndpoint, err := profiling.New(logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	rpcServer, cleanup5, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -86,8 +73,26 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dbStore, cleanup6, err := store.New(context, logger)
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
 	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	rpcServer, cleanup6, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	dbStore, cleanup7, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
+	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -97,6 +102,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	billingStore, err := NewBillingStore(context, logger, dbStore)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -107,6 +113,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	accountService, err := NewAccountApplication(logger, billingStore)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -117,6 +124,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	orderService, err := NewOrderApplication(logger, billingStore)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -127,6 +135,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	paymentService, err := NewPaymentApplication(logger, billingStore)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -137,6 +146,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	tariffService, err := NewTariffApplication(logger, billingStore)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -147,6 +157,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	server, err := NewBillingAPIServer(context, logger, tracerProvider, rpcServer, dbStore, accountService, orderService, paymentService, tariffService)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -157,6 +168,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	billingService, err := NewBillingService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, server)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -166,6 +178,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		return nil, nil, err
 	}
 	return billingService, func() {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -183,7 +196,7 @@ type BillingService struct {
 	Config *config.Config
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -261,7 +274,7 @@ func NewTariffApplication(logger2 logger.Logger, store2 *billing_store.BillingSt
 
 func NewBillingAPIServer(ctx2 context.Context, logger2 logger.Logger,
 
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	rpcServer *rpc.RPCServer, db2 *db.Store,
 
 	accountService *account_application.AccountService,
@@ -289,7 +302,7 @@ func NewBillingAPIServer(ctx2 context.Context, logger2 logger.Logger,
 func NewBillingService(
 
 	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 

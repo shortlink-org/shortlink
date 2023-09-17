@@ -92,7 +92,7 @@ type BFFWebService struct {
 	Config *config.Config
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -109,7 +109,7 @@ var BFFWebServiceSet = wire.NewSet(di.DefaultSet, BFFWebAPIService,
 
 func BFFWebAPIService(ctx2 context.Context, logger2 logger.Logger,
 
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 ) (*http.Server, error) {
 
 	API := http.Server{}
@@ -123,7 +123,7 @@ func BFFWebAPIService(ctx2 context.Context, logger2 logger.Logger,
 
 func NewBFFWebService(ctx2 context.Context, logger2 logger.Logger, config2 *config.Config,
 
-	tracer *trace.TracerProvider, monitoring2 *monitoring.Monitoring,
+	tracer trace.TracerProvider, monitoring2 *monitoring.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint, autoMaxPro2 autoMaxPro.AutoMaxPro,
 
 	httpAPIServer *http.Server,

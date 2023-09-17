@@ -83,7 +83,7 @@ type Service struct {
 	Log logger.Logger
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -107,7 +107,7 @@ var CSISet = wire.NewSet(di.DefaultSet, NewSCIDriver)
 func NewSCIDriver(
 
 	log logger.Logger, ctx2 context.Context, monitoring2 *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {

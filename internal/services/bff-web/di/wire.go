@@ -30,7 +30,7 @@ type BFFWebService struct {
 	Config *config.Config
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -53,7 +53,7 @@ func BFFWebAPIService(
 	// Common
 	ctx context.Context,
 	logger logger.Logger,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 ) (*api.Server, error) {
 	// Run API server
 	API := api.Server{}
@@ -72,7 +72,7 @@ func NewBFFWebService(
 	config *config.Config,
 
 	// Observability
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	monitoring *monitoring.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
 	autoMaxPro autoMaxPro.AutoMaxPro,

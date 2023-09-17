@@ -7,16 +7,16 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 )
 
 func TestMain(m *testing.M) {
 	// TODO: fix
-	// goleak.VerifyTestMain(m)
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"))
 }
 
 func TestSQLite(t *testing.T) {
 	store := Store{}
-
 	ctx := context.Background()
 
 	err := store.Init(ctx)

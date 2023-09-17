@@ -4,21 +4,22 @@ package sqlite
 
 import (
 	"context"
-	"database/sql"
 	"os"
 	"testing"
 
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 
-	db "github.com/shortlink-org/shortlink/internal/pkg/db/sqlite"
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/sqlite"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/mock"
 )
 
-//func TestMain(m *testing.M) {
-//	goleak.VerifyTestMain(m)
-//}
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+}
 
 func TestSQLite(t *testing.T) {
 	ctx := context.Background()
@@ -26,13 +27,15 @@ func TestSQLite(t *testing.T) {
 	err := os.Setenv("STORE_SQLITE_PATH", "/tmp/links-test.sqlite")
 	require.NoError(t, err, "Cannot set ENV")
 
-	st := db.Store{}
+	// Create store
+	st := &sqlite.Store{}
 	err = st.Init(ctx)
 	require.NoError(t, err)
 
-	store := Store{
-		client: st.GetConn().(*sql.DB),
-	}
+	// Create repository
+	store, err := New(ctx, &db.Store{
+		Store: st,
+	})
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)

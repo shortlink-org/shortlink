@@ -24,7 +24,7 @@ type API interface {
 		db *db.Store,
 		config http_server.Config,
 		log logger.Logger,
-		tracer *trace.TracerProvider,
+		tracer trace.TracerProvider,
 
 		// services
 		accountService *account_application.AccountService,
@@ -40,7 +40,7 @@ func (s *Server) Use(
 	ctx context.Context,
 	db *db.Store,
 	log logger.Logger,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 
 	// services
 	accountService *account_application.AccountService,

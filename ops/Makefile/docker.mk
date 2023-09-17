@@ -36,7 +36,7 @@ dep: ## Install dependencies for this project
 	@go install moul.io/protoc-gen-gotemplate@latest
 	@go install github.com/cloudflare/cfssl/cmd/...@latest
 	@go install golang.org/x/tools/cmd/goimports@latest
-	@go install github.com/vektra/mockery/v2@v2.33.0
+	@go install github.com/vektra/mockery/v2@v2.33.3
 
 	# for NodeJS
 	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen protoc-gen-ts @bufbuild/protobuf @bufbuild/protoc-gen-es @bufbuild/buf

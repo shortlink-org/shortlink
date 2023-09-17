@@ -44,7 +44,7 @@ type server struct {
 }
 
 // InitServer ...
-func InitServer(log logger.Logger, tracer *trace.TracerProvider, monitoring *monitoring.Monitoring) (*RPCServer, func(), error) {
+func InitServer(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*RPCServer, func(), error) {
 	viper.SetDefault("GRPC_SERVER_ENABLED", true) // gRPC server enable
 	if !viper.GetBool("GRPC_SERVER_ENABLED") {
 		return nil, nil, nil
@@ -90,7 +90,7 @@ func InitServer(log logger.Logger, tracer *trace.TracerProvider, monitoring *mon
 }
 
 // setConfig - set configuration
-func setServerConfig(log logger.Logger, tracer *trace.TracerProvider, monitoring *monitoring.Monitoring) (*server, error) {
+func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*server, error) {
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
@@ -138,7 +138,7 @@ func (s *server) WithMetrics(monitoring *monitoring.Monitoring) {
 }
 
 // WithTracer - setup tracing
-func (s *server) WithTracer(tracer *trace.TracerProvider) {
+func (s *server) WithTracer(tracer trace.TracerProvider) {
 	if tracer == nil {
 		return
 	}

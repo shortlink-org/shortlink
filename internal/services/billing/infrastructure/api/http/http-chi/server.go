@@ -35,7 +35,7 @@ func (api *API) Run(
 	db *db.Store,
 	config http_server.Config,
 	log logger.Logger,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 
 	// Services
 	accountService *account_application.AccountService,

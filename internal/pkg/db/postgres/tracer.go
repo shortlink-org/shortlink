@@ -4,11 +4,13 @@ import (
 	"context"
 
 	"github.com/jackc/pgx/v5"
-	semconv "go.opentelemetry.io/otel/semconv/v1.20.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
 	"go.opentelemetry.io/otel/trace"
 )
 
-type Tracer struct{}
+type Tracer struct {
+	trace.TracerProvider
+}
 
 func (t *Tracer) TraceQueryStart(ctx context.Context, conn *pgx.Conn, data pgx.TraceQueryStartData) context.Context {
 	span := trace.SpanFromContext(ctx)

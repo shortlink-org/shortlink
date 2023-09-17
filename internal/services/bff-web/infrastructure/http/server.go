@@ -9,12 +9,13 @@ import (
 	cors2 "github.com/go-chi/cors"
 	"github.com/go-chi/render"
 	"github.com/riandyrn/otelchi"
-	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
-	additionalMiddleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
+	additionalMiddleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware"
 
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -27,7 +28,7 @@ func (api *Server) run(
 	ctx context.Context,
 	config http_server.Config,
 	log logger.Logger,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 ) error {
 	api.ctx = ctx
 	api.jsonpb = protojson.MarshalOptions{
@@ -91,7 +92,7 @@ func (s *Server) Run(
 	// Common
 	ctx context.Context,
 	log logger.Logger,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 ) (*Server, error) {
 	// API port
 	viper.SetDefault("API_PORT", 7070) // nolint:gomnd

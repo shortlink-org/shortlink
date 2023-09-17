@@ -8,7 +8,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 	"github.com/spf13/viper"
 	"github.com/uptrace/opentelemetry-go-extra/otelsql"
-	semconv "go.opentelemetry.io/otel/semconv/v1.20.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
 )
 
 // Config ...
@@ -40,19 +40,6 @@ func (s *Store) Init(ctx context.Context) error {
 	s.client.SetMaxOpenConns(SET_MAX_OPEN_CONNS)
 	s.client.SetMaxIdleConns(SET_MAX_IDLE_CONNS)
 	s.client.SetConnMaxLifetime(time.Minute)
-
-	sqlStmt := `
-		CREATE TABLE IF NOT EXISTS links (
-			id integer not null primary key,
-			url      varchar(255) not null,
-			hash     varchar(255) not null,
-			describe text
-		);
-	`
-
-	if _, err = s.client.Exec(sqlStmt); err != nil {
-		panic(err)
-	}
 
 	return nil
 }

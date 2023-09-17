@@ -3,6 +3,11 @@
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$/internal/pkg/db/postgres" />
     <go_parameters value="-race -v -tags=unit -cover" />
+    <EXTENSION ID="software.aws.toolkits.jetbrains.core.execution.GoAwsConnectionRunConfigurationExtension">
+      <option name="credential" />
+      <option name="region" />
+      <option name="useCurrentConnection" value="false" />
+    </EXTENSION>
     <root_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />
     <package value="github.com/shortlink-org/shortlink/internal/pkg/db/postgres" />

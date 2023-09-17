@@ -61,49 +61,36 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, err := monitoring.New(logger)
+	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
+		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	pprofEndpoint, err := profiling.New(logger)
 	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
 	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	auth, err := permission.Permission(context, logger)
-	if err != nil {
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	dataBus, cleanup5, err := mq_di.New(context, logger)
-	if err != nil {
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -112,7 +99,16 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metadataServiceClient, err := NewMetadataRPCClient(clientConn)
+	dataBus, cleanup6, err := mq_di.New(context, logger)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	clientConn, cleanup7, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -122,8 +118,20 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dbStore, cleanup7, err := store.New(context, logger)
+	metadataServiceClient, err := NewMetadataRPCClient(clientConn)
 	if err != nil {
+		cleanup7()
+		cleanup6()
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	dbStore, cleanup8, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
+	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -134,6 +142,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	cacheCache, err := cache.New(context)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -145,6 +154,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	crudStore, err := NewLinkStore(context, logger, dbStore, cacheCache)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -156,6 +166,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	service, err := NewLinkApplication(logger, dataBus, metadataServiceClient, crudStore)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -167,6 +178,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	cqsStore, err := NewCQSLinkStore(context, logger, dbStore, cacheCache)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -178,6 +190,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	queryStore, err := NewQueryLinkStore(context, logger, dbStore, cacheCache)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -189,6 +202,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	link_cqrsService, err := NewLinkCQRSApplication(logger, cqsStore, queryStore)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -200,6 +214,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	sitemapService, err := NewSitemapApplication(logger, dataBus)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -211,6 +226,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	event, err := InitLinkMQ(context, logger, dataBus, service)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -220,8 +236,9 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup8, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	rpcServer, cleanup9, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
+		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -233,6 +250,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	link, err := NewLinkCQRSRPCServer(rpcServer, link_cqrsService, logger)
 	if err != nil {
+		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -245,6 +263,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	v1Link, err := NewLinkRPCServer(rpcServer, service, logger)
 	if err != nil {
+		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -257,6 +276,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	response, err := NewRunRPCServer(rpcServer, link, v1Link)
 	if err != nil {
+		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -269,6 +289,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	sitemap, err := NewSitemapRPCServer(rpcServer, sitemapService, logger)
 	if err != nil {
+		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -281,6 +302,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, auth, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
 	if err != nil {
+		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -292,6 +314,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	return linkService, func() {
+		cleanup9()
 		cleanup8()
 		cleanup7()
 		cleanup6()
@@ -311,7 +334,7 @@ type LinkService struct {
 	Config *config.Config
 
 	// Observability
-	Tracer        *trace.TracerProvider
+	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
@@ -466,7 +489,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceCl
 func NewLinkService(
 
 	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
-	tracer *trace.TracerProvider,
+	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 

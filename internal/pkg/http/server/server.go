@@ -11,7 +11,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-func New(ctx context.Context, h http.Handler, config Config, tracer *trace.TracerProvider) *http.Server {
+func New(ctx context.Context, h http.Handler, config Config, tracer trace.TracerProvider) *http.Server {
 	handler := http.TimeoutHandler(h, config.Timeout, fmt.Sprintf(`{"error": "%s"}`, TimeoutMessage))
 
 	server := &http.Server{

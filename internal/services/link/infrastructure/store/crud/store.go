@@ -23,6 +23,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/ram"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/redis"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/sqlite"
 )
 
 // New return implementation of db
@@ -65,6 +66,11 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 		}
 	case "badger":
 		s.store, err = badger.New(ctx)
+		if err != nil {
+			return nil, err
+		}
+	case "sqlite":
+		s.store, err = sqlite.New(ctx, db)
 		if err != nil {
 			return nil, err
 		}

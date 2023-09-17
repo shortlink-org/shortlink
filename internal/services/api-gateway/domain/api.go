@@ -24,7 +24,7 @@ type API interface {
 		i18n *message.Printer,
 		config http_server.Config,
 		log logger.Logger,
-		tracer *trace.TracerProvider,
+		tracer trace.TracerProvider,
 
 		// delivery
 		link_rpc link_rpc.LinkServiceClient,
