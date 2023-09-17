@@ -13,9 +13,9 @@ engine: gotpl
 type: application
 deprecated: false
 dependencies:
-  - name: shortlink-common
-    version: 0.5.11
-    repository: "file://../shortlink-common"
+  - name: shortlink-template
+    version: 0.6.0
+    repository: "file://../shortlink-template"
   - name: rook-ceph
     version: v1.12.4
     repository: https://charts.rook.io/release

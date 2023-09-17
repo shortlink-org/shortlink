@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-common | shortlink-common | 0.5.10 |
+| file://../shortlink-template | shortlink-common | 0.5.10 |
 
 ## Values
 

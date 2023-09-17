@@ -14,7 +14,7 @@ Kubernetes: `>= 1.24.0 || >= v1.24.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-common | shortlink-common | 0.2.4 |
+| file://../../shortlink-template | shortlink-common | 0.2.4 |
 | https://grafana.github.io/helm-charts | grafana | 6.48.2 |
 | https://grafana.github.io/helm-charts | loki | 3.8.0 |
 | https://grafana.github.io/helm-charts | phlare | 0.1.2 |

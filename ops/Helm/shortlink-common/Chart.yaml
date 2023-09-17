@@ -1,8 +1,8 @@
 apiVersion: v2
 appVersion: "1.0.0"
 name: shortlink-common
-description: Shortlink common templates
-version: 0.5.11
+description: Shortlink common services
+version: 0.1.0
 kubeVersion: ">= 1.28.0 || >= v1.28.0-0"
 keywords:
   - shortlink
@@ -14,9 +14,9 @@ maintainers:
     name: batazor
     url: batazor.ru
 engine: gotpl
-type: library
+type: application
 deprecated: false
 dependencies:
-  - name: common
-    version: 2.11.1
-    repository: oci://registry-1.docker.io/bitnamicharts
+  - name: shortlink-template
+    version: 0.6.0
+    repository: "file://../shortlink-template"
