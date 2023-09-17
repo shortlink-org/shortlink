@@ -8,6 +8,8 @@ oncall:
   base_url: grafana.shortlink.best
 
   engine:
+    replicaCount: 0
+
     resources:
       limits:
         cpu: 100m
@@ -20,6 +22,8 @@ oncall:
     enabled: false
 
   celery:
+    replicaCount: 0
+
     resources:
       limits:
         cpu: 100m
