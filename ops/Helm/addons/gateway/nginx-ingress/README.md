@@ -146,7 +146,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"false"
+"true"
 </pre>
 </div>
 			</td>

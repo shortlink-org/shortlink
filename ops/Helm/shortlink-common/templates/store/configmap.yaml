@@ -42,3 +42,4 @@ data:
 
     -- Grant grafana access to pg_statio_user_tables via pg_read_all_stats role
     GRANT pg_read_all_stats TO grafana;
+    GRANT pg_read_all_settings TO grafana;

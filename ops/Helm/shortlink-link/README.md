@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-common | 0.5.10 |
+| file://../shortlink-template | shortlink-template | 0.6.0 |
 
 ## Values
 
@@ -35,7 +35,49 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L62">deploy.env.GRPC_CLIENT_HOST</a></td>
+			<td id="deploy--annotations--"instrumentation--opentelemetry--io/inject-go""><a href="./values.yaml#L46">deploy.annotations."instrumentation.opentelemetry.io/inject-go"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--annotations--"instrumentation--opentelemetry--io/otel-go-auto-target-exe""><a href="./values.yaml#L48">deploy.annotations."instrumentation.opentelemetry.io/otel-go-auto-target-exe"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/app"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--annotations--"sidecar--opentelemetry--io/inject""><a href="./values.yaml#L47">deploy.annotations."sidecar.opentelemetry.io/inject"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"sidecar"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L67">deploy.env.GRPC_CLIENT_HOST</a></td>
 			<td>
 string
 </td>
@@ -49,7 +91,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L58">deploy.env.MQ_ENABLED</a></td>
+			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L63">deploy.env.MQ_ENABLED</a></td>
 			<td>
 bool
 </td>
@@ -63,7 +105,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_KAFKA_URI"><a href="./values.yaml#L60">deploy.env.MQ_KAFKA_URI</a></td>
+			<td id="deploy--env--MQ_KAFKA_URI"><a href="./values.yaml#L65">deploy.env.MQ_KAFKA_URI</a></td>
 			<td>
 string
 </td>
@@ -77,7 +119,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L59">deploy.env.MQ_TYPE</a></td>
+			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L64">deploy.env.MQ_TYPE</a></td>
 			<td>
 string
 </td>
@@ -91,7 +133,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L66">deploy.env.STORE_REDIS_URI</a></td>
+			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L71">deploy.env.STORE_REDIS_URI</a></td>
 			<td>
 string
 </td>
@@ -105,7 +147,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L65">deploy.env.STORE_TYPE</a></td>
+			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L70">deploy.env.STORE_TYPE</a></td>
 			<td>
 string
 </td>
@@ -119,7 +161,7 @@ string
 			<td>Default store config</td>
 		</tr>
 		<tr>
-			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L61">deploy.env.TRACER_URI</a></td>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L66">deploy.env.TRACER_URI</a></td>
 			<td>
 string
 </td>
@@ -133,7 +175,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--envSecret[0]--name"><a href="./values.yaml#L69">deploy.envSecret[0].name</a></td>
+			<td id="deploy--envSecret[0]--name"><a href="./values.yaml#L74">deploy.envSecret[0].name</a></td>
 			<td>
 string
 </td>
@@ -147,7 +189,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L72">deploy.envSecret[0].secretKeyRef.key</a></td>
+			<td id="deploy--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L77">deploy.envSecret[0].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -161,7 +203,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L71">deploy.envSecret[0].secretKeyRef.name</a></td>
+			<td id="deploy--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L76">deploy.envSecret[0].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -175,7 +217,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="./values.yaml#L75">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L80">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -189,21 +231,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="./values.yaml#L76">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L81">deploy.image.tag</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.31"
+"0.16.34"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="./values.yaml#L79">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L84">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -222,7 +264,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L85">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L90">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -241,7 +283,7 @@ object
 			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits"><a href="./values.yaml#L50">deploy.resources.limits</a></td>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L55">deploy.resources.limits</a></td>
 			<td>
 object
 </td>
@@ -258,7 +300,7 @@ object
 			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L54">deploy.resources.requests.cpu</a></td>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L59">deploy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -272,7 +314,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L55">deploy.resources.requests.memory</a></td>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L60">deploy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -356,7 +398,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L105">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L110">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -370,7 +412,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L110">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L115">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -440,7 +482,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L93">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L98">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -454,7 +496,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L94">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L99">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -468,7 +510,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L95">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L100">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -482,7 +524,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L96">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L101">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -496,7 +538,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--name"><a href="./values.yaml#L97">service.ports[1].name</a></td>
+			<td id="service--ports[1]--name"><a href="./values.yaml#L102">service.ports[1].name</a></td>
 			<td>
 string
 </td>
@@ -510,7 +552,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--port"><a href="./values.yaml#L98">service.ports[1].port</a></td>
+			<td id="service--ports[1]--port"><a href="./values.yaml#L103">service.ports[1].port</a></td>
 			<td>
 int
 </td>
@@ -524,7 +566,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--protocol"><a href="./values.yaml#L99">service.ports[1].protocol</a></td>
+			<td id="service--ports[1]--protocol"><a href="./values.yaml#L104">service.ports[1].protocol</a></td>
 			<td>
 string
 </td>
@@ -538,7 +580,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--public"><a href="./values.yaml#L100">service.ports[1].public</a></td>
+			<td id="service--ports[1]--public"><a href="./values.yaml#L105">service.ports[1].public</a></td>
 			<td>
 bool
 </td>
@@ -552,7 +594,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L91">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L96">service.type</a></td>
 			<td>
 string
 </td>

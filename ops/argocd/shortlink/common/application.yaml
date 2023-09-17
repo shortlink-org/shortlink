@@ -14,9 +14,12 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/argocd/kustomize/shortlink-common
+    path: ops/Helm/shortlink-common
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
   syncPolicy:
     automated:
       prune: true

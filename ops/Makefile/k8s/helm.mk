@@ -21,6 +21,8 @@ helm-docs: ### Generate HELM docs
 		--workdir="/helm-docs" \
 		-u "$(id -u)" \
 		jnorwood/helm-docs:v1.11.0 --template-files=/helm-docs/README.md.gotmpl
+	# TODO: remove artifact after generation docs
+	@rm ops/Helm/README.md.gotmpl
 
 .PHONY: helm-upgrade
 helm-upgrade: ### Upgrade all helm charts

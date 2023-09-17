@@ -112,42 +112,14 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--defaultConfig--tracing--max_path_tag_length"><a href="./values.yaml#L34">istiod.meshConfig.defaultConfig.tracing.max_path_tag_length</a></td>
+			<td id="istiod--meshConfig--enablePrometheusMerge"><a href="./values.yaml#L32">istiod.meshConfig.enablePrometheusMerge</a></td>
 			<td>
-int
+bool
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-99999
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="istiod--meshConfig--defaultConfig--tracing--sampling"><a href="./values.yaml#L35">istiod.meshConfig.defaultConfig.tracing.sampling</a></td>
-			<td>
-int
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-100
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="istiod--meshConfig--defaultConfig--tracing--zipkin--address"><a href="./values.yaml#L37">istiod.meshConfig.defaultConfig.tracing.zipkin.address</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"grafana-tempo.grafana:9411"
+true
 </pre>
 </div>
 			</td>
@@ -168,7 +140,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--extensionProviders[0]--envoyOtelAls--port"><a href="./values.yaml#L43">istiod.meshConfig.extensionProviders[0].envoyOtelAls.port</a></td>
+			<td id="istiod--meshConfig--extensionProviders[0]--envoyOtelAls--port"><a href="./values.yaml#L47">istiod.meshConfig.extensionProviders[0].envoyOtelAls.port</a></td>
 			<td>
 int
 </td>
@@ -182,21 +154,21 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--extensionProviders[0]--envoyOtelAls--service"><a href="./values.yaml#L42">istiod.meshConfig.extensionProviders[0].envoyOtelAls.service</a></td>
+			<td id="istiod--meshConfig--extensionProviders[0]--envoyOtelAls--service"><a href="./values.yaml#L46">istiod.meshConfig.extensionProviders[0].envoyOtelAls.service</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"grafana-tempo.grafana"
+"grafana-tempo.grafana.svc.cluster.local"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--extensionProviders[0]--name"><a href="./values.yaml#L40">istiod.meshConfig.extensionProviders[0].name</a></td>
+			<td id="istiod--meshConfig--extensionProviders[0]--name"><a href="./values.yaml#L44">istiod.meshConfig.extensionProviders[0].name</a></td>
 			<td>
 string
 </td>
@@ -204,6 +176,48 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "otel"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="istiod--meshConfig--extensionProviders[1]--name"><a href="./values.yaml#L48">istiod.meshConfig.extensionProviders[1].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"otel-tracing"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="istiod--meshConfig--extensionProviders[1]--opentelemetry--port"><a href="./values.yaml#L51">istiod.meshConfig.extensionProviders[1].opentelemetry.port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+4317
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="istiod--meshConfig--extensionProviders[1]--opentelemetry--service"><a href="./values.yaml#L50">istiod.meshConfig.extensionProviders[1].opentelemetry.service</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"otel-collector-collector.grafana.svc.cluster.local"
 </pre>
 </div>
 			</td>
@@ -252,7 +266,7 @@ float
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--metadataExchange--wasmEnabled"><a href="./values.yaml#L54">istiod.telemetry.v2.metadataExchange.wasmEnabled</a></td>
+			<td id="istiod--telemetry--v2--metadataExchange--wasmEnabled"><a href="./values.yaml#L62">istiod.telemetry.v2.metadataExchange.wasmEnabled</a></td>
 			<td>
 bool
 </td>
@@ -266,7 +280,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeInterval"><a href="./values.yaml#L59">istiod.telemetry.v2.prometheus.configOverride.scrapeInterval</a></td>
+			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeInterval"><a href="./values.yaml#L67">istiod.telemetry.v2.prometheus.configOverride.scrapeInterval</a></td>
 			<td>
 string
 </td>
@@ -280,7 +294,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeTimeout"><a href="./values.yaml#L60">istiod.telemetry.v2.prometheus.configOverride.scrapeTimeout</a></td>
+			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeTimeout"><a href="./values.yaml#L68">istiod.telemetry.v2.prometheus.configOverride.scrapeTimeout</a></td>
 			<td>
 string
 </td>
@@ -294,7 +308,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--prometheus--enabled"><a href="./values.yaml#L56">istiod.telemetry.v2.prometheus.enabled</a></td>
+			<td id="istiod--telemetry--v2--prometheus--enabled"><a href="./values.yaml#L64">istiod.telemetry.v2.prometheus.enabled</a></td>
 			<td>
 bool
 </td>
@@ -308,7 +322,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--prometheus--wasmEnabled"><a href="./values.yaml#L57">istiod.telemetry.v2.prometheus.wasmEnabled</a></td>
+			<td id="istiod--telemetry--v2--prometheus--wasmEnabled"><a href="./values.yaml#L65">istiod.telemetry.v2.prometheus.wasmEnabled</a></td>
 			<td>
 bool
 </td>
