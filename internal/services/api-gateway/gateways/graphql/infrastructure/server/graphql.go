@@ -41,7 +41,7 @@ type API struct {
 // GetHandler ...
 func (api *API) GetHandler(traceProvider trace.TracerProvider) *relay.Handler {
 	// tracing
-	tracer := otelgraphql.NewTracer(otelgraphql.WithTracerProvider(*traceProvider))
+	tracer := otelgraphql.NewTracer(otelgraphql.WithTracerProvider(traceProvider))
 
 	buf := bytes.Buffer{}
 

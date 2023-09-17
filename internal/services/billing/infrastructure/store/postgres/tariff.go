@@ -6,6 +6,7 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
@@ -41,7 +42,7 @@ func (t *Tariff) Get(ctx context.Context, id string) (*v1.Tariff, error) {
 		return nil, err
 	}
 
-	row := t.client.QueryRowContext(ctx, q, args...)
+	row := t.client.QueryRow(ctx, q, args...)
 	errScan := row.Scan(&resp.Id, &resp.Name, &resp.Payload)
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return resp, nil
@@ -62,7 +63,7 @@ func (t *Tariff) List(ctx context.Context, filter interface{}) (*v1.Tariffs, err
 		return nil, err
 	}
 
-	rows, err := t.client.QueryContext(ctx, q, args...)
+	rows, err := t.client.Query(ctx, q, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -93,7 +94,7 @@ func (t *Tariff) Add(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
 		return nil, err
 	}
 
-	row := t.client.QueryRowContext(ctx, q, args...)
+	row := t.client.QueryRow(ctx, q, args...)
 	errScan := row.Scan()
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return in, nil
@@ -117,7 +118,7 @@ func (t *Tariff) Update(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) 
 		return nil, err
 	}
 
-	row := t.client.QueryRowContext(ctx, q, args...)
+	row := t.client.QueryRow(ctx, q, args...)
 	errScan := row.Scan()
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return in, nil
@@ -139,7 +140,7 @@ func (t *Tariff) Delete(ctx context.Context, id string) error {
 		return err
 	}
 
-	_, err = t.client.ExecContext(ctx, q, args...)
+	_, err = t.client.Exec(ctx, q, args...)
 	if err != nil {
 		return err
 	}

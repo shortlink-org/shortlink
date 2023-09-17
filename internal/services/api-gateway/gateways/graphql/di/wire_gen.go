@@ -48,34 +48,20 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, err := monitoring.New(logger)
+	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
+		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	pprofEndpoint, err := profiling.New(logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	printer := i18n.New(context)
-	rpcServer, cleanup5, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -83,8 +69,27 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
 	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	printer := i18n.New(context)
+	rpcServer, cleanup6, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	clientConn, cleanup7, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
+	if err != nil {
+		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -94,6 +99,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	linkServiceClient, err := NewLinkRPCClient(clientConn)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -104,6 +110,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	linkCommandServiceClient, err := NewLinkCommandRPCClient(clientConn)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -114,6 +121,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	linkQueryServiceClient, err := NewLinkQueryRPCClient(clientConn)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -124,6 +132,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	sitemapServiceClient, err := NewSitemapServiceClient(clientConn)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -134,6 +143,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, monitoringMonitoring, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -144,6 +154,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 	}
 	apiService, err := NewAPIService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, api)
 	if err != nil {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -153,6 +164,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		return nil, nil, err
 	}
 	return apiService, func() {
+		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()

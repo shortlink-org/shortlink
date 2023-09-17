@@ -46,7 +46,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, err := monitoring.New(logger)
+	monitoringMonitoring, cleanup4, err := monitoring.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
@@ -55,13 +55,15 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	pprofEndpoint, err := profiling.New(logger)
 	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
 	if err != nil {
+		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -69,6 +71,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	server, err := BFFWebAPIService(context, logger, tracerProvider)
 	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -77,6 +80,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	bffWebService := NewBFFWebService(context, logger, configConfig, tracerProvider, monitoringMonitoring, pprofEndpoint, autoMaxProAutoMaxPro, server)
 	return bffWebService, func() {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()

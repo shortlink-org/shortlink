@@ -32,33 +32,20 @@ func InitializeSCIDriver() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, err := monitoring.New(logger)
+	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
+		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
 	pprofEndpoint, err := profiling.New(logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	autoMaxProAutoMaxPro, cleanup4, err := autoMaxPro.New(logger)
-	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	service, err := NewSCIDriver(logger, context, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -66,7 +53,25 @@ func InitializeSCIDriver() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewSCIDriver(logger, context, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	return service, func() {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
