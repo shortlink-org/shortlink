@@ -18,7 +18,9 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
+	goleak.VerifyTestMain(m,
+		goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"),
+		goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"))
 }
 
 func TestSQLite(t *testing.T) {
@@ -62,5 +64,9 @@ func TestSQLite(t *testing.T) {
 	t.Run("Close", func(t *testing.T) {
 		errDeleteFile := os.Remove(viper.GetString("STORE_SQLITE_PATH"))
 		require.NoError(t, errDeleteFile)
+	})
+
+	t.Cleanup(func() {
+		require.NoError(t, st.Close())
 	})
 }

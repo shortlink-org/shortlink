@@ -2,24 +2,21 @@ package sqlite
 
 import (
 	"context"
-	"database/sql"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 	"github.com/spf13/viper"
 	"github.com/uptrace/opentelemetry-go-extra/otelsql"
+	"go.opentelemetry.io/otel/sdk/metric"
 	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
+	"go.opentelemetry.io/otel/trace"
 )
 
-// Config ...
-type Config struct {
-	Path string
-}
-
-// Store implementation of db interface
-type Store struct {
-	client *sql.DB
-	config Config
+// New - create new instance of Store
+func New(tracer trace.TracerProvider, metrics *metric.MeterProvider) *Store {
+	return &Store{
+		metrics: metrics,
+	}
 }
 
 // Init ...
@@ -32,7 +29,19 @@ func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	s.setConfig()
 
-	s.client, err = otelsql.Open("sqlite3", s.config.Path, otelsql.WithAttributes(semconv.DBSystemSqlite), otelsql.WithDBName("SQLite"))
+	options := []otelsql.Option{
+		otelsql.WithAttributes(semconv.DBSystemSqlite),
+		otelsql.WithDBName("SQLite"),
+	}
+
+	if s.metrics != nil {
+		options = append(options, otelsql.WithMeterProvider(s.metrics))
+	}
+	if s.tracer != nil {
+		options = append(options, otelsql.WithTracerProvider(s.tracer))
+	}
+
+	s.client, err = otelsql.Open("sqlite3", s.config.Path, options...)
 	if err != nil {
 		return err
 	}

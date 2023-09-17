@@ -51,7 +51,7 @@ func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, me
 	case "neo4j":
 		store.Store = &neo4j.Store{}
 	case "sqlite":
-		store.Store = &sqlite.Store{}
+		store.Store = sqlite.New(tracer, metrics)
 	default:
 		store.Store = &ram.Store{}
 	}
