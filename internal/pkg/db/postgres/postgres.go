@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/exaring/otelpgx"
 	"github.com/jackc/pgx/v5/pgxpool"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
@@ -75,7 +76,14 @@ func getConfig(tracer *Tracer) (*Config, error) {
 	}
 
 	// Instrument the pgxpool config with OpenTelemetry.
-	cnfPool.ConnConfig.Tracer = tracer
+	options := []otelpgx.Option{
+		otelpgx.WithIncludeQueryParameters(),
+	}
+	if tracer.TracerProvider != nil {
+		options = append(options, otelpgx.WithTracerProvider(tracer))
+	}
+
+	cnfPool.ConnConfig.Tracer = otelpgx.NewTracer(options...)
 
 	return &Config{
 		config: cnfPool,
