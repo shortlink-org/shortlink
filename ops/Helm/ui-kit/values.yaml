@@ -40,7 +40,7 @@ deploy:
       memory: 64Mi
 
   # -- Annotations to be added to controller pods
-  annotations: []
+  annotations: {}
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/ui-kit

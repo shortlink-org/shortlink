@@ -47,7 +47,7 @@ deploy:
     requests: {}
 
   # -- Annotations to be added to controller pods
-  annotations: []
+  annotations: {}
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/backstage
