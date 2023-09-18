@@ -55,10 +55,10 @@ deploy:
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
-      cpu: 100m
+      cpu: 150m
       memory: 128Mi
     requests:
-      cpu: 10m
+      cpu: 20m
       memory: 32Mi
 
   podSecurityContext:
