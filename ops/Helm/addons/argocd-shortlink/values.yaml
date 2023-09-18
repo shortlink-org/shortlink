@@ -4,4 +4,45 @@
 # Ref: https://github.com/argoproj/argo-cd
 
 kargo:
-  enabled: false
+  enabled: true
+
+  api:
+    argocd:
+      urls:
+        - https://argocd.shortlink.best
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+  controller:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+  webhooksServer:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+  garbageCollector:
+    workers: 1
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi

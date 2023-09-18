@@ -11,7 +11,7 @@ spec:
   promotionMechanisms:
     gitRepoUpdates:
       - repoURL: git@github.com:shortlink-org/shortlink.git
-        writeBranch: env/test
+        writeBranch: env/stage
     argoCDAppUpdates:
       - appName: kargo-demo-test
         appNamespace: argocd
