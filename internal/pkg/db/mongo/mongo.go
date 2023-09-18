@@ -30,7 +30,7 @@ func (m *Store) Init(ctx context.Context) error {
 	// Connect to MongoDB
 	opts := options.Client().ApplyURI(m.config.URI)
 	opts.Monitor = otelmongo.NewMonitor()
-	m.client, err = mongo.NewClient(opts)
+	m.client, err = mongo.Connect(ctx, opts)
 	if err != nil {
 		return err
 	}
