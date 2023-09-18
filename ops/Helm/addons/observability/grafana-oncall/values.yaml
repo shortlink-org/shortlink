@@ -8,28 +8,28 @@ oncall:
   base_url: grafana.shortlink.best
 
   engine:
-    replicaCount: 0
+    replicaCount: 1
 
     resources:
       limits:
         cpu: 100m
         memory: 100Mi
       requests:
-        cpu: 5m
+        cpu: 15m
         memory: 50Mi
 
   migrate:
     enabled: false
 
   celery:
-    replicaCount: 0
+    replicaCount: 1
 
     resources:
       limits:
         cpu: 100m
         memory: 100Mi
       requests:
-        cpu: 5m
+        cpu: 15m
         memory: 50Mi
 
   ingress:

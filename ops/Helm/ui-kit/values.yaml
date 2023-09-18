@@ -36,7 +36,7 @@ deploy:
       cpu: 100m
       memory: 128Mi
     requests:
-      cpu: 5m
+      cpu: 15m
       memory: 64Mi
 
   # -- Annotations to be added to controller pods

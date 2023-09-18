@@ -43,7 +43,7 @@ spiffe:
     driver:
       resources:
         requests:
-          cpu: 5m
+          cpu: 15m
           memory: 5Mi
         limits:
           cpu: 100m

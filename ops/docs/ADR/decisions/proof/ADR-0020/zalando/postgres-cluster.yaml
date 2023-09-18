@@ -35,7 +35,7 @@ spec:
           cpu: 500m
           memory: 256M
         requests:
-          cpu: 5m
+          cpu: 15m
           memory: 50M
       env:
         - name: "DATA_SOURCE_URI"
