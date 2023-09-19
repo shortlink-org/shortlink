@@ -6,13 +6,13 @@ argo-rollouts:
   controller:
     replicas: 1
 
-  #    resources:
-  #      limits:
-  #        cpu: 300m
-  #        memory: 2Gi
-  #      requests:
-  #        cpu: 20m
-  #        memory: 16Mi
+    resources:
+      limits:
+        cpu: 300m
+        memory: 2Gi
+      requests:
+        cpu: 30m
+        memory: 50Mi
 
   dashboard:
     enabled: true
