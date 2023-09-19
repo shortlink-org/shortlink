@@ -1,6 +1,6 @@
 # grafana-oncall
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | oncall | 1.3.37 |
+| https://grafana.github.io/helm-charts | oncall | 1.3.38 |
 | oci://registry-1.docker.io/bitnamicharts | redis | 18.0.4 |
 
 ## Values
@@ -77,7 +77,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"5m"
+"15m"
 </pre>
 </div>
 			</td>
@@ -175,7 +175,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"5m"
+"15m"
 </pre>
 </div>
 			</td>
@@ -196,7 +196,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalGrafana--url"><a href="./values.yaml#L85">oncall.externalGrafana.url</a></td>
+			<td id="oncall--externalGrafana--url"><a href="./values.yaml#L87">oncall.externalGrafana.url</a></td>
 			<td>
 string
 </td>
@@ -280,6 +280,20 @@ string
 			<td></td>
 		</tr>
 		<tr>
+			<td id="oncall--externalRedis--existingSecret"><a href="./values.yaml#L80">oncall.externalRedis.existingSecret</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"redis"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="oncall--externalRedis--host"><a href="./values.yaml#L79">oncall.externalRedis.host</a></td>
 			<td>
 string
@@ -294,7 +308,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--grafana--enabled"><a href="./values.yaml#L82">oncall.grafana.enabled</a></td>
+			<td id="oncall--externalRedis--passwordKey"><a href="./values.yaml#L81">oncall.externalRedis.passwordKey</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"redis-password"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--grafana--enabled"><a href="./values.yaml#L84">oncall.grafana.enabled</a></td>
 			<td>
 bool
 </td>
@@ -476,7 +504,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--oncall"><a href="./values.yaml#L87">oncall.oncall</a></td>
+			<td id="oncall--oncall"><a href="./values.yaml#L89">oncall.oncall</a></td>
 			<td>
 object
 </td>

@@ -62,7 +62,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"5m"
+"15m"
 </pre>
 </div>
 			</td>

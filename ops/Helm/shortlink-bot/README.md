@@ -51,12 +51,12 @@ list
 		<tr>
 			<td id="deploy--annotations"><a href="./values.yaml#L41">deploy.annotations</a></td>
 			<td>
-list
+object
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-[]
+{}
 </pre>
 </div>
 			</td>
@@ -168,7 +168,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.34"
+"0.16.37"
 </pre>
 </div>
 			</td>

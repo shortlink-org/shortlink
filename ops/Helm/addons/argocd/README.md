@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.46.4 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.46.6 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.4.1 |
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.32.0 |
 | https://argoproj.github.io/argo-helm | argo-workflows | 0.33.3 |
@@ -586,7 +586,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"5m"
+"15m"
 </pre>
 </div>
 			</td>
