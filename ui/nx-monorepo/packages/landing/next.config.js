@@ -1,5 +1,8 @@
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
+  swcMinify: true,
+  cacheOnFrontendNav: true,
+  aggressiveFrontEndNavCaching: true,
 })
 
 /** @type {import('next').NextConfig} */
