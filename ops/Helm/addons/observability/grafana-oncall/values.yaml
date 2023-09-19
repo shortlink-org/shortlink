@@ -81,9 +81,8 @@ oncall:
 
   externalRedis:
     host: redis-master.grafana
-    password:
-    existingSecret:
-    passwordKey:
+    existingSecret: redis-password
+    passwordKey: redis
 
   grafana:
     enabled: false
