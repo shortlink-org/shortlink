@@ -16,3 +16,6 @@ kubescape:
   kubescape:
     serviceMonitor:
       enabled: true
+
+  configurations:
+    otelUrl: http://grafana-tempo.grafana:4317
