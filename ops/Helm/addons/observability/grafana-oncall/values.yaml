@@ -56,17 +56,18 @@ oncall:
     type: postgresql
 
   postgresql:
-    enabled: true
-    auth:
-      database: oncall
-      existingSecret: grafana-oncall-postgresql
+    enabled: false
 
-    global:
-      postgresql:
-        auth:
-          username: oncall
-          password: oncall
-          database: oncall
+  externalPostgresql:
+    host:
+    port:
+    db_name: oncall
+    user:
+    password:
+    # Use an existing secret for the database password
+    existingSecret:
+    # The key in the secret containing the database password
+    passwordKey:
 
   mariadb:
     enabled: false
