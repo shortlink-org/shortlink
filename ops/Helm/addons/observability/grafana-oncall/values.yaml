@@ -57,6 +57,9 @@ oncall:
 
   postgresql:
     enabled: true
+    auth:
+      database: oncall
+      existingSecret: grafana-oncall-postgresql
 
   mariadb:
     enabled: false
