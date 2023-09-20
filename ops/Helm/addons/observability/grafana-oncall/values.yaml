@@ -61,6 +61,13 @@ oncall:
       database: oncall
       existingSecret: grafana-oncall-postgresql
 
+    global:
+      postgresql:
+        auth:
+          username: oncall
+          password: oncall
+          database: oncall
+
   mariadb:
     enabled: false
 
