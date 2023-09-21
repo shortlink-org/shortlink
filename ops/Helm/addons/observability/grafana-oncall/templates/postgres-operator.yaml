@@ -30,6 +30,19 @@ spec:
     pgmonitor:
       exporter:
         image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.4.2-0
+  backups:
+    pgbackrest:
+      image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.41-4
+      repos:
+        - name: repo1
+          volume:
+            volumeClaimSpec:
+              storageClassName: local-path
+              accessModes:
+                - "ReadWriteOnce"
+              resources:
+                requests:
+                  storage: 1Gi
   patroni:
     dynamicConfiguration:
       postgresql:
