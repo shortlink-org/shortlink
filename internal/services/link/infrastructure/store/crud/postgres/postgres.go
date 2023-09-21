@@ -140,6 +140,12 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 
 	rows, err := p.client.Query(ctx, q, args...)
 	if err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			return &domain.Links{
+				Link: []*domain.Link{},
+			}, nil
+		}
+
 		return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: query.ErrNotFound}
 	}
 
