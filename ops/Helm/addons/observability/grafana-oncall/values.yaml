@@ -65,9 +65,9 @@ oncall:
     user: oncall
     password:
     # Use an existing secret for the database password
-    existingSecret:
+    existingSecret: grafana-postgres-pguser-oncall
     # The key in the secret containing the database password
-    passwordKey:
+    passwordKey: password
 
   mariadb:
     enabled: false
