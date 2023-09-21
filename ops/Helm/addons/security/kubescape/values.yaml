@@ -9,7 +9,7 @@ kubescape:
     networkGenerator: true
     seccomp: true
     runtimeObservability: true
-    vulnerabilityScan: false
+    vulnerabilityScan: true
 
   clusterName: shortlink
 
