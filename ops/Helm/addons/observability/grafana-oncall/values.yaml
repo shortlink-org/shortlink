@@ -59,7 +59,7 @@ oncall:
     enabled: false
 
   externalPostgresql:
-    host: oncall-postgres-ha
+    host: oncall-postgres-ha.grafana-oncall
     port: 5432
     db_name: oncall
     user: oncall
