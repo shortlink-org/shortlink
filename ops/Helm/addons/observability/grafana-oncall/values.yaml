@@ -59,10 +59,10 @@ oncall:
     enabled: false
 
   externalPostgresql:
-    host:
-    port:
+    host: grafana-oncall-postgresql
+    port: 5432
     db_name: oncall
-    user:
+    user: oncall
     password:
     # Use an existing secret for the database password
     existingSecret:
