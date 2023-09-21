@@ -77,7 +77,7 @@ let NEXT_CONFIG = {
   experimental: {
     forceSwcTransforms: true,
     turbo: {
-      loaders: {
+      rules: {
         '.md': [
           {
             loader: '@mdx-js/loader',
