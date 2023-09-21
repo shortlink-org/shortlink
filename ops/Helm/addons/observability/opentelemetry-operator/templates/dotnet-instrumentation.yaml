@@ -13,6 +13,6 @@ spec:
       - name: OTEL_EXPORTER_OTLP_ENDPOINT
         value: http://otel-collector-collector.grafana.svc.cluster.local:4318
       - name: OTEL_DOTNET_AUTO_TRACES_GRPCNETCLIENT_INSTRUMENTATION_ENABLED
-        value: true
+        value: 'true'
       - name: OTEL_DOTNET_AUTO_METRICS_PROCESS_INSTRUMENTATION_ENABLED
-        value: true
+        value: 'true'
