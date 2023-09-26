@@ -43,7 +43,7 @@ defmodule Chat.MixProject do
       {:floki, ">= 0.34.3", only: :test},
       {:phoenix_live_dashboard, "~> 0.8"},
       {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.11"},
+      {:swoosh, "~> 1.12"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.23"},
