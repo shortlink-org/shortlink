@@ -38,7 +38,7 @@ require (
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.17
-	github.com/nats-io/nats.go v1.30.0
+	github.com/nats-io/nats.go v1.30.1
 	github.com/neo4j/neo4j-go-driver/v5 v5.12.0
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/prometheus/client_golang v1.16.0
