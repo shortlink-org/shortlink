@@ -14,13 +14,13 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.46.6 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.46.7 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.4.1 |
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.32.0 |
 | https://argoproj.github.io/argo-helm | argo-workflows | 0.33.3 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.0.4 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.0 |
 
 ## Values
 
@@ -55,6 +55,62 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--applicationSet--resources--limits--cpu"><a href="./values.yaml#L246">argo-cd.applicationSet.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"400m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--applicationSet--resources--limits--memory"><a href="./values.yaml#L247">argo-cd.applicationSet.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"2Gi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--applicationSet--resources--requests--cpu"><a href="./values.yaml#L249">argo-cd.applicationSet.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"50m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--applicationSet--resources--requests--memory"><a href="./values.yaml#L250">argo-cd.applicationSet.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"64Mi"
 </pre>
 </div>
 			</td>
@@ -153,6 +209,62 @@ int
 				<div style="max-width: 300px;">
 <pre lang="json">
 2
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--controller--resources--limits--cpu"><a href="./values.yaml#L24">argo-cd.controller.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"500m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--controller--resources--limits--memory"><a href="./values.yaml#L25">argo-cd.controller.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"2Gi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--controller--resources--requests--cpu"><a href="./values.yaml#L27">argo-cd.controller.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"50m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--controller--resources--requests--memory"><a href="./values.yaml#L28">argo-cd.controller.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
 </pre>
 </div>
 			</td>
@@ -418,7 +530,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"10m"
+"15m"
 </pre>
 </div>
 			</td>
@@ -936,7 +1048,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"1.28.0"
+"1.28.2"
 </pre>
 </div>
 			</td>

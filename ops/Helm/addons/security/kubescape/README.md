@@ -69,7 +69,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--clusterName"><a href="./values.yaml#L13">kubescape.clusterName</a></td>
+			<td id="kubescape--capabilities--vulnerabilityScan"><a href="./values.yaml#L12">kubescape.capabilities.vulnerabilityScan</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--clusterName"><a href="./values.yaml#L14">kubescape.clusterName</a></td>
 			<td>
 string
 </td>
@@ -77,6 +91,20 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--configurations--otelUrl"><a href="./values.yaml#L21">kubescape.configurations.otelUrl</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://grafana-tempo.grafana:4317"
 </pre>
 </div>
 			</td>
@@ -97,7 +125,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L17">kubescape.kubescape.serviceMonitor.enabled</a></td>
+			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L18">kubescape.kubescape.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>

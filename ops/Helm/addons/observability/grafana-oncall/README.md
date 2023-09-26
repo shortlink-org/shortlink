@@ -1,6 +1,6 @@
 # grafana-oncall
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -15,7 +15,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://grafana.github.io/helm-charts | oncall | 1.3.38 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.0.4 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.0 |
 
 ## Values
 
@@ -196,7 +196,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalGrafana--url"><a href="./values.yaml#L87">oncall.externalGrafana.url</a></td>
+			<td id="oncall--externalGrafana--url"><a href="./values.yaml#L98">oncall.externalGrafana.url</a></td>
 			<td>
 string
 </td>
@@ -210,35 +210,63 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--existingSecret"><a href="./values.yaml#L71">oncall.externalRabbitmq.existingSecret</a></td>
+			<td id="oncall--externalPostgresql--db_name"><a href="./values.yaml#L64">oncall.externalPostgresql.db_name</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"grafana-rabbitmq-default-user"
+"oncall"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--host"><a href="./values.yaml#L68">oncall.externalRabbitmq.host</a></td>
+			<td id="oncall--externalPostgresql--existingSecret"><a href="./values.yaml#L68">oncall.externalPostgresql.existingSecret</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"rabbitmq.grafana"
+"oncall-postgres-pguser-oncall"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--passwordKey"><a href="./values.yaml#L72">oncall.externalRabbitmq.passwordKey</a></td>
+			<td id="oncall--externalPostgresql--host"><a href="./values.yaml#L62">oncall.externalPostgresql.host</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"oncall-postgres-ha.grafana-oncall"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--externalPostgresql--password"><a href="./values.yaml#L66">oncall.externalPostgresql.password</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+null
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--externalPostgresql--passwordKey"><a href="./values.yaml#L70">oncall.externalPostgresql.passwordKey</a></td>
 			<td>
 string
 </td>
@@ -252,7 +280,77 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--port"><a href="./values.yaml#L69">oncall.externalRabbitmq.port</a></td>
+			<td id="oncall--externalPostgresql--port"><a href="./values.yaml#L63">oncall.externalPostgresql.port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+5432
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--externalPostgresql--user"><a href="./values.yaml#L65">oncall.externalPostgresql.user</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"oncall"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--externalRabbitmq--existingSecret"><a href="./values.yaml#L82">oncall.externalRabbitmq.existingSecret</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grafana-rabbitmq-default-user"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--externalRabbitmq--host"><a href="./values.yaml#L79">oncall.externalRabbitmq.host</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"rabbitmq.grafana"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--externalRabbitmq--passwordKey"><a href="./values.yaml#L83">oncall.externalRabbitmq.passwordKey</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"password"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--externalRabbitmq--port"><a href="./values.yaml#L80">oncall.externalRabbitmq.port</a></td>
 			<td>
 int
 </td>
@@ -266,7 +364,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--usernameKey"><a href="./values.yaml#L73">oncall.externalRabbitmq.usernameKey</a></td>
+			<td id="oncall--externalRabbitmq--usernameKey"><a href="./values.yaml#L84">oncall.externalRabbitmq.usernameKey</a></td>
 			<td>
 string
 </td>
@@ -280,7 +378,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRedis--existingSecret"><a href="./values.yaml#L80">oncall.externalRedis.existingSecret</a></td>
+			<td id="oncall--externalRedis--existingSecret"><a href="./values.yaml#L91">oncall.externalRedis.existingSecret</a></td>
 			<td>
 string
 </td>
@@ -294,7 +392,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRedis--host"><a href="./values.yaml#L79">oncall.externalRedis.host</a></td>
+			<td id="oncall--externalRedis--host"><a href="./values.yaml#L90">oncall.externalRedis.host</a></td>
 			<td>
 string
 </td>
@@ -308,7 +406,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRedis--passwordKey"><a href="./values.yaml#L81">oncall.externalRedis.passwordKey</a></td>
+			<td id="oncall--externalRedis--passwordKey"><a href="./values.yaml#L92">oncall.externalRedis.passwordKey</a></td>
 			<td>
 string
 </td>
@@ -322,7 +420,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--grafana--enabled"><a href="./values.yaml#L84">oncall.grafana.enabled</a></td>
+			<td id="oncall--grafana--enabled"><a href="./values.yaml#L95">oncall.grafana.enabled</a></td>
 			<td>
 bool
 </td>
@@ -476,7 +574,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--mariadb--enabled"><a href="./values.yaml#L62">oncall.mariadb.enabled</a></td>
+			<td id="oncall--mariadb--enabled"><a href="./values.yaml#L73">oncall.mariadb.enabled</a></td>
 			<td>
 bool
 </td>
@@ -504,7 +602,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--oncall"><a href="./values.yaml#L89">oncall.oncall</a></td>
+			<td id="oncall--oncall"><a href="./values.yaml#L100">oncall.oncall</a></td>
 			<td>
 object
 </td>
@@ -525,14 +623,14 @@ bool
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+false
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--rabbitmq--enabled"><a href="./values.yaml#L65">oncall.rabbitmq.enabled</a></td>
+			<td id="oncall--rabbitmq--enabled"><a href="./values.yaml#L76">oncall.rabbitmq.enabled</a></td>
 			<td>
 bool
 </td>
@@ -546,7 +644,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--redis--enabled"><a href="./values.yaml#L76">oncall.redis.enabled</a></td>
+			<td id="oncall--redis--enabled"><a href="./values.yaml#L87">oncall.redis.enabled</a></td>
 			<td>
 bool
 </td>
