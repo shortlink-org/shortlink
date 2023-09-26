@@ -16,16 +16,6 @@ insert_final_newline = true
 indent_style = tab
 indent_size = 4
 
-# Indentation override for all JS under lib directory
-[{**.js, **.tsx}]
-indent_style = space
-indent_size = 2
-
-# Matches the exact files either package.json or .travis.yml
-[{package.json, *.yaml, *.yml}]
-indent_style = space
-indent_size = 2
-
 # Use tabs
 [**.mk]
 indent_style = tab
@@ -33,7 +23,6 @@ indent_size = 4
 
 # Use tabs
 [**.xml]
-indent_style = space
 indent_size = 4
 
 [*.rs]
@@ -42,6 +31,3 @@ indent_size = 4
 
 [*.py]
 indent_size = 4
-
-[*.Dockerfile]
-indent_size = 2
