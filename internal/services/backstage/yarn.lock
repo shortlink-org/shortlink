@@ -3465,6 +3465,18 @@
     "@backstage/plugin-catalog-common" "^1.0.16"
     "@backstage/types" "^1.1.1"
 
+"@backstage/plugin-catalog-node@^1.4.5":
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-node/-/plugin-catalog-node-1.4.5.tgz#ffa82d219939a205fada8941ddcef8516f7e495a"
+  integrity sha512-BjxJKphQBJ30RjhMjotvLT8w6UufzgdEhB8UH/5wttyKwSGJqpSk/lKzugxYfb7Pz5y+ucwZTAq9H2L+O0vo8w==
+  dependencies:
+    "@backstage/backend-plugin-api" "^0.6.4"
+    "@backstage/catalog-client" "^1.4.4"
+    "@backstage/catalog-model" "^1.4.2"
+    "@backstage/errors" "^1.2.2"
+    "@backstage/plugin-catalog-common" "^1.0.16"
+    "@backstage/types" "^1.1.1"
+
 "@backstage/plugin-catalog-react@^1.8.3":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.8.3.tgz#06103b2707de6d2f2c6e2d1514c3237eb98d1f3e"
@@ -4296,20 +4308,20 @@
     react-helmet "6.1.0"
     react-use "^17.2.4"
 
-"@backstage/plugin-todo-backend@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-todo-backend/-/plugin-todo-backend-0.3.1.tgz#7a4e4d1950609eed4715bea50b5bc46c614b988c"
-  integrity sha512-71gkM4JZ/moL21vWxoza530upz6Fitk8+hW7GdSDfudcaOEZDDo8O1r0R0S6x7Oq2ZWbyvntlA2UtOBjiBKw4Q==
+"@backstage/plugin-todo-backend@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-todo-backend/-/plugin-todo-backend-0.3.2.tgz#42440f7fd429b27807b0da1bce0994e70da6c616"
+  integrity sha512-p+GqA4Rvg5Pwsq6GOI2y60tKZ5co9flaEkNqz2PMvde9ZbpzNNfG9SeiooaLNKYMTlmxBjTxRYXMLqCLyAEOtg==
   dependencies:
-    "@backstage/backend-common" "^0.19.5"
+    "@backstage/backend-common" "^0.19.6"
     "@backstage/backend-openapi-utils" "^0.0.4"
-    "@backstage/backend-plugin-api" "^0.6.3"
+    "@backstage/backend-plugin-api" "^0.6.4"
     "@backstage/catalog-client" "^1.4.4"
     "@backstage/catalog-model" "^1.4.2"
     "@backstage/config" "^1.1.0"
     "@backstage/errors" "^1.2.2"
     "@backstage/integration" "^1.7.0"
-    "@backstage/plugin-catalog-node" "^1.4.4"
+    "@backstage/plugin-catalog-node" "^1.4.5"
     "@types/express" "^4.17.6"
     express "^4.17.1"
     express-promise-router "^4.1.0"
