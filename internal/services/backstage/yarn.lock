@@ -3465,6 +3465,18 @@
     "@backstage/plugin-catalog-common" "^1.0.16"
     "@backstage/types" "^1.1.1"
 
+"@backstage/plugin-catalog-node@^1.4.5":
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-node/-/plugin-catalog-node-1.4.5.tgz#ffa82d219939a205fada8941ddcef8516f7e495a"
+  integrity sha512-BjxJKphQBJ30RjhMjotvLT8w6UufzgdEhB8UH/5wttyKwSGJqpSk/lKzugxYfb7Pz5y+ucwZTAq9H2L+O0vo8w==
+  dependencies:
+    "@backstage/backend-plugin-api" "^0.6.4"
+    "@backstage/catalog-client" "^1.4.4"
+    "@backstage/catalog-model" "^1.4.2"
+    "@backstage/errors" "^1.2.2"
+    "@backstage/plugin-catalog-common" "^1.0.16"
+    "@backstage/types" "^1.1.1"
+
 "@backstage/plugin-catalog-react@^1.8.3":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.8.3.tgz#06103b2707de6d2f2c6e2d1514c3237eb98d1f3e"
@@ -3584,27 +3596,27 @@
     luxon "^3.0.0"
     react-use "^17.2.4"
 
-"@backstage/plugin-kubernetes-backend@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-backend/-/plugin-kubernetes-backend-0.12.0.tgz#a03f5588b3a1448f8929cefc4b576faad97780e8"
-  integrity sha512-tO2mtooj5eIy/1j6C7JXAw8ghWWUMGaDCPBeKg77DRVGJN4wb9O/0tE1ikPRgLx/PUQXI5Vpe6zZ0B9HZkamoQ==
+"@backstage/plugin-kubernetes-backend@^0.12.1":
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-backend/-/plugin-kubernetes-backend-0.12.1.tgz#10b65bb6c42de8b54491d9898c5ae6c15b2c3cf8"
+  integrity sha512-ToqqQQtsi50sz3tA+YsIy9ORV//7feHUJKP0LEMDD21yKQyphHUx+bmPAS320hy/+r1C/Pe7xSdsqdBsKjd29g==
   dependencies:
     "@aws-crypto/sha256-js" "^3.0.0"
     "@aws-sdk/credential-providers" "^3.350.0"
     "@aws-sdk/signature-v4" "^3.347.0"
     "@azure/identity" "^3.2.1"
-    "@backstage/backend-common" "^0.19.5"
-    "@backstage/backend-plugin-api" "^0.6.3"
+    "@backstage/backend-common" "^0.19.6"
+    "@backstage/backend-plugin-api" "^0.6.4"
     "@backstage/catalog-client" "^1.4.4"
     "@backstage/catalog-model" "^1.4.2"
     "@backstage/config" "^1.1.0"
     "@backstage/errors" "^1.2.2"
     "@backstage/integration-aws-node" "^0.1.6"
-    "@backstage/plugin-auth-node" "^0.3.0"
-    "@backstage/plugin-catalog-node" "^1.4.4"
+    "@backstage/plugin-auth-node" "^0.3.1"
+    "@backstage/plugin-catalog-node" "^1.4.5"
     "@backstage/plugin-kubernetes-common" "^0.6.6"
     "@backstage/plugin-permission-common" "^0.7.8"
-    "@backstage/plugin-permission-node" "^0.7.14"
+    "@backstage/plugin-permission-node" "^0.7.15"
     "@backstage/types" "^1.1.1"
     "@google-cloud/container" "^4.0.0"
     "@jest-mock/express" "^2.0.1"
