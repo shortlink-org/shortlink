@@ -1,10 +1,10 @@
 'use client'
 
-import React, { useState } from 'react'
 import { useTheme, AppBar, Grid, Tabs, Tab, Box } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
 // @ts-ignore
 import { ToggleDarkMode } from '@shortlink-org/ui-kit'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import React, { useState } from 'react'
 import '@shortlink-org/ui-kit/dist/cjs/index.css'
 
 import TabContent from '../TabContent'
@@ -28,7 +28,7 @@ const Home = () => {
   const appBarColor = theme.palette.mode === 'dark' ? 'inherit' : 'primary'
   const textColor = theme.palette.mode === 'dark' ? 'secondary' : 'inherit'
   // @ts-ignore
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'))
+  const isMobile = useMediaQuery((props) => props.breakpoints.down('sm'))
 
   return (
     <>

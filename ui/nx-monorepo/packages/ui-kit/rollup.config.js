@@ -67,7 +67,6 @@ export default [
       'react-is',
       'react-dom',
       'prop-types',
-      'styled-components',
       '@mui/material',
       '@emotion/react',
     ],
@@ -90,6 +89,6 @@ export default [
   //       },
   //     }),
   //   ],
-  //   external: ['react', 'react-is', 'react-dom', 'prop-types', 'styled-components', "@mui/material", "@emotion/react"],
+  //   external: ['react', 'react-is', 'react-dom', 'prop-types', "@mui/material", "@emotion/react"],
   // },
 ]
