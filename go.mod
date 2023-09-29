@@ -39,7 +39,7 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/nats-io/nats.go v1.30.2
-	github.com/neo4j/neo4j-go-driver/v5 v5.12.0
+	github.com/neo4j/neo4j-go-driver/v5 v5.13.0
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/prometheus/client_golang v1.17.0
 	github.com/prometheus/client_model v0.4.1-0.20230919144854-baaa0384eac5
@@ -74,7 +74,7 @@ require (
 	go.opentelemetry.io/otel v1.19.0
 	go.opentelemetry.io/otel/exporters/jaeger v1.17.0
 	go.opentelemetry.io/otel/sdk v1.19.0
-	go.opentelemetry.io/otel/sdk/metric v0.41.0
+	go.opentelemetry.io/otel/sdk/metric v1.19.0
 	go.opentelemetry.io/otel/trace v1.19.0
 	go.uber.org/atomic v1.11.0
 	go.uber.org/automaxprocs v1.5.3
