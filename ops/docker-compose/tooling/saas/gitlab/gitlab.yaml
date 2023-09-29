@@ -9,6 +9,16 @@ x-network: &network
 
 services:
 
+  nginx:
+    <<: *network
+    image: nginx:1.17.6-alpine
+    container_name: nginx
+    restart: always
+    ports:
+      - '8080:80'
+    volumes:
+      - ./ops/docker-compose/tooling/saas/gitlab/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+
   gitlab_postgres:
     <<: *network
     image: postgres:16.0-alpine
@@ -35,6 +45,7 @@ services:
       - '10180:10180'
       - '10022:22'
     environment:
+      GITLAB_SKIP_UNMIGRATED_DATA_CHECK: true
       GITLAB_OMNIBUS_CONFIG: |
         # HTTP
         external_url 'http://localhost:10180'
@@ -57,7 +68,7 @@ services:
     volumes:
       - './data/gitlab/config:/etc/gitlab'
       - './data/gitlab/logs:/var/log/gitlab'
-      - './data/gitlab/data:/var/opt/gitlab'
+      - './data/gitlab/data/backups:/var/opt/gitlab/backups'
 
   gitlab-runner:
     <<: *network
