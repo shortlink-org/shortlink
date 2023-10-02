@@ -19,3 +19,9 @@ kubescape:
 
   configurations:
     otelUrl: http://grafana-tempo.grafana:4317
+
+  operator:
+    resources:
+      requests:
+        cpu: 70m
+        memory: 120Mi
