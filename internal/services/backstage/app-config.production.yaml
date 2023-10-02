@@ -2,6 +2,9 @@ app:
   baseUrl: https://backstage.shortlink.best/
 
 backend:
+  baseUrl: https://backstage.shortlink.best/api
+  listen: ':7007'
+
   cors:
     origin: https://backstage.shortlink.best
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
