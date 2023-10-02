@@ -1,0 +1,12 @@
+From: "ShortLink" <shortlink.best@gmail.com>
+To: batazor111@gmail.com
+Subject: Test Email
+
+This is a test email sent via curl.
+
+curl --url 'smtps://smtp.gmail.com:465' \
+  --ssl-reqd \
+  --mail-from 'shortlink.best@gmail.com' \
+  --mail-rcpt 'batazor111@gmail.com' \
+  --upload-file email.txt \
+  --user 'shortlink.best@gmail.com:kiwr rjlr dbbr tdne'
