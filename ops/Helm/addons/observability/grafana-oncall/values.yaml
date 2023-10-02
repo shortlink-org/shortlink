@@ -17,7 +17,14 @@ oncall:
         memory: 50Mi
 
   migrate:
-    enabled: false
+    enabled: true
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 25m
+        memory: 50Mi
 
   celery:
     resources:

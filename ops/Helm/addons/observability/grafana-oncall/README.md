@@ -14,8 +14,8 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | oncall | 1.3.38 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.0 |
+| https://grafana.github.io/helm-charts | oncall | 1.3.39 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.1 |
 
 ## Values
 
@@ -42,7 +42,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--celery--resources--limits--cpu"><a href="./values.yaml#L25">oncall.celery.resources.limits.cpu</a></td>
+			<td id="oncall--celery--resources--limits--cpu"><a href="./values.yaml#L32">oncall.celery.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -56,7 +56,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--celery--resources--limits--memory"><a href="./values.yaml#L26">oncall.celery.resources.limits.memory</a></td>
+			<td id="oncall--celery--resources--limits--memory"><a href="./values.yaml#L33">oncall.celery.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -70,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--celery--resources--requests--cpu"><a href="./values.yaml#L28">oncall.celery.resources.requests.cpu</a></td>
+			<td id="oncall--celery--resources--requests--cpu"><a href="./values.yaml#L35">oncall.celery.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -84,7 +84,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--celery--resources--requests--memory"><a href="./values.yaml#L29">oncall.celery.resources.requests.memory</a></td>
+			<td id="oncall--celery--resources--requests--memory"><a href="./values.yaml#L36">oncall.celery.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -98,7 +98,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--cert-manager--enabled"><a href="./values.yaml#L53">oncall.cert-manager.enabled</a></td>
+			<td id="oncall--cert-manager--enabled"><a href="./values.yaml#L60">oncall.cert-manager.enabled</a></td>
 			<td>
 bool
 </td>
@@ -112,7 +112,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--database--type"><a href="./values.yaml#L56">oncall.database.type</a></td>
+			<td id="oncall--database--type"><a href="./values.yaml#L63">oncall.database.type</a></td>
 			<td>
 string
 </td>
@@ -196,7 +196,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalGrafana--url"><a href="./values.yaml#L98">oncall.externalGrafana.url</a></td>
+			<td id="oncall--externalGrafana--url"><a href="./values.yaml#L105">oncall.externalGrafana.url</a></td>
 			<td>
 string
 </td>
@@ -210,7 +210,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalPostgresql--db_name"><a href="./values.yaml#L64">oncall.externalPostgresql.db_name</a></td>
+			<td id="oncall--externalPostgresql--db_name"><a href="./values.yaml#L71">oncall.externalPostgresql.db_name</a></td>
 			<td>
 string
 </td>
@@ -224,7 +224,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalPostgresql--existingSecret"><a href="./values.yaml#L68">oncall.externalPostgresql.existingSecret</a></td>
+			<td id="oncall--externalPostgresql--existingSecret"><a href="./values.yaml#L75">oncall.externalPostgresql.existingSecret</a></td>
 			<td>
 string
 </td>
@@ -238,7 +238,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalPostgresql--host"><a href="./values.yaml#L62">oncall.externalPostgresql.host</a></td>
+			<td id="oncall--externalPostgresql--host"><a href="./values.yaml#L69">oncall.externalPostgresql.host</a></td>
 			<td>
 string
 </td>
@@ -252,7 +252,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalPostgresql--password"><a href="./values.yaml#L66">oncall.externalPostgresql.password</a></td>
+			<td id="oncall--externalPostgresql--password"><a href="./values.yaml#L73">oncall.externalPostgresql.password</a></td>
 			<td>
 string
 </td>
@@ -266,7 +266,7 @@ null
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalPostgresql--passwordKey"><a href="./values.yaml#L70">oncall.externalPostgresql.passwordKey</a></td>
+			<td id="oncall--externalPostgresql--passwordKey"><a href="./values.yaml#L77">oncall.externalPostgresql.passwordKey</a></td>
 			<td>
 string
 </td>
@@ -280,7 +280,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalPostgresql--port"><a href="./values.yaml#L63">oncall.externalPostgresql.port</a></td>
+			<td id="oncall--externalPostgresql--port"><a href="./values.yaml#L70">oncall.externalPostgresql.port</a></td>
 			<td>
 int
 </td>
@@ -294,7 +294,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalPostgresql--user"><a href="./values.yaml#L65">oncall.externalPostgresql.user</a></td>
+			<td id="oncall--externalPostgresql--user"><a href="./values.yaml#L72">oncall.externalPostgresql.user</a></td>
 			<td>
 string
 </td>
@@ -308,7 +308,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--existingSecret"><a href="./values.yaml#L82">oncall.externalRabbitmq.existingSecret</a></td>
+			<td id="oncall--externalRabbitmq--existingSecret"><a href="./values.yaml#L89">oncall.externalRabbitmq.existingSecret</a></td>
 			<td>
 string
 </td>
@@ -322,7 +322,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--host"><a href="./values.yaml#L79">oncall.externalRabbitmq.host</a></td>
+			<td id="oncall--externalRabbitmq--host"><a href="./values.yaml#L86">oncall.externalRabbitmq.host</a></td>
 			<td>
 string
 </td>
@@ -336,7 +336,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--passwordKey"><a href="./values.yaml#L83">oncall.externalRabbitmq.passwordKey</a></td>
+			<td id="oncall--externalRabbitmq--passwordKey"><a href="./values.yaml#L90">oncall.externalRabbitmq.passwordKey</a></td>
 			<td>
 string
 </td>
@@ -350,7 +350,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--port"><a href="./values.yaml#L80">oncall.externalRabbitmq.port</a></td>
+			<td id="oncall--externalRabbitmq--port"><a href="./values.yaml#L87">oncall.externalRabbitmq.port</a></td>
 			<td>
 int
 </td>
@@ -364,7 +364,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRabbitmq--usernameKey"><a href="./values.yaml#L84">oncall.externalRabbitmq.usernameKey</a></td>
+			<td id="oncall--externalRabbitmq--usernameKey"><a href="./values.yaml#L91">oncall.externalRabbitmq.usernameKey</a></td>
 			<td>
 string
 </td>
@@ -378,7 +378,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRedis--existingSecret"><a href="./values.yaml#L91">oncall.externalRedis.existingSecret</a></td>
+			<td id="oncall--externalRedis--existingSecret"><a href="./values.yaml#L98">oncall.externalRedis.existingSecret</a></td>
 			<td>
 string
 </td>
@@ -392,7 +392,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRedis--host"><a href="./values.yaml#L90">oncall.externalRedis.host</a></td>
+			<td id="oncall--externalRedis--host"><a href="./values.yaml#L97">oncall.externalRedis.host</a></td>
 			<td>
 string
 </td>
@@ -406,7 +406,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--externalRedis--passwordKey"><a href="./values.yaml#L92">oncall.externalRedis.passwordKey</a></td>
+			<td id="oncall--externalRedis--passwordKey"><a href="./values.yaml#L99">oncall.externalRedis.passwordKey</a></td>
 			<td>
 string
 </td>
@@ -420,7 +420,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--grafana--enabled"><a href="./values.yaml#L95">oncall.grafana.enabled</a></td>
+			<td id="oncall--grafana--enabled"><a href="./values.yaml#L102">oncall.grafana.enabled</a></td>
 			<td>
 bool
 </td>
@@ -434,7 +434,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress-nginx--enabled"><a href="./values.yaml#L50">oncall.ingress-nginx.enabled</a></td>
+			<td id="oncall--ingress-nginx--enabled"><a href="./values.yaml#L57">oncall.ingress-nginx.enabled</a></td>
 			<td>
 bool
 </td>
@@ -448,7 +448,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L35">oncall.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="oncall--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L42">oncall.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -462,7 +462,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L36">oncall.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td id="oncall--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L43">oncall.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
 			<td>
 string
 </td>
@@ -476,7 +476,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L38">oncall.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="oncall--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L45">oncall.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -490,7 +490,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L37">oncall.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="oncall--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L44">oncall.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -504,7 +504,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress--enabled"><a href="./values.yaml#L32">oncall.ingress.enabled</a></td>
+			<td id="oncall--ingress--enabled"><a href="./values.yaml#L39">oncall.ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -518,7 +518,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress--extraPaths[0]--backend--service--name"><a href="./values.yaml#L45">oncall.ingress.extraPaths[0].backend.service.name</a></td>
+			<td id="oncall--ingress--extraPaths[0]--backend--service--name"><a href="./values.yaml#L52">oncall.ingress.extraPaths[0].backend.service.name</a></td>
 			<td>
 string
 </td>
@@ -532,7 +532,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress--extraPaths[0]--backend--service--port--name"><a href="./values.yaml#L47">oncall.ingress.extraPaths[0].backend.service.port.name</a></td>
+			<td id="oncall--ingress--extraPaths[0]--backend--service--port--name"><a href="./values.yaml#L54">oncall.ingress.extraPaths[0].backend.service.port.name</a></td>
 			<td>
 string
 </td>
@@ -546,7 +546,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress--extraPaths[0]--path"><a href="./values.yaml#L41">oncall.ingress.extraPaths[0].path</a></td>
+			<td id="oncall--ingress--extraPaths[0]--path"><a href="./values.yaml#L48">oncall.ingress.extraPaths[0].path</a></td>
 			<td>
 string
 </td>
@@ -560,7 +560,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--ingress--extraPaths[0]--pathType"><a href="./values.yaml#L42">oncall.ingress.extraPaths[0].pathType</a></td>
+			<td id="oncall--ingress--extraPaths[0]--pathType"><a href="./values.yaml#L49">oncall.ingress.extraPaths[0].pathType</a></td>
 			<td>
 string
 </td>
@@ -574,7 +574,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--mariadb--enabled"><a href="./values.yaml#L73">oncall.mariadb.enabled</a></td>
+			<td id="oncall--mariadb--enabled"><a href="./values.yaml#L80">oncall.mariadb.enabled</a></td>
 			<td>
 bool
 </td>
@@ -595,14 +595,70 @@ bool
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-false
+true
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--oncall"><a href="./values.yaml#L100">oncall.oncall</a></td>
+			<td id="oncall--migrate--resources--limits--cpu"><a href="./values.yaml#L23">oncall.migrate.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--migrate--resources--limits--memory"><a href="./values.yaml#L24">oncall.migrate.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--migrate--resources--requests--cpu"><a href="./values.yaml#L26">oncall.migrate.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"25m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--migrate--resources--requests--memory"><a href="./values.yaml#L27">oncall.migrate.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"50Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="oncall--oncall"><a href="./values.yaml#L107">oncall.oncall</a></td>
 			<td>
 object
 </td>
@@ -616,7 +672,7 @@ object
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--postgresql--enabled"><a href="./values.yaml#L59">oncall.postgresql.enabled</a></td>
+			<td id="oncall--postgresql--enabled"><a href="./values.yaml#L66">oncall.postgresql.enabled</a></td>
 			<td>
 bool
 </td>
@@ -630,7 +686,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--rabbitmq--enabled"><a href="./values.yaml#L76">oncall.rabbitmq.enabled</a></td>
+			<td id="oncall--rabbitmq--enabled"><a href="./values.yaml#L83">oncall.rabbitmq.enabled</a></td>
 			<td>
 bool
 </td>
@@ -644,7 +700,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="oncall--redis--enabled"><a href="./values.yaml#L87">oncall.redis.enabled</a></td>
+			<td id="oncall--redis--enabled"><a href="./values.yaml#L94">oncall.redis.enabled</a></td>
 			<td>
 bool
 </td>
