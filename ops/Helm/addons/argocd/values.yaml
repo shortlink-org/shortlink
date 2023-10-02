@@ -22,10 +22,10 @@ argo-cd:
     resources:
       limits:
         cpu: 500m
-        memory: 2Gi
+        memory: 1Gi
       requests:
-        cpu: 50m
-        memory: 128Mi
+        cpu: 150m
+        memory: 256Mi
 
     metrics:
       enabled: true
@@ -243,11 +243,11 @@ argo-cd:
   applicationSet:
     resources:
       limits:
-        cpu: 400m
+        cpu: 500m
         memory: 2Gi
       requests:
-        cpu: 50m
-        memory: 64Mi
+        cpu: 250m
+        memory: 256Mi
 
     metrics:
       enabled: true
