@@ -4,16 +4,17 @@ kratos:
             courier:
                 smtp:
                     local_name: ENC[AES256_GCM,data:PNLsXJpL77PDUKe3sV4=,iv:/MEKc2V4ve+b1gDE6dL5RlU++VHQlRmFEEDjdhuA0dY=,tag:ql1YnPsez/rjrzAtCuqkFQ==,type:str]
-                    connection_uri: ENC[AES256_GCM,data:SSUWntH5axMUMWwKEGm0e9Nbc/K7tmMq2d88+XJWbAItxUfBCeMALILtVdZOrWSvCu9B/iAkQsC4DevaDgs/EJP+lQ==,iv:QmpX7APytg1fd9104lDYqBduF6jT3TUoKy8ww9GNk7U=,tag:EKH8QV2Trxr2SbUQlY3XOA==,type:str]
-                    from_address: ENC[AES256_GCM,data:C9OxVTTKBHeLwCjJNPSl9rmrwl1rGsk=,iv:8Go2ccZLdmh4OIZhVdrWs00K2fACKCUBdUGO/974yEE=,tag:etvexVEnX9rTjZTsCHShCw==,type:str]
+                    connection_uri: ENC[AES256_GCM,data:N2vEz52UkaR69vXehPHk/NtcDr8P03spWew/FRgd4m1tSZtjwJNsVZQxAyMPno2I7gM1ll/0cbPhjZadHVb50mIGov0c5bk=,iv:vkSozns8F97D42dgmYbg4qreGGqN+3qx8IgewdGW2bE=,tag:hAMbdHpu1o8BXvMAf51IEg==,type:str]
+                    from_address: ENC[AES256_GCM,data:10/lrsGx0+wNbHmO1tfQrIiEb6zLyF1v,iv:s8LDxxElYyw8IOIco9HAAvC2tPqc+aLGFtWegt4QEDc=,tag:2DjEctKfCxTbxbpoZAktYw==,type:str]
+                    from_name: ENC[AES256_GCM,data:O1EyBMwCaxMP,iv:MN9si3YI/TScFeOO46xo219D0/mPy7rTL9k49mSW5ZY=,tag:AXNC0uxucCMeNJL7biNXJw==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-05-11T13:27:35Z"
-    mac: ENC[AES256_GCM,data:Ye1t4FfwHHXx/2tJqCSOD+KM8Ta7Dp3S53hcdl1rr42vVFzdtJ4uMVF/m9dhCEom6rn1Ni47zKVYHxDIb+yLEIr9NYnSn8mTLoT84yytWyPHF+kEYZh6TYivFsbp7Q4jY39KcPYDWIKO70DJ9rf7OdVNoq1PvHI1gx53l3ZYv60=,iv:BaQk812X0MckkcDxbSdK3m0NxQHNrjujpuGeXJe/WaU=,tag:ni2DRBkzzv3wG3LK22xZog==,type:str]
+    lastmodified: "2023-10-02T20:32:13Z"
+    mac: ENC[AES256_GCM,data:vMtsaPgA1oMbAJZGbtZwdgB9WRFlGk1bLndseawOUri+kYXaTsOPzBLiYIS3eyfKPrnIQx32ofzehFx2JXoxgnYJWvxvmre+affQWa+7ja2T2ZpbdkGz+9YZ/XXzjVNGmj/UUg9A+8Cg7s+yISA6xfGvXHwJEr4eMsRrpz2rBqM=,iv:mtem6BtYOZPzT+S5xH4KHrA9PiEOA9hpkX/wFZ11NeU=,tag:giXOXJ6K4cAwGwJ9BD06xw==,type:str]
     pgp:
         - created_at: "2023-05-11T13:27:17Z"
           enc: |
