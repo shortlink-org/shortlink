@@ -14,7 +14,7 @@ spec:
     namespace: keycloak
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/keycloak
+    path: ops/Helm/addons/auth/keycloak
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

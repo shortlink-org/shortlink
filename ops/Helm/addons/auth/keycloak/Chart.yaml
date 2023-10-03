@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: "1.0.0"
-name: kratos
-version: 0.2.2
+name: keycloak
+version: 0.1.1
 kubeVersion: ">= 1.28.0 || >= v1.28.0-0"
 keywords:
   - auth
@@ -13,10 +13,10 @@ engine: gotpl
 type: application
 deprecated: false
 dependencies:
-  - name: kratos
-    version: 0.36.0
-    repository: https://k8s.ory.sh/helm/charts
-    condition: kratos.enabled
+  - name: keycloak
+    version: 17.0.0
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: keycloak.enabled
     tags:
-      - auth
-      - kratos
+      - sso
+      - keycloak

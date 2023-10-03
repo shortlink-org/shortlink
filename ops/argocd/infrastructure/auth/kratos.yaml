@@ -14,7 +14,7 @@ spec:
     namespace: auth
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/kratos
+    path: ops/Helm/addons/auth/kratos
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
