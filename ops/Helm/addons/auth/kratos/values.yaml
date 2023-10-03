@@ -10,7 +10,8 @@ kratos:
   fullnameOverride: kratos
 
   secret:
-    hashSumEnabled: false
+    enabled: true
+    hashSumEnabled: true
 
   ingress:
     admin:
