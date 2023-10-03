@@ -8,7 +8,7 @@ spec:
     annotations:
       sidecar.istio.io/inject: "false"
   instances:
-    - name: grafana
+    - name: kratos
       metadata:
         annotations:
           sidecar.istio.io/inject: "false"
