@@ -45,7 +45,7 @@ require (
 	github.com/prometheus/client_model v0.4.1-0.20230718164431-9a2bf3000d16
 	github.com/pterm/pterm v0.12.69
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
-	github.com/rabbitmq/amqp091-go v1.8.2-0.20230928095624-fbae907ea7c9
+	github.com/rabbitmq/amqp091-go v1.9.0
 	github.com/redis/go-redis/v9 v9.2.1
 	github.com/redis/rueidis v1.0.19
 	github.com/riandyrn/otelchi v0.5.1
