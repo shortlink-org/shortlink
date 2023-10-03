@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kratos-postgres-pguser-kratos
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+stringData:
+  password: "{{ .Values.db.password | b64encode }}"
+  verifier: ""
+type: Opaque
