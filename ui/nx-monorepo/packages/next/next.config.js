@@ -4,6 +4,7 @@
 
 /* eslint-disable */
 const { withSentryConfig } = require('@sentry/nextjs')
+const path = require("path")
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
   maximumFileSizeToCacheInBytes: 30000000,
@@ -71,6 +72,21 @@ let NEXT_CONFIG = {
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
     })
+
+    // This fixes the invalid hook React error which
+    // will occur when multiple versions of React are detected
+    // This can happen since a common project is also using Next (which is using React)
+    const reactPaths = {
+      react: path.join(__dirname, "../../node_modules/react"),
+      "react-dom": path.join(__dirname, "../../node_modules/react-dom"),
+    };
+    config.resolve = {
+      ...config.resolve,
+      alias: {
+        ...config.resolve.alias,
+        ...reactPaths,
+      },
+    };
 
     return config
   },
