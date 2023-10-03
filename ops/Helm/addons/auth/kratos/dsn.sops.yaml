@@ -3,15 +3,15 @@ db:
 kratos:
     kratos:
         config:
-            dsn: ENC[AES256_GCM,data:dAiw0bQnQaBaxWkR+D3LWY5ELdsBEtFXrEuGBUxNUmnYwpuDEV2gTzQPhIS9DrVs6UUpQ2nz2zD5gpZtgY0aA+KkkKinin+Lig2wTjNcMQHmIGQR2ybn0TQXkJZhzk9lo9bdVGtdifm/Jg==,iv:KCkJRKBRaozZZsQxtbjfv8YOVmZdyQT4Iv2NtcaTV1A=,tag:iwxt9S3DhtYks4SUWSbnNg==,type:str]
+            dsn: ENC[AES256_GCM,data:xh8LKC+83ZAgo52oOZpOp5asSwnVmmq6NF34+RCvWRKrcZv3qhg18O99/XKQoTghAJTcNfhpaXIqQl7hTi2AGmI=,iv:MMWpL+EGvo5qTRLK4rZNUgdXLo2EgONStxYCI9MT2Nc=,tag:F1Zpm0dFjqWJHyVnCh3zgQ==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-10-03T17:15:26Z"
-    mac: ENC[AES256_GCM,data:PDznIefoz7SFLdH07Roc73CF6fjYMO3AvzCdSmRsy/Cn1CizPbBQPEda68g1VEq5qwQGffQ9Tx6wdk0Biykq6by7Jobv68isxnrAPtwDk8Zp9OwzaX12x7wIj45tHs11O0780zI8Yx4POG1pGDa2UAD4dpvSGHHP9St8dkqyOhg=,iv:nnFOIgSO+2IOMsJiQfvB7szZETwZ71AHEO1cd/WFb9U=,tag:Vt+g6ZaxmkPuhWPpTO9N9g==,type:str]
+    lastmodified: "2023-10-03T23:08:46Z"
+    mac: ENC[AES256_GCM,data:WPIdKaZwBvd14el5Sar7LhQxV0qsJvbMCzQqixwib/A25Ak8RHOLcLvboX7UjqpeMTLjtgfmqYhS24U8ITot8/EiIf3yig8h2WrpogZ5WUGW+tIhm8gGhfjgExFSwG0AaSmVeKOgnnX3wWoOQfXKdT33NbfHNsLpt4Cs8tErxhI=,iv:4byv01K7+AU6SuaQip4DLyKKki+qYov2rR1i54ADTng=,tag:4zP1jsfxick7uul1L18eZQ==,type:str]
     pgp:
         - created_at: "2023-10-03T17:09:20Z"
           enc: |
