@@ -5,6 +5,6 @@ metadata:
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 stringData:
-  password: "{{ .Values.db.password | b64enc }}"
+  password: "{{ .Values.db.password }}"
   verifier: ""
 type: Opaque
