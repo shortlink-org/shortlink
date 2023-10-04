@@ -53,8 +53,16 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/saas/novu/novu.yaml \
+		-f ops/docker-compose/database/redis/redis.yaml \
 		up -d --remove-orphans --build
+
+watch: ## Run for development mode with watch
+	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
+		-f docker-compose.yaml \
+		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
+		-f ops/docker-compose/database/redis/redis.yaml \
+		-f ops/docker-compose/application/api/api.yaml \
+		watch
 
 down: confirm ## Down docker compose
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \

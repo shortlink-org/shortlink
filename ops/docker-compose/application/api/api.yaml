@@ -1,26 +1,35 @@
 version: '2.4'
 
 x-network: &network
+  depends_on:
+    - coredns
   networks:
     - simple
   dns:
     - ${DNS_IP}
   dns_search: ${DNS_SEARCH}
+  logging:
+    driver: ${LOGGER_DRIVER}
+    options:
+      loki-url: ${LOGGER_DRIVER_URL}
+      max-size: ${LOGGER_MAX_SIZE}
 
 services:
 
   api:
     <<: *network
-    depends_on:
-      - coredns
     build:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
       args:
-          CMD_PATH: "./internal/services/api-gateway/cmd"
+        CMD_PATH: "./internal/services/api-gateway/gateways/http-chi/cmd"
       shm_size: 1gb
       cache_from:
         - shortlink-api
+    develop:
+      watch:
+        - action: rebuild
+          path: ./internal/services/api-gateway
     image: shortlink-api
     container_name: api
     init: true
@@ -49,18 +58,11 @@ services:
         source: ./ops/cert
         target: /app/ops/cert
     user: ${CURRENT_UID}
-    logging:
-      driver: ${LOGGER_DRIVER}
-      options:
-        loki-url: ${LOGGER_DRIVER_URL}
-        max-size: ${LOGGER_MAX_SIZE}
 
   prometheus:
     <<: *network
-    depends_on:
-      - coredns
     image: prom/prometheus:v2.47.1
     profiles:
       - prometheus
     volumes:
-      - ./ops/docker-compose/application/config/api-server.json:/etc/prometheus/targets/api-server.json
+      - ./ops/docker-compose/application/api/config/api-server.json:/etc/prometheus/targets/api-server.json

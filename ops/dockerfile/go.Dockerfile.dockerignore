@@ -2,12 +2,11 @@
 docs
 internal
 ops
-pkg/csi
-pkg/ml
+internal/services/csi
+internal/pkg/ml
 ui
 *.yml
 
 !vendor
-!pkg
 !internal
 !docs/ADR/decisions/proof

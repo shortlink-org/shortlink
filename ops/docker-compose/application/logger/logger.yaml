@@ -1,18 +1,35 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+  logging:
+    driver: ${LOGGER_DRIVER}
+    options:
+    loki-url: ${LOGGER_DRIVER_URL}
+    max-size: ${LOGGER_MAX_SIZE}
+
 services:
 
   logger:
+    <<: *network
     depends_on:
       - coredns
     build:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
       args:
-        CMD_PATH: "./cmd/logger"
+        CMD_PATH: "./internal/services/logger/cmd"
       shm_size: 1gb
       cache_from:
         - shortlink-logger
+    develop:
+      watch:
+        - action: rebuild
+          path: ./internal/services/logger
     image: shortlink-logger
     container_name: logger
     init: true
@@ -20,15 +37,5 @@ services:
     environment:
       MQ_ENABLED: true
       MQ_KAFKA_URI: kafka-1:9092,kafka-2:9092
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
     cpu_quota: 20000
     mem_limit: 500m
-    logging:
-      driver: ${LOGGER_DRIVER}
-      options:
-        loki-url: ${LOGGER_DRIVER_URL}
-        max-size: ${LOGGER_MAX_SIZE}
