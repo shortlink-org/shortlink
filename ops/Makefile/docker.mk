@@ -53,7 +53,7 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/saas/gitlab/gitlab.yaml \
+		-f ops/docker-compose/tooling/saas/novu/novu.yaml \
 		up -d --remove-orphans --build
 
 down: confirm ## Down docker compose
@@ -63,6 +63,8 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/tooling/saas/airflow/airflow.yaml \
 		-f ops/docker-compose/tooling/saas/nifi/nifi.yaml \
 		-f ops/docker-compose/tooling/saas/gitlab/gitlab.yaml \
+		-f ops/docker-compose/tooling/saas/novu/novu.yaml \
+		-f ops/docker-compose/tooling/saas/localstack/localstack.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-phlare.yaml \
