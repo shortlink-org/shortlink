@@ -10,7 +10,7 @@ argo-cd:
 
   global:
     image:
-      tag: ""
+      tag: "v2.9.0-rc2"
 
     logging:
       format: json
@@ -21,10 +21,10 @@ argo-cd:
 
     resources:
       limits:
-        cpu: 800m
+        cpu: 1000m
         memory: 2Gi
       requests:
-        cpu: 400m
+        cpu: 500m
         memory: 1Gi
 
     metrics:
@@ -68,7 +68,7 @@ argo-cd:
     resources:
       limits:
         cpu: 300m
-        memory: 2Gi
+        memory: 128Mi
       requests:
         cpu: 15m
         memory: 32Mi
@@ -243,11 +243,11 @@ argo-cd:
   applicationSet:
     resources:
       limits:
-        cpu: 500m
-        memory: 2Gi
+        cpu: 300m
+        memory: 512Mi
       requests:
-        cpu: 250m
-        memory: 256Mi
+        cpu: 150m
+        memory: 128Mi
 
     metrics:
       enabled: true
@@ -265,7 +265,7 @@ argo-cd:
     resources:
       limits:
         cpu: 300m
-        memory: 2Gi
+        memory: 1Gi
       requests:
         cpu: 15m
         memory: 64Mi
