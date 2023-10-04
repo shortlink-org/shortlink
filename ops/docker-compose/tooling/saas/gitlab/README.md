@@ -7,6 +7,12 @@
 - [Configuration](https://docs.gitlab.com/omnibus/settings/configuration.html)
   - [`gitlab.rb` template](https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template)
 
+### Get root's password
+
+```bash
+docker exec -it gitlab cat /etc/gitlab/initial_root_password
+```
+
 ### Backups by Cron
 
 ```bash
