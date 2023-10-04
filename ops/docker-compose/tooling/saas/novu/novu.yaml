@@ -5,16 +5,14 @@ include:
 
 x-network: &network
   depends_on:
+    - coredns
     - mongo
     - redis
-    - coredns
   networks:
     - simple
   dns:
     - ${DNS_IP}
   dns_search: ${DNS_SEARCH}
-  env_file:
-    - ./ops/docker-compose/tooling/saas/novu/conf/example.env
   logging:
     driver: 'json-file'
     options:
@@ -31,30 +29,25 @@ services:
     ports:
       - '3000:3000'
     environment:
-      NODE_ENV: ${NODE_ENV}
-      API_ROOT_URL: ${API_ROOT_URL}
-      DISABLE_USER_REGISTRATION: ${DISABLE_USER_REGISTRATION}
-      PORT: ${API_PORT}
-      FRONT_BASE_URL: ${FRONT_BASE_URL}
-      MONGO_URL: ${MONGO_URL}
-      MONGO_MAX_POOL_SIZE: ${MONGO_MAX_POOL_SIZE}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      NODE_ENV: local
+      API_ROOT_URL: http://localhost:3000
+      DISABLE_USER_REGISTRATION: false
+      PORT: 3000
+      FRONT_BASE_URL: http://client:4200
+      MONGO_URL: mongodb://shortlink:password@mongo:27017/shortlink
+      MONGO_MAX_POOL_SIZE: 500
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD:
       REDIS_DB_INDEX: 2
-      REDIS_CACHE_SERVICE_HOST: ${REDIS_CACHE_SERVICE_HOST}
-      REDIS_CACHE_SERVICE_PORT: ${REDIS_CACHE_SERVICE_PORT}
-      S3_LOCAL_STACK: ${S3_LOCAL_STACK}
-      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
-      S3_REGION: ${S3_REGION}
-      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      JWT_SECRET: ${JWT_SECRET}
-      STORE_ENCRYPTION_KEY: ${STORE_ENCRYPTION_KEY}
-      SENTRY_DSN: ${SENTRY_DSN}
-      NEW_RELIC_APP_NAME: ${NEW_RELIC_APP_NAME}
-      NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
-      API_CONTEXT_PATH: ${API_CONTEXT_PATH}
+      REDIS_CACHE_SERVICE_PORT: 6379
+      S3_LOCAL_STACK: http://localhost:4566
+      S3_BUCKET_NAME: novu-local
+      S3_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      JWT_SECRET: your-secret
+      STORE_ENCRYPTION_KEY: "<ENCRYPTION_KEY_MUST_BE_32_LONG>"
 
   novu-worker:
     <<: *network
@@ -62,24 +55,20 @@ services:
     container_name: novu-worker
     restart: unless-stopped
     environment:
-      NODE_ENV: ${NODE_ENV}
-      MONGO_URL: ${MONGO_URL}
-      MONGO_MAX_POOL_SIZE: ${MONGO_MAX_POOL_SIZE}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      NODE_ENV: local
+      MONGO_URL: mongodb://shortlink:password@mongo:27017/shortlink
+      MONGO_MAX_POOL_SIZE: 500
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD:
       REDIS_DB_INDEX: 2
-      REDIS_CACHE_SERVICE_HOST: ${REDIS_CACHE_SERVICE_HOST}
-      REDIS_CACHE_SERVICE_PORT: ${REDIS_CACHE_SERVICE_PORT}
-      S3_LOCAL_STACK: ${S3_LOCAL_STACK}
-      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
-      S3_REGION: ${S3_REGION}
-      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      STORE_ENCRYPTION_KEY: ${STORE_ENCRYPTION_KEY}
-      SENTRY_DSN: ${SENTRY_DSN}
-      NEW_RELIC_APP_NAME: ${NEW_RELIC_APP_NAME}
-      NEW_RELIC_LICENSE_KEY: ${NEW_RELIC_LICENSE_KEY}
+      REDIS_CACHE_SERVICE_PORT: 6379
+      S3_LOCAL_STACK: http://localhost:4566
+      S3_BUCKET_NAME: novu-local
+      S3_REGION: us-east-1
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      STORE_ENCRYPTION_KEY: "<ENCRYPTION_KEY_MUST_BE_32_LONG>"
 
   novu-ws:
     <<: *network
@@ -89,15 +78,15 @@ services:
     ports:
       - '3002:3002'
     environment:
-      PORT: ${WS_PORT}
-      NODE_ENV: ${NODE_ENV}
-      MONGO_URL: ${MONGO_URL}
-      MONGO_MAX_POOL_SIZE: ${MONGO_MAX_POOL_SIZE}
-      REDIS_HOST: ${REDIS_HOST}
-      REDIS_PORT: ${REDIS_PORT}
-      REDIS_PASSWORD: ${REDIS_PASSWORD}
-      JWT_SECRET: ${JWT_SECRET}
-      WS_CONTEXT_PATH: ${WS_CONTEXT_PATH}
+      PORT: 3002
+      NODE_ENV: local
+      MONGO_URL: mongodb://shortlink:password@mongo:27017/shortlink
+      MONGO_MAX_POOL_SIZE: 500
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD:
+      REDIS_CACHE_SERVICE_PORT: 6379
+      JWT_SECRET: your-secret
 
   novu-web:
     <<: *network
@@ -107,11 +96,11 @@ services:
     ports:
       - 4200:4200
     environment:
-      REACT_APP_API_URL: ${API_ROOT_URL}
-      REACT_APP_ENVIRONMENT: ${NODE_ENV}
-      REACT_APP_WIDGET_EMBED_PATH: ${WIDGET_EMBED_PATH}
+      REACT_APP_API_URL: http://localhost:3000
+      REACT_APP_ENVIRONMENT: local
+      REACT_APP_WIDGET_EMBED_PATH: http://localhost:4701/embed.umd.min.js
       REACT_APP_DOCKER_HOSTED_ENV: 'true'
-      REACT_APP_WS_URL: ${REACT_APP_WS_URL}
+      REACT_APP_WS_URL: http://localhost:3002
 
   novu-widget:
     <<: *network
@@ -121,10 +110,9 @@ services:
     ports:
       - 4500:4500
     environment:
-      REACT_APP_API_URL: ${API_ROOT_URL}
-      REACT_APP_WS_URL: ${REACT_APP_WS_URL}
-      REACT_APP_ENVIRONMENT: ${NODE_ENV}
-      WIDGET_CONTEXT_PATH: ${WIDGET_CONTEXT_PATH}
+      REACT_APP_API_URL: http://localhost:3000
+      REACT_APP_WS_URL: http://localhost:3002
+      REACT_APP_ENVIRONMENT: local
 
   novu-embed:
     <<: *network
@@ -134,5 +122,5 @@ services:
     ports:
       - 4701:4701
     environment:
-      WIDGET_URL: ${WIDGET_URL}
+      WIDGET_URL: http://localhost:4500
 

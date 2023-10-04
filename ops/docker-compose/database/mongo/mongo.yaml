@@ -23,6 +23,7 @@ services:
       MONGODB_USERNAME: shortlink
       MONGODB_PASSWORD: password
       MONGODB_DATABASE: shortlink
+      MONGODB_ROOT_PASSWORD: password
 #    logging:
 #      driver: fluent-bit
 #      options:
