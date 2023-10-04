@@ -6,6 +6,11 @@ x-network: &network
   dns:
     - ${DNS_IP}
   dns_search: ${DNS_SEARCH}
+  logging:
+    driver: ${LOGGER_DRIVER}
+    options:
+    loki-url: ${LOGGER_DRIVER_URL}
+    max-size: ${LOGGER_MAX_SIZE}
 
 services:
 
@@ -17,10 +22,14 @@ services:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
       args:
-          CMD_PATH: "./cmd/metadata"
+        CMD_PATH: "./internal/services/metadata/cmd"
       shm_size: 1gb
       cache_from:
         - shortlink-metadata
+    develop:
+      watch:
+        - action: rebuild
+          path: ./internal/services/metadata
     image: shortlink-metadata
     container_name: metadata
     init: true
@@ -34,11 +43,6 @@ services:
     user: ${CURRENT_UID}
     ports:
       - "50052:50051"
-    logging:
-      driver: ${LOGGER_DRIVER}
-      options:
-        loki-url: ${LOGGER_DRIVER_URL}
-        max-size: ${LOGGER_MAX_SIZE}
 
   prometheus:
     <<: *network
@@ -48,4 +52,4 @@ services:
     profiles:
       - prometheus
     volumes:
-      - ./ops/docker-compose/application/config/metadata-server.json:/etc/prometheus/targets/metadata-server.json
+      - ./ops/docker-compose/application/metadata/config/metadata-server.json:/etc/prometheus/targets/metadata-server.json

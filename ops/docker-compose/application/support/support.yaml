@@ -6,6 +6,11 @@ x-network: &network
   dns:
     - ${DNS_IP}
   dns_search: ${DNS_SEARCH}
+  logging:
+    driver: ${LOGGER_DRIVER}
+    options:
+    loki-url: ${LOGGER_DRIVER_URL}
+    max-size: ${LOGGER_MAX_SIZE}
 
 services:
 
@@ -18,6 +23,10 @@ services:
       dockerfile: ops/dockerfile/support/support-proxy.Dockerfile
       cache_from:
         - support-proxy
+    develop:
+      watch:
+        - action: rebuild
+          path: ./internal/services/support
     image: support-proxy
     container_name: support-proxy
     init: true
@@ -26,6 +35,7 @@ services:
 
   support:
     <<: *network
+    <<: *logging
     depends_on:
       - coredns
     build:
@@ -34,6 +44,10 @@ services:
       shm_size: 1gb
       cache_from:
         - shortlink-support
+    develop:
+      watch:
+        - action: rebuild
+          path: ./internal/services/support
     image: shortlink-support
     container_name: support
     init: true

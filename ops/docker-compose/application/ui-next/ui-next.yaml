@@ -1,8 +1,21 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+  logging:
+    driver: ${LOGGER_DRIVER}
+    options:
+    loki-url: ${LOGGER_DRIVER_URL}
+    max-size: ${LOGGER_MAX_SIZE}
+
 services:
 
   ui-next:
+    <<: *network
     depends_on:
       - coredns
     build:
@@ -11,6 +24,10 @@ services:
       shm_size: 1gb
       cache_from:
         - ui-next
+    develop:
+      watch:
+        - action: rebuild
+          path: ./ui/nx-monorepo/packages/next
     image: ui-next
     container_name: ui-next
     init: true
@@ -24,13 +41,3 @@ services:
       - "traefik.http.routers.shortlink.rule=Host(`ui.$DOCKER_DOMAIN`)"
       - "traefik.backend.healthcheck.path=/ready"
       - "traefik.backend.healthcheck.port=8080"
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
-    logging:
-      driver: ${LOGGER_DRIVER}
-      options:
-        loki-url: ${LOGGER_DRIVER_URL}
-        max-size: ${LOGGER_MAX_SIZE}
