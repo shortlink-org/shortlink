@@ -101,6 +101,7 @@ spec:
     - name: link
       databases:
         - link
+      options: "SUPERUSER"
     - name: proxy
       databases:
         - proxy
