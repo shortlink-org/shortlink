@@ -20,8 +20,8 @@ import (
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
 	logger_mq "github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
 )

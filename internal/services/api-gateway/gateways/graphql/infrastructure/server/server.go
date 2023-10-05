@@ -9,7 +9,7 @@ import (
 	"golang.org/x/text/message"
 
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"

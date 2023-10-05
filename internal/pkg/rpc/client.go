@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/logger"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"

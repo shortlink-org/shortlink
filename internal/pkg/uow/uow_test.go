@@ -9,7 +9,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/uow/mocks"
 )
 
-//go:generate mockery --name=UnitOfWork --dir=./ --output=./mocks --outpkg=mocks --exported --case=underscore
+//go:generate mockery
 
 type Entity struct {
 	ID   int
@@ -17,7 +17,7 @@ type Entity struct {
 }
 
 func TestCommit(t *testing.T) {
-	unitOfWorkMock := &mocks.UnitOfWork[Entity]{}
+	unitOfWorkMock := &uow.UnitOfWork[Entity]{}
 	ctx := context.Background()
 
 	unitOfWorkMock.On("Commit", ctx).Return(nil)
@@ -29,7 +29,7 @@ func TestCommit(t *testing.T) {
 }
 
 func TestRollback(t *testing.T) {
-	unitOfWorkMock := &mocks.UnitOfWork[Entity]{}
+	unitOfWorkMock := &uow.UnitOfWork[Entity]{}
 	ctx := context.Background()
 
 	unitOfWorkMock.On("Rollback", ctx).Return(nil)
@@ -42,7 +42,7 @@ func TestRollback(t *testing.T) {
 
 func TestRegisterNew(t *testing.T) {
 	entity := Entity{ID: 1, Name: "Test Entity"}
-	unitOfWorkMock := &mocks.UnitOfWork[Entity]{}
+	unitOfWorkMock := &uow.UnitOfWork[Entity]{}
 
 	unitOfWorkMock.On("RegisterNew", entity).Return(nil)
 

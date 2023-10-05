@@ -10,7 +10,7 @@ import (
 
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	v1 "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/grpc-web/infrastructure/server/v1"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"

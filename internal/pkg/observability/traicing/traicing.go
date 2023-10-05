@@ -5,46 +5,36 @@ package traicing
 
 import (
 	"context"
+	"time"
 
 	otelpyroscope "github.com/pyroscope-io/otel-profiling-go"
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/exporters/jaeger"
+	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
-	tracesdk "go.opentelemetry.io/otel/sdk/trace"
-	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
-	"go.opentelemetry.io/otel/trace"
+	"go.opentelemetry.io/otel/sdk/trace"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/common"
 )
 
-// Init returns an instance of Jaeger Tracer that samples 100% of traces and logs all spans to stdout.
-func Init(ctx context.Context, cnf Config, log logger.Logger) (trace.TracerProvider, func(), error) {
-	exporter, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(cnf.URI)))
+// Init returns an instance of Tracer Provider that samples 100% of traces and logs all spans to stdout.
+func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProvider, func(), error) {
+	// Setup resource.
+	res, err := common.NewResource(cnf.ServiceName, cnf.ServiceVersion)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	tp := tracesdk.NewTracerProvider(
-		// Always be sure to batch in production.
-		tracesdk.WithBatcher(exporter),
-		// Record information about this application in a Resource.
-		tracesdk.WithResource(resource.NewWithAttributes(
-			semconv.SchemaURL,
-			semconv.ServiceNameKey.String(cnf.ServiceName),
-		)),
-	)
+	// Setup trace provider.
+	tp, err := newTraceProvider(res)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	cleanup := func() {
-		err := exporter.Shutdown(ctx)
-		if err != nil {
-			log.Error(`Tracing disable`, field.Fields{
-				"uri": cnf.URI,
-				"err": err,
-			})
-		}
-		err = tp.Shutdown(ctx)
+		err := tp.Shutdown(ctx)
 		if err != nil {
 			log.Error(`Tracing disable`, field.Fields{
 				"uri": cnf.URI,
@@ -77,4 +67,18 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (trace.TracerProvi
 	})
 
 	return tp, cleanup, nil
+}
+
+func newTraceProvider(res *resource.Resource) (*trace.TracerProvider, error) {
+	traceExporter, err := stdouttrace.New(stdouttrace.WithPrettyPrint())
+	if err != nil {
+		return nil, err
+	}
+
+	traceProvider := trace.NewTracerProvider(
+		trace.WithBatcher(traceExporter, trace.WithBatchTimeout(5*time.Second)),
+		trace.WithResource(res),
+	)
+
+	return traceProvider, nil
 }

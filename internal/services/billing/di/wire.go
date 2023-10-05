@@ -22,7 +22,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
 	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"

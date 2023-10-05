@@ -17,7 +17,7 @@ import (
 	additionalMiddleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	cqrs_api "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server/controllers/cqrs"
 	link_api "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server/controllers/link"
 	sitemap_api "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server/controllers/sitemap"

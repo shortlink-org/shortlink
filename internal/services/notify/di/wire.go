@@ -11,8 +11,8 @@ import (
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
 	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"

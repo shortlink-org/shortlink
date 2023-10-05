@@ -12,8 +12,8 @@ import (
 	cehttp "github.com/cloudevents/sdk-go/v2/protocol/http"
 	"github.com/elastic/go-elasticsearch/v8"
 	"go.uber.org/zap"
-	"knative.dev/pkg/tracing"
-	"knative.dev/pkg/tracing/config"
+	"knative.dev/pkg/observability/tracing"
+	"knative.dev/pkg/observability/tracing/config"
 )
 
 type Service struct {

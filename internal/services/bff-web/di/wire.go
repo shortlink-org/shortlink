@@ -19,7 +19,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 
 	api "github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/http"
 )

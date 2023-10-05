@@ -138,6 +138,34 @@ true
 			</td>
 			<td></td>
 		</tr>
+		<tr>
+			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L26">kubescape.operator.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"70m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L27">kubescape.operator.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"120Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
 	</tbody>
 </table>
 

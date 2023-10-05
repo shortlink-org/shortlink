@@ -12,7 +12,6 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/segmentio/encoding v0.3.6
-	github.com/shortlink-org/shortlink v0.0.0-20231002162041-8f73991ced40
 	github.com/spf13/viper v1.16.0
 	github.com/swaggo/swag v1.16.2
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.3
@@ -63,7 +62,7 @@ require (
 	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect
 	github.com/google/flatbuffers v2.0.8+incompatible // indirect
 	github.com/google/uuid v1.3.1 // indirect
-	github.com/grafana/pyroscope-go v1.0.3 // indirect
+	github.com/grafana/pyroscope-go v1.0.4 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.4 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.1 // indirect
@@ -102,17 +101,16 @@ require (
 	github.com/nats-io/nkeys v0.4.5 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.13.0 // indirect
-	github.com/onsi/gomega v1.28.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.18 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_golang v1.17.0 // indirect
-	github.com/prometheus/client_model v0.4.1-0.20230919144854-baaa0384eac5 // indirect
+	github.com/prometheus/client_model v0.5.0 // indirect
 	github.com/prometheus/common v0.44.0 // indirect
 	github.com/prometheus/procfs v0.11.1 // indirect
 	github.com/pyroscope-io/otel-profiling-go v0.4.0 // indirect
-	github.com/rabbitmq/amqp091-go v1.8.2-0.20230928095624-fbae907ea7c9 // indirect
+	github.com/rabbitmq/amqp091-go v1.9.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/redis/go-redis/v9 v9.2.1 // indirect
 	github.com/redis/rueidis v1.0.19 // indirect

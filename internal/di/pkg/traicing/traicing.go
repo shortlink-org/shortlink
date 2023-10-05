@@ -7,7 +7,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/traicing"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/traicing"
 )
 
 func New(ctx context.Context, log logger.Logger) (trace.TracerProvider, func(), error) {
@@ -15,9 +15,10 @@ func New(ctx context.Context, log logger.Logger) (trace.TracerProvider, func(), 
 	viper.SetDefault("PYROSCOPE_URI", "http://pyroscope.pyroscope:4040") // Pyroscope addr:host
 
 	config := traicing.Config{
-		ServiceName:  viper.GetString("SERVICE_NAME"),
-		URI:          viper.GetString("TRACER_URI"),
-		PyroscopeURI: viper.GetString("PYROSCOPE_URI"),
+		ServiceName:    viper.GetString("SERVICE_NAME"),
+		ServiceVersion: viper.GetString("SERVICE_VERSION"),
+		URI:            viper.GetString("TRACER_URI"),
+		PyroscopeURI:   viper.GetString("PYROSCOPE_URI"),
 	}
 
 	tracer, tracerClose, err := traicing.Init(ctx, config, log)

@@ -1,6 +1,6 @@
 # argo
 
-![Version: 0.3.14](https://img.shields.io/badge/Version-0.3.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.19.4](https://img.shields.io/badge/AppVersion-5.19.4-informational?style=flat-square)
+![Version: 0.3.15](https://img.shields.io/badge/Version-0.3.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 5.19.4](https://img.shields.io/badge/AppVersion-5.19.4-informational?style=flat-square)
 
 ## Maintainers
 
@@ -20,7 +20,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | https://argoproj.github.io/argo-helm | argo-workflows | 0.33.3 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.1 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.2 |
 
 ## Values
 
@@ -68,7 +68,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"400m"
+"300m"
 </pre>
 </div>
 			</td>
@@ -82,7 +82,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"2Gi"
+"512Mi"
 </pre>
 </div>
 			</td>
@@ -96,7 +96,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"50m"
+"150m"
 </pre>
 </div>
 			</td>
@@ -110,7 +110,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"64Mi"
+"128Mi"
 </pre>
 </div>
 			</td>
@@ -208,7 +208,7 @@ int
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-2
+1
 </pre>
 </div>
 			</td>
@@ -222,7 +222,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"500m"
+"1000m"
 </pre>
 </div>
 			</td>
@@ -250,7 +250,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"50m"
+"500m"
 </pre>
 </div>
 			</td>
@@ -264,7 +264,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"128Mi"
+"1Gi"
 </pre>
 </div>
 			</td>
@@ -516,7 +516,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"2Gi"
+"128Mi"
 </pre>
 </div>
 			</td>
@@ -593,14 +593,14 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--global--image"><a href="./values.yaml#L12">argo-cd.global.image</a></td>
+			<td id="argo-cd--global--image--tag"><a href="./values.yaml#L13">argo-cd.global.image.tag</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-null
+"v2.9.0-rc2"
 </pre>
 </div>
 			</td>
@@ -684,7 +684,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"2Gi"
+"1Gi"
 </pre>
 </div>
 			</td>

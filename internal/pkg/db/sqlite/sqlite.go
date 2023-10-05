@@ -16,6 +16,7 @@ import (
 func New(tracer trace.TracerProvider, metrics *metric.MeterProvider) *Store {
 	return &Store{
 		metrics: metrics,
+		tracer:  tracer,
 	}
 }
 

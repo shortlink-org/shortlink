@@ -18,7 +18,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/graphql/infrastructure/server"
 	v1_2 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"

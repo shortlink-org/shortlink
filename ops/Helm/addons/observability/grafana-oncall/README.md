@@ -1,6 +1,6 @@
 # grafana-oncall
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,8 +14,8 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | oncall | 1.3.39 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.1 |
+| https://grafana.github.io/helm-charts | oncall | 1.3.42 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.2 |
 
 ## Values
 

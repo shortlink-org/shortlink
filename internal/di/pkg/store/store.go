@@ -7,7 +7,7 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 )
 
 // New - return implementation of db

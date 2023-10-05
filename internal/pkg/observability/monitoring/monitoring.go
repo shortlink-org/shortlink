@@ -13,11 +13,10 @@ import (
 	"go.opentelemetry.io/contrib/instrumentation/runtime"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/sdk/metric"
-	"go.opentelemetry.io/otel/sdk/resource"
-	"go.opentelemetry.io/otel/semconv/v1.21.0"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/common"
 )
 
 type Monitoring struct {
@@ -89,11 +88,11 @@ func SetMetrics() (*metric.MeterProvider, error) {
 
 	// See the go.opentelemetry.io/otel/sdk/resource package for more
 	// information about how to create and use Resources.
-	res := resource.NewWithAttributes(
-		semconv.SchemaURL,
-		semconv.ServiceName(viper.GetString("SERVICE_NAME")),
-		semconv.ServiceVersion(viper.GetString("SERVICE_VERSION")),
-	)
+	// Setup resource.
+	res, err := common.NewResource(viper.GetString("SERVICE_NAME"), viper.GetString("SERVICE_VERSION"))
+	if err != nil {
+		return nil, err
+	}
 
 	metrics := metric.NewMeterProvider(
 		metric.WithResource(res),

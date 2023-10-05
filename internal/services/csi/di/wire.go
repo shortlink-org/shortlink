@@ -15,7 +15,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 )
 
 // Service - heplers
