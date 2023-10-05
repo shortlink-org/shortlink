@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios'
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context'
 import { Dispatch, SetStateAction } from 'react'
 import { toast } from 'react-toastify'
 
