@@ -3635,13 +3635,13 @@
     react-use "^17.2.4"
     swr "^2.0.0"
 
-"@backstage/plugin-proxy-backend@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-proxy-backend/-/plugin-proxy-backend-0.4.1.tgz#8f804c16f1242ec1f8eec0fca2bbd513d622b6da"
-  integrity sha512-Cscg7mFx4im5tQ/mLUevBgmeMfdzaccEpauZClQXtHRMcIVw72Zond8QrRG/2dY53Sxm2g3wrFoikY0Kw5bkEg==
+"@backstage/plugin-proxy-backend@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-proxy-backend/-/plugin-proxy-backend-0.4.2.tgz#3c50b133c58b982f25e4df592c29e8f8049a70d9"
+  integrity sha512-KmpUQvBHIk8SCKQovmjGrbRrD8+X5uIsHwMwDXenKHBmIRQtgjAHSNhNeZt8ZFpbATWn+w9Sn7fxv8QPmIVLpg==
   dependencies:
-    "@backstage/backend-common" "^0.19.6"
-    "@backstage/backend-plugin-api" "^0.6.4"
+    "@backstage/backend-common" "^0.19.7"
+    "@backstage/backend-plugin-api" "^0.6.5"
     "@backstage/config" "^1.1.0"
     "@types/express" "^4.17.6"
     express "^4.17.1"
