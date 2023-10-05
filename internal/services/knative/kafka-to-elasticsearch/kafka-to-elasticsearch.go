@@ -5,15 +5,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/cloudevents/sdk-go/observability/opencensus/v2/client"
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	cehttp "github.com/cloudevents/sdk-go/v2/protocol/http"
 	"github.com/elastic/go-elasticsearch/v8"
-	"go.uber.org/zap"
-	"knative.dev/pkg/observability/tracing"
-	"knative.dev/pkg/observability/tracing/config"
 )
 
 type Service struct {
@@ -40,19 +36,6 @@ func main() {
 	if err != nil {
 		log.Fatal("Failed to create client, ", err)
 	}
-
-	conf, err := config.JSONToTracingConfig(os.Getenv("K_CONFIG_TRACING"))
-	if err != nil {
-		log.Fatal(fmt.Sprintf("Failed to read tracing config, using the on-op default: %v", err))
-	}
-
-	tracer, err := tracing.SetupPublishingWithStaticConfig(zap.L().Sugar(), "", conf)
-	if err != nil {
-		log.Fatal(fmt.Sprintf("Failed to setup tracing: %v", err))
-	}
-	defer func(ctx context.Context) {
-		_ = tracer.Shutdown(ctx)
-	}(ctx)
 
 	err = c.StartReceiver(ctx, service.display)
 	if err != nil {

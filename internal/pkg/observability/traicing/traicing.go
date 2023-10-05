@@ -9,7 +9,7 @@ import (
 
 	otelpyroscope "github.com/pyroscope-io/otel-profiling-go"
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/exporters/stdout/stdouttrace"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
 	"go.opentelemetry.io/otel/sdk/trace"
@@ -28,7 +28,7 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProv
 	}
 
 	// Setup trace provider.
-	tp, err := newTraceProvider(res)
+	tp, err := newTraceProvider(ctx, res, cnf.URI)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -47,7 +47,7 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProv
 	otel.SetTracerProvider(otelpyroscope.NewTracerProvider(
 		tp,
 		otelpyroscope.WithAppName(cnf.ServiceName),
-		otelpyroscope.WithPyroscopeURL(cnf.URI),
+		otelpyroscope.WithPyroscopeURL(cnf.PyroscopeURI),
 		otelpyroscope.WithRootSpanOnly(true),
 		otelpyroscope.WithAddSpanName(true),
 		otelpyroscope.WithProfileURL(true),
@@ -69,8 +69,17 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProv
 	return tp, cleanup, nil
 }
 
-func newTraceProvider(res *resource.Resource) (*trace.TracerProvider, error) {
-	traceExporter, err := stdouttrace.New(stdouttrace.WithPrettyPrint())
+func newTraceProvider(ctx context.Context, res *resource.Resource, uri string) (*trace.TracerProvider, error) {
+	traceExporter, err := otlptracegrpc.New(ctx,
+		otlptracegrpc.WithInsecure(),
+		otlptracegrpc.WithEndpoint(uri),
+		otlptracegrpc.WithRetry(otlptracegrpc.RetryConfig{
+			Enabled:         true,
+			InitialInterval: 5 * time.Second,
+			MaxInterval:     30 * time.Second,
+			MaxElapsedTime:  time.Minute,
+		}),
+	)
 	if err != nil {
 		return nil, err
 	}

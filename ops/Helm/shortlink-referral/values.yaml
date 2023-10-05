@@ -21,7 +21,7 @@ deploy:
 
   env:
     DATABASE_URI: redis://shortlink-redis-master.redis:6379/1
-    OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: http://grafana-tempo.grafana:4317/api/traces
+    OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: grafana-tempo.grafana:4317
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/referral
