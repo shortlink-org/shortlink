@@ -3905,20 +3905,39 @@
     uuid "^8.3.2"
     winston "^3.2.1"
 
-"@backstage/plugin-search-backend@^1.4.4":
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend/-/plugin-search-backend-1.4.4.tgz#b02666bea89edfd16f850126c592036bd3e9b1bd"
-  integrity sha512-iZfa86lVTtcnxyxhiKdgadxJi9ft4ilzIXhwRHntkBw4kkUix/aXlxhkkp8qa4VUiascvA+FDbj3Qv5P9Zvq7Q==
+"@backstage/plugin-search-backend-node@^1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend-node/-/plugin-search-backend-node-1.2.9.tgz#a6bf2fc9ef007cf5d10e59e9743b3e337fc9efee"
+  integrity sha512-lpfn2483zqXl+MWR3NLsKN04QlAqsrPn9CbqLwlvRWDfkgVKr5EYTO7dTDYa7DPmk7XDOV6wv2o0X1JR6WaJhg==
   dependencies:
-    "@backstage/backend-common" "^0.19.6"
-    "@backstage/backend-openapi-utils" "^0.0.4"
-    "@backstage/backend-plugin-api" "^0.6.4"
+    "@backstage/backend-common" "^0.19.7"
+    "@backstage/backend-plugin-api" "^0.6.5"
+    "@backstage/backend-tasks" "^0.5.10"
     "@backstage/config" "^1.1.0"
     "@backstage/errors" "^1.2.2"
-    "@backstage/plugin-auth-node" "^0.3.1"
     "@backstage/plugin-permission-common" "^0.7.8"
-    "@backstage/plugin-permission-node" "^0.7.15"
-    "@backstage/plugin-search-backend-node" "^1.2.8"
+    "@backstage/plugin-search-common" "^1.2.6"
+    "@types/lunr" "^2.3.3"
+    lodash "^4.17.21"
+    lunr "^2.3.9"
+    ndjson "^2.0.0"
+    uuid "^8.3.2"
+    winston "^3.2.1"
+
+"@backstage/plugin-search-backend@^1.4.5":
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-backend/-/plugin-search-backend-1.4.5.tgz#55caf574ed16e64cf19c13cf17d5b669bfb0710d"
+  integrity sha512-QM3hVaIsiv3cN8H8/NGIkMqkKWWnzwwf7n97XZ1rc9eveA4JkexEhxVah3Hk/HUddHMAzgqdnYjPLl6wHEgUsw==
+  dependencies:
+    "@backstage/backend-common" "^0.19.7"
+    "@backstage/backend-openapi-utils" "^0.0.4"
+    "@backstage/backend-plugin-api" "^0.6.5"
+    "@backstage/config" "^1.1.0"
+    "@backstage/errors" "^1.2.2"
+    "@backstage/plugin-auth-node" "^0.3.2"
+    "@backstage/plugin-permission-common" "^0.7.8"
+    "@backstage/plugin-permission-node" "^0.7.16"
+    "@backstage/plugin-search-backend-node" "^1.2.9"
     "@backstage/plugin-search-common" "^1.2.6"
     "@backstage/types" "^1.1.1"
     "@types/express" "^4.17.6"
