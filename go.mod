@@ -30,7 +30,7 @@ require (
 	github.com/google/uuid v1.3.1
 	github.com/google/wire v0.5.0
 	github.com/grafana/pyroscope-go v1.0.4
-	github.com/grafana/pyroscope-go/godeltaprof v0.1.4
+	github.com/grafana/pyroscope-go/godeltaprof v0.1.5
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.1
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
