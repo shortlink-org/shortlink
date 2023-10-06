@@ -17,6 +17,9 @@ kubescape:
     serviceMonitor:
       enabled: true
 
+      labels:
+        release: prometheus-operator
+
   configurations:
     otelUrl: http://grafana-tempo.grafana:4317
 
