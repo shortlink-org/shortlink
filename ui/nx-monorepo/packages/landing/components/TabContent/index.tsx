@@ -43,7 +43,7 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
 // @ts-ignore
 function getCard(name: string, url: string, theme) {
   return (
-    <Link href={url} key={url}>
+    <Link href={url} key={url} passHref>
       <Button
         variant="outlined"
         color={theme.palette.mode === 'dark' ? 'primary' : 'inherit'}
