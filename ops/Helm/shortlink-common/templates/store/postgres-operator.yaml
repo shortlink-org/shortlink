@@ -9,6 +9,7 @@ spec:
       sidecar.istio.io/inject: "false"
   instances:
     - name: shortlink
+      replicas: 3
       metadata:
         annotations:
           sidecar.istio.io/inject: "false"
@@ -64,6 +65,7 @@ spec:
         image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.4.2-0
   patroni:
     dynamicConfiguration:
+      synchronous_mode: true
       postgresql:
         parameters:
           # https://pgtune.leopard.in.ua/#/
@@ -83,6 +85,8 @@ spec:
           max_parallel_workers_per_gather: 4
           max_parallel_workers: 8
           max_parallel_maintenance_workers: 4
+          # Synchronous Replication
+          synchronous_commit: 'on'
           # other settings
           shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,timescaledb,pg_prewarm,uuid-ossp
   users:
