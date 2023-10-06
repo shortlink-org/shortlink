@@ -131,7 +131,7 @@ func (s *server) WithMetrics(monitoring *monitoring.Monitoring) {
 			grpc_prometheus.WithHistogramBuckets([]float64{0.001, 0.01, 0.1, 0.3, 0.6, 1, 3, 6, 9, 20, 30, 60, 90, 120}),
 		),
 	)
-	monitoring.Registry.MustRegister(s.serverMetrics)
+	monitoring.Prometheus.MustRegister(s.serverMetrics)
 
 	s.incerceptorUnaryServerList = append(s.incerceptorUnaryServerList, s.serverMetrics.UnaryServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
 	s.incerceptorStreamServerList = append(s.incerceptorStreamServerList, s.serverMetrics.StreamServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
@@ -150,7 +150,7 @@ func (s *server) WithTracer(tracer trace.TracerProvider) {
 // WithRecovery - setup recovery
 func (s *server) WithRecovery(monitoring *monitoring.Monitoring) {
 	// Setup metric for panic recoveries.
-	panicsTotal := promauto.With(monitoring.Registry).NewCounter(prometheus.CounterOpts{
+	panicsTotal := promauto.With(monitoring.Prometheus).NewCounter(prometheus.CounterOpts{
 		Name: "grpc_req_panics_recovered_total",
 		Help: "Total number of gRPC requests recovered from internal panic.",
 	})

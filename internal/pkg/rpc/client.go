@@ -152,5 +152,5 @@ func (c *client) WithMetrics(monitoring *monitoring.Monitoring) {
 	c.incerceptorUnaryClientList = append(c.incerceptorUnaryClientList, clientMetrics.UnaryClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
 	c.incerceptorStreamClientList = append(c.incerceptorStreamClientList, clientMetrics.StreamClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
 
-	monitoring.Registry.MustRegister(clientMetrics)
+	monitoring.Prometheus.MustRegister(clientMetrics)
 }
