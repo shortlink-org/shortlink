@@ -28,6 +28,8 @@ export function Providers({ children }) {
   const [darkMode, setDarkMode] = useState(false)
   const theme = darkMode ? darkTheme : lightTheme
 
+  const [isCaptcha, setIsCaptcha] = useState(false)
+
   return (
     <ThemeProvider theme={theme}>
       <CacheProvider value={cache}>
@@ -43,13 +45,16 @@ export function Providers({ children }) {
               <CssBaseline />
               {getInitColorSchemeScript()}
 
-              {children}
+              {isCaptcha && (children)}
 
               <Turnstile
                 // @ts-ignore
                 siteKey={CLOUDFLARE_SITE_KEY}
                 injectScript={false}
                 className="captcha"
+                onSuccess={() => setIsCaptcha(true)}
+                onError={() => setIsCaptcha(false)}
+                onAbort={() => setIsCaptcha(false)}
               />
             </div>
           </ColorModeContext.Provider>
