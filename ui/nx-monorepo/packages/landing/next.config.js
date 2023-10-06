@@ -19,7 +19,6 @@ const nextConfig = {
   transpilePackages: ['@shortlink-org/ui-kit'],
   compiler: {
     // ssr and displayName are configured by default
-    styledComponents: true,
     emotion: false,
   },
   images: {
