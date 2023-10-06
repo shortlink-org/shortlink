@@ -37,6 +37,9 @@ spec:
           sidecar.istio.io/inject: "false"
       repos:
         - name: repo1
+          schedules:
+            full: "0 1 * * 0"
+            differential: "0 1 * * 1-6"
           volume:
             volumeClaimSpec:
               storageClassName: local-path
