@@ -3,16 +3,13 @@ package monitoring
 import (
 	"context"
 	"net/http"
-	"time"
 
-	"github.com/heptiolabs/healthcheck"
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/collectors"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/viper"
-	"go.opentelemetry.io/contrib/instrumentation/runtime"
 	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/sdk/metric"
+	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
+	"go.opentelemetry.io/otel/exporters/prometheus"
+	api "go.opentelemetry.io/otel/sdk/metric"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
@@ -21,8 +18,8 @@ import (
 
 type Monitoring struct {
 	Handler  *http.ServeMux
-	Registry *prometheus.Registry
-	Metrics  *metric.MeterProvider
+	Registry *prometheus.Exporter
+	Metrics  *api.MeterProvider
 }
 
 // New - Monitoring endpoints
@@ -31,22 +28,13 @@ func New(ctx context.Context, log logger.Logger) (*Monitoring, func(), error) {
 	monitoring := &Monitoring{}
 
 	// Create a "common" meter provider for metrics
-	monitoring.Metrics, err = SetMetrics()
-
-	// Create a new Prometheus registry
-	monitoring.Registry, err = SetPrometheus()
-	if err != nil {
-		return nil, nil, err
-	}
+	monitoring.Metrics, err = SetMetrics(ctx)
 
 	// Create a "common" listener
-	monitoring.Handler, err = SetHandler(monitoring.Registry)
+	monitoring.Handler, err = SetHandler()
 	if err != nil {
 		return nil, nil, err
 	}
-
-	// Register the runtime metrics collection.
-	err = SetRuntime(monitoring.Metrics)
 
 	go func() {
 		err := http.ListenAndServe("0.0.0.0:9090", monitoring.Handler)
@@ -58,6 +46,12 @@ func New(ctx context.Context, log logger.Logger) (*Monitoring, func(), error) {
 		"addr": "0.0.0.0:9090",
 	})
 
+	// Create a new OTLP exporter for sending metrics to the OpenTelemetry Collector.
+	_, err = otlpmetricgrpc.New(ctx)
+	if err != nil {
+		return nil, nil, err
+	}
+
 	return monitoring, func() {
 		errShutdown := monitoring.Metrics.Shutdown(ctx)
 		if errShutdown != nil {
@@ -66,88 +60,48 @@ func New(ctx context.Context, log logger.Logger) (*Monitoring, func(), error) {
 	}, nil
 }
 
-// SetPrometheus - Create a new Prometheus registry
-func SetPrometheus() (*prometheus.Registry, error) {
-	registry := prometheus.NewRegistry()
-
-	// Add Go module build info.
-	err := prometheus.Register(collectors.NewBuildInfoCollector())
-	if err != nil {
-		return nil, err
-	}
-
-	return registry, nil
-}
-
 // SetMetrics - Create a "common" meter provider for metrics
-func SetMetrics() (*metric.MeterProvider, error) {
-	// This reader is used as a stand-in for a reader that will actually export
-	// data. See exporters in the go.opentelemetry.io/otel/exporters package
-	// for more information.
-	reader := metric.NewManualReader()
-
+func SetMetrics(ctx context.Context) (*api.MeterProvider, error) {
 	// See the go.opentelemetry.io/otel/sdk/resource package for more
 	// information about how to create and use Resources.
 	// Setup resource.
-	res, err := common.NewResource(viper.GetString("SERVICE_NAME"), viper.GetString("SERVICE_VERSION"))
+	res, err := common.NewResource(ctx, viper.GetString("SERVICE_NAME"), viper.GetString("SERVICE_VERSION"))
 	if err != nil {
 		return nil, err
 	}
 
-	metrics := metric.NewMeterProvider(
-		metric.WithResource(res),
-		metric.WithReader(reader),
+	// prometheus.DefaultRegisterer is used by default
+	// so that metrics are available via promhttp.Handler.
+	registry, err := prometheus.New()
+	if err != nil {
+		return nil, err
+	}
+
+	provider := api.NewMeterProvider(
+		api.WithResource(res),
+		api.WithReader(registry),
 	)
 
-	otel.SetMeterProvider(metrics)
+	otel.SetMeterProvider(provider)
 
-	return metrics, nil
+	return provider, nil
 }
 
 // SetHandler - Create a "common" handler for metrics
-func SetHandler(registry *prometheus.Registry) (*http.ServeMux, error) {
+func SetHandler() (*http.ServeMux, error) {
 	// Create a "common" listener
 	handler := http.NewServeMux()
 
 	// Expose prometheus metrics on /metrics
-	handler.Handle("/metrics", promhttp.HandlerFor(
-		registry,
-		promhttp.HandlerOpts{
-			// Opt into OpenMetrics, e.g., to support exemplars.
-			EnableOpenMetrics: true,
-		},
-	))
-
-	// Create a metrics-exposing Handler for the Prometheus registry
-	// The healthcheck related metrics will be prefixed with the provided namespace
-	health := healthcheck.NewMetricsHandler(registry, "common")
-
-	// Our app is not happy if we've got more than 100 goroutines running.
-	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) // nolint:gomnd
+	handler.Handle("/metrics", promhttp.Handler())
 
 	// Expose a liveness check on /live
-	handler.HandleFunc("/live", health.LiveEndpoint)
+	// TODO: recovery
+	handler.Handle("/live", promhttp.Handler())
 
 	// Expose a readiness check on /ready
-	handler.HandleFunc("/ready", health.ReadyEndpoint)
+	// TODO: recovery
+	handler.Handle("/ready", promhttp.Handler())
 
 	return handler, nil
-}
-
-// SetRuntime - Register the runtime metrics collection.
-func SetRuntime(metric *metric.MeterProvider) error {
-	options := []runtime.Option{
-		runtime.WithMinimumReadMemStatsInterval(time.Second * 1),
-	}
-
-	if metric.MeterProvider != nil {
-		options = append(options, runtime.WithMeterProvider(metric))
-	}
-
-	err := runtime.Start(options...)
-	if err != nil {
-		return err
-	}
-
-	return nil
 }

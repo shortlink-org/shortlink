@@ -22,7 +22,7 @@ import (
 // Init returns an instance of Tracer Provider that samples 100% of traces and logs all spans to stdout.
 func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProvider, func(), error) {
 	// Setup resource.
-	res, err := common.NewResource(cnf.ServiceName, cnf.ServiceVersion)
+	res, err := common.NewResource(ctx, cnf.ServiceName, cnf.ServiceVersion)
 	if err != nil {
 		return nil, nil, err
 	}

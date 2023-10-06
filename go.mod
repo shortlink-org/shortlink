@@ -40,6 +40,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/nats-io/nats.go v1.30.2
 	github.com/neo4j/neo4j-go-driver/v5 v5.13.0
+	github.com/open-telemetry/opentelemetry-collector-contrib/extension/healthcheckextension v0.86.0
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/prometheus/client_golang v1.17.0
 	github.com/prometheus/client_model v0.5.0
@@ -70,9 +71,10 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.45.0
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.45.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.45.0
-	go.opentelemetry.io/contrib/instrumentation/runtime v0.45.0
 	go.opentelemetry.io/otel v1.19.0
+	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v0.42.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.19.0
+	go.opentelemetry.io/otel/exporters/prometheus v0.42.0
 	go.opentelemetry.io/otel/sdk v1.19.0
 	go.opentelemetry.io/otel/sdk/metric v1.19.0
 	go.opentelemetry.io/otel/trace v1.19.0
@@ -172,6 +174,8 @@ require (
 	github.com/jzelinskie/stringz v0.0.1 // indirect
 	github.com/klauspost/compress v1.17.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
+	github.com/knadh/koanf v1.5.0 // indirect
+	github.com/knadh/koanf/v2 v2.0.1 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
 	github.com/lithammer/fuzzysearch v1.1.8 // indirect
@@ -181,7 +185,9 @@ require (
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/mattn/go-tty v0.0.4 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
-	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/mitchellh/copystructure v1.2.0 // indirect
+	github.com/mitchellh/mapstructure v1.5.1-0.20220423185008-bf980b35cac4 // indirect
+	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/mmcloughlin/addchain v0.4.0 // indirect
 	github.com/moby/term v0.5.0 // indirect
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
@@ -204,6 +210,7 @@ require (
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.11.0 // indirect
+	github.com/rs/cors v1.10.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect
@@ -237,7 +244,22 @@ require (
 	go.etcd.io/etcd/api/v3 v3.5.9 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.9 // indirect
 	go.opencensus.io v0.24.0 // indirect
+	go.opentelemetry.io/collector v0.86.0 // indirect
+	go.opentelemetry.io/collector/component v0.86.0 // indirect
+	go.opentelemetry.io/collector/config/configauth v0.86.0 // indirect
+	go.opentelemetry.io/collector/config/configcompression v0.86.0 // indirect
+	go.opentelemetry.io/collector/config/confighttp v0.86.0 // indirect
+	go.opentelemetry.io/collector/config/configopaque v0.86.0 // indirect
+	go.opentelemetry.io/collector/config/configtelemetry v0.86.0 // indirect
+	go.opentelemetry.io/collector/config/configtls v0.86.0 // indirect
+	go.opentelemetry.io/collector/config/internal v0.86.0 // indirect
+	go.opentelemetry.io/collector/confmap v0.86.0 // indirect
+	go.opentelemetry.io/collector/extension v0.86.0 // indirect
+	go.opentelemetry.io/collector/extension/auth v0.86.0 // indirect
+	go.opentelemetry.io/collector/featuregate v1.0.0-rcv0015 // indirect
+	go.opentelemetry.io/collector/pdata v1.0.0-rcv0015 // indirect
 	go.opentelemetry.io/contrib v1.19.0 // indirect
+	go.opentelemetry.io/otel/exporters/otlp/otlpmetric v0.42.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.19.0 // indirect
 	go.opentelemetry.io/otel/metric v1.19.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.0.0 // indirect

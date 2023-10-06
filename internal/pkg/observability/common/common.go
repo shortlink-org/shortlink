@@ -1,13 +1,27 @@
 package common
 
 import (
+	"context"
+
 	"go.opentelemetry.io/otel/sdk/resource"
 	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
 )
 
-func NewResource(serviceName string, serviceVersion string) (*resource.Resource, error) {
+func NewResource(ctx context.Context, serviceName string, serviceVersion string) (*resource.Resource, error) {
+	defaultResource, err := resource.New(ctx,
+		resource.WithFromEnv(),
+		resource.WithProcess(),
+		resource.WithOS(),
+		resource.WithContainer(),
+		resource.WithHost(),
+		resource.WithTelemetrySDK(),
+	)
+	if err != nil {
+		return nil, err
+	}
+
 	return resource.Merge(
-		resource.Default(),
+		defaultResource,
 		resource.NewWithAttributes(semconv.SchemaURL,
 			semconv.ServiceName(serviceName),
 			semconv.ServiceVersion(serviceVersion),
