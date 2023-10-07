@@ -90,7 +90,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 func (p *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
-		From("shortlink.links").
+		From("link.links").
 		Where(squirrel.Eq{"hash": id})
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -124,7 +124,7 @@ func (p *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, error) {
 	// query builder
 	links := psql.Select("url, hash, describe, created_at, updated_at").
-		From("shortlink.links")
+		From("link.links")
 
 	if filter != nil {
 		links = links.
@@ -207,7 +207,7 @@ func (p *Store) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) 
 // Delete - delete link
 func (p *Store) Delete(ctx context.Context, id string) error {
 	// query builder
-	request := psql.Delete("shortlink.links").
+	request := psql.Delete("link.links").
 		Where(squirrel.Eq{"hash": id})
 	q, args, err := request.ToSql()
 	if err != nil {
@@ -235,7 +235,7 @@ func (p *Store) singleWrite(ctx context.Context, source *domain.Link) (*domain.L
 	}
 
 	// query builder
-	links := psql.Insert("shortlink.links").
+	links := psql.Insert("link.links").
 		Columns("url", "hash", "describe", "json").
 		Values(source.Url, source.Hash, source.Describe, string(dataJson))
 
@@ -266,7 +266,7 @@ func (p *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain
 		}
 	}
 
-	links := psql.Insert("shortlink.links").Columns("url", "hash", "describe", "json")
+	links := psql.Insert("link.links").Columns("url", "hash", "describe", "json")
 
 	// query builder
 	for _, source := range sources {

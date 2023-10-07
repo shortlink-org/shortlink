@@ -94,7 +94,7 @@
           ],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  count(id) AS id\nFROM shortlink.links",
+          "rawSql": "SELECT\n  count(id) AS id\nFROM link.links",
           "refId": "A",
           "select": [
             [
@@ -112,7 +112,7 @@
               }
             ]
           ],
-          "table": "shortlink.links",
+          "table": "link.links",
           "timeColumn": "updated_at",
           "timeColumnType": "timestamp",
           "where": [

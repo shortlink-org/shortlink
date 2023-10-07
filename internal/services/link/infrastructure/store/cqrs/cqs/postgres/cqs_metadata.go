@@ -13,7 +13,7 @@ import (
 // LinkUpdate ...
 func (s *Store) MetadataUpdate(ctx context.Context, in *v1.Meta) (*v1.Meta, error) {
 	// query builder
-	metadata := psql.Update("shortlink.link_view").
+	metadata := psql.Update("link.link_view").
 		Set("image_url", in.ImageUrl).
 		Set("meta_description", in.Description).
 		Set("meta_keywords", in.Keywords).

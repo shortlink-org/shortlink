@@ -19,7 +19,7 @@ ALTER TABLE stats
 -- Add foreign key
 alter table shortlink.stats
 	add constraint stats_links_hash_fk
-		foreign key (hash) references shortlink.links (hash)
+		foreign key (hash) references link.links (hash)
 			on delete cascade;
 
 -- Improve

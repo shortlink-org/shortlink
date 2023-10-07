@@ -90,7 +90,7 @@ datasources:
     access: proxy
     url: http://elasticsearch:9200/
     editable: true
-    database: shortlink.shortlink.link_view
+    database: shortlink.link.link_view
     jsonData:
       timeField: "@timestamp"
       esVersion: "7.10.0"

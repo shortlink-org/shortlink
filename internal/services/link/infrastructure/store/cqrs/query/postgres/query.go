@@ -35,7 +35,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 	// query builder
 	links := psql.Select("url, hash, describe", "image_url", "meta_description", "meta_keywords").
-		From("shortlink.link_view").
+		From("link.link_view").
 		Where(squirrel.Eq{"hash": id})
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -69,7 +69,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView, error) {
 	// query builder
 	links := psql.Select("hash, describe, ts_headline(meta_description, q, 'StartSel=<em>, StopSel=</em>') as meta_description, created_at, updated_at").
-		From(fmt.Sprintf(`shortlink.link_view, to_tsquery('%s') AS q`, *filter.Search.Contains)).
+		From(fmt.Sprintf(`link.link_view, to_tsquery('%s') AS q`, *filter.Search.Contains)).
 		Where("make_tsvector_link_view(meta_keywords, meta_description) @@ q").
 		OrderBy("ts_rank(make_tsvector_link_view(meta_keywords, meta_description), q) DESC").
 		Limit(uint64(filter.Pagination.Limit)).
