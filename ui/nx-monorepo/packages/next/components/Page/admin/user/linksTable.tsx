@@ -2,6 +2,7 @@ import React from 'react'
 // @ts-ignore
 import { Table } from '@shortlink-org/ui-kit'
 import { formatRelative } from 'date-fns'
+import { ContentCopy } from '@mui/icons-material'
 
 type AppProps = {
   data: any
@@ -13,6 +14,11 @@ const columns = [
     header: 'URL',
     size: 150,
     enableClickToCopy: true,
+    muiCopyButtonProps: {
+      fullWidth: true,
+      startIcon: <ContentCopy />,
+      sx: { justifyContent: 'flex-start' },
+    },
     filterVariant: 'autocomplete',
     enableEditing: false,
   },

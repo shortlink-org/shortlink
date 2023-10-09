@@ -1,6 +1,10 @@
 import {
   MaterialReactTable,
   useMaterialReactTable,
+  MRT_ToggleDensePaddingButton,
+  MRT_ToggleFullScreenButton,
+  MRT_ShowHideColumnsButton,
+  MRT_ToggleFiltersButton,
   type MaterialReactTable as MaterialReactTableProps,
   type MRT_Cell,
   type MRT_ColumnDef,
@@ -21,7 +25,7 @@ import {
   TextField,
   Tooltip,
 } from '@mui/material'
-import { Delete, Edit, FileDownload } from '@mui/icons-material'
+import { Delete, Edit, FileDownload, Update } from '@mui/icons-material'
 import CreateNewItemModal from './CreateNewItemModal/CreateNewItemModal'
 
 const csvConfig = mkConfig({
@@ -96,14 +100,39 @@ export const Table = ({ columns, data }) => {
     enableFacetedValues: true,
     enableRowActions: true,
     paginationDisplayMode: 'pages',
-    renderTopToolbarCustomActions: () => (
-      <Button
-        color="primary"
-        onClick={() => setCreateModalOpen(true)}
-        variant="contained"
-      >
-        Create New Item
-      </Button>
+    renderTopToolbarCustomActions: ({ table }) => (
+      <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
+        <Button
+          color="primary"
+          onClick={() => setCreateModalOpen(true)}
+          variant="contained"
+        >
+          Create New Item
+        </Button>
+        <Button
+          color="error"
+          disabled={!table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()}
+          onClick={() => {
+            alert('Delete Selected Rows');
+          }}
+          variant="contained"
+        >
+          Delete Selected Rows
+        </Button>
+      </Box>
+    ),
+    renderToolbarInternalActions: ({ table }) => (
+      <Box>
+        <IconButton
+          onClick={() => alert('Update')}
+        >
+          <Update />
+        </IconButton>
+        <MRT_ToggleFiltersButton table={table} />
+        <MRT_ShowHideColumnsButton table={table} />
+        <MRT_ToggleDensePaddingButton table={table} />
+        <MRT_ToggleFullScreenButton table={table} />
+      </Box>
     ),
     // @ts-ignore
     renderRowActions: ({ row, table }) => (

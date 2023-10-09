@@ -1,9 +1,9 @@
 import { Meta } from '@storybook/react'
-import React, { useCallback } from 'react'
+import React from 'react'
 import { formatRelative } from 'date-fns'
+import { ContentCopy } from '@mui/icons-material'
 
 import Table from './Table'
-import type { MRT_Cell, MRT_ColumnDef } from 'material-react-table'
 
 const meta: Meta<any> = {
   title: 'UI/Table',
@@ -49,6 +49,11 @@ Default.args = {
       header: 'URL',
       size: 150,
       enableClickToCopy: true,
+      muiCopyButtonProps: {
+        fullWidth: true,
+        startIcon: <ContentCopy />,
+        sx: { justifyContent: 'flex-start' },
+      },
       filterVariant: 'autocomplete',
       enableEditing: false,
     },
