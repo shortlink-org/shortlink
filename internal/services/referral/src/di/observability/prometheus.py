@@ -1,5 +1,6 @@
 """Prometheus metrics provider."""
 
+import os
 from dependency_injector.providers import Injection
 
 from opentelemetry import metrics
@@ -26,7 +27,13 @@ class PrometheusMetricsProvider(providers.Singleton):
 
     def start_http_server(self):
         """Start Prometheus HTTP server."""
-        start_http_server(9090, addr='0.0.0.0', registry=REGISTRY)
+        port = os.getenv("PROMETHEUS_PORT")
+        if port is None:
+            port = 9090
+        else:
+            port = int(port)
+
+        start_http_server(port, addr='0.0.0.0', registry=REGISTRY)
 
     def get_meter(self):
         """Get meter."""

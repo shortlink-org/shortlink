@@ -5,9 +5,9 @@ package domain.referral.v1;
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
 
-import "src/domain/referral/v1/commands.proto";
-import "src/domain/referral/v1/events.proto";
-import "src/domain/referral/v1/queries.proto";
+import "domain/referral/v1/commands.proto";
+import "domain/referral/v1/events.proto";
+import "domain/referral/v1/queries.proto";
 
 // ENTITIES ====================================================================
 message Referral {

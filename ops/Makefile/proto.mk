@@ -45,7 +45,7 @@ proto-generate: ## Generate proto-files
 
 	# Referral service ------------------------------------------------------------------------------
 	@buf generate \
-		--path=internal/services/referral/src \
+		--path=internal/services/referral/src/domain \
 		--template=ops/proto/referral/buf.gen.yaml \
 		--config=ops/proto/referral/buf.yaml
 
