@@ -103,9 +103,8 @@ export const Table = ({ columns, data }) => {
     renderTopToolbarCustomActions: ({ table }) => (
       <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
         <Button
-          color="primary"
           onClick={() => setCreateModalOpen(true)}
-          variant="contained"
+          variant="outlined"
         >
           Create New Item
         </Button>

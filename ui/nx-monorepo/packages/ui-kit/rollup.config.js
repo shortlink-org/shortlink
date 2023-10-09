@@ -68,10 +68,13 @@ export default [
       'react-is',
       'react-dom',
       'prop-types',
+      '@mui/system',
       '@mui/material',
       '@emotion/react',
       'material-react-table',
       '@mui/x-date-pickers',
+      '@mui/styled-engine',
+      '@mui/icons-material',
     ],
   },
   // {
