@@ -1,8 +1,9 @@
 import { Meta } from '@storybook/react'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { formatRelative } from 'date-fns'
 
 import Table from './Table'
+import type { MRT_Cell, MRT_ColumnDef } from 'material-react-table'
 
 const meta: Meta<any> = {
   title: 'UI/Table',
@@ -49,12 +50,14 @@ Default.args = {
       size: 150,
       enableClickToCopy: true,
       filterVariant: 'autocomplete',
+      enableEditing: false,
     },
     {
       accessorKey: 'hash',
       header: 'Hash',
       size: 150,
       filterVariant: 'autocomplete',
+      enableEditing: false,
     },
     {
       accessorKey: 'describe',
@@ -68,10 +71,11 @@ Default.args = {
       filterVariant: 'date',
       filterFn: 'lessThan',
       sortingFn: 'datetime',
-      Cell: ({ cell }: any) => formatRelative(new Date(cell.getValue()), new Date(), {
-        // @ts-ignore
-        addSuffix: true,
-      }),
+      Cell: ({ cell }: any) =>
+        formatRelative(new Date(cell.getValue()), new Date(), {
+          // @ts-ignore
+          addSuffix: true,
+        }),
       muiFilterTextFieldProps: {
         sx: {
           minWidth: '250px',
@@ -85,10 +89,11 @@ Default.args = {
       filterVariant: 'date',
       filterFn: 'lessThan',
       sortingFn: 'datetime',
-      Cell: ({ cell }: any) => formatRelative(new Date(cell.getValue()), new Date(), {
-        // @ts-ignore
-        addSuffix: true,
-      }),
+      Cell: ({ cell }: any) =>
+        formatRelative(new Date(cell.getValue()), new Date(), {
+          // @ts-ignore
+          addSuffix: true,
+        }),
       muiFilterTextFieldProps: {
         sx: {
           minWidth: '250px',

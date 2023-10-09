@@ -14,12 +14,14 @@ const columns = [
     size: 150,
     enableClickToCopy: true,
     filterVariant: 'autocomplete',
+    enableEditing: false,
   },
   {
     accessorKey: 'hash',
     header: 'Hash',
     size: 150,
     filterVariant: 'autocomplete',
+    enableEditing: false,
   },
   {
     accessorKey: 'describe',
@@ -33,10 +35,11 @@ const columns = [
     filterVariant: 'date',
     filterFn: 'lessThan',
     sortingFn: 'datetime',
-    Cell: ({ cell }: any) => formatRelative(new Date(cell.getValue()), new Date(), {
-      // @ts-ignore
-      addSuffix: true,
-    }),
+    Cell: ({ cell }: any) =>
+      formatRelative(new Date(cell.getValue()), new Date(), {
+        // @ts-ignore
+        addSuffix: true,
+      }),
     muiFilterTextFieldProps: {
       sx: {
         minWidth: '250px',
@@ -50,10 +53,11 @@ const columns = [
     filterVariant: 'date',
     filterFn: 'lessThan',
     sortingFn: 'datetime',
-    Cell: ({ cell }: any) => formatRelative(new Date(cell.getValue()), new Date(), {
-      // @ts-ignore
-      addSuffix: true,
-    }),
+    Cell: ({ cell }: any) =>
+      formatRelative(new Date(cell.getValue()), new Date(), {
+        // @ts-ignore
+        addSuffix: true,
+      }),
     muiFilterTextFieldProps: {
       sx: {
         minWidth: '250px',
