@@ -163,8 +163,8 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 		if err != nil {
 			return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: query.ErrNotFound}
 		}
-		result.CreatedAt = &timestamppb.Timestamp{Seconds: int64(created_ad.Time.Second()), Nanos: int32(created_ad.Time.Nanosecond())}
-		result.UpdatedAt = &timestamppb.Timestamp{Seconds: int64(updated_at.Time.Second()), Nanos: int32(updated_at.Time.Nanosecond())}
+		result.CreatedAt = &timestamppb.Timestamp{Seconds: created_ad.Time.Unix(), Nanos: int32(created_ad.Time.Nanosecond())}
+		result.UpdatedAt = &timestamppb.Timestamp{Seconds: updated_at.Time.Unix(), Nanos: int32(updated_at.Time.Nanosecond())}
 
 		response.Link = append(response.Link, &result)
 	}
