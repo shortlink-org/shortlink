@@ -1,5 +1,5 @@
 import Button from '@mui/material/Button'
-import { StoryObj, Meta, Preview } from '@storybook/react'
+import { Meta } from '@storybook/react'
 
 const meta: Meta<any> = {
   title: 'UI/Button',
@@ -13,5 +13,6 @@ function Template(args: any) {
 }
 
 export const Default = Template.bind({})
+
 // @ts-ignore
 Default.args = {}

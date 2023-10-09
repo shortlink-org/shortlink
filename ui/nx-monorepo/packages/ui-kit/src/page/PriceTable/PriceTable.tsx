@@ -1,4 +1,3 @@
-import StarIcon from '@mui/icons-material/StarBorder'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'

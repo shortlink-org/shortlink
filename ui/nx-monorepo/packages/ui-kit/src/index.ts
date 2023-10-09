@@ -8,6 +8,7 @@ export { ToggleDarkMode } from './ui/ToggleDarkMode/ToggleDarkMode'
 export { GithubRepository } from './card/GithubRepository/GithubRepository'
 export { Timeline } from './ui/Timeline/Timeline'
 export { Spotlight } from './effect/Spotlight/Spotlight'
+export { Table } from './ui/Table/Table'
 
 // Layout exports
 export { Header } from './page/Header/Header'

@@ -1,6 +1,5 @@
-// @ts-nocheck
 import { BeakerIcon } from '@heroicons/react/20/solid'
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta } from '@storybook/react'
 
 import Timeline, { TimelineProps } from './Timeline'
 
@@ -11,9 +10,13 @@ const meta: Meta<TimelineProps> = {
 
 export default meta
 
-const Template: StoryFn<TimelineProps> = (args) => <Timeline {...args} />
+function Template(args: TimelineProps) {
+  return <Timeline {...args} />
+}
 
 export const Default = Template.bind({})
+
+// @ts-ignore
 Default.args = {
   items: [
     {

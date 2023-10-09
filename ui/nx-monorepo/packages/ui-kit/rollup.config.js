@@ -37,6 +37,7 @@ export default [
         file: packageJson.module,
         format: 'esm',
         sourcemap: true,
+        globals,
       },
     ],
     plugins: [
@@ -57,7 +58,7 @@ export default [
         declaration: true,
       }),
       commonjs({
-        include: 'node_modules/**',
+        include: ['node_modules/**', '../../node_modules/**'],
       }),
       filesize(),
       terser(),
@@ -69,6 +70,7 @@ export default [
       'prop-types',
       '@mui/material',
       '@emotion/react',
+      'material-react-table',
     ],
   },
   // {

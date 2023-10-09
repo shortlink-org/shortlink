@@ -1,6 +1,4 @@
-// @ts-nocheck
-import { BeakerIcon } from '@heroicons/react/20/solid'
-import { Meta, StoryFn } from '@storybook/react'
+import { Meta } from '@storybook/react'
 
 import PriceTable, { TiersProps } from './PriceTable'
 
@@ -11,9 +9,13 @@ const meta: Meta<TiersProps> = {
 
 export default meta
 
-const Template: StoryFn<TiersProps> = (args) => <PriceTable {...args} />
+function Template(args: TiersProps) {
+  return <PriceTable {...args}>Text</PriceTable>
+}
 
 export const Default = Template.bind({})
+
+// @ts-ignore
 Default.args = {
   tiers: [
     {
