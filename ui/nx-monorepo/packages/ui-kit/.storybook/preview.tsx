@@ -10,6 +10,8 @@ import '@fontsource/caveat'
 import '@fontsource/material-icons'
 import { ThemeProvider } from '@mui/material/styles'
 import { ThemeProvider as TailWindProvider } from 'next-themes'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import '../src/theme/styles.css'
 import { ColorModeContext, darkTheme, lightTheme } from '../src'
@@ -24,9 +26,11 @@ const preview: Preview = {
         <TailWindProvider enableSystem attribute="class">
           <ThemeProvider theme={theme}>
             <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-              <Provider>
-                <Story />
-              </Provider>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Provider>
+                  <Story />
+                </Provider>
+              </LocalizationProvider>
             </ColorModeContext.Provider>
           </ThemeProvider>
         </TailWindProvider>

@@ -71,6 +71,7 @@ export default [
       '@mui/material',
       '@emotion/react',
       'material-react-table',
+      '@mui/x-date-pickers',
     ],
   },
   // {
