@@ -45,7 +45,7 @@ export function Providers({ children }) {
               <CssBaseline />
               {getInitColorSchemeScript()}
 
-              {isCaptcha && (children)}
+              {isCaptcha && children}
 
               <Turnstile
                 // @ts-ignore

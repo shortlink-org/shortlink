@@ -36,5 +36,9 @@ module.exports = {
     require('@tailwindcss/forms'),
     // eslint-disable-next-line global-require
     require('@tailwindcss/aspect-ratio'),
+    // eslint-disable-next-line global-require
+    require('@tailwindcss/container-queries'),
+    // eslint-disable-next-line global-require
+    require('tailwindcss-logical'),
   ],
 }
