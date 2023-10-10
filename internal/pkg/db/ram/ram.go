@@ -27,7 +27,7 @@ func (s *Store) Init(_ context.Context) error {
 }
 
 // GetConn ...
-func (_ *Store) GetConn() interface{} {
+func (_ *Store) GetConn() any {
 	return nil
 }
 

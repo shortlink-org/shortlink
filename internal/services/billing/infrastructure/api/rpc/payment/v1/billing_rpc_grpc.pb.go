@@ -120,7 +120,7 @@ func RegisterPaymentServiceServer(s grpc.ServiceRegistrar, srv PaymentServiceSer
 	s.RegisterService(&PaymentService_ServiceDesc, srv)
 }
 
-func _PaymentService_Payment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PaymentService_Payment_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(PaymentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -132,13 +132,13 @@ func _PaymentService_Payment_Handler(srv interface{}, ctx context.Context, dec f
 		Server:     srv,
 		FullMethod: PaymentService_Payment_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(PaymentServiceServer).Payment(ctx, req.(*PaymentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PaymentService_Payments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PaymentService_Payments_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -150,13 +150,13 @@ func _PaymentService_Payments_Handler(srv interface{}, ctx context.Context, dec 
 		Server:     srv,
 		FullMethod: PaymentService_Payments_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(PaymentServiceServer).Payments(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PaymentService_PaymentCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PaymentService_PaymentCreate_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(PaymentCreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -168,13 +168,13 @@ func _PaymentService_PaymentCreate_Handler(srv interface{}, ctx context.Context,
 		Server:     srv,
 		FullMethod: PaymentService_PaymentCreate_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(PaymentServiceServer).PaymentCreate(ctx, req.(*PaymentCreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PaymentService_PaymentClose_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PaymentService_PaymentClose_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(PaymentCloseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -186,7 +186,7 @@ func _PaymentService_PaymentClose_Handler(srv interface{}, ctx context.Context, 
 		Server:     srv,
 		FullMethod: PaymentService_PaymentClose_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(PaymentServiceServer).PaymentClose(ctx, req.(*PaymentCloseRequest))
 	}
 	return interceptor(ctx, in, info, handler)

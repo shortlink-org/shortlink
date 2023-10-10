@@ -54,7 +54,7 @@ func (t *Tariff) Get(ctx context.Context, id string) (*v1.Tariff, error) {
 	return resp, nil
 }
 
-func (t *Tariff) List(ctx context.Context, filter interface{}) (*v1.Tariffs, error) {
+func (t *Tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
 	// query builder
 	tariffs := psql.Select("id", "name", "payload").
 		From("billing.tariff")

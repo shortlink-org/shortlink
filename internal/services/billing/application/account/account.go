@@ -30,7 +30,7 @@ func (acc *AccountService) Get(ctx context.Context, id string) (*billing.Account
 	return acc.accountRepository.Get(ctx, id)
 }
 
-func (acc *AccountService) List(ctx context.Context, filter interface{}) ([]*billing.Account, error) {
+func (acc *AccountService) List(ctx context.Context, filter any) ([]*billing.Account, error) {
 	return acc.accountRepository.List(ctx, filter)
 }
 

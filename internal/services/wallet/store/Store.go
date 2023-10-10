@@ -145,7 +145,7 @@ func bindStore(address common.Address, caller bind.ContractCaller, transactor bi
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Store *StoreRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Store *StoreRaw) Call(opts *bind.CallOpts, result *[]any, method string, params ...any) error {
 	return _Store.Contract.StoreCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -156,7 +156,7 @@ func (_Store *StoreRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction, e
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Store *StoreRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Store *StoreRaw) Transact(opts *bind.TransactOpts, method string, params ...any) (*types.Transaction, error) {
 	return _Store.Contract.StoreTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -164,7 +164,7 @@ func (_Store *StoreRaw) Transact(opts *bind.TransactOpts, method string, params 
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Store *StoreCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Store *StoreCallerRaw) Call(opts *bind.CallOpts, result *[]any, method string, params ...any) error {
 	return _Store.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -175,7 +175,7 @@ func (_Store *StoreTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Tran
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Store *StoreTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Store *StoreTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...any) (*types.Transaction, error) {
 	return _Store.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -183,7 +183,7 @@ func (_Store *StoreTransactorRaw) Transact(opts *bind.TransactOpts, method strin
 //
 // Solidity: function version() view returns(string)
 func (_Store *StoreCaller) Version(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
+	var out []any
 	err := _Store.contract.Call(opts, &out, "version")
 
 	if err != nil {

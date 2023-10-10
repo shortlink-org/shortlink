@@ -38,14 +38,14 @@ func TestOutputInfoWithContextZap(t *testing.T) {
 	log.InfoWithContext(context.Background(), "Hello World")
 
 	expectedTime := time.Now().Format(time.RFC822)
-	expected := map[string]interface{}{
+	expected := map[string]any{
 		"level":     "info",
 		"timestamp": expectedTime,
 		"caller":    "logger/logger_test.go:38",
 		"msg":       "Hello World",
 		"traceID":   "00000000000000000000000000000000",
 	}
-	var response map[string]interface{}
+	var response map[string]any
 	require.NoError(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
@@ -84,13 +84,13 @@ func TestOutputInfoWithContextLogrus(t *testing.T) {
 	log.InfoWithContext(context.Background(), "Hello World")
 
 	expectedTime := time.Now().Format(time.RFC822)
-	expected := map[string]interface{}{
+	expected := map[string]any{
 		"level":     "info",
 		"timestamp": expectedTime,
 		"msg":       "Hello World",
 		"traceID":   "00000000000000000000000000000000",
 	}
-	var response map[string]interface{}
+	var response map[string]any
 	require.NoError(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 	assert.Equal(t, expected, response)
 }
@@ -129,7 +129,7 @@ func TestFieldsZap(t *testing.T) {
 	})
 
 	expectedTime := time.Now().Format(time.RFC822)
-	expected := map[string]interface{}{
+	expected := map[string]any{
 		"level":     "info",
 		"timestamp": expectedTime,
 		"msg":       "Hello World",
@@ -138,7 +138,7 @@ func TestFieldsZap(t *testing.T) {
 		"hello":     "world",
 		"traceID":   "00000000000000000000000000000000",
 	}
-	var response map[string]interface{}
+	var response map[string]any
 	require.NoError(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 
 	if !reflect.DeepEqual(expected, response) {
@@ -164,14 +164,14 @@ func TestFieldsLogrus(t *testing.T) {
 	})
 
 	expectedTime := time.Now().Format(time.RFC822)
-	expected := map[string]interface{}{
+	expected := map[string]any{
 		"level":     "info",
 		"timestamp": expectedTime,
 		"msg":       "Hello World",
 		"first":     float64(1),
 		"hello":     "world",
 	}
-	var response map[string]interface{}
+	var response map[string]any
 	require.NoError(t, json.Unmarshal(b.Bytes(), &response), "Error unmarshalling")
 	assert.Equal(t, expected, response)
 }

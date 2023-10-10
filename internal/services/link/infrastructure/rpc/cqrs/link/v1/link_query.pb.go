@@ -281,7 +281,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_query_proto_rawDescGZIP() []byte 
 }
 
 var file_infrastructure_rpc_cqrs_link_v1_link_query_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_infrastructure_rpc_cqrs_link_v1_link_query_proto_goTypes = []interface{}{
+var file_infrastructure_rpc_cqrs_link_v1_link_query_proto_goTypes = []any{
 	(*GetRequest)(nil),   // 0: infrastructure.rpc.cqrs.link.v1.GetRequest
 	(*GetResponse)(nil),  // 1: infrastructure.rpc.cqrs.link.v1.GetResponse
 	(*ListRequest)(nil),  // 2: infrastructure.rpc.cqrs.link.v1.ListRequest
@@ -309,7 +309,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_query_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_rpc_cqrs_link_v1_link_query_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_cqrs_link_v1_link_query_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*GetRequest); i {
 			case 0:
 				return &v.state
@@ -321,7 +321,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_query_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_query_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_cqrs_link_v1_link_query_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*GetResponse); i {
 			case 0:
 				return &v.state
@@ -333,7 +333,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_query_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_query_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_cqrs_link_v1_link_query_proto_msgTypes[2].Exporter = func(v any, i int) any {
 			switch v := v.(*ListRequest); i {
 			case 0:
 				return &v.state
@@ -345,7 +345,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_query_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_query_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_cqrs_link_v1_link_query_proto_msgTypes[3].Exporter = func(v any, i int) any {
 			switch v := v.(*ListResponse); i {
 			case 0:
 				return &v.state

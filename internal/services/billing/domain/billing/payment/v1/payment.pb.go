@@ -286,7 +286,7 @@ func file_domain_billing_payment_v1_payment_proto_rawDescGZIP() []byte {
 
 var file_domain_billing_payment_v1_payment_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_billing_payment_v1_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_billing_payment_v1_payment_proto_goTypes = []interface{}{
+var file_domain_billing_payment_v1_payment_proto_goTypes = []any{
 	(StatusPayment)(0),            // 0: domain.billing.payment.v1.StatusPayment
 	(*Payment)(nil),               // 1: domain.billing.payment.v1.Payment
 	(*Payments)(nil),              // 2: domain.billing.payment.v1.Payments
@@ -309,7 +309,7 @@ func file_domain_billing_payment_v1_payment_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_billing_payment_v1_payment_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_billing_payment_v1_payment_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*Payment); i {
 			case 0:
 				return &v.state
@@ -321,7 +321,7 @@ func file_domain_billing_payment_v1_payment_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_payment_v1_payment_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_billing_payment_v1_payment_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*Payments); i {
 			case 0:
 				return &v.state

@@ -22,7 +22,7 @@ func TestNew(t *testing.T) {
 		ctx := context.Background()
 		eg, ctx := errgroup.WithContext(ctx)
 
-		aggrCB := func(args []*Item) interface{} {
+		aggrCB := func(args []*Item) any {
 			for _, item := range args {
 				time.Sleep(time.Microsecond * 100) // Emulate long work
 
@@ -58,7 +58,7 @@ func TestNew(t *testing.T) {
 
 		eg, ctx := errgroup.WithContext(ctx)
 
-		aggrCB := func(args []*Item) interface{} {
+		aggrCB := func(args []*Item) any {
 			// Get string
 			for _, item := range args {
 				time.Sleep(time.Second * 10) // Emulate long work

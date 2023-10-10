@@ -52,7 +52,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 
 	// Create a batch job ----------------------------------------------------------------------------------------------
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) interface{} { // nolint:errcheck
+		cb := func(args []*batch.Item) any { // nolint:errcheck
 			sources := make([]*domain.Link, len(args))
 
 			for key := range args {

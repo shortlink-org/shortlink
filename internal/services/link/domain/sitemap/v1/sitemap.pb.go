@@ -198,7 +198,7 @@ func file_domain_sitemap_v1_sitemap_proto_rawDescGZIP() []byte {
 }
 
 var file_domain_sitemap_v1_sitemap_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_sitemap_v1_sitemap_proto_goTypes = []interface{}{
+var file_domain_sitemap_v1_sitemap_proto_goTypes = []any{
 	(*Url)(nil),     // 0: domain.sitemap.v1.Url
 	(*Sitemap)(nil), // 1: domain.sitemap.v1.Sitemap
 }
@@ -217,7 +217,7 @@ func file_domain_sitemap_v1_sitemap_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_sitemap_v1_sitemap_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_sitemap_v1_sitemap_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*Url); i {
 			case 0:
 				return &v.state
@@ -229,7 +229,7 @@ func file_domain_sitemap_v1_sitemap_proto_init() {
 				return nil
 			}
 		}
-		file_domain_sitemap_v1_sitemap_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_sitemap_v1_sitemap_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*Sitemap); i {
 			case 0:
 				return &v.state

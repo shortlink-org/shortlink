@@ -11,7 +11,7 @@ type DB interface {
 	io.Closer
 
 	Init(ctx context.Context) error
-	GetConn() interface{}
+	GetConn() any
 }
 
 // Store abstract type

@@ -15,8 +15,8 @@ func TestMain(m *testing.M) {
 
 func TestMerge(t *testing.T) {
 	// Create two channels
-	ch1 := make(chan interface{}, 5)
-	ch2 := make(chan interface{}, 5)
+	ch1 := make(chan any, 5)
+	ch2 := make(chan any, 5)
 
 	// Populate channels with some data
 	for i := 0; i < 5; i++ {

@@ -51,7 +51,7 @@ func (log *LogrusLogger) Close() error {
 	return nil
 }
 
-func (log *LogrusLogger) Get() interface{} {
+func (log *LogrusLogger) Get() any {
 	return log.logger
 }
 

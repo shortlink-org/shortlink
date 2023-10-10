@@ -286,7 +286,7 @@ func file_domain_link_v1_link_proto_rawDescGZIP() []byte {
 
 var file_domain_link_v1_link_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_link_v1_link_proto_goTypes = []interface{}{
+var file_domain_link_v1_link_proto_goTypes = []any{
 	(LinkEvent)(0),                // 0: domain.link.v1.LinkEvent
 	(*Link)(nil),                  // 1: domain.link.v1.Link
 	(*Links)(nil),                 // 2: domain.link.v1.Links
@@ -311,7 +311,7 @@ func file_domain_link_v1_link_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_link_v1_link_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_link_v1_link_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*Link); i {
 			case 0:
 				return &v.state
@@ -323,7 +323,7 @@ func file_domain_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_domain_link_v1_link_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_link_v1_link_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*Links); i {
 			case 0:
 				return &v.state

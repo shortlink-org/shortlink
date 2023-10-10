@@ -23,11 +23,11 @@ func setupRoutes(r *chi.Mux, compiledRules map[string]*cel.Program) chi.Router {
 		}
 
 		nowTimestamp := timestamppb.New(time.Unix(input.Now, 0))
-		results := make(map[string]interface{})
+		results := make(map[string]any)
 
 		for ruleName, compiledRule := range compiledRules {
-			result, err := evaluateRule(compiledRule, map[string]interface{}{
-				"claims":            map[string]interface{}{"exp": input.Claims.Exp, "aud": input.Claims.Aud},
+			result, err := evaluateRule(compiledRule, map[string]any{
+				"claims":            map[string]any{"exp": input.Claims.Exp, "aud": input.Claims.Aud},
 				"now":               nowTimestamp,
 				"expected_audience": expectedValue,
 			})

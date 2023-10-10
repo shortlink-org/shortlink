@@ -340,7 +340,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_rawDescGZIP() []byt
 }
 
 var file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_infrastructure_rpc_cqrs_link_v1_link_command_proto_goTypes = []interface{}{
+var file_infrastructure_rpc_cqrs_link_v1_link_command_proto_goTypes = []any{
 	(*AddRequest)(nil),     // 0: infrastructure.rpc.cqrs.link.v1.AddRequest
 	(*AddResponse)(nil),    // 1: infrastructure.rpc.cqrs.link.v1.AddResponse
 	(*UpdateRequest)(nil),  // 2: infrastructure.rpc.cqrs.link.v1.UpdateRequest
@@ -373,7 +373,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*AddRequest); i {
 			case 0:
 				return &v.state
@@ -385,7 +385,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*AddResponse); i {
 			case 0:
 				return &v.state
@@ -397,7 +397,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[2].Exporter = func(v any, i int) any {
 			switch v := v.(*UpdateRequest); i {
 			case 0:
 				return &v.state
@@ -409,7 +409,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[3].Exporter = func(v any, i int) any {
 			switch v := v.(*UpdateResponse); i {
 			case 0:
 				return &v.state
@@ -421,7 +421,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[4].Exporter = func(v any, i int) any {
 			switch v := v.(*DeleteRequest); i {
 			case 0:
 				return &v.state

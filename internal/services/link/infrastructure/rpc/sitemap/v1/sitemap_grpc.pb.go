@@ -75,7 +75,7 @@ func RegisterSitemapServiceServer(s grpc.ServiceRegistrar, srv SitemapServiceSer
 	s.RegisterService(&SitemapService_ServiceDesc, srv)
 }
 
-func _SitemapService_Parse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _SitemapService_Parse_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(ParseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -87,7 +87,7 @@ func _SitemapService_Parse_Handler(srv interface{}, ctx context.Context, dec fun
 		Server:     srv,
 		FullMethod: SitemapService_Parse_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(SitemapServiceServer).Parse(ctx, req.(*ParseRequest))
 	}
 	return interceptor(ctx, in, info, handler)

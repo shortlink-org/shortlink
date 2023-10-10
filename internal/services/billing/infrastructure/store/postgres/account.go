@@ -31,7 +31,7 @@ func (a *Account) Get(ctx context.Context, id string) (*v1.Account, error) {
 	panic("implement me")
 }
 
-func (a *Account) List(ctx context.Context, filter interface{}) ([]*v1.Account, error) {
+func (a *Account) List(ctx context.Context, filter any) ([]*v1.Account, error) {
 	panic("implement me")
 }
 

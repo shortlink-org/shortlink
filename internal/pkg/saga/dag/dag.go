@@ -18,7 +18,7 @@ func New() *Dag {
 }
 
 // AddVertex adds a vertex to the graph
-func (d *Dag) AddVertex(id string, value interface{}) (*Vertex, error) {
+func (d *Dag) AddVertex(id string, value any) (*Vertex, error) {
 	// check on uniq key
 	if _, ok := d.vertices.Load(id); ok {
 		return nil, fmt.Errorf("dag already contains a vertex with the id: %s", id)

@@ -31,7 +31,7 @@ type Logger interface { // nolint:decorder
 	Debug(msg string, fields ...field.Fields)
 	DebugWithContext(ctx context.Context, msg string, fields ...field.Fields)
 
-	Get() interface{}
+	Get() any
 
 	// Closer is the interface that wraps the basic Close method.
 	io.Closer

@@ -350,7 +350,7 @@ func file_domain_billing_order_v1_order_proto_rawDescGZIP() []byte {
 
 var file_domain_billing_order_v1_order_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_domain_billing_order_v1_order_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_billing_order_v1_order_proto_goTypes = []interface{}{
+var file_domain_billing_order_v1_order_proto_goTypes = []any{
 	(StatusOrder)(0),              // 0: domain.billing.order.v1.StatusOrder
 	(Event)(0),                    // 1: domain.billing.order.v1.Event
 	(*Order)(nil),                 // 2: domain.billing.order.v1.Order
@@ -374,7 +374,7 @@ func file_domain_billing_order_v1_order_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_billing_order_v1_order_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_billing_order_v1_order_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*Order); i {
 			case 0:
 				return &v.state
@@ -386,7 +386,7 @@ func file_domain_billing_order_v1_order_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_order_v1_order_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_billing_order_v1_order_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*Orders); i {
 			case 0:
 				return &v.state

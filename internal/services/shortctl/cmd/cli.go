@@ -118,7 +118,7 @@ func (*Config) setConfigDocs(path string, config *Config) { // nolint:gocognit
 												case *ast.AssignStmt:
 													c := variable.Rhs[0].(*ast.CallExpr) // nolint:errcheck
 
-													str := []interface{}{}
+													str := []any{}
 													for i := range c.Args {
 														str = append(str, tool.TrimQuotes(c.Args[i].(*ast.BasicLit).Value))
 													}

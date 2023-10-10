@@ -7,7 +7,7 @@ import (
 type Option func(file *file) error
 
 func SetPath(path string) options.Option {
-	return func(o interface{}) error {
+	return func(o any) error {
 		f := o.(*file) // nolint:errcheck
 		f.path = path
 
@@ -16,7 +16,7 @@ func SetPath(path string) options.Option {
 }
 
 func SetName(name string) options.Option {
-	return func(o interface{}) error {
+	return func(o any) error {
 		f := o.(*file) // nolint:errcheck
 		f.database.Name = name
 

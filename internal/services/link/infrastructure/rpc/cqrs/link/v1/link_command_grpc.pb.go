@@ -105,7 +105,7 @@ func RegisterLinkCommandServiceServer(s grpc.ServiceRegistrar, srv LinkCommandSe
 	s.RegisterService(&LinkCommandService_ServiceDesc, srv)
 }
 
-func _LinkCommandService_Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _LinkCommandService_Add_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(AddRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -117,13 +117,13 @@ func _LinkCommandService_Add_Handler(srv interface{}, ctx context.Context, dec f
 		Server:     srv,
 		FullMethod: LinkCommandService_Add_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(LinkCommandServiceServer).Add(ctx, req.(*AddRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LinkCommandService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _LinkCommandService_Update_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(UpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -135,13 +135,13 @@ func _LinkCommandService_Update_Handler(srv interface{}, ctx context.Context, de
 		Server:     srv,
 		FullMethod: LinkCommandService_Update_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(LinkCommandServiceServer).Update(ctx, req.(*UpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LinkCommandService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _LinkCommandService_Delete_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(DeleteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -153,7 +153,7 @@ func _LinkCommandService_Delete_Handler(srv interface{}, ctx context.Context, de
 		Server:     srv,
 		FullMethod: LinkCommandService_Delete_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(LinkCommandServiceServer).Delete(ctx, req.(*DeleteRequest))
 	}
 	return interceptor(ctx, in, info, handler)

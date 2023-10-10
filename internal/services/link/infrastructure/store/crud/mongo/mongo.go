@@ -29,7 +29,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 
 	// Create batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) interface{} {
+		cb := func(args []*batch.Item) any {
 			sources := make([]*v1.Link, len(args))
 
 			for key := range args {
@@ -209,7 +209,7 @@ func (m *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 }
 
 func (m *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, error) {
-	docs := make([]interface{}, len(sources))
+	docs := make([]any, len(sources))
 
 	// Create a new link
 	for key := range sources {

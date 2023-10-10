@@ -14,8 +14,8 @@ func (q *Query) IsLimit() bool {
 func (q *Query) IsFilter(record *page.Row, fields map[string]field.Type) bool {
 	for _, condition := range q.Conditions {
 		var err error
-		var LValue interface{}
-		var RValue interface{}
+		var LValue any
+		var RValue any
 
 		payload := record.Value[condition.LValue]
 		switch fields[condition.LValue] {

@@ -1,6 +1,6 @@
 package rabbit
 
-type amqpHeadersCarrier map[string]interface{}
+type amqpHeadersCarrier map[string]any
 
 func (c amqpHeadersCarrier) Get(key string) string {
 	val, ok := c[key]

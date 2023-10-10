@@ -18,7 +18,7 @@ func (t *Tree[T]) Marshal() ([]byte, error) {
 	return json.Marshal(t)
 }
 
-func (t *Tree[T]) UnMarshal(bytes []byte, i interface{}) error {
+func (t *Tree[T]) UnMarshal(bytes []byte, i any) error {
 	// TODO implement me
 	panic("implement me")
 }

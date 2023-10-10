@@ -9,7 +9,7 @@ import (
 )
 
 // New creates a new batch Config with a specified callback function.
-func New(ctx context.Context, cb func([]*Item) interface{}, opts ...Option) (*Batch, error) {
+func New(ctx context.Context, cb func([]*Item) any, opts ...Option) (*Batch, error) {
 	ctx, cancelFunc := context.WithCancel(ctx)
 
 	b := &Batch{
@@ -31,11 +31,11 @@ func New(ctx context.Context, cb func([]*Item) interface{}, opts ...Option) (*Ba
 }
 
 // Push adds an item to the batch.
-func (b *Batch) Push(item interface{}) chan interface{} {
+func (b *Batch) Push(item any) chan any {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 	newItem := &Item{
-		CallbackChannel: make(chan interface{}),
+		CallbackChannel: make(chan any),
 		Item:            item,
 	}
 	b.items = append(b.items, newItem)

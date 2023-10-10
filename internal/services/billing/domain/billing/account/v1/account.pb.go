@@ -249,7 +249,7 @@ func file_domain_billing_account_v1_account_proto_rawDescGZIP() []byte {
 
 var file_domain_billing_account_v1_account_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_billing_account_v1_account_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_billing_account_v1_account_proto_goTypes = []interface{}{
+var file_domain_billing_account_v1_account_proto_goTypes = []any{
 	(Event)(0),                    // 0: domain.billing.account.v1.Event
 	(*Account)(nil),               // 1: domain.billing.account.v1.Account
 	(*Accounts)(nil),              // 2: domain.billing.account.v1.Accounts
@@ -271,7 +271,7 @@ func file_domain_billing_account_v1_account_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_billing_account_v1_account_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_billing_account_v1_account_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*Account); i {
 			case 0:
 				return &v.state
@@ -283,7 +283,7 @@ func file_domain_billing_account_v1_account_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_account_v1_account_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_billing_account_v1_account_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*Accounts); i {
 			case 0:
 				return &v.state

@@ -8,7 +8,7 @@ import (
 )
 
 type Engine interface {
-	Exec(*v1.Query) (interface{}, error)
+	Exec(*v1.Query) (any, error)
 	Close() error
 
 	// Table

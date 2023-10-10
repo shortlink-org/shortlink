@@ -14,7 +14,7 @@ func TestMain(m *testing.M) {
 func Test_WorkerPool(t *testing.T) {
 	wp := New(10)
 
-	f := func() (interface{}, error) {
+	f := func() (any, error) {
 		// some operation
 		return nil, nil
 	}

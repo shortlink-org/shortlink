@@ -120,7 +120,7 @@ func file_infrastructure_rpc_sitemap_v1_sitemap_proto_rawDescGZIP() []byte {
 }
 
 var file_infrastructure_rpc_sitemap_v1_sitemap_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_infrastructure_rpc_sitemap_v1_sitemap_proto_goTypes = []interface{}{
+var file_infrastructure_rpc_sitemap_v1_sitemap_proto_goTypes = []any{
 	(*ParseRequest)(nil),  // 0: infrastructure.rpc.sitemap.v1.ParseRequest
 	(*emptypb.Empty)(nil), // 1: google.protobuf.Empty
 }
@@ -140,7 +140,7 @@ func file_infrastructure_rpc_sitemap_v1_sitemap_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_rpc_sitemap_v1_sitemap_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_sitemap_v1_sitemap_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*ParseRequest); i {
 			case 0:
 				return &v.state

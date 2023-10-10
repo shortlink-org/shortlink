@@ -1,3 +1,3 @@
 package options
 
-type Option func(o interface{}) error
+type Option func(o any) error

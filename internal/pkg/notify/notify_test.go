@@ -71,7 +71,7 @@ func TestPublish(t *testing.T) {
 	Subscribe(METHOD_DELETE, sub)
 	assert.Equal(t, len(subscribers.subscriberMap), 5)
 
-	responseCh := make(chan interface{})
+	responseCh := make(chan any)
 
 	// Publish
 	go Publish(ctx, METHOD_ADD, "hello world", &Callback{responseCh, "RESPONSE_STORE_ADD"})

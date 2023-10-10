@@ -29,7 +29,7 @@ func (o OrderService) Get(ctx context.Context, id string) (*billing.Order, error
 	panic("implement me")
 }
 
-func (o OrderService) List(ctx context.Context, filter interface{}) ([]*billing.Order, error) {
+func (o OrderService) List(ctx context.Context, filter any) ([]*billing.Order, error) {
 	// return o.orderRepository.List(ctx, filter)
 	panic("implement me")
 }

@@ -286,7 +286,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_rawDescGZIP() []byte
 }
 
 var file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_goTypes = []interface{}{
+var file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_goTypes = []any{
 	(*MetadataServiceGetRequest)(nil),  // 0: infrastructure.rpc.metadata.v1.MetadataServiceGetRequest
 	(*MetadataServiceGetResponse)(nil), // 1: infrastructure.rpc.metadata.v1.MetadataServiceGetResponse
 	(*MetadataServiceSetRequest)(nil),  // 2: infrastructure.rpc.metadata.v1.MetadataServiceSetRequest
@@ -313,7 +313,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*MetadataServiceGetRequest); i {
 			case 0:
 				return &v.state
@@ -325,7 +325,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*MetadataServiceGetResponse); i {
 			case 0:
 				return &v.state
@@ -337,7 +337,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[2].Exporter = func(v any, i int) any {
 			switch v := v.(*MetadataServiceSetRequest); i {
 			case 0:
 				return &v.state
@@ -349,7 +349,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[3].Exporter = func(v any, i int) any {
 			switch v := v.(*MetadataServiceSetResponse); i {
 			case 0:
 				return &v.state

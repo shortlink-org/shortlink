@@ -13,7 +13,7 @@ import (
 )
 
 // evaluateRule ...
-func evaluateRule(program *cel.Program, inputs map[string]interface{}) (ref.Val, error) {
+func evaluateRule(program *cel.Program, inputs map[string]any) (ref.Val, error) {
 	// activation, err := cel.NewEnv()
 	// if err != nil {
 	//	return nil, err

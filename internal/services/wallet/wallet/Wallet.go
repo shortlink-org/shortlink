@@ -145,7 +145,7 @@ func bindWallet(address common.Address, caller bind.ContractCaller, transactor b
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Wallet *WalletRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Wallet *WalletRaw) Call(opts *bind.CallOpts, result *[]any, method string, params ...any) error {
 	return _Wallet.Contract.WalletCaller.contract.Call(opts, result, method, params...)
 }
 
@@ -156,7 +156,7 @@ func (_Wallet *WalletRaw) Transfer(opts *bind.TransactOpts) (*types.Transaction,
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Wallet *WalletRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Wallet *WalletRaw) Transact(opts *bind.TransactOpts, method string, params ...any) (*types.Transaction, error) {
 	return _Wallet.Contract.WalletTransactor.contract.Transact(opts, method, params...)
 }
 
@@ -164,7 +164,7 @@ func (_Wallet *WalletRaw) Transact(opts *bind.TransactOpts, method string, param
 // sets the output to result. The result type might be a single field for simple
 // returns, a slice of interfaces for anonymous returns and a struct for named
 // returns.
-func (_Wallet *WalletCallerRaw) Call(opts *bind.CallOpts, result *[]interface{}, method string, params ...interface{}) error {
+func (_Wallet *WalletCallerRaw) Call(opts *bind.CallOpts, result *[]any, method string, params ...any) error {
 	return _Wallet.Contract.contract.Call(opts, result, method, params...)
 }
 
@@ -175,7 +175,7 @@ func (_Wallet *WalletTransactorRaw) Transfer(opts *bind.TransactOpts) (*types.Tr
 }
 
 // Transact invokes the (paid) contract method with params as input values.
-func (_Wallet *WalletTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...interface{}) (*types.Transaction, error) {
+func (_Wallet *WalletTransactorRaw) Transact(opts *bind.TransactOpts, method string, params ...any) (*types.Transaction, error) {
 	return _Wallet.Contract.contract.Transact(opts, method, params...)
 }
 
@@ -183,7 +183,7 @@ func (_Wallet *WalletTransactorRaw) Transact(opts *bind.TransactOpts, method str
 //
 // Solidity: function Balance() view returns(uint256)
 func (_Wallet *WalletCaller) Balance(opts *bind.CallOpts) (*big.Int, error) {
-	var out []interface{}
+	var out []any
 	err := _Wallet.contract.Call(opts, &out, "Balance")
 
 	if err != nil {
@@ -214,7 +214,7 @@ func (_Wallet *WalletCallerSession) Balance() (*big.Int, error) {
 //
 // Solidity: function admin() view returns(address)
 func (_Wallet *WalletCaller) Admin(opts *bind.CallOpts) (common.Address, error) {
-	var out []interface{}
+	var out []any
 	err := _Wallet.contract.Call(opts, &out, "admin")
 
 	if err != nil {

@@ -28,7 +28,7 @@ type Raft interface {
 	// It takes a node ID and a command value, which can be any type.
 	// The method returns an error if the ID is invalid or the proposal
 	// fails to be processed by the specified node.
-	Propose(nodeID uint64, command interface{}) error
+	Propose(nodeID uint64, command any) error
 }
 
 // RaftRole represents the role of a Raft node.

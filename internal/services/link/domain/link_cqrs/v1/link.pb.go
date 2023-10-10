@@ -253,7 +253,7 @@ func file_domain_link_cqrs_v1_link_proto_rawDescGZIP() []byte {
 }
 
 var file_domain_link_cqrs_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_link_cqrs_v1_link_proto_goTypes = []interface{}{
+var file_domain_link_cqrs_v1_link_proto_goTypes = []any{
 	(*LinkView)(nil),              // 0: domain.link_cqrs.v1.LinkView
 	(*LinksView)(nil),             // 1: domain.link_cqrs.v1.LinksView
 	(*fieldmaskpb.FieldMask)(nil), // 2: google.protobuf.FieldMask
@@ -277,7 +277,7 @@ func file_domain_link_cqrs_v1_link_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_link_cqrs_v1_link_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_link_cqrs_v1_link_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*LinkView); i {
 			case 0:
 				return &v.state
@@ -289,7 +289,7 @@ func file_domain_link_cqrs_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_domain_link_cqrs_v1_link_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_link_cqrs_v1_link_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*LinksView); i {
 			case 0:
 				return &v.state

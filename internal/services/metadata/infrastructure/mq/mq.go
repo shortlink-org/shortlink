@@ -7,9 +7,10 @@ package metadata_mq
 import (
 	"context"
 
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
+
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
@@ -53,7 +54,7 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload any) notify.Re
 	return notify.Response[any]{}
 }
 
-func (e *Event) add(ctx context.Context, payload interface{}) notify.Response[any] {
+func (e *Event) add(ctx context.Context, payload any) notify.Response[any] {
 	// TODO: send []byte
 	msg := payload.(*metadata.Meta) // nolint:errcheck
 	data, err := proto.Marshal(msg)

@@ -58,7 +58,7 @@ func New(opts ...options.Option) (*file, error) {
 	return f, nil
 }
 
-func (f *file) Exec(query *v1.Query) (interface{}, error) {
+func (f *file) Exec(query *v1.Query) (any, error) {
 	switch query.Type {
 	case v1.Type_TYPE_UNSPECIFIED:
 		return nil, fmt.Errorf("exec: incorret type")

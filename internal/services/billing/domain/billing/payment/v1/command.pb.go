@@ -129,7 +129,7 @@ func file_domain_billing_payment_v1_command_proto_rawDescGZIP() []byte {
 }
 
 var file_domain_billing_payment_v1_command_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_domain_billing_payment_v1_command_proto_goTypes = []interface{}{
+var file_domain_billing_payment_v1_command_proto_goTypes = []any{
 	(Command)(0), // 0: domain.billing.payment.v1.Command
 }
 var file_domain_billing_payment_v1_command_proto_depIdxs = []int32{

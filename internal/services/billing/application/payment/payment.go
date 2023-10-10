@@ -122,7 +122,7 @@ func (p *PaymentService) Get(ctx context.Context, aggregateId string) (*billing.
 	return aggregate.Payment, nil
 }
 
-func (p *PaymentService) List(ctx context.Context, filter interface{}) ([]*billing.Payment, error) {
+func (p *PaymentService) List(ctx context.Context, filter any) ([]*billing.Payment, error) {
 	panic("implement me")
 	// return p.paymentRepository.List(ctx, filter)
 }

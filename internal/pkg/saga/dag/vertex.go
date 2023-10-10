@@ -3,7 +3,7 @@ package dag
 // Vertex type implements a vertex of a Directed Acyclic graph or DAG.
 type Vertex struct {
 	id       string
-	value    interface{}
+	value    any
 	parents  []*Vertex
 	children []*Vertex
 }

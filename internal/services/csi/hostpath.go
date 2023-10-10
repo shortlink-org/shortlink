@@ -150,7 +150,7 @@ func (d *driver) Run(ctx context.Context) error {
 	}
 
 	// log response errors for better observability
-	errHandler := func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	errHandler := func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (any, error) {
 		resp, err := handler(ctx, req)
 		if err != nil {
 			d.log.ErrorWithContext(ctx, "method failed", field.Fields{

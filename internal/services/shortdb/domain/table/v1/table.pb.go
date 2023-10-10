@@ -260,7 +260,7 @@ func file_shortdb_domain_table_v1_table_proto_rawDescGZIP() []byte {
 }
 
 var file_shortdb_domain_table_v1_table_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_shortdb_domain_table_v1_table_proto_goTypes = []interface{}{
+var file_shortdb_domain_table_v1_table_proto_goTypes = []any{
 	(*Option)(nil),                // 0: shortdb.domain.table.v1.Option
 	(*Table)(nil),                 // 1: shortdb.domain.table.v1.Table
 	nil,                           // 2: shortdb.domain.table.v1.Table.FieldsEntry
@@ -296,7 +296,7 @@ func file_shortdb_domain_table_v1_table_proto_init() {
 	}
 	file_shortdb_domain_table_v1_stats_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_shortdb_domain_table_v1_table_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_shortdb_domain_table_v1_table_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*Option); i {
 			case 0:
 				return &v.state
@@ -308,7 +308,7 @@ func file_shortdb_domain_table_v1_table_proto_init() {
 				return nil
 			}
 		}
-		file_shortdb_domain_table_v1_table_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_shortdb_domain_table_v1_table_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*Table); i {
 			case 0:
 				return &v.state

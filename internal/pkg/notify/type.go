@@ -26,6 +26,6 @@ type Response[T any] struct {
 }
 
 type Callback struct { // nolint:decorder
-	CB             chan<- interface{}
+	CB             chan<- any
 	ResponseFilter string
 }

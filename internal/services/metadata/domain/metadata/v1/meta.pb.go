@@ -149,7 +149,7 @@ func file_domain_metadata_v1_meta_proto_rawDescGZIP() []byte {
 }
 
 var file_domain_metadata_v1_meta_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_domain_metadata_v1_meta_proto_goTypes = []interface{}{
+var file_domain_metadata_v1_meta_proto_goTypes = []any{
 	(*Meta)(nil),                  // 0: domain.metadata.v1.Meta
 	(*fieldmaskpb.FieldMask)(nil), // 1: google.protobuf.FieldMask
 }
@@ -168,7 +168,7 @@ func file_domain_metadata_v1_meta_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_metadata_v1_meta_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_metadata_v1_meta_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*Meta); i {
 			case 0:
 				return &v.state

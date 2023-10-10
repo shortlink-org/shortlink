@@ -120,7 +120,7 @@ func RegisterLinkServiceServer(s grpc.ServiceRegistrar, srv LinkServiceServer) {
 	s.RegisterService(&LinkService_ServiceDesc, srv)
 }
 
-func _LinkService_GetLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _LinkService_GetLinks_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(GetLinksRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -132,13 +132,13 @@ func _LinkService_GetLinks_Handler(srv interface{}, ctx context.Context, dec fun
 		Server:     srv,
 		FullMethod: LinkService_GetLinks_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(LinkServiceServer).GetLinks(ctx, req.(*GetLinksRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LinkService_GetLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _LinkService_GetLink_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(GetLinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -150,13 +150,13 @@ func _LinkService_GetLink_Handler(srv interface{}, ctx context.Context, dec func
 		Server:     srv,
 		FullMethod: LinkService_GetLink_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(LinkServiceServer).GetLink(ctx, req.(*GetLinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LinkService_CreateLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _LinkService_CreateLink_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(CreateLinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -168,13 +168,13 @@ func _LinkService_CreateLink_Handler(srv interface{}, ctx context.Context, dec f
 		Server:     srv,
 		FullMethod: LinkService_CreateLink_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(LinkServiceServer).CreateLink(ctx, req.(*CreateLinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LinkService_DeleteLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _LinkService_DeleteLink_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(DeleteLinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -186,7 +186,7 @@ func _LinkService_DeleteLink_Handler(srv interface{}, ctx context.Context, dec f
 		Server:     srv,
 		FullMethod: LinkService_DeleteLink_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(LinkServiceServer).DeleteLink(ctx, req.(*DeleteLinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)

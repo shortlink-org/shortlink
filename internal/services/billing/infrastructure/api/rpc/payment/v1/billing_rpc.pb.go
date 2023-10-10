@@ -466,7 +466,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_rawDescGZIP() []by
 }
 
 var file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_goTypes = []interface{}{
+var file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_goTypes = []any{
 	(*PaymentRequest)(nil),        // 0: infrastructure.api.rpc.payment.v1.PaymentRequest
 	(*PaymentResponse)(nil),       // 1: infrastructure.api.rpc.payment.v1.PaymentResponse
 	(*PaymentsResponse)(nil),      // 2: infrastructure.api.rpc.payment.v1.PaymentsResponse
@@ -506,7 +506,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*PaymentRequest); i {
 			case 0:
 				return &v.state
@@ -518,7 +518,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*PaymentResponse); i {
 			case 0:
 				return &v.state
@@ -530,7 +530,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[2].Exporter = func(v any, i int) any {
 			switch v := v.(*PaymentsResponse); i {
 			case 0:
 				return &v.state
@@ -542,7 +542,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[3].Exporter = func(v any, i int) any {
 			switch v := v.(*PaymentCreateRequest); i {
 			case 0:
 				return &v.state
@@ -554,7 +554,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[4].Exporter = func(v any, i int) any {
 			switch v := v.(*PaymentCreateResponse); i {
 			case 0:
 				return &v.state
@@ -566,7 +566,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[5].Exporter = func(v any, i int) any {
 			switch v := v.(*PaymentCloseRequest); i {
 			case 0:
 				return &v.state
@@ -578,7 +578,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[6].Exporter = func(v any, i int) any {
 			switch v := v.(*PaymentCloseResponse); i {
 			case 0:
 				return &v.state

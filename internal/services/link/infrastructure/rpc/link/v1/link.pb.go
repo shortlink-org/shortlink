@@ -547,7 +547,7 @@ func file_infrastructure_rpc_link_v1_link_proto_rawDescGZIP() []byte {
 }
 
 var file_infrastructure_rpc_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_infrastructure_rpc_link_v1_link_proto_goTypes = []interface{}{
+var file_infrastructure_rpc_link_v1_link_proto_goTypes = []any{
 	(*GetRequest)(nil),     // 0: infrastructure.rpc.link.v1.GetRequest
 	(*GetResponse)(nil),    // 1: infrastructure.rpc.link.v1.GetResponse
 	(*ListRequest)(nil),    // 2: infrastructure.rpc.link.v1.ListRequest
@@ -591,7 +591,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*GetRequest); i {
 			case 0:
 				return &v.state
@@ -603,7 +603,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*GetResponse); i {
 			case 0:
 				return &v.state
@@ -615,7 +615,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[2].Exporter = func(v any, i int) any {
 			switch v := v.(*ListRequest); i {
 			case 0:
 				return &v.state
@@ -627,7 +627,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[3].Exporter = func(v any, i int) any {
 			switch v := v.(*ListResponse); i {
 			case 0:
 				return &v.state
@@ -639,7 +639,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[4].Exporter = func(v any, i int) any {
 			switch v := v.(*AddRequest); i {
 			case 0:
 				return &v.state
@@ -651,7 +651,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[5].Exporter = func(v any, i int) any {
 			switch v := v.(*AddResponse); i {
 			case 0:
 				return &v.state
@@ -663,7 +663,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[6].Exporter = func(v any, i int) any {
 			switch v := v.(*UpdateRequest); i {
 			case 0:
 				return &v.state
@@ -675,7 +675,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[7].Exporter = func(v any, i int) any {
 			switch v := v.(*UpdateResponse); i {
 			case 0:
 				return &v.state
@@ -687,7 +687,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[8].Exporter = func(v any, i int) any {
 			switch v := v.(*DeleteRequest); i {
 			case 0:
 				return &v.state

@@ -34,7 +34,7 @@ func (b *Store) Init(ctx context.Context) error {
 }
 
 // GetConn ...
-func (s *Store) GetConn() interface{} {
+func (s *Store) GetConn() any {
 	return s.client
 }
 

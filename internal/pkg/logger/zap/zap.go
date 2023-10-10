@@ -50,7 +50,7 @@ func (log *ZapLogger) Close() error {
 	return err
 }
 
-func (log *ZapLogger) Get() interface{} {
+func (log *ZapLogger) Get() any {
 	return log.Logger
 }
 

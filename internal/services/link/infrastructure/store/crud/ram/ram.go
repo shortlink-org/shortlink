@@ -34,7 +34,7 @@ func New(ctx context.Context) (*Store, error) {
 
 	// Create a batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) interface{} {
+		cb := func(args []*batch.Item) any {
 			if len(args) == 0 {
 				return nil
 			}
@@ -83,7 +83,7 @@ func (ram *Store) List(_ context.Context, filter *query.Filter) (*v1.Links, erro
 		Link: []*v1.Link{},
 	}
 
-	ram.links.Range(func(key, value interface{}) bool {
+	ram.links.Range(func(key, value any) bool {
 		link, ok := value.(*v1.Link)
 		if !ok {
 			return false

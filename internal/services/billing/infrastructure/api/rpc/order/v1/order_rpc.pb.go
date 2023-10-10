@@ -573,7 +573,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_rawDescGZIP() []byte {
 }
 
 var file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_infrastructure_api_rpc_order_v1_order_rpc_proto_goTypes = []interface{}{
+var file_infrastructure_api_rpc_order_v1_order_rpc_proto_goTypes = []any{
 	(*OrderHistoryResponse)(nil), // 0: infrastructure.api.rpc.order.v1.OrderHistoryResponse
 	(*OrderCreateRequest)(nil),   // 1: infrastructure.api.rpc.order.v1.OrderCreateRequest
 	(*OrderCreateResponse)(nil),  // 2: infrastructure.api.rpc.order.v1.OrderCreateResponse
@@ -619,7 +619,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*OrderHistoryResponse); i {
 			case 0:
 				return &v.state
@@ -631,7 +631,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*OrderCreateRequest); i {
 			case 0:
 				return &v.state
@@ -643,7 +643,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[2].Exporter = func(v any, i int) any {
 			switch v := v.(*OrderCreateResponse); i {
 			case 0:
 				return &v.state
@@ -655,7 +655,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[3].Exporter = func(v any, i int) any {
 			switch v := v.(*OrderUpdateRequest); i {
 			case 0:
 				return &v.state
@@ -667,7 +667,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[4].Exporter = func(v any, i int) any {
 			switch v := v.(*OrderUpdateResponse); i {
 			case 0:
 				return &v.state
@@ -679,7 +679,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[5].Exporter = func(v any, i int) any {
 			switch v := v.(*OrderCloseRequest); i {
 			case 0:
 				return &v.state
@@ -691,7 +691,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[6].Exporter = func(v any, i int) any {
 			switch v := v.(*OrderCloseResponse); i {
 			case 0:
 				return &v.state
@@ -703,7 +703,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[7].Exporter = func(v any, i int) any {
 			switch v := v.(*OrderApproveRequest); i {
 			case 0:
 				return &v.state
@@ -715,7 +715,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[8].Exporter = func(v any, i int) any {
 			switch v := v.(*OrderApproveResponse); i {
 			case 0:
 				return &v.state

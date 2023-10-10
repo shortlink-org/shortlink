@@ -252,7 +252,7 @@ func file_domain_billing_tariff_v1_tariff_proto_rawDescGZIP() []byte {
 
 var file_domain_billing_tariff_v1_tariff_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_billing_tariff_v1_tariff_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_billing_tariff_v1_tariff_proto_goTypes = []interface{}{
+var file_domain_billing_tariff_v1_tariff_proto_goTypes = []any{
 	(Event)(0),                    // 0: domain.billing.tariff.v1.Event
 	(*Tariff)(nil),                // 1: domain.billing.tariff.v1.Tariff
 	(*Tariffs)(nil),               // 2: domain.billing.tariff.v1.Tariffs
@@ -274,7 +274,7 @@ func file_domain_billing_tariff_v1_tariff_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_billing_tariff_v1_tariff_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_billing_tariff_v1_tariff_proto_msgTypes[0].Exporter = func(v any, i int) any {
 			switch v := v.(*Tariff); i {
 			case 0:
 				return &v.state
@@ -286,7 +286,7 @@ func file_domain_billing_tariff_v1_tariff_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_tariff_v1_tariff_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
+		file_domain_billing_tariff_v1_tariff_proto_msgTypes[1].Exporter = func(v any, i int) any {
 			switch v := v.(*Tariffs); i {
 			case 0:
 				return &v.state

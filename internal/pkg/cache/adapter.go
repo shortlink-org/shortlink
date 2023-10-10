@@ -12,17 +12,17 @@ type client struct {
 	adapter rueidiscompat.Cmdable
 }
 
-func (c client) Set(ctx context.Context, key string, value interface{}, ttl time.Duration) *redis.StatusCmd {
+func (c client) Set(ctx context.Context, key string, value any, ttl time.Duration) *redis.StatusCmd {
 	resp := c.adapter.Set(ctx, key, value, ttl)
 	return redis.NewStatusCmd(ctx, resp)
 }
 
-func (c client) SetXX(ctx context.Context, key string, value interface{}, ttl time.Duration) *redis.BoolCmd {
+func (c client) SetXX(ctx context.Context, key string, value any, ttl time.Duration) *redis.BoolCmd {
 	resp := c.adapter.SetXX(ctx, key, value, ttl)
 	return redis.NewBoolCmd(ctx, resp)
 }
 
-func (c client) SetNX(ctx context.Context, key string, value interface{}, ttl time.Duration) *redis.BoolCmd {
+func (c client) SetNX(ctx context.Context, key string, value any, ttl time.Duration) *redis.BoolCmd {
 	resp := c.adapter.SetNX(ctx, key, value, ttl)
 	return redis.NewBoolCmd(ctx, resp)
 }

@@ -1,9 +1,9 @@
 package worker_pool
 
-type Task func() (interface{}, error)
+type Task func() (any, error)
 
 type Result struct {
-	Value interface{}
+	Value any
 	Error error
 }
 

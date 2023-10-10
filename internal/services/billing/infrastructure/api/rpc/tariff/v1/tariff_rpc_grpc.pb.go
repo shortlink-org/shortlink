@@ -135,7 +135,7 @@ func RegisterTariffServiceServer(s grpc.ServiceRegistrar, srv TariffServiceServe
 	s.RegisterService(&TariffService_ServiceDesc, srv)
 }
 
-func _TariffService_Tariff_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TariffService_Tariff_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(TariffRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -147,13 +147,13 @@ func _TariffService_Tariff_Handler(srv interface{}, ctx context.Context, dec fun
 		Server:     srv,
 		FullMethod: TariffService_Tariff_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(TariffServiceServer).Tariff(ctx, req.(*TariffRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TariffService_Tariffs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TariffService_Tariffs_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -165,13 +165,13 @@ func _TariffService_Tariffs_Handler(srv interface{}, ctx context.Context, dec fu
 		Server:     srv,
 		FullMethod: TariffService_Tariffs_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(TariffServiceServer).Tariffs(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TariffService_TariffCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TariffService_TariffCreate_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(TariffCreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -183,13 +183,13 @@ func _TariffService_TariffCreate_Handler(srv interface{}, ctx context.Context, d
 		Server:     srv,
 		FullMethod: TariffService_TariffCreate_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(TariffServiceServer).TariffCreate(ctx, req.(*TariffCreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TariffService_TariffUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TariffService_TariffUpdate_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(TariffUpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -201,13 +201,13 @@ func _TariffService_TariffUpdate_Handler(srv interface{}, ctx context.Context, d
 		Server:     srv,
 		FullMethod: TariffService_TariffUpdate_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(TariffServiceServer).TariffUpdate(ctx, req.(*TariffUpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TariffService_TariffClose_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TariffService_TariffClose_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
 	in := new(TariffCloseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -219,7 +219,7 @@ func _TariffService_TariffClose_Handler(srv interface{}, ctx context.Context, de
 		Server:     srv,
 		FullMethod: TariffService_TariffClose_FullMethodName,
 	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+	handler := func(ctx context.Context, req any) (any, error) {
 		return srv.(TariffServiceServer).TariffClose(ctx, req.(*TariffCloseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
