@@ -7,7 +7,7 @@
     - export KUBECTL_APPLYSET=true
     - kubectl apply
       -n default
-      --prune 
+      --prune
       --applyset=crd-${APPLYSET}
       --force-conflicts
       --server-side
