@@ -1,7 +1,7 @@
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: stage
+  name: test
 spec:
   subscriptions:
     repos:
@@ -11,9 +11,26 @@ spec:
   promotionMechanisms:
     gitRepoUpdates:
       - repoURL: git@github.com:shortlink-org/shortlink.git
-        writeBranch: env/stage
+        writeBranch: stage/test
     argoCDAppUpdates:
       - appName: kargo-demo-test
+        appNamespace: argocd
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: prod
+spec:
+  subscriptions:
+    upstreamStages:
+      - name: test
+  promotionMechanisms:
+    gitRepoUpdates:
+      - repoURL: git@github.com:shortlink-org/shortlink.git
+        writeBranch: stage/prod
+    argoCDAppUpdates:
+      - appName: kargo-demo-prod
         appNamespace: argocd
 
 ---

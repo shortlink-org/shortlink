@@ -51,7 +51,7 @@ dependencies:
     tags:
       - ci/cd
   - name: kargo
-    version: 0.1.0-rc.24
+    version: 0.1.0
     repository: oci://ghcr.io/akuity/kargo-charts
     condition: kargo.enabled
     tags:
