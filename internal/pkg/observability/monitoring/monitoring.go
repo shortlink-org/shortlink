@@ -21,7 +21,6 @@ import (
 
 type Monitoring struct {
 	Handler    *http.ServeMux
-	Registry   *promExporter.Exporter
 	Prometheus *prometheus.Registry
 	Metrics    *api.MeterProvider
 }
@@ -118,7 +117,8 @@ func (m *Monitoring) SetHandler() (*http.ServeMux, error) {
 	health := healthcheck.NewMetricsHandler(m.Prometheus, "common")
 
 	// Our app is not happy if we've got more than 100 goroutines running.
-	health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) // nolint:gomnd
+	// TODO: research problem with prometheus
+	// health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) // nolint:gomnd
 
 	// Expose a liveness check on /live
 	handler.HandleFunc("/live", health.LiveEndpoint)
