@@ -41,7 +41,7 @@ require (
 	github.com/nats-io/nats.go v1.30.2
 	github.com/neo4j/neo4j-go-driver/v5 v5.13.0
 	github.com/ory/dockertest/v3 v3.10.0
-	github.com/prometheus/client_golang v1.16.1-0.20231010093810-60a85133edf7
+	github.com/prometheus/client_golang v1.17.0
 	github.com/prometheus/client_model v0.5.0
 	github.com/pterm/pterm v0.12.69
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
