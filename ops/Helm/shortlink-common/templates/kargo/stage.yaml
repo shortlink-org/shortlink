@@ -6,11 +6,11 @@ spec:
   subscriptions:
     repos:
       git:
-        - repoURL: git@github.com:shortlink-org/shortlink.git
+        - repoURL: https://github.com/shortlink-org/shortlink.git
           branch: main
   promotionMechanisms:
     gitRepoUpdates:
-      - repoURL: git@github.com:shortlink-org/shortlink.git
+      - repoURL: https://github.com/shortlink-org/shortlink.git
         writeBranch: stage/test
     argoCDAppUpdates:
       - appName: kargo-demo-test
@@ -27,7 +27,7 @@ spec:
       - name: test
   promotionMechanisms:
     gitRepoUpdates:
-      - repoURL: git@github.com:shortlink-org/shortlink.git
+      - repoURL: https://github.com/shortlink-org/shortlink.git
         writeBranch: stage/prod
     argoCDAppUpdates:
       - appName: kargo-demo-prod
