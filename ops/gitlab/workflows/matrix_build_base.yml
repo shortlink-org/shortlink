@@ -79,3 +79,7 @@
       - APPLICATION: support-proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/support-proxy
         DOCKERFILE_PATH: ops/dockerfile/support/support-proxy.Dockerfile
+      - APPLICATION: wallet
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/wallet
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/services/wallet/cmd"
