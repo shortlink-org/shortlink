@@ -25,3 +25,7 @@ Adopt Kargo for streamlining and automating the progressive rollout of changes a
 ## Consequences
 
 Enhanced automation, streamlined application delivery, and the mitigation of confusion between deployment stages. Potential breaking changes during active Kargo development are to be anticipated.
+
+**Example:**
+
+![Kargo UI](./proof/ADR-0028/kargo-example.png)
