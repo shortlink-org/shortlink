@@ -90,7 +90,7 @@ deploy:
       port: 9090
 
 hpa:
-  enabled: false
+  enabled: true
   metrics:
     - type: ContainerResource
       containerResource:
@@ -99,6 +99,13 @@ hpa:
         target:
           type: Utilization
           averageUtilization: 80
+    - type: External
+      external:
+        metric:
+          name: http_server_response_content_length_total
+        target:
+          type: AverageValue
+          averageValue: 100
 
 NetworkPolicy:
   enabled: false
