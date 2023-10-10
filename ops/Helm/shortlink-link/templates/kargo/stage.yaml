@@ -14,7 +14,7 @@ spec:
         writeBranch: stage/test
     argoCDAppUpdates:
       - appName: shortlink-link
-        appNamespace: argocd
+        appNamespace: shortlink
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
@@ -31,7 +31,7 @@ spec:
         writeBranch: stage/prod
     argoCDAppUpdates:
       - appName: shortlink-link-prod
-        appNamespace: argocd
+        appNamespace: shortlink
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
