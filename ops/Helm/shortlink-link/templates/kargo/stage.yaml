@@ -1,7 +1,7 @@
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: shorltink-link-test
+  name: {{ .name | default (include "helpers.fullname" .) }}-test
 spec:
   subscriptions:
     repos:
@@ -13,14 +13,14 @@ spec:
       - repoURL: https://github.com/shortlink-org/shortlink.git
         writeBranch: stage/test
     argoCDAppUpdates:
-      - appName: shortlink-link
+      - appName: {{ .name | default (include "helpers.fullname" .) }}
         appNamespace: shortlink
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: shorltink-link-prod
+  name: {{ .name | default (include "helpers.fullname" .) }}-prod
 spec:
   subscriptions:
     upstreamStages:
@@ -30,13 +30,13 @@ spec:
       - repoURL: https://github.com/shortlink-org/shortlink.git
         writeBranch: stage/prod
     argoCDAppUpdates:
-      - appName: shortlink-link-prod
+      - appName: {{ .name | default (include "helpers.fullname" .) }}-prod
         appNamespace: shortlink
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
 kind: PromotionPolicy
 metadata:
-  name: shorltink-link-promotion
+  name: {{ .name | default (include "helpers.fullname" .) }}-promotion
 stage: test
 enableAutoPromotion: true
