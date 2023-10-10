@@ -21,7 +21,7 @@ apiVersion: kargo.akuity.io/v1alpha1
 kind: PromotionPolicy
 metadata:
   name: stage
-environment: test
+stage: test
 authorizedPromoters:
   - subjectType: User
     name: kubernetes-admin
