@@ -97,7 +97,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--configurations--otelUrl"><a href="./values.yaml#L21">kubescape.configurations.otelUrl</a></td>
+			<td id="kubescape--configurations--otelUrl"><a href="./values.yaml#L24">kubescape.configurations.otelUrl</a></td>
 			<td>
 string
 </td>
@@ -139,7 +139,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L26">kubescape.operator.resources.requests.cpu</a></td>
+			<td id="kubescape--kubescape--serviceMonitor--labels--release"><a href="./values.yaml#L21">kubescape.kubescape.serviceMonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L29">kubescape.operator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -153,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L27">kubescape.operator.resources.requests.memory</a></td>
+			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L30">kubescape.operator.resources.requests.memory</a></td>
 			<td>
 string
 </td>

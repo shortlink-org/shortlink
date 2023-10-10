@@ -12,7 +12,7 @@ deploy:
   replicaCount: 1
 
   env:
-    TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
+    TRACER_URI: grafana-tempo.grafana:4317
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 
   imagePullSecrets: []

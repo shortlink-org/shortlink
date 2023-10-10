@@ -18,7 +18,7 @@ serviceAccount:
 # ==============================================================================
 deploy:
   env:
-    TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
+    TRACER_URI: grafana-tempo.grafana:4317
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/support

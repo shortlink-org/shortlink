@@ -112,7 +112,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"http://grafana-tempo.grafana:14268/api/traces"
+"grafana-tempo.grafana:4317"
 </pre>
 </div>
 			</td>
@@ -154,7 +154,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.37"
+"0.16.42"
 </pre>
 </div>
 			</td>

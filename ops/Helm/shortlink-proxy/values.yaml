@@ -49,7 +49,7 @@ deploy:
   env:
     MQ_ENABLED: false
     MQ_TYPE: rabbitmq
-    TRACER_URI: http://grafana-tempo.grafana:14268/api/traces
+    TRACER_URI: grafana-tempo.grafana:4317
     API_LINK_SERVICE: http://shortlink-api.shortlink:7070
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 

@@ -20,7 +20,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | https://argoproj.github.io/argo-helm | argo-workflows | 0.33.3 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.2 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.1.3 |
 
 ## Values
 

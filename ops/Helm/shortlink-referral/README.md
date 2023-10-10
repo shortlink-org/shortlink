@@ -56,7 +56,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"http://grafana-tempo.grafana:4317/api/traces"
+"grafana-tempo.grafana:4317"
 </pre>
 </div>
 			</td>
