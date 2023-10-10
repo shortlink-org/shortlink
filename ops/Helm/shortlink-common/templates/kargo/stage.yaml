@@ -39,7 +39,4 @@ kind: PromotionPolicy
 metadata:
   name: stage-promotion
 stage: test
-authorizedPromoters:
-  - subjectType: User
-    name: kubernetes-admin
 enableAutoPromotion: true
