@@ -37,7 +37,7 @@ spec:
 apiVersion: kargo.akuity.io/v1alpha1
 kind: PromotionPolicy
 metadata:
-  name: stage
+  name: stage-promotion
 stage: test
 authorizedPromoters:
   - subjectType: User
