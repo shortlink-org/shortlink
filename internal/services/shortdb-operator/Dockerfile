@@ -1,5 +1,5 @@
 # Build the manager binary
-FROM golang:1.21-alpine@sha256:b3360284c6dba9d8b33d8474ffdb07922c1d6c0057055b5d8ad9192320929f93 as builder
+FROM golang:1.21-alpine@sha256:926f7f7e1ab8509b4e91d5ec6d5916ebb45155b0c8920291ba9f361d65385806 as builder
 
 WORKDIR /workspace
 # Copy the Go Modules manifests
