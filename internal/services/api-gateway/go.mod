@@ -12,13 +12,14 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/segmentio/encoding v0.3.6
+	github.com/shortlink-org/shortlink v0.0.0-20231012161943-419afec29e5f
 	github.com/spf13/viper v1.17.0
 	github.com/swaggo/swag v1.16.2
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.3
 	go.opentelemetry.io/otel/trace v1.19.0
 	golang.org/x/sync v0.4.0
 	golang.org/x/text v0.13.0
-	google.golang.org/genproto/googleapis/api v0.0.0-20231009173412-8bfb1ae86b6c
+	google.golang.org/genproto/googleapis/api v0.0.0-20231012185656-8102cb6e9bc5
 	google.golang.org/grpc v1.58.3
 	google.golang.org/protobuf v1.31.0
 )
