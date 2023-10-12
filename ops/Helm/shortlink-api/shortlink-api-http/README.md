@@ -35,7 +35,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="NetworkPolicy--enabled"><a href="./values.yaml#L104">NetworkPolicy.enabled</a></td>
+			<td id="NetworkPolicy--enabled"><a href="./values.yaml#L111">NetworkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -140,7 +140,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.43"
+"0.16.44"
 </pre>
 </div>
 			</td>
@@ -367,7 +367,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="external_database"><a href="./values.yaml#L128">external_database</a></td>
+			<td id="external_database"><a href="./values.yaml#L135">external_database</a></td>
 			<td>
 object
 </td>
@@ -392,7 +392,7 @@ bool
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-false
+true
 </pre>
 </div>
 			</td>
@@ -463,6 +463,62 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "ContainerResource"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="hpa--metrics[1]--external--metric--name"><a href="./values.yaml#L105">hpa.metrics[1].external.metric.name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http_server_response_content_length_total"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="hpa--metrics[1]--external--target--averageValue"><a href="./values.yaml#L108">hpa.metrics[1].external.target.averageValue</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+100
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="hpa--metrics[1]--external--target--type"><a href="./values.yaml#L107">hpa.metrics[1].external.target.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"AverageValue"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="hpa--metrics[1]--type"><a href="./values.yaml#L102">hpa.metrics[1].type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"External"
 </pre>
 </div>
 			</td>
@@ -609,7 +665,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L120">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L127">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -623,7 +679,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L125">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L132">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -637,7 +693,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L109">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L116">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -651,7 +707,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L110">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L117">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -665,7 +721,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L111">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L118">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -679,7 +735,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L112">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L119">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -693,7 +749,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--name"><a href="./values.yaml#L113">service.ports[1].name</a></td>
+			<td id="service--ports[1]--name"><a href="./values.yaml#L120">service.ports[1].name</a></td>
 			<td>
 string
 </td>
@@ -707,7 +763,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--port"><a href="./values.yaml#L114">service.ports[1].port</a></td>
+			<td id="service--ports[1]--port"><a href="./values.yaml#L121">service.ports[1].port</a></td>
 			<td>
 int
 </td>
@@ -721,7 +777,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--protocol"><a href="./values.yaml#L115">service.ports[1].protocol</a></td>
+			<td id="service--ports[1]--protocol"><a href="./values.yaml#L122">service.ports[1].protocol</a></td>
 			<td>
 string
 </td>
@@ -735,7 +791,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L107">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L114">service.type</a></td>
 			<td>
 string
 </td>
