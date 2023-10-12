@@ -4,9 +4,10 @@
     <option name="INTERPRETER_OPTIONS" value="" />
     <option name="PARENT_ENVS" value="true" />
     <envs>
-      <env name="DATABASE_URI" value="redis://127.0.0.1:6379/0" />
       <env name="PYTHONUNBUFFERED" value="1" />
+      <env name="DATABASE_URI" value="redis://127.0.0.1:6379/0" />
       <env name="PROMETHEUS_PORT" value="8001" />
+      <env name="OTEL_RESOURCE_ATTRIBUTES" value="digma.environment=LOCALHOST" />
     </envs>
     <option name="SDK_HOME" value="" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />

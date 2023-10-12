@@ -1,20 +1,28 @@
 """OpenTelemetry provider."""
 
 from dependency_injector import providers
+
+import pyroscope
 from opentelemetry import trace
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.sdk.resources import Resource
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-import pyroscope
+from opentelemetry.instrumentation.digma import DigmaConfiguration
 
 
 class OpenTelemetryProvider(providers.Provider):
     """OpenTelemetry provider."""
     def _provide(self, *args, **kwargs):
-        trace.set_tracer_provider(TracerProvider())
+        resource = Resource.create(attributes={
+            "service.name": "referral-service",
+        })
+        resource = resource.merge(DigmaConfiguration().trace_this_package())
+
+        trace.set_tracer_provider(TracerProvider(resource=resource))
         tracer = trace.get_tracer(__name__)
 
-        otlp_exporter = OTLPSpanExporter()
+        otlp_exporter = OTLPSpanExporter(endpoint="localhost:5050", insecure=True)
         span_processor = BatchSpanProcessor(otlp_exporter)
         trace.get_tracer_provider().add_span_processor(span_processor)
 
