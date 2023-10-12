@@ -8,7 +8,6 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
-from opentelemetry.instrumentation.digma import DigmaConfiguration
 
 
 class OpenTelemetryProvider(providers.Provider):
@@ -17,7 +16,6 @@ class OpenTelemetryProvider(providers.Provider):
         resource = Resource.create(attributes={
             "service.name": "referral-service",
         })
-        resource = resource.merge(DigmaConfiguration().trace_this_package())
 
         trace.set_tracer_provider(TracerProvider(resource=resource))
         tracer = trace.get_tracer(__name__)
