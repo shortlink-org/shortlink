@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/IBM/sarama"
+	"github.com/dnwe/otelsarama"
 	"github.com/heptiolabs/healthcheck"
 	"github.com/spf13/viper"
 
@@ -41,6 +42,9 @@ func (mq *Kafka) Init(ctx context.Context) error {
 	if mq.producer, err = sarama.NewSyncProducerFromClient(mq.client); err != nil {
 		return err
 	}
+
+	// OpenTelemetry
+	mq.producer = otelsarama.WrapSyncProducer(config, mq.producer)
 
 	// Create new consumer
 	if mq.consumer, err = sarama.NewConsumerGroupFromClient(mq.ConsumerGroup, mq.client); err != nil {
@@ -97,10 +101,9 @@ func (mq *Kafka) Subscribe(ctx context.Context, target string, message query.Res
 	}
 
 	// OpenTelemetry
-	// TODO: this package chaned owner, so we wait decision about it - https://github.com/IBM/sarama/issues/2510
-	// handler := otelsarama.WrapConsumerGroupHandler(consumer)
+	handler := otelsarama.WrapConsumerGroupHandler(consumer)
 
-	err := mq.consumer.Consume(ctx, []string{target}, consumer)
+	err := mq.consumer.Consume(ctx, []string{target}, handler)
 	if err != nil {
 		return err
 	}
