@@ -11,9 +11,7 @@ RUN apk add --no-cache \
 # Install PHP extensions
 RUN docker-php-ext-install \
         pdo_mysql \
-        zip \
-        protobuf \
-        opentelemetry
+        zip
 
 # Setting module
 COPY ./ops/dockerfile/support/conf/php /usr/local/etc/php/conf.d
