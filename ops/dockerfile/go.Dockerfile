@@ -55,6 +55,7 @@ LABEL org.opencontainers.image.revision=$CI_COMMIT_SHA
 # Define GOTRACEBACK to mark this container AS using the Go language runtime
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
 ENV GOTRACEBACK=all
+ENV USER golang
 
 # 50051: gRPC
 # 9090: metrics
