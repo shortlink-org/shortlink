@@ -1,14 +1,13 @@
-api:loadtest:
+gateway:http-chi:crud:
   stage: qa
   image:
     name: loadimpact/k6:latest
-    entrypoint: [ '' ]
+    entrypoint: ['']
   variables:
     API_URL: $ENVIRONMENT_URL
   script:
-    - k6 run ./internal/services/api-gateway/tests/performance/get_link.js
-  needs: []
-    # TODO: fix this
-    # - applications
+    - k6 run ./internal/services/api-gateway/gateways/http-chi/tests/integrations/k6-crud.js
+  needs:
+    - applications
   rules:
     - if: $CI_COMMIT_TAG
