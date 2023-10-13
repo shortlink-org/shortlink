@@ -32,6 +32,9 @@ func New(ctx context.Context, log logger.Logger) (*Monitoring, func(), error) {
 
 	// Create a "common" meter provider for metrics
 	monitoring.Metrics, err = monitoring.SetMetrics(ctx)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	// Create a "common" listener
 	monitoring.Handler, err = monitoring.SetHandler()
