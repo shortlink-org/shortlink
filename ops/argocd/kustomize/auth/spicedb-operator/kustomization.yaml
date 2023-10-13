@@ -9,3 +9,10 @@ resources:
 images:
   - name: ghcr.io/authzed/spicedb-operator
     newTag: v1.10.0
+patchesStrategicMerge:
+  - |-
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: spicedb-operator
+    $patch: delete

@@ -27,6 +27,7 @@ spec:
         istio-injection: enabled
         pod-security.kubernetes.io/enforce: baseline
         pod-security.kubernetes.io/enforce-version: latest
+        kubernetes.io/metadata.name: spicedb-operator
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
