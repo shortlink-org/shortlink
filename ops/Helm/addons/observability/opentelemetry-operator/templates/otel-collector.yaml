@@ -51,10 +51,12 @@ spec:
           exporters:
             - logging
             - otlp
+            - spanmetrics
         metrics:
           receivers:
             - httpcheck
             - otlp
+            - spanmetrics
           processors:
             - memory_limiter
             - batch
