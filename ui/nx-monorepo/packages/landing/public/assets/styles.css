@@ -42,3 +42,15 @@ body,
   overflow: hidden;
   transform: translate3d(-50%, -50%, 0);
 }
+
+/* Mobile styles */
+@media (max-width: 500px) {
+  .toggleWrapper {
+    position: relative;
+  }
+
+  .captcha {
+    position: relative;
+    transform: translateX(-50%);
+  }
+}

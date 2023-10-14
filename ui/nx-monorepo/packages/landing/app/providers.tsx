@@ -18,7 +18,6 @@ import {
 import Script from 'next/script'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import React, { useState } from 'react'
 
 const cache = createCache({ key: 'next' })
@@ -35,34 +34,32 @@ export function Providers({ children }) {
   return (
     <ThemeProvider theme={theme}>
       <CacheProvider value={cache}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <NextThemeProvider enableSystem attribute="class">
-            <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-              <Script
-                id={DEFAULT_SCRIPT_ID}
-                src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
-                strategy="afterInteractive"
+        <NextThemeProvider enableSystem attribute="class">
+          <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
+            <Script
+              id={DEFAULT_SCRIPT_ID}
+              src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
+              strategy="afterInteractive"
+            />
+            <div className="text-black dark:bg-gray-800 dark:text-white">
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+              {getInitColorSchemeScript()}
+
+              {isCaptcha && children}
+
+              <Turnstile
+                // @ts-ignore
+                siteKey={CLOUDFLARE_SITE_KEY}
+                injectScript={false}
+                className="captcha"
+                onSuccess={() => setIsCaptcha(true)}
+                onError={() => setIsCaptcha(false)}
+                onAbort={() => setIsCaptcha(false)}
               />
-              <div className="text-black dark:bg-gray-800 dark:text-white">
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline />
-                {getInitColorSchemeScript()}
-
-                {isCaptcha && children}
-
-                <Turnstile
-                  // @ts-ignore
-                  siteKey={CLOUDFLARE_SITE_KEY}
-                  injectScript={false}
-                  className="captcha"
-                  onSuccess={() => setIsCaptcha(true)}
-                  onError={() => setIsCaptcha(false)}
-                  onAbort={() => setIsCaptcha(false)}
-                />
-              </div>
-            </ColorModeContext.Provider>
-          </NextThemeProvider>
-        </LocalizationProvider>
+            </div>
+          </ColorModeContext.Provider>
+        </NextThemeProvider>
       </CacheProvider>
     </ThemeProvider>
   )
