@@ -64,6 +64,7 @@ license_scanning:
 
 # Jetbrains ============================================================================================================
 qodana:
+  interruptible: true
   image:
     name: jetbrains/qodana-go
     entrypoint: [""]
@@ -71,6 +72,10 @@ qodana:
     QODANA_TOKEN: $QODANA_TOKEN
   script:
     - qodana
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
   artifacts:
     paths:
       - qodana
