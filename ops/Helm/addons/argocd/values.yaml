@@ -255,16 +255,20 @@ argo-cd:
         enabled: true
 
   configs:
-    # https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/#ignoring-rbac-changes-made-by-aggregateroles
-    resource.compareoptions: |
-      # disables status field diffing in specified resource types
-      ignoreAggregatedRoles: true
+    cm:
+      # https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/#ignoring-rbac-changes-made-by-aggregateroles
+      resource.compareoptions: |
+        # disables status field diffing in specified resource types
+        ignoreAggregatedRoles: true
 
     repositories:
       shortlink:
         url: https://github.com/shortlink-org/shortlink
         name: shortlink
         type: git
+
+    params:
+      otlp.address: grafana-tempo.grafana:4317
 
   notifications:
     resources:
