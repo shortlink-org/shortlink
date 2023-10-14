@@ -3,11 +3,15 @@ package server
 import (
 	"context"
 
+	otelObs "github.com/cloudevents/sdk-go/observability/opentelemetry/v2/client"
 	cloudevents "github.com/cloudevents/sdk-go/v2"
+	"github.com/cloudevents/sdk-go/v2/client"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 
+	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/cloudevents/infrastructure/server/handlers"
@@ -41,10 +45,13 @@ func (api *API) Run(
 	log.Info("Run Cloud-Events API")
 
 	// New endpoint (HTTP)
-	cloudevents.WithPort(config.Port)
-	cloudevents.WithPath(viper.GetString("BASE_PATH"))
+	p, err := cloudevents.NewHTTP(
+		cloudevents.WithRoundTripper(otelhttp.NewTransport(http_client.New().Transport)),
+		cloudevents.WithPort(config.Port),
+		cloudevents.WithPath(viper.GetString("BASE_PATH")),
+	)
 
-	c, err := cloudevents.NewClientHTTP()
+	c, err := cloudevents.NewClient(p, client.WithObservabilityService(otelObs.NewOTelObservabilityService()))
 	if err != nil {
 		return err
 	}
