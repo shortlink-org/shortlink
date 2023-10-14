@@ -16,7 +16,8 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
 const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
-const API_URI = process.env.API_URI || 'http://localhost:7070'
+const API_URI = process.env.API_URI || 'http://127.0.0.1:7070'
+const AUTH_URI = process.env.AUTH_URI || 'http://127.0.0.1:4433'
 
 console.info('API_URI', API_URI)
 
@@ -122,12 +123,12 @@ if (!isProd) {
         // all pages/static files before we attempt proxying
         {
           source: `/api/auth/:uri*`,
-          destination: `http://127.0.0.1:4433/:uri*`,
+          destination: `${AUTH_URI}/:uri*`,
           basePath: false,
         },
         {
           source: `/api/:uri*`,
-          destination: `http://127.0.0.1:7070/api/:uri*`,
+          destination: `${API_URI}/api/:uri*`,
           basePath: false,
         },
         {

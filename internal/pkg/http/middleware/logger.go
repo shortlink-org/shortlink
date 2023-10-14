@@ -13,13 +13,13 @@ import (
 )
 
 type chilogger struct {
-	logZ logger.Logger
+	log logger.Logger
 }
 
 // Logger returns a new Zap Middleware handler.
 func Logger(log logger.Logger) func(next http.Handler) http.Handler {
 	return chilogger{
-		log,
+		log: log,
 	}.middleware
 }
 
@@ -43,7 +43,7 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 		span := trace.LinkFromContext(r.Context()).SpanContext
 		fields["traceID"] = span.TraceID().String()
 
-		c.logZ.Info("request completed", fields)
+		c.log.Info("request completed", fields)
 	}
 
 	return http.HandlerFunc(fn)

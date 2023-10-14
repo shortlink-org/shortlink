@@ -101,6 +101,7 @@ func (api *API) Run(
 	// Additional middleware
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(additionalMiddleware.Logger(log))
+	r.Use(additionalMiddleware.Auth())
 
 	metrics, err := additionalMiddleware.NewMetrics()
 	if err != nil {
