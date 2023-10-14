@@ -93,8 +93,8 @@ func (api *API) Run(
 	api.linkServiceClient = link_rpc
 
 	handler := api.GetHandler(tracer)
-	path := fmt.Sprintf("%s/query", viper.GetString("BASE_PATH"))
 
+	path := fmt.Sprintf("%s/query", viper.GetString("BASE_PATH"))
 	log.Info("Run GraphQL API", field.Fields{"base_path": path})
 
 	http.Handle(path, http.TimeoutHandler(handler, config.Timeout, http_server.TimeoutMessage))
