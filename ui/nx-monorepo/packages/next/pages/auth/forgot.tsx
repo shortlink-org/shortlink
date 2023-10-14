@@ -37,9 +37,11 @@ const Forgot: NextPage = () => {
       return
     }
 
-    // Otherwise we initialize it
+    // Otherwise, we initialize it
     ory
-      .createBrowserRecoveryFlow()
+      .createBrowserRecoveryFlow({
+        returnTo: String(returnTo || ""),
+      })
       .then(({ data }) => {
         setFlow(data)
       })
