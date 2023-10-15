@@ -45,6 +45,8 @@ for information team about cases for updated ADR.
 - **Security**
   - [ADR-0013](./decisions/0013-security.md) - Enhancing Security Measures
   - [ADR-0025](./decisions/0025-configuration.md) - Application Configuration Redesign
+- **Optimization**
+  - [ADR-0016](./decisions/0005-use-singleflight-for-debouncing.md) - Use singleflight for debouncing
 - **Golang**
   - [ADR-0017](./decisions/0017-profile-guided-optimization.md) - Profile-guided optimization
 - **Front-end**
