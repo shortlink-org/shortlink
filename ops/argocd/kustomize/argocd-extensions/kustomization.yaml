@@ -5,6 +5,7 @@ resources:
   - rollout-extension/extension.yaml
 
   # argocd-extension-metrics
+  - argocd-extension-metrics/extension.yaml
   - https://raw.githubusercontent.com/argoproj-labs/argocd-extension-metrics/main/manifests/configmap.yaml
   - https://raw.githubusercontent.com/argoproj-labs/argocd-extension-metrics/main/manifests/deployment.yaml
   - https://raw.githubusercontent.com/argoproj-labs/argocd-extension-metrics/main/manifests/service.yaml
