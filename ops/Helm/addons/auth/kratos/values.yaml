@@ -138,7 +138,7 @@ kratos:
               default_browser_return_url: https://shortlink.best/next/auth/login
 
           login:
-            ui_url: https://shortlink.best/next
+            ui_url: https://shortlink.best/next/auth/login
             lifespan: 10m
 
           registration:
