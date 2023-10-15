@@ -6,6 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-modsecurity: 'false'
     nginx.ingress.kubernetes.io/enable-opentelemetry: 'true'
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: 'true'
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
   labels:
     app.kubernetes.io/instance: argocd-extension-metrics
     app.kubernetes.io/name: argocd-extension-metrics
