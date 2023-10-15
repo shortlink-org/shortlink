@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - argocd-extension-docs/extension.yaml
   - rollout-extension/extension.yaml
+  - https://raw.githubusercontent.com/argoproj-labs/argocd-extension-metrics/main/manifests/kustomization.yaml
