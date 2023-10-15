@@ -13,6 +13,12 @@ kratos:
     enabled: true
     hashSumEnabled: false
 
+  deployment:
+    extraEnv:
+      TRACING_PROVIDERS_JAEGER_PROPAGATION: jaeger
+      TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL: http://grafana-tempo.grafana:14268/sampling
+      TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS: http://grafana-tempo.grafana:6831/api/traces
+
   ingress:
     admin:
       enabled: false
@@ -170,7 +176,7 @@ kratos:
       # When set to job, the migration will be executed as a job on release or upgrade.
       # When set to initContainer, the migration will be executed when kratos pod is created
       # Defaults to job
-      type: job
+      type: initContainer
 
     #  You can add multiple identity schemas here
     identitySchemas:

@@ -34,7 +34,7 @@ services:
       TRACING_PROVIDERS_JAEGER_SAMPLING_TYPE: const
       TRACING_PROVIDERS_JAEGER_SAMPLING_VALUE: 1
       ### Jaeger ###
-      TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL: http://jaeger-agent:5778/sampling
+      TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL: http://jaeger-agent:14268/sampling
       TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS: jaeger-agent:6831
     ports:
       - "4433:4433"
