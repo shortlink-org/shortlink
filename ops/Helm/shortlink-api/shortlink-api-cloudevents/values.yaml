@@ -52,6 +52,7 @@ deploy:
     MQ_TYPE: "kafka"
     TRACER_URI: grafana-tempo.grafana:4317
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress.svc.cluster.local
+    AUTH_URI: kratos-admin.auth
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/api-cloudevents

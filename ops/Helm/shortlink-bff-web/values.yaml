@@ -20,6 +20,7 @@ deploy:
   env:
     TRACER_URI: grafana-tempo.grafana:4317
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
+    AUTH_URI: kratos-admin.auth
 
     # -- Default store config
     STORE_TYPE: redis
