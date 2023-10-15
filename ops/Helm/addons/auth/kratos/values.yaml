@@ -15,7 +15,7 @@ kratos:
 
   deployment:
     extraEnv:
-      - name: TRACING_PROVIDERS_JAEGER_PROPAGATION
+      - name: TRACING_PROVIDER
         value: jaeger
       - name: TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL
         value: http://grafana-tempo.grafana:14268/sampling
