@@ -19,11 +19,20 @@
 !include actors/customer.puml
 !include services/bff-web/service.puml
 !include services/auth/ext.puml
-!include services/billing/ext.puml
+
+title C1: BFF
+
+System_Boundary(internalServices, "Internal Services") {
+    !include services/billing/ext.puml
+    !include services/link/ext.puml
+    
+    link -down-> permission : Permission
+    billing -down-> permission : Permission
+}
 
 customer -> bff_web : Request 
 bff_web -down-> auth : Proxy
-bff_web -> billing : Proxy
+bff_web -right-> internalServices : Proxy
 ```
 
 ### Use cases
