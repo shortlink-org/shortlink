@@ -20,7 +20,7 @@ kratos:
       - name: TRACING_PROVIDERS_JAEGER_SAMPLING_SERVER_URL
         value: http://grafana-tempo.grafana:14268/sampling
       - name: TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS
-        value: http://grafana-tempo.grafana:6831/api/traces
+        value: grafana-tempo.grafana:6831
 
   ingress:
     admin:
