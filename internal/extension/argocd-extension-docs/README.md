@@ -1,6 +1,6 @@
 ## ArgoCD extension docs
 
-This extension add a new tab to the ArgoCD UI to display the documentation 
+This extension adds a new tab to the ArgoCD UI to display the documentation 
 of the application.
 
 ### Docs
