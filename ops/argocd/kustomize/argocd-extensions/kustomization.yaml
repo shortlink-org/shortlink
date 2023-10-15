@@ -7,6 +7,5 @@ resources:
   # argocd-extension-metrics
   - argocd-extension-metrics/extension.yaml
   - argocd-extension-metrics/configmap.yaml
-  - https://github.com/argoproj-labs/argocd-extension-metrics/manifests/deployment.yaml?ref=main
   - https://raw.githubusercontent.com/argoproj-labs/argocd-extension-metrics/main/manifests/service.yaml
   - https://raw.githubusercontent.com/argoproj-labs/argocd-extension-metrics/main/manifests/deployment.yaml
