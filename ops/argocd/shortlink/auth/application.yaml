@@ -56,4 +56,4 @@ spec:
     - kind: Secret
       name: kratos-postgres-pguser-kratos
       jqPathExpressions:
-        - .data.verifier
+        - .data

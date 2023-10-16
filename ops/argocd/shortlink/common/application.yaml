@@ -43,4 +43,4 @@ spec:
     - kind: Secret
       name: shortlink-postgres-pguser-grafana
       jqPathExpressions:
-        - .data.verifier
+        - .data
