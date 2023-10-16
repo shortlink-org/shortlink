@@ -46,7 +46,7 @@ services:
     depends_on:
       - coredns
       - postgres
-    image: bitnami/pgbouncer:1.20.1
+    image: bitnami/pgbouncer:1.21.0
     restart: on-failure
     container_name: pgbouncer
     init: true
