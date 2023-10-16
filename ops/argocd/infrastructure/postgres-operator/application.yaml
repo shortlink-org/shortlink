@@ -44,3 +44,5 @@ spec:
         - .spec.rules[] | select(.name|test("autogen-."))
     - kind: PodMonitor
       name: crunchy-postgres-exporter
+      jqPathExpressions:
+        - .spec.podMetricsEndpoints[] | select(.action)

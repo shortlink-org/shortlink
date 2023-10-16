@@ -20,58 +20,69 @@ spec:
       honorLabels: true
       interval: 10s
       relabelings:
-        - sourceLabels:
-            - "__meta_kubernetes_pod_container_port_number"
-          action: "drop"
-          regex: "5432"
-        - sourceLabels:
-            - "__meta_kubernetes_pod_container_port_number"
-          action: "drop"
-          regex: "8009"
-        - sourceLabels:
-            - "__meta_kubernetes_pod_container_port_number"
-          action: "drop"
-          regex: "2022"
-        - sourceLabels:
-            - "__meta_kubernetes_pod_container_port_number"
-          action: "drop"
-          regex: "10000"
-        - sourceLabels:
-            - "__meta_kubernetes_namespace"
-          action: "replace"
-          targetLabel: "kubernetes_namespace"
-        - sourceLabels:
-            - "__meta_kubernetes_pod_name"
-          targetLabel: "pod"
-        - sourceLabels:
-            - "__meta_kubernetes_namespace"
-            - "__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_cluster"
-          targetLabel: "pg_cluster"
+        - action: drop
+          regex: '5432'
+          sourceLabels:
+            - __meta_kubernetes_pod_container_port_number
+        - action: drop
+          regex: '8009'
+          sourceLabels:
+            - __meta_kubernetes_pod_container_port_number
+        - action: drop
+          regex: '2022'
+          sourceLabels:
+            - __meta_kubernetes_pod_container_port_number
+        - action: drop
+          regex: '10000'
+          sourceLabels:
+            - __meta_kubernetes_pod_container_port_number
+        - action: replace
+          sourceLabels:
+            - __meta_kubernetes_namespace
+          targetLabel: kubernetes_namespace
+        - action: replace
+          sourceLabels:
+            - __meta_kubernetes_pod_name
+          targetLabel: pod
+        - action: replace
+          replacement: $1$2
           separator: ':'
-          replacement: '$1$2'
-        - sourceLabels:
-            - "__meta_kubernetes_pod_ip"
-          targetLabel: "ip"
-          replacement: "$1"
-        - sourceLabels:
-            - "__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_instance"
-          targetLabel: "deployment"
-          replacement: '$1'
-        - sourceLabels:
-            - "__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_role"
-          targetLabel: "role"
-          replacement: '$1'
-        - sourceLabels:
-            - "dbname"
-          targetLabel: "dbname"
-          replacement: "$1"
-        - sourceLabels:
-            - "relname"
-          targetLabel: "relname"
-          replacement: "$1"
-        - sourceLabels:
-            - "schemaname"
-          targetLabel: "schemaname"
-          replacement: "$1"
-        - targetLabel: "exp_type"
-          replacement: "pg"
+          sourceLabels:
+            - __meta_kubernetes_namespace
+            - >-
+              __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_cluster
+          targetLabel: pg_cluster
+        - action: replace
+          replacement: $1
+          sourceLabels:
+            - __meta_kubernetes_pod_ip
+          targetLabel: ip
+        - action: replace
+          replacement: $1
+          sourceLabels:
+            - >-
+              __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_instance
+          targetLabel: deployment
+        - action: replace
+          replacement: $1
+          sourceLabels:
+            - __meta_kubernetes_pod_label_postgres_operator_crunchydata_com_role
+          targetLabel: role
+        - action: replace
+          replacement: $1
+          sourceLabels:
+            - dbname
+          targetLabel: dbname
+        - action: replace
+          replacement: $1
+          sourceLabels:
+            - relname
+          targetLabel: relname
+        - action: replace
+          replacement: $1
+          sourceLabels:
+            - schemaname
+          targetLabel: schemaname
+        - action: replace
+          replacement: pg
+          targetLabel: exp_type
