@@ -40,3 +40,7 @@ spec:
       kind: ClusterPolicy
       jqPathExpressions:
         - .spec.rules[] | select(.name|test("autogen-."))
+    - kind: Secret
+      name: shortlink-postgres-pguser-grafana
+      jqPathExpressions:
+        - .data
