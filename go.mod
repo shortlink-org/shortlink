@@ -10,7 +10,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/Unleash/unleash-client-go/v3 v3.8.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
-	github.com/authzed/authzed-go v0.10.0
+	github.com/authzed/authzed-go v0.10.1
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/cucumber/godog v0.13.0
 	github.com/dgraph-io/badger/v4 v4.2.0
