@@ -40,7 +40,7 @@ defmodule Chat.MixProject do
       {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.4", only: :dev},
       {:phoenix_live_view, "~> 0.20.1"},
-      {:floki, ">= 0.35.0", only: :test},
+      {:floki, ">= 0.35.1", only: :test},
       {:phoenix_live_dashboard, "~> 0.8"},
       {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.12"},
