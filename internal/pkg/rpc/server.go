@@ -22,7 +22,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/logger"
+	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/logger"
 )
 
 type RPCServer struct {
@@ -32,8 +32,8 @@ type RPCServer struct {
 }
 
 type server struct {
-	incerceptorStreamServerList []grpc.StreamServerInterceptor
-	incerceptorUnaryServerList  []grpc.UnaryServerInterceptor
+	interceptorStreamServerList []grpc.StreamServerInterceptor
+	interceptorUnaryServerList  []grpc.UnaryServerInterceptor
 	optionsNewServer            []grpc.ServerOption
 
 	port int
@@ -111,8 +111,8 @@ func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitoring 
 
 	config.optionsNewServer = append(config.optionsNewServer,
 		// Initialize your gRPC server's interceptor.
-		grpc.ChainUnaryInterceptor(config.incerceptorUnaryServerList...),
-		grpc.ChainStreamInterceptor(config.incerceptorStreamServerList...),
+		grpc.ChainUnaryInterceptor(config.interceptorUnaryServerList...),
+		grpc.ChainStreamInterceptor(config.interceptorStreamServerList...),
 	)
 
 	// NOTE: made after initialize your gRPC server's interceptor.
@@ -133,8 +133,8 @@ func (s *server) WithMetrics(monitoring *monitoring.Monitoring) {
 	)
 	monitoring.Prometheus.MustRegister(s.serverMetrics)
 
-	s.incerceptorUnaryServerList = append(s.incerceptorUnaryServerList, s.serverMetrics.UnaryServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
-	s.incerceptorStreamServerList = append(s.incerceptorStreamServerList, s.serverMetrics.StreamServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
+	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, s.serverMetrics.UnaryServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
+	s.interceptorStreamServerList = append(s.interceptorStreamServerList, s.serverMetrics.StreamServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
 }
 
 // WithTracer - setup tracing
@@ -143,8 +143,8 @@ func (s *server) WithTracer(tracer trace.TracerProvider) {
 		return
 	}
 
-	s.incerceptorStreamServerList = append(s.incerceptorStreamServerList, otelgrpc.StreamServerInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
-	s.incerceptorUnaryServerList = append(s.incerceptorUnaryServerList, otelgrpc.UnaryServerInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
+	s.interceptorStreamServerList = append(s.interceptorStreamServerList, otelgrpc.StreamServerInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
+	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, otelgrpc.UnaryServerInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
 }
 
 // WithRecovery - setup recovery
@@ -165,11 +165,11 @@ func (s *server) WithRecovery(monitoring *monitoring.Monitoring) {
 
 	// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 	// (e.g., logging) can operate in the recovered state instead of being directly affected by any panic
-	s.incerceptorUnaryServerList = append(s.incerceptorUnaryServerList, grpc_recovery.UnaryServerInterceptor(grpc_recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)))
+	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, grpc_recovery.UnaryServerInterceptor(grpc_recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)))
 
 	// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 	// (e.g., logging) can operate in the recovered state instead of being directly affected by any panic
-	s.incerceptorStreamServerList = append(s.incerceptorStreamServerList, grpc_recovery.StreamServerInterceptor(grpc_recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)))
+	s.interceptorStreamServerList = append(s.interceptorStreamServerList, grpc_recovery.StreamServerInterceptor(grpc_recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)))
 }
 
 // WithLogger - setup logger
@@ -178,8 +178,8 @@ func (s *server) WithLogger(log logger.Logger) {
 	isEnableLogger := viper.GetBool("GRPC_SERVER_LOGGER_ENABLED")
 
 	if isEnableLogger {
-		s.incerceptorStreamServerList = append(s.incerceptorStreamServerList, grpc_logger.StreamServerInterceptor(log))
-		s.incerceptorUnaryServerList = append(s.incerceptorUnaryServerList, grpc_logger.UnaryServerInterceptor(log))
+		s.interceptorStreamServerList = append(s.interceptorStreamServerList, grpc_logger.StreamServerInterceptor(log))
+		s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, grpc_logger.UnaryServerInterceptor(log))
 	}
 }
 

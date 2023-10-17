@@ -7,6 +7,7 @@ import (
 
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb" //nolint:importas // false positive
 
@@ -25,6 +26,17 @@ func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
 }
 
 func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
+	// Get session
+	md, ok := metadata.FromIncomingContext(ctx)
+	if !ok {
+		return nil, errors.New("error get metadata from context")
+	}
+
+	sess := md.Get("user-id")
+	if len(sess) == 0 {
+		return nil, errors.New("error get session from metadata")
+	}
+
 	// Parse args
 	filter := queryStore.Filter{}
 

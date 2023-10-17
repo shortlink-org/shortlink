@@ -15,15 +15,16 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/logger"
+	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/logger"
+	session_interceptor "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/session"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 type client struct {
-	incerceptorUnaryClientList  []grpc.UnaryClientInterceptor
-	incerceptorStreamClientList []grpc.StreamClientInterceptor
+	interceptorUnaryClientList  []grpc.UnaryClientInterceptor
+	interceptorStreamClientList []grpc.StreamClientInterceptor
 	optionsNewClient            []grpc.DialOption
 
 	port int
@@ -65,20 +66,22 @@ func setClientConfig(tracer trace.TracerProvider, monitoring *monitoring.Monitor
 		host: grpc_host,
 	}
 
-	config.WithMetrics(monitoring)
-	config.WithTracer(tracer)
-	config.WithLogger(log)
-	config.WithTimeout()
+	// Initialize gRPC client's interceptor.
+	config.withSession()
+	config.withMetrics(monitoring)
+	config.withTracer(tracer)
+	config.withLogger(log)
+	config.withTimeout()
 
 	// Initialize your gRPC server's interceptor.
 	config.optionsNewClient = append(
 		config.optionsNewClient,
-		grpc.WithChainUnaryInterceptor(config.incerceptorUnaryClientList...),
-		grpc.WithChainStreamInterceptor(config.incerceptorStreamClientList...),
+		grpc.WithChainUnaryInterceptor(config.interceptorUnaryClientList...),
+		grpc.WithChainStreamInterceptor(config.interceptorStreamClientList...),
 	)
 
 	// NOTE: made after initialize your gRPC client's interceptor.
-	err := config.WithTLS()
+	err := config.withTLS()
 	if err != nil {
 		return nil, err
 	}
@@ -86,27 +89,27 @@ func setClientConfig(tracer trace.TracerProvider, monitoring *monitoring.Monitor
 	return config, nil
 }
 
-// WithTimeout - setup timeout
-func (c *client) WithTimeout() {
+// withTimeout - setup timeout
+func (c *client) withTimeout() {
 	viper.SetDefault("GRPC_CLIENT_TIMEOUT", 10000) // Set timeout for gRPC-client
 	timeoutClient := viper.GetDuration("GRPC_CLIENT_TIMEOUT")
 
-	c.incerceptorUnaryClientList = append(c.incerceptorUnaryClientList, timeout.UnaryClientInterceptor(timeoutClient*time.Millisecond))
+	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, timeout.UnaryClientInterceptor(timeoutClient*time.Millisecond))
 }
 
-// WithLogger - setup logger
-func (c *client) WithLogger(log logger.Logger) {
+// withLogger - setup logger
+func (c *client) withLogger(log logger.Logger) {
 	viper.SetDefault("GRPC_CLIENT_LOGGER_ENABLED", true) // Enable logging for gRPC-client
 	isEnableLogger := viper.GetBool("GRPC_CLIENT_LOGGER_ENABLED")
 
 	if isEnableLogger {
-		c.incerceptorUnaryClientList = append(c.incerceptorUnaryClientList, grpc_logger.UnaryClientInterceptor(log))
-		c.incerceptorStreamClientList = append(c.incerceptorStreamClientList, grpc_logger.StreamClientInterceptor(log))
+		c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, grpc_logger.UnaryClientInterceptor(log))
+		c.interceptorStreamClientList = append(c.interceptorStreamClientList, grpc_logger.StreamClientInterceptor(log))
 	}
 }
 
-// WithTLS - setup TLS
-func (c *client) WithTLS() error {
+// withTLS - setup TLS
+func (c *client) withTLS() error {
 	viper.SetDefault("GRPC_CLIENT_TLS_ENABLED", false) // gRPC TLS
 	isEnableTLS := viper.GetBool("GRPC_CLIENT_TLS_ENABLED")
 
@@ -127,18 +130,18 @@ func (c *client) WithTLS() error {
 	return nil
 }
 
-// WithTracer - setup tracing
-func (c *client) WithTracer(tracer trace.TracerProvider) {
+// withTracer - setup tracing
+func (c *client) withTracer(tracer trace.TracerProvider) {
 	if tracer == nil {
 		return
 	}
 
-	c.incerceptorUnaryClientList = append(c.incerceptorUnaryClientList, otelgrpc.UnaryClientInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
-	c.incerceptorStreamClientList = append(c.incerceptorStreamClientList, otelgrpc.StreamClientInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
+	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, otelgrpc.UnaryClientInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
+	c.interceptorStreamClientList = append(c.interceptorStreamClientList, otelgrpc.StreamClientInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
 }
 
-// WithMetrics - setup metrics.
-func (c *client) WithMetrics(monitoring *monitoring.Monitoring) {
+// withMetrics - setup metrics.
+func (c *client) withMetrics(monitoring *monitoring.Monitoring) {
 	if monitoring == nil {
 		return
 	}
@@ -149,8 +152,14 @@ func (c *client) WithMetrics(monitoring *monitoring.Monitoring) {
 		),
 	)
 
-	c.incerceptorUnaryClientList = append(c.incerceptorUnaryClientList, clientMetrics.UnaryClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
-	c.incerceptorStreamClientList = append(c.incerceptorStreamClientList, clientMetrics.StreamClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
+	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, clientMetrics.UnaryClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
+	c.interceptorStreamClientList = append(c.interceptorStreamClientList, clientMetrics.StreamClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
 
 	monitoring.Prometheus.MustRegister(clientMetrics)
+}
+
+// withSession - setup session
+func (c *client) withSession() {
+	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, session_interceptor.SessionUnaryInterceptor())
+	c.interceptorStreamClientList = append(c.interceptorStreamClientList, session_interceptor.SessionStreamInterceptor())
 }
