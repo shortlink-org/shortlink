@@ -93,9 +93,10 @@ let NEXT_CONFIG = {
   },
   experimental: {
     forceSwcTransforms: true,
+    swcTraceProfiling: true,
     turbo: {
       rules: {
-        '.md': [
+        '*.md': [
           {
             loader: '@mdx-js/loader',
             options: {
@@ -104,10 +105,9 @@ let NEXT_CONFIG = {
           },
         ],
         // Option-less format
-        '.mdx': '@mdx-js/loader',
+        '*.mdx': '@mdx-js/loader',
       },
     },
-    swcTraceProfiling: true,
   },
 }
 
