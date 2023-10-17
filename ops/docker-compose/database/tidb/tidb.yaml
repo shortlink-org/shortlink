@@ -123,7 +123,7 @@ services:
       - tikv1
       - tikv2
       - coredns
-    image: pingcap/tidb:v7.4.0-pre
+    image: pingcap/tidb:v7.5.0-pre
     ports:
       - "4000:4000"
       - "10080:10080"
