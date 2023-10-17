@@ -72,7 +72,7 @@ services:
       - pd1
       - pd2
       - coredns
-    image: pingcap/tikv:v7.4.0-pre
+    image: pingcap/tikv:v7.5.0-pre
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv0:20160
@@ -89,7 +89,7 @@ services:
       - pd1
       - pd2
       - coredns
-    image: pingcap/tikv:v7.4.0-pre
+    image: pingcap/tikv:v7.5.0-pre
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv1:20160
@@ -106,7 +106,7 @@ services:
       - pd1
       - pd2
       - coredns
-    image: pingcap/tikv:v7.4.0-pre
+    image: pingcap/tikv:v7.5.0-pre
     command:
       - --addr=0.0.0.0:20160
       - --advertise-addr=tikv2:20160
