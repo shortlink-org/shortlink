@@ -23,7 +23,7 @@ services:
 
   novu-api:
     <<: *network
-    image: ghcr.io/novuhq/novu/api:0.19.0
+    image: ghcr.io/novuhq/novu/api:0.20.0
     container_name: novu-api
     restart: unless-stopped
     ports:
@@ -51,7 +51,7 @@ services:
 
   novu-worker:
     <<: *network
-    image: ghcr.io/novuhq/novu/worker:0.19.0
+    image: ghcr.io/novuhq/novu/worker:0.20.0
     container_name: novu-worker
     restart: unless-stopped
     environment:
@@ -72,7 +72,7 @@ services:
 
   novu-ws:
     <<: *network
-    image: ghcr.io/novuhq/novu/ws:0.19.0
+    image: ghcr.io/novuhq/novu/ws:0.20.0
     container_name: novu-ws
     restart: unless-stopped
     ports:
@@ -90,7 +90,7 @@ services:
 
   novu-web:
     <<: *network
-    image: ghcr.io/novuhq/novu/web:0.19.0
+    image: ghcr.io/novuhq/novu/web:0.20.0
     container_name: novu-web
     restart: unless-stopped
     ports:
@@ -104,7 +104,7 @@ services:
 
   novu-widget:
     <<: *network
-    image: ghcr.io/novuhq/novu/widget:0.19.0
+    image: ghcr.io/novuhq/novu/widget:0.20.0
     container_name: novu-widget
     restart: unless-stopped
     ports:
@@ -116,7 +116,7 @@ services:
 
   novu-embed:
     <<: *network
-    image: ghcr.io/novuhq/novu/embed:0.19.0
+    image: ghcr.io/novuhq/novu/embed:0.20.0
     container_name: novu-embed
     restart: unless-stopped
     ports:
