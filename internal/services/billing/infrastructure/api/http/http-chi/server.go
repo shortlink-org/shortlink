@@ -81,7 +81,6 @@ func (api *API) Run(
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(additionalMiddleware.Logger(log))
 	r.Use(additionalMiddleware.Auth())
-	r.Use(additionalMiddleware.SingleFlight(log))
 
 	metrics, err := additionalMiddleware.NewMetrics()
 	if err != nil {
