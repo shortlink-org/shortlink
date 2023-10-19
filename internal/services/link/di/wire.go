@@ -11,6 +11,7 @@ package link_di
 import (
 	"context"
 
+	"github.com/authzed/authzed-go/v1"
 	"github.com/go-redis/cache/v9"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
@@ -22,7 +23,6 @@ import (
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
-	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
@@ -31,7 +31,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
-	"github.com/shortlink-org/shortlink/internal/services/link/di/pkg/permission"
 	api_mq "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/mq"
 	cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -54,15 +53,15 @@ type LinkService struct {
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
+	// Security
+	authPermission *authzed.Client
+
 	// Delivery
 	linkMQ            *api_mq.Event
 	run               *run.Response
 	linkRPCServer     *link_rpc.Link
 	linkCQRSRPCServer *cqrs.Link
 	sitemapRPCServer  *sitemap_rpc.Sitemap
-
-	// Jobs
-	authPermission *auth.Auth
 
 	// Application
 	linkService     *link.Service
@@ -87,9 +86,6 @@ var LinkSet = wire.NewSet(
 
 	// Delivery
 	InitLinkMQ,
-
-	// Jobs
-	permission.Permission,
 
 	NewLinkRPCServer,
 	NewLinkCQRSRPCServer,
@@ -148,8 +144,8 @@ func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, 
 	return store, nil
 }
 
-func NewLinkApplication(logger logger.Logger, mq *v1.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*link.Service, error) {
-	linkService, err := link.New(logger, mq, metadataService, store)
+func NewLinkApplication(logger logger.Logger, mq *v1.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
+	linkService, err := link.New(logger, mq, metadataService, store, authPermission)
 	if err != nil {
 		return nil, err
 	}
@@ -227,8 +223,8 @@ func NewLinkService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-	// Jobs
-	authPermission *auth.Auth,
+	// Security
+	authPermission *authzed.Client,
 
 	// Application
 	linkService *link.Service,
@@ -260,7 +256,7 @@ func NewLinkService(
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 
-		// Jobs
+		// Security
 		authPermission: authPermission,
 
 		// Application

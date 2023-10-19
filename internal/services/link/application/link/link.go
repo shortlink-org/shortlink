@@ -7,8 +7,11 @@ import (
 	"context"
 	"fmt"
 
+	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
+	"github.com/authzed/authzed-go/v1"
 	"google.golang.org/protobuf/proto"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/auth/session"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
@@ -24,6 +27,9 @@ type Service struct {
 	// Observer interface for subscribe on system event
 	notify.Subscriber[v1.Link]
 
+	// Security
+	permission *authzed.Client
+
 	// Delivery
 	mq             *mq.DataBus
 	MetadataClient metadata_rpc.MetadataServiceClient
@@ -34,9 +40,12 @@ type Service struct {
 	logger logger.Logger
 }
 
-func New(logger logger.Logger, mq *mq.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store) (*Service, error) {
+func New(logger logger.Logger, mq *mq.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, permission *authzed.Client) (*Service, error) {
 	service := &Service{
 		logger: logger,
+
+		// Security
+		permission: permission,
 
 		// Delivery
 		mq:             mq,
@@ -144,13 +153,23 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 	return resp, nil
 }
 
+// Add - create a new link
+//
+// Saga:
+// 1. Save to store
+// 2. Add permission
+// 3. Get metadata
+// 4. Publish event
 func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	const (
 		SAGA_NAME                        = "ADD_LINK"
-		SAGA_STEP_STORE_SAVE             = "SAGA_STEP_STORE_SAVE"
-		SAGA_STEP_METADATA_GET           = "SAGA_STEP_METADATA_GET"
+		SAGA_STEP_ADD_PERMISSION         = "SAGA_STEP_ADD_PERMISSION"
+		SAGA_STEP_SAVE_TO_STORE          = "SAGA_STEP_SAVE_TO_STORE"
+		SAGA_STEP_GET_METADATA           = "SAGA_STEP_GET_METADATA"
 		SAGA_STEP_PUBLISH_EVENT_NEW_LINK = "SAGA_STEP_PUBLISH_EVENT_NEW_LINK"
 	)
+
+	sess := session.GetSession(ctx)
 
 	// saga for create a new link
 	sagaAddLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
@@ -160,21 +179,60 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		return nil, err
 	}
 
-	// add step: save to Store
-	_, errs = sagaAddLink.AddStep(SAGA_STEP_STORE_SAVE).
+	_, errs = sagaAddLink.
+		AddStep(SAGA_STEP_SAVE_TO_STORE).
 		Then(func(ctx context.Context) error {
 			var err error
 			_, err = s.store.Add(ctx, in)
 
 			return err
-		}).
-		Build()
+		}).Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
 		return nil, err
 	}
 
-	// add step: request to metadata
-	_, errs = sagaAddLink.AddStep(SAGA_STEP_METADATA_GET).
+	_, errs = sagaAddLink.AddStep(SAGA_STEP_ADD_PERMISSION).
+		Needs(SAGA_STEP_SAVE_TO_STORE).
+		Then(func(ctx context.Context) error {
+			relationship := &permission.WriteRelationshipsRequest{
+				Updates: []*permission.RelationshipUpdate{{
+					Operation: permission.RelationshipUpdate_OPERATION_CREATE,
+					Relationship: &permission.Relationship{
+						Resource: &permission.ObjectReference{
+							ObjectType: "link",
+							ObjectId:   in.Hash,
+						},
+						Relation: "writer",
+						Subject: &permission.SubjectReference{
+							Object: &permission.ObjectReference{
+								ObjectType: "user",
+								ObjectId:   sess.GetId(),
+							},
+						},
+					},
+				}},
+			}
+
+			_, err := s.permission.PermissionsServiceClient.WriteRelationships(ctx, relationship)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}).Reject(func(ctx context.Context) error {
+		err := s.store.Delete(ctx, in.Hash)
+		if err != nil {
+			return err
+		}
+
+		return nil
+	}).Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	_, errs = sagaAddLink.AddStep(SAGA_STEP_GET_METADATA).
+		Needs(SAGA_STEP_ADD_PERMISSION).
 		Then(func(ctx context.Context) error {
 			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
 				Url: in.Url,
@@ -184,13 +242,11 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 			}
 
 			return nil
-		}).
-		Build()
+		}).Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
 		return nil, err
 	}
 
-	// add step: publish event by this service
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
 			data, err := proto.Marshal(in)
@@ -204,8 +260,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 			}
 
 			return nil
-		}).
-		Build()
+		}).Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
 		return nil, err
 	}
@@ -223,11 +278,19 @@ func (s *Service) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
+// Delete - delete link
+//
+// Saga:
+// 1. Check permission
+// 2. Delete from store
 func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 	const (
-		SAGA_NAME              = "DELETE_LINK"
-		SAGA_STEP_STORE_DELETE = "SAGA_STEP_STORE_DELETE"
+		SAGA_NAME                   = "DELETE_LINK"
+		SAGE_STEP_CHECK_PERMISSION  = "SAGE_STEP_CHECK_PERMISSION"
+		SAGA_STEP_DELETE_FROM_STORE = "SAGA_STEP_DELETE_FROM_STORE"
 	)
+
+	sess := session.GetSession(ctx)
 
 	// create a new saga for a delete link by hash
 	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
@@ -237,12 +300,34 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 		return nil, err
 	}
 
-	// add step: get link from store
-	_, errs = sagaDeleteLink.AddStep(SAGA_STEP_STORE_DELETE).
+	_, errs = sagaDeleteLink.AddStep(SAGE_STEP_CHECK_PERMISSION).
+		Then(func(ctx context.Context) error {
+			_, err := s.permission.DeleteRelationships(ctx, &permission.DeleteRelationshipsRequest{
+				RelationshipFilter: &permission.RelationshipFilter{
+					ResourceType:       "link",
+					OptionalResourceId: hash,
+					OptionalRelation:   "writer",
+					OptionalSubjectFilter: &permission.SubjectFilter{
+						SubjectType:       "user",
+						OptionalSubjectId: sess.GetId(),
+					},
+				},
+			})
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}).Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	_, errs = sagaDeleteLink.AddStep(SAGA_STEP_DELETE_FROM_STORE).
+		Needs(SAGE_STEP_CHECK_PERMISSION).
 		Then(func(ctx context.Context) error {
 			return s.store.Delete(ctx, hash)
-		}).
-		Build()
+		}).Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
 		return nil, err
 	}

@@ -9,6 +9,7 @@ Auth Service DI-package
 package auth_di
 
 import (
+	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
@@ -16,13 +17,12 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
-	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/services/auth/services/permission"
 )
 
-type LinkService struct {
+type AuthService struct {
 	// Common
 	Log    logger.Logger
 	Config *config.Config
@@ -33,16 +33,19 @@ type LinkService struct {
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
-	// Jobs
-	authPermission *auth.Auth
+	// Security
+	authPermission *authzed.Client
+
+	// Application
+	permissionService *permission.Service
 }
 
 // AuthService =========================================================================================================
 var AuthSet = wire.NewSet(
 	di.DefaultSet,
 
-	// Jobs
-	permission.Permission,
+	// Application
+	permission.New,
 
 	NewAuthService,
 )
@@ -58,10 +61,13 @@ func NewAuthService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-	// Jobs
-	authPermission *auth.Auth,
-) (*LinkService, error) {
-	return &LinkService{
+	// Security
+	authPermission *authzed.Client,
+
+	// Application
+	permissionService *permission.Service,
+) (*AuthService, error) {
+	return &AuthService{
 		// Common
 		Log:    log,
 		Config: config,
@@ -74,9 +80,12 @@ func NewAuthService(
 
 		// Jobs
 		authPermission: authPermission,
+
+		// Application
+		permissionService: permissionService,
 	}, nil
 }
 
-func InitializeAuthService() (*LinkService, func(), error) {
+func InitializeAuthService() (*AuthService, func(), error) {
 	panic(wire.Build(AuthSet))
 }

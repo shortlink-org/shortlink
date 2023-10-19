@@ -8,6 +8,7 @@ package link_di
 
 import (
 	"context"
+	"github.com/authzed/authzed-go/v1"
 	cache2 "github.com/go-redis/cache/v9"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
@@ -16,10 +17,10 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
-	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -29,7 +30,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
-	"github.com/shortlink-org/shortlink/internal/services/link/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/mq"
 	v1_2 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
@@ -90,7 +90,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	auth, err := permission.Permission(context, logger)
+	client, err := permission.New(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -164,7 +164,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLinkApplication(logger, dataBus, metadataServiceClient, crudStore)
+	service, err := NewLinkApplication(logger, dataBus, metadataServiceClient, crudStore, client)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -300,7 +300,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, auth, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
+	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -339,15 +339,15 @@ type LinkService struct {
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
+	// Security
+	authPermission *authzed.Client
+
 	// Delivery
 	linkMQ            *api_mq.Event
 	run               *run.Response
 	linkRPCServer     *v1.Link
 	linkCQRSRPCServer *v1_2.Link
 	sitemapRPCServer  *v1_3.Sitemap
-
-	// Jobs
-	authPermission *auth.Auth
 
 	// Application
 	linkService     *link.Service
@@ -363,7 +363,9 @@ type LinkService struct {
 }
 
 // LinkService =========================================================================================================
-var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, InitLinkMQ, permission.Permission, NewLinkRPCServer,
+var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, InitLinkMQ,
+
+	NewLinkRPCServer,
 	NewLinkCQRSRPCServer,
 	NewSitemapRPCServer,
 	NewRunRPCServer,
@@ -418,8 +420,8 @@ func NewQueryLinkStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Stor
 	return store2, nil
 }
 
-func NewLinkApplication(logger2 logger.Logger, mq2 *mq.DataBus, metadataService v1_4.MetadataServiceClient, store2 *crud.Store) (*link.Service, error) {
-	linkService, err := link.New(logger2, mq2, metadataService, store2)
+func NewLinkApplication(logger2 logger.Logger, mq2 *mq.DataBus, metadataService v1_4.MetadataServiceClient, store2 *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
+	linkService, err := link.New(logger2, mq2, metadataService, store2, authPermission)
 	if err != nil {
 		return nil, err
 	}
@@ -493,7 +495,7 @@ func NewLinkService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-	authPermission *auth.Auth,
+	authPermission *authzed.Client,
 
 	linkService *link.Service,
 	linkCQRSService *link_cqrs.Service,

@@ -192,7 +192,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 
 	// add step: approve/reject payment
 	_, errs = sagaAddPayment.AddStep(SAGA_STEP_PAYMENT_APPROVE).
-		Needs([]string{SAGA_STEP_PAYMENT_CREATE}).
+		Needs(SAGA_STEP_PAYMENT_CREATE).
 		Then(func(ctx context.Context) error {
 			return p.Approve(ctx, in.Id)
 		}).
@@ -207,7 +207,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 
 	// add step: get actual state a payment
 	_, errs = sagaAddPayment.AddStep(SAGA_STEP_PAYMENT_GET).
-		Needs([]string{SAGA_STEP_PAYMENT_APPROVE}).
+		Needs(SAGA_STEP_PAYMENT_APPROVE).
 		Then(func(ctx context.Context) error {
 			var err error
 			in, err = p.Get(ctx, in.Id)

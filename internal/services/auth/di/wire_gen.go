@@ -7,24 +7,25 @@
 package auth_di
 
 import (
+	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
-	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	"github.com/shortlink-org/shortlink/internal/services/auth/services/permission"
+	permission2 "github.com/shortlink-org/shortlink/internal/services/auth/services/permission"
 	"go.opentelemetry.io/otel/trace"
 )
 
 // Injectors from wire.go:
 
-func InitializeAuthService() (*LinkService, func(), error) {
+func InitializeAuthService() (*AuthService, func(), error) {
 	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
@@ -69,7 +70,7 @@ func InitializeAuthService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	auth, err := permission.Permission(context, logger, tracerProvider, monitoringMonitoring)
+	client, err := permission.New(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -78,7 +79,7 @@ func InitializeAuthService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewAuthService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, auth)
+	service, err := permission2.New(context, logger, client)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -87,7 +88,16 @@ func InitializeAuthService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	return linkService, func() {
+	authService, err := NewAuthService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, service)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	return authService, func() {
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -98,7 +108,7 @@ func InitializeAuthService() (*LinkService, func(), error) {
 
 // wire.go:
 
-type LinkService struct {
+type AuthService struct {
 	// Common
 	Log    logger.Logger
 	Config *config.Config
@@ -109,12 +119,15 @@ type LinkService struct {
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
-	// Jobs
-	authPermission *auth.Auth
+	// Security
+	authPermission *authzed.Client
+
+	// Application
+	permissionService *permission2.Service
 }
 
 // AuthService =========================================================================================================
-var AuthSet = wire.NewSet(di.DefaultSet, permission.Permission, NewAuthService)
+var AuthSet = wire.NewSet(di.DefaultSet, permission2.New, NewAuthService)
 
 func NewAuthService(
 
@@ -123,9 +136,11 @@ func NewAuthService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-	authPermission *auth.Auth,
-) (*LinkService, error) {
-	return &LinkService{
+	authPermission *authzed.Client,
+
+	permissionService *permission2.Service,
+) (*AuthService, error) {
+	return &AuthService{
 
 		Log:    log,
 		Config: config2,
@@ -136,5 +151,7 @@ func NewAuthService(
 		AutoMaxPro:    autoMaxProcsOption,
 
 		authPermission: authPermission,
+
+		permissionService: permissionService,
 	}, nil
 }
