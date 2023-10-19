@@ -6,12 +6,14 @@ package di
 import (
 	"context"
 
+	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	redisCache "github.com/redis/go-redis/v9"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
+	"github.com/shortlink-org/shortlink/internal/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
@@ -39,6 +41,9 @@ type Service struct {
 	Log  logger.Logger
 	I18N *message.Printer
 
+	// Security
+	Auth *authzed.Client
+
 	// Delivery
 	DB        *db.Store
 	Cache     *redisCache.UniversalClient
@@ -54,7 +59,19 @@ type Service struct {
 }
 
 // Default =============================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, autoMaxPro.New, flags.New, config.New, logger_di.New, traicing_di.New, monitoring.New, cache.New, i18n.New, profiling.New)
+var DefaultSet = wire.NewSet(
+	ctx.New,
+	autoMaxPro.New,
+	flags.New,
+	config.New,
+	logger_di.New,
+	traicing_di.New,
+	monitoring.New,
+	cache.New,
+	i18n.New,
+	profiling.New,
+	permission.New,
+)
 
 // FullService =========================================================================================================
 var FullSet = wire.NewSet(
