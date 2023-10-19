@@ -1,43 +1,45 @@
 schema: |-
   /** user represents a registered user's account in our application */
   definition user {}
-  
+
   /** anonymoususer represents an unauthenticated user */
   definition anonymoususer {}
-  
-  /** organization represents an organization that contains links */
-  definition organization {
+
+  /** team represents an team that contains links */
+  definition team {
       /** administrator indicates that the user is an admin of the org */
       relation administrator: user
-  
+
+      relation member: user
+
       /** view_all_links indicates whether a user can view all links in the org */
       permission view_all_links = administrator
   }
-  
+
   /**
   * link represents a link with access control
   */
   definition link {
-      /** linkorg indicates that the organization owns this link */
-      relation linkorg: organization
-  
+      /** linkteam indicates that the team owns this link */
+      relation linkteam: team
+
       /**
       * reader indicates that the user is a reader on the link.
       */
-      relation reader: user | anonymoususer:*
-  
+      relation reader: user | team#member | anonymoususer:*
+
       /**
       * writer indicates that the user is a writer on the link.
       */
       relation writer: user
-  
+
       /**
       * edit indicates that the user has permission to edit the link.
       */
       permission edit = writer
-  
+
       /** view indicates whether the user can view the link */
-      permission view = reader + writer + linkorg->view_all_links
+      permission view = reader + writer + linkteam->view_all_links
   }
 
 #   link:specificlink#reader@user:specificuser
@@ -46,28 +48,28 @@ schema: |-
 relationships: |-
   link:firstlink#writer@user:tom
   link:firstlink#reader@user:fred
-  link:firstlink#linkorg@organization:org1
-  organization:org1#administrator@user:admin
+  link:firstlink#linkteam@team:org1
+  team:org1#administrator@user:admin
 
 assertions:
   assertTrue:
     - "link:firstlink#view@user:tom"
     - "link:firstlink#edit@user:tom"
     - "link:firstlink#view@user:fred"
-    - "link:firstlink#docorg@organization:org1"
-    - "organization:org1#administrator@user:admin"
+    - "link:firstlink#docorg@team:org1"
+    - "team:org1#administrator@user:admin"
     - "link:firstlink#view@user:admin"
   assertFalse:
     - "link:secondlink#view@user:fred"
     - "link:secondlink#edit@user:fred"
     - "link:firstlink#edit@user:fred"
     - "link:firstlink#edit@user:admin"
-    - "organization:org1#administrator@user:tom"
+    - "team:org1#administrator@user:tom"
 
 validation:
   link:firstlink#edit:
     - "[user:tom] is <link:firstlink#writer>"
   link:firstlink#view:
-    - "[user:admin] is <organization:org1#administrator>"
+    - "[user:admin] is <team:org1#administrator>"
     - "[user:fred] is <link:firstlink#reader>"
     - "[user:tom] is <link:firstlink#writer>"
