@@ -1,10 +1,9 @@
 //go:build unit || auth
 
-package auth
+package permission
 
 import (
 	"context"
-	"embed"
 	"fmt"
 	"os"
 	"testing"
@@ -13,11 +12,8 @@ import (
 	pb "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
-)
 
-var (
-	//go:embed permissions/*
-	permissions embed.FS
+	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 )
 
 // TestGetPermissions tests the GetPermissions function.
@@ -49,7 +45,7 @@ schema:
 
 func TestSpiceDB(t *testing.T) {
 	ctx := context.Background()
-	var client *Auth
+	var client *Service
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -76,7 +72,7 @@ func TestSpiceDB(t *testing.T) {
 		errSetenv := os.Setenv("SPICE_DB_API", fmt.Sprintf("localhost:%s", resource.GetPort("50051/tcp")))
 		require.NoError(t, errSetenv, "Cannot set ENV")
 
-		client, err = New()
+		client.client, err = auth.New(nil, nil, nil)
 		require.NoError(t, err, "Cannot create client")
 
 		return nil
