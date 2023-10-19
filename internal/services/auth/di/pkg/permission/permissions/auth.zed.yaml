@@ -48,28 +48,28 @@ schema: |-
 relationships: |-
   link:firstlink#writer@user:tom
   link:firstlink#reader@user:fred
-  link:firstlink#linkteam@team:org1
-  team:org1#administrator@user:admin
+  link:firstlink#linkteam@team:team1
+  team:team1#administrator@user:admin
 
 assertions:
   assertTrue:
     - "link:firstlink#view@user:tom"
     - "link:firstlink#edit@user:tom"
     - "link:firstlink#view@user:fred"
-    - "link:firstlink#docorg@team:org1"
-    - "team:org1#administrator@user:admin"
+    - "link:firstlink#linkteam@team:team1"
+    - "team:team1#administrator@user:admin"
     - "link:firstlink#view@user:admin"
   assertFalse:
     - "link:secondlink#view@user:fred"
     - "link:secondlink#edit@user:fred"
     - "link:firstlink#edit@user:fred"
     - "link:firstlink#edit@user:admin"
-    - "team:org1#administrator@user:tom"
+    - "team:team1#administrator@user:tom"
 
 validation:
   link:firstlink#edit:
     - "[user:tom] is <link:firstlink#writer>"
   link:firstlink#view:
-    - "[user:admin] is <team:org1#administrator>"
+    - "[user:admin] is <team:team1#administrator>"
     - "[user:fred] is <link:firstlink#reader>"
     - "[user:tom] is <link:firstlink#writer>"

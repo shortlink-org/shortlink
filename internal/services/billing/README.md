@@ -26,11 +26,11 @@ We use C4 model for describe architecture.
 
 !include boundaries/gateway.puml
 !include boundaries/auth.puml
-!include boundaries/billing.puml
+!include boundaries/payment.puml
 
-customer --> gatewayBoundary : uses
-gatewayBoundary --> authBoundary : check auth
-gatewayBoundary --> billingBoundary : create payment
+customer -right-> gatewayBoundary : uses
+gatewayBoundary -down-> authBoundary : check auth
+gatewayBoundary -right-> paymentBoundary : create payment
 ```
 
 #### Use case diagram
