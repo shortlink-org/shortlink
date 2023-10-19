@@ -13,7 +13,6 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/segmentio/encoding v0.3.6
-	github.com/shortlink-org/shortlink v0.0.0-20231014190659-9902ab79da36
 	github.com/spf13/viper v1.17.0
 	github.com/swaggo/swag v1.16.2
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.3
@@ -27,7 +26,7 @@ require (
 )
 
 require (
-	github.com/IBM/sarama v1.41.2 // indirect
+	github.com/IBM/sarama v1.41.3 // indirect
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/Masterminds/semver/v3 v3.2.1 // indirect
 	github.com/Masterminds/squirrel v1.5.4 // indirect
