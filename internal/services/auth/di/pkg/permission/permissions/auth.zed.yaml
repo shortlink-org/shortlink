@@ -5,7 +5,7 @@ schema: |-
   /** anonymoususer represents an unauthenticated user */
   definition anonymoususer {}
   
-  /** organization represents an organization that contains documents */
+  /** organization represents an organization that contains links */
   definition organization {
       /** administrator indicates that the user is an admin of the org */
       relation administrator: user
@@ -18,35 +18,35 @@ schema: |-
   * link represents a link with access control
   */
   definition link {
-      /** docorg indicates that the organization owns this document */
-      relation docorg: organization
+      /** linkorg indicates that the organization owns this link */
+      relation linkorg: organization
   
       /**
-      * reader indicates that the user is a reader on the document.
+      * reader indicates that the user is a reader on the link.
       */
-      relation reader: user
+      relation reader: user | anonymoususer:*
   
       /**
-      * writer indicates that the user is a writer on the document.
+      * writer indicates that the user is a writer on the link.
       */
       relation writer: user
   
       /**
-      * edit indicates that the user has permission to edit the document.
+      * edit indicates that the user has permission to edit the link.
       */
       permission edit = writer
   
-      /** view indicates whether the user can view the document */
-      permission view = reader + writer + docorg->view_all_links
+      /** view indicates whether the user can view the link */
+      permission view = reader + writer + linkorg->view_all_links
   }
 
-#   document:specificdocument#reader@user:specificuser
+#   link:specificlink#reader@user:specificuser
 #   |_______________________| |____| |_______________|
 #           resource         relation     subject
 relationships: |-
   link:firstlink#writer@user:tom
   link:firstlink#reader@user:fred
-  link:firstlink#docorg@organization:org1
+  link:firstlink#linkorg@organization:org1
   organization:org1#administrator@user:admin
 
 assertions:
