@@ -73,12 +73,19 @@ func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error 
 	return nil
 }
 
+// Get - get a link by hash
+//
+// Saga:
+// 1. Check permission
+// 2. Get a link from store
 func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 	const (
-		SAGA_NAME           = "GET_LINK"
-		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_GET"
+		SAGA_NAME                  = "GET_LINK"
+		SAGA_STEP_CHECK_PERMISSION = "SAGA_STEP_CHECK_PERMISSION"
+		SAGA_STEP_GET_FROM_STORE   = "SAGA_STEP_GET_FROM_STORE"
 	)
 
+	sess := session.GetSession(ctx)
 	resp := &v1.Link{}
 
 	// create a new saga for a get link by hash
@@ -89,15 +96,33 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 		return nil, err
 	}
 
-	// add step: get link from store
-	_, errs = sagaGetLink.AddStep(SAGA_STEP_STORE_GET).
+	_, errs = sagaGetLink.AddStep(SAGA_STEP_CHECK_PERMISSION).
+		Then(func(ctx context.Context) error {
+			relationship := &permission.CheckPermissionRequest{
+				Resource:   &permission.ObjectReference{ObjectType: "link", ObjectId: hash},
+				Permission: "reader",
+				Subject:    &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: sess.GetId()}},
+			}
+
+			_, err := s.permission.PermissionsServiceClient.CheckPermission(ctx, relationship)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}).Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	_, errs = sagaGetLink.AddStep(SAGA_STEP_GET_FROM_STORE).
+		Needs(SAGA_STEP_CHECK_PERMISSION).
 		Then(func(ctx context.Context) error {
 			var err error
 			resp, err = s.store.Get(ctx, hash)
 
 			return err
-		}).
-		Build()
+		}).Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
 		return nil, err
 	}
@@ -115,13 +140,20 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 	return resp, nil
 }
 
+// List - get a list of links
+//
+// Saga:
+// 1. Check permission
+// 2. Get a list of links from store
 func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links, error) {
 	const (
-		SAGA_NAME            = "LIST_LINK"
-		SAGA_STEP_STORE_LIST = "SAGA_STEP_STORE_LIST"
+		SAGA_NAME                     = "LIST_LINK"
+		SAGA_STEP_LOOKUP              = "SAGA_STEP_LOOKUP"
+		SAGA_STEP_GET_LIST_FROM_STORE = "SAGA_STEP_GET_LIST_FROM_STORE"
 	)
 
-	resp := &v1.Links{}
+	sess := session.GetSession(ctx)
+	links := &v1.Links{}
 
 	// create a new saga for a get list of a link
 	sagaListLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
@@ -131,15 +163,39 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 		return nil, err
 	}
 
-	// add step: get link from store
-	_, errs = sagaListLink.AddStep(SAGA_STEP_STORE_LIST).
+	_, errs = sagaListLink.AddStep(SAGA_STEP_LOOKUP).
+		Then(func(ctx context.Context) error {
+			relationship := &permission.LookupResourcesRequest{
+				ResourceObjectType: "link",
+				Permission:         "reader",
+				Subject:            &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: sess.GetId()}},
+			}
+
+			resp, err := s.permission.PermissionsServiceClient.LookupResources(ctx, relationship)
+			if err != nil {
+				return err
+			}
+
+			list, err := resp.Recv()
+			if err != nil {
+				return err
+			}
+
+			s.logger.Info("list", field.Fields{"list": list})
+
+			return nil
+		}).Build()
+	if err := errorHelper(ctx, s.logger, errs); err != nil {
+		return nil, err
+	}
+
+	_, errs = sagaListLink.AddStep(SAGA_STEP_GET_LIST_FROM_STORE).
 		Then(func(ctx context.Context) error {
 			var err error
-			resp, err = s.store.List(ctx, &filter)
+			links, err = s.store.List(ctx, &filter)
 
 			return err
-		}).
-		Build()
+		}).Build()
 	if err := errorHelper(ctx, s.logger, errs); err != nil {
 		return nil, err
 	}
@@ -150,7 +206,7 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 		return nil, err
 	}
 
-	return resp, nil
+	return links, nil
 }
 
 // Add - create a new link

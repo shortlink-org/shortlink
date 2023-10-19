@@ -39,18 +39,15 @@ System_Boundary(spicedb, "SpiceDB") {
 }
 
 System_Boundary(permissions, "Permissions") {
-  Container(view, "View", "View permission")
-  Container(edit, "Edit", "Edit permission")
-  Container(delete, "Delete", "Delete permission")
+  Container(reader, "View", "View permission")
+  Container(writer, "Edit/Delete", "Edit/Delete permission")
   Container(share, "Share", "Share permission")
 }
 
-Rel(customer, link, "Interacts with")
-Rel(customer, user_namespace, "Interacts with")
+Rel(customer, spicedb, "Interacts with")
 
-Rel(link, view, "Uses")
-Rel(link, edit, "Uses")
-Rel(link, delete, "Uses")
+Rel(link, writer, "Uses")
+Rel(link, reader, "Uses")
 Rel(link, share, "Uses")
 ```
 

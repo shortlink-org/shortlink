@@ -4,10 +4,11 @@
 
 - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
 - [ADR-0002](./docs/ADR/decisions/0002-permissions.md) - Implementing Permissions
+- [ADR-0003](./docs/ADR/decisions/0003-access-control-schema.md) - Access Control Schema Definitions for Our Application using SpiceDB
 
 ### Architecture
 
-We use C4 model for describe architecture.
+We use the C4 model to describe architecture.
 
 #### Context diagram
 
