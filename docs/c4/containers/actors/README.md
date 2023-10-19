@@ -10,4 +10,6 @@
 !include actors/moderator.puml
 
 !include actors/support.puml
+
+!include actors/event.puml
 ```

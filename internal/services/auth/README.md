@@ -7,6 +7,20 @@
 
 ### Architecture
 
+We use C4 model for describe architecture.
+
+#### Context diagram
+
+```plantuml
+!include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/common.puml
+!include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/c1.puml
+
+!include actors/event.puml
+!include boundaries/auth.puml
+
+event -right-> authBoundary : uses
+```
+
 #### Use case diagram
 
 The use case diagram shows which functionality of the developed software system is 
