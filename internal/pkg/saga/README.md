@@ -75,7 +75,7 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 
   // step: send notify
   saga.AddStep("send notify").
-    Needs([]string{SAGA_STEP_SAVE_LINK, SAGA_STEP_GET_METADATA}).
+    Needs(SAGA_STEP_SAVE_LINK, SAGA_STEP_GET_METADATA).
     Then(youNotifyFunc)
   
   // Run saga

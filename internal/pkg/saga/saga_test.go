@@ -102,7 +102,7 @@ func TestNewSaga(t *testing.T) {
 		_, errs = sagaNumber.AddStep(SAGA_STEP_C).
 			Then(printFunc).
 			Reject(printFunc).
-			Needs([]string{SAGA_STEP_A, SAGA_STEP_B}).
+			Needs(SAGA_STEP_A, SAGA_STEP_B).
 			Build()
 		// check error
 		assert.Len(t, errs, 0)
@@ -114,7 +114,7 @@ func TestNewSaga(t *testing.T) {
 		_, errs = sagaNumber.AddStep(SAGA_STEP_D).
 			Then(addFunc).
 			Reject(rejectFunc).
-			Needs([]string{SAGA_STEP_C}).
+			Needs(SAGA_STEP_C).
 			Build()
 		// check error
 		assert.Len(t, errs, 0)
@@ -126,7 +126,7 @@ func TestNewSaga(t *testing.T) {
 		_, errs = sagaNumber.AddStep(SAGA_STEP_E).
 			Then(printFunc).
 			Reject(printFunc).
-			Needs([]string{SAGA_STEP_D, SAGA_STEP_B}).
+			Needs(SAGA_STEP_D, SAGA_STEP_B).
 			Build()
 		// check error
 		assert.Len(t, errs, 0)
@@ -209,7 +209,7 @@ func TestNewSaga(t *testing.T) {
 		_, errs = sagaNumber.AddStep(SAGA_STEP_C).
 			Then(printFunc).
 			Reject(printFunc).
-			Needs([]string{SAGA_STEP_A, SAGA_STEP_B}).
+			Needs(SAGA_STEP_A, SAGA_STEP_B).
 			Build()
 		// check error
 		assert.Len(t, errs, 0)
@@ -221,7 +221,7 @@ func TestNewSaga(t *testing.T) {
 		_, errs = sagaNumber.AddStep(SAGA_STEP_D).
 			Then(addFunc).
 			Reject(rejectFunc).
-			Needs([]string{SAGA_STEP_C}).
+			Needs(SAGA_STEP_C).
 			Build()
 		// check error
 		assert.Len(t, errs, 0)
@@ -233,7 +233,7 @@ func TestNewSaga(t *testing.T) {
 		_, errs = sagaNumber.AddStep(SAGA_STEP_E).
 			Then(printFunc).
 			Reject(printFunc).
-			Needs([]string{SAGA_STEP_D, SAGA_STEP_B}).
+			Needs(SAGA_STEP_D, SAGA_STEP_B).
 			Build()
 		// check error
 		assert.Len(t, errs, 0)
@@ -247,7 +247,7 @@ func TestNewSaga(t *testing.T) {
 				return fmt.Errorf("SAGA_STEP_FAIL")
 			}).
 			Reject(printFunc).
-			Needs([]string{SAGA_STEP_E, SAGA_STEP_C}).
+			Needs(SAGA_STEP_E, SAGA_STEP_C).
 			Build()
 		// check error
 		assert.Len(t, errs, 0)

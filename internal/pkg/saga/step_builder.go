@@ -20,7 +20,7 @@ func (s *BuilderStep) Reject(f func(ctx context.Context) error) *BuilderStep {
 	return s
 }
 
-func (s *BuilderStep) Needs(keys []string) *BuilderStep {
+func (s *BuilderStep) Needs(keys ...string) *BuilderStep {
 	// set parents
 	for _, key := range keys {
 		errAddEdge := s.dag.AddEdge(key, s.name)
