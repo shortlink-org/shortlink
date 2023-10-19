@@ -165,3 +165,8 @@ updates:
     directory: /internal/services/bot
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /poc/go-orm
+    schedule:
+      interval: daily
