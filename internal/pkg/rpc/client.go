@@ -33,7 +33,10 @@ type client struct {
 
 // InitClient - set up a connection to the server.
 func InitClient(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
-	config, err := setClientConfig(tracer, monitoring, log)
+	config, err := SetClientConfig(tracer, monitoring, log)
+	if err != nil {
+		return nil, nil, err
+	}
 
 	// Set up a connection to the server peer
 	conn, err := grpc.Dial(
@@ -54,7 +57,7 @@ func InitClient(log logger.Logger, tracer trace.TracerProvider, monitoring *moni
 }
 
 // setConfig - set configuration
-func setClientConfig(tracer trace.TracerProvider, monitoring *monitoring.Monitoring, log logger.Logger) (*client, error) {
+func SetClientConfig(tracer trace.TracerProvider, monitoring *monitoring.Monitoring, log logger.Logger) (*client, error) {
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 
@@ -87,6 +90,11 @@ func setClientConfig(tracer trace.TracerProvider, monitoring *monitoring.Monitor
 	}
 
 	return config, nil
+}
+
+// GetOptions - return options for gRPC client.
+func (c *client) GetOptions() []grpc.DialOption {
+	return c.optionsNewClient
 }
 
 // withTimeout - setup timeout

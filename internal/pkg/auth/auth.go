@@ -10,16 +10,20 @@ import (
 	pb "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/authzed/authzed-go/v1"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"gopkg.in/yaml.v3"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 )
 
 type Auth struct {
 	client *authzed.Client
 }
 
-func New() (*Auth, error) {
+func New(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*Auth, error) {
 	var err error
 	auth := &Auth{}
 
@@ -27,14 +31,17 @@ func New() (*Auth, error) {
 	viper.SetDefault("SPICE_DB_COMMON_KEY", "secret-shortlink-preshared-key")
 	viper.SetDefault("SPICE_DB_TIMEOUT", "5s")
 
-	auth.client, err = authzed.NewClient(
-		viper.GetString("SPICE_DB_API"),
-		grpc.WithTransportCredentials(insecure.NewCredentials()),
+	config, err := rpc.SetClientConfig(tracer, monitoring, log)
+	if err != nil {
+		return nil, err
+	}
+
+	options := config.GetOptions()
+	options = append(options,
 		grpc.WithPerRPCCredentials(insecureMetadataCreds{"authorization": "Bearer " + viper.GetString("SPICE_DB_COMMON_KEY")}),
-		grpc.WithIdleTimeout(viper.GetDuration("SPICE_DB_TIMEOUT")),
-		// grpc.WithBlock(),
-		// grpc.WithReturnConnectionError(),
-	)
+		grpc.WithIdleTimeout(viper.GetDuration("SPICE_DB_TIMEOUT")))
+
+	auth.client, err = authzed.NewClient(viper.GetString("SPICE_DB_API"), options...)
 	if err != nil {
 		return nil, err
 	}

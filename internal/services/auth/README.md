@@ -44,10 +44,13 @@ rectangle Auth {
   url of UC4 is [[https://www.ory.sh/docs/kratos/self-service/flows/account-recovery-password-reset]]
 }
 
-customer --> UC1
-customer --> UC2
-customer --> UC3
-customer --> UC4
+rectangle Permission {
+  usecase (UC-1 Check Permission) as UC5
+  usecase (UC-2 CRUD Permission) as UC6
+}
+
+customer -up-> Permission
+customer -down-> Auth
 ```
 
 **Use cases**:
