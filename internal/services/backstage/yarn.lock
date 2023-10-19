@@ -5039,21 +5039,21 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@lerna/child-process@7.4.0":
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/@lerna/child-process/-/child-process-7.4.0.tgz#90e2ef119fed904845cad9977002f71354df2b68"
-  integrity sha512-KhocFx7HI04N2tUdKv/kJDy627m9TzIDrtudRTMTFVS8vKzGtxpfjgWZAnJ20hwQqe/MvvfrOhHsvDBrcBEW/g==
+"@lerna/child-process@7.4.1":
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/@lerna/child-process/-/child-process-7.4.1.tgz#efacbbe79794ef977feb86873d853bb8708707be"
+  integrity sha512-Bx1cRCZcVcWoz+atDQc4CSVzGuEgGJPOpIAXjQbBEA2cX5nqIBWdbye8eHu31En/F03aH9BhpNEJghs6wy4iTg==
   dependencies:
     chalk "^4.1.0"
     execa "^5.0.0"
     strong-log-transformer "^2.1.0"
 
-"@lerna/create@7.4.0":
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/@lerna/create/-/create-7.4.0.tgz#5a7214b7f67e4804e7ce07d9e6c4275bfe85b3d5"
-  integrity sha512-VmuJCS/cC2itJjpMNNBWBl1YRfYNBjo6BR4+KVdDYPO2/WT+CWqv5gWGrm0bU5/djwGJ2BN96STzHnWegACK0A==
+"@lerna/create@7.4.1":
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/@lerna/create/-/create-7.4.1.tgz#3e4bb7235bf5700e7e63c470eba5619171331c1a"
+  integrity sha512-zPO9GyWceRimtMD+j+aQ8xJgNPYn/Q/SzHf4wYN+4Rj5nrFKMyX+Et7FbWgUNpj0dRgyCCKBDYmTB7xQVVq4gQ==
   dependencies:
-    "@lerna/child-process" "7.4.0"
+    "@lerna/child-process" "7.4.1"
     "@npmcli/run-script" "6.0.2"
     "@nx/devkit" ">=16.5.1 < 17"
     "@octokit/plugin-enterprise-rest" "6.0.1"
@@ -15738,13 +15738,13 @@ leasot@^12.0.0:
     strip-ansi "^6.0.0"
     text-table "^0.2.0"
 
-lerna@^7.4.0:
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/lerna/-/lerna-7.4.0.tgz#e6dabe956cc771eabe90c97e5e4759eb5d5117ef"
-  integrity sha512-Dp5js6R7mygy3Ncxc/1HxDd5EgiE7mFqZbCAYKm6FzeOn/GLcqyOPJHLsck6PlSu/uvqUh1lZO4wGaJJQAcW2Q==
+lerna@^7.4.1:
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/lerna/-/lerna-7.4.1.tgz#d124fa5f0a1fe10ae9a6081bc363d98f3f6caca9"
+  integrity sha512-c6sOO0dlJU689vStIsko+zjRdn2fJOWH8aNjePLNv2AubAdABKqfrDCpE2H/Q7+O80Duo68ZQtWYkUUk7hRWDw==
   dependencies:
-    "@lerna/child-process" "7.4.0"
-    "@lerna/create" "7.4.0"
+    "@lerna/child-process" "7.4.1"
+    "@lerna/create" "7.4.1"
     "@npmcli/run-script" "6.0.2"
     "@nx/devkit" ">=16.5.1 < 17"
     "@octokit/plugin-enterprise-rest" "6.0.1"
