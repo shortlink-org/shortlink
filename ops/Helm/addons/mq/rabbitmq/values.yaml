@@ -17,7 +17,8 @@ rabbitmq-cluster-operator:
   clusterOperator:
     # disabled because we have issue: https://github.com/bitnami/charts/issues/7879
     metrics:
-      enabled: true
+      service:
+        enabled: true
 
       serviceMonitor:
         enabled: true
@@ -26,7 +27,8 @@ rabbitmq-cluster-operator:
 
   msgTopologyOperator:
     metrics:
-      enabled: true
+      service:
+        enabled: true
 
       serviceMonitor:
         enabled: true
