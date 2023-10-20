@@ -58,7 +58,7 @@ dependencies:
       - kargo
       - gitops
   - name: redis
-    version: 18.1.5
+    version: 18.1.6
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: redis.enabled
     tags:
