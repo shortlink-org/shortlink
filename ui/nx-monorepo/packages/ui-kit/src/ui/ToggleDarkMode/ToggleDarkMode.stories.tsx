@@ -14,9 +14,10 @@ function Template(args: any) {
   return <ToggleDarkMode {...args} />
 }
 
-export const Default = Template.bind({})
-// @ts-ignore
-Default.args = {}
+export const Default = {
+  render: Template,
+  args: {},
+}
 
 export function WithHeader() {
   return (

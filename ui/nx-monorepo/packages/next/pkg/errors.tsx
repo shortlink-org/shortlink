@@ -12,8 +12,8 @@ export function handleGetFlowError<S>(
   return async (err: AxiosError) => {
     // @ts-ignore
     switch (err.response?.data.error?.id) {
-      case "session_inactive":
-        await router.push("/auth/login?return_to=" + window.location.href)
+      case 'session_inactive':
+        await router.push('/auth/login?return_to=' + window.location.href)
         return
       case 'session_aal2_required':
         // 2FA is enabled and enforced, but user did not perform 2fa yet!
@@ -21,14 +21,16 @@ export function handleGetFlowError<S>(
         if (err.response?.data.redirect_browser_to) {
           // @ts-ignore
           const redirectTo = new URL(err.response?.data.redirect_browser_to)
-          if (flowType === "settings") {
-            redirectTo.searchParams.set("return_to", window.location.href)
+          if (flowType === 'settings') {
+            redirectTo.searchParams.set('return_to', window.location.href)
           }
           // 2FA is enabled and enforced, but user did not perform 2fa yet!
           window.location.href = redirectTo.toString()
           return
         }
-        await router.push("/auth/login?aal=aal2&return_to=" + window.location.href)
+        await router.push(
+          '/auth/login?aal=aal2&return_to=' + window.location.href,
+        )
         return
       case 'session_already_available':
         // User is already signed in, let's redirect them home!

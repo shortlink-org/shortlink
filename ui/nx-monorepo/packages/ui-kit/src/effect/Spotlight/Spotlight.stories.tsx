@@ -150,7 +150,7 @@ function Template(args: any) {
   )
 }
 
-export const Default = Template.bind({})
-
-// @ts-ignore
-Default.args = { className: 'p-4 bg-gray-200' }
+export const Default = {
+  render: Template,
+  args: { className: 'p-4 bg-gray-200' },
+}

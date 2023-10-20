@@ -12,7 +12,7 @@ function Template(args: any) {
   return <Button {...args}>Text</Button>
 }
 
-export const Default = Template.bind({})
-
-// @ts-ignore
-Default.args = {}
+export const Default = {
+  render: Template,
+  args: {},
+}

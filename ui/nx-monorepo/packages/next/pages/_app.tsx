@@ -8,6 +8,8 @@ import {
   StyledEngineProvider,
   ThemeProvider,
 } from '@mui/material/styles'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import {
   ColorModeContext,
   createEmotionCache,
@@ -21,8 +23,6 @@ import { StrictMode, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { Provider } from 'react-redux'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
-import { LocalizationProvider } from '@mui/x-date-pickers'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import ScrollTop from 'components/ScrollTop'
 import { wrapper } from 'store/store'

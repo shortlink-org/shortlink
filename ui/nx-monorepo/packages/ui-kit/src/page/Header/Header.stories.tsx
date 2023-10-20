@@ -13,6 +13,7 @@ function Template(args: any) {
   return <Header title="Header" {...args} />
 }
 
-export const Default = Template.bind({})
-// @ts-ignore
-Default.args = {}
+export const Default = {
+  render: Template,
+  args: {},
+}

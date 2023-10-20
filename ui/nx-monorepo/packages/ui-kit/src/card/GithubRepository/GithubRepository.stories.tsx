@@ -19,6 +19,7 @@ function Template(args: any) {
   )
 }
 
-export const Default = Template.bind({})
-// @ts-ignore
-Default.args = {}
+export const Default = {
+  render: Template,
+  args: {},
+}

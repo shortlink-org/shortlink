@@ -1,31 +1,28 @@
-import {
-  MaterialReactTable,
-  useMaterialReactTable,
-  MRT_ToggleDensePaddingButton,
-  MRT_ToggleFullScreenButton,
-  MRT_ShowHideColumnsButton,
-  MRT_ToggleFiltersButton,
-  type MaterialReactTable as MaterialReactTableProps,
-  type MRT_Cell,
-  type MRT_ColumnDef,
-  type MRT_Row,
-} from 'material-react-table'
-import React, { useState, useCallback } from 'react'
-import { mkConfig, generateCsv, download } from 'export-to-csv'
+import { Delete, Edit, FileDownload, Update } from '@mui/icons-material'
 import {
   Box,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   IconButton,
-  MenuItem,
-  Stack,
-  TextField,
   Tooltip,
 } from '@mui/material'
-import { Delete, Edit, FileDownload, Update } from '@mui/icons-material'
+import { mkConfig, generateCsv, download } from 'export-to-csv'
+import {
+  MaterialReactTable,
+  useMaterialReactTable,
+  // eslint-disable-next-line camelcase
+  MRT_ToggleDensePaddingButton,
+  // eslint-disable-next-line camelcase
+  MRT_ToggleFullScreenButton,
+  // eslint-disable-next-line camelcase
+  MRT_ShowHideColumnsButton,
+  // eslint-disable-next-line camelcase
+  MRT_ToggleFiltersButton,
+  type MaterialReactTable as MaterialReactTableProps,
+  // eslint-disable-next-line camelcase
+  type MRT_Row,
+} from 'material-react-table'
+import React, { useState, useCallback } from 'react'
+
 import CreateNewItemModal from './CreateNewItemModal/CreateNewItemModal'
 
 const csvConfig = mkConfig({
@@ -60,13 +57,14 @@ export const Table = ({ columns, data }) => {
     setTableData([...tableData])
   }
 
+  // @ts-ignore
   const handleSaveRowEdits: MaterialReactTableProps<any>['onEditingRowSave'] = // @ts-ignore
     async ({ exitEditingMode, row, values }) => {
       if (!Object.keys(validationErrors).length) {
         tableData[row.index] = values
-        //send/receive api updates here, then refetch or update local table data for re-render
+        // send/receive api updates here, then refetch or update local table data for re-render
         setTableData([...tableData])
-        exitEditingMode() //required to exit editing mode and close modal
+        exitEditingMode() // required to exit editing mode and close modal
       }
     }
 
@@ -79,7 +77,7 @@ export const Table = ({ columns, data }) => {
       if (!confirm(`Are you sure you want to delete row ${row.index + 1}?`)) {
         return
       }
-      //send api delete request here, then refetch or update local table data for re-render
+      // send api delete request here, then refetch or update local table data for re-render
       tableData.splice(row.index, 1)
       setTableData([...tableData])
     },
@@ -102,17 +100,16 @@ export const Table = ({ columns, data }) => {
     paginationDisplayMode: 'pages',
     renderTopToolbarCustomActions: ({ table }) => (
       <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
-        <Button
-          onClick={() => setCreateModalOpen(true)}
-          variant="outlined"
-        >
+        <Button onClick={() => setCreateModalOpen(true)} variant="outlined">
           Create New Item
         </Button>
         <Button
           color="error"
-          disabled={!table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()}
+          disabled={
+            !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
+          }
           onClick={() => {
-            alert('Delete Selected Rows');
+            alert('Delete Selected Rows')
           }}
           variant="contained"
         >
@@ -122,9 +119,7 @@ export const Table = ({ columns, data }) => {
     ),
     renderToolbarInternalActions: ({ table }) => (
       <Box>
-        <IconButton
-          onClick={() => alert('Update')}
-        >
+        <IconButton onClick={() => alert('Update')}>
           <Update />
         </IconButton>
         <MRT_ToggleFiltersButton table={table} />
@@ -158,7 +153,7 @@ export const Table = ({ columns, data }) => {
         }}
       >
         <Button
-          //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
+          // export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
           onClick={handleExportData}
           startIcon={<FileDownload />}
         >
@@ -166,7 +161,7 @@ export const Table = ({ columns, data }) => {
         </Button>
         <Button
           disabled={table.getRowModel().rows.length === 0}
-          //export all rows as seen on the screen (respects pagination, sorting, filtering, etc.)
+          // export all rows as seen on the screen (respects pagination, sorting, filtering, etc.)
           onClick={() => handleExportRows(table.getRowModel().rows)}
           startIcon={<FileDownload />}
         >
@@ -176,7 +171,7 @@ export const Table = ({ columns, data }) => {
           disabled={
             !table.getIsSomeRowsSelected() && !table.getIsAllRowsSelected()
           }
-          //only export selected rows
+          // only export selected rows
           onClick={() => handleExportRows(table.getSelectedRowModel().rows)}
           startIcon={<FileDownload />}
         >

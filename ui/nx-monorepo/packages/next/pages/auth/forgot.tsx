@@ -40,7 +40,7 @@ const Forgot: NextPage = () => {
     // Otherwise, we initialize it
     ory
       .createBrowserRecoveryFlow({
-        returnTo: String(returnTo || ""),
+        returnTo: String(returnTo || ''),
       })
       .then(({ data }) => {
         setFlow(data)

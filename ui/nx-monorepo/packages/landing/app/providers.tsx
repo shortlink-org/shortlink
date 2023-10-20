@@ -17,7 +17,6 @@ import {
 } from '@shortlink-org/ui-kit'
 import Script from 'next/script'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
-import { LocalizationProvider } from '@mui/x-date-pickers'
 import React, { useState } from 'react'
 
 const cache = createCache({ key: 'next' })
