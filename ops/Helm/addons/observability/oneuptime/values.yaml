@@ -8,6 +8,10 @@ oneuptime:
   global:
     storageClass: local-path
 
+  ingress:
+    service:
+      type: ClusterIP
+
   postgresql:
     primary:
       persistence:
