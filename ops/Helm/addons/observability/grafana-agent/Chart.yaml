@@ -1,0 +1,21 @@
+apiVersion: v2
+appVersion: "1.0.0"
+name: grafana-agent
+version: 0.1.0
+kubeVersion: ">= 1.28.0 || >= v1.28.0-0"
+keywords:
+  - grafana
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application
+deprecated: false
+dependencies:
+  - name: k8s-monitoring
+    version: 0.2.11
+    repository: https://grafana.github.io/helm-charts
+    condition: k8s-monitoring.enabled
+    tags:
+      - monitoring

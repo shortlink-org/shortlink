@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-agent
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: grafana-agent
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ops/Helm/addons/observability/grafana-agent
+    repoURL: 'https://github.com/shortlink-org/shortlink'
+    targetRevision: HEAD
+    helm:
+      releaseName: grafana-agent
+      skipCrds: true
+      valueFiles:
+        - values.yaml
+
+        # ### Method 2: Fetch the gpg/age key from kubernetes secret
+        # secrets+gpg-import-kubernetes://<namespace>/<secret-name>#<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
+        # secrets+age-import-kubernetes://<namespace>/<secret-name>#<key-name>.txt?<relative/path/to/the/encrypted/secrets.yaml>
+        # Example Method 2: (Assumptions: namespace=argocd, secret-name=sops-gpg, key-name=app, secret.yaml is in the root folder)
+        - secrets+gpg-import-kubernetes://argocd/sops-gpg#sops.asc?secret.sops.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+      - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
+  ignoreDifferences:
+    - group: kyverno.io
+      kind: ClusterPolicy
+      jqPathExpressions:
+        - .spec.rules[] | select(.name|test("autogen-."))

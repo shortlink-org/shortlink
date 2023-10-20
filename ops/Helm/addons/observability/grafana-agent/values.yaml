@@ -1,0 +1,36 @@
+# Common default values for grafana-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+k8s-monitoring:
+  enabled: true
+
+  cluster:
+    name: ShortLink
+  externalServices:
+    prometheus:
+      host: https://prometheus-prod-24-prod-eu-west-2.grafana.net
+    loki:
+      host: https://logs-prod-012.grafana.net
+    tempo:
+      host: https://tempo-prod-10-prod-eu-west-2.grafana.net:443
+  opencost:
+    opencost:
+      exporter:
+        defaultClusterId: ShortLink
+      prometheus:
+        external:
+          url: https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom
+  traces:
+    enabled: true
+  grafana-agent:
+    agent:
+      extraPorts:
+        - name: otlp-grpc
+          port: 4317
+          targetPort: 4317
+          protocol: TCP
+        - name: otlp-http
+          port: 4318
+          targetPort: 4318
+          protocol: TCP
