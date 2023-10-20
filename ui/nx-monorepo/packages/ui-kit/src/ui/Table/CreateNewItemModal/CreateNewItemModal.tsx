@@ -1,3 +1,4 @@
+// eslint-disable-next-line camelcase
 import type { MRT_ColumnDef } from 'material-react-table'
 import React, { useState } from 'react'
 import {
@@ -11,6 +12,7 @@ import {
 } from '@mui/material'
 
 interface CreateModalProps {
+  // eslint-disable-next-line camelcase
   columns: MRT_ColumnDef<any>[]
   onClose: () => void
   onSubmit: (values: any) => void
@@ -31,7 +33,7 @@ export const CreateNewItemModal = ({
   )
 
   const handleSubmit = () => {
-    //put your validation logic here
+    // put your validation logic here
     onSubmit(values)
     onClose()
   }

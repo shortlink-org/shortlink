@@ -1,10 +1,5 @@
 import { Delete, Edit, FileDownload, Update } from '@mui/icons-material'
-import {
-  Box,
-  Button,
-  IconButton,
-  Tooltip,
-} from '@mui/material'
+import { Box, Button, IconButton, Tooltip } from '@mui/material'
 import { mkConfig, generateCsv, download } from 'export-to-csv'
 import {
   MaterialReactTable,
@@ -39,6 +34,7 @@ export const Table = ({ columns, data }) => {
     download(csvConfig)(csv)
   }
 
+  // eslint-disable-next-line camelcase
   const handleExportRows = (rows: MRT_Row<any>[]) => {
     const rowData = rows.map((row) => row.original)
     const csv = generateCsv(csvConfig)(rowData)
@@ -73,6 +69,7 @@ export const Table = ({ columns, data }) => {
   }
 
   const handleDeleteRow = useCallback(
+    // eslint-disable-next-line camelcase
     (row: MRT_Row<any>) => {
       if (!confirm(`Are you sure you want to delete row ${row.index + 1}?`)) {
         return
@@ -98,6 +95,8 @@ export const Table = ({ columns, data }) => {
     enableFacetedValues: true,
     enableRowActions: true,
     paginationDisplayMode: 'pages',
+
+    // eslint-disable-next-line no-shadow
     renderTopToolbarCustomActions: ({ table }) => (
       <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
         <Button onClick={() => setCreateModalOpen(true)} variant="outlined">
@@ -117,18 +116,25 @@ export const Table = ({ columns, data }) => {
         </Button>
       </Box>
     ),
+
+    // eslint-disable-next-line no-shadow
     renderToolbarInternalActions: ({ table }) => (
       <Box>
         <IconButton onClick={() => alert('Update')}>
           <Update />
         </IconButton>
+        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
         <MRT_ToggleFiltersButton table={table} />
+        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
         <MRT_ShowHideColumnsButton table={table} />
+        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
         <MRT_ToggleDensePaddingButton table={table} />
+        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
         <MRT_ToggleFullScreenButton table={table} />
       </Box>
     ),
-    // @ts-ignore
+
+    // eslint-disable-next-line no-shadow
     renderRowActions: ({ row, table }) => (
       <Box sx={{ display: 'flex', gap: '1rem' }}>
         <Tooltip arrow placement="left" title="Edit">
@@ -143,6 +149,8 @@ export const Table = ({ columns, data }) => {
         </Tooltip>
       </Box>
     ),
+
+    // eslint-disable-next-line no-shadow
     renderBottomToolbarCustomActions: ({ table }) => (
       <Box
         sx={{
@@ -183,6 +191,7 @@ export const Table = ({ columns, data }) => {
 
   return (
     <>
+      {/* @ts-ignore */}
       <MaterialReactTable
         table={table}
         onEditingRowSave={handleSaveRowEdits}

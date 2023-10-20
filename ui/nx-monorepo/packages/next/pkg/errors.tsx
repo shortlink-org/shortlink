@@ -13,7 +13,7 @@ export function handleGetFlowError<S>(
     // @ts-ignore
     switch (err.response?.data.error?.id) {
       case 'session_inactive':
-        await router.push('/auth/login?return_to=' + window.location.href)
+        router.push(`/auth/login?return_to=${window.location.href}`)
         return
       case 'session_aal2_required':
         // 2FA is enabled and enforced, but user did not perform 2fa yet!
@@ -28,9 +28,7 @@ export function handleGetFlowError<S>(
           window.location.href = redirectTo.toString()
           return
         }
-        await router.push(
-          '/auth/login?aal=aal2&return_to=' + window.location.href,
-        )
+        router.push(`/auth/login?aal=aal2&return_to=${window.location.href}`)
         return
       case 'session_already_available':
         // User is already signed in, let's redirect them home!

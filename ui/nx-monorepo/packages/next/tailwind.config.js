@@ -22,7 +22,7 @@ module.exports = {
       caveat: ['Caveat', 'cursive'],
     },
     extend: {
-      typography: (theme) => ({
+      typography: () => ({
         dark: {
           css: {
             color: 'white',
@@ -38,10 +38,15 @@ module.exports = {
     typography: ['light', 'dark'],
   },
   plugins: [
+    // eslint-disable-next-line global-require
     require('@tailwindcss/typography'),
+    // eslint-disable-next-line global-require
     require('@tailwindcss/forms'),
+    // eslint-disable-next-line global-require
     require('@tailwindcss/aspect-ratio'),
+    // eslint-disable-next-line global-require
     require('@tailwindcss/container-queries'),
+    // eslint-disable-next-line global-require
     require('tailwindcss-logical'),
   ],
 }
