@@ -74,10 +74,12 @@ qodana:
     - qodana
   needs: []
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_COMMIT_TAG
-    - if: $CI_COMMIT_BRANCH
+    # TODO: disable by timeout
+    - when: never
+#    - if: $CI_PIPELINE_SOURCE == "schedule"
+#      when: never
+#    - if: $CI_COMMIT_TAG
+#    - if: $CI_COMMIT_BRANCH
   artifacts:
     paths:
       - qodana

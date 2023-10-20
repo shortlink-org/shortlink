@@ -5,6 +5,9 @@
 k8s-monitoring:
   enabled: true
 
+  prometheus-operator-crds:
+    enabled: false
+
   cluster:
     name: ShortLink
   externalServices:
