@@ -1,0 +1,28 @@
+# Common default values for oneuptime.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+oneuptime:
+  enabled: true
+
+  global:
+    storageClass: local-path
+
+  postgresql:
+    primary:
+      persistence:
+        size: 1Gi
+    readReplicas:
+      persistence:
+        size: 1Gi
+
+  clickhouse:
+    persistence:
+      size: 1Gi
+
+  redis:
+    master:
+      persistence:
+        size: 1Gi
+    replica:
+      replicaCount: 0
