@@ -8,7 +8,7 @@ npm:
     - .matrix_build_npm
     - .cache
   stage: publish
-  image: node:20-alpine
+  image: node:21-alpine
   variables:
     NPM_TOKEN: $CI_JOB_TOKEN
   before_script:
