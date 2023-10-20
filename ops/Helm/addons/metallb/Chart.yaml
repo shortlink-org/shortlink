@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: metallb
-    version: 0.13.11
+    version: 0.13.12
     repository: https://metallb.github.io/metallb
     condition: metallb.enabled
     tags:
