@@ -93,6 +93,11 @@ linters-settings:
     check-error-free-encoding: true
 
   exhaustive:
+    # Program elements to check for exhaustiveness.
+    # Default: [ switch ]
+    check:
+      - switch
+      - map
     # Check switch statements in generated files also.
     # Default: false
     check-generated: true
@@ -209,7 +214,7 @@ linters-settings:
   gosimple:
     go: "1.21"
     # https://staticcheck.io/docs/options#checks
-    checks: [ "all" ]
+    checks: ["all"]
 
   gosec:
     # To select a subset of rules to run.
@@ -248,10 +253,6 @@ linters-settings:
       - G504
       - G505
       - G601
-
-    # Exclude generated files
-    # Default: false
-    exclude-generated: false
 
     # To specify the configuration of rules.
     # The configuration of rules is not fully documented by gosec:
@@ -848,20 +849,3 @@ issues:
 
   # Fix found issues (if it's supported by the linter).
   fix: true
-
-severity:
-  # Set the default severity for issues.
-  #
-  # If severity rules are defined and the issues do not match or no severity is provided to the rule
-  # this will be the default severity applied.
-  # Severities should match the supported severity names of the selected out format.
-  # - Code climate: https://docs.codeclimate.com/docs/issues#issue-severity
-  # - Checkstyle: https://checkstyle.sourceforge.io/property_types.html#severity
-  # - GitHub: https://help.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-error-message
-  #
-  # Default value is an empty string.
-  default-severity: error
-
-  # If set to true `severity-rules` regular expressions become case-sensitive.
-  # Default: false
-  case-sensitive: true
