@@ -84,24 +84,12 @@ grafana:
       enabled: true
       searchNamespace: ALL
 
-#  dashboardProviders:
-#    dashboardproviders.yaml:
-#      apiVersion: 1
-#      providers:
-#      - name: 'default'
-#        orgId: 1
-#        folder: ''
-#        type: file
-#        disableDeletion: false
-#        editable: true
-#        options:
-#          path: /var/lib/grafana/dashboards/default
-
   plugins:
     - flant-statusmap-panel
     - grafana-polystat-panel
     - grafana-oncall-app
     - cloudflare-app
+    - hamedkarbasi93-kafka-datasource
 
   grafana.ini:
     reporting:
