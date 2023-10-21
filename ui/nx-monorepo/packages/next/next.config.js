@@ -1,10 +1,4 @@
-/**
- * @type {import('next').NextConfig}
- */
-
 /* eslint-disable */
-const { withSentryConfig } = require('@sentry/nextjs')
-const path = require('path')
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
   maximumFileSizeToCacheInBytes: 40000000,
@@ -12,6 +6,12 @@ const withPWA = require('@ducanh2912/next-pwa').default({
   cacheOnFrontendNav: true,
   aggressiveFrontEndNavCaching: true,
 })
+const { composePlugins } = require('@nx/next')
+const { withSentryConfig } = require('@sentry/nextjs')
+const path = require('path')
+
+// PLUGINS =============================================================================================================
+const plugins = [withPWA]
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
@@ -21,6 +21,7 @@ const AUTH_URI = process.env.AUTH_URI || 'http://127.0.0.1:4433'
 
 console.info('API_URI', API_URI)
 
+/** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
 let NEXT_CONFIG = {
   basePath: '/next',
   generateEtags: true,
@@ -152,4 +153,4 @@ if (isEnableSentry) {
   NEXT_CONFIG = withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions)
 }
 
-module.exports = withPWA(NEXT_CONFIG)
+module.exports = composePlugins(...plugins)(NEXT_CONFIG)

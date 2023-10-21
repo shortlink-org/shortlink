@@ -4,8 +4,12 @@ const withPWA = require('@ducanh2912/next-pwa').default({
   cacheOnFrontendNav: true,
   aggressiveFrontEndNavCaching: true,
 })
+const { composePlugins } = require('@nx/next')
 
-/** @type {import('next').NextConfig} */
+// PLUGINS =============================================================================================================
+const plugins = [withPWA]
+
+/** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
 const nextConfig = {
   reactStrictMode: true,
   generateEtags: true,
@@ -52,4 +56,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withPWA(nextConfig)
+module.exports = composePlugins(...plugins)(nextConfig)
