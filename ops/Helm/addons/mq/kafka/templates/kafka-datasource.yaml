@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kafka-datasources
+  labels:
+    grafana_datasource: 'true' # default value for: sidecar.datasources.label
+stringData:
+  kafka.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: Kafka
+        type: hamedkarbasi93-kafka-datasource
+        typeLogoUrl: "public/plugins/hamedkarbasi93-kafka-datasource/img/kafka_logo.svg"
+        uid: kafka
+        editable: false
+        jsonData:
+          bootstrapServers: "shortlink-kafka-bootstrap.kafka:9091,shortlink-kafka-bootstrap.kafka:9092,shortlink-kafka-bootstrap.kafka:9093"
