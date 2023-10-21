@@ -24,13 +24,13 @@
     "@shortlink-org/ui-kit": {
       "architect": {
         "build": {
-          "builder": "@nrwl/react/plugins/bundle-rollup",
+          "builder": "@nx/react/plugins/bundle-rollup",
           "options": {
             "configuration": "production"
           }
         },
         "build-storybook": {
-          "builder": "@nrwl/storybook:build"
+          "builder": "@nx/storybook:build"
         }
       }
     }
