@@ -7,9 +7,9 @@ spec:
   template:
     serviceAccountName: sensor-terminal-shell-container-sa
   dependencies:
-    - name: falco-event
+    - name: falcoevent
       eventSourceName: webhook-falco
-      eventName: falco-event
+      eventName: falcoevent
       filters:
         data:
           - path: body.rule
@@ -26,7 +26,7 @@ spec:
           operation: submit
           parameters:
             - src:
-                dependencyName: falco-event
+                dependencyName: falcoevent
               dest: spec.arguments.parameters.0.value
           source:
             resource:
@@ -40,5 +40,5 @@ spec:
                   name: delete-pod-template
                 arguments:
                   parameters:
-                    - name: falco-event
+                    - name: falcoevent
                       value: {}

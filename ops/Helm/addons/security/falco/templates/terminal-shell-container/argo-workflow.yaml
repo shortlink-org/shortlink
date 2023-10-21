@@ -8,16 +8,16 @@ spec:
   serviceAccountName: delete-pod-sa
   arguments:
     parameters:
-      - name: falco-event
+      - name: falcoevent
         value: "{}"
   templates:
     - name: delete-pod
       inputs:
         parameters:
-          - name: falco-event
+          - name: falcoevent
       container:
         image: devopps/kubernetes-response-engine-based-on-event-driven-workflow@sha256:22ee203a33fe88f0f99968daebdcea0ca52c8a3d6f7af4c823ed78ac15b7c5db
         env:
           - name: BODY
             value:  >-
-              "{{inputs.parameters.falco-event}}"
+              "{{inputs.parameters.falcoevent}}"
