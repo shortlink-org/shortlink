@@ -77,6 +77,8 @@ argo-workflows:
       enabled: true
       issuer: https://argo.shortlink.best/api/dex
       sessionExpiry: 240h
+      rbac:
+        enabled: true
       scopes:
         - groups
       clientId:
