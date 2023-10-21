@@ -10,6 +10,8 @@ argo-workflows:
       enabled: true
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        release: prometheus-operator
 
     workflowNamespaces: []
 
@@ -20,11 +22,22 @@ argo-workflows:
     #  database: argo
     #  tableName: argo_workflows
 
+    logging:
+      format: "json"
+
+    resources:
+      limits:
+        cpu: 1000m
+        memory: 1024Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
   server:
     extraArgs:
       - --basehref
       - /workflows/
-      - --auth-mode=server
+      - --auth-mode=sso
 
     baseHref: /workflows/
 
@@ -56,3 +69,18 @@ argo-workflows:
         - secretName: argo-ingress-tls
           hosts:
             - argo.shortlink.best
+
+    logging:
+      format: "json"
+
+    sso:
+      enabled: true
+      issuer: https://argo.shortlink.best/api/dex
+      sessionExpiry: 240h
+      clientId:
+        name: argo-workflows-sso
+        key: client-id
+      clientSecret:
+        name: argo-workflows-sso
+        key: client-secret
+      redirectUrl: https://argo.shortlink.best/workflows/oauth2/callback

@@ -65,6 +65,13 @@ argo-cd:
   dex:
     enabled: true
 
+    env:
+      - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: argo-workflows-sso
+            key: client-secret
+
     resources:
       limits:
         cpu: 300m
@@ -77,6 +84,8 @@ argo-cd:
       enabled: true
       serviceMonitor:
         enabled: true
+        additionalLabels:
+          release: prometheus-operator
 
   redis:
     enabled: false

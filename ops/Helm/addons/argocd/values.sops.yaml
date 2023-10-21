@@ -2,7 +2,7 @@ argo-cd:
     configs:
         cm:
             url: ENC[AES256_GCM,data:DvavBHv3llCfGrT+oG5Ks2yFw+NkvJYLv5JaNMLU1g==,iv:pqxmKwax8epukSL7TgI3awyW5HVorwtEWu/evHH/+2E=,tag:b//Uazc6iISEJjOklkn3hg==,type:str]
-            dex.config: ENC[AES256_GCM,data:o3Kd9aITZW22/cDH0FwwkLDU5ldnkj/T1YNRMZ+I/I9asnG6cHYuVyUHPF94eIFWPUwP9bbXY0sJYg9C1aS3NtaptczkaYe8tJtHsfJd0ZFpUV4H2Em2aSaUHeaRg2k/VDpHaBFtAWKTJkCMu8DMtQQu7TUzG54LY3pZXBaDhopggWuklgqt2BPkQXQZ+ww/0hnwBPITzPoOR1aZ+6r2XF1YXmOlS2EZCKpTl4NBSXfTHO+XnCcBg7VtWrfx9PqxbDtVwDNQv2mRCZSRuysfGNDX3BqhhBbAUAmE8Yp3HjVfOYLNGXm6VVzWuPnHgDY5OQJDto0jJTWOUZA/WCta/A==,iv:b7ZxCbKnk5D5ffKnXSzyngZdpz+Y6vCh1//YPOkwwpw=,tag:PqMjPq7HeAn+11hZ46DyIQ==,type:str]
+            dex.config: ENC[AES256_GCM,data:Pys63ls75rQHoAiY9ykeQJKEs79+3Q/eN2S2Cn3te4L0G3yNustQHrggL1Cp8cUo+vBTP3IO5S1oBoFVTlrCdXMmSnZiki3rfC7+i7bw9X4LShOUH7sBMcgRu9QQbNFXwEzHZIQzxJYcHLpOuof9TKg/bjcYvjpb4Zn9uUTJBS16puGBwTlAgtZsJ68d6LTpepkD6vihJBUUI2fbIn6zfg2NS453JoIE0c/P/CqrYrbPVIEYuRDu7kdHwtn3y0nixXeInweiPi1XvKThrLmghGPgLG9huRRqW23JERdf3FN9iA3AN4g5xdmIrbZC25bVmEZgFLaq43DQYtLHUTf/59kb/IqaZzekny7wIChcCFQI2nFK82ZkFAy+syKE6HMpIXhMWGVViasUFUuz56MOs3eyIixXKXgu/EB73pKApv0sRGBagD78VTeW3vZ8khquBRIkkPrPxA/Uw9dOhst8FvUHddwM8Kyoj/2XphBwZWmQukPP5GpuUEevyZngzqnCNOOSRPPqMakBmKua7YxEv6slUjObA8vuahq4X/sHMAPgveOhHc048s6Q772Tt2rKH/BDdTmK,iv:RM3mYrbxjUrEUnjhwsl+kF3ab0tr/98FZVhZ1K2Cb/4=,tag:TERYhPWPwR2VVgfuxQlWjQ==,type:str]
     notifications:
         secret:
             items:
@@ -14,8 +14,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-04-01T21:18:40Z"
-    mac: ENC[AES256_GCM,data:nYa282NLtm5iRo4OmMfj/kq0nUksiyBF0ZAZhJuSgNnYaikJGs9oL783UJO8BzMf9kT/GyBsRqNUoncNVZjv8FiTuWFJQGvh959jfmjZWty/V4HWDbP6DtRAryMxnn+eYd4nZVMactzGFTata7lrWQ3lEPvPK9en7bXt9qEMzLs=,iv:lX+gizNp81JV6LYkE1d4xW23jr8wHZ3qLQ5/pXZEpdU=,tag:Ac6+lmm3/Z/3zgyUEN2zLA==,type:str]
+    lastmodified: "2023-10-21T21:27:48Z"
+    mac: ENC[AES256_GCM,data:d8cvOoQTuaY+B19uvqFnxjpV9Bjh0XV7mhzmz8FWg+E5A/TeCrSDeA5W6w9WxA6WFedAd0xGkpA3RReo7r7OvkggYb1sdaHalsl1Wl91F+kE5kbGcAXnZiSPyJvTvB2+19J2N6bhZRwbxzGRMw+PnVcepit0rbImFXkc35XbPlE=,iv:/hIxw1LvEezZLW6XZ1hiCE7pZsTK6bfWfqA9k7C9UAQ=,tag:zK68+O8lbCZX7sKPjO4/+g==,type:str]
     pgp:
         - created_at: "2023-01-15T16:35:29Z"
           enc: |
@@ -36,4 +36,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: C92AE33AF20998F8CA09E819A842078E859DE4F1
     unencrypted_suffix: _unencrypted
-    version: 3.7.3
+    version: 3.8.1
