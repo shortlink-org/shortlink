@@ -95,18 +95,7 @@ let NEXT_CONFIG = {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
     turbo: {
-      rules: {
-        '*.md': [
-          {
-            loader: '@mdx-js/loader',
-            options: {
-              format: 'md',
-            },
-          },
-        ],
-        // Option-less format
-        '*.mdx': '@mdx-js/loader',
-      },
+      rules: {},
     },
   },
 }
