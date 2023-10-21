@@ -5,11 +5,28 @@
 falco:
   enabled: true
 
+  scc:
+    create: false
+
+  controller:
+    kind: deployment
+
+  collectors:
+    docker:
+      enabled: false
+    crio:
+      enabled: false
+
   driver:
-    kind: modern-bpf
+    kind: module
 
   falco:
+    json_output: true
+
     grpc:
+      enabled: true
+
+    metrics:
       enabled: true
 
   falcosidekick:
