@@ -2,3 +2,21 @@ argo-events:
   enabled: true
 
   fullnameOverride: argo-events
+
+  createAggregateRoles: true
+
+  controller:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 56Mi
+
+    metrics:
+      enabled: true
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: prometheus-operator
