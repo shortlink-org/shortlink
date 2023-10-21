@@ -28,5 +28,5 @@ stringData:
 
             # Field with external link.
             - matcherRegex: 'traceID":"(\w+)'
-              name: TraceID
+              name: TraceID (external)
               url: "http://grafana-tempo.grafana:16686/trace/$${__value.raw}"

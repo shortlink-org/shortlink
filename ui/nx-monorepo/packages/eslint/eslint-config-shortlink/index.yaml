@@ -40,7 +40,7 @@ settings:
     typescript: true
 rules:
   semi: ['error', 'never']
-  react/jsx-filename-extension: [1, { extensions: ['.ts', '.tsx'] }]
+  react/jsx-filename-extension: [1, {extensions: ['.ts', '.tsx']}]
   import/extensions: off
   import/default: off
   no-alert: off
@@ -87,7 +87,7 @@ rules:
   react/no-array-index-key: off
   react/prop-types: off
   prettier/prettier: warn
-  import/no-cycle: [0, { ignoreExternal: true }]
+  import/no-cycle: [0, {ignoreExternal: true}]
   react/no-unescaped-entities: off
   react/jsx-props-no-spreading: off
   react/function-component-definition: off
@@ -110,6 +110,10 @@ rules:
       enforceBuildableLibDependency: true,
       allow: [],
       depConstraints: [
+        {
+          sourceTag: '*',
+          onlyDependOnLibsWithTags: ['*'],
+        },
         {
           sourceTag: 'scope:landing',
           onlyDependOnLibsWithTags: ['scope:ui-kit'],
