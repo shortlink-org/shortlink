@@ -12,6 +12,17 @@ falco:
     grpc:
       enabled: true
 
+  falcosidekick:
+    enabled: true
+
+    config:
+      webhook:
+        address: http://webhook-falco-eventsource-svc.argocd.svc.cluster.local:12000/falco
+
+    webui:
+      enabled: true
+      replicaCount: 1
+
 falco-exporter:
   enabled: true
 

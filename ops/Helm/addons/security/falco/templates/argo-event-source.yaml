@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: webhook-falco
+  namespace: argocd
+spec:
+  service:
+    ports:
+      - port: 12000
+        targetPort: 12000
+  webhook:
+    # event-source can run multiple HTTP servers. Simply define a unique port to start a new HTTP server
+    falco-event:
+      # port to run HTTP server on
+      port: "12000"
+      # endpoint to listen to
+      endpoint: /falco
+      # HTTP request method to allow. In this case, only POST requests are accepted
+      method: POST
