@@ -11,14 +11,25 @@ import (
 )
 
 func getOrder(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
+
 	data, err := io.ReadAll(r.Body)
 	if err != nil {
 		log.Println("Error reading body:", err.Error())
+		http.Error(w, "Error reading body", http.StatusBadRequest)
+		return
 	}
+
 	fmt.Println("Order received:", string(data))
+
+	// response
+	w.Header().Set("Content-Type", "application/json")
+
 	_, err = w.Write(data)
 	if err != nil {
 		log.Println("Error writing the response:", err.Error())
+		http.Error(w, "Error writing the response", http.StatusInternalServerError)
+		return
 	}
 }
 
