@@ -21,6 +21,12 @@ falco:
     kind: module
 
   falco:
+    rules_file:
+      - /etc/falco/falco_rules.yaml
+      - /etc/falco/falco_rules.local.yaml
+      - /etc/falco/rules.d
+      - /etc/falco/k8s_audit_rules.yaml
+
     json_output: true
 
     grpc:
@@ -28,6 +34,16 @@ falco:
 
     metrics:
       enabled: true
+
+  falcoctl:
+    config:
+      artifact:
+        install:
+          refs:
+            - "falco-rules:2"
+        follow:
+          refs:
+            - "falco-rules:2"
 
   falcosidekick:
     enabled: true

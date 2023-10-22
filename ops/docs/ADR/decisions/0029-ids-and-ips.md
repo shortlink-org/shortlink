@@ -47,3 +47,7 @@ our IDS/IPS solution for Kubernetes. Our decision is based on the following cons
 **Risks**:
 1. **Dependency on Community**: While Falco has an active community, any potential lapses in updates or bug fixes might affect our security posture.
 2. **Complexity**: Integration with Argo events and workflows, although beneficial, introduces an additional layer of complexity to our Kubernetes setup.
+
+## References
+
+1. [Falco](https://falco.org/)
