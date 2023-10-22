@@ -3187,10 +3187,10 @@
     yn "^4.0.0"
     yup "^0.32.9"
 
-"@backstage/plugin-scaffolder-backend@^1.18.0":
-  version "1.18.0"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-backend/-/plugin-scaffolder-backend-1.18.0.tgz#076c6f5ab1931b910b8f1983fed508c7b8d60e93"
-  integrity sha512-wJYEZdZ7B4ENenWLtbMWj1/LzVg2wx7ipQvpQV2abZqicBczQGIZhaIQvkTOobGmyrYEuJFkJ3ejJecqi+PLbg==
+"@backstage/plugin-scaffolder-backend@^1.18.1":
+  version "1.18.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-backend/-/plugin-scaffolder-backend-1.18.1.tgz#ad1d3d0acc24b45386393565caee4046af7f0055"
+  integrity sha512-q2+z4LENHK8VBUSxNguHS/riICJcQOMaQY9Qnw5hDSlCvFTz55N/4MX2hj4/92A5XEn9jsG963Yovd7uH00TTQ==
   dependencies:
     "@backstage/backend-common" "^0.19.8"
     "@backstage/backend-plugin-api" "^0.6.6"
@@ -3208,7 +3208,7 @@
     "@backstage/plugin-permission-common" "^0.7.9"
     "@backstage/plugin-permission-node" "^0.7.17"
     "@backstage/plugin-scaffolder-common" "^1.4.2"
-    "@backstage/plugin-scaffolder-node" "^0.2.6"
+    "@backstage/plugin-scaffolder-node" "^0.2.7"
     "@backstage/types" "^1.1.1"
     "@gitbeaker/core" "^35.6.0"
     "@gitbeaker/node" "^35.1.0"
@@ -3255,10 +3255,10 @@
     "@backstage/plugin-permission-common" "^0.7.9"
     "@backstage/types" "^1.1.1"
 
-"@backstage/plugin-scaffolder-node@^0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-node/-/plugin-scaffolder-node-0.2.6.tgz#fca73dfb6548522f9f4c4313e4e3b1470b5c5744"
-  integrity sha512-elFe0NTj/jstFHEma3yZ7Br5SvhMnOjFzRRXilg+qdD0byMlA4QtFgWsTzOsCLfxOC14GDrZA4NZU1vqgXLGug==
+"@backstage/plugin-scaffolder-node@^0.2.7":
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder-node/-/plugin-scaffolder-node-0.2.7.tgz#70960f37faa79eed5647331c58d3977d450f4d5b"
+  integrity sha512-DQV4UkNW6RW5TbR10pp+eOQ3Hq6DeRfM+JoK9nbDQVy7c8nwUfabRCKLHbtCn/rYf/NJnEdHvMFuYWiUb3TuDw==
   dependencies:
     "@backstage/backend-common" "^0.19.8"
     "@backstage/backend-plugin-api" "^0.6.6"
