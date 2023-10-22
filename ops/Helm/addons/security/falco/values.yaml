@@ -11,9 +11,6 @@ falco:
   scc:
     create: false
 
-  controller:
-    kind: deployment
-
   collectors:
     docker:
       enabled: false
@@ -58,3 +55,11 @@ falco-exporter:
 
   prometheusRules:
     enabled: true
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 20m
+      memory: 64Mi
