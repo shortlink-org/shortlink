@@ -26,8 +26,15 @@ const csvConfig = mkConfig({
   useKeysAsHeaders: true,
 })
 
-// @ts-ignore
-export const Table = ({ columns, data }) => {
+type TableProps = {
+  columns: any
+  data: any
+}
+
+export const Table: React.FC<TableProps> = ({
+  columns,
+  data,
+}) => {
   // export data to csv --------------------------------------------------------
   const handleExportData = () => {
     const csv = generateCsv(csvConfig)(data)

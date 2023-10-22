@@ -11,16 +11,6 @@ import typescript from 'typescript'
 
 const packageJson = require('./package.json')
 
-const globals = {
-  react: 'React',
-  'react-dom': 'ReactDOM',
-  classnames: 'classNames',
-  'prop-types': 'PropTypes',
-  '@emotion/styled': 'emStyled',
-  '@emotion/react': 'react',
-  'react/jsx-runtime': 'jsxRuntime',
-}
-
 // eslint-disable-next-line import/no-default-export
 export default [
   {
@@ -31,13 +21,11 @@ export default [
         file: packageJson.main,
         format: 'umd',
         sourcemap: true,
-        globals,
       },
       {
         file: packageJson.module,
         format: 'esm',
         sourcemap: true,
-        globals,
       },
     ],
     plugins: [
@@ -71,7 +59,6 @@ export default [
       '@mui/system',
       '@mui/material',
       '@emotion/react',
-      'material-react-table',
       '@mui/x-date-pickers',
       '@mui/styled-engine',
       '@mui/icons-material',
