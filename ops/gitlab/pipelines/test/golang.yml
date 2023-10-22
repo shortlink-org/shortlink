@@ -6,7 +6,7 @@ include:
 
 code_intelligence_go:
   stage: .pre
-  image: sourcegraph/lsif-go:v1.9
+  image: sourcegraph/scip-go:latest
   allow_failure: true # recommended
   script:
     - lsif-go
@@ -57,7 +57,7 @@ golint:
     - "[ -e .golangci.yml ] || cp /golangci/.golangci.yml ."
     # Write the code coverage report to gl-code-quality-report.json
     # and print linting issues to stdout in the format: path/to/file:line description
-    - golangci-lint run --out-format code-climate | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
+    - golangci-lint run --out-format code-climate ./internal/... | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
   artifacts:
     reports:
       codequality: gl-code-quality-report.json
