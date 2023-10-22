@@ -163,6 +163,12 @@ func (c *client) withMetrics(monitoring *monitoring.Monitoring) {
 	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, clientMetrics.UnaryClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
 	c.interceptorStreamClientList = append(c.interceptorStreamClientList, clientMetrics.StreamClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
 
+	defer func() {
+		if err := recover(); err != nil {
+			// ignore panic from duplicate registration
+		}
+	}()
+
 	monitoring.Prometheus.MustRegister(clientMetrics)
 }
 
