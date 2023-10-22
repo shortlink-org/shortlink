@@ -1,5 +1,8 @@
 -- Drop the maintenance function
-SELECT partman.undo_partition('link.links_partitioned_by_created_at');
+SELECT partman.undo_partition(
+   p_parent_table := 'link.links_partitioned_by_created_at',
+   p_target_table := 'link.links'
+);
 
 -- Drop the pg_partman extension; note that this will remove pg_partman and all related objects
 -- Make sure this is what you want, especially if you have other partitioned tables managed by pg_partman
