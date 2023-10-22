@@ -90,6 +90,8 @@ spec:
           max_parallel_maintenance_workers: 4
           # Synchronous Replication
           synchronous_commit: 'on'
+          # Partitioning
+          enable_partition_pruning: 'on'
           # other settings
           shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,timescaledb,pg_prewarm,uuid-ossp,pg_partman_bgw
   users:
@@ -102,6 +104,12 @@ spec:
     - name: grafana
       databases:
         - postgres
+        - link
+        - billing
+    - name: partman
+      databases:
+        - postgres
+        - partman
         - link
         - billing
 
