@@ -74,4 +74,5 @@ keycloak:
 
   postgresql:
     image:
+      # Keycloak support only postgresql 15
       tag: 15.4.0-debian-11-r54
