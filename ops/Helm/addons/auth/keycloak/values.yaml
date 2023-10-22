@@ -71,3 +71,7 @@ keycloak:
 
   keycloakConfigCli:
     enabled: false
+
+  postgresql:
+    image:
+      tag: 15.4.0-debian-11-r54
