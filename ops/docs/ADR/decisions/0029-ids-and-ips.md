@@ -8,8 +8,6 @@ Accepted
 
 ## Context
 
-![falco](./proof/ADR-0029/falco.png)
-
 In the ever-evolving landscape of cyber threats, it's crucial for Kubernetes (k8s) environments to have robust security 
 measures in place. Kubernetes, being an open-source container orchestration platform, is often targeted by malicious 
 entities for unauthorized access and malicious activities. Two essential components for enhancing the security posture of 
@@ -48,6 +46,31 @@ our IDS/IPS solution for Kubernetes. Our decision is based on the following cons
 1. **Dependency on Community**: While Falco has an active community, any potential lapses in updates or bug fixes might affect our security posture.
 2. **Complexity**: Integration with Argo events and workflows, although beneficial, introduces an additional layer of complexity to our Kubernetes setup.
 
+### How it works
+
+```
+┌─────────────┐           ┌─────────┐          ┌────────────────┐
+│             │  detect   │         │  push    │                │
+│  pwned pod  ├───────────►  falco  ├──────────► falcosidekick  ├────┐
+│             │           │         │          │                │    │
+└──────▲──────┘           └─────────┘          └────────────────┘    │ notify
+       │                                                             │
+       │                                                             │
+delete │   ┌──────────────┐          ┌───────────────┐        ┌──────▼──────┐
+       │   │              │          │               │        │             │
+       └───┤ deletion pod ◄──────────┤ argo workflow │        │ argo events │
+           │              │  create  │               │        │             │
+           └──────────────┘          └────────────▲──┘        └─┬───────────┘
+                                                  │             │
+                                          trigger │             │ push
+                                                  │             │
+                                                ┌─┴─────────────▼──┐
+                                                │       bus        │
+                                                └──────────────────┘
+```
+
 ## References
 
 1. [Falco](https://falco.org/)
+2. [Falco rules](https://falcosecurity.github.io/rules/)
+3. [Kubernetes Response Engine, Part 5: Falcosidekick + Argo](https://falco.org/blog/falcosidekick-response-engine-part-5-argo/)
