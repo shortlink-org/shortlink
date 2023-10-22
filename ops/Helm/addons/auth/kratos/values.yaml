@@ -122,6 +122,7 @@ kratos:
             # Sessions older than a minute requires the user to sign in again before
             # the password is changed.
             privileged_session_max_age: 15m
+            required_aal: highest_available
 
           recovery:
             enabled: true
