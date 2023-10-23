@@ -399,7 +399,7 @@ linters-settings:
       - name: argument-limit
         severity: warning
         disabled: false
-        arguments: [ 4 ]
+        arguments: [4]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#atomic
       - name: atomic
         severity: warning
@@ -511,7 +511,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#file-header
       - name: file-header
         severity: warning
-        disabled: false
+        disabled: true
         arguments:
           - This is the text that must appear at the top of source files.
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#flag-parameter
@@ -522,12 +522,12 @@ linters-settings:
       - name: function-result-limit
         severity: warning
         disabled: false
-        arguments: [ 2 ]
+        arguments: [2]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#function-length
       - name: function-length
         severity: warning
         disabled: false
-        arguments: [ 10, 0 ]
+        arguments: [25, 0]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#get-return
       - name: get-return
         severity: warning
@@ -621,7 +621,6 @@ linters-settings:
           - - 'core.WriteError[1].Message'
             - '/^([^A-Z]|$)/'
             - must not start with a capital letter
-          - - 'fmt.Errorf[0]'
             - '/(^|[^\.!?])$/'
             - must not end in punctuation
           - - panic
@@ -737,17 +736,6 @@ linters-settings:
     # Default: false
     default-rpc-path: true
 
-  unparam:
-    # Inspect exported functions.
-    #
-    # Set to true if no external program/library imports your code.
-    # XXX: if you enable this setting, unparam will report a lot of false-positives in text editors:
-    # if it's called for subdir of a project it can't find external interfaces. All text editor integrations
-    # with golangci-lint call it on a directory with the changed file.
-    #
-    # Default: false
-    check-exported: true
-
   varcheck:
     # Check usage of exported fields and variables.
     # Default: false
@@ -761,7 +749,7 @@ linters-settings:
     # The minimum length of a variable's name that is considered "long".
     # Variable names that are at least this long will be ignored.
     # Default: 3
-    min-name-length: 2
+    min-name-length: 1
     # Check method receiver names.
     # Default: false
     check-receiver: true
@@ -781,6 +769,9 @@ linters-settings:
     # Default: []
     ignore-names:
       - err
+
+  forbidigo:
+    tests: false
 
   whitespace:
     # Enforces newlines (or comments) after every multi-line if statement.
@@ -827,6 +818,9 @@ linters:
     - varcheck # deprecated
     - structcheck # deprecated
     - musttag
+    - gochecknoinits
+    - inamedparam
+    - exhaustruct
 
 issues:
 
@@ -845,10 +839,7 @@ issues:
   new: false
 
   # Show only new issues created after git revision `REV`.
-  new-from-rev: HEAD
+#  new-from-rev: HEAD
 
   # Fix found issues (if it's supported by the linter).
-  fix: true
-
-severity:
-  default-severity: major
+  fix: false
