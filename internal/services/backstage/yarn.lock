@@ -2618,18 +2618,6 @@
     google-auth-library "^8.0.0"
     passport-google-oauth20 "^2.0.0"
 
-"@backstage/plugin-auth-backend-module-microsoft-provider@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend-module-microsoft-provider/-/plugin-auth-backend-module-microsoft-provider-0.1.0.tgz#c6e3d54fd199d0727bb7cf4f455db98ea0b5612f"
-  integrity sha512-6Q2d2+/xR3CaH0WDq/54K+du4J1+WUoinQCAOJU4McBOOUxbkedh/pI7sTvGDQ/OM2ByBa/4c+/KRPsbwD+EAg==
-  dependencies:
-    "@backstage/backend-common" "^0.19.8"
-    "@backstage/backend-plugin-api" "^0.6.6"
-    "@backstage/plugin-auth-node" "^0.4.0"
-    express "^4.18.2"
-    passport "^0.6.0"
-    passport-microsoft "^1.0.0"
-
 "@backstage/plugin-auth-backend-module-oauth2-provider@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend-module-oauth2-provider/-/plugin-auth-backend-module-oauth2-provider-0.1.3.tgz#5a7db86d2b3195df1768c5c2970bc617d87dd178"
@@ -2642,10 +2630,10 @@
     passport "^0.6.0"
     passport-oauth2 "^1.6.1"
 
-"@backstage/plugin-auth-backend@^0.19.3":
-  version "0.19.3"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.19.3.tgz#768eb1565151a21a0160a694d722ffa2c65c3806"
-  integrity sha512-MqemPfrP59iRe2gcl6lKG0FDMXk5wZD0eO1EYosO+SLTWcwQsE2+6UFYualmfiTTxOSsp3SctpUjvGx1jp8V3Q==
+"@backstage/plugin-auth-backend@^0.19.4":
+  version "0.19.4"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.19.4.tgz#6aa91117f74d0f3b58dfa1a847c041c2bb5d6396"
+  integrity sha512-lmYQyKHl/MrM8K/RwVN8fx1VcKFUdHxknpod2CGP+5iT2iFFCdmStaqY03EKiHFK8LaukB5x7tT7iFhcGQzvIA==
   dependencies:
     "@backstage/backend-common" "^0.19.8"
     "@backstage/backend-plugin-api" "^0.6.6"
@@ -2657,7 +2645,6 @@
     "@backstage/plugin-auth-backend-module-github-provider" "^0.1.3"
     "@backstage/plugin-auth-backend-module-gitlab-provider" "^0.1.3"
     "@backstage/plugin-auth-backend-module-google-provider" "^0.1.3"
-    "@backstage/plugin-auth-backend-module-microsoft-provider" "^0.1.0"
     "@backstage/plugin-auth-backend-module-oauth2-provider" "^0.1.3"
     "@backstage/plugin-auth-node" "^0.4.0"
     "@backstage/plugin-catalog-node" "^1.4.7"
